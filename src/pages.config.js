@@ -52,6 +52,7 @@ import Bible from './pages/Bible';
 import Plans from './pages/Plans';
 import PlanDetail from './pages/PlanDetail';
 import Bookmarks from './pages/Bookmarks';
+import Search from './pages/Search';
 import __Layout from './Layout.jsx';
 
 
@@ -61,6 +62,7 @@ export const PAGES = {
     "Plans": Plans,
     "PlanDetail": PlanDetail,
     "Bookmarks": Bookmarks,
+    "Search": Search,
 }
 
 export const pagesConfig = {

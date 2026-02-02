@@ -1,12 +1,13 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { Home, BookOpen, Compass, Bookmark, User } from 'lucide-react';
+import { Home, BookOpen, Compass, Bookmark, Search } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const navItems = [
   { name: 'Home', icon: Home, page: 'Home' },
   { name: 'Bible', icon: BookOpen, page: 'Bible' },
+  { name: 'Search', icon: Search, page: 'Search' },
   { name: 'Plans', icon: Compass, page: 'Plans' },
   { name: 'Saved', icon: Bookmark, page: 'Bookmarks' },
 ];
