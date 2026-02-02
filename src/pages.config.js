@@ -53,6 +53,9 @@ import Plans from './pages/Plans';
 import PlanDetail from './pages/PlanDetail';
 import Bookmarks from './pages/Bookmarks';
 import Search from './pages/Search';
+import Community from './pages/Community';
+import Groups from './pages/Groups';
+import GroupDetail from './pages/GroupDetail';
 import __Layout from './Layout.jsx';
 
 
@@ -63,6 +66,9 @@ export const PAGES = {
     "PlanDetail": PlanDetail,
     "Bookmarks": Bookmarks,
     "Search": Search,
+    "Community": Community,
+    "Groups": Groups,
+    "GroupDetail": GroupDetail,
 }
 
 export const pagesConfig = {

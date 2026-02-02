@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, ChevronLeft, ChevronRight, Bookmark, BookmarkCheck, Settings2, Loader2 } from 'lucide-react';
+import { ArrowLeft, ChevronLeft, ChevronRight, Bookmark, BookmarkCheck, Settings2, Loader2, Share2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { base44 } from '@/api/base44Client';
+import { createPageUrl } from '@/utils';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -88,6 +89,18 @@ export default function VerseReader({ book, chapter, onBack, onNavigate, bookmar
     setSelectedVerse(null);
   };
 
+  const handleShare = (verse) => {
+    // Navigate to community with verse pre-filled
+    const verseData = {
+      book: book.name,
+      chapter,
+      verse: verse.number,
+      text: verse.text
+    };
+    localStorage.setItem('shareVerse', JSON.stringify(verseData));
+    window.location.href = createPageUrl('Community');
+  };
+
   const canGoNext = chapter < book.chapters;
   const canGoPrev = chapter > 1;
 
@@ -163,20 +176,32 @@ export default function VerseReader({ book, chapter, onBack, onNavigate, bookmar
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 20 }}
-                className="fixed bottom-24 left-1/2 -translate-x-1/2 bg-white rounded-2xl shadow-xl p-4 z-50"
+                className="fixed bottom-24 left-1/2 -translate-x-1/2 bg-white rounded-2xl shadow-xl p-4 z-50 min-w-[280px]"
               >
-                <p className="text-sm text-gray-500 mb-3">Highlight with color:</p>
-                <div className="flex gap-2">
-                  {Object.keys(highlightColors).map(color => (
-                    <button
-                      key={color}
-                      onClick={() => handleHighlight(
-                        verses.find(v => v.number === selectedVerse),
-                        color
-                      )}
-                      className={`w-8 h-8 rounded-full ${highlightColors[color]} border-2 border-white shadow-md hover:scale-110 transition-transform`}
-                    />
-                  ))}
+                <p className="text-sm text-gray-500 mb-3">Actions:</p>
+                <div className="space-y-3">
+                  <div>
+                    <p className="text-xs text-gray-400 mb-2">Highlight:</p>
+                    <div className="flex gap-2">
+                      {Object.keys(highlightColors).map(color => (
+                        <button
+                          key={color}
+                          onClick={() => handleHighlight(
+                            verses.find(v => v.number === selectedVerse),
+                            color
+                          )}
+                          className={`w-8 h-8 rounded-full ${highlightColors[color]} border-2 border-white shadow-md hover:scale-110 transition-transform`}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => handleShare(verses.find(v => v.number === selectedVerse))}
+                    className="w-full flex items-center justify-center gap-2 py-2 px-4 bg-[#1a1a2e] text-white rounded-lg hover:bg-[#2d2d4a] transition-colors"
+                  >
+                    <Share2 className="w-4 h-4" />
+                    Share to Community
+                  </button>
                 </div>
               </motion.div>
             )}
