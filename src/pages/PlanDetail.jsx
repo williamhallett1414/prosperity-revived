@@ -3,15 +3,18 @@ import { motion } from 'framer-motion';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { createPageUrl } from '@/utils';
-import { ArrowLeft, Calendar, CheckCircle2, Circle, Play, RotateCcw } from 'lucide-react';
+import { ArrowLeft, Calendar, CheckCircle2, Circle, Play, RotateCcw, FileText } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { readingPlans } from '@/components/bible/BibleData';
 import { Link } from 'react-router-dom';
+import DayNoteModal from '@/components/plans/DayNoteModal';
 
 export default function PlanDetail() {
   const params = new URLSearchParams(window.location.search);
   const planId = params.get('id');
+  const [selectedDay, setSelectedDay] = useState(null);
+  const [showNoteModal, setShowNoteModal] = useState(false);
   
   const plan = readingPlans.find(p => p.id === planId);
   const queryClient = useQueryClient();
@@ -24,6 +27,15 @@ export default function PlanDetail() {
     }
   });
 
+  const { data: notes = [] } = useQuery({
+    queryKey: ['planNotes', planId],
+    queryFn: async () => {
+      const all = await base44.entities.PlanNote.list();
+      return all.filter(n => n.plan_id === planId);
+    },
+    enabled: !!planId
+  });
+
   const createProgress = useMutation({
     mutationFn: (data) => base44.entities.ReadingPlanProgress.create(data),
     onSuccess: () => queryClient.invalidateQueries(['planProgress'])
@@ -32,6 +44,22 @@ export default function PlanDetail() {
   const updateProgress = useMutation({
     mutationFn: ({ id, data }) => base44.entities.ReadingPlanProgress.update(id, data),
     onSuccess: () => queryClient.invalidateQueries(['planProgress'])
+  });
+
+  const saveNote = useMutation({
+    mutationFn: async ({ day, noteText }) => {
+      const existingNote = notes.find(n => n.day_number === day);
+      if (existingNote) {
+        return base44.entities.PlanNote.update(existingNote.id, { note: noteText });
+      } else {
+        return base44.entities.PlanNote.create({
+          plan_id: planId,
+          day_number: day,
+          note: noteText
+        });
+      }
+    },
+    onSuccess: () => queryClient.invalidateQueries(['planNotes'])
   });
 
   if (!plan) {
@@ -80,6 +108,19 @@ export default function PlanDetail() {
         started_date: new Date().toISOString().split('T')[0]
       }
     });
+  };
+
+  const handleDayClick = (day) => {
+    setSelectedDay(day);
+    setShowNoteModal(true);
+  };
+
+  const handleSaveNote = (day, noteText) => {
+    saveNote.mutate({ day, noteText });
+  };
+
+  const getNoteForDay = (day) => {
+    return notes.find(n => n.day_number === day);
   };
 
   const completedCount = progress?.completed_days?.length || 0;
@@ -175,30 +216,54 @@ export default function PlanDetail() {
             <div className="grid grid-cols-7 gap-2">
               {days.map(day => {
                 const isCompleted = progress.completed_days?.includes(day);
+                const hasNote = getNoteForDay(day);
                 return (
-                  <motion.button
-                    key={day}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => handleToggleDay(day)}
-                    className={`aspect-square rounded-xl flex items-center justify-center font-medium transition-all ${
-                      isCompleted
-                        ? 'bg-[#8fa68a] text-white'
-                        : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'
-                    }`}
-                  >
-                    {isCompleted ? (
-                      <CheckCircle2 className="w-5 h-5" />
-                    ) : (
-                      day
+                  <div key={day} className="relative">
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={() => handleToggleDay(day)}
+                      className={`w-full aspect-square rounded-xl flex items-center justify-center font-medium transition-all ${
+                        isCompleted
+                          ? 'bg-[#8fa68a] text-white'
+                          : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'
+                      }`}
+                    >
+                      {isCompleted ? (
+                        <CheckCircle2 className="w-5 h-5" />
+                      ) : (
+                        day
+                      )}
+                    </motion.button>
+                    
+                    {/* Note indicator */}
+                    {hasNote && (
+                      <div className="absolute -top-1 -right-1 w-3 h-3 bg-[#c9a227] rounded-full border-2 border-white" />
                     )}
-                  </motion.button>
+                    
+                    {/* Note button */}
+                    <button
+                      onClick={() => handleDayClick(day)}
+                      className="absolute -bottom-1 -right-1 w-5 h-5 bg-white rounded-full border border-gray-200 flex items-center justify-center hover:border-[#c9a227] hover:text-[#c9a227] transition-colors"
+                    >
+                      <FileText className="w-3 h-3" />
+                    </button>
+                  </div>
                 );
               })}
             </div>
           </div>
         )}
       </div>
+
+      {/* Note Modal */}
+      <DayNoteModal
+        isOpen={showNoteModal}
+        onClose={() => setShowNoteModal(false)}
+        day={selectedDay}
+        note={selectedDay ? getNoteForDay(selectedDay) : null}
+        onSave={handleSaveNote}
+      />
     </div>
   );
 }
