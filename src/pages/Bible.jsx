@@ -1,0 +1,153 @@
+import React, { useState, useEffect } from 'react';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { base44 } from '@/api/base44Client';
+import { AnimatePresence, motion } from 'framer-motion';
+import BookSelector from '@/components/bible/BookSelector';
+import ChapterSelector from '@/components/bible/ChapterSelector';
+import VerseReader from '@/components/bible/VerseReader';
+
+export default function Bible() {
+  const [view, setView] = useState('books'); // books, chapters, reader
+  const [selectedBook, setSelectedBook] = useState(null);
+  const [selectedChapter, setSelectedChapter] = useState(null);
+
+  const queryClient = useQueryClient();
+
+  const { data: bookmarks = [] } = useQuery({
+    queryKey: ['bookmarks'],
+    queryFn: () => base44.entities.Bookmark.list()
+  });
+
+  const createBookmark = useMutation({
+    mutationFn: (data) => base44.entities.Bookmark.create(data),
+    onSuccess: () => queryClient.invalidateQueries(['bookmarks'])
+  });
+
+  const deleteBookmark = useMutation({
+    mutationFn: (id) => base44.entities.Bookmark.delete(id),
+    onSuccess: () => queryClient.invalidateQueries(['bookmarks'])
+  });
+
+  // Check URL params on mount
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const bookName = params.get('book');
+    const chapter = params.get('chapter');
+    
+    if (bookName && chapter) {
+      import('@/components/bible/BibleData').then(({ getBookByName }) => {
+        const book = getBookByName(bookName);
+        if (book) {
+          setSelectedBook(book);
+          setSelectedChapter(parseInt(chapter));
+          setView('reader');
+        }
+      });
+    }
+  }, []);
+
+  const handleSelectBook = (book) => {
+    setSelectedBook(book);
+    setView('chapters');
+  };
+
+  const handleSelectChapter = (chapter) => {
+    setSelectedChapter(chapter);
+    setView('reader');
+  };
+
+  const handleBack = () => {
+    if (view === 'reader') {
+      setView('chapters');
+      setSelectedChapter(null);
+    } else if (view === 'chapters') {
+      setView('books');
+      setSelectedBook(null);
+    }
+  };
+
+  const handleNavigateChapter = (chapter) => {
+    setSelectedChapter(chapter);
+  };
+
+  const handleBookmark = (verse, color) => {
+    const existing = bookmarks.find(b => 
+      b.book === verse.book && 
+      b.chapter === verse.chapter && 
+      b.verse === verse.verse
+    );
+
+    if (existing) {
+      deleteBookmark.mutate(existing.id);
+    }
+    
+    createBookmark.mutate({
+      book: verse.book,
+      chapter: verse.chapter,
+      verse: verse.verse,
+      verse_text: verse.text,
+      highlight_color: color
+    });
+  };
+
+  return (
+    <div className="h-[calc(100vh-80px)] bg-[#faf8f5]">
+      <AnimatePresence mode="wait">
+        {view === 'books' && (
+          <motion.div
+            key="books"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            className="h-full pt-4"
+          >
+            <div className="px-4 mb-4">
+              <h1 className="text-2xl font-bold text-[#1a1a2e]">Bible</h1>
+              <p className="text-gray-500">Select a book to read</p>
+            </div>
+            <BookSelector
+              onSelectBook={handleSelectBook}
+              selectedBook={selectedBook}
+            />
+          </motion.div>
+        )}
+
+        {view === 'chapters' && selectedBook && (
+          <motion.div
+            key="chapters"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
+            className="h-full pt-4"
+          >
+            <ChapterSelector
+              book={selectedBook}
+              onSelectChapter={handleSelectChapter}
+              onBack={handleBack}
+              selectedChapter={selectedChapter}
+            />
+          </motion.div>
+        )}
+
+        {view === 'reader' && selectedBook && selectedChapter && (
+          <motion.div
+            key="reader"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="h-full"
+          >
+            <VerseReader
+              book={selectedBook}
+              chapter={selectedChapter}
+              onBack={handleBack}
+              onNavigate={handleNavigateChapter}
+              bookmarks={bookmarks}
+              onBookmark={handleBookmark}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
