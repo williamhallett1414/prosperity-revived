@@ -20,7 +20,7 @@ const highlightColors = {
   purple: 'bg-purple-200/60'
 };
 
-export default function VerseReader({ book, chapter, onBack, onNavigate, bookmarks, onBookmark }) {
+export default function VerseReader({ book, chapter, onBack, onNavigate, bookmarks, onBookmark, planDay, planId }) {
   const [verses, setVerses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [fontSize, setFontSize] = useState('text-lg');

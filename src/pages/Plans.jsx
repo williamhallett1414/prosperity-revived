@@ -1,22 +1,54 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { createPageUrl } from '@/utils';
 import { Link } from 'react-router-dom';
-import { Search, ArrowLeft } from 'lucide-react';
+import { Search, ArrowLeft, Plus } from 'lucide-react';
 import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import ReadingPlanCard from '@/components/home/ReadingPlanCard';
+import CreateCustomPlanModal from '@/components/plans/CreateCustomPlanModal';
 import { readingPlans } from '@/components/bible/BibleData';
 
 export default function Plans() {
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState('all');
+  const [showCreateCustom, setShowCreateCustom] = useState(false);
+
+  const queryClient = useQueryClient();
 
   const { data: planProgress = [] } = useQuery({
     queryKey: ['planProgress'],
     queryFn: () => base44.entities.ReadingPlanProgress.list()
+  });
+
+  const createCustomPlan = useMutation({
+    mutationFn: async (planData) => {
+      const customReadings = planData.readings.map((reading, index) => ({
+        day: index + 1,
+        book: reading.book,
+        chapter: parseInt(reading.chapter)
+      }));
+
+      return base44.entities.ReadingPlanProgress.create({
+        plan_id: `custom-${Date.now()}`,
+        plan_name: planData.name,
+        is_custom: true,
+        custom_readings: customReadings,
+        total_days: customReadings.length,
+        completed_days: [],
+        current_day: 1,
+        started_date: new Date().toISOString().split('T')[0],
+        current_streak: 0,
+        longest_streak: 0
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(['planProgress']);
+      setShowCreateCustom(false);
+    }
   });
 
   const getProgressForPlan = (planId) => {
@@ -25,7 +57,19 @@ export default function Plans() {
 
   const categories = ['all', ...new Set(readingPlans.map(p => p.category))];
 
-  const filteredPlans = readingPlans.filter(plan => {
+  const customPlans = planProgress.filter(p => p.is_custom).map(p => ({
+    id: p.plan_id,
+    name: p.plan_name,
+    description: `${p.total_days} days of custom readings`,
+    duration: p.total_days,
+    category: 'Custom',
+    image: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=400',
+    isCustom: true
+  }));
+
+  const allPlans = [...customPlans, ...readingPlans];
+
+  const filteredPlans = allPlans.filter(plan => {
     const matchesSearch = plan.name.toLowerCase().includes(search.toLowerCase()) ||
                           plan.description.toLowerCase().includes(search.toLowerCase());
     const matchesCategory = category === 'all' || plan.category === category;
@@ -53,15 +97,24 @@ export default function Plans() {
           <p className="text-gray-500 ml-[52px]">Discover plans to guide your study</p>
         </motion.div>
 
-        {/* Search */}
-        <div className="relative mb-6">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-          <Input
-            placeholder="Search plans..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="pl-10 bg-white border-gray-200 rounded-xl h-12"
-          />
+        {/* Search & Create */}
+        <div className="flex gap-3 mb-6">
+          <div className="relative flex-1">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+            <Input
+              placeholder="Search plans..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="pl-10 bg-white border-gray-200 rounded-xl h-12"
+            />
+          </div>
+          <Button
+            onClick={() => setShowCreateCustom(true)}
+            className="bg-[#c9a227] hover:bg-[#b8922a] h-12 px-4"
+          >
+            <Plus className="w-5 h-5 mr-2" />
+            Custom Plan
+          </Button>
         </div>
 
         {/* Categories */}
@@ -98,6 +151,12 @@ export default function Plans() {
           </div>
         )}
       </div>
+
+      <CreateCustomPlanModal
+        isOpen={showCreateCustom}
+        onClose={() => setShowCreateCustom(false)}
+        onSubmit={(data) => createCustomPlan.mutate(data)}
+      />
     </div>
   );
 }

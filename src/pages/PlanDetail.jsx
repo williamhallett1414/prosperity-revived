@@ -3,27 +3,45 @@ import { motion } from 'framer-motion';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { createPageUrl } from '@/utils';
-import { ArrowLeft, Calendar, CheckCircle2, Circle, Play, RotateCcw, FileText } from 'lucide-react';
+import { ArrowLeft, Calendar, CheckCircle2, Circle, Play, RotateCcw, FileText, BarChart3, Bell, BookOpen } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { readingPlans } from '@/components/bible/BibleData';
 import { Link } from 'react-router-dom';
 import DayNoteModal from '@/components/plans/DayNoteModal';
+import PlanStatsModal from '@/components/plans/PlanStatsModal';
+import ReminderSettingsModal from '@/components/plans/ReminderSettingsModal';
 
 export default function PlanDetail() {
   const params = new URLSearchParams(window.location.search);
   const planId = params.get('id');
   const [selectedDay, setSelectedDay] = useState(null);
   const [showNoteModal, setShowNoteModal] = useState(false);
+  const [showStatsModal, setShowStatsModal] = useState(false);
+  const [showReminderModal, setShowReminderModal] = useState(false);
   
-  const plan = readingPlans.find(p => p.id === planId);
+  let plan = readingPlans.find(p => p.id === planId);
   const queryClient = useQueryClient();
 
   const { data: progress, isLoading } = useQuery({
     queryKey: ['planProgress', planId],
     queryFn: async () => {
       const all = await base44.entities.ReadingPlanProgress.list();
-      return all.find(p => p.plan_id === planId) || null;
+      const found = all.find(p => p.plan_id === planId);
+      
+      // If this is a custom plan, use its data
+      if (found?.is_custom) {
+        plan = {
+          id: found.plan_id,
+          name: found.plan_name,
+          description: `${found.total_days} days of custom readings`,
+          duration: found.total_days,
+          category: 'Custom',
+          image: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=400'
+        };
+      }
+      
+      return found || null;
     }
   });
 
@@ -43,7 +61,10 @@ export default function PlanDetail() {
 
   const updateProgress = useMutation({
     mutationFn: ({ id, data }) => base44.entities.ReadingPlanProgress.update(id, data),
-    onSuccess: () => queryClient.invalidateQueries(['planProgress'])
+    onSuccess: () => {
+      queryClient.invalidateQueries(['planProgress']);
+      queryClient.invalidateQueries(['planProgress', planId]);
+    }
   });
 
   const saveNote = useMutation({
@@ -121,6 +142,23 @@ export default function PlanDetail() {
 
   const getNoteForDay = (day) => {
     return notes.find(n => n.day_number === day);
+  };
+
+  const handleOpenDayReading = (day) => {
+    if (progress?.is_custom && progress.custom_readings) {
+      const reading = progress.custom_readings.find(r => r.day === day);
+      if (reading) {
+        window.location.href = createPageUrl(`Bible?book=${reading.book}&chapter=${reading.chapter}&planDay=${day}&planId=${planId}`);
+      }
+    }
+  };
+
+  const handleSaveReminder = (reminderData) => {
+    if (!progress) return;
+    updateProgress.mutate({
+      id: progress.id,
+      data: reminderData
+    });
   };
 
   const completedCount = progress?.completed_days?.length || 0;
@@ -241,13 +279,25 @@ export default function PlanDetail() {
                       <div className="absolute -top-1 -right-1 w-3 h-3 bg-[#c9a227] rounded-full border-2 border-white" />
                     )}
                     
-                    {/* Note button */}
-                    <button
-                      onClick={() => handleDayClick(day)}
-                      className="absolute -bottom-1 -right-1 w-5 h-5 bg-white rounded-full border border-gray-200 flex items-center justify-center hover:border-[#c9a227] hover:text-[#c9a227] transition-colors"
-                    >
-                      <FileText className="w-3 h-3" />
-                    </button>
+                    {/* Action buttons */}
+                    <div className="absolute -bottom-1 -right-1 flex gap-1">
+                      {progress.is_custom && (
+                        <button
+                          onClick={() => handleOpenDayReading(day)}
+                          className="w-5 h-5 bg-[#1a1a2e] text-white rounded-full flex items-center justify-center hover:bg-[#2d2d4a] transition-colors"
+                          title="Open reading"
+                        >
+                          <BookOpen className="w-3 h-3" />
+                        </button>
+                      )}
+                      <button
+                        onClick={() => handleDayClick(day)}
+                        className="w-5 h-5 bg-white rounded-full border border-gray-200 flex items-center justify-center hover:border-[#c9a227] hover:text-[#c9a227] transition-colors"
+                        title="Add note"
+                      >
+                        <FileText className="w-3 h-3" />
+                      </button>
+                    </div>
                   </div>
                 );
               })}
@@ -256,13 +306,26 @@ export default function PlanDetail() {
         )}
       </div>
 
-      {/* Note Modal */}
+      {/* Modals */}
       <DayNoteModal
         isOpen={showNoteModal}
         onClose={() => setShowNoteModal(false)}
         day={selectedDay}
         note={selectedDay ? getNoteForDay(selectedDay) : null}
         onSave={handleSaveNote}
+      />
+
+      <PlanStatsModal
+        isOpen={showStatsModal}
+        onClose={() => setShowStatsModal(false)}
+        progress={progress}
+      />
+
+      <ReminderSettingsModal
+        isOpen={showReminderModal}
+        onClose={() => setShowReminderModal(false)}
+        progress={progress}
+        onSave={handleSaveReminder}
       />
     </div>
   );

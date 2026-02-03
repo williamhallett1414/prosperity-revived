@@ -49,6 +49,9 @@ export default function Bible() {
     }
   }, []);
 
+  const planDay = new URLSearchParams(window.location.search).get('planDay');
+  const planId = new URLSearchParams(window.location.search).get('planId');
+
   const handleSelectBook = (book) => {
     setSelectedBook(book);
     setView('chapters');
@@ -155,6 +158,8 @@ export default function Bible() {
               onNavigate={handleNavigateChapter}
               bookmarks={bookmarks}
               onBookmark={handleBookmark}
+              planDay={planDay}
+              planId={planId}
             />
           </motion.div>
         )}
