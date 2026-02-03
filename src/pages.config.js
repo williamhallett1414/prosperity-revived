@@ -57,6 +57,8 @@ import PlanDetail from './pages/PlanDetail';
 import Plans from './pages/Plans';
 import Search from './pages/Search';
 import Profile from './pages/Profile';
+import Friends from './pages/Friends';
+import Messages from './pages/Messages';
 import __Layout from './Layout.jsx';
 
 
@@ -71,6 +73,8 @@ export const PAGES = {
     "Plans": Plans,
     "Search": Search,
     "Profile": Profile,
+    "Friends": Friends,
+    "Messages": Messages,
 }
 
 export const pagesConfig = {

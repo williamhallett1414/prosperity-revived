@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Camera, BookOpen, CheckCircle, TrendingUp, Calendar, Edit2 } from 'lucide-react';
+import { ArrowLeft, Camera, BookOpen, CheckCircle, TrendingUp, Calendar, Edit2, Users, MessageCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Link } from 'react-router-dom';
@@ -36,6 +36,26 @@ export default function Profile() {
     queryFn: async () => {
       const allPosts = await base44.entities.Post.list();
       return allPosts.filter(p => p.created_by === user?.email);
+    },
+    enabled: !!user
+  });
+
+  const { data: friends = [] } = useQuery({
+    queryKey: ['friends'],
+    queryFn: async () => {
+      const all = await base44.entities.Friend.list();
+      return all.filter(f => 
+        (f.user_email === user?.email || f.friend_email === user?.email) && f.status === 'accepted'
+      );
+    },
+    enabled: !!user
+  });
+
+  const { data: pendingRequests = [] } = useQuery({
+    queryKey: ['pendingRequests'],
+    queryFn: async () => {
+      const all = await base44.entities.Friend.list();
+      return all.filter(f => f.friend_email === user?.email && f.status === 'pending');
     },
     enabled: !!user
   });
@@ -129,6 +149,41 @@ export default function Profile() {
             <p className="text-2xl font-bold text-[#1a1a2e]">{bookmarks.length}</p>
             <p className="text-xs text-gray-500">Saved Verses</p>
           </motion.div>
+        </div>
+      </div>
+
+      {/* Friends Quick Actions */}
+      <div className="px-4 mb-6">
+        <div className="grid grid-cols-2 gap-3">
+          <Link to={createPageUrl('Friends')}>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="bg-white rounded-2xl p-4 shadow-sm hover:shadow-md transition-shadow relative"
+            >
+              <Users className="w-5 h-5 text-[#c9a227] mb-2" />
+              <p className="text-sm text-gray-600">Friends</p>
+              <p className="text-2xl font-bold text-[#1a1a2e]">{friends.length}</p>
+              {pendingRequests.length > 0 && (
+                <div className="absolute top-2 right-2 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center text-xs font-bold">
+                  {pendingRequests.length}
+                </div>
+              )}
+            </motion.div>
+          </Link>
+
+          <Link to={createPageUrl('Friends')}>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.05 }}
+              className="bg-white rounded-2xl p-4 shadow-sm hover:shadow-md transition-shadow"
+            >
+              <MessageCircle className="w-5 h-5 text-[#8fa68a] mb-2" />
+              <p className="text-sm text-gray-600">Messages</p>
+              <p className="text-lg font-semibold text-[#1a1a2e]">Connect</p>
+            </motion.div>
+          </Link>
         </div>
       </div>
 
