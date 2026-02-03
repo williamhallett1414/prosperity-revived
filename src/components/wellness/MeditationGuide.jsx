@@ -21,6 +21,21 @@ export default function MeditationGuide() {
     queryFn: () => base44.entities.Meditation.list()
   });
 
+  const toggleFavorite = useMutation({
+    mutationFn: async ({ meditationId, title }) => {
+      const existing = favorites.find(f => f.meditation_id === meditationId && f.created_by === user?.email);
+      if (existing) {
+        return base44.entities.MeditationFavorite.delete(existing.id);
+      } else {
+        return base44.entities.MeditationFavorite.create({
+          meditation_id: meditationId,
+          meditation_title: title
+        });
+      }
+    },
+    onSuccess: () => queryClient.invalidateQueries(['meditation-favorites'])
+  });
+
   const completeMeditation = useMutation({
     mutationFn: async ({ id, meditation }) => {
       const dates = meditation.completed_dates || [];
@@ -28,7 +43,6 @@ export default function MeditationGuide() {
       if (!dates.includes(today)) {
         dates.push(today);
         
-        // Award points and update progress
         const allProgress = await base44.entities.UserProgress.list();
         const userProgress = allProgress.find(p => p.created_by === user?.email);
         const meditationCount = (userProgress?.meditations_completed || 0) + 1;
