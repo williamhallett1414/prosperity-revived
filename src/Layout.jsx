@@ -1,19 +1,19 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { Home, BookOpen, Compass, Users, User } from 'lucide-react';
+import { Home, BookOpen, Compass, Users, User, Heart } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const navItems = [
   { name: 'Home', icon: Home, page: 'Home' },
   { name: 'Bible', icon: BookOpen, page: 'Bible' },
   { name: 'Community', icon: Users, page: 'Community' },
-  { name: 'Groups', icon: Compass, page: 'Groups' },
+  { name: 'Wellness', icon: Heart, page: 'Wellness' },
   { name: 'Profile', icon: User, page: 'Profile' },
 ];
 
 export default function Layout({ children, currentPageName }) {
-  const hideNav = currentPageName === 'PlanDetail' || currentPageName === 'GroupDetail' || currentPageName === 'Bible' || currentPageName === 'Search' || currentPageName === 'Plans' || currentPageName === 'Bookmarks' || currentPageName === 'Profile';
+  const hideNav = currentPageName === 'PlanDetail' || currentPageName === 'GroupDetail' || currentPageName === 'Bible' || currentPageName === 'Search' || currentPageName === 'Plans' || currentPageName === 'Bookmarks' || currentPageName === 'Profile' || currentPageName === 'Settings' || currentPageName === 'SpiritualGrowth' || currentPageName === 'UserProfile';
 
   return (
     <div className="min-h-screen bg-[#faf8f5] dark:bg-[#1a1a2e]">

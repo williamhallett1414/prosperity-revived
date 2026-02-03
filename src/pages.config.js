@@ -50,18 +50,19 @@
 import Bible from './pages/Bible';
 import Bookmarks from './pages/Bookmarks';
 import Community from './pages/Community';
+import Friends from './pages/Friends';
 import GroupDetail from './pages/GroupDetail';
 import Groups from './pages/Groups';
 import Home from './pages/Home';
+import Messages from './pages/Messages';
 import PlanDetail from './pages/PlanDetail';
 import Plans from './pages/Plans';
-import Search from './pages/Search';
 import Profile from './pages/Profile';
-import Friends from './pages/Friends';
-import Messages from './pages/Messages';
+import Search from './pages/Search';
+import Settings from './pages/Settings';
 import SpiritualGrowth from './pages/SpiritualGrowth';
 import UserProfile from './pages/UserProfile';
-import Settings from './pages/Settings';
+import Wellness from './pages/Wellness';
 import __Layout from './Layout.jsx';
 
 
@@ -69,18 +70,19 @@ export const PAGES = {
     "Bible": Bible,
     "Bookmarks": Bookmarks,
     "Community": Community,
+    "Friends": Friends,
     "GroupDetail": GroupDetail,
     "Groups": Groups,
     "Home": Home,
+    "Messages": Messages,
     "PlanDetail": PlanDetail,
     "Plans": Plans,
-    "Search": Search,
     "Profile": Profile,
-    "Friends": Friends,
-    "Messages": Messages,
+    "Search": Search,
+    "Settings": Settings,
     "SpiritualGrowth": SpiritualGrowth,
     "UserProfile": UserProfile,
-    "Settings": Settings,
+    "Wellness": Wellness,
 }
 
 export const pagesConfig = {
