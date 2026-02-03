@@ -144,6 +144,35 @@ export default function PostCard({ post, comments = [], onLike, onComment, index
       {/* Content */}
       <p className="text-gray-700 mb-4 leading-relaxed whitespace-pre-wrap">{post.content}</p>
 
+      {/* Media */}
+      {post.image_url && (
+        <img 
+          src={post.image_url} 
+          alt="Post media" 
+          className="w-full rounded-xl mb-4 max-h-96 object-cover"
+        />
+      )}
+      {post.video_url && (
+        <video 
+          src={post.video_url} 
+          controls 
+          className="w-full rounded-xl mb-4 max-h-96"
+        />
+      )}
+
+      {/* Topic Badge */}
+      {post.topic && post.topic !== 'general' && (
+        <div className="mb-3">
+          <span className="inline-block px-3 py-1 bg-[#c9a227]/10 text-[#c9a227] text-xs font-medium rounded-full">
+            {post.topic === 'prayer' && '🙏 Prayer'}
+            {post.topic === 'bible_study' && '📖 Bible Study'}
+            {post.topic === 'testimony' && '✨ Testimony'}
+            {post.topic === 'question' && '❓ Question'}
+            {post.topic === 'encouragement' && '💝 Encouragement'}
+          </span>
+        </div>
+      )}
+
       {/* AI Summary */}
       <PostSummary content={post.content} comments={postComments} />
 
