@@ -21,6 +21,29 @@ export default function Home() {
     queryFn: () => base44.entities.Bookmark.list()
   });
 
+  const { data: posts = [] } = useQuery({
+    queryKey: ['myPosts'],
+    queryFn: async () => {
+      const allPosts = await base44.entities.Post.list();
+      return allPosts.filter(p => p.created_by === user?.email);
+    },
+    enabled: !!user
+  });
+
+  const { data: memberships = [] } = useQuery({
+    queryKey: ['myMemberships'],
+    queryFn: async () => {
+      const all = await base44.entities.GroupMember.list();
+      return all.filter(m => m.user_email === user?.email);
+    },
+    enabled: !!user
+  });
+
+  const { data: groups = [] } = useQuery({
+    queryKey: ['groups'],
+    queryFn: () => base44.entities.StudyGroup.list()
+  });
+
   const { data: planProgress = [] } = useQuery({
     queryKey: ['planProgress'],
     queryFn: () => base44.entities.ReadingPlanProgress.list()

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Camera, BookOpen, CheckCircle, TrendingUp, Calendar, Edit2, Users, MessageCircle, Loader2 } from 'lucide-react';
+import { ArrowLeft, Camera, BookOpen, CheckCircle, TrendingUp, Calendar, Edit2, Users, MessageCircle, Loader2, Settings } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
@@ -133,15 +133,23 @@ export default function Profile() {
   }
 
   return (
-    <div className="min-h-screen bg-[#faf8f5] pb-24">
+    <div className="min-h-screen bg-[#faf8f5] dark:bg-[#1a1a2e] pb-24">
       {/* Header */}
       <div className="bg-gradient-to-br from-[#1a1a2e] to-[#2d2d4a] text-white px-4 pt-4 pb-24">
-        <Link
-          to={createPageUrl('Home')}
-          className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center mb-4"
-        >
-          <ArrowLeft className="w-5 h-5" />
-        </Link>
+        <div className="flex items-center justify-between mb-4">
+          <Link
+            to={createPageUrl('Home')}
+            className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center"
+          >
+            <ArrowLeft className="w-5 h-5" />
+          </Link>
+          <Link
+            to={createPageUrl('Settings')}
+            className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center"
+          >
+            <Settings className="w-5 h-5" />
+          </Link>
+        </div>
         
         <div className="flex items-center gap-4">
           <div className="relative">
@@ -185,33 +193,33 @@ export default function Profile() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-white rounded-2xl p-4 shadow-lg"
+            className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 shadow-lg"
           >
             <BookOpen className="w-6 h-6 text-[#c9a227] mb-2" />
-            <p className="text-2xl font-bold text-[#1a1a2e]">{totalDaysRead}</p>
-            <p className="text-xs text-gray-500">Days Read</p>
+            <p className="text-2xl font-bold text-[#1a1a2e] dark:text-white">{totalDaysRead}</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400">Days Read</p>
           </motion.div>
           
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="bg-white rounded-2xl p-4 shadow-lg"
+            className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 shadow-lg"
           >
             <TrendingUp className="w-6 h-6 text-[#8fa68a] mb-2" />
-            <p className="text-2xl font-bold text-[#1a1a2e]">{longestStreak}</p>
-            <p className="text-xs text-gray-500">Longest Streak</p>
+            <p className="text-2xl font-bold text-[#1a1a2e] dark:text-white">{longestStreak}</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400">Longest Streak</p>
           </motion.div>
           
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="bg-white rounded-2xl p-4 shadow-lg"
+            className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 shadow-lg"
           >
             <CheckCircle className="w-6 h-6 text-[#c9a227] mb-2" />
-            <p className="text-2xl font-bold text-[#1a1a2e]">{bookmarks.length}</p>
-            <p className="text-xs text-gray-500">Saved Verses</p>
+            <p className="text-2xl font-bold text-[#1a1a2e] dark:text-white">{bookmarks.length}</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400">Saved Verses</p>
           </motion.div>
         </div>
       </div>
@@ -253,9 +261,9 @@ export default function Profile() {
 
       {/* Bio */}
       <div className="px-4 mb-6">
-        <div className="bg-white rounded-2xl p-4 shadow-sm">
+        <div className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 shadow-sm">
           <div className="flex items-center justify-between mb-3">
-            <h3 className="font-semibold text-[#1a1a2e]">Bio</h3>
+            <h3 className="font-semibold text-[#1a1a2e] dark:text-white">Bio</h3>
             {!editingBio && (
               <Button
                 variant="ghost"
@@ -295,7 +303,7 @@ export default function Profile() {
               </div>
             </div>
           ) : (
-            <p className="text-gray-600 italic">
+            <p className="text-gray-600 dark:text-gray-400 italic">
               {user.bio || 'Add a bio to tell others about yourself'}
             </p>
           )}
@@ -304,9 +312,9 @@ export default function Profile() {
 
       {/* Status Update */}
       <div className="px-4 mb-6">
-        <div className="bg-white rounded-2xl p-4 shadow-sm">
+        <div className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 shadow-sm">
           <div className="flex items-center justify-between mb-3">
-            <h3 className="font-semibold text-[#1a1a2e]">Status</h3>
+            <h3 className="font-semibold text-[#1a1a2e] dark:text-white">Status</h3>
             {!editingStatus && (
               <Button
                 variant="ghost"
@@ -346,7 +354,7 @@ export default function Profile() {
               </div>
             </div>
           ) : (
-            <p className="text-gray-600 italic">
+            <p className="text-gray-600 dark:text-gray-400 italic">
               {user.status_message || 'No status yet. Share what you\'re learning!'}
             </p>
           )}
@@ -356,7 +364,7 @@ export default function Profile() {
       {/* Groups */}
       {userGroups.length > 0 && (
         <div className="px-4 mb-6">
-          <h2 className="text-xl font-bold text-[#1a1a2e] mb-4">My Groups</h2>
+          <h2 className="text-xl font-bold text-[#1a1a2e] dark:text-white mb-4">My Groups</h2>
           <div className="grid grid-cols-2 gap-3">
             {userGroups.map(group => (
               <Link
@@ -375,7 +383,7 @@ export default function Profile() {
       {/* Recent Posts */}
       {posts.length > 0 && (
         <div className="px-4 mb-6">
-          <h2 className="text-xl font-bold text-[#1a1a2e] mb-4">Recent Posts</h2>
+          <h2 className="text-xl font-bold text-[#1a1a2e] dark:text-white mb-4">Recent Posts</h2>
           <div className="space-y-4">
             {posts.slice(0, 3).map((post, index) => (
               <PostCard
@@ -394,7 +402,7 @@ export default function Profile() {
       {/* Current Plans */}
       {activePlans.length > 0 && (
         <div className="px-4 mb-6">
-          <h2 className="text-xl font-bold text-[#1a1a2e] mb-4">Current Plans</h2>
+          <h2 className="text-xl font-bold text-[#1a1a2e] dark:text-white mb-4">Current Plans</h2>
           <div className="space-y-3">
             {activePlans.map(p => {
               const plan = p.is_custom 
@@ -409,7 +417,7 @@ export default function Profile() {
       {/* Completed Plans */}
       {completedPlans.length > 0 && (
         <div className="px-4 mb-6">
-          <h2 className="text-xl font-bold text-[#1a1a2e] mb-4 flex items-center gap-2">
+          <h2 className="text-xl font-bold text-[#1a1a2e] dark:text-white mb-4 flex items-center gap-2">
             <CheckCircle className="w-6 h-6 text-[#8fa68a]" />
             Completed Plans ({completedPlans.length})
           </h2>
@@ -446,18 +454,18 @@ export default function Profile() {
 
       {/* Activity Summary */}
       <div className="px-4 mb-6">
-        <h2 className="text-xl font-bold text-[#1a1a2e] mb-4">Activity</h2>
-        <div className="bg-white rounded-2xl p-4 shadow-sm space-y-3">
+        <h2 className="text-xl font-bold text-[#1a1a2e] dark:text-white mb-4">Activity</h2>
+        <div className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 shadow-sm space-y-3">
           <div className="flex items-center justify-between">
-            <span className="text-gray-600">Community Posts</span>
-            <span className="font-semibold text-[#1a1a2e]">{posts.length}</span>
+            <span className="text-gray-600 dark:text-gray-400">Community Posts</span>
+            <span className="font-semibold text-[#1a1a2e] dark:text-white">{posts.length}</span>
           </div>
           <div className="flex items-center justify-between">
-            <span className="text-gray-600">Active Plans</span>
-            <span className="font-semibold text-[#1a1a2e]">{activePlans.length}</span>
+            <span className="text-gray-600 dark:text-gray-400">Active Plans</span>
+            <span className="font-semibold text-[#1a1a2e] dark:text-white">{activePlans.length}</span>
           </div>
           <div className="flex items-center justify-between">
-            <span className="text-gray-600">Plans Completed</span>
+            <span className="text-gray-600 dark:text-gray-400">Plans Completed</span>
             <span className="font-semibold text-[#8fa68a]">{completedPlans.length}</span>
           </div>
         </div>
