@@ -1,15 +1,47 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Heart, MessageCircle, Share2, BookOpen } from 'lucide-react';
+import { Heart, MessageCircle, Share2, BookOpen, UserPlus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { format } from 'date-fns';
 import { createPageUrl } from '@/utils';
+import { base44 } from '@/api/base44Client';
+import { useQueryClient, useMutation, useQuery } from '@tanstack/react-query';
 
 export default function PostCard({ post, comments = [], onLike, onComment, index }) {
   const [showComments, setShowComments] = useState(false);
   const [commentText, setCommentText] = useState('');
   const [isLiked, setIsLiked] = useState(false);
+  const [user, setUser] = useState(null);
+  const queryClient = useQueryClient();
+
+  useEffect(() => {
+    base44.auth.me().then(setUser).catch(() => {});
+  }, []);
+
+  const { data: friends = [] } = useQuery({
+    queryKey: ['friends'],
+    queryFn: async () => {
+      const all = await base44.entities.Friend.list();
+      return all.filter(f => 
+        (f.user_email === user?.email || f.friend_email === user?.email)
+      );
+    },
+    enabled: !!user
+  });
+
+  const sendFriendRequest = useMutation({
+    mutationFn: async () => {
+      return base44.entities.Friend.create({
+        user_email: user.email,
+        friend_email: post.created_by,
+        user_name: user.full_name || user.email,
+        friend_name: post.user_name,
+        status: 'pending'
+      });
+    },
+    onSuccess: () => queryClient.invalidateQueries(['friends'])
+  });
 
   const handleLike = () => {
     setIsLiked(!isLiked);
@@ -29,7 +61,29 @@ export default function PostCard({ post, comments = [], onLike, onComment, index
     }
   };
 
+  const handleShare = () => {
+    if (navigator.share) {
+      navigator.share({
+        title: `Post by ${post.user_name}`,
+        text: post.content,
+        url: window.location.href
+      }).catch(() => {});
+    } else {
+      // Fallback: copy to clipboard
+      navigator.clipboard.writeText(`${post.content}\n\n- ${post.user_name}`);
+      alert('Post copied to clipboard!');
+    }
+  };
+
   const postComments = comments.filter(c => c.post_id === post.id);
+  
+  const isMyPost = user?.email === post.created_by;
+  const alreadyFriends = friends.some(f => 
+    (f.user_email === post.created_by || f.friend_email === post.created_by) && f.status === 'accepted'
+  );
+  const requestSent = friends.some(f => 
+    f.user_email === user?.email && f.friend_email === post.created_by && f.status === 'pending'
+  );
 
   return (
     <motion.div
@@ -47,6 +101,21 @@ export default function PostCard({ post, comments = [], onLike, onComment, index
           <p className="font-semibold text-[#1a1a2e]">{post.user_name || 'Anonymous'}</p>
           <p className="text-xs text-gray-500">{format(new Date(post.created_date), 'MMM d, yyyy')}</p>
         </div>
+        {!isMyPost && user && !alreadyFriends && (
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => sendFriendRequest.mutate()}
+            disabled={requestSent || sendFriendRequest.isPending}
+            className="text-[#c9a227] hover:text-[#8fa68a]"
+          >
+            <UserPlus className="w-4 h-4 mr-1" />
+            {requestSent ? 'Sent' : 'Add'}
+          </Button>
+        )}
+        {alreadyFriends && !isMyPost && (
+          <span className="text-xs text-[#8fa68a] font-medium">Friends</span>
+        )}
       </div>
 
       {/* Verse Quote */}
@@ -90,6 +159,16 @@ export default function PostCard({ post, comments = [], onLike, onComment, index
         >
           <MessageCircle className="w-4 h-4" />
           <span>{postComments.length}</span>
+        </Button>
+
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={handleShare}
+          className="flex items-center gap-2 text-gray-500"
+        >
+          <Share2 className="w-4 h-4" />
+          Share
         </Button>
       </div>
 
