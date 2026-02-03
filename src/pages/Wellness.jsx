@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
-import { Dumbbell, UtensilsCrossed, Heart, Plus, TrendingUp } from 'lucide-react';
+import { Dumbbell, UtensilsCrossed, Heart, Plus, TrendingUp, Droplets } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import WorkoutCard from '@/components/wellness/WorkoutCard';
@@ -10,6 +10,9 @@ import RecipeCard from '@/components/wellness/RecipeCard';
 import CreateWorkoutModal from '@/components/wellness/CreateWorkoutModal';
 import CreateRecipeModal from '@/components/wellness/CreateRecipeModal';
 import NutritionAdvice from '@/components/wellness/NutritionAdvice';
+import MealTracker from '@/components/wellness/MealTracker';
+import WaterTracker from '@/components/wellness/WaterTracker';
+import MeditationGuide from '@/components/wellness/MeditationGuide';
 
 export default function Wellness() {
   const [user, setUser] = useState(null);
@@ -99,12 +102,20 @@ export default function Wellness() {
       </div>
 
       <div className="px-4">
-        <Tabs defaultValue="workouts" className="w-full">
-          <TabsList className="grid w-full grid-cols-3 mb-6">
+        <Tabs defaultValue="tracker" className="w-full">
+          <TabsList className="grid w-full grid-cols-5 mb-6 text-xs">
+            <TabsTrigger value="tracker">Track</TabsTrigger>
             <TabsTrigger value="workouts">Workouts</TabsTrigger>
             <TabsTrigger value="nutrition">Nutrition</TabsTrigger>
             <TabsTrigger value="recipes">Recipes</TabsTrigger>
+            <TabsTrigger value="meditation">Mindful</TabsTrigger>
           </TabsList>
+
+          {/* Tracker Tab */}
+          <TabsContent value="tracker" className="space-y-4">
+            <WaterTracker />
+            <MealTracker />
+          </TabsContent>
 
           {/* Workouts Tab */}
           <TabsContent value="workouts" className="space-y-4">
@@ -138,6 +149,11 @@ export default function Wellness() {
           {/* Nutrition Tab */}
           <TabsContent value="nutrition">
             <NutritionAdvice />
+          </TabsContent>
+
+          {/* Meditation Tab */}
+          <TabsContent value="meditation">
+            <MeditationGuide />
           </TabsContent>
 
           {/* Recipes Tab */}
