@@ -160,7 +160,8 @@ export default function Wellness() {
           </TabsContent>
 
           {/* Nutrition Tab */}
-          <TabsContent value="nutrition">
+          <TabsContent value="nutrition" className="space-y-4">
+            <AIMealPlanner />
             <NutritionAdvice />
           </TabsContent>
 
