@@ -6,6 +6,7 @@ export const PREMADE_WORKOUTS = [
     difficulty: 'beginner',
     duration_minutes: 20,
     category: 'full_body',
+    image_url: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=400',
     exercises: [
       { name: 'Jumping Jacks', sets: 3, reps: 15, duration_seconds: 0 },
       { name: 'Wall Push-ups', sets: 3, reps: 10, duration_seconds: 0 },
@@ -20,6 +21,7 @@ export const PREMADE_WORKOUTS = [
     difficulty: 'beginner',
     duration_minutes: 15,
     category: 'full_body',
+    image_url: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=400',
     exercises: [
       { name: 'Arm Circles', sets: 2, reps: 20, duration_seconds: 0 },
       { name: 'High Knees', sets: 3, reps: 0, duration_seconds: 30 },
@@ -34,6 +36,7 @@ export const PREMADE_WORKOUTS = [
     difficulty: 'intermediate',
     duration_minutes: 25,
     category: 'cardio',
+    image_url: 'https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=400',
     exercises: [
       { name: 'Jumping Jacks', sets: 3, reps: 30, duration_seconds: 0 },
       { name: 'Burpees', sets: 3, reps: 10, duration_seconds: 0 },
@@ -48,6 +51,7 @@ export const PREMADE_WORKOUTS = [
     difficulty: 'intermediate',
     duration_minutes: 30,
     category: 'strength',
+    image_url: 'https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=400',
     exercises: [
       { name: 'Push-ups', sets: 4, reps: 12, duration_seconds: 0 },
       { name: 'Dumbbell Rows', sets: 4, reps: 12, duration_seconds: 0 },
@@ -62,6 +66,7 @@ export const PREMADE_WORKOUTS = [
     difficulty: 'intermediate',
     duration_minutes: 30,
     category: 'strength',
+    image_url: 'https://images.unsplash.com/photo-1434682772747-f16d3ea162c3?w=400',
     exercises: [
       { name: 'Squats', sets: 4, reps: 15, duration_seconds: 0 },
       { name: 'Lunges', sets: 3, reps: 12, duration_seconds: 0 },
@@ -76,6 +81,7 @@ export const PREMADE_WORKOUTS = [
     difficulty: 'intermediate',
     duration_minutes: 20,
     category: 'strength',
+    image_url: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400',
     exercises: [
       { name: 'Plank', sets: 3, reps: 0, duration_seconds: 60 },
       { name: 'Bicycle Crunches', sets: 3, reps: 20, duration_seconds: 0 },
@@ -90,6 +96,7 @@ export const PREMADE_WORKOUTS = [
     difficulty: 'beginner',
     duration_minutes: 25,
     category: 'yoga',
+    image_url: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400',
     exercises: [
       { name: 'Child\'s Pose', sets: 1, reps: 0, duration_seconds: 60 },
       { name: 'Downward Dog', sets: 3, reps: 0, duration_seconds: 45 },
@@ -104,6 +111,7 @@ export const PREMADE_WORKOUTS = [
     difficulty: 'advanced',
     duration_minutes: 30,
     category: 'cardio',
+    image_url: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=400',
     exercises: [
       { name: 'Burpees', sets: 4, reps: 15, duration_seconds: 0 },
       { name: 'Jump Squats', sets: 4, reps: 12, duration_seconds: 0 },
@@ -118,6 +126,7 @@ export const PREMADE_WORKOUTS = [
     difficulty: 'beginner',
     duration_minutes: 10,
     category: 'flexibility',
+    image_url: 'https://images.unsplash.com/photo-1593642532400-2682810df593?w=400',
     exercises: [
       { name: 'Neck Rolls', sets: 2, reps: 10, duration_seconds: 0 },
       { name: 'Shoulder Shrugs', sets: 2, reps: 15, duration_seconds: 0 },
@@ -132,6 +141,7 @@ export const PREMADE_WORKOUTS = [
     difficulty: 'advanced',
     duration_minutes: 45,
     category: 'strength',
+    image_url: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400',
     exercises: [
       { name: 'Push-ups', sets: 5, reps: 15, duration_seconds: 0 },
       { name: 'Squats', sets: 5, reps: 20, duration_seconds: 0 },
@@ -147,6 +157,7 @@ export const PREMADE_WORKOUTS = [
     difficulty: 'beginner',
     duration_minutes: 20,
     category: 'flexibility',
+    image_url: 'https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?w=400',
     exercises: [
       { name: 'Hip Circles', sets: 2, reps: 15, duration_seconds: 0 },
       { name: 'Leg Swings', sets: 2, reps: 20, duration_seconds: 0 },
@@ -161,6 +172,7 @@ export const PREMADE_WORKOUTS = [
     difficulty: 'intermediate',
     duration_minutes: 25,
     category: 'strength',
+    image_url: 'https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=400',
     exercises: [
       { name: 'Crunches', sets: 4, reps: 20, duration_seconds: 0 },
       { name: 'Bicycle Crunches', sets: 3, reps: 25, duration_seconds: 0 },
@@ -175,6 +187,7 @@ export const PREMADE_WORKOUTS = [
     difficulty: 'intermediate',
     duration_minutes: 40,
     category: 'yoga',
+    image_url: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=400',
     exercises: [
       { name: 'Sun Salutations', sets: 5, reps: 1, duration_seconds: 0 },
       { name: 'Warrior Series', sets: 3, reps: 0, duration_seconds: 90 },
@@ -189,6 +202,7 @@ export const PREMADE_WORKOUTS = [
     difficulty: 'advanced',
     duration_minutes: 50,
     category: 'full_body',
+    image_url: 'https://images.unsplash.com/photo-1623874514711-0f321325f318?w=400',
     exercises: [
       { name: 'Box Jumps', sets: 4, reps: 12, duration_seconds: 0 },
       { name: 'Burpees', sets: 5, reps: 15, duration_seconds: 0 },
@@ -203,6 +217,7 @@ export const PREMADE_WORKOUTS = [
     difficulty: 'beginner',
     duration_minutes: 15,
     category: 'flexibility',
+    image_url: 'https://images.unsplash.com/photo-1575052814086-f385e2e2ad1b?w=400',
     exercises: [
       { name: 'Child\'s Pose', sets: 1, reps: 0, duration_seconds: 90 },
       { name: 'Seated Forward Fold', sets: 2, reps: 0, duration_seconds: 60 },
@@ -217,6 +232,7 @@ export const PREMADE_WORKOUTS = [
     difficulty: 'intermediate',
     duration_minutes: 30,
     category: 'strength',
+    image_url: 'https://images.unsplash.com/photo-1606889464198-fcb18894cf50?w=400',
     exercises: [
       { name: 'Kettlebell Swings', sets: 4, reps: 15, duration_seconds: 0 },
       { name: 'Goblet Squats', sets: 4, reps: 12, duration_seconds: 0 },
@@ -231,6 +247,7 @@ export const PREMADE_WORKOUTS = [
     difficulty: 'advanced',
     duration_minutes: 20,
     category: 'cardio',
+    image_url: 'https://images.unsplash.com/photo-1601422407692-ec4eeec1d9b3?w=400',
     exercises: [
       { name: 'Burpees', sets: 8, reps: 0, duration_seconds: 20 },
       { name: 'Mountain Climbers', sets: 8, reps: 0, duration_seconds: 20 },
@@ -245,6 +262,7 @@ export const PREMADE_WORKOUTS = [
     difficulty: 'intermediate',
     duration_minutes: 30,
     category: 'strength',
+    image_url: 'https://images.unsplash.com/photo-1598971639058-fab3c3109a00?w=400',
     exercises: [
       { name: 'Band Chest Press', sets: 3, reps: 15, duration_seconds: 0 },
       { name: 'Band Rows', sets: 3, reps: 15, duration_seconds: 0 },
@@ -259,6 +277,7 @@ export const PREMADE_WORKOUTS = [
     difficulty: 'advanced',
     duration_minutes: 35,
     category: 'strength',
+    image_url: 'https://images.unsplash.com/photo-1605296867304-46d5465a13f1?w=400',
     exercises: [
       { name: 'One-Arm Push-ups', sets: 3, reps: 8, duration_seconds: 0 },
       { name: 'Pistol Squats', sets: 3, reps: 10, duration_seconds: 0 },
@@ -273,6 +292,7 @@ export const PREMADE_WORKOUTS = [
     difficulty: 'beginner',
     duration_minutes: 20,
     category: 'full_body',
+    image_url: 'https://images.unsplash.com/photo-1584467541268-b040f83be3fd?w=400',
     exercises: [
       { name: 'Pelvic Tilts', sets: 3, reps: 15, duration_seconds: 0 },
       { name: 'Wall Push-ups', sets: 2, reps: 10, duration_seconds: 0 },
@@ -287,6 +307,7 @@ export const PREMADE_WORKOUTS = [
     difficulty: 'beginner',
     duration_minutes: 25,
     category: 'full_body',
+    image_url: 'https://images.unsplash.com/photo-1616279969856-759f316a5ac1?w=400',
     exercises: [
       { name: 'Chair Squats', sets: 3, reps: 10, duration_seconds: 0 },
       { name: 'Wall Push-ups', sets: 2, reps: 8, duration_seconds: 0 },
@@ -301,6 +322,7 @@ export const PREMADE_WORKOUTS = [
     difficulty: 'beginner',
     duration_minutes: 20,
     category: 'flexibility',
+    image_url: 'https://images.unsplash.com/photo-1611672585731-fa10603fb9e0?w=400',
     exercises: [
       { name: 'Walking', sets: 1, reps: 0, duration_seconds: 600 },
       { name: 'Gentle Stretching', sets: 3, reps: 0, duration_seconds: 120 },
