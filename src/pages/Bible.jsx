@@ -76,7 +76,7 @@ export default function Bible() {
     setSelectedChapter(chapter);
   };
 
-  const handleBookmark = (verse, color) => {
+  const handleBookmark = (verse, color, note = '') => {
     const existing = bookmarks.find(b => 
       b.book === verse.book && 
       b.chapter === verse.chapter && 
@@ -92,7 +92,8 @@ export default function Bible() {
       chapter: verse.chapter,
       verse: verse.verse,
       verse_text: verse.text,
-      highlight_color: color
+      highlight_color: color,
+      note: note
     });
   };
 

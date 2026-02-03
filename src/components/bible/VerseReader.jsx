@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, ChevronLeft, ChevronRight, Bookmark, BookmarkCheck, Settings2, Loader2, Share2 } from 'lucide-react';
+import { ArrowLeft, ChevronLeft, ChevronRight, Bookmark, BookmarkCheck, Settings2, Loader2, Share2, FileText } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { base44 } from '@/api/base44Client';
@@ -11,6 +11,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import VerseAnnotationModal from '@/components/bible/VerseAnnotationModal';
 
 const highlightColors = {
   yellow: 'bg-yellow-200/60',
@@ -25,6 +26,8 @@ export default function VerseReader({ book, chapter, onBack, onNavigate, bookmar
   const [loading, setLoading] = useState(true);
   const [fontSize, setFontSize] = useState('text-lg');
   const [selectedVerse, setSelectedVerse] = useState(null);
+  const [showAnnotationModal, setShowAnnotationModal] = useState(false);
+  const [annotatingVerse, setAnnotatingVerse] = useState(null);
 
   useEffect(() => {
     fetchVerses();
@@ -87,6 +90,31 @@ export default function VerseReader({ book, chapter, onBack, onNavigate, bookmar
       text: verse.text
     }, color);
     setSelectedVerse(null);
+  };
+
+  const handleAnnotate = (verse) => {
+    setAnnotatingVerse({
+      book: book.name,
+      chapter,
+      verse: verse.number,
+      text: verse.text
+    });
+    setShowAnnotationModal(true);
+    setSelectedVerse(null);
+  };
+
+  const handleSaveAnnotation = ({ note, color }) => {
+    if (annotatingVerse) {
+      onBookmark(annotatingVerse, color, note);
+    }
+  };
+
+  const getBookmarkForVerse = (verseNum) => {
+    return bookmarks?.find(b => 
+      b.book === book.name && 
+      b.chapter === chapter && 
+      b.verse === verseNum
+    );
   };
 
   const handleShare = (verse) => {
@@ -156,21 +184,30 @@ export default function VerseReader({ book, chapter, onBack, onNavigate, bookmar
             <div className="space-y-1">
               {verses.map((verse) => {
                 const bookmarkColor = getBookmarkColor(verse.number);
+                const bookmark = getBookmarkForVerse(verse.number);
+                const hasNote = bookmark?.note;
+                
                 return (
-                  <motion.span
-                    key={verse.number}
-                    className={`inline cursor-pointer transition-colors rounded px-0.5 ${
-                      bookmarkColor ? highlightColors[bookmarkColor] : ''
-                    } ${selectedVerse === verse.number ? 'ring-2 ring-[#c9a227]' : ''}`}
-                    onClick={() => handleVerseClick(verse)}
-                  >
-                    <sup className="text-[#c9a227] font-semibold mr-1 text-xs">
-                      {verse.number}
-                    </sup>
-                    <span className={`font-serif ${fontSize} text-gray-800 leading-relaxed`}>
-                      {verse.text}{' '}
-                    </span>
-                  </motion.span>
+                  <div key={verse.number} className="relative inline">
+                    <motion.span
+                      className={`inline cursor-pointer transition-colors rounded px-0.5 ${
+                        bookmarkColor ? highlightColors[bookmarkColor] : ''
+                      } ${selectedVerse === verse.number ? 'ring-2 ring-[#c9a227]' : ''} ${
+                        hasNote ? 'border-b-2 border-dashed border-[#c9a227]' : ''
+                      }`}
+                      onClick={() => handleVerseClick(verse)}
+                    >
+                      <sup className="text-[#c9a227] font-semibold mr-1 text-xs relative">
+                        {verse.number}
+                        {hasNote && (
+                          <FileText className="w-2 h-2 text-[#c9a227] absolute -top-1 -right-2" />
+                        )}
+                      </sup>
+                      <span className={`font-serif ${fontSize} text-gray-800 leading-relaxed`}>
+                        {verse.text}{' '}
+                      </span>
+                    </motion.span>
+                  </div>
                 );
               })}
             </div>
@@ -183,7 +220,7 @@ export default function VerseReader({ book, chapter, onBack, onNavigate, bookmar
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 20 }}
-                className="fixed bottom-24 left-1/2 -translate-x-1/2 bg-white rounded-2xl shadow-xl p-4 z-50 min-w-[280px]"
+                className="fixed bottom-24 left-1/2 -translate-x-1/2 bg-white rounded-2xl shadow-xl p-4 z-50 min-w-[300px]"
               >
                 <p className="text-sm text-gray-500 mb-3">Actions:</p>
                 <div className="space-y-3">
@@ -203,6 +240,13 @@ export default function VerseReader({ book, chapter, onBack, onNavigate, bookmar
                     </div>
                   </div>
                   <button
+                    onClick={() => handleAnnotate(verses.find(v => v.number === selectedVerse))}
+                    className="w-full flex items-center justify-center gap-2 py-2 px-4 bg-white border-2 border-[#c9a227] text-[#1a1a2e] rounded-lg hover:bg-[#faf8f5] transition-colors"
+                  >
+                    <FileText className="w-4 h-4" />
+                    Add Note & Highlight
+                  </button>
+                  <button
                     onClick={() => handleShare(verses.find(v => v.number === selectedVerse))}
                     className="w-full flex items-center justify-center gap-2 py-2 px-4 bg-[#1a1a2e] text-white rounded-lg hover:bg-[#2d2d4a] transition-colors"
                   >
@@ -213,6 +257,15 @@ export default function VerseReader({ book, chapter, onBack, onNavigate, bookmar
               </motion.div>
             )}
           </AnimatePresence>
+
+          {/* Annotation Modal */}
+          <VerseAnnotationModal
+            isOpen={showAnnotationModal}
+            onClose={() => setShowAnnotationModal(false)}
+            verse={annotatingVerse}
+            bookmark={annotatingVerse ? getBookmarkForVerse(annotatingVerse.verse) : null}
+            onSave={handleSaveAnnotation}
+          />
         </div>
       </ScrollArea>
 
