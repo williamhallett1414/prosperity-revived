@@ -17,6 +17,7 @@ import { awardPoints, checkAndAwardBadges } from '@/components/gamification/Prog
 import AIMealPlanner from '@/components/wellness/AIMealPlanner';
 import CustomPrayerBuilder from '@/components/wellness/CustomPrayerBuilder';
 import ProgressCharts from '@/components/wellness/ProgressCharts';
+import { PREMADE_WORKOUTS } from '@/components/wellness/WorkoutLibrary';
 
 export default function Wellness() {
   const [user, setUser] = useState(null);
@@ -60,6 +61,7 @@ export default function Wellness() {
 
   const myWorkouts = workouts.filter(w => w.created_by === user?.email);
   const myRecipes = recipes.filter(r => r.created_by === user?.email);
+  const allWorkouts = [...PREMADE_WORKOUTS, ...myWorkouts];
 
   const totalWorkoutsCompleted = myWorkouts.reduce((sum, w) => sum + (w.completed_dates?.length || 0), 0);
   const thisWeekWorkouts = myWorkouts.filter(w => {
@@ -137,26 +139,39 @@ export default function Wellness() {
               className="w-full bg-emerald-600 hover:bg-emerald-700 mb-4"
             >
               <Plus className="w-5 h-5 mr-2" />
-              Create Workout Plan
+              Create Custom Workout
             </Button>
 
-            {myWorkouts.length === 0 ? (
-              <div className="text-center py-12 bg-white dark:bg-[#2d2d4a] rounded-2xl">
-                <Dumbbell className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-                <p className="text-gray-500 dark:text-gray-400">No workout plans yet</p>
+            {myWorkouts.length > 0 && (
+              <div>
+                <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Your Workouts</h3>
+                <div className="space-y-3 mb-6">
+                  {myWorkouts.map((workout, index) => (
+                    <WorkoutCard
+                      key={workout.id}
+                      workout={workout}
+                      onComplete={() => completeWorkout.mutate({ id: workout.id, workout })}
+                      index={index}
+                    />
+                  ))}
+                </div>
               </div>
-            ) : (
+            )}
+
+            <div>
+              <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Pre-Made Workouts</h3>
               <div className="space-y-3">
-                {myWorkouts.map((workout, index) => (
+                {PREMADE_WORKOUTS.map((workout, index) => (
                   <WorkoutCard
                     key={workout.id}
                     workout={workout}
-                    onComplete={() => completeWorkout.mutate({ id: workout.id, workout })}
+                    onComplete={() => {}}
                     index={index}
+                    isPremade
                   />
                 ))}
               </div>
-            )}
+            </div>
           </TabsContent>
 
           {/* Nutrition Tab */}

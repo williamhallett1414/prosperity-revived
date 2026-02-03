@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { Dumbbell, Clock, CheckCircle, Award } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-export default function WorkoutCard({ workout, onComplete, index }) {
+export default function WorkoutCard({ workout, onComplete, index, isPremade = false }) {
   const today = new Date().toISOString().split('T')[0];
   const completedToday = workout.completed_dates?.includes(today);
 
