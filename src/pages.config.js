@@ -60,6 +60,7 @@ import Profile from './pages/Profile';
 import Friends from './pages/Friends';
 import Messages from './pages/Messages';
 import SpiritualGrowth from './pages/SpiritualGrowth';
+import UserProfile from './pages/UserProfile';
 import __Layout from './Layout.jsx';
 
 
@@ -77,6 +78,7 @@ export const PAGES = {
     "Friends": Friends,
     "Messages": Messages,
     "SpiritualGrowth": SpiritualGrowth,
+    "UserProfile": UserProfile,
 }
 
 export const pagesConfig = {

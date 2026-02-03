@@ -2,18 +2,23 @@ import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Camera, BookOpen, CheckCircle, TrendingUp, Calendar, Edit2, Users, MessageCircle } from 'lucide-react';
+import { ArrowLeft, Camera, BookOpen, CheckCircle, TrendingUp, Calendar, Edit2, Users, MessageCircle, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
+import { Input } from '@/components/ui/input';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { readingPlans } from '@/components/bible/BibleData';
 import ReadingPlanCard from '@/components/home/ReadingPlanCard';
+import PostCard from '@/components/community/PostCard';
 
 export default function Profile() {
   const [user, setUser] = useState(null);
   const [editingStatus, setEditingStatus] = useState(false);
+  const [editingBio, setEditingBio] = useState(false);
   const [status, setStatus] = useState('');
+  const [bio, setBio] = useState('');
+  const [uploadingImage, setUploadingImage] = useState(false);
 
   const queryClient = useQueryClient();
 
@@ -60,6 +65,25 @@ export default function Profile() {
     enabled: !!user
   });
 
+  const { data: memberships = [] } = useQuery({
+    queryKey: ['myMemberships'],
+    queryFn: async () => {
+      const all = await base44.entities.GroupMember.list();
+      return all.filter(m => m.user_email === user?.email);
+    },
+    enabled: !!user
+  });
+
+  const { data: groups = [] } = useQuery({
+    queryKey: ['groups'],
+    queryFn: () => base44.entities.StudyGroup.list()
+  });
+
+  const { data: comments = [] } = useQuery({
+    queryKey: ['comments'],
+    queryFn: () => base44.entities.Comment.list()
+  });
+
   const updateUser = useMutation({
     mutationFn: (data) => base44.auth.updateMe(data),
     onSuccess: () => {
@@ -78,6 +102,27 @@ export default function Profile() {
   const handleStatusUpdate = () => {
     updateUser.mutate({ status_message: status });
   };
+
+  const handleBioUpdate = () => {
+    updateUser.mutate({ bio });
+    setEditingBio(false);
+  };
+
+  const handleImageUpload = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploadingImage(true);
+    try {
+      const { file_url } = await base44.integrations.Core.UploadFile({ file });
+      await updateUser.mutateAsync({ profile_image_url: file_url });
+    } catch (error) {
+      console.error('Upload failed', error);
+    }
+    setUploadingImage(false);
+  };
+
+  const userGroups = groups.filter(g => memberships.some(m => m.group_id === g.id));
 
   if (!user) {
     return (
@@ -100,11 +145,30 @@ export default function Profile() {
         
         <div className="flex items-center gap-4">
           <div className="relative">
-            <div className="w-24 h-24 rounded-full bg-gradient-to-br from-[#c9a227] to-[#8fa68a] flex items-center justify-center text-3xl font-bold">
-              {user.full_name?.charAt(0) || user.email.charAt(0)}
+            <div className="w-24 h-24 rounded-full overflow-hidden bg-gradient-to-br from-[#c9a227] to-[#8fa68a] flex items-center justify-center text-3xl font-bold">
+              {user.profile_image_url ? (
+                <img src={user.profile_image_url} alt={user.full_name} className="w-full h-full object-cover" />
+              ) : (
+                user.full_name?.charAt(0) || user.email.charAt(0)
+              )}
             </div>
-            <button className="absolute bottom-0 right-0 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-lg">
-              <Camera className="w-4 h-4 text-[#1a1a2e]" />
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageUpload}
+              className="hidden"
+              id="profile-image-upload"
+            />
+            <button 
+              onClick={() => document.getElementById('profile-image-upload').click()}
+              disabled={uploadingImage}
+              className="absolute bottom-0 right-0 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-lg"
+            >
+              {uploadingImage ? (
+                <Loader2 className="w-4 h-4 text-[#1a1a2e] animate-spin" />
+              ) : (
+                <Camera className="w-4 h-4 text-[#1a1a2e]" />
+              )}
             </button>
           </div>
           
@@ -187,6 +251,57 @@ export default function Profile() {
         </div>
       </div>
 
+      {/* Bio */}
+      <div className="px-4 mb-6">
+        <div className="bg-white rounded-2xl p-4 shadow-sm">
+          <div className="flex items-center justify-between mb-3">
+            <h3 className="font-semibold text-[#1a1a2e]">Bio</h3>
+            {!editingBio && (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => {
+                  setEditingBio(true);
+                  setBio(user.bio || '');
+                }}
+              >
+                <Edit2 className="w-4 h-4" />
+              </Button>
+            )}
+          </div>
+          
+          {editingBio ? (
+            <div className="space-y-3">
+              <Textarea
+                value={bio}
+                onChange={(e) => setBio(e.target.value)}
+                placeholder="Tell others about yourself..."
+                className="min-h-[80px]"
+              />
+              <div className="flex gap-2">
+                <Button
+                  onClick={handleBioUpdate}
+                  className="bg-[#1a1a2e] hover:bg-[#2d2d4a]"
+                  disabled={updateUser.isPending}
+                >
+                  Save
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={() => setEditingBio(false)}
+                >
+                  Cancel
+                </Button>
+              </div>
+            </div>
+          ) : (
+            <p className="text-gray-600 italic">
+              {user.bio || 'Add a bio to tell others about yourself'}
+            </p>
+          )}
+        </div>
+      </div>
+
       {/* Status Update */}
       <div className="px-4 mb-6">
         <div className="bg-white rounded-2xl p-4 shadow-sm">
@@ -237,6 +352,44 @@ export default function Profile() {
           )}
         </div>
       </div>
+
+      {/* Groups */}
+      {userGroups.length > 0 && (
+        <div className="px-4 mb-6">
+          <h2 className="text-xl font-bold text-[#1a1a2e] mb-4">My Groups</h2>
+          <div className="grid grid-cols-2 gap-3">
+            {userGroups.map(group => (
+              <Link
+                key={group.id}
+                to={createPageUrl(`GroupDetail?id=${group.id}`)}
+                className="bg-white rounded-xl p-3 shadow-sm hover:shadow-md transition-shadow"
+              >
+                <h3 className="font-medium text-[#1a1a2e] text-sm mb-1">{group.name}</h3>
+                <p className="text-xs text-gray-500">{group.member_count} members</p>
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Recent Posts */}
+      {posts.length > 0 && (
+        <div className="px-4 mb-6">
+          <h2 className="text-xl font-bold text-[#1a1a2e] mb-4">Recent Posts</h2>
+          <div className="space-y-4">
+            {posts.slice(0, 3).map((post, index) => (
+              <PostCard
+                key={post.id}
+                post={post}
+                comments={comments}
+                onLike={() => {}}
+                onComment={() => {}}
+                index={index}
+              />
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Current Plans */}
       {activePlans.length > 0 && (

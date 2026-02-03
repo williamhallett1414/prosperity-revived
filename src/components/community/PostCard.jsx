@@ -99,11 +99,19 @@ export default function PostCard({ post, comments = [], onLike, onComment, index
 
       {/* Header */}
       <div className="flex items-center gap-3 mb-3">
-        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#1a1a2e] to-[#c9a227] flex items-center justify-center text-white font-semibold">
+        <div 
+          className="w-10 h-10 rounded-full bg-gradient-to-br from-[#1a1a2e] to-[#c9a227] flex items-center justify-center text-white font-semibold cursor-pointer hover:opacity-80"
+          onClick={() => post.created_by && (window.location.href = createPageUrl(`UserProfile?email=${post.created_by}`))}
+        >
           {post.user_name?.[0]?.toUpperCase() || 'U'}
         </div>
         <div className="flex-1">
-          <p className="font-semibold text-[#1a1a2e]">{post.user_name || 'Anonymous'}</p>
+          <p 
+            className="font-semibold text-[#1a1a2e] cursor-pointer hover:text-[#c9a227]"
+            onClick={() => post.created_by && (window.location.href = createPageUrl(`UserProfile?email=${post.created_by}`))}
+          >
+            {post.user_name || 'Anonymous'}
+          </p>
           <p className="text-xs text-gray-500">{format(new Date(post.created_date), 'MMM d, yyyy')}</p>
         </div>
         {!isMyPost && user && !alreadyFriends && (
