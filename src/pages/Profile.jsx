@@ -11,6 +11,7 @@ import { createPageUrl } from '@/utils';
 import { readingPlans } from '@/components/bible/BibleData';
 import ReadingPlanCard from '@/components/home/ReadingPlanCard';
 import PostCard from '@/components/community/PostCard';
+import GamificationBanner from '@/components/gamification/GamificationBanner';
 
 export default function Profile() {
   const [user, setUser] = useState(null);
@@ -187,8 +188,13 @@ export default function Profile() {
         </div>
       </div>
 
-      {/* Stats Cards */}
+      {/* Gamification Banner */}
       <div className="px-4 -mt-16 mb-6">
+        <GamificationBanner />
+      </div>
+
+      {/* Stats Cards */}
+      <div className="px-4 mb-6">
         <div className="grid grid-cols-3 gap-3">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
