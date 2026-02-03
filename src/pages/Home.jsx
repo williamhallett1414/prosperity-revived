@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { createPageUrl } from '@/utils';
-import { BookOpen, Compass, TrendingUp, Settings } from 'lucide-react';
+import { BookOpen, Compass, TrendingUp, Settings, Target } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import VerseOfDay from '@/components/home/VerseOfDay';
 import ReadingPlanCard from '@/components/home/ReadingPlanCard';
@@ -78,7 +78,7 @@ export default function Home() {
         <MoodBasedVerses />
 
         {/* Quick Actions */}
-        <div className="grid grid-cols-3 gap-3 mb-8">
+        <div className="grid grid-cols-4 gap-3 mb-8">
           <Link to={createPageUrl('Bible')}>
             <motion.div
               whileHover={{ scale: 1.02 }}
@@ -88,7 +88,7 @@ export default function Home() {
               <div className="w-12 h-12 mx-auto mb-2 rounded-xl bg-[#1a1a2e]/5 flex items-center justify-center">
                 <BookOpen className="w-6 h-6 text-[#1a1a2e]" />
               </div>
-              <span className="text-sm font-medium text-gray-700">Read Bible</span>
+              <span className="text-xs font-medium text-gray-700">Bible</span>
             </motion.div>
           </Link>
           
@@ -101,7 +101,7 @@ export default function Home() {
               <div className="w-12 h-12 mx-auto mb-2 rounded-xl bg-[#8fa68a]/20 flex items-center justify-center">
                 <Compass className="w-6 h-6 text-[#8fa68a]" />
               </div>
-              <span className="text-sm font-medium text-gray-700">Plans</span>
+              <span className="text-xs font-medium text-gray-700">Plans</span>
             </motion.div>
           </Link>
           
@@ -114,7 +114,20 @@ export default function Home() {
               <div className="w-12 h-12 mx-auto mb-2 rounded-xl bg-[#c9a227]/20 flex items-center justify-center">
                 <TrendingUp className="w-6 h-6 text-[#c9a227]" />
               </div>
-              <span className="text-sm font-medium text-gray-700">Saved</span>
+              <span className="text-xs font-medium text-gray-700">Saved</span>
+            </motion.div>
+          </Link>
+
+          <Link to={createPageUrl('SpiritualGrowth')}>
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="bg-white rounded-2xl p-4 text-center shadow-sm border border-gray-100 hover:shadow-md transition-shadow"
+            >
+              <div className="w-12 h-12 mx-auto mb-2 rounded-xl bg-purple-100 flex items-center justify-center">
+                <Target className="w-6 h-6 text-purple-600" />
+              </div>
+              <span className="text-xs font-medium text-gray-700">Growth</span>
             </motion.div>
           </Link>
         </div>
