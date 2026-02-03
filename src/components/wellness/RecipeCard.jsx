@@ -3,8 +3,9 @@ import { motion } from 'framer-motion';
 import { Clock, Users, Flame, ChevronDown, ChevronUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import AddToCollectionButton from './AddToCollectionButton';
+import RecipeLikeButton from './RecipeLikeButton';
 
-export default function RecipeCard({ recipe, index }) {
+export default function RecipeCard({ recipe, index, showCommunityFeatures }) {
   const [expanded, setExpanded] = useState(false);
 
   const categoryEmoji = {
