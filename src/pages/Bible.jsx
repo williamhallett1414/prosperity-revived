@@ -21,6 +21,11 @@ export default function Bible() {
     queryFn: () => base44.entities.Bookmark.list()
   });
 
+  const { data: planProgress = [] } = useQuery({
+    queryKey: ['planProgress'],
+    queryFn: () => base44.entities.ReadingPlanProgress.list()
+  });
+
   const createBookmark = useMutation({
     mutationFn: (data) => base44.entities.Bookmark.create(data),
     onSuccess: () => queryClient.invalidateQueries(['bookmarks'])
