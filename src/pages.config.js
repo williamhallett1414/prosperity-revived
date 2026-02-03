@@ -59,6 +59,7 @@ import Search from './pages/Search';
 import Profile from './pages/Profile';
 import Friends from './pages/Friends';
 import Messages from './pages/Messages';
+import SpiritualGrowth from './pages/SpiritualGrowth';
 import __Layout from './Layout.jsx';
 
 
@@ -75,6 +76,7 @@ export const PAGES = {
     "Profile": Profile,
     "Friends": Friends,
     "Messages": Messages,
+    "SpiritualGrowth": SpiritualGrowth,
 }
 
 export const pagesConfig = {
