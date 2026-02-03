@@ -26,6 +26,11 @@ export default function AIMealPlanner() {
     queryFn: () => base44.entities.Recipe.list('-created_date')
   });
 
+  const { data: mealHistory = [] } = useQuery({
+    queryKey: ['meals'],
+    queryFn: () => base44.entities.MealLog.list('-date', 30)
+  });
+
   const generateMealPlan = async () => {
     setLoading(true);
     try {
@@ -43,12 +48,25 @@ export default function AIMealPlanner() {
         cook_time: r.cook_time_minutes
       }));
 
+      // Calculate user's average intake from history
+      const avgCalories = mealHistory.length > 0 
+        ? Math.round(mealHistory.reduce((sum, m) => sum + (m.calories || 0), 0) / Math.min(mealHistory.length, 7))
+        : preferences.calories;
+      
+      const avgProtein = mealHistory.length > 0
+        ? Math.round(mealHistory.reduce((sum, m) => sum + (m.protein || 0), 0) / Math.min(mealHistory.length, 7))
+        : 0;
+
+      const nutritionContext = avgProtein > 0
+        ? `\n\nUser's recent average intake: ${avgCalories} calories/day, ${avgProtein}g protein/day. Consider this when planning.`
+        : '';
+
       const prompt = `Create a ${preferences.days}-day meal plan with the following requirements:
 - Diet Type: ${preferences.diet_type}
 - Goal: ${preferences.goal}
 - Target Calories: ${preferences.calories} per day
 - Number of Meals per Day: ${preferences.meals_per_day}
-${preferences.allergies ? `- Allergies/Restrictions: ${preferences.allergies}` : ''}
+${preferences.allergies ? `- Allergies/Restrictions: ${preferences.allergies}` : ''}${nutritionContext}
 
 Available Recipes:
 ${JSON.stringify(recipeList, null, 2)}
