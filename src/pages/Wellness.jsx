@@ -15,6 +15,7 @@ import MealTracker from '@/components/wellness/MealTracker';
 import WaterTracker from '@/components/wellness/WaterTracker';
 import MeditationGuide from '@/components/wellness/MeditationGuide';
 import RecipeCollections from '@/components/wellness/RecipeCollections';
+import CommunityRecipes from '@/components/wellness/CommunityRecipes';
 import { awardPoints, checkAndAwardBadges } from '@/components/gamification/ProgressManager';
 import AIMealPlanner from '@/components/wellness/AIMealPlanner';
 import CustomPrayerBuilder from '@/components/wellness/CustomPrayerBuilder';
@@ -167,12 +168,13 @@ export default function Wellness() {
 
       <div className="px-4">
         <Tabs defaultValue="tracker" className="w-full">
-          <TabsList className="grid w-full grid-cols-6 mb-6 text-xs">
+          <TabsList className="grid w-full grid-cols-7 mb-6 text-xs overflow-x-auto">
             <TabsTrigger value="tracker">Track</TabsTrigger>
             <TabsTrigger value="workouts">Workouts</TabsTrigger>
             <TabsTrigger value="nutrition">Nutrition</TabsTrigger>
             <TabsTrigger value="recipes">Recipes</TabsTrigger>
             <TabsTrigger value="collections">Collections</TabsTrigger>
+            <TabsTrigger value="community">Community</TabsTrigger>
             <TabsTrigger value="meditation">Mindful</TabsTrigger>
           </TabsList>
 
@@ -315,6 +317,11 @@ export default function Wellness() {
           {/* Collections Tab */}
           <TabsContent value="collections" className="space-y-4">
             <RecipeCollections allRecipes={recipes} />
+          </TabsContent>
+
+          {/* Community Tab */}
+          <TabsContent value="community" className="space-y-4">
+            <CommunityRecipes />
           </TabsContent>
         </Tabs>
       </div>

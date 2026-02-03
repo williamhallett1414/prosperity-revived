@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
-import { Plus, Minus } from 'lucide-react';
+import { Plus, Minus, Share2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Switch } from '@/components/ui/switch';
+import { Label } from '@/components/ui/label';
 
 export default function CreateRecipeModal({ isOpen, onClose }) {
   const [recipe, setRecipe] = useState({
@@ -19,7 +21,8 @@ export default function CreateRecipeModal({ isOpen, onClose }) {
     servings: 4,
     calories: 0,
     ingredients: [],
-    instructions: []
+    instructions: [],
+    is_shared: false
   });
   const [currentIngredient, setCurrentIngredient] = useState('');
   const [currentInstruction, setCurrentInstruction] = useState('');
@@ -30,7 +33,7 @@ export default function CreateRecipeModal({ isOpen, onClose }) {
     onSuccess: () => {
       queryClient.invalidateQueries(['recipes']);
       onClose();
-      setRecipe({ title: '', description: '', category: 'lunch', diet_type: 'any', prep_time_minutes: 15, cook_time_minutes: 30, servings: 4, calories: 0, ingredients: [], instructions: [] });
+      setRecipe({ title: '', description: '', category: 'lunch', diet_type: 'any', prep_time_minutes: 15, cook_time_minutes: 30, servings: 4, calories: 0, ingredients: [], instructions: [], is_shared: false });
     }
   });
 
@@ -169,6 +172,20 @@ export default function CreateRecipeModal({ isOpen, onClose }) {
                 <Plus className="w-4 h-4" />
               </Button>
             </div>
+          </div>
+
+          <div className="flex items-center justify-between p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
+            <div className="flex items-center gap-2">
+              <Share2 className="w-4 h-4 text-purple-600" />
+              <Label htmlFor="share-recipe" className="text-sm font-medium">
+                Share with community
+              </Label>
+            </div>
+            <Switch
+              id="share-recipe"
+              checked={recipe.is_shared}
+              onCheckedChange={(checked) => setRecipe({ ...recipe, is_shared: checked })}
+            />
           </div>
 
           <Button onClick={handleSubmit} className="w-full bg-orange-500 hover:bg-orange-600">
