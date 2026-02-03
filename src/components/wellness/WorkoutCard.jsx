@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Dumbbell, Clock, CheckCircle, Award } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import WorkoutLogModal from './WorkoutLogModal';
 
-export default function WorkoutCard({ workout, onComplete, index, isPremade = false }) {
+export default function WorkoutCard({ workout, onComplete, index, isPremade = false, user }) {
+  const [showLogModal, setShowLogModal] = useState(false);
   const today = new Date().toISOString().split('T')[0];
   const completedToday = workout.completed_dates?.includes(today);
 
@@ -58,22 +60,29 @@ export default function WorkoutCard({ workout, onComplete, index, isPremade = fa
       )}
 
       <Button
-        onClick={onComplete}
-        disabled={completedToday}
-        className={`w-full ${completedToday ? 'bg-green-600' : 'bg-emerald-600 hover:bg-emerald-700'}`}
+        onClick={() => isPremade ? null : setShowLogModal(true)}
+        disabled={isPremade}
+        className="w-full bg-emerald-600 hover:bg-emerald-700"
       >
-        {completedToday ? (
+        {isPremade ? (
           <>
-            <CheckCircle className="w-4 h-4 mr-2" />
-            Completed Today
+            <Dumbbell className="w-4 h-4 mr-2" />
+            View Details
           </>
         ) : (
           <>
             <Dumbbell className="w-4 h-4 mr-2" />
-            Mark Complete
+            Log Workout
           </>
         )}
       </Button>
+
+      <WorkoutLogModal
+        isOpen={showLogModal}
+        onClose={() => setShowLogModal(false)}
+        workout={workout}
+        user={user}
+      />
     </motion.div>
   );
 }
