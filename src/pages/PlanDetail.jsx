@@ -102,20 +102,59 @@ export default function PlanDetail() {
     });
   };
 
+  const calculateStreak = (completedDays, completionDates) => {
+    if (!completedDays || completedDays.length === 0) return { current: 0, longest: 0 };
+    
+    const sorted = [...completedDays].sort((a, b) => a - b);
+    let currentStreak = 1;
+    let longestStreak = 1;
+    let tempStreak = 1;
+    
+    for (let i = 1; i < sorted.length; i++) {
+      if (sorted[i] === sorted[i - 1] + 1) {
+        tempStreak++;
+        longestStreak = Math.max(longestStreak, tempStreak);
+      } else {
+        tempStreak = 1;
+      }
+    }
+    
+    currentStreak = tempStreak;
+    return { current: currentStreak, longest: longestStreak };
+  };
+
   const handleToggleDay = (day) => {
     if (!progress) return;
     
-    const completed = progress.completed_days || [];
-    const newCompleted = completed.includes(day)
-      ? completed.filter(d => d !== day)
-      : [...completed, day];
+    const completedDays = progress.completed_days || [];
+    const completionDates = progress.completion_dates || [];
+    const isCompleted = completedDays.includes(day);
     
+    const newCompletedDays = isCompleted
+      ? completedDays.filter(d => d !== day)
+      : [...completedDays, day].sort((a, b) => a - b);
+
+    const newCompletionDates = isCompleted
+      ? completionDates.slice(0, -1)
+      : [...completionDates, new Date().toISOString()];
+
+    const streaks = calculateStreak(newCompletedDays, newCompletionDates);
+    
+    const updateData = {
+      completed_days: newCompletedDays,
+      completion_dates: newCompletionDates,
+      current_streak: streaks.current,
+      longest_streak: Math.max(streaks.longest, progress.longest_streak || 0),
+      current_day: Math.max(...newCompletedDays, 1)
+    };
+
+    if (newCompletedDays.length === progress.total_days && !progress.completed_date) {
+      updateData.completed_date = new Date().toISOString().split('T')[0];
+    }
+
     updateProgress.mutate({
       id: progress.id,
-      data: {
-        completed_days: newCompleted,
-        current_day: Math.max(...newCompleted, 1)
-      }
+      data: updateData
     });
   };
 
@@ -215,7 +254,25 @@ export default function PlanDetail() {
             </div>
             <Progress value={progressPercent} className="h-2" />
             
-            <div className="flex gap-2 mt-4">
+            <div className="flex flex-wrap gap-2 mt-4">
+              <Button
+                onClick={() => setShowStatsModal(true)}
+                variant="outline"
+                size="sm"
+                className="flex items-center gap-1"
+              >
+                <BarChart3 className="w-4 h-4" />
+                Stats
+              </Button>
+              <Button
+                onClick={() => setShowReminderModal(true)}
+                variant="outline"
+                size="sm"
+                className="flex items-center gap-1"
+              >
+                <Bell className="w-4 h-4" />
+                Reminder
+              </Button>
               <Button
                 variant="outline"
                 size="sm"
