@@ -143,9 +143,6 @@ export default function Home() {
           <p className="text-gray-500 dark:text-gray-400">Welcome back, {user?.full_name?.split(' ')[0] || 'friend'}</p>
         </motion.div>
 
-        {/* Gamification Banner */}
-        <GamificationBanner />
-
         {/* Verse of the Day */}
         <div className="mb-6 relative">
           <VerseOfDay onBookmark={handleBookmarkVerse} />
