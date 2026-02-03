@@ -14,6 +14,9 @@ import MealTracker from '@/components/wellness/MealTracker';
 import WaterTracker from '@/components/wellness/WaterTracker';
 import MeditationGuide from '@/components/wellness/MeditationGuide';
 import { awardPoints, checkAndAwardBadges } from '@/components/gamification/ProgressManager';
+import AIMealPlanner from '@/components/wellness/AIMealPlanner';
+import CustomPrayerBuilder from '@/components/wellness/CustomPrayerBuilder';
+import ProgressCharts from '@/components/wellness/ProgressCharts';
 
 export default function Wellness() {
   const [user, setUser] = useState(null);
@@ -122,6 +125,7 @@ export default function Wellness() {
 
           {/* Tracker Tab */}
           <TabsContent value="tracker" className="space-y-4">
+            <ProgressCharts />
             <WaterTracker />
             <MealTracker />
           </TabsContent>
@@ -161,7 +165,8 @@ export default function Wellness() {
           </TabsContent>
 
           {/* Meditation Tab */}
-          <TabsContent value="meditation">
+          <TabsContent value="meditation" className="space-y-4">
+            <CustomPrayerBuilder />
             <MeditationGuide />
           </TabsContent>
 
