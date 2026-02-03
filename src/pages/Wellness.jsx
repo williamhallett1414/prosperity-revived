@@ -16,6 +16,7 @@ import WaterTracker from '@/components/wellness/WaterTracker';
 import MeditationGuide from '@/components/wellness/MeditationGuide';
 import RecipeCollections from '@/components/wellness/RecipeCollections';
 import CommunityRecipes from '@/components/wellness/CommunityRecipes';
+import PersonalizedNutritionPlan from '@/components/wellness/PersonalizedNutritionPlan';
 import { awardPoints, checkAndAwardBadges } from '@/components/gamification/ProgressManager';
 import AIMealPlanner from '@/components/wellness/AIMealPlanner';
 import CustomPrayerBuilder from '@/components/wellness/CustomPrayerBuilder';
@@ -243,6 +244,7 @@ export default function Wellness() {
 
           {/* Nutrition Tab */}
           <TabsContent value="nutrition" className="space-y-4">
+            <PersonalizedNutritionPlan />
             <AIMealPlanner />
             <NutritionAdvice />
           </TabsContent>
