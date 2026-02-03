@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Camera, BookOpen, CheckCircle, TrendingUp, Calendar, Edit2, Users, MessageCircle, Loader2, Settings } from 'lucide-react';
+import { ArrowLeft, Camera, BookOpen, CheckCircle, TrendingUp, Calendar, Edit2, Users, MessageCircle, Loader2, Settings, Trophy } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
@@ -226,7 +226,19 @@ export default function Profile() {
 
       {/* Friends Quick Actions */}
       <div className="px-4 mb-6">
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-3 gap-3">
+          <Link to={createPageUrl('Achievements')}>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="bg-gradient-to-br from-amber-500 to-orange-500 rounded-2xl p-4 shadow-sm hover:shadow-md transition-shadow text-white"
+            >
+              <Trophy className="w-5 h-5 mb-2" />
+              <p className="text-sm mb-1">Achievements</p>
+              <p className="text-lg font-bold">View</p>
+            </motion.div>
+          </Link>
+
           <Link to={createPageUrl('Friends')}>
             <motion.div
               initial={{ opacity: 0, y: 20 }}

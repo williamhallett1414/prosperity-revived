@@ -12,6 +12,7 @@ import { readingPlans } from '@/components/bible/BibleData';
 import DailyVerseSettings from '@/components/settings/DailyVerseSettings';
 import MoodBasedVerses from '@/components/home/MoodBasedVerses';
 import PersonalizedRecommendations from '@/components/home/PersonalizedRecommendations';
+import GamificationBanner from '@/components/gamification/GamificationBanner';
 
 export default function Home() {
   const [showDailyVerseSettings, setShowDailyVerseSettings] = useState(false);
@@ -102,6 +103,9 @@ export default function Home() {
           <h1 className="text-3xl font-bold text-[#1a1a2e] dark:text-white mb-1">Good Morning</h1>
           <p className="text-gray-500 dark:text-gray-400">Let's start the day with God's word</p>
         </motion.div>
+
+        {/* Gamification Banner */}
+        <GamificationBanner />
 
         {/* Personalized Recommendations */}
         <PersonalizedRecommendations 

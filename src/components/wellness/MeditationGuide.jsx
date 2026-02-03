@@ -1,14 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
 import { Play, Clock, CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { awardPoints, checkAndAwardBadges } from '@/components/gamification/ProgressManager';
 
 export default function MeditationGuide() {
   const [selectedMeditation, setSelectedMeditation] = useState(null);
+  const [user, setUser] = useState(null);
   const queryClient = useQueryClient();
+
+  useEffect(() => {
+    base44.auth.me().then(setUser);
+  }, []);
 
   const { data: meditations = [] } = useQuery({
     queryKey: ['meditations'],
@@ -16,11 +22,19 @@ export default function MeditationGuide() {
   });
 
   const completeMeditation = useMutation({
-    mutationFn: ({ id, meditation }) => {
+    mutationFn: async ({ id, meditation }) => {
       const dates = meditation.completed_dates || [];
       const today = new Date().toISOString().split('T')[0];
       if (!dates.includes(today)) {
         dates.push(today);
+        
+        // Award points and update progress
+        const allProgress = await base44.entities.UserProgress.list();
+        const userProgress = allProgress.find(p => p.created_by === user?.email);
+        const meditationCount = (userProgress?.meditations_completed || 0) + 1;
+        
+        await awardPoints(user?.email, 10, { meditations_completed: meditationCount });
+        await checkAndAwardBadges(user?.email);
       }
       return base44.entities.Meditation.update(id, { completed_dates: dates });
     },

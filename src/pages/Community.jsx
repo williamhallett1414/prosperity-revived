@@ -9,6 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import PostCard from '@/components/community/PostCard';
 import CreatePostModal from '@/components/community/CreatePostModal';
 import AISuggestions from '@/components/community/AISuggestions';
+import { awardPoints, checkAndAwardBadges } from '@/components/gamification/ProgressManager';
 
 export default function Community() {
   const [showCreatePost, setShowCreatePost] = useState(false);

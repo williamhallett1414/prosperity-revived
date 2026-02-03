@@ -13,6 +13,7 @@ import NutritionAdvice from '@/components/wellness/NutritionAdvice';
 import MealTracker from '@/components/wellness/MealTracker';
 import WaterTracker from '@/components/wellness/WaterTracker';
 import MeditationGuide from '@/components/wellness/MeditationGuide';
+import { awardPoints, checkAndAwardBadges } from '@/components/gamification/ProgressManager';
 
 export default function Wellness() {
   const [user, setUser] = useState(null);
@@ -35,11 +36,19 @@ export default function Wellness() {
   });
 
   const completeWorkout = useMutation({
-    mutationFn: ({ id, workout }) => {
+    mutationFn: async ({ id, workout }) => {
       const dates = workout.completed_dates || [];
       const today = new Date().toISOString().split('T')[0];
       if (!dates.includes(today)) {
         dates.push(today);
+        
+        // Award points and update progress
+        const allProgress = await base44.entities.UserProgress.list();
+        const userProgress = allProgress.find(p => p.created_by === user?.email);
+        const workoutCount = (userProgress?.workouts_completed || 0) + 1;
+        
+        await awardPoints(user?.email, 15, { workouts_completed: workoutCount });
+        await checkAndAwardBadges(user?.email);
       }
       return base44.entities.WorkoutPlan.update(id, { completed_dates: dates });
     },
