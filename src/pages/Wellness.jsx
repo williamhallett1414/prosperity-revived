@@ -18,11 +18,13 @@ import AIMealPlanner from '@/components/wellness/AIMealPlanner';
 import CustomPrayerBuilder from '@/components/wellness/CustomPrayerBuilder';
 import ProgressCharts from '@/components/wellness/ProgressCharts';
 import { PREMADE_WORKOUTS } from '@/components/wellness/WorkoutLibrary';
+import WorkoutProgressCharts from '@/components/wellness/WorkoutProgressCharts';
 
 export default function Wellness() {
   const [user, setUser] = useState(null);
   const [showCreateWorkout, setShowCreateWorkout] = useState(false);
   const [showCreateRecipe, setShowCreateRecipe] = useState(false);
+  const [showProgressCharts, setShowProgressCharts] = useState(false);
   const queryClient = useQueryClient();
 
   useEffect(() => {
@@ -134,13 +136,23 @@ export default function Wellness() {
 
           {/* Workouts Tab */}
           <TabsContent value="workouts" className="space-y-4">
-            <Button
-              onClick={() => setShowCreateWorkout(true)}
-              className="w-full bg-emerald-600 hover:bg-emerald-700 mb-4"
-            >
-              <Plus className="w-5 h-5 mr-2" />
-              Create Custom Workout
-            </Button>
+            <div className="grid grid-cols-2 gap-3">
+              <Button
+                onClick={() => setShowCreateWorkout(true)}
+                className="bg-emerald-600 hover:bg-emerald-700"
+              >
+                <Plus className="w-5 h-5 mr-2" />
+                Create Workout
+              </Button>
+              <Button
+                onClick={() => setShowProgressCharts(true)}
+                variant="outline"
+                className="border-emerald-600 text-emerald-600 hover:bg-emerald-50"
+              >
+                <TrendingUp className="w-5 h-5 mr-2" />
+                View Progress
+              </Button>
+            </div>
 
             {myWorkouts.length > 0 && (
               <div>
@@ -152,6 +164,7 @@ export default function Wellness() {
                       workout={workout}
                       onComplete={() => completeWorkout.mutate({ id: workout.id, workout })}
                       index={index}
+                      user={user}
                     />
                   ))}
                 </div>
@@ -168,6 +181,7 @@ export default function Wellness() {
                     onComplete={() => {}}
                     index={index}
                     isPremade
+                    user={user}
                   />
                 ))}
               </div>
@@ -220,6 +234,10 @@ export default function Wellness() {
       <CreateRecipeModal
         isOpen={showCreateRecipe}
         onClose={() => setShowCreateRecipe(false)}
+      />
+      <WorkoutProgressCharts
+        isOpen={showProgressCharts}
+        onClose={() => setShowProgressCharts(false)}
       />
     </div>
   );
