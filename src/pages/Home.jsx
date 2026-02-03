@@ -10,6 +10,7 @@ import VerseOfDay from '@/components/home/VerseOfDay';
 import ReadingPlanCard from '@/components/home/ReadingPlanCard';
 import { readingPlans } from '@/components/bible/BibleData';
 import DailyVerseSettings from '@/components/settings/DailyVerseSettings';
+import MoodBasedVerses from '@/components/home/MoodBasedVerses';
 
 export default function Home() {
   const [showDailyVerseSettings, setShowDailyVerseSettings] = useState(false);
@@ -72,6 +73,9 @@ export default function Home() {
             <Settings className="w-5 h-5" />
           </Button>
         </div>
+
+        {/* Mood-Based Verses */}
+        <MoodBasedVerses />
 
         {/* Quick Actions */}
         <div className="grid grid-cols-3 gap-3 mb-8">
