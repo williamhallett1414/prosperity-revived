@@ -3,7 +3,8 @@ import { motion } from 'framer-motion';
 import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { createPageUrl } from '@/utils';
-import { Search } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Search, ArrowLeft } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import ReadingPlanCard from '@/components/home/ReadingPlanCard';
@@ -40,8 +41,16 @@ export default function Plans() {
           animate={{ opacity: 1, y: 0 }}
           className="mb-6"
         >
-          <h1 className="text-2xl font-bold text-[#1a1a2e] mb-1">Reading Plans</h1>
-          <p className="text-gray-500">Discover plans to guide your study</p>
+          <div className="flex items-center gap-3 mb-2">
+            <Link
+              to={createPageUrl('Home')}
+              className="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center text-[#1a1a2e] hover:bg-gray-50 transition-colors"
+            >
+              <ArrowLeft className="w-5 h-5" />
+            </Link>
+            <h1 className="text-2xl font-bold text-[#1a1a2e]">Reading Plans</h1>
+          </div>
+          <p className="text-gray-500 ml-[52px]">Discover plans to guide your study</p>
         </motion.div>
 
         {/* Search */}

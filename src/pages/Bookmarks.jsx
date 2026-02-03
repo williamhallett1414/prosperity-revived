@@ -3,7 +3,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { createPageUrl } from '@/utils';
-import { Bookmark, Filter, Trash2 } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Bookmark, Filter, Trash2, ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -47,8 +48,16 @@ export default function Bookmarks() {
           className="flex items-center justify-between mb-6"
         >
           <div>
-            <h1 className="text-2xl font-bold text-[#1a1a2e] mb-1">Saved Verses</h1>
-            <p className="text-gray-500">{bookmarks.length} verses saved</p>
+            <div className="flex items-center gap-3 mb-2">
+              <Link
+                to={createPageUrl('Home')}
+                className="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center text-[#1a1a2e] hover:bg-gray-50 transition-colors"
+              >
+                <ArrowLeft className="w-5 h-5" />
+              </Link>
+              <h1 className="text-2xl font-bold text-[#1a1a2e]">Saved Verses</h1>
+            </div>
+            <p className="text-gray-500 ml-[52px]">{bookmarks.length} verses saved</p>
           </div>
           
           <DropdownMenu>
