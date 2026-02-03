@@ -56,6 +56,7 @@ import Home from './pages/Home';
 import PlanDetail from './pages/PlanDetail';
 import Plans from './pages/Plans';
 import Search from './pages/Search';
+import Profile from './pages/Profile';
 import __Layout from './Layout.jsx';
 
 
@@ -69,6 +70,7 @@ export const PAGES = {
     "PlanDetail": PlanDetail,
     "Plans": Plans,
     "Search": Search,
+    "Profile": Profile,
 }
 
 export const pagesConfig = {
