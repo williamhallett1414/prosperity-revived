@@ -7,6 +7,8 @@ import { format } from 'date-fns';
 import { createPageUrl } from '@/utils';
 import { base44 } from '@/api/base44Client';
 import { useQueryClient, useMutation, useQuery } from '@tanstack/react-query';
+import ContentModeration from '@/components/community/ContentModeration';
+import PostSummary from '@/components/community/PostSummary';
 
 export default function PostCard({ post, comments = [], onLike, onComment, index }) {
   const [showComments, setShowComments] = useState(false);
@@ -92,6 +94,9 @@ export default function PostCard({ post, comments = [], onLike, onComment, index
       transition={{ delay: index * 0.05 }}
       className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100"
     >
+      {/* Content Moderation */}
+      <ContentModeration content={post.content} />
+
       {/* Header */}
       <div className="flex items-center gap-3 mb-3">
         <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#1a1a2e] to-[#c9a227] flex items-center justify-center text-white font-semibold">
@@ -138,6 +143,9 @@ export default function PostCard({ post, comments = [], onLike, onComment, index
 
       {/* Content */}
       <p className="text-gray-700 mb-4 leading-relaxed whitespace-pre-wrap">{post.content}</p>
+
+      {/* AI Summary */}
+      <PostSummary content={post.content} comments={postComments} />
 
       {/* Actions */}
       <div className="flex items-center gap-4 pt-3 border-t border-gray-100">

@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import PostCard from '@/components/community/PostCard';
 import CreatePostModal from '@/components/community/CreatePostModal';
+import AISuggestions from '@/components/community/AISuggestions';
 
 export default function Community() {
   const [showCreatePost, setShowCreatePost] = useState(false);
@@ -25,6 +26,11 @@ export default function Community() {
   const { data: comments = [] } = useQuery({
     queryKey: ['comments'],
     queryFn: () => base44.entities.Comment.list('-created_date', 200)
+  });
+
+  const { data: planProgress = [] } = useQuery({
+    queryKey: ['planProgress'],
+    queryFn: () => base44.entities.ReadingPlanProgress.list()
   });
 
   const createPost = useMutation({
@@ -75,6 +81,9 @@ export default function Community() {
           <h1 className="text-2xl font-bold text-[#1a1a2e] mb-1">Community</h1>
           <p className="text-gray-500">Share insights and connect with others</p>
         </motion.div>
+
+        {/* AI Suggestions */}
+        <AISuggestions userPlans={planProgress} />
 
         {/* Create Post Button */}
         <Button
