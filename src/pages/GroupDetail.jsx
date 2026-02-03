@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import PostCard from '@/components/community/PostCard';
 import CreatePostModal from '@/components/community/CreatePostModal';
+import MemberManagement from '@/components/groups/MemberManagement';
 
 export default function GroupDetail() {
   const params = new URLSearchParams(window.location.search);
@@ -101,6 +102,7 @@ export default function GroupDetail() {
   }
 
   const isMember = user && memberships.some(m => m.user_email === user.email);
+  const isAdmin = user && memberships.some(m => m.user_email === user.email && m.role === 'admin');
 
   const handleLike = (postId, isLiked) => {
     const post = posts.find(p => p.id === postId);
@@ -152,8 +154,8 @@ export default function GroupDetail() {
       <div className="max-w-2xl mx-auto px-4 py-6">
         {/* Group Info */}
         <div className="bg-white rounded-2xl p-4 shadow-sm mb-6">
-          <p className="text-gray-700 mb-3">{group.description}</p>
-          <div className="flex items-center justify-between">
+          <p className="text-gray-700 mb-4">{group.description}</p>
+          <div className="space-y-3">
             <div className="flex items-center gap-2 text-sm text-gray-500">
               <Users className="w-4 h-4" />
               <span>{group.member_count} members</span>
@@ -162,11 +164,15 @@ export default function GroupDetail() {
             {!isMember && user && (
               <Button
                 onClick={() => joinGroup.mutate()}
-                className="bg-[#1a1a2e] hover:bg-[#2d2d4a]"
+                className="w-full bg-[#1a1a2e] hover:bg-[#2d2d4a]"
               >
                 <UserPlus className="w-4 h-4 mr-2" />
                 Join Group
               </Button>
+            )}
+
+            {isMember && (
+              <MemberManagement groupId={groupId} isAdmin={isAdmin} />
             )}
           </div>
         </div>

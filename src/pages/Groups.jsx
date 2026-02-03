@@ -148,20 +148,24 @@ export default function Groups() {
           </TabsContent>
 
           <TabsContent value="discover" className="mt-6">
-            <div className="grid gap-4 md:grid-cols-2">
-              {filteredGroups(publicGroups).map((group, index) => (
-                <GroupCard
-                  key={group.id}
-                  group={group}
-                  onClick={() => window.location.href = createPageUrl(`GroupDetail?id=${group.id}`)}
-                  index={index}
-                  isMember={false}
-                />
-              ))}
-            </div>
-            {filteredGroups(publicGroups).length === 0 && (
+            {filteredGroups(publicGroups).length === 0 ? (
               <div className="text-center py-16">
-                <p className="text-gray-500">No public groups found</p>
+                <p className="text-gray-500 mb-2">No public groups found</p>
+                {search && (
+                  <p className="text-sm text-gray-400">Try a different search term</p>
+                )}
+              </div>
+            ) : (
+              <div className="grid gap-4 md:grid-cols-2">
+                {filteredGroups(publicGroups).map((group, index) => (
+                  <GroupCard
+                    key={group.id}
+                    group={group}
+                    onClick={() => window.location.href = createPageUrl(`GroupDetail?id=${group.id}`)}
+                    index={index}
+                    isMember={false}
+                  />
+                ))}
               </div>
             )}
           </TabsContent>
