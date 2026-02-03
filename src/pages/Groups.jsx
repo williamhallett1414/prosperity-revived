@@ -3,7 +3,8 @@ import { motion } from 'framer-motion';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { createPageUrl } from '@/utils';
-import { Plus, Search } from 'lucide-react';
+import { Plus, Search, ArrowLeft } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -83,7 +84,7 @@ export default function Groups() {
   };
 
   return (
-    <div className="min-h-screen bg-[#faf8f5] pb-24">
+    <div className="min-h-screen bg-[#faf8f5] dark:bg-[#1a1a2e] pb-24">
       <div className="max-w-2xl mx-auto px-4 py-6">
         {/* Header */}
         <motion.div
@@ -91,8 +92,16 @@ export default function Groups() {
           animate={{ opacity: 1, y: 0 }}
           className="mb-6"
         >
-          <h1 className="text-2xl font-bold text-[#1a1a2e] mb-1">Study Groups</h1>
-          <p className="text-gray-500">Join or create groups to study together</p>
+          <div className="flex items-center gap-3 mb-2">
+            <Link
+              to={createPageUrl('Home')}
+              className="w-10 h-10 rounded-full bg-white dark:bg-[#2d2d4a] shadow-sm flex items-center justify-center text-[#1a1a2e] dark:text-white hover:bg-gray-50 dark:hover:bg-[#3d3d5a] transition-colors"
+            >
+              <ArrowLeft className="w-5 h-5" />
+            </Link>
+            <h1 className="text-2xl font-bold text-[#1a1a2e] dark:text-white">Study Groups</h1>
+          </div>
+          <p className="text-gray-500 dark:text-gray-400 ml-[52px]">Join or create groups to study together</p>
         </motion.div>
 
         {/* Search & Create */}
@@ -103,12 +112,12 @@ export default function Groups() {
               placeholder="Search groups..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="pl-10 bg-white rounded-xl h-12"
+              className="pl-10 bg-white dark:bg-[#2d2d4a] border-gray-200 dark:border-gray-700 rounded-xl h-12"
             />
           </div>
           <Button
             onClick={() => setShowCreate(true)}
-            className="bg-[#1a1a2e] hover:bg-[#2d2d4a] h-12 px-6"
+            className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 h-12 px-6 shadow-md"
           >
             <Plus className="w-5 h-5" />
           </Button>
@@ -116,7 +125,7 @@ export default function Groups() {
 
         {/* Tabs */}
         <Tabs defaultValue="my" className="mb-6">
-          <TabsList className="grid grid-cols-2 bg-white p-1">
+          <TabsList className="grid grid-cols-2 bg-white dark:bg-[#2d2d4a] p-1 rounded-xl">
             <TabsTrigger value="my">My Groups</TabsTrigger>
             <TabsTrigger value="discover">Discover</TabsTrigger>
           </TabsList>

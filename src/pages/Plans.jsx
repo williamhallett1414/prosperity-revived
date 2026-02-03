@@ -77,7 +77,7 @@ export default function Plans() {
   });
 
   return (
-    <div className="min-h-screen bg-[#faf8f5] pb-24">
+    <div className="min-h-screen bg-[#faf8f5] dark:bg-[#1a1a2e] pb-24">
       <div className="max-w-2xl mx-auto px-4 py-6">
         {/* Header */}
         <motion.div
@@ -88,13 +88,13 @@ export default function Plans() {
           <div className="flex items-center gap-3 mb-2">
             <Link
               to={createPageUrl('Home')}
-              className="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center text-[#1a1a2e] hover:bg-gray-50 transition-colors"
+              className="w-10 h-10 rounded-full bg-white dark:bg-[#2d2d4a] shadow-sm flex items-center justify-center text-[#1a1a2e] dark:text-white hover:bg-gray-50 dark:hover:bg-[#3d3d5a] transition-colors"
             >
               <ArrowLeft className="w-5 h-5" />
             </Link>
-            <h1 className="text-2xl font-bold text-[#1a1a2e]">Reading Plans</h1>
+            <h1 className="text-2xl font-bold text-[#1a1a2e] dark:text-white">Reading Plans</h1>
           </div>
-          <p className="text-gray-500 ml-[52px]">Discover plans to guide your study</p>
+          <p className="text-gray-500 dark:text-gray-400 ml-[52px]">Discover plans to guide your study</p>
         </motion.div>
 
         {/* Search & Create */}
@@ -105,26 +105,26 @@ export default function Plans() {
               placeholder="Search plans..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="pl-10 bg-white border-gray-200 rounded-xl h-12"
+              className="pl-10 bg-white dark:bg-[#2d2d4a] border-gray-200 dark:border-gray-700 rounded-xl h-12"
             />
           </div>
           <Button
             onClick={() => setShowCreateCustom(true)}
-            className="bg-[#c9a227] hover:bg-[#b8922a] h-12 px-4"
+            className="bg-[#c9a227] hover:bg-[#b8922a] h-12 px-4 shadow-md"
           >
-            <Plus className="w-5 h-5 mr-2" />
-            Custom Plan
+            <Plus className="w-5 h-5 sm:mr-2" />
+            <span className="hidden sm:inline">Custom</span>
           </Button>
         </div>
 
         {/* Categories */}
         <Tabs value={category} onValueChange={setCategory} className="mb-6">
-          <TabsList className="bg-white p-1 h-auto flex-wrap gap-1">
+          <TabsList className="bg-white dark:bg-[#2d2d4a] p-1 h-auto flex-wrap gap-1 rounded-xl">
             {categories.map(cat => (
               <TabsTrigger
                 key={cat}
                 value={cat}
-                className="rounded-lg capitalize data-[state=active]:bg-[#1a1a2e] data-[state=active]:text-white"
+                className="rounded-lg capitalize text-xs sm:text-sm data-[state=active]:bg-[#1a1a2e] dark:data-[state=active]:bg-[#c9a227] data-[state=active]:text-white"
               >
                 {cat}
               </TabsTrigger>

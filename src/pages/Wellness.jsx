@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
-import { Dumbbell, UtensilsCrossed, Heart, Plus, TrendingUp, Droplets } from 'lucide-react';
+import { Dumbbell, UtensilsCrossed, Heart, Plus, TrendingUp, Droplets, ArrowLeft } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
+import { Link } from 'react-router-dom';
+import { createPageUrl } from '@/utils';
 import WorkoutCard from '@/components/wellness/WorkoutCard';
 import RecipeCard from '@/components/wellness/RecipeCard';
 import RecipeFilters from '@/components/wellness/RecipeFilters';
@@ -126,6 +128,12 @@ export default function Wellness() {
     <div className="min-h-screen bg-[#faf8f5] dark:bg-[#1a1a2e] pb-24">
       {/* Header */}
       <div className="bg-gradient-to-br from-emerald-600 to-teal-700 text-white px-4 py-6">
+        <Link
+          to={createPageUrl('Home')}
+          className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center mb-4 inline-flex"
+        >
+          <ArrowLeft className="w-5 h-5" />
+        </Link>
         <h1 className="text-2xl font-bold mb-2">Health & Wellness</h1>
         <p className="text-white/80 text-sm">Nourish your body, strengthen your spirit</p>
       </div>
@@ -169,14 +177,11 @@ export default function Wellness() {
 
       <div className="px-4">
         <Tabs defaultValue="tracker" className="w-full">
-          <TabsList className="grid w-full grid-cols-7 mb-6 text-xs overflow-x-auto">
-            <TabsTrigger value="tracker">Track</TabsTrigger>
-            <TabsTrigger value="workouts">Workouts</TabsTrigger>
-            <TabsTrigger value="nutrition">Nutrition</TabsTrigger>
-            <TabsTrigger value="recipes">Recipes</TabsTrigger>
-            <TabsTrigger value="collections">Collections</TabsTrigger>
-            <TabsTrigger value="community">Community</TabsTrigger>
-            <TabsTrigger value="meditation">Mindful</TabsTrigger>
+          <TabsList className="grid w-full grid-cols-4 mb-6 bg-white/50 backdrop-blur-sm p-1 rounded-xl">
+            <TabsTrigger value="tracker" className="text-xs sm:text-sm">Track</TabsTrigger>
+            <TabsTrigger value="workouts" className="text-xs sm:text-sm">Workouts</TabsTrigger>
+            <TabsTrigger value="nutrition" className="text-xs sm:text-sm">Nutrition</TabsTrigger>
+            <TabsTrigger value="recipes" className="text-xs sm:text-sm">Recipes</TabsTrigger>
           </TabsList>
 
           {/* Tracker Tab */}
@@ -247,12 +252,12 @@ export default function Wellness() {
             <PersonalizedNutritionPlan />
             <AIMealPlanner />
             <NutritionAdvice />
-          </TabsContent>
-
-          {/* Meditation Tab */}
-          <TabsContent value="meditation" className="space-y-4">
-            <CustomPrayerBuilder />
-            <MeditationGuide />
+            
+            <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+              <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">Mindfulness</h3>
+              <CustomPrayerBuilder />
+              <MeditationGuide />
+            </div>
           </TabsContent>
 
           {/* Recipes Tab */}
@@ -316,15 +321,16 @@ export default function Wellness() {
             )}
           </TabsContent>
 
-          {/* Collections Tab */}
-          <TabsContent value="collections" className="space-y-4">
-            <RecipeCollections allRecipes={recipes} />
-          </TabsContent>
-
-          {/* Community Tab */}
-          <TabsContent value="community" className="space-y-4">
-            <CommunityRecipes />
-          </TabsContent>
+            {/* Collections and Community within Recipes */}
+            <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+              <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">Collections</h3>
+              <RecipeCollections allRecipes={recipes} />
+            </div>
+            
+            <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+              <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">Community Recipes</h3>
+              <CommunityRecipes />
+            </div>
         </Tabs>
       </div>
 

@@ -117,7 +117,7 @@ export default function Achievements() {
 
       <div className="px-4">
         <Tabs defaultValue="badges" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 mb-6">
+          <TabsList className="grid w-full grid-cols-2 mb-6 bg-white/50 dark:bg-[#2d2d4a]/50 backdrop-blur-sm p-1 rounded-xl">
             <TabsTrigger value="badges">Badges</TabsTrigger>
             <TabsTrigger value="leaderboard">Leaderboard</TabsTrigger>
           </TabsList>
