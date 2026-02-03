@@ -1,15 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { createPageUrl } from '@/utils';
-import { BookOpen, Compass, TrendingUp } from 'lucide-react';
+import { BookOpen, Compass, TrendingUp, Settings } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 import VerseOfDay from '@/components/home/VerseOfDay';
 import ReadingPlanCard from '@/components/home/ReadingPlanCard';
 import { readingPlans } from '@/components/bible/BibleData';
+import DailyVerseSettings from '@/components/settings/DailyVerseSettings';
 
 export default function Home() {
+  const [showDailyVerseSettings, setShowDailyVerseSettings] = useState(false);
   const queryClient = useQueryClient();
 
   const { data: bookmarks = [] } = useQuery({
@@ -58,8 +61,16 @@ export default function Home() {
         </motion.div>
 
         {/* Verse of the Day */}
-        <div className="mb-8">
+        <div className="mb-8 relative">
           <VerseOfDay onBookmark={handleBookmarkVerse} />
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => setShowDailyVerseSettings(true)}
+            className="absolute top-4 right-4 text-gray-400 hover:text-[#c9a227]"
+          >
+            <Settings className="w-5 h-5" />
+          </Button>
         </div>
 
         {/* Quick Actions */}
@@ -145,6 +156,12 @@ export default function Home() {
           </div>
         </div>
       </div>
+
+      {/* Daily Verse Settings Modal */}
+      <DailyVerseSettings
+        isOpen={showDailyVerseSettings}
+        onClose={() => setShowDailyVerseSettings(false)}
+      />
     </div>
   );
 }
