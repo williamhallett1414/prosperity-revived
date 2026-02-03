@@ -16,7 +16,7 @@ export default function Layout({ children, currentPageName }) {
   const hideNav = currentPageName === 'PlanDetail' || currentPageName === 'GroupDetail' || currentPageName === 'Bible' || currentPageName === 'Search' || currentPageName === 'Plans' || currentPageName === 'Bookmarks' || currentPageName === 'Profile';
 
   return (
-    <div className="min-h-screen bg-[#faf8f5]">
+    <div className="min-h-screen bg-[#faf8f5] dark:bg-[#1a1a2e]">
       <style>{`
         :root {
           --color-primary: #1a1a2e;

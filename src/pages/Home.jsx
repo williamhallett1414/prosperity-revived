@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
@@ -11,10 +11,16 @@ import ReadingPlanCard from '@/components/home/ReadingPlanCard';
 import { readingPlans } from '@/components/bible/BibleData';
 import DailyVerseSettings from '@/components/settings/DailyVerseSettings';
 import MoodBasedVerses from '@/components/home/MoodBasedVerses';
+import PersonalizedRecommendations from '@/components/home/PersonalizedRecommendations';
 
 export default function Home() {
   const [showDailyVerseSettings, setShowDailyVerseSettings] = useState(false);
+  const [user, setUser] = useState(null);
   const queryClient = useQueryClient();
+
+  useEffect(() => {
+    base44.auth.me().then(setUser);
+  }, []);
 
   const { data: bookmarks = [] } = useQuery({
     queryKey: ['bookmarks'],
@@ -71,8 +77,21 @@ export default function Home() {
   const activePlans = readingPlans.filter(plan => getProgressForPlan(plan.id));
   const suggestedPlans = readingPlans.filter(plan => !getProgressForPlan(plan.id)).slice(0, 3);
 
+  useEffect(() => {
+    if (user?.theme) {
+      const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const isDark = user.theme === 'dark' || (user.theme === 'auto' && systemDark);
+      
+      if (isDark) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    }
+  }, [user?.theme]);
+
   return (
-    <div className="min-h-screen bg-[#faf8f5]">
+    <div className="min-h-screen bg-[#faf8f5] dark:bg-[#1a1a2e]">
       <div className="max-w-2xl mx-auto px-4 py-6 pb-24">
         {/* Header */}
         <motion.div
@@ -80,9 +99,18 @@ export default function Home() {
           animate={{ opacity: 1, y: 0 }}
           className="mb-8"
         >
-          <h1 className="text-3xl font-bold text-[#1a1a2e] mb-1">Good Morning</h1>
-          <p className="text-gray-500">Let's start the day with God's word</p>
+          <h1 className="text-3xl font-bold text-[#1a1a2e] dark:text-white mb-1">Good Morning</h1>
+          <p className="text-gray-500 dark:text-gray-400">Let's start the day with God's word</p>
         </motion.div>
+
+        {/* Personalized Recommendations */}
+        <PersonalizedRecommendations 
+          progress={planProgress}
+          posts={posts}
+          groups={groups}
+          memberships={memberships}
+          allGroups={groups}
+        />
 
         {/* Verse of the Day */}
         <div className="mb-8 relative">
@@ -159,7 +187,7 @@ export default function Home() {
         {activePlans.length > 0 && (
           <div className="mb-8">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-semibold text-[#1a1a2e]">Continue Reading</h2>
+              <h2 className="text-lg font-semibold text-[#1a1a2e] dark:text-white">Continue Reading</h2>
             </div>
             <div className="space-y-3">
               {activePlans.map((plan, index) => (
@@ -178,7 +206,7 @@ export default function Home() {
         {/* Suggested Plans */}
         <div>
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-semibold text-[#1a1a2e]">Suggested Plans</h2>
+            <h2 className="text-lg font-semibold text-[#1a1a2e] dark:text-white">Suggested Plans</h2>
             <Link to={createPageUrl('Plans')} className="text-sm text-[#c9a227] font-medium">
               View All
             </Link>
