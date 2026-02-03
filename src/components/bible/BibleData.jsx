@@ -133,6 +133,422 @@ export const readingPlans = [
     duration: 14,
     category: "Devotional",
     image: "https://images.unsplash.com/photo-1473172707857-f9e276582ab6?w=400"
+  },
+  {
+    id: "overcoming-anxiety",
+    name: "Overcoming Anxiety",
+    description: "Find peace in God's promises during anxious times",
+    duration: 7,
+    category: "Life Situation",
+    image: "https://images.unsplash.com/photo-1499209974431-9dddcece7f88?w=400"
+  },
+  {
+    id: "grief-comfort",
+    name: "Comfort in Grief",
+    description: "Healing words for those who are mourning",
+    duration: 14,
+    category: "Life Situation",
+    image: "https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?w=400"
+  },
+  {
+    id: "marriage-strength",
+    name: "Strengthening Marriage",
+    description: "Biblical wisdom for a thriving marriage",
+    duration: 21,
+    category: "Relationships",
+    image: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=400"
+  },
+  {
+    id: "parenting-wisdom",
+    name: "Parenting with Grace",
+    description: "Guidance for raising children in faith",
+    duration: 30,
+    category: "Relationships",
+    image: "https://images.unsplash.com/photo-1476703993599-0035a21b17a9?w=400"
+  },
+  {
+    id: "career-guidance",
+    name: "Career & Purpose",
+    description: "Finding God's direction in your work",
+    duration: 10,
+    category: "Life Situation",
+    image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400"
+  },
+  {
+    id: "loneliness-hope",
+    name: "Hope in Loneliness",
+    description: "You are never alone with God",
+    duration: 7,
+    category: "Life Situation",
+    image: "https://images.unsplash.com/photo-1516733968668-dbdce39c4651?w=400"
+  },
+  {
+    id: "doubt-faith",
+    name: "When Doubts Arise",
+    description: "Strengthening faith through questions",
+    duration: 10,
+    category: "Spiritual Growth",
+    image: "https://images.unsplash.com/photo-1484417894907-623942c8ee29?w=400"
+  },
+  {
+    id: "financial-peace",
+    name: "Financial Peace",
+    description: "Biblical principles for money management",
+    duration: 14,
+    category: "Life Situation",
+    image: "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=400"
+  },
+  {
+    id: "forgiveness-healing",
+    name: "Path to Forgiveness",
+    description: "Experiencing freedom through forgiveness",
+    duration: 7,
+    category: "Spiritual Growth",
+    image: "https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?w=400"
+  },
+  {
+    id: "addiction-freedom",
+    name: "Breaking Free",
+    description: "Finding strength to overcome addictions",
+    duration: 21,
+    category: "Life Situation",
+    image: "https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?w=400"
+  },
+  {
+    id: "new-believer",
+    name: "New Believer Basics",
+    description: "Essential teachings for new Christians",
+    duration: 30,
+    category: "Spiritual Growth",
+    image: "https://images.unsplash.com/photo-1509021436665-8f07dbf5bf1d?w=400"
+  },
+  {
+    id: "family-conflict",
+    name: "Healing Family Relationships",
+    description: "Restoration and peace in family dynamics",
+    duration: 14,
+    category: "Relationships",
+    image: "https://images.unsplash.com/photo-1511895426328-dc8714191300?w=400"
+  },
+  {
+    id: "gratitude-journey",
+    name: "Cultivating Gratitude",
+    description: "30 days of thankfulness and praise",
+    duration: 30,
+    category: "Devotional",
+    image: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=400"
+  },
+  {
+    id: "spiritual-warfare",
+    name: "Spiritual Warfare",
+    description: "Standing firm against spiritual battles",
+    duration: 14,
+    category: "Spiritual Growth",
+    image: "https://images.unsplash.com/photo-1464207687429-7505649dae38?w=400"
+  },
+  {
+    id: "identity-christ",
+    name: "Identity in Christ",
+    description: "Discovering who you are in God",
+    duration: 21,
+    category: "Spiritual Growth",
+    image: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=400"
+  },
+  {
+    id: "depression-light",
+    name: "Light in Depression",
+    description: "Finding hope in the darkest seasons",
+    duration: 14,
+    category: "Life Situation",
+    image: "https://images.unsplash.com/photo-1534430480872-3498386e7856?w=400"
+  },
+  {
+    id: "divorce-healing",
+    name: "Healing After Divorce",
+    description: "God's comfort through separation",
+    duration: 21,
+    category: "Life Situation",
+    image: "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=400"
+  },
+  {
+    id: "teen-faith",
+    name: "Faith for Teens",
+    description: "Building strong faith during youth",
+    duration: 14,
+    category: "Life Stage",
+    image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400"
+  },
+  {
+    id: "college-life",
+    name: "Faith in College",
+    description: "Navigating faith in university life",
+    duration: 21,
+    category: "Life Stage",
+    image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=400"
+  },
+  {
+    id: "retirement-purpose",
+    name: "Purpose in Retirement",
+    description: "Finding new meaning in later seasons",
+    duration: 14,
+    category: "Life Stage",
+    image: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=400"
+  },
+  {
+    id: "health-struggle",
+    name: "Faith Through Illness",
+    description: "God's presence in health challenges",
+    duration: 14,
+    category: "Life Situation",
+    image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=400"
+  },
+  {
+    id: "workplace-witness",
+    name: "Workplace Witness",
+    description: "Living faith at work",
+    duration: 10,
+    category: "Life Situation",
+    image: "https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?w=400"
+  },
+  {
+    id: "church-conflict",
+    name: "Unity in the Church",
+    description: "Navigating church relationships",
+    duration: 7,
+    category: "Relationships",
+    image: "https://images.unsplash.com/photo-1438232992991-995b7058bbb3?w=400"
+  },
+  {
+    id: "temptation-victory",
+    name: "Overcoming Temptation",
+    description: "Strategies for resisting sin",
+    duration: 10,
+    category: "Spiritual Growth",
+    image: "https://images.unsplash.com/photo-1532635241-17e820acc59f?w=400"
+  },
+  {
+    id: "missions-calling",
+    name: "Missions & Calling",
+    description: "Understanding your missionary purpose",
+    duration: 14,
+    category: "Spiritual Growth",
+    image: "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=400"
+  },
+  {
+    id: "single-contentment",
+    name: "Contentment in Singleness",
+    description: "Thriving as a single believer",
+    duration: 14,
+    category: "Life Situation",
+    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400"
+  },
+  {
+    id: "dating-purity",
+    name: "Dating with Purity",
+    description: "Biblical approach to relationships",
+    duration: 10,
+    category: "Relationships",
+    image: "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=400"
+  },
+  {
+    id: "new-parent",
+    name: "New Parent's Guide",
+    description: "Faith foundations for new parents",
+    duration: 14,
+    category: "Life Stage",
+    image: "https://images.unsplash.com/photo-1519689680058-324335c77eba?w=400"
+  },
+  {
+    id: "empty-nest",
+    name: "Empty Nest Season",
+    description: "Embracing the next chapter",
+    duration: 10,
+    category: "Life Stage",
+    image: "https://images.unsplash.com/photo-1521791136064-7986c2920216?w=400"
+  },
+  {
+    id: "leadership-servant",
+    name: "Servant Leadership",
+    description: "Leading like Jesus",
+    duration: 21,
+    category: "Spiritual Growth",
+    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=400"
+  },
+  {
+    id: "fear-courage",
+    name: "From Fear to Courage",
+    description: "Conquering fears with faith",
+    duration: 7,
+    category: "Life Situation",
+    image: "https://images.unsplash.com/photo-1544027993-37dbfe43562a?w=400"
+  },
+  {
+    id: "new-city",
+    name: "New City, New Start",
+    description: "Finding community in transition",
+    duration: 7,
+    category: "Life Situation",
+    image: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=400"
+  },
+  {
+    id: "job-loss",
+    name: "Hope in Unemployment",
+    description: "Trusting God through job loss",
+    duration: 14,
+    category: "Life Situation",
+    image: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400"
+  },
+  {
+    id: "holy-spirit",
+    name: "Life in the Spirit",
+    description: "Understanding the Holy Spirit's work",
+    duration: 14,
+    category: "Spiritual Growth",
+    image: "https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?w=400"
+  },
+  {
+    id: "worship-lifestyle",
+    name: "Lifestyle of Worship",
+    description: "Making every day an act of worship",
+    duration: 21,
+    category: "Devotional",
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400"
+  },
+  {
+    id: "patience-waiting",
+    name: "Patience in Waiting",
+    description: "Trusting God's timing",
+    duration: 10,
+    category: "Life Situation",
+    image: "https://images.unsplash.com/photo-1495364141860-b0d03eccd065?w=400"
+  },
+  {
+    id: "social-media",
+    name: "Social Media & Faith",
+    description: "Digital life with godly wisdom",
+    duration: 7,
+    category: "Life Situation",
+    image: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=400"
+  },
+  {
+    id: "evangelism-boldness",
+    name: "Bold Evangelism",
+    description: "Sharing your faith with confidence",
+    duration: 14,
+    category: "Spiritual Growth",
+    image: "https://images.unsplash.com/photo-1504805572947-34fad45aed93?w=400"
+  },
+  {
+    id: "sexual-purity",
+    name: "Journey to Purity",
+    description: "God's design for sexuality",
+    duration: 14,
+    category: "Spiritual Growth",
+    image: "https://images.unsplash.com/photo-1529070538774-1843cb3265df?w=400"
+  },
+  {
+    id: "difficult-people",
+    name: "Loving Difficult People",
+    description: "Grace for challenging relationships",
+    duration: 10,
+    category: "Relationships",
+    image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=400"
+  },
+  {
+    id: "spiritual-disciplines",
+    name: "Spiritual Disciplines",
+    description: "Building habits that transform",
+    duration: 30,
+    category: "Spiritual Growth",
+    image: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=400"
+  },
+  {
+    id: "seasons-change",
+    name: "Navigating Change",
+    description: "Stability in life's transitions",
+    duration: 10,
+    category: "Life Situation",
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400"
+  },
+  {
+    id: "small-group",
+    name: "Small Group Life",
+    description: "Growing together in community",
+    duration: 14,
+    category: "Relationships",
+    image: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=400"
+  },
+  {
+    id: "chronic-pain",
+    name: "Faith Through Pain",
+    description: "Finding God in chronic suffering",
+    duration: 14,
+    category: "Life Situation",
+    image: "https://images.unsplash.com/photo-1584036561566-baf8f5f1b144?w=400"
+  },
+  {
+    id: "joy-restoration",
+    name: "Restoring Joy",
+    description: "Rediscovering delight in God",
+    duration: 21,
+    category: "Devotional",
+    image: "https://images.unsplash.com/photo-1517849845537-4d257902454a?w=400"
+  },
+  {
+    id: "biblical-manhood",
+    name: "Biblical Manhood",
+    description: "What it means to be a godly man",
+    duration: 21,
+    category: "Life Stage",
+    image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400"
+  },
+  {
+    id: "biblical-womanhood",
+    name: "Biblical Womanhood",
+    description: "Embracing godly femininity",
+    duration: 21,
+    category: "Life Stage",
+    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400"
+  },
+  {
+    id: "prophets-voices",
+    name: "Voices of the Prophets",
+    description: "Major prophets and their messages",
+    duration: 30,
+    category: "Complete Bible",
+    image: "https://images.unsplash.com/photo-1519074069444-1ba4fff66d16?w=400"
+  },
+  {
+    id: "acts-church",
+    name: "Birth of the Church",
+    description: "Journey through Acts",
+    duration: 28,
+    category: "Complete Bible",
+    image: "https://images.unsplash.com/photo-1478860409698-8707f313ee8b?w=400"
+  },
+  {
+    id: "pauls-letters",
+    name: "Paul's Letters",
+    description: "Wisdom from the apostle Paul",
+    duration: 40,
+    category: "Complete Bible",
+    image: "https://images.unsplash.com/photo-1516414447565-b14be0adf13e?w=400"
+  },
+  {
+    id: "christmas-advent",
+    name: "Advent Devotional",
+    description: "25 days preparing for Christmas",
+    duration: 25,
+    category: "Seasonal",
+    image: "https://images.unsplash.com/photo-1512389142860-9c449e58a543?w=400"
+  },
+  {
+    id: "easter-resurrection",
+    name: "Easter Journey",
+    description: "40 days from Lent to Resurrection",
+    duration: 40,
+    category: "Seasonal",
+    image: "https://images.unsplash.com/photo-1492539438225-2666b2a98f93?w=400"
   }
 ];
 
