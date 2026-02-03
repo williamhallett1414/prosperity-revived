@@ -7,6 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import WorkoutCard from '@/components/wellness/WorkoutCard';
 import RecipeCard from '@/components/wellness/RecipeCard';
+import RecipeFilters from '@/components/wellness/RecipeFilters';
 import CreateWorkoutModal from '@/components/wellness/CreateWorkoutModal';
 import CreateRecipeModal from '@/components/wellness/CreateRecipeModal';
 import NutritionAdvice from '@/components/wellness/NutritionAdvice';
@@ -26,6 +27,12 @@ export default function Wellness() {
   const [showCreateWorkout, setShowCreateWorkout] = useState(false);
   const [showCreateRecipe, setShowCreateRecipe] = useState(false);
   const [showProgressCharts, setShowProgressCharts] = useState(false);
+  const [recipeFilters, setRecipeFilters] = useState({
+    search: '',
+    dietType: 'all',
+    category: 'all',
+    prepTime: 'all'
+  });
   const queryClient = useQueryClient();
 
   useEffect(() => {
@@ -64,7 +71,46 @@ export default function Wellness() {
 
   const myWorkouts = workouts.filter(w => w.created_by === user?.email);
   const myRecipes = recipes.filter(r => r.created_by === user?.email);
+  const allRecipes = recipes;
   const allWorkouts = [...PREMADE_WORKOUTS, ...myWorkouts];
+
+  // Filter recipes
+  const filteredRecipes = allRecipes.filter(recipe => {
+    // Search filter
+    if (recipeFilters.search) {
+      const searchLower = recipeFilters.search.toLowerCase();
+      const matchesTitle = recipe.title?.toLowerCase().includes(searchLower);
+      const matchesIngredients = recipe.ingredients?.some(ing => 
+        ing.toLowerCase().includes(searchLower)
+      );
+      if (!matchesTitle && !matchesIngredients) return false;
+    }
+
+    // Diet type filter
+    if (recipeFilters.dietType !== 'all' && recipe.diet_type !== recipeFilters.dietType) {
+      return false;
+    }
+
+    // Category filter
+    if (recipeFilters.category !== 'all' && recipe.category !== recipeFilters.category) {
+      return false;
+    }
+
+    // Prep time filter
+    if (recipeFilters.prepTime !== 'all') {
+      const totalTime = (recipe.prep_time_minutes || 0) + (recipe.cook_time_minutes || 0);
+      if (recipeFilters.prepTime === 'quick' && totalTime >= 15) return false;
+      if (recipeFilters.prepTime === 'medium' && (totalTime < 15 || totalTime > 30)) return false;
+      if (recipeFilters.prepTime === 'long' && totalTime < 30) return false;
+    }
+
+    return true;
+  });
+
+  // Popular recipes (sample data based on created_date - can be enhanced with actual tracking)
+  const popularRecipes = [...allRecipes]
+    .filter(r => !r.created_by || r.created_by !== user?.email) // Pre-made recipes
+    .slice(0, 6);
 
   const totalWorkoutsCompleted = myWorkouts.reduce((sum, w) => sum + (w.completed_dates?.length || 0), 0);
   const thisWeekWorkouts = myWorkouts.filter(w => {
@@ -207,22 +253,59 @@ export default function Wellness() {
           <TabsContent value="recipes" className="space-y-4">
             <Button
               onClick={() => setShowCreateRecipe(true)}
-              className="w-full bg-orange-500 hover:bg-orange-600 mb-4"
+              className="w-full bg-orange-500 hover:bg-orange-600"
             >
               <Plus className="w-5 h-5 mr-2" />
               Add Recipe
             </Button>
 
-            {myRecipes.length === 0 ? (
-              <div className="text-center py-12 bg-white dark:bg-[#2d2d4a] rounded-2xl">
-                <UtensilsCrossed className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-                <p className="text-gray-500 dark:text-gray-400">No recipes yet</p>
+            <RecipeFilters filters={recipeFilters} onFilterChange={setRecipeFilters} />
+
+            {/* Popular Recipes */}
+            {popularRecipes.length > 0 && recipeFilters.search === '' && recipeFilters.dietType === 'all' && recipeFilters.category === 'all' && recipeFilters.prepTime === 'all' && (
+              <div>
+                <div className="flex items-center gap-2 mb-3">
+                  <TrendingUp className="w-5 h-5 text-orange-500" />
+                  <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300">Popular Recipes</h3>
+                </div>
+                <div className="grid gap-4 mb-6">
+                  {popularRecipes.map((recipe, index) => (
+                    <RecipeCard key={recipe.id} recipe={recipe} index={index} />
+                  ))}
+                </div>
               </div>
-            ) : (
-              <div className="grid gap-4">
-                {myRecipes.map((recipe, index) => (
-                  <RecipeCard key={recipe.id} recipe={recipe} index={index} />
-                ))}
+            )}
+
+            {/* My Recipes */}
+            {myRecipes.length > 0 && (
+              <div>
+                <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">Your Recipes</h3>
+                <div className="grid gap-4 mb-6">
+                  {myRecipes.map((recipe, index) => (
+                    <RecipeCard key={recipe.id} recipe={recipe} index={index} />
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Filtered Results */}
+            {(recipeFilters.search || recipeFilters.dietType !== 'all' || recipeFilters.category !== 'all' || recipeFilters.prepTime !== 'all') && (
+              <div>
+                <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">
+                  Search Results ({filteredRecipes.length})
+                </h3>
+                {filteredRecipes.length === 0 ? (
+                  <div className="text-center py-12 bg-white dark:bg-[#2d2d4a] rounded-2xl">
+                    <UtensilsCrossed className="w-12 h-12 text-gray-300 mx-auto mb-3" />
+                    <p className="text-gray-500 dark:text-gray-400">No recipes match your filters</p>
+                  </div>
+                ) : (
+                  <div className="grid gap-4">
+                    {filteredRecipes.map((recipe, index) => (
+                      <RecipeCard key={recipe.id} recipe={recipe} index={index} />
+                    ))}
+                  </div>
+                )}
               </div>
             )}
           </TabsContent>
