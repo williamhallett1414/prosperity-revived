@@ -106,6 +106,13 @@ export default function VerseReader({ book, chapter, onBack, onNavigate, bookmar
 
   return (
     <div className="h-full flex flex-col bg-[#faf8f5]">
+      {/* Plan Badge */}
+      {planDay && planId && (
+        <div className="bg-[#c9a227] text-white px-4 py-2 text-sm text-center">
+          📖 Reading Plan - Day {planDay}
+        </div>
+      )}
+      
       {/* Header */}
       <div className="flex items-center justify-between px-4 py-3 bg-white border-b">
         <div className="flex items-center gap-2">
