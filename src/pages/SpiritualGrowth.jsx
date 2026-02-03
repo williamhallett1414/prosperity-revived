@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { ArrowLeft, BookHeart, Mic, Target, Sparkles } from 'lucide-react';
+import { ArrowLeft, Heart, Mic, Target, Sparkles } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import PrayerJournal from '@/components/spiritual/PrayerJournal';
 import SermonNotes from '@/components/spiritual/SermonNotes';
@@ -56,7 +56,7 @@ export default function SpiritualGrowth() {
         <Tabs defaultValue="journal" className="mt-6">
           <TabsList className="grid grid-cols-3 bg-white p-1 w-full">
             <TabsTrigger value="journal" className="flex items-center gap-1.5">
-              <BookHeart className="w-4 h-4" />
+              <Heart className="w-4 h-4" />
               <span className="hidden sm:inline">Journal</span>
             </TabsTrigger>
             <TabsTrigger value="sermons" className="flex items-center gap-1.5">

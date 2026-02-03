@@ -47,6 +47,7 @@
  *
  * The mainPage value must match a key in the PAGES object exactly.
  */
+import Achievements from './pages/Achievements';
 import Bible from './pages/Bible';
 import Bookmarks from './pages/Bookmarks';
 import Community from './pages/Community';
@@ -63,11 +64,11 @@ import Settings from './pages/Settings';
 import SpiritualGrowth from './pages/SpiritualGrowth';
 import UserProfile from './pages/UserProfile';
 import Wellness from './pages/Wellness';
-import Achievements from './pages/Achievements';
 import __Layout from './Layout.jsx';
 
 
 export const PAGES = {
+    "Achievements": Achievements,
     "Bible": Bible,
     "Bookmarks": Bookmarks,
     "Community": Community,
@@ -84,7 +85,6 @@ export const PAGES = {
     "SpiritualGrowth": SpiritualGrowth,
     "UserProfile": UserProfile,
     "Wellness": Wellness,
-    "Achievements": Achievements,
 }
 
 export const pagesConfig = {
