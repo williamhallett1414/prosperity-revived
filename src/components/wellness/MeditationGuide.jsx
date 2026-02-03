@@ -179,43 +179,48 @@ export default function MeditationGuide() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.05 }}
-              className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 shadow-sm"
+              className="bg-white dark:bg-[#2d2d4a] rounded-2xl overflow-hidden shadow-sm"
             >
-              <div className="flex items-start justify-between mb-2">
-                <div className="flex-1">
-                  <h3 className="font-semibold text-[#1a1a2e] dark:text-white mb-1">
-                    {typeEmoji[med.type]} {med.title}
-                  </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">{med.description}</p>
+              {med.image_url && (
+                <img src={med.image_url} alt={med.title} className="w-full h-32 object-cover" />
+              )}
+              <div className="p-4">
+                <div className="flex items-start justify-between mb-2">
+                  <div className="flex-1">
+                    <h3 className="font-semibold text-[#1a1a2e] dark:text-white mb-1">
+                      {typeEmoji[med.type]} {med.title}
+                    </h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">{med.description}</p>
+                  </div>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => toggleFavorite.mutate({ meditationId: med.id, title: med.title })}
+                    className={favorited ? 'text-red-500' : 'text-gray-400'}
+                  >
+                    <Heart className={`w-5 h-5 ${favorited ? 'fill-current' : ''}`} />
+                  </Button>
                 </div>
+
+                <div className="flex items-center gap-3 mb-3 text-sm text-gray-600 dark:text-gray-400">
+                  <div className="flex items-center gap-1">
+                    <Clock className="w-4 h-4" />
+                    <span>{med.duration_minutes} min</span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <CheckCircle className="w-4 h-4" />
+                    <span>{med.completed_dates?.length || 0} times</span>
+                  </div>
+                </div>
+
                 <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => toggleFavorite.mutate({ meditationId: med.id, title: med.title })}
-                  className={favorited ? 'text-red-500' : 'text-gray-400'}
+                  onClick={() => setSelectedMeditation(med)}
+                  className="w-full bg-purple-600 hover:bg-purple-700"
                 >
-                  <Heart className={`w-5 h-5 ${favorited ? 'fill-current' : ''}`} />
+                  <Play className="w-4 h-4 mr-2" />
+                  Begin Session
                 </Button>
               </div>
-
-              <div className="flex items-center gap-3 mb-3 text-sm text-gray-600 dark:text-gray-400">
-                <div className="flex items-center gap-1">
-                  <Clock className="w-4 h-4" />
-                  <span>{med.duration_minutes} min</span>
-                </div>
-                <div className="flex items-center gap-1">
-                  <CheckCircle className="w-4 h-4" />
-                  <span>{med.completed_dates?.length || 0} times</span>
-                </div>
-              </div>
-
-              <Button
-                onClick={() => setSelectedMeditation(med)}
-                className="w-full bg-purple-600 hover:bg-purple-700"
-              >
-                <Play className="w-4 h-4 mr-2" />
-                Begin Session
-              </Button>
             </motion.div>
           );
         })}

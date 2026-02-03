@@ -45,6 +45,18 @@ export default function NutritionAdvice() {
 
   return (
     <div className="space-y-6">
+      {/* Featured Image */}
+      <div className="relative rounded-2xl overflow-hidden h-40">
+        <img 
+          src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=600" 
+          alt="Nutrition" 
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end">
+          <h2 className="text-white font-bold text-xl p-4">Nutrition Guidance</h2>
+        </div>
+      </div>
+
       {/* Quick Tips */}
       <div className="grid grid-cols-2 gap-3">
         {nutritionTips.map((tip, index) => {
