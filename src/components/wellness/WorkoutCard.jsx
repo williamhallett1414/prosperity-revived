@@ -20,17 +20,21 @@ export default function WorkoutCard({ workout, onComplete, index, isPremade = fa
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.05 }}
-      className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 shadow-sm"
+      className="bg-white dark:bg-[#2d2d4a] rounded-2xl overflow-hidden shadow-sm"
     >
-      <div className="flex items-start justify-between mb-3">
-        <div className="flex-1">
-          <h3 className="font-semibold text-[#1a1a2e] dark:text-white mb-1">{workout.title}</h3>
-          <p className="text-sm text-gray-600 dark:text-gray-400">{workout.description}</p>
+      {workout.image_url && (
+        <img src={workout.image_url} alt={workout.title} className="w-full h-32 object-cover" />
+      )}
+      <div className="p-4">
+        <div className="flex items-start justify-between mb-3">
+          <div className="flex-1">
+            <h3 className="font-semibold text-[#1a1a2e] dark:text-white mb-1">{workout.title}</h3>
+            <p className="text-sm text-gray-600 dark:text-gray-400">{workout.description}</p>
+          </div>
+          <span className={`px-2 py-1 rounded-full text-xs font-medium ${difficultyColors[workout.difficulty]}`}>
+            {workout.difficulty}
+          </span>
         </div>
-        <span className={`px-2 py-1 rounded-full text-xs font-medium ${difficultyColors[workout.difficulty]}`}>
-          {workout.difficulty}
-        </span>
-      </div>
 
       <div className="flex items-center gap-4 mb-3 text-sm text-gray-600 dark:text-gray-400">
         <div className="flex items-center gap-1">
@@ -83,6 +87,7 @@ export default function WorkoutCard({ workout, onComplete, index, isPremade = fa
         workout={workout}
         user={user}
       />
+      </div>
     </motion.div>
   );
 }
