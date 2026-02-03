@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
-import { Plus, Loader2 } from 'lucide-react';
+import { Plus, Loader2, TrendingUp, Filter } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import PostCard from '@/components/community/PostCard';
 import CreatePostModal from '@/components/community/CreatePostModal';
 import AISuggestions from '@/components/community/AISuggestions';
@@ -12,6 +13,8 @@ import AISuggestions from '@/components/community/AISuggestions';
 export default function Community() {
   const [showCreatePost, setShowCreatePost] = useState(false);
   const [user, setUser] = useState(null);
+  const [filterTopic, setFilterTopic] = useState('all');
+  const [sortBy, setSortBy] = useState('recent');
   const queryClient = useQueryClient();
 
   useEffect(() => {
@@ -69,6 +72,53 @@ export default function Community() {
     createComment.mutate({ postId, content });
   };
 
+  // Filter and sort posts
+  const filteredAndSortedPosts = useMemo(() => {
+    let filtered = posts;
+
+    // Filter by topic
+    if (filterTopic !== 'all') {
+      filtered = filtered.filter(p => p.topic === filterTopic);
+    }
+
+    // Sort posts
+    const sorted = [...filtered];
+    if (sortBy === 'popular') {
+      sorted.sort((a, b) => {
+        const aScore = (a.likes || 0) + (comments.filter(c => c.post_id === a.id).length * 2);
+        const bScore = (b.likes || 0) + (comments.filter(c => c.post_id === b.id).length * 2);
+        return bScore - aScore;
+      });
+    } else if (sortBy === 'trending') {
+      // Trending = recent posts with high engagement
+      const now = new Date();
+      sorted.sort((a, b) => {
+        const aDate = new Date(a.created_date);
+        const bDate = new Date(b.created_date);
+        const aAge = (now - aDate) / (1000 * 60 * 60); // hours
+        const bAge = (now - bDate) / (1000 * 60 * 60);
+        
+        const aScore = ((a.likes || 0) + comments.filter(c => c.post_id === a.id).length * 2) / Math.max(aAge, 1);
+        const bScore = ((b.likes || 0) + comments.filter(c => c.post_id === b.id).length * 2) / Math.max(bAge, 1);
+        return bScore - aScore;
+      });
+    }
+
+    return sorted;
+  }, [posts, comments, filterTopic, sortBy]);
+
+  // Trending posts (top 3 by engagement score)
+  const trendingPosts = useMemo(() => {
+    return [...posts]
+      .map(post => ({
+        ...post,
+        score: (post.likes || 0) + (comments.filter(c => c.post_id === post.id).length * 2)
+      }))
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 3)
+      .filter(p => p.score > 0);
+  }, [posts, comments]);
+
   return (
     <div className="min-h-screen bg-[#faf8f5] pb-24">
       <div className="max-w-2xl mx-auto px-4 py-6">
@@ -94,6 +144,59 @@ export default function Community() {
           Share Your Thoughts
         </Button>
 
+        {/* Trending Posts */}
+        {trendingPosts.length > 0 && (
+          <div className="mb-6 bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
+            <div className="flex items-center gap-2 mb-3">
+              <TrendingUp className="w-5 h-5 text-[#c9a227]" />
+              <h3 className="font-semibold text-[#1a1a2e]">Trending Now</h3>
+            </div>
+            <div className="space-y-2">
+              {trendingPosts.map(post => (
+                <div key={post.id} className="p-2 hover:bg-gray-50 rounded-lg cursor-pointer">
+                  <p className="text-sm text-gray-700 line-clamp-2">{post.content}</p>
+                  <div className="flex items-center gap-3 mt-1 text-xs text-gray-500">
+                    <span>❤️ {post.likes || 0}</span>
+                    <span>💬 {comments.filter(c => c.post_id === post.id).length}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Filters */}
+        <div className="flex gap-3 mb-6">
+          <div className="flex-1">
+            <Select value={filterTopic} onValueChange={setFilterTopic}>
+              <SelectTrigger className="bg-white">
+                <SelectValue placeholder="Filter by topic" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Topics</SelectItem>
+                <SelectItem value="prayer">🙏 Prayer</SelectItem>
+                <SelectItem value="bible_study">📖 Bible Study</SelectItem>
+                <SelectItem value="testimony">✨ Testimony</SelectItem>
+                <SelectItem value="question">❓ Question</SelectItem>
+                <SelectItem value="encouragement">💝 Encouragement</SelectItem>
+                <SelectItem value="general">💬 General</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <div className="flex-1">
+            <Select value={sortBy} onValueChange={setSortBy}>
+              <SelectTrigger className="bg-white">
+                <SelectValue placeholder="Sort by" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="recent">📅 Most Recent</SelectItem>
+                <SelectItem value="popular">🔥 Most Popular</SelectItem>
+                <SelectItem value="trending">📈 Trending</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+
         {/* Feed */}
         {isLoading ? (
           <div className="flex items-center justify-center py-20">
@@ -109,9 +212,13 @@ export default function Community() {
               Create First Post
             </Button>
           </div>
+        ) : filteredAndSortedPosts.length === 0 ? (
+          <div className="text-center py-12 bg-white rounded-2xl">
+            <p className="text-gray-500">No posts match your filters</p>
+          </div>
         ) : (
           <div className="space-y-4">
-            {posts.map((post, index) => (
+            {filteredAndSortedPosts.map((post, index) => (
               <PostCard
                 key={post.id}
                 post={post}
