@@ -19,6 +19,7 @@ import CustomPrayerBuilder from '@/components/wellness/CustomPrayerBuilder';
 import ProgressCharts from '@/components/wellness/ProgressCharts';
 import { PREMADE_WORKOUTS } from '@/components/wellness/WorkoutLibrary';
 import WorkoutProgressCharts from '@/components/wellness/WorkoutProgressCharts';
+import AIWorkoutRecommendations from '@/components/wellness/AIWorkoutRecommendations';
 
 export default function Wellness() {
   const [user, setUser] = useState(null);
@@ -153,6 +154,8 @@ export default function Wellness() {
                 View Progress
               </Button>
             </div>
+
+            <AIWorkoutRecommendations />
 
             {myWorkouts.length > 0 && (
               <div>
