@@ -12,7 +12,7 @@ import { readingPlans } from '@/components/bible/BibleData';
 import ReadingPlanCard from '@/components/home/ReadingPlanCard';
 import PostCard from '@/components/community/PostCard';
 import GamificationBanner from '@/components/gamification/GamificationBanner';
-
+import PhotoGallery from '@/components/profile/PhotoGallery';
 
 export default function Profile() {
   const [user, setUser] = useState(null);
@@ -261,19 +261,9 @@ export default function Profile() {
         </div>
       </div>
 
-      {/* Photo Gallery Link */}
+      {/* Photo Gallery */}
       <div className="px-4 mb-6">
-        <Link to={createPageUrl('PhotoGallery')}>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="bg-gradient-to-br from-cyan-500 to-blue-600 rounded-2xl p-4 shadow-sm hover:shadow-md transition-shadow text-white"
-          >
-            <p className="text-sm mb-1">📸 Photo Gallery</p>
-            <p className="text-lg font-bold">View All</p>
-          </motion.div>
-        </Link>
+        <PhotoGallery />
       </div>
 
       {/* Bio */}
