@@ -4,6 +4,7 @@ import { Apple, Droplets, Heart, Brain, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { base44 } from '@/api/base44Client';
+import CommentSection from './CommentSection';
 
 export default function NutritionAdvice() {
   const [question, setQuestion] = useState('');
@@ -144,6 +145,8 @@ export default function NutritionAdvice() {
             )}
           </motion.div>
         )}
+
+        <CommentSection contentId="nutrition_guide" contentType="nutrition_plan" />
       </div>
     </div>
   );

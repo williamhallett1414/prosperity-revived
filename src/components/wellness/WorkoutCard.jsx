@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Dumbbell, Clock, CheckCircle, Award } from 'lucide-react';
+import { Dumbbell, Clock, CheckCircle, Award, ChevronDown, ChevronUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import WorkoutLogModal from './WorkoutLogModal';
+import CommentSection from './CommentSection';
 
 export default function WorkoutCard({ workout, onComplete, index, isPremade = false, user }) {
   const [showLogModal, setShowLogModal] = useState(false);
+  const [expanded, setExpanded] = useState(false);
   const today = new Date().toISOString().split('T')[0];
   const completedToday = workout.completed_dates?.includes(today);
 
@@ -63,23 +65,40 @@ export default function WorkoutCard({ workout, onComplete, index, isPremade = fa
         </div>
       )}
 
-      <Button
-        onClick={() => isPremade ? null : setShowLogModal(true)}
-        disabled={isPremade}
-        className="w-full bg-emerald-600 hover:bg-emerald-700"
-      >
-        {isPremade ? (
-          <>
-            <Dumbbell className="w-4 h-4 mr-2" />
-            View Details
-          </>
-        ) : (
-          <>
-            <Dumbbell className="w-4 h-4 mr-2" />
-            Log Workout
-          </>
+      <div className="flex gap-2">
+        <Button
+          onClick={() => isPremade ? null : setShowLogModal(true)}
+          disabled={isPremade}
+          className="flex-1 bg-emerald-600 hover:bg-emerald-700"
+        >
+          {isPremade ? (
+            <>
+              <Dumbbell className="w-4 h-4 mr-2" />
+              View Details
+            </>
+          ) : (
+            <>
+              <Dumbbell className="w-4 h-4 mr-2" />
+              Log Workout
+            </>
+          )}
+        </Button>
+
+        {workout.id && (
+          <Button
+            variant="outline"
+            onClick={() => setExpanded(!expanded)}
+          >
+            {expanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+          </Button>
         )}
-      </Button>
+      </div>
+
+      {expanded && workout.id && (
+        <div className="mt-4">
+          <CommentSection contentId={workout.id} contentType="workout" />
+        </div>
+      )}
 
       <WorkoutLogModal
         isOpen={showLogModal}

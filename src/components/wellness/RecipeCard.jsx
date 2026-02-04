@@ -4,6 +4,7 @@ import { Clock, Users, Flame, ChevronDown, ChevronUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import AddToCollectionButton from './AddToCollectionButton';
 import RecipeLikeButton from './RecipeLikeButton';
+import CommentSection from './CommentSection';
 
 export default function RecipeCard({ recipe, index, showCommunityFeatures }) {
   const [expanded, setExpanded] = useState(false);
@@ -100,6 +101,10 @@ export default function RecipeCard({ recipe, index, showCommunityFeatures }) {
                 ))}
               </ol>
             </div>
+
+            {recipe.id && (
+              <CommentSection contentId={recipe.id} contentType="recipe" />
+            )}
           </div>
         )}
       </div>

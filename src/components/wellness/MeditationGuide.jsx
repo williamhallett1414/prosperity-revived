@@ -8,6 +8,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { awardPoints, checkAndAwardBadges } from '@/components/gamification/ProgressManager';
 import { MEDITATION_LIBRARY, MEDITATION_CATEGORIES } from './MeditationLibrary';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import CommentSection from './CommentSection';
 
 export default function MeditationGuide() {
   const [selectedMeditation, setSelectedMeditation] = useState(null);
@@ -262,6 +263,10 @@ export default function MeditationGuide() {
                 <CheckCircle className="w-4 h-4 mr-2" />
                 {selectedMeditation.created_by ? 'Complete Session' : 'Done'}
               </Button>
+
+              {selectedMeditation.id && (
+                <CommentSection contentId={selectedMeditation.id} contentType="meditation" />
+              )}
             </div>
           </DialogContent>
         </Dialog>
