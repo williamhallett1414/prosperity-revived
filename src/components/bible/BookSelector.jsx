@@ -23,8 +23,12 @@ export default function BookSelector({ onSelectBook, selectedBook }) {
         >
           <div className="flex items-center justify-between px-5 py-5">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center">
-                <BookOpen className="w-6 h-6 text-white" />
+              <div className="w-12 h-12 rounded-xl overflow-hidden">
+                <img 
+                  src="https://images.unsplash.com/photo-1519074069444-1ba4fff66d16?w=200&h=200&fit=crop" 
+                  alt="Old Testament"
+                  className="w-full h-full object-cover"
+                />
               </div>
               <div className="text-left">
                 <h3 className="font-semibold text-[#1a1a2e] dark:text-white text-lg">Old Testament</h3>
@@ -47,8 +51,12 @@ export default function BookSelector({ onSelectBook, selectedBook }) {
         >
           <div className="flex items-center justify-between px-5 py-5">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center">
-                <BookOpen className="w-6 h-6 text-white" />
+              <div className="w-12 h-12 rounded-xl overflow-hidden">
+                <img 
+                  src="https://images.unsplash.com/photo-1504052434569-70ad5836ab65?w=200&h=200&fit=crop" 
+                  alt="New Testament"
+                  className="w-full h-full object-cover"
+                />
               </div>
               <div className="text-left">
                 <h3 className="font-semibold text-[#1a1a2e] dark:text-white text-lg">New Testament</h3>
