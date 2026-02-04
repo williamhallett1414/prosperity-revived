@@ -37,9 +37,21 @@ export default function Layout({ children, currentPageName }) {
         }
       `}</style>
       
-      <main className="pb-20">
+      <main className="pt-20 pb-20">
         {children}
       </main>
+
+      {/* Header */}
+      <header className="fixed top-0 left-0 right-0 bg-white border-b border-gray-200 px-4 py-3 z-40">
+        <div className="max-w-lg mx-auto flex items-center gap-3">
+          <img 
+            src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6980ade9ca08df558ed28bdd/d9b97f241_ProsperityRevivedSymbol.jpeg" 
+            alt="Prosperity Revived" 
+            className="w-8 h-8 object-contain"
+          />
+          <h1 className="text-lg font-bold text-[#3C4E53]">Prosperity Revived</h1>
+        </div>
+      </header>
 
       {/* Bottom Navigation */}
       <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 py-2 z-50">
