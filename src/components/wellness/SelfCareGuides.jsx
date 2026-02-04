@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Heart, Brain, Sparkles, Book, Smile, Sunrise, Music, Palette, Coffee, Moon, Sun, Wind, Flower2, Loader2 } from 'lucide-react';
+import { Heart, Brain, Sparkles, Book, Smile, Sunrise, Music, Palette, Coffee, Moon, Sun, Wind, Flower2, Loader2, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { base44 } from '@/api/base44Client';
+import SelfCareActivityLogger from '@/components/wellness/SelfCareActivityLogger';
+import { useAuth } from '@/hooks/useAuth';
 
 const SELF_CARE_TIPS = [
   {
@@ -159,10 +161,12 @@ const MOOD_BOOSTERS = [
   { icon: Heart, text: 'Do a random act of kindness', color: 'text-pink-500' }
 ];
 
-export default function SelfCareGuides() {
+export default function SelfCareGuides({ user }) {
   const [expandedTip, setExpandedTip] = useState(null);
   const [aiInsight, setAiInsight] = useState('');
   const [loadingInsight, setLoadingInsight] = useState(false);
+  const [loggerOpen, setLoggerOpen] = useState(false);
+  const [selectedActivity, setSelectedActivity] = useState(null);
 
   const generatePersonalizedPlan = async () => {
     setLoadingInsight(true);
@@ -192,6 +196,24 @@ export default function SelfCareGuides() {
     } finally {
       setLoadingInsight(false);
     }
+  };
+
+  const handleLogActivity = (tip) => {
+    setSelectedActivity({
+      type: tip.id.toString(),
+      name: tip.title,
+      category: 'self_care_tips'
+    });
+    setLoggerOpen(true);
+  };
+
+  const handleLogPersonalDevelopment = (guide) => {
+    setSelectedActivity({
+      type: guide.id.toString(),
+      name: guide.title,
+      category: 'personal_development'
+    });
+    setLoggerOpen(true);
   };
 
   return (
@@ -329,7 +351,7 @@ export default function SelfCareGuides() {
                   <div className={`h-2 bg-gradient-to-r ${tip.color}`} />
                   <CardHeader>
                     <div className="flex items-start justify-between">
-                      <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-3 flex-1">
                         <div className={`w-12 h-12 rounded-full bg-gradient-to-r ${tip.color} flex items-center justify-center`}>
                           <Icon className="w-6 h-6 text-white" />
                         </div>
@@ -338,6 +360,14 @@ export default function SelfCareGuides() {
                           <CardTitle className="text-base">{tip.title}</CardTitle>
                         </div>
                       </div>
+                      <Button
+                        onClick={() => handleLogActivity(tip)}
+                        size="sm"
+                        variant="ghost"
+                        className="text-emerald-600 hover:bg-emerald-50"
+                      >
+                        <Plus className="w-4 h-4" />
+                      </Button>
                     </div>
                     <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">{tip.description}</p>
                   </CardHeader>
@@ -386,6 +416,14 @@ export default function SelfCareGuides() {
                     <div className="flex items-center gap-3 mb-2">
                       <Icon className="w-6 h-6 text-emerald-500" />
                       <CardTitle className="text-base">{guide.title}</CardTitle>
+                    <Button
+                      onClick={() => handleLogPersonalDevelopment(guide)}
+                      size="sm"
+                      variant="ghost"
+                      className="text-emerald-600 hover:bg-emerald-50"
+                    >
+                      <Plus className="w-4 h-4" />
+                    </Button>
                     </div>
                     <p className="text-sm text-gray-600 dark:text-gray-400">{guide.description}</p>
                   </CardHeader>
@@ -412,6 +450,18 @@ export default function SelfCareGuides() {
           })}
         </TabsContent>
       </Tabs>
+
+      {/* Activity Logger Modal */}
+      {selectedActivity && (
+        <SelfCareActivityLogger
+          isOpen={loggerOpen}
+          onClose={() => setLoggerOpen(false)}
+          activityType={selectedActivity.type}
+          activityName={selectedActivity.name}
+          category={selectedActivity.category}
+          user={user}
+        />
+      )}
     </div>
   );
 }
