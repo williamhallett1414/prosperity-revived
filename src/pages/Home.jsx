@@ -15,6 +15,8 @@ import CreatePostModal from '@/components/community/CreatePostModal';
 import GamificationBanner from '@/components/gamification/GamificationBanner';
 import OnboardingFlow from '@/components/onboarding/OnboardingFlow';
 import PersonalizedReadingPlans from '@/components/recommendations/PersonalizedReadingPlans';
+import SmartContentDiscovery from '@/components/ai/SmartContentDiscovery';
+import AIRecommendationEngine from '@/components/ai/AIRecommendationEngine';
 
 export default function Home() {
   const [showDailyVerseSettings, setShowDailyVerseSettings] = useState(false);
@@ -172,6 +174,12 @@ export default function Home() {
             <Settings className="w-5 h-5" />
           </Button>
         </div>
+
+        {/* AI-Powered Insights */}
+        <SmartContentDiscovery user={user} context={{ activity: 'home_dashboard' }} />
+
+        {/* AI Recommendations */}
+        <AIRecommendationEngine user={user} type="general" />
 
         {/* Quick Actions */}
         <div className="grid grid-cols-4 gap-3 mb-6">

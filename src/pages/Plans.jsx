@@ -12,6 +12,7 @@ import ReadingPlanCard from '@/components/home/ReadingPlanCard';
 import CreateCustomPlanModal from '@/components/plans/CreateCustomPlanModal';
 import { readingPlans } from '@/components/bible/BibleData';
 import PersonalizedReadingPlans from '@/components/recommendations/PersonalizedReadingPlans';
+import AIRecommendationEngine from '@/components/ai/AIRecommendationEngine';
 
 export default function Plans() {
   const [search, setSearch] = useState('');
@@ -137,6 +138,11 @@ export default function Plans() {
             ))}
           </TabsList>
         </Tabs>
+
+        {/* AI-Powered Recommendations */}
+        {!search && category === 'all' && (
+          <AIRecommendationEngine user={user} type="reading" />
+        )}
 
         {/* Personalized Recommendations */}
         {!search && category === 'all' && (

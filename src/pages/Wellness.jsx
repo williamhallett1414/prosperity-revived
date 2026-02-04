@@ -28,6 +28,8 @@ import WorkoutProgressCharts from '@/components/wellness/WorkoutProgressCharts';
 import AIWorkoutRecommendations from '@/components/wellness/AIWorkoutRecommendations';
 import PersonalizedWorkouts from '@/components/recommendations/PersonalizedWorkouts';
 import PersonalizedRecipes from '@/components/recommendations/PersonalizedRecipes';
+import AIRecommendationEngine from '@/components/ai/AIRecommendationEngine';
+import ContextualSuggestions from '@/components/ai/ContextualSuggestions';
 
 export default function Wellness() {
   const [user, setUser] = useState(null);
@@ -195,6 +197,8 @@ export default function Wellness() {
 
           {/* Workouts Tab */}
           <TabsContent value="workouts" className="space-y-4">
+            <AIRecommendationEngine user={user} type="fitness" />
+            
             <div className="grid grid-cols-2 gap-3">
               <Button
                 onClick={() => setShowCreateWorkout(true)}
@@ -257,6 +261,8 @@ export default function Wellness() {
 
           {/* Nutrition Tab */}
           <TabsContent value="nutrition" className="space-y-4">
+            <AIRecommendationEngine user={user} type="nutrition" />
+            
             <PersonalizedNutritionPlan />
             <AIMealPlanner />
             <NutritionAdvice />
@@ -353,6 +359,11 @@ export default function Wellness() {
               </div>
               <p className="text-white/80 text-sm">Find peace through meditation and prayer</p>
             </div>
+            
+            <ContextualSuggestions 
+              user={user} 
+              currentContext={{ activity: 'meditation_practice' }}
+            />
             
             <CustomPrayerBuilder />
             <MeditationGuide />
