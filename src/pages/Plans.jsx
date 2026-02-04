@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
@@ -11,13 +11,19 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import ReadingPlanCard from '@/components/home/ReadingPlanCard';
 import CreateCustomPlanModal from '@/components/plans/CreateCustomPlanModal';
 import { readingPlans } from '@/components/bible/BibleData';
+import PersonalizedReadingPlans from '@/components/recommendations/PersonalizedReadingPlans';
 
 export default function Plans() {
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState('all');
   const [showCreateCustom, setShowCreateCustom] = useState(false);
+  const [user, setUser] = useState(null);
 
   const queryClient = useQueryClient();
+
+  useEffect(() => {
+    base44.auth.me().then(setUser);
+  }, []);
 
   const { data: planProgress = [] } = useQuery({
     queryKey: ['planProgress'],
@@ -131,6 +137,11 @@ export default function Plans() {
             ))}
           </TabsList>
         </Tabs>
+
+        {/* Personalized Recommendations */}
+        {!search && category === 'all' && (
+          <PersonalizedReadingPlans user={user} userProgress={planProgress} />
+        )}
 
         {/* Plans Grid */}
         <div className="grid gap-4 md:grid-cols-2">

@@ -13,15 +13,23 @@ import DailyVerseSettings from '@/components/settings/DailyVerseSettings';
 import PostCard from '@/components/community/PostCard';
 import CreatePostModal from '@/components/community/CreatePostModal';
 import GamificationBanner from '@/components/gamification/GamificationBanner';
+import OnboardingFlow from '@/components/onboarding/OnboardingFlow';
+import PersonalizedReadingPlans from '@/components/recommendations/PersonalizedReadingPlans';
 
 export default function Home() {
   const [showDailyVerseSettings, setShowDailyVerseSettings] = useState(false);
   const [showCreatePost, setShowCreatePost] = useState(false);
   const [user, setUser] = useState(null);
+  const [showOnboarding, setShowOnboarding] = useState(false);
   const queryClient = useQueryClient();
 
   useEffect(() => {
-    base44.auth.me().then(setUser);
+    base44.auth.me().then(u => {
+      setUser(u);
+      if (!u.onboarding_completed) {
+        setShowOnboarding(true);
+      }
+    });
   }, []);
 
   const { data: bookmarks = [] } = useQuery({
@@ -130,6 +138,15 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-[#faf8f5] dark:bg-[#1a1a2e]">
+      {showOnboarding && (
+        <OnboardingFlow 
+          onComplete={() => {
+            setShowOnboarding(false);
+            base44.auth.me().then(setUser);
+          }} 
+        />
+      )}
+      
       <div className="max-w-2xl mx-auto px-4 py-6 pb-24">
         {/* Header */}
         <motion.div
@@ -210,6 +227,9 @@ export default function Home() {
             </motion.div>
           </Link>
         </div>
+
+        {/* Personalized Reading Plans */}
+        <PersonalizedReadingPlans user={user} userProgress={planProgress} />
 
         {/* Active Plans */}
         {activePlans.length > 0 && (

@@ -7,6 +7,7 @@ import { Switch } from '@/components/ui/switch';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { Label } from '@/components/ui/label';
+import ReminderSettings from '@/components/settings/ReminderSettings';
 
 export default function Settings() {
   const [user, setUser] = useState(null);
@@ -135,6 +136,11 @@ export default function Settings() {
               )}
             </button>
           </div>
+        </div>
+
+        {/* Reminders */}
+        <div className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 shadow-sm mb-4">
+          <ReminderSettings />
         </div>
 
         {/* Notifications */}

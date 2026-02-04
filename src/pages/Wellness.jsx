@@ -26,6 +26,8 @@ import ProgressCharts from '@/components/wellness/ProgressCharts';
 import { PREMADE_WORKOUTS } from '@/components/wellness/WorkoutLibrary';
 import WorkoutProgressCharts from '@/components/wellness/WorkoutProgressCharts';
 import AIWorkoutRecommendations from '@/components/wellness/AIWorkoutRecommendations';
+import PersonalizedWorkouts from '@/components/recommendations/PersonalizedWorkouts';
+import PersonalizedRecipes from '@/components/recommendations/PersonalizedRecipes';
 
 export default function Wellness() {
   const [user, setUser] = useState(null);
@@ -212,6 +214,12 @@ export default function Wellness() {
             </div>
 
             <AIWorkoutRecommendations />
+            
+            <PersonalizedWorkouts 
+              user={user} 
+              userWorkouts={myWorkouts}
+              onComplete={(workout) => completeWorkout.mutate({ id: workout.id, workout })}
+            />
 
             {myWorkouts.length > 0 && (
               <div>
@@ -268,6 +276,11 @@ export default function Wellness() {
               </div>
 
               <RecipeFilters filters={recipeFilters} onFilterChange={setRecipeFilters} />
+
+              {/* Personalized Recipes */}
+              {recipeFilters.search === '' && recipeFilters.dietType === 'all' && recipeFilters.category === 'all' && recipeFilters.prepTime === 'all' && (
+                <PersonalizedRecipes user={user} allRecipes={recipes} />
+              )}
 
               {/* Popular Recipes */}
               {popularRecipes.length > 0 && recipeFilters.search === '' && recipeFilters.dietType === 'all' && recipeFilters.category === 'all' && recipeFilters.prepTime === 'all' && (
