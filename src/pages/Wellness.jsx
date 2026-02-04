@@ -36,6 +36,7 @@ import AIWellnessCoach from '@/components/wellness/AIWellnessCoach';
 import ProgressTrendsChart from '@/components/wellness/ProgressTrendsChart';
 import MoodEnergyChart from '@/components/wellness/MoodEnergyChart';
 import GranularGoalsChart from '@/components/wellness/GranularGoalsChart';
+import SelfCareGuides from '@/components/wellness/SelfCareGuides';
 
 export default function Wellness() {
   const [user, setUser] = useState(null);
@@ -217,10 +218,11 @@ export default function Wellness() {
 
       <div className="px-4">
         <Tabs defaultValue="workouts" className="w-full">
-          <TabsList className="grid w-full grid-cols-3 mb-6 bg-white/50 backdrop-blur-sm p-1 rounded-xl">
+          <TabsList className="grid w-full grid-cols-4 mb-6 bg-white/50 backdrop-blur-sm p-1 rounded-xl">
             <TabsTrigger value="workouts" className="text-xs sm:text-sm">Workouts</TabsTrigger>
             <TabsTrigger value="nutrition" className="text-xs sm:text-sm">Nutrition</TabsTrigger>
             <TabsTrigger value="meditation" className="text-xs sm:text-sm">Meditation</TabsTrigger>
+            <TabsTrigger value="selfcare" className="text-xs sm:text-sm">Self-Care</TabsTrigger>
           </TabsList>
 
           {/* Workouts Tab */}
@@ -443,6 +445,11 @@ export default function Wellness() {
             
             <CustomPrayerBuilder />
             <MeditationGuide />
+          </TabsContent>
+
+          {/* Self-Care Tab */}
+          <TabsContent value="selfcare" className="space-y-4">
+            <SelfCareGuides />
           </TabsContent>
         </Tabs>
       </div>
