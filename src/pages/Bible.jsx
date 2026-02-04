@@ -111,7 +111,7 @@ export default function Bible() {
   const suggestedPlans = readingPlans.filter(plan => !getProgressForPlan(plan.id)).slice(0, 4);
 
   return (
-    <div className="h-[calc(100vh-80px)] bg-[#faf8f5]">
+    <div className="min-h-screen bg-[#faf8f5] dark:bg-[#1a1a2e] pb-24">
       <AnimatePresence mode="wait">
         {view === 'books' && (
           <motion.div
@@ -119,55 +119,53 @@ export default function Bible() {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -20 }}
-            className="h-full pt-4"
+            className="px-4 py-6"
           >
-            <div className="px-4 mb-4">
+            <div className="mb-6">
               <div className="flex items-center gap-3 mb-2">
                 <Link
                   to={createPageUrl('Home')}
-                  className="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center text-[#1a1a2e] hover:bg-gray-50 transition-colors"
+                  className="w-10 h-10 rounded-full bg-white dark:bg-[#2d2d4a] shadow-sm flex items-center justify-center text-[#1a1a2e] dark:text-white hover:bg-gray-50 dark:hover:bg-[#3d3d5a] transition-colors"
                 >
                   <ArrowLeft className="w-5 h-5" />
                 </Link>
-                <h1 className="text-2xl font-bold text-[#1a1a2e]">Bible</h1>
+                <h1 className="text-2xl font-bold text-[#1a1a2e] dark:text-white">Bible</h1>
               </div>
-              <p className="text-gray-500 ml-[52px]">Select a book to read</p>
+              <p className="text-gray-500 dark:text-gray-400 ml-[52px]">Select a testament to explore</p>
             </div>
-            <div className="flex flex-col h-[calc(100vh-180px)]">
-              <div className="flex-1 overflow-hidden">
-                <BookSelector
-                  onSelectBook={handleSelectBook}
-                  selectedBook={selectedBook}
-                />
-              </div>
+
+            <div className="mb-8">
+              <BookSelector
+                onSelectBook={handleSelectBook}
+                selectedBook={selectedBook}
+              />
+            </div>
               
-              {/* Suggested Plans */}
-              {suggestedPlans.length > 0 && (
-                <div className="px-4 py-4 bg-gradient-to-t from-white to-transparent">
-                  <div className="flex items-center justify-between mb-3">
-                    <h2 className="text-base font-semibold text-[#1a1a2e] flex items-center gap-2">
-                      <Compass className="w-5 h-5 text-[#c9a227]" />
-                      Reading Plans
-                    </h2>
-                    <Link to={createPageUrl('Plans')} className="text-sm text-[#c9a227] font-medium">
-                      View All
-                    </Link>
-                  </div>
-                  <div className="flex gap-3 overflow-x-auto pb-2 -mx-4 px-4">
-                    {suggestedPlans.map((plan, index) => (
-                      <div key={plan.id} className="flex-shrink-0 w-[280px]">
-                        <ReadingPlanCard
-                          plan={plan}
-                          progress={null}
-                          onClick={() => window.location.href = createPageUrl(`PlanDetail?id=${plan.id}`)}
-                          index={index}
-                        />
-                      </div>
-                    ))}
-                  </div>
+            {/* Reading Plans */}
+            {suggestedPlans.length > 0 && (
+              <div className="mt-6">
+                <div className="flex items-center justify-between mb-4">
+                  <h2 className="text-lg font-semibold text-[#1a1a2e] dark:text-white flex items-center gap-2">
+                    <Compass className="w-5 h-5 text-[#c9a227]" />
+                    Reading Plans
+                  </h2>
+                  <Link to={createPageUrl('Plans')} className="text-sm text-[#c9a227] font-medium hover:underline">
+                    View All
+                  </Link>
                 </div>
-              )}
-            </div>
+                <div className="grid grid-cols-1 gap-3">
+                  {suggestedPlans.slice(0, 3).map((plan, index) => (
+                    <ReadingPlanCard
+                      key={plan.id}
+                      plan={plan}
+                      progress={null}
+                      onClick={() => window.location.href = createPageUrl(`PlanDetail?id=${plan.id}`)}
+                      index={index}
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
           </motion.div>
         )}
 
