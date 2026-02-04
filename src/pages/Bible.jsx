@@ -133,36 +133,41 @@ export default function Bible() {
               </div>
               <p className="text-gray-500 ml-[52px]">Select a book to read</p>
             </div>
-            <BookSelector
-              onSelectBook={handleSelectBook}
-              selectedBook={selectedBook}
-            />
-            
-            {/* Suggested Plans */}
-            {suggestedPlans.length > 0 && (
-              <div className="px-4 mt-6 pb-6">
-                <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-lg font-semibold text-[#1a1a2e] dark:text-white flex items-center gap-2">
-                    <Compass className="w-5 h-5 text-[#c9a227]" />
-                    Reading Plans for You
-                  </h2>
-                  <Link to={createPageUrl('Plans')} className="text-sm text-[#c9a227] font-medium">
-                    View All
-                  </Link>
-                </div>
-                <div className="grid gap-3 md:grid-cols-2">
-                  {suggestedPlans.map((plan, index) => (
-                    <ReadingPlanCard
-                      key={plan.id}
-                      plan={plan}
-                      progress={null}
-                      onClick={() => window.location.href = createPageUrl(`PlanDetail?id=${plan.id}`)}
-                      index={index}
-                    />
-                  ))}
-                </div>
+            <div className="flex flex-col h-[calc(100vh-180px)]">
+              <div className="flex-1 overflow-hidden">
+                <BookSelector
+                  onSelectBook={handleSelectBook}
+                  selectedBook={selectedBook}
+                />
               </div>
-            )}
+              
+              {/* Suggested Plans */}
+              {suggestedPlans.length > 0 && (
+                <div className="px-4 py-4 bg-gradient-to-t from-white to-transparent">
+                  <div className="flex items-center justify-between mb-3">
+                    <h2 className="text-base font-semibold text-[#1a1a2e] flex items-center gap-2">
+                      <Compass className="w-5 h-5 text-[#c9a227]" />
+                      Reading Plans
+                    </h2>
+                    <Link to={createPageUrl('Plans')} className="text-sm text-[#c9a227] font-medium">
+                      View All
+                    </Link>
+                  </div>
+                  <div className="flex gap-3 overflow-x-auto pb-2 -mx-4 px-4">
+                    {suggestedPlans.map((plan, index) => (
+                      <div key={plan.id} className="flex-shrink-0 w-[280px]">
+                        <ReadingPlanCard
+                          plan={plan}
+                          progress={null}
+                          onClick={() => window.location.href = createPageUrl(`PlanDetail?id=${plan.id}`)}
+                          index={index}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
           </motion.div>
         )}
 
