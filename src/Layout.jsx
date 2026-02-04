@@ -4,7 +4,6 @@ import { createPageUrl } from '@/utils';
 import { Home, BookOpen, Users, User, Heart } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Toaster } from 'sonner';
-import { Toaster } from 'sonner';
 
 const navItems = [
   { name: 'Home', icon: Home, page: 'Home' },
