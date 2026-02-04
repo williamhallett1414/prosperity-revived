@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ArrowLeft, Compass } from 'lucide-react';
+import { ArrowLeft, Compass, BookOpen, TrendingUp, CheckCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import BookSelector from '@/components/bible/BookSelector';
@@ -10,11 +10,14 @@ import ChapterSelector from '@/components/bible/ChapterSelector';
 import VerseReader from '@/components/bible/VerseReader';
 import ReadingPlanCard from '@/components/home/ReadingPlanCard';
 import { readingPlans } from '@/components/bible/BibleData';
+import BibleStatsModal from '@/components/bible/BibleStatsModal';
 
 export default function Bible() {
   const [view, setView] = useState('books'); // books, chapters, reader
   const [selectedBook, setSelectedBook] = useState(null);
   const [selectedChapter, setSelectedChapter] = useState(null);
+  const [showStatsModal, setShowStatsModal] = useState(false);
+  const [selectedStat, setSelectedStat] = useState(null);
 
   const queryClient = useQueryClient();
 
@@ -109,6 +112,14 @@ export default function Bible() {
   };
 
   const suggestedPlans = readingPlans.filter(plan => !getProgressForPlan(plan.id)).slice(0, 4);
+  
+  const totalDaysRead = planProgress.reduce((sum, p) => sum + (p.completed_days?.length || 0), 0);
+  const longestStreak = Math.max(...planProgress.map(p => p.longest_streak || 0), 0);
+
+  const handleStatClick = (statType) => {
+    setSelectedStat(statType);
+    setShowStatsModal(true);
+  };
 
   return (
     <div className="min-h-screen bg-[#faf8f5] dark:bg-[#1a1a2e] pb-24">
@@ -132,6 +143,44 @@ export default function Bible() {
                 <h1 className="text-2xl font-bold text-[#1a1a2e] dark:text-white">Bible</h1>
               </div>
               <p className="text-gray-500 dark:text-gray-400 ml-[52px]">Select a testament to explore</p>
+            </div>
+
+            {/* Stats Cards */}
+            <div className="grid grid-cols-3 gap-3 mb-6">
+              <motion.button
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                onClick={() => handleStatClick('days_read')}
+                className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 shadow-lg hover:shadow-xl transition-shadow text-left"
+              >
+                <BookOpen className="w-6 h-6 text-[#c9a227] mb-2" />
+                <p className="text-2xl font-bold text-[#1a1a2e] dark:text-white">{totalDaysRead}</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Days Read</p>
+              </motion.button>
+              
+              <motion.button
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+                onClick={() => handleStatClick('streak')}
+                className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 shadow-lg hover:shadow-xl transition-shadow text-left"
+              >
+                <TrendingUp className="w-6 h-6 text-[#8fa68a] mb-2" />
+                <p className="text-2xl font-bold text-[#1a1a2e] dark:text-white">{longestStreak}</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Longest Streak</p>
+              </motion.button>
+              
+              <motion.button
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                onClick={() => handleStatClick('bookmarks')}
+                className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 shadow-lg hover:shadow-xl transition-shadow text-left"
+              >
+                <CheckCircle className="w-6 h-6 text-[#c9a227] mb-2" />
+                <p className="text-2xl font-bold text-[#1a1a2e] dark:text-white">{bookmarks.length}</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Saved Verses</p>
+              </motion.button>
             </div>
 
             <div className="mb-8">
@@ -207,6 +256,15 @@ export default function Bible() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Stats Modal */}
+      <BibleStatsModal
+        isOpen={showStatsModal}
+        onClose={() => setShowStatsModal(false)}
+        statType={selectedStat}
+        progress={planProgress}
+        bookmarks={bookmarks}
+      />
     </div>
   );
 }

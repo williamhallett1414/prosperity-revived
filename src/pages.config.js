@@ -51,6 +51,7 @@ import Achievements from './pages/Achievements';
 import Bible from './pages/Bible';
 import BibleBooks from './pages/BibleBooks';
 import Bookmarks from './pages/Bookmarks';
+import ChallengeDetail from './pages/ChallengeDetail';
 import Community from './pages/Community';
 import Friends from './pages/Friends';
 import GroupDetail from './pages/GroupDetail';
@@ -66,7 +67,6 @@ import SpiritualGrowth from './pages/SpiritualGrowth';
 import UserProfile from './pages/UserProfile';
 import Wellness from './pages/Wellness';
 import WellnessJourney from './pages/WellnessJourney';
-import ChallengeDetail from './pages/ChallengeDetail';
 import __Layout from './Layout.jsx';
 
 
@@ -75,6 +75,7 @@ export const PAGES = {
     "Bible": Bible,
     "BibleBooks": BibleBooks,
     "Bookmarks": Bookmarks,
+    "ChallengeDetail": ChallengeDetail,
     "Community": Community,
     "Friends": Friends,
     "GroupDetail": GroupDetail,
@@ -90,7 +91,6 @@ export const PAGES = {
     "UserProfile": UserProfile,
     "Wellness": Wellness,
     "WellnessJourney": WellnessJourney,
-    "ChallengeDetail": ChallengeDetail,
 }
 
 export const pagesConfig = {

@@ -212,42 +212,7 @@ export default function Profile() {
         <GamificationBanner />
       </div>
 
-      {/* Stats Cards */}
-      <div className="px-4 mb-6">
-        <div className="grid grid-cols-3 gap-3">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 shadow-lg"
-          >
-            <BookOpen className="w-6 h-6 text-[#c9a227] mb-2" />
-            <p className="text-2xl font-bold text-[#1a1a2e] dark:text-white">{totalDaysRead}</p>
-            <p className="text-xs text-gray-500 dark:text-gray-400">Days Read</p>
-          </motion.div>
-          
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 shadow-lg"
-          >
-            <TrendingUp className="w-6 h-6 text-[#8fa68a] mb-2" />
-            <p className="text-2xl font-bold text-[#1a1a2e] dark:text-white">{longestStreak}</p>
-            <p className="text-xs text-gray-500 dark:text-gray-400">Longest Streak</p>
-          </motion.div>
-          
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 shadow-lg"
-          >
-            <CheckCircle className="w-6 h-6 text-[#c9a227] mb-2" />
-            <p className="text-2xl font-bold text-[#1a1a2e] dark:text-white">{bookmarks.length}</p>
-            <p className="text-xs text-gray-500 dark:text-gray-400">Saved Verses</p>
-          </motion.div>
-        </div>
-      </div>
+
 
       {/* Friends Quick Actions */}
       <div className="px-4 mb-6">
