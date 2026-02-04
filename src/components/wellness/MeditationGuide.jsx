@@ -2,19 +2,23 @@ import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
-import { Play, Clock, CheckCircle, Heart, TrendingUp } from 'lucide-react';
+import { Play, Clock, CheckCircle, Heart, TrendingUp, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { awardPoints, checkAndAwardBadges } from '@/components/gamification/ProgressManager';
 import { MEDITATION_LIBRARY, MEDITATION_CATEGORIES } from './MeditationLibrary';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import CommentSection from './CommentSection';
+import AIGuidedMeditationGenerator from './AIGuidedMeditationGenerator';
+import AIPrayerGenerator from './AIPrayerGenerator';
 
 export default function MeditationGuide() {
   const [selectedMeditation, setSelectedMeditation] = useState(null);
   const [user, setUser] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [showStats, setShowStats] = useState(false);
+  const [showAIMeditation, setShowAIMeditation] = useState(false);
+  const [showAIPrayer, setShowAIPrayer] = useState(false);
   const queryClient = useQueryClient();
 
   useEffect(() => {
@@ -100,8 +104,9 @@ export default function MeditationGuide() {
 
   return (
     <div className="space-y-4">
-      {/* Stats Toggle */}
-      <div className="flex justify-end">
+      {/* Header with AI and Stats */}
+      <div className="flex justify-between items-center">
+        <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300">Meditation & Prayer</h3>
         <Button
           variant="outline"
           size="sm"
@@ -111,6 +116,31 @@ export default function MeditationGuide() {
           <TrendingUp className="w-4 h-4 mr-2" />
           {showStats ? 'Hide' : 'Show'} Progress
         </Button>
+      </div>
+
+      {/* AI Generation Cards */}
+      <div className="grid grid-cols-2 gap-3">
+        <motion.button
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          onClick={() => setShowAIMeditation(true)}
+          className="bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl p-4 text-white text-left shadow-lg"
+        >
+          <Sparkles className="w-6 h-6 mb-2" />
+          <p className="font-semibold text-sm">AI Meditation</p>
+          <p className="text-xs text-white/80">Personalized for you</p>
+        </motion.button>
+
+        <motion.button
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          onClick={() => setShowAIPrayer(true)}
+          className="bg-gradient-to-br from-amber-500 to-orange-500 rounded-xl p-4 text-white text-left shadow-lg"
+        >
+          <Sparkles className="w-6 h-6 mb-2" />
+          <p className="font-semibold text-sm">AI Prayer</p>
+          <p className="text-xs text-white/80">Custom prayer prompts</p>
+        </motion.button>
       </div>
 
       {/* Progress Chart */}
@@ -271,6 +301,18 @@ export default function MeditationGuide() {
           </DialogContent>
         </Dialog>
       )}
+
+      {/* AI Generators */}
+      <AIGuidedMeditationGenerator
+        isOpen={showAIMeditation}
+        onClose={() => setShowAIMeditation(false)}
+        user={user}
+      />
+      <AIPrayerGenerator
+        isOpen={showAIPrayer}
+        onClose={() => setShowAIPrayer(false)}
+        user={user}
+      />
     </div>
   );
 }
