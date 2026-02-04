@@ -139,7 +139,7 @@ export default function UserProfile() {
             <div className="flex gap-2">
               <Link
                 to={createPageUrl(`Messages?recipient=${profileEmail}`)}
-                className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center"
+                className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center hover:bg-white/30 transition-colors"
               >
                 <MessageCircle className="w-5 h-5" />
               </Link>

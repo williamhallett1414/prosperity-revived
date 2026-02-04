@@ -1,156 +1,168 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
-import { motion } from 'framer-motion';
-import { ArrowLeft, Send } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Link } from 'react-router-dom';
-import { createPageUrl } from '@/utils';
-import { format } from 'date-fns';
+import { MessageCircle, Loader2 } from 'lucide-react';
+import ConversationList from '@/components/messages/ConversationList';
+import ChatInterface from '@/components/messages/ChatInterface';
 
 export default function Messages() {
   const [user, setUser] = useState(null);
-  const [message, setMessage] = useState('');
-  const messagesEndRef = useRef(null);
+  const [selectedEmail, setSelectedEmail] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
   const queryClient = useQueryClient();
-
-  const params = new URLSearchParams(window.location.search);
-  const friendEmail = params.get('friend');
-  const friendName = params.get('name');
 
   useEffect(() => {
     base44.auth.me().then(setUser);
+    
+    // Check for recipient in URL params
+    const params = new URLSearchParams(window.location.search);
+    const recipient = params.get('recipient');
+    if (recipient) {
+      setSelectedEmail(recipient);
+    }
   }, []);
 
-  const { data: messages = [] } = useQuery({
-    queryKey: ['messages', friendEmail],
+  const { data: messages = [], isLoading } = useQuery({
+    queryKey: ['messages'],
     queryFn: async () => {
-      const all = await base44.entities.Message.list();
-      return all
-        .filter(m => 
-          (m.sender_email === user?.email && m.receiver_email === friendEmail) ||
-          (m.sender_email === friendEmail && m.receiver_email === user?.email)
-        )
-        .sort((a, b) => new Date(a.created_date) - new Date(b.created_date));
+      const all = await base44.entities.Message.list('-created_date', 500);
+      return all.filter(m => 
+        m.sender_email === user?.email || m.receiver_email === user?.email
+      );
     },
-    enabled: !!user && !!friendEmail,
-    refetchInterval: 3000 // Poll for new messages
+    enabled: !!user
+  });
+
+  const { data: users = [] } = useQuery({
+    queryKey: ['users'],
+    queryFn: () => base44.entities.User.list()
   });
 
   const sendMessage = useMutation({
-    mutationFn: (content) => base44.entities.Message.create({
-      sender_email: user.email,
-      receiver_email: friendEmail,
-      sender_name: user.full_name || user.email,
-      content
-    }),
-    onSuccess: () => {
-      queryClient.invalidateQueries(['messages']);
-      setMessage('');
-    }
+    mutationFn: async ({ receiverEmail, content }) => {
+      const receiver = users.find(u => u.email === receiverEmail);
+      return base44.entities.Message.create({
+        sender_email: user.email,
+        receiver_email: receiverEmail,
+        content,
+        sender_name: user.full_name || user.email,
+        receiver_name: receiver?.full_name || receiverEmail,
+        read: false
+      });
+    },
+    onSuccess: () => queryClient.invalidateQueries(['messages'])
   });
 
-  // Mark messages as read
+  const markAsRead = useMutation({
+    mutationFn: (ids) => {
+      return Promise.all(ids.map(id => 
+        base44.entities.Message.update(id, { read: true })
+      ));
+    },
+    onSuccess: () => queryClient.invalidateQueries(['messages'])
+  });
+
+  // Mark messages as read when viewing conversation
   useEffect(() => {
-    if (user && messages.length > 0) {
-      const unreadMessages = messages.filter(
-        m => m.receiver_email === user.email && !m.read
+    if (selectedEmail && user) {
+      const unreadMessages = messages.filter(m => 
+        m.sender_email === selectedEmail && 
+        m.receiver_email === user.email && 
+        !m.read
       );
-      unreadMessages.forEach(m => {
-        base44.entities.Message.update(m.id, { read: true });
-      });
+      if (unreadMessages.length > 0) {
+        markAsRead.mutate(unreadMessages.map(m => m.id));
+      }
     }
-  }, [messages, user]);
+  }, [selectedEmail, messages, user]);
 
-  useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
-
-  const handleSend = () => {
-    if (message.trim()) {
-      sendMessage.mutate(message.trim());
-    }
+  const handleSendMessage = (receiverEmail, content) => {
+    sendMessage.mutate({ receiverEmail, content });
   };
 
-  if (!user) return null;
+  const handleSelectConversation = (email) => {
+    setSelectedEmail(email);
+  };
+
+  const handleBack = () => {
+    setSelectedEmail(null);
+  };
+
+  // Get unread count
+  const unreadCount = messages.filter(m => 
+    m.receiver_email === user?.email && !m.read
+  ).length;
+
+  if (!user) {
+    return (
+      <div className="min-h-screen bg-[#faf8f5] dark:bg-[#1a1a2e] flex items-center justify-center">
+        <Loader2 className="w-8 h-8 text-[#c9a227] animate-spin" />
+      </div>
+    );
+  }
 
   return (
-    <div className="h-screen bg-[#faf8f5] flex flex-col">
-      {/* Header */}
-      <div className="bg-white border-b px-4 py-4 flex items-center gap-3">
-        <Link
-          to={createPageUrl('Friends')}
-          className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center"
-        >
-          <ArrowLeft className="w-5 h-5" />
-        </Link>
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#c9a227] to-[#8fa68a] flex items-center justify-center text-white font-semibold">
-            {friendName?.charAt(0) || friendEmail?.charAt(0)}
-          </div>
-          <div>
-            <h2 className="font-semibold text-[#1a1a2e]">{friendName}</h2>
-            <p className="text-xs text-gray-500">{friendEmail}</p>
-          </div>
+    <div className="min-h-screen bg-[#faf8f5] dark:bg-[#1a1a2e] pb-20">
+      <div className="max-w-6xl mx-auto h-screen flex flex-col">
+        {/* Header */}
+        <div className="bg-gradient-to-br from-[#1a1a2e] to-[#2d2d4a] text-white px-4 py-6">
+          <h1 className="text-2xl font-bold flex items-center gap-2">
+            <MessageCircle className="w-7 h-7" />
+            Messages
+            {unreadCount > 0 && (
+              <span className="px-2 py-1 bg-[#c9a227] text-white text-sm font-bold rounded-full">
+                {unreadCount}
+              </span>
+            )}
+          </h1>
         </div>
-      </div>
 
-      {/* Messages */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-3">
-        {messages.length === 0 ? (
-          <div className="text-center py-12">
-            <p className="text-gray-500">No messages yet</p>
-            <p className="text-sm text-gray-400 mt-1">Start the conversation!</p>
+        {/* Main Content */}
+        <div className="flex-1 flex overflow-hidden bg-white dark:bg-[#2d2d4a]">
+          {/* Conversation List - Hidden on mobile when chat is open */}
+          <div className={`w-full lg:w-96 border-r border-gray-200 dark:border-gray-700 ${
+            selectedEmail ? 'hidden lg:block' : 'block'
+          }`}>
+            {isLoading ? (
+              <div className="flex items-center justify-center h-full">
+                <Loader2 className="w-8 h-8 text-[#c9a227] animate-spin" />
+              </div>
+            ) : (
+              <ConversationList
+                messages={messages}
+                user={user}
+                onSelectConversation={handleSelectConversation}
+                selectedEmail={selectedEmail}
+                searchQuery={searchQuery}
+                onSearchChange={setSearchQuery}
+              />
+            )}
           </div>
-        ) : (
-          messages.map((msg, idx) => {
-            const isMe = msg.sender_email === user.email;
-            return (
-              <motion.div
-                key={msg.id}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className={`flex ${isMe ? 'justify-end' : 'justify-start'}`}
-              >
-                <div className={`max-w-[75%] ${isMe ? 'order-2' : 'order-1'}`}>
-                  <div
-                    className={`rounded-2xl px-4 py-2 ${
-                      isMe
-                        ? 'bg-[#1a1a2e] text-white rounded-br-sm'
-                        : 'bg-white text-gray-800 rounded-bl-sm'
-                    }`}
-                  >
-                    <p>{msg.content}</p>
-                  </div>
-                  <p className={`text-xs text-gray-400 mt-1 ${isMe ? 'text-right' : 'text-left'}`}>
-                    {format(new Date(msg.created_date), 'h:mm a')}
+
+          {/* Chat Interface */}
+          <div className={`flex-1 ${
+            selectedEmail ? 'block' : 'hidden lg:block'
+          }`}>
+            {selectedEmail ? (
+              <ChatInterface
+                selectedEmail={selectedEmail}
+                messages={messages}
+                user={user}
+                onBack={handleBack}
+                onSendMessage={handleSendMessage}
+                isSending={sendMessage.isPending}
+              />
+            ) : (
+              <div className="hidden lg:flex h-full items-center justify-center text-center p-8">
+                <div>
+                  <MessageCircle className="w-16 h-16 text-gray-300 dark:text-gray-600 mx-auto mb-4" />
+                  <p className="text-gray-500 dark:text-gray-400 text-lg">
+                    Select a conversation to start messaging
                   </p>
                 </div>
-              </motion.div>
-            );
-          })
-        )}
-        <div ref={messagesEndRef} />
-      </div>
-
-      {/* Input */}
-      <div className="bg-white border-t px-4 py-3">
-        <div className="flex gap-2">
-          <Input
-            placeholder="Type a message..."
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            onKeyPress={(e) => e.key === 'Enter' && handleSend()}
-            className="flex-1"
-          />
-          <Button
-            onClick={handleSend}
-            disabled={!message.trim() || sendMessage.isPending}
-            className="bg-[#1a1a2e]"
-          >
-            <Send className="w-4 h-4" />
-          </Button>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>
