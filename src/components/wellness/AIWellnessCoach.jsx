@@ -26,6 +26,9 @@ export default function AIWellnessCoach({ user }) {
   const [journalEnergy, setJournalEnergy] = useState('moderate');
   const [suggestedPrompts, setSuggestedPrompts] = useState([]);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [moodPatternInsights, setMoodPatternInsights] = useState(null);
+  const [selfCareRecommendations, setSelfCareRecommendations] = useState([]);
+  const [isGeneratingRecommendations, setIsGeneratingRecommendations] = useState(false);
   const messagesEndRef = useRef(null);
   const queryClient = useQueryClient();
 
@@ -183,8 +186,18 @@ Keep it warm, personal, and 2-3 sentences. Use an encouraging emoji. Reference s
         snippet: e.content?.substring(0, 100)
       }));
 
+      // Suggest prompts based on recent activity
+      const lastWorkout = workoutSessions[0];
+      const lastMeal = mealLogs[0];
+      const lastMeditation = meditations.find(m => m.completed_dates?.length > 0);
+
+      const activityContext = [];
+      if (lastWorkout) activityContext.push(`Recent workout: ${lastWorkout.workout_title} on ${lastWorkout.date}`);
+      if (lastMeal) activityContext.push(`Recent meal logged: ${lastMeal.description} on ${lastMeal.date}`);
+      if (lastMeditation) activityContext.push(`Recent meditation: ${lastMeditation.title}`);
+
       const promptRequest = `
-Based on this user's wellness journey, generate 4 personalized journaling prompts that would help them reflect and grow:
+Based on this user's wellness journey and recent activities, generate 4 personalized journaling prompts:
 
 USER CONTEXT:
 ${JSON.stringify({
@@ -192,17 +205,18 @@ ${JSON.stringify({
   recent_activity: context.recent_activity,
   active_journey: context.active_journey?.title,
   current_week_theme: context.active_journey?.current_week_theme,
-  recent_journal_entries: recentEntries
+  recent_journal_entries: recentEntries,
+  activity_context: activityContext.length > 0 ? activityContext : "No recent activity"
 }, null, 2)}
 
-Generate 4 diverse prompts covering different areas:
-1. Spiritual reflection
-2. Physical wellness & fitness
-3. Emotional/mental health
-4. Goal progress or gratitude
+Generate 4 diverse prompts directly tailored to their recent activities and wellness state:
+1. A prompt about their recent workout or fitness
+2. A prompt about their nutrition or food choices
+3. A prompt about their emotional/spiritual state
+4. A prompt connecting multiple areas (physical, mental, spiritual)
 
-Return as JSON array: ["prompt1", "prompt2", "prompt3", "prompt4"]
-Keep each prompt brief (1 sentence, question format).`;
+Return as JSON: {"prompts": ["prompt1", "prompt2", "prompt3", "prompt4"]}
+Keep prompts brief, engaging, and specific to their recent activity.`;
 
       const response = await base44.integrations.Core.InvokeLLM({
         prompt: promptRequest,
@@ -223,6 +237,55 @@ Keep each prompt brief (1 sentence, question format).`;
         "What spiritual lesson am I learning this week?",
         "What small win can I celebrate right now?"
       ]);
+    }
+  };
+
+  const analyzeJournalEntryDeep = async (allEntries) => {
+    try {
+      if (allEntries.length === 0) return null;
+
+      const moodTrends = allEntries.slice(0, 10).map(e => ({ date: e.date, mood: e.mood, energy: e.energy_level }));
+      const context = buildContext();
+      
+      const prompt = `
+Analyze this user's journal patterns to provide deep mood insights and tailored wellness advice:
+
+USER CONTEXT:
+${JSON.stringify(context, null, 2)}
+
+RECENT JOURNAL MOOD PATTERNS (last 10 entries):
+${JSON.stringify(moodTrends, null, 2)}
+
+Provide a structured analysis:
+1. PRIMARY MOOD PATTERN: Describe their overall mood trend (improving/declining/stable)
+2. ENERGY CORRELATION: How does their energy level correlate with mood?
+3. ACTIVITY CONNECTION: Link mood patterns to their recent workouts, meals, meditation, or reading
+4. IDENTIFIED TRIGGERS: What activities or patterns seem to boost or lower their mood?
+5. TAILORED ADVICE: Give 2-3 specific wellness suggestions based on these patterns
+6. ENCOURAGEMENT: A brief, personal note acknowledging their journey
+
+Be specific, data-driven, and compassionate.`;
+
+      const response = await base44.integrations.Core.InvokeLLM({
+        prompt,
+        response_json_schema: {
+          type: "object",
+          properties: {
+            mood_pattern: { type: "string" },
+            energy_correlation: { type: "string" },
+            activity_connection: { type: "string" },
+            triggers: { type: "array", items: { type: "string" } },
+            tailored_advice: { type: "array", items: { type: "string" } },
+            encouragement: { type: "string" }
+          }
+        }
+      });
+
+      setMoodPatternInsights(response);
+      return response;
+    } catch (error) {
+      console.error('Failed to analyze patterns:', error);
+      return null;
     }
   };
 
@@ -481,6 +544,47 @@ Respond as their trusted wellness coach:`;
     }
   };
 
+  const generateSelfCareRecommendations = async () => {
+    setIsGeneratingRecommendations(true);
+    try {
+      const context = buildContext();
+      
+      const prompt = `
+Based on this user's progress, current state, and stated goals, recommend specific self-care activities and personal development guides:
+
+USER CONTEXT:
+${JSON.stringify(context, null, 2)}
+
+Generate personalized recommendations:
+1. ONE SELF-CARE ACTIVITY: Based on their current mood/energy. Include specific steps and duration.
+2. ONE PERSONAL DEVELOPMENT FOCUS: Address a growth area based on their goals and progress.
+3. ONE MOOD-BOOSTING TIP: Quick activity (<5 min) based on their recent mood patterns.
+4. ONE MEDITATION/PRAYER SUGGESTION: Customized to their spiritual goals and current state.
+
+Format as specific, actionable recommendations with clear benefits explained.`;
+
+      const response = await base44.integrations.Core.InvokeLLM({
+        prompt,
+        response_json_schema: {
+          type: "object",
+          properties: {
+            self_care_activity: { type: "string" },
+            personal_development_focus: { type: "string" },
+            mood_boosting_tip: { type: "string" },
+            meditation_suggestion: { type: "string" }
+          }
+        }
+      });
+
+      setSelfCareRecommendations(response);
+    } catch (error) {
+      console.error('Failed to generate recommendations:', error);
+      setSelfCareRecommendations(null);
+    } finally {
+      setIsGeneratingRecommendations(false);
+    }
+  };
+
   const quickPrompts = [
     "How am I doing overall?",
     "What should I work on today?",
@@ -597,22 +701,69 @@ Respond as their trusted wellness coach:`;
                 </div>
               </ScrollArea>
 
-              {/* Quick Prompts */}
+              {/* Quick Prompts & Recommendations */}
               {messages.length <= 2 && (
-                <div className="px-4 pb-2">
-                  <p className="text-xs text-gray-500 mb-2">Quick questions:</p>
-                  <div className="flex flex-wrap gap-2">
-                    {quickPrompts.map((prompt, index) => (
-                      <button
-                        key={index}
-                        onClick={() => handleQuickPrompt(prompt)}
-                        className="text-xs px-3 py-1.5 bg-purple-50 text-purple-600 rounded-full hover:bg-purple-100 transition-colors"
-                      >
-                        {prompt}
-                      </button>
-                    ))}
+                <div className="px-4 pb-2 space-y-3">
+                  <div>
+                    <p className="text-xs text-gray-500 mb-2">Quick questions:</p>
+                    <div className="flex flex-wrap gap-2">
+                      {quickPrompts.map((prompt, index) => (
+                        <button
+                          key={index}
+                          onClick={() => handleQuickPrompt(prompt)}
+                          className="text-xs px-3 py-1.5 bg-purple-50 text-purple-600 rounded-full hover:bg-purple-100 transition-colors"
+                        >
+                          {prompt}
+                        </button>
+                      ))}
+                    </div>
                   </div>
+
+                  <Button
+                    onClick={generateSelfCareRecommendations}
+                    disabled={isGeneratingRecommendations}
+                    size="sm"
+                    className="w-full bg-emerald-500 hover:bg-emerald-600 text-xs"
+                  >
+                    {isGeneratingRecommendations ? (
+                      <>
+                        <Loader2 className="w-3 h-3 mr-1 animate-spin" />
+                        Generating...
+                      </>
+                    ) : (
+                      <>
+                        <Sparkles className="w-3 h-3 mr-1" />
+                        Get Self-Care Recommendations
+                      </>
+                    )}
+                  </Button>
                 </div>
+              )}
+
+              {/* Self-Care Recommendations */}
+              {selfCareRecommendations && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="mx-4 mb-2 p-3 bg-gradient-to-r from-emerald-50 to-teal-50 rounded-lg space-y-2 text-xs"
+                >
+                  <p className="font-semibold text-emerald-900">✨ Your Personalized Recommendations</p>
+                  {selfCareRecommendations.self_care_activity && (
+                    <div className="text-emerald-800">
+                      <span className="font-medium">🧘 Self-Care:</span> {selfCareRecommendations.self_care_activity}
+                    </div>
+                  )}
+                  {selfCareRecommendations.mood_boosting_tip && (
+                    <div className="text-emerald-800">
+                      <span className="font-medium">⚡ Quick Boost:</span> {selfCareRecommendations.mood_boosting_tip}
+                    </div>
+                  )}
+                  {selfCareRecommendations.personal_development_focus && (
+                    <div className="text-emerald-800">
+                      <span className="font-medium">📈 Growth Focus:</span> {selfCareRecommendations.personal_development_focus}
+                    </div>
+                  )}
+                </motion.div>
               )}
 
               {/* Input */}
@@ -718,26 +869,61 @@ Respond as their trusted wellness coach:`;
                       />
                     </div>
 
+                    {/* Mood Pattern Insights */}
+                     {moodPatternInsights && (
+                       <motion.div
+                         initial={{ opacity: 0 }}
+                         animate={{ opacity: 1 }}
+                         className="p-3 bg-purple-50 rounded-lg space-y-2"
+                       >
+                         <p className="text-xs font-semibold text-purple-900">📊 Your Mood Patterns</p>
+                         <div className="text-xs text-gray-700 space-y-1">
+                           <p><span className="font-medium">Trend:</span> {moodPatternInsights.mood_pattern}</p>
+                           <p><span className="font-medium">Energy:</span> {moodPatternInsights.energy_correlation}</p>
+                           {moodPatternInsights.triggers?.length > 0 && (
+                             <div>
+                               <span className="font-medium">Mood Triggers:</span>
+                               <ul className="ml-3">
+                                 {moodPatternInsights.triggers.slice(0, 2).map((trigger, idx) => (
+                                   <li key={idx}>• {trigger}</li>
+                                 ))}
+                               </ul>
+                             </div>
+                           )}
+                         </div>
+                       </motion.div>
+                     )}
+
                     {/* Recent Entries Preview */}
-                    {journalEntries.length > 0 && (
-                      <div>
-                        <p className="text-xs font-medium text-gray-700 mb-2">Recent Entries</p>
-                        <div className="space-y-2">
-                          {journalEntries.slice(0, 3).map((entry) => (
-                            <div key={entry.id} className="p-2 bg-gray-50 rounded-lg">
-                              <div className="flex items-center justify-between mb-1">
-                                <span className="text-xs text-gray-500">{entry.date}</span>
-                                <span className="text-xs">{entry.mood === 'excellent' ? '🤩' : entry.mood === 'good' ? '😊' : entry.mood === 'neutral' ? '😐' : '😞'}</span>
-                              </div>
-                              <p className="text-xs text-gray-700 line-clamp-2">{entry.content}</p>
-                              {entry.ai_insights && (
-                                <p className="text-xs text-purple-600 mt-1 italic">💡 {entry.ai_insights.substring(0, 80)}...</p>
-                              )}
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    )}
+                     {journalEntries.length > 0 && (
+                       <div>
+                         <div className="flex items-center justify-between mb-2">
+                           <p className="text-xs font-medium text-gray-700">Recent Entries</p>
+                           {journalEntries.length >= 5 && (
+                             <button
+                               onClick={() => analyzeJournalEntryDeep(journalEntries)}
+                               className="text-xs text-purple-600 hover:text-purple-700 font-medium"
+                             >
+                               Analyze Patterns →
+                             </button>
+                           )}
+                         </div>
+                         <div className="space-y-2">
+                           {journalEntries.slice(0, 3).map((entry) => (
+                             <div key={entry.id} className="p-2 bg-gray-50 rounded-lg">
+                               <div className="flex items-center justify-between mb-1">
+                                 <span className="text-xs text-gray-500">{entry.date}</span>
+                                 <span className="text-xs">{entry.mood === 'excellent' ? '🤩' : entry.mood === 'good' ? '😊' : entry.mood === 'neutral' ? '😐' : '😞'}</span>
+                               </div>
+                               <p className="text-xs text-gray-700 line-clamp-2">{entry.content}</p>
+                               {entry.ai_insights && (
+                                 <p className="text-xs text-purple-600 mt-1 italic">💡 {entry.ai_insights.substring(0, 80)}...</p>
+                               )}
+                             </div>
+                           ))}
+                         </div>
+                       </div>
+                     )}
                   </div>
                 </ScrollArea>
 
