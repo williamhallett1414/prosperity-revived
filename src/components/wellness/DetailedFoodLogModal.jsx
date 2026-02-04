@@ -22,6 +22,19 @@ export default function DetailedFoodLogModal({ isOpen, onClose, onSave }) {
     fiber: 0,
     sugar: 0,
     sodium: 0,
+    cholesterol: 0,
+    saturated_fat: 0,
+    trans_fat: 0,
+    polyunsaturated_fat: 0,
+    monounsaturated_fat: 0,
+    potassium: 0,
+    vitamin_a: 0,
+    vitamin_c: 0,
+    vitamin_d: 0,
+    calcium: 0,
+    iron: 0,
+    magnesium: 0,
+    zinc: 0,
     serving_size: '',
     notes: ''
   });
@@ -177,64 +190,100 @@ If you can't find the exact product, provide a reasonable estimate based on simi
               onChange={(e) => setMeal({ ...meal, serving_size: e.target.value })}
             />
 
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label className="text-xs text-gray-500">Calories</label>
-                <Input
-                  type="number"
-                  value={meal.calories || ''}
-                  onChange={(e) => setMeal({ ...meal, calories: parseFloat(e.target.value) || 0 })}
-                />
-              </div>
-              <div>
-                <label className="text-xs text-gray-500">Protein (g)</label>
-                <Input
-                  type="number"
-                  value={meal.protein || ''}
-                  onChange={(e) => setMeal({ ...meal, protein: parseFloat(e.target.value) || 0 })}
-                />
-              </div>
-              <div>
-                <label className="text-xs text-gray-500">Carbs (g)</label>
-                <Input
-                  type="number"
-                  value={meal.carbs || ''}
-                  onChange={(e) => setMeal({ ...meal, carbs: parseFloat(e.target.value) || 0 })}
-                />
-              </div>
-              <div>
-                <label className="text-xs text-gray-500">Fats (g)</label>
-                <Input
-                  type="number"
-                  value={meal.fats || ''}
-                  onChange={(e) => setMeal({ ...meal, fats: parseFloat(e.target.value) || 0 })}
-                />
-              </div>
-              <div>
-                <label className="text-xs text-gray-500">Fiber (g)</label>
-                <Input
-                  type="number"
-                  value={meal.fiber || ''}
-                  onChange={(e) => setMeal({ ...meal, fiber: parseFloat(e.target.value) || 0 })}
-                />
-              </div>
-              <div>
-                <label className="text-xs text-gray-500">Sugar (g)</label>
-                <Input
-                  type="number"
-                  value={meal.sugar || ''}
-                  onChange={(e) => setMeal({ ...meal, sugar: parseFloat(e.target.value) || 0 })}
-                />
-              </div>
-              <div>
-                <label className="text-xs text-gray-500">Sodium (mg)</label>
-                <Input
-                  type="number"
-                  value={meal.sodium || ''}
-                  onChange={(e) => setMeal({ ...meal, sodium: parseFloat(e.target.value) || 0 })}
-                />
-              </div>
-            </div>
+            <Tabs defaultValue="macros" className="w-full">
+              <TabsList className="grid w-full grid-cols-3">
+                <TabsTrigger value="macros">Macros</TabsTrigger>
+                <TabsTrigger value="vitamins">Vitamins</TabsTrigger>
+                <TabsTrigger value="minerals">Minerals</TabsTrigger>
+              </TabsList>
+
+              <TabsContent value="macros" className="space-y-3">
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="text-xs text-gray-500">Calories</label>
+                    <Input type="number" value={meal.calories || ''} onChange={(e) => setMeal({ ...meal, calories: parseFloat(e.target.value) || 0 })} />
+                  </div>
+                  <div>
+                    <label className="text-xs text-gray-500">Protein (g)</label>
+                    <Input type="number" value={meal.protein || ''} onChange={(e) => setMeal({ ...meal, protein: parseFloat(e.target.value) || 0 })} />
+                  </div>
+                  <div>
+                    <label className="text-xs text-gray-500">Carbs (g)</label>
+                    <Input type="number" value={meal.carbs || ''} onChange={(e) => setMeal({ ...meal, carbs: parseFloat(e.target.value) || 0 })} />
+                  </div>
+                  <div>
+                    <label className="text-xs text-gray-500">Total Fats (g)</label>
+                    <Input type="number" value={meal.fats || ''} onChange={(e) => setMeal({ ...meal, fats: parseFloat(e.target.value) || 0 })} />
+                  </div>
+                  <div>
+                    <label className="text-xs text-gray-500">Saturated Fat (g)</label>
+                    <Input type="number" value={meal.saturated_fat || ''} onChange={(e) => setMeal({ ...meal, saturated_fat: parseFloat(e.target.value) || 0 })} />
+                  </div>
+                  <div>
+                    <label className="text-xs text-gray-500">Trans Fat (g)</label>
+                    <Input type="number" value={meal.trans_fat || ''} onChange={(e) => setMeal({ ...meal, trans_fat: parseFloat(e.target.value) || 0 })} />
+                  </div>
+                  <div>
+                    <label className="text-xs text-gray-500">Fiber (g)</label>
+                    <Input type="number" value={meal.fiber || ''} onChange={(e) => setMeal({ ...meal, fiber: parseFloat(e.target.value) || 0 })} />
+                  </div>
+                  <div>
+                    <label className="text-xs text-gray-500">Sugar (g)</label>
+                    <Input type="number" value={meal.sugar || ''} onChange={(e) => setMeal({ ...meal, sugar: parseFloat(e.target.value) || 0 })} />
+                  </div>
+                  <div>
+                    <label className="text-xs text-gray-500">Cholesterol (mg)</label>
+                    <Input type="number" value={meal.cholesterol || ''} onChange={(e) => setMeal({ ...meal, cholesterol: parseFloat(e.target.value) || 0 })} />
+                  </div>
+                  <div>
+                    <label className="text-xs text-gray-500">Sodium (mg)</label>
+                    <Input type="number" value={meal.sodium || ''} onChange={(e) => setMeal({ ...meal, sodium: parseFloat(e.target.value) || 0 })} />
+                  </div>
+                </div>
+              </TabsContent>
+
+              <TabsContent value="vitamins" className="space-y-3">
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="text-xs text-gray-500">Vitamin A (mcg)</label>
+                    <Input type="number" value={meal.vitamin_a || ''} onChange={(e) => setMeal({ ...meal, vitamin_a: parseFloat(e.target.value) || 0 })} />
+                  </div>
+                  <div>
+                    <label className="text-xs text-gray-500">Vitamin C (mg)</label>
+                    <Input type="number" value={meal.vitamin_c || ''} onChange={(e) => setMeal({ ...meal, vitamin_c: parseFloat(e.target.value) || 0 })} />
+                  </div>
+                  <div>
+                    <label className="text-xs text-gray-500">Vitamin D (mcg)</label>
+                    <Input type="number" value={meal.vitamin_d || ''} onChange={(e) => setMeal({ ...meal, vitamin_d: parseFloat(e.target.value) || 0 })} />
+                  </div>
+                </div>
+              </TabsContent>
+
+              <TabsContent value="minerals" className="space-y-3">
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="text-xs text-gray-500">Calcium (mg)</label>
+                    <Input type="number" value={meal.calcium || ''} onChange={(e) => setMeal({ ...meal, calcium: parseFloat(e.target.value) || 0 })} />
+                  </div>
+                  <div>
+                    <label className="text-xs text-gray-500">Iron (mg)</label>
+                    <Input type="number" value={meal.iron || ''} onChange={(e) => setMeal({ ...meal, iron: parseFloat(e.target.value) || 0 })} />
+                  </div>
+                  <div>
+                    <label className="text-xs text-gray-500">Potassium (mg)</label>
+                    <Input type="number" value={meal.potassium || ''} onChange={(e) => setMeal({ ...meal, potassium: parseFloat(e.target.value) || 0 })} />
+                  </div>
+                  <div>
+                    <label className="text-xs text-gray-500">Magnesium (mg)</label>
+                    <Input type="number" value={meal.magnesium || ''} onChange={(e) => setMeal({ ...meal, magnesium: parseFloat(e.target.value) || 0 })} />
+                  </div>
+                  <div>
+                    <label className="text-xs text-gray-500">Zinc (mg)</label>
+                    <Input type="number" value={meal.zinc || ''} onChange={(e) => setMeal({ ...meal, zinc: parseFloat(e.target.value) || 0 })} />
+                  </div>
+                </div>
+              </TabsContent>
+            </Tabs>
 
             <Textarea
               placeholder="Notes (optional)"

@@ -27,9 +27,18 @@ export default function NutritionBreakdown({ timeRange = 7 }) {
         fats: acc.fats + (meal.fats || 0),
         fiber: acc.fiber + (meal.fiber || 0),
         sugar: acc.sugar + (meal.sugar || 0),
-        sodium: acc.sodium + (meal.sodium || 0)
+        sodium: acc.sodium + (meal.sodium || 0),
+        cholesterol: acc.cholesterol + (meal.cholesterol || 0),
+        vitamin_a: acc.vitamin_a + (meal.vitamin_a || 0),
+        vitamin_c: acc.vitamin_c + (meal.vitamin_c || 0),
+        vitamin_d: acc.vitamin_d + (meal.vitamin_d || 0),
+        calcium: acc.calcium + (meal.calcium || 0),
+        iron: acc.iron + (meal.iron || 0),
+        potassium: acc.potassium + (meal.potassium || 0),
+        magnesium: acc.magnesium + (meal.magnesium || 0),
+        zinc: acc.zinc + (meal.zinc || 0)
       }),
-      { calories: 0, protein: 0, carbs: 0, fats: 0, fiber: 0, sugar: 0, sodium: 0 }
+      { calories: 0, protein: 0, carbs: 0, fats: 0, fiber: 0, sugar: 0, sodium: 0, cholesterol: 0, vitamin_a: 0, vitamin_c: 0, vitamin_d: 0, calcium: 0, iron: 0, potassium: 0, magnesium: 0, zinc: 0 }
     );
 
     const avgDaily = {
@@ -39,7 +48,16 @@ export default function NutritionBreakdown({ timeRange = 7 }) {
       fats: Math.round(totals.fats / timeRange),
       fiber: Math.round(totals.fiber / timeRange),
       sugar: Math.round(totals.sugar / timeRange),
-      sodium: Math.round(totals.sodium / timeRange)
+      sodium: Math.round(totals.sodium / timeRange),
+      cholesterol: Math.round(totals.cholesterol / timeRange),
+      vitamin_a: Math.round(totals.vitamin_a / timeRange),
+      vitamin_c: Math.round(totals.vitamin_c / timeRange),
+      vitamin_d: Math.round(totals.vitamin_d / timeRange),
+      calcium: Math.round(totals.calcium / timeRange),
+      iron: Math.round(totals.iron / timeRange),
+      potassium: Math.round(totals.potassium / timeRange),
+      magnesium: Math.round(totals.magnesium / timeRange),
+      zinc: Math.round(totals.zinc / timeRange)
     };
 
     // Daily breakdown for chart
@@ -108,7 +126,7 @@ export default function NutritionBreakdown({ timeRange = 7 }) {
           </div>
         </div>
 
-        <div className="grid grid-cols-3 gap-2 text-sm">
+        <div className="grid grid-cols-3 gap-2 text-sm mb-3">
           <div className="text-center p-2 bg-gray-50 dark:bg-gray-800 rounded">
             <p className="font-medium text-gray-700 dark:text-gray-300">{stats.avgDaily.fiber}g</p>
             <p className="text-xs text-gray-500">Fiber</p>
@@ -120,6 +138,45 @@ export default function NutritionBreakdown({ timeRange = 7 }) {
           <div className="text-center p-2 bg-gray-50 dark:bg-gray-800 rounded">
             <p className="font-medium text-gray-700 dark:text-gray-300">{stats.avgDaily.sodium}mg</p>
             <p className="text-xs text-gray-500">Sodium</p>
+          </div>
+        </div>
+
+        {/* Micronutrients */}
+        <div className="border-t pt-3 mt-3">
+          <p className="text-xs font-medium text-gray-500 mb-2">Micronutrients (Daily Avg)</p>
+          <div className="grid grid-cols-2 gap-2 text-xs">
+            <div className="flex justify-between p-2 bg-purple-50 dark:bg-purple-900/20 rounded">
+              <span className="text-gray-600 dark:text-gray-400">Vitamin A</span>
+              <span className="font-medium text-purple-700 dark:text-purple-400">{stats.avgDaily.vitamin_a}mcg</span>
+            </div>
+            <div className="flex justify-between p-2 bg-orange-50 dark:bg-orange-900/20 rounded">
+              <span className="text-gray-600 dark:text-gray-400">Vitamin C</span>
+              <span className="font-medium text-orange-700 dark:text-orange-400">{stats.avgDaily.vitamin_c}mg</span>
+            </div>
+            <div className="flex justify-between p-2 bg-yellow-50 dark:bg-yellow-900/20 rounded">
+              <span className="text-gray-600 dark:text-gray-400">Vitamin D</span>
+              <span className="font-medium text-yellow-700 dark:text-yellow-400">{stats.avgDaily.vitamin_d}mcg</span>
+            </div>
+            <div className="flex justify-between p-2 bg-blue-50 dark:bg-blue-900/20 rounded">
+              <span className="text-gray-600 dark:text-gray-400">Calcium</span>
+              <span className="font-medium text-blue-700 dark:text-blue-400">{stats.avgDaily.calcium}mg</span>
+            </div>
+            <div className="flex justify-between p-2 bg-red-50 dark:bg-red-900/20 rounded">
+              <span className="text-gray-600 dark:text-gray-400">Iron</span>
+              <span className="font-medium text-red-700 dark:text-red-400">{stats.avgDaily.iron}mg</span>
+            </div>
+            <div className="flex justify-between p-2 bg-green-50 dark:bg-green-900/20 rounded">
+              <span className="text-gray-600 dark:text-gray-400">Potassium</span>
+              <span className="font-medium text-green-700 dark:text-green-400">{stats.avgDaily.potassium}mg</span>
+            </div>
+            <div className="flex justify-between p-2 bg-indigo-50 dark:bg-indigo-900/20 rounded">
+              <span className="text-gray-600 dark:text-gray-400">Magnesium</span>
+              <span className="font-medium text-indigo-700 dark:text-indigo-400">{stats.avgDaily.magnesium}mg</span>
+            </div>
+            <div className="flex justify-between p-2 bg-pink-50 dark:bg-pink-900/20 rounded">
+              <span className="text-gray-600 dark:text-gray-400">Zinc</span>
+              <span className="font-medium text-pink-700 dark:text-pink-400">{stats.avgDaily.zinc}mg</span>
+            </div>
           </div>
         </div>
       </motion.div>
