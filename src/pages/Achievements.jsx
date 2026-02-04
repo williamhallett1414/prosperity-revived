@@ -7,22 +7,9 @@ import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import BadgeCard from '@/components/gamification/BadgeCard';
-import Leaderboard from '@/components/gamification/Leaderboard';
-
-const BADGES = [
-  { id: 'first_plan', name: 'First Steps', description: 'Complete your first reading plan', icon: '📖', points: 100, requirement: 'reading_plans_completed', value: 1 },
-  { id: 'social_butterfly', name: 'Social Butterfly', description: 'Make 10 community posts', icon: '🦋', points: 150, requirement: 'community_posts', value: 10 },
-  { id: 'streak_7', name: 'Week Warrior', description: 'Maintain a 7-day streak', icon: '🔥', points: 200, requirement: 'current_streak', value: 7 },
-  { id: 'streak_30', name: 'Monthly Master', description: 'Maintain a 30-day streak', icon: '⭐', points: 500, requirement: 'current_streak', value: 30 },
-  { id: 'fitness_fan', name: 'Fitness Fan', description: 'Complete 20 workouts', icon: '💪', points: 250, requirement: 'workouts_completed', value: 20 },
-  { id: 'meditation_master', name: 'Meditation Master', description: 'Complete 15 meditation sessions', icon: '🧘', points: 200, requirement: 'meditations_completed', value: 15 },
-  { id: 'friend_maker', name: 'Friend Maker', description: 'Connect with 5 friends', icon: '👥', points: 100, requirement: 'friends_count', value: 5 },
-  { id: 'commentator', name: 'Commentator', description: 'Leave 25 comments', icon: '💬', points: 150, requirement: 'comments_count', value: 25 },
-  { id: 'messenger', name: 'Messenger', description: 'Send 50 messages', icon: '✉️', points: 100, requirement: 'messages_sent', value: 50 },
-  { id: 'photographer', name: 'Photographer', description: 'Upload 10 photos', icon: '📸', points: 100, requirement: 'photos_uploaded', value: 10 },
-  { id: 'level_5', name: 'Rising Star', description: 'Reach level 5', icon: '🌟', points: 250, requirement: 'level', value: 5 },
-  { id: 'level_10', name: 'Community Leader', description: 'Reach level 10', icon: '👑', points: 500, requirement: 'level', value: 10 }
-];
+import MultiActivityLeaderboard from '@/components/gamification/MultiActivityLeaderboard';
+import DailyWeeklyChallenges from '@/components/gamification/DailyWeeklyChallenges';
+import { BADGES } from '@/components/gamification/ProgressManager';
 
 export default function Achievements() {
   const [user, setUser] = useState(null);
@@ -121,11 +108,13 @@ export default function Achievements() {
 
       <div className="px-4">
         <Tabs defaultValue="badges" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 mb-6 bg-white/50 dark:bg-[#2d2d4a]/50 backdrop-blur-sm p-1 rounded-xl">
+          <TabsList className="grid w-full grid-cols-4 mb-6 bg-white/50 dark:bg-[#2d2d4a]/50 backdrop-blur-sm p-1 rounded-xl">
             <TabsTrigger value="badges">Badges</TabsTrigger>
-            <TabsTrigger value="leaderboard">Leaderboard</TabsTrigger>
+            <TabsTrigger value="challenges">Challenges</TabsTrigger>
+            <TabsTrigger value="leaderboards">Leaderboards</TabsTrigger>
           </TabsList>
 
+          {/* Badges Tab */}
           <TabsContent value="badges" className="space-y-6">
             {earnedBadges.length > 0 && (
               <div>
@@ -142,8 +131,9 @@ export default function Achievements() {
               <h2 className="text-lg font-semibold text-[#1a1a2e] dark:text-white mb-3">Available</h2>
               <div className="grid grid-cols-2 gap-3">
                 {availableBadges.map((badge, i) => {
-                  const currentValue = progress?.[badge.requirement] || 0;
-                  const progressPercent = Math.min((currentValue / badge.value) * 100, 100);
+                  const reqField = badge.requirement.field || badge.requirement.external;
+                  const currentValue = progress?.[reqField] || 0;
+                  const progressPercent = Math.min((currentValue / badge.requirement.value) * 100, 100);
                   return (
                     <BadgeCard 
                       key={badge.id} 
@@ -158,8 +148,14 @@ export default function Achievements() {
             </div>
           </TabsContent>
 
-          <TabsContent value="leaderboard">
-            <Leaderboard />
+          {/* Challenges Tab */}
+          <TabsContent value="challenges">
+            <DailyWeeklyChallenges user={user} />
+          </TabsContent>
+
+          {/* Leaderboards Tab */}
+          <TabsContent value="leaderboards">
+            <MultiActivityLeaderboard />
           </TabsContent>
         </Tabs>
       </div>
