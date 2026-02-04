@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
-import { Dumbbell, UtensilsCrossed, Heart, Plus, TrendingUp, Droplets, ArrowLeft } from 'lucide-react';
+import { Dumbbell, UtensilsCrossed, Heart, Plus, TrendingUp, Droplets, ArrowLeft, Sparkles } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
@@ -181,7 +181,7 @@ export default function Wellness() {
             <TabsTrigger value="tracker" className="text-xs sm:text-sm">Track</TabsTrigger>
             <TabsTrigger value="workouts" className="text-xs sm:text-sm">Workouts</TabsTrigger>
             <TabsTrigger value="nutrition" className="text-xs sm:text-sm">Nutrition</TabsTrigger>
-            <TabsTrigger value="recipes" className="text-xs sm:text-sm">Recipes</TabsTrigger>
+            <TabsTrigger value="meditation" className="text-xs sm:text-sm">Meditation</TabsTrigger>
           </TabsList>
 
           {/* Tracker Tab */}
@@ -253,84 +253,97 @@ export default function Wellness() {
             <AIMealPlanner />
             <NutritionAdvice />
             
-            <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
-              <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">Mindfulness</h3>
-              <CustomPrayerBuilder />
-              <MeditationGuide />
-            </div>
-          </TabsContent>
-
-          {/* Recipes Tab */}
-          <TabsContent value="recipes" className="space-y-4">
-            <Button
-              onClick={() => setShowCreateRecipe(true)}
-              className="w-full bg-orange-500 hover:bg-orange-600"
-            >
-              <Plus className="w-5 h-5 mr-2" />
-              Add Recipe
-            </Button>
-
-            <RecipeFilters filters={recipeFilters} onFilterChange={setRecipeFilters} />
-
-            {/* Popular Recipes */}
-            {popularRecipes.length > 0 && recipeFilters.search === '' && recipeFilters.dietType === 'all' && recipeFilters.category === 'all' && recipeFilters.prepTime === 'all' && (
-              <div>
-                <div className="flex items-center gap-2 mb-3">
-                  <TrendingUp className="w-5 h-5 text-orange-500" />
-                  <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300">Popular Recipes</h3>
-                </div>
-                <div className="grid gap-4 mb-6">
-                  {popularRecipes.map((recipe, index) => (
-                    <RecipeCard key={recipe.id} recipe={recipe} index={index} />
-                  ))}
-                </div>
+            {/* Recipes Section */}
+            <div className="mt-6 pt-6 border-t-2 border-gray-200 dark:border-gray-700">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300">Recipes</h3>
+                <Button
+                  onClick={() => setShowCreateRecipe(true)}
+                  className="bg-orange-500 hover:bg-orange-600"
+                  size="sm"
+                >
+                  <Plus className="w-4 h-4 mr-2" />
+                  Add Recipe
+                </Button>
               </div>
-            )}
 
-            {/* My Recipes */}
-            {myRecipes.length > 0 && (
-              <div>
-                <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">Your Recipes</h3>
-                <div className="grid gap-4 mb-6">
-                  {myRecipes.map((recipe, index) => (
-                    <RecipeCard key={recipe.id} recipe={recipe} index={index} />
-                  ))}
-                </div>
-              </div>
-            )}
+              <RecipeFilters filters={recipeFilters} onFilterChange={setRecipeFilters} />
 
-            {/* Filtered Results */}
-            {(recipeFilters.search || recipeFilters.dietType !== 'all' || recipeFilters.category !== 'all' || recipeFilters.prepTime !== 'all') && (
-              <div>
-                <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">
-                  Search Results ({filteredRecipes.length})
-                </h3>
-                {filteredRecipes.length === 0 ? (
-                  <div className="text-center py-12 bg-white dark:bg-[#2d2d4a] rounded-2xl">
-                    <UtensilsCrossed className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-                    <p className="text-gray-500 dark:text-gray-400">No recipes match your filters</p>
+              {/* Popular Recipes */}
+              {popularRecipes.length > 0 && recipeFilters.search === '' && recipeFilters.dietType === 'all' && recipeFilters.category === 'all' && recipeFilters.prepTime === 'all' && (
+                <div className="mb-6">
+                  <div className="flex items-center gap-2 mb-3">
+                    <TrendingUp className="w-5 h-5 text-orange-500" />
+                    <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300">Popular Recipes</h4>
                   </div>
-                ) : (
                   <div className="grid gap-4">
-                    {filteredRecipes.map((recipe, index) => (
+                    {popularRecipes.map((recipe, index) => (
                       <RecipeCard key={recipe.id} recipe={recipe} index={index} />
                     ))}
                   </div>
-                )}
+                </div>
+              )}
+
+              {/* My Recipes */}
+              {myRecipes.length > 0 && (
+                <div className="mb-6">
+                  <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">Your Recipes</h4>
+                  <div className="grid gap-4">
+                    {myRecipes.map((recipe, index) => (
+                      <RecipeCard key={recipe.id} recipe={recipe} index={index} />
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Filtered Results */}
+              {(recipeFilters.search || recipeFilters.dietType !== 'all' || recipeFilters.category !== 'all' || recipeFilters.prepTime !== 'all') && (
+                <div>
+                  <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">
+                    Search Results ({filteredRecipes.length})
+                  </h4>
+                  {filteredRecipes.length === 0 ? (
+                    <div className="text-center py-12 bg-white dark:bg-[#2d2d4a] rounded-2xl">
+                      <UtensilsCrossed className="w-12 h-12 text-gray-300 mx-auto mb-3" />
+                      <p className="text-gray-500 dark:text-gray-400">No recipes match your filters</p>
+                    </div>
+                  ) : (
+                    <div className="grid gap-4">
+                      {filteredRecipes.map((recipe, index) => (
+                        <RecipeCard key={recipe.id} recipe={recipe} index={index} />
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Collections */}
+              <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+                <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">Collections</h4>
+                <RecipeCollections allRecipes={recipes} />
               </div>
-            )}
+              
+              {/* Community Recipes */}
+              <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+                <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">Community Recipes</h4>
+                <CommunityRecipes />
+              </div>
+            </div>
           </TabsContent>
 
-            {/* Collections and Community within Recipes */}
-            <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
-              <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">Collections</h3>
-              <RecipeCollections allRecipes={recipes} />
+          {/* Meditation Tab */}
+          <TabsContent value="meditation" className="space-y-4">
+            <div className="bg-gradient-to-br from-purple-500 to-indigo-600 rounded-2xl p-6 text-white mb-4">
+              <div className="flex items-center gap-3 mb-2">
+                <Sparkles className="w-6 h-6" />
+                <h3 className="text-lg font-semibold">Mindfulness & Prayer</h3>
+              </div>
+              <p className="text-white/80 text-sm">Find peace through meditation and prayer</p>
             </div>
             
-            <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
-              <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">Community Recipes</h3>
-              <CommunityRecipes />
-            </div>
+            <CustomPrayerBuilder />
+            <MeditationGuide />
+          </TabsContent>
         </Tabs>
       </div>
 
