@@ -9,6 +9,7 @@ import { createPageUrl } from '@/utils';
 import { readingPlans } from '@/components/bible/BibleData';
 import ReadingPlanCard from '@/components/home/ReadingPlanCard';
 import PostCard from '@/components/community/PostCard';
+import UserPostsFeed from '@/components/profile/UserPostsFeed';
 
 export default function UserProfile() {
   const [currentUser, setCurrentUser] = useState(null);

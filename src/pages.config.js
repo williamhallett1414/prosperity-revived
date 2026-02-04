@@ -60,13 +60,13 @@ import Home from './pages/Home';
 import Messages from './pages/Messages';
 import PlanDetail from './pages/PlanDetail';
 import Plans from './pages/Plans';
-import Profile from './pages/Profile';
 import Search from './pages/Search';
 import Settings from './pages/Settings';
 import SpiritualGrowth from './pages/SpiritualGrowth';
 import UserProfile from './pages/UserProfile';
 import Wellness from './pages/Wellness';
 import WellnessJourney from './pages/WellnessJourney';
+import Profile from './pages/Profile';
 import __Layout from './Layout.jsx';
 
 
@@ -84,13 +84,13 @@ export const PAGES = {
     "Messages": Messages,
     "PlanDetail": PlanDetail,
     "Plans": Plans,
-    "Profile": Profile,
     "Search": Search,
     "Settings": Settings,
     "SpiritualGrowth": SpiritualGrowth,
     "UserProfile": UserProfile,
     "Wellness": Wellness,
     "WellnessJourney": WellnessJourney,
+    "Profile": Profile,
 }
 
 export const pagesConfig = {
