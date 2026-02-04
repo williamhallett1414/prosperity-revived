@@ -30,6 +30,8 @@ import PersonalizedWorkouts from '@/components/recommendations/PersonalizedWorko
 import PersonalizedRecipes from '@/components/recommendations/PersonalizedRecipes';
 import AIRecommendationEngine from '@/components/ai/AIRecommendationEngine';
 import ContextualSuggestions from '@/components/ai/ContextualSuggestions';
+import AIWellnessJourneyGenerator from '@/components/wellness/AIWellnessJourneyGenerator';
+import WellnessJourneyCard from '@/components/wellness/WellnessJourneyCard';
 
 export default function Wellness() {
   const [user, setUser] = useState(null);

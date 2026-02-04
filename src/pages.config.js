@@ -65,6 +65,7 @@ import Settings from './pages/Settings';
 import SpiritualGrowth from './pages/SpiritualGrowth';
 import UserProfile from './pages/UserProfile';
 import Wellness from './pages/Wellness';
+import WellnessJourney from './pages/WellnessJourney';
 import __Layout from './Layout.jsx';
 
 
@@ -87,6 +88,7 @@ export const PAGES = {
     "SpiritualGrowth": SpiritualGrowth,
     "UserProfile": UserProfile,
     "Wellness": Wellness,
+    "WellnessJourney": WellnessJourney,
 }
 
 export const pagesConfig = {
