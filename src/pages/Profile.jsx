@@ -261,9 +261,19 @@ export default function Profile() {
         </div>
       </div>
 
-      {/* Photo Gallery */}
+      {/* Photo Gallery Link */}
       <div className="px-4 mb-6">
-        <PhotoGallery />
+        <Link to={createPageUrl('PhotoGallery')}>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="bg-gradient-to-br from-cyan-500 to-blue-600 rounded-2xl p-4 shadow-sm hover:shadow-md transition-shadow text-white"
+          >
+            <p className="text-sm mb-1">📸 Photo Gallery</p>
+            <p className="text-lg font-bold">View All</p>
+          </motion.div>
+        </Link>
       </div>
 
       {/* Bio */}
