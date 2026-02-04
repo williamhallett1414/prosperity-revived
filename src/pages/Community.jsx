@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
-import { Plus, Loader2, TrendingUp, Filter } from 'lucide-react';
+import { Plus, Loader2, TrendingUp, Filter, Users, BookOpen } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -15,7 +15,11 @@ export default function Community() {
   const [showCreatePost, setShowCreatePost] = useState(false);
   const [user, setUser] = useState(null);
   const [filterTopic, setFilterTopic] = useState('all');
+  const [filterType, setFilterType] = useState('all');
   const [sortBy, setSortBy] = useState('recent');
+  const [displayCount, setDisplayCount] = useState(10);
+  const observerRef = useRef(null);
+  const loadMoreRef = useRef(null);
   const queryClient = useQueryClient();
 
   useEffect(() => {
@@ -24,17 +28,28 @@ export default function Community() {
 
   const { data: posts = [], isLoading } = useQuery({
     queryKey: ['posts'],
-    queryFn: () => base44.entities.Post.filter({ group_id: null }, '-created_date', 50)
+    queryFn: () => base44.entities.Post.filter({ group_id: null }, '-created_date', 200)
   });
 
   const { data: comments = [] } = useQuery({
     queryKey: ['comments'],
-    queryFn: () => base44.entities.Comment.list('-created_date', 200)
+    queryFn: () => base44.entities.Comment.list('-created_date', 500)
   });
 
   const { data: planProgress = [] } = useQuery({
     queryKey: ['planProgress'],
     queryFn: () => base44.entities.ReadingPlanProgress.list()
+  });
+
+  const { data: friends = [] } = useQuery({
+    queryKey: ['friends'],
+    queryFn: async () => {
+      const all = await base44.entities.Friend.list();
+      return all.filter(f => 
+        (f.user_email === user?.email || f.friend_email === user?.email) && f.status === 'accepted'
+      );
+    },
+    enabled: !!user
   });
 
   const createPost = useMutation({
@@ -73,6 +88,14 @@ export default function Community() {
     createComment.mutate({ postId, content });
   };
 
+  // Get friend emails
+  const friendEmails = useMemo(() => {
+    if (!user) return [];
+    return friends.map(f => 
+      f.user_email === user.email ? f.friend_email : f.user_email
+    );
+  }, [friends, user]);
+
   // Filter and sort posts
   const filteredAndSortedPosts = useMemo(() => {
     let filtered = posts;
@@ -80,6 +103,13 @@ export default function Community() {
     // Filter by topic
     if (filterTopic !== 'all') {
       filtered = filtered.filter(p => p.topic === filterTopic);
+    }
+
+    // Filter by type
+    if (filterType === 'friends' && user) {
+      filtered = filtered.filter(p => friendEmails.includes(p.created_by));
+    } else if (filterType === 'verses') {
+      filtered = filtered.filter(p => p.verse_text);
     }
 
     // Sort posts
@@ -106,7 +136,36 @@ export default function Community() {
     }
 
     return sorted;
-  }, [posts, comments, filterTopic, sortBy]);
+  }, [posts, comments, filterTopic, filterType, sortBy, friendEmails, user]);
+
+  // Paginated posts for infinite scroll
+  const displayedPosts = useMemo(() => {
+    return filteredAndSortedPosts.slice(0, displayCount);
+  }, [filteredAndSortedPosts, displayCount]);
+
+  // Infinite scroll observer
+  useEffect(() => {
+    if (observerRef.current) observerRef.current.disconnect();
+
+    observerRef.current = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting && displayCount < filteredAndSortedPosts.length) {
+        setDisplayCount(prev => Math.min(prev + 10, filteredAndSortedPosts.length));
+      }
+    }, { threshold: 0.1 });
+
+    if (loadMoreRef.current) {
+      observerRef.current.observe(loadMoreRef.current);
+    }
+
+    return () => {
+      if (observerRef.current) observerRef.current.disconnect();
+    };
+  }, [displayCount, filteredAndSortedPosts.length]);
+
+  // Reset display count when filters change
+  useEffect(() => {
+    setDisplayCount(10);
+  }, [filterTopic, filterType, sortBy]);
 
   // Trending posts (top 3 by engagement score)
   const trendingPosts = useMemo(() => {
@@ -167,11 +226,37 @@ export default function Community() {
         )}
 
         {/* Filters */}
-        <div className="flex gap-3 mb-6">
-          <div className="flex-1">
+        <div className="space-y-3 mb-6">
+          <div className="flex gap-3">
+            <div className="flex-1">
+              <Select value={filterType} onValueChange={setFilterType}>
+                <SelectTrigger className="bg-white">
+                  <SelectValue placeholder="Filter posts" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Posts</SelectItem>
+                  {user && <SelectItem value="friends"><Users className="w-4 h-4 inline mr-2" />Friends Only</SelectItem>}
+                  <SelectItem value="verses"><BookOpen className="w-4 h-4 inline mr-2" />With Verses</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="flex-1">
+              <Select value={sortBy} onValueChange={setSortBy}>
+                <SelectTrigger className="bg-white">
+                  <SelectValue placeholder="Sort by" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="recent">📅 Most Recent</SelectItem>
+                  <SelectItem value="popular">🔥 Most Liked</SelectItem>
+                  <SelectItem value="trending">📈 Trending</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+          <div>
             <Select value={filterTopic} onValueChange={setFilterTopic}>
               <SelectTrigger className="bg-white">
-                <SelectValue placeholder="Filter by topic" />
+                <SelectValue placeholder="Topic" />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">All Topics</SelectItem>
@@ -181,18 +266,6 @@ export default function Community() {
                 <SelectItem value="question">❓ Question</SelectItem>
                 <SelectItem value="encouragement">💝 Encouragement</SelectItem>
                 <SelectItem value="general">💬 General</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-          <div className="flex-1">
-            <Select value={sortBy} onValueChange={setSortBy}>
-              <SelectTrigger className="bg-white">
-                <SelectValue placeholder="Sort by" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="recent">📅 Most Recent</SelectItem>
-                <SelectItem value="popular">🔥 Most Popular</SelectItem>
-                <SelectItem value="trending">📈 Trending</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -219,7 +292,7 @@ export default function Community() {
           </div>
         ) : (
           <div className="space-y-4">
-            {filteredAndSortedPosts.map((post, index) => (
+            {displayedPosts.map((post, index) => (
               <PostCard
                 key={post.id}
                 post={post}
@@ -229,6 +302,20 @@ export default function Community() {
                 index={index}
               />
             ))}
+            
+            {/* Infinite scroll trigger */}
+            {displayCount < filteredAndSortedPosts.length && (
+              <div ref={loadMoreRef} className="py-8 flex justify-center">
+                <Loader2 className="w-6 h-6 animate-spin text-[#c9a227]" />
+              </div>
+            )}
+
+            {/* End message */}
+            {displayCount >= filteredAndSortedPosts.length && filteredAndSortedPosts.length > 0 && (
+              <div className="text-center py-8 text-gray-400">
+                <p className="text-sm">You've reached the end</p>
+              </div>
+            )}
           </div>
         )}
       </div>
