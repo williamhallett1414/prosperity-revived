@@ -50,7 +50,13 @@ export default function Friends() {
 
   const acceptRequest = useMutation({
     mutationFn: (id) => base44.entities.Friend.update(id, { status: 'accepted' }),
-    onSuccess: () => queryClient.invalidateQueries(['friends'])
+    onSuccess: async () => {
+      queryClient.invalidateQueries(['friends']);
+      if (user) {
+        const { awardPoints } = await import('@/components/gamification/ProgressManager');
+        await awardPoints(user.email, 20, 'friend_accepted', 'friends_count');
+      }
+    }
   });
 
   const declineRequest = useMutation({
