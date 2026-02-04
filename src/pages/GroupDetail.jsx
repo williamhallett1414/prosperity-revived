@@ -3,18 +3,22 @@ import { motion } from 'framer-motion';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { createPageUrl } from '@/utils';
-import { ArrowLeft, Users, Lock, Globe, UserPlus, Plus, Loader2 } from 'lucide-react';
+import { ArrowLeft, Users, Lock, Globe, UserPlus, Plus, Loader2, Trophy } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import PostCard from '@/components/community/PostCard';
 import CreatePostModal from '@/components/community/CreatePostModal';
 import MemberManagement from '@/components/groups/MemberManagement';
+import CreateChallengeModal from '@/components/challenges/CreateChallengeModal';
+import ChallengeCard from '@/components/challenges/ChallengeCard';
 
 export default function GroupDetail() {
   const params = new URLSearchParams(window.location.search);
   const groupId = params.get('id');
   const [user, setUser] = useState(null);
   const [showCreatePost, setShowCreatePost] = useState(false);
+  const [showCreateChallenge, setShowCreateChallenge] = useState(false);
   const queryClient = useQueryClient();
 
   useEffect(() => {
@@ -45,6 +49,23 @@ export default function GroupDetail() {
   const { data: comments = [] } = useQuery({
     queryKey: ['comments'],
     queryFn: () => base44.entities.Comment.list('-created_date', 200)
+  });
+
+  const { data: challenges = [] } = useQuery({
+    queryKey: ['groupChallenges', groupId],
+    queryFn: async () => {
+      const all = await base44.entities.Challenge.list('-created_date');
+      return all.filter(c => c.group_id === groupId);
+    }
+  });
+
+  const { data: challengeParticipants = [] } = useQuery({
+    queryKey: ['challengeParticipants', groupId],
+    queryFn: async () => {
+      const all = await base44.entities.ChallengeParticipant.list();
+      return all.filter(p => challenges.some(c => c.id === p.challenge_id));
+    },
+    enabled: challenges.length > 0
   });
 
   const joinGroup = useMutation({
@@ -83,6 +104,36 @@ export default function GroupDetail() {
       user_name: user?.full_name || user?.email || 'Anonymous'
     }),
     onSuccess: () => queryClient.invalidateQueries(['comments'])
+  });
+
+  const createChallenge = useMutation({
+    mutationFn: (data) => base44.entities.Challenge.create(data),
+    onSuccess: () => {
+      queryClient.invalidateQueries(['groupChallenges']);
+      setShowCreateChallenge(false);
+    }
+  });
+
+  const joinChallenge = useMutation({
+    mutationFn: async (challengeId) => {
+      await base44.entities.ChallengeParticipant.create({
+        challenge_id: challengeId,
+        user_email: user.email,
+        user_name: user.full_name || user.email,
+        current_progress: 0,
+        progress_percentage: 0,
+        progress_logs: []
+      });
+
+      const challenge = challenges.find(c => c.id === challengeId);
+      await base44.entities.Challenge.update(challengeId, {
+        participant_count: (challenge?.participant_count || 0) + 1
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(['groupChallenges']);
+      queryClient.invalidateQueries(['challengeParticipants']);
+    }
   });
 
   if (groupLoading) {
@@ -177,42 +228,104 @@ export default function GroupDetail() {
           </div>
         </div>
 
-        {/* Create Post (Members Only) */}
+        {/* Actions */}
         {isMember && (
-          <Button
-            onClick={() => setShowCreatePost(true)}
-            className="w-full bg-[#1a1a2e] hover:bg-[#2d2d4a] h-12 mb-6 rounded-xl"
-          >
-            <Plus className="w-5 h-5 mr-2" />
-            Share with Group
-          </Button>
+          <div className="grid grid-cols-2 gap-3 mb-6">
+            <Button
+              onClick={() => setShowCreatePost(true)}
+              className="bg-[#1a1a2e] hover:bg-[#2d2d4a] h-12 rounded-xl"
+            >
+              <Plus className="w-5 h-5 mr-2" />
+              Share Post
+            </Button>
+            <Button
+              onClick={() => setShowCreateChallenge(true)}
+              className="bg-purple-600 hover:bg-purple-700 h-12 rounded-xl"
+            >
+              <Trophy className="w-5 h-5 mr-2" />
+              Create Challenge
+            </Button>
+          </div>
         )}
 
-        {/* Posts */}
-        {posts.length === 0 ? (
-          <div className="text-center py-16">
-            <p className="text-gray-500">No posts in this group yet</p>
-          </div>
-        ) : (
-          <div className="space-y-4">
-            {posts.map((post, index) => (
-              <PostCard
-                key={post.id}
-                post={post}
-                comments={comments}
-                onLike={handleLike}
-                onComment={handleComment}
-                index={index}
-              />
-            ))}
-          </div>
-        )}
+        {/* Tabs */}
+        <Tabs defaultValue="feed" className="w-full">
+          <TabsList className="grid w-full grid-cols-2 mb-6">
+            <TabsTrigger value="feed">Feed</TabsTrigger>
+            <TabsTrigger value="challenges">
+              Challenges {challenges.length > 0 && `(${challenges.length})`}
+            </TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="feed">
+            {posts.length === 0 ? (
+              <div className="text-center py-16">
+                <p className="text-gray-500">No posts in this group yet</p>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                {posts.map((post, index) => (
+                  <PostCard
+                    key={post.id}
+                    post={post}
+                    comments={comments}
+                    onLike={handleLike}
+                    onComment={handleComment}
+                    index={index}
+                  />
+                ))}
+              </div>
+            )}
+          </TabsContent>
+
+          <TabsContent value="challenges">
+            <div className="space-y-4">
+              {challenges.length === 0 ? (
+                <div className="text-center py-16">
+                  <Trophy className="w-12 h-12 text-gray-300 mx-auto mb-3" />
+                  <p className="text-gray-500">No challenges yet</p>
+                  {isMember && (
+                    <Button
+                      onClick={() => setShowCreateChallenge(true)}
+                      className="mt-4 bg-purple-600 hover:bg-purple-700"
+                    >
+                      Create First Challenge
+                    </Button>
+                  )}
+                </div>
+              ) : (
+                challenges.map((challenge, index) => {
+                  const participation = challengeParticipants.find(
+                    p => p.challenge_id === challenge.id && p.user_email === user?.email
+                  );
+                  return (
+                    <ChallengeCard
+                      key={challenge.id}
+                      challenge={challenge}
+                      participation={participation}
+                      onJoin={() => joinChallenge.mutate(challenge.id)}
+                      onClick={() => window.location.href = createPageUrl(`ChallengeDetail?id=${challenge.id}`)}
+                      index={index}
+                    />
+                  );
+                })
+              )}
+            </div>
+          </TabsContent>
+        </Tabs>
       </div>
 
       <CreatePostModal
         isOpen={showCreatePost}
         onClose={() => setShowCreatePost(false)}
         onSubmit={(data) => createPost.mutate(data)}
+      />
+
+      <CreateChallengeModal
+        isOpen={showCreateChallenge}
+        onClose={() => setShowCreateChallenge(false)}
+        onSubmit={(data) => createChallenge.mutate(data)}
+        groupId={groupId}
       />
     </div>
   );
