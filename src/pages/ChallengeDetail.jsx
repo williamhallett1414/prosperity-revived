@@ -8,6 +8,8 @@ import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import ChallengeLeaderboard from '@/components/challenges/ChallengeLeaderboard';
 import LogProgressModal from '@/components/challenges/LogProgressModal';
+import ChallengeProgressChart from '@/components/challenges/ChallengeProgressChart';
+import GroupChallengeComparison from '@/components/challenges/GroupChallengeComparison';
 import { awardPoints } from '@/components/gamification/ProgressManager';
 
 export default function ChallengeDetail() {
@@ -112,8 +114,9 @@ export default function ChallengeDetail() {
         )}
 
         <Tabs defaultValue="leaderboard" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 mb-6">
-            <TabsTrigger value="leaderboard">Leaderboard</TabsTrigger>
+          <TabsList className="grid w-full grid-cols-3 mb-6">
+            <TabsTrigger value="leaderboard">Rankings</TabsTrigger>
+            <TabsTrigger value="analytics">Analytics</TabsTrigger>
             <TabsTrigger value="progress">My Progress</TabsTrigger>
           </TabsList>
 
@@ -123,24 +126,42 @@ export default function ChallengeDetail() {
             </div>
           </TabsContent>
 
+          <TabsContent value="analytics">
+            <GroupChallengeComparison 
+              participants={participants} 
+              challenge={challenge}
+              currentUserEmail={user?.email}
+            />
+          </TabsContent>
+
           <TabsContent value="progress">
-            <div className="bg-white rounded-2xl p-4">
+            <div className="space-y-4">
               {myParticipation ? (
-                <div className="space-y-4">
-                  <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-4">
-                    <p className="text-sm text-gray-600 mb-2">Your Progress</p>
-                    <p className="text-3xl font-bold text-purple-600 mb-2">
-                      {myParticipation.current_progress} / {challenge.goal_value}
-                    </p>
-                    <div className="w-full bg-gray-200 rounded-full h-3">
-                      <div
-                        className="bg-gradient-to-r from-purple-600 to-pink-600 h-3 rounded-full"
-                        style={{ width: `${myParticipation.progress_percentage}%` }}
-                      />
+                <>
+                  <div className="bg-white rounded-2xl p-4">
+                    <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-4 mb-4">
+                      <p className="text-sm text-gray-600 mb-2">Your Progress</p>
+                      <p className="text-3xl font-bold text-purple-600 mb-2">
+                        {myParticipation.current_progress} / {challenge.goal_value}
+                      </p>
+                      <div className="w-full bg-gray-200 rounded-full h-3">
+                        <div
+                          className="bg-gradient-to-r from-purple-600 to-pink-600 h-3 rounded-full"
+                          style={{ width: `${myParticipation.progress_percentage}%` }}
+                        />
+                      </div>
                     </div>
+
+                    <h3 className="font-semibold mb-3">Progress Trend</h3>
+                    <ChallengeProgressChart
+                      progressLogs={myParticipation.progress_logs || []}
+                      goalValue={challenge.goal_value}
+                      goalUnit={challenge.goal_unit}
+                      showArea={true}
+                    />
                   </div>
 
-                  <div>
+                  <div className="bg-white rounded-2xl p-4">
                     <h3 className="font-semibold mb-3">Progress Log</h3>
                     <div className="space-y-2">
                       {myParticipation.progress_logs?.slice().reverse().map((log, index) => (
@@ -156,9 +177,9 @@ export default function ChallengeDetail() {
                       ))}
                     </div>
                   </div>
-                </div>
+                </>
               ) : (
-                <div className="text-center py-8 text-gray-500">
+                <div className="bg-white rounded-2xl p-4 text-center py-8 text-gray-500">
                   <p>Join the challenge to track your progress</p>
                 </div>
               )}
