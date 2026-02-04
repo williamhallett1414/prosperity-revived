@@ -345,24 +345,13 @@ export default function UserProfile() {
         </div>
       )}
 
-      {/* Recent Posts */}
-      {posts.length > 0 && (
-        <div className="px-4 mb-6">
-          <h2 className="text-xl font-bold text-[#1a1a2e] dark:text-white mb-4">Recent Posts</h2>
-          <div className="space-y-4">
-            {posts.slice(0, 5).map((post, index) => (
-              <PostCard
-                key={post.id}
-                post={post}
-                comments={comments}
-                onLike={() => {}}
-                onComment={() => {}}
-                index={index}
-              />
-            ))}
-          </div>
-        </div>
-      )}
+      {/* Posts Feed */}
+      <div className="px-4 mb-6">
+        <h2 className="text-xl font-bold text-[#1a1a2e] dark:text-white mb-4">
+          {isOwnProfile ? 'My Posts' : 'Posts'}
+        </h2>
+        <UserPostsFeed userEmail={profileEmail} isOwnProfile={isOwnProfile} />
+      </div>
 
       {/* Current Plans */}
       {activePlans.length > 0 && (
