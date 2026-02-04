@@ -222,7 +222,7 @@ export default function Home() {
             <motion.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 text-center shadow-sm hover:shadow-md transition-all"
+              className="bg-[#3C4E53] dark:bg-[#2d2d4a] rounded-2xl p-4 text-center shadow-sm hover:shadow-md transition-all"
             >
               <div className="w-12 h-12 mx-auto mb-2 rounded-xl bg-[#1a1a2e]/5 dark:bg-[#c9a227]/20 flex items-center justify-center">
                 <BookOpen className="w-6 h-6 text-[#1a1a2e] dark:text-[#c9a227]" />
@@ -235,7 +235,7 @@ export default function Home() {
             <motion.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 text-center shadow-sm hover:shadow-md transition-all"
+              className="bg-[#3C4E53] dark:bg-[#2d2d4a] rounded-2xl p-4 text-center shadow-sm hover:shadow-md transition-all"
             >
               <div className="w-12 h-12 mx-auto mb-2 rounded-xl bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center">
                 <Users className="w-6 h-6 text-purple-600 dark:text-purple-400" />
@@ -248,7 +248,7 @@ export default function Home() {
             <motion.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 text-center shadow-sm hover:shadow-md transition-all"
+              className="bg-[#3C4E53] dark:bg-[#2d2d4a] rounded-2xl p-4 text-center shadow-sm hover:shadow-md transition-all"
             >
               <div className="w-12 h-12 mx-auto mb-2 rounded-xl bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center">
                 <Dumbbell className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
@@ -261,7 +261,7 @@ export default function Home() {
             <motion.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 text-center shadow-sm hover:shadow-md transition-all"
+              className="bg-[#3C4E53] dark:bg-[#2d2d4a] rounded-2xl p-4 text-center shadow-sm hover:shadow-md transition-all"
             >
               <div className="w-12 h-12 mx-auto mb-2 rounded-xl bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center">
                 <Heart className="w-6 h-6 text-amber-600 dark:text-amber-400" />
@@ -315,7 +315,7 @@ export default function Home() {
           </Button>
 
           {posts.length === 0 ? (
-            <div className="text-center py-8 bg-white dark:bg-[#2d2d4a] rounded-2xl">
+            <div className="text-center py-8 bg-[#3C4E53] dark:bg-[#2d2d4a] rounded-2xl">
               <Users className="w-12 h-12 text-gray-300 mx-auto mb-3" />
               <p className="text-gray-500 dark:text-gray-400">No posts yet</p>
             </div>
