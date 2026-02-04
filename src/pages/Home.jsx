@@ -280,6 +280,9 @@ export default function Home() {
           </Link>
         </div>
 
+        {/* Personalized Content Feed */}
+        <PersonalizedContentFeed user={user} userProgress={userProgress} existingPosts={posts} />
+
         {/* Personalized Reading Plans */}
         <PersonalizedReadingPlans user={user} userProgress={planProgress} />
 
