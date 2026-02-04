@@ -57,7 +57,12 @@ export default function Community() {
       ...data,
       user_name: user?.full_name || user?.email || 'Anonymous'
     }),
-    onSuccess: () => queryClient.invalidateQueries(['posts'])
+    onSuccess: async () => {
+      queryClient.invalidateQueries(['posts']);
+      if (user) {
+        await awardPoints(user.email, 10, 'post_created', 'community_posts');
+      }
+    }
   });
 
   const updatePost = useMutation({
@@ -71,7 +76,12 @@ export default function Community() {
       content,
       user_name: user?.full_name || user?.email || 'Anonymous'
     }),
-    onSuccess: () => queryClient.invalidateQueries(['comments'])
+    onSuccess: async () => {
+      queryClient.invalidateQueries(['comments']);
+      if (user) {
+        await awardPoints(user.email, 5, 'comment_created', 'comments_count');
+      }
+    }
   });
 
   const handleLike = (postId, isLiked) => {

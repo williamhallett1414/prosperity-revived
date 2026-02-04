@@ -6,13 +6,19 @@ import { Input } from '@/components/ui/input';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
+import { awardPoints } from '@/components/gamification/ProgressManager';
 
 export default function PhotoGallery() {
   const [selectedPhoto, setSelectedPhoto] = useState(null);
   const [showAddPhoto, setShowAddPhoto] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [caption, setCaption] = useState('');
+  const [user, setUser] = useState(null);
   const queryClient = useQueryClient();
+
+  React.useEffect(() => {
+    base44.auth.me().then(setUser);
+  }, []);
 
   const { data: photos = [] } = useQuery({
     queryKey: ['photos'],
@@ -21,10 +27,13 @@ export default function PhotoGallery() {
 
   const createPhoto = useMutation({
     mutationFn: (data) => base44.entities.Photo.create(data),
-    onSuccess: () => {
+    onSuccess: async () => {
       queryClient.invalidateQueries(['photos']);
       setShowAddPhoto(false);
       setCaption('');
+      if (user) {
+        await awardPoints(user.email, 5, 'photo_uploaded', 'photos_uploaded');
+      }
     }
   });
 

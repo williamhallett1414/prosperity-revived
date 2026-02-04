@@ -4,6 +4,7 @@ import { base44 } from '@/api/base44Client';
 import { MessageCircle, Loader2 } from 'lucide-react';
 import ConversationList from '@/components/messages/ConversationList';
 import ChatInterface from '@/components/messages/ChatInterface';
+import { awardPoints } from '@/components/gamification/ProgressManager';
 
 export default function Messages() {
   const [user, setUser] = useState(null);
@@ -50,7 +51,12 @@ export default function Messages() {
         read: false
       });
     },
-    onSuccess: () => queryClient.invalidateQueries(['messages'])
+    onSuccess: async () => {
+      queryClient.invalidateQueries(['messages']);
+      if (user) {
+        await awardPoints(user.email, 2, 'message_sent', 'messages_sent');
+      }
+    }
   });
 
   const markAsRead = useMutation({
