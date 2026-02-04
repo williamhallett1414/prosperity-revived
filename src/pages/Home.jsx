@@ -170,7 +170,8 @@ export default function Home() {
             <img 
               src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6980ade9ca08df558ed28bdd/d9b97f241_ProsperityRevivedSymbol.jpeg" 
               alt="Prosperity Revived" 
-              className="w-10 h-10 object-contain"
+              className="w-10 h-10 object-contain mix-blend-mode: lighten"
+              style={{ mixBlendMode: 'lighten', backgroundColor: 'transparent' }}
             />
             <h1 className="text-3xl font-bold text-[#1a1a2e] dark:text-white">
               {new Date().getHours() < 12 ? 'Good Morning' : new Date().getHours() < 18 ? 'Good Afternoon' : 'Good Evening'}
