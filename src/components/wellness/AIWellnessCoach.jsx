@@ -76,27 +76,69 @@ export default function AIWellnessCoach({ user }) {
     scrollToBottom();
   }, [messages]);
 
-  // Proactive check-in if user hasn't logged activity recently
+  // Generate proactive insights on mount
   useEffect(() => {
-    if (!user || !activeJourney || messages.length > 1) return;
+    if (!user || messages.length > 1) return;
 
-    const lastActiveDate = userProgress?.last_active_date;
-    if (lastActiveDate) {
-      const daysSinceActive = Math.floor(
-        (new Date() - new Date(lastActiveDate)) / (1000 * 60 * 60 * 24)
-      );
+    const generateProactiveMessage = async () => {
+      const context = buildContext();
+      
+      // Check for various conditions that warrant proactive outreach
+      const daysSinceActive = context.recent_activity.days_since_activity || 0;
+      const recentWorkouts = context.recent_activity.last_7_days.workouts;
+      const currentStreak = context.gamification.current_streak;
+      const recentBibleDays = context.recent_activity.last_7_days.bible_reading_days;
+      
+      let shouldReachOut = false;
+      let proactivePrompt = '';
 
       if (daysSinceActive >= 3) {
-        setTimeout(() => {
-          setMessages(prev => [...prev, {
-            role: 'assistant',
-            content: `I noticed you haven't logged any activity in ${daysSinceActive} days. Everything okay? I'm here to help you get back on track! 💪`,
-            timestamp: new Date().toISOString()
-          }]);
-        }, 3000);
+        shouldReachOut = true;
+        proactivePrompt = `User hasn't been active in ${daysSinceActive} days. Provide a warm, non-judgmental check-in that offers support and suggests a simple action to help them restart their wellness routine.`;
+      } else if (currentStreak >= 7) {
+        shouldReachOut = true;
+        proactivePrompt = `User has an impressive ${currentStreak}-day streak! Celebrate this achievement and provide insights on their progress. Suggest how to maintain momentum.`;
+      } else if (recentWorkouts >= 4) {
+        shouldReachOut = true;
+        proactivePrompt = `User has been very active with ${recentWorkouts} workouts this week. Celebrate their dedication and provide insights on their fitness progress. Suggest recovery practices or nutritional tips.`;
+      } else if (recentBibleDays >= 5) {
+        shouldReachOut = true;
+        proactivePrompt = `User has been consistent with Bible reading (${recentBibleDays} days this week). Acknowledge their spiritual commitment and suggest ways to deepen their practice.`;
+      } else if (context.active_journey && context.active_journey.granular_goals?.some(g => g.progress >= 80)) {
+        shouldReachOut = true;
+        const nearGoals = context.active_journey.granular_goals.filter(g => g.progress >= 80);
+        proactivePrompt = `User is close to achieving goals: ${nearGoals.map(g => g.description).join(', ')}. Provide encouragement and specific suggestions to help them reach these goals.`;
       }
-    }
-  }, [user, activeJourney, userProgress, messages.length]);
+
+      if (shouldReachOut) {
+        setTimeout(async () => {
+          try {
+            const fullPrompt = `
+You are a proactive AI wellness coach. Based on the user's recent activity and progress, generate a brief, personalized check-in message.
+
+User Context:
+${JSON.stringify(context, null, 2)}
+
+Task: ${proactivePrompt}
+
+Keep it warm, personal, and 2-3 sentences. Use an encouraging emoji. Reference specific data points.`;
+
+            const response = await base44.integrations.Core.InvokeLLM({ prompt: fullPrompt });
+            
+            setMessages(prev => [...prev, {
+              role: 'assistant',
+              content: response,
+              timestamp: new Date().toISOString()
+            }]);
+          } catch (error) {
+            console.error('Failed to generate proactive message:', error);
+          }
+        }, 2000);
+      }
+    };
+
+    generateProactiveMessage();
+  }, [user]);
 
   const buildContext = () => {
     const today = new Date().toISOString().split('T')[0];
