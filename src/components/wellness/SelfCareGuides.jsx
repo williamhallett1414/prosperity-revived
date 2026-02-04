@@ -6,7 +6,6 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { base44 } from '@/api/base44Client';
 import SelfCareActivityLogger from '@/components/wellness/SelfCareActivityLogger';
-import { useAuth } from '@/hooks/useAuth';
 
 const SELF_CARE_TIPS = [
   {
