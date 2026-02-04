@@ -60,6 +60,15 @@ export default function Wellness() {
     queryFn: () => base44.entities.Recipe.list('-created_date')
   });
 
+  const { data: journeys = [] } = useQuery({
+    queryKey: ['journeys'],
+    queryFn: async () => {
+      const all = await base44.entities.WellnessJourney.list('-created_date');
+      return all.filter(j => j.created_by === user?.email);
+    },
+    enabled: !!user
+  });
+
   const completeWorkout = useMutation({
     mutationFn: async ({ id, workout }) => {
       const dates = workout.completed_dates || [];
@@ -192,6 +201,21 @@ export default function Wellness() {
 
           {/* Tracker Tab */}
           <TabsContent value="tracker" className="space-y-4">
+            {/* AI Journey Generator */}
+            <AIWellnessJourneyGenerator 
+              user={user} 
+              onJourneyCreated={() => queryClient.invalidateQueries(['journeys'])}
+            />
+
+            {/* Active Journeys */}
+            {journeys.filter(j => j.is_active).map(journey => (
+              <WellnessJourneyCard
+                key={journey.id}
+                journey={journey}
+                onClick={() => window.location.href = createPageUrl(`WellnessJourney?id=${journey.id}`)}
+              />
+            ))}
+
             <ProgressCharts />
             <WaterTracker />
             <MealTracker />
