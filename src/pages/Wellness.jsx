@@ -216,16 +216,15 @@ export default function Wellness() {
       </div>
 
       <div className="px-4">
-        <Tabs defaultValue="tracker" className="w-full">
-          <TabsList className="grid w-full grid-cols-4 mb-6 bg-white/50 backdrop-blur-sm p-1 rounded-xl">
-            <TabsTrigger value="tracker" className="text-xs sm:text-sm">Track</TabsTrigger>
+        <Tabs defaultValue="workouts" className="w-full">
+          <TabsList className="grid w-full grid-cols-3 mb-6 bg-white/50 backdrop-blur-sm p-1 rounded-xl">
             <TabsTrigger value="workouts" className="text-xs sm:text-sm">Workouts</TabsTrigger>
             <TabsTrigger value="nutrition" className="text-xs sm:text-sm">Nutrition</TabsTrigger>
             <TabsTrigger value="meditation" className="text-xs sm:text-sm">Meditation</TabsTrigger>
           </TabsList>
 
-          {/* Tracker Tab */}
-          <TabsContent value="tracker" className="space-y-4">
+          {/* Workouts Tab */}
+          <TabsContent value="workouts" className="space-y-4">
             {/* AI Journey Generator */}
             <AIWellnessJourneyGenerator 
               user={user} 
@@ -241,9 +240,9 @@ export default function Wellness() {
               />
             ))}
 
-            {/* Advanced Analytics */}
+            {/* Workout Progress Analytics */}
             <div className="bg-white rounded-2xl p-4 shadow-sm">
-              <h3 className="font-semibold text-gray-900 mb-4">30-Day Activity Trends</h3>
+              <h3 className="font-semibold text-gray-900 mb-4">Workout Trends</h3>
               <ProgressTrendsChart
                 workoutSessions={workoutSessions}
                 mealLogs={mealLogs}
@@ -252,33 +251,16 @@ export default function Wellness() {
               />
             </div>
 
-            {journeys.filter(j => j.is_active).length > 0 && (
-              <>
-                <div className="bg-white rounded-2xl p-4 shadow-sm">
-                  <h3 className="font-semibold text-gray-900 mb-4">Mood & Energy Insights</h3>
-                  <MoodEnergyChart 
-                    moodEnergyData={journeys.find(j => j.is_active)?.mood_energy_tracking || []} 
-                  />
-                </div>
-
-                {journeys.find(j => j.is_active)?.granular_goals?.length > 0 && (
-                  <div className="bg-white rounded-2xl p-4 shadow-sm">
-                    <h3 className="font-semibold text-gray-900 mb-4">Goal Progress</h3>
-                    <GranularGoalsChart 
-                      goals={journeys.find(j => j.is_active)?.granular_goals || []} 
-                    />
-                  </div>
-                )}
-              </>
+            {journeys.filter(j => j.is_active).length > 0 && journeys.find(j => j.is_active)?.granular_goals?.length > 0 && (
+              <div className="bg-white rounded-2xl p-4 shadow-sm">
+                <h3 className="font-semibold text-gray-900 mb-4">Fitness Goals</h3>
+                <GranularGoalsChart 
+                  goals={journeys.find(j => j.is_active)?.granular_goals || []} 
+                />
+              </div>
             )}
 
             <ProgressCharts />
-            <WaterTracker />
-            <MealTracker />
-          </TabsContent>
-
-          {/* Workouts Tab */}
-          <TabsContent value="workouts" className="space-y-4">
             <AIRecommendationEngine user={user} type="fitness" />
             
             <div className="grid grid-cols-2 gap-3">
@@ -344,6 +326,9 @@ export default function Wellness() {
           {/* Nutrition Tab */}
           <TabsContent value="nutrition" className="space-y-4">
             <AIRecommendationEngine user={user} type="nutrition" />
+            
+            <WaterTracker />
+            <MealTracker />
             
             <PersonalizedNutritionPlan />
             <AIMealPlanner />
@@ -441,6 +426,15 @@ export default function Wellness() {
               </div>
               <p className="text-white/80 text-sm">Find peace through meditation and prayer</p>
             </div>
+
+            {journeys.filter(j => j.is_active).length > 0 && (
+              <div className="bg-white rounded-2xl p-4 shadow-sm">
+                <h3 className="font-semibold text-gray-900 mb-4">Mood & Energy Insights</h3>
+                <MoodEnergyChart 
+                  moodEnergyData={journeys.find(j => j.is_active)?.mood_energy_tracking || []} 
+                />
+              </div>
+            )}
             
             <ContextualSuggestions 
               user={user} 
