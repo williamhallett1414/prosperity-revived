@@ -13,8 +13,6 @@ const navItems = [
 ];
 
 export default function Layout({ children, currentPageName }) {
-  const hideNav = currentPageName === 'PlanDetail' || currentPageName === 'GroupDetail' || currentPageName === 'Bible' || currentPageName === 'Search' || currentPageName === 'Plans' || currentPageName === 'Bookmarks' || currentPageName === 'Profile' || currentPageName === 'Settings' || currentPageName === 'SpiritualGrowth' || currentPageName === 'UserProfile';
-
   return (
     <div className="min-h-screen bg-[#faf8f5] dark:bg-[#1a1a2e]">
       <style>{`
@@ -34,12 +32,12 @@ export default function Layout({ children, currentPageName }) {
         }
       `}</style>
       
-      <main className={hideNav ? '' : 'pb-20'}>
+      <main className="pb-20">
         {children}
       </main>
 
       {/* Bottom Navigation */}
-      {!hideNav && (
+      {(
         <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 px-4 py-2 z-50">
           <div className="max-w-lg mx-auto flex items-center justify-around">
             {navItems.map(item => {
@@ -71,11 +69,12 @@ export default function Layout({ children, currentPageName }) {
                     {item.name}
                   </span>
                 </Link>
-              );
-            })}
-          </div>
-        </nav>
-      )}
-    </div>
-  );
+                );
+                })}
+                </div>
+                </nav>
+                )}
+                </div>
+                );
+                }
 }
