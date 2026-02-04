@@ -33,6 +33,9 @@ import ContextualSuggestions from '@/components/ai/ContextualSuggestions';
 import AIWellnessJourneyGenerator from '@/components/wellness/AIWellnessJourneyGenerator';
 import WellnessJourneyCard from '@/components/wellness/WellnessJourneyCard';
 import AIWellnessCoach from '@/components/wellness/AIWellnessCoach';
+import ProgressTrendsChart from '@/components/wellness/ProgressTrendsChart';
+import MoodEnergyChart from '@/components/wellness/MoodEnergyChart';
+import GranularGoalsChart from '@/components/wellness/GranularGoalsChart';
 
 export default function Wellness() {
   const [user, setUser] = useState(null);
