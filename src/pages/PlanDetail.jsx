@@ -386,6 +386,7 @@ export default function PlanDetail() {
         progress={progress}
         onSave={handleSaveReminder}
       />
-    </div>
+      </div>
+    </>
   );
 }
