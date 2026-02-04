@@ -12,6 +12,7 @@ import { readingPlans } from '@/components/bible/BibleData';
 import ReadingPlanCard from '@/components/home/ReadingPlanCard';
 import PostCard from '@/components/community/PostCard';
 import GamificationBanner from '@/components/gamification/GamificationBanner';
+import PhotoGallery from '@/components/profile/PhotoGallery';
 
 export default function Profile() {
   const [user, setUser] = useState(null);
@@ -275,6 +276,11 @@ export default function Profile() {
             </motion.div>
           </Link>
         </div>
+      </div>
+
+      {/* Photo Gallery */}
+      <div className="px-4 mb-6">
+        <PhotoGallery />
       </div>
 
       {/* Bio */}
