@@ -53,7 +53,7 @@ export default function Layout({ children, currentPageName }) {
           <img 
             src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6980ade9ca08df558ed28bdd/d9b97f241_ProsperityRevivedSymbol.jpeg" 
             alt="Prosperity Revived" 
-            className="w-12 h-12 object-contain bg-transparent"
+            className="w-20 h-20 object-contain bg-transparent"
           />
           <h1 className="text-lg font-bold text-[#3C4E53] font-imprint italic">Prosperity Revived</h1>
           <p className="text-xs text-[#FD9C2D] font-medium italic">A Safe Space to Grow</p>
