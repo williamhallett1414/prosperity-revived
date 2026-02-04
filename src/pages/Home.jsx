@@ -69,6 +69,15 @@ export default function Home() {
     queryFn: () => base44.entities.ReadingPlanProgress.list()
   });
 
+  const { data: userProgress } = useQuery({
+    queryKey: ['userProgress', user?.email],
+    queryFn: async () => {
+      const all = await base44.entities.UserProgress.list();
+      return all.find(p => p.created_by === user?.email);
+    },
+    enabled: !!user
+  });
+
   const createBookmark = useMutation({
     mutationFn: (data) => base44.entities.Bookmark.create(data),
     onSuccess: () => queryClient.invalidateQueries(['bookmarks'])
@@ -162,6 +171,31 @@ export default function Home() {
           </h1>
           <p className="text-gray-500 dark:text-gray-400">Welcome back, {user?.full_name?.split(' ')[0] || 'friend'}</p>
         </motion.div>
+
+        {/* Gamification Banner */}
+        <GamificationBanner userProgress={userProgress} />
+        
+        {/* Quick Link to Leaderboard */}
+        {userProgress && (
+          <Link 
+            to={createPageUrl('Achievements')}
+            className="block bg-gradient-to-r from-amber-500 to-orange-500 rounded-2xl p-4 mb-4 text-white shadow-lg"
+          >
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <Trophy className="w-6 h-6" />
+                <div>
+                  <p className="font-semibold">View Leaderboard</p>
+                  <p className="text-sm text-white/80">See how you rank!</p>
+                </div>
+              </div>
+              <div className="text-right">
+                <p className="text-2xl font-bold">{userProgress.total_points || 0}</p>
+                <p className="text-xs text-white/80">points</p>
+              </div>
+            </div>
+          </Link>
+        )}
 
         {/* Verse of the Day */}
         <div className="mb-6 relative">
