@@ -32,6 +32,7 @@ import AIRecommendationEngine from '@/components/ai/AIRecommendationEngine';
 import ContextualSuggestions from '@/components/ai/ContextualSuggestions';
 import AIWellnessJourneyGenerator from '@/components/wellness/AIWellnessJourneyGenerator';
 import WellnessJourneyCard from '@/components/wellness/WellnessJourneyCard';
+import AIWellnessCoach from '@/components/wellness/AIWellnessCoach';
 
 export default function Wellness() {
   const [user, setUser] = useState(null);
@@ -410,6 +411,9 @@ export default function Wellness() {
         isOpen={showProgressCharts}
         onClose={() => setShowProgressCharts(false)}
       />
+
+      {/* AI Wellness Coach */}
+      {user && <AIWellnessCoach user={user} />}
     </div>
   );
 }
