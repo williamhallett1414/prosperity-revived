@@ -2,13 +2,15 @@ import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
-import { Calendar, ChevronRight, Clock, Flame } from 'lucide-react';
+import { Calendar, ChevronRight, Clock, Flame, ShoppingCart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import RecipeCard from './RecipeCard';
+import GroceryListGenerator from './GroceryListGenerator';
 
 export default function WeeklyMealPlan({ mealPlanDays, activePlan }) {
   const [selectedDay, setSelectedDay] = useState(null);
+  const [showGroceryList, setShowGroceryList] = useState(false);
 
   const { data: recipes = [] } = useQuery({
     queryKey: ['recipes'],
@@ -32,10 +34,21 @@ export default function WeeklyMealPlan({ mealPlanDays, activePlan }) {
 
   return (
     <div className="space-y-3">
-      <h4 className="font-semibold text-[#1a1a2e] dark:text-white flex items-center gap-2">
-        <Calendar className="w-5 h-5 text-emerald-600" />
-        Your Weekly Meal Plan
-      </h4>
+      <div className="flex items-center justify-between">
+        <h4 className="font-semibold text-[#1a1a2e] dark:text-white flex items-center gap-2">
+          <Calendar className="w-5 h-5 text-emerald-600" />
+          Your Weekly Meal Plan
+        </h4>
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => setShowGroceryList(true)}
+          className="text-emerald-600 border-emerald-600 hover:bg-emerald-50"
+        >
+          <ShoppingCart className="w-4 h-4 mr-2" />
+          Grocery List
+        </Button>
+      </div>
 
       {sortedDays.map((day, index) => (
         <motion.div
@@ -136,6 +149,13 @@ export default function WeeklyMealPlan({ mealPlanDays, activePlan }) {
           )}
         </DialogContent>
       </Dialog>
+
+      {/* Grocery List Modal */}
+      <GroceryListGenerator
+        isOpen={showGroceryList}
+        onClose={() => setShowGroceryList(false)}
+        mealPlanDays={mealPlanDays}
+      />
     </div>
   );
 }
