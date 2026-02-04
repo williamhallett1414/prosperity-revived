@@ -56,7 +56,6 @@ import Community from './pages/Community';
 import Friends from './pages/Friends';
 import GroupDetail from './pages/GroupDetail';
 import Groups from './pages/Groups';
-import Home from './pages/Home';
 import Messages from './pages/Messages';
 import PlanDetail from './pages/PlanDetail';
 import Plans from './pages/Plans';
@@ -67,6 +66,7 @@ import SpiritualGrowth from './pages/SpiritualGrowth';
 import UserProfile from './pages/UserProfile';
 import Wellness from './pages/Wellness';
 import WellnessJourney from './pages/WellnessJourney';
+import Home from './pages/Home';
 import __Layout from './Layout.jsx';
 
 
@@ -80,7 +80,6 @@ export const PAGES = {
     "Friends": Friends,
     "GroupDetail": GroupDetail,
     "Groups": Groups,
-    "Home": Home,
     "Messages": Messages,
     "PlanDetail": PlanDetail,
     "Plans": Plans,
@@ -91,6 +90,7 @@ export const PAGES = {
     "UserProfile": UserProfile,
     "Wellness": Wellness,
     "WellnessJourney": WellnessJourney,
+    "Home": Home,
 }
 
 export const pagesConfig = {
