@@ -17,6 +17,8 @@ import OnboardingFlow from '@/components/onboarding/OnboardingFlow';
 import PersonalizedReadingPlans from '@/components/recommendations/PersonalizedReadingPlans';
 import SmartContentDiscovery from '@/components/ai/SmartContentDiscovery';
 import AIRecommendationEngine from '@/components/ai/AIRecommendationEngine';
+import { Link } from 'react-router-dom';
+import { Trophy } from 'lucide-react';
 
 export default function Home() {
   const [showDailyVerseSettings, setShowDailyVerseSettings] = useState(false);

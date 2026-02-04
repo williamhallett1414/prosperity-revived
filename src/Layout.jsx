@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { Home, BookOpen, Users, User, Heart } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { Toaster } from 'sonner';
 
 const navItems = [
   { name: 'Home', icon: Home, page: 'Home' },
@@ -14,8 +15,10 @@ const navItems = [
 
 export default function Layout({ children, currentPageName }) {
   return (
-    <div className="min-h-screen bg-[#faf8f5] dark:bg-[#1a1a2e]">
-      <style>{`
+    <>
+      <Toaster position="top-center" richColors />
+      <div className="min-h-screen bg-[#faf8f5] dark:bg-[#1a1a2e]">
+        <style>{`
         :root {
           --color-primary: #1a1a2e;
           --color-secondary: #c9a227;
@@ -73,5 +76,6 @@ export default function Layout({ children, currentPageName }) {
         </div>
       </nav>
     </div>
+    </>
   );
 }

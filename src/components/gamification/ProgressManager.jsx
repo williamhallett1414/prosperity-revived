@@ -1,70 +1,97 @@
 import { base44 } from '@/api/base44Client';
+import { showPointsNotification, showBadgeNotification, showLevelUpNotification } from './PointsNotification';
 
-const BADGES = [
-  { id: 'first_plan', name: 'First Steps', description: 'Complete your first reading plan', icon: '📖', points: 100, requirement: 'reading_plans_completed', value: 1 },
-  { id: 'social_butterfly', name: 'Social Butterfly', description: 'Make 10 community posts', icon: '🦋', points: 150, requirement: 'community_posts', value: 10 },
-  { id: 'streak_7', name: 'Week Warrior', description: 'Maintain a 7-day streak', icon: '🔥', points: 200, requirement: 'current_streak', value: 7 },
-  { id: 'streak_30', name: 'Monthly Master', description: 'Maintain a 30-day streak', icon: '⭐', points: 500, requirement: 'current_streak', value: 30 },
-  { id: 'fitness_fan', name: 'Fitness Fan', description: 'Complete 20 workouts', icon: '💪', points: 250, requirement: 'workouts_completed', value: 20 },
-  { id: 'meditation_master', name: 'Meditation Master', description: 'Complete 15 meditation sessions', icon: '🧘', points: 200, requirement: 'meditations_completed', value: 15 },
-  { id: 'friend_maker', name: 'Friend Maker', description: 'Connect with 5 friends', icon: '👥', points: 100, requirement: 'friends_count', value: 5 },
-  { id: 'commentator', name: 'Commentator', description: 'Leave 25 comments', icon: '💬', points: 150, requirement: 'comments_count', value: 25 },
-  { id: 'messenger', name: 'Messenger', description: 'Send 50 messages', icon: '✉️', points: 100, requirement: 'messages_sent', value: 50 },
-  { id: 'photographer', name: 'Photographer', description: 'Upload 10 photos', icon: '📸', points: 100, requirement: 'photos_uploaded', value: 10 },
-  { id: 'level_5', name: 'Rising Star', description: 'Reach level 5', icon: '🌟', points: 250, requirement: 'level', value: 5 },
-  { id: 'level_10', name: 'Community Leader', description: 'Reach level 10', icon: '👑', points: 500, requirement: 'level', value: 10 }
+export const BADGES = [
+  { id: 'first_steps', name: 'First Steps', description: 'Complete your first reading plan day', icon: '🌱', points: 50, requirement: { field: 'reading_plans_completed', value: 1 } },
+  { id: 'consistent_reader', name: 'Consistent Reader', description: 'Complete 3 reading plans', icon: '📖', points: 150, requirement: { field: 'reading_plans_completed', value: 3 } },
+  { id: 'devoted_scholar', name: 'Devoted Scholar', description: 'Complete 10 reading plans', icon: '🎓', points: 300, requirement: { field: 'reading_plans_completed', value: 10 } },
+  { id: 'social_butterfly', name: 'Social Butterfly', description: 'Make 5 friends', icon: '🦋', points: 75, requirement: { field: 'friends_count', value: 5 } },
+  { id: 'prayer_warrior', name: 'Prayer Warrior', description: 'Complete 10 prayer sessions', icon: '🙏', points: 100, requirement: { field: 'meditations_completed', value: 10 } },
+  { id: 'meditation_master', name: 'Meditation Master', description: 'Complete 30 meditation sessions', icon: '🧘', points: 200, requirement: { field: 'meditations_completed', value: 30 } },
+  { id: 'fitness_starter', name: 'Fitness Starter', description: 'Complete 5 workouts', icon: '💪', points: 75, requirement: { field: 'workouts_completed', value: 5 } },
+  { id: 'fitness_enthusiast', name: 'Fitness Enthusiast', description: 'Complete 15 workouts', icon: '🏃', points: 125, requirement: { field: 'workouts_completed', value: 15 } },
+  { id: 'fitness_champion', name: 'Fitness Champion', description: 'Complete 50 workouts', icon: '🏆', points: 300, requirement: { field: 'workouts_completed', value: 50 } },
+  { id: 'chef_beginner', name: 'Home Chef', description: 'Cook 5 recipes', icon: '👨‍🍳', points: 75, requirement: { field: 'recipes_cooked', value: 5 } },
+  { id: 'master_chef', name: 'Master Chef', description: 'Cook 25 recipes', icon: '⭐', points: 200, requirement: { field: 'recipes_cooked', value: 25 } },
+  { id: 'streak_starter', name: 'Getting Started', description: 'Maintain a 3-day streak', icon: '✨', points: 50, requirement: { field: 'current_streak', value: 3 } },
+  { id: 'streak_master', name: 'Streak Master', description: 'Maintain a 7-day streak', icon: '🔥', points: 150, requirement: { field: 'current_streak', value: 7 } },
+  { id: 'streak_legend', name: 'Streak Legend', description: 'Maintain a 30-day streak', icon: '⚡', points: 500, requirement: { field: 'current_streak', value: 30 } },
+  { id: 'community_leader', name: 'Community Leader', description: 'Create 10 posts', icon: '📢', points: 100, requirement: { field: 'community_posts', value: 10 } },
+  { id: 'influencer', name: 'Influencer', description: 'Create 50 posts', icon: '🌟', points: 300, requirement: { field: 'community_posts', value: 50 } },
+  { id: 'helpful_soul', name: 'Helpful Soul', description: 'Leave 20 comments', icon: '💬', points: 100, requirement: { external: 'comments_count', value: 20 } },
+  { id: 'super_helper', name: 'Super Helper', description: 'Leave 100 comments', icon: '💝', points: 250, requirement: { external: 'comments_count', value: 100 } },
+  { id: 'messenger', name: 'Messenger', description: 'Send 50 messages', icon: '✉️', points: 100, requirement: { external: 'messages_sent', value: 50 } },
+  { id: 'photographer', name: 'Photographer', description: 'Upload 10 photos', icon: '📸', points: 100, requirement: { external: 'photos_uploaded', value: 10 } }
 ];
 
-export async function awardPoints(userEmail, points, activity, incrementField = null) {
+export async function awardPoints(userEmail, points, additionalFields = {}) {
+  if (!userEmail) return;
+  
   try {
     const allProgress = await base44.entities.UserProgress.list();
-    let userProgress = allProgress.find(p => p.created_by === userEmail);
+    let progress = allProgress.find(p => p.created_by === userEmail);
 
-    const updateData = {};
-
-    if (!userProgress) {
-      updateData.total_points = points;
-      updateData.level = 1;
-      updateData.badges = [];
-      updateData.current_streak = 0;
-      updateData.longest_streak = 0;
-      
-      if (incrementField) {
-        updateData[incrementField] = 1;
-      }
-      
-      userProgress = await base44.entities.UserProgress.create(updateData);
-    } else {
-      const newPoints = (userProgress.total_points || 0) + points;
-      const newLevel = Math.floor(newPoints / 100) + 1;
-      
-      updateData.total_points = newPoints;
-      updateData.level = newLevel;
-      
-      if (incrementField) {
-        updateData[incrementField] = (userProgress[incrementField] || 0) + 1;
-      }
-      
-      await base44.entities.UserProgress.update(userProgress.id, updateData);
+    if (!progress) {
+      progress = await base44.entities.UserProgress.create({
+        total_points: points,
+        level: 1,
+        badges: [],
+        current_streak: 0,
+        longest_streak: 0,
+        ...additionalFields
+      });
+      return { newPoints: points, newLevel: 1, leveledUp: false };
     }
 
-    // Check for new badges
-    await checkAndAwardBadges(userEmail);
+    const currentPoints = progress.total_points || 0;
+    const newTotalPoints = currentPoints + points;
+    const newLevel = Math.floor(newTotalPoints / 500) + 1;
+    const leveledUp = newLevel > progress.level;
 
-    return userProgress;
+    await base44.entities.UserProgress.update(progress.id, {
+      total_points: newTotalPoints,
+      level: newLevel,
+      ...additionalFields
+    });
+    
+    // Show notifications
+    if (typeof window !== 'undefined') {
+      const actionLabels = {
+        reading_plans_completed: 'Completed reading plan',
+        workouts_completed: 'Completed workout',
+        recipes_cooked: 'Cooked a recipe',
+        community_posts: 'Created a post',
+        comments_count: 'Left a comment',
+        meditations_completed: 'Completed meditation',
+        messages_sent: 'Sent a message',
+        photos_uploaded: 'Uploaded photo'
+      };
+      
+      const actionKey = Object.keys(additionalFields)[0];
+      const actionLabel = actionLabels[actionKey] || 'Activity completed';
+      
+      showPointsNotification(points, actionLabel);
+      
+      if (leveledUp) {
+        showLevelUpNotification(newLevel);
+      }
+    }
+    
+    return { newPoints: newTotalPoints, newLevel, leveledUp };
   } catch (error) {
-    console.error('Failed to award points', error);
+    console.error('Failed to award points:', error);
   }
 }
 
 export async function checkAndAwardBadges(userEmail) {
+  if (!userEmail) return [];
+  
   try {
     const allProgress = await base44.entities.UserProgress.list();
-    let userProgress = allProgress.find(p => p.created_by === userEmail);
+    let progress = allProgress.find(p => p.created_by === userEmail);
     
-    if (!userProgress) return;
+    if (!progress) return [];
 
-    // Fetch external counts for badge requirements
     const [friends, comments, messages, photos] = await Promise.all([
       base44.entities.Friend.list(),
       base44.entities.Comment.list(),
@@ -80,52 +107,59 @@ export async function checkAndAwardBadges(userEmail) {
     const messagesSent = messages.filter(m => m.sender_email === userEmail).length;
     const photosUploaded = photos.filter(p => p.created_by === userEmail).length;
 
-    // Update progress with external counts
-    await base44.entities.UserProgress.update(userProgress.id, {
+    await base44.entities.UserProgress.update(progress.id, {
       friends_count: friendsCount,
       comments_count: commentsCount,
       messages_sent: messagesSent,
       photos_uploaded: photosUploaded
     });
 
-    // Refresh progress
     const updated = await base44.entities.UserProgress.list();
-    userProgress = updated.find(p => p.created_by === userEmail);
+    progress = updated.find(p => p.created_by === userEmail);
 
-    const currentBadges = userProgress.badges || [];
-    let newBadges = [...currentBadges];
-    let pointsAwarded = 0;
+    const currentBadges = progress.badges || [];
+    const newBadges = [];
 
     for (const badge of BADGES) {
       if (!currentBadges.includes(badge.id)) {
-        const userValue = userProgress[badge.requirement] || 0;
-        if (userValue >= badge.value) {
-          newBadges.push(badge.id);
-          pointsAwarded += badge.points;
+        const reqField = badge.requirement.field || badge.requirement.external;
+        const userValue = progress[reqField] || 0;
+        
+        if (userValue >= badge.requirement.value) {
+          // Award badge
+          await awardPoints(userEmail, badge.points);
+          
+          await base44.entities.UserProgress.update(progress.id, {
+            badges: [...currentBadges, badge.id]
+          });
+          
+          // Show badge notification
+          if (typeof window !== 'undefined') {
+            showBadgeNotification(badge);
+          }
+          
+          newBadges.push(badge);
         }
       }
     }
-
-    if (newBadges.length > currentBadges.length) {
-      await base44.entities.UserProgress.update(userProgress.id, {
-        badges: newBadges,
-        total_points: (userProgress.total_points || 0) + pointsAwarded,
-        level: Math.floor(((userProgress.total_points || 0) + pointsAwarded) / 100) + 1
-      });
-    }
+    
+    return newBadges;
   } catch (error) {
-    console.error('Failed to check badges', error);
+    console.error('Failed to check badges:', error);
+    return [];
   }
 }
 
 export async function updateStreak(userEmail) {
+  if (!userEmail) return;
+  
   try {
     const allProgress = await base44.entities.UserProgress.list();
-    let userProgress = allProgress.find(p => p.created_by === userEmail);
+    let progress = allProgress.find(p => p.created_by === userEmail);
     
     const today = new Date().toISOString().split('T')[0];
     
-    if (!userProgress) {
+    if (!progress) {
       await base44.entities.UserProgress.create({
         total_points: 5,
         level: 1,
@@ -137,7 +171,7 @@ export async function updateStreak(userEmail) {
       return;
     }
 
-    const lastActive = userProgress.last_active_date;
+    const lastActive = progress.last_active_date;
     if (lastActive === today) return;
 
     const yesterday = new Date();
@@ -146,22 +180,20 @@ export async function updateStreak(userEmail) {
 
     let newStreak = 1;
     if (lastActive === yesterdayStr) {
-      newStreak = (userProgress.current_streak || 0) + 1;
+      newStreak = (progress.current_streak || 0) + 1;
     }
 
-    const longestStreak = Math.max(newStreak, userProgress.longest_streak || 0);
+    const longestStreak = Math.max(newStreak, progress.longest_streak || 0);
 
-    await base44.entities.UserProgress.update(userProgress.id, {
+    await base44.entities.UserProgress.update(progress.id, {
       current_streak: newStreak,
       longest_streak: longestStreak,
       last_active_date: today,
-      total_points: (userProgress.total_points || 0) + 5
+      total_points: (progress.total_points || 0) + 5
     });
 
     await checkAndAwardBadges(userEmail);
   } catch (error) {
-    console.error('Failed to update streak', error);
+    console.error('Failed to update streak:', error);
   }
 }
-
-export { BADGES };
