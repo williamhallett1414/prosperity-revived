@@ -20,7 +20,7 @@ export default function AIWellnessCoach({ user }) {
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef(null);
 
-  // Fetch user's wellness data
+  // Fetch comprehensive user data
   const { data: journeys = [] } = useQuery({
     queryKey: ['wellnessJourneys', user?.email],
     queryFn: () => base44.entities.WellnessJourney.list(),
@@ -30,6 +30,30 @@ export default function AIWellnessCoach({ user }) {
   const { data: workouts = [] } = useQuery({
     queryKey: ['workouts'],
     queryFn: () => base44.entities.WorkoutPlan.list(),
+    enabled: !!user
+  });
+
+  const { data: workoutSessions = [] } = useQuery({
+    queryKey: ['workoutSessions'],
+    queryFn: () => base44.entities.WorkoutSession.list('-date', 50),
+    enabled: !!user
+  });
+
+  const { data: mealLogs = [] } = useQuery({
+    queryKey: ['mealLogs'],
+    queryFn: () => base44.entities.MealLog.list('-date', 50),
+    enabled: !!user
+  });
+
+  const { data: meditations = [] } = useQuery({
+    queryKey: ['meditations'],
+    queryFn: () => base44.entities.Meditation.list(),
+    enabled: !!user
+  });
+
+  const { data: readingProgress = [] } = useQuery({
+    queryKey: ['readingProgress'],
+    queryFn: () => base44.entities.ReadingPlanProgress.list(),
     enabled: !!user
   });
 
@@ -75,20 +99,68 @@ export default function AIWellnessCoach({ user }) {
   }, [user, activeJourney, userProgress, messages.length]);
 
   const buildContext = () => {
+    const today = new Date().toISOString().split('T')[0];
+    const last7Days = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+    const last30Days = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+
+    // Calculate recent activity
+    const recentWorkouts = workoutSessions.filter(s => s.date >= last7Days).length;
+    const recentMeals = mealLogs.filter(m => m.date >= last7Days).length;
+    const totalCalories7Days = mealLogs.filter(m => m.date >= last7Days).reduce((sum, m) => sum + (m.calories || 0), 0);
+    const avgCaloriesPerDay = recentMeals > 0 ? Math.round(totalCalories7Days / 7) : 0;
+    
+    const completedMeditations = meditations.filter(m => 
+      m.completed_dates?.some(d => d >= last7Days)
+    ).length;
+
+    const activeReadingPlans = readingProgress.filter(p => !p.completed_date);
+    const recentBibleDays = readingProgress.reduce((sum, p) => {
+      const recentCompletions = p.completion_dates?.filter(d => d >= last7Days) || [];
+      return sum + recentCompletions.length;
+    }, 0);
+
     const context = {
-      user_name: user?.full_name || 'User',
-      spiritual_goal: user?.spiritual_goal,
-      fitness_level: user?.fitness_level,
-      health_goals: user?.health_goals,
-      current_streak: userProgress?.current_streak || 0,
-      total_points: userProgress?.total_points || 0,
-      level: userProgress?.level || 1
+      user_name: user?.full_name?.split(' ')[0] || 'User',
+      user_profile: {
+        spiritual_goal: user?.spiritual_goal,
+        fitness_level: user?.fitness_level,
+        health_goals: user?.health_goals,
+        dietary_preferences: user?.dietary_preferences
+      },
+      gamification: {
+        current_streak: userProgress?.current_streak || 0,
+        longest_streak: userProgress?.longest_streak || 0,
+        total_points: userProgress?.total_points || 0,
+        level: userProgress?.level || 1,
+        workouts_completed: userProgress?.workouts_completed || 0,
+        meditations_completed: userProgress?.meditations_completed || 0,
+        reading_plans_completed: userProgress?.reading_plans_completed || 0
+      },
+      recent_activity: {
+        last_7_days: {
+          workouts: recentWorkouts,
+          meals_logged: recentMeals,
+          avg_calories: avgCaloriesPerDay,
+          meditations: completedMeditations,
+          bible_reading_days: recentBibleDays
+        },
+        last_active_date: userProgress?.last_active_date,
+        days_since_activity: userProgress?.last_active_date 
+          ? Math.floor((new Date() - new Date(userProgress.last_active_date)) / (1000 * 60 * 60 * 24))
+          : null
+      },
+      bible_reading: {
+        active_plans: activeReadingPlans.length,
+        total_days_read: readingProgress.reduce((sum, p) => sum + (p.completed_days?.length || 0), 0),
+        longest_streak: Math.max(...readingProgress.map(p => p.longest_streak || 0), 0)
+      }
     };
 
     if (activeJourney) {
       const currentWeek = activeJourney.weeks?.find(w => w.week_number === activeJourney.current_week);
-      const recentMood = activeJourney.mood_energy_tracking?.slice(-3);
-      const recentWorkoutFeedback = activeJourney.exercise_feedback?.slice(-3);
+      const recentMood = activeJourney.mood_energy_tracking?.slice(-5);
+      const recentWorkoutFeedback = activeJourney.exercise_feedback?.slice(-5);
+      const recentRecipeFeedback = activeJourney.recipe_feedback?.slice(-5);
       
       context.active_journey = {
         title: activeJourney.title,
@@ -96,13 +168,18 @@ export default function AIWellnessCoach({ user }) {
         total_weeks: activeJourney.duration_weeks,
         progress: activeJourney.progress_percentage,
         current_week_theme: currentWeek?.theme,
-        spiritual_focus: currentWeek?.spiritual_focus,
-        workout_focus: currentWeek?.workout_focus,
-        nutrition_focus: currentWeek?.nutrition_focus,
         goals: activeJourney.goals,
-        granular_goals: activeJourney.granular_goals,
+        granular_goals: activeJourney.granular_goals?.map(g => ({
+          type: g.type,
+          description: g.description,
+          progress: g.progress_percentage,
+          current: g.current_value,
+          target: g.target_value
+        })),
         recent_mood_energy: recentMood,
-        recent_workout_feedback: recentWorkoutFeedback
+        recent_workout_feedback: recentWorkoutFeedback,
+        recent_recipe_feedback: recentRecipeFeedback,
+        adaptations: activeJourney.adaptations?.slice(-3)
       };
     }
 
@@ -127,29 +204,68 @@ export default function AIWellnessCoach({ user }) {
       const conversationHistory = messages.slice(-6).map(m => `${m.role}: ${m.content}`).join('\n');
 
       const prompt = `
-You are a supportive and knowledgeable AI wellness coach. You help users with their spiritual growth, fitness, and nutrition journeys.
+You are an empathetic and insightful AI wellness coach who helps users achieve holistic well-being through spiritual growth, physical fitness, and mindful nutrition.
 
-User Context:
+COMPREHENSIVE USER CONTEXT:
 ${JSON.stringify(context, null, 2)}
 
-Recent Conversation:
+RECENT CONVERSATION:
 ${conversationHistory}
 
-User's Current Message: ${input}
+USER'S CURRENT MESSAGE: ${input}
 
-Guidelines:
-1. Be warm, encouraging, and supportive
-2. Provide specific, actionable advice based on their data
-3. Reference their current journey, progress, and goals when relevant
-4. If they're struggling, offer motivation and practical tips
-5. If they ask about exercises, provide step-by-step guidance
-6. If they mention low mood/energy, acknowledge it and offer gentle suggestions
-7. Celebrate their wins and progress
-8. Keep responses conversational and personal (2-4 sentences unless detailed guidance is needed)
-9. Use emojis occasionally to be friendly
-10. If they haven't been active, gently encourage them without being pushy
+COACHING GUIDELINES:
 
-Respond naturally and helpfully:`;
+1. ANALYZE & PERSONALIZE:
+   - Reference specific data points (streak, workouts, meals, Bible reading)
+   - Notice patterns in their activity and progress
+   - Identify areas where they're excelling and areas needing support
+   - Consider their goals, mood trends, and feedback
+
+2. PROVIDE INSIGHTS:
+   - Offer data-driven observations ("I notice you've worked out 3 times this week - that's amazing!")
+   - Connect different aspects of their wellness (how Bible reading relates to stress levels, etc.)
+   - Highlight progress toward their goals
+   - Point out positive trends
+
+3. PROACTIVE SUGGESTIONS:
+   - Suggest specific next actions based on their recent activity
+   - Recommend workouts/recipes/prayers aligned with their preferences
+   - Propose small, achievable steps to build momentum
+   - Balance challenge with encouragement
+
+4. EMOTIONAL INTELLIGENCE:
+   - Acknowledge struggles without judgment
+   - Celebrate wins enthusiastically
+   - If mood/energy is low, offer compassionate support
+   - Adapt tone to their current state
+
+5. PRACTICAL GUIDANCE:
+   - Give step-by-step instructions when requested
+   - Provide specific timing and duration recommendations
+   - Offer modifications based on their fitness level
+   - Share nutritional insights relevant to their goals
+
+6. HOLISTIC APPROACH:
+   - Integrate spiritual, physical, and nutritional elements
+   - Reference their spiritual goals in wellness discussions
+   - Connect faith practices with health benefits
+   - Encourage balance across all areas
+
+7. CONVERSATIONAL STYLE:
+   - Keep responses warm and personal (2-5 sentences for casual questions)
+   - Use their name occasionally
+   - Include encouraging emojis naturally
+   - Longer responses only when providing detailed guidance
+   - Avoid being preachy or overly formal
+
+8. ACCOUNTABILITY:
+   - Gently address inactivity with curiosity, not criticism
+   - Remind them of their stated goals
+   - Suggest ways to overcome barriers
+   - Offer to help them get back on track
+
+Respond as their trusted wellness coach:`;
 
       const response = await base44.integrations.Core.InvokeLLM({
         prompt
@@ -175,10 +291,12 @@ Respond naturally and helpfully:`;
   };
 
   const quickPrompts = [
-    "How am I doing on my journey?",
-    "I'm feeling unmotivated today",
-    "Guide me through a breathing exercise",
-    "What should I focus on this week?"
+    "How am I doing overall?",
+    "What should I work on today?",
+    "I'm feeling unmotivated",
+    "Suggest a workout for me",
+    "Help me with meal planning",
+    "Tips for staying consistent?"
   ];
 
   const handleQuickPrompt = (prompt) => {
