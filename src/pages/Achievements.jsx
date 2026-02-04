@@ -10,14 +10,18 @@ import BadgeCard from '@/components/gamification/BadgeCard';
 import Leaderboard from '@/components/gamification/Leaderboard';
 
 const BADGES = [
-  { id: 'first_plan', name: 'First Steps', description: 'Complete your first reading plan', icon: '📖', points: 50, requirement: 'reading_plans_completed', value: 1 },
-  { id: 'plan_master', name: 'Plan Master', description: 'Complete 5 reading plans', icon: '🎓', points: 200, requirement: 'reading_plans_completed', value: 5 },
-  { id: 'community_starter', name: 'Community Member', description: 'Make your first post', icon: '💬', points: 25, requirement: 'community_posts', value: 1 },
-  { id: 'influencer', name: 'Influencer', description: 'Make 50 community posts', icon: '⭐', points: 150, requirement: 'community_posts', value: 50 },
-  { id: 'week_streak', name: 'Committed', description: '7 day streak', icon: '🔥', points: 100, requirement: 'current_streak', value: 7 },
-  { id: 'month_streak', name: 'Dedicated', description: '30 day streak', icon: '💎', points: 500, requirement: 'current_streak', value: 30 },
-  { id: 'fitness_warrior', name: 'Fitness Warrior', description: 'Complete 20 workouts', icon: '💪', points: 150, requirement: 'workouts_completed', value: 20 },
-  { id: 'zen_master', name: 'Zen Master', description: 'Complete 30 meditations', icon: '🧘', points: 200, requirement: 'meditations_completed', value: 30 }
+  { id: 'first_plan', name: 'First Steps', description: 'Complete your first reading plan', icon: '📖', points: 100, requirement: 'reading_plans_completed', value: 1 },
+  { id: 'social_butterfly', name: 'Social Butterfly', description: 'Make 10 community posts', icon: '🦋', points: 150, requirement: 'community_posts', value: 10 },
+  { id: 'streak_7', name: 'Week Warrior', description: 'Maintain a 7-day streak', icon: '🔥', points: 200, requirement: 'current_streak', value: 7 },
+  { id: 'streak_30', name: 'Monthly Master', description: 'Maintain a 30-day streak', icon: '⭐', points: 500, requirement: 'current_streak', value: 30 },
+  { id: 'fitness_fan', name: 'Fitness Fan', description: 'Complete 20 workouts', icon: '💪', points: 250, requirement: 'workouts_completed', value: 20 },
+  { id: 'meditation_master', name: 'Meditation Master', description: 'Complete 15 meditation sessions', icon: '🧘', points: 200, requirement: 'meditations_completed', value: 15 },
+  { id: 'friend_maker', name: 'Friend Maker', description: 'Connect with 5 friends', icon: '👥', points: 100, requirement: 'friends_count', value: 5 },
+  { id: 'commentator', name: 'Commentator', description: 'Leave 25 comments', icon: '💬', points: 150, requirement: 'comments_count', value: 25 },
+  { id: 'messenger', name: 'Messenger', description: 'Send 50 messages', icon: '✉️', points: 100, requirement: 'messages_sent', value: 50 },
+  { id: 'photographer', name: 'Photographer', description: 'Upload 10 photos', icon: '📸', points: 100, requirement: 'photos_uploaded', value: 10 },
+  { id: 'level_5', name: 'Rising Star', description: 'Reach level 5', icon: '🌟', points: 250, requirement: 'level', value: 5 },
+  { id: 'level_10', name: 'Community Leader', description: 'Reach level 10', icon: '👑', points: 500, requirement: 'level', value: 10 }
 ];
 
 export default function Achievements() {
