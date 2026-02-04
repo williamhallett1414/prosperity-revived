@@ -205,7 +205,9 @@ export default function PlanDetail() {
   const days = Array.from({ length: plan.duration }, (_, i) => i + 1);
 
   return (
-    <div className="min-h-screen bg-[#faf8f5] pb-24">
+    <>
+      <Toaster position="top-center" richColors />
+      <div className="min-h-screen bg-[#faf8f5] pb-24">
       {/* Hero Image */}
       <div className="relative h-64">
         <img
