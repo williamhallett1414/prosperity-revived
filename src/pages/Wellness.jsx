@@ -449,7 +449,7 @@ export default function Wellness() {
 
           {/* Self-Care Tab */}
           <TabsContent value="selfcare" className="space-y-4">
-            <SelfCareGuides />
+            <SelfCareGuides user={user} />
           </TabsContent>
         </Tabs>
       </div>
