@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { base44 } from '@/api/base44Client';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageCircle, X, Send, Loader2, Sparkles, TrendingUp } from 'lucide-react';
+import { MessageCircle, X, Send, Loader2, Sparkles, TrendingUp, BookOpen, Lightbulb } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 export default function AIWellnessCoach({ user }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,7 +20,14 @@ export default function AIWellnessCoach({ user }) {
   ]);
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
+  const [activeTab, setActiveTab] = useState('chat');
+  const [journalEntry, setJournalEntry] = useState('');
+  const [journalMood, setJournalMood] = useState('neutral');
+  const [journalEnergy, setJournalEnergy] = useState('moderate');
+  const [suggestedPrompts, setSuggestedPrompts] = useState([]);
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
   const messagesEndRef = useRef(null);
+  const queryClient = useQueryClient();
 
   // Fetch comprehensive user data
   const { data: journeys = [] } = useQuery({
@@ -66,15 +75,40 @@ export default function AIWellnessCoach({ user }) {
     enabled: !!user
   });
 
+  const { data: journalEntries = [] } = useQuery({
+    queryKey: ['journalEntries', user?.email],
+    queryFn: () => base44.entities.JournalEntry.list('-date', 50),
+    enabled: !!user
+  });
+
   const activeJourney = journeys.find(j => j.is_active && j.created_by === user?.email);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  const saveJournalEntry = useMutation({
+    mutationFn: async (data) => {
+      return await base44.entities.JournalEntry.create(data);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(['journalEntries']);
+      setJournalEntry('');
+      setJournalMood('neutral');
+      setJournalEnergy('moderate');
+    }
+  });
+
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+
+  // Generate journaling prompts when tab opens
+  useEffect(() => {
+    if (activeTab === 'journal' && suggestedPrompts.length === 0 && user) {
+      generateJournalingPrompts();
+    }
+  }, [activeTab, user]);
 
   // Generate proactive insights on mount
   useEffect(() => {
@@ -140,6 +174,115 @@ Keep it warm, personal, and 2-3 sentences. Use an encouraging emoji. Reference s
     generateProactiveMessage();
   }, [user]);
 
+  const generateJournalingPrompts = async () => {
+    try {
+      const context = buildContext();
+      const recentEntries = journalEntries.slice(0, 3).map(e => ({
+        date: e.date,
+        mood: e.mood,
+        snippet: e.content?.substring(0, 100)
+      }));
+
+      const promptRequest = `
+Based on this user's wellness journey, generate 4 personalized journaling prompts that would help them reflect and grow:
+
+USER CONTEXT:
+${JSON.stringify({
+  goals: context.user_profile,
+  recent_activity: context.recent_activity,
+  active_journey: context.active_journey?.title,
+  current_week_theme: context.active_journey?.current_week_theme,
+  recent_journal_entries: recentEntries
+}, null, 2)}
+
+Generate 4 diverse prompts covering different areas:
+1. Spiritual reflection
+2. Physical wellness & fitness
+3. Emotional/mental health
+4. Goal progress or gratitude
+
+Return as JSON array: ["prompt1", "prompt2", "prompt3", "prompt4"]
+Keep each prompt brief (1 sentence, question format).`;
+
+      const response = await base44.integrations.Core.InvokeLLM({
+        prompt: promptRequest,
+        response_json_schema: {
+          type: "object",
+          properties: {
+            prompts: { type: "array", items: { type: "string" } }
+          }
+        }
+      });
+
+      setSuggestedPrompts(response.prompts || []);
+    } catch (error) {
+      console.error('Failed to generate prompts:', error);
+      setSuggestedPrompts([
+        "What am I most grateful for today?",
+        "How did my body feel during today's activities?",
+        "What spiritual lesson am I learning this week?",
+        "What small win can I celebrate right now?"
+      ]);
+    }
+  };
+
+  const analyzeJournalEntry = async (entryContent, mood, energy) => {
+    setIsAnalyzing(true);
+    try {
+      const context = buildContext();
+      const prompt = `
+You are an insightful wellness coach analyzing a user's journal entry. Provide a brief, empathetic analysis.
+
+USER CONTEXT:
+${JSON.stringify(context, null, 2)}
+
+JOURNAL ENTRY:
+Mood: ${mood}
+Energy: ${energy}
+Content: ${entryContent}
+
+Provide:
+1. Key themes or emotions you notice
+2. Connection to their wellness goals
+3. One actionable insight or encouragement
+4. Any patterns worth noting
+
+Keep response brief (3-4 sentences), warm, and specific to their entry.`;
+
+      const insights = await base44.integrations.Core.InvokeLLM({ prompt });
+      return insights;
+    } catch (error) {
+      console.error('Failed to analyze entry:', error);
+      return "Thank you for sharing. Your reflections are valuable for your growth journey.";
+    } finally {
+      setIsAnalyzing(false);
+    }
+  };
+
+  const handleSaveJournal = async () => {
+    if (!journalEntry.trim()) return;
+
+    const insights = await analyzeJournalEntry(journalEntry, journalMood, journalEnergy);
+    
+    await saveJournalEntry.mutateAsync({
+      date: new Date().toISOString().split('T')[0],
+      content: journalEntry,
+      mood: journalMood,
+      energy_level: journalEnergy,
+      ai_insights: insights,
+      tags: []
+    });
+
+    // Add insights to chat
+    setMessages(prev => [...prev, {
+      role: 'assistant',
+      content: `📔 Journal entry saved! Here are my insights:\n\n${insights}`,
+      timestamp: new Date().toISOString()
+    }]);
+    
+    setActiveTab('chat');
+  };
+
   const buildContext = () => {
     const today = new Date().toISOString().split('T')[0];
     const last7Days = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
@@ -195,6 +338,12 @@ Keep it warm, personal, and 2-3 sentences. Use an encouraging emoji. Reference s
         active_plans: activeReadingPlans.length,
         total_days_read: readingProgress.reduce((sum, p) => sum + (p.completed_days?.length || 0), 0),
         longest_streak: Math.max(...readingProgress.map(p => p.longest_streak || 0), 0)
+      },
+      journaling: {
+        total_entries: journalEntries.length,
+        recent_moods: journalEntries.slice(0, 7).map(e => e.mood),
+        recent_energy: journalEntries.slice(0, 7).map(e => e.energy_level),
+        entries_this_week: journalEntries.filter(e => e.date >= last7Days).length
       }
     };
 
@@ -336,7 +485,7 @@ Respond as their trusted wellness coach:`;
     "How am I doing overall?",
     "What should I work on today?",
     "I'm feeling unmotivated",
-    "Suggest a workout for me",
+    "Analyze my journal patterns",
     "Help me with meal planning",
     "Tips for staying consistent?"
   ];
@@ -382,11 +531,11 @@ Respond as their trusted wellness coach:`;
             <div className="bg-gradient-to-r from-purple-600 to-pink-600 p-4 flex items-center justify-between text-white">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
-                  <Sparkles className="w-5 h-5" />
+                  {activeTab === 'journal' ? <BookOpen className="w-5 h-5" /> : <Sparkles className="w-5 h-5" />}
                 </div>
                 <div>
-                  <h3 className="font-semibold">AI Wellness Coach</h3>
-                  <p className="text-xs text-white/80">Always here to help</p>
+                  <h3 className="font-semibold">{activeTab === 'journal' ? 'Journal' : 'AI Coach'}</h3>
+                  <p className="text-xs text-white/80">{activeTab === 'journal' ? 'Reflect & grow' : 'Always here to help'}</p>
                 </div>
               </div>
               <button
@@ -397,8 +546,21 @@ Respond as their trusted wellness coach:`;
               </button>
             </div>
 
-            {/* Messages */}
-            <ScrollArea className="flex-1 p-4">
+            {/* Tabs */}
+            <div className="border-b bg-white px-4">
+              <Tabs value={activeTab} onValueChange={setActiveTab}>
+                <TabsList className="w-full grid grid-cols-2">
+                  <TabsTrigger value="chat">Chat</TabsTrigger>
+                  <TabsTrigger value="journal">Journal</TabsTrigger>
+                </TabsList>
+              </Tabs>
+            </div>
+
+            {/* Content Area */}
+            {activeTab === 'chat' && (
+              <>
+                {/* Messages */}
+                <ScrollArea className="flex-1 p-4">
               <div className="space-y-4">
                 {messages.map((message, index) => (
                   <motion.div
@@ -431,57 +593,176 @@ Respond as their trusted wellness coach:`;
                   </div>
                 )}
 
-                <div ref={messagesEndRef} />
-              </div>
-            </ScrollArea>
+                  <div ref={messagesEndRef} />
+                </div>
+              </ScrollArea>
 
-            {/* Quick Prompts */}
-            {messages.length <= 2 && (
-              <div className="px-4 pb-2">
-                <p className="text-xs text-gray-500 mb-2">Quick questions:</p>
-                <div className="flex flex-wrap gap-2">
-                  {quickPrompts.map((prompt, index) => (
-                    <button
-                      key={index}
-                      onClick={() => handleQuickPrompt(prompt)}
-                      className="text-xs px-3 py-1.5 bg-purple-50 text-purple-600 rounded-full hover:bg-purple-100 transition-colors"
-                    >
-                      {prompt}
-                    </button>
-                  ))}
+              {/* Quick Prompts */}
+              {messages.length <= 2 && (
+                <div className="px-4 pb-2">
+                  <p className="text-xs text-gray-500 mb-2">Quick questions:</p>
+                  <div className="flex flex-wrap gap-2">
+                    {quickPrompts.map((prompt, index) => (
+                      <button
+                        key={index}
+                        onClick={() => handleQuickPrompt(prompt)}
+                        className="text-xs px-3 py-1.5 bg-purple-50 text-purple-600 rounded-full hover:bg-purple-100 transition-colors"
+                      >
+                        {prompt}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Input */}
+              <div className="p-4 border-t">
+                <div className="flex gap-2">
+                  <Textarea
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
+                        sendMessage();
+                      }
+                    }}
+                    placeholder="Ask me anything..."
+                    className="flex-1 min-h-[40px] max-h-[120px] resize-none"
+                    rows={1}
+                  />
+                  <Button
+                    onClick={sendMessage}
+                    disabled={!input.trim() || isTyping}
+                    className="bg-purple-600 hover:bg-purple-700 px-3"
+                  >
+                    {isTyping ? (
+                      <Loader2 className="w-5 h-5 animate-spin" />
+                    ) : (
+                      <Send className="w-5 h-5" />
+                    )}
+                  </Button>
                 </div>
               </div>
+            </>
             )}
 
-            {/* Input */}
-            <div className="p-4 border-t">
-              <div className="flex gap-2">
-                <Textarea
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' && !e.shiftKey) {
-                      e.preventDefault();
-                      sendMessage();
-                    }
-                  }}
-                  placeholder="Ask me anything..."
-                  className="flex-1 min-h-[40px] max-h-[120px] resize-none"
-                  rows={1}
-                />
-                <Button
-                  onClick={sendMessage}
-                  disabled={!input.trim() || isTyping}
-                  className="bg-purple-600 hover:bg-purple-700 px-3"
-                >
-                  {isTyping ? (
-                    <Loader2 className="w-5 h-5 animate-spin" />
-                  ) : (
-                    <Send className="w-5 h-5" />
-                  )}
-                </Button>
-              </div>
-            </div>
+            {/* Journal Tab */}
+            {activeTab === 'journal' && (
+              <>
+                <ScrollArea className="flex-1 p-4">
+                  <div className="space-y-4">
+                    {/* Suggested Prompts */}
+                    {suggestedPrompts.length > 0 && (
+                      <div>
+                        <div className="flex items-center gap-2 mb-2">
+                          <Lightbulb className="w-4 h-4 text-amber-600" />
+                          <p className="text-xs font-medium text-gray-700">Suggested Prompts</p>
+                        </div>
+                        <div className="space-y-2">
+                          {suggestedPrompts.map((prompt, index) => (
+                            <button
+                              key={index}
+                              onClick={() => setJournalEntry(prev => prev + (prev ? '\n\n' : '') + prompt + '\n')}
+                              className="w-full text-left p-2 bg-amber-50 rounded-lg text-xs text-gray-700 hover:bg-amber-100 transition-colors"
+                            >
+                              {prompt}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Mood & Energy */}
+                    <div className="grid grid-cols-2 gap-3">
+                      <div>
+                        <label className="text-xs font-medium text-gray-700 mb-1 block">Mood</label>
+                        <Select value={journalMood} onValueChange={setJournalMood}>
+                          <SelectTrigger className="text-xs">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="very_low">Very Low 😢</SelectItem>
+                            <SelectItem value="low">Low 😞</SelectItem>
+                            <SelectItem value="neutral">Neutral 😐</SelectItem>
+                            <SelectItem value="good">Good 😊</SelectItem>
+                            <SelectItem value="excellent">Excellent 🤩</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div>
+                        <label className="text-xs font-medium text-gray-700 mb-1 block">Energy</label>
+                        <Select value={journalEnergy} onValueChange={setJournalEnergy}>
+                          <SelectTrigger className="text-xs">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="exhausted">Exhausted 😴</SelectItem>
+                            <SelectItem value="low">Low 🔋</SelectItem>
+                            <SelectItem value="moderate">Moderate ⚡</SelectItem>
+                            <SelectItem value="high">High 🚀</SelectItem>
+                            <SelectItem value="energized">Energized 💥</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+
+                    {/* Journal Entry */}
+                    <div>
+                      <label className="text-xs font-medium text-gray-700 mb-1 block">What's on your mind?</label>
+                      <Textarea
+                        value={journalEntry}
+                        onChange={(e) => setJournalEntry(e.target.value)}
+                        placeholder="Write your thoughts, feelings, reflections..."
+                        className="min-h-[200px] resize-none"
+                      />
+                    </div>
+
+                    {/* Recent Entries Preview */}
+                    {journalEntries.length > 0 && (
+                      <div>
+                        <p className="text-xs font-medium text-gray-700 mb-2">Recent Entries</p>
+                        <div className="space-y-2">
+                          {journalEntries.slice(0, 3).map((entry) => (
+                            <div key={entry.id} className="p-2 bg-gray-50 rounded-lg">
+                              <div className="flex items-center justify-between mb-1">
+                                <span className="text-xs text-gray-500">{entry.date}</span>
+                                <span className="text-xs">{entry.mood === 'excellent' ? '🤩' : entry.mood === 'good' ? '😊' : entry.mood === 'neutral' ? '😐' : '😞'}</span>
+                              </div>
+                              <p className="text-xs text-gray-700 line-clamp-2">{entry.content}</p>
+                              {entry.ai_insights && (
+                                <p className="text-xs text-purple-600 mt-1 italic">💡 {entry.ai_insights.substring(0, 80)}...</p>
+                              )}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </ScrollArea>
+
+                {/* Save Button */}
+                <div className="p-4 border-t">
+                  <Button
+                    onClick={handleSaveJournal}
+                    disabled={!journalEntry.trim() || isAnalyzing || saveJournalEntry.isPending}
+                    className="w-full bg-purple-600 hover:bg-purple-700"
+                  >
+                    {isAnalyzing || saveJournalEntry.isPending ? (
+                      <>
+                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                        Analyzing & Saving...
+                      </>
+                    ) : (
+                      <>
+                        <BookOpen className="w-4 h-4 mr-2" />
+                        Save & Get AI Insights
+                      </>
+                    )}
+                  </Button>
+                </div>
+              </>
+            )}
           </motion.div>
         )}
       </AnimatePresence>
