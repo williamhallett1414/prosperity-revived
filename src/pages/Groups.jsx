@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import {
   Dialog,
   DialogContent,
@@ -26,8 +27,10 @@ export default function Groups() {
   const [newGroup, setNewGroup] = useState({
     name: '',
     description: '',
+    category: 'other',
     is_private: false
   });
+  const [categoryFilter, setCategoryFilter] = useState('all');
 
   const queryClient = useQueryClient();
 
@@ -61,7 +64,7 @@ export default function Groups() {
       queryClient.invalidateQueries(['groups']);
       queryClient.invalidateQueries(['memberships']);
       setShowCreate(false);
-      setNewGroup({ name: '', description: '', is_private: false });
+      setNewGroup({ name: '', description: '', category: 'other', is_private: false });
     }
   });
 
@@ -76,11 +79,20 @@ export default function Groups() {
   const publicGroups = groups.filter(g => !g.is_private && !myGroupIds.includes(g.id));
 
   const filteredGroups = (groupList) => {
-    if (!search) return groupList;
-    return groupList.filter(g =>
-      g.name.toLowerCase().includes(search.toLowerCase()) ||
-      g.description?.toLowerCase().includes(search.toLowerCase())
-    );
+    let filtered = groupList;
+    
+    if (categoryFilter !== 'all') {
+      filtered = filtered.filter(g => g.category === categoryFilter);
+    }
+    
+    if (search) {
+      filtered = filtered.filter(g =>
+        g.name.toLowerCase().includes(search.toLowerCase()) ||
+        g.description?.toLowerCase().includes(search.toLowerCase())
+      );
+    }
+    
+    return filtered;
   };
 
   return (
@@ -103,6 +115,27 @@ export default function Groups() {
           </div>
           <p className="text-gray-500 dark:text-gray-400 ml-[52px]">Join or create groups to study together</p>
         </motion.div>
+
+        {/* Category Filter */}
+        <div className="mb-4">
+          <Select value={categoryFilter} onValueChange={setCategoryFilter}>
+            <SelectTrigger className="bg-white dark:bg-[#2d2d4a] border-gray-200 dark:border-gray-700 rounded-xl">
+              <SelectValue placeholder="All Categories" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Categories</SelectItem>
+              <SelectItem value="bible_study">📖 Bible Study</SelectItem>
+              <SelectItem value="workout">💪 Workout</SelectItem>
+              <SelectItem value="cooking">🍳 Cooking</SelectItem>
+              <SelectItem value="prayer">🙏 Prayer</SelectItem>
+              <SelectItem value="wellness">🧘 Wellness</SelectItem>
+              <SelectItem value="youth">👥 Youth</SelectItem>
+              <SelectItem value="parents">👨‍👩‍👧‍👦 Parents</SelectItem>
+              <SelectItem value="marriage">💑 Marriage</SelectItem>
+              <SelectItem value="other">💬 Other</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
 
         {/* Search & Create */}
         <div className="flex gap-3 mb-6">
@@ -207,6 +240,29 @@ export default function Groups() {
                 onChange={(e) => setNewGroup({ ...newGroup, description: e.target.value })}
                 className="mt-2 min-h-[80px]"
               />
+            </div>
+
+            <div>
+              <Label>Category</Label>
+              <Select 
+                value={newGroup.category} 
+                onValueChange={(value) => setNewGroup({ ...newGroup, category: value })}
+              >
+                <SelectTrigger className="mt-2">
+                  <SelectValue placeholder="Select category" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="bible_study">📖 Bible Study</SelectItem>
+                  <SelectItem value="workout">💪 Workout</SelectItem>
+                  <SelectItem value="cooking">🍳 Cooking</SelectItem>
+                  <SelectItem value="prayer">🙏 Prayer</SelectItem>
+                  <SelectItem value="wellness">🧘 Wellness</SelectItem>
+                  <SelectItem value="youth">👥 Youth</SelectItem>
+                  <SelectItem value="parents">👨‍👩‍👧‍👦 Parents</SelectItem>
+                  <SelectItem value="marriage">💑 Marriage</SelectItem>
+                  <SelectItem value="other">💬 Other</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
 
             <div className="flex items-center justify-between">
