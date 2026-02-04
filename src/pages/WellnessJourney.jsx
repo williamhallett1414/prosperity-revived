@@ -9,6 +9,10 @@ import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Progress } from '@/components/ui/progress';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import MoodEnergyChart from '@/components/wellness/MoodEnergyChart';
+import JourneyMetricsChart from '@/components/wellness/JourneyMetricsChart';
+import GranularGoalsChart from '@/components/wellness/GranularGoalsChart';
 
 export default function WellnessJourney() {
   const [user, setUser] = useState(null);
@@ -279,57 +283,89 @@ Return JSON with:
           </motion.div>
         )}
 
-        {/* Weekly Timeline */}
-        <div className="bg-white rounded-2xl p-5 mb-6 shadow-sm">
-          <h2 className="font-semibold text-[#1a1a2e] mb-4">Weekly Timeline</h2>
-          <div className="space-y-3">
-            {journey.weeks?.map((week, idx) => {
-              const isCompleted = week.completed;
-              const isCurrent = week.week_number === journey.current_week;
-              
-              return (
-                <div
-                  key={idx}
-                  className={`flex items-center gap-3 p-3 rounded-xl transition-all ${
-                    isCurrent
-                      ? 'bg-purple-50 border-2 border-purple-200'
-                      : isCompleted
-                      ? 'bg-green-50'
-                      : 'bg-gray-50'
-                  }`}
-                >
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
-                    isCompleted
-                      ? 'bg-green-500 text-white'
-                      : isCurrent
-                      ? 'bg-purple-600 text-white'
-                      : 'bg-gray-300 text-gray-600'
-                  }`}>
-                    {isCompleted ? (
-                      <CheckCircle2 className="w-4 h-4" />
-                    ) : (
-                      <span className="text-sm font-semibold">{week.week_number}</span>
-                    )}
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="font-medium text-sm text-[#1a1a2e]">{week.theme}</h3>
-                    <p className="text-xs text-gray-500">Week {week.week_number}</p>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
+        {/* Tabs */}
+        <Tabs defaultValue="timeline" className="w-full">
+          <TabsList className="grid w-full grid-cols-2 mb-6">
+            <TabsTrigger value="timeline">Timeline</TabsTrigger>
+            <TabsTrigger value="analytics">Analytics</TabsTrigger>
+          </TabsList>
 
-        {/* Feedback Button */}
-        <Button
-          onClick={() => setShowFeedback(true)}
-          variant="outline"
-          className="w-full"
-        >
-          <MessageSquare className="w-4 h-4 mr-2" />
-          Share Feedback & Get AI Adaptation
-        </Button>
+          <TabsContent value="timeline">
+            <div className="bg-white rounded-2xl p-5 mb-6 shadow-sm">
+              <h2 className="font-semibold text-[#1a1a2e] mb-4">Weekly Timeline</h2>
+              <div className="space-y-3">
+                {journey.weeks?.map((week, idx) => {
+                  const isCompleted = week.completed;
+                  const isCurrent = week.week_number === journey.current_week;
+                  
+                  return (
+                    <div
+                      key={idx}
+                      className={`flex items-center gap-3 p-3 rounded-xl transition-all ${
+                        isCurrent
+                          ? 'bg-purple-50 border-2 border-purple-200'
+                          : isCompleted
+                          ? 'bg-green-50'
+                          : 'bg-gray-50'
+                      }`}
+                    >
+                      <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
+                        isCompleted
+                          ? 'bg-green-500 text-white'
+                          : isCurrent
+                          ? 'bg-purple-600 text-white'
+                          : 'bg-gray-300 text-gray-600'
+                      }`}>
+                        {isCompleted ? (
+                          <CheckCircle2 className="w-4 h-4" />
+                        ) : (
+                          <span className="text-sm font-semibold">{week.week_number}</span>
+                        )}
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="font-medium text-sm text-[#1a1a2e]">{week.theme}</h3>
+                        <p className="text-xs text-gray-500">Week {week.week_number}</p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            <Button
+              onClick={() => setShowFeedback(true)}
+              variant="outline"
+              className="w-full"
+            >
+              <MessageSquare className="w-4 h-4 mr-2" />
+              Share Feedback & Get AI Adaptation
+            </Button>
+          </TabsContent>
+
+          <TabsContent value="analytics" className="space-y-4">
+            <div className="bg-white rounded-2xl p-4 shadow-sm">
+              <h3 className="font-semibold text-gray-900 mb-4">Journey Metrics</h3>
+              <JourneyMetricsChart
+                journey={journey}
+                workoutSessions={[]}
+                recipeLogs={[]}
+                readingProgress={[]}
+              />
+            </div>
+
+            {journey.granular_goals?.length > 0 && (
+              <div className="bg-white rounded-2xl p-4 shadow-sm">
+                <h3 className="font-semibold text-gray-900 mb-4">Granular Goals</h3>
+                <GranularGoalsChart goals={journey.granular_goals} />
+              </div>
+            )}
+
+            <div className="bg-white rounded-2xl p-4 shadow-sm">
+              <h3 className="font-semibold text-gray-900 mb-4">Mood & Energy Trends</h3>
+              <MoodEnergyChart moodEnergyData={journey.mood_energy_tracking || []} />
+            </div>
+          </TabsContent>
+        </Tabs>
       </div>
 
       {/* Feedback Dialog */}

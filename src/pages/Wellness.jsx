@@ -70,6 +70,27 @@ export default function Wellness() {
     enabled: !!user
   });
 
+  const { data: workoutSessions = [] } = useQuery({
+    queryKey: ['workoutSessions'],
+    queryFn: () => base44.entities.WorkoutSession.list('-date', 100),
+    initialData: [],
+    enabled: !!user
+  });
+
+  const { data: mealLogs = [] } = useQuery({
+    queryKey: ['mealLogs'],
+    queryFn: () => base44.entities.MealLog.list('-date', 100),
+    initialData: [],
+    enabled: !!user
+  });
+
+  const { data: waterLogs = [] } = useQuery({
+    queryKey: ['waterLogs'],
+    queryFn: () => base44.entities.WaterLog.list('-date', 100),
+    initialData: [],
+    enabled: !!user
+  });
+
   const completeWorkout = useMutation({
     mutationFn: async ({ id, workout }) => {
       const dates = workout.completed_dates || [];
@@ -216,6 +237,37 @@ export default function Wellness() {
                 onClick={() => window.location.href = createPageUrl(`WellnessJourney?id=${journey.id}`)}
               />
             ))}
+
+            {/* Advanced Analytics */}
+            <div className="bg-white rounded-2xl p-4 shadow-sm">
+              <h3 className="font-semibold text-gray-900 mb-4">30-Day Activity Trends</h3>
+              <ProgressTrendsChart
+                workoutSessions={workoutSessions}
+                mealLogs={mealLogs}
+                waterLogs={waterLogs}
+                days={30}
+              />
+            </div>
+
+            {journeys.filter(j => j.is_active).length > 0 && (
+              <>
+                <div className="bg-white rounded-2xl p-4 shadow-sm">
+                  <h3 className="font-semibold text-gray-900 mb-4">Mood & Energy Insights</h3>
+                  <MoodEnergyChart 
+                    moodEnergyData={journeys.find(j => j.is_active)?.mood_energy_tracking || []} 
+                  />
+                </div>
+
+                {journeys.find(j => j.is_active)?.granular_goals?.length > 0 && (
+                  <div className="bg-white rounded-2xl p-4 shadow-sm">
+                    <h3 className="font-semibold text-gray-900 mb-4">Goal Progress</h3>
+                    <GranularGoalsChart 
+                      goals={journeys.find(j => j.is_active)?.granular_goals || []} 
+                    />
+                  </div>
+                )}
+              </>
+            )}
 
             <ProgressCharts />
             <WaterTracker />
