@@ -197,22 +197,22 @@ export default function OnboardingFlow({ onComplete }) {
       title: 'Set Reminders',
       subtitle: 'Stay consistent with daily reminders',
       content: (
-        <div className="space-y-4">
+        <div className="space-y-3">
           {[
             { key: 'daily_verse', label: 'Daily Verse', icon: BookOpen, color: 'amber' },
             { key: 'reading_plan', label: 'Reading Plan', icon: BookOpen, color: 'indigo' },
             { key: 'workout', label: 'Workout', icon: Dumbbell, color: 'emerald' },
             { key: 'meditation', label: 'Meditation', icon: Heart, color: 'purple' }
           ].map(({ key, label, icon: Icon, color }) => (
-            <div key={key} className="flex items-center justify-between bg-white dark:bg-[#2d2d4a] rounded-xl p-4">
+            <div key={key} className="flex items-center justify-between bg-gray-50 dark:bg-[#1a1a2e] rounded-xl p-3">
               <div className="flex items-center gap-3">
-                <div className={`w-10 h-10 rounded-full bg-${color}-100 dark:bg-${color}-900/30 flex items-center justify-center`}>
-                  <Icon className={`w-5 h-5 text-${color}-600`} />
+                <div className={`w-9 h-9 rounded-full bg-${color}-100 dark:bg-${color}-900/30 flex items-center justify-center flex-shrink-0`}>
+                  <Icon className={`w-4 h-4 text-${color}-600`} />
                 </div>
                 <div>
-                  <p className="font-medium text-sm">{label}</p>
+                  <p className="font-medium text-sm text-gray-900 dark:text-white">{label}</p>
                   {data.reminder_settings[key].enabled && (
-                    <p className="text-xs text-gray-500">
+                    <p className="text-xs text-gray-500 dark:text-gray-400">
                       {data.reminder_settings[key].time}
                     </p>
                   )}
@@ -230,7 +230,7 @@ export default function OnboardingFlow({ onComplete }) {
                         [key]: { ...prev.reminder_settings[key], time: e.target.value }
                       }
                     }))}
-                    className="w-24 h-8 text-xs"
+                    className="w-20 h-8 text-xs"
                   />
                 )}
                 <Button
