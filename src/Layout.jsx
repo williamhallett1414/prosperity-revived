@@ -19,6 +19,8 @@ export default function Layout({ children, currentPageName }) {
       <Toaster position="top-center" richColors />
       <div className="min-h-screen bg-[#FFFFFF] dark:bg-[#3C4E53]">
         <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Imprint+MT+Shadow&display=swap');
+        
         :root {
           --color-primary: #3C4E53;
           --color-secondary: #FD9C2D;
@@ -35,6 +37,10 @@ export default function Layout({ children, currentPageName }) {
         .font-serif {
           font-family: 'Georgia', 'Times New Roman', serif;
         }
+        
+        .font-imprint {
+          font-family: 'Imprint MT Shadow', serif;
+        }
       `}</style>
       
       <main className="pt-20 pb-20">
@@ -42,14 +48,15 @@ export default function Layout({ children, currentPageName }) {
       </main>
 
       {/* Header */}
-      <header className="fixed top-0 left-0 right-0 bg-white border-b border-gray-200 px-4 py-3 z-40">
+      <header className="fixed top-0 left-0 right-0 bg-white border-b border-gray-200 px-4 py-4 z-40">
         <div className="max-w-lg mx-auto flex flex-col items-center justify-center gap-2">
           <img 
             src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6980ade9ca08df558ed28bdd/d9b97f241_ProsperityRevivedSymbol.jpeg" 
             alt="Prosperity Revived" 
-            className="w-10 h-10 object-contain bg-transparent"
+            className="w-16 h-16 object-contain bg-transparent"
           />
-          <h1 className="text-lg font-bold text-[#3C4E53]">Prosperity Revived</h1>
+          <h1 className="text-2xl font-bold text-[#3C4E53] font-imprint">Prosperity Revived</h1>
+          <p className="text-sm text-[#FD9C2D] font-medium">A Safe Space to Grow</p>
         </div>
       </header>
 
