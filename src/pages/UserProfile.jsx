@@ -238,6 +238,48 @@ export default function UserProfile() {
         </div>
       </div>
 
+      {/* Spiritual Goal */}
+      {profileUser.spiritual_goal && (
+        <div className="px-4 mb-6">
+          <div className="bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl p-4 shadow-lg text-white">
+            <h3 className="font-semibold mb-2 flex items-center gap-2">
+              <Target className="w-5 h-5" />
+              Spiritual Goal
+            </h3>
+            <p className="text-white/90 italic">{profileUser.spiritual_goal}</p>
+          </div>
+        </div>
+      )}
+
+      {/* Favorite Verses */}
+      {profileUser.favorite_verse_ids && profileUser.favorite_verse_ids.length > 0 && (
+        <div className="px-4 mb-6">
+          <div className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 shadow-sm">
+            <h3 className="font-semibold text-[#1a1a2e] dark:text-white mb-3 flex items-center gap-2">
+              <span className="text-xl">✨</span>
+              Favorite Verses
+            </h3>
+            <div className="space-y-3">
+              {bookmarks.filter(b => profileUser.favorite_verse_ids.includes(b.id)).map(bookmark => (
+                <motion.div
+                  key={bookmark.id}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="bg-gradient-to-br from-[#c9a227]/10 to-[#8fa68a]/10 rounded-xl p-3 border-l-4 border-[#c9a227]"
+                >
+                  <p className="font-semibold text-sm text-[#1a1a2e] dark:text-white mb-2">
+                    {bookmark.book_name} {bookmark.chapter_number}:{bookmark.verse_number}
+                  </p>
+                  <p className="text-gray-700 dark:text-gray-300 text-sm italic">
+                    "{bookmark.verse_text}"
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Achievements Preview */}
       {userProgressData && userProgressData.badges && userProgressData.badges.length > 0 && (
         <div className="px-4 mb-6">

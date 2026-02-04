@@ -18,8 +18,10 @@ export default function Profile() {
   const [user, setUser] = useState(null);
   const [editingStatus, setEditingStatus] = useState(false);
   const [editingBio, setEditingBio] = useState(false);
+  const [editingGoal, setEditingGoal] = useState(false);
   const [status, setStatus] = useState('');
   const [bio, setBio] = useState('');
+  const [spiritualGoal, setSpiritualGoal] = useState('');
   const [uploadingImage, setUploadingImage] = useState(false);
 
   const queryClient = useQueryClient();
@@ -108,6 +110,22 @@ export default function Profile() {
   const handleBioUpdate = () => {
     updateUser.mutate({ bio });
     setEditingBio(false);
+  };
+
+  const handleGoalUpdate = () => {
+    updateUser.mutate({ spiritual_goal: spiritualGoal });
+    setEditingGoal(false);
+  };
+
+  const toggleFavoriteVerse = async (bookmarkId) => {
+    const currentFavorites = user.favorite_verse_ids || [];
+    const newFavorites = currentFavorites.includes(bookmarkId)
+      ? currentFavorites.filter(id => id !== bookmarkId)
+      : currentFavorites.length < 3
+        ? [...currentFavorites, bookmarkId]
+        : currentFavorites;
+    
+    await updateUser.mutateAsync({ favorite_verse_ids: newFavorites });
   };
 
   const handleImageUpload = async (e) => {
@@ -330,6 +348,140 @@ export default function Profile() {
             <p className="text-gray-600 dark:text-gray-400 italic">
               {user.bio || 'Add a bio to tell others about yourself'}
             </p>
+          )}
+        </div>
+      </div>
+
+      {/* Spiritual Goal */}
+      <div className="px-4 mb-6">
+        <div className="bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl p-4 shadow-lg text-white">
+          <div className="flex items-center justify-between mb-3">
+            <h3 className="font-semibold flex items-center gap-2">
+              <span className="text-xl">🎯</span>
+              My Spiritual Goal
+            </h3>
+            {!editingGoal && (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => {
+                  setEditingGoal(true);
+                  setSpiritualGoal(user.spiritual_goal || '');
+                }}
+                className="text-white hover:bg-white/20"
+              >
+                <Edit2 className="w-4 h-4" />
+              </Button>
+            )}
+          </div>
+          
+          {editingGoal ? (
+            <div className="space-y-3">
+              <Textarea
+                value={spiritualGoal}
+                onChange={(e) => setSpiritualGoal(e.target.value)}
+                placeholder="Set a spiritual goal for accountability..."
+                className="min-h-[80px] bg-white/90 text-[#1a1a2e] border-none"
+              />
+              <div className="flex gap-2">
+                <Button
+                  onClick={handleGoalUpdate}
+                  className="bg-white text-indigo-600 hover:bg-white/90"
+                  disabled={updateUser.isPending}
+                >
+                  Save
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={() => setEditingGoal(false)}
+                  className="bg-white/20 border-white/40 text-white hover:bg-white/30"
+                >
+                  Cancel
+                </Button>
+              </div>
+            </div>
+          ) : (
+            <p className="text-white/90 italic">
+              {user.spiritual_goal || 'Set a spiritual goal to stay accountable and inspire others'}
+            </p>
+          )}
+        </div>
+      </div>
+
+      {/* Favorite Verses */}
+      <div className="px-4 mb-6">
+        <div className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 shadow-sm">
+          <h3 className="font-semibold text-[#1a1a2e] dark:text-white mb-3 flex items-center gap-2">
+            <span className="text-xl">✨</span>
+            Favorite Verses
+          </h3>
+          
+          {bookmarks.length === 0 ? (
+            <p className="text-gray-500 dark:text-gray-400 text-sm italic">
+              Bookmark verses from the Bible to showcase your favorites here
+            </p>
+          ) : (
+            <>
+              <div className="space-y-3 mb-3">
+                {bookmarks.filter(b => user.favorite_verse_ids?.includes(b.id)).map(bookmark => (
+                  <motion.div
+                    key={bookmark.id}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="bg-gradient-to-br from-[#c9a227]/10 to-[#8fa68a]/10 rounded-xl p-3 border-l-4 border-[#c9a227]"
+                  >
+                    <div className="flex items-start justify-between mb-2">
+                      <p className="font-semibold text-sm text-[#1a1a2e] dark:text-white">
+                        {bookmark.book_name} {bookmark.chapter_number}:{bookmark.verse_number}
+                      </p>
+                      <button
+                        onClick={() => toggleFavoriteVerse(bookmark.id)}
+                        className="text-amber-500 text-xl"
+                      >
+                        ⭐
+                      </button>
+                    </div>
+                    <p className="text-gray-700 dark:text-gray-300 text-sm italic">
+                      "{bookmark.verse_text}"
+                    </p>
+                  </motion.div>
+                ))}
+              </div>
+              
+              {user.favorite_verse_ids?.length < 3 && bookmarks.length > 0 && (
+                <details className="mt-3">
+                  <summary className="text-sm text-[#c9a227] cursor-pointer hover:underline">
+                    {user.favorite_verse_ids?.length > 0 
+                      ? 'Change favorites (tap star to add/remove)'
+                      : 'Select up to 3 favorite verses'}
+                  </summary>
+                  <div className="mt-3 space-y-2 max-h-60 overflow-y-auto">
+                    {bookmarks.filter(b => !user.favorite_verse_ids?.includes(b.id)).map(bookmark => (
+                      <div
+                        key={bookmark.id}
+                        className="bg-gray-50 dark:bg-[#1a1a2e] rounded-lg p-3 flex items-start justify-between"
+                      >
+                        <div className="flex-1">
+                          <p className="font-medium text-xs text-[#1a1a2e] dark:text-white">
+                            {bookmark.book_name} {bookmark.chapter_number}:{bookmark.verse_number}
+                          </p>
+                          <p className="text-gray-600 dark:text-gray-400 text-xs mt-1 line-clamp-2">
+                            {bookmark.verse_text}
+                          </p>
+                        </div>
+                        <button
+                          onClick={() => toggleFavoriteVerse(bookmark.id)}
+                          className="text-gray-400 hover:text-amber-500 text-lg ml-2"
+                          disabled={user.favorite_verse_ids?.length >= 3}
+                        >
+                          ☆
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </details>
+              )}
+            </>
           )}
         </div>
       </div>

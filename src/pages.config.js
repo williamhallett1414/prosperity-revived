@@ -49,6 +49,7 @@
  */
 import Achievements from './pages/Achievements';
 import Bible from './pages/Bible';
+import BibleBooks from './pages/BibleBooks';
 import Bookmarks from './pages/Bookmarks';
 import Community from './pages/Community';
 import Friends from './pages/Friends';
@@ -64,13 +65,13 @@ import Settings from './pages/Settings';
 import SpiritualGrowth from './pages/SpiritualGrowth';
 import UserProfile from './pages/UserProfile';
 import Wellness from './pages/Wellness';
-import BibleBooks from './pages/BibleBooks';
 import __Layout from './Layout.jsx';
 
 
 export const PAGES = {
     "Achievements": Achievements,
     "Bible": Bible,
+    "BibleBooks": BibleBooks,
     "Bookmarks": Bookmarks,
     "Community": Community,
     "Friends": Friends,
@@ -86,7 +87,6 @@ export const PAGES = {
     "SpiritualGrowth": SpiritualGrowth,
     "UserProfile": UserProfile,
     "Wellness": Wellness,
-    "BibleBooks": BibleBooks,
 }
 
 export const pagesConfig = {
