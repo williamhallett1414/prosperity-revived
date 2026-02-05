@@ -36,27 +36,48 @@ export default function VerseReader({ book, chapter, onBack, onNavigate, bookmar
   const fetchVerses = async () => {
     setLoading(true);
     try {
-      const response = await base44.integrations.Core.InvokeLLM({
-        prompt: `Provide the complete text for ${book.name} Chapter ${chapter} from the Bible (NIV translation). Return ONLY verses 1 through 10 as a JSON array. Each verse should have a number and text field. Keep verse text concise - maximum 200 characters per verse.`,
-        response_json_schema: {
-          type: "object",
-          properties: {
-            verses: {
-              type: "array",
-              items: {
-                type: "object",
-                properties: {
-                  number: { type: "number" },
-                  text: { type: "string" }
-                },
-                required: ["number", "text"]
+      // Fetch verses in batches to avoid JSON parsing errors with large chapters
+      const allVerses = [];
+      let currentBatch = 1;
+      const batchSize = 15;
+      
+      while (true) {
+        const startVerse = (currentBatch - 1) * batchSize + 1;
+        const endVerse = currentBatch * batchSize;
+        
+        const response = await base44.integrations.Core.InvokeLLM({
+          prompt: `Provide verses ${startVerse} through ${endVerse} (if they exist) for ${book.name} Chapter ${chapter} from the Bible (NIV translation). Return as a JSON array with number and text for each verse. If no more verses exist in this range, return an empty array.`,
+          response_json_schema: {
+            type: "object",
+            properties: {
+              verses: {
+                type: "array",
+                items: {
+                  type: "object",
+                  properties: {
+                    number: { type: "number" },
+                    text: { type: "string" }
+                  },
+                  required: ["number", "text"]
+                }
               }
-            }
-          },
-          required: ["verses"]
+            },
+            required: ["verses"]
+          }
+        });
+        
+        if (!response.verses || response.verses.length === 0) {
+          break;
         }
-      });
-      setVerses(response.verses || []);
+        
+        allVerses.push(...response.verses);
+        currentBatch++;
+        
+        // Safety limit to prevent infinite loops
+        if (currentBatch > 20) break;
+      }
+      
+      setVerses(allVerses);
     } catch (error) {
       console.error('Error fetching verses:', error);
       setVerses([]);
