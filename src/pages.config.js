@@ -53,11 +53,14 @@ import BibleBooks from './pages/BibleBooks';
 import Bookmarks from './pages/Bookmarks';
 import ChallengeDetail from './pages/ChallengeDetail';
 import Community from './pages/Community';
+import Discover from './pages/Discover';
 import Friends from './pages/Friends';
 import GroupDetail from './pages/GroupDetail';
 import Groups from './pages/Groups';
 import Home from './pages/Home';
 import Messages from './pages/Messages';
+import NotificationSettings from './pages/NotificationSettings';
+import Notifications from './pages/Notifications';
 import PlanDetail from './pages/PlanDetail';
 import Plans from './pages/Plans';
 import Profile from './pages/Profile';
@@ -67,9 +70,6 @@ import SpiritualGrowth from './pages/SpiritualGrowth';
 import UserProfile from './pages/UserProfile';
 import Wellness from './pages/Wellness';
 import WellnessJourney from './pages/WellnessJourney';
-import Notifications from './pages/Notifications';
-import NotificationSettings from './pages/NotificationSettings';
-import Discover from './pages/Discover';
 import __Layout from './Layout.jsx';
 
 
@@ -80,11 +80,14 @@ export const PAGES = {
     "Bookmarks": Bookmarks,
     "ChallengeDetail": ChallengeDetail,
     "Community": Community,
+    "Discover": Discover,
     "Friends": Friends,
     "GroupDetail": GroupDetail,
     "Groups": Groups,
     "Home": Home,
     "Messages": Messages,
+    "NotificationSettings": NotificationSettings,
+    "Notifications": Notifications,
     "PlanDetail": PlanDetail,
     "Plans": Plans,
     "Profile": Profile,
@@ -94,9 +97,6 @@ export const PAGES = {
     "UserProfile": UserProfile,
     "Wellness": Wellness,
     "WellnessJourney": WellnessJourney,
-    "Notifications": Notifications,
-    "NotificationSettings": NotificationSettings,
-    "Discover": Discover,
 }
 
 export const pagesConfig = {
