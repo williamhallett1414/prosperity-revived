@@ -36,48 +36,26 @@ export default function VerseReader({ book, chapter, onBack, onNavigate, bookmar
   const fetchVerses = async () => {
     setLoading(true);
     try {
-      // Fetch verses in batches to avoid JSON parsing errors with large chapters
-      const allVerses = [];
-      let currentBatch = 1;
-      const batchSize = 15;
-      
-      while (true) {
-        const startVerse = (currentBatch - 1) * batchSize + 1;
-        const endVerse = currentBatch * batchSize;
-        
-        const response = await base44.integrations.Core.InvokeLLM({
-          prompt: `Provide verses ${startVerse} through ${endVerse} (if they exist) for ${book.name} Chapter ${chapter} from the Bible (NIV translation). Return as a JSON array with number and text for each verse. If no more verses exist in this range, return an empty array.`,
-          response_json_schema: {
-            type: "object",
-            properties: {
-              verses: {
-                type: "array",
-                items: {
-                  type: "object",
-                  properties: {
-                    number: { type: "number" },
-                    text: { type: "string" }
-                  },
-                  required: ["number", "text"]
+      const response = await base44.integrations.Core.InvokeLLM({
+        prompt: `Get the Bible text for ${book.name} Chapter ${chapter}. Return verses as array with number and text.`,
+        add_context_from_internet: true,
+        response_json_schema: {
+          type: "object",
+          properties: {
+            verses: {
+              type: "array",
+              items: {
+                type: "object",
+                properties: {
+                  number: { type: "number" },
+                  text: { type: "string" }
                 }
               }
-            },
-            required: ["verses"]
+            }
           }
-        });
-        
-        if (!response.verses || response.verses.length === 0) {
-          break;
         }
-        
-        allVerses.push(...response.verses);
-        currentBatch++;
-        
-        // Safety limit to prevent infinite loops
-        if (currentBatch > 20) break;
-      }
-      
-      setVerses(allVerses);
+      });
+      setVerses(response.verses || []);
     } catch (error) {
       console.error('Error fetching verses:', error);
       setVerses([]);
