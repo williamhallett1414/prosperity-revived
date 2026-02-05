@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
-import { ArrowLeft, BookOpen, CheckCircle, TrendingUp, UserPlus, UserCheck, MessageCircle, Loader2, Target } from 'lucide-react';
+import { ArrowLeft, BookOpen, CheckCircle, TrendingUp, UserPlus, UserCheck, MessageCircle, Loader2, Target, Camera } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
@@ -10,10 +10,12 @@ import { readingPlans } from '@/components/bible/BibleData';
 import ReadingPlanCard from '@/components/home/ReadingPlanCard';
 import PostCard from '@/components/community/PostCard';
 import UserPostsFeed from '@/components/profile/UserPostsFeed';
+import BannerCustomizer from '@/components/profile/BannerCustomizer';
 
 export default function UserProfile() {
   const [currentUser, setCurrentUser] = useState(null);
   const [profileEmail, setProfileEmail] = useState(null);
+  const [showBannerCustomizer, setShowBannerCustomizer] = useState(false);
   const queryClient = useQueryClient();
 
   useEffect(() => {
@@ -138,44 +140,72 @@ export default function UserProfile() {
 
   return (
     <div className="min-h-screen bg-[#faf8f5] dark:bg-[#1a1a2e] pb-24">
-      {/* Header */}
-      <div className="bg-gradient-to-br from-[#1a1a2e] to-[#2d2d4a] text-white px-4 pt-4 pb-20">
-        <div className="flex items-center justify-between mb-4">
+      {/* Header with Banner */}
+      <div className="relative text-white">
+        {/* Banner Image */}
+        <div className="h-48 overflow-hidden relative">
+          {profileUser.banner_image_url ? (
+            <img
+              src={profileUser.banner_image_url}
+              alt="Profile banner"
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <div className="w-full h-full bg-gradient-to-br from-[#1a1a2e] to-[#2d2d4a]" />
+          )}
+          {/* Overlay for readability */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/60" />
+        </div>
+
+        {/* Banner Controls */}
+        <div className="absolute top-4 left-4 right-4 flex items-center justify-between z-10">
           <button
             onClick={() => window.history.back()}
-            className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center"
+            className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center hover:bg-white/30 transition-colors"
           >
             <ArrowLeft className="w-5 h-5" />
           </button>
-          {!isOwnProfile && (
-            <div className="flex gap-2">
+          <div className="flex gap-2">
+            {isOwnProfile && (
+              <button
+                onClick={() => setShowBannerCustomizer(true)}
+                className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center hover:bg-white/30 transition-colors"
+              >
+                <Camera className="w-5 h-5" />
+              </button>
+            )}
+            {!isOwnProfile && (
               <Link
                 to={createPageUrl(`Messages?recipient=${profileEmail}`)}
                 className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center hover:bg-white/30 transition-colors"
               >
                 <MessageCircle className="w-5 h-5" />
               </Link>
-            </div>
-          )}
-        </div>
-        
-        <div className="flex items-center gap-4">
-          <div className="w-24 h-24 rounded-full overflow-hidden bg-gradient-to-br from-[#c9a227] to-[#8fa68a] flex items-center justify-center text-3xl font-bold">
-            {profileUser.profile_image_url ? (
-              <img src={profileUser.profile_image_url} alt={profileUser.full_name} className="w-full h-full object-cover" />
-            ) : (
-              profileUser.full_name?.charAt(0) || profileUser.email.charAt(0)
             )}
           </div>
-          
-          <div className="flex-1">
-            <h1 className="text-2xl font-bold">{profileUser.full_name || 'User'}</h1>
-            <p className="text-white/70 text-sm">{profileUser.email}</p>
+        </div>
+        
+        {/* Profile Info Overlay */}
+        <div className="absolute bottom-0 left-0 right-0 px-4 pb-4">
+          <div className="flex items-end gap-4">
+            <div className="w-24 h-24 rounded-full overflow-hidden bg-gradient-to-br from-[#c9a227] to-[#8fa68a] flex items-center justify-center text-3xl font-bold border-4 border-white dark:border-gray-800 shadow-xl">
+              {profileUser.profile_image_url ? (
+                <img src={profileUser.profile_image_url} alt={profileUser.full_name} className="w-full h-full object-cover" />
+              ) : (
+                profileUser.full_name?.charAt(0) || profileUser.email.charAt(0)
+              )}
+            </div>
+            
+            <div className="flex-1 pb-2">
+              <h1 className="text-2xl font-bold drop-shadow-lg">{profileUser.full_name || 'User'}</h1>
+              <p className="text-white/90 text-sm drop-shadow">{profileUser.email}</p>
+            </div>
+
             {!isOwnProfile && (
               <Button
                 onClick={handleFriendAction}
                 disabled={sentRequest}
-                className="mt-2 bg-white/20 hover:bg-white/30 backdrop-blur-sm"
+                className="mb-2 bg-white/20 hover:bg-white/30 backdrop-blur-sm border border-white/30"
                 size="sm"
               >
                 {isFriend ? (
@@ -203,7 +233,7 @@ export default function UserProfile() {
       </div>
 
       {/* Stats Cards */}
-      <div className="px-4 -mt-12 mb-6">
+      <div className="px-4 mt-6 mb-6">
         <div className="grid grid-cols-3 gap-3">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
