@@ -6,8 +6,6 @@ import { motion } from 'framer-motion';
 import { Toaster } from 'sonner';
 import NotificationBell from '@/components/notifications/NotificationBell';
 
-import { Sparkles } from 'lucide-react';
-
 const navItems = [
   { name: 'Home', icon: Home, page: 'Home' },
   { name: 'Discover', icon: Sparkles, page: 'Discover' },
