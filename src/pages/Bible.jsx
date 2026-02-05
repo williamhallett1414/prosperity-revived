@@ -159,9 +159,7 @@ export default function Bible() {
               </TabsList>
 
               <TabsContent value="read">
-                <div className="space-y-6">{/* Stats Cards */}
-            <div className="grid grid-cols-3 gap-3">
-
+                <div className="space-y-6">
             {/* Stats Cards */}
             <div className="grid grid-cols-3 gap-3 mb-6">
               <motion.button
