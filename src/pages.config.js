@@ -67,6 +67,8 @@ import SpiritualGrowth from './pages/SpiritualGrowth';
 import UserProfile from './pages/UserProfile';
 import Wellness from './pages/Wellness';
 import WellnessJourney from './pages/WellnessJourney';
+import Notifications from './pages/Notifications';
+import NotificationSettings from './pages/NotificationSettings';
 import __Layout from './Layout.jsx';
 
 
@@ -91,6 +93,8 @@ export const PAGES = {
     "UserProfile": UserProfile,
     "Wellness": Wellness,
     "WellnessJourney": WellnessJourney,
+    "Notifications": Notifications,
+    "NotificationSettings": NotificationSettings,
 }
 
 export const pagesConfig = {
