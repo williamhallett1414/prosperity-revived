@@ -8,13 +8,21 @@ export default function ReadingPlanCard({ plan, progress, onClick, index }) {
     ? Math.round((progress.completed_days?.length || 0) / plan.duration * 100)
     : 0;
 
+  const handleClick = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (onClick) {
+      onClick();
+    }
+  };
+
   return (
-    <motion.div
+    <motion.button
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.1 }}
-      onClick={onClick}
-      className="group cursor-pointer bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100"
+      onClick={handleClick}
+      className="group cursor-pointer bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 w-full text-left"
     >
       <div className="relative h-32 overflow-hidden">
         <img
@@ -54,6 +62,6 @@ export default function ReadingPlanCard({ plan, progress, onClick, index }) {
           <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
         </div>
       </div>
-    </motion.div>
+    </motion.button>
   );
 }
