@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom';
 import DayNoteModal from '@/components/plans/DayNoteModal';
 import PlanStatsModal from '@/components/plans/PlanStatsModal';
 import ReminderSettingsModal from '@/components/plans/ReminderSettingsModal';
+import { Toaster } from '@/components/ui/sonner.jsx';
 
 export default function PlanDetail() {
   const params = new URLSearchParams(window.location.search);
