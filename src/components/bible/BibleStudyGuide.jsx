@@ -11,7 +11,7 @@ const studyGuides = [
     subtitle: 'The Book of Origins and Redemption',
     description: 'Explore the foundational book of the Bible with an in-depth study of creation, key characters like Abraham and Joseph, and God\'s redemptive plan for humanity.',
     chapters: 50,
-    image: 'https://images.unsplash.com/photo-1507842217343-583f20270319?w=600'
+    image: 'https://images.unsplash.com/photo-1507842572673-a9d00c7a8c63?w=600'
   }
 ];
 
