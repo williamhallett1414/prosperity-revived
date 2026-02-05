@@ -264,7 +264,105 @@ const studyGuideContentMap = {
       { title: 'Abiding in Jesus', desc: 'The metaphor of the vine and branches emphasizes ongoing relationship and dependence on Jesus.' }
     ]
     },
-  'genesis': {
+    'exodus': {
+    introduction: [
+     "The Book of Exodus recounts the dramatic deliverance of the Israelites from Egyptian slavery under the leadership of Moses. This foundational narrative describes God's powerful intervention, miraculous signs, and the establishment of the Law at Mount Sinai.",
+     "Exodus shows God's compassion for His oppressed people and His willingness to act decisively on their behalf. The plagues, the parting of the Red Sea, and the pillar of cloud and fire demonstrate God's supremacy over Egypt and nature itself.",
+     "The book establishes key themes: redemption, covenant, law, and God's faithfulness. The giving of the Ten Commandments and the construction of the Tabernacle represent humanity's response to God's salvation.",
+     "Exodus transforms a band of slaves into a nation covenanted to God, setting the pattern for God's relationship with His people throughout Scripture."
+    ],
+    historicalContext: {
+     timePeriod: "Likely 13th century BCE, during Egypt's New Kingdom period. The exodus may have occurred during the reign of Ramesses II.",
+     authorship: "Traditionally attributed to Moses, though modern scholars recognize complex literary sources combined into a unified narrative.",
+     geography: "Begins in Egypt, follows the journey through the Sinai Peninsula, and ends at the edge of Canaan.",
+     transmission: "Central narrative for Jewish identity and religious practice, retold annually at Passover."
+    },
+    keyCharacters: [
+     { name: 'Moses', desc: 'The leader chosen by God to deliver Israel from slavery and receive the Law.' },
+     { name: 'Pharaoh', desc: 'The Egyptian ruler who enslaves Israel and resists God\'s demands.' },
+     { name: 'Aaron', desc: 'Moses\'s brother and spokesperson, later becoming the first high priest.' },
+     { name: 'God', desc: 'The liberator who hears Israel\'s cry and displays power through miracles.' },
+     { name: 'The Israelites', desc: 'God\'s chosen people, transformed from slaves into a covenant nation.' },
+     { name: 'Miriam', desc: 'Moses\'s sister who leads the women in celebration and worship.' }
+    ],
+    keyEvents: [
+     { event: 'Israel\'s Enslavement', desc: 'The Israelites become enslaved to Pharaoh for hundreds of years.' },
+     { event: 'Moses\'s Call at the Burning Bush', desc: 'God calls Moses to lead Israel out of Egypt.' },
+     { event: 'The Ten Plagues', desc: 'God sends devastating plagues to convince Pharaoh to free Israel.' },
+     { event: 'The Passover', desc: 'God spares the firstborn of Israel while judgment falls on Egypt.' },
+     { event: 'Crossing the Red Sea', desc: 'God miraculously divides the sea, allowing Israel to escape.' },
+     { event: 'The Law at Mount Sinai', desc: 'God gives the Ten Commandments and covenant stipulations.' },
+     { event: 'The Golden Calf', desc: 'Israel\'s rebellion while Moses is on the mountain.' }
+    ],
+    keyScriptures: [
+     { verse: 'Exodus 3:14', text: '"I AM WHO I AM."', insight: 'God reveals His eternal, self-sufficient nature to Moses.' },
+     { verse: 'Exodus 12:13', text: '"The blood will be a sign for you...when I see the blood, I will pass over you."', insight: 'Institution of Passover, foreshadowing Christ\'s redemptive work.' },
+     { verse: 'Exodus 20:3-4', text: '"You shall have no other gods before Me."', insight: 'First commandment establishing exclusive worship of God.' }
+    ],
+    keyLocations: [
+     { location: 'Egypt', desc: 'Land of slavery and oppression.' },
+     { location: 'The Red Sea', desc: 'Site of God\'s miraculous deliverance.' },
+     { location: 'Mount Sinai', desc: 'Where God reveals the Law to Moses.' },
+     { location: 'The Wilderness', desc: 'Journey toward the Promised Land.' },
+     { location: 'The Tabernacle', desc: 'Portable place of God\'s presence among Israel.' }
+    ],
+    keyLessons: [
+     { title: 'God\'s Redemptive Power', desc: 'God is willing and able to save His people from impossible situations.' },
+     { title: 'Obedience and Covenant', desc: 'Relationship with God is established through obedience to His commands.' },
+     { title: 'God\'s Faithfulness', desc: 'God remembers His promises and fulfills them despite obstacles.' },
+     { title: 'The Importance of Law', desc: 'God\'s laws reflect His character and guide His people toward righteousness.' },
+     { title: 'Judgment and Mercy', desc: 'God judges sin but also shows mercy to those who trust Him.' },
+     { title: 'God\'s Presence', desc: 'God dwells among His people through the Tabernacle, promising continued presence.' }
+    ]
+    },
+    'leviticus': {
+    introduction: [
+     "Leviticus provides detailed instructions for worship, sacrifices, and holy living for the Israelites. Addressed primarily to the Levitical priests, it establishes the cultic and moral requirements for maintaining God's covenant.",
+     "Rather than narrative, Leviticus consists of laws governing sacrifice, priesthood, ritual purity, and ethical conduct. These instructions demonstrate how God's holy nature requires His people to be holy.",
+     "The book establishes the Day of Atonement and other festivals that became central to Jewish practice. It reveals that sin has serious consequences but can be addressed through proper sacrifice and atonement.",
+     "While many practices are no longer observed in Christian practice, Leviticus reveals God's holiness and the seriousness of sin, ultimately pointing to Christ as the final and perfect sacrifice."
+    ],
+    historicalContext: {
+     timePeriod: "Addressed to Israel at Mount Sinai following the giving of the Ten Commandments.",
+     authorship: "Traditionally attributed to Moses; represents laws compiled for the Levitical priesthood.",
+     geography: "Set at Mount Sinai; establishes regulations for worship in the tabernacle.",
+     transmission: "Central to Jewish priestly practice for over 2000 years."
+    },
+    keyCharacters: [
+     { name: 'Aaron', desc: 'The high priest and head of the priestly order.' },
+     { name: 'The Priests', desc: 'The Levites designated to minister in the tabernacle.' },
+     { name: 'God', desc: 'The holy God whose presence requires ritual purity.' },
+     { name: 'Israel', desc: 'The covenant community required to maintain holiness.' }
+    ],
+    keyEvents: [
+     { event: 'Ordination of Aaron and His Sons', desc: 'Aaron is established as high priest and his sons as priests.' },
+     { event: 'Nadab and Abihu\'s Death', desc: 'Two sons of Aaron die for offering unauthorized fire.' },
+     { event: 'Rules for Cleanness and Uncleanness', desc: 'Instructions for maintaining ritual purity.' },
+     { event: 'The Day of Atonement', desc: 'Annual occasion for Israel\'s corporate atonement.' },
+     { event: 'The Feasts', desc: 'Instructions for Passover, Weeks, and Tabernacles.' },
+     { event: 'Blessings and Curses', desc: 'Consequences for obedience and disobedience.' }
+    ],
+    keyScriptures: [
+     { verse: 'Leviticus 19:2', text: '"Be holy, because I, the Lord your God, am holy."', insight: 'God\'s holiness requires His people to pursue holiness.' },
+     { verse: 'Leviticus 17:11', text: '"The life of the creature is in the blood...it makes atonement."', insight: 'Blood sacrifice atones for sin; foreshadows Christ.' },
+     { verse: 'Leviticus 23:4-8', text: '"These are the Lord\'s appointed festivals..."', insight: 'Establishes the religious calendar for Israel.' }
+    ],
+    keyLocations: [
+     { location: 'Mount Sinai', desc: 'Where God gives these laws to Moses.' },
+     { location: 'The Tabernacle', desc: 'Central place of worship and sacrifice.' },
+     { location: 'The Holy of Holies', desc: 'The innermost sanctuary entered only on Yom Kippur.' },
+     { location: 'The Camp of Israel', desc: 'Where the people live under God\'s laws.' }
+    ],
+    keyLessons: [
+     { title: 'God\'s Holiness', desc: 'God\'s nature is fundamentally holy and separate from sin.' },
+     { title: 'The Seriousness of Sin', desc: 'Sin requires atonement through sacrifice; it cannot be ignored.' },
+     { title: 'The Way to Atonement', desc: 'God provides specific means for addressing sin and restoring relationship.' },
+     { title: 'Ethical Holiness', desc: 'True holiness involves not just ritual purity but ethical behavior.' },
+     { title: 'The Priesthood\'s Role', desc: 'Priests serve as mediators between God and the people.' },
+     { title: 'Foreshadowing Christ', desc: 'The sacrificial system points to Christ as the ultimate sacrifice.' }
+    ]
+    },
+    'genesis': {
     introduction: [
       "As the first book of the Bible, the Book of Genesis holds immense significance for both Judaism and Christianity. Its name, derived from the Greek term γένεσις (genesis), translates to \"origin\" or \"birth,\" alluding to its primary purpose of providing an account of the creation of the universe, earth, and humanity.",
       "Composed as a collection of stories and narratives, Genesis serves as the cornerstone of biblical history. Its vivid imagery and deeply symbolic language illustrate the genesis of the world and provide a rich tapestry of early human experiences. The book's authorship is traditionally attributed to Moses, who is believed to have compiled the narratives from ancient oral traditions, creating a cohesive story of God's redemptive plan for humanity.",
