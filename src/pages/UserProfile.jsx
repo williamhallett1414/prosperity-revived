@@ -11,6 +11,7 @@ import ReadingPlanCard from '@/components/home/ReadingPlanCard';
 import PostCard from '@/components/community/PostCard';
 import UserPostsFeed from '@/components/profile/UserPostsFeed';
 import BannerCustomizer from '@/components/profile/BannerCustomizer';
+import { notifyFriendRequest, notifyFriendAccepted } from '@/components/notifications/NotificationHelper';
 
 export default function UserProfile() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -110,7 +111,7 @@ export default function UserProfile() {
   const totalDaysRead = progress.reduce((sum, p) => sum + (p.completed_days?.length || 0), 0);
   const longestStreak = Math.max(...progress.map(p => p.longest_streak || 0), 0);
 
-  const handleFriendAction = () => {
+  const handleFriendAction = async () => {
     if (!existingFriendship) {
       sendFriendRequest.mutate({
         user_email: currentUser.email,
@@ -119,8 +120,22 @@ export default function UserProfile() {
         friend_name: profileUser.full_name || profileUser.email,
         status: 'pending'
       });
+      
+      // Notify recipient
+      await notifyFriendRequest(
+        currentUser.email,
+        currentUser.full_name || currentUser.email,
+        profileEmail
+      );
     } else if (existingFriendship.status === 'pending' && existingFriendship.friend_email === currentUser.email) {
       updateFriendRequest.mutate({ id: existingFriendship.id, status: 'accepted' });
+      
+      // Notify the sender that their request was accepted
+      await notifyFriendAccepted(
+        currentUser.email,
+        currentUser.full_name || currentUser.email,
+        existingFriendship.user_email
+      );
     }
   };
 

@@ -1,4 +1,5 @@
 import { base44 } from '@/api/base44Client';
+import { notifyAchievement } from '@/components/notifications/NotificationHelper';
 import { showPointsNotification, showBadgeNotification, showLevelUpNotification } from './PointsNotification';
 
 export const BADGES = [

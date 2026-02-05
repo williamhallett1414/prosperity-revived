@@ -4,6 +4,7 @@ import { createPageUrl } from '@/utils';
 import { Home, BookOpen, Users, User, Heart } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Toaster } from 'sonner';
+import NotificationBell from '@/components/notifications/NotificationBell';
 
 const navItems = [
   { name: 'Home', icon: Home, page: 'Home' },
@@ -43,11 +44,23 @@ export default function Layout({ children, currentPageName }) {
         }
       `}</style>
       
-      <main className="pb-20">
+      {/* Top Bar with Notification Bell */}
+      <div className="fixed top-0 left-0 right-0 bg-white dark:bg-[#2d2d4a] border-b border-gray-200 dark:border-gray-700 px-4 py-3 z-40">
+        <div className="max-w-2xl mx-auto flex items-center justify-between">
+          <Link to={createPageUrl('Home')} className="flex items-center gap-2">
+            <img 
+              src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6980ade9ca08df558ed28bdd/d9b97f241_ProsperityRevivedSymbol.jpeg" 
+              alt="Prosperity Revived" 
+              className="w-8 h-8 object-contain"
+            />
+          </Link>
+          <NotificationBell />
+        </div>
+      </div>
+
+      <main className="pt-16 pb-20">
         {children}
       </main>
-
-      {/* Header removed - logo moved to Home page */}
 
       {/* Bottom Navigation */}
       <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 py-2 z-50">
