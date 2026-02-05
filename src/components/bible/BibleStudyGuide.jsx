@@ -12,6 +12,46 @@ const studyGuides = [
     description: 'Explore the foundational book of the Bible with an in-depth study of creation, key characters like Abraham and Joseph, and God\'s redemptive plan for humanity.',
     chapters: 50,
     image: 'https://images.unsplash.com/photo-1507842572673-a9d00c7a8c63?w=600'
+  },
+  {
+    id: 'psalms',
+    title: 'Psalms: Prayers and Praise',
+    subtitle: 'The Songbook of Israel',
+    description: 'Discover the beauty and depth of the Psalms, exploring prayers of joy, sorrow, faith, and worship that resonate across generations.',
+    chapters: 150,
+    image: 'https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=600'
+  },
+  {
+    id: 'matthew',
+    title: 'Matthew: The Gospel Account',
+    subtitle: 'Jesus as the Messiah King',
+    description: 'Study the life and teachings of Jesus Christ as revealed through Matthew\'s gospel, emphasizing His role as the promised Messiah.',
+    chapters: 28,
+    image: 'https://images.unsplash.com/photo-1507927391077-f47267a0b55e?w=600'
+  },
+  {
+    id: 'proverbs',
+    title: 'Proverbs: Wisdom Literature',
+    subtitle: 'Practical Wisdom for Living',
+    description: 'Explore the timeless wisdom of Proverbs, learning practical guidance for relationships, finances, character, and spiritual living.',
+    chapters: 31,
+    image: 'https://images.unsplash.com/photo-1505148968435-52f47ae32147?w=600'
+  },
+  {
+    id: 'romans',
+    title: 'Romans: The Gospel of Grace',
+    subtitle: 'Faith, Justification, and Redemption',
+    description: 'Understand Paul\'s theological masterpiece explaining salvation through faith in Christ and the transforming power of God\'s grace.',
+    chapters: 16,
+    image: 'https://images.unsplash.com/photo-1516541196182-e1c5926573e5?w=600'
+  },
+  {
+    id: 'john',
+    title: 'John: The Gospel of Belief',
+    subtitle: 'Encounters with the Word Made Flesh',
+    description: 'Examine the unique perspective of John\'s gospel, featuring profound signs and teachings about believing in Jesus Christ.',
+    chapters: 21,
+    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600'
   }
 ];
 
