@@ -18,6 +18,13 @@ export default function VerseOfDay({ onBookmark }) {
     }
   };
 
+  const handleBookmark = () => {
+    if (onBookmark) {
+      onBookmark(verse);
+      toast.success('Verse saved!');
+    }
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -57,7 +64,7 @@ export default function VerseOfDay({ onBookmark }) {
           <Button
             variant="ghost"
             size="sm"
-            onClick={() => onBookmark(verse)}
+            onClick={handleBookmark}
             className="text-white/70 hover:text-white hover:bg-white/10"
           >
             <Bookmark className="w-4 h-4 mr-2" />
