@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { Home, Users, User, Heart, Sparkles } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { Toaster } from 'sonner';
+import { Toaster } from '@/components/ui/sonner';
 import NotificationBell from '@/components/notifications/NotificationBell';
 
 const navItems = [
