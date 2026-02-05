@@ -564,3 +564,80 @@ export const getAllBooks = () => {
 export const getBookByName = (name) => {
   return getAllBooks().find(b => b.name.toLowerCase() === name.toLowerCase());
 };
+
+// Reading schedules for plans
+export const planReadingSchedules = {
+  "gospel-john": Array.from({length: 21}, (_, i) => ({
+    day: i + 1,
+    book: "John",
+    chapter: i + 1
+  })),
+  
+  "psalms-30": [
+    { day: 1, book: "Psalms", chapter: 1 },
+    { day: 2, book: "Psalms", chapter: 8 },
+    { day: 3, book: "Psalms", chapter: 23 },
+    { day: 4, book: "Psalms", chapter: 27 },
+    { day: 5, book: "Psalms", chapter: 34 },
+    { day: 6, book: "Psalms", chapter: 42 },
+    { day: 7, book: "Psalms", chapter: 46 },
+    { day: 8, book: "Psalms", chapter: 51 },
+    { day: 9, book: "Psalms", chapter: 63 },
+    { day: 10, book: "Psalms", chapter: 84 },
+    { day: 11, book: "Psalms", chapter: 91 },
+    { day: 12, book: "Psalms", chapter: 100 },
+    { day: 13, book: "Psalms", chapter: 103 },
+    { day: 14, book: "Psalms", chapter: 121 },
+    { day: 15, book: "Psalms", chapter: 139 },
+    { day: 16, book: "Psalms", chapter: 19 },
+    { day: 17, book: "Psalms", chapter: 37 },
+    { day: 18, book: "Psalms", chapter: 40 },
+    { day: 19, book: "Psalms", chapter: 62 },
+    { day: 20, book: "Psalms", chapter: 73 },
+    { day: 21, book: "Psalms", chapter: 86 },
+    { day: 22, book: "Psalms", chapter: 90 },
+    { day: 23, book: "Psalms", chapter: 95 },
+    { day: 24, book: "Psalms", chapter: 107 },
+    { day: 25, book: "Psalms", chapter: 116 },
+    { day: 26, book: "Psalms", chapter: 118 },
+    { day: 27, book: "Psalms", chapter: 119 },
+    { day: 28, book: "Psalms", chapter: 130 },
+    { day: 29, book: "Psalms", chapter: 145 },
+    { day: 30, book: "Psalms", chapter: 150 }
+  ],
+  
+  "proverbs-wisdom": Array.from({length: 31}, (_, i) => ({
+    day: i + 1,
+    book: "Proverbs",
+    chapter: i + 1
+  })),
+  
+  "new-testament-90": [
+    ...Array.from({length: 28}, (_, i) => ({ day: i + 1, book: "Matthew", chapter: i + 1 })),
+    ...Array.from({length: 16}, (_, i) => ({ day: i + 29, book: "Mark", chapter: i + 1 })),
+    ...Array.from({length: 24}, (_, i) => ({ day: i + 45, book: "Luke", chapter: i + 1 })),
+    ...Array.from({length: 21}, (_, i) => ({ day: i + 69, book: "John", chapter: i + 1 }))
+  ],
+  
+  "epistles-growth": [
+    ...Array.from({length: 16}, (_, i) => ({ day: i + 1, book: "Romans", chapter: i + 1 })),
+    ...Array.from({length: 16}, (_, i) => ({ day: i + 17, book: "1 Corinthians", chapter: i + 1 })),
+    ...Array.from({length: 13}, (_, i) => ({ day: i + 33, book: "2 Corinthians", chapter: i + 1 })),
+    { day: 46, book: "Galatians", chapter: 1 },
+    { day: 47, book: "Galatians", chapter: 2 },
+    { day: 48, book: "Galatians", chapter: 3 },
+    { day: 49, book: "Galatians", chapter: 4 },
+    { day: 50, book: "Galatians", chapter: 5 },
+    { day: 51, book: "Galatians", chapter: 6 },
+    { day: 52, book: "Ephesians", chapter: 1 },
+    { day: 53, book: "Ephesians", chapter: 2 },
+    { day: 54, book: "Ephesians", chapter: 3 },
+    { day: 55, book: "Ephesians", chapter: 4 }
+  ]
+};
+
+export const getReadingForDay = (planId, day) => {
+  const schedule = planReadingSchedules[planId];
+  if (!schedule) return null;
+  return schedule.find(r => r.day === day);
+};

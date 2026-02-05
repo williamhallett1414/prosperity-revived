@@ -14,6 +14,7 @@ import ReminderSettingsModal from '@/components/plans/ReminderSettingsModal';
 import { Toaster } from '@/components/ui/sonner.jsx';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import PlanDevotionalView from '@/components/bible/PlanDevotionalView';
+import { getReadingForDay } from '@/components/bible/BibleData';
 
 export default function PlanDetail() {
   const params = new URLSearchParams(window.location.search);
@@ -192,6 +193,11 @@ export default function PlanDetail() {
       if (reading) {
         window.location.href = createPageUrl(`Bible?book=${reading.book}&chapter=${reading.chapter}&planDay=${day}&planId=${planId}`);
       }
+    } else {
+      const reading = getReadingForDay(planId, day);
+      if (reading) {
+        window.location.href = createPageUrl(`Bible?book=${reading.book}&chapter=${reading.chapter}&planDay=${day}&planId=${planId}`);
+      }
     }
   };
 
@@ -321,54 +327,72 @@ export default function PlanDetail() {
             {progress && (
               <div>
                 <h2 className="text-lg font-semibold text-[#1a1a2e] mb-4">Daily Readings</h2>
-                <div className="grid grid-cols-7 gap-2">
+                <div className="grid grid-cols-1 gap-3">
                   {days.map(day => {
                     const isCompleted = progress.completed_days?.includes(day);
                     const hasNote = getNoteForDay(day);
+                    const reading = progress.is_custom 
+                      ? progress.custom_readings?.find(r => r.day === day)
+                      : getReadingForDay(planId, day);
+                    
                     return (
-                      <div key={day} className="relative">
-                        <motion.button
-                          whileHover={{ scale: 1.05 }}
-                          whileTap={{ scale: 0.95 }}
-                          onClick={() => handleToggleDay(day)}
-                          className={`w-full aspect-square rounded-xl flex items-center justify-center font-medium transition-all ${
-                            isCompleted
-                              ? 'bg-[#8fa68a] text-white'
-                              : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'
-                          }`}
-                        >
-                          {isCompleted ? (
-                            <CheckCircle2 className="w-5 h-5" />
-                          ) : (
-                            day
-                          )}
-                        </motion.button>
-                        
-                        {/* Note indicator */}
-                        {hasNote && (
-                          <div className="absolute -top-1 -right-1 w-3 h-3 bg-[#c9a227] rounded-full border-2 border-white" />
-                        )}
-                        
-                        {/* Action buttons */}
-                        <div className="absolute -bottom-1 -right-1 flex gap-1">
-                          {progress.is_custom && (
+                      <motion.div 
+                        key={day}
+                        whileHover={{ scale: 1.02 }}
+                        className={`bg-white rounded-xl p-4 border-2 transition-all ${
+                          isCompleted 
+                            ? 'border-[#8fa68a] bg-[#8fa68a]/5' 
+                            : 'border-gray-200 hover:border-[#c9a227]'
+                        }`}
+                      >
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-3">
                             <button
-                              onClick={() => handleOpenDayReading(day)}
-                              className="w-5 h-5 bg-[#1a1a2e] text-white rounded-full flex items-center justify-center hover:bg-[#2d2d4a] transition-colors"
-                              title="Open reading"
+                              onClick={() => handleToggleDay(day)}
+                              className={`w-10 h-10 rounded-lg flex items-center justify-center font-semibold transition-all ${
+                                isCompleted
+                                  ? 'bg-[#8fa68a] text-white'
+                                  : 'bg-gray-100 text-gray-600'
+                              }`}
                             >
-                              <BookOpen className="w-3 h-3" />
+                              {isCompleted ? <CheckCircle2 className="w-5 h-5" /> : day}
                             </button>
-                          )}
-                          <button
-                            onClick={() => handleDayClick(day)}
-                            className="w-5 h-5 bg-white rounded-full border border-gray-200 flex items-center justify-center hover:border-[#c9a227] hover:text-[#c9a227] transition-colors"
-                            title="Add note"
-                          >
-                            <FileText className="w-3 h-3" />
-                          </button>
+                            
+                            <div>
+                              <h3 className="font-semibold text-[#1a1a2e]">Day {day}</h3>
+                              {reading && (
+                                <p className="text-sm text-gray-600">
+                                  {reading.book} {reading.chapter}
+                                </p>
+                              )}
+                            </div>
+                          </div>
+                          
+                          <div className="flex items-center gap-2">
+                            {hasNote && (
+                              <div className="w-2 h-2 bg-[#c9a227] rounded-full" />
+                            )}
+                            {reading && (
+                              <Button
+                                onClick={() => handleOpenDayReading(day)}
+                                variant="outline"
+                                size="sm"
+                                className="text-xs"
+                              >
+                                <BookOpen className="w-4 h-4 mr-1" />
+                                Read
+                              </Button>
+                            )}
+                            <Button
+                              onClick={() => handleDayClick(day)}
+                              variant="ghost"
+                              size="sm"
+                            >
+                              <FileText className="w-4 h-4" />
+                            </Button>
+                          </div>
                         </div>
-                      </div>
+                      </motion.div>
                     );
                   })}
                 </div>
