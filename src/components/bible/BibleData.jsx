@@ -615,11 +615,55 @@ export const planReadingSchedules = {
   "overcoming-anxiety": [
     { day: 1, book: "Philippians", chapter: 4 },
     { day: 2, book: "Matthew", chapter: 6 },
-    { day: 3, book: "Psalm", chapter: 23 },
+    { day: 3, book: "Psalms", chapter: 23 },
     { day: 4, book: "Isaiah", chapter: 41 },
     { day: 5, book: "1 Peter", chapter: 5 },
-    { day: 6, book: "Psalm", chapter: 46 },
+    { day: 6, book: "Psalms", chapter: 46 },
     { day: 7, book: "John", chapter: 14 }
+  ],
+  
+  "faith-foundations": [
+    { day: 1, book: "John", chapter: 3 },
+    { day: 2, book: "Romans", chapter: 3 },
+    { day: 3, book: "Ephesians", chapter: 2 },
+    { day: 4, book: "1 John", chapter: 1 },
+    { day: 5, book: "Hebrews", chapter: 11 },
+    { day: 6, book: "James", chapter: 2 },
+    { day: 7, book: "Romans", chapter: 8 }
+  ],
+  
+  "prayer-journey": [
+    { day: 1, book: "Matthew", chapter: 6 },
+    { day: 2, book: "Luke", chapter: 11 },
+    { day: 3, book: "Psalms", chapter: 5 },
+    { day: 4, book: "1 Thessalonians", chapter: 5 },
+    { day: 5, book: "Philippians", chapter: 4 },
+    { day: 6, book: "James", chapter: 5 },
+    { day: 7, book: "John", chapter: 17 },
+    { day: 8, book: "Psalms", chapter: 86 },
+    { day: 9, book: "Colossians", chapter: 4 },
+    { day: 10, book: "Romans", chapter: 8 },
+    { day: 11, book: "Ephesians", chapter: 6 },
+    { day: 12, book: "Psalms", chapter: 145 },
+    { day: 13, book: "1 John", chapter: 5 },
+    { day: 14, book: "Hebrews", chapter: 4 }
+  ],
+  
+  "grief-comfort": [
+    { day: 1, book: "Psalms", chapter: 34 },
+    { day: 2, book: "2 Corinthians", chapter: 1 },
+    { day: 3, book: "Matthew", chapter: 5 },
+    { day: 4, book: "Psalms", chapter: 23 },
+    { day: 5, book: "John", chapter: 14 },
+    { day: 6, book: "Revelation", chapter: 21 },
+    { day: 7, book: "Psalms", chapter: 46 },
+    { day: 8, book: "Romans", chapter: 8 },
+    { day: 9, book: "1 Thessalonians", chapter: 4 },
+    { day: 10, book: "Psalms", chapter: 73 },
+    { day: 11, book: "Isaiah", chapter: 61 },
+    { day: 12, book: "Lamentations", chapter: 3 },
+    { day: 13, book: "Psalms", chapter: 121 },
+    { day: 14, book: "John", chapter: 11 }
   ],
   
   "new-testament-90": [
