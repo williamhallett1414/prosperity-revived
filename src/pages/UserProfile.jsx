@@ -407,6 +407,19 @@ export default function UserProfile() {
           </h2>
         </div>
       )}
+
+      {/* Banner Customizer Modal */}
+      {isOwnProfile && (
+        <BannerCustomizer
+          isOpen={showBannerCustomizer}
+          onClose={() => setShowBannerCustomizer(false)}
+          currentBanner={profileUser.banner_image_url}
+          onSave={() => {
+            queryClient.invalidateQueries(['users']);
+            base44.auth.me().then(setCurrentUser);
+          }}
+        />
+      )}
     </div>
   );
 }
