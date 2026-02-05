@@ -225,7 +225,7 @@ const studyGuideContentMap = {
       authorship: "Traditionally attributed to the Apostle John, son of Zebedee, though modern scholarship suggests authorship by a Johannine community reflective of John's teaching.",
       geography: "The Gospel reflects knowledge of Palestinian geography and Jewish customs while being written for a broader audience. Settings include Galilee, Samaria, and Jerusalem.",
       transmission: "John was widely used in early churches and became particularly influential in Christian theology. Its prologue shaped early Christological concepts."
-    ],
+    },
     keyCharacters: [
       { name: 'Jesus Christ', desc: 'Presented as the Word made flesh, Son of God, and giver of life.' },
       { name: 'John the Baptist', desc: 'Witness to Jesus, contrasting light and darkness.' },
