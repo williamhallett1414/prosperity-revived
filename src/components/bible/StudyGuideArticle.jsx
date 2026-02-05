@@ -263,7 +263,7 @@ const studyGuideContentMap = {
       { title: 'Love as Central Value', desc: 'Jesus\'s ultimate commandment is that disciples love one another and the world.' },
       { title: 'Abiding in Jesus', desc: 'The metaphor of the vine and branches emphasizes ongoing relationship and dependence on Jesus.' }
     ]
-  },
+    },
   'genesis': {
     introduction: [
       "As the first book of the Bible, the Book of Genesis holds immense significance for both Judaism and Christianity. Its name, derived from the Greek term γένεσις (genesis), translates to \"origin\" or \"birth,\" alluding to its primary purpose of providing an account of the creation of the universe, earth, and humanity.",
