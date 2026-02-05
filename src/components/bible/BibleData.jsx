@@ -612,6 +612,16 @@ export const planReadingSchedules = {
     chapter: i + 1
   })),
   
+  "overcoming-anxiety": [
+    { day: 1, book: "Philippians", chapter: 4 },
+    { day: 2, book: "Matthew", chapter: 6 },
+    { day: 3, book: "Psalm", chapter: 23 },
+    { day: 4, book: "Isaiah", chapter: 41 },
+    { day: 5, book: "1 Peter", chapter: 5 },
+    { day: 6, book: "Psalm", chapter: 46 },
+    { day: 7, book: "John", chapter: 14 }
+  ],
+  
   "new-testament-90": [
     ...Array.from({length: 28}, (_, i) => ({ day: i + 1, book: "Matthew", chapter: i + 1 })),
     ...Array.from({length: 16}, (_, i) => ({ day: i + 29, book: "Mark", chapter: i + 1 })),
