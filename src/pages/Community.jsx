@@ -8,9 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import PostCard from '@/components/community/PostCard';
 import CreatePostModal from '@/components/community/CreatePostModal';
-import AISuggestions from '@/components/community/AISuggestions';
 import { awardPoints, checkAndAwardBadges } from '@/components/gamification/ProgressManager';
-import AIRecommendationEngine from '@/components/ai/AIRecommendationEngine';
 
 export default function Community() {
   const [showCreatePost, setShowCreatePost] = useState(false);
@@ -202,12 +200,6 @@ export default function Community() {
           <h1 className="text-2xl font-bold text-[#1a1a2e] mb-1">Community</h1>
           <p className="text-gray-500">Share insights and connect with others</p>
         </motion.div>
-
-        {/* AI-Powered Topic Discovery */}
-        <AIRecommendationEngine user={user} type="community" />
-
-        {/* AI Suggestions */}
-        <AISuggestions userPlans={planProgress} />
 
         {/* Create Post Button */}
         <Button

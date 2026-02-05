@@ -14,10 +14,6 @@ import PostCard from '@/components/community/PostCard';
 import CreatePostModal from '@/components/community/CreatePostModal';
 import GamificationBanner from '@/components/gamification/GamificationBanner';
 import OnboardingFlow from '@/components/onboarding/OnboardingFlow';
-import PersonalizedReadingPlans from '@/components/recommendations/PersonalizedReadingPlans';
-import SmartContentDiscovery from '@/components/ai/SmartContentDiscovery';
-import AIRecommendationEngine from '@/components/ai/AIRecommendationEngine';
-import PersonalizedContentFeed from '@/components/home/PersonalizedContentFeed';
 import { Trophy } from 'lucide-react';
 
 export default function Home() {
@@ -219,12 +215,6 @@ export default function Home() {
           </Button>
         </div>
 
-        {/* AI-Powered Insights */}
-        <SmartContentDiscovery user={user} context={{ activity: 'home_dashboard' }} />
-
-        {/* AI Recommendations */}
-        <AIRecommendationEngine user={user} type="general" />
-
         {/* Quick Actions */}
         <div className="grid grid-cols-4 gap-3 mb-6">
           <Link to={createPageUrl('Bible')}>
@@ -279,12 +269,6 @@ export default function Home() {
             </motion.div>
           </Link>
         </div>
-
-        {/* Personalized Content Feed */}
-        <PersonalizedContentFeed user={user} userProgress={userProgress} existingPosts={posts} />
-
-        {/* Personalized Reading Plans */}
-        <PersonalizedReadingPlans user={user} userProgress={planProgress} />
 
         {/* Active Plans */}
         {activePlans.length > 0 && (
