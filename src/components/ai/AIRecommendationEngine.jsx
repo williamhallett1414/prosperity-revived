@@ -219,6 +219,16 @@ For each recommendation:
     }
   };
 
+  const getActionUrl = (recType) => {
+    switch (recType) {
+      case 'reading_plan': return 'Plans';
+      case 'recipe': return 'Wellness';
+      case 'workout': return 'Wellness';
+      case 'discussion': return 'Groups';
+      default: return 'Discover';
+    }
+  };
+
   return (
     <div className="mb-6">
       <div className="flex items-center justify-between mb-4">
@@ -265,12 +275,14 @@ For each recommendation:
                   <p className={`text-xs text-${color}-600 dark:text-${color}-400 italic mb-3`}>
                     💡 {rec.reason}
                   </p>
-                  <Button
-                    size="sm"
-                    className={`bg-${color}-600 hover:bg-${color}-700 text-white`}
-                  >
-                    {rec.action_label}
-                  </Button>
+                  <Link to={createPageUrl(getActionUrl(rec.type))}>
+                    <Button
+                      size="sm"
+                      className={`bg-${color}-600 hover:bg-${color}-700 text-white`}
+                    >
+                      {rec.action_label}
+                    </Button>
+                  </Link>
                 </div>
               </div>
             </motion.div>
