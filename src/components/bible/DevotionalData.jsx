@@ -359,5 +359,201 @@ export const devotionalContent = {
       ]
     },
     prayer: "Lord, my heart is broken, and I don't have the words to express my pain. But You know. You see my tears, and You understand my grief. Please draw near to me in this dark valley. Give me strength to keep going, hope to keep believing, and comfort that only You can provide. Help me trust that You have a purpose, even when I can't see it. One day, You will wipe away every tear. Until then, hold me close. In Jesus' name, Amen."
+  },
+
+  "marriage-strength": {
+    title: "Strengthening Marriage: God's Design for Oneness",
+    introduction: "Marriage is God's idea—a covenant relationship that reflects Christ's love for the church. But marriage isn't easy. It requires sacrifice, forgiveness, patience, and commitment. Over the next 21 days, you'll explore what the Bible says about marriage: God's design, the power of unity, the beauty of love, and the importance of communication and grace. Whether you're newly married or have been together for decades, this plan will help you build a marriage that honors God and stands the test of time.",
+    keyVerses: [
+      { reference: "Genesis 2:24", text: "That is why a man leaves his father and mother and is united to his wife, and they become one flesh.", insight: "Marriage is about unity—two becoming one in purpose, mission, and love." },
+      { reference: "Ephesians 5:25", text: "Husbands, love your wives, just as Christ loved the church and gave himself up for her.", insight: "Marriage is a picture of Christ's sacrificial love for us." },
+      { reference: "1 Corinthians 13:4-7", text: "Love is patient, love is kind... it always protects, always trusts, always hopes, always perseveres.", insight: "Biblical love is not just a feeling—it's a commitment to action." }
+    ],
+    reflection: "God designed marriage to be a partnership where both spouses reflect Christ's love to each other. It's not 50/50—it's 100/100, where both give everything for the good of the other. Strong marriages are built on communication, forgiveness, intimacy, and shared faith in God.",
+    reflectionQuestions: [
+      "How are you actively loving your spouse in a Christ-like way?",
+      "What areas of your marriage need more grace, patience, or forgiveness?",
+      "How can you prioritize your marriage above work, hobbies, or distractions?",
+      "Are you praying together as a couple regularly?"
+    ],
+    actionPlan: {
+      title: "Building a Christ-Centered Marriage",
+      steps: [
+        "Pray together daily—even just 5 minutes strengthens unity.",
+        "Have a weekly 'date night' to stay connected emotionally.",
+        "Serve your spouse in one practical way each day.",
+        "Practice forgiveness quickly—don't let bitterness grow.",
+        "Read a marriage book together or attend a marriage conference."
+      ]
+    },
+    prayer: "Lord, thank You for the gift of marriage. Help us love each other like You love us—sacrificially, patiently, and unconditionally. Strengthen our bond, deepen our communication, and make our marriage a testimony of Your grace. In Jesus' name, Amen."
+  },
+
+  "forgiveness-healing": {
+    title: "Path to Forgiveness: Freedom from Bitterness",
+    introduction: "Forgiveness is one of the hardest commands in the Bible—but it's also one of the most freeing. When we hold onto unforgiveness, we imprison ourselves in bitterness, anger, and pain. But when we forgive, we release the burden and experience God's healing. This 7-day journey will help you understand what forgiveness is (and isn't), why it matters, and how to extend grace even when it's hard.",
+    keyVerses: [
+      { reference: "Matthew 6:14-15", text: "For if you forgive other people when they sin against you, your heavenly Father will also forgive you. But if you do not forgive others their sins, your Father will not forgive your sins.", insight: "Forgiveness is not optional for believers—it's a reflection of God's forgiveness toward us." },
+      { reference: "Ephesians 4:32", text: "Be kind and compassionate to one another, forgiving each other, just as in Christ God forgave you.", insight: "We forgive because we've been forgiven." },
+      { reference: "Colossians 3:13", text: "Bear with each other and forgive one another if any of you has a grievance against someone. Forgive as the Lord forgave you.", insight: "Forgiveness is a choice, not a feeling." }
+    ],
+    reflection: "Forgiveness doesn't mean what happened was okay. It means you're releasing the person from the debt they owe you and trusting God to be the judge. Forgiveness is for your freedom, not their comfort.",
+    reflectionQuestions: [
+      "Who do you need to forgive? What's holding you back?",
+      "How has unforgiveness affected your peace, health, or relationships?",
+      "What does it mean to forgive someone who hasn't apologized?",
+      "How can you reflect God's forgiveness in your life?"
+    ],
+    actionPlan: {
+      title: "Choosing Forgiveness",
+      steps: [
+        "Make a list of people you need to forgive—then pray for each one.",
+        "Choose to forgive even if you don't feel like it—obedience precedes emotion.",
+        "If possible and safe, reach out to reconcile.",
+        "Release bitterness daily through prayer and surrender.",
+        "Remember how much God has forgiven you."
+      ]
+    },
+    prayer: "Lord, forgiveness is hard. I've been hurt deeply, and part of me wants to hold onto the pain. But I know You call me to forgive as You forgave me. Help me release bitterness and choose freedom. Heal my heart and give me Your perspective. In Jesus' name, Amen."
+  },
+
+  "identity-christ": {
+    title: "Identity in Christ: Knowing Who You Are",
+    introduction: "The world will try to define you by your achievements, appearance, relationships, or failures. But God defines you by who you are in Christ. This 21-day journey will help you discover your true identity—loved, chosen, forgiven, redeemed, and set apart. When you know who you are in Christ, nothing the world says can shake you.",
+    keyVerses: [
+      { reference: "2 Corinthians 5:17", text: "Therefore, if anyone is in Christ, the new creation has come: The old has gone, the new is here!", insight: "Your past doesn't define you—Christ does." },
+      { reference: "Ephesians 1:4", text: "For he chose us in him before the creation of the world to be holy and blameless in his sight.", insight: "You are chosen by God—not by accident, but by divine design." },
+      { reference: "1 Peter 2:9", text: "But you are a chosen people, a royal priesthood, a holy nation, God's special possession.", insight: "Your identity is rooted in belonging to God." }
+    ],
+    reflection: "Your identity in Christ is unchangeable. It's not based on performance, popularity, or perfection. It's based on what Jesus did for you on the cross. When you understand who you are in Him, you'll stop seeking validation from the world.",
+    reflectionQuestions: [
+      "What lies about your identity do you believe?",
+      "How would your life change if you fully believed you are loved, chosen, and forgiven?",
+      "In what areas are you seeking identity from the world instead of God?",
+      "How can you live out your identity in Christ today?"
+    ],
+    actionPlan: {
+      title: "Living in Your True Identity",
+      steps: [
+        "Write down 10 truths about who you are in Christ from Scripture.",
+        "Speak these truths over yourself daily.",
+        "Replace negative self-talk with God's truth.",
+        "Surround yourself with people who affirm your identity in Christ.",
+        "Stop comparing yourself to others—you are uniquely made by God."
+      ]
+    },
+    prayer: "Father, thank You for making me a new creation in Christ. Help me see myself the way You see me—loved, chosen, forgiven, and redeemed. When the world tries to define me, remind me of who I am in You. In Jesus' name, Amen."
+  },
+
+  "financial-peace": {
+    title: "Financial Peace: God's Wisdom for Money",
+    introduction: "Money is one of the most talked-about topics in the Bible—not because God needs it, but because He knows how easily it can control us. Over the next 14 days, you'll discover what Scripture says about generosity, contentment, debt, and stewardship. God wants you to experience financial peace—not because you have more, but because you trust Him more.",
+    keyVerses: [
+      { reference: "Matthew 6:24", text: "No one can serve two masters... You cannot serve both God and money.", insight: "Money is a tool, not a master. Guard your heart from loving it." },
+      { reference: "Proverbs 3:9-10", text: "Honor the Lord with your wealth, with the firstfruits of all your crops; then your barns will be filled to overflowing.", insight: "Generosity unlocks God's blessing." },
+      { reference: "1 Timothy 6:10", text: "For the love of money is a root of all kinds of evil.", insight: "It's not money itself—it's the love of it that leads to destruction." }
+    ],
+    reflection: "Financial peace comes from trusting God with your resources. It's about being content, generous, and wise with what He's given you.",
+    reflectionQuestions: [
+      "Do you view money as yours or God's?",
+      "Are you generous with what God has given you?",
+      "What financial fears are you holding onto instead of trusting God?",
+      "How can you honor God with your finances this week?"
+    ],
+    actionPlan: {
+      title: "Stewardship and Generosity",
+      steps: [
+        "Create a budget based on biblical priorities: give, save, live.",
+        "Start tithing or increase your giving.",
+        "Eliminate debt using a biblical approach.",
+        "Practice contentment—stop comparing your finances to others.",
+        "Pray before major financial decisions."
+      ]
+    },
+    prayer: "Lord, help me see money as a tool to glorify You, not a source of security. Teach me to be generous, content, and wise. Give me financial peace that comes from trusting You. In Jesus' name, Amen."
+  },
+
+  "fear-courage": {
+    title: "From Fear to Courage: Trusting God",
+    introduction: "Fear is a natural human emotion, but God doesn't want you to live in it. Throughout the Bible, God says 'Do not fear' over 365 times—one for every day of the year. This 7-day journey will help you identify your fears, understand God's promises, and step into courage rooted in His strength.",
+    keyVerses: [
+      { reference: "Joshua 1:9", text: "Have I not commanded you? Be strong and courageous. Do not be afraid; do not be discouraged, for the Lord your God will be with you wherever you go.", insight: "God's presence gives you courage." },
+      { reference: "2 Timothy 1:7", text: "For the Spirit God gave us does not make us timid, but gives us power, love and self-discipline.", insight: "Fear is not from God—courage is." },
+      { reference: "Isaiah 41:10", text: "So do not fear, for I am with you; do not be dismayed, for I am your God.", insight: "God is with you, so you don't have to fear." }
+    ],
+    reflection: "Courage isn't the absence of fear—it's trusting God in the midst of it. When you focus on God's power instead of your fear, He gives you strength.",
+    reflectionQuestions: [
+      "What are you most afraid of right now?",
+      "How is fear holding you back from obedience?",
+      "What does trusting God look like in your situation?",
+      "How can Joshua 1:9 encourage you today?"
+    ],
+    actionPlan: {
+      title: "Walking in Courage",
+      steps: [
+        "Identify your biggest fear and bring it to God in prayer.",
+        "Memorize a 'fear not' verse and repeat it when fear arises.",
+        "Take one courageous step of faith this week.",
+        "Surround yourself with people who encourage your faith.",
+        "Worship God—praise shifts your focus from fear to His greatness."
+      ]
+    },
+    prayer: "Lord, I confess my fears to You. Help me trust You more than I fear my circumstances. Give me courage to obey, strength to persevere, and faith to believe You are with me. In Jesus' name, Amen."
+  },
+
+  "loneliness-hope": {
+    title: "Hope in Loneliness: You Are Never Alone",
+    introduction: "Loneliness is a painful reality many people face, but God promises you're never truly alone. He is always with you, and He sees you. This 7-day journey will remind you of God's presence, His love, and His promise to never leave you.",
+    keyVerses: [
+      { reference: "Matthew 28:20", text: "And surely I am with you always, to the very end of the age.", insight: "Jesus is with you—always." },
+      { reference: "Psalm 139:7-10", text: "Where can I go from your Spirit? Where can I flee from your presence?", insight: "There's nowhere you can go where God isn't with you." },
+      { reference: "Hebrews 13:5", text: "Never will I leave you; never will I forsake you.", insight: "God's presence is permanent." }
+    ],
+    reflection: "Loneliness often comes from feeling unseen or unheard. But God sees you, hears you, and is closer than you think. He is your constant companion.",
+    reflectionQuestions: [
+      "When do you feel most lonely?",
+      "How can you experience God's presence more deeply?",
+      "Who can you reach out to for community?",
+      "How does knowing God is with you change your perspective?"
+    ],
+    actionPlan: {
+      title: "Finding Connection",
+      steps: [
+        "Spend intentional time with God daily.",
+        "Join a small group or church community.",
+        "Reach out to one person this week—connection requires risk.",
+        "Serve others—helping others combats loneliness.",
+        "Worship and pray—God's presence brings comfort."
+      ]
+    },
+    prayer: "Lord, I feel lonely, but I know You are with me. Help me sense Your presence and find meaningful connection with others. You are my comfort, my friend, and my forever companion. In Jesus' name, Amen."
+  },
+
+  "acts-church": {
+    title: "Birth of the Church: The Power of the Holy Spirit",
+    introduction: "The book of Acts is the story of how the church was born, how the Gospel spread, and how the Holy Spirit empowered ordinary people to do extraordinary things. Over the next 28 days, you'll see the early church's passion, boldness, unity, and sacrifice—and be inspired to live with the same fervor today.",
+    keyVerses: [
+      { reference: "Acts 1:8", text: "But you will receive power when the Holy Spirit comes on you; and you will be my witnesses.", insight: "The Holy Spirit empowers you for mission." },
+      { reference: "Acts 2:42", text: "They devoted themselves to the apostles' teaching and to fellowship, to the breaking of bread and to prayer.", insight: "The early church was committed to community, worship, and prayer." },
+      { reference: "Acts 4:31", text: "After they prayed, the place where they were meeting was shaken. And they were all filled with the Holy Spirit and spoke the word of God boldly.", insight: "Bold faith comes from being filled with the Spirit." }
+    ],
+    reflection: "Acts shows us what the church is meant to be—Spirit-filled, mission-driven, and united in love. The same Holy Spirit that empowered the early church is available to you today.",
+    reflectionQuestions: [
+      "Am I living with the same boldness as the early church?",
+      "How can I be more devoted to community and prayer?",
+      "What is God calling me to do for His kingdom?",
+      "Am I relying on the Holy Spirit's power or my own strength?"
+    ],
+    actionPlan: {
+      title: "Living Like the Early Church",
+      steps: [
+        "Pray daily for boldness to share your faith.",
+        "Join or start a small group for community.",
+        "Serve in your church or community.",
+        "Study how the Holy Spirit works in Acts and your life.",
+        "Share the Gospel with someone this week."
+      ]
+    },
+    prayer: "Lord, fill me with Your Holy Spirit. Give me boldness to share the Gospel, passion to serve, and commitment to community. Let my life reflect the power and love of the early church. In Jesus' name, Amen."
   }
 };
