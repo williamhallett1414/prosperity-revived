@@ -69,6 +69,7 @@ import Wellness from './pages/Wellness';
 import WellnessJourney from './pages/WellnessJourney';
 import Notifications from './pages/Notifications';
 import NotificationSettings from './pages/NotificationSettings';
+import Discover from './pages/Discover';
 import __Layout from './Layout.jsx';
 
 
@@ -95,6 +96,7 @@ export const PAGES = {
     "WellnessJourney": WellnessJourney,
     "Notifications": Notifications,
     "NotificationSettings": NotificationSettings,
+    "Discover": Discover,
 }
 
 export const pagesConfig = {

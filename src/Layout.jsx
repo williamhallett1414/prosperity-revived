@@ -1,14 +1,16 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { Home, BookOpen, Users, User, Heart } from 'lucide-react';
+import { Home, Users, User, Heart, Sparkles } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Toaster } from 'sonner';
 import NotificationBell from '@/components/notifications/NotificationBell';
 
+import { Sparkles } from 'lucide-react';
+
 const navItems = [
   { name: 'Home', icon: Home, page: 'Home' },
-  { name: 'Bible', icon: BookOpen, page: 'Bible' },
+  { name: 'Discover', icon: Sparkles, page: 'Discover' },
   { name: 'Groups', icon: Users, page: 'Groups' },
   { name: 'Wellness', icon: Heart, page: 'Wellness' },
   { name: 'Profile', icon: User, page: 'Profile' },
