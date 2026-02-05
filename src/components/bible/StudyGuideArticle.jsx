@@ -295,16 +295,18 @@ export default function StudyGuideArticle({ guide, onBack }) {
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="mt-4">
           <SectionHeader title="Key Characters" section="keyCharacters" isExpanded={expandedSections.keyCharacters} />
           {expandedSections.keyCharacters && (
-            <Card className="p-6 mt-2 space-y-4 text-gray-700 dark:text-gray-300">
-              {content.keyCharacters.map((character, index) => (
-                <div key={index} className="border-l-4 border-[#c9a227] pl-4">
-                  <h3 className="font-semibold text-[#1a1a2e] dark:text-white mb-1">{character.name}</h3>
-                  <p className="text-sm">{character.desc}</p>
-                </div>
-              ))}
-            </Card>
-            <ReflectionPrompt section="Key Characters" content={content.keyCharacters.map(c => c.desc).join(' ')} />
-            <StudyNotes section="keyCharacters" notes={getNote('keyCharacters')} onSave={(content) => handleSaveNote('keyCharacters', undefined, content)} />
+            <>
+              <Card className="p-6 mt-2 space-y-4 text-gray-700 dark:text-gray-300">
+                {content.keyCharacters.map((character, index) => (
+                  <div key={index} className="border-l-4 border-[#c9a227] pl-4">
+                    <h3 className="font-semibold text-[#1a1a2e] dark:text-white mb-1">{character.name}</h3>
+                    <p className="text-sm">{character.desc}</p>
+                  </div>
+                ))}
+              </Card>
+              <ReflectionPrompt section="Key Characters" content={content.keyCharacters.map(c => c.desc).join(' ')} />
+              <StudyNotes section="keyCharacters" notes={getNote('keyCharacters')} onSave={(content) => handleSaveNote('keyCharacters', undefined, content)} />
+            </>
           )}
         </motion.div>
 
@@ -312,16 +314,18 @@ export default function StudyGuideArticle({ guide, onBack }) {
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="mt-4">
           <SectionHeader title="Key Events" section="keyEvents" isExpanded={expandedSections.keyEvents} />
           {expandedSections.keyEvents && (
-            <Card className="p-6 mt-2 space-y-4 text-gray-700 dark:text-gray-300">
-              {content.keyEvents.map((item, index) => (
-                <div key={index} className="border-l-4 border-[#8fa68a] pl-4">
-                  <h3 className="font-semibold text-[#1a1a2e] dark:text-white mb-1">{item.event}</h3>
-                  <p className="text-sm">{item.desc}</p>
-                </div>
-              ))}
-            </Card>
-            <ReflectionPrompt section="Key Events" content={content.keyEvents.map(e => e.desc).join(' ')} />
-            <StudyNotes section="keyEvents" notes={getNote('keyEvents')} onSave={(content) => handleSaveNote('keyEvents', undefined, content)} />
+            <>
+              <Card className="p-6 mt-2 space-y-4 text-gray-700 dark:text-gray-300">
+                {content.keyEvents.map((item, index) => (
+                  <div key={index} className="border-l-4 border-[#8fa68a] pl-4">
+                    <h3 className="font-semibold text-[#1a1a2e] dark:text-white mb-1">{item.event}</h3>
+                    <p className="text-sm">{item.desc}</p>
+                  </div>
+                ))}
+              </Card>
+              <ReflectionPrompt section="Key Events" content={content.keyEvents.map(e => e.desc).join(' ')} />
+              <StudyNotes section="keyEvents" notes={getNote('keyEvents')} onSave={(content) => handleSaveNote('keyEvents', undefined, content)} />
+            </>
           )}
         </motion.div>
 
@@ -329,17 +333,19 @@ export default function StudyGuideArticle({ guide, onBack }) {
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="mt-4">
           <SectionHeader title="Key Scriptures" section="keyScriptures" isExpanded={expandedSections.keyScriptures} />
           {expandedSections.keyScriptures && (
-            <Card className="p-6 mt-2 space-y-6 text-gray-700 dark:text-gray-300 bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20">
-              {content.keyScriptures.map((item, index) => (
-                <div key={index}>
-                  <p className="font-semibold text-[#1a1a2e] dark:text-white mb-1">{item.verse}</p>
-                  <p className="italic mb-2">{item.text}</p>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">{item.insight}</p>
-                </div>
-              ))}
-            </Card>
-            <ReflectionPrompt section="Key Scriptures" content={content.keyScriptures.map(s => s.text).join(' ')} />
-            <StudyNotes section="keyScriptures" notes={getNote('keyScriptures')} onSave={(content) => handleSaveNote('keyScriptures', undefined, content)} />
+            <>
+              <Card className="p-6 mt-2 space-y-6 text-gray-700 dark:text-gray-300 bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20">
+                {content.keyScriptures.map((item, index) => (
+                  <div key={index}>
+                    <p className="font-semibold text-[#1a1a2e] dark:text-white mb-1">{item.verse}</p>
+                    <p className="italic mb-2">{item.text}</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">{item.insight}</p>
+                  </div>
+                ))}
+              </Card>
+              <ReflectionPrompt section="Key Scriptures" content={content.keyScriptures.map(s => s.text).join(' ')} />
+              <StudyNotes section="keyScriptures" notes={getNote('keyScriptures')} onSave={(content) => handleSaveNote('keyScriptures', undefined, content)} />
+            </>
           )}
         </motion.div>
 
@@ -347,16 +353,18 @@ export default function StudyGuideArticle({ guide, onBack }) {
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }} className="mt-4">
           <SectionHeader title="Key Locations" section="keyLocations" isExpanded={expandedSections.keyLocations} />
           {expandedSections.keyLocations && (
-            <Card className="p-6 mt-2 space-y-4 text-gray-700 dark:text-gray-300">
-              {content.keyLocations.map((item, index) => (
-                <div key={index} className="border-l-4 border-[#c9a227] pl-4">
-                  <h3 className="font-semibold text-[#1a1a2e] dark:text-white mb-1">{item.location}</h3>
-                  <p className="text-sm">{item.desc}</p>
-                </div>
-              ))}
-            </Card>
-            <ReflectionPrompt section="Key Locations" content={content.keyLocations.map(l => l.desc).join(' ')} />
-            <StudyNotes section="keyLocations" notes={getNote('keyLocations')} onSave={(content) => handleSaveNote('keyLocations', undefined, content)} />
+            <>
+              <Card className="p-6 mt-2 space-y-4 text-gray-700 dark:text-gray-300">
+                {content.keyLocations.map((item, index) => (
+                  <div key={index} className="border-l-4 border-[#c9a227] pl-4">
+                    <h3 className="font-semibold text-[#1a1a2e] dark:text-white mb-1">{item.location}</h3>
+                    <p className="text-sm">{item.desc}</p>
+                  </div>
+                ))}
+              </Card>
+              <ReflectionPrompt section="Key Locations" content={content.keyLocations.map(l => l.desc).join(' ')} />
+              <StudyNotes section="keyLocations" notes={getNote('keyLocations')} onSave={(content) => handleSaveNote('keyLocations', undefined, content)} />
+            </>
           )}
         </motion.div>
 
@@ -364,16 +372,18 @@ export default function StudyGuideArticle({ guide, onBack }) {
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }} className="mt-4">
           <SectionHeader title="Key Lessons" section="keyLessons" isExpanded={expandedSections.keyLessons} />
           {expandedSections.keyLessons && (
-            <Card className="p-6 mt-2 space-y-4 text-gray-700 dark:text-gray-300">
-              {content.keyLessons.map((lesson, index) => (
-                <div key={index}>
-                  <h3 className="font-semibold text-[#1a1a2e] dark:text-white mb-2">{index + 1}. {lesson.title}</h3>
-                  <p className="text-sm">{lesson.desc}</p>
-                </div>
-              ))}
-            </Card>
-            <ReflectionPrompt section="Key Lessons" content={content.keyLessons.map(l => l.desc).join(' ')} />
-            <StudyNotes section="keyLessons" notes={getNote('keyLessons')} onSave={(content) => handleSaveNote('keyLessons', undefined, content)} />
+            <>
+              <Card className="p-6 mt-2 space-y-4 text-gray-700 dark:text-gray-300">
+                {content.keyLessons.map((lesson, index) => (
+                  <div key={index}>
+                    <h3 className="font-semibold text-[#1a1a2e] dark:text-white mb-2">{index + 1}. {lesson.title}</h3>
+                    <p className="text-sm">{lesson.desc}</p>
+                  </div>
+                ))}
+              </Card>
+              <ReflectionPrompt section="Key Lessons" content={content.keyLessons.map(l => l.desc).join(' ')} />
+              <StudyNotes section="keyLessons" notes={getNote('keyLessons')} onSave={(content) => handleSaveNote('keyLessons', undefined, content)} />
+            </>
           )}
         </motion.div>
 
