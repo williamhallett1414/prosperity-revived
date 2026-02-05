@@ -1,15 +1,10 @@
-"use client";
-import { useTheme } from "next-themes"
 import { Toaster as Sonner } from "sonner"
 
 const Toaster = ({
   ...props
 }) => {
-  const { theme = "system" } = useTheme()
-
   return (
-    (<Sonner
-      theme={theme}
+    <Sonner
       className="toaster group"
       toastOptions={{
         classNames: {
@@ -22,7 +17,7 @@ const Toaster = ({
             "group-[.toast]:bg-muted group-[.toast]:text-muted-foreground",
         },
       }}
-      {...props} />)
+      {...props} />
   );
 }
 
