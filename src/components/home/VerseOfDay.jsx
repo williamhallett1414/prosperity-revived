@@ -1,8 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Share2, Bookmark, Sparkles } from 'lucide-react';
+import { Share2, Bookmark, Sparkles, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { getVerseOfDay } from '../bible/BibleData';
+import { toast } from 'sonner';
 
 export default function VerseOfDay({ onBookmark }) {
   const verse = getVerseOfDay();
@@ -10,18 +11,10 @@ export default function VerseOfDay({ onBookmark }) {
   const handleShare = async () => {
     const text = `"${verse.text}" - ${verse.book} ${verse.chapter}:${verse.verse}`;
     try {
-      if (navigator.share) {
-        await navigator.share({ text });
-      } else {
-        await navigator.clipboard.writeText(text);
-      }
+      await navigator.clipboard.writeText(text);
+      toast.success('Verse copied to clipboard!');
     } catch (error) {
-      // Fallback to clipboard if share fails
-      try {
-        await navigator.clipboard.writeText(text);
-      } catch (clipboardError) {
-        console.log('Could not share or copy text');
-      }
+      toast.error('Could not copy verse');
     }
   };
 
