@@ -2,15 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ArrowLeft, Compass, BookOpen, TrendingUp, CheckCircle } from 'lucide-react';
+import { ArrowLeft, Compass, BookOpen, TrendingUp, CheckCircle, Heart } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import BookSelector from '@/components/bible/BookSelector';
 import ChapterSelector from '@/components/bible/ChapterSelector';
 import VerseReader from '@/components/bible/VerseReader';
 import ReadingPlanCard from '@/components/home/ReadingPlanCard';
 import { readingPlans } from '@/components/bible/BibleData';
 import BibleStatsModal from '@/components/bible/BibleStatsModal';
+import DevotionalContent from '@/components/bible/DevotionalContent';
 
 export default function Bible() {
   const [view, setView] = useState('books'); // books, chapters, reader
@@ -142,8 +144,23 @@ export default function Bible() {
                 </Link>
                 <h1 className="text-2xl font-bold text-[#1a1a2e] dark:text-white">Bible</h1>
               </div>
-              <p className="text-gray-500 dark:text-gray-400 ml-[52px]">Select a testament to explore</p>
             </div>
+
+            <Tabs defaultValue="read" className="w-full">
+              <TabsList className="grid w-full grid-cols-2 mb-6">
+                <TabsTrigger value="read">
+                  <BookOpen className="w-4 h-4 mr-2" />
+                  Read
+                </TabsTrigger>
+                <TabsTrigger value="devotional">
+                  <Heart className="w-4 h-4 mr-2" />
+                  Devotional
+                </TabsTrigger>
+              </TabsList>
+
+              <TabsContent value="read">
+                <div className="space-y-6">{/* Stats Cards */}
+            <div className="grid grid-cols-3 gap-3">
 
             {/* Stats Cards */}
             <div className="grid grid-cols-3 gap-3 mb-6">
@@ -215,6 +232,13 @@ export default function Bible() {
                 </div>
               </div>
             )}
+                </div>
+              </TabsContent>
+
+              <TabsContent value="devotional">
+                <DevotionalContent />
+              </TabsContent>
+            </Tabs>
           </motion.div>
         )}
 
