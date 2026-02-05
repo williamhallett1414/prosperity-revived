@@ -37,7 +37,7 @@ export default function VerseReader({ book, chapter, onBack, onNavigate, bookmar
     setLoading(true);
     try {
       const response = await base44.integrations.Core.InvokeLLM({
-        prompt: `Generate Bible verses for ${book.name} Chapter ${chapter}. Return each verse with its number and text. Make sure the text is accurate to the NIV translation style. Include all verses in the chapter.`,
+        prompt: `Provide the complete text for ${book.name} Chapter ${chapter} from the Bible (NIV translation). Return ONLY verses 1 through 10 as a JSON array. Each verse should have a number and text field. Keep verse text concise - maximum 200 characters per verse.`,
         response_json_schema: {
           type: "object",
           properties: {
@@ -48,15 +48,18 @@ export default function VerseReader({ book, chapter, onBack, onNavigate, bookmar
                 properties: {
                   number: { type: "number" },
                   text: { type: "string" }
-                }
+                },
+                required: ["number", "text"]
               }
             }
-          }
+          },
+          required: ["verses"]
         }
       });
       setVerses(response.verses || []);
     } catch (error) {
       console.error('Error fetching verses:', error);
+      setVerses([]);
     }
     setLoading(false);
   };
