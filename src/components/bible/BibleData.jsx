@@ -687,6 +687,107 @@ export const planReadingSchedules = {
     { day: 53, book: "Ephesians", chapter: 2 },
     { day: 54, book: "Ephesians", chapter: 3 },
     { day: 55, book: "Ephesians", chapter: 4 }
+  ],
+
+  "marriage-strength": [
+    { day: 1, book: "Genesis", chapter: 2 },
+    { day: 2, book: "Proverbs", chapter: 31 },
+    { day: 3, book: "Song of Solomon", chapter: 2 },
+    { day: 4, book: "Ephesians", chapter: 5 },
+    { day: 5, book: "1 Corinthians", chapter: 13 },
+    { day: 6, book: "Colossians", chapter: 3 },
+    { day: 7, book: "1 Peter", chapter: 3 },
+    { day: 8, book: "Proverbs", chapter: 5 },
+    { day: 9, book: "Matthew", chapter: 19 },
+    { day: 10, book: "Hebrews", chapter: 13 },
+    { day: 11, book: "Ecclesiastes", chapter: 4 },
+    { day: 12, book: "1 John", chapter: 4 },
+    { day: 13, book: "Proverbs", chapter: 18 },
+    { day: 14, book: "Ruth", chapter: 1 },
+    { day: 15, book: "Song of Solomon", chapter: 4 },
+    { day: 16, book: "Proverbs", chapter: 12 },
+    { day: 17, book: "Mark", chapter: 10 },
+    { day: 18, book: "Proverbs", chapter: 15 },
+    { day: 19, book: "1 Corinthians", chapter: 7 },
+    { day: 20, book: "Philippians", chapter: 2 },
+    { day: 21, book: "Song of Solomon", chapter: 8 }
+  ],
+
+  "forgiveness-healing": [
+    { day: 1, book: "Matthew", chapter: 6 },
+    { day: 2, book: "Matthew", chapter: 18 },
+    { day: 3, book: "Luke", chapter: 15 },
+    { day: 4, book: "Ephesians", chapter: 4 },
+    { day: 5, book: "Colossians", chapter: 3 },
+    { day: 6, book: "Romans", chapter: 12 },
+    { day: 7, book: "1 John", chapter: 1 }
+  ],
+
+  "identity-christ": [
+    { day: 1, book: "Ephesians", chapter: 1 },
+    { day: 2, book: "Ephesians", chapter: 2 },
+    { day: 3, book: "Romans", chapter: 8 },
+    { day: 4, book: "2 Corinthians", chapter: 5 },
+    { day: 5, book: "Galatians", chapter: 2 },
+    { day: 6, book: "Colossians", chapter: 1 },
+    { day: 7, book: "Colossians", chapter: 2 },
+    { day: 8, book: "1 Peter", chapter: 2 },
+    { day: 9, book: "1 John", chapter: 3 },
+    { day: 10, book: "John", chapter: 15 },
+    { day: 11, book: "Romans", chapter: 6 },
+    { day: 12, book: "2 Corinthians", chapter: 3 },
+    { day: 13, book: "Philippians", chapter: 3 },
+    { day: 14, book: "Colossians", chapter: 3 },
+    { day: 15, book: "Ephesians", chapter: 3 },
+    { day: 16, book: "1 Corinthians", chapter: 6 },
+    { day: 17, book: "Romans", chapter: 12 },
+    { day: 18, book: "Galatians", chapter: 5 },
+    { day: 19, book: "Ephesians", chapter: 4 },
+    { day: 20, book: "2 Peter", chapter: 1 },
+    { day: 21, book: "Revelation", chapter: 21 }
+  ],
+
+  "financial-peace": [
+    { day: 1, book: "Matthew", chapter: 6 },
+    { day: 2, book: "Proverbs", chapter: 3 },
+    { day: 3, book: "Luke", chapter: 12 },
+    { day: 4, book: "Proverbs", chapter: 21 },
+    { day: 5, book: "Malachi", chapter: 3 },
+    { day: 6, book: "Proverbs", chapter: 22 },
+    { day: 7, book: "1 Timothy", chapter: 6 },
+    { day: 8, book: "Proverbs", chapter: 11 },
+    { day: 9, book: "Luke", chapter: 16 },
+    { day: 10, book: "Ecclesiastes", chapter: 5 },
+    { day: 11, book: "Hebrews", chapter: 13 },
+    { day: 12, book: "Proverbs", chapter: 28 },
+    { day: 13, book: "2 Corinthians", chapter: 9 },
+    { day: 14, book: "Philippians", chapter: 4 }
+  ],
+
+  "acts-church": Array.from({length: 28}, (_, i) => ({
+    day: i + 1,
+    book: "Acts",
+    chapter: i + 1
+  })),
+
+  "fear-courage": [
+    { day: 1, book: "Joshua", chapter: 1 },
+    { day: 2, book: "Psalms", chapter: 27 },
+    { day: 3, book: "Isaiah", chapter: 41 },
+    { day: 4, book: "2 Timothy", chapter: 1 },
+    { day: 5, book: "Psalms", chapter: 56 },
+    { day: 6, book: "Deuteronomy", chapter: 31 },
+    { day: 7, book: "Isaiah", chapter: 43 }
+  ],
+
+  "loneliness-hope": [
+    { day: 1, book: "Psalms", chapter: 23 },
+    { day: 2, book: "Matthew", chapter: 28 },
+    { day: 3, book: "Isaiah", chapter: 41 },
+    { day: 4, book: "Psalms", chapter: 139 },
+    { day: 5, book: "Hebrews", chapter: 13 },
+    { day: 6, book: "John", chapter: 14 },
+    { day: 7, book: "Romans", chapter: 8 }
   ]
 };
 

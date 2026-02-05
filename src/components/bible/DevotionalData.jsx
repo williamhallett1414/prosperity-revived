@@ -239,5 +239,125 @@ export const devotionalContent = {
       ]
     },
     prayer: "Lord, I confess that anxiety often overwhelms me. I worry about things I can't control, and I struggle to trust You with my future. Forgive me for trying to carry burdens You never intended me to bear. Teach me to pray instead of panic, to trust instead of worry. Fill me with Your peace that surpasses understanding. Help me fix my eyes on You, not on my circumstances. When fear whispers lies, remind me of Your truth. You are faithful, You are good, and You are in control. I choose to rest in You today. In Jesus' name, Amen."
+  },
+
+  "faith-foundations": {
+    title: "Faith Foundations: Building on the Rock",
+    introduction: "Every believer needs a solid foundation—a deep understanding of who God is, what He's done, and what it means to follow Jesus. This 7-day journey will take you through the core truths of the Christian faith: salvation by grace, the power of faith, the work of the Holy Spirit, and the promise of eternal life. Whether you're a new believer or have walked with Christ for years, these foundational truths will strengthen your faith and anchor your soul in God's unchanging Word.",
+    keyVerses: [
+      {
+        reference: "John 3:16",
+        text: "For God so loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life.",
+        insight: "This is the Gospel in one verse. God's love is the foundation of everything—His sacrifice, our salvation, and our hope."
+      },
+      {
+        reference: "Ephesians 2:8-9",
+        text: "For it is by grace you have been saved, through faith—and this is not from yourselves, it is the gift of God—not by works, so that no one can boast.",
+        insight: "Salvation is not something you earn; it's something you receive. Grace means God gives you what you don't deserve."
+      },
+      {
+        reference: "Hebrews 11:1",
+        text: "Now faith is confidence in what we hope for and assurance about what we do not see.",
+        insight: "Faith is not blind—it's trust in a God who has proven Himself faithful. It's choosing to believe His promises even when you can't see the outcome."
+      }
+    ],
+    reflection: "The Christian life is built on truth, not feelings or opinions. These foundational truths—salvation by grace, justification by faith, the power of the resurrection, and the indwelling of the Holy Spirit—are non-negotiable. They're what separate Christianity from every other religion. When your faith is rooted in these truths, storms may come, but you won't be shaken. Jesus said in Matthew 7:24-25 that everyone who hears His words and puts them into practice is like a wise man who built his house on the rock. That's what this week is about—building on the rock of God's Word so that when life gets hard, your faith stands firm.",
+    reflectionQuestions: [
+      "Do you truly believe that salvation is by grace alone, or are you still trying to earn God's approval through good works?",
+      "What does it mean to you personally that Jesus died for your sins and rose from the dead?",
+      "In what areas of your life do you struggle to trust God? How can Hebrews 11:1 encourage you?",
+      "How would your life change if you fully believed and lived out these foundational truths?"
+    ],
+    actionPlan: {
+      title: "Establishing Your Foundation",
+      steps: [
+        "Memorize John 3:16 and Ephesians 2:8-9—these verses are the bedrock of your faith.",
+        "Write out your testimony: When did you trust Christ? How has your life changed?",
+        "Share the Gospel with someone this week—explaining truth to others deepens your own understanding.",
+        "Read through the book of Romans to understand salvation, grace, and faith more deeply.",
+        "Pray daily: 'Lord, help my faith grow. Teach me to trust You more fully.'"
+      ]
+    },
+    prayer: "Father, thank You for the gift of salvation. I don't deserve it, but You freely gave it through Jesus. Help me understand the depth of Your grace and the power of faith. Build my life on the solid foundation of Your Word. When doubts come, remind me of what You've done. When fear arises, strengthen my faith. I want to know You deeply and follow You fully. In Jesus' name, Amen."
+  },
+
+  "prayer-journey": {
+    title: "Prayer Journey: Deepening Your Conversation with God",
+    introduction: "Prayer is more than a religious duty—it's an intimate conversation with the God who created you, loves you, and wants to hear from you. Over the next 14 days, you'll explore different aspects of prayer: praise, confession, thanksgiving, and petition. You'll learn how to pray with boldness, how to listen for God's voice, and how to make prayer a lifestyle, not just a moment. This journey will transform prayer from a routine into a relationship.",
+    keyVerses: [
+      {
+        reference: "Matthew 6:9-13",
+        text: "This, then, is how you should pray: 'Our Father in heaven, hallowed be your name, your kingdom come, your will be done, on earth as it is in heaven. Give us today our daily bread. And forgive us our debts, as we also have forgiven our debtors. And lead us not into temptation, but deliver us from the evil one.'",
+        insight: "The Lord's Prayer is a model for how to pray—worship, surrender, provision, forgiveness, and protection."
+      },
+      {
+        reference: "James 5:16",
+        text: "The prayer of a righteous person is powerful and effective.",
+        insight: "Your prayers matter. God hears you, and He moves in response to your faith-filled prayers."
+      },
+      {
+        reference: "1 Thessalonians 5:17",
+        text: "Pray continually.",
+        insight: "Prayer isn't just a scheduled time—it's a lifestyle of staying connected to God throughout your day."
+      }
+    ],
+    reflection: "Many believers struggle with prayer because they don't know what to say or feel like God isn't listening. But prayer is simply talking to God—honest, raw, and real. He doesn't need fancy words; He wants your heart. The Bible is filled with examples of bold prayers, persistent prayers, and even wrestling prayers. God invites you to come to Him with everything—your fears, your failures, your needs, and your praises. As you grow in prayer, you'll discover that it's not about changing God's mind; it's about aligning your heart with His will.",
+    reflectionQuestions: [
+      "How consistent is your prayer life? What distractions or obstacles keep you from praying regularly?",
+      "Do you view prayer as a duty or a privilege? How can you shift your perspective?",
+      "When was the last time you experienced a clear answer to prayer? How did it strengthen your faith?",
+      "What does it look like for you to 'pray continually' throughout your day?"
+    ],
+    actionPlan: {
+      title: "Building a Prayer Life",
+      steps: [
+        "Set aside a specific time each day for prayer—consistency builds connection.",
+        "Use the Lord's Prayer as a guide: praise, surrender, provision, forgiveness, protection.",
+        "Keep a prayer journal—write your prayers and watch how God answers.",
+        "Pray Scripture over your life—turn Bible verses into personal prayers.",
+        "Find a prayer partner—praying with others strengthens your faith and accountability."
+      ]
+    },
+    prayer: "Lord, teach me to pray. I confess that I often struggle with consistency, distraction, and doubt. Help me see prayer as a conversation, not a chore. Give me boldness to bring everything to You—my fears, my needs, my praise. Teach me to listen for Your voice and trust Your timing. I want to grow in my prayer life and experience the power of talking to You daily. In Jesus' name, Amen."
+  },
+
+  "grief-comfort": {
+    title: "Comfort in Grief: God's Presence in Pain",
+    introduction: "Grief is one of the deepest pains we experience in life. Whether you've lost a loved one, experienced a broken relationship, or are mourning a dream that didn't come true, grief is real, and it's heavy. But God doesn't leave you alone in your sorrow. He is the God of all comfort, and His Word is filled with promises for those who mourn. Over the next 14 days, you'll discover that God sees your tears, He understands your pain, and He walks with you through the valley of the shadow of death.",
+    keyVerses: [
+      {
+        reference: "Psalm 34:18",
+        text: "The Lord is close to the brokenhearted and saves those who are crushed in spirit.",
+        insight: "God doesn't distance Himself from your pain—He draws near to you in it."
+      },
+      {
+        reference: "2 Corinthians 1:3-4",
+        text: "Praise be to the God and Father of our Lord Jesus Christ, the Father of compassion and the God of all comfort, who comforts us in all our troubles, so that we can comfort those in any trouble with the comfort we ourselves receive from God.",
+        insight: "God comforts you not just for your sake, but so you can be a source of comfort to others who are hurting."
+      },
+      {
+        reference: "Revelation 21:4",
+        text: "He will wipe every tear from their eyes. There will be no more death or mourning or crying or pain, for the old order of things has passed away.",
+        insight: "This life is temporary, but eternity with God is forever. One day, all pain will end."
+      }
+    ],
+    reflection: "Grief is not a sign of weak faith—it's a sign of deep love. Jesus Himself wept at the death of His friend Lazarus (John 11:35). God doesn't expect you to pretend you're okay when you're not. He invites you to pour out your heart, to cry, to lament. The Psalms are filled with raw, honest prayers from people in pain. As you walk through grief, remember that God is with you. He doesn't always remove the pain, but He gives you the strength to endure it. And one day, He will wipe away every tear and make all things new.",
+    reflectionQuestions: [
+      "What loss or pain are you currently grieving? Have you brought it honestly to God in prayer?",
+      "How has your faith been tested or strengthened through this season of grief?",
+      "Who in your life has been a source of comfort during this time? How can you express gratitude to them?",
+      "How does the hope of Revelation 21:4 comfort you today?"
+    ],
+    actionPlan: {
+      title: "Walking Through Grief with God",
+      steps: [
+        "Allow yourself to grieve—don't rush the process or suppress your emotions.",
+        "Read a Psalm of lament each day (Psalms 13, 42, 88) and pray through it.",
+        "Talk to a trusted friend, pastor, or counselor—don't isolate yourself.",
+        "Journal your prayers and feelings—writing can be a healing process.",
+        "Cling to the hope of heaven—remember that this life is not the end."
+      ]
+    },
+    prayer: "Lord, my heart is broken, and I don't have the words to express my pain. But You know. You see my tears, and You understand my grief. Please draw near to me in this dark valley. Give me strength to keep going, hope to keep believing, and comfort that only You can provide. Help me trust that You have a purpose, even when I can't see it. One day, You will wipe away every tear. Until then, hold me close. In Jesus' name, Amen."
   }
 };
