@@ -11,6 +11,14 @@ const devotionals = [
     description: 'Discover your true identity rooted in God\'s unchanging truth. Learn who you are beyond the world\'s labels and step into the freedom of being God\'s masterpiece.',
     readTime: '8 min read',
     image: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=600'
+  },
+  {
+    id: 'power-commitment',
+    title: 'The Power of Commitment',
+    subtitle: 'Building enduring love through dedication',
+    description: 'Explore how commitment transforms relationships and strengthens your bond through God\'s wisdom. Learn to nurture trust, love, and growth together.',
+    readTime: '6 min read',
+    image: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=600'
   }
 ];
 
