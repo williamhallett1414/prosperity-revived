@@ -197,5 +197,47 @@ export const devotionalContent = {
       ]
     },
     prayer: "Heavenly Father, thank You for the wisdom and truth found in the Epistles. Teach me to receive correction with humility, embrace grace with gratitude, and apply truth with obedience. Help me grow in faith, love, and holiness. Let these letters shape my thinking, strengthen my faith, and guide my actions. I want to be a doer of the Word, not just a hearer. In Jesus' name, Amen."
+  },
+
+  "overcoming-anxiety": {
+    title: "Overcoming Anxiety: Finding Peace in God's Promises",
+    introduction: "Anxiety is one of the most common struggles we face in today's fast-paced, uncertain world. The Bible addresses anxiety not by dismissing it, but by offering something greater: God's perfect peace. Over the next 7 days, you'll explore what Scripture says about anxiety, worry, and fear—and discover how to replace anxious thoughts with the truth of God's Word. This isn't about pretending everything is fine; it's about anchoring your heart in the One who holds everything together. God doesn't want you to live in constant worry. He wants you to experience His peace that surpasses all understanding.",
+    keyVerses: [
+      {
+        reference: "Philippians 4:6-7",
+        text: "Do not be anxious about anything, but in every situation, by prayer and petition, with thanksgiving, present your requests to God. And the peace of God, which transcends all understanding, will guard your hearts and your minds in Christ Jesus.",
+        insight: "Paul doesn't say anxiety is a sin or something to be ashamed of. Instead, he gives us a practical solution: bring everything to God in prayer. Thanksgiving is key—it shifts our focus from what we lack to what God has already done."
+      },
+      {
+        reference: "Matthew 6:34",
+        text: "Therefore do not worry about tomorrow, for tomorrow will worry about itself. Each day has enough trouble of its own.",
+        insight: "Jesus doesn't promise a trouble-free life. He acknowledges that each day has challenges, but He calls us to trust God one day at a time rather than being overwhelmed by future unknowns."
+      },
+      {
+        reference: "Psalm 23:4",
+        text: "Even though I walk through the darkest valley, I will fear no evil, for you are with me; your rod and your staff, they comfort me.",
+        insight: "David wrote this psalm as a shepherd who knew danger firsthand. He didn't deny the darkness—he acknowledged it. But he also knew that God's presence was his greatest protection."
+      }
+    ],
+    reflection: "Anxiety often stems from uncertainty, loss of control, or fear of the future. We worry about health, finances, relationships, and countless 'what ifs.' But God invites us to cast our cares on Him because He cares for us (1 Peter 5:7). The antidote to anxiety isn't positive thinking—it's trust in a faithful God. When you pray instead of worry, when you meditate on Scripture instead of spiraling in fear, when you choose gratitude over complaint, you're actively replacing anxiety with peace. This doesn't mean anxiety disappears overnight, but it does mean you have a weapon against it: God's Word, His presence, and His promises.",
+    reflectionQuestions: [
+      "What specific worries or fears are weighing on your heart right now? Have you brought them to God in honest prayer?",
+      "How often do you find yourself worrying about things beyond your control? What would it look like to surrender those to God?",
+      "In what ways has anxiety affected your physical, emotional, or spiritual health?",
+      "Can you think of a time when God provided for you in the past? How can remembering His faithfulness help you trust Him with current anxieties?"
+    ],
+    actionPlan: {
+      title: "Practical Steps to Combat Anxiety",
+      steps: [
+        "Start each morning by reading one of the key verses from this plan and praying it over your day.",
+        "Create a 'worry list' and physically hand it to God—write down your anxieties and then pray over each one, asking God to take control.",
+        "Practice gratitude daily—write down 3 things you're thankful for before bed. Gratitude rewires your brain to focus on God's goodness.",
+        "Memorize Philippians 4:6-7 and repeat it whenever anxiety rises. Let God's Word replace anxious thoughts.",
+        "Limit exposure to news, social media, or other sources of stress that fuel anxiety. Guard what enters your mind.",
+        "Talk to a trusted friend, pastor, or counselor if anxiety feels overwhelming. You don't have to face it alone.",
+        "Spend time in worship—singing or listening to worship music shifts your focus from problems to God's power."
+      ]
+    },
+    prayer: "Lord, I confess that anxiety often overwhelms me. I worry about things I can't control, and I struggle to trust You with my future. Forgive me for trying to carry burdens You never intended me to bear. Teach me to pray instead of panic, to trust instead of worry. Fill me with Your peace that surpasses understanding. Help me fix my eyes on You, not on my circumstances. When fear whispers lies, remind me of Your truth. You are faithful, You are good, and You are in control. I choose to rest in You today. In Jesus' name, Amen."
   }
 };
