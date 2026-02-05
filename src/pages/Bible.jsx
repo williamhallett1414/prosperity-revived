@@ -125,28 +125,21 @@ export default function Bible() {
 
   return (
     <div className="min-h-screen bg-[#faf8f5] dark:bg-[#1a1a2e] pb-24">
-      <AnimatePresence mode="wait">
-        {view === 'books' && (
-          <motion.div
-            key="books"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -20 }}
-            className="px-4 py-6"
-          >
-            <div className="mb-6">
-              <div className="flex items-center gap-3 mb-2">
-                <Link
-                  to={createPageUrl('Home')}
-                  className="w-10 h-10 rounded-full bg-white dark:bg-[#2d2d4a] shadow-sm flex items-center justify-center text-[#1a1a2e] dark:text-white hover:bg-gray-50 dark:hover:bg-[#3d3d5a] transition-colors"
-                >
-                  <ArrowLeft className="w-5 h-5" />
-                </Link>
-                <h1 className="text-2xl font-bold text-[#1a1a2e] dark:text-white">Bible</h1>
-              </div>
+      {view === 'books' && (
+        <div className="px-4 py-6">
+          <div className="mb-6">
+            <div className="flex items-center gap-3 mb-2">
+              <Link
+                to={createPageUrl('Home')}
+                className="w-10 h-10 rounded-full bg-white dark:bg-[#2d2d4a] shadow-sm flex items-center justify-center text-[#1a1a2e] dark:text-white hover:bg-gray-50 dark:hover:bg-[#3d3d5a] transition-colors"
+              >
+                <ArrowLeft className="w-5 h-5" />
+              </Link>
+              <h1 className="text-2xl font-bold text-[#1a1a2e] dark:text-white">Bible</h1>
             </div>
+          </div>
 
-            <Tabs defaultValue="read" className="w-full">
+          <Tabs defaultValue="read" className="w-full">
               <TabsList className="grid w-full grid-cols-2 mb-6">
                 <TabsTrigger value="read">
                   <BookOpen className="w-4 h-4 mr-2" />
