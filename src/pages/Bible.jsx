@@ -235,36 +235,29 @@ export default function Bible() {
 
       {view === 'chapters' && selectedBook && (
         <div className="h-full pt-4">
-            <ChapterSelector
-              book={selectedBook}
-              onSelectChapter={handleSelectChapter}
-              onBack={handleBack}
-              selectedChapter={selectedChapter}
-            />
-          </motion.div>
-        )}
+          <ChapterSelector
+            book={selectedBook}
+            onSelectChapter={handleSelectChapter}
+            onBack={handleBack}
+            selectedChapter={selectedChapter}
+          />
+        </div>
+      )}
 
-        {view === 'reader' && selectedBook && selectedChapter && (
-          <motion.div
-            key="reader"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="h-full"
-          >
-            <VerseReader
-              book={selectedBook}
-              chapter={selectedChapter}
-              onBack={handleBack}
-              onNavigate={handleNavigateChapter}
-              bookmarks={bookmarks}
-              onBookmark={handleBookmark}
-              planDay={planDay}
-              planId={planId}
-            />
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {view === 'reader' && selectedBook && selectedChapter && (
+        <div className="h-full">
+          <VerseReader
+            book={selectedBook}
+            chapter={selectedChapter}
+            onBack={handleBack}
+            onNavigate={handleNavigateChapter}
+            bookmarks={bookmarks}
+            onBookmark={handleBookmark}
+            planDay={planDay}
+            planId={planId}
+          />
+        </div>
+      )}
 
       {/* Stats Modal */}
       <BibleStatsModal
