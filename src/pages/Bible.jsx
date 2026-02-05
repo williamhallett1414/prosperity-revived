@@ -140,21 +140,21 @@ export default function Bible() {
           </div>
 
           <Tabs defaultValue="read" className="w-full">
-              <TabsList className="grid w-full grid-cols-2 mb-6">
-                <TabsTrigger value="read">
-                  <BookOpen className="w-4 h-4 mr-2" />
-                  Read
-                </TabsTrigger>
-                <TabsTrigger value="devotional">
-                  <Heart className="w-4 h-4 mr-2" />
-                  Devotional
-                </TabsTrigger>
-              </TabsList>
+            <TabsList className="grid w-full grid-cols-2 mb-6">
+              <TabsTrigger value="read">
+                <BookOpen className="w-4 h-4 mr-2" />
+                Read
+              </TabsTrigger>
+              <TabsTrigger value="devotional">
+                <Heart className="w-4 h-4 mr-2" />
+                Devotional
+              </TabsTrigger>
+            </TabsList>
 
-              <TabsContent value="read">
-                <div className="space-y-6">
-            {/* Stats Cards */}
-            <div className="grid grid-cols-3 gap-3 mb-6">
+            <TabsContent value="read">
+              <div className="space-y-6">
+                {/* Stats Cards */}
+                <div className="grid grid-cols-3 gap-3 mb-6">
               <motion.button
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
