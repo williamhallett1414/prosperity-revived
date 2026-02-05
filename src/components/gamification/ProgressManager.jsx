@@ -167,6 +167,9 @@ export async function checkAndAwardBadges(userEmail) {
             showBadgeNotification(badge);
           }
           
+          // Send notification
+          await notifyAchievement(userEmail, badge.name);
+          
           newBadges.push(badge);
         }
       }
