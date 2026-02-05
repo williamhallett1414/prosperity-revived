@@ -10,6 +10,260 @@ import ReflectionPrompt from './ReflectionPrompt';
 import CompletionTracker from './CompletionTracker';
 
 const studyGuideContentMap = {
+  'psalms': {
+    introduction: [
+      "The Book of Psalms is a collection of 150 sacred songs and prayers that express the full range of human emotion in response to God. Known as the Psalter or the Songbook of Israel, Psalms has been the source of comfort, strength, and spiritual expression for believers throughout history.",
+      "The Psalms were written over many centuries by various authors, with King David traditionally credited as the primary author, though many psalms are attributed to other musicians and temple poets. These prayers and praises served as worship material in the Temple and continue to be recited in synagogues and churches worldwide.",
+      "The Psalms are organized into five books and cover themes including praise and thanksgiving, lament and sorrow, wisdom and instruction, historical reflection, and messianic hope. They reveal God's character while acknowledging human struggle, doubt, and the journey toward faith.",
+      "The depth and honesty of the Psalms make them uniquely powerful. They don't shy away from expressing anger, fear, and confusion, making them incredibly relevant to modern believers who seek authentic spiritual expression."
+    ],
+    historicalContext: {
+      timePeriod: "The Psalms were composed over a span of approximately 500 years, from roughly the 10th to the 5th century BCE, with some potentially dating to earlier traditions. Many reflect specific historical events during Israel's monarchy and exile.",
+      authorship: "Traditionally attributed to King David, though modern scholarship recognizes multiple authors including Asaph, the sons of Korah, and other temple musicians. The diversity of authorship is reflected in the variety of themes and styles throughout the book.",
+      geography: "The Psalms were composed primarily in Israel/Judea, with strong connections to Jerusalem and the Temple. References to Zion, the Holy City, and the sanctuary appear throughout.",
+      transmission: "Originally composed as songs and prayers for worship, the Psalms were collected and organized into five books corresponding to the five books of the Torah. They were essential to Jewish and Christian worship from ancient times."
+    },
+    keyCharacters: [
+      { name: 'King David', desc: 'Traditionally credited as the primary author, David\'s life experiences inform many psalms of lament, praise, and trust in God.' },
+      { name: 'The Psalmist', desc: 'A representative figure expressing the full range of human emotion and spiritual experience before God.' },
+      { name: 'God', desc: 'The central subject and recipient of all psalms, portrayed as creator, judge, redeemer, and shepherd.' },
+      { name: 'Israel/The People', desc: 'The collective community whose prayers and experiences are voiced throughout the psalms.' },
+      { name: 'The Enemies', desc: 'Symbolic figures representing spiritual opposition, inner turmoil, and external threats.' },
+      { name: 'The Messiah', desc: 'Anticipated in messianic psalms, pointing forward to Christ\'s coming in Christian interpretation.' }
+    ],
+    keyEvents: [
+      { event: 'Individual Prayers of Lament', desc: 'Psalms expressing personal suffering and the cry for God\'s deliverance.' },
+      { event: 'Corporate Praise and Worship', desc: 'Community celebrations and corporate thanksgiving for God\'s mighty deeds.' },
+      { event: 'Historical Recollection', desc: 'Reflection on God\'s faithfulness throughout Israel\'s history.' },
+      { event: 'Royal Coronation Psalms', desc: 'Songs celebrating the king\'s coronation and God\'s covenant with David.' },
+      { event: 'Exilic Longing', desc: 'Psalms composed during or reflecting the Babylonian exile, expressing homesickness and hope.' },
+      { event: 'Messianic Anticipation', desc: 'Psalms pointing toward the coming Messiah and ultimate redemption.' },
+      { event: 'Renewed Confidence', desc: 'Movement from lament to trust and rejoicing in God\'s protection.' }
+    ],
+    keyScriptures: [
+      { verse: 'Psalm 23:1', text: '"The Lord is my shepherd; I shall not want."', insight: 'One of the most beloved psalms, expressing complete trust in God\'s care and guidance.' },
+      { verse: 'Psalm 42:5', text: '"Why, my soul, are you downcast? Why so disturbed within me?"', insight: 'Captures the struggle of faith, moving from despair to renewed hope.' },
+      { verse: 'Psalm 150:1-2', text: '"Praise the Lord... Praise him for his mighty deeds."', insight: 'The climactic call to praise God with instruments and celebration.' }
+    ],
+    keyLocations: [
+      { location: 'The Temple', desc: 'The central place of worship where Psalms were sung and used in liturgy.' },
+      { location: 'Zion', desc: 'Poetic reference to Jerusalem and God\'s dwelling place, symbolizing spiritual hope.' },
+      { location: 'The Sanctuary', desc: 'The holy place where believers refuge and encounter God.' },
+      { location: 'Wilderness', desc: 'Symbolic location representing trials, refuge, and testing in the spiritual journey.' },
+      { location: 'The Nations', desc: 'Referenced as places and peoples where God\'s dominion extends.' }
+    ],
+    keyLessons: [
+      { title: 'Authentic Expression', desc: 'The Psalms teach that honest, emotional prayer is acceptable and even encouraged before God.' },
+      { title: 'God\'s Faithfulness', desc: 'Repeatedly demonstrates that God is trustworthy even when circumstances suggest otherwise.' },
+      { title: 'Progression of Faith', desc: 'Shows the journey from lament and doubt to renewed confidence and praise.' },
+      { title: 'Community Worship', desc: 'Emphasizes the importance of corporate prayer and praise alongside personal devotion.' },
+      { title: 'God\'s Sovereignty', desc: 'Affirms God\'s ultimate control and care despite human struggles and suffering.' },
+      { title: 'Messianic Hope', desc: 'Points forward to Christ as the ultimate fulfillment of God\'s redemptive plan.' }
+    ]
+  },
+  'matthew': {
+    introduction: [
+      "Matthew's Gospel presents the life, teachings, and resurrection of Jesus Christ, emphasizing His role as the promised Messiah of Israel. Written for a Jewish audience, Matthew carefully connects Jesus to Old Testament prophecies and the lineage of King David.",
+      "The Gospel is structured around five major teachings of Jesus (the Sermon on the Mount, parables of the kingdom, commissioning of disciples, temple teachings, and apocalyptic discourse), interspersed with narrative accounts of His miracles and interactions.",
+      "Matthew portrays Jesus as the Messiah King who establishes a new kingdom based on righteousness, compassion, and spiritual transformation. The gospel emphasizes the fulfillment of Old Testament prophecies in Jesus's life, death, and resurrection.",
+      "With its organized structure and emphasis on teaching, Matthew's Gospel has been influential in Christian education and discipleship, providing comprehensive instruction for believers seeking to understand Jesus's message and mission."
+    ],
+    historicalContext: {
+      timePeriod: "Written approximately 60-90 CE, after the fall of Jerusalem in 70 CE, Matthew addresses a primarily Jewish-Christian community experiencing transition and conflict with Jewish authorities.",
+      authorship: "Traditionally attributed to Matthew (Levi), one of Jesus's twelve disciples and a former tax collector. Modern scholarship suggests an unknown Jewish-Christian author drawing on Mark's Gospel and other sources.",
+      geography: "The Gospel follows Jesus's ministry primarily in Galilee and Judea, with significant focus on Jerusalem and the temple. It reflects knowledge of Palestinian geography and Jewish customs.",
+      transmission: "Matthew was widely used in early churches for teaching and worship, becoming one of the four canonical gospels and extensively cited in early Christian writings."
+    },
+    keyCharacters: [
+      { name: 'Jesus Christ', desc: 'The central figure, portrayed as the Messiah King and Son of God who teaches with authority and performs miracles.' },
+      { name: 'The Twelve Apostles', desc: 'Jesus\'s chosen disciples, including Peter, James, John, and Judas, who witness His teachings and miracles.' },
+      { name: 'John the Baptist', desc: 'The forerunner of Jesus who prepares the way and baptizes Jesus at the beginning of His ministry.' },
+      { name: 'Mary', desc: 'Jesus\'s mother, emphasizing the miraculous virginal conception and Jesus\'s legal connection to King David.' },
+      { name: 'The Pharisees and Sadducees', desc: 'Jewish religious leaders who often oppose Jesus and are critiqued for their hypocrisy.' },
+      { name: 'Pontius Pilate', desc: 'The Roman governor who reluctantly orders Jesus\'s crucifixion.' }
+    ],
+    keyEvents: [
+      { event: 'The Genealogy and Birth', desc: 'Jesus\'s lineage traced through David and Abraham, emphasizing His role as the promised Messiah.' },
+      { event: 'The Sermon on the Mount', desc: 'Jesus\'s foundational teaching on righteousness, character, and kingdom values.' },
+      { event: 'Miracles and Healings', desc: 'Demonstrations of Jesus\'s divine authority over nature, illness, and demons.' },
+      { event: 'The Transfiguration', desc: 'Jesus revealed in glory with Moses and Elijah, confirming His divine nature.' },
+      { event: 'The Cleansing of the Temple', desc: 'Jesus\'s prophetic action condemning commercialism in worship.' },
+      { event: 'The Last Supper', desc: 'Jesus\'s final meal with disciples, instituting communion/Eucharist.' },
+      { event: 'The Crucifixion and Resurrection', desc: 'Jesus\'s death and resurrection, the climax of salvation history.' }
+    ],
+    keyScriptures: [
+      { verse: 'Matthew 5:3-12', text: '"Blessed are the poor in spirit...the pure in heart..."', insight: 'The Beatitudes establish the character and values of kingdom citizens.' },
+      { verse: 'Matthew 16:18', text: '"You are Peter, and on this rock I will build my church."', insight: 'Jesus establishes His church and gives Peter a foundational role.' },
+      { verse: 'Matthew 28:19-20', text: '"Go and make disciples of all nations...I am with you always."', insight: 'The Great Commission defines the church\'s ongoing mission and Jesus\'s continued presence.' }
+    ],
+    keyLocations: [
+      { location: 'Bethlehem', desc: 'Jesus\'s birthplace, fulfilling prophecy about the Messiah.' },
+      { location: 'Galilee', desc: 'The primary setting for Jesus\'s ministry and teaching.' },
+      { location: 'The Mount of Olives', desc: 'Site of significant teachings including the Olivet Discourse.' },
+      { location: 'Jerusalem/The Temple', desc: 'The spiritual and political center where Jesus faces opposition and is crucified.' },
+      { location: 'Golgotha', desc: 'The place of crucifixion where Jesus dies for the sins of the world.' }
+    ],
+    keyLessons: [
+      { title: 'Messianic Fulfillment', desc: 'Jesus is the Messiah promised in Old Testament prophecy, fulfilling the expectations of Israel.' },
+      { title: 'Ethical Living', desc: 'The Sermon on the Mount provides comprehensive teaching on righteous living that exceeds mere outward compliance.' },
+      { title: 'Kingdom of Heaven', desc: 'Jesus establishes a spiritual kingdom characterized by justice, mercy, and transformation.' },
+      { title: 'Faith and Authority', desc: 'Jesus demonstrates divine authority and calls believers to trust completely in Him.' },
+      { title: 'Discipleship', desc: 'Following Jesus involves self-denial, taking up one\'s cross, and serving others.' },
+      { title: 'Salvation Through Christ', desc: 'Jesus\'s death and resurrection provide redemption and forgiveness for all who believe.' }
+    ]
+  },
+  'proverbs': {
+    introduction: [
+      "The Book of Proverbs is a collection of wisdom sayings, observations, and instructions designed to guide readers toward righteous living and practical success. Traditionally attributed to King Solomon, known for his wisdom, Proverbs addresses universal human concerns: relationships, work, finances, speech, and character.",
+      "Rather than narrative or theology, Proverbs offers concise, memorable statements that contrast wisdom with folly, righteousness with wickedness, and the wise with the foolish. Its aphoristic style makes it timeless and applicable across cultures and generations.",
+      "The book is organized thematically and by author, with distinct sections addressing topics like family relationships, business dealings, government, friendship, and the fear of God. Its practical focus makes it invaluable for personal development and decision-making.",
+      "Proverbs emphasizes that wisdom begins with the fear of the Lord—a healthy respect and reverence for God. This foundation transforms individual choices and leads to flourishing life characterized by virtue, success, and peace."
+    ],
+    historicalContext: {
+      timePeriod: "Proverbs likely developed over several centuries, with collections attributed to Solomon (10th century BCE) as well as later additions from the period of 500-200 BCE, reflecting various periods of Israel's history.",
+      authorship: "Traditionally attributed to King Solomon, though modern scholarship recognizes multiple authors and editors. Various sections are attributed to sages and wise men from different periods.",
+      geography: "Composed in ancient Israel, Proverbs reflects the social structures, economics, and relationships of the ancient Near East, with references to royal courts, agriculture, and commerce.",
+      transmission: "The Proverbs were preserved and transmitted as wisdom literature valued in Jewish education. They appear frequently in New Testament teachings and continue to shape moral and practical instruction."
+    },
+    keyCharacters: [
+      { name: 'King Solomon', desc: 'Traditionally credited as the primary author, representing wisdom and righteous leadership.' },
+      { name: 'The Wise', desc: 'Representative figures who listen to instruction, fear God, and live righteously.' },
+      { name: 'The Fool', desc: 'The counterpart to the wise, representing foolishness, pride, and rejection of guidance.' },
+      { name: 'Lady Wisdom', desc: 'A personified figure calling to righteousness and understanding throughout the book.' },
+      { name: 'The Adulteress/Seductress', desc: 'A symbolic figure representing temptation and the dangers of lustful desire.' },
+      { name: 'The Parent and Child', desc: 'Representing the relationship of instruction and discipline essential to growth.' }
+    ],
+    keyEvents: [
+      { event: 'Proverbs on Family Life', desc: 'Guidance for parents, children, spouses, and household relationships.' },
+      { event: 'Proverbs on Work and Commerce', desc: 'Practical wisdom for employment, business, honest dealing, and financial prudence.' },
+      { event: 'Proverbs on Speech', desc: 'Instructions on the power of words, truthfulness, gossip, and encouragement.' },
+      { event: 'Proverbs on Moral Character', desc: 'Contrasts between virtue and vice, pride and humility, courage and cowardice.' },
+      { event: 'Proverbs on Rulers and Government', desc: 'Advice for kings and leaders regarding justice, mercy, and righteous rule.' },
+      { event: 'The Call of Wisdom', desc: 'Lady Wisdom\'s invitation to pursue understanding and righteousness.' }
+    ],
+    keyScriptures: [
+      { verse: 'Proverbs 1:7', text: '"The fear of the Lord is the beginning of knowledge."', insight: 'Establishes that reverence for God is the foundation of all true wisdom.' },
+      { verse: 'Proverbs 3:5-6', text: '"Trust in the Lord with all your heart...and He will direct your paths."', insight: 'Emphasizes submission to God\'s wisdom over human understanding.' },
+      { verse: 'Proverbs 22:6', text: '"Train up a child in the way they should go."', insight: 'Highlights the importance of early instruction and parental guidance.' }
+    ],
+    keyLocations: [
+      { location: 'The Royal Court', desc: 'Setting for wisdom about leadership and kingship.' },
+      { location: 'The Marketplace', desc: 'Context for business dealings and commercial ethics.' },
+      { location: 'The Home', desc: 'Central location for family relationships and domestic instruction.' },
+      { location: 'The Street/City Gates', desc: 'Public spaces where wisdom calls out to the foolish and undiscerning.' },
+      { location: 'The Temple', desc: 'Spiritual center where fear of God and worship are emphasized.' }
+    ],
+    keyLessons: [
+      { title: 'Fear of God as Foundation', desc: 'True wisdom begins with reverence for God and submission to His authority.' },
+      { title: 'Practical Righteousness', desc: 'Wisdom is demonstrated through ethical behavior, honest dealings, and moral choices.' },
+      { title: 'Speech and Character', desc: 'Words reveal character; wise speech brings life; foolish speech brings harm.' },
+      { title: 'Work and Diligence', desc: 'Diligent work is valued and blessed; laziness leads to poverty and shame.' },
+      { title: 'Relationships and Community', desc: 'Healthy relationships require honesty, kindness, humility, and mutual respect.' },
+      { title: 'Consequences and Choices', desc: 'Choices have consequences; wisdom leads to flourishing; foolishness leads to destruction.' }
+    ]
+  },
+  'romans': {
+    introduction: [
+      "Paul's Letter to the Romans is considered one of the most important epistles in the New Testament, presenting a comprehensive exposition of the gospel of Jesus Christ and its implications for both Jews and Gentiles.",
+      "Written approximately 55-57 CE, Romans systematically explains how salvation comes through faith in Christ, how God's grace justifies sinners, and how the gospel fulfills God's ancient promises to Israel.",
+      "The letter addresses critical theological questions: How are people made right with God? What is the relationship between law and grace? How do Jews and Gentiles relate in God's plan? Romans provides foundational answers that have shaped Christian theology for nearly 2000 years.",
+      "Paul's argument progresses from humanity's sinfulness and need for redemption, through justification by faith, to sanctification and transformation by the Holy Spirit. The letter concludes with practical instructions for living out the gospel in daily relationships."
+    ],
+    historicalContext: {
+      timePeriod: "Written around 55-57 CE from Corinth, addressed to the church at Rome which Paul had not yet visited. The letter precedes Paul's journey to Jerusalem and Rome.",
+      authorship: "Written by the Apostle Paul to a church he did not plant, demonstrating his missionary vision and theological maturity.",
+      geography: "Addressed to believers in Rome, the capital of the empire. Paul writes as someone planning to visit and minister there.",
+      transmission: "Romans was preserved and transmitted as one of Paul's most influential letters, extensively quoted in early Christian writings and foundational to Protestant theology."
+    },
+    keyCharacters: [
+      { name: 'Paul', desc: 'The apostle and author, presenting himself as apostle to the Gentiles.' },
+      { name: 'Jesus Christ', desc: 'The central subject, portrayed as Savior and Lord whose death and resurrection save believers.' },
+      { name: 'The Roman Church', desc: 'Diverse believers (both Jews and Gentiles) to whom Paul addresses his theology.' },
+      { name: 'Adam', desc: 'Representative of humanity\'s sinfulness and the consequences of the fall.' },
+      { name: 'The Law', desc: 'Portrayed as both holy and ineffective without faith, serving pedagogical purposes.' },
+      { name: 'The Holy Spirit', desc: 'Active agent of transformation, intercession, and assurance for believers.' }
+    ],
+    keyEvents: [
+      { event: 'Exposition of Sin', desc: 'Demonstration that all humans (Jews and Gentiles) are sinful and need salvation.' },
+      { event: 'Justification by Faith', desc: 'Explanation of how believers are declared righteous through faith in Christ.' },
+      { event: 'Death and Life in Christ', desc: 'Union with Christ in His death and resurrection provides liberation from sin.' },
+      { event: 'The Role of the Law', desc: 'Clarification of the law\'s purpose and its relationship to grace and faith.' },
+      { event: 'Transformation by the Spirit', desc: 'The Holy Spirit\'s work in sanctification and progressive transformation.' },
+      { event: 'God\'s Plan for Israel', desc: 'Explanation of Israel\'s past rejection and future restoration in God\'s purposes.' },
+      { event: 'Practical Living', desc: 'Guidance for living righteously as response to God\'s grace.' }
+    ],
+    keyScriptures: [
+      { verse: 'Romans 3:23', text: '"All have sinned and fall short of the glory of God."', insight: 'Establishes universal sinfulness and the need for redemption.' },
+      { verse: 'Romans 5:8', text: '"Christ died for us while we were still sinners."', insight: 'Demonstrates God\'s love and Christ\'s sacrificial work.' },
+      { verse: 'Romans 8:37-39', text: '"In all these things we are more than conquerors...nothing can separate us from God\'s love."', insight: 'Assures believers of eternal security and God\'s unfailing love.' }
+    ],
+    keyLocations: [
+      { location: 'Rome', desc: 'The capital city and destination of the letter, representing pagan civilization.' },
+      { location: 'Jerusalem', desc: 'Center of Jewish religion and the site of Christ\'s crucifixion.' },
+      { location: 'The Cross', desc: 'The place of Christ\'s redemptive work for humanity.' },
+      { location: 'The Heart/Inner Self', desc: 'The spiritual location where faith operates and transformation occurs.' },
+      { location: 'The Church', desc: 'The community of believers where unity and love should characterize relationships.' }
+    ],
+    keyLessons: [
+      { title: 'Universal Sinfulness', desc: 'All humans, both Gentiles and Jews, are sinful and stand under God\'s judgment.' },
+      { title: 'Salvation by Faith', desc: 'Right standing with God comes through faith in Christ\'s atoning work, not human effort.' },
+      { title: 'Grace and the Law', desc: 'God\'s grace supersedes the law; the law reveals sin but cannot save.' },
+      { title: 'Union with Christ', desc: 'Believers are united with Christ in His death and resurrection, experiencing liberation.' },
+      { title: 'Sanctification', desc: 'The Holy Spirit progressively transforms believers into the image of Christ.' },
+      { title: 'God\'s Faithfulness', desc: 'Despite human failure, God\'s plan for both Jews and Gentiles will ultimately succeed.' }
+    ]
+  },
+  'john': {
+    introduction: [
+      "John's Gospel stands apart from the other three gospels, presenting a uniquely theological account of Jesus's life that emphasizes His divine identity and the meaning of believing in Him.",
+      "Rather than tracing Jesus's genealogy or recounting extensive teachings, John focuses on seven dramatic 'signs' (miracles) that reveal Jesus's identity and power, interspersed with profound theological discourse.",
+      "Written for both Jews and Greek-speaking gentiles, John's Gospel invites readers to believe that Jesus is the Christ, the Son of God, and that through believing they might have life in His name.",
+      "The Gospel's philosophical language ('Word,' 'light,' 'truth,' 'glory') and emphasis on spiritual rebirth and the person of Jesus make it distinctly contemplative, inviting deeper meditation on Jesus's identity and significance."
+    ],
+    historicalContext: {
+      timePeriod: "Written approximately 90-110 CE, one of the latest gospels, after the destruction of the temple and during increasing Jewish-Christian separation.",
+      authorship: "Traditionally attributed to the Apostle John, son of Zebedee, though modern scholarship suggests authorship by a Johannine community reflective of John's teaching.",
+      geography: "The Gospel reflects knowledge of Palestinian geography and Jewish customs while being written for a broader audience. Settings include Galilee, Samaria, and Jerusalem.",
+      transmission: "John was widely used in early churches and became particularly influential in Christian theology. Its prologue shaped early Christological concepts."
+    ],
+    keyCharacters: [
+      { name: 'Jesus Christ', desc: 'Presented as the Word made flesh, Son of God, and giver of life.' },
+      { name: 'John the Baptist', desc: 'Witness to Jesus, contrasting light and darkness.' },
+      { name: 'The Disciples', desc: 'Learners who gradually come to understand Jesus\'s true identity through encounter and teaching.' },
+      { name: 'Mary (Jesus\'s mother)', desc: 'Represents believers who follow Jesus throughout His ministry.' },
+      { name: 'Thomas', desc: 'Represents doubt transformed into faith through encounter with the risen Jesus.' },
+      { name: 'The Beloved Disciple', desc: 'Idealized disciple embodying faith and intimate relationship with Jesus.' }
+    ],
+    keyEvents: [
+      { event: 'The Prologue: The Word Incarnate', desc: 'Jesus revealed as eternal Word who became flesh.' },
+      { event: 'Signs of Jesus\'s Divinity', desc: 'Seven miracles revealing Jesus\'s identity and power (water to wine, healing, raising Lazarus, etc.).' },
+      { event: 'The Bread of Life Discourse', desc: 'Jesus\'s teaching on faith and sustenance through belief in Him.' },
+      { event: 'The Woman at the Well', desc: 'Jesus\'s encounter with a Samaritan woman, revealing His mission to all people.' },
+      { event: 'The Healing on the Sabbath', desc: 'Jesus\'s authority over religious law and compassion for the afflicted.' },
+      { event: 'Jesus Washes Disciples\' Feet', desc: 'Demonstration of humble service as the model for following Jesus.' },
+      { event: 'The Crucifixion and Resurrection', desc: 'Jesus\'s glorification through death and resurrection.' }
+    ],
+    keyScriptures: [
+      { verse: 'John 1:1-3', text: '"In the beginning was the Word, and the Word was with God, and the Word was God."', insight: 'Establishes Jesus\'s eternal divine nature and role in creation.' },
+      { verse: 'John 3:16', text: '"For God so loved the world that He gave His only Son..."', insight: 'The gospel message summarized: God\'s love expressed through Christ\'s sacrifice.' },
+      { verse: 'John 14:6', text: '"I am the way, the truth, and the life."', insight: 'Jesus\'s exclusive claim as the only path to God and eternal life.' }
+    ],
+    keyLocations: [
+      { location: 'Bethlehem/Jerusalem', desc: 'Jesus\'s origin and primary ministry location.' },
+      { location: 'Galilee', desc: 'Setting for early signs and teachings.' },
+      { location: 'Samaria', desc: 'Location of the well encounter, signifying Jesus\'s inclusion of outsiders.' },
+      { location: 'The Temple', desc: 'Site of confrontation and spiritual teachings about true worship.' },
+      { location: 'Gethsemane/Golgotha', desc: 'Locations of Jesus\'s passion and redemptive work.' }
+    ],
+    keyLessons: [
+      { title: 'Jesus as Divine', desc: 'John emphasizes Jesus\'s eternal divinity and equality with God.' },
+      { title: 'Belief as Central', desc: 'Saving faith is not mere intellectual agreement but personal trust and commitment to Jesus.' },
+      { title: 'Spiritual Rebirth', desc: 'Becoming a disciple requires spiritual transformation from above.' },
+      { title: 'Jesus as Life-Giver', desc: 'Jesus provides both physical and spiritual life to all who believe.' },
+      { title: 'Love as Central Value', desc: 'Jesus\'s ultimate commandment is that disciples love one another and the world.' },
+      { title: 'Abiding in Jesus', desc: 'The metaphor of the vine and branches emphasizes ongoing relationship and dependence on Jesus.' }
+    ]
+  },
   'genesis': {
     introduction: [
       "As the first book of the Bible, the Book of Genesis holds immense significance for both Judaism and Christianity. Its name, derived from the Greek term γένεσις (genesis), translates to \"origin\" or \"birth,\" alluding to its primary purpose of providing an account of the creation of the universe, earth, and humanity.",
