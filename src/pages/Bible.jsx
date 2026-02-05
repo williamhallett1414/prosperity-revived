@@ -152,7 +152,7 @@ export default function Bible() {
               </TabsTrigger>
               <TabsTrigger value="qa">
                 <Compass className="w-4 h-4 mr-2" />
-                Ask AI
+                Questions
               </TabsTrigger>
             </TabsList>
 
