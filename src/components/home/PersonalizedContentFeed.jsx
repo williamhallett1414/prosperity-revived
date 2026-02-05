@@ -49,29 +49,32 @@ export default function PersonalizedContentFeed({ user, userProgress, existingPo
         setLoading(true);
         
         // Build user context
-        const userPosts = userActivity.posts.filter(p => p.created_by === user.email).length;
-        const userComments = userActivity.comments.filter(c => c.created_by === user.email).length;
-        const userFriends = userActivity.friends.filter(f => 
-          (f.user_email === user.email || f.friend_email === user.email) && f.status === 'accepted'
+        const userPosts = (userActivity.posts || []).filter(p => p && p.created_by === user.email).length;
+        const userComments = (userActivity.comments || []).filter(c => c && c.created_by === user.email).length;
+        const userFriends = (userActivity.friends || []).filter(f => 
+          f && (f.user_email === user.email || f.friend_email === user.email) && f.status === 'accepted'
         ).length;
-        const recentActivities = userActivity.selfCare.filter(a => 
-          a.created_by === user.email
+        const recentActivities = (userActivity.selfCare || []).filter(a => 
+          a && a.created_by === user.email
         ).map(a => a.activity_type).slice(0, 5);
 
         // Get top posts by engagement
-        const topPosts = allPosts
+        const topPosts = (allPosts || [])
+          .filter(p => p && p.content)
           .sort((a, b) => (b.likes || 0) - (a.likes || 0))
           .slice(0, 10);
 
         // Get engaging users (by post activity)
         const userPostCounts = new Map();
-        allPosts.forEach(post => {
-          userPostCounts.set(post.created_by, (userPostCounts.get(post.created_by) || 0) + 1);
+        (allPosts || []).forEach(post => {
+          if (post && post.created_by) {
+            userPostCounts.set(post.created_by, (userPostCounts.get(post.created_by) || 0) + 1);
+          }
         });
         const topUsers = Array.from(userPostCounts.entries())
           .sort((a, b) => b[1] - a[1])
           .slice(0, 5)
-          .map(([email]) => allUsers.find(u => u.email === email))
+          .map(([email]) => (allUsers || []).find(u => u && u.email === email))
           .filter(Boolean);
 
         // Build prompt for AI
