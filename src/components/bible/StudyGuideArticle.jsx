@@ -1,8 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowLeft, ChevronDown, ChevronUp, BookOpen } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { base44 } from '@/api/base44Client';
+import StudyNotes from './StudyNotes';
+import ReflectionPrompt from './ReflectionPrompt';
+import CompletionTracker from './CompletionTracker';
 
 const studyGuideContentMap = {
   'genesis': {
@@ -59,6 +64,7 @@ const studyGuideContentMap = {
 };
 
 export default function StudyGuideArticle({ guide, onBack }) {
+  const queryClient = useQueryClient();
   const [expandedSections, setExpandedSections] = useState({
     introduction: true,
     historicalContext: false,
@@ -70,6 +76,74 @@ export default function StudyGuideArticle({ guide, onBack }) {
   });
 
   const content = studyGuideContentMap[guide.id];
+
+  // Fetch progress
+  const { data: progress } = useQuery({
+    queryKey: ['studyProgress', guide.id],
+    queryFn: async () => {
+      const results = await base44.entities.StudyGuideProgress.filter({
+        guide_id: guide.id
+      });
+      return results[0] || {
+        guide_id: guide.id,
+        guide_name: guide.title,
+        completed_sections: [],
+        overall_progress: 0,
+        is_completed: false
+      };
+    }
+  });
+
+  // Fetch notes
+  const { data: notes = {} } = useQuery({
+    queryKey: ['studyNotes', guide.id],
+    queryFn: async () => {
+      const results = await base44.entities.StudyGuideNote.filter({
+        guide_id: guide.id
+      });
+      const notesMap = {};
+      results.forEach(note => {
+        const key = `${note.section}-${note.subsection || ''}`;
+        notesMap[key] = note.content;
+      });
+      return notesMap;
+    }
+  });
+
+  // Mutations
+  const updateProgressMutation = useMutation({
+    mutationFn: async (newProgress) => {
+      if (progress?.id) {
+        await base44.entities.StudyGuideProgress.update(progress.id, newProgress);
+      } else {
+        await base44.entities.StudyGuideProgress.create(newProgress);
+      }
+    },
+    onSuccess: () => queryClient.invalidateQueries(['studyProgress', guide.id])
+  });
+
+  const saveNoteMutation = useMutation({
+    mutationFn: async ({ section, subsection, content }) => {
+      const key = `${section}-${subsection || ''}`;
+      const existing = await base44.entities.StudyGuideNote.filter({
+        guide_id: guide.id,
+        section,
+        subsection: subsection || null
+      });
+      
+      if (existing.length > 0) {
+        await base44.entities.StudyGuideNote.update(existing[0].id, { content });
+      } else {
+        await base44.entities.StudyGuideNote.create({
+          guide_id: guide.id,
+          section,
+          subsection: subsection || undefined,
+          content
+        });
+      }
+    },
+    onSuccess: () => queryClient.invalidateQueries(['studyNotes', guide.id])
+  });
 
   if (!content) {
     return (
@@ -89,6 +163,35 @@ export default function StudyGuideArticle({ guide, onBack }) {
       [section]: !prev[section]
     }));
   };
+
+  const handleToggleCompletion = (section) => {
+    const newCompleted = progress?.completed_sections || [];
+    if (newCompleted.includes(section)) {
+      newCompleted.splice(newCompleted.indexOf(section), 1);
+    } else {
+      newCompleted.push(section);
+    }
+    const newProgress = Math.round((newCompleted.length / 7) * 100);
+    updateProgressMutation.mutate({
+      guide_id: guide.id,
+      guide_name: guide.title,
+      completed_sections: newCompleted,
+      overall_progress: newProgress,
+      is_completed: newProgress === 100
+    });
+  };
+
+  const handleSaveNote = async (section, subsection, content) => {
+    await saveNoteMutation.mutateAsync({ section, subsection, content });
+  };
+
+  const getNote = (section, subsection) => {
+    const key = `${section}-${subsection || ''}`;
+    return notes[key] || '';
+  };
+
+  const sections = ['introduction', 'historicalContext', 'keyCharacters', 'keyEvents', 'keyScriptures', 'keyLocations', 'keyLessons'];
+  const sectionLabels = ['Introduction', 'Historical Context', 'Key Characters', 'Key Events', 'Key Scriptures', 'Key Locations', 'Key Lessons'];
 
   const SectionHeader = ({ title, section, isExpanded }) => (
     <button
@@ -116,6 +219,19 @@ export default function StudyGuideArticle({ guide, onBack }) {
           Back
         </Button>
 
+        {/* Completion Tracker */}
+        {progress && (
+          <CompletionTracker
+            sections={sectionLabels}
+            completedSections={progress.completed_sections}
+            onToggleSection={(label) => {
+              const sectionKey = sections[sectionLabels.indexOf(label)];
+              handleToggleCompletion(sectionKey);
+            }}
+            overallProgress={progress.overall_progress}
+          />
+        )}
+
         {/* Header Image */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -138,11 +254,15 @@ export default function StudyGuideArticle({ guide, onBack }) {
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
           <SectionHeader title="Introduction" section="introduction" isExpanded={expandedSections.introduction} />
           {expandedSections.introduction && (
-            <Card className="p-6 mt-2 space-y-4 text-gray-700 dark:text-gray-300 leading-relaxed">
-              {content.introduction.map((paragraph, index) => (
-                <p key={index}>{paragraph}</p>
-              ))}
-            </Card>
+            <>
+              <Card className="p-6 mt-2 space-y-4 text-gray-700 dark:text-gray-300 leading-relaxed">
+                {content.introduction.map((paragraph, index) => (
+                  <p key={index}>{paragraph}</p>
+                ))}
+              </Card>
+              <ReflectionPrompt section="Introduction" content={content.introduction.join(' ')} />
+              <StudyNotes section="introduction" notes={getNote('introduction')} onSave={(content) => handleSaveNote('introduction', undefined, content)} />
+            </>
           )}
         </motion.div>
 
@@ -183,6 +303,8 @@ export default function StudyGuideArticle({ guide, onBack }) {
                 </div>
               ))}
             </Card>
+            <ReflectionPrompt section="Key Characters" content={content.keyCharacters.map(c => c.desc).join(' ')} />
+            <StudyNotes section="keyCharacters" notes={getNote('keyCharacters')} onSave={(content) => handleSaveNote('keyCharacters', undefined, content)} />
           )}
         </motion.div>
 
@@ -198,6 +320,8 @@ export default function StudyGuideArticle({ guide, onBack }) {
                 </div>
               ))}
             </Card>
+            <ReflectionPrompt section="Key Events" content={content.keyEvents.map(e => e.desc).join(' ')} />
+            <StudyNotes section="keyEvents" notes={getNote('keyEvents')} onSave={(content) => handleSaveNote('keyEvents', undefined, content)} />
           )}
         </motion.div>
 
@@ -214,6 +338,8 @@ export default function StudyGuideArticle({ guide, onBack }) {
                 </div>
               ))}
             </Card>
+            <ReflectionPrompt section="Key Scriptures" content={content.keyScriptures.map(s => s.text).join(' ')} />
+            <StudyNotes section="keyScriptures" notes={getNote('keyScriptures')} onSave={(content) => handleSaveNote('keyScriptures', undefined, content)} />
           )}
         </motion.div>
 
@@ -229,6 +355,8 @@ export default function StudyGuideArticle({ guide, onBack }) {
                 </div>
               ))}
             </Card>
+            <ReflectionPrompt section="Key Locations" content={content.keyLocations.map(l => l.desc).join(' ')} />
+            <StudyNotes section="keyLocations" notes={getNote('keyLocations')} onSave={(content) => handleSaveNote('keyLocations', undefined, content)} />
           )}
         </motion.div>
 
@@ -244,6 +372,8 @@ export default function StudyGuideArticle({ guide, onBack }) {
                 </div>
               ))}
             </Card>
+            <ReflectionPrompt section="Key Lessons" content={content.keyLessons.map(l => l.desc).join(' ')} />
+            <StudyNotes section="keyLessons" notes={getNote('keyLessons')} onSave={(content) => handleSaveNote('keyLessons', undefined, content)} />
           )}
         </motion.div>
 
