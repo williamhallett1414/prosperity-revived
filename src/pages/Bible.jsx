@@ -14,6 +14,7 @@ import { readingPlans } from '@/components/bible/BibleData';
 import BibleStatsModal from '@/components/bible/BibleStatsModal';
 import DevotionalContent from '@/components/bible/DevotionalContent';
 import BibleQA from '@/components/bible/BibleQA';
+import BibleStudyGuide from '@/components/bible/BibleStudyGuide';
 
 export default function Bible() {
   const [view, setView] = useState('books'); // books, chapters, reader
@@ -141,10 +142,14 @@ export default function Bible() {
           </div>
 
           <Tabs defaultValue="read" className="w-full">
-            <TabsList className="grid w-full grid-cols-3 mb-6">
+            <TabsList className="grid w-full grid-cols-4 mb-6">
               <TabsTrigger value="read">
                 <BookOpen className="w-4 h-4 mr-2" />
                 Read
+              </TabsTrigger>
+              <TabsTrigger value="study">
+                <BookOpen className="w-4 h-4 mr-2" />
+                Study
               </TabsTrigger>
               <TabsTrigger value="devotional">
                 <Heart className="w-4 h-4 mr-2" />
@@ -155,6 +160,10 @@ export default function Bible() {
                 Questions
               </TabsTrigger>
             </TabsList>
+
+            <TabsContent value="study">
+              <BibleStudyGuide />
+            </TabsContent>
 
             <TabsContent value="read">
               <div className="space-y-6">
