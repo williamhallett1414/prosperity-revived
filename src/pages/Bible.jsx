@@ -155,76 +155,76 @@ export default function Bible() {
               <div className="space-y-6">
                 {/* Stats Cards */}
                 <div className="grid grid-cols-3 gap-3 mb-6">
-              <motion.button
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                onClick={() => handleStatClick('days_read')}
-                className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 shadow-lg hover:shadow-xl transition-shadow text-left"
-              >
-                <BookOpen className="w-6 h-6 text-[#c9a227] mb-2" />
-                <p className="text-2xl font-bold text-[#1a1a2e] dark:text-white">{totalDaysRead}</p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">Days Read</p>
-              </motion.button>
-              
-              <motion.button
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 }}
-                onClick={() => handleStatClick('streak')}
-                className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 shadow-lg hover:shadow-xl transition-shadow text-left"
-              >
-                <TrendingUp className="w-6 h-6 text-[#8fa68a] mb-2" />
-                <p className="text-2xl font-bold text-[#1a1a2e] dark:text-white">{longestStreak}</p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">Longest Streak</p>
-              </motion.button>
-              
-              <motion.button
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-                onClick={() => handleStatClick('bookmarks')}
-                className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 shadow-lg hover:shadow-xl transition-shadow text-left"
-              >
-                <CheckCircle className="w-6 h-6 text-[#c9a227] mb-2" />
-                <p className="text-2xl font-bold text-[#1a1a2e] dark:text-white">{bookmarks.length}</p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">Saved Verses</p>
-              </motion.button>
-            </div>
+                  <motion.button
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    onClick={() => handleStatClick('days_read')}
+                    className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 shadow-lg hover:shadow-xl transition-shadow text-left"
+                  >
+                    <BookOpen className="w-6 h-6 text-[#c9a227] mb-2" />
+                    <p className="text-2xl font-bold text-[#1a1a2e] dark:text-white">{totalDaysRead}</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">Days Read</p>
+                  </motion.button>
+                  
+                  <motion.button
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 }}
+                    onClick={() => handleStatClick('streak')}
+                    className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 shadow-lg hover:shadow-xl transition-shadow text-left"
+                  >
+                    <TrendingUp className="w-6 h-6 text-[#8fa68a] mb-2" />
+                    <p className="text-2xl font-bold text-[#1a1a2e] dark:text-white">{longestStreak}</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">Longest Streak</p>
+                  </motion.button>
+                  
+                  <motion.button
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2 }}
+                    onClick={() => handleStatClick('bookmarks')}
+                    className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 shadow-lg hover:shadow-xl transition-shadow text-left"
+                  >
+                    <CheckCircle className="w-6 h-6 text-[#c9a227] mb-2" />
+                    <p className="text-2xl font-bold text-[#1a1a2e] dark:text-white">{bookmarks.length}</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">Saved Verses</p>
+                  </motion.button>
+                </div>
 
-            <div className="mb-8">
-              <BookSelector
-                onSelectBook={handleSelectBook}
-                selectedBook={selectedBook}
-              />
-            </div>
-              
-            {/* Reading Plans */}
-            {suggestedPlans.length > 0 && (
-              <div className="mt-6">
-                <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-lg font-semibold text-[#1a1a2e] dark:text-white flex items-center gap-2">
-                    <Compass className="w-5 h-5 text-[#c9a227]" />
-                    Reading Plans
-                  </h2>
-                  <Link to={createPageUrl('Plans')} className="text-sm text-[#c9a227] font-medium hover:underline">
-                    View All
-                  </Link>
+                <div className="mb-8">
+                  <BookSelector
+                    onSelectBook={handleSelectBook}
+                    selectedBook={selectedBook}
+                  />
                 </div>
-                <div className="grid grid-cols-1 gap-3">
-                  {suggestedPlans.slice(0, 3).map((plan, index) => (
-                    <ReadingPlanCard
-                      key={plan.id}
-                      plan={plan}
-                      progress={null}
-                      onClick={() => window.location.href = createPageUrl(`PlanDetail?id=${plan.id}`)}
-                      index={index}
-                    />
-                  ))}
-                </div>
+                  
+                {/* Reading Plans */}
+                {suggestedPlans.length > 0 && (
+                  <div className="mt-6">
+                    <div className="flex items-center justify-between mb-4">
+                      <h2 className="text-lg font-semibold text-[#1a1a2e] dark:text-white flex items-center gap-2">
+                        <Compass className="w-5 h-5 text-[#c9a227]" />
+                        Reading Plans
+                      </h2>
+                      <Link to={createPageUrl('Plans')} className="text-sm text-[#c9a227] font-medium hover:underline">
+                        View All
+                      </Link>
+                    </div>
+                    <div className="grid grid-cols-1 gap-3">
+                      {suggestedPlans.slice(0, 3).map((plan, index) => (
+                        <ReadingPlanCard
+                          key={plan.id}
+                          plan={plan}
+                          progress={null}
+                          onClick={() => window.location.href = createPageUrl(`PlanDetail?id=${plan.id}`)}
+                          index={index}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
-            )}
-                </div>
-              </TabsContent>
+            </TabsContent>
 
             <TabsContent value="devotional">
               <DevotionalContent />
