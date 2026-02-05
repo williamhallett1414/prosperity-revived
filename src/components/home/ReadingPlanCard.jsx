@@ -24,7 +24,7 @@ export default function ReadingPlanCard({ plan, progress, onClick, index }) {
       onClick={handleClick}
       className="group cursor-pointer bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 w-full text-left"
     >
-      <div className="relative h-32 overflow-hidden pointer-events-none">
+      <div className="relative h-32 overflow-hidden">
         <img
           src={plan.image}
           alt={plan.name}
@@ -38,7 +38,7 @@ export default function ReadingPlanCard({ plan, progress, onClick, index }) {
         </div>
       </div>
       
-      <div className="p-4 pointer-events-none">
+      <div className="p-4">
         <h3 className="font-semibold text-[#1a1a2e] mb-1 group-hover:text-[#c9a227] transition-colors">
           {plan.name}
         </h3>
@@ -53,13 +53,13 @@ export default function ReadingPlanCard({ plan, progress, onClick, index }) {
           </div>
           
           {progress && (
-            <div className="flex items-center gap-2 pointer-events-none">
+            <div className="flex items-center gap-2">
               <Progress value={progressPercent} className="w-16 h-1.5" />
               <span>{progressPercent}%</span>
             </div>
           )}
           
-          <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform pointer-events-none" />
+          <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
         </div>
       </div>
     </motion.button>
