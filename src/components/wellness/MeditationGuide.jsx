@@ -4,6 +4,8 @@ import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
 import { Clock, CheckCircle, Heart, TrendingUp, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Link } from 'react-router-dom';
+import { createPageUrl } from '@/utils';
 import { awardPoints, checkAndAwardBadges } from '@/components/gamification/ProgressManager';
 import { MEDITATION_LIBRARY, MEDITATION_CATEGORIES } from './MeditationLibrary';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
