@@ -239,6 +239,9 @@ export default function Wellness() {
 
           {/* Meditation Tab */}
           <TabsContent value="meditation" className="space-y-4">
+            {/* Daily Christian Horoscope */}
+            <DailyChristianHoroscope user={user} />
+
             {/* Discover All Meditations */}
             <Link to={createPageUrl('DiscoverMeditations')}>
               <div className="bg-gradient-to-br from-purple-600 via-pink-500 to-purple-700 rounded-2xl p-5 text-white cursor-pointer hover:shadow-lg transition-shadow">
