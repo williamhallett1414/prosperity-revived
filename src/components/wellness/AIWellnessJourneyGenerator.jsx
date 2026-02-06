@@ -181,7 +181,7 @@ Return JSON with:
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-gradient-to-br from-purple-600 to-pink-600 rounded-2xl p-6 mb-6 text-white shadow-lg"
+        className="bg-gradient-to-br from-[#FD9C2D] via-[#000000] to-[#C4E3FD] rounded-2xl p-6 mb-6 text-white shadow-lg"
       >
         <div className="flex items-center gap-3 mb-3">
           <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
@@ -189,7 +189,7 @@ Return JSON with:
           </div>
           <div className="flex-1">
             <h3 className="font-semibold text-lg">My Fitness Journey</h3>
-            <p className="text-white/80 text-sm">Hyper-personalized multi-week program</p>
+            <p className="text-white/90 text-sm">Hyper-personalized multi-week program</p>
           </div>
         </div>
         
@@ -199,7 +199,7 @@ Return JSON with:
         
         <Button
           onClick={() => setShowGenerator(true)}
-          className="w-full bg-white text-purple-600 hover:bg-white/90"
+          className="w-full bg-white text-black hover:bg-white/90"
         >
           <Sparkles className="w-4 h-4 mr-2" />
           Generate My Journey
