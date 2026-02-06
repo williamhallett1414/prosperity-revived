@@ -123,7 +123,7 @@ export default function Wellness() {
         />
         <Link
           to={createPageUrl('Home')}
-          className="absolute top-4 left-4 w-10 h-10 rounded-full bg-[#FD9C2D] flex items-center justify-center hover:bg-[#C4E3FD] transition-colors"
+          className={`absolute top-4 left-4 w-10 h-10 rounded-full flex items-center justify-center transition-colors ${activeTab === 'nutrition' ? 'bg-green-500 hover:bg-green-600' : 'bg-[#FD9C2D] hover:bg-[#C4E3FD]'}`}
         >
           <ArrowLeft className="w-5 h-5 text-black" />
         </Link>
