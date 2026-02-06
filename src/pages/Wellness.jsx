@@ -82,6 +82,13 @@ export default function Wellness() {
     enabled: !!user
   });
 
+  const { data: meditationSessions = [] } = useQuery({
+    queryKey: ['meditationSessions'],
+    queryFn: () => base44.entities.MeditationSession.list('-date', 100),
+    initialData: [],
+    enabled: !!user
+  });
+
   const completeWorkout = useMutation({
     mutationFn: async ({ id, workout }) => {
       const dates = workout.completed_dates || [];
