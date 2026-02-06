@@ -135,6 +135,16 @@ export default function DiscoverWorkoutsPage() {
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Discover Workouts</h1>
         </div>
 
+        <div className="relative">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+          <Input
+            placeholder="Search workouts..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="pl-10"
+          />
+        </div>
+
         <div className="bg-gradient-to-br from-purple-500 to-indigo-600 rounded-2xl p-5 text-white">
           <div className="flex items-center gap-3 mb-2">
             <TrendingUp className="w-6 h-6" />
@@ -150,16 +160,6 @@ export default function DiscoverWorkoutsPage() {
           <Plus className="w-5 h-5 mr-2" />
           Create Custom Workout
         </Button>
-
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-          <Input
-            placeholder="Search workouts..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10"
-          />
-        </div>
 
         {!searchQuery && (
           <div className="space-y-4">
