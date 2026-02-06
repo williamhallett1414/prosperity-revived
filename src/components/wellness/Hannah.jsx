@@ -218,7 +218,7 @@ When the user mentions stress, anxiety, or specific goals, proactively recommend
               {messages.length === 1 && !isLoading && (
                 <div className="space-y-2 pt-2">
                   <p className="text-xs text-gray-500 dark:text-gray-400 font-medium">Quick questions:</p>
-                  {quickActions.map((action, idx) => (
+                  {getQuickActions().map((action, idx) => (
                     <button
                       key={idx}
                       onClick={() => {
