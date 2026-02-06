@@ -82,6 +82,32 @@ export default function Home() {
     enabled: !!user
   });
 
+  const { data: workoutSessions = [] } = useQuery({
+    queryKey: ['workoutSessions'],
+    queryFn: () => base44.entities.WorkoutSession.list('-date', 50),
+    enabled: !!user
+  });
+
+  const { data: meditationSessions = [] } = useQuery({
+    queryKey: ['meditationSessions'],
+    queryFn: () => base44.entities.MeditationSession.list('-date', 50),
+    enabled: !!user
+  });
+
+  const { data: recipes = [] } = useQuery({
+    queryKey: ['recipes'],
+    queryFn: () => base44.entities.Recipe.list('-created_date', 50)
+  });
+
+  const { data: myPosts = [] } = useQuery({
+    queryKey: ['myPosts'],
+    queryFn: async () => {
+      const all = await base44.entities.Post.list('-created_date', 100);
+      return all.filter(p => p.created_by === user?.email && !p.group_id);
+    },
+    enabled: !!user
+  });
+
   const createBookmark = useMutation({
     mutationFn: (data) => base44.entities.Bookmark.create(data),
     onSuccess: () => queryClient.invalidateQueries(['bookmarks'])
