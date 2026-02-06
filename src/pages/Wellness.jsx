@@ -246,11 +246,7 @@ export default function Wellness() {
               </div>
             )}
             
-            <ContextualSuggestions 
-              user={user} 
-              currentContext={{ activity: 'meditation_practice' }}
-            />
-            
+
             <CustomPrayerBuilder />
             <MeditationGuide />
           </TabsContent>
