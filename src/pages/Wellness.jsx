@@ -239,6 +239,12 @@ export default function Wellness() {
                 </div>
               </div>
             )}
+
+            {/* Community Feed */}
+            <CommunityWorkoutFeed 
+              user={user}
+              onComplete={(workout) => completeWorkout.mutate({ id: workout.id, workout })}
+            />
           </TabsContent>
 
           {/* Nutrition Tab */}
