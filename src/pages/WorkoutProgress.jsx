@@ -10,6 +10,9 @@ import WorkoutFrequencyChart from '@/components/wellness/WorkoutFrequencyChart';
 import PersonalBestsChart from '@/components/wellness/PersonalBestsChart';
 import VolumeProgressChart from '@/components/wellness/VolumeProgressChart';
 import WorkoutStreakCard from '@/components/wellness/WorkoutStreakCard';
+import WeightProgressChart from '@/components/wellness/WeightProgressChart';
+import GoalCompletionChart from '@/components/wellness/GoalCompletionChart';
+import ProgressPhotoGallery from '@/components/wellness/ProgressPhotoGallery';
 
 export default function WorkoutProgress() {
   const [user, setUser] = useState(null);
@@ -27,6 +30,12 @@ export default function WorkoutProgress() {
   const { data: workouts = [] } = useQuery({
     queryKey: ['workouts'],
     queryFn: () => base44.entities.WorkoutPlan.list('-created_date'),
+    enabled: !!user
+  });
+
+  const { data: progressPhotos = [] } = useQuery({
+    queryKey: ['progressPhotos'],
+    queryFn: () => base44.entities.ProgressPhoto.list('-date', 100),
     enabled: !!user
   });
 
@@ -119,10 +128,12 @@ export default function WorkoutProgress() {
 
         {/* Charts */}
         <Tabs defaultValue="frequency" className="w-full">
-          <TabsList className="grid w-full grid-cols-3">
+          <TabsList className="grid w-full grid-cols-3 lg:grid-cols-5">
             <TabsTrigger value="frequency">Frequency</TabsTrigger>
-            <TabsTrigger value="prs">Personal Bests</TabsTrigger>
+            <TabsTrigger value="prs">PRs</TabsTrigger>
             <TabsTrigger value="volume">Volume</TabsTrigger>
+            <TabsTrigger value="weight">Weight</TabsTrigger>
+            <TabsTrigger value="goals">Goals</TabsTrigger>
           </TabsList>
 
           <TabsContent value="frequency">
@@ -136,7 +147,18 @@ export default function WorkoutProgress() {
           <TabsContent value="volume">
             <VolumeProgressChart sessions={sessions} />
           </TabsContent>
+
+          <TabsContent value="weight">
+            <WeightProgressChart progressPhotos={progressPhotos} />
+          </TabsContent>
+
+          <TabsContent value="goals">
+            <GoalCompletionChart workouts={workouts} />
+          </TabsContent>
         </Tabs>
+
+        {/* Progress Photos */}
+        <ProgressPhotoGallery photos={progressPhotos} />
       </div>
     </div>
   );
