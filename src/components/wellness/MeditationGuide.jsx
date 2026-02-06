@@ -14,6 +14,7 @@ import AIGuidedMeditationGenerator from './AIGuidedMeditationGenerator';
 import AIPrayerGenerator from './AIPrayerGenerator';
 import MeditationSessionCard from './MeditationSessionCard';
 import GuidedMeditationSession from './GuidedMeditationSession';
+import DailyChristianHoroscope from './DailyChristianHoroscope';
 
 export default function MeditationGuide() {
   const [activeSession, setActiveSession] = useState(null);
@@ -145,6 +146,9 @@ export default function MeditationGuide() {
           <p className="text-xs text-white/80">Custom prayer prompts</p>
         </motion.button>
       </div>
+
+      {/* Daily Christian Horoscope */}
+      <DailyChristianHoroscope user={user} />
 
       {/* Progress Chart */}
       {showStats && (
