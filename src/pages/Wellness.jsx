@@ -265,12 +265,6 @@ export default function Wellness() {
 
           {/* Meditation Tab */}
           <TabsContent value="meditation" className="space-y-4">
-            {/* Meditation Banner */}
-            <div className="bg-gradient-to-r from-purple-600 via-pink-500 to-purple-700 rounded-2xl p-8 text-white text-center shadow-lg">
-              <h2 className="text-4xl font-bold mb-2">Moments of Revival</h2>
-              <p className="text-white/90">Find peace, prayer, and spiritual renewal</p>
-            </div>
-
             {/* Discover All Meditations */}
             <Link to={createPageUrl('DiscoverMeditations')}>
               <div className="bg-gradient-to-br from-purple-600 via-pink-500 to-purple-700 rounded-2xl p-5 text-white cursor-pointer hover:shadow-lg transition-shadow">
