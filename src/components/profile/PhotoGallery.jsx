@@ -138,18 +138,32 @@ export default function PhotoGallery() {
         <div className="grid grid-cols-3 gap-2">
           {photos.map((photo, index) => (
             <motion.div
-              key={photo.id}
+              key={`${photo.id}-${photo.source}`}
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: index * 0.05 }}
               onClick={() => setSelectedPhoto(photo)}
-              className="aspect-square rounded-xl overflow-hidden bg-gray-200 dark:bg-gray-700 cursor-pointer hover:opacity-90 transition-opacity"
+              className="aspect-square rounded-xl overflow-hidden bg-gray-200 dark:bg-gray-700 cursor-pointer hover:opacity-90 transition-opacity relative"
             >
-              <img
-                src={photo.image_url}
-                alt={photo.caption || 'Photo'}
-                className="w-full h-full object-cover"
-              />
+              {photo.type === 'video' ? (
+                <video
+                  src={photo.media_url}
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <img
+                  src={photo.media_url}
+                  alt={photo.caption || 'Media'}
+                  className="w-full h-full object-cover"
+                />
+              )}
+              {photo.type === 'video' && (
+                <div className="absolute inset-0 flex items-center justify-center bg-black/30">
+                  <div className="w-8 h-8 bg-white/80 rounded-full flex items-center justify-center">
+                    ▶
+                  </div>
+                </div>
+              )}
             </motion.div>
           ))}
         </div>
