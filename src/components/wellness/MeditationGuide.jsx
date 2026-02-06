@@ -199,108 +199,36 @@ export default function MeditationGuide() {
       </div>
 
       {/* Meditations List */}
-      <div className="space-y-3">
-        {filteredMeditations.map((med, index) => {
-          const today = new Date().toISOString().split('T')[0];
-          const completedToday = med.completed_dates?.includes(today);
-          const favorited = isFavorited(med.id);
-
-          return (
-            <motion.div
-              key={med.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.05 }}
-              className="bg-white dark:bg-[#2d2d4a] rounded-2xl overflow-hidden shadow-sm"
-            >
-              {med.image_url && (
-                <img src={med.image_url} alt={med.title} className="w-full h-32 object-cover" />
-              )}
-              <div className="p-4">
-                <div className="flex items-start justify-between mb-2">
-                  <div className="flex-1">
-                    <h3 className="font-semibold text-[#1a1a2e] dark:text-white mb-1">
-                      {typeEmoji[med.type]} {med.title}
-                    </h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">{med.description}</p>
-                  </div>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => toggleFavorite.mutate({ meditationId: med.id, title: med.title })}
-                    className={favorited ? 'text-red-500' : 'text-gray-400'}
-                  >
-                    <Heart className={`w-5 h-5 ${favorited ? 'fill-current' : ''}`} />
-                  </Button>
-                </div>
-
-                <div className="flex items-center gap-3 mb-3 text-sm text-gray-600 dark:text-gray-400">
-                  <div className="flex items-center gap-1">
-                    <Clock className="w-4 h-4" />
-                    <span>{med.duration_minutes} min</span>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <CheckCircle className="w-4 h-4" />
-                    <span>{med.completed_dates?.length || 0} times</span>
-                  </div>
-                </div>
-
-                <Button
-                  onClick={() => setSelectedMeditation(med)}
-                  className="w-full bg-purple-600 hover:bg-purple-700"
-                >
-                  <Play className="w-4 h-4 mr-2" />
-                  Begin Session
-                </Button>
-              </div>
-            </motion.div>
-          );
-        })}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {filteredMeditations.map((med, index) => (
+          <MeditationSessionCard
+            key={med.id}
+            session={{
+              ...med,
+              id: med.id,
+              title: med.title,
+              duration: med.duration_minutes,
+              description: med.description,
+              type: med.type,
+              _original: med
+            }}
+            onBegin={setActiveSession}
+            index={index}
+          />
+        ))}
       </div>
 
-      {selectedMeditation && (
-        <Dialog open={!!selectedMeditation} onOpenChange={() => setSelectedMeditation(null)}>
-          <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto">
-            <DialogHeader>
-              <DialogTitle>{selectedMeditation.title}</DialogTitle>
-            </DialogHeader>
-
-            <div className="space-y-4">
-              <p className="text-gray-600 dark:text-gray-400">{selectedMeditation.description}</p>
-              
-              {selectedMeditation.script && (
-                <div className="bg-purple-50 dark:bg-purple-900/20 rounded-lg p-4">
-                  <p className="text-sm text-gray-700 dark:text-gray-300 whitespace-pre-wrap leading-relaxed">
-                    {selectedMeditation.script}
-                  </p>
-                </div>
-              )}
-
-              {selectedMeditation.audio_url && (
-                <audio controls className="w-full">
-                  <source src={selectedMeditation.audio_url} />
-                </audio>
-              )}
-
-              <Button
-                onClick={() => {
-                  if (selectedMeditation.created_by) {
-                    completeMeditation.mutate({ id: selectedMeditation.id, meditation: selectedMeditation });
-                  }
-                  setSelectedMeditation(null);
-                }}
-                className="w-full bg-purple-600 hover:bg-purple-700"
-              >
-                <CheckCircle className="w-4 h-4 mr-2" />
-                {selectedMeditation.created_by ? 'Complete Session' : 'Done'}
-              </Button>
-
-              {selectedMeditation.id && (
-                <CommentSection contentId={selectedMeditation.id} contentType="meditation" />
-              )}
-            </div>
-          </DialogContent>
-        </Dialog>
+      {/* Active meditation session */}
+      {activeSession && (
+        <GuidedMeditationSession
+          session={activeSession}
+          user={user}
+          onComplete={() => {
+            queryClient.invalidateQueries(['meditations']);
+            setActiveSession(null);
+          }}
+          onClose={() => setActiveSession(null)}
+        />
       )}
 
       {/* AI Generators */}
