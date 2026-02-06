@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { createPageUrl } from '@/utils';
 import { Link } from 'react-router-dom';
-import { Search, ArrowLeft, Plus } from 'lucide-react';
+import { Search, ArrowLeft, Plus, MessageCircle, Send, Loader2 } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -18,6 +18,10 @@ export default function Plans() {
   const [category, setCategory] = useState('all');
   const [showCreateCustom, setShowCreateCustom] = useState(false);
   const [user, setUser] = useState(null);
+  const [showGideon, setShowGideon] = useState(false);
+  const [gideonInput, setGideonInput] = useState('');
+  const [gideonLoading, setGideonLoading] = useState(false);
+  const [gideonResponse, setGideonResponse] = useState(null);
 
   const queryClient = useQueryClient();
 
@@ -59,6 +63,34 @@ export default function Plans() {
 
   const getProgressForPlan = (planId) => {
     return planProgress.find(p => p.plan_id === planId);
+  };
+
+  const handleGideonAsk = async () => {
+    if (!gideonInput.trim() || gideonLoading) return;
+
+    const question = gideonInput.trim();
+    setGideonInput('');
+    setGideonLoading(true);
+
+    try {
+      const response = await base44.integrations.Core.InvokeLLM({
+        prompt: `You are Gideon, a friendly pastoral cat assistant helping people with Bible reading plans. A user has a question about reading plans.
+
+User's question: ${question}
+
+Provide warm, helpful guidance (2-4 sentences) about reading plans, Bible study habits, or spiritual growth. Use a friendly, encouraging tone:`,
+        add_context_from_internet: false
+      });
+
+      setGideonResponse({ question, advice: response });
+    } catch (error) {
+      setGideonResponse({ 
+        question, 
+        advice: 'Meow! I\'m having trouble right now. Please try again.' 
+      });
+    } finally {
+      setGideonLoading(false);
+    }
   };
 
   const categories = ['all', ...new Set(readingPlans.map(p => p.category))];
@@ -137,6 +169,95 @@ export default function Plans() {
             ))}
           </TabsList>
         </Tabs>
+
+        {/* Gideon Chat Button */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="fixed bottom-24 right-6 z-30"
+        >
+          <Button
+            onClick={() => setShowGideon(!showGideon)}
+            className="w-14 h-14 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 shadow-lg"
+          >
+            <MessageCircle className="w-6 h-6 text-white" />
+          </Button>
+        </motion.div>
+
+        {/* Gideon Chat Panel */}
+        <AnimatePresence>
+          {showGideon && (
+            <motion.div
+              initial={{ opacity: 0, y: 20, scale: 0.9 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 20, scale: 0.9 }}
+              className="fixed bottom-44 right-6 w-80 max-w-[calc(100vw-3rem)] z-30"
+            >
+              <div className="bg-white dark:bg-[#2d2d4a] rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+                <div className="bg-gradient-to-r from-purple-500 to-pink-500 p-4 text-white">
+                  <h3 className="font-semibold flex items-center gap-2">
+                    <MessageCircle className="w-5 h-5" />
+                    Chat with Gideon 🐱
+                  </h3>
+                  <p className="text-xs text-white/80 mt-1">Your pastoral cat assistant</p>
+                </div>
+
+                <div className="p-4 max-h-96 overflow-y-auto space-y-4">
+                  {gideonResponse && (
+                    <div className="space-y-3">
+                      <div className="bg-gray-100 dark:bg-[#1a1a2e] p-3 rounded-lg">
+                        <p className="text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">You asked:</p>
+                        <p className="text-sm text-gray-700 dark:text-gray-300">{gideonResponse.question}</p>
+                      </div>
+                      <div className="bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/30 dark:to-pink-900/30 p-3 rounded-lg">
+                        <p className="text-xs font-medium text-purple-600 dark:text-purple-400 mb-1">Gideon says:</p>
+                        <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">{gideonResponse.advice}</p>
+                      </div>
+                    </div>
+                  )}
+
+                  {!gideonResponse && !gideonLoading && (
+                    <p className="text-sm text-gray-500 dark:text-gray-400 text-center py-8">
+                      Ask me anything about reading plans! 🐱
+                    </p>
+                  )}
+
+                  {gideonLoading && (
+                    <div className="flex items-center justify-center py-8">
+                      <Loader2 className="w-6 h-6 animate-spin text-purple-500" />
+                    </div>
+                  )}
+                </div>
+
+                <div className="p-4 border-t border-gray-200 dark:border-gray-700">
+                  <div className="flex gap-2">
+                    <Input
+                      placeholder="Ask Gideon..."
+                      value={gideonInput}
+                      onChange={(e) => setGideonInput(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                          e.preventDefault();
+                          handleGideonAsk();
+                        }
+                      }}
+                      className="flex-1 text-sm"
+                      disabled={gideonLoading}
+                    />
+                    <Button
+                      onClick={handleGideonAsk}
+                      disabled={!gideonInput.trim() || gideonLoading}
+                      className="bg-gradient-to-r from-purple-500 to-pink-500"
+                      size="icon"
+                    >
+                      <Send className="w-4 h-4" />
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* Plans Grid */}
         <div className="grid gap-4 md:grid-cols-2">
