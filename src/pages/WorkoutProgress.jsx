@@ -154,7 +154,6 @@ export default function WorkoutProgress() {
 
         {/* Progress Photos */}
         <ProgressPhotoGallery photos={progressPhotos} />
-        </div>
       </div>
     </div>
   );
