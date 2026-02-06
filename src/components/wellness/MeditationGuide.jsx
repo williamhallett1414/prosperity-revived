@@ -182,16 +182,7 @@ export default function MeditationGuide() {
         </motion.div>
       )}
 
-      {/* Discover Meditations Link */}
-      <Link to={createPageUrl('DiscoverMeditations')}>
-        <div className="bg-gradient-to-br from-purple-600 via-pink-500 to-purple-700 rounded-2xl p-5 text-white cursor-pointer hover:shadow-lg transition-shadow">
-          <div className="flex items-center gap-3 mb-2">
-            <Sparkles className="w-6 h-6" />
-            <h3 className="text-lg font-semibold">Discover All Meditations</h3>
-          </div>
-          <p className="text-white/90 text-sm">Browse our full library of guided sessions</p>
-        </div>
-      </Link>
+
 
       {/* Active meditation session */}
       {activeSession && (
