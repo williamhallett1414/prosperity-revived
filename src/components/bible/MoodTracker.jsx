@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { Heart, Smile, Frown, Meh, Zap, Cloud, Loader2 } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 
@@ -19,16 +20,19 @@ export default function MoodTracker() {
   const [loading, setLoading] = useState(false);
   const [aiResponse, setAiResponse] = useState(null);
   const [showResponse, setShowResponse] = useState(false);
+  const [customMood, setCustomMood] = useState('');
 
-  const handleMoodSelect = async (mood) => {
+  const handleMoodSelect = async (mood, customDescription = null) => {
     setSelectedMood(mood);
     setLoading(true);
     setShowResponse(true);
     setAiResponse(null);
 
+    const moodDescription = customDescription || mood.description;
+
     try {
       const response = await base44.integrations.Core.InvokeLLM({
-        prompt: `The user is currently ${mood.description}. Provide:
+        prompt: `The user is currently ${moodDescription}. Provide:
 1. Three specific Bible verses (with references) that would encourage them
 2. A brief, heartfelt message of encouragement (2-3 sentences)
 3. One practical suggestion for how they can connect with God today
@@ -87,6 +91,35 @@ Format the response in a warm, pastoral tone. Be concise but meaningful.`,
               </button>
             );
           })}
+        </div>
+
+        {/* Custom Mood Input */}
+        <div className="flex gap-2">
+          <Input
+            placeholder="Or type how you're feeling..."
+            value={customMood}
+            onChange={(e) => setCustomMood(e.target.value)}
+            className="flex-1 text-sm"
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && customMood.trim()) {
+                handleMoodSelect({ id: 'custom', label: 'Custom' }, customMood.trim());
+                setCustomMood('');
+              }
+            }}
+          />
+          <Button
+            size="sm"
+            onClick={() => {
+              if (customMood.trim()) {
+                handleMoodSelect({ id: 'custom', label: 'Custom' }, customMood.trim());
+                setCustomMood('');
+              }
+            }}
+            disabled={!customMood.trim()}
+            className="bg-pink-500 hover:bg-pink-600"
+          >
+            Go
+          </Button>
         </div>
 
         <AnimatePresence>
