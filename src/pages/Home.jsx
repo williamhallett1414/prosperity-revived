@@ -7,6 +7,7 @@ import { createPageUrl } from '@/utils';
 import { BookOpen, Heart, Users, Plus, Settings, Dumbbell } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import VerseOfDay from '@/components/home/VerseOfDay';
+import DailyDevotional from '@/components/home/DailyDevotional';
 import ReadingPlanCard from '@/components/home/ReadingPlanCard';
 import { readingPlans } from '@/components/bible/BibleData';
 import DailyVerseSettings from '@/components/settings/DailyVerseSettings';
@@ -247,6 +248,9 @@ export default function Home() {
             <Settings className="w-5 h-5" />
           </Button>
         </div>
+
+        {/* Daily Devotional */}
+        <DailyDevotional />
 
         {/* Quick Actions */}
         <div className="grid grid-cols-2 gap-4 mb-8">
