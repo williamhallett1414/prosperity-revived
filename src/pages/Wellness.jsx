@@ -261,7 +261,6 @@ export default function Wellness() {
             <MealTracker />
             
             <PersonalizedNutritionPlan />
-            <AIMealPlanner />
             <NutritionAdvice />
             
             {/* Recipes Section */}

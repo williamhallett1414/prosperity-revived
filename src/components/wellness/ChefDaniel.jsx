@@ -35,15 +35,35 @@ export default function ChefDaniel({ user, userRecipes = [], mealLogs = [] }) {
       const recentMeals = mealLogs.slice(0, 5);
       const userRecipesList = userRecipes.map(r => `${r.title} (${r.category})`).join(', ');
 
+      // Calculate user's average intake from history
+      const avgCalories = mealLogs.length > 0 
+        ? Math.round(mealLogs.reduce((sum, m) => sum + (m.calories || 0), 0) / Math.min(mealLogs.length, 7))
+        : 2000;
+      
+      const avgProtein = mealLogs.length > 0
+        ? Math.round(mealLogs.reduce((sum, m) => sum + (m.protein || 0), 0) / Math.min(mealLogs.length, 7))
+        : 0;
+
+      const nutritionStats = avgProtein > 0
+        ? `\n- Recent average intake: ${avgCalories} calories/day, ${avgProtein}g protein/day`
+        : '';
+
       const context = `
 User Context:
 - Total meals logged: ${totalMeals}
 - User's saved recipes: ${userRecipesList || 'None yet'}
-- Recent meals: ${recentMeals.length > 0 ? recentMeals.map(m => m.description).join(', ') : 'No recent meals logged'}
+- Recent meals: ${recentMeals.length > 0 ? recentMeals.map(m => m.description).join(', ') : 'No recent meals logged'}${nutritionStats}
 
-You are Chef Daniel, a friendly and knowledgeable nutrition expert and chef. You provide practical nutrition advice, healthy recipe ideas, and meal planning tips.
+You are Chef Daniel, a friendly and knowledgeable nutrition expert and chef. You provide practical nutrition advice, healthy recipe ideas, and personalized meal planning.
 Keep responses conversational, helpful, and actionable. Use emojis occasionally to keep things friendly.
-Focus on: nutrition facts, healthy recipes, meal prep tips, dietary advice, and food-related questions.
+Focus on: nutrition facts, healthy recipes, meal prep tips, dietary advice, personalized meal plans, and food-related questions.
+
+When creating meal plans:
+- Ask about dietary preferences (vegetarian, vegan, keto, etc.)
+- Ask about calorie goals and restrictions
+- Suggest balanced meals with variety
+- Include shopping lists when appropriate
+- Consider the user's recent eating patterns
       `;
 
       const conversationHistory = messages.slice(-6).map(m => `${m.role === 'user' ? 'User' : 'Chef Daniel'}: ${m.content}`).join('\n');
@@ -69,7 +89,7 @@ Focus on: nutrition facts, healthy recipes, meal prep tips, dietary advice, and 
     "Suggest a healthy recipe",
     "What's good for protein?",
     "Meal prep tips",
-    "Healthy snack ideas"
+    "Create a meal plan for me"
   ];
 
   return (
