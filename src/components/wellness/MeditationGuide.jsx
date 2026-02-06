@@ -108,19 +108,8 @@ export default function MeditationGuide() {
 
   return (
     <div className="space-y-4">
-      {/* Header with AI and Stats */}
-      <div className="flex justify-between items-center">
-        <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300">Meditation & Prayer</h3>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => setShowStats(!showStats)}
-          className="text-purple-600 border-purple-600"
-        >
-          <TrendingUp className="w-4 h-4 mr-2" />
-          {showStats ? 'Hide' : 'Show'} Progress
-        </Button>
-      </div>
+      {/* Header */}
+      <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300">Meditation & Prayer</h3>
 
       {/* AI Generation Cards */}
       <div className="grid grid-cols-2 gap-3">
