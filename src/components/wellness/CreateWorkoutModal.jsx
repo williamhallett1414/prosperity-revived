@@ -209,45 +209,45 @@ export default function CreateWorkoutModal({ isOpen, onClose }) {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
-        <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
-            <Dumbbell className="w-5 h-5 text-emerald-600" />
+      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto p-0">
+        <DialogHeader className="px-6 pt-6 pb-4 border-b bg-gradient-to-r from-emerald-50 to-teal-50">
+          <DialogTitle className="flex items-center gap-2 text-xl">
+            <Dumbbell className="w-6 h-6 text-emerald-600" />
             Create Workout Plan
           </DialogTitle>
         </DialogHeader>
 
-        <div className="space-y-6">
+        <div className="px-6 py-6 space-y-8">
           {/* Basic Info */}
-          <div className="space-y-4">
+          <div className="space-y-5">
             <div>
-              <Label className="text-sm font-medium mb-2 block">Workout Name *</Label>
+              <Label className="text-sm font-semibold text-gray-700 mb-2.5 block">Workout Name *</Label>
               <Input
                 placeholder="e.g., Morning Full Body Routine"
                 value={workout.title}
                 onChange={(e) => setWorkout({ ...workout, title: e.target.value })}
-                className="text-base"
+                className="text-base h-11"
               />
             </div>
 
             <div>
-              <Label className="text-sm font-medium mb-2 block">Description</Label>
+              <Label className="text-sm font-semibold text-gray-700 mb-2.5 block">Description</Label>
               <Textarea
                 placeholder="Add notes about this workout..."
                 value={workout.description}
                 onChange={(e) => setWorkout({ ...workout, description: e.target.value })}
-                className="h-20 resize-none"
+                className="h-24 resize-none"
               />
             </div>
           </div>
 
           {/* Workout Details */}
-          <div className="space-y-4">
-            <Label className="text-sm font-medium">Workout Details</Label>
+          <div className="space-y-5 pt-2">
+            <Label className="text-base font-semibold text-gray-900">Workout Details</Label>
             
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-4">
               <div>
-                <Label className="text-xs text-gray-600 mb-2 block">Difficulty</Label>
+                <Label className="text-sm font-medium text-gray-700 mb-2.5 block">Difficulty</Label>
                 <Select value={workout.difficulty} onValueChange={(v) => setWorkout({ ...workout, difficulty: v })}>
                   <SelectTrigger>
                     <SelectValue />
@@ -276,7 +276,7 @@ export default function CreateWorkoutModal({ isOpen, onClose }) {
               </div>
 
               <div>
-                <Label className="text-xs text-gray-600 mb-2 block">Duration (minutes)</Label>
+                <Label className="text-sm font-medium text-gray-700 mb-2.5 block">Duration (minutes)</Label>
                 <div className="relative">
                   <Clock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                   <Input
@@ -284,28 +284,28 @@ export default function CreateWorkoutModal({ isOpen, onClose }) {
                     placeholder="30"
                     value={workout.duration_minutes}
                     onChange={(e) => setWorkout({ ...workout, duration_minutes: parseInt(e.target.value) || 0 })}
-                    className="pl-10"
+                    className="pl-10 h-11"
                   />
                 </div>
               </div>
             </div>
 
             <div>
-              <Label className="text-xs text-gray-600 mb-2 block">Category</Label>
-              <div className="grid grid-cols-5 gap-2">
+              <Label className="text-sm font-medium text-gray-700 mb-3 block">Category</Label>
+              <div className="grid grid-cols-5 gap-3">
                 {['cardio', 'strength', 'flexibility', 'full_body', 'yoga'].map((cat) => (
                   <button
                     key={cat}
                     type="button"
                     onClick={() => setWorkout({ ...workout, category: cat })}
-                    className={`p-3 rounded-lg border-2 transition-all text-center ${
+                    className={`p-4 rounded-xl border-2 transition-all text-center ${
                       workout.category === cat
-                        ? 'border-emerald-600 bg-emerald-50'
-                        : 'border-gray-200 hover:border-gray-300'
+                        ? 'border-emerald-600 bg-emerald-50 shadow-sm'
+                        : 'border-gray-200 hover:border-emerald-300 hover:bg-gray-50'
                     }`}
                   >
-                    <div className="text-2xl mb-1">{categoryIcons[cat]}</div>
-                    <div className="text-xs font-medium capitalize">{cat.replace('_', ' ')}</div>
+                    <div className="text-2xl mb-1.5">{categoryIcons[cat]}</div>
+                    <div className="text-xs font-semibold capitalize">{cat.replace('_', ' ')}</div>
                   </button>
                 ))}
               </div>
@@ -313,13 +313,13 @@ export default function CreateWorkoutModal({ isOpen, onClose }) {
           </div>
 
           {/* Exercises */}
-          <div className="space-y-3">
+          <div className="space-y-4 pt-2">
             <div className="flex items-center justify-between">
               <div>
-                <Label className="text-sm font-medium">Exercises *</Label>
-                <p className="text-xs text-gray-500 mt-1">Add at least one exercise</p>
+                <Label className="text-base font-semibold text-gray-900">Exercises *</Label>
+                <p className="text-sm text-gray-500 mt-1">Add at least one exercise</p>
               </div>
-              <div className="flex gap-2">
+              <div className="flex gap-2.5">
                 <Button 
                   onClick={() => setShowExerciseLibrary(!showExerciseLibrary)} 
                   size="sm" 
@@ -338,8 +338,8 @@ export default function CreateWorkoutModal({ isOpen, onClose }) {
 
             {/* Exercise Library */}
             {showExerciseLibrary && (
-              <div className="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-lg p-4 border border-emerald-200">
-                <div className="space-y-3">
+              <div className="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-xl p-5 border border-emerald-200 shadow-sm">
+                <div className="space-y-4">
                   <div className="relative">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                     <Input
@@ -351,15 +351,15 @@ export default function CreateWorkoutModal({ isOpen, onClose }) {
                   </div>
 
                   <Tabs value={libraryCategory} onValueChange={setLibraryCategory}>
-                    <TabsList className="grid w-full grid-cols-4 bg-white">
-                      <TabsTrigger value="strength">💪 Strength</TabsTrigger>
-                      <TabsTrigger value="cardio">🏃 Cardio</TabsTrigger>
-                      <TabsTrigger value="core">🎯 Core</TabsTrigger>
-                      <TabsTrigger value="flexibility">🧘 Flexibility</TabsTrigger>
+                    <TabsList className="grid w-full grid-cols-4 bg-white p-1">
+                      <TabsTrigger value="strength" className="text-sm">💪 Strength</TabsTrigger>
+                      <TabsTrigger value="cardio" className="text-sm">🏃 Cardio</TabsTrigger>
+                      <TabsTrigger value="core" className="text-sm">🎯 Core</TabsTrigger>
+                      <TabsTrigger value="flexibility" className="text-sm">🧘 Flexibility</TabsTrigger>
                     </TabsList>
 
-                    <TabsContent value={libraryCategory} className="mt-3">
-                      <div className="grid grid-cols-2 gap-2 max-h-[200px] overflow-y-auto">
+                    <TabsContent value={libraryCategory} className="mt-4">
+                      <div className="grid grid-cols-2 gap-2.5 max-h-[220px] overflow-y-auto pr-2">
                         {filteredLibraryExercises.map((exercise, idx) => (
                           <button
                             key={idx}
@@ -383,32 +383,33 @@ export default function CreateWorkoutModal({ isOpen, onClose }) {
             )}
 
             {workout.exercises.length === 0 ? (
-              <div className="text-center py-8 bg-gray-50 rounded-lg border-2 border-dashed border-gray-200">
-                <Dumbbell className="w-8 h-8 text-gray-300 mx-auto mb-2" />
-                <p className="text-sm text-gray-500">No exercises added yet</p>
-                <Button onClick={addExercise} size="sm" variant="ghost" className="mt-2">
+              <div className="text-center py-12 bg-gray-50 rounded-xl border-2 border-dashed border-gray-200">
+                <Dumbbell className="w-10 h-10 text-gray-300 mx-auto mb-3" />
+                <p className="text-sm text-gray-500 mb-1">No exercises added yet</p>
+                <p className="text-xs text-gray-400 mb-4">Use the library or add custom exercises</p>
+                <Button onClick={addExercise} size="sm" variant="outline" className="border-emerald-600 text-emerald-600">
                   <Plus className="w-4 h-4 mr-1" />
                   Add your first exercise
                 </Button>
               </div>
             ) : (
-              <div className="space-y-3 max-h-[300px] overflow-y-auto pr-2">
+              <div className="space-y-3 max-h-[320px] overflow-y-auto pr-2">
                 {workout.exercises.map((exercise, index) => (
-                  <div key={exercise.id || index} className="p-4 bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg border border-gray-200">
-                    <div className="flex gap-3">
-                      <div className="flex-shrink-0 w-8 h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-sm">
+                  <div key={exercise.id || index} className="p-5 bg-white rounded-xl border-2 border-gray-200 hover:border-emerald-200 transition-all shadow-sm">
+                    <div className="flex gap-4">
+                      <div className="flex-shrink-0 w-9 h-9 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-sm shadow-sm">
                         {index + 1}
                       </div>
-                      <div className="flex-1 space-y-3">
+                      <div className="flex-1 space-y-3.5">
                         <Input
                           placeholder="Exercise name (e.g., Push-ups)"
                           value={exercise.name}
                           onChange={(e) => updateExercise(index, 'name', e.target.value)}
-                          className="font-medium"
+                          className="font-medium h-10"
                         />
-                        <div className="grid grid-cols-3 gap-2">
+                        <div className="grid grid-cols-3 gap-3">
                           <div>
-                            <Label className="text-xs text-gray-500 mb-1 block">Sets</Label>
+                            <Label className="text-xs font-medium text-gray-600 mb-1.5 block">Sets</Label>
                             <Input
                               type="number"
                               placeholder="3"
@@ -418,23 +419,23 @@ export default function CreateWorkoutModal({ isOpen, onClose }) {
                             />
                           </div>
                           <div>
-                            <Label className="text-xs text-gray-500 mb-1 block">Reps</Label>
+                            <Label className="text-xs font-medium text-gray-600 mb-1.5 block">Reps</Label>
                             <Input
                               type="number"
                               placeholder="10"
                               value={exercise.reps || ''}
                               onChange={(e) => updateExercise(index, 'reps', parseInt(e.target.value) || 0)}
-                              className="text-center"
+                              className="text-center h-10"
                             />
                           </div>
                           <div>
-                            <Label className="text-xs text-gray-500 mb-1 block">Seconds</Label>
+                            <Label className="text-xs font-medium text-gray-600 mb-1.5 block">Seconds</Label>
                             <Input
                               type="number"
                               placeholder="30"
                               value={exercise.duration_seconds || ''}
                               onChange={(e) => updateExercise(index, 'duration_seconds', parseInt(e.target.value) || 0)}
-                              className="text-center"
+                              className="text-center h-10"
                             />
                           </div>
                         </div>
@@ -443,9 +444,9 @@ export default function CreateWorkoutModal({ isOpen, onClose }) {
                         variant="ghost"
                         size="icon"
                         onClick={() => removeExercise(index)}
-                        className="text-red-500 hover:text-red-700 hover:bg-red-50"
+                        className="text-red-500 hover:text-red-700 hover:bg-red-50 flex-shrink-0"
                       >
-                        <X className="w-4 h-4" />
+                        <X className="w-5 h-5" />
                       </Button>
                     </div>
                   </div>
@@ -455,17 +456,17 @@ export default function CreateWorkoutModal({ isOpen, onClose }) {
           </div>
 
           {/* Submit Button */}
-          <div className="flex gap-3 pt-4 border-t">
+          <div className="flex gap-3 pt-6 border-t-2 border-gray-100">
             <Button 
               onClick={onClose}
               variant="outline"
-              className="flex-1"
+              className="flex-1 h-11"
             >
               Cancel
             </Button>
             <Button 
               onClick={handleSubmit} 
-              className="flex-1 bg-emerald-600 hover:bg-emerald-700"
+              className="flex-1 h-11 bg-emerald-600 hover:bg-emerald-700 font-semibold shadow-sm"
               disabled={!workout.title.trim() || workout.exercises.length === 0 || createWorkout.isPending}
             >
               {createWorkout.isPending ? 'Creating...' : 'Create Workout'}
