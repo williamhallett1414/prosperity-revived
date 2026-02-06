@@ -249,56 +249,64 @@ export default function Home() {
         </div>
 
         {/* Quick Actions */}
-        <div className="grid grid-cols-4 gap-3 mb-6">
+        <div className="grid grid-cols-2 gap-4 mb-8">
           <Link to={createPageUrl('Bible')}>
             <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 text-center shadow-sm hover:shadow-md transition-all"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="relative h-40 rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition-all bg-cover bg-center"
+              style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=500&h=300&fit=crop)' }}
             >
-              <div className="w-12 h-12 mx-auto mb-2 rounded-xl bg-[#1a1a2e]/5 dark:bg-[#c9a227]/20 flex items-center justify-center">
-                <BookOpen className="w-6 h-6 text-[#1a1a2e] dark:text-[#c9a227]" />
+              <div className="absolute inset-0 bg-gradient-to-br from-[#1a1a2e]/70 to-[#2d2d4a]/60 flex flex-col items-center justify-center">
+                <BookOpen className="w-8 h-8 text-[#c9a227] mb-2" />
+                <span className="text-white font-semibold text-lg">Bible</span>
+                <p className="text-white/70 text-xs mt-1">Study & Learn</p>
               </div>
-              <span className="text-xs font-medium text-gray-700 dark:text-gray-300">Bible</span>
             </motion.div>
           </Link>
           
           <Link to={createPageUrl('Community')}>
             <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 text-center shadow-sm hover:shadow-md transition-all"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="relative h-40 rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition-all bg-cover bg-center"
+              style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=500&h=300&fit=crop)' }}
             >
-              <div className="w-12 h-12 mx-auto mb-2 rounded-xl bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center">
-                <Users className="w-6 h-6 text-purple-600 dark:text-purple-400" />
+              <div className="absolute inset-0 bg-gradient-to-br from-purple-600/70 to-pink-600/60 flex flex-col items-center justify-center">
+                <Users className="w-8 h-8 text-white mb-2" />
+                <span className="text-white font-semibold text-lg">Community</span>
+                <p className="text-white/70 text-xs mt-1">Connect & Share</p>
               </div>
-              <span className="text-xs font-medium text-gray-700 dark:text-gray-300">Community</span>
             </motion.div>
           </Link>
           
           <Link to={createPageUrl('Wellness')}>
             <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 text-center shadow-sm hover:shadow-md transition-all"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="relative h-40 rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition-all bg-cover bg-center"
+              style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=500&h=300&fit=crop)' }}
             >
-              <div className="w-12 h-12 mx-auto mb-2 rounded-xl bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center">
-                <Dumbbell className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
+              <div className="absolute inset-0 bg-gradient-to-br from-emerald-600/70 to-teal-600/60 flex flex-col items-center justify-center">
+                <Dumbbell className="w-8 h-8 text-white mb-2" />
+                <span className="text-white font-semibold text-lg">Wellness</span>
+                <p className="text-white/70 text-xs mt-1">Health & Fitness</p>
               </div>
-              <span className="text-xs font-medium text-gray-700 dark:text-gray-300">Wellness</span>
             </motion.div>
           </Link>
 
           <Link to={createPageUrl('Achievements')}>
             <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 text-center shadow-sm hover:shadow-md transition-all"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="relative h-40 rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition-all bg-cover bg-center"
+              style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1579263657449-d0ed08fbe4d7?w=500&h=300&fit=crop)' }}
             >
-              <div className="w-12 h-12 mx-auto mb-2 rounded-xl bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center">
-                <Heart className="w-6 h-6 text-amber-600 dark:text-amber-400" />
+              <div className="absolute inset-0 bg-gradient-to-br from-amber-600/70 to-orange-600/60 flex flex-col items-center justify-center">
+                <Trophy className="w-8 h-8 text-white mb-2" />
+                <span className="text-white font-semibold text-lg">Progress</span>
+                <p className="text-white/70 text-xs mt-1">Achievements & Stats</p>
               </div>
-              <span className="text-xs font-medium text-gray-700 dark:text-gray-300">Progress</span>
             </motion.div>
           </Link>
         </div>
