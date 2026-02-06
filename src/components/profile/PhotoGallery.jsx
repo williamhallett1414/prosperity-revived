@@ -21,8 +21,54 @@ export default function PhotoGallery() {
   }, []);
 
   const { data: photos = [] } = useQuery({
-    queryKey: ['photos'],
-    queryFn: () => base44.entities.Photo.list('-created_date', 50)
+    queryKey: ['userMediaGallery'],
+    queryFn: async () => {
+      if (!user) return [];
+      
+      // Fetch all posts, comments, and workouts with media by current user
+      const [posts, comments, workouts, recipes] = await Promise.all([
+        base44.entities.Post.list('-created_date'),
+        base44.entities.Comment.list('-created_date'),
+        base44.entities.WorkoutPlan.list('-created_date'),
+        base44.entities.Recipe.list('-created_date')
+      ]);
+
+      const userMedia = [];
+      
+      // Collect images and videos from posts
+      posts.forEach(post => {
+        if (post.created_by === user.email) {
+          if (post.image_url) userMedia.push({ ...post, media_url: post.image_url, type: 'image', source: 'post' });
+          if (post.video_url) userMedia.push({ ...post, media_url: post.video_url, type: 'video', source: 'post' });
+        }
+      });
+
+      // Collect images and videos from comments
+      comments.forEach(comment => {
+        if (comment.created_by === user.email) {
+          if (comment.image_url) userMedia.push({ ...comment, media_url: comment.image_url, type: 'image', source: 'comment' });
+          if (comment.video_url) userMedia.push({ ...comment, media_url: comment.video_url, type: 'video', source: 'comment' });
+        }
+      });
+
+      // Collect images from workouts
+      workouts.forEach(workout => {
+        if (workout.created_by === user.email && workout.image_url) {
+          userMedia.push({ ...workout, media_url: workout.image_url, type: 'image', source: 'workout' });
+        }
+      });
+
+      // Collect images from recipes
+      recipes.forEach(recipe => {
+        if (recipe.created_by === user.email && recipe.image_url) {
+          userMedia.push({ ...recipe, media_url: recipe.image_url, type: 'image', source: 'recipe' });
+        }
+      });
+
+      // Sort by date descending and return
+      return userMedia.sort((a, b) => new Date(b.created_date) - new Date(a.created_date)).slice(0, 100);
+    },
+    enabled: !!user
   });
 
   const createPhoto = useMutation({
