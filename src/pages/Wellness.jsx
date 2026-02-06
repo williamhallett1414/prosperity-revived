@@ -48,11 +48,6 @@ export default function Wellness() {
     queryFn: () => base44.entities.WorkoutPlan.list('-created_date')
   });
 
-  const { data: recipes = [] } = useQuery({
-    queryKey: ['recipes'],
-    queryFn: () => base44.entities.Recipe.list('-created_date')
-  });
-
   const { data: journeys = [] } = useQuery({
     queryKey: ['journeys'],
     queryFn: async () => {
