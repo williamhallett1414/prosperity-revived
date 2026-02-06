@@ -238,6 +238,17 @@ export default function Wellness() {
 
           {/* Meditation Tab */}
           <TabsContent value="meditation" className="space-y-4">
+            {/* Discover All Meditations */}
+            <Link to={createPageUrl('DiscoverMeditations')}>
+              <div className="bg-gradient-to-br from-purple-600 via-pink-500 to-purple-700 rounded-2xl p-5 text-white cursor-pointer hover:shadow-lg transition-shadow">
+                <div className="flex items-center gap-3 mb-2">
+                  <Sparkles className="w-6 h-6" />
+                  <h3 className="text-lg font-semibold">Discover All Meditations</h3>
+                </div>
+                <p className="text-white/90 text-sm">Browse our full library of guided sessions</p>
+              </div>
+            </Link>
+
             {journeys.filter(j => j.is_active).length > 0 && (
               <div className="bg-gradient-to-br from-[#FD9C2D] via-[#000000] to-[#C4E3FD] rounded-2xl p-4 shadow-sm">
                 <h3 className="font-semibold text-white mb-4">Mood & Energy Insights</h3>
