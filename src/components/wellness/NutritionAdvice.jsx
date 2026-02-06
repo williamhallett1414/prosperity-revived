@@ -77,7 +77,7 @@ export default function NutritionAdvice() {
       </div>
 
       {/* Featured Nutrition Cards */}
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-2 gap-3 mb-4">
         {featuredArticles.map((article, index) => {
           const Icon = article.icon;
           return (
@@ -89,11 +89,11 @@ export default function NutritionAdvice() {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: index * 0.1 }}
-                className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 text-center hover:shadow-lg transition-all cursor-pointer"
+                className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 text-center hover:shadow-lg transition-all cursor-pointer h-full flex flex-col"
               >
                 <Icon className="w-8 h-8 text-emerald-600 mx-auto mb-2" />
                 <h3 className="font-semibold text-sm text-[#1a1a2e] dark:text-white mb-1">{article.title}</h3>
-                <p className="text-xs text-gray-500 dark:text-gray-400">{article.desc}</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400 line-clamp-2">{article.desc}</p>
               </motion.div>
             </Link>
           );
@@ -103,7 +103,7 @@ export default function NutritionAdvice() {
       {/* View More Button */}
       <Link to={createPageUrl('NutritionGuidance')}>
         <Button className="w-full bg-emerald-600 hover:bg-emerald-700">
-          View All 50+ Nutrition Articles
+          View More
         </Button>
       </Link>
 
