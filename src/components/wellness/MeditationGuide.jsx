@@ -141,7 +141,7 @@ export default function MeditationGuide() {
           className="bg-gradient-to-br from-amber-500 to-orange-500 rounded-xl p-4 text-white text-left shadow-lg"
         >
           <Sparkles className="w-6 h-6 mb-2" />
-          <p className="font-semibold text-sm">AI Prayer</p>
+          <p className="font-semibold text-sm">Help Me Pray</p>
           <p className="text-xs text-white/80">Custom prayer prompts</p>
         </motion.button>
       </div>
