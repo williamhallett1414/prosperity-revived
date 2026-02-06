@@ -326,6 +326,48 @@ export default function Home() {
           </div>
         )}
 
+        {/* Your Activity */}
+        {(myPosts.length > 0 || workoutSessions.length > 0 || meditationSessions.length > 0) && (
+          <div className="mb-6">
+            <h2 className="text-lg font-semibold text-[#1a1a2e] dark:text-white mb-3">Your Recent Activity</h2>
+            <div className="space-y-2">
+              {myPosts.slice(0, 2).map(post => (
+                <motion.div
+                  key={post.id}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="bg-white dark:bg-[#2d2d4a] rounded-lg p-3 text-sm border-l-4 border-purple-600"
+                >
+                  <p className="text-gray-700 dark:text-gray-300">Posted: <span className="font-medium">"{post.content.slice(0, 40)}..."</span></p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{new Date(post.created_date).toLocaleDateString()}</p>
+                </motion.div>
+              ))}
+              {workoutSessions.slice(0, 2).map(session => (
+                <motion.div
+                  key={session.id}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="bg-white dark:bg-[#2d2d4a] rounded-lg p-3 text-sm border-l-4 border-emerald-600"
+                >
+                  <p className="text-gray-700 dark:text-gray-300">Workout: <span className="font-medium">{session.workout_title}</span> ({session.duration_minutes}m)</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{new Date(session.date).toLocaleDateString()}</p>
+                </motion.div>
+              ))}
+              {meditationSessions.slice(0, 2).map(session => (
+                <motion.div
+                  key={session.id}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="bg-white dark:bg-[#2d2d4a] rounded-lg p-3 text-sm border-l-4 border-pink-600"
+                >
+                  <p className="text-gray-700 dark:text-gray-300">Meditation: <span className="font-medium">{session.meditation_title}</span></p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{new Date(session.date).toLocaleDateString()}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* Community Feed */}
         <div className="mb-6">
           <div className="flex items-center justify-between mb-3">
