@@ -185,20 +185,18 @@ Return JSON with:
 
   return (
     <div className="min-h-screen bg-[#faf8f5] pb-24">
-      <div className="max-w-2xl mx-auto px-4 py-6">
+      <div className="max-w-2xl mx-auto px-4 pt-4">
         {/* Header */}
-         <div className="flex items-center gap-3 mb-6">
-           <Link
-             to={createPageUrl('Wellness')}
-             className="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center hover:bg-gray-50"
-           >
-             <ArrowLeft className="w-5 h-5" />
-           </Link>
-          <div className="flex-1">
-            <h1 className="text-xl font-bold text-[#1a1a2e]">{journey.title}</h1>
+        <Link
+          to={createPageUrl('Wellness')}
+          className="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center hover:bg-gray-50 mb-4 inline-flex"
+        >
+          <ArrowLeft className="w-5 h-5" />
+        </Link>
+        <div className="mb-6">
+          <h1 className="text-xl font-bold text-[#1a1a2e]">{journey.title}</h1>
             <p className="text-sm text-gray-500">Week {journey.current_week} of {journey.duration_weeks}</p>
-          </div>
-        </div>
+            </div>
 
         {/* Progress Card */}
         <motion.div
