@@ -149,9 +149,17 @@ export default function DailyChristianHoroscope({ user }) {
       className="bg-gradient-to-br from-amber-600 to-orange-600 rounded-2xl p-6 text-white shadow-lg"
     >
       <div className="flex items-center gap-3 mb-4">
-        <Book className="w-6 h-6" />
-        <h3 className="text-lg font-semibold">Daily Scripture & Guidance</h3>
-        <Sparkles className="w-5 h-5 ml-auto" />
+        <div className="text-2xl">{zodiacEmoji}</div>
+        <div>
+          <h3 className="text-lg font-semibold">{selectedZodiac}'s Daily Guidance</h3>
+          <p className="text-xs text-white/70">Personalized Scripture & Affirmation</p>
+        </div>
+        <button
+          onClick={() => setSelectedZodiac('')}
+          className="ml-auto text-xs text-white/70 hover:text-white underline"
+        >
+          Change
+        </button>
       </div>
 
       <div className="space-y-4">
