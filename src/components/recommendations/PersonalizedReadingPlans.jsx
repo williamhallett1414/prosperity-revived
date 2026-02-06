@@ -32,10 +32,10 @@ export default function PersonalizedReadingPlans({ user, userProgress = [] }) {
     return { plan, score };
   });
 
-  // Sort by score and get top recommendations
+  // Sort by score and get top recommendation
   const recommendations = scoredPlans
     .sort((a, b) => b.score - a.score)
-    .slice(0, 4)
+    .slice(0, 1)
     .map(s => s.plan);
 
   // Get ongoing plans
@@ -55,7 +55,7 @@ export default function PersonalizedReadingPlans({ user, userProgress = [] }) {
       <div className="flex items-center gap-2 mb-4">
         <Sparkles className="w-5 h-5 text-[#c9a227]" />
         <h3 className="text-lg font-semibold text-[#1a1a2e] dark:text-white">
-          Recommended For You
+          Recommended Plan
         </h3>
       </div>
       <div className="space-y-3">
