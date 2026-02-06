@@ -116,8 +116,16 @@ export default function GuidedMeditationSession({ session, user, onComplete, onC
   const audioRef = useRef(null);
   const instructionTimerRef = useRef(null);
 
-  const script = MEDITATION_SCRIPTS[session.type];
-  const instructions = script.instructions;
+  const script = MEDITATION_SCRIPTS[session.type] || MEDITATION_SCRIPTS.mindfulness;
+  const instructions = script?.instructions || [
+    'Begin your meditation session.',
+    'Focus on your breath and let your mind settle.',
+    'Continue with your practice.',
+    'You are doing great. Keep going.',
+    'As we near the end, notice how you feel.',
+    'Take a final deep breath.',
+    'Begin to gently open your eyes.'
+  ];
   const totalInstructions = instructions.length;
   const secondsPerInstruction = (session.duration * 60) / totalInstructions;
 
