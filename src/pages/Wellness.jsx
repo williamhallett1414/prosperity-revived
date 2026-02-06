@@ -31,6 +31,7 @@ import AIWellnessJourneyGenerator from '@/components/wellness/AIWellnessJourneyG
 import WellnessJourneyCard from '@/components/wellness/WellnessJourneyCard';
 import MoodEnergyChart from '@/components/wellness/MoodEnergyChart';
 import SelfCareGuides from '@/components/wellness/SelfCareGuides';
+import CommunityWorkoutFeed from '@/components/wellness/CommunityWorkoutFeed';
 
 import CoachDavid from '@/components/wellness/CoachDavid';
 
