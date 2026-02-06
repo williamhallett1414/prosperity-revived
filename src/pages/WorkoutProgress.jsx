@@ -61,12 +61,14 @@ export default function WorkoutProgress() {
           alt="ReeVibe Fitness"
           className="w-full h-64 object-cover"
         />
-        <Link
-          to={createPageUrl('Wellness')}
-          className="absolute top-4 left-4 w-10 h-10 rounded-full bg-[#FD9C2D] flex items-center justify-center hover:bg-[#C4E3FD] transition-colors"
-        >
-          <ArrowLeft className="w-5 h-5 text-black" />
-        </Link>
+        <div className="absolute top-4 left-4 flex items-center gap-3">
+          <Link
+            to={createPageUrl('Wellness')}
+            className="w-10 h-10 rounded-full bg-[#FD9C2D] flex items-center justify-center hover:bg-[#C4E3FD] transition-colors"
+          >
+            <ArrowLeft className="w-5 h-5 text-black" />
+          </Link>
+        </div>
       </div>
 
       <div className="max-w-4xl mx-auto px-4 space-y-6">
