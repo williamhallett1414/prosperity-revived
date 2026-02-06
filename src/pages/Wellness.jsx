@@ -206,13 +206,6 @@ export default function Wellness() {
 
           {/* Nutrition Tab */}
           <TabsContent value="nutrition" className="space-y-6">
-            <div className="relative bg-black -mx-4 mb-6">
-              <img 
-                src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6980ade9ca08df558ed28bdd/0079a599f_TheGoodPantry.png"
-                alt="The Good Pantry"
-                className="w-full h-48 object-cover"
-              />
-            </div>
             <MealTracker />
             
             <PersonalizedNutritionPlan />
