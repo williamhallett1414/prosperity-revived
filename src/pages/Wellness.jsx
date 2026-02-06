@@ -31,6 +31,7 @@ import AIWellnessJourneyGenerator from '@/components/wellness/AIWellnessJourneyG
 import WellnessJourneyCard from '@/components/wellness/WellnessJourneyCard';
 import MoodEnergyChart from '@/components/wellness/MoodEnergyChart';
 import SelfCareGuides from '@/components/wellness/SelfCareGuides';
+import DiscoverWorkouts from '@/components/wellness/DiscoverWorkouts';
 
 export default function Wellness() {
   const [user, setUser] = useState(null);
@@ -206,6 +207,8 @@ export default function Wellness() {
               Create Workout
             </Button>
 
+            <DiscoverWorkouts user={user} />
+            
             <AIWorkoutRecommendations />
             
             <PersonalizedWorkouts 

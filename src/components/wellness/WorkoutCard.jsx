@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Dumbbell, Clock, CheckCircle, Award, ChevronDown, ChevronUp } from 'lucide-react';
+import { Dumbbell, Clock, CheckCircle, Award, ChevronDown, ChevronUp, Share2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import WorkoutLogModal from './WorkoutLogModal';
 import CommentSection from './CommentSection';
+import ShareWorkoutModal from './ShareWorkoutModal';
 
 export default function WorkoutCard({ workout, onComplete, index, isPremade = false, user }) {
   const [showLogModal, setShowLogModal] = useState(false);
+  const [showShareModal, setShowShareModal] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const today = new Date().toISOString().split('T')[0];
   const completedToday = workout.completed_dates?.includes(today);
@@ -84,6 +86,16 @@ export default function WorkoutCard({ workout, onComplete, index, isPremade = fa
           )}
         </Button>
 
+        {!isPremade && workout.id && (
+          <Button
+            variant="outline"
+            onClick={() => setShowShareModal(true)}
+            className="border-emerald-600 text-emerald-600 hover:bg-emerald-50"
+          >
+            <Share2 className="w-4 h-4" />
+          </Button>
+        )}
+
         {workout.id && (
           <Button
             variant="outline"
@@ -103,6 +115,13 @@ export default function WorkoutCard({ workout, onComplete, index, isPremade = fa
       <WorkoutLogModal
         isOpen={showLogModal}
         onClose={() => setShowLogModal(false)}
+        workout={workout}
+        user={user}
+      />
+
+      <ShareWorkoutModal
+        isOpen={showShareModal}
+        onClose={() => setShowShareModal(false)}
         workout={workout}
         user={user}
       />
