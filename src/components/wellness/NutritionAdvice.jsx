@@ -77,7 +77,7 @@ export default function NutritionAdvice() {
       </div>
 
       {/* Featured Nutrition Cards */}
-      <div className="grid grid-cols-2 gap-3 mb-6">
+      <div className="grid grid-cols-2 gap-3 mb-8">
         {featuredArticles.map((article, index) => {
           const Icon = article.icon;
           return (
