@@ -257,73 +257,63 @@ export default function Profile() {
         </div>
       </div>
 
-      {/* Gamification Banner */}
-      <div className="px-4 -mt-16 mb-6">
+      {/* Profile Stats & Actions */}
+      <div className="max-w-4xl mx-auto px-4 mb-6">
+        <div className="grid grid-cols-3 gap-3 mb-4">
+          <Link to={createPageUrl('Friends')}>
+            <motion.button
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 rounded-lg transition-colors flex items-center justify-center gap-2"
+            >
+              <Users className="w-4 h-4" />
+              Friends
+            </motion.button>
+          </Link>
+
+          <Link to={createPageUrl('Messages')}>
+            <motion.button
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="w-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-[#1a1a2e] dark:text-white font-semibold py-2 rounded-lg transition-colors flex items-center justify-center gap-2"
+            >
+              <MessageCircle className="w-4 h-4" />
+              Message
+            </motion.button>
+          </Link>
+
+          <Link to={createPageUrl('Achievements')}>
+            <motion.button
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="w-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-[#1a1a2e] dark:text-white font-semibold py-2 rounded-lg transition-colors flex items-center justify-center gap-2"
+            >
+              <Trophy className="w-4 h-4" />
+              Achievements
+            </motion.button>
+          </Link>
+        </div>
+
+        {/* Gamification Banner */}
         <GamificationBanner />
       </div>
 
-
-
-      {/* Friends Quick Actions */}
-      <div className="px-4 mb-6">
-        <div className="grid grid-cols-3 gap-3">
-          <Link to={createPageUrl('Achievements')}>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="bg-gradient-to-br from-amber-500 to-orange-500 rounded-2xl p-4 shadow-sm hover:shadow-md transition-shadow text-white"
-            >
-              <Trophy className="w-5 h-5 mb-2" />
-              <p className="text-sm mb-1">Achievements</p>
-              <p className="text-lg font-bold">View</p>
-            </motion.div>
-          </Link>
-
-          <Link to={createPageUrl('Friends')}>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="bg-white rounded-2xl p-4 shadow-sm hover:shadow-md transition-shadow relative"
-            >
-              <Users className="w-5 h-5 text-[#c9a227] mb-2" />
-              <p className="text-sm text-gray-600">Friends</p>
-              <p className="text-2xl font-bold text-[#1a1a2e]">{friends.length}</p>
-              {pendingRequests.length > 0 && (
-                <div className="absolute top-2 right-2 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center text-xs font-bold">
-                  {pendingRequests.length}
-                </div>
-              )}
-            </motion.div>
-          </Link>
-
-          <Link to={createPageUrl('Friends')}>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.05 }}
-              className="bg-white rounded-2xl p-4 shadow-sm hover:shadow-md transition-shadow"
-            >
-              <MessageCircle className="w-5 h-5 text-[#8fa68a] mb-2" />
-              <p className="text-sm text-gray-600">Messages</p>
-              <p className="text-lg font-semibold text-[#1a1a2e]">Connect</p>
-            </motion.div>
-          </Link>
-        </div>
-      </div>
-
-      {/* Photo Gallery Link */}
-      <div className="px-4 mb-6">
-        <Link to={createPageUrl('PhotoGallery')}>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.05 }}
-            className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 shadow-sm hover:shadow-md transition-shadow"
+      {/* Tabs Section */}
+      <div className="max-w-4xl mx-auto px-4 mb-6">
+        <div className="bg-white dark:bg-[#2d2d4a] rounded-lg border-b border-gray-200 dark:border-gray-700 flex gap-4 overflow-x-auto">
+          <Link 
+            to={createPageUrl('PhotoGallery')}
+            className="px-4 py-3 border-b-2 border-blue-500 text-blue-500 font-semibold whitespace-nowrap"
           >
-            <p className="text-sm text-gray-600 dark:text-gray-400">Photos</p>
-            <p className="text-lg font-semibold text-[#1a1a2e] dark:text-white">View All</p>
-          </motion.div>
-        </Link>
+            Photos
+          </Link>
+          <button className="px-4 py-3 text-gray-600 dark:text-gray-400 font-semibold hover:text-[#1a1a2e] dark:hover:text-white whitespace-nowrap">
+            Posts
+          </button>
+          <button className="px-4 py-3 text-gray-600 dark:text-gray-400 font-semibold hover:text-[#1a1a2e] dark:hover:text-white whitespace-nowrap">
+            About
+          </button>
+        </div>
       </div>
 
       {/* Bio */}
