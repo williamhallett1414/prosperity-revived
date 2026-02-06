@@ -154,20 +154,23 @@ export default function WorkoutTrends() {
     .map(([name, count]) => ({ name, count }));
 
   return (
-    <div className="min-h-screen bg-[#faf8f5] dark:bg-[#1a1a2e] pb-24">
-      {/* Header */}
-      <div className="bg-gradient-to-br from-[#FD9C2D] via-[#000000] to-[#C4E3FD] text-white px-4 py-6">
+    <div className="min-h-screen bg-[#000000] pb-24">
+      {/* Header with Banner */}
+      <div className="relative bg-black">
+        <img 
+          src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6980ade9ca08df558ed28bdd/71b837d3d_ReeVibeLogonew.jpg"
+          alt="ReeVibe Fitness"
+          className="w-full h-64 object-cover"
+        />
         <Link
           to={createPageUrl('Wellness')}
-          className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center mb-4 inline-flex"
+          className="absolute top-4 left-4 w-10 h-10 rounded-full bg-[#FD9C2D] flex items-center justify-center hover:bg-[#C4E3FD] transition-colors"
         >
-          <ArrowLeft className="w-5 h-5" />
+          <ArrowLeft className="w-5 h-5 text-black" />
         </Link>
-        <h1 className="text-2xl font-bold mb-2">Workout Trends</h1>
-        <p className="text-white/80 text-sm">Track your progress and consistency</p>
       </div>
 
-      <div className="px-4 py-6 space-y-6">
+      <div className="px-4 py-6 space-y-6 bg-[#faf8f5]">
         {/* Time Range Selector */}
         <div className="flex justify-end">
           <Select value={timeRange.toString()} onValueChange={(val) => setTimeRange(parseInt(val))}>

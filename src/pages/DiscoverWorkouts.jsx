@@ -124,17 +124,23 @@ export default function DiscoverWorkoutsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-[#1a1a2e] dark:to-[#16213e] p-4">
-      <div className="max-w-2xl mx-auto space-y-4">
-        {/* Header */}
-        <div className="flex items-center gap-3 mb-4">
-          <Link to={createPageUrl('Wellness')}>
-            <Button variant="ghost" size="icon">
-              <ArrowLeft className="w-5 h-5" />
-            </Button>
-          </Link>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Discover Workouts</h1>
-        </div>
+    <div className="min-h-screen bg-[#000000] pb-24">
+      {/* Header with Banner */}
+      <div className="relative bg-black -mx-4">
+        <img 
+          src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6980ade9ca08df558ed28bdd/71b837d3d_ReeVibeLogonew.jpg"
+          alt="ReeVibe Fitness"
+          className="w-full h-64 object-cover"
+        />
+        <Link
+          to={createPageUrl('Wellness')}
+          className="absolute top-4 left-4 w-10 h-10 rounded-full bg-[#FD9C2D] flex items-center justify-center hover:bg-[#C4E3FD] transition-colors"
+        >
+          <ArrowLeft className="w-5 h-5 text-black" />
+        </Link>
+      </div>
+
+      <div className="max-w-2xl mx-auto px-4 space-y-4 pt-6">
 
         <div className="relative">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
