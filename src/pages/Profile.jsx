@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Camera, BookOpen, CheckCircle, TrendingUp, Calendar, Edit2, Users, MessageCircle, Loader2, Settings, Trophy } from 'lucide-react';
+import { ArrowLeft, Camera, CheckCircle, Edit2, Users, MessageCircle, Loader2, Settings, Trophy, MapPin, Cake } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
@@ -23,6 +23,7 @@ export default function Profile() {
   const [bio, setBio] = useState('');
   const [spiritualGoal, setSpiritualGoal] = useState('');
   const [uploadingImage, setUploadingImage] = useState(false);
+  const [uploadingCover, setUploadingCover] = useState(false);
 
   const queryClient = useQueryClient();
 
@@ -142,6 +143,20 @@ export default function Profile() {
     setUploadingImage(false);
   };
 
+  const handleCoverUpload = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploadingCover(true);
+    try {
+      const { file_url } = await base44.integrations.Core.UploadFile({ file });
+      await updateUser.mutateAsync({ cover_image_url: file_url });
+    } catch (error) {
+      console.error('Upload failed', error);
+    }
+    setUploadingCover(false);
+  };
+
   const userGroups = groups.filter(g => memberships.some(m => m.group_id === g.id));
 
   if (!user) {
@@ -153,27 +168,59 @@ export default function Profile() {
   }
 
   return (
-    <div className="min-h-screen bg-[#faf8f5] dark:bg-[#1a1a2e] pb-24">
-      {/* Header */}
-      <div className="bg-gradient-to-br from-[#1a1a2e] to-[#2d2d4a] text-white px-4 pt-4 pb-24">
-        <div className="flex items-center justify-between mb-4">
+    <div className="min-h-screen bg-white dark:bg-[#1a1a2e] pb-24">
+      {/* Navigation Header */}
+      <div className="sticky top-0 bg-white dark:bg-[#2d2d4a] border-b border-gray-200 dark:border-gray-700 z-30">
+        <div className="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
           <Link
             to={createPageUrl('Home')}
-            className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center"
+            className="w-10 h-10 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 flex items-center justify-center"
           >
-            <ArrowLeft className="w-5 h-5" />
+            <ArrowLeft className="w-5 h-5 text-[#1a1a2e] dark:text-white" />
           </Link>
+          <h2 className="text-lg font-bold text-[#1a1a2e] dark:text-white">{user.full_name || 'Profile'}</h2>
           <Link
             to={createPageUrl('Settings')}
-            className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center"
+            className="w-10 h-10 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 flex items-center justify-center"
           >
-            <Settings className="w-5 h-5" />
+            <Settings className="w-5 h-5 text-[#1a1a2e] dark:text-white" />
           </Link>
         </div>
-        
-        <div className="flex items-center gap-4">
+      </div>
+
+      {/* Cover Photo */}
+      <div className="relative h-64 bg-gradient-to-br from-[#1a1a2e] to-[#2d2d4a] overflow-hidden group">
+        {user.cover_image_url ? (
+          <img src={user.cover_image_url} alt="Cover" className="w-full h-full object-cover" />
+        ) : (
+          <div className="w-full h-full bg-gradient-to-br from-[#c9a227]/20 to-[#8fa68a]/20" />
+        )}
+        <input
+          type="file"
+          accept="image/*"
+          onChange={handleCoverUpload}
+          className="hidden"
+          id="cover-image-upload"
+        />
+        <button 
+          onClick={() => document.getElementById('cover-image-upload').click()}
+          disabled={uploadingCover}
+          className="absolute bottom-4 right-4 bg-white/90 hover:bg-white rounded-full p-2 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity"
+        >
+          {uploadingCover ? (
+            <Loader2 className="w-5 h-5 text-[#1a1a2e] animate-spin" />
+          ) : (
+            <Camera className="w-5 h-5 text-[#1a1a2e]" />
+          )}
+        </button>
+      </div>
+
+      {/* Profile Section */}
+      <div className="max-w-4xl mx-auto px-4 -mt-20 relative z-10 mb-6">
+        <div className="bg-white dark:bg-[#2d2d4a] rounded-2xl shadow-lg p-6 flex items-end gap-6">
+          {/* Profile Picture */}
           <div className="relative">
-            <div className="w-24 h-24 rounded-full overflow-hidden bg-gradient-to-br from-[#c9a227] to-[#8fa68a] flex items-center justify-center text-3xl font-bold">
+            <div className="w-40 h-40 rounded-full overflow-hidden bg-gradient-to-br from-[#c9a227] to-[#8fa68a] flex items-center justify-center text-5xl font-bold border-4 border-white dark:border-[#1a1a2e] shadow-lg">
               {user.profile_image_url ? (
                 <img src={user.profile_image_url} alt={user.full_name} className="w-full h-full object-cover" />
               ) : (
@@ -190,19 +237,22 @@ export default function Profile() {
             <button 
               onClick={() => document.getElementById('profile-image-upload').click()}
               disabled={uploadingImage}
-              className="absolute bottom-0 right-0 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-lg"
+              className="absolute bottom-2 right-2 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg hover:bg-gray-100"
             >
               {uploadingImage ? (
-                <Loader2 className="w-4 h-4 text-[#1a1a2e] animate-spin" />
+                <Loader2 className="w-5 h-5 text-[#1a1a2e] animate-spin" />
               ) : (
-                <Camera className="w-4 h-4 text-[#1a1a2e]" />
+                <Camera className="w-5 h-5 text-[#1a1a2e]" />
               )}
             </button>
           </div>
-          
+
+          {/* Name & Info */}
           <div className="flex-1">
-            <h1 className="text-2xl font-bold">{user.full_name || 'User'}</h1>
-            <p className="text-white/70 text-sm">{user.email}</p>
+            <h1 className="text-4xl font-bold text-[#1a1a2e] dark:text-white mb-2">{user.full_name || 'User'}</h1>
+            <p className="text-gray-600 dark:text-gray-400 mb-4 flex items-center gap-2">
+              <span>{friends.length} Friends</span>
+            </p>
           </div>
         </div>
       </div>
