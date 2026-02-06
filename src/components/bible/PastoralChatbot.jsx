@@ -35,7 +35,7 @@ export default function PastoralChatbot() {
 
     try {
       const conversationContext = messages.slice(-4).map(m => 
-        `${m.role === 'user' ? 'Person' : 'Pastoral Friend'}: ${m.content}`
+        `${m.role === 'user' ? 'Person' : 'Gideon'}: ${m.content}`
       ).join('\n');
 
       const response = await base44.integrations.Core.InvokeLLM({
@@ -91,7 +91,7 @@ Respond with compassion and biblical wisdom:`,
             <div className="bg-gradient-to-r from-purple-500 to-pink-500 p-4 flex items-center justify-between">
               <div className="flex items-center gap-2 text-white">
                 <MessageCircle className="w-5 h-5" />
-                <h3 className="font-semibold">Pastoral Friend</h3>
+                <h3 className="font-semibold">Gideon</h3>
               </div>
               <button
                 onClick={() => setIsOpen(false)}
