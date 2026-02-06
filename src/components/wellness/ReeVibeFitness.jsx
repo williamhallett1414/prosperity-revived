@@ -132,13 +132,6 @@ export default function ReeVibeFitness({ user }) {
 
   return (
     <div className="space-y-4">
-      <div className="bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl p-5 text-white mb-3">
-        <div className="flex items-center gap-3">
-          <Dumbbell className="w-6 h-6" />
-          <h3 className="text-lg font-semibold">What's Your Motivation?</h3>
-        </div>
-      </div>
-
       {/* Facebook-style Post Box */}
       <div className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 shadow-sm mb-4">
         <div className="flex items-center gap-3 mb-3">
