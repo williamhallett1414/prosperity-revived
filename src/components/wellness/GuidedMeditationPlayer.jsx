@@ -14,39 +14,8 @@ const GUIDED_MEDITATIONS = [
 export default function GuidedMeditationPlayer({ user, onSessionComplete }) {
   const [activeSession, setActiveSession] = useState(null);
 
-  const saveMeditationMutation = useMutation({
-    mutationFn: async (data) => {
-      return base44.entities.MeditationSession.create(data);
-    },
-    onSuccess: () => {
-      toast.success('Meditation session saved!');
-      queryClient.invalidateQueries(['meditationSessions']);
-      onSessionComplete?.();
-      setSelectedSession(null);
-      setShowMoodSelector(false);
-    }
-  });
-
-  const handlePlaySession = (session) => {
-    setSelectedSession(session);
-    setShowMoodSelector(true);
-  };
-
-  const handleCompleteSession = async (moodAfter) => {
-    if (!selectedSession) return;
-
-    const today = new Date().toISOString().split('T')[0];
-    await saveMeditationMutation.mutateAsync({
-      date: today,
-      duration_minutes: selectedSession.duration,
-      meditation_type: selectedSession.type,
-      mood_before: moodBefore,
-      mood_after: moodAfter,
-      guided_session_id: String(selectedSession.id),
-    });
-
-    setMoodBefore('calm');
-    setIsPlaying(false);
+  const handleBeginSession = (session) => {
+    setActiveSession(session);
   };
 
   return (
