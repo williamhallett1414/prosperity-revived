@@ -1,30 +1,53 @@
 import React, { useState, useEffect } from 'react';
-import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
-import { Sparkles, Book } from 'lucide-react';
+import { Sparkles, Book, ChevronDown } from 'lucide-react';
 import { toast } from 'sonner';
+import { Button } from '@/components/ui/button';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+
+const ZODIAC_SIGNS = [
+  { name: 'Aries', emoji: '♈', months: 'Mar 21 - Apr 19' },
+  { name: 'Taurus', emoji: '♉', months: 'Apr 20 - May 20' },
+  { name: 'Gemini', emoji: '♊', months: 'May 21 - Jun 20' },
+  { name: 'Cancer', emoji: '♋', months: 'Jun 21 - Jul 22' },
+  { name: 'Leo', emoji: '♌', months: 'Jul 23 - Aug 22' },
+  { name: 'Virgo', emoji: '♍', months: 'Aug 23 - Sep 22' },
+  { name: 'Libra', emoji: '♎', months: 'Sep 23 - Oct 22' },
+  { name: 'Scorpio', emoji: '♏', months: 'Oct 23 - Nov 21' },
+  { name: 'Sagittarius', emoji: '♐', months: 'Nov 22 - Dec 21' },
+  { name: 'Capricorn', emoji: '♑', months: 'Dec 22 - Jan 19' },
+  { name: 'Aquarius', emoji: '♒', months: 'Jan 20 - Feb 18' },
+  { name: 'Pisces', emoji: '♓', months: 'Feb 19 - Mar 20' },
+];
 
 export default function DailyChristianHoroscope({ user }) {
   const [isLoading, setIsLoading] = useState(false);
   const [horoscope, setHoroscope] = useState(null);
-  const [todayDate, setTodayDate] = useState(new Date().toISOString().split('T')[0]);
+  const [selectedZodiac, setSelectedZodiac] = useState(user?.zodiac_sign || '');
+  const [isSavingZodiac, setIsSavingZodiac] = useState(false);
 
-  // Fetch or generate daily horoscope
+  // Generate daily horoscope based on zodiac sign
   useEffect(() => {
     const generateDailyHoroscope = async () => {
-      if (!user?.email) return;
+      if (!user?.email || !selectedZodiac) return;
 
       setIsLoading(true);
       try {
         const result = await base44.integrations.Core.InvokeLLM({
-          prompt: `Generate a daily Christian horoscope for today (${new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}). 
+          prompt: `Generate a daily Christian horoscope for a ${selectedZodiac} for today (${new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}). 
           
           Please provide:
-          1. A relevant Bible verse for today with book, chapter, and verse reference
+          1. A relevant Bible verse for ${selectedZodiac} personality with book, chapter, and verse reference
           2. The full text of that verse
-          3. Spiritual guidance or reflection based on that verse (2-3 sentences)
-          4. A daily affirmation based on Christian faith
+          3. Spiritual guidance or reflection based on that verse tailored to ${selectedZodiac} traits (2-3 sentences)
+          4. A daily affirmation based on Christian faith for ${selectedZodiac}
           
           Format the response as JSON with keys: verse_reference, verse_text, spiritual_guidance, daily_affirmation`,
           response_json_schema: {
@@ -48,7 +71,24 @@ export default function DailyChristianHoroscope({ user }) {
     };
 
     generateDailyHoroscope();
-  }, [user?.email, todayDate]);
+  }, [user?.email, selectedZodiac]);
+
+  const handleZodiacChange = async (zodiac) => {
+    setSelectedZodiac(zodiac);
+    
+    // Save to user profile
+    setIsSavingZodiac(true);
+    try {
+      await base44.auth.updateMe({ zodiac_sign: zodiac });
+    } catch (error) {
+      console.error('Failed to save zodiac sign:', error);
+      toast.error('Failed to save zodiac sign');
+    } finally {
+      setIsSavingZodiac(false);
+    }
+  };
+
+  const zodiacEmoji = ZODIAC_SIGNS.find(z => z.name === selectedZodiac)?.emoji || '✨';
 
   if (isLoading) {
     return (
