@@ -22,7 +22,6 @@ import CustomPrayerBuilder from '@/components/wellness/CustomPrayerBuilder';
 import { PREMADE_WORKOUTS } from '@/components/wellness/WorkoutLibrary';
 import AIWorkoutRecommendations from '@/components/wellness/AIWorkoutRecommendations';
 
-import PersonalizedRecipes from '@/components/recommendations/PersonalizedRecipes';
 import ContextualSuggestions from '@/components/ai/ContextualSuggestions';
 import AIWellnessJourneyGenerator from '@/components/wellness/AIWellnessJourneyGenerator';
 import WellnessJourneyCard from '@/components/wellness/WellnessJourneyCard';
