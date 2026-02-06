@@ -270,7 +270,7 @@ export default function Profile() {
             transition={{ delay: 0.05 }}
             className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 shadow-sm hover:shadow-md transition-shadow"
           >
-            <p className="text-sm text-gray-600 dark:text-gray-400">Gallery</p>
+            <p className="text-sm text-gray-600 dark:text-gray-400">Photos</p>
             <p className="text-lg font-semibold text-[#1a1a2e] dark:text-white">View All</p>
           </motion.div>
         </Link>
