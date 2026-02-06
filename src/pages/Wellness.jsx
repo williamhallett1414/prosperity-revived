@@ -213,7 +213,7 @@ export default function Wellness() {
 
             {/* Discover Recipes */}
             <Link to={createPageUrl('DiscoverRecipes')}>
-              <div className="bg-gradient-to-br from-[#FD9C2D] via-[#000000] to-[#C4E3FD] rounded-2xl p-5 text-white cursor-pointer hover:shadow-lg transition-shadow">
+              <div className="bg-gradient-to-br from-[#90EE90] via-[#FFFF00] to-[#f6ebe0] rounded-2xl p-5 text-black cursor-pointer hover:shadow-lg transition-shadow">
                 <div className="flex items-center gap-3 mb-2">
                   <UtensilsCrossed className="w-6 h-6" />
                   <h3 className="text-lg font-semibold">Discover Recipes</h3>
