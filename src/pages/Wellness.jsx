@@ -110,7 +110,7 @@ export default function Wellness() {
   }).length;
 
   return (
-    <div className="min-h-screen bg-[#000000] pb-24">
+    <div className={`min-h-screen pb-24 ${activeTab === 'nutrition' ? 'bg-[#f6ebe0]' : 'bg-[#000000]'}`}>
       {/* Header with Banner - Show ReeVibe on workouts, Good Pantry on nutrition */}
       <div className="relative bg-black -mx-4">
         <img 
