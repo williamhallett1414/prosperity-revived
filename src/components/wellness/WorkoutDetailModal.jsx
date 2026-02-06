@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { Clock, Target, Dumbbell, Copy } from 'lucide-react';
+import { Clock, Target, Dumbbell, Copy, Play } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { toast } from 'sonner';
+import StartWorkoutModal from './StartWorkoutModal';
 
 export default function WorkoutDetailModal({ isOpen, onClose, workout, user }) {
+  const [showStartModal, setShowStartModal] = useState(false);
   const queryClient = useQueryClient();
 
   const difficultyColors = {
@@ -117,15 +119,32 @@ export default function WorkoutDetailModal({ isOpen, onClose, workout, user }) {
 
           <div className="flex gap-2 pt-4 border-t">
             <Button
-              onClick={() => copyWorkout.mutate()}
+              onClick={() => {
+                setShowStartModal(true);
+                onClose();
+              }}
               className="flex-1 bg-emerald-600 hover:bg-emerald-700"
+            >
+              <Play className="w-4 h-4 mr-2" />
+              Start Workout
+            </Button>
+            <Button
+              onClick={() => copyWorkout.mutate()}
+              variant="outline"
               disabled={copyWorkout.isPending}
             >
               <Copy className="w-4 h-4 mr-2" />
-              {copyWorkout.isPending ? 'Adding...' : 'Add to My Workouts'}
+              {copyWorkout.isPending ? 'Adding...' : 'Add to Library'}
             </Button>
           </div>
         </div>
+
+        <StartWorkoutModal
+          isOpen={showStartModal}
+          onClose={() => setShowStartModal(false)}
+          workout={workout}
+          user={user}
+        />
       </DialogContent>
     </Dialog>
   );

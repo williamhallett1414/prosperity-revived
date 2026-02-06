@@ -72,31 +72,30 @@ export default function WorkoutCard({ workout, onComplete, index, isPremade = fa
       )}
 
       <div className="flex gap-2">
+        <Button
+          onClick={() => setShowStartModal(true)}
+          className="flex-1 bg-emerald-600 hover:bg-emerald-700"
+        >
+          <Dumbbell className="w-4 h-4 mr-2" />
+          Start Workout
+        </Button>
+        
         {isPremade ? (
           <Button
             onClick={() => setShowDetailModal(true)}
-            className="flex-1 bg-emerald-600 hover:bg-emerald-700"
+            variant="outline"
+            className="border-emerald-600 text-emerald-600"
           >
-            <Dumbbell className="w-4 h-4 mr-2" />
-            View Details
+            Details
           </Button>
         ) : (
-          <>
-            <Button
-              onClick={() => setShowStartModal(true)}
-              className="flex-1 bg-emerald-600 hover:bg-emerald-700"
-            >
-              <Dumbbell className="w-4 h-4 mr-2" />
-              Start Workout
-            </Button>
-            <Button
-              onClick={() => setShowLogModal(true)}
-              variant="outline"
-              className="border-emerald-600 text-emerald-600"
-            >
-              Quick Log
-            </Button>
-          </>
+          <Button
+            onClick={() => setShowLogModal(true)}
+            variant="outline"
+            className="border-emerald-600 text-emerald-600"
+          >
+            Quick Log
+          </Button>
         )}
 
         {!isPremade && workout.id && (

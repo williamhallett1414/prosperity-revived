@@ -79,7 +79,7 @@ export default function StartWorkoutModal({ isOpen, onClose, workout, user, onCo
       
       // Create workout session
       await base44.entities.WorkoutSession.create({
-        workout_id: workout.id,
+        workout_id: workout.id || 'premade',
         workout_name: workout.title,
         date: today,
         duration_minutes: Math.floor(elapsedTime / 60),
@@ -94,8 +94,8 @@ export default function StartWorkoutModal({ isOpen, onClose, workout, user, onCo
         overall_feeling: 'good'
       });
 
-      // Update workout plan completed dates
-      if (workout.id) {
+      // Update workout plan completed dates (only for saved workouts)
+      if (workout.id && typeof workout.id === 'string' && workout.id !== 'premade') {
         const updatedDates = [...(workout.completed_dates || []), today];
         await base44.entities.WorkoutPlan.update(workout.id, {
           completed_dates: updatedDates
