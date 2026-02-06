@@ -261,8 +261,7 @@ export default function Wellness() {
 
             
             <MeditationTracker user={user} />
-            
-            <CustomPrayerBuilder />
+
             <MeditationGuide />
           </TabsContent>
 
