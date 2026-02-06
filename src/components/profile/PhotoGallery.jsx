@@ -227,11 +227,19 @@ export default function PhotoGallery() {
               className="bg-white dark:bg-[#2d2d4a] rounded-2xl max-w-2xl w-full overflow-hidden"
             >
               <div className="relative">
-                <img
-                  src={selectedPhoto.image_url}
-                  alt={selectedPhoto.caption || 'Photo'}
-                  className="w-full max-h-[60vh] object-contain"
-                />
+                {selectedPhoto.type === 'video' ? (
+                  <video
+                    src={selectedPhoto.media_url}
+                    controls
+                    className="w-full max-h-[60vh] object-contain"
+                  />
+                ) : (
+                  <img
+                    src={selectedPhoto.media_url}
+                    alt={selectedPhoto.caption || 'Media'}
+                    className="w-full max-h-[60vh] object-contain"
+                  />
+                )}
                 <button
                   onClick={() => setSelectedPhoto(null)}
                   className="absolute top-4 right-4 w-10 h-10 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center text-white transition-colors"
@@ -239,9 +247,10 @@ export default function PhotoGallery() {
                   <X className="w-5 h-5" />
                 </button>
               </div>
-              {selectedPhoto.caption && (
+              {(selectedPhoto.caption || selectedPhoto.title) && (
                 <div className="p-4">
-                  <p className="text-gray-700 dark:text-gray-300">{selectedPhoto.caption}</p>
+                  <p className="text-gray-700 dark:text-gray-300">{selectedPhoto.caption || selectedPhoto.title}</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-2 capitalize">From {selectedPhoto.source}</p>
                 </div>
               )}
               <div className="p-4 border-t border-gray-200 dark:border-gray-700 flex justify-between items-center">
