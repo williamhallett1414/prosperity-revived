@@ -122,23 +122,37 @@ export default function Wellness() {
 
   return (
     <div className={`min-h-screen pb-24 ${activeTab === 'nutrition' ? 'bg-[#f6ebe0]' : 'bg-[#000000]'}`}>
-      {/* Header with Banner - Show ReeVibe on workouts, Good Pantry on nutrition */}
-      <div className="relative bg-black -mx-4">
-        <img 
-          src={activeTab === 'nutrition' 
-            ? "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6980ade9ca08df558ed28bdd/0079a599f_TheGoodPantry.png"
-            : "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6980ade9ca08df558ed28bdd/171d02df6_ReeVibeLogonew.jpg"
-          }
-          alt={activeTab === 'nutrition' ? "The Good Pantry" : "ReeVibe Fitness"}
-          className="w-full h-64 object-cover"
-        />
-        <Link
-          to={createPageUrl('Home')}
-          className={`absolute top-4 left-4 w-10 h-10 rounded-full flex items-center justify-center transition-colors ${activeTab === 'nutrition' ? 'bg-green-500 hover:bg-green-600' : 'bg-[#FD9C2D] hover:bg-[#C4E3FD]'}`}
-        >
-          <ArrowLeft className="w-5 h-5 text-black" />
-        </Link>
-      </div>
+      {/* Header with Banner - Show ReeVibe on workouts, Good Pantry on nutrition, none on meditation */}
+      {activeTab !== 'meditation' && (
+        <div className="relative bg-black -mx-4">
+          <img 
+            src={activeTab === 'nutrition' 
+              ? "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6980ade9ca08df558ed28bdd/0079a599f_TheGoodPantry.png"
+              : "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6980ade9ca08df558ed28bdd/171d02df6_ReeVibeLogonew.jpg"
+            }
+            alt={activeTab === 'nutrition' ? "The Good Pantry" : "ReeVibe Fitness"}
+            className="w-full h-64 object-cover"
+          />
+          <Link
+            to={createPageUrl('Home')}
+            className={`absolute top-4 left-4 w-10 h-10 rounded-full flex items-center justify-center transition-colors ${activeTab === 'nutrition' ? 'bg-green-500 hover:bg-green-600' : 'bg-[#FD9C2D] hover:bg-[#C4E3FD]'}`}
+          >
+            <ArrowLeft className="w-5 h-5 text-black" />
+          </Link>
+        </div>
+      )}
+
+      {/* Back button for meditation tab */}
+      {activeTab === 'meditation' && (
+        <div className="px-4 pt-4 mb-4">
+          <Link
+            to={createPageUrl('Home')}
+            className="w-10 h-10 rounded-full bg-purple-600 hover:bg-purple-700 flex items-center justify-center transition-colors"
+          >
+            <ArrowLeft className="w-5 h-5 text-white" />
+          </Link>
+        </div>
+      )}
 
       <div className="px-4 pt-6">
         <Tabs defaultValue="workouts" className="w-full" onValueChange={setActiveTab}>
