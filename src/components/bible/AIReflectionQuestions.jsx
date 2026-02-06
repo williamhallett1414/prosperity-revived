@@ -56,7 +56,7 @@ Return exactly 3 questions that encourage personal reflection and application.`,
         ) : (
           <>
             <Sparkles className="w-4 h-4 mr-2 text-purple-500" />
-            {isExpanded ? 'Hide' : 'Generate'} AI Reflection Questions
+            Reflection Questions
             {isExpanded && <ChevronUp className="w-4 h-4 ml-2" />}
             {!isExpanded && questions.length === 0 && <ChevronDown className="w-4 h-4 ml-2" />}
           </>
