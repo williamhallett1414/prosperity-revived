@@ -121,17 +121,8 @@ export default function Wellness() {
   }).length;
 
   return (
-    <div className={`min-h-screen pb-24 ${activeTab === 'nutrition' ? 'bg-[#f6ebe0]' : activeTab === 'meditation' ? 'bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600' : 'bg-[#000000]'}`}>
+    <div className={`min-h-screen pb-24 ${activeTab === 'nutrition' ? 'bg-[#f6ebe0]' : 'bg-[#000000]'}`}>
 
-
-      {/* Revival Banner - Above Menu */}
-      {activeTab === 'meditation' && (
-        <img 
-          src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6980ade9ca08df558ed28bdd/0b65370eb_Revival.png"
-          alt="Moments of Revival"
-          className="w-full h-80 object-cover"
-        />
-      )}
 
       <div className="px-4 pt-4">
         <Link
@@ -238,6 +229,13 @@ export default function Wellness() {
 
           {/* Meditation Tab */}
           <TabsContent value="meditation" className="space-y-4">
+            {/* Revival Banner */}
+            <img 
+              src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6980ade9ca08df558ed28bdd/0b65370eb_Revival.png"
+              alt="Moments of Revival"
+              className="w-full rounded-2xl object-cover"
+            />
+
             {/* Discover All Meditations */}
             <Link to={createPageUrl('DiscoverMeditations')}>
               <div className="bg-gradient-to-br from-purple-600 via-pink-500 to-purple-700 rounded-2xl p-5 text-white cursor-pointer hover:shadow-lg transition-shadow">
