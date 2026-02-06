@@ -31,7 +31,7 @@ import AIWellnessJourneyGenerator from '@/components/wellness/AIWellnessJourneyG
 import WellnessJourneyCard from '@/components/wellness/WellnessJourneyCard';
 import MoodEnergyChart from '@/components/wellness/MoodEnergyChart';
 import SelfCareGuides from '@/components/wellness/SelfCareGuides';
-import DiscoverWorkouts from '@/components/wellness/DiscoverWorkouts';
+
 import CoachDavid from '@/components/wellness/CoachDavid';
 
 
@@ -212,12 +212,15 @@ export default function Wellness() {
             ))}
 
             {/* 2. Discover Workouts */}
-            <DiscoverWorkouts 
-              user={user} 
-              myWorkouts={myWorkouts} 
-              completeWorkout={completeWorkout}
-              onCreateWorkout={() => setShowCreateWorkout(true)}
-            />
+            <Link to={createPageUrl('DiscoverWorkouts')}>
+              <div className="bg-gradient-to-br from-purple-500 to-indigo-600 rounded-2xl p-5 text-white cursor-pointer hover:shadow-lg transition-shadow">
+                <div className="flex items-center gap-3 mb-2">
+                  <TrendingUp className="w-6 h-6" />
+                  <h3 className="text-lg font-semibold">Discover Workouts</h3>
+                </div>
+                <p className="text-white/90 text-sm">Browse and create custom workouts</p>
+              </div>
+            </Link>
 
             {/* My Workouts */}
             {myWorkouts.length > 0 && (
