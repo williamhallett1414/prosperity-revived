@@ -1,26 +1,82 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Dumbbell, Clock, CheckCircle, Award, ChevronDown, ChevronUp, Share2 } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
+import { 
+  CheckCircle, Clock, TrendingUp, Dumbbell, 
+  Share2, ChevronDown, ChevronUp, Eye, Play, ThumbsUp, MessageCircle, Copy
+} from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { base44 } from '@/api/base44Client';
+import { toast } from 'sonner';
 import WorkoutLogModal from './WorkoutLogModal';
-import CommentSection from './CommentSection';
 import ShareWorkoutModal from './ShareWorkoutModal';
 import WorkoutDetailModal from './WorkoutDetailModal';
+import CommentSection from './CommentSection';
 import StartWorkoutModal from './StartWorkoutModal';
 
-export default function WorkoutCard({ workout, onComplete, index, isPremade = false, user }) {
+export default function WorkoutCard({ 
+  workout, 
+  onComplete, 
+  index = 0, 
+  isPremade = false,
+  user,
+  showCommunityStats = false
+}) {
   const [showLogModal, setShowLogModal] = useState(false);
   const [showShareModal, setShowShareModal] = useState(false);
   const [showDetailModal, setShowDetailModal] = useState(false);
   const [showStartModal, setShowStartModal] = useState(false);
-  const [expanded, setExpanded] = useState(false);
-  const today = new Date().toISOString().split('T')[0];
-  const completedToday = workout.completed_dates?.includes(today);
+  const [showComments, setShowComments] = useState(false);
+  const [hasLiked, setHasLiked] = useState(false);
+  const queryClient = useQueryClient();
+
+  const likeWorkout = useMutation({
+    mutationFn: async () => {
+      const newLikes = (workout.likes || 0) + (hasLiked ? -1 : 1);
+      return base44.entities.WorkoutPlan.update(workout.id, {
+        likes: newLikes
+      });
+    },
+    onSuccess: () => {
+      setHasLiked(!hasLiked);
+      queryClient.invalidateQueries(['workouts']);
+      queryClient.invalidateQueries(['communityWorkouts']);
+      queryClient.invalidateQueries(['sharedWorkouts']);
+    }
+  });
+
+  const copyWorkout = useMutation({
+    mutationFn: async () => {
+      const workoutCopy = {
+        title: `${workout.title} (Copy)`,
+        description: workout.description,
+        difficulty: workout.difficulty,
+        duration_minutes: workout.duration_minutes,
+        exercises: workout.exercises,
+        category: workout.category,
+        completed_dates: []
+      };
+      
+      await base44.entities.WorkoutPlan.create(workoutCopy);
+      
+      if (workout.id) {
+        await base44.entities.WorkoutPlan.update(workout.id, {
+          times_copied: (workout.times_copied || 0) + 1
+        });
+      }
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(['workouts']);
+      toast.success('Workout added to your library!');
+    }
+  });
 
   const difficultyColors = {
-    beginner: 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300',
-    intermediate: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300',
-    advanced: 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300'
+    beginner: 'bg-green-100 text-green-800',
+    intermediate: 'bg-yellow-100 text-yellow-800',
+    advanced: 'bg-red-100 text-red-800'
   };
 
   return (
@@ -28,21 +84,56 @@ export default function WorkoutCard({ workout, onComplete, index, isPremade = fa
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.05 }}
-      className="bg-white dark:bg-[#2d2d4a] rounded-2xl overflow-hidden shadow-sm"
+      className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 shadow-sm"
     >
       {workout.image_url && (
-        <img src={workout.image_url} alt={workout.title} className="w-full h-32 object-cover" />
+        <img 
+          src={workout.image_url} 
+          alt={workout.title} 
+          className="w-full h-40 object-cover rounded-lg mb-3"
+        />
       )}
-      <div className="p-4">
-        <div className="flex items-start justify-between mb-3">
-          <div className="flex-1">
-            <h3 className="font-semibold text-[#1a1a2e] dark:text-white mb-1">{workout.title}</h3>
-            <p className="text-sm text-gray-600 dark:text-gray-400">{workout.description}</p>
-          </div>
-          <span className={`px-2 py-1 rounded-full text-xs font-medium ${difficultyColors[workout.difficulty]}`}>
+
+      <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center gap-2">
+          <h3 className="font-semibold text-lg text-gray-900 dark:text-white">
+            {workout.title}
+          </h3>
+          <Badge className={difficultyColors[workout.difficulty]}>
             {workout.difficulty}
-          </span>
+          </Badge>
         </div>
+        <div className="flex gap-2">
+          {!isPremade && (
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setShowShareModal(true)}
+              className="text-emerald-600 hover:text-emerald-700 hover:bg-emerald-50"
+            >
+              <Share2 className="w-5 h-5" />
+            </Button>
+          )}
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => setShowDetailModal(true)}
+            className="text-gray-600 hover:text-gray-700"
+          >
+            <Eye className="w-5 h-5" />
+          </Button>
+        </div>
+      </div>
+
+      {showCommunityStats && workout.creator_name && (
+        <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">
+          by {workout.creator_name}
+        </p>
+      )}
+
+      <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
+        {workout.description}
+      </p>
 
       <div className="flex items-center gap-4 mb-3 text-sm text-gray-600 dark:text-gray-400">
         <div className="flex items-center gap-1">
@@ -50,79 +141,110 @@ export default function WorkoutCard({ workout, onComplete, index, isPremade = fa
           <span>{workout.duration_minutes} min</span>
         </div>
         <div className="flex items-center gap-1">
-          <Award className="w-4 h-4" />
-          <span>{workout.completed_dates?.length || 0} times</span>
+          <Dumbbell className="w-4 h-4" />
+          <span>{workout.exercises?.length || 0} exercises</span>
         </div>
+        {!isPremade && workout.completed_dates?.length > 0 && (
+          <div className="flex items-center gap-1">
+            <CheckCircle className="w-4 h-4 text-emerald-600" />
+            <span>{workout.completed_dates.length} completed</span>
+          </div>
+        )}
       </div>
 
       {workout.exercises && workout.exercises.length > 0 && (
         <div className="mb-3 text-sm">
-          <p className="text-gray-500 dark:text-gray-400 mb-1">Exercises:</p>
+          <p className="text-gray-500 dark:text-gray-400 mb-1 font-medium">Exercises:</p>
           <div className="space-y-1">
             {workout.exercises.slice(0, 3).map((ex, i) => (
               <div key={i} className="text-gray-700 dark:text-gray-300">
-                • {ex.name} {ex.sets && `- ${ex.sets}x${ex.reps}`}
+                • {ex.name} {ex.sets && ex.reps && `- ${ex.sets}x${ex.reps}`}
               </div>
             ))}
             {workout.exercises.length > 3 && (
-              <p className="text-gray-500 dark:text-gray-400">+{workout.exercises.length - 3} more</p>
+              <p className="text-gray-500 dark:text-gray-400">
+                +{workout.exercises.length - 3} more exercises
+              </p>
             )}
           </div>
         </div>
       )}
 
-      <div className="flex gap-2">
-        <Button
-          onClick={() => setShowStartModal(true)}
-          className="flex-1 bg-emerald-600 hover:bg-emerald-700"
-        >
-          <Dumbbell className="w-4 h-4 mr-2" />
-          Start Workout
-        </Button>
-        
-        {isPremade ? (
-          <Button
-            onClick={() => setShowDetailModal(true)}
-            variant="outline"
-            className="border-emerald-600 text-emerald-600"
-          >
-            Details
-          </Button>
+      <div className="flex gap-2 mt-3">
+        {showCommunityStats && workout.created_by !== user?.email ? (
+          <>
+            <Button
+              onClick={() => copyWorkout.mutate()}
+              className="flex-1 bg-emerald-600 hover:bg-emerald-700"
+              disabled={copyWorkout.isPending}
+            >
+              <Copy className="w-4 h-4 mr-2" />
+              {copyWorkout.isPending ? 'Adding...' : 'Add to My Workouts'}
+            </Button>
+            <Button
+              variant="outline"
+              onClick={() => likeWorkout.mutate()}
+              className={`flex items-center gap-2 ${hasLiked ? 'bg-red-50 text-red-600' : ''}`}
+            >
+              <ThumbsUp className={`w-4 h-4 ${hasLiked ? 'fill-current' : ''}`} />
+              {workout.likes || 0}
+            </Button>
+            <Button
+              variant="outline"
+              onClick={() => setShowComments(!showComments)}
+            >
+              <MessageCircle className="w-4 h-4" />
+            </Button>
+          </>
         ) : (
-          <Button
-            onClick={() => setShowLogModal(true)}
-            variant="outline"
-            className="border-emerald-600 text-emerald-600"
-          >
-            Quick Log
-          </Button>
-        )}
-
-        {!isPremade && workout.id && (
-          <Button
-            variant="outline"
-            onClick={() => setShowShareModal(true)}
-            className="border-emerald-600 text-emerald-600 hover:bg-emerald-50"
-          >
-            <Share2 className="w-4 h-4" />
-          </Button>
-        )}
-
-        {workout.id && (
-          <Button
-            variant="outline"
-            onClick={() => setExpanded(!expanded)}
-          >
-            {expanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-          </Button>
+          <>
+            <Button
+              onClick={() => setShowStartModal(true)}
+              className="flex-1 bg-emerald-600 hover:bg-emerald-700"
+            >
+              <Play className="w-4 h-4 mr-2" />
+              Start Workout
+            </Button>
+            {showCommunityStats && (
+              <div className="flex gap-2">
+                <div className="flex items-center gap-1 text-sm text-gray-500 px-3 py-2 bg-gray-50 dark:bg-gray-800 rounded-md">
+                  <ThumbsUp className="w-4 h-4" />
+                  {workout.likes || 0}
+                </div>
+                <div className="flex items-center gap-1 text-sm text-gray-500 px-3 py-2 bg-gray-50 dark:bg-gray-800 rounded-md">
+                  <Copy className="w-4 h-4" />
+                  {workout.times_copied || 0}
+                </div>
+              </div>
+            )}
+            <Button
+              variant="outline"
+              onClick={() => setShowComments(!showComments)}
+              className="flex items-center gap-2"
+            >
+              {showComments ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+              Comments
+            </Button>
+          </>
         )}
       </div>
 
-      {expanded && workout.id && (
-        <div className="mt-4">
-          <CommentSection contentId={workout.id} contentType="workout" />
-        </div>
-      )}
+      <AnimatePresence>
+        {showComments && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            className="mt-3 border-t pt-3"
+          >
+            <CommentSection 
+              contentId={workout.id}
+              contentType="workout"
+              user={user}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <WorkoutLogModal
         isOpen={showLogModal}
@@ -152,7 +274,6 @@ export default function WorkoutCard({ workout, onComplete, index, isPremade = fa
         user={user}
         onComplete={onComplete}
       />
-      </div>
     </motion.div>
   );
 }
