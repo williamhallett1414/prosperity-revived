@@ -256,10 +256,6 @@ export default function Wellness() {
             )}
             
 
-            <GuidedMeditationPlayer 
-              user={user}
-              onSessionComplete={() => queryClient.invalidateQueries(['meditationSessions'])}
-            />
             
             <MeditationTracker user={user} />
             
