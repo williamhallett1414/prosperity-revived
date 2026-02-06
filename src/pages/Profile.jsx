@@ -205,7 +205,7 @@ export default function Profile() {
         <button 
           onClick={() => document.getElementById('cover-image-upload').click()}
           disabled={uploadingCover}
-          className="absolute bottom-4 right-4 bg-white/90 hover:bg-white rounded-full p-2 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity"
+          className="absolute bottom-4 right-4 bg-white hover:bg-gray-100 rounded-full p-2 shadow-lg transition-colors"
         >
           {uploadingCover ? (
             <Loader2 className="w-5 h-5 text-[#1a1a2e] animate-spin" />
