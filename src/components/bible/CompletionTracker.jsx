@@ -41,7 +41,9 @@ export default function CompletionTracker({ sections, completedSections, onToggl
                           initial={{ scale: 0.8 }}
                           animate={{ scale: 1 }}
                         >
-                          <CheckCircle2 className="w-5 h-5 text-green-700 fill-green-600" />
+                          <div className="w-5 h-5 rounded-full bg-green-600 flex items-center justify-center">
+                            <Check className="w-3 h-3 text-white" />
+                          </div>
                         </motion.div>
                       ) : (
                         <Circle className="w-5 h-5 text-gray-400 group-hover:text-green-500 transition-colors" />
