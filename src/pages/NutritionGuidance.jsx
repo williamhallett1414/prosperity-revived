@@ -1921,6 +1921,15 @@ export default function NutritionGuidancePage() {
 
   return (
     <div className="min-h-screen bg-[#000000] pb-20">
+      {/* The Good Pantry Banner */}
+      <div className="relative bg-black -mx-4 mb-6">
+        <img 
+          src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6980ade9ca08df558ed28bdd/0079a599f_TheGoodPantry.png"
+          alt="The Good Pantry"
+          className="w-full h-48 object-cover"
+        />
+      </div>
+
       {/* Header */}
       <div className="bg-gradient-to-br from-[#FD9C2D] via-[#000000] to-[#C4E3FD] p-6">
         <Link
