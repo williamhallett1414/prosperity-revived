@@ -180,43 +180,16 @@ export default function MeditationGuide() {
         </motion.div>
       )}
 
-      {/* Category Filter */}
-      <div className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-3">
-        <div className="flex gap-2 overflow-x-auto pb-2">
-          {MEDITATION_CATEGORIES.map(cat => (
-            <Button
-              key={cat.id}
-              variant={selectedCategory === cat.id ? 'default' : 'outline'}
-              size="sm"
-              onClick={() => setSelectedCategory(cat.id)}
-              className={selectedCategory === cat.id ? 'bg-purple-600 hover:bg-purple-700 flex-shrink-0' : 'flex-shrink-0'}
-            >
-              <span className="mr-1">{cat.icon}</span>
-              {cat.label}
-            </Button>
-          ))}
+      {/* Discover Meditations Link */}
+      <Link to={createPageUrl('DiscoverMeditations')}>
+        <div className="bg-gradient-to-br from-purple-600 via-pink-500 to-purple-700 rounded-2xl p-5 text-white cursor-pointer hover:shadow-lg transition-shadow">
+          <div className="flex items-center gap-3 mb-2">
+            <Sparkles className="w-6 h-6" />
+            <h3 className="text-lg font-semibold">Discover All Meditations</h3>
+          </div>
+          <p className="text-white/90 text-sm">Browse our full library of guided sessions</p>
         </div>
-      </div>
-
-      {/* Meditations List */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {filteredMeditations.map((med, index) => (
-          <MeditationSessionCard
-            key={med.id}
-            session={{
-              ...med,
-              id: med.id,
-              title: med.title,
-              duration: med.duration_minutes,
-              description: med.description,
-              type: med.type,
-              _original: med
-            }}
-            onBegin={setActiveSession}
-            index={index}
-          />
-        ))}
-      </div>
+      </Link>
 
       {/* Active meditation session */}
       {activeSession && (
