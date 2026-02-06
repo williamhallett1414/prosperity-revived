@@ -154,18 +154,19 @@ export default function Wellness() {
         </div>
       )}
 
+      {/* Moments of Revival Banner for Meditation Tab */}
+      {activeTab === 'meditation' && (
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="bg-gradient-to-r from-purple-600 via-pink-500 to-purple-700 p-8 text-white text-center shadow-lg -mx-4"
+        >
+          <h2 className="text-4xl font-bold mb-2">Moments of Revival</h2>
+          <p className="text-white/90">Find peace, prayer, and spiritual renewal</p>
+        </motion.div>
+      )}
+
       <div className="px-4 pt-6">
-        {/* Moments of Revival Banner for Meditation Tab */}
-        {activeTab === 'meditation' && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="bg-gradient-to-r from-purple-600 via-pink-500 to-purple-700 rounded-2xl p-8 text-white text-center shadow-lg mb-6"
-          >
-            <h2 className="text-4xl font-bold mb-2">Moments of Revival</h2>
-            <p className="text-white/90">Find peace, prayer, and spiritual renewal</p>
-          </motion.div>
-        )}
 
         <Tabs defaultValue="workouts" className="w-full" onValueChange={setActiveTab}>
           <TabsList className={`grid w-full grid-cols-4 mb-6 p-1 rounded-xl ${activeTab === 'nutrition' ? 'bg-[#90EE90]' : activeTab === 'meditation' ? 'bg-purple-500' : 'bg-[#FD9C2D]'}`}>
