@@ -77,15 +77,6 @@ export default function DiscoverRecipes() {
 
   return (
     <div className="min-h-screen bg-[#f6ebe0] pb-24">
-      {/* The Good Pantry Banner */}
-      <div className="relative bg-[#f6ebe0] -mx-4 mb-6">
-        <img 
-          src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6980ade9ca08df558ed28bdd/0079a599f_TheGoodPantry.png"
-          alt="The Good Pantry"
-          className="w-full h-48 object-cover"
-        />
-      </div>
-
       {/* Header with Banner */}
       <div className="relative bg-[#f6ebe0] -mx-4">
         <img 
@@ -95,7 +86,7 @@ export default function DiscoverRecipes() {
         />
         <Link
           to={createPageUrl('Wellness')}
-          className="absolute top-4 left-4 w-10 h-10 rounded-full bg-[#FD9C2D] flex items-center justify-center hover:bg-[#C4E3FD] transition-colors"
+          className="absolute top-4 left-4 w-10 h-10 rounded-full bg-green-500 hover:bg-green-600 flex items-center justify-center transition-colors"
         >
           <ArrowLeft className="w-5 h-5 text-black" />
         </Link>
