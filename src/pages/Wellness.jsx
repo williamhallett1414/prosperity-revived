@@ -131,11 +131,11 @@ export default function Wellness() {
 
       <div className="px-4 pt-6">
         <Tabs defaultValue="workouts" className="w-full" onValueChange={setActiveTab}>
-          <TabsList className="grid w-full grid-cols-4 mb-6 bg-[#90EE90] p-1 rounded-xl">
-            <TabsTrigger value="workouts" className="text-xs sm:text-sm data-[state=active]:bg-[#FFFF00] data-[state=active]:text-black">Workouts</TabsTrigger>
-            <TabsTrigger value="nutrition" className="text-xs sm:text-sm data-[state=active]:bg-[#FFFF00] data-[state=active]:text-black">Nutrition</TabsTrigger>
-            <TabsTrigger value="meditation" className="text-xs sm:text-sm data-[state=active]:bg-[#FFFF00] data-[state=active]:text-black">Meditation</TabsTrigger>
-            <TabsTrigger value="selfcare" className="text-xs sm:text-sm data-[state=active]:bg-[#FFFF00] data-[state=active]:text-black">Self-Care</TabsTrigger>
+          <TabsList className={`grid w-full grid-cols-4 mb-6 p-1 rounded-xl ${activeTab === 'nutrition' ? 'bg-[#90EE90]' : 'bg-[#FD9C2D]'}`}>
+            <TabsTrigger value="workouts" className={`text-xs sm:text-sm ${activeTab === 'nutrition' ? 'data-[state=active]:bg-[#FFFF00]' : 'data-[state=active]:bg-[#C4E3FD]'} data-[state=active]:text-black`}>Workouts</TabsTrigger>
+            <TabsTrigger value="nutrition" className={`text-xs sm:text-sm ${activeTab === 'nutrition' ? 'data-[state=active]:bg-[#FFFF00]' : 'data-[state=active]:bg-[#C4E3FD]'} data-[state=active]:text-black`}>Nutrition</TabsTrigger>
+            <TabsTrigger value="meditation" className={`text-xs sm:text-sm ${activeTab === 'nutrition' ? 'data-[state=active]:bg-[#FFFF00]' : 'data-[state=active]:bg-[#C4E3FD]'} data-[state=active]:text-black`}>Meditation</TabsTrigger>
+            <TabsTrigger value="selfcare" className={`text-xs sm:text-sm ${activeTab === 'nutrition' ? 'data-[state=active]:bg-[#FFFF00]' : 'data-[state=active]:bg-[#C4E3FD]'} data-[state=active]:text-black`}>Self-Care</TabsTrigger>
           </TabsList>
 
           {/* Workouts Tab */}
