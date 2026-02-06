@@ -125,7 +125,7 @@ export default function ReeVibeFitness({ user }) {
   if (isLoading) {
     return (
       <div className="text-center py-8">
-        <div className="animate-spin w-8 h-8 border-4 border-emerald-600 border-t-transparent rounded-full mx-auto" />
+        <div className="animate-spin w-8 h-8 border-4 border-[#FD9C2D] border-t-transparent rounded-full mx-auto" />
       </div>
     );
   }
@@ -136,7 +136,7 @@ export default function ReeVibeFitness({ user }) {
       <div className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 shadow-sm mb-4">
         <div className="flex items-center gap-3 mb-3">
           <Avatar className="w-10 h-10">
-            <AvatarFallback className="bg-emerald-100 text-emerald-700">
+            <AvatarFallback className="bg-[#FD9C2D]/20 text-[#FD9C2D]">
               {user?.full_name?.charAt(0)?.toUpperCase() || 'U'}
             </AvatarFallback>
           </Avatar>
@@ -220,7 +220,7 @@ export default function ReeVibeFitness({ user }) {
                 {/* Post Header */}
                 <div className="flex items-center gap-3 mb-3">
                   <Avatar className="w-10 h-10">
-                    <AvatarFallback className="bg-emerald-100 text-emerald-700">
+                    <AvatarFallback className="bg-[#FD9C2D]/20 text-[#FD9C2D]">
                       {post.user_name?.charAt(0)?.toUpperCase() || 'U'}
                     </AvatarFallback>
                   </Avatar>
@@ -322,7 +322,7 @@ export default function ReeVibeFitness({ user }) {
           <div className="space-y-4">
             <div className="flex items-center gap-3 mb-3">
               <Avatar className="w-10 h-10">
-                <AvatarFallback className="bg-emerald-100 text-emerald-700">
+                <AvatarFallback className="bg-[#FD9C2D]/20 text-[#FD9C2D]">
                   {user?.full_name?.charAt(0)?.toUpperCase() || 'U'}
                 </AvatarFallback>
               </Avatar>
@@ -411,7 +411,7 @@ export default function ReeVibeFitness({ user }) {
             <Button
               onClick={handleCreatePost}
               disabled={(!postContent.trim() && !mediaUrl) || createPostMutation.isPending}
-              className="w-full bg-emerald-600 hover:bg-emerald-700"
+              className="w-full bg-[#FD9C2D] hover:bg-[#FD9C2D]/90"
             >
               {createPostMutation.isPending ? 'Posting...' : 'Share Post'}
             </Button>

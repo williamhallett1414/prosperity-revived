@@ -155,7 +155,7 @@ export default function WorkoutTrends() {
   return (
     <div className="min-h-screen bg-[#faf8f5] dark:bg-[#1a1a2e] pb-24">
       {/* Header */}
-      <div className="bg-gradient-to-br from-emerald-600 to-teal-700 text-white px-4 py-6">
+      <div className="bg-gradient-to-br from-[#FD9C2D] via-[#000000] to-[#C4E3FD] text-white px-4 py-6">
         <Link
           to={createPageUrl('Wellness')}
           className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center mb-4 inline-flex"
@@ -186,7 +186,7 @@ export default function WorkoutTrends() {
         <div className="grid grid-cols-2 gap-3">
           <Card className="bg-white dark:bg-[#2d2d4a]">
             <CardContent className="p-4 text-center">
-              <Dumbbell className="w-8 h-8 text-emerald-600 mb-2 mx-auto" />
+              <Dumbbell className="w-8 h-8 text-[#FD9C2D] mb-2 mx-auto" />
               <p className="text-2xl font-bold text-[#1a1a2e] dark:text-white">{totalWorkouts}</p>
               <p className="text-xs text-gray-500 dark:text-gray-400">Total Workouts</p>
             </CardContent>
@@ -194,7 +194,7 @@ export default function WorkoutTrends() {
 
           <Card className="bg-white dark:bg-[#2d2d4a]">
             <CardContent className="p-4 text-center">
-              <Flame className="w-8 h-8 text-orange-600 mb-2 mx-auto" />
+              <Flame className="w-8 h-8 text-[#FD9C2D] mb-2 mx-auto" />
               <p className="text-2xl font-bold text-[#1a1a2e] dark:text-white">{currentStreak}</p>
               <p className="text-xs text-gray-500 dark:text-gray-400">Day Streak</p>
             </CardContent>
@@ -202,7 +202,7 @@ export default function WorkoutTrends() {
 
           <Card className="bg-white dark:bg-[#2d2d4a]">
             <CardContent className="p-4 text-center">
-              <Calendar className="w-8 h-8 text-blue-600 mb-2 mx-auto" />
+              <Calendar className="w-8 h-8 text-[#C4E3FD] mb-2 mx-auto" />
               <p className="text-2xl font-bold text-[#1a1a2e] dark:text-white">{avgWorkoutsPerWeek}</p>
               <p className="text-xs text-gray-500 dark:text-gray-400">Workouts/Week</p>
             </CardContent>
@@ -210,7 +210,7 @@ export default function WorkoutTrends() {
 
           <Card className="bg-white dark:bg-[#2d2d4a]">
             <CardContent className="p-4 text-center">
-              <Award className="w-8 h-8 text-purple-600 mb-2 mx-auto" />
+              <Award className="w-8 h-8 text-[#FD9C2D] mb-2 mx-auto" />
               <p className="text-2xl font-bold text-[#1a1a2e] dark:text-white">{totalMinutes}</p>
               <p className="text-xs text-gray-500 dark:text-gray-400">Total Minutes</p>
             </CardContent>
@@ -237,16 +237,16 @@ export default function WorkoutTrends() {
                   <AreaChart data={activityChartData}>
                     <defs>
                       <linearGradient id="workoutGradient" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#10b981" stopOpacity={0.3}/>
-                        <stop offset="95%" stopColor="#10b981" stopOpacity={0}/>
+                        <stop offset="5%" stopColor="#FD9C2D" stopOpacity={0.3}/>
+                        <stop offset="95%" stopColor="#FD9C2D" stopOpacity={0}/>
                       </linearGradient>
                       <linearGradient id="mealGradient" x1="0" y1="0" x2="0" y2="1">
                         <stop offset="5%" stopColor="#f59e0b" stopOpacity={0.3}/>
                         <stop offset="95%" stopColor="#f59e0b" stopOpacity={0}/>
                       </linearGradient>
                       <linearGradient id="waterGradient" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.3}/>
-                        <stop offset="95%" stopColor="#3b82f6" stopOpacity={0}/>
+                        <stop offset="5%" stopColor="#C4E3FD" stopOpacity={0.3}/>
+                        <stop offset="95%" stopColor="#C4E3FD" stopOpacity={0}/>
                       </linearGradient>
                     </defs>
                     <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
@@ -271,7 +271,7 @@ export default function WorkoutTrends() {
                     <Area
                       type="monotone"
                       dataKey="workouts"
-                      stroke="#10b981"
+                      stroke="#FD9C2D"
                       fill="url(#workoutGradient)"
                       strokeWidth={2}
                       name="Workouts"
@@ -287,7 +287,7 @@ export default function WorkoutTrends() {
                     <Area
                       type="monotone"
                       dataKey="water"
-                      stroke="#3b82f6"
+                      stroke="#C4E3FD"
                       fill="url(#waterGradient)"
                       strokeWidth={2}
                       name="Water (glasses)"
@@ -308,7 +308,7 @@ export default function WorkoutTrends() {
                     {topExercises.map((exercise, idx) => (
                       <div key={exercise.name} className="flex items-center justify-between">
                         <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-sm">
+                          <div className="w-8 h-8 rounded-full bg-[#FD9C2D]/20 text-[#FD9C2D] flex items-center justify-center font-bold text-sm">
                             {idx + 1}
                           </div>
                           <span className="font-medium text-gray-700">{exercise.name}</span>
@@ -333,14 +333,14 @@ export default function WorkoutTrends() {
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-2 gap-4">
-                  <div className="bg-orange-50 rounded-xl p-4 text-center">
-                    <Flame className="w-6 h-6 text-orange-600 mb-2 mx-auto" />
-                    <p className="text-2xl font-bold text-orange-600">{currentStreak}</p>
+                  <div className="bg-[#FD9C2D]/10 rounded-xl p-4 text-center">
+                    <Flame className="w-6 h-6 text-[#FD9C2D] mb-2 mx-auto" />
+                    <p className="text-2xl font-bold text-[#FD9C2D]">{currentStreak}</p>
                     <p className="text-xs text-gray-600">Current Streak</p>
                   </div>
-                  <div className="bg-purple-50 rounded-xl p-4 text-center">
-                    <Award className="w-6 h-6 text-purple-600 mb-2 mx-auto" />
-                    <p className="text-2xl font-bold text-purple-600">{longestStreak}</p>
+                  <div className="bg-[#C4E3FD]/30 rounded-xl p-4 text-center">
+                    <Award className="w-6 h-6 text-[#C4E3FD] mb-2 mx-auto" />
+                    <p className="text-2xl font-bold text-[#000000]">{longestStreak}</p>
                     <p className="text-xs text-gray-600">Longest Streak</p>
                   </div>
                 </div>
@@ -421,21 +421,21 @@ export default function WorkoutTrends() {
 
                     {/* Stats */}
                     <div className="grid grid-cols-3 gap-3">
-                      <div className="text-center p-3 bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl">
+                      <div className="text-center p-3 bg-gradient-to-br from-[#FD9C2D]/10 to-[#FD9C2D]/20 rounded-xl">
                         <p className="text-xs text-gray-600">Best</p>
-                        <p className="text-xl font-bold text-emerald-600">
+                        <p className="text-xl font-bold text-[#FD9C2D]">
                           {Math.max(...exerciseChartData.map(d => d[currentMetric.key]))}
                         </p>
                       </div>
-                      <div className="text-center p-3 bg-gradient-to-br from-blue-50 to-cyan-50 rounded-xl">
+                      <div className="text-center p-3 bg-gradient-to-br from-[#C4E3FD]/20 to-[#C4E3FD]/40 rounded-xl">
                         <p className="text-xs text-gray-600">Average</p>
-                        <p className="text-xl font-bold text-blue-600">
+                        <p className="text-xl font-bold text-[#000000]">
                           {(exerciseChartData.reduce((sum, d) => sum + d[currentMetric.key], 0) / exerciseChartData.length).toFixed(1)}
                         </p>
                       </div>
-                      <div className="text-center p-3 bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl">
-                        <p className="text-xs text-gray-600">Sessions</p>
-                        <p className="text-xl font-bold text-purple-600">{exerciseChartData.length}</p>
+                      <div className="text-center p-3 bg-gradient-to-br from-[#000000] to-[#FD9C2D]/20 rounded-xl">
+                        <p className="text-xs text-white">Sessions</p>
+                        <p className="text-xl font-bold text-white">{exerciseChartData.length}</p>
                       </div>
                     </div>
 
@@ -454,9 +454,9 @@ export default function WorkoutTrends() {
                                   {format(new Date(session.date), 'MMM dd, yyyy')}
                                 </span>
                                 <div className="flex gap-3 text-xs font-medium">
-                                  {exercise.weight_used > 0 && <span className="text-green-600">{exercise.weight_used} lbs</span>}
-                                  {exercise.sets_completed > 0 && <span className="text-blue-600">{exercise.sets_completed} sets</span>}
-                                  {exercise.reps_completed > 0 && <span className="text-purple-600">{exercise.reps_completed} reps</span>}
+                                 {exercise.weight_used > 0 && <span className="text-[#FD9C2D]">{exercise.weight_used} lbs</span>}
+                                 {exercise.sets_completed > 0 && <span className="text-[#C4E3FD]">{exercise.sets_completed} sets</span>}
+                                 {exercise.reps_completed > 0 && <span className="text-[#000000]">{exercise.reps_completed} reps</span>}
                                 </div>
                               </div>
                             );
@@ -504,7 +504,7 @@ export default function WorkoutTrends() {
                       }}
                     />
                     <Legend />
-                    <Bar dataKey="workouts" fill="#10b981" name="Workouts" radius={[8, 8, 0, 0]} />
+                    <Bar dataKey="workouts" fill="#FD9C2D" name="Workouts" radius={[8, 8, 0, 0]} />
                     <Bar dataKey="meals" fill="#f59e0b" name="Meals Logged" radius={[8, 8, 0, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
