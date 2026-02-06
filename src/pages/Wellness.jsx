@@ -33,6 +33,8 @@ import CommunityRecipeFeed from '@/components/wellness/CommunityRecipeFeed';
 import CoachDavid from '@/components/wellness/CoachDavid';
 import ChefDaniel from '@/components/wellness/ChefDaniel';
 import Hannah from '@/components/wellness/Hannah.jsx';
+import GuidedMeditationPlayer from '@/components/wellness/GuidedMeditationPlayer';
+import MeditationTracker from '@/components/wellness/MeditationTracker';
 
 
 export default function Wellness() {
