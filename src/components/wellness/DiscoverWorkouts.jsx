@@ -10,10 +10,12 @@ import { toast } from 'sonner';
 import WorkoutCard from './WorkoutCard';
 import { PREMADE_WORKOUTS } from './WorkoutLibrary';
 import PersonalizedWorkouts from '@/components/recommendations/PersonalizedWorkouts';
+import WorkoutDetailModal from './WorkoutDetailModal';
 
 export default function DiscoverWorkouts({ user, myWorkouts, completeWorkout, onCreateWorkout }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [copiedId, setCopiedId] = useState(null);
+  const [selectedWorkout, setSelectedWorkout] = useState(null);
   const queryClient = useQueryClient();
 
   const { data: sharedWorkouts = [] } = useQuery({
@@ -270,7 +272,8 @@ export default function DiscoverWorkouts({ user, myWorkouts, completeWorkout, on
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.05 }}
-                className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 shadow-sm"
+                onClick={() => setSelectedWorkout(workout)}
+                className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 shadow-sm cursor-pointer hover:shadow-md transition-shadow"
               >
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex-1">
@@ -323,7 +326,8 @@ export default function DiscoverWorkouts({ user, myWorkouts, completeWorkout, on
                 )}
 
                 <Button
-                  onClick={() => {
+                  onClick={(e) => {
+                    e.stopPropagation();
                     copyWorkout.mutate(workout);
                     setCopiedId(workout.id);
                     setTimeout(() => setCopiedId(null), 2000);
@@ -348,6 +352,15 @@ export default function DiscoverWorkouts({ user, myWorkouts, completeWorkout, on
           </div>
         </div>
       ) : null}
+
+      {selectedWorkout && (
+        <WorkoutDetailModal
+          workout={selectedWorkout}
+          open={!!selectedWorkout}
+          onOpenChange={(open) => !open && setSelectedWorkout(null)}
+          user={user}
+        />
+      )}
     </div>
   );
 }
