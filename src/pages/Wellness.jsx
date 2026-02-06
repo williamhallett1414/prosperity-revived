@@ -218,7 +218,7 @@ export default function Wellness() {
                   <UtensilsCrossed className="w-6 h-6" />
                   <h3 className="text-lg font-semibold">Discover Recipes</h3>
                 </div>
-                <p className="text-white/90 text-sm">Browse and create delicious recipes</p>
+                <p className="text-black text-sm">Browse and create delicious recipes</p>
               </div>
             </Link>
 
