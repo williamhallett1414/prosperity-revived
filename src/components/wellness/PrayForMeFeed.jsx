@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 
 export default function PrayForMeFeed({ user }) {
-  const [showCreateModal, setShowCreateModal] = useState(false);
+  const [showCreateBox, setShowCreateBox] = useState(false);
   const [content, setContent] = useState('');
   const [mediaFile, setMediaFile] = useState(null);
   const [mediaType, setMediaType] = useState(null);
@@ -121,121 +121,122 @@ export default function PrayForMeFeed({ user }) {
   return (
     <div className="space-y-4 mt-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h3 className="text-lg font-semibold text-white">Pray for Me</h3>
-          <p className="text-xs text-white/60">Share prayer requests & support your community</p>
-        </div>
-        {user && (
-          <Button
-            onClick={() => setShowCreateModal(true)}
-            className="bg-purple-600 hover:bg-purple-700"
-            size="sm"
-          >
-            <Plus className="w-4 h-4 mr-2" />
-            Share
-          </Button>
-        )}
-      </div>
+      <h3 className="text-lg font-semibold text-white">Pray for Me</h3>
 
-      {/* Create Modal */}
-      {showCreateModal && (
+      {/* Facebook-style Post Box */}
+      {user && (
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="fixed inset-0 bg-black/50 z-50 flex items-end"
-          onClick={() => setShowCreateModal(false)}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="bg-white/10 backdrop-blur rounded-xl p-4 space-y-3"
         >
-          <motion.div
-            initial={{ y: 100 }}
-            animate={{ y: 0 }}
-            onClick={(e) => e.stopPropagation()}
-            className="bg-white dark:bg-[#2d2d4a] rounded-t-2xl w-full max-h-[80vh] overflow-y-auto p-6 space-y-4"
-          >
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold">Share a Prayer Request</h3>
+          {/* Input Area */}
+          <div className="flex gap-3">
+            <div className="flex-1">
               <button
-                onClick={() => setShowCreateModal(false)}
-                className="p-1 hover:bg-gray-200 dark:hover:bg-gray-700 rounded"
+                onClick={() => setShowCreateBox(!showCreateBox)}
+                className="w-full bg-white/10 hover:bg-white/20 transition rounded-full px-4 py-2.5 text-left text-white/60 text-sm"
               >
-                <X className="w-5 h-5" />
+                What's on your heart?
               </button>
             </div>
+          </div>
 
-            <textarea
-              placeholder="Share your prayer request..."
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
-              className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-[#1a1a2e] dark:text-white resize-none focus:outline-none focus:ring-2 focus:ring-purple-500"
-              rows={4}
-            />
+          {/* Expanded Input */}
+          {showCreateBox && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              className="space-y-3 border-t border-white/10 pt-3"
+            >
+              <textarea
+                autoFocus
+                placeholder="Share your prayer request..."
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+                className="w-full p-3 bg-white/5 border border-white/20 rounded-lg text-white resize-none focus:outline-none focus:ring-1 focus:ring-purple-500 placeholder-white/50"
+                rows={3}
+              />
 
-            {mediaPreview && (
-              <div className="relative">
-                {mediaType === 'image' && (
-                  <img src={mediaPreview} alt="preview" className="w-full rounded-lg max-h-48 object-cover" />
-                )}
-                {mediaType === 'video' && (
-                  <video src={mediaPreview} controls className="w-full rounded-lg max-h-48" />
-                )}
-                <button
+              {/* Media Preview */}
+              {mediaPreview && (
+                <div className="relative">
+                  {mediaType === 'image' && (
+                    <img src={mediaPreview} alt="preview" className="w-full rounded-lg max-h-48 object-cover" />
+                  )}
+                  {mediaType === 'video' && (
+                    <video src={mediaPreview} controls className="w-full rounded-lg max-h-48" />
+                  )}
+                  <button
+                    onClick={() => {
+                      setMediaFile(null);
+                      setMediaType(null);
+                      setMediaPreview(null);
+                    }}
+                    className="absolute top-2 right-2 bg-red-600 text-white p-2 rounded-full hover:bg-red-700"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                </div>
+              )}
+
+              {/* Media Buttons */}
+              <div className="flex gap-2">
+                <label className="flex-1">
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => handleMediaSelect(e, 'image')}
+                    className="hidden"
+                  />
+                  <div className="flex items-center justify-center gap-2 p-2 rounded cursor-pointer hover:bg-white/10 transition text-white/60 hover:text-white text-sm">
+                    <ImageIcon className="w-4 h-4" />
+                    <span>Photo</span>
+                  </div>
+                </label>
+
+                <label className="flex-1">
+                  <input
+                    type="file"
+                    accept="video/*"
+                    onChange={(e) => handleMediaSelect(e, 'video')}
+                    className="hidden"
+                  />
+                  <div className="flex items-center justify-center gap-2 p-2 rounded cursor-pointer hover:bg-white/10 transition text-white/60 hover:text-white text-sm">
+                    <VideoIcon className="w-4 h-4" />
+                    <span>Video</span>
+                  </div>
+                </label>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex gap-2 pt-2 border-t border-white/10">
+                <Button
+                  variant="outline"
                   onClick={() => {
+                    setShowCreateBox(false);
+                    setContent('');
                     setMediaFile(null);
                     setMediaType(null);
                     setMediaPreview(null);
                   }}
-                  className="absolute top-2 right-2 bg-red-600 text-white p-2 rounded-full hover:bg-red-700"
+                  className="flex-1 text-white border-white/20 hover:bg-white/10"
+                  size="sm"
                 >
-                  <X className="w-4 h-4" />
-                </button>
+                  Cancel
+                </Button>
+                <Button
+                  onClick={() => createPost.mutate()}
+                  disabled={createPost.isPending || !content.trim()}
+                  className="flex-1 bg-purple-600 hover:bg-purple-700"
+                  size="sm"
+                >
+                  {createPost.isPending ? 'Sharing...' : 'Post'}
+                </Button>
               </div>
-            )}
-
-            <div className="flex gap-2">
-              <label className="flex-1">
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={(e) => handleMediaSelect(e, 'image')}
-                  className="hidden"
-                />
-                <div className="flex items-center justify-center gap-2 p-3 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg cursor-pointer hover:border-purple-500 transition">
-                  <ImageIcon className="w-5 h-5 text-gray-500" />
-                  <span className="text-sm font-medium text-gray-600 dark:text-gray-400">Add Image</span>
-                </div>
-              </label>
-
-              <label className="flex-1">
-                <input
-                  type="file"
-                  accept="video/*"
-                  onChange={(e) => handleMediaSelect(e, 'video')}
-                  className="hidden"
-                />
-                <div className="flex items-center justify-center gap-2 p-3 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg cursor-pointer hover:border-purple-500 transition">
-                  <VideoIcon className="w-5 h-5 text-gray-500" />
-                  <span className="text-sm font-medium text-gray-600 dark:text-gray-400">Add Video</span>
-                </div>
-              </label>
-            </div>
-
-            <div className="flex gap-3">
-              <Button
-                variant="outline"
-                onClick={() => setShowCreateModal(false)}
-                className="flex-1"
-              >
-                Cancel
-              </Button>
-              <Button
-                onClick={() => createPost.mutate()}
-                disabled={createPost.isPending || isSubmitting}
-                className="flex-1 bg-purple-600 hover:bg-purple-700"
-              >
-                {createPost.isPending ? 'Sharing...' : 'Share Prayer Request'}
-              </Button>
-            </div>
-          </motion.div>
+            </motion.div>
+          )}
         </motion.div>
       )}
 
