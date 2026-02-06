@@ -180,8 +180,9 @@ export default function Wellness() {
 
       <div className="px-4 pt-6">
         <Tabs defaultValue="workouts" className="w-full">
-          <TabsList className="grid w-full grid-cols-4 mb-6 bg-white/50 backdrop-blur-sm p-1 rounded-xl">
+          <TabsList className="grid w-full grid-cols-5 mb-6 bg-white/50 backdrop-blur-sm p-1 rounded-xl">
             <TabsTrigger value="workouts" className="text-xs sm:text-sm">Workouts</TabsTrigger>
+            <TabsTrigger value="progress" className="text-xs sm:text-sm">Progress</TabsTrigger>
             <TabsTrigger value="nutrition" className="text-xs sm:text-sm">Nutrition</TabsTrigger>
             <TabsTrigger value="meditation" className="text-xs sm:text-sm">Meditation</TabsTrigger>
             <TabsTrigger value="selfcare" className="text-xs sm:text-sm">Self-Care</TabsTrigger>
@@ -252,6 +253,17 @@ export default function Wellness() {
                 ))}
               </div>
             </div>
+          </TabsContent>
+
+          {/* Progress Tab */}
+          <TabsContent value="progress" className="space-y-6">
+            <WorkoutStreakCard sessions={workoutSessions} />
+            
+            <WorkoutFrequencyChart sessions={workoutSessions} />
+            
+            <PersonalBestsChart sessions={workoutSessions} />
+            
+            <VolumeProgressChart sessions={workoutSessions} />
           </TabsContent>
 
           {/* Nutrition Tab */}
