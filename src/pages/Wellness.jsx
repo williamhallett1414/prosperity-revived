@@ -33,10 +33,7 @@ import MoodEnergyChart from '@/components/wellness/MoodEnergyChart';
 import SelfCareGuides from '@/components/wellness/SelfCareGuides';
 import DiscoverWorkouts from '@/components/wellness/DiscoverWorkouts';
 import CoachDavid from '@/components/wellness/CoachDavid';
-import WorkoutFrequencyChart from '@/components/wellness/WorkoutFrequencyChart';
-import PersonalBestsChart from '@/components/wellness/PersonalBestsChart';
-import VolumeProgressChart from '@/components/wellness/VolumeProgressChart';
-import WorkoutStreakCard from '@/components/wellness/WorkoutStreakCard';
+
 
 export default function Wellness() {
   const [user, setUser] = useState(null);
@@ -180,9 +177,8 @@ export default function Wellness() {
 
       <div className="px-4 pt-6">
         <Tabs defaultValue="workouts" className="w-full">
-          <TabsList className="grid w-full grid-cols-5 mb-6 bg-white/50 backdrop-blur-sm p-1 rounded-xl">
+          <TabsList className="grid w-full grid-cols-4 mb-6 bg-white/50 backdrop-blur-sm p-1 rounded-xl">
             <TabsTrigger value="workouts" className="text-xs sm:text-sm">Workouts</TabsTrigger>
-            <TabsTrigger value="progress" className="text-xs sm:text-sm">Progress</TabsTrigger>
             <TabsTrigger value="nutrition" className="text-xs sm:text-sm">Nutrition</TabsTrigger>
             <TabsTrigger value="meditation" className="text-xs sm:text-sm">Meditation</TabsTrigger>
             <TabsTrigger value="selfcare" className="text-xs sm:text-sm">Self-Care</TabsTrigger>
@@ -190,6 +186,17 @@ export default function Wellness() {
 
           {/* Workouts Tab */}
           <TabsContent value="workouts" className="space-y-4">
+            {/* Progress Link */}
+            <Link to={createPageUrl('WorkoutProgress')}>
+              <div className="bg-gradient-to-r from-emerald-500 to-teal-600 rounded-xl p-4 text-white flex items-center justify-between shadow-md hover:shadow-lg transition-shadow">
+                <div>
+                  <h3 className="font-semibold text-lg">View Your Progress</h3>
+                  <p className="text-white/80 text-sm">Charts, PRs & workout stats</p>
+                </div>
+                <TrendingUp className="w-8 h-8" />
+              </div>
+            </Link>
+
             {/* AI Journey Generator */}
             <AIWellnessJourneyGenerator 
               user={user} 
@@ -253,17 +260,6 @@ export default function Wellness() {
                 ))}
               </div>
             </div>
-          </TabsContent>
-
-          {/* Progress Tab */}
-          <TabsContent value="progress" className="space-y-6">
-            <WorkoutStreakCard sessions={workoutSessions} />
-            
-            <WorkoutFrequencyChart sessions={workoutSessions} />
-            
-            <PersonalBestsChart sessions={workoutSessions} />
-            
-            <VolumeProgressChart sessions={workoutSessions} />
           </TabsContent>
 
           {/* Nutrition Tab */}

@@ -70,8 +70,8 @@ import SpiritualGrowth from './pages/SpiritualGrowth';
 import UserProfile from './pages/UserProfile';
 import Wellness from './pages/Wellness';
 import WellnessJourney from './pages/WellnessJourney';
-import WorkoutTrends from './pages/WorkoutTrends';
 import WorkoutProgress from './pages/WorkoutProgress';
+import WorkoutTrends from './pages/WorkoutTrends';
 import __Layout from './Layout.jsx';
 
 
@@ -99,8 +99,8 @@ export const PAGES = {
     "UserProfile": UserProfile,
     "Wellness": Wellness,
     "WellnessJourney": WellnessJourney,
-    "WorkoutTrends": WorkoutTrends,
     "WorkoutProgress": WorkoutProgress,
+    "WorkoutTrends": WorkoutTrends,
 }
 
 export const pagesConfig = {
