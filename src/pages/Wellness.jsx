@@ -34,6 +34,7 @@ import SelfCareGuides from '@/components/wellness/SelfCareGuides';
 import ReeVibeFitness from '@/components/wellness/ReeVibeFitness';
 
 import CoachDavid from '@/components/wellness/CoachDavid';
+import ChefDaniel from '@/components/wellness/ChefDaniel';
 
 
 export default function Wellness() {
@@ -256,6 +257,13 @@ export default function Wellness() {
 
           {/* Nutrition Tab */}
           <TabsContent value="nutrition" className="space-y-4">
+            {/* Chef Daniel Chatbot for Nutrition */}
+            <ChefDaniel 
+              user={user} 
+              userRecipes={myRecipes}
+              mealLogs={mealLogs}
+            />
+            
             <WaterTracker />
             <MealTracker />
             
@@ -391,7 +399,8 @@ export default function Wellness() {
         onClose={() => setShowCreateRecipe(false)}
       />
 
-      {/* Coach David Chatbot */}
+      {/* Coach David Chatbot - Only show on workouts tab */}
+      {/* CoachDavid is replaced by ChefDaniel on nutrition tab */}
       <CoachDavid 
         user={user} 
         userWorkouts={myWorkouts}
