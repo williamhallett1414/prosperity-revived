@@ -192,10 +192,10 @@ export default function Wellness() {
           <TabsContent value="workouts" className="space-y-4">
             {/* Progress Link */}
             <Link to={createPageUrl('WorkoutProgress')}>
-              <div className="bg-[#FD9C2D] rounded-xl p-4 text-black flex items-center justify-between shadow-md hover:shadow-lg transition-shadow">
+              <div className="bg-gradient-to-br from-[#FD9C2D] via-[#000000] to-[#C4E3FD] rounded-xl p-4 text-white flex items-center justify-between shadow-md hover:shadow-lg transition-shadow">
                 <div>
                   <h3 className="font-semibold text-lg">View Your Progress</h3>
-                  <p className="text-black/80 text-sm">Charts, PRs & workout stats</p>
+                  <p className="text-white/90 text-sm">Charts, PRs & workout stats</p>
                 </div>
                 <TrendingUp className="w-8 h-8" />
               </div>
@@ -223,12 +223,12 @@ export default function Wellness() {
 
             {/* 2. Discover Workouts */}
             <Link to={createPageUrl('DiscoverWorkouts')}>
-              <div className="bg-[#C4E3FD] rounded-2xl p-5 text-black cursor-pointer hover:shadow-lg transition-shadow">
+              <div className="bg-gradient-to-br from-[#FD9C2D] via-[#000000] to-[#C4E3FD] rounded-2xl p-5 text-white cursor-pointer hover:shadow-lg transition-shadow">
                 <div className="flex items-center gap-3 mb-2">
                   <TrendingUp className="w-6 h-6" />
                   <h3 className="text-lg font-semibold">Discover Workouts</h3>
                 </div>
-                <p className="text-black/80 text-sm">Browse and create custom workouts</p>
+                <p className="text-white/90 text-sm">Browse and create custom workouts</p>
               </div>
             </Link>
 
@@ -348,17 +348,17 @@ export default function Wellness() {
 
           {/* Meditation Tab */}
           <TabsContent value="meditation" className="space-y-4">
-            <div className="bg-[#FD9C2D] rounded-2xl p-6 text-black mb-4">
+            <div className="bg-gradient-to-br from-[#FD9C2D] via-[#000000] to-[#C4E3FD] rounded-2xl p-6 text-white mb-4">
               <div className="flex items-center gap-3 mb-2">
                 <Sparkles className="w-6 h-6" />
                 <h3 className="text-lg font-semibold">Mindfulness & Prayer</h3>
               </div>
-              <p className="text-black/80 text-sm">Find peace through meditation and prayer</p>
+              <p className="text-white/90 text-sm">Find peace through meditation and prayer</p>
             </div>
 
             {journeys.filter(j => j.is_active).length > 0 && (
-              <div className="bg-white rounded-2xl p-4 shadow-sm">
-                <h3 className="font-semibold text-gray-900 mb-4">Mood & Energy Insights</h3>
+              <div className="bg-gradient-to-br from-[#FD9C2D] via-[#000000] to-[#C4E3FD] rounded-2xl p-4 shadow-sm">
+                <h3 className="font-semibold text-white mb-4">Mood & Energy Insights</h3>
                 <MoodEnergyChart 
                   moodEnergyData={journeys.find(j => j.is_active)?.mood_energy_tracking || []} 
                 />

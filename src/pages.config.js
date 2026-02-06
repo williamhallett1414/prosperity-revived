@@ -54,6 +54,7 @@ import Bookmarks from './pages/Bookmarks';
 import ChallengeDetail from './pages/ChallengeDetail';
 import Community from './pages/Community';
 import Discover from './pages/Discover';
+import DiscoverWorkouts from './pages/DiscoverWorkouts';
 import Friends from './pages/Friends';
 import GroupDetail from './pages/GroupDetail';
 import Groups from './pages/Groups';
@@ -72,7 +73,6 @@ import Wellness from './pages/Wellness';
 import WellnessJourney from './pages/WellnessJourney';
 import WorkoutProgress from './pages/WorkoutProgress';
 import WorkoutTrends from './pages/WorkoutTrends';
-import DiscoverWorkouts from './pages/DiscoverWorkouts';
 import __Layout from './Layout.jsx';
 
 
@@ -84,6 +84,7 @@ export const PAGES = {
     "ChallengeDetail": ChallengeDetail,
     "Community": Community,
     "Discover": Discover,
+    "DiscoverWorkouts": DiscoverWorkouts,
     "Friends": Friends,
     "GroupDetail": GroupDetail,
     "Groups": Groups,
@@ -102,7 +103,6 @@ export const PAGES = {
     "WellnessJourney": WellnessJourney,
     "WorkoutProgress": WorkoutProgress,
     "WorkoutTrends": WorkoutTrends,
-    "DiscoverWorkouts": DiscoverWorkouts,
 }
 
 export const pagesConfig = {
