@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
-import { Search, Heart, TrendingUp, Copy, Check, Sparkles } from 'lucide-react';
+import { Search, Heart, TrendingUp, Copy, Check, Sparkles, Plus } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -11,7 +11,7 @@ import WorkoutCard from './WorkoutCard';
 import { PREMADE_WORKOUTS } from './WorkoutLibrary';
 import PersonalizedWorkouts from '@/components/recommendations/PersonalizedWorkouts';
 
-export default function DiscoverWorkouts({ user, myWorkouts, completeWorkout }) {
+export default function DiscoverWorkouts({ user, myWorkouts, completeWorkout, onCreateWorkout }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [copiedId, setCopiedId] = useState(null);
   const queryClient = useQueryClient();
@@ -97,6 +97,14 @@ export default function DiscoverWorkouts({ user, myWorkouts, completeWorkout }) 
         </div>
         <p className="text-white/90 text-sm">Find workouts shared by the community and our library</p>
       </div>
+
+      <Button
+        onClick={onCreateWorkout}
+        className="bg-emerald-600 hover:bg-emerald-700 w-full"
+      >
+        <Plus className="w-5 h-5 mr-2" />
+        Create Custom Workout
+      </Button>
 
       <div className="relative">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />

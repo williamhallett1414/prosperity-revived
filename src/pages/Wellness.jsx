@@ -211,17 +211,13 @@ export default function Wellness() {
               />
             ))}
 
-            {/* 2. Create Workout */}
-            <Button
-              onClick={() => setShowCreateWorkout(true)}
-              className="bg-emerald-600 hover:bg-emerald-700 w-full"
-            >
-              <Plus className="w-5 h-5 mr-2" />
-              Create Workout
-            </Button>
-
-            {/* 3. Discover Workouts */}
-            <DiscoverWorkouts user={user} allRecipes={recipes} myWorkouts={myWorkouts} completeWorkout={completeWorkout} />
+            {/* 2. Discover Workouts */}
+            <DiscoverWorkouts 
+              user={user} 
+              myWorkouts={myWorkouts} 
+              completeWorkout={completeWorkout}
+              onCreateWorkout={() => setShowCreateWorkout(true)}
+            />
 
             {/* My Workouts */}
             {myWorkouts.length > 0 && (
