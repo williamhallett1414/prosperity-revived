@@ -35,6 +35,7 @@ import ChefDaniel from '@/components/wellness/ChefDaniel';
 import Hannah from '@/components/wellness/Hannah.jsx';
 
 import MeditationTracker from '@/components/wellness/MeditationTracker';
+import PrayForMeFeed from '@/components/wellness/PrayForMeFeed';
 
 
 export default function Wellness() {
@@ -263,6 +264,8 @@ export default function Wellness() {
             <MeditationTracker user={user} />
 
             <MeditationGuide />
+
+            <PrayForMeFeed user={user} />
           </TabsContent>
 
           {/* Self-Care Tab */}
