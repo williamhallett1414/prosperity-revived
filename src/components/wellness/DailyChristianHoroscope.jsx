@@ -90,6 +90,34 @@ export default function DailyChristianHoroscope({ user }) {
 
   const zodiacEmoji = ZODIAC_SIGNS.find(z => z.name === selectedZodiac)?.emoji || '✨';
 
+  if (!selectedZodiac) {
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="bg-gradient-to-br from-purple-600 to-indigo-600 rounded-2xl p-6 text-white shadow-lg"
+      >
+        <div className="flex items-center gap-3 mb-4">
+          <Sparkles className="w-6 h-6" />
+          <h3 className="text-lg font-semibold">Your Daily Horoscope</h3>
+        </div>
+        <p className="text-white/80 mb-4">Select your zodiac sign to get personalized Christian guidance</p>
+        <Select value={selectedZodiac} onValueChange={handleZodiacChange}>
+          <SelectTrigger className="bg-white/10 border-white/20 text-white">
+            <SelectValue placeholder="Select your zodiac sign" />
+          </SelectTrigger>
+          <SelectContent>
+            {ZODIAC_SIGNS.map(sign => (
+              <SelectItem key={sign.name} value={sign.name}>
+                {sign.emoji} {sign.name} ({sign.months})
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </motion.div>
+    );
+  }
+
   if (isLoading) {
     return (
       <motion.div
