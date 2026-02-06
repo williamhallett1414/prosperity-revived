@@ -14,6 +14,7 @@ import { PREMADE_WORKOUTS } from '@/components/wellness/WorkoutLibrary';
 import PersonalizedWorkouts from '@/components/recommendations/PersonalizedWorkouts';
 import WorkoutDetailModal from '@/components/wellness/WorkoutDetailModal';
 import CreateWorkoutModal from '@/components/wellness/CreateWorkoutModal';
+import CoachDavid from '@/components/wellness/CoachDavid';
 
 export default function DiscoverWorkoutsPage() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -413,6 +414,13 @@ export default function DiscoverWorkoutsPage() {
           />
         )}
       </div>
+
+      {/* Coach David Chatbot */}
+      <CoachDavid 
+        user={user} 
+        userWorkouts={myWorkouts}
+        workoutSessions={[]}
+      />
     </div>
   );
 }

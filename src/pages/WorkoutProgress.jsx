@@ -13,6 +13,7 @@ import WorkoutStreakCard from '@/components/wellness/WorkoutStreakCard';
 import WeightProgressChart from '@/components/wellness/WeightProgressChart';
 import GoalCompletionChart from '@/components/wellness/GoalCompletionChart';
 import ProgressPhotoGallery from '@/components/wellness/ProgressPhotoGallery';
+import CoachDavid from '@/components/wellness/CoachDavid';
 
 export default function WorkoutProgress() {
   const [user, setUser] = useState(null);
@@ -155,6 +156,13 @@ export default function WorkoutProgress() {
         {/* Progress Photos */}
         <ProgressPhotoGallery photos={progressPhotos} />
       </div>
+
+      {/* Coach David Chatbot */}
+      <CoachDavid 
+        user={user} 
+        userWorkouts={workouts}
+        workoutSessions={sessions}
+      />
     </div>
   );
 }

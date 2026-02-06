@@ -107,13 +107,13 @@ export default function ProgressPhotoGallery({ photos }) {
         <CardHeader>
           <CardTitle className="flex items-center justify-between">
             <span className="flex items-center gap-2">
-              <Camera className="w-5 h-5 text-pink-600" />
+              <Camera className="w-5 h-5 text-[#FD9C2D]" />
               Progress Photos
             </span>
             <Button
               size="sm"
               onClick={() => setShowUpload(true)}
-              className="bg-pink-600 hover:bg-pink-700"
+              className="bg-[#FD9C2D] hover:bg-[#FD9C2D]/90"
             >
               <Plus className="w-4 h-4 mr-1" />
               Upload
@@ -183,8 +183,8 @@ export default function ProgressPhotoGallery({ photos }) {
                 </div>
               ) : (
                 <label htmlFor="photo-upload">
-                  <div className="mt-2 border-2 border-dashed border-gray-300 rounded-lg p-8 text-center cursor-pointer hover:border-pink-400 transition-colors">
-                    <Camera className="w-12 h-12 mx-auto mb-2 text-gray-400" />
+                  <div className="mt-2 border-2 border-dashed border-gray-300 rounded-lg p-8 text-center cursor-pointer hover:border-[#FD9C2D] transition-colors">
+                    <Camera className="w-12 h-12 mx-auto mb-2 text-[#FD9C2D]" />
                     <p className="text-sm text-gray-600">
                       {uploading ? 'Uploading...' : 'Click to upload photo'}
                     </p>
@@ -265,7 +265,7 @@ export default function ProgressPhotoGallery({ photos }) {
             <Button
               onClick={handleSubmit}
               disabled={!formData.photo_url || uploadPhotoMutation.isPending}
-              className="w-full bg-pink-600 hover:bg-pink-700"
+              className="w-full bg-[#FD9C2D] hover:bg-[#FD9C2D]/90"
             >
               {uploadPhotoMutation.isPending ? 'Uploading...' : 'Upload Progress Photo'}
             </Button>
