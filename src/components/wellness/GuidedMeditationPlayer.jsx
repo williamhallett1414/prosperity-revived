@@ -1,26 +1,18 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Play, Pause, Volume2, Clock } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { base44 } from '@/api/base44Client';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { toast } from 'sonner';
+import MeditationSessionCard from './MeditationSessionCard';
+import GuidedMeditationSession from './GuidedMeditationSession';
 
 const GUIDED_MEDITATIONS = [
-  { id: 1, title: '5-Min Breathing', duration: 5, type: 'breathing', description: 'Simple breath awareness' },
-  { id: 2, title: '10-Min Body Scan', duration: 10, type: 'body_scan', description: 'Release tension throughout your body' },
-  { id: 3, title: '15-Min Loving Kindness', duration: 15, type: 'loving_kindness', description: 'Cultivate compassion' },
-  { id: 4, title: '20-Min Mindfulness', duration: 20, type: 'mindfulness', description: 'Present moment awareness' },
-  { id: 5, title: '10-Min Sleep Prep', duration: 10, type: 'sleep', description: 'Relax before bed' },
-  { id: 6, title: '7-Min Stress Relief', duration: 7, type: 'stress_relief', description: 'Quick calm reset' },
+  { id: 1, title: '5-Min Breathing', duration: 5, type: 'breathing', description: 'Simple breath awareness exercise to calm your mind' },
+  { id: 2, title: '10-Min Body Scan', duration: 10, type: 'body_scan', description: 'Release tension throughout your body systematically' },
+  { id: 3, title: '15-Min Loving Kindness', duration: 15, type: 'loving_kindness', description: 'Cultivate compassion for yourself and others' },
+  { id: 4, title: '20-Min Mindfulness', duration: 20, type: 'mindfulness', description: 'Present moment awareness and acceptance meditation' },
+  { id: 5, title: '10-Min Sleep Prep', duration: 10, type: 'sleep', description: 'Relax and prepare your mind for restful sleep' },
+  { id: 6, title: '7-Min Stress Relief', duration: 7, type: 'stress_relief', description: 'Quick and effective calm reset for busy days' },
 ];
 
 export default function GuidedMeditationPlayer({ user, onSessionComplete }) {
-  const [selectedSession, setSelectedSession] = useState(null);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [moodBefore, setMoodBefore] = useState('calm');
-  const [showMoodSelector, setShowMoodSelector] = useState(false);
-  const queryClient = useQueryClient();
+  const [activeSession, setActiveSession] = useState(null);
 
   const saveMeditationMutation = useMutation({
     mutationFn: async (data) => {
