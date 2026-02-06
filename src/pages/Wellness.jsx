@@ -179,44 +179,7 @@ export default function Wellness() {
         <p className="text-white/80 text-sm">Nourish your body, strengthen your spirit</p>
       </div>
 
-      {/* Stats */}
-      <div className="px-4 -mt-4 mb-6">
-        <div className="grid grid-cols-3 gap-3">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 shadow-lg text-center"
-          >
-            <Dumbbell className="w-6 h-6 text-emerald-600 mb-2 mx-auto" />
-            <p className="text-2xl font-bold text-[#1a1a2e] dark:text-white">{totalWorkoutsCompleted}</p>
-            <p className="text-xs text-gray-500 dark:text-gray-400">Completed</p>
-          </motion.div>
-          
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 shadow-lg text-center"
-          >
-            <TrendingUp className="w-6 h-6 text-teal-600 mb-2 mx-auto" />
-            <p className="text-2xl font-bold text-[#1a1a2e] dark:text-white">{thisWeekWorkouts}</p>
-            <p className="text-xs text-gray-500 dark:text-gray-400">This Week</p>
-          </motion.div>
-          
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 shadow-lg text-center"
-          >
-            <UtensilsCrossed className="w-6 h-6 text-orange-500 mb-2 mx-auto" />
-            <p className="text-2xl font-bold text-[#1a1a2e] dark:text-white">{myRecipes.length}</p>
-            <p className="text-xs text-gray-500 dark:text-gray-400">Recipes</p>
-          </motion.div>
-        </div>
-      </div>
-
-      <div className="px-4">
+      <div className="px-4 pt-6">
         <Tabs defaultValue="workouts" className="w-full">
           <TabsList className="grid w-full grid-cols-4 mb-6 bg-white/50 backdrop-blur-sm p-1 rounded-xl">
             <TabsTrigger value="workouts" className="text-xs sm:text-sm">Workouts</TabsTrigger>
