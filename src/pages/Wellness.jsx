@@ -271,11 +271,11 @@ export default function Wellness() {
         />
       )}
       {activeTab === 'nutrition' && (
-        <ChefDaniel 
-          user={user} 
-          userRecipes={myRecipes}
-          mealLogs={mealLogs}
-        />
+       <ChefDaniel 
+         user={user} 
+         userRecipes={[]}
+         mealLogs={mealLogs}
+       />
       )}
     </div>
   );
