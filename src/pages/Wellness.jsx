@@ -26,11 +26,9 @@ import { PREMADE_WORKOUTS } from '@/components/wellness/WorkoutLibrary';
 import AIWorkoutRecommendations from '@/components/wellness/AIWorkoutRecommendations';
 import PersonalizedWorkouts from '@/components/recommendations/PersonalizedWorkouts';
 import PersonalizedRecipes from '@/components/recommendations/PersonalizedRecipes';
-import AIRecommendationEngine from '@/components/ai/AIRecommendationEngine';
 import ContextualSuggestions from '@/components/ai/ContextualSuggestions';
 import AIWellnessJourneyGenerator from '@/components/wellness/AIWellnessJourneyGenerator';
 import WellnessJourneyCard from '@/components/wellness/WellnessJourneyCard';
-import AIWellnessCoach from '@/components/wellness/AIWellnessCoach';
 import MoodEnergyChart from '@/components/wellness/MoodEnergyChart';
 import SelfCareGuides from '@/components/wellness/SelfCareGuides';
 
@@ -200,8 +198,6 @@ export default function Wellness() {
               />
             ))}
 
-            <AIRecommendationEngine user={user} type="fitness" />
-            
             <Button
               onClick={() => setShowCreateWorkout(true)}
               className="bg-emerald-600 hover:bg-emerald-700 w-full"
@@ -254,8 +250,6 @@ export default function Wellness() {
 
           {/* Nutrition Tab */}
           <TabsContent value="nutrition" className="space-y-4">
-            <AIRecommendationEngine user={user} type="nutrition" />
-            
             <WaterTracker />
             <MealTracker />
             
@@ -390,9 +384,6 @@ export default function Wellness() {
         isOpen={showCreateRecipe}
         onClose={() => setShowCreateRecipe(false)}
       />
-
-      {/* AI Wellness Coach */}
-      {user && <AIWellnessCoach user={user} />}
     </div>
   );
 }
