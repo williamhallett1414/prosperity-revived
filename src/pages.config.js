@@ -71,6 +71,7 @@ import UserProfile from './pages/UserProfile';
 import Wellness from './pages/Wellness';
 import WellnessJourney from './pages/WellnessJourney';
 import WorkoutTrends from './pages/WorkoutTrends';
+import WorkoutProgress from './pages/WorkoutProgress';
 import __Layout from './Layout.jsx';
 
 
@@ -99,6 +100,7 @@ export const PAGES = {
     "Wellness": Wellness,
     "WellnessJourney": WellnessJourney,
     "WorkoutTrends": WorkoutTrends,
+    "WorkoutProgress": WorkoutProgress,
 }
 
 export const pagesConfig = {

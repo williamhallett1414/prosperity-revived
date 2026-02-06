@@ -33,6 +33,10 @@ import MoodEnergyChart from '@/components/wellness/MoodEnergyChart';
 import SelfCareGuides from '@/components/wellness/SelfCareGuides';
 import DiscoverWorkouts from '@/components/wellness/DiscoverWorkouts';
 import CoachDavid from '@/components/wellness/CoachDavid';
+import WorkoutFrequencyChart from '@/components/wellness/WorkoutFrequencyChart';
+import PersonalBestsChart from '@/components/wellness/PersonalBestsChart';
+import VolumeProgressChart from '@/components/wellness/VolumeProgressChart';
+import WorkoutStreakCard from '@/components/wellness/WorkoutStreakCard';
 
 export default function Wellness() {
   const [user, setUser] = useState(null);
