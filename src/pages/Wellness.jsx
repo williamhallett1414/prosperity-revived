@@ -31,7 +31,7 @@ import AIWellnessJourneyGenerator from '@/components/wellness/AIWellnessJourneyG
 import WellnessJourneyCard from '@/components/wellness/WellnessJourneyCard';
 import MoodEnergyChart from '@/components/wellness/MoodEnergyChart';
 import SelfCareGuides from '@/components/wellness/SelfCareGuides';
-import CommunityWorkoutFeed from '@/components/wellness/CommunityWorkoutFeed';
+import ReeVibeFitness from '@/components/wellness/ReeVibeFitness';
 
 import CoachDavid from '@/components/wellness/CoachDavid';
 
@@ -247,11 +247,8 @@ export default function Wellness() {
               </div>
             )}
 
-            {/* Community Feed */}
-            <CommunityWorkoutFeed 
-              user={user}
-              onComplete={(workout) => completeWorkout.mutate({ id: workout.id, workout })}
-            />
+            {/* ReeVibe Fitness Feed */}
+            <ReeVibeFitness user={user} />
           </TabsContent>
 
           {/* Nutrition Tab */}
