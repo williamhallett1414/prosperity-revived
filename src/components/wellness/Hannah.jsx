@@ -6,17 +6,38 @@ import { Input } from '@/components/ui/input';
 import { base44 } from '@/api/base44Client';
 import { toast } from 'sonner';
 
-export default function Hannah({ user }) {
+export default function Hannah({ user, meditationSessions = [] }) {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
+  // Calculate meditation insights
+  const meditationInsights = {
+    totalSessions: meditationSessions.length,
+    avgDuration: meditationSessions.length > 0 
+      ? Math.round(meditationSessions.reduce((sum, s) => sum + (s.duration_minutes || 0), 0) / meditationSessions.length)
+      : 0,
+    mostCommonMood: meditationSessions.length > 0
+      ? Object.entries(meditationSessions.reduce((acc, s) => {
+          acc[s.mood_before] = (acc[s.mood_before] || 0) + 1;
+          return acc;
+        }, {})).sort((a, b) => b[1] - a[1])[0]?.[0]
+      : null,
+    moodImprovement: meditationSessions.length > 0
+      ? meditationSessions.filter(s => s.mood_before === 'stressed' && s.mood_after === 'calm').length
+      : 0
+  };
+
   useEffect(() => {
     if (isOpen && messages.length === 0) {
+      const initialMessage = meditationSessions.length > 0
+        ? `Hello, I'm Hannah 🙏 I see you've meditated ${meditationInsights.totalSessions} times! I'm here to deepen your practice and help you find more peace. What would you like to work on today?`
+        : "Hello, I'm Hannah 🙏 I'm here to guide you on prayer and meditation practices. Whether you're seeking inner peace, spiritual growth, or need guidance on your meditation journey, I'm here to help. What's on your heart today?";
+      
       setMessages([{
         role: 'assistant',
-        content: "Hello, I'm Hannah 🙏 I'm here to guide you on prayer and meditation practices. Whether you're seeking inner peace, spiritual growth, or need guidance on your meditation journey, I'm here to help. What's on your heart today?"
+        content: initialMessage
       }]);
     }
   }, [isOpen, messages.length]);
