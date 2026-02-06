@@ -15,6 +15,7 @@ import BibleStatsModal from '@/components/bible/BibleStatsModal';
 import DevotionalContent from '@/components/bible/DevotionalContent';
 import BibleQA from '@/components/bible/BibleQA';
 import BibleStudyGuide from '@/components/bible/BibleStudyGuide';
+import MoodTracker from '@/components/bible/MoodTracker';
 
 export default function Bible() {
   const [view, setView] = useState('books'); // books, chapters, reader
@@ -167,6 +168,9 @@ export default function Bible() {
 
             <TabsContent value="read">
               <div className="space-y-6">
+                {/* Mood Tracker */}
+                <MoodTracker />
+                
                 {/* Stats Cards */}
                 <div className="grid grid-cols-3 gap-3 mb-6">
                   <motion.button
