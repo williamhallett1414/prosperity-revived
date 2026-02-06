@@ -62,6 +62,7 @@ import Home from './pages/Home';
 import Messages from './pages/Messages';
 import NotificationSettings from './pages/NotificationSettings';
 import Notifications from './pages/Notifications';
+import NutritionGuidance from './pages/NutritionGuidance';
 import PlanDetail from './pages/PlanDetail';
 import Plans from './pages/Plans';
 import Profile from './pages/Profile';
@@ -73,7 +74,6 @@ import Wellness from './pages/Wellness';
 import WellnessJourney from './pages/WellnessJourney';
 import WorkoutProgress from './pages/WorkoutProgress';
 import WorkoutTrends from './pages/WorkoutTrends';
-import NutritionGuidance from './pages/NutritionGuidance';
 import __Layout from './Layout.jsx';
 
 
@@ -93,6 +93,7 @@ export const PAGES = {
     "Messages": Messages,
     "NotificationSettings": NotificationSettings,
     "Notifications": Notifications,
+    "NutritionGuidance": NutritionGuidance,
     "PlanDetail": PlanDetail,
     "Plans": Plans,
     "Profile": Profile,
@@ -104,7 +105,6 @@ export const PAGES = {
     "WellnessJourney": WellnessJourney,
     "WorkoutProgress": WorkoutProgress,
     "WorkoutTrends": WorkoutTrends,
-    "NutritionGuidance": NutritionGuidance,
 }
 
 export const pagesConfig = {

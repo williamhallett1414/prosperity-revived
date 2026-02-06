@@ -259,6 +259,17 @@ export default function Wellness() {
           {/* Nutrition Tab */}
           <TabsContent value="nutrition" className="space-y-4">
             <MealTracker />
+
+            {/* Discover Recipes */}
+            <Link to={createPageUrl('DiscoverRecipes')}>
+              <div className="bg-gradient-to-br from-[#FD9C2D] via-[#000000] to-[#C4E3FD] rounded-2xl p-5 text-white cursor-pointer hover:shadow-lg transition-shadow">
+                <div className="flex items-center gap-3 mb-2">
+                  <UtensilsCrossed className="w-6 h-6" />
+                  <h3 className="text-lg font-semibold">Discover Recipes</h3>
+                </div>
+                <p className="text-white/90 text-sm">Browse and create delicious recipes</p>
+              </div>
+            </Link>
             
             <PersonalizedNutritionPlan />
             <NutritionAdvice />
