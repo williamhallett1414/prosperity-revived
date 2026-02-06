@@ -130,7 +130,7 @@ export default function MeditationGuide() {
           className="bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl p-4 text-white text-left shadow-lg"
         >
           <Sparkles className="w-6 h-6 mb-2" />
-          <p className="font-semibold text-sm">AI Meditation</p>
+          <p className="font-semibold text-sm">Help Me Meditate</p>
           <p className="text-xs text-white/80">Personalized for you</p>
         </motion.button>
 
