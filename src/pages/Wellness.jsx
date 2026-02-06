@@ -296,7 +296,7 @@ export default function Wellness() {
        />
       )}
       {activeTab === 'meditation' && (
-        <Hannah user={user} />
+        <Hannah user={user} meditationSessions={meditationSessions} />
       )}
     </div>
   );
