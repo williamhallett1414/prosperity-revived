@@ -282,6 +282,9 @@ export default function Wellness() {
          mealLogs={mealLogs}
        />
       )}
+      {activeTab === 'meditation' && (
+        <Hannah user={user} />
+      )}
     </div>
   );
 }
