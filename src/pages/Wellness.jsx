@@ -111,11 +111,14 @@ export default function Wellness() {
 
   return (
     <div className="min-h-screen bg-[#000000] pb-24">
-      {/* Header with Banner */}
+      {/* Header with Banner - Show ReeVibe on workouts, Good Pantry on nutrition */}
       <div className="relative bg-black -mx-4">
         <img 
-          src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6980ade9ca08df558ed28bdd/171d02df6_ReeVibeLogonew.jpg"
-          alt="ReeVibe Fitness"
+          src={activeTab === 'nutrition' 
+            ? "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6980ade9ca08df558ed28bdd/0079a599f_TheGoodPantry.png"
+            : "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6980ade9ca08df558ed28bdd/171d02df6_ReeVibeLogonew.jpg"
+          }
+          alt={activeTab === 'nutrition' ? "The Good Pantry" : "ReeVibe Fitness"}
           className="w-full h-64 object-cover"
         />
         <Link
