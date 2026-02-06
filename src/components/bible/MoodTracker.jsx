@@ -94,12 +94,12 @@ Format the response in a warm, pastoral tone. Be concise but meaningful.`,
         </div>
 
         {/* Custom Mood Input */}
-        <div className="flex gap-2">
+        <div className="flex gap-2 mt-2">
           <Input
             placeholder="Or type how you're feeling..."
             value={customMood}
             onChange={(e) => setCustomMood(e.target.value)}
-            className="flex-1 text-sm"
+            className="flex-1 text-sm bg-white dark:bg-[#2d2d4a]"
             onKeyDown={(e) => {
               if (e.key === 'Enter' && customMood.trim()) {
                 handleMoodSelect({ id: 'custom', label: 'Custom' }, customMood.trim());

@@ -16,6 +16,7 @@ import DevotionalContent from '@/components/bible/DevotionalContent';
 import BibleQA from '@/components/bible/BibleQA';
 import BibleStudyGuide from '@/components/bible/BibleStudyGuide';
 import MoodTracker from '@/components/bible/MoodTracker';
+import PastoralChatbot from '@/components/bible/PastoralChatbot';
 
 export default function Bible() {
   const [view, setView] = useState('books'); // books, chapters, reader
@@ -289,6 +290,9 @@ export default function Bible() {
         progress={planProgress}
         bookmarks={bookmarks}
       />
+
+      {/* Pastoral Chatbot */}
+      <PastoralChatbot />
     </div>
   );
 }
