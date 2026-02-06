@@ -36,14 +36,7 @@ import ChefDaniel from '@/components/wellness/ChefDaniel';
 export default function Wellness() {
   const [user, setUser] = useState(null);
   const [showCreateWorkout, setShowCreateWorkout] = useState(false);
-  const [showCreateRecipe, setShowCreateRecipe] = useState(false);
   const [activeTab, setActiveTab] = useState('workouts');
-  const [recipeFilters, setRecipeFilters] = useState({
-    search: '',
-    dietType: 'all',
-    category: 'all',
-    prepTime: 'all'
-  });
   const queryClient = useQueryClient();
 
   useEffect(() => {
