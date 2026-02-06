@@ -261,10 +261,6 @@ export default function Wellness() {
         isOpen={showCreateWorkout}
         onClose={() => setShowCreateWorkout(false)}
       />
-      <CreateRecipeModal
-        isOpen={showCreateRecipe}
-        onClose={() => setShowCreateRecipe(false)}
-      />
 
       {/* Conditional Chatbots based on active tab */}
       {activeTab === 'workouts' && (
