@@ -76,7 +76,7 @@ Keep responses conversational, encouraging, and actionable. Use emojis occasiona
       {/* Floating Chat Button */}
       <motion.button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-24 right-4 w-14 h-14 bg-gradient-to-br from-emerald-600 to-teal-600 text-white rounded-full shadow-lg flex items-center justify-center z-50"
+        className="fixed bottom-24 right-4 w-14 h-14 bg-[#FD9C2D] text-white rounded-full shadow-lg flex items-center justify-center z-50"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
         initial={{ scale: 0 }}
@@ -92,10 +92,10 @@ Keep responses conversational, encouraging, and actionable. Use emojis occasiona
             initial={{ opacity: 0, y: 100, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 100, scale: 0.9 }}
-            className="fixed bottom-24 right-4 w-[calc(100vw-2rem)] sm:w-96 h-[500px] bg-white dark:bg-[#2d2d4a] rounded-2xl shadow-2xl flex flex-col z-50 border-2 border-emerald-500"
+            className="fixed bottom-24 right-4 w-[calc(100vw-2rem)] sm:w-96 h-[500px] bg-white dark:bg-[#2d2d4a] rounded-2xl shadow-2xl flex flex-col z-50 border-2 border-[#FD9C2D]"
           >
             {/* Header */}
-            <div className="bg-gradient-to-r from-emerald-600 to-teal-600 text-white p-4 rounded-t-2xl flex items-center justify-between">
+            <div className="bg-[#FD9C2D] text-white p-4 rounded-t-2xl flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
                   <Dumbbell className="w-6 h-6" />
@@ -127,7 +127,7 @@ Keep responses conversational, encouraging, and actionable. Use emojis occasiona
                   <div
                     className={`max-w-[80%] rounded-2xl px-4 py-2 ${
                       message.role === 'user'
-                        ? 'bg-emerald-600 text-white'
+                        ? 'bg-[#FD9C2D] text-white'
                         : 'bg-gray-100 dark:bg-[#1a1a2e] text-gray-900 dark:text-white'
                     }`}
                   >
@@ -138,7 +138,7 @@ Keep responses conversational, encouraging, and actionable. Use emojis occasiona
               {isLoading && (
                 <div className="flex justify-start">
                   <div className="bg-gray-100 dark:bg-[#1a1a2e] rounded-2xl px-4 py-2">
-                    <Loader2 className="w-5 h-5 animate-spin text-emerald-600" />
+                    <Loader2 className="w-5 h-5 animate-spin text-[#FD9C2D]" />
                   </div>
                 </div>
               )}
@@ -153,7 +153,7 @@ Keep responses conversational, encouraging, and actionable. Use emojis occasiona
                       onClick={() => {
                         setInput(action);
                       }}
-                      className="block w-full text-left text-sm px-3 py-2 rounded-lg bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-100 dark:hover:bg-emerald-900/30 transition-colors"
+                      className="block w-full text-left text-sm px-3 py-2 rounded-lg bg-[#FD9C2D]/10 text-[#FD9C2D] hover:bg-[#FD9C2D]/20 transition-colors"
                     >
                       {action}
                     </button>
@@ -176,7 +176,7 @@ Keep responses conversational, encouraging, and actionable. Use emojis occasiona
                 <Button
                   onClick={sendMessage}
                   disabled={!input.trim() || isLoading}
-                  className="bg-emerald-600 hover:bg-emerald-700"
+                  className="bg-[#FD9C2D] hover:bg-[#FD9C2D]/90"
                   size="icon"
                 >
                   <Send className="w-4 h-4" />
