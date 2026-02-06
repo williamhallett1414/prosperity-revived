@@ -32,6 +32,7 @@ import CommunityRecipeFeed from '@/components/wellness/CommunityRecipeFeed';
 
 import CoachDavid from '@/components/wellness/CoachDavid';
 import ChefDaniel from '@/components/wellness/ChefDaniel';
+import Hannah from '@/components/wellness/Hannah.jsx';
 
 
 export default function Wellness() {
