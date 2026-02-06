@@ -132,24 +132,66 @@ export default function ReeVibeFitness({ user }) {
 
   return (
     <div className="space-y-4">
-      <div className="bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl p-5 text-white">
-        <div className="flex items-center justify-between mb-2">
-          <div className="flex items-center gap-3">
-            <Dumbbell className="w-6 h-6" />
-            <h3 className="text-lg font-semibold">ReeVibe Fitness</h3>
-          </div>
-          <Button
-            onClick={() => setShowCreatePost(true)}
-            size="sm"
-            className="bg-white text-emerald-600 hover:bg-white/90"
-          >
-            <Plus className="w-4 h-4 mr-1" />
-            Post
-          </Button>
+      <div className="bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl p-5 text-white mb-3">
+        <div className="flex items-center gap-3">
+          <Dumbbell className="w-6 h-6" />
+          <h3 className="text-lg font-semibold">What's Your Motivation?</h3>
         </div>
-        <p className="text-white/90 text-sm">
-          Share your fitness journey with the community
-        </p>
+      </div>
+
+      {/* Facebook-style Post Box */}
+      <div className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 shadow-sm mb-4">
+        <div className="flex items-center gap-3 mb-3">
+          <Avatar className="w-10 h-10">
+            <AvatarFallback className="bg-emerald-100 text-emerald-700">
+              {user?.full_name?.charAt(0)?.toUpperCase() || 'U'}
+            </AvatarFallback>
+          </Avatar>
+          <button
+            onClick={() => setShowCreatePost(true)}
+            className="flex-1 text-left px-4 py-2.5 bg-gray-100 dark:bg-gray-800 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+          >
+            What's your motivation today?
+          </button>
+        </div>
+        <div className="flex gap-2">
+          <input
+            type="file"
+            accept="image/*"
+            onChange={(e) => {
+              setShowCreatePost(true);
+              handleMediaUpload(e, 'image');
+            }}
+            className="hidden"
+            id="quick-image-upload"
+          />
+          <label htmlFor="quick-image-upload" className="flex-1">
+            <Button variant="ghost" className="w-full" asChild>
+              <span>
+                <ImageIcon className="w-5 h-5 mr-2 text-green-600" />
+                Photo
+              </span>
+            </Button>
+          </label>
+          <input
+            type="file"
+            accept="video/*"
+            onChange={(e) => {
+              setShowCreatePost(true);
+              handleMediaUpload(e, 'video');
+            }}
+            className="hidden"
+            id="quick-video-upload"
+          />
+          <label htmlFor="quick-video-upload" className="flex-1">
+            <Button variant="ghost" className="w-full" asChild>
+              <span>
+                <Video className="w-5 h-5 mr-2 text-red-600" />
+                Video
+              </span>
+            </Button>
+          </label>
+        </div>
       </div>
 
       <Tabs value={filter} onValueChange={setFilter} className="w-full">
@@ -281,16 +323,27 @@ export default function ReeVibeFitness({ user }) {
       <Dialog open={showCreatePost} onOpenChange={setShowCreatePost}>
         <DialogContent className="max-w-lg">
           <DialogHeader>
-            <DialogTitle>Share Your Fitness Journey</DialogTitle>
+            <DialogTitle>Create Post</DialogTitle>
           </DialogHeader>
 
           <div className="space-y-4">
+            <div className="flex items-center gap-3 mb-3">
+              <Avatar className="w-10 h-10">
+                <AvatarFallback className="bg-emerald-100 text-emerald-700">
+                  {user?.full_name?.charAt(0)?.toUpperCase() || 'U'}
+                </AvatarFallback>
+              </Avatar>
+              <div>
+                <p className="font-semibold text-sm">{user?.full_name || 'User'}</p>
+              </div>
+            </div>
             <Textarea
-              placeholder="What's your fitness story? Share your progress, workouts, or motivation..."
+              placeholder="What's your motivation today?"
               value={postContent}
               onChange={(e) => setPostContent(e.target.value)}
               rows={5}
-              className="resize-none"
+              className="resize-none border-0 focus-visible:ring-0 text-lg"
+              autoFocus
             />
 
             {/* Media Preview */}
