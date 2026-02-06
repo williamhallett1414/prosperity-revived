@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
-import { UtensilsCrossed, Plus, BarChart3 } from 'lucide-react';
+import { UtensilsCrossed, Plus, BarChart3, Droplets, Minus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Progress } from '@/components/ui/progress';
 import DetailedFoodLogModal from './DetailedFoodLogModal';
 import NutritionBreakdown from './NutritionBreakdown';
 
@@ -11,6 +12,7 @@ export default function MealTracker() {
   const [showDetailedLog, setShowDetailedLog] = useState(false);
   const [showBreakdown, setShowBreakdown] = useState(false);
   const queryClient = useQueryClient();
+  const today = new Date().toISOString().split('T')[0];
 
   const { data: meals = [] } = useQuery({
     queryKey: ['meals'],
@@ -20,6 +22,11 @@ export default function MealTracker() {
     }
   });
 
+  const { data: waterLogs = [] } = useQuery({
+    queryKey: ['water'],
+    queryFn: () => base44.entities.WaterLog.list()
+  });
+
   const logMeal = useMutation({
     mutationFn: (data) => base44.entities.MealLog.create(data),
     onSuccess: () => {
@@ -27,11 +34,31 @@ export default function MealTracker() {
     }
   });
 
-  const todaysMeals = meals.filter(m => m.date === new Date().toISOString().split('T')[0]);
+  const updateWater = useMutation({
+    mutationFn: async (newGlasses) => {
+      const todayLog = waterLogs.find(w => w.date === today);
+      if (todayLog) {
+        return base44.entities.WaterLog.update(todayLog.id, { glasses: newGlasses });
+      } else {
+        return base44.entities.WaterLog.create({ date: today, glasses: newGlasses, goal: 8 });
+      }
+    },
+    onSuccess: () => queryClient.invalidateQueries(['water'])
+  });
+
+  const todaysMeals = meals.filter(m => m.date === today);
   const totalCalories = todaysMeals.reduce((sum, m) => sum + (m.calories || 0), 0);
   const totalProtein = todaysMeals.reduce((sum, m) => sum + (m.protein || 0), 0);
   const totalCarbs = todaysMeals.reduce((sum, m) => sum + (m.carbs || 0), 0);
   const totalFats = todaysMeals.reduce((sum, m) => sum + (m.fats || 0), 0);
+
+  const todayLog = waterLogs.find(w => w.date === today);
+  const glasses = todayLog?.glasses || 0;
+  const waterGoal = todayLog?.goal || 8;
+  const waterPercentage = Math.min((glasses / waterGoal) * 100, 100);
+
+  const addGlass = () => updateWater.mutate(Math.min(glasses + 1, 20));
+  const removeGlass = () => updateWater.mutate(Math.max(glasses - 1, 0));
 
   const mealEmoji = { breakfast: '🍳', lunch: '🥗', dinner: '🍽️', snack: '🍎' };
 
@@ -94,6 +121,50 @@ export default function MealTracker() {
           <Plus className="w-4 h-4 mr-2" />
           Log Food
         </Button>
+
+        {/* Water Intake Section */}
+        <div className="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
+          <div className="flex items-center gap-3 mb-4">
+            <Droplets className="w-6 h-6 text-blue-500" />
+            <div className="flex-1">
+              <h4 className="font-semibold text-[#1a1a2e] dark:text-white">Water Intake</h4>
+              <p className="text-xs text-gray-500 dark:text-gray-400">Goal: {waterGoal} glasses</p>
+            </div>
+          </div>
+
+          <div className="mb-4">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-sm text-gray-600 dark:text-gray-400">{glasses} / {waterGoal} glasses</span>
+              <span className="text-sm font-medium text-blue-500">{Math.round(waterPercentage)}%</span>
+            </div>
+            <Progress value={waterPercentage} className="h-3" />
+          </div>
+
+          <div className="flex items-center justify-center gap-4">
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={removeGlass}
+              disabled={glasses === 0}
+              className="h-12 w-12 rounded-full"
+            >
+              <Minus className="w-5 h-5" />
+            </Button>
+            
+            <div className="text-center">
+              <div className="text-4xl font-bold text-blue-500">{glasses}</div>
+              <div className="text-xs text-gray-500 dark:text-gray-400">glasses</div>
+            </div>
+
+            <Button
+              size="icon"
+              onClick={addGlass}
+              className="h-12 w-12 rounded-full bg-blue-500 hover:bg-blue-600"
+            >
+              <Plus className="w-5 h-5" />
+            </Button>
+          </div>
+        </div>
       </div>
 
       {showBreakdown && <NutritionBreakdown />}
