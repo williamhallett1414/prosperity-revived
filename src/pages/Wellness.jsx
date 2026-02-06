@@ -199,18 +199,24 @@ export default function Wellness() {
             </Link>
 
             {/* 1. My Workout Journey */}
-            <AIWellnessJourneyGenerator 
-              user={user} 
-              onJourneyCreated={() => queryClient.invalidateQueries(['journeys'])}
-            />
-
-            {journeys.filter(j => j.is_active).map(journey => (
-              <WellnessJourneyCard
-                key={journey.id}
-                journey={journey}
-                onClick={() => window.location.href = createPageUrl(`WellnessJourney?id=${journey.id}`)}
+            <div className="mb-4">
+              <AIWellnessJourneyGenerator 
+                user={user} 
+                onJourneyCreated={() => queryClient.invalidateQueries(['journeys'])}
               />
-            ))}
+            </div>
+
+            {journeys.filter(j => j.is_active).length > 0 && (
+              <div className="mb-4 space-y-3">
+                {journeys.filter(j => j.is_active).map(journey => (
+                  <WellnessJourneyCard
+                    key={journey.id}
+                    journey={journey}
+                    onClick={() => window.location.href = createPageUrl(`WellnessJourney?id=${journey.id}`)}
+                  />
+                ))}
+              </div>
+            )}
 
             {/* 2. Discover Workouts */}
             <Link to={createPageUrl('DiscoverWorkouts')}>
