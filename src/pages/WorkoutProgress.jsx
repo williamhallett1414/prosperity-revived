@@ -52,72 +52,67 @@ export default function WorkoutProgress() {
   const avgDuration = totalWorkouts > 0 ? Math.round(totalMinutes / totalWorkouts) : 0;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-[#1a1a2e] dark:to-[#16213e] p-4 pb-24">
-      <div className="max-w-4xl mx-auto space-y-6">
-        {/* Header */}
+    <div className="min-h-screen bg-[#000000] pb-24">
+      {/* Header Banner */}
+      <div className="bg-gradient-to-br from-[#FD9C2D] via-[#000000] to-[#C4E3FD] text-white px-4 py-6 mb-6">
         <Link
           to={createPageUrl('Wellness')}
-          className="w-10 h-10 rounded-full bg-emerald-600 text-white flex items-center justify-center mb-4 inline-flex hover:bg-emerald-700 transition-colors"
+          className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center mb-4 inline-flex"
         >
           <ArrowLeft className="w-5 h-5" />
         </Link>
-        
-        <div className="flex items-center justify-between mb-6">
-          <div>
-            <h1 className="text-3xl font-bold text-[#1a1a2e] dark:text-white">
-              Workout Progress
-            </h1>
-            <p className="text-gray-600 dark:text-gray-400">Track your fitness journey</p>
-          </div>
-          <TrendingUp className="w-8 h-8 text-emerald-600" />
-        </div>
+        <h1 className="text-2xl font-bold mb-2">My Fitness Progress</h1>
+        <p className="text-white/80 text-sm">Track your workout journey and improvements</p>
+      </div>
+
+      <div className="max-w-4xl mx-auto px-4 space-y-6">
 
         {/* Stats Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <Card>
+          <Card className="bg-gradient-to-br from-[#FD9C2D] to-[#C4E3FD] border-none">
             <CardContent className="pt-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">Total Workouts</p>
-                  <p className="text-2xl font-bold text-emerald-600">{totalWorkouts}</p>
+                  <p className="text-sm text-white/80">Total Workouts</p>
+                  <p className="text-2xl font-bold text-white">{totalWorkouts}</p>
                 </div>
-                <Dumbbell className="w-8 h-8 text-emerald-600/20" />
+                <Dumbbell className="w-8 h-8 text-white/40" />
               </div>
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="bg-gradient-to-br from-[#C4E3FD] to-[#FD9C2D] border-none">
             <CardContent className="pt-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">This Month</p>
-                  <p className="text-2xl font-bold text-blue-600">{thisMonth}</p>
+                  <p className="text-sm text-white/80">This Month</p>
+                  <p className="text-2xl font-bold text-white">{thisMonth}</p>
                 </div>
-                <Calendar className="w-8 h-8 text-blue-600/20" />
+                <Calendar className="w-8 h-8 text-white/40" />
               </div>
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="bg-gradient-to-br from-[#000000] via-[#FD9C2D] to-[#000000] border-none">
             <CardContent className="pt-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">Total Minutes</p>
-                  <p className="text-2xl font-bold text-purple-600">{totalMinutes}</p>
+                  <p className="text-sm text-white/80">Total Minutes</p>
+                  <p className="text-2xl font-bold text-white">{totalMinutes}</p>
                 </div>
-                <Activity className="w-8 h-8 text-purple-600/20" />
+                <Activity className="w-8 h-8 text-white/40" />
               </div>
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="bg-gradient-to-br from-[#FD9C2D] via-[#000000] to-[#C4E3FD] border-none">
             <CardContent className="pt-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">Avg Duration</p>
-                  <p className="text-2xl font-bold text-orange-600">{avgDuration}m</p>
+                  <p className="text-sm text-white/80">Avg Duration</p>
+                  <p className="text-2xl font-bold text-white">{avgDuration}m</p>
                 </div>
-                <Award className="w-8 h-8 text-orange-600/20" />
+                <Award className="w-8 h-8 text-white/40" />
               </div>
             </CardContent>
           </Card>
@@ -128,7 +123,7 @@ export default function WorkoutProgress() {
 
         {/* Charts */}
         <Tabs defaultValue="frequency" className="w-full">
-          <TabsList className="grid w-full grid-cols-3 lg:grid-cols-5">
+          <TabsList className="grid w-full grid-cols-3 lg:grid-cols-5 bg-[#FD9C2D]">
             <TabsTrigger value="frequency">Frequency</TabsTrigger>
             <TabsTrigger value="prs">PRs</TabsTrigger>
             <TabsTrigger value="volume">Volume</TabsTrigger>
