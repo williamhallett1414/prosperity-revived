@@ -39,7 +39,14 @@ export default function Home() {
 
   const { data: posts = [] } = useQuery({
     queryKey: ['posts'],
-    queryFn: () => base44.entities.Post.filter({ group_id: null }, '-created_date', 20)
+    queryFn: async () => {
+      const allPosts = await base44.entities.Post.list('-created_date', 100);
+      // Filter out group posts and sort by likes (trending) then by date
+      return allPosts
+        .filter(p => !p.group_id)
+        .sort((a, b) => (b.likes || 0) - (a.likes || 0))
+        .slice(0, 20);
+    }
   });
 
   const { data: comments = [] } = useQuery({
