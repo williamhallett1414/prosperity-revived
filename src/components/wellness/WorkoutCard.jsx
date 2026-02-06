@@ -6,11 +6,13 @@ import WorkoutLogModal from './WorkoutLogModal';
 import CommentSection from './CommentSection';
 import ShareWorkoutModal from './ShareWorkoutModal';
 import WorkoutDetailModal from './WorkoutDetailModal';
+import StartWorkoutModal from './StartWorkoutModal';
 
 export default function WorkoutCard({ workout, onComplete, index, isPremade = false, user }) {
   const [showLogModal, setShowLogModal] = useState(false);
   const [showShareModal, setShowShareModal] = useState(false);
   const [showDetailModal, setShowDetailModal] = useState(false);
+  const [showStartModal, setShowStartModal] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const today = new Date().toISOString().split('T')[0];
   const completedToday = workout.completed_dates?.includes(today);
@@ -70,22 +72,32 @@ export default function WorkoutCard({ workout, onComplete, index, isPremade = fa
       )}
 
       <div className="flex gap-2">
-        <Button
-          onClick={() => isPremade ? setShowDetailModal(true) : setShowLogModal(true)}
-          className="flex-1 bg-emerald-600 hover:bg-emerald-700"
-        >
-          {isPremade ? (
-            <>
+        {isPremade ? (
+          <Button
+            onClick={() => setShowDetailModal(true)}
+            className="flex-1 bg-emerald-600 hover:bg-emerald-700"
+          >
+            <Dumbbell className="w-4 h-4 mr-2" />
+            View Details
+          </Button>
+        ) : (
+          <>
+            <Button
+              onClick={() => setShowStartModal(true)}
+              className="flex-1 bg-emerald-600 hover:bg-emerald-700"
+            >
               <Dumbbell className="w-4 h-4 mr-2" />
-              View Details
-            </>
-          ) : (
-            <>
-              <Dumbbell className="w-4 h-4 mr-2" />
-              Log Workout
-            </>
-          )}
-        </Button>
+              Start Workout
+            </Button>
+            <Button
+              onClick={() => setShowLogModal(true)}
+              variant="outline"
+              className="border-emerald-600 text-emerald-600"
+            >
+              Quick Log
+            </Button>
+          </>
+        )}
 
         {!isPremade && workout.id && (
           <Button
@@ -132,6 +144,14 @@ export default function WorkoutCard({ workout, onComplete, index, isPremade = fa
         onClose={() => setShowDetailModal(false)}
         workout={workout}
         user={user}
+      />
+
+      <StartWorkoutModal
+        isOpen={showStartModal}
+        onClose={() => setShowStartModal(false)}
+        workout={workout}
+        user={user}
+        onComplete={onComplete}
       />
       </div>
     </motion.div>
