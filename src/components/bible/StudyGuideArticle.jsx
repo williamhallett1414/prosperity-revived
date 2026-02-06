@@ -8,6 +8,8 @@ import { base44 } from '@/api/base44Client';
 import StudyNotes from './StudyNotes';
 import ReflectionPrompt from './ReflectionPrompt';
 import CompletionTracker from './CompletionTracker';
+import AIReflectionQuestions from './AIReflectionQuestions';
+import GideonStudyAssistant from './GideonStudyAssistant';
 
 const studyGuideContentMap = {
   'psalms': {
@@ -3286,6 +3288,8 @@ export default function StudyGuideArticle({ guide, onBack }) {
                   <p key={index}>{paragraph}</p>
                 ))}
               </Card>
+              <AIReflectionQuestions section="Introduction" content={content.introduction.join(' ')} guideId={guide.id} />
+              <GideonStudyAssistant guideId={guide.id} section="introduction" content={content.introduction.join(' ')} />
               <ReflectionPrompt section="Introduction" content={content.introduction.join(' ')} />
               <StudyNotes section="introduction" notes={getNote('introduction')} onSave={(content) => handleSaveNote('introduction', undefined, content)} />
             </>
@@ -3330,6 +3334,8 @@ export default function StudyGuideArticle({ guide, onBack }) {
                   </div>
                 ))}
               </Card>
+              <AIReflectionQuestions section="Key Characters" content={content.keyCharacters.map(c => c.desc).join(' ')} guideId={guide.id} />
+              <GideonStudyAssistant guideId={guide.id} section="keyCharacters" content={content.keyCharacters.map(c => c.desc).join(' ')} />
               <ReflectionPrompt section="Key Characters" content={content.keyCharacters.map(c => c.desc).join(' ')} />
               <StudyNotes section="keyCharacters" notes={getNote('keyCharacters')} onSave={(content) => handleSaveNote('keyCharacters', undefined, content)} />
             </>
@@ -3349,6 +3355,8 @@ export default function StudyGuideArticle({ guide, onBack }) {
                   </div>
                 ))}
               </Card>
+              <AIReflectionQuestions section="Key Events" content={content.keyEvents.map(e => e.desc).join(' ')} guideId={guide.id} />
+              <GideonStudyAssistant guideId={guide.id} section="keyEvents" content={content.keyEvents.map(e => e.desc).join(' ')} />
               <ReflectionPrompt section="Key Events" content={content.keyEvents.map(e => e.desc).join(' ')} />
               <StudyNotes section="keyEvents" notes={getNote('keyEvents')} onSave={(content) => handleSaveNote('keyEvents', undefined, content)} />
             </>
@@ -3369,6 +3377,8 @@ export default function StudyGuideArticle({ guide, onBack }) {
                   </div>
                 ))}
               </Card>
+              <AIReflectionQuestions section="Key Scriptures" content={content.keyScriptures.map(s => s.text).join(' ')} guideId={guide.id} />
+              <GideonStudyAssistant guideId={guide.id} section="keyScriptures" content={content.keyScriptures.map(s => s.text).join(' ')} />
               <ReflectionPrompt section="Key Scriptures" content={content.keyScriptures.map(s => s.text).join(' ')} />
               <StudyNotes section="keyScriptures" notes={getNote('keyScriptures')} onSave={(content) => handleSaveNote('keyScriptures', undefined, content)} />
             </>
@@ -3388,6 +3398,8 @@ export default function StudyGuideArticle({ guide, onBack }) {
                   </div>
                 ))}
               </Card>
+              <AIReflectionQuestions section="Key Locations" content={content.keyLocations.map(l => l.desc).join(' ')} guideId={guide.id} />
+              <GideonStudyAssistant guideId={guide.id} section="keyLocations" content={content.keyLocations.map(l => l.desc).join(' ')} />
               <ReflectionPrompt section="Key Locations" content={content.keyLocations.map(l => l.desc).join(' ')} />
               <StudyNotes section="keyLocations" notes={getNote('keyLocations')} onSave={(content) => handleSaveNote('keyLocations', undefined, content)} />
             </>
@@ -3407,6 +3419,8 @@ export default function StudyGuideArticle({ guide, onBack }) {
                   </div>
                 ))}
               </Card>
+              <AIReflectionQuestions section="Key Lessons" content={content.keyLessons.map(l => l.desc).join(' ')} guideId={guide.id} />
+              <GideonStudyAssistant guideId={guide.id} section="keyLessons" content={content.keyLessons.map(l => l.desc).join(' ')} />
               <ReflectionPrompt section="Key Lessons" content={content.keyLessons.map(l => l.desc).join(' ')} />
               <StudyNotes section="keyLessons" notes={getNote('keyLessons')} onSave={(content) => handleSaveNote('keyLessons', undefined, content)} />
             </>
