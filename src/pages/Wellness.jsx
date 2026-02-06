@@ -22,9 +22,7 @@ import PersonalizedNutritionPlan from '@/components/wellness/PersonalizedNutriti
 import { awardPoints, checkAndAwardBadges } from '@/components/gamification/ProgressManager';
 import AIMealPlanner from '@/components/wellness/AIMealPlanner';
 import CustomPrayerBuilder from '@/components/wellness/CustomPrayerBuilder';
-import ProgressCharts from '@/components/wellness/ProgressCharts';
 import { PREMADE_WORKOUTS } from '@/components/wellness/WorkoutLibrary';
-import WorkoutProgressCharts from '@/components/wellness/WorkoutProgressCharts';
 import AIWorkoutRecommendations from '@/components/wellness/AIWorkoutRecommendations';
 import PersonalizedWorkouts from '@/components/recommendations/PersonalizedWorkouts';
 import PersonalizedRecipes from '@/components/recommendations/PersonalizedRecipes';
@@ -33,16 +31,13 @@ import ContextualSuggestions from '@/components/ai/ContextualSuggestions';
 import AIWellnessJourneyGenerator from '@/components/wellness/AIWellnessJourneyGenerator';
 import WellnessJourneyCard from '@/components/wellness/WellnessJourneyCard';
 import AIWellnessCoach from '@/components/wellness/AIWellnessCoach';
-import ProgressTrendsChart from '@/components/wellness/ProgressTrendsChart';
 import MoodEnergyChart from '@/components/wellness/MoodEnergyChart';
-import GranularGoalsChart from '@/components/wellness/GranularGoalsChart';
 import SelfCareGuides from '@/components/wellness/SelfCareGuides';
 
 export default function Wellness() {
   const [user, setUser] = useState(null);
   const [showCreateWorkout, setShowCreateWorkout] = useState(false);
   const [showCreateRecipe, setShowCreateRecipe] = useState(false);
-  const [showProgressCharts, setShowProgressCharts] = useState(false);
   const [recipeFilters, setRecipeFilters] = useState({
     search: '',
     dietType: 'all',
@@ -205,53 +200,15 @@ export default function Wellness() {
               />
             ))}
 
-            {/* Workout Trends Link */}
-            <Link to={createPageUrl('WorkoutTrends')}>
-              <div className="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl p-5 shadow-sm hover:shadow-md transition-all cursor-pointer border border-emerald-100">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h3 className="font-semibold text-gray-900 mb-1 flex items-center gap-2">
-                      <TrendingUp className="w-5 h-5 text-emerald-600" />
-                      Workout Trends
-                    </h3>
-                    <p className="text-sm text-gray-600">View detailed progress analytics</p>
-                  </div>
-                  <div className="w-10 h-10 rounded-full bg-emerald-600 flex items-center justify-center">
-                    <TrendingUp className="w-5 h-5 text-white" />
-                  </div>
-                </div>
-              </div>
-            </Link>
-
-            {journeys.filter(j => j.is_active).length > 0 && journeys.find(j => j.is_active)?.granular_goals?.length > 0 && (
-              <div className="bg-white rounded-2xl p-4 shadow-sm">
-                <h3 className="font-semibold text-gray-900 mb-4">Fitness Goals</h3>
-                <GranularGoalsChart 
-                  goals={journeys.find(j => j.is_active)?.granular_goals || []} 
-                />
-              </div>
-            )}
-
-            <ProgressCharts />
             <AIRecommendationEngine user={user} type="fitness" />
             
-            <div className="grid grid-cols-2 gap-3">
-              <Button
-                onClick={() => setShowCreateWorkout(true)}
-                className="bg-emerald-600 hover:bg-emerald-700"
-              >
-                <Plus className="w-5 h-5 mr-2" />
-                Create Workout
-              </Button>
-              <Button
-                onClick={() => setShowProgressCharts(true)}
-                variant="outline"
-                className="border-emerald-600 text-emerald-600 hover:bg-emerald-50"
-              >
-                <TrendingUp className="w-5 h-5 mr-2" />
-                View Progress
-              </Button>
-            </div>
+            <Button
+              onClick={() => setShowCreateWorkout(true)}
+              className="bg-emerald-600 hover:bg-emerald-700 w-full"
+            >
+              <Plus className="w-5 h-5 mr-2" />
+              Create Workout
+            </Button>
 
             <AIWorkoutRecommendations />
             
@@ -432,10 +389,6 @@ export default function Wellness() {
       <CreateRecipeModal
         isOpen={showCreateRecipe}
         onClose={() => setShowCreateRecipe(false)}
-      />
-      <WorkoutProgressCharts
-        isOpen={showProgressCharts}
-        onClose={() => setShowProgressCharts(false)}
       />
 
       {/* AI Wellness Coach */}
