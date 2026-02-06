@@ -121,7 +121,7 @@ export default function Wellness() {
   }).length;
 
   return (
-    <div className={`min-h-screen pb-24 ${activeTab === 'nutrition' ? 'bg-[#f6ebe0]' : activeTab === 'meditation' ? 'bg-gradient-to-br from-purple-600 via-pink-500 to-purple-700' : 'bg-[#000000]'}`}>
+    <div className={`min-h-screen pb-24 ${activeTab === 'nutrition' ? 'bg-[#f6ebe0]' : 'bg-[#000000]'}`}>
       {/* Header with Banner - Show ReeVibe on workouts, Good Pantry on nutrition, none on meditation */}
       {activeTab !== 'meditation' && (
         <div className="relative bg-black -mx-4">
