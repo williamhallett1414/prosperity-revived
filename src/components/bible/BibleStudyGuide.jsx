@@ -38,6 +38,54 @@ const studyGuides = [
     image: 'https://images.unsplash.com/photo-1505148968435-52f47ae32147?w=600'
   },
   {
+    id: 'isaiah',
+    title: 'Isaiah: Prophecy of the Messiah',
+    subtitle: 'Judgment and Comfort',
+    description: 'Study prophecies of judgment, comfort, and the coming Suffering Servant.',
+    chapters: 66,
+    image: 'https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=600'
+  },
+  {
+    id: 'jeremiah',
+    title: 'Jeremiah: The Weeping Prophet',
+    subtitle: 'New Covenant Promise',
+    description: 'Walk with Jeremiah through Judah\'s final days and the promise of a new covenant.',
+    chapters: 52,
+    image: 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=600'
+  },
+  {
+    id: 'ezekiel',
+    title: 'Ezekiel: Visions of Restoration',
+    subtitle: 'New Hearts and Hope',
+    description: 'Experience dramatic visions of judgment and the promise of new hearts and restoration.',
+    chapters: 48,
+    image: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600'
+  },
+  {
+    id: 'daniel',
+    title: 'Daniel: Faith in Exile',
+    subtitle: 'Courage and Prophecy',
+    description: 'Learn faithfulness from Daniel and his friends, and explore apocalyptic visions of God\'s kingdom.',
+    chapters: 12,
+    image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600'
+  },
+  {
+    id: 'acts',
+    title: 'Acts: The Church Begins',
+    subtitle: 'Spirit-Powered Mission',
+    description: 'Follow the Holy Spirit\'s work as the gospel spreads from Jerusalem to Rome.',
+    chapters: 28,
+    image: 'https://images.unsplash.com/photo-1438109491414-7198515b166b?w=600'
+  },
+  {
+    id: '1corinthians',
+    title: '1 Corinthians: Love and Order',
+    subtitle: 'Church Problems Solved',
+    description: 'Address church problems with Paul\'s teaching on unity, purity, gifts, and love.',
+    chapters: 16,
+    image: 'https://images.unsplash.com/photo-1519974719-33a6947c7fb3?w=600'
+  },
+  {
     id: 'romans',
     title: 'Romans: The Gospel of Grace',
     subtitle: 'Faith, Justification, and Redemption',
@@ -46,12 +94,28 @@ const studyGuides = [
     image: 'https://images.unsplash.com/photo-1516541196182-e1c5926573e5?w=600'
   },
   {
+    id: 'ephesians',
+    title: 'Ephesians: The Church\'s Calling',
+    subtitle: 'Identity in Christ',
+    description: 'Discover your identity in Christ and the church\'s mission to display God\'s wisdom.',
+    chapters: 6,
+    image: 'https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=600'
+  },
+  {
     id: 'john',
     title: 'John: The Gospel of Belief',
     subtitle: 'Encounters with the Word Made Flesh',
     description: 'Examine the unique perspective of John\'s gospel, featuring profound signs and teachings about believing in Jesus Christ.',
     chapters: 21,
     image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600'
+  },
+  {
+    id: 'revelation',
+    title: 'Revelation: The Final Victory',
+    subtitle: 'Christ\'s Glorious Return',
+    description: 'Explore visions of the end times, Christ\'s return, and God\'s eternal kingdom.',
+    chapters: 22,
+    image: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600'
   }
 ];
 
