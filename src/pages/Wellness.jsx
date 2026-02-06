@@ -122,15 +122,25 @@ export default function Wellness() {
 
   return (
     <div className={`min-h-screen pb-24 ${activeTab === 'nutrition' ? 'bg-[#f6ebe0]' : 'bg-[#000000]'}`}>
-
-
-      <div className="px-4 pt-4">
+      {/* Header with Banner - Show ReeVibe on workouts, Good Pantry on nutrition */}
+      <div className="relative bg-black -mx-4">
+        <img 
+          src={activeTab === 'nutrition' 
+            ? "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6980ade9ca08df558ed28bdd/0079a599f_TheGoodPantry.png"
+            : "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6980ade9ca08df558ed28bdd/171d02df6_ReeVibeLogonew.jpg"
+          }
+          alt={activeTab === 'nutrition' ? "The Good Pantry" : "ReeVibe Fitness"}
+          className="w-full h-64 object-cover"
+        />
         <Link
           to={createPageUrl('Home')}
-          className="mb-4 inline-flex w-10 h-10 rounded-full items-center justify-center bg-[#FD9C2D] hover:bg-[#C4E3FD] transition-colors"
+          className={`absolute top-4 left-4 w-10 h-10 rounded-full flex items-center justify-center transition-colors ${activeTab === 'nutrition' ? 'bg-green-500 hover:bg-green-600' : 'bg-[#FD9C2D] hover:bg-[#C4E3FD]'}`}
         >
           <ArrowLeft className="w-5 h-5 text-black" />
         </Link>
+      </div>
+
+      <div className="px-4 pt-6">
         <Tabs defaultValue="workouts" className="w-full" onValueChange={setActiveTab}>
           <TabsList className={`grid w-full grid-cols-4 mb-6 p-1 rounded-xl ${activeTab === 'nutrition' ? 'bg-[#90EE90]' : 'bg-[#FD9C2D]'}`}>
             <TabsTrigger value="workouts" className={`text-xs sm:text-sm ${activeTab === 'nutrition' ? 'data-[state=active]:bg-[#FFFF00]' : 'data-[state=active]:bg-[#C4E3FD]'} data-[state=active]:text-black`}>Workouts</TabsTrigger>
@@ -229,12 +239,11 @@ export default function Wellness() {
 
           {/* Meditation Tab */}
           <TabsContent value="meditation" className="space-y-4">
-            {/* Revival Banner */}
-            <img 
-              src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6980ade9ca08df558ed28bdd/0b65370eb_Revival.png"
-              alt="Moments of Revival"
-              className="w-full rounded-2xl object-cover"
-            />
+            {/* Meditation Banner */}
+            <div className="bg-gradient-to-r from-purple-600 via-pink-500 to-purple-700 rounded-2xl p-8 text-white text-center shadow-lg">
+              <h2 className="text-4xl font-bold mb-2">Moments of Revival</h2>
+              <p className="text-white/90">Find peace, prayer, and spiritual renewal</p>
+            </div>
 
             {/* Discover All Meditations */}
             <Link to={createPageUrl('DiscoverMeditations')}>
