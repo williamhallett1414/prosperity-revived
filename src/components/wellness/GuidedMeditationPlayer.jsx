@@ -50,7 +50,7 @@ export default function GuidedMeditationPlayer({ user, onSessionComplete }) {
       meditation_type: selectedSession.type,
       mood_before: moodBefore,
       mood_after: moodAfter,
-      guided_session_id: selectedSession.id,
+      guided_session_id: String(selectedSession.id),
     });
 
     setMoodBefore('calm');
