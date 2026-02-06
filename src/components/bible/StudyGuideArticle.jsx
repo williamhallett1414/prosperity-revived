@@ -1613,7 +1613,7 @@ const studyGuideContentMap = {
     ],
     keyScriptures: [
       { verse: 'Obadiah 1:3-4', text: '"The pride of your heart has deceived you...though you soar like the eagle...I will bring you down."', insight: 'Pride leads to downfall; security apart from God is illusion.' },
-      { verse: 'Obadiah 1:15', text: '"As you have done, it will be done to you."', insight: 'God's justice ensures people reap what they sow.' },
+      { verse: 'Obadiah 1:15', text: '"As you have done, it will be done to you."', insight: 'God\'s justice ensures people reap what they sow.' },
       { verse: 'Obadiah 1:21', text: '"The kingdom will be the Lord\'s."', insight: 'God\'s ultimate reign will be established.' }
     ],
     keyLocations: [
