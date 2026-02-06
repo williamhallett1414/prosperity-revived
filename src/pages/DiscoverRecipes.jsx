@@ -76,9 +76,9 @@ export default function DiscoverRecipes() {
   });
 
   return (
-    <div className="min-h-screen bg-[#000000] pb-24">
+    <div className="min-h-screen bg-[#f6ebe0] pb-24">
       {/* The Good Pantry Banner */}
-      <div className="relative bg-black -mx-4 mb-6">
+      <div className="relative bg-[#f6ebe0] -mx-4 mb-6">
         <img 
           src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6980ade9ca08df558ed28bdd/0079a599f_TheGoodPantry.png"
           alt="The Good Pantry"
@@ -87,7 +87,7 @@ export default function DiscoverRecipes() {
       </div>
 
       {/* Header with Banner */}
-      <div className="relative bg-black -mx-4">
+      <div className="relative bg-[#f6ebe0] -mx-4">
         <img 
           src="https://images.unsplash.com/photo-1495521821757-a1efb6729352?w=600&h=256&fit=crop"
           alt="Recipes"
@@ -103,7 +103,7 @@ export default function DiscoverRecipes() {
 
       <div className="px-4 pt-6 max-w-2xl mx-auto">
         <div className="flex items-center justify-between mb-6">
-          <h1 className="text-3xl font-bold text-white">Discover Recipes</h1>
+          <h1 className="text-3xl font-bold text-[#3C4E53]">Discover Recipes</h1>
           <Button
             onClick={() => setShowCreateRecipe(true)}
             className="bg-[#FD9C2D] hover:bg-orange-600"
