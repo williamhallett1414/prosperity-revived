@@ -188,7 +188,7 @@ Return JSON with:
             <Sparkles className="w-6 h-6" />
           </div>
           <div className="flex-1">
-            <h3 className="font-semibold text-lg">My Workout Journey</h3>
+            <h3 className="font-semibold text-lg">My Fitness Journey</h3>
             <p className="text-white/80 text-sm">Hyper-personalized multi-week program</p>
           </div>
         </div>
