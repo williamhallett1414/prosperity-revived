@@ -316,11 +316,11 @@ export default function Profile() {
         </div>
       </div>
 
-      {/* Bio */}
-      <div className="px-4 mb-6">
-        <div className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 shadow-sm">
-          <div className="flex items-center justify-between mb-3">
-            <h3 className="font-semibold text-[#1a1a2e] dark:text-white">Bio</h3>
+      {/* About Section */}
+      <div className="max-w-4xl mx-auto px-4 mb-6">
+        <div className="bg-white dark:bg-[#2d2d4a] rounded-xl p-4 shadow-sm">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-lg font-bold text-[#1a1a2e] dark:text-white">About</h3>
             {!editingBio && (
               <Button
                 variant="ghost"
@@ -368,8 +368,8 @@ export default function Profile() {
       </div>
 
       {/* Spiritual Goal */}
-      <div className="px-4 mb-6">
-        <div className="bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl p-4 shadow-lg text-white">
+      <div className="max-w-4xl mx-auto px-4 mb-6">
+        <div className="bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl p-4 shadow-lg text-white">
           <div className="flex items-center justify-between mb-3">
             <h3 className="font-semibold flex items-center gap-2">
               <span className="text-xl">🎯</span>
@@ -424,8 +424,8 @@ export default function Profile() {
       </div>
 
       {/* Favorite Verses */}
-      <div className="px-4 mb-6">
-        <div className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 shadow-sm">
+      <div className="max-w-4xl mx-auto px-4 mb-6">
+        <div className="bg-white dark:bg-[#2d2d4a] rounded-xl p-4 shadow-sm">
           <h3 className="font-semibold text-[#1a1a2e] dark:text-white mb-3 flex items-center gap-2">
             <span className="text-xl">✨</span>
             Favorite Verses
@@ -502,8 +502,8 @@ export default function Profile() {
       </div>
 
       {/* Status Update */}
-      <div className="px-4 mb-6">
-        <div className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 shadow-sm">
+      <div className="max-w-4xl mx-auto px-4 mb-6">
+        <div className="bg-white dark:bg-[#2d2d4a] rounded-xl p-4 shadow-sm">
           <div className="flex items-center justify-between mb-3">
             <h3 className="font-semibold text-[#1a1a2e] dark:text-white">Status</h3>
             {!editingStatus && (
@@ -554,7 +554,7 @@ export default function Profile() {
 
       {/* Groups */}
       {userGroups.length > 0 && (
-        <div className="px-4 mb-6">
+        <div className="max-w-4xl mx-auto px-4 mb-6">
           <h2 className="text-xl font-bold text-[#1a1a2e] dark:text-white mb-4">My Groups</h2>
           <div className="grid grid-cols-2 gap-3">
             {userGroups.map(group => (
@@ -573,7 +573,7 @@ export default function Profile() {
 
       {/* Recent Posts */}
       {posts.length > 0 && (
-        <div className="px-4 mb-6">
+        <div className="max-w-4xl mx-auto px-4 mb-6">
           <h2 className="text-xl font-bold text-[#1a1a2e] dark:text-white mb-4">Recent Posts</h2>
           <div className="space-y-4">
             {posts.slice(0, 3).map((post, index) => (
@@ -592,7 +592,7 @@ export default function Profile() {
 
       {/* Current Plans */}
       {activePlans.length > 0 && (
-        <div className="px-4 mb-6">
+        <div className="max-w-4xl mx-auto px-4 mb-6">
           <h2 className="text-xl font-bold text-[#1a1a2e] dark:text-white mb-4">Current Plans</h2>
           <div className="space-y-3">
             {activePlans.map(p => {
@@ -607,7 +607,7 @@ export default function Profile() {
 
       {/* Completed Plans */}
       {completedPlans.length > 0 && (
-        <div className="px-4 mb-6">
+        <div className="max-w-4xl mx-auto px-4 mb-6">
           <h2 className="text-xl font-bold text-[#1a1a2e] dark:text-white mb-4 flex items-center gap-2">
             <CheckCircle className="w-6 h-6 text-[#8fa68a]" />
             Completed Plans ({completedPlans.length})
@@ -644,9 +644,9 @@ export default function Profile() {
       )}
 
       {/* Activity Summary */}
-      <div className="px-4 mb-6">
+      <div className="max-w-4xl mx-auto px-4 mb-6">
         <h2 className="text-xl font-bold text-[#1a1a2e] dark:text-white mb-4">Activity</h2>
-        <div className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 shadow-sm space-y-3">
+        <div className="bg-white dark:bg-[#2d2d4a] rounded-xl p-4 shadow-sm space-y-3">
           <div className="flex items-center justify-between">
             <span className="text-gray-600 dark:text-gray-400">Community Posts</span>
             <span className="font-semibold text-[#1a1a2e] dark:text-white">{posts.length}</span>
