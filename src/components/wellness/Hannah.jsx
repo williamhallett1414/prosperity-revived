@@ -12,6 +12,16 @@ export default function Hannah({ user, meditationSessions = [] }) {
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
+  // Guided meditation recommendations library
+  const MEDITATION_RECOMMENDATIONS = {
+    stressed: { sessions: ['7-Min Stress Relief', '5-Min Breathing'], types: ['breathing', 'stress_relief'] },
+    anxious: { sessions: ['10-Min Body Scan', '5-Min Breathing'], types: ['body_scan', 'breathing'] },
+    calm: { sessions: ['15-Min Loving Kindness', '20-Min Mindfulness'], types: ['loving_kindness', 'mindfulness'] },
+    energetic: { sessions: ['20-Min Mindfulness', '10-Min Body Scan'], types: ['mindfulness', 'body_scan'] },
+    sad: { sessions: ['15-Min Loving Kindness', '10-Min Body Scan'], types: ['loving_kindness', 'body_scan'] },
+    neutral: { sessions: ['5-Min Breathing', '10-Min Body Scan'], types: ['breathing', 'body_scan'] }
+  };
+
   // Calculate meditation insights
   const meditationInsights = {
     totalSessions: meditationSessions.length,
@@ -26,7 +36,21 @@ export default function Hannah({ user, meditationSessions = [] }) {
       : null,
     moodImprovement: meditationSessions.length > 0
       ? meditationSessions.filter(s => s.mood_before === 'stressed' && s.mood_after === 'calm').length
+      : 0,
+    stressInstances: meditationSessions.length > 0
+      ? meditationSessions.filter(s => s.mood_before === 'stressed').length
+      : 0,
+    successRate: meditationSessions.length > 0
+      ? Math.round((meditationSessions.filter(s => s.mood_before === 'stressed' && s.mood_after === 'calm').length / 
+          meditationSessions.filter(s => s.mood_before === 'stressed').length) * 100) || 0
       : 0
+  };
+
+  // Generate personalized recommendations
+  const getPersonalizedRecommendations = () => {
+    const mood = meditationInsights.mostCommonMood || 'calm';
+    const recommendations = MEDITATION_RECOMMENDATIONS[mood] || MEDITATION_RECOMMENDATIONS.calm;
+    return recommendations;
   };
 
   useEffect(() => {
