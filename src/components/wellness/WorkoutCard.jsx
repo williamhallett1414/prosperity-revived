@@ -5,10 +5,12 @@ import { Button } from '@/components/ui/button';
 import WorkoutLogModal from './WorkoutLogModal';
 import CommentSection from './CommentSection';
 import ShareWorkoutModal from './ShareWorkoutModal';
+import WorkoutDetailModal from './WorkoutDetailModal';
 
 export default function WorkoutCard({ workout, onComplete, index, isPremade = false, user }) {
   const [showLogModal, setShowLogModal] = useState(false);
   const [showShareModal, setShowShareModal] = useState(false);
+  const [showDetailModal, setShowDetailModal] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const today = new Date().toISOString().split('T')[0];
   const completedToday = workout.completed_dates?.includes(today);
@@ -69,8 +71,7 @@ export default function WorkoutCard({ workout, onComplete, index, isPremade = fa
 
       <div className="flex gap-2">
         <Button
-          onClick={() => isPremade ? null : setShowLogModal(true)}
-          disabled={isPremade}
+          onClick={() => isPremade ? setShowDetailModal(true) : setShowLogModal(true)}
           className="flex-1 bg-emerald-600 hover:bg-emerald-700"
         >
           {isPremade ? (
@@ -122,6 +123,13 @@ export default function WorkoutCard({ workout, onComplete, index, isPremade = fa
       <ShareWorkoutModal
         isOpen={showShareModal}
         onClose={() => setShowShareModal(false)}
+        workout={workout}
+        user={user}
+      />
+
+      <WorkoutDetailModal
+        isOpen={showDetailModal}
+        onClose={() => setShowDetailModal(false)}
         workout={workout}
         user={user}
       />
