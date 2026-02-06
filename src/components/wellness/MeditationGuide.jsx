@@ -14,7 +14,7 @@ import MeditationSessionCard from './MeditationSessionCard';
 import GuidedMeditationSession from './GuidedMeditationSession';
 
 export default function MeditationGuide() {
-  const [selectedMeditation, setSelectedMeditation] = useState(null);
+  const [activeSession, setActiveSession] = useState(null);
   const [user, setUser] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [showStats, setShowStats] = useState(false);
