@@ -6,7 +6,6 @@ import { Button } from '@/components/ui/button';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import StudyNotes from './StudyNotes';
-import CompletionTracker from './CompletionTracker';
 import AIReflectionQuestions from './AIReflectionQuestions';
 import GideonStudyAssistant from './GideonStudyAssistant';
 
@@ -3104,23 +3103,6 @@ export default function StudyGuideArticle({ guide, onBack }) {
 
   const content = studyGuideContentMap[guide.id];
 
-  // Fetch progress
-  const { data: progress } = useQuery({
-    queryKey: ['studyProgress', guide.id],
-    queryFn: async () => {
-      const results = await base44.entities.StudyGuideProgress.filter({
-        guide_id: guide.id
-      });
-      return results[0] || {
-        guide_id: guide.id,
-        guide_name: guide.title,
-        completed_sections: [],
-        overall_progress: 0,
-        is_completed: false
-      };
-    }
-  });
-
   // Fetch notes
   const { data: notes = {} } = useQuery({
     queryKey: ['studyNotes', guide.id],
@@ -3135,18 +3117,6 @@ export default function StudyGuideArticle({ guide, onBack }) {
       });
       return notesMap;
     }
-  });
-
-  // Mutations
-  const updateProgressMutation = useMutation({
-    mutationFn: async (newProgress) => {
-      if (progress?.id) {
-        await base44.entities.StudyGuideProgress.update(progress.id, newProgress);
-      } else {
-        await base44.entities.StudyGuideProgress.create(newProgress);
-      }
-    },
-    onSuccess: () => queryClient.invalidateQueries(['studyProgress', guide.id])
   });
 
   const saveNoteMutation = useMutation({
@@ -3191,23 +3161,6 @@ export default function StudyGuideArticle({ guide, onBack }) {
     }));
   };
 
-  const handleToggleCompletion = (section) => {
-    const newCompleted = progress?.completed_sections || [];
-    if (newCompleted.includes(section)) {
-      newCompleted.splice(newCompleted.indexOf(section), 1);
-    } else {
-      newCompleted.push(section);
-    }
-    const newProgress = Math.round((newCompleted.length / 7) * 100);
-    updateProgressMutation.mutate({
-      guide_id: guide.id,
-      guide_name: guide.title,
-      completed_sections: newCompleted,
-      overall_progress: newProgress,
-      is_completed: newProgress === 100
-    });
-  };
-
   const handleSaveNote = async (section, subsection, content) => {
     await saveNoteMutation.mutateAsync({ section, subsection, content });
   };
@@ -3216,9 +3169,6 @@ export default function StudyGuideArticle({ guide, onBack }) {
     const key = `${section}-${subsection || ''}`;
     return notes[key] || '';
   };
-
-  const sections = ['introduction', 'historicalContext', 'keyCharacters', 'keyEvents', 'keyScriptures', 'keyLocations', 'keyLessons'];
-  const sectionLabels = ['Introduction', 'Historical Context', 'Key Characters', 'Key Events', 'Key Scriptures', 'Key Locations', 'Key Lessons'];
 
   const SectionHeader = ({ title, section, isExpanded }) => (
     <button
@@ -3245,19 +3195,6 @@ export default function StudyGuideArticle({ guide, onBack }) {
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back
         </Button>
-
-        {/* Completion Tracker */}
-        {progress && (
-          <CompletionTracker
-            sections={sectionLabels}
-            completedSections={progress.completed_sections}
-            onToggleSection={(label) => {
-              const sectionKey = sections[sectionLabels.indexOf(label)];
-              handleToggleCompletion(sectionKey);
-            }}
-            overallProgress={progress.overall_progress}
-          />
-        )}
 
         {/* Header Image */}
         <motion.div
