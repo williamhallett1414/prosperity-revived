@@ -28,6 +28,7 @@ import WellnessJourneyCard from '@/components/wellness/WellnessJourneyCard';
 import MoodEnergyChart from '@/components/wellness/MoodEnergyChart';
 import SelfCareGuides from '@/components/wellness/SelfCareGuides';
 import ReeVibeFitness from '@/components/wellness/ReeVibeFitness';
+import CommunityRecipeFeed from '@/components/wellness/CommunityRecipeFeed';
 
 import CoachDavid from '@/components/wellness/CoachDavid';
 import ChefDaniel from '@/components/wellness/ChefDaniel';
