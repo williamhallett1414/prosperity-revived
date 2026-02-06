@@ -197,13 +197,12 @@ export default function Wellness() {
               </div>
             </Link>
 
-            {/* AI Journey Generator */}
+            {/* 1. My Workout Journey */}
             <AIWellnessJourneyGenerator 
               user={user} 
               onJourneyCreated={() => queryClient.invalidateQueries(['journeys'])}
             />
 
-            {/* Active Journeys */}
             {journeys.filter(j => j.is_active).map(journey => (
               <WellnessJourneyCard
                 key={journey.id}
@@ -212,6 +211,7 @@ export default function Wellness() {
               />
             ))}
 
+            {/* 2. Create Workout */}
             <Button
               onClick={() => setShowCreateWorkout(true)}
               className="bg-emerald-600 hover:bg-emerald-700 w-full"
@@ -220,14 +220,10 @@ export default function Wellness() {
               Create Workout
             </Button>
 
-            <DiscoverWorkouts user={user} />
-            
-            <PersonalizedWorkouts 
-              user={user} 
-              userWorkouts={myWorkouts}
-              onComplete={(workout) => completeWorkout.mutate({ id: workout.id, workout })}
-            />
+            {/* 3. Discover Workouts */}
+            <DiscoverWorkouts user={user} allRecipes={recipes} myWorkouts={myWorkouts} completeWorkout={completeWorkout} />
 
+            {/* My Workouts */}
             {myWorkouts.length > 0 && (
               <div>
                 <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Your Workouts</h3>
@@ -244,22 +240,6 @@ export default function Wellness() {
                 </div>
               </div>
             )}
-
-            <div>
-              <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Pre-Made Workouts</h3>
-              <div className="space-y-3">
-                {PREMADE_WORKOUTS.map((workout, index) => (
-                  <WorkoutCard
-                    key={workout.id}
-                    workout={workout}
-                    onComplete={() => {}}
-                    index={index}
-                    isPremade
-                    user={user}
-                  />
-                ))}
-              </div>
-            </div>
           </TabsContent>
 
           {/* Nutrition Tab */}
