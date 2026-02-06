@@ -96,9 +96,9 @@ export default function DiscoverRecipes() {
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-3xl font-bold text-[#3C4E53]">Discover Recipes</h1>
           <Button
-            onClick={() => setShowCreateRecipe(true)}
-            className="bg-[#FD9C2D] hover:bg-orange-600"
-            size="sm"
+           onClick={() => setShowCreateRecipe(true)}
+           className="bg-green-500 hover:bg-green-600"
+           size="sm"
           >
             <Plus className="w-4 h-4 mr-2" />
             Add Recipe
