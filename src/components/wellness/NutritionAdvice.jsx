@@ -31,7 +31,7 @@ export default function NutritionAdvice() {
   ];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-10">
       {/* Featured Image */}
       <div className="relative rounded-2xl overflow-hidden h-40">
         <img 
