@@ -2,15 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
-import { Play, Clock, CheckCircle, Heart, TrendingUp, Sparkles } from 'lucide-react';
+import { Clock, CheckCircle, Heart, TrendingUp, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { awardPoints, checkAndAwardBadges } from '@/components/gamification/ProgressManager';
 import { MEDITATION_LIBRARY, MEDITATION_CATEGORIES } from './MeditationLibrary';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import CommentSection from './CommentSection';
 import AIGuidedMeditationGenerator from './AIGuidedMeditationGenerator';
 import AIPrayerGenerator from './AIPrayerGenerator';
+import MeditationSessionCard from './MeditationSessionCard';
+import GuidedMeditationSession from './GuidedMeditationSession';
 
 export default function MeditationGuide() {
   const [selectedMeditation, setSelectedMeditation] = useState(null);
