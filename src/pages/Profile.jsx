@@ -249,22 +249,20 @@ export default function Profile() {
 
           {/* Name & Info */}
           <div className="flex-1">
-            <h1 className="text-4xl font-bold text-[#1a1a2e] dark:text-white mb-2">{user.full_name || 'User'}</h1>
-            <p className="text-gray-600 dark:text-gray-400 mb-4 flex items-center gap-2">
-              <span>{friends.length} Friends</span>
-            </p>
+            <h1 className="text-2xl font-bold text-[#1a1a2e] dark:text-white">{user.full_name || 'User'}</h1>
+            <p className="text-sm text-gray-600 dark:text-gray-400">{friends.length} Friends</p>
           </div>
         </div>
       </div>
 
       {/* Profile Stats & Actions */}
       <div className="max-w-4xl mx-auto px-4 mb-6">
-        <div className="grid grid-cols-3 gap-3 mb-4">
+        <div className="grid grid-cols-3 gap-2 mb-4">
           <Link to={createPageUrl('Friends')}>
             <motion.button
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 rounded-lg transition-colors flex items-center justify-center gap-2"
+              className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-1.5 px-3 rounded-lg transition-colors flex items-center justify-center gap-1.5 text-sm"
             >
               <Users className="w-4 h-4" />
               Friends
@@ -275,9 +273,9 @@ export default function Profile() {
             <motion.button
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="w-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-[#1a1a2e] dark:text-white font-semibold py-2 rounded-lg transition-colors flex items-center justify-center gap-2"
+              className="w-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-[#1a1a2e] dark:text-white font-semibold py-1.5 px-3 rounded-lg transition-colors flex items-center justify-center gap-1.5 text-sm"
             >
-              <MessageCircle className="w-4 h-4" />
+              <MessageCircle className="w-3.5 h-3.5" />
               Message
             </motion.button>
           </Link>
@@ -286,9 +284,9 @@ export default function Profile() {
             <motion.button
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="w-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-[#1a1a2e] dark:text-white font-semibold py-2 rounded-lg transition-colors flex items-center justify-center gap-2"
+              className="w-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-[#1a1a2e] dark:text-white font-semibold py-1.5 px-3 rounded-lg transition-colors flex items-center justify-center gap-1.5 text-sm"
             >
-              <Trophy className="w-4 h-4" />
+              <Trophy className="w-3.5 h-3.5" />
               Achievements
             </motion.button>
           </Link>
