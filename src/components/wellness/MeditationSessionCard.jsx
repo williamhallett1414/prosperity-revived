@@ -4,71 +4,55 @@ import { Play, Clock, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export default function MeditationSessionCard({ session, onBegin, index }) {
-  const gradients = [
-    'from-purple-600 to-pink-600',
-    'from-blue-600 to-cyan-600',
-    'from-emerald-600 to-teal-600',
-    'from-orange-600 to-red-600',
-    'from-indigo-600 to-purple-600',
-    'from-rose-600 to-pink-600'
-  ];
-
-  const gradient = gradients[index % gradients.length];
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.1 }}
-      className={`bg-gradient-to-br ${gradient} rounded-2xl p-6 text-white overflow-hidden relative group cursor-pointer hover:shadow-xl transition-all`}
+      className="bg-white dark:bg-[#2d2d4a] rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow group cursor-pointer"
       onClick={() => onBegin(session)}
     >
-      {/* Animated background elements */}
-      <div className="absolute inset-0 opacity-10 group-hover:opacity-20 transition-opacity">
-        <div className="absolute top-2 right-2 w-20 h-20 bg-white rounded-full blur-2xl" />
-        <div className="absolute bottom-2 left-2 w-24 h-24 bg-white rounded-full blur-3xl" />
-      </div>
-
-      <div className="relative z-10">
-        {/* Header with icon and duration */}
-        <div className="flex items-start justify-between mb-3">
-          <div className="flex items-center gap-2">
-            <div className="w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center">
-              <Sparkles className="w-5 h-5" />
-            </div>
-            <span className="inline-block px-3 py-1 bg-white/20 rounded-full text-xs font-semibold">
-              {session.duration}m
-            </span>
-          </div>
+      {/* Image */}
+      {(session.image_url || session._original?.image_url) && (
+        <div className="relative w-full h-40 overflow-hidden">
+          <img
+            src={session.image_url || session._original?.image_url}
+            alt={session.title}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+          <span className="absolute top-3 right-3 inline-block px-3 py-1 bg-white/90 rounded-full text-xs font-semibold text-gray-900">
+            {session.duration}m
+          </span>
         </div>
+      )}
 
-        {/* Title and description */}
-        <h3 className="text-xl font-bold mb-2 group-hover:translate-x-1 transition-transform">
+      {/* Content */}
+      <div className="p-4">
+        <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1 line-clamp-2">
           {session.title}
         </h3>
-        <p className="text-white/90 text-sm mb-4 leading-relaxed">
+        <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 line-clamp-2">
           {session.description}
         </p>
 
-        {/* Session type tag */}
-        <div className="flex items-center gap-2 mb-5">
-          <Clock className="w-4 h-4 text-white/70" />
-          <span className="text-xs text-white/70 capitalize">
-            {session.type.replace('_', ' ')} meditation
-          </span>
+        {/* Session type and duration */}
+        <div className="flex items-center gap-2 mb-4 text-sm text-gray-600 dark:text-gray-400">
+          <Clock className="w-4 h-4" />
+          <span className="capitalize">{session.type.replace('_', ' ')}</span>
         </div>
 
         {/* Begin button */}
-        <Button
+        <button
           onClick={(e) => {
             e.stopPropagation();
             onBegin(session);
           }}
-          className="w-full bg-white text-gray-900 hover:bg-gray-100 font-semibold py-2 rounded-lg flex items-center justify-center gap-2 group/btn"
+          className="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 rounded-lg flex items-center justify-center gap-2 transition-colors group/btn"
         >
           <Play className="w-4 h-4 group-hover/btn:scale-110 transition-transform" />
           Begin Session
-        </Button>
+        </button>
       </div>
     </motion.div>
   );
