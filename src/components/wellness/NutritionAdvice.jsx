@@ -1,43 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
-import { Apple, Droplets, Heart, Activity, Loader2 } from 'lucide-react';
+import { Apple, Droplets, Heart, Activity } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Textarea } from '@/components/ui/textarea';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { base44 } from '@/api/base44Client';
-import CommentSection from './CommentSection';
 
 export default function NutritionAdvice() {
-  const [question, setQuestion] = useState('');
-  const [advice, setAdvice] = useState(null);
-  const [loading, setLoading] = useState(false);
-
-  const handleGetAdvice = async () => {
-    if (!question.trim()) return;
-
-    setLoading(true);
-    try {
-      const response = await base44.integrations.Core.InvokeLLM({
-        prompt: `As a nutrition expert, provide clear, evidence-based advice for this question: "${question}". 
-        Keep the response practical, safe, and encourage consulting healthcare professionals for personalized plans.`,
-        add_context_from_internet: true,
-        response_json_schema: {
-          type: 'object',
-          properties: {
-            summary: { type: 'string' },
-            tips: { type: 'array', items: { type: 'string' } },
-            foods_to_include: { type: 'array', items: { type: 'string' } },
-            caution: { type: 'string' }
-          }
-        }
-      });
-      setAdvice(response);
-    } catch (error) {
-      console.error('Failed to get advice', error);
-    }
-    setLoading(false);
-  };
 
   const featuredArticles = [
     { 
