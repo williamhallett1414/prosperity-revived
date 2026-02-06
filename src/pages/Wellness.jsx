@@ -32,6 +32,7 @@ import WellnessJourneyCard from '@/components/wellness/WellnessJourneyCard';
 import MoodEnergyChart from '@/components/wellness/MoodEnergyChart';
 import SelfCareGuides from '@/components/wellness/SelfCareGuides';
 import DiscoverWorkouts from '@/components/wellness/DiscoverWorkouts';
+import CoachDavid from '@/components/wellness/CoachDavid';
 
 export default function Wellness() {
   const [user, setUser] = useState(null);
@@ -209,8 +210,6 @@ export default function Wellness() {
 
             <DiscoverWorkouts user={user} />
             
-            <AIWorkoutRecommendations />
-            
             <PersonalizedWorkouts 
               user={user} 
               userWorkouts={myWorkouts}
@@ -386,6 +385,13 @@ export default function Wellness() {
       <CreateRecipeModal
         isOpen={showCreateRecipe}
         onClose={() => setShowCreateRecipe(false)}
+      />
+
+      {/* Coach David Chatbot */}
+      <CoachDavid 
+        user={user} 
+        userWorkouts={myWorkouts}
+        workoutSessions={workoutSessions}
       />
     </div>
   );
