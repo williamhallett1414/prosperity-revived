@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
-import { X, Plus, Dumbbell, Clock, TrendingUp } from 'lucide-react';
+import { X, Plus, Dumbbell, Clock, TrendingUp, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -9,6 +9,46 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+
+const POPULAR_EXERCISES = {
+  strength: [
+    { name: 'Push-ups', sets: 3, reps: 12, duration_seconds: 0 },
+    { name: 'Pull-ups', sets: 3, reps: 8, duration_seconds: 0 },
+    { name: 'Squats', sets: 3, reps: 15, duration_seconds: 0 },
+    { name: 'Lunges', sets: 3, reps: 12, duration_seconds: 0 },
+    { name: 'Bicep Curls', sets: 3, reps: 12, duration_seconds: 0 },
+    { name: 'Tricep Dips', sets: 3, reps: 10, duration_seconds: 0 },
+    { name: 'Bench Press', sets: 4, reps: 10, duration_seconds: 0 },
+    { name: 'Deadlifts', sets: 4, reps: 8, duration_seconds: 0 },
+    { name: 'Shoulder Press', sets: 3, reps: 10, duration_seconds: 0 },
+  ],
+  cardio: [
+    { name: 'Running', sets: 1, reps: 0, duration_seconds: 1800 },
+    { name: 'Jump Rope', sets: 3, reps: 0, duration_seconds: 120 },
+    { name: 'Burpees', sets: 3, reps: 15, duration_seconds: 0 },
+    { name: 'Mountain Climbers', sets: 3, reps: 20, duration_seconds: 0 },
+    { name: 'High Knees', sets: 3, reps: 0, duration_seconds: 60 },
+    { name: 'Jumping Jacks', sets: 3, reps: 30, duration_seconds: 0 },
+    { name: 'Cycling', sets: 1, reps: 0, duration_seconds: 2400 },
+  ],
+  core: [
+    { name: 'Plank', sets: 3, reps: 0, duration_seconds: 60 },
+    { name: 'Crunches', sets: 3, reps: 20, duration_seconds: 0 },
+    { name: 'Russian Twists', sets: 3, reps: 25, duration_seconds: 0 },
+    { name: 'Leg Raises', sets: 3, reps: 15, duration_seconds: 0 },
+    { name: 'Bicycle Crunches', sets: 3, reps: 20, duration_seconds: 0 },
+    { name: 'Side Plank', sets: 3, reps: 0, duration_seconds: 45 },
+  ],
+  flexibility: [
+    { name: 'Downward Dog', sets: 1, reps: 0, duration_seconds: 60 },
+    { name: 'Child\'s Pose', sets: 1, reps: 0, duration_seconds: 90 },
+    { name: 'Cat-Cow Stretch', sets: 3, reps: 10, duration_seconds: 0 },
+    { name: 'Standing Forward Bend', sets: 1, reps: 0, duration_seconds: 60 },
+    { name: 'Butterfly Stretch', sets: 1, reps: 0, duration_seconds: 60 },
+    { name: 'Cobra Stretch', sets: 3, reps: 0, duration_seconds: 30 },
+  ],
+};
 
 export default function CreateWorkoutModal({ isOpen, onClose }) {
   const [workout, setWorkout] = useState({
@@ -19,6 +59,9 @@ export default function CreateWorkoutModal({ isOpen, onClose }) {
     duration_minutes: 30,
     exercises: []
   });
+  const [showExerciseLibrary, setShowExerciseLibrary] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [libraryCategory, setLibraryCategory] = useState('strength');
   const queryClient = useQueryClient();
 
   const createWorkout = useMutation({
@@ -34,6 +77,13 @@ export default function CreateWorkoutModal({ isOpen, onClose }) {
     setWorkout({ 
       ...workout, 
       exercises: [...workout.exercises, { id: `ex-${Date.now()}`, name: '', sets: 3, reps: 10, duration_seconds: 0 }] 
+    });
+  };
+
+  const addExerciseFromLibrary = (exercise) => {
+    setWorkout({ 
+      ...workout, 
+      exercises: [...workout.exercises, { ...exercise, id: `ex-${Date.now()}` }] 
     });
   };
 
@@ -66,6 +116,10 @@ export default function CreateWorkoutModal({ isOpen, onClose }) {
     full_body: '🔥',
     yoga: '🕉️'
   };
+
+  const filteredLibraryExercises = POPULAR_EXERCISES[libraryCategory]?.filter(ex =>
+    ex.name.toLowerCase().includes(searchQuery.toLowerCase())
+  ) || [];
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -179,11 +233,68 @@ export default function CreateWorkoutModal({ isOpen, onClose }) {
                 <Label className="text-sm font-medium">Exercises *</Label>
                 <p className="text-xs text-gray-500 mt-1">Add at least one exercise</p>
               </div>
-              <Button onClick={addExercise} size="sm" variant="outline" className="border-emerald-600 text-emerald-600">
-                <Plus className="w-4 h-4 mr-1" />
-                Add
-              </Button>
+              <div className="flex gap-2">
+                <Button 
+                  onClick={() => setShowExerciseLibrary(!showExerciseLibrary)} 
+                  size="sm" 
+                  variant={showExerciseLibrary ? "default" : "outline"}
+                  className={showExerciseLibrary ? "bg-emerald-600" : "border-emerald-600 text-emerald-600"}
+                >
+                  <Dumbbell className="w-4 h-4 mr-1" />
+                  Library
+                </Button>
+                <Button onClick={addExercise} size="sm" variant="outline" className="border-emerald-600 text-emerald-600">
+                  <Plus className="w-4 h-4 mr-1" />
+                  Custom
+                </Button>
+              </div>
             </div>
+
+            {/* Exercise Library */}
+            {showExerciseLibrary && (
+              <div className="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-lg p-4 border border-emerald-200">
+                <div className="space-y-3">
+                  <div className="relative">
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                    <Input
+                      placeholder="Search exercises..."
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      className="pl-10 bg-white"
+                    />
+                  </div>
+
+                  <Tabs value={libraryCategory} onValueChange={setLibraryCategory}>
+                    <TabsList className="grid w-full grid-cols-4 bg-white">
+                      <TabsTrigger value="strength">💪 Strength</TabsTrigger>
+                      <TabsTrigger value="cardio">🏃 Cardio</TabsTrigger>
+                      <TabsTrigger value="core">🎯 Core</TabsTrigger>
+                      <TabsTrigger value="flexibility">🧘 Flexibility</TabsTrigger>
+                    </TabsList>
+
+                    <TabsContent value={libraryCategory} className="mt-3">
+                      <div className="grid grid-cols-2 gap-2 max-h-[200px] overflow-y-auto">
+                        {filteredLibraryExercises.map((exercise, idx) => (
+                          <button
+                            key={idx}
+                            type="button"
+                            onClick={() => addExerciseFromLibrary(exercise)}
+                            className="p-3 bg-white rounded-lg border border-gray-200 hover:border-emerald-500 hover:bg-emerald-50 transition-all text-left group"
+                          >
+                            <div className="font-medium text-sm mb-1 group-hover:text-emerald-700">{exercise.name}</div>
+                            <div className="text-xs text-gray-500">
+                              {exercise.sets > 0 && `${exercise.sets} sets`}
+                              {exercise.reps > 0 && ` × ${exercise.reps} reps`}
+                              {exercise.duration_seconds > 0 && ` ${exercise.duration_seconds}s`}
+                            </div>
+                          </button>
+                        ))}
+                      </div>
+                    </TabsContent>
+                  </Tabs>
+                </div>
+              </div>
+            )}
 
             {workout.exercises.length === 0 ? (
               <div className="text-center py-8 bg-gray-50 rounded-lg border-2 border-dashed border-gray-200">
