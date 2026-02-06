@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Share2, Bookmark, Sparkles, Check } from 'lucide-react';
+import { Share2, Bookmark, Sparkles, Check, ChevronDown, ChevronUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { getVerseOfDay } from '../bible/BibleData';
 import { toast } from 'sonner';
 
 export default function VerseOfDay({ onBookmark }) {
   const verse = getVerseOfDay();
+  const [expanded, setExpanded] = useState(false);
   
   const handleShare = async () => {
     const text = `"${verse.text}" - ${verse.book} ${verse.chapter}:${verse.verse}`;
@@ -43,7 +45,7 @@ export default function VerseOfDay({ onBookmark }) {
           </span>
         </div>
         
-        <p className="text-white/90 text-xl md:text-2xl font-serif leading-relaxed mb-4">
+        <p className={`text-white/90 font-serif leading-relaxed mb-4 ${!expanded ? 'text-lg md:text-xl line-clamp-4' : 'text-xl md:text-2xl'}`}>
           "{verse.text}"
         </p>
         
@@ -52,6 +54,24 @@ export default function VerseOfDay({ onBookmark }) {
         </p>
         
         <div className="flex gap-3">
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => setExpanded(!expanded)}
+            className="text-white/70 hover:text-white hover:bg-white/10"
+          >
+            {expanded ? (
+              <>
+                <ChevronUp className="w-4 h-4 mr-2" />
+                Read Less
+              </>
+            ) : (
+              <>
+                <ChevronDown className="w-4 h-4 mr-2" />
+                Read More
+              </>
+            )}
+          </Button>
           <Button
             variant="ghost"
             size="sm"
