@@ -125,12 +125,22 @@ When the user mentions stress, anxiety, or specific goals, proactively recommend
     }
   };
 
-  const quickActions = [
-    "Teach me a meditation technique",
-    "I need a prayer for peace",
-    "How do I start meditating?",
-    "Help me with mindfulness"
-  ];
+  const getQuickActions = () => {
+    if (meditationInsights.stressInstances > 3) {
+      return [
+        "I'm feeling stressed right now",
+        "Recommend a meditation for anxiety",
+        "How can I manage stress better?",
+        "Show me a quick calming technique"
+      ];
+    }
+    return [
+      "Teach me a meditation technique",
+      "I need a prayer for peace",
+      "How do I start meditating?",
+      "Help me with mindfulness"
+    ];
+  };
 
   return (
     <>
