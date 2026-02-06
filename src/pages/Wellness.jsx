@@ -218,8 +218,9 @@ export default function Wellness() {
                 <p className="text-white/90 text-sm">Browse and create delicious recipes</p>
               </div>
             </Link>
-            
 
+            {/* Community Feed */}
+            <CommunityRecipeFeed user={user} />
           </TabsContent>
 
           {/* Meditation Tab */}
