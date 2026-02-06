@@ -41,6 +41,7 @@ export default function Wellness() {
   const [user, setUser] = useState(null);
   const [showCreateWorkout, setShowCreateWorkout] = useState(false);
   const [showCreateRecipe, setShowCreateRecipe] = useState(false);
+  const [activeTab, setActiveTab] = useState('workouts');
   const [recipeFilters, setRecipeFilters] = useState({
     search: '',
     dietType: 'all',
@@ -181,7 +182,7 @@ export default function Wellness() {
       </div>
 
       <div className="px-4 pt-6">
-        <Tabs defaultValue="workouts" className="w-full">
+        <Tabs defaultValue="workouts" className="w-full" onValueChange={setActiveTab}>
           <TabsList className="grid w-full grid-cols-4 mb-6 bg-[#FD9C2D] p-1 rounded-xl">
             <TabsTrigger value="workouts" className="text-xs sm:text-sm data-[state=active]:bg-[#C4E3FD] data-[state=active]:text-black">Workouts</TabsTrigger>
             <TabsTrigger value="nutrition" className="text-xs sm:text-sm data-[state=active]:bg-[#C4E3FD] data-[state=active]:text-black">Nutrition</TabsTrigger>
@@ -257,13 +258,6 @@ export default function Wellness() {
 
           {/* Nutrition Tab */}
           <TabsContent value="nutrition" className="space-y-4">
-            {/* Chef Daniel Chatbot for Nutrition */}
-            <ChefDaniel 
-              user={user} 
-              userRecipes={myRecipes}
-              mealLogs={mealLogs}
-            />
-            
             <WaterTracker />
             <MealTracker />
             
@@ -399,13 +393,21 @@ export default function Wellness() {
         onClose={() => setShowCreateRecipe(false)}
       />
 
-      {/* Coach David Chatbot - Only show on workouts tab */}
-      {/* CoachDavid is replaced by ChefDaniel on nutrition tab */}
-      <CoachDavid 
-        user={user} 
-        userWorkouts={myWorkouts}
-        workoutSessions={workoutSessions}
-      />
+      {/* Conditional Chatbots based on active tab */}
+      {activeTab === 'workouts' && (
+        <CoachDavid 
+          user={user} 
+          userWorkouts={myWorkouts}
+          workoutSessions={workoutSessions}
+        />
+      )}
+      {activeTab === 'nutrition' && (
+        <ChefDaniel 
+          user={user} 
+          userRecipes={myRecipes}
+          mealLogs={mealLogs}
+        />
+      )}
     </div>
   );
 }
