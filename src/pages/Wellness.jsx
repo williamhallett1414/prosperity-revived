@@ -99,47 +99,7 @@ export default function Wellness() {
   });
 
   const myWorkouts = workouts.filter(w => w.created_by === user?.email);
-  const myRecipes = recipes.filter(r => r.created_by === user?.email);
-  const allRecipes = recipes;
   const allWorkouts = [...PREMADE_WORKOUTS, ...myWorkouts];
-
-  // Filter recipes
-  const filteredRecipes = allRecipes.filter(recipe => {
-    // Search filter
-    if (recipeFilters.search) {
-      const searchLower = recipeFilters.search.toLowerCase();
-      const matchesTitle = recipe.title?.toLowerCase().includes(searchLower);
-      const matchesIngredients = recipe.ingredients?.some(ing => 
-        ing.toLowerCase().includes(searchLower)
-      );
-      if (!matchesTitle && !matchesIngredients) return false;
-    }
-
-    // Diet type filter
-    if (recipeFilters.dietType !== 'all' && recipe.diet_type !== recipeFilters.dietType) {
-      return false;
-    }
-
-    // Category filter
-    if (recipeFilters.category !== 'all' && recipe.category !== recipeFilters.category) {
-      return false;
-    }
-
-    // Prep time filter
-    if (recipeFilters.prepTime !== 'all') {
-      const totalTime = (recipe.prep_time_minutes || 0) + (recipe.cook_time_minutes || 0);
-      if (recipeFilters.prepTime === 'quick' && totalTime >= 15) return false;
-      if (recipeFilters.prepTime === 'medium' && (totalTime < 15 || totalTime > 30)) return false;
-      if (recipeFilters.prepTime === 'long' && totalTime < 30) return false;
-    }
-
-    return true;
-  });
-
-  // Popular recipes (sample data based on created_date - can be enhanced with actual tracking)
-  const popularRecipes = [...allRecipes]
-    .filter(r => !r.created_by || r.created_by !== user?.email) // Pre-made recipes
-    .slice(0, 6);
 
   const totalWorkoutsCompleted = myWorkouts.reduce((sum, w) => sum + (w.completed_dates?.length || 0), 0);
   const thisWeekWorkouts = myWorkouts.filter(w => {
