@@ -35,6 +35,7 @@ import ChefDaniel from '@/components/wellness/ChefDaniel';
 import Hannah from '@/components/wellness/Hannah.jsx';
 
 import MeditationTracker from '@/components/wellness/MeditationTracker';
+import DailyChristianHoroscope from '@/components/wellness/DailyChristianHoroscope';
 
 
 export default function Wellness() {
