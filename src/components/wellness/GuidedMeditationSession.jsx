@@ -154,14 +154,6 @@ export default function GuidedMeditationSession({ session, onClose }) {
           </button>
         </div>
       </div>
-
-      <audio
-        ref={audioRef}
-        preload="auto"
-        onLoadedMetadata={() => setDuration(audioRef.current?.duration || 0)}
-        onTimeUpdate={() => setCurrentTime(audioRef.current?.currentTime || 0)}
-        onEnded={() => setIsPlaying(false)}
-      />
     </motion.div>
   );
 }
