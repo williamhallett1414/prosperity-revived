@@ -12,7 +12,7 @@ import { MEDITATION_LIBRARY, MEDITATION_CATEGORIES } from '@/components/wellness
 import MeditationSessionCard from '@/components/wellness/MeditationSessionCard';
 import GuidedMeditationSession from '@/components/wellness/GuidedMeditationSession';
 import MeditationAnalytics from '@/components/wellness/MeditationAnalytics';
-import { queueTTSJob } from '@/api/queueTTSJob';
+import { queueTTSJob } from '@/functions/queueTTSJob';
 
 export default function DiscoverMeditations() {
   const [user, setUser] = useState(null);
