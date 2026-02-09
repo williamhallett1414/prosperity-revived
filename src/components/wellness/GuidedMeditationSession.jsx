@@ -113,7 +113,9 @@ export default function GuidedMeditationSession({ session, user, onComplete, onC
   const [currentInstructionIndex, setCurrentInstructionIndex] = useState(0);
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
   const [moodAfter, setMoodAfter] = useState(null);
+  const [isGeneratingVoice, setIsGeneratingVoice] = useState(false);
   const audioRef = useRef(null);
+  const voiceAudioRef = useRef(null);
   const instructionTimerRef = useRef(null);
 
   const script = MEDITATION_SCRIPTS[session.type] || MEDITATION_SCRIPTS.mindfulness;
@@ -129,6 +131,39 @@ export default function GuidedMeditationSession({ session, user, onComplete, onC
   const totalInstructions = instructions.length;
   const secondsPerInstruction = (session.duration * 60) / totalInstructions;
 
+  // Generate AI voice for current instruction
+  useEffect(() => {
+    const generateVoiceInstruction = async () => {
+      if (isPlaying && currentInstructionIndex < totalInstructions) {
+        setIsGeneratingVoice(true);
+        try {
+          // Use text-to-speech API or AI to generate voice guidance
+          const voicePrompt = `You are a calm, soothing meditation guide. Read this meditation instruction in a gentle, peaceful tone: "${instructions[currentInstructionIndex]}"`;
+          
+          // For now, we'll use browser's speech synthesis as a fallback
+          // In production, you could integrate with OpenAI's TTS or Google Cloud TTS
+          const utterance = new SpeechSynthesisUtterance(instructions[currentInstructionIndex]);
+          utterance.rate = 0.8; // Slower, calming pace
+          utterance.pitch = 1.0;
+          utterance.volume = 0.7;
+          
+          // Try to use a calming voice
+          const voices = window.speechSynthesis.getVoices();
+          const calmVoice = voices.find(v => v.name.includes('Female') || v.name.includes('Samantha')) || voices[0];
+          if (calmVoice) utterance.voice = calmVoice;
+          
+          window.speechSynthesis.speak(utterance);
+        } catch (error) {
+          console.error('Voice generation failed:', error);
+        } finally {
+          setIsGeneratingVoice(false);
+        }
+      }
+    };
+
+    generateVoiceInstruction();
+  }, [currentInstructionIndex, isPlaying, instructions, totalInstructions]);
+
   // Start meditation session
   useEffect(() => {
     if (isPlaying && currentInstructionIndex < totalInstructions) {
@@ -140,6 +175,8 @@ export default function GuidedMeditationSession({ session, user, onComplete, onC
     }
     return () => {
       if (instructionTimerRef.current) clearTimeout(instructionTimerRef.current);
+      // Stop any ongoing speech
+      window.speechSynthesis.cancel();
     };
   }, [isPlaying, currentInstructionIndex, totalInstructions, secondsPerInstruction]);
 
@@ -171,6 +208,7 @@ export default function GuidedMeditationSession({ session, user, onComplete, onC
     if (audioRef.current) {
       if (isPlaying) {
         audioRef.current.pause();
+        window.speechSynthesis.cancel(); // Stop voice when pausing
       } else {
         audioRef.current.play();
       }
@@ -179,6 +217,7 @@ export default function GuidedMeditationSession({ session, user, onComplete, onC
 
   const handleFinish = async (mood) => {
     setIsPlaying(false);
+    window.speechSynthesis.cancel(); // Stop any voice
     if (audioRef.current) {
       audioRef.current.pause();
     }
@@ -289,6 +328,12 @@ export default function GuidedMeditationSession({ session, user, onComplete, onC
         className="max-w-xl mx-auto mb-12 text-center"
       >
         <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
+          {isGeneratingVoice && (
+            <div className="mb-3 flex items-center justify-center gap-2">
+              <Volume2 className="w-4 h-4 text-purple-400 animate-pulse" />
+              <span className="text-purple-300 text-sm">Speaking...</span>
+            </div>
+          )}
           <p className="text-white text-lg leading-relaxed mb-3">
             {instructions[currentInstructionIndex]}
           </p>
