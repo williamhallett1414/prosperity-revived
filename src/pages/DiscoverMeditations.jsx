@@ -67,7 +67,10 @@ export default function DiscoverMeditations() {
   const isFavorited = (id) => favorites.some(f => f.meditation_id === id && f.created_by === user?.email);
 
   const handleBeginSession = async (session) => {
-    if (!session.tts_audio_url) {
+    // Check if it's a library item (has string ID like "breath-calm")
+    const isLibraryItem = typeof session.id === 'string' && !session.id.match(/^[a-f0-9-]{36}$/);
+    
+    if (!isLibraryItem && !session.tts_audio_url) {
       await queueTTSJob({ meditationId: session.id });
       alert("Generating voice instructions. Check back in a moment.");
       return;
