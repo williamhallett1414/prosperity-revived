@@ -52,20 +52,18 @@ export default function MeditationSessionCard({ session, onBegin, index }) {
             e.stopPropagation();
             let updatedSession = session;
 
-            // If no audio exists, queue and process TTS job
+            // If no audio exists, queue and poll for TTS job completion
             if (!session.tts_audio_url && session.id) {
               setGenerating(true);
               try {
                 // 1. Queue the TTS job
                 await queueTTSJob(session.id);
                 
-                // 2. Process the job immediately
-                await runTTSWorker();
+                // 2. Poll for job completion
+                const updated = await runTTSWorker(session.id);
                 
-                // 3. Fetch updated meditation
-                const meditations = await base44.entities.Meditation.filter({ id: session.id }, null, 1);
-                if (meditations.length > 0) {
-                  updatedSession = { ...session, ...meditations[0] };
+                if (updated) {
+                  updatedSession = { ...session, ...updated };
                 }
               } catch (error) {
                 console.error('Failed to process TTS:', error);
@@ -82,7 +80,7 @@ export default function MeditationSessionCard({ session, onBegin, index }) {
           {generating ? (
             <>
               <Loader2 className="w-4 h-4 animate-spin" />
-              Processing Audio...
+              Generating Audio...
             </>
           ) : (
             <>
