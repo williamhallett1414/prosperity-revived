@@ -243,6 +243,9 @@ export default function GuidedMeditationSession({ session, user, onComplete, onC
     session?._original?.generated_audio_url;
   const hasPreRecordedAudio = !!audioUrl;
 
+  // Create audio element ref for pre-recorded voice guidance if available
+  const voiceGuidanceAudioRef = useRef(null);
+
   // Load voices
   useEffect(() => {
     const loadVoices = () => {
@@ -378,8 +381,12 @@ export default function GuidedMeditationSession({ session, user, onComplete, onC
     setIsPlaying(newPlayingState);
     
     if (newPlayingState) {
-      // Always use TTS to read instruction steps
-      if (voicesLoaded) {
+      // Use pre-recorded audio guidance if available, otherwise use TTS
+      if (hasPreRecordedAudio && voiceGuidanceAudioRef.current) {
+        voiceGuidanceAudioRef.current.src = audioUrl;
+        voiceGuidanceAudioRef.current.volume = voiceVolume;
+        voiceGuidanceAudioRef.current.play().catch(() => {});
+      } else if (voicesLoaded) {
         const currentText = instructions[currentInstructionIndex];
         if (currentText) {
           speakInstruction(currentText);
@@ -396,6 +403,9 @@ export default function GuidedMeditationSession({ session, user, onComplete, onC
       if (audioRef.current) {
         audioRef.current.pause();
       }
+      if (hasPreRecordedAudio && voiceGuidanceAudioRef.current) {
+        voiceGuidanceAudioRef.current.pause();
+      }
     }
   };
 
@@ -403,6 +413,7 @@ export default function GuidedMeditationSession({ session, user, onComplete, onC
   const speakInstruction = (text) => {
     if (!text || !voicesLoaded) return;
     
+    // Use browser speech synthesis if pre-recorded audio not available
     window.speechSynthesis.cancel();
     
     const utterance = new SpeechSynthesisUtterance(text);
@@ -698,7 +709,7 @@ export default function GuidedMeditationSession({ session, user, onComplete, onC
         Finish Session
       </Button>
 
-      {/* Hidden audio element for ambient sounds */}
+      {/* Hidden audio elements */}
       {selectedAmbientSound !== 'none' && (
         <audio
           ref={audioRef}
@@ -706,6 +717,11 @@ export default function GuidedMeditationSession({ session, user, onComplete, onC
           style={{ display: 'none' }}
         />
       )}
+      {/* Voice guidance audio (pre-recorded if available) */}
+      <audio
+        ref={voiceGuidanceAudioRef}
+        style={{ display: 'none' }}
+      />
 
       {/* Audio Controls Modal */}
       {showSoundPicker && (
