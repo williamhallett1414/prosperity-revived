@@ -233,22 +233,7 @@ export default function GuidedMeditationSession({ session, user, onComplete, onC
   const instructionTimerRef = useRef(null);
   const fileInputRef = useRef(null);
 
-  // Check if session has pre-recorded audio
-  const audioUrl =
-    session?.tts_audio_url ||
-    session?.audio_url ||
-    session?.generated_audio_url ||
-    session?._original?.tts_audio_url ||
-    session?._original?.audio_url ||
-    session?._original?.generated_audio_url;
-  const hasPreRecordedAudio = !!audioUrl;
-
-  // Debug log
-  useEffect(() => {
-    console.log('GuidedMeditationSession - session:', session);
-    console.log('GuidedMeditationSession - audioUrl:', audioUrl);
-    console.log('GuidedMeditationSession - hasPreRecordedAudio:', hasPreRecordedAudio);
-  }, [session, audioUrl, hasPreRecordedAudio]);
+  // TTS is always enabled for reading instruction steps
 
   // Load voices
   useEffect(() => {
@@ -385,17 +370,8 @@ export default function GuidedMeditationSession({ session, user, onComplete, onC
     setIsPlaying(newPlayingState);
     
     if (newPlayingState) {
-      // Starting playback on user click
-      if (hasPreRecordedAudio && voiceAudioRef.current) {
-        // Play pre-recorded audio
-        try {
-          await voiceAudioRef.current.play();
-          console.log('Playing pre-recorded audio');
-        } catch (err) {
-          console.error('Error playing pre-recorded audio:', err);
-        }
-      } else if (voicesLoaded) {
-        // Use text-to-speech
+      // Always use TTS to read instruction steps
+      if (voicesLoaded) {
         const currentText = instructions[currentInstructionIndex];
         if (currentText) {
           speakInstruction(currentText);
@@ -408,9 +384,6 @@ export default function GuidedMeditationSession({ session, user, onComplete, onC
       }
     } else {
       // Pausing
-      if (voiceAudioRef.current) {
-        voiceAudioRef.current.pause();
-      }
       window.speechSynthesis.cancel();
       if (audioRef.current) {
         audioRef.current.pause();
@@ -723,17 +696,6 @@ export default function GuidedMeditationSession({ session, user, onComplete, onC
           ref={audioRef}
           loop
           style={{ display: 'none' }}
-        />
-      )}
-
-      {/* Hidden audio element for pre-recorded voice guidance */}
-      {hasPreRecordedAudio && (
-        <audio
-          ref={voiceAudioRef}
-          src={audioUrl}
-          preload="auto"
-          style={{ display: 'none' }}
-          onEnded={() => setIsPlaying(false)}
         />
       )}
 
