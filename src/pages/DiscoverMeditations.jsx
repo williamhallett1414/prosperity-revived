@@ -68,7 +68,7 @@ export default function DiscoverMeditations() {
 
   const handleBeginSession = async (session) => {
     if (!session.tts_audio_url) {
-      await queueTTSJob(session.id);
+      await queueTTSJob({ meditationId: session.id });
       alert("Generating voice instructions. Check back in a moment.");
       return;
     }
