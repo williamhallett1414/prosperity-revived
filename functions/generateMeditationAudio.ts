@@ -4,10 +4,7 @@ import { base44 } from "@base44/sdk/server";
  * Generate TTS audio for a meditation using ElevenLabs
  * Requires: Backend functions enabled + ElevenLabs integration connected
  */
-export default async function generateMeditationAudio({ meditationId }) {
-  // Fetch the meditation
-  const meditation = await base44.entities.Meditation.get(meditationId);
-  
+export default async function generateMeditationAudio(meditation) {
   if (!meditation?.script) {
     throw new Error("Meditation has no script to convert to audio");
   }
@@ -20,7 +17,7 @@ export default async function generateMeditationAudio({ meditationId }) {
   });
 
   // Update meditation with audio URL
-  const updated = await base44.entities.Meditation.update(meditationId, {
+  const updated = await base44.entities.Meditation.update(meditation.id, {
     audio_url: result.audio_url
   });
 
