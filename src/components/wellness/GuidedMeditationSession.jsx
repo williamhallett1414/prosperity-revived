@@ -294,17 +294,20 @@ export default function GuidedMeditationSession({ session, user, onComplete, onC
         
         utterance.onstart = () => setIsGeneratingVoice(true);
         utterance.onend = () => setIsGeneratingVoice(false);
-        utterance.onerror = () => setIsGeneratingVoice(false);
+        utterance.onerror = (e) => {
+          console.error('Voice error:', e);
+          setIsGeneratingVoice(false);
+        };
         
         window.speechSynthesis.speak(utterance);
       } catch (error) {
         console.error('Voice generation failed:', error);
         setIsGeneratingVoice(false);
       }
-    }, 100);
+    }, 300);
 
     return () => clearTimeout(timer);
-  }, [currentInstructionIndex, isPlaying, instructions, totalInstructions, voicesLoaded]);
+  }, [currentInstructionIndex, isPlaying, instructions, totalInstructions, voicesLoaded, voiceVolume]);
 
   // Start meditation session
   useEffect(() => {
