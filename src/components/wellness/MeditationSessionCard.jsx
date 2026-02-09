@@ -57,10 +57,10 @@ export default function MeditationSessionCard({ session, onBegin, index }) {
               setGenerating(true);
               try {
                 // 1. Queue the TTS job
-                await queueTTSJob(session.id);
+                await queueTTSJob({ meditationId: session.id });
                 
                 // 2. Poll for job completion
-                const updated = await runTTSWorker(session.id);
+                const updated = await runTTSWorker({ meditationId: session.id });
                 
                 if (updated) {
                   updatedSession = { ...session, ...updated };

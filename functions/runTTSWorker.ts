@@ -1,6 +1,6 @@
 import { base44 } from "@/api/base44Client";
 
-export async function runTTSWorker(meditationId) {
+export async function runTTSWorker({ meditationId }) {
   // 1. Get the job for this meditation
   const jobs = await base44.entities.TTSJob.filter({ 
     meditation_id: meditationId 
