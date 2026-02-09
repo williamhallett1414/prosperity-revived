@@ -12,7 +12,7 @@ import { MEDITATION_LIBRARY, MEDITATION_CATEGORIES } from '@/components/wellness
 import MeditationSessionCard from '@/components/wellness/MeditationSessionCard';
 import GuidedMeditationSession from '@/components/wellness/GuidedMeditationSession';
 import MeditationAnalytics from '@/components/wellness/MeditationAnalytics';
-import { queueTTSJob } from '@/functions/queueTTSJob';
+import { queueTTSJob } from '@/api/queueTTSJob';
 
 export default function DiscoverMeditations() {
   const [user, setUser] = useState(null);
@@ -67,13 +67,9 @@ export default function DiscoverMeditations() {
   const isFavorited = (id) => favorites.some(f => f.meditation_id === id && f.created_by === user?.email);
 
   const handleBeginSession = async (session) => {
-    // Only queue TTS for user-created meditations (have proper DB IDs)
-    // Library items have string IDs like "breath-calm" and don't need TTS queuing
-    const isLibraryItem = typeof session.id === 'string' && !session.id.match(/^[a-f0-9-]{36}$/);
-    
-    if (!isLibraryItem && !session.tts_audio_url && session.id) {
-      await queueTTSJob({ meditationId: session.id });
-      alert("Voice instructions are being generated. Check back in a moment.");
+    if (!session.tts_audio_url) {
+      await queueTTSJob(session.id);
+      alert("Generating voice instructions. Check back in a moment.");
       return;
     }
 
