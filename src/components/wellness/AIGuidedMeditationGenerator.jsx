@@ -105,13 +105,24 @@ Return ONLY the meditation script, no additional formatting or explanation.`;
   };
 
   const saveMeditation = useMutation({
-    mutationFn: () => base44.entities.Meditation.create({
-      title: generatedTitle,
-      type: 'meditation',
-      duration_minutes: duration,
-      script: generatedScript,
-      category: focusArea
-    }),
+    mutationFn: async () => {
+      // Create meditation with script
+      const meditation = await base44.entities.Meditation.create({
+        title: generatedTitle,
+        type: 'meditation',
+        duration_minutes: duration,
+        script: generatedScript,
+        category: focusArea
+      });
+      
+      // Queue TTS job for audio generation
+      await base44.entities.TTSJob.create({
+        meditation_id: meditation.id,
+        status: 'pending'
+      });
+      
+      return meditation;
+    },
     onSuccess: () => {
       queryClient.invalidateQueries(['meditations']);
       onClose();
