@@ -8,6 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
+import AIFriendSuggestions from '@/components/friends/AIFriendSuggestions';
 
 export default function Friends() {
   const [user, setUser] = useState(null);
@@ -124,6 +125,11 @@ export default function Friends() {
       </div>
 
       <div className="p-4">
+        {/* AI Suggestions */}
+        <div className="mb-6">
+          <AIFriendSuggestions user={user} limit={5} />
+        </div>
+
         <Tabs defaultValue="friends" className="w-full">
           <TabsList className="grid w-full grid-cols-3">
             <TabsTrigger value="friends">

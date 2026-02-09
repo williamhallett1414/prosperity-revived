@@ -12,6 +12,7 @@ import { readingPlans } from '@/components/bible/BibleData';
 import ReadingPlanCard from '@/components/home/ReadingPlanCard';
 import PostCard from '@/components/community/PostCard';
 import GamificationBanner from '@/components/gamification/GamificationBanner';
+import AIFriendSuggestions from '@/components/friends/AIFriendSuggestions';
 
 
 export default function Profile() {
@@ -548,6 +549,11 @@ export default function Profile() {
             </p>
           )}
         </div>
+      </div>
+
+      {/* AI Friend Suggestions */}
+      <div className="max-w-4xl mx-auto px-4 mb-6">
+        <AIFriendSuggestions user={user} limit={4} />
       </div>
 
       {/* Groups */}
