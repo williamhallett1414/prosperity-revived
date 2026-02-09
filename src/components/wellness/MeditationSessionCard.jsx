@@ -52,8 +52,11 @@ export default function MeditationSessionCard({ session, onBegin, index }) {
             e.stopPropagation();
             let updatedSession = session;
 
-            // If no audio exists, queue and poll for TTS job completion
-            if (!session.tts_audio_url && session.id) {
+            // Only queue TTS for user-created meditations (have proper DB IDs)
+            // Library items have string IDs like "breath-calm" and don't need TTS queuing
+            const isLibraryItem = typeof session.id === 'string' && !session.id.match(/^[a-f0-9-]{36}$/);
+            
+            if (!isLibraryItem && !session.tts_audio_url && session.id) {
               setGenerating(true);
               try {
                 // 1. Queue the TTS job
