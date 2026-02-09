@@ -39,7 +39,7 @@ export default function MeditationSessionCard({ session, onBegin, index }) {
         {/* Session type and duration */}
         <div className="flex items-center gap-2 mb-4 text-sm text-gray-600 dark:text-gray-400">
           <Clock className="w-4 h-4" />
-          <span className="capitalize">{session.type.replace('_', ' ')}</span>
+          <span className="capitalize">{session.type?.replace('_', ' ') || 'Meditation'}</span>
         </div>
 
         {/* Begin button */}
