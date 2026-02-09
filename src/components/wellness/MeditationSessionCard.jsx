@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Play, Clock, Sparkles, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { generateMeditationAudio } from '@/functions/generateMeditationAudio';
+import { queueTTSJob } from '@/functions/queueTTSJob';
+import { runTTSWorker } from '@/functions/runTTSWorker';
+import { base44 } from '@/api/base44Client';
 
 export default function MeditationSessionCard({ session, onBegin, index }) {
   const [generating, setGenerating] = useState(false);
@@ -50,13 +52,23 @@ export default function MeditationSessionCard({ session, onBegin, index }) {
             e.stopPropagation();
             let updatedSession = session;
 
-            // If no audio exists, generate it
-            if (!session.tts_audio_url) {
+            // If no audio exists, queue and process TTS job
+            if (!session.tts_audio_url && session.id) {
               setGenerating(true);
               try {
-                updatedSession = await generateMeditationAudio(session);
+                // 1. Queue the TTS job
+                await queueTTSJob(session.id);
+                
+                // 2. Process the job immediately
+                await runTTSWorker();
+                
+                // 3. Fetch updated meditation
+                const meditations = await base44.entities.Meditation.filter({ id: session.id }, null, 1);
+                if (meditations.length > 0) {
+                  updatedSession = { ...session, ...meditations[0] };
+                }
               } catch (error) {
-                console.error('Failed to generate audio:', error);
+                console.error('Failed to process TTS:', error);
               } finally {
                 setGenerating(false);
               }
@@ -70,7 +82,7 @@ export default function MeditationSessionCard({ session, onBegin, index }) {
           {generating ? (
             <>
               <Loader2 className="w-4 h-4 animate-spin" />
-              Generating Audio...
+              Processing Audio...
             </>
           ) : (
             <>
