@@ -121,7 +121,7 @@ export default function GuidedMeditationSession({ session, onClose }) {
               <span>{formatTime(currentTime)}</span>
               <span>{formatTime(duration)}</span>
             </div>
-          </div>
+          </>
         )}
 
         <div className="flex items-center gap-6">
