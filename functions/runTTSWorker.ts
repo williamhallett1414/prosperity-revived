@@ -1,22 +1,38 @@
 import { base44 } from '@/api/base44Client';
+import { generateAndMixAudio } from './generateAndMixAudio';
 
+/**
+ * Background worker that processes pending TTS jobs
+ * - Fetches pending meditation audio generation jobs
+ * - Generates TTS from meditation scripts
+ * - Mixes TTS with ambient background music
+ * - Updates meditation records with final audio URLs
+ * - Handles errors gracefully
+ */
 export async function runTTSWorker() {
   try {
-    // Get first pending job
+    // Fetch first pending TTS job
     const jobs = await base44.entities.TTSJob.filter(
       { status: 'pending' },
       '',
       1
     );
 
-    if (jobs.length === 0) return;
+    if (jobs.length === 0) {
+      console.log('[TTS Worker] No pending jobs');
+      return;
+    }
 
     const job = jobs[0];
+    console.log(`[TTS Worker] Processing job: ${job.id}`);
 
     // Update job status to processing
-    await base44.entities.TTSJob.update(job.id, { status: 'processing' });
+    await base44.entities.TTSJob.update(job.id, { 
+      status: 'processing',
+      error_message: null
+    });
 
-    // Get meditation
+    // Fetch the meditation record
     const meditations = await base44.entities.Meditation.filter(
       { id: job.meditation_id },
       '',
@@ -24,57 +40,90 @@ export async function runTTSWorker() {
     );
 
     if (meditations.length === 0) {
-      await base44.entities.TTSJob.update(job.id, {
-        status: 'error',
-        error_message: 'Meditation not found'
-      });
-      return;
+      throw new Error(`Meditation not found: ${job.meditation_id}`);
     }
 
     const meditation = meditations[0];
+    console.log(`[TTS Worker] Fetching meditation: ${meditation.id}`);
 
-    // Update meditation status
+    // Update meditation status to generating
     await base44.entities.Meditation.update(meditation.id, {
       status: 'generating'
     });
 
-    // Generate TTS audio using InvokeLLM
-    const ttsResponse = await base44.integrations.Core.InvokeLLM({
-      prompt: `Generate a calm, soothing guided meditation audio narration for the following script. Use a peaceful, gentle tone suitable for meditation. The script is:\n\n${meditation.script}`,
-      add_context_from_internet: false
-    });
+    // Generate TTS and mix with ambient music
+    const finalAudioUrl = await generateAndMixAudio(
+      meditation.script,
+      meditation.ambient_url || '/ambient/calm_river.mp3',
+      meditation.id
+    );
 
-    // For now, we'll store a placeholder since actual audio generation would require
-    // integration with an audio synthesis service. In production, you'd use:
-    // - Google Cloud Text-to-Speech
-    // - AWS Polly
-    // - ElevenLabs
-    // - Or another TTS service
-
-    const audioUrl = `https://meditation-audio.placeholder.com/${meditation.id}-tts.mp3`;
-
-    // Update meditation with audio URL
+    // Update meditation with final mixed audio URL
     await base44.entities.Meditation.update(meditation.id, {
-      tts_audio_url: audioUrl,
+      tts_audio_url: finalAudioUrl,
       status: 'ready'
     });
 
+    console.log(`[TTS Worker] ✓ Meditation ready: ${meditation.id}`);
+    console.log(`[TTS Worker] Audio URL: ${finalAudioUrl}`);
+
     // Mark job as complete
-    await base44.entities.TTSJob.update(job.id, { status: 'complete' });
+    await base44.entities.TTSJob.update(job.id, { 
+      status: 'complete',
+      error_message: null
+    });
 
   } catch (error) {
-    console.error('TTS Worker error:', error);
-    // Update the job with error status
+    console.error('[TTS Worker] Error:', error);
+    
+    // Update job with error status
+    try {
+      const jobs = await base44.entities.TTSJob.filter(
+        { status: 'processing' },
+        '',
+        1
+      );
+      
+      if (jobs.length > 0) {
+        await base44.entities.TTSJob.update(jobs[0].id, {
+          status: 'error',
+          error_message: error.message
+        });
+
+        // Also update meditation status
+        if (jobs[0].meditation_id) {
+          await base44.entities.Meditation.update(jobs[0].meditation_id, {
+            status: 'error'
+          });
+        }
+      }
+    } catch (updateError) {
+      console.error('[TTS Worker] Failed to update error status:', updateError);
+    }
+  }
+}
+
+/**
+ * Helper function to process all pending TTS jobs sequentially
+ * Call this periodically (every 15-30 seconds) from your backend
+ */
+export async function processAllPendingTTSJobs() {
+  const maxRetries = 10;
+  let processed = 0;
+
+  for (let i = 0; i < maxRetries; i++) {
     const jobs = await base44.entities.TTSJob.filter(
-      { status: 'processing' },
+      { status: 'pending' },
       '',
       1
     );
-    if (jobs.length > 0) {
-      await base44.entities.TTSJob.update(jobs[0].id, {
-        status: 'error',
-        error_message: error.message
-      });
+
+    if (jobs.length === 0) {
+      console.log(`[TTS Worker] Completed ${processed} jobs`);
+      break;
     }
+
+    await runTTSWorker();
+    processed++;
   }
 }
