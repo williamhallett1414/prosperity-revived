@@ -265,49 +265,23 @@ export default function GuidedMeditationSession({ session, user, onComplete, onC
 
   // Generate AI voice for current instruction
   useEffect(() => {
-    if (!voicesLoaded || !isPlaying || currentInstructionIndex >= totalInstructions) {
-      return;
-    }
+    if (!isPlaying) return;
+    if (!voicesLoaded) return;
+    if (currentInstructionIndex >= totalInstructions) return;
 
     const instructionText = instructions[currentInstructionIndex];
     if (!instructionText || typeof instructionText !== 'string') return;
 
-    setIsGeneratingVoice(true);
-    
-    // Cancel any ongoing speech
-    window.speechSynthesis.cancel();
-    
-    // Small delay to ensure clean speech
+    // Small delay to ensure clean speech transition
     const timer = setTimeout(() => {
-      try {
-        const utterance = new SpeechSynthesisUtterance(instructionText);
-        utterance.rate = 0.8;
-        utterance.pitch = 1.0;
-        utterance.volume = voiceVolume;
-        
-        const voices = window.speechSynthesis.getVoices();
-        const calmVoice = voices.find(v => 
-          v.lang && v.lang.startsWith('en') && (v.name.includes('Female') || v.name.includes('Samantha'))
-        ) || voices.find(v => v.lang && v.lang.startsWith('en')) || voices[0];
-        
-        if (calmVoice) utterance.voice = calmVoice;
-        
-        utterance.onstart = () => setIsGeneratingVoice(true);
-        utterance.onend = () => setIsGeneratingVoice(false);
-        utterance.onerror = (e) => {
-          console.error('Voice error:', e);
-          setIsGeneratingVoice(false);
-        };
-        
-        window.speechSynthesis.speak(utterance);
-      } catch (error) {
-        console.error('Voice generation failed:', error);
-        setIsGeneratingVoice(false);
-      }
-    }, 300);
+      speakInstruction(instructionText);
+    }, 500);
 
-    return () => clearTimeout(timer);
-  }, [currentInstructionIndex, isPlaying, instructions, totalInstructions, voicesLoaded, voiceVolume]);
+    return () => {
+      clearTimeout(timer);
+      window.speechSynthesis.cancel();
+    };
+  }, [currentInstructionIndex, isPlaying, voicesLoaded]);
 
   // Start meditation session
   useEffect(() => {
@@ -403,9 +377,11 @@ export default function GuidedMeditationSession({ session, user, onComplete, onC
   };
 
   const togglePlayPause = () => {
-    setIsPlaying(!isPlaying);
+    const newPlayingState = !isPlaying;
+    setIsPlaying(newPlayingState);
+    
     if (audioRef.current) {
-      if (isPlaying) {
+      if (!newPlayingState) {
         audioRef.current.pause();
         window.speechSynthesis.cancel();
       } else {
@@ -414,20 +390,57 @@ export default function GuidedMeditationSession({ session, user, onComplete, onC
     }
   };
 
+  // Trigger first voice instruction when starting
+  const speakInstruction = (text) => {
+    if (!text || !voicesLoaded) return;
+    
+    window.speechSynthesis.cancel();
+    
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.rate = 0.8;
+    utterance.pitch = 1.0;
+    utterance.volume = voiceVolume;
+    
+    const voices = window.speechSynthesis.getVoices();
+    const preferredVoice = voices.find(v => 
+      v.lang?.startsWith('en') && (v.name.includes('Female') || v.name.includes('Samantha'))
+    ) || voices.find(v => v.lang?.startsWith('en')) || voices[0];
+    
+    if (preferredVoice) utterance.voice = preferredVoice;
+    
+    utterance.onstart = () => setIsGeneratingVoice(true);
+    utterance.onend = () => setIsGeneratingVoice(false);
+    utterance.onerror = (e) => {
+      console.error('Speech error:', e);
+      setIsGeneratingVoice(false);
+    };
+    
+    try {
+      window.speechSynthesis.speak(utterance);
+    } catch (e) {
+      console.error('Failed to speak:', e);
+      setIsGeneratingVoice(false);
+    }
+  };
+
   const skipForward = () => {
     setElapsedSeconds(prev => Math.min(prev + 15, (session?.duration || 5) * 60));
-    // Skip to next instruction if needed
     const newIndex = Math.min(currentInstructionIndex + 1, totalInstructions - 1);
     setCurrentInstructionIndex(newIndex);
     window.speechSynthesis.cancel();
+    if (isPlaying && instructions[newIndex]) {
+      setTimeout(() => speakInstruction(instructions[newIndex]), 100);
+    }
   };
 
   const skipBackward = () => {
     setElapsedSeconds(prev => Math.max(prev - 15, 0));
-    // Go back to previous instruction if needed
     const newIndex = Math.max(currentInstructionIndex - 1, 0);
     setCurrentInstructionIndex(newIndex);
     window.speechSynthesis.cancel();
+    if (isPlaying && instructions[newIndex]) {
+      setTimeout(() => speakInstruction(instructions[newIndex]), 100);
+    }
   };
 
   const handleFinish = async (mood) => {
@@ -594,7 +607,14 @@ export default function GuidedMeditationSession({ session, user, onComplete, onC
           <motion.button
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
-            onClick={() => setCurrentInstructionIndex(Math.max(0, currentInstructionIndex - 1))}
+            onClick={() => {
+              const newIndex = Math.max(0, currentInstructionIndex - 1);
+              setCurrentInstructionIndex(newIndex);
+              window.speechSynthesis.cancel();
+              if (isPlaying && instructions[newIndex]) {
+                setTimeout(() => speakInstruction(instructions[newIndex]), 100);
+              }
+            }}
             className="w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-all backdrop-blur-sm border border-white/20"
             disabled={currentInstructionIndex === 0}
             title="Previous instruction"
@@ -620,7 +640,14 @@ export default function GuidedMeditationSession({ session, user, onComplete, onC
           <motion.button
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
-            onClick={() => setCurrentInstructionIndex(Math.min(totalInstructions - 1, currentInstructionIndex + 1))}
+            onClick={() => {
+              const newIndex = Math.min(totalInstructions - 1, currentInstructionIndex + 1);
+              setCurrentInstructionIndex(newIndex);
+              window.speechSynthesis.cancel();
+              if (isPlaying && instructions[newIndex]) {
+                setTimeout(() => speakInstruction(instructions[newIndex]), 100);
+              }
+            }}
             className="w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-all backdrop-blur-sm border border-white/20"
             disabled={currentInstructionIndex >= totalInstructions - 1}
             title="Next instruction"
