@@ -115,14 +115,15 @@ export default function GuidedMeditationSession({ session, onClose }) {
                         : "0%",
                   }}
                   transition={{ duration: 0.1 }}
-                />
-            </div>
-            <div className="flex justify-between text-xs text-gray-400 mt-2">
-              <span>{formatTime(currentTime)}</span>
-              <span>{formatTime(duration)}</span>
-            </div>
-          </>
-        )}
+                  />
+                  </motion.div>
+                  </div>
+                  <div className="flex justify-between text-xs text-gray-400 mt-2">
+                  <span>{formatTime(currentTime)}</span>
+                  <span>{formatTime(duration)}</span>
+                  </div>
+                  </>
+                  )}
 
         <div className="flex items-center gap-6">
           <button
