@@ -56,7 +56,7 @@ Deno.serve(async (req) => {
 
         // Generate TTS audio (placeholder)
         console.log("[Worker] Generating TTS for:", meditation.id);
-        const ttsUrl = `https://commondatastorage.googleapis.com/gtv-videos-library/sample/ForBiggerBlazes.mp3`;
+        const ttsUrl = `https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3`;
 
         // Mix with ambient audio (placeholder)
         console.log("[Worker] Mixing audio for:", meditation.id);
