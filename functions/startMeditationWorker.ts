@@ -1,29 +1,29 @@
-import { runMeditationAudioWorker } from "./runTTSWorker.js";
+import { runMeditationAudioWorker } from "./runMeditationAudioWorker.js";
 
 let workerInterval = null;
 
 /**
  * Start the meditation audio worker on a 15-second interval
- * This runs server-side and auto-generates audio for meditations
  */
 export function startMeditationWorker() {
   if (workerInterval) {
-    console.log("[Worker] Meditation audio worker is already running");
+    console.log("[Worker] Worker already running");
     return;
   }
 
-  console.log("[Worker] Starting meditation audio worker (15s interval)…");
+  console.log("[Worker] Starting meditation audio worker (15s interval)");
 
+  // Run immediately first
+  runMeditationAudioWorker().catch(err => {
+    console.error("[Worker] Initial run error:", err);
+  });
+
+  // Then run every 15 seconds
   workerInterval = setInterval(() => {
     runMeditationAudioWorker().catch(err => {
-      console.error("[Worker] Error in worker interval:", err);
+      console.error("[Worker] Interval run error:", err);
     });
-  }, 15000); // 15 seconds
-
-  // Also run once immediately
-  runMeditationAudioWorker().catch(err => {
-    console.error("[Worker] Error on initial run:", err);
-  });
+  }, 15000);
 }
 
 /**
