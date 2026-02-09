@@ -1,119 +1,111 @@
-import { base44 } from "@/api/base44Client";
+import { createClientFromRequest } from 'npm:@base44/sdk@0.8.6';
 import { generateTTSAudio } from "./generateTTSAudio.js";
 import { mixMeditationAudio } from "./mixMeditationAudio.js";
 
-/**
- * Auto-queue meditations missing audio
- */
-async function autoQueueMissingMeditations() {
+Deno.serve(async (req) => {
   try {
-    const meditations = await base44.entities.Meditation.list();
-    
-    for (const med of meditations) {
-      if (!med.tts_audio_url && med.status === "pending") {
-        console.log("[Worker] Auto-queueing meditation:", med.id);
-        
-        await base44.entities.TTSJob.create({
-          meditation_id: med.id,
-          status: "pending"
+    const base44 = createClientFromRequest(req);
+    const user = await base44.auth.me();
+
+    if (!user) {
+      return Response.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    console.log("[Worker] Starting meditation audio worker...");
+
+    let processedCount = 0;
+    let errorCount = 0;
+
+    // Process ALL pending jobs in a loop
+    while (true) {
+      // Fetch next pending job
+      const jobs = await base44.asServiceRole.entities.TTSJob.filter(
+        { status: "pending" },
+        "-created_date",
+        1
+      );
+
+      if (!jobs || jobs.length === 0) {
+        console.log("[Worker] No more pending jobs.");
+        break;
+      }
+
+      const job = jobs[0];
+      console.log("[Worker] Processing job:", job.id, "for meditation:", job.meditation_id);
+
+      try {
+        // Mark job as processing
+        await base44.asServiceRole.entities.TTSJob.update(job.id, { 
+          status: "processing" 
         });
+
+        // Fetch meditation
+        const meditation = await base44.asServiceRole.entities.Meditation.get(job.meditation_id);
+
+        if (!meditation) {
+          throw new Error(`Meditation not found: ${job.meditation_id}`);
+        }
+
+        // Mark meditation as generating
+        await base44.asServiceRole.entities.Meditation.update(meditation.id, {
+          status: "generating"
+        });
+
+        // Generate TTS audio
+        console.log("[Worker] Generating TTS for:", meditation.id);
+        const ttsUrl = await generateTTSAudio(meditation.script);
+
+        // Mix with ambient audio
+        console.log("[Worker] Mixing audio for:", meditation.id);
+        const finalUrl = await mixMeditationAudio({
+          ttsUrl,
+          ambientUrl: meditation.ambient_url
+        });
+
+        // Update meditation with final audio
+        await base44.asServiceRole.entities.Meditation.update(meditation.id, {
+          tts_audio_url: finalUrl,
+          status: "ready"
+        });
+
+        // Mark job as complete
+        await base44.asServiceRole.entities.TTSJob.update(job.id, {
+          status: "complete"
+        });
+
+        console.log("[Worker] ✓ Completed job:", job.id);
+        processedCount++;
+
+      } catch (jobErr) {
+        console.error("[Worker] Error processing job:", job.id, jobErr);
+        errorCount++;
+
+        // Mark job as error
+        await base44.asServiceRole.entities.TTSJob.update(job.id, {
+          status: "error",
+          error_message: jobErr.message
+        });
+
+        // Mark meditation as error
+        try {
+          await base44.asServiceRole.entities.Meditation.update(job.meditation_id, {
+            status: "error"
+          });
+        } catch (_) {}
       }
     }
-  } catch (err) {
-    console.error("[Worker] Error auto-queueing meditations:", err);
+
+    return Response.json({
+      status: "success",
+      message: "Worker completed",
+      processed: processedCount,
+      errors: errorCount
+    });
+
+  } catch (error) {
+    console.error("[Worker] Fatal error:", error);
+    return Response.json({ 
+      error: error.message 
+    }, { status: 500 });
   }
-}
-
-/**
- * Fetch next pending job
- */
-async function getNextJob() {
-  const jobs = await base44.entities.TTSJob.filter(
-    { status: "pending" },
-    "",
-    1
-  );
-  return jobs[0] || null;
-}
-
-/**
- * Process a single TTS job
- */
-async function processJob(job) {
-  console.log("[Worker] Processing job:", job.id, "for meditation:", job.meditation_id);
-
-  // Mark job as processing
-  await base44.entities.TTSJob.update(job.id, { status: "processing" });
-
-  try {
-    const meditation = await base44.entities.Meditation.get(job.meditation_id);
-
-    if (!meditation) {
-      throw new Error(`Meditation not found: ${job.meditation_id}`);
-    }
-
-    // Mark meditation as generating
-    await base44.entities.Meditation.update(meditation.id, {
-      status: "generating"
-    });
-
-    // Generate TTS
-    console.log("[Worker] Generating TTS for:", meditation.id);
-    const ttsUrl = await generateTTSAudio(meditation.script);
-
-    // Mix with ambient
-    console.log("[Worker] Mixing audio for:", meditation.id);
-    const finalUrl = await mixMeditationAudio({
-      ttsUrl,
-      ambientUrl: meditation.ambient_url
-    });
-
-    // Update meditation with final audio
-    await base44.entities.Meditation.update(meditation.id, {
-      tts_audio_url: finalUrl,
-      status: "ready"
-    });
-
-    // Mark job complete
-    await base44.entities.TTSJob.update(job.id, {
-      status: "complete"
-    });
-
-    console.log("[Worker] ✓ Completed job:", job.id);
-  } catch (err) {
-    console.error("[Worker] Error processing job:", job.id, err);
-
-    // Mark job as error
-    await base44.entities.TTSJob.update(job.id, {
-      status: "error",
-      error_message: err.message
-    });
-
-    // Mark meditation as error
-    try {
-      await base44.entities.Meditation.update(job.meditation_id, {
-        status: "error"
-      });
-    } catch (_) {}
-  }
-}
-
-/**
- * Main worker function
- */
-export async function runMeditationAudioWorker() {
-  console.log("[Worker] Running meditation audio worker…");
-
-  // Auto-queue any meditations missing audio
-  await autoQueueMissingMeditations();
-
-  // Fetch next pending job
-  const job = await getNextJob();
-  if (!job) {
-    console.log("[Worker] No pending jobs found.");
-    return;
-  }
-
-  // Process that job
-  await processJob(job);
-}
+});
