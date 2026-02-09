@@ -234,7 +234,13 @@ export default function GuidedMeditationSession({ session, user, onComplete, onC
   const fileInputRef = useRef(null);
 
   // Check if session has pre-recorded audio
-  const audioUrl = session?.audio_url || session?.voice_instructions_url || session?.guidance_audio_url || session?._original?.audio_url;
+  const audioUrl =
+    session?.tts_audio_url ||
+    session?.audio_url ||
+    session?.generated_audio_url ||
+    session?._original?.tts_audio_url ||
+    session?._original?.audio_url ||
+    session?._original?.generated_audio_url;
   const hasPreRecordedAudio = !!audioUrl;
 
   // Debug log
