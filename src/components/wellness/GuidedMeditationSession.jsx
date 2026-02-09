@@ -115,6 +115,8 @@ export default function GuidedMeditationSession({ session, user, onComplete, onC
   const [moodAfter, setMoodAfter] = useState(null);
   const [isGeneratingVoice, setIsGeneratingVoice] = useState(false);
   const [voicesLoaded, setVoicesLoaded] = useState(false);
+  const [selectedAmbientSound, setSelectedAmbientSound] = useState(null);
+  const [showSoundPicker, setShowSoundPicker] = useState(false);
   const audioRef = useRef(null);
   const voiceAudioRef = useRef(null);
   const instructionTimerRef = useRef(null);
