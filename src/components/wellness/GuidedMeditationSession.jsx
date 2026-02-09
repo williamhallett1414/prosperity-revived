@@ -1,7 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { X, Play, Pause, Volume2, SkipBack, SkipForward, FastForward, Rewind } from 'lucide-react';
+import { X, Play, Pause, Volume2, SkipBack, SkipForward, FastForward, Rewind, Upload, Mic } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Slider } from '@/components/ui/slider';
 import { base44 } from '@/api/base44Client';
 import { toast } from 'sonner';
 
@@ -207,6 +208,10 @@ export const AMBIENT_SOUND_OPTIONS = [
   { id: 'forest', name: 'Forest Ambience', url: 'https://assets.mixkit.co/active_storage/sfx/2440/2440-preview.mp3' },
   { id: 'wind', name: 'Gentle Wind', url: 'https://assets.mixkit.co/active_storage/sfx/2445/2445-preview.mp3' },
   { id: 'piano', name: 'Peaceful Piano', url: 'https://assets.mixkit.co/active_storage/sfx/2443/2443-preview.mp3' },
+  { id: 'birds', name: 'Birds Chirping', url: 'https://assets.mixkit.co/active_storage/sfx/2442/2442-preview.mp3' },
+  { id: 'stream', name: 'Flowing Stream', url: 'https://assets.mixkit.co/active_storage/sfx/2441/2441-preview.mp3' },
+  { id: 'thunder', name: 'Distant Thunder', url: 'https://assets.mixkit.co/active_storage/sfx/2444/2444-preview.mp3' },
+  { id: 'fireplace', name: 'Crackling Fire', url: 'https://assets.mixkit.co/active_storage/sfx/2440/2440-preview.mp3' },
   { id: 'none', name: 'No Sound', url: 'silent' }
 ];
 
@@ -219,9 +224,14 @@ export default function GuidedMeditationSession({ session, user, onComplete, onC
   const [voicesLoaded, setVoicesLoaded] = useState(false);
   const [selectedAmbientSound, setSelectedAmbientSound] = useState('default');
   const [showSoundPicker, setShowSoundPicker] = useState(false);
+  const [backgroundVolume, setBackgroundVolume] = useState(0.25);
+  const [voiceVolume, setVoiceVolume] = useState(1.0);
+  const [customSoundUrl, setCustomSoundUrl] = useState(null);
+  const [uploadingSound, setUploadingSound] = useState(false);
   const audioRef = useRef(null);
   const voiceAudioRef = useRef(null);
   const instructionTimerRef = useRef(null);
+  const fileInputRef = useRef(null);
 
   // Load voices
   useEffect(() => {
@@ -273,7 +283,7 @@ export default function GuidedMeditationSession({ session, user, onComplete, onC
         const utterance = new SpeechSynthesisUtterance(instructionText);
         utterance.rate = 0.8;
         utterance.pitch = 1.0;
-        utterance.volume = 1.0;
+        utterance.volume = voiceVolume;
         
         const voices = window.speechSynthesis.getVoices();
         const calmVoice = voices.find(v => 
@@ -336,20 +346,54 @@ export default function GuidedMeditationSession({ session, user, onComplete, onC
     if (!audioRef.current) return;
     
     if (isPlaying && selectedAmbientSound !== 'none') {
-      const soundUrl = selectedAmbientSound === 'default' 
-        ? AMBIENT_SOUNDS[session?.type] 
-        : AMBIENT_SOUND_OPTIONS.find(s => s.id === selectedAmbientSound)?.url;
+      let soundUrl;
+      if (selectedAmbientSound === 'custom' && customSoundUrl) {
+        soundUrl = customSoundUrl;
+      } else if (selectedAmbientSound === 'default') {
+        soundUrl = AMBIENT_SOUNDS[session?.type];
+      } else {
+        soundUrl = AMBIENT_SOUND_OPTIONS.find(s => s.id === selectedAmbientSound)?.url;
+      }
       
       if (soundUrl && soundUrl !== 'silent') {
         audioRef.current.src = soundUrl;
-        audioRef.current.volume = 0.25; // Low volume for background
+        audioRef.current.volume = backgroundVolume;
         audioRef.current.loop = true;
         audioRef.current.play().catch(() => {});
       }
     } else {
       audioRef.current.pause();
     }
-  }, [isPlaying, selectedAmbientSound, session?.type]);
+  }, [isPlaying, selectedAmbientSound, session?.type, customSoundUrl, backgroundVolume]);
+
+  // Update background volume dynamically
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.volume = backgroundVolume;
+    }
+  }, [backgroundVolume]);
+
+  const handleFileUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    if (!file.type.startsWith('audio/')) {
+      toast.error('Please upload an audio file');
+      return;
+    }
+
+    setUploadingSound(true);
+    try {
+      const { file_url } = await base44.integrations.Core.UploadFile({ file });
+      setCustomSoundUrl(file_url);
+      setSelectedAmbientSound('custom');
+      toast.success('Custom sound uploaded!');
+    } catch (error) {
+      toast.error('Failed to upload sound');
+    } finally {
+      setUploadingSound(false);
+    }
+  };
 
   const handleSessionComplete = async () => {
     setIsPlaying(false);
@@ -624,18 +668,18 @@ export default function GuidedMeditationSession({ session, user, onComplete, onC
         />
       )}
 
-      {/* Sound Picker Modal */}
+      {/* Audio Controls Modal */}
       {showSoundPicker && (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 20 }}
-          className="absolute bottom-32 left-1/2 transform -translate-x-1/2 bg-white dark:bg-[#2d2d4a] rounded-2xl shadow-2xl p-4 w-72 z-50 border border-purple-500/20"
+          className="absolute bottom-32 left-1/2 transform -translate-x-1/2 bg-white dark:bg-[#2d2d4a] rounded-2xl shadow-2xl p-5 w-80 z-50 border border-purple-500/20"
         >
-          <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center justify-between mb-4">
             <h4 className="font-semibold text-gray-900 dark:text-white flex items-center gap-2">
               <Volume2 className="w-4 h-4" />
-              Background Sound
+              Audio Settings
             </h4>
             <button
               onClick={() => setShowSoundPicker(false)}
@@ -644,27 +688,68 @@ export default function GuidedMeditationSession({ session, user, onComplete, onC
               <X className="w-4 h-4 text-gray-500" />
             </button>
           </div>
-          <div className="space-y-1.5 max-h-64 overflow-y-auto">
+
+          {/* Volume Controls */}
+          <div className="space-y-4 mb-4 pb-4 border-b border-gray-200 dark:border-gray-700">
+            <div>
+              <div className="flex items-center justify-between mb-2">
+                <label className="text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center gap-1">
+                  <Mic className="w-3 h-3" />
+                  Voice Volume
+                </label>
+                <span className="text-xs text-gray-500">{Math.round(voiceVolume * 100)}%</span>
+              </div>
+              <Slider
+                value={[voiceVolume]}
+                onValueChange={([val]) => setVoiceVolume(val)}
+                min={0}
+                max={1}
+                step={0.1}
+                className="w-full"
+              />
+            </div>
+
+            <div>
+              <div className="flex items-center justify-between mb-2">
+                <label className="text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center gap-1">
+                  <Volume2 className="w-3 h-3" />
+                  Background Volume
+                </label>
+                <span className="text-xs text-gray-500">{Math.round(backgroundVolume * 100)}%</span>
+              </div>
+              <Slider
+                value={[backgroundVolume]}
+                onValueChange={([val]) => setBackgroundVolume(val)}
+                min={0}
+                max={1}
+                step={0.05}
+                className="w-full"
+              />
+            </div>
+          </div>
+
+          {/* Sound Selection */}
+          <h5 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Background Sound</h5>
+          <div className="space-y-1.5 max-h-48 overflow-y-auto mb-3">
             {AMBIENT_SOUND_OPTIONS.map(sound => (
               <button
                 key={sound.id}
                 onClick={() => {
                   setSelectedAmbientSound(sound.id);
-                  setShowSoundPicker(false);
-                  if (audioRef.current) {
+                  if (audioRef.current && isPlaying) {
                     if (sound.id === 'none') {
                       audioRef.current.pause();
                     } else {
                       const soundUrl = sound.id === 'default' ? AMBIENT_SOUNDS[session?.type] : sound.url;
-                      if (soundUrl && isPlaying) {
+                      if (soundUrl) {
                         audioRef.current.src = soundUrl;
-                        audioRef.current.volume = 0.25;
+                        audioRef.current.volume = backgroundVolume;
                         audioRef.current.play().catch(() => {});
                       }
                     }
                   }
                 }}
-                className={`w-full text-left px-3 py-2.5 rounded-lg transition-all ${
+                className={`w-full text-left px-3 py-2 rounded-lg transition-all text-sm ${
                   selectedAmbientSound === sound.id
                     ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-md'
                     : 'bg-gray-100 dark:bg-[#1a1a2e] text-gray-700 dark:text-gray-300 hover:bg-purple-50 dark:hover:bg-purple-900/20'
@@ -673,7 +758,36 @@ export default function GuidedMeditationSession({ session, user, onComplete, onC
                 {sound.name}
               </button>
             ))}
+            {customSoundUrl && (
+              <button
+                onClick={() => setSelectedAmbientSound('custom')}
+                className={`w-full text-left px-3 py-2 rounded-lg transition-all text-sm ${
+                  selectedAmbientSound === 'custom'
+                    ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-md'
+                    : 'bg-gray-100 dark:bg-[#1a1a2e] text-gray-700 dark:text-gray-300 hover:bg-purple-50 dark:hover:bg-purple-900/20'
+                }`}
+              >
+                Custom Sound
+              </button>
+            )}
           </div>
+
+          {/* Upload Custom Sound */}
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="audio/*"
+            onChange={handleFileUpload}
+            className="hidden"
+          />
+          <button
+            onClick={() => fileInputRef.current?.click()}
+            disabled={uploadingSound}
+            className="w-full px-3 py-2 rounded-lg bg-purple-500 hover:bg-purple-600 text-white text-sm font-medium flex items-center justify-center gap-2 transition-colors disabled:opacity-50"
+          >
+            <Upload className="w-4 h-4" />
+            {uploadingSound ? 'Uploading...' : 'Upload Custom Sound'}
+          </button>
         </motion.div>
       )}
     </motion.div>
