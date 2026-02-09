@@ -18,6 +18,7 @@ export default function DiscoverMeditations() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [activeSession, setActiveSession] = useState(null);
+  const [generatingAudio, setGeneratingAudio] = useState(false);
   const queryClient = useQueryClient();
 
   useEffect(() => {
@@ -64,6 +65,23 @@ export default function DiscoverMeditations() {
   });
 
   const isFavorited = (id) => favorites.some(f => f.meditation_id === id && f.created_by === user?.email);
+
+  const handleBeginSession = async (session) => {
+    if (!session.audio_url && session.script) {
+      try {
+        setGeneratingAudio(true);
+        const updated = await base44.functions.generateMeditationAudio(session);
+        setActiveSession(updated);
+      } catch (error) {
+        console.error('Failed to generate audio:', error);
+        setActiveSession(session);
+      } finally {
+        setGeneratingAudio(false);
+      }
+    } else {
+      setActiveSession(session);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-black pb-20">
@@ -176,7 +194,7 @@ export default function DiscoverMeditations() {
                           audio_url: med.audio_url || med.voice_instructions_url || med.guidance_audio_url,
                           _original: med
                         }}
-                        onBegin={setActiveSession}
+                        onBegin={handleBeginSession}
                         index={index}
                       />
                     </div>
