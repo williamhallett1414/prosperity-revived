@@ -217,7 +217,7 @@ export default function Profile() {
 
       {/* Profile Section */}
       <div className="max-w-4xl mx-auto px-4 -mt-20 relative z-10 mb-6">
-        <div className="bg-white dark:bg-[#2d2d4a] rounded-2xl shadow-lg p-6 flex items-end gap-6">
+        <div className="bg-white dark:bg-[#2d2d4a] rounded-2xl shadow-lg p-4 flex items-end gap-4">
           {/* Profile Picture */}
           <div className="relative">
             <div className="w-32 h-32 rounded-full overflow-hidden bg-gradient-to-br from-[#c9a227] to-[#8fa68a] flex items-center justify-center text-4xl font-bold border-4 border-white dark:border-[#1a1a2e] shadow-lg">
