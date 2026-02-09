@@ -1,22 +1,24 @@
 
-import { base44 } from "@/api/base44Client";
-import { queueTTSJob } from "@/functions/queueTTSJob";
+import { base44 } from '@/api/base44Client';
+import { queueTTSJob } from './queueTTSJob';
 
 export async function backfillAllMeditations() {
-  const meditations = await base44.entities.Meditation.list();
-
-  for (const med of meditations) {
-    // Only queue TTS for user-created meditations (proper UUID format)
-    // Skip library items with string IDs like "breath-calm"
-    const isLibraryItem = typeof med.id === 'string' && !med.id.match(/^[a-f0-9-]{36}$/);
+  try {
+    // Get all meditations without audio
+    const meditations = await base44.entities.Meditation.list();
     
-    if (!isLibraryItem && !med.tts_audio_url) {
-      console.log("Queueing:", med.title);
-      await queueTTSJob({ meditationId: med.id });
-    } else {
-      console.log("Already has audio or is library item:", med.title);
-    }
-  }
+    const meditationsNeedingAudio = meditations.filter(m => !m.tts_audio_url);
 
-  console.log("Backfill queued.");
+    console.log(`Found ${meditationsNeedingAudio.length} meditations needing audio generation`);
+
+    // Queue TTS jobs for each
+    for (const meditation of meditationsNeedingAudio) {
+      await queueTTSJob(meditation.id);
+      console.log(`Queued TTS job for: ${meditation.title}`);
+    }
+
+    console.log('Backfill complete. All meditations queued for audio generation.');
+  } catch (error) {
+    console.error('Backfill error:', error);
+  }
 }
