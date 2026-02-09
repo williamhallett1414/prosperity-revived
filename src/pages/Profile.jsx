@@ -220,7 +220,7 @@ export default function Profile() {
         <div className="bg-white dark:bg-[#2d2d4a] rounded-2xl shadow-lg p-6 flex items-end gap-6">
           {/* Profile Picture */}
           <div className="relative">
-            <div className="w-40 h-40 rounded-full overflow-hidden bg-gradient-to-br from-[#c9a227] to-[#8fa68a] flex items-center justify-center text-5xl font-bold border-4 border-white dark:border-[#1a1a2e] shadow-lg">
+            <div className="w-32 h-32 rounded-full overflow-hidden bg-gradient-to-br from-[#c9a227] to-[#8fa68a] flex items-center justify-center text-4xl font-bold border-4 border-white dark:border-[#1a1a2e] shadow-lg">
               {user.profile_image_url ? (
                 <img src={user.profile_image_url} alt={user.full_name} className="w-full h-full object-cover" />
               ) : (

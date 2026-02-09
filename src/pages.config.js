@@ -65,6 +65,7 @@ import Messages from './pages/Messages';
 import NotificationSettings from './pages/NotificationSettings';
 import Notifications from './pages/Notifications';
 import NutritionGuidance from './pages/NutritionGuidance';
+import PhotoGallery from './pages/PhotoGallery';
 import PlanDetail from './pages/PlanDetail';
 import Plans from './pages/Plans';
 import Profile from './pages/Profile';
@@ -72,11 +73,10 @@ import Search from './pages/Search';
 import Settings from './pages/Settings';
 import SpiritualGrowth from './pages/SpiritualGrowth';
 import UserProfile from './pages/UserProfile';
+import Wellness from './pages/Wellness';
 import WellnessJourney from './pages/WellnessJourney';
 import WorkoutProgress from './pages/WorkoutProgress';
 import WorkoutTrends from './pages/WorkoutTrends';
-import Wellness from './pages/Wellness';
-import PhotoGallery from './pages/PhotoGallery';
 import __Layout from './Layout.jsx';
 
 
@@ -99,6 +99,7 @@ export const PAGES = {
     "NotificationSettings": NotificationSettings,
     "Notifications": Notifications,
     "NutritionGuidance": NutritionGuidance,
+    "PhotoGallery": PhotoGallery,
     "PlanDetail": PlanDetail,
     "Plans": Plans,
     "Profile": Profile,
@@ -106,11 +107,10 @@ export const PAGES = {
     "Settings": Settings,
     "SpiritualGrowth": SpiritualGrowth,
     "UserProfile": UserProfile,
+    "Wellness": Wellness,
     "WellnessJourney": WellnessJourney,
     "WorkoutProgress": WorkoutProgress,
     "WorkoutTrends": WorkoutTrends,
-    "Wellness": Wellness,
-    "PhotoGallery": PhotoGallery,
 }
 
 export const pagesConfig = {
