@@ -233,6 +233,176 @@ export const MEDITATION_LIBRARY = [
     duration_minutes: 20,
     image_url: 'https://images.unsplash.com/photo-1588286840104-8957b019727f?w=400',
     script: 'Visualize a red light at the base of your spine - grounding you. Orange at your lower belly - creativity. Yellow at your solar plexus - power. Green at your heart - love. Blue at your throat - truth. Indigo at your third eye - intuition. Violet at your crown - connection to divine. Each center spins, balanced and harmonious.'
+  },
+
+  // Mindful Eating
+  {
+    id: 'mindful-breakfast',
+    title: 'Mindful Breakfast Meditation',
+    description: 'Transform your morning meal into a sacred practice',
+    type: 'mindfuleating',
+    category: 'mindful_eating',
+    duration_minutes: 10,
+    image_url: 'https://images.unsplash.com/photo-1533920379810-6bedac961555?w=400',
+    script: 'Before you take your first bite, pause. Look at your meal with gratitude. Notice the colors, shapes, and arrangement. Smell the aroma - what do you notice? Pick up your first bite slowly. Place it in your mouth but don\'t chew yet. Notice the immediate taste. Now chew slowly, counting 20 chews. Notice how flavors develop and change. Swallow mindfully. Pause between each bite. Your body deserves this attention.'
+  },
+  {
+    id: 'mindful-snack',
+    title: 'Mindful Snacking',
+    description: 'Turn snack time into a moment of presence',
+    type: 'mindfuleating',
+    category: 'mindful_eating',
+    duration_minutes: 5,
+    image_url: 'https://images.unsplash.com/photo-1610832958506-aa56368176cf?w=400',
+    script: 'Hold your snack in your hand. Really see it as if for the first time. Notice its weight, texture, temperature. Bring it close and smell deeply. When you take a bite, close your eyes. Chew slowly. Notice taste, texture, temperature. Is it sweet? Salty? Crunchy? Soft? Be fully present with this simple act of nourishing yourself.'
+  },
+  {
+    id: 'gratitude-meal',
+    title: 'Meal Gratitude Practice',
+    description: 'Honor the journey of your food',
+    type: 'mindfuleating',
+    category: 'mindful_eating',
+    duration_minutes: 8,
+    image_url: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400',
+    script: 'Before eating, reflect on the journey of this food. The sun, rain, and soil that grew it. The farmers who tended it. The workers who harvested and transported it. The countless people involved in bringing this nourishment to you. Feel deep gratitude. Thank God for provision. Now eat slowly, honoring all who made this meal possible.'
+  },
+
+  // Sleep Stories
+  {
+    id: 'forest-journey',
+    title: 'Journey Through the Peaceful Forest',
+    description: 'Drift to sleep on a serene forest path',
+    type: 'sleepstory',
+    category: 'sleep_stories',
+    duration_minutes: 25,
+    image_url: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400',
+    script: 'You find yourself on a soft moss path deep in an ancient forest. The air is cool and fresh with the scent of pine. Dappled sunlight filters through the canopy above, creating patterns of light and shadow. You walk slowly, feeling the soft earth beneath your feet. Birds sing gentle evening songs. You come upon a small clearing with a babbling brook. The water sparkles in the fading light. You sit on a smooth stone, feeling completely safe and at peace. As twilight deepens, stars begin to appear through the trees. Your breathing slows naturally. You are ready for deep, restful sleep.'
+  },
+  {
+    id: 'mountain-sunset',
+    title: 'Sunset at the Mountain Peak',
+    description: 'Watch the sun set from a peaceful mountain',
+    type: 'sleepstory',
+    category: 'sleep_stories',
+    duration_minutes: 20,
+    image_url: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400',
+    script: 'You are sitting on a smooth rock at a mountain peak. Below you, the world stretches out in peaceful valleys and rolling hills. The sky begins to paint itself in soft oranges, pinks, and purples. You feel the warmth of the day's last sunlight on your face. A gentle breeze carries the scent of wildflowers. As the sun slowly sinks below the horizon, the temperature cools pleasantly. Stars begin to emerge, one by one. The world grows quiet and still. You feel connected to everything - sky, earth, universe. Your breathing matches the rhythm of nature. Sleep comes naturally, gently, peacefully.'
+  },
+  {
+    id: 'ocean-shore',
+    title: 'Night at the Ocean Shore',
+    description: 'Fall asleep to the rhythm of gentle waves',
+    type: 'sleepstory',
+    category: 'sleep_stories',
+    duration_minutes: 30,
+    image_url: 'https://images.unsplash.com/photo-1505142468610-359e7d316be0?w=400',
+    script: 'You are lying on soft sand, gazing at the star-filled sky. The ocean waves roll in with a gentle, rhythmic sound. Each wave brings peace, washing away the day. The sand beneath you is warm and supportive. A soft blanket covers you. You can taste the salt in the air. The moon casts a silvery path across the water. Your breathing synchronizes with the waves - in and out, calm and steady. You are cradled between earth and sky, completely safe and at peace. The stars seem to sing a lullaby. Sleep arrives like a gentle tide.'
+  },
+  {
+    id: 'garden-evening',
+    title: 'Evening in the Secret Garden',
+    description: 'Discover peace in a magical garden at twilight',
+    type: 'sleepstory',
+    category: 'sleep_stories',
+    duration_minutes: 20,
+    image_url: 'https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?w=400',
+    script: 'You push open an old wooden gate and step into a secret garden. Flowers of every color bloom in the soft evening light. The air is sweet with jasmine and roses. A small fountain bubbles peacefully in the center. You sit on a cushioned bench surrounded by fragrant lavender. Butterflies dance lazily in the twilight. Fireflies begin to glow, creating tiny lights all around you. The garden feels magical, timeless, utterly safe. As darkness gently falls, the garden wraps around you like a soft blanket. Your eyes grow heavy. This garden will be here whenever you need it.'
+  },
+
+  // Focus Enhancement
+  {
+    id: 'laser-focus',
+    title: 'Laser Focus Meditation',
+    description: 'Sharpen your concentration like a blade',
+    type: 'focus',
+    category: 'focus',
+    duration_minutes: 12,
+    image_url: 'https://images.unsplash.com/photo-1499209974431-9dddcece7f88?w=400',
+    script: 'Imagine your mind is like a lens. Right now it may be scattered, unfocused. With each breath, the lens sharpens. See your task clearly in your mind\'s eye. All distractions fade into soft background. Only your chosen focus remains sharp and clear. Feel mental energy gathering, concentrating into a powerful beam. You are not distracted. You are not scattered. You are focused, clear, and ready to accomplish your goal with precision and excellence.'
+  },
+  {
+    id: 'brain-energizer',
+    title: 'Brain Energizer',
+    description: 'Wake up your mind and boost mental clarity',
+    type: 'energizing',
+    category: 'focus',
+    duration_minutes: 7,
+    image_url: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=400',
+    script: 'Sit tall. Take a sharp inhale through your nose, hold for 2 seconds, forceful exhale through your mouth. Do this 5 times - energizing breath! Now visualize bright white light entering your head with each inhale. This light activates your brain, clearing fog, bringing clarity. Your mind feels sharp, alert, awake. Your thoughts are quick and clear. You are mentally energized and ready to focus on challenging tasks. You\'ve got this!'
+  },
+  {
+    id: 'deep-work',
+    title: 'Deep Work Preparation',
+    description: 'Enter a state of flow and peak productivity',
+    type: 'focus',
+    category: 'focus',
+    duration_minutes: 10,
+    image_url: 'https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=400',
+    script: 'Set your intention for this work session. What will you accomplish? See it clearly. Now imagine entering a special mental chamber where distractions cannot follow. In this space, you are completely absorbed in your task. Time feels different here - you are in flow. Your mind and hands work in perfect harmony. Ideas come easily. Solutions appear naturally. You are capable, focused, and in complete control. When you open your eyes, carry this focused state with you.'
+  },
+
+  // Gratitude Expansion
+  {
+    id: 'gratitude-abundance',
+    title: 'Abundance Gratitude',
+    description: 'Recognize the overflowing blessings in your life',
+    type: 'gratitude',
+    category: 'gratitude',
+    duration_minutes: 12,
+    image_url: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=400',
+    script: 'Close your eyes and place both hands over your heart. Feel it beating - what a gift. You have a body that works for you every single day. You have a mind that can think, create, and love. Now think of the people in your life - even one person who cares about you is a treasure. You have food, shelter, safety - blessings billions wish for. You can read, learn, and grow. The opportunities before you are endless. Feel how rich you truly are. Gratitude transforms everything.'
+  },
+  {
+    id: 'gratitude-challenges',
+    title: 'Gratitude for Challenges',
+    description: 'Find blessings hidden in difficulties',
+    type: 'gratitude',
+    category: 'gratitude',
+    duration_minutes: 10,
+    image_url: 'https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?w=400',
+    script: 'Think of a current challenge you\'re facing. Rather than resisting it, explore it with curiosity. What is this situation teaching you? How is it making you stronger, wiser, more compassionate? Can you find even a small blessing hidden within this difficulty? Every challenge carries a gift if we\'re willing to look. Thank God for using everything - even hard things - for your growth and good.'
+  },
+  {
+    id: 'gratitude-senses',
+    title: 'Gratitude Through the Senses',
+    description: 'Appreciate life through sight, sound, touch, taste, smell',
+    type: 'gratitude',
+    category: 'gratitude',
+    duration_minutes: 8,
+    image_url: 'https://images.unsplash.com/photo-1499209974431-9dddcece7f88?w=400',
+    script: 'Thank God for the gift of sight - colors, faces, beauty all around. For hearing - music, laughter, words of love. For touch - warm hugs, soft blankets, gentle breezes. For taste - favorite foods, cold water on a hot day. For smell - flowers, fresh bread, rain. Each sense is a doorway to joy and connection. How rich your experience of life is! Let gratitude fill you for these precious gifts.'
+  },
+
+  // Energy Boost
+  {
+    id: 'morning-energy',
+    title: 'Morning Energy Activation',
+    description: 'Wake up your body and mind for the day ahead',
+    type: 'energizing',
+    category: 'energy',
+    duration_minutes: 8,
+    image_url: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=400',
+    script: 'Stand if possible. Reach your arms overhead, stretching tall. Take a big breath in, hold, then exhale with a "ha!" sound. Do this three times - releasing stagnant energy! Now visualize golden sunlight pouring into your body from above. It fills every cell with vibrant, alive energy. You feel awake, alert, enthusiastic for the day. Your body tingles with vitality. You are ready to seize this day with energy and joy!'
+  },
+  {
+    id: 'afternoon-recharge',
+    title: 'Afternoon Energy Recharge',
+    description: 'Beat the afternoon slump with renewed vitality',
+    type: 'energizing',
+    category: 'energy',
+    duration_minutes: 5,
+    image_url: 'https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=400',
+    script: 'Feeling tired? Let\'s reset! Take 10 quick breaths - in through nose, out through mouth, fast and energizing. Now stand and shake your whole body for 10 seconds - shake out the fatigue! Roll your shoulders back 5 times. Visualize caffeine-free energy flooding your system. You are recharged, refreshed, ready to tackle the rest of your day with renewed enthusiasm!'
+  },
+  {
+    id: 'power-confidence',
+    title: 'Power & Confidence Boost',
+    description: 'Access your inner strength and self-assurance',
+    type: 'energizing',
+    category: 'energy',
+    duration_minutes: 7,
+    image_url: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=400',
+    script: 'Stand in a power pose - feet wide, hands on hips or raised victoriously. Hold this for 30 seconds, breathing deeply. This posture tells your brain you are powerful and capable. Now visualize yourself succeeding at your next challenge. See it clearly - you are confident, articulate, capable. Feel this confidence as truth. You ARE strong. You ARE capable. You WILL succeed. Carry this certainty with you.'
   }
 ];
 
@@ -241,7 +411,10 @@ export const MEDITATION_CATEGORIES = [
   { id: 'stress_relief', label: 'Stress Relief', icon: '😌' },
   { id: 'focus', label: 'Focus', icon: '🎯' },
   { id: 'sleep', label: 'Sleep', icon: '😴' },
+  { id: 'sleep_stories', label: 'Sleep Stories', icon: '📖' },
   { id: 'mindfulness', label: 'Mindfulness', icon: '🌟' },
+  { id: 'mindful_eating', label: 'Mindful Eating', icon: '🍽️' },
   { id: 'gratitude', label: 'Gratitude', icon: '🙏' },
-  { id: 'prayer', label: 'Prayer', icon: '✝️' }
+  { id: 'prayer', label: 'Prayer', icon: '✝️' },
+  { id: 'energy', label: 'Energy Boost', icon: '⚡' }
 ];

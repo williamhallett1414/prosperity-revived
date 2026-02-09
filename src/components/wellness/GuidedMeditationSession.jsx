@@ -96,6 +96,92 @@ const MEDITATION_SCRIPTS = {
       "Feel your shoulders relax, your jaw unclench, your breath deepen.",
       "You are safe, you are calm, and everything is going to be okay."
     ]
+  },
+  mindfuleating: {
+    title: "Mindful Eating Meditation",
+    instructions: [
+      "Sit with your food in front of you, pausing before you begin.",
+      "Take three deep breaths and express gratitude for this nourishment.",
+      "Look at your food carefully. Notice its colors, shapes, and textures.",
+      "Bring your attention to the aroma. What scents do you notice?",
+      "Pick up a small portion. Feel its weight and texture in your hand.",
+      "Place it in your mouth, but don't chew yet. Notice the immediate taste.",
+      "Now, chew slowly and deliberately. Notice how the flavors change and develop.",
+      "Pay attention to the texture as you chew. How does it transform?",
+      "Swallow mindfully, feeling the food travel down your throat.",
+      "Pause between bites. Notice your body's hunger and fullness cues.",
+      "Continue eating slowly, savoring each bite with full awareness.",
+      "When finished, take a moment to appreciate the nourishment you've received."
+    ]
+  },
+  sleepstory: {
+    title: "Sleep Story Journey",
+    instructions: [
+      "Lie down comfortably and gently close your eyes.",
+      "Take a deep breath in, and slowly release. Let your body sink into the bed.",
+      "Imagine yourself walking on a peaceful forest path at twilight.",
+      "The air is cool and fresh. You hear gentle rustling of leaves.",
+      "Soft golden light filters through the trees, creating dancing shadows.",
+      "You come upon a clearing with a small, serene pond.",
+      "The water is perfectly still, reflecting the deepening sky.",
+      "You sit on a smooth rock by the water's edge, feeling completely safe.",
+      "Stars begin to appear, one by one, in the darkening sky.",
+      "A gentle breeze carries the scent of pine and earth.",
+      "You feel completely safe, peaceful, and ready for rest.",
+      "Your breathing slows naturally. Your body grows heavier.",
+      "Let yourself drift into peaceful, restful sleep."
+    ]
+  },
+  focus: {
+    title: "Focus Enhancement",
+    instructions: [
+      "Sit upright and alert with your spine straight.",
+      "Take three energizing breaths. Breathe in clarity, breathe out distraction.",
+      "Set your intention. What do you want to focus on today?",
+      "Visualize your mind as a calm, clear lake. Still and reflective.",
+      "Notice any distractions like ripples on the water. Let them settle.",
+      "Bring your attention to a single point. Perhaps your breath or a mantra.",
+      "When your mind wanders, and it will, gently guide it back without judgment.",
+      "Feel your mental clarity sharpening, like bringing a camera into focus.",
+      "Imagine a beam of light illuminating only your chosen task.",
+      "Everything else fades into soft background. Only your focus remains.",
+      "Take three more breaths, feeling energized and clear.",
+      "When ready, open your eyes and bring this focused awareness to your work."
+    ]
+  },
+  energizing: {
+    title: "Energy Activation",
+    instructions: [
+      "Sit tall or stand with your spine straight and shoulders back.",
+      "Take a sharp breath in through your nose. Exhale forcefully through your mouth.",
+      "Do this three times, feeling energy awakening in your body.",
+      "Visualize golden, energizing light entering through the top of your head.",
+      "This light flows down through your body, revitalizing every cell.",
+      "Imagine this energy pooling in your core, creating a warm, powerful center.",
+      "With each inhale, draw in fresh vitality and clarity.",
+      "With each exhale, release sluggishness and fatigue.",
+      "Feel your mind becoming sharp, alert, and ready.",
+      "Your body feels light, energized, prepared for action.",
+      "Take three more powerful breaths, filling yourself with vibrant energy.",
+      "Open your eyes feeling refreshed, alert, and ready to embrace your day."
+    ]
+  },
+  gratitude: {
+    title: "Gratitude Practice",
+    instructions: [
+      "Sit comfortably with your hands resting on your heart.",
+      "Take three deep breaths, settling into this moment of reflection.",
+      "Think of one thing you're grateful for today. It can be simple or profound.",
+      "Visualize this blessing in your mind. Let yourself truly feel the gratitude.",
+      "Notice where you feel gratitude in your body. Perhaps warmth in your chest.",
+      "Now, think of a person you're grateful for. Picture their face.",
+      "Send them silent thanks. Feel appreciation flowing from your heart.",
+      "Think of a challenge that taught you something valuable. Find gratitude for the lesson.",
+      "Bring to mind three small things: a kind word, warm sunshine, a comfortable bed.",
+      "Feel your heart expanding with appreciation for life's abundance.",
+      "Place your hand on your heart and whisper thank you.",
+      "Carry this gratitude with you as you gently open your eyes."
+    ]
   }
 };
 
@@ -105,8 +191,24 @@ const AMBIENT_SOUNDS = {
   loving_kindness: "https://assets.mixkit.co/active_storage/sfx/2443/2443-preview.mp3",
   mindfulness: "https://assets.mixkit.co/active_storage/sfx/2441/2441-preview.mp3",
   sleep: "https://assets.mixkit.co/active_storage/sfx/2442/2442-preview.mp3",
-  stress_relief: "https://assets.mixkit.co/active_storage/sfx/2440/2440-preview.mp3"
+  stress_relief: "https://assets.mixkit.co/active_storage/sfx/2440/2440-preview.mp3",
+  mindfuleating: "https://assets.mixkit.co/active_storage/sfx/2443/2443-preview.mp3",
+  sleepstory: "https://assets.mixkit.co/active_storage/sfx/2442/2442-preview.mp3",
+  focus: "https://assets.mixkit.co/active_storage/sfx/2441/2441-preview.mp3",
+  energizing: "https://assets.mixkit.co/active_storage/sfx/2445/2445-preview.mp3",
+  gratitude: "https://assets.mixkit.co/active_storage/sfx/2443/2443-preview.mp3"
 };
+
+// Ambient sound options users can select
+export const AMBIENT_SOUND_OPTIONS = [
+  { id: 'default', name: 'Session Default', url: null },
+  { id: 'rain', name: 'Gentle Rain', url: 'https://assets.mixkit.co/active_storage/sfx/2444/2444-preview.mp3' },
+  { id: 'ocean', name: 'Ocean Waves', url: 'https://assets.mixkit.co/active_storage/sfx/2441/2441-preview.mp3' },
+  { id: 'forest', name: 'Forest Ambience', url: 'https://assets.mixkit.co/active_storage/sfx/2440/2440-preview.mp3' },
+  { id: 'wind', name: 'Gentle Wind', url: 'https://assets.mixkit.co/active_storage/sfx/2445/2445-preview.mp3' },
+  { id: 'piano', name: 'Peaceful Piano', url: 'https://assets.mixkit.co/active_storage/sfx/2443/2443-preview.mp3' },
+  { id: 'none', name: 'No Sound', url: 'silent' }
+];
 
 export default function GuidedMeditationSession({ session, user, onComplete, onClose }) {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -115,7 +217,7 @@ export default function GuidedMeditationSession({ session, user, onComplete, onC
   const [moodAfter, setMoodAfter] = useState(null);
   const [isGeneratingVoice, setIsGeneratingVoice] = useState(false);
   const [voicesLoaded, setVoicesLoaded] = useState(false);
-  const [selectedAmbientSound, setSelectedAmbientSound] = useState(null);
+  const [selectedAmbientSound, setSelectedAmbientSound] = useState('default');
   const [showSoundPicker, setShowSoundPicker] = useState(false);
   const audioRef = useRef(null);
   const voiceAudioRef = useRef(null);
@@ -397,9 +499,14 @@ export default function GuidedMeditationSession({ session, user, onComplete, onC
           )}
         </motion.button>
 
-        <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center text-white">
+        <motion.button
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          onClick={() => setShowSoundPicker(!showSoundPicker)}
+          className="w-12 h-12 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center text-white transition-colors"
+        >
           <Volume2 className="w-5 h-5" />
-        </div>
+        </motion.button>
       </div>
 
       {/* Finish button */}
@@ -411,13 +518,48 @@ export default function GuidedMeditationSession({ session, user, onComplete, onC
       </Button>
 
       {/* Hidden audio element for ambient sounds */}
-      {session?.type && AMBIENT_SOUNDS[session.type] && (
+      {selectedAmbientSound !== 'none' && (
         <audio
           ref={audioRef}
-          src={AMBIENT_SOUNDS[session.type]}
           loop
           style={{ display: 'none' }}
         />
+      )}
+
+      {/* Sound Picker Modal */}
+      {showSoundPicker && (
+        <div className="absolute bottom-24 left-1/2 transform -translate-x-1/2 bg-white dark:bg-[#2d2d4a] rounded-2xl shadow-2xl p-4 w-64 z-50">
+          <h4 className="font-semibold text-gray-900 dark:text-white mb-3">Ambient Sound</h4>
+          <div className="space-y-2">
+            {AMBIENT_SOUND_OPTIONS.map(sound => (
+              <button
+                key={sound.id}
+                onClick={() => {
+                  setSelectedAmbientSound(sound.id);
+                  setShowSoundPicker(false);
+                  if (audioRef.current && isPlaying) {
+                    if (sound.id === 'none') {
+                      audioRef.current.pause();
+                    } else {
+                      const soundUrl = sound.id === 'default' ? AMBIENT_SOUNDS[session?.type] : sound.url;
+                      if (soundUrl) {
+                        audioRef.current.src = soundUrl;
+                        audioRef.current.play();
+                      }
+                    }
+                  }
+                }}
+                className={`w-full text-left px-3 py-2 rounded-lg transition-colors ${
+                  selectedAmbientSound === sound.id
+                    ? 'bg-purple-500 text-white'
+                    : 'bg-gray-100 dark:bg-[#1a1a2e] text-gray-700 dark:text-gray-300 hover:bg-purple-100 dark:hover:bg-purple-900/20'
+                }`}
+              >
+                {sound.name}
+              </button>
+            ))}
+          </div>
+        </div>
       )}
     </motion.div>
   );
