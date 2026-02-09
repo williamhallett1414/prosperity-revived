@@ -233,7 +233,15 @@ export default function GuidedMeditationSession({ session, user, onComplete, onC
   const instructionTimerRef = useRef(null);
   const fileInputRef = useRef(null);
 
-  // TTS is always enabled for reading instruction steps
+  // Check if session has pre-recorded audio
+  const audioUrl =
+    session?.tts_audio_url ||
+    session?.audio_url ||
+    session?.generated_audio_url ||
+    session?._original?.tts_audio_url ||
+    session?._original?.audio_url ||
+    session?._original?.generated_audio_url;
+  const hasPreRecordedAudio = !!audioUrl;
 
   // Load voices
   useEffect(() => {
