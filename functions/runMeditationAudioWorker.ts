@@ -32,6 +32,11 @@ Deno.serve(async (req) => {
       console.log("[Worker] Processing job:", job.id, "for meditation:", job.meditation_id);
 
       try {
+        // Validate job and meditation_id
+        if (!job.meditation_id) {
+          throw new Error("Job missing meditation_id");
+        }
+
         // Mark job as processing
         await base44.asServiceRole.entities.TTSJob.update(job.id, { 
           status: "processing" 
