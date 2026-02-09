@@ -118,7 +118,7 @@ export default function GuidedMeditationSession({ session, user, onComplete, onC
   const voiceAudioRef = useRef(null);
   const instructionTimerRef = useRef(null);
 
-  const script = MEDITATION_SCRIPTS[session.type] || MEDITATION_SCRIPTS.mindfulness;
+  const script = MEDITATION_SCRIPTS[session?.type] || MEDITATION_SCRIPTS.mindfulness;
   const instructions = script?.instructions || [
     'Begin your meditation session.',
     'Focus on your breath and let your mind settle.',
@@ -129,7 +129,7 @@ export default function GuidedMeditationSession({ session, user, onComplete, onC
     'Begin to gently open your eyes.'
   ];
   const totalInstructions = instructions.length;
-  const secondsPerInstruction = (session.duration * 60) / totalInstructions;
+  const secondsPerInstruction = ((session?.duration || 5) * 60) / totalInstructions;
 
   // Generate AI voice for current instruction
   useEffect(() => {
