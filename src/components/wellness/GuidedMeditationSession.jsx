@@ -11,15 +11,34 @@ export default function GuidedMeditationSession({ session, onClose }) {
   const audioUrl = session?.tts_audio_url;
 
   useEffect(() => {
-    if (!audioRef.current || !audioUrl) return;
-    audioRef.current.src = audioUrl;
-    audioRef.current.load();
+    const audio = audioRef.current;
+    if (!audio || !audioUrl) return;
+
+    audio.src = audioUrl;
+    audio.load();
+
+    const handleLoadedMetadata = () => {
+      setDuration(audio.duration || 0);
+    };
+
+    const handleTimeUpdate = () => {
+      setCurrentTime(audio.currentTime || 0);
+    };
+
+    const handleEnded = () => {
+      setIsPlaying(false);
+      setCurrentTime(0);
+    };
+
+    audio.addEventListener("loadedmetadata", handleLoadedMetadata);
+    audio.addEventListener("timeupdate", handleTimeUpdate);
+    audio.addEventListener("ended", handleEnded);
 
     return () => {
-      if (audioRef.current) {
-        audioRef.current.pause();
-        audioRef.current.src = "";
-      }
+      audio.pause();
+      audio.removeEventListener("loadedmetadata", handleLoadedMetadata);
+      audio.removeEventListener("timeupdate", handleTimeUpdate);
+      audio.removeEventListener("ended", handleEnded);
     };
   }, [audioUrl, session]);
 
