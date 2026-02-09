@@ -1,32 +1,50 @@
-import { base44 } from "@/api/base44Client";
+import { createClientFromRequest } from 'npm:@base44/sdk@0.8.6';
 
-/**
- * Backfill: create TTS jobs for all meditations without audio
- */
-export async function backfillAllMeditations() {
+Deno.serve(async (req) => {
   try {
-    const meditations = await base44.entities.Meditation.list();
-    
-    const meditationsNeedingAudio = meditations.filter(m => !m.tts_audio_url);
-    
-    console.log(`[Backfill] Found ${meditationsNeedingAudio.length} meditations needing audio`);
+    const base44 = createClientFromRequest(req);
+    const user = await base44.auth.me();
 
-    // Queue TTS jobs for each
-    for (const meditation of meditationsNeedingAudio) {
-      await base44.entities.TTSJob.create({
-        meditation_id: meditation.id,
-        status: "pending"
-      });
-      console.log(`[Backfill] Queued TTS job for: ${meditation.title}`);
+    if (!user) {
+      return Response.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    console.log(`[Backfill] Successfully queued ${meditationsNeedingAudio.length} jobs`);
-    return {
-      success: true,
-      queued: meditationsNeedingAudio.length
-    };
+    console.log("[Backfill] Creating TTS jobs for meditations missing audio...");
+
+    // Fetch all meditations
+    const meditations = await base44.asServiceRole.entities.Meditation.list();
+
+    let queuedCount = 0;
+    let skippedCount = 0;
+
+    for (const meditation of meditations) {
+      // Only queue if meditation has no audio URL
+      if (!meditation.tts_audio_url) {
+        console.log("[Backfill] Queueing meditation:", meditation.id);
+
+        await base44.asServiceRole.entities.TTSJob.create({
+          meditation_id: meditation.id,
+          status: "pending"
+        });
+
+        queuedCount++;
+      } else {
+        skippedCount++;
+      }
+    }
+
+    return Response.json({
+      status: "success",
+      message: "Backfill completed",
+      queued: queuedCount,
+      skipped: skippedCount,
+      total: meditations.length
+    });
+
   } catch (error) {
     console.error("[Backfill] Error:", error);
-    throw error;
+    return Response.json({ 
+      error: error.message 
+    }, { status: 500 });
   }
-}
+});
