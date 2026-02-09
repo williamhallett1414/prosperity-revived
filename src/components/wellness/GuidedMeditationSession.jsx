@@ -380,12 +380,14 @@ export default function GuidedMeditationSession({ session, user, onComplete, onC
       </Button>
 
       {/* Hidden audio element for ambient sounds */}
-      <audio
-        ref={audioRef}
-        src={AMBIENT_SOUNDS[session.type]}
-        loop
-        style={{ display: 'none' }}
-      />
+      {session?.type && AMBIENT_SOUNDS[session.type] && (
+        <audio
+          ref={audioRef}
+          src={AMBIENT_SOUNDS[session.type]}
+          loop
+          style={{ display: 'none' }}
+        />
+      )}
     </motion.div>
   );
 }
