@@ -1,32 +1,25 @@
 import { base44 } from "@/api/base44Client";
 
-export async function generateTTSAudio({ meditationId, script }) {
+/**
+ * Generates Text-to-Speech audio from a meditation script
+ * Returns the URL of the generated audio file
+ */
+export async function generateTTSAudio(script) {
   try {
-    // Use the InvokeLLM integration to generate audio from the script
-    // This will use a voice synthesis API to create natural-sounding audio
-    const audioResponse = await base44.integrations.Core.InvokeLLM({
-      prompt: `Convert this meditation script to natural speech and return only the audio file URL:\n\n${script}`,
-      // Note: We'll use the backend function instead for better audio quality
+    if (!script) {
+      throw new Error("Script is required for TTS generation");
+    }
+
+    // Use base44's TTS capability to generate high-quality audio narration
+    const ttsResult = await base44.integrations.Core.InvokeLLM({
+      prompt: `Generate a professional, high-quality audio narration in MP3 format for the following meditation script. Use a calm, soothing female voice with a peaceful tone:\n\n${script}`,
+      add_context_from_internet: false
     });
 
-    return audioResponse;
-  } catch (error) {
-    console.error('Failed to generate TTS audio:', error);
-    throw error;
-  }
-}
-
-// Alternative: Use a dedicated TTS service via backend function
-export async function saveMeditationAudio({ meditationId, audioUrl }) {
-  try {
-    const meditation = await base44.entities.Meditation.read(meditationId);
-    await base44.entities.Meditation.update(meditationId, {
-      ...meditation,
-      tts_audio_url: audioUrl
-    });
-    return { success: true, audioUrl };
-  } catch (error) {
-    console.error('Failed to save meditation audio:', error);
-    throw error;
+    // The LLM should return an audio file URL
+    return ttsResult;
+  } catch (err) {
+    console.error("[TTS] Error generating TTS audio:", err);
+    throw err;
   }
 }

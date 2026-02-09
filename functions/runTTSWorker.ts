@@ -1,5 +1,6 @@
 import { base44 } from "@/api/base44Client";
-import { mixMeditationAudio } from "@/api/mixMeditationAudio";
+import { mixMeditationAudio } from "./mixMeditationAudio.js";
+import { generateTTSAudio } from "./generateTTSAudio.js";
 
 // Optional: simple retry cap on jobs
 const MAX_RETRIES = 3;
@@ -51,12 +52,7 @@ async function processJob(job) {
 
     // Generate TTS
     console.log("[Worker] Generating TTS for:", meditation.id);
-    const ttsResponse = await base44.integrations.Core.InvokeLLM({
-      prompt: `Generate a high-quality audio narration of the following meditation script in a calm, soothing, peaceful tone. Use a female voice. Return the audio file in MP3 format.\n\nScript:\n${meditation.script}`,
-      add_context_from_internet: false
-    });
-
-    const ttsUrl = ttsResponse;
+    const ttsUrl = await generateTTSAudio(meditation.script);
 
     // Mix with ambient
     console.log("[Worker] Mixing audio for:", meditation.id);
