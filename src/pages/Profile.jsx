@@ -6,13 +6,13 @@ import { Settings } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 
-import ProfileHeader from '@/components/profile/facebook/ProfileHeader';
-import ProfileTabs from '@/components/profile/facebook/ProfileTabs';
-import TimelineTab from '@/components/profile/facebook/TimelineTab';
-import AboutTab from '@/components/profile/facebook/AboutTab';
-import FriendsTab from '@/components/profile/facebook/FriendsTab';
-import PhotosTab from '@/components/profile/facebook/PhotosTab';
-import AchievementsTab from '@/components/profile/facebook/AchievementsTab';
+import ProfileHeader from '@/components/profile/facebook/ProfileHeader.jsx';
+import ProfileTabs from '@/components/profile/facebook/ProfileTabs.jsx';
+import TimelineTab from '@/components/profile/facebook/TimelineTab.jsx';
+import AboutTab from '@/components/profile/facebook/AboutTab.jsx';
+import FriendsTab from '@/components/profile/facebook/FriendsTab.jsx';
+import PhotosTab from '@/components/profile/facebook/PhotosTab.jsx';
+import AchievementsTab from '@/components/profile/facebook/AchievementsTab.jsx';
 
 export default function Profile() {
   const [user, setUser] = useState(null);
