@@ -105,6 +105,20 @@ export default function UserProfile() {
     (f.friend_email === currentUser?.email && f.user_email === profileEmail)
   );
 
+  // Get mutual friends
+  const myFriends = friends.filter(f => 
+    f.status === 'accepted' && 
+    (f.user_email === currentUser?.email || f.friend_email === currentUser?.email)
+  ).map(f => f.user_email === currentUser?.email ? f.friend_email : f.user_email);
+
+  const profileUserFriends = friends.filter(f => 
+    f.status === 'accepted' && 
+    (f.user_email === profileEmail || f.friend_email === profileEmail)
+  ).map(f => f.user_email === profileEmail ? f.friend_email : f.user_email);
+
+  const mutualFriendEmails = myFriends.filter(email => profileUserFriends.includes(email));
+  const mutualFriends = users.filter(u => mutualFriendEmails.includes(u.email));
+
   const activePlans = progress.filter(p => !p.completed_date);
   const completedPlans = progress.filter(p => p.completed_date);
   
@@ -352,6 +366,47 @@ export default function UserProfile() {
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Mutual Friends */}
+      {!isOwnProfile && mutualFriends.length > 0 && (
+        <div className="px-4 mb-6">
+          <div className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 shadow-sm">
+            <h3 className="font-semibold text-[#1a1a2e] dark:text-white mb-3">
+              {mutualFriends.length} Mutual Friend{mutualFriends.length !== 1 ? 's' : ''}
+            </h3>
+            <div className="grid grid-cols-3 gap-3">
+              {mutualFriends.slice(0, 6).map((friend, index) => (
+                <Link
+                  key={friend.id}
+                  to={createPageUrl(`UserProfile?email=${friend.email}`)}
+                  className="flex flex-col items-center gap-2"
+                >
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: index * 0.05 }}
+                    className="w-16 h-16 rounded-full overflow-hidden bg-gradient-to-br from-[#c9a227] to-[#8fa68a] flex items-center justify-center text-white font-semibold shadow-md"
+                  >
+                    {friend.profile_image_url ? (
+                      <img src={friend.profile_image_url} alt={friend.full_name} className="w-full h-full object-cover" />
+                    ) : (
+                      friend.full_name?.charAt(0) || friend.email.charAt(0)
+                    )}
+                  </motion.div>
+                  <p className="text-xs text-center text-gray-700 dark:text-gray-300 line-clamp-2 w-full">
+                    {friend.full_name?.split(' ')[0] || 'User'}
+                  </p>
+                </Link>
+              ))}
+            </div>
+            {mutualFriends.length > 6 && (
+              <p className="text-sm text-gray-500 dark:text-gray-400 mt-3 text-center">
+                and {mutualFriends.length - 6} more
+              </p>
+            )}
           </div>
         </div>
       )}
