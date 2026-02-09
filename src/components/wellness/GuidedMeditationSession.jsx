@@ -362,7 +362,7 @@ export default function GuidedMeditationSession({ session, user, onComplete, onC
         audioRef.current.pause();
         window.speechSynthesis.cancel();
       } else {
-        audioRef.current.play();
+        audioRef.current.play().catch(() => {});
       }
     }
   };
