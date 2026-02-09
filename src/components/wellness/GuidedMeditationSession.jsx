@@ -226,11 +226,11 @@ export default function GuidedMeditationSession({ session, user, onComplete, onC
       const today = new Date().toISOString().split('T')[0];
       await base44.entities.MeditationSession.create({
         date: today,
-        duration_minutes: session.duration,
-        meditation_type: session.type,
+        duration_minutes: session?.duration || 5,
+        meditation_type: session?.type || 'mindfulness',
         mood_before: 'calm', // You might want to pass this
         mood_after: mood,
-        guided_session_id: String(session.id)
+        guided_session_id: String(session?.id || 'unknown')
       });
 
       toast.success('Session saved! Great work!');
