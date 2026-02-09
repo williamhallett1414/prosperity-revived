@@ -263,41 +263,28 @@ export default function GuidedMeditationSession({ session, user, onComplete, onC
   const totalInstructions = instructions.length;
   const secondsPerInstruction = ((session?.duration || 5) * 60) / totalInstructions;
 
-  // Generate AI voice for current instruction
-  useEffect(() => {
-    if (!isPlaying) return;
-    if (!voicesLoaded) return;
-    if (currentInstructionIndex >= totalInstructions) return;
+  // Auto-advance to next instruction (voice is spoken on navigation, not here)
+  // This effect just handles auto-advancing when instruction time elapses
 
-    const instructionText = instructions[currentInstructionIndex];
-    if (!instructionText || typeof instructionText !== 'string') return;
-
-    // Small delay to ensure clean speech transition
-    const timer = setTimeout(() => {
-      speakInstruction(instructionText);
-    }, 500);
-
-    return () => {
-      clearTimeout(timer);
-      window.speechSynthesis.cancel();
-    };
-  }, [currentInstructionIndex, isPlaying, voicesLoaded]);
-
-  // Start meditation session
+  // Auto-advance to next instruction and speak it
   useEffect(() => {
     if (isPlaying && currentInstructionIndex < totalInstructions) {
       instructionTimerRef.current = setTimeout(() => {
         if (currentInstructionIndex < totalInstructions - 1) {
-          setCurrentInstructionIndex(prev => prev + 1);
+          const nextIndex = currentInstructionIndex + 1;
+          setCurrentInstructionIndex(nextIndex);
+          // Speak next instruction when auto-advancing
+          if (voicesLoaded && instructions[nextIndex]) {
+            window.speechSynthesis.cancel();
+            setTimeout(() => speakInstruction(instructions[nextIndex]), 200);
+          }
         }
       }, secondsPerInstruction * 1000);
     }
     return () => {
       if (instructionTimerRef.current) clearTimeout(instructionTimerRef.current);
-      // Stop any ongoing speech
-      window.speechSynthesis.cancel();
     };
-  }, [isPlaying, currentInstructionIndex, totalInstructions, secondsPerInstruction]);
+  }, [isPlaying, currentInstructionIndex, totalInstructions, secondsPerInstruction, voicesLoaded]);
 
   // Track elapsed time
   useEffect(() => {
@@ -380,12 +367,20 @@ export default function GuidedMeditationSession({ session, user, onComplete, onC
     const newPlayingState = !isPlaying;
     setIsPlaying(newPlayingState);
     
-    if (audioRef.current) {
-      if (!newPlayingState) {
-        audioRef.current.pause();
-        window.speechSynthesis.cancel();
-      } else {
+    if (newPlayingState) {
+      // Starting - speak current instruction immediately on user click
+      const currentText = instructions[currentInstructionIndex];
+      if (currentText && voicesLoaded) {
+        speakInstruction(currentText);
+      }
+      if (audioRef.current) {
         audioRef.current.play().catch(() => {});
+      }
+    } else {
+      // Pausing
+      window.speechSynthesis.cancel();
+      if (audioRef.current) {
+        audioRef.current.pause();
       }
     }
   };
