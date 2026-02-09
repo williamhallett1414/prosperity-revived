@@ -50,32 +50,7 @@ export default function MeditationSessionCard({ session, onBegin, index }) {
         <button
           onClick={async (e) => {
             e.stopPropagation();
-            let updatedSession = session;
-
-            // Only queue TTS for user-created meditations (have proper DB IDs)
-            // Library items have string IDs like "breath-calm" and don't need TTS queuing
-            const isLibraryItem = typeof session.id === 'string' && !session.id.match(/^[a-f0-9-]{36}$/);
-            
-            if (!isLibraryItem && !session.tts_audio_url && session.id) {
-              setGenerating(true);
-              try {
-                // 1. Queue the TTS job
-                await queueTTSJob({ meditationId: session.id });
-                
-                // 2. Poll for job completion
-                const updated = await runTTSWorker({ meditationId: session.id });
-                
-                if (updated) {
-                  updatedSession = { ...session, ...updated };
-                }
-              } catch (error) {
-                console.error('Failed to process TTS:', error);
-              } finally {
-                setGenerating(false);
-              }
-            }
-
-            onBegin(updatedSession);
+            onBegin(session);
           }}
           disabled={generating}
           className="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 rounded-lg flex items-center justify-center gap-2 transition-colors group/btn disabled:opacity-50"
