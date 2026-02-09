@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Play, Clock, Sparkles } from 'lucide-react';
+import { Play, Clock, Sparkles, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { generateMeditationAudio } from '@/functions/generateMeditationAudio';
 
 export default function MeditationSessionCard({ session, onBegin, index }) {
+  const [generating, setGenerating] = useState(false);
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -44,14 +46,38 @@ export default function MeditationSessionCard({ session, onBegin, index }) {
 
         {/* Begin button */}
         <button
-          onClick={(e) => {
+          onClick={async (e) => {
             e.stopPropagation();
-            onBegin(session);
+            let updatedSession = session;
+
+            // If no audio exists, generate it
+            if (!session.tts_audio_url) {
+              setGenerating(true);
+              try {
+                updatedSession = await generateMeditationAudio(session);
+              } catch (error) {
+                console.error('Failed to generate audio:', error);
+              } finally {
+                setGenerating(false);
+              }
+            }
+
+            onBegin(updatedSession);
           }}
-          className="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 rounded-lg flex items-center justify-center gap-2 transition-colors group/btn"
+          disabled={generating}
+          className="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 rounded-lg flex items-center justify-center gap-2 transition-colors group/btn disabled:opacity-50"
         >
-          <Play className="w-4 h-4 group-hover/btn:scale-110 transition-transform" />
-          Begin Session
+          {generating ? (
+            <>
+              <Loader2 className="w-4 h-4 animate-spin" />
+              Generating Audio...
+            </>
+          ) : (
+            <>
+              <Play className="w-4 h-4 group-hover/btn:scale-110 transition-transform" />
+              Begin Session
+            </>
+          )}
         </button>
       </div>
     </motion.div>
