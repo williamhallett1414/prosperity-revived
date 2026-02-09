@@ -2,7 +2,37 @@ import { base44 } from '@/api/base44Client';
 import { generateAndMixAudio } from './generateAndMixAudio';
 
 /**
+ * Auto-queues meditations that don't have audio yet
+ */
+async function autoQueueMissingMeditations() {
+  try {
+    const meditations = await base44.entities.Meditation.list();
+    
+    for (const meditation of meditations) {
+      if (!meditation.tts_audio_url && meditation.status === 'pending') {
+        const existingJob = await base44.entities.TTSJob.filter(
+          { meditation_id: meditation.id },
+          '',
+          1
+        );
+        
+        if (existingJob.length === 0) {
+          console.log(`[TTS Worker] Auto-queuing: ${meditation.id} - ${meditation.title}`);
+          await base44.entities.TTSJob.create({
+            meditation_id: meditation.id,
+            status: 'pending'
+          });
+        }
+      }
+    }
+  } catch (error) {
+    console.error('[TTS Worker] Auto-queue error:', error);
+  }
+}
+
+/**
  * Background worker that processes pending TTS jobs
+ * - Auto-queues any meditations missing audio
  * - Fetches pending meditation audio generation jobs
  * - Generates TTS from meditation scripts
  * - Mixes TTS with ambient background music
@@ -11,6 +41,9 @@ import { generateAndMixAudio } from './generateAndMixAudio';
  */
 export async function runTTSWorker() {
   try {
+    // Auto-queue any missing meditations before processing
+    await autoQueueMissingMeditations();
+
     // Fetch first pending TTS job
     const jobs = await base44.entities.TTSJob.filter(
       { status: 'pending' },
