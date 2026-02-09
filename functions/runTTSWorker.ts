@@ -15,8 +15,7 @@ async function autoQueueMissingMeditations() {
 
       await base44.entities.TTSJob.create({
         meditation_id: med.id,
-        status: "pending",
-        attempts: 0
+        status: "pending"
       });
     }
   }
@@ -76,26 +75,18 @@ async function processJob(job) {
   } catch (err) {
     console.error("[Worker] Error processing job:", job.id, err);
 
-    const attempts = (job.attempts || 0) + 1;
-    const isMaxed = attempts >= MAX_RETRIES;
-
+    // Mark job as error
     await base44.entities.TTSJob.update(job.id, {
-      status: isMaxed ? "error" : "pending",
-      attempts,
+      status: "error",
       error_message: err.message
     });
 
-    if (!isMaxed) {
-      console.log("[Worker] Job will be retried:", job.id, "attempt:", attempts);
-    } else {
-      console.log("[Worker] Job reached max retries, marked as error:", job.id);
-      // Also mark meditation as error
-      try {
-        await base44.entities.Meditation.update(job.meditation_id, {
-          status: "error"
-        });
-      } catch (_) {}
-    }
+    // Mark meditation as error
+    try {
+      await base44.entities.Meditation.update(job.meditation_id, {
+        status: "error"
+      });
+    } catch (_) {}
   }
 }
 
