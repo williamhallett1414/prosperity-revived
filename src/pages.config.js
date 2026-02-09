@@ -54,7 +54,6 @@ import Bookmarks from './pages/Bookmarks';
 import ChallengeDetail from './pages/ChallengeDetail';
 import Community from './pages/Community';
 import Discover from './pages/Discover';
-import DiscoverMeditations from './pages/DiscoverMeditations';
 import DiscoverRecipes from './pages/DiscoverRecipes';
 import DiscoverWorkouts from './pages/DiscoverWorkouts';
 import Friends from './pages/Friends';
@@ -88,7 +87,6 @@ export const PAGES = {
     "ChallengeDetail": ChallengeDetail,
     "Community": Community,
     "Discover": Discover,
-    "DiscoverMeditations": DiscoverMeditations,
     "DiscoverRecipes": DiscoverRecipes,
     "DiscoverWorkouts": DiscoverWorkouts,
     "Friends": Friends,
