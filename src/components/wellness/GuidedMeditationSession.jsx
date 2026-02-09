@@ -99,14 +99,23 @@ export default function GuidedMeditationSession({ session, onClose }) {
         )}
 
         {audioUrl && (
-          <div className="w-full max-w-xs mb-6">
-            <div className="h-1 bg-gray-700 rounded-full overflow-hidden">
-              <motion.div
-                className="h-full bg-purple-600"
-                initial={{ width: "0%" }}
-                animate={{ width: `${(currentTime / duration) * 100}%` }}
-                transition={{ duration: 0.1 }}
-              />
+          <>
+            {/* Hidden but functional audio element */}
+            <audio ref={audioRef} />
+
+            <div className="w-full max-w-xs mb-6">
+              <div className="h-1 bg-gray-700 rounded-full overflow-hidden">
+                <motion.div
+                  className="h-full bg-purple-600"
+                  initial={{ width: "0%" }}
+                  animate={{
+                    width:
+                      duration > 0
+                        ? `${(currentTime / duration) * 100}%`
+                        : "0%",
+                  }}
+                  transition={{ duration: 0.1 }}
+                />
             </div>
             <div className="flex justify-between text-xs text-gray-400 mt-2">
               <span>{formatTime(currentTime)}</span>
