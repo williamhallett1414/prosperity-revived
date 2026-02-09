@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { X, Play, Pause, Volume2, SkipBack } from 'lucide-react';
+import { X, Play, Pause, Volume2, SkipBack, SkipForward, FastForward, Rewind } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { base44 } from '@/api/base44Client';
 import { toast } from 'sonner';
@@ -329,7 +329,27 @@ export default function GuidedMeditationSession({ session, user, onComplete, onC
       }, 1000);
     }
     return () => clearInterval(interval);
-  }, [isPlaying, session.duration]);
+  }, [isPlaying, session?.duration]);
+
+  // Start ambient sound when playing
+  useEffect(() => {
+    if (!audioRef.current) return;
+    
+    if (isPlaying && selectedAmbientSound !== 'none') {
+      const soundUrl = selectedAmbientSound === 'default' 
+        ? AMBIENT_SOUNDS[session?.type] 
+        : AMBIENT_SOUND_OPTIONS.find(s => s.id === selectedAmbientSound)?.url;
+      
+      if (soundUrl && soundUrl !== 'silent') {
+        audioRef.current.src = soundUrl;
+        audioRef.current.volume = 0.25; // Low volume for background
+        audioRef.current.loop = true;
+        audioRef.current.play().catch(() => {});
+      }
+    } else {
+      audioRef.current.pause();
+    }
+  }, [isPlaying, selectedAmbientSound, session?.type]);
 
   const handleSessionComplete = async () => {
     setIsPlaying(false);
@@ -340,11 +360,27 @@ export default function GuidedMeditationSession({ session, user, onComplete, onC
     if (audioRef.current) {
       if (isPlaying) {
         audioRef.current.pause();
-        window.speechSynthesis.cancel(); // Stop voice when pausing
+        window.speechSynthesis.cancel();
       } else {
         audioRef.current.play();
       }
     }
+  };
+
+  const skipForward = () => {
+    setElapsedSeconds(prev => Math.min(prev + 15, (session?.duration || 5) * 60));
+    // Skip to next instruction if needed
+    const newIndex = Math.min(currentInstructionIndex + 1, totalInstructions - 1);
+    setCurrentInstructionIndex(newIndex);
+    window.speechSynthesis.cancel();
+  };
+
+  const skipBackward = () => {
+    setElapsedSeconds(prev => Math.max(prev - 15, 0));
+    // Go back to previous instruction if needed
+    const newIndex = Math.max(currentInstructionIndex - 1, 0);
+    setCurrentInstructionIndex(newIndex);
+    window.speechSynthesis.cancel();
   };
 
   const handleFinish = async (mood) => {
@@ -457,56 +493,118 @@ export default function GuidedMeditationSession({ session, user, onComplete, onC
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -20 }}
-        className="max-w-xl mx-auto mb-12 text-center"
+        className="max-w-2xl mx-auto mb-12 text-center"
       >
-        <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
+        <div className="bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20 shadow-2xl">
           {isGeneratingVoice && (
-            <div className="mb-3 flex items-center justify-center gap-2">
-              <Volume2 className="w-4 h-4 text-purple-400 animate-pulse" />
-              <span className="text-purple-300 text-sm">Speaking...</span>
+            <div className="mb-4 flex items-center justify-center gap-2">
+              <div className="flex gap-1">
+                <motion.div
+                  animate={{ height: [12, 20, 12] }}
+                  transition={{ repeat: Infinity, duration: 0.8, delay: 0 }}
+                  className="w-1 bg-purple-400 rounded-full"
+                />
+                <motion.div
+                  animate={{ height: [12, 20, 12] }}
+                  transition={{ repeat: Infinity, duration: 0.8, delay: 0.1 }}
+                  className="w-1 bg-purple-400 rounded-full"
+                />
+                <motion.div
+                  animate={{ height: [12, 20, 12] }}
+                  transition={{ repeat: Infinity, duration: 0.8, delay: 0.2 }}
+                  className="w-1 bg-purple-400 rounded-full"
+                />
+              </div>
+              <span className="text-purple-300 text-sm font-medium">Voice guidance playing...</span>
             </div>
           )}
-          <p className="text-white text-lg leading-relaxed mb-3">
+          <p className="text-white text-xl leading-relaxed mb-4 font-light">
             {instructions[currentInstructionIndex]}
           </p>
-          <p className="text-white/50 text-sm">
-            Step {currentInstructionIndex + 1} of {totalInstructions}
-          </p>
+          <div className="flex items-center justify-center gap-2 text-white/50 text-sm">
+            <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
+            <span>Step {currentInstructionIndex + 1} of {totalInstructions}</span>
+          </div>
         </div>
       </motion.div>
 
-      {/* Controls */}
-      <div className="flex gap-4 mb-12">
-        <motion.button
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-          onClick={() => setCurrentInstructionIndex(Math.max(0, currentInstructionIndex - 1))}
-          className="w-12 h-12 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center text-white transition-colors"
-        >
-          <SkipBack className="w-5 h-5" />
-        </motion.button>
+      {/* Audio Player Controls */}
+      <div className="mb-8">
+        {/* Main playback controls */}
+        <div className="flex items-center justify-center gap-4 mb-6">
+          {/* Rewind 15s */}
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            onClick={skipBackward}
+            className="w-14 h-14 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-all backdrop-blur-sm border border-white/20"
+            title="Rewind 15 seconds"
+          >
+            <Rewind className="w-5 h-5" />
+          </motion.button>
 
-        <motion.button
-          whileHover={{ scale: 1.15 }}
-          whileTap={{ scale: 0.9 }}
-          onClick={togglePlayPause}
-          className="w-16 h-16 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white shadow-xl hover:shadow-2xl transition-shadow"
-        >
-          {isPlaying ? (
-            <Pause className="w-6 h-6" />
-          ) : (
-            <Play className="w-6 h-6 ml-1" />
-          )}
-        </motion.button>
+          {/* Previous instruction */}
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            onClick={() => setCurrentInstructionIndex(Math.max(0, currentInstructionIndex - 1))}
+            className="w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-all backdrop-blur-sm border border-white/20"
+            disabled={currentInstructionIndex === 0}
+            title="Previous instruction"
+          >
+            <SkipBack className="w-4 h-4" />
+          </motion.button>
 
-        <motion.button
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-          onClick={() => setShowSoundPicker(!showSoundPicker)}
-          className="w-12 h-12 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center text-white transition-colors"
-        >
-          <Volume2 className="w-5 h-5" />
-        </motion.button>
+          {/* Play/Pause - Main button */}
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={togglePlayPause}
+            className="w-20 h-20 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white shadow-2xl hover:shadow-purple-500/50 transition-all"
+          >
+            {isPlaying ? (
+              <Pause className="w-8 h-8" />
+            ) : (
+              <Play className="w-8 h-8 ml-1" />
+            )}
+          </motion.button>
+
+          {/* Next instruction */}
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            onClick={() => setCurrentInstructionIndex(Math.min(totalInstructions - 1, currentInstructionIndex + 1))}
+            className="w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-all backdrop-blur-sm border border-white/20"
+            disabled={currentInstructionIndex >= totalInstructions - 1}
+            title="Next instruction"
+          >
+            <SkipForward className="w-4 h-4" />
+          </motion.button>
+
+          {/* Fast forward 15s */}
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            onClick={skipForward}
+            className="w-14 h-14 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-all backdrop-blur-sm border border-white/20"
+            title="Fast forward 15 seconds"
+          >
+            <FastForward className="w-5 h-5" />
+          </motion.button>
+        </div>
+
+        {/* Sound picker button - below controls */}
+        <div className="flex justify-center">
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => setShowSoundPicker(!showSoundPicker)}
+            className="px-4 py-2 rounded-full bg-white/10 hover:bg-white/20 flex items-center gap-2 text-white text-sm transition-all backdrop-blur-sm border border-white/20"
+          >
+            <Volume2 className="w-4 h-4" />
+            <span>Ambient Sound</span>
+          </motion.button>
+        </div>
       </div>
 
       {/* Finish button */}
@@ -528,38 +626,55 @@ export default function GuidedMeditationSession({ session, user, onComplete, onC
 
       {/* Sound Picker Modal */}
       {showSoundPicker && (
-        <div className="absolute bottom-24 left-1/2 transform -translate-x-1/2 bg-white dark:bg-[#2d2d4a] rounded-2xl shadow-2xl p-4 w-64 z-50">
-          <h4 className="font-semibold text-gray-900 dark:text-white mb-3">Ambient Sound</h4>
-          <div className="space-y-2">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 20 }}
+          className="absolute bottom-32 left-1/2 transform -translate-x-1/2 bg-white dark:bg-[#2d2d4a] rounded-2xl shadow-2xl p-4 w-72 z-50 border border-purple-500/20"
+        >
+          <div className="flex items-center justify-between mb-3">
+            <h4 className="font-semibold text-gray-900 dark:text-white flex items-center gap-2">
+              <Volume2 className="w-4 h-4" />
+              Background Sound
+            </h4>
+            <button
+              onClick={() => setShowSoundPicker(false)}
+              className="w-6 h-6 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 flex items-center justify-center"
+            >
+              <X className="w-4 h-4 text-gray-500" />
+            </button>
+          </div>
+          <div className="space-y-1.5 max-h-64 overflow-y-auto">
             {AMBIENT_SOUND_OPTIONS.map(sound => (
               <button
                 key={sound.id}
                 onClick={() => {
                   setSelectedAmbientSound(sound.id);
                   setShowSoundPicker(false);
-                  if (audioRef.current && isPlaying) {
+                  if (audioRef.current) {
                     if (sound.id === 'none') {
                       audioRef.current.pause();
                     } else {
                       const soundUrl = sound.id === 'default' ? AMBIENT_SOUNDS[session?.type] : sound.url;
-                      if (soundUrl) {
+                      if (soundUrl && isPlaying) {
                         audioRef.current.src = soundUrl;
-                        audioRef.current.play();
+                        audioRef.current.volume = 0.25;
+                        audioRef.current.play().catch(() => {});
                       }
                     }
                   }
                 }}
-                className={`w-full text-left px-3 py-2 rounded-lg transition-colors ${
+                className={`w-full text-left px-3 py-2.5 rounded-lg transition-all ${
                   selectedAmbientSound === sound.id
-                    ? 'bg-purple-500 text-white'
-                    : 'bg-gray-100 dark:bg-[#1a1a2e] text-gray-700 dark:text-gray-300 hover:bg-purple-100 dark:hover:bg-purple-900/20'
+                    ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-md'
+                    : 'bg-gray-100 dark:bg-[#1a1a2e] text-gray-700 dark:text-gray-300 hover:bg-purple-50 dark:hover:bg-purple-900/20'
                 }`}
               >
                 {sound.name}
               </button>
             ))}
           </div>
-        </div>
+        </motion.div>
       )}
     </motion.div>
   );
