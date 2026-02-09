@@ -243,7 +243,7 @@ export default function GuidedMeditationSession({ session, user, onComplete, onC
 
   const minutes = Math.floor(elapsedSeconds / 60);
   const seconds = elapsedSeconds % 60;
-  const progress = (elapsedSeconds / (session.duration * 60)) * 100;
+  const progress = (elapsedSeconds / ((session?.duration || 5) * 60)) * 100;
 
   if (moodAfter) {
     return (
