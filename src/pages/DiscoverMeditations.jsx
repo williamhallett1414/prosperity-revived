@@ -144,6 +144,7 @@ export default function DiscoverMeditations() {
                             duration: med.duration_minutes,
                             description: med.description,
                             type: med.type,
+                            audio_url: med.audio_url || med.voice_instructions_url || med.guidance_audio_url,
                             _original: med
                           }}
                           onBegin={setActiveSession}
@@ -172,6 +173,7 @@ export default function DiscoverMeditations() {
                           duration: med.duration_minutes,
                           description: med.description,
                           type: med.type,
+                          audio_url: med.audio_url || med.voice_instructions_url || med.guidance_audio_url,
                           _original: med
                         }}
                         onBegin={setActiveSession}

@@ -233,6 +233,17 @@ export default function GuidedMeditationSession({ session, user, onComplete, onC
   const instructionTimerRef = useRef(null);
   const fileInputRef = useRef(null);
 
+  // Check if session has pre-recorded audio
+  const audioUrl = session?.audio_url || session?.voice_instructions_url || session?.guidance_audio_url || session?._original?.audio_url;
+  const hasPreRecordedAudio = !!audioUrl;
+
+  // Debug log
+  useEffect(() => {
+    console.log('GuidedMeditationSession - session:', session);
+    console.log('GuidedMeditationSession - audioUrl:', audioUrl);
+    console.log('GuidedMeditationSession - hasPreRecordedAudio:', hasPreRecordedAudio);
+  }, [session, audioUrl, hasPreRecordedAudio]);
+
   // Load voices
   useEffect(() => {
     const loadVoices = () => {
@@ -363,21 +374,37 @@ export default function GuidedMeditationSession({ session, user, onComplete, onC
     setIsPlaying(false);
   };
 
-  const togglePlayPause = () => {
+  const togglePlayPause = async () => {
     const newPlayingState = !isPlaying;
     setIsPlaying(newPlayingState);
     
     if (newPlayingState) {
-      // Starting - speak current instruction immediately on user click
-      const currentText = instructions[currentInstructionIndex];
-      if (currentText && voicesLoaded) {
-        speakInstruction(currentText);
+      // Starting playback on user click
+      if (hasPreRecordedAudio && voiceAudioRef.current) {
+        // Play pre-recorded audio
+        try {
+          await voiceAudioRef.current.play();
+          console.log('Playing pre-recorded audio');
+        } catch (err) {
+          console.error('Error playing pre-recorded audio:', err);
+        }
+      } else if (voicesLoaded) {
+        // Use text-to-speech
+        const currentText = instructions[currentInstructionIndex];
+        if (currentText) {
+          speakInstruction(currentText);
+        }
       }
-      if (audioRef.current) {
+      
+      // Start background ambient sound
+      if (audioRef.current && selectedAmbientSound !== 'none') {
         audioRef.current.play().catch(() => {});
       }
     } else {
       // Pausing
+      if (voiceAudioRef.current) {
+        voiceAudioRef.current.pause();
+      }
       window.speechSynthesis.cancel();
       if (audioRef.current) {
         audioRef.current.pause();
@@ -690,6 +717,17 @@ export default function GuidedMeditationSession({ session, user, onComplete, onC
           ref={audioRef}
           loop
           style={{ display: 'none' }}
+        />
+      )}
+
+      {/* Hidden audio element for pre-recorded voice guidance */}
+      {hasPreRecordedAudio && (
+        <audio
+          ref={voiceAudioRef}
+          src={audioUrl}
+          preload="auto"
+          style={{ display: 'none' }}
+          onEnded={() => setIsPlaying(false)}
         />
       )}
 
