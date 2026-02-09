@@ -3,11 +3,11 @@
  * Returns the URL of the generated audio file
  */
 export async function generateTTSAudio(script) {
-  try {
-    if (!script) {
-      throw new Error("Script is required for TTS generation");
-    }
+  if (!script) {
+    throw new Error("Script is required for TTS generation");
+  }
 
+  try {
     // Placeholder: return a dummy meditation audio URL
     // In production, integrate with actual TTS service (Google TTS, ElevenLabs, etc.)
     const dummyUrl = `https://commondatastorage.googleapis.com/gtv-videos-library/sample/ForBiggerBlazes.mp3`;
