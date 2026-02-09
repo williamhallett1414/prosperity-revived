@@ -286,7 +286,7 @@ export const MEDITATION_LIBRARY = [
     category: 'sleep_stories',
     duration_minutes: 20,
     image_url: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400',
-    script: 'You are sitting on a smooth rock at a mountain peak. Below you, the world stretches out in peaceful valleys and rolling hills. The sky begins to paint itself in soft oranges, pinks, and purples. You feel the warmth of the day's last sunlight on your face. A gentle breeze carries the scent of wildflowers. As the sun slowly sinks below the horizon, the temperature cools pleasantly. Stars begin to emerge, one by one. The world grows quiet and still. You feel connected to everything - sky, earth, universe. Your breathing matches the rhythm of nature. Sleep comes naturally, gently, peacefully.'
+    script: 'You are sitting on a smooth rock at a mountain peak. Below you, the world stretches out in peaceful valleys and rolling hills. The sky begins to paint itself in soft oranges, pinks, and purples. You feel the warmth of the day\'s last sunlight on your face. A gentle breeze carries the scent of wildflowers. As the sun slowly sinks below the horizon, the temperature cools pleasantly. Stars begin to emerge, one by one. The world grows quiet and still. You feel connected to everything - sky, earth, universe. Your breathing matches the rhythm of nature. Sleep comes naturally, gently, peacefully.'
   },
   {
     id: 'ocean-shore',
