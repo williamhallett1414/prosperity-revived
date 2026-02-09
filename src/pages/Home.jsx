@@ -16,6 +16,7 @@ import CreatePostModal from '@/components/community/CreatePostModal';
 import GamificationBanner from '@/components/gamification/GamificationBanner';
 import OnboardingFlow from '@/components/onboarding/OnboardingFlow';
 import { Trophy } from 'lucide-react';
+import { startMeditationWorker } from '@/functions/startMeditationWorker';
 
 export default function Home() {
   const [showDailyVerseSettings, setShowDailyVerseSettings] = useState(false);
@@ -31,6 +32,9 @@ export default function Home() {
         setShowOnboarding(true);
       }
     });
+    
+    // Start the meditation audio worker
+    startMeditationWorker();
   }, []);
 
   const { data: bookmarks = [] } = useQuery({
