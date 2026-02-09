@@ -12,13 +12,13 @@ import { MEDITATION_LIBRARY, MEDITATION_CATEGORIES } from '@/components/wellness
 import MeditationSessionCard from '@/components/wellness/MeditationSessionCard';
 import GuidedMeditationSession from '@/components/wellness/GuidedMeditationSession';
 import MeditationAnalytics from '@/components/wellness/MeditationAnalytics';
+import { queueTTSJob } from '@/functions/queueTTSJob';
 
 export default function DiscoverMeditations() {
   const [user, setUser] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [activeSession, setActiveSession] = useState(null);
-  const [generatingAudio, setGeneratingAudio] = useState(false);
   const queryClient = useQueryClient();
 
   useEffect(() => {
@@ -67,20 +67,13 @@ export default function DiscoverMeditations() {
   const isFavorited = (id) => favorites.some(f => f.meditation_id === id && f.created_by === user?.email);
 
   const handleBeginSession = async (session) => {
-    if (!session.audio_url && session.script) {
-      try {
-        setGeneratingAudio(true);
-        const updated = await base44.functions.generateMeditationAudio(session);
-        setActiveSession(updated);
-      } catch (error) {
-        console.error('Failed to generate audio:', error);
-        setActiveSession(session);
-      } finally {
-        setGeneratingAudio(false);
-      }
-    } else {
-      setActiveSession(session);
+    if (!session.tts_audio_url && session.id) {
+      await queueTTSJob(session.id);
+      alert("Voice instructions are being generated. Check back in a moment.");
+      return;
     }
+
+    setActiveSession(session);
   };
 
   return (
