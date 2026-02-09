@@ -114,9 +114,27 @@ export default function GuidedMeditationSession({ session, user, onComplete, onC
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
   const [moodAfter, setMoodAfter] = useState(null);
   const [isGeneratingVoice, setIsGeneratingVoice] = useState(false);
+  const [voicesLoaded, setVoicesLoaded] = useState(false);
   const audioRef = useRef(null);
   const voiceAudioRef = useRef(null);
   const instructionTimerRef = useRef(null);
+
+  // Load voices
+  useEffect(() => {
+    const loadVoices = () => {
+      const voices = window.speechSynthesis.getVoices();
+      if (voices.length > 0) {
+        setVoicesLoaded(true);
+      }
+    };
+    
+    loadVoices();
+    window.speechSynthesis.onvoiceschanged = loadVoices;
+    
+    return () => {
+      window.speechSynthesis.onvoiceschanged = null;
+    };
+  }, []);
 
   const script = MEDITATION_SCRIPTS[session?.type] || MEDITATION_SCRIPTS.mindfulness;
   const instructions = script?.instructions || [
@@ -133,35 +151,46 @@ export default function GuidedMeditationSession({ session, user, onComplete, onC
 
   // Generate AI voice for current instruction
   useEffect(() => {
-    const generateVoiceInstruction = async () => {
-      if (isPlaying && currentInstructionIndex < totalInstructions && instructions[currentInstructionIndex]) {
-        setIsGeneratingVoice(true);
-        try {
-          const instructionText = String(instructions[currentInstructionIndex] || '');
-          if (!instructionText) return;
-          
-          // Use browser's speech synthesis
-          const utterance = new SpeechSynthesisUtterance(instructionText);
-          utterance.rate = 0.8; // Slower, calming pace
-          utterance.pitch = 1.0;
-          utterance.volume = 0.7;
-          
-          // Try to use a calming voice
-          const voices = window.speechSynthesis.getVoices();
-          const calmVoice = voices.find(v => v.name.includes('Female') || v.name.includes('Samantha')) || voices[0];
-          if (calmVoice) utterance.voice = calmVoice;
-          
-          window.speechSynthesis.speak(utterance);
-        } catch (error) {
-          console.error('Voice generation failed:', error);
-        } finally {
-          setIsGeneratingVoice(false);
-        }
-      }
-    };
+    if (!voicesLoaded || !isPlaying || currentInstructionIndex >= totalInstructions) {
+      return;
+    }
 
-    generateVoiceInstruction();
-  }, [currentInstructionIndex, isPlaying, instructions, totalInstructions]);
+    const instructionText = String(instructions[currentInstructionIndex] || '');
+    if (!instructionText) return;
+
+    setIsGeneratingVoice(true);
+    
+    // Cancel any ongoing speech
+    window.speechSynthesis.cancel();
+    
+    // Small delay to ensure clean speech
+    const timer = setTimeout(() => {
+      try {
+        const utterance = new SpeechSynthesisUtterance(instructionText);
+        utterance.rate = 0.8;
+        utterance.pitch = 1.0;
+        utterance.volume = 1.0;
+        
+        const voices = window.speechSynthesis.getVoices();
+        const calmVoice = voices.find(v => 
+          v.lang.startsWith('en') && (v.name.includes('Female') || v.name.includes('Samantha'))
+        ) || voices.find(v => v.lang.startsWith('en')) || voices[0];
+        
+        if (calmVoice) utterance.voice = calmVoice;
+        
+        utterance.onstart = () => setIsGeneratingVoice(true);
+        utterance.onend = () => setIsGeneratingVoice(false);
+        utterance.onerror = () => setIsGeneratingVoice(false);
+        
+        window.speechSynthesis.speak(utterance);
+      } catch (error) {
+        console.error('Voice generation failed:', error);
+        setIsGeneratingVoice(false);
+      }
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, [currentInstructionIndex, isPlaying, instructions, totalInstructions, voicesLoaded]);
 
   // Start meditation session
   useEffect(() => {
