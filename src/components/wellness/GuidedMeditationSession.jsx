@@ -259,8 +259,8 @@ export default function GuidedMeditationSession({ session, user, onComplete, onC
       return;
     }
 
-    const instructionText = String(instructions[currentInstructionIndex] || '');
-    if (!instructionText) return;
+    const instructionText = instructions[currentInstructionIndex];
+    if (!instructionText || typeof instructionText !== 'string') return;
 
     setIsGeneratingVoice(true);
     
@@ -277,8 +277,8 @@ export default function GuidedMeditationSession({ session, user, onComplete, onC
         
         const voices = window.speechSynthesis.getVoices();
         const calmVoice = voices.find(v => 
-          v.lang.startsWith('en') && (v.name.includes('Female') || v.name.includes('Samantha'))
-        ) || voices.find(v => v.lang.startsWith('en')) || voices[0];
+          v.lang && v.lang.startsWith('en') && (v.name.includes('Female') || v.name.includes('Samantha'))
+        ) || voices.find(v => v.lang && v.lang.startsWith('en')) || voices[0];
         
         if (calmVoice) utterance.voice = calmVoice;
         
