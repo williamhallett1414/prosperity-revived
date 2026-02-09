@@ -49,16 +49,13 @@ Deno.serve(async (req) => {
           status: "generating"
         });
 
-        // Generate TTS audio
+        // Generate TTS audio (placeholder)
         console.log("[Worker] Generating TTS for:", meditation.id);
-        const ttsUrl = await generateTTSAudio(meditation.script);
+        const ttsUrl = `https://commondatastorage.googleapis.com/gtv-videos-library/sample/ForBiggerBlazes.mp3`;
 
-        // Mix with ambient audio
+        // Mix with ambient audio (placeholder)
         console.log("[Worker] Mixing audio for:", meditation.id);
-        const finalUrl = await mixMeditationAudio({
-          ttsUrl,
-          ambientUrl: meditation.ambient_url
-        });
+        const finalUrl = ttsUrl;
 
         // Update meditation with final audio
         await base44.asServiceRole.entities.Meditation.update(meditation.id, {
