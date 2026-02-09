@@ -186,7 +186,7 @@ export default function GuidedMeditationSession({ session, user, onComplete, onC
       interval = setInterval(() => {
         setElapsedSeconds(prev => {
           const newTime = prev + 1;
-          if (newTime >= session.duration * 60) {
+          if (newTime >= (session?.duration || 5) * 60) {
             setIsPlaying(false);
             handleSessionComplete();
             return prev;
