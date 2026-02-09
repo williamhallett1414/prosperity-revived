@@ -165,7 +165,7 @@ export default function DiscoverMeditations() {
                             audio_url: med.audio_url || med.voice_instructions_url || med.guidance_audio_url,
                             _original: med
                           }}
-                          onBegin={setActiveSession}
+                          onBegin={handleBeginSession}
                           index={index}
                         />
                       </div>
