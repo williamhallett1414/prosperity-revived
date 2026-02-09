@@ -134,15 +134,14 @@ export default function GuidedMeditationSession({ session, user, onComplete, onC
   // Generate AI voice for current instruction
   useEffect(() => {
     const generateVoiceInstruction = async () => {
-      if (isPlaying && currentInstructionIndex < totalInstructions) {
+      if (isPlaying && currentInstructionIndex < totalInstructions && instructions[currentInstructionIndex]) {
         setIsGeneratingVoice(true);
         try {
-          // Use text-to-speech API or AI to generate voice guidance
-          const voicePrompt = `You are a calm, soothing meditation guide. Read this meditation instruction in a gentle, peaceful tone: "${instructions[currentInstructionIndex]}"`;
+          const instructionText = String(instructions[currentInstructionIndex] || '');
+          if (!instructionText) return;
           
-          // For now, we'll use browser's speech synthesis as a fallback
-          // In production, you could integrate with OpenAI's TTS or Google Cloud TTS
-          const utterance = new SpeechSynthesisUtterance(instructions[currentInstructionIndex]);
+          // Use browser's speech synthesis
+          const utterance = new SpeechSynthesisUtterance(instructionText);
           utterance.rate = 0.8; // Slower, calming pace
           utterance.pitch = 1.0;
           utterance.volume = 0.7;
