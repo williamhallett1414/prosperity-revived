@@ -54,6 +54,7 @@ export default function DiscoverMeditations() {
   
   // Filter by category and search
   const filteredMeditations = allMeditations.filter(med => {
+    if (!med || !med.title || !med.description) return false;
     const matchesSearch = med.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          med.description.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCategory = selectedCategory === 'all' || med.category === selectedCategory;
