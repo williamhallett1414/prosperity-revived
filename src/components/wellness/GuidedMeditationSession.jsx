@@ -299,8 +299,8 @@ export default function GuidedMeditationSession({ session, user, onComplete, onC
 
       {/* Session info */}
       <div className="text-center mb-12">
-        <h2 className="text-4xl font-bold text-white mb-2">{session.title}</h2>
-        <p className="text-white/70">{session.duration} minute session</p>
+        <h2 className="text-4xl font-bold text-white mb-2">{session?.title || 'Meditation'}</h2>
+        <p className="text-white/70">{session?.duration || 5} minute session</p>
       </div>
 
       {/* Timer and progress */}
