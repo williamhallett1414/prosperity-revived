@@ -12,7 +12,8 @@ export default function WellnessMetricsOverview({
   journalEntries,
   prayerJournals,
   userProgress,
-  challengeParticipants
+  challengeParticipants,
+  planProgress = []
 }) {
   // Calculate metrics
   const totalMeditationMinutes = meditationSessions?.reduce((sum, s) => sum + (s.duration_minutes || 0), 0) || 0;
