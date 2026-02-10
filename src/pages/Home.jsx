@@ -20,7 +20,7 @@ import ContinueJourneyCard from '@/components/home/ContinueJourneyCard';
 import StartMyDayModal from '@/components/home/StartMyDayModal';
 import EndMyDayModal from '@/components/home/EndMyDayModal';
 import TodaysOverview from '@/components/home/TodaysOverview';
-import QuickActionsRow from '@/components/home/QuickActionsRow';
+
 import WellnessMetricsOverview from '@/components/wellness/WellnessMetricsOverview';
 import { Trophy } from 'lucide-react';
 
@@ -361,8 +361,7 @@ export default function Home() {
           user={user}
         />
 
-        {/* Quick Actions Row */}
-        <QuickActionsRow />
+
 
         {/* Daily Start Section */}
         {meditations && workoutPlans && (
