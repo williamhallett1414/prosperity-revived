@@ -34,8 +34,7 @@ export default function Profile() {
   const { data: posts = [] } = useQuery({
     queryKey: ['myPosts'],
     queryFn: async () => {
-      const allPosts = await base44.entities.Post.list();
-      return allPosts.filter(p => p.created_by === user?.email);
+      return await base44.entities.Post.filter({ created_by: user?.email });
     },
     enabled: !!user
   });
