@@ -12,6 +12,7 @@ import CreateWorkoutModal from '@/components/wellness/CreateWorkoutModal';
 import NutritionAdvice from '@/components/wellness/NutritionAdvice';
 import MealTracker from '@/components/wellness/MealTracker';
 import WaterTracker from '@/components/wellness/WaterTracker';
+import MealSuggestions from '@/components/nutrition/MealSuggestions';
 import MeditationGuide from '@/components/wellness/MeditationGuide';
 import RecipeCollections from '@/components/wellness/RecipeCollections';
 import CommunityRecipes from '@/components/wellness/CommunityRecipes';
@@ -294,9 +295,9 @@ export default function Wellness() {
 
             {/* My Workouts */}
             {myWorkouts.length > 0 && (
-              <div>
-                <h3 className="text-sm font-semibold text-[#0A1A2F] mb-2">Your Workouts</h3>
-                <div className="space-y-3 mb-6">
+              <div className="mb-6">
+                <h3 className="text-sm font-semibold text-[#0A1A2F] mb-3 text-center">Your Workouts</h3>
+                <div className="space-y-3">
                   {myWorkouts.map((workout, index) => (
                     <WorkoutCard
                       key={workout.id}
