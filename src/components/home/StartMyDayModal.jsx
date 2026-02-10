@@ -121,7 +121,7 @@ export default function StartMyDayModal({ isOpen, onClose, meditations = [], wor
            <p className="text-sm text-[#0A1A2F]/70">{suggestedWorkout.description}</p>
            <p className="text-xs text-[#0A1A2F]/60"><strong>Duration:</strong> {suggestedWorkout.duration_minutes} min</p>
            <Button
-             onClick={() => window.location.href = `${createPageUrl('DiscoverWorkouts')}?id=${suggestedWorkout.id}`}
+             onClick={() => window.location.href = `${createPageUrl('WorkoutSession')}?workoutId=${suggestedWorkout.id}`}
              className="w-full bg-white hover:bg-white/90 text-[#0A1A2F]"
              size="sm"
            >
