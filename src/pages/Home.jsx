@@ -51,7 +51,6 @@ export default function Home() {
       try {
         return await base44.entities.Bookmark.filter({ created_by: user?.email });
       } catch (error) {
-        console.log('Bookmarks query error:', error);
         return [];
       }
     },
@@ -63,10 +62,9 @@ export default function Home() {
     queryKey: ['posts'],
     queryFn: async () => {
       try {
-        const allPosts = await base44.entities.Post.filter({ group_id: null }, '-created_date', 100);
+        const allPosts = await base44.entities.Post.filter({}, '-created_date', 100);
         return allPosts.sort((a, b) => (b.likes || 0) - (a.likes || 0)).slice(0, 20);
       } catch (error) {
-        console.log('Posts query error:', error);
         return [];
       }
     },
@@ -79,7 +77,6 @@ export default function Home() {
       try {
         return await base44.entities.Comment.filter({}, '-created_date', 200);
       } catch (error) {
-        console.log('Comments query error:', error);
         return [];
       }
     },
@@ -92,7 +89,6 @@ export default function Home() {
       try {
         return await base44.entities.GroupMember.filter({ user_email: user?.email });
       } catch (error) {
-        console.log('GroupMember query error:', error);
         return [];
       }
     },
@@ -106,7 +102,6 @@ export default function Home() {
       try {
         return await base44.entities.StudyGroup.filter({});
       } catch (error) {
-        console.log('StudyGroup query error:', error);
         return [];
       }
     },
@@ -119,7 +114,6 @@ export default function Home() {
       try {
         return await base44.entities.ReadingPlanProgress.filter({ created_by: user?.email });
       } catch (error) {
-        console.log('PlanProgress query error:', error);
         return [];
       }
     },
@@ -134,7 +128,6 @@ export default function Home() {
         const list = await base44.entities.UserProgress.filter({ created_by: user?.email });
         return list[0] || null;
       } catch (error) {
-        console.log('UserProgress query error:', error);
         return null;
       }
     },
@@ -172,7 +165,6 @@ export default function Home() {
       try {
         return await base44.entities.Meditation.filter({}, '-created_date', 20);
       } catch (error) {
-        console.log('Meditation query error:', error);
         return [];
       }
     },
@@ -186,7 +178,6 @@ export default function Home() {
       try {
         return await base44.entities.WorkoutPlan.filter({}, '-created_date', 10);
       } catch (error) {
-        console.log('WorkoutPlan query error:', error);
         return [];
       }
     },
@@ -243,7 +234,6 @@ export default function Home() {
       try {
         return await base44.entities.Post.filter({ created_by: user?.email });
       } catch (error) {
-        console.log('MyPosts query error:', error);
         return [];
       }
     },
