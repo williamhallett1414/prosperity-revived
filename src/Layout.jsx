@@ -9,8 +9,8 @@ import NotificationBell from '@/components/notifications/NotificationBell';
 const navItems = [
   { name: 'Home', icon: Home, page: 'Home' },
   { name: 'Discover', icon: Sparkles, page: 'Discover' },
+  { name: 'Wellness', icon: Heart, page: 'Wellness' },
   { name: 'Groups', icon: Users, page: 'Groups' },
-  { name: 'Mind', icon: Heart, page: 'MindAndSpirit' },
   { name: 'Profile', icon: User, page: 'Profile' },
 ];
 
