@@ -62,9 +62,6 @@ import DailyPrayer from '@/components/selfcare/DailyPrayer';
 import MeditationTracker from '@/components/wellness/MeditationTracker';
 import PrayForMeFeed from '@/components/wellness/PrayForMeFeed';
 
-import AIWellnessRecommendations from '@/components/wellness/AIWellnessRecommendations';
-import WellnessMetricsOverview from '@/components/wellness/WellnessMetricsOverview';
-import WellnessCommunityFeed from '@/components/wellness/WellnessCommunityFeed';
 import PersonalizedWorkouts from '@/components/recommendations/PersonalizedWorkouts';
 import { Input } from '@/components/ui/input';
 
