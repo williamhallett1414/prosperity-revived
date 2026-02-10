@@ -2,26 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { Textarea } from '@/components/ui/textarea';
-import { ChevronRight, Play } from 'lucide-react';
+import { ChevronRight, Play, Plus } from 'lucide-react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { toast } from 'sonner';
 
 export default function EndMyDayModal({ isOpen, onClose, meditations = [] }) {
   const [step, setStep] = useState(0);
-  const [reflection, setReflection] = useState('');
-  const [gratitude, setGratitude] = useState('');
+  const [showJournalModal, setShowJournalModal] = useState(false);
   const queryClient = useQueryClient();
-  const sleepMeditation = meditations.find(m => m.category === 'sleep');
 
-  const saveJournal = useMutation({
-    mutationFn: (data) => base44.entities.JournalEntry.create(data),
-    onSuccess: () => {
-      toast.success('Saved to journal!');
-      queryClient.invalidateQueries(['journalEntries']);
-    }
-  });
+  const sleepMeditation = meditations.find(m => m.category === 'sleep');
 
   const steps = [
     {
@@ -29,30 +20,19 @@ export default function EndMyDayModal({ isOpen, onClose, meditations = [] }) {
       emoji: '🌙',
       color: 'from-[#0A1A2F] to-[#AFC7E3]',
       content: (
-        <div className="space-y-3">
-          <p className="text-sm text-[#0A1A2F]/70">What was the highlight of your day?</p>
-          <Textarea
-            placeholder="Write your thoughts..."
-            value={reflection}
-            onChange={(e) => setReflection(e.target.value)}
-            className="min-h-[120px] bg-[#E6EBEF] border-[#E6EBEF]"
-          />
-        </div>
-      )
-    },
-    {
-      title: 'Gratitude',
-      emoji: '💝',
-      color: 'from-[#D9B878] to-[#AFC7E3]',
-      content: (
-        <div className="space-y-3">
-          <p className="text-sm text-[#0A1A2F]/70">Name 3 things you're grateful for:</p>
-          <Textarea
-            placeholder="1. \n2. \n3. "
-            value={gratitude}
-            onChange={(e) => setGratitude(e.target.value)}
-            className="min-h-[120px] bg-[#E6EBEF] border-[#E6EBEF]"
-          />
+        <div className="space-y-4 text-center">
+          <p className="text-[#0A1A2F] font-semibold">Take a moment to reflect on your day</p>
+          <p className="text-xs text-[#0A1A2F]/60">
+            What was the highlight? What are you grateful for?
+          </p>
+          <Button
+            onClick={() => setShowJournalModal(true)}
+            className="w-full bg-white hover:bg-white/90 text-[#0A1A2F]"
+            size="sm"
+          >
+            <Plus className="w-4 h-4 mr-2" />
+            Add Journal Entry
+          </Button>
         </div>
       )
     },
@@ -68,6 +48,14 @@ export default function EndMyDayModal({ isOpen, onClose, meditations = [] }) {
           <p className="text-xs text-[#0A1A2F]/60">
             Take a moment to reflect on your actions and intentions.
           </p>
+          <Button
+            onClick={() => setShowJournalModal(true)}
+            className="w-full bg-white hover:bg-white/90 text-[#0A1A2F]"
+            size="sm"
+          >
+            <Plus className="w-4 h-4 mr-2" />
+            Add Journal Entry
+          </Button>
         </div>
       )
     },
@@ -96,21 +84,11 @@ export default function EndMyDayModal({ isOpen, onClose, meditations = [] }) {
 
   const currentStep = steps[step];
 
-  const handleComplete = async () => {
+  const handleComplete = () => {
     if (step < steps.length - 1) {
       setStep(step + 1);
     } else {
-      if (reflection || gratitude) {
-        await saveJournal.mutateAsync({
-          title: 'Evening Reflection',
-          content: `Reflection: ${reflection}\n\nGratitude: ${gratitude}`,
-          entry_type: 'reflection',
-          mood: 'peaceful'
-        });
-      }
       onClose();
-      setReflection('');
-      setGratitude('');
       setStep(0);
     }
   };
@@ -170,7 +148,6 @@ export default function EndMyDayModal({ isOpen, onClose, meditations = [] }) {
               onClick={handleComplete}
               className="flex-1 bg-gradient-to-r from-[#0A1A2F] to-[#AFC7E3] hover:from-[#0A1A2F]/90 hover:to-[#AFC7E3]/90 text-white"
               size="sm"
-              disabled={saveJournal.isPending}
             >
               {step === steps.length - 1 ? 'Complete' : 'Next'}
               <ChevronRight className="w-4 h-4 ml-1" />
