@@ -102,7 +102,7 @@ export default function TodaysOverview({ meditations = [], workoutPlans = [], ch
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 0.25 }}
-        onClick={() => navigate(createPageUrl('Wellness'))}
+        onClick={() => navigate(`${createPageUrl('NutritionGuidance')}?section=water-intake`)}
         className="bg-gradient-to-br from-[#AFC7E3] to-[#D9B878] rounded-xl p-4 mx-4 w-[calc(100%-2rem)] text-left hover:shadow-lg transition-shadow"
       >
         <div className="flex items-start gap-2">

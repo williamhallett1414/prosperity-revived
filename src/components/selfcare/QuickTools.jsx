@@ -101,7 +101,7 @@ export default function QuickTools() {
        label: 'Hydration Tracker',
        gradient: 'from-[#AFC7E3] to-[#AFC7E3]',
        isModal: false,
-       action: () => navigate(`${createPageUrl('Wellness')}?tab=nutrition`),
+       action: () => navigate(`${createPageUrl('NutritionGuidance')}?section=water-intake`),
        content: null
      }
   ];
