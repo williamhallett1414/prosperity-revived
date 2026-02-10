@@ -31,7 +31,8 @@ export default function SelfCare() {
         console.log('Meditation entity not available');
         return [];
       }
-    }
+    },
+    retry: false
   });
 
   const { data: meditationSessions = [] } = useQuery({
@@ -44,7 +45,8 @@ export default function SelfCare() {
         return [];
       }
     },
-    enabled: !!user
+    enabled: !!user,
+    retry: false
   });
 
   const { data: challenges = [] } = useQuery({
@@ -56,7 +58,8 @@ export default function SelfCare() {
         console.log('Challenge entity not available');
         return [];
       }
-    }
+    },
+    retry: false
   });
 
   const { data: challengeParticipants = [] } = useQuery({
@@ -69,7 +72,8 @@ export default function SelfCare() {
         return [];
       }
     },
-    enabled: !!user
+    enabled: !!user,
+    retry: false
   });
 
   return (

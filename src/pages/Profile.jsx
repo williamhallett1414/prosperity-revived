@@ -62,12 +62,14 @@ export default function Profile() {
       const list = await base44.entities.UserProgress.filter({ created_by: user.email });
       return list[0] || null;
     },
-    enabled: !!user
+    enabled: !!user,
+    retry: false
   });
 
   const { data: comments = [] } = useQuery({
     queryKey: ['comments'],
-    queryFn: () => base44.entities.Comment.list()
+    queryFn: () => base44.entities.Comment.list(),
+    retry: false
   });
 
   if (!user) {

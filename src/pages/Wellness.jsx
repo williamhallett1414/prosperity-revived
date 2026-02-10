@@ -107,7 +107,8 @@ export default function Wellness() {
       } catch (error) {
         return [];
       }
-    }
+    },
+    retry: false
   });
 
   const { data: challenges = [] } = useQuery({
@@ -118,7 +119,8 @@ export default function Wellness() {
       } catch (error) {
         return [];
       }
-    }
+    },
+    retry: false
   });
 
   const { data: challengeParticipants = [] } = useQuery({
@@ -130,7 +132,8 @@ export default function Wellness() {
         return [];
       }
     },
-    enabled: !!user
+    enabled: !!user,
+    retry: false
   });
 
   const completeWorkout = useMutation({
