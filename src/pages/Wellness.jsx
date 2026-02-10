@@ -73,6 +73,11 @@ export default function Wellness() {
   const [showCreateWorkout, setShowCreateWorkout] = useState(false);
   const [activeTab, setActiveTab] = useState('hub');
   const [workoutCategory, setWorkoutCategory] = useState(null);
+  const [bibleView, setBibleView] = useState('books');
+  const [selectedBook, setSelectedBook] = useState(null);
+  const [selectedChapter, setSelectedChapter] = useState(null);
+  const [showBibleStatsModal, setShowBibleStatsModal] = useState(false);
+  const [selectedBibleStat, setSelectedBibleStat] = useState(null);
   const queryClient = useQueryClient();
 
   useEffect(() => {
