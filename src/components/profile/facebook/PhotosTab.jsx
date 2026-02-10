@@ -7,8 +7,7 @@ export default function PhotosTab({ user }) {
   const { data: photos = [] } = useQuery({
     queryKey: ['userPhotos'],
     queryFn: async () => {
-      const allPhotos = await base44.entities.Photo.list();
-      return allPhotos.filter(p => p.created_by === user?.email);
+      return await base44.entities.Photo.filter({ created_by: user?.email });
     },
     enabled: !!user
   });
