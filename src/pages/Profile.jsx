@@ -108,56 +108,13 @@ export default function Profile() {
         </div>
 
         {/* Content Area */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 px-4 py-6">
-          {/* Main Content */}
-          <div className="lg:col-span-2 order-2 lg:order-1">
-            {activeTab === 'timeline' && <TimelineTab user={user} posts={posts} comments={comments} />}
-            {activeTab === 'about' && <AboutTab user={user} />}
-            {activeTab === 'friends' && <FriendsTab friends={friends} user={user} />}
-            {activeTab === 'photos' && <PhotosTab user={user} />}
-            {activeTab === 'achievements' && <AchievementsTab userProgress={userProgress} />}
-            {activeTab === 'activity' && <ActivityTab userProgress={userProgress} />}
-          </div>
-
-          {/* Sidebar */}
-          <div className="order-1 lg:order-2 space-y-4">
-            {/* Quick Stats */}
-            <div className="bg-white rounded-xl shadow-sm p-5 border border-gray-100">
-              <h3 className="font-bold text-gray-900 mb-4 text-lg">Stats</h3>
-              <div className="space-y-4">
-                <div className="flex justify-between items-center py-2 border-b border-gray-100 last:border-0">
-                  <span className="text-sm text-gray-600 font-medium">Friends</span>
-                  <span className="font-bold text-blue-600 text-lg">{friends.length}</span>
-                </div>
-                <div className="flex justify-between items-center py-2 border-b border-gray-100 last:border-0">
-                  <span className="text-sm text-gray-600 font-medium">Posts</span>
-                  <span className="font-bold text-gray-900 text-lg">{posts.length}</span>
-                </div>
-                <div className="flex justify-between items-center py-2 border-b border-gray-100 last:border-0">
-                  <span className="text-sm text-gray-600 font-medium">Level</span>
-                  <span className="font-bold text-blue-600 text-lg">{userProgress?.level || 1}</span>
-                </div>
-                <div className="flex justify-between items-center py-2">
-                  <span className="text-sm text-gray-600 font-medium">Points</span>
-                  <span className="font-bold text-amber-600 text-lg">{userProgress?.total_points || 0}</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Badges Preview */}
-            {userProgress?.badges?.length > 0 && (
-              <div className="bg-white rounded-xl shadow-sm p-5 border border-gray-100">
-                <h3 className="font-bold text-gray-900 mb-4 text-lg">Badges</h3>
-                <div className="grid grid-cols-3 gap-3">
-                  {userProgress.badges.slice(0, 6).map((badge, idx) => (
-                    <div key={idx} className="aspect-square bg-gradient-to-br from-yellow-300 to-yellow-500 rounded-xl flex items-center justify-center text-2xl shadow-md hover:scale-105 transition-transform cursor-pointer">
-                      🏅
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
+        <div className="px-4 py-6">
+          {activeTab === 'timeline' && <TimelineTab user={user} posts={posts} comments={comments} />}
+          {activeTab === 'about' && <AboutTab user={user} />}
+          {activeTab === 'friends' && <FriendsTab friends={friends} user={user} />}
+          {activeTab === 'photos' && <PhotosTab user={user} />}
+          {activeTab === 'achievements' && <AchievementsTab userProgress={userProgress} />}
+          {activeTab === 'activity' && <ActivityTab userProgress={userProgress} />}
         </div>
       </div>
     </div>

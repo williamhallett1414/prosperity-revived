@@ -259,42 +259,7 @@ export default function UserProfile() {
         </div>
       </div>
 
-      {/* Stats Cards */}
-      <div className="px-4 mt-6 mb-6">
-        <div className="grid grid-cols-3 gap-3">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="bg-gradient-to-br from-amber-500 to-orange-500 rounded-2xl p-4 shadow-lg text-white"
-          >
-            <div className="text-3xl mb-1">⭐</div>
-            <p className="text-2xl font-bold">Level {userProgressData?.level || 1}</p>
-            <p className="text-xs opacity-80">{userProgressData?.total_points || 0} pts</p>
-          </motion.div>
-          
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 shadow-lg"
-          >
-            <div className="text-2xl mb-1">🏆</div>
-            <p className="text-2xl font-bold text-[#1a1a2e] dark:text-white">{userProgressData?.badges?.length || 0}</p>
-            <p className="text-xs text-gray-500 dark:text-gray-400">Badges</p>
-          </motion.div>
-          
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 shadow-lg"
-          >
-            <TrendingUp className="w-6 h-6 text-[#8fa68a] mb-2" />
-            <p className="text-2xl font-bold text-[#1a1a2e] dark:text-white">{longestStreak}</p>
-            <p className="text-xs text-gray-500 dark:text-gray-400">Day Streak</p>
-          </motion.div>
-        </div>
-      </div>
+
 
       {/* Spiritual Goal */}
       {profileUser.spiritual_goal && (
@@ -338,35 +303,7 @@ export default function UserProfile() {
         </div>
       )}
 
-      {/* Achievements Preview */}
-      {userProgressData && userProgressData.badges && userProgressData.badges.length > 0 && (
-        <div className="px-4 mb-6">
-          <div className="bg-gradient-to-br from-purple-500 to-indigo-600 rounded-2xl p-4 shadow-lg text-white">
-            <h3 className="font-semibold mb-3 flex items-center gap-2">
-              <span className="text-xl">🏆</span>
-              Recent Achievements
-            </h3>
-            <div className="flex gap-2 overflow-x-auto pb-2">
-              {userProgressData.badges.slice(-4).map(badgeId => (
-                <div key={badgeId} className="flex-shrink-0 w-16 h-16 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center text-3xl">
-                  {badgeId === 'first_plan' && '📖'}
-                  {badgeId === 'social_butterfly' && '🦋'}
-                  {badgeId === 'streak_7' && '🔥'}
-                  {badgeId === 'streak_30' && '⭐'}
-                  {badgeId === 'fitness_fan' && '💪'}
-                  {badgeId === 'meditation_master' && '🧘'}
-                  {badgeId === 'friend_maker' && '👥'}
-                  {badgeId === 'commentator' && '💬'}
-                  {badgeId === 'messenger' && '✉️'}
-                  {badgeId === 'photographer' && '📸'}
-                  {badgeId === 'level_5' && '🌟'}
-                  {badgeId === 'level_10' && '👑'}
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
+
 
       {/* Mutual Friends */}
       {!isOwnProfile && mutualFriends.length > 0 && (
