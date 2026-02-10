@@ -49,13 +49,13 @@ export default function WellnessMetricsOverview({
       link: `${createPageUrl('Wellness')}?tab=nutrition`
     },
     { 
-      icon: PenLine, 
-      label: 'Journaling', 
-      value: totalJournalEntries, 
-      subtext: 'total entries',
-      color: 'from-[#D9B878] to-[#D9B878]/50',
-      link: `${createPageUrl('Wellness')}?tab=selfcare`
-    },
+       icon: PenLine, 
+       label: 'Journaling', 
+       value: totalJournalEntries, 
+       subtext: 'total entries',
+       color: 'from-[#D9B878] to-[#D9B878]/50',
+       link: createPageUrl('MyJournalEntries')
+     },
     { 
       icon: Heart, 
       label: 'Prayers', 
