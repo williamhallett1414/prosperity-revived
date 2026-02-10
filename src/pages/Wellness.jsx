@@ -174,17 +174,31 @@ export default function Wellness() {
 
   return (
     <div className="min-h-screen bg-[#F2F6FA] pb-24">
-      {/* Back Button */}
-      <div className="px-4 pt-4 mb-4">
-        <Link
-          to={createPageUrl('Home')}
-          className="w-10 h-10 rounded-full bg-[#D9B878] hover:bg-[#D9B878]/90 flex items-center justify-center transition-colors"
-        >
-          <ArrowLeft className="w-5 h-5 text-[#0A1A2F]" />
-        </Link>
+      {/* Top Navigation */}
+      <div className="sticky top-0 z-40 bg-white border-b border-gray-200 px-4 py-3">
+        <div className="max-w-2xl mx-auto flex items-center justify-between mb-3">
+          <Link
+            to={createPageUrl('Home')}
+            className="w-10 h-10 rounded-full bg-[#D9B878] hover:bg-[#D9B878]/90 flex items-center justify-center transition-colors"
+          >
+            <ArrowLeft className="w-5 h-5 text-[#0A1A2F]" />
+          </Link>
+          <h1 className="text-lg font-bold text-[#0A1A2F]">Wellness</h1>
+          <div className="w-10" />
+        </div>
+        
+        <Tabs defaultValue="hub" value={activeTab} className="w-full" onValueChange={setActiveTab}>
+          <TabsList className="grid w-full grid-cols-5 p-1 rounded-xl bg-[#E6EBEF]">
+            <TabsTrigger value="hub" className="text-xs data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">Hub</TabsTrigger>
+            <TabsTrigger value="workouts" className="text-xs data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">Workouts</TabsTrigger>
+            <TabsTrigger value="nutrition" className="text-xs data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">Nutrition</TabsTrigger>
+            <TabsTrigger value="meditation" className="text-xs data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">Meditation</TabsTrigger>
+            <TabsTrigger value="selfcare" className="text-xs data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">Self-Care</TabsTrigger>
+          </TabsList>
+        </Tabs>
       </div>
 
-      <div className="px-4 pt-2 pb-6">
+      <div className="px-4 pt-6 pb-6">
         {/* Weekly Theme */}
         <WeeklyThemeBanner />
 
@@ -236,15 +250,7 @@ export default function Wellness() {
           </div>
         )}
 
-        <Tabs defaultValue="hub" value={activeTab} className="w-full" onValueChange={setActiveTab}>
-          <TabsList className="grid w-full grid-cols-5 mb-6 p-1 rounded-xl bg-[#E6EBEF] max-w-2xl mx-auto">
-            <TabsTrigger value="hub" className="text-xs data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">Hub</TabsTrigger>
-            <TabsTrigger value="workouts" className="text-xs data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">Workouts</TabsTrigger>
-            <TabsTrigger value="nutrition" className="text-xs data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">Nutrition</TabsTrigger>
-            <TabsTrigger value="meditation" className="text-xs data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">Meditation</TabsTrigger>
-            <TabsTrigger value="selfcare" className="text-xs data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">Self-Care</TabsTrigger>
-          </TabsList>
-
+        <Tabs defaultValue="hub" value={activeTab} className="w-full hidden" onValueChange={setActiveTab}>
           {/* Hub Tab */}
           <TabsContent value="hub" className="hidden" />
 
