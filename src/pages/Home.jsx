@@ -39,7 +39,8 @@ export default function Home() {
 
   const { data: bookmarks = [] } = useQuery({
     queryKey: ['bookmarks'],
-    queryFn: () => base44.entities.Bookmark.list()
+    queryFn: () => base44.entities.Bookmark.filter({ created_by: user?.email }),
+    enabled: !!user
   });
 
   const { data: posts = [] } = useQuery({
@@ -74,7 +75,8 @@ export default function Home() {
 
   const { data: planProgress = [] } = useQuery({
     queryKey: ['planProgress'],
-    queryFn: () => base44.entities.ReadingPlanProgress.list()
+    queryFn: () => base44.entities.ReadingPlanProgress.filter({ created_by: user?.email }),
+    enabled: !!user
   });
 
   const { data: userProgress } = useQuery({
