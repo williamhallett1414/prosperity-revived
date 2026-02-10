@@ -1,24 +1,53 @@
 import React, { useMemo } from 'react';
+import { useQueryClient, useMutation } from '@tanstack/react-query';
+import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
-import { Clock, Flame, Users } from 'lucide-react';
+import { Flame, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { toast } from 'sonner';
 
 const mealSuggestions = [
-  { name: 'Grilled Salmon & Broccoli', time: 'Breakfast', cals: 450, protein: 35, image: '🐟' },
-  { name: 'Quinoa Buddha Bowl', time: 'Lunch', cals: 520, protein: 18, image: '🥗' },
-  { name: 'Chicken & Sweet Potato', time: 'Dinner', cals: 580, protein: 45, image: '🍗' },
-  { name: 'Greek Yogurt & Berries', time: 'Snack', cals: 200, protein: 20, image: '🥛' },
-  { name: 'Lentil Soup', time: 'Lunch', cals: 380, protein: 22, image: '🍲' }
+  { id: 1, name: 'Grilled Salmon & Broccoli', time: 'Breakfast', calories: 450, protein: 35, carbs: 20, fat: 18, image: '🐟' },
+  { id: 2, name: 'Quinoa Buddha Bowl', time: 'Lunch', calories: 520, protein: 18, carbs: 65, fat: 12, image: '🥗' },
+  { id: 3, name: 'Chicken & Sweet Potato', time: 'Dinner', calories: 580, protein: 45, carbs: 55, fat: 15, image: '🍗' },
+  { id: 4, name: 'Greek Yogurt & Berries', time: 'Snack', calories: 200, protein: 20, carbs: 25, fat: 3, image: '🥛' },
+  { id: 5, name: 'Lentil Soup', time: 'Lunch', calories: 380, protein: 22, carbs: 48, fat: 4, image: '🍲' }
 ];
 
 export default function MealSuggestions() {
   const timeOfDay = new Date().getHours();
-  
+  const today = new Date().toISOString().split('T')[0];
+  const queryClient = useQueryClient();
+
   const suggestedMeals = useMemo(() => {
     if (timeOfDay < 12) return mealSuggestions.filter(m => m.time === 'Breakfast');
     if (timeOfDay < 17) return mealSuggestions.filter(m => m.time === 'Lunch');
     return mealSuggestions.filter(m => m.time === 'Dinner');
   }, [timeOfDay]);
+
+  const logMeal = useMutation({
+    mutationFn: (mealData) => base44.entities.MealLog.create(mealData),
+    onSuccess: () => {
+      queryClient.invalidateQueries(['meals']);
+      toast.success('Meal logged successfully!');
+    },
+    onError: () => {
+      toast.error('Failed to log meal');
+    }
+  });
+
+  const handleLogMeal = (meal) => {
+    logMeal.mutate({
+      mealId: meal.id,
+      description: meal.name,
+      calories: meal.calories,
+      protein: meal.protein,
+      carbs: meal.carbs,
+      fats: meal.fat,
+      date: today,
+      meal_type: meal.time.toLowerCase()
+    });
+  };
 
   return (
     <motion.div
@@ -30,7 +59,7 @@ export default function MealSuggestions() {
       <div className="space-y-2">
         {suggestedMeals.map((meal, idx) => (
           <motion.div
-            key={meal.name}
+            key={meal.id}
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: idx * 0.05 }}
@@ -41,7 +70,7 @@ export default function MealSuggestions() {
               <h3 className="font-semibold text-[#0A1A2F] truncate">{meal.name}</h3>
               <div className="flex gap-3 mt-1 text-xs text-[#0A1A2F]/60">
                 <span className="flex items-center gap-1">
-                  <Flame className="w-3 h-3" /> {meal.cals} cal
+                  <Flame className="w-3 h-3" /> {meal.calories} cal
                 </span>
                 <span className="flex items-center gap-1">
                   <Users className="w-3 h-3" /> {meal.protein}g protein
@@ -50,9 +79,11 @@ export default function MealSuggestions() {
             </div>
             <Button
               size="sm"
+              onClick={() => handleLogMeal(meal)}
+              disabled={logMeal.isPending}
               className="bg-gradient-to-r from-[#D9B878] to-[#AFC7E3] hover:from-[#D9B878]/90 hover:to-[#AFC7E3]/90 text-[#0A1A2F] h-8"
             >
-              Log
+              {logMeal.isPending ? 'Logging...' : 'Log'}
             </Button>
           </motion.div>
         ))}
