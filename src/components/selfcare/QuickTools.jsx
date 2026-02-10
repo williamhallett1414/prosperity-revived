@@ -1,0 +1,164 @@
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { Wind, Heart, BookOpen, PenLine, Smile, Droplets } from 'lucide-react';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
+
+export default function QuickTools() {
+  const [activeModal, setActiveModal] = useState(null);
+
+  const tools = [
+    {
+      id: 'breathing',
+      icon: Wind,
+      label: '60-Second Breathing',
+      gradient: 'from-cyan-500 to-blue-500',
+      content: (
+        <div className="text-center space-y-4">
+          <div className="text-6xl mb-4">🌬️</div>
+          <p className="text-gray-700">Inhale deeply for 4 seconds...</p>
+          <p className="text-gray-700">Hold for 4 seconds...</p>
+          <p className="text-gray-700">Exhale slowly for 4 seconds...</p>
+          <p className="text-gray-500 text-sm mt-4">Repeat 4 times</p>
+        </div>
+      )
+    },
+    {
+      id: 'prayer',
+      icon: Heart,
+      label: '2-Minute Prayer',
+      gradient: 'from-pink-500 to-rose-500',
+      content: (
+        <div className="text-center space-y-4">
+          <div className="text-6xl mb-4">🙏</div>
+          <p className="text-gray-700 font-serif italic">
+            "Lord, thank You for this moment. Ground me in Your presence.
+            Fill me with Your peace that surpasses understanding.
+            Guide my thoughts, my words, and my actions today. Amen."
+          </p>
+        </div>
+      )
+    },
+    {
+      id: 'scripture',
+      icon: BookOpen,
+      label: 'Scripture of the Day',
+      gradient: 'from-amber-500 to-orange-500',
+      content: (
+        <div className="text-center space-y-4">
+          <div className="text-6xl mb-4">📖</div>
+          <p className="text-gray-700 font-serif italic text-lg">
+            "The Lord is my strength and my shield; my heart trusts in him."
+          </p>
+          <p className="text-gray-500 text-sm">Psalm 28:7</p>
+        </div>
+      )
+    },
+    {
+      id: 'gratitude',
+      icon: PenLine,
+      label: 'Gratitude Journal',
+      gradient: 'from-purple-500 to-indigo-500',
+      content: (
+        <div className="space-y-4">
+          <div className="text-6xl text-center mb-4">✨</div>
+          <p className="text-gray-700 text-center">What are 3 things you're grateful for today?</p>
+          <textarea 
+            className="w-full h-32 p-3 border rounded-lg resize-none"
+            placeholder="1. &#10;2. &#10;3. "
+          />
+          <Button className="w-full bg-gradient-to-r from-purple-500 to-indigo-500">
+            Save Entry
+          </Button>
+        </div>
+      )
+    },
+    {
+      id: 'mood',
+      icon: Smile,
+      label: 'Mood Check-In',
+      gradient: 'from-green-500 to-teal-500',
+      content: (
+        <div className="text-center space-y-4">
+          <p className="text-gray-700 font-semibold">How are you feeling right now?</p>
+          <div className="flex justify-center gap-4 text-4xl">
+            <button className="hover:scale-125 transition">😔</button>
+            <button className="hover:scale-125 transition">😐</button>
+            <button className="hover:scale-125 transition">🙂</button>
+            <button className="hover:scale-125 transition">😄</button>
+          </div>
+        </div>
+      )
+    },
+    {
+      id: 'hydration',
+      icon: Droplets,
+      label: 'Hydration Tracker',
+      gradient: 'from-blue-400 to-cyan-400',
+      content: (
+        <div className="text-center space-y-4">
+          <div className="text-6xl mb-4">💧</div>
+          <p className="text-gray-700 font-semibold">Daily Water Intake</p>
+          <div className="flex justify-center gap-2 flex-wrap">
+            {[1,2,3,4,5,6,7,8].map(n => (
+              <div key={n} className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-sm">
+                {n}
+              </div>
+            ))}
+          </div>
+          <p className="text-gray-500 text-sm">6/8 glasses today</p>
+        </div>
+      )
+    }
+  ];
+
+  return (
+    <>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3 }}
+        className="mb-8"
+      >
+        <h2 className="text-xl font-bold text-white mb-4">Quick Tools</h2>
+        <div className="grid grid-cols-2 gap-3">
+          {tools.map((tool, index) => {
+            const Icon = tool.icon;
+            return (
+              <motion.button
+                key={tool.id}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.3 + index * 0.05 }}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => setActiveModal(tool.id)}
+                className={`bg-gradient-to-br ${tool.gradient} rounded-2xl p-4 text-white shadow-lg`}
+              >
+                <Icon className="w-8 h-8 mx-auto mb-2" />
+                <p className="text-sm font-semibold">{tool.label}</p>
+              </motion.button>
+            );
+          })}
+        </div>
+      </motion.div>
+
+      {/* Modals */}
+      {tools.map(tool => (
+        <Dialog key={tool.id} open={activeModal === tool.id} onOpenChange={() => setActiveModal(null)}>
+          <DialogContent className="max-w-md">
+            <DialogHeader>
+              <DialogTitle>{tool.label}</DialogTitle>
+            </DialogHeader>
+            {tool.content}
+          </DialogContent>
+        </Dialog>
+      ))}
+    </>
+  );
+}
