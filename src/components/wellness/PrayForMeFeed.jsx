@@ -252,7 +252,7 @@ export default function PrayForMeFeed({ user }) {
               key={post.id}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="bg-white/10 backdrop-blur rounded-xl p-4 space-y-3"
+              className="bg-black rounded-xl p-4 space-y-3"
             >
               {/* Post Header */}
               <div>
