@@ -244,7 +244,7 @@ export default function PrayForMeFeed({ user }) {
       <div className="space-y-4">
         {posts.length === 0 ? (
           <div className="text-center py-12">
-            <p className="text-white/60">No prayer requests yet. Be the first to share!</p>
+            <p className="text-gray-400">No prayer requests yet. Be the first to share!</p>
           </div>
         ) : (
           posts.map((post) => (
