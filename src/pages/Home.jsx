@@ -21,7 +21,7 @@ import StartMyDayModal from '@/components/home/StartMyDayModal';
 import EndMyDayModal from '@/components/home/EndMyDayModal';
 import TodaysOverview from '@/components/home/TodaysOverview';
 
-import WellnessMetricsOverview from '@/components/wellness/WellnessMetricsOverview';
+
 import { Trophy } from 'lucide-react';
 
 export default function Home() {
@@ -372,18 +372,7 @@ export default function Home() {
           <GamificationBanner userProgress={userProgress} />
         )}
 
-        {/* Your Progress & Metrics */}
-        <WellnessMetricsOverview
-          meditationSessions={meditationSessions}
-          workoutSessions={workoutSessions}
-          mealLogs={[]}
-          waterLogs={[]}
-          journalEntries={journalEntries}
-          prayerJournals={[]}
-          userProgress={userProgress}
-          challengeParticipants={challenges}
-          planProgress={planProgress}
-        />
+
 
         {/* Active Plans */}
         {activePlans.length > 0 && (
