@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
-import { Dumbbell, UtensilsCrossed, Heart, Plus, TrendingUp, Droplets, ArrowLeft, Sparkles, BookOpen, Brain } from 'lucide-react';
+import { Dumbbell, UtensilsCrossed, Heart, Plus, TrendingUp, Droplets, ArrowLeft, Sparkles, BookOpen, Brain, Search } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
+import { toast } from 'sonner';
 import WorkoutCard from '@/components/wellness/WorkoutCard';
 import CreateWorkoutModal from '@/components/wellness/CreateWorkoutModal';
 import NutritionAdvice from '@/components/wellness/NutritionAdvice';
@@ -53,6 +54,8 @@ import PrayForMeFeed from '@/components/wellness/PrayForMeFeed';
 import AIWellnessRecommendations from '@/components/wellness/AIWellnessRecommendations';
 import WellnessMetricsOverview from '@/components/wellness/WellnessMetricsOverview';
 import WellnessCommunityFeed from '@/components/wellness/WellnessCommunityFeed';
+import PersonalizedWorkouts from '@/components/recommendations/PersonalizedWorkouts';
+import { Input } from '@/components/ui/input';
 
 
 export default function Wellness() {
@@ -243,14 +246,50 @@ export default function Wellness() {
   });
 
   const myWorkouts = workouts.filter(w => w.created_by === user?.email);
-  const allWorkouts = [...PREMADE_WORKOUTS, ...myWorkouts];
+   const allWorkouts = [...PREMADE_WORKOUTS, ...myWorkouts];
 
-  const totalWorkoutsCompleted = myWorkouts.reduce((sum, w) => sum + (w.completed_dates?.length || 0), 0);
-  const thisWeekWorkouts = myWorkouts.filter(w => {
-    const today = new Date();
-    const weekAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
-    return (w.completed_dates || []).some(d => new Date(d) >= weekAgo);
-  }).length;
+   const totalWorkoutsCompleted = myWorkouts.reduce((sum, w) => sum + (w.completed_dates?.length || 0), 0);
+   const thisWeekWorkouts = myWorkouts.filter(w => {
+     const today = new Date();
+     const weekAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
+     return (w.completed_dates || []).some(d => new Date(d) >= weekAgo);
+   }).length;
+
+   const { data: sharedWorkouts = [] } = useQuery({
+     queryKey: ['sharedWorkouts'],
+     queryFn: async () => {
+       const all = await base44.entities.WorkoutPlan.list('-created_date', 50);
+       return all.filter(w => w.is_shared && w.created_by !== user?.email);
+     },
+     enabled: !!user
+   });
+
+   const copyWorkout = useMutation({
+     mutationFn: async (workout) => {
+       const workoutCopy = {
+         title: `${workout.title} (Copy)`,
+         description: workout.description,
+         difficulty: workout.difficulty,
+         duration_minutes: workout.duration_minutes,
+         exercises: workout.exercises,
+         category: workout.category,
+         completed_dates: []
+       };
+
+       await base44.entities.WorkoutPlan.create(workoutCopy);
+
+       if (workout.id) {
+         await base44.entities.WorkoutPlan.update(workout.id, {
+           times_copied: (workout.times_copied || 0) + 1
+         });
+       }
+     },
+     onSuccess: () => {
+       queryClient.invalidateQueries(['workouts']);
+       queryClient.invalidateQueries(['sharedWorkouts']);
+       toast.success('Workout added to your library!');
+     }
+   });
 
   return (
     <div className="min-h-screen bg-[#F2F6FA] pb-24">
@@ -316,7 +355,26 @@ export default function Wellness() {
 
           {/* Workouts Tab */}
           <TabsContent value="workouts" className="space-y-4 max-w-2xl mx-auto">
-            <WorkoutCategoryFilter onFilterChange={setWorkoutCategory} />
+            {/* Search & Discovery */}
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+              <Input
+                placeholder="Search workouts..."
+                value={workoutCategory}
+                onChange={(e) => setWorkoutCategory(e.target.value)}
+                className="pl-10"
+              />
+            </div>
+
+            {/* Create Workout Button */}
+            <Button
+              onClick={() => setShowCreateWorkout(true)}
+              className="bg-emerald-600 hover:bg-emerald-700 w-full"
+            >
+              <Plus className="w-5 h-5 mr-2" />
+              Create Custom Workout
+            </Button>
+
             {/* Progress Link */}
             <Link to={createPageUrl('WorkoutProgress')}>
               <div className="bg-gradient-to-br from-[#D9B878] to-[#AFC7E3] rounded-xl p-4 text-[#0A1A2F] flex items-center justify-between shadow-md hover:shadow-lg transition-shadow">
@@ -328,7 +386,7 @@ export default function Wellness() {
               </div>
             </Link>
 
-            {/* 1. My Workout Journey */}
+            {/* My Workout Journey */}
             <div className="mb-4">
               <AIWellnessJourneyGenerator 
                 user={user} 
@@ -348,21 +406,34 @@ export default function Wellness() {
               </div>
             )}
 
-            {/* 2. Discover Workouts */}
-            <Link to={createPageUrl('DiscoverWorkouts')}>
-              <div className="bg-gradient-to-br from-[#AFC7E3] to-[#D9B878] rounded-2xl p-5 text-[#0A1A2F] cursor-pointer hover:shadow-lg transition-shadow">
-                <div className="flex items-center gap-3 mb-2">
-                  <TrendingUp className="w-6 h-6" />
-                  <h3 className="text-lg font-semibold">Discover Workouts</h3>
-                </div>
-                <p className="text-[#0A1A2F]/70 text-sm">Browse and create custom workouts</p>
+            {/* Personalized Recommendations */}
+            <PersonalizedWorkouts 
+              user={user} 
+              userWorkouts={myWorkouts}
+              onComplete={(workout) => completeWorkout.mutate({ id: workout.id, workout })}
+            />
+
+            {/* Pre-Made Workouts */}
+            <div>
+              <h3 className="text-sm font-semibold text-[#0A1A2F] mb-3">Pre-Made Workouts</h3>
+              <div className="space-y-3">
+                {PREMADE_WORKOUTS.slice(0, 5).map((workout, index) => (
+                  <WorkoutCard
+                    key={workout.id}
+                    workout={workout}
+                    onComplete={() => {}}
+                    index={index}
+                    isPremade
+                    user={user}
+                  />
+                ))}
               </div>
-            </Link>
+            </div>
 
             {/* My Workouts */}
             {myWorkouts.length > 0 && (
               <div className="mb-6">
-                <h3 className="text-sm font-semibold text-[#0A1A2F] mb-3 text-center">Your Workouts</h3>
+                <h3 className="text-sm font-semibold text-[#0A1A2F] mb-3">Your Workouts</h3>
                 <div className="space-y-3">
                   {myWorkouts.map((workout, index) => (
                     <WorkoutCard

@@ -56,7 +56,6 @@ import Community from './pages/Community';
 import Discover from './pages/Discover';
 import DiscoverMeditations from './pages/DiscoverMeditations';
 import DiscoverRecipes from './pages/DiscoverRecipes';
-import DiscoverWorkouts from './pages/DiscoverWorkouts';
 import Friends from './pages/Friends';
 import GroupDetail from './pages/GroupDetail';
 import Groups from './pages/Groups';
@@ -91,7 +90,6 @@ export const PAGES = {
     "Discover": Discover,
     "DiscoverMeditations": DiscoverMeditations,
     "DiscoverRecipes": DiscoverRecipes,
-    "DiscoverWorkouts": DiscoverWorkouts,
     "Friends": Friends,
     "GroupDetail": GroupDetail,
     "Groups": Groups,
