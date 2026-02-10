@@ -5,6 +5,8 @@ import { motion } from 'framer-motion';
 import { UtensilsCrossed, Plus, BarChart3, Droplets, Minus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
+import { Link } from 'react-router-dom';
+import { createPageUrl } from '@/utils';
 import DetailedFoodLogModal from './DetailedFoodLogModal';
 import NutritionBreakdown from './NutritionBreakdown';
 
@@ -67,13 +69,14 @@ export default function MealTracker() {
       <div className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4">
         <div className="flex items-center justify-between mb-4">
           <h3 className="font-semibold text-[#1a1a2e] dark:text-white">Today's Nutrition</h3>
-          <Button
-            onClick={() => setShowBreakdown(!showBreakdown)}
-            variant="ghost"
-            size="sm"
-          >
-            <BarChart3 className="w-4 h-4" />
-          </Button>
+          <Link to={createPageUrl('FoodLogHistory')}>
+            <Button
+              variant="ghost"
+              size="sm"
+            >
+              <BarChart3 className="w-4 h-4" />
+            </Button>
+          </Link>
         </div>
 
         <div className="grid grid-cols-4 gap-2 mb-4">
