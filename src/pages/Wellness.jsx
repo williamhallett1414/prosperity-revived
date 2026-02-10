@@ -250,9 +250,9 @@ export default function Wellness() {
           </div>
         )}
 
-        <Tabs defaultValue="hub" value={activeTab} className="w-full hidden" onValueChange={setActiveTab}>
+        <Tabs defaultValue="hub" value={activeTab} className="w-full" onValueChange={setActiveTab}>
           {/* Hub Tab */}
-          <TabsContent value="hub" className="hidden" />
+          <TabsContent value="hub" className="block" />
 
           {/* Workouts Tab */}
           <TabsContent value="workouts" className="space-y-4 max-w-2xl mx-auto">
