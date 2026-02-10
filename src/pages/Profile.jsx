@@ -13,6 +13,7 @@ import AboutTab from '@/components/profile/facebook/AboutTab.jsx';
 import FriendsTab from '@/components/profile/facebook/FriendsTab.jsx';
 import PhotosTab from '@/components/profile/facebook/PhotosTab.jsx';
 import AchievementsTab from '@/components/profile/facebook/AchievementsTab.jsx';
+import ActivityTab from '@/components/profile/facebook/ActivityTab.jsx';
 
 export default function Profile() {
   const [user, setUser] = useState(null);
@@ -115,6 +116,7 @@ export default function Profile() {
             {activeTab === 'friends' && <FriendsTab friends={friends} user={user} />}
             {activeTab === 'photos' && <PhotosTab user={user} />}
             {activeTab === 'achievements' && <AchievementsTab userProgress={userProgress} />}
+            {activeTab === 'activity' && <ActivityTab userProgress={userProgress} />}
           </div>
 
           {/* Sidebar */}

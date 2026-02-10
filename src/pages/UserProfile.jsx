@@ -35,8 +35,7 @@ export default function UserProfile() {
   const { data: progress = [] } = useQuery({
     queryKey: ['userProgress', profileEmail],
     queryFn: async () => {
-      const all = await base44.entities.ReadingPlanProgress.list();
-      return all.filter(p => p.created_by === profileEmail);
+      return await base44.entities.ReadingPlanProgress.filter({ created_by: profileEmail });
     },
     enabled: !!profileEmail
   });
@@ -44,8 +43,7 @@ export default function UserProfile() {
   const { data: bookmarks = [] } = useQuery({
     queryKey: ['userBookmarks', profileEmail],
     queryFn: async () => {
-      const all = await base44.entities.Bookmark.list();
-      return all.filter(b => b.created_by === profileEmail);
+      return await base44.entities.Bookmark.filter({ created_by: profileEmail });
     },
     enabled: !!profileEmail
   });
@@ -53,8 +51,7 @@ export default function UserProfile() {
   const { data: posts = [] } = useQuery({
     queryKey: ['userPosts', profileEmail],
     queryFn: async () => {
-      const allPosts = await base44.entities.Post.list('-created_date', 50);
-      return allPosts.filter(p => p.created_by === profileEmail);
+      return await base44.entities.Post.filter({ created_by: profileEmail }, '-created_date', 50);
     },
     enabled: !!profileEmail
   });
@@ -62,17 +59,18 @@ export default function UserProfile() {
   const { data: photos = [] } = useQuery({
     queryKey: ['userPhotos', profileEmail],
     queryFn: async () => {
-      const all = await base44.entities.Photo.list('-created_date', 50);
-      return all.filter(p => p.created_by === profileEmail && p.is_profile_visible);
+      return await base44.entities.Photo.filter({ 
+        created_by: profileEmail, 
+        is_profile_visible: true 
+      }, '-created_date', 50);
     },
     enabled: !!profileEmail
   });
 
   const { data: userProgressList = [] } = useQuery({
-    queryKey: ['userProgress', profileEmail],
+    queryKey: ['userProgressData', profileEmail],
     queryFn: async () => {
-      const all = await base44.entities.UserProgress.list();
-      return all.filter(p => p.created_by === profileEmail);
+      return await base44.entities.UserProgress.filter({ created_by: profileEmail });
     },
     enabled: !!profileEmail
   });
