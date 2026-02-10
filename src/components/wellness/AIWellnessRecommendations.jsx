@@ -87,7 +87,7 @@ Format as JSON with keys: meditation, workout, nutrition, selfcare, scripture, j
     { key: 'nutrition', title: 'Nutrition', icon: 'nutrition', link: `${createPageUrl('Wellness')}?tab=nutrition` },
     { key: 'selfcare', title: 'Self-Care', icon: 'selfcare', link: createPageUrl('SelfCare') },
     { key: 'scripture', title: 'Scripture', icon: 'scripture', link: createPageUrl('Bible') },
-    { key: 'journaling', title: 'Journaling', icon: 'journaling', link: `${createPageUrl('Wellness')}?tab=selfcare` },
+    { key: 'journaling', title: 'Journaling', icon: 'journaling', link: createPageUrl('MyJournalEntries') },
     { key: 'stress', title: 'Stress & Mood', icon: 'stress', link: createPageUrl('SelfCare') }
   ];
 
