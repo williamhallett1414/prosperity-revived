@@ -22,7 +22,6 @@ import EndMyDayModal from '@/components/home/EndMyDayModal';
 import TodaysOverview from '@/components/home/TodaysOverview';
 import QuickActionsRow from '@/components/home/QuickActionsRow';
 import { Trophy } from 'lucide-react';
-import { startMeditationWorker } from '@/functions/startMeditationWorker';
 
 export default function Home() {
   const [showDailyVerseSettings, setShowDailyVerseSettings] = useState(false);
@@ -40,9 +39,6 @@ export default function Home() {
         setShowOnboarding(true);
       }
     });
-    
-    // Start the meditation audio worker
-    startMeditationWorker();
   }, []);
 
   const { data: bookmarks = [] } = useQuery({
