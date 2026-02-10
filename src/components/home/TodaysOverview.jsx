@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { getVerseOfDay } from '@/components/bible/BibleData';
-import { BookOpen, Sparkles, Zap, Droplets } from 'lucide-react';
+import { BookOpen, Sparkles, Zap } from 'lucide-react';
 import StartWorkoutModal from '@/components/wellness/StartWorkoutModal';
 
 const affirmations = [
@@ -97,22 +97,7 @@ export default function TodaysOverview({ meditations = [], workoutPlans = [], ch
         </div>
       </motion.div>
 
-      {/* Hydration Reminder */}
-      <motion.button
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 0.25 }}
-        onClick={() => navigate(`${createPageUrl('Wellness')}?tab=nutrition`)}
-        className="bg-gradient-to-br from-[#AFC7E3] to-[#D9B878] rounded-xl p-4 mx-4 w-[calc(100%-2rem)] text-left hover:shadow-lg transition-shadow"
-      >
-        <div className="flex items-start gap-2">
-          <Droplets className="w-4 h-4 text-[#0A1A2F] flex-shrink-0 mt-1" />
-          <div>
-            <p className="text-xs font-semibold text-[#0A1A2F]/70">Hydration Goal</p>
-            <p className="text-sm text-[#0A1A2F] font-medium">8 glasses of water today</p>
-          </div>
-        </div>
-      </motion.button>
+
 
       <StartWorkoutModal
         isOpen={showWorkoutModal}
