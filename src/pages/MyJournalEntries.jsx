@@ -140,17 +140,27 @@ export default function MyJournalEntries() {
     <div className="min-h-screen bg-[#F2F6FA] pb-24">
       {/* Header */}
       <div className="sticky top-0 z-40 bg-white border-b border-gray-200 px-4 py-3">
-        <div className="max-w-2xl mx-auto flex items-center gap-3">
-          <Link
-            to={createPageUrl('Wellness')}
-            className="w-10 h-10 rounded-full bg-[#D9B878] hover:bg-[#D9B878]/90 flex items-center justify-center transition-colors"
-          >
-            <ArrowLeft className="w-5 h-5 text-[#0A1A2F]" />
-          </Link>
-          <div>
-            <h1 className="text-lg font-bold text-[#0A1A2F]">My Journal Entries</h1>
-            <p className="text-xs text-[#0A1A2F]/60">{entries.length} entries saved</p>
+        <div className="max-w-2xl mx-auto flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <Link
+              to={createPageUrl('Wellness')}
+              className="w-10 h-10 rounded-full bg-[#D9B878] hover:bg-[#D9B878]/90 flex items-center justify-center transition-colors"
+            >
+              <ArrowLeft className="w-5 h-5 text-[#0A1A2F]" />
+            </Link>
+            <div>
+              <h1 className="text-lg font-bold text-[#0A1A2F]">My Journal Entries</h1>
+              <p className="text-xs text-[#0A1A2F]/60">{entries.length} entries saved</p>
+            </div>
           </div>
+          <Button
+            onClick={() => setShowNewEntryModal(true)}
+            className="bg-gradient-to-r from-[#D9B878] to-[#AFC7E3] hover:from-[#D9B878]/90 hover:to-[#AFC7E3]/90 text-[#0A1A2F]"
+            size="sm"
+          >
+            <Plus className="w-4 h-4 mr-2" />
+            New
+          </Button>
         </div>
       </div>
 
