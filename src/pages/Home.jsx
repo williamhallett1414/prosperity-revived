@@ -50,11 +50,13 @@ export default function Home() {
     queryFn: async () => {
       try {
         return await base44.entities.Bookmark.filter({ created_by: user?.email });
-      } catch {
+      } catch (error) {
+        console.log('Bookmarks query error:', error);
         return [];
       }
     },
-    enabled: !!user
+    enabled: !!user,
+    retry: false
   });
 
   const { data: posts = [] } = useQuery({
@@ -63,10 +65,12 @@ export default function Home() {
       try {
         const allPosts = await base44.entities.Post.filter({ group_id: null }, '-created_date', 100);
         return allPosts.sort((a, b) => (b.likes || 0) - (a.likes || 0)).slice(0, 20);
-      } catch {
+      } catch (error) {
+        console.log('Posts query error:', error);
         return [];
       }
-    }
+    },
+    retry: false
   });
 
   const { data: comments = [] } = useQuery({
@@ -74,10 +78,12 @@ export default function Home() {
     queryFn: async () => {
       try {
         return await base44.entities.Comment.filter({}, '-created_date', 200);
-      } catch {
+      } catch (error) {
+        console.log('Comments query error:', error);
         return [];
       }
-    }
+    },
+    retry: false
   });
 
   const { data: memberships = [] } = useQuery({
@@ -85,11 +91,13 @@ export default function Home() {
     queryFn: async () => {
       try {
         return await base44.entities.GroupMember.filter({ user_email: user?.email });
-      } catch {
+      } catch (error) {
+        console.log('GroupMember query error:', error);
         return [];
       }
     },
-    enabled: !!user
+    enabled: !!user,
+    retry: false
   });
 
   const { data: groups = [] } = useQuery({
@@ -97,10 +105,12 @@ export default function Home() {
     queryFn: async () => {
       try {
         return await base44.entities.StudyGroup.filter({});
-      } catch {
+      } catch (error) {
+        console.log('StudyGroup query error:', error);
         return [];
       }
-    }
+    },
+    retry: false
   });
 
   const { data: planProgress = [] } = useQuery({
@@ -108,11 +118,13 @@ export default function Home() {
     queryFn: async () => {
       try {
         return await base44.entities.ReadingPlanProgress.filter({ created_by: user?.email });
-      } catch {
+      } catch (error) {
+        console.log('PlanProgress query error:', error);
         return [];
       }
     },
-    enabled: !!user
+    enabled: !!user,
+    retry: false
   });
 
   const { data: userProgress } = useQuery({
@@ -121,11 +133,13 @@ export default function Home() {
       try {
         const list = await base44.entities.UserProgress.filter({ created_by: user?.email });
         return list[0] || null;
-      } catch {
+      } catch (error) {
+        console.log('UserProgress query error:', error);
         return null;
       }
     },
-    enabled: !!user
+    enabled: !!user,
+    retry: false
   });
 
   const { data: workoutSessions = [] } = useQuery({
@@ -203,7 +217,8 @@ export default function Home() {
         return [];
       }
     },
-    enabled: !!user
+    enabled: !!user,
+    retry: false
   });
 
   const { data: recipes = [] } = useQuery({
