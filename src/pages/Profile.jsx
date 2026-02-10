@@ -89,12 +89,12 @@ export default function Profile() {
         style={{ pointerEvents: isScrolled ? 'auto' : 'none' }}
       >
         <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between pointer-events-auto">
-          <h1 className="text-xl font-bold text-gray-900">{user.full_name}</h1>
+          <h1 className="text-xl font-bold text-[#0A1A2F]">{user.full_name}</h1>
           <Link
             to={createPageUrl('Settings')}
-            className="p-2 hover:bg-gray-100 rounded-full transition"
+            className="p-2 hover:bg-[#E6EBEF] rounded-full transition"
           >
-            <Settings className="w-5 h-5 text-gray-600" />
+            <Settings className="w-5 h-5 text-[#0A1A2F]" />
           </Link>
         </div>
       </motion.div>
@@ -103,7 +103,7 @@ export default function Profile() {
 
       <div className="max-w-5xl mx-auto">
         {/* Tabs Navigation - Sticky */}
-        <div className={`sticky ${isScrolled ? 'top-28' : 'top-16'} bg-white border-b border-gray-200 shadow-sm z-20 transition-all`}>
+        <div className={`sticky ${isScrolled ? 'top-28' : 'top-16'} bg-white border-b border-[#E6EBEF] shadow-sm z-20 transition-all`}>
           <ProfileTabs activeTab={activeTab} onTabChange={setActiveTab} />
         </div>
 

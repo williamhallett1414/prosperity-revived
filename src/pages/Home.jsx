@@ -17,6 +17,10 @@ import GamificationBanner from '@/components/gamification/GamificationBanner';
 import OnboardingFlow from '@/components/onboarding/OnboardingFlow';
 import DailyStartSection from '@/components/home/DailyStartSection';
 import ContinueJourneyCard from '@/components/home/ContinueJourneyCard';
+import StartMyDayModal from '@/components/home/StartMyDayModal';
+import EndMyDayModal from '@/components/home/EndMyDayModal';
+import TodaysOverview from '@/components/home/TodaysOverview';
+import QuickActionsRow from '@/components/home/QuickActionsRow';
 import { Trophy } from 'lucide-react';
 import { startMeditationWorker } from '@/functions/startMeditationWorker';
 
@@ -25,6 +29,8 @@ export default function Home() {
   const [showCreatePost, setShowCreatePost] = useState(false);
   const [user, setUser] = useState(null);
   const [showOnboarding, setShowOnboarding] = useState(false);
+  const [showStartDay, setShowStartDay] = useState(false);
+  const [showEndDay, setShowEndDay] = useState(false);
   const queryClient = useQueryClient();
 
   useEffect(() => {
@@ -313,13 +319,45 @@ export default function Home() {
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-6"
+          className="mb-8"
         >
           <h1 className="text-3xl font-bold text-[#0A1A2F] mb-1">
             {new Date().getHours() < 12 ? 'Good Morning' : new Date().getHours() < 18 ? 'Good Afternoon' : 'Good Evening'}
           </h1>
           <p className="text-[#0A1A2F]/60">Welcome back, {user?.full_name?.split(' ')[0] || 'friend'}</p>
         </motion.div>
+
+        {/* Start/End Day Buttons */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="grid grid-cols-2 gap-3 mb-8"
+        >
+          <Button
+            onClick={() => setShowStartDay(true)}
+            className="h-20 bg-gradient-to-r from-[#D9B878] to-[#AFC7E3] hover:from-[#D9B878]/90 hover:to-[#AFC7E3]/90 text-[#0A1A2F] rounded-2xl shadow-md font-bold text-base flex flex-col items-center gap-1"
+          >
+            <span className="text-2xl">🌅</span>
+            Start My Day
+          </Button>
+          <Button
+            onClick={() => setShowEndDay(true)}
+            className="h-20 bg-gradient-to-r from-[#0A1A2F] to-[#AFC7E3] hover:from-[#0A1A2F]/90 hover:to-[#AFC7E3]/90 text-white rounded-2xl shadow-md font-bold text-base flex flex-col items-center gap-1"
+          >
+            <span className="text-2xl">🌙</span>
+            End My Day
+          </Button>
+        </motion.div>
+
+        {/* Today's Overview */}
+        <TodaysOverview 
+          meditations={meditations}
+          workoutPlans={workoutPlans}
+          challenges={challenges}
+        />
+
+        {/* Quick Actions Row */}
+        <QuickActionsRow />
 
         {/* Daily Start Section */}
         {meditations && workoutPlans && (
@@ -459,6 +497,17 @@ export default function Home() {
         isOpen={showCreatePost}
         onClose={() => setShowCreatePost(false)}
         onSubmit={(data) => createPost.mutate(data)}
+      />
+      <StartMyDayModal
+        isOpen={showStartDay}
+        onClose={() => setShowStartDay(false)}
+        meditations={meditations}
+        workoutPlans={workoutPlans}
+      />
+      <EndMyDayModal
+        isOpen={showEndDay}
+        onClose={() => setShowEndDay(false)}
+        meditations={meditations}
       />
     </div>
   );
