@@ -121,7 +121,7 @@ export default function PrayForMeFeed({ user }) {
   return (
     <div className="space-y-4 mt-6">
       {/* Header */}
-      <h3 className="text-lg font-semibold text-white">Pray for Me</h3>
+      <h3 className="text-lg font-semibold text-black">Pray for Me</h3>
 
       {/* Facebook-style Post Box */}
       {user && (
