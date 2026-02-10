@@ -256,12 +256,12 @@ export default function PrayForMeFeed({ user }) {
             >
               {/* Post Header */}
               <div>
-                <p className="font-semibold text-white text-sm">{post.user_name}</p>
-                <p className="text-xs text-white/50">{new Date(post.created_date).toLocaleDateString()}</p>
+               <p className="font-semibold text-white text-sm">{post.user_name}</p>
+               <p className="text-xs text-gray-500">{new Date(post.created_date).toLocaleDateString()}</p>
               </div>
 
               {/* Post Content */}
-              <p className="text-white text-sm">{post.content}</p>
+              <p className="text-gray-100 text-sm">{post.content}</p>
 
               {/* Media */}
               {post.image_url && (
