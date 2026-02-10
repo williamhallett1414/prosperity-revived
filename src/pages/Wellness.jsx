@@ -40,6 +40,16 @@ import CoachDavid from '@/components/wellness/CoachDavid';
 import ChefDaniel from '@/components/wellness/ChefDaniel';
 import Hannah from '@/components/wellness/Hannah.jsx';
 
+import DailyRoutineCards from '@/components/selfcare/DailyRoutineCards';
+import QuickTools from '@/components/selfcare/QuickTools';
+import DailyAffirmation from '@/components/selfcare/DailyAffirmation';
+import SelfCareChallenges from '@/components/selfcare/SelfCareChallenges';
+import ProgressSnapshot from '@/components/selfcare/ProgressSnapshot';
+import TakeTimeWithGod from '@/components/selfcare/TakeTimeWithGod';
+import DailyPrayer from '@/components/selfcare/DailyPrayer';
+import MeditationTracker from '@/components/wellness/MeditationTracker';
+import PrayForMeFeed from '@/components/wellness/PrayForMeFeed';
+
 import AIWellnessRecommendations from '@/components/wellness/AIWellnessRecommendations';
 import WellnessMetricsOverview from '@/components/wellness/WellnessMetricsOverview';
 import WellnessCommunityFeed from '@/components/wellness/WellnessCommunityFeed';
