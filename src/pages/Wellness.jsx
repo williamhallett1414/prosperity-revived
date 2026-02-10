@@ -490,28 +490,49 @@ export default function Wellness() {
           </TabsContent>
 
           {/* Nutrition Tab */}
-           <TabsContent value="nutrition" className="space-y-6 max-w-2xl mx-auto">
-             <NutritionDashboard mealLogs={mealLogs} waterLogs={waterLogs} />
-             <MealSuggestions />
+           <TabsContent value="nutrition" className="space-y-8 max-w-2xl mx-auto">
+             {/* Today's Nutrition Section */}
+             <div className="pt-2">
+               <NutritionDashboard mealLogs={mealLogs} waterLogs={waterLogs} />
+             </div>
 
-            {/* Discover Recipes */}
-             <Link to={createPageUrl('DiscoverRecipes')}>
-               <div className="bg-gradient-to-br from-[#D9B878] to-[#AFC7E3] rounded-2xl p-5 text-[#0A1A2F] cursor-pointer hover:shadow-lg transition-shadow">
-                 <div className="flex items-center gap-3 mb-2">
-                   <UtensilsCrossed className="w-6 h-6" />
-                   <h3 className="text-lg font-semibold">Discover Recipes</h3>
+             {/* Suggested Meals Section */}
+             <div className="pt-2">
+               <MealSuggestions />
+             </div>
+
+             {/* Discover Recipes Section */}
+             <div className="pt-2">
+               <Link to={createPageUrl('DiscoverRecipes')}>
+                 <div className="bg-gradient-to-br from-[#D9B878] to-[#AFC7E3] rounded-2xl p-5 text-[#0A1A2F] cursor-pointer hover:shadow-lg transition-shadow">
+                   <div className="flex items-center gap-3 mb-2">
+                     <UtensilsCrossed className="w-6 h-6" />
+                     <h3 className="text-lg font-semibold">Discover Recipes</h3>
+                   </div>
+                   <p className="text-[#0A1A2F]/70 text-sm">Browse and create delicious recipes</p>
                  </div>
-                 <p className="text-[#0A1A2F]/70 text-sm">Browse and create delicious recipes</p>
-               </div>
-             </Link>
+               </Link>
+             </div>
 
-             <TrendingNutritionArticles />
-             <MealTracker />
+             {/* Trending Nutrition Articles Section */}
+             <div className="pt-2">
+               <TrendingNutritionArticles />
+             </div>
 
-             <PersonalizedNutritionPlan />
+             {/* Meal Tracker Section */}
+             <div className="pt-2">
+               <MealTracker />
+             </div>
 
-            {/* Community Feed */}
+             {/* Personalized Nutrition Plan Section */}
+             <div className="pt-2">
+               <PersonalizedNutritionPlan />
+             </div>
+
+             {/* Community Feed Section */}
+             <div className="pt-2">
                <CommunityRecipeFeed user={user} />
+             </div>
             </TabsContent>
 
             {/* Bible Tab */}
