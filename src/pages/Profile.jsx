@@ -42,10 +42,15 @@ export default function Profile() {
   const { data: friends = [] } = useQuery({
     queryKey: ['friends'],
     queryFn: async () => {
-      const all = await base44.entities.Friend.list();
-      return all.filter(f => 
-        (f.user_email === user?.email || f.friend_email === user?.email) && f.status === 'accepted'
-      );
+      const userFriends = await base44.entities.Friend.filter({ 
+        user_email: user?.email, 
+        status: 'accepted' 
+      });
+      const friendOf = await base44.entities.Friend.filter({ 
+        friend_email: user?.email, 
+        status: 'accepted' 
+      });
+      return [...userFriends, ...friendOf];
     },
     enabled: !!user
   });
