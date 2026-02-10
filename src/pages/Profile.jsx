@@ -53,7 +53,10 @@ export default function Profile() {
 
   const { data: userProgress = null } = useQuery({
     queryKey: ['userProgress'],
-    queryFn: () => base44.entities.UserProgress.list().then(list => list[0] || null),
+    queryFn: async () => {
+      const list = await base44.entities.UserProgress.filter({ created_by: user.email });
+      return list[0] || null;
+    },
     enabled: !!user
   });
 
