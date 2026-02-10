@@ -211,7 +211,7 @@ export default function PrayForMeFeed({ user }) {
               </div>
 
               {/* Action Buttons */}
-              <div className="flex gap-2 pt-2 border-t border-white/10">
+              <div className="flex gap-2 pt-2 border-t border-gray-700">
                 <Button
                   variant="outline"
                   onClick={() => {
