@@ -176,6 +176,7 @@ export default function Home() {
         return [];
       }
     },
+    enabled: !!user,
     retry: false
   });
 
@@ -189,6 +190,7 @@ export default function Home() {
         return [];
       }
     },
+    enabled: !!user,
     retry: false
   });
 
@@ -231,6 +233,7 @@ export default function Home() {
         return [];
       }
     },
+    enabled: false,
     retry: false
   });
 
