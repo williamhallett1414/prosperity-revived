@@ -184,30 +184,30 @@ export default function PrayForMeFeed({ user }) {
               {/* Media Buttons */}
               <div className="flex gap-2">
                 <label className="flex-1">
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={(e) => handleMediaSelect(e, 'image')}
-                    className="hidden"
-                  />
-                  <div className="flex items-center justify-center gap-2 p-2 rounded cursor-pointer hover:bg-white/10 transition text-white/60 hover:text-white text-sm">
-                    <ImageIcon className="w-4 h-4" />
-                    <span>Photo</span>
-                  </div>
-                </label>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => handleMediaSelect(e, 'image')}
+                      className="hidden"
+                    />
+                    <div className="flex items-center justify-center gap-2 p-2 rounded cursor-pointer hover:bg-gray-900 transition text-gray-400 hover:text-white text-sm">
+                      <ImageIcon className="w-4 h-4" />
+                      <span>Photo</span>
+                    </div>
+                  </label>
 
-                <label className="flex-1">
-                  <input
-                    type="file"
-                    accept="video/*"
-                    onChange={(e) => handleMediaSelect(e, 'video')}
-                    className="hidden"
-                  />
-                  <div className="flex items-center justify-center gap-2 p-2 rounded cursor-pointer hover:bg-white/10 transition text-white/60 hover:text-white text-sm">
-                    <VideoIcon className="w-4 h-4" />
-                    <span>Video</span>
-                  </div>
-                </label>
+                  <label className="flex-1">
+                    <input
+                      type="file"
+                      accept="video/*"
+                      onChange={(e) => handleMediaSelect(e, 'video')}
+                      className="hidden"
+                    />
+                    <div className="flex items-center justify-center gap-2 p-2 rounded cursor-pointer hover:bg-gray-900 transition text-gray-400 hover:text-white text-sm">
+                      <VideoIcon className="w-4 h-4" />
+                      <span>Video</span>
+                    </div>
+                  </label>
               </div>
 
               {/* Action Buttons */}
