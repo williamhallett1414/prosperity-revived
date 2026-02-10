@@ -511,6 +511,138 @@ export default function Wellness() {
               <CommunityRecipeFeed user={user} />
             </TabsContent>
 
+            {/* Bible Tab */}
+            <TabsContent value="bible" className="space-y-4 max-w-2xl mx-auto">
+              {bibleView === 'books' && (
+                <div className="space-y-6">
+                  <MoodTracker />
+                  
+                  {/* Stats Cards */}
+                  <div className="grid grid-cols-3 gap-3">
+                    <motion.button
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      onClick={() => setSelectedBibleStat('days_read')}
+                      className="bg-[#E6EBEF] rounded-2xl p-4 shadow-lg hover:shadow-xl transition-shadow text-left"
+                    >
+                      <BookOpen className="w-6 h-6 text-[#D9B878] mb-2" />
+                      <p className="text-2xl font-bold text-[#0A1A2F]">{planProgress.reduce((sum, p) => sum + (p.completed_days?.length || 0), 0)}</p>
+                      <p className="text-xs text-[#0A1A2F]/60">Days Read</p>
+                    </motion.button>
+                    
+                    <motion.button
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.1 }}
+                      onClick={() => setSelectedBibleStat('streak')}
+                      className="bg-[#E6EBEF] rounded-2xl p-4 shadow-lg hover:shadow-xl transition-shadow text-left"
+                    >
+                      <TrendingUp className="w-6 h-6 text-[#AFC7E3] mb-2" />
+                      <p className="text-2xl font-bold text-[#0A1A2F]">{Math.max(...planProgress.map(p => p.longest_streak || 0), 0)}</p>
+                      <p className="text-xs text-[#0A1A2F]/60">Longest Streak</p>
+                    </motion.button>
+                    
+                    <motion.button
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.2 }}
+                      onClick={() => setSelectedBibleStat('bookmarks')}
+                      className="bg-[#E6EBEF] rounded-2xl p-4 shadow-lg hover:shadow-xl transition-shadow text-left"
+                    >
+                      <CheckCircle className="w-6 h-6 text-[#D9B878] mb-2" />
+                      <p className="text-2xl font-bold text-[#0A1A2F]">{bookmarks.length}</p>
+                      <p className="text-xs text-[#0A1A2F]/60">Saved Verses</p>
+                    </motion.button>
+                  </div>
+
+                  <BookSelector
+                    onSelectBook={(book) => {
+                      setSelectedBook(book);
+                      setBibleView('chapters');
+                    }}
+                    selectedBook={selectedBook}
+                  />
+                    
+                  {/* Reading Plans */}
+                  {readingPlans.filter(plan => !planProgress.find(p => p.plan_id === plan.id)).length > 0 && (
+                    <div className="mt-6">
+                      <div className="flex items-center justify-between mb-4">
+                        <h2 className="text-lg font-semibold text-[#0A1A2F]">Reading Plans</h2>
+                        <Link to={createPageUrl('Plans')} className="text-sm text-[#D9B878] font-medium hover:underline">
+                          View All
+                        </Link>
+                      </div>
+                      <div className="grid grid-cols-1 gap-3">
+                        {readingPlans.filter(plan => !planProgress.find(p => p.plan_id === plan.id)).slice(0, 3).map((plan, index) => (
+                          <ReadingPlanCard
+                            key={plan.id}
+                            plan={plan}
+                            progress={null}
+                            onClick={() => window.location.href = createPageUrl(`PlanDetail?id=${plan.id}`)}
+                            index={index}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {bibleView === 'chapters' && selectedBook && (
+                <ChapterSelector
+                  book={selectedBook}
+                  onSelectChapter={(chapter) => {
+                    setSelectedChapter(chapter);
+                    setBibleView('reader');
+                  }}
+                  onBack={() => {
+                    setBibleView('books');
+                    setSelectedBook(null);
+                  }}
+                  selectedChapter={selectedChapter}
+                />
+              )}
+
+              {bibleView === 'reader' && selectedBook && selectedChapter && (
+                <VerseReader
+                  book={selectedBook}
+                  chapter={selectedChapter}
+                  onBack={() => {
+                    setBibleView('chapters');
+                    setSelectedChapter(null);
+                  }}
+                  onNavigate={(chapter) => setSelectedChapter(chapter)}
+                  bookmarks={bookmarks}
+                  onBookmark={(verse, color, note) => {
+                    const existing = bookmarks.find(b => 
+                      b.book === verse.book && 
+                      b.chapter === verse.chapter && 
+                      b.verse === verse.verse
+                    );
+                    if (existing) {
+                      deleteBookmark.mutate(existing.id);
+                    }
+                    createBookmark.mutate({
+                      book: verse.book,
+                      chapter: verse.chapter,
+                      verse: verse.verse,
+                      verse_text: verse.text,
+                      highlight_color: color,
+                      note: note
+                    });
+                  }}
+                />
+              )}
+
+              <BibleStatsModal
+                isOpen={showBibleStatsModal}
+                onClose={() => setShowBibleStatsModal(false)}
+                statType={selectedBibleStat}
+                progress={planProgress}
+                bookmarks={bookmarks}
+              />
+            </TabsContent>
+
             {/* Mind & Spirit Tab */}
             <TabsContent value="mind" className="space-y-4 max-w-2xl mx-auto">
               {/* Discover All Meditations */}
