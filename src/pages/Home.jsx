@@ -361,6 +361,15 @@ export default function Home() {
           user={user}
         />
 
+        {/* Today's Recommendations */}
+        <TodaysRecommendations 
+          user={user}
+          mealLogs={mealLogs}
+          workoutSessions={workoutSessions}
+          waterLogs={waterLogs}
+          meditationSessions={meditationSessions}
+        />
+
         {/* Wellness Hub */}
         <WellnessHub />
 
