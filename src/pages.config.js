@@ -77,6 +77,8 @@ import WorkoutProgress from './pages/WorkoutProgress';
 import WorkoutTrends from './pages/WorkoutTrends';
 import FoodLogHistory from './pages/FoodLogHistory';
 import MealDetailView from './pages/MealDetailView';
+import NutritionGuidance from './pages/NutritionGuidance';
+import NutritionArticle from './pages/NutritionArticle';
 import __Layout from './Layout.jsx';
 
 
@@ -111,6 +113,8 @@ export const PAGES = {
     "WorkoutTrends": WorkoutTrends,
     "FoodLogHistory": FoodLogHistory,
     "MealDetailView": MealDetailView,
+    "NutritionGuidance": NutritionGuidance,
+    "NutritionArticle": NutritionArticle,
 }
 
 export const pagesConfig = {
