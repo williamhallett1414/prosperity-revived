@@ -13,6 +13,7 @@ import CreateWorkoutModal from '@/components/wellness/CreateWorkoutModal';
 import NutritionAdvice from '@/components/wellness/NutritionAdvice';
 import MealTracker from '@/components/wellness/MealTracker';
 import MealSuggestions from '@/components/nutrition/MealSuggestions';
+import TrendingNutritionArticles from '@/components/nutrition/TrendingNutritionArticles';
 import MeditationGuide from '@/components/wellness/MeditationGuide';
 import RecipeCollections from '@/components/wellness/RecipeCollections';
 import CommunityRecipes from '@/components/wellness/CommunityRecipes';
@@ -489,10 +490,11 @@ export default function Wellness() {
           </TabsContent>
 
           {/* Nutrition Tab */}
-          <TabsContent value="nutrition" className="space-y-6 max-w-2xl mx-auto">
-            <NutritionDashboard mealLogs={mealLogs} waterLogs={waterLogs} />
-            <MealSuggestions />
-            <MealTracker />
+           <TabsContent value="nutrition" className="space-y-6 max-w-2xl mx-auto">
+             <NutritionDashboard mealLogs={mealLogs} waterLogs={waterLogs} />
+             <MealSuggestions />
+             <TrendingNutritionArticles />
+             <MealTracker />
             
             <PersonalizedNutritionPlan />
             <NutritionAdvice />
