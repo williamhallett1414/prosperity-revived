@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
+import { createPageUrl } from '@/utils';
 import { getVerseOfDay } from '@/components/bible/BibleData';
-import { Play, ChevronRight, X } from 'lucide-react';
+import { Play, ChevronRight } from 'lucide-react';
 
 const affirmations = [
   "I am worthy of God's love and grace",
@@ -97,8 +98,9 @@ export default function StartMyDayModal({ isOpen, onClose, meditations = [], wor
       content: (
         <div className="space-y-3">
           <p className="text-sm text-[#0A1A2F]/70">{suggestedMeditation.description}</p>
+          <p className="text-xs text-[#0A1A2F]/60"><strong>Duration:</strong> {suggestedMeditation.duration_minutes} min</p>
           <Button
-            onClick={() => window.location.href = `/meditation-player?id=${suggestedMeditation.id}`}
+            onClick={() => window.location.href = `${createPageUrl('DiscoverMeditations')}?id=${suggestedMeditation.id}`}
             disabled={!suggestedMeditation.tts_audio_url}
             className="w-full bg-white hover:bg-white/90 text-[#0A1A2F]"
             size="sm"
@@ -110,22 +112,24 @@ export default function StartMyDayModal({ isOpen, onClose, meditations = [], wor
       )
     }] : []),
     ...(suggestedWorkout ? [{
-      title: "Today's Workout",
-      emoji: '💪',
-      color: 'from-[#D9B878] to-[#AFC7E3]',
-      duration: 2,
-      content: (
-        <div className="space-y-3">
-          <p className="text-sm text-[#0A1A2F]/70">{suggestedWorkout.description}</p>
-          <Button
-            className="w-full bg-white hover:bg-white/90 text-[#0A1A2F]"
-            size="sm"
-          >
-            Start Workout
-          </Button>
-        </div>
-      )
-    }] : []),
+       title: "Today's Workout",
+       emoji: '💪',
+       color: 'from-[#D9B878] to-[#AFC7E3]',
+       duration: 2,
+       content: (
+         <div className="space-y-3">
+           <p className="text-sm text-[#0A1A2F]/70">{suggestedWorkout.description}</p>
+           <p className="text-xs text-[#0A1A2F]/60"><strong>Duration:</strong> {suggestedWorkout.duration_minutes} min</p>
+           <Button
+             onClick={() => window.location.href = `${createPageUrl('DiscoverWorkouts')}?id=${suggestedWorkout.id}`}
+             className="w-full bg-white hover:bg-white/90 text-[#0A1A2F]"
+             size="sm"
+           >
+             Start Workout
+           </Button>
+         </div>
+       )
+     }] : []),
     {
       title: 'Nutrition Reminder',
       emoji: '🥗',
@@ -158,18 +162,7 @@ export default function StartMyDayModal({ isOpen, onClose, meditations = [], wor
     return () => clearInterval(interval);
   }, [isOpen]);
 
-  useEffect(() => {
-    if (!isOpen) return;
-
-    const stepDuration = steps[step].duration * 1000;
-    const timer = setTimeout(() => {
-      if (step < steps.length - 1) {
-        setStep(step + 1);
-      }
-    }, stepDuration);
-
-    return () => clearTimeout(timer);
-  }, [step, isOpen, steps.length]);
+  // Auto-skip removed - users must manually progress through steps
 
   const currentStep = steps[step];
 
