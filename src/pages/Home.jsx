@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { createPageUrl } from '@/utils';
-import { BookOpen, Heart, Users, Plus, Settings, Dumbbell } from 'lucide-react';
+import { BookOpen, Heart, Users, Plus, Settings, Dumbbell, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import VerseOfDay from '@/components/home/VerseOfDay';
 import DailyDevotional from '@/components/home/DailyDevotional';
@@ -269,6 +269,21 @@ export default function Home() {
                 <BookOpen className="w-8 h-8 text-[#c9a227] mb-2" />
                 <span className="text-white font-semibold text-lg">Bible</span>
                 <p className="text-white/70 text-xs mt-1">Study & Learn</p>
+              </div>
+            </motion.div>
+          </Link>
+          
+          <Link to={createPageUrl('SelfCare')}>
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="relative h-40 rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition-all bg-cover bg-center"
+              style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=500&h=300&fit=crop)' }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-indigo-600/70 to-purple-600/60 flex flex-col items-center justify-center">
+                <Sparkles className="w-8 h-8 text-white mb-2" />
+                <span className="text-white font-semibold text-lg">Self-Care</span>
+                <p className="text-white/70 text-xs mt-1">Daily Routine</p>
               </div>
             </motion.div>
           </Link>
