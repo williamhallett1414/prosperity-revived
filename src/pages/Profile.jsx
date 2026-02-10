@@ -14,6 +14,8 @@ import FriendsTab from '@/components/profile/facebook/FriendsTab.jsx';
 import PhotosTab from '@/components/profile/facebook/PhotosTab.jsx';
 import AchievementsTab from '@/components/profile/facebook/AchievementsTab.jsx';
 import ActivityTab from '@/components/profile/facebook/ActivityTab.jsx';
+import ProfileStreaks from '@/components/profile/ProfileStreaks';
+import ProfileStats from '@/components/profile/ProfileStats';
 
 export default function Profile() {
   const [user, setUser] = useState(null);
@@ -72,6 +74,45 @@ export default function Profile() {
     retry: false
   });
 
+  const { data: meditationSessions = [] } = useQuery({
+    queryKey: ['meditationSessions'],
+    queryFn: async () => {
+      try {
+        return await base44.entities.MeditationSession.filter({ created_by: user?.email }, '-created_date', 100);
+      } catch {
+        return [];
+      }
+    },
+    enabled: !!user,
+    retry: false
+  });
+
+  const { data: workoutSessions = [] } = useQuery({
+    queryKey: ['workoutSessions'],
+    queryFn: async () => {
+      try {
+        return await base44.entities.WorkoutSession.filter({ created_by: user?.email }, '-created_date', 100);
+      } catch {
+        return [];
+      }
+    },
+    enabled: !!user,
+    retry: false
+  });
+
+  const { data: journalEntries = [] } = useQuery({
+    queryKey: ['journalEntries'],
+    queryFn: async () => {
+      try {
+        return await base44.entities.JournalEntry.filter({ created_by: user?.email }, '-created_date', 100);
+      } catch {
+        return [];
+      }
+    },
+    enabled: !!user,
+    retry: false
+  });
+
   if (!user) {
     return (
       <div className="min-h-screen bg-[#F2F6FA] flex items-center justify-center">
@@ -110,8 +151,24 @@ export default function Profile() {
         </div>
 
         {/* Content Area */}
-        <div className="px-4 py-6">
-          {activeTab === 'timeline' && <TimelineTab user={user} posts={posts} comments={comments} />}
+        <div className="px-4 py-6 max-w-2xl mx-auto">
+          {activeTab === 'timeline' && (
+            <>
+              <ProfileStreaks
+                userProgress={userProgress}
+                meditationSessions={meditationSessions}
+                workoutSessions={workoutSessions}
+                journalEntries={journalEntries}
+              />
+              <ProfileStats
+                userProgress={userProgress}
+                meditationSessions={meditationSessions}
+                workoutSessions={workoutSessions}
+                journalEntries={journalEntries}
+              />
+              <TimelineTab user={user} posts={posts} comments={comments} />
+            </>
+          )}
           {activeTab === 'about' && <AboutTab user={user} />}
           {activeTab === 'friends' && <FriendsTab friends={friends} user={user} />}
           {activeTab === 'photos' && <PhotosTab user={user} />}
