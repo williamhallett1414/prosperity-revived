@@ -155,7 +155,7 @@ export default function PrayForMeFeed({ user }) {
                 placeholder="Share your prayer request..."
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
-                className="w-full p-3 bg-white/5 border border-white/20 rounded-lg text-white resize-none focus:outline-none focus:ring-1 focus:ring-purple-500 placeholder-white/50"
+                className="w-full p-3 bg-gray-900 border border-gray-700 rounded-lg text-white resize-none focus:outline-none focus:ring-1 focus:ring-purple-500 placeholder-gray-500"
                 rows={3}
               />
 
