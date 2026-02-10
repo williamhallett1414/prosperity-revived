@@ -390,7 +390,7 @@ export default function Wellness() {
           <TabsContent value="hub" className="block" />
 
           {/* Workouts Tab */}
-          <TabsContent value="workouts" className="space-y-4 max-w-2xl mx-auto">
+          <TabsContent value="workouts" className="space-y-6 max-w-2xl mx-auto pb-8">
             {/* Search & Discovery */}
             <div className="relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
@@ -413,7 +413,7 @@ export default function Wellness() {
 
             {/* Progress Link */}
             <Link to={createPageUrl('WorkoutProgress')}>
-              <div className="bg-gradient-to-br from-[#D9B878] to-[#AFC7E3] rounded-xl p-4 text-[#0A1A2F] flex items-center justify-between shadow-md hover:shadow-lg transition-shadow">
+              <div className="bg-[#E6EBEF] rounded-xl p-4 text-[#0A1A2F] flex items-center justify-between shadow-md hover:shadow-lg transition-shadow">
                 <div>
                   <h3 className="font-semibold text-lg">View Your Progress</h3>
                   <p className="text-[#0A1A2F]/70 text-sm">Charts, PRs & workout stats</p>
