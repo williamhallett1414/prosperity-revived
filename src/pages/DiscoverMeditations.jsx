@@ -9,6 +9,7 @@ import MeditationFilters from '@/components/meditations/MeditationFilters';
 import MeditationCard from '@/components/meditations/MeditationCard';
 
 export default function DiscoverMeditations() {
+  const navigate = useNavigate();
   const [categoryFilter, setCategoryFilter] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -55,7 +56,7 @@ export default function DiscoverMeditations() {
       {/* Header */}
       <div className="px-4 pt-4 pb-6 max-w-2xl mx-auto">
         <button
-          onClick={() => useNavigate()(-1)}
+          onClick={() => navigate(-1)}
           className="w-10 h-10 rounded-full bg-[#D9B878] hover:bg-[#D9B878]/90 flex items-center justify-center transition-colors inline-flex"
           aria-label="Go back"
         >

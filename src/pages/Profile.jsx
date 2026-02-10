@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { Settings } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
+import BackButton from '@/components/navigation/BackButton';
 
 import ProfileHeader from '@/components/profile/facebook/ProfileHeader.jsx';
 import ProfileTabs from '@/components/profile/facebook/ProfileTabs.jsx';
@@ -123,6 +124,11 @@ export default function Profile() {
 
   return (
     <div className="min-h-screen bg-[#F2F6FA]">
+      {/* Back Button */}
+      <div className="fixed top-16 left-4 z-50">
+        <BackButton />
+      </div>
+
       {/* Sticky Header */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
