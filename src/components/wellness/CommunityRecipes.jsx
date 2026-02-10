@@ -11,6 +11,8 @@ export default function CommunityRecipes() {
   const [searchTerm, setSearchTerm] = useState('');
   const [sortBy, setSortBy] = useState('popular');
 
+  const overrideStyle = { color: '#000000' };
+
   const { data: recipes = [] } = useQuery({
     queryKey: ['recipes'],
     queryFn: () => base44.entities.Recipe.list('-created_date')
