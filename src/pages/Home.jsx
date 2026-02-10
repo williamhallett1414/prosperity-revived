@@ -210,18 +210,18 @@ export default function Home() {
     retry: false
   });
 
-  const { data: recipes = [] } = useQuery({
-    queryKey: ['recipes'],
-    queryFn: async () => {
-      try {
-        return await base44.entities.Recipe.filter({}, '-created_date', 50);
-      } catch (error) {
-        console.log('Recipe query error:', error);
-        return [];
-      }
-    },
-    enabled: false,
-    retry: false
+  const { data: mealLogs = [] } = useQuery({
+    queryKey: ['mealLogs'],
+    queryFn: () => base44.entities.MealLog.list('-date', 100),
+    initialData: [],
+    enabled: !!user
+  });
+
+  const { data: waterLogs = [] } = useQuery({
+    queryKey: ['waterLogs'],
+    queryFn: () => base44.entities.WaterLog.list('-date', 100),
+    initialData: [],
+    enabled: !!user
   });
 
   const { data: myPosts = [] } = useQuery({
