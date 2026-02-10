@@ -227,6 +227,26 @@ export default function Wellness() {
     retry: false
   });
 
+  const { data: bookmarks = [] } = useQuery({
+    queryKey: ['bookmarks'],
+    queryFn: () => base44.entities.Bookmark.list()
+  });
+
+  const { data: planProgress = [] } = useQuery({
+    queryKey: ['planProgress'],
+    queryFn: () => base44.entities.ReadingPlanProgress.list()
+  });
+
+  const createBookmark = useMutation({
+    mutationFn: (data) => base44.entities.Bookmark.create(data),
+    onSuccess: () => queryClient.invalidateQueries(['bookmarks'])
+  });
+
+  const deleteBookmark = useMutation({
+    mutationFn: (id) => base44.entities.Bookmark.delete(id),
+    onSuccess: () => queryClient.invalidateQueries(['bookmarks'])
+  });
+
   const { data: challengeParticipants = [] } = useQuery({
     queryKey: ['challengeParticipants'],
     queryFn: async () => {
