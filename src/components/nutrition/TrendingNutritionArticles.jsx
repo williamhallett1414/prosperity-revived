@@ -22,16 +22,9 @@ export default function TrendingNutritionArticles() {
             transition={{ delay: idx * 0.05 }}
           >
             <Link to={createPageUrl(`NutritionArticle?id=${article.id}`)}>
-              <div className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow flex gap-3">
-                <img
-                  src={article.image}
-                  alt={article.title}
-                  className="w-20 h-20 object-cover flex-shrink-0 rounded-lg"
-                />
-                <div className="flex-1 p-3 min-w-0">
-                  <h3 className="font-semibold text-sm text-[#0A1A2F] line-clamp-2">{article.title}</h3>
-                  <p className="text-xs text-[#0A1A2F]/60 mt-1 line-clamp-1">{article.description}</p>
-                </div>
+              <div className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow p-3">
+                <h3 className="font-semibold text-sm text-[#0A1A2F] mb-1">{article.title}</h3>
+                <p className="text-xs text-[#0A1A2F]/60">{article.description}</p>
               </div>
             </Link>
           </motion.div>

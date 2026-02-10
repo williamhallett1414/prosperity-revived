@@ -79,18 +79,9 @@ export default function NutritionGuidance() {
                 transition={{ delay: idx * 0.02 }}
               >
                 <Link to={createPageUrl(`NutritionArticle?id=${article.id}`)}>
-                  <div className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow cursor-pointer">
-                    <div className="flex gap-4">
-                      <img
-                        src={article.image}
-                        alt={article.title}
-                        className="w-24 h-24 object-cover flex-shrink-0"
-                      />
-                      <div className="flex-1 p-4 min-w-0">
-                        <h3 className="font-semibold text-[#0A1A2F] line-clamp-2">{article.title}</h3>
-                        <p className="text-sm text-[#0A1A2F]/60 mt-2 line-clamp-2">{article.description}</p>
-                      </div>
-                    </div>
+                  <div className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow p-4 cursor-pointer">
+                    <h3 className="font-semibold text-[#0A1A2F] mb-2">{article.title}</h3>
+                    <p className="text-sm text-[#0A1A2F]/60">{article.description}</p>
                   </div>
                 </Link>
               </motion.div>

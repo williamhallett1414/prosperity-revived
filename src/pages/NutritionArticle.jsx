@@ -49,19 +49,6 @@ export default function NutritionArticle() {
       </div>
 
       <div className="max-w-2xl mx-auto px-4 py-6">
-        {/* Hero Image */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-6 rounded-2xl overflow-hidden shadow-md"
-        >
-          <img
-            src={article.image}
-            alt={article.title}
-            className="w-full h-64 object-cover"
-          />
-        </motion.div>
-
         {/* Title and Description */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
@@ -80,7 +67,9 @@ export default function NutritionArticle() {
           transition={{ delay: 0.2 }}
           className="bg-white rounded-2xl p-6 mb-8 shadow-sm"
         >
-          <p className="text-[#0A1A2F] leading-relaxed">{article.content}</p>
+          <div className="text-[#0A1A2F] leading-relaxed whitespace-pre-wrap text-sm">
+            {article.content}
+          </div>
         </motion.div>
 
         {/* Related Articles */}
