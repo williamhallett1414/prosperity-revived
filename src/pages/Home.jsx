@@ -15,7 +15,7 @@ import PostCard from '@/components/community/PostCard';
 import CreatePostModal from '@/components/community/CreatePostModal';
 import GamificationBanner from '@/components/gamification/GamificationBanner';
 import OnboardingFlow from '@/components/onboarding/OnboardingFlow';
-import DailyStartSection from '@/components/home/DailyStartSection';
+
 
 import StartMyDayModal from '@/components/home/StartMyDayModal';
 import EndMyDayModal from '@/components/home/EndMyDayModal';
@@ -363,13 +363,7 @@ export default function Home() {
 
 
 
-        {/* Daily Start Section */}
-        {meditations && workoutPlans && (
-          <DailyStartSection 
-            meditations={meditations}
-            workoutPlans={workoutPlans}
-          />
-        )}
+
 
 
 
