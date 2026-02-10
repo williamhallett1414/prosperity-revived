@@ -1,8 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Calendar, Sparkles, TrendingUp, Trophy } from 'lucide-react';
+import { Calendar, Sparkles, TrendingUp, Trophy, BookOpen } from 'lucide-react';
 
-export default function ProgressSnapshot({ meditationSessions = [], challengeParticipants = [] }) {
+export default function ProgressSnapshot({ meditationSessions = [], challengeParticipants = [], planProgress = [] }) {
   const currentWeek = new Date().getDay();
   const daysActiveThisWeek = meditationSessions.filter(session => {
     const sessionDate = new Date(session.date);
