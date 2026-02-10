@@ -72,7 +72,7 @@ import { Input } from '@/components/ui/input';
 export default function Wellness() {
   const [user, setUser] = useState(null);
   const [showCreateWorkout, setShowCreateWorkout] = useState(false);
-  const [activeTab, setActiveTab] = useState('hub');
+  const [activeTab, setActiveTab] = useState('workouts');
   const [workoutCategory, setWorkoutCategory] = useState(null);
   const [bibleView, setBibleView] = useState('books');
   const [selectedBook, setSelectedBook] = useState(null);
@@ -342,9 +342,8 @@ export default function Wellness() {
           <div className="w-10" />
         </div>
         
-        <Tabs defaultValue="hub" value={activeTab} className="w-full" onValueChange={setActiveTab}>
-          <TabsList className="grid w-full grid-cols-5 p-1 rounded-xl bg-[#E6EBEF]">
-            <TabsTrigger value="hub" className="text-xs data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">Hub</TabsTrigger>
+        <Tabs defaultValue="workouts" value={activeTab} className="w-full" onValueChange={setActiveTab}>
+          <TabsList className="grid w-full grid-cols-4 p-1 rounded-xl bg-[#E6EBEF]">
             <TabsTrigger value="workouts" className="text-xs data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">Workouts</TabsTrigger>
             <TabsTrigger value="nutrition" className="text-xs data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">Nutrition</TabsTrigger>
             <TabsTrigger value="bible" className="text-xs data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">Bible</TabsTrigger>
@@ -387,9 +386,6 @@ export default function Wellness() {
         )}
 
         <Tabs defaultValue="hub" value={activeTab} className="w-full" onValueChange={setActiveTab}>
-          {/* Hub Tab */}
-          <TabsContent value="hub" className="block" />
-
           {/* Workouts Tab */}
           <TabsContent value="workouts" className="space-y-6 max-w-2xl mx-auto pb-8">
             {/* Search & Discovery */}
