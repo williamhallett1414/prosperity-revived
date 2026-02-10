@@ -21,7 +21,6 @@ export default function TodaysOverview({ meditations = [], workoutPlans = [], ch
   const affirmation = getAffirmation();
   const suggestedMeditation = meditations.find(m => m.category === 'mindfulness');
   const suggestedWorkout = workoutPlans?.[0];
-  const activeChallenge = challenges?.[0];
 
   return (
     <motion.div
@@ -94,8 +93,14 @@ export default function TodaysOverview({ meditations = [], workoutPlans = [], ch
               💪 {suggestedWorkout.title || 'Workout'} ({suggestedWorkout.duration_minutes}m)
             </button>
           )}
-        </div>
-      </motion.div>
+          <button
+            onClick={() => navigate(createPageUrl('Wellness?tab=nutrition'))}
+            className="block w-full text-left text-sm text-[#0A1A2F] font-medium hover:text-[#D9B878] transition-colors pl-6"
+          >
+            🍎 Nutrition & Meals
+          </button>
+          </div>
+          </motion.div>
 
 
 
