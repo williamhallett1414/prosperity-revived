@@ -272,10 +272,10 @@ export default function PrayForMeFeed({ user }) {
               )}
 
               {/* Actions */}
-              <div className="flex items-center gap-4 pt-3 border-t border-white/10">
+              <div className="flex items-center gap-4 pt-3 border-t border-gray-700">
                 <button
                   onClick={() => likePost.mutate(post)}
-                  className="flex items-center gap-2 text-white/60 hover:text-red-400 transition"
+                  className="flex items-center gap-2 text-gray-400 hover:text-red-400 transition"
                 >
                   <Heart className="w-4 h-4" fill="currentColor" />
                   <span className="text-xs">{post.likes || 0}</span>
@@ -283,7 +283,7 @@ export default function PrayForMeFeed({ user }) {
 
                 <button
                   onClick={() => setExpandedComments({ ...expandedComments, [post.id]: !expandedComments[post.id] })}
-                  className="flex items-center gap-2 text-white/60 hover:text-blue-400 transition"
+                  className="flex items-center gap-2 text-gray-400 hover:text-blue-400 transition"
                 >
                   <MessageCircle className="w-4 h-4" />
                   <span className="text-xs">{postComments(post.id).length}</span>
@@ -293,7 +293,7 @@ export default function PrayForMeFeed({ user }) {
                   onClick={() => {
                     navigator.share?.({ text: post.content }) || toast.success('Share link copied');
                   }}
-                  className="flex items-center gap-2 text-white/60 hover:text-purple-400 transition"
+                  className="flex items-center gap-2 text-gray-400 hover:text-purple-400 transition"
                 >
                   <Share2 className="w-4 h-4" />
                   <span className="text-xs">Share</span>
