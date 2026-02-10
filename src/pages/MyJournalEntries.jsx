@@ -22,6 +22,9 @@ export default function MyJournalEntries() {
   const [editTitle, setEditTitle] = useState('');
   const [editContent, setEditContent] = useState('');
   const [expandedDate, setExpandedDate] = useState(null);
+  const [showNewEntryModal, setShowNewEntryModal] = useState(false);
+  const [newTitle, setNewTitle] = useState('');
+  const [newContent, setNewContent] = useState('');
   const queryClient = useQueryClient();
 
   React.useEffect(() => {
