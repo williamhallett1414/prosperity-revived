@@ -518,6 +518,7 @@ export default function Home() {
         onClose={() => setShowStartDay(false)}
         meditations={meditations}
         workoutPlans={workoutPlans}
+        user={user}
       />
       <EndMyDayModal
         isOpen={showEndDay}
