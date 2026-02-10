@@ -3,9 +3,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { ChevronRight, Play, Plus } from 'lucide-react';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { base44 } from '@/api/base44Client';
-import { toast } from 'sonner';
+import { useQueryClient } from '@tanstack/react-query';
+import JournalEntryModal from './JournalEntryModal';
 
 export default function EndMyDayModal({ isOpen, onClose, meditations = [] }) {
   const [step, setStep] = useState(0);
@@ -94,7 +93,8 @@ export default function EndMyDayModal({ isOpen, onClose, meditations = [] }) {
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
+    <>
+      <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-md max-h-[80vh] overflow-y-auto bg-[#F2F6FA] border-0">
         <DialogHeader>
           <DialogTitle className="text-center"></DialogTitle>
@@ -156,5 +156,11 @@ export default function EndMyDayModal({ isOpen, onClose, meditations = [] }) {
         </div>
       </DialogContent>
     </Dialog>
+
+    <JournalEntryModal
+      isOpen={showJournalModal}
+      onClose={() => setShowJournalModal(false)}
+    />
+    </>
   );
 }
