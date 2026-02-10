@@ -42,10 +42,10 @@ export default function CommunityRecipes() {
   }
 
   return (
-    <div className="space-y-4 text-black">
+    <div className="space-y-4" style={overrideStyle}>
       <div className="flex items-center gap-2 mb-4">
         <Users className="w-6 h-6 text-purple-600" />
-        <h3 className="text-xl font-bold !text-black">Community Recipes</h3>
+        <h3 className="text-xl font-bold" style={overrideStyle}>Community Recipes</h3>
       </div>
 
       {/* Search and Filters */}
