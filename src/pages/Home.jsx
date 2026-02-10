@@ -106,8 +106,7 @@ export default function Home() {
   const { data: myPosts = [] } = useQuery({
     queryKey: ['myPosts'],
     queryFn: async () => {
-      const all = await base44.entities.Post.list('-created_date', 100);
-      return all.filter(p => p.created_by === user?.email && !p.group_id);
+      return await base44.entities.Post.filter({ created_by: user?.email });
     },
     enabled: !!user
   });
