@@ -40,7 +40,7 @@ export default function CommunityRecipes() {
   }
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 text-black">
       <div className="flex items-center gap-2 mb-4">
         <Users className="w-6 h-6 text-purple-600" />
         <h3 className="text-xl font-bold !text-black">Community Recipes</h3>
@@ -54,16 +54,16 @@ export default function CommunityRecipes() {
             placeholder="Search community recipes..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-10"
+            className="pl-10 !text-black"
           />
         </div>
         <Select value={sortBy} onValueChange={setSortBy}>
-          <SelectTrigger className="w-32">
+          <SelectTrigger className="w-32 !text-black">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="popular">
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 !text-black">
                 <TrendingUp className="w-4 h-4" />
                 Popular
               </div>
@@ -77,7 +77,7 @@ export default function CommunityRecipes() {
       <div className="bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-2xl p-4 mb-4">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-sm text-gray-600 dark:text-gray-400">Community Contributions</p>
+            <p className="text-sm !text-black">Community Contributions</p>
             <p className="text-2xl font-bold text-purple-600">{communityRecipes.length}</p>
           </div>
           <Users className="w-12 h-12 text-purple-600/20" />
@@ -86,13 +86,13 @@ export default function CommunityRecipes() {
 
       {/* Recipe Grid */}
       {filteredRecipes.length === 0 ? (
-        <div className="text-center py-12 bg-white dark:bg-[#2d2d4a] rounded-2xl">
+        <div className="text-center py-12 bg-white dark:bg-[#2d2d4a] rounded-2xl !text-black">
           <Users className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-          <p className="text-black mb-2">
+          <p className="!text-black mb-2">
             {searchTerm ? 'No recipes found' : 'No community recipes yet'}
           </p>
           {!searchTerm && (
-            <p className="text-sm text-black">Share your first recipe to inspire others!</p>
+            <p className="text-sm !text-black">Share your first recipe to inspire others!</p>
           )}
         </div>
       ) : (
