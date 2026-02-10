@@ -20,6 +20,7 @@ import OnboardingFlow from '@/components/onboarding/OnboardingFlow';
 import StartMyDayModal from '@/components/home/StartMyDayModal';
 import EndMyDayModal from '@/components/home/EndMyDayModal';
 import TodaysOverview from '@/components/home/TodaysOverview';
+import WellnessHub from '@/components/home/WellnessHub';
 
 
 import { Trophy } from 'lucide-react';
@@ -360,6 +361,9 @@ export default function Home() {
           challenges={challenges}
           user={user}
         />
+
+        {/* Wellness Hub */}
+        <WellnessHub />
 
 
 
