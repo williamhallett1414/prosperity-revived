@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { getVerseOfDay } from '@/components/bible/BibleData';
 import { BookOpen, Sparkles, Zap, Droplets } from 'lucide-react';
-import StartWorkoutModal from './StartWorkoutModal';
+import StartWorkoutModal from '@/components/wellness/StartWorkoutModal';
 
 const affirmations = [
   "I am worthy of God's love and grace",
