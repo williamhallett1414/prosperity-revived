@@ -12,7 +12,14 @@ export default function MoodTracker() {
   const queryClient = useQueryClient();
 
   const saveMood = useMutation({
-    mutationFn: (data) => base44.entities.JournalEntry.create(data),
+    mutationFn: async (data) => {
+      try {
+        return await base44.entities.JournalEntry.create(data);
+      } catch (error) {
+        console.log('JournalEntry entity not available');
+        throw error;
+      }
+    },
     onSuccess: () => {
       toast.success('Mood tracked!');
       setMood(null);

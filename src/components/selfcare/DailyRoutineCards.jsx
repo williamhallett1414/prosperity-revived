@@ -22,7 +22,14 @@ export default function DailyRoutineCards({ meditations = [] }) {
   );
 
   const saveGratitude = useMutation({
-    mutationFn: (data) => base44.entities.JournalEntry.create(data),
+    mutationFn: async (data) => {
+      try {
+        return await base44.entities.JournalEntry.create(data);
+      } catch (error) {
+        console.log('JournalEntry entity not available');
+        throw error;
+      }
+    },
     onSuccess: () => {
       setGratitude('');
       queryClient.invalidateQueries(['journalEntries']);

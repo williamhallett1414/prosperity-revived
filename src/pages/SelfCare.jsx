@@ -23,23 +23,51 @@ export default function SelfCare() {
 
   const { data: meditations = [] } = useQuery({
     queryKey: ['meditations'],
-    queryFn: () => base44.entities.Meditation.filter({})
+    queryFn: async () => {
+      try {
+        return await base44.entities.Meditation.filter({});
+      } catch (error) {
+        console.log('Meditation entity not available');
+        return [];
+      }
+    }
   });
 
   const { data: meditationSessions = [] } = useQuery({
     queryKey: ['meditationSessions'],
-    queryFn: () => base44.entities.MeditationSession.filter({ created_by: user?.email }),
+    queryFn: async () => {
+      try {
+        return await base44.entities.MeditationSession.filter({ created_by: user?.email });
+      } catch (error) {
+        console.log('MeditationSession entity not available');
+        return [];
+      }
+    },
     enabled: !!user
   });
 
   const { data: challenges = [] } = useQuery({
     queryKey: ['challenges'],
-    queryFn: () => base44.entities.Challenge.filter({})
+    queryFn: async () => {
+      try {
+        return await base44.entities.Challenge.filter({});
+      } catch (error) {
+        console.log('Challenge entity not available');
+        return [];
+      }
+    }
   });
 
   const { data: challengeParticipants = [] } = useQuery({
     queryKey: ['challengeParticipants'],
-    queryFn: () => base44.entities.ChallengeParticipant.filter({ user_email: user?.email }),
+    queryFn: async () => {
+      try {
+        return await base44.entities.ChallengeParticipant.filter({ user_email: user?.email });
+      } catch (error) {
+        console.log('ChallengeParticipant entity not available');
+        return [];
+      }
+    },
     enabled: !!user
   });
 

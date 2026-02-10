@@ -100,17 +100,35 @@ export default function Wellness() {
 
   const { data: meditations = [] } = useQuery({
     queryKey: ['meditations'],
-    queryFn: () => base44.entities.Meditation.filter({})
+    queryFn: async () => {
+      try {
+        return await base44.entities.Meditation.filter({});
+      } catch (error) {
+        return [];
+      }
+    }
   });
 
   const { data: challenges = [] } = useQuery({
     queryKey: ['challenges'],
-    queryFn: () => base44.entities.Challenge.filter({})
+    queryFn: async () => {
+      try {
+        return await base44.entities.Challenge.filter({});
+      } catch (error) {
+        return [];
+      }
+    }
   });
 
   const { data: challengeParticipants = [] } = useQuery({
     queryKey: ['challengeParticipants'],
-    queryFn: () => base44.entities.ChallengeParticipant.filter({ user_email: user?.email }),
+    queryFn: async () => {
+      try {
+        return await base44.entities.ChallengeParticipant.filter({ user_email: user?.email });
+      } catch (error) {
+        return [];
+      }
+    },
     enabled: !!user
   });
 
