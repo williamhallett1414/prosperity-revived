@@ -356,36 +356,7 @@ export default function Wellness() {
         {/* Weekly Theme */}
         <WeeklyThemeBanner />
 
-        {activeTab === 'hub' && (
-          <div className="max-w-2xl mx-auto mb-8 space-y-8">
-            <AIWellnessRecommendations 
-              user={user}
-              signupAnswers={user?.signup_answers}
-            />
-            
-            <WellnessCommunityFeed
-              posts={posts}
-              meditations={meditations}
-              recipes={recipes}
-              workouts={myWorkouts}
-              comments={comments}
-            />
-            
-            <WellnessMetricsOverview
-              meditationSessions={meditationSessions}
-              workoutSessions={workoutSessions}
-              mealLogs={mealLogs}
-              waterLogs={waterLogs}
-              journalEntries={journalEntries}
-              prayerJournals={prayerJournals}
-              userProgress={userProgress}
-              challengeParticipants={challengeParticipants}
-              planProgress={planProgress}
-            />
-          </div>
-        )}
-
-        <Tabs defaultValue="hub" value={activeTab} className="w-full" onValueChange={setActiveTab}>
+        <Tabs defaultValue="workouts" value={activeTab} className="w-full" onValueChange={setActiveTab}>
           {/* Workouts Tab */}
           <TabsContent value="workouts" className="space-y-6 max-w-2xl mx-auto pb-8">
             {/* Search & Discovery */}
