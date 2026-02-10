@@ -53,17 +53,17 @@ export default function ContinueJourneyCard({
     }
 
     // Suggest journaling
-    const journalToday = journalEntries.find(e => e.created_date?.startsWith(today));
-    if (!journalToday) {
-      return {
-        type: 'journal',
-        icon: PenLine,
-        title: 'Journal Your Thoughts',
-        subtitle: 'Reflect on your day',
-        link: createPageUrl('SelfCare'),
-        gradient: 'from-[#D9B878] to-[#D9B878]'
-      };
-    }
+     const journalToday = journalEntries.find(e => e.created_date?.startsWith(today));
+     if (!journalToday) {
+       return {
+         type: 'journal',
+         icon: PenLine,
+         title: 'Journal Your Thoughts',
+         subtitle: 'Reflect on your day',
+         link: `${createPageUrl('Wellness')}?tab=journaling`,
+         gradient: 'from-[#D9B878] to-[#D9B878]'
+       };
+     }
 
     // Default
     return {

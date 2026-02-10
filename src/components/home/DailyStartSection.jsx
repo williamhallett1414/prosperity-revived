@@ -66,13 +66,13 @@ export default function DailyStartSection({
       link: createPageUrl('DiscoverWorkouts')
     },
     {
-      id: 'nutrition',
-      icon: Utensils,
-      label: 'Nutrition',
-      subtitle: todayMealLog ? 'Log meal' : 'Track meals',
-      gradient: 'from-[#AFC7E3] to-[#D9B878]',
-      link: createPageUrl('NutritionGuidance')
-    }
+       id: 'nutrition',
+       icon: Utensils,
+       label: 'Nutrition',
+       subtitle: todayMealLog ? 'Log meal' : 'Track meals',
+       gradient: 'from-[#AFC7E3] to-[#D9B878]',
+       link: `${createPageUrl('Wellness')}?tab=nutrition`
+     }
   ];
 
   return (
