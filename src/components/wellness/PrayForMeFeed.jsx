@@ -135,7 +135,7 @@ export default function PrayForMeFeed({ user }) {
             <div className="flex-1">
               <button
                 onClick={() => setShowCreateBox(!showCreateBox)}
-                className="w-full bg-white/10 hover:bg-white/20 transition rounded-full px-4 py-2.5 text-left text-white/60 text-sm"
+                className="w-full bg-gray-900 hover:bg-gray-800 transition rounded-full px-4 py-2.5 text-left text-gray-400 text-sm"
               >
                 What's on your heart?
               </button>
