@@ -65,6 +65,29 @@ export default function MyJournalEntries() {
     }
   });
 
+  const createEntry = useMutation({
+    mutationFn: (data) => base44.entities.JournalEntry.create(data),
+    onSuccess: () => {
+      queryClient.invalidateQueries(['journalEntries']);
+      setShowNewEntryModal(false);
+      setNewTitle('');
+      setNewContent('');
+      toast.success('Entry created!');
+    }
+  });
+
+  const handleCreateEntry = () => {
+    if (!newContent.trim()) {
+      toast.error('Please write something in your entry');
+      return;
+    }
+    createEntry.mutate({
+      title: newTitle || 'Untitled Entry',
+      content: newContent,
+      entry_type: 'general'
+    });
+  };
+
   // Group entries by date
   const groupedEntries = useMemo(() => {
     const groups = {};
