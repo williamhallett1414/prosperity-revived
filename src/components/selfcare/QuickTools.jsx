@@ -73,20 +73,8 @@ export default function QuickTools() {
        label: 'Gratitude Journal',
        gradient: 'from-[#0A1A2F] to-[#AFC7E3]',
        isModal: false,
-       action: () => navigate(`${createPageUrl('Wellness')}?tab=journaling`),
-       content: (
-         <div className="space-y-4">
-           <div className="text-6xl text-center mb-4">✨</div>
-           <p className="text-gray-700 text-center">What are 3 things you're grateful for today?</p>
-           <textarea 
-             className="w-full h-32 p-3 border rounded-lg resize-none"
-             placeholder="1. &#10;2. &#10;3. "
-           />
-           <Button className="w-full bg-gradient-to-r from-purple-500 to-indigo-500">
-             Save Entry
-           </Button>
-         </div>
-       )
+       action: () => navigate(createPageUrl('MyJournalEntries')),
+       content: null
      },
     {
        id: 'mood',
