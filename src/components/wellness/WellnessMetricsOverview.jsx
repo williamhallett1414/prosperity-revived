@@ -21,7 +21,7 @@ export default function WellnessMetricsOverview({
   const totalWorkoutMinutes = workoutSessions?.reduce((sum, s) => sum + (s.duration_minutes || 0), 0) || 0;
   const todayWaterIntake = waterLogs?.filter(w => w.date === new Date().toISOString().split('T')[0])?.reduce((sum, w) => sum + (w.glasses || 0), 0) || 0;
   const totalJournalEntries = journalEntries?.length || 0;
-  const totalPrayers = prayerJournals?.length || 0;
+  const daysRead = planProgress?.reduce((sum, p) => sum + (p.completed_days?.length || 0), 0) || 0;
   const activeChallenges = challengeParticipants?.filter(c => c.status === 'active')?.length || 0;
 
   const metrics = [
