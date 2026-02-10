@@ -64,7 +64,6 @@ import MindAndSpirit from './pages/MindAndSpirit';
 import MyJournalEntries from './pages/MyJournalEntries';
 import NotificationSettings from './pages/NotificationSettings';
 import Notifications from './pages/Notifications';
-import NutritionGuidance from './pages/NutritionGuidance';
 import PhotoGallery from './pages/PhotoGallery';
 import PlanDetail from './pages/PlanDetail';
 import Plans from './pages/Plans';
@@ -98,7 +97,6 @@ export const PAGES = {
     "MyJournalEntries": MyJournalEntries,
     "NotificationSettings": NotificationSettings,
     "Notifications": Notifications,
-    "NutritionGuidance": NutritionGuidance,
     "PhotoGallery": PhotoGallery,
     "PlanDetail": PlanDetail,
     "Plans": Plans,
