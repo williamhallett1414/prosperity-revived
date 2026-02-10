@@ -12,7 +12,6 @@ import WorkoutCard from '@/components/wellness/WorkoutCard';
 import CreateWorkoutModal from '@/components/wellness/CreateWorkoutModal';
 import NutritionAdvice from '@/components/wellness/NutritionAdvice';
 import MealTracker from '@/components/wellness/MealTracker';
-import WaterTracker from '@/components/wellness/WaterTracker';
 import MealSuggestions from '@/components/nutrition/MealSuggestions';
 import MeditationGuide from '@/components/wellness/MeditationGuide';
 import RecipeCollections from '@/components/wellness/RecipeCollections';

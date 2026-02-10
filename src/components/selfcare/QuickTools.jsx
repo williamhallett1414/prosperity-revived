@@ -113,21 +113,8 @@ export default function QuickTools() {
        label: 'Hydration Tracker',
        gradient: 'from-[#AFC7E3] to-[#AFC7E3]',
        isModal: false,
-       action: () => navigate(createPageUrl('Wellness')),
-       content: (
-         <div className="text-center space-y-4">
-           <div className="text-6xl mb-4">💧</div>
-           <p className="text-gray-700 font-semibold">Daily Water Intake</p>
-           <div className="flex justify-center gap-2 flex-wrap">
-             {[1,2,3,4,5,6,7,8].map(n => (
-               <div key={n} className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-sm">
-                 {n}
-               </div>
-             ))}
-           </div>
-           <p className="text-gray-500 text-sm">6/8 glasses today</p>
-         </div>
-       )
+       action: () => navigate(`${createPageUrl('Wellness')}?tab=nutrition`),
+       content: null
      }
   ];
 
