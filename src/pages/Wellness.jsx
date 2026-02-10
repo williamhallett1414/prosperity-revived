@@ -54,7 +54,8 @@ import PrayForMeFeed from '@/components/wellness/PrayForMeFeed';
 export default function Wellness() {
   const [user, setUser] = useState(null);
   const [showCreateWorkout, setShowCreateWorkout] = useState(false);
-  const [activeTab, setActiveTab] = useState('workouts');
+  const [activeTab, setActiveTab] = useState('hub');
+  const [workoutCategory, setWorkoutCategory] = useState(null);
   const queryClient = useQueryClient();
 
   useEffect(() => {
@@ -182,18 +183,73 @@ export default function Wellness() {
         </Link>
       </div>
 
-      <div className="px-4 pt-2">
+      <div className="px-4 pt-2 pb-6">
+        {/* Weekly Theme */}
+        <WeeklyThemeBanner />
 
-        <Tabs defaultValue="workouts" className="w-full" onValueChange={setActiveTab}>
-          <TabsList className="grid w-full grid-cols-4 mb-6 p-1 rounded-xl bg-[#E6EBEF]">
-            <TabsTrigger value="workouts" className="text-xs sm:text-sm data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">Workouts</TabsTrigger>
-            <TabsTrigger value="nutrition" className="text-xs sm:text-sm data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">Nutrition</TabsTrigger>
-            <TabsTrigger value="meditation" className="text-xs sm:text-sm data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">Meditation</TabsTrigger>
-            <TabsTrigger value="selfcare" className="text-xs sm:text-sm data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">Self-Care</TabsTrigger>
+        {activeTab === 'hub' && (
+          <div className="max-w-2xl mx-auto px-2 mb-8">
+            <h2 className="text-xl font-bold text-[#0A1A2F] mb-4">Wellness Hub</h2>
+            <div className="space-y-3">
+              <WellnessHubCard
+                icon={Brain}
+                title="Self-Care"
+                description="Daily routines, meditation & affirmations"
+                color="from-[#AFC7E3] to-[#D9B878]"
+                page="SelfCare"
+                index={0}
+              />
+              <WellnessHubCard
+                icon={Sparkles}
+                title="Meditations"
+                description="Guided sessions for peace & healing"
+                color="from-[#D9B878] to-[#FD9C2D]"
+                page="DiscoverMeditations"
+                index={1}
+              />
+              <WellnessHubCard
+                icon={Heart}
+                title="Challenges"
+                description="Community challenges & accountability"
+                color="from-[#FD9C2D] to-[#D9B878]"
+                page="Wellness"
+                index={2}
+              />
+              <WellnessHubCard
+                icon={BookOpen}
+                title="Journaling"
+                description="Track thoughts, gratitude & growth"
+                color="from-[#D9B878] to-[#AFC7E3]"
+                page="Wellness"
+                index={3}
+              />
+              <WellnessHubCard
+                icon={TrendingUp}
+                title="Scripture"
+                description="Daily verses & spiritual growth"
+                color="from-[#AFC7E3] to-[#D9B878]"
+                page="Bible"
+                index={4}
+              />
+            </div>
+          </div>
+        )}
+
+        <Tabs defaultValue="hub" value={activeTab} className="w-full" onValueChange={setActiveTab}>
+          <TabsList className="grid w-full grid-cols-5 mb-6 p-1 rounded-xl bg-[#E6EBEF] max-w-2xl mx-auto">
+            <TabsTrigger value="hub" className="text-xs data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">Hub</TabsTrigger>
+            <TabsTrigger value="workouts" className="text-xs data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">Workouts</TabsTrigger>
+            <TabsTrigger value="nutrition" className="text-xs data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">Nutrition</TabsTrigger>
+            <TabsTrigger value="meditation" className="text-xs data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">Meditation</TabsTrigger>
+            <TabsTrigger value="selfcare" className="text-xs data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">Self-Care</TabsTrigger>
           </TabsList>
 
+          {/* Hub Tab */}
+          <TabsContent value="hub" className="hidden" />
+
           {/* Workouts Tab */}
-          <TabsContent value="workouts" className="space-y-4">
+          <TabsContent value="workouts" className="space-y-4 max-w-2xl mx-auto">
+            <WorkoutCategoryFilter onFilterChange={setWorkoutCategory} />
             {/* Progress Link */}
             <Link to={createPageUrl('WorkoutProgress')}>
               <div className="bg-gradient-to-br from-[#D9B878] to-[#AFC7E3] rounded-xl p-4 text-[#0A1A2F] flex items-center justify-between shadow-md hover:shadow-lg transition-shadow">
@@ -259,7 +315,8 @@ export default function Wellness() {
           </TabsContent>
 
           {/* Nutrition Tab */}
-          <TabsContent value="nutrition" className="space-y-6">
+          <TabsContent value="nutrition" className="space-y-6 max-w-2xl mx-auto">
+            <NutritionDashboard mealLogs={mealLogs} waterLogs={waterLogs} />
             <MealTracker />
             
             <PersonalizedNutritionPlan />
@@ -281,7 +338,7 @@ export default function Wellness() {
           </TabsContent>
 
           {/* Meditation Tab */}
-          <TabsContent value="meditation" className="space-y-4">
+          <TabsContent value="meditation" className="space-y-4 max-w-2xl mx-auto">
             {/* Discover All Meditations */}
             <Link to={createPageUrl('DiscoverMeditations')}>
               <div className="bg-gradient-to-br from-[#AFC7E3] to-[#D9B878] rounded-2xl p-5 text-[#0A1A2F] cursor-pointer hover:shadow-lg transition-shadow">
@@ -312,7 +369,7 @@ export default function Wellness() {
           </TabsContent>
 
           {/* Self-Care Tab */}
-          <TabsContent value="selfcare" className="space-y-4">
+          <TabsContent value="selfcare" className="space-y-4 max-w-2xl mx-auto">
             <DailyRoutineCards meditations={meditations} />
             <DailyPrayer />
             <QuickTools />
