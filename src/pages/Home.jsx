@@ -151,10 +151,12 @@ export default function Home() {
     queryFn: async () => {
       try {
         return await base44.entities.Meditation.filter({}, '-created_date', 20);
-      } catch {
+      } catch (error) {
+        console.log('Meditation query error:', error);
         return [];
       }
-    }
+    },
+    retry: false
   });
 
   const { data: workoutPlans = [] } = useQuery({
@@ -162,10 +164,12 @@ export default function Home() {
     queryFn: async () => {
       try {
         return await base44.entities.WorkoutPlan.filter({}, '-created_date', 10);
-      } catch {
+      } catch (error) {
+        console.log('WorkoutPlan query error:', error);
         return [];
       }
-    }
+    },
+    retry: false
   });
 
   const { data: challenges = [] } = useQuery({
@@ -201,10 +205,12 @@ export default function Home() {
     queryFn: async () => {
       try {
         return await base44.entities.Recipe.filter({}, '-created_date', 50);
-      } catch {
+      } catch (error) {
+        console.log('Recipe query error:', error);
         return [];
       }
-    }
+    },
+    retry: false
   });
 
   const { data: myPosts = [] } = useQuery({
@@ -212,11 +218,13 @@ export default function Home() {
     queryFn: async () => {
       try {
         return await base44.entities.Post.filter({ created_by: user?.email });
-      } catch {
+      } catch (error) {
+        console.log('MyPosts query error:', error);
         return [];
       }
     },
-    enabled: !!user
+    enabled: !!user,
+    retry: false
   });
 
   const createBookmark = useMutation({
