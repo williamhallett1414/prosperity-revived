@@ -15,12 +15,11 @@ import PostCard from '@/components/community/PostCard';
 import CreatePostModal from '@/components/community/CreatePostModal';
 import GamificationBanner from '@/components/gamification/GamificationBanner';
 import OnboardingFlow from '@/components/onboarding/OnboardingFlow';
-
-
 import StartMyDayModal from '@/components/home/StartMyDayModal';
 import EndMyDayModal from '@/components/home/EndMyDayModal';
 import TodaysOverview from '@/components/home/TodaysOverview';
 import WellnessHub from '@/components/home/WellnessHub';
+import TodaysRecommendations from '@/components/home/TodaysRecommendations';
 
 
 import { Trophy } from 'lucide-react';
