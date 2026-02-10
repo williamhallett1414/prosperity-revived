@@ -314,21 +314,27 @@ export default function Home() {
         </motion.div>
 
         {/* Daily Start Section */}
-        <DailyStartSection 
-          meditations={meditations}
-          workoutPlans={workoutPlans}
-        />
+        {meditations && workoutPlans && (
+          <DailyStartSection 
+            meditations={meditations}
+            workoutPlans={workoutPlans}
+          />
+        )}
 
         {/* Continue Your Journey */}
-        <ContinueJourneyCard 
-          activePlans={planProgress}
-          challenges={challenges}
-          workoutSessions={workoutSessions}
-          journalEntries={journalEntries}
-        />
+        {planProgress && challenges && workoutSessions && journalEntries && (
+          <ContinueJourneyCard 
+            activePlans={planProgress}
+            challenges={challenges}
+            workoutSessions={workoutSessions}
+            journalEntries={journalEntries}
+          />
+        )}
 
         {/* Gamification Banner */}
-        <GamificationBanner userProgress={userProgress} />
+        {userProgress !== undefined && (
+          <GamificationBanner userProgress={userProgress} />
+        )}
         
 
 
