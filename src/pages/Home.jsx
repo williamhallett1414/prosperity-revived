@@ -16,7 +16,7 @@ import CreatePostModal from '@/components/community/CreatePostModal';
 import GamificationBanner from '@/components/gamification/GamificationBanner';
 import OnboardingFlow from '@/components/onboarding/OnboardingFlow';
 import DailyStartSection from '@/components/home/DailyStartSection';
-import ContinueJourneyCard from '@/components/home/ContinueJourneyCard';
+
 import StartMyDayModal from '@/components/home/StartMyDayModal';
 import EndMyDayModal from '@/components/home/EndMyDayModal';
 import TodaysOverview from '@/components/home/TodaysOverview';
@@ -371,15 +371,7 @@ export default function Home() {
           />
         )}
 
-        {/* Continue Your Journey */}
-        {planProgress && challenges && workoutSessions && journalEntries && (
-          <ContinueJourneyCard 
-            activePlans={planProgress}
-            challenges={challenges}
-            workoutSessions={workoutSessions}
-            journalEntries={journalEntries}
-          />
-        )}
+
 
         {/* Gamification Banner */}
         {userProgress !== undefined && (
