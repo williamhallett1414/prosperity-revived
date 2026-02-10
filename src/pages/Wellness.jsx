@@ -50,6 +50,9 @@ import Hannah from '@/components/wellness/Hannah.jsx';
 
 import MeditationTracker from '@/components/wellness/MeditationTracker';
 import PrayForMeFeed from '@/components/wellness/PrayForMeFeed';
+import AIWellnessRecommendations from '@/components/wellness/AIWellnessRecommendations';
+import WellnessMetricsOverview from '@/components/wellness/WellnessMetricsOverview';
+import WellnessCommunityFeed from '@/components/wellness/WellnessCommunityFeed';
 
 
 export default function Wellness() {
@@ -114,6 +117,83 @@ export default function Wellness() {
         return [];
       }
     },
+    retry: false
+  });
+
+  const { data: recipes = [] } = useQuery({
+    queryKey: ['recipes'],
+    queryFn: async () => {
+      try {
+        return await base44.entities.Recipe.filter({}, '-created_date', 50);
+      } catch (error) {
+        return [];
+      }
+    },
+    retry: false
+  });
+
+  const { data: posts = [] } = useQuery({
+    queryKey: ['posts'],
+    queryFn: async () => {
+      try {
+        const allPosts = await base44.entities.Post.filter({}, '-created_date', 100);
+        return allPosts.sort((a, b) => (b.likes || 0) - (a.likes || 0));
+      } catch (error) {
+        return [];
+      }
+    },
+    retry: false
+  });
+
+  const { data: comments = [] } = useQuery({
+    queryKey: ['comments'],
+    queryFn: async () => {
+      try {
+        return await base44.entities.Comment.filter({}, '-created_date', 200);
+      } catch (error) {
+        return [];
+      }
+    },
+    retry: false
+  });
+
+  const { data: journalEntries = [] } = useQuery({
+    queryKey: ['journalEntries'],
+    queryFn: async () => {
+      try {
+        return await base44.entities.JournalEntry.filter({ created_by: user?.email }, '-created_date');
+      } catch (error) {
+        return [];
+      }
+    },
+    enabled: !!user,
+    retry: false
+  });
+
+  const { data: prayerJournals = [] } = useQuery({
+    queryKey: ['prayerJournals'],
+    queryFn: async () => {
+      try {
+        return await base44.entities.PrayerJournal.filter({ created_by: user?.email }, '-created_date');
+      } catch (error) {
+        return [];
+      }
+    },
+    enabled: !!user,
+    retry: false
+  });
+
+  const { data: userProgress } = useQuery({
+    queryKey: ['userProgress', user?.email],
+    queryFn: async () => {
+      try {
+        const list = await base44.entities.UserProgress.filter({ created_by: user?.email });
+        return list[0] || null;
+      } catch (error) {
+        return null;
+      }
+    },
+    enabled: !!user,
     retry: false
   });
 
@@ -203,50 +283,30 @@ export default function Wellness() {
         <WeeklyThemeBanner />
 
         {activeTab === 'hub' && (
-          <div className="max-w-2xl mx-auto mb-8">
-            <h2 className="text-xl font-bold text-[#0A1A2F] mb-6 px-4">Wellness Hub</h2>
-            <div className="grid grid-cols-2 gap-4 px-4">
-              <WellnessHubCard
-                icon={Brain}
-                title="Self-Care"
-                description="Daily routines, meditation & affirmations"
-                color="from-[#AFC7E3] to-[#D9B878]"
-                page="SelfCare"
-                index={0}
-              />
-              <WellnessHubCard
-                icon={Sparkles}
-                title="Meditations"
-                description="Guided sessions for peace & healing"
-                color="from-[#D9B878] to-[#FD9C2D]"
-                page="DiscoverMeditations"
-                index={1}
-              />
-              <WellnessHubCard
-                icon={Heart}
-                title="Challenges"
-                description="Community challenges & accountability"
-                color="from-[#FD9C2D] to-[#D9B878]"
-                page="Wellness"
-                index={2}
-              />
-              <WellnessHubCard
-                icon={BookOpen}
-                title="Journaling"
-                description="Track thoughts, gratitude & growth"
-                color="from-[#D9B878] to-[#AFC7E3]"
-                page="Wellness"
-                index={3}
-              />
-              <WellnessHubCard
-                icon={TrendingUp}
-                title="Scripture"
-                description="Daily verses & spiritual growth"
-                color="from-[#AFC7E3] to-[#D9B878]"
-                page="Bible"
-                index={4}
-              />
-            </div>
+          <div className="max-w-2xl mx-auto mb-8 space-y-8">
+            <AIWellnessRecommendations 
+              user={user}
+              signupAnswers={user?.signup_answers}
+            />
+            
+            <WellnessCommunityFeed
+              posts={posts}
+              meditations={meditations}
+              recipes={recipes}
+              workouts={myWorkouts}
+              comments={comments}
+            />
+            
+            <WellnessMetricsOverview
+              meditationSessions={meditationSessions}
+              workoutSessions={workoutSessions}
+              mealLogs={mealLogs}
+              waterLogs={waterLogs}
+              journalEntries={journalEntries}
+              prayerJournals={prayerJournals}
+              userProgress={userProgress}
+              challengeParticipants={challengeParticipants}
+            />
           </div>
         )}
 
