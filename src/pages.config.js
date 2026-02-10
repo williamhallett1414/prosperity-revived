@@ -70,6 +70,7 @@ import PlanDetail from './pages/PlanDetail';
 import Plans from './pages/Plans';
 import Profile from './pages/Profile';
 import Search from './pages/Search';
+import SelfCare from './pages/SelfCare';
 import Settings from './pages/Settings';
 import SpiritualGrowth from './pages/SpiritualGrowth';
 import UserProfile from './pages/UserProfile';
@@ -77,7 +78,6 @@ import Wellness from './pages/Wellness';
 import WellnessJourney from './pages/WellnessJourney';
 import WorkoutProgress from './pages/WorkoutProgress';
 import WorkoutTrends from './pages/WorkoutTrends';
-import SelfCare from './pages/SelfCare';
 import __Layout from './Layout.jsx';
 
 
@@ -105,6 +105,7 @@ export const PAGES = {
     "Plans": Plans,
     "Profile": Profile,
     "Search": Search,
+    "SelfCare": SelfCare,
     "Settings": Settings,
     "SpiritualGrowth": SpiritualGrowth,
     "UserProfile": UserProfile,
@@ -112,7 +113,6 @@ export const PAGES = {
     "WellnessJourney": WellnessJourney,
     "WorkoutProgress": WorkoutProgress,
     "WorkoutTrends": WorkoutTrends,
-    "SelfCare": SelfCare,
 }
 
 export const pagesConfig = {

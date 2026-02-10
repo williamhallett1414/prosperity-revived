@@ -15,6 +15,8 @@ import PostCard from '@/components/community/PostCard';
 import CreatePostModal from '@/components/community/CreatePostModal';
 import GamificationBanner from '@/components/gamification/GamificationBanner';
 import OnboardingFlow from '@/components/onboarding/OnboardingFlow';
+import DailyStartSection from '@/components/home/DailyStartSection';
+import ContinueJourneyCard from '@/components/home/ContinueJourneyCard';
 import { Trophy } from 'lucide-react';
 import { startMeditationWorker } from '@/functions/startMeditationWorker';
 
@@ -97,6 +99,52 @@ export default function Home() {
   const { data: meditationSessions = [] } = useQuery({
     queryKey: ['meditationSessions'],
     queryFn: () => base44.entities.MeditationSession.filter({ created_by: user?.email }, '-date', 50),
+    enabled: !!user
+  });
+
+  const { data: meditations = [] } = useQuery({
+    queryKey: ['meditations'],
+    queryFn: async () => {
+      try {
+        return await base44.entities.Meditation.filter({}, '-created_date', 20);
+      } catch {
+        return [];
+      }
+    }
+  });
+
+  const { data: workoutPlans = [] } = useQuery({
+    queryKey: ['workoutPlans'],
+    queryFn: async () => {
+      try {
+        return await base44.entities.WorkoutPlan.filter({}, '-created_date', 10);
+      } catch {
+        return [];
+      }
+    }
+  });
+
+  const { data: challenges = [] } = useQuery({
+    queryKey: ['challengeParticipants'],
+    queryFn: async () => {
+      try {
+        return await base44.entities.ChallengeParticipant.filter({ user_email: user?.email, status: 'active' });
+      } catch {
+        return [];
+      }
+    },
+    enabled: !!user
+  });
+
+  const { data: journalEntries = [] } = useQuery({
+    queryKey: ['journalEntries'],
+    queryFn: async () => {
+      try {
+        return await base44.entities.JournalEntry.filter({ created_by: user?.email }, '-created_date', 10);
+      } catch {
+        return [];
+      }
+    },
     enabled: !!user
   });
 
@@ -184,7 +232,7 @@ export default function Home() {
   }, [user?.theme]);
 
   return (
-    <div className="min-h-screen bg-[#faf8f5] dark:bg-[#1a1a2e]">
+    <div className="min-h-screen bg-[#F2F6FA]">
       {showOnboarding && (
         <OnboardingFlow 
           onComplete={() => {
@@ -201,145 +249,37 @@ export default function Home() {
           animate={{ opacity: 1, y: 0 }}
           className="mb-6"
         >
-          <div className="flex items-center gap-3 mb-1">
-            <img 
-              src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6980ade9ca08df558ed28bdd/d9b97f241_ProsperityRevivedSymbol.jpeg" 
-              alt="Prosperity Revived" 
-              className="w-10 h-10 object-contain mix-blend-mode: lighten"
-              style={{ mixBlendMode: 'lighten', backgroundColor: 'transparent' }}
-            />
-            <h1 className="text-3xl font-bold text-[#1a1a2e] dark:text-white">
-              {new Date().getHours() < 12 ? 'Good Morning' : new Date().getHours() < 18 ? 'Good Afternoon' : 'Good Evening'}
-            </h1>
-          </div>
-          <p className="text-gray-500 dark:text-gray-400">Welcome back, {user?.full_name?.split(' ')[0] || 'friend'}</p>
+          <h1 className="text-3xl font-bold text-[#0A1A2F] mb-1">
+            {new Date().getHours() < 12 ? 'Good Morning' : new Date().getHours() < 18 ? 'Good Afternoon' : 'Good Evening'}
+          </h1>
+          <p className="text-[#0A1A2F]/60">Welcome back, {user?.full_name?.split(' ')[0] || 'friend'}</p>
         </motion.div>
+
+        {/* Daily Start Section */}
+        <DailyStartSection 
+          meditations={meditations}
+          workoutPlans={workoutPlans}
+        />
+
+        {/* Continue Your Journey */}
+        <ContinueJourneyCard 
+          activePlans={planProgress}
+          challenges={challenges}
+          workoutSessions={workoutSessions}
+          journalEntries={journalEntries}
+        />
 
         {/* Gamification Banner */}
         <GamificationBanner userProgress={userProgress} />
         
-        {/* Quick Link to Leaderboard */}
-        {userProgress && (
-          <Link 
-            to={createPageUrl('Achievements')}
-            className="block bg-gradient-to-r from-amber-500 to-orange-500 rounded-2xl p-4 mb-4 text-white shadow-lg"
-          >
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <Trophy className="w-6 h-6" />
-                <div>
-                  <p className="font-semibold">View Leaderboard</p>
-                  <p className="text-sm text-white/80">See how you rank!</p>
-                </div>
-              </div>
-              <div className="text-right">
-                <p className="text-2xl font-bold">{userProgress.total_points || 0}</p>
-                <p className="text-xs text-white/80">points</p>
-              </div>
-            </div>
-          </Link>
-        )}
 
-        {/* Verse of the Day */}
-        <div className="mb-6 relative">
-          <VerseOfDay onBookmark={handleBookmarkVerse} />
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setShowDailyVerseSettings(true)}
-            className="absolute top-4 right-4 text-gray-400 hover:text-[#c9a227]"
-          >
-            <Settings className="w-5 h-5" />
-          </Button>
-        </div>
-
-        {/* Daily Devotional */}
-        <DailyDevotional />
-
-        {/* Quick Actions */}
-        <div className="grid grid-cols-2 gap-4 mb-8">
-          <Link to={createPageUrl('Bible')}>
-            <motion.div
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className="relative h-40 rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition-all bg-cover bg-center"
-              style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=500&h=300&fit=crop)' }}
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-[#1a1a2e]/70 to-[#2d2d4a]/60 flex flex-col items-center justify-center">
-                <BookOpen className="w-8 h-8 text-[#c9a227] mb-2" />
-                <span className="text-white font-semibold text-lg">Bible</span>
-                <p className="text-white/70 text-xs mt-1">Study & Learn</p>
-              </div>
-            </motion.div>
-          </Link>
-          
-          <Link to={createPageUrl('Wellness') + '#selfcare'}>
-            <motion.div
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className="relative h-40 rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition-all bg-cover bg-center"
-              style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=500&h=300&fit=crop)' }}
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-indigo-600/70 to-purple-600/60 flex flex-col items-center justify-center">
-                <Sparkles className="w-8 h-8 text-white mb-2" />
-                <span className="text-white font-semibold text-lg">Self-Care</span>
-                <p className="text-white/70 text-xs mt-1">Daily Routine</p>
-              </div>
-            </motion.div>
-          </Link>
-          
-          <Link to={createPageUrl('Community')}>
-            <motion.div
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className="relative h-40 rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition-all bg-cover bg-center"
-              style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=500&h=300&fit=crop)' }}
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-purple-600/70 to-pink-600/60 flex flex-col items-center justify-center">
-                <Users className="w-8 h-8 text-white mb-2" />
-                <span className="text-white font-semibold text-lg">Community</span>
-                <p className="text-white/70 text-xs mt-1">Connect & Share</p>
-              </div>
-            </motion.div>
-          </Link>
-          
-          <Link to={createPageUrl('Wellness')}>
-            <motion.div
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className="relative h-40 rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition-all bg-cover bg-center"
-              style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=500&h=300&fit=crop)' }}
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-emerald-600/70 to-teal-600/60 flex flex-col items-center justify-center">
-                <Dumbbell className="w-8 h-8 text-white mb-2" />
-                <span className="text-white font-semibold text-lg">Wellness</span>
-                <p className="text-white/70 text-xs mt-1">Health & Fitness</p>
-              </div>
-            </motion.div>
-          </Link>
-
-          <Link to={createPageUrl('Achievements')}>
-            <motion.div
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className="relative h-40 rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition-all bg-cover bg-center"
-              style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1579263657449-d0ed08fbe4d7?w=500&h=300&fit=crop)' }}
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-amber-600/70 to-orange-600/60 flex flex-col items-center justify-center">
-                <Trophy className="w-8 h-8 text-white mb-2" />
-                <span className="text-white font-semibold text-lg">Progress</span>
-                <p className="text-white/70 text-xs mt-1">Achievements & Stats</p>
-              </div>
-            </motion.div>
-          </Link>
-        </div>
 
         {/* Active Plans */}
         {activePlans.length > 0 && (
           <div className="mb-6">
             <div className="flex items-center justify-between mb-3">
-              <h2 className="text-lg font-semibold text-[#1a1a2e] dark:text-white">Continue Reading</h2>
-              <Link to={createPageUrl('Plans')} className="text-sm text-[#c9a227] font-medium">
+              <h2 className="text-xl font-bold text-[#0A1A2F]">Continue Reading</h2>
+              <Link to={createPageUrl('Plans')} className="text-sm text-[#D9B878] font-semibold">
                 See All
               </Link>
             </div>
@@ -360,17 +300,17 @@ export default function Home() {
         {/* Your Activity */}
         {(myPosts.length > 0 || workoutSessions.length > 0 || meditationSessions.length > 0) && (
           <div className="mb-6">
-            <h2 className="text-lg font-semibold text-[#1a1a2e] dark:text-white mb-3">Your Recent Activity</h2>
+            <h2 className="text-xl font-bold text-[#0A1A2F] mb-3">Your Recent Activity</h2>
             <div className="space-y-2">
               {myPosts.slice(0, 2).map(post => (
                 <motion.div
                   key={post.id}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="bg-white dark:bg-[#2d2d4a] rounded-lg p-3 text-sm border-l-4 border-purple-600"
+                  className="bg-[#E6EBEF] rounded-xl p-4 text-sm border-l-4 border-[#D9B878] shadow-sm"
                 >
-                  <p className="text-gray-700 dark:text-gray-300">Posted: <span className="font-medium">"{post.content.slice(0, 40)}..."</span></p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{new Date(post.created_date).toLocaleDateString()}</p>
+                  <p className="text-[#0A1A2F]">Posted: <span className="font-semibold">"{post.content.slice(0, 40)}..."</span></p>
+                  <p className="text-xs text-[#0A1A2F]/50 mt-1">{new Date(post.created_date).toLocaleDateString()}</p>
                 </motion.div>
               ))}
               {workoutSessions.slice(0, 2).map(session => (
@@ -378,10 +318,10 @@ export default function Home() {
                   key={session.id}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="bg-white dark:bg-[#2d2d4a] rounded-lg p-3 text-sm border-l-4 border-emerald-600"
+                  className="bg-[#E6EBEF] rounded-xl p-4 text-sm border-l-4 border-[#AFC7E3] shadow-sm"
                 >
-                  <p className="text-gray-700 dark:text-gray-300">Workout: <span className="font-medium">{session.workout_title}</span> ({session.duration_minutes}m)</p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{new Date(session.date).toLocaleDateString()}</p>
+                  <p className="text-[#0A1A2F]">Workout: <span className="font-semibold">{session.workout_title}</span> ({session.duration_minutes}m)</p>
+                  <p className="text-xs text-[#0A1A2F]/50 mt-1">{new Date(session.date).toLocaleDateString()}</p>
                 </motion.div>
               ))}
               {meditationSessions.slice(0, 2).map(session => (
@@ -389,10 +329,10 @@ export default function Home() {
                   key={session.id}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="bg-white dark:bg-[#2d2d4a] rounded-lg p-3 text-sm border-l-4 border-pink-600"
+                  className="bg-[#E6EBEF] rounded-xl p-4 text-sm border-l-4 border-[#D9B878] shadow-sm"
                 >
-                  <p className="text-gray-700 dark:text-gray-300">Meditation: <span className="font-medium">{session.meditation_title}</span></p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{new Date(session.date).toLocaleDateString()}</p>
+                  <p className="text-[#0A1A2F]">Meditation: <span className="font-semibold">{session.meditation_title}</span></p>
+                  <p className="text-xs text-[#0A1A2F]/50 mt-1">{new Date(session.date).toLocaleDateString()}</p>
                 </motion.div>
               ))}
             </div>
@@ -402,24 +342,24 @@ export default function Home() {
         {/* Community Feed */}
         <div className="mb-6">
           <div className="flex items-center justify-between mb-3">
-            <h2 className="text-lg font-semibold text-[#1a1a2e] dark:text-white">Community</h2>
-            <Link to={createPageUrl('Community')} className="text-sm text-[#c9a227] font-medium">
+            <h2 className="text-xl font-bold text-[#0A1A2F]">Community</h2>
+            <Link to={createPageUrl('Community')} className="text-sm text-[#D9B878] font-semibold">
               See All
             </Link>
           </div>
           
           <Button
             onClick={() => setShowCreatePost(true)}
-            className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 h-12 mb-4 rounded-xl shadow-md"
+            className="w-full bg-gradient-to-r from-[#D9B878] to-[#AFC7E3] hover:from-[#D9B878]/90 hover:to-[#AFC7E3]/90 text-[#0A1A2F] h-12 mb-4 rounded-xl shadow-md font-semibold"
           >
             <Plus className="w-5 h-5 mr-2" />
             Share Your Thoughts
           </Button>
 
           {posts.length === 0 ? (
-            <div className="text-center py-8 bg-white dark:bg-[#2d2d4a] rounded-2xl">
-              <Users className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-              <p className="text-gray-500 dark:text-gray-400">No posts yet</p>
+            <div className="text-center py-8 bg-[#E6EBEF] rounded-2xl">
+              <Users className="w-12 h-12 text-[#0A1A2F]/30 mx-auto mb-3" />
+              <p className="text-[#0A1A2F]/50">No posts yet</p>
             </div>
           ) : (
             <div className="space-y-4">
