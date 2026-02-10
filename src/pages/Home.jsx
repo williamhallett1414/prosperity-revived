@@ -349,7 +349,7 @@ export default function Home() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="grid grid-cols-2 gap-3 mb-8"
+          className="grid grid-cols-2 gap-3 mb-8 px-4"
         >
           <Button
             onClick={() => setShowStartDay(true)}
