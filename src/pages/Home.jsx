@@ -273,7 +273,7 @@ export default function Home() {
             </motion.div>
           </Link>
           
-          <Link to={createPageUrl('SelfCare')}>
+          <Link to={createPageUrl('Wellness') + '#selfcare'}>
             <motion.div
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}

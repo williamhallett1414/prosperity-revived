@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X } from 'lucide-react';
+import { X, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-export default function TakeTimeWithGod({ onClose }) {
+export default function TakeTimeWithGod() {
+  const [showModal, setShowModal] = useState(false);
   const [step, setStep] = useState(0);
 
   const steps = [
@@ -85,76 +86,102 @@ export default function TakeTimeWithGod({ onClose }) {
   ];
 
   useEffect(() => {
-    if (step < steps.length - 1) {
+    if (showModal && step < steps.length - 1) {
       const timer = setTimeout(() => {
         setStep(step + 1);
       }, 5000);
       return () => clearTimeout(timer);
     }
-  }, [step]);
+  }, [step, showModal]);
+
+  const handleClose = () => {
+    setShowModal(false);
+    setStep(0);
+  };
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4"
-      onClick={onClose}
-    >
+    <>
       <motion.div
-        initial={{ scale: 0.9, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        exit={{ scale: 0.9, opacity: 0 }}
-        onClick={(e) => e.stopPropagation()}
-        className="bg-white rounded-3xl p-8 max-w-lg w-full shadow-2xl relative"
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 0.1 }}
+        className="mb-8"
       >
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
+        <Button
+          onClick={() => setShowModal(true)}
+          className="w-full h-24 bg-gradient-to-r from-[#c9a227] via-[#d4af37] to-[#c9a227] hover:from-[#d4af37] hover:to-[#e5c158] text-white text-xl font-bold rounded-2xl shadow-2xl"
         >
-          <X className="w-6 h-6" />
-        </button>
-
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={step}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.5 }}
-          >
-            <h2 className="text-2xl font-bold text-[#1a1a2e] mb-2 text-center">
-              {steps[step].title}
-            </h2>
-            <p className="text-gray-500 text-sm mb-6 text-center">
-              {steps[step].subtitle}
-            </p>
-            <div className="mb-8">
-              {steps[step].content}
-            </div>
-          </motion.div>
-        </AnimatePresence>
-
-        <div className="flex items-center justify-center gap-2 mb-4">
-          {steps.map((_, i) => (
-            <div
-              key={i}
-              className={`h-2 rounded-full transition-all ${
-                i === step ? 'w-8 bg-[#c9a227]' : 'w-2 bg-gray-300'
-              }`}
-            />
-          ))}
-        </div>
-
-        {step === steps.length - 1 && (
-          <Button
-            onClick={onClose}
-            className="w-full bg-gradient-to-r from-[#c9a227] to-[#d4af37] hover:from-[#d4af37] hover:to-[#e5c158] text-white"
-          >
-            Complete
-          </Button>
-        )}
+          <div className="flex flex-col items-center">
+            <span className="text-2xl mb-1">✨</span>
+            <span>Take 2 Minutes With God</span>
+          </div>
+        </Button>
       </motion.div>
-    </motion.div>
+
+      {showModal && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4"
+          onClick={handleClose}
+        >
+          <motion.div
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.9, opacity: 0 }}
+            onClick={(e) => e.stopPropagation()}
+            className="bg-white rounded-3xl p-8 max-w-lg w-full shadow-2xl relative"
+          >
+            <button
+              onClick={handleClose}
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
+            >
+              <X className="w-6 h-6" />
+            </button>
+
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={step}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.5 }}
+              >
+                <h2 className="text-2xl font-bold text-[#1a1a2e] mb-2 text-center">
+                  {steps[step].title}
+                </h2>
+                <p className="text-gray-500 text-sm mb-6 text-center">
+                  {steps[step].subtitle}
+                </p>
+                <div className="mb-8">
+                  {steps[step].content}
+                </div>
+              </motion.div>
+            </AnimatePresence>
+
+            <div className="flex items-center justify-center gap-2 mb-4">
+              {steps.map((_, i) => (
+                <div
+                  key={i}
+                  className={`h-2 rounded-full transition-all ${
+                    i === step ? 'w-8 bg-[#c9a227]' : 'w-2 bg-gray-300'
+                  }`}
+                />
+              ))}
+            </div>
+
+            {step === steps.length - 1 && (
+              <Button
+                onClick={handleClose}
+                className="w-full bg-gradient-to-r from-[#c9a227] to-[#d4af37] hover:from-[#d4af37] hover:to-[#e5c158] text-white"
+              >
+                Complete
+              </Button>
+            )}
+          </motion.div>
+        </motion.div>
+      )}
+    </>
   );
 }

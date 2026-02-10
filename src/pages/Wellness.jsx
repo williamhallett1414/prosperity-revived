@@ -30,6 +30,14 @@ import SelfCareGuides from '@/components/wellness/SelfCareGuides';
 import ReeVibeFitness from '@/components/wellness/ReeVibeFitness';
 import CommunityRecipeFeed from '@/components/wellness/CommunityRecipeFeed';
 
+import DailyRoutineCards from '@/components/selfcare/DailyRoutineCards';
+import QuickTools from '@/components/selfcare/QuickTools';
+import MoodTracker from '@/components/selfcare/MoodTracker';
+import AffirmationsCarousel from '@/components/selfcare/AffirmationsCarousel';
+import SelfCareChallenges from '@/components/selfcare/SelfCareChallenges';
+import ProgressSnapshot from '@/components/selfcare/ProgressSnapshot';
+import TakeTimeWithGod from '@/components/selfcare/TakeTimeWithGod';
+
 import CoachDavid from '@/components/wellness/CoachDavid';
 import ChefDaniel from '@/components/wellness/ChefDaniel';
 import Hannah from '@/components/wellness/Hannah.jsx';
@@ -87,6 +95,22 @@ export default function Wellness() {
     queryKey: ['meditationSessions'],
     queryFn: () => base44.entities.MeditationSession.list('-date', 100),
     initialData: [],
+    enabled: !!user
+  });
+
+  const { data: meditations = [] } = useQuery({
+    queryKey: ['meditations'],
+    queryFn: () => base44.entities.Meditation.filter({})
+  });
+
+  const { data: challenges = [] } = useQuery({
+    queryKey: ['challenges'],
+    queryFn: () => base44.entities.Challenge.filter({})
+  });
+
+  const { data: challengeParticipants = [] } = useQuery({
+    queryKey: ['challengeParticipants'],
+    queryFn: () => base44.entities.ChallengeParticipant.filter({ user_email: user?.email }),
     enabled: !!user
   });
 
@@ -296,8 +320,17 @@ export default function Wellness() {
           </TabsContent>
 
           {/* Self-Care Tab */}
-          <TabsContent value="selfcare" className="space-y-4">
-            <SelfCareGuides user={user} />
+          <TabsContent value="selfcare" className="space-y-4 bg-gradient-to-br from-[#1a1a2e] via-[#2d3142] to-[#1a1a2e] -mx-4 px-4 py-6 rounded-t-2xl">
+            <DailyRoutineCards meditations={meditations} />
+            <QuickTools />
+            <MoodTracker />
+            <AffirmationsCarousel />
+            <SelfCareChallenges challenges={challenges} participations={challengeParticipants} />
+            <ProgressSnapshot 
+              meditationSessions={meditationSessions}
+              challengeParticipants={challengeParticipants}
+            />
+            <TakeTimeWithGod />
           </TabsContent>
         </Tabs>
       </div>
