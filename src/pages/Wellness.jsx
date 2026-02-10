@@ -31,14 +31,6 @@ import SelfCareGuides from '@/components/wellness/SelfCareGuides';
 import ReeVibeFitness from '@/components/wellness/ReeVibeFitness';
 import CommunityRecipeFeed from '@/components/wellness/CommunityRecipeFeed';
 
-import DailyRoutineCards from '@/components/selfcare/DailyRoutineCards';
-import QuickTools from '@/components/selfcare/QuickTools';
-import MoodTracker from '@/components/selfcare/MoodTracker';
-import DailyAffirmation from '@/components/selfcare/DailyAffirmation';
-import SelfCareChallenges from '@/components/selfcare/SelfCareChallenges';
-import ProgressSnapshot from '@/components/selfcare/ProgressSnapshot';
-import TakeTimeWithGod from '@/components/selfcare/TakeTimeWithGod';
-import DailyPrayer from '@/components/selfcare/DailyPrayer';
 import WellnessHubCard from '@/components/wellness/WellnessHubCard';
 import WeeklyThemeBanner from '@/components/wellness/WeeklyThemeBanner';
 import WorkoutCategoryFilter from '@/components/workouts/WorkoutCategoryFilter';
