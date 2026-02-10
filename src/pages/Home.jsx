@@ -385,8 +385,19 @@ export default function Home() {
         {userProgress !== undefined && (
           <GamificationBanner userProgress={userProgress} />
         )}
-        
 
+        {/* Your Progress & Metrics */}
+        <WellnessMetricsOverview
+          meditationSessions={meditationSessions}
+          workoutSessions={workoutSessions}
+          mealLogs={[]}
+          waterLogs={[]}
+          journalEntries={journalEntries}
+          prayerJournals={[]}
+          userProgress={userProgress}
+          challengeParticipants={challenges}
+          planProgress={planProgress}
+        />
 
         {/* Active Plans */}
         {activePlans.length > 0 && (
