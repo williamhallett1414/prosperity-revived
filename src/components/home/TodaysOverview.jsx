@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { getVerseOfDay } from '@/components/bible/BibleData';
 import { BookOpen, Sparkles, Zap, Droplets } from 'lucide-react';
+import StartWorkoutModal from './StartWorkoutModal';
 
 const affirmations = [
   "I am worthy of God's love and grace",
@@ -13,7 +14,8 @@ const affirmations = [
 
 const getAffirmation = () => affirmations[new Date().getDate() % affirmations.length];
 
-export default function TodaysOverview({ meditations = [], workoutPlans = [], challenges = [] }) {
+export default function TodaysOverview({ meditations = [], workoutPlans = [], challenges = [], user }) {
+  const [showWorkoutModal, setShowWorkoutModal] = useState(false);
   const navigate = useNavigate();
   const verse = getVerseOfDay();
   const affirmation = getAffirmation();
@@ -86,7 +88,7 @@ export default function TodaysOverview({ meditations = [], workoutPlans = [], ch
           )}
           {suggestedWorkout && (
             <button
-              onClick={() => navigate(`${createPageUrl('DiscoverWorkouts')}?id=${suggestedWorkout.id}`)}
+              onClick={() => setShowWorkoutModal(true)}
               className="block w-full text-left text-sm text-[#0A1A2F] font-medium hover:text-[#D9B878] transition-colors pl-6"
             >
               💪 {suggestedWorkout.title || 'Workout'} ({suggestedWorkout.duration_minutes}m)
@@ -111,6 +113,13 @@ export default function TodaysOverview({ meditations = [], workoutPlans = [], ch
           </div>
         </div>
       </motion.button>
+
+      <StartWorkoutModal
+        isOpen={showWorkoutModal}
+        onClose={() => setShowWorkoutModal(false)}
+        workout={suggestedWorkout}
+        user={user}
+      />
     </motion.div>
   );
 }
