@@ -358,6 +358,7 @@ export default function Home() {
           meditations={meditations}
           workoutPlans={workoutPlans}
           challenges={challenges}
+          user={user}
         />
 
         {/* Quick Actions Row */}
