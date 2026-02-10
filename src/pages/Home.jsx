@@ -192,11 +192,11 @@ export default function Home() {
         if (!user?.email) return [];
         return await base44.entities.ChallengeParticipant.filter({ user_email: user.email, status: 'active' });
       } catch (error) {
-        console.log('ChallengeParticipant error:', error);
         return [];
       }
     },
-    enabled: !!user
+    enabled: !!user,
+    retry: false
   });
 
   const { data: journalEntries = [] } = useQuery({
@@ -206,7 +206,6 @@ export default function Home() {
         if (!user?.email) return [];
         return await base44.entities.JournalEntry.filter({ created_by: user.email }, '-created_date', 10);
       } catch (error) {
-        console.log('JournalEntry error:', error);
         return [];
       }
     },
