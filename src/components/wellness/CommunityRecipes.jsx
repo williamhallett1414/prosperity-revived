@@ -79,7 +79,7 @@ export default function CommunityRecipes() {
       <div className="bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-2xl p-4 mb-4">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-sm !text-black">Community Contributions</p>
+            <p className="text-sm" style={overrideStyle}>Community Contributions</p>
             <p className="text-2xl font-bold text-purple-600">{communityRecipes.length}</p>
           </div>
           <Users className="w-12 h-12 text-purple-600/20" />
