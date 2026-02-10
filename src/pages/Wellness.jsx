@@ -317,6 +317,7 @@ export default function Wellness() {
           {/* Nutrition Tab */}
           <TabsContent value="nutrition" className="space-y-6 max-w-2xl mx-auto">
             <NutritionDashboard mealLogs={mealLogs} waterLogs={waterLogs} />
+            <MealSuggestions />
             <MealTracker />
             
             <PersonalizedNutritionPlan />

@@ -13,6 +13,7 @@ import SelfCareChallenges from '@/components/selfcare/SelfCareChallenges';
 import ProgressSnapshot from '@/components/selfcare/ProgressSnapshot';
 import TakeTimeWithGod from '@/components/selfcare/TakeTimeWithGod';
 import DailyPrayer from '@/components/selfcare/DailyPrayer';
+import EnhancedJournaling from '@/components/selfcare/EnhancedJournaling';
 
 export default function SelfCare() {
   const [user, setUser] = useState(null);
@@ -125,6 +126,9 @@ export default function SelfCare() {
 
         {/* Daily Affirmation */}
         <DailyAffirmation />
+
+        {/* Enhanced Journaling */}
+        <EnhancedJournaling />
 
         {/* Self-Care Challenges */}
         <SelfCareChallenges challenges={challenges} participations={challengeParticipants} />
