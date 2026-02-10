@@ -19,32 +19,32 @@ export default function Discover() {
 
   if (!user) {
     return (
-      <div className="min-h-screen bg-[#faf8f5] dark:bg-[#1a1a2e] flex items-center justify-center">
-        <Loader2 className="w-8 h-8 text-[#c9a227] animate-spin" />
+      <div className="min-h-screen bg-[#F2F6FA] flex items-center justify-center">
+        <Loader2 className="w-8 h-8 text-[#D9B878] animate-spin" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#faf8f5] dark:bg-[#1a1a2e] pb-24">
+    <div className="min-h-screen bg-[#F2F6FA] pb-24">
       {/* Header */}
-      <div className="bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 text-white px-4 py-8">
+      <div className="px-4 py-8">
         <div className="max-w-2xl mx-auto">
           <div className="flex items-center justify-between mb-2">
-            <h1 className="text-3xl font-bold flex items-center gap-2">
-              <Sparkles className="w-8 h-8" />
+            <h1 className="text-3xl font-bold flex items-center gap-2 text-[#0A1A2F]">
+              <Sparkles className="w-8 h-8 text-[#D9B878]" />
               Discover
             </h1>
             <Button
               variant="ghost"
               size="icon"
               onClick={() => setRefreshKey(prev => prev + 1)}
-              className="text-white hover:bg-white/20"
+              className="text-[#0A1A2F] hover:bg-[#E6EBEF]"
             >
               <RefreshCw className="w-5 h-5" />
             </Button>
           </div>
-          <p className="text-white/90 text-sm">
+          <p className="text-[#0A1A2F]/60 text-sm">
             Personalized content curated just for you
           </p>
         </div>
@@ -52,16 +52,16 @@ export default function Discover() {
 
       <div className="max-w-2xl mx-auto px-4 py-6">
         <Tabs defaultValue="for-you" className="w-full">
-          <TabsList className="grid w-full grid-cols-3 mb-6">
-            <TabsTrigger value="for-you">
+          <TabsList className="grid w-full grid-cols-3 mb-8 bg-[#E6EBEF] p-1 rounded-xl">
+            <TabsTrigger value="for-you" className="data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">
               <Sparkles className="w-4 h-4 mr-2" />
               For You
             </TabsTrigger>
-            <TabsTrigger value="trending">
+            <TabsTrigger value="trending" className="data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">
               <TrendingUp className="w-4 h-4 mr-2" />
               Trending
             </TabsTrigger>
-            <TabsTrigger value="summaries">
+            <TabsTrigger value="summaries" className="data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">
               <BookOpen className="w-4 h-4 mr-2" />
               Summaries
             </TabsTrigger>

@@ -96,30 +96,30 @@ export default function Groups() {
   };
 
   return (
-    <div className="min-h-screen bg-[#faf8f5] dark:bg-[#1a1a2e] pb-24">
+    <div className="min-h-screen bg-[#F2F6FA] pb-24">
       <div className="max-w-2xl mx-auto px-4 py-6">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-6"
+          className="mb-8"
         >
           <div className="flex items-center gap-3 mb-2">
             <Link
               to={createPageUrl('Home')}
-              className="w-10 h-10 rounded-full bg-white dark:bg-[#2d2d4a] shadow-sm flex items-center justify-center text-[#1a1a2e] dark:text-white hover:bg-gray-50 dark:hover:bg-[#3d3d5a] transition-colors"
+              className="w-10 h-10 rounded-full bg-[#D9B878] hover:bg-[#D9B878]/90 shadow-sm flex items-center justify-center text-[#0A1A2F] transition-colors"
             >
               <ArrowLeft className="w-5 h-5" />
             </Link>
-            <h1 className="text-2xl font-bold text-[#1a1a2e] dark:text-white">Study Groups</h1>
+            <h1 className="text-2xl font-bold text-[#0A1A2F]">Study Groups</h1>
           </div>
-          <p className="text-gray-500 dark:text-gray-400 ml-[52px]">Join or create groups to study together</p>
+          <p className="text-[#0A1A2F]/60 ml-[52px]">Join or create groups to study together</p>
         </motion.div>
 
         {/* Category Filter */}
-        <div className="mb-4">
+        <div className="mb-6">
           <Select value={categoryFilter} onValueChange={setCategoryFilter}>
-            <SelectTrigger className="bg-white dark:bg-[#2d2d4a] border-gray-200 dark:border-gray-700 rounded-xl">
+            <SelectTrigger className="bg-[#E6EBEF] border-[#E6EBEF] rounded-xl h-12">
               <SelectValue placeholder="All Categories" />
             </SelectTrigger>
             <SelectContent>
@@ -138,19 +138,19 @@ export default function Groups() {
         </div>
 
         {/* Search & Create */}
-        <div className="flex gap-3 mb-6">
+        <div className="flex gap-3 mb-8">
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[#0A1A2F]/40" />
             <Input
               placeholder="Search groups..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="pl-10 bg-white dark:bg-[#2d2d4a] border-gray-200 dark:border-gray-700 rounded-xl h-12"
+              className="pl-10 bg-[#E6EBEF] border-[#E6EBEF] rounded-xl h-12"
             />
           </div>
           <Button
             onClick={() => setShowCreate(true)}
-            className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 h-12 px-6 shadow-md"
+            className="bg-gradient-to-r from-[#D9B878] to-[#AFC7E3] hover:from-[#D9B878]/90 hover:to-[#AFC7E3]/90 text-[#0A1A2F] h-12 px-6 shadow-md"
           >
             <Plus className="w-5 h-5" />
           </Button>
@@ -158,18 +158,18 @@ export default function Groups() {
 
         {/* Tabs */}
         <Tabs defaultValue="my" className="mb-6">
-          <TabsList className="grid grid-cols-2 bg-white dark:bg-[#2d2d4a] p-1 rounded-xl">
-            <TabsTrigger value="my">My Groups</TabsTrigger>
-            <TabsTrigger value="discover">Discover</TabsTrigger>
+          <TabsList className="grid grid-cols-2 bg-[#E6EBEF] p-1 rounded-xl">
+            <TabsTrigger value="my" className="data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">My Groups</TabsTrigger>
+            <TabsTrigger value="discover" className="data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">Discover</TabsTrigger>
           </TabsList>
 
           <TabsContent value="my" className="mt-6">
             {myGroups.length === 0 ? (
               <div className="text-center py-16">
-                <p className="text-gray-500 mb-4">You haven't joined any groups yet</p>
+                <p className="text-[#0A1A2F]/60 mb-4">You haven't joined any groups yet</p>
                 <Button
                   onClick={() => setShowCreate(true)}
-                  className="bg-[#1a1a2e] hover:bg-[#2d2d4a]"
+                  className="bg-gradient-to-r from-[#D9B878] to-[#AFC7E3] hover:from-[#D9B878]/90 hover:to-[#AFC7E3]/90 text-[#0A1A2F]"
                 >
                   Create Your First Group
                 </Button>
@@ -192,9 +192,9 @@ export default function Groups() {
           <TabsContent value="discover" className="mt-6">
             {filteredGroups(publicGroups).length === 0 ? (
               <div className="text-center py-16">
-                <p className="text-gray-500 mb-2">No public groups found</p>
+                <p className="text-[#0A1A2F]/60 mb-2">No public groups found</p>
                 {search && (
-                  <p className="text-sm text-gray-400">Try a different search term</p>
+                  <p className="text-sm text-[#0A1A2F]/40">Try a different search term</p>
                 )}
               </div>
             ) : (
@@ -280,7 +280,7 @@ export default function Groups() {
               <Button
                 onClick={handleCreateGroup}
                 disabled={!newGroup.name.trim()}
-                className="bg-[#1a1a2e] hover:bg-[#2d2d4a]"
+                className="bg-gradient-to-r from-[#D9B878] to-[#AFC7E3] hover:from-[#D9B878]/90 hover:to-[#AFC7E3]/90 text-[#0A1A2F]"
               >
                 Create Group
               </Button>

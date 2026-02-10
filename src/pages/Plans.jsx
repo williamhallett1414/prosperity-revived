@@ -115,40 +115,40 @@ Provide warm, helpful guidance (2-4 sentences) about reading plans, Bible study 
   });
 
   return (
-    <div className="min-h-screen bg-[#faf8f5] dark:bg-[#1a1a2e] pb-24">
+    <div className="min-h-screen bg-[#F2F6FA] pb-24">
       <div className="max-w-2xl mx-auto px-4 py-6">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-6"
+          className="mb-8"
         >
           <div className="flex items-center gap-3 mb-2">
             <Link
               to={createPageUrl('Home')}
-              className="w-10 h-10 rounded-full bg-white dark:bg-[#2d2d4a] shadow-sm flex items-center justify-center text-[#1a1a2e] dark:text-white hover:bg-gray-50 dark:hover:bg-[#3d3d5a] transition-colors"
+              className="w-10 h-10 rounded-full bg-[#D9B878] hover:bg-[#D9B878]/90 shadow-sm flex items-center justify-center text-[#0A1A2F] transition-colors"
             >
               <ArrowLeft className="w-5 h-5" />
             </Link>
-            <h1 className="text-2xl font-bold text-[#1a1a2e] dark:text-white">Reading Plans</h1>
+            <h1 className="text-2xl font-bold text-[#0A1A2F]">Reading Plans</h1>
           </div>
-          <p className="text-gray-500 dark:text-gray-400 ml-[52px]">Discover plans to guide your study</p>
+          <p className="text-[#0A1A2F]/60 ml-[52px]">Discover plans to guide your study</p>
         </motion.div>
 
         {/* Search & Create */}
-        <div className="flex gap-3 mb-6">
+        <div className="flex gap-3 mb-8">
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[#0A1A2F]/40" />
             <Input
               placeholder="Search plans..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="pl-10 bg-white dark:bg-[#2d2d4a] border-gray-200 dark:border-gray-700 rounded-xl h-12"
+              className="pl-10 bg-[#E6EBEF] border-[#E6EBEF] rounded-xl h-12"
             />
           </div>
           <Button
             onClick={() => setShowCreateCustom(true)}
-            className="bg-[#c9a227] hover:bg-[#b8922a] h-12 px-4 shadow-md"
+            className="bg-gradient-to-r from-[#D9B878] to-[#AFC7E3] hover:from-[#D9B878]/90 hover:to-[#AFC7E3]/90 text-[#0A1A2F] h-12 px-4 shadow-md"
           >
             <Plus className="w-5 h-5 sm:mr-2" />
             <span className="hidden sm:inline">Custom</span>
@@ -156,13 +156,13 @@ Provide warm, helpful guidance (2-4 sentences) about reading plans, Bible study 
         </div>
 
         {/* Categories */}
-        <Tabs value={category} onValueChange={setCategory} className="mb-6">
-          <TabsList className="bg-white dark:bg-[#2d2d4a] p-1 h-auto flex-wrap gap-1 rounded-xl">
+        <Tabs value={category} onValueChange={setCategory} className="mb-8">
+          <TabsList className="bg-[#E6EBEF] p-1 h-auto flex-wrap gap-1 rounded-xl">
             {categories.map(cat => (
               <TabsTrigger
                 key={cat}
                 value={cat}
-                className="rounded-lg capitalize text-xs sm:text-sm data-[state=active]:bg-[#1a1a2e] dark:data-[state=active]:bg-[#c9a227] data-[state=active]:text-white"
+                className="rounded-lg capitalize text-xs sm:text-sm data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]"
               >
                 {cat}
               </TabsTrigger>
@@ -178,9 +178,9 @@ Provide warm, helpful guidance (2-4 sentences) about reading plans, Bible study 
         >
           <Button
             onClick={() => setShowGideon(!showGideon)}
-            className="w-14 h-14 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 shadow-lg"
+            className="w-14 h-14 rounded-full bg-[#AFC7E3] hover:bg-[#AFC7E3]/90 text-[#0A1A2F] shadow-lg"
           >
-            <MessageCircle className="w-6 h-6 text-white" />
+            <MessageCircle className="w-6 h-6" />
           </Button>
         </motion.div>
 
@@ -193,44 +193,44 @@ Provide warm, helpful guidance (2-4 sentences) about reading plans, Bible study 
               exit={{ opacity: 0, y: 20, scale: 0.9 }}
               className="fixed bottom-44 right-6 w-80 max-w-[calc(100vw-3rem)] z-30"
             >
-              <div className="bg-white dark:bg-[#2d2d4a] rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden">
-                <div className="bg-gradient-to-r from-purple-500 to-pink-500 p-4 text-white">
+              <div className="bg-white rounded-2xl shadow-2xl border border-[#E6EBEF] overflow-hidden">
+                <div className="bg-gradient-to-r from-[#AFC7E3] to-[#D9B878] p-5 text-[#0A1A2F]">
                   <h3 className="font-semibold flex items-center gap-2">
                     <MessageCircle className="w-5 h-5" />
                     Chat with Gideon 🐱
                   </h3>
-                  <p className="text-xs text-white/80 mt-1">Your pastoral cat assistant</p>
+                  <p className="text-xs text-[#0A1A2F]/70 mt-1">Your pastoral cat assistant</p>
                 </div>
 
-                <div className="p-4 max-h-96 overflow-y-auto space-y-4">
+                <div className="p-5 max-h-96 overflow-y-auto space-y-4 bg-[#F2F6FA]">
                   {gideonResponse && (
                     <div className="space-y-3">
-                      <div className="bg-gray-100 dark:bg-[#1a1a2e] p-3 rounded-lg">
-                        <p className="text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">You asked:</p>
-                        <p className="text-sm text-gray-700 dark:text-gray-300">{gideonResponse.question}</p>
+                      <div className="bg-[#E6EBEF] p-4 rounded-xl">
+                        <p className="text-xs font-medium text-[#0A1A2F]/60 mb-1">You asked:</p>
+                        <p className="text-sm text-[#0A1A2F]">{gideonResponse.question}</p>
                       </div>
-                      <div className="bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/30 dark:to-pink-900/30 p-3 rounded-lg">
-                        <p className="text-xs font-medium text-purple-600 dark:text-purple-400 mb-1">Gideon says:</p>
-                        <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">{gideonResponse.advice}</p>
+                      <div className="bg-gradient-to-br from-[#AFC7E3] to-[#D9B878] p-4 rounded-xl">
+                        <p className="text-xs font-medium text-[#0A1A2F]/80 mb-1">Gideon says:</p>
+                        <p className="text-sm text-[#0A1A2F] leading-relaxed">{gideonResponse.advice}</p>
                       </div>
                     </div>
                   )}
 
                   {!gideonResponse && !gideonLoading && (
-                    <p className="text-sm text-gray-500 dark:text-gray-400 text-center py-8">
+                    <p className="text-sm text-[#0A1A2F]/60 text-center py-8">
                       Ask me anything about reading plans! 🐱
                     </p>
                   )}
 
                   {gideonLoading && (
                     <div className="flex items-center justify-center py-8">
-                      <Loader2 className="w-6 h-6 animate-spin text-purple-500" />
+                      <Loader2 className="w-6 h-6 animate-spin text-[#AFC7E3]" />
                     </div>
                   )}
                 </div>
 
-                <div className="p-4 border-t border-gray-200 dark:border-gray-700">
-                  <div className="flex gap-2">
+                <div className="p-5 border-t border-[#E6EBEF] bg-white">
+                  <div className="flex gap-3">
                     <Input
                       placeholder="Ask Gideon..."
                       value={gideonInput}
@@ -241,13 +241,13 @@ Provide warm, helpful guidance (2-4 sentences) about reading plans, Bible study 
                           handleGideonAsk();
                         }
                       }}
-                      className="flex-1 text-sm"
+                      className="flex-1 text-sm bg-[#F2F6FA] border-[#E6EBEF] h-11"
                       disabled={gideonLoading}
                     />
                     <Button
                       onClick={handleGideonAsk}
                       disabled={!gideonInput.trim() || gideonLoading}
-                      className="bg-gradient-to-r from-purple-500 to-pink-500"
+                      className="bg-gradient-to-r from-[#AFC7E3] to-[#D9B878] hover:from-[#AFC7E3]/90 hover:to-[#D9B878]/90 text-[#0A1A2F] h-11 px-5"
                       size="icon"
                     >
                       <Send className="w-4 h-4" />
@@ -274,7 +274,7 @@ Provide warm, helpful guidance (2-4 sentences) about reading plans, Bible study 
 
         {filteredPlans.length === 0 && (
           <div className="text-center py-12">
-            <p className="text-gray-500">No plans found matching your search</p>
+            <p className="text-[#0A1A2F]/60">No plans found matching your search</p>
           </div>
         )}
       </div>
