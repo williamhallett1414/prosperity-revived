@@ -18,25 +18,25 @@ export default function ProgressSnapshot({ meditationSessions = [], challengePar
       icon: Calendar,
       label: 'Days Active This Week',
       value: daysActiveThisWeek,
-      color: 'from-blue-500 to-cyan-500'
+      color: 'from-[#AFC7E3] to-[#AFC7E3]'
     },
     {
       icon: Sparkles,
       label: 'Meditations Completed',
       value: meditationsCompleted,
-      color: 'from-purple-500 to-pink-500'
+      color: 'from-[#D9B878] to-[#AFC7E3]'
     },
     {
       icon: TrendingUp,
       label: 'Mood Trend',
       value: '↗️ Improving',
-      color: 'from-green-500 to-teal-500'
+      color: 'from-[#AFC7E3] to-[#D9B878]'
     },
     {
       icon: Trophy,
       label: 'Active Challenges',
       value: activeChallenges,
-      color: 'from-amber-500 to-orange-500'
+      color: 'from-[#D9B878] to-[#D9B878]'
     }
   ];
 
@@ -57,11 +57,11 @@ export default function ProgressSnapshot({ meditationSessions = [], challengePar
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.7 + index * 0.05 }}
-              className={`bg-gradient-to-br ${stat.color} rounded-2xl p-4 text-white shadow-lg`}
+              className={`bg-gradient-to-br ${stat.color} rounded-2xl p-4 text-[#0A1A2F] shadow-lg`}
             >
-              <Icon className="w-6 h-6 mb-2 opacity-80" />
+              <Icon className="w-6 h-6 mb-2 opacity-70" />
               <p className="text-2xl font-bold mb-1">{stat.value}</p>
-              <p className="text-xs opacity-90">{stat.label}</p>
+              <p className="text-xs opacity-80">{stat.label}</p>
             </motion.div>
           );
         })}
