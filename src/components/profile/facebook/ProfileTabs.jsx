@@ -8,6 +8,7 @@ const tabs = [
   { id: 'friends', label: 'Friends', icon: Users },
   { id: 'photos', label: 'Photos', icon: Image },
   { id: 'achievements', label: 'Achievements', icon: Trophy },
+  { id: 'activity', label: 'Activity', icon: Activity }
 ];
 
 export default function ProfileTabs({ activeTab, onTabChange }) {
