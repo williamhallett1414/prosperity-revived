@@ -2,13 +2,19 @@ import React, { useState, useMemo } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Edit, Save, X, Trash2, ChevronDown, ChevronUp } from 'lucide-react';
+import { ArrowLeft, Edit, Save, X, Trash2, ChevronDown, ChevronUp, Plus } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 
 export default function MyJournalEntries() {
   const [user, setUser] = useState(null);
