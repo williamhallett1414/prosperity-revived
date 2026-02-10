@@ -88,13 +88,13 @@ export default function CommunityRecipes() {
 
       {/* Recipe Grid */}
       {filteredRecipes.length === 0 ? (
-        <div className="text-center py-12 bg-white dark:bg-[#2d2d4a] rounded-2xl !text-black">
+        <div className="text-center py-12 bg-white dark:bg-[#2d2d4a] rounded-2xl" style={overrideStyle}>
           <Users className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-          <p className="!text-black mb-2">
+          <p className="mb-2" style={overrideStyle}>
             {searchTerm ? 'No recipes found' : 'No community recipes yet'}
           </p>
           {!searchTerm && (
-            <p className="text-sm !text-black">Share your first recipe to inspire others!</p>
+            <p className="text-sm" style={overrideStyle}>Share your first recipe to inspire others!</p>
           )}
         </div>
       ) : (
