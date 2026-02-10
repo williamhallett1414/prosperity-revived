@@ -43,7 +43,7 @@ export default function CommunityRecipes() {
     <div className="space-y-4">
       <div className="flex items-center gap-2 mb-4">
         <Users className="w-6 h-6 text-purple-600" />
-        <h3 className="text-xl font-bold text-[#1a1a2e] dark:text-white">Community Recipes</h3>
+        <h3 className="text-xl font-bold text-black dark:text-white">Community Recipes</h3>
       </div>
 
       {/* Search and Filters */}
