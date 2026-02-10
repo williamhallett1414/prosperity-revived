@@ -76,6 +76,10 @@ export default function Wellness() {
   const [selectedChapter, setSelectedChapter] = useState(null);
   const [showBibleStatsModal, setShowBibleStatsModal] = useState(false);
   const [selectedBibleStat, setSelectedBibleStat] = useState(null);
+  const [showGideonChat, setShowGideonChat] = useState(false);
+  const [gideonMessages, setGideonMessages] = useState([]);
+  const [gideonInput, setGideonInput] = useState('');
+  const [gideonLoading, setGideonLoading] = useState(false);
   const queryClient = useQueryClient();
 
   useEffect(() => {
@@ -298,29 +302,43 @@ export default function Wellness() {
    });
 
    const copyWorkout = useMutation({
-     mutationFn: async (workout) => {
-       const workoutCopy = {
-         title: `${workout.title} (Copy)`,
-         description: workout.description,
-         difficulty: workout.difficulty,
-         duration_minutes: workout.duration_minutes,
-         exercises: workout.exercises,
-         category: workout.category,
-         completed_dates: []
-       };
+       mutationFn: async (workout) => {
+         const workoutCopy = {
+           title: `${workout.title} (Copy)`,
+           description: workout.description,
+           difficulty: workout.difficulty,
+           duration_minutes: workout.duration_minutes,
+           exercises: workout.exercises,
+           category: workout.category,
+           completed_dates: []
+         };
 
-       await base44.entities.WorkoutPlan.create(workoutCopy);
+         await base44.entities.WorkoutPlan.create(workoutCopy);
 
-       if (workout.id) {
-         await base44.entities.WorkoutPlan.update(workout.id, {
-           times_copied: (workout.times_copied || 0) + 1
-         });
+         if (workout.id) {
+           await base44.entities.WorkoutPlan.update(workout.id, {
+             times_copied: (workout.times_copied || 0) + 1
+           });
+         }
+       },
+       onSuccess: () => {
+         queryClient.invalidateQueries(['workouts']);
+         queryClient.invalidateQueries(['sharedWorkouts']);
+         toast.success('Workout added to your library!');
        }
+     });
+
+   const invokeGideon = useMutation({
+     mutationFn: async (prompt) => {
+       const response = await base44.integrations.Core.InvokeLLM({
+         prompt: `You are Gideon, a wise biblical study assistant with a gentle personality. Help the user understand scripture and biblical concepts. ${prompt}`,
+         add_context_from_internet: false
+       });
+       return response;
      },
-     onSuccess: () => {
-       queryClient.invalidateQueries(['workouts']);
-       queryClient.invalidateQueries(['sharedWorkouts']);
-       toast.success('Workout added to your library!');
+     onSuccess: (data) => {
+       setGideonMessages(prev => [...prev, { role: 'assistant', content: data }]);
+       setGideonLoading(false);
      }
    });
 
@@ -629,7 +647,7 @@ export default function Wellness() {
                 progress={planProgress}
                 bookmarks={bookmarks}
               />
-            </TabsContent>
+              </TabsContent>
 
             {/* Mind & Spirit Tab */}
             <TabsContent value="mind" className="space-y-4 max-w-2xl mx-auto">
@@ -694,6 +712,96 @@ export default function Wellness() {
          mealLogs={mealLogs}
        />
       )}
-    </div>
-  );
-}
+      {activeTab === 'bible' && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="fixed bottom-24 right-4 z-30"
+        >
+          <button
+            onClick={() => setShowGideonChat(!showGideonChat)}
+            className="bg-[#D9B878] hover:bg-[#D9B878]/90 text-[#0A1A2F] rounded-full p-4 shadow-lg hover:shadow-xl transition-all"
+          >
+            <Brain className="w-6 h-6" />
+          </button>
+
+          {showGideonChat && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 20 }}
+              className="absolute bottom-16 right-0 w-80 bg-white rounded-2xl shadow-2xl border border-gray-200 p-4 flex flex-col h-96"
+            >
+              <div className="flex items-center justify-between mb-3">
+                <h3 className="text-lg font-bold text-[#0A1A2F]">Gideon</h3>
+                <button
+                  onClick={() => setShowGideonChat(false)}
+                  className="text-gray-400 hover:text-gray-600"
+                >
+                  ✕
+                </button>
+              </div>
+
+              <div className="flex-1 overflow-y-auto mb-3 space-y-3">
+                {gideonMessages.length === 0 && (
+                  <p className="text-sm text-gray-500 text-center pt-8">Ask me about scripture...</p>
+                )}
+                {gideonMessages.map((msg, idx) => (
+                  <div key={idx} className={`text-sm ${msg.role === 'user' ? 'text-right' : 'text-left'}`}>
+                    <div className={`inline-block max-w-xs px-3 py-2 rounded-lg ${
+                      msg.role === 'user' 
+                        ? 'bg-[#D9B878] text-[#0A1A2F]' 
+                        : 'bg-gray-100 text-gray-800'
+                    }`}>
+                      {msg.content}
+                    </div>
+                  </div>
+                ))}
+                {gideonLoading && (
+                  <div className="text-sm text-left">
+                    <div className="inline-block bg-gray-100 text-gray-800 px-3 py-2 rounded-lg">
+                      Thinking...
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  value={gideonInput}
+                  onChange={(e) => setGideonInput(e.target.value)}
+                  onKeyPress={(e) => {
+                    if (e.key === 'Enter' && gideonInput.trim()) {
+                      setGideonMessages(prev => [...prev, { role: 'user', content: gideonInput }]);
+                      setGideonLoading(true);
+                      invokeGideon.mutate(gideonInput);
+                      setGideonInput('');
+                    }
+                  }}
+                  placeholder="Ask about scripture..."
+                  className="flex-1 border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#D9B878]"
+                  disabled={gideonLoading}
+                />
+                <button
+                  onClick={() => {
+                    if (gideonInput.trim()) {
+                      setGideonMessages(prev => [...prev, { role: 'user', content: gideonInput }]);
+                      setGideonLoading(true);
+                      invokeGideon.mutate(gideonInput);
+                      setGideonInput('');
+                    }
+                  }}
+                  disabled={gideonLoading}
+                  className="bg-[#D9B878] hover:bg-[#D9B878]/90 text-[#0A1A2F] rounded-lg px-3 py-2 font-medium disabled:opacity-50 transition-colors"
+                >
+                  Send
+                </button>
+              </div>
+            </motion.div>
+          )}
+        </motion.div>
+      )}
+      </div>
+      );
+      }
