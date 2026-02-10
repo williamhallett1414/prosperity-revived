@@ -56,12 +56,12 @@ export default function WellnessMetricsOverview({
        subtext: 'total entries',
        color: 'from-[#D9B878] to-[#D9B878]/50',
        link: createPageUrl('MyJournalEntries')
-     },
+      },
     { 
-      icon: Heart, 
-      label: 'Prayers', 
-      value: totalPrayers, 
-      subtext: 'total prayers',
+      icon: BookOpen, 
+      label: 'Days Read', 
+      value: daysRead, 
+      subtext: 'days completed',
       color: 'from-[#FD9C2D] to-[#FD9C2D]/50',
       link: createPageUrl('Bible')
     },
