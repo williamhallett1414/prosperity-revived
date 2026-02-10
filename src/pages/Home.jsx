@@ -80,8 +80,8 @@ export default function Home() {
   const { data: userProgress } = useQuery({
     queryKey: ['userProgress', user?.email],
     queryFn: async () => {
-      const all = await base44.entities.UserProgress.list();
-      return all.find(p => p.created_by === user?.email);
+      const list = await base44.entities.UserProgress.filter({ created_by: user?.email });
+      return list[0] || null;
     },
     enabled: !!user
   });
