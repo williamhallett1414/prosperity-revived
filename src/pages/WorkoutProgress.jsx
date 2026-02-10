@@ -53,63 +53,62 @@ export default function WorkoutProgress() {
   const avgDuration = totalWorkouts > 0 ? Math.round(totalMinutes / totalWorkouts) : 0;
 
   return (
-    <div className="min-h-screen bg-[#000000] pb-24">
-      {/* Header with Banner */}
-      <div className="relative bg-black">
-        <img 
-          src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6980ade9ca08df558ed28bdd/71b837d3d_ReeVibeLogonew.jpg"
-          alt="ReeVibe Fitness"
-          className="w-full h-64 object-cover"
-        />
-        <Link
-          to={createPageUrl('Wellness')}
-          className="absolute top-4 left-4 w-10 h-10 rounded-full bg-[#FD9C2D] flex items-center justify-center hover:bg-[#C4E3FD] transition-colors"
-        >
-          <ArrowLeft className="w-5 h-5 text-black" />
-        </Link>
+    <div className="min-h-screen bg-[#F2F6FA] pb-24">
+      {/* Header */}
+      <div className="sticky top-0 z-40 bg-white border-b border-gray-200 px-4 py-3">
+        <div className="max-w-2xl mx-auto flex items-center justify-between">
+          <Link
+            to={createPageUrl('Wellness')}
+            className="w-10 h-10 rounded-full bg-[#D9B878] hover:bg-[#D9B878]/90 flex items-center justify-center transition-colors"
+          >
+            <ArrowLeft className="w-5 h-5 text-[#0A1A2F]" />
+          </Link>
+          <h1 className="text-lg font-bold text-[#0A1A2F]">Workout Progress</h1>
+          <div className="w-10" />
+        </div>
       </div>
 
       <div className="max-w-4xl mx-auto px-4 space-y-6">
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <Card className="bg-gradient-to-br from-[#FD9C2D] to-[#C4E3FD] border-none">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 px-4 pt-6">
+          <Card className="bg-gradient-to-br from-[#D9B878] to-[#D9B878]/50 border-none shadow-md">
             <CardContent className="pt-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-white/80">Total Workouts</p>
-                  <p className="text-2xl font-bold text-white">{totalWorkouts}</p>
+                  <p className="text-sm text-[#0A1A2F]/80">Total Workouts</p>
+                  <p className="text-2xl font-bold text-[#0A1A2F]">{totalWorkouts}</p>
                 </div>
-                <Dumbbell className="w-8 h-8 text-white/40" />
+                <Dumbbell className="w-8 h-8 text-[#0A1A2F]/40" />
               </div>
             </CardContent>
           </Card>
 
-          <Card className="bg-gradient-to-br from-[#C4E3FD] to-[#FD9C2D] border-none">
+          <Card className="bg-gradient-to-br from-[#AFC7E3] to-[#AFC7E3]/50 border-none shadow-md">
             <CardContent className="pt-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-white/80">This Month</p>
-                  <p className="text-2xl font-bold text-white">{thisMonth}</p>
+                  <p className="text-sm text-[#0A1A2F]/80">This Month</p>
+                  <p className="text-2xl font-bold text-[#0A1A2F]">{thisMonth}</p>
                 </div>
-                <Calendar className="w-8 h-8 text-white/40" />
+                <Calendar className="w-8 h-8 text-[#0A1A2F]/40" />
               </div>
             </CardContent>
           </Card>
 
-          <Card className="bg-gradient-to-br from-[#000000] via-[#FD9C2D] to-[#000000] border-none">
+          <Card className="bg-gradient-to-br from-[#FD9C2D] to-[#FD9C2D]/50 border-none shadow-md">
             <CardContent className="pt-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-white/80">Total Minutes</p>
-                  <p className="text-2xl font-bold text-white">{totalMinutes}</p>
+                  <p className="text-sm text-[#0A1A2F]/80">Total Minutes</p>
+                  <p className="text-2xl font-bold text-[#0A1A2F]">{totalMinutes}</p>
                 </div>
-                <Activity className="w-8 h-8 text-white/40" />
+                <Activity className="w-8 h-8 text-[#0A1A2F]/40" />
               </div>
             </CardContent>
           </Card>
 
-          <Card className="bg-gradient-to-br from-[#FD9C2D] via-[#000000] to-[#C4E3FD] border-none">
+          <Card className="bg-gradient-to-br from-[#0A1A2F] to-[#0A1A2F]/50 border-none shadow-md">
             <CardContent className="pt-6">
               <div className="flex items-center justify-between">
                 <div>
@@ -126,8 +125,8 @@ export default function WorkoutProgress() {
         <WorkoutStreakCard sessions={sessions} />
 
         {/* Charts */}
-        <Tabs defaultValue="frequency" className="w-full">
-          <TabsList className="grid w-full grid-cols-3 lg:grid-cols-5 bg-[#FD9C2D]">
+        <Tabs defaultValue="frequency" className="w-full px-4">
+          <TabsList className="grid w-full grid-cols-3 lg:grid-cols-5 bg-[#E6EBEF]">
             <TabsTrigger value="frequency">Frequency</TabsTrigger>
             <TabsTrigger value="prs">PRs</TabsTrigger>
             <TabsTrigger value="volume">Volume</TabsTrigger>
