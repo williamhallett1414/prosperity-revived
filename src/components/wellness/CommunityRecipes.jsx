@@ -88,11 +88,11 @@ export default function CommunityRecipes() {
       {filteredRecipes.length === 0 ? (
         <div className="text-center py-12 bg-white dark:bg-[#2d2d4a] rounded-2xl">
           <Users className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-          <p className="text-gray-500 dark:text-gray-400 mb-2">
+          <p className="text-black mb-2">
             {searchTerm ? 'No recipes found' : 'No community recipes yet'}
           </p>
           {!searchTerm && (
-            <p className="text-sm text-gray-400">Share your first recipe to inspire others!</p>
+            <p className="text-sm text-black">Share your first recipe to inspire others!</p>
           )}
         </div>
       ) : (
