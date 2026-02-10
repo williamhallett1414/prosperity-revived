@@ -12,6 +12,7 @@ export default function ProgressSnapshot({ meditationSessions = [], challengePar
 
   const meditationsCompleted = meditationSessions.length;
   const activeChallenges = challengeParticipants.filter(p => p.status === 'active').length;
+  const daysRead = planProgress.reduce((sum, p) => sum + (p.completed_days?.length || 0), 0);
 
   const stats = [
     {
@@ -21,9 +22,9 @@ export default function ProgressSnapshot({ meditationSessions = [], challengePar
       color: 'from-[#AFC7E3] to-[#AFC7E3]'
     },
     {
-      icon: Sparkles,
-      label: 'Meditations Completed',
-      value: meditationsCompleted,
+      icon: BookOpen,
+      label: 'Days Read',
+      value: daysRead,
       color: 'from-[#D9B878] to-[#AFC7E3]'
     },
     {
