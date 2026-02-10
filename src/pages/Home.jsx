@@ -62,8 +62,7 @@ export default function Home() {
   const { data: memberships = [] } = useQuery({
     queryKey: ['myMemberships'],
     queryFn: async () => {
-      const all = await base44.entities.GroupMember.list();
-      return all.filter(m => m.user_email === user?.email);
+      return await base44.entities.GroupMember.filter({ user_email: user?.email });
     },
     enabled: !!user
   });
