@@ -302,30 +302,30 @@ export default function PrayForMeFeed({ user }) {
 
               {/* Comments Section */}
               {expandedComments[post.id] && (
-                <div className="space-y-3 pt-3 border-t border-white/10">
-                  {/* Existing Comments */}
-                  {postComments(post.id).map((comment) => (
-                    <div key={comment.id} className="bg-white/5 rounded-lg p-3">
-                      <p className="font-semibold text-white text-xs">{comment.user_name}</p>
-                      <p className="text-white text-xs mt-1">{comment.content}</p>
-                    </div>
-                  ))}
+               <div className="space-y-3 pt-3 border-t border-gray-700">
+                 {/* Existing Comments */}
+                 {postComments(post.id).map((comment) => (
+                   <div key={comment.id} className="bg-gray-900 rounded-lg p-3">
+                     <p className="font-semibold text-white text-xs">{comment.user_name}</p>
+                     <p className="text-gray-100 text-xs mt-1">{comment.content}</p>
+                   </div>
+                 ))}
 
-                  {/* Add Comment */}
-                  {user && (
-                    <div className="flex gap-2 pt-2">
-                      <input
-                        type="text"
-                        placeholder="Add a prayer..."
-                        value={commentText[post.id] || ''}
-                        onChange={(e) => setCommentText({ ...commentText, [post.id]: e.target.value })}
-                        onKeyPress={(e) => {
-                          if (e.key === 'Enter' && commentText[post.id]) {
-                            createComment.mutate({ postId: post.id, text: commentText[post.id] });
-                          }
-                        }}
-                        className="flex-1 bg-white/10 border border-white/20 rounded text-white text-xs px-3 py-2 placeholder-white/50 focus:outline-none focus:ring-1 focus:ring-purple-500"
-                      />
+                 {/* Add Comment */}
+                 {user && (
+                   <div className="flex gap-2 pt-2">
+                     <input
+                       type="text"
+                       placeholder="Add a prayer..."
+                       value={commentText[post.id] || ''}
+                       onChange={(e) => setCommentText({ ...commentText, [post.id]: e.target.value })}
+                       onKeyPress={(e) => {
+                         if (e.key === 'Enter' && commentText[post.id]) {
+                           createComment.mutate({ postId: post.id, text: commentText[post.id] });
+                         }
+                       }}
+                       className="flex-1 bg-gray-900 border border-gray-700 rounded text-white text-xs px-3 py-2 placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-purple-500"
+                     />
                       <Button
                         size="sm"
                         onClick={() => {
