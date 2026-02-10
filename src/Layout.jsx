@@ -6,13 +6,11 @@ import { motion } from 'framer-motion';
 import { Toaster } from '@/components/ui/sonner.jsx';
 import NotificationBell from '@/components/notifications/NotificationBell';
 
-import { Dumbbell, Utensils } from 'lucide-react';
-
 const navItems = [
   { name: 'Home', icon: Home, page: 'Home' },
+  { name: 'Discover', icon: Sparkles, page: 'Discover' },
+  { name: 'Groups', icon: Users, page: 'Groups' },
   { name: 'Wellness', icon: Heart, page: 'Wellness' },
-  { name: 'Workouts', icon: Dumbbell, page: 'DiscoverWorkouts' },
-  { name: 'Nutrition', icon: Utensils, page: 'NutritionGuidance' },
   { name: 'Profile', icon: User, page: 'Profile' },
 ];
 
@@ -20,30 +18,34 @@ export default function Layout({ children, currentPageName }) {
   return (
     <>
       <Toaster position="top-center" richColors />
-      <div className="min-h-screen bg-[#F2F6FA]">
+      <div className="min-h-screen bg-[#FFFFFF] dark:bg-[#3C4E53]">
         <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Imprint+MT+Shadow&display=swap');
         
         :root {
-          --color-soft-mist: #F2F6FA;
-          --color-deep-navy: #0A1A2F;
-          --color-soft-gold: #D9B878;
-          --color-cloud-gray: #E6EBEF;
-          --color-gentle-sky: #AFC7E3;
+          --color-primary: #3C4E53;
+          --color-secondary: #FD9C2D;
+          --color-accent: #FAD98D;
+          --color-background: #FFFFFF;
+          --color-text: #000000;
         }
         
         body {
           font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-          color: #0A1A2F;
+          color: #3C4E53;
         }
         
         .font-serif {
           font-family: 'Georgia', 'Times New Roman', serif;
         }
+        
+        .font-imprint {
+          font-family: 'Imprint MT Shadow', serif;
+        }
       `}</style>
       
       {/* Top Bar with Notification Bell */}
-      <div className="fixed top-0 left-0 right-0 bg-white/90 backdrop-blur-sm border-b border-[#E6EBEF] px-4 py-3 z-40">
+      <div className="fixed top-0 left-0 right-0 bg-white dark:bg-[#2d2d4a] border-b border-gray-200 dark:border-gray-700 px-4 py-3 z-40">
         <div className="max-w-2xl mx-auto flex items-center justify-between">
           <Link to={createPageUrl('Home')} className="flex items-center gap-2">
             <img 
@@ -61,7 +63,7 @@ export default function Layout({ children, currentPageName }) {
       </main>
 
       {/* Bottom Navigation */}
-      <nav className="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-sm border-t border-[#E6EBEF] px-4 py-2 z-50 shadow-lg">
+      <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 py-2 z-50">
         <div className="max-w-lg mx-auto flex items-center justify-around">
           {navItems.map(item => {
             const isActive = currentPageName === item.page;
@@ -76,17 +78,17 @@ export default function Layout({ children, currentPageName }) {
                 {isActive && (
                   <motion.div
                     layoutId="activeTab"
-                    className="absolute -top-2 w-12 h-1 bg-[#D9B878] rounded-full"
+                    className="absolute -top-2 w-12 h-1 bg-[#FD9C2D] rounded-full"
                   />
                 )}
                 <Icon
                   className={`w-6 h-6 transition-colors ${
-                    isActive ? 'text-[#D9B878]' : 'text-[#0A1A2F]/40'
+                    isActive ? 'text-[#FD9C2D]' : 'text-gray-400'
                   }`}
                 />
                 <span
                   className={`text-xs mt-1 transition-colors ${
-                    isActive ? 'text-[#0A1A2F] font-semibold' : 'text-[#0A1A2F]/40'
+                    isActive ? 'text-[#3C4E53] font-medium' : 'text-gray-400'
                   }`}
                 >
                   {item.name}
