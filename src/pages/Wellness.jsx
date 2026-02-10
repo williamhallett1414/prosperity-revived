@@ -40,8 +40,6 @@ import CoachDavid from '@/components/wellness/CoachDavid';
 import ChefDaniel from '@/components/wellness/ChefDaniel';
 import Hannah from '@/components/wellness/Hannah.jsx';
 
-import MeditationTracker from '@/components/wellness/MeditationTracker';
-import PrayForMeFeed from '@/components/wellness/PrayForMeFeed';
 import AIWellnessRecommendations from '@/components/wellness/AIWellnessRecommendations';
 import WellnessMetricsOverview from '@/components/wellness/WellnessMetricsOverview';
 import WellnessCommunityFeed from '@/components/wellness/WellnessCommunityFeed';
