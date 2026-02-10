@@ -319,6 +319,49 @@ export default function MyJournalEntries() {
           </div>
         )}
       </div>
+
+      {/* New Entry Modal */}
+      <Dialog open={showNewEntryModal} onOpenChange={setShowNewEntryModal}>
+        <DialogContent className="max-w-lg">
+          <DialogHeader>
+            <DialogTitle>Create New Journal Entry</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <Input
+              placeholder="Entry title (optional)"
+              value={newTitle}
+              onChange={(e) => setNewTitle(e.target.value)}
+              className="bg-[#E6EBEF] border-[#E6EBEF] text-[#0A1A2F]"
+            />
+            <Textarea
+              placeholder="What's on your mind?"
+              value={newContent}
+              onChange={(e) => setNewContent(e.target.value)}
+              className="min-h-[200px] bg-[#E6EBEF] border-[#E6EBEF] text-[#0A1A2F]"
+            />
+            <div className="flex gap-2">
+              <Button
+                onClick={handleCreateEntry}
+                className="flex-1 bg-gradient-to-r from-[#D9B878] to-[#AFC7E3] hover:from-[#D9B878]/90 hover:to-[#AFC7E3]/90 text-[#0A1A2F]"
+              >
+                <Save className="w-4 h-4 mr-2" />
+                Save Entry
+              </Button>
+              <Button
+                onClick={() => {
+                  setShowNewEntryModal(false);
+                  setNewTitle('');
+                  setNewContent('');
+                }}
+                variant="outline"
+                className="flex-1"
+              >
+                Cancel
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
