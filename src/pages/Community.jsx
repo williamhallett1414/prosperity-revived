@@ -189,7 +189,7 @@ export default function Community() {
   }, [posts, comments]);
 
   return (
-    <div className="min-h-screen bg-[#faf8f5] pb-24">
+    <div className="min-h-screen bg-[#F2F6FA] pb-24">
       <div className="max-w-2xl mx-auto px-4 py-6">
         {/* Header */}
         <motion.div
@@ -197,14 +197,14 @@ export default function Community() {
           animate={{ opacity: 1, y: 0 }}
           className="mb-6"
         >
-          <h1 className="text-2xl font-bold text-[#1a1a2e] mb-1">Community</h1>
-          <p className="text-gray-500">Share insights and connect with others</p>
+          <h1 className="text-2xl font-bold text-[#0A1A2F] mb-1">Community</h1>
+          <p className="text-[#0A1A2F]/60">Share insights and connect with others</p>
         </motion.div>
 
         {/* Create Post Button */}
         <Button
           onClick={() => setShowCreatePost(true)}
-          className="w-full bg-[#1a1a2e] hover:bg-[#2d2d4a] h-12 mb-6 rounded-xl"
+          className="w-full bg-gradient-to-r from-[#D9B878] to-[#AFC7E3] hover:from-[#D9B878]/90 hover:to-[#AFC7E3]/90 text-[#0A1A2F] h-12 mb-6 rounded-xl font-semibold"
         >
           <Plus className="w-5 h-5 mr-2" />
           Share Your Thoughts
@@ -212,16 +212,16 @@ export default function Community() {
 
         {/* Trending Posts */}
         {trendingPosts.length > 0 && (
-          <div className="mb-6 bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
+          <div className="mb-6 bg-[#E6EBEF] rounded-2xl p-4 shadow-sm">
             <div className="flex items-center gap-2 mb-3">
-              <TrendingUp className="w-5 h-5 text-[#c9a227]" />
-              <h3 className="font-semibold text-[#1a1a2e]">Trending Now</h3>
+              <TrendingUp className="w-5 h-5 text-[#D9B878]" />
+              <h3 className="font-semibold text-[#0A1A2F]">Trending Now</h3>
             </div>
             <div className="space-y-2">
               {trendingPosts.map(post => (
-                <div key={post.id} className="p-2 hover:bg-gray-50 rounded-lg cursor-pointer">
-                  <p className="text-sm text-gray-700 line-clamp-2">{post.content}</p>
-                  <div className="flex items-center gap-3 mt-1 text-xs text-gray-500">
+                <div key={post.id} className="p-2 hover:bg-white rounded-lg cursor-pointer">
+                  <p className="text-sm text-[#0A1A2F] line-clamp-2">{post.content}</p>
+                  <div className="flex items-center gap-3 mt-1 text-xs text-[#0A1A2F]/60">
                     <span>❤️ {post.likes || 0}</span>
                     <span>💬 {comments.filter(c => c.post_id === post.id).length}</span>
                   </div>
@@ -236,7 +236,7 @@ export default function Community() {
           <div className="flex gap-3">
             <div className="flex-1">
               <Select value={filterType} onValueChange={setFilterType}>
-                <SelectTrigger className="bg-white">
+                <SelectTrigger className="bg-[#E6EBEF]">
                   <SelectValue placeholder="Filter posts" />
                 </SelectTrigger>
                 <SelectContent>
@@ -248,7 +248,7 @@ export default function Community() {
             </div>
             <div className="flex-1">
               <Select value={sortBy} onValueChange={setSortBy}>
-                <SelectTrigger className="bg-white">
+                <SelectTrigger className="bg-[#E6EBEF]">
                   <SelectValue placeholder="Sort by" />
                 </SelectTrigger>
                 <SelectContent>
@@ -261,7 +261,7 @@ export default function Community() {
           </div>
           <div>
             <Select value={filterTopic} onValueChange={setFilterTopic}>
-              <SelectTrigger className="bg-white">
+              <SelectTrigger className="bg-[#E6EBEF]">
                 <SelectValue placeholder="Topic" />
               </SelectTrigger>
               <SelectContent>
@@ -280,21 +280,21 @@ export default function Community() {
         {/* Feed */}
         {isLoading ? (
           <div className="flex items-center justify-center py-20">
-            <Loader2 className="w-8 h-8 animate-spin text-[#c9a227]" />
+            <Loader2 className="w-8 h-8 animate-spin text-[#D9B878]" />
           </div>
         ) : posts.length === 0 ? (
           <div className="text-center py-20">
-            <p className="text-gray-500 mb-4">No posts yet. Be the first to share!</p>
+            <p className="text-[#0A1A2F]/60 mb-4">No posts yet. Be the first to share!</p>
             <Button
               onClick={() => setShowCreatePost(true)}
-              className="bg-[#1a1a2e] hover:bg-[#2d2d4a]"
+              className="bg-gradient-to-r from-[#D9B878] to-[#AFC7E3] hover:from-[#D9B878]/90 hover:to-[#AFC7E3]/90 text-[#0A1A2F]"
             >
               Create First Post
             </Button>
           </div>
         ) : filteredAndSortedPosts.length === 0 ? (
-          <div className="text-center py-12 bg-white rounded-2xl">
-            <p className="text-gray-500">No posts match your filters</p>
+          <div className="text-center py-12 bg-[#E6EBEF] rounded-2xl">
+            <p className="text-[#0A1A2F]/60">No posts match your filters</p>
           </div>
         ) : (
           <div className="space-y-4">
@@ -312,13 +312,13 @@ export default function Community() {
             {/* Infinite scroll trigger */}
             {displayCount < filteredAndSortedPosts.length && (
               <div ref={loadMoreRef} className="py-8 flex justify-center">
-                <Loader2 className="w-6 h-6 animate-spin text-[#c9a227]" />
+                <Loader2 className="w-6 h-6 animate-spin text-[#D9B878]" />
               </div>
             )}
 
             {/* End message */}
             {displayCount >= filteredAndSortedPosts.length && filteredAndSortedPosts.length > 0 && (
-              <div className="text-center py-8 text-gray-400">
+              <div className="text-center py-8 text-[#0A1A2F]/40">
                 <p className="text-sm">You've reached the end</p>
               </div>
             )}

@@ -164,69 +164,35 @@ export default function Wellness() {
   }).length;
 
   return (
-    <div className={`min-h-screen pb-24 ${activeTab === 'nutrition' ? 'bg-[#f6ebe0]' : 'bg-[#000000]'}`}>
-      {/* Header with Banner - Show ReeVibe on workouts, Good Pantry on nutrition, none on meditation */}
-      {activeTab !== 'meditation' && (
-        <div className="relative bg-black -mx-4">
-          <img 
-            src={activeTab === 'nutrition' 
-              ? "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6980ade9ca08df558ed28bdd/0079a599f_TheGoodPantry.png"
-              : "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6980ade9ca08df558ed28bdd/171d02df6_ReeVibeLogonew.jpg"
-            }
-            alt={activeTab === 'nutrition' ? "The Good Pantry" : "ReeVibe Fitness"}
-            className="w-full h-64 object-cover"
-          />
-          <Link
-            to={createPageUrl('Home')}
-            className={`absolute top-4 left-4 w-10 h-10 rounded-full flex items-center justify-center transition-colors ${activeTab === 'nutrition' ? 'bg-green-500 hover:bg-green-600' : 'bg-[#FD9C2D] hover:bg-[#C4E3FD]'}`}
-          >
-            <ArrowLeft className="w-5 h-5 text-black" />
-          </Link>
-        </div>
-      )}
-
-      {/* Back button for meditation tab */}
-      {activeTab === 'meditation' && (
-        <div className="px-4 pt-4 mb-4">
-          <Link
-            to={createPageUrl('Home')}
-            className="w-10 h-10 rounded-full bg-purple-600 hover:bg-purple-700 flex items-center justify-center transition-colors"
-          >
-            <ArrowLeft className="w-5 h-5 text-white" />
-          </Link>
-        </div>
-      )}
-
-      {/* Moments of Revival Banner for Meditation Tab */}
-      {activeTab === 'meditation' && (
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="bg-gradient-to-r from-purple-600 via-pink-500 to-purple-700 p-8 text-white text-center shadow-lg -mx-4"
+    <div className="min-h-screen bg-[#F2F6FA] pb-24">
+      {/* Back Button */}
+      <div className="px-4 pt-4 mb-4">
+        <Link
+          to={createPageUrl('Home')}
+          className="w-10 h-10 rounded-full bg-[#D9B878] hover:bg-[#D9B878]/90 flex items-center justify-center transition-colors"
         >
-          <h2 className="text-4xl font-bold mb-2">Moments of Revival</h2>
-          <p className="text-white/90">Find peace, prayer, and spiritual renewal</p>
-        </motion.div>
-      )}
+          <ArrowLeft className="w-5 h-5 text-[#0A1A2F]" />
+        </Link>
+      </div>
 
-      <div className="px-4 pt-6">
+      <div className="px-4 pt-2">
 
         <Tabs defaultValue="workouts" className="w-full" onValueChange={setActiveTab}>
-          <TabsList className={`grid w-full grid-cols-4 mb-6 p-1 rounded-xl ${activeTab === 'nutrition' ? 'bg-[#90EE90]' : activeTab === 'meditation' ? 'bg-purple-500' : 'bg-[#FD9C2D]'}`}>
-            <TabsTrigger value="workouts" className={`text-xs sm:text-sm ${activeTab === 'nutrition' ? 'data-[state=active]:bg-[#FFFF00]' : activeTab === 'meditation' ? 'data-[state=active]:bg-pink-300' : 'data-[state=active]:bg-[#C4E3FD]'} ${activeTab === 'meditation' ? 'text-white data-[state=active]:text-white' : 'data-[state=active]:text-black'}`}>Workouts</TabsTrigger>
-            <TabsTrigger value="nutrition" className={`text-xs sm:text-sm ${activeTab === 'nutrition' ? 'data-[state=active]:bg-[#FFFF00]' : activeTab === 'meditation' ? 'data-[state=active]:bg-pink-300' : 'data-[state=active]:bg-[#C4E3FD]'} ${activeTab === 'meditation' ? 'text-white data-[state=active]:text-white' : 'data-[state=active]:text-black'}`}>Nutrition</TabsTrigger>
-            <TabsTrigger value="meditation" className={`text-xs sm:text-sm ${activeTab === 'nutrition' ? 'data-[state=active]:bg-[#FFFF00]' : activeTab === 'meditation' ? 'data-[state=active]:bg-pink-300' : 'data-[state=active]:bg-[#C4E3FD]'} ${activeTab === 'meditation' ? 'text-white data-[state=active]:text-white' : 'data-[state=active]:text-black'}`}>Meditation</TabsTrigger>
-            <TabsTrigger value="selfcare" className={`text-xs sm:text-sm ${activeTab === 'nutrition' ? 'data-[state=active]:bg-[#FFFF00]' : activeTab === 'meditation' ? 'data-[state=active]:bg-pink-300' : 'data-[state=active]:bg-[#C4E3FD]'} ${activeTab === 'meditation' ? 'text-white data-[state=active]:text-white' : 'data-[state=active]:text-black'}`}>Self-Care</TabsTrigger>
+          <TabsList className="grid w-full grid-cols-4 mb-6 p-1 rounded-xl bg-[#E6EBEF]">
+            <TabsTrigger value="workouts" className="text-xs sm:text-sm data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">Workouts</TabsTrigger>
+            <TabsTrigger value="nutrition" className="text-xs sm:text-sm data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">Nutrition</TabsTrigger>
+            <TabsTrigger value="meditation" className="text-xs sm:text-sm data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">Meditation</TabsTrigger>
+            <TabsTrigger value="selfcare" className="text-xs sm:text-sm data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">Self-Care</TabsTrigger>
           </TabsList>
 
           {/* Workouts Tab */}
           <TabsContent value="workouts" className="space-y-4">
             {/* Progress Link */}
             <Link to={createPageUrl('WorkoutProgress')}>
-              <div className="bg-gradient-to-br from-[#FD9C2D] via-[#000000] to-[#C4E3FD] rounded-xl p-4 text-white flex items-center justify-between shadow-md hover:shadow-lg transition-shadow">
+              <div className="bg-gradient-to-br from-[#D9B878] to-[#AFC7E3] rounded-xl p-4 text-[#0A1A2F] flex items-center justify-between shadow-md hover:shadow-lg transition-shadow">
                 <div>
                   <h3 className="font-semibold text-lg">View Your Progress</h3>
-                  <p className="text-white/90 text-sm">Charts, PRs & workout stats</p>
+                  <p className="text-[#0A1A2F]/70 text-sm">Charts, PRs & workout stats</p>
                 </div>
                 <TrendingUp className="w-8 h-8" />
               </div>
@@ -254,19 +220,19 @@ export default function Wellness() {
 
             {/* 2. Discover Workouts */}
             <Link to={createPageUrl('DiscoverWorkouts')}>
-              <div className="bg-gradient-to-br from-[#FD9C2D] via-[#000000] to-[#C4E3FD] rounded-2xl p-5 text-white cursor-pointer hover:shadow-lg transition-shadow">
+              <div className="bg-gradient-to-br from-[#AFC7E3] to-[#D9B878] rounded-2xl p-5 text-[#0A1A2F] cursor-pointer hover:shadow-lg transition-shadow">
                 <div className="flex items-center gap-3 mb-2">
                   <TrendingUp className="w-6 h-6" />
                   <h3 className="text-lg font-semibold">Discover Workouts</h3>
                 </div>
-                <p className="text-white/90 text-sm">Browse and create custom workouts</p>
+                <p className="text-[#0A1A2F]/70 text-sm">Browse and create custom workouts</p>
               </div>
             </Link>
 
             {/* My Workouts */}
             {myWorkouts.length > 0 && (
               <div>
-                <h3 className="text-sm font-semibold text-[#C4E3FD] mb-2">Your Workouts</h3>
+                <h3 className="text-sm font-semibold text-[#0A1A2F] mb-2">Your Workouts</h3>
                 <div className="space-y-3 mb-6">
                   {myWorkouts.map((workout, index) => (
                     <WorkoutCard
@@ -286,7 +252,7 @@ export default function Wellness() {
           </TabsContent>
 
           {/* Nutrition Tab */}
-          <TabsContent value="nutrition" className="space-y-6 bg-[#f6ebe0] -mx-4 px-4 py-6 rounded-t-2xl">
+          <TabsContent value="nutrition" className="space-y-6">
             <MealTracker />
             
             <PersonalizedNutritionPlan />
@@ -294,12 +260,12 @@ export default function Wellness() {
 
             {/* Discover Recipes */}
             <Link to={createPageUrl('DiscoverRecipes')}>
-              <div className="bg-gradient-to-br from-[#90EE90] via-[#FFFF00] to-[#f6ebe0] rounded-2xl p-5 text-black cursor-pointer hover:shadow-lg transition-shadow">
+              <div className="bg-gradient-to-br from-[#D9B878] to-[#AFC7E3] rounded-2xl p-5 text-[#0A1A2F] cursor-pointer hover:shadow-lg transition-shadow">
                 <div className="flex items-center gap-3 mb-2">
                   <UtensilsCrossed className="w-6 h-6" />
                   <h3 className="text-lg font-semibold">Discover Recipes</h3>
                 </div>
-                <p className="text-black text-sm">Browse and create delicious recipes</p>
+                <p className="text-[#0A1A2F]/70 text-sm">Browse and create delicious recipes</p>
               </div>
             </Link>
 
@@ -311,18 +277,18 @@ export default function Wellness() {
           <TabsContent value="meditation" className="space-y-4">
             {/* Discover All Meditations */}
             <Link to={createPageUrl('DiscoverMeditations')}>
-              <div className="bg-gradient-to-br from-purple-600 via-pink-500 to-purple-700 rounded-2xl p-5 text-white cursor-pointer hover:shadow-lg transition-shadow">
+              <div className="bg-gradient-to-br from-[#AFC7E3] to-[#D9B878] rounded-2xl p-5 text-[#0A1A2F] cursor-pointer hover:shadow-lg transition-shadow">
                 <div className="flex items-center gap-3 mb-2">
                   <Sparkles className="w-6 h-6" />
                   <h3 className="text-lg font-semibold">Discover All Meditations</h3>
                 </div>
-                <p className="text-white/90 text-sm">Browse our full library of guided sessions</p>
+                <p className="text-[#0A1A2F]/70 text-sm">Browse our full library of guided sessions</p>
               </div>
             </Link>
 
             {journeys.filter(j => j.is_active).length > 0 && (
-              <div className="bg-gradient-to-br from-[#FD9C2D] via-[#000000] to-[#C4E3FD] rounded-2xl p-4 shadow-sm">
-                <h3 className="font-semibold text-white mb-4">Mood & Energy Insights</h3>
+              <div className="bg-[#E6EBEF] rounded-2xl p-4 shadow-sm">
+                <h3 className="font-semibold text-[#0A1A2F] mb-4">Mood & Energy Insights</h3>
                 <MoodEnergyChart 
                   moodEnergyData={journeys.find(j => j.is_active)?.mood_energy_tracking || []} 
                 />
@@ -339,7 +305,7 @@ export default function Wellness() {
           </TabsContent>
 
           {/* Self-Care Tab */}
-          <TabsContent value="selfcare" className="space-y-4 bg-gradient-to-br from-[#1a1a2e] via-[#2d3142] to-[#1a1a2e] -mx-4 px-4 py-6 rounded-t-2xl">
+          <TabsContent value="selfcare" className="space-y-4">
             <DailyRoutineCards meditations={meditations} />
             <DailyPrayer />
             <QuickTools />

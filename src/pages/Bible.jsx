@@ -128,18 +128,18 @@ export default function Bible() {
   };
 
   return (
-    <div className="min-h-screen bg-[#faf8f5] dark:bg-[#1a1a2e] pb-24">
+    <div className="min-h-screen bg-[#F2F6FA] pb-24">
       {view === 'books' && (
         <div className="px-4 py-6">
           <div className="mb-6">
             <div className="flex items-center gap-3 mb-2">
               <Link
                 to={createPageUrl('Home')}
-                className="w-10 h-10 rounded-full bg-white dark:bg-[#2d2d4a] shadow-sm flex items-center justify-center text-[#1a1a2e] dark:text-white hover:bg-gray-50 dark:hover:bg-[#3d3d5a] transition-colors"
+                className="w-10 h-10 rounded-full bg-[#D9B878] hover:bg-[#D9B878]/90 shadow-sm flex items-center justify-center text-[#0A1A2F] transition-colors"
               >
                 <ArrowLeft className="w-5 h-5" />
               </Link>
-              <h1 className="text-2xl font-bold text-[#1a1a2e] dark:text-white">Bible</h1>
+              <h1 className="text-2xl font-bold text-[#0A1A2F]">Bible</h1>
             </div>
           </div>
 
@@ -178,11 +178,11 @@ export default function Bible() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     onClick={() => handleStatClick('days_read')}
-                    className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 shadow-lg hover:shadow-xl transition-shadow text-left"
+                    className="bg-[#E6EBEF] rounded-2xl p-4 shadow-lg hover:shadow-xl transition-shadow text-left"
                   >
-                    <BookOpen className="w-6 h-6 text-[#c9a227] mb-2" />
-                    <p className="text-2xl font-bold text-[#1a1a2e] dark:text-white">{totalDaysRead}</p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">Days Read</p>
+                    <BookOpen className="w-6 h-6 text-[#D9B878] mb-2" />
+                    <p className="text-2xl font-bold text-[#0A1A2F]">{totalDaysRead}</p>
+                    <p className="text-xs text-[#0A1A2F]/60">Days Read</p>
                   </motion.button>
                   
                   <motion.button
@@ -190,11 +190,11 @@ export default function Bible() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.1 }}
                     onClick={() => handleStatClick('streak')}
-                    className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 shadow-lg hover:shadow-xl transition-shadow text-left"
+                    className="bg-[#E6EBEF] rounded-2xl p-4 shadow-lg hover:shadow-xl transition-shadow text-left"
                   >
-                    <TrendingUp className="w-6 h-6 text-[#8fa68a] mb-2" />
-                    <p className="text-2xl font-bold text-[#1a1a2e] dark:text-white">{longestStreak}</p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">Longest Streak</p>
+                    <TrendingUp className="w-6 h-6 text-[#AFC7E3] mb-2" />
+                    <p className="text-2xl font-bold text-[#0A1A2F]">{longestStreak}</p>
+                    <p className="text-xs text-[#0A1A2F]/60">Longest Streak</p>
                   </motion.button>
                   
                   <motion.button
@@ -202,11 +202,11 @@ export default function Bible() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2 }}
                     onClick={() => handleStatClick('bookmarks')}
-                    className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 shadow-lg hover:shadow-xl transition-shadow text-left"
+                    className="bg-[#E6EBEF] rounded-2xl p-4 shadow-lg hover:shadow-xl transition-shadow text-left"
                   >
-                    <CheckCircle className="w-6 h-6 text-[#c9a227] mb-2" />
-                    <p className="text-2xl font-bold text-[#1a1a2e] dark:text-white">{bookmarks.length}</p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">Saved Verses</p>
+                    <CheckCircle className="w-6 h-6 text-[#D9B878] mb-2" />
+                    <p className="text-2xl font-bold text-[#0A1A2F]">{bookmarks.length}</p>
+                    <p className="text-xs text-[#0A1A2F]/60">Saved Verses</p>
                   </motion.button>
                 </div>
 
@@ -221,11 +221,11 @@ export default function Bible() {
                 {suggestedPlans.length > 0 && (
                   <div className="mt-6">
                     <div className="flex items-center justify-between mb-4">
-                      <h2 className="text-lg font-semibold text-[#1a1a2e] dark:text-white flex items-center gap-2">
-                        <Compass className="w-5 h-5 text-[#c9a227]" />
+                      <h2 className="text-lg font-semibold text-[#0A1A2F] flex items-center gap-2">
+                        <Compass className="w-5 h-5 text-[#D9B878]" />
                         Reading Plans
                       </h2>
-                      <Link to={createPageUrl('Plans')} className="text-sm text-[#c9a227] font-medium hover:underline">
+                      <Link to={createPageUrl('Plans')} className="text-sm text-[#D9B878] font-medium hover:underline">
                         View All
                       </Link>
                     </div>

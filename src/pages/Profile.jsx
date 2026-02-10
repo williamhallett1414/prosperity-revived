@@ -72,14 +72,14 @@ export default function Profile() {
 
   if (!user) {
     return (
-      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-        <div className="animate-spin w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full" />
+      <div className="min-h-screen bg-[#F2F6FA] flex items-center justify-center">
+        <div className="animate-spin w-8 h-8 border-4 border-[#D9B878] border-t-transparent rounded-full" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-[#F2F6FA]">
       {/* Sticky Header */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
