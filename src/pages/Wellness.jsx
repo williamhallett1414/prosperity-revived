@@ -473,51 +473,7 @@ export default function Wellness() {
             <CommunityRecipeFeed user={user} />
           </TabsContent>
 
-          {/* Meditation Tab */}
-          <TabsContent value="meditation" className="space-y-4 max-w-2xl mx-auto">
-            {/* Discover All Meditations */}
-            <Link to={createPageUrl('DiscoverMeditations')}>
-              <div className="bg-gradient-to-br from-[#AFC7E3] to-[#D9B878] rounded-2xl p-5 text-[#0A1A2F] cursor-pointer hover:shadow-lg transition-shadow">
-                <div className="flex items-center gap-3 mb-2">
-                  <Sparkles className="w-6 h-6" />
-                  <h3 className="text-lg font-semibold">Discover All Meditations</h3>
-                </div>
-                <p className="text-[#0A1A2F]/70 text-sm">Browse our full library of guided sessions</p>
-              </div>
-            </Link>
 
-            {journeys.filter(j => j.is_active).length > 0 && (
-              <div className="bg-[#E6EBEF] rounded-2xl p-4 shadow-sm">
-                <h3 className="font-semibold text-[#0A1A2F] mb-4">Mood & Energy Insights</h3>
-                <MoodEnergyChart 
-                  moodEnergyData={journeys.find(j => j.is_active)?.mood_energy_tracking || []} 
-                />
-              </div>
-            )}
-            
-
-            
-            <MeditationTracker user={user} />
-
-            <MeditationGuide />
-
-            <PrayForMeFeed user={user} />
-          </TabsContent>
-
-          {/* Self-Care Tab */}
-          <TabsContent value="selfcare" className="space-y-4 max-w-2xl mx-auto">
-            <DailyRoutineCards meditations={meditations} />
-            <DailyPrayer />
-            <QuickTools />
-            <MoodTracker />
-            <DailyAffirmation />
-            <SelfCareChallenges challenges={challenges} participations={challengeParticipants} />
-            <ProgressSnapshot 
-              meditationSessions={meditationSessions}
-              challengeParticipants={challengeParticipants}
-            />
-            <TakeTimeWithGod />
-          </TabsContent>
         </Tabs>
       </div>
 
