@@ -245,7 +245,7 @@ export default function MealDetailView() {
         </motion.div>
 
         {/* Micronutrients */}
-        {(meal.sodium || meal.potassium || meal.calcium || meal.iron) && (
+        {(meal.sodium || meal.potassium || meal.calcium || meal.iron || meal.magnesium || meal.zinc || meal.vitamin_a || meal.vitamin_c || meal.vitamin_d || meal.vitamin_k || meal.folate || meal.vitamin_b6 || meal.vitamin_b12 || meal.thiamin || meal.riboflavin || meal.niacin) && (
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -284,6 +284,12 @@ export default function MealDetailView() {
                   <p className="text-lg font-bold text-gray-600 mt-1">{meal.magnesium}mg</p>
                 </div>
               )}
+              {meal.zinc && (
+                <div className="bg-gray-50 rounded-lg p-3">
+                  <p className="text-sm font-medium text-[#0A1A2F]">Zinc</p>
+                  <p className="text-lg font-bold text-gray-600 mt-1">{meal.zinc}mg</p>
+                </div>
+              )}
               {meal.vitamin_a && (
                 <div className="bg-gray-50 rounded-lg p-3">
                   <p className="text-sm font-medium text-[#0A1A2F]">Vitamin A</p>
@@ -300,6 +306,104 @@ export default function MealDetailView() {
                 <div className="bg-gray-50 rounded-lg p-3">
                   <p className="text-sm font-medium text-[#0A1A2F]">Vitamin D</p>
                   <p className="text-lg font-bold text-gray-600 mt-1">{meal.vitamin_d}mcg</p>
+                </div>
+              )}
+              {meal.vitamin_k && (
+                <div className="bg-gray-50 rounded-lg p-3">
+                  <p className="text-sm font-medium text-[#0A1A2F]">Vitamin K</p>
+                  <p className="text-lg font-bold text-gray-600 mt-1">{meal.vitamin_k}mcg</p>
+                </div>
+              )}
+              {meal.folate && (
+                <div className="bg-gray-50 rounded-lg p-3">
+                  <p className="text-sm font-medium text-[#0A1A2F]">Folate</p>
+                  <p className="text-lg font-bold text-gray-600 mt-1">{meal.folate}mcg</p>
+                </div>
+              )}
+              {meal.thiamin && (
+                <div className="bg-gray-50 rounded-lg p-3">
+                  <p className="text-sm font-medium text-[#0A1A2F]">Thiamin (B1)</p>
+                  <p className="text-lg font-bold text-gray-600 mt-1">{meal.thiamin}mg</p>
+                </div>
+              )}
+              {meal.riboflavin && (
+                <div className="bg-gray-50 rounded-lg p-3">
+                  <p className="text-sm font-medium text-[#0A1A2F]">Riboflavin (B2)</p>
+                  <p className="text-lg font-bold text-gray-600 mt-1">{meal.riboflavin}mg</p>
+                </div>
+              )}
+              {meal.niacin && (
+                <div className="bg-gray-50 rounded-lg p-3">
+                  <p className="text-sm font-medium text-[#0A1A2F]">Niacin (B3)</p>
+                  <p className="text-lg font-bold text-gray-600 mt-1">{meal.niacin}mg</p>
+                </div>
+              )}
+              {meal.vitamin_b6 && (
+                <div className="bg-gray-50 rounded-lg p-3">
+                  <p className="text-sm font-medium text-[#0A1A2F]">Vitamin B6</p>
+                  <p className="text-lg font-bold text-gray-600 mt-1">{meal.vitamin_b6}mg</p>
+                </div>
+              )}
+              {meal.vitamin_b12 && (
+                <div className="bg-gray-50 rounded-lg p-3">
+                  <p className="text-sm font-medium text-[#0A1A2F]">Vitamin B12</p>
+                  <p className="text-lg font-bold text-gray-600 mt-1">{meal.vitamin_b12}mcg</p>
+                </div>
+              )}
+            </div>
+          </motion.div>
+        )}
+
+        {/* Other Nutrition Facts */}
+        {(meal.fiber || meal.sugar || meal.saturated_fat || meal.cholesterol || meal.polyunsaturated_fat || meal.monounsaturated_fat) && (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.35 }}
+            className="bg-white rounded-2xl p-6 mb-6 shadow-sm"
+          >
+            <h3 className="text-lg font-semibold text-[#0A1A2F] mb-4">Other Nutrition Facts</h3>
+            <div className="grid grid-cols-2 gap-3">
+              {meal.fiber && (
+                <div className="bg-green-50 rounded-lg p-3">
+                  <p className="text-sm font-medium text-[#0A1A2F]">Fiber</p>
+                  <p className="text-lg font-bold text-green-600 mt-1">{meal.fiber}g</p>
+                </div>
+              )}
+              {meal.sugar && (
+                <div className="bg-pink-50 rounded-lg p-3">
+                  <p className="text-sm font-medium text-[#0A1A2F]">Sugar</p>
+                  <p className="text-lg font-bold text-pink-600 mt-1">{meal.sugar}g</p>
+                </div>
+              )}
+              {meal.saturated_fat && (
+                <div className="bg-orange-50 rounded-lg p-3">
+                  <p className="text-sm font-medium text-[#0A1A2F]">Saturated Fat</p>
+                  <p className="text-lg font-bold text-orange-600 mt-1">{meal.saturated_fat}g</p>
+                </div>
+              )}
+              {meal.trans_fat && (
+                <div className="bg-red-50 rounded-lg p-3">
+                  <p className="text-sm font-medium text-[#0A1A2F]">Trans Fat</p>
+                  <p className="text-lg font-bold text-red-600 mt-1">{meal.trans_fat}g</p>
+                </div>
+              )}
+              {meal.polyunsaturated_fat && (
+                <div className="bg-blue-50 rounded-lg p-3">
+                  <p className="text-sm font-medium text-[#0A1A2F]">Polyunsaturated Fat</p>
+                  <p className="text-lg font-bold text-blue-600 mt-1">{meal.polyunsaturated_fat}g</p>
+                </div>
+              )}
+              {meal.monounsaturated_fat && (
+                <div className="bg-yellow-50 rounded-lg p-3">
+                  <p className="text-sm font-medium text-[#0A1A2F]">Monounsaturated Fat</p>
+                  <p className="text-lg font-bold text-yellow-600 mt-1">{meal.monounsaturated_fat}g</p>
+                </div>
+              )}
+              {meal.cholesterol && (
+                <div className="bg-gray-50 rounded-lg p-3">
+                  <p className="text-sm font-medium text-[#0A1A2F]">Cholesterol</p>
+                  <p className="text-lg font-bold text-gray-600 mt-1">{meal.cholesterol}mg</p>
                 </div>
               )}
             </div>
