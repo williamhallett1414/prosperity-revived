@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { createPageUrl } from '@/utils';
 import { getVerseOfDay } from '@/components/bible/BibleData';
 import { Play, ChevronRight } from 'lucide-react';
+import StartWorkoutModal from '@/components/wellness/StartWorkoutModal';
 
 const affirmations = [
   "I am worthy of God's love and grace",
@@ -19,9 +20,10 @@ const affirmations = [
 
 const getAffirmation = () => affirmations[new Date().getDate() % affirmations.length];
 
-export default function StartMyDayModal({ isOpen, onClose, meditations = [], workoutPlans = [] }) {
+export default function StartMyDayModal({ isOpen, onClose, meditations = [], workoutPlans = [], user }) {
   const [step, setStep] = useState(0);
   const [breathCycle, setBreathCycle] = useState('inhale');
+  const [showWorkoutModal, setShowWorkoutModal] = useState(false);
   const verse = getVerseOfDay();
   const affirmation = getAffirmation();
   const suggestedMeditation = meditations.find(m => m.category === 'breathing' || m.category === 'mindfulness');
@@ -121,7 +123,7 @@ export default function StartMyDayModal({ isOpen, onClose, meditations = [], wor
            <p className="text-sm text-[#0A1A2F]/70">{suggestedWorkout.description}</p>
            <p className="text-xs text-[#0A1A2F]/60"><strong>Duration:</strong> {suggestedWorkout.duration_minutes} min</p>
            <Button
-             onClick={() => window.location.href = `${createPageUrl('WorkoutSession')}?workoutId=${suggestedWorkout.id}`}
+             onClick={() => setShowWorkoutModal(true)}
              className="w-full bg-white hover:bg-white/90 text-[#0A1A2F]"
              size="sm"
            >
@@ -167,7 +169,8 @@ export default function StartMyDayModal({ isOpen, onClose, meditations = [], wor
   const currentStep = steps[step];
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
+    <>
+      <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-md max-h-[80vh] overflow-y-auto bg-[#F2F6FA] border-0">
         <DialogHeader>
           <DialogTitle className="text-center"></DialogTitle>
@@ -245,5 +248,13 @@ export default function StartMyDayModal({ isOpen, onClose, meditations = [], wor
         </div>
       </DialogContent>
     </Dialog>
+
+    <StartWorkoutModal
+      isOpen={showWorkoutModal}
+      onClose={() => setShowWorkoutModal(false)}
+      workout={suggestedWorkout}
+      user={user}
+    />
+    </>
   );
 }
