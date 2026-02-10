@@ -342,10 +342,11 @@ export default function Wellness() {
         </div>
         
         <Tabs defaultValue="hub" value={activeTab} className="w-full" onValueChange={setActiveTab}>
-          <TabsList className="grid w-full grid-cols-4 p-1 rounded-xl bg-[#E6EBEF]">
+          <TabsList className="grid w-full grid-cols-5 p-1 rounded-xl bg-[#E6EBEF]">
             <TabsTrigger value="hub" className="text-xs data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">Hub</TabsTrigger>
             <TabsTrigger value="workouts" className="text-xs data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">Workouts</TabsTrigger>
             <TabsTrigger value="nutrition" className="text-xs data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">Nutrition</TabsTrigger>
+            <TabsTrigger value="bible" className="text-xs data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">Bible</TabsTrigger>
             <TabsTrigger value="mind" className="text-xs data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">Mind & Spirit</TabsTrigger>
           </TabsList>
         </Tabs>
