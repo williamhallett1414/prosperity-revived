@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Plus, Trash2, Calendar } from 'lucide-react';
+import { ArrowLeft, Plus, Trash2, Calendar, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
@@ -149,28 +149,33 @@ export default function FoodLogHistory() {
                         key={meal.id}
                         initial={{ opacity: 0, x: -10 }}
                         animate={{ opacity: 1, x: 0 }}
-                        className="bg-gray-50 rounded-lg p-3"
                       >
-                        <div className="flex items-start justify-between mb-2">
-                          <div className="flex-1">
-                            <p className="font-medium text-sm text-[#0A1A2F]">
-                              {mealEmoji[meal.meal_type]} {meal.description}
-                            </p>
-                            <p className="text-xs text-[#0A1A2F]/60 mt-1">
-                              P: {meal.protein || 0}g | C: {meal.carbs || 0}g | F: {meal.fats || 0}g
-                            </p>
+                        <Link to={createPageUrl(`MealDetailView?id=${meal.id}`)}>
+                          <div className="bg-gray-50 hover:bg-gray-100 rounded-lg p-3 cursor-pointer transition-colors">
+                            <div className="flex items-start justify-between mb-2">
+                              <div className="flex-1 min-w-0">
+                                <p className="font-medium text-sm text-[#0A1A2F]">
+                                  {mealEmoji[meal.meal_type]} {meal.description}
+                                </p>
+                                <p className="text-xs text-[#0A1A2F]/60 mt-1">
+                                  P: {meal.protein || 0}g | C: {meal.carbs || 0}g | F: {meal.fats || 0}g
+                                </p>
+                              </div>
+                              <span className="text-sm font-semibold text-emerald-600 flex-shrink-0 ml-2">{meal.calories || 0} cal</span>
+                            </div>
                           </div>
-                          <div className="text-right flex flex-col items-end gap-2">
-                            <span className="text-sm font-semibold text-emerald-600">{meal.calories || 0} cal</span>
-                            <button
-                              onClick={() => deleteMeal.mutate(meal.id)}
-                              disabled={deleteMeal.isPending}
-                              className="p-1 hover:bg-red-100 rounded transition-colors"
-                            >
-                              <Trash2 className="w-4 h-4 text-red-500" />
-                            </button>
-                          </div>
-                        </div>
+                        </Link>
+                        <button
+                          onClick={(e) => {
+                            e.preventDefault();
+                            deleteMeal.mutate(meal.id);
+                          }}
+                          disabled={deleteMeal.isPending}
+                          className="mt-2 w-full p-1 hover:bg-red-100 rounded transition-colors flex items-center justify-center gap-2"
+                        >
+                          <Trash2 className="w-4 h-4 text-red-500" />
+                          <span className="text-xs text-red-600">Delete</span>
+                        </button>
                       </motion.div>
                     ))}
                   </div>
