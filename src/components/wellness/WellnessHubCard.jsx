@@ -12,17 +12,19 @@ export default function WellnessHubCard({ icon: Icon, title, description, color,
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: index * 0.05 }}
         whileHover={{ scale: 1.02 }}
-        className={`bg-gradient-to-br ${color} rounded-2xl p-5 cursor-pointer hover:shadow-lg transition-shadow`}
+        className={`bg-gradient-to-br ${color} rounded-2xl p-4 cursor-pointer hover:shadow-lg transition-shadow h-full`}
       >
-        <div className="flex items-start justify-between">
-          <div className="flex-1">
-            <div className="flex items-center gap-2 mb-2">
-              <Icon className="w-5 h-5 text-[#0A1A2F]" />
-              <h3 className="text-lg font-bold text-[#0A1A2F]">{title}</h3>
+        <div className="flex flex-col justify-between h-full">
+          <div className="flex items-start justify-between">
+            <div className="flex-1">
+              <div className="flex items-center gap-2 mb-2">
+                <Icon className="w-5 h-5 text-[#0A1A2F]" />
+              </div>
+              <h3 className="font-semibold text-[#0A1A2F] text-sm mb-1">{title}</h3>
+              <p className="text-xs text-[#0A1A2F]/70 leading-snug">{description}</p>
             </div>
-            <p className="text-sm text-[#0A1A2F]/70">{description}</p>
+            <ChevronRight className="w-4 h-4 text-[#0A1A2F] flex-shrink-0 ml-1 mt-0" />
           </div>
-          <ChevronRight className="w-5 h-5 text-[#0A1A2F] flex-shrink-0 ml-2 mt-1" />
         </div>
       </motion.div>
     </Link>

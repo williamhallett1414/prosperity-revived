@@ -189,9 +189,9 @@ export default function Wellness() {
         <WeeklyThemeBanner />
 
         {activeTab === 'hub' && (
-          <div className="max-w-2xl mx-auto px-2 mb-8">
-            <h2 className="text-xl font-bold text-[#0A1A2F] mb-4">Wellness Hub</h2>
-            <div className="space-y-3">
+          <div className="max-w-2xl mx-auto mb-8">
+            <h2 className="text-xl font-bold text-[#0A1A2F] mb-6 px-4">Wellness Hub</h2>
+            <div className="grid grid-cols-2 gap-4 px-4">
               <WellnessHubCard
                 icon={Brain}
                 title="Self-Care"
