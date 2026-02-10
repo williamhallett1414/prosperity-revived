@@ -40,6 +40,17 @@ import CoachDavid from '@/components/wellness/CoachDavid';
 import ChefDaniel from '@/components/wellness/ChefDaniel';
 import Hannah from '@/components/wellness/Hannah.jsx';
 
+import BookSelector from '@/components/bible/BookSelector';
+import ChapterSelector from '@/components/bible/ChapterSelector';
+import VerseReader from '@/components/bible/VerseReader';
+import ReadingPlanCard from '@/components/home/ReadingPlanCard';
+import { readingPlans } from '@/components/bible/BibleData';
+import BibleStatsModal from '@/components/bible/BibleStatsModal';
+import DevotionalContent from '@/components/bible/DevotionalContent';
+import BibleQA from '@/components/bible/BibleQA';
+import BibleStudyGuide from '@/components/bible/BibleStudyGuide';
+import MoodTracker from '@/components/bible/MoodTracker';
+
 import DailyRoutineCards from '@/components/selfcare/DailyRoutineCards';
 import QuickTools from '@/components/selfcare/QuickTools';
 import DailyAffirmation from '@/components/selfcare/DailyAffirmation';
