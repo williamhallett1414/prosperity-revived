@@ -46,10 +46,10 @@ export default function Home() {
   const { data: posts = [] } = useQuery({
     queryKey: ['posts'],
     queryFn: async () => {
-      const allPosts = await base44.entities.Post.list('-created_date', 100);
-      // Filter out group posts and sort by likes (trending) then by date
+      // Get all posts without group_id (public posts)
+      const allPosts = await base44.entities.Post.filter({ group_id: null }, '-created_date', 100);
+      // Sort by likes (trending)
       return allPosts
-        .filter(p => !p.group_id)
         .sort((a, b) => (b.likes || 0) - (a.likes || 0))
         .slice(0, 20);
     }
@@ -57,7 +57,7 @@ export default function Home() {
 
   const { data: comments = [] } = useQuery({
     queryKey: ['comments'],
-    queryFn: () => base44.entities.Comment.list('-created_date', 200)
+    queryFn: () => base44.entities.Comment.filter({}, '-created_date', 200)
   });
 
   const { data: memberships = [] } = useQuery({
@@ -70,7 +70,7 @@ export default function Home() {
 
   const { data: groups = [] } = useQuery({
     queryKey: ['groups'],
-    queryFn: () => base44.entities.StudyGroup.list()
+    queryFn: () => base44.entities.StudyGroup.filter({})
   });
 
   const { data: planProgress = [] } = useQuery({
@@ -102,7 +102,7 @@ export default function Home() {
 
   const { data: recipes = [] } = useQuery({
     queryKey: ['recipes'],
-    queryFn: () => base44.entities.Recipe.list('-created_date', 50)
+    queryFn: () => base44.entities.Recipe.filter({}, '-created_date', 50)
   });
 
   const { data: myPosts = [] } = useQuery({
