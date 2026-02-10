@@ -88,13 +88,13 @@ export default function Home() {
 
   const { data: workoutSessions = [] } = useQuery({
     queryKey: ['workoutSessions'],
-    queryFn: () => base44.entities.WorkoutSession.list('-date', 50),
+    queryFn: () => base44.entities.WorkoutSession.filter({ created_by: user?.email }, '-date', 50),
     enabled: !!user
   });
 
   const { data: meditationSessions = [] } = useQuery({
     queryKey: ['meditationSessions'],
-    queryFn: () => base44.entities.MeditationSession.list('-date', 50),
+    queryFn: () => base44.entities.MeditationSession.filter({ created_by: user?.email }, '-date', 50),
     enabled: !!user
   });
 
