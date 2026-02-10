@@ -78,6 +78,7 @@ import WellnessJourney from './pages/WellnessJourney';
 import WorkoutProgress from './pages/WorkoutProgress';
 import WorkoutTrends from './pages/WorkoutTrends';
 import MyJournalEntries from './pages/MyJournalEntries';
+import MindAndSpirit from './pages/MindAndSpirit';
 import __Layout from './Layout.jsx';
 
 
@@ -113,6 +114,7 @@ export const PAGES = {
     "WorkoutProgress": WorkoutProgress,
     "WorkoutTrends": WorkoutTrends,
     "MyJournalEntries": MyJournalEntries,
+    "MindAndSpirit": MindAndSpirit,
 }
 
 export const pagesConfig = {
