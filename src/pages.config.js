@@ -54,7 +54,6 @@ import Bookmarks from './pages/Bookmarks';
 import ChallengeDetail from './pages/ChallengeDetail';
 import Community from './pages/Community';
 import Discover from './pages/Discover';
-import DiscoverMeditations from './pages/DiscoverMeditations';
 import DiscoverRecipes from './pages/DiscoverRecipes';
 import Friends from './pages/Friends';
 import GroupDetail from './pages/GroupDetail';
@@ -69,7 +68,6 @@ import PlanDetail from './pages/PlanDetail';
 import Plans from './pages/Plans';
 import Profile from './pages/Profile';
 import Search from './pages/Search';
-import SelfCare from './pages/SelfCare';
 import Settings from './pages/Settings';
 import SpiritualGrowth from './pages/SpiritualGrowth';
 import UserProfile from './pages/UserProfile';
@@ -90,7 +88,6 @@ export const PAGES = {
     "ChallengeDetail": ChallengeDetail,
     "Community": Community,
     "Discover": Discover,
-    "DiscoverMeditations": DiscoverMeditations,
     "DiscoverRecipes": DiscoverRecipes,
     "Friends": Friends,
     "GroupDetail": GroupDetail,
@@ -105,7 +102,6 @@ export const PAGES = {
     "Plans": Plans,
     "Profile": Profile,
     "Search": Search,
-    "SelfCare": SelfCare,
     "Settings": Settings,
     "SpiritualGrowth": SpiritualGrowth,
     "UserProfile": UserProfile,
