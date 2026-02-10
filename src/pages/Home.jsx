@@ -41,64 +41,108 @@ export default function Home() {
 
   const { data: bookmarks = [] } = useQuery({
     queryKey: ['bookmarks'],
-    queryFn: () => base44.entities.Bookmark.filter({ created_by: user?.email }),
+    queryFn: async () => {
+      try {
+        return await base44.entities.Bookmark.filter({ created_by: user?.email });
+      } catch {
+        return [];
+      }
+    },
     enabled: !!user
   });
 
   const { data: posts = [] } = useQuery({
     queryKey: ['posts'],
     queryFn: async () => {
-      // Get all posts without group_id (public posts)
-      const allPosts = await base44.entities.Post.filter({ group_id: null }, '-created_date', 100);
-      // Sort by likes (trending)
-      return allPosts
-        .sort((a, b) => (b.likes || 0) - (a.likes || 0))
-        .slice(0, 20);
+      try {
+        const allPosts = await base44.entities.Post.filter({ group_id: null }, '-created_date', 100);
+        return allPosts.sort((a, b) => (b.likes || 0) - (a.likes || 0)).slice(0, 20);
+      } catch {
+        return [];
+      }
     }
   });
 
   const { data: comments = [] } = useQuery({
     queryKey: ['comments'],
-    queryFn: () => base44.entities.Comment.filter({}, '-created_date', 200)
+    queryFn: async () => {
+      try {
+        return await base44.entities.Comment.filter({}, '-created_date', 200);
+      } catch {
+        return [];
+      }
+    }
   });
 
   const { data: memberships = [] } = useQuery({
     queryKey: ['myMemberships'],
     queryFn: async () => {
-      return await base44.entities.GroupMember.filter({ user_email: user?.email });
+      try {
+        return await base44.entities.GroupMember.filter({ user_email: user?.email });
+      } catch {
+        return [];
+      }
     },
     enabled: !!user
   });
 
   const { data: groups = [] } = useQuery({
     queryKey: ['groups'],
-    queryFn: () => base44.entities.StudyGroup.filter({})
+    queryFn: async () => {
+      try {
+        return await base44.entities.StudyGroup.filter({});
+      } catch {
+        return [];
+      }
+    }
   });
 
   const { data: planProgress = [] } = useQuery({
     queryKey: ['planProgress'],
-    queryFn: () => base44.entities.ReadingPlanProgress.filter({ created_by: user?.email }),
+    queryFn: async () => {
+      try {
+        return await base44.entities.ReadingPlanProgress.filter({ created_by: user?.email });
+      } catch {
+        return [];
+      }
+    },
     enabled: !!user
   });
 
   const { data: userProgress } = useQuery({
     queryKey: ['userProgress', user?.email],
     queryFn: async () => {
-      const list = await base44.entities.UserProgress.filter({ created_by: user?.email });
-      return list[0] || null;
+      try {
+        const list = await base44.entities.UserProgress.filter({ created_by: user?.email });
+        return list[0] || null;
+      } catch {
+        return null;
+      }
     },
     enabled: !!user
   });
 
   const { data: workoutSessions = [] } = useQuery({
     queryKey: ['workoutSessions'],
-    queryFn: () => base44.entities.WorkoutSession.filter({ created_by: user?.email }, '-date', 50),
+    queryFn: async () => {
+      try {
+        return await base44.entities.WorkoutSession.filter({ created_by: user?.email }, '-date', 50);
+      } catch {
+        return [];
+      }
+    },
     enabled: !!user
   });
 
   const { data: meditationSessions = [] } = useQuery({
     queryKey: ['meditationSessions'],
-    queryFn: () => base44.entities.MeditationSession.filter({ created_by: user?.email }, '-date', 50),
+    queryFn: async () => {
+      try {
+        return await base44.entities.MeditationSession.filter({ created_by: user?.email }, '-date', 50);
+      } catch {
+        return [];
+      }
+    },
     enabled: !!user
   });
 
@@ -154,13 +198,23 @@ export default function Home() {
 
   const { data: recipes = [] } = useQuery({
     queryKey: ['recipes'],
-    queryFn: () => base44.entities.Recipe.filter({}, '-created_date', 50)
+    queryFn: async () => {
+      try {
+        return await base44.entities.Recipe.filter({}, '-created_date', 50);
+      } catch {
+        return [];
+      }
+    }
   });
 
   const { data: myPosts = [] } = useQuery({
     queryKey: ['myPosts'],
     queryFn: async () => {
-      return await base44.entities.Post.filter({ created_by: user?.email });
+      try {
+        return await base44.entities.Post.filter({ created_by: user?.email });
+      } catch {
+        return [];
+      }
     },
     enabled: !!user
   });
