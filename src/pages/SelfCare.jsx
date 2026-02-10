@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import BackButton from '@/components/navigation/BackButton';
 
 import DailyRoutineCards from '@/components/selfcare/DailyRoutineCards';
 import QuickTools from '@/components/selfcare/QuickTools';
@@ -79,7 +80,12 @@ export default function SelfCare() {
 
   return (
     <div className="min-h-screen bg-[#F2F6FA]">
-      <div className="max-w-2xl mx-auto px-4 py-6 pb-24">
+      <div className="max-w-2xl mx-auto px-4 pt-4 pb-24">
+        {/* Back Button */}
+        <div className="mb-4">
+          <BackButton />
+        </div>
+
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
