@@ -84,9 +84,10 @@ export default function Profile() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: isScrolled ? 1 : 0, y: isScrolled ? 0 : -20 }}
         transition={{ duration: 0.3 }}
-        className="fixed top-0 left-0 right-0 bg-white shadow-sm z-40 pointer-events-none"
+        className="fixed top-16 left-0 right-0 bg-white shadow-md z-30 pointer-events-none"
+        style={{ pointerEvents: isScrolled ? 'auto' : 'none' }}
       >
-        <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between pointer-events-auto">
+        <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between pointer-events-auto">
           <h1 className="text-xl font-bold text-gray-900">{user.full_name}</h1>
           <Link
             to={createPageUrl('Settings')}
@@ -99,14 +100,16 @@ export default function Profile() {
 
       <ProfileHeader user={user} friendsCount={friends.length} userProgress={userProgress} />
 
-      <div className="max-w-6xl mx-auto">
-        {/* Tabs Navigation */}
-        <ProfileTabs activeTab={activeTab} onTabChange={setActiveTab} />
+      <div className="max-w-5xl mx-auto">
+        {/* Tabs Navigation - Sticky */}
+        <div className={`sticky ${isScrolled ? 'top-28' : 'top-16'} bg-white border-b border-gray-200 shadow-sm z-20 transition-all`}>
+          <ProfileTabs activeTab={activeTab} onTabChange={setActiveTab} />
+        </div>
 
         {/* Content Area */}
-        <div className="grid grid-cols-3 gap-6 px-4 py-6 lg:grid-cols-3 md:grid-cols-1">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 px-4 py-6">
           {/* Main Content */}
-          <div className="lg:col-span-2 col-span-1">
+          <div className="lg:col-span-2 order-2 lg:order-1">
             {activeTab === 'timeline' && <TimelineTab user={user} posts={posts} comments={comments} />}
             {activeTab === 'about' && <AboutTab user={user} />}
             {activeTab === 'friends' && <FriendsTab friends={friends} user={user} />}
@@ -115,37 +118,37 @@ export default function Profile() {
           </div>
 
           {/* Sidebar */}
-          <div className="hidden lg:block space-y-4">
+          <div className="order-1 lg:order-2 space-y-4">
             {/* Quick Stats */}
-            <div className="bg-white rounded-lg shadow-sm p-4">
-              <h3 className="font-semibold text-gray-900 mb-4">Quick Stats</h3>
-              <div className="space-y-3">
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-600">Friends</span>
-                  <span className="font-semibold text-gray-900">{friends.length}</span>
+            <div className="bg-white rounded-xl shadow-sm p-5 border border-gray-100">
+              <h3 className="font-bold text-gray-900 mb-4 text-lg">Stats</h3>
+              <div className="space-y-4">
+                <div className="flex justify-between items-center py-2 border-b border-gray-100 last:border-0">
+                  <span className="text-sm text-gray-600 font-medium">Friends</span>
+                  <span className="font-bold text-blue-600 text-lg">{friends.length}</span>
                 </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-600">Posts</span>
-                  <span className="font-semibold text-gray-900">{posts.length}</span>
+                <div className="flex justify-between items-center py-2 border-b border-gray-100 last:border-0">
+                  <span className="text-sm text-gray-600 font-medium">Posts</span>
+                  <span className="font-bold text-gray-900 text-lg">{posts.length}</span>
                 </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-600">Level</span>
-                  <span className="font-semibold text-blue-600">{userProgress?.level || 1}</span>
+                <div className="flex justify-between items-center py-2 border-b border-gray-100 last:border-0">
+                  <span className="text-sm text-gray-600 font-medium">Level</span>
+                  <span className="font-bold text-blue-600 text-lg">{userProgress?.level || 1}</span>
                 </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-600">Points</span>
-                  <span className="font-semibold text-gray-900">{userProgress?.total_points || 0}</span>
+                <div className="flex justify-between items-center py-2">
+                  <span className="text-sm text-gray-600 font-medium">Points</span>
+                  <span className="font-bold text-amber-600 text-lg">{userProgress?.total_points || 0}</span>
                 </div>
               </div>
             </div>
 
             {/* Badges Preview */}
             {userProgress?.badges?.length > 0 && (
-              <div className="bg-white rounded-lg shadow-sm p-4">
-                <h3 className="font-semibold text-gray-900 mb-4">Recent Badges</h3>
-                <div className="grid grid-cols-3 gap-2">
+              <div className="bg-white rounded-xl shadow-sm p-5 border border-gray-100">
+                <h3 className="font-bold text-gray-900 mb-4 text-lg">Badges</h3>
+                <div className="grid grid-cols-3 gap-3">
                   {userProgress.badges.slice(0, 6).map((badge, idx) => (
-                    <div key={idx} className="w-12 h-12 bg-gradient-to-br from-yellow-300 to-yellow-500 rounded-full flex items-center justify-center text-xl">
+                    <div key={idx} className="aspect-square bg-gradient-to-br from-yellow-300 to-yellow-500 rounded-xl flex items-center justify-center text-2xl shadow-md hover:scale-105 transition-transform cursor-pointer">
                       🏅
                     </div>
                   ))}
