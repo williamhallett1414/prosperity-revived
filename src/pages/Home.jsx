@@ -128,8 +128,10 @@ export default function Home() {
     queryKey: ['challengeParticipants'],
     queryFn: async () => {
       try {
-        return await base44.entities.ChallengeParticipant.filter({ user_email: user?.email, status: 'active' });
-      } catch {
+        if (!user?.email) return [];
+        return await base44.entities.ChallengeParticipant.filter({ user_email: user.email, status: 'active' });
+      } catch (error) {
+        console.log('ChallengeParticipant error:', error);
         return [];
       }
     },
@@ -140,8 +142,10 @@ export default function Home() {
     queryKey: ['journalEntries'],
     queryFn: async () => {
       try {
-        return await base44.entities.JournalEntry.filter({ created_by: user?.email }, '-created_date', 10);
-      } catch {
+        if (!user?.email) return [];
+        return await base44.entities.JournalEntry.filter({ created_by: user.email }, '-created_date', 10);
+      } catch (error) {
+        console.log('JournalEntry error:', error);
         return [];
       }
     },
