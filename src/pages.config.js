@@ -54,15 +54,19 @@ import Bookmarks from './pages/Bookmarks';
 import ChallengeDetail from './pages/ChallengeDetail';
 import Community from './pages/Community';
 import DiscoverRecipes from './pages/DiscoverRecipes';
+import FoodLogHistory from './pages/FoodLogHistory';
 import Friends from './pages/Friends';
 import GroupDetail from './pages/GroupDetail';
 import Groups from './pages/Groups';
 import Home from './pages/Home';
+import MealDetailView from './pages/MealDetailView';
 import Messages from './pages/Messages';
 import MindAndSpirit from './pages/MindAndSpirit';
 import MyJournalEntries from './pages/MyJournalEntries';
 import NotificationSettings from './pages/NotificationSettings';
 import Notifications from './pages/Notifications';
+import NutritionArticle from './pages/NutritionArticle';
+import NutritionGuidance from './pages/NutritionGuidance';
 import PhotoGallery from './pages/PhotoGallery';
 import PlanDetail from './pages/PlanDetail';
 import Plans from './pages/Plans';
@@ -75,10 +79,6 @@ import Wellness from './pages/Wellness';
 import WellnessJourney from './pages/WellnessJourney';
 import WorkoutProgress from './pages/WorkoutProgress';
 import WorkoutTrends from './pages/WorkoutTrends';
-import FoodLogHistory from './pages/FoodLogHistory';
-import MealDetailView from './pages/MealDetailView';
-import NutritionGuidance from './pages/NutritionGuidance';
-import NutritionArticle from './pages/NutritionArticle';
 import __Layout from './Layout.jsx';
 
 
@@ -90,15 +90,19 @@ export const PAGES = {
     "ChallengeDetail": ChallengeDetail,
     "Community": Community,
     "DiscoverRecipes": DiscoverRecipes,
+    "FoodLogHistory": FoodLogHistory,
     "Friends": Friends,
     "GroupDetail": GroupDetail,
     "Groups": Groups,
     "Home": Home,
+    "MealDetailView": MealDetailView,
     "Messages": Messages,
     "MindAndSpirit": MindAndSpirit,
     "MyJournalEntries": MyJournalEntries,
     "NotificationSettings": NotificationSettings,
     "Notifications": Notifications,
+    "NutritionArticle": NutritionArticle,
+    "NutritionGuidance": NutritionGuidance,
     "PhotoGallery": PhotoGallery,
     "PlanDetail": PlanDetail,
     "Plans": Plans,
@@ -111,10 +115,6 @@ export const PAGES = {
     "WellnessJourney": WellnessJourney,
     "WorkoutProgress": WorkoutProgress,
     "WorkoutTrends": WorkoutTrends,
-    "FoodLogHistory": FoodLogHistory,
-    "MealDetailView": MealDetailView,
-    "NutritionGuidance": NutritionGuidance,
-    "NutritionArticle": NutritionArticle,
 }
 
 export const pagesConfig = {

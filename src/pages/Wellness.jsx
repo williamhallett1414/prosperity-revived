@@ -10,7 +10,7 @@ import { createPageUrl } from '@/utils';
 import { toast } from 'sonner';
 import WorkoutCard from '@/components/wellness/WorkoutCard';
 import CreateWorkoutModal from '@/components/wellness/CreateWorkoutModal';
-import NutritionAdvice from '@/components/wellness/NutritionAdvice';
+
 import MealTracker from '@/components/wellness/MealTracker';
 import MealSuggestions from '@/components/nutrition/MealSuggestions';
 import TrendingNutritionArticles from '@/components/nutrition/TrendingNutritionArticles';
@@ -493,11 +493,10 @@ export default function Wellness() {
            <TabsContent value="nutrition" className="space-y-6 max-w-2xl mx-auto">
              <NutritionDashboard mealLogs={mealLogs} waterLogs={waterLogs} />
              <MealSuggestions />
-             <TrendingNutritionArticles />
-             <MealTracker />
-            
-            <PersonalizedNutritionPlan />
-            <NutritionAdvice />
+              <TrendingNutritionArticles />
+              <MealTracker />
+
+              <PersonalizedNutritionPlan />
 
             {/* Discover Recipes */}
             <Link to={createPageUrl('DiscoverRecipes')}>
