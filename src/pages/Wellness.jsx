@@ -493,24 +493,25 @@ export default function Wellness() {
            <TabsContent value="nutrition" className="space-y-6 max-w-2xl mx-auto">
              <NutritionDashboard mealLogs={mealLogs} waterLogs={waterLogs} />
              <MealSuggestions />
-              <TrendingNutritionArticles />
-              <MealTracker />
-
-              <PersonalizedNutritionPlan />
 
             {/* Discover Recipes */}
-            <Link to={createPageUrl('DiscoverRecipes')}>
-              <div className="bg-gradient-to-br from-[#D9B878] to-[#AFC7E3] rounded-2xl p-5 text-[#0A1A2F] cursor-pointer hover:shadow-lg transition-shadow">
-                <div className="flex items-center gap-3 mb-2">
-                  <UtensilsCrossed className="w-6 h-6" />
-                  <h3 className="text-lg font-semibold">Discover Recipes</h3>
-                </div>
-                <p className="text-[#0A1A2F]/70 text-sm">Browse and create delicious recipes</p>
-              </div>
-            </Link>
+             <Link to={createPageUrl('DiscoverRecipes')}>
+               <div className="bg-gradient-to-br from-[#D9B878] to-[#AFC7E3] rounded-2xl p-5 text-[#0A1A2F] cursor-pointer hover:shadow-lg transition-shadow">
+                 <div className="flex items-center gap-3 mb-2">
+                   <UtensilsCrossed className="w-6 h-6" />
+                   <h3 className="text-lg font-semibold">Discover Recipes</h3>
+                 </div>
+                 <p className="text-[#0A1A2F]/70 text-sm">Browse and create delicious recipes</p>
+               </div>
+             </Link>
+
+             <TrendingNutritionArticles />
+             <MealTracker />
+
+             <PersonalizedNutritionPlan />
 
             {/* Community Feed */}
-              <CommunityRecipeFeed user={user} />
+               <CommunityRecipeFeed user={user} />
             </TabsContent>
 
             {/* Bible Tab */}
