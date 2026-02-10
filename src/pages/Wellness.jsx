@@ -380,6 +380,7 @@ export default function Wellness() {
               prayerJournals={prayerJournals}
               userProgress={userProgress}
               challengeParticipants={challengeParticipants}
+              planProgress={planProgress}
             />
           </div>
         )}
