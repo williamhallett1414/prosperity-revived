@@ -221,7 +221,7 @@ export default function PrayForMeFeed({ user }) {
                     setMediaType(null);
                     setMediaPreview(null);
                   }}
-                  className="flex-1 text-white border-white/20 hover:bg-white/10"
+                  className="flex-1 text-white border-gray-700 hover:bg-gray-900"
                   size="sm"
                 >
                   Cancel
