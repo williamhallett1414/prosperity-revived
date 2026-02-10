@@ -73,7 +73,7 @@ export default function SelfCare() {
   });
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#1a1a2e] via-[#2d3142] to-[#1a1a2e]">
+    <div className="min-h-screen bg-[#F2F6FA]">
       <div className="max-w-2xl mx-auto px-4 py-6 pb-24">
         {/* Header */}
         <motion.div
@@ -82,11 +82,11 @@ export default function SelfCare() {
           className="mb-8 text-center"
         >
           <div className="flex items-center justify-center gap-2 mb-2">
-            <Sparkles className="w-6 h-6 text-[#c9a227]" />
-            <h1 className="text-3xl font-bold text-white">Self-Care</h1>
-            <Sparkles className="w-6 h-6 text-[#c9a227]" />
+            <Sparkles className="w-6 h-6 text-[#D9B878]" />
+            <h1 className="text-3xl font-bold text-[#0A1A2F]">Self-Care</h1>
+            <Sparkles className="w-6 h-6 text-[#D9B878]" />
           </div>
-          <p className="text-gray-300 text-sm">Nurture your mind, body, and spirit</p>
+          <p className="text-[#0A1A2F]/70 text-sm">Nurture your mind, body, and spirit</p>
         </motion.div>
 
         {/* Signature Feature: Take 2 Minutes With God */}
@@ -98,7 +98,7 @@ export default function SelfCare() {
         >
           <Button
             onClick={() => setShowGodTime(true)}
-            className="w-full h-24 bg-gradient-to-r from-[#c9a227] via-[#d4af37] to-[#c9a227] hover:from-[#d4af37] hover:to-[#e5c158] text-white text-xl font-bold rounded-2xl shadow-2xl"
+            className="w-full h-24 bg-gradient-to-r from-[#D9B878] to-[#AFC7E3] hover:from-[#D9B878]/90 hover:to-[#AFC7E3]/90 text-[#0A1A2F] text-xl font-bold rounded-2xl shadow-xl"
           >
             <div className="flex flex-col items-center">
               <span className="text-2xl mb-1">✨</span>

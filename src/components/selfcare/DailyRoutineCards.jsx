@@ -96,7 +96,7 @@ export default function DailyRoutineCards({ meditations = [] }) {
       id: 'morning-reset',
       icon: Sunrise,
       title: 'Morning Reset',
-      gradient: 'from-amber-500 to-orange-600',
+      gradient: 'from-[#D9B878] to-[#AFC7E3]',
       modal: (
         <div className="space-y-6">
           <div className="text-center">
@@ -143,7 +143,7 @@ export default function DailyRoutineCards({ meditations = [] }) {
       id: 'midday-checkin',
       icon: Sun,
       title: 'Midday Check-In',
-      gradient: 'from-teal-500 to-emerald-600',
+      gradient: 'from-[#AFC7E3] to-[#D9B878]',
       modal: (
         <div className="space-y-4">
           <div>
@@ -200,7 +200,7 @@ export default function DailyRoutineCards({ meditations = [] }) {
       id: 'evening-winddown',
       icon: Moon,
       title: 'Evening Wind-Down',
-      gradient: 'from-indigo-600 to-purple-700',
+      gradient: 'from-[#0A1A2F] to-[#AFC7E3]',
       modal: (
         <div className="space-y-6">
           <div className="text-center">
@@ -262,7 +262,7 @@ export default function DailyRoutineCards({ meditations = [] }) {
       id: 'gratitude-practice',
       icon: Heart,
       title: 'Gratitude Practice',
-      gradient: 'from-pink-500 to-rose-600',
+      gradient: 'from-[#D9B878] to-[#D9B878]',
       modal: (
         <div className="space-y-4">
           <div className="text-center">
@@ -311,7 +311,7 @@ export default function DailyRoutineCards({ meditations = [] }) {
       id: 'scripture-reflection',
       icon: Book,
       title: 'Scripture Reflection',
-      gradient: 'from-blue-600 to-blue-800',
+      gradient: 'from-[#AFC7E3] to-[#0A1A2F]',
       modal: (
         <div className="space-y-4">
           <div className="text-center">
@@ -356,7 +356,7 @@ export default function DailyRoutineCards({ meditations = [] }) {
       id: 'stretch-breathe',
       icon: Wind,
       title: 'Stretch & Breathe',
-      gradient: 'from-cyan-500 to-blue-600',
+      gradient: 'from-[#AFC7E3] to-[#AFC7E3]',
       modal: (
         <div className="space-y-6">
           <div className="text-center">
@@ -402,7 +402,7 @@ export default function DailyRoutineCards({ meditations = [] }) {
         transition={{ delay: 0.2 }}
         className="mb-8"
       >
-        <h2 className="text-xl font-bold text-white mb-4">Daily Routine</h2>
+        <h2 className="text-xl font-bold text-[#0A1A2F] mb-4">Daily Routine</h2>
         <div className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide">
           {routineCards.map((card, index) => {
             const Icon = card.icon;
@@ -414,7 +414,7 @@ export default function DailyRoutineCards({ meditations = [] }) {
                 transition={{ delay: 0.2 + index * 0.05 }}
                 whileHover={{ scale: 1.02 }}
                 onClick={() => setActiveModal(card.id)}
-                className={`min-w-[280px] rounded-2xl p-5 bg-gradient-to-br ${card.gradient} text-white shadow-xl snap-start`}
+                className={`min-w-[280px] rounded-2xl p-5 bg-gradient-to-br ${card.gradient} text-[#0A1A2F] shadow-lg snap-start`}
               >
                 <div className="flex items-center gap-2 mb-3">
                   <Icon className="w-5 h-5" />

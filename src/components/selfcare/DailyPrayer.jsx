@@ -52,7 +52,7 @@ export default function DailyPrayer() {
           <motion.button
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            className="w-full bg-gradient-to-r from-purple-600 via-pink-500 to-purple-700 rounded-2xl p-6 text-white shadow-xl text-left"
+            className="w-full bg-gradient-to-r from-[#D9B878] to-[#AFC7E3] rounded-2xl p-6 text-[#0A1A2F] shadow-lg text-left"
           >
             <div className="flex items-center gap-3 mb-2">
               <Heart className="w-6 h-6" />

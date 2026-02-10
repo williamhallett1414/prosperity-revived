@@ -47,7 +47,7 @@ export default function ProgressSnapshot({ meditationSessions = [], challengePar
       transition={{ delay: 0.7 }}
       className="mb-8"
     >
-      <h2 className="text-xl font-bold text-white mb-4">Your Progress</h2>
+      <h2 className="text-xl font-bold text-[#0A1A2F] mb-4">Your Progress</h2>
       <div className="grid grid-cols-2 gap-3">
         {stats.map((stat, index) => {
           const Icon = stat.icon;

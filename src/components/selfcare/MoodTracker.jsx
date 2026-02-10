@@ -48,9 +48,9 @@ export default function MoodTracker() {
   ];
 
   const levels = [
-    { label: 'Low', color: 'from-green-400 to-green-500' },
-    { label: 'Medium', color: 'from-yellow-400 to-yellow-500' },
-    { label: 'High', color: 'from-red-400 to-red-500' }
+    { label: 'Low', color: 'from-[#AFC7E3] to-[#AFC7E3]' },
+    { label: 'Medium', color: 'from-[#D9B878] to-[#D9B878]' },
+    { label: 'High', color: 'from-[#0A1A2F] to-[#0A1A2F]' }
   ];
 
   return (
@@ -60,12 +60,12 @@ export default function MoodTracker() {
       transition={{ delay: 0.4 }}
       className="mb-8"
     >
-      <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
-        <h2 className="text-xl font-bold text-white mb-4">Check-In</h2>
+      <div className="bg-[#E6EBEF] rounded-2xl p-6 border border-[#D9B878]/20 shadow-lg">
+        <h2 className="text-xl font-bold text-[#0A1A2F] mb-4">Check-In</h2>
 
         {/* Mood */}
         <div className="mb-4">
-          <label className="text-sm text-gray-300 mb-2 block">How's your mood?</label>
+          <label className="text-sm text-[#0A1A2F]/70 mb-2 block">How's your mood?</label>
           <div className="flex gap-3 justify-between">
             {moods.map(m => (
               <button
@@ -73,12 +73,12 @@ export default function MoodTracker() {
                 onClick={() => setMood(m.value)}
                 className={`flex-1 p-3 rounded-xl transition ${
                   mood === m.value 
-                    ? 'bg-[#c9a227] scale-110' 
-                    : 'bg-white/10 hover:bg-white/20'
+                    ? 'bg-[#D9B878] scale-110' 
+                    : 'bg-white hover:bg-[#F2F6FA]'
                 }`}
               >
                 <div className="text-3xl mb-1">{m.emoji}</div>
-                <div className="text-xs text-white">{m.label}</div>
+                <div className="text-xs text-[#0A1A2F]">{m.label}</div>
               </button>
             ))}
           </div>
@@ -86,7 +86,7 @@ export default function MoodTracker() {
 
         {/* Energy */}
         <div className="mb-4">
-          <label className="text-sm text-gray-300 mb-2 block">Energy Level</label>
+          <label className="text-sm text-[#0A1A2F]/70 mb-2 block">Energy Level</label>
           <div className="flex gap-2">
             {levels.map(level => (
               <button
@@ -94,8 +94,8 @@ export default function MoodTracker() {
                 onClick={() => setEnergy(level.label)}
                 className={`flex-1 py-2 rounded-lg text-sm font-semibold transition ${
                   energy === level.label
-                    ? `bg-gradient-to-r ${level.color} text-white scale-105`
-                    : 'bg-white/10 text-gray-300 hover:bg-white/20'
+                    ? `bg-gradient-to-r ${level.color} text-[#0A1A2F] scale-105`
+                    : 'bg-white text-[#0A1A2F]/70 hover:bg-[#F2F6FA]'
                 }`}
               >
                 {level.label}
@@ -106,7 +106,7 @@ export default function MoodTracker() {
 
         {/* Stress */}
         <div className="mb-4">
-          <label className="text-sm text-gray-300 mb-2 block">Stress Level</label>
+          <label className="text-sm text-[#0A1A2F]/70 mb-2 block">Stress Level</label>
           <div className="flex gap-2">
             {levels.map(level => (
               <button
@@ -114,8 +114,8 @@ export default function MoodTracker() {
                 onClick={() => setStress(level.label)}
                 className={`flex-1 py-2 rounded-lg text-sm font-semibold transition ${
                   stress === level.label
-                    ? `bg-gradient-to-r ${level.color} text-white scale-105`
-                    : 'bg-white/10 text-gray-300 hover:bg-white/20'
+                    ? `bg-gradient-to-r ${level.color} text-[#0A1A2F] scale-105`
+                    : 'bg-white text-[#0A1A2F]/70 hover:bg-[#F2F6FA]'
                 }`}
               >
                 {level.label}
@@ -127,7 +127,7 @@ export default function MoodTracker() {
         <Button
           onClick={handleSave}
           disabled={!mood || !energy || !stress}
-          className="w-full bg-gradient-to-r from-[#c9a227] to-[#d4af37] hover:from-[#d4af37] hover:to-[#e5c158] text-white"
+          className="w-full bg-gradient-to-r from-[#D9B878] to-[#AFC7E3] hover:from-[#D9B878]/90 hover:to-[#AFC7E3]/90 text-[#0A1A2F]"
         >
           Save Check-In
         </Button>

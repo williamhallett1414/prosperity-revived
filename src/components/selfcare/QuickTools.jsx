@@ -17,7 +17,7 @@ export default function QuickTools() {
       id: 'breathing',
       icon: Wind,
       label: '60-Second Breathing',
-      gradient: 'from-cyan-500 to-blue-500',
+      gradient: 'from-[#AFC7E3] to-[#AFC7E3]',
       content: (
         <div className="text-center space-y-4">
           <div className="text-6xl mb-4">🌬️</div>
@@ -32,7 +32,7 @@ export default function QuickTools() {
       id: 'prayer',
       icon: Heart,
       label: '2-Minute Prayer',
-      gradient: 'from-pink-500 to-rose-500',
+      gradient: 'from-[#D9B878] to-[#D9B878]',
       content: (
         <div className="text-center space-y-4">
           <div className="text-6xl mb-4">🙏</div>
@@ -48,7 +48,7 @@ export default function QuickTools() {
       id: 'scripture',
       icon: BookOpen,
       label: 'Scripture of the Day',
-      gradient: 'from-amber-500 to-orange-500',
+      gradient: 'from-[#D9B878] to-[#AFC7E3]',
       content: (
         <div className="text-center space-y-4">
           <div className="text-6xl mb-4">📖</div>
@@ -63,7 +63,7 @@ export default function QuickTools() {
       id: 'gratitude',
       icon: PenLine,
       label: 'Gratitude Journal',
-      gradient: 'from-purple-500 to-indigo-500',
+      gradient: 'from-[#0A1A2F] to-[#AFC7E3]',
       content: (
         <div className="space-y-4">
           <div className="text-6xl text-center mb-4">✨</div>
@@ -82,7 +82,7 @@ export default function QuickTools() {
       id: 'mood',
       icon: Smile,
       label: 'Mood Check-In',
-      gradient: 'from-green-500 to-teal-500',
+      gradient: 'from-[#AFC7E3] to-[#D9B878]',
       content: (
         <div className="text-center space-y-4">
           <p className="text-gray-700 font-semibold">How are you feeling right now?</p>
@@ -99,7 +99,7 @@ export default function QuickTools() {
       id: 'hydration',
       icon: Droplets,
       label: 'Hydration Tracker',
-      gradient: 'from-blue-400 to-cyan-400',
+      gradient: 'from-[#AFC7E3] to-[#AFC7E3]',
       content: (
         <div className="text-center space-y-4">
           <div className="text-6xl mb-4">💧</div>
@@ -125,7 +125,7 @@ export default function QuickTools() {
         transition={{ delay: 0.3 }}
         className="mb-8"
       >
-        <h2 className="text-xl font-bold text-white mb-4">Quick Tools</h2>
+        <h2 className="text-xl font-bold text-[#0A1A2F] mb-4">Quick Tools</h2>
         <div className="grid grid-cols-2 gap-3">
           {tools.map((tool, index) => {
             const Icon = tool.icon;
@@ -138,7 +138,7 @@ export default function QuickTools() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setActiveModal(tool.id)}
-                className={`bg-gradient-to-br ${tool.gradient} rounded-2xl p-4 text-white shadow-lg`}
+                className={`bg-gradient-to-br ${tool.gradient} rounded-2xl p-4 text-[#0A1A2F] shadow-lg`}
               >
                 <Icon className="w-8 h-8 mx-auto mb-2" />
                 <p className="text-sm font-semibold">{tool.label}</p>

@@ -40,22 +40,22 @@ export default function DailyAffirmation() {
       className="mb-8"
     >
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-xl font-bold text-white flex items-center gap-2">
-          <Sparkles className="w-5 h-5 text-[#c9a227]" />
+        <h2 className="text-xl font-bold text-[#0A1A2F] flex items-center gap-2">
+          <Sparkles className="w-5 h-5 text-[#D9B878]" />
           Daily Affirmation
         </h2>
       </div>
 
-      <div className="bg-gradient-to-br from-[#c9a227]/20 to-[#d4af37]/20 backdrop-blur-sm rounded-2xl p-6 border border-[#c9a227]/30 relative">
+      <div className="bg-gradient-to-br from-[#E6EBEF] to-[#AFC7E3]/30 rounded-2xl p-6 border border-[#D9B878]/30 shadow-lg relative">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           className="text-center"
         >
-          <p className="text-white text-lg font-serif italic mb-3">
+          <p className="text-[#0A1A2F] text-lg font-serif italic mb-3">
             "{todaysAffirmation.text}"
           </p>
-          <p className="text-[#c9a227] text-sm font-semibold mb-4">
+          <p className="text-[#D9B878] text-sm font-semibold mb-4">
             {todaysAffirmation.reference}
           </p>
 
@@ -63,19 +63,19 @@ export default function DailyAffirmation() {
             variant="ghost"
             size="sm"
             onClick={toggleFavorite}
-            className="text-white hover:bg-white/10"
+            className="text-[#0A1A2F] hover:bg-[#F2F6FA]"
           >
             <Heart
               className={`w-5 h-5 ${
                 favorites.includes(affirmationIndex)
-                  ? 'fill-[#c9a227] text-[#c9a227]'
-                  : 'text-gray-400'
+                  ? 'fill-[#D9B878] text-[#D9B878]'
+                  : 'text-[#0A1A2F]/40'
               }`}
             />
           </Button>
         </motion.div>
 
-        <p className="text-center text-xs text-gray-400 mt-4">
+        <p className="text-center text-xs text-[#0A1A2F]/50 mt-4">
           New affirmation daily
         </p>
       </div>
