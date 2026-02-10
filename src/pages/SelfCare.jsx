@@ -8,10 +8,11 @@ import { Button } from '@/components/ui/button';
 import DailyRoutineCards from '@/components/selfcare/DailyRoutineCards';
 import QuickTools from '@/components/selfcare/QuickTools';
 import MoodTracker from '@/components/selfcare/MoodTracker';
-import AffirmationsCarousel from '@/components/selfcare/AffirmationsCarousel';
+import DailyAffirmation from '@/components/selfcare/DailyAffirmation';
 import SelfCareChallenges from '@/components/selfcare/SelfCareChallenges';
 import ProgressSnapshot from '@/components/selfcare/ProgressSnapshot';
 import TakeTimeWithGod from '@/components/selfcare/TakeTimeWithGod';
+import DailyPrayer from '@/components/selfcare/DailyPrayer';
 
 export default function SelfCare() {
   const [user, setUser] = useState(null);
@@ -109,14 +110,17 @@ export default function SelfCare() {
         {/* Daily Routine */}
         <DailyRoutineCards meditations={meditations} />
 
+        {/* 2-Minute Prayer */}
+        <DailyPrayer />
+
         {/* Quick Tools */}
         <QuickTools />
 
         {/* Mood Tracker */}
         <MoodTracker />
 
-        {/* Affirmations */}
-        <AffirmationsCarousel />
+        {/* Daily Affirmation */}
+        <DailyAffirmation />
 
         {/* Self-Care Challenges */}
         <SelfCareChallenges challenges={challenges} participations={challengeParticipants} />

@@ -33,10 +33,11 @@ import CommunityRecipeFeed from '@/components/wellness/CommunityRecipeFeed';
 import DailyRoutineCards from '@/components/selfcare/DailyRoutineCards';
 import QuickTools from '@/components/selfcare/QuickTools';
 import MoodTracker from '@/components/selfcare/MoodTracker';
-import AffirmationsCarousel from '@/components/selfcare/AffirmationsCarousel';
+import DailyAffirmation from '@/components/selfcare/DailyAffirmation';
 import SelfCareChallenges from '@/components/selfcare/SelfCareChallenges';
 import ProgressSnapshot from '@/components/selfcare/ProgressSnapshot';
 import TakeTimeWithGod from '@/components/selfcare/TakeTimeWithGod';
+import DailyPrayer from '@/components/selfcare/DailyPrayer';
 
 import CoachDavid from '@/components/wellness/CoachDavid';
 import ChefDaniel from '@/components/wellness/ChefDaniel';
@@ -340,9 +341,10 @@ export default function Wellness() {
           {/* Self-Care Tab */}
           <TabsContent value="selfcare" className="space-y-4 bg-gradient-to-br from-[#1a1a2e] via-[#2d3142] to-[#1a1a2e] -mx-4 px-4 py-6 rounded-t-2xl">
             <DailyRoutineCards meditations={meditations} />
+            <DailyPrayer />
             <QuickTools />
             <MoodTracker />
-            <AffirmationsCarousel />
+            <DailyAffirmation />
             <SelfCareChallenges challenges={challenges} participations={challengeParticipants} />
             <ProgressSnapshot 
               meditationSessions={meditationSessions}
