@@ -305,7 +305,7 @@ export default function Wellness() {
           <TabsList className="grid w-full grid-cols-3 p-1 rounded-xl bg-[#E6EBEF]">
             <TabsTrigger value="workouts" className="text-xs data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">Workouts</TabsTrigger>
             <TabsTrigger value="nutrition" className="text-xs data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">Nutrition</TabsTrigger>
-            <TabsTrigger value="mind" className="text-xs data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">Mind & Spirit</TabsTrigger>
+            <TabsTrigger value="mind" className="text-xs data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">Personal Growth</TabsTrigger>
           </TabsList>
         </Tabs>
       </div>
@@ -462,7 +462,7 @@ export default function Wellness() {
 
 
 
-            {/* Mind & Spirit Tab */}
+            {/* Personal Growth Tab */}
             <TabsContent value="mind" className="space-y-4 max-w-2xl mx-auto">
               {/* My Journal */}
               <Link to={createPageUrl('MyJournalEntries')}>
