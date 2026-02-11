@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { Home, Users, User, Heart, BookOpen } from 'lucide-react';
+import { Home, Users, User, Heart, BookOpen, ArrowLeft } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Toaster } from '@/components/ui/sonner.jsx';
 import NotificationBell from '@/components/notifications/NotificationBell';
@@ -23,11 +23,15 @@ const navItems = [
 export default function Layout({ children, currentPageName }) {
   const contentRef = useRef(null);
   const location = useLocation();
+  const navigate = useNavigate();
   const [renderedPages, setRenderedPages] = useState({});
 
   // Primary navigation pages that should be kept mounted
   const primaryPages = ['Home', 'Wellness', 'Bible', 'Groups', 'Profile'];
   const isPrimaryPage = primaryPages.includes(currentPageName);
+  
+  // Determine if current page is a child route (not a primary nav page)
+  const isChildRoute = !isPrimaryPage;
 
   // Cache page content for primary navigation
   useEffect(() => {
@@ -110,16 +114,25 @@ export default function Layout({ children, currentPageName }) {
         }
       `}</style>
       
-      {/* Top Bar with Notification Bell */}
+      {/* Top Bar with Back Button or Logo */}
       <div className="fixed top-0 left-0 right-0 bg-white dark:bg-[#2d2d4a] border-b border-gray-200 dark:border-gray-700 px-4 py-3 z-40 pt-[env(safe-area-inset-top)]">
         <div className="max-w-2xl mx-auto flex items-center justify-between">
-          <Link to={createPageUrl('Home')} className="flex items-center gap-2">
-            <img 
-              src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6980ade9ca08df558ed28bdd/d9b97f241_ProsperityRevivedSymbol.jpeg" 
-              alt="Prosperity Revived" 
-              className="w-8 h-8 object-contain"
-            />
-          </Link>
+          {isChildRoute ? (
+            <button
+              onClick={() => navigate(-1)}
+              className="flex items-center gap-2 p-2 hover:bg-gray-100 dark:hover:bg-[#3C4E53] rounded-full transition min-h-[44px] min-w-[44px] justify-center"
+            >
+              <ArrowLeft className="w-5 h-5 text-[#0A1A2F] dark:text-white" />
+            </button>
+          ) : (
+            <Link to={createPageUrl('Home')} className="flex items-center gap-2">
+              <img 
+                src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6980ade9ca08df558ed28bdd/d9b97f241_ProsperityRevivedSymbol.jpeg" 
+                alt="Prosperity Revived" 
+                className="w-8 h-8 object-contain"
+              />
+            </Link>
+          )}
           <NotificationBell />
         </div>
       </div>
@@ -160,10 +173,24 @@ export default function Layout({ children, currentPageName }) {
             const isActive = currentPageName === item.page;
             const Icon = item.icon;
             
+            const handleNavClick = (e) => {
+              // If already on this tab, navigate to its root
+              if (isActive) {
+                e.preventDefault();
+                navigate(createPageUrl(item.page), { replace: true });
+                // Reset scroll for primary pages
+                if (isPrimaryPage) {
+                  window.scrollTo(0, 0);
+                  scrollCache[item.page] = 0;
+                }
+              }
+            };
+            
             return (
               <Link
               key={item.page}
               to={createPageUrl(item.page)}
+              onClick={handleNavClick}
               className="relative flex flex-col items-center py-2 px-4 min-h-[44px]"
               >
                 {isActive && (
