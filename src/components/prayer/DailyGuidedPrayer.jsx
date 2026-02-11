@@ -10,7 +10,8 @@ export default function DailyGuidedPrayer() {
   const [isGenerating, setIsGenerating] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
-  const [isSpeaking, setIsSpeaking] = useState(false);
+  const [speechStatus, setSpeechStatus] = useState('idle'); // idle, loading, speaking
+  const [voicesLoaded, setVoicesLoaded] = useState(false);
   const audioRef = useRef(null);
   const speechSynthesisRef = useRef(null);
 
@@ -57,6 +58,34 @@ export default function DailyGuidedPrayer() {
 
   useEffect(() => {
     generateTTSAudio();
+    
+    // Initialize speech synthesis on component mount
+    if ('speechSynthesis' in window) {
+      console.log('Speech Synthesis API supported');
+      console.log('Browser:', navigator.userAgent);
+      
+      // Load voices immediately
+      const loadVoices = () => {
+        const voices = window.speechSynthesis.getVoices();
+        console.log('Voices loaded:', voices.length);
+        if (voices.length > 0) {
+          setVoicesLoaded(true);
+          console.log('Available voices:', voices.map(v => v.name));
+        }
+      };
+
+      // Some browsers load voices asynchronously
+      if (window.speechSynthesis.getVoices().length > 0) {
+        loadVoices();
+      }
+      
+      window.speechSynthesis.onvoiceschanged = loadVoices;
+      
+      // For Edge/Chrome - trigger voices to load
+      window.speechSynthesis.getVoices();
+    } else {
+      console.error('Speech Synthesis API not supported');
+    }
   }, []);
 
   const generateTTSAudio = async () => {
@@ -123,62 +152,135 @@ export default function DailyGuidedPrayer() {
     return `${minutes}:${seconds.toString().padStart(2, '0')}`;
   };
 
-  const handleSpeechToggle = () => {
+  const handleSpeechToggle = async () => {
+    console.log('handleSpeechToggle called, current status:', speechStatus);
+    
     if (!('speechSynthesis' in window)) {
       alert('Text-to-speech is not supported in your browser.');
       return;
     }
 
-    if (isSpeaking) {
+    // Stop if currently speaking
+    if (speechStatus === 'speaking') {
+      console.log('Stopping speech...');
       window.speechSynthesis.cancel();
-      setIsSpeaking(false);
-    } else {
-      const speakText = () => {
-        const utterance = new SpeechSynthesisUtterance(todaysPrayer.text);
-        
-        const voices = window.speechSynthesis.getVoices();
-        const preferredVoice = voices.find(voice => 
-          voice.lang.startsWith('en') && (voice.name.includes('Female') || voice.name.includes('Samantha'))
-        ) || voices.find(voice => voice.lang.startsWith('en')) || voices[0];
-        
-        if (preferredVoice) {
-          utterance.voice = preferredVoice;
-        }
-        
-        utterance.rate = 0.85;
-        utterance.pitch = 1;
-        utterance.volume = 1;
-        utterance.lang = 'en-US';
-        
-        utterance.onstart = () => setIsSpeaking(true);
-        utterance.onend = () => setIsSpeaking(false);
-        utterance.onerror = (event) => {
-          console.error('Speech error:', event);
-          setIsSpeaking(false);
-        };
-        
-        speechSynthesisRef.current = utterance;
-        window.speechSynthesis.cancel();
-        window.speechSynthesis.speak(utterance);
-      };
+      setSpeechStatus('idle');
+      console.log('Speech stopped');
+      return;
+    }
 
-      if (window.speechSynthesis.getVoices().length === 0) {
-        window.speechSynthesis.onvoiceschanged = () => {
-          speakText();
-        };
+    // Start speaking
+    setSpeechStatus('loading');
+    console.log('Status set to loading');
+
+    // Clear any existing utterances
+    window.speechSynthesis.cancel();
+    console.log('Previous utterances cancelled');
+
+    // Small delay to ensure speech synthesis is ready (especially for Edge)
+    await new Promise(resolve => setTimeout(resolve, 100));
+
+    const speakText = () => {
+      console.log('speakText function called');
+      
+      const utterance = new SpeechSynthesisUtterance(todaysPrayer.text);
+      console.log('Utterance created with text length:', todaysPrayer.text.length);
+      
+      const voices = window.speechSynthesis.getVoices();
+      console.log('Available voices:', voices.length);
+      
+      // Find a suitable voice
+      const preferredVoice = voices.find(voice => 
+        voice.lang.startsWith('en') && (voice.name.includes('Female') || voice.name.includes('Samantha') || voice.name.includes('Zira'))
+      ) || voices.find(voice => voice.lang.startsWith('en')) || voices[0];
+      
+      if (preferredVoice) {
+        utterance.voice = preferredVoice;
+        console.log('Selected voice:', preferredVoice.name, preferredVoice.lang);
       } else {
-        speakText();
+        console.log('Using default voice');
       }
+      
+      utterance.rate = 0.85;
+      utterance.pitch = 1;
+      utterance.volume = 1;
+      utterance.lang = 'en-US';
+      
+      utterance.onstart = () => {
+        console.log('Speech started!');
+        setSpeechStatus('speaking');
+      };
+      
+      utterance.onend = () => {
+        console.log('Speech ended');
+        setSpeechStatus('idle');
+      };
+      
+      utterance.onerror = (event) => {
+        console.error('Speech error occurred:', event);
+        console.error('Error type:', event.error);
+        console.error('Error message:', event.message);
+        setSpeechStatus('idle');
+      };
+      
+      utterance.onpause = () => {
+        console.log('Speech paused');
+      };
+      
+      utterance.onresume = () => {
+        console.log('Speech resumed');
+      };
+      
+      speechSynthesisRef.current = utterance;
+      
+      console.log('About to call speak()...');
+      window.speechSynthesis.speak(utterance);
+      console.log('speak() called');
+      
+      // Verify it's in the queue
+      setTimeout(() => {
+        console.log('Speech synthesis speaking:', window.speechSynthesis.speaking);
+        console.log('Speech synthesis pending:', window.speechSynthesis.pending);
+        console.log('Speech synthesis paused:', window.speechSynthesis.paused);
+      }, 200);
+    };
+
+    // Ensure voices are loaded
+    if (!voicesLoaded || window.speechSynthesis.getVoices().length === 0) {
+      console.log('Waiting for voices to load...');
+      window.speechSynthesis.onvoiceschanged = () => {
+        console.log('Voices changed event fired');
+        setVoicesLoaded(true);
+        speakText();
+      };
+      // Trigger voice loading
+      window.speechSynthesis.getVoices();
+    } else {
+      console.log('Voices already loaded, speaking now');
+      speakText();
     }
   };
 
   useEffect(() => {
     return () => {
       if (window.speechSynthesis) {
+        console.log('Component unmounting, cancelling speech');
         window.speechSynthesis.cancel();
       }
     };
   }, []);
+
+  const getButtonText = () => {
+    if (speechStatus === 'loading') return 'Loading...';
+    if (speechStatus === 'speaking') return 'Stop';
+    return 'Listen';
+  };
+
+  const getButtonIcon = () => {
+    if (speechStatus === 'loading') return <Loader2 className="w-4 h-4 text-[#D9B878] animate-spin" />;
+    if (speechStatus === 'speaking') return <VolumeX className="w-4 h-4 text-[#D9B878]" />;
+    return <Volume2 className="w-4 h-4 text-[#D9B878]" />;
+  };
 
   return (
     <motion.div
@@ -202,14 +304,14 @@ export default function DailyGuidedPrayer() {
               onClick={handleSpeechToggle}
               size="sm"
               variant="outline"
-              className="shrink-0 border-[#D9B878] hover:bg-[#D9B878]/10"
-              title={isSpeaking ? "Stop reading" : "Listen to prayer"}
+              className="shrink-0 border-[#D9B878] hover:bg-[#D9B878]/10 min-w-[80px]"
+              title={speechStatus === 'speaking' ? "Stop reading" : "Listen to prayer"}
+              disabled={speechStatus === 'loading'}
             >
-              {isSpeaking ? (
-                <VolumeX className="w-4 h-4 text-[#D9B878]" />
-              ) : (
-                <Volume2 className="w-4 h-4 text-[#D9B878]" />
-              )}
+              <span className="flex items-center gap-2">
+                {getButtonIcon()}
+                <span className="text-xs font-medium">{getButtonText()}</span>
+              </span>
             </Button>
           </div>
 
