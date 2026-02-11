@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
-import { Dumbbell, UtensilsCrossed, Heart, Plus, TrendingUp, Droplets, ArrowLeft, Sparkles, Search } from 'lucide-react';
+import { Dumbbell, UtensilsCrossed, Heart, Plus, TrendingUp, Droplets, ArrowLeft, Sparkles, Search, BookOpen } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
@@ -471,6 +471,33 @@ export default function Wellness() {
 
             {/* Mind & Spirit Tab */}
             <TabsContent value="mind" className="space-y-4 max-w-2xl mx-auto">
+              {/* My Journal */}
+              <Link to={createPageUrl('MyJournalEntries')}>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="bg-gradient-to-br from-purple-100 to-pink-100 rounded-2xl p-6 border border-purple-200 shadow-sm hover:shadow-md transition-all cursor-pointer"
+                >
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="flex items-center gap-3">
+                      <div className="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center">
+                        <BookOpen className="w-6 h-6 text-white" />
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-bold text-[#0A1A2F]">My Journal</h3>
+                        <p className="text-sm text-[#0A1A2F]/60">View your reflections & entries</p>
+                      </div>
+                    </div>
+                    <div className="text-2xl">📝</div>
+                  </div>
+                  {journalEntries.length > 0 && (
+                    <p className="text-xs text-purple-700 mt-2">
+                      {journalEntries.length} {journalEntries.length === 1 ? 'entry' : 'entries'}
+                    </p>
+                  )}
+                </motion.div>
+              </Link>
+
               <DailyMindsetReset />
               <EmotionalCheckIn />
               <ScriptureAffirmations />

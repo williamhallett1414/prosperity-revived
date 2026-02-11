@@ -370,35 +370,6 @@ export default function Home() {
           meditationSessions={meditationSessions}
         />
 
-        {/* My Journal */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-6"
-        >
-          <Link to={createPageUrl('MyJournalEntries')}>
-            <div className="bg-gradient-to-br from-purple-100 to-pink-100 rounded-2xl p-6 border border-purple-200 shadow-sm hover:shadow-md transition-all cursor-pointer">
-              <div className="flex items-center justify-between mb-2">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center">
-                    <BookOpen className="w-6 h-6 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-bold text-[#0A1A2F]">My Journal</h3>
-                    <p className="text-sm text-[#0A1A2F]/60">View your reflections & entries</p>
-                  </div>
-                </div>
-                <div className="text-2xl">📝</div>
-              </div>
-              {journalEntries.length > 0 && (
-                <p className="text-xs text-purple-700 mt-2">
-                  {journalEntries.length} {journalEntries.length === 1 ? 'entry' : 'entries'}
-                </p>
-              )}
-            </div>
-          </Link>
-        </motion.div>
-
         {/* Wellness Hub */}
         <WellnessHub />
 
