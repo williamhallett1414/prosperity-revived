@@ -60,6 +60,13 @@ export default function Wellness() {
 
   useEffect(() => {
     base44.auth.me().then(setUser);
+    
+    // Read URL parameter for tab
+    const urlParams = new URLSearchParams(window.location.search);
+    const tabParam = urlParams.get('tab');
+    if (tabParam && ['workouts', 'nutrition', 'mind'].includes(tabParam)) {
+      setActiveTab(tabParam);
+    }
   }, []);
 
   const { data: workouts = [] } = useQuery({
