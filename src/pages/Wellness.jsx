@@ -76,6 +76,11 @@ export default function Wellness() {
       console.error('Failed to ensure category workouts exist:', err);
     });
     
+    // Generate default workouts if needed
+    base44.functions.invoke('generateDefaultWorkouts', {}).catch(err => {
+      console.error('Failed to generate default workouts:', err);
+    });
+    
     // Read URL parameter for tab
     const urlParams = new URLSearchParams(window.location.search);
     const tabParam = urlParams.get('tab');
