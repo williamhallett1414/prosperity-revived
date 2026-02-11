@@ -53,7 +53,6 @@ import EmotionalCheckIn from '@/components/mindspirit/EmotionalCheckIn';
 import ScriptureAffirmations from '@/components/mindspirit/ScriptureAffirmations';
 import PersonalGrowthPathways from '@/components/mindspirit/PersonalGrowthPathways';
 import HabitBuilder from '@/components/mindspirit/HabitBuilder';
-import MindsetAudioLibrary from '@/components/mindspirit/MindsetAudioLibrary';
 import IdentityInChrist from '@/components/mindspirit/IdentityInChrist';
 import ReflectionOfTheWeek from '@/components/mindspirit/ReflectionOfTheWeek';
 import GratitudeJournal from '@/components/mindspirit/GratitudeJournal';
@@ -477,7 +476,6 @@ export default function Wellness() {
               <ScriptureAffirmations />
               <PersonalGrowthPathways />
               <HabitBuilder />
-              <MindsetAudioLibrary />
               <IdentityInChrist />
               <ReflectionOfTheWeek />
               <SelfCareChallenges challenges={challenges} participations={challengeParticipants} />
