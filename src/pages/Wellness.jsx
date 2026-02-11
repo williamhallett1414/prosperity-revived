@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
-import { Dumbbell, UtensilsCrossed, Heart, Plus, TrendingUp, Droplets, ArrowLeft, Sparkles, Search, BookOpen } from 'lucide-react';
+import { Dumbbell, UtensilsCrossed, Heart, Plus, TrendingUp, Droplets, ArrowLeft, Sparkles, Search, BookOpen, Brain, Target, Crown, Calendar, CheckCircle2, Trophy } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
@@ -48,14 +48,7 @@ import MeditationTracker from '@/components/wellness/MeditationTracker';
 import PersonalizedWorkouts from '@/components/recommendations/PersonalizedWorkouts';
 import { Input } from '@/components/ui/input';
 
-import DailyMindsetReset from '@/components/mindspirit/DailyMindsetReset';
-import EmotionalCheckIn from '@/components/mindspirit/EmotionalCheckIn';
-import ScriptureAffirmations from '@/components/mindspirit/ScriptureAffirmations';
-import PersonalGrowthPathways from '@/components/mindspirit/PersonalGrowthPathways';
-import HabitBuilder from '@/components/mindspirit/HabitBuilder';
-import IdentityInChrist from '@/components/mindspirit/IdentityInChrist';
-import ReflectionOfTheWeek from '@/components/mindspirit/ReflectionOfTheWeek';
-import GratitudeJournal from '@/components/mindspirit/GratitudeJournal';
+
 
 
 export default function Wellness() {
@@ -498,15 +491,212 @@ export default function Wellness() {
                 </motion.div>
               </Link>
 
-              <DailyMindsetReset />
-              <EmotionalCheckIn />
-              <ScriptureAffirmations />
-              <PersonalGrowthPathways />
-              <HabitBuilder />
-              <IdentityInChrist />
-              <ReflectionOfTheWeek />
-              <SelfCareChallenges challenges={challenges} participations={challengeParticipants} />
-              <GratitudeJournal />
+              {/* Daily Mindset Reset */}
+              <Link to={createPageUrl('MindsetResetPage')}>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.05 }}
+                  className="bg-gradient-to-br from-[#D9B878]/10 to-[#AFC7E3]/10 rounded-2xl p-6 border border-[#D9B878]/20 shadow-sm hover:shadow-md transition-all cursor-pointer"
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="w-12 h-12 bg-[#D9B878]/20 rounded-full flex items-center justify-center">
+                        <Brain className="w-6 h-6 text-[#D9B878]" />
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-bold text-[#0A1A2F]">Daily Mindset Reset</h3>
+                        <p className="text-sm text-[#0A1A2F]/60">Reflect on today's prompt</p>
+                      </div>
+                    </div>
+                    <div className="text-2xl">🧠</div>
+                  </div>
+                </motion.div>
+              </Link>
+
+              {/* Emotional Check-In */}
+              <Link to={createPageUrl('EmotionalCheckInPage')}>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 }}
+                  className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm hover:shadow-md transition-all cursor-pointer"
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center">
+                        <Heart className="w-6 h-6 text-[#D9B878]" />
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-bold text-[#0A1A2F]">Emotional Check-In</h3>
+                        <p className="text-sm text-[#0A1A2F]/60">How are you feeling today?</p>
+                      </div>
+                    </div>
+                    <div className="text-2xl">❤️</div>
+                  </div>
+                </motion.div>
+              </Link>
+
+              {/* Scripture-Based Affirmations */}
+              <Link to={createPageUrl('AffirmationsPage')}>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.15 }}
+                  className="bg-gradient-to-br from-[#AFC7E3]/20 to-[#D9B878]/20 rounded-2xl p-6 border border-[#AFC7E3]/30 shadow-sm hover:shadow-md transition-all cursor-pointer"
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="w-12 h-12 bg-[#AFC7E3]/20 rounded-full flex items-center justify-center">
+                        <Sparkles className="w-6 h-6 text-[#AFC7E3]" />
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-bold text-[#0A1A2F]">Scripture Affirmations</h3>
+                        <p className="text-sm text-[#0A1A2F]/60">Daily truth from God's Word</p>
+                      </div>
+                    </div>
+                    <div className="text-2xl">✨</div>
+                  </div>
+                </motion.div>
+              </Link>
+
+              {/* Personal Growth Pathways */}
+              <Link to={createPageUrl('GrowthPathwaysPage')}>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                  className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm hover:shadow-md transition-all cursor-pointer"
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                        <Target className="w-6 h-6 text-[#AFC7E3]" />
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-bold text-[#0A1A2F]">Personal Growth Pathways</h3>
+                        <p className="text-sm text-[#0A1A2F]/60">Choose your path to growth</p>
+                      </div>
+                    </div>
+                    <div className="text-2xl">🎯</div>
+                  </div>
+                </motion.div>
+              </Link>
+
+              {/* Habit Builder */}
+              <Link to={createPageUrl('HabitBuilderPage')}>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.25 }}
+                  className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm hover:shadow-md transition-all cursor-pointer"
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                        <CheckCircle2 className="w-6 h-6 text-[#D9B878]" />
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-bold text-[#0A1A2F]">Habit Builder</h3>
+                        <p className="text-sm text-[#0A1A2F]/60">Track your daily habits</p>
+                      </div>
+                    </div>
+                    <div className="text-2xl">✅</div>
+                  </div>
+                </motion.div>
+              </Link>
+
+              {/* Identity in Christ */}
+              <Link to={createPageUrl('IdentityInChristPage')}>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                  className="bg-gradient-to-br from-[#D9B878]/20 to-[#AFC7E3]/20 rounded-2xl p-6 border border-[#D9B878]/30 shadow-sm hover:shadow-md transition-all cursor-pointer"
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="w-12 h-12 bg-[#D9B878]/20 rounded-full flex items-center justify-center">
+                        <Crown className="w-6 h-6 text-[#D9B878]" />
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-bold text-[#0A1A2F]">Identity in Christ</h3>
+                        <p className="text-sm text-[#0A1A2F]/60">Know who you are in Him</p>
+                      </div>
+                    </div>
+                    <div className="text-2xl">👑</div>
+                  </div>
+                </motion.div>
+              </Link>
+
+              {/* Reflection of the Week */}
+              <Link to={createPageUrl('WeeklyReflectionPage')}>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.35 }}
+                  className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm hover:shadow-md transition-all cursor-pointer"
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="w-12 h-12 bg-[#AFC7E3]/20 rounded-full flex items-center justify-center">
+                        <Calendar className="w-6 h-6 text-[#AFC7E3]" />
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-bold text-[#0A1A2F]">Reflection of the Week</h3>
+                        <p className="text-sm text-[#0A1A2F]/60">Review and reflect on your week</p>
+                      </div>
+                    </div>
+                    <div className="text-2xl">📅</div>
+                  </div>
+                </motion.div>
+              </Link>
+
+              {/* Self-Care Challenges */}
+              <Link to={createPageUrl('SelfCareChallengesPage')}>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 }}
+                  className="bg-gradient-to-r from-[#D9B878] to-[#AFC7E3] rounded-2xl p-6 shadow-md hover:shadow-lg transition-all cursor-pointer"
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
+                        <Trophy className="w-6 h-6 text-white" />
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-bold text-white">Self-Care Challenges</h3>
+                        <p className="text-sm text-white/80">Build healthy habits</p>
+                      </div>
+                    </div>
+                    <div className="text-2xl">🏆</div>
+                  </div>
+                </motion.div>
+              </Link>
+
+              {/* Gratitude Journal */}
+              <Link to={createPageUrl('GratitudeJournalPage')}>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.45 }}
+                  className="bg-gradient-to-br from-pink-50 to-purple-50 rounded-2xl p-6 border border-pink-200 shadow-sm hover:shadow-md transition-all cursor-pointer"
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="w-12 h-12 bg-pink-500 rounded-full flex items-center justify-center">
+                        <Heart className="w-6 h-6 text-white" />
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-bold text-[#0A1A2F]">Gratitude Journal</h3>
+                        <p className="text-sm text-[#0A1A2F]/60">Count your blessings</p>
+                      </div>
+                    </div>
+                    <div className="text-2xl">🙏</div>
+                  </div>
+                </motion.div>
+              </Link>
             </TabsContent>
 
             </Tabs>
