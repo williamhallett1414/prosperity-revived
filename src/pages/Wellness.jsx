@@ -323,70 +323,307 @@ export default function Wellness() {
 
         <Tabs defaultValue="workouts" value={activeTab} className="w-full" onValueChange={setActiveTab}>
           {/* Workouts Tab */}
-          <TabsContent value="workouts" className="space-y-6 max-w-2xl mx-auto pb-8">
-            {/* Search & Discovery */}
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-              <Input
-                placeholder="Search workouts..."
-                value={workoutCategory}
-                onChange={(e) => setWorkoutCategory(e.target.value)}
-                className="pl-10"
-              />
+          <TabsContent value="workouts" className="max-w-2xl mx-auto pb-8">
+            {/* Page Header */}
+            <div className="mb-6">
+              <h2 className="text-2xl font-bold text-[#0A1A2F] mb-2">Workouts</h2>
+              <p className="text-sm text-[#0A1A2F]/60">Build strength, energy, and consistency.</p>
             </div>
 
-            {/* Create Workout Button */}
-            <Button
-              onClick={() => setShowCreateWorkout(true)}
-              className="bg-emerald-600 hover:bg-emerald-700 w-full"
+            {/* Today's Recommended Workout */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl p-5 text-white shadow-md mb-6"
             >
-              <Plus className="w-5 h-5 mr-2" />
-              Create Custom Workout
-            </Button>
-
-            {/* Progress Link */}
-            <Link to={createPageUrl('WorkoutProgress')}>
-              <div className="bg-[#E6EBEF] rounded-xl p-4 text-[#0A1A2F] flex items-center justify-between shadow-md hover:shadow-lg transition-shadow">
+              <div className="flex items-start justify-between mb-3">
                 <div>
-                  <h3 className="font-semibold text-lg">View Your Progress</h3>
-                  <p className="text-[#0A1A2F]/70 text-sm">Charts, PRs & workout stats</p>
+                  <h3 className="text-lg font-bold mb-1">Today's Recommended Workout</h3>
+                  <p className="text-sm text-white/80">Based on your goals and activity</p>
                 </div>
-                <TrendingUp className="w-8 h-8" />
+                <Dumbbell className="w-6 h-6" />
               </div>
-            </Link>
+              <div className="bg-white/20 rounded-lg p-3 mb-3">
+                <p className="font-semibold">Full Body Strength</p>
+                <p className="text-sm text-white/90">30 min • Intermediate</p>
+              </div>
+              <Button className="w-full bg-white text-emerald-600 hover:bg-white/90">
+                Start Workout
+              </Button>
+            </motion.div>
 
-            {/* My Workout Journey */}
-            <div className="mb-4">
-              <AIWellnessJourneyGenerator 
+            {/* Workout Streaks & Wins */}
+            <div className="mb-6">
+              <h3 className="text-sm font-semibold text-[#0A1A2F] mb-3">Your Stats at a Glance</h3>
+              <div className="grid grid-cols-2 gap-3">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm"
+                >
+                  <div className="text-2xl font-bold text-emerald-600 mb-1">
+                    {workoutSessions.filter(s => {
+                      const today = new Date();
+                      const weekAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
+                      return new Date(s.date) >= weekAgo;
+                    }).length}
+                  </div>
+                  <p className="text-xs text-[#0A1A2F]/60">This week</p>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.05 }}
+                  className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm"
+                >
+                  <div className="text-2xl font-bold text-[#D9B878] mb-1">
+                    {totalWorkoutsCompleted}
+                  </div>
+                  <p className="text-xs text-[#0A1A2F]/60">Total completed</p>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 }}
+                  className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm"
+                >
+                  <div className="text-2xl font-bold text-[#AFC7E3] mb-1">
+                    {workoutSessions.reduce((sum, s) => sum + (s.duration_minutes || 0), 0)}
+                  </div>
+                  <p className="text-xs text-[#0A1A2F]/60">Total minutes</p>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.15 }}
+                  className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm"
+                >
+                  <div className="text-2xl font-bold text-pink-500 mb-1">
+                    {Math.max(...workoutSessions.map(s => {
+                      const dates = s.date ? [s.date] : [];
+                      let streak = 0;
+                      for (let i = 0; i < dates.length; i++) {
+                        if (i === 0 || new Date(dates[i]).getTime() - new Date(dates[i-1]).getTime() <= 86400000) {
+                          streak++;
+                        } else {
+                          break;
+                        }
+                      }
+                      return streak;
+                    }), 0)}
+                  </div>
+                  <p className="text-xs text-[#0A1A2F]/60">Day streak</p>
+                </motion.div>
+              </div>
+            </div>
+
+            {/* Quick Actions */}
+            <div className="mb-6">
+              <h3 className="text-sm font-semibold text-[#0A1A2F] mb-3">Quick Actions</h3>
+              <div className="grid grid-cols-2 gap-3">
+                <Button
+                  onClick={() => setShowCreateWorkout(true)}
+                  className="bg-emerald-600 hover:bg-emerald-700 h-auto py-4"
+                >
+                  <div className="flex flex-col items-center gap-1">
+                    <Plus className="w-5 h-5" />
+                    <span className="text-xs">Create Workout</span>
+                  </div>
+                </Button>
+
+                <Link to={createPageUrl('WorkoutProgress')} className="block">
+                  <Button variant="outline" className="w-full h-full py-4">
+                    <div className="flex flex-col items-center gap-1">
+                      <TrendingUp className="w-5 h-5" />
+                      <span className="text-xs">View Progress</span>
+                    </div>
+                  </Button>
+                </Link>
+              </div>
+            </div>
+
+            {/* Quick Workouts (5-15 Minutes) */}
+            <div className="mb-6">
+              <h3 className="text-sm font-semibold text-[#0A1A2F] mb-3">Quick Workouts (5–15 Minutes)</h3>
+              <div className="grid grid-cols-2 gap-3">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm hover:shadow-md transition-all cursor-pointer"
+                >
+                  <div className="flex flex-col items-center text-center gap-2">
+                    <div className="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center">
+                      <Dumbbell className="w-5 h-5 text-orange-500" />
+                    </div>
+                    <div>
+                      <h4 className="text-sm font-bold text-[#0A1A2F]">Quick Burn</h4>
+                      <p className="text-xs text-[#0A1A2F]/60">10 min</p>
+                    </div>
+                  </div>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.05 }}
+                  className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm hover:shadow-md transition-all cursor-pointer"
+                >
+                  <div className="flex flex-col items-center text-center gap-2">
+                    <div className="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
+                      <Target className="w-5 h-5 text-purple-500" />
+                    </div>
+                    <div>
+                      <h4 className="text-sm font-bold text-[#0A1A2F]">Core Reset</h4>
+                      <p className="text-xs text-[#0A1A2F]/60">8 min</p>
+                    </div>
+                  </div>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 }}
+                  className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm hover:shadow-md transition-all cursor-pointer"
+                >
+                  <div className="flex flex-col items-center text-center gap-2">
+                    <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                      <Heart className="w-5 h-5 text-blue-500" />
+                    </div>
+                    <div>
+                      <h4 className="text-sm font-bold text-[#0A1A2F]">Stretch & Mobility</h4>
+                      <p className="text-xs text-[#0A1A2F]/60">12 min</p>
+                    </div>
+                  </div>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.15 }}
+                  className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm hover:shadow-md transition-all cursor-pointer"
+                >
+                  <div className="flex flex-col items-center text-center gap-2">
+                    <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                      <Droplets className="w-5 h-5 text-green-500" />
+                    </div>
+                    <div>
+                      <h4 className="text-sm font-bold text-[#0A1A2F]">Low-Impact Cardio</h4>
+                      <p className="text-xs text-[#0A1A2F]/60">15 min</p>
+                    </div>
+                  </div>
+                </motion.div>
+              </div>
+            </div>
+
+            {/* Programs You're Following */}
+            <div className="mb-6">
+              <h3 className="text-sm font-semibold text-[#0A1A2F] mb-3">My Fitness Journey</h3>
+              {journeys.filter(j => j.is_active).length > 0 ? (
+                <div className="space-y-3">
+                  {journeys.filter(j => j.is_active).map(journey => (
+                    <WellnessJourneyCard
+                      key={journey.id}
+                      journey={journey}
+                      onClick={() => window.location.href = createPageUrl(`WellnessJourney?id=${journey.id}`)}
+                    />
+                  ))}
+                </div>
+              ) : (
+                <div>
+                  <AIWellnessJourneyGenerator 
+                    user={user} 
+                    onJourneyCreated={() => queryClient.invalidateQueries(['journeys'])}
+                  />
+                </div>
+              )}
+            </div>
+
+            {/* Workout Challenges */}
+            <div className="mb-6">
+              <h3 className="text-sm font-semibold text-[#0A1A2F] mb-3">Workout Challenges</h3>
+              <div className="space-y-3">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm hover:shadow-md transition-all cursor-pointer"
+                >
+                  <div className="flex items-start gap-3">
+                    <div className="w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center shrink-0">
+                      <Trophy className="w-6 h-6 text-yellow-600" />
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="font-bold text-[#0A1A2F] mb-1">7-Day Movement Challenge</h4>
+                      <p className="text-xs text-[#0A1A2F]/60 mb-2">Move your body every day for a week</p>
+                      <div className="flex items-center gap-2">
+                        <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
+                          <div className="h-full bg-yellow-500 rounded-full" style={{ width: '40%' }} />
+                        </div>
+                        <span className="text-xs text-[#0A1A2F]/60">3/7</span>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.05 }}
+                  className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm hover:shadow-md transition-all cursor-pointer"
+                >
+                  <div className="flex items-start gap-3">
+                    <div className="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center shrink-0">
+                      <Dumbbell className="w-6 h-6 text-red-600" />
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="font-bold text-[#0A1A2F] mb-1">30-Day Strength Builder</h4>
+                      <p className="text-xs text-[#0A1A2F]/60 mb-2">Progressive strength training program</p>
+                      <Button size="sm" className="bg-red-600 hover:bg-red-700 text-xs h-7">
+                        Start Challenge
+                      </Button>
+                    </div>
+                  </div>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 }}
+                  className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm hover:shadow-md transition-all cursor-pointer"
+                >
+                  <div className="flex items-start gap-3">
+                    <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center shrink-0">
+                      <Heart className="w-6 h-6 text-blue-600" />
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="font-bold text-[#0A1A2F] mb-1">14-Day Mobility Reset</h4>
+                      <p className="text-xs text-[#0A1A2F]/60 mb-2">Improve flexibility and reduce stiffness</p>
+                      <Button size="sm" variant="outline" className="text-xs h-7">
+                        Start Challenge
+                      </Button>
+                    </div>
+                  </div>
+                </motion.div>
+              </div>
+            </div>
+
+            {/* Recommended For You */}
+            <div className="mb-6">
+              <h3 className="text-sm font-semibold text-[#0A1A2F] mb-3">Recommended For You</h3>
+              <PersonalizedWorkouts 
                 user={user} 
-                onJourneyCreated={() => queryClient.invalidateQueries(['journeys'])}
+                userWorkouts={myWorkouts}
+                onComplete={(workout) => completeWorkout.mutate({ id: workout.id, workout })}
               />
             </div>
 
-            {journeys.filter(j => j.is_active).length > 0 && (
-              <div className="mb-4 space-y-3">
-                {journeys.filter(j => j.is_active).map(journey => (
-                  <WellnessJourneyCard
-                    key={journey.id}
-                    journey={journey}
-                    onClick={() => window.location.href = createPageUrl(`WellnessJourney?id=${journey.id}`)}
-                  />
-                ))}
-              </div>
-            )}
-
-            {/* Personalized Recommendations */}
-            <PersonalizedWorkouts 
-              user={user} 
-              userWorkouts={myWorkouts}
-              onComplete={(workout) => completeWorkout.mutate({ id: workout.id, workout })}
-            />
-
-            {/* Pre-Made Workouts */}
-            <div>
-              <h3 className="text-sm font-semibold text-[#0A1A2F] mb-3">Pre-Made Workouts</h3>
+            {/* New Workouts to Try */}
+            <div className="mb-6">
+              <h3 className="text-sm font-semibold text-[#0A1A2F] mb-3">New Workouts to Try</h3>
               <div className="space-y-3">
-                {PREMADE_WORKOUTS.slice(0, 5).map((workout, index) => (
+                {PREMADE_WORKOUTS.slice(0, 3).map((workout, index) => (
                   <WorkoutCard
                     key={workout.id}
                     workout={workout}
@@ -402,7 +639,7 @@ export default function Wellness() {
             {/* My Workouts */}
             {myWorkouts.length > 0 && (
               <div className="mb-6">
-                <h3 className="text-sm font-semibold text-[#0A1A2F] mb-3">Your Workouts</h3>
+                <h3 className="text-sm font-semibold text-[#0A1A2F] mb-3">Your Custom Workouts</h3>
                 <div className="space-y-3">
                   {myWorkouts.map((workout, index) => (
                     <WorkoutCard
@@ -417,8 +654,11 @@ export default function Wellness() {
               </div>
             )}
 
-            {/* ReeVibe Fitness Feed */}
-            <ReeVibeFitness user={user} />
+            {/* Community Feed */}
+            <div className="mb-6">
+              <h3 className="text-sm font-semibold text-[#0A1A2F] mb-3">Community Workouts</h3>
+              <ReeVibeFitness user={user} />
+            </div>
           </TabsContent>
 
           {/* Nutrition Tab */}
