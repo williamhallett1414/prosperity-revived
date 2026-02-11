@@ -500,7 +500,6 @@ export default function Wellness() {
               <ProgressSnapshot 
                 meditationSessions={meditationSessions}
                 challengeParticipants={challengeParticipants}
-                planProgress={planProgress}
               />
               <TakeTimeWithGod />
             </TabsContent>
