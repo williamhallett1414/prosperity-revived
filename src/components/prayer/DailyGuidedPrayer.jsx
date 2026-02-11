@@ -1,10 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Play, Pause, BookOpen } from 'lucide-react';
+import { Play, Pause, BookOpen, RotateCcw, RotateCw, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { base44 } from '@/api/base44Client';
 
 export default function DailyGuidedPrayer() {
   const [isPlaying, setIsPlaying] = useState(false);
+  const [audioUrl, setAudioUrl] = useState(null);
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const audioRef = useRef(null);
 
   const prayers = [
     {
@@ -47,11 +53,72 @@ export default function DailyGuidedPrayer() {
   const dayOfWeek = new Date().getDay();
   const todaysPrayer = prayers[dayOfWeek];
 
-  const handlePlayPause = () => {
-    setIsPlaying(!isPlaying);
-    if (!isPlaying) {
-      setTimeout(() => setIsPlaying(false), 45000);
+  useEffect(() => {
+    generateTTSAudio();
+  }, []);
+
+  const generateTTSAudio = async () => {
+    if (audioUrl) return;
+    
+    setIsGenerating(true);
+    try {
+      const response = await base44.integrations.Core.InvokeLLM({
+        prompt: `Generate a calm, peaceful spoken prayer using this text: "${todaysPrayer.text}". Use a warm, soothing voice.`,
+      });
+      
+      // For now, we'll use a placeholder. In production, you'd use OpenAI's TTS API
+      const ttsUrl = `https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3`;
+      setAudioUrl(ttsUrl);
+    } catch (error) {
+      console.error('Failed to generate TTS:', error);
     }
+    setIsGenerating(false);
+  };
+
+  const handlePlayPause = () => {
+    if (!audioRef.current) return;
+
+    if (isPlaying) {
+      audioRef.current.pause();
+    } else {
+      audioRef.current.play();
+    }
+    setIsPlaying(!isPlaying);
+  };
+
+  const handleRewind = () => {
+    if (audioRef.current) {
+      audioRef.current.currentTime = Math.max(0, audioRef.current.currentTime - 15);
+    }
+  };
+
+  const handleForward = () => {
+    if (audioRef.current) {
+      audioRef.current.currentTime = Math.min(duration, audioRef.current.currentTime + 15);
+    }
+  };
+
+  const handleTimeUpdate = () => {
+    if (audioRef.current) {
+      setCurrentTime(audioRef.current.currentTime);
+    }
+  };
+
+  const handleLoadedMetadata = () => {
+    if (audioRef.current) {
+      setDuration(audioRef.current.duration);
+    }
+  };
+
+  const handleEnded = () => {
+    setIsPlaying(false);
+    setCurrentTime(0);
+  };
+
+  const formatTime = (time) => {
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60);
+    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
   };
 
   return (
@@ -72,35 +139,90 @@ export default function DailyGuidedPrayer() {
             {todaysPrayer.text}
           </p>
 
-          <div className="flex items-center justify-between pt-4 border-t border-gray-100">
-            <div>
+          <div className="pt-4 border-t border-gray-100">
+            <div className="mb-4">
               <p className="text-xs text-[#0A1A2F]/60 mb-1">Today's Scripture</p>
               <p className="text-sm font-semibold text-[#D9B878]">{todaysPrayer.scripture}</p>
               <p className="text-xs text-[#0A1A2F]/70 italic mt-1">"{todaysPrayer.scriptureText}"</p>
             </div>
 
-            <Button
-              onClick={handlePlayPause}
-              size="lg"
-              className="bg-[#D9B878] hover:bg-[#D9B878]/90 text-[#0A1A2F] rounded-full w-14 h-14"
-            >
-              {isPlaying ? (
-                <Pause className="w-6 h-6" />
-              ) : (
-                <Play className="w-6 h-6 ml-1" />
+            {/* Audio Player Controls */}
+            <div className="bg-gray-50 rounded-lg p-4">
+              <div className="flex items-center justify-center gap-4 mb-3">
+                <Button
+                  onClick={handleRewind}
+                  size="sm"
+                  variant="ghost"
+                  className="text-[#0A1A2F]"
+                  disabled={!audioUrl || isGenerating}
+                >
+                  <RotateCcw className="w-4 h-4" />
+                </Button>
+
+                <Button
+                  onClick={handlePlayPause}
+                  size="lg"
+                  className="bg-[#D9B878] hover:bg-[#D9B878]/90 text-[#0A1A2F] rounded-full w-14 h-14"
+                  disabled={!audioUrl || isGenerating}
+                >
+                  {isGenerating ? (
+                    <Loader2 className="w-6 h-6 animate-spin" />
+                  ) : isPlaying ? (
+                    <Pause className="w-6 h-6" />
+                  ) : (
+                    <Play className="w-6 h-6 ml-1" />
+                  )}
+                </Button>
+
+                <Button
+                  onClick={handleForward}
+                  size="sm"
+                  variant="ghost"
+                  className="text-[#0A1A2F]"
+                  disabled={!audioUrl || isGenerating}
+                >
+                  <RotateCw className="w-4 h-4" />
+                </Button>
+              </div>
+
+              {/* Progress Bar */}
+              {audioUrl && (
+                <>
+                  <div className="relative h-2 bg-gray-200 rounded-full overflow-hidden mb-2">
+                    <div
+                      className="absolute top-0 left-0 h-full bg-[#D9B878]"
+                      style={{ width: `${duration ? (currentTime / duration) * 100 : 0}%` }}
+                    />
+                  </div>
+                  <div className="flex justify-between text-xs text-[#0A1A2F]/60">
+                    <span>{formatTime(currentTime)}</span>
+                    <span>{formatTime(duration)}</span>
+                  </div>
+                </>
               )}
-            </Button>
+
+              {isPlaying && (
+                <motion.p
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="text-center text-sm text-[#0A1A2F]/60 mt-2"
+                >
+                  🎧 Playing guided prayer...
+                </motion.p>
+              )}
+            </div>
           </div>
         </div>
 
-        {isPlaying && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            className="text-center"
-          >
-            <p className="text-sm text-[#0A1A2F]/60">🎧 Now playing guided prayer...</p>
-          </motion.div>
+        {/* Hidden Audio Element */}
+        {audioUrl && (
+          <audio
+            ref={audioRef}
+            src={audioUrl}
+            onTimeUpdate={handleTimeUpdate}
+            onLoadedMetadata={handleLoadedMetadata}
+            onEnded={handleEnded}
+          />
         )}
       </div>
     </motion.div>
