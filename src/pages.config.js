@@ -79,6 +79,15 @@ import Wellness from './pages/Wellness';
 import WellnessJourney from './pages/WellnessJourney';
 import WorkoutProgress from './pages/WorkoutProgress';
 import WorkoutTrends from './pages/WorkoutTrends';
+import MindsetResetPage from './pages/MindsetResetPage';
+import EmotionalCheckInPage from './pages/EmotionalCheckInPage';
+import AffirmationsPage from './pages/AffirmationsPage';
+import GrowthPathwaysPage from './pages/GrowthPathwaysPage';
+import HabitBuilderPage from './pages/HabitBuilderPage';
+import IdentityInChristPage from './pages/IdentityInChristPage';
+import WeeklyReflectionPage from './pages/WeeklyReflectionPage';
+import GratitudeJournalPage from './pages/GratitudeJournalPage';
+import SelfCareChallengesPage from './pages/SelfCareChallengesPage';
 import __Layout from './Layout.jsx';
 
 
@@ -115,6 +124,15 @@ export const PAGES = {
     "WellnessJourney": WellnessJourney,
     "WorkoutProgress": WorkoutProgress,
     "WorkoutTrends": WorkoutTrends,
+    "MindsetResetPage": MindsetResetPage,
+    "EmotionalCheckInPage": EmotionalCheckInPage,
+    "AffirmationsPage": AffirmationsPage,
+    "GrowthPathwaysPage": GrowthPathwaysPage,
+    "HabitBuilderPage": HabitBuilderPage,
+    "IdentityInChristPage": IdentityInChristPage,
+    "WeeklyReflectionPage": WeeklyReflectionPage,
+    "GratitudeJournalPage": GratitudeJournalPage,
+    "SelfCareChallengesPage": SelfCareChallengesPage,
 }
 
 export const pagesConfig = {
