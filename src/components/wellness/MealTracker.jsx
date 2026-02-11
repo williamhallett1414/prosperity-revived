@@ -31,6 +31,25 @@ export default function MealTracker() {
 
   const logMeal = useMutation({
     mutationFn: (data) => base44.entities.MealLog.create(data),
+    onMutate: async (newMeal) => {
+      await queryClient.cancelQueries(['meals']);
+      const previousMeals = queryClient.getQueryData(['meals']);
+      
+      // Optimistically add the new meal
+      queryClient.setQueryData(['meals'], (old) => {
+        const optimisticMeal = {
+          ...newMeal,
+          id: 'temp-' + Date.now(),
+          created_date: new Date().toISOString()
+        };
+        return [optimisticMeal, ...(old || [])];
+      });
+      
+      return { previousMeals };
+    },
+    onError: (err, newMeal, context) => {
+      queryClient.setQueryData(['meals'], context.previousMeals);
+    },
     onSuccess: () => {
       queryClient.invalidateQueries(['meals']);
     }
@@ -44,6 +63,25 @@ export default function MealTracker() {
       } else {
         return base44.entities.WaterLog.create({ date: today, glasses: newGlasses, goal: 8 });
       }
+    },
+    onMutate: async (newGlasses) => {
+      await queryClient.cancelQueries(['water']);
+      const previousWater = queryClient.getQueryData(['water']);
+      
+      // Optimistically update water intake
+      queryClient.setQueryData(['water'], (old) => {
+        const todayLog = old?.find(w => w.date === today);
+        if (todayLog) {
+          return old.map(w => w.date === today ? { ...w, glasses: newGlasses } : w);
+        } else {
+          return [...(old || []), { date: today, glasses: newGlasses, goal: 8, id: 'temp-' + Date.now() }];
+        }
+      });
+      
+      return { previousWater };
+    },
+    onError: (err, newGlasses, context) => {
+      queryClient.setQueryData(['water'], context.previousWater);
     },
     onSuccess: () => queryClient.invalidateQueries(['water'])
   });

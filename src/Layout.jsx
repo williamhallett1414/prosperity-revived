@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { Home, Users, User, Heart, BookOpen } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Toaster } from '@/components/ui/sonner.jsx';
 import NotificationBell from '@/components/notifications/NotificationBell';
+
+// Scroll position cache
+const scrollCache = {};
 
 const navItems = [
   { name: 'Home', icon: Home, page: 'Home' },
@@ -15,10 +18,31 @@ const navItems = [
 ];
 
 export default function Layout({ children, currentPageName }) {
+  const contentRef = useRef(null);
+  const location = useLocation();
+
+  // Save scroll position when navigating away
+  useEffect(() => {
+    return () => {
+      if (contentRef.current) {
+        scrollCache[currentPageName] = window.scrollY;
+      }
+    };
+  }, [currentPageName]);
+
+  // Restore scroll position when navigating back
+  useEffect(() => {
+    if (scrollCache[currentPageName] !== undefined) {
+      window.scrollTo(0, scrollCache[currentPageName]);
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }, [currentPageName]);
+
   return (
     <>
       <Toaster position="top-center" richColors />
-      <div className="min-h-screen bg-[#FFFFFF] dark:bg-[#3C4E53]">
+      <div className="min-h-screen bg-[#FFFFFF] dark:bg-[#3C4E53]" ref={contentRef}>
         <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Imprint+MT+Shadow&display=swap');
         

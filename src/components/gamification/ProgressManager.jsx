@@ -52,10 +52,26 @@ export const BADGES = [
   { id: 'level_20', name: 'Legendary', description: 'Reach level 20', icon: '✨', points: 1000, requirement: { field: 'level', value: 20 } }
 ];
 
-export async function awardPoints(userEmail, points, additionalFields = {}) {
+export async function awardPoints(userEmail, points, additionalFields = {}, queryClient = null) {
   if (!userEmail) return;
   
   try {
+    // Optimistic update
+    if (queryClient && typeof window !== 'undefined') {
+      queryClient.setQueryData(['userProgress', userEmail], (old) => {
+        if (!old) return old;
+        const currentPoints = old.total_points || 0;
+        const newTotalPoints = currentPoints + points;
+        const newLevel = Math.floor(newTotalPoints / 500) + 1;
+        return {
+          ...old,
+          total_points: newTotalPoints,
+          level: newLevel,
+          ...additionalFields
+        };
+      });
+    }
+
     const allProgress = await base44.entities.UserProgress.list();
     let progress = allProgress.find(p => p.created_by === userEmail);
 
@@ -109,6 +125,10 @@ export async function awardPoints(userEmail, points, additionalFields = {}) {
     return { newPoints: newTotalPoints, newLevel, leveledUp };
   } catch (error) {
     console.error('Failed to award points:', error);
+    // Revert optimistic update on error
+    if (queryClient) {
+      queryClient.invalidateQueries(['userProgress', userEmail]);
+    }
   }
 }
 
