@@ -10,6 +10,8 @@ import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
+import DailyPrayer from '@/components/selfcare/DailyPrayer';
+import TakeTimeWithGod from '@/components/selfcare/TakeTimeWithGod';
 
 function PrayerCard({ request, index, user, onPray, onLike, onComment, onShare }) {
   const [showComments, setShowComments] = useState(false);
@@ -308,6 +310,12 @@ export default function Prayer() {
             <h1 className="text-2xl font-bold text-[#0A1A2F]">Prayer</h1>
           </div>
         </div>
+
+        {/* 2-Minute Prayer */}
+        <DailyPrayer />
+
+        {/* 2 Minutes With God */}
+        <TakeTimeWithGod />
 
         {/* Pray for Me Submission Section */}
         <motion.div

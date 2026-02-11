@@ -48,8 +48,6 @@ import QuickTools from '@/components/selfcare/QuickTools';
 import DailyAffirmation from '@/components/selfcare/DailyAffirmation';
 import SelfCareChallenges from '@/components/selfcare/SelfCareChallenges';
 import ProgressSnapshot from '@/components/selfcare/ProgressSnapshot';
-import TakeTimeWithGod from '@/components/selfcare/TakeTimeWithGod';
-import DailyPrayer from '@/components/selfcare/DailyPrayer';
 import MeditationTracker from '@/components/wellness/MeditationTracker';
 
 import PersonalizedWorkouts from '@/components/recommendations/PersonalizedWorkouts';
@@ -493,7 +491,6 @@ export default function Wellness() {
               <MeditationGuide />
 
               <DailyRoutineCards meditations={meditations} />
-              <DailyPrayer />
               <QuickTools />
               <DailyAffirmation />
               <SelfCareChallenges challenges={challenges} participations={challengeParticipants} />
@@ -501,7 +498,6 @@ export default function Wellness() {
                 meditationSessions={meditationSessions}
                 challengeParticipants={challengeParticipants}
               />
-              <TakeTimeWithGod />
             </TabsContent>
 
             </Tabs>
