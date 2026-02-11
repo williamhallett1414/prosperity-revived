@@ -17,7 +17,7 @@ export default function WellnessHub() {
     },
     {
       name: 'Bible',
-      image: 'https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=500&h=300&fit=crop',
+      image: 'https://images.unsplash.com/photo-1507842732509-fd09843a75f6?w=500&h=300&fit=crop',
       path: createPageUrl('Bible')
     },
     {
