@@ -209,8 +209,8 @@ export default function Community() {
 
   return (
     <div className="min-h-screen bg-[#F2F6FA] pb-24">
-      <PullToRefresh onRefresh={handleRefresh}>
       <div className="max-w-2xl mx-auto px-4 py-6">
+      <PullToRefresh onRefresh={handleRefresh}>
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -346,13 +346,14 @@ export default function Community() {
         )}
       </div>
 
+      </PullToRefresh>
+      </div>
+
       <CreatePostModal
         isOpen={showCreatePost}
         onClose={() => setShowCreatePost(false)}
         onSubmit={(data) => createPost.mutate(data)}
       />
-      </div>
-      </PullToRefresh>
     </div>
   );
 }
