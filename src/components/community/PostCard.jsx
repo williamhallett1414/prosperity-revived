@@ -91,7 +91,7 @@ export default function PostCard({ post, comments = [], onLike, onComment, index
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.05 }}
-      className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100"
+      className="bg-white dark:bg-slate-800 rounded-2xl p-4 shadow-sm border border-gray-100 dark:border-gray-700"
     >
       {/* Content Moderation */}
       <ContentModeration content={post.content} />
@@ -132,24 +132,24 @@ export default function PostCard({ post, comments = [], onLike, onComment, index
 
       {/* Verse Quote */}
       {post.verse_text && (
-        <div 
-          onClick={handleVerseClick}
-          className="bg-[#faf8f5] rounded-xl p-4 mb-3 border-l-4 border-[#c9a227] cursor-pointer hover:bg-[#f5f3ed] transition-colors"
-        >
-          <p className="font-serif text-gray-800 leading-relaxed mb-2">
-            "{post.verse_text}"
-          </p>
-          <div className="flex items-center gap-2 text-sm text-gray-600">
-            <BookOpen className="w-4 h-4" />
-            <span className="font-medium">
-              {post.verse_book} {post.verse_chapter}:{post.verse_number}
-            </span>
-          </div>
-        </div>
+       <div 
+         onClick={handleVerseClick}
+         className="bg-yellow-50 dark:bg-slate-700 rounded-xl p-4 mb-3 border-l-4 border-[#c9a227] cursor-pointer hover:bg-yellow-100 dark:hover:bg-slate-600 transition-colors"
+       >
+         <p className="font-serif text-gray-800 dark:text-gray-200 leading-relaxed mb-2">
+           "{post.verse_text}"
+         </p>
+         <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+           <BookOpen className="w-4 h-4" />
+           <span className="font-medium">
+             {post.verse_book} {post.verse_chapter}:{post.verse_number}
+           </span>
+         </div>
+       </div>
       )}
 
       {/* Content */}
-      <p className="text-gray-700 mb-4 leading-relaxed whitespace-pre-wrap">{post.content}</p>
+      <p className="text-gray-700 dark:text-gray-300 mb-4 leading-relaxed whitespace-pre-wrap">{post.content}</p>
 
       {/* Media */}
       {post.image_url && (
@@ -170,7 +170,7 @@ export default function PostCard({ post, comments = [], onLike, onComment, index
       {/* Topic Badge */}
       {post.topic && post.topic !== 'general' && (
         <div className="mb-3">
-          <span className="inline-block px-3 py-1 bg-[#c9a227]/10 text-[#c9a227] text-xs font-medium rounded-full">
+          <span className="inline-block px-3 py-1 bg-amber-100 dark:bg-amber-900 text-amber-800 dark:text-amber-200 text-xs font-medium rounded-full">
             {post.topic === 'prayer' && '🙏 Prayer'}
             {post.topic === 'bible_study' && '📖 Bible Study'}
             {post.topic === 'testimony' && '✨ Testimony'}
@@ -184,7 +184,7 @@ export default function PostCard({ post, comments = [], onLike, onComment, index
       <PostSummary content={post.content} comments={postComments} />
 
       {/* Actions */}
-      <div className="flex items-center gap-4 pt-3 border-t border-gray-100">
+      <div className="flex items-center gap-4 pt-3 border-t border-gray-100 dark:border-gray-700">
         <Button
           variant="ghost"
           size="sm"
@@ -218,16 +218,16 @@ export default function PostCard({ post, comments = [], onLike, onComment, index
 
       {/* Comments Section */}
       {showComments && (
-        <div className="mt-4 pt-4 border-t border-gray-100 space-y-3">
+        <div className="mt-4 pt-4 border-t border-gray-100 dark:border-gray-700 space-y-3">
           {/* Comment List */}
           {postComments.map(comment => (
             <div key={comment.id} className="flex gap-2">
-              <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-xs font-semibold text-gray-600 flex-shrink-0">
+              <div className="w-8 h-8 rounded-full bg-gray-200 dark:bg-slate-600 flex items-center justify-center text-xs font-semibold text-gray-600 dark:text-gray-300 flex-shrink-0">
                 {comment.user_name?.[0]?.toUpperCase() || 'U'}
               </div>
-              <div className="flex-1 bg-gray-50 rounded-lg p-2">
-                <p className="text-sm font-medium text-gray-900">{comment.user_name || 'Anonymous'}</p>
-                <p className="text-sm text-gray-700">{comment.content}</p>
+              <div className="flex-1 bg-gray-50 dark:bg-slate-700 rounded-lg p-2">
+                <p className="text-sm font-medium text-gray-900 dark:text-gray-200">{comment.user_name || 'Anonymous'}</p>
+                <p className="text-sm text-gray-700 dark:text-gray-400">{comment.content}</p>
               </div>
             </div>
           ))}
