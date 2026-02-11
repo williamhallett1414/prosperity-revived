@@ -10,6 +10,7 @@ import { createPageUrl } from '@/utils';
 import { toast } from 'sonner';
 import WorkoutCard from '@/components/wellness/WorkoutCard';
 import CreateWorkoutModal from '@/components/wellness/CreateWorkoutModal';
+import StartWorkoutModal from '@/components/wellness/StartWorkoutModal';
 import PullToRefresh from '@/components/ui/PullToRefresh';
 
 import MealTracker from '@/components/wellness/MealTracker';
@@ -55,6 +56,8 @@ import { Input } from '@/components/ui/input';
 export default function Wellness() {
   const [user, setUser] = useState(null);
   const [showCreateWorkout, setShowCreateWorkout] = useState(false);
+  const [showStartWorkout, setShowStartWorkout] = useState(false);
+  const [selectedWorkout, setSelectedWorkout] = useState(null);
   const [activeTab, setActiveTab] = useState('workouts');
   const [workoutCategory, setWorkoutCategory] = useState(null);
   const queryClient = useQueryClient();
@@ -249,9 +252,21 @@ export default function Wellness() {
   });
 
   const myWorkouts = workouts.filter(w => w.created_by === user?.email);
-   const allWorkouts = [...PREMADE_WORKOUTS, ...myWorkouts];
+  const allWorkouts = [...PREMADE_WORKOUTS, ...myWorkouts];
 
-   const totalWorkoutsCompleted = myWorkouts.reduce((sum, w) => sum + (w.completed_dates?.length || 0), 0);
+  // Select recommended workout - prioritize user's workouts, then premade
+  const recommendedWorkout = React.useMemo(() => {
+    // Get workouts not completed today
+    const today = new Date().toISOString().split('T')[0];
+    const notCompletedToday = allWorkouts.filter(w => 
+      !w.completed_dates?.includes(today)
+    );
+
+    // Pick first available, or random if none completed today
+    return notCompletedToday[0] || allWorkouts[Math.floor(Math.random() * allWorkouts.length)] || null;
+  }, [allWorkouts]);
+
+  const totalWorkoutsCompleted = myWorkouts.reduce((sum, w) => sum + (w.completed_dates?.length || 0), 0);
    const thisWeekWorkouts = myWorkouts.filter(w => {
      const today = new Date();
      const weekAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
@@ -341,26 +356,36 @@ export default function Wellness() {
             </div>
 
             {/* Today's Recommended Workout */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl p-5 text-white shadow-md mb-6"
-            >
-              <div className="flex items-start justify-between mb-3">
-                <div>
-                  <h3 className="text-lg font-bold mb-1">Today's Recommended Workout</h3>
-                  <p className="text-sm text-white/80">Based on your goals and activity</p>
+            {recommendedWorkout && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl p-5 text-white shadow-md mb-6"
+              >
+                <div className="flex items-start justify-between mb-3">
+                  <div>
+                    <h3 className="text-lg font-bold mb-1">Today's Recommended Workout</h3>
+                    <p className="text-sm text-white/80">Based on your goals and activity</p>
+                  </div>
+                  <Dumbbell className="w-6 h-6" />
                 </div>
-                <Dumbbell className="w-6 h-6" />
-              </div>
-              <div className="bg-white/20 rounded-lg p-3 mb-3">
-                <p className="font-semibold">Full Body Strength</p>
-                <p className="text-sm text-white/90">30 min • Intermediate</p>
-              </div>
-              <Button className="w-full bg-white text-emerald-600 hover:bg-white/90">
-                Start Workout
-              </Button>
-            </motion.div>
+                <div className="bg-white/20 rounded-lg p-3 mb-3">
+                  <p className="font-semibold">{recommendedWorkout.title}</p>
+                  <p className="text-sm text-white/90">
+                    {recommendedWorkout.duration_minutes} min • {recommendedWorkout.difficulty || 'All Levels'}
+                  </p>
+                </div>
+                <Button 
+                  className="w-full bg-white text-emerald-600 hover:bg-white/90"
+                  onClick={() => {
+                    setSelectedWorkout(recommendedWorkout);
+                    setShowStartWorkout(true);
+                  }}
+                >
+                  Start Workout
+                </Button>
+              </motion.div>
+            )}
 
             {/* Workout Streaks & Wins */}
             <div className="mb-6">
@@ -939,6 +964,18 @@ export default function Wellness() {
         isOpen={showCreateWorkout}
         onClose={() => setShowCreateWorkout(false)}
       />
+      
+      {selectedWorkout && (
+        <StartWorkoutModal
+          isOpen={showStartWorkout}
+          onClose={() => {
+            setShowStartWorkout(false);
+            setSelectedWorkout(null);
+          }}
+          workout={selectedWorkout}
+          user={user}
+        />
+      )}
 
       {/* Conditional Chatbots based on active tab */}
       {activeTab === 'workouts' && (
