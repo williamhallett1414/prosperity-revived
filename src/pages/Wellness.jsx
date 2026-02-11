@@ -484,72 +484,68 @@ export default function Wellness() {
             <div className="mb-6">
               <h3 className="text-sm font-semibold text-[#0A1A2F] mb-3">Quick Workouts (5–15 Minutes)</h3>
               <div className="grid grid-cols-2 gap-3">
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm hover:shadow-md transition-all cursor-pointer"
-                >
-                  <div className="flex flex-col items-center text-center gap-2">
-                    <div className="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center">
-                      <Dumbbell className="w-5 h-5 text-orange-500" />
-                    </div>
-                    <div>
-                      <h4 className="text-sm font-bold text-[#0A1A2F]">Quick Burn</h4>
-                      <p className="text-xs text-[#0A1A2F]/60">10 min</p>
-                    </div>
-                  </div>
-                </motion.div>
+                {(() => {
+                  // Map quick workout cards to real workouts from library
+                  const quickWorkouts = [
+                    {
+                      icon: Dumbbell,
+                      iconColor: 'text-orange-500',
+                      bgColor: 'bg-orange-100',
+                      label: 'Quick Burn',
+                      workout: allWorkouts.find(w => w.category === 'cardio' && w.duration_minutes <= 15) || allWorkouts[0]
+                    },
+                    {
+                      icon: Target,
+                      iconColor: 'text-purple-500',
+                      bgColor: 'bg-purple-100',
+                      label: 'Core Reset',
+                      workout: allWorkouts.find(w => w.category === 'strength' && w.duration_minutes <= 15) || allWorkouts[1]
+                    },
+                    {
+                      icon: Heart,
+                      iconColor: 'text-blue-500',
+                      bgColor: 'bg-blue-100',
+                      label: 'Stretch & Mobility',
+                      workout: allWorkouts.find(w => w.category === 'flexibility' && w.duration_minutes <= 15) || allWorkouts[2]
+                    },
+                    {
+                      icon: Droplets,
+                      iconColor: 'text-green-500',
+                      bgColor: 'bg-green-100',
+                      label: 'Low-Impact Cardio',
+                      workout: allWorkouts.find(w => w.category === 'cardio' && w.duration_minutes >= 10 && w.duration_minutes <= 20) || allWorkouts[3]
+                    }
+                  ];
 
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.05 }}
-                  className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm hover:shadow-md transition-all cursor-pointer"
-                >
-                  <div className="flex flex-col items-center text-center gap-2">
-                    <div className="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
-                      <Target className="w-5 h-5 text-purple-500" />
-                    </div>
-                    <div>
-                      <h4 className="text-sm font-bold text-[#0A1A2F]">Core Reset</h4>
-                      <p className="text-xs text-[#0A1A2F]/60">8 min</p>
-                    </div>
-                  </div>
-                </motion.div>
-
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 }}
-                  className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm hover:shadow-md transition-all cursor-pointer"
-                >
-                  <div className="flex flex-col items-center text-center gap-2">
-                    <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-                      <Heart className="w-5 h-5 text-blue-500" />
-                    </div>
-                    <div>
-                      <h4 className="text-sm font-bold text-[#0A1A2F]">Stretch & Mobility</h4>
-                      <p className="text-xs text-[#0A1A2F]/60">12 min</p>
-                    </div>
-                  </div>
-                </motion.div>
-
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.15 }}
-                  className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm hover:shadow-md transition-all cursor-pointer"
-                >
-                  <div className="flex flex-col items-center text-center gap-2">
-                    <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
-                      <Droplets className="w-5 h-5 text-green-500" />
-                    </div>
-                    <div>
-                      <h4 className="text-sm font-bold text-[#0A1A2F]">Low-Impact Cardio</h4>
-                      <p className="text-xs text-[#0A1A2F]/60">15 min</p>
-                    </div>
-                  </div>
-                </motion.div>
+                  return quickWorkouts.map((item, index) => {
+                    const Icon = item.icon;
+                    return (
+                      <motion.div
+                        key={item.label}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: index * 0.05 }}
+                        className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm hover:shadow-md transition-all cursor-pointer"
+                        onClick={() => {
+                          if (item.workout) {
+                            setSelectedWorkout(item.workout);
+                            setShowStartWorkout(true);
+                          }
+                        }}
+                      >
+                        <div className="flex flex-col items-center text-center gap-2">
+                          <div className={`w-10 h-10 ${item.bgColor} rounded-full flex items-center justify-center`}>
+                            <Icon className={`w-5 h-5 ${item.iconColor}`} />
+                          </div>
+                          <div>
+                            <h4 className="text-sm font-bold text-[#0A1A2F]">{item.workout?.title || item.label}</h4>
+                            <p className="text-xs text-[#0A1A2F]/60">{item.workout?.duration_minutes || 10} min</p>
+                          </div>
+                        </div>
+                      </motion.div>
+                    );
+                  });
+                })()}
               </div>
             </div>
 
