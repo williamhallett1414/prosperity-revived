@@ -105,6 +105,21 @@ export const PREMADE_WORKOUTS = [
     ]
   },
   {
+    id: 'fat-burn-20',
+    title: '20-Minute Fat Burn',
+    description: 'High-energy cardio to torch calories and boost metabolism',
+    difficulty: 'intermediate',
+    duration_minutes: 20,
+    category: 'cardio',
+    image_url: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=400',
+    exercises: [
+      { name: 'Burpees', sets: 3, reps: 12, duration_seconds: 0 },
+      { name: 'Jump Squats', sets: 3, reps: 15, duration_seconds: 0 },
+      { name: 'Mountain Climbers', sets: 3, reps: 0, duration_seconds: 45 },
+      { name: 'High Knees', sets: 3, reps: 0, duration_seconds: 40 }
+    ]
+  },
+  {
     id: 'hiit-30',
     title: '30-Minute HIIT',
     description: 'Maximum calorie burn in 30 minutes',
