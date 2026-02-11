@@ -3,7 +3,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowLeft, Compass, BookOpen, TrendingUp, CheckCircle, Heart } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import BookSelector from '@/components/bible/BookSelector';
@@ -26,6 +26,7 @@ export default function Bible() {
   const [selectedStat, setSelectedStat] = useState(null);
 
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
   const { data: bookmarks = [] } = useQuery({
     queryKey: ['bookmarks'],
@@ -143,7 +144,11 @@ export default function Bible() {
             </div>
           </div>
 
-          <Tabs defaultValue="read" className="w-full">
+          <Tabs defaultValue="read" className="w-full" onValueChange={(value) => {
+            if (value === 'prayer') {
+              navigate(createPageUrl('Prayer'));
+            }
+          }}>
             <TabsList className="grid w-full grid-cols-4 mb-6">
               <TabsTrigger value="read">
                 <BookOpen className="w-4 h-4 mr-2" />
@@ -247,22 +252,6 @@ export default function Bible() {
 
             <TabsContent value="devotional">
               <DevotionalContent />
-            </TabsContent>
-
-            <TabsContent value="prayer">
-              <div className="space-y-4">
-                <Link to={createPageUrl('Prayer')}>
-                  <div className="bg-gradient-to-br from-[#D9B878] to-[#AFC7E3] rounded-2xl p-6 text-[#0A1A2F] cursor-pointer hover:shadow-lg transition-shadow">
-                    <div className="flex items-center gap-3 mb-2">
-                      <Heart className="w-8 h-8" />
-                      <div>
-                        <h3 className="text-xl font-bold">Prayer Wall</h3>
-                        <p className="text-sm text-[#0A1A2F]/70">Share and support prayer requests</p>
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              </div>
             </TabsContent>
           </Tabs>
         </div>
