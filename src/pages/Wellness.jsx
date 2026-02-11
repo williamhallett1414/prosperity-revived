@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { Dumbbell, UtensilsCrossed, Heart, Plus, TrendingUp, Droplets, ArrowLeft, Sparkles, Search, BookOpen, Brain, Target, Crown, Calendar, CheckCircle2, Trophy } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { toast } from 'sonner';
 import WorkoutCard from '@/components/wellness/WorkoutCard';
@@ -54,6 +54,7 @@ import { Input } from '@/components/ui/input';
 
 
 export default function Wellness() {
+  const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [showCreateWorkout, setShowCreateWorkout] = useState(false);
   const [showStartWorkout, setShowStartWorkout] = useState(false);
@@ -549,26 +550,71 @@ export default function Wellness() {
               </div>
             </div>
 
-            {/* Programs You're Following */}
+            {/* My Fitness Journey */}
             <div className="mb-6">
               <h3 className="text-sm font-semibold text-[#0A1A2F] mb-3">My Fitness Journey</h3>
               {journeys.filter(j => j.is_active).length > 0 ? (
-                <div className="space-y-3">
-                  {journeys.filter(j => j.is_active).map(journey => (
-                    <WellnessJourneyCard
-                      key={journey.id}
-                      journey={journey}
-                      onClick={() => window.location.href = createPageUrl(`WellnessJourney?id=${journey.id}`)}
-                    />
-                  ))}
-                </div>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="bg-white rounded-xl p-5 border border-gray-200 shadow-sm cursor-pointer hover:shadow-md transition-all"
+                  onClick={() => navigate(createPageUrl('MyFitnessJourneyPage'))}
+                >
+                  {journeys.filter(j => j.is_active).map(journey => {
+                    const completedCount = journey.completed_workouts?.length || 0;
+                    const totalWorkouts = journey.weekly_plans?.reduce((sum, week) => sum + week.workouts.length, 0) || 0;
+                    const progress = totalWorkouts > 0 ? (completedCount / totalWorkouts) * 100 : 0;
+                    
+                    return (
+                      <div key={journey.id}>
+                        <div className="flex items-center gap-3 mb-3">
+                          <div className="w-12 h-12 bg-gradient-to-br from-[#D9B878] to-[#AFC7E3] rounded-full flex items-center justify-center">
+                            <Sparkles className="w-6 h-6 text-white" />
+                          </div>
+                          <div className="flex-1">
+                            <h4 className="font-bold text-[#0A1A2F]">{journey.title}</h4>
+                            <p className="text-xs text-[#0A1A2F]/60">Week {journey.current_week} of {journey.duration_weeks}</p>
+                          </div>
+                        </div>
+                        <div className="mb-2">
+                          <div className="flex items-center justify-between text-xs text-[#0A1A2F]/60 mb-1">
+                            <span>Progress</span>
+                            <span>{Math.round(progress)}%</span>
+                          </div>
+                          <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+                            <div 
+                              className="h-full bg-[#D9B878] transition-all"
+                              style={{ width: `${progress}%` }}
+                            />
+                          </div>
+                        </div>
+                        <Button className="w-full bg-[#D9B878] hover:bg-[#D9B878]/90 mt-3">
+                          Continue Journey
+                        </Button>
+                      </div>
+                    );
+                  })}
+                </motion.div>
               ) : (
-                <div>
-                  <AIWellnessJourneyGenerator 
-                    user={user} 
-                    onJourneyCreated={() => queryClient.invalidateQueries(['journeys'])}
-                  />
-                </div>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl p-5 text-white shadow-md cursor-pointer hover:shadow-lg transition-all"
+                  onClick={() => navigate(createPageUrl('FitnessJourneyBuilderPage'))}
+                >
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
+                      <Sparkles className="w-6 h-6 text-white" />
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="font-bold text-lg">Create Your Journey</h4>
+                      <p className="text-sm text-white/90">Build a personalized fitness plan</p>
+                    </div>
+                  </div>
+                  <Button className="w-full bg-white text-purple-600 hover:bg-white/90">
+                    Get Started
+                  </Button>
+                </motion.div>
               )}
             </div>
 

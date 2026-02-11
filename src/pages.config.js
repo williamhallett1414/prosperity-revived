@@ -88,6 +88,8 @@ import Wellness from './pages/Wellness';
 import WellnessJourney from './pages/WellnessJourney';
 import WorkoutProgress from './pages/WorkoutProgress';
 import WorkoutTrends from './pages/WorkoutTrends';
+import FitnessJourneyBuilderPage from './pages/FitnessJourneyBuilderPage';
+import MyFitnessJourneyPage from './pages/MyFitnessJourneyPage';
 import __Layout from './Layout.jsx';
 
 
@@ -133,6 +135,8 @@ export const PAGES = {
     "WellnessJourney": WellnessJourney,
     "WorkoutProgress": WorkoutProgress,
     "WorkoutTrends": WorkoutTrends,
+    "FitnessJourneyBuilderPage": FitnessJourneyBuilderPage,
+    "MyFitnessJourneyPage": MyFitnessJourneyPage,
 }
 
 export const pagesConfig = {
