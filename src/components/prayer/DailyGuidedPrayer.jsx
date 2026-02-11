@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Play, Pause, BookOpen, RotateCcw, RotateCw, Loader2 } from 'lucide-react';
+import { Play, Pause, BookOpen, RotateCcw, RotateCw, Loader2, Volume2, VolumeX } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { base44 } from '@/api/base44Client';
 
@@ -10,7 +10,9 @@ export default function DailyGuidedPrayer() {
   const [isGenerating, setIsGenerating] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
+  const [isSpeaking, setIsSpeaking] = useState(false);
   const audioRef = useRef(null);
+  const speechSynthesisRef = useRef(null);
 
   const prayers = [
     {
@@ -121,6 +123,38 @@ export default function DailyGuidedPrayer() {
     return `${minutes}:${seconds.toString().padStart(2, '0')}`;
   };
 
+  const handleSpeechToggle = () => {
+    if (!('speechSynthesis' in window)) {
+      alert('Text-to-speech is not supported in your browser.');
+      return;
+    }
+
+    if (isSpeaking) {
+      window.speechSynthesis.cancel();
+      setIsSpeaking(false);
+    } else {
+      const utterance = new SpeechSynthesisUtterance(todaysPrayer.text);
+      utterance.rate = 0.85;
+      utterance.pitch = 1;
+      utterance.volume = 1;
+      
+      utterance.onstart = () => setIsSpeaking(true);
+      utterance.onend = () => setIsSpeaking(false);
+      utterance.onerror = () => setIsSpeaking(false);
+      
+      speechSynthesisRef.current = utterance;
+      window.speechSynthesis.speak(utterance);
+    }
+  };
+
+  useEffect(() => {
+    return () => {
+      if (window.speechSynthesis) {
+        window.speechSynthesis.cancel();
+      }
+    };
+  }, []);
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -135,9 +169,24 @@ export default function DailyGuidedPrayer() {
         <p className="text-sm text-[#0A1A2F]/70 mb-4">A fresh prayer to center your heart today</p>
 
         <div className="bg-white rounded-xl p-5 mb-4">
-          <p className="text-[#0A1A2F] font-serif leading-relaxed mb-4">
-            {todaysPrayer.text}
-          </p>
+          <div className="flex items-start gap-3 mb-4">
+            <p className="text-[#0A1A2F] font-serif leading-relaxed flex-1">
+              {todaysPrayer.text}
+            </p>
+            <Button
+              onClick={handleSpeechToggle}
+              size="sm"
+              variant="outline"
+              className="shrink-0 border-[#D9B878] hover:bg-[#D9B878]/10"
+              title={isSpeaking ? "Stop reading" : "Listen to prayer"}
+            >
+              {isSpeaking ? (
+                <VolumeX className="w-4 h-4 text-[#D9B878]" />
+              ) : (
+                <Volume2 className="w-4 h-4 text-[#D9B878]" />
+              )}
+            </Button>
+          </div>
 
           <div className="pt-4 border-t border-gray-100">
             <div className="mb-4">
