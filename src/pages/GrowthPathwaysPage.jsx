@@ -68,7 +68,7 @@ export default function GrowthPathwaysPage() {
         <div className="sticky top-0 z-40 bg-white border-b border-gray-200 px-4 py-3">
           <div className="max-w-2xl mx-auto flex items-center gap-3">
             <Link
-              to={createPageUrl('Wellness')}
+              to={createPageUrl('Wellness') + '?tab=mind'}
               className="w-10 h-10 rounded-full bg-[#D9B878] hover:bg-[#D9B878]/90 flex items-center justify-center transition-colors"
             >
               <ArrowLeft className="w-5 h-5 text-[#0A1A2F]" />
