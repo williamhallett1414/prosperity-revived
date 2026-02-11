@@ -10,6 +10,8 @@ import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
+import DailyGuidedPrayer from '@/components/prayer/DailyGuidedPrayer';
+import CalmingScriptureMeditation from '@/components/prayer/CalmingScriptureMeditation';
 import DailyPrayer from '@/components/selfcare/DailyPrayer';
 import TakeTimeWithGod from '@/components/selfcare/TakeTimeWithGod';
 
@@ -310,6 +312,12 @@ export default function Prayer() {
             <h1 className="text-2xl font-bold text-[#0A1A2F]">Prayer</h1>
           </div>
         </div>
+
+        {/* Daily Guided Prayer */}
+        <DailyGuidedPrayer />
+
+        {/* Calming Scripture Meditation */}
+        <CalmingScriptureMeditation />
 
         {/* 2-Minute Prayer */}
         <DailyPrayer />
