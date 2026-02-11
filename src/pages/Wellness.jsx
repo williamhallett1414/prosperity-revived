@@ -43,15 +43,20 @@ import Hannah from '@/components/wellness/Hannah.jsx';
 
 
 
-import DailyRoutineCards from '@/components/selfcare/DailyRoutineCards';
-import QuickTools from '@/components/selfcare/QuickTools';
-import DailyAffirmation from '@/components/selfcare/DailyAffirmation';
 import SelfCareChallenges from '@/components/selfcare/SelfCareChallenges';
-import ProgressSnapshot from '@/components/selfcare/ProgressSnapshot';
 import MeditationTracker from '@/components/wellness/MeditationTracker';
-
 import PersonalizedWorkouts from '@/components/recommendations/PersonalizedWorkouts';
 import { Input } from '@/components/ui/input';
+
+import DailyMindsetReset from '@/components/mindspirit/DailyMindsetReset';
+import EmotionalCheckIn from '@/components/mindspirit/EmotionalCheckIn';
+import ScriptureAffirmations from '@/components/mindspirit/ScriptureAffirmations';
+import PersonalGrowthPathways from '@/components/mindspirit/PersonalGrowthPathways';
+import HabitBuilder from '@/components/mindspirit/HabitBuilder';
+import MindsetAudioLibrary from '@/components/mindspirit/MindsetAudioLibrary';
+import IdentityInChrist from '@/components/mindspirit/IdentityInChrist';
+import ReflectionOfTheWeek from '@/components/mindspirit/ReflectionOfTheWeek';
+import GratitudeJournal from '@/components/mindspirit/GratitudeJournal';
 
 
 export default function Wellness() {
@@ -467,37 +472,16 @@ export default function Wellness() {
 
             {/* Mind & Spirit Tab */}
             <TabsContent value="mind" className="space-y-4 max-w-2xl mx-auto">
-              {/* Discover All Meditations */}
-              <Link to={createPageUrl('DiscoverMeditations')}>
-                <div className="bg-gradient-to-br from-[#AFC7E3] to-[#D9B878] rounded-2xl p-5 text-[#0A1A2F] cursor-pointer hover:shadow-lg transition-shadow">
-                  <div className="flex items-center gap-3 mb-2">
-                    <Sparkles className="w-6 h-6" />
-                    <h3 className="text-lg font-semibold">Discover All Meditations</h3>
-                  </div>
-                  <p className="text-[#0A1A2F]/70 text-sm">Browse our full library of guided sessions</p>
-                </div>
-              </Link>
-
-              {journeys.filter(j => j.is_active).length > 0 && (
-                <div className="bg-[#E6EBEF] rounded-2xl p-4 shadow-sm">
-                  <h3 className="font-semibold text-[#0A1A2F] mb-4">Mood & Energy Insights</h3>
-                  <MoodEnergyChart 
-                    moodEnergyData={journeys.find(j => j.is_active)?.mood_energy_tracking || []} 
-                  />
-                </div>
-              )}
-
-              <MeditationTracker user={user} />
-              <MeditationGuide />
-
-              <DailyRoutineCards meditations={meditations} />
-              <QuickTools />
-              <DailyAffirmation />
+              <DailyMindsetReset />
+              <EmotionalCheckIn />
+              <ScriptureAffirmations />
+              <PersonalGrowthPathways />
+              <HabitBuilder />
+              <MindsetAudioLibrary />
+              <IdentityInChrist />
+              <ReflectionOfTheWeek />
               <SelfCareChallenges challenges={challenges} participations={challengeParticipants} />
-              <ProgressSnapshot 
-                meditationSessions={meditationSessions}
-                challengeParticipants={challengeParticipants}
-              />
+              <GratitudeJournal />
             </TabsContent>
 
             </Tabs>
