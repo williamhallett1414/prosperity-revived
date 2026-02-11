@@ -21,9 +21,9 @@ export default function WellnessHub() {
       path: createPageUrl('Bible')
     },
     {
-      name: 'Mind & Spirit',
-      image: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=500&h=300&fit=crop',
-      path: createPageUrl('MindAndSpirit')
+      name: 'Personal Growth',
+      image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=500&h=300&fit=crop',
+      path: createPageUrl('Wellness?tab=personal_growth')
     }
   ];
 
