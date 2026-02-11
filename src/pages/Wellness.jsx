@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
-import { Dumbbell, UtensilsCrossed, Heart, Plus, TrendingUp, Droplets, ArrowLeft, Sparkles, BookOpen, Brain, Search, CheckCircle } from 'lucide-react';
+import { Dumbbell, UtensilsCrossed, Heart, Plus, TrendingUp, Droplets, ArrowLeft, Sparkles, Search } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
@@ -41,16 +41,7 @@ import CoachDavid from '@/components/wellness/CoachDavid';
 import ChefDaniel from '@/components/wellness/ChefDaniel';
 import Hannah from '@/components/wellness/Hannah.jsx';
 
-import BookSelector from '@/components/bible/BookSelector';
-import ChapterSelector from '@/components/bible/ChapterSelector';
-import VerseReader from '@/components/bible/VerseReader';
-import ReadingPlanCard from '@/components/home/ReadingPlanCard';
-import { readingPlans } from '@/components/bible/BibleData';
-import BibleStatsModal from '@/components/bible/BibleStatsModal';
-import DevotionalContent from '@/components/bible/DevotionalContent';
-import BibleQA from '@/components/bible/BibleQA';
-import BibleStudyGuide from '@/components/bible/BibleStudyGuide';
-import MoodTracker from '@/components/bible/MoodTracker';
+
 
 import DailyRoutineCards from '@/components/selfcare/DailyRoutineCards';
 import QuickTools from '@/components/selfcare/QuickTools';
@@ -60,7 +51,6 @@ import ProgressSnapshot from '@/components/selfcare/ProgressSnapshot';
 import TakeTimeWithGod from '@/components/selfcare/TakeTimeWithGod';
 import DailyPrayer from '@/components/selfcare/DailyPrayer';
 import MeditationTracker from '@/components/wellness/MeditationTracker';
-import PrayForMeFeed from '@/components/wellness/PrayForMeFeed';
 
 import PersonalizedWorkouts from '@/components/recommendations/PersonalizedWorkouts';
 import { Input } from '@/components/ui/input';
@@ -71,15 +61,6 @@ export default function Wellness() {
   const [showCreateWorkout, setShowCreateWorkout] = useState(false);
   const [activeTab, setActiveTab] = useState('workouts');
   const [workoutCategory, setWorkoutCategory] = useState(null);
-  const [bibleView, setBibleView] = useState('books');
-  const [selectedBook, setSelectedBook] = useState(null);
-  const [selectedChapter, setSelectedChapter] = useState(null);
-  const [showBibleStatsModal, setShowBibleStatsModal] = useState(false);
-  const [selectedBibleStat, setSelectedBibleStat] = useState(null);
-  const [showGideonChat, setShowGideonChat] = useState(false);
-  const [gideonMessages, setGideonMessages] = useState([]);
-  const [gideonInput, setGideonInput] = useState('');
-  const [gideonLoading, setGideonLoading] = useState(false);
   const queryClient = useQueryClient();
 
   useEffect(() => {
@@ -229,25 +210,7 @@ export default function Wellness() {
     retry: false
   });
 
-  const { data: bookmarks = [] } = useQuery({
-    queryKey: ['bookmarks'],
-    queryFn: () => base44.entities.Bookmark.list()
-  });
 
-  const { data: planProgress = [] } = useQuery({
-    queryKey: ['planProgress'],
-    queryFn: () => base44.entities.ReadingPlanProgress.list()
-  });
-
-  const createBookmark = useMutation({
-    mutationFn: (data) => base44.entities.Bookmark.create(data),
-    onSuccess: () => queryClient.invalidateQueries(['bookmarks'])
-  });
-
-  const deleteBookmark = useMutation({
-    mutationFn: (id) => base44.entities.Bookmark.delete(id),
-    onSuccess: () => queryClient.invalidateQueries(['bookmarks'])
-  });
 
   const { data: challengeParticipants = [] } = useQuery({
     queryKey: ['challengeParticipants'],
@@ -326,21 +289,7 @@ export default function Wellness() {
          queryClient.invalidateQueries(['sharedWorkouts']);
          toast.success('Workout added to your library!');
        }
-     });
-
-   const invokeGideon = useMutation({
-     mutationFn: async (prompt) => {
-       const response = await base44.integrations.Core.InvokeLLM({
-         prompt: `You are Gideon, a wise biblical study assistant with a gentle personality. Help the user understand scripture and biblical concepts. ${prompt}`,
-         add_context_from_internet: false
        });
-       return response;
-     },
-     onSuccess: (data) => {
-       setGideonMessages(prev => [...prev, { role: 'assistant', content: data }]);
-       setGideonLoading(false);
-     }
-   });
 
   return (
     <div className="min-h-screen bg-[#F2F6FA] pb-24">
@@ -358,10 +307,9 @@ export default function Wellness() {
         </div>
         
         <Tabs defaultValue="workouts" value={activeTab} className="w-full" onValueChange={setActiveTab}>
-          <TabsList className="grid w-full grid-cols-4 p-1 rounded-xl bg-[#E6EBEF]">
+          <TabsList className="grid w-full grid-cols-3 p-1 rounded-xl bg-[#E6EBEF]">
             <TabsTrigger value="workouts" className="text-xs data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">Workouts</TabsTrigger>
             <TabsTrigger value="nutrition" className="text-xs data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">Nutrition</TabsTrigger>
-            <TabsTrigger value="bible" className="text-xs data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">Bible</TabsTrigger>
             <TabsTrigger value="mind" className="text-xs data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">Mind & Spirit</TabsTrigger>
           </TabsList>
         </Tabs>
@@ -517,139 +465,7 @@ export default function Wellness() {
              </div>
             </TabsContent>
 
-            {/* Bible Tab */}
-            <TabsContent value="bible" className="space-y-4 max-w-2xl mx-auto">
-              {bibleView === 'books' && (
-                <div className="space-y-6">
-                  <MoodTracker />
-                  
-                  {/* Stats Cards */}
-                  <div className="grid grid-cols-3 gap-3">
-                    <motion.button
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      onClick={() => setSelectedBibleStat('days_read')}
-                      className="bg-[#E6EBEF] rounded-2xl p-4 shadow-lg hover:shadow-xl transition-shadow text-left"
-                    >
-                      <BookOpen className="w-6 h-6 text-[#D9B878] mb-2" />
-                      <p className="text-2xl font-bold text-[#0A1A2F]">{planProgress.reduce((sum, p) => sum + (p.completed_days?.length || 0), 0)}</p>
-                      <p className="text-xs text-[#0A1A2F]/60">Days Read</p>
-                    </motion.button>
-                    
-                    <motion.button
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.1 }}
-                      onClick={() => setSelectedBibleStat('streak')}
-                      className="bg-[#E6EBEF] rounded-2xl p-4 shadow-lg hover:shadow-xl transition-shadow text-left"
-                    >
-                      <TrendingUp className="w-6 h-6 text-[#AFC7E3] mb-2" />
-                      <p className="text-2xl font-bold text-[#0A1A2F]">{Math.max(...planProgress.map(p => p.longest_streak || 0), 0)}</p>
-                      <p className="text-xs text-[#0A1A2F]/60">Longest Streak</p>
-                    </motion.button>
-                    
-                    <motion.button
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.2 }}
-                      onClick={() => setSelectedBibleStat('bookmarks')}
-                      className="bg-[#E6EBEF] rounded-2xl p-4 shadow-lg hover:shadow-xl transition-shadow text-left"
-                    >
-                      <CheckCircle className="w-6 h-6 text-[#D9B878] mb-2" />
-                      <p className="text-2xl font-bold text-[#0A1A2F]">{bookmarks.length}</p>
-                      <p className="text-xs text-[#0A1A2F]/60">Saved Verses</p>
-                    </motion.button>
-                  </div>
 
-                  <PrayForMeFeed user={user} />
-
-                  <BookSelector
-                   onSelectBook={(book) => {
-                     setSelectedBook(book);
-                     setBibleView('chapters');
-                   }}
-                   selectedBook={selectedBook}
-                  />
-                    
-                  {/* Reading Plans */}
-                  {readingPlans.filter(plan => !planProgress.find(p => p.plan_id === plan.id)).length > 0 && (
-                    <div className="mt-6">
-                      <div className="flex items-center justify-between mb-4">
-                        <h2 className="text-lg font-semibold text-[#0A1A2F]">Reading Plans</h2>
-                        <Link to={createPageUrl('Plans')} className="text-sm text-[#D9B878] font-medium hover:underline">
-                          View All
-                        </Link>
-                      </div>
-                      <div className="grid grid-cols-1 gap-3">
-                        {readingPlans.filter(plan => !planProgress.find(p => p.plan_id === plan.id)).slice(0, 3).map((plan, index) => (
-                          <ReadingPlanCard
-                            key={plan.id}
-                            plan={plan}
-                            progress={null}
-                            onClick={() => window.location.href = createPageUrl(`PlanDetail?id=${plan.id}`)}
-                            index={index}
-                          />
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </div>
-              )}
-
-              {bibleView === 'chapters' && selectedBook && (
-                <ChapterSelector
-                  book={selectedBook}
-                  onSelectChapter={(chapter) => {
-                    setSelectedChapter(chapter);
-                    setBibleView('reader');
-                  }}
-                  onBack={() => {
-                    setBibleView('books');
-                    setSelectedBook(null);
-                  }}
-                  selectedChapter={selectedChapter}
-                />
-              )}
-
-              {bibleView === 'reader' && selectedBook && selectedChapter && (
-                <VerseReader
-                  book={selectedBook}
-                  chapter={selectedChapter}
-                  onBack={() => {
-                    setBibleView('chapters');
-                    setSelectedChapter(null);
-                  }}
-                  onNavigate={(chapter) => setSelectedChapter(chapter)}
-                  bookmarks={bookmarks}
-                  onBookmark={(verse, color, note) => {
-                    const existing = bookmarks.find(b => 
-                      b.book === verse.book && 
-                      b.chapter === verse.chapter && 
-                      b.verse === verse.verse
-                    );
-                    if (existing) {
-                      deleteBookmark.mutate(existing.id);
-                    }
-                    createBookmark.mutate({
-                      book: verse.book,
-                      chapter: verse.chapter,
-                      verse: verse.verse,
-                      verse_text: verse.text,
-                      highlight_color: color,
-                      note: note
-                    });
-                  }}
-                />
-              )}
-
-              <BibleStatsModal
-                isOpen={showBibleStatsModal}
-                onClose={() => setShowBibleStatsModal(false)}
-                statType={selectedBibleStat}
-                progress={planProgress}
-                bookmarks={bookmarks}
-              />
-              </TabsContent>
 
             {/* Mind & Spirit Tab */}
             <TabsContent value="mind" className="space-y-4 max-w-2xl mx-auto">
@@ -712,96 +528,6 @@ export default function Wellness() {
          userRecipes={[]}
          mealLogs={mealLogs}
        />
-      )}
-      {activeTab === 'bible' && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="fixed bottom-24 right-4 z-30"
-        >
-          <button
-            onClick={() => setShowGideonChat(!showGideonChat)}
-            className="bg-[#D9B878] hover:bg-[#D9B878]/90 text-[#0A1A2F] rounded-full p-4 shadow-lg hover:shadow-xl transition-all"
-          >
-            <Brain className="w-6 h-6" />
-          </button>
-
-          {showGideonChat && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 20 }}
-              className="absolute bottom-16 right-0 w-80 bg-white rounded-2xl shadow-2xl border border-gray-200 p-4 flex flex-col h-96"
-            >
-              <div className="flex items-center justify-between mb-3">
-                <h3 className="text-lg font-bold text-[#0A1A2F]">Gideon</h3>
-                <button
-                  onClick={() => setShowGideonChat(false)}
-                  className="text-gray-400 hover:text-gray-600"
-                >
-                  ✕
-                </button>
-              </div>
-
-              <div className="flex-1 overflow-y-auto mb-3 space-y-3">
-                {gideonMessages.length === 0 && (
-                  <p className="text-sm text-gray-500 text-center pt-8">Ask me about scripture...</p>
-                )}
-                {gideonMessages.map((msg, idx) => (
-                  <div key={idx} className={`text-sm ${msg.role === 'user' ? 'text-right' : 'text-left'}`}>
-                    <div className={`inline-block max-w-xs px-3 py-2 rounded-lg ${
-                      msg.role === 'user' 
-                        ? 'bg-[#D9B878] text-[#0A1A2F]' 
-                        : 'bg-gray-100 text-gray-800'
-                    }`}>
-                      {msg.content}
-                    </div>
-                  </div>
-                ))}
-                {gideonLoading && (
-                  <div className="text-sm text-left">
-                    <div className="inline-block bg-gray-100 text-gray-800 px-3 py-2 rounded-lg">
-                      Thinking...
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              <div className="flex gap-2">
-                <input
-                  type="text"
-                  value={gideonInput}
-                  onChange={(e) => setGideonInput(e.target.value)}
-                  onKeyPress={(e) => {
-                    if (e.key === 'Enter' && gideonInput.trim()) {
-                      setGideonMessages(prev => [...prev, { role: 'user', content: gideonInput }]);
-                      setGideonLoading(true);
-                      invokeGideon.mutate(gideonInput);
-                      setGideonInput('');
-                    }
-                  }}
-                  placeholder="Ask about scripture..."
-                  className="flex-1 border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#D9B878]"
-                  disabled={gideonLoading}
-                />
-                <button
-                  onClick={() => {
-                    if (gideonInput.trim()) {
-                      setGideonMessages(prev => [...prev, { role: 'user', content: gideonInput }]);
-                      setGideonLoading(true);
-                      invokeGideon.mutate(gideonInput);
-                      setGideonInput('');
-                    }
-                  }}
-                  disabled={gideonLoading}
-                  className="bg-[#D9B878] hover:bg-[#D9B878]/90 text-[#0A1A2F] rounded-lg px-3 py-2 font-medium disabled:opacity-50 transition-colors"
-                >
-                  Send
-                </button>
-              </div>
-            </motion.div>
-          )}
-        </motion.div>
       )}
       </div>
       );
