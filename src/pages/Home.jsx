@@ -252,6 +252,17 @@ export default function Home() {
 
   const updatePost = useMutation({
     mutationFn: ({ id, likes }) => base44.entities.Post.update(id, { likes }),
+    onMutate: async ({ id, likes }) => {
+      await queryClient.cancelQueries(['posts']);
+      const previousPosts = queryClient.getQueryData(['posts']);
+      queryClient.setQueryData(['posts'], old => 
+        old?.map(p => p.id === id ? { ...p, likes } : p) || []
+      );
+      return { previousPosts };
+    },
+    onError: (err, variables, context) => {
+      queryClient.setQueryData(['posts'], context.previousPosts);
+    },
     onSuccess: () => queryClient.invalidateQueries(['posts'])
   });
 

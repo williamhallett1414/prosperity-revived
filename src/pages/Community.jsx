@@ -9,6 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import PostCard from '@/components/community/PostCard';
 import CreatePostModal from '@/components/community/CreatePostModal';
 import { awardPoints, checkAndAwardBadges } from '@/components/gamification/ProgressManager';
+import PullToRefresh from '@/components/ui/PullToRefresh';
 
 export default function Community() {
   const [showCreatePost, setShowCreatePost] = useState(false);
@@ -66,6 +67,17 @@ export default function Community() {
 
   const updatePost = useMutation({
     mutationFn: ({ id, likes }) => base44.entities.Post.update(id, { likes }),
+    onMutate: async ({ id, likes }) => {
+      await queryClient.cancelQueries(['posts']);
+      const previousPosts = queryClient.getQueryData(['posts']);
+      queryClient.setQueryData(['posts'], old => 
+        old?.map(p => p.id === id ? { ...p, likes } : p) || []
+      );
+      return { previousPosts };
+    },
+    onError: (err, variables, context) => {
+      queryClient.setQueryData(['posts'], context.previousPosts);
+    },
     onSuccess: () => queryClient.invalidateQueries(['posts'])
   });
 
@@ -188,8 +200,16 @@ export default function Community() {
       .filter(p => p.score > 0);
   }, [posts, comments]);
 
+  const handleRefresh = async () => {
+    await Promise.all([
+      queryClient.invalidateQueries(['posts']),
+      queryClient.invalidateQueries(['comments'])
+    ]);
+  };
+
   return (
     <div className="min-h-screen bg-[#F2F6FA] pb-24">
+      <PullToRefresh onRefresh={handleRefresh}>
       <div className="max-w-2xl mx-auto px-4 py-6">
         {/* Header */}
         <motion.div
@@ -331,6 +351,8 @@ export default function Community() {
         onClose={() => setShowCreatePost(false)}
         onSubmit={(data) => createPost.mutate(data)}
       />
+      </div>
+      </PullToRefresh>
     </div>
   );
 }

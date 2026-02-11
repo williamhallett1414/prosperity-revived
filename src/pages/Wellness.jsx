@@ -10,6 +10,7 @@ import { createPageUrl } from '@/utils';
 import { toast } from 'sonner';
 import WorkoutCard from '@/components/wellness/WorkoutCard';
 import CreateWorkoutModal from '@/components/wellness/CreateWorkoutModal';
+import PullToRefresh from '@/components/ui/PullToRefresh';
 
 import MealTracker from '@/components/wellness/MealTracker';
 import MealSuggestions from '@/components/nutrition/MealSuggestions';
@@ -293,8 +294,16 @@ export default function Wellness() {
        }
        });
 
-  return (
-    <div className="min-h-screen bg-[#F2F6FA] pb-24">
+       const handleRefresh = async () => {
+       await Promise.all([
+       queryClient.invalidateQueries(['workouts']),
+       queryClient.invalidateQueries(['recipes']),
+       queryClient.invalidateQueries(['meditations'])
+       ]);
+       };
+
+       return (
+       <div className="min-h-screen bg-[#F2F6FA] pb-24">
       {/* Top Navigation */}
       <div className="sticky top-0 z-40 bg-white border-b border-gray-200 px-4 py-3">
         <div className="max-w-2xl mx-auto flex items-center justify-between mb-3">
@@ -318,6 +327,7 @@ export default function Wellness() {
       </div>
 
       <div className="px-4 pt-6 pb-6">
+        <PullToRefresh onRefresh={handleRefresh}>
         {/* Weekly Theme */}
         <WeeklyThemeBanner />
 
@@ -921,6 +931,7 @@ export default function Wellness() {
             </TabsContent>
 
             </Tabs>
+        </PullToRefresh>
       </div>
 
       {/* Modals */}
