@@ -1,16 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
-import { ArrowLeft, Moon, Sun, Monitor, Bell, Mail, User, Palette } from 'lucide-react';
+import { ArrowLeft, Moon, Sun, Monitor, Bell, Mail, User, Palette, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { Label } from '@/components/ui/label';
 import ReminderSettings from '@/components/settings/ReminderSettings';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog';
 
 export default function Settings() {
   const [user, setUser] = useState(null);
+  const [isDeleting, setIsDeleting] = useState(false);
   const queryClient = useQueryClient();
 
   useEffect(() => {
@@ -81,7 +93,7 @@ export default function Settings() {
           <div className="space-y-3">
             <button
               onClick={() => handleThemeChange('light')}
-              className={`w-full flex items-center justify-between p-3 rounded-lg border-2 transition-colors ${
+              className={`w-full flex items-center justify-between p-3 rounded-lg border-2 transition-colors min-h-[44px] ${
                 user.theme === 'light' 
                   ? 'border-[#c9a227] bg-[#c9a227]/10' 
                   : 'border-gray-200 dark:border-gray-700 hover:border-[#c9a227]/50'
@@ -100,7 +112,7 @@ export default function Settings() {
 
             <button
               onClick={() => handleThemeChange('dark')}
-              className={`w-full flex items-center justify-between p-3 rounded-lg border-2 transition-colors ${
+              className={`w-full flex items-center justify-between p-3 rounded-lg border-2 transition-colors min-h-[44px] ${
                 user.theme === 'dark' 
                   ? 'border-[#c9a227] bg-[#c9a227]/10' 
                   : 'border-gray-200 dark:border-gray-700 hover:border-[#c9a227]/50'
@@ -119,7 +131,7 @@ export default function Settings() {
 
             <button
               onClick={() => handleThemeChange('auto')}
-              className={`w-full flex items-center justify-between p-3 rounded-lg border-2 transition-colors ${
+              className={`w-full flex items-center justify-between p-3 rounded-lg border-2 transition-colors min-h-[44px] ${
                 user.theme === 'auto' 
                   ? 'border-[#c9a227] bg-[#c9a227]/10' 
                   : 'border-gray-200 dark:border-gray-700 hover:border-[#c9a227]/50'
@@ -198,10 +210,50 @@ export default function Settings() {
           <Button
             onClick={() => base44.auth.logout()}
             variant="outline"
-            className="w-full mt-4 border-red-200 text-red-600 hover:bg-red-50 dark:border-red-900 dark:hover:bg-red-950"
+            className="w-full mt-4 border-red-200 text-red-600 hover:bg-red-50 dark:border-red-900 dark:hover:bg-red-950 min-h-[44px]"
           >
             Sign Out
           </Button>
+
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button
+                variant="outline"
+                className="w-full mt-3 border-red-300 text-red-700 hover:bg-red-50 dark:border-red-800 dark:hover:bg-red-950 min-h-[44px]"
+              >
+                <Trash2 className="w-4 h-4 mr-2" />
+                Delete Account
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                <AlertDialogDescription>
+                  This action cannot be undone. This will permanently delete your account
+                  and remove all of your data from our servers.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel className="min-h-[44px]">Cancel</AlertDialogCancel>
+                <AlertDialogAction
+                  className="bg-red-600 hover:bg-red-700 min-h-[44px]"
+                  onClick={async () => {
+                    setIsDeleting(true);
+                    try {
+                      await base44.auth.deleteAccount();
+                      window.location.href = '/';
+                    } catch (error) {
+                      console.error('Failed to delete account:', error);
+                      setIsDeleting(false);
+                    }
+                  }}
+                  disabled={isDeleting}
+                >
+                  {isDeleting ? 'Deleting...' : 'Delete Account'}
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
         </div>
       </div>
     </div>
