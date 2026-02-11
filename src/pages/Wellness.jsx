@@ -550,6 +550,60 @@ export default function Wellness() {
               </div>
             </div>
 
+            {/* Workout Challenges */}
+            <div className="mb-6">
+              <h3 className="text-sm font-semibold text-[#0A1A2F] mb-3">Workout Challenges</h3>
+              <div className="grid grid-cols-2 gap-3">
+                {challenges.slice(0, 4).map((challenge, index) => {
+                  const userParticipation = challengeParticipants.find(p => p.challenge_id === challenge.id);
+                  const isParticipating = !!userParticipation;
+                  const progress = userParticipation?.progress || 0;
+
+                  const iconColors = [
+                    { bg: 'bg-yellow-100', icon: 'text-yellow-600', Icon: Trophy },
+                    { bg: 'bg-red-100', icon: 'text-red-600', Icon: Dumbbell },
+                    { bg: 'bg-blue-100', icon: 'text-blue-600', Icon: Heart },
+                    { bg: 'bg-purple-100', icon: 'text-purple-600', Icon: Target }
+                  ];
+                  const colorSet = iconColors[index % iconColors.length];
+                  const Icon = colorSet.Icon;
+
+                  return (
+                    <motion.div
+                      key={challenge.id}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: index * 0.05 }}
+                      className="bg-white rounded-xl p-3 border border-gray-200 shadow-sm hover:shadow-md transition-all cursor-pointer"
+                      onClick={() => navigate(createPageUrl(`ChallengeDetailPage?id=${challenge.id}`))}
+                    >
+                      <div className="flex flex-col items-center text-center gap-2">
+                        <div className={`w-10 h-10 ${colorSet.bg} rounded-full flex items-center justify-center shrink-0`}>
+                          <Icon className={`w-5 h-5 ${colorSet.icon}`} />
+                        </div>
+                        <div className="w-full">
+                          <h4 className="font-bold text-[#0A1A2F] text-xs mb-1 line-clamp-2">{challenge.title}</h4>
+                          <p className="text-[10px] text-[#0A1A2F]/60 mb-2">{challenge.duration_days} Days</p>
+                          {isParticipating ? (
+                            <div className="w-full">
+                              <div className="h-1.5 bg-gray-200 rounded-full overflow-hidden">
+                                <div className="h-full bg-[#D9B878] rounded-full transition-all" style={{ width: `${progress}%` }} />
+                              </div>
+                              <p className="text-[10px] text-[#0A1A2F]/60 mt-1">{progress}%</p>
+                            </div>
+                          ) : (
+                            <div className="text-[10px] text-emerald-600 font-semibold">
+                              Join Now
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </div>
+            </div>
+
             {/* My Fitness Journey */}
             <div className="mb-6">
               <h3 className="text-sm font-semibold text-[#0A1A2F] mb-3">My Fitness Journey</h3>
@@ -618,58 +672,7 @@ export default function Wellness() {
               )}
             </div>
 
-            {/* Workout Challenges */}
-            <div className="mb-6">
-              <h3 className="text-sm font-semibold text-[#0A1A2F] mb-3">Workout Challenges</h3>
-              <div className="space-y-3">
-                {challenges.slice(0, 3).map((challenge, index) => {
-                  const userParticipation = challengeParticipants.find(p => p.challenge_id === challenge.id);
-                  const isParticipating = !!userParticipation;
-                  const progress = userParticipation?.progress || 0;
 
-                  const iconColors = [
-                    { bg: 'bg-yellow-100', icon: 'text-yellow-600', Icon: Trophy },
-                    { bg: 'bg-red-100', icon: 'text-red-600', Icon: Dumbbell },
-                    { bg: 'bg-blue-100', icon: 'text-blue-600', Icon: Heart }
-                  ];
-                  const colorSet = iconColors[index % iconColors.length];
-                  const Icon = colorSet.Icon;
-
-                  return (
-                    <motion.div
-                      key={challenge.id}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: index * 0.05 }}
-                      className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm hover:shadow-md transition-all cursor-pointer"
-                      onClick={() => navigate(createPageUrl(`ChallengeDetailPage?id=${challenge.id}`))}
-                    >
-                      <div className="flex items-start gap-3">
-                        <div className={`w-12 h-12 ${colorSet.bg} rounded-xl flex items-center justify-center shrink-0`}>
-                          <Icon className={`w-6 h-6 ${colorSet.icon}`} />
-                        </div>
-                        <div className="flex-1">
-                          <h4 className="font-bold text-[#0A1A2F] mb-1">{challenge.title}</h4>
-                          <p className="text-xs text-[#0A1A2F]/60 mb-2">{challenge.description}</p>
-                          {isParticipating ? (
-                            <div className="flex items-center gap-2">
-                              <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
-                                <div className="h-full bg-[#D9B878] rounded-full" style={{ width: `${progress}%` }} />
-                              </div>
-                              <span className="text-xs text-[#0A1A2F]/60">{progress}%</span>
-                            </div>
-                          ) : (
-                            <Button size="sm" variant="outline" className="text-xs h-7">
-                              Join Challenge
-                            </Button>
-                          )}
-                        </div>
-                      </div>
-                    </motion.div>
-                  );
-                })}
-              </div>
-            </div>
 
             {/* Recommended For You */}
             <div className="mb-6">
