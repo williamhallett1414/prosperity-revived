@@ -71,6 +71,11 @@ export default function Wellness() {
       console.error('Failed to ensure challenges exist:', err);
     });
     
+    // Ensure category workouts exist
+    base44.functions.invoke('ensureCategoryWorkouts', {}).catch(err => {
+      console.error('Failed to ensure category workouts exist:', err);
+    });
+    
     // Read URL parameter for tab
     const urlParams = new URLSearchParams(window.location.search);
     const tabParam = urlParams.get('tab');
@@ -679,14 +684,30 @@ export default function Wellness() {
 
 
 
-            {/* Recommended For You */}
+            {/* Workout Library */}
             <div className="mb-6">
-              <h3 className="text-sm font-semibold text-[#0A1A2F] mb-3">Recommended For You</h3>
-              <PersonalizedWorkouts 
-                user={user} 
-                userWorkouts={myWorkouts}
-                onComplete={(workout) => completeWorkout.mutate({ id: workout.id, workout })}
-              />
+              <h3 className="text-sm font-semibold text-[#0A1A2F] mb-3">Workout Library</h3>
+              <div className="grid grid-cols-2 gap-3">
+                {[
+                  { name: 'Cardio', icon: '❤️', color: 'from-red-400 to-pink-500', description: 'Get your heart pumping' },
+                  { name: 'Strength', icon: '💪', color: 'from-blue-400 to-cyan-500', description: 'Build muscle & power' },
+                  { name: 'HIIT', icon: '⚡', color: 'from-yellow-400 to-orange-500', description: 'High intensity intervals' },
+                  { name: 'Home', icon: '🏠', color: 'from-green-400 to-emerald-500', description: 'No equipment needed' }
+                ].map((category, index) => (
+                  <motion.div
+                    key={category.name}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.05 }}
+                    className={`bg-gradient-to-br ${category.color} rounded-xl p-4 shadow-sm cursor-pointer hover:shadow-md transition-all`}
+                    onClick={() => navigate(createPageUrl(`WorkoutCategoryPage?category=${category.name}`))}
+                  >
+                    <div className="text-3xl mb-2">{category.icon}</div>
+                    <h4 className="font-bold text-white text-sm mb-1">{category.name}</h4>
+                    <p className="text-white/90 text-xs">{category.description}</p>
+                  </motion.div>
+                ))}
+              </div>
             </div>
 
             {/* New Workouts to Try */}
