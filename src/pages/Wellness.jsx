@@ -66,6 +66,11 @@ export default function Wellness() {
   useEffect(() => {
     base44.auth.me().then(setUser);
     
+    // Ensure default challenges exist
+    base44.functions.invoke('ensureChallengesExist', {}).catch(err => {
+      console.error('Failed to ensure challenges exist:', err);
+    });
+    
     // Read URL parameter for tab
     const urlParams = new URLSearchParams(window.location.search);
     const tabParam = urlParams.get('tab');
