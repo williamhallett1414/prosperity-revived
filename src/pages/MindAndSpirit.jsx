@@ -1,39 +1,34 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { ArrowLeft, Sparkles, Heart, Search, Play } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { ArrowLeft, Sparkles } from 'lucide-react';
 
-import DailyRoutineCards from '@/components/selfcare/DailyRoutineCards';
-import QuickTools from '@/components/selfcare/QuickTools';
-import MoodTracker from '@/components/selfcare/MoodTracker';
-import DailyAffirmation from '@/components/selfcare/DailyAffirmation';
-import ProgressSnapshot from '@/components/selfcare/ProgressSnapshot';
-import TakeTimeWithGod from '@/components/selfcare/TakeTimeWithGod';
-import DailyPrayer from '@/components/selfcare/DailyPrayer';
-import MeditationFilters from '@/components/meditations/MeditationFilters';
-import MeditationCard from '@/components/meditations/MeditationCard';
+import SelfCareChallenges from '@/components/selfcare/SelfCareChallenges';
+import GratitudeJournal from '@/components/mindspirit/GratitudeJournal';
+import DailyMindsetReset from '@/components/mindspirit/DailyMindsetReset';
+import EmotionalCheckIn from '@/components/mindspirit/EmotionalCheckIn';
+import ScriptureAffirmations from '@/components/mindspirit/ScriptureAffirmations';
+import PersonalGrowthPathways from '@/components/mindspirit/PersonalGrowthPathways';
+import HabitBuilder from '@/components/mindspirit/HabitBuilder';
+import MindsetAudioLibrary from '@/components/mindspirit/MindsetAudioLibrary';
+import IdentityInChrist from '@/components/mindspirit/IdentityInChrist';
+import ReflectionOfTheWeek from '@/components/mindspirit/ReflectionOfTheWeek';
 
 export default function MindAndSpirit() {
   const [user, setUser] = useState(null);
-  const [showGodTime, setShowGodTime] = useState(false);
-  const [meditationFilter, setMeditationFilter] = useState(null);
-  const [meditationSearch, setMeditationSearch] = useState('');
-  const [showMeditationLibrary, setShowMeditationLibrary] = useState(false);
 
   useEffect(() => {
     base44.auth.me().then(setUser);
   }, []);
 
-  const { data: meditations = [] } = useQuery({
-    queryKey: ['meditations'],
+  const { data: challenges = [] } = useQuery({
+    queryKey: ['challenges'],
     queryFn: async () => {
       try {
-        return await base44.entities.Meditation.filter({}, '-created_date', 100);
+        return await base44.entities.Challenge.filter({});
       } catch {
         return [];
       }
@@ -41,24 +36,11 @@ export default function MindAndSpirit() {
     retry: false
   });
 
-  const { data: meditationSessions = [] } = useQuery({
-    queryKey: ['meditationSessions'],
+  const { data: challengeParticipants = [] } = useQuery({
+    queryKey: ['challengeParticipants'],
     queryFn: async () => {
       try {
-        return await base44.entities.MeditationSession.filter({ created_by: user?.email }, '-created_date', 10);
-      } catch {
-        return [];
-      }
-    },
-    enabled: !!user,
-    retry: false
-  });
-
-  const { data: journalEntries = [] } = useQuery({
-    queryKey: ['journalEntries'],
-    queryFn: async () => {
-      try {
-        return await base44.entities.JournalEntry.filter({ created_by: user?.email }, '-created_date', 5);
+        return await base44.entities.ChallengeParticipant.filter({ user_email: user?.email });
       } catch {
         return [];
       }
@@ -66,27 +48,6 @@ export default function MindAndSpirit() {
     enabled: !!user,
     retry: false
   });
-
-  const filteredMeditations = useMemo(() => {
-    return meditations.filter(m => {
-      const matchesCategory = !meditationFilter || m.category === meditationFilter;
-      const matchesSearch = !meditationSearch || 
-        m.title?.toLowerCase().includes(meditationSearch.toLowerCase());
-      return matchesCategory && matchesSearch;
-    });
-  }, [meditations, meditationFilter, meditationSearch]);
-
-  const recentMeditations = useMemo(() => {
-    return meditationSessions.slice(0, 3).map(session => {
-      return meditations.find(m => m.id === session.meditation_id);
-    }).filter(Boolean);
-  }, [meditationSessions, meditations]);
-
-  const recommendedMeditations = useMemo(() => {
-    return meditations
-      .filter(m => ['mindfulness', 'stress_relief', 'gratitude', 'prayer'].includes(m.category))
-      .slice(0, 3);
-  }, [meditations]);
 
   return (
     <div className="min-h-screen bg-[#F2F6FA] pb-24">
@@ -110,200 +71,39 @@ export default function MindAndSpirit() {
       </div>
 
       <div className="max-w-2xl mx-auto px-4 py-6">
-        {/* A. Daily Reset Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-8"
-        >
-          <div className="grid grid-cols-2 gap-3 mb-4">
-            <Button
-              onClick={() => setShowGodTime(true)}
-              className="h-20 bg-gradient-to-br from-[#D9B878] to-[#C9A868] hover:from-[#D9B878]/90 hover:to-[#C9A868]/90 text-[#0A1A2F] font-semibold rounded-2xl shadow-lg"
-            >
-              <div className="flex flex-col items-center">
-                <span className="text-2xl mb-1">🌅</span>
-                <span className="text-xs">Start Day</span>
-              </div>
-            </Button>
-            <Button
-              className="h-20 bg-gradient-to-br from-[#AFC7E3] to-[#9AB3D1] hover:from-[#AFC7E3]/90 hover:to-[#9AB3D1]/90 text-[#0A1A2F] font-semibold rounded-2xl shadow-lg"
-            >
-              <Link to={createPageUrl('Home')} className="flex flex-col items-center w-full">
-                <span className="text-2xl mb-1">🌙</span>
-                <span className="text-xs">End Day</span>
-              </Link>
-            </Button>
-          </div>
+        {/* A. Daily Mindset Reset */}
+        <DailyMindsetReset />
 
-          {/* Daily Prayer + Scripture */}
-          <div className="grid grid-cols-1 gap-3">
-            <DailyPrayer />
-          </div>
-        </motion.div>
+        {/* B. Emotional Check-In */}
+        <EmotionalCheckIn />
 
-        {/* B. AI-Recommended Practices */}
-        {recommendedMeditations.length > 0 && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="mb-8"
-          >
-            <h2 className="text-lg font-bold text-[#0A1A2F] mb-3 flex items-center gap-2">
-              <Sparkles className="w-5 h-5 text-[#D9B878]" />
-              Recommended for You
-            </h2>
-            <div className="space-y-2">
-              {recommendedMeditations.map((m, idx) => (
-                <MeditationCard
-                  key={m.id}
-                  meditation={m}
-                  onPlay={(med) => window.location.href = `/?meditation=${med.id}`}
-                  onBookmark={() => {}}
-                  isBookmarked={false}
-                  index={idx}
-                />
-              ))}
-            </div>
-          </motion.div>
-        )}
+        {/* C. Scripture-Based Affirmations */}
+        <ScriptureAffirmations />
 
-        {/* C. Daily Routine Cards */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.15 }}
-          className="mb-8"
-        >
-          <DailyRoutineCards meditations={meditations} />
-        </motion.div>
+        {/* D. Personal Growth Pathways */}
+        <PersonalGrowthPathways />
 
-        {/* D. Quick Self-Care Tools */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="mb-8"
-        >
-          <QuickTools />
-        </motion.div>
+        {/* E. Habit Builder */}
+        <HabitBuilder />
 
-        {/* E. Meditation Library */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.25 }}
-          className="mb-8"
-        >
-          <button
-            onClick={() => setShowMeditationLibrary(!showMeditationLibrary)}
-            className="w-full flex items-center justify-between px-4 py-3 bg-[#E6EBEF] rounded-xl hover:bg-[#E6EBEF]/80 transition-colors mb-4"
-          >
-            <h2 className="text-lg font-bold text-[#0A1A2F] flex items-center gap-2">
-              <Heart className="w-5 h-5 text-[#D9B878]" />
-              Meditation Library
-            </h2>
-            <span className="text-sm text-[#0A1A2F]/60">{meditations.length} sessions</span>
-          </button>
+        {/* F. Mindset Audio Library */}
+        <MindsetAudioLibrary />
 
-          {showMeditationLibrary && (
-            <div className="space-y-4">
-              {/* Filters */}
-              <div className="space-y-3">
-                <Input
-                  placeholder="Search meditations..."
-                  value={meditationSearch}
-                  onChange={(e) => setMeditationSearch(e.target.value)}
-                  className="bg-white border-gray-200"
-                />
-                <MeditationFilters
-                  onFilterChange={setMeditationFilter}
-                  onSearch={() => {}}
-                />
-              </div>
+        {/* G. Identity in Christ */}
+        <IdentityInChrist />
 
-              {/* Recently Played */}
-              {recentMeditations.length > 0 && (
-                <div>
-                  <p className="text-sm font-semibold text-[#0A1A2F] mb-2">Recently Played</p>
-                  <div className="space-y-2">
-                    {recentMeditations.map((m, idx) => (
-                      <MeditationCard
-                        key={m.id}
-                        meditation={m}
-                        onPlay={(med) => window.location.href = `/?meditation=${med.id}`}
-                        onBookmark={() => {}}
-                        isBookmarked={false}
-                        index={idx}
-                      />
-                    ))}
-                  </div>
-                </div>
-              )}
+        {/* H. Reflection of the Week */}
+        <ReflectionOfTheWeek />
 
-              {/* All Meditations */}
-              <div>
-                <p className="text-sm font-semibold text-[#0A1A2F] mb-2">All Sessions</p>
-                {filteredMeditations.length === 0 ? (
-                  <p className="text-center text-[#0A1A2F]/50 py-6">No meditations found</p>
-                ) : (
-                  <div className="space-y-2">
-                    {filteredMeditations.map((m, idx) => (
-                      <MeditationCard
-                        key={m.id}
-                        meditation={m}
-                        onPlay={(med) => window.location.href = `/?meditation=${med.id}`}
-                        onBookmark={() => {}}
-                        isBookmarked={false}
-                        index={idx}
-                      />
-                    ))}
-                  </div>
-                )}
-              </div>
-            </div>
-          )}
-        </motion.div>
+        {/* Self-Care Challenges (kept from old page) */}
+        <SelfCareChallenges 
+          challenges={challenges} 
+          participations={challengeParticipants} 
+        />
 
-        {/* F. Mood, Stress & Energy Tracker */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-          className="mb-8"
-        >
-          <MoodTracker />
-        </motion.div>
-
-        {/* G. Scripture-Based Affirmations */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.35 }}
-          className="mb-8"
-        >
-          <DailyAffirmation />
-        </motion.div>
-
-        {/* Progress Snapshot */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
-          className="mb-4"
-        >
-          <ProgressSnapshot
-            meditationSessions={meditationSessions}
-            challengeParticipants={[]}
-          />
-        </motion.div>
+        {/* Gratitude Journal (kept from old page) */}
+        <GratitudeJournal />
       </div>
-
-      {/* Take Time With God Modal */}
-      {showGodTime && (
-        <TakeTimeWithGod onClose={() => setShowGodTime(false)} />
-      )}
     </div>
   );
 }
