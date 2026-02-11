@@ -665,7 +665,7 @@ export default function Wellness() {
            <TabsContent value="nutrition" className="space-y-8 max-w-2xl mx-auto">
              {/* Today's Nutrition Section */}
              <div className="pt-2">
-               <NutritionDashboard mealLogs={mealLogs} waterLogs={waterLogs} />
+               <NutritionDashboard mealLogs={mealLogs} />
              </div>
 
              {/* Suggested Meals Section */}
