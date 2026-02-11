@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { Home, Users, User, Heart, BookOpen } from 'lucide-react';
@@ -6,8 +6,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Toaster } from '@/components/ui/sonner.jsx';
 import NotificationBell from '@/components/notifications/NotificationBell';
 
-// Scroll position cache
+// Scroll position cache per page
 const scrollCache = {};
+
+// Page component cache to prevent re-mounting
+const pageCache = {};
 
 const navItems = [
   { name: 'Home', icon: Home, page: 'Home' },
@@ -20,24 +23,42 @@ const navItems = [
 export default function Layout({ children, currentPageName }) {
   const contentRef = useRef(null);
   const location = useLocation();
+  const [renderedPages, setRenderedPages] = useState({});
+
+  // Primary navigation pages that should be kept mounted
+  const primaryPages = ['Home', 'Wellness', 'Bible', 'Groups', 'Profile'];
+  const isPrimaryPage = primaryPages.includes(currentPageName);
+
+  // Cache page content for primary navigation
+  useEffect(() => {
+    if (isPrimaryPage && !renderedPages[currentPageName]) {
+      setRenderedPages(prev => ({
+        ...prev,
+        [currentPageName]: children
+      }));
+    }
+  }, [currentPageName, isPrimaryPage, children]);
 
   // Save scroll position when navigating away
   useEffect(() => {
     return () => {
-      if (contentRef.current) {
+      if (contentRef.current && isPrimaryPage) {
         scrollCache[currentPageName] = window.scrollY;
       }
     };
-  }, [currentPageName]);
+  }, [currentPageName, isPrimaryPage]);
 
   // Restore scroll position when navigating back
   useEffect(() => {
-    if (scrollCache[currentPageName] !== undefined) {
-      window.scrollTo(0, scrollCache[currentPageName]);
-    } else {
+    if (isPrimaryPage && scrollCache[currentPageName] !== undefined) {
+      // Use setTimeout to ensure DOM is ready
+      setTimeout(() => {
+        window.scrollTo(0, scrollCache[currentPageName]);
+      }, 0);
+    } else if (isPrimaryPage) {
       window.scrollTo(0, 0);
     }
-  }, [currentPageName]);
+  }, [currentPageName, isPrimaryPage]);
 
   return (
     <>
@@ -54,17 +75,30 @@ export default function Layout({ children, currentPageName }) {
           --color-text: #000000;
         }
         
+        @media (prefers-color-scheme: dark) {
+          :root {
+            --color-primary: #3C4E53;
+            --color-secondary: #FD9C2D;
+            --color-accent: #FAD98D;
+            --color-background: #2d2d4a;
+            --color-text: #FFFFFF;
+          }
+        }
+        
         body {
           font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-          color: #3C4E53;
+          color: var(--color-text);
+          background-color: var(--color-background);
           overscroll-behavior-y: none;
           -webkit-overflow-scrolling: touch;
         }
         
-        button, a, [role="button"] {
+        button, a, [role="button"], input[type="button"], input[type="submit"], 
+        [class*="Button"], [class*="Tab"], [class*="Dialog"] button {
           user-select: none;
           -webkit-user-select: none;
           -webkit-tap-highlight-color: transparent;
+          touch-action: manipulation;
         }
         
         .font-serif {
@@ -91,17 +125,32 @@ export default function Layout({ children, currentPageName }) {
       </div>
 
       <main className="pt-16 pb-20">
-        <AnimatePresence mode="wait" initial={false}>
-          <motion.div
-            key={currentPageName}
-            initial={{ opacity: 0, x: 10 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -10 }}
-            transition={{ duration: 0.2 }}
-          >
-            {children}
-          </motion.div>
-        </AnimatePresence>
+        {isPrimaryPage ? (
+          // For primary pages, keep all mounted but show only active
+          <>
+            {primaryPages.map(pageName => (
+              <div
+                key={pageName}
+                style={{ display: pageName === currentPageName ? 'block' : 'none' }}
+              >
+                {renderedPages[pageName] || (pageName === currentPageName ? children : null)}
+              </div>
+            ))}
+          </>
+        ) : (
+          // For secondary pages, use animation
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.div
+              key={currentPageName}
+              initial={{ opacity: 0, x: 10 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -10 }}
+              transition={{ duration: 0.2 }}
+            >
+              {children}
+            </motion.div>
+          </AnimatePresence>
+        )}
       </main>
 
       {/* Bottom Navigation */}
