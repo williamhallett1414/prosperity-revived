@@ -62,32 +62,33 @@ export default function EmotionalCheckInPage() {
         </div>
       </div>
 
-      <div className="max-w-2xl mx-auto px-4 py-6">
+      <div className="max-w-2xl mx-auto px-6 py-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm"
+          className="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm"
         >
-          <div className="flex items-center gap-2 mb-6">
-            <Heart className="w-8 h-8 text-[#D9B878]" />
-            <h3 className="text-xl font-bold text-[#0A1A2F]">Select Your Mood</h3>
-          </div>
+          <h3 className="text-2xl font-bold text-[#0A1A2F] mb-3">Select Your Mood</h3>
 
-          <p className="text-sm text-[#0A1A2F]/70 mb-6">Take a moment to identify how you're feeling right now.</p>
+          <p className="text-sm text-[#0A1A2F]/60 mb-8">Take a moment to identify how you're feeling right now.</p>
 
-          <div className="grid grid-cols-3 gap-4 mb-6">
+          <div className="border-t border-gray-100 pt-6 mb-8"></div>
+
+          <div className="grid grid-cols-2 gap-4 mb-8">
             {moods.map((mood) => (
               <button
                 key={mood.value}
                 onClick={() => setSelectedMood(mood)}
-                className={`p-6 rounded-xl border-2 transition-all ${
+                className={`p-5 rounded-xl border transition-all ${
                   selectedMood?.value === mood.value
-                    ? 'border-[#D9B878] bg-[#D9B878]/10 scale-105'
-                    : 'border-gray-200 hover:border-[#D9B878]/50 hover:scale-105'
+                    ? 'border-[#D9B878] bg-[#D9B878]/10 shadow-md'
+                    : 'border-gray-200 bg-gray-50 hover:border-[#D9B878]/50 hover:shadow-sm'
                 }`}
               >
-                <div className="text-4xl mb-2">{mood.emoji}</div>
-                <div className="text-sm font-medium text-[#0A1A2F]">{mood.label}</div>
+                <div className="flex flex-col items-center gap-2">
+                  <div className="text-3xl">{mood.emoji}</div>
+                  <div className="text-sm font-medium text-[#0A1A2F]">{mood.label}</div>
+                </div>
               </button>
             ))}
           </div>
