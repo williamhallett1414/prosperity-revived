@@ -22,7 +22,7 @@ export default function ReadingPlanCard({ plan, progress, onClick, index }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.1 }}
       onClick={handleClick}
-      className="group cursor-pointer bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 w-full text-left"
+      className="group cursor-pointer bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 dark:border-gray-700 w-full text-left"
     >
       <div className="relative h-32 overflow-hidden">
         <img
@@ -39,14 +39,14 @@ export default function ReadingPlanCard({ plan, progress, onClick, index }) {
       </div>
       
       <div className="p-4">
-        <h3 className="font-semibold text-[#1a1a2e] mb-1 group-hover:text-[#c9a227] transition-colors">
+        <h3 className="font-semibold text-gray-900 dark:text-white mb-1 group-hover:text-[#c9a227] transition-colors">
           {plan.name}
         </h3>
-        <p className="text-sm text-gray-500 mb-3 line-clamp-2">
+        <p className="text-sm text-gray-500 dark:text-gray-400 mb-3 line-clamp-2">
           {plan.description}
         </p>
         
-        <div className="flex items-center justify-between text-xs text-gray-400">
+        <div className="flex items-center justify-between text-xs text-gray-400 dark:text-gray-500">
           <div className="flex items-center gap-1">
             <Calendar className="w-3.5 h-3.5" />
             <span>{plan.duration} days</span>
