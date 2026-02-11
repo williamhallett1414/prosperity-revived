@@ -561,12 +561,14 @@ export default function Wellness() {
                     </motion.button>
                   </div>
 
+                  <PrayForMeFeed user={user} />
+
                   <BookSelector
-                    onSelectBook={(book) => {
-                      setSelectedBook(book);
-                      setBibleView('chapters');
-                    }}
-                    selectedBook={selectedBook}
+                   onSelectBook={(book) => {
+                     setSelectedBook(book);
+                     setBibleView('chapters');
+                   }}
+                   selectedBook={selectedBook}
                   />
                     
                   {/* Reading Plans */}
@@ -673,7 +675,6 @@ export default function Wellness() {
 
               <MeditationTracker user={user} />
               <MeditationGuide />
-              <PrayForMeFeed user={user} />
 
               <DailyRoutineCards meditations={meditations} />
               <DailyPrayer />
