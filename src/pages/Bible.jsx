@@ -144,7 +144,7 @@ export default function Bible() {
           </div>
 
           <Tabs defaultValue="read" className="w-full">
-            <TabsList className="grid w-full grid-cols-4 mb-6">
+            <TabsList className="grid w-full grid-cols-3 mb-6">
               <TabsTrigger value="read">
                 <BookOpen className="w-4 h-4 mr-2" />
                 Read
@@ -156,10 +156,6 @@ export default function Bible() {
               <TabsTrigger value="devotional">
                 <Heart className="w-4 h-4 mr-2" />
                 Devotional
-              </TabsTrigger>
-              <TabsTrigger value="qa">
-                <Compass className="w-4 h-4 mr-2" />
-                Questions
               </TabsTrigger>
             </TabsList>
 
@@ -247,10 +243,6 @@ export default function Bible() {
 
             <TabsContent value="devotional">
               <DevotionalContent />
-            </TabsContent>
-
-            <TabsContent value="qa">
-              <BibleQA />
             </TabsContent>
           </Tabs>
         </div>
