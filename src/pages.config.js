@@ -61,7 +61,6 @@ import Groups from './pages/Groups';
 import Home from './pages/Home';
 import MealDetailView from './pages/MealDetailView';
 import Messages from './pages/Messages';
-import MindAndSpirit from './pages/MindAndSpirit';
 import MyJournalEntries from './pages/MyJournalEntries';
 import NotificationSettings from './pages/NotificationSettings';
 import Notifications from './pages/Notifications';
@@ -98,7 +97,6 @@ export const PAGES = {
     "Home": Home,
     "MealDetailView": MealDetailView,
     "Messages": Messages,
-    "MindAndSpirit": MindAndSpirit,
     "MyJournalEntries": MyJournalEntries,
     "NotificationSettings": NotificationSettings,
     "Notifications": Notifications,
