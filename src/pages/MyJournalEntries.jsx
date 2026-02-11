@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Edit, Save, X, Trash2, ChevronDown, ChevronUp, Plus } from 'lucide-react';
+import { ArrowLeft, Edit, Save, X, Trash2, ChevronDown, ChevronUp, Plus, Filter } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { Button } from '@/components/ui/button';
@@ -16,6 +16,17 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 
+const CATEGORIES = [
+  { value: 'all', label: 'All Entries', emoji: '📝' },
+  { value: 'mindset_reset', label: 'Mindset Reset', emoji: '🧠' },
+  { value: 'emotional_checkin', label: 'Emotional Check-In', emoji: '❤️' },
+  { value: 'affirmation', label: 'Affirmations', emoji: '✨' },
+  { value: 'weekly_reflection', label: 'Weekly Reflections', emoji: '📅' },
+  { value: 'gratitude', label: 'Gratitude', emoji: '🙏' },
+  { value: 'habit_tracker', label: 'Habit Tracker', emoji: '✅' },
+  { value: 'general', label: 'General', emoji: '📖' }
+];
+
 export default function MyJournalEntries() {
   const [user, setUser] = useState(null);
   const [editingId, setEditingId] = useState(null);
@@ -25,6 +36,7 @@ export default function MyJournalEntries() {
   const [showNewEntryModal, setShowNewEntryModal] = useState(false);
   const [newTitle, setNewTitle] = useState('');
   const [newContent, setNewContent] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('all');
   const queryClient = useQueryClient();
 
   React.useEffect(() => {
@@ -88,10 +100,16 @@ export default function MyJournalEntries() {
     });
   };
 
+  // Filter entries by category
+  const filteredEntries = useMemo(() => {
+    if (selectedCategory === 'all') return entries;
+    return entries.filter(entry => entry.entry_type === selectedCategory);
+  }, [entries, selectedCategory]);
+
   // Group entries by date
   const groupedEntries = useMemo(() => {
     const groups = {};
-    entries.forEach(entry => {
+    filteredEntries.forEach(entry => {
       const date = new Date(entry.created_date).toLocaleDateString('en-US', {
         weekday: 'long',
         year: 'numeric',
@@ -104,7 +122,12 @@ export default function MyJournalEntries() {
       groups[date].push(entry);
     });
     return groups;
-  }, [entries]);
+  }, [filteredEntries]);
+
+  const getCategoryInfo = (entryType) => {
+    const category = CATEGORIES.find(c => c.value === entryType);
+    return category || CATEGORIES.find(c => c.value === 'general');
+  };
 
   const handleEdit = (entry) => {
     setEditingId(entry.id);
@@ -165,6 +188,30 @@ export default function MyJournalEntries() {
       </div>
 
       <div className="max-w-2xl mx-auto px-4 py-6">
+        {/* Category Filter */}
+        <div className="mb-6">
+          <div className="flex items-center gap-2 mb-3">
+            <Filter className="w-4 h-4 text-[#D9B878]" />
+            <h3 className="text-sm font-semibold text-[#0A1A2F]">Filter by Category</h3>
+          </div>
+          <div className="flex overflow-x-auto gap-2 pb-2 scrollbar-hide">
+            {CATEGORIES.map(category => (
+              <button
+                key={category.value}
+                onClick={() => setSelectedCategory(category.value)}
+                className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all ${
+                  selectedCategory === category.value
+                    ? 'bg-[#D9B878] text-[#0A1A2F]'
+                    : 'bg-white text-[#0A1A2F]/70 border border-gray-200 hover:border-[#D9B878]'
+                }`}
+              >
+                <span className="mr-1">{category.emoji}</span>
+                {category.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
         {entries.length === 0 ? (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -174,6 +221,16 @@ export default function MyJournalEntries() {
             <div className="text-5xl mb-3">📝</div>
             <p className="text-[#0A1A2F]/60">No journal entries yet</p>
             <p className="text-xs text-[#0A1A2F]/50 mt-2">Start journaling in End My Day or here</p>
+          </motion.div>
+        ) : filteredEntries.length === 0 ? (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-center py-12 bg-white rounded-2xl"
+          >
+            <div className="text-5xl mb-3">🔍</div>
+            <p className="text-[#0A1A2F]/60">No entries found for this category</p>
+            <p className="text-xs text-[#0A1A2F]/50 mt-2">Try selecting a different filter</p>
           </motion.div>
         ) : (
           <div className="space-y-4">
@@ -266,10 +323,21 @@ export default function MyJournalEntries() {
                           <div>
                             <div className="flex items-start justify-between gap-3 mb-3">
                               <div className="flex-1">
+                                <div className="flex items-center gap-2 mb-2">
+                                  <span className="text-lg">{getCategoryInfo(entry.entry_type).emoji}</span>
+                                  <span className="text-xs bg-[#D9B878]/20 text-[#D9B878] px-2 py-1 rounded font-medium">
+                                    {getCategoryInfo(entry.entry_type).label}
+                                  </span>
+                                </div>
                                 {entry.title && (
                                   <h3 className="font-semibold text-[#0A1A2F] line-clamp-2">
                                     {entry.title}
                                   </h3>
+                                )}
+                                {entry.prompt && (
+                                  <p className="text-xs text-[#0A1A2F]/60 italic mt-1">
+                                    "{entry.prompt}"
+                                  </p>
                                 )}
                                 <p className="text-xs text-[#0A1A2F]/50 mt-1">
                                   {new Date(
@@ -298,16 +366,26 @@ export default function MyJournalEntries() {
                                 </button>
                               </div>
                             </div>
-                            <p className="text-sm text-[#0A1A2F]/70 whitespace-pre-wrap line-clamp-3">
+                            <p className="text-sm text-[#0A1A2F]/70 whitespace-pre-wrap">
                               {entry.content}
                             </p>
-                            {entry.mood && (
-                              <div className="mt-3 text-xs">
-                                <span className="inline-block bg-[#E6EBEF] text-[#0A1A2F] px-2 py-1 rounded">
+                            <div className="mt-3 flex flex-wrap gap-2">
+                              {entry.mood && (
+                                <span className="text-xs bg-[#AFC7E3]/20 text-[#AFC7E3] px-2 py-1 rounded font-medium">
                                   Mood: {entry.mood}
                                 </span>
-                              </div>
-                            )}
+                              )}
+                              {entry.suggested_practice && (
+                                <span className="text-xs bg-purple-100 text-purple-700 px-2 py-1 rounded font-medium">
+                                  {entry.suggested_practice}
+                                </span>
+                              )}
+                              {entry.habits && entry.habits.length > 0 && (
+                                <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded font-medium">
+                                  {entry.habits.length} habits tracked
+                                </span>
+                              )}
+                            </div>
                           </div>
                         )}
                       </motion.div>
