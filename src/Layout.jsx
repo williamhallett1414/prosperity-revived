@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Toaster } from '@/components/ui/sonner.jsx';
 import NotificationBell from '@/components/notifications/NotificationBell';
 import PullToRefresh from '@/components/ui/PullToRefresh';
+import { useQueryClient } from '@tanstack/react-query';
 
 // Scroll position cache per page
 const scrollCache = {};
@@ -25,6 +26,7 @@ export default function Layout({ children, currentPageName }) {
   const contentRef = useRef(null);
   const location = useLocation();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const [renderedPages, setRenderedPages] = useState({});
 
   // Primary navigation pages that should be kept mounted
@@ -106,6 +108,11 @@ export default function Layout({ children, currentPageName }) {
           touch-action: manipulation;
         }
         
+        [class*="fixed"] {
+          user-select: none;
+          -webkit-user-select: none;
+        }
+        
         .font-serif {
           font-family: 'Georgia', 'Times New Roman', serif;
         }
@@ -116,7 +123,7 @@ export default function Layout({ children, currentPageName }) {
       `}</style>
       
       {/* Top Bar with Back Button or Logo */}
-      <div className="fixed top-0 left-0 right-0 bg-white dark:bg-[#2d2d4a] border-b border-gray-200 dark:border-gray-700 px-4 py-3 z-40 pt-[env(safe-area-inset-top)]">
+      <div className="fixed top-0 left-0 right-0 bg-white dark:bg-[#2d2d4a] border-b border-gray-200 dark:border-gray-700 px-4 py-3 z-40 pt-[env(safe-area-inset-top)] select-none">
         <div className="max-w-2xl mx-auto flex items-center justify-between">
           {isChildRoute ? (
             <button
@@ -140,7 +147,7 @@ export default function Layout({ children, currentPageName }) {
 
       <main className="pt-16 pb-20">
         <PullToRefresh onRefresh={async () => {
-          window.location.reload();
+          await queryClient.invalidateQueries();
         }}>
           {isPrimaryPage ? (
             // For primary pages, keep all mounted but show only active
@@ -172,7 +179,7 @@ export default function Layout({ children, currentPageName }) {
       </main>
 
       {/* Bottom Navigation */}
-      <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 py-2 z-50 pb-[env(safe-area-inset-bottom)]">
+      <nav className="fixed bottom-0 left-0 right-0 bg-white dark:bg-[#2d2d4a] border-t border-gray-200 dark:border-gray-700 px-4 py-2 z-50 pb-[env(safe-area-inset-bottom)] select-none">
         <div className="max-w-lg mx-auto flex items-center justify-around">
           {navItems.map(item => {
             const isActive = currentPageName === item.page;
