@@ -89,9 +89,9 @@ import UserProfile from './pages/UserProfile';
 import WeeklyReflectionPage from './pages/WeeklyReflectionPage';
 import Wellness from './pages/Wellness';
 import WellnessJourney from './pages/WellnessJourney';
+import WorkoutCategoryPage from './pages/WorkoutCategoryPage';
 import WorkoutProgress from './pages/WorkoutProgress';
 import WorkoutTrends from './pages/WorkoutTrends';
-import WorkoutCategoryPage from './pages/WorkoutCategoryPage';
 import __Layout from './Layout.jsx';
 
 
@@ -138,9 +138,9 @@ export const PAGES = {
     "WeeklyReflectionPage": WeeklyReflectionPage,
     "Wellness": Wellness,
     "WellnessJourney": WellnessJourney,
+    "WorkoutCategoryPage": WorkoutCategoryPage,
     "WorkoutProgress": WorkoutProgress,
     "WorkoutTrends": WorkoutTrends,
-    "WorkoutCategoryPage": WorkoutCategoryPage,
 }
 
 export const pagesConfig = {

@@ -5,6 +5,7 @@ import { Home, Users, User, Heart, BookOpen, ArrowLeft } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Toaster } from '@/components/ui/sonner.jsx';
 import NotificationBell from '@/components/notifications/NotificationBell';
+import PullToRefresh from '@/components/ui/PullToRefresh';
 
 // Scroll position cache per page
 const scrollCache = {};
@@ -138,32 +139,36 @@ export default function Layout({ children, currentPageName }) {
       </div>
 
       <main className="pt-16 pb-20">
-        {isPrimaryPage ? (
-          // For primary pages, keep all mounted but show only active
-          <>
-            {primaryPages.map(pageName => (
-              <div
-                key={pageName}
-                style={{ display: pageName === currentPageName ? 'block' : 'none' }}
+        <PullToRefresh onRefresh={async () => {
+          window.location.reload();
+        }}>
+          {isPrimaryPage ? (
+            // For primary pages, keep all mounted but show only active
+            <>
+              {primaryPages.map(pageName => (
+                <div
+                  key={pageName}
+                  style={{ display: pageName === currentPageName ? 'block' : 'none' }}
+                >
+                  {renderedPages[pageName] || (pageName === currentPageName ? children : null)}
+                </div>
+              ))}
+            </>
+          ) : (
+            // For secondary pages, use animation
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.div
+                key={currentPageName}
+                initial={{ opacity: 0, x: 10 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -10 }}
+                transition={{ duration: 0.2 }}
               >
-                {renderedPages[pageName] || (pageName === currentPageName ? children : null)}
-              </div>
-            ))}
-          </>
-        ) : (
-          // For secondary pages, use animation
-          <AnimatePresence mode="wait" initial={false}>
-            <motion.div
-              key={currentPageName}
-              initial={{ opacity: 0, x: 10 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -10 }}
-              transition={{ duration: 0.2 }}
-            >
-              {children}
-            </motion.div>
-          </AnimatePresence>
-        )}
+                {children}
+              </motion.div>
+            </AnimatePresence>
+          )}
+        </PullToRefresh>
       </main>
 
       {/* Bottom Navigation */}
@@ -174,15 +179,11 @@ export default function Layout({ children, currentPageName }) {
             const Icon = item.icon;
             
             const handleNavClick = (e) => {
-              // If already on this tab, navigate to its root
+              // If already on this tab, reset scroll to top
               if (isActive) {
                 e.preventDefault();
-                navigate(createPageUrl(item.page), { replace: true });
-                // Reset scroll for primary pages
-                if (isPrimaryPage) {
-                  window.scrollTo(0, 0);
-                  scrollCache[item.page] = 0;
-                }
+                window.scrollTo(0, 0);
+                scrollCache[item.page] = 0;
               }
             };
             
