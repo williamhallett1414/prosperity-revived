@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Edit, Save, X, Trash2, ChevronDown, ChevronUp, Plus, Filter } from 'lucide-react';
+import { ArrowLeft, Edit, Save, X, Trash2, ChevronDown, ChevronUp, Plus, Filter, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { Button } from '@/components/ui/button';
@@ -60,6 +60,23 @@ export default function MyJournalEntries() {
     enabled: !!user
   });
 
+  const { data: summaries = [], refetch: refetchSummaries } = useQuery({
+    queryKey: ['journalSummaries', user?.email],
+    queryFn: async () => {
+      if (!user?.email) return [];
+      try {
+        return await base44.entities.JournalSummary.filter(
+          { created_by: user.email },
+          '-created_date',
+          10
+        );
+      } catch {
+        return [];
+      }
+    },
+    enabled: !!user
+  });
+
   const updateEntry = useMutation({
     mutationFn: ({ id, data }) => base44.entities.JournalEntry.update(id, data),
     onSuccess: () => {
@@ -85,6 +102,21 @@ export default function MyJournalEntries() {
       setNewTitle('');
       setNewContent('');
       toast.success('Entry created!');
+    }
+  });
+
+  const generateSummary = useMutation({
+    mutationFn: async (summaryType) => {
+      return await base44.functions.invoke('generateJournalSummary', { 
+        summary_type: summaryType 
+      });
+    },
+    onSuccess: () => {
+      refetchSummaries();
+      toast.success('Summary generated!');
+    },
+    onError: () => {
+      toast.error('Failed to generate summary');
     }
   });
 
@@ -128,6 +160,9 @@ export default function MyJournalEntries() {
     const category = CATEGORIES.find(c => c.value === entryType);
     return category || CATEGORIES.find(c => c.value === 'general');
   };
+
+  const weeklySummary = summaries.find(s => s.summary_type === 'weekly');
+  const monthlySummary = summaries.find(s => s.summary_type === 'monthly');
 
   const handleEdit = (entry) => {
     setEditingId(entry.id);
@@ -188,6 +223,113 @@ export default function MyJournalEntries() {
       </div>
 
       <div className="max-w-2xl mx-auto px-4 py-6">
+        {/* AI Summaries Section */}
+        {entries.length > 0 && (
+          <div className="mb-6 space-y-4">
+            <h2 className="text-xl font-bold text-[#0A1A2F] flex items-center gap-2">
+              <Sparkles className="w-5 h-5 text-[#D9B878]" />
+              Your Journey Insights
+            </h2>
+
+            <div className="grid gap-4">
+              {/* Weekly Summary */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="bg-gradient-to-br from-purple-50 to-blue-50 rounded-2xl p-5 border border-purple-200"
+              >
+                <div className="flex items-start justify-between mb-3">
+                  <div>
+                    <h3 className="font-semibold text-[#0A1A2F] flex items-center gap-2">
+                      <span className="text-lg">📅</span>
+                      Weekly Summary
+                    </h3>
+                    {weeklySummary && (
+                      <p className="text-xs text-[#0A1A2F]/50 mt-1">
+                        {new Date(weeklySummary.created_date).toLocaleDateString()} • {weeklySummary.entries_analyzed} entries
+                      </p>
+                    )}
+                  </div>
+                  <Button
+                    onClick={() => generateSummary.mutate('weekly')}
+                    disabled={generateSummary.isPending}
+                    size="sm"
+                    variant="outline"
+                    className="text-xs"
+                  >
+                    {generateSummary.isPending && generateSummary.variables === 'weekly' ? 'Generating...' : 'Regenerate'}
+                  </Button>
+                </div>
+                {weeklySummary ? (
+                  <p className="text-sm text-[#0A1A2F]/80 leading-relaxed whitespace-pre-wrap">
+                    {weeklySummary.summary_text}
+                  </p>
+                ) : (
+                  <div className="text-center py-8">
+                    <p className="text-sm text-[#0A1A2F]/60 mb-3">No weekly summary yet</p>
+                    <Button
+                      onClick={() => generateSummary.mutate('weekly')}
+                      disabled={generateSummary.isPending}
+                      size="sm"
+                      className="bg-[#D9B878] hover:bg-[#D9B878]/90 text-[#0A1A2F]"
+                    >
+                      Generate Weekly Summary
+                    </Button>
+                  </div>
+                )}
+              </motion.div>
+
+              {/* Monthly Summary */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+                className="bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl p-5 border border-amber-200"
+              >
+                <div className="flex items-start justify-between mb-3">
+                  <div>
+                    <h3 className="font-semibold text-[#0A1A2F] flex items-center gap-2">
+                      <span className="text-lg">📊</span>
+                      Monthly Summary
+                    </h3>
+                    {monthlySummary && (
+                      <p className="text-xs text-[#0A1A2F]/50 mt-1">
+                        {new Date(monthlySummary.created_date).toLocaleDateString()} • {monthlySummary.entries_analyzed} entries
+                      </p>
+                    )}
+                  </div>
+                  <Button
+                    onClick={() => generateSummary.mutate('monthly')}
+                    disabled={generateSummary.isPending}
+                    size="sm"
+                    variant="outline"
+                    className="text-xs"
+                  >
+                    {generateSummary.isPending && generateSummary.variables === 'monthly' ? 'Generating...' : 'Regenerate'}
+                  </Button>
+                </div>
+                {monthlySummary ? (
+                  <p className="text-sm text-[#0A1A2F]/80 leading-relaxed whitespace-pre-wrap">
+                    {monthlySummary.summary_text}
+                  </p>
+                ) : (
+                  <div className="text-center py-8">
+                    <p className="text-sm text-[#0A1A2F]/60 mb-3">No monthly summary yet</p>
+                    <Button
+                      onClick={() => generateSummary.mutate('monthly')}
+                      disabled={generateSummary.isPending}
+                      size="sm"
+                      className="bg-[#D9B878] hover:bg-[#D9B878]/90 text-[#0A1A2F]"
+                    >
+                      Generate Monthly Summary
+                    </Button>
+                  </div>
+                )}
+              </motion.div>
+            </div>
+          </div>
+        )}
+
         {/* Category Filter */}
         <div className="mb-6">
           <div className="flex items-center gap-2 mb-3">
