@@ -144,7 +144,7 @@ export default function Bible() {
           </div>
 
           <Tabs defaultValue="read" className="w-full">
-            <TabsList className="grid w-full grid-cols-3 mb-6">
+            <TabsList className="grid w-full grid-cols-4 mb-6">
               <TabsTrigger value="read">
                 <BookOpen className="w-4 h-4 mr-2" />
                 Read
@@ -156,6 +156,10 @@ export default function Bible() {
               <TabsTrigger value="devotional">
                 <Heart className="w-4 h-4 mr-2" />
                 Devotional
+              </TabsTrigger>
+              <TabsTrigger value="prayer">
+                <Heart className="w-4 h-4 mr-2" />
+                Prayer
               </TabsTrigger>
             </TabsList>
 
@@ -243,6 +247,22 @@ export default function Bible() {
 
             <TabsContent value="devotional">
               <DevotionalContent />
+            </TabsContent>
+
+            <TabsContent value="prayer">
+              <div className="space-y-4">
+                <Link to={createPageUrl('Prayer')}>
+                  <div className="bg-gradient-to-br from-[#D9B878] to-[#AFC7E3] rounded-2xl p-6 text-[#0A1A2F] cursor-pointer hover:shadow-lg transition-shadow">
+                    <div className="flex items-center gap-3 mb-2">
+                      <Heart className="w-8 h-8" />
+                      <div>
+                        <h3 className="text-xl font-bold">Prayer Wall</h3>
+                        <p className="text-sm text-[#0A1A2F]/70">Share and support prayer requests</p>
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              </div>
             </TabsContent>
           </Tabs>
         </div>
