@@ -112,9 +112,9 @@ export default function PrayerJournal() {
 
       {/* Journal Entries */}
       {entries.length === 0 ? (
-        <div className="text-center py-16 bg-white rounded-2xl">
-          <BookHeart className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-          <p className="text-gray-500 mb-4">Start your prayer journal</p>
+        <div className="text-center py-16 bg-white dark:bg-slate-800 rounded-2xl">
+          <BookHeart className="w-12 h-12 text-gray-300 dark:text-gray-600 mx-auto mb-3" />
+          <p className="text-gray-500 dark:text-gray-400 mb-4">Start your prayer journal</p>
           <Button onClick={() => setShowCreate(true)}>
             Write First Entry
           </Button>
@@ -131,7 +131,7 @@ export default function PrayerJournal() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.05 }}
-                className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100"
+                className="bg-white dark:bg-slate-800 rounded-2xl p-4 shadow-sm border border-gray-100 dark:border-gray-700"
               >
                 <div className="flex items-start justify-between mb-2">
                   <div className="flex-1">
@@ -140,16 +140,16 @@ export default function PrayerJournal() {
                         {prayerStyle.label}
                       </Badge>
                       {entry.answered && (
-                        <Badge className="bg-green-100 text-green-800">
+                        <Badge className="bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200">
                           <Check className="w-3 h-3 mr-1" />
                           Answered
                         </Badge>
                       )}
                     </div>
                     {entry.title && (
-                      <h3 className="font-semibold text-[#1a1a2e]">{entry.title}</h3>
+                      <h3 className="font-semibold text-gray-900 dark:text-white">{entry.title}</h3>
                     )}
-                    <p className="text-xs text-gray-400">
+                    <p className="text-xs text-gray-400 dark:text-gray-500">
                       {format(new Date(entry.created_date), 'MMM d, yyyy')}
                     </p>
                   </div>
@@ -162,7 +162,7 @@ export default function PrayerJournal() {
                   </Button>
                 </div>
 
-                <p className={`text-gray-700 ${isExpanded ? '' : 'line-clamp-2'}`}>
+                <p className={`text-gray-700 dark:text-gray-300 ${isExpanded ? '' : 'line-clamp-2'}`}>
                   {entry.content}
                 </p>
 
@@ -185,9 +185,9 @@ export default function PrayerJournal() {
 
       {/* Create Entry Modal */}
       <Dialog open={showCreate} onOpenChange={setShowCreate}>
-        <DialogContent className="max-w-lg">
+        <DialogContent className="max-w-lg dark:bg-slate-800">
           <DialogHeader>
-            <DialogTitle>New Prayer Journal Entry</DialogTitle>
+            <DialogTitle className="dark:text-white">New Prayer Journal Entry</DialogTitle>
           </DialogHeader>
 
           <div className="space-y-4">
@@ -242,8 +242,8 @@ export default function PrayerJournal() {
             </div>
 
             {showAIPrompt && aiPrompt && (
-              <div className="bg-[#faf8f5] border-l-4 border-[#c9a227] p-3 rounded">
-                <p className="text-sm text-gray-700">
+              <div className="bg-yellow-50 dark:bg-slate-700 border-l-4 border-[#c9a227] p-3 rounded">
+                <p className="text-sm text-gray-700 dark:text-gray-300">
                   <Sparkles className="w-3 h-3 inline mr-1 text-[#c9a227]" />
                   {aiPrompt}
                 </p>
