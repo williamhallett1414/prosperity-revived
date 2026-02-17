@@ -88,6 +88,17 @@ export default function Wellness() {
     base44.functions.invoke('ensureCategoryWorkouts', {}).catch(err => {
       console.error('Failed to ensure category workouts exist:', err);
     });
+    
+    // Populate missing workout exercises (first time only)
+    const hasPopulated = localStorage.getItem('workouts_populated');
+    if (!hasPopulated) {
+      base44.functions.invoke('populateMissingWorkoutExercises', {}).then(() => {
+        localStorage.setItem('workouts_populated', 'true');
+        queryClient.invalidateQueries(['workoutPlans']);
+      }).catch(err => {
+        console.error('Failed to populate workout exercises:', err);
+      });
+    }
   }, []);
 
   const { data: workouts = [] } = useQuery({

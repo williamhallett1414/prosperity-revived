@@ -16,8 +16,11 @@ Deno.serve(async (req) => {
     const errors = [];
 
     for (const workout of allWorkouts) {
-      // Check if exercises is missing, empty, or has length 0
-      if (!workout.exercises || workout.exercises.length === 0) {
+      // Check if exercises is missing, null, not an array, or has length 0
+      if (!workout.exercises || 
+          workout.exercises === null || 
+          !Array.isArray(workout.exercises) || 
+          workout.exercises.length === 0) {
         try {
           const exercises = generateExercisesForCategory(workout.category, workout.difficulty);
           
@@ -69,36 +72,31 @@ function generateExercisesForCategory(category, difficulty = 'beginner') {
           name: 'High Knees',
           sets: Math.round(3 * multiplier),
           reps: null,
-          duration_seconds: 30,
-          rest: 15
+          duration: 30
         },
         {
           name: 'Jumping Jacks',
           sets: Math.round(3 * multiplier),
           reps: null,
-          duration_seconds: 30,
-          rest: 15
+          duration: 30
         },
         {
           name: 'Fast Feet',
           sets: Math.round(3 * multiplier),
           reps: null,
-          duration_seconds: 30,
-          rest: 15
+          duration: 30
         },
         {
           name: 'Skaters',
           sets: Math.round(3 * multiplier),
           reps: null,
-          duration_seconds: 30,
-          rest: 15
+          duration: 30
         },
         {
           name: 'Power March',
           sets: Math.round(2 * multiplier),
           reps: null,
-          duration_seconds: 45,
-          rest: 20
+          duration: 45
         }
       ];
 
@@ -108,36 +106,31 @@ function generateExercisesForCategory(category, difficulty = 'beginner') {
           name: 'Squats',
           sets: Math.round(3 * multiplier),
           reps: Math.round(12 * multiplier),
-          duration_seconds: null,
-          rest: 30
+          duration: null
         },
         {
           name: 'Push-ups',
           sets: Math.round(3 * multiplier),
           reps: Math.round(10 * multiplier),
-          duration_seconds: null,
-          rest: 30
+          duration: null
         },
         {
           name: 'Lunges',
           sets: Math.round(3 * multiplier),
           reps: Math.round(10 * multiplier),
-          duration_seconds: null,
-          rest: 30
+          duration: null
         },
         {
           name: 'Dumbbell Rows',
           sets: Math.round(3 * multiplier),
           reps: Math.round(12 * multiplier),
-          duration_seconds: null,
-          rest: 30
+          duration: null
         },
         {
           name: 'Shoulder Press',
           sets: Math.round(3 * multiplier),
           reps: Math.round(10 * multiplier),
-          duration_seconds: null,
-          rest: 30
+          duration: null
         }
       ];
 
@@ -147,43 +140,37 @@ function generateExercisesForCategory(category, difficulty = 'beginner') {
           name: 'Burpees',
           sets: Math.round(4 * multiplier),
           reps: null,
-          duration_seconds: 40,
-          rest: 20
+          duration: 40
         },
         {
           name: 'Mountain Climbers',
           sets: Math.round(4 * multiplier),
           reps: null,
-          duration_seconds: 40,
-          rest: 20
+          duration: 40
         },
         {
           name: 'Jump Squats',
           sets: Math.round(4 * multiplier),
           reps: null,
-          duration_seconds: 40,
-          rest: 20
+          duration: 40
         },
         {
           name: 'Plank Jacks',
           sets: Math.round(4 * multiplier),
           reps: null,
-          duration_seconds: 40,
-          rest: 20
+          duration: 40
         },
         {
           name: 'High Knees',
           sets: Math.round(4 * multiplier),
           reps: null,
-          duration_seconds: 40,
-          rest: 20
+          duration: 40
         },
         {
           name: 'Speed Skaters',
           sets: Math.round(3 * multiplier),
           reps: null,
-          duration_seconds: 40,
-          rest: 20
+          duration: 40
         }
       ];
 
@@ -193,36 +180,31 @@ function generateExercisesForCategory(category, difficulty = 'beginner') {
           name: 'Bodyweight Squats',
           sets: Math.round(3 * multiplier),
           reps: Math.round(15 * multiplier),
-          duration_seconds: null,
-          rest: 30
+          duration: null
         },
         {
           name: 'Glute Bridges',
           sets: Math.round(3 * multiplier),
           reps: Math.round(12 * multiplier),
-          duration_seconds: null,
-          rest: 30
+          duration: null
         },
         {
           name: 'Plank',
           sets: Math.round(3 * multiplier),
           reps: null,
-          duration_seconds: 30,
-          rest: 20
+          duration: 30
         },
         {
           name: 'Reverse Lunges',
           sets: Math.round(3 * multiplier),
           reps: Math.round(10 * multiplier),
-          duration_seconds: null,
-          rest: 30
+          duration: null
         },
         {
           name: 'Standing Crunches',
           sets: Math.round(3 * multiplier),
           reps: Math.round(15 * multiplier),
-          duration_seconds: null,
-          rest: 20
+          duration: null
         }
       ];
 
@@ -233,36 +215,31 @@ function generateExercisesForCategory(category, difficulty = 'beginner') {
           name: 'Cat-Cow Stretch',
           sets: 2,
           reps: null,
-          duration_seconds: 45,
-          rest: 15
+          duration: 45
         },
         {
           name: 'Downward Dog',
           sets: 2,
           reps: null,
-          duration_seconds: 45,
-          rest: 15
+          duration: 45
         },
         {
           name: 'Hip Flexor Stretch',
           sets: 2,
           reps: null,
-          duration_seconds: 30,
-          rest: 10
+          duration: 30
         },
         {
           name: 'Shoulder Rolls',
           sets: 2,
           reps: 10,
-          duration_seconds: null,
-          rest: 10
+          duration: null
         },
         {
           name: 'Seated Forward Fold',
           sets: 2,
           reps: null,
-          duration_seconds: 45,
-          rest: 15
+          duration: 45
         }
       ];
 
@@ -273,36 +250,31 @@ function generateExercisesForCategory(category, difficulty = 'beginner') {
           name: 'Squats',
           sets: Math.round(3 * multiplier),
           reps: Math.round(12 * multiplier),
-          duration_seconds: null,
-          rest: 30
+          duration: null
         },
         {
           name: 'Push-ups',
           sets: Math.round(3 * multiplier),
           reps: Math.round(10 * multiplier),
-          duration_seconds: null,
-          rest: 30
+          duration: null
         },
         {
           name: 'Mountain Climbers',
           sets: Math.round(3 * multiplier),
           reps: null,
-          duration_seconds: 30,
-          rest: 20
+          duration: 30
         },
         {
           name: 'Plank',
           sets: Math.round(3 * multiplier),
           reps: null,
-          duration_seconds: 30,
-          rest: 20
+          duration: 30
         },
         {
           name: 'Jumping Jacks',
           sets: Math.round(3 * multiplier),
           reps: null,
-          duration_seconds: 30,
-          rest: 15
+          duration: 30
         }
       ];
   }
