@@ -22,8 +22,7 @@ import PersonalizedNutritionPlan from '@/components/wellness/PersonalizedNutriti
 import { awardPoints, checkAndAwardBadges } from '@/components/gamification/ProgressManager';
 import AIMealPlanner from '@/components/wellness/AIMealPlanner';
 import CustomPrayerBuilder from '@/components/wellness/CustomPrayerBuilder';
-import { PREMADE_WORKOUTS } from '@/components/wellness/WorkoutLibrary';
-import AIWorkoutRecommendations from '@/components/wellness/AIWorkoutRecommendations';
+
 
 import ContextualSuggestions from '@/components/ai/ContextualSuggestions';
 
