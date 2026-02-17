@@ -71,6 +71,12 @@ export default function MyFitnessJourneyPage() {
     }
   });
 
+  useEffect(() => {
+    if (!isLoading && !journey) {
+      navigate(createPageUrl('FitnessJourneyBuilderPage'));
+    }
+  }, [isLoading, journey, navigate]);
+
   if (isLoading) {
     return (
       <div className="min-h-screen bg-[#F2F6FA] flex items-center justify-center">
@@ -80,7 +86,6 @@ export default function MyFitnessJourneyPage() {
   }
 
   if (!journey) {
-    navigate(createPageUrl('FitnessJourneyBuilderPage'));
     return null;
   }
 
