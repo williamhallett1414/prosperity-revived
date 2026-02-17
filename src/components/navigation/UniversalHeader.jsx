@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
+import { createPageUrl } from '@/utils';
 
 export default function UniversalHeader({ title, rightAction = null }) {
   const navigate = useNavigate();
@@ -16,7 +17,7 @@ export default function UniversalHeader({ title, rightAction = null }) {
         {/* Left: Back Button */}
         {!isRootPage ? (
           <button
-            onClick={() => navigate(-1)}
+            onClick={() => navigate(createPageUrl('Wellness?selectedTab=workouts'))}
             className="w-10 h-10 rounded-full bg-[#D9B878] hover:bg-[#D9B878]/90 flex items-center justify-center transition-colors min-h-[44px] min-w-[44px]"
           >
             <ArrowLeft className="w-5 h-5 text-[#0A1A2F]" />
