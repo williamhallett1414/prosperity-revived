@@ -59,7 +59,20 @@ export default function Wellness() {
   const [showCreateWorkout, setShowCreateWorkout] = useState(false);
   const [showStartWorkout, setShowStartWorkout] = useState(false);
   const [selectedWorkout, setSelectedWorkout] = useState(null);
-  const [activeTab, setActiveTab] = useState('workouts');
+  const [activeTab, setActiveTab] = useState(() => {
+    // Read URL parameter for selectedTab immediately
+    const urlParams = new URLSearchParams(window.location.search);
+    const selectedTabParam = urlParams.get('selectedTab');
+    if (selectedTabParam) {
+      const tabMapping = {
+        'workouts': 'workouts',
+        'nutrition': 'nutrition',
+        'personalGrowth': 'mind'
+      };
+      return tabMapping[selectedTabParam] || 'workouts';
+    }
+    return 'workouts';
+  });
   const [workoutCategory, setWorkoutCategory] = useState(null);
   const queryClient = useQueryClient();
 
@@ -75,20 +88,6 @@ export default function Wellness() {
     base44.functions.invoke('ensureCategoryWorkouts', {}).catch(err => {
       console.error('Failed to ensure category workouts exist:', err);
     });
-    
-    // Read URL parameter for selectedTab
-    const urlParams = new URLSearchParams(window.location.search);
-    const selectedTabParam = urlParams.get('selectedTab');
-    if (selectedTabParam) {
-      // Map parameter values to tab values
-      const tabMapping = {
-        'workouts': 'workouts',
-        'nutrition': 'nutrition',
-        'personalGrowth': 'mind'
-      };
-      const mappedTab = tabMapping[selectedTabParam] || 'workouts';
-      setActiveTab(mappedTab);
-    }
   }, []);
 
   const { data: workouts = [] } = useQuery({
@@ -350,7 +349,7 @@ export default function Wellness() {
           <div className="w-10" />
         </div>
         
-        <Tabs defaultValue="workouts" value={activeTab} className="w-full" onValueChange={setActiveTab}>
+        <Tabs value={activeTab} className="w-full" onValueChange={setActiveTab}>
           <TabsList className="grid w-full grid-cols-3 p-1 rounded-xl bg-[#E6EBEF]">
             <TabsTrigger value="workouts" className="text-xs data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">Workouts</TabsTrigger>
             <TabsTrigger value="nutrition" className="text-xs data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">Nutrition</TabsTrigger>
@@ -364,7 +363,7 @@ export default function Wellness() {
         {/* Weekly Theme */}
         <WeeklyThemeBanner />
 
-        <Tabs defaultValue="workouts" value={activeTab} className="w-full" onValueChange={setActiveTab}>
+        <Tabs value={activeTab} className="w-full" onValueChange={setActiveTab}>
           {/* Workouts Tab */}
           <TabsContent value="workouts" className="max-w-2xl mx-auto pb-8">
             {/* Page Header */}
