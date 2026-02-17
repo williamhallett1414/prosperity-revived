@@ -16,7 +16,6 @@ import MeditationGuide from '@/components/wellness/MeditationGuide';
 import RecipeCollections from '@/components/wellness/RecipeCollections';
 import CommunityRecipes from '@/components/wellness/CommunityRecipes';
 import PersonalizedNutritionPlan from '@/components/wellness/PersonalizedNutritionPlan';
-import { awardPoints, checkAndAwardBadges } from '@/components/gamification/ProgressManager';
 import AIMealPlanner from '@/components/wellness/AIMealPlanner';
 import CustomPrayerBuilder from '@/components/wellness/CustomPrayerBuilder';
 
