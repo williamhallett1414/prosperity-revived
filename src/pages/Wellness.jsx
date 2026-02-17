@@ -28,8 +28,6 @@ import ReeVibeFitness from '@/components/wellness/ReeVibeFitness';
 import CommunityRecipeFeed from '@/components/wellness/CommunityRecipeFeed';
 
 import WellnessHubCard from '@/components/wellness/WellnessHubCard';
-import WeeklyThemeBanner from '@/components/wellness/WeeklyThemeBanner';
-import WorkoutCategoryFilter from '@/components/workouts/WorkoutCategoryFilter';
 import NutritionDashboard from '@/components/nutrition/NutritionDashboard';
 
 import ChefDaniel from '@/components/wellness/ChefDaniel';
