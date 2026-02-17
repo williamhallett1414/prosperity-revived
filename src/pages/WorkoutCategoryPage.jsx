@@ -2,14 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { useQuery } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
-import { ArrowLeft } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
-import { createPageUrl } from '@/utils';
 import WorkoutCard from '@/components/wellness/WorkoutCard';
 import { PREMADE_WORKOUTS } from '@/components/wellness/WorkoutLibrary';
+import UniversalHeader from '@/components/navigation/UniversalHeader';
 
 export default function WorkoutCategoryPage() {
-  const navigate = useNavigate();
   const [user, setUser] = useState(null);
 
   const urlParams = new URLSearchParams(window.location.search);
@@ -47,21 +44,9 @@ export default function WorkoutCategoryPage() {
 
   return (
     <div className="min-h-screen bg-[#F2F6FA]">
-      {/* Fixed Header */}
-      <div className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-200 px-4 py-4 pt-[env(safe-area-inset-top)]">
-        <div className="max-w-2xl mx-auto flex items-center justify-between">
-          <button
-            onClick={() => navigate(-1)}
-            className="w-10 h-10 rounded-full bg-[#D9B878] hover:bg-[#D9B878]/90 flex items-center justify-center transition-colors min-h-[44px] min-w-[44px]"
-          >
-            <ArrowLeft className="w-5 h-5 text-[#0A1A2F]" />
-          </button>
-          <h1 className="text-lg font-bold text-[#0A1A2F]">{category} Workouts</h1>
-          <div className="w-10" />
-        </div>
-      </div>
+      <UniversalHeader title={`${category} Workouts`} />
 
-      <div className="max-w-2xl mx-auto px-4 py-6 pt-24 pb-24">
+      <div className="max-w-2xl mx-auto px-4 py-6 pt-20 pb-24">
         {/* Category Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
