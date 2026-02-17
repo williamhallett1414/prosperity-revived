@@ -32,25 +32,6 @@ export default function TodaysOverview({ meditations = [], workoutPlans = [], ch
     >
       <h2 className="text-lg font-bold text-[#0A1A2F] px-4">Today's Overview</h2>
 
-      {/* Scripture Card */}
-      <motion.button
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 0.1 }}
-        onClick={() => navigate(createPageUrl('Bible'))}
-        className="bg-gradient-to-br from-[#AFC7E3] to-[#D9B878] rounded-xl p-4 mx-4 w-[calc(100%-2rem)] text-left hover:shadow-lg transition-shadow"
-      >
-        <div className="flex items-start gap-2 mb-2">
-          <BookOpen className="w-4 h-4 text-[#0A1A2F] flex-shrink-0 mt-1" />
-          <div className="min-w-0">
-            <p className="font-serif italic text-[#0A1A2F] text-sm leading-relaxed">
-              "{verse.text}"
-            </p>
-            <p className="text-xs text-[#0A1A2F]/60 mt-1">{verse.book} {verse.chapter}:{verse.verse}</p>
-          </div>
-        </div>
-      </motion.button>
-
       {/* Affirmation Card */}
       <motion.div
         initial={{ opacity: 0, x: -20 }}
