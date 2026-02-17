@@ -77,7 +77,6 @@ export default function DiscoverRecipes() {
 
   return (
     <div className="min-h-screen bg-[#f6ebe0] pb-24">
-      <UniversalHeader title="Discover Recipes" />
       <WellnessTabBar activeTab="nutrition" />
 
       <div className="px-4 pt-4 max-w-2xl mx-auto">
