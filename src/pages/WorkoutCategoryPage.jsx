@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { useQuery } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import WorkoutCard from '@/components/wellness/WorkoutCard';
 import { PREMADE_WORKOUTS } from '@/components/wellness/WorkoutLibrary';
 import UniversalHeader from '@/components/navigation/UniversalHeader';
 
 export default function WorkoutCategoryPage() {
   const [user, setUser] = useState(null);
+  const [activeTab, setActiveTab] = useState('workouts');
 
   const urlParams = new URLSearchParams(window.location.search);
   const category = urlParams.get('category');
@@ -46,7 +48,19 @@ export default function WorkoutCategoryPage() {
     <div className="min-h-screen bg-[#F2F6FA]">
       <UniversalHeader title={`${category} Workouts`} />
 
-      <div className="max-w-2xl mx-auto px-4 py-6 pt-20 pb-24">
+      <div className="sticky top-0 z-40 bg-white border-b border-gray-200 px-4 py-3 mt-16">
+        <div className="max-w-2xl mx-auto">
+          <Tabs value={activeTab} className="w-full" onValueChange={setActiveTab}>
+            <TabsList className="grid w-full grid-cols-3 p-1 rounded-xl bg-[#E6EBEF]">
+              <TabsTrigger value="workouts" className="text-xs data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">Workouts</TabsTrigger>
+              <TabsTrigger value="nutrition" className="text-xs data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">Nutrition</TabsTrigger>
+              <TabsTrigger value="mind" className="text-xs data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">Personal Growth</TabsTrigger>
+            </TabsList>
+          </Tabs>
+        </div>
+      </div>
+
+      <div className="max-w-2xl mx-auto px-4 py-6 pt-6 pb-24">
         {/* Category Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
