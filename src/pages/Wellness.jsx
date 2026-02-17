@@ -203,118 +203,14 @@ export default function Wellness() {
     retry: false
   });
 
-  const { data: challenges = [] } = useQuery({
-    queryKey: ['challenges'],
-    queryFn: async () => {
-      try {
-        return await base44.entities.Challenge.filter({});
-      } catch (error) {
-        return [];
-      }
-    },
-    retry: false
-  });
-
-
-
-  const { data: challengeParticipants = [] } = useQuery({
-    queryKey: ['challengeParticipants'],
-    queryFn: async () => {
-      try {
-        return await base44.entities.ChallengeParticipant.filter({ user_email: user?.email });
-      } catch (error) {
-        return [];
-      }
-    },
-    enabled: !!user,
-    retry: false
-  });
-
-  const completeWorkout = useMutation({
-    mutationFn: async ({ id, workout }) => {
-      const dates = workout.completed_dates || [];
-      const today = new Date().toISOString().split('T')[0];
-      if (!dates.includes(today)) {
-        dates.push(today);
-        
-        // Award points and update progress
-        const allProgress = await base44.entities.UserProgress.list();
-        const userProgress = allProgress.find(p => p.created_by === user?.email);
-        const workoutCount = (userProgress?.workouts_completed || 0) + 1;
-        
-        await awardPoints(user?.email, 15, { workouts_completed: workoutCount });
-        await checkAndAwardBadges(user?.email);
-      }
-      return base44.entities.WorkoutPlan.update(id, { completed_dates: dates });
-    },
-    onSuccess: () => queryClient.invalidateQueries(['workouts'])
-  });
-
-  const myWorkouts = workouts.filter(w => w.created_by === user?.email);
-  const allWorkouts = [...PREMADE_WORKOUTS, ...myWorkouts];
-
-  // Select recommended workout - prioritize user's workouts, then premade
-  const recommendedWorkout = React.useMemo(() => {
-    // Get workouts not completed today
-    const today = new Date().toISOString().split('T')[0];
-    const notCompletedToday = allWorkouts.filter(w => 
-      !w.completed_dates?.includes(today)
-    );
-
-    // Pick first available, or random if none completed today
-    return notCompletedToday[0] || allWorkouts[Math.floor(Math.random() * allWorkouts.length)] || null;
-  }, [allWorkouts]);
-
-  const totalWorkoutsCompleted = myWorkouts.reduce((sum, w) => sum + (w.completed_dates?.length || 0), 0);
-   const thisWeekWorkouts = myWorkouts.filter(w => {
-     const today = new Date();
-     const weekAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
-     return (w.completed_dates || []).some(d => new Date(d) >= weekAgo);
-   }).length;
-
-   const { data: sharedWorkouts = [] } = useQuery({
-     queryKey: ['sharedWorkouts'],
-     queryFn: async () => {
-       const all = await base44.entities.WorkoutPlan.list('-created_date', 50);
-       return all.filter(w => w.is_shared && w.created_by !== user?.email);
-     },
-     enabled: !!user
-   });
-
-   const copyWorkout = useMutation({
-       mutationFn: async (workout) => {
-         const workoutCopy = {
-           title: `${workout.title} (Copy)`,
-           description: workout.description,
-           difficulty: workout.difficulty,
-           duration_minutes: workout.duration_minutes,
-           exercises: workout.exercises,
-           category: workout.category,
-           completed_dates: []
-         };
-
-         await base44.entities.WorkoutPlan.create(workoutCopy);
-
-         if (workout.id) {
-           await base44.entities.WorkoutPlan.update(workout.id, {
-             times_copied: (workout.times_copied || 0) + 1
-           });
-         }
-       },
-       onSuccess: () => {
-         queryClient.invalidateQueries(['workouts']);
-         queryClient.invalidateQueries(['sharedWorkouts']);
-         toast.success('Workout added to your library!');
-       }
-       });
-
-       const handleRefresh = async () => {
-       await Promise.all([
-       queryClient.invalidateQueries(['workouts']),
-       queryClient.invalidateQueries(['recipes']),
-       queryClient.invalidateQueries(['meditations'])
-       ]);
-       };
+  const handleRefresh = async () => {
+    await Promise.all([
+      queryClient.invalidateQueries(['recipes']),
+      queryClient.invalidateQueries(['meditations']),
+      queryClient.invalidateQueries(['mealLogs']),
+      queryClient.invalidateQueries(['waterLogs'])
+    ]);
+  };
 
        return (
        <div className="min-h-screen bg-[#F2F6FA] pb-24">
