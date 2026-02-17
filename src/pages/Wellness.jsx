@@ -213,19 +213,19 @@ export default function Wellness() {
   };
 
        return (
-       <div className="min-h-screen bg-[#F2F6FA] pb-24">
-      {/* Top Navigation */}
-      <div className="sticky top-0 z-40 bg-white border-b border-gray-200 px-4 py-3">
-        <div className="max-w-2xl mx-auto flex items-center justify-between mb-3">
-          <Link
-            to={createPageUrl('Home')}
-            className="w-10 h-10 rounded-full bg-[#D9B878] hover:bg-[#D9B878]/90 flex items-center justify-center transition-colors"
-          >
-            <ArrowLeft className="w-5 h-5 text-[#0A1A2F]" />
-          </Link>
-          <h1 className="text-lg font-bold text-[#0A1A2F]">Wellness</h1>
-          <div className="w-10" />
-        </div>
+         <div className="min-h-screen bg-[#F2F6FA] pb-24">
+           {/* Top Navigation */}
+           <div className="sticky top-0 z-40 bg-white border-b border-gray-200 px-4 py-3">
+             <div className="max-w-2xl mx-auto flex items-center justify-between mb-3">
+               <Link
+                 to={createPageUrl('Home')}
+                 className="w-10 h-10 rounded-full bg-[#D9B878] hover:bg-[#D9B878]/90 flex items-center justify-center transition-colors"
+               >
+                 <ArrowLeft className="w-5 h-5 text-[#0A1A2F]" />
+               </Link>
+               <h1 className="text-lg font-bold text-[#0A1A2F]">Wellness</h1>
+               <div className="w-10" />
+             </div>
         
         <Tabs value={activeTab} className="w-full" onValueChange={setActiveTab}>
           <TabsList className="grid w-full grid-cols-2 p-1 rounded-xl bg-[#E6EBEF]">
