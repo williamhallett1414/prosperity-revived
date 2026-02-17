@@ -180,12 +180,12 @@ export default function GroupDetail() {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
         
-        <Link
-          to={createPageUrl('Groups')}
+        <button
+          onClick={() => window.history.back()}
           className="absolute top-4 left-4 w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-white"
         >
           <ArrowLeft className="w-5 h-5" />
-        </Link>
+        </button>
         
         <div className="absolute bottom-4 left-4 right-4">
           <div className="flex items-center gap-2 mb-2">
