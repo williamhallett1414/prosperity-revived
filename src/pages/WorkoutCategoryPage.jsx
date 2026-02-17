@@ -54,7 +54,7 @@ export default function WorkoutCategoryPage() {
         <div className="max-w-2xl mx-auto">
           <div className="grid w-full grid-cols-3 p-1 rounded-xl bg-[#E6EBEF]">
             <Link to={createPageUrl('Wellness?selectedTab=workouts')} className="text-xs px-3 py-2 rounded-lg text-center font-medium text-[#0A1A2F]/60 hover:bg-[#D9B878] hover:text-[#0A1A2F] transition-colors">Workouts</Link>
-            <button onClick={() => setActiveTab('nutrition')} className="text-xs px-3 py-2 rounded-lg text-center font-medium text-[#0A1A2F]/60 data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">Nutrition</button>
+            <Link to={createPageUrl('Wellness?selectedTab=nutrition')} className="text-xs px-3 py-2 rounded-lg text-center font-medium text-[#0A1A2F]/60 hover:bg-[#D9B878] hover:text-[#0A1A2F] transition-colors">Nutrition</Link>
             <button onClick={() => setActiveTab('mind')} className="text-xs px-3 py-2 rounded-lg text-center font-medium text-[#0A1A2F]/60 data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">Personal Growth</button>
           </div>
         </div>
