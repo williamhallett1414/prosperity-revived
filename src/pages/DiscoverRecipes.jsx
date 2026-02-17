@@ -3,7 +3,6 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
 import { UtensilsCrossed, Plus, TrendingUp } from 'lucide-react';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import RecipeCard from '@/components/wellness/RecipeCard';
 import RecipeFilters from '@/components/wellness/RecipeFilters';
@@ -16,7 +15,6 @@ import UniversalHeader from '@/components/navigation/UniversalHeader';
 
 export default function DiscoverRecipes() {
   const [user, setUser] = useState(null);
-  const [activeTab, setActiveTab] = useState('nutrition');
   const [showCreateRecipe, setShowCreateRecipe] = useState(false);
   const [recipeFilters, setRecipeFilters] = useState({
     search: '',
@@ -80,19 +78,7 @@ export default function DiscoverRecipes() {
     <div className="min-h-screen bg-[#f6ebe0] pb-24">
       <UniversalHeader title="Discover Recipes" />
 
-      <div className="sticky top-0 z-40 bg-white border-b border-gray-200 px-4 py-3 mt-16">
-        <div className="max-w-2xl mx-auto">
-          <Tabs value={activeTab} className="w-full" onValueChange={setActiveTab}>
-            <TabsList className="grid w-full grid-cols-3 p-1 rounded-xl bg-[#E6EBEF]">
-              <TabsTrigger value="workouts" className="text-xs data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">Workouts</TabsTrigger>
-              <TabsTrigger value="nutrition" className="text-xs data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">Nutrition</TabsTrigger>
-              <TabsTrigger value="mind" className="text-xs data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">Personal Growth</TabsTrigger>
-            </TabsList>
-          </Tabs>
-        </div>
-      </div>
-
-      <div className="px-4 pt-6 max-w-2xl mx-auto">
+      <div className="px-4 pt-20 max-w-2xl mx-auto">
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-3xl font-bold text-[#3C4E53]">Discover Recipes</h1>
           <Button

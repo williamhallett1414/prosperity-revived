@@ -3,7 +3,6 @@ import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { TrendingUp, Award, Calendar, Dumbbell, Activity } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { motion } from 'framer-motion';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import WorkoutFrequencyChart from '@/components/wellness/WorkoutFrequencyChart';
 import PersonalBestsChart from '@/components/wellness/PersonalBestsChart';
@@ -17,7 +16,6 @@ import UniversalHeader from '@/components/navigation/UniversalHeader';
 
 export default function WorkoutProgress() {
   const [user, setUser] = useState(null);
-  const [activeTab, setActiveTab] = useState('frequency');
 
   useEffect(() => {
     base44.auth.me().then(setUser);
@@ -57,19 +55,7 @@ export default function WorkoutProgress() {
     <div className="min-h-screen bg-[#F2F6FA] pb-24">
       <UniversalHeader title="Workout Progress" />
 
-      <div className="sticky top-0 z-40 bg-white border-b border-gray-200 px-4 py-3 mt-16">
-        <div className="max-w-4xl mx-auto">
-          <Tabs value={activeTab} className="w-full" onValueChange={setActiveTab}>
-            <TabsList className="grid w-full grid-cols-3 p-1 rounded-xl bg-[#E6EBEF]">
-              <TabsTrigger value="workouts" className="text-xs data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">Workouts</TabsTrigger>
-              <TabsTrigger value="nutrition" className="text-xs data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">Nutrition</TabsTrigger>
-              <TabsTrigger value="mind" className="text-xs data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">Personal Growth</TabsTrigger>
-            </TabsList>
-          </Tabs>
-        </div>
-      </div>
-
-      <div className="max-w-4xl mx-auto px-4 space-y-6 pt-6">
+      <div className="max-w-4xl mx-auto px-4 space-y-6 pt-20">
 
         {/* Stats Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 px-4 pt-6">
