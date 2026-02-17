@@ -53,6 +53,17 @@ export default function Wellness() {
               <p className="text-[#0A1A2F]/70 text-sm">Strengthen your mind and spirit</p>
             </div>
           </Link>
+
+          {/* Workouts Card */}
+          <Link to={createPageUrl('Workouts')}>
+            <div className="bg-gradient-to-br from-[#FD9C2D] to-[#D9B878] rounded-2xl p-5 text-[#0A1A2F] cursor-pointer hover:shadow-lg transition-shadow">
+              <div className="flex items-center gap-3 mb-2">
+                <Zap className="w-6 h-6" />
+                <h3 className="text-lg font-semibold">Workouts</h3>
+              </div>
+              <p className="text-[#0A1A2F]/70 text-sm">Track exercises and build strength</p>
+            </div>
+          </Link>
         </div>
       </div>
     </div>
