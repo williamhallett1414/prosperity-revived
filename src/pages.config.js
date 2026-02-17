@@ -91,6 +91,7 @@ import WorkoutProgress from './pages/WorkoutProgress';
 import WorkoutTrends from './pages/WorkoutTrends';
 import Workouts from './pages/Workouts';
 import Nutrition from './pages/Nutrition';
+import PersonalGrowth from './pages/PersonalGrowth';
 import __Layout from './Layout.jsx';
 
 
@@ -139,6 +140,7 @@ export const PAGES = {
     "WorkoutTrends": WorkoutTrends,
     "Workouts": Workouts,
     "Nutrition": Nutrition,
+    "PersonalGrowth": PersonalGrowth,
 }
 
 export const pagesConfig = {
