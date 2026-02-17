@@ -62,13 +62,12 @@ export default function Wellness() {
     const selectedTabParam = urlParams.get('selectedTab');
     if (selectedTabParam) {
       const tabMapping = {
-        'workouts': 'workouts',
         'nutrition': 'nutrition',
         'personalGrowth': 'mind'
       };
-      return tabMapping[selectedTabParam] || 'workouts';
+      return tabMapping[selectedTabParam] || 'nutrition';
     }
-    return 'workouts';
+    return 'nutrition';
   });
   const [workoutCategory, setWorkoutCategory] = useState(null);
   const queryClient = useQueryClient();
