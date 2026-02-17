@@ -22,12 +22,12 @@ export default function Wellness() {
       {/* Top Navigation */}
       <div className="sticky top-0 z-40 bg-white border-b border-gray-200 px-4 py-3">
         <div className="max-w-2xl mx-auto flex items-center justify-between">
-          <Link
-            to={createPageUrl('Home')}
-            className="w-10 h-10 rounded-full bg-[#D9B878] hover:bg-[#D9B878]/90 flex items-center justify-center transition-colors"
-          >
-            <ArrowLeft className="w-5 h-5 text-[#0A1A2F]" />
-          </Link>
+          
+
+
+
+
+
           <h1 className="text-lg font-bold text-[#0A1A2F]">Wellness</h1>
           <div className="w-10" />
         </div>
@@ -40,8 +40,8 @@ export default function Wellness() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0 }}
-            >
+              transition={{ delay: 0 }}>
+
               <Link to={createPageUrl('Nutrition')}>
                 <div
                   className="relative rounded-2xl overflow-hidden h-40 group cursor-pointer shadow-md hover:shadow-lg transition-shadow"
@@ -49,8 +49,8 @@ export default function Wellness() {
                     backgroundImage: 'url(https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=500&h=300&fit=crop)',
                     backgroundSize: 'cover',
                     backgroundPosition: 'center'
-                  }}
-                >
+                  }}>
+
                   <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors" />
                   <div className="absolute inset-0 flex items-center justify-center">
                     <p className="text-white font-bold text-lg text-center px-3">Nutrition</p>
@@ -63,8 +63,8 @@ export default function Wellness() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-            >
+              transition={{ delay: 0.1 }}>
+
               <Link to={createPageUrl('PersonalGrowth')}>
                 <div
                   className="relative rounded-2xl overflow-hidden h-40 group cursor-pointer shadow-md hover:shadow-lg transition-shadow"
@@ -72,8 +72,8 @@ export default function Wellness() {
                     backgroundImage: 'url(https://images.unsplash.com/photo-1552664730-d307ca884978?w=500&h=300&fit=crop)',
                     backgroundSize: 'cover',
                     backgroundPosition: 'center'
-                  }}
-                >
+                  }}>
+
                   <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors" />
                   <div className="absolute inset-0 flex items-center justify-center">
                     <p className="text-white font-bold text-lg text-center px-3">Personal Growth</p>
@@ -86,8 +86,8 @@ export default function Wellness() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-            >
+              transition={{ delay: 0.2 }}>
+
               <Link to={createPageUrl('Workouts')}>
                 <div
                   className="relative rounded-2xl overflow-hidden h-40 group cursor-pointer shadow-md hover:shadow-lg transition-shadow"
@@ -95,8 +95,8 @@ export default function Wellness() {
                     backgroundImage: 'url(https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=500&h=300&fit=crop)',
                     backgroundSize: 'cover',
                     backgroundPosition: 'center'
-                  }}
-                >
+                  }}>
+
                   <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors" />
                   <div className="absolute inset-0 flex items-center justify-center">
                     <p className="text-white font-bold text-lg text-center px-3">Workouts</p>
@@ -113,6 +113,6 @@ export default function Wellness() {
           </div>
         </div>
       </div>
-    </div>
-  );
+    </div>);
+
 }
