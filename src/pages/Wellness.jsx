@@ -8,8 +8,6 @@ import { Button } from '@/components/ui/button';
 import { Link, useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { toast } from 'sonner';
-import WorkoutCard from '@/components/wellness/WorkoutCard';
-import StartWorkoutModal from '@/components/wellness/StartWorkoutModal';
 import PullToRefresh from '@/components/ui/PullToRefresh';
 
 import MealTracker from '@/components/wellness/MealTracker';
