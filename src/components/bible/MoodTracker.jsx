@@ -46,20 +46,29 @@ Format the response in a warm, pastoral tone. Be concise but meaningful.`,
               items: {
                 type: 'object',
                 properties: {
-                  reference: { type: 'string' },
-                  text: { type: 'string' }
-                }
-              }
+                  reference: { type: 'string', description: 'Bible verse reference like John 3:16' },
+                  text: { type: 'string', description: 'The actual verse text' }
+                },
+                required: ['reference', 'text']
+              },
+              minItems: 3,
+              maxItems: 3
             },
-            encouragement: { type: 'string' },
-            practical_step: { type: 'string' }
-          }
+            encouragement: { type: 'string', description: 'Heartfelt encouragement message' },
+            practical_step: { type: 'string', description: 'Practical suggestion for connecting with God' }
+          },
+          required: ['verses', 'encouragement', 'practical_step']
         }
       });
 
-      setAiResponse(response);
+      if (response && response.verses) {
+        setAiResponse(response);
+      } else {
+        throw new Error('Invalid response format');
+      }
     } catch (error) {
       console.error('Error fetching AI response:', error);
+      setAiResponse(null);
     } finally {
       setLoading(false);
     }
