@@ -26,8 +26,7 @@ import { PREMADE_WORKOUTS } from '@/components/wellness/WorkoutLibrary';
 import AIWorkoutRecommendations from '@/components/wellness/AIWorkoutRecommendations';
 
 import ContextualSuggestions from '@/components/ai/ContextualSuggestions';
-import AIWellnessJourneyGenerator from '@/components/wellness/AIWellnessJourneyGenerator';
-import WellnessJourneyCard from '@/components/wellness/WellnessJourneyCard';
+
 import MoodEnergyChart from '@/components/wellness/MoodEnergyChart';
 import SelfCareGuides from '@/components/wellness/SelfCareGuides';
 import ReeVibeFitness from '@/components/wellness/ReeVibeFitness';
@@ -104,14 +103,7 @@ export default function Wellness() {
     queryFn: () => base44.entities.WorkoutPlan.list('-created_date')
   });
 
-  const { data: journeys = [] } = useQuery({
-    queryKey: ['journeys'],
-    queryFn: async () => {
-      const all = await base44.entities.WellnessJourney.list('-created_date');
-      return all.filter(j => j.created_by === user?.email);
-    },
-    enabled: !!user
-  });
+
 
   const { data: workoutSessions = [] } = useQuery({
     queryKey: ['workoutSessions'],
@@ -615,74 +607,6 @@ export default function Wellness() {
                   );
                 })}
               </div>
-            </div>
-
-            {/* My Fitness Journey */}
-            <div className="mb-6">
-              <h3 className="text-sm font-semibold text-[#0A1A2F] mb-3">My Fitness Journey</h3>
-              {journeys.filter(j => j.is_active).length > 0 ? (
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="bg-white rounded-xl p-5 border border-gray-200 shadow-sm cursor-pointer hover:shadow-md transition-all"
-                  onClick={() => navigate(createPageUrl('MyFitnessJourneyPage'))}
-                >
-                  {journeys.filter(j => j.is_active).map(journey => {
-                    const completedCount = journey.completed_workouts?.length || 0;
-                    const totalWorkouts = journey.weekly_plans?.reduce((sum, week) => sum + week.workouts.length, 0) || 0;
-                    const progress = totalWorkouts > 0 ? (completedCount / totalWorkouts) * 100 : 0;
-                    
-                    return (
-                      <div key={journey.id}>
-                        <div className="flex items-center gap-3 mb-3">
-                          <div className="w-12 h-12 bg-gradient-to-br from-[#D9B878] to-[#AFC7E3] rounded-full flex items-center justify-center">
-                            <Sparkles className="w-6 h-6 text-white" />
-                          </div>
-                          <div className="flex-1">
-                            <h4 className="font-bold text-[#0A1A2F]">{journey.title}</h4>
-                            <p className="text-xs text-[#0A1A2F]/60">Week {journey.current_week} of {journey.duration_weeks}</p>
-                          </div>
-                        </div>
-                        <div className="mb-2">
-                          <div className="flex items-center justify-between text-xs text-[#0A1A2F]/60 mb-1">
-                            <span>Progress</span>
-                            <span>{Math.round(progress)}%</span>
-                          </div>
-                          <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
-                            <div 
-                              className="h-full bg-[#D9B878] transition-all"
-                              style={{ width: `${progress}%` }}
-                            />
-                          </div>
-                        </div>
-                        <Button className="w-full bg-[#D9B878] hover:bg-[#D9B878]/90 mt-3">
-                          Continue Journey
-                        </Button>
-                      </div>
-                    );
-                  })}
-                </motion.div>
-              ) : (
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl p-5 text-white shadow-md cursor-pointer hover:shadow-lg transition-all"
-                  onClick={() => navigate(createPageUrl('FitnessJourneyBuilderPage'))}
-                >
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
-                      <Sparkles className="w-6 h-6 text-white" />
-                    </div>
-                    <div className="flex-1">
-                      <h4 className="font-bold text-lg">Create Your Journey</h4>
-                      <p className="text-sm text-white/90">Build a personalized fitness plan</p>
-                    </div>
-                  </div>
-                  <Button className="w-full bg-white text-purple-600 hover:bg-white/90">
-                    Get Started
-                  </Button>
-                </motion.div>
-              )}
             </div>
 
 

@@ -57,7 +57,6 @@ import ChallengeDetailPage from './pages/ChallengeDetailPage';
 import Community from './pages/Community';
 import DiscoverRecipes from './pages/DiscoverRecipes';
 import EmotionalCheckInPage from './pages/EmotionalCheckInPage';
-import FitnessJourneyBuilderPage from './pages/FitnessJourneyBuilderPage';
 import FoodLogHistory from './pages/FoodLogHistory';
 import Friends from './pages/Friends';
 import GratitudeJournalPage from './pages/GratitudeJournalPage';
@@ -70,7 +69,6 @@ import IdentityInChristPage from './pages/IdentityInChristPage';
 import MealDetailView from './pages/MealDetailView';
 import Messages from './pages/Messages';
 import MindsetResetPage from './pages/MindsetResetPage';
-import MyFitnessJourneyPage from './pages/MyFitnessJourneyPage';
 import MyJournalEntries from './pages/MyJournalEntries';
 import NotificationSettings from './pages/NotificationSettings';
 import Notifications from './pages/Notifications';
@@ -106,7 +104,6 @@ export const PAGES = {
     "Community": Community,
     "DiscoverRecipes": DiscoverRecipes,
     "EmotionalCheckInPage": EmotionalCheckInPage,
-    "FitnessJourneyBuilderPage": FitnessJourneyBuilderPage,
     "FoodLogHistory": FoodLogHistory,
     "Friends": Friends,
     "GratitudeJournalPage": GratitudeJournalPage,
@@ -119,7 +116,6 @@ export const PAGES = {
     "MealDetailView": MealDetailView,
     "Messages": Messages,
     "MindsetResetPage": MindsetResetPage,
-    "MyFitnessJourneyPage": MyFitnessJourneyPage,
     "MyJournalEntries": MyJournalEntries,
     "NotificationSettings": NotificationSettings,
     "Notifications": Notifications,
