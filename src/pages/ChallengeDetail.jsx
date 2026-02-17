@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
-import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { ArrowLeft, TrendingUp, Users, Calendar, Trophy } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -74,12 +73,12 @@ export default function ChallengeDetail() {
   return (
     <div className="min-h-screen bg-[#faf8f5] pb-24">
       <div className="bg-gradient-to-br from-purple-600 to-pink-600 text-white px-4 py-6">
-        <Link
-          to={createPageUrl('Groups')}
+        <button
+          onClick={() => window.history.back()}
           className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center mb-4 inline-flex"
         >
           <ArrowLeft className="w-5 h-5" />
-        </Link>
+        </button>
         <h1 className="text-2xl font-bold mb-2">{challenge.title}</h1>
         <p className="text-white/80">{challenge.description}</p>
       </div>

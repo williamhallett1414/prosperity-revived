@@ -4,7 +4,6 @@ import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
 import { UtensilsCrossed, Plus, TrendingUp, ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import RecipeCard from '@/components/wellness/RecipeCard';
 import RecipeFilters from '@/components/wellness/RecipeFilters';
@@ -84,12 +83,12 @@ export default function DiscoverRecipes() {
           alt="Recipes"
           className="w-full h-64 object-cover"
         />
-        <Link
-          to={createPageUrl('Wellness')}
+        <button
+          onClick={() => window.history.back()}
           className="absolute top-4 left-4 w-10 h-10 rounded-full bg-green-500 hover:bg-green-600 flex items-center justify-center transition-colors"
         >
           <ArrowLeft className="w-5 h-5 text-black" />
-        </Link>
+        </button>
       </div>
 
       <div className="px-4 pt-6 max-w-2xl mx-auto">

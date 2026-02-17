@@ -4,7 +4,7 @@ import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
 import { ArrowLeft, BookOpen, CheckCircle, TrendingUp, UserPlus, UserCheck, MessageCircle, Loader2, Target, Camera } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { readingPlans } from '@/components/bible/BibleData';
 import ReadingPlanCard from '@/components/home/ReadingPlanCard';
@@ -14,6 +14,7 @@ import BannerCustomizer from '@/components/profile/BannerCustomizer';
 import { notifyFriendRequest, notifyFriendAccepted } from '@/components/notifications/NotificationHelper';
 
 export default function UserProfile() {
+  const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState(null);
   const [profileEmail, setProfileEmail] = useState(null);
   const [showBannerCustomizer, setShowBannerCustomizer] = useState(false);
@@ -187,7 +188,7 @@ export default function UserProfile() {
         {/* Banner Controls */}
         <div className="absolute top-4 left-4 right-4 flex items-center justify-between z-10">
           <button
-            onClick={() => window.history.back()}
+            onClick={() => navigate(-1)}
             className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center hover:bg-white/30 transition-colors"
           >
             <ArrowLeft className="w-5 h-5" />

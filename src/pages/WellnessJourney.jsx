@@ -3,7 +3,6 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Sparkles, CheckCircle2, Circle, MessageSquare, TrendingUp, Target } from 'lucide-react';
-import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
@@ -171,9 +170,7 @@ Return JSON with:
       <div className="min-h-screen bg-[#faf8f5] flex items-center justify-center">
         <div className="text-center">
           <p className="text-gray-500">Journey not found</p>
-          <Link to={createPageUrl('Wellness')}>
-            <Button className="mt-4">Back to Wellness</Button>
-          </Link>
+          <Button onClick={() => window.history.back()} className="mt-4">Back</Button>
         </div>
       </div>
     );
@@ -187,12 +184,12 @@ Return JSON with:
     <div className="min-h-screen bg-[#faf8f5] pb-24">
       <div className="max-w-2xl mx-auto px-4 pt-4">
         {/* Header */}
-        <Link
-          to={createPageUrl('Wellness')}
+        <button
+          onClick={() => window.history.back()}
           className="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center hover:bg-gray-50 mb-4 inline-flex"
         >
           <ArrowLeft className="w-5 h-5" />
-        </Link>
+        </button>
         <div className="mb-6">
           <h1 className="text-xl font-bold text-[#1a1a2e]">{journey.title}</h1>
             <p className="text-sm text-gray-500">Week {journey.current_week} of {journey.duration_weeks}</p>
