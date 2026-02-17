@@ -384,11 +384,10 @@ export default function Home() {
         {/* Wellness Hub */}
         <WellnessHub />
 
-
-
-
-
-
+        {/* Verse of the Day */}
+        <div className="mb-8">
+          <VerseOfDay onBookmark={handleBookmarkVerse} />
+        </div>
 
         {/* Gamification Banner */}
         {userProgress !== undefined && (
