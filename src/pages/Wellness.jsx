@@ -1,42 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
-import { motion } from 'framer-motion';
-import { UtensilsCrossed, Heart, Plus, Sparkles, Search, BookOpen, Brain, Target, Crown, Calendar, CheckCircle2, Trophy, ArrowLeft } from 'lucide-react';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Button } from '@/components/ui/button';
+import { Heart, Plus, ArrowLeft } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { toast } from 'sonner';
-import PullToRefresh from '@/components/ui/PullToRefresh';
-import MealTracker from '@/components/wellness/MealTracker';
-import MealSuggestions from '@/components/nutrition/MealSuggestions';
-import TrendingNutritionArticles from '@/components/nutrition/TrendingNutritionArticles';
-import MeditationGuide from '@/components/wellness/MeditationGuide';
-import RecipeCollections from '@/components/wellness/RecipeCollections';
-import CommunityRecipes from '@/components/wellness/CommunityRecipes';
-import PersonalizedNutritionPlan from '@/components/wellness/PersonalizedNutritionPlan';
-import AIMealPlanner from '@/components/wellness/AIMealPlanner';
-import CustomPrayerBuilder from '@/components/wellness/CustomPrayerBuilder';
-
-
-import ContextualSuggestions from '@/components/ai/ContextualSuggestions';
-
-import SelfCareGuides from '@/components/wellness/SelfCareGuides';
-import CommunityRecipeFeed from '@/components/wellness/CommunityRecipeFeed';
-
-import WellnessHubCard from '@/components/wellness/WellnessHubCard';
-import NutritionDashboard from '@/components/nutrition/NutritionDashboard';
-
-import ChefDaniel from '@/components/wellness/ChefDaniel';
-import Hannah from '@/components/wellness/Hannah.jsx';
-
-
-
-import SelfCareChallenges from '@/components/selfcare/SelfCareChallenges';
-import MeditationTracker from '@/components/wellness/MeditationTracker';
-import PersonalizedWorkouts from '@/components/recommendations/PersonalizedWorkouts';
-import { Input } from '@/components/ui/input';
 
 
 
