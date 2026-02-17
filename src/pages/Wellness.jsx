@@ -36,7 +36,6 @@ import WellnessHubCard from '@/components/wellness/WellnessHubCard';
 import WeeklyThemeBanner from '@/components/wellness/WeeklyThemeBanner';
 import WorkoutCategoryFilter from '@/components/workouts/WorkoutCategoryFilter';
 import NutritionDashboard from '@/components/nutrition/NutritionDashboard';
-import WellnessTabBar from '@/components/wellness/WellnessTabBar';
 
 import CoachDavid from '@/components/wellness/CoachDavid';
 import ChefDaniel from '@/components/wellness/ChefDaniel';
@@ -58,16 +57,16 @@ export default function Wellness() {
   const [showStartWorkout, setShowStartWorkout] = useState(false);
   const [selectedWorkout, setSelectedWorkout] = useState(null);
   const [activeTab, setActiveTab] = useState(() => {
-    // Read URL parameter for tab
+    // Read URL parameter for selectedTab immediately
     const urlParams = new URLSearchParams(window.location.search);
-    const tabParam = urlParams.get('tab');
-    if (tabParam) {
+    const selectedTabParam = urlParams.get('selectedTab');
+    if (selectedTabParam) {
       const tabMapping = {
         'workouts': 'workouts',
         'nutrition': 'nutrition',
         'personalGrowth': 'mind'
       };
-      return tabMapping[tabParam] || 'workouts';
+      return tabMapping[selectedTabParam] || 'workouts';
     }
     return 'workouts';
   });
@@ -340,13 +339,32 @@ export default function Wellness() {
        <div className="min-h-screen bg-[#F2F6FA] pb-24">
       {/* Top Navigation */}
       <div className="sticky top-0 z-40 bg-white border-b border-gray-200 px-4 py-3">
-        {/* Tab Bar Navigation */}
-        <WellnessTabBar activeTab={activeTab} />
+        <div className="max-w-2xl mx-auto flex items-center justify-between mb-3">
+          <Link
+            to={createPageUrl('Home')}
+            className="w-10 h-10 rounded-full bg-[#D9B878] hover:bg-[#D9B878]/90 flex items-center justify-center transition-colors"
+          >
+            <ArrowLeft className="w-5 h-5 text-[#0A1A2F]" />
+          </Link>
+          <h1 className="text-lg font-bold text-[#0A1A2F]">Wellness</h1>
+          <div className="w-10" />
+        </div>
+        
+        <Tabs value={activeTab} className="w-full" onValueChange={setActiveTab}>
+          <TabsList className="grid w-full grid-cols-3 p-1 rounded-xl bg-[#E6EBEF]">
+            <TabsTrigger value="workouts" className="text-xs data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">Workouts</TabsTrigger>
+            <TabsTrigger value="nutrition" className="text-xs data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">Nutrition</TabsTrigger>
+            <TabsTrigger value="mind" className="text-xs data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">Personal Growth</TabsTrigger>
+          </TabsList>
+        </Tabs>
       </div>
 
       <div className="px-4 pt-6 pb-6">
         <PullToRefresh onRefresh={handleRefresh}>
-         <Tabs value={activeTab} className="w-full" onValueChange={setActiveTab}>
+        {/* Weekly Theme */}
+        <WeeklyThemeBanner />
+
+        <Tabs value={activeTab} className="w-full" onValueChange={setActiveTab}>
           {/* Workouts Tab */}
           <TabsContent value="workouts" className="max-w-2xl mx-auto pb-8">
             {/* Page Header */}
