@@ -91,19 +91,7 @@ export default function Wellness() {
     }
   }, []);
 
-  const { data: workouts = [] } = useQuery({
-    queryKey: ['workouts'],
-    queryFn: () => base44.entities.WorkoutPlan.list('-created_date')
-  });
 
-
-
-  const { data: workoutSessions = [] } = useQuery({
-    queryKey: ['workoutSessions'],
-    queryFn: () => base44.entities.WorkoutSession.list('-date', 100),
-    initialData: [],
-    enabled: !!user
-  });
 
   const { data: mealLogs = [] } = useQuery({
     queryKey: ['mealLogs'],
