@@ -123,17 +123,17 @@ export default function Layout({ children, currentPageName }) {
       `}</style>
       
       {/* Top Bar with Back Button or Logo */}
-      <div className="fixed top-0 left-0 right-0 bg-white dark:bg-[#2d2d4a] border-b border-gray-200 dark:border-gray-700 px-4 py-3 z-40 pt-[env(safe-area-inset-top)] select-none">
+      <div className="fixed top-0 left-0 right-0 bg-white dark:bg-[#2d2d4a] border-b border-gray-200 dark:border-gray-700 px-4 py-3 z-40 pt-[env(safe-area-inset-top)] select-none pointer-events-none">
         <div className="max-w-2xl mx-auto flex items-center justify-between">
           {isChildRoute ? (
             <button
               onClick={() => navigate(-1)}
-              className="flex items-center gap-2 p-2 hover:bg-gray-100 dark:hover:bg-[#3C4E53] rounded-full transition min-h-[44px] min-w-[44px] justify-center"
+              className="pointer-events-auto flex items-center gap-2 p-2 hover:bg-gray-100 dark:hover:bg-[#3C4E53] rounded-full transition min-h-[44px] min-w-[44px] justify-center"
             >
               <ArrowLeft className="w-5 h-5 text-[#0A1A2F] dark:text-white" />
             </button>
           ) : (
-            <Link to={createPageUrl('Home')} className="flex items-center gap-2">
+            <Link to={createPageUrl('Home')} className="pointer-events-auto flex items-center gap-2">
               <img 
                 src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6980ade9ca08df558ed28bdd/d9b97f241_ProsperityRevivedSymbol.jpeg" 
                 alt="Prosperity Revived" 
@@ -141,7 +141,9 @@ export default function Layout({ children, currentPageName }) {
               />
             </Link>
           )}
-          <NotificationBell />
+          <div className="pointer-events-auto">
+            <NotificationBell />
+          </div>
         </div>
       </div>
 
