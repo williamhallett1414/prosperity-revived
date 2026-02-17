@@ -9,7 +9,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { toast } from 'sonner';
 import WorkoutCard from '@/components/wellness/WorkoutCard';
-import CreateWorkoutModal from '@/components/wellness/CreateWorkoutModal';
 import StartWorkoutModal from '@/components/wellness/StartWorkoutModal';
 import PullToRefresh from '@/components/ui/PullToRefresh';
 
@@ -56,7 +55,6 @@ import { Input } from '@/components/ui/input';
 export default function Wellness() {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
-  const [showCreateWorkout, setShowCreateWorkout] = useState(false);
   const [showStartWorkout, setShowStartWorkout] = useState(false);
   const [selectedWorkout, setSelectedWorkout] = useState(null);
   const [activeTab, setActiveTab] = useState(() => {
@@ -486,26 +484,14 @@ export default function Wellness() {
             {/* Quick Actions */}
             <div className="mb-6">
               <h3 className="text-sm font-semibold text-[#0A1A2F] mb-3">Quick Actions</h3>
-              <div className="grid grid-cols-2 gap-3">
-                <Button
-                  onClick={() => setShowCreateWorkout(true)}
-                  className="bg-emerald-600 hover:bg-emerald-700 h-auto py-4"
-                >
-                  <div className="flex flex-col items-center gap-1">
-                    <Plus className="w-5 h-5" />
-                    <span className="text-xs">Create Workout</span>
+              <Link to={createPageUrl('WorkoutProgress')} className="block">
+                <Button variant="outline" className="w-full py-4">
+                  <div className="flex items-center justify-center gap-2">
+                    <TrendingUp className="w-5 h-5" />
+                    <span className="text-sm">View Progress</span>
                   </div>
                 </Button>
-
-                <Link to={createPageUrl('WorkoutProgress')} className="block">
-                  <Button variant="outline" className="w-full h-full py-4">
-                    <div className="flex flex-col items-center gap-1">
-                      <TrendingUp className="w-5 h-5" />
-                      <span className="text-xs">View Progress</span>
-                    </div>
-                  </Button>
-                </Link>
-              </div>
+              </Link>
             </div>
 
             {/* Quick Workouts (5-15 Minutes) */}
@@ -1035,11 +1021,6 @@ export default function Wellness() {
       </div>
 
       {/* Modals */}
-      <CreateWorkoutModal
-        isOpen={showCreateWorkout}
-        onClose={() => setShowCreateWorkout(false)}
-      />
-      
       {selectedWorkout && (
         <StartWorkoutModal
           isOpen={showStartWorkout}
