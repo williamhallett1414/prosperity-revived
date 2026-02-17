@@ -37,7 +37,6 @@ import WeeklyThemeBanner from '@/components/wellness/WeeklyThemeBanner';
 import WorkoutCategoryFilter from '@/components/workouts/WorkoutCategoryFilter';
 import NutritionDashboard from '@/components/nutrition/NutritionDashboard';
 
-import CoachDavid from '@/components/wellness/CoachDavid';
 import ChefDaniel from '@/components/wellness/ChefDaniel';
 import Hannah from '@/components/wellness/Hannah.jsx';
 
