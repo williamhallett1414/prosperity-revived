@@ -16,7 +16,6 @@ const getAffirmation = () => affirmations[new Date().getDate() % affirmations.le
 export default function TodaysOverview({ meditations = [], workoutPlans = [], challenges = [], user }) {
   const [showWorkoutModal, setShowWorkoutModal] = useState(false);
   const navigate = useNavigate();
-  const verse = getVerseOfDay();
   const affirmation = getAffirmation();
   const suggestedMeditation = meditations.find(m => m.category === 'mindfulness');
   const suggestedWorkout = workoutPlans?.[0];
