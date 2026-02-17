@@ -93,7 +93,7 @@ export default function CalmingScriptureMeditation() {
     }
   };
 
-  const handleBackgroundChange = (newBackground) => {
+  const handleBackgroundChange = async (newBackground) => {
     const wasPlaying = isPlaying;
     if (isPlaying) {
       audioRef.current?.pause();
@@ -103,10 +103,14 @@ export default function CalmingScriptureMeditation() {
     setCurrentTime(0);
     
     // Resume playing if it was playing before
-    setTimeout(() => {
+    setTimeout(async () => {
       if (wasPlaying && audioRef.current) {
-        audioRef.current.play();
-        setIsPlaying(true);
+        try {
+          await audioRef.current.play();
+          setIsPlaying(true);
+        } catch (error) {
+          console.error('Audio playback failed after background change:', error);
+        }
       }
     }, 100);
   };
