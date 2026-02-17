@@ -50,8 +50,6 @@ import { Input } from '@/components/ui/input';
 export default function Wellness() {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
-  const [showStartWorkout, setShowStartWorkout] = useState(false);
-  const [selectedWorkout, setSelectedWorkout] = useState(null);
   const [activeTab, setActiveTab] = useState(() => {
     // Read URL parameter for selectedTab immediately
     const urlParams = new URLSearchParams(window.location.search);
