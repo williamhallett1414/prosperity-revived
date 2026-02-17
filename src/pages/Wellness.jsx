@@ -231,8 +231,6 @@ export default function Wellness() {
 
       <div className="px-4 pt-6 pb-6">
         <PullToRefresh onRefresh={handleRefresh}>
-        {/* Weekly Theme */}
-        <WeeklyThemeBanner />
 
         <Tabs value={activeTab} className="w-full" onValueChange={setActiveTab}>
           {/* Nutrition Tab */}
