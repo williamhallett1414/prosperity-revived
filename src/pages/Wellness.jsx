@@ -104,6 +104,12 @@ export default function Wellness() {
               </Link>
             </motion.div>
           </div>
+
+          {/* My Recommendations Section */}
+          <div className="mt-8 pt-6 border-t border-gray-200">
+            <h2 className="text-2xl font-bold text-[#0A1A2F] mb-6">My Recommendations</h2>
+            <WellnessRecommendations user={user} />
+          </div>
         </div>
       </div>
     </div>
