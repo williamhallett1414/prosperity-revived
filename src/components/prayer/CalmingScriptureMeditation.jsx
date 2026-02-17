@@ -81,11 +81,15 @@ export default function CalmingScriptureMeditation() {
     }
   };
 
-  const handleEnded = () => {
+  const handleEnded = async () => {
     // Loop the audio
     if (audioRef.current) {
       audioRef.current.currentTime = 0;
-      audioRef.current.play();
+      try {
+        await audioRef.current.play();
+      } catch (error) {
+        console.error('Audio playback failed on loop:', error);
+      }
     }
   };
 
