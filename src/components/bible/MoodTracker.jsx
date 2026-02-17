@@ -32,12 +32,7 @@ export default function MoodTracker() {
 
     try {
       const response = await base44.integrations.Core.InvokeLLM({
-        prompt: `The user is currently ${moodDescription}. Provide:
-1. Three specific Bible verses (with references) that would encourage them
-2. A brief, heartfelt message of encouragement (2-3 sentences)
-3. One practical suggestion for how they can connect with God today
-
-Format the response in a warm, pastoral tone. Be concise but meaningful.`,
+        prompt: `The user is ${moodDescription}. Suggest 3 Bible verses with their references and text, plus an encouraging message and a practical suggestion for connecting with God. Keep it brief and pastoral.`,
         response_json_schema: {
           type: 'object',
           properties: {
@@ -46,26 +41,18 @@ Format the response in a warm, pastoral tone. Be concise but meaningful.`,
               items: {
                 type: 'object',
                 properties: {
-                  reference: { type: 'string', description: 'Bible verse reference like John 3:16' },
-                  text: { type: 'string', description: 'The actual verse text' }
-                },
-                required: ['reference', 'text']
-              },
-              minItems: 3,
-              maxItems: 3
+                  reference: { type: 'string' },
+                  text: { type: 'string' }
+                }
+              }
             },
-            encouragement: { type: 'string', description: 'Heartfelt encouragement message' },
-            practical_step: { type: 'string', description: 'Practical suggestion for connecting with God' }
-          },
-          required: ['verses', 'encouragement', 'practical_step']
+            encouragement: { type: 'string' },
+            practical_step: { type: 'string' }
+          }
         }
       });
 
-      if (response && response.verses) {
-        setAiResponse(response);
-      } else {
-        throw new Error('Invalid response format');
-      }
+      setAiResponse(response);
     } catch (error) {
       console.error('Error fetching AI response:', error);
       setAiResponse(null);
