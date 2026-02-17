@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Heart, Wind, Book, Lightbulb, ArrowLeft } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import { createPageUrl } from '@/utils';
+import { Lightbulb } from 'lucide-react';
+import WellnessTabBar from '@/components/wellness/WellnessTabBar';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { base44 } from '@/api/base44Client';
@@ -47,18 +46,12 @@ export default function EmotionalCheckInPage() {
 
   return (
     <div className="min-h-screen bg-[#F2F6FA] pb-24">
-      <div className="sticky top-0 z-40 bg-white border-b border-gray-200 px-4 py-3">
-        <div className="max-w-2xl mx-auto flex items-center gap-3">
-          <Link
-            to={createPageUrl('Wellness') + '?tab=mind'}
-            className="w-10 h-10 rounded-full bg-[#D9B878] hover:bg-[#D9B878]/90 flex items-center justify-center transition-colors"
-          >
-            <ArrowLeft className="w-5 h-5 text-[#0A1A2F]" />
-          </Link>
-          <div>
-            <h1 className="text-lg font-bold text-[#0A1A2F]">Emotional Check-In</h1>
-            <p className="text-xs text-[#0A1A2F]/60">How are you feeling today?</p>
-          </div>
+      <WellnessTabBar activeTab="mind" />
+
+      <div className="bg-white border-b border-gray-200 px-4 py-3">
+        <div className="max-w-2xl mx-auto">
+          <h1 className="text-lg font-bold text-[#0A1A2F]">Emotional Check-In</h1>
+          <p className="text-xs text-[#0A1A2F]/60">How are you feeling today?</p>
         </div>
       </div>
 
