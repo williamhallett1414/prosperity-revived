@@ -10,24 +10,24 @@ import { toast } from 'sonner';
 import { PREMADE_WORKOUTS } from '@/components/wellness/WorkoutLibrary';
 
 const MOTIVATING_TIPS = [
-  "Consistency beats intensity. Show up every day.",
-  "Small wins compound over time. Keep going.",
-  "Focus on form, not speed. Quality matters.",
-  "Your only competition is yesterday's you.",
-  "Rest is part of the process. Don't skip it.",
-  "Progress isn't always linear. Trust the journey.",
-  "You're stronger than you think. Prove it.",
-  "Celebrate small victories along the way.",
-  "The hardest part is showing up. You've got this.",
-  "Build habits, not streaks. Make it sustainable."
-];
+"Consistency beats intensity. Show up every day.",
+"Small wins compound over time. Keep going.",
+"Focus on form, not speed. Quality matters.",
+"Your only competition is yesterday's you.",
+"Rest is part of the process. Don't skip it.",
+"Progress isn't always linear. Trust the journey.",
+"You're stronger than you think. Prove it.",
+"Celebrate small victories along the way.",
+"The hardest part is showing up. You've got this.",
+"Build habits, not streaks. Make it sustainable."];
+
 
 export default function ChallengeDetailPage() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [user, setUser] = useState(null);
   const [selectedDay, setSelectedDay] = useState(1);
-  
+
   const urlParams = new URLSearchParams(window.location.search);
   const challengeId = urlParams.get('id');
 
@@ -101,7 +101,7 @@ export default function ChallengeDetailPage() {
       const today = new Date().toISOString().split('T')[0];
       const lastCheckIn = userParticipation?.last_check_in_date;
       const completedDays = userParticipation?.completed_days || [];
-      
+
       if (lastCheckIn === today) {
         throw new Error('Already checked in today');
       }
@@ -123,7 +123,7 @@ export default function ChallengeDetailPage() {
 
       const longestStreak = Math.max(userParticipation?.longest_streak || 0, currentStreak);
       const totalCheckIns = (userParticipation?.total_check_ins || 0) + 1;
-      const progress = Math.round((completedDays.length / challenge.duration_days) * 100);
+      const progress = Math.round(completedDays.length / challenge.duration_days * 100);
 
       const isCompleted = completedDays.length >= challenge.duration_days;
 
@@ -174,8 +174,8 @@ export default function ChallengeDetailPage() {
     return (
       <div className="min-h-screen bg-[#F2F6FA] flex items-center justify-center">
         <div className="w-8 h-8 border-4 border-[#D9B878] border-t-transparent rounded-full animate-spin" />
-      </div>
-    );
+      </div>);
+
   }
 
   if (!challenge) {
@@ -187,8 +187,8 @@ export default function ChallengeDetailPage() {
             Back to Wellness
           </Button>
         </div>
-      </div>
-    );
+      </div>);
+
   }
 
   const isParticipating = !!userParticipation;
@@ -198,13 +198,13 @@ export default function ChallengeDetailPage() {
   const longestStreak = userParticipation?.longest_streak || 0;
   const totalCheckIns = userParticipation?.total_check_ins || 0;
   const dailyWorkoutsCompleted = userParticipation?.daily_workouts_completed || [];
-  
+
   const today = new Date().toISOString().split('T')[0];
   const lastCheckIn = userParticipation?.last_check_in_date;
   const hasCheckedInToday = lastCheckIn === today;
 
   const allWorkouts = [...PREMADE_WORKOUTS, ...workouts];
-  const selectedDayTask = challenge.tasks?.find(t => t.day === selectedDay);
+  const selectedDayTask = challenge.tasks?.find((t) => t.day === selectedDay);
   const recommendedWorkout = allWorkouts[selectedDay % allWorkouts.length];
 
   const leaderboard = [...participants].sort((a, b) => {
@@ -216,21 +216,21 @@ export default function ChallengeDetailPage() {
   const dailyTip = MOTIVATING_TIPS[selectedDay % MOTIVATING_TIPS.length];
 
   const encouragementMessage = userProgress === 0 ? "Let's get started on your journey!" :
-    userProgress < 25 ? "You're off to a strong start!" :
-    userProgress < 50 ? "You're making great progress!" :
-    userProgress < 75 ? "You're over halfway there!" :
-    userProgress < 100 ? "Almost there! Finish strong!" :
-    "Amazing! You completed the challenge!";
+  userProgress < 25 ? "You're off to a strong start!" :
+  userProgress < 50 ? "You're making great progress!" :
+  userProgress < 75 ? "You're over halfway there!" :
+  userProgress < 100 ? "Almost there! Finish strong!" :
+  "Amazing! You completed the challenge!";
 
   return (
     <div className="min-h-screen bg-[#F2F6FA] pb-24">
       {/* Header */}
-      <div className="sticky top-16 z-10 bg-white border-b border-gray-200 px-4 py-4">
+      <div className="bg-white my-10 px-4 sticky top-16 z-10 border-b border-gray-200">
         <div className="max-w-2xl mx-auto flex items-center justify-between">
           <button
             onClick={() => navigate(-1)}
-            className="w-10 h-10 rounded-full bg-[#D9B878] hover:bg-[#D9B878]/90 flex items-center justify-center transition-colors"
-          >
+            className="w-10 h-10 rounded-full bg-[#D9B878] hover:bg-[#D9B878]/90 flex items-center justify-center transition-colors">
+
             <ArrowLeft className="w-5 h-5 text-[#0A1A2F]" />
           </button>
           <h1 className="text-lg font-bold text-[#0A1A2F]">Challenge</h1>
@@ -243,8 +243,8 @@ export default function ChallengeDetailPage() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-gradient-to-br from-yellow-400 to-orange-500 rounded-2xl p-6 text-white shadow-lg"
-        >
+          className="bg-gradient-to-br from-yellow-400 to-orange-500 rounded-2xl p-6 text-white shadow-lg">
+
           <div className="flex items-start gap-4 mb-4">
             <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center shrink-0">
               <Trophy className="w-8 h-8 text-white" />
@@ -266,92 +266,92 @@ export default function ChallengeDetailPage() {
             </div>
           </div>
 
-          {isParticipating && (
-            <div className="bg-white/20 rounded-xl p-3">
+          {isParticipating &&
+          <div className="bg-white/20 rounded-xl p-3">
               <div className="flex items-center justify-between text-sm mb-2">
                 <span>Your Progress</span>
                 <span className="font-bold">{userProgress}%</span>
               </div>
               <div className="h-2 bg-white/30 rounded-full overflow-hidden">
-                <div 
-                  className="h-full bg-white transition-all duration-500"
-                  style={{ width: `${userProgress}%` }}
-                />
+                <div
+                className="h-full bg-white transition-all duration-500"
+                style={{ width: `${userProgress}%` }} />
+
               </div>
             </div>
-          )}
+          }
         </motion.div>
 
         {/* Join/Continue Button */}
-        {!isParticipating ? (
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
+        {!isParticipating ?
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
             <Button
-              onClick={() => joinChallenge.mutate()}
-              disabled={joinChallenge.isPending}
-              className="w-full bg-emerald-600 hover:bg-emerald-700 h-12 text-lg font-semibold"
-            >
+            onClick={() => joinChallenge.mutate()}
+            disabled={joinChallenge.isPending}
+            className="w-full bg-emerald-600 hover:bg-emerald-700 h-12 text-lg font-semibold">
+
               <Trophy className="w-5 h-5 mr-2" />
               Join Challenge
             </Button>
-          </motion.div>
-        ) : null}
+          </motion.div> :
+        null}
 
         {/* Encouragement Message */}
-        {isParticipating && (
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}>
+        {isParticipating &&
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}>
             <div className="bg-gradient-to-r from-purple-50 to-blue-50 border border-purple-200 rounded-xl p-4">
               <p className="text-purple-900 font-semibold text-center">{encouragementMessage}</p>
             </div>
           </motion.div>
-        )}
+        }
 
         {/* Day Selector */}
-        {isParticipating && (
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
+        {isParticipating &&
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
             <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-200">
               <h3 className="text-sm font-semibold text-[#0A1A2F] mb-3">Select Day</h3>
               <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
                 {Array.from({ length: challenge.duration_days }).map((_, idx) => {
-                  const day = idx + 1;
-                  const isCompleted = completedDays.includes(day);
-                  const isSelected = selectedDay === day;
-                  
-                  return (
-                    <button
-                      key={day}
-                      onClick={() => setSelectedDay(day)}
-                      className={`flex-shrink-0 w-16 h-16 rounded-xl flex flex-col items-center justify-center text-xs font-semibold transition-all ${
-                        isSelected
-                          ? 'bg-[#D9B878] text-white shadow-md'
-                          : isCompleted
-                          ? 'bg-emerald-500 text-white'
-                          : 'bg-gray-100 text-[#0A1A2F]/60 hover:bg-gray-200'
-                      }`}
-                    >
-                      {isCompleted && !isSelected ? (
-                        <CheckCircle2 className="w-5 h-5" />
-                      ) : (
-                        <>
+                const day = idx + 1;
+                const isCompleted = completedDays.includes(day);
+                const isSelected = selectedDay === day;
+
+                return (
+                  <button
+                    key={day}
+                    onClick={() => setSelectedDay(day)}
+                    className={`flex-shrink-0 w-16 h-16 rounded-xl flex flex-col items-center justify-center text-xs font-semibold transition-all ${
+                    isSelected ?
+                    'bg-[#D9B878] text-white shadow-md' :
+                    isCompleted ?
+                    'bg-emerald-500 text-white' :
+                    'bg-gray-100 text-[#0A1A2F]/60 hover:bg-gray-200'}`
+                    }>
+
+                      {isCompleted && !isSelected ?
+                    <CheckCircle2 className="w-5 h-5" /> :
+
+                    <>
                           <span className="text-[10px]">Day</span>
                           <span className="text-lg">{day}</span>
                         </>
-                      )}
-                    </button>
-                  );
-                })}
+                    }
+                    </button>);
+
+              })}
               </div>
             </div>
           </motion.div>
-        )}
+        }
 
         {/* Daily Recommended Workout */}
-        {isParticipating && (
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
+        {isParticipating &&
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
             <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
               <h3 className="text-lg font-bold text-[#0A1A2F] mb-4">Day {selectedDay} Workout</h3>
               
-              {recommendedWorkout ? (
-                <div>
+              {recommendedWorkout ?
+            <div>
                   <div className="bg-gradient-to-r from-emerald-50 to-blue-50 rounded-xl p-4 mb-4">
                     <h4 className="font-bold text-[#0A1A2F] mb-2">{recommendedWorkout.title}</h4>
                     <div className="flex items-center gap-4 text-sm text-[#0A1A2F]/70">
@@ -363,38 +363,38 @@ export default function ChallengeDetailPage() {
                         <Dumbbell className="w-4 h-4" />
                         <span>{recommendedWorkout.category || 'Full Body'}</span>
                       </div>
-                      {recommendedWorkout.difficulty && (
-                        <div className="flex items-center gap-1">
+                      {recommendedWorkout.difficulty &&
+                  <div className="flex items-center gap-1">
                           <Target className="w-4 h-4" />
                           <span>{recommendedWorkout.difficulty}</span>
                         </div>
-                      )}
+                  }
                     </div>
-                    {selectedDayTask && (
-                      <p className="text-sm text-[#0A1A2F]/60 mt-2">{selectedDayTask.description}</p>
-                    )}
+                    {selectedDayTask &&
+                <p className="text-sm text-[#0A1A2F]/60 mt-2">{selectedDayTask.description}</p>
+                }
                   </div>
-                  <Button 
-                    className="w-full bg-emerald-600 hover:bg-emerald-700"
-                    onClick={() => {
-                      navigate(createPageUrl(`WorkoutProgress?workout=${recommendedWorkout.id}`));
-                      completeWorkout.mutate({ workoutId: recommendedWorkout.id, duration: recommendedWorkout.duration_minutes });
-                    }}
-                  >
+                  <Button
+                className="w-full bg-emerald-600 hover:bg-emerald-700"
+                onClick={() => {
+                  navigate(createPageUrl(`WorkoutProgress?workout=${recommendedWorkout.id}`));
+                  completeWorkout.mutate({ workoutId: recommendedWorkout.id, duration: recommendedWorkout.duration_minutes });
+                }}>
+
                     <Zap className="w-5 h-5 mr-2" />
                     Start Workout
                   </Button>
-                </div>
-              ) : (
-                <p className="text-[#0A1A2F]/60 text-sm">No workout assigned for this day.</p>
-              )}
+                </div> :
+
+            <p className="text-[#0A1A2F]/60 text-sm">No workout assigned for this day.</p>
+            }
             </div>
           </motion.div>
-        )}
+        }
 
         {/* Daily Check-In */}
-        {isParticipating && (
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }}>
+        {isParticipating &&
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }}>
             <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
               <h3 className="text-lg font-bold text-[#0A1A2F] mb-4">Daily Check-In</h3>
               
@@ -413,28 +413,28 @@ export default function ChallengeDetailPage() {
                 </div>
               </div>
 
-              {hasCheckedInToday ? (
-                <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-4 text-center">
+              {hasCheckedInToday ?
+            <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-4 text-center">
                   <CheckCircle2 className="w-8 h-8 text-emerald-600 mx-auto mb-2" />
                   <p className="text-emerald-900 font-semibold">Checked in today!</p>
-                </div>
-              ) : (
-                <Button 
-                  onClick={() => checkInToday.mutate()}
-                  disabled={checkInToday.isPending}
-                  className="w-full bg-[#D9B878] hover:bg-[#D9B878]/90"
-                >
+                </div> :
+
+            <Button
+              onClick={() => checkInToday.mutate()}
+              disabled={checkInToday.isPending}
+              className="w-full bg-[#D9B878] hover:bg-[#D9B878]/90">
+
                   <CheckCircle2 className="w-5 h-5 mr-2" />
                   Check In for Today
                 </Button>
-              )}
+            }
             </div>
           </motion.div>
-        )}
+        }
 
         {/* Motivating Tip */}
-        {isParticipating && (
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
+        {isParticipating &&
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
             <div className="bg-gradient-to-r from-yellow-50 to-orange-50 border border-yellow-200 rounded-xl p-4">
               <div className="flex items-start gap-3">
                 <Star className="w-5 h-5 text-yellow-600 shrink-0 mt-0.5" />
@@ -445,11 +445,11 @@ export default function ChallengeDetailPage() {
               </div>
             </div>
           </motion.div>
-        )}
+        }
 
         {/* Progress Stats */}
-        {isParticipating && (
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.45 }}>
+        {isParticipating &&
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.45 }}>
             <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
               <h3 className="text-lg font-bold text-[#0A1A2F] mb-4">Your Stats</h3>
               
@@ -488,31 +488,31 @@ export default function ChallengeDetailPage() {
               </div>
             </div>
           </motion.div>
-        )}
+        }
 
         {/* Leaderboard */}
-        {isParticipating && (
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}>
+        {isParticipating &&
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}>
             <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
               <h3 className="text-lg font-bold text-[#0A1A2F] mb-4">Leaderboard</h3>
               
               <div className="space-y-3">
-                {leaderboard.slice(0, 10).map((participant, idx) => (
-                  <motion.div
-                    key={participant.id}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: idx * 0.05 }}
-                    className={`flex items-center gap-3 p-3 rounded-lg ${
-                      participant.user_email === user?.email ? 'bg-[#D9B878]/10 border border-[#D9B878]' : 'bg-gray-50'
-                    }`}
-                  >
+                {leaderboard.slice(0, 10).map((participant, idx) =>
+              <motion.div
+                key={participant.id}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: idx * 0.05 }}
+                className={`flex items-center gap-3 p-3 rounded-lg ${
+                participant.user_email === user?.email ? 'bg-[#D9B878]/10 border border-[#D9B878]' : 'bg-gray-50'}`
+                }>
+
                     <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold shrink-0 ${
-                      idx === 0 ? 'bg-yellow-400 text-yellow-900' :
-                      idx === 1 ? 'bg-gray-300 text-gray-700' :
-                      idx === 2 ? 'bg-orange-400 text-orange-900' :
-                      'bg-gray-200 text-gray-600'
-                    }`}>
+                idx === 0 ? 'bg-yellow-400 text-yellow-900' :
+                idx === 1 ? 'bg-gray-300 text-gray-700' :
+                idx === 2 ? 'bg-orange-400 text-orange-900' :
+                'bg-gray-200 text-gray-600'}`
+                }>
                       {idx + 1}
                     </div>
                     <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#D9B878] to-[#AFC7E3] flex items-center justify-center text-white font-bold shrink-0">
@@ -530,46 +530,46 @@ export default function ChallengeDetailPage() {
                       </div>
                     </div>
                   </motion.div>
-                ))}
+              )}
               </div>
             </div>
           </motion.div>
-        )}
+        }
 
         {/* Badge Preview */}
-        {isParticipating && (
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.55 }}>
+        {isParticipating &&
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.55 }}>
             <div className={`rounded-xl p-6 shadow-sm border ${
-              userParticipation?.is_completed 
-                ? 'bg-gradient-to-br from-yellow-400 to-orange-500 border-yellow-600'
-                : 'bg-white border-gray-200'
-            }`}>
+          userParticipation?.is_completed ?
+          'bg-gradient-to-br from-yellow-400 to-orange-500 border-yellow-600' :
+          'bg-white border-gray-200'}`
+          }>
               <div className="flex items-center gap-4">
                 <div className={`w-20 h-20 rounded-full flex items-center justify-center shrink-0 ${
-                  userParticipation?.is_completed ? 'bg-white/20' : 'bg-gray-100'
-                }`}>
+              userParticipation?.is_completed ? 'bg-white/20' : 'bg-gray-100'}`
+              }>
                   <Award className={`w-10 h-10 ${
-                    userParticipation?.is_completed ? 'text-white' : 'text-gray-400'
-                  }`} />
+                userParticipation?.is_completed ? 'text-white' : 'text-gray-400'}`
+                } />
                 </div>
                 <div className="flex-1">
                   <h4 className={`font-bold mb-1 ${
-                    userParticipation?.is_completed ? 'text-white' : 'text-[#0A1A2F]'
-                  }`}>
+                userParticipation?.is_completed ? 'text-white' : 'text-[#0A1A2F]'}`
+                }>
                     {challenge.title} Badge
                   </h4>
                   <p className={`text-sm ${
-                    userParticipation?.is_completed ? 'text-white/90' : 'text-[#0A1A2F]/60'
-                  }`}>
-                    {userParticipation?.is_completed 
-                      ? "🎉 You earned this badge!" 
-                      : "Complete this challenge to earn this badge."}
+                userParticipation?.is_completed ? 'text-white/90' : 'text-[#0A1A2F]/60'}`
+                }>
+                    {userParticipation?.is_completed ?
+                  "🎉 You earned this badge!" :
+                  "Complete this challenge to earn this badge."}
                   </p>
                 </div>
               </div>
             </div>
           </motion.div>
-        )}
+        }
 
         {/* Participants */}
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }}>
@@ -582,21 +582,21 @@ export default function ChallengeDetailPage() {
               </div>
             </div>
 
-            {participants.length === 0 ? (
-              <div className="text-center py-8">
+            {participants.length === 0 ?
+            <div className="text-center py-8">
                 <Users className="w-12 h-12 text-[#0A1A2F]/30 mx-auto mb-3" />
                 <p className="text-[#0A1A2F]/60 text-sm">No participants yet. Be the first to join!</p>
-              </div>
-            ) : (
-              <div className="space-y-3">
-                {participants.slice(0, 20).map((participant, idx) => (
-                  <motion.div
-                    key={participant.id}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: idx * 0.03 }}
-                    className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors"
-                  >
+              </div> :
+
+            <div className="space-y-3">
+                {participants.slice(0, 20).map((participant, idx) =>
+              <motion.div
+                key={participant.id}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: idx * 0.03 }}
+                className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors">
+
                     <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#D9B878] to-[#AFC7E3] flex items-center justify-center text-white font-bold shrink-0">
                       {participant.user_name?.charAt(0).toUpperCase() || 'U'}
                     </div>
@@ -606,21 +606,21 @@ export default function ChallengeDetailPage() {
                       </h4>
                       <div className="flex items-center gap-2 mt-1">
                         <div className="flex-1 h-1.5 bg-gray-200 rounded-full overflow-hidden">
-                          <div 
-                            className="h-full bg-[#D9B878] transition-all"
-                            style={{ width: `${participant.progress || 0}%` }}
-                          />
+                          <div
+                        className="h-full bg-[#D9B878] transition-all"
+                        style={{ width: `${participant.progress || 0}%` }} />
+
                         </div>
                         <span className="text-xs text-[#0A1A2F]/60">{participant.progress || 0}%</span>
                       </div>
                     </div>
                   </motion.div>
-                ))}
+              )}
               </div>
-            )}
+            }
           </div>
         </motion.div>
       </div>
-    </div>
-  );
+    </div>);
+
 }
