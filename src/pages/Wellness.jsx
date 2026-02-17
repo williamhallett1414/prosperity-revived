@@ -10,7 +10,6 @@ import { createPageUrl } from '@/utils';
 import { toast } from 'sonner';
 import WorkoutCard from '@/components/wellness/WorkoutCard';
 import StartWorkoutModal from '@/components/wellness/StartWorkoutModal';
-import WellnessTabBar from '@/components/wellness/WellnessTabBar';
 import PullToRefresh from '@/components/ui/PullToRefresh';
 
 import MealTracker from '@/components/wellness/MealTracker';
@@ -340,7 +339,7 @@ export default function Wellness() {
        <div className="min-h-screen bg-[#F2F6FA] pb-24">
       {/* Top Navigation */}
       <div className="sticky top-0 z-40 bg-white border-b border-gray-200 px-4 py-3">
-        <div className="max-w-2xl mx-auto flex items-center justify-between">
+        <div className="max-w-2xl mx-auto flex items-center justify-between mb-3">
           <Link
             to={createPageUrl('Home')}
             className="w-10 h-10 rounded-full bg-[#D9B878] hover:bg-[#D9B878]/90 flex items-center justify-center transition-colors"
@@ -350,15 +349,21 @@ export default function Wellness() {
           <h1 className="text-lg font-bold text-[#0A1A2F]">Wellness</h1>
           <div className="w-10" />
         </div>
+        
+        <Tabs value={activeTab} className="w-full" onValueChange={setActiveTab}>
+          <TabsList className="grid w-full grid-cols-3 p-1 rounded-xl bg-[#E6EBEF]">
+            <TabsTrigger value="workouts" className="text-xs data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">Workouts</TabsTrigger>
+            <TabsTrigger value="nutrition" className="text-xs data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">Nutrition</TabsTrigger>
+            <TabsTrigger value="mind" className="text-xs data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">Personal Growth</TabsTrigger>
+          </TabsList>
+        </Tabs>
       </div>
 
-      <WellnessTabBar activeTab={activeTab} />
-
-      <div className="px-4 pt-2 pb-6">
+      <div className="px-4 pt-6 pb-6">
         <PullToRefresh onRefresh={handleRefresh}>
         {/* Weekly Theme */}
         <WeeklyThemeBanner />
-        
+
         <Tabs value={activeTab} className="w-full" onValueChange={setActiveTab}>
           {/* Workouts Tab */}
           <TabsContent value="workouts" className="max-w-2xl mx-auto pb-8">
@@ -934,7 +939,8 @@ export default function Wellness() {
                 </Link>
               </div>
             </TabsContent>
-          </Tabs>
+
+            </Tabs>
         </PullToRefresh>
       </div>
 
