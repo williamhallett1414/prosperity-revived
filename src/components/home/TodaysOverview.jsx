@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { getVerseOfDay } from '@/components/bible/BibleData';
-import { BookOpen, Sparkles, Zap } from 'lucide-react';
+import { Sparkles, Zap } from 'lucide-react';
 import StartWorkoutModal from '@/components/wellness/StartWorkoutModal';
 
 const affirmations = [
