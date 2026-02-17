@@ -9,7 +9,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { toast } from 'sonner';
 import PullToRefresh from '@/components/ui/PullToRefresh';
-
 import MealTracker from '@/components/wellness/MealTracker';
 import MealSuggestions from '@/components/nutrition/MealSuggestions';
 import TrendingNutritionArticles from '@/components/nutrition/TrendingNutritionArticles';
