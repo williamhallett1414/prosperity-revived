@@ -8,12 +8,12 @@ export default function WellnessHub() {
     {
       name: 'Workouts',
       image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=500&h=300&fit=crop',
-      path: createPageUrl('Wellness?tab=workouts')
+      path: createPageUrl('Wellness?selectedTab=workouts')
     },
     {
       name: 'Nutrition',
       image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=500&h=300&fit=crop',
-      path: createPageUrl('Wellness?tab=nutrition')
+      path: createPageUrl('Wellness?selectedTab=nutrition')
     },
     {
       name: 'Bible',
@@ -23,7 +23,7 @@ export default function WellnessHub() {
     {
       name: 'Personal Growth',
       image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=500&h=300&fit=crop',
-      path: createPageUrl('Wellness?tab=personal_growth')
+      path: createPageUrl('Wellness?selectedTab=personalGrowth')
     }
   ];
 

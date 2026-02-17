@@ -76,11 +76,18 @@ export default function Wellness() {
       console.error('Failed to ensure category workouts exist:', err);
     });
     
-    // Read URL parameter for tab
+    // Read URL parameter for selectedTab
     const urlParams = new URLSearchParams(window.location.search);
-    const tabParam = urlParams.get('tab');
-    if (tabParam && ['workouts', 'nutrition', 'mind'].includes(tabParam)) {
-      setActiveTab(tabParam);
+    const selectedTabParam = urlParams.get('selectedTab');
+    if (selectedTabParam) {
+      // Map parameter values to tab values
+      const tabMapping = {
+        'workouts': 'workouts',
+        'nutrition': 'nutrition',
+        'personalGrowth': 'mind'
+      };
+      const mappedTab = tabMapping[selectedTabParam] || 'workouts';
+      setActiveTab(mappedTab);
     }
   }, []);
 
