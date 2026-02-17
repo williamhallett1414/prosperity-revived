@@ -717,7 +717,9 @@ export default function Wellness() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.05 }}
                     className={`bg-gradient-to-br ${category.color} rounded-xl p-4 shadow-sm cursor-pointer hover:shadow-md transition-all`}
-                    onClick={() => navigate(createPageUrl(`WorkoutCategoryPage?category=${category.name}`))}
+                    onClick={() => {
+                      window.location.href = createPageUrl(`WorkoutCategoryPage?category=${category.name}`);
+                    }}
                   >
                     <div className="text-3xl mb-2">{category.icon}</div>
                     <h4 className="font-bold text-white text-sm mb-1">{category.name}</h4>
