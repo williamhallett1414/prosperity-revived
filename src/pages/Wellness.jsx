@@ -353,13 +353,13 @@ export default function Wellness() {
       </div>
 
       <WellnessTabBar activeTab={activeTab} />
-      
-      <Tabs value={activeTab} className="w-full" onValueChange={setActiveTab}>
 
       <div className="px-4 pt-2 pb-6">
         <PullToRefresh onRefresh={handleRefresh}>
         {/* Weekly Theme */}
         <WeeklyThemeBanner />
+        
+        <Tabs value={activeTab} className="w-full" onValueChange={setActiveTab}>
           {/* Workouts Tab */}
           <TabsContent value="workouts" className="max-w-2xl mx-auto pb-8">
             {/* Page Header */}
@@ -934,8 +934,7 @@ export default function Wellness() {
                 </Link>
               </div>
             </TabsContent>
-
-            </Tabs>
+          </Tabs>
         </PullToRefresh>
       </div>
 
