@@ -15,12 +15,12 @@ const scrollCache = {};
 const pageCache = {};
 
 const navItems = [
-  { name: 'Home', icon: Home, page: 'Home' },
-  { name: 'Wellness', icon: Heart, page: 'Wellness' },
-  { name: 'Bible', icon: BookOpen, page: 'Bible' },
-  { name: 'Groups', icon: Users, page: 'Groups' },
-  { name: 'Profile', icon: User, page: 'Profile' },
-];
+{ name: 'Home', icon: Home, page: 'Home' },
+{ name: 'Wellness', icon: Heart, page: 'Wellness' },
+{ name: 'Bible', icon: BookOpen, page: 'Bible' },
+{ name: 'Groups', icon: Users, page: 'Groups' },
+{ name: 'Profile', icon: User, page: 'Profile' }];
+
 
 export default function Layout({ children, currentPageName }) {
   const contentRef = useRef(null);
@@ -32,14 +32,14 @@ export default function Layout({ children, currentPageName }) {
   // Primary navigation pages that should be kept mounted
   const primaryPages = ['Home', 'Wellness', 'Bible', 'Groups', 'Profile'];
   const isPrimaryPage = primaryPages.includes(currentPageName);
-  
+
   // Determine if current page is a child route (not a primary nav page)
   const isChildRoute = !isPrimaryPage;
 
   // Cache page content for primary navigation
   useEffect(() => {
     if (isPrimaryPage && !renderedPages[currentPageName]) {
-      setRenderedPages(prev => ({
+      setRenderedPages((prev) => ({
         ...prev,
         [currentPageName]: children
       }));
@@ -124,44 +124,44 @@ export default function Layout({ children, currentPageName }) {
       
       {/* Top Bar with Back Button or Logo */}
       <div className="fixed top-0 left-0 right-0 bg-white dark:bg-[#2d2d4a] border-b border-gray-200 dark:border-gray-700 px-4 py-3 z-40 pt-[env(safe-area-inset-top)] select-none">
-        <div className="max-w-2xl mx-auto flex items-center justify-between">
-          {isChildRoute ? (
-            <button
-              onClick={() => navigate(-1)}
-              className="flex items-center gap-2 p-2 hover:bg-gray-100 dark:hover:bg-[#3C4E53] rounded-full transition min-h-[44px] min-w-[44px] justify-center"
-            >
-              <ArrowLeft className="w-5 h-5 text-[#0A1A2F] dark:text-white" />
-            </button>
-          ) : (
-            <Link to={createPageUrl('Home')} className="flex items-center gap-2">
-              <img 
-                src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6980ade9ca08df558ed28bdd/d9b97f241_ProsperityRevivedSymbol.jpeg" 
-                alt="Prosperity Revived" 
-                className="w-8 h-8 object-contain"
-              />
-            </Link>
-          )}
-          <NotificationBell />
-        </div>
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       </div>
 
       <main className="pt-16 pb-20">
         <PullToRefresh onRefresh={async () => {
-          await queryClient.invalidateQueries();
-        }}>
-          {isPrimaryPage ? (
+            await queryClient.invalidateQueries();
+          }}>
+          {isPrimaryPage ?
             // For primary pages, keep all mounted but show only active
             <>
-              {primaryPages.map(pageName => (
-                <div
-                  key={pageName}
-                  style={{ display: pageName === currentPageName ? 'block' : 'none' }}
-                >
+              {primaryPages.map((pageName) =>
+              <div
+                key={pageName}
+                style={{ display: pageName === currentPageName ? 'block' : 'none' }}>
+
                   {renderedPages[pageName] || (pageName === currentPageName ? children : null)}
                 </div>
-              ))}
-            </>
-          ) : (
+              )}
+            </> :
+
             // For secondary pages, use animation
             <AnimatePresence mode="wait" initial={false}>
               <motion.div
@@ -169,62 +169,62 @@ export default function Layout({ children, currentPageName }) {
                 initial={{ opacity: 0, x: 10 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -10 }}
-                transition={{ duration: 0.2 }}
-              >
+                transition={{ duration: 0.2 }}>
+
                 {children}
               </motion.div>
             </AnimatePresence>
-          )}
+            }
         </PullToRefresh>
       </main>
 
       {/* Bottom Navigation */}
       <nav className="fixed bottom-0 left-0 right-0 bg-white dark:bg-[#2d2d4a] border-t border-gray-200 dark:border-gray-700 px-4 py-2 z-50 pb-[env(safe-area-inset-bottom)] select-none">
         <div className="max-w-lg mx-auto flex items-center justify-around">
-          {navItems.map(item => {
-            const isActive = currentPageName === item.page;
-            const Icon = item.icon;
-            
-            const handleNavClick = (e) => {
-              // If already on this tab, reset scroll to top
-              if (isActive) {
-                e.preventDefault();
-                window.scrollTo(0, 0);
-                scrollCache[item.page] = 0;
-              }
-            };
-            
-            return (
-              <Link
-              key={item.page}
-              to={createPageUrl(item.page)}
-              onClick={handleNavClick}
-              className="relative flex flex-col items-center py-2 px-4 min-h-[44px]"
-              >
-                {isActive && (
+          {navItems.map((item) => {
+              const isActive = currentPageName === item.page;
+              const Icon = item.icon;
+
+              const handleNavClick = (e) => {
+                // If already on this tab, reset scroll to top
+                if (isActive) {
+                  e.preventDefault();
+                  window.scrollTo(0, 0);
+                  scrollCache[item.page] = 0;
+                }
+              };
+
+              return (
+                <Link
+                  key={item.page}
+                  to={createPageUrl(item.page)}
+                  onClick={handleNavClick}
+                  className="relative flex flex-col items-center py-2 px-4 min-h-[44px]">
+
+                {isActive &&
                   <motion.div
                     layoutId="activeTab"
-                    className="absolute -top-2 w-12 h-1 bg-[#FD9C2D] rounded-full"
-                  />
-                )}
+                    className="absolute -top-2 w-12 h-1 bg-[#FD9C2D] rounded-full" />
+
+                  }
                 <Icon
-                  className={`w-6 h-6 transition-colors ${
-                    isActive ? 'text-[#FD9C2D]' : 'text-gray-400'
-                  }`}
-                />
+                    className={`w-6 h-6 transition-colors ${
+                    isActive ? 'text-[#FD9C2D]' : 'text-gray-400'}`
+                    } />
+
                 <span
-                  className={`text-xs mt-1 transition-colors ${
-                    isActive ? 'text-[#3C4E53] font-medium' : 'text-gray-400'
-                  }`}
-                >
+                    className={`text-xs mt-1 transition-colors ${
+                    isActive ? 'text-[#3C4E53] font-medium' : 'text-gray-400'}`
+                    }>
+
                   {item.name}
                 </span>
-              </Link>
-            );
-          })}
+              </Link>);
+
+            })}
         </div>
       </nav>
     </div>
-    </>
-  );
+    </>);
+
 }
