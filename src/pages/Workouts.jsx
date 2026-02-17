@@ -25,21 +25,21 @@ export default function Workouts() {
 
   useEffect(() => {
     base44.auth.me().then(setUser);
-    
-    base44.functions.invoke('ensureChallengesExist', {}).catch(err => {
+
+    base44.functions.invoke('ensureChallengesExist', {}).catch((err) => {
       console.error('Failed to ensure challenges exist:', err);
     });
-    
-    base44.functions.invoke('ensureCategoryWorkouts', {}).catch(err => {
+
+    base44.functions.invoke('ensureCategoryWorkouts', {}).catch((err) => {
       console.error('Failed to ensure category workouts exist:', err);
     });
-    
+
     const hasPopulated = localStorage.getItem('workouts_populated');
     if (!hasPopulated) {
       base44.functions.invoke('populateMissingWorkoutExercises', {}).then(() => {
         localStorage.setItem('workouts_populated', 'true');
         queryClient.invalidateQueries(['workoutPlans']);
-      }).catch(err => {
+      }).catch((err) => {
         console.error('Failed to populate workout exercises:', err);
       });
     }
@@ -88,11 +88,11 @@ export default function Workouts() {
       const today = new Date().toISOString().split('T')[0];
       if (!dates.includes(today)) {
         dates.push(today);
-        
+
         const allProgress = await base44.entities.UserProgress.list();
-        const userProgress = allProgress.find(p => p.created_by === user?.email);
+        const userProgress = allProgress.find((p) => p.created_by === user?.email);
         const workoutCount = (userProgress?.workouts_completed || 0) + 1;
-        
+
         await awardPoints(user?.email, 15, { workouts_completed: workoutCount });
         await checkAndAwardBadges(user?.email);
       }
@@ -101,13 +101,13 @@ export default function Workouts() {
     onSuccess: () => queryClient.invalidateQueries(['workouts'])
   });
 
-  const myWorkouts = workouts.filter(w => w.created_by === user?.email);
+  const myWorkouts = workouts.filter((w) => w.created_by === user?.email);
   const allWorkouts = [...PREMADE_WORKOUTS, ...myWorkouts];
 
   const recommendedWorkout = React.useMemo(() => {
     const today = new Date().toISOString().split('T')[0];
-    const notCompletedToday = allWorkouts.filter(w => 
-      !w.completed_dates?.includes(today)
+    const notCompletedToday = allWorkouts.filter((w) =>
+    !w.completed_dates?.includes(today)
     );
     return notCompletedToday[0] || allWorkouts[Math.floor(Math.random() * allWorkouts.length)] || null;
   }, [allWorkouts]);
@@ -118,7 +118,7 @@ export default function Workouts() {
     queryKey: ['sharedWorkouts'],
     queryFn: async () => {
       const all = await base44.entities.WorkoutPlan.list('-created_date', 50);
-      return all.filter(w => w.is_shared && w.created_by !== user?.email);
+      return all.filter((w) => w.is_shared && w.created_by !== user?.email);
     },
     enabled: !!user
   });
@@ -152,10 +152,10 @@ export default function Workouts() {
 
   const handleRefresh = async () => {
     await Promise.all([
-      queryClient.invalidateQueries(['workouts']),
-      queryClient.invalidateQueries(['workoutSessions']),
-      queryClient.invalidateQueries(['challenges'])
-    ]);
+    queryClient.invalidateQueries(['workouts']),
+    queryClient.invalidateQueries(['workoutSessions']),
+    queryClient.invalidateQueries(['challenges'])]
+    );
   };
 
   return (
@@ -163,12 +163,12 @@ export default function Workouts() {
       {/* Top Navigation */}
       <div className="sticky top-0 z-40 bg-white border-b border-gray-200 px-4 py-3">
         <div className="max-w-2xl mx-auto flex items-center justify-between">
-          <button
-            onClick={() => navigate(-1)}
-            className="w-10 h-10 rounded-full bg-[#D9B878] hover:bg-[#D9B878]/90 flex items-center justify-center transition-colors"
-          >
-            <ArrowLeft className="w-5 h-5 text-[#0A1A2F]" />
-          </button>
+          
+
+
+
+
+
           <h1 className="text-lg font-bold text-[#0A1A2F]">Workouts</h1>
           <div className="w-10" />
         </div>
@@ -187,12 +187,12 @@ export default function Workouts() {
             </div>
 
             {/* Today's Recommended Workout */}
-            {recommendedWorkout && (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl p-5 text-white shadow-md mb-6"
-              >
+            {recommendedWorkout &&
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl p-5 text-white shadow-md mb-6">
+
                 <div className="flex items-start justify-between mb-3">
                   <div>
                     <h3 className="text-lg font-bold mb-1">Today's Recommended Workout</h3>
@@ -206,17 +206,17 @@ export default function Workouts() {
                     {recommendedWorkout.duration_minutes} min • {recommendedWorkout.difficulty || 'All Levels'}
                   </p>
                 </div>
-                <Button 
-                  className="w-full bg-white text-emerald-600 hover:bg-white/90"
-                  onClick={() => {
-                    setSelectedWorkout(recommendedWorkout);
-                    setShowStartWorkout(true);
-                  }}
-                >
+                <Button
+                className="w-full bg-white text-emerald-600 hover:bg-white/90"
+                onClick={() => {
+                  setSelectedWorkout(recommendedWorkout);
+                  setShowStartWorkout(true);
+                }}>
+
                   Start Workout
                 </Button>
               </motion.div>
-            )}
+            }
 
             {/* Workout Streaks & Wins */}
             <div className="mb-6">
@@ -225,10 +225,10 @@ export default function Workouts() {
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm"
-                >
+                  className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm">
+
                   <div className="text-2xl font-bold text-emerald-600 mb-1">
-                    {workoutSessions.filter(s => {
+                    {workoutSessions.filter((s) => {
                       const today = new Date();
                       const weekAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
                       return new Date(s.date) >= weekAgo;
@@ -241,8 +241,8 @@ export default function Workouts() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.05 }}
-                  className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm"
-                >
+                  className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm">
+
                   <div className="text-2xl font-bold text-[#D9B878] mb-1">
                     {totalWorkoutsCompleted}
                   </div>
@@ -253,8 +253,8 @@ export default function Workouts() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.1 }}
-                  className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm"
-                >
+                  className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm">
+
                   <div className="text-2xl font-bold text-[#AFC7E3] mb-1">
                     {workoutSessions.reduce((sum, s) => sum + (s.duration_minutes || 0), 0)}
                   </div>
@@ -265,14 +265,14 @@ export default function Workouts() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.15 }}
-                  className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm"
-                >
+                  className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm">
+
                   <div className="text-2xl font-bold text-pink-500 mb-1">
-                    {Math.max(...workoutSessions.map(s => {
+                    {Math.max(...workoutSessions.map((s) => {
                       const dates = s.date ? [s.date] : [];
                       let streak = 0;
                       for (let i = 0; i < dates.length; i++) {
-                        if (i === 0 || new Date(dates[i]).getTime() - new Date(dates[i-1]).getTime() <= 86400000) {
+                        if (i === 0 || new Date(dates[i]).getTime() - new Date(dates[i - 1]).getTime() <= 86400000) {
                           streak++;
                         } else {
                           break;
@@ -305,35 +305,35 @@ export default function Workouts() {
               <div className="grid grid-cols-2 gap-3">
                 {(() => {
                   const quickWorkouts = [
-                    {
-                      icon: Dumbbell,
-                      iconColor: 'text-orange-500',
-                      bgColor: 'bg-orange-100',
-                      label: 'Quick Burn',
-                      workout: allWorkouts.find(w => w.category === 'cardio' && w.duration_minutes <= 15) || allWorkouts[0]
-                    },
-                    {
-                      icon: Target,
-                      iconColor: 'text-purple-500',
-                      bgColor: 'bg-purple-100',
-                      label: 'Core Reset',
-                      workout: allWorkouts.find(w => w.category === 'strength' && w.duration_minutes <= 15) || allWorkouts[1]
-                    },
-                    {
-                      icon: Heart,
-                      iconColor: 'text-blue-500',
-                      bgColor: 'bg-blue-100',
-                      label: 'Stretch & Mobility',
-                      workout: allWorkouts.find(w => w.category === 'flexibility' && w.duration_minutes <= 15) || allWorkouts[2]
-                    },
-                    {
-                      icon: Droplets,
-                      iconColor: 'text-green-500',
-                      bgColor: 'bg-green-100',
-                      label: 'Low-Impact Cardio',
-                      workout: allWorkouts.find(w => w.category === 'cardio' && w.duration_minutes >= 10 && w.duration_minutes <= 20) || allWorkouts[3]
-                    }
-                  ];
+                  {
+                    icon: Dumbbell,
+                    iconColor: 'text-orange-500',
+                    bgColor: 'bg-orange-100',
+                    label: 'Quick Burn',
+                    workout: allWorkouts.find((w) => w.category === 'cardio' && w.duration_minutes <= 15) || allWorkouts[0]
+                  },
+                  {
+                    icon: Target,
+                    iconColor: 'text-purple-500',
+                    bgColor: 'bg-purple-100',
+                    label: 'Core Reset',
+                    workout: allWorkouts.find((w) => w.category === 'strength' && w.duration_minutes <= 15) || allWorkouts[1]
+                  },
+                  {
+                    icon: Heart,
+                    iconColor: 'text-blue-500',
+                    bgColor: 'bg-blue-100',
+                    label: 'Stretch & Mobility',
+                    workout: allWorkouts.find((w) => w.category === 'flexibility' && w.duration_minutes <= 15) || allWorkouts[2]
+                  },
+                  {
+                    icon: Droplets,
+                    iconColor: 'text-green-500',
+                    bgColor: 'bg-green-100',
+                    label: 'Low-Impact Cardio',
+                    workout: allWorkouts.find((w) => w.category === 'cardio' && w.duration_minutes >= 10 && w.duration_minutes <= 20) || allWorkouts[3]
+                  }];
+
 
                   return quickWorkouts.map((item, index) => {
                     const Icon = item.icon;
@@ -349,8 +349,8 @@ export default function Workouts() {
                             setSelectedWorkout(item.workout);
                             setShowStartWorkout(true);
                           }
-                        }}
-                      >
+                        }}>
+
                         <div className="flex flex-col items-center text-center gap-2">
                           <div className={`w-10 h-10 ${item.bgColor} rounded-full flex items-center justify-center`}>
                             <Icon className={`w-5 h-5 ${item.iconColor}`} />
@@ -360,8 +360,8 @@ export default function Workouts() {
                             <p className="text-xs text-[#0A1A2F]/60">{item.workout?.duration_minutes || 10} min</p>
                           </div>
                         </div>
-                      </motion.div>
-                    );
+                      </motion.div>);
+
                   });
                 })()}
               </div>
@@ -372,16 +372,16 @@ export default function Workouts() {
               <h3 className="text-sm font-semibold text-[#0A1A2F] mb-3">Workout Challenges</h3>
               <div className="grid grid-cols-2 gap-3">
                 {challenges.slice(0, 4).map((challenge, index) => {
-                  const userParticipation = challengeParticipants.find(p => p.challenge_id === challenge.id);
+                  const userParticipation = challengeParticipants.find((p) => p.challenge_id === challenge.id);
                   const isParticipating = !!userParticipation;
                   const progress = userParticipation?.progress || 0;
 
                   const iconColors = [
-                    { bg: 'bg-yellow-100', icon: 'text-yellow-600', Icon: Trophy },
-                    { bg: 'bg-red-100', icon: 'text-red-600', Icon: Dumbbell },
-                    { bg: 'bg-blue-100', icon: 'text-blue-600', Icon: Heart },
-                    { bg: 'bg-purple-100', icon: 'text-purple-600', Icon: Target }
-                  ];
+                  { bg: 'bg-yellow-100', icon: 'text-yellow-600', Icon: Trophy },
+                  { bg: 'bg-red-100', icon: 'text-red-600', Icon: Dumbbell },
+                  { bg: 'bg-blue-100', icon: 'text-blue-600', Icon: Heart },
+                  { bg: 'bg-purple-100', icon: 'text-purple-600', Icon: Target }];
+
                   const colorSet = iconColors[index % iconColors.length];
                   const Icon = colorSet.Icon;
 
@@ -392,8 +392,8 @@ export default function Workouts() {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: index * 0.05 }}
                       className="bg-white rounded-xl p-3 border border-gray-200 shadow-sm hover:shadow-md transition-all cursor-pointer"
-                      onClick={() => navigate(createPageUrl(`ChallengeDetailPage?id=${challenge.id}`))}
-                    >
+                      onClick={() => navigate(createPageUrl(`ChallengeDetailPage?id=${challenge.id}`))}>
+
                       <div className="flex flex-col items-center text-center gap-2">
                         <div className={`w-10 h-10 ${colorSet.bg} rounded-full flex items-center justify-center shrink-0`}>
                           <Icon className={`w-5 h-5 ${colorSet.icon}`} />
@@ -401,22 +401,22 @@ export default function Workouts() {
                         <div className="w-full">
                           <h4 className="font-bold text-[#0A1A2F] text-xs mb-1 line-clamp-2">{challenge.title}</h4>
                           <p className="text-[10px] text-[#0A1A2F]/60 mb-2">{challenge.duration_days} Days</p>
-                          {isParticipating ? (
-                            <div className="w-full">
+                          {isParticipating ?
+                          <div className="w-full">
                               <div className="h-1.5 bg-gray-200 rounded-full overflow-hidden">
                                 <div className="h-full bg-[#D9B878] rounded-full transition-all" style={{ width: `${progress}%` }} />
                               </div>
                               <p className="text-[10px] text-[#0A1A2F]/60 mt-1">{progress}%</p>
-                            </div>
-                          ) : (
-                            <div className="text-[10px] text-emerald-600 font-semibold">
+                            </div> :
+
+                          <div className="text-[10px] text-emerald-600 font-semibold">
                               Join Now
                             </div>
-                          )}
+                          }
                         </div>
                       </div>
-                    </motion.div>
-                  );
+                    </motion.div>);
+
                 })}
               </div>
             </div>
@@ -426,26 +426,26 @@ export default function Workouts() {
               <h3 className="text-sm font-semibold text-[#0A1A2F] mb-3">Workout Library</h3>
               <div className="grid grid-cols-2 gap-3">
                 {[
-                  { name: 'Cardio', icon: '❤️', color: 'from-red-400 to-pink-500', description: 'Get your heart pumping' },
-                  { name: 'Strength', icon: '💪', color: 'from-blue-400 to-cyan-500', description: 'Build muscle & power' },
-                  { name: 'HIIT', icon: '⚡', color: 'from-yellow-400 to-orange-500', description: 'High intensity intervals' },
-                  { name: 'Home', icon: '🏠', color: 'from-green-400 to-emerald-500', description: 'No equipment needed' }
-                ].map((category, index) => (
-                  <motion.div
-                    key={category.name}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.05 }}
-                    className={`bg-gradient-to-br ${category.color} rounded-xl p-4 shadow-sm cursor-pointer hover:shadow-md transition-all`}
-                    onClick={() => {
-                      navigate(`/WorkoutCategoryPage?category=${category.name}`);
-                    }}
-                  >
+                { name: 'Cardio', icon: '❤️', color: 'from-red-400 to-pink-500', description: 'Get your heart pumping' },
+                { name: 'Strength', icon: '💪', color: 'from-blue-400 to-cyan-500', description: 'Build muscle & power' },
+                { name: 'HIIT', icon: '⚡', color: 'from-yellow-400 to-orange-500', description: 'High intensity intervals' },
+                { name: 'Home', icon: '🏠', color: 'from-green-400 to-emerald-500', description: 'No equipment needed' }].
+                map((category, index) =>
+                <motion.div
+                  key={category.name}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.05 }}
+                  className={`bg-gradient-to-br ${category.color} rounded-xl p-4 shadow-sm cursor-pointer hover:shadow-md transition-all`}
+                  onClick={() => {
+                    navigate(`/WorkoutCategoryPage?category=${category.name}`);
+                  }}>
+
                     <div className="text-3xl mb-2">{category.icon}</div>
                     <h4 className="font-bold text-white text-sm mb-1">{category.name}</h4>
                     <p className="text-white/90 text-xs">{category.description}</p>
                   </motion.div>
-                ))}
+                )}
               </div>
             </div>
 
@@ -453,36 +453,36 @@ export default function Workouts() {
             <div className="mb-6">
               <h3 className="text-sm font-semibold text-[#0A1A2F] mb-3">New Workouts to Try</h3>
               <div className="space-y-3">
-                {PREMADE_WORKOUTS.slice(0, 3).map((workout, index) => (
-                  <WorkoutCard
-                    key={workout.id}
-                    workout={workout}
-                    onComplete={() => {}}
-                    index={index}
-                    isPremade
-                    user={user}
-                  />
-                ))}
+                {PREMADE_WORKOUTS.slice(0, 3).map((workout, index) =>
+                <WorkoutCard
+                  key={workout.id}
+                  workout={workout}
+                  onComplete={() => {}}
+                  index={index}
+                  isPremade
+                  user={user} />
+
+                )}
               </div>
             </div>
 
             {/* My Workouts */}
-            {myWorkouts.length > 0 && (
-              <div className="mb-6">
+            {myWorkouts.length > 0 &&
+            <div className="mb-6">
                 <h3 className="text-sm font-semibold text-[#0A1A2F] mb-3">Your Custom Workouts</h3>
                 <div className="space-y-3">
-                  {myWorkouts.map((workout, index) => (
-                    <WorkoutCard
-                      key={workout.id}
-                      workout={workout}
-                      onComplete={() => completeWorkout.mutate({ id: workout.id, workout })}
-                      index={index}
-                      user={user}
-                    />
-                  ))}
+                  {myWorkouts.map((workout, index) =>
+                <WorkoutCard
+                  key={workout.id}
+                  workout={workout}
+                  onComplete={() => completeWorkout.mutate({ id: workout.id, workout })}
+                  index={index}
+                  user={user} />
+
+                )}
                 </div>
               </div>
-            )}
+            }
 
             {/* Community Feed */}
             <div className="mb-6">
@@ -494,24 +494,24 @@ export default function Workouts() {
       </div>
 
       {/* Modals */}
-      {selectedWorkout && (
-        <StartWorkoutModal
-          isOpen={showStartWorkout}
-          onClose={() => {
-            setShowStartWorkout(false);
-            setSelectedWorkout(null);
-          }}
-          workout={selectedWorkout}
-          user={user}
-        />
-      )}
+      {selectedWorkout &&
+      <StartWorkoutModal
+        isOpen={showStartWorkout}
+        onClose={() => {
+          setShowStartWorkout(false);
+          setSelectedWorkout(null);
+        }}
+        workout={selectedWorkout}
+        user={user} />
+
+      }
 
       {/* Coach David */}
-      <CoachDavid 
-        user={user} 
+      <CoachDavid
+        user={user}
         userWorkouts={myWorkouts}
-        workoutSessions={workoutSessions}
-      />
-    </div>
-  );
+        workoutSessions={workoutSessions} />
+
+    </div>);
+
 }
