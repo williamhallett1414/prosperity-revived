@@ -2,9 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
-import { UtensilsCrossed, Plus, TrendingUp, ArrowLeft } from 'lucide-react';
+import { UtensilsCrossed, Plus, TrendingUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { createPageUrl } from '@/utils';
 import RecipeCard from '@/components/wellness/RecipeCard';
 import RecipeFilters from '@/components/wellness/RecipeFilters';
 import CreateRecipeModal from '@/components/wellness/CreateRecipeModal';
@@ -12,6 +11,7 @@ import PersonalizedRecipes from '@/components/recommendations/PersonalizedRecipe
 import CommunityRecipes from '@/components/wellness/CommunityRecipes';
 import RecipeCollections from '@/components/wellness/RecipeCollections';
 import ChefDaniel from '@/components/wellness/ChefDaniel';
+import UniversalHeader from '@/components/navigation/UniversalHeader';
 
 export default function DiscoverRecipes() {
   const [user, setUser] = useState(null);
@@ -76,22 +76,9 @@ export default function DiscoverRecipes() {
 
   return (
     <div className="min-h-screen bg-[#f6ebe0] pb-24">
-      {/* Header with Banner */}
-      <div className="relative bg-[#f6ebe0] -mx-4">
-        <img 
-          src="https://images.unsplash.com/photo-1495521821757-a1efb6729352?w=600&h=256&fit=crop"
-          alt="Recipes"
-          className="w-full h-64 object-cover"
-        />
-        <button
-          onClick={() => window.history.back()}
-          className="absolute top-4 left-4 w-10 h-10 rounded-full bg-green-500 hover:bg-green-600 flex items-center justify-center transition-colors"
-        >
-          <ArrowLeft className="w-5 h-5 text-black" />
-        </button>
-      </div>
+      <UniversalHeader title="Discover Recipes" />
 
-      <div className="px-4 pt-6 max-w-2xl mx-auto">
+      <div className="px-4 pt-20 max-w-2xl mx-auto">
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-3xl font-bold text-[#3C4E53]">Discover Recipes</h1>
           <Button

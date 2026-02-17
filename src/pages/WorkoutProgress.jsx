@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
-import { TrendingUp, Award, Calendar, Dumbbell, Activity, ArrowLeft } from 'lucide-react';
+import { TrendingUp, Award, Calendar, Dumbbell, Activity } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Link } from 'react-router-dom';
-import { createPageUrl } from '@/utils';
 import WorkoutFrequencyChart from '@/components/wellness/WorkoutFrequencyChart';
 import PersonalBestsChart from '@/components/wellness/PersonalBestsChart';
 import VolumeProgressChart from '@/components/wellness/VolumeProgressChart';
@@ -14,6 +12,7 @@ import WeightProgressChart from '@/components/wellness/WeightProgressChart';
 import GoalCompletionChart from '@/components/wellness/GoalCompletionChart';
 import ProgressPhotoGallery from '@/components/wellness/ProgressPhotoGallery';
 import CoachDavid from '@/components/wellness/CoachDavid';
+import UniversalHeader from '@/components/navigation/UniversalHeader';
 
 export default function WorkoutProgress() {
   const [user, setUser] = useState(null);
@@ -54,21 +53,9 @@ export default function WorkoutProgress() {
 
   return (
     <div className="min-h-screen bg-[#F2F6FA] pb-24">
-      {/* Header */}
-      <div className="sticky top-0 z-40 bg-white border-b border-gray-200 px-4 py-3">
-        <div className="max-w-2xl mx-auto flex items-center justify-between">
-          <button
-            onClick={() => window.history.back()}
-            className="w-10 h-10 rounded-full bg-[#D9B878] hover:bg-[#D9B878]/90 flex items-center justify-center transition-colors"
-          >
-            <ArrowLeft className="w-5 h-5 text-[#0A1A2F]" />
-          </button>
-          <h1 className="text-lg font-bold text-[#0A1A2F]">Workout Progress</h1>
-          <div className="w-10" />
-        </div>
-      </div>
+      <UniversalHeader title="Workout Progress" />
 
-      <div className="max-w-4xl mx-auto px-4 space-y-6">
+      <div className="max-w-4xl mx-auto px-4 space-y-6 pt-20">
 
         {/* Stats Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 px-4 pt-6">
