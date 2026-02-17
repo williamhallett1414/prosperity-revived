@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
-import { Dumbbell, UtensilsCrossed, Heart, Plus, TrendingUp, Droplets, ArrowLeft, Sparkles, Search, BookOpen, Brain, Target, Crown, Calendar, CheckCircle2, Trophy } from 'lucide-react';
+import { UtensilsCrossed, Heart, Plus, Sparkles, Search, BookOpen, Brain, Target, Crown, Calendar, CheckCircle2, Trophy } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import { Link, useNavigate } from 'react-router-dom';
