@@ -639,20 +639,13 @@ export default function Wellness() {
         />
       )}
 
-      {/* Conditional Chatbots based on active tab */}
-      {activeTab === 'workouts' && (
-        <CoachDavid 
-          user={user} 
-          userWorkouts={myWorkouts}
-          workoutSessions={workoutSessions}
-        />
-      )}
+      {/* Chef Daniel - Nutrition Chat */}
       {activeTab === 'nutrition' && (
        <ChefDaniel 
-         user={user} 
-         userRecipes={[]}
-         mealLogs={mealLogs}
-       />
+          user={user} 
+          userRecipes={[]}
+          mealLogs={mealLogs}
+        />
       )}
       </div>
       );
