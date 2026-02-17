@@ -4,6 +4,7 @@ import { ArrowLeft } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { motion } from 'framer-motion';
+import WellnessRecommendations from '@/components/wellness/WellnessRecommendations';
 
 
 
