@@ -46,9 +46,9 @@ export default function WorkoutCategoryPage() {
   );
 
   return (
-    <div className="min-h-screen bg-[#F2F6FA] pb-24">
-      {/* Header */}
-      <div className="sticky top-16 z-10 bg-white border-b border-gray-200 px-4 py-4">
+    <div className="min-h-screen bg-[#F2F6FA]">
+      {/* Fixed Header */}
+      <div className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-200 px-4 py-4 pt-[env(safe-area-inset-top)]">
         <div className="max-w-2xl mx-auto flex items-center justify-between">
           <button
             onClick={() => navigate(createPageUrl('Wellness?tab=workouts'))}
@@ -61,7 +61,7 @@ export default function WorkoutCategoryPage() {
         </div>
       </div>
 
-      <div className="max-w-2xl mx-auto px-4 py-6">
+      <div className="max-w-2xl mx-auto px-4 py-6 pt-24 pb-24">
         {/* Category Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
