@@ -148,18 +148,21 @@ Format the response in a warm, pastoral tone. Be concise but meaningful.`,
 
               {!loading && aiResponse && (
                 <div className="space-y-4 bg-white dark:bg-[#2d2d4a] rounded-xl p-4">
-                  {/* Verses */}
-                  <div>
-                    <h4 className="font-semibold text-[#1a1a2e] dark:text-white mb-3 text-sm">Scripture for You</h4>
-                    <div className="space-y-3">
-                      {aiResponse.verses.map((verse, index) => (
-                        <div key={index} className="bg-amber-50 dark:bg-amber-900/20 p-3 rounded-lg border-l-4 border-amber-400">
-                          <p className="font-medium text-xs text-amber-900 dark:text-amber-300 mb-1">{verse.reference}</p>
-                          <p className="text-sm text-gray-700 dark:text-gray-300 italic">{verse.text}</p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
+                   {/* Verses */}
+                   <div>
+                     <h4 className="font-semibold text-[#1a1a2e] dark:text-white mb-3 text-sm">Scripture for You</h4>
+                     <div className="space-y-3">
+                       {aiResponse.verses && Array.isArray(aiResponse.verses) && aiResponse.verses.map((verse, index) => (
+                         <div key={index} className="bg-amber-50 dark:bg-amber-900/20 p-3 rounded-lg border-l-4 border-amber-400">
+                           <p className="font-medium text-xs text-amber-900 dark:text-amber-300 mb-1">{verse.reference}</p>
+                           <p className="text-sm text-gray-700 dark:text-gray-300 italic">{verse.text}</p>
+                         </div>
+                       ))}
+                       {(!aiResponse.verses || !Array.isArray(aiResponse.verses)) && (
+                         <p className="text-sm text-gray-500">Unable to load verses. Please try again.</p>
+                       )}
+                     </div>
+                   </div>
 
                   {/* Encouragement */}
                   <div>
