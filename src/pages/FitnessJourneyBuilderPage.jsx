@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { toast } from 'sonner';
+import { PREMADE_WORKOUTS } from '@/components/wellness/WorkoutLibrary';
 
 export default function FitnessJourneyBuilderPage() {
   const navigate = useNavigate();
@@ -64,79 +65,67 @@ export default function FitnessJourneyBuilderPage() {
 
     setIsGenerating(true);
     try {
-      // Generate journey using AI
-      const prompt = `Create a personalized 4-week fitness journey for a ${journeyData.experienceLevel} with the following details:
-Goals: ${journeyData.goals.join(', ')}
-Equipment: ${journeyData.equipment.join(', ')}
-Preferred Style: ${journeyData.preferredStyle}
-Weekly Schedule: ${journeyData.weeklySchedule} days per week
-Time Availability: ${journeyData.timeAvailability} minutes per session
-Mood/Energy: ${journeyData.moodPatterns || 'Not specified'}
-
-Provide a structured 4-week plan with:
-- Weekly themes and focus areas
-- Daily workout recommendations
-- Progressive difficulty
-- Rest days strategically placed
-
-Return ONLY valid JSON with this exact structure:
-{
-  "title": "Journey title",
-  "description": "Brief description",
-  "duration_weeks": 4,
-  "weekly_plans": [
-    {
-      "week": 1,
-      "theme": "Week theme",
-      "workouts": [
-        {"day": 1, "title": "Workout name", "type": "cardio/strength/etc", "duration": 30},
-        ...
-      ]
-    },
-    ...
-  ]
-}`;
-
-      const response = await base44.integrations.Core.InvokeLLM({
-        prompt,
-        response_json_schema: {
-          type: 'object',
-          properties: {
-            title: { type: 'string' },
-            description: { type: 'string' },
-            duration_weeks: { type: 'number' },
-            weekly_plans: {
-              type: 'array',
-              items: {
-                type: 'object',
-                properties: {
-                  week: { type: 'number' },
-                  theme: { type: 'string' },
-                  workouts: {
-                    type: 'array',
-                    items: {
-                      type: 'object',
-                      properties: {
-                        day: { type: 'number' },
-                        title: { type: 'string' },
-                        type: { type: 'string' },
-                        duration: { type: 'number' }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
+      // Filter workouts from library based on user preferences
+      const filteredWorkouts = PREMADE_WORKOUTS.filter(workout => {
+        // Match difficulty level
+        if (workout.difficulty !== journeyData.experienceLevel) return false;
+        
+        // Match duration (within 15 min range)
+        if (Math.abs(workout.duration_minutes - journeyData.timeAvailability) > 15) return false;
+        
+        // Match style preference
+        if (journeyData.preferredStyle === 'mixed') return true;
+        if (journeyData.preferredStyle === 'hiit' && workout.category === 'cardio') return true;
+        if (journeyData.preferredStyle === 'strength' && workout.category === 'strength') return true;
+        if (journeyData.preferredStyle === 'cardio' && workout.category === 'cardio') return true;
+        if (journeyData.preferredStyle === 'yoga' && workout.category === 'yoga') return true;
+        
+        return false;
       });
+
+      // If not enough workouts found, use all workouts
+      const workoutPool = filteredWorkouts.length >= 10 ? filteredWorkouts : PREMADE_WORKOUTS;
+      
+      // Generate 4-week plan with workouts from library
+      const weekly_plans = [];
+      let workoutIndex = 0;
+      
+      for (let week = 1; week <= 4; week++) {
+        const weekWorkouts = [];
+        
+        for (let day = 1; day <= journeyData.weeklySchedule; day++) {
+          const workout = workoutPool[workoutIndex % workoutPool.length];
+          weekWorkouts.push({
+            day,
+            title: workout.title,
+            type: workout.category,
+            duration: workout.duration_minutes,
+            workout_id: workout.id,
+            exercises: workout.exercises
+          });
+          workoutIndex++;
+        }
+        
+        weekly_plans.push({
+          week,
+          theme: `Week ${week} - ${week === 1 ? 'Foundation' : week === 2 ? 'Building' : week === 3 ? 'Progression' : 'Peak Performance'}`,
+          workouts: weekWorkouts
+        });
+      }
+
+      // Create journey title based on goals and style
+      const goalText = journeyData.goals.length > 0 
+        ? journeyData.goals[0].replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())
+        : 'Fitness';
+      const title = `${goalText} Journey - ${journeyData.experienceLevel.charAt(0).toUpperCase() + journeyData.experienceLevel.slice(1)}`;
+      const description = `A personalized 4-week ${journeyData.preferredStyle} fitness plan tailored to your ${journeyData.experienceLevel} level`;
 
       // Save journey to backend
       await base44.entities.WellnessJourney.create({
-        title: response.title,
-        description: response.description,
-        duration_weeks: response.duration_weeks,
-        weekly_plans: response.weekly_plans,
+        title,
+        description,
+        duration_weeks: 4,
+        weekly_plans,
         goals: journeyData.goals,
         experience_level: journeyData.experienceLevel,
         equipment: journeyData.equipment,
