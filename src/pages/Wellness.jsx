@@ -32,39 +32,77 @@ export default function Wellness() {
       </div>
 
       <div className="px-4 pt-6 pb-6">
-        <div className="max-w-2xl mx-auto space-y-4">
-          {/* Nutrition Card */}
-          <Link to={createPageUrl('Nutrition')}>
-            <div className="bg-gradient-to-br from-[#D9B878] to-[#AFC7E3] rounded-2xl p-5 text-[#0A1A2F] cursor-pointer hover:shadow-lg transition-shadow">
-              <div className="flex items-center gap-3 mb-2">
-                <Heart className="w-6 h-6" />
-                <h3 className="text-lg font-semibold">Nutrition</h3>
-              </div>
-              <p className="text-[#0A1A2F]/70 text-sm">Track meals and discover recipes</p>
-            </div>
-          </Link>
+        <div className="max-w-2xl mx-auto">
+          <div className="grid grid-cols-2 gap-4">
+            {/* Nutrition Card */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0 }}
+            >
+              <Link to={createPageUrl('Nutrition')}>
+                <div
+                  className="relative rounded-2xl overflow-hidden h-40 group cursor-pointer shadow-md hover:shadow-lg transition-shadow"
+                  style={{
+                    backgroundImage: 'url(https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=500&h=300&fit=crop)',
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center'
+                  }}
+                >
+                  <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors" />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <p className="text-white font-bold text-lg text-center px-3">Nutrition</p>
+                  </div>
+                </div>
+              </Link>
+            </motion.div>
 
-          {/* Personal Growth Card */}
-          <Link to={createPageUrl('PersonalGrowth')}>
-            <div className="bg-gradient-to-br from-[#AFC7E3] to-[#D9B878] rounded-2xl p-5 text-[#0A1A2F] cursor-pointer hover:shadow-lg transition-shadow">
-              <div className="flex items-center gap-3 mb-2">
-                <Plus className="w-6 h-6" />
-                <h3 className="text-lg font-semibold">Personal Growth</h3>
-              </div>
-              <p className="text-[#0A1A2F]/70 text-sm">Strengthen your mind and spirit</p>
-            </div>
-          </Link>
+            {/* Personal Growth Card */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+            >
+              <Link to={createPageUrl('PersonalGrowth')}>
+                <div
+                  className="relative rounded-2xl overflow-hidden h-40 group cursor-pointer shadow-md hover:shadow-lg transition-shadow"
+                  style={{
+                    backgroundImage: 'url(https://images.unsplash.com/photo-1552664730-d307ca884978?w=500&h=300&fit=crop)',
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center'
+                  }}
+                >
+                  <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors" />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <p className="text-white font-bold text-lg text-center px-3">Personal Growth</p>
+                  </div>
+                </div>
+              </Link>
+            </motion.div>
 
-          {/* Workouts Card */}
-          <Link to={createPageUrl('Workouts')}>
-            <div className="bg-gradient-to-br from-[#FD9C2D] to-[#D9B878] rounded-2xl p-5 text-[#0A1A2F] cursor-pointer hover:shadow-lg transition-shadow">
-              <div className="flex items-center gap-3 mb-2">
-                <Zap className="w-6 h-6" />
-                <h3 className="text-lg font-semibold">Workouts</h3>
-              </div>
-              <p className="text-[#0A1A2F]/70 text-sm">Track exercises and build strength</p>
-            </div>
-          </Link>
+            {/* Workouts Card */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+            >
+              <Link to={createPageUrl('Workouts')}>
+                <div
+                  className="relative rounded-2xl overflow-hidden h-40 group cursor-pointer shadow-md hover:shadow-lg transition-shadow"
+                  style={{
+                    backgroundImage: 'url(https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=500&h=300&fit=crop)',
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center'
+                  }}
+                >
+                  <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors" />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <p className="text-white font-bold text-lg text-center px-3">Workouts</p>
+                  </div>
+                </div>
+              </Link>
+            </motion.div>
+          </div>
         </div>
       </div>
     </div>
