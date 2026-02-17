@@ -241,7 +241,7 @@ export default function Settings() {
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
-                <AlertDialogCancel className="min-h-[44px]">Cancel</AlertDialogCancel>
+                <AlertDialogCancel className="min-h-[44px] dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600">Cancel</AlertDialogCancel>
                 <AlertDialogAction
                   className="bg-red-600 hover:bg-red-700 min-h-[44px]"
                   onClick={async () => {
