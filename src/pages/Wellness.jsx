@@ -504,18 +504,7 @@ export default function Wellness() {
         </PullToRefresh>
       </div>
 
-      {/* Modals */}
-      {selectedWorkout && (
-        <StartWorkoutModal
-          isOpen={showStartWorkout}
-          onClose={() => {
-            setShowStartWorkout(false);
-            setSelectedWorkout(null);
-          }}
-          workout={selectedWorkout}
-          user={user}
-        />
-      )}
+
 
       {/* Chef Daniel - Nutrition Chat */}
       {activeTab === 'nutrition' && (
