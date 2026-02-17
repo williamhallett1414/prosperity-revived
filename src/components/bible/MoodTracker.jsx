@@ -32,27 +32,35 @@ export default function MoodTracker() {
 
     try {
       const response = await base44.integrations.Core.InvokeLLM({
-        prompt: `The user is ${moodDescription}. Suggest 3 Bible verses with their references and text, plus an encouraging message and a practical suggestion for connecting with God. Keep it brief and pastoral.`,
-        response_json_schema: {
-          type: 'object',
-          properties: {
-            verses: {
-              type: 'array',
-              items: {
-                type: 'object',
-                properties: {
-                  reference: { type: 'string' },
-                  text: { type: 'string' }
-                }
-              }
-            },
-            encouragement: { type: 'string' },
-            practical_step: { type: 'string' }
-          }
-        }
+        prompt: `The user is ${moodDescription}. Provide a response in this exact JSON format:
+{
+  "verses": [
+    {"reference": "Book Chapter:Verse", "text": "verse text here"},
+    {"reference": "Book Chapter:Verse", "text": "verse text here"},
+    {"reference": "Book Chapter:Verse", "text": "verse text here"}
+  ],
+  "encouragement": "A brief encouraging message",
+  "practical_step": "One practical action they can take"
+}`
       });
 
-      setAiResponse(response);
+      // Parse the response if it's a string
+      let parsed = response;
+      if (typeof response === 'string') {
+        try {
+          parsed = JSON.parse(response);
+        } catch {
+          console.error('Failed to parse response:', response);
+          parsed = null;
+        }
+      }
+
+      if (parsed && parsed.verses && Array.isArray(parsed.verses)) {
+        setAiResponse(parsed);
+      } else {
+        console.error('Invalid response structure:', parsed);
+        setAiResponse(null);
+      }
     } catch (error) {
       console.error('Error fetching AI response:', error);
       setAiResponse(null);
