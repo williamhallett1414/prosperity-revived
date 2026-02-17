@@ -11,9 +11,10 @@ import WellnessRecommendations from '@/components/wellness/WellnessRecommendatio
 
 export default function Wellness() {
   const navigate = useNavigate();
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
-    base44.auth.me();
+    base44.auth.me().then(setUser);
   }, []);
 
   return (
