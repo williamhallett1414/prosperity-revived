@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { MobileSelect } from '@/components/ui/MobileSelect';
 import { Loader2 } from 'lucide-react';
 
 export default function CreateChallengeModal({ isOpen, onClose, onSubmit, groupId = null }) {
@@ -113,18 +113,14 @@ export default function CreateChallengeModal({ isOpen, onClose, onSubmit, groupI
 
           <div>
             <Label htmlFor="type">Challenge Type</Label>
-            <Select value={formData.type} onValueChange={handleTypeChange}>
-              <SelectTrigger className="mt-2">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {challengeTypes.map(type => (
-                  <SelectItem key={type.value} value={type.value}>
-                    {type.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            <div className="mt-2">
+              <MobileSelect
+                value={formData.type}
+                onValueChange={handleTypeChange}
+                options={challengeTypes.map(t => ({ value: t.value, label: t.label }))}
+                placeholder="Select Type"
+              />
+            </div>
           </div>
 
           <div className="grid grid-cols-2 gap-3">
@@ -155,21 +151,20 @@ export default function CreateChallengeModal({ isOpen, onClose, onSubmit, groupI
 
           <div>
             <Label htmlFor="duration">Duration (days)</Label>
-            <Select 
-              value={formData.duration_days.toString()} 
-              onValueChange={(value) => setFormData({ ...formData, duration_days: parseInt(value) })}
-            >
-              <SelectTrigger className="mt-2">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="7">7 days</SelectItem>
-                <SelectItem value="14">14 days</SelectItem>
-                <SelectItem value="21">21 days</SelectItem>
-                <SelectItem value="30">30 days</SelectItem>
-                <SelectItem value="60">60 days</SelectItem>
-              </SelectContent>
-            </Select>
+            <div className="mt-2">
+              <MobileSelect
+                value={formData.duration_days.toString()}
+                onValueChange={(value) => setFormData({ ...formData, duration_days: parseInt(value) })}
+                options={[
+                  { value: '7', label: '7 days' },
+                  { value: '14', label: '14 days' },
+                  { value: '21', label: '21 days' },
+                  { value: '30', label: '30 days' },
+                  { value: '60', label: '60 days' }
+                ]}
+                placeholder="Select Duration"
+              />
+            </div>
           </div>
 
           <div>

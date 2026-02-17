@@ -5,7 +5,7 @@ import { X, Plus, Dumbbell, Clock, TrendingUp, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { MobileSelect } from '@/components/ui/MobileSelect';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
@@ -248,31 +248,16 @@ export default function CreateWorkoutModal({ isOpen, onClose }) {
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <Label className="text-sm font-medium text-gray-700 mb-2.5 block">Difficulty</Label>
-                <Select value={workout.difficulty} onValueChange={(v) => setWorkout({ ...workout, difficulty: v })}>
-                  <SelectTrigger>
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="beginner">
-                      <div className="flex items-center gap-2">
-                        <TrendingUp className="w-4 h-4 text-green-600" />
-                        Beginner
-                      </div>
-                    </SelectItem>
-                    <SelectItem value="intermediate">
-                      <div className="flex items-center gap-2">
-                        <TrendingUp className="w-4 h-4 text-yellow-600" />
-                        Intermediate
-                      </div>
-                    </SelectItem>
-                    <SelectItem value="advanced">
-                      <div className="flex items-center gap-2">
-                        <TrendingUp className="w-4 h-4 text-red-600" />
-                        Advanced
-                      </div>
-                    </SelectItem>
-                  </SelectContent>
-                </Select>
+                <MobileSelect
+                  value={workout.difficulty}
+                  onValueChange={(v) => setWorkout({ ...workout, difficulty: v })}
+                  options={[
+                    { value: 'beginner', label: '🟢 Beginner' },
+                    { value: 'intermediate', label: '🟡 Intermediate' },
+                    { value: 'advanced', label: '🔴 Advanced' }
+                  ]}
+                  placeholder="Select Difficulty"
+                />
               </div>
 
               <div>

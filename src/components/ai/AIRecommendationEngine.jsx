@@ -188,10 +188,10 @@ For each recommendation:
   if (!user?.onboarding_completed) return null;
   if (loading) {
     return (
-      <div className="bg-gradient-to-br from-purple-50 to-indigo-50 dark:from-purple-900/20 dark:to-indigo-900/20 rounded-2xl p-6 mb-6">
+      <div style={{ background: 'var(--color-background)' }} className="rounded-2xl p-6 mb-6 border border-purple-200 dark:border-purple-800">
         <div className="flex items-center gap-3">
-          <Loader2 className="w-5 h-5 text-purple-600 animate-spin" />
-          <p className="text-sm text-purple-700 dark:text-purple-300">Discovering personalized recommendations...</p>
+          <Loader2 className="w-5 h-5 text-purple-600 dark:text-purple-400 animate-spin" />
+          <p className="text-sm" style={{ color: 'var(--color-text)' }}>Discovering personalized recommendations...</p>
         </div>
       </div>
     );
@@ -233,8 +233,8 @@ For each recommendation:
     <div className="mb-6">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
-          <Sparkles className="w-5 h-5 text-purple-600" />
-          <h3 className="text-lg font-semibold text-[#1a1a2e] dark:text-white">
+          <Sparkles className="w-5 h-5 text-purple-600 dark:text-purple-400" />
+          <h3 className="text-lg font-semibold" style={{ color: 'var(--color-text)' }}>
             AI Recommendations
           </h3>
         </div>
@@ -242,7 +242,7 @@ For each recommendation:
           onClick={generateRecommendations}
           variant="ghost"
           size="sm"
-          className="text-purple-600 hover:text-purple-700"
+          className="text-purple-600 dark:text-purple-400"
         >
           Refresh
         </Button>
@@ -251,7 +251,6 @@ For each recommendation:
       <div className="space-y-3">
         {recommendations.slice(0, 3).map((rec, index) => {
           const Icon = getIcon(rec.type);
-          const color = getColor(rec.type);
           
           return (
             <motion.div
@@ -259,26 +258,27 @@ For each recommendation:
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
-              className={`bg-gradient-to-br from-${color}-50 to-${color}-100 dark:from-${color}-900/20 dark:to-${color}-900/10 rounded-xl p-4 border border-${color}-200 dark:border-${color}-800`}
+              style={{ background: 'var(--color-background)' }}
+              className="rounded-xl p-4 border border-purple-200 dark:border-purple-800 shadow-sm"
             >
               <div className="flex items-start gap-3">
-                <div className={`w-10 h-10 rounded-full bg-${color}-200 dark:bg-${color}-800 flex items-center justify-center flex-shrink-0`}>
-                  <Icon className={`w-5 h-5 text-${color}-700 dark:text-${color}-300`} />
+                <div className="w-10 h-10 rounded-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center flex-shrink-0">
+                  <Icon className="w-5 h-5 text-purple-600 dark:text-purple-400" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <h4 className={`font-semibold text-${color}-900 dark:text-${color}-100 mb-1`}>
+                  <h4 className="font-semibold mb-1" style={{ color: 'var(--color-text)' }}>
                     {rec.title}
                   </h4>
-                  <p className={`text-sm text-${color}-700 dark:text-${color}-300 mb-2`}>
+                  <p className="text-sm opacity-80 mb-2" style={{ color: 'var(--color-text)' }}>
                     {rec.description}
                   </p>
-                  <p className={`text-xs text-${color}-600 dark:text-${color}-400 italic mb-3`}>
+                  <p className="text-xs opacity-70 italic mb-3" style={{ color: 'var(--color-text)' }}>
                     💡 {rec.reason}
                   </p>
                   <Link to={createPageUrl(getActionUrl(rec.type))}>
                     <Button
                       size="sm"
-                      className={`bg-${color}-600 hover:bg-${color}-700 text-white`}
+                      className="bg-purple-600 hover:bg-purple-700 text-white dark:bg-purple-700 dark:hover:bg-purple-800"
                     >
                       {rec.action_label}
                     </Button>
@@ -290,7 +290,7 @@ For each recommendation:
         })}
       </div>
 
-      <p className="text-xs text-gray-500 dark:text-gray-400 mt-4 text-center">
+      <p className="text-xs opacity-60 mt-4 text-center" style={{ color: 'var(--color-text)' }}>
         ✨ Powered by AI • Personalized based on your journey
       </p>
     </div>
