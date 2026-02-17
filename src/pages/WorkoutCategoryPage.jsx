@@ -45,6 +45,7 @@ export default function WorkoutCategoryPage() {
 
   return (
     <div className="min-h-screen bg-[#F2F6FA]">
+      <UniversalHeader title={`${category} Workouts`} />
       <WellnessTabBar activeTab="workouts" />
 
       <div className="max-w-2xl mx-auto px-4 py-6 pt-4 pb-24">

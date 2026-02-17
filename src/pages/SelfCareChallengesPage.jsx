@@ -1,8 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { createPageUrl } from '@/utils';
+import { ArrowLeft } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import SelfCareChallenges from '@/components/selfcare/SelfCareChallenges';
-import WellnessTabBar from '@/components/wellness/WellnessTabBar';
 
 export default function SelfCareChallengesPage() {
   const [user, setUser] = React.useState(null);
@@ -38,12 +40,18 @@ export default function SelfCareChallengesPage() {
 
   return (
     <div className="min-h-screen bg-[#F2F6FA] pb-24">
-      <WellnessTabBar activeTab="mind" />
-
-      <div className="bg-white border-b border-gray-200 px-4 py-3">
-        <div className="max-w-2xl mx-auto">
-          <h1 className="text-lg font-bold text-[#0A1A2F]">Self-Care Challenges</h1>
-          <p className="text-xs text-[#0A1A2F]/60">Build healthy habits</p>
+      <div className="sticky top-0 z-40 bg-white border-b border-gray-200 px-4 py-3">
+        <div className="max-w-2xl mx-auto flex items-center gap-3">
+          <Link
+            to={createPageUrl('Wellness') + '?tab=mind'}
+            className="w-10 h-10 rounded-full bg-[#D9B878] hover:bg-[#D9B878]/90 flex items-center justify-center transition-colors"
+          >
+            <ArrowLeft className="w-5 h-5 text-[#0A1A2F]" />
+          </Link>
+          <div>
+            <h1 className="text-lg font-bold text-[#0A1A2F]">Self-Care Challenges</h1>
+            <p className="text-xs text-[#0A1A2F]/60">Build healthy habits</p>
+          </div>
         </div>
       </div>
 

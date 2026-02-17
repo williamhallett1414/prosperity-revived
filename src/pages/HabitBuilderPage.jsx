@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { CheckCircle2, Circle, TrendingUp } from 'lucide-react';
-import WellnessTabBar from '@/components/wellness/WellnessTabBar';
+import { CheckCircle2, Circle, TrendingUp, ArrowLeft, Calendar } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { createPageUrl } from '@/utils';
 import { base44 } from '@/api/base44Client';
 import { toast } from 'sonner';
 
@@ -78,12 +79,18 @@ export default function HabitBuilderPage() {
 
   return (
     <div className="min-h-screen bg-[#F2F6FA] pb-24">
-      <WellnessTabBar activeTab="mind" />
-
-      <div className="bg-white border-b border-gray-200 px-4 py-3">
-        <div className="max-w-2xl mx-auto">
-          <h1 className="text-lg font-bold text-[#0A1A2F]">Habit Builder</h1>
-          <p className="text-xs text-[#0A1A2F]/60">Track your daily habits</p>
+      <div className="sticky top-0 z-40 bg-white border-b border-gray-200 px-4 py-3">
+        <div className="max-w-2xl mx-auto flex items-center gap-3">
+          <Link
+            to={createPageUrl('Wellness') + '?tab=mind'}
+            className="w-10 h-10 rounded-full bg-[#D9B878] hover:bg-[#D9B878]/90 flex items-center justify-center transition-colors"
+          >
+            <ArrowLeft className="w-5 h-5 text-[#0A1A2F]" />
+          </Link>
+          <div>
+            <h1 className="text-lg font-bold text-[#0A1A2F]">Habit Builder</h1>
+            <p className="text-xs text-[#0A1A2F]/60">Track your daily habits</p>
+          </div>
         </div>
       </div>
 

@@ -54,6 +54,7 @@ export default function WorkoutProgress() {
 
   return (
     <div className="min-h-screen bg-[#F2F6FA] pb-24">
+      <UniversalHeader title="Workout Progress" />
       <WellnessTabBar activeTab="workouts" />
 
       <div className="max-w-4xl mx-auto px-4 space-y-6 pt-4">

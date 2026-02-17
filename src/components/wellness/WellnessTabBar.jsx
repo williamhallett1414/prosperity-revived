@@ -7,13 +7,19 @@ export default function WellnessTabBar({ activeTab = 'workouts' }) {
   const navigate = useNavigate();
 
   const tabs = [
-    { id: 'workouts', label: 'Workouts', icon: Dumbbell, selectedTab: 'workouts' },
-    { id: 'nutrition', label: 'Nutrition', icon: UtensilsCrossed, selectedTab: 'nutrition' },
-    { id: 'mind', label: 'Personal Growth', icon: Heart, selectedTab: 'personalGrowth' }
+    { id: 'workouts', label: 'Workouts', icon: Dumbbell },
+    { id: 'nutrition', label: 'Nutrition', icon: UtensilsCrossed },
+    { id: 'mind', label: 'Personal Growth', icon: Heart }
   ];
 
-  const handleTabClick = (selectedTab) => {
-    navigate(createPageUrl(`Wellness?selectedTab=${selectedTab}`));
+  const handleTabClick = (tabId) => {
+    const tabMapping = {
+      'workouts': 'workouts',
+      'nutrition': 'nutrition',
+      'mind': 'personalGrowth',
+      'personalGrowth': 'personalGrowth'
+    };
+    navigate(createPageUrl(`Wellness?selectedTab=${tabMapping[tabId]}`));
   };
 
   return (
@@ -27,7 +33,7 @@ export default function WellnessTabBar({ activeTab = 'workouts' }) {
             return (
               <button
                 key={tab.id}
-                onClick={() => handleTabClick(tab.selectedTab)}
+                onClick={() => handleTabClick(tab.id)}
                 className={`flex items-center justify-center gap-2 py-2.5 px-3 rounded-lg text-xs font-medium transition-all ${
                   isActive 
                     ? 'bg-[#D9B878] text-[#0A1A2F] shadow-sm' 
