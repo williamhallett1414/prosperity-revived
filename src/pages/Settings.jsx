@@ -225,12 +225,19 @@ export default function Settings() {
                 Delete Account
               </Button>
             </AlertDialogTrigger>
-            <AlertDialogContent>
+            <AlertDialogContent className="dark:bg-[#2d2d4a]">
               <AlertDialogHeader>
-                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                <AlertDialogDescription>
+                <AlertDialogTitle className="dark:text-white">Are you absolutely sure?</AlertDialogTitle>
+                <AlertDialogDescription className="dark:text-gray-400">
                   This action cannot be undone. This will permanently delete your account
-                  and remove all of your data from our servers.
+                  and remove all of your data from our servers, including:
+                  <ul className="list-disc list-inside mt-2 space-y-1">
+                    <li>All your posts and comments</li>
+                    <li>Reading plans and progress</li>
+                    <li>Workout and meditation logs</li>
+                    <li>Journal entries and bookmarks</li>
+                    <li>Achievements and points</li>
+                  </ul>
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
