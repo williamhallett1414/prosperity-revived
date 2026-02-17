@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { Sparkles, Zap } from 'lucide-react';
 import StartWorkoutModal from '@/components/wellness/StartWorkoutModal';
+import VerseOfDay from './VerseOfDay';
 
 const affirmations = [
   "I am worthy of God's love and grace",
@@ -13,7 +14,7 @@ const affirmations = [
 
 const getAffirmation = () => affirmations[new Date().getDate() % affirmations.length];
 
-export default function TodaysOverview({ meditations = [], workoutPlans = [], challenges = [], user }) {
+export default function TodaysOverview({ meditations = [], workoutPlans = [], challenges = [], user, onBookmark }) {
   const [showWorkoutModal, setShowWorkoutModal] = useState(false);
   const navigate = useNavigate();
   const affirmation = getAffirmation();
@@ -29,6 +30,11 @@ export default function TodaysOverview({ meditations = [], workoutPlans = [], ch
       className="mb-8 space-y-3"
     >
       <h2 className="text-lg font-bold text-[#0A1A2F] px-4">Today's Overview</h2>
+
+      {/* Verse of the Day */}
+      <div className="px-4">
+        <VerseOfDay onBookmark={onBookmark} />
+      </div>
 
       {/* Affirmation Card */}
       <motion.div
