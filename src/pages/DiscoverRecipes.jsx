@@ -12,6 +12,7 @@ import CommunityRecipes from '@/components/wellness/CommunityRecipes';
 import RecipeCollections from '@/components/wellness/RecipeCollections';
 import ChefDaniel from '@/components/wellness/ChefDaniel';
 import UniversalHeader from '@/components/navigation/UniversalHeader';
+import WellnessTabBar from '@/components/wellness/WellnessTabBar';
 
 export default function DiscoverRecipes() {
   const [user, setUser] = useState(null);
@@ -77,8 +78,9 @@ export default function DiscoverRecipes() {
   return (
     <div className="min-h-screen bg-[#f6ebe0] pb-24">
       <UniversalHeader title="Discover Recipes" />
+      <WellnessTabBar activeTab="nutrition" />
 
-      <div className="px-4 pt-20 max-w-2xl mx-auto">
+      <div className="px-4 pt-4 max-w-2xl mx-auto">
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-3xl font-bold text-[#3C4E53]">Discover Recipes</h1>
           <Button

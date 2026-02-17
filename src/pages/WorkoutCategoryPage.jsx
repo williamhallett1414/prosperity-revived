@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import WorkoutCard from '@/components/wellness/WorkoutCard';
 import { PREMADE_WORKOUTS } from '@/components/wellness/WorkoutLibrary';
 import UniversalHeader from '@/components/navigation/UniversalHeader';
+import WellnessTabBar from '@/components/wellness/WellnessTabBar';
 
 export default function WorkoutCategoryPage() {
   const [user, setUser] = useState(null);
@@ -45,8 +46,9 @@ export default function WorkoutCategoryPage() {
   return (
     <div className="min-h-screen bg-[#F2F6FA]">
       <UniversalHeader title={`${category} Workouts`} />
+      <WellnessTabBar activeTab="workouts" />
 
-      <div className="max-w-2xl mx-auto px-4 py-6 pt-20 pb-24">
+      <div className="max-w-2xl mx-auto px-4 py-6 pt-4 pb-24">
         {/* Category Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}

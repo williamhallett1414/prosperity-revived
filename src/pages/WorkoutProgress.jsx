@@ -13,6 +13,7 @@ import GoalCompletionChart from '@/components/wellness/GoalCompletionChart';
 import ProgressPhotoGallery from '@/components/wellness/ProgressPhotoGallery';
 import CoachDavid from '@/components/wellness/CoachDavid';
 import UniversalHeader from '@/components/navigation/UniversalHeader';
+import WellnessTabBar from '@/components/wellness/WellnessTabBar';
 
 export default function WorkoutProgress() {
   const [user, setUser] = useState(null);
@@ -54,8 +55,9 @@ export default function WorkoutProgress() {
   return (
     <div className="min-h-screen bg-[#F2F6FA] pb-24">
       <UniversalHeader title="Workout Progress" />
+      <WellnessTabBar activeTab="workouts" />
 
-      <div className="max-w-4xl mx-auto px-4 space-y-6 pt-20">
+      <div className="max-w-4xl mx-auto px-4 space-y-6 pt-4">
 
         {/* Stats Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 px-4 pt-6">
