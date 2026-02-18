@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { createPageUrl } from '@/utils';
-import { ArrowLeft, Calendar, CheckCircle2, Circle, Play, RotateCcw, FileText, BarChart3, Bell, BookOpen } from 'lucide-react';
+import { ArrowLeft, Calendar, CheckCircle2, Circle, Play, RotateCcw, FileText, BarChart3, Bell, BookOpen, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { readingPlans } from '@/components/bible/BibleData';
@@ -68,6 +68,14 @@ export default function PlanDetail() {
     onSuccess: () => {
       queryClient.invalidateQueries(['planProgress']);
       queryClient.invalidateQueries(['planProgress', planId]);
+    }
+  });
+
+  const deletePlan = useMutation({
+    mutationFn: (id) => base44.entities.ReadingPlanProgress.delete(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries(['planProgress']);
+      window.location.href = createPageUrl('Plans');
     }
   });
 
@@ -300,6 +308,19 @@ export default function PlanDetail() {
               >
                 <RotateCcw className="w-4 h-4" />
                 Restart
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => {
+                  if (confirm('Are you sure you want to abandon this plan? All progress will be lost.')) {
+                    deletePlan.mutate(progress.id);
+                  }
+                }}
+                className="flex items-center gap-1 text-red-600 hover:text-red-700 hover:border-red-300"
+              >
+                <Trash2 className="w-4 h-4" />
+                Abandon
               </Button>
             </div>
           </motion.div>
