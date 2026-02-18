@@ -64,6 +64,7 @@ import GroupDetail from './pages/GroupDetail';
 import Groups from './pages/Groups';
 import GrowthPathwaysPage from './pages/GrowthPathwaysPage';
 import HabitBuilderPage from './pages/HabitBuilderPage';
+import HealthWellnessWaiver from './pages/HealthWellnessWaiver';
 import Home from './pages/Home';
 import IdentityInChristPage from './pages/IdentityInChristPage';
 import MealDetailView from './pages/MealDetailView';
@@ -80,11 +81,13 @@ import PhotoGallery from './pages/PhotoGallery';
 import PlanDetail from './pages/PlanDetail';
 import Plans from './pages/Plans';
 import Prayer from './pages/Prayer';
+import PrivacyPolicy from './pages/PrivacyPolicy';
 import Profile from './pages/Profile';
 import Search from './pages/Search';
 import SelfCareChallengesPage from './pages/SelfCareChallengesPage';
 import Settings from './pages/Settings';
 import SpiritualGrowth from './pages/SpiritualGrowth';
+import SubscriptionTerms from './pages/SubscriptionTerms';
 import TermsAndConditions from './pages/TermsAndConditions';
 import UserProfile from './pages/UserProfile';
 import WeeklyReflectionPage from './pages/WeeklyReflectionPage';
@@ -93,9 +96,6 @@ import WorkoutCategoryPage from './pages/WorkoutCategoryPage';
 import WorkoutProgress from './pages/WorkoutProgress';
 import WorkoutTrends from './pages/WorkoutTrends';
 import Workouts from './pages/Workouts';
-import PrivacyPolicy from './pages/PrivacyPolicy';
-import HealthWellnessWaiver from './pages/HealthWellnessWaiver';
-import SubscriptionTerms from './pages/SubscriptionTerms';
 import __Layout from './Layout.jsx';
 
 
@@ -117,6 +117,7 @@ export const PAGES = {
     "Groups": Groups,
     "GrowthPathwaysPage": GrowthPathwaysPage,
     "HabitBuilderPage": HabitBuilderPage,
+    "HealthWellnessWaiver": HealthWellnessWaiver,
     "Home": Home,
     "IdentityInChristPage": IdentityInChristPage,
     "MealDetailView": MealDetailView,
@@ -133,11 +134,13 @@ export const PAGES = {
     "PlanDetail": PlanDetail,
     "Plans": Plans,
     "Prayer": Prayer,
+    "PrivacyPolicy": PrivacyPolicy,
     "Profile": Profile,
     "Search": Search,
     "SelfCareChallengesPage": SelfCareChallengesPage,
     "Settings": Settings,
     "SpiritualGrowth": SpiritualGrowth,
+    "SubscriptionTerms": SubscriptionTerms,
     "TermsAndConditions": TermsAndConditions,
     "UserProfile": UserProfile,
     "WeeklyReflectionPage": WeeklyReflectionPage,
@@ -146,9 +149,6 @@ export const PAGES = {
     "WorkoutProgress": WorkoutProgress,
     "WorkoutTrends": WorkoutTrends,
     "Workouts": Workouts,
-    "PrivacyPolicy": PrivacyPolicy,
-    "HealthWellnessWaiver": HealthWellnessWaiver,
-    "SubscriptionTerms": SubscriptionTerms,
 }
 
 export const pagesConfig = {
