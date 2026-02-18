@@ -95,6 +95,7 @@ import WorkoutTrends from './pages/WorkoutTrends';
 import Workouts from './pages/Workouts';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import HealthWellnessWaiver from './pages/HealthWellnessWaiver';
+import SubscriptionTerms from './pages/SubscriptionTerms';
 import __Layout from './Layout.jsx';
 
 
@@ -147,6 +148,7 @@ export const PAGES = {
     "Workouts": Workouts,
     "PrivacyPolicy": PrivacyPolicy,
     "HealthWellnessWaiver": HealthWellnessWaiver,
+    "SubscriptionTerms": SubscriptionTerms,
 }
 
 export const pagesConfig = {
