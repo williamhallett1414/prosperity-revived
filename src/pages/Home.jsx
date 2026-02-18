@@ -468,7 +468,7 @@ export default function Home() {
           
           <Button
             onClick={() => setShowCreatePost(true)}
-            className="w-full bg-gradient-to-r from-[#D9B878] to-[#AFC7E3] hover:from-[#D9B878]/90 hover:to-[#AFC7E3]/90 text-[#0A1A2F] h-12 mb-4 rounded-xl shadow-md font-semibold">
+            className="w-full bg-gradient-to-r from-[#FD9C2D] to-[#FAD98D] hover:from-[#FD9C2D]/90 hover:to-[#FAD98D]/90 text-[#3C4E53] h-12 mb-4 rounded-xl shadow-md font-semibold">
 
             <Plus className="w-5 h-5 mr-2" />
             Share Your Thoughts
