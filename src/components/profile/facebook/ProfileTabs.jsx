@@ -23,12 +23,12 @@ export default function ProfileTabs({ activeTab, onTabChange }) {
             return (
               <button
                 key={tab.id}
-                onClick={() => onTabChange(tab.id)}
-                className={`flex-1 min-w-max flex items-center justify-center gap-2 px-6 py-4 font-medium text-sm transition-colors relative group ${
-                isActive ?
-                'text-blue-600 border-b-2 border-blue-600' :
-                'text-gray-600 hover:text-gray-900'}`
-                }>
+                onClick={() => onTabChange(tab.id)} className="text-amber-500 px-6 py-4 text-sm font-medium flex-1 min-w-max flex items-center justify-center gap-2 transition-colors relative group border-b-2 border-blue-600">
+
+
+
+
+
 
                 <Icon className="w-4 h-4" />
                 {tab.label}
