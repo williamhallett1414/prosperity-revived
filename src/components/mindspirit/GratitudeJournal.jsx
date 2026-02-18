@@ -59,7 +59,7 @@ export default function GratitudeJournal() {
               value={item}
               onChange={(e) => updateItem(index, e.target.value)}
               placeholder="I'm grateful for..."
-              className="bg-white border-pink-200 focus:border-pink-400"
+              className="bg-white border-pink-200 focus:border-pink-400 text-black"
             />
           </div>
         ))}

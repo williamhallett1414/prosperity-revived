@@ -72,8 +72,10 @@ import MindsetResetPage from './pages/MindsetResetPage';
 import MyJournalEntries from './pages/MyJournalEntries';
 import NotificationSettings from './pages/NotificationSettings';
 import Notifications from './pages/Notifications';
+import Nutrition from './pages/Nutrition';
 import NutritionArticle from './pages/NutritionArticle';
 import NutritionGuidance from './pages/NutritionGuidance';
+import PersonalGrowth from './pages/PersonalGrowth';
 import PhotoGallery from './pages/PhotoGallery';
 import PlanDetail from './pages/PlanDetail';
 import Plans from './pages/Plans';
@@ -90,8 +92,6 @@ import WorkoutCategoryPage from './pages/WorkoutCategoryPage';
 import WorkoutProgress from './pages/WorkoutProgress';
 import WorkoutTrends from './pages/WorkoutTrends';
 import Workouts from './pages/Workouts';
-import Nutrition from './pages/Nutrition';
-import PersonalGrowth from './pages/PersonalGrowth';
 import __Layout from './Layout.jsx';
 
 
@@ -121,8 +121,10 @@ export const PAGES = {
     "MyJournalEntries": MyJournalEntries,
     "NotificationSettings": NotificationSettings,
     "Notifications": Notifications,
+    "Nutrition": Nutrition,
     "NutritionArticle": NutritionArticle,
     "NutritionGuidance": NutritionGuidance,
+    "PersonalGrowth": PersonalGrowth,
     "PhotoGallery": PhotoGallery,
     "PlanDetail": PlanDetail,
     "Plans": Plans,
@@ -139,8 +141,6 @@ export const PAGES = {
     "WorkoutProgress": WorkoutProgress,
     "WorkoutTrends": WorkoutTrends,
     "Workouts": Workouts,
-    "Nutrition": Nutrition,
-    "PersonalGrowth": PersonalGrowth,
 }
 
 export const pagesConfig = {

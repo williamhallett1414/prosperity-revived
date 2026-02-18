@@ -430,7 +430,7 @@ export default function MyJournalEntries() {
                               onChange={(e) =>
                                 setEditTitle(e.target.value)
                               }
-                              className="bg-[#E6EBEF] border-[#E6EBEF] text-[#0A1A2F]"
+                              className="bg-[#E6EBEF] border-[#E6EBEF] text-black"
                             />
                             <Textarea
                               placeholder="Entry content"
@@ -438,7 +438,7 @@ export default function MyJournalEntries() {
                               onChange={(e) =>
                                 setEditContent(e.target.value)
                               }
-                              className="min-h-[150px] bg-[#E6EBEF] border-[#E6EBEF] text-[#0A1A2F]"
+                              className="min-h-[150px] bg-[#E6EBEF] border-[#E6EBEF] text-black"
                             />
                             <div className="flex gap-2">
                               <Button
@@ -551,13 +551,13 @@ export default function MyJournalEntries() {
               placeholder="Entry title (optional)"
               value={newTitle}
               onChange={(e) => setNewTitle(e.target.value)}
-              className="bg-[#E6EBEF] border-[#E6EBEF] text-[#0A1A2F]"
+              className="bg-[#E6EBEF] border-[#E6EBEF] text-black"
             />
             <Textarea
               placeholder="What's on your mind?"
               value={newContent}
               onChange={(e) => setNewContent(e.target.value)}
-              className="min-h-[200px] bg-[#E6EBEF] border-[#E6EBEF] text-[#0A1A2F]"
+              className="min-h-[200px] bg-[#E6EBEF] border-[#E6EBEF] text-black"
             />
             <div className="flex gap-2">
               <Button
