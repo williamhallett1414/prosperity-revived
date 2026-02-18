@@ -148,7 +148,7 @@ export default function TodaysRecommendations({ user, mealLogs, workoutSessions,
 
   return (
     <div className="mb-8">
-      <h2 className="text-2xl font-bold text-[#0A1A2F] mb-4 px-4">Today's Recommendations</h2>
+      <h2 className="text-2xl font-bold text-[#3C4E53] mb-4 px-4">Today's Recommendations</h2>
       <div className="space-y-3 px-4">
         {recommendations.map((rec, index) => (
           <motion.button
@@ -162,10 +162,10 @@ export default function TodaysRecommendations({ user, mealLogs, workoutSessions,
             <div className="flex items-start gap-3">
               <span className="text-2xl mt-1">{rec.icon}</span>
               <div className="flex-1">
-                <p className="font-bold text-[#0A1A2F] text-sm">{rec.title}</p>
-                <p className="text-[#0A1A2F]/70 text-xs mt-1">{rec.description}</p>
+                <p className="font-bold text-[#3C4E53] text-sm">{rec.title}</p>
+                <p className="text-[#3C4E53]/70 text-xs mt-1">{rec.description}</p>
               </div>
-              <Zap className="w-4 h-4 text-[#D9B878] mt-1 flex-shrink-0" />
+              <Zap className="w-4 h-4 text-[#FD9C2D] mt-1 flex-shrink-0" />
             </div>
           </motion.button>
         ))}
