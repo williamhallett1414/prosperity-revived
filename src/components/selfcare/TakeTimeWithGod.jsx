@@ -41,7 +41,7 @@ export default function TakeTimeWithGod() {
           <p className="text-gray-800 font-serif italic text-xl mb-4">
             "Come to me, all who are weary and burdened, and I will give you rest."
           </p>
-          <p className="text-[#D9B878] font-semibold">Matthew 11:28</p>
+          <p className="text-[#FD9C2D] font-semibold">Matthew 11:28</p>
         </div>
       )
     },
@@ -71,11 +71,11 @@ export default function TakeTimeWithGod() {
         <div className="text-center">
           <div className="text-6xl mb-4">✨</div>
           <p className="text-gray-800 text-lg leading-relaxed mb-4">
-            You are <span className="font-bold text-[#D9B878]">chosen</span>.
+            You are <span className="font-bold text-[#FD9C2D]">chosen</span>.
             <br />
-            You are <span className="font-bold text-[#D9B878]">loved</span>.
+            You are <span className="font-bold text-[#FD9C2D]">loved</span>.
             <br />
-            You are <span className="font-bold text-[#D9B878]">strengthened</span> by Him.
+            You are <span className="font-bold text-[#FD9C2D]">strengthened</span> by Him.
           </p>
           <p className="text-gray-600 text-sm italic">
             Go forth in peace and confidence.
@@ -109,7 +109,7 @@ export default function TakeTimeWithGod() {
       >
         <Button
           onClick={() => setShowModal(true)}
-          className="w-full h-24 bg-gradient-to-r from-[#D9B878] to-[#AFC7E3] hover:from-[#D9B878]/90 hover:to-[#AFC7E3]/90 text-[#0A1A2F] text-xl font-bold rounded-2xl shadow-xl"
+          className="w-full h-24 bg-gradient-to-r from-[#FD9C2D] to-[#FAD98D] hover:from-[#FD9C2D]/90 hover:to-[#FAD98D]/90 text-[#3C4E53] text-xl font-bold rounded-2xl shadow-xl"
         >
           <div className="flex flex-col items-center">
             <span className="text-2xl mb-1">✨</span>
@@ -165,7 +165,7 @@ export default function TakeTimeWithGod() {
                 <div
                   key={i}
                   className={`h-2 rounded-full transition-all ${
-                    i === step ? 'w-8 bg-[#D9B878]' : 'w-2 bg-gray-300'
+                    i === step ? 'w-8 bg-[#FD9C2D]' : 'w-2 bg-gray-300'
                   }`}
                 />
               ))}
@@ -174,7 +174,7 @@ export default function TakeTimeWithGod() {
             {step === steps.length - 1 && (
               <Button
                 onClick={handleClose}
-                className="w-full bg-gradient-to-r from-[#D9B878] to-[#AFC7E3] hover:from-[#D9B878]/90 hover:to-[#AFC7E3]/90 text-[#0A1A2F]"
+                className="w-full bg-gradient-to-r from-[#FD9C2D] to-[#FAD98D] hover:from-[#FD9C2D]/90 hover:to-[#FAD98D]/90 text-[#3C4E53]"
               >
                 Complete
               </Button>
