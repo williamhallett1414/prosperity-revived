@@ -20,7 +20,7 @@ import EndMyDayModal from '@/components/home/EndMyDayModal';
 import TodaysOverview from '@/components/home/TodaysOverview';
 import WellnessHub from '@/components/home/WellnessHub';
 import TodaysRecommendations from '@/components/home/TodaysRecommendations';
-
+import HelpChatbot from '@/components/home/HelpChatbot';
 
 import { Trophy } from 'lucide-react';
 
@@ -518,6 +518,8 @@ export default function Home() {
         onClose={() => setShowEndDay(false)}
         meditations={meditations} />
 
+      {/* Help Chatbot */}
+      <HelpChatbot />
     </div>);
 
 }
