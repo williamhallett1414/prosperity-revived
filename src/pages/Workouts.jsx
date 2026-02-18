@@ -190,8 +190,8 @@ export default function Workouts() {
             {recommendedWorkout &&
             <motion.div
               initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl p-5 text-white shadow-md mb-6">
+              animate={{ opacity: 1, y: 0 }} className="bg-yellow-500 text-slate-900 mb-6 p-5 rounded-xl from-emerald-500 to-emerald-600 shadow-md">
+
 
                 <div className="flex items-start justify-between mb-3">
                   <div>
@@ -200,18 +200,18 @@ export default function Workouts() {
                   </div>
                   <Dumbbell className="w-6 h-6" />
                 </div>
-                <div className="bg-white/20 rounded-lg p-3 mb-3">
+                <div className="bg-transparent mb-3 p-3 rounded-lg">
                   <p className="font-semibold">{recommendedWorkout.title}</p>
                   <p className="text-sm text-white/90">
                     {recommendedWorkout.duration_minutes} min • {recommendedWorkout.difficulty || 'All Levels'}
                   </p>
                 </div>
-                <Button
-                className="w-full bg-white text-emerald-600 hover:bg-white/90"
-                onClick={() => {
-                  setSelectedWorkout(recommendedWorkout);
-                  setShowStartWorkout(true);
-                }}>
+                <Button className="bg-slate-900 text-slate-50 px-4 py-2 text-sm font-medium rounded-md inline-flex items-center justify-center gap-2 whitespace-nowrap transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 shadow h-9 w-full hover:bg-white/90"
+
+              onClick={() => {
+                setSelectedWorkout(recommendedWorkout);
+                setShowStartWorkout(true);
+              }}>
 
                   Start Workout
                 </Button>
