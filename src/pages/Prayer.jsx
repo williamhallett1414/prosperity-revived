@@ -329,10 +329,26 @@ export default function Prayer() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
+          className="mb-6"
+        >
+          <Button
+            onClick={() => document.getElementById('prayer-form-section').scrollIntoView({ behavior: 'smooth' })}
+            className="w-full bg-gradient-to-r from-[#FD9C2D] to-[#FAD98D] hover:from-[#FD9C2D]/90 hover:to-[#FAD98D]/90 text-[#3C4E53] h-12 rounded-xl shadow-md font-semibold"
+          >
+            <Heart className="w-5 h-5 mr-2" />
+            Share Prayer Request
+          </Button>
+        </motion.div>
+
+        {/* Prayer Request Form */}
+        <motion.div
+          id="prayer-form-section"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
           className="bg-white rounded-2xl p-6 shadow-sm mb-6"
         >
           <h2 className="text-xl font-bold text-[#0A1A2F] mb-4 flex items-center gap-2">
-            <Heart className="w-6 h-6 text-[#D9B878]" />
+            <Heart className="w-6 h-6 text-[#FD9C2D]" />
             Pray for Me
           </h2>
           
@@ -351,7 +367,7 @@ export default function Prayer() {
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <Label htmlFor="photo-upload" className="cursor-pointer">
-                  <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-[#D9B878] transition-colors">
+                  <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-[#FD9C2D] transition-colors">
                     <Image className="w-6 h-6 mx-auto mb-2 text-gray-400" />
                     <span className="text-sm text-gray-600">
                       {photoFile ? photoFile.name : 'Add Photo'}
@@ -369,7 +385,7 @@ export default function Prayer() {
 
               <div>
                 <Label htmlFor="video-upload" className="cursor-pointer">
-                  <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-[#D9B878] transition-colors">
+                  <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-[#FD9C2D] transition-colors">
                     <Video className="w-6 h-6 mx-auto mb-2 text-gray-400" />
                     <span className="text-sm text-gray-600">
                       {videoFile ? videoFile.name : 'Add Video'}
@@ -402,7 +418,7 @@ export default function Prayer() {
             <Button
               type="submit"
               disabled={isUploading || !prayerText.trim()}
-              className="w-full bg-[#D9B878] hover:bg-[#D9B878]/90 text-[#0A1A2F]"
+              className="w-full bg-[#FD9C2D] hover:bg-[#FD9C2D]/90 text-white"
             >
               {isUploading ? (
                 <>
