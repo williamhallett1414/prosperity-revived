@@ -30,8 +30,8 @@ export default function PersonalGrowth() {
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm hover:shadow-md transition-all cursor-pointer h-full"
-              >
+                className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm hover:shadow-md transition-all cursor-pointer h-full">
+
                 <div className="flex flex-col items-center text-center gap-2">
                   <div className="w-10 h-10 bg-purple-500 rounded-full flex items-center justify-center">
                     <BookOpen className="w-5 h-5 text-white" />
@@ -50,8 +50,8 @@ export default function PersonalGrowth() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.05 }}
-                className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm hover:shadow-md transition-all cursor-pointer h-full"
-              >
+                className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm hover:shadow-md transition-all cursor-pointer h-full">
+
                 <div className="flex flex-col items-center text-center gap-2">
                   <div className="w-10 h-10 bg-[#D9B878]/20 rounded-full flex items-center justify-center">
                     <Brain className="w-5 h-5 text-[#D9B878]" />
@@ -70,8 +70,8 @@ export default function PersonalGrowth() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
-                className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm hover:shadow-md transition-all cursor-pointer h-full"
-              >
+                className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm hover:shadow-md transition-all cursor-pointer h-full">
+
                 <div className="flex flex-col items-center text-center gap-2">
                   <div className="w-10 h-10 bg-pink-100 rounded-full flex items-center justify-center">
                     <Heart className="w-5 h-5 text-[#D9B878]" />
@@ -90,8 +90,8 @@ export default function PersonalGrowth() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.15 }}
-                className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm hover:shadow-md transition-all cursor-pointer h-full"
-              >
+                className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm hover:shadow-md transition-all cursor-pointer h-full">
+
                 <div className="flex flex-col items-center text-center gap-2">
                   <div className="w-10 h-10 bg-[#AFC7E3]/20 rounded-full flex items-center justify-center">
                     <Sparkles className="w-5 h-5 text-[#AFC7E3]" />
@@ -110,8 +110,8 @@ export default function PersonalGrowth() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm hover:shadow-md transition-all cursor-pointer h-full"
-              >
+                className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm hover:shadow-md transition-all cursor-pointer h-full">
+
                 <div className="flex flex-col items-center text-center gap-2">
                   <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
                     <Target className="w-5 h-5 text-[#AFC7E3]" />
@@ -130,8 +130,8 @@ export default function PersonalGrowth() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.25 }}
-                className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm hover:shadow-md transition-all cursor-pointer h-full"
-              >
+                className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm hover:shadow-md transition-all cursor-pointer h-full">
+
                 <div className="flex flex-col items-center text-center gap-2">
                   <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
                     <CheckCircle2 className="w-5 h-5 text-[#D9B878]" />
@@ -150,8 +150,8 @@ export default function PersonalGrowth() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
-                className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm hover:shadow-md transition-all cursor-pointer h-full"
-              >
+                className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm hover:shadow-md transition-all cursor-pointer h-full">
+
                 <div className="flex flex-col items-center text-center gap-2">
                   <div className="w-10 h-10 bg-[#D9B878]/20 rounded-full flex items-center justify-center">
                     <Crown className="w-5 h-5 text-[#D9B878]" />
@@ -170,8 +170,8 @@ export default function PersonalGrowth() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.35 }}
-                className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm hover:shadow-md transition-all cursor-pointer h-full"
-              >
+                className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm hover:shadow-md transition-all cursor-pointer h-full">
+
                 <div className="flex flex-col items-center text-center gap-2">
                   <div className="w-10 h-10 bg-[#AFC7E3]/20 rounded-full flex items-center justify-center">
                     <Calendar className="w-5 h-5 text-[#AFC7E3]" />
@@ -186,22 +186,22 @@ export default function PersonalGrowth() {
 
             {/* Self-Care Challenges */}
             <Link to={createPageUrl('SelfCareChallengesPage')}>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
-                className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm hover:shadow-md transition-all cursor-pointer h-full"
-              >
-                <div className="flex flex-col items-center text-center gap-2">
-                  <div className="w-10 h-10 bg-[#D9B878]/20 rounded-full flex items-center justify-center">
-                    <Trophy className="w-5 h-5 text-[#D9B878]" />
-                  </div>
-                  <div>
-                    <h3 className="text-sm font-bold text-[#0A1A2F]">Self-Care Challenges</h3>
-                    <p className="text-xs text-[#0A1A2F]/60">Build habits</p>
-                  </div>
-                </div>
-              </motion.div>
+              
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             </Link>
 
             {/* Gratitude Journal */}
@@ -209,9 +209,9 @@ export default function PersonalGrowth() {
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.45 }}
-                className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm hover:shadow-md transition-all cursor-pointer h-full"
-              >
+                transition={{ delay: 0.45 }} className="bg-white px-4 py-4 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-all cursor-pointer h-full">
+
+
                 <div className="flex flex-col items-center text-center gap-2">
                   <div className="w-10 h-10 bg-pink-500 rounded-full flex items-center justify-center">
                     <Heart className="w-5 h-5 text-white" />
@@ -226,6 +226,6 @@ export default function PersonalGrowth() {
           </div>
         </div>
       </div>
-    </div>
-  );
+    </div>);
+
 }
