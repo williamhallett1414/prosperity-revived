@@ -131,7 +131,7 @@ function PrayerCard({ request, index, user, onPray, onLike, onComment, onShare }
               size="sm"
               onClick={handleAddComment}
               disabled={!commentText.trim()}
-              className="bg-[#D9B878] hover:bg-[#D9B878]/90 text-[#0A1A2F]">
+              className="bg-[#FD9C2D] hover:bg-[#FD9C2D]/90 text-white">
 
                 <Send className="w-4 h-4" />
               </Button>
@@ -306,7 +306,7 @@ export default function Prayer() {
           <div className="flex items-center gap-3 mb-2">
             <Link
               to={createPageUrl('Bible')}
-              className="w-10 h-10 rounded-full bg-[#D9B878] hover:bg-[#D9B878]/90 shadow-sm flex items-center justify-center text-[#0A1A2F] transition-colors">
+              className="w-10 h-10 rounded-full bg-[#FAD98D] hover:bg-[#FAD98D]/90 shadow-sm flex items-center justify-center text-[#3C4E53] transition-colors">
 
               <ArrowLeft className="w-5 h-5" />
             </Link>
