@@ -41,7 +41,7 @@ export default function ProfileHeader({ user, friendsCount, userProgress }) {
   return (
     <div className="bg-white shadow-sm">
       {/* Cover Photo */}
-      <div className="relative h-64 sm:h-80 lg:h-96 bg-gradient-to-br from-blue-400 via-purple-500 to-pink-500 overflow-hidden">
+      <div className="relative h-64 sm:h-80 lg:h-96 bg-gradient-to-br from-[#3C4E53] via-[#FD9C2D] to-[#FAD98D] overflow-hidden">
         {user?.cover_image_url ?
         <img
           src={user.cover_image_url}
@@ -49,7 +49,7 @@ export default function ProfileHeader({ user, friendsCount, userProgress }) {
           className="w-full h-full object-cover" /> :
 
 
-        <div className="w-full h-full bg-gradient-to-br from-blue-400 via-purple-500 to-pink-500" />
+        <div className="w-full h-full bg-gradient-to-br from-[#3C4E53] via-[#FD9C2D] to-[#FAD98D]" />
         }
         <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
         
@@ -74,7 +74,7 @@ export default function ProfileHeader({ user, friendsCount, userProgress }) {
           {/* Profile Picture & Name */}
           <div className="flex flex-col sm:flex-row sm:items-end sm:gap-5 mb-4 sm:mb-0">
             <div className="relative mb-4 sm:mb-0 mx-auto sm:mx-0">
-              <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-full border-4 border-white shadow-2xl overflow-hidden bg-gradient-to-br from-blue-500 to-purple-600">
+              <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-full border-4 border-white shadow-2xl overflow-hidden bg-gradient-to-br from-[#3C4E53] to-[#FD9C2D]">
                 {user?.profile_image_url ?
                 <img
                   src={user.profile_image_url}
@@ -114,12 +114,12 @@ export default function ProfileHeader({ user, friendsCount, userProgress }) {
           {/* Action Buttons */}
           <div className="flex gap-2 justify-center sm:justify-end flex-wrap">
             <Link to={createPageUrl('Messages')}>
-              <Button className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 shadow-sm hover:shadow-md transition-all">
+              <Button className="bg-[#FD9C2D] hover:bg-[#FD9C2D]/90 text-white px-5 py-2.5 shadow-sm hover:shadow-md transition-all">
                 <MessageCircle className="w-4 h-4 mr-2" />
                 Message
               </Button>
             </Link>
-            <Button variant="outline" className="px-5 py-2.5 border-2 hover:bg-gray-50 font-medium shadow-sm hover:shadow-md transition-all">
+            <Button variant="outline" className="px-5 py-2.5 border-2 border-[#3C4E53] text-[#3C4E53] hover:bg-[#3C4E53]/5 font-medium shadow-sm hover:shadow-md transition-all">
               <UserPlus className="w-4 h-4 mr-2" />
               Add Friend
             </Button>
@@ -140,8 +140,8 @@ export default function ProfileHeader({ user, friendsCount, userProgress }) {
                 </p>
             }
               {user?.spiritual_goal &&
-            <div className="flex items-start gap-2.5 text-sm bg-yellow-50 border border-yellow-200 rounded-lg p-3">
-                  <Sparkles className="w-5 h-5 text-yellow-600 mt-0.5 flex-shrink-0" />
+            <div className="flex items-start gap-2.5 text-sm bg-[#FAD98D]/20 border border-[#FAD98D] rounded-lg p-3">
+                 <Sparkles className="w-5 h-5 text-[#FD9C2D] mt-0.5 flex-shrink-0" />
                   <p className="text-gray-700">
                     <span className="font-bold text-gray-900">Spiritual Goal:</span> {user.spiritual_goal}
                   </p>
