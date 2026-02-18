@@ -34,7 +34,7 @@ export default function Home() {
   const queryClient = useQueryClient();
 
   useEffect(() => {
-    base44.auth.me().then(u => {
+    base44.auth.me().then((u) => {
       setUser(u);
       if (!u.onboarding_completed) {
         setShowOnboarding(true);
@@ -255,8 +255,8 @@ export default function Home() {
     onMutate: async ({ id, likes }) => {
       await queryClient.cancelQueries(['posts']);
       const previousPosts = queryClient.getQueryData(['posts']);
-      queryClient.setQueryData(['posts'], old => 
-        old?.map(p => p.id === id ? { ...p, likes } : p) || []
+      queryClient.setQueryData(['posts'], (old) =>
+      old?.map((p) => p.id === id ? { ...p, likes } : p) || []
       );
       return { previousPosts };
     },
@@ -286,13 +286,13 @@ export default function Home() {
   };
 
   const getProgressForPlan = (planId) => {
-    return planProgress.find(p => p.plan_id === planId);
+    return planProgress.find((p) => p.plan_id === planId);
   };
 
-  const activePlans = readingPlans.filter(plan => getProgressForPlan(plan.id));
+  const activePlans = readingPlans.filter((plan) => getProgressForPlan(plan.id));
 
   const handleLike = (postId, isLiked) => {
-    const post = posts.find(p => p.id === postId);
+    const post = posts.find((p) => p.id === postId);
     if (post) {
       updatePost.mutate({
         id: postId,
@@ -308,8 +308,8 @@ export default function Home() {
   useEffect(() => {
     if (user?.theme) {
       const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      const isDark = user.theme === 'dark' || (user.theme === 'auto' && systemDark);
-      
+      const isDark = user.theme === 'dark' || user.theme === 'auto' && systemDark;
+
       if (isDark) {
         document.documentElement.classList.add('dark');
       } else {
@@ -320,22 +320,22 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-[#F2F6FA]">
-      {showOnboarding && (
-        <OnboardingFlow 
-          onComplete={() => {
-            setShowOnboarding(false);
-            base44.auth.me().then(setUser);
-          }} 
-        />
-      )}
+      {showOnboarding &&
+      <OnboardingFlow
+        onComplete={() => {
+          setShowOnboarding(false);
+          base44.auth.me().then(setUser);
+        }} />
+
+      }
       
       <div className="max-w-2xl mx-auto px-4 py-6 pb-24">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-8"
-        >
+          className="mb-8">
+
           <h1 className="text-3xl font-bold text-[#0A1A2F] mb-1">
             {new Date().getHours() < 12 ? 'Good Morning' : new Date().getHours() < 18 ? 'Good Afternoon' : 'Good Evening'}
           </h1>
@@ -346,55 +346,55 @@ export default function Home() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="grid grid-cols-2 gap-3 mb-8 px-4"
-        >
+          className="grid grid-cols-2 gap-3 mb-8 px-4">
+
           <Button
             onClick={() => setShowStartDay(true)}
-            className="h-20 bg-gradient-to-br from-[#FD9C2D] to-[#FAD98D] hover:from-[#FD9C2D]/90 hover:to-[#FAD98D]/90 text-[#3C4E53] rounded-2xl shadow-md font-bold text-base flex flex-col items-center gap-1"
-          >
+            className="h-20 bg-gradient-to-r from-[#D9B878] to-[#AFC7E3] hover:from-[#D9B878]/90 hover:to-[#AFC7E3]/90 text-[#0A1A2F] rounded-2xl shadow-md font-bold text-base flex flex-col items-center gap-1">
+
             <span className="text-2xl">🌅</span>
             Start My Day
           </Button>
           <Button
             onClick={() => setShowEndDay(true)}
-            className="h-20 bg-gradient-to-br from-[#3C4E53] to-[#1a1a2e] hover:from-[#3C4E53]/90 hover:to-[#1a1a2e]/90 text-white rounded-2xl shadow-md font-bold text-base flex flex-col items-center gap-1"
-          >
+            className="h-20 bg-gradient-to-r from-[#0A1A2F] to-[#AFC7E3] hover:from-[#0A1A2F]/90 hover:to-[#AFC7E3]/90 text-white rounded-2xl shadow-md font-bold text-base flex flex-col items-center gap-1">
+
             <span className="text-2xl">🌙</span>
             End My Day
           </Button>
         </motion.div>
 
         {/* Today's Overview */}
-        <TodaysOverview 
+        <TodaysOverview
           meditations={meditations}
           workoutPlans={workoutPlans}
           challenges={challenges}
           user={user}
-          onBookmark={handleBookmarkVerse}
-        />
+          onBookmark={handleBookmarkVerse} />
+
 
         {/* Today's Recommendations */}
-        <TodaysRecommendations 
+        <TodaysRecommendations
           user={user}
           mealLogs={mealLogs}
           workoutSessions={workoutSessions}
           waterLogs={waterLogs}
-          meditationSessions={meditationSessions}
-        />
+          meditationSessions={meditationSessions} />
+
 
         {/* Wellness Hub */}
         <WellnessHub />
 
         {/* Gamification Banner */}
-        {userProgress !== undefined && (
-          <GamificationBanner userProgress={userProgress} />
-        )}
+        {userProgress !== undefined &&
+        <GamificationBanner userProgress={userProgress} />
+        }
 
 
 
         {/* Active Plans */}
-        {activePlans.length > 0 && (
-          <div className="mb-6">
+        {activePlans.length > 0 &&
+        <div className="mb-6">
             <div className="flex items-center justify-between mb-3">
               <h2 className="text-xl font-bold text-[#0A1A2F]">Continue Reading</h2>
               <Link to={createPageUrl('Plans')} className="text-sm text-[#D9B878] font-semibold">
@@ -402,60 +402,60 @@ export default function Home() {
               </Link>
             </div>
             <div className="space-y-3">
-              {activePlans.slice(0, 2).map((plan, index) => (
-                <ReadingPlanCard
-                  key={plan.id}
-                  plan={plan}
-                  progress={getProgressForPlan(plan.id)}
-                  onClick={() => window.location.href = createPageUrl(`PlanDetail?id=${plan.id}`)}
-                  index={index}
-                />
-              ))}
+              {activePlans.slice(0, 2).map((plan, index) =>
+            <ReadingPlanCard
+              key={plan.id}
+              plan={plan}
+              progress={getProgressForPlan(plan.id)}
+              onClick={() => window.location.href = createPageUrl(`PlanDetail?id=${plan.id}`)}
+              index={index} />
+
+            )}
             </div>
           </div>
-        )}
+        }
 
         {/* Your Activity */}
-        {(myPosts.length > 0 || workoutSessions.length > 0 || meditationSessions.length > 0) && (
-          <div className="mb-6">
-            <h2 className="text-xl font-bold text-[#0A1A2F] mb-3">Your Recent Activity</h2>
-            <div className="space-y-2">
-              {myPosts.slice(0, 2).map(post => (
-                <motion.div
-                  key={post.id}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="bg-[#E6EBEF] rounded-xl p-4 text-sm border-l-4 border-[#D9B878] shadow-sm"
-                >
-                  <p className="text-[#0A1A2F]">Posted: <span className="font-semibold">"{post.content.slice(0, 40)}..."</span></p>
-                  <p className="text-xs text-[#0A1A2F]/50 mt-1">{new Date(post.created_date).toLocaleDateString()}</p>
-                </motion.div>
-              ))}
-              {workoutSessions.slice(0, 2).map(session => (
-                <motion.div
-                  key={session.id}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="bg-[#E6EBEF] rounded-xl p-4 text-sm border-l-4 border-[#AFC7E3] shadow-sm"
-                >
-                  <p className="text-[#0A1A2F]">Workout: <span className="font-semibold">{session.workout_title}</span> ({session.duration_minutes}m)</p>
-                  <p className="text-xs text-[#0A1A2F]/50 mt-1">{new Date(session.date).toLocaleDateString()}</p>
-                </motion.div>
-              ))}
-              {meditationSessions.slice(0, 2).map(session => (
-                <motion.div
-                  key={session.id}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="bg-[#E6EBEF] rounded-xl p-4 text-sm border-l-4 border-[#D9B878] shadow-sm"
-                >
-                  <p className="text-[#0A1A2F]">Meditation: <span className="font-semibold">{session.meditation_title}</span></p>
-                  <p className="text-xs text-[#0A1A2F]/50 mt-1">{new Date(session.date).toLocaleDateString()}</p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        )}
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         {/* Community Feed */}
         <div className="mb-6">
@@ -468,56 +468,56 @@ export default function Home() {
           
           <Button
             onClick={() => setShowCreatePost(true)}
-            className="w-full bg-gradient-to-r from-[#D9B878] to-[#AFC7E3] hover:from-[#D9B878]/90 hover:to-[#AFC7E3]/90 text-[#0A1A2F] h-12 mb-4 rounded-xl shadow-md font-semibold"
-          >
+            className="w-full bg-gradient-to-r from-[#D9B878] to-[#AFC7E3] hover:from-[#D9B878]/90 hover:to-[#AFC7E3]/90 text-[#0A1A2F] h-12 mb-4 rounded-xl shadow-md font-semibold">
+
             <Plus className="w-5 h-5 mr-2" />
             Share Your Thoughts
           </Button>
 
-          {posts.length === 0 ? (
-            <div className="text-center py-8 bg-[#E6EBEF] rounded-2xl">
+          {posts.length === 0 ?
+          <div className="text-center py-8 bg-[#E6EBEF] rounded-2xl">
               <Users className="w-12 h-12 text-[#0A1A2F]/30 mx-auto mb-3" />
               <p className="text-[#0A1A2F]/50">No posts yet</p>
+            </div> :
+
+          <div className="space-y-4">
+              {posts.slice(0, 3).map((post, index) =>
+            <PostCard
+              key={post.id}
+              post={post}
+              comments={comments}
+              onLike={handleLike}
+              onComment={handleComment}
+              index={index} />
+
+            )}
             </div>
-          ) : (
-            <div className="space-y-4">
-              {posts.slice(0, 3).map((post, index) => (
-                <PostCard
-                  key={post.id}
-                  post={post}
-                  comments={comments}
-                  onLike={handleLike}
-                  onComment={handleComment}
-                  index={index}
-                />
-              ))}
-            </div>
-          )}
+          }
         </div>
       </div>
 
       {/* Modals */}
       <DailyVerseSettings
         isOpen={showDailyVerseSettings}
-        onClose={() => setShowDailyVerseSettings(false)}
-      />
+        onClose={() => setShowDailyVerseSettings(false)} />
+
       <CreatePostModal
         isOpen={showCreatePost}
         onClose={() => setShowCreatePost(false)}
-        onSubmit={(data) => createPost.mutate(data)}
-      />
+        onSubmit={(data) => createPost.mutate(data)} />
+
       <StartMyDayModal
         isOpen={showStartDay}
         onClose={() => setShowStartDay(false)}
         meditations={meditations}
         workoutPlans={workoutPlans}
-        user={user}
-      />
+        user={user} />
+
       <EndMyDayModal
         isOpen={showEndDay}
         onClose={() => setShowEndDay(false)}
-        meditations={meditations}
-      />
-    </div>
-  );
+        meditations={meditations} />
+
+    </div>);
+
 }
