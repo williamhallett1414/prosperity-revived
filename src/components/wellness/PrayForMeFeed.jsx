@@ -61,6 +61,7 @@ export default function PrayForMeFeed({ user }) {
     },
     onSuccess: () => {
       queryClient.invalidateQueries(['prayer-posts']);
+      queryClient.invalidateQueries(['posts']);
       setContent('');
       setMediaFile(null);
       setMediaType(null);
