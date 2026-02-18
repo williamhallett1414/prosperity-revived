@@ -13,8 +13,8 @@ export default function StreakTracker({ type, count, lastDate }) {
     yesterday.setDate(yesterday.getDate() - 1);
 
     setIsActive(
-      (last.toDateString() === today.toDateString()) ||
-      (last.toDateString() === yesterday.toDateString())
+      last.toDateString() === today.toDateString() ||
+      last.toDateString() === yesterday.toDateString()
     );
   }, [lastDate]);
 
@@ -30,13 +30,13 @@ export default function StreakTracker({ type, count, lastDate }) {
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1 }}
-      className={`flex items-center gap-2 px-3 py-2 rounded-lg ${
-        isActive
-          ? 'bg-gradient-to-r from-[#FD9C2D] to-[#D9B878]'
-          : 'bg-[#E6EBEF]'
-      }`}
-    >
+      animate={{ opacity: 1, scale: 1 }} className="bg-amber-500 text-slate-50 px-3 py-2 rounded-lg flex items-center gap-2">
+
+
+
+
+
+
       <Flame className={`w-4 h-4 ${isActive ? 'text-white' : 'text-[#0A1A2F]/40'}`} />
       <div className="flex flex-col">
         <span className={`text-xs font-semibold ${isActive ? 'text-white' : 'text-[#0A1A2F]/60'}`}>
@@ -46,6 +46,6 @@ export default function StreakTracker({ type, count, lastDate }) {
           {count} {count === 1 ? 'day' : 'days'}
         </span>
       </div>
-    </motion.div>
-  );
+    </motion.div>);
+
 }
