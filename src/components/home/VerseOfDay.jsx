@@ -31,16 +31,16 @@ export default function VerseOfDay({ onBookmark }) {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#1a1a2e] to-[#2d2d4a] p-6 md:p-8"
+      className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#3C4E53] to-[#FD9C2D] p-6 md:p-8"
     >
       <div className="absolute top-4 right-4 opacity-10">
-        <Sparkles className="w-24 h-24 text-[#c9a227]" />
+        <Sparkles className="w-24 h-24 text-[#FAD98D]" />
       </div>
       
       <div className="relative z-10">
         <div className="flex items-center gap-2 mb-4">
-          <div className="w-1 h-6 bg-[#c9a227] rounded-full" />
-          <span className="text-[#c9a227] text-sm font-medium tracking-wider uppercase">
+          <div className="w-1 h-6 bg-[#FAD98D] rounded-full" />
+          <span className="text-[#FAD98D] text-sm font-medium tracking-wider uppercase">
             Verse of the Day
           </span>
         </div>
