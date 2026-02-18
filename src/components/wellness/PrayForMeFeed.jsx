@@ -128,16 +128,19 @@ export default function PrayForMeFeed({ user }) {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-black rounded-xl p-4 space-y-3"
+          className="bg-white rounded-xl p-4 shadow-sm border border-gray-200"
         >
           {/* Input Area */}
-          <div className="flex gap-3">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-400 to-blue-500 flex items-center justify-center text-white font-bold text-sm">
+              {user?.full_name?.charAt(0).toUpperCase() || 'U'}
+            </div>
             <div className="flex-1">
               <button
                 onClick={() => setShowCreateBox(!showCreateBox)}
-                className="w-full bg-gray-900 hover:bg-gray-800 transition rounded-full px-4 py-2.5 text-left text-gray-400 text-sm"
+                className="w-full bg-gray-100 hover:bg-gray-200 transition rounded-full px-4 py-2.5 text-left text-gray-600 text-sm"
               >
-                What's on your heart?
+                What's on your heart, {user?.full_name?.split(' ')[0]}?
               </button>
             </div>
           </div>
@@ -148,15 +151,15 @@ export default function PrayForMeFeed({ user }) {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="space-y-3 border-t border-white/10 pt-3"
+              className="space-y-3 border-t border-gray-200 pt-3 mt-3"
             >
               <textarea
                 autoFocus
                 placeholder="Share your prayer request..."
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
-                className="w-full p-3 bg-gray-900 border border-gray-700 rounded-lg text-white resize-none focus:outline-none focus:ring-1 focus:ring-purple-500 placeholder-gray-500"
-                rows={3}
+                className="w-full p-3 bg-white border-none rounded-lg text-gray-900 resize-none focus:outline-none placeholder-gray-500 text-base"
+                rows={4}
               />
 
               {/* Media Preview */}
@@ -182,7 +185,7 @@ export default function PrayForMeFeed({ user }) {
               )}
 
               {/* Media Buttons */}
-              <div className="flex gap-2">
+              <div className="flex items-center gap-2 border-t border-gray-200 pt-3">
                 <label className="flex-1">
                     <input
                       type="file"
@@ -190,8 +193,8 @@ export default function PrayForMeFeed({ user }) {
                       onChange={(e) => handleMediaSelect(e, 'image')}
                       className="hidden"
                     />
-                    <div className="flex items-center justify-center gap-2 p-2 rounded cursor-pointer hover:bg-gray-900 transition text-gray-400 hover:text-white text-sm">
-                      <ImageIcon className="w-4 h-4" />
+                    <div className="flex items-center justify-center gap-2 py-2 px-3 rounded-lg cursor-pointer hover:bg-gray-100 transition text-gray-600 hover:text-gray-900 text-sm font-medium">
+                      <ImageIcon className="w-5 h-5 text-green-500" />
                       <span>Photo</span>
                     </div>
                   </label>
@@ -203,17 +206,17 @@ export default function PrayForMeFeed({ user }) {
                       onChange={(e) => handleMediaSelect(e, 'video')}
                       className="hidden"
                     />
-                    <div className="flex items-center justify-center gap-2 p-2 rounded cursor-pointer hover:bg-gray-900 transition text-gray-400 hover:text-white text-sm">
-                      <VideoIcon className="w-4 h-4" />
+                    <div className="flex items-center justify-center gap-2 py-2 px-3 rounded-lg cursor-pointer hover:bg-gray-100 transition text-gray-600 hover:text-gray-900 text-sm font-medium">
+                      <VideoIcon className="w-5 h-5 text-red-500" />
                       <span>Video</span>
                     </div>
                   </label>
               </div>
 
               {/* Action Buttons */}
-              <div className="flex gap-2 pt-2 border-t border-gray-700">
+              <div className="flex justify-end gap-2">
                 <Button
-                  variant="outline"
+                  variant="ghost"
                   onClick={() => {
                     setShowCreateBox(false);
                     setContent('');
@@ -221,7 +224,7 @@ export default function PrayForMeFeed({ user }) {
                     setMediaType(null);
                     setMediaPreview(null);
                   }}
-                  className="flex-1 text-white border-gray-700 hover:bg-gray-900"
+                  className="text-gray-600 hover:bg-gray-100"
                   size="sm"
                 >
                   Cancel
@@ -229,10 +232,10 @@ export default function PrayForMeFeed({ user }) {
                 <Button
                   onClick={() => createPost.mutate()}
                   disabled={createPost.isPending || !content.trim()}
-                  className="flex-1 bg-purple-600 hover:bg-purple-700"
+                  className="bg-blue-600 hover:bg-blue-700 text-white disabled:bg-gray-300 disabled:text-gray-500"
                   size="sm"
                 >
-                  {createPost.isPending ? 'Sharing...' : 'Post'}
+                  {createPost.isPending ? 'Posting...' : 'Post'}
                 </Button>
               </div>
             </motion.div>
