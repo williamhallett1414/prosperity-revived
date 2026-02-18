@@ -227,7 +227,7 @@ export default function Workouts() {
                   animate={{ opacity: 1, y: 0 }}
                   className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm">
 
-                  <div className="text-2xl font-bold text-emerald-600 mb-1">
+                  <div className="text-2xl font-bold text-[#FD9C2D] mb-1">
                     {workoutSessions.filter((s) => {
                       const today = new Date();
                       const weekAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
@@ -267,7 +267,7 @@ export default function Workouts() {
                   transition={{ delay: 0.15 }}
                   className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm">
 
-                  <div className="text-2xl font-bold text-pink-500 mb-1">
+                  <div className="text-2xl font-bold text-[#3C4E53] mb-1">
                     {Math.max(...workoutSessions.map((s) => {
                       const dates = s.date ? [s.date] : [];
                       let streak = 0;
@@ -307,29 +307,29 @@ export default function Workouts() {
                   const quickWorkouts = [
                   {
                     icon: Dumbbell,
-                    iconColor: 'text-orange-500',
-                    bgColor: 'bg-orange-100',
+                    iconColor: 'text-[#FD9C2D]',
+                    bgColor: 'bg-[#FD9C2D]/20',
                     label: 'Quick Burn',
                     workout: allWorkouts.find((w) => w.category === 'cardio' && w.duration_minutes <= 15) || allWorkouts[0]
                   },
                   {
                     icon: Target,
-                    iconColor: 'text-purple-500',
-                    bgColor: 'bg-purple-100',
+                    iconColor: 'text-[#3C4E53]',
+                    bgColor: 'bg-[#3C4E53]/10',
                     label: 'Core Reset',
                     workout: allWorkouts.find((w) => w.category === 'strength' && w.duration_minutes <= 15) || allWorkouts[1]
                   },
                   {
                     icon: Heart,
-                    iconColor: 'text-blue-500',
-                    bgColor: 'bg-blue-100',
+                    iconColor: 'text-[#FAD98D]',
+                    bgColor: 'bg-[#FAD98D]/30',
                     label: 'Stretch & Mobility',
                     workout: allWorkouts.find((w) => w.category === 'flexibility' && w.duration_minutes <= 15) || allWorkouts[2]
                   },
                   {
                     icon: Droplets,
-                    iconColor: 'text-green-500',
-                    bgColor: 'bg-green-100',
+                    iconColor: 'text-[#3C4E53]',
+                    bgColor: 'bg-[#3C4E53]/10',
                     label: 'Low-Impact Cardio',
                     workout: allWorkouts.find((w) => w.category === 'cardio' && w.duration_minutes >= 10 && w.duration_minutes <= 20) || allWorkouts[3]
                   }];
@@ -377,10 +377,10 @@ export default function Workouts() {
                   const progress = userParticipation?.progress || 0;
 
                   const iconColors = [
-                  { bg: 'bg-yellow-100', icon: 'text-yellow-600', Icon: Trophy },
-                  { bg: 'bg-red-100', icon: 'text-red-600', Icon: Dumbbell },
-                  { bg: 'bg-blue-100', icon: 'text-blue-600', Icon: Heart },
-                  { bg: 'bg-purple-100', icon: 'text-purple-600', Icon: Target }];
+                  { bg: 'bg-[#FAD98D]/30', icon: 'text-[#FD9C2D]', Icon: Trophy },
+                  { bg: 'bg-[#FD9C2D]/20', icon: 'text-[#FD9C2D]', Icon: Dumbbell },
+                  { bg: 'bg-[#3C4E53]/10', icon: 'text-[#3C4E53]', Icon: Heart },
+                  { bg: 'bg-[#FAD98D]/30', icon: 'text-[#3C4E53]', Icon: Target }];
 
                   const colorSet = iconColors[index % iconColors.length];
                   const Icon = colorSet.Icon;
@@ -426,10 +426,10 @@ export default function Workouts() {
               <h3 className="text-sm font-semibold text-[#0A1A2F] mb-3">Workout Library</h3>
               <div className="grid grid-cols-2 gap-3">
                 {[
-                { name: 'Cardio', icon: '❤️', color: 'from-red-400 to-pink-500', description: 'Get your heart pumping' },
-                { name: 'Strength', icon: '💪', color: 'from-blue-400 to-cyan-500', description: 'Build muscle & power' },
-                { name: 'HIIT', icon: '⚡', color: 'from-yellow-400 to-orange-500', description: 'High intensity intervals' },
-                { name: 'Home', icon: '🏠', color: 'from-green-400 to-emerald-500', description: 'No equipment needed' }].
+                { name: 'Cardio', icon: '❤️', color: 'from-[#FD9C2D] to-[#FAD98D]', description: 'Get your heart pumping' },
+                { name: 'Strength', icon: '💪', color: 'from-[#3C4E53] to-[#AFC7E3]', description: 'Build muscle & power' },
+                { name: 'HIIT', icon: '⚡', color: 'from-[#FAD98D] to-[#FD9C2D]', description: 'High intensity intervals' },
+                { name: 'Home', icon: '🏠', color: 'from-[#D9B878] to-[#AFC7E3]', description: 'No equipment needed' }].
                 map((category, index) =>
                 <motion.div
                   key={category.name}

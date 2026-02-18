@@ -33,7 +33,7 @@ export default function PersonalGrowth() {
                 className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm hover:shadow-md transition-all cursor-pointer h-full">
 
                 <div className="flex flex-col items-center text-center gap-2">
-                  <div className="w-10 h-10 bg-purple-500 rounded-full flex items-center justify-center">
+                  <div className="w-10 h-10 bg-[#FD9C2D] rounded-full flex items-center justify-center">
                     <BookOpen className="w-5 h-5 text-white" />
                   </div>
                   <div>
@@ -73,8 +73,8 @@ export default function PersonalGrowth() {
                 className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm hover:shadow-md transition-all cursor-pointer h-full">
 
                 <div className="flex flex-col items-center text-center gap-2">
-                  <div className="w-10 h-10 bg-pink-100 rounded-full flex items-center justify-center">
-                    <Heart className="w-5 h-5 text-[#D9B878]" />
+                  <div className="w-10 h-10 bg-[#FAD98D]/30 rounded-full flex items-center justify-center">
+                    <Heart className="w-5 h-5 text-[#FD9C2D]" />
                   </div>
                   <div>
                     <h3 className="text-sm font-bold text-[#0A1A2F]">Emotional Check-In</h3>
@@ -113,8 +113,8 @@ export default function PersonalGrowth() {
                 className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm hover:shadow-md transition-all cursor-pointer h-full">
 
                 <div className="flex flex-col items-center text-center gap-2">
-                  <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-                    <Target className="w-5 h-5 text-[#AFC7E3]" />
+                  <div className="w-10 h-10 bg-[#3C4E53]/10 rounded-full flex items-center justify-center">
+                    <Target className="w-5 h-5 text-[#3C4E53]" />
                   </div>
                   <div>
                     <h3 className="text-sm font-bold text-[#0A1A2F]">Growth Pathways</h3>
@@ -133,8 +133,8 @@ export default function PersonalGrowth() {
                 className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm hover:shadow-md transition-all cursor-pointer h-full">
 
                 <div className="flex flex-col items-center text-center gap-2">
-                  <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
-                    <CheckCircle2 className="w-5 h-5 text-[#D9B878]" />
+                  <div className="w-10 h-10 bg-[#FAD98D]/30 rounded-full flex items-center justify-center">
+                    <CheckCircle2 className="w-5 h-5 text-[#FD9C2D]" />
                   </div>
                   <div>
                     <h3 className="text-sm font-bold text-[#0A1A2F]">Habit Builder</h3>
@@ -213,7 +213,7 @@ export default function PersonalGrowth() {
 
 
                 <div className="flex flex-col items-center text-center gap-2">
-                  <div className="w-10 h-10 bg-pink-500 rounded-full flex items-center justify-center">
+                  <div className="w-10 h-10 bg-[#FD9C2D] rounded-full flex items-center justify-center">
                     <Heart className="w-5 h-5 text-white" />
                   </div>
                   <div>

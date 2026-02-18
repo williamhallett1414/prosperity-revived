@@ -49,13 +49,20 @@ export default function DailyPrayer() {
 
       <Dialog>
         <DialogTrigger asChild>
-          
-
-
-
-
-
-
+          <motion.button
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            className="w-full bg-gradient-to-r from-[#D9B878] to-[#AFC7E3] rounded-2xl p-6 text-[#0A1A2F] shadow-lg text-left"
+          >
+            <div className="flex items-center gap-3 mb-2">
+              <Heart className="w-6 h-6" />
+              <div>
+                <h3 className="text-lg font-bold">2-Minute Prayer</h3>
+                <p className="text-sm opacity-90">Today's guided prayer</p>
+              </div>
+            </div>
+            <p className="text-sm opacity-80 italic">"{todaysPrayer.title}"</p>
+          </motion.button>
 
 
 
