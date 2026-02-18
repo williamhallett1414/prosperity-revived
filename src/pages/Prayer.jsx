@@ -341,99 +341,99 @@ export default function Prayer() {
         </motion.div>
 
         {/* Prayer Request Form */}
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        <motion.div
+          id="prayer-form-section"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="bg-white rounded-2xl p-6 shadow-sm mb-6">
+
+          <h2 className="text-xl font-bold text-[#0A1A2F] mb-4 flex items-center gap-2">
+            <Heart className="w-6 h-6 text-[#FD9C2D]" />
+            Pray for Me
+          </h2>
+          
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <Label htmlFor="prayer-text">Your Prayer Request</Label>
+              <Textarea
+                id="prayer-text"
+                value={prayerText}
+                onChange={(e) => setPrayerText(e.target.value)}
+                placeholder="Share what's on your heart..."
+                className="min-h-[120px] mt-2" />
+
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Label htmlFor="photo-upload" className="cursor-pointer">
+                  <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-[#FD9C2D] transition-colors">
+                    <Image className="w-6 h-6 mx-auto mb-2 text-gray-400" />
+                    <span className="text-sm text-gray-600">
+                      {photoFile ? photoFile.name : 'Add Photo'}
+                    </span>
+                  </div>
+                </Label>
+                <Input
+                  id="photo-upload"
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => setPhotoFile(e.target.files?.[0] || null)}
+                  className="hidden" />
+
+              </div>
+
+              <div>
+                <Label htmlFor="video-upload" className="cursor-pointer">
+                  <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-[#FD9C2D] transition-colors">
+                    <Video className="w-6 h-6 mx-auto mb-2 text-gray-400" />
+                    <span className="text-sm text-gray-600">
+                      {videoFile ? videoFile.name : 'Add Video'}
+                    </span>
+                  </div>
+                </Label>
+                <Input
+                  id="video-upload"
+                  type="file"
+                  accept="video/*"
+                  onChange={(e) => setVideoFile(e.target.files?.[0] || null)}
+                  className="hidden" />
+
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <input
+                type="checkbox"
+                id="anonymous"
+                checked={isAnonymous}
+                onChange={(e) => setIsAnonymous(e.target.checked)}
+                className="rounded" />
+
+              <Label htmlFor="anonymous" className="cursor-pointer text-sm">
+                Post anonymously
+              </Label>
+            </div>
+
+            <Button
+              type="submit"
+              disabled={isUploading || !prayerText.trim()}
+              className="w-full bg-[#FD9C2D] hover:bg-[#FD9C2D]/90 text-white">
+
+              {isUploading ?
+              <>
+                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                  Submitting...
+                </> :
+
+              <>
+                  <Send className="w-4 h-4 mr-2" />
+                  Submit Prayer Request
+                </>
+              }
+            </Button>
+          </form>
+        </motion.div>
 
         {/* Prayer Wall */}
         <div className="space-y-4">
