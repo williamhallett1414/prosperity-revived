@@ -49,7 +49,7 @@ export default function WorkoutStreakCard({ sessions }) {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <Card className="bg-gradient-to-br from-[#FD9C2D] via-[#000000] to-[#C4E3FD] border-none">
+      <Card className="bg-gradient-to-br from-[#FD9C2D] via-[#3C4E53] to-[#FAD98D] border-none">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-white">
             <Flame className="w-5 h-5" />
@@ -62,7 +62,7 @@ export default function WorkoutStreakCard({ sessions }) {
         </CardContent>
       </Card>
 
-      <Card className="bg-gradient-to-br from-[#C4E3FD] via-[#000000] to-[#FD9C2D] border-none">
+      <Card className="bg-gradient-to-br from-[#FAD98D] via-[#3C4E53] to-[#FD9C2D] border-none">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-white">
             <Calendar className="w-5 h-5" />
