@@ -49,7 +49,7 @@ export default function BibleStatsModal({ isOpen, onClose, statType, progress, b
       case 'days_read':
         return (
           <div className="space-y-6">
-            <div className="bg-gradient-to-br from-amber-500 to-orange-500 rounded-2xl p-6 text-white">
+            <div className="bg-gradient-to-br from-[#FD9C2D] to-[#FAD98D] rounded-2xl p-6 text-white">
               <BookOpen className="w-12 h-12 mb-3" />
               <p className="text-5xl font-bold mb-2">{totalDaysRead}</p>
               <p className="text-white/80">Total Days Read</p>
@@ -73,9 +73,9 @@ export default function BibleStatsModal({ isOpen, onClose, statType, progress, b
                     <Line 
                       type="monotone" 
                       dataKey="count" 
-                      stroke="#f59e0b" 
+                      stroke="#FD9C2D" 
                       strokeWidth={2} 
-                      dot={{ fill: '#f59e0b', r: 3 }} 
+                      dot={{ fill: '#FD9C2D', r: 3 }} 
                     />
                   </LineChart>
                 </ResponsiveContainer>
@@ -97,7 +97,7 @@ export default function BibleStatsModal({ isOpen, onClose, statType, progress, b
                         borderRadius: '8px' 
                       }} 
                     />
-                    <Bar dataKey="days" fill="#f59e0b" radius={[8, 8, 0, 0]} />
+                    <Bar dataKey="days" fill="#FD9C2D" radius={[8, 8, 0, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
               </div>
@@ -108,7 +108,7 @@ export default function BibleStatsModal({ isOpen, onClose, statType, progress, b
       case 'streak':
         return (
           <div className="space-y-6">
-            <div className="bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl p-6 text-white">
+            <div className="bg-gradient-to-br from-[#3C4E53] to-[#FD9C2D] rounded-2xl p-6 text-white">
               <TrendingUp className="w-12 h-12 mb-3" />
               <p className="text-5xl font-bold mb-2">{longestStreak}</p>
               <p className="text-white/80">Longest Streak (Days)</p>
@@ -118,7 +118,7 @@ export default function BibleStatsModal({ isOpen, onClose, statType, progress, b
               {progress.slice(0, 4).map((p, i) => (
                 <div key={i} className="bg-gray-50 dark:bg-[#2d2d4a] rounded-xl p-4">
                   <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">{p.plan_name}</p>
-                  <p className="text-2xl font-bold text-green-600">{p.longest_streak || 0}</p>
+                  <p className="text-2xl font-bold text-[#FD9C2D]">{p.longest_streak || 0}</p>
                   <p className="text-xs text-gray-500">days</p>
                 </div>
               ))}
@@ -127,15 +127,15 @@ export default function BibleStatsModal({ isOpen, onClose, statType, progress, b
             <div>
               <h3 className="font-semibold text-gray-900 dark:text-white mb-3">Consistency Tips</h3>
               <div className="space-y-2">
-                <div className="flex items-start gap-3 bg-green-50 dark:bg-green-900/20 rounded-lg p-3">
-                  <Calendar className="w-5 h-5 text-green-600 mt-0.5" />
+                <div className="flex items-start gap-3 bg-[#FAD98D]/20 dark:bg-[#FAD98D]/10 rounded-lg p-3">
+                  <Calendar className="w-5 h-5 text-[#FD9C2D] mt-0.5" />
                   <div>
                     <p className="font-medium text-sm text-gray-900 dark:text-white">Set a Daily Time</p>
                     <p className="text-xs text-gray-600 dark:text-gray-400">Pick the same time each day for reading</p>
                   </div>
                 </div>
-                <div className="flex items-start gap-3 bg-green-50 dark:bg-green-900/20 rounded-lg p-3">
-                  <CheckCircle className="w-5 h-5 text-green-600 mt-0.5" />
+                <div className="flex items-start gap-3 bg-[#FAD98D]/20 dark:bg-[#FAD98D]/10 rounded-lg p-3">
+                  <CheckCircle className="w-5 h-5 text-[#FD9C2D] mt-0.5" />
                   <div>
                     <p className="font-medium text-sm text-gray-900 dark:text-white">Start Small</p>
                     <p className="text-xs text-gray-600 dark:text-gray-400">Even 5 minutes counts toward your streak</p>
@@ -149,7 +149,7 @@ export default function BibleStatsModal({ isOpen, onClose, statType, progress, b
       case 'bookmarks':
         return (
           <div className="space-y-6">
-            <div className="bg-gradient-to-br from-amber-500 to-yellow-500 rounded-2xl p-6 text-white">
+            <div className="bg-gradient-to-br from-[#FAD98D] to-[#FD9C2D] rounded-2xl p-6 text-white">
               <CheckCircle className="w-12 h-12 mb-3" />
               <p className="text-5xl font-bold mb-2">{bookmarks.length}</p>
               <p className="text-white/80">Saved Verses</p>
@@ -170,7 +170,7 @@ export default function BibleStatsModal({ isOpen, onClose, statType, progress, b
                         borderRadius: '8px' 
                       }} 
                     />
-                    <Bar dataKey="count" fill="#eab308" radius={[8, 8, 0, 0]} />
+                    <Bar dataKey="count" fill="#FAD98D" radius={[8, 8, 0, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
               </div>

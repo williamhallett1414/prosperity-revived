@@ -71,9 +71,9 @@ export default function MoodTracker() {
 
   return (
     <div className="mb-6">
-      <Card className="p-5 bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 border-none shadow-lg">
+      <Card className="p-5 bg-gradient-to-br from-[#FAD98D]/20 to-[#FD9C2D]/20 dark:from-[#FAD98D]/10 dark:to-[#FD9C2D]/10 border-none shadow-lg">
         <h3 className="text-sm font-semibold text-[#1a1a2e] dark:text-white mb-3 flex items-center gap-2">
-          <Heart className="w-4 h-4 text-pink-500" />
+          <Heart className="w-4 h-4 text-[#FD9C2D]" />
           How are you feeling today?
         </h3>
         
@@ -87,7 +87,7 @@ export default function MoodTracker() {
                 key={mood.id}
                 onClick={() => handleMoodSelect(mood)}
                 className={`${mood.color} rounded-xl p-3 flex flex-col items-center justify-center gap-2 transition-all ${
-                  isSelected ? 'ring-2 ring-offset-2 ring-pink-400 scale-105' : 'hover:scale-105'
+                  isSelected ? 'ring-2 ring-offset-2 ring-[#FD9C2D] scale-105' : 'hover:scale-105'
                 }`}
               >
                 <Icon className="w-5 h-5" />
@@ -120,7 +120,7 @@ export default function MoodTracker() {
               }
             }}
             disabled={!customMood.trim()}
-            className="bg-pink-500 hover:bg-pink-600"
+            className="bg-[#FD9C2D] hover:bg-[#FD9C2D]/90"
           >
             Go
           </Button>
@@ -136,7 +136,7 @@ export default function MoodTracker() {
             >
               {loading && (
                 <div className="flex items-center justify-center py-8">
-                  <Loader2 className="w-6 h-6 animate-spin text-pink-500" />
+                  <Loader2 className="w-6 h-6 animate-spin text-[#FD9C2D]" />
                   <span className="ml-2 text-sm text-gray-600 dark:text-gray-400">Finding verses for you...</span>
                 </div>
               )}
@@ -148,8 +148,8 @@ export default function MoodTracker() {
                      <h4 className="font-semibold text-[#1a1a2e] dark:text-white mb-3 text-sm">Scripture for You</h4>
                      <div className="space-y-3">
                        {aiResponse.verses && Array.isArray(aiResponse.verses) && aiResponse.verses.map((verse, index) => (
-                         <div key={index} className="bg-amber-50 dark:bg-amber-900/20 p-3 rounded-lg border-l-4 border-amber-400">
-                           <p className="font-medium text-xs text-amber-900 dark:text-amber-300 mb-1">{verse.reference}</p>
+                         <div key={index} className="bg-[#FAD98D]/20 dark:bg-[#FAD98D]/10 p-3 rounded-lg border-l-4 border-[#FD9C2D]">
+                           <p className="font-medium text-xs text-[#3C4E53] dark:text-[#FAD98D] mb-1">{verse.reference}</p>
                            <p className="text-sm text-gray-700 dark:text-gray-300 italic">{verse.text}</p>
                          </div>
                        ))}
@@ -166,8 +166,8 @@ export default function MoodTracker() {
                   </div>
 
                   {/* Practical Step */}
-                  <div className="bg-pink-50 dark:bg-pink-900/20 p-3 rounded-lg">
-                    <h4 className="font-semibold text-pink-800 dark:text-pink-300 mb-2 text-sm">Try This Today</h4>
+                  <div className="bg-[#FD9C2D]/10 dark:bg-[#FD9C2D]/20 p-3 rounded-lg">
+                    <h4 className="font-semibold text-[#3C4E53] dark:text-[#FAD98D] mb-2 text-sm">Try This Today</h4>
                     <p className="text-sm text-gray-700 dark:text-gray-300">{aiResponse.practical_step}</p>
                   </div>
 
