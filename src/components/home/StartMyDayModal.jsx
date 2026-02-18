@@ -37,10 +37,10 @@ export default function StartMyDayModal({ isOpen, onClose, meditations = [], wor
       duration: 5,
       content: (
         <div className="space-y-3">
-          <p className="font-serif italic text-white/90 text-lg leading-relaxed">
+          <p className="font-serif italic text-[#0A1A2F] text-lg leading-relaxed">
             "{verse.text}"
           </p>
-          <p className="text-sm text-white/60 font-semibold">
+          <p className="text-sm text-[#0A1A2F]/60 font-semibold">
             {verse.book} {verse.chapter}:{verse.verse}
           </p>
         </div>
@@ -53,7 +53,7 @@ export default function StartMyDayModal({ isOpen, onClose, meditations = [], wor
       duration: 2,
       content: (
         <div className="space-y-3 text-center">
-          <p className="text-white/90 leading-relaxed">
+          <p className="text-[#0A1A2F] leading-relaxed">
             "Lord, guide my steps today. Fill me with wisdom, courage, and compassion. Help me live with purpose and faith. Amen."
           </p>
         </div>
@@ -71,10 +71,10 @@ export default function StartMyDayModal({ isOpen, onClose, meditations = [], wor
             {breathCycle === 'hold' && '➡️'}
             {breathCycle === 'exhale' && '↙️'}
           </div>
-          <p className="text-white/90 font-semibold text-lg capitalize">
+          <p className="text-[#0A1A2F] font-semibold text-lg capitalize">
             {breathCycle} (4 counts)
           </p>
-          <p className="text-xs text-white/60">Breathe deeply and center yourself</p>
+          <p className="text-xs text-[#0A1A2F]/60">Breathe deeply and center yourself</p>
         </div>
       )
     },
@@ -85,10 +85,10 @@ export default function StartMyDayModal({ isOpen, onClose, meditations = [], wor
       duration: 3,
       content: (
         <div className="space-y-3 text-center">
-          <p className="text-white/90 text-xl font-semibold leading-relaxed">
+          <p className="text-[#0A1A2F] text-xl font-semibold leading-relaxed">
             {affirmation}
           </p>
-          <p className="text-xs text-white/60">Repeat this throughout your day</p>
+          <p className="text-xs text-[#0A1A2F]/60">Repeat this throughout your day</p>
         </div>
       )
     },
@@ -99,12 +99,12 @@ export default function StartMyDayModal({ isOpen, onClose, meditations = [], wor
       duration: 2,
       content: (
         <div className="space-y-3">
-          <p className="text-sm text-white/70">{suggestedMeditation.description}</p>
-          <p className="text-xs text-white/60"><strong>Duration:</strong> {suggestedMeditation.duration_minutes} min</p>
+          <p className="text-sm text-[#0A1A2F]/70">{suggestedMeditation.description}</p>
+          <p className="text-xs text-[#0A1A2F]/60"><strong>Duration:</strong> {suggestedMeditation.duration_minutes} min</p>
           <Button
             onClick={() => window.location.href = `${createPageUrl('DiscoverMeditations')}?id=${suggestedMeditation.id}`}
             disabled={!suggestedMeditation.tts_audio_url}
-            className="w-full bg-[#D9B878] hover:bg-[#D9B878]/90 text-[#0A1A2F]"
+            className="w-full bg-white hover:bg-white/90 text-[#0A1A2F]"
             size="sm"
           >
             <Play className="w-4 h-4 mr-2" />
@@ -120,11 +120,11 @@ export default function StartMyDayModal({ isOpen, onClose, meditations = [], wor
        duration: 2,
        content: (
          <div className="space-y-3">
-           <p className="text-sm text-white/70">{suggestedWorkout.description}</p>
-           <p className="text-xs text-white/60"><strong>Duration:</strong> {suggestedWorkout.duration_minutes} min</p>
+           <p className="text-sm text-[#0A1A2F]/70">{suggestedWorkout.description}</p>
+           <p className="text-xs text-[#0A1A2F]/60"><strong>Duration:</strong> {suggestedWorkout.duration_minutes} min</p>
            <Button
              onClick={() => setShowWorkoutModal(true)}
-             className="w-full bg-[#D9B878] hover:bg-[#D9B878]/90 text-[#0A1A2F]"
+             className="w-full bg-white hover:bg-white/90 text-[#0A1A2F]"
              size="sm"
            >
              Start Workout
@@ -139,10 +139,10 @@ export default function StartMyDayModal({ isOpen, onClose, meditations = [], wor
       duration: 2,
       content: (
         <div className="space-y-3 text-center">
-          <p className="text-white/90">
+          <p className="text-[#0A1A2F]">
             Remember to hydrate and nourish your body throughout the day.
           </p>
-          <p className="text-xs text-white/60">
+          <p className="text-xs text-[#0A1A2F]/60">
             Start with a glass of water and a nutritious breakfast.
           </p>
         </div>
@@ -204,10 +204,8 @@ export default function StartMyDayModal({ isOpen, onClose, meditations = [], wor
                 <h2 className="text-2xl font-bold text-[#0A1A2F]">{currentStep.title}</h2>
               </div>
 
-              <div className="bg-gradient-to-br from-[#1a1a2e] to-[#2d2d4a] rounded-xl p-5 min-h-[200px] flex items-center justify-center">
-                <div className="text-white w-full">
-                  {currentStep.content}
-                </div>
+              <div className="bg-white rounded-xl p-5 min-h-[200px] flex items-center justify-center">
+                {currentStep.content}
               </div>
 
               {/* Timer */}

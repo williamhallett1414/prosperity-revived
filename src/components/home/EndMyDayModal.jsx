@@ -20,13 +20,13 @@ export default function EndMyDayModal({ isOpen, onClose, meditations = [] }) {
       color: 'from-[#0A1A2F] to-[#AFC7E3]',
       content: (
         <div className="space-y-4 text-center">
-          <p className="text-white/90 font-semibold">Take a moment to reflect on your day</p>
-          <p className="text-xs text-white/60">
+          <p className="text-[#0A1A2F] font-semibold">Take a moment to reflect on your day</p>
+          <p className="text-xs text-[#0A1A2F]/60">
             What was the highlight? What are you grateful for?
           </p>
           <Button
             onClick={() => setShowJournalModal(true)}
-            className="w-full bg-[#D9B878] hover:bg-[#D9B878]/90 text-[#0A1A2F]"
+            className="w-full bg-white hover:bg-white/90 text-[#0A1A2F]"
             size="sm"
           >
             <Plus className="w-4 h-4 mr-2" />
@@ -41,15 +41,15 @@ export default function EndMyDayModal({ isOpen, onClose, meditations = [] }) {
       color: 'from-[#AFC7E3] to-[#D9B878]',
       content: (
         <div className="space-y-3 text-center">
-          <p className="text-white/90 font-semibold">
+          <p className="text-[#0A1A2F] font-semibold">
             How did you live out your values today?
           </p>
-          <p className="text-xs text-white/60">
+          <p className="text-xs text-[#0A1A2F]/60">
             Take a moment to reflect on your actions and intentions.
           </p>
           <Button
             onClick={() => setShowJournalModal(true)}
-            className="w-full bg-[#D9B878] hover:bg-[#D9B878]/90 text-[#0A1A2F]"
+            className="w-full bg-white hover:bg-white/90 text-[#0A1A2F]"
             size="sm"
           >
             <Plus className="w-4 h-4 mr-2" />
@@ -64,13 +64,13 @@ export default function EndMyDayModal({ isOpen, onClose, meditations = [] }) {
       color: 'from-[#0A1A2F] to-[#D9B878]',
       content: (
         <div className="space-y-3 text-center">
-          <p className="text-white/70 text-sm mb-4">
+          <p className="text-[#0A1A2F]/70 text-sm mb-4">
             {sleepMeditation.description}
           </p>
           <Button
             onClick={() => window.location.href = `/meditation-player?id=${sleepMeditation.id}`}
             disabled={!sleepMeditation.tts_audio_url}
-            className="w-full bg-[#D9B878] hover:bg-[#D9B878]/90 text-[#0A1A2F]"
+            className="w-full bg-white hover:bg-white/90 text-[#0A1A2F]"
             size="sm"
           >
             <Play className="w-4 h-4 mr-2" />
@@ -127,10 +127,8 @@ export default function EndMyDayModal({ isOpen, onClose, meditations = [] }) {
                 <h2 className="text-2xl font-bold text-[#0A1A2F]">{currentStep.title}</h2>
               </div>
 
-              <div className="bg-gradient-to-br from-[#1a1a2e] to-[#2d2d4a] rounded-xl p-5 min-h-[200px] flex items-center justify-center">
-                <div className="text-white w-full">
-                  {currentStep.content}
-                </div>
+              <div className="bg-white rounded-xl p-5 min-h-[200px] flex items-center justify-center">
+                {currentStep.content}
               </div>
             </motion.div>
           </AnimatePresence>

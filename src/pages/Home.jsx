@@ -425,10 +425,10 @@ export default function Home() {
                   key={post.id}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="bg-gradient-to-br from-[#1a1a2e] to-[#2d2d4a] rounded-xl p-4 text-sm border-l-4 border-[#D9B878] shadow-sm"
+                  className="bg-[#E6EBEF] rounded-xl p-4 text-sm border-l-4 border-[#D9B878] shadow-sm"
                 >
-                  <p className="text-white/90">Posted: <span className="font-semibold">"{post.content.slice(0, 40)}..."</span></p>
-                  <p className="text-xs text-white/50 mt-1">{new Date(post.created_date).toLocaleDateString()}</p>
+                  <p className="text-[#0A1A2F]">Posted: <span className="font-semibold">"{post.content.slice(0, 40)}..."</span></p>
+                  <p className="text-xs text-[#0A1A2F]/50 mt-1">{new Date(post.created_date).toLocaleDateString()}</p>
                 </motion.div>
               ))}
               {workoutSessions.slice(0, 2).map(session => (
@@ -436,10 +436,10 @@ export default function Home() {
                   key={session.id}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="bg-gradient-to-br from-[#1a1a2e] to-[#2d2d4a] rounded-xl p-4 text-sm border-l-4 border-[#D9B878] shadow-sm"
+                  className="bg-[#E6EBEF] rounded-xl p-4 text-sm border-l-4 border-[#AFC7E3] shadow-sm"
                 >
-                  <p className="text-white/90">Workout: <span className="font-semibold">{session.workout_title}</span> ({session.duration_minutes}m)</p>
-                  <p className="text-xs text-white/50 mt-1">{new Date(session.date).toLocaleDateString()}</p>
+                  <p className="text-[#0A1A2F]">Workout: <span className="font-semibold">{session.workout_title}</span> ({session.duration_minutes}m)</p>
+                  <p className="text-xs text-[#0A1A2F]/50 mt-1">{new Date(session.date).toLocaleDateString()}</p>
                 </motion.div>
               ))}
               {meditationSessions.slice(0, 2).map(session => (
@@ -447,10 +447,10 @@ export default function Home() {
                   key={session.id}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="bg-gradient-to-br from-[#1a1a2e] to-[#2d2d4a] rounded-xl p-4 text-sm border-l-4 border-[#D9B878] shadow-sm"
+                  className="bg-[#E6EBEF] rounded-xl p-4 text-sm border-l-4 border-[#D9B878] shadow-sm"
                 >
-                  <p className="text-white/90">Meditation: <span className="font-semibold">{session.meditation_title}</span></p>
-                  <p className="text-xs text-white/50 mt-1">{new Date(session.date).toLocaleDateString()}</p>
+                  <p className="text-[#0A1A2F]">Meditation: <span className="font-semibold">{session.meditation_title}</span></p>
+                  <p className="text-xs text-[#0A1A2F]/50 mt-1">{new Date(session.date).toLocaleDateString()}</p>
                 </motion.div>
               ))}
             </div>
@@ -475,9 +475,9 @@ export default function Home() {
           </Button>
 
           {posts.length === 0 ? (
-            <div className="text-center py-8 bg-gradient-to-br from-[#1a1a2e] to-[#2d2d4a] rounded-2xl">
-              <Users className="w-12 h-12 text-white/30 mx-auto mb-3" />
-              <p className="text-white/50">No posts yet</p>
+            <div className="text-center py-8 bg-[#E6EBEF] rounded-2xl">
+              <Users className="w-12 h-12 text-[#0A1A2F]/30 mx-auto mb-3" />
+              <p className="text-[#0A1A2F]/50">No posts yet</p>
             </div>
           ) : (
             <div className="space-y-4">
