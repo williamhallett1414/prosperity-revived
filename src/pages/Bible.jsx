@@ -174,6 +174,13 @@ export default function Bible() {
 
             <TabsContent value="read">
               <div className="space-y-6">
+                <div className="mb-6">
+                  <BookSelector
+                    onSelectBook={handleSelectBook}
+                    selectedBook={selectedBook}
+                  />
+                </div>
+
                 {/* Mood Tracker */}
                 <MoodTracker />
                 
@@ -213,13 +220,6 @@ export default function Bible() {
                     <p className="text-2xl font-bold text-[#0A1A2F]">{bookmarks.length}</p>
                     <p className="text-xs text-[#0A1A2F]/60">Saved Verses</p>
                   </motion.button>
-                </div>
-
-                <div className="mb-8">
-                  <BookSelector
-                    onSelectBook={handleSelectBook}
-                    selectedBook={selectedBook}
-                  />
                 </div>
                   
                 {/* Reading Plans */}
