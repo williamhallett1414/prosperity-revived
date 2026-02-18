@@ -52,10 +52,10 @@ export default function DailyPrayer() {
           <motion.button
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            className="w-full bg-gradient-to-r from-[#D9B878] to-[#AFC7E3] rounded-2xl p-6 text-[#0A1A2F] shadow-lg text-left"
+            className="w-full bg-gradient-to-r from-[#FD9C2D] to-[#FAD98D] rounded-2xl p-6 text-[#3C4E53] shadow-lg text-left"
           >
             <div className="flex items-center gap-3 mb-2">
-              <Heart className="w-6 h-6" />
+              <Heart className="w-6 h-6 text-[#FD9C2D]" />
               <div>
                 <h3 className="text-lg font-bold">2-Minute Prayer</h3>
                 <p className="text-sm opacity-90">Today's guided prayer</p>
@@ -75,7 +75,7 @@ export default function DailyPrayer() {
         <DialogContent className="max-w-md">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
-              <Heart className="w-5 h-5" />
+              <Heart className="w-5 h-5 text-[#FD9C2D]" />
               {todaysPrayer.title}
             </DialogTitle>
           </DialogHeader>
@@ -85,8 +85,8 @@ export default function DailyPrayer() {
               <div className="text-6xl mb-4">🙏</div>
             </div>
 
-            <div className="bg-purple-50 rounded-lg p-6">
-              <p className="text-gray-800 font-serif leading-relaxed text-lg">
+            <div className="bg-[#FAD98D]/20 rounded-lg p-6 border border-[#FD9C2D]/30">
+              <p className="text-[#3C4E53] font-serif leading-relaxed text-lg">
                 {todaysPrayer.content}
               </p>
             </div>
