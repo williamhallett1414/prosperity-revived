@@ -42,15 +42,15 @@ export default function ProfileHeader({ user, friendsCount, userProgress }) {
     <div className="bg-white shadow-sm">
       {/* Cover Photo */}
       <div className="relative h-64 sm:h-80 lg:h-96 bg-gradient-to-br from-blue-400 via-purple-500 to-pink-500 overflow-hidden">
-        {user?.cover_image_url ? (
-          <img
-            src={user.cover_image_url}
-            alt="Cover"
-            className="w-full h-full object-cover"
-          />
-        ) : (
-          <div className="w-full h-full bg-gradient-to-br from-blue-400 via-purple-500 to-pink-500" />
-        )}
+        {user?.cover_image_url ?
+        <img
+          src={user.cover_image_url}
+          alt="Cover"
+          className="w-full h-full object-cover" /> :
+
+
+        <div className="w-full h-full bg-gradient-to-br from-blue-400 via-purple-500 to-pink-500" />
+        }
         <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
         
         <label className="absolute bottom-4 right-4 bg-white rounded-lg px-4 py-2.5 shadow-lg cursor-pointer hover:bg-gray-50 transition-all flex items-center gap-2 hover:shadow-xl">
@@ -63,29 +63,29 @@ export default function ProfileHeader({ user, friendsCount, userProgress }) {
             accept="image/*"
             onChange={handleCoverUpload}
             className="hidden"
-            disabled={uploadingCover}
-          />
+            disabled={uploadingCover} />
+
         </label>
       </div>
 
       {/* Profile Info */}
       <div className="max-w-5xl mx-auto px-4">
-        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between -mt-16 sm:-mt-20 pb-6">
+        <div className="pt-10 pb-5 flex flex-col sm:flex-row sm:items-end sm:justify-between -mt-16 sm:-mt-20">
           {/* Profile Picture & Name */}
           <div className="flex flex-col sm:flex-row sm:items-end sm:gap-5 mb-4 sm:mb-0">
             <div className="relative mb-4 sm:mb-0 mx-auto sm:mx-0">
               <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-full border-4 border-white shadow-2xl overflow-hidden bg-gradient-to-br from-blue-500 to-purple-600">
-                {user?.profile_image_url ? (
-                  <img
-                    src={user.profile_image_url}
-                    alt={user?.full_name}
-                    className="w-full h-full object-cover"
-                  />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center text-white text-4xl sm:text-5xl font-bold">
+                {user?.profile_image_url ?
+                <img
+                  src={user.profile_image_url}
+                  alt={user?.full_name}
+                  className="w-full h-full object-cover" /> :
+
+
+                <div className="w-full h-full flex items-center justify-center text-white text-4xl sm:text-5xl font-bold">
                     {user?.full_name?.charAt(0).toUpperCase() || 'U'}
                   </div>
-                )}
+                }
               </div>
               
               <label className="absolute bottom-1 right-1 bg-white rounded-full p-2.5 shadow-lg cursor-pointer hover:bg-gray-50 transition-all hover:scale-105">
@@ -95,8 +95,8 @@ export default function ProfileHeader({ user, friendsCount, userProgress }) {
                   accept="image/*"
                   onChange={handleProfileUpload}
                   className="hidden"
-                  disabled={uploadingProfile}
-                />
+                  disabled={uploadingProfile} />
+
               </label>
             </div>
 
@@ -105,9 +105,9 @@ export default function ProfileHeader({ user, friendsCount, userProgress }) {
                 {user?.full_name || 'User'}
               </h1>
               <p className="text-gray-600 font-medium text-sm sm:text-base">{friendsCount} {friendsCount === 1 ? 'friend' : 'friends'}</p>
-              {user?.bio && (
-                <p className="text-gray-600 text-sm mt-2 max-w-md leading-relaxed">{user.bio}</p>
-              )}
+              {user?.bio &&
+              <p className="text-gray-600 text-sm mt-2 max-w-md leading-relaxed">{user.bio}</p>
+              }
             </div>
           </div>
 
@@ -127,30 +127,30 @@ export default function ProfileHeader({ user, friendsCount, userProgress }) {
         </div>
 
         {/* Status/Goal Section */}
-        {(user?.status_message || user?.spiritual_goal) && (
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="border-t border-gray-200 pt-4 pb-3"
-          >
+        {(user?.status_message || user?.spiritual_goal) &&
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="border-t border-gray-200 pt-4 pb-3">
+
             <div className="max-w-3xl mx-auto sm:mx-0">
-              {user?.status_message && (
-                <p className="text-gray-700 text-center sm:text-left mb-3 italic text-sm sm:text-base">
+              {user?.status_message &&
+            <p className="text-gray-700 text-center sm:text-left mb-3 italic text-sm sm:text-base">
                   "{user.status_message}"
                 </p>
-              )}
-              {user?.spiritual_goal && (
-                <div className="flex items-start gap-2.5 text-sm bg-yellow-50 border border-yellow-200 rounded-lg p-3">
+            }
+              {user?.spiritual_goal &&
+            <div className="flex items-start gap-2.5 text-sm bg-yellow-50 border border-yellow-200 rounded-lg p-3">
                   <Sparkles className="w-5 h-5 text-yellow-600 mt-0.5 flex-shrink-0" />
                   <p className="text-gray-700">
                     <span className="font-bold text-gray-900">Spiritual Goal:</span> {user.spiritual_goal}
                   </p>
                 </div>
-              )}
+            }
             </div>
           </motion.div>
-        )}
+        }
       </div>
-    </div>
-  );
+    </div>);
+
 }
