@@ -189,7 +189,7 @@ export default function SelfCareChallenges({ challenges = [], participations = [
             <>
               <DialogHeader>
                 <DialogTitle className="flex items-center gap-2">
-                  <selectedChallenge.icon className="w-5 h-5" />
+                  {React.createElement(selectedChallenge.icon, { className: "w-5 h-5" })}
                   {selectedChallenge.title}
                 </DialogTitle>
               </DialogHeader>
