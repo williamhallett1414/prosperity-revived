@@ -85,6 +85,7 @@ import Search from './pages/Search';
 import SelfCareChallengesPage from './pages/SelfCareChallengesPage';
 import Settings from './pages/Settings';
 import SpiritualGrowth from './pages/SpiritualGrowth';
+import TermsAndConditions from './pages/TermsAndConditions';
 import UserProfile from './pages/UserProfile';
 import WeeklyReflectionPage from './pages/WeeklyReflectionPage';
 import Wellness from './pages/Wellness';
@@ -92,7 +93,7 @@ import WorkoutCategoryPage from './pages/WorkoutCategoryPage';
 import WorkoutProgress from './pages/WorkoutProgress';
 import WorkoutTrends from './pages/WorkoutTrends';
 import Workouts from './pages/Workouts';
-import TermsAndConditions from './pages/TermsAndConditions';
+import PrivacyPolicy from './pages/PrivacyPolicy';
 import __Layout from './Layout.jsx';
 
 
@@ -135,6 +136,7 @@ export const PAGES = {
     "SelfCareChallengesPage": SelfCareChallengesPage,
     "Settings": Settings,
     "SpiritualGrowth": SpiritualGrowth,
+    "TermsAndConditions": TermsAndConditions,
     "UserProfile": UserProfile,
     "WeeklyReflectionPage": WeeklyReflectionPage,
     "Wellness": Wellness,
@@ -142,7 +144,7 @@ export const PAGES = {
     "WorkoutProgress": WorkoutProgress,
     "WorkoutTrends": WorkoutTrends,
     "Workouts": Workouts,
-    "TermsAndConditions": TermsAndConditions,
+    "PrivacyPolicy": PrivacyPolicy,
 }
 
 export const pagesConfig = {

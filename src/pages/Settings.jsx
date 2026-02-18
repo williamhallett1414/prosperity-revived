@@ -213,6 +213,14 @@ export default function Settings() {
               <span className="text-gray-600 dark:text-gray-400">Terms & Conditions</span>
               <ArrowLeft className="w-4 h-4 text-gray-400 rotate-180" />
             </Link>
+            
+            <Link
+              to={createPageUrl('PrivacyPolicy')}
+              className="flex items-center justify-between py-3 px-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors min-h-[44px]"
+            >
+              <span className="text-gray-600 dark:text-gray-400">Privacy Policy</span>
+              <ArrowLeft className="w-4 h-4 text-gray-400 rotate-180" />
+            </Link>
           </div>
 
           <Button
