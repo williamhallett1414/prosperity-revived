@@ -277,9 +277,9 @@ export default function DailyGuidedPrayer() {
   };
 
   const getButtonIcon = () => {
-    if (speechStatus === 'loading') return <Loader2 className="w-4 h-4 text-[#D9B878] animate-spin" />;
-    if (speechStatus === 'speaking') return <VolumeX className="w-4 h-4 text-[#D9B878]" />;
-    return <Volume2 className="w-4 h-4 text-[#D9B878]" />;
+    if (speechStatus === 'loading') return <Loader2 className="w-4 h-4 text-[#FD9C2D] animate-spin" />;
+    if (speechStatus === 'speaking') return <VolumeX className="w-4 h-4 text-[#FD9C2D]" />;
+    return <Volume2 className="w-4 h-4 text-[#FD9C2D]" />;
   };
 
   return (
@@ -288,9 +288,9 @@ export default function DailyGuidedPrayer() {
       animate={{ opacity: 1, y: 0 }}
       className="mb-6">
 
-      <div className="bg-gradient-to-br from-[#D9B878]/20 to-[#AFC7E3]/20 rounded-2xl p-6 border border-[#D9B878]/30 shadow-sm">
+      <div className="bg-gradient-to-br from-[#FAD98D]/20 to-[#FD9C2D]/20 rounded-2xl p-6 border border-[#FD9C2D]/30 shadow-sm">
         <div className="flex items-center gap-2 mb-2">
-          <BookOpen className="w-5 h-5 text-[#D9B878]" />
+          <BookOpen className="w-5 h-5 text-[#FD9C2D]" />
           <h3 className="text-lg font-bold text-[#0A1A2F]">Daily Guided Prayer</h3>
         </div>
         <p className="text-sm text-[#0A1A2F]/70 mb-4">A fresh prayer to center your heart today</p>
@@ -304,7 +304,7 @@ export default function DailyGuidedPrayer() {
               onClick={handleSpeechToggle}
               size="sm"
               variant="outline"
-              className="shrink-0 border-[#D9B878] hover:bg-[#D9B878]/10 min-w-[80px]"
+              className="shrink-0 border-[#FD9C2D] hover:bg-[#FD9C2D]/10 min-w-[80px]"
               title={speechStatus === 'speaking' ? "Stop reading" : "Listen to prayer"}
               disabled={speechStatus === 'loading'}>
 
@@ -318,7 +318,7 @@ export default function DailyGuidedPrayer() {
           <div className="pt-4 border-t border-gray-100">
             <div className="mb-4">
               <p className="text-xs text-[#0A1A2F]/60 mb-1">Today's Scripture</p>
-              <p className="text-sm font-semibold text-[#D9B878]">{todaysPrayer.scripture}</p>
+              <p className="text-sm font-semibold text-[#FD9C2D]">{todaysPrayer.scripture}</p>
               <p className="text-xs text-[#0A1A2F]/70 italic mt-1">"{todaysPrayer.scriptureText}"</p>
             </div>
 
