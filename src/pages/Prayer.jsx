@@ -174,6 +174,7 @@ export default function Prayer() {
   const [videoFile, setVideoFile] = useState(null);
   const [isAnonymous, setIsAnonymous] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
+  const [showPrayerForm, setShowPrayerForm] = useState(false);
 
   const queryClient = useQueryClient();
 
@@ -332,7 +333,7 @@ export default function Prayer() {
           className="mb-6">
 
           <Button
-            onClick={() => document.getElementById('prayer-form-section').scrollIntoView({ behavior: 'smooth' })}
+            onClick={() => setShowPrayerForm(!showPrayerForm)}
             className="w-full bg-gradient-to-r from-[#FD9C2D] to-[#FAD98D] hover:from-[#FD9C2D]/90 hover:to-[#FAD98D]/90 text-[#3C4E53] h-12 rounded-xl shadow-md font-semibold">
 
             <Heart className="w-5 h-5 mr-2" />
@@ -341,11 +342,13 @@ export default function Prayer() {
         </motion.div>
 
         {/* Prayer Request Form */}
-        <motion.div
-          id="prayer-form-section"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="bg-white rounded-2xl p-6 shadow-sm mb-6">
+        <AnimatePresence>
+          {showPrayerForm &&
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            className="bg-white rounded-2xl p-6 shadow-sm mb-6 overflow-hidden">
 
           <h2 className="text-xl font-bold text-[#0A1A2F] mb-4 flex items-center gap-2">
             <Heart className="w-6 h-6 text-[#FD9C2D]" />
@@ -433,7 +436,9 @@ export default function Prayer() {
               }
             </Button>
           </form>
-        </motion.div>
+          </motion.div>
+          }
+        </AnimatePresence>
 
         {/* Prayer Wall */}
         <div className="space-y-4">
