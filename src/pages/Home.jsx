@@ -350,14 +350,14 @@ export default function Home() {
 
           <Button
             onClick={() => setShowStartDay(true)}
-            className="h-20 bg-gradient-to-r from-[#D9B878] to-[#AFC7E3] hover:from-[#D9B878]/90 hover:to-[#AFC7E3]/90 text-[#0A1A2F] rounded-2xl shadow-md font-bold text-base flex flex-col items-center gap-1">
+            className="h-20 bg-gradient-to-r from-[#FAD98D] to-[#FD9C2D] hover:from-[#FAD98D]/90 hover:to-[#FD9C2D]/90 text-[#3C4E53] rounded-2xl shadow-md font-bold text-base flex flex-col items-center gap-1">
 
             <span className="text-2xl">🌅</span>
             Start My Day
           </Button>
           <Button
             onClick={() => setShowEndDay(true)}
-            className="h-20 bg-gradient-to-r from-[#0A1A2F] to-[#AFC7E3] hover:from-[#0A1A2F]/90 hover:to-[#AFC7E3]/90 text-white rounded-2xl shadow-md font-bold text-base flex flex-col items-center gap-1">
+            className="h-20 bg-gradient-to-r from-[#3C4E53] to-[#FD9C2D] hover:from-[#3C4E53]/90 hover:to-[#FD9C2D]/90 text-white rounded-2xl shadow-md font-bold text-base flex flex-col items-center gap-1">
 
             <span className="text-2xl">🌙</span>
             End My Day
@@ -397,7 +397,7 @@ export default function Home() {
         <div className="mb-6">
             <div className="flex items-center justify-between mb-3">
               <h2 className="text-xl font-bold text-[#0A1A2F]">Continue Reading</h2>
-              <Link to={createPageUrl('Plans')} className="text-sm text-[#D9B878] font-semibold">
+              <Link to={createPageUrl('Plans')} className="text-sm text-[#FD9C2D] font-semibold">
                 See All
               </Link>
             </div>
@@ -461,7 +461,7 @@ export default function Home() {
         <div className="mb-6">
           <div className="flex items-center justify-between mb-3">
             <h2 className="text-xl font-bold text-[#0A1A2F]">Community</h2>
-            <Link to={createPageUrl('Community')} className="text-sm text-[#D9B878] font-semibold">
+            <Link to={createPageUrl('Community')} className="text-sm text-[#FD9C2D] font-semibold">
               See All
             </Link>
           </div>
