@@ -20,7 +20,7 @@ export default function WeeklyThemeBanner() {
 
       <div className="text-4xl mb-2">{theme.emoji}</div>
       <h2 className="bg-transparent text-slate-50 mb-1 text-2xl font-bold">{theme.name}</h2>
-      <p className="text-sm text-[#3C4E53]/70">{theme.message}</p>
+      <p className="text-slate-50 text-sm">{theme.message}</p>
     </motion.div>);
 
 }
