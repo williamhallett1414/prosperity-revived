@@ -191,28 +191,28 @@ export default function Workouts() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="bg-gradient-to-br from-[#FD9C2D] to-[#FAD98D] rounded-xl p-5 text-[#0A1A2F] shadow-md mb-6"
-            >
+              className="bg-gradient-to-br from-[#FD9C2D] to-[#FAD98D] rounded-xl p-5 text-[#0A1A2F] shadow-md mb-6">
+
                 <div className="flex items-start justify-between mb-3">
                   <div>
-                    <h3 className="text-lg font-bold mb-1">Today's Recommended Workout</h3>
+                    <h3 className="text-slate-50 mb-1 text-lg font-bold">Today's Recommended Workout</h3>
                     <p className="text-sm text-[#0A1A2F]/70">Based on your goals and activity</p>
                   </div>
                   <Dumbbell className="w-6 h-6" />
                 </div>
                 <div className="bg-white/30 backdrop-blur-sm rounded-lg p-3 mb-3">
-                  <p className="font-semibold">{recommendedWorkout.title}</p>
-                  <p className="text-sm text-[#0A1A2F]/80">
+                  <p className="text-slate-50 font-semibold">{recommendedWorkout.title}</p>
+                  <p className="text-slate-50 text-sm">
                     {recommendedWorkout.duration_minutes} min • {recommendedWorkout.difficulty || 'All Levels'}
                   </p>
                 </div>
                 <Button
-                  className="w-full bg-[#0A1A2F] text-white hover:bg-[#0A1A2F]/90"
-                  onClick={() => {
-                    setSelectedWorkout(recommendedWorkout);
-                    setShowStartWorkout(true);
-                  }}
-                >
+                className="w-full bg-[#0A1A2F] text-white hover:bg-[#0A1A2F]/90"
+                onClick={() => {
+                  setSelectedWorkout(recommendedWorkout);
+                  setShowStartWorkout(true);
+                }}>
+
                   Start Workout
                 </Button>
               </motion.div>
