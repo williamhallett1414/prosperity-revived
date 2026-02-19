@@ -169,27 +169,39 @@ export default function PersonalizedNutritionPlan() {
                 <h3 className="text-2xl font-bold mb-1">{activePlan.name}</h3>
                 <p className="text-white/80 text-sm">{goalLabels[activePlan.goal]}</p>
               </div>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => generateWeeklyPlan.mutate(activePlan.id)}
-                className="text-white hover:bg-white/20"
-              >
-                <RefreshCw className="w-4 h-4 mr-2" />
-                Regenerate
-              </Button>
+              <div className="flex gap-2">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => generateWeeklyPlan.mutate(activePlan.id)}
+                  className="text-white hover:bg-white/20"
+                >
+                  <RefreshCw className="w-4 h-4 mr-2" />
+                  Regenerate
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setIsCollapsed(!isCollapsed)}
+                  className="text-white hover:bg-white/20"
+                >
+                  {isCollapsed ? <ChevronDown className="w-4 h-4" /> : <ChevronUp className="w-4 h-4" />}
+                </Button>
+              </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <p className="text-white/80 text-xs mb-1">Daily Calories</p>
-                <p className="text-3xl font-bold">{activePlan.daily_calories}</p>
+            {!isCollapsed && (
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <p className="text-white/80 text-xs mb-1">Daily Calories</p>
+                  <p className="text-3xl font-bold">{activePlan.daily_calories}</p>
+                </div>
+                <div>
+                  <p className="text-white/80 text-xs mb-1">Meals/Day</p>
+                  <p className="text-3xl font-bold">{activePlan.meals_per_day}</p>
+                </div>
               </div>
-              <div>
-                <p className="text-white/80 text-xs mb-1">Meals/Day</p>
-                <p className="text-3xl font-bold">{activePlan.meals_per_day}</p>
-              </div>
-            </div>
+            )}
           </div>
 
           {/* Daily Macros */}
