@@ -15,7 +15,7 @@ export default function UniversalHeader({ title, rightAction = null, backTo = nu
     if (backTo) {
       navigate(createPageUrl(backTo));
     } else {
-      navigate(-1);
+      window.history.back();
     }
   };
 
