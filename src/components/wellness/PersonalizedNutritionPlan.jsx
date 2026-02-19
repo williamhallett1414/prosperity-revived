@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
-import { Target, Calendar, TrendingUp, Plus, Sparkles, RefreshCw } from 'lucide-react';
+import { Target, Calendar, TrendingUp, Plus, Sparkles, RefreshCw, ChevronDown, ChevronUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import CreateNutritionPlan from './CreateNutritionPlan';
@@ -12,6 +12,7 @@ export default function PersonalizedNutritionPlan() {
   const [showCreatePlan, setShowCreatePlan] = useState(false);
   const [activePlan, setActivePlan] = useState(null);
   const [user, setUser] = useState(null);
+  const [isCollapsed, setIsCollapsed] = useState(false);
   const queryClient = useQueryClient();
 
   useEffect(() => {
