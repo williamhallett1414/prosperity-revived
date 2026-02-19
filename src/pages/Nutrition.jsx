@@ -31,10 +31,10 @@ export default function Nutrition() {
 
   const handleRefresh = async () => {
     await Promise.all([
-      queryClient.invalidateQueries(['mealLogs']),
-      queryClient.invalidateQueries(['recipes']),
-      queryClient.invalidateQueries(['waterLogs'])
-    ]);
+    queryClient.invalidateQueries(['mealLogs']),
+    queryClient.invalidateQueries(['recipes']),
+    queryClient.invalidateQueries(['waterLogs'])]
+    );
   };
 
   return (
@@ -55,7 +55,7 @@ export default function Nutrition() {
             {/* Discover Recipes Section */}
             <div className="pt-2">
               <Link to={createPageUrl('DiscoverRecipes')}>
-                <div className="bg-gradient-to-br from-[#D9B878] to-[#AFC7E3] rounded-2xl p-5 text-[#0A1A2F] cursor-pointer hover:shadow-lg transition-shadow">
+                <div className="bg-slate-50 text-[#0A1A2F] p-5 rounded-2xl from-[#D9B878] to-[#AFC7E3] cursor-pointer hover:shadow-lg transition-shadow">
                   <div className="flex items-center gap-3 mb-2">
                     <UtensilsCrossed className="w-6 h-6" />
                     <h3 className="text-lg font-semibold">Discover Recipes</h3>
@@ -89,11 +89,11 @@ export default function Nutrition() {
       </div>
 
       {/* Chef Daniel - Nutrition Chat */}
-      <ChefDaniel 
-        user={user} 
+      <ChefDaniel
+        user={user}
         userRecipes={[]}
-        mealLogs={mealLogs}
-      />
-    </div>
-  );
+        mealLogs={mealLogs} />
+
+    </div>);
+
 }
