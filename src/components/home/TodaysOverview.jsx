@@ -40,8 +40,8 @@ export default function TodaysOverview({ meditations = [], workoutPlans = [], ch
       <motion.div
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 0.15 }}
-        className="bg-gradient-to-br from-[#D9B878] to-[#FD9C2D] rounded-xl p-4 mx-4">
+        transition={{ delay: 0.15 }} className="bg-slate-50 mx-4 p-4 rounded-xl from-[#D9B878] to-[#FD9C2D]">
+
 
         <div className="flex items-start gap-2">
           <Sparkles className="w-4 h-4 text-[#0A1A2F] flex-shrink-0 mt-1" />
