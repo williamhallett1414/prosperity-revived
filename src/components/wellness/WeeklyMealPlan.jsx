@@ -40,18 +40,28 @@ export default function WeeklyMealPlan({ mealPlanDays, activePlan }) {
           <Calendar className="w-5 h-5 text-emerald-600" />
           Your Weekly Meal Plan
         </h4>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => setShowGroceryList(true)}
-          className="text-emerald-600 border-emerald-600 hover:bg-emerald-50"
-        >
-          <ShoppingCart className="w-4 h-4 mr-2" />
-          Grocery List
-        </Button>
+        <div className="flex gap-2">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setShowGroceryList(true)}
+            className="text-emerald-600 border-emerald-600 hover:bg-emerald-50"
+          >
+            <ShoppingCart className="w-4 h-4 mr-2" />
+            Grocery List
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setIsCollapsed(!isCollapsed)}
+            className="text-gray-600 border-gray-300 hover:bg-gray-50"
+          >
+            {isCollapsed ? <ChevronDown className="w-4 h-4" /> : <ChevronUp className="w-4 h-4" />}
+          </Button>
+        </div>
       </div>
 
-      {sortedDays.map((day, index) => (
+      {!isCollapsed && sortedDays.map((day, index) => (
         <motion.div
           key={day.id}
           initial={{ opacity: 0, y: 20 }}
