@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown, Lightbulb, BookOpen, Loader2 } from 'lucide-react';
+import { ChevronDown, Lightbulb, BookOpen, Loader2, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { base44 } from '@/api/base44Client';
 import { toast } from 'sonner';
+import JournalThemeExplorer from './JournalThemeExplorer';
 
-export default function JournalRevisit({ entry }) {
+export default function JournalRevisit({ entry, user, onSelectExercise }) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [reflection, setReflection] = useState('');
   const [questions, setQuestions] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [hasLoaded, setHasLoaded] = useState(false);
+  const [showThemeExplorer, setShowThemeExplorer] = useState(false);
 
   const generateReflection = async () => {
     setIsLoading(true);
@@ -137,6 +139,38 @@ QUESTIONS:
                 Generate AI Reflection
               </Button>
             )}
+
+            {user && (
+              <Button
+                onClick={() => setShowThemeExplorer(!showThemeExplorer)}
+                variant="outline"
+                size="sm"
+                className="w-full mt-2"
+              >
+                <Sparkles className="w-4 h-4 mr-2" />
+                Explore Themes & Emotions
+              </Button>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Theme Explorer */}
+      <AnimatePresence>
+        {showThemeExplorer && user && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            className="mt-4"
+          >
+            <JournalThemeExplorer
+              user={user}
+              onSelectExercise={(exercises) => {
+                onSelectExercise?.(exercises);
+                setShowThemeExplorer(false);
+              }}
+            />
           </motion.div>
         )}
       </AnimatePresence>
