@@ -802,7 +802,9 @@ Always be: warm, wise, compassionate, conversational, deeply supportive, grounde
             {/* Quick-Ask Menu */}
             <div className="border-b border-purple-100 bg-purple-50 px-5 py-3 overflow-x-auto">
               <div className="flex items-center justify-between mb-2">
-                <p className="text-xs font-semibold text-purple-900/70">Quick Topics:</p>
+                <HannahTooltip text="Jump straight into conversations about topics that matter to you. These are personalized quick-starts." position="bottom" showIcon={true}>
+                  <p className="text-xs font-semibold text-purple-900/70">Quick Topics:</p>
+                </HannahTooltip>
                 <button
                   onClick={() => setShowQuickActions(!showQuickActions)}
                   className="text-xs text-purple-900/60 hover:text-purple-900 transition-colors"
