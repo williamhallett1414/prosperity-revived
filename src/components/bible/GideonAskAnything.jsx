@@ -401,7 +401,18 @@ Tone: Emotionally attuned, warm, pastoral, empowering. Never robotic. Always scr
                           </div>
                           <span className="text-xs font-semibold text-purple-600 dark:text-purple-400">Gideon</span>
                         </div>
-                        <ReactMarkdown className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed prose prose-sm max-w-none">
+                        <ReactMarkdown 
+                          className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed prose prose-sm max-w-none"
+                          components={{
+                            h1: ({node, ...props}) => <h1 className="font-bold" {...props} />,
+                            h2: ({node, ...props}) => <h2 className="font-bold" {...props} />,
+                            h3: ({node, ...props}) => <h3 className="font-bold" {...props} />,
+                            h4: ({node, ...props}) => <h4 className="font-bold" {...props} />,
+                            h5: ({node, ...props}) => <h5 className="font-bold" {...props} />,
+                            h6: ({node, ...props}) => <h6 className="font-bold" {...props} />,
+                            strong: ({node, ...props}) => <strong className="font-bold" {...props} />
+                          }}
+                        >
                           {message.content}
                         </ReactMarkdown>
                       </div>
