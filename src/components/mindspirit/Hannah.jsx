@@ -866,14 +866,16 @@ Always be: warm, wise, compassionate, conversational, deeply supportive, grounde
             </div>
 
             {/* Mood Tracker Button */}
-            <div className="border-b border-purple-100 px-5 py-2 bg-white flex items-center gap-2">
-              <button
-                onClick={() => setShowMoodTracker(!showMoodTracker)}
-                className="flex items-center gap-2 text-xs text-purple-600 hover:text-purple-800 transition-colors"
-              >
-                <Smile className="w-4 h-4" />
-                {currentMood}/10 Mood
-              </button>
+            <div className="border-b border-purple-100 px-5 py-2 bg-white flex items-center justify-between">
+              <HannahTooltip text="Track your mood to help me understand your emotional state and provide better support" position="bottom">
+                <button
+                  onClick={() => setShowMoodTracker(!showMoodTracker)}
+                  className="flex items-center gap-2 text-xs text-purple-600 hover:text-purple-800 transition-colors"
+                >
+                  <Smile className="w-4 h-4" />
+                  {currentMood}/10 Mood
+                </button>
+              </HannahTooltip>
               {showJournalMode && <span className="text-xs text-purple-500">📝 Journal Mode</span>}
             </div>
 
