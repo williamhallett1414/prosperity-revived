@@ -15,6 +15,7 @@ import PostCard from '@/components/community/PostCard';
 import CreatePostModal from '@/components/community/CreatePostModal';
 import GamificationBanner from '@/components/gamification/GamificationBanner';
 import OnboardingFlow from '@/components/onboarding/OnboardingFlow';
+import GideonOnboarding from '@/components/onboarding/GideonOnboarding';
 import StartMyDayModal from '@/components/home/StartMyDayModal';
 import EndMyDayModal from '@/components/home/EndMyDayModal';
 import TodaysOverview from '@/components/home/TodaysOverview';
@@ -29,6 +30,7 @@ export default function Home() {
   const [showCreatePost, setShowCreatePost] = useState(false);
   const [user, setUser] = useState(null);
   const [showOnboarding, setShowOnboarding] = useState(false);
+  const [showGideonOnboarding, setShowGideonOnboarding] = useState(false);
   const [showStartDay, setShowStartDay] = useState(false);
   const [showEndDay, setShowEndDay] = useState(false);
   const queryClient = useQueryClient();
@@ -38,6 +40,12 @@ export default function Home() {
       setUser(u);
       if (!u.onboarding_completed) {
         setShowOnboarding(true);
+      } else {
+        // Check if Gideon onboarding is complete
+        const gideonComplete = localStorage.getItem('gideon_onboarding_complete');
+        if (!gideonComplete) {
+          setShowGideonOnboarding(true);
+        }
       }
     });
   }, []);
@@ -325,6 +333,19 @@ export default function Home() {
         onComplete={() => {
           setShowOnboarding(false);
           base44.auth.me().then(setUser);
+          // Show Gideon onboarding after general onboarding
+          const gideonComplete = localStorage.getItem('gideon_onboarding_complete');
+          if (!gideonComplete) {
+            setTimeout(() => setShowGideonOnboarding(true), 500);
+          }
+        }} />
+
+      }
+      
+      {showGideonOnboarding &&
+      <GideonOnboarding
+        onComplete={() => {
+          setShowGideonOnboarding(false);
         }} />
 
       }
