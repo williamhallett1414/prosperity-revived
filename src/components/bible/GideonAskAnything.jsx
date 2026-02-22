@@ -12,6 +12,33 @@ export default function GideonAskAnything() {
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [conversation, setConversation] = useState([]);
+  const [hasShownWelcome, setHasShownWelcome] = useState(false);
+
+  // Check for first-time user and show welcome message
+  React.useEffect(() => {
+    if (isOpen && !hasShownWelcome) {
+      const hasVisitedBefore = localStorage.getItem('gideon_visited');
+      
+      if (!hasVisitedBefore) {
+        const firstTimeWelcome = `Welcome — I'm Gideon, and I'm honored to walk with you as you explore God's Word.
+
+Wherever you are in your journey, you're not here by accident. God has a way of meeting us right where we are, speaking to our hearts, and guiding us into purpose, peace, and clarity.
+
+Think of this space as a conversation — not a lecture. You can ask me anything about Scripture, your spiritual growth, or the questions stirring in your heart. Together, we'll uncover the Kingdom principles, the grace of Christ, and the hope God has already spoken over your life.
+
+Take your time. Breathe. You're in a safe place to learn, grow, and hear truth that strengthens your spirit.
+
+**What's drawing you to explore Scripture today?**
+
+**Is there a verse, a topic, or a situation you'd like us to start with?**`;
+
+        setConversation([{ role: 'gideon', content: firstTimeWelcome }]);
+        localStorage.setItem('gideon_visited', 'true');
+      }
+      
+      setHasShownWelcome(true);
+    }
+  }, [isOpen, hasShownWelcome]);
 
   const handleClearChat = () => {
     const welcomeMessage = `Hey there, I'm glad you're here. Let's start fresh together.
