@@ -351,8 +351,69 @@ End with 1-3 questions such as:
 - "How do you want this dish to make you feel?"
 - "What's your biggest takeaway from this breakdown?"
 
+FLAVOR PROFILE REQUESTS:
+When a user requests a specific flavor profile, respond with:
+
+1. **Warm, Personal Acknowledgment** (2-3 sentences)
+   - Welcome the flavor direction
+   - Connect it to their cooking journey
+   - Show enthusiasm for their choice
+
+2. **Core Flavor Elements Breakdown**
+   - Sweet | Salty | Acid | Fat | Heat | Umami | Aromatics | Texture
+   - Explain what makes this profile unique
+   - Describe the sensory experience
+
+3. **Ingredient Recommendations**
+   - Primary ingredients that define this profile
+   - Key aromatics and seasonings
+   - Fresh vs pantry elements
+   - Quality considerations
+
+4. **Technique Recommendations**
+   - Best cooking methods for this profile
+   - Temperature and timing guidance
+   - How to layer and build flavors
+   - Common mistakes to avoid
+
+5. **Nutrition Guidance** (Dr. Berg, Joy Bauer, Ellie Krieger, Dr. Megan Rossi influence)
+   - Health benefits of this flavor direction
+   - Macro and micronutrient highlights
+   - Gut health considerations
+   - Blood sugar impact
+   - How to keep it balanced
+
+6. **Optional Upgrades**
+   - Finishing touches (oils, herbs, acids)
+   - Texture enhancements
+   - Presentation ideas
+   - Seasonal variations
+
+7. **Emotional Intelligence Adaptation**
+   - Detect their tone (excited, curious, health-focused, etc.)
+   - Adjust depth and complexity
+   - Match their energy level
+
+8. **1-3 ICF-Aligned Coaching Questions**
+   - "What dish are you thinking of transforming with this profile?"
+   - "How do you want this flavor to make you feel?"
+   - "What's your biggest challenge when building bold/bright/rich flavors?"
+   - "Which ingredient in this profile are you most excited to explore?"
+
+FLAVOR PROFILE DEFINITIONS:
+
+**Bright & Fresh**: Citrus, herbs, vinegar, fresh vegetables, high acid, vibrant, energizing
+**Bold & Spicy**: Chili peppers, warming spices, heat layers, punchy aromatics, confident flavors
+**Rich & Comforting**: Butter, cream, cheese, slow-cooked depth, warmth, indulgent
+**Savory & Umami**: Mushrooms, soy sauce, tomato paste, aged cheese, fermented foods, depth
+**Sweet & Balanced**: Natural sweetness, caramelization, honey, maple, balanced with acid
+**Earthy & Rustic**: Root vegetables, whole grains, herbs, hearty textures, grounded
+**Clean & Healthy**: Lean proteins, vegetables, herbs, minimal processing, nutrient-dense
+**Light & Quick**: Simple prep, fresh ingredients, minimal cooking, bright and fast
+**Global Adventure**: User chooses cuisine — explain characteristic flavor profile of that cuisine
+
 APPLY THIS TO ALL MODES:
-Recipe creation, cooking technique, meal planning, nutrition guidance, ingredient substitutions, healthy eating advice, budget cooking, cultural cuisine, beginner support, advanced coaching.
+Recipe creation, cooking technique, meal planning, nutrition guidance, ingredient substitutions, healthy eating advice, budget cooking, cultural cuisine, beginner support, advanced coaching, flavor profile requests.
 
 Always be: encouraging, expert-level, practical, flexible, warm, and conversational.
       `;
@@ -453,6 +514,70 @@ Always be: encouraging, expert-level, practical, flexible, warm, and conversatio
                   {showQuickActions ? '▼ Hide' : '▶ Show'}
                 </button>
               </div>
+              
+              {/* Flavor Profile Selector */}
+              {showQuickActions && (
+                <div className="mb-3 pb-3 border-b border-[#E6EBEF]">
+                  <p className="text-xs font-semibold text-[#0A1A2F]/70 mb-2">🎨 Flavor Profiles:</p>
+                  <div className="grid grid-cols-2 gap-2">
+                    <button
+                      onClick={() => setInput("Use the Bright & Fresh flavor profile for this dish: ")}
+                      className="text-xs bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#E6EBEF]"
+                    >
+                      🌿 Bright & Fresh
+                    </button>
+                    <button
+                      onClick={() => setInput("Use the Bold & Spicy flavor profile for this dish: ")}
+                      className="text-xs bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#E6EBEF]"
+                    >
+                      🌶️ Bold & Spicy
+                    </button>
+                    <button
+                      onClick={() => setInput("Use the Rich & Comforting flavor profile for this dish: ")}
+                      className="text-xs bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#E6EBEF]"
+                    >
+                      🧈 Rich & Comforting
+                    </button>
+                    <button
+                      onClick={() => setInput("Use the Savory & Umami flavor profile for this dish: ")}
+                      className="text-xs bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#E6EBEF]"
+                    >
+                      🍄 Savory & Umami
+                    </button>
+                    <button
+                      onClick={() => setInput("Use the Sweet & Balanced flavor profile for this dish: ")}
+                      className="text-xs bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#E6EBEF]"
+                    >
+                      🍯 Sweet & Balanced
+                    </button>
+                    <button
+                      onClick={() => setInput("Use the Earthy & Rustic flavor profile for this dish: ")}
+                      className="text-xs bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#E6EBEF]"
+                    >
+                      🌾 Earthy & Rustic
+                    </button>
+                    <button
+                      onClick={() => setInput("Use the Clean & Healthy flavor profile for this dish: ")}
+                      className="text-xs bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#E6EBEF]"
+                    >
+                      💚 Clean & Healthy
+                    </button>
+                    <button
+                      onClick={() => setInput("Use the Light & Quick flavor profile for this dish: ")}
+                      className="text-xs bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#E6EBEF]"
+                    >
+                      ⚡ Light & Quick
+                    </button>
+                    <button
+                      onClick={() => setInput("Use the Global Adventure flavor profile for this dish (choose a cuisine): ")}
+                      className="text-xs bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#E6EBEF] col-span-2"
+                    >
+                      🌍 Global Adventure
+                    </button>
+                  </div>
+                </div>
+              )}
+              
               {showQuickActions && <div className="grid grid-cols-2 gap-2">
                 <button
                   onClick={() => setInput("Create a recipe for me based on these ingredients: ")}
