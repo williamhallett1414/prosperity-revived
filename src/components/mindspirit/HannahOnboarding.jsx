@@ -65,6 +65,11 @@ export default function HannahOnboarding({ onComplete }) {
     onComplete();
   };
 
+  if (step >= steps.length) {
+    onComplete();
+    return null;
+  }
+
   return (
     <AnimatePresence>
       {step < steps.length && (
