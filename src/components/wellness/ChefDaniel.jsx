@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { base44 } from '@/api/base44Client';
 import { toast } from 'sonner';
+import ChefDanielOnboarding from './ChefDanielOnboarding';
 
 export default function ChefDaniel({ user, userRecipes = [], mealLogs = [] }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,6 +13,7 @@ export default function ChefDaniel({ user, userRecipes = [], mealLogs = [] }) {
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [showQuickActions, setShowQuickActions] = useState(true);
+  const [showOnboarding, setShowOnboarding] = useState(false);
 
   useEffect(() => {
     if (isOpen && messages.length === 0) {
@@ -19,6 +21,7 @@ export default function ChefDaniel({ user, userRecipes = [], mealLogs = [] }) {
       const isFirstTime = !localStorage.getItem('chefDanielVisited');
       
       if (isFirstTime) {
+        setShowOnboarding(true);
         // First-time welcome message
         setMessages([{
           role: 'assistant',
@@ -531,6 +534,16 @@ Always be: encouraging, expert-level, practical, flexible, warm, and conversatio
 
   return (
     <>
+      {showOnboarding && (
+        <ChefDanielOnboarding
+          onComplete={() => {
+            setShowOnboarding(false);
+            localStorage.setItem('chefDanielOnboardingCompleted', 'true');
+          }}
+          onRevisit={() => setShowOnboarding(false)}
+        />
+      )}
+
       {/* Floating Chat Button */}
       <motion.button
         onClick={() => setIsOpen(true)}
