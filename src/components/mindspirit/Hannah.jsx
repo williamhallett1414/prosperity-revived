@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { base44 } from '@/api/base44Client';
 import { toast } from 'sonner';
+import { detectCoachingQuestion, getFollowUpAnalysisInstructions } from './HannahAnswerAnalysis';
 
 export default function Hannah({ user }) {
   const [isOpen, setIsOpen] = useState(false);
