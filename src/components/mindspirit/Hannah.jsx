@@ -801,7 +801,11 @@ Always be: warm, wise, compassionate, conversational, deeply supportive, grounde
     <>
       {showOnboarding && (
         <HannahOnboarding
-          onComplete={() => setShowOnboarding(false)}
+          onComplete={() => {
+            setShowOnboarding(false);
+            localStorage.setItem('hannahOnboardingCompleted', 'true');
+          }}
+          onRevisit={() => setShowOnboarding(false)}
         />
       )}
 
@@ -867,12 +871,21 @@ Always be: warm, wise, compassionate, conversational, deeply supportive, grounde
                 <HannahTooltip text="Jump straight into conversations about topics that matter to you. These are personalized quick-starts." position="bottom" showIcon={true}>
                   <p className="text-xs font-semibold text-purple-900/70">Quick Topics:</p>
                 </HannahTooltip>
-                <button
-                  onClick={() => setShowQuickActions(!showQuickActions)}
-                  className="text-xs text-purple-900/60 hover:text-purple-900 transition-colors"
-                >
-                  {showQuickActions ? '▼ Hide' : '▶ Show'}
-                </button>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => setShowOnboarding(true)}
+                    className="text-xs text-purple-600 hover:text-purple-800 transition-colors underline"
+                    title="Revisit the tour"
+                  >
+                    ? Help
+                  </button>
+                  <button
+                    onClick={() => setShowQuickActions(!showQuickActions)}
+                    className="text-xs text-purple-900/60 hover:text-purple-900 transition-colors"
+                  >
+                    {showQuickActions ? '▼ Hide' : '▶ Show'}
+                  </button>
+                </div>
               </div>
               
               {showQuickActions && (
