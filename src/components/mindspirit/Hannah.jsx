@@ -10,8 +10,6 @@ import { detectIdentityFocusAreas, getIdentityFrameworkInstructions } from './Ha
 import { getKnowledgeBaseInstructions, formatSourcesForContext, extractTopicsFromMessage } from './HannahKnowledgeBase';
 import HannahOnboarding from './HannahOnboarding';
 import HannahTooltip from './HannahTooltip';
-import HannahAIInsights from './HannahAIInsights';
-import HannahMemoryDisplay from './HannahMemoryDisplay';
 
 export default function Hannah({ user }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -29,27 +27,33 @@ export default function Hannah({ user }) {
   const [identityFocusAreas, setIdentityFocusAreas] = useState([]);
   const [showOnboarding, setShowOnboarding] = useState(false);
 
-  const [hannahMemory, setHannahMemory] = useState(null);
-  const [memoryKeyThemes, setMemoryKeyThemes] = useState([]);
-
   // Load past conversations and emotional patterns
   useEffect(() => {
     if (isOpen && user?.email) {
-      loadHannahMemory();
+      loadPastConversations();
     }
   }, [isOpen, user]);
 
-  const loadHannahMemory = async () => {
+  const loadPastConversations = async () => {
     try {
-      const response = await base44.functions.invoke('retrieveHannahMemory', {
-        limit: 50,
-        summaryOnly: true
+      const pastConversations = await base44.entities.HannahConversation.filter({
+        user_email: user.email
+      }, '-created_date', 20);
+      
+      const toneFrequency = {};
+      pastConversations.forEach(conv => {
+        if (conv.emotional_tone) {
+          toneFrequency[conv.emotional_tone] = (toneFrequency[conv.emotional_tone] || 0) + 1;
+        }
       });
-      setHannahMemory(response.data);
-      setEmotionalPatterns(response.data.emotionalPatterns || []);
-      setMemoryKeyThemes(response.data.keyThemes || []);
+      
+      const patterns = Object.entries(toneFrequency)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 3)
+        .map(([tone]) => tone);
+      setEmotionalPatterns(patterns);
     } catch (error) {
-      console.log('Loading Hannah memory...');
+      console.log('Loading conversation history...');
     }
   };
 
@@ -718,20 +722,8 @@ Always be: warm, wise, compassionate, conversational, deeply supportive, grounde
 
       const conversationHistory = messages.slice(-6).map(m => `${m.role === 'user' ? 'User' : 'Hannah'}: ${m.content}`).join('\n');
 
-      // Add long-term memory context
-      let memoryContext = '';
-      if (hannahMemory) {
-        memoryContext = `
-LONG-TERM MEMORY FROM PAST CONVERSATIONS:
-Total conversations: ${hannahMemory.totalConversations}
-Key themes we've discussed: ${memoryKeyThemes.join(', ') || 'various'}
-${hannahMemory.summary ? `Summary of our journey: ${hannahMemory.summary}` : ''}
-${hannahMemory.importantDetails?.length > 0 ? `Important things I know about you: ${hannahMemory.importantDetails.join('; ')}` : ''}
-`;
-      }
-
       const response = await base44.integrations.Core.InvokeLLM({
-        prompt: `${context}\n${memoryContext}\n\nConversation:\n${conversationHistory}\nUser: ${userMessage}\n\nHannah:`,
+        prompt: `${context}\n\nConversation:\n${conversationHistory}\nUser: ${userMessage}\n\nHannah:`,
         add_context_from_internet: false
       });
 
@@ -974,16 +966,6 @@ ${hannahMemory.importantDetails?.length > 0 ? `Important things I know about you
                     </button>
                   ))}
                 </div>
-              )}
-
-              {/* AI Insights */}
-              {messages.length > 3 && (
-                <HannahAIInsights
-                  messages={messages}
-                  mood={currentMood}
-                  emotionalTone={messages[messages.length - 1]?.emotionalTone || ''}
-                  emotionalPatterns={emotionalPatterns}
-                />
               )}
             </div>
 
