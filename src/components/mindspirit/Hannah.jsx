@@ -165,6 +165,8 @@ export default function Hannah({ user }) {
     setInput('');
     setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
     
+    let journalEntryId = null;
+    
     // Save to journal if in journal mode
     if (showJournalMode && user?.email) {
       try {
@@ -173,15 +175,7 @@ export default function Hannah({ user }) {
           entry_type: 'reflection',
           tags: []
         });
-        
-        // Trigger sentiment analysis in background
-        try {
-          await base44.functions.invoke('analyzeSentiment', {
-            entry_id: journalEntry.id
-          });
-        } catch (error) {
-          console.log('Sentiment analysis queued');
-        }
+        journalEntryId = journalEntry.id;
       } catch (error) {
         console.log('Journal entry saved');
       }
@@ -758,6 +752,27 @@ Always be: warm, wise, compassionate, conversational, deeply supportive, grounde
       // Save Hannah response
       await savConversation('hannah', response);
       setMessages(prev => [...prev, { role: 'assistant', content: response }]);
+      
+      // Update journal entry with full conversation if in journal mode
+      if (showJournalMode && journalEntryId) {
+        try {
+          const fullContent = `User:\n${userMessage}\n\nHannah:\n${response}`;
+          await base44.entities.JournalEntry.update(journalEntryId, {
+            content: fullContent
+          });
+          
+          // Trigger sentiment analysis on full conversation
+          try {
+            await base44.functions.invoke('analyzeSentiment', {
+              entry_id: journalEntryId
+            });
+          } catch (error) {
+            console.log('Sentiment analysis queued');
+          }
+        } catch (error) {
+          console.log('Journal entry updated');
+        }
+      }
       
       // Check if Hannah's response contains a coaching question to set flag for next message
       setLastHannahMessageWasQuestion(detectCoachingQuestion(response));
