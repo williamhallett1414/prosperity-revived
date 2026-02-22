@@ -13,6 +13,7 @@ export default function CoachDavid({ user, userWorkouts = [], workoutSessions = 
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [sessionId, setSessionId] = useState('');
+  const [quickMenuCollapsed, setQuickMenuCollapsed] = useState(false);
 
   useEffect(() => {
     if (isOpen && messages.length === 0) {
@@ -209,6 +210,8 @@ Habit building, discipline work, mental toughness, overcoming plateaus, nutritio
               <CoachDavidQuickAskMenu
                 onSelectPrompt={(prompt) => setInput(prompt)}
                 isLoading={isLoading}
+                isCollapsed={quickMenuCollapsed}
+                onToggleCollapse={() => setQuickMenuCollapsed(!quickMenuCollapsed)}
               />
             )}
 

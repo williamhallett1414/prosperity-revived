@@ -1,8 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 
-export default function CoachDavidQuickAskMenu({ onSelectPrompt, isLoading }) {
+export default function CoachDavidQuickAskMenu({ onSelectPrompt, isLoading, isCollapsed, onToggleCollapse }) {
   const quickAsks = [
     {
       label: "📋 Build Workout Plan",
@@ -47,9 +48,19 @@ export default function CoachDavidQuickAskMenu({ onSelectPrompt, isLoading }) {
   ];
 
   return (
-    <div className="px-4 py-3 border-b border-[#E6EBEF] bg-gradient-to-b from-white to-[#F2F6FA]">
-      <p className="text-xs font-semibold text-[#0A1A2F]/70 mb-3">Quick Fitness Needs:</p>
-      <div className="grid grid-cols-2 gap-2">
+    <div className="border-b border-[#E6EBEF] bg-gradient-to-b from-white to-[#F2F6FA]">
+      <div className="flex items-center justify-between px-4 py-3">
+        <p className="text-xs font-semibold text-[#0A1A2F]/70">Quick Fitness Needs:</p>
+        <button
+          onClick={onToggleCollapse}
+          className="text-[#0A1A2F]/60 hover:text-[#0A1A2F] transition-colors p-1"
+          title={isCollapsed ? "Show quick actions" : "Hide quick actions"}
+        >
+          {isCollapsed ? <ChevronDown className="w-4 h-4" /> : <ChevronUp className="w-4 h-4" />}
+        </button>
+      </div>
+      {!isCollapsed && (
+      <div className="px-4 pb-3 grid grid-cols-2 gap-2">
         {quickAsks.map((item, idx) => (
           <motion.button
             key={idx}
@@ -64,6 +75,7 @@ export default function CoachDavidQuickAskMenu({ onSelectPrompt, isLoading }) {
           </motion.button>
         ))}
       </div>
+      )}
     </div>
   );
 }
