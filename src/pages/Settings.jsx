@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { Label } from '@/components/ui/label';
 import ReminderSettings from '@/components/settings/ReminderSettings';
+import GideonNotificationSettings from '@/components/settings/GideonNotificationSettings';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -148,6 +149,11 @@ export default function Settings() {
               )}
             </button>
           </div>
+        </div>
+
+        {/* Gideon Daily Greetings */}
+        <div className="mb-4">
+          <GideonNotificationSettings />
         </div>
 
         {/* Reminders */}
