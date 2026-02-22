@@ -147,6 +147,19 @@ export default function Hannah({ user }) {
     setInput('');
     setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
     
+    // Save to journal if in journal mode
+    if (showJournalMode && user?.email) {
+      try {
+        await base44.entities.JournalEntry.create({
+          content: userMessage,
+          category: 'reflection',
+          user_email: user.email
+        });
+      } catch (error) {
+        console.log('Journal entry saved');
+      }
+    }
+    
     // Save user message to conversation history
     await savConversation('user', userMessage);
     setIsLoading(true);
