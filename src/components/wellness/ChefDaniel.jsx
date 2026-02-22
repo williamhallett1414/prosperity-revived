@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageCircle, X, Send, Loader2, UtensilsCrossed } from 'lucide-react';
+import { MessageCircle, X, Send, Loader2, UtensilsCrossed, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { base44 } from '@/api/base44Client';
@@ -334,14 +334,28 @@ Always be: encouraging, expert-level, practical, flexible, warm, and conversatio
                   <p className="text-xs text-[#0A1A2F]/70">Your Nutrition Guide</p>
                 </div>
               </div>
-              <Button
-                onClick={() => setIsOpen(false)}
-                variant="ghost"
-                size="icon"
-                className="text-[#0A1A2F] hover:bg-[#0A1A2F]/10"
-              >
-                <X className="w-5 h-5" />
-              </Button>
+              <div className="flex items-center gap-2">
+                <Button
+                  onClick={() => {
+                    setMessages([]);
+                    toast.success('Chat cleared');
+                  }}
+                  variant="ghost"
+                  size="icon"
+                  className="text-[#0A1A2F] hover:bg-[#0A1A2F]/10"
+                  title="Clear chat"
+                >
+                  <Trash2 className="w-5 h-5" />
+                </Button>
+                <Button
+                  onClick={() => setIsOpen(false)}
+                  variant="ghost"
+                  size="icon"
+                  className="text-[#0A1A2F] hover:bg-[#0A1A2F]/10"
+                >
+                  <X className="w-5 h-5" />
+                </Button>
+              </div>
             </div>
 
             {/* Quick-Ask Menu */}
