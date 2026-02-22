@@ -37,6 +37,8 @@ export default function MyJournalEntries() {
   const [newTitle, setNewTitle] = useState('');
   const [newContent, setNewContent] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const [expandedWeeklySummary, setExpandedWeeklySummary] = useState(true);
+  const [expandedMonthlySummary, setExpandedMonthlySummary] = useState(true);
   const queryClient = useQueryClient();
 
   React.useEffect(() => {
@@ -239,7 +241,7 @@ export default function MyJournalEntries() {
                 className="bg-gradient-to-br from-purple-50 to-blue-50 rounded-2xl p-5 border border-purple-200"
               >
                 <div className="flex items-start justify-between mb-3">
-                  <div>
+                  <div className="flex-1">
                     <h3 className="font-semibold text-[#0A1A2F] flex items-center gap-2">
                       <span className="text-lg">📅</span>
                       Weekly Summary
@@ -250,20 +252,34 @@ export default function MyJournalEntries() {
                       </p>
                     )}
                   </div>
-                  <Button
-                    onClick={() => generateSummary.mutate('weekly')}
-                    disabled={generateSummary.isPending}
-                    size="sm"
-                    variant="outline"
-                    className="text-xs"
-                  >
-                    {generateSummary.isPending && generateSummary.variables === 'weekly' ? 'Generating...' : 'Regenerate'}
-                  </Button>
+                  <div className="flex gap-2">
+                    {weeklySummary && (
+                      <Button
+                        onClick={() => setExpandedWeeklySummary(!expandedWeeklySummary)}
+                        size="sm"
+                        variant="ghost"
+                        className="text-xs h-8 w-8 p-0"
+                      >
+                        {expandedWeeklySummary ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                      </Button>
+                    )}
+                    <Button
+                      onClick={() => generateSummary.mutate('weekly')}
+                      disabled={generateSummary.isPending}
+                      size="sm"
+                      variant="outline"
+                      className="text-xs"
+                    >
+                      {generateSummary.isPending && generateSummary.variables === 'weekly' ? 'Generating...' : 'Regenerate'}
+                    </Button>
+                  </div>
                 </div>
                 {weeklySummary ? (
-                  <p className="text-sm text-[#0A1A2F]/80 leading-relaxed whitespace-pre-wrap">
-                    {weeklySummary.summary_text}
-                  </p>
+                  expandedWeeklySummary && (
+                    <p className="text-sm text-[#0A1A2F]/80 leading-relaxed whitespace-pre-wrap">
+                      {weeklySummary.summary_text}
+                    </p>
+                  )
                 ) : (
                   <div className="text-center py-8">
                     <p className="text-sm text-[#0A1A2F]/60 mb-3">No weekly summary yet</p>
@@ -287,7 +303,7 @@ export default function MyJournalEntries() {
                 className="bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl p-5 border border-amber-200"
               >
                 <div className="flex items-start justify-between mb-3">
-                  <div>
+                  <div className="flex-1">
                     <h3 className="font-semibold text-[#0A1A2F] flex items-center gap-2">
                       <span className="text-lg">📊</span>
                       Monthly Summary
@@ -298,20 +314,34 @@ export default function MyJournalEntries() {
                       </p>
                     )}
                   </div>
-                  <Button
-                    onClick={() => generateSummary.mutate('monthly')}
-                    disabled={generateSummary.isPending}
-                    size="sm"
-                    variant="outline"
-                    className="text-xs"
-                  >
-                    {generateSummary.isPending && generateSummary.variables === 'monthly' ? 'Generating...' : 'Regenerate'}
-                  </Button>
+                  <div className="flex gap-2">
+                    {monthlySummary && (
+                      <Button
+                        onClick={() => setExpandedMonthlySummary(!expandedMonthlySummary)}
+                        size="sm"
+                        variant="ghost"
+                        className="text-xs h-8 w-8 p-0"
+                      >
+                        {expandedMonthlySummary ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                      </Button>
+                    )}
+                    <Button
+                      onClick={() => generateSummary.mutate('monthly')}
+                      disabled={generateSummary.isPending}
+                      size="sm"
+                      variant="outline"
+                      className="text-xs"
+                    >
+                      {generateSummary.isPending && generateSummary.variables === 'monthly' ? 'Generating...' : 'Regenerate'}
+                    </Button>
+                  </div>
                 </div>
                 {monthlySummary ? (
-                  <p className="text-sm text-[#0A1A2F]/80 leading-relaxed whitespace-pre-wrap">
-                    {monthlySummary.summary_text}
-                  </p>
+                  expandedMonthlySummary && (
+                    <p className="text-sm text-[#0A1A2F]/80 leading-relaxed whitespace-pre-wrap">
+                      {monthlySummary.summary_text}
+                    </p>
+                  )
                 ) : (
                   <div className="text-center py-8">
                     <p className="text-sm text-[#0A1A2F]/60 mb-3">No monthly summary yet</p>

@@ -87,6 +87,7 @@ import Search from './pages/Search';
 import SelfCareChallengesPage from './pages/SelfCareChallengesPage';
 import Settings from './pages/Settings';
 import SpiritualGrowth from './pages/SpiritualGrowth';
+import SpiritualInsights from './pages/SpiritualInsights';
 import SubscriptionTerms from './pages/SubscriptionTerms';
 import TermsAndConditions from './pages/TermsAndConditions';
 import UserProfile from './pages/UserProfile';
@@ -96,7 +97,6 @@ import WorkoutCategoryPage from './pages/WorkoutCategoryPage';
 import WorkoutProgress from './pages/WorkoutProgress';
 import WorkoutTrends from './pages/WorkoutTrends';
 import Workouts from './pages/Workouts';
-import SpiritualInsights from './pages/SpiritualInsights';
 import __Layout from './Layout.jsx';
 
 
@@ -141,6 +141,7 @@ export const PAGES = {
     "SelfCareChallengesPage": SelfCareChallengesPage,
     "Settings": Settings,
     "SpiritualGrowth": SpiritualGrowth,
+    "SpiritualInsights": SpiritualInsights,
     "SubscriptionTerms": SubscriptionTerms,
     "TermsAndConditions": TermsAndConditions,
     "UserProfile": UserProfile,
@@ -150,7 +151,6 @@ export const PAGES = {
     "WorkoutProgress": WorkoutProgress,
     "WorkoutTrends": WorkoutTrends,
     "Workouts": Workouts,
-    "SpiritualInsights": SpiritualInsights,
 }
 
 export const pagesConfig = {
