@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { base44 } from '@/api/base44Client';
 import { toast } from 'sonner';
 import { detectCoachingQuestion, getFollowUpAnalysisInstructions } from './HannahAnswerAnalysis';
+import { detectIdentityFocusAreas, getIdentityFrameworkInstructions } from './HannahIdentityFramework';
 
 export default function Hannah({ user }) {
   const [isOpen, setIsOpen] = useState(false);
