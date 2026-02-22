@@ -743,10 +743,11 @@ Always be: warm, wise, compassionate, conversational, deeply supportive, grounde
 
   return (
     <>
-      <HannahOnboarding
-        onComplete={() => setShowOnboarding(false)}
-        key={`onboarding-${showOnboarding}`}
-      />
+      {showOnboarding && (
+        <HannahOnboarding
+          onComplete={() => setShowOnboarding(false)}
+        />
+      )}
 
       {/* Floating Chat Button */}
       <motion.button
