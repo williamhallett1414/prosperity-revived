@@ -11,6 +11,7 @@ import { getKnowledgeBaseInstructions, formatSourcesForContext, extractTopicsFro
 import HannahOnboarding from './HannahOnboarding';
 import HannahTooltip from './HannahTooltip';
 import HannahAIInsights from './HannahAIInsights';
+import HannahMemoryDisplay from './HannahMemoryDisplay';
 
 export default function Hannah({ user }) {
   const [isOpen, setIsOpen] = useState(false);
