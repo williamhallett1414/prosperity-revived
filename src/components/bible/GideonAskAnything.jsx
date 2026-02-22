@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageCircle, Send, Loader2, X, Sparkles } from 'lucide-react';
+import { MessageCircle, Send, Loader2, X, Sparkles, RotateCcw, Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
@@ -12,6 +12,15 @@ export default function GideonAskAnything() {
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [conversation, setConversation] = useState([]);
+
+  const handleClearChat = () => {
+    setConversation([]);
+    setInput('');
+  };
+
+  const handleReturnToMenu = () => {
+    setIsOpen(false);
+  };
 
   const handleAsk = async (isDeepStudy = false) => {
     if (!input.trim() || loading) return;
@@ -278,22 +287,44 @@ Tone: Emotionally attuned, warm, pastoral, empowering. Never robotic. Always scr
             className="bg-white dark:bg-[#2d2d4a] rounded-2xl shadow-2xl w-[95%] max-w-2xl h-[85vh] flex flex-col overflow-hidden">
 
               {/* Header */}
-              <div className="bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 p-5 flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
-                    <MessageCircle className="w-6 h-6 text-white" />
+              <div className="bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 p-5">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
+                      <MessageCircle className="w-6 h-6 text-white" />
+                    </div>
+                    <div>
+                      <h2 className="text-xl font-bold text-white">Ask Gideon</h2>
+                      <p className="text-sm text-white/80">Your Biblical Wisdom Guide</p>
+                    </div>
                   </div>
-                  <div>
-                    <h2 className="text-xl font-bold text-white">Ask Gideon</h2>
-                    <p className="text-sm text-white/80">Your Biblical Wisdom Guide</p>
-                  </div>
-                </div>
-                <button
-                onClick={() => setIsOpen(false)}
-                className="text-white/80 hover:text-white transition-colors">
+                  <button
+                  onClick={() => setIsOpen(false)}
+                  className="text-white/80 hover:text-white transition-colors">
 
-                  <X className="w-6 h-6" />
-                </button>
+                    <X className="w-6 h-6" />
+                  </button>
+                </div>
+                
+                {/* Action Buttons */}
+                {conversation.length > 0 && (
+                  <div className="flex gap-2">
+                    <button
+                      onClick={handleClearChat}
+                      className="flex-1 flex items-center justify-center gap-2 bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded-lg transition-colors text-sm font-medium backdrop-blur-sm"
+                    >
+                      <RotateCcw className="w-4 h-4" />
+                      Clear Chat
+                    </button>
+                    <button
+                      onClick={handleReturnToMenu}
+                      className="flex-1 flex items-center justify-center gap-2 bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded-lg transition-colors text-sm font-medium backdrop-blur-sm"
+                    >
+                      <Menu className="w-4 h-4" />
+                      Return to Menu
+                    </button>
+                  </div>
+                )}
               </div>
 
               {/* Welcome Message */}
