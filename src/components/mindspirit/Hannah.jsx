@@ -651,6 +651,11 @@ Habit building, emotional regulation, relationship dynamics, self-sabotage, prod
 Always be: warm, wise, compassionate, conversational, deeply supportive, grounded, encouraging, non-judgmental, and deeply personal.
       `;
 
+      // Add follow-up answer analysis system if user is answering a coaching question
+      if (isAnsweringQuestion) {
+        context += '\n' + getFollowUpAnalysisInstructions();
+      }
+
       const conversationHistory = messages.slice(-6).map(m => `${m.role === 'user' ? 'User' : 'Hannah'}: ${m.content}`).join('\n');
 
       const response = await base44.integrations.Core.InvokeLLM({
@@ -661,6 +666,10 @@ Always be: warm, wise, compassionate, conversational, deeply supportive, grounde
       // Save Hannah response
       await savConversation('hannah', response);
       setMessages(prev => [...prev, { role: 'assistant', content: response }]);
+      
+      // Check if Hannah's response contains a coaching question to set flag for next message
+      setLastHannahMessageWasQuestion(detectCoachingQuestion(response));
+      setIsAnalyzingAnswer(false);
     } catch (error) {
       toast.error('Failed to get response from Hannah');
       const errorMsg = "I'm having trouble connecting right now. Please try again in a moment.";
