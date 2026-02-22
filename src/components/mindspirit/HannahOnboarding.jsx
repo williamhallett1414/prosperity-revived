@@ -1,57 +1,78 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ChevronRight, Lightbulb } from 'lucide-react';
+import { X, ChevronRight, Lightbulb, Heart, BookOpen, Zap, HelpCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-export default function HannahOnboarding({ onComplete }) {
+export default function HannahOnboarding({ onComplete, onRevisit }) {
   const [step, setStep] = useState(0);
 
   const steps = [
     {
       title: "Welcome to Hannah 💛",
-      description: "Your personal growth guide is here to support your journey. Let me show you what I can help with.",
+      description: "Your personal growth guide is here to support your journey. I combine therapy-informed coaching, habit science, and emotional intelligence to help you grow.",
+      icon: Heart,
       highlight: null,
       position: 'center'
+    },
+    {
+      title: "Personalized Coaching Insights",
+      description: "Based on your journal entries, I detect emotional patterns and key themes in your life. I then proactively offer tailored coaching interventions—not generic suggestions, but insights uniquely designed for you.",
+      icon: Lightbulb,
+      highlight: null,
+      position: 'center',
+      tip: "You'll see a personalized insight panel when patterns emerge from your reflections. This appears after you've written a few entries."
+    },
+    {
+      title: "Journal Analysis & Sentiment Tracking",
+      description: "Every time you journal, I analyze the emotional sentiment, detect emotions, and identify key themes. This gives you visual insights into your emotional trends over time.",
+      icon: BookOpen,
+      highlight: null,
+      position: 'center',
+      tip: "Use the journal analysis feature in your reflection page to see charts of your emotional patterns and explore specific themes."
+    },
+    {
+      title: "Proactive Suggestions",
+      description: "I remember your emotional patterns from past conversations and upcoming insights. Instead of waiting for you to ask, I proactively suggest exercises, frameworks, and perspectives tailored to what you're working through.",
+      icon: Zap,
+      highlight: null,
+      position: 'center',
+      tip: "The more you engage—journaling, chatting, tracking your mood—the better my suggestions become."
     },
     {
       title: "Mood Tracking",
-      description: "I track your emotional state to understand patterns and provide personalized support. Check in with your mood anytime—it helps me know how best to guide you.",
+      description: "Check in with your mood anytime using the mood slider. I use this to calibrate my support and understand your emotional state in real-time.",
+      icon: Heart,
       highlight: 'mood-tracker',
-      position: 'bottom'
+      position: 'bottom',
+      tip: "Your mood data helps me provide more emotionally attuned responses and identify patterns."
     },
     {
       title: "Quick Topic Access",
-      description: "Quickly jump into conversations about habits, boundaries, finances, relationships, and more. These shortcuts save time and get you straight to what matters.",
+      description: "Jump straight into conversations about habits, boundaries, finances, relationships, and more. These are personalized shortcuts designed to get you to what matters most.",
+      icon: Zap,
       highlight: 'quick-actions',
-      position: 'bottom'
+      position: 'bottom',
+      tip: "Start with any topic that feels relevant right now. You can explore anything—there's no wrong way to engage."
     },
     {
-      title: "Personalized Insights",
-      description: "I remember your emotional patterns from past conversations. Over time, I notice what you struggle with most and proactively suggest exercises tailored to you.",
+      title: "Journal Mode",
+      description: "Write freely in journal mode. Your reflections are saved as journal entries, analyzed for sentiment and themes, and used to generate personalized insights. It's like journaling with a therapist listening.",
+      icon: BookOpen,
       highlight: null,
-      position: 'center'
+      position: 'center',
+      tip: "Toggle journal mode to save full conversations—both your thoughts and my responses—as journal entries."
     },
     {
-      title: "Knowledge Base Integration",
-      description: "When relevant, I share insights from curated research, books, and evidence-based resources. Every recommendation is grounded in psychology and personal development science.",
-      highlight: null,
-      position: 'center'
-    },
-    {
-      title: "Coaching Framework",
-      description: "I ask powerful coaching questions designed to deepen your self-awareness. My goal isn't to tell you what to do—it's to help you discover your own wisdom.",
-      highlight: null,
-      position: 'center'
-    },
-    {
-      title: "You're Ready!",
-      description: "Take your time exploring. There's no rush. I'm here whenever you need support, guidance, or just someone to listen. What's alive for you today?",
+      title: "You're Ready to Begin!",
+      description: "There's no rush to figure everything out. I'm here whenever you need support, guidance, reflection, or just someone to listen. Let's grow together.",
+      icon: Heart,
       highlight: null,
       position: 'center'
     }
   ];
 
   const currentStep = steps[step];
+  const CurrentIcon = currentStep.icon;
 
   const handleNext = () => {
     if (step < steps.length - 1) {
@@ -63,6 +84,12 @@ export default function HannahOnboarding({ onComplete }) {
 
   const handleSkip = () => {
     onComplete();
+  };
+
+  const handleRevisit = () => {
+    if (onRevisit) {
+      onRevisit();
+    }
   };
 
   if (step >= steps.length) {
@@ -90,13 +117,14 @@ export default function HannahOnboarding({ onComplete }) {
               <button
                 onClick={handleSkip}
                 className="absolute top-4 right-4 text-white/80 hover:text-white transition-colors"
+                title="Skip tour"
               >
                 <X className="w-5 h-5" />
               </button>
               
               <div className="flex items-start gap-3">
                 <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center mt-1">
-                  <Lightbulb className="w-6 h-6 text-white" />
+                  <CurrentIcon className="w-6 h-6 text-white" />
                 </div>
                 <div>
                   <h2 className="text-xl font-bold">{currentStep.title}</h2>
@@ -119,40 +147,41 @@ export default function HannahOnboarding({ onComplete }) {
 
             {/* Content */}
             <div className="p-6">
-              <p className="text-gray-700 leading-relaxed mb-6">
+              <p className="text-gray-700 leading-relaxed mb-4">
                 {currentStep.description}
               </p>
 
-              {/* Feature Highlight Info */}
-              {step === 1 && (
-                <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-4 text-sm text-blue-800">
-                  👆 You can adjust the mood slider at the top of our chat. I use this to calibrate my support.
-                </div>
-              )}
-
-              {step === 2 && (
-                <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-4 text-sm text-blue-800">
-                  👆 Click any quick topic button to instantly start a conversation about it. These are personalized to common growth areas.
-                </div>
+              {/* Tip Box */}
+              {currentStep.tip && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="bg-amber-50 border border-amber-200 rounded-lg p-3 text-sm text-amber-800 flex gap-2"
+                >
+                  <HelpCircle className="w-4 h-4 flex-shrink-0 mt-0.5" />
+                  <p>{currentStep.tip}</p>
+                </motion.div>
               )}
             </div>
 
             {/* Actions */}
-            <div className="p-6 bg-gray-50 border-t border-gray-100 flex gap-3">
-              <Button
-                onClick={handleSkip}
-                variant="outline"
-                className="flex-1 text-gray-700"
-              >
-                Skip Tour
-              </Button>
-              <Button
-                onClick={handleNext}
-                className="flex-1 bg-gradient-to-r from-pink-400 to-purple-500 hover:from-pink-500 hover:to-purple-600 text-white flex items-center justify-center gap-2"
-              >
-                {step === steps.length - 1 ? 'Get Started' : 'Next'}
-                <ChevronRight className="w-4 h-4" />
-              </Button>
+            <div className="p-6 bg-gray-50 border-t border-gray-100 space-y-3">
+              <div className="flex gap-3">
+                <Button
+                  onClick={handleSkip}
+                  variant="outline"
+                  className="flex-1 text-gray-700"
+                >
+                  Skip Tour
+                </Button>
+                <Button
+                  onClick={handleNext}
+                  className="flex-1 bg-gradient-to-r from-pink-400 to-purple-500 hover:from-pink-500 hover:to-purple-600 text-white flex items-center justify-center gap-2"
+                >
+                  {step === steps.length - 1 ? 'Get Started' : 'Next'}
+                  <ChevronRight className="w-4 h-4" />
+                </Button>
+              </div>
             </div>
           </motion.div>
         </motion.div>
