@@ -12,11 +12,104 @@ export default function Hannah({ user }) {
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [showQuickActions, setShowQuickActions] = useState(true);
+  const [currentMood, setCurrentMood] = useState(5);
+  const [showMoodTracker, setShowMoodTracker] = useState(false);
+  const [sessionId, setSessionId] = useState('');
+  const [emotionalPatterns, setEmotionalPatterns] = useState([]);
+  const [showJournalMode, setShowJournalMode] = useState(false);
+
+  // Load past conversations and emotional patterns
+  useEffect(() => {
+    if (isOpen && user?.email) {
+      loadPastConversations();
+    }
+  }, [isOpen, user]);
+
+  const loadPastConversations = async () => {
+    try {
+      const pastConversations = await base44.entities.HannahConversation.filter({
+        user_email: user.email
+      }, '-created_date', 20);
+      
+      const toneFrequency = {};
+      pastConversations.forEach(conv => {
+        if (conv.emotional_tone) {
+          toneFrequency[conv.emotional_tone] = (toneFrequency[conv.emotional_tone] || 0) + 1;
+        }
+      });
+      
+      const patterns = Object.entries(toneFrequency)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 3)
+        .map(([tone]) => tone);
+      setEmotionalPatterns(patterns);
+    } catch (error) {
+      console.log('Loading conversation history...');
+    }
+  };
+
+  const savConversation = async (role, content, emotionalTone = null) => {
+    try {
+      if (user?.email) {
+        await base44.entities.HannahConversation.create({
+          user_email: user.email,
+          role,
+          content,
+          emotional_tone: emotionalTone,
+          conversation_session_id: sessionId,
+          mood_score: currentMood
+        });
+      }
+    } catch (error) {
+      console.log('Saving conversation...');
+    }
+  };
+
+  const saveMoodEntry = async (mood) => {
+    try {
+      if (user?.email) {
+        await base44.entities.HannahConversation.create({
+          user_email: user.email,
+          role: 'user',
+          content: `[Mood Check-in: ${mood}/10]`,
+          emotional_tone: detectMoodTone(mood),
+          conversation_session_id: sessionId,
+          mood_score: mood,
+          is_journal_entry: true
+        });
+      }
+    } catch (error) {
+      console.log('Saving mood entry...');
+    }
+  };
+
+  const detectMoodTone = (mood) => {
+    if (mood <= 2) return 'sad';
+    if (mood <= 4) return 'discouraged';
+    if (mood <= 5) return 'neutral';
+    if (mood <= 7) return 'hopeful';
+    return 'motivated';
+  };
+
+  const makeProactiveSuggestion = () => {
+    if (emotionalPatterns.length === 0) return null;
+    
+    const suggestionMap = {
+      overwhelmed: "I've noticed you often feel overwhelmed. Would it help to walk through the 'Money Story Excavation' exercise? It's designed to help untangle complexity.",
+      anxious: "I sense anxiety comes up a lot for you. Our nervous system regulation exercises (like Pendulation Practice) might create some calm. Want to try?",
+      discouraged: "You've shared discouragement with me before. I want to celebrate something — what's ONE thing you've tried, even imperfectly, that mattered?",
+      burned_out: "I've noticed burnout patterns. Let's talk about real rest — not productivity, just genuine restoration. What does your body need right now?"
+    };
+    
+    return suggestionMap[emotionalPatterns[0]] || null;
+  };
 
   useEffect(() => {
     if (isOpen && messages.length === 0) {
       const userName = user?.full_name?.split(' ')[0] || 'friend';
       const isFirstTime = !localStorage.getItem('hannahVisited');
+      const newSessionId = `hannah-${Date.now()}`;
+      setSessionId(newSessionId);
       
       if (isFirstTime) {
         // First-time welcome message
