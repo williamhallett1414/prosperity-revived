@@ -658,6 +658,13 @@ Always be: warm, wise, compassionate, conversational, deeply supportive, grounde
         context += '\n' + getFollowUpAnalysisInstructions();
       }
 
+      // Add identity-based transformation framework if relevant
+      const areasToUse = detectedAreas.length > 0 ? detectedAreas : identityFocusAreas;
+      if (areasToUse.length > 0) {
+        context += '\n' + getIdentityFrameworkInstructions();
+        context += `\n\nCURRENT FOCUS AREAS FOR IDENTITY FRAMEWORK: ${areasToUse.join(', ')}`;
+      }
+
       const conversationHistory = messages.slice(-6).map(m => `${m.role === 'user' ? 'User' : 'Hannah'}: ${m.content}`).join('\n');
 
       const response = await base44.integrations.Core.InvokeLLM({
