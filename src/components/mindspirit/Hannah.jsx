@@ -112,21 +112,23 @@ export default function Hannah({ user }) {
       setSessionId(newSessionId);
       
       if (isFirstTime) {
-        // First-time welcome message
-        setMessages([{
-          role: 'assistant',
-          content: `Hi ${userName}, I'm Hannah — your personal growth guide.\n\nI'm here to walk alongside you as you navigate life's complexities, discover your strengths, and create meaningful change.\n\nWhether you're building better habits, healing old patterns, strengthening relationships, developing emotional intelligence, or finding clarity on your purpose — I'm here to support you with wisdom, warmth, and practical tools.\n\nThink of me as your life coach, therapist-informed guide, psychology mentor, and emotional intelligence expert all in one. I draw from the best personal development principles — habit science, emotional intelligence, cognitive reframing, attachment styles, boundaries, growth mindset, grit, leadership, relationship psychology, financial mindset, stress management, nervous system regulation, productivity, and purpose.\n\nI'm inspired by insights from books like *Atomic Habits*, *The 5 Love Languages*, *Emotional Intelligence*, *Mindset*, *Grit*, *The Mountain Is You*, *The 7 Habits of Highly Effective People*, and many more.\n\nMy role is to validate your feelings, help you reframe challenges, and guide you toward actionable steps — never to judge, diagnose, or give medical advice.\n\nSo, let me ask you:\n• What area of your life are you most ready to grow in right now?\n• What brought you here today — a challenge you're facing or a goal you're reaching for?`
-        }]);
+        const welcomeMsg = `Hi ${userName}, I'm Hannah — your personal growth guide.\n\nI'm here to walk alongside you as you navigate life's complexities, discover your strengths, and create meaningful change.\n\nBeyond our conversations, I remember what we discuss, learn your emotional patterns, and proactively suggest exercises tailored to you. I also track your mood and journaling reflections so you can see your growth over time.\n\nWhat's alive for you today?`;
+        setMessages([{ role: 'assistant', content: welcomeMsg }]);
         localStorage.setItem('hannahVisited', 'true');
       } else {
-        // Returning user greeting
-        setMessages([{
-          role: 'assistant',
-          content: `Welcome back, ${userName}. 💛\n\nI'm so glad you're here. Personal growth is a journey, not a destination — and I'm honored to walk this path with you.\n\nWhether you're here to process emotions, shift a pattern, strengthen a skill, or simply talk through what's on your mind — I'm here to listen, guide, and support.\n\nWhat's alive for you today? What do you want to explore?`
-        }]);
+        let returningMsg = `Welcome back, ${userName}. 💛\n\nI'm so glad you're here.`;
+        
+        // Proactive suggestion based on patterns
+        const suggestion = makeProactiveSuggestion();
+        if (suggestion) {
+          returningMsg += `\n\n${suggestion}`;
+        }
+        
+        returningMsg += `\n\nWhat's alive for you today?`;
+        setMessages([{ role: 'assistant', content: returningMsg }]);
       }
     }
-  }, [isOpen, messages.length, user]);
+  }, [isOpen, messages.length, user, emotionalPatterns]);
 
   const sendMessage = async () => {
     if (!input.trim() || isLoading) return;
