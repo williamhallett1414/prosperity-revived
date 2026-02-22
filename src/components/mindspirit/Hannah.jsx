@@ -121,6 +121,7 @@ export default function Hannah({ user }) {
       setSessionId(newSessionId);
       
       if (isFirstTime) {
+        setShowOnboarding(true);
         const welcomeMsg = `Hi ${userName}, I'm Hannah — your personal growth guide.\n\nI'm here to walk alongside you as you navigate life's complexities, discover your strengths, and create meaningful change.\n\nBeyond our conversations, I remember what we discuss, learn your emotional patterns, and proactively suggest exercises tailored to you. I also track your mood and journaling reflections so you can see your growth over time.\n\nWhat's alive for you today?`;
         setMessages([{ role: 'assistant', content: welcomeMsg }]);
         localStorage.setItem('hannahVisited', 'true');
