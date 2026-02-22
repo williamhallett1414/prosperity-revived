@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { base44 } from '@/api/base44Client';
 import { toast } from 'sonner';
+import CoachDavidQuickAskMenu from './CoachDavidQuickAskMenu';
 
 export default function CoachDavid({ user, userWorkouts = [], workoutSessions = [] }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -202,6 +203,14 @@ Habit building, discipline work, mental toughness, overcoming plateaus, nutritio
                 </Button>
               </div>
             </div>
+
+            {/* Quick-Ask Menu */}
+            {messages.length <= 1 && !isLoading && (
+              <CoachDavidQuickAskMenu
+                onSelectPrompt={(prompt) => setInput(prompt)}
+                isLoading={isLoading}
+              />
+            )}
 
             {/* Messages */}
             <div className="flex-1 overflow-y-auto p-5 space-y-4 bg-[#F2F6FA]">
