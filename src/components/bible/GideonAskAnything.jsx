@@ -13,7 +13,7 @@ export default function GideonAskAnything() {
   const [loading, setLoading] = useState(false);
   const [conversation, setConversation] = useState([]);
 
-  const handleAsk = async () => {
+  const handleAsk = async (isDeepStudy = false) => {
     if (!input.trim() || loading) return;
 
     const question = input.trim();
@@ -23,9 +23,67 @@ export default function GideonAskAnything() {
     setConversation((prev) => [...prev, { role: 'user', content: question }]);
     setLoading(true);
 
+    // Detect Deep Study Mode triggers
+    const deepStudyTriggers = [
+      'break down this chapter',
+      'help me study this passage deeply',
+      'explain this parable',
+      'walk me through this story',
+      'deep study mode',
+      'activate deep study'
+    ];
+    
+    const shouldUseDeepStudy = isDeepStudy || deepStudyTriggers.some(trigger => 
+      question.toLowerCase().includes(trigger)
+    );
+
     try {
       const response = await base44.integrations.Core.InvokeLLM({
-        prompt: `You are Gideon, a biblical wisdom guide who embodies the combined teaching styles of Dr. Myles Munroe (kingdom principles, purpose, identity), Dr. Creflo Dollar (grace, faith, spiritual authority), and Pastor Joel Osteen (encouragement, hope, positivity).
+        prompt: shouldUseDeepStudy ? 
+          `You are Gideon, a biblical wisdom guide who embodies Dr. Myles Munroe (kingdom principles, purpose, identity), Dr. Creflo Dollar (grace, faith, spiritual authority), and Pastor Joel Osteen (encouragement, hope, positivity).
+
+DEEP STUDY MODE ACTIVATED
+
+User's Request: ${question}
+
+Provide a comprehensive, structured study following this EXACT 8-part template:
+
+**1. PASSAGE OVERVIEW**
+Summarize the passage in 2-3 sentences. Highlight the main theme or message.
+
+**2. HISTORICAL & CULTURAL BACKGROUND**
+(Myles Munroe style - revelatory, contextual)
+Explain: Who wrote it, who it was written to, what was happening at the time, why it mattered in its original context, and any kingdom principles being established.
+
+**3. KEY THEMES & KINGDOM PRINCIPLES**
+(Myles Munroe style - purpose-driven)
+Break down the main ideas, kingdom laws/principles, God's original intent, and what the passage reveals about identity, purpose, or leadership.
+
+**4. VERSE-BY-VERSE BREAKDOWN**
+Walk through each verse or section clearly. Highlight important words/phrases. Connect each part to the bigger picture. Keep it revelation-driven and powerful.
+
+**5. SPIRITUAL INSIGHT FOR TODAY**
+(Creflo Dollar style - grace, faith, authority)
+Explain what this passage means for believers now. How do grace, faith, and spiritual authority apply? How does the new covenant reframe this (when relevant)?
+
+**6. PRACTICAL LIFE APPLICATION**
+Give the user action steps, mindset shifts, behaviors to adopt, and specific ways to apply this passage today.
+
+**7. ENCOURAGEMENT & HOPE**
+(Joel Osteen style - uplifting, positive)
+End with warm encouragement, a reminder of God's goodness, a positive vision of their future, and a faith-filled perspective.
+
+**8. DECLARATION**
+Provide a short, powerful affirmation the user can speak aloud.
+
+Guidelines:
+- Be revelatory (Munroe), bold (Dollar), and uplifting (Osteen)
+- Never condemn or shame—guide, teach, uplift
+- Reference Scripture accurately
+- Always end with hope and identity in Christ
+- Never give medical, legal, or mental health advice`
+        : 
+          `You are Gideon, a biblical wisdom guide who embodies the combined teaching styles of Dr. Myles Munroe (kingdom principles, purpose, identity), Dr. Creflo Dollar (grace, faith, spiritual authority), and Pastor Joel Osteen (encouragement, hope, positivity).
 
 User's Question: ${question}
 
@@ -129,21 +187,30 @@ Keep response concise (3-5 paragraphs). Reference Scripture accurately. Never gi
 
                   <div className="flex flex-wrap gap-2 justify-center mt-4">
                     <button
-                  onClick={() => setInput("What does it mean to be in the Kingdom of God?")}
-                  className="px-4 py-2 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-full text-sm hover:bg-purple-200 dark:hover:bg-purple-900/50 transition-colors">
-
+                      onClick={() => {
+                        setInput("Activate Deep Study Mode for Romans 8");
+                        setTimeout(() => handleAsk(true), 100);
+                      }}
+                      className="px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full text-sm font-semibold hover:from-purple-700 hover:to-pink-700 transition-all shadow-md"
+                    >
+                      🎓 Deep Study Mode
+                    </button>
+                    <button
+                      onClick={() => setInput("What does it mean to be in the Kingdom of God?")}
+                      className="px-4 py-2 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-full text-sm hover:bg-purple-200 dark:hover:bg-purple-900/50 transition-colors"
+                    >
                       Kingdom Principles
                     </button>
                     <button
-                  onClick={() => setInput("How do I discover my purpose?")}
-                  className="px-4 py-2 bg-pink-100 dark:bg-pink-900/30 text-pink-700 dark:text-pink-300 rounded-full text-sm hover:bg-pink-200 dark:hover:bg-pink-900/50 transition-colors">
-
+                      onClick={() => setInput("How do I discover my purpose?")}
+                      className="px-4 py-2 bg-pink-100 dark:bg-pink-900/30 text-pink-700 dark:text-pink-300 rounded-full text-sm hover:bg-pink-200 dark:hover:bg-pink-900/50 transition-colors"
+                    >
                       Finding Purpose
                     </button>
                     <button
-                  onClick={() => setInput("What does Romans 8:28 really mean?")}
-                  className="px-4 py-2 bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 rounded-full text-sm hover:bg-orange-200 dark:hover:bg-orange-900/50 transition-colors">
-
+                      onClick={() => setInput("What does Romans 8:28 really mean?")}
+                      className="px-4 py-2 bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 rounded-full text-sm hover:bg-orange-200 dark:hover:bg-orange-900/50 transition-colors"
+                    >
                       Verse Meaning
                     </button>
                   </div>
@@ -220,7 +287,7 @@ Keep response concise (3-5 paragraphs). Reference Scripture accurately. Never gi
                   </Button>
                 </div>
                 <p className="text-xs text-gray-500 dark:text-gray-400 mt-2 text-center">
-                  Press Enter to send • Gideon combines wisdom from Dr. Myles Munroe, Dr. Creflo Dollar, and Pastor Joel Osteen
+                  Press Enter to send • Type "Deep Study Mode" for comprehensive chapter/passage studies
                 </p>
               </div>
             </motion.div>
