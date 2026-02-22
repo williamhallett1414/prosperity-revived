@@ -161,7 +161,24 @@ export default function Hannah({ user }) {
     try {
       const userName = user?.full_name?.split(' ')[0] || '';
 
-      const context = `
+      // Search for relevant knowledge sources
+      let knowledgeSources = [];
+      try {
+        const topics = extractTopicsFromMessage(userMessage);
+        if (topics.length > 0) {
+          const response = await base44.functions.invoke('searchKnowledgeSources', {
+            query: topics.slice(0, 2).join(' '),
+            limit: 3
+          });
+          if (response.data?.sources) {
+            knowledgeSources = response.data.sources;
+          }
+        }
+      } catch (e) {
+        console.log('Knowledge base search skipped');
+      }
+
+      let context = `
 You are Hannah — a personal growth guide and life transformation expert.
 
 LONG-TERM MEMORY INTEGRATION:
