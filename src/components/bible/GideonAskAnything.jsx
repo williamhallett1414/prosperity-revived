@@ -14,7 +14,17 @@ export default function GideonAskAnything() {
   const [conversation, setConversation] = useState([]);
 
   const handleClearChat = () => {
-    setConversation([]);
+    const welcomeMessage = `Hey there, I'm glad you're here. Let's start fresh together.
+
+Wherever you are in your journey today — whether you're seeking clarity, strength, encouragement, or deeper understanding — I'm right here to walk with you through God's Word.
+
+The Bible isn't just a book; it's a living conversation between you and the One who created you with purpose, identity, and destiny. So take a breath. Settle your heart. Let's explore what God wants to reveal to you in this moment.
+
+**What's on your heart right now that you'd like to bring before God?**
+
+**Is there a verse, a situation, or a question you'd like us to explore together?**`;
+
+    setConversation([{ role: 'gideon', content: welcomeMessage }]);
     setInput('');
   };
 
