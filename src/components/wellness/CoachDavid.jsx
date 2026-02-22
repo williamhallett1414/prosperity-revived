@@ -7,6 +7,7 @@ import { base44 } from '@/api/base44Client';
 import { toast } from 'sonner';
 import CoachDavidQuickAskMenu from './CoachDavidQuickAskMenu';
 import CoachDavidFormAnalysis from './CoachDavidFormAnalysis';
+import CoachDavidOnboarding from './CoachDavidOnboarding';
 
 export default function CoachDavid({ user, userWorkouts = [], workoutSessions = [] }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,14 +16,24 @@ export default function CoachDavid({ user, userWorkouts = [], workoutSessions = 
   const [isLoading, setIsLoading] = useState(false);
   const [sessionId, setSessionId] = useState('');
   const [quickMenuCollapsed, setQuickMenuCollapsed] = useState(false);
+  const [showOnboarding, setShowOnboarding] = useState(false);
 
   useEffect(() => {
     if (isOpen && messages.length === 0) {
       const newSessionId = `coach-david-${Date.now()}`;
       setSessionId(newSessionId);
       const userName = user?.full_name?.split(' ')[0] || '';
-      const welcomeMsg = `Yo ${userName}! 💪 I'm Coach David.\n\nI'm here to build your discipline, unlock your strength, and transform your mindset. We're not just doing workouts—we're building an identity as someone who's unstoppable.\n\nWhether it's strength, endurance, mobility, or overcoming mental blocks, I've got the knowledge and the motivation to push you forward.\n\nWhat's your fitness goal today?`;
-      setMessages([{ role: 'assistant', content: welcomeMsg }]);
+      const isFirstTime = !localStorage.getItem('coachDavidVisited');
+      
+      if (isFirstTime) {
+        setShowOnboarding(true);
+        const welcomeMsg = `Yo ${userName}! 💪 I'm Coach David.\n\nI'm here to build your discipline, unlock your strength, and transform your mindset. We're not just doing workouts—we're building an identity as someone who's unstoppable.\n\nWhether it's strength, endurance, mobility, or overcoming mental blocks, I've got the knowledge and the motivation to push you forward.\n\nWhat's your fitness goal today?`;
+        setMessages([{ role: 'assistant', content: welcomeMsg }]);
+        localStorage.setItem('coachDavidVisited', 'true');
+      } else {
+        const welcomeMsg = `Yo ${userName}! 💪 I'm Coach David.\n\nI'm here to build your discipline, unlock your strength, and transform your mindset. We're not just doing workouts—we're building an identity as someone who's unstoppable.\n\nWhether it's strength, endurance, mobility, or overcoming mental blocks, I've got the knowledge and the motivation to push you forward.\n\nWhat's your fitness goal today?`;
+        setMessages([{ role: 'assistant', content: welcomeMsg }]);
+      }
     }
   }, [isOpen, messages.length, user]);
 
