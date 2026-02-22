@@ -205,8 +205,16 @@ Always be: encouraging, expert-level, practical, flexible, warm, and conversatio
 
             {/* Quick-Ask Menu */}
             <div className="border-b border-[#E6EBEF] bg-[#F2F6FA] px-5 py-3 overflow-x-auto">
-              <p className="text-xs font-semibold text-[#0A1A2F]/70 mb-2">Quick Actions:</p>
-              <div className="grid grid-cols-2 gap-2">
+              <div className="flex items-center justify-between mb-2">
+                <p className="text-xs font-semibold text-[#0A1A2F]/70">Quick Actions:</p>
+                <button
+                  onClick={() => setShowQuickActions(!showQuickActions)}
+                  className="text-xs text-[#0A1A2F]/60 hover:text-[#0A1A2F] transition-colors"
+                >
+                  {showQuickActions ? '▼ Hide' : '▶ Show'}
+                </button>
+              </div>
+              {showQuickActions && <div className="grid grid-cols-2 gap-2">
                 <button
                   onClick={() => setInput("Create a recipe for me based on these ingredients: ")}
                   className="text-xs bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#E6EBEF]"
@@ -267,7 +275,7 @@ Always be: encouraging, expert-level, practical, flexible, warm, and conversatio
                 >
                   💰 Budget-friendly version
                 </button>
-              </div>
+              </div>}
             </div>
 
             {/* Messages */}
