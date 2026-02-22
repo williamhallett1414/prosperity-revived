@@ -717,8 +717,20 @@ Always be: warm, wise, compassionate, conversational, deeply supportive, grounde
 
       const conversationHistory = messages.slice(-6).map(m => `${m.role === 'user' ? 'User' : 'Hannah'}: ${m.content}`).join('\n');
 
+      // Add long-term memory context
+      let memoryContext = '';
+      if (hannahMemory) {
+        memoryContext = `
+LONG-TERM MEMORY FROM PAST CONVERSATIONS:
+Total conversations: ${hannahMemory.totalConversations}
+Key themes we've discussed: ${memoryKeyThemes.join(', ') || 'various'}
+${hannahMemory.summary ? `Summary of our journey: ${hannahMemory.summary}` : ''}
+${hannahMemory.importantDetails?.length > 0 ? `Important things I know about you: ${hannahMemory.importantDetails.join('; ')}` : ''}
+`;
+      }
+
       const response = await base44.integrations.Core.InvokeLLM({
-        prompt: `${context}\n\nConversation:\n${conversationHistory}\nUser: ${userMessage}\n\nHannah:`,
+        prompt: `${context}\n${memoryContext}\n\nConversation:\n${conversationHistory}\nUser: ${userMessage}\n\nHannah:`,
         add_context_from_internet: false
       });
 
