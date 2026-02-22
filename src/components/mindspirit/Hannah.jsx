@@ -28,33 +28,27 @@ export default function Hannah({ user }) {
   const [identityFocusAreas, setIdentityFocusAreas] = useState([]);
   const [showOnboarding, setShowOnboarding] = useState(false);
 
+  const [hannahMemory, setHannahMemory] = useState(null);
+  const [memoryKeyThemes, setMemoryKeyThemes] = useState([]);
+
   // Load past conversations and emotional patterns
   useEffect(() => {
     if (isOpen && user?.email) {
-      loadPastConversations();
+      loadHannahMemory();
     }
   }, [isOpen, user]);
 
-  const loadPastConversations = async () => {
+  const loadHannahMemory = async () => {
     try {
-      const pastConversations = await base44.entities.HannahConversation.filter({
-        user_email: user.email
-      }, '-created_date', 20);
-      
-      const toneFrequency = {};
-      pastConversations.forEach(conv => {
-        if (conv.emotional_tone) {
-          toneFrequency[conv.emotional_tone] = (toneFrequency[conv.emotional_tone] || 0) + 1;
-        }
+      const response = await base44.functions.invoke('retrieveHannahMemory', {
+        limit: 50,
+        summaryOnly: true
       });
-      
-      const patterns = Object.entries(toneFrequency)
-        .sort((a, b) => b[1] - a[1])
-        .slice(0, 3)
-        .map(([tone]) => tone);
-      setEmotionalPatterns(patterns);
+      setHannahMemory(response.data);
+      setEmotionalPatterns(response.data.emotionalPatterns || []);
+      setMemoryKeyThemes(response.data.keyThemes || []);
     } catch (error) {
-      console.log('Loading conversation history...');
+      console.log('Loading Hannah memory...');
     }
   };
 
