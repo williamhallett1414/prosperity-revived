@@ -204,68 +204,67 @@ Always be: encouraging, expert-level, practical, flexible, warm, and conversatio
             </div>
 
             {/* Quick-Ask Menu */}
-            <div className="border-b border-[#E6EBEF] bg-[#F2F6FA] px-5 py-3 overflow-x-auto">
-              <p className="text-xs font-semibold text-[#0A1A2F]/70 mb-2">Quick Actions:</p>
-              <div className="grid grid-cols-2 gap-2">
+            <div className="border-b border-[#E6EBEF] bg-[#F2F6FA] px-5 py-2">
+              <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
                 <button
                   onClick={() => setInput("Create a recipe for me based on these ingredients: ")}
-                  className="text-xs bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#E6EBEF]"
+                  className="text-xs bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] px-3 py-1.5 rounded-full transition-colors whitespace-nowrap shadow-sm border border-[#E6EBEF] flex-shrink-0"
                 >
-                  🍳 Create a recipe
+                  🍳 Create recipe
                 </button>
                 <button
                   onClick={() => setInput("Help me improve this dish. Here's what I made: ")}
-                  className="text-xs bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#E6EBEF]"
+                  className="text-xs bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] px-3 py-1.5 rounded-full transition-colors whitespace-nowrap shadow-sm border border-[#E6EBEF] flex-shrink-0"
                 >
-                  ✨ Improve this dish
+                  ✨ Improve dish
                 </button>
                 <button
                   onClick={() => setInput("Give me a healthier version of this meal: ")}
-                  className="text-xs bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#E6EBEF]"
+                  className="text-xs bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] px-3 py-1.5 rounded-full transition-colors whitespace-nowrap shadow-sm border border-[#E6EBEF] flex-shrink-0"
                 >
-                  🥗 Make it healthier
+                  🥗 Make healthier
                 </button>
                 <button
                   onClick={() => setInput("What should I cook today? Here's what I'm in the mood for: ")}
-                  className="text-xs bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#E6EBEF]"
+                  className="text-xs bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] px-3 py-1.5 rounded-full transition-colors whitespace-nowrap shadow-sm border border-[#E6EBEF] flex-shrink-0"
                 >
-                  🤔 What to cook today
+                  🤔 What to cook
                 </button>
                 <button
                   onClick={() => setInput("Teach me how to master this cooking technique: ")}
-                  className="text-xs bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#E6EBEF]"
+                  className="text-xs bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] px-3 py-1.5 rounded-full transition-colors whitespace-nowrap shadow-sm border border-[#E6EBEF] flex-shrink-0"
                 >
-                  📚 Teach me a technique
+                  📚 Technique
                 </button>
                 <button
                   onClick={() => setInput("Break down the nutrition for this meal: ")}
-                  className="text-xs bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#E6EBEF]"
+                  className="text-xs bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] px-3 py-1.5 rounded-full transition-colors whitespace-nowrap shadow-sm border border-[#E6EBEF] flex-shrink-0"
                 >
-                  📊 Nutrition breakdown
+                  📊 Nutrition
                 </button>
                 <button
                   onClick={() => setInput("Give me ingredient substitutions for: ")}
-                  className="text-xs bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#E6EBEF]"
+                  className="text-xs bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] px-3 py-1.5 rounded-full transition-colors whitespace-nowrap shadow-sm border border-[#E6EBEF] flex-shrink-0"
                 >
                   🔄 Substitutions
                 </button>
                 <button
                   onClick={() => setInput("Help me meal-prep for the week. Here are my goals: ")}
-                  className="text-xs bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#E6EBEF]"
+                  className="text-xs bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] px-3 py-1.5 rounded-full transition-colors whitespace-nowrap shadow-sm border border-[#E6EBEF] flex-shrink-0"
                 >
-                  📅 Weekly meal prep
+                  📅 Meal prep
                 </button>
                 <button
                   onClick={() => setInput("Make this recipe kid-friendly: ")}
-                  className="text-xs bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#E6EBEF]"
+                  className="text-xs bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] px-3 py-1.5 rounded-full transition-colors whitespace-nowrap shadow-sm border border-[#E6EBEF] flex-shrink-0"
                 >
-                  👶 Kid-friendly version
+                  👶 Kid-friendly
                 </button>
                 <button
                   onClick={() => setInput("Make this recipe budget-friendly: ")}
-                  className="text-xs bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#E6EBEF]"
+                  className="text-xs bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] px-3 py-1.5 rounded-full transition-colors whitespace-nowrap shadow-sm border border-[#E6EBEF] flex-shrink-0"
                 >
-                  💰 Budget-friendly version
+                  💰 Budget-friendly
                 </button>
               </div>
             </div>
