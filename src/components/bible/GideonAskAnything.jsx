@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
 import { base44 } from '@/api/base44Client';
 import ReactMarkdown from 'react-markdown';
+import VerseDisplay from './VerseDisplay';
 
 export default function GideonAskAnything() {
   const [isOpen, setIsOpen] = useState(false);
@@ -96,6 +97,13 @@ The Bible isn't just a book; it's a living conversation between you and the One 
           `You are Gideon, a warm, spirit-led biblical mentor with deep emotional intelligence and conversational memory. You embody Dr. Myles Munroe (kingdom revelation, purpose), Dr. Creflo Dollar (grace, faith, authority), and Pastor Joel Osteen (encouragement, hope).
 
 DEEP STUDY MODE - Let's dive deep together.
+
+IMPORTANT: You have access to real-time Bible API data. When discussing specific verses or passages:
+- Quote the EXACT scripture text from the Bible API (KJV translation)
+- Always reference the verse properly (e.g., "Romans 8:28 says:")
+- Use accurate scriptural references throughout your teaching
+- Cross-reference related passages when relevant
+- The Bible API provides the actual text - use it to ground your teaching in Scripture
 
 ${conversationContext}
 
@@ -200,6 +208,12 @@ Tone: Emotionally attuned, warm, pastoral, empowering. Never robotic. Always scr
         : 
           `You are Gideon, a warm, spirit-led biblical mentor with deep emotional intelligence and conversational memory. You embody Dr. Myles Munroe (kingdom revelation, purpose), Dr. Creflo Dollar (grace, faith, authority), and Pastor Joel Osteen (encouragement, hope).
 
+IMPORTANT: You have access to real-time Bible API data. When discussing specific verses:
+- Quote the EXACT scripture text from the Bible API (KJV translation)
+- Always reference verses properly with book, chapter, and verse
+- Use the actual scriptural text to ground your teaching
+- Cross-reference related passages when relevant
+
 ${conversationContext}
 
 STEP 1: CONVERSATION MEMORY & EMOTIONAL INTELLIGENCE
@@ -273,8 +287,12 @@ End with 1-3 spiritual reflection questions that MATCH emotional tone + CONNECT 
 
 Personalize questions to reference their spiritual journey, themes, and progress. Build continuity across messages.
 
-Tone: Emotionally attuned, warm, pastoral, empowering. Never robotic. Always scripture-based, encouraging, hope-filled. Never judge, shame, or dismiss. Keep conversational (3-5 paragraphs). Reference Scripture accurately. Never give medical, legal, or mental health advice.`,
-        add_context_from_internet: false
+Tone: Emotionally attuned, warm, pastoral, empowering. Never robotic. Always scripture-based, encouraging, hope-filled. Never judge, shame, or dismiss. Keep conversational (3-5 paragraphs). Reference Scripture accurately. Never give medical, legal, or mental health advice.
+
+WHEN QUOTING SCRIPTURE: Always format verses in a special way for display:
+Use this exact format: [VERSE]Book Chapter:Verse - "Actual text here"[/VERSE]
+Example: [VERSE]Romans 8:28 - "And we know that all things work together for good to them that love God, to them who are the called according to his purpose."[/VERSE]`,
+        add_context_from_internet: true
       });
 
       // Add Gideon's response
@@ -428,20 +446,72 @@ Tone: Emotionally attuned, warm, pastoral, empowering. Never robotic. Always scr
                           </div>
                           <span className="text-xs font-semibold text-purple-600 dark:text-purple-400">Gideon</span>
                         </div>
-                        <ReactMarkdown 
-                          className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed prose prose-sm max-w-none"
-                          components={{
-                            h1: ({node, ...props}) => <h1 className="font-bold" {...props} />,
-                            h2: ({node, ...props}) => <h2 className="font-bold" {...props} />,
-                            h3: ({node, ...props}) => <h3 className="font-bold" {...props} />,
-                            h4: ({node, ...props}) => <h4 className="font-bold" {...props} />,
-                            h5: ({node, ...props}) => <h5 className="font-bold" {...props} />,
-                            h6: ({node, ...props}) => <h6 className="font-bold" {...props} />,
-                            strong: ({node, ...props}) => <strong className="font-bold" {...props} />
-                          }}
-                        >
-                          {message.content}
-                        </ReactMarkdown>
+                        {(() => {
+                          // Parse content for verse markers
+                          const content = message.content;
+                          const verseRegex = /\[VERSE\](.*?) - "(.*?)"\[\/VERSE\]/g;
+                          const parts = [];
+                          let lastIndex = 0;
+                          let match;
+                          
+                          while ((match = verseRegex.exec(content)) !== null) {
+                            // Add text before verse
+                            if (match.index > lastIndex) {
+                              parts.push({
+                                type: 'text',
+                                content: content.substring(lastIndex, match.index)
+                              });
+                            }
+                            
+                            // Add verse
+                            parts.push({
+                              type: 'verse',
+                              reference: match[1],
+                              text: match[2]
+                            });
+                            
+                            lastIndex = match.index + match[0].length;
+                          }
+                          
+                          // Add remaining text
+                          if (lastIndex < content.length) {
+                            parts.push({
+                              type: 'text',
+                              content: content.substring(lastIndex)
+                            });
+                          }
+                          
+                          // If no verses found, treat as normal text
+                          if (parts.length === 0) {
+                            parts.push({ type: 'text', content });
+                          }
+                          
+                          return (
+                            <>
+                              {parts.map((part, idx) => 
+                                part.type === 'verse' ? (
+                                  <VerseDisplay key={idx} reference={part.reference} text={part.text} />
+                                ) : (
+                                  <ReactMarkdown 
+                                    key={idx}
+                                    className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed prose prose-sm max-w-none"
+                                    components={{
+                                      h1: ({node, ...props}) => <h1 className="font-bold" {...props} />,
+                                      h2: ({node, ...props}) => <h2 className="font-bold" {...props} />,
+                                      h3: ({node, ...props}) => <h3 className="font-bold" {...props} />,
+                                      h4: ({node, ...props}) => <h4 className="font-bold" {...props} />,
+                                      h5: ({node, ...props}) => <h5 className="font-bold" {...props} />,
+                                      h6: ({node, ...props}) => <h6 className="font-bold" {...props} />,
+                                      strong: ({node, ...props}) => <strong className="font-bold" {...props} />
+                                    }}
+                                  >
+                                    {part.content}
+                                  </ReactMarkdown>
+                                )
+                              )}
+                            </>
+                          );
+                        })()}
                       </div>
                 }
                   </motion.div>
