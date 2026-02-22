@@ -802,6 +802,40 @@ Always be: warm, wise, compassionate, conversational, deeply supportive, grounde
               )}
             </div>
 
+            {/* Mood Tracker Button */}
+            <div className="border-b border-purple-100 px-5 py-2 bg-white flex items-center gap-2">
+              <button
+                onClick={() => setShowMoodTracker(!showMoodTracker)}
+                className="flex items-center gap-2 text-xs text-purple-600 hover:text-purple-800 transition-colors"
+              >
+                <Smile className="w-4 h-4" />
+                {currentMood}/10 Mood
+              </button>
+              {showJournalMode && <span className="text-xs text-purple-500">📝 Journal Mode</span>}
+            </div>
+
+            {/* Mood Slider */}
+            {showMoodTracker && (
+              <div className="px-5 py-3 bg-purple-50 border-b border-purple-100">
+                <p className="text-xs text-purple-700 mb-2">How are you feeling?</p>
+                <input
+                  type="range"
+                  min="1"
+                  max="10"
+                  value={currentMood}
+                  onChange={(e) => {
+                    const mood = parseInt(e.target.value);
+                    setCurrentMood(mood);
+                    saveMoodEntry(mood);
+                  }}
+                  className="w-full"
+                />
+                <p className="text-xs text-purple-600 mt-1 text-center">
+                  {currentMood <= 3 ? '😢 Struggling' : currentMood <= 5 ? '😐 Neutral' : currentMood <= 7 ? '🙂 Good' : '😄 Great'}
+                </p>
+              </div>
+            )}
+
             {/* Messages */}
             <div className="flex-1 overflow-y-auto p-5 space-y-4 bg-purple-50/30">
               {messages.map((message, index) => (
