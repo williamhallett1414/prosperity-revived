@@ -25,6 +25,7 @@ export default function Hannah({ user }) {
   const [lastHannahMessageWasQuestion, setLastHannahMessageWasQuestion] = useState(false);
   const [isAnalyzingAnswer, setIsAnalyzingAnswer] = useState(false);
   const [identityFocusAreas, setIdentityFocusAreas] = useState([]);
+  const [showOnboarding, setShowOnboarding] = useState(false);
 
   // Load past conversations and emotional patterns
   useEffect(() => {
