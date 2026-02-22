@@ -104,6 +104,29 @@ export default function Wellness() {
                 </div>
               </Link>
             </motion.div>
+
+            {/* Bible Card */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}>
+
+              <Link to={createPageUrl('Bible')}>
+                <div
+                  className="relative rounded-2xl overflow-hidden h-40 group cursor-pointer shadow-md hover:shadow-lg transition-shadow"
+                  style={{
+                    backgroundImage: 'url(https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=500&h=300&fit=crop)',
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center'
+                  }}>
+
+                  <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors" />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <p className="text-white font-bold text-lg text-center px-3">Bible</p>
+                  </div>
+                </div>
+              </Link>
+            </motion.div>
           </div>
 
           {/* My Recommendations Section */}
