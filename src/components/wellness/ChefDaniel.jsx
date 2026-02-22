@@ -16,10 +16,22 @@ export default function ChefDaniel({ user, userRecipes = [], mealLogs = [] }) {
   useEffect(() => {
     if (isOpen && messages.length === 0) {
       const userName = user?.full_name?.split(' ')[0] || 'friend';
-      setMessages([{
-        role: 'assistant',
-        content: `Hey ${userName}! 👨‍🍳 Chef Daniel here — let's talk food, flavor, and feeling amazing.\n\nI'm not just here to give you recipes. I'm here to help you understand nutrition, build confidence in the kitchen, and create meals that make you feel incredible.\n\nWhether you're looking to learn a new technique, need a healthy meal plan, want to understand what your body needs, or just want to explore bold flavors — I'm your guide.\n\nSo, what brings you to the kitchen today?`
-      }]);
+      const isFirstTime = !localStorage.getItem('chefDanielVisited');
+      
+      if (isFirstTime) {
+        // First-time welcome message
+        setMessages([{
+          role: 'assistant',
+          content: `Hey there, welcome to my kitchen — I'm Chef Daniel, and I'm genuinely excited to cook with you.\n\nWhether you're here to sharpen your skills, eat healthier, explore new flavors, or just figure out what to make tonight, you're in the right place.\n\nThink of me as your personal chef-mentor. I'll bring the bold creativity of Bobby Flay, the precision of Gordon Ramsay, the warmth of Edna Lewis, the homestyle comfort of Pioneer Woman, the Southern charm of Paula Deen, and the nutrition wisdom of Dr. Berg, Joy Bauer, Ellie Krieger, and Dr. Megan Rossi. Together, we'll make food that tastes incredible and makes your body feel good.\n\nYou don't need fancy tools or years of experience — just curiosity and a little appetite for adventure. I'll guide you step by step, keep things fun, and help you build confidence in the kitchen.\n\nSo, let me ask you:\n• What brings you into the kitchen today — flavor, health, or curiosity?\n• Do you want to start with a recipe, a technique, or a flavor profile?`
+        }]);
+        localStorage.setItem('chefDanielVisited', 'true');
+      } else {
+        // Returning user greeting
+        setMessages([{
+          role: 'assistant',
+          content: `Hey ${userName}! 👨‍🍳 Chef Daniel here — let's talk food, flavor, and feeling amazing.\n\nI'm not just here to give you recipes. I'm here to help you understand nutrition, build confidence in the kitchen, and create meals that make you feel incredible.\n\nWhether you're looking to learn a new technique, need a healthy meal plan, want to understand what your body needs, or just want to explore bold flavors — I'm your guide.\n\nSo, what brings you to the kitchen today?`
+        }]);
+      }
     }
   }, [isOpen, messages.length, user]);
 
