@@ -672,8 +672,11 @@ Always be: warm, wise, compassionate, conversational, deeply supportive, grounde
       // Add identity-based transformation framework if relevant
       const areasToUse = detectedAreas.length > 0 ? detectedAreas : identityFocusAreas;
       if (areasToUse.length > 0) {
-        context += '\n' + getIdentityFrameworkInstructions();
-        context += `\n\nCURRENT FOCUS AREAS FOR IDENTITY FRAMEWORK: ${areasToUse.join(', ')}`;
+        // Only add framework on follow-up answers to avoid context bloat
+        if (isAnsweringQuestion) {
+          context += '\n' + getIdentityFrameworkInstructions();
+          context += `\n\nCURRENT FOCUS AREAS FOR IDENTITY FRAMEWORK: ${areasToUse.join(', ')}`;
+        }
       }
 
       const conversationHistory = messages.slice(-6).map(m => `${m.role === 'user' ? 'User' : 'Hannah'}: ${m.content}`).join('\n');
