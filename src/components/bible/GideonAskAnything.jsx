@@ -14,10 +14,17 @@ export default function GideonAskAnything() {
   const [loading, setLoading] = useState(false);
   const [conversation, setConversation] = useState([]);
   const [hasShownWelcome, setHasShownWelcome] = useState(false);
+  const [sessionId, setSessionId] = useState(null);
+  const [memoryContext, setMemoryContext] = useState(null);
 
-  // Check for first-time user and show welcome message
+  // Initialize session and check for first-time user
   React.useEffect(() => {
     if (isOpen && !hasShownWelcome) {
+      // Generate session ID
+      if (!sessionId) {
+        setSessionId(`session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`);
+      }
+
       const hasVisitedBefore = localStorage.getItem('gideon_visited');
       
       if (!hasVisitedBefore) {
@@ -39,7 +46,7 @@ Take your time. Breathe. You're in a safe place to learn, grow, and hear truth t
       
       setHasShownWelcome(true);
     }
-  }, [isOpen, hasShownWelcome]);
+  }, [isOpen, hasShownWelcome, sessionId]);
 
   const handleClearChat = () => {
     const welcomeMessage = `Hey there, I'm glad you're here. Let's start fresh together.
@@ -54,6 +61,9 @@ The Bible isn't just a book; it's a living conversation between you and the One 
 
     setConversation([{ role: 'gideon', content: welcomeMessage }]);
     setInput('');
+    setMemoryContext(null);
+    // Start a new session
+    setSessionId(`session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`);
   };
 
   const handleReturnToMenu = () => {
@@ -85,18 +95,45 @@ The Bible isn't just a book; it's a living conversation between you and the One 
     );
 
     try {
-      // Analyze user message for emotional and spiritual themes
+      // Step 1: Retrieve relevant memory from past conversations
+      const memoryResponse = await base44.functions.invoke('retrieveGideonMemory', {
+        current_message: question,
+        recent_context: conversation.slice(-6).map(msg => 
+          `${msg.role === 'user' ? 'User' : 'Gideon'}: ${msg.content.substring(0, 150)}...`
+        ).join('\n')
+      });
+
+      setMemoryContext(memoryResponse.data);
+
+      // Step 2: Analyze user message for emotional and spiritual themes
       const analysis = await base44.functions.invoke('analyzeUserMessage', {
         message: question,
         conversation_history: conversation
       });
 
-      // Build conversation history for context
-      const conversationContext = conversation.length > 0 
-        ? `\n\nPREVIOUS CONVERSATION CONTEXT:\n${conversation.map(msg => 
+      // Build conversation history for context (rolling window of last 10 messages)
+      const recentConversation = conversation.slice(-10);
+      const conversationContext = recentConversation.length > 0 
+        ? `\n\nRECENT CONVERSATION CONTEXT (last ${recentConversation.length} messages):\n${recentConversation.map(msg => 
             `${msg.role === 'user' ? 'User' : 'Gideon'}: ${msg.content}`
           ).join('\n\n')}\n\nCurrent User Message: ${question}`
         : `User's Message: ${question}`;
+
+      // Build memory context from retrieved past conversations
+      const memoryContextSection = memoryResponse.data.memory_summary 
+        ? `\n\nRELEVANT MEMORY FROM PAST CONVERSATIONS:
+Summary: ${memoryResponse.data.memory_summary}
+
+Key Connection Points to Reference:
+${memoryResponse.data.connection_points?.map((point, idx) => `${idx + 1}. ${point}`).join('\n')}
+
+Retrieved Relevant Past Messages:
+${memoryResponse.data.relevant_memories?.map((msg, idx) => 
+  `[${idx + 1}] ${msg.role === 'user' ? 'User' : 'Gideon'} (${new Date(msg.created_date).toLocaleDateString()}): ${msg.content.substring(0, 300)}...`
+).join('\n\n')}
+
+IMPORTANT: Reference these past conversations naturally when relevant. Show the user you remember their journey by connecting current questions to previous discussions.`
+        : '';
 
       // Build personalization context from analysis
       const personalizationContext = `
@@ -134,6 +171,8 @@ IMPORTANT: You have access to real-time Bible API data. When discussing specific
 ${personalizationContext}
 
 ${conversationContext}
+
+${memoryContextSection}
 
 STEP 1: CONVERSATION MEMORY & EMOTIONAL INTELLIGENCE
 Analyze the conversation history to identify recurring themes:
@@ -246,6 +285,8 @@ ${personalizationContext}
 
 ${conversationContext}
 
+${memoryContextSection}
+
 STEP 1: CONVERSATION MEMORY & EMOTIONAL INTELLIGENCE
 Analyze the conversation history to identify themes:
 - Emotional patterns (discouraged, anxious, hopeful, confused, hurt, determined, celebratory)
@@ -327,6 +368,26 @@ Example: [VERSE]Romans 8:28 - "And we know that all things work together for goo
 
       // Add Gideon's response
       setConversation((prev) => [...prev, { role: 'gideon', content: response }]);
+
+      // Step 3: Save both messages to persistent memory
+      try {
+        await base44.entities.GideonConversation.create({
+          role: 'user',
+          content: question,
+          emotional_tone: analysis.data.emotional_tone,
+          spiritual_theme: analysis.data.spiritual_theme,
+          session_id: sessionId
+        });
+
+        await base44.entities.GideonConversation.create({
+          role: 'gideon',
+          content: response,
+          session_id: sessionId
+        });
+      } catch (saveError) {
+        console.error('Failed to save conversation to memory:', saveError);
+        // Don't show error to user - conversation still works
+      }
     } catch (error) {
       setConversation((prev) => [...prev, {
         role: 'gideon',
@@ -419,6 +480,13 @@ Example: [VERSE]Romans 8:28 - "And we know that all things work together for goo
                   <h3 className="text-2xl font-bold text-gray-800 dark:text-white">
                     Ask Me Anything About Scripture
                   </h3>
+                  {memoryContext && memoryContext.total_conversation_count > 0 && (
+                    <div className="bg-purple-50 dark:bg-purple-900/20 rounded-lg p-3 text-sm">
+                      <p className="text-purple-700 dark:text-purple-300">
+                        💭 I remember our previous {memoryContext.total_conversation_count} conversations and I'm ready to continue your journey.
+                      </p>
+                    </div>
+                  )}
                   
 
 
