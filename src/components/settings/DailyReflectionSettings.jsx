@@ -131,6 +131,69 @@ export default function DailyReflectionSettings() {
             <strong>How it works:</strong> Gideon uses AI to understand your spiritual journey, emotional patterns, and recurring themes—then proactively offers timely guidance, scripture, and reflection prompts tailored to what you need most.
           </p>
         </div>
+
+        {/* Weekly Growth Summary */}
+        <div className="space-y-4 pt-4 border-t mt-6">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <Sparkles className="w-5 h-5 text-green-600" />
+              <div>
+                <Label className="font-semibold">Weekly Growth Summary</Label>
+                <p className="text-xs text-gray-500">Celebrating your spiritual progress each week</p>
+              </div>
+            </div>
+            <Switch
+              checked={settings?.weekly_summary_enabled ?? true}
+              onCheckedChange={(value) => handleToggle('weekly_summary_enabled', value)}
+            />
+          </div>
+
+          {settings?.weekly_summary_enabled && (
+            <div className="ml-7 space-y-2">
+              <Label className="text-sm">Delivery Time</Label>
+              <Select
+                value={settings?.weekly_summary_day || 'sunday_evening'}
+                onValueChange={(value) => updateSettings.mutate({ weekly_summary_day: value })}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Select time" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="sunday_evening">Sunday Evening</SelectItem>
+                  <SelectItem value="monday_morning">Monday Morning</SelectItem>
+                </SelectContent>
+              </Select>
+              <p className="text-xs text-gray-500">
+                Gideon will send a warm summary of your weekly spiritual themes, growth areas, and coaching questions
+              </p>
+            </div>
+          )}
+        </div>
+
+        {/* Monthly Progress Report */}
+        <div className="space-y-4 pt-4 border-t mt-6">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <Sparkles className="w-5 h-5 text-blue-600" />
+              <div>
+                <Label className="font-semibold">Monthly Progress Report</Label>
+                <p className="text-xs text-gray-500">Deep reflection on your spiritual journey</p>
+              </div>
+            </div>
+            <Switch
+              checked={settings?.monthly_report_enabled ?? true}
+              onCheckedChange={(value) => handleToggle('monthly_report_enabled', value)}
+            />
+          </div>
+
+          {settings?.monthly_report_enabled && (
+            <div className="ml-7 space-y-2">
+              <p className="text-xs text-gray-500">
+                Sent on the 1st of each month. Gideon will provide a comprehensive spiritual progress report with kingdom insights, grace perspective, and powerful coaching questions for the month ahead.
+              </p>
+            </div>
+          )}
+        </div>
       </CardContent>
     </Card>
   );
