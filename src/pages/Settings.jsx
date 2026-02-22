@@ -9,6 +9,7 @@ import { createPageUrl } from '@/utils';
 import { Label } from '@/components/ui/label';
 import ReminderSettings from '@/components/settings/ReminderSettings';
 import GideonNotificationSettings from '@/components/settings/GideonNotificationSettings';
+import DailyReflectionSettings from '@/components/settings/DailyReflectionSettings';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -154,6 +155,11 @@ export default function Settings() {
         {/* Gideon Daily Greetings */}
         <div className="mb-4">
           <GideonNotificationSettings />
+        </div>
+
+        {/* Gideon Proactive Engagement */}
+        <div className="mb-4">
+          <DailyReflectionSettings />
         </div>
 
         {/* Reminders */}
