@@ -17,6 +17,7 @@ import BibleQA from '@/components/bible/BibleQA';
 import BibleStudyGuide from '@/components/bible/BibleStudyGuide';
 import MoodTracker from '@/components/bible/MoodTracker';
 import PastoralChatbot from '@/components/bible/PastoralChatbot';
+import GideonAskAnything from '@/components/bible/GideonAskAnything';
 
 export default function Bible() {
   const [view, setView] = useState('books'); // books, chapters, reader
@@ -294,6 +295,9 @@ export default function Bible() {
 
       {/* Pastoral Chatbot */}
       <PastoralChatbot />
+
+      {/* Gideon Ask Anything */}
+      <GideonAskAnything />
     </div>
   );
 }
