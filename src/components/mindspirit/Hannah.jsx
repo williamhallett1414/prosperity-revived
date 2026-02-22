@@ -684,8 +684,8 @@ Always be: warm, wise, compassionate, conversational, deeply supportive, grounde
 
       // Add knowledge base integration if relevant sources found
       if (knowledgeSources.length > 0) {
-        context += '\n' + getKnowledgeBaseInstructions();
-        context += formatSourcesForContext(knowledgeSources);
+        const sourcesText = formatSourcesForContext(knowledgeSources);
+        context += '\n' + getKnowledgeBaseInstructions(sourcesText);
       }
 
       // Add follow-up answer analysis system if user is answering a coaching question
