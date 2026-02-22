@@ -111,6 +111,25 @@ The Bible isn't just a book; it's a living conversation between you and the One 
         conversation_history: conversation
       });
 
+      // Step 2.5: Track spiritual themes and emotional patterns
+      try {
+        await base44.functions.invoke('trackSpiritualTheme', {
+          theme_name: analysis.data.spiritual_theme,
+          secondary_themes: analysis.data.secondary_themes,
+          emotional_tone: analysis.data.emotional_tone,
+          scriptures: analysis.data.suggested_scriptures
+        });
+
+        await base44.functions.invoke('trackEmotionalPattern', {
+          emotional_tone: analysis.data.emotional_tone,
+          intensity_level: analysis.data.emotional_intensity,
+          spiritual_theme: analysis.data.spiritual_theme
+        });
+      } catch (trackError) {
+        console.error('Tracking error:', trackError);
+        // Don't fail the conversation if tracking fails
+      }
+
       // Build conversation history for context (rolling window of last 10 messages)
       const recentConversation = conversation.slice(-10);
       const conversationContext = recentConversation.length > 0 
