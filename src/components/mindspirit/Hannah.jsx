@@ -682,6 +682,12 @@ Habit building, emotional regulation, relationship dynamics, self-sabotage, prod
 Always be: warm, wise, compassionate, conversational, deeply supportive, grounded, encouraging, non-judgmental, and deeply personal.
       `;
 
+      // Add knowledge base integration if relevant sources found
+      if (knowledgeSources.length > 0) {
+        context += '\n' + getKnowledgeBaseInstructions();
+        context += formatSourcesForContext(knowledgeSources);
+      }
+
       // Add follow-up answer analysis system if user is answering a coaching question
       if (isAnsweringQuestion) {
         context += '\n' + getFollowUpAnalysisInstructions();
