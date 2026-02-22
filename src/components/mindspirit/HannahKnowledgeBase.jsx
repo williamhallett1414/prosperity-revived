@@ -1,6 +1,6 @@
 // Helper module for Hannah's knowledge base integration
 
-export const getKnowledgeBaseInstructions = () => `
+export const getKnowledgeBaseInstructions = (sourcesText) => `
 KNOWLEDGE BASE INTEGRATION:
 You have access to a curated knowledge base of articles, academic research, and self-help resources on personal growth topics.
 
@@ -30,9 +30,7 @@ GUARDRAILS:
 - Don't overwhelm with citations—integrate insights naturally into conversation
 - Focus on practical application, not academic rigor
 
-SOURCES PROVIDED:
-The following sources are available related to this user's query:
-{SOURCES_WILL_BE_INJECTED_HERE}
+${sourcesText || ''}
 `;
 
 export const formatSourcesForContext = (sources) => {
