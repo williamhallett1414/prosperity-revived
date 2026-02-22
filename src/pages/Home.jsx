@@ -22,6 +22,8 @@ import TodaysOverview from '@/components/home/TodaysOverview';
 import WellnessHub from '@/components/home/WellnessHub';
 import TodaysRecommendations from '@/components/home/TodaysRecommendations';
 import HelpChatbot from '@/components/home/HelpChatbot';
+import DailyReflectionPrompt from '@/components/gideon/DailyReflectionPrompt';
+import ProactiveSuggestions from '@/components/gideon/ProactiveSuggestions';
 
 import { Trophy } from 'lucide-react';
 
@@ -384,6 +386,10 @@ export default function Home() {
             End My Day
           </Button>
         </motion.div>
+
+        {/* Gideon Proactive Engagement */}
+        <ProactiveSuggestions />
+        <DailyReflectionPrompt />
 
         {/* Today's Overview */}
         <TodaysOverview
