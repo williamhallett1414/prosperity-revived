@@ -526,12 +526,12 @@ Example: [VERSE]Romans 8:28 - "And we know that all things work together for goo
                                     key={idx}
                                     className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed prose prose-sm max-w-none"
                                     components={{
-                                      h1: ({node, ...props}) => <h1 className="font-bold" {...props} />,
-                                      h2: ({node, ...props}) => <h2 className="font-bold" {...props} />,
-                                      h3: ({node, ...props}) => <h3 className="font-bold" {...props} />,
-                                      h4: ({node, ...props}) => <h4 className="font-bold" {...props} />,
-                                      h5: ({node, ...props}) => <h5 className="font-bold" {...props} />,
-                                      h6: ({node, ...props}) => <h6 className="font-bold" {...props} />,
+                                      h1: ({node, ...props}) => <h1 className="font-bold mt-6 mb-3" {...props} />,
+                                      h2: ({node, ...props}) => <h2 className="font-bold mt-5 mb-3" {...props} />,
+                                      h3: ({node, ...props}) => <h3 className="font-bold mt-4 mb-2" {...props} />,
+                                      h4: ({node, ...props}) => <h4 className="font-bold mt-4 mb-2" {...props} />,
+                                      h5: ({node, ...props}) => <h5 className="font-bold mt-3 mb-2" {...props} />,
+                                      h6: ({node, ...props}) => <h6 className="font-bold mt-3 mb-2" {...props} />,
                                       strong: ({node, ...props}) => <strong className="font-bold" {...props} />
                                     }}
                                   >
