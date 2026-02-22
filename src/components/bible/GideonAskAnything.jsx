@@ -85,12 +85,38 @@ The Bible isn't just a book; it's a living conversation between you and the One 
     );
 
     try {
+      // Analyze user message for emotional and spiritual themes
+      const analysis = await base44.functions.invoke('analyzeUserMessage', {
+        message: question,
+        conversation_history: conversation
+      });
+
       // Build conversation history for context
       const conversationContext = conversation.length > 0 
         ? `\n\nPREVIOUS CONVERSATION CONTEXT:\n${conversation.map(msg => 
             `${msg.role === 'user' ? 'User' : 'Gideon'}: ${msg.content}`
           ).join('\n\n')}\n\nCurrent User Message: ${question}`
         : `User's Message: ${question}`;
+
+      // Build personalization context from analysis
+      const personalizationContext = `
+
+ADVANCED EMOTIONAL & SPIRITUAL ANALYSIS:
+- Emotional Tone: ${analysis.data.emotional_tone} (Intensity: ${analysis.data.emotional_intensity})
+- Primary Spiritual Theme: ${analysis.data.spiritual_theme}
+- Secondary Themes: ${analysis.data.secondary_themes.join(', ')}
+- Core Need: ${analysis.data.core_need}
+- Suggested Scriptures: ${analysis.data.suggested_scriptures.join(', ')}
+- Coaching Focus: ${analysis.data.coaching_focus}
+- Personalization Notes: ${analysis.data.personalization_notes}
+
+USE THIS ANALYSIS TO:
+1. Tailor your tone and approach to match their emotional state and intensity
+2. Address their primary spiritual theme directly and authentically
+3. Reference the suggested scriptures naturally in your response
+4. Apply the recommended coaching focus in your questions
+5. Incorporate the personalization notes to show deep understanding
+6. Acknowledge their core need without being clinical about it`;
 
       const response = await base44.integrations.Core.InvokeLLM({
         prompt: shouldUseDeepStudy ? 
@@ -104,6 +130,8 @@ IMPORTANT: You have access to real-time Bible API data. When discussing specific
 - Use accurate scriptural references throughout your teaching
 - Cross-reference related passages when relevant
 - The Bible API provides the actual text - use it to ground your teaching in Scripture
+
+${personalizationContext}
 
 ${conversationContext}
 
@@ -213,6 +241,8 @@ IMPORTANT: You have access to real-time Bible API data. When discussing specific
 - Always reference verses properly with book, chapter, and verse
 - Use the actual scriptural text to ground your teaching
 - Cross-reference related passages when relevant
+
+${personalizationContext}
 
 ${conversationContext}
 
