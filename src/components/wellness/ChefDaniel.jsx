@@ -203,55 +203,8 @@ Always be: encouraging, expert-level, practical, flexible, warm, and conversatio
               </Button>
             </div>
 
-            {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-5 space-y-4 bg-[#F2F6FA]">
-              {messages.map((message, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
-                >
-                  <div
-                    className={`max-w-[80%] rounded-2xl px-4 py-3 ${
-                      message.role === 'user'
-                        ? 'bg-gradient-to-r from-[#AFC7E3] to-[#D9B878] text-[#0A1A2F]'
-                        : 'bg-[#E6EBEF] text-[#0A1A2F]'
-                    }`}
-                  >
-                    <p className="text-sm whitespace-pre-wrap leading-relaxed">{message.content}</p>
-                  </div>
-                </motion.div>
-              ))}
-              {isLoading && (
-                <div className="flex justify-start">
-                  <div className="bg-[#E6EBEF] rounded-2xl px-4 py-3">
-                    <Loader2 className="w-5 h-5 animate-spin text-[#AFC7E3]" />
-                  </div>
-                </div>
-              )}
-
-              {/* Quick Actions */}
-              {messages.length === 1 && !isLoading && (
-                <div className="space-y-2 pt-2">
-                  <p className="text-xs text-[#0A1A2F]/60 font-medium">Quick questions:</p>
-                  {quickActions.map((action, idx) => (
-                    <button
-                      key={idx}
-                      onClick={() => {
-                        setInput(action);
-                      }}
-                      className="block w-full text-left text-sm px-4 py-3 rounded-xl bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] transition-colors shadow-sm"
-                    >
-                      {action}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-
             {/* Quick-Ask Menu */}
-            <div className="border-t border-[#E6EBEF] bg-[#F2F6FA] px-5 py-3 overflow-x-auto">
+            <div className="border-b border-[#E6EBEF] bg-[#F2F6FA] px-5 py-3 overflow-x-auto">
               <p className="text-xs font-semibold text-[#0A1A2F]/70 mb-2">Quick Actions:</p>
               <div className="grid grid-cols-2 gap-2">
                 <button
@@ -315,6 +268,53 @@ Always be: encouraging, expert-level, practical, flexible, warm, and conversatio
                   💰 Budget-friendly version
                 </button>
               </div>
+            </div>
+
+            {/* Messages */}
+            <div className="flex-1 overflow-y-auto p-5 space-y-4 bg-[#F2F6FA]">
+              {messages.map((message, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                >
+                  <div
+                    className={`max-w-[80%] rounded-2xl px-4 py-3 ${
+                      message.role === 'user'
+                        ? 'bg-gradient-to-r from-[#AFC7E3] to-[#D9B878] text-[#0A1A2F]'
+                        : 'bg-[#E6EBEF] text-[#0A1A2F]'
+                    }`}
+                  >
+                    <p className="text-sm whitespace-pre-wrap leading-relaxed">{message.content}</p>
+                  </div>
+                </motion.div>
+              ))}
+              {isLoading && (
+                <div className="flex justify-start">
+                  <div className="bg-[#E6EBEF] rounded-2xl px-4 py-3">
+                    <Loader2 className="w-5 h-5 animate-spin text-[#AFC7E3]" />
+                  </div>
+                </div>
+              )}
+
+              {/* Quick Actions */}
+              {messages.length === 1 && !isLoading && (
+                <div className="space-y-2 pt-2">
+                  <p className="text-xs text-[#0A1A2F]/60 font-medium">Quick questions:</p>
+                  {quickActions.map((action, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => {
+                        setInput(action);
+                      }}
+                      className="block w-full text-left text-sm px-4 py-3 rounded-xl bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] transition-colors shadow-sm"
+                    >
+                      {action}
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
 
             {/* Input */}
