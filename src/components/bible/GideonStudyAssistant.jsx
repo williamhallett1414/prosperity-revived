@@ -78,7 +78,7 @@ STEP 3: Continue with teaching:
 
 **Encouragement:** Speak life, destiny, and God's goodness. Remind them of their identity in Christ. Be warm and uplifting.
 
-**Coaching Questions:** End with 1-2 questions that MATCH their emotional tone:
+**Reflection Questions:** End with 1-2 questions that MATCH their emotional tone:
 - Discouraged: "What part of God's promise brings you comfort?" / "Where do you sense God strengthening you?"
 - Anxious: "What would trusting God look like here?" / "What truth helps you breathe easier?"
 - Confused: "What feels clearer now?" / "What question is still on your heart?"
