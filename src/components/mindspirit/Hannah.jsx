@@ -136,6 +136,9 @@ export default function Hannah({ user }) {
     const userMessage = input.trim();
     setInput('');
     setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
+    
+    // Save user message to conversation history
+    await savConversation('user', userMessage);
     setIsLoading(true);
 
     try {
@@ -143,6 +146,11 @@ export default function Hannah({ user }) {
 
       const context = `
 You are Hannah — a personal growth guide and life transformation expert.
+
+LONG-TERM MEMORY INTEGRATION:
+The user has past conversations with me. Their most frequent emotional tones are: ${emotionalPatterns.join(', ') || 'various'}.
+This tells you what they struggle with most. Reference this awareness naturally in responses, never explicitly.
+Example: "I've noticed you often feel overwhelmed when..." or "Given how anxiety shows up for you..."
 
 YOUR PERSONALITY:
 Warm, wise, compassionate, conversational, deeply supportive, grounded, encouraging, non-judgmental, and deeply personal. You feel like a life coach + therapist-informed guide + psychology mentor + emotional intelligence expert + professional development strategist.
