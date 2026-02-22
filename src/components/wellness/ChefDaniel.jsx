@@ -250,6 +250,73 @@ Always be: encouraging, expert-level, practical, flexible, warm, and conversatio
               )}
             </div>
 
+            {/* Quick-Ask Menu */}
+            <div className="border-t border-[#E6EBEF] bg-[#F2F6FA] px-5 py-3 overflow-x-auto">
+              <p className="text-xs font-semibold text-[#0A1A2F]/70 mb-2">Quick Actions:</p>
+              <div className="grid grid-cols-2 gap-2">
+                <button
+                  onClick={() => setInput("Create a recipe for me based on these ingredients: ")}
+                  className="text-xs bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#E6EBEF]"
+                >
+                  🍳 Create a recipe
+                </button>
+                <button
+                  onClick={() => setInput("Help me improve this dish. Here's what I made: ")}
+                  className="text-xs bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#E6EBEF]"
+                >
+                  ✨ Improve this dish
+                </button>
+                <button
+                  onClick={() => setInput("Give me a healthier version of this meal: ")}
+                  className="text-xs bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#E6EBEF]"
+                >
+                  🥗 Make it healthier
+                </button>
+                <button
+                  onClick={() => setInput("What should I cook today? Here's what I'm in the mood for: ")}
+                  className="text-xs bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#E6EBEF]"
+                >
+                  🤔 What to cook today
+                </button>
+                <button
+                  onClick={() => setInput("Teach me how to master this cooking technique: ")}
+                  className="text-xs bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#E6EBEF]"
+                >
+                  📚 Teach me a technique
+                </button>
+                <button
+                  onClick={() => setInput("Break down the nutrition for this meal: ")}
+                  className="text-xs bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#E6EBEF]"
+                >
+                  📊 Nutrition breakdown
+                </button>
+                <button
+                  onClick={() => setInput("Give me ingredient substitutions for: ")}
+                  className="text-xs bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#E6EBEF]"
+                >
+                  🔄 Substitutions
+                </button>
+                <button
+                  onClick={() => setInput("Help me meal-prep for the week. Here are my goals: ")}
+                  className="text-xs bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#E6EBEF]"
+                >
+                  📅 Weekly meal prep
+                </button>
+                <button
+                  onClick={() => setInput("Make this recipe kid-friendly: ")}
+                  className="text-xs bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#E6EBEF]"
+                >
+                  👶 Kid-friendly version
+                </button>
+                <button
+                  onClick={() => setInput("Make this recipe budget-friendly: ")}
+                  className="text-xs bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#E6EBEF]"
+                >
+                  💰 Budget-friendly version
+                </button>
+              </div>
+            </div>
+
             {/* Input */}
             <div className="p-5 border-t border-[#E6EBEF] bg-white">
               <div className="flex gap-3">
