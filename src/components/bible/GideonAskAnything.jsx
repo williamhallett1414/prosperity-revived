@@ -154,6 +154,9 @@ Keep response concise (3-5 paragraphs). Reference Scripture accurately. Never gi
                 </button>
               </div>
 
+              {/* Quick Ask Menu - Always Visible */}
+              <GideonQuickAskMenu onSelectPrompt={(prompt) => setInput(prompt)} />
+
               {/* Welcome Message */}
               {conversation.length === 0 &&
             <div className="p-6 text-center space-y-4">
@@ -161,30 +164,10 @@ Keep response concise (3-5 paragraphs). Reference Scripture accurately. Never gi
                   <h3 className="text-2xl font-bold text-gray-800 dark:text-white">
                     Ask Me Anything About Scripture
                   </h3>
-                  
-
-
-
-                  <div className="flex flex-wrap gap-2 justify-center mt-4">
-                    <button
-                  onClick={() => setInput("What does it mean to be in the Kingdom of God?")}
-                  className="px-4 py-2 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-full text-sm hover:bg-purple-200 dark:hover:bg-purple-900/50 transition-colors">
-
-                      Kingdom Principles
-                    </button>
-                    <button
-                  onClick={() => setInput("How do I discover my purpose?")}
-                  className="px-4 py-2 bg-pink-100 dark:bg-pink-900/30 text-pink-700 dark:text-pink-300 rounded-full text-sm hover:bg-pink-200 dark:hover:bg-pink-900/50 transition-colors">
-
-                      Finding Purpose
-                    </button>
-                    <button
-                  onClick={() => setInput("What does Romans 8:28 really mean?")}
-                  className="px-4 py-2 bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 rounded-full text-sm hover:bg-orange-200 dark:hover:bg-orange-900/50 transition-colors">
-
-                      Verse Meaning
-                    </button>
-                  </div>
+                  <p className="text-gray-600 dark:text-gray-400 max-w-md mx-auto">
+                    I embody the wisdom of Dr. Myles Munroe, Dr. Creflo Dollar, and Pastor Joel Osteen. 
+                    Tap a quick question above or ask your own.
+                  </p>
                 </div>
             }
 
