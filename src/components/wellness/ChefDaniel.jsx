@@ -11,6 +11,7 @@ export default function ChefDaniel({ user, userRecipes = [], mealLogs = [] }) {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [showQuickActions, setShowQuickActions] = useState(true);
 
   useEffect(() => {
     if (isOpen && messages.length === 0) {
