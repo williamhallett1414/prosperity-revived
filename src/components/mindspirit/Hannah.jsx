@@ -10,6 +10,7 @@ import { detectIdentityFocusAreas, getIdentityFrameworkInstructions } from './Ha
 import { getKnowledgeBaseInstructions, formatSourcesForContext, extractTopicsFromMessage } from './HannahKnowledgeBase';
 import HannahOnboarding from './HannahOnboarding';
 import HannahTooltip from './HannahTooltip';
+import HannahAIInsights from './HannahAIInsights';
 
 export default function Hannah({ user }) {
   const [isOpen, setIsOpen] = useState(false);
