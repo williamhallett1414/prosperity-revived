@@ -885,12 +885,24 @@ Always be: warm, wise, compassionate, conversational, deeply supportive, grounde
 
             {/* Input */}
             <div className="p-5 border-t border-purple-100 bg-white">
+              <div className="flex gap-3 mb-3">
+                <button
+                  onClick={() => setShowJournalMode(!showJournalMode)}
+                  className={`text-xs px-3 py-2 rounded-lg transition-colors ${
+                    showJournalMode
+                      ? 'bg-purple-600 text-white'
+                      : 'bg-purple-100 text-purple-700 hover:bg-purple-200'
+                  }`}
+                >
+                  📝 Journal
+                </button>
+              </div>
               <div className="flex gap-3">
                 <Input
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
-                  placeholder="What's on your mind?"
+                  placeholder={showJournalMode ? "Write your reflection here..." : "What's on your mind?"}
                   className="flex-1 bg-purple-50 border-purple-200 h-11"
                   disabled={isLoading}
                 />
