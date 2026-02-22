@@ -77,6 +77,14 @@ export default function GideonNotificationSettings() {
 
   const futureOptions = [
     {
+      id: 'personalized_notifications_enabled',
+      title: 'Personalized Notifications',
+      description: 'Behavior-based spiritual encouragement',
+      icon: MessageCircle,
+      color: 'text-purple-500',
+      badge: 'Smart'
+    },
+    {
       id: 'verse_of_day_enabled',
       title: 'Verse of the Day',
       description: 'Daily Scripture inspiration',
