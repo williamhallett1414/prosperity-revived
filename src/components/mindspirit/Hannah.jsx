@@ -968,6 +968,16 @@ Always be: warm, wise, compassionate, conversational, deeply supportive, grounde
                   ))}
                 </div>
               )}
+
+              {/* AI Insights */}
+              {messages.length > 3 && (
+                <HannahAIInsights
+                  messages={messages}
+                  mood={currentMood}
+                  emotionalTone={messages[messages.length - 1]?.emotionalTone || ''}
+                  emotionalPatterns={emotionalPatterns}
+                />
+              )}
             </div>
 
             {/* Input */}
