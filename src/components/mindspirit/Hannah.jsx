@@ -7,6 +7,7 @@ import { base44 } from '@/api/base44Client';
 import { toast } from 'sonner';
 import { detectCoachingQuestion, getFollowUpAnalysisInstructions } from './HannahAnswerAnalysis';
 import { detectIdentityFocusAreas, getIdentityFrameworkInstructions } from './HannahIdentityFramework';
+import { getKnowledgeBaseInstructions, formatSourcesForContext, extractTopicsFromMessage } from './HannahKnowledgeBase';
 
 export default function Hannah({ user }) {
   const [isOpen, setIsOpen] = useState(false);
