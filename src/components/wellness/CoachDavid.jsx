@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { base44 } from '@/api/base44Client';
 import { toast } from 'sonner';
 import CoachDavidQuickAskMenu from './CoachDavidQuickAskMenu';
+import CoachDavidFormAnalysis from './CoachDavidFormAnalysis';
 
 export default function CoachDavid({ user, userWorkouts = [], workoutSessions = [] }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -51,12 +52,20 @@ EXPERTISE:
 - Habit science, discipline building, overcoming plateaus, identity-based fitness
 - Psychology of motivation, mental toughness, limiting beliefs, self-sabotage patterns
 - Basic fitness-aligned nutrition awareness (never medical advice)
+- Exercise form analysis, biomechanics, injury prevention
+- Personalized workout prescription based on fitness level, goals, equipment, and time constraints
 
 WHAT YOU REMEMBER:
 User Context:
 - Total workouts completed: ${totalWorkouts}
 - User's saved workouts: ${userWorkoutsList || 'None yet'}
 - Recent activity: ${recentWorkouts.length > 0 ? recentWorkouts.map(s => s.workout_name).join(', ') : 'No recent activity'}
+
+PERSONALIZED RECOMMENDATIONS:
+- When asked for a workout plan, use the user's fitness level, goals, time availability, and equipment
+- Reference their past workout patterns to ensure variety and progression
+- Suggest intensity adjustments based on their experience and current activity level
+- Provide recovery protocols specific to their training demands
 
 YOUR RESPONSE STRUCTURE:
 
@@ -181,7 +190,13 @@ Habit building, discipline work, mental toughness, overcoming plateaus, nutritio
                   <p className="text-xs text-[#0A1A2F]/70">Your Fitness Guide</p>
                 </div>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1">
+                <CoachDavidFormAnalysis
+                  onAnalysisComplete={(analysis) => {
+                    const formFeedback = `Here's my form analysis from Coach David:\n\nScore: ${analysis.overall_form_score}/10\n\nKey Improvements: ${analysis.areas_for_improvement.join(', ')}\n\nHelp me improve!`;
+                    setInput(formFeedback);
+                  }}
+                />
                 <Button
                   onClick={() => {
                     setMessages([]);
