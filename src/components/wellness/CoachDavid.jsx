@@ -169,6 +169,16 @@ Habit building, discipline work, mental toughness, overcoming plateaus, nutritio
 
   return (
     <>
+      {showOnboarding && (
+        <CoachDavidOnboarding
+          onComplete={() => {
+            setShowOnboarding(false);
+            localStorage.setItem('coachDavidOnboardingCompleted', 'true');
+          }}
+          onRevisit={() => setShowOnboarding(false)}
+        />
+      )}
+
       {/* Floating Chat Button */}
       <motion.button
         onClick={() => setIsOpen(true)}
