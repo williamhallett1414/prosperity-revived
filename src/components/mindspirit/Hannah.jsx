@@ -146,6 +146,17 @@ export default function Hannah({ user }) {
     await savConversation('user', userMessage);
     setIsLoading(true);
 
+    const isAnsweringQuestion = lastHannahMessageWasQuestion;
+    if (isAnsweringQuestion) {
+      setIsAnalyzingAnswer(true);
+    }
+
+    // Detect identity focus areas in the user's message
+    const detectedAreas = detectIdentityFocusAreas(userMessage);
+    if (detectedAreas.length > 0) {
+      setIdentityFocusAreas(detectedAreas);
+    }
+
     try {
       const userName = user?.full_name?.split(' ')[0] || '';
 
