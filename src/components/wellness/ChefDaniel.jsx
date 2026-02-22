@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageCircle, X, Send, Loader2, UtensilsCrossed, Menu, ChevronLeft } from 'lucide-react';
+import { MessageCircle, X, Send, Loader2, UtensilsCrossed } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { base44 } from '@/api/base44Client';
@@ -11,7 +11,6 @@ export default function ChefDaniel({ user, userRecipes = [], mealLogs = [] }) {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [showQuickMenu, setShowQuickMenu] = useState(true);
 
   useEffect(() => {
     if (isOpen && messages.length === 0) {
@@ -181,7 +180,7 @@ Always be: encouraging, expert-level, practical, flexible, warm, and conversatio
             initial={{ opacity: 0, y: 100, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 100, scale: 0.9 }}
-            className="fixed bottom-24 right-4 w-[calc(100vw-2rem)] sm:w-96 h-[500px] bg-white rounded-2xl shadow-2xl flex z-50 border border-[#E6EBEF]"
+            className="fixed bottom-24 right-4 w-[calc(100vw-2rem)] sm:w-96 h-[500px] bg-white rounded-2xl shadow-2xl flex flex-col z-50 border border-[#E6EBEF]"
           >
             {/* Header */}
             <div className="bg-gradient-to-r from-[#AFC7E3] to-[#D9B878] text-[#0A1A2F] p-5 rounded-t-2xl flex items-center justify-between">
@@ -204,107 +203,74 @@ Always be: encouraging, expert-level, practical, flexible, warm, and conversatio
               </Button>
             </div>
 
-            {/* Quick-Ask Menu Sidebar */}
-            <AnimatePresence>
-              {showQuickMenu && (
-                <motion.div
-                  initial={{ x: -100, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  exit={{ x: -100, opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                  className="w-48 border-r border-[#E6EBEF] bg-[#F2F6FA] flex flex-col"
+            {/* Quick-Ask Menu */}
+            <div className="border-b border-[#E6EBEF] bg-[#F2F6FA] px-5 py-2">
+              <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
+                <button
+                  onClick={() => setInput("Create a recipe for me based on these ingredients: ")}
+                  className="text-xs bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] px-3 py-1.5 rounded-full transition-colors whitespace-nowrap shadow-sm border border-[#E6EBEF] flex-shrink-0"
                 >
-                  <div className="p-3 border-b border-[#E6EBEF] flex items-center justify-between">
-                    <p className="text-xs font-semibold text-[#0A1A2F]/70">Quick Actions</p>
-                    <button
-                      onClick={() => setShowQuickMenu(false)}
-                      className="text-[#0A1A2F]/50 hover:text-[#0A1A2F] transition-colors"
-                    >
-                      <ChevronLeft className="w-4 h-4" />
-                    </button>
-                  </div>
-                  <div className="flex-1 overflow-y-auto p-2 space-y-2">
-                    <button
-                      onClick={() => setInput("Create a recipe for me based on these ingredients: ")}
-                      className="w-full text-xs bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#E6EBEF]"
-                    >
-                      🍳 Create recipe
-                    </button>
-                    <button
-                      onClick={() => setInput("Help me improve this dish. Here's what I made: ")}
-                      className="w-full text-xs bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#E6EBEF]"
-                    >
-                      ✨ Improve dish
-                    </button>
-                    <button
-                      onClick={() => setInput("Give me a healthier version of this meal: ")}
-                      className="w-full text-xs bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#E6EBEF]"
-                    >
-                      🥗 Make healthier
-                    </button>
-                    <button
-                      onClick={() => setInput("What should I cook today? Here's what I'm in the mood for: ")}
-                      className="w-full text-xs bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#E6EBEF]"
-                    >
-                      🤔 What to cook
-                    </button>
-                    <button
-                      onClick={() => setInput("Teach me how to master this cooking technique: ")}
-                      className="w-full text-xs bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#E6EBEF]"
-                    >
-                      📚 Technique
-                    </button>
-                    <button
-                      onClick={() => setInput("Break down the nutrition for this meal: ")}
-                      className="w-full text-xs bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#E6EBEF]"
-                    >
-                      📊 Nutrition
-                    </button>
-                    <button
-                      onClick={() => setInput("Give me ingredient substitutions for: ")}
-                      className="w-full text-xs bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#E6EBEF]"
-                    >
-                      🔄 Substitutions
-                    </button>
-                    <button
-                      onClick={() => setInput("Help me meal-prep for the week. Here are my goals: ")}
-                      className="w-full text-xs bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#E6EBEF]"
-                    >
-                      📅 Meal prep
-                    </button>
-                    <button
-                      onClick={() => setInput("Make this recipe kid-friendly: ")}
-                      className="w-full text-xs bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#E6EBEF]"
-                    >
-                      👶 Kid-friendly
-                    </button>
-                    <button
-                      onClick={() => setInput("Make this recipe budget-friendly: ")}
-                      className="w-full text-xs bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#E6EBEF]"
-                    >
-                      💰 Budget-friendly
-                    </button>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+                  🍳 Create recipe
+                </button>
+                <button
+                  onClick={() => setInput("Help me improve this dish. Here's what I made: ")}
+                  className="text-xs bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] px-3 py-1.5 rounded-full transition-colors whitespace-nowrap shadow-sm border border-[#E6EBEF] flex-shrink-0"
+                >
+                  ✨ Improve dish
+                </button>
+                <button
+                  onClick={() => setInput("Give me a healthier version of this meal: ")}
+                  className="text-xs bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] px-3 py-1.5 rounded-full transition-colors whitespace-nowrap shadow-sm border border-[#E6EBEF] flex-shrink-0"
+                >
+                  🥗 Make healthier
+                </button>
+                <button
+                  onClick={() => setInput("What should I cook today? Here's what I'm in the mood for: ")}
+                  className="text-xs bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] px-3 py-1.5 rounded-full transition-colors whitespace-nowrap shadow-sm border border-[#E6EBEF] flex-shrink-0"
+                >
+                  🤔 What to cook
+                </button>
+                <button
+                  onClick={() => setInput("Teach me how to master this cooking technique: ")}
+                  className="text-xs bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] px-3 py-1.5 rounded-full transition-colors whitespace-nowrap shadow-sm border border-[#E6EBEF] flex-shrink-0"
+                >
+                  📚 Technique
+                </button>
+                <button
+                  onClick={() => setInput("Break down the nutrition for this meal: ")}
+                  className="text-xs bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] px-3 py-1.5 rounded-full transition-colors whitespace-nowrap shadow-sm border border-[#E6EBEF] flex-shrink-0"
+                >
+                  📊 Nutrition
+                </button>
+                <button
+                  onClick={() => setInput("Give me ingredient substitutions for: ")}
+                  className="text-xs bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] px-3 py-1.5 rounded-full transition-colors whitespace-nowrap shadow-sm border border-[#E6EBEF] flex-shrink-0"
+                >
+                  🔄 Substitutions
+                </button>
+                <button
+                  onClick={() => setInput("Help me meal-prep for the week. Here are my goals: ")}
+                  className="text-xs bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] px-3 py-1.5 rounded-full transition-colors whitespace-nowrap shadow-sm border border-[#E6EBEF] flex-shrink-0"
+                >
+                  📅 Meal prep
+                </button>
+                <button
+                  onClick={() => setInput("Make this recipe kid-friendly: ")}
+                  className="text-xs bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] px-3 py-1.5 rounded-full transition-colors whitespace-nowrap shadow-sm border border-[#E6EBEF] flex-shrink-0"
+                >
+                  👶 Kid-friendly
+                </button>
+                <button
+                  onClick={() => setInput("Make this recipe budget-friendly: ")}
+                  className="text-xs bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] px-3 py-1.5 rounded-full transition-colors whitespace-nowrap shadow-sm border border-[#E6EBEF] flex-shrink-0"
+                >
+                  💰 Budget-friendly
+                </button>
+              </div>
+            </div>
 
-            {/* Main Chat Area */}
-            <div className="flex-1 flex flex-col">
-              {/* Toggle Button (when menu is hidden) */}
-              {!showQuickMenu && (
-                <div className="p-2 border-b border-[#E6EBEF] bg-white">
-                  <button
-                    onClick={() => setShowQuickMenu(true)}
-                    className="text-[#0A1A2F]/70 hover:text-[#0A1A2F] transition-colors"
-                  >
-                    <Menu className="w-5 h-5" />
-                  </button>
-                </div>
-              )}
-
-              {/* Messages */}
-              <div className="flex-1 overflow-y-auto p-5 space-y-4 bg-[#F2F6FA]">
+            {/* Messages */}
+            <div className="flex-1 overflow-y-auto p-5 space-y-4 bg-[#F2F6FA]">
               {messages.map((message, index) => (
                 <motion.div
                   key={index}
@@ -352,24 +318,23 @@ Always be: encouraging, expert-level, practical, flexible, warm, and conversatio
 
             {/* Input */}
             <div className="p-5 border-t border-[#E6EBEF] bg-white">
-                <div className="flex gap-3">
-                  <Input
-                    value={input}
-                    onChange={(e) => setInput(e.target.value)}
-                    onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
-                    placeholder="Ask Chef Daniel..."
-                    className="flex-1 bg-[#F2F6FA] border-[#E6EBEF] h-11"
-                    disabled={isLoading}
-                  />
-                  <Button
-                    onClick={sendMessage}
-                    disabled={!input.trim() || isLoading}
-                    className="bg-gradient-to-r from-[#AFC7E3] to-[#D9B878] hover:from-[#AFC7E3]/90 hover:to-[#D9B878]/90 text-[#0A1A2F] h-11 px-5"
-                    size="icon"
-                  >
-                    <Send className="w-4 h-4" />
-                  </Button>
-                </div>
+              <div className="flex gap-3">
+                <Input
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
+                  placeholder="Ask Chef Daniel..."
+                  className="flex-1 bg-[#F2F6FA] border-[#E6EBEF] h-11"
+                  disabled={isLoading}
+                />
+                <Button
+                  onClick={sendMessage}
+                  disabled={!input.trim() || isLoading}
+                  className="bg-gradient-to-r from-[#AFC7E3] to-[#D9B878] hover:from-[#AFC7E3]/90 hover:to-[#D9B878]/90 text-[#0A1A2F] h-11 px-5"
+                  size="icon"
+                >
+                  <Send className="w-4 h-4" />
+                </Button>
               </div>
             </div>
           </motion.div>
