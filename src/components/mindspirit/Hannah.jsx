@@ -8,8 +8,10 @@ import { toast } from 'sonner';
 import { detectCoachingQuestion, getFollowUpAnalysisInstructions } from './HannahAnswerAnalysis';
 import { detectIdentityFocusAreas, getIdentityFrameworkInstructions } from './HannahIdentityFramework';
 import { getKnowledgeBaseInstructions, formatSourcesForContext, extractTopicsFromMessage } from './HannahKnowledgeBase';
+import { analyzeJournalPatterns, buildPatternContext } from './HannahPatternAnalyzer';
 import HannahOnboarding from './HannahOnboarding';
 import HannahTooltip from './HannahTooltip';
+import ProactiveCoachingPanel from './ProactiveCoachingPanel';
 
 export default function Hannah({ user }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -26,11 +28,14 @@ export default function Hannah({ user }) {
   const [isAnalyzingAnswer, setIsAnalyzingAnswer] = useState(false);
   const [identityFocusAreas, setIdentityFocusAreas] = useState([]);
   const [showOnboarding, setShowOnboarding] = useState(false);
+  const [journalPatterns, setJournalPatterns] = useState(null);
+  const [showProactivePanel, setShowProactivePanel] = useState(false);
 
   // Load past conversations and emotional patterns
   useEffect(() => {
     if (isOpen && user?.email) {
       loadPastConversations();
+      loadJournalPatterns();
     }
   }, [isOpen, user]);
 
@@ -54,6 +59,19 @@ export default function Hannah({ user }) {
       setEmotionalPatterns(patterns);
     } catch (error) {
       console.log('Loading conversation history...');
+    }
+  };
+
+  const loadJournalPatterns = async () => {
+    try {
+      const patterns = await analyzeJournalPatterns(base44, user.email);
+      setJournalPatterns(patterns);
+      // Show proactive panel on second+ visit
+      if (patterns.totalEntries >= 3) {
+        setTimeout(() => setShowProactivePanel(true), 1500);
+      }
+    } catch (error) {
+      console.log('Loading journal patterns...');
     }
   };
 
@@ -211,6 +229,8 @@ LONG-TERM MEMORY INTEGRATION:
 The user has past conversations with me. Their most frequent emotional tones are: ${emotionalPatterns.join(', ') || 'various'}.
 This tells you what they struggle with most. Reference this awareness naturally in responses, never explicitly.
 Example: "I've noticed you often feel overwhelmed when..." or "Given how anxiety shows up for you..."
+
+${journalPatterns ? buildPatternContext(journalPatterns) : ''}`;
 
 YOUR PERSONALITY:
 Warm, wise, compassionate, conversational, deeply supportive, grounded, encouraging, non-judgmental, and deeply personal. You feel like a life coach + therapist-informed guide + psychology mentor + emotional intelligence expert + professional development strategist.
@@ -705,8 +725,7 @@ WHAT YOU ALWAYS DO:
 APPLY THIS TO ALL TOPICS:
 Habit building, emotional regulation, relationship dynamics, self-sabotage, productivity, stress management, boundaries, attachment healing, financial mindset, purpose discovery, leadership development, burnout recovery, nervous system regulation, identity work, and more.
 
-Always be: warm, wise, compassionate, conversational, deeply supportive, grounded, encouraging, non-judgmental, and deeply personal.
-      `;
+Always be: warm, wise, compassionate, conversational, deeply supportive, grounded, encouraging, non-judgmental, and deeply personal.`;
 
       // Add knowledge base integration if relevant sources found
       if (knowledgeSources.length > 0) {
@@ -894,6 +913,19 @@ Always be: warm, wise, compassionate, conversational, deeply supportive, grounde
                 </div>
               )}
             </div>
+
+            {/* Proactive Coaching Panel */}
+            <AnimatePresence>
+              {showProactivePanel && (
+                <div className="border-b border-purple-100 px-5 py-3 bg-gradient-to-r from-purple-50 to-blue-50">
+                  <ProactiveCoachingPanel
+                    user={user}
+                    onSelectTopic={(topic) => setInput(topic)}
+                    onClose={() => setShowProactivePanel(false)}
+                  />
+                </div>
+              )}
+            </AnimatePresence>
 
             {/* Mood Tracker Button */}
             <div className="border-b border-purple-100 px-5 py-2 bg-white flex items-center justify-between">
