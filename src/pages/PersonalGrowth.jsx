@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { BookOpen, Brain, Heart, Sparkles, Target, CheckCircle2, Crown, Calendar, Trophy } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
+import Hannah from '@/components/mindspirit/Hannah';
 
 export default function PersonalGrowth() {
   const [user, setUser] = useState(null);
@@ -226,6 +227,9 @@ export default function PersonalGrowth() {
           </div>
         </div>
       </div>
+
+      {/* Hannah Chatbot */}
+      <Hannah user={user} />
     </div>);
 
 }
