@@ -655,13 +655,13 @@ Always be: warm, wise, compassionate, conversational, deeply supportive, grounde
         add_context_from_internet: false
       });
 
+      // Save Hannah response
+      await savConversation('hannah', response);
       setMessages(prev => [...prev, { role: 'assistant', content: response }]);
     } catch (error) {
       toast.error('Failed to get response from Hannah');
-      setMessages(prev => [...prev, { 
-        role: 'assistant', 
-        content: "I'm having trouble connecting right now. Please try again in a moment." 
-      }]);
+      const errorMsg = "I'm having trouble connecting right now. Please try again in a moment.";
+      setMessages(prev => [...prev, { role: 'assistant', content: errorMsg }]);
     } finally {
       setIsLoading(false);
     }
