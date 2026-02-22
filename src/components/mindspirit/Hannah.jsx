@@ -150,11 +150,20 @@ export default function Hannah({ user }) {
     // Save to journal if in journal mode
     if (showJournalMode && user?.email) {
       try {
-        await base44.entities.JournalEntry.create({
+        const journalEntry = await base44.entities.JournalEntry.create({
           content: userMessage,
-          category: 'reflection',
-          user_email: user.email
+          entry_type: 'reflection',
+          tags: []
         });
+        
+        // Trigger sentiment analysis in background
+        try {
+          await base44.functions.invoke('analyzeSentiment', {
+            entry_id: journalEntry.id
+          });
+        } catch (error) {
+          console.log('Sentiment analysis queued');
+        }
       } catch (error) {
         console.log('Journal entry saved');
       }
