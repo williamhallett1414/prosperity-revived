@@ -8,6 +8,8 @@ import { toast } from 'sonner';
 import { detectCoachingQuestion, getFollowUpAnalysisInstructions } from './HannahAnswerAnalysis';
 import { detectIdentityFocusAreas, getIdentityFrameworkInstructions } from './HannahIdentityFramework';
 import { getKnowledgeBaseInstructions, formatSourcesForContext, extractTopicsFromMessage } from './HannahKnowledgeBase';
+import HannahOnboarding from './HannahOnboarding';
+import HannahTooltip from './HannahTooltip';
 
 export default function Hannah({ user }) {
   const [isOpen, setIsOpen] = useState(false);
