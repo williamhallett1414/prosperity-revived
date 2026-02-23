@@ -10,6 +10,9 @@ import { Label } from '@/components/ui/label';
 import ReminderSettings from '@/components/settings/ReminderSettings';
 import GideonNotificationSettings from '@/components/settings/GideonNotificationSettings';
 import DailyReflectionSettings from '@/components/settings/DailyReflectionSettings';
+import HannahNotificationSettings from '@/components/settings/HannahNotificationSettings';
+import CoachDavidNotificationSettings from '@/components/settings/CoachDavidNotificationSettings';
+import ChefDanielNotificationSettings from '@/components/settings/ChefDanielNotificationSettings';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -152,6 +155,11 @@ export default function Settings() {
           </div>
         </div>
 
+        {/* Hannah Notifications */}
+        <div className="mb-4">
+          <HannahNotificationSettings user={user} />
+        </div>
+
         {/* Gideon Daily Greetings */}
         <div className="mb-4">
           <GideonNotificationSettings />
@@ -160,6 +168,16 @@ export default function Settings() {
         {/* Gideon Proactive Engagement */}
         <div className="mb-4">
           <DailyReflectionSettings />
+        </div>
+
+        {/* Coach David Notifications */}
+        <div className="mb-4">
+          <CoachDavidNotificationSettings user={user} />
+        </div>
+
+        {/* Chef Daniel Notifications */}
+        <div className="mb-4">
+          <ChefDanielNotificationSettings user={user} />
         </div>
 
         {/* Reminders */}
