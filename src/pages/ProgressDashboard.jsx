@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
 import { 
   Target, 
@@ -14,9 +15,14 @@ import {
   BookOpen,
   Calendar,
   CheckCircle2,
-  Sparkles
+  Sparkles,
+  MessageCircle
 } from 'lucide-react';
 import { format } from 'date-fns';
+import Hannah from '@/components/mindspirit/Hannah';
+import CoachDavid from '@/components/wellness/CoachDavid';
+import ChefDaniel from '@/components/wellness/ChefDaniel';
+import GideonStudyAssistant from '@/components/bible/GideonStudyAssistant';
 
 const chatbotConfig = {
   Hannah: {
@@ -61,6 +67,8 @@ const memoryTypeIcons = {
 };
 
 export default function ProgressDashboard() {
+  const [activeChat, setActiveChat] = useState(null);
+  
   const { data: user } = useQuery({
     queryKey: ['currentUser'],
     queryFn: () => base44.auth.me()
@@ -144,6 +152,32 @@ export default function ProgressDashboard() {
           </div>
         </motion.div>
 
+        {/* Chat with Guides Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          className="mb-8"
+        >
+          <h2 className="text-xl font-bold text-gray-900 mb-4">Chat with Your Guides</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            {Object.entries(chatbotConfig).map(([key, config]) => {
+              const Icon = config.icon;
+              return (
+                <Button
+                  key={key}
+                  onClick={() => setActiveChat(key)}
+                  className={`h-auto py-4 px-3 flex flex-col items-center gap-2 bg-gradient-to-br ${config.color} hover:opacity-90 text-white shadow-md`}
+                >
+                  <Icon className="w-6 h-6" />
+                  <span className="text-sm font-semibold text-center">{config.name}</span>
+                  <span className="text-xs opacity-90">{config.category}</span>
+                </Button>
+              );
+            })}
+          </div>
+        </motion.div>
+
         {/* Overall Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
           {[
@@ -203,11 +237,21 @@ export default function ProgressDashboard() {
                           <p className={`text-sm ${config.textColor}`}>{config.category}</p>
                         </div>
                       </div>
-                      <Badge variant="secondary" className="text-lg px-3 py-1">
-                        {memories.length}
-                      </Badge>
-                    </div>
-                  </CardHeader>
+                      <div className="flex items-center gap-2">
+                       <Badge variant="secondary" className="text-lg px-3 py-1">
+                         {memories.length}
+                       </Badge>
+                       <Button
+                         size="sm"
+                         onClick={() => setActiveChat(key)}
+                         className={`bg-gradient-to-br ${config.color} hover:opacity-90 text-white`}
+                       >
+                         <MessageCircle className="w-4 h-4 mr-1" />
+                         Chat
+                       </Button>
+                      </div>
+                      </div>
+                      </CardHeader>
                   <CardContent className="p-6">
                     <div className="space-y-4">
                       {memories.slice(0, 5).map((memory) => {
@@ -275,6 +319,17 @@ export default function ProgressDashboard() {
           </motion.div>
         )}
       </div>
+
+      {/* Chatbot Modals */}
+      {activeChat === 'Hannah' && user && (
+        <Hannah user={user} />
+      )}
+      {activeChat === 'CoachDavid' && user && (
+        <CoachDavid user={user} />
+      )}
+      {activeChat === 'ChefDaniel' && user && (
+        <ChefDaniel user={user} />
+      )}
     </div>
   );
 }
