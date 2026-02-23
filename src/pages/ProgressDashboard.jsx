@@ -182,15 +182,26 @@ export default function ProgressDashboard() {
                 <p className="text-gray-600">Progress across all areas of growth</p>
               </div>
             </div>
-            <Button
-              onClick={() => setShowOnboarding(true)}
-              variant="outline"
-              size="sm"
-              className="text-purple-600 border-purple-300 hover:bg-purple-50"
-            >
-              <Sparkles className="w-4 h-4 mr-2" />
-              View Tour
-            </Button>
+            <div className="flex gap-2">
+              <Button
+                onClick={() => window.location.href = '/Community'}
+                variant="outline"
+                size="sm"
+                className="text-blue-600 border-blue-300 hover:bg-blue-50"
+              >
+                <MessageCircle className="w-4 h-4 mr-2" />
+                Community
+              </Button>
+              <Button
+                onClick={() => setShowOnboarding(true)}
+                variant="outline"
+                size="sm"
+                className="text-purple-600 border-purple-300 hover:bg-purple-50"
+              >
+                <Sparkles className="w-4 h-4 mr-2" />
+                View Tour
+              </Button>
+            </div>
           </div>
         </motion.div>
 
