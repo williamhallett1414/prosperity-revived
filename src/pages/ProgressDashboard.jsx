@@ -22,7 +22,7 @@ import { format } from 'date-fns';
 import Hannah from '@/components/mindspirit/Hannah';
 import CoachDavid from '@/components/wellness/CoachDavid';
 import ChefDaniel from '@/components/wellness/ChefDaniel';
-import GideonStudyAssistant from '@/components/bible/GideonStudyAssistant';
+import GideonChatbot from '@/components/bible/GideonChatbot';
 
 const chatbotConfig = {
   Hannah: {
@@ -330,42 +330,8 @@ export default function ProgressDashboard() {
       {activeChat === 'ChefDaniel' && user && (
         <ChefDaniel user={user} />
       )}
-      {activeChat === 'Gideon' && (
-        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-          <div className="bg-white dark:bg-gray-800 rounded-2xl max-w-2xl w-full max-h-[80vh] overflow-auto">
-            <div className="sticky top-0 bg-gradient-to-r from-green-500 to-emerald-500 px-6 py-4 flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <BookOpen className="w-6 h-6 text-white" />
-                <div>
-                  <h2 className="text-xl font-bold text-white">Gideon</h2>
-                  <p className="text-sm text-white/90">Your Spiritual Guide</p>
-                </div>
-              </div>
-              <Button
-                onClick={() => setActiveChat(null)}
-                variant="ghost"
-                size="sm"
-                className="text-white hover:bg-white/20"
-              >
-                ✕
-              </Button>
-            </div>
-            <div className="p-6">
-              <p className="text-gray-600 dark:text-gray-300 mb-4">
-                Gideon is available throughout your Bible study experience. Visit the Bible section to explore Scripture with Gideon's guidance.
-              </p>
-              <Button
-                onClick={() => {
-                  setActiveChat(null);
-                  window.location.href = '/Bible';
-                }}
-                className="w-full bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white"
-              >
-                Go to Bible Study
-              </Button>
-            </div>
-          </div>
-        </div>
+      {activeChat === 'Gideon' && user && (
+        <GideonChatbot user={user} onClose={() => setActiveChat(null)} />
       )}
     </div>
   );
