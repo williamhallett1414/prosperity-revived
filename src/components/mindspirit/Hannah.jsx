@@ -747,8 +747,8 @@ Always be: warm, wise, compassionate, conversational, deeply supportive, grounde
       const conversationHistory = messages.slice(-6).map(m => `${m.role === 'user' ? 'User' : 'Hannah'}: ${m.content}`).join('\n');
 
       const response = await base44.integrations.Core.InvokeLLM({
-        prompt: `${context}\n\nConversation:\n${conversationHistory}\nUser: ${userMessage}\n\nHannah:`,
-        add_context_from_internet: false
+        prompt: `${context}\n\nConversation:\n${conversationHistory}\nUser: ${userMessage}\n\nHannah: (Use up-to-date information from the internet when needed for current research, trends, or specific factual information on personal growth, psychology, habit science, and emotional intelligence. Always cite sources when using external information.)`,
+        add_context_from_internet: true
       });
 
       // Save Hannah response

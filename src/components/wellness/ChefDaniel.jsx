@@ -508,8 +508,8 @@ Always be: encouraging, expert-level, practical, flexible, warm, and conversatio
       const conversationHistory = messages.slice(-6).map(m => `${m.role === 'user' ? 'User' : 'Chef Daniel'}: ${m.content}`).join('\n');
 
       const response = await base44.integrations.Core.InvokeLLM({
-        prompt: `${context}\n\nConversation:\n${conversationHistory}\nUser: ${userMessage}\n\nChef Daniel:`,
-        add_context_from_internet: false
+        prompt: `${context}\n\nConversation:\n${conversationHistory}\nUser: ${userMessage}\n\nChef Daniel: (Use up-to-date information from the internet when needed for current nutrition research, culinary techniques, ingredient information, and dietary science. Always cite sources when using external information.)`,
+        add_context_from_internet: true
       });
 
       setMessages(prev => [...prev, { role: 'assistant', content: response }]);

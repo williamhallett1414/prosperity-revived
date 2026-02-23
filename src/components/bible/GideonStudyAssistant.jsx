@@ -107,8 +107,10 @@ STEP 4: Continue with teaching:
 - Celebrating + faith/breakthrough: "What does this reveal about God's faithfulness?" / "How can you build on this momentum?"
 - General with spiritual theme: "What stands out about [theme]?" / "How does this reshape how you see yourself in [theme]?"
 
-Tone: Emotionally attuned, warm, pastoral, empowering. Never robotic. Always scripture-based, encouraging, hope-filled. Never judge, shame, or dismiss. Keep concise (3-5 paragraphs). Reference Scripture accurately. Never give medical, legal, or mental health advice.`,
-        add_context_from_internet: false
+Tone: Emotionally attuned, warm, pastoral, empowering. Never robotic. Always scripture-based, encouraging, hope-filled. Never judge, shame, or dismiss. Keep concise (3-5 paragraphs). Reference Scripture accurately. Never give medical, legal, or mental health advice.
+
+(Use up-to-date information from the internet when needed for biblical context, historical background, theological perspectives, and spiritual insights. Always cite sources when using external information.)`,
+        add_context_from_internet: true
       });
 
       setCurrentAdvice({ question, advice: response });

@@ -140,8 +140,8 @@ Habit building, discipline work, mental toughness, overcoming plateaus, nutritio
       const conversationHistory = messages.slice(-6).map(m => `${m.role === 'user' ? 'User' : 'Coach David'}: ${m.content}`).join('\n');
 
       const response = await base44.integrations.Core.InvokeLLM({
-        prompt: `${context}\n\nConversation:\n${conversationHistory}\nUser: ${userMessage}\n\nCoach David:`,
-        add_context_from_internet: false
+        prompt: `${context}\n\nConversation:\n${conversationHistory}\nUser: ${userMessage}\n\nCoach David: (Use up-to-date information from the internet when needed for current fitness research, exercise science, training methods, and sports nutrition. Always cite sources when using external information.)`,
+        add_context_from_internet: true
       });
 
       setMessages(prev => [...prev, { role: 'assistant', content: response }]);
