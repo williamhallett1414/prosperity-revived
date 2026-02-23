@@ -10,7 +10,6 @@ import {
   Sparkles,
   ArrowRight,
   Check,
-  Play,
   MessageCircle,
   Target,
   TrendingUp,
@@ -56,7 +55,6 @@ const chatbotSteps = [
       '"Help me understand why I keep feeling anxious before big meetings"',
       '"Give me a journaling prompt for self-reflection"'
     ],
-    videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ', // Replace with actual video
     tooltip: 'Hannah remembers your conversations and helps you see growth patterns over time'
   },
   {
@@ -83,7 +81,6 @@ const chatbotSteps = [
       '"Analyze my squat form" (with video)',
       '"I skipped workouts this week, help me get back on track"'
     ],
-    videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ', // Replace with actual video
     tooltip: 'Coach David can analyze workout videos to give you real-time form corrections'
   },
   {
@@ -110,7 +107,6 @@ const chatbotSteps = [
       '"Help me meal prep for the week with chicken and vegetables"',
       '"What should I eat to support my workout recovery?"'
     ],
-    videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ', // Replace with actual video
     tooltip: 'Chef Daniel considers your fitness goals from Coach David when suggesting meals'
   },
   {
@@ -137,7 +133,6 @@ const chatbotSteps = [
       '"Help me reflect on Philippians 4:6-7"',
       '"Give me a prayer for strength during difficult times"'
     ],
-    videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ', // Replace with actual video
     tooltip: 'Gideon tailors scripture suggestions based on themes from your journal with Hannah'
   },
   {
@@ -194,7 +189,6 @@ const chatbotSteps = [
 
 export default function WelcomeOnboarding({ onComplete }) {
   const [currentStep, setCurrentStep] = useState(0);
-  const [showVideo, setShowVideo] = useState(false);
 
   const step = chatbotSteps[currentStep];
   const Icon = step.icon;
@@ -205,14 +199,12 @@ export default function WelcomeOnboarding({ onComplete }) {
       onComplete();
     } else {
       setCurrentStep(currentStep + 1);
-      setShowVideo(false);
     }
   };
 
   const handlePrevious = () => {
     if (currentStep > 0) {
       setCurrentStep(currentStep - 1);
-      setShowVideo(false);
     }
   };
 
@@ -275,38 +267,6 @@ export default function WelcomeOnboarding({ onComplete }) {
               exit={{ opacity: 0, x: -20 }}
               className="space-y-6"
             >
-              {/* Video */}
-              {step.videoUrl && (
-                <div>
-                  <Button
-                    onClick={() => setShowVideo(!showVideo)}
-                    className="w-full bg-gray-100 hover:bg-gray-200 text-gray-900 mb-3"
-                  >
-                    <Play className="w-4 h-4 mr-2" />
-                    {showVideo ? 'Hide' : 'Watch'} Quick Tutorial
-                  </Button>
-                  
-                  {showVideo && (
-                    <motion.div
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: 'auto' }}
-                      className="rounded-xl overflow-hidden bg-gray-100"
-                    >
-                      <iframe
-                        width="100%"
-                        height="315"
-                        src={step.videoUrl}
-                        title={`${step.name} Tutorial`}
-                        frameBorder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                        className="w-full"
-                      />
-                    </motion.div>
-                  )}
-                </div>
-              )}
-
               {/* Features */}
               {step.features && (
                 <div>
