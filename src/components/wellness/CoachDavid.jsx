@@ -17,6 +17,7 @@ export default function CoachDavid({ user, userWorkouts = [], workoutSessions = 
   const [sessionId, setSessionId] = useState('');
   const [quickMenuCollapsed, setQuickMenuCollapsed] = useState(false);
   const [showOnboarding, setShowOnboarding] = useState(false);
+  const [memories, setMemories] = useState([]);
 
   useEffect(() => {
     if (isOpen && messages.length === 0) {
@@ -34,8 +35,23 @@ export default function CoachDavid({ user, userWorkouts = [], workoutSessions = 
         const welcomeMsg = `Yo ${userName}! 💪 I'm Coach David.\n\nI'm here to build your discipline, unlock your strength, and transform your mindset. We're not just doing workouts—we're building an identity as someone who's unstoppable.\n\nWhether it's strength, endurance, mobility, or overcoming mental blocks, I've got the knowledge and the motivation to push you forward.\n\nWhat's your fitness goal today?`;
         setMessages([{ role: 'assistant', content: welcomeMsg }]);
       }
+      
+      loadMemories();
     }
   }, [isOpen, messages.length, user]);
+
+  const loadMemories = async () => {
+    if (!user?.email) return;
+    try {
+      const mems = await base44.entities.ChatbotMemory.filter({ 
+        chatbot_name: 'CoachDavid',
+        created_by: user.email 
+      }, '-importance', 20);
+      setMemories(mems);
+    } catch (error) {
+      console.log('Loading memories...');
+    }
+  };
 
   const sendMessage = async () => {
     if (!input.trim() || isLoading) return;
@@ -197,6 +213,7 @@ Return ONLY valid JSON array:
                 last_referenced: new Date().toISOString()
               });
             }
+            await loadMemories();
           }
         } catch (err) {
           console.error('Failed to extract memories:', err);

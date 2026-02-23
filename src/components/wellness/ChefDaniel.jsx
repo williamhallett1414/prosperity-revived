@@ -560,6 +560,7 @@ Return ONLY valid JSON array:
                 last_referenced: new Date().toISOString()
               });
             }
+            await loadMemories();
           }
         } catch (err) {
           console.error('Failed to extract memories:', err);
