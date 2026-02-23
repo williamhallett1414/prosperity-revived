@@ -335,7 +335,7 @@ export default function ProgressDashboard() {
         <ChefDaniel user={user} />
       )}
       {activeChat === 'Gideon' && user && (
-        <GideonChatbot user={user} onClose={() => setActiveChat(null)} />
+        <GideonChatbot user={user} />
       )}
     </div>
   );

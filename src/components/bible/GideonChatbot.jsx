@@ -7,7 +7,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { BookOpen, Send, X, Loader2, Sparkles } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 
-export default function GideonChatbot({ user, onClose }) {
+export default function GideonChatbot({ user }) {
+  const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
     {
       role: 'assistant',
@@ -171,33 +172,46 @@ Assistant: ${response}`,
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        exit={{ opacity: 0, scale: 0.95 }}
-        className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-2xl w-full h-[600px] flex flex-col overflow-hidden"
+    <>
+      {/* Floating Button */}
+      <motion.button
+        onClick={() => setIsOpen(true)}
+        className="fixed bottom-24 right-6 w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full shadow-2xl flex items-center justify-center z-40 hover:scale-110 transition-transform"
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.95 }}
       >
-        {/* Header */}
-        <div className="bg-gradient-to-r from-green-500 to-emerald-500 px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
-              <BookOpen className="w-6 h-6 text-white" />
-            </div>
-            <div>
-              <h2 className="text-xl font-bold text-white">Gideon</h2>
-              <p className="text-sm text-white/90">Your Spiritual Guide</p>
-            </div>
-          </div>
-          <Button
-            onClick={onClose}
-            variant="ghost"
-            size="sm"
-            className="text-white hover:bg-white/20"
+        <BookOpen className="w-7 h-7 text-white" />
+      </motion.button>
+
+      {/* Chat Modal */}
+      {isOpen && (
+        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-2xl w-full h-[600px] flex flex-col overflow-hidden"
           >
-            <X className="w-5 h-5" />
-          </Button>
-        </div>
+            {/* Header */}
+            <div className="bg-gradient-to-r from-green-500 to-emerald-500 px-6 py-4 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
+                  <BookOpen className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <h2 className="text-xl font-bold text-white">Gideon</h2>
+                  <p className="text-sm text-white/90">Your Spiritual Guide</p>
+                </div>
+              </div>
+              <Button
+                onClick={() => setIsOpen(false)}
+                variant="ghost"
+                size="sm"
+                className="text-white hover:bg-white/20"
+              >
+                <X className="w-5 h-5" />
+              </Button>
+            </div>
 
         {/* Messages */}
         <div className="flex-1 overflow-y-auto p-6 space-y-4">
@@ -256,6 +270,8 @@ Assistant: ${response}`,
           </div>
         </div>
       </motion.div>
-    </div>
+        </div>
+      )}
+    </>
   );
 }
