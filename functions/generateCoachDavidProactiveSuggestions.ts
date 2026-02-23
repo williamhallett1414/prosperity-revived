@@ -26,6 +26,16 @@ Deno.serve(async (req) => {
           created_by: user.email
         }, '-importance', 5);
         
+        // Get all recent workouts for intensity analysis
+        const allRecentWorkouts = await base44.asServiceRole.entities.WorkoutSession.filter({
+          created_by: user.email
+        }, '-created_date', 10);
+        
+        // Get workout plans to check goals
+        const workoutPlans = await base44.asServiceRole.entities.WorkoutPlan.filter({
+          created_by: user.email
+        }, '-created_date', 5);
+        
         // Check if there's already an active suggestion
         const existingSuggestions = await base44.asServiceRole.entities.ProactiveSuggestion.filter({
           chatbot_name: 'CoachDavid',
@@ -40,8 +50,71 @@ Deno.serve(async (req) => {
         let promptAction = null;
         let priority = 5;
         let basedOn = null;
+        let suggestionType = 'check_in';
         
-        // Scenario 1: No workout in 7+ days
+        // NEW Scenario 1: Recovery routine after intense workout streak
+        if (allRecentWorkouts.length >= 3) {
+          const last3Days = allRecentWorkouts.slice(0, 3);
+          const intenseLast3 = last3Days.every(w => 
+            w.duration_minutes >= 40 || 
+            (w.exercises_completed && w.exercises_completed >= 8)
+          );
+          
+          const daysSinceLastWorkout = lastWorkout 
+            ? Math.floor((Date.now() - new Date(lastWorkout.created_date).getTime()) / (1000 * 60 * 60 * 24))
+            : 999;
+          
+          if (intenseLast3 && daysSinceLastWorkout === 0) {
+            const userName = user.full_name?.split(' ')[0] || 'champion';
+            suggestionTitle = "Time to Recover Like a Pro";
+            suggestionMessage = `${userName}, you've been crushing it with 3+ intense sessions! Your body is strong, but recovery is where the magic happens.\n\nToday, let's focus on active recovery: stretching, mobility work, or a light walk. Your muscles will thank you, and you'll come back even stronger.`;
+            promptAction = "Give me a recovery routine for today";
+            priority = 9;
+            basedOn = "Intense workout streak detected - recovery needed";
+            suggestionType = 'tip';
+          }
+        }
+        
+        // NEW Scenario 2: Workout plan progress check
+        if (!suggestionMessage && workoutPlans.length > 0) {
+          const activePlan = workoutPlans[0];
+          const completedDates = activePlan.completed_dates || [];
+          const recentCompletions = completedDates.filter(date => {
+            const daysAgo = Math.floor((Date.now() - new Date(date).getTime()) / (1000 * 60 * 60 * 24));
+            return daysAgo <= 14;
+          });
+          
+          if (recentCompletions.length >= 3 && recentCompletions.length < completedDates.length * 0.5) {
+            const userName = user.full_name?.split(' ')[0] || 'friend';
+            suggestionTitle = "Let's Talk About Your Plan";
+            suggestionMessage = `${userName}, I see you're working on "${activePlan.title}". You've done ${recentCompletions.length} sessions recently.\n\nHow's the plan feeling? Too easy? Too hard? Let's adjust it so it fits where you are right now.`;
+            promptAction = "Help me adjust my workout plan";
+            priority = 8;
+            basedOn = `Progress check on plan: ${activePlan.title}`;
+            suggestionType = 'check_in';
+          }
+        }
+        
+        // NEW Scenario 3: Consistency milestone celebration
+        if (!suggestionMessage && allRecentWorkouts.length >= 5) {
+          const last7Days = allRecentWorkouts.filter(w => {
+            const daysAgo = Math.floor((Date.now() - new Date(w.created_date).getTime()) / (1000 * 60 * 60 * 24));
+            return daysAgo <= 7;
+          });
+          
+          if (last7Days.length >= 4) {
+            const userName = user.full_name?.split(' ')[0] || 'athlete';
+            suggestionTitle = "You're Building Something Special";
+            suggestionMessage = `${userName}, ${last7Days.length} workouts in 7 days? That's not luck - that's discipline!\n\nThis is where champions are made. Not in the gym, but in showing up again and again. What's driving you right now?`;
+            promptAction = "Tell you what's motivating me to keep going";
+            priority = 7;
+            basedOn = `Consistency streak: ${last7Days.length} workouts in 7 days`;
+            suggestionType = 'encouragement';
+          }
+        }
+        
+        // Existing Scenario 1: No workout in 7+ days
+        if (!suggestionMessage && daysSinceLastWorkout >= 7) {
         if (daysSinceLastWorkout >= 7) {
           const goalMemory = memories.find(m => m.memory_type === 'goal');
           const userName = user.full_name?.split(' ')[0] || 'friend';
@@ -84,7 +157,7 @@ Deno.serve(async (req) => {
           await base44.asServiceRole.entities.ProactiveSuggestion.create({
             chatbot_name: 'CoachDavid',
             user_email: user.email,
-            suggestion_type: daysSinceLastWorkout >= 7 ? 'reminder' : 'check_in',
+            suggestion_type: suggestionType,
             title: suggestionTitle,
             message: suggestionMessage,
             prompt_action: promptAction,

@@ -44,9 +44,63 @@ Deno.serve(async (req) => {
         let promptAction = null;
         let priority = 5;
         let basedOn = null;
+        let suggestionType = 'check_in';
         
-        // Scenario 1: Detect recurring emotional pattern
+        // NEW Scenario 1: Deep dive on emotional pattern with specific reflection
         if (emotionalPatterns.length >= 3) {
+          const recentPattern = emotionalPatterns[0];
+          const userName = user.full_name?.split(' ')[0] || 'friend';
+          
+          suggestionTitle = "Let's Explore This Pattern";
+          suggestionMessage = `${userName}, I've been reflecting on our conversations. I notice ${recentPattern.pattern_type} keeps coming up for you.\n\nHere's what I'm curious about: What need might ${recentPattern.pattern_type} be trying to meet? Sometimes our emotions are messengers pointing to something deeper.`;
+          promptAction = `Help me understand what ${recentPattern.pattern_type} is trying to tell me`;
+          priority = 9;
+          basedOn = `Emotional pattern analysis: ${recentPattern.pattern_type}`;
+          suggestionType = 'insight';
+        }
+        // NEW Scenario 2: Contrasting emotional states - growth recognition
+        else if (recentJournals.length >= 3) {
+          const oldestMood = recentJournals[recentJournals.length - 1]?.mood;
+          const latestMood = recentJournals[0]?.mood;
+          
+          if (oldestMood && latestMood && oldestMood !== latestMood) {
+            const userName = user.full_name?.split(' ')[0] || 'friend';
+            const isImprovement = ['Great', 'Good'].includes(latestMood) && ['Low', 'Okay'].includes(oldestMood);
+            
+            if (isImprovement) {
+              suggestionTitle = "I See Your Growth";
+              suggestionMessage = `${userName}, I noticed something beautiful - you've moved from feeling ${oldestMood} to ${latestMood}. That shift didn't happen by accident.\n\nWhat do you think helped create that change? Naming it can help you do it again.`;
+              promptAction = "Reflect on what helped me shift my mood";
+              priority = 8;
+              basedOn = `Emotional growth: ${oldestMood} → ${latestMood}`;
+              suggestionType = 'encouragement';
+            }
+          }
+        }
+        // NEW Scenario 3: Specific theme-based reflection
+        else if (recentJournals.some(j => j.key_themes?.length > 0)) {
+          const themeCounts = {};
+          recentJournals.forEach(j => {
+            j.key_themes?.forEach(theme => {
+              themeCounts[theme] = (themeCounts[theme] || 0) + 1;
+            });
+          });
+          
+          const recurringTheme = Object.entries(themeCounts)
+            .sort((a, b) => b[1] - a[1])[0];
+          
+          if (recurringTheme && recurringTheme[1] >= 2) {
+            const userName = user.full_name?.split(' ')[0] || 'friend';
+            suggestionTitle = "A Theme Worth Exploring";
+            suggestionMessage = `${userName}, I've noticed '${recurringTheme[0]}' coming up ${recurringTheme[1]} times recently in your reflections.\n\nWhat if we went deeper? I'm curious what new insights might emerge if you explore this theme intentionally.`;
+            promptAction = `Help me explore the theme of ${recurringTheme[0]}`;
+            priority = 7;
+            basedOn = `Recurring theme: ${recurringTheme[0]} (${recurringTheme[1]}x)`;
+            suggestionType = 'insight';
+          }
+        }
+        // Existing Scenario: Detect recurring emotional pattern
+        else if (emotionalPatterns.length >= 2) {
           const recentPattern = emotionalPatterns[0];
           const userName = user.full_name?.split(' ')[0] || 'friend';
           
@@ -55,6 +109,7 @@ Deno.serve(async (req) => {
           promptAction = `Help me understand why ${recentPattern.pattern_type} keeps showing up`;
           priority = 9;
           basedOn = `Emotional pattern: ${recentPattern.pattern_type}`;
+          suggestionType = 'insight';
         }
         // Scenario 2: No journal in 7+ days
         else if (daysSinceLastJournal >= 7) {
@@ -102,7 +157,7 @@ Deno.serve(async (req) => {
           await base44.asServiceRole.entities.ProactiveSuggestion.create({
             chatbot_name: 'Hannah',
             user_email: user.email,
-            suggestion_type: emotionalPatterns.length >= 3 ? 'insight' : 'check_in',
+            suggestion_type: suggestionType,
             title: suggestionTitle,
             message: suggestionMessage,
             prompt_action: promptAction,
