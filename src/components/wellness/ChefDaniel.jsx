@@ -14,6 +14,26 @@ export default function ChefDaniel({ user, userRecipes = [], mealLogs = [] }) {
   const [isLoading, setIsLoading] = useState(false);
   const [showQuickActions, setShowQuickActions] = useState(true);
   const [showOnboarding, setShowOnboarding] = useState(false);
+  const [memories, setMemories] = useState([]);
+
+  useEffect(() => {
+    if (isOpen && user?.email) {
+      loadMemories();
+    }
+  }, [isOpen, user]);
+
+  const loadMemories = async () => {
+    if (!user?.email) return;
+    try {
+      const mems = await base44.entities.ChatbotMemory.filter({ 
+        chatbot_name: 'ChefDaniel',
+        created_by: user.email 
+      }, '-importance', 20);
+      setMemories(mems);
+    } catch (error) {
+      console.log('Loading memories...');
+    }
+  };
 
   useEffect(() => {
     if (isOpen && messages.length === 0) {
@@ -89,6 +109,11 @@ ${userName ? `- User's name: ${userName}` : ''}
 - Total meals logged: ${totalMeals}
 - User's saved recipes: ${userRecipesList || 'None yet'}
 - Recent meals: ${recentMeals.length > 0 ? recentMeals.map(m => m.description).join(', ') : 'No recent meals logged'}${nutritionStats}
+${user?.nutrition_interests?.length > 0 ? `- Nutrition interests: ${user.nutrition_interests.join(', ')}` : ''}
+${user?.nutrition_goals?.length > 0 ? `- Nutrition goals: ${user.nutrition_goals.join(', ')}` : ''}
+
+MEMORIES FROM PAST CONVERSATIONS:
+${memories.length > 0 ? memories.map(m => `[${m.memory_type.toUpperCase()}] ${m.content}${m.context ? ` (Context: ${m.context})` : ''}`).join('\n') : 'No previous memories stored yet.'}
 
 CONVERSATIONAL REQUIREMENTS:
 1. Speak naturally and warmly${userName ? ` — use "${userName}" when appropriate` : ''}
