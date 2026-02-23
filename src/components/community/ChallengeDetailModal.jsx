@@ -12,7 +12,7 @@ export default function ChallengeDetailModal({ challenge, user, participation, o
   const [reflection, setReflection] = useState('');
   const queryClient = useQueryClient();
 
-  const completeDay Mutation = useMutation({
+  const completeDayMutation = useMutation({
     mutationFn: async ({ day, reflectionText }) => {
       const updatedCompletedDays = [...(participation.completed_days || []), day];
       const updatedReflections = [
