@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { createPageUrl } from '@/utils';
-import { BookOpen, Heart, Users, Plus, Settings, Dumbbell, Sparkles } from 'lucide-react';
+import { BookOpen, Heart, Users, Plus, Settings, Dumbbell, Sparkles, TrendingUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import VerseOfDay from '@/components/home/VerseOfDay';
 import DailyDevotional from '@/components/home/DailyDevotional';
@@ -411,6 +411,32 @@ export default function Home() {
 
         {/* Wellness Hub */}
         <WellnessHub />
+
+        {/* Progress Dashboard Link */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mb-6"
+        >
+          <Link to={createPageUrl('ProgressDashboard')}>
+            <div className="bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 border border-blue-200 dark:border-blue-700 rounded-2xl p-5 hover:shadow-lg transition-all">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center flex-shrink-0">
+                  <TrendingUp className="w-6 h-6 text-white" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1">
+                    Your Journey Dashboard
+                  </h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-300">
+                    View progress across all areas: personal growth, fitness, nutrition, and spiritual development
+                  </p>
+                </div>
+                <Sparkles className="w-5 h-5 text-blue-500" />
+              </div>
+            </div>
+          </Link>
+        </motion.div>
 
         {/* Gamification Banner */}
         {userProgress !== undefined &&
