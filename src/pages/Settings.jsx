@@ -13,6 +13,7 @@ import DailyReflectionSettings from '@/components/settings/DailyReflectionSettin
 import HannahNotificationSettings from '@/components/settings/HannahNotificationSettings';
 import CoachDavidNotificationSettings from '@/components/settings/CoachDavidNotificationSettings';
 import ChefDanielNotificationSettings from '@/components/settings/ChefDanielNotificationSettings';
+import ChatbotPersonalitySettings from '@/components/settings/ChatbotPersonalitySettings';
 import {
   AlertDialog,
   AlertDialogAction,
