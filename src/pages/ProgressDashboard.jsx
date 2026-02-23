@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import React, { useState, useEffect } from 'react';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -24,6 +24,7 @@ import CoachDavid from '@/components/wellness/CoachDavid';
 import ChefDaniel from '@/components/wellness/ChefDaniel';
 import GideonChatbot from '@/components/bible/GideonChatbot';
 import HolisticProgressReport from '@/components/journey/HolisticProgressReport';
+import WelcomeOnboarding from '@/components/onboarding/WelcomeOnboarding';
 
 const chatbotConfig = {
   Hannah: {
@@ -69,6 +70,8 @@ const memoryTypeIcons = {
 
 export default function ProgressDashboard() {
   const [activeChat, setActiveChat] = useState(null);
+  const [showOnboarding, setShowOnboarding] = useState(false);
+  const queryClient = useQueryClient();
   
   const { data: user } = useQuery({
     queryKey: ['currentUser'],
@@ -122,6 +125,28 @@ export default function ProgressDashboard() {
     };
   }, [allMemories]);
 
+  // Check if user is new (no memories and onboarding not completed)
+  useEffect(() => {
+    if (user && allMemories.length === 0 && !user.onboarding_completed) {
+      setShowOnboarding(true);
+    }
+  }, [user, allMemories]);
+
+  // Handle onboarding completion
+  const updateOnboardingMutation = useMutation({
+    mutationFn: async () => {
+      await base44.auth.updateMe({ onboarding_completed: true });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['currentUser'] });
+    }
+  });
+
+  const handleOnboardingComplete = () => {
+    setShowOnboarding(false);
+    updateOnboardingMutation.mutate();
+  };
+
   if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
@@ -135,6 +160,11 @@ export default function ProgressDashboard() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 pb-8">
+      {/* Onboarding Modal */}
+      {showOnboarding && (
+        <WelcomeOnboarding onComplete={handleOnboardingComplete} />
+      )}
+
       <div className="max-w-6xl mx-auto px-4 py-6">
         {/* Header */}
         <motion.div
@@ -142,14 +172,25 @@ export default function ProgressDashboard() {
           animate={{ opacity: 1, y: 0 }}
           className="mb-8"
         >
-          <div className="flex items-center gap-3 mb-2">
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center">
-              <Sparkles className="w-6 h-6 text-white" />
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center">
+                <Sparkles className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <h1 className="text-3xl font-bold text-gray-900">Your Journey</h1>
+                <p className="text-gray-600">Progress across all areas of growth</p>
+              </div>
             </div>
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900">Your Journey</h1>
-              <p className="text-gray-600">Progress across all areas of growth</p>
-            </div>
+            <Button
+              onClick={() => setShowOnboarding(true)}
+              variant="outline"
+              size="sm"
+              className="text-purple-600 border-purple-300 hover:bg-purple-50"
+            >
+              <Sparkles className="w-4 h-4 mr-2" />
+              View Tour
+            </Button>
           </div>
         </motion.div>
 
