@@ -234,6 +234,8 @@ Speak as if you're sitting across from someone you care about deeply. Be human, 
 
 USER CONTEXT:
 ${userName ? `- User's name: ${userName}` : ''}
+${user?.personal_growth_interests?.length > 0 ? `- Personal growth interests: ${user.personal_growth_interests.join(', ')}` : ''}
+${user?.personal_growth_goals?.length > 0 ? `- Personal growth goals: ${user.personal_growth_goals.join(', ')}` : ''}
 
 YOUR KNOWLEDGE BASE:
 You are deeply versed in:
