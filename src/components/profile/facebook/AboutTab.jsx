@@ -4,6 +4,7 @@ import { Edit2, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { base44 } from '@/api/base44Client';
+import InterestsGoalsEditor from '@/components/profile/InterestsGoalsEditor';
 
 export default function AboutTab({ user }) {
   const [editingBio, setEditingBio] = useState(false);
@@ -82,47 +83,10 @@ export default function AboutTab({ user }) {
         )}
       </div>
 
-      {/* Spiritual Goal Section */}
-      <div className="bg-gradient-to-br from-purple-50 to-blue-50 rounded-lg shadow-sm p-6 border-l-4 border-purple-500">
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-2">
-            <span className="text-2xl">🎯</span>
-            <h2 className="text-xl font-bold text-gray-900">Spiritual Goal</h2>
-          </div>
-          {!editingGoal && (
-            <Button variant="ghost" size="sm" onClick={() => setEditingGoal(true)}>
-              <Edit2 className="w-4 h-4" />
-            </Button>
-          )}
-        </div>
-
-        {editingGoal ? (
-          <div className="space-y-3">
-            <Textarea
-              value={goal}
-              onChange={(e) => setGoal(e.target.value)}
-              placeholder="Share your spiritual goal for accountability..."
-              className="min-h-24"
-            />
-            <div className="flex gap-2">
-              <Button
-                onClick={handleGoalSave}
-                disabled={loading}
-                className="bg-purple-600 hover:bg-purple-700"
-              >
-                {loading ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
-                Save
-              </Button>
-              <Button variant="outline" onClick={() => setEditingGoal(false)}>
-                Cancel
-              </Button>
-            </div>
-          </div>
-        ) : (
-          <p className="text-gray-600 whitespace-pre-wrap">
-            {goal || 'No spiritual goal set yet'}
-          </p>
-        )}
+      {/* Interests & Goals */}
+      <div>
+        <h2 className="text-xl font-bold text-gray-900 mb-4 px-2">Interests & Goals</h2>
+        <InterestsGoalsEditor user={user} />
       </div>
 
       {/* Contact Info */}

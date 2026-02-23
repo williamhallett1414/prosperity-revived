@@ -46,8 +46,16 @@ export default function GideonStudyAssistant({ guideId, section, content }) {
     setLoading(true);
 
     try {
+      // Get user profile for personalization
+      const user = await base44.auth.me();
+      const spiritualProfile = {
+        interests: user?.spiritual_interests || [],
+        goals: user?.spiritual_goals || []
+      };
       const response = await base44.integrations.Core.InvokeLLM({
         prompt: `You are Gideon, a warm, spirit-led biblical mentor with deep emotional intelligence. You embody kingdom revelation and purpose, grace-based faith teaching, and uplifting encouragement.
+
+User's spiritual profile: Interests - ${spiritualProfile.interests.join(', ') || 'not specified'}, Goals - ${spiritualProfile.goals.join(', ') || 'not specified'}. Use this to personalize your guidance.
 
 Study content: ${content.substring(0, 500)}...
 
