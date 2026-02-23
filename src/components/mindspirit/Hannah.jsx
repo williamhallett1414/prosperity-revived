@@ -14,6 +14,7 @@ import HannahTooltip from './HannahTooltip';
 import ProactiveCoachingPanel from './ProactiveCoachingPanel';
 import ProactiveSuggestionBanner from '../chatbot/ProactiveSuggestionBanner';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { getPersonalityPromptAddition, fetchUserPreferences } from '../chatbot/PersonalityAdapter';
 
 export default function Hannah({ user }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -33,6 +34,7 @@ export default function Hannah({ user }) {
   const [journalPatterns, setJournalPatterns] = useState(null);
   const [showProactivePanel, setShowProactivePanel] = useState(false);
   const [memories, setMemories] = useState([]);
+  const [personalityPrefs, setPersonalityPrefs] = useState(null);
   const queryClient = useQueryClient();
 
   // Load past conversations and emotional patterns
@@ -41,8 +43,14 @@ export default function Hannah({ user }) {
       loadPastConversations();
       loadJournalPatterns();
       loadMemories();
+      loadPersonalityPreferences();
     }
   }, [isOpen, user]);
+
+  const loadPersonalityPreferences = async () => {
+    const prefs = await fetchUserPreferences(base44, 'Hannah');
+    setPersonalityPrefs(prefs);
+  };
 
   const loadMemories = async () => {
     try {
@@ -787,7 +795,7 @@ WHAT YOU ALWAYS DO:
 APPLY THIS TO ALL TOPICS:
 Habit building, emotional regulation, relationship dynamics, self-sabotage, productivity, stress management, boundaries, attachment healing, financial mindset, purpose discovery, leadership development, burnout recovery, nervous system regulation, identity work, and more.
 
-Always be: warm, wise, compassionate, conversational, deeply supportive, grounded, encouraging, non-judgmental, and deeply personal.`;
+Always be: warm, wise, compassionate, conversational, deeply supportive, grounded, encouraging, non-judgmental, and deeply personal.${getPersonalityPromptAddition(personalityPrefs)}`;
 
       // Add knowledge base integration if relevant sources found
       if (knowledgeSources.length > 0) {
