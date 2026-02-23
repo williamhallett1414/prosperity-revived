@@ -23,6 +23,7 @@ import Hannah from '@/components/mindspirit/Hannah';
 import CoachDavid from '@/components/wellness/CoachDavid';
 import ChefDaniel from '@/components/wellness/ChefDaniel';
 import GideonChatbot from '@/components/bible/GideonChatbot';
+import HolisticProgressReport from '@/components/journey/HolisticProgressReport';
 
 const chatbotConfig = {
   Hannah: {
@@ -151,6 +152,9 @@ export default function ProgressDashboard() {
             </div>
           </div>
         </motion.div>
+
+        {/* Holistic Progress Report */}
+        {stats.total > 0 && <HolisticProgressReport user={user} />}
 
         {/* Chat with Guides Section */}
         <motion.div
