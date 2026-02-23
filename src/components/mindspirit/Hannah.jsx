@@ -30,14 +30,28 @@ export default function Hannah({ user }) {
   const [showOnboarding, setShowOnboarding] = useState(false);
   const [journalPatterns, setJournalPatterns] = useState(null);
   const [showProactivePanel, setShowProactivePanel] = useState(false);
+  const [memories, setMemories] = useState([]);
 
   // Load past conversations and emotional patterns
   useEffect(() => {
     if (isOpen && user?.email) {
       loadPastConversations();
       loadJournalPatterns();
+      loadMemories();
     }
   }, [isOpen, user]);
+
+  const loadMemories = async () => {
+    try {
+      const mems = await base44.entities.ChatbotMemory.filter({ 
+        chatbot_name: 'Hannah',
+        created_by: user.email 
+      }, '-importance', 20);
+      setMemories(mems);
+    } catch (error) {
+      console.log('Loading memories...');
+    }
+  };
 
   const loadPastConversations = async () => {
     try {
@@ -779,6 +793,59 @@ Always be: warm, wise, compassionate, conversational, deeply supportive, grounde
         }
       }
       
+      // Extract and save key insights every 5 messages
+      if (messages.length > 0 && messages.length % 5 === 0) {
+        try {
+          const recentConvo = messages.slice(-5).map(m => `${m.role}: ${m.content}`).join('\n');
+          const memoryExtraction = await base44.integrations.Core.InvokeLLM({
+            prompt: `Analyze this personal growth conversation and extract 1-3 key insights to remember. Focus on: goals mentioned, self-awareness insights, emotional patterns, challenges discussed, breakthrough moments, or advice that resonated.
+
+Conversation:
+${recentConvo}
+User: ${userMessage}
+Hannah: ${response}
+
+Return ONLY valid JSON array:
+[{"memory_type": "goal|preference|insight|milestone|advice_given|challenge|success", "content": "brief memory", "context": "optional context", "importance": 1-10}]`,
+            add_context_from_internet: false,
+            response_json_schema: {
+              type: "object",
+              properties: {
+                memories: {
+                  type: "array",
+                  items: {
+                    type: "object",
+                    properties: {
+                      memory_type: { type: "string" },
+                      content: { type: "string" },
+                      context: { type: "string" },
+                      importance: { type: "number" }
+                    }
+                  }
+                }
+              }
+            }
+          });
+
+          if (memoryExtraction?.memories?.length > 0) {
+            for (const mem of memoryExtraction.memories) {
+              await base44.entities.ChatbotMemory.create({
+                chatbot_name: 'Hannah',
+                memory_type: mem.memory_type,
+                content: mem.content,
+                context: mem.context || '',
+                importance: mem.importance || 5,
+                conversation_date: new Date().toISOString().split('T')[0],
+                last_referenced: new Date().toISOString()
+              });
+            }
+            await loadMemories();
+          }
+        } catch (err) {
+          console.error('Failed to extract memories:', err);
+        }
+      }
+
       // Check if Hannah's response contains a coaching question to set flag for next message
       setLastHannahMessageWasQuestion(detectCoachingQuestion(response));
       setIsAnalyzingAnswer(false);
