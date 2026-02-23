@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
-import { Settings, Trash2 } from 'lucide-react';
+import { Settings, Trash2, TrendingUp } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import BackButton from '@/components/navigation/BackButton';
@@ -152,12 +152,21 @@ export default function Profile() {
       >
         <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between pointer-events-auto">
           <h1 className="text-xl font-bold text-[#0A1A2F] dark:text-white">{user.full_name}</h1>
-          <Link
-            to={createPageUrl('Settings')}
-            className="p-2 hover:bg-[#E6EBEF] dark:hover:bg-[#3C4E53] rounded-full transition"
-          >
-            <Settings className="w-5 h-5 text-[#0A1A2F] dark:text-white" />
-          </Link>
+          <div className="flex items-center gap-2">
+            <Link
+              to={createPageUrl('ProgressDashboard')}
+              className="p-2 hover:bg-[#E6EBEF] dark:hover:bg-[#3C4E53] rounded-full transition"
+              title="View Progress Dashboard"
+            >
+              <TrendingUp className="w-5 h-5 text-[#0A1A2F] dark:text-white" />
+            </Link>
+            <Link
+              to={createPageUrl('Settings')}
+              className="p-2 hover:bg-[#E6EBEF] dark:hover:bg-[#3C4E53] rounded-full transition"
+            >
+              <Settings className="w-5 h-5 text-[#0A1A2F] dark:text-white" />
+            </Link>
+          </div>
         </div>
       </motion.div>
 
