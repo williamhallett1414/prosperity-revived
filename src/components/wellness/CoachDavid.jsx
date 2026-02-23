@@ -8,6 +8,8 @@ import { toast } from 'sonner';
 import CoachDavidQuickAskMenu from './CoachDavidQuickAskMenu';
 import CoachDavidFormAnalysis from './CoachDavidFormAnalysis';
 import CoachDavidOnboarding from './CoachDavidOnboarding';
+import ProactiveSuggestionBanner from '../chatbot/ProactiveSuggestionBanner';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
 export default function CoachDavid({ user, userWorkouts = [], workoutSessions = [] }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,6 +20,7 @@ export default function CoachDavid({ user, userWorkouts = [], workoutSessions = 
   const [quickMenuCollapsed, setQuickMenuCollapsed] = useState(false);
   const [showOnboarding, setShowOnboarding] = useState(false);
   const [memories, setMemories] = useState([]);
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     if (isOpen && messages.length === 0) {
@@ -50,6 +53,42 @@ export default function CoachDavid({ user, userWorkouts = [], workoutSessions = 
       setMemories(mems);
     } catch (error) {
       console.log('Loading memories...');
+    }
+  };
+
+  // Load proactive suggestions
+  const { data: proactiveSuggestions } = useQuery({
+    queryKey: ['coachDavidProactiveSuggestions', user?.email],
+    queryFn: async () => {
+      if (!user?.email) return [];
+      const suggestions = await base44.entities.ProactiveSuggestion.filter({
+        chatbot_name: 'CoachDavid',
+        user_email: user.email,
+        is_read: false
+      }, '-priority');
+      return suggestions;
+    },
+    enabled: !!user?.email && isOpen,
+    initialData: []
+  });
+
+  const markSuggestionReadMutation = useMutation({
+    mutationFn: (suggestionId) => base44.entities.ProactiveSuggestion.update(suggestionId, { is_read: true }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['coachDavidProactiveSuggestions'] });
+    }
+  });
+
+  const handleAcceptSuggestion = (promptAction) => {
+    if (proactiveSuggestions[0]) {
+      markSuggestionReadMutation.mutate(proactiveSuggestions[0].id);
+    }
+    setInput(promptAction);
+  };
+
+  const handleDismissSuggestion = () => {
+    if (proactiveSuggestions[0]) {
+      markSuggestionReadMutation.mutate(proactiveSuggestions[0].id);
     }
   };
 
@@ -324,6 +363,15 @@ Return ONLY valid JSON array:
                 </Button>
               </div>
             </div>
+
+            {/* Proactive Suggestion Banner */}
+            {proactiveSuggestions?.length > 0 && (
+              <ProactiveSuggestionBanner
+                suggestion={proactiveSuggestions[0]}
+                onAccept={handleAcceptSuggestion}
+                onDismiss={handleDismissSuggestion}
+              />
+            )}
 
             {/* Quick-Ask Menu */}
             {messages.length <= 1 && !isLoading && (

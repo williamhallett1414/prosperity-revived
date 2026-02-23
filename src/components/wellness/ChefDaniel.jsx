@@ -6,6 +6,8 @@ import { Input } from '@/components/ui/input';
 import { base44 } from '@/api/base44Client';
 import { toast } from 'sonner';
 import ChefDanielOnboarding from './ChefDanielOnboarding';
+import ProactiveSuggestionBanner from '../chatbot/ProactiveSuggestionBanner';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
 export default function ChefDaniel({ user, userRecipes = [], mealLogs = [] }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,6 +17,7 @@ export default function ChefDaniel({ user, userRecipes = [], mealLogs = [] }) {
   const [showQuickActions, setShowQuickActions] = useState(true);
   const [showOnboarding, setShowOnboarding] = useState(false);
   const [memories, setMemories] = useState([]);
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     if (isOpen && user?.email) {
@@ -32,6 +35,42 @@ export default function ChefDaniel({ user, userRecipes = [], mealLogs = [] }) {
       setMemories(mems);
     } catch (error) {
       console.log('Loading memories...');
+    }
+  };
+
+  // Load proactive suggestions
+  const { data: proactiveSuggestions } = useQuery({
+    queryKey: ['chefDanielProactiveSuggestions', user?.email],
+    queryFn: async () => {
+      if (!user?.email) return [];
+      const suggestions = await base44.entities.ProactiveSuggestion.filter({
+        chatbot_name: 'ChefDaniel',
+        user_email: user.email,
+        is_read: false
+      }, '-priority');
+      return suggestions;
+    },
+    enabled: !!user?.email && isOpen,
+    initialData: []
+  });
+
+  const markSuggestionReadMutation = useMutation({
+    mutationFn: (suggestionId) => base44.entities.ProactiveSuggestion.update(suggestionId, { is_read: true }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['chefDanielProactiveSuggestions'] });
+    }
+  });
+
+  const handleAcceptSuggestion = (promptAction) => {
+    if (proactiveSuggestions[0]) {
+      markSuggestionReadMutation.mutate(proactiveSuggestions[0].id);
+    }
+    setInput(promptAction);
+  };
+
+  const handleDismissSuggestion = () => {
+    if (proactiveSuggestions[0]) {
+      markSuggestionReadMutation.mutate(proactiveSuggestions[0].id);
     }
   };
 
@@ -687,6 +726,15 @@ Return ONLY valid JSON array:
                 </Button>
               </div>
             </div>
+
+            {/* Proactive Suggestion Banner */}
+            {proactiveSuggestions?.length > 0 && (
+              <ProactiveSuggestionBanner
+                suggestion={proactiveSuggestions[0]}
+                onAccept={handleAcceptSuggestion}
+                onDismiss={handleDismissSuggestion}
+              />
+            )}
 
             {/* Quick-Ask Menu */}
             <div className="border-b border-[#E6EBEF] bg-[#F2F6FA] px-5 py-3 overflow-x-auto">

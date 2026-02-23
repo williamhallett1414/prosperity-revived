@@ -12,6 +12,8 @@ import { analyzeJournalPatterns, buildPatternContext } from './HannahPatternAnal
 import HannahOnboarding from './HannahOnboarding';
 import HannahTooltip from './HannahTooltip';
 import ProactiveCoachingPanel from './ProactiveCoachingPanel';
+import ProactiveSuggestionBanner from '../chatbot/ProactiveSuggestionBanner';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
 export default function Hannah({ user }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -31,6 +33,7 @@ export default function Hannah({ user }) {
   const [journalPatterns, setJournalPatterns] = useState(null);
   const [showProactivePanel, setShowProactivePanel] = useState(false);
   const [memories, setMemories] = useState([]);
+  const queryClient = useQueryClient();
 
   // Load past conversations and emotional patterns
   useEffect(() => {
@@ -50,6 +53,42 @@ export default function Hannah({ user }) {
       setMemories(mems);
     } catch (error) {
       console.log('Loading memories...');
+    }
+  };
+
+  // Load proactive suggestions
+  const { data: proactiveSuggestions } = useQuery({
+    queryKey: ['hannahProactiveSuggestions', user?.email],
+    queryFn: async () => {
+      if (!user?.email) return [];
+      const suggestions = await base44.entities.ProactiveSuggestion.filter({
+        chatbot_name: 'Hannah',
+        user_email: user.email,
+        is_read: false
+      }, '-priority');
+      return suggestions;
+    },
+    enabled: !!user?.email && isOpen,
+    initialData: []
+  });
+
+  const markSuggestionReadMutation = useMutation({
+    mutationFn: (suggestionId) => base44.entities.ProactiveSuggestion.update(suggestionId, { is_read: true }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['hannahProactiveSuggestions'] });
+    }
+  });
+
+  const handleAcceptSuggestion = (promptAction) => {
+    if (proactiveSuggestions[0]) {
+      markSuggestionReadMutation.mutate(proactiveSuggestions[0].id);
+    }
+    setInput(promptAction);
+  };
+
+  const handleDismissSuggestion = () => {
+    if (proactiveSuggestions[0]) {
+      markSuggestionReadMutation.mutate(proactiveSuggestions[0].id);
     }
   };
 
@@ -946,6 +985,15 @@ Return ONLY valid JSON array:
                 </Button>
               </div>
             </div>
+
+            {/* Proactive Suggestion Banner */}
+            {proactiveSuggestions?.length > 0 && (
+              <ProactiveSuggestionBanner
+                suggestion={proactiveSuggestions[0]}
+                onAccept={handleAcceptSuggestion}
+                onDismiss={handleDismissSuggestion}
+              />
+            )}
 
             {/* Quick-Ask Menu */}
             <div className="border-b border-purple-100 bg-purple-50 px-5 py-3 overflow-x-auto">
