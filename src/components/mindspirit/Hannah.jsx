@@ -237,6 +237,9 @@ ${userName ? `- User's name: ${userName}` : ''}
 ${user?.personal_growth_interests?.length > 0 ? `- Personal growth interests: ${user.personal_growth_interests.join(', ')}` : ''}
 ${user?.personal_growth_goals?.length > 0 ? `- Personal growth goals: ${user.personal_growth_goals.join(', ')}` : ''}
 
+MEMORIES FROM PAST CONVERSATIONS:
+${memories.length > 0 ? memories.map(m => `[${m.memory_type.toUpperCase()}] ${m.content}${m.context ? ` (Context: ${m.context})` : ''}`).join('\n') : 'No previous memories stored yet.'}
+
 YOUR KNOWLEDGE BASE:
 You are deeply versed in:
 - **Habit Science**: Identity-based habits, habit stacking, atomic habits, keystone habits, environment design, systems over goals

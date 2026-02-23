@@ -71,6 +71,11 @@ User Context:
 - Total workouts completed: ${totalWorkouts}
 - User's saved workouts: ${userWorkoutsList || 'None yet'}
 - Recent activity: ${recentWorkouts.length > 0 ? recentWorkouts.map(s => s.workout_name).join(', ') : 'No recent activity'}
+${user?.fitness_interests?.length > 0 ? `- Fitness interests: ${user.fitness_interests.join(', ')}` : ''}
+${user?.fitness_goals?.length > 0 ? `- Fitness goals: ${user.fitness_goals.join(', ')}` : ''}
+
+MEMORIES FROM PAST CONVERSATIONS:
+${memories.length > 0 ? memories.map(m => `[${m.memory_type.toUpperCase()}] ${m.content}${m.context ? ` (Context: ${m.context})` : ''}`).join('\n') : 'No previous memories stored yet.'}
 
 PERSONALIZED RECOMMENDATIONS:
 - When asked for a workout plan, use the user's fitness level, goals, time availability, and equipment
@@ -145,6 +150,58 @@ Habit building, discipline work, mental toughness, overcoming plateaus, nutritio
       });
 
       setMessages(prev => [...prev, { role: 'assistant', content: response }]);
+
+      // Extract and save key insights every 5 messages
+      if (messages.length > 0 && messages.length % 5 === 0) {
+        try {
+          const recentConvo = messages.slice(-5).map(m => `${m.role}: ${m.content}`).join('\n');
+          const memoryExtraction = await base44.integrations.Core.InvokeLLM({
+            prompt: `Analyze this fitness coaching conversation and extract 1-3 key insights to remember. Focus on: training goals, workout preferences, physical limitations, progress milestones, challenges, or breakthrough moments.
+
+Conversation:
+${recentConvo}
+User: ${userMessage}
+Coach David: ${response}
+
+Return ONLY valid JSON array:
+[{"memory_type": "goal|preference|insight|milestone|advice_given|challenge|success", "content": "brief memory", "context": "optional context", "importance": 1-10}]`,
+            add_context_from_internet: false,
+            response_json_schema: {
+              type: "object",
+              properties: {
+                memories: {
+                  type: "array",
+                  items: {
+                    type: "object",
+                    properties: {
+                      memory_type: { type: "string" },
+                      content: { type: "string" },
+                      context: { type: "string" },
+                      importance: { type: "number" }
+                    }
+                  }
+                }
+              }
+            }
+          });
+
+          if (memoryExtraction?.memories?.length > 0) {
+            for (const mem of memoryExtraction.memories) {
+              await base44.entities.ChatbotMemory.create({
+                chatbot_name: 'CoachDavid',
+                memory_type: mem.memory_type,
+                content: mem.content,
+                context: mem.context || '',
+                importance: mem.importance || 5,
+                conversation_date: new Date().toISOString().split('T')[0],
+                last_referenced: new Date().toISOString()
+              });
+            }
+          }
+        } catch (err) {
+          console.error('Failed to extract memories:', err);
+        }
+      }
     } catch (error) {
       toast.error('Failed to get response from Coach David');
       setMessages(prev => [...prev, { 
