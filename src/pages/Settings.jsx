@@ -89,6 +89,11 @@ export default function Settings() {
       </div>
 
       <div className="px-4 -mt-4">
+        {/* Chatbot Personalities */}
+        <div className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 shadow-sm mb-4">
+          <ChatbotPersonalitySettings user={user} />
+        </div>
+
         {/* Theme Settings */}
         <div className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 shadow-sm mb-4">
           <div className="flex items-center gap-3 mb-4">

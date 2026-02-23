@@ -8,6 +8,7 @@ import { toast } from 'sonner';
 import ChefDanielOnboarding from './ChefDanielOnboarding';
 import ProactiveSuggestionBanner from '../chatbot/ProactiveSuggestionBanner';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { getPersonalityPromptAddition, fetchUserPreferences } from '../chatbot/PersonalityAdapter';
 
 export default function ChefDaniel({ user, userRecipes = [], mealLogs = [] }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,6 +18,7 @@ export default function ChefDaniel({ user, userRecipes = [], mealLogs = [] }) {
   const [showQuickActions, setShowQuickActions] = useState(true);
   const [showOnboarding, setShowOnboarding] = useState(false);
   const [memories, setMemories] = useState([]);
+  const [personalityPrefs, setPersonalityPrefs] = useState(null);
   const queryClient = useQueryClient();
 
   useEffect(() => {
@@ -33,6 +35,9 @@ export default function ChefDaniel({ user, userRecipes = [], mealLogs = [] }) {
         created_by: user.email 
       }, '-importance', 20);
       setMemories(mems);
+      
+      const prefs = await fetchUserPreferences(base44, 'ChefDaniel');
+      setPersonalityPrefs(prefs);
     } catch (error) {
       console.log('Loading memories...');
     }
@@ -576,7 +581,7 @@ FLAVOR PROFILE DEFINITIONS:
 APPLY THIS TO ALL MODES:
 Recipe creation, cooking technique, meal planning, nutrition guidance, ingredient substitutions, healthy eating advice, budget cooking, cultural cuisine, beginner support, advanced coaching, flavor profile requests.
 
-Always be: encouraging, expert-level, practical, flexible, warm, and conversational.
+Always be: encouraging, expert-level, practical, flexible, warm, and conversational.${getPersonalityPromptAddition(personalityPrefs)}
       `;
 
       const conversationHistory = messages.slice(-6).map(m => `${m.role === 'user' ? 'User' : 'Chef Daniel'}: ${m.content}`).join('\n');

@@ -10,6 +10,7 @@ import CoachDavidFormAnalysis from './CoachDavidFormAnalysis';
 import CoachDavidOnboarding from './CoachDavidOnboarding';
 import ProactiveSuggestionBanner from '../chatbot/ProactiveSuggestionBanner';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { getPersonalityPromptAddition, fetchUserPreferences } from '../chatbot/PersonalityAdapter';
 
 export default function CoachDavid({ user, userWorkouts = [], workoutSessions = [] }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,6 +21,7 @@ export default function CoachDavid({ user, userWorkouts = [], workoutSessions = 
   const [quickMenuCollapsed, setQuickMenuCollapsed] = useState(false);
   const [showOnboarding, setShowOnboarding] = useState(false);
   const [memories, setMemories] = useState([]);
+  const [personalityPrefs, setPersonalityPrefs] = useState(null);
   const queryClient = useQueryClient();
 
   useEffect(() => {
@@ -51,6 +53,9 @@ export default function CoachDavid({ user, userWorkouts = [], workoutSessions = 
         created_by: user.email 
       }, '-importance', 20);
       setMemories(mems);
+      
+      const prefs = await fetchUserPreferences(base44, 'CoachDavid');
+      setPersonalityPrefs(prefs);
     } catch (error) {
       console.log('Loading memories...');
     }
@@ -204,7 +209,7 @@ Strong, motivating, disciplined, supportive, emotionally intelligent, deeply com
 ---
 
 APPLY THIS FRAMEWORK TO ALL FITNESS INTERACTIONS:
-Habit building, discipline work, mental toughness, overcoming plateaus, nutrition awareness, mobility, strength training, HIIT, endurance, recovery, and mindset coaching.
+Habit building, discipline work, mental toughness, overcoming plateaus, nutrition awareness, mobility, strength training, HIIT, endurance, recovery, and mindset coaching.${getPersonalityPromptAddition(personalityPrefs)}
 `;
 
       const conversationHistory = messages.slice(-6).map(m => `${m.role === 'user' ? 'User' : 'Coach David'}: ${m.content}`).join('\n');

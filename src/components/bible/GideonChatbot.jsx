@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { motion, AnimatePresence } from 'framer-motion';
 import { BookOpen, Send, X, Loader2, Sparkles } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
+import { getPersonalityPromptAddition, fetchUserPreferences } from '../chatbot/PersonalityAdapter';
 
 export default function GideonChatbot({ user }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,6 +18,7 @@ export default function GideonChatbot({ user }) {
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [personalityPrefs, setPersonalityPrefs] = useState(null);
   const messagesEndRef = useRef(null);
   const queryClient = useQueryClient();
 
@@ -64,6 +66,17 @@ export default function GideonChatbot({ user }) {
     scrollToBottom();
   }, [messages]);
 
+  useEffect(() => {
+    if (isOpen && user?.email) {
+      loadPersonalityPreferences();
+    }
+  }, [isOpen, user]);
+
+  const loadPersonalityPreferences = async () => {
+    const prefs = await fetchUserPreferences(base44, 'Gideon');
+    setPersonalityPrefs(prefs);
+  };
+
   const handleSend = async () => {
     if (!input.trim() || isLoading) return;
 
@@ -100,7 +113,7 @@ Your approach:
 User: ${user.full_name}
 ${memoryContext}${journalContext}${prayerContext}
 
-Respond with wisdom, compassion, and biblical insight. Keep responses conversational and supportive.`;
+Respond with wisdom, compassion, and biblical insight. Keep responses conversational and supportive.${getPersonalityPromptAddition(personalityPrefs)}`;
 
       const conversationHistory = messages.slice(-6).map(m => ({
         role: m.role,
