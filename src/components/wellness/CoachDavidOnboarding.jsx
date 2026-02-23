@@ -9,7 +9,7 @@ export default function CoachDavidOnboarding({ onComplete, onRevisit }) {
   const steps = [
     {
       title: "Welcome to Coach David 💪",
-      description: "Your elite fitness coach is here to transform your discipline, build unstoppable strength, and reshape your mindset. Drawing from Mr. Olympia champions, Jillian Michaels, and military training.",
+      description: "Your elite fitness coach is here to transform your discipline, build unstoppable strength, and reshape your mindset. Drawing from champion bodybuilders, elite fitness trainers, and military training protocols.",
       icon: Dumbbell,
       highlight: null,
       position: 'center'

@@ -9,7 +9,7 @@ export default function ChefDanielOnboarding({ onComplete, onRevisit }) {
   const steps = [
     {
       title: "Welcome to Chef Daniel 👨‍🍳",
-      description: "Your elite nutrition coach is here to fuel your fitness goals with delicious, practical meals. Drawing from sports nutrition science, athletic performance protocols, and culinary expertise.",
+      description: "Your elite nutrition coach is here to fuel your fitness goals with delicious, practical meals. Drawing from sports nutrition science, athletic performance protocols, and professional culinary expertise.",
       icon: UtensilsCrossed,
       highlight: null,
       position: 'center'

@@ -9,7 +9,7 @@ export default function GideonOnboarding({ onComplete, onRevisit }) {
   const steps = [
     {
       title: "Welcome to Gideon 📖",
-      description: "I'm your spiritual guide here to walk with you through God's Word with warmth, wisdom, and deep understanding. I combine kingdom revelation (Myles Munroe), grace teaching (Creflo Dollar), and encouragement (Joel Osteen) with emotional intelligence.",
+      description: "I'm your spiritual guide here to walk with you through God's Word with warmth, wisdom, and deep understanding. I combine kingdom revelation principles, grace-based teaching, and uplifting encouragement with emotional intelligence.",
       icon: BookOpen,
       highlight: null,
       position: 'center'
