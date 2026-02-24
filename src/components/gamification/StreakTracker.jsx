@@ -27,25 +27,25 @@ export default function StreakTracker({ type, count, lastDate }) {
     mood: 'Mood Check-in Streak'
   };
 
-  return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1 }} className="bg-slate-50 text-slate-50 px-3 py-2 rounded-lg flex items-center gap-2">
+  return null;
 
 
 
 
 
 
-      <Flame className={`w-4 h-4 ${isActive ? 'text-white' : 'text-[#0A1A2F]/40'}`} />
-      <div className="flex flex-col">
-        <span className={`text-xs font-semibold ${isActive ? 'text-white' : 'text-[#0A1A2F]/60'}`}>
-          {streakLabels[type]}
-        </span>
-        <span className={`text-sm font-bold ${isActive ? 'text-white' : 'text-[#0A1A2F]'}`}>
-          {count} {count === 1 ? 'day' : 'days'}
-        </span>
-      </div>
-    </motion.div>);
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
