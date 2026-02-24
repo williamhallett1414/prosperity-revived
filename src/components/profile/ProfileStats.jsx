@@ -40,22 +40,22 @@ export default function ProfileStats({ userProgress, meditationSessions, workout
       animate={{ opacity: 1, y: 0 }}
       className="mb-8 px-4">
 
-      <h2 className="text-xl font-bold text-[#0A1A2F] mb-4">Your Stats</h2>
+      
       <div className="grid grid-cols-2 gap-3">
         {stats.map((stat, idx) => {
           const Icon = stat.icon;
-          return (
-            <motion.div
-              key={stat.label}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: idx * 0.05 }} className="bg-slate-50 text-[#0A1A2F] p-4 rounded-xl from-[#3C4E53] to-[#FD9C2D]">
+          return null;
 
 
-              <Icon className="w-5 h-5 mb-2" />
-              <p className="text-2xl font-bold">{stat.value}</p>
-              <p className="text-xs text-[#0A1A2F]/70 mt-1">{stat.label}</p>
-            </motion.div>);
+
+
+
+
+
+
+
+
+
 
         })}
       </div>
