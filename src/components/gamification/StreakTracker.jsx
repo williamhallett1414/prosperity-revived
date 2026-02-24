@@ -30,7 +30,7 @@ export default function StreakTracker({ type, count, lastDate }) {
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1 }} className="bg-amber-500 text-slate-50 px-3 py-2 rounded-lg flex items-center gap-2">
+      animate={{ opacity: 1, scale: 1 }} className="bg-slate-50 text-slate-50 px-3 py-2 rounded-lg flex items-center gap-2">
 
 
 
