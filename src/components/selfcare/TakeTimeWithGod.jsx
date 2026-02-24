@@ -8,48 +8,48 @@ export default function TakeTimeWithGod() {
   const [step, setStep] = useState(0);
 
   const steps = [
-    {
-      title: 'Take a Deep Breath',
-      subtitle: 'Breathe in... Hold... Breathe out...',
-      content: (
-        <div className="text-center">
+  {
+    title: 'Take a Deep Breath',
+    subtitle: 'Breathe in... Hold... Breathe out...',
+    content:
+    <div className="text-center">
           <motion.div
-            animate={{
-              scale: [1, 1.2, 1],
-            }}
-            transition={{
-              duration: 4,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-            className="text-8xl mb-6"
-          >
+        animate={{
+          scale: [1, 1.2, 1]
+        }}
+        transition={{
+          duration: 4,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
+        className="text-8xl mb-6">
+
             🌬️
           </motion.div>
           <p className="text-gray-600 text-lg">
             Breathe deeply and slowly. Let peace wash over you.
           </p>
         </div>
-      )
-    },
-    {
-      title: 'A Word From Scripture',
-      subtitle: 'God speaks to your heart',
-      content: (
-        <div className="text-center">
+
+  },
+  {
+    title: 'A Word From Scripture',
+    subtitle: 'God speaks to your heart',
+    content:
+    <div className="text-center">
           <div className="text-6xl mb-4">📖</div>
           <p className="text-gray-800 font-serif italic text-xl mb-4">
             "Come to me, all who are weary and burdened, and I will give you rest."
           </p>
           <p className="text-[#FD9C2D] font-semibold">Matthew 11:28</p>
         </div>
-      )
-    },
-    {
-      title: 'A Moment of Prayer',
-      subtitle: 'Talk to God',
-      content: (
-        <div className="text-center">
+
+  },
+  {
+    title: 'A Moment of Prayer',
+    subtitle: 'Talk to God',
+    content:
+    <div className="text-center">
           <div className="text-6xl mb-4">🙏</div>
           <p className="text-gray-800 font-serif text-lg leading-relaxed">
             Lord, thank You for this sacred pause.
@@ -62,13 +62,13 @@ export default function TakeTimeWithGod() {
             <span className="font-bold">Amen.</span>
           </p>
         </div>
-      )
-    },
-    {
-      title: 'You Are Loved',
-      subtitle: 'Remember who you are in Christ',
-      content: (
-        <div className="text-center">
+
+  },
+  {
+    title: 'You Are Loved',
+    subtitle: 'Remember who you are in Christ',
+    content:
+    <div className="text-center">
           <div className="text-6xl mb-4">✨</div>
           <p className="text-gray-800 text-lg leading-relaxed mb-4">
             You are <span className="font-bold text-[#FD9C2D]">chosen</span>.
@@ -81,9 +81,9 @@ export default function TakeTimeWithGod() {
             Go forth in peace and confidence.
           </p>
         </div>
-      )
-    }
-  ];
+
+  }];
+
 
   useEffect(() => {
     if (showModal && step < steps.length - 1) {
@@ -105,12 +105,12 @@ export default function TakeTimeWithGod() {
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 0.1 }}
-        className="mb-8"
-      >
+        className="mb-8">
+
         <Button
-          onClick={() => setShowModal(true)}
-          className="w-full h-24 bg-gradient-to-r from-[#FD9C2D] to-[#FAD98D] hover:from-[#FD9C2D]/90 hover:to-[#FAD98D]/90 text-[#3C4E53] text-xl font-bold rounded-2xl shadow-xl"
-        >
+          onClick={() => setShowModal(true)} className="bg-slate-50 text-[#3C4E53] px-4 py-2 text-xl font-bold rounded-2xl inline-flex items-center justify-center gap-2 whitespace-nowrap transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover:bg-primary/90 w-full h-24 from-[#FD9C2D] to-[#FAD98D] hover:from-[#FD9C2D]/90 hover:to-[#FAD98D]/90 shadow-xl">
+
+
           <div className="flex flex-col items-center">
             <span className="text-2xl mb-1">✨</span>
             <span>Take 2 Minutes With God</span>
@@ -118,36 +118,36 @@ export default function TakeTimeWithGod() {
         </Button>
       </motion.div>
 
-      {showModal && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4"
-          onClick={handleClose}
-        >
+      {showModal &&
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4"
+        onClick={handleClose}>
+
           <motion.div
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.9, opacity: 0 }}
-            onClick={(e) => e.stopPropagation()}
-            className="bg-white rounded-3xl p-8 max-w-lg w-full shadow-2xl relative"
-          >
+          initial={{ scale: 0.9, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          exit={{ scale: 0.9, opacity: 0 }}
+          onClick={(e) => e.stopPropagation()}
+          className="bg-white rounded-3xl p-8 max-w-lg w-full shadow-2xl relative">
+
             <button
-              onClick={handleClose}
-              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
-            >
+            onClick={handleClose}
+            className="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
+
               <X className="w-6 h-6" />
             </button>
 
             <AnimatePresence mode="wait">
               <motion.div
-                key={step}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.5 }}
-              >
+              key={step}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.5 }}>
+
                 <h2 className="text-2xl font-bold text-[#0A1A2F] mb-2 text-center">
                   {steps[step].title}
                 </h2>
@@ -161,27 +161,27 @@ export default function TakeTimeWithGod() {
             </AnimatePresence>
 
             <div className="flex items-center justify-center gap-2 mb-4">
-              {steps.map((_, i) => (
-                <div
-                  key={i}
-                  className={`h-2 rounded-full transition-all ${
-                    i === step ? 'w-8 bg-[#FD9C2D]' : 'w-2 bg-gray-300'
-                  }`}
-                />
-              ))}
+              {steps.map((_, i) =>
+            <div
+              key={i}
+              className={`h-2 rounded-full transition-all ${
+              i === step ? 'w-8 bg-[#FD9C2D]' : 'w-2 bg-gray-300'}`
+              } />
+
+            )}
             </div>
 
-            {step === steps.length - 1 && (
-              <Button
-                onClick={handleClose}
-                className="w-full bg-gradient-to-r from-[#FD9C2D] to-[#FAD98D] hover:from-[#FD9C2D]/90 hover:to-[#FAD98D]/90 text-[#3C4E53]"
-              >
+            {step === steps.length - 1 &&
+          <Button
+            onClick={handleClose}
+            className="w-full bg-gradient-to-r from-[#FD9C2D] to-[#FAD98D] hover:from-[#FD9C2D]/90 hover:to-[#FAD98D]/90 text-[#3C4E53]">
+
                 Complete
               </Button>
-            )}
+          }
           </motion.div>
         </motion.div>
-      )}
-    </>
-  );
+      }
+    </>);
+
 }
