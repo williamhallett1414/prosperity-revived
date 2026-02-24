@@ -51,9 +51,9 @@ export default function DailyPrayer() {
         <DialogTrigger asChild>
           <motion.button
             whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            className="w-full bg-gradient-to-r from-[#FD9C2D] to-[#FAD98D] rounded-2xl p-6 text-[#3C4E53] shadow-lg text-left"
-          >
+            whileTap={{ scale: 0.98 }} className="bg-slate-50 text-[#3C4E53] p-6 text-left rounded-2xl w-full from-[#FD9C2D] to-[#FAD98D] shadow-lg">
+
+
             <div className="flex items-center gap-3 mb-2">
               <Heart className="w-6 h-6 text-[#FD9C2D]" />
               <div>
