@@ -9,9 +9,9 @@ export default function ProfileStreaks({ userProgress, meditationSessions, worko
 
     let streak = 0;
     const today = new Date();
-    const sortedDates = sessions
-      .map(s => new Date(s.date || s.created_date))
-      .sort((a, b) => b - a);
+    const sortedDates = sessions.
+    map((s) => new Date(s.date || s.created_date)).
+    sort((a, b) => b - a);
 
     for (const date of sortedDates) {
       const daysDiff = Math.floor((today - date) / (1000 * 60 * 60 * 24));
@@ -40,30 +40,30 @@ export default function ProfileStreaks({ userProgress, meditationSessions, worko
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="mb-8"
-    >
+      className="mb-8">
+
       <div className="flex items-center gap-2 mb-4 px-4">
         <Flame className="w-5 h-5 text-[#FD9C2D]" />
-        <h2 className="text-xl font-bold text-[#0A1A2F]">Your Streaks</h2>
+        
       </div>
 
       <div className="px-4 space-y-3">
         <StreakTracker
           type="meditation"
           count={meditationStreak}
-          lastDate={getMostRecentDate(meditationSessions)}
-        />
+          lastDate={getMostRecentDate(meditationSessions)} />
+
         <StreakTracker
           type="workout"
           count={workoutStreak}
-          lastDate={getMostRecentDate(workoutSessions)}
-        />
+          lastDate={getMostRecentDate(workoutSessions)} />
+
         <StreakTracker
           type="journaling"
           count={journalingStreak}
-          lastDate={getMostRecentDate(journalEntries)}
-        />
+          lastDate={getMostRecentDate(journalEntries)} />
+
       </div>
-    </motion.div>
-  );
+    </motion.div>);
+
 }
