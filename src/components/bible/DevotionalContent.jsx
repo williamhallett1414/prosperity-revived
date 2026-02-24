@@ -19,6 +19,14 @@ const devotionals = [
     description: 'Explore how commitment transforms relationships and strengthens your bond through God\'s wisdom. Learn to nurture trust, love, and growth together.',
     readTime: '6 min read',
     image: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=600'
+  },
+  {
+    id: 'soulmates-sync',
+    title: 'Soulmates in Sync',
+    subtitle: 'Fostering Emotional Intimacy in Your Marriage',
+    description: 'Guide your relationship through the depths of fostering intimacy, deepening emotional connection, and honoring God. Discover the power of intentionality and vulnerability in creating lasting bonds.',
+    readTime: '10 min read',
+    image: 'https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=600'
   }
 ];
 
