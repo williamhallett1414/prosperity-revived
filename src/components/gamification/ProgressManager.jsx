@@ -56,22 +56,6 @@ export async function awardPoints(userEmail, points, additionalFields = {}, quer
   if (!userEmail) return;
   
   try {
-    // Optimistic update
-    if (queryClient && typeof window !== 'undefined') {
-      queryClient.setQueryData(['userProgress', userEmail], (old) => {
-        if (!old) return old;
-        const currentPoints = old.total_points || 0;
-        const newTotalPoints = currentPoints + points;
-        const newLevel = Math.floor(newTotalPoints / 500) + 1;
-        return {
-          ...old,
-          total_points: newTotalPoints,
-          level: newLevel,
-          ...additionalFields
-        };
-      });
-    }
-
     const allProgress = await base44.entities.UserProgress.list();
     let progress = allProgress.find(p => p.created_by === userEmail);
 
@@ -91,6 +75,18 @@ export async function awardPoints(userEmail, points, additionalFields = {}, quer
     const newTotalPoints = currentPoints + points;
     const newLevel = Math.floor(newTotalPoints / 500) + 1;
     const leveledUp = newLevel > progress.level;
+
+    // Optimistic update
+    if (queryClient && typeof window !== 'undefined') {
+      queryClient.setQueryData(['userProgress'], (old) => {
+        if (!old) return old;
+        return old.map(p => 
+          p.created_by === userEmail 
+            ? { ...p, total_points: newTotalPoints, level: newLevel, ...additionalFields }
+            : p
+        );
+      });
+    }
 
     await base44.entities.UserProgress.update(progress.id, {
       total_points: newTotalPoints,
@@ -127,8 +123,9 @@ export async function awardPoints(userEmail, points, additionalFields = {}, quer
     console.error('Failed to award points:', error);
     // Revert optimistic update on error
     if (queryClient) {
-      queryClient.invalidateQueries(['userProgress', userEmail]);
+      queryClient.invalidateQueries(['userProgress']);
     }
+    throw error;
   }
 }
 
@@ -202,7 +199,7 @@ export async function checkAndAwardBadges(userEmail) {
   }
 }
 
-export async function updateStreak(userEmail) {
+export async function updateStreak(userEmail, queryClient = null) {
   if (!userEmail) return;
   
   try {
@@ -237,6 +234,24 @@ export async function updateStreak(userEmail) {
 
     const longestStreak = Math.max(newStreak, progress.longest_streak || 0);
 
+    // Optimistic update
+    if (queryClient && typeof window !== 'undefined') {
+      queryClient.setQueryData(['userProgress'], (old) => {
+        if (!old) return old;
+        return old.map(p => 
+          p.created_by === userEmail 
+            ? { 
+                ...p, 
+                current_streak: newStreak, 
+                longest_streak: longestStreak,
+                last_active_date: today,
+                total_points: (p.total_points || 0) + 5
+              }
+            : p
+        );
+      });
+    }
+
     await base44.entities.UserProgress.update(progress.id, {
       current_streak: newStreak,
       longest_streak: longestStreak,
@@ -247,5 +262,8 @@ export async function updateStreak(userEmail) {
     await checkAndAwardBadges(userEmail);
   } catch (error) {
     console.error('Failed to update streak:', error);
+    if (queryClient) {
+      queryClient.invalidateQueries(['userProgress']);
+    }
   }
 }

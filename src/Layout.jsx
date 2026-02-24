@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Toaster } from '@/components/ui/sonner.jsx';
 import NotificationBell from '@/components/notifications/NotificationBell';
 import PullToRefresh from '@/components/ui/PullToRefresh';
+import UniversalHeader from '@/components/navigation/UniversalHeader';
 import { useQueryClient } from '@tanstack/react-query';
 
 // Scroll position cache per page
@@ -35,6 +36,26 @@ export default function Layout({ children, currentPageName }) {
 
   // Determine if current page is a child route (not a primary nav page)
   const isChildRoute = !isPrimaryPage;
+
+  // Page title mapping
+  const pageTitles = {
+    Home: 'Home',
+    Wellness: 'Wellness',
+    Bible: 'Bible',
+    Groups: 'Groups',
+    Profile: 'Profile',
+    Settings: 'Settings',
+    ProgressDashboard: 'Progress Dashboard',
+    Workouts: 'Workouts',
+    Nutrition: 'Nutrition',
+    Prayer: 'Prayer',
+    Community: 'Community',
+    Plans: 'Reading Plans',
+    PlanDetail: 'Plan Details',
+    // Add more as needed
+  };
+
+  const currentPageTitle = pageTitles[currentPageName] || currentPageName;
 
   // Cache page content for primary navigation
   useEffect(() => {
@@ -122,28 +143,19 @@ export default function Layout({ children, currentPageName }) {
         }
       `}</style>
       
-      {/* Top Bar with Back Button or Logo */}
-      <div className="fixed top-0 left-0 right-0 bg-white dark:bg-[#2d2d4a] border-b border-gray-200 dark:border-gray-700 px-4 py-3 z-40 pt-[env(safe-area-inset-top)] select-none">
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      </div>
+      {/* Top Bar with Universal Header */}
+      {isChildRoute ? (
+        <UniversalHeader title={currentPageTitle} />
+      ) : (
+        <div className="fixed top-0 left-0 right-0 bg-white dark:bg-[#2d2d4a] border-b border-gray-200 dark:border-gray-700 px-4 py-3 z-40 pt-[env(safe-area-inset-top)] select-none">
+          <div className="max-w-lg mx-auto flex items-center justify-between">
+            <h1 className="text-xl font-bold text-[#3C4E53] dark:text-white font-imprint">
+              Wellness & Faith
+            </h1>
+            <NotificationBell />
+          </div>
+        </div>
+      )}
 
       <main className="pt-16 pb-20">
         <PullToRefresh onRefresh={async () => {

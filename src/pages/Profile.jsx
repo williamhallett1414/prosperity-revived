@@ -203,10 +203,18 @@ export default function Profile() {
           {activeTab === 'achievements' && <AchievementsTab userProgress={userProgress} />}
           {activeTab === 'activity' && <ActivityTab userProgress={userProgress} />}
 
-          {/* Delete Account Section */}
+          {/* Account Settings Section */}
           {activeTab === 'about' && (
-            <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
-              <h3 className="text-lg font-semibold text-[#0A1A2F] dark:text-white mb-4">Danger Zone</h3>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700"
+            >
+              <h3 className="text-lg font-semibold text-[#0A1A2F] dark:text-white mb-4">Account Settings</h3>
+              
+              {/* Danger Zone */}
+              <div className="mt-6 pt-6 border-t border-red-200 dark:border-red-900">
+                <h4 className="text-md font-semibold text-red-700 dark:text-red-400 mb-3">Danger Zone</h4>
               <AlertDialog>
                 <AlertDialogTrigger asChild>
                   <Button
@@ -253,7 +261,8 @@ export default function Profile() {
                   </AlertDialogFooter>
                 </AlertDialogContent>
               </AlertDialog>
-            </div>
+              </div>
+            </motion.div>
           )}
         </div>
       </div>

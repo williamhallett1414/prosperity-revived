@@ -44,15 +44,87 @@ export default function PostCard({ post, comments = [], onLike, onComment, index
     onSuccess: () => queryClient.invalidateQueries(['friends'])
   });
 
+  const likeMutation = useMutation({
+    mutationFn: async (liked) => {
+      const currentLikes = post.likes || 0;
+      const newLikes = liked ? currentLikes + 1 : currentLikes - 1;
+      await base44.entities.Post.update(post.id, { likes: newLikes });
+      return { liked, newLikes };
+    },
+    onMutate: async (liked) => {
+      // Optimistic update
+      await queryClient.cancelQueries({ queryKey: ['posts'] });
+      const previousPosts = queryClient.getQueryData(['posts']);
+      
+      queryClient.setQueryData(['posts'], (old) => {
+        if (!old) return old;
+        return old.map(p => 
+          p.id === post.id 
+            ? { ...p, likes: (p.likes || 0) + (liked ? 1 : -1) }
+            : p
+        );
+      });
+      
+      setIsLiked(liked);
+      return { previousPosts };
+    },
+    onError: (err, liked, context) => {
+      // Revert on error
+      queryClient.setQueryData(['posts'], context.previousPosts);
+      setIsLiked(!liked);
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ['posts'] });
+    }
+  });
+
+  const commentMutation = useMutation({
+    mutationFn: async (text) => {
+      return await base44.entities.Comment.create({
+        post_id: post.id,
+        content: text,
+        user_name: user?.full_name || user?.email || 'Anonymous'
+      });
+    },
+    onMutate: async (text) => {
+      // Optimistic update
+      await queryClient.cancelQueries({ queryKey: ['comments'] });
+      const previousComments = queryClient.getQueryData(['comments']);
+      
+      const optimisticComment = {
+        id: `temp-${Date.now()}`,
+        post_id: post.id,
+        content: text,
+        user_name: user?.full_name || user?.email || 'Anonymous',
+        created_date: new Date().toISOString()
+      };
+      
+      queryClient.setQueryData(['comments'], (old) => 
+        old ? [...old, optimisticComment] : [optimisticComment]
+      );
+      
+      return { previousComments };
+    },
+    onError: (err, text, context) => {
+      // Revert on error
+      queryClient.setQueryData(['comments'], context.previousComments);
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ['comments'] });
+    }
+  });
+
   const handleLike = () => {
-    setIsLiked(!isLiked);
-    onLike(post.id, !isLiked);
+    const newLikedState = !isLiked;
+    likeMutation.mutate(newLikedState);
+    if (onLike) onLike(post.id, newLikedState);
   };
 
   const handleComment = () => {
     if (commentText.trim()) {
-      onComment(post.id, commentText);
+      commentMutation.mutate(commentText);
       setCommentText('');
+      if (onComment) onComment(post.id, commentText);
     }
   };
 
