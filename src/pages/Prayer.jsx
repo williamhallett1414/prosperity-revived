@@ -333,8 +333,8 @@ export default function Prayer() {
           className="mb-6">
 
           <Button
-            onClick={() => setShowPrayerForm(!showPrayerForm)}
-            className="w-full bg-gradient-to-r from-[#FD9C2D] to-[#FAD98D] hover:from-[#FD9C2D]/90 hover:to-[#FAD98D]/90 text-[#3C4E53] h-12 rounded-xl shadow-md font-semibold">
+            onClick={() => setShowPrayerForm(!showPrayerForm)} className="bg-slate-50 text-[#3C4E53] px-4 py-2 text-sm font-semibold rounded-xl inline-flex items-center justify-center gap-2 whitespace-nowrap transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover:bg-primary/90 w-full from-[#FD9C2D] to-[#FAD98D] hover:from-[#FD9C2D]/90 hover:to-[#FAD98D]/90 h-12 shadow-md">
+
 
             <Heart className="w-5 h-5 mr-2" />
             Share Prayer Request
@@ -359,11 +359,11 @@ export default function Prayer() {
             <div>
               <Label htmlFor="prayer-text">Your Prayer Request</Label>
               <Textarea
-                id="prayer-text"
-                value={prayerText}
-                onChange={(e) => setPrayerText(e.target.value)}
-                placeholder="Share what's on your heart..."
-                className="min-h-[120px] mt-2" />
+                  id="prayer-text"
+                  value={prayerText}
+                  onChange={(e) => setPrayerText(e.target.value)}
+                  placeholder="Share what's on your heart..."
+                  className="min-h-[120px] mt-2" />
 
             </div>
 
@@ -378,11 +378,11 @@ export default function Prayer() {
                   </div>
                 </Label>
                 <Input
-                  id="photo-upload"
-                  type="file"
-                  accept="image/*"
-                  onChange={(e) => setPhotoFile(e.target.files?.[0] || null)}
-                  className="hidden" />
+                    id="photo-upload"
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => setPhotoFile(e.target.files?.[0] || null)}
+                    className="hidden" />
 
               </div>
 
@@ -396,22 +396,22 @@ export default function Prayer() {
                   </div>
                 </Label>
                 <Input
-                  id="video-upload"
-                  type="file"
-                  accept="video/*"
-                  onChange={(e) => setVideoFile(e.target.files?.[0] || null)}
-                  className="hidden" />
+                    id="video-upload"
+                    type="file"
+                    accept="video/*"
+                    onChange={(e) => setVideoFile(e.target.files?.[0] || null)}
+                    className="hidden" />
 
               </div>
             </div>
 
             <div className="flex items-center gap-2">
               <input
-                type="checkbox"
-                id="anonymous"
-                checked={isAnonymous}
-                onChange={(e) => setIsAnonymous(e.target.checked)}
-                className="rounded" />
+                  type="checkbox"
+                  id="anonymous"
+                  checked={isAnonymous}
+                  onChange={(e) => setIsAnonymous(e.target.checked)}
+                  className="rounded" />
 
               <Label htmlFor="anonymous" className="cursor-pointer text-sm">
                 Post anonymously
@@ -419,21 +419,21 @@ export default function Prayer() {
             </div>
 
             <Button
-              type="submit"
-              disabled={isUploading || !prayerText.trim()}
-              className="w-full bg-[#FD9C2D] hover:bg-[#FD9C2D]/90 text-white">
+                type="submit"
+                disabled={isUploading || !prayerText.trim()}
+                className="w-full bg-[#FD9C2D] hover:bg-[#FD9C2D]/90 text-white">
 
               {isUploading ?
-              <>
+                <>
                   <Loader2 className="w-4 h-4 mr-2 animate-spin" />
                   Submitting...
                 </> :
 
-              <>
+                <>
                   <Send className="w-4 h-4 mr-2" />
                   Submit Prayer Request
                 </>
-              }
+                }
             </Button>
           </form>
           </motion.div>
