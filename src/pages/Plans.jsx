@@ -171,6 +171,51 @@ Provide warm, helpful guidance (2-4 sentences) about reading plans, Bible study 
           </Button>
         </div>
 
+        {/* My Group Plans */}
+        {myGroupPlans.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-8"
+          >
+            <div className="flex items-center gap-2 mb-4">
+              <Users className="w-5 h-5 text-[#8fa68a]" />
+              <h2 className="text-lg font-semibold text-[#0A1A2F]">My Group Plans</h2>
+              <Badge variant="secondary">{myGroupPlans.length}</Badge>
+            </div>
+            <div className="grid gap-3">
+              {myGroupPlans.map((group) => (
+                <motion.div
+                  key={group.id}
+                  whileHover={{ scale: 1.02 }}
+                  onClick={() => window.location.href = createPageUrl(`GroupPlanDetail?id=${group.id}`)}
+                  className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-4 border border-green-200 cursor-pointer"
+                >
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <div className="flex items-center gap-2 mb-1">
+                        <Users className="w-4 h-4 text-green-600" />
+                        <h3 className="font-semibold text-gray-900">{group.group_name}</h3>
+                      </div>
+                      <p className="text-sm text-gray-600">{group.plan_name}</p>
+                      <p className="text-xs text-gray-500 mt-1">
+                        {group.member_count} members • {group.total_days} days
+                      </p>
+                    </div>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      className="border-green-300 text-green-700 hover:bg-green-100"
+                    >
+                      View
+                    </Button>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        )}
+
         {/* Categories */}
         <Tabs value={category} onValueChange={setCategory} className="mb-8">
           <TabsList className="bg-[#E6EBEF] p-1 h-auto flex-wrap gap-1 rounded-xl">
