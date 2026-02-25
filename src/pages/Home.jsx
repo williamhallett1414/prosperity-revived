@@ -25,6 +25,7 @@ import TodaysRecommendations from '@/components/home/TodaysRecommendations';
 import HelpChatbot from '@/components/home/HelpChatbot';
 import DailyReflectionPrompt from '@/components/gideon/DailyReflectionPrompt';
 import ProactiveSuggestions from '@/components/gideon/ProactiveSuggestions';
+import PersonalizedDevotional from '@/components/gideon/PersonalizedDevotional';
 
 import { Trophy } from 'lucide-react';
 
@@ -390,6 +391,7 @@ export default function Home() {
 
         {/* Gideon Proactive Engagement */}
         <ProactiveSuggestions />
+        <PersonalizedDevotional />
         <DailyReflectionPrompt />
 
         {/* Today's Overview */}
