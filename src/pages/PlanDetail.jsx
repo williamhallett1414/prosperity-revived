@@ -3,8 +3,9 @@ import { motion } from 'framer-motion';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { createPageUrl } from '@/utils';
-import { ArrowLeft, Calendar, CheckCircle2, Circle, Play, RotateCcw, FileText, BarChart3, Bell, BookOpen, Trash2 } from 'lucide-react';
+import { ArrowLeft, Calendar, CheckCircle2, Circle, Play, RotateCcw, FileText, BarChart3, Bell, BookOpen, Trash2, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import CreateGroupPlanModal from '@/components/plans/CreateGroupPlanModal';
 import { Progress } from '@/components/ui/progress';
 import { readingPlans } from '@/components/bible/BibleData';
 import { Link } from 'react-router-dom';
@@ -23,9 +24,15 @@ export default function PlanDetail() {
   const [showNoteModal, setShowNoteModal] = useState(false);
   const [showStatsModal, setShowStatsModal] = useState(false);
   const [showReminderModal, setShowReminderModal] = useState(false);
+  const [showCreateGroup, setShowCreateGroup] = useState(false);
+  const [user, setUser] = useState(null);
   
   let plan = readingPlans.find(p => p.id === planId);
   const queryClient = useQueryClient();
+
+  useEffect(() => {
+    base44.auth.me().then(setUser);
+  }, []);
 
   const { data: progress, isLoading } = useQuery({
     queryKey: ['planProgress', planId],
@@ -93,6 +100,45 @@ export default function PlanDetail() {
       }
     },
     onSuccess: () => queryClient.invalidateQueries(['planNotes'])
+  });
+
+  const createGroupPlan = useMutation({
+    mutationFn: async (groupData) => {
+      const inviteCode = Math.random().toString(36).substring(2, 8).toUpperCase();
+      
+      const group = await base44.entities.GroupReadingPlan.create({
+        plan_id: plan.id,
+        plan_name: plan.name,
+        group_name: groupData.group_name,
+        description: groupData.description,
+        creator_email: user.email,
+        creator_name: user.full_name,
+        total_days: plan.duration,
+        is_custom: progress?.is_custom || false,
+        custom_readings: progress?.custom_readings,
+        start_date: groupData.start_date,
+        is_private: groupData.is_private,
+        invite_code: groupData.is_private ? inviteCode : null,
+        member_count: 1
+      });
+
+      // Add creator as admin member
+      await base44.entities.GroupReadingMember.create({
+        group_id: group.id,
+        user_email: user.email,
+        user_name: user.full_name,
+        progress_id: progress?.id,
+        share_progress: true,
+        role: 'admin',
+        joined_date: new Date().toISOString().split('T')[0]
+      });
+
+      return group;
+    },
+    onSuccess: (group) => {
+      setShowCreateGroup(false);
+      window.location.href = createPageUrl(`GroupPlanDetail?id=${group.id}`);
+    }
   });
 
   if (!plan) {
@@ -301,6 +347,15 @@ export default function PlanDetail() {
                 Reminder
               </Button>
               <Button
+                onClick={() => setShowCreateGroup(true)}
+                variant="outline"
+                size="sm"
+                className="flex items-center gap-1 text-green-600 hover:text-green-700 hover:border-green-300"
+              >
+                <Users className="w-4 h-4" />
+                Create Group
+              </Button>
+              <Button
                 variant="outline"
                 size="sm"
                 onClick={handleRestart}
@@ -447,6 +502,13 @@ export default function PlanDetail() {
         onClose={() => setShowReminderModal(false)}
         progress={progress}
         onSave={handleSaveReminder}
+      />
+
+      <CreateGroupPlanModal
+        isOpen={showCreateGroup}
+        onClose={() => setShowCreateGroup(false)}
+        onSubmit={(data) => createGroupPlan.mutate(data)}
+        basePlan={plan}
       />
       </div>
     </>

@@ -4,10 +4,11 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { createPageUrl } from '@/utils';
 import { Link } from 'react-router-dom';
-import { Search, ArrowLeft, Plus, MessageCircle, Send, Loader2 } from 'lucide-react';
+import { Search, ArrowLeft, Plus, MessageCircle, Send, Loader2, Users } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Badge } from '@/components/ui/badge';
 import ReadingPlanCard from '@/components/home/ReadingPlanCard';
 import CreateCustomPlanModal from '@/components/plans/CreateCustomPlanModal';
 import { readingPlans } from '@/components/bible/BibleData';
@@ -32,6 +33,21 @@ export default function Plans() {
   const { data: planProgress = [] } = useQuery({
     queryKey: ['planProgress'],
     queryFn: () => base44.entities.ReadingPlanProgress.list()
+  });
+
+  const { data: myGroupPlans = [] } = useQuery({
+    queryKey: ['myGroupPlans', user?.email],
+    queryFn: async () => {
+      if (!user?.email) return [];
+      const memberships = await base44.entities.GroupReadingMember.filter({
+        user_email: user.email
+      });
+      if (memberships.length === 0) return [];
+      
+      const allGroups = await base44.entities.GroupReadingPlan.list();
+      return allGroups.filter(g => memberships.some(m => m.group_id === g.id));
+    },
+    enabled: !!user?.email
   });
 
   const createCustomPlan = useMutation({
