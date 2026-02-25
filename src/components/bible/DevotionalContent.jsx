@@ -27,6 +27,14 @@ const devotionals = [
     description: 'Guide your relationship through the depths of fostering intimacy, deepening emotional connection, and honoring God. Discover the power of intentionality and vulnerability in creating lasting bonds.',
     readTime: '10 min read',
     image: 'https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=600'
+  },
+  {
+    id: 'embracing-emotional-expression',
+    title: 'Embracing Emotional Expression',
+    subtitle: 'Communicating your feelings with grace and clarity',
+    description: 'Learn how to understand, acknowledge, and express your emotions in a way that honors God and fosters healthy relationships. Discover biblical wisdom for authentic emotional communication.',
+    readTime: '9 min read',
+    image: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600'
   }
 ];
 
