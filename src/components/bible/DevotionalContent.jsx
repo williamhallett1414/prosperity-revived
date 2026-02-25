@@ -35,6 +35,14 @@ const devotionals = [
     description: 'Learn how to understand, acknowledge, and express your emotions in a way that honors God and fosters healthy relationships. Discover biblical wisdom for authentic emotional communication.',
     readTime: '9 min read',
     image: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600'
+  },
+  {
+    id: 'divine-love',
+    title: 'Divine Love',
+    subtitle: 'Nurturing Connections Through Faith and Wisdom',
+    description: 'Rediscover the transformative power of love through Scripture. Learn to cultivate divine love in your heart and experience profound connections with God and others.',
+    readTime: '8 min read',
+    image: 'https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=600'
   }
 ];
 
