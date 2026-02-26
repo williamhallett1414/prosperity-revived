@@ -236,7 +236,7 @@ export default function UnifiedBibleReader({
     saveToJournal.mutate({
       title: `Bible Note: ${verseRef}`,
       content: journalContent,
-      entry_type: 'scripture_reflection',
+      entry_type: 'bible_notes',
       tags: ['Bible Notes', selectedBook.name]
     });
   };
