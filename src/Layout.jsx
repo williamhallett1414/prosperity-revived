@@ -51,41 +51,7 @@ export default function Layout({ children, currentPageName }) {
     Community: 'Community',
     Plans: 'Reading Plans',
     PlanDetail: 'Plan Details',
-    GrowthPathwaysPage: 'Growth Pathways',
-    HabitBuilderPage: 'Habit Builder',
-    EmotionalCheckInPage: 'Emotional Check-In',
-    MindsetResetPage: 'Mindset Reset',
-    SelfCareChallengesPage: 'Self-Care Challenges',
-    ChallengeDetailPage: 'Challenge Details',
-    AffirmationsPage: 'Affirmations',
-    GratitudeJournalPage: 'Gratitude Journal',
-    IdentityInChristPage: 'Identity in Christ',
-    WeeklyReflectionPage: 'Weekly Reflection',
-    FoodLogHistory: 'Food Log History',
-    MealDetailView: 'Meal Details',
-    NutritionArticle: 'Article',
-    NutritionGuidance: 'Nutrition Guidance',
-    DiscoverRecipes: 'Discover Recipes',
-    WorkoutCategoryPage: 'Workout Category',
-    WorkoutProgress: 'Workout Progress',
-    WorkoutTrends: 'Workout Trends',
-    SpiritualGrowth: 'Spiritual Growth',
-    SpiritualInsights: 'Spiritual Insights',
-    PersonalGrowth: 'Personal Growth',
-    ProgressDashboard: 'Your Journey',
-    PhotoGallery: 'Photo Gallery',
-    Bookmarks: 'Bookmarks',
-    Achievements: 'Achievements',
-    Notifications: 'Notifications',
-    NotificationSettings: 'Notification Settings',
-    MyJournalEntries: 'My Journal',
-    UserProfile: 'Profile',
-    BibleBooks: 'Bible',
-    GroupDetail: 'Group',
-    GroupPlanDetail: 'Group Plan',
-    Messages: 'Messages',
-    Friends: 'Friends',
-    Search: 'Search',
+    // Add more as needed
   };
 
   const currentPageTitle = pageTitles[currentPageName] || currentPageName;
@@ -189,14 +155,11 @@ export default function Layout({ children, currentPageName }) {
           {isPrimaryPage ?
             // For primary pages, keep all mounted but show only active
             <>
-              {primaryPages.map((pageName) =>
-              <div
-                key={pageName}
-                style={{ display: pageName === currentPageName ? 'block' : 'none' }}>
-
+              {primaryPages.map((pageName) => (
+                <div key={pageName} style={{ display: pageName === currentPageName ? 'block' : 'none' }}>
                   {pageName === currentPageName ? children : null}
                 </div>
-              )}
+              ))}
             </> :
 
             // For secondary pages, use animation

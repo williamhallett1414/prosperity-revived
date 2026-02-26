@@ -269,13 +269,15 @@ export default function Workouts() {
 
                   <div className="text-2xl font-bold text-[#3C4E53] mb-1">
                     {(() => {
-                      if (!workoutSessions.length) return 0;
-                      const uniqueDates = [...new Set(workoutSessions.map(s => s.date).filter(Boolean))].sort();
-                      let streak = 1, maxStreak = 1;
-                      for (let i = 1; i < uniqueDates.length; i++) {
-                        const diff = (new Date(uniqueDates[i]) - new Date(uniqueDates[i - 1])) / 86400000;
-                        if (diff === 1) { streak++; maxStreak = Math.max(maxStreak, streak); }
-                        else { streak = 1; }
+                      const uniqueDays = [...new Set(workoutSessions.map(s => s.date).filter(Boolean))].sort();
+                      let streak = 0, maxStreak = 0;
+                      for (let i = 0; i < uniqueDays.length; i++) {
+                        if (i === 0) { streak = 1; }
+                        else {
+                          const diff = (new Date(uniqueDays[i]) - new Date(uniqueDays[i - 1])) / 86400000;
+                          streak = diff <= 1 ? streak + 1 : 1;
+                        }
+                        maxStreak = Math.max(maxStreak, streak);
                       }
                       return maxStreak;
                     })()}
