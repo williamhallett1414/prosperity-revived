@@ -55,11 +55,23 @@ export default function VerseActionMenu({
     toast.success('Note saved!');
   };
 
-  const handleSaveToJournal = () => {
-    if (!existingBookmark?.note) {
+  const handleSaveToJournal = async () => {
+    if (!existingBookmark?.note && !noteText.trim()) {
       toast.error('Add a note first before saving to journal');
       return;
     }
+    
+    // If there's unsaved text in the input, save it first
+    if (showNoteInput && noteText.trim() && noteText !== existingBookmark?.note) {
+      if (existingBookmark) {
+        await onUpdateNote(noteText);
+      } else {
+        await onAddNote(noteText);
+      }
+      // Small delay to ensure bookmark is updated
+      await new Promise(resolve => setTimeout(resolve, 300));
+    }
+    
     onSaveToJournal();
     onClose();
   };
@@ -154,26 +166,38 @@ export default function VerseActionMenu({
                   className="min-h-[100px] text-sm bg-gray-50 border-gray-200"
                   autoFocus
                 />
-                <div className="flex gap-2">
-                  <Button
-                    onClick={handleSaveNote}
-                    size="sm"
-                    className="flex-1 bg-[#D9B878] hover:bg-[#D9B878]/90 text-[#0A1A2F]"
-                  >
-                    <Save className="w-3 h-3 mr-1" />
-                    Save
-                  </Button>
-                  <Button
-                    onClick={() => {
-                      setShowNoteInput(false);
-                      setNoteText(existingBookmark?.note || '');
-                    }}
-                    size="sm"
-                    variant="outline"
-                    className="flex-1"
-                  >
-                    Cancel
-                  </Button>
+                <div className="space-y-2">
+                  <div className="flex gap-2">
+                    <Button
+                      onClick={handleSaveNote}
+                      size="sm"
+                      className="flex-1 bg-[#D9B878] hover:bg-[#D9B878]/90 text-[#0A1A2F]"
+                    >
+                      <Save className="w-3 h-3 mr-1" />
+                      Save Note
+                    </Button>
+                    <Button
+                      onClick={() => {
+                        setShowNoteInput(false);
+                        setNoteText(existingBookmark?.note || '');
+                      }}
+                      size="sm"
+                      variant="outline"
+                      className="flex-1"
+                    >
+                      Cancel
+                    </Button>
+                  </div>
+                  {noteText.trim() && (
+                    <Button
+                      onClick={handleSaveToJournal}
+                      size="sm"
+                      className="w-full bg-[#8fa68a] hover:bg-[#8fa68a]/90 text-white"
+                    >
+                      <BookOpen className="w-3 h-3 mr-1" />
+                      Save to Journal
+                    </Button>
+                  )}
                 </div>
               </div>
             ) : existingBookmark?.note ? (
