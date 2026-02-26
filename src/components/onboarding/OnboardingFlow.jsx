@@ -67,6 +67,17 @@ export default function OnboardingFlow({ onComplete }) {
       subtitle: 'Let\'s personalize your journey',
       content: (
         <div className="space-y-4">
+          <div className="bg-gradient-to-br from-purple-500 to-indigo-600 rounded-2xl p-6 text-white mb-4">
+            <Heart className="w-8 h-8 mb-3" />
+            <h3 className="font-semibold mb-2">What should we call you?</h3>
+            <p className="text-sm text-white/80 mb-4">Let's make this personal from day one.</p>
+            <Input
+              placeholder="Your first name"
+              value={data.full_name}
+              onChange={(e) => setData({ ...data, full_name: e.target.value })}
+              className="bg-white/20 border-white/30 text-white placeholder:text-white/60"
+            />
+          </div>
           <div className="bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl p-6 text-white">
             <Target className="w-8 h-8 mb-3" />
             <h3 className="font-semibold mb-2">Set Your Spiritual Goal</h3>
@@ -97,27 +108,6 @@ export default function OnboardingFlow({ onComplete }) {
               }
             >
               {interest}
-            </Button>
-          ))}
-        </div>
-      )
-    },
-    {
-      title: 'Life Situations',
-      subtitle: 'Select any that apply to you (optional)',
-      content: (
-        <div className="grid grid-cols-2 gap-2 max-h-96 overflow-y-auto">
-          {LIFE_SITUATIONS.map(situation => (
-            <Button
-              key={situation}
-              onClick={() => toggleArrayItem('life_situation', situation)}
-              variant={data.life_situation.includes(situation) ? 'default' : 'outline'}
-              className={data.life_situation.includes(situation) 
-                ? 'bg-purple-600 hover:bg-purple-700 text-xs' 
-                : 'border-gray-300 hover:bg-gray-50 text-xs'
-              }
-            >
-              {situation}
             </Button>
           ))}
         </div>
@@ -173,87 +163,6 @@ export default function OnboardingFlow({ onComplete }) {
         </div>
       )
     },
-    {
-      title: 'Dietary Preferences',
-      subtitle: 'Help us recommend meals for you',
-      content: (
-        <div className="grid grid-cols-2 gap-2">
-          {DIETARY_PREFERENCES.map(pref => (
-            <Button
-              key={pref}
-              onClick={() => toggleArrayItem('dietary_preferences', pref)}
-              variant={data.dietary_preferences.includes(pref) ? 'default' : 'outline'}
-              className={data.dietary_preferences.includes(pref) 
-                ? 'bg-orange-600 hover:bg-orange-700' 
-                : 'border-gray-300 hover:bg-gray-50'
-              }
-            >
-              {pref}
-            </Button>
-          ))}
-        </div>
-      )
-    },
-    {
-      title: 'Set Reminders',
-      subtitle: 'Stay consistent with daily reminders',
-      content: (
-        <div className="space-y-3">
-          {[
-            { key: 'daily_verse', label: 'Daily Verse', icon: BookOpen, color: 'amber' },
-            { key: 'reading_plan', label: 'Reading Plan', icon: BookOpen, color: 'indigo' },
-            { key: 'workout', label: 'Workout', icon: Dumbbell, color: 'emerald' },
-            { key: 'meditation', label: 'Meditation', icon: Heart, color: 'purple' }
-          ].map(({ key, label, icon: Icon, color }) => (
-            <div key={key} className="flex items-center justify-between bg-gray-50 dark:bg-[#1a1a2e] rounded-xl p-3">
-              <div className="flex items-center gap-3">
-                <div className={`w-9 h-9 rounded-full bg-${color}-100 dark:bg-${color}-900/30 flex items-center justify-center flex-shrink-0`}>
-                  <Icon className={`w-4 h-4 text-${color}-600`} />
-                </div>
-                <div>
-                  <p className="font-medium text-sm text-gray-900 dark:text-white">{label}</p>
-                  {data.reminder_settings[key].enabled && (
-                    <p className="text-xs text-gray-500 dark:text-gray-400">
-                      {data.reminder_settings[key].time}
-                    </p>
-                  )}
-                </div>
-              </div>
-              <div className="flex items-center gap-2">
-                {data.reminder_settings[key].enabled && (
-                  <Input
-                    type="time"
-                    value={data.reminder_settings[key].time}
-                    onChange={(e) => setData(prev => ({
-                      ...prev,
-                      reminder_settings: {
-                        ...prev.reminder_settings,
-                        [key]: { ...prev.reminder_settings[key], time: e.target.value }
-                      }
-                    }))}
-                    className="w-20 h-8 text-xs"
-                  />
-                )}
-                <Button
-                  size="sm"
-                  variant={data.reminder_settings[key].enabled ? 'default' : 'outline'}
-                  onClick={() => setData(prev => ({
-                    ...prev,
-                    reminder_settings: {
-                      ...prev.reminder_settings,
-                      [key]: { ...prev.reminder_settings[key], enabled: !prev.reminder_settings[key].enabled }
-                    }
-                  }))}
-                  className={data.reminder_settings[key].enabled ? `bg-${color}-600 hover:bg-${color}-700` : ''}
-                >
-                  {data.reminder_settings[key].enabled ? 'On' : 'Off'}
-                </Button>
-              </div>
-            </div>
-          ))}
-        </div>
-      )
-    }
   ];
 
   const currentStep = steps[step - 1];

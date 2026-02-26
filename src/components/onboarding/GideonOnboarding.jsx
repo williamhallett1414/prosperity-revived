@@ -109,17 +109,10 @@ export default function GideonOnboarding({ onComplete, onRevisit }) {
             <div className="p-6 bg-gray-50 border-t border-gray-100 space-y-3">
               <div className="flex gap-3">
                 <Button
-                  onClick={handleSkip}
-                  variant="outline"
-                  className="flex-1 text-gray-700"
-                >
-                  Skip Tour
-                </Button>
-                <Button
                   onClick={handleNext}
-                  className="flex-1 bg-gradient-to-r from-purple-500 to-blue-600 hover:from-purple-600 hover:to-blue-700 text-white flex items-center justify-center gap-2"
+                  className="w-full bg-gradient-to-r from-purple-500 to-blue-600 hover:from-purple-600 hover:to-blue-700 text-white flex items-center justify-center gap-2"
                 >
-                  {step === steps.length - 1 ? 'Start Journey' : 'Next'}
+                  Start Chatting with Gideon
                   <ChevronRight className="w-4 h-4" />
                 </Button>
               </div>

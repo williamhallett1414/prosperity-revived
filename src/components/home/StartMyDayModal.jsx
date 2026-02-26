@@ -22,6 +22,7 @@ const affirmations = [
 const getAffirmation = () => affirmations[new Date().getDate() % affirmations.length];
 
 export default function StartMyDayModal({ isOpen, onClose, meditations = [], workoutPlans = [], user }) {
+  const navigate = useNavigate();
   const [step, setStep] = useState(0);
   const [breathCycle, setBreathCycle] = useState('inhale');
   const [showWorkoutModal, setShowWorkoutModal] = useState(false);
@@ -35,7 +36,6 @@ export default function StartMyDayModal({ isOpen, onClose, meditations = [], wor
       title: 'Scripture of the Day',
       emoji: '📖',
       color: 'from-[#AFC7E3] to-[#D9B878]',
-      duration: 5,
       content: (
         <div className="space-y-3">
           <p className="font-serif italic text-[#0A1A2F] text-lg leading-relaxed">
@@ -51,7 +51,6 @@ export default function StartMyDayModal({ isOpen, onClose, meditations = [], wor
       title: '2-Minute Prayer',
       emoji: '🙏',
       color: 'from-[#D9B878] to-[#AFC7E3]',
-      duration: 2,
       content: (
         <div className="space-y-3 text-center">
           <p className="text-[#0A1A2F] leading-relaxed">
@@ -64,7 +63,6 @@ export default function StartMyDayModal({ isOpen, onClose, meditations = [], wor
       title: 'Breathwork',
       emoji: '🌬️',
       color: 'from-[#AFC7E3] to-[#0A1A2F]',
-      duration: 2,
       content: (
         <div className="space-y-4 text-center">
           <div className="text-6xl mb-4">
@@ -83,7 +81,6 @@ export default function StartMyDayModal({ isOpen, onClose, meditations = [], wor
       title: 'Daily Affirmation',
       emoji: '✨',
       color: 'from-[#D9B878] to-[#FD9C2D]',
-      duration: 3,
       content: (
         <div className="space-y-3 text-center">
           <p className="text-[#0A1A2F] text-xl font-semibold leading-relaxed">
@@ -97,13 +94,12 @@ export default function StartMyDayModal({ isOpen, onClose, meditations = [], wor
       title: 'Suggested Meditation',
       emoji: '🧘',
       color: 'from-[#AFC7E3] to-[#D9B878]',
-      duration: 2,
       content: (
         <div className="space-y-3">
           <p className="text-sm text-[#0A1A2F]/70">{suggestedMeditation.description}</p>
           <p className="text-xs text-[#0A1A2F]/60"><strong>Duration:</strong> {suggestedMeditation.duration_minutes} min</p>
           <Button
-            onClick={() => window.location.href = `${createPageUrl('DiscoverMeditations')}?id=${suggestedMeditation.id}`}
+            onClick={() => navigate(createPageUrl('Wellness'))}
             disabled={!suggestedMeditation.tts_audio_url}
             className="w-full bg-white hover:bg-white/90 text-[#0A1A2F]"
             size="sm"
@@ -118,7 +114,6 @@ export default function StartMyDayModal({ isOpen, onClose, meditations = [], wor
        title: "Today's Workout",
        emoji: '💪',
        color: 'from-[#D9B878] to-[#AFC7E3]',
-       duration: 2,
        content: (
          <div className="space-y-3">
            <p className="text-sm text-[#0A1A2F]/70">{suggestedWorkout.description}</p>
@@ -137,7 +132,6 @@ export default function StartMyDayModal({ isOpen, onClose, meditations = [], wor
       title: 'Nutrition Reminder',
       emoji: '🥗',
       color: 'from-[#AFC7E3] to-[#D9B878]',
-      duration: 2,
       content: (
         <div className="space-y-3 text-center">
           <p className="text-[#0A1A2F]">
@@ -209,14 +203,7 @@ export default function StartMyDayModal({ isOpen, onClose, meditations = [], wor
                 {currentStep.content}
               </div>
 
-              {/* Timer */}
-              <div className="text-center">
-                <div className="inline-block">
-                  <div className="text-3xl font-bold text-[#D9B878]">
-                    {currentStep.duration}s
-                  </div>
-                </div>
-              </div>
+
             </motion.div>
           </AnimatePresence>
 

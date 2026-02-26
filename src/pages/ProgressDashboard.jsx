@@ -237,6 +237,7 @@ export default function ProgressDashboard() {
                   <Icon className="w-6 h-6" />
                   <span className="text-sm font-semibold text-center">{config.name}</span>
                   <span className="text-xs opacity-90">{config.category}</span>
+                  <p className="text-xs opacity-70 mt-0.5 text-center leading-tight">{config.description}</p>
                 </Button>
               );
             })}
