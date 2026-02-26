@@ -5,8 +5,8 @@ import { BookOpen, TrendingUp, CheckCircle, Calendar } from 'lucide-react';
 import { format, subDays } from 'date-fns';
 
 export default function BibleStatsModal({ isOpen, onClose, statType, progress, bookmarks }) {
-  const totalDaysRead = progress.reduce((sum, p) => sum + (p.completed_days?.length || 0), 0);
-  const longestStreak = Math.max(...progress.map(p => p.longest_streak || 0), 0);
+  const totalDaysRead = (progress || []).reduce((sum, p) => sum + (p.completed_days?.length || 0), 0);
+  const longestStreak = Math.max(...(progress || []).map(p => p.longest_streak || 0), 0);
 
   // Last 30 days reading data
   const last30Days = Array.from({ length: 30 }, (_, i) => {
