@@ -48,11 +48,14 @@ export default function UnifiedBibleReader({
     setLoading(true);
 
     try {
-      const response = await base44.functions.invoke('fetchBibleVerse', {
+      const { data } = await base44.functions.invoke('fetchBibleVerse', {
         book: selectedBook.name,
         chapter: chapterNum
       });
-      setVerses(response.data || []);
+      
+      // Handle different response formats
+      const versesData = data?.verses || data || [];
+      setVerses(versesData);
     } catch (error) {
       console.error('Error fetching verses:', error);
       setVerses([]);
