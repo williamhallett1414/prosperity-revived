@@ -271,6 +271,9 @@ export default function ProgressDashboard() {
           })}
         </div>
 
+        {/* Daily Reflection Prompt */}
+        <DailyReflectionPrompt />
+
         {/* Progress by Chatbot */}
         <div className="space-y-6">
           {Object.entries(chatbotConfig).map(([key, config], idx) => {
