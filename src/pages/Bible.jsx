@@ -127,7 +127,7 @@ export default function Bible() {
 
   const suggestedPlans = readingPlans.filter(plan => !getProgressForPlan(plan.id)).slice(0, 4);
   
-  const totalDaysRead = planProgress.reduce((sum, p) => sum + (p.completed_days?.length || 0), 0);
+  const totalDaysRead = (planProgress || []).reduce((sum, p) => sum + (p.completed_days?.length || 0), 0);
   const longestStreak = Math.max(...(planProgress || []).map(p => p.longest_streak || 0), 0);
 
   const handleStatClick = (statType) => {
@@ -320,7 +320,7 @@ export default function Bible() {
                           key={plan.id}
                           plan={plan}
                           progress={null}
-                          onClick={() => window.location.href = createPageUrl(`PlanDetail?id=${plan.id}`)}
+                          onClick={() => navigate(createPageUrl(`PlanDetail?id=${plan.id}`))}
                           index={index}
                         />
                       ))}
