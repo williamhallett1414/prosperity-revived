@@ -194,7 +194,7 @@ export default function Layout({ children, currentPageName }) {
                 key={pageName}
                 style={{ display: pageName === currentPageName ? 'block' : 'none' }}>
 
-                  {renderedPages[pageName] || (pageName === currentPageName ? children : null)}
+                  {pageName === currentPageName ? children : null}
                 </div>
               )}
             </> :
