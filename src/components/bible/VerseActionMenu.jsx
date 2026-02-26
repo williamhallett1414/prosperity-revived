@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Highlighter, StickyNote, BookOpen, X, Save, Trash2 } from 'lucide-react';
+import { Highlighter, StickyNote, BookOpen, X, Save, Trash2, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { toast } from 'sonner';
+import { base44 } from '@/api/base44Client';
 
 const HIGHLIGHT_COLORS = [
   { name: 'yellow', color: '#FCD34D', label: 'Yellow' },
@@ -26,6 +27,9 @@ export default function VerseActionMenu({
 }) {
   const [showNoteInput, setShowNoteInput] = useState(false);
   const [noteText, setNoteText] = useState(existingBookmark?.note || '');
+  const [showAIInsights, setShowAIInsights] = useState(false);
+  const [aiInsights, setAIInsights] = useState(null);
+  const [loadingAI, setLoadingAI] = useState(false);
 
   const handleHighlightSelect = (color) => {
     if (existingBookmark && existingBookmark.highlight_color === color) {
@@ -76,6 +80,49 @@ export default function VerseActionMenu({
     onClose();
   };
 
+  const handleGetAIInsights = async () => {
+    setLoadingAI(true);
+    setShowAIInsights(true);
+    
+    const verseRef = `${bookName} ${chapter}:${verse.verse}`;
+    
+    try {
+      const response = await base44.integrations.Core.InvokeLLM({
+        prompt: `You are Gideon, a warm biblical scholar providing deep insights into Scripture.
+
+Analyze this verse: ${verseRef}
+Text: "${verse.text}"
+
+Provide:
+
+**📜 Historical & Cultural Context**
+Explain the time period, cultural setting, and original audience. What was happening when this was written?
+
+**⛪ Theological Interpretation**
+What does this verse reveal about God's character, His promises, or His ways? What kingdom principles are taught here?
+
+**🔗 Scripture Connections**
+List 3-4 related verses that connect to this theme or expand on this truth. Reference them clearly.
+
+**💡 Key Themes & Message**
+What are the main spiritual themes? What is God communicating through this?
+
+**🎯 Practical Application**
+How does this apply to our lives today? What action or mindset shift does it call for?
+
+Keep it warm, accessible, and spiritually enriching - like Dr. Myles Munroe's kingdom revelation combined with Joel Osteen's encouragement.`,
+        add_context_from_internet: true
+      });
+
+      setAIInsights(response);
+    } catch (error) {
+      toast.error('Failed to get AI insights');
+      console.error(error);
+    } finally {
+      setLoadingAI(false);
+    }
+  };
+
   return (
     <AnimatePresence>
       <motion.div
@@ -102,6 +149,32 @@ export default function VerseActionMenu({
         </div>
 
         <div className="p-4 space-y-4">
+          {/* AI Insights Button */}
+          <Button
+            onClick={handleGetAIInsights}
+            disabled={loadingAI}
+            className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white"
+            size="sm"
+          >
+            <Sparkles className="w-4 h-4 mr-2" />
+            {loadingAI ? 'Getting Insights...' : 'Get AI Insights with Gideon'}
+          </Button>
+
+          {/* AI Insights Display */}
+          {showAIInsights && aiInsights && (
+            <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-lg p-4 space-y-3 max-h-96 overflow-y-auto">
+              <div className="flex items-center gap-2 mb-2">
+                <Sparkles className="w-4 h-4 text-purple-600" />
+                <span className="text-sm font-bold text-purple-900">Gideon's Insights</span>
+              </div>
+              <div className="prose prose-sm text-gray-700 text-xs leading-relaxed">
+                {aiInsights.split('\n').map((line, i) => (
+                  <p key={i} className="mb-2">{line}</p>
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* Highlight Colors */}
           <div>
             <div className="flex items-center gap-2 mb-2">
