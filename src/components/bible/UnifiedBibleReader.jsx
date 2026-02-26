@@ -217,11 +217,16 @@ export default function UnifiedBibleReader({
   };
 
   const handleSaveToJournal = async (verse) => {
-    console.log('handleSaveToJournal called');
+    console.log('🔵 handleSaveToJournal called');
+    console.log('🔵 verse:', verse);
+    console.log('🔵 selectedBook:', selectedBook);
+    console.log('🔵 selectedChapter:', selectedChapter);
+    
     const bookmark = getBookmark(verse);
-    console.log('Bookmark:', bookmark);
+    console.log('🔵 bookmark found:', bookmark);
     
     if (!bookmark?.note) {
+      console.error('❌ No note found in bookmark');
       toast.error('No note found to save');
       return;
     }
@@ -229,38 +234,46 @@ export default function UnifiedBibleReader({
     const verseRef = `${selectedBook.name} ${selectedChapter}:${verse.verse}`;
     const journalContent = `📖 ${verseRef}\n\n"${verse.text}"\n\n💭 My Reflection:\n${bookmark.note}`;
 
-    console.log('Saving to journal:', {
+    const journalData = {
       title: `Bible Note: ${verseRef}`,
       content: journalContent,
-      entry_type: 'bible_notes'
-    });
+      entry_type: 'bible_notes',
+      tags: ['Bible Notes', selectedBook.name]
+    };
+    
+    console.log('🔵 Attempting to save journal data:', JSON.stringify(journalData, null, 2));
 
     try {
-      const result = await base44.entities.JournalEntry.create({
-        title: `Bible Note: ${verseRef}`,
-        content: journalContent,
-        entry_type: 'bible_notes',
-        tags: ['Bible Notes', selectedBook.name]
-      });
-      console.log('✅ Journal Entry Created Successfully:', result);
-      console.log('Entry ID:', result.id);
-      console.log('Entry Type:', result.entry_type);
+      console.log('🔵 Calling base44.entities.JournalEntry.create...');
+      const result = await base44.entities.JournalEntry.create(journalData);
+      console.log('✅ CREATE SUCCEEDED! Result:', result);
+      console.log('✅ Entry ID:', result.id);
+      console.log('✅ Entry Type in result:', result.entry_type);
+      console.log('✅ Full result data:', JSON.stringify(result, null, 2));
       
       // Invalidate and refetch
+      console.log('🔵 Invalidating queries...');
       await queryClient.invalidateQueries({ queryKey: ['journalEntries'] });
+      console.log('✅ Queries invalidated');
       
       // Wait a bit and verify
       setTimeout(async () => {
+        console.log('🔵 Fetching all entries to verify...');
         const allEntries = await base44.entities.JournalEntry.list();
-        console.log('📋 All entries after save:', allEntries);
-        console.log('📖 Bible notes after save:', allEntries.filter(e => e.entry_type === 'bible_notes'));
-      }, 500);
+        console.log('📋 Total entries in DB:', allEntries.length);
+        const bibleNotes = allEntries.filter(e => e.entry_type === 'bible_notes');
+        console.log('📖 Bible notes entries:', bibleNotes.length);
+        console.log('📖 Bible notes data:', bibleNotes);
+      }, 1000);
       
-      toast.success('Saved to My Journal!');
+      toast.success('✅ Saved to My Journal!');
     } catch (error) {
-      console.error('❌ Failed to save:', error);
-      console.error('Error details:', JSON.stringify(error, null, 2));
-      toast.error(`Failed to save: ${error.message}`);
+      console.error('❌ CREATE FAILED!');
+      console.error('❌ Error:', error);
+      console.error('❌ Error message:', error?.message);
+      console.error('❌ Error stack:', error?.stack);
+      console.error('❌ Error details:', JSON.stringify(error, null, 2));
+      toast.error(`Failed to save: ${error.message || 'Unknown error'}`);
     }
   };
 
