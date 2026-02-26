@@ -30,6 +30,7 @@ import PersonalizedDevotional from '@/components/gideon/PersonalizedDevotional';
 import { Trophy } from 'lucide-react';
 
 export default function Home() {
+  const navigate = useNavigate();
   const [showDailyVerseSettings, setShowDailyVerseSettings] = useState(false);
   const [showCreatePost, setShowCreatePost] = useState(false);
   const [user, setUser] = useState(null);
@@ -361,7 +362,7 @@ export default function Home() {
               key={plan.id}
               plan={plan}
               progress={getProgressForPlan(plan.id)}
-              onClick={() => window.location.href = createPageUrl(`PlanDetail?id=${plan.id}`)}
+              onClick={() => navigate(createPageUrl(`PlanDetail?id=${plan.id}`))}
               index={index} />
 
             )}
