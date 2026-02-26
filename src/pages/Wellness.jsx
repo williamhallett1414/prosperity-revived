@@ -1,16 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
-import { ArrowLeft } from 'lucide-react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { motion } from 'framer-motion';
 import WellnessRecommendations from '@/components/wellness/WellnessRecommendations';
 
-
-
-
 export default function Wellness() {
-  const navigate = useNavigate();
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -19,20 +14,6 @@ export default function Wellness() {
 
   return (
     <div className="min-h-screen bg-[#F2F6FA] pb-24">
-      {/* Top Navigation */}
-      <div className="sticky top-0 z-40 bg-white border-b border-gray-200 px-4 py-3">
-        <div className="max-w-2xl mx-auto flex items-center justify-between">
-          
-
-
-
-
-
-          <h1 className="text-lg font-bold text-[#0A1A2F]">Wellness</h1>
-          <div className="w-10" />
-        </div>
-      </div>
-
       <div className="px-4 pt-6 pb-6">
         <div className="max-w-2xl mx-auto">
           <div className="grid grid-cols-2 gap-4">
@@ -41,7 +22,6 @@ export default function Wellness() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0 }}>
-
               <Link to={createPageUrl('Nutrition')}>
                 <div
                   className="relative rounded-2xl overflow-hidden h-40 group cursor-pointer shadow-md hover:shadow-lg transition-shadow"
@@ -50,7 +30,6 @@ export default function Wellness() {
                     backgroundSize: 'cover',
                     backgroundPosition: 'center'
                   }}>
-
                   <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors" />
                   <div className="absolute inset-0 flex items-center justify-center">
                     <p className="text-white font-bold text-lg text-center px-3">Nutrition</p>
@@ -64,7 +43,6 @@ export default function Wellness() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}>
-
               <Link to={createPageUrl('PersonalGrowth')}>
                 <div
                   className="relative rounded-2xl overflow-hidden h-40 group cursor-pointer shadow-md hover:shadow-lg transition-shadow"
@@ -73,7 +51,6 @@ export default function Wellness() {
                     backgroundSize: 'cover',
                     backgroundPosition: 'center'
                   }}>
-
                   <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors" />
                   <div className="absolute inset-0 flex items-center justify-center">
                     <p className="text-white font-bold text-lg text-center px-3">Personal Growth</p>
@@ -87,7 +64,6 @@ export default function Wellness() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}>
-
               <Link to={createPageUrl('Workouts')}>
                 <div
                   className="relative rounded-2xl overflow-hidden h-40 group cursor-pointer shadow-md hover:shadow-lg transition-shadow"
@@ -96,7 +72,6 @@ export default function Wellness() {
                     backgroundSize: 'cover',
                     backgroundPosition: 'center'
                   }}>
-
                   <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors" />
                   <div className="absolute inset-0 flex items-center justify-center">
                     <p className="text-white font-bold text-lg text-center px-3">Workouts</p>
@@ -110,7 +85,6 @@ export default function Wellness() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}>
-
               <Link to={createPageUrl('Bible')}>
                 <div
                   className="relative rounded-2xl overflow-hidden h-40 group cursor-pointer shadow-md hover:shadow-lg transition-shadow"
@@ -119,7 +93,6 @@ export default function Wellness() {
                     backgroundSize: 'cover',
                     backgroundPosition: 'center'
                   }}>
-
                   <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors" />
                   <div className="absolute inset-0 flex items-center justify-center">
                     <p className="text-white font-bold text-lg text-center px-3">Bible</p>
@@ -136,6 +109,6 @@ export default function Wellness() {
           </div>
         </div>
       </div>
-    </div>);
-
+    </div>
+  );
 }
