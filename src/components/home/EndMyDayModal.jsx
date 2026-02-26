@@ -5,8 +5,11 @@ import { Button } from '@/components/ui/button';
 import { ChevronRight, Play, Plus } from 'lucide-react';
 import { useQueryClient } from '@tanstack/react-query';
 import JournalEntryModal from './JournalEntryModal';
+import { useNavigate } from 'react-router-dom';
+import { createPageUrl } from '@/utils';
 
 export default function EndMyDayModal({ isOpen, onClose, meditations = [] }) {
+  const navigate = useNavigate();
   const [step, setStep] = useState(0);
   const [showJournalModal, setShowJournalModal] = useState(false);
   const queryClient = useQueryClient();

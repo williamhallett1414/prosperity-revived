@@ -38,6 +38,12 @@ export default function Home() {
   const [showGideonOnboarding, setShowGideonOnboarding] = useState(false);
   const [showStartDay, setShowStartDay] = useState(false);
   const [showEndDay, setShowEndDay] = useState(false);
+  const [showStartHere, setShowStartHere] = useState(() => {
+    const visits = parseInt(localStorage.getItem('app_visit_count') || '0');
+    const newCount = visits + 1;
+    localStorage.setItem('app_visit_count', newCount.toString());
+    return newCount <= 3;
+  });
   const queryClient = useQueryClient();
 
   useEffect(() => {

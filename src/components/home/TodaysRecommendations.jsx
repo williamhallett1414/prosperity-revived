@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { Dumbbell, Apple, Heart, Droplets, Brain, Zap, Activity } from 'lucide-react';
 
 export default function TodaysRecommendations({ user, mealLogs, workoutSessions, waterLogs, meditationSessions }) {
+  const navigate = useNavigate();
   const [recommendations, setRecommendations] = useState([]);
 
   useEffect(() => {

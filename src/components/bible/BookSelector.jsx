@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
+import { createPageUrl } from '@/utils';
 import { bibleBooks } from './BibleData';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { ChevronDown, BookOpen } from 'lucide-react';
 
 export default function BookSelector({ onSelectBook, selectedBook }) {
+  const navigate = useNavigate();
   const handleNavigateToTestament = (testament) => {
-    window.location.href = `/BibleBooks?testament=${testament}`;
+    navigate(createPageUrl(`BibleBooks?testament=${testament}`));
   };
 
   return (
