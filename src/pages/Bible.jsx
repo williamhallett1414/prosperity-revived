@@ -2,15 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ArrowLeft, Compass, BookOpen, TrendingUp, CheckCircle, Heart, Sparkles } from 'lucide-react';
+import { ArrowLeft, Compass, BookOpen, TrendingUp, CheckCircle, Heart, Sparkles, Book } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
+import { Button } from '@/components/ui/button';
 import BookSelector from '@/components/bible/BookSelector';
 import ChapterSelector from '@/components/bible/ChapterSelector';
 import VerseReader from '@/components/bible/VerseReader';
 import ReadingPlanCard from '@/components/home/ReadingPlanCard';
-import { readingPlans } from '@/components/bible/BibleData';
+import { readingPlans, getBookByName } from '@/components/bible/BibleData';
 import BibleStatsModal from '@/components/bible/BibleStatsModal';
 import DevotionalContent from '@/components/bible/DevotionalContent';
 import BibleQA from '@/components/bible/BibleQA';
@@ -18,13 +19,14 @@ import BibleStudyGuide from '@/components/bible/BibleStudyGuide';
 import MoodTracker from '@/components/bible/MoodTracker';
 import PastoralChatbot from '@/components/bible/PastoralChatbot';
 import GideonAskAnything from '@/components/bible/GideonAskAnything';
+import UnifiedBibleReader from '@/components/bible/UnifiedBibleReader';
 
 export default function Bible() {
-  const [view, setView] = useState('books'); // books, chapters, reader
-  const [selectedBook, setSelectedBook] = useState(null);
-  const [selectedChapter, setSelectedChapter] = useState(null);
+  const [view, setView] = useState('home'); // home, oldTestament, newTestament
   const [showStatsModal, setShowStatsModal] = useState(false);
   const [selectedStat, setSelectedStat] = useState(null);
+  const [initialBook, setInitialBook] = useState(null);
+  const [initialChapter, setInitialChapter] = useState(null);
 
   const queryClient = useQueryClient();
   const navigate = useNavigate();
@@ -56,58 +58,48 @@ export default function Bible() {
     const chapter = params.get('chapter');
     
     if (bookName && chapter) {
-      import('@/components/bible/BibleData').then(({ getBookByName }) => {
-        const book = getBookByName(bookName);
-        if (book) {
-          setSelectedBook(book);
-          setSelectedChapter(parseInt(chapter));
-          setView('reader');
-        }
-      });
+      const book = getBookByName(bookName);
+      if (book) {
+        setInitialBook(book);
+        setInitialChapter(parseInt(chapter));
+        
+        // Determine testament
+        const isOldTestament = ['Genesis', 'Exodus', 'Leviticus', 'Numbers', 'Deuteronomy', 
+          'Joshua', 'Judges', 'Ruth', '1 Samuel', '2 Samuel', '1 Kings', '2 Kings', 
+          '1 Chronicles', '2 Chronicles', 'Ezra', 'Nehemiah', 'Esther', 'Job', 'Psalms', 
+          'Proverbs', 'Ecclesiastes', 'Song of Solomon', 'Isaiah', 'Jeremiah', 'Lamentations', 
+          'Ezekiel', 'Daniel', 'Hosea', 'Joel', 'Amos', 'Obadiah', 'Jonah', 'Micah', 'Nahum', 
+          'Habakkuk', 'Zephaniah', 'Haggai', 'Zechariah', 'Malachi'].includes(book.name);
+        
+        setView(isOldTestament ? 'oldTestament' : 'newTestament');
+      }
     }
   }, []);
 
-  const planDay = new URLSearchParams(window.location.search).get('planDay');
-  const planId = new URLSearchParams(window.location.search).get('planId');
-
-  const handleSelectBook = (book) => {
-    setSelectedBook(book);
-    setView('chapters');
-  };
-
-  const handleSelectChapter = (chapter) => {
-    setSelectedChapter(chapter);
-    setView('reader');
-  };
-
-  const handleBack = () => {
-    if (view === 'reader') {
-      setView('chapters');
-      setSelectedChapter(null);
-    } else if (view === 'chapters') {
-      setView('books');
-      setSelectedBook(null);
-    }
-  };
-
-  const handleNavigateChapter = (chapter) => {
-    setSelectedChapter(chapter);
+  const handleBackToHome = () => {
+    setView('home');
+    setInitialBook(null);
+    setInitialChapter(null);
   };
 
   const handleBookmark = (verse, color, note = '') => {
+    const bookName = verse.book || initialBook?.name;
+    const chapterNum = verse.chapter || initialChapter;
+    
     const existing = bookmarks.find(b => 
-      b.book === verse.book && 
-      b.chapter === verse.chapter && 
+      b.book === bookName && 
+      b.chapter === chapterNum && 
       b.verse === verse.verse
     );
 
     if (existing) {
       deleteBookmark.mutate(existing.id);
+      return;
     }
     
     createBookmark.mutate({
-      book: verse.book,
-      chapter: verse.chapter,
+      book: bookName,
+      chapter: chapterNum,
       verse: verse.verse,
       verse_text: verse.text,
       highlight_color: color,
@@ -129,9 +121,36 @@ export default function Bible() {
     setShowStatsModal(true);
   };
 
+  // Render testament readers
+  if (view === 'oldTestament') {
+    return (
+      <UnifiedBibleReader
+        testament="old"
+        onBack={handleBackToHome}
+        initialBook={initialBook}
+        initialChapter={initialChapter}
+        bookmarks={bookmarks}
+        onBookmark={handleBookmark}
+      />
+    );
+  }
+
+  if (view === 'newTestament') {
+    return (
+      <UnifiedBibleReader
+        testament="new"
+        onBack={handleBackToHome}
+        initialBook={initialBook}
+        initialChapter={initialChapter}
+        bookmarks={bookmarks}
+        onBookmark={handleBookmark}
+      />
+    );
+  }
+
   return (
     <div className="min-h-screen bg-[#F2F6FA] pb-24">
-      {view === 'books' && (
+      {view === 'home' && (
         <div className="px-4 py-6">
           <div className="mb-6">
             <div className="flex items-center gap-3 mb-2">
@@ -175,11 +194,29 @@ export default function Bible() {
 
             <TabsContent value="read">
               <div className="space-y-6">
-                <div className="mb-6">
-                  <BookSelector
-                    onSelectBook={handleSelectBook}
-                    selectedBook={selectedBook}
-                  />
+                {/* Testament Selection */}
+                <div className="grid grid-cols-2 gap-4 mb-6">
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => setView('oldTestament')}
+                    className="bg-gradient-to-br from-amber-100 to-yellow-100 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all border-2 border-amber-200"
+                  >
+                    <Book className="w-8 h-8 text-amber-700 mb-3 mx-auto" />
+                    <h3 className="font-bold text-amber-900 text-lg mb-1">Old Testament</h3>
+                    <p className="text-xs text-amber-700">39 books</p>
+                  </motion.button>
+
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => setView('newTestament')}
+                    className="bg-gradient-to-br from-sky-100 to-blue-100 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all border-2 border-sky-200"
+                  >
+                    <Book className="w-8 h-8 text-sky-700 mb-3 mx-auto" />
+                    <h3 className="font-bold text-sky-900 text-lg mb-1">New Testament</h3>
+                    <p className="text-xs text-sky-700">27 books</p>
+                  </motion.button>
                 </div>
 
                 {/* Mood Tracker */}
@@ -278,32 +315,6 @@ export default function Bible() {
               <DevotionalContent />
             </TabsContent>
           </Tabs>
-        </div>
-      )}
-
-      {view === 'chapters' && selectedBook && (
-        <div className="h-full pt-4">
-          <ChapterSelector
-            book={selectedBook}
-            onSelectChapter={handleSelectChapter}
-            onBack={handleBack}
-            selectedChapter={selectedChapter}
-          />
-        </div>
-      )}
-
-      {view === 'reader' && selectedBook && selectedChapter && (
-        <div className="h-full">
-          <VerseReader
-            book={selectedBook}
-            chapter={selectedChapter}
-            onBack={handleBack}
-            onNavigate={handleNavigateChapter}
-            bookmarks={bookmarks}
-            onBookmark={handleBookmark}
-            planDay={planDay}
-            planId={planId}
-          />
         </div>
       )}
 

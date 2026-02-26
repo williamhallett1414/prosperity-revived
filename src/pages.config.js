@@ -61,6 +61,7 @@ import FoodLogHistory from './pages/FoodLogHistory';
 import Friends from './pages/Friends';
 import GratitudeJournalPage from './pages/GratitudeJournalPage';
 import GroupDetail from './pages/GroupDetail';
+import GroupPlanDetail from './pages/GroupPlanDetail';
 import Groups from './pages/Groups';
 import GrowthPathwaysPage from './pages/GrowthPathwaysPage';
 import HabitBuilderPage from './pages/HabitBuilderPage';
@@ -98,7 +99,6 @@ import WorkoutCategoryPage from './pages/WorkoutCategoryPage';
 import WorkoutProgress from './pages/WorkoutProgress';
 import WorkoutTrends from './pages/WorkoutTrends';
 import Workouts from './pages/Workouts';
-import GroupPlanDetail from './pages/GroupPlanDetail';
 import __Layout from './Layout.jsx';
 
 
@@ -117,6 +117,7 @@ export const PAGES = {
     "Friends": Friends,
     "GratitudeJournalPage": GratitudeJournalPage,
     "GroupDetail": GroupDetail,
+    "GroupPlanDetail": GroupPlanDetail,
     "Groups": Groups,
     "GrowthPathwaysPage": GrowthPathwaysPage,
     "HabitBuilderPage": HabitBuilderPage,
@@ -154,7 +155,6 @@ export const PAGES = {
     "WorkoutProgress": WorkoutProgress,
     "WorkoutTrends": WorkoutTrends,
     "Workouts": Workouts,
-    "GroupPlanDetail": GroupPlanDetail,
 }
 
 export const pagesConfig = {
