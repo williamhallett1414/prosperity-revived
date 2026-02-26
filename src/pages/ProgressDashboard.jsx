@@ -26,6 +26,7 @@ import GideonChatbot from '@/components/bible/GideonChatbot';
 import HolisticProgressReport from '@/components/journey/HolisticProgressReport';
 import WelcomeOnboarding from '@/components/onboarding/WelcomeOnboarding';
 import PersonalizedDevotional from '@/components/gideon/PersonalizedDevotional';
+import DailyReflectionPrompt from '@/components/gideon/DailyReflectionPrompt';
 
 const chatbotConfig = {
   Hannah: {
@@ -211,6 +212,9 @@ export default function ProgressDashboard() {
 
         {/* Personalized Devotional */}
         <PersonalizedDevotional />
+
+        {/* Daily Reflection Prompt */}
+        <DailyReflectionPrompt />
 
         {/* Chat with Guides Section */}
         <motion.div
