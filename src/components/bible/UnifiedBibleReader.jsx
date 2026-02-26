@@ -11,22 +11,54 @@ export default function UnifiedBibleReader({
   initialBook = null,
   initialChapter = null,
   bookmarks = [],
-  onBookmark
+  onBookmark,
+  searchData = null
 }) {
   const [selectedBook, setSelectedBook] = useState(initialBook);
   const [selectedChapter, setSelectedChapter] = useState(initialChapter);
   const [verses, setVerses] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [highlightVerse, setHighlightVerse] = useState(null);
   const versesRef = useRef(null);
 
   const books = testament === 'old' ? bibleBooks.oldTestament : bibleBooks.newTestament;
   const testamentName = testament === 'old' ? 'Old Testament' : 'New Testament';
 
-  // Auto-scroll to specific verse if passed via URL
+  // Handle search navigation
+  useEffect(() => {
+    if (searchData) {
+      setSelectedBook(searchData.book);
+      
+      if (searchData.chapter) {
+        setSelectedChapter(searchData.chapter);
+        
+        if (searchData.verse) {
+          setHighlightVerse(searchData.verse);
+          // Clear highlight after 3 seconds
+          setTimeout(() => setHighlightVerse(null), 3000);
+        }
+      }
+    }
+  }, [searchData]);
+
+  // Auto-scroll to specific verse
+  useEffect(() => {
+    if (highlightVerse && verses.length > 0) {
+      setTimeout(() => {
+        const verseEl = document.getElementById(`verse-${highlightVerse}`);
+        if (verseEl) {
+          verseEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          verseEl.classList.add('highlight-verse');
+        }
+      }, 300);
+    }
+  }, [verses, highlightVerse]);
+
+  // Also handle URL params
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const verseNum = params.get('verse');
-    if (verseNum && versesRef.current) {
+    if (verseNum && versesRef.current && verses.length > 0) {
       setTimeout(() => {
         const verseEl = document.getElementById(`verse-${verseNum}`);
         if (verseEl) {
@@ -217,6 +249,7 @@ export default function UnifiedBibleReader({
               <div className="max-w-3xl space-y-4">
                 {verses.map((verse, idx) => {
                   const bookmarked = isBookmarked(verse);
+                  const isHighlighted = highlightVerse === verse.verse;
                   return (
                     <motion.div
                       key={idx}
@@ -224,7 +257,7 @@ export default function UnifiedBibleReader({
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: idx * 0.02 }}
-                      className="group relative"
+                      className={`group relative ${isHighlighted ? 'highlight-verse' : ''}`}
                     >
                       <div className="flex gap-3">
                         <span className="text-sm font-semibold text-[#8fa68a] mt-1 flex-shrink-0 w-8">
