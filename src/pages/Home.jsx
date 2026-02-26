@@ -130,6 +130,60 @@ export default function Home() {
     enabled: !!user
   });
 
+  const { data: meditations = [] } = useQuery({
+    queryKey: ['meditations'],
+    queryFn: async () => {
+      try {
+        return await base44.entities.Meditation.filter({}, '-created_date', 20);
+      } catch (error) {
+        return [];
+      }
+    },
+    enabled: !!user,
+    retry: false
+  });
+
+  const { data: workoutPlans = [] } = useQuery({
+    queryKey: ['workoutPlans'],
+    queryFn: async () => {
+      try {
+        return await base44.entities.WorkoutPlan.filter({}, '-created_date', 10);
+      } catch (error) {
+        return [];
+      }
+    },
+    enabled: !!user,
+    retry: false
+  });
+
+  const { data: challenges = [] } = useQuery({
+    queryKey: ['challengeParticipants'],
+    queryFn: async () => {
+      try {
+        if (!user?.email) return [];
+        return await base44.entities.ChallengeParticipant.filter({ user_email: user.email, status: 'active' });
+      } catch (error) {
+        return [];
+      }
+    },
+    enabled: !!user,
+    retry: false
+  });
+
+  const { data: journalEntries = [] } = useQuery({
+    queryKey: ['journalEntries'],
+    queryFn: async () => {
+      try {
+        if (!user?.email) return [];
+        return await base44.entities.JournalEntry.filter({ created_by: user.email }, '-created_date', 10);
+      } catch (error) {
+        return [];
+      }
+    },
+    enabled: !!user,
+    retry: false
+  });
+
   const { data: mealLogs = [] } = useQuery({
     queryKey: ['mealLogs'],
     queryFn: () => base44.entities.MealLog.list('-date', 100),
@@ -142,6 +196,19 @@ export default function Home() {
     queryFn: () => base44.entities.WaterLog.list('-date', 100),
     initialData: [],
     enabled: !!user
+  });
+
+  const { data: myPosts = [] } = useQuery({
+    queryKey: ['myPosts'],
+    queryFn: async () => {
+      try {
+        return await base44.entities.Post.filter({ created_by: user?.email });
+      } catch (error) {
+        return [];
+      }
+    },
+    enabled: !!user,
+    retry: false
   });
 
   const createBookmark = useMutation({
@@ -291,6 +358,9 @@ export default function Home() {
 
         {/* Today's Overview */}
         <TodaysOverview
+          meditations={meditations}
+          workoutPlans={workoutPlans}
+          challenges={challenges}
           user={user}
           onBookmark={handleBookmarkVerse} />
 
@@ -463,11 +533,14 @@ export default function Home() {
       <StartMyDayModal
         isOpen={showStartDay}
         onClose={() => setShowStartDay(false)}
+        meditations={meditations}
+        workoutPlans={workoutPlans}
         user={user} />
 
       <EndMyDayModal
         isOpen={showEndDay}
-        onClose={() => setShowEndDay(false)} />
+        onClose={() => setShowEndDay(false)}
+        meditations={meditations} />
 
       {/* Help Chatbot */}
       <HelpChatbot />
