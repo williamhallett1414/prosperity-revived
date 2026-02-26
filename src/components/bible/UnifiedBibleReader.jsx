@@ -1,10 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
-import { ArrowLeft, ChevronRight, Bookmark, Share2 } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowLeft, ChevronRight, Bookmark, Share2, ChevronDown, ChevronUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { bibleBooks } from './BibleData';
 import { base44 } from '@/api/base44Client';
 import GideonAskAnything from '@/components/bible/GideonAskAnything';
+import VerseActionMenu from '@/components/bible/VerseActionMenu';
+import { toast } from 'sonner';
+import { useQueryClient, useMutation } from '@tanstack/react-query';
 
 export default function UnifiedBibleReader({ 
   testament = 'old', // 'old' or 'new'
@@ -20,7 +23,10 @@ export default function UnifiedBibleReader({
   const [verses, setVerses] = useState([]);
   const [loading, setLoading] = useState(false);
   const [highlightVerse, setHighlightVerse] = useState(null);
+  const [activeVerseMenu, setActiveVerseMenu] = useState(null);
+  const [expandedNotes, setExpandedNotes] = useState({});
   const versesRef = useRef(null);
+  const queryClient = useQueryClient();
 
   const books = testament === 'old' ? bibleBooks.oldTestament : bibleBooks.newTestament;
   const testamentName = testament === 'old' ? 'Old Testament' : 'New Testament';
@@ -108,12 +114,133 @@ export default function UnifiedBibleReader({
     setVerses([]);
   };
 
-  const isBookmarked = (verse) => {
-    return bookmarks.some(b => 
+  const getBookmark = (verse) => {
+    return bookmarks.find(b => 
       b.book === selectedBook?.name && 
       b.chapter === selectedChapter && 
       b.verse === verse.verse
     );
+  };
+
+  const createBookmark = useMutation({
+    mutationFn: (data) => base44.entities.Bookmark.create(data),
+    onSuccess: () => {
+      queryClient.invalidateQueries(['bookmarks']);
+    }
+  });
+
+  const updateBookmark = useMutation({
+    mutationFn: ({ id, data }) => base44.entities.Bookmark.update(id, data),
+    onSuccess: () => {
+      queryClient.invalidateQueries(['bookmarks']);
+    }
+  });
+
+  const deleteBookmark = useMutation({
+    mutationFn: (id) => base44.entities.Bookmark.delete(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries(['bookmarks']);
+    }
+  });
+
+  const saveToJournal = useMutation({
+    mutationFn: (data) => base44.entities.JournalEntry.create(data),
+    onSuccess: () => {
+      toast.success('Saved to My Journal!');
+    }
+  });
+
+  const handleVerseClick = (verse) => {
+    setActiveVerseMenu(activeVerseMenu === verse.verse ? null : verse.verse);
+  };
+
+  const handleHighlight = (verse, color, note = '') => {
+    const existing = getBookmark(verse);
+    
+    if (existing) {
+      updateBookmark.mutate({
+        id: existing.id,
+        data: { highlight_color: color, note: note || existing.note }
+      });
+    } else {
+      createBookmark.mutate({
+        book: selectedBook.name,
+        chapter: selectedChapter,
+        verse: verse.verse,
+        verse_text: verse.text,
+        highlight_color: color,
+        note: note
+      });
+    }
+  };
+
+  const handleAddNote = (verse, noteText) => {
+    const existing = getBookmark(verse);
+    
+    if (existing) {
+      updateBookmark.mutate({
+        id: existing.id,
+        data: { note: noteText }
+      });
+    } else {
+      createBookmark.mutate({
+        book: selectedBook.name,
+        chapter: selectedChapter,
+        verse: verse.verse,
+        verse_text: verse.text,
+        highlight_color: 'yellow',
+        note: noteText
+      });
+    }
+    setExpandedNotes({ ...expandedNotes, [verse.verse]: true });
+  };
+
+  const handleUpdateNote = (verse, noteText) => {
+    const existing = getBookmark(verse);
+    if (existing) {
+      updateBookmark.mutate({
+        id: existing.id,
+        data: { note: noteText }
+      });
+    }
+  };
+
+  const handleRemoveHighlight = (verse) => {
+    const existing = getBookmark(verse);
+    if (existing) {
+      if (existing.note) {
+        // Keep the bookmark but remove highlight color
+        updateBookmark.mutate({
+          id: existing.id,
+          data: { highlight_color: null }
+        });
+      } else {
+        // Remove the entire bookmark if no note
+        deleteBookmark.mutate(existing.id);
+      }
+    }
+  };
+
+  const handleSaveToJournal = (verse) => {
+    const bookmark = getBookmark(verse);
+    if (!bookmark?.note) return;
+
+    const verseRef = `${selectedBook.name} ${selectedChapter}:${verse.verse}`;
+    const journalContent = `📖 ${verseRef}\n\n"${verse.text}"\n\n💭 My Reflection:\n${bookmark.note}`;
+
+    saveToJournal.mutate({
+      title: `Bible Note: ${verseRef}`,
+      content: journalContent,
+      entry_type: 'scripture_reflection',
+      tags: ['Bible Notes', selectedBook.name]
+    });
+  };
+
+  const toggleNoteExpansion = (verseNum) => {
+    setExpandedNotes({
+      ...expandedNotes,
+      [verseNum]: !expandedNotes[verseNum]
+    });
   };
 
   return (
@@ -249,8 +376,11 @@ export default function UnifiedBibleReader({
             {!loading && verses.length > 0 && (
               <div className="max-w-3xl space-y-4">
                 {verses.map((verse, idx) => {
-                  const bookmarked = isBookmarked(verse);
+                  const bookmark = getBookmark(verse);
                   const isHighlighted = highlightVerse === verse.verse;
+                  const hasNote = bookmark?.note;
+                  const noteExpanded = expandedNotes[verse.verse];
+                  
                   return (
                     <motion.div
                       key={idx}
@@ -260,26 +390,99 @@ export default function UnifiedBibleReader({
                       transition={{ delay: idx * 0.02 }}
                       className={`group relative ${isHighlighted ? 'highlight-verse' : ''}`}
                     >
-                      <div className="flex gap-3">
+                      <div
+                        onClick={() => handleVerseClick(verse)}
+                        className={`flex gap-3 p-3 rounded-lg cursor-pointer transition-all hover:bg-gray-50 ${
+                          bookmark?.highlight_color ? 'bg-opacity-30' : ''
+                        }`}
+                        style={{
+                          backgroundColor: bookmark?.highlight_color
+                            ? bookmark.highlight_color === 'yellow' ? '#FCD34D40'
+                            : bookmark.highlight_color === 'blue' ? '#60A5FA40'
+                            : bookmark.highlight_color === 'green' ? '#34D39940'
+                            : bookmark.highlight_color === 'pink' ? '#F472B640'
+                            : 'transparent'
+                            : 'transparent'
+                        }}
+                      >
                         <span className="text-sm font-semibold text-[#8fa68a] mt-1 flex-shrink-0 w-8">
                           {verse.verse}
                         </span>
                         <p className="text-gray-800 leading-relaxed flex-1">
                           {verse.text}
                         </p>
-                        <button
-                          onClick={() => onBookmark?.(verse, 'yellow')}
-                          className={`opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0 mt-1 ${
-                            bookmarked ? 'opacity-100' : ''
-                          }`}
-                        >
-                          <Bookmark
-                            className={`w-4 h-4 ${
-                              bookmarked ? 'fill-[#D9B878] text-[#D9B878]' : 'text-gray-400'
-                            }`}
-                          />
-                        </button>
+                        {(bookmark?.highlight_color || hasNote) && (
+                          <div className="flex items-center gap-1 flex-shrink-0 mt-1">
+                            {bookmark.highlight_color && (
+                              <div
+                                className="w-3 h-3 rounded-full border-2 border-white shadow-sm"
+                                style={{
+                                  backgroundColor: bookmark.highlight_color === 'yellow' ? '#FCD34D'
+                                    : bookmark.highlight_color === 'blue' ? '#60A5FA'
+                                    : bookmark.highlight_color === 'green' ? '#34D399'
+                                    : '#F472B6'
+                                }}
+                              />
+                            )}
+                            {hasNote && (
+                              <Bookmark className="w-4 h-4 fill-[#D9B878] text-[#D9B878]" />
+                            )}
+                          </div>
+                        )}
                       </div>
+
+                      {/* Action Menu */}
+                      {activeVerseMenu === verse.verse && (
+                        <div className="relative">
+                          <VerseActionMenu
+                            verse={verse}
+                            bookName={selectedBook.name}
+                            chapter={selectedChapter}
+                            existingBookmark={bookmark}
+                            onHighlight={(color, note) => handleHighlight(verse, color, note)}
+                            onAddNote={(note) => handleAddNote(verse, note)}
+                            onUpdateNote={(note) => handleUpdateNote(verse, note)}
+                            onRemoveHighlight={() => handleRemoveHighlight(verse)}
+                            onSaveToJournal={() => handleSaveToJournal(verse)}
+                            onClose={() => setActiveVerseMenu(null)}
+                          />
+                        </div>
+                      )}
+
+                      {/* Note Display */}
+                      {hasNote && (
+                        <AnimatePresence>
+                          <motion.div
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: 'auto' }}
+                            exit={{ opacity: 0, height: 0 }}
+                            className="ml-11 mt-2"
+                          >
+                            <div className="bg-gray-50 rounded-lg p-3 border-l-4 border-[#D9B878]">
+                              <button
+                                onClick={() => toggleNoteExpansion(verse.verse)}
+                                className="flex items-center justify-between w-full text-left mb-2"
+                              >
+                                <span className="text-xs font-semibold text-[#D9B878]">My Note</span>
+                                {noteExpanded ? (
+                                  <ChevronUp className="w-4 h-4 text-gray-400" />
+                                ) : (
+                                  <ChevronDown className="w-4 h-4 text-gray-400" />
+                                )}
+                              </button>
+                              {noteExpanded && (
+                                <motion.p
+                                  initial={{ opacity: 0 }}
+                                  animate={{ opacity: 1 }}
+                                  className="text-sm text-gray-700 whitespace-pre-wrap"
+                                >
+                                  {bookmark.note}
+                                </motion.p>
+                              )}
+                            </div>
+                          </motion.div>
+                        </AnimatePresence>
+                      )}
                     </motion.div>
                   );
                 })}

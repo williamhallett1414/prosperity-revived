@@ -18,6 +18,8 @@ import {
 
 const CATEGORIES = [
   { value: 'all', label: 'All Entries', emoji: '📝' },
+  { value: 'bible_notes', label: 'Bible Notes', emoji: '📖' },
+  { value: 'scripture_reflection', label: 'Scripture', emoji: '✝️' },
   { value: 'mindset_reset', label: 'Mindset Reset', emoji: '🧠' },
   { value: 'emotional_checkin', label: 'Emotional Check-In', emoji: '❤️' },
   { value: 'affirmation', label: 'Affirmations', emoji: '✨' },

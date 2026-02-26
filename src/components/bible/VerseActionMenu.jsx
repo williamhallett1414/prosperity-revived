@@ -1,0 +1,220 @@
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Highlighter, StickyNote, BookOpen, X, Save, Trash2 } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Textarea } from '@/components/ui/textarea';
+import { toast } from 'sonner';
+
+const HIGHLIGHT_COLORS = [
+  { name: 'yellow', color: '#FCD34D', label: 'Yellow' },
+  { name: 'blue', color: '#60A5FA', label: 'Blue' },
+  { name: 'green', color: '#34D399', label: 'Green' },
+  { name: 'pink', color: '#F472B6', label: 'Pink' }
+];
+
+export default function VerseActionMenu({ 
+  verse, 
+  bookName,
+  chapter,
+  existingBookmark,
+  onHighlight,
+  onAddNote,
+  onUpdateNote,
+  onRemoveHighlight,
+  onSaveToJournal,
+  onClose 
+}) {
+  const [showNoteInput, setShowNoteInput] = useState(false);
+  const [noteText, setNoteText] = useState(existingBookmark?.note || '');
+
+  const handleHighlightSelect = (color) => {
+    if (existingBookmark && existingBookmark.highlight_color === color) {
+      // Remove highlight if same color is selected
+      onRemoveHighlight();
+      onClose();
+    } else {
+      onHighlight(color, existingBookmark?.note || '');
+      if (!showNoteInput) {
+        onClose();
+      }
+    }
+  };
+
+  const handleSaveNote = () => {
+    if (!noteText.trim()) {
+      toast.error('Please write a note');
+      return;
+    }
+
+    if (existingBookmark) {
+      onUpdateNote(noteText);
+    } else {
+      onAddNote(noteText);
+    }
+    setShowNoteInput(false);
+    toast.success('Note saved!');
+  };
+
+  const handleSaveToJournal = () => {
+    if (!existingBookmark?.note) {
+      toast.error('Add a note first before saving to journal');
+      return;
+    }
+    onSaveToJournal();
+    onClose();
+  };
+
+  return (
+    <AnimatePresence>
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95, y: -10 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.95, y: -10 }}
+        className="absolute z-50 mt-2 bg-white rounded-xl shadow-2xl border-2 border-gray-200 overflow-hidden"
+        style={{ minWidth: '280px' }}
+      >
+        {/* Header */}
+        <div className="bg-gradient-to-r from-[#D9B878] to-[#AFC7E3] px-4 py-3 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <BookOpen className="w-4 h-4 text-[#0A1A2F]" />
+            <span className="text-sm font-semibold text-[#0A1A2F]">
+              {bookName} {chapter}:{verse.verse}
+            </span>
+          </div>
+          <button
+            onClick={onClose}
+            className="w-6 h-6 rounded-full hover:bg-white/20 flex items-center justify-center transition-colors"
+          >
+            <X className="w-4 h-4 text-[#0A1A2F]" />
+          </button>
+        </div>
+
+        <div className="p-4 space-y-4">
+          {/* Highlight Colors */}
+          <div>
+            <div className="flex items-center gap-2 mb-2">
+              <Highlighter className="w-4 h-4 text-gray-500" />
+              <span className="text-xs font-semibold text-gray-700">Highlight</span>
+            </div>
+            <div className="flex gap-2">
+              {HIGHLIGHT_COLORS.map((colorOption) => (
+                <button
+                  key={colorOption.name}
+                  onClick={() => handleHighlightSelect(colorOption.name)}
+                  className={`flex-1 h-10 rounded-lg border-2 transition-all hover:scale-105 ${
+                    existingBookmark?.highlight_color === colorOption.name
+                      ? 'border-[#0A1A2F] ring-2 ring-[#0A1A2F]/20'
+                      : 'border-gray-200'
+                  }`}
+                  style={{ backgroundColor: colorOption.color }}
+                  title={colorOption.label}
+                >
+                  {existingBookmark?.highlight_color === colorOption.name && (
+                    <span className="text-[#0A1A2F] font-bold">✓</span>
+                  )}
+                </button>
+              ))}
+            </div>
+            {existingBookmark && (
+              <button
+                onClick={() => {
+                  onRemoveHighlight();
+                  onClose();
+                }}
+                className="mt-2 w-full text-xs text-red-500 hover:text-red-600 font-medium"
+              >
+                Remove Highlight
+              </button>
+            )}
+          </div>
+
+          {/* Note Section */}
+          <div>
+            <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center gap-2">
+                <StickyNote className="w-4 h-4 text-gray-500" />
+                <span className="text-xs font-semibold text-gray-700">Note</span>
+              </div>
+              {!showNoteInput && existingBookmark?.note && (
+                <button
+                  onClick={() => setShowNoteInput(true)}
+                  className="text-xs text-[#D9B878] hover:text-[#D9B878]/80 font-medium"
+                >
+                  Edit
+                </button>
+              )}
+            </div>
+
+            {showNoteInput ? (
+              <div className="space-y-2">
+                <Textarea
+                  value={noteText}
+                  onChange={(e) => setNoteText(e.target.value)}
+                  placeholder="Write your reflection..."
+                  className="min-h-[100px] text-sm bg-gray-50 border-gray-200"
+                  autoFocus
+                />
+                <div className="flex gap-2">
+                  <Button
+                    onClick={handleSaveNote}
+                    size="sm"
+                    className="flex-1 bg-[#D9B878] hover:bg-[#D9B878]/90 text-[#0A1A2F]"
+                  >
+                    <Save className="w-3 h-3 mr-1" />
+                    Save
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      setShowNoteInput(false);
+                      setNoteText(existingBookmark?.note || '');
+                    }}
+                    size="sm"
+                    variant="outline"
+                    className="flex-1"
+                  >
+                    Cancel
+                  </Button>
+                </div>
+              </div>
+            ) : existingBookmark?.note ? (
+              <div className="bg-gray-50 rounded-lg p-3 space-y-2">
+                <p className="text-sm text-gray-700">{existingBookmark.note}</p>
+                <div className="flex gap-2">
+                  <Button
+                    onClick={handleSaveToJournal}
+                    size="sm"
+                    variant="outline"
+                    className="flex-1 text-xs"
+                  >
+                    <BookOpen className="w-3 h-3 mr-1" />
+                    Save to Journal
+                  </Button>
+                  <button
+                    onClick={() => {
+                      onUpdateNote('');
+                      setNoteText('');
+                      toast.success('Note deleted');
+                    }}
+                    className="px-3 py-1 text-xs text-red-500 hover:bg-red-50 rounded transition-colors"
+                  >
+                    <Trash2 className="w-3 h-3" />
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <Button
+                onClick={() => setShowNoteInput(true)}
+                size="sm"
+                variant="outline"
+                className="w-full"
+              >
+                <StickyNote className="w-3 h-3 mr-2" />
+                Add Note
+              </Button>
+            )}
+          </div>
+        </div>
+      </motion.div>
+    </AnimatePresence>
+  );
+}
