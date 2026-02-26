@@ -181,12 +181,32 @@ export default function BibleStatsModal({ isOpen, onClose, statType, progress, b
               <div className="space-y-2 max-h-48 overflow-y-auto">
                 {bookmarks.slice(0, 5).map((bookmark, i) => (
                   <div key={i} className="bg-gray-50 dark:bg-[#2d2d4a] rounded-lg p-3">
-                    <p className="font-medium text-sm text-gray-900 dark:text-white">
-                      {bookmark.book_name} {bookmark.chapter_number}:{bookmark.verse_number}
-                    </p>
-                    <p className="text-xs text-gray-600 dark:text-gray-400 mt-1 line-clamp-2">
-                      {bookmark.verse_text}
-                    </p>
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="flex-1">
+                        <p className="font-medium text-sm text-gray-900 dark:text-white">
+                          {bookmark.book} {bookmark.chapter}:{bookmark.verse}
+                        </p>
+                        <p className="text-xs text-gray-600 dark:text-gray-400 mt-1 line-clamp-2">
+                          {bookmark.verse_text}
+                        </p>
+                        {bookmark.note && (
+                          <p className="text-xs text-[#D9B878] mt-2 italic line-clamp-1">
+                            💭 {bookmark.note}
+                          </p>
+                        )}
+                      </div>
+                      {bookmark.highlight_color && (
+                        <div
+                          className="w-4 h-4 rounded-full border-2 border-white shadow-sm flex-shrink-0"
+                          style={{
+                            backgroundColor: bookmark.highlight_color === 'yellow' ? '#FCD34D'
+                              : bookmark.highlight_color === 'blue' ? '#60A5FA'
+                              : bookmark.highlight_color === 'green' ? '#34D399'
+                              : '#F472B6'
+                          }}
+                        />
+                      )}
+                    </div>
                   </div>
                 ))}
               </div>
