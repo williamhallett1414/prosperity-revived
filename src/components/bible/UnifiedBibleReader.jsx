@@ -4,6 +4,7 @@ import { ArrowLeft, ChevronRight, Bookmark, Share2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { bibleBooks } from './BibleData';
 import { base44 } from '@/api/base44Client';
+import GideonAskAnything from '@/components/bible/GideonAskAnything';
 
 export default function UnifiedBibleReader({ 
   testament = 'old', // 'old' or 'new'
@@ -301,6 +302,9 @@ export default function UnifiedBibleReader({
           50% { background: rgba(217, 184, 120, 0.4); }
         }
       `}</style>
+
+      {/* Gideon Ask Anything */}
+      <GideonAskAnything />
     </div>
   );
 }

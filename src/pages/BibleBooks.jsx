@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { bibleBooks } from '@/components/bible/BibleData';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import GideonAskAnything from '@/components/bible/GideonAskAnything';
 
 export default function BibleBooks() {
   const [testament, setTestament] = useState('old');
@@ -70,6 +71,9 @@ export default function BibleBooks() {
           </div>
         </ScrollArea>
       </div>
+
+      {/* Gideon Ask Anything */}
+      <GideonAskAnything />
     </div>
   );
 }
