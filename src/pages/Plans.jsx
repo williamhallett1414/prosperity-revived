@@ -15,10 +15,10 @@ import { readingPlans } from '@/components/bible/BibleData';
 
 
 export default function Plans() {
+  const navigate = useNavigate();
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState('all');
   const [showCreateCustom, setShowCreateCustom] = useState(false);
-  const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [showGideon, setShowGideon] = useState(false);
   const [gideonInput, setGideonInput] = useState('');
@@ -189,7 +189,7 @@ Provide warm, helpful guidance (2-4 sentences) about reading plans, Bible study 
                 <motion.div
                   key={group.id}
                   whileHover={{ scale: 1.02 }}
-                  onClick={() => window.location.href = createPageUrl(`GroupPlanDetail?id=${group.id}`)}
+                  onClick={() => navigate(createPageUrl(`GroupPlanDetail?id=${group.id}`))}
                   className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-4 border border-green-200 cursor-pointer"
                 >
                   <div className="flex items-center justify-between">
@@ -328,7 +328,7 @@ Provide warm, helpful guidance (2-4 sentences) about reading plans, Bible study 
               key={plan.id}
               plan={plan}
               progress={getProgressForPlan(plan.id)}
-              onClick={() => window.location.href = createPageUrl(`PlanDetail?id=${plan.id}`)}
+              onClick={() => navigate(createPageUrl(`PlanDetail?id=${plan.id}`))}
               index={index}
             />
           ))}

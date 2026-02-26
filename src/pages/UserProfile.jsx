@@ -122,7 +122,7 @@ export default function UserProfile() {
   const completedPlans = progress.filter(p => p.completed_date);
   
   const totalDaysRead = progress.reduce((sum, p) => sum + (p.completed_days?.length || 0), 0);
-  const longestStreak = Math.max(...progress.map(p => p.longest_streak || 0), 0);
+  const longestStreak = Math.max(...(progress || []).map(p => p.longest_streak || 0), 0);
 
   const handleFriendAction = async () => {
     if (!existingFriendship) {

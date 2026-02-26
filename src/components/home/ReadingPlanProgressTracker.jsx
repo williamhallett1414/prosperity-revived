@@ -9,7 +9,7 @@ export default function ReadingPlanProgressTracker({ planProgress, plans }) {
 
   // Calculate overall stats
   const totalDaysRead = planProgress.reduce((sum, p) => sum + (p.completed_days?.length || 0), 0);
-  const longestStreak = Math.max(...planProgress.map(p => p.longest_streak || 0), 0);
+  const longestStreak = Math.max(...(planProgress || []).map(p => p.longest_streak || 0), 0);
   const activePlans = planProgress.filter(p => (p.completed_days?.length || 0) < p.total_days);
 
   // Get the most recent plan for detailed view

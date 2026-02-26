@@ -8,6 +8,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import GideonAskAnything from '@/components/bible/GideonAskAnything';
 
 export default function BibleBooks() {
+  const navigate = useNavigate();
   const [testament, setTestament] = useState('old');
   const [selectedBook, setSelectedBook] = useState(null);
 
@@ -23,7 +24,7 @@ export default function BibleBooks() {
   const title = testament === 'old' ? 'Old Testament' : 'New Testament';
 
   const handleSelectBook = (book) => {
-    window.location.href = createPageUrl(`Bible?book=${book.name}&chapter=1`);
+    navigate(createPageUrl(`Bible?book=${book.name}&chapter=1`));
   };
 
   return (

@@ -9,6 +9,7 @@ import { createPageUrl } from '@/utils';
 import { ScrollArea } from '@/components/ui/scroll-area';
 
 export default function Search() {
+  const navigate = useNavigate();
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -53,7 +54,7 @@ export default function Search() {
   };
 
   const handleResultClick = (result) => {
-    window.location.href = createPageUrl(`Bible?book=${result.book}&chapter=${result.chapter}`);
+    navigate(createPageUrl(`Bible?book=${result.book}&chapter=${result.chapter}`));
   };
 
   const highlightKeywords = (text) => {

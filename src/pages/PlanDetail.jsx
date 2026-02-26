@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import CreateGroupPlanModal from '@/components/plans/CreateGroupPlanModal';
 import { Progress } from '@/components/ui/progress';
 import { readingPlans } from '@/components/bible/BibleData';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import DayNoteModal from '@/components/plans/DayNoteModal';
 import PlanStatsModal from '@/components/plans/PlanStatsModal';
 import ReminderSettingsModal from '@/components/plans/ReminderSettingsModal';
@@ -18,6 +18,7 @@ import PlanDevotionalView from '@/components/bible/PlanDevotionalView';
 import { getReadingForDay } from '@/components/bible/BibleData';
 
 export default function PlanDetail() {
+  const navigate = useNavigate();
   const params = new URLSearchParams(window.location.search);
   const planId = params.get('id');
   const [selectedDay, setSelectedDay] = useState(null);
@@ -82,7 +83,7 @@ export default function PlanDetail() {
     mutationFn: (id) => base44.entities.ReadingPlanProgress.delete(id),
     onSuccess: () => {
       queryClient.invalidateQueries(['planProgress']);
-      window.location.href = createPageUrl('Plans');
+      navigate(createPageUrl('Plans'));
     }
   });
 
@@ -137,7 +138,7 @@ export default function PlanDetail() {
     },
     onSuccess: (group) => {
       setShowCreateGroup(false);
-      window.location.href = createPageUrl(`GroupPlanDetail?id=${group.id}`);
+      navigate(createPageUrl(`GroupPlanDetail?id=${group.id}`));
     }
   });
 
@@ -245,12 +246,12 @@ export default function PlanDetail() {
     if (progress?.is_custom && progress.custom_readings) {
       const reading = progress.custom_readings.find(r => r.day === day);
       if (reading) {
-        window.location.href = createPageUrl(`Bible?book=${reading.book}&chapter=${reading.chapter}&planDay=${day}&planId=${planId}`);
+        navigate(createPageUrl(`Bible?book=${reading.book}&chapter=${reading.chapter}&planDay=${day}&planId=${planId}`));
       }
     } else {
       const reading = getReadingForDay(planId, day);
       if (reading) {
-        window.location.href = createPageUrl(`Bible?book=${reading.book}&chapter=${reading.chapter}&planDay=${day}&planId=${planId}`);
+        navigate(createPageUrl(`Bible?book=${reading.book}&chapter=${reading.chapter}&planDay=${day}&planId=${planId}`));
       }
     }
   };

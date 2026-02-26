@@ -14,6 +14,7 @@ import CreateChallengeModal from '@/components/challenges/CreateChallengeModal';
 import ChallengeCard from '@/components/challenges/ChallengeCard';
 
 export default function GroupDetail() {
+  const navigate = useNavigate();
   const params = new URLSearchParams(window.location.search);
   const groupId = params.get('id');
   const [user, setUser] = useState(null);
@@ -304,7 +305,7 @@ export default function GroupDetail() {
                       challenge={challenge}
                       participation={participation}
                       onJoin={() => joinChallenge.mutate(challenge.id)}
-                      onClick={() => window.location.href = createPageUrl(`ChallengeDetail?id=${challenge.id}`)}
+                      onClick={() => navigate(createPageUrl(`ChallengeDetailPage?id=${challenge.id}`))}
                       index={index}
                     />
                   );

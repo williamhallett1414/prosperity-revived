@@ -268,18 +268,17 @@ export default function Workouts() {
                   className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm">
 
                   <div className="text-2xl font-bold text-[#3C4E53] mb-1">
-                    {Math.max(...workoutSessions.map((s) => {
-                      const dates = s.date ? [s.date] : [];
-                      let streak = 0;
-                      for (let i = 0; i < dates.length; i++) {
-                        if (i === 0 || new Date(dates[i]).getTime() - new Date(dates[i - 1]).getTime() <= 86400000) {
-                          streak++;
-                        } else {
-                          break;
-                        }
+                    {(() => {
+                      if (!workoutSessions.length) return 0;
+                      const uniqueDates = [...new Set(workoutSessions.map(s => s.date).filter(Boolean))].sort();
+                      let streak = 1, maxStreak = 1;
+                      for (let i = 1; i < uniqueDates.length; i++) {
+                        const diff = (new Date(uniqueDates[i]) - new Date(uniqueDates[i - 1])) / 86400000;
+                        if (diff === 1) { streak++; maxStreak = Math.max(maxStreak, streak); }
+                        else { streak = 1; }
                       }
-                      return streak;
-                    }), 0)}
+                      return maxStreak;
+                    })()}
                   </div>
                   <p className="text-xs text-[#0A1A2F]/60">Day streak</p>
                 </motion.div>

@@ -28,7 +28,7 @@ export default function Layout({ children, currentPageName }) {
   const location = useLocation();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const [renderedPages, setRenderedPages] = useState({});
+
 
   // Primary navigation pages that should be kept mounted
   const primaryPages = ['Home', 'Wellness', 'ProgressDashboard', 'Groups', 'Profile'];
@@ -51,20 +51,46 @@ export default function Layout({ children, currentPageName }) {
     Community: 'Community',
     Plans: 'Reading Plans',
     PlanDetail: 'Plan Details',
-    // Add more as needed
+    GrowthPathwaysPage: 'Growth Pathways',
+    HabitBuilderPage: 'Habit Builder',
+    EmotionalCheckInPage: 'Emotional Check-In',
+    MindsetResetPage: 'Mindset Reset',
+    SelfCareChallengesPage: 'Self-Care Challenges',
+    ChallengeDetailPage: 'Challenge Details',
+    AffirmationsPage: 'Affirmations',
+    GratitudeJournalPage: 'Gratitude Journal',
+    IdentityInChristPage: 'Identity in Christ',
+    WeeklyReflectionPage: 'Weekly Reflection',
+    FoodLogHistory: 'Food Log History',
+    MealDetailView: 'Meal Details',
+    NutritionArticle: 'Article',
+    NutritionGuidance: 'Nutrition Guidance',
+    DiscoverRecipes: 'Discover Recipes',
+    WorkoutCategoryPage: 'Workout Category',
+    WorkoutProgress: 'Workout Progress',
+    WorkoutTrends: 'Workout Trends',
+    SpiritualGrowth: 'Spiritual Growth',
+    SpiritualInsights: 'Spiritual Insights',
+    PersonalGrowth: 'Personal Growth',
+    ProgressDashboard: 'Your Journey',
+    PhotoGallery: 'Photo Gallery',
+    Bookmarks: 'Bookmarks',
+    Achievements: 'Achievements',
+    Notifications: 'Notifications',
+    NotificationSettings: 'Notification Settings',
+    MyJournalEntries: 'My Journal',
+    UserProfile: 'Profile',
+    BibleBooks: 'Bible',
+    GroupDetail: 'Group',
+    GroupPlanDetail: 'Group Plan',
+    Messages: 'Messages',
+    Friends: 'Friends',
+    Search: 'Search',
   };
 
   const currentPageTitle = pageTitles[currentPageName] || currentPageName;
 
-  // Cache page content for primary navigation
-  useEffect(() => {
-    if (isPrimaryPage && !renderedPages[currentPageName]) {
-      setRenderedPages((prev) => ({
-        ...prev,
-        [currentPageName]: children
-      }));
-    }
-  }, [currentPageName, isPrimaryPage, children]);
+
 
   // Save scroll position when navigating away
   useEffect(() => {
