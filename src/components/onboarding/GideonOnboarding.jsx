@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ChevronRight, BookOpen, Brain, Heart, Sparkles, MessageCircle, HelpCircle } from 'lucide-react';
+import { ChevronRight, BookOpen, Brain, Heart, Sparkles, MessageCircle, HelpCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export default function GideonOnboarding({ onComplete, onRevisit }) {
@@ -18,6 +18,8 @@ export default function GideonOnboarding({ onComplete, onRevisit }) {
   const currentStep = steps[step];
   const CurrentIcon = currentStep.icon;
 
+  // handleSkip removed — only "Start Chatting" exits onboarding
+
   const handleNext = () => {
     if (step < steps.length - 1) {
       setStep(step + 1);
@@ -25,11 +27,6 @@ export default function GideonOnboarding({ onComplete, onRevisit }) {
       localStorage.setItem('gideon_onboarding_complete', 'true');
       onComplete();
     }
-  };
-
-  const handleSkip = () => {
-    localStorage.setItem('gideon_onboarding_complete', 'true');
-    onComplete();
   };
 
   if (step >= steps.length) {
@@ -55,14 +52,6 @@ export default function GideonOnboarding({ onComplete, onRevisit }) {
           >
             {/* Header */}
             <div className="bg-gradient-to-r from-purple-500 to-blue-600 text-white p-6 relative">
-              <button
-                onClick={handleSkip}
-                className="absolute top-4 right-4 text-white/80 hover:text-white transition-colors"
-                title="Skip tour"
-              >
-                <X className="w-5 h-5" />
-              </button>
-              
               <div className="flex items-start gap-3">
                 <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center mt-1">
                   <CurrentIcon className="w-6 h-6 text-white" />

@@ -66,8 +66,8 @@ export default function OnboardingFlow({ onComplete }) {
       title: 'Welcome! 🙏',
       subtitle: 'Let\'s personalize your journey',
       content: (
-        <div className="space-y-4">
-          <div className="bg-gradient-to-br from-purple-500 to-indigo-600 rounded-2xl p-6 text-white mb-4">
+        <div className="space-y-3 max-h-[60vh] overflow-y-auto pb-2">
+          <div className="bg-gradient-to-br from-purple-500 to-indigo-600 rounded-2xl p-4 text-white mb-3">
             <Heart className="w-8 h-8 mb-3" />
             <h3 className="font-semibold mb-2">What should we call you?</h3>
             <p className="text-sm text-white/80 mb-4">Let's make this personal from day one.</p>
@@ -78,7 +78,7 @@ export default function OnboardingFlow({ onComplete }) {
               className="bg-white/20 border-white/30 text-white placeholder:text-white/60"
             />
           </div>
-          <div className="bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl p-6 text-white">
+          <div className="bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl p-4 text-white">
             <Target className="w-8 h-8 mb-3" />
             <h3 className="font-semibold mb-2">Set Your Spiritual Goal</h3>
             <p className="text-sm text-white/80 mb-4">What's one thing you'd like to focus on spiritually?</p>
@@ -242,6 +242,15 @@ export default function OnboardingFlow({ onComplete }) {
                   )}
                 </Button>
               </div>
+
+              {step < steps.length && (
+                <button
+                  onClick={handleComplete}
+                  className="w-full text-center text-xs text-white/50 hover:text-white/80 mt-3 py-1 transition-colors"
+                >
+                  Skip for now
+                </button>
+              )}
             </motion.div>
           </AnimatePresence>
         </div>

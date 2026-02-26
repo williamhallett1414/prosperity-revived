@@ -266,7 +266,7 @@ export default function Home() {
           <h1 className="text-3xl font-bold text-[#0A1A2F] mb-1">
             {new Date().getHours() < 12 ? 'Good Morning' : new Date().getHours() < 18 ? 'Good Afternoon' : 'Good Evening'}
           </h1>
-          <p className="text-[#0A1A2F]/60">Welcome back, {user?.full_name?.split(' ')[0] || 'friend'}</p>
+          <p className="text-[#0A1A2F]/60">Welcome back, {user?.full_name?.split(' ')[0] || user?.email?.split('@')[0] || 'friend'}</p>
         </motion.div>
 
         {/* Start/End Day Buttons */}
@@ -292,7 +292,7 @@ export default function Home() {
         </motion.div>
 
         {/* Start Here card for new users */}
-        {planProgress.length === 0 && workoutSessions.length === 0 && (
+        {showStartHere && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -467,6 +467,10 @@ export default function Home() {
             </Link>
           </div>
           
+          <p className="text-xs text-[#0A1A2F]/50 text-center mb-3">
+            Share encouragement, updates or thoughts with your community
+          </p>
+
           <Button
             onClick={() => setShowCreatePost(true)}
             className="w-full bg-gradient-to-r from-[#FD9C2D] to-[#FAD98D] hover:from-[#FD9C2D]/90 hover:to-[#FAD98D]/90 text-[#3C4E53] h-12 mb-4 rounded-xl shadow-md font-semibold">
@@ -474,10 +478,6 @@ export default function Home() {
             <Plus className="w-5 h-5 mr-2" />
             Post to Community
           </Button>
-
-          <p className="text-xs text-[#0A1A2F]/50 text-center mb-3">
-            Share encouragement, updates or thoughts with your community
-          </p>
 
           {posts.length === 0 ?
           <div className="text-center py-8 bg-[#E6EBEF] rounded-2xl">

@@ -52,9 +52,12 @@ export default function Wellness() {
             </div>
             <div className="bg-white rounded-xl p-3 text-center shadow-sm">
               <p className="text-2xl font-bold text-[#FD9C2D]">
-                {waterLogs.filter(w => w.date === today).reduce((sum, w) => sum + (w.amount_ml || 0), 0)}ml
+                {(() => {
+                  const total = waterLogs.filter(w => w.date === today).reduce((sum, w) => sum + (w.amount_ml || 0), 0);
+                  return total > 0 ? `${total}ml` : '—';
+                })()}
               </p>
-              <p className="text-xs text-gray-500">Water intake</p>
+              <p className="text-xs text-gray-500">Water today</p>
             </div>
           </div>
 
