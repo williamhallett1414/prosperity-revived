@@ -25,6 +25,7 @@ import ChefDaniel from '@/components/wellness/ChefDaniel';
 import GideonChatbot from '@/components/bible/GideonChatbot';
 import HolisticProgressReport from '@/components/journey/HolisticProgressReport';
 import WelcomeOnboarding from '@/components/onboarding/WelcomeOnboarding';
+import PersonalizedDevotional from '@/components/gideon/PersonalizedDevotional';
 
 const chatbotConfig = {
   Hannah: {
@@ -207,6 +208,9 @@ export default function ProgressDashboard() {
 
         {/* Holistic Progress Report */}
         {stats.total > 0 && <HolisticProgressReport user={user} />}
+
+        {/* Personalized Devotional */}
+        <PersonalizedDevotional />
 
         {/* Chat with Guides Section */}
         <motion.div
