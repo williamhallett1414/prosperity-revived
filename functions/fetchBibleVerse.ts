@@ -10,22 +10,31 @@ Deno.serve(async (req) => {
     }
     
     const payload = await req.json();
+    console.log('Received payload:', payload);
+    
     const book = payload.book;
     const chapter = payload.chapter;
     const reference = payload.reference;
     
+    console.log('Parsed values:', { book, chapter, reference });
+    
     // Build reference from book and chapter if provided separately
-    const bibleRef = reference ? reference : (book && chapter ? `${book} ${chapter}` : null);
+    const bibleRef = reference || (book && chapter ? `${book} ${chapter}` : null);
+    
+    console.log('Built reference:', bibleRef);
     
     if (!bibleRef) {
       return Response.json({ 
         error: 'Reference or book/chapter is required',
-        received: payload 
+        received: payload,
+        parsed: { book, chapter, reference }
       }, { status: 400 });
     }
     
     // Fetch from Bible API
     const apiUrl = `https://bible-api.com/${encodeURIComponent(bibleRef)}?translation=kjv`;
+    console.log('Fetching from:', apiUrl);
+    
     const response = await fetch(apiUrl);
     
     if (!response.ok) {
@@ -41,6 +50,7 @@ Deno.serve(async (req) => {
       translation: data.translation_name
     });
   } catch (error) {
+    console.error('Function error:', error);
     return Response.json({ error: error.message }, { status: 500 });
   }
 });
