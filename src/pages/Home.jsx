@@ -144,19 +144,6 @@ export default function Home() {
     enabled: !!user
   });
 
-  const { data: myPosts = [] } = useQuery({
-    queryKey: ['myPosts'],
-    queryFn: async () => {
-      try {
-        return await base44.entities.Post.filter({ created_by: user?.email });
-      } catch (error) {
-        return [];
-      }
-    },
-    enabled: !!user,
-    retry: false
-  });
-
   const createBookmark = useMutation({
     mutationFn: (data) => base44.entities.Bookmark.create(data),
     onSuccess: () => queryClient.invalidateQueries(['bookmarks'])
