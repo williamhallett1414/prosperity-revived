@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { Home, Users, User, Heart, BookOpen, ArrowLeft } from 'lucide-react';
+import { Home, Users, User, Heart, TrendingUp, ArrowLeft } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Toaster } from '@/components/ui/sonner.jsx';
 import NotificationBell from '@/components/notifications/NotificationBell';
@@ -18,7 +18,7 @@ const pageCache = {};
 const navItems = [
 { name: 'Home', icon: Home, page: 'Home' },
 { name: 'Wellness', icon: Heart, page: 'Wellness' },
-{ name: 'Bible', icon: BookOpen, page: 'Bible' },
+{ name: 'Your Journey', icon: TrendingUp, page: 'ProgressDashboard' },
 { name: 'Groups', icon: Users, page: 'Groups' },
 { name: 'Profile', icon: User, page: 'Profile' }];
 
@@ -31,7 +31,7 @@ export default function Layout({ children, currentPageName }) {
   const [renderedPages, setRenderedPages] = useState({});
 
   // Primary navigation pages that should be kept mounted
-  const primaryPages = ['Home', 'Wellness', 'Bible', 'Groups', 'Profile'];
+  const primaryPages = ['Home', 'Wellness', 'ProgressDashboard', 'Groups', 'Profile'];
   const isPrimaryPage = primaryPages.includes(currentPageName);
 
   // Determine if current page is a child route (not a primary nav page)
@@ -41,11 +41,10 @@ export default function Layout({ children, currentPageName }) {
   const pageTitles = {
     Home: 'Home',
     Wellness: 'Wellness',
-    Bible: 'Bible',
+    ProgressDashboard: 'Your Journey',
     Groups: 'Groups',
     Profile: 'Profile',
     Settings: 'Settings',
-    ProgressDashboard: 'Progress Dashboard',
     Workouts: 'Workouts',
     Nutrition: 'Nutrition',
     Prayer: 'Prayer',
