@@ -1,13 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, ChevronRight, Bookmark, Share2, ChevronDown, ChevronUp } from 'lucide-react';
+import { ArrowLeft, ChevronRight, Bookmark, Share2, ChevronDown, ChevronUp, Settings, Link2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { bibleBooks } from './BibleData';
 import { base44 } from '@/api/base44Client';
 import GideonAskAnything from '@/components/bible/GideonAskAnything';
 import VerseActionMenu from '@/components/bible/VerseActionMenu';
+import BibleReaderSettings from '@/components/bible/BibleReaderSettings';
+import CrossReferencePopup from '@/components/bible/CrossReferencePopup';
+import ProgressTracker from '@/components/bible/ProgressTracker';
 import { toast } from 'sonner';
-import { useQueryClient, useMutation } from '@tanstack/react-query';
+import { useQueryClient, useMutation, useQuery } from '@tanstack/react-query';
 
 export default function UnifiedBibleReader({ 
   testament = 'old', // 'old' or 'new'
@@ -25,8 +28,40 @@ export default function UnifiedBibleReader({
   const [highlightVerse, setHighlightVerse] = useState(null);
   const [activeVerseMenu, setActiveVerseMenu] = useState(null);
   const [expandedNotes, setExpandedNotes] = useState({});
+  const [showSettings, setShowSettings] = useState(false);
+  const [fontSize, setFontSize] = useState('text-base');
+  const [lineHeight, setLineHeight] = useState('leading-relaxed');
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [crossRefVerse, setCrossRefVerse] = useState(null);
   const versesRef = useRef(null);
   const queryClient = useQueryClient();
+
+  // Fetch reading progress for current book
+  const { data: progressData = [] } = useQuery({
+    queryKey: ['bibleProgress', selectedBook?.name],
+    queryFn: async () => {
+      if (!selectedBook) return [];
+      return await base44.entities.BibleReadingProgress.filter({ book: selectedBook.name });
+    },
+    enabled: !!selectedBook
+  });
+
+  const completedChapters = progressData.map(p => p.chapter);
+
+  const markChapterComplete = useMutation({
+    mutationFn: async (chapter) => {
+      return await base44.entities.BibleReadingProgress.create({
+        book: selectedBook.name,
+        chapter: chapter,
+        completed_date: new Date().toISOString(),
+        verses_read: verses.length
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(['bibleProgress', selectedBook?.name]);
+      toast.success('Chapter marked as complete!');
+    }
+  });
 
   const books = testament === 'old' ? bibleBooks.oldTestament : bibleBooks.newTestament;
   const testamentName = testament === 'old' ? 'Old Testament' : 'New Testament';
@@ -145,8 +180,23 @@ export default function UnifiedBibleReader({
 
 
 
-  const handleVerseClick = (verse) => {
+  const handleVerseClick = (verse, e) => {
+    // If shift-click, show cross-references instead
+    if (e?.shiftKey) {
+      setCrossRefVerse(verse);
+      return;
+    }
     setActiveVerseMenu(activeVerseMenu === verse.verse ? null : verse.verse);
+  };
+
+  const handleCrossRefNavigate = (book, chapter, verse) => {
+    const bookObj = [...bibleBooks.oldTestament, ...bibleBooks.newTestament]
+      .find(b => b.name === book);
+    if (bookObj) {
+      setSelectedBook(bookObj);
+      setSelectedChapter(chapter);
+      setHighlightVerse(verse);
+    }
   };
 
   const handleHighlight = (verse, color, note = '') => {
@@ -285,19 +335,51 @@ export default function UnifiedBibleReader({
   };
 
   return (
-    <div className="h-[calc(100vh-8rem)] flex bg-[#faf8f5]">
+    <div className={`h-[calc(100vh-8rem)] flex ${isDarkMode ? 'dark bg-gray-900' : 'bg-[#faf8f5]'}`}>
+      {/* Settings Panel */}
+      <BibleReaderSettings
+        isOpen={showSettings}
+        onClose={() => setShowSettings(false)}
+        fontSize={fontSize}
+        onFontSizeChange={(size, lh) => {
+          setFontSize(size);
+          setLineHeight(lh);
+        }}
+        isDarkMode={isDarkMode}
+        onThemeToggle={() => setIsDarkMode(!isDarkMode)}
+      />
+
+      {/* Cross Reference Popup */}
+      {crossRefVerse && (
+        <CrossReferencePopup
+          verse={crossRefVerse}
+          bookName={selectedBook.name}
+          chapter={selectedChapter}
+          onClose={() => setCrossRefVerse(null)}
+          onNavigate={handleCrossRefNavigate}
+        />
+      )}
+
       {/* Left Sidebar - Books */}
-      <div className="w-64 bg-white border-r border-gray-200 overflow-y-auto">
-        <div className="sticky top-0 bg-white border-b border-gray-200 p-4 z-10">
-          <button
-            onClick={onBack}
-            className="flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-2"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            <span className="text-sm font-medium">Bible</span>
-          </button>
-          <h2 className="text-lg font-bold text-[#0A1A2F]">{testamentName}</h2>
-          <p className="text-xs text-gray-500">{books.length} books</p>
+      <div className="w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 overflow-y-auto">
+        <div className="sticky top-0 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4 z-10">
+          <div className="flex items-center justify-between mb-2">
+            <button
+              onClick={onBack}
+              className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              <span className="text-sm font-medium">Bible</span>
+            </button>
+            <button
+              onClick={() => setShowSettings(true)}
+              className="w-8 h-8 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center justify-center"
+            >
+              <Settings className="w-4 h-4 text-gray-600 dark:text-gray-400" />
+            </button>
+          </div>
+          <h2 className="text-lg font-bold text-[#0A1A2F] dark:text-white">{testamentName}</h2>
+          <p className="text-xs text-gray-500 dark:text-gray-400">{books.length} books</p>
         </div>
 
         <div className="p-2">
@@ -308,7 +390,7 @@ export default function UnifiedBibleReader({
               className={`w-full text-left px-3 py-2 rounded-lg mb-1 transition-colors ${
                 selectedBook?.name === book.name
                   ? 'bg-[#8fa68a] text-white font-medium'
-                  : 'hover:bg-gray-100 text-gray-700'
+                  : 'hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300'
               }`}
             >
               <div className="flex items-center justify-between">
@@ -365,17 +447,17 @@ export default function UnifiedBibleReader({
 
         {selectedBook && selectedChapter && (
           <div className="p-6" ref={versesRef}>
-            <div className="mb-6 sticky top-0 bg-[#faf8f5] py-4 z-10 border-b border-gray-200">
+            <div className="mb-6 sticky top-0 bg-[#faf8f5] dark:bg-gray-900 py-4 z-10 border-b border-gray-200 dark:border-gray-700">
               <button
                 onClick={handleBackToChapters}
-                className="flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-4"
+                className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white mb-4"
               >
                 <ArrowLeft className="w-4 h-4" />
                 <span className="text-sm">Back to Chapters</span>
               </button>
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between mb-4">
                 <div>
-                  <h2 className="text-2xl font-bold text-[#0A1A2F]">
+                  <h2 className="text-2xl font-bold text-[#0A1A2F] dark:text-white">
                     {selectedBook.name} {selectedChapter}
                   </h2>
                 </div>
@@ -400,6 +482,15 @@ export default function UnifiedBibleReader({
                   )}
                 </div>
               </div>
+
+              {/* Progress Tracker */}
+              <ProgressTracker
+                book={selectedBook.name}
+                currentChapter={selectedChapter}
+                totalChapters={selectedBook.chapters}
+                completedChapters={completedChapters}
+                onMarkComplete={(chap) => markChapterComplete.mutate(chap)}
+              />
             </div>
 
             {loading && (
@@ -432,8 +523,8 @@ export default function UnifiedBibleReader({
                       className={`group relative ${isHighlighted ? 'highlight-verse' : ''}`}
                     >
                       <div
-                        onClick={() => handleVerseClick(verse)}
-                        className={`flex gap-3 p-3 rounded-lg cursor-pointer transition-all hover:bg-gray-50 ${
+                        onClick={(e) => handleVerseClick(verse, e)}
+                        className={`flex gap-3 p-3 rounded-lg cursor-pointer transition-all hover:bg-gray-50 dark:hover:bg-gray-800 ${
                           bookmark?.highlight_color ? 'bg-opacity-30' : ''
                         }`}
                         style={{
@@ -449,7 +540,7 @@ export default function UnifiedBibleReader({
                         <span className="text-sm font-semibold text-[#8fa68a] mt-1 flex-shrink-0 w-8">
                           {verse.verse}
                         </span>
-                        <p className="text-gray-800 leading-relaxed flex-1">
+                        <p className={`text-gray-800 dark:text-gray-200 ${fontSize} ${lineHeight} flex-1`}>
                           {verse.text}
                         </p>
                         {(bookmark?.highlight_color || hasNote) && (
@@ -468,6 +559,16 @@ export default function UnifiedBibleReader({
                             {hasNote && (
                               <Bookmark className="w-4 h-4 fill-[#D9B878] text-[#D9B878]" />
                             )}
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setCrossRefVerse(verse);
+                              }}
+                              className="opacity-0 group-hover:opacity-100 transition-opacity"
+                              title="Cross References (or Shift+Click)"
+                            >
+                              <Link2 className="w-4 h-4 text-gray-400 hover:text-[#8fa68a]" />
+                            </button>
                           </div>
                         )}
                       </div>
@@ -499,7 +600,7 @@ export default function UnifiedBibleReader({
                             exit={{ opacity: 0, height: 0 }}
                             className="ml-11 mt-2"
                           >
-                            <div className="bg-gray-50 rounded-lg p-3 border-l-4 border-[#D9B878]">
+                            <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-3 border-l-4 border-[#D9B878]">
                               <button
                                 onClick={() => toggleNoteExpansion(verse.verse)}
                                 className="flex items-center justify-between w-full text-left mb-2"
@@ -515,7 +616,7 @@ export default function UnifiedBibleReader({
                                 <motion.p
                                   initial={{ opacity: 0 }}
                                   animate={{ opacity: 1 }}
-                                  className="text-sm text-gray-700 whitespace-pre-wrap"
+                                  className="text-sm text-gray-700 dark:text-gray-300 whitespace-pre-wrap"
                                 >
                                   {bookmark.note}
                                 </motion.p>
