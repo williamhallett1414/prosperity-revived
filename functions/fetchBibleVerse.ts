@@ -9,14 +9,17 @@ Deno.serve(async (req) => {
       return Response.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
-    const { reference } = await req.json();
+    const { reference, book, chapter } = await req.json();
     
-    if (!reference) {
-      return Response.json({ error: 'Reference is required' }, { status: 400 });
+    // Build reference from book and chapter if provided separately
+    const bibleRef = reference || (book && chapter ? `${book} ${chapter}` : null);
+    
+    if (!bibleRef) {
+      return Response.json({ error: 'Reference or book/chapter is required' }, { status: 400 });
     }
     
     // Fetch from Bible API
-    const response = await fetch(`https://bible-api.com/${encodeURIComponent(reference)}?translation=kjv`);
+    const response = await fetch(`https://bible-api.com/${encodeURIComponent(bibleRef)}?translation=kjv`);
     
     if (!response.ok) {
       return Response.json({ error: 'Failed to fetch verse' }, { status: 500 });
