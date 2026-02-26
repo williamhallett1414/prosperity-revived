@@ -48,16 +48,12 @@ export default function MyJournalEntries() {
   }, []);
 
   const { data: entries = [] } = useQuery({
-    queryKey: ['journalEntries', user?.email],
+    queryKey: ['journalEntries'],
     queryFn: async () => {
-      if (!user?.email) return [];
       try {
-        return await base44.entities.JournalEntry.filter(
-          { created_by: user.email },
-          '-created_date',
-          100
-        );
-      } catch {
+        return await base44.entities.JournalEntry.list('-created_date', 100);
+      } catch (error) {
+        console.error('Failed to fetch entries:', error);
         return [];
       }
     },
