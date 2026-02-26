@@ -146,7 +146,12 @@ export default function UnifiedBibleReader({
   const saveToJournal = useMutation({
     mutationFn: (data) => base44.entities.JournalEntry.create(data),
     onSuccess: () => {
+      queryClient.invalidateQueries(['journalEntries']);
       toast.success('Saved to My Journal!');
+    },
+    onError: (error) => {
+      console.error('Failed to save to journal:', error);
+      toast.error('Failed to save to journal');
     }
   });
 
