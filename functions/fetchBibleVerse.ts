@@ -10,10 +10,12 @@ Deno.serve(async (req) => {
     }
     
     const payload = await req.json();
-    const { reference, book, chapter } = payload;
+    const book = payload.book;
+    const chapter = payload.chapter;
+    const reference = payload.reference;
     
     // Build reference from book and chapter if provided separately
-    const bibleRef = reference || (book && chapter ? `${book} ${chapter}` : null);
+    const bibleRef = reference ? reference : (book && chapter ? `${book} ${chapter}` : null);
     
     if (!bibleRef) {
       return Response.json({ 
@@ -23,10 +25,11 @@ Deno.serve(async (req) => {
     }
     
     // Fetch from Bible API
-    const response = await fetch(`https://bible-api.com/${encodeURIComponent(bibleRef)}?translation=kjv`);
+    const apiUrl = `https://bible-api.com/${encodeURIComponent(bibleRef)}?translation=kjv`;
+    const response = await fetch(apiUrl);
     
     if (!response.ok) {
-      return Response.json({ error: 'Failed to fetch verse' }, { status: 500 });
+      return Response.json({ error: 'Failed to fetch verse', url: apiUrl }, { status: 500 });
     }
     
     const data = await response.json();
