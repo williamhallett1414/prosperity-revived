@@ -17,6 +17,7 @@ import BookmarkCard from '@/components/bookmarks/BookmarkCard';
 export default function Bookmarks() {
   const [filter, setFilter] = useState('all');
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
   const { data: bookmarks = [], isLoading } = useQuery({
     queryKey: ['bookmarks'],

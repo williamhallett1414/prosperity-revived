@@ -13,6 +13,7 @@ export default function MealDetailView() {
   const [searchParams] = useSearchParams();
   const mealId = searchParams.get('id');
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
   const { data: meal } = useQuery({
     queryKey: ['meal', mealId],

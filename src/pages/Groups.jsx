@@ -24,6 +24,7 @@ export default function Groups() {
   const [showCreate, setShowCreate] = useState(false);
   const [search, setSearch] = useState('');
   const [user, setUser] = useState(null);
+  const navigate = useNavigate();
   const [newGroup, setNewGroup] = useState({
     name: '',
     description: '',
