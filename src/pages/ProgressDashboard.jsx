@@ -35,7 +35,8 @@ const chatbotConfig = {
     color: 'from-purple-500 to-pink-500',
     bgColor: 'bg-purple-50',
     textColor: 'text-purple-700',
-    category: 'Personal Growth'
+    category: 'Personal Growth',
+    description: 'Personal growth, mindset & emotional wellbeing'
   },
   CoachDavid: {
     name: 'Coach David',
@@ -43,7 +44,8 @@ const chatbotConfig = {
     color: 'from-blue-500 to-cyan-500',
     bgColor: 'bg-blue-50',
     textColor: 'text-blue-700',
-    category: 'Fitness'
+    category: 'Fitness',
+    description: 'Fitness plans, workouts & accountability'
   },
   ChefDaniel: {
     name: 'Chef Daniel',
@@ -51,7 +53,8 @@ const chatbotConfig = {
     color: 'from-orange-500 to-red-500',
     bgColor: 'bg-orange-50',
     textColor: 'text-orange-700',
-    category: 'Nutrition'
+    category: 'Nutrition',
+    description: 'Nutrition advice, meal ideas & healthy eating'
   },
   Gideon: {
     name: 'Gideon',
@@ -59,7 +62,8 @@ const chatbotConfig = {
     color: 'from-green-500 to-emerald-500',
     bgColor: 'bg-green-50',
     textColor: 'text-green-700',
-    category: 'Spiritual Growth'
+    category: 'Spiritual Growth',
+    description: 'Scripture, spiritual guidance & daily devotionals'
   }
 };
 

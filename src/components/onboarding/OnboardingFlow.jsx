@@ -29,6 +29,7 @@ const DIETARY_PREFERENCES = [
 export default function OnboardingFlow({ onComplete }) {
   const [step, setStep] = useState(1);
   const [data, setData] = useState({
+    full_name: '',
     spiritual_goal: '',
     spiritual_interests: [],
     life_situation: [],

@@ -6,6 +6,7 @@ import { createPageUrl } from '@/utils';
 import { getVerseOfDay } from '@/components/bible/BibleData';
 import { Play, ChevronRight } from 'lucide-react';
 import StartWorkoutModal from '@/components/wellness/StartWorkoutModal';
+import { useNavigate } from 'react-router-dom';
 
 const affirmations = [
   "I am worthy of God's love and grace",

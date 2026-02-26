@@ -174,7 +174,7 @@ export default function Layout({ children, currentPageName }) {
         <div className="fixed top-0 left-0 right-0 bg-white dark:bg-[#2d2d4a] border-b border-gray-200 dark:border-gray-700 px-4 py-3 z-40 pt-[env(safe-area-inset-top)] select-none">
           <div className="max-w-lg mx-auto flex items-center justify-between">
             <h1 className="text-xl font-bold text-[#3C4E53] dark:text-white font-imprint">
-              Wellness & Faith
+              Prosperity Revived
             </h1>
             <NotificationBell />
           </div>

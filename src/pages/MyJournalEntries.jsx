@@ -401,6 +401,12 @@ export default function MyJournalEntries() {
             <div className="text-5xl mb-3">📝</div>
             <p className="text-[#0A1A2F]/60">No journal entries yet</p>
             <p className="text-xs text-[#0A1A2F]/50 mt-2">Start journaling in End My Day or here</p>
+            <Button
+              className="mt-4 bg-[#FD9C2D] hover:bg-[#FD9C2D]/90 text-white"
+              onClick={() => setShowNewEntryModal(true)}
+            >
+              ✍️ Write Your First Entry
+            </Button>
           </motion.div>
         ) : filteredEntries.length === 0 ? (
           <motion.div

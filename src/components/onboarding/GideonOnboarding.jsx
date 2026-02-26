@@ -8,58 +8,10 @@ export default function GideonOnboarding({ onComplete, onRevisit }) {
 
   const steps = [
     {
-      title: "Welcome to Gideon 📖",
-      description: "I'm your spiritual guide here to walk with you through God's Word with warmth, wisdom, and deep understanding. I combine kingdom revelation principles, grace-based teaching, and uplifting encouragement with emotional intelligence.",
+      title: "Meet Gideon 📖",
+      description: "Gideon is your personal spiritual guide. Ask him anything — scripture questions, life advice, prayer guidance, or daily encouragement. He remembers your journey and adapts to you over time.",
       icon: BookOpen,
-      highlight: null,
-      position: 'center'
-    },
-    {
-      title: "Ask Anything, Anytime",
-      description: "Whether it's a scripture question, spiritual guidance, or life situation—ask me anything. I'm conversational, warm, and adapt my responses to your emotional state and needs.",
-      icon: MessageCircle,
-      highlight: null,
-      position: 'center',
-      tip: "Try asking about specific verses, biblical principles, or how Scripture applies to your life."
-    },
-    {
-      title: "Deep Study Mode",
-      description: "Get comprehensive verse-by-verse breakdowns with historical context, original language insights, and practical application. I make complex theology accessible and relevant.",
-      icon: Brain,
-      highlight: null,
-      position: 'center',
-      tip: "Use 'Study this verse deeply' for in-depth biblical analysis."
-    },
-    {
-      title: "Emotional Intelligence",
-      description: "I sense your emotional tone—whether you're discouraged, curious, overwhelmed, or hopeful—and adapt my responses accordingly. You're not just getting information; you're being heard.",
-      icon: Heart,
-      highlight: null,
-      position: 'center',
-      tip: "Share how you're feeling and I'll tailor guidance to meet you where you are."
-    },
-    {
-      title: "Conversational Memory",
-      description: "I remember our past conversations, your spiritual themes, and your journey. Every interaction builds on the last, creating continuity and personalized guidance.",
-      icon: Sparkles,
-      highlight: null,
-      position: 'center',
-      tip: "The more we talk, the better I understand your spiritual journey."
-    },
-    {
-      title: "Daily Spiritual Notifications",
-      description: "Receive warm greetings and spiritual insights at key moments: morning identity reminders, midday peace, afternoon strength, and evening reflection—all tailored to you.",
-      icon: Brain,
-      highlight: null,
-      position: 'center',
-      tip: "Customize notification times and preferences in Settings."
-    },
-    {
-      title: "Let's Walk Together 📖",
-      description: "I'm excited to journey with you through Scripture, spiritual growth, and life's questions. There's no judgment here—just grace, truth, and encouragement.",
-      icon: BookOpen,
-      highlight: null,
-      position: 'center'
+      tip: "Try asking: 'What does the Bible say about anxiety?' or 'Give me a verse for today.'"
     }
   ];
 

@@ -447,6 +447,12 @@ export default function Prayer() {
           {prayerRequests.length === 0 ?
           <div className="bg-white rounded-2xl p-8 text-center shadow-sm">
               <p className="text-gray-500">No prayer requests yet. Be the first to share!</p>
+              <Button
+                className="mt-4 bg-[#FD9C2D] hover:bg-[#FD9C2D]/90 text-white"
+                onClick={() => setShowPrayerForm(true)}
+              >
+                🙏 Add Your First Prayer Request
+              </Button>
             </div> :
 
           prayerRequests.map((request, index) =>
