@@ -15,6 +15,7 @@ export default function ChatInterface({
   onSendMessage,
   isSending 
 }) {
+  const navigate = useNavigate();
   const [messageText, setMessageText] = useState('');
   const messagesEndRef = useRef(null);
   const textareaRef = useRef(null);
@@ -66,7 +67,7 @@ export default function ChatInterface({
             <ArrowLeft className="w-5 h-5" />
           </button>
           <button
-            onClick={() => window.location.href = createPageUrl(`UserProfile?email=${selectedEmail}`)}
+            onClick={() => navigate(createPageUrl(`UserProfile?email=${selectedEmail}`))}
             className="flex items-center gap-3 flex-1 hover:opacity-80 transition-opacity"
           >
             <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#c9a227] to-[#8fa68a] flex items-center justify-center text-white font-semibold">

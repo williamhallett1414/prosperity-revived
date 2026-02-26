@@ -13,6 +13,7 @@ import { getVerseOfDay } from '@/components/bible/BibleData';
 import { toast } from 'sonner';
 
 export default function DailyRoutineCards({ meditations = [] }) {
+  const navigate = useNavigate();
   const [activeModal, setActiveModal] = useState(null);
   const [gratitude, setGratitude] = useState('');
   const [mood, setMood] = useState([50]);
@@ -126,7 +127,7 @@ export default function DailyRoutineCards({ meditations = [] }) {
               <Button 
                 size="sm" 
                 className="mt-3 w-full bg-white hover:bg-white/90 text-[#0A1A2F]"
-                onClick={() => window.location.href = `/meditation-player?id=${morningMeditation.id}`}
+                onClick={() => navigate(createPageUrl('Wellness'))}
                 disabled={!morningMeditation.tts_audio_url}
               >
                 <Play className="w-4 h-4 mr-2" />
@@ -253,7 +254,7 @@ export default function DailyRoutineCards({ meditations = [] }) {
               <Button 
                 size="sm" 
                 className="w-full bg-white hover:bg-white/90 text-[#0A1A2F]"
-                onClick={() => window.location.href = `/meditation-player?id=${eveningMeditation.id}`}
+                onClick={() => navigate(createPageUrl('Wellness'))}
                 disabled={!eveningMeditation.tts_audio_url}
               >
                 <Play className="w-4 h-4 mr-2" />

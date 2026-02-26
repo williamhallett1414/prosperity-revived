@@ -23,6 +23,7 @@ const highlightColors = {
 };
 
 export default function VerseReader({ book, chapter, onBack, onNavigate, bookmarks, onBookmark, planDay, planId }) {
+  const navigate = useNavigate();
   const [verses, setVerses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [fontSize, setFontSize] = useState('text-lg');
@@ -129,7 +130,7 @@ export default function VerseReader({ book, chapter, onBack, onNavigate, bookmar
       text: verse.text
     };
     localStorage.setItem('shareVerse', JSON.stringify(verseData));
-    window.location.href = createPageUrl('Community');
+    navigate(createPageUrl('Community'));
   };
 
   const canGoNext = chapter < book.chapters;

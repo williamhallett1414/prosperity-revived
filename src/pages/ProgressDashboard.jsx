@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -75,6 +76,7 @@ const memoryTypeIcons = {
 };
 
 export default function ProgressDashboard() {
+  const navigate = useNavigate();
   const [activeChat, setActiveChat] = useState(null);
   const [showOnboarding, setShowOnboarding] = useState(false);
   const queryClient = useQueryClient();
@@ -190,7 +192,7 @@ export default function ProgressDashboard() {
             </div>
             <div className="flex gap-2">
               <Button
-                onClick={() => window.location.href = '/Community'}
+                onClick={() => navigate(createPageUrl('Community'))}
                 variant="outline"
                 size="sm"
                 className="text-blue-600 border-blue-300 hover:bg-blue-50"

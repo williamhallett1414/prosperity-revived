@@ -36,7 +36,7 @@ export default function TodaysRecommendations({ user, mealLogs, workoutSessions,
           icon: '💧',
           title: 'Hydration Check-in',
           description: `You've had ${todayWater} glasses of water. Aim for 8+ glasses today.`,
-          action: () => window.location.href = createPageUrl('Wellness?tab=nutrition'),
+          action: () => navigate(createPageUrl('Wellness?tab=nutrition')),
           color: 'from-blue-50 to-cyan-50'
         });
       }
@@ -48,7 +48,7 @@ export default function TodaysRecommendations({ user, mealLogs, workoutSessions,
         icon: '😴',
         title: 'Sleep Optimization',
         description: 'Getting 7-9 hours of quality sleep improves recovery and mood.',
-        action: () => window.location.href = createPageUrl('Wellness?tab=mind'),
+        action: () => navigate(createPageUrl('Wellness?tab=mind')),
         color: 'from-purple-50 to-pink-50'
       });
     }
@@ -59,7 +59,7 @@ export default function TodaysRecommendations({ user, mealLogs, workoutSessions,
         icon: '🧘',
         title: 'Stress Relief Session',
         description: 'Try a 5-10 minute meditation to reduce stress and improve focus.',
-        action: () => window.location.href = createPageUrl('Wellness?tab=mind'),
+        action: () => navigate(createPageUrl('Wellness?tab=mind')),
         color: 'from-green-50 to-emerald-50'
       });
     }
@@ -74,7 +74,7 @@ export default function TodaysRecommendations({ user, mealLogs, workoutSessions,
         icon: '💪',
         title: 'Today\'s Workout',
         description: `${workoutSuggestion} to keep your momentum going.`,
-        action: () => window.location.href = createPageUrl('Wellness?tab=workouts'),
+        action: () => navigate(createPageUrl('Wellness?tab=workouts')),
         color: 'from-orange-50 to-red-50'
       });
     }
@@ -85,7 +85,7 @@ export default function TodaysRecommendations({ user, mealLogs, workoutSessions,
         icon: '🤸',
         title: 'Recovery & Stretching',
         description: 'Follow up your workout with 10 minutes of stretching to improve flexibility.',
-        action: () => window.location.href = createPageUrl('Wellness?tab=workouts'),
+        action: () => navigate(createPageUrl('Wellness?tab=workouts')),
         color: 'from-yellow-50 to-orange-50'
       });
     }
@@ -96,7 +96,7 @@ export default function TodaysRecommendations({ user, mealLogs, workoutSessions,
         icon: '🚶',
         title: 'Daily Movement Goal',
         description: 'Aim for 7,000-10,000 steps today to build endurance gradually.',
-        action: () => window.location.href = createPageUrl('Wellness?tab=workouts'),
+        action: () => navigate(createPageUrl('Wellness?tab=workouts')),
         color: 'from-teal-50 to-cyan-50'
       });
     }
@@ -108,7 +108,7 @@ export default function TodaysRecommendations({ user, mealLogs, workoutSessions,
         icon: '🍎',
         title: 'Breakfast Suggestion',
         description: 'Start your day with a protein-rich breakfast to boost energy and metabolism.',
-        action: () => window.location.href = createPageUrl('Wellness?tab=nutrition'),
+        action: () => navigate(createPageUrl('Wellness?tab=nutrition')),
         color: 'from-amber-50 to-orange-50'
       });
     }
@@ -122,7 +122,7 @@ export default function TodaysRecommendations({ user, mealLogs, workoutSessions,
         icon: '🥗',
         title: 'Lunch Recommendation',
         description: `Try a ${mealGoal} focused on your health goals.`,
-        action: () => window.location.href = createPageUrl('DiscoverRecipes'),
+        action: () => navigate(createPageUrl('DiscoverRecipes')),
         color: 'from-green-50 to-lime-50'
       });
     }
@@ -133,7 +133,7 @@ export default function TodaysRecommendations({ user, mealLogs, workoutSessions,
         icon: '📊',
         title: 'Macro Balance Check',
         description: 'Review today\'s nutrition to ensure balanced carbs, protein, and healthy fats.',
-        action: () => window.location.href = createPageUrl('Wellness?tab=nutrition'),
+        action: () => navigate(createPageUrl('Wellness?tab=nutrition')),
         color: 'from-indigo-50 to-blue-50'
       });
     }

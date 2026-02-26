@@ -71,7 +71,7 @@ export default function EndMyDayModal({ isOpen, onClose, meditations = [] }) {
             {sleepMeditation.description}
           </p>
           <Button
-            onClick={() => window.location.href = `/meditation-player?id=${sleepMeditation.id}`}
+            onClick={() => navigate(createPageUrl('Wellness'))}
             disabled={!sleepMeditation.tts_audio_url}
             className="w-full bg-white hover:bg-white/90 text-[#0A1A2F]"
             size="sm"

@@ -12,6 +12,7 @@ import ContentModeration from '@/components/community/ContentModeration';
 import PostSummary from '@/components/community/PostSummary';
 
 export default function PostCard({ post, comments = [], onLike, onComment, index }) {
+  const navigate = useNavigate();
   const [showComments, setShowComments] = useState(false);
   const [commentText, setCommentText] = useState('');
   const [isLiked, setIsLiked] = useState(false);
@@ -131,7 +132,7 @@ export default function PostCard({ post, comments = [], onLike, onComment, index
 
   const handleVerseClick = () => {
     if (post.verse_book) {
-      window.location.href = createPageUrl(`Bible?book=${post.verse_book}&chapter=${post.verse_chapter}`);
+      navigate(createPageUrl(`Bible?book=${post.verse_book}&chapter=${post.verse_chapter}`));
     }
   };
 
@@ -173,14 +174,14 @@ export default function PostCard({ post, comments = [], onLike, onComment, index
       <div className="flex items-center gap-3 mb-3">
         <div 
           className="w-10 h-10 rounded-full bg-gradient-to-br from-[#1a1a2e] to-[#c9a227] flex items-center justify-center text-white font-semibold cursor-pointer hover:opacity-80"
-          onClick={() => post.created_by && (window.location.href = createPageUrl(`UserProfile?email=${post.created_by}`))}
+          onClick={() => post.created_by && navigate(createPageUrl(`UserProfile?email=${post.created_by}`))}
         >
           {post.user_name?.[0]?.toUpperCase() || 'U'}
         </div>
         <div className="flex-1">
           <p 
             className="font-semibold text-[#1a1a2e] cursor-pointer hover:text-[#c9a227]"
-            onClick={() => post.created_by && (window.location.href = createPageUrl(`UserProfile?email=${post.created_by}`))}
+            onClick={() => post.created_by && navigate(createPageUrl(`UserProfile?email=${post.created_by}`))}
           >
             {post.user_name || 'Anonymous'}
           </p>
