@@ -137,8 +137,15 @@ export default function MyJournalEntries() {
 
   // Filter entries by category
   const filteredEntries = useMemo(() => {
+    console.log('Filtering - selectedCategory:', selectedCategory);
+    console.log('All entries:', entries);
     if (selectedCategory === 'all') return entries;
-    return entries.filter(entry => entry.entry_type === selectedCategory);
+    const filtered = entries.filter(entry => {
+      console.log(`Entry ${entry.id} type:`, entry.entry_type, 'matches:', entry.entry_type === selectedCategory);
+      return entry.entry_type === selectedCategory;
+    });
+    console.log('Filtered entries:', filtered);
+    return filtered;
   }, [entries, selectedCategory]);
 
   // Group entries by date
