@@ -217,27 +217,37 @@ export default function UnifiedBibleReader({
   };
 
   const handleSaveToJournal = async (verse) => {
+    console.log('handleSaveToJournal called');
     const bookmark = getBookmark(verse);
+    console.log('Bookmark:', bookmark);
+    
     if (!bookmark?.note) {
-      toast.error('No note found');
+      toast.error('No note found to save');
       return;
     }
 
     const verseRef = `${selectedBook.name} ${selectedChapter}:${verse.verse}`;
     const journalContent = `📖 ${verseRef}\n\n"${verse.text}"\n\n💭 My Reflection:\n${bookmark.note}`;
 
+    console.log('Saving to journal:', {
+      title: `Bible Note: ${verseRef}`,
+      content: journalContent,
+      entry_type: 'bible_notes'
+    });
+
     try {
-      await base44.entities.JournalEntry.create({
+      const result = await base44.entities.JournalEntry.create({
         title: `Bible Note: ${verseRef}`,
         content: journalContent,
         entry_type: 'bible_notes',
         tags: ['Bible Notes', selectedBook.name]
       });
+      console.log('Save result:', result);
       queryClient.invalidateQueries(['journalEntries']);
       toast.success('Saved to My Journal!');
     } catch (error) {
       console.error('Failed to save:', error);
-      toast.error('Failed to save to journal');
+      toast.error(`Failed to save: ${error.message}`);
     }
   };
 
