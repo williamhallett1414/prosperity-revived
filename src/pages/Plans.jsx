@@ -15,10 +15,10 @@ import { readingPlans } from '@/components/bible/BibleData';
 
 
 export default function Plans() {
-  const navigate = useNavigate();
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState('all');
   const [showCreateCustom, setShowCreateCustom] = useState(false);
+  const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [showGideon, setShowGideon] = useState(false);
   const [gideonInput, setGideonInput] = useState('');
