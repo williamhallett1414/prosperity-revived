@@ -9,13 +9,17 @@ Deno.serve(async (req) => {
       return Response.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
-    const { reference, book, chapter } = await req.json();
+    const payload = await req.json();
+    const { reference, book, chapter } = payload;
     
     // Build reference from book and chapter if provided separately
     const bibleRef = reference || (book && chapter ? `${book} ${chapter}` : null);
     
     if (!bibleRef) {
-      return Response.json({ error: 'Reference or book/chapter is required' }, { status: 400 });
+      return Response.json({ 
+        error: 'Reference or book/chapter is required',
+        received: payload 
+      }, { status: 400 });
     }
     
     // Fetch from Bible API
