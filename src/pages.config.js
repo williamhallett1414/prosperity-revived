@@ -66,10 +66,12 @@ import Groups from './pages/Groups';
 import GrowthPathwaysPage from './pages/GrowthPathwaysPage';
 import HabitBuilderPage from './pages/HabitBuilderPage';
 import HealthWellnessWaiver from './pages/HealthWellnessWaiver';
+import Home from './pages/Home';
 import IdentityInChristPage from './pages/IdentityInChristPage';
 import MealDetailView from './pages/MealDetailView';
 import Messages from './pages/Messages';
 import MindsetResetPage from './pages/MindsetResetPage';
+import MyJournalEntries from './pages/MyJournalEntries';
 import NotificationSettings from './pages/NotificationSettings';
 import Notifications from './pages/Notifications';
 import Nutrition from './pages/Nutrition';
@@ -97,8 +99,6 @@ import WorkoutCategoryPage from './pages/WorkoutCategoryPage';
 import WorkoutProgress from './pages/WorkoutProgress';
 import WorkoutTrends from './pages/WorkoutTrends';
 import Workouts from './pages/Workouts';
-import Home from './pages/Home';
-import MyJournalEntries from './pages/MyJournalEntries';
 import __Layout from './Layout.jsx';
 
 
@@ -122,10 +122,12 @@ export const PAGES = {
     "GrowthPathwaysPage": GrowthPathwaysPage,
     "HabitBuilderPage": HabitBuilderPage,
     "HealthWellnessWaiver": HealthWellnessWaiver,
+    "Home": Home,
     "IdentityInChristPage": IdentityInChristPage,
     "MealDetailView": MealDetailView,
     "Messages": Messages,
     "MindsetResetPage": MindsetResetPage,
+    "MyJournalEntries": MyJournalEntries,
     "NotificationSettings": NotificationSettings,
     "Notifications": Notifications,
     "Nutrition": Nutrition,
@@ -153,8 +155,6 @@ export const PAGES = {
     "WorkoutProgress": WorkoutProgress,
     "WorkoutTrends": WorkoutTrends,
     "Workouts": Workouts,
-    "Home": Home,
-    "MyJournalEntries": MyJournalEntries,
 }
 
 export const pagesConfig = {

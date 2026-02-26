@@ -5,7 +5,7 @@ import { base44 } from '@/api/base44Client';
 import { createPageUrl } from '@/utils';
 import { ArrowLeft, Users, Lock, Globe, UserPlus, Plus, Loader2, Trophy } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import PostCard from '@/components/community/PostCard';
 import CreatePostModal from '@/components/community/CreatePostModal';

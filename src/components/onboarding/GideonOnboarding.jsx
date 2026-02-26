@@ -70,15 +70,18 @@ export default function GideonOnboarding({ onComplete, onRevisit }) {
     if (step < steps.length - 1) {
       setStep(step + 1);
     } else {
+      localStorage.setItem('gideon_onboarding_complete', 'true');
       onComplete();
     }
   };
 
   const handleSkip = () => {
+    localStorage.setItem('gideon_onboarding_complete', 'true');
     onComplete();
   };
 
   if (step >= steps.length) {
+    localStorage.setItem('gideon_onboarding_complete', 'true');
     onComplete();
     return null;
   }

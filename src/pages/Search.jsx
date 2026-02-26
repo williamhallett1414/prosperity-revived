@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Search as SearchIcon, Loader2, BookOpen, ArrowLeft } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import { createPageUrl } from '@/utils';
 import { ScrollArea } from '@/components/ui/scroll-area';

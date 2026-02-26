@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { createPageUrl } from '@/utils';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Search, ArrowLeft, Plus, MessageCircle, Send, Loader2, Users } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -18,6 +18,7 @@ export default function Plans() {
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState('all');
   const [showCreateCustom, setShowCreateCustom] = useState(false);
+  const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [showGideon, setShowGideon] = useState(false);
   const [gideonInput, setGideonInput] = useState('');

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowLeft } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { bibleBooks } from '@/components/bible/BibleData';
 import { ScrollArea } from '@/components/ui/scroll-area';
