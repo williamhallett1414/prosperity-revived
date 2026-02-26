@@ -52,7 +52,6 @@ import AffirmationsPage from './pages/AffirmationsPage';
 import Bible from './pages/Bible';
 import BibleBooks from './pages/BibleBooks';
 import Bookmarks from './pages/Bookmarks';
-import ChallengeDetail from './pages/ChallengeDetail';
 import ChallengeDetailPage from './pages/ChallengeDetailPage';
 import Community from './pages/Community';
 import DiscoverRecipes from './pages/DiscoverRecipes';
@@ -108,7 +107,6 @@ export const PAGES = {
     "Bible": Bible,
     "BibleBooks": BibleBooks,
     "Bookmarks": Bookmarks,
-    "ChallengeDetail": ChallengeDetail,
     "ChallengeDetailPage": ChallengeDetailPage,
     "Community": Community,
     "DiscoverRecipes": DiscoverRecipes,
