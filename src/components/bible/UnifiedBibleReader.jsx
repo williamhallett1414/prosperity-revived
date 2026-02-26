@@ -243,7 +243,7 @@ export default function UnifiedBibleReader({
         tags: ['Bible Notes', selectedBook.name]
       });
       console.log('Save result:', result);
-      queryClient.invalidateQueries(['journalEntries']);
+      await queryClient.invalidateQueries({ queryKey: ['journalEntries'] });
       toast.success('Saved to My Journal!');
     } catch (error) {
       console.error('Failed to save:', error);
