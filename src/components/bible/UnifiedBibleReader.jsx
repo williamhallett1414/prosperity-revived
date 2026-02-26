@@ -242,11 +242,24 @@ export default function UnifiedBibleReader({
         entry_type: 'bible_notes',
         tags: ['Bible Notes', selectedBook.name]
       });
-      console.log('Save result:', result);
+      console.log('✅ Journal Entry Created Successfully:', result);
+      console.log('Entry ID:', result.id);
+      console.log('Entry Type:', result.entry_type);
+      
+      // Invalidate and refetch
       await queryClient.invalidateQueries({ queryKey: ['journalEntries'] });
+      
+      // Wait a bit and verify
+      setTimeout(async () => {
+        const allEntries = await base44.entities.JournalEntry.list();
+        console.log('📋 All entries after save:', allEntries);
+        console.log('📖 Bible notes after save:', allEntries.filter(e => e.entry_type === 'bible_notes'));
+      }, 500);
+      
       toast.success('Saved to My Journal!');
     } catch (error) {
-      console.error('Failed to save:', error);
+      console.error('❌ Failed to save:', error);
+      console.error('Error details:', JSON.stringify(error, null, 2));
       toast.error(`Failed to save: ${error.message}`);
     }
   };
