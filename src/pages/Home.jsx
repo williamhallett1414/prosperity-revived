@@ -291,9 +291,6 @@ export default function Home() {
 
         {/* Today's Overview */}
         <TodaysOverview
-          meditations={meditations}
-          workoutPlans={workoutPlans}
-          challenges={challenges}
           user={user}
           onBookmark={handleBookmarkVerse} />
 
