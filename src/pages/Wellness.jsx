@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { motion } from 'framer-motion';
 import WellnessRecommendations from '@/components/wellness/WellnessRecommendations';
+import { useQuery } from '@tanstack/react-query';
 
 export default function Wellness() {
   const [user, setUser] = useState(null);
@@ -12,10 +13,51 @@ export default function Wellness() {
     base44.auth.me().then(setUser);
   }, []);
 
+  const today = new Date().toISOString().split('T')[0];
+
+  const { data: mealLogs = [] } = useQuery({
+    queryKey: ['mealLogs'],
+    queryFn: () => base44.entities.MealLog.list('-date', 100),
+    enabled: !!user
+  });
+
+  const { data: workoutSessions = [] } = useQuery({
+    queryKey: ['workoutSessions'],
+    queryFn: () => base44.entities.WorkoutSession.list('-date', 100),
+    enabled: !!user
+  });
+
+  const { data: waterLogs = [] } = useQuery({
+    queryKey: ['waterLogs'],
+    queryFn: () => base44.entities.WaterLog.list('-date', 100),
+    enabled: !!user
+  });
+
   return (
     <div className="min-h-screen bg-[#F2F6FA] pb-24">
       <div className="px-4 pt-6 pb-6">
         <div className="max-w-2xl mx-auto">
+          <div className="grid grid-cols-3 gap-3 mb-6">
+            <div className="bg-white rounded-xl p-3 text-center shadow-sm">
+              <p className="text-2xl font-bold text-[#FD9C2D]">
+                {mealLogs.filter(m => m.date === today).length}
+              </p>
+              <p className="text-xs text-gray-500">Meals today</p>
+            </div>
+            <div className="bg-white rounded-xl p-3 text-center shadow-sm">
+              <p className="text-2xl font-bold text-[#3C4E53]">
+                {workoutSessions.filter(w => w.date === today).length}
+              </p>
+              <p className="text-xs text-gray-500">Workouts today</p>
+            </div>
+            <div className="bg-white rounded-xl p-3 text-center shadow-sm">
+              <p className="text-2xl font-bold text-[#FD9C2D]">
+                {waterLogs.filter(w => w.date === today).reduce((sum, w) => sum + (w.amount_ml || 0), 0)}ml
+              </p>
+              <p className="text-xs text-gray-500">Water intake</p>
+            </div>
+          </div>
+
           <div className="grid grid-cols-2 gap-4">
             {/* Nutrition Card */}
             <motion.div

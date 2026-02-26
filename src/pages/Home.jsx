@@ -285,6 +285,46 @@ export default function Home() {
           </Button>
         </motion.div>
 
+        {/* Start Here card for new users */}
+        {planProgress.length === 0 && workoutSessions.length === 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-6 mx-4 bg-gradient-to-br from-[#FD9C2D]/10 to-[#FAD98D]/20 border border-[#FD9C2D]/30 rounded-2xl p-5"
+          >
+            <h2 className="text-lg font-bold text-[#0A1A2F] mb-3">👋 Here's where to start</h2>
+            <div className="space-y-2">
+              <Link to={createPageUrl('Bible')}>
+                <div className="bg-white rounded-xl p-3 flex items-center gap-3 hover:shadow-sm transition-shadow">
+                  <span className="text-2xl">📖</span>
+                  <div>
+                    <p className="font-semibold text-sm text-[#0A1A2F]">Read today's verse</p>
+                    <p className="text-xs text-[#0A1A2F]/60">Start your spiritual journey</p>
+                  </div>
+                </div>
+              </Link>
+              <Link to={createPageUrl('Plans')}>
+                <div className="bg-white rounded-xl p-3 flex items-center gap-3 hover:shadow-sm transition-shadow">
+                  <span className="text-2xl">📅</span>
+                  <div>
+                    <p className="font-semibold text-sm text-[#0A1A2F]">Start a reading plan</p>
+                    <p className="text-xs text-[#0A1A2F]/60">Build a daily Bible habit</p>
+                  </div>
+                </div>
+              </Link>
+              <Link to={createPageUrl('Workouts')}>
+                <div className="bg-white rounded-xl p-3 flex items-center gap-3 hover:shadow-sm transition-shadow">
+                  <span className="text-2xl">💪</span>
+                  <div>
+                    <p className="font-semibold text-sm text-[#0A1A2F]">Log your first workout</p>
+                    <p className="text-xs text-[#0A1A2F]/60">Track your fitness progress</p>
+                  </div>
+                </div>
+              </Link>
+            </div>
+          </motion.div>
+        )}
+
         {/* Gideon Proactive Engagement */}
         <ProactiveSuggestions />
         <PersonalizedDevotional />
