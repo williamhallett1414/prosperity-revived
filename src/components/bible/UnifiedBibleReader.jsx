@@ -143,17 +143,7 @@ export default function UnifiedBibleReader({
     }
   });
 
-  const saveToJournal = useMutation({
-    mutationFn: (data) => base44.entities.JournalEntry.create(data),
-    onSuccess: () => {
-      queryClient.invalidateQueries(['journalEntries']);
-      toast.success('Saved to My Journal!');
-    },
-    onError: (error) => {
-      console.error('Failed to save to journal:', error);
-      toast.error('Failed to save to journal');
-    }
-  });
+
 
   const handleVerseClick = (verse) => {
     setActiveVerseMenu(activeVerseMenu === verse.verse ? null : verse.verse);
@@ -226,19 +216,29 @@ export default function UnifiedBibleReader({
     }
   };
 
-  const handleSaveToJournal = (verse) => {
+  const handleSaveToJournal = async (verse) => {
     const bookmark = getBookmark(verse);
-    if (!bookmark?.note) return;
+    if (!bookmark?.note) {
+      toast.error('No note found');
+      return;
+    }
 
     const verseRef = `${selectedBook.name} ${selectedChapter}:${verse.verse}`;
     const journalContent = `📖 ${verseRef}\n\n"${verse.text}"\n\n💭 My Reflection:\n${bookmark.note}`;
 
-    saveToJournal.mutate({
-      title: `Bible Note: ${verseRef}`,
-      content: journalContent,
-      entry_type: 'bible_notes',
-      tags: ['Bible Notes', selectedBook.name]
-    });
+    try {
+      await base44.entities.JournalEntry.create({
+        title: `Bible Note: ${verseRef}`,
+        content: journalContent,
+        entry_type: 'bible_notes',
+        tags: ['Bible Notes', selectedBook.name]
+      });
+      queryClient.invalidateQueries(['journalEntries']);
+      toast.success('Saved to My Journal!');
+    } catch (error) {
+      console.error('Failed to save:', error);
+      toast.error('Failed to save to journal');
+    }
   };
 
   const toggleNoteExpansion = (verseNum) => {
