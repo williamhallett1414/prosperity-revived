@@ -463,14 +463,11 @@ export default function Home() {
       <StartMyDayModal
         isOpen={showStartDay}
         onClose={() => setShowStartDay(false)}
-        meditations={meditations}
-        workoutPlans={workoutPlans}
         user={user} />
 
       <EndMyDayModal
         isOpen={showEndDay}
-        onClose={() => setShowEndDay(false)}
-        meditations={meditations} />
+        onClose={() => setShowEndDay(false)} />
 
       {/* Help Chatbot */}
       <HelpChatbot />
