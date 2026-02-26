@@ -11,7 +11,7 @@ import BookSelector from '@/components/bible/BookSelector';
 import ChapterSelector from '@/components/bible/ChapterSelector';
 import VerseReader from '@/components/bible/VerseReader';
 import ReadingPlanCard from '@/components/home/ReadingPlanCard';
-import { readingPlans, getBookByName } from '@/components/bible/BibleData';
+import { readingPlans, getBookByName, bibleBooks } from '@/components/bible/BibleData';
 import BibleStatsModal from '@/components/bible/BibleStatsModal';
 import DevotionalContent from '@/components/bible/DevotionalContent';
 import BibleQA from '@/components/bible/BibleQA';
@@ -20,6 +20,7 @@ import MoodTracker from '@/components/bible/MoodTracker';
 import PastoralChatbot from '@/components/bible/PastoralChatbot';
 import GideonAskAnything from '@/components/bible/GideonAskAnything';
 import UnifiedBibleReader from '@/components/bible/UnifiedBibleReader';
+import BibleSearchBar from '@/components/bible/BibleSearchBar';
 
 export default function Bible() {
   const [view, setView] = useState('home'); // home, oldTestament, newTestament
@@ -27,6 +28,7 @@ export default function Bible() {
   const [selectedStat, setSelectedStat] = useState(null);
   const [initialBook, setInitialBook] = useState(null);
   const [initialChapter, setInitialChapter] = useState(null);
+  const [searchData, setSearchData] = useState(null);
 
   const queryClient = useQueryClient();
   const navigate = useNavigate();
@@ -80,6 +82,18 @@ export default function Bible() {
     setView('home');
     setInitialBook(null);
     setInitialChapter(null);
+    setSearchData(null);
+  };
+
+  const handleSearchNavigate = (data) => {
+    // Determine which testament the book belongs to
+    const isOldTestament = bibleBooks.oldTestament.some(b => b.name === data.book.name);
+    const testament = isOldTestament ? 'oldTestament' : 'newTestament';
+    
+    setSearchData(data);
+    setInitialBook(data.book);
+    setInitialChapter(data.chapter || null);
+    setView(testament);
   };
 
   const handleBookmark = (verse, color, note = '') => {
@@ -131,6 +145,7 @@ export default function Bible() {
         initialChapter={initialChapter}
         bookmarks={bookmarks}
         onBookmark={handleBookmark}
+        searchData={searchData}
       />
     );
   }
@@ -144,6 +159,7 @@ export default function Bible() {
         initialChapter={initialChapter}
         bookmarks={bookmarks}
         onBookmark={handleBookmark}
+        searchData={searchData}
       />
     );
   }
@@ -194,6 +210,9 @@ export default function Bible() {
 
             <TabsContent value="read">
               <div className="space-y-6">
+                {/* Search Bar */}
+                <BibleSearchBar onNavigate={handleSearchNavigate} />
+                
                 {/* Testament Selection */}
                 <div className="grid grid-cols-2 gap-4 mb-6">
                   <motion.button
