@@ -181,7 +181,7 @@ export default function Groups() {
                   <GroupCard
                     key={group.id}
                     group={group}
-                    onClick={() => window.location.href = createPageUrl(`GroupDetail?id=${group.id}`)}
+                    onClick={() => navigate(createPageUrl(`GroupDetail?id=${group.id}`))}
                     index={index}
                     isMember={true}
                   />
@@ -204,7 +204,7 @@ export default function Groups() {
                   <GroupCard
                     key={group.id}
                     group={group}
-                    onClick={() => window.location.href = createPageUrl(`GroupDetail?id=${group.id}`)}
+                    onClick={() => navigate(createPageUrl(`GroupDetail?id=${group.id}`))}
                     index={index}
                     isMember={false}
                   />

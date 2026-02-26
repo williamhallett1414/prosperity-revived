@@ -31,7 +31,7 @@ export default function MealDetailView() {
     onSuccess: () => {
       queryClient.invalidateQueries(['allMeals']);
       toast.success('Meal deleted');
-      window.location.href = createPageUrl('FoodLogHistory');
+      navigate(createPageUrl('FoodLogHistory'));
     }
   });
 

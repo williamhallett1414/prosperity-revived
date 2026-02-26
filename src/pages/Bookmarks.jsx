@@ -30,7 +30,7 @@ export default function Bookmarks() {
   });
 
   const handleOpenVerse = (bookmark) => {
-    window.location.href = createPageUrl(`Bible?book=${bookmark.book}&chapter=${bookmark.chapter}`);
+    navigate(createPageUrl(`Bible?book=${bookmark.book}&chapter=${bookmark.chapter}`));
   };
 
   const filteredBookmarks = filter === 'all'
@@ -109,7 +109,7 @@ export default function Bookmarks() {
               Tap on any verse while reading to highlight and save it
             </p>
             <Button
-              onClick={() => window.location.href = createPageUrl('Bible')}
+              onClick={() => navigate(createPageUrl('Bible'))}
               className="bg-[#1a1a2e] hover:bg-[#2d2d4a]"
             >
               Start Reading
