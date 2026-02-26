@@ -15,8 +15,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
-import PersonalizedDevotional from '@/components/gideon/PersonalizedDevotional';
-import DailyReflectionPrompt from '@/components/gideon/DailyReflectionPrompt';
 
 const CATEGORIES = [
   { value: 'all', label: 'All Entries', emoji: '📝' },
@@ -235,12 +233,6 @@ export default function MyJournalEntries() {
       </div>
 
       <div className="max-w-2xl mx-auto px-4 py-6">
-        {/* Personalized Devotional */}
-        <PersonalizedDevotional />
-        
-        {/* Daily Reflection Prompt */}
-        <DailyReflectionPrompt />
-
         {/* AI Summaries Section */}
         {entries.length > 0 && (
           <div className="mb-6 space-y-4">
