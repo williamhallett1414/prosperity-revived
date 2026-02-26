@@ -1,9 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Search, X } from 'lucide-react';
+import { Search, X, Sparkles } from 'lucide-react';
 import { getAllBooks, getBookByName } from '@/components/bible/BibleData';
 import { motion, AnimatePresence } from 'framer-motion';
+import AdvancedBibleSearch from './AdvancedBibleSearch';
 
 export default function BibleSearchBar({ onNavigate }) {
+  const [showAdvancedSearch, setShowAdvancedSearch] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -185,28 +187,39 @@ export default function BibleSearchBar({ onNavigate }) {
   };
 
   return (
-    <div ref={containerRef} className="relative mb-4">
-      <div className="relative">
-        <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-        <input
-          ref={inputRef}
-          type="text"
-          value={searchQuery}
-          onChange={handleInputChange}
-          onKeyDown={handleKeyDown}
-          onFocus={() => searchQuery && setShowSuggestions(true)}
-          placeholder="Search books, chapters, or verses…"
-          className="w-full pl-12 pr-12 py-3.5 bg-white rounded-2xl border-2 border-gray-200 focus:border-[#D9B878] focus:outline-none text-[#0A1A2F] placeholder:text-gray-400 transition-all shadow-sm"
-        />
-        {searchQuery && (
+    <>
+      <div ref={containerRef} className="relative mb-4">
+        <div className="flex gap-2 mb-2">
+          <div className="relative flex-1">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+            <input
+              ref={inputRef}
+              type="text"
+              value={searchQuery}
+              onChange={handleInputChange}
+              onKeyDown={handleKeyDown}
+              onFocus={() => searchQuery && setShowSuggestions(true)}
+              placeholder="Quick navigation: books, chapters, verses…"
+              className="w-full pl-12 pr-12 py-3.5 bg-white rounded-2xl border-2 border-gray-200 focus:border-[#D9B878] focus:outline-none text-[#0A1A2F] placeholder:text-gray-400 transition-all shadow-sm"
+            />
+            {searchQuery && (
+              <button
+                onClick={clearSearch}
+                className="absolute right-4 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-gray-200 hover:bg-gray-300 flex items-center justify-center transition-colors"
+              >
+                <X className="w-4 h-4 text-gray-600" />
+              </button>
+            )}
+          </div>
+          
           <button
-            onClick={clearSearch}
-            className="absolute right-4 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-gray-200 hover:bg-gray-300 flex items-center justify-center transition-colors"
+            onClick={() => setShowAdvancedSearch(true)}
+            className="px-4 py-3.5 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white rounded-2xl font-medium flex items-center gap-2 transition-all shadow-sm"
           >
-            <X className="w-4 h-4 text-gray-600" />
+            <Sparkles className="w-5 h-5" />
+            <span className="hidden sm:inline">Advanced Search</span>
           </button>
-        )}
-      </div>
+        </div>
 
       <AnimatePresence>
         {showSuggestions && suggestions.length > 0 && (
@@ -260,6 +273,13 @@ export default function BibleSearchBar({ onNavigate }) {
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+      </div>
+
+      <AdvancedBibleSearch
+        isOpen={showAdvancedSearch}
+        onClose={() => setShowAdvancedSearch(false)}
+        onNavigateToVerse={onNavigate}
+      />
+    </>
   );
 }
