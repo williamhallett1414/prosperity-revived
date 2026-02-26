@@ -51,7 +51,10 @@ export default function MyJournalEntries() {
     queryKey: ['journalEntries'],
     queryFn: async () => {
       try {
-        return await base44.entities.JournalEntry.list('-created_date', 100);
+        const result = await base44.entities.JournalEntry.list('-created_date', 100);
+        console.log('Fetched journal entries:', result);
+        console.log('Bible notes entries:', result.filter(e => e.entry_type === 'bible_notes'));
+        return result;
       } catch (error) {
         console.error('Failed to fetch entries:', error);
         return [];
