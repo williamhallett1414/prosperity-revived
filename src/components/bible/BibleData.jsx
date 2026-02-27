@@ -870,6 +870,19 @@ export const planReadingSchedules = {
     { day: 14, book: "Psalms", chapter: 34 }
   ],
 
+  "workplace-witness": [
+    { day: 1, book: "Colossians", chapter: 3 },
+    { day: 2, book: "Matthew", chapter: 5 },
+    { day: 3, book: "Daniel", chapter: 1 },
+    { day: 4, book: "Proverbs", chapter: 22 },
+    { day: 5, book: "1 Peter", chapter: 2 },
+    { day: 6, book: "Acts", chapter: 17 },
+    { day: 7, book: "Romans", chapter: 12 },
+    { day: 8, book: "Ephesians", chapter: 6 },
+    { day: 9, book: "1 Corinthians", chapter: 10 },
+    { day: 10, book: "Matthew", chapter: 28 }
+  ],
+
   "career-guidance": [
     { day: 1, book: "Jeremiah", chapter: 29 },
     { day: 2, book: "Proverbs", chapter: 16 },

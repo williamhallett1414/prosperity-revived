@@ -600,6 +600,49 @@ export const devotionalContent = {
     prayer: "Lord, I commit this year to reading Your Word from beginning to end. I confess that I've often treated the Bible as optional—something I turn to only in crisis or convenience. Forgive me. Your Word is my daily bread, and I need it more than I realize. As I begin this journey, open my eyes to see wonders in Your Law (Psalm 119:18). When I encounter passages I don't understand, give me patience. When I face passages that convict me, give me courage to obey. When I'm tempted to skip a day, remind me that this isn't just a reading plan—it's time with You. May this year in Your Word transform me from the inside out. May I finish this year knowing You better, trusting You more, and living in greater alignment with Your will. In Jesus' name, Amen."
   },
 
+  "workplace-witness": {
+    title: "Workplace Witness: Living Your Faith at Work",
+    introduction: "You spend more waking hours at work than almost anywhere else. That means your workplace is one of the most significant mission fields in your life—and God has placed you there on purpose. Living as a Christian at work is not about wearing a cross necklace or putting a Bible verse in your email signature. It's about how you treat your coworkers when the pressure is on, how you handle success and failure with integrity, how you serve rather than compete, and how you let the love of Christ shape every ordinary interaction. Daniel worked in a pagan government and honored God without compromising his faith. Joseph served faithfully in a foreign land and became a blessing to an entire nation. You too can be a witness not just with your words, but with the quality of your character, the consistency of your integrity, and the grace you extend to everyone around you. This 10-day plan will equip and encourage you to shine your light right where you are.",
+    keyVerses: [
+      {
+        reference: "Colossians 3:23-24",
+        text: "Whatever you do, work at it with all your heart, as working for the Lord, not for human masters, since you know that you will receive an inheritance from the Lord as a reward. It is the Lord Christ you are serving.",
+        insight: "This single verse transforms your perspective on your entire work life. Every task—no matter how mundane—is an act of worship when done with excellence and a heart toward God. Your real employer is not your boss; it's the Lord."
+      },
+      {
+        reference: "Matthew 5:16",
+        text: "In the same way, let your light shine before others, that they may see your good deeds and glorify your Father in heaven.",
+        insight: "Witness is primarily lived before it is spoken. When coworkers see you handle a difficult client with patience, respond to a mistake with honesty, or encourage someone who is struggling—they see something different. That difference points to God."
+      },
+      {
+        reference: "1 Peter 2:12",
+        text: "Live such good lives among the pagans that, though they accuse you of doing wrong, they may see your good deeds and glorify God on the day he visits us.",
+        insight: "Peter wrote this to Christians living in a hostile environment. Yet his advice was not to fight back or withdraw—it was to live so well that even critics would eventually have to give glory to God. Excellence and integrity are powerful witnesses."
+      }
+    ],
+    reflection: "Many Christians struggle with how to be a witness at work without being overbearing or making things awkward. The good news is that the most powerful form of workplace witness rarely starts with a gospel speech—it starts with being the most trustworthy, hardworking, kind, and gracious person in the room. When you do your work with excellence, treat everyone with dignity, refuse to gossip, tell the truth even when it costs you, and remain composed under pressure, people notice. They will ask. And when they do, you'll have an invitation to share the source of what they've seen in you. Daniel didn't go to Babylon to preach—he went to serve. But his integrity was so undeniable that kings and officials eventually asked about his God. Your workplace is your mission field. You don't need a pulpit. You need a towel—the willingness to serve, to give, and to love in ways that look nothing like the world around you.",
+    reflectionQuestions: [
+      "How does knowing you are 'working for the Lord' change how you approach your job this week?",
+      "Is there a coworker you've been avoiding or struggling to love? What might it look like to extend grace to them?",
+      "Are there areas in your workplace where you've compromised your integrity? What would it look like to realign?",
+      "Have you ever had an opportunity to share your faith at work? How did you respond—or how do you wish you had responded?",
+      "How can you serve your coworkers or company more sacrificially this week as an act of witness?"
+    ],
+    actionPlan: {
+      title: "Being a Light in Your Workplace",
+      steps: [
+        "Start each workday with a brief prayer, asking God to use you as an instrument of His grace and truth in every interaction.",
+        "Commit to absolute integrity—no cutting corners, no half-truths, no gossip. Let your yes be yes and your no be no.",
+        "Look for one person each week to encourage, help, or serve in a way that goes beyond what's expected of you.",
+        "When someone asks why you're different, be ready with a gracious, honest answer that points to your faith without being preachy.",
+        "Pray regularly for your coworkers by name—especially the difficult ones. It's hard to stay indifferent toward people you regularly lift up before God.",
+        "If appropriate, look for natural opportunities to invite coworkers to church, a small group, or a faith-based community event.",
+        "Treat your work itself as worship—do it with such quality and commitment that it reflects the excellence of the God you serve."
+      ]
+    },
+    prayer: "Lord, help me see my workplace through Your eyes. Show me the people You've placed around me who need to see Your love in action. Give me the courage to live with integrity when it would be easier to compromise, and the wisdom to know when to speak and when to simply serve. Make my character a witness before my words ever are. Use my ordinary work—my emails, my meetings, my daily tasks—as an offering to You. And when the door opens, give me the right words to point others toward You. Let my light shine, not for my own reputation, but so that those around me might glorify You. In Jesus' name, Amen."
+  },
+
   "family-conflict": {
     title: "Healing Family Relationships: Restoration and Peace in Family Dynamics",
     introduction: "Family relationships are among the most profound and the most painful we will ever experience. The same people who love us most deeply can hurt us most profoundly—and we can do the same to them. Broken family dynamics, unresolved conflict, estrangement, generational wounds, and lingering bitterness can steal joy and fracture the very relationships God designed for love and belonging. But the God of the Bible is a God of restoration. He specializes in bringing beauty from brokenness, reconciliation from rupture, and healing from deep wounds. This 14-day journey will walk you through Scripture's wisdom on forgiveness, communication, boundaries, and the slow, grace-filled work of rebuilding what has been broken. Healing rarely happens overnight—but with God at the center, it is always possible.",
