@@ -643,6 +643,49 @@ export const devotionalContent = {
     prayer: "Lord, I am tired of the cycle. I am tired of the shame, the hiding, the broken promises to myself and to You. I come to You not with a clean record but with a desperate heart, asking You to do what I cannot do on my own. Set me free—not just from the behavior but from the root of it, from the lies that feed it, from the shame that perpetuates it. Give me the courage to let people in. Give me wisdom to know what help to seek. Give me Your Spirit's power each day to choose freedom. And on the days I fall, remind me that Your grace is greater than my failure and that You have not given up on me. I am Yours. In Jesus' name, Amen."
   },
 
+  "temptation-victory": {
+    title: "Overcoming Temptation: Strategies for Resisting Sin",
+    introduction: "Every believer faces temptation. It is not a sign that your faith is weak or that God has abandoned you—it is simply the reality of living as a redeemed person in a fallen world. Jesus Himself was tempted, and the writer of Hebrews makes clear that this was not incidental but purposeful: He was tempted in every way as we are, yet without sin, so that He might be a merciful and faithful high priest who understands our weakness. What Scripture does not promise is a life without temptation. What it does promise is a way through it. 1 Corinthians 10:13 is one of the most important verses a believer can memorize: 'No temptation has overtaken you except what is common to mankind. And God is faithful; he will not let you be tempted beyond what you can bear. But when you are tempted, he will also provide a way out so that you can endure it.' This is not a guarantee that you will never fall—it is a guarantee that you never have to. There is always a door. The question is whether you are looking for it. This 10-day plan is designed to equip you with the biblical understanding and practical strategies you need to stand firm in the moments when temptation comes—because it will come, and you can be ready.",
+    keyVerses: [
+      {
+        reference: "1 Corinthians 10:13",
+        text: "No temptation has overtaken you except what is common to mankind. And God is faithful; he will not let you be tempted beyond what you can bear. But when you are tempted, he will also provide a way out so that you can endure it.",
+        insight: "Three truths packed into one verse: you are not alone in your struggle, God sets a limit on what He allows, and there is always an escape route available. The Christian life is not about white-knuckling through temptation—it's about learning to find and take the door God provides."
+      },
+      {
+        reference: "James 1:14-15",
+        text: "But each person is tempted when they are dragged away by their own evil desire and enticed. Then, after desire has conceived, it gives birth to sin; and sin, when it is full-grown, gives birth to death.",
+        insight: "James traces temptation to its source—our own desires—and describes the progression from desire to enticement to sin to death. Understanding this sequence is crucial for fighting temptation effectively: the time to resist is early in the progression, before desire has fully conceived."
+      },
+      {
+        reference: "Hebrews 4:15-16",
+        text: "For we do not have a high priest who is unable to empathize with our weaknesses, but we have one who has been tempted in every way, just as we are—yet he did not sin. Let us then approach God's throne of grace with confidence, so that we may receive mercy and find grace to help us in our time of need.",
+        insight: "The invitation after acknowledging Jesus' empathy with our temptation is not to try harder—it's to run to the throne of grace. When temptation is strongest, the most strategic move is not more willpower but more prayer. Grace and mercy are available in exactly the moment you need them."
+      }
+    ],
+    reflection: "Most failures in the face of temptation happen not because people lack the desire to do right, but because they lack a strategy. They are caught off guard, or they underestimate the pull of a particular temptation, or they try to fight it with willpower alone—which is one of the weakest tools available. The Bible offers a more sophisticated approach. Jesus' response to Satan's temptations in the wilderness was not emotional determination—it was the Word of God. Three times tempted, three times He answered with 'It is written.' This points to the importance of a mind saturated with Scripture before the moment of temptation arrives. You cannot look up the right verse when temptation is at its peak—you need it already in your heart. Paul's prescription in Ephesians 6 is similar: the armor of God is not put on in the moment of battle, it is worn daily. The belt of truth, the breastplate of righteousness, the shield of faith—these are not emergency equipment but everyday disciplines. And James adds the community dimension: confess your sins to one another so that you may be healed. Isolation is one of temptation's greatest allies. Accountability, honesty, and the support of trusted believers are among the most effective weapons against it.",
+    reflectionQuestions: [
+      "What are the two or three temptations you face most consistently? Have you ever developed a specific, intentional strategy for those particular temptations?",
+      "When you are most tempted, what is your typical first response? Does it include prayer? Why or why not?",
+      "Are there patterns in your temptation—specific times, places, emotional states, or triggers that make you more vulnerable? What would it look like to address those patterns proactively?",
+      "Do you have anyone in your life who knows about your specific struggles with temptation and who holds you accountable? If not, what is preventing you from establishing that?",
+      "How does knowing that Jesus was tempted and understands your struggle change how you relate to Him in your moments of weakness?"
+    ],
+    actionPlan: {
+      title: "Building a Strategy Against Temptation",
+      steps: [
+        "Memorize 1 Corinthians 10:13. Keep it accessible in your mind so that in the moment of temptation you are reminded: there is always a way out, and God is faithful.",
+        "Identify your specific vulnerabilities. Write down the temptations you face most frequently and the circumstances in which they are strongest. Named temptations are easier to prepare for than unnamed ones.",
+        "Establish Scripture-based responses for your specific temptations. Like Jesus in the wilderness, having a specific verse ready for your specific battle is far more effective than general spiritual knowledge.",
+        "Develop an accountability relationship. Find one trusted believer who you can be completely honest with about your struggles. This is not about shame—it is about the healing power of confession and the strength that comes from not fighting alone.",
+        "Address your triggers. If certain environments, media, relationships, or emotional states consistently lead you toward temptation, make structural changes—not just willpower commitments. Flee temptation; don't just resist it.",
+        "Run to grace when you fall. Sin thrives in shame and hiding. When you fail, the quickest path back to freedom is honest confession to God and, where appropriate, to a trusted person—not self-condemnation that leads to more defeat.",
+        "Build a daily armor routine. The disciplines of prayer, Scripture reading, and community are not emergency responses—they are the daily habits that keep you spiritually fortified before the battle arrives."
+      ]
+    },
+    prayer: "Lord, I am honest with You: there are temptations I face regularly, and I do not always win. I need Your help—not just in the moment, but in building the kind of heart and life that is genuinely prepared to stand. Thank You that Jesus understands my weakness and does not despise me for it. Give me wisdom to see my specific vulnerabilities clearly and courage to address them honestly. Strengthen me with Your Word. Connect me to people who will walk with me in honesty and accountability. And in every moment when temptation peaks, remind me of the door You have promised—and give me the grace to take it. In Jesus' name, Amen."
+  },
+
   "church-conflict": {
     title: "Unity in the Church: Navigating Church Relationships",
     introduction: "Few things wound believers more deeply than conflict within the church. We come to the body of Christ expecting a place of refuge, grace, and belonging—and when we encounter instead rivalry, gossip, division, or disappointment, the pain is uniquely sharp. For some, a church wound becomes the reason they walk away from community altogether. And yet the New Testament is remarkably honest about the reality of conflict within the body of Christ. The early churches that received Paul's letters were not idealized communities of perfect unity—they were messy, divided, sometimes petty, and occasionally scandalous. Corinth was fractured by theological factions and moral failures. Philippi had two women whose conflict required apostolic intervention. Galatia was being torn apart by theological controversy. The letters Paul wrote to these churches are not romantic descriptions of ideal community—they are pastoral instructions for real people navigating real conflict. What makes them powerful is not that they pretend unity is easy but that they insist it is worth fighting for—precisely because the church is not a human club but the body of Christ, and its unity is meant to display something the world cannot manufacture. This 7-day plan is an honest, practical guide to navigating church relationships with grace, truth, and the kind of love that actually holds communities together.",
