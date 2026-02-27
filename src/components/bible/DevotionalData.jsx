@@ -643,6 +643,49 @@ export const devotionalContent = {
     prayer: "Lord, I am tired of the cycle. I am tired of the shame, the hiding, the broken promises to myself and to You. I come to You not with a clean record but with a desperate heart, asking You to do what I cannot do on my own. Set me free—not just from the behavior but from the root of it, from the lies that feed it, from the shame that perpetuates it. Give me the courage to let people in. Give me wisdom to know what help to seek. Give me Your Spirit's power each day to choose freedom. And on the days I fall, remind me that Your grace is greater than my failure and that You have not given up on me. I am Yours. In Jesus' name, Amen."
   },
 
+  "retirement-purpose": {
+    title: "Purpose in Retirement: Finding New Meaning in Later Seasons",
+    introduction: "Retirement is one of the most significant transitions a person will ever face—and one of the least spiritually prepared for. For decades, much of your identity may have been wrapped up in your career, your role, your contribution to the working world. And then, often almost overnight, that chapter closes. The schedule disappears. The title is gone. The daily rhythm that gave shape to your life no longer exists. For some, this is pure relief and joy. For others, it opens a door to unexpected grief, purposelessness, and the unsettling question: Who am I now, and why am I here? The world doesn't have a great answer for this. Culture tends to frame retirement as a long vacation—an endless succession of golf games and grandchildren. But Scripture tells a different story. The Bible does not describe a life stage where purpose ends and recreation takes over. It describes a life lived from beginning to end in the service of a God who wastes nothing—not a single season, experience, or year. Caleb was 85 when he asked Joshua for a mountain to conquer. Simeon and Anna were elderly prophets who spent their final years in faithful service in the temple. The elder generation in Israel was the keeper of memory, wisdom, and testimony. This 14-day plan is an invitation to discover that retirement is not the end of your purpose—it may, in fact, be the beginning of your most significant chapter yet.",
+    keyVerses: [
+      {
+        reference: "Psalms 92:14",
+        text: "They will still bear fruit in old age, they will stay fresh and green, proclaiming, 'The Lord is upright; he is my Rock, and there is no wickedness in him.'",
+        insight: "The psalmist's image of the righteous in old age is not a fading away but a fruitfulness. Bearing fruit is not dependent on a paycheck or a title—it is the natural overflow of a life rooted in God. Your most fruitful season may still lie ahead."
+      },
+      {
+        reference: "Psalms 71:17-18",
+        text: "Since my youth, God, you have taught me, and to this day I declare your marvelous deeds. Even when I am old and gray, do not forsake me, my God, till I declare your power to the next generation, your mighty acts to all who are to come.",
+        insight: "The psalmist's prayer in old age is not for comfort or ease—it's for continued usefulness. The accumulated wisdom and testimony of a long life is one of the most precious gifts one generation can offer another. Your story is a resource the next generation desperately needs."
+      },
+      {
+        reference: "Philippians 1:21",
+        text: "For to me, to live is Christ and to die is gain.",
+        insight: "Paul wrote these words as an older man facing the end of his life—and his posture was not dread or purposelessness, but total surrender to Christ's agenda. When life is oriented around Christ rather than a role or career, it never loses its meaning."
+      }
+    ],
+    reflection: "There is a difference between stopping work and losing purpose. The most dangerous thing that can happen in retirement is the conflation of the two—the assumption that because the career is over, the calling is over. Scripture does not support that assumption. Calling is not a job description. It is a life orientation toward God, toward people, toward love, justice, generosity, and witness. None of those end at 65. What does change is the form they take. Without the constraints of a work schedule, retirement can actually be a season of extraordinary spiritual availability. The prayer life that was always squeezed into the margins now has room to breathe. The mentoring relationships that were rushed can now be leisurely and deep. The service opportunities that had to be declined can now be embraced. The grandchildren who needed more of you can now get it. The community needs that required someone with time and experience can now be answered by you. This season also invites a different kind of spiritual work: the work of integration—looking back over a long life and finding the thread of God's faithfulness running through it, making peace with what was and wasn't, and preparing to hand off well to the next generation. That is holy, significant, irreplaceable work. Don't let anyone—including yourself—tell you it isn't.",
+    reflectionQuestions: [
+      "How much of your identity was tied to your career or role? What does it feel like to have that chapter close, and what does Scripture say about your identity apart from what you do?",
+      "What wisdom, skill, or experience has your life given you that could be poured into the next generation? Who specifically could benefit from what you know?",
+      "What have you always wanted to do for God but never had time for? Is this the season to do it?",
+      "Are there relationships in your life—with God, family, or friends—that need the gift of time and attention that retirement can now provide?",
+      "What would it look like for you to bear fruit in this season—not in a way that mimics what you've left behind, but in a genuinely new expression of who God made you to be?"
+    ],
+    actionPlan: {
+      title: "Living with Purpose in Retirement",
+      steps: [
+        "Redefine success for this season. Instead of measuring life by productivity or professional achievement, ask: Am I loving God and people well? Am I growing? Am I giving? These are the metrics that matter now.",
+        "Invest in intergenerational relationships. Seek out younger people—in your church, family, or community—who need what your years have given you: perspective, stability, experience, and faith. Mentoring is one of the highest callings of later life.",
+        "Find a ministry or service outlet that fits this season. Hospitals, prisons, schools, food banks, and churches are hungry for volunteers with wisdom and availability. Your time is now one of your most valuable resources—invest it intentionally.",
+        "Develop a deeper prayer life. Retirement may be the first time in decades that you have unrushed time in the morning. Use it. Prayer is the most powerful contribution any believer can make, and it requires only availability.",
+        "Tell your story. Write it down, share it with grandchildren, or record it. The testimony of God's faithfulness in your life is a gift to your family and to the broader community of faith. Don't let it go unspoken.",
+        "Tend to your health—physical, spiritual, and relational. Sustainable fruitfulness in this season requires stewardship of your body, continued spiritual nourishment, and vibrant community connections. Don't neglect any of the three.",
+        "Make peace with the past. If there are regrets, unresolved relationships, or things left undone, this is the season to address them. A life well-finished includes honest reckoning, genuine forgiveness, and the grace to let go of what cannot be undone."
+      ]
+    },
+    prayer: "Lord, I thank You for the years You have given me and for everything this life has held. As I enter this new season, I confess that I'm not always sure who I am without the roles and rhythms that defined so many years. Remind me that my identity has always been in You—not in what I accomplished or produced. Show me what fruitfulness looks like now. Give me eyes to see the opportunities this season holds that I couldn't see before. Let me be a giver of wisdom, a keeper of story, a servant of the next generation, and a faithful presence in Your kingdom until my very last breath. I am still Yours, and You are still good. In Jesus' name, Amen."
+  },
+
   "college-life": {
     title: "Faith in College: Navigating Faith in University Life",
     introduction: "College is one of the most faith-shaping seasons of a person's life—for better or worse. For many, it is the first time they are living independently, away from the rhythms and accountability structures that kept their faith active. For others, it is the first time their beliefs are seriously challenged by professors, peers, and philosophies they've never encountered before. The freedom is exhilarating and disorienting at the same time. And statistics tell a sobering story: a significant percentage of young people who were active in faith before college drift away from it during these years. But it doesn't have to be that way. Many of the most deeply rooted believers you will ever meet had their faith forged in exactly this crucible—where it was tested, questioned, and ultimately owned in a way it never was before. This 21-day plan is designed to help you navigate the unique challenges of faith in college: intellectual doubt, community drift, moral pressure, identity questions, and the challenge of maintaining spiritual rhythms in a chaotic environment. Your faith can not only survive college—it can become yours in a deeper way than it has ever been.",
