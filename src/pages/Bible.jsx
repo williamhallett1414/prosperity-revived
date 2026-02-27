@@ -22,6 +22,7 @@ import PastoralChatbot from '@/components/bible/PastoralChatbot';
 import GideonAskAnything from '@/components/bible/GideonAskAnything';
 import UnifiedBibleReader from '@/components/bible/UnifiedBibleReader';
 import BibleSearchBar from '@/components/bible/BibleSearchBar';
+import BibleYearPlan from '@/components/bible/BibleYearPlan';
 
 export default function Bible() {
   const [view, setView] = useState('home'); // home, oldTestament, newTestament
