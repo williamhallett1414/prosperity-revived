@@ -643,6 +643,49 @@ export const devotionalContent = {
     prayer: "Lord, I am tired of the cycle. I am tired of the shame, the hiding, the broken promises to myself and to You. I come to You not with a clean record but with a desperate heart, asking You to do what I cannot do on my own. Set me free—not just from the behavior but from the root of it, from the lies that feed it, from the shame that perpetuates it. Give me the courage to let people in. Give me wisdom to know what help to seek. Give me Your Spirit's power each day to choose freedom. And on the days I fall, remind me that Your grace is greater than my failure and that You have not given up on me. I am Yours. In Jesus' name, Amen."
   },
 
+  "church-conflict": {
+    title: "Unity in the Church: Navigating Church Relationships",
+    introduction: "Few things wound believers more deeply than conflict within the church. We come to the body of Christ expecting a place of refuge, grace, and belonging—and when we encounter instead rivalry, gossip, division, or disappointment, the pain is uniquely sharp. For some, a church wound becomes the reason they walk away from community altogether. And yet the New Testament is remarkably honest about the reality of conflict within the body of Christ. The early churches that received Paul's letters were not idealized communities of perfect unity—they were messy, divided, sometimes petty, and occasionally scandalous. Corinth was fractured by theological factions and moral failures. Philippi had two women whose conflict required apostolic intervention. Galatia was being torn apart by theological controversy. The letters Paul wrote to these churches are not romantic descriptions of ideal community—they are pastoral instructions for real people navigating real conflict. What makes them powerful is not that they pretend unity is easy but that they insist it is worth fighting for—precisely because the church is not a human club but the body of Christ, and its unity is meant to display something the world cannot manufacture. This 7-day plan is an honest, practical guide to navigating church relationships with grace, truth, and the kind of love that actually holds communities together.",
+    keyVerses: [
+      {
+        reference: "John 17:21",
+        text: "That all of them may be one, Father, just as you are in me and I am in you. May they also be in us so that the world may believe that you have sent me.",
+        insight: "Jesus prayed for the unity of His church not as a nice aspiration but as a missional necessity. The world's ability to believe in Christ is connected—in Jesus' own words—to the visible unity of His people. Every act of reconciliation in the church is an act of witness to the watching world."
+      },
+      {
+        reference: "Ephesians 4:3",
+        text: "Make every effort to keep the unity of the Spirit through the bond of peace.",
+        insight: "Paul's language is striking: 'make every effort.' Unity in the church is not passive or automatic—it requires active, intentional, sometimes costly work. Notice also that Paul says 'keep' the unity, not 'create' it. The Spirit has already established the bond; our job is to not break it."
+      },
+      {
+        reference: "Philippians 2:3-4",
+        text: "Do nothing out of selfish ambition or vain conceit. Rather, in humility value others above yourselves, not looking to your own interests but each of you to the interests of the others.",
+        insight: "Most church conflict is, at its root, a failure of this posture. When self-interest, reputation, or personal preference becomes the driving value, division follows almost inevitably. The antidote Paul prescribes is not a technique—it is a fundamental reorientation of how we see ourselves in relation to others."
+      }
+    ],
+    reflection: "It is worth asking honestly: what do we expect from the church? If we expect a community of imperfect people being slowly transformed by grace—people who sometimes disappoint, misunderstand, and hurt each other while genuinely trying to follow Jesus—we will be equipped for the reality we will find. If we expect a community that never lets us down, we will be perpetually disillusioned. The most common reason people leave churches is not theological—it's relational. Someone said something, excluded someone, made a decision that felt wrong, or failed to acknowledge a wrong done. And in that moment, the question is always: what kind of community does Jesus call us to build? One where conflict is avoided by pretending it doesn't exist? One where wounded people simply leave and are replaced by others? Or one where the hard, slow work of honesty, forgiveness, and reconciliation is taken seriously because the alternative—a fractured witness and broken relationships—is simply unacceptable to those who follow a crucified and risen Lord? The church is not perfect. But it is the body of Christ, and it is worth the effort.",
+    reflectionQuestions: [
+      "Is there a current or past conflict in your church community that you have avoided addressing? What would it look like to take a step toward resolution?",
+      "Have you ever let a church hurt cause you to withdraw from community entirely? How does Scripture speak into that response?",
+      "What is the difference between healthy conflict (honest disagreement handled with grace) and destructive conflict (gossip, factions, bitterness)? Which patterns do you see in yourself?",
+      "How does Jesus' prayer in John 17 change how you think about unity—not just as a nice idea but as a missional imperative?",
+      "What would it look like to 'make every effort' for unity in your specific church context right now?"
+    ],
+    actionPlan: {
+      title: "Pursuing Unity in Your Church",
+      steps: [
+        "If there is a specific person or situation causing division or hurt, commit to addressing it directly and graciously—using the Matthew 18 model of going to the person privately before involving others.",
+        "Refuse to participate in gossip or complaint circles. When you hear someone speaking negatively about a fellow believer or church leader, gently redirect or withdraw from the conversation.",
+        "Pray specifically for the people you find most difficult in your church community. Nothing changes a heart—yours or theirs—like sustained, specific, honest prayer.",
+        "Look for opportunities to serve alongside people you don't naturally connect with. Shared service builds the kind of bonds that survive disagreement.",
+        "If you are carrying a wound from a past church hurt, consider whether forgiveness—not necessarily reconciliation, but the internal release of bitterness—is something you still need to pursue. A pastor or counselor can help.",
+        "Commit to staying in community even when it's hard. The instinct to leave when things get uncomfortable is understandable, but the formation that comes from working through conflict in community is something you cannot get from isolation.",
+        "Celebrate what is good and true in your church community. Gratitude for what God is doing among you is one of the most powerful antidotes to the critical spirit that fuels division."
+      ]
+    },
+    prayer: "Lord, You prayed for our unity. That means You know how hard it is, and You care about it deeply. I confess that I have contributed to division more than I've contributed to unity—through my criticism, my withdrawal, my unwillingness to extend grace. Forgive me. Give me the humility to value others above myself, the courage to address conflict honestly and lovingly, and the patience to stay in community even when it costs me something. Let my church be a place where the watching world sees something they cannot explain—people who genuinely love each other across every difference. May our unity be a testimony to Your love. In Jesus' name, Amen."
+  },
+
   "retirement-purpose": {
     title: "Purpose in Retirement: Finding New Meaning in Later Seasons",
     introduction: "Retirement is one of the most significant transitions a person will ever face—and one of the least spiritually prepared for. For decades, much of your identity may have been wrapped up in your career, your role, your contribution to the working world. And then, often almost overnight, that chapter closes. The schedule disappears. The title is gone. The daily rhythm that gave shape to your life no longer exists. For some, this is pure relief and joy. For others, it opens a door to unexpected grief, purposelessness, and the unsettling question: Who am I now, and why am I here? The world doesn't have a great answer for this. Culture tends to frame retirement as a long vacation—an endless succession of golf games and grandchildren. But Scripture tells a different story. The Bible does not describe a life stage where purpose ends and recreation takes over. It describes a life lived from beginning to end in the service of a God who wastes nothing—not a single season, experience, or year. Caleb was 85 when he asked Joshua for a mountain to conquer. Simeon and Anna were elderly prophets who spent their final years in faithful service in the temple. The elder generation in Israel was the keeper of memory, wisdom, and testimony. This 14-day plan is an invitation to discover that retirement is not the end of your purpose—it may, in fact, be the beginning of your most significant chapter yet.",
