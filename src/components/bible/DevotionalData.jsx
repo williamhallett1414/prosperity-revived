@@ -1763,7 +1763,50 @@ export const devotionalContent = {
     prayer: "Dear God, we thank You for the gift of intimacy in our relationship. Help us to cherish and nurture this sacred connection, guiding us as we grow in love and understanding. May our relationship be a testament to Your divine plan for marriage, and may we always seek Your wisdom and guidance on this journey. Above all, help us cherish the gift of emotional intimacy and the deep, abiding love it fosters in our relationship. May our journey together be richly blessed, and may our love story serve as a testament to the beauty and power of a Christ-centered marriage. Amen."
     },
 
-    "holy-spirit": {
+    "social-media": {
+     title: "Social Media & Faith: Digital Life with Godly Wisdom",
+     introduction: "Social media is one of the most significant cultural shifts of our generation. It has connected billions of people, given voice to the voiceless, and created communities that transcend geography. But it has also created new forms of anxiety, comparison, addiction, and disconnection. For Christians, social media presents a unique spiritual challenge: How do we navigate a digital world while maintaining our faith and integrity? How do we use technology that is designed to capture our attention as a tool for discipleship rather than distraction? How do we represent Christ in spaces that often reward outrage, self-promotion, and the curation of false images? This 7-day journey will help you think biblically about your digital presence. It is not about rejecting technology, but about using it with intention, wisdom, and faithfulness. Your online life is not separate from your spiritual life. What you post, what you engage with, what you allow to shape your thoughts—these matter to God. The goal is not to be 'off the grid,' but to be 'in the world but not of it' even in digital spaces.",
+     keyVerses: [
+       {
+         reference: "Colossians 3:17",
+         text: "And whatever you do, whether in word or deed, do it all in the name of the Lord Jesus, giving thanks to God the Father through him.",
+         insight: "Your online presence is not exempt from this. Every post, every comment, every like is done 'in the name of the Lord Jesus.' This changes everything. Before you post, ask: 'Would I do this in Jesus' name? Does this reflect Him?'"
+       },
+       {
+         reference: "Philippians 4:8",
+         text: "Finally, brothers and sisters, whatever is true, whatever is noble, whatever is right, whatever is pure, whatever is lovely, whatever is admirable—if anything is excellent or praiseworthy—think about such things.",
+         insight: "Your feed is training your mind. Social media is designed to show you what gets engagement, not what is true or noble or right. Be intentional about what you let feed your thoughts."
+       },
+       {
+         reference: "Matthew 5:16",
+         text: "In the same way, let your light shine before others, that they may see your good deeds and glorify your Father in heaven.",
+         insight: "Social media is a platform for your light to shine. But light is not the same as noise. True light is the quiet faithfulness of someone living out what they claim to believe."
+       }
+     ],
+     reflection: "One of the great ironies of social media is that the platforms designed to bring us together have often left us more isolated and anxious than ever. We compare our lives to curated versions of other people's lives and come away feeling inadequate. We seek validation through likes and comments. We scroll endlessly looking for meaning. We perform versions of ourselves for an audience. The spiritual danger of social media is not primarily that it is evil—it is that it is designed to appeal to some of the most powerful human desires: the desire to be seen, to be liked, to belong, to be important. And when those desires drive our online behavior, we lose sight of what actually matters: authentic relationships, genuine transformation, and faithfulness to God in the ordinary moments of life. But social media also has tremendous potential. It can be a tool for encouragement, for sharing truth, for connecting with people who share your faith, for witnessing to the power of the Gospel. The question is not whether to use social media, but how to use it in a way that honors God. That requires wisdom, intentionality, and regular evaluation of your relationship with these platforms.",
+     reflectionQuestions: [
+       "How much time do you spend on social media daily? Does that align with your priorities?",
+       "What emotions do you typically feel after scrolling? Encouraged or discouraged? Connected or isolated?",
+       "How do you present yourself online? Is it an honest reflection of who you are, or is it a curated version?",
+       "When you post, what is your true motivation? To glorify God? To serve others? To get validation?",
+       "How does your online presence reflect your faith? What would someone learn about your relationship with Jesus from your posts?"
+     ],
+     actionPlan: {
+       title: "Redeeming Your Digital Life",
+       steps: [
+         "Audit your feed. Look at the accounts you follow and the content you consume. Does it align with what Philippians 4:8 asks you to think about? Unfollow accounts that leave you feeling anxious or inadequate.",
+         "Set boundaries. Decide when and how much you will use social media. Consider phone-free times, especially before bed and first thing in the morning.",
+         "Check your motives. Before you post, pause and ask: 'Why am I posting this? Am I seeking validation? Am I trying to impress someone? Does this glorify God?'",
+         "Be authentic. Share your real life, not a curated version. Let people see you growing, struggling, learning. Authenticity draws others to faith.",
+         "Use it to encourage. Look for opportunities to build others up online. Send a message of encouragement to someone. Share content that points to Jesus.",
+         "Think before you engage. With divisive content, provocative headlines, or arguments in comments—pause. Just because you can engage doesn't mean you should.",
+         "Remember the person behind the screen. There is a real human on the other side of every post, message, and comment. Treat them with the love of Christ, even (especially) when you disagree."
+       ]
+     },
+     prayer: "Lord, I confess that I have spent too much time scrolling, comparing, performing. I have sought validation in places that cannot satisfy. I have let the noise of the digital world drown out Your still, small voice. Help me to use these tools with wisdom and intention. Protect my heart from the comparison trap. Free me from the need for validation from strangers. Help me to be authentic, to be brave enough to show my real self, and to use my online presence to point others to You. Help me to be a voice of truth, encouragement, and love in spaces that often lack these things. In Jesus' name, Amen."
+   },
+
+   "holy-spirit": {
      title: "Life in the Spirit: Understanding the Holy Spirit's Work",
      introduction: "The Holy Spirit is one of the most misunderstood aspects of Christian faith. Some believers fear the Holy Spirit. Others ignore Him. Still others reduce Him to an emotional experience or a source of personal power. But the Holy Spirit is central to the Christian life—He is God's presence dwelling in you, transforming you, guiding you, and empowering you for the life God has called you to live. The Holy Spirit is not primarily about experiences or signs; He is about transformation. He convicts you of sin, comforts you in suffering, guides you into truth, intercedes for you in prayer, and produces fruit in your life that reflects the character of Christ. This 14-day journey will help you understand who the Holy Spirit is, what He does, and how to cooperate with His work in your life. As you study Scripture's teaching on the Holy Spirit, you will discover that you are never alone, never without power, and never left without guidance. The Spirit who raised Jesus from the dead is alive in you.",
      keyVerses: [
