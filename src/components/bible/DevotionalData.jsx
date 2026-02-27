@@ -600,6 +600,49 @@ export const devotionalContent = {
     prayer: "Lord, I commit this year to reading Your Word from beginning to end. I confess that I've often treated the Bible as optional—something I turn to only in crisis or convenience. Forgive me. Your Word is my daily bread, and I need it more than I realize. As I begin this journey, open my eyes to see wonders in Your Law (Psalm 119:18). When I encounter passages I don't understand, give me patience. When I face passages that convict me, give me courage to obey. When I'm tempted to skip a day, remind me that this isn't just a reading plan—it's time with You. May this year in Your Word transform me from the inside out. May I finish this year knowing You better, trusting You more, and living in greater alignment with Your will. In Jesus' name, Amen."
   },
 
+  "gratitude-journey": {
+    title: "Cultivating Gratitude: 30 Days of Thankfulness and Praise",
+    introduction: "Gratitude is one of the most transformative spiritual disciplines available to us—and one of the most neglected. In a world designed to make us feel that we always need more, choosing thankfulness is an act of quiet rebellion against anxiety, comparison, and discontentment. The Bible is saturated with commands, invitations, and examples of gratitude—not because God needs our thanks, but because we need to give it. When we deliberately practice thankfulness, something shifts in our perspective. We begin to see God's fingerprints on the ordinary. We recognize gifts we had taken for granted. We find joy not by changing our circumstances, but by changing our gaze. This 30-day journey will walk you through the Psalms and other Scriptures that overflow with praise, teaching you to cultivate a grateful heart in every season—even the hard ones. By the end, you won't just know more about gratitude; you'll be a more grateful person.",
+    keyVerses: [
+      {
+        reference: "1 Thessalonians 5:16-18",
+        text: "Rejoice always, pray continually, give thanks in all circumstances; for this is God's will for you in Christ Jesus.",
+        insight: "Paul doesn't say give thanks for all circumstances—he says give thanks in all circumstances. Gratitude is not pretending everything is fine; it's choosing to look for God's presence and provision even in the hard places."
+      },
+      {
+        reference: "Philippians 4:6-7",
+        text: "Do not be anxious about anything, but in every situation, by prayer and petition, with thanksgiving, present your requests to God. And the peace of God, which transcends all understanding, will guard your hearts and your minds in Christ Jesus.",
+        insight: "Notice the connection: thanksgiving is the antidote to anxiety. When we bring our needs to God wrapped in gratitude, peace follows. Gratitude doesn't deny the problem—it reframes it in the context of a God who is trustworthy."
+      },
+      {
+        reference: "Psalms 100:4-5",
+        text: "Enter his gates with thanksgiving and his courts with praise; give thanks to him and praise his name. For the Lord is good and his love endures forever; his faithfulness continues through all generations.",
+        insight: "Thanksgiving is the posture with which we approach God. It's not about earning access—it's about orienting our hearts correctly. When we come to God with gratitude, we are aligning ourselves with reality: He is good, His love endures, His faithfulness is eternal."
+      }
+    ],
+    reflection: "Gratitude is a practice before it becomes a feeling. Many people wait to feel grateful before they give thanks, but Scripture reverses the order—we give thanks, and the feeling follows. Research confirms what the Bible has always known: people who regularly practice gratitude experience greater joy, better sleep, reduced anxiety, and stronger relationships. But for the Christian, gratitude goes deeper than a wellness practice. It is a theological act—an acknowledgment that everything we have is a gift from the hand of a generous God. When we are grateful, we are confessing that we are not self-made, that our life is not our own accomplishment, and that the Giver is infinitely more valuable than any gift. One of the most powerful ways to cultivate gratitude is to start small—noticing the ordinary gifts: morning light, a cup of coffee, a friend's text, a meal, a breath. These small notices train the eye to see grace everywhere. As C.S. Lewis observed, if God is good, then to encounter any good thing is to encounter a reflection of Him. Gratitude, then, is a path to God Himself.",
+    reflectionQuestions: [
+      "What is one gift from God you have been taking for granted? Take a moment right now to thank Him specifically for it.",
+      "Is there a difficult circumstance in your life where you are struggling to find anything to be grateful for? What might God be doing in or through that situation?",
+      "How does gratitude change your relationship with anxiety and worry? Where do you see that connection in your own life?",
+      "Who in your life are you grateful for but have never fully told? What would it look like to express that gratitude this week?",
+      "What would change in your daily life if you began each morning with five specific things you are thankful for?"
+    ],
+    actionPlan: {
+      title: "Building a Daily Gratitude Practice",
+      steps: [
+        "Start a gratitude journal—each morning, write down three to five specific things you are thankful for. Be concrete, not generic ('my wife's patience with me this morning' not just 'my family').",
+        "End each day by reviewing where you saw God's hand at work. Even on hard days, look for at least one moment of grace.",
+        "Practice 'thankfulness interruptions'—when you feel anxious or discontent, pause and name three things you are grateful for before continuing.",
+        "Express gratitude to people directly. Write a note, send a text, or say out loud to someone why you are glad they are in your life.",
+        "When you eat a meal, pause to genuinely thank God—not as a ritual, but as a real acknowledgment that this food, this day, this life is a gift.",
+        "Read through the Psalms and notice how often the psalmists move from lament to praise. Let their pattern teach you to do the same.",
+        "At the end of the 30 days, review your gratitude journal. Notice how your perspective has shifted and what you now see that you previously overlooked."
+      ]
+    },
+    prayer: "Lord, forgive me for how often I take Your gifts for granted—for the breath in my lungs, the people in my life, the beauty around me that I walk past without noticing. Open my eyes to see Your goodness in the ordinary. Train my heart to be quick to thank and slow to complain. On the hard days, when gratitude feels impossible, help me to choose it anyway—trusting that You are still good even when I can't feel it. Let thankfulness become the rhythm of my life, the air I breathe, the posture of my soul. For everything is from You, and through You, and to You. To You be the glory forever. Amen."
+  },
+
   "workplace-witness": {
     title: "Workplace Witness: Living Your Faith at Work",
     introduction: "You spend more waking hours at work than almost anywhere else. That means your workplace is one of the most significant mission fields in your life—and God has placed you there on purpose. Living as a Christian at work is not about wearing a cross necklace or putting a Bible verse in your email signature. It's about how you treat your coworkers when the pressure is on, how you handle success and failure with integrity, how you serve rather than compete, and how you let the love of Christ shape every ordinary interaction. Daniel worked in a pagan government and honored God without compromising his faith. Joseph served faithfully in a foreign land and became a blessing to an entire nation. You too can be a witness not just with your words, but with the quality of your character, the consistency of your integrity, and the grace you extend to everyone around you. This 10-day plan will equip and encourage you to shine your light right where you are.",
