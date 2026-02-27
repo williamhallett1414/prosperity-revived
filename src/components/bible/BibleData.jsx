@@ -1196,6 +1196,30 @@ export const planReadingSchedules = {
     { day: 14, book: "John", chapter: 17 }
   ],
 
+  "worship-lifestyle": [
+    { day: 1, book: "Romans", chapter: 12 },
+    { day: 2, book: "Psalms", chapter: 100 },
+    { day: 3, book: "Colossians", chapter: 3 },
+    { day: 4, book: "1 Corinthians", chapter: 10 },
+    { day: 5, book: "Ephesians", chapter: 5 },
+    { day: 6, book: "Psalms", chapter: 95 },
+    { day: 7, book: "John", chapter: 4 },
+    { day: 8, book: "Philippians", chapter: 4 },
+    { day: 9, book: "Psalms", chapter: 26 },
+    { day: 10, book: "Matthew", chapter: 6 },
+    { day: 11, book: "Hebrews", chapter: 13 },
+    { day: 12, book: "Psalms", chapter: 42 },
+    { day: 13, book: "1 Peter", chapter: 2 },
+    { day: 14, book: "Psalms", chapter: 146 },
+    { day: 15, book: "Luke", chapter: 10 },
+    { day: 16, book: "Psalms", chapter: 63 },
+    { day: 17, book: "Revelations", chapter: 5 },
+    { day: 18, book: "Psalms", chapter: 84 },
+    { day: 19, book: "1 Thessalonians", chapter: 5 },
+    { day: 20, book: "Psalms", chapter: 150 },
+    { day: 21, book: "Revelation", chapter: 4 }
+  ],
+
   "parenting-wisdom": [
     { day: 1, book: "Deuteronomy", chapter: 6 },
     { day: 2, book: "Proverbs", chapter: 22 },
