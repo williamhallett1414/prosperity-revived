@@ -105,8 +105,7 @@ export default function PersonalizedDevotional() {
       animate={{ opacity: 1, y: 0 }}
       className="mb-6">
 
-      <Card className="overflow-hidden bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 border-indigo-200 dark:border-indigo-700">
-        
+      
 
 
 
@@ -246,7 +245,8 @@ export default function PersonalizedDevotional() {
 
 
 
-      </Card>
+
+
     </motion.div>);
 
 }
