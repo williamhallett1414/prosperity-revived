@@ -256,11 +256,26 @@ export default function Home() {
       <GideonOnboarding
         onComplete={() => {
           setShowGideonOnboarding(false);
+          base44.auth.me().then((u) => {
+            if (!u.wellness_tour_completed) {
+              setTimeout(() => setShowWellnessTour(true), 500);
+            } else if ('Notification' in window && Notification.permission === 'default') {
+              setTimeout(() => setShowNotifPrompt(true), 800);
+            }
+          });
+        }} />
+      }
+
+      {showWellnessTour &&
+      <WellnessTour
+        onComplete={() => {
+          setShowWellnessTour(false);
           if ('Notification' in window && Notification.permission === 'default') {
             setTimeout(() => setShowNotifPrompt(true), 800);
           }
-        }} />
-
+        }}
+        onSkip={() => setShowWellnessTour(false)}
+      />
       }
       
       <div className="max-w-2xl mx-auto px-4 py-6 pb-24">
