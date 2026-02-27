@@ -51,7 +51,7 @@ export default function GideonOnboarding({ onComplete, onRevisit }) {
             className="bg-white rounded-2xl shadow-2xl max-w-sm w-full overflow-hidden"
           >
             {/* Header */}
-            <div className="bg-gradient-to-r from-purple-500 to-blue-600 text-white p-6 relative">
+            <div className="bg-gradient-to-r from-[#c9a227] to-[#D9B878] text-white p-6 relative">
               <div className="flex items-start gap-3">
                 <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center mt-1">
                   <CurrentIcon className="w-6 h-6 text-white" />
@@ -71,7 +71,7 @@ export default function GideonOnboarding({ onComplete, onRevisit }) {
                 initial={{ width: 0 }}
                 animate={{ width: `${((step + 1) / steps.length) * 100}%` }}
                 transition={{ duration: 0.3 }}
-                className="h-full bg-gradient-to-r from-purple-500 to-blue-600"
+                className="h-full bg-gradient-to-r from-[#c9a227] to-[#D9B878]"
               />
             </div>
 
@@ -86,7 +86,7 @@ export default function GideonOnboarding({ onComplete, onRevisit }) {
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="bg-blue-50 border border-blue-200 rounded-lg p-3 text-sm text-blue-800 flex gap-2"
+                  className="bg-[#FAD98D]/30 border border-[#D9B878]/50 rounded-lg p-3 text-sm text-[#8a6e1a] flex gap-2"
                 >
                   <HelpCircle className="w-4 h-4 flex-shrink-0 mt-0.5" />
                   <p>{currentStep.tip}</p>
@@ -99,7 +99,7 @@ export default function GideonOnboarding({ onComplete, onRevisit }) {
               <div className="flex gap-3">
                 <Button
                   onClick={handleNext}
-                  className="w-full bg-gradient-to-r from-purple-500 to-blue-600 hover:from-purple-600 hover:to-blue-700 text-white flex items-center justify-center gap-2"
+                  className="w-full bg-gradient-to-r from-[#c9a227] to-[#D9B878] hover:from-[#b89320] hover:to-[#c9a227] text-white flex items-center justify-center gap-2"
                 >
                   Start Chatting with Gideon
                   <ChevronRight className="w-4 h-4" />

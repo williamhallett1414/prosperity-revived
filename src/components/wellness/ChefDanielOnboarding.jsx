@@ -107,7 +107,7 @@ export default function ChefDanielOnboarding({ onComplete, onRevisit }) {
             className="bg-white rounded-2xl shadow-2xl max-w-sm w-full overflow-hidden"
           >
             {/* Header */}
-            <div className="bg-gradient-to-r from-green-500 to-emerald-600 text-white p-6 relative">
+            <div className="bg-gradient-to-r from-[#FD9C2D] to-[#E89020] text-white p-6 relative">
               <button
                 onClick={handleSkip}
                 className="absolute top-4 right-4 text-white/80 hover:text-white transition-colors"
@@ -135,7 +135,7 @@ export default function ChefDanielOnboarding({ onComplete, onRevisit }) {
                 initial={{ width: 0 }}
                 animate={{ width: `${((step + 1) / steps.length) * 100}%` }}
                 transition={{ duration: 0.3 }}
-                className="h-full bg-gradient-to-r from-green-500 to-emerald-600"
+                className="h-full bg-gradient-to-r from-[#FD9C2D] to-[#E89020]"
               />
             </div>
 
@@ -150,7 +150,7 @@ export default function ChefDanielOnboarding({ onComplete, onRevisit }) {
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="bg-green-50 border border-green-200 rounded-lg p-3 text-sm text-green-800 flex gap-2"
+                  className="bg-[#FD9C2D]/10 border border-[#FD9C2D]/30 rounded-lg p-3 text-sm text-[#b86e10] flex gap-2"
                 >
                   <HelpCircle className="w-4 h-4 flex-shrink-0 mt-0.5" />
                   <p>{currentStep.tip}</p>
@@ -170,7 +170,7 @@ export default function ChefDanielOnboarding({ onComplete, onRevisit }) {
                 </Button>
                 <Button
                   onClick={handleNext}
-                  className="flex-1 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white flex items-center justify-center gap-2"
+                  className="flex-1 bg-gradient-to-r from-[#FD9C2D] to-[#E89020] hover:from-[#FD9C2D]/90 hover:to-[#E89020]/90 text-white flex items-center justify-center gap-2"
                 >
                   {step === steps.length - 1 ? 'Start Cooking' : 'Next'}
                   <ChevronRight className="w-4 h-4" />

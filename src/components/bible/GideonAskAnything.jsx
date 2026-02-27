@@ -426,10 +426,10 @@ Example: [VERSE]Romans 8:28 - "And we know that all things work together for goo
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-24 right-4 z-40 bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 text-white rounded-full p-4 shadow-2xl hover:shadow-3xl transition-all">
+        className="fixed bottom-24 right-4 z-40 bg-gradient-to-r from-[#0A1A2F] to-[#c9a227] text-white rounded-full p-4 shadow-2xl hover:shadow-3xl transition-all">
 
         <MessageCircle className="w-6 h-6" />
-        <span className="absolute -top-1 -right-1 bg-yellow-400 text-purple-900 text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center">
+        <span className="absolute -top-1 -right-1 bg-[#FD9C2D] text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center">
           <Sparkles className="w-3 h-3" />
         </span>
       </motion.button>
@@ -452,7 +452,7 @@ Example: [VERSE]Romans 8:28 - "And we know that all things work together for goo
             className="bg-white dark:bg-[#2d2d4a] rounded-2xl shadow-2xl w-[95%] max-w-2xl h-[85vh] flex flex-col overflow-hidden">
 
               {/* Header */}
-              <div className="bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 p-5">
+              <div className="bg-gradient-to-r from-[#0A1A2F] to-[#c9a227] p-5">
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-3">
                     <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
@@ -500,8 +500,8 @@ Example: [VERSE]Romans 8:28 - "And we know that all things work together for goo
                     Ask Me Anything About Scripture
                   </h3>
                   {memoryContext && memoryContext.total_conversation_count > 0 && (
-                    <div className="bg-purple-50 dark:bg-purple-900/20 rounded-lg p-3 text-sm">
-                      <p className="text-purple-700 dark:text-purple-300">
+                    <div className="bg-[#FAD98D]/20 dark:bg-[#0A1A2F]/20 rounded-lg p-3 text-sm">
+                      <p className="text-[#8a6e1a] dark:text-[#8a6e1a]">
                         💭 I remember our previous {memoryContext.total_conversation_count} conversations and I'm ready to continue your journey.
                       </p>
                     </div>
@@ -516,13 +516,13 @@ Example: [VERSE]Romans 8:28 - "And we know that all things work together for goo
                         setInput("Activate Deep Study Mode for Romans 8");
                         setTimeout(() => handleAsk(true), 100);
                       }}
-                      className="px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full text-sm font-semibold hover:from-purple-700 hover:to-pink-700 transition-all shadow-md"
+                      className="px-4 py-2 bg-gradient-to-r from-[#c9a227] to-[#D9B878] text-white rounded-full text-sm font-semibold hover:from-[#b89320] hover:to-[#c9a227] transition-all shadow-md"
                     >
                       🎓 Deep Study Mode
                     </button>
                     <button
                       onClick={() => setInput("What does it mean to be in the Kingdom of God?")}
-                      className="px-4 py-2 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-full text-sm hover:bg-purple-200 dark:hover:bg-purple-900/50 transition-colors"
+                      className="px-4 py-2 bg-[#FAD98D]/30 dark:bg-[#0A1A2F]/30 text-[#8a6e1a] rounded-full text-sm hover:bg-[#FAD98D]/50 transition-colors"
                     >
                       Kingdom Principles
                     </button>
@@ -552,16 +552,16 @@ Example: [VERSE]Romans 8:28 - "And we know that all things work together for goo
                 className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}>
 
                     {message.role === 'user' ?
-                <div className="bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-2xl px-4 py-3 max-w-[75%]">
+                <div className="bg-gradient-to-r from-[#c9a227] to-[#D9B878] text-white rounded-2xl px-4 py-3 max-w-[75%]">
                         <p className="text-sm">{message.content}</p>
                       </div> :
 
                 <div className="bg-gray-100 dark:bg-[#1a1a2e] rounded-2xl px-4 py-3 max-w-[85%]">
                         <div className="flex items-center gap-2 mb-2">
-                          <div className="w-6 h-6 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
+                          <div className="w-6 h-6 bg-gradient-to-r from-[#c9a227] to-[#D9B878] rounded-full flex items-center justify-center">
                             <MessageCircle className="w-3 h-3 text-white" />
                           </div>
-                          <span className="text-xs font-semibold text-purple-600 dark:text-purple-400">Gideon</span>
+                          <span className="text-xs font-semibold text-[#8a6e1a]">Gideon</span>
                         </div>
                         {(() => {
                           // Parse content for verse markers
@@ -641,7 +641,7 @@ Example: [VERSE]Romans 8:28 - "And we know that all things work together for goo
 
                     <div className="bg-gray-100 dark:bg-[#1a1a2e] rounded-2xl px-4 py-3">
                       <div className="flex items-center gap-2">
-                        <Loader2 className="w-4 h-4 animate-spin text-purple-500" />
+                        <Loader2 className="w-4 h-4 animate-spin text-[#c9a227]" />
                         <span className="text-sm text-gray-500 dark:text-gray-400">Gideon is thinking...</span>
                       </div>
                     </div>
@@ -668,7 +668,7 @@ Example: [VERSE]Romans 8:28 - "And we know that all things work together for goo
                   <Button
                   onClick={handleAsk}
                   disabled={!input.trim() || loading}
-                  className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600"
+                  className="bg-gradient-to-r from-[#c9a227] to-[#D9B878] hover:from-[#b89320] hover:to-[#c9a227]"
                   size="icon">
 
                     {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}

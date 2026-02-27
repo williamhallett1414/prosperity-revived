@@ -68,7 +68,7 @@ export default function OnboardingFlow({ onComplete }) {
       subtitle: 'Let\'s personalize your journey',
       content: (
         <div className="space-y-3 max-h-[60vh] overflow-y-auto pb-2">
-          <div className="bg-gradient-to-br from-purple-500 to-indigo-600 rounded-2xl p-4 text-white mb-3">
+          <div className="bg-gradient-to-br from-[#AFC7E3] to-[#0A1A2F] rounded-2xl p-4 text-white mb-3">
             <Heart className="w-8 h-8 mb-3" />
             <h3 className="font-semibold mb-2">What should we call you?</h3>
             <p className="text-sm text-white/80 mb-4">Let's make this personal from day one.</p>
@@ -83,7 +83,7 @@ export default function OnboardingFlow({ onComplete }) {
               <p className="text-white/70 text-xs mt-1">Please enter your name to continue</p>
             )}
           </div>
-          <div className="bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl p-4 text-white">
+          <div className="bg-gradient-to-br from-[#c9a227] to-[#D9B878] rounded-2xl p-4 text-white">
             <Target className="w-8 h-8 mb-3" />
             <h3 className="font-semibold mb-2">Set Your Spiritual Goal</h3>
             <p className="text-sm text-white/80 mb-4">What's one thing you'd like to focus on spiritually?</p>
@@ -108,7 +108,7 @@ export default function OnboardingFlow({ onComplete }) {
               onClick={() => toggleArrayItem('spiritual_interests', interest)}
               variant={data.spiritual_interests.includes(interest) ? 'default' : 'outline'}
               className={data.spiritual_interests.includes(interest) 
-                ? 'bg-indigo-600 hover:bg-indigo-700' 
+                ? 'bg-[#0A1A2F] hover:bg-[#0A1A2F]/90 text-white' 
                 : 'border-gray-300 hover:bg-gray-50'
               }
             >
@@ -130,7 +130,7 @@ export default function OnboardingFlow({ onComplete }) {
               variant={data.fitness_level === level ? 'default' : 'outline'}
               className={`w-full justify-start h-auto p-4 ${
                 data.fitness_level === level 
-                  ? 'bg-emerald-600 hover:bg-emerald-700' 
+                  ? 'bg-[#8fa68a] hover:bg-[#8fa68a]/90 text-white' 
                   : 'border-gray-300 hover:bg-gray-50'
               }`}
             >
@@ -158,7 +158,7 @@ export default function OnboardingFlow({ onComplete }) {
               onClick={() => toggleArrayItem('health_goals', goal)}
               variant={data.health_goals.includes(goal) ? 'default' : 'outline'}
               className={data.health_goals.includes(goal) 
-                ? 'bg-teal-600 hover:bg-teal-700' 
+                ? 'bg-[#3C4E53] hover:bg-[#3C4E53]/90 text-white' 
                 : 'border-gray-300 hover:bg-gray-50'
               }
             >

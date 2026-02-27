@@ -329,14 +329,14 @@ Return ONLY valid JSON array:
             className="fixed bottom-24 right-4 w-[calc(100vw-2rem)] sm:w-96 h-[500px] bg-white rounded-2xl shadow-2xl flex flex-col z-50 border border-[#E6EBEF]"
           >
             {/* Header */}
-            <div className="bg-gradient-to-r from-[#D9B878] to-[#AFC7E3] text-[#0A1A2F] p-5 rounded-t-2xl flex items-center justify-between">
+            <div className="bg-gradient-to-r from-[#8fa68a] to-[#6b8f72] text-white p-5 rounded-t-2xl flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-[#0A1A2F]/10 flex items-center justify-center">
-                  <Dumbbell className="w-6 h-6 text-[#0A1A2F]" />
+                <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
+                  <Dumbbell className="w-6 h-6 text-white" />
                 </div>
                 <div>
                   <h3 className="font-bold">Coach David</h3>
-                  <p className="text-xs text-[#0A1A2F]/70">Your Fitness Guide</p>
+                  <p className="text-xs text-white/80">Your Fitness Guide</p>
                 </div>
               </div>
               <div className="flex items-center gap-1">
@@ -353,7 +353,7 @@ Return ONLY valid JSON array:
                   }}
                   variant="ghost"
                   size="icon"
-                  className="text-[#0A1A2F] hover:bg-[#0A1A2F]/10"
+                  className="text-white hover:bg-white/20"
                   title="Clear chat"
                 >
                   <Trash2 className="w-5 h-5" />
@@ -362,7 +362,7 @@ Return ONLY valid JSON array:
                   onClick={() => setIsOpen(false)}
                   variant="ghost"
                   size="icon"
-                  className="text-[#0A1A2F] hover:bg-[#0A1A2F]/10"
+                  className="text-white hover:bg-white/20"
                 >
                   <X className="w-5 h-5" />
                 </Button>
@@ -400,7 +400,7 @@ Return ONLY valid JSON array:
                   <div
                     className={`max-w-[80%] rounded-2xl px-4 py-3 ${
                       message.role === 'user'
-                        ? 'bg-gradient-to-r from-[#D9B878] to-[#AFC7E3] text-[#0A1A2F]'
+                        ? 'bg-gradient-to-r from-[#8fa68a] to-[#6b8f72] text-white'
                         : 'bg-[#E6EBEF] text-[#0A1A2F]'
                     }`}
                   >
@@ -449,7 +449,7 @@ Return ONLY valid JSON array:
                 <Button
                   onClick={sendMessage}
                   disabled={!input.trim() || isLoading}
-                  className="bg-gradient-to-r from-[#D9B878] to-[#AFC7E3] hover:from-[#D9B878]/90 hover:to-[#AFC7E3]/90 text-[#0A1A2F] h-11 px-5"
+                  className="bg-gradient-to-r from-[#8fa68a] to-[#6b8f72] hover:from-[#8fa68a]/90 hover:to-[#6b8f72]/90 text-white h-11 px-5"
                   size="icon"
                 >
                   <Send className="w-4 h-4" />

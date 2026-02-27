@@ -107,7 +107,7 @@ export default function CoachDavidOnboarding({ onComplete, onRevisit }) {
             className="bg-white rounded-2xl shadow-2xl max-w-sm w-full overflow-hidden"
           >
             {/* Header */}
-            <div className="bg-gradient-to-r from-orange-500 to-red-600 text-white p-6 relative">
+            <div className="bg-gradient-to-r from-[#8fa68a] to-[#6b8f72] text-white p-6 relative">
               <button
                 onClick={handleSkip}
                 className="absolute top-4 right-4 text-white/80 hover:text-white transition-colors"
@@ -135,7 +135,7 @@ export default function CoachDavidOnboarding({ onComplete, onRevisit }) {
                 initial={{ width: 0 }}
                 animate={{ width: `${((step + 1) / steps.length) * 100}%` }}
                 transition={{ duration: 0.3 }}
-                className="h-full bg-gradient-to-r from-orange-500 to-red-600"
+                className="h-full bg-gradient-to-r from-[#8fa68a] to-[#6b8f72]"
               />
             </div>
 
@@ -170,7 +170,7 @@ export default function CoachDavidOnboarding({ onComplete, onRevisit }) {
                 </Button>
                 <Button
                   onClick={handleNext}
-                  className="flex-1 bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white flex items-center justify-center gap-2"
+                  className="flex-1 bg-gradient-to-r from-[#8fa68a] to-[#6b8f72] hover:from-[#8fa68a]/90 hover:to-[#6b8f72]/90 text-white flex items-center justify-center gap-2"
                 >
                   {step === steps.length - 1 ? 'Start Training' : 'Next'}
                   <ChevronRight className="w-4 h-4" />

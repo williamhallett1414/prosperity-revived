@@ -11,10 +11,6 @@ import {
   Target, 
   TrendingUp, 
   Trophy, 
-  Heart, 
-  Dumbbell, 
-  ChefHat, 
-  BookOpen,
   Calendar,
   CheckCircle2,
   Sparkles,
@@ -32,38 +28,42 @@ import DailyReflectionPrompt from '@/components/gideon/DailyReflectionPrompt';
 const chatbotConfig = {
   Hannah: {
     name: 'Hannah',
-    icon: Heart,
-    color: 'from-purple-500 to-pink-500',
-    bgColor: 'bg-purple-50',
-    textColor: 'text-purple-700',
-    category: 'Personal Growth',
+    icon: '🧠',
+    color: 'from-[#AFC7E3] to-[#7ab3d4]',
+    bgColor: 'bg-[#AFC7E3]/20',
+    textColor: 'text-[#3C4E53]',
+    borderColor: 'border-[#AFC7E3]',
+    category: 'Personal Growth & Mindset',
     description: 'Personal growth, mindset & emotional wellbeing'
   },
   CoachDavid: {
     name: 'Coach David',
-    icon: Dumbbell,
-    color: 'from-blue-500 to-cyan-500',
-    bgColor: 'bg-blue-50',
-    textColor: 'text-blue-700',
-    category: 'Fitness',
+    icon: '💪',
+    color: 'from-[#8fa68a] to-[#6b8f72]',
+    bgColor: 'bg-[#8fa68a]/20',
+    textColor: 'text-[#4a6b50]',
+    borderColor: 'border-[#8fa68a]',
+    category: 'Fitness & Wellness',
     description: 'Fitness plans, workouts & accountability'
   },
   ChefDaniel: {
     name: 'Chef Daniel',
-    icon: ChefHat,
-    color: 'from-orange-500 to-red-500',
-    bgColor: 'bg-orange-50',
-    textColor: 'text-orange-700',
-    category: 'Nutrition',
+    icon: '🍽️',
+    color: 'from-[#FD9C2D] to-[#E89020]',
+    bgColor: 'bg-[#FD9C2D]/15',
+    textColor: 'text-[#b86e10]',
+    borderColor: 'border-[#FD9C2D]',
+    category: 'Nutrition & Meals',
     description: 'Nutrition advice, meal ideas & healthy eating'
   },
   Gideon: {
     name: 'Gideon',
-    icon: BookOpen,
-    color: 'from-green-500 to-emerald-500',
-    bgColor: 'bg-green-50',
-    textColor: 'text-green-700',
-    category: 'Spiritual Growth',
+    icon: '📖',
+    color: 'from-[#c9a227] to-[#D9B878]',
+    bgColor: 'bg-[#D9B878]/20',
+    textColor: 'text-[#8a6e1a]',
+    borderColor: 'border-[#D9B878]',
+    category: 'Scripture & Spiritual Growth',
     description: 'Scripture, spiritual guidance & daily devotionals'
   }
 };
@@ -155,7 +155,7 @@ export default function ProgressDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 pb-8">
+    <div className="min-h-screen bg-[#F2F6FA] pb-8">
       <div className="max-w-6xl mx-auto px-4 py-6">
         {/* Header */}
         <motion.div
@@ -165,7 +165,7 @@ export default function ProgressDashboard() {
         >
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#c9a227] to-[#D9B878] flex items-center justify-center">
                 <Sparkles className="w-6 h-6 text-white" />
               </div>
               <div>
@@ -197,10 +197,10 @@ export default function ProgressDashboard() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mb-6 bg-gradient-to-br from-blue-50 to-purple-50 border border-blue-200 rounded-2xl p-5"
+            className="mb-6 bg-gradient-to-br from-[#FAD98D]/20 to-[#AFC7E3]/20 border border-[#D9B878]/40 rounded-2xl p-5"
           >
             <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#c9a227] to-[#D9B878] flex items-center justify-center">
                 <Sparkles className="w-5 h-5 text-white" />
               </div>
               <div>
@@ -247,14 +247,13 @@ export default function ProgressDashboard() {
           <h2 className="text-xl font-bold text-gray-900 mb-4">Chat with Your Guides</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {Object.entries(chatbotConfig).map(([key, config]) => {
-              const Icon = config.icon;
               return (
                 <Button
                   key={key}
                   onClick={() => setActiveChat(key)}
                   className={`h-auto py-4 px-3 flex flex-col items-center gap-2 bg-gradient-to-br ${config.color} hover:opacity-90 text-white shadow-md`}
                 >
-                  <Icon className="w-6 h-6" />
+                  <span className="text-2xl">{config.icon}</span>
                   <span className="text-sm font-semibold text-center">{config.name}</span>
                   <span className="text-xs opacity-90">{config.category}</span>
                   <p className="text-xs opacity-70 mt-0.5 text-center leading-tight">{config.description}</p>
@@ -318,8 +317,8 @@ export default function ProgressDashboard() {
                   <CardHeader className={`${config.bgColor} border-b`}>
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
-                        <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${config.color} flex items-center justify-center`}>
-                          <Icon className="w-5 h-5 text-white" />
+                        <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${config.color} flex items-center justify-center text-xl`}>
+                          {config.icon}
                         </div>
                         <div>
                           <CardTitle className="text-xl">{config.name}</CardTitle>

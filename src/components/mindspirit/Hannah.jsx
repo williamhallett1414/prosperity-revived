@@ -941,7 +941,7 @@ Return ONLY valid JSON array:
       {/* Floating Chat Button */}
       <motion.button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-24 right-4 w-14 h-14 bg-gradient-to-br from-pink-400 to-purple-500 hover:from-pink-500 hover:to-purple-600 text-white rounded-full shadow-lg flex items-center justify-center z-50"
+        className="fixed bottom-24 right-4 w-14 h-14 bg-gradient-to-br from-[#AFC7E3] to-[#3C4E53] hover:opacity-90 text-white rounded-full shadow-lg flex items-center justify-center z-50"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
         initial={{ scale: 0 }}
@@ -957,10 +957,10 @@ Return ONLY valid JSON array:
             initial={{ opacity: 0, y: 100, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 100, scale: 0.9 }}
-            className="fixed bottom-24 right-4 w-[calc(100vw-2rem)] sm:w-96 h-[500px] bg-white rounded-2xl shadow-2xl flex flex-col z-50 border border-purple-200"
+            className="fixed bottom-24 right-4 w-[calc(100vw-2rem)] sm:w-96 h-[500px] bg-white rounded-2xl shadow-2xl flex flex-col z-50 border border-[#AFC7E3]/40"
           >
             {/* Header */}
-            <div className="bg-gradient-to-r from-pink-400 to-purple-500 text-white p-5 rounded-t-2xl flex items-center justify-between">
+            <div className="bg-gradient-to-r from-[#AFC7E3] to-[#3C4E53] text-white p-5 rounded-t-2xl flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
                   <Heart className="w-6 h-6 text-white" />
@@ -1004,22 +1004,22 @@ Return ONLY valid JSON array:
             )}
 
             {/* Quick-Ask Menu */}
-            <div className="border-b border-purple-100 bg-purple-50 px-5 py-3 overflow-x-auto">
+            <div className="border-b border-[#AFC7E3]/40 bg-[#AFC7E3]/15 px-5 py-3 overflow-x-auto">
               <div className="flex items-center justify-between mb-2">
                 <HannahTooltip text="Jump straight into conversations about topics that matter to you. These are personalized quick-starts." position="bottom" showIcon={true}>
-                  <p className="text-xs font-semibold text-purple-900/70">Quick Topics:</p>
+                  <p className="text-xs font-semibold text-[#0A1A2F]/70">Quick Topics:</p>
                 </HannahTooltip>
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => setShowOnboarding(true)}
-                    className="text-xs text-purple-600 hover:text-purple-800 transition-colors underline"
+                    className="text-xs text-[#3C4E53] hover:text-[#1a3a5c] transition-colors underline"
                     title="Revisit the tour"
                   >
                     ? Help
                   </button>
                   <button
                     onClick={() => setShowQuickActions(!showQuickActions)}
-                    className="text-xs text-purple-900/60 hover:text-purple-900 transition-colors"
+                    className="text-xs text-[#0A1A2F]/60 hover:text-[#0A1A2F] transition-colors"
                   >
                     {showQuickActions ? '▼ Hide' : '▶ Show'}
                   </button>
@@ -1083,7 +1083,7 @@ Return ONLY valid JSON array:
             {/* Proactive Coaching Panel */}
             <AnimatePresence>
               {showProactivePanel && (
-                <div className="border-b border-purple-100 px-5 py-3 bg-gradient-to-r from-purple-50 to-blue-50">
+                <div className="border-b border-[#AFC7E3]/40 px-5 py-3 bg-gradient-to-r from-[#AFC7E3]/15 to-[#F2F6FA]">
                   <ProactiveCoachingPanel
                     user={user}
                     onSelectTopic={(topic) => setInput(topic)}
@@ -1094,23 +1094,23 @@ Return ONLY valid JSON array:
             </AnimatePresence>
 
             {/* Mood Tracker Button */}
-            <div className="border-b border-purple-100 px-5 py-2 bg-white flex items-center justify-between">
+            <div className="border-b border-[#AFC7E3]/40 px-5 py-2 bg-white flex items-center justify-between">
               <HannahTooltip text="Track your mood to help me understand your emotional state and provide better support" position="bottom">
                 <button
                   onClick={() => setShowMoodTracker(!showMoodTracker)}
-                  className="flex items-center gap-2 text-xs text-purple-600 hover:text-purple-800 transition-colors"
+                  className="flex items-center gap-2 text-xs text-[#3C4E53] hover:text-[#1a3a5c] transition-colors"
                 >
                   <Smile className="w-4 h-4" />
                   {currentMood}/10 Mood
                 </button>
               </HannahTooltip>
-              {showJournalMode && <span className="text-xs text-purple-500">📝 Journal Mode</span>}
+              {showJournalMode && <span className="text-xs text-[#AFC7E3]">📝 Journal Mode</span>}
             </div>
 
             {/* Mood Slider */}
             {showMoodTracker && (
-              <div className="px-5 py-3 bg-purple-50 border-b border-purple-100">
-                <p className="text-xs text-purple-700 mb-2">How are you feeling?</p>
+              <div className="px-5 py-3 bg-[#AFC7E3]/15 border-b border-[#AFC7E3]/40">
+                <p className="text-xs text-[#3C4E53] mb-2">How are you feeling?</p>
                 <input
                   type="range"
                   min="1"
@@ -1123,14 +1123,14 @@ Return ONLY valid JSON array:
                   }}
                   className="w-full"
                 />
-                <p className="text-xs text-purple-600 mt-1 text-center">
+                <p className="text-xs text-[#3C4E53] mt-1 text-center">
                   {currentMood <= 3 ? '😢 Struggling' : currentMood <= 5 ? '😐 Neutral' : currentMood <= 7 ? '🙂 Good' : '😄 Great'}
                 </p>
               </div>
             )}
 
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-5 space-y-4 bg-purple-50/30">
+            <div className="flex-1 overflow-y-auto p-5 space-y-4 bg-[#AFC7E3]/10">
               {messages.map((message, index) => (
                 <motion.div
                   key={index}
@@ -1141,8 +1141,8 @@ Return ONLY valid JSON array:
                   <div
                     className={`max-w-[80%] rounded-2xl px-4 py-3 ${
                       message.role === 'user'
-                        ? 'bg-gradient-to-r from-pink-400 to-purple-500 text-white'
-                        : 'bg-white text-gray-800 border border-purple-100'
+                        ? 'bg-gradient-to-r from-[#AFC7E3] to-[#3C4E53] text-white'
+                        : 'bg-white text-gray-800 border border-[#AFC7E3]/40'
                     }`}
                   >
                     <p className="text-sm whitespace-pre-wrap leading-relaxed">{message.content}</p>
@@ -1151,8 +1151,8 @@ Return ONLY valid JSON array:
               ))}
               {isLoading && (
                 <div className="flex justify-start">
-                  <div className="bg-white border border-purple-100 rounded-2xl px-4 py-3">
-                    <Loader2 className="w-5 h-5 animate-spin text-purple-400" />
+                  <div className="bg-white border border-[#AFC7E3]/40 rounded-2xl px-4 py-3">
+                    <Loader2 className="w-5 h-5 animate-spin text-[#AFC7E3]" />
                   </div>
                 </div>
               )}
@@ -1160,14 +1160,14 @@ Return ONLY valid JSON array:
               {/* Quick Actions */}
               {messages.length === 1 && !isLoading && (
                 <div className="space-y-2 pt-2">
-                  <p className="text-xs text-purple-900/60 font-medium">Quick questions:</p>
+                  <p className="text-xs text-[#0A1A2F]/60 font-medium">Quick questions:</p>
                   {quickActions.map((action, idx) => (
                     <button
                       key={idx}
                       onClick={() => {
                         setInput(action);
                       }}
-                      className="block w-full text-left text-sm px-4 py-3 rounded-xl bg-white hover:bg-purple-50 text-gray-800 transition-colors shadow-sm border border-purple-100"
+                      className="block w-full text-left text-sm px-4 py-3 rounded-xl bg-white hover:bg-[#AFC7E3]/15 text-gray-800 transition-colors shadow-sm border border-[#AFC7E3]/40"
                     >
                       {action}
                     </button>
@@ -1177,14 +1177,14 @@ Return ONLY valid JSON array:
             </div>
 
             {/* Input */}
-            <div className="p-5 border-t border-purple-100 bg-white">
+            <div className="p-5 border-t border-[#AFC7E3]/40 bg-white">
               <div className="flex gap-3 mb-3">
                 <button
                   onClick={() => setShowJournalMode(!showJournalMode)}
                   className={`text-xs px-3 py-2 rounded-lg transition-colors ${
                     showJournalMode
-                      ? 'bg-purple-600 text-white'
-                      : 'bg-purple-100 text-purple-700 hover:bg-purple-200'
+                      ? 'bg-[#3C4E53] text-white'
+                      : 'bg-[#AFC7E3]/25 text-[#3C4E53] hover:bg-[#AFC7E3]/40'
                   }`}
                 >
                   📝 Journal
@@ -1196,13 +1196,13 @@ Return ONLY valid JSON array:
                   onChange={(e) => setInput(e.target.value)}
                   onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
                   placeholder={showJournalMode ? "Write your reflection here..." : "What's on your mind?"}
-                  className="flex-1 bg-purple-50 border-purple-200 h-11"
+                  className="flex-1 bg-[#AFC7E3]/15 border-[#AFC7E3]/60 h-11"
                   disabled={isLoading}
                 />
                 <Button
                   onClick={sendMessage}
                   disabled={!input.trim() || isLoading}
-                  className="bg-gradient-to-r from-pink-400 to-purple-500 hover:from-pink-500 hover:to-purple-600 text-white h-11 px-5"
+                  className="bg-gradient-to-r from-[#AFC7E3] to-[#3C4E53] hover:opacity-90 text-white h-11 px-5"
                   size="icon"
                 >
                   <Send className="w-4 h-4" />
