@@ -1,5 +1,5 @@
 import React from 'react';
-import { Users, MapPin, Image, Trophy, Activity, LayoutList } from 'lucide-react';
+import { Users, MapPin, Image, Trophy, Activity, LayoutList, UsersRound, TrendingUp } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const tabs = [
@@ -8,7 +8,10 @@ const tabs = [
 { id: 'friends', label: 'Friends', icon: Users },
 { id: 'photos', label: 'Photos', icon: Image },
 { id: 'achievements', label: 'Achievements', icon: Trophy },
-{ id: 'activity', label: 'Activity', icon: Activity }];
+{ id: 'activity', label: 'Activity', icon: Activity },
+{ id: 'groups', label: 'Groups', icon: UsersRound },
+{ id: 'journey', label: 'Journey', icon: TrendingUp },
+];
 
 
 export default function ProfileTabs({ activeTab, onTabChange }) {

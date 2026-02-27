@@ -202,6 +202,24 @@ export default function Profile() {
           {activeTab === 'photos' && <PhotosTab user={user} />}
           {activeTab === 'achievements' && <AchievementsTab userProgress={userProgress} />}
           {activeTab === 'activity' && <ActivityTab userProgress={userProgress} />}
+          {activeTab === 'groups' && (
+            <div className="text-center py-6">
+              <Link to={createPageUrl('Groups')}>
+                <Button className="bg-[#FD9C2D] hover:bg-[#FD9C2D]/90 text-white">
+                  View My Groups
+                </Button>
+              </Link>
+            </div>
+          )}
+          {activeTab === 'journey' && (
+            <div className="text-center py-6">
+              <Link to={createPageUrl('ProgressDashboard')}>
+                <Button className="bg-gradient-to-r from-blue-500 to-purple-500 text-white">
+                  View Your Journey
+                </Button>
+              </Link>
+            </div>
+          )}
 
           {/* Account Settings Section */}
           {activeTab === 'about' && (
