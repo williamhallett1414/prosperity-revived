@@ -1763,7 +1763,50 @@ export const devotionalContent = {
     prayer: "Dear God, we thank You for the gift of intimacy in our relationship. Help us to cherish and nurture this sacred connection, guiding us as we grow in love and understanding. May our relationship be a testament to Your divine plan for marriage, and may we always seek Your wisdom and guidance on this journey. Above all, help us cherish the gift of emotional intimacy and the deep, abiding love it fosters in our relationship. May our journey together be richly blessed, and may our love story serve as a testament to the beauty and power of a Christ-centered marriage. Amen."
     },
 
-    "patience-waiting": {
+    "holy-spirit": {
+     title: "Life in the Spirit: Understanding the Holy Spirit's Work",
+     introduction: "The Holy Spirit is one of the most misunderstood aspects of Christian faith. Some believers fear the Holy Spirit. Others ignore Him. Still others reduce Him to an emotional experience or a source of personal power. But the Holy Spirit is central to the Christian life—He is God's presence dwelling in you, transforming you, guiding you, and empowering you for the life God has called you to live. The Holy Spirit is not primarily about experiences or signs; He is about transformation. He convicts you of sin, comforts you in suffering, guides you into truth, intercedes for you in prayer, and produces fruit in your life that reflects the character of Christ. This 14-day journey will help you understand who the Holy Spirit is, what He does, and how to cooperate with His work in your life. As you study Scripture's teaching on the Holy Spirit, you will discover that you are never alone, never without power, and never left without guidance. The Spirit who raised Jesus from the dead is alive in you.",
+     keyVerses: [
+       {
+         reference: "John 14:26",
+         text: "But the Advocate, the Holy Spirit, whom the Father will send in my name, will teach you all things and will remind you of everything I have said to you.",
+         insight: "The Holy Spirit is your teacher and your reminder. He brings Scripture to mind in your moment of need. He illuminates truth when you are confused. He is actively working to grow you in wisdom."
+       },
+       {
+         reference: "Romans 8:26-27",
+         text: "In the same way, the Spirit helps us in our weakness. We do not know what we ought to pray for, but the Spirit himself intercedes for us through wordless groans. And he who searches our hearts knows the mind of the Spirit, because the Spirit intercedes for God's people in accordance with the will of God.",
+         insight: "When you don't know how to pray, the Spirit prays through you. When you are too weak to speak, the Spirit intercedes. You are never left without a voice before the Father."
+       },
+       {
+         reference: "Galatians 5:22-23",
+         text: "But the fruit of the Spirit is love, joy, peace, forbearance, kindness, goodness, faithfulness, gentleness and self-control. Against such things there is no law.",
+         insight: "The work of the Holy Spirit produces visible transformation. You don't have to manufacture these qualities; the Spirit produces them in you as you surrender to Him. The evidence of the Spirit's work is not power, but fruit."
+       }
+     ],
+     reflection: "Many believers live as though the Resurrection happened to Jesus, not to them. We know intellectually that we are 'born again' or 'have the Holy Spirit,' but we don't live as though a living God actually dwells within us. We try to generate our own strength, our own wisdom, our own goodness. We exhaust ourselves trying to be good enough, try hard enough, believe strongly enough. But the Christian life is not about human effort; it is about cooperation with the Holy Spirit. The Spirit does not force Himself on you. He works with you, through you, and in partnership with your choices. He convicts but respects your freedom. He guides but doesn't override your will. He empowers but doesn't make you passive. Understanding the Holy Spirit changes everything because it means you are not alone in your faith. When you are tempted, the Spirit strengthens you. When you are confused, He guides you. When you are grieving, He comforts you. When you don't know what to pray, He intercedes. The Christian life is not you trying hard to follow Jesus; it is Jesus, through the Holy Spirit, living in you and transforming you from the inside out.",
+     reflectionQuestions: [
+       "What is your relationship with the Holy Spirit? Do you think of Him as a person, a power, or something you've never really understood?",
+       "Can you identify a time when the Holy Spirit guided you, comforted you, or empowered you? What happened?",
+       "In what area of your life are you trying to generate your own strength instead of relying on the Spirit?",
+       "How would your daily life change if you truly lived as though the Holy Spirit dwells in you?",
+       "What fruit of the Spirit (love, joy, peace, patience, kindness, goodness, faithfulness, gentleness, self-control) needs most to grow in your life? How can you cooperate with the Spirit's work?"
+     ],
+     actionPlan: {
+       title: "Living in the Power of the Holy Spirit",
+       steps: [
+         "Acknowledge the Holy Spirit's presence. Begin each day by saying: 'Holy Spirit, I invite You to work in me today. Transform me, guide me, empower me.'",
+         "Name one area where you are trying to generate your own strength instead of relying on the Spirit. Consciously surrender that to Him.",
+         "Practice listening for the Spirit's guidance. In decisions throughout the day, pause and ask: 'What is the Spirit showing me? What would Jesus do?' and wait for His direction.",
+         "Study the fruit of the Spirit (Galatians 5:22-23). Identify which fruit you most need to grow. Ask the Spirit to produce that fruit in you.",
+         "When tempted, immediately call on the Spirit. Say: 'Holy Spirit, give me strength. Help me to resist.' Rely on His power, not your willpower.",
+         "Practice the spiritual disciplines that open you to the Spirit's work: prayer, Bible reading, worship, confession, fasting. These create space for the Spirit to work.",
+         "Look for evidence of the Spirit's work. At the end of each day, notice where you saw the fruit of the Spirit manifest—in your actions, your words, your responses. Thank the Spirit for that work."
+       ]
+     },
+     prayer: "Holy Spirit, I confess that I have often tried to live the Christian life in my own strength. Forgive me for grieving You through my disobedience, my doubt, my independence. Come and fill me afresh. Transform me from the inside out. Produce Your fruit in my life—love that is genuine, joy that is deep, peace that is unshakeable. Guide me into all truth. Empower me to live in a way that reflects Jesus. Help me to cooperate with Your work rather than resist it. Make me sensitive to Your gentle voice. Use me for Your purposes. In the name of Jesus, Amen."
+   },
+
+   "patience-waiting": {
      title: "Patience in Waiting: Trusting God's Timing",
      introduction: "Waiting is one of the most difficult spiritual practices. We live in a culture that rewards speed, that prizes quick results and immediate gratification. But God often works slowly. He grows forests, not instant trees. He builds character through seasons of waiting. He develops trust when we cannot see the next step. Whether you are waiting for a job, a spouse, an answer to prayer, or clarity about your next chapter, this season of not-yet is not wasted time. It is sacred time. God is doing something in you while you wait. He is building patience, developing faith, reshaping your desires, and preparing you for what comes next. This 10-day journey will help you find peace in the waiting—to see it not as a delay, but as a deliberate part of God's design. The wait is not punishment. It is training ground for a deeper trust.",
      keyVerses: [
