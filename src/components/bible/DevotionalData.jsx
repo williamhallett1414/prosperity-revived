@@ -643,8 +643,48 @@ export const devotionalContent = {
     prayer: "Lord, I am tired of the cycle. I am tired of the shame, the hiding, the broken promises to myself and to You. I come to You not with a clean record but with a desperate heart, asking You to do what I cannot do on my own. Set me free—not just from the behavior but from the root of it, from the lies that feed it, from the shame that perpetuates it. Give me the courage to let people in. Give me wisdom to know what help to seek. Give me Your Spirit's power each day to choose freedom. And on the days I fall, remind me that Your grace is greater than my failure and that You have not given up on me. I am Yours. In Jesus' name, Amen."
   },
 
-  "fear-courage": {
-    title: "From Fear to Courage: Finding Strength in God's Presence",
+  "new-city": {
+    title: "New City, New Start: Finding Community in Transition",
+    introduction: "Moving to a new city is one of life's major transitions. Whether you're relocating for a job, for school, to follow a calling, or to start fresh, there's a unique combination of emotions that comes with it: excitement about new possibilities, grief about what you're leaving behind, anxiety about the unknown, and sometimes, a deep loneliness as you find yourself in unfamiliar surroundings without your established community. Even if the move is positive and even if it's what you've chosen, the displacement is real. You are a creature of habit and relationship. When your physical location changes, so does your entire social ecosystem. Your routines are disrupted. Your support system is at a distance. The places that feel like home are gone. And you have to figure out how to build community in a place where you don't yet belong. But here's the beautiful truth: God goes with you. He is not tied to geography. He is not limited by distance. He doesn't ask you to figure out community on your own. And the people He places in your new city—the ones you'll bump into, the ones you'll say yes to, the ones who will become your people—are already known by Him. They are already loved by Him. This 7-day plan is designed to help you navigate this transition with faith and hope. It will help you process the grief and excitement, face your fears about belonging, and position yourself to build deep community in your new place.",
+    keyVerses: [
+      {
+        reference: "Joshua 1:8-9",
+        text: "Keep this Book of the Law always on your lips; meditate on it day and night, so that you may be careful to do everything written in it. Then you will be prosperous and successful. Have I not commanded you? Be strong and courageous. Do not be afraid; do not be discouraged, for the Lord your God will be with you wherever you go.",
+        insight: "Joshua was told to move into unfamiliar territory and take possession of new land. God's promise to him is the same promise to you: I am with you wherever you go. Your new city is not beyond God's reach or care."
+      },
+      {
+        reference: "Ruth 1 & 3",
+        text: "Ruth went from being a foreigner in her homeland to being a valued member of a new community. Her story teaches us that belonging is not instant, but it is possible. Through faithfulness, kindness, and risk, she found her place.",
+        insight: "Like Ruth, you may feel like a foreigner in your new city. But like Ruth, you have the opportunity to build genuine community through showing up, being kind, taking risks, and letting people know you."
+      },
+      {
+        reference: "Hebrews 13:1-2",
+        text: "Keep on loving one another as brothers and sisters. Do not forget to show hospitality to strangers, for by so doing some people have shown hospitality to angels without knowing it.",
+        insight: "Community is built when you love others and when you are loved by others. Your willingness to receive hospitality from others and to offer it to them creates the conditions for genuine belonging."
+      }
+    ],
+    reflection: "Moving to a new city forces you to confront the reality that community doesn't just happen. It is built. And building community requires vulnerability, courage, and intentionality. You have to say yes when you'd rather stay home. You have to start conversations with strangers. You have to invite people into your life and risk rejection. You have to show up consistently, even when it would be easier not to. You have to be honest about your struggles instead of pretending everything is fine. But here's what's remarkable: most people in a new city are craving community just as desperately as you are. When you are vulnerable, they are often relieved. When you show up, they notice. When you initiate, they respond. And before you know it, the lonely new city has become your city. The strangers have become your friends. The new place has become your home. The transition that felt impossible becomes the crucible in which your deepest friendships are forged.",
+    reflectionQuestions: [
+      "What are you grieving about leaving? What are you excited about in your new city?",
+      "What fears do you have about belonging in your new place? What lies are you believing about yourself that make belonging feel impossible?",
+      "Who in your new city could be a potential friend? What is one specific way you could show up and initiate with that person?",
+      "What kind of community do you want to build? What values matter most to you in friendship?",
+      "How can you be intentional about building community without becoming anxious or desperate? How do you balance pursuing connection with trusting God's timing?"
+    ],
+    actionPlan: {
+      title: "Building Community in Your New City",
+      steps: [
+        "Find your people and places. Research church, small groups, clubs, volunteer organizations, fitness classes, or other gatherings that align with your interests and values. Identify 2-3 that you'll check out in the next two weeks.",
+        "Show up consistently. Consistency is what builds community. One coffee date doesn't create friendship. But showing up week after week does. Commit to showing up repeatedly.",
+        "Take the initiative. Don't wait for others to reach out. Text them. Invite them to coffee. Start the conversation. Most people are relieved when someone else initiates because they want community too.",
+        "Be vulnerable. Share about your transition. Tell people you're new to the city and figuring things out. Let people see that you're human, not just your polished self.",
+        "Serve others. Look for ways to be helpful and generous. Offer to help someone move. Bring a meal to someone who just had a baby. Show hospitality. When you give, you create connection.",
+        "Practice hospitality. Invite people to your home, even if it's not perfect. Share a meal. Create space for others. Hospitality is one of the most powerful community-builders.",
+        "Give it time. Building genuine community takes months and years, not weeks. Be patient with the process and with yourself."
+      ]
+    },
+    prayer: "Lord, I am navigating a major transition. I am in a new city, surrounded by unfamiliar streets and unfamiliar faces. I confess that I'm lonely. I'm anxious about whether I'll find my people. I'm grieving what I've left behind. But I also believe that You go with me wherever I go. You are not bound by geography. You know the people in my new city. You have a purpose for me here. Help me to be brave in reaching out. Give me eyes to see the potential friends around me. Give me a heart to be generous and hospitable. Give me patience as I build community. And give me a deep assurance that I am not alone—that You are with me, and that I will find my people. In Jesus' name, Amen."
+  },
     introduction: "Fear is one of the most paralyzing human emotions. It whispers lies in the darkness: You're not strong enough. You're not capable. Something bad is going to happen. You will be alone. You will fail. These whispers can keep you from stepping into your calling, pursuing your dreams, loving fully, speaking truth, taking risks, or standing firm in your convictions. Fear masquerades as protection, but it is often a prison. The enemy uses fear to keep you small, silent, and stuck. But God has not given you a spirit of fear. He has given you a spirit of power, love, and sound mind. Throughout Scripture, one of the most repeated commands is: 'Do not be afraid.' God says it to Abraham, to Joshua, to David, to Mary, to the disciples. And He says it to you. Not because there is nothing to fear in this world—there is genuine danger, real loss, legitimate hardship. But because God is with you. He is bigger than your fear. He is present in your darkness. He is faithful when you are faithless. This 7-day plan is designed to help you identify the fears that grip your heart, understand their roots, and discover the courage that comes not from denying fear, but from trusting a God who is greater than fear. What would be possible if you were no longer controlled by fear?",
     keyVerses: [
       {
