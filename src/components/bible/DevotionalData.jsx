@@ -726,49 +726,6 @@ export const devotionalContent = {
     prayer: "Lord, I confess that fear has a grip on my heart. I am afraid of [name the fear], and this fear keeps me from becoming who You have called me to be. Forgive me for letting fear determine my choices. Help me to see that You are with me. You are bigger than my fear. You are more powerful than any threat I face. You are faithful. You are loving. You are present. Strengthen my faith so that it is larger than my fear. Give me courage—not fearlessness, but faith that trusts You even when I am afraid. Help me to take steps of faith despite my fear. And help me to grow in the deep, settled assurance that nothing can separate me from Your love or Your presence. In Jesus' name, Amen."
   },
 
-  "fear-courage": {
-    title: "From Fear to Courage: Finding Strength in God's Presence",
-    introduction: "Fear is one of the most paralyzing human emotions. It whispers lies in the darkness: You're not strong enough. You're not capable. Something bad is going to happen. You will be alone. You will fail. These whispers can keep you from stepping into your calling, pursuing your dreams, loving fully, speaking truth, taking risks, or standing firm in your convictions. Fear masquerades as protection, but it is often a prison. The enemy uses fear to keep you small, silent, and stuck. But God has not given you a spirit of fear. He has given you a spirit of power, love, and sound mind. Throughout Scripture, one of the most repeated commands is: 'Do not be afraid.' God says it to Abraham, to Joshua, to David, to Mary, to the disciples. And He says it to you. Not because there is nothing to fear in this world—there is genuine danger, real loss, legitimate hardship. But because God is with you. He is bigger than your fear. He is present in your darkness. He is faithful when you are faithless. This 7-day plan is designed to help you identify the fears that grip your heart, understand their roots, and discover the courage that comes not from denying fear, but from trusting a God who is greater than fear. What would be possible if you were no longer controlled by fear?",
-    keyVerses: [
-      {
-        reference: "Joshua 1:8-9",
-        text: "Keep this Book of the Law always on your lips; meditate on it day and night, so that you may be careful to do everything written in it. Then you will be prosperous and successful. Have I not commanded you? Be strong and courageous. Do not be afraid; do not be discouraged, for the Lord your God will be with you wherever you go.",
-        insight: "God's command to be strong and courageous is not a rebuke for your fear. It is an encouragement rooted in His presence. Courage is not the absence of fear; it is faith in God that is greater than your fear."
-      },
-      {
-        reference: "2 Timothy 1:7",
-        text: "For the Spirit God gave us does not make us timid, but gives us power, love and self-discipline.",
-        insight: "You have not been given a spirit of fear. The spirit of fear comes from the enemy. The Spirit of God gives you power to act, love to reach out, and a sound mind to think clearly—even in the face of fear."
-      },
-      {
-        reference: "Isaiah 41:10",
-        text: "So do not fear, for I am with you; do not be dismayed, for I am your God. I will strengthen you and help you; I will uphold you with my righteous right hand.",
-        insight: "God's presence is the antidote to fear. He is not distant or uninvolved. He is with you, strengthening you, helping you, upholding you. In His presence, fear loses its power."
-      }
-    ],
-    reflection: "Fear is a survival mechanism that, in many modern contexts, misfires. Your amygdala—your brain's threat detector—is still wired as if you lived in a world of physical predators. But most of what you fear today is not physical danger. You fear judgment, rejection, failure, inadequacy, loss, change, the unknown. And these fears can be just as paralyzing as physical danger. The key to moving from fear to courage is not to eliminate fear—you probably can't, and some fear is healthy and protective. Rather, it is to enlarge your faith. When your trust in God is smaller than your fear, fear wins. When your trust in God is larger than your fear, courage wins. This is not positive thinking or wishful thinking. This is theological reality. God is omnipotent, omniscient, and eternal. He cannot be surprised. He cannot be defeated. He is absolutely trustworthy. And He loves you. When you deeply believe these things—not just intellectually, but in your bones—fear loses its grip. You are free to act, to risk, to speak, to love, to pursue your calling—not because you are fearless, but because you are faith-full. You trust a God who is bigger than your fear.",
-    reflectionQuestions: [
-      "What fear has the greatest grip on your heart right now? Name it specifically. What lie is it whispering to you?",
-      "Where do you see this fear limiting your life—your relationships, your work, your faith, your dreams?",
-      "What would be possible if this fear had no power over you? What would you do? Who would you become?",
-      "In what areas of your life do you most need to grow in courage? Where is God inviting you to trust Him?",
-      "What does it mean to you that God says, 'I am with you'? How does His presence change your relationship to your fear?"
-    ],
-    actionPlan: {
-      title: "Moving from Fear to Courage",
-      steps: [
-        "Name your fear. Write down the specific fear that is limiting you. Be honest about it. Don't minimize it or spiritualize it. Name it clearly.",
-        "Identify the lie. What false belief underlies this fear? (I'm not capable. I will be rejected. I will fail. I am alone. I am not loved.) Write down the lie.",
-        "Find the truth. Search Scripture for the truth that counters this lie. What does God say about your capability, your worth, your future, your identity, God's presence? Write down the truth.",
-        "Create a trigger response. The next time fear arises, create a specific response: a prayer, a verse, a statement of truth that you will declare. Memorize it and use it.",
-        "Take one small courageous act. Identify one small way you can act in faith despite your fear. Take that step. Let the act of courage build your faith for bigger acts of courage.",
-        "Share your fear with a trusted person. Fear thrives in secrecy and shame. Shame dies in the light of loving community. Tell someone you trust about your fear and ask them to pray for you and encourage you.",
-        "Practice God's presence. Spend time each day in prayer, in Scripture, in silence, cultivating an awareness of God's presence. The more real God's presence is to you, the smaller your fear becomes."
-      ]
-    },
-    prayer: "Lord, I confess that fear has a grip on my heart. I am afraid of [name the fear], and this fear keeps me from becoming who You have called me to be. Forgive me for letting fear determine my choices. Help me to see that You are with me. You are bigger than my fear. You are more powerful than any threat I face. You are faithful. You are loving. You are present. Strengthen my faith so that it is larger than my fear. Give me courage—not fearlessness, but faith that trusts You even when I am afraid. Help me to take steps of faith despite my fear. And help me to grow in the deep, settled assurance that nothing can separate me from Your love or Your presence. In Jesus' name, Amen."
-  },
-
   "leading-jesus": {
     title: "Leading Like Jesus: Servant Leadership in the Kingdom of God",
     introduction: "Leadership in the kingdom of God is fundamentally different from leadership in the world. When you study how Jesus led—his disciples, his followers, his movement—you discover that His approach turns worldly leadership on its head. He didn't lead through power, position, or prestige. He led through sacrifice, humility, and servant-hearted devotion to those He led. He washed feet, ate with sinners, touched the untouchable, and gave His life as a ransom for many. In a world that teaches leaders to assert authority, accumulate power, and demand respect, Jesus taught that the greatest among you will be your servant. Whether you lead in your home, your workplace, your church, or your community, this calling to lead like Jesus is revolutionary. It requires you to examine your motivations, surrender your need for control, and embrace a leadership style that prioritizes the growth, health, and wholeness of those entrusted to your care. This 14-day plan explores the principles of servant leadership as demonstrated by Jesus, and invites you to evaluate your own leadership in light of His example. What would change if you truly led like Jesus?",
