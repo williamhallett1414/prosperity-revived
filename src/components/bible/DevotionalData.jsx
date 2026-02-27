@@ -600,6 +600,49 @@ export const devotionalContent = {
     prayer: "Lord, I commit this year to reading Your Word from beginning to end. I confess that I've often treated the Bible as optional—something I turn to only in crisis or convenience. Forgive me. Your Word is my daily bread, and I need it more than I realize. As I begin this journey, open my eyes to see wonders in Your Law (Psalm 119:18). When I encounter passages I don't understand, give me patience. When I face passages that convict me, give me courage to obey. When I'm tempted to skip a day, remind me that this isn't just a reading plan—it's time with You. May this year in Your Word transform me from the inside out. May I finish this year knowing You better, trusting You more, and living in greater alignment with Your will. In Jesus' name, Amen."
   },
 
+  "addiction-freedom": {
+    title: "Breaking Free: Finding Strength to Overcome Addictions",
+    introduction: "Addiction is one of the most honest words in the human language—it names the terrifying reality that we can become enslaved to the very things we thought we were choosing freely. Whether the bondage is to substances, pornography, food, gambling, approval, or any other compulsive pattern, the experience is the same: a craving that overrides your better judgment, shame that deepens the cycle, and a growing sense that you will never be free. But the Bible speaks directly into this darkness. Paul describes it with disarming honesty in Romans 7—doing the very thing he hates, unable to do the good he wants. And then he points to the only way out: 'Who will rescue me? Thanks be to God, who delivers me through Jesus Christ our Lord.' Freedom is not a matter of trying harder. It is a matter of surrendering more completely to the One who has the power to set you free and make you new. This 21-day plan will walk you through the biblical foundations of freedom, the grace that covers your past, and the power available to you through the Holy Spirit.",
+    keyVerses: [
+      {
+        reference: "John 8:36",
+        text: "So if the Son sets you free, you will be free indeed.",
+        insight: "Jesus doesn't offer management of your addiction—He offers freedom from it. Not just behavioral change but deep, transformative liberation. The freedom He gives is real, complete, and permanent—not dependent on your willpower but on His power."
+      },
+      {
+        reference: "1 Corinthians 6:12",
+        text: "'I have the right to do anything,' you say—but not everything is beneficial. 'I have the right to do anything'—but I will not be mastered by anything.",
+        insight: "Paul draws a clear line: freedom in Christ is not license to be mastered by anything. The Christian life is one of true freedom—not slavery to sin, not slavery to rules, but the joyful freedom of someone who belongs to God and is no longer under any addiction's authority."
+      },
+      {
+        reference: "Romans 6:14",
+        text: "For sin shall no longer be your master, because you are not under the law, but under grace.",
+        insight: "This is your identity as a believer: sin is no longer your master. The addiction does not define you and does not have the final word over your life. Grace has changed your legal status before God and your actual capacity for change."
+      }
+    ],
+    reflection: "Breaking free from addiction is rarely a single moment—it is a daily, sometimes hourly, decision to choose freedom over the familiar pull of bondage. The enemy will use shame to keep you trapped, convincing you that you've gone too far, that God is done with you, that the cycle will never end. None of that is true. God's grace is not exhausted by your relapses. His mercies are new every morning. And His power to transform is greater than any habit, craving, or compulsion you face. But freedom rarely comes in isolation. The New Testament vision of transformation is deeply communal—confession to one another, bearing one another's burdens, praying for each other, and holding each other accountable in love. If you are trying to break free alone, you are fighting with one hand tied behind your back. Seek out a trusted friend, a pastor, a counselor, or a recovery community. Let people in. The darkness of shame loses its power when it is brought into the light of honest community. You were not designed to carry this alone—and you don't have to.",
+    reflectionQuestions: [
+      "What is the addiction or compulsive pattern you are seeking freedom from? Have you brought it fully and honestly before God?",
+      "Where does shame play a role in your cycle? How does the truth of Romans 8:1 ('no condemnation') speak to that shame?",
+      "Who in your life knows the full truth of your struggle? If no one does, what is holding you back from letting someone in?",
+      "What triggers or situations make you most vulnerable? What proactive boundaries could you put in place?",
+      "How does your identity as someone 'set free by the Son' (John 8:36) change how you see yourself and your capacity to change?"
+    ],
+    actionPlan: {
+      title: "Walking the Path to Freedom",
+      steps: [
+        "Confess your struggle to God completely and honestly—not as a performance but as a genuine surrender of the area you've been trying to control on your own.",
+        "Tell at least one trusted person the full truth. Choose someone safe, mature, and discreet—a friend, pastor, or counselor who will walk with you without condemnation.",
+        "Identify your triggers—the emotions, situations, times of day, or relationships that consistently precede the pull toward your addiction—and make a concrete plan for each one.",
+        "Consider professional help. For serious addictions, a Christian counselor, therapist, or recovery program is not a sign of weak faith—it is wisdom. Jesus healed people through means.",
+        "Build replacement habits. Freedom is not just stopping a behavior—it's filling the space with something life-giving. Prayer, exercise, community, Scripture, service.",
+        "When you fall, get up immediately. Do not let shame paralyze you. Confess, receive forgiveness (1 John 1:9), and take the next right step. Progress is rarely linear.",
+        "Celebrate milestones. Each day of freedom is a victory. Track your progress, thank God for each day, and let others celebrate with you."
+      ]
+    },
+    prayer: "Lord, I am tired of the cycle. I am tired of the shame, the hiding, the broken promises to myself and to You. I come to You not with a clean record but with a desperate heart, asking You to do what I cannot do on my own. Set me free—not just from the behavior but from the root of it, from the lies that feed it, from the shame that perpetuates it. Give me the courage to let people in. Give me wisdom to know what help to seek. Give me Your Spirit's power each day to choose freedom. And on the days I fall, remind me that Your grace is greater than my failure and that You have not given up on me. I am Yours. In Jesus' name, Amen."
+  },
+
   "spiritual-warfare": {
     title: "Spiritual Warfare: Standing Firm Against Spiritual Battles",
     introduction: "There is a battle raging that most people never see. It is not fought with weapons of steel or won through political power—it is a spiritual conflict playing out in the unseen realm, with your soul, your relationships, your faith, and your future as the stakes. The Bible is unambiguous about this reality: we have an enemy who is real, active, and strategic. Peter calls him a roaring lion. Paul says we wrestle not against flesh and blood but against spiritual forces of evil. Jesus himself was tempted in the wilderness by Satan personally. Ignoring this reality does not make you safe—it makes you vulnerable. But the good news is this: the battle has already been decided. At the cross and resurrection of Jesus Christ, the enemy was decisively defeated. His power over believers is broken. What remains is a rear-guard action—a defeated enemy still seeking to steal, kill, and destroy until his final end. This 14-day plan will equip you with the spiritual armor God has given you, teach you how to stand firm in the fight, and fill you with confidence that greater is He who is in you than he who is in the world.",
