@@ -790,6 +790,39 @@ export const planReadingSchedules = {
     { day: 7, book: "Romans", chapter: 8 }
   ],
 
+  "parenting-wisdom": [
+    { day: 1, book: "Deuteronomy", chapter: 6 },
+    { day: 2, book: "Proverbs", chapter: 22 },
+    { day: 3, book: "Ephesians", chapter: 6 },
+    { day: 4, book: "Psalms", chapter: 127 },
+    { day: 5, book: "Proverbs", chapter: 3 },
+    { day: 6, book: "Luke", chapter: 2 },
+    { day: 7, book: "Colossians", chapter: 3 },
+    { day: 8, book: "Proverbs", chapter: 29 },
+    { day: 9, book: "Matthew", chapter: 18 },
+    { day: 10, book: "Psalms", chapter: 103 },
+    { day: 11, book: "1 Samuel", chapter: 1 },
+    { day: 12, book: "Proverbs", chapter: 13 },
+    { day: 13, book: "Romans", chapter: 12 },
+    { day: 14, book: "Isaiah", chapter: 54 },
+    { day: 15, book: "1 Corinthians", chapter: 13 },
+    { day: 16, book: "Proverbs", chapter: 4 },
+    { day: 17, book: "Matthew", chapter: 19 },
+    { day: 18, book: "Psalms", chapter: 78 },
+    { day: 19, book: "Titus", chapter: 2 },
+    { day: 20, book: "Proverbs", chapter: 31 },
+    { day: 21, book: "James", chapter: 1 },
+    { day: 22, book: "Psalms", chapter: 139 },
+    { day: 23, book: "Hebrews", chapter: 12 },
+    { day: 24, book: "1 John", chapter: 4 },
+    { day: 25, book: "Joshua", chapter: 24 },
+    { day: 26, book: "Galatians", chapter: 5 },
+    { day: 27, book: "Mark", chapter: 10 },
+    { day: 28, book: "Psalms", chapter: 128 },
+    { day: 29, book: "2 Timothy", chapter: 3 },
+    { day: 30, book: "Philippians", chapter: 4 }
+  ],
+
   "bible-in-year": [
     // January: Genesis & Matthew
     { day: 1, book: "Genesis", chapter: 1 }, { day: 2, book: "Genesis", chapter: 2 }, { day: 3, book: "Genesis", chapter: 3 },

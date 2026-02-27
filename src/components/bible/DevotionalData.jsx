@@ -600,6 +600,49 @@ export const devotionalContent = {
     prayer: "Lord, I commit this year to reading Your Word from beginning to end. I confess that I've often treated the Bible as optional—something I turn to only in crisis or convenience. Forgive me. Your Word is my daily bread, and I need it more than I realize. As I begin this journey, open my eyes to see wonders in Your Law (Psalm 119:18). When I encounter passages I don't understand, give me patience. When I face passages that convict me, give me courage to obey. When I'm tempted to skip a day, remind me that this isn't just a reading plan—it's time with You. May this year in Your Word transform me from the inside out. May I finish this year knowing You better, trusting You more, and living in greater alignment with Your will. In Jesus' name, Amen."
   },
 
+  "parenting-wisdom": {
+    title: "Parenting with Grace: Raising Children in Faith",
+    introduction: "Parenting is one of the most sacred and challenging callings God entrusts to us. It's not just about raising well-behaved children—it's about stewarding souls. Every child is a unique image-bearer of God, placed in your home not by accident but by divine design. Scripture has profound things to say about parenting: how to discipline with love, how to model faith authentically, how to speak life into your children's identity, and how to trust God when parenting feels impossible. This 30-day journey will take you through the key biblical principles of parenting—anchored in grace, wisdom, and deep dependence on God. You don't have to be a perfect parent; you just need to be a grace-filled one. And when you fall short—and you will—God's mercy covers you and your children alike.",
+    keyVerses: [
+      {
+        reference: "Deuteronomy 6:6-7",
+        text: "These commandments that I give you today are to be on your hearts. Impress them on your children. Talk about them when you sit at home and when you walk along the road, when you lie down and when you get up.",
+        insight: "Biblical parenting is not a curriculum you teach—it's a life you live. Faith is caught more than it's taught. When you weave God's Word into the ordinary moments of daily life, you shape your children's hearts more powerfully than any formal lesson."
+      },
+      {
+        reference: "Proverbs 22:6",
+        text: "Start children off on the way they should go, and even when they are old they will not turn from it.",
+        insight: "The investment you make in your children's spiritual formation today has generational implications. The seeds of faith planted in childhood often bear fruit decades later, even through seasons of wandering."
+      },
+      {
+        reference: "Ephesians 6:4",
+        text: "Fathers, do not exasperate your children; instead, bring them up in the training and instruction of the Lord.",
+        insight: "Godly parenting is not harsh or demanding—it's nurturing. The goal is not obedience through fear but transformation through love. Train and instruct, but always with gentleness and respect for the child God made."
+      }
+    ],
+    reflection: "The greatest gift you can give your children is not comfort, education, or opportunity—it's a living, breathing example of faith. Children watch everything. They see how you respond to stress, how you treat your spouse, how you talk about God, and whether your Sunday faith matches your Monday behavior. More than any program or devotional, they need to see that Jesus is real to you. Parenting with grace means extending to your children the same patience, forgiveness, and unconditional love that God extends to you. It means apologizing when you lose your temper. It means praying with them, not just for them. It means telling them about your own faith struggles so they know doubt is normal and God is bigger. It also means trusting that God loves your children even more than you do. On the days when you feel like you're failing, remember: God is the perfect parent, and He is working in your children's lives in ways you cannot always see. Your job is to be faithful, consistent, and full of grace—and to trust Him with the rest.",
+    reflectionQuestions: [
+      "How intentionally are you weaving faith into the everyday moments of family life—meals, car rides, bedtime?",
+      "In what ways might your parenting style be more performance-based than grace-based? How can you shift toward love and nurture?",
+      "What is one area where you need to apologize to your child or change an unhealthy pattern?",
+      "How are you modeling a real, authentic faith to your children—not just talking about God but living for Him?",
+      "What does it look like to trust God with your child's future, especially in seasons of fear or uncertainty?"
+    ],
+    actionPlan: {
+      title: "Raising Faith-Filled Children",
+      steps: [
+        "Begin or deepen a family devotional time—even 10 minutes a day of reading Scripture together builds lasting spiritual habits.",
+        "Pray with your children by name, out loud, daily. Let them hear you bring their needs, fears, and dreams before God.",
+        "Create intentional faith conversations during ordinary moments—dinner, bedtime, and car rides are golden opportunities.",
+        "Model repentance: when you mess up, apologize to your child and show them what it looks like to seek forgiveness.",
+        "Speak identity over your children—regularly tell them who they are in Christ: loved, chosen, created with purpose.",
+        "Connect your family to a church community where your children can build lasting friendships rooted in faith.",
+        "Trust God with what you can't control. Pray specifically for your child's salvation, character, and calling."
+      ]
+    },
+    prayer: "Lord, thank You for the privilege of raising the children You've entrusted to me. I confess that I often feel inadequate—short on patience, wisdom, and energy. But I know You called me to this, and You will equip me for it. Help me parent with grace, not perfection. Give me eyes to see each child the way You see them—uniquely made, deeply loved, full of potential. Help me model faith authentically, speak life into their identity, and create a home where Your presence is real. When I fail, remind me that Your mercies are new every morning. And Lord, please work in my children's hearts in ways I cannot. Draw them close to You, protect them, and fulfill Your purposes in their lives. In Jesus' name, Amen."
+  },
+
   "soulmates-sync": {
     title: "Soulmates in Sync: Fostering Emotional Intimacy in Your Marriage",
     introduction: "In the vast landscape of marriage, few aspects are as essential and transformative as intimacy. The emotional connection experienced through vulnerability, trust, and shared experiences is an irreplaceable component of a thriving relationship. This devotional aims to guide you through the depths of fostering intimacy in your relationship, deepening your emotional connection, and honoring God in the process. The bond between two individuals in marriage is a sacred reflection of God's divine love for us. As we dive into the importance of nurturing intimacy, we draw wisdom from Scripture and discover the beauty of a relationship grounded in Christ. By exploring key verses and engaging in practical exercises, you will uncover the power of intentionality and vulnerability in creating an environment where emotional connection can flourish. As we begin, let us remember the words of Ecclesiastes 4:9-10: 'Two are better than one, because they have a good return for their labor: If either of them falls down, one can help the other up. But pity anyone who falls and has no one to help them up.' May this devotional serve as a reminder of the beauty of your union and the blessings that come from fostering an intimate and supportive relationship.",
