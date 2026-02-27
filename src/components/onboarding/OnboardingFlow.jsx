@@ -28,6 +28,7 @@ const DIETARY_PREFERENCES = [
 
 export default function OnboardingFlow({ onComplete }) {
   const [step, setStep] = useState(1);
+  const [nameTouched, setNameTouched] = useState(false);
   const [data, setData] = useState({
     full_name: '',
     spiritual_goal: '',
@@ -75,8 +76,12 @@ export default function OnboardingFlow({ onComplete }) {
               placeholder="Your first name"
               value={data.full_name}
               onChange={(e) => setData({ ...data, full_name: e.target.value })}
+              onBlur={() => setNameTouched(true)}
               className="bg-white/20 border-white/30 text-white placeholder:text-white/60"
             />
+            {nameTouched && !data.full_name.trim() && (
+              <p className="text-white/70 text-xs mt-1">Please enter your name to continue</p>
+            )}
           </div>
           <div className="bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl p-4 text-white">
             <Target className="w-8 h-8 mb-3" />
@@ -227,7 +232,8 @@ export default function OnboardingFlow({ onComplete }) {
                       setStep(step + 1);
                     }
                   }}
-                  className="flex-1 bg-gradient-to-r from-[#c9a227] to-[#8fa68a] hover:opacity-90"
+                  disabled={step === 1 && !data.full_name.trim()}
+                  className="flex-1 bg-gradient-to-r from-[#c9a227] to-[#8fa68a] hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed"
                 >
                   {step === steps.length ? (
                     <>

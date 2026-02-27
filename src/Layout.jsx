@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { Home, Users, User, Heart, TrendingUp, ArrowLeft } from 'lucide-react';
+import { Home, Users, User, Heart, TrendingUp, ArrowLeft, BookOpen, HandHeart } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Toaster } from '@/components/ui/sonner.jsx';
 import NotificationBell from '@/components/notifications/NotificationBell';
@@ -17,10 +17,11 @@ const pageCache = {};
 
 const navItems = [
 { name: 'Home', icon: Home, page: 'Home' },
+{ name: 'Bible', icon: BookOpen, page: 'Bible' },
 { name: 'Wellness', icon: Heart, page: 'Wellness' },
-{ name: 'Your Journey', icon: TrendingUp, page: 'ProgressDashboard' },
-{ name: 'Groups', icon: Users, page: 'Groups' },
-{ name: 'Profile', icon: User, page: 'Profile' }];
+{ name: 'Prayer', icon: HandHeart, page: 'Prayer' },
+{ name: 'Profile', icon: User, page: 'Profile' },
+];
 
 
 export default function Layout({ children, currentPageName }) {
@@ -31,7 +32,7 @@ export default function Layout({ children, currentPageName }) {
 
 
   // Primary navigation pages that should be kept mounted
-  const primaryPages = ['Home', 'Wellness', 'ProgressDashboard', 'Groups', 'Profile'];
+  const primaryPages = ['Home', 'Bible', 'Wellness', 'Prayer', 'Profile'];
   const isPrimaryPage = primaryPages.includes(currentPageName);
 
   // Determine if current page is a child route (not a primary nav page)

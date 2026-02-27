@@ -24,6 +24,17 @@ const getAffirmation = () => affirmations[new Date().getDate() % affirmations.le
 export default function StartMyDayModal({ isOpen, onClose, meditations = [], workoutPlans = [], user }) {
   const navigate = useNavigate();
   const [step, setStep] = useState(0);
+
+  useEffect(() => {
+    if (isOpen) {
+      const today = new Date().toISOString().split('T')[0];
+      const lastOpened = localStorage.getItem('start_my_day_date');
+      if (lastOpened !== today) {
+        setStep(0);
+        localStorage.setItem('start_my_day_date', today);
+      }
+    }
+  }, [isOpen]);
   const [breathCycle, setBreathCycle] = useState('inhale');
   const [showWorkoutModal, setShowWorkoutModal] = useState(false);
   const verse = getVerseOfDay();

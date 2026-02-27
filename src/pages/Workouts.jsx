@@ -18,6 +18,13 @@ import WeeklyThemeBanner from '@/components/wellness/WeeklyThemeBanner';
 
 export default function Workouts() {
   const navigate = useNavigate();
+  const [showWelcome, setShowWelcome] = useState(() => {
+    return !localStorage.getItem('workouts_welcomed');
+  });
+  const dismissWelcome = () => {
+    localStorage.setItem('workouts_welcomed', 'true');
+    setShowWelcome(false);
+  };
   const [user, setUser] = useState(null);
   const [showStartWorkout, setShowStartWorkout] = useState(false);
   const [selectedWorkout, setSelectedWorkout] = useState(null);

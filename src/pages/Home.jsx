@@ -38,12 +38,8 @@ export default function Home() {
   const [showGideonOnboarding, setShowGideonOnboarding] = useState(false);
   const [showStartDay, setShowStartDay] = useState(false);
   const [showEndDay, setShowEndDay] = useState(false);
-  const [showStartHere, setShowStartHere] = useState(() => {
-    const visits = parseInt(localStorage.getItem('app_visit_count') || '0');
-    const newCount = visits + 1;
-    localStorage.setItem('app_visit_count', newCount.toString());
-    return newCount <= 3;
-  });
+  const [showStartHere, setShowStartHere] = useState(true);
+  const [showNotifPrompt, setShowNotifPrompt] = useState(false);
   const queryClient = useQueryClient();
 
   useEffect(() => {
@@ -244,6 +240,9 @@ export default function Home() {
           if (!gideonComplete) {
             setTimeout(() => setShowGideonOnboarding(true), 500);
           }
+          if ('Notification' in window && Notification.permission === 'default') {
+            setTimeout(() => setShowNotifPrompt(true), 1000);
+          }
         }} />
 
       }
@@ -292,7 +291,7 @@ export default function Home() {
         </motion.div>
 
         {/* Start Here card for new users */}
-        {showStartHere && (
+        {showStartHere && planProgress.length === 0 && workoutSessions.length === 0 && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
