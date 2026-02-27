@@ -334,6 +334,9 @@ export default function Bible() {
                   </motion.button>
                 </div>
                   
+                {/* Reading Plan Progress Tracker */}
+                <ReadingPlanProgressTracker planProgress={planProgress} plans={readingPlans} />
+
                 {/* Reading Plans */}
                 {suggestedPlans.length > 0 && (
                   <div className="mt-6">

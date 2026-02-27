@@ -408,12 +408,6 @@ export default function Home() {
 
 
 
-        {/* Reading Plan Progress Tracker */}
-        <ReadingPlanProgressTracker 
-          planProgress={planProgress} 
-          plans={readingPlans}
-        />
-
         {/* Active Plans */}
         {activePlans.length > 0 &&
         <div className="mb-6">
