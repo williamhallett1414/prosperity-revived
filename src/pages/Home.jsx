@@ -17,6 +17,7 @@ import CreatePostModal from '@/components/community/CreatePostModal';
 import GamificationBanner from '@/components/gamification/GamificationBanner';
 import OnboardingFlow from '@/components/onboarding/OnboardingFlow';
 import GideonOnboarding from '@/components/onboarding/GideonOnboarding';
+import WellnessTour from '@/components/onboarding/WellnessTour';
 import StartMyDayModal from '@/components/home/StartMyDayModal';
 import EndMyDayModal from '@/components/home/EndMyDayModal';
 import TodaysOverview from '@/components/home/TodaysOverview';
