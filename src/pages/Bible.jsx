@@ -182,11 +182,7 @@ export default function Bible() {
             </div>
           </div>
 
-          <Tabs defaultValue="read" className="w-full" onValueChange={(value) => {
-            if (value === 'prayer') {
-              navigate(createPageUrl('Prayer'));
-            }
-          }}>
+          <Tabs defaultValue="read" className="w-full">
             <TabsList className="grid w-full grid-cols-4 mb-6">
               <TabsTrigger value="read">
                 <BookOpen className="w-4 h-4 mr-2" />
