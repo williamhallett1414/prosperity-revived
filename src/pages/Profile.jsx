@@ -27,6 +27,8 @@ import FriendsTab from '@/components/profile/facebook/FriendsTab.jsx';
 import PhotosTab from '@/components/profile/facebook/PhotosTab.jsx';
 import AchievementsTab from '@/components/profile/facebook/AchievementsTab.jsx';
 import ActivityTab from '@/components/profile/facebook/ActivityTab.jsx';
+import ProfileGroupsTab from '@/components/profile/facebook/GroupsTab.jsx';
+import ProfileJourneyTab from '@/components/profile/facebook/JourneyTab.jsx';
 import ProfileStreaks from '@/components/profile/ProfileStreaks';
 import ProfileStats from '@/components/profile/ProfileStats';
 
