@@ -364,9 +364,9 @@ export default function Home() {
           className="mb-6"
         >
           <Link to={createPageUrl('ProgressDashboard')}>
-            <div className="bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 border border-blue-200 dark:border-blue-700 rounded-2xl p-5 hover:shadow-lg transition-all">
+            <div className="bg-gradient-to-br from-[#FAD98D]/20 to-[#AFC7E3]/20 border border-[#D9B878]/40 rounded-2xl p-5 hover:shadow-lg transition-all">
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center flex-shrink-0">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#c9a227] to-[#D9B878] flex items-center justify-center flex-shrink-0">
                   <TrendingUp className="w-6 h-6 text-white" />
                 </div>
                 <div className="flex-1">
