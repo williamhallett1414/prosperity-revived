@@ -165,36 +165,36 @@ export default function Groups() {
           </TabsList>
 
           <TabsContent value="my" className="mt-6">
-            {memberships.length === 0 && (
+            {myGroups.length === 0 ? (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="mb-6 bg-gradient-to-br from-[#FD9C2D]/10 to-[#FAD98D]/20 border border-[#FD9C2D]/30 rounded-2xl p-5"
+                className="bg-gradient-to-br from-[#FD9C2D]/10 to-[#FAD98D]/20 border border-[#FD9C2D]/30 rounded-2xl p-6 text-center"
               >
-                <div className="flex items-center gap-3 mb-2">
-                  <span className="text-3xl">🤝</span>
-                  <div>
-                    <h3 className="font-bold text-[#0A1A2F]">Grow together</h3>
-                    <p className="text-sm text-[#0A1A2F]/70">
-                      Join a group to share your journey, stay accountable, and encourage others walking the same path.
-                    </p>
-                  </div>
-                </div>
-                <p className="text-xs text-[#0A1A2F]/50 mt-2">
-                  Browse the groups below and tap one to join — or create your own.
+                <div className="text-4xl mb-3">🤝</div>
+                <h3 className="font-bold text-[#0A1A2F] text-lg mb-2">Grow together</h3>
+                <p className="text-sm text-[#0A1A2F]/70 mb-4">
+                  Join a group to share your journey, stay accountable, and encourage others walking the same path.
                 </p>
+                <div className="flex flex-col gap-2">
+                  <Button
+                    onClick={() => {
+                      const discoverTab = document.querySelector('[value="discover"]');
+                      if (discoverTab) discoverTab.click();
+                    }}
+                    className="bg-gradient-to-r from-[#FD9C2D] to-[#FAD98D] text-[#3C4E53] font-semibold w-full"
+                  >
+                    Browse Groups
+                  </Button>
+                  <Button
+                    variant="outline"
+                    onClick={() => setShowCreate(true)}
+                    className="w-full"
+                  >
+                    Create Your Own Group
+                  </Button>
+                </div>
               </motion.div>
-            )}
-            {myGroups.length === 0 ? (
-              <div className="text-center py-16">
-                <p className="text-[#0A1A2F]/60 mb-4">You haven't joined any groups yet</p>
-                <Button
-                  onClick={() => setShowCreate(true)}
-                  className="bg-gradient-to-r from-[#D9B878] to-[#AFC7E3] hover:from-[#D9B878]/90 hover:to-[#AFC7E3]/90 text-[#0A1A2F]"
-                >
-                  Create Your First Group
-                </Button>
-              </div>
             ) : (
               <div className="grid gap-4 md:grid-cols-2">
                 {filteredGroups(myGroups).map((group, index) => (

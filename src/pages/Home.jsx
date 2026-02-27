@@ -240,8 +240,10 @@ export default function Home() {
           if (!gideonComplete) {
             setTimeout(() => setShowGideonOnboarding(true), 500);
           }
-          if ('Notification' in window && Notification.permission === 'default') {
-            setTimeout(() => setShowNotifPrompt(true), 1000);
+          } else {
+            if ('Notification' in window && Notification.permission === 'default') {
+              setTimeout(() => setShowNotifPrompt(true), 800);
+            }
           }
         }} />
 
@@ -251,6 +253,9 @@ export default function Home() {
       <GideonOnboarding
         onComplete={() => {
           setShowGideonOnboarding(false);
+          if ('Notification' in window && Notification.permission === 'default') {
+            setTimeout(() => setShowNotifPrompt(true), 800);
+          }
         }} />
 
       }
