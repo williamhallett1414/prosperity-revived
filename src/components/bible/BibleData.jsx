@@ -1139,6 +1139,23 @@ export const planReadingSchedules = {
     { day: 10, book: "Psalms", chapter: 37 }
   ],
 
+  "new-parent": [
+    { day: 1, book: "Deuteronomy", chapter: 6 },
+    { day: 2, book: "Proverbs", chapter: 22 },
+    { day: 3, book: "Ephesians", chapter: 6 },
+    { day: 4, book: "Psalms", chapter: 127 },
+    { day: 5, book: "Proverbs", chapter: 3 },
+    { day: 6, book: "Luke", chapter: 2 },
+    { day: 7, book: "Colossians", chapter: 3 },
+    { day: 8, book: "Proverbs", chapter: 29 },
+    { day: 9, book: "Matthew", chapter: 18 },
+    { day: 10, book: "Psalms", chapter: 103 },
+    { day: 11, book: "1 Samuel", chapter: 1 },
+    { day: 12, book: "Proverbs", chapter: 13 },
+    { day: 13, book: "Romans", chapter: 12 },
+    { day: 14, book: "Isaiah", chapter: 54 }
+  ],
+
   "parenting-wisdom": [
     { day: 1, book: "Deuteronomy", chapter: 6 },
     { day: 2, book: "Proverbs", chapter: 22 },
