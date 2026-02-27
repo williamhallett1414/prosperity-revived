@@ -519,6 +519,43 @@ export default function Home() {
         isOpen={showEndDay}
         onClose={() => setShowEndDay(false)} />
 
+      {/* Notification Permission Prompt */}
+      {showNotifPrompt && (
+        <div className="fixed inset-0 bg-black/40 z-50 flex items-end justify-center p-4">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="bg-white rounded-3xl p-6 w-full max-w-md shadow-2xl"
+          >
+            <div className="text-center mb-4">
+              <div className="text-4xl mb-3">🔔</div>
+              <h3 className="text-xl font-bold text-[#0A1A2F] mb-2">Stay on track daily</h3>
+              <p className="text-sm text-[#0A1A2F]/60">
+                Get your morning verse, Gideon's daily guidance, workout reminders, and evening reflections delivered to you every day.
+              </p>
+            </div>
+            <div className="space-y-3">
+              <Button
+                onClick={async () => {
+                  await Notification.requestPermission();
+                  setShowNotifPrompt(false);
+                }}
+                className="w-full bg-gradient-to-r from-[#FD9C2D] to-[#FAD98D] text-[#3C4E53] font-semibold h-12 rounded-xl"
+              >
+                Enable Daily Reminders
+              </Button>
+              <Button
+                variant="ghost"
+                onClick={() => setShowNotifPrompt(false)}
+                className="w-full text-[#0A1A2F]/50 text-sm"
+              >
+                Maybe later
+              </Button>
+            </div>
+          </motion.div>
+        </div>
+      )}
+
       {/* Help Chatbot */}
       <HelpChatbot />
     </div>);

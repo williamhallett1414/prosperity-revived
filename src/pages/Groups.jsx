@@ -165,6 +165,26 @@ export default function Groups() {
           </TabsList>
 
           <TabsContent value="my" className="mt-6">
+            {memberships.length === 0 && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mb-6 bg-gradient-to-br from-[#FD9C2D]/10 to-[#FAD98D]/20 border border-[#FD9C2D]/30 rounded-2xl p-5"
+              >
+                <div className="flex items-center gap-3 mb-2">
+                  <span className="text-3xl">🤝</span>
+                  <div>
+                    <h3 className="font-bold text-[#0A1A2F]">Grow together</h3>
+                    <p className="text-sm text-[#0A1A2F]/70">
+                      Join a group to share your journey, stay accountable, and encourage others walking the same path.
+                    </p>
+                  </div>
+                </div>
+                <p className="text-xs text-[#0A1A2F]/50 mt-2">
+                  Browse the groups below and tap one to join — or create your own.
+                </p>
+              </motion.div>
+            )}
             {myGroups.length === 0 ? (
               <div className="text-center py-16">
                 <p className="text-[#0A1A2F]/60 mb-4">You haven't joined any groups yet</p>
@@ -188,10 +208,6 @@ export default function Groups() {
                 ))}
               </div>
             )}
-          </TabsContent>
-
-          <TabsContent value="my" className="mt-6" forceMount style={{ display: undefined }}>
-            {/* replaced below */}
           </TabsContent>
 
           <TabsContent value="discover" className="mt-6">
