@@ -192,17 +192,17 @@ export default function Bible() {
                 <BookOpen className="w-4 h-4 mr-2" />
                 Read
               </TabsTrigger>
+              <TabsTrigger value="year">
+                <BookOpen className="w-4 h-4 mr-2" />
+                Year
+              </TabsTrigger>
               <TabsTrigger value="study">
                 <BookOpen className="w-4 h-4 mr-2" />
                 Study
               </TabsTrigger>
               <TabsTrigger value="devotional">
                 <Heart className="w-4 h-4 mr-2" />
-                Devotional
-              </TabsTrigger>
-              <TabsTrigger value="prayer">
-                <Heart className="w-4 h-4 mr-2" />
-                Prayer
+                Daily
               </TabsTrigger>
             </TabsList>
 
