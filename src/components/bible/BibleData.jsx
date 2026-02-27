@@ -1229,6 +1229,23 @@ export const planReadingSchedules = {
     { day: 30, book: "Philippians", chapter: 4 }
   ],
 
+  "job-loss": [
+    { day: 1, book: "Psalms", chapter: 37 },
+    { day: 2, book: "Jeremiah", chapter: 29 },
+    { day: 3, book: "Philippians", chapter: 4 },
+    { day: 4, book: "Proverbs", chapter: 16 },
+    { day: 5, book: "Isaiah", chapter: 40 },
+    { day: 6, book: "Psalms", chapter: 27 },
+    { day: 7, book: "Romans", chapter: 8 },
+    { day: 8, book: "Luke", chapter: 12 },
+    { day: 9, book: "1 Timothy", chapter: 6 },
+    { day: 10, book: "Matthew", chapter: 6 },
+    { day: 11, book: "Psalms", chapter: 23 },
+    { day: 12, book: "Hebrews", chapter: 13 },
+    { day: 13, book: "Ecclesiastes", chapter: 5 },
+    { day: 14, book: "Colossians", chapter: 3 }
+  ],
+
   "bible-in-year": [
     // January: Genesis & Matthew
     { day: 1, book: "Genesis", chapter: 1 }, { day: 2, book: "Genesis", chapter: 2 }, { day: 3, book: "Genesis", chapter: 3 },

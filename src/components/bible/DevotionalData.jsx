@@ -1675,6 +1675,49 @@ export const devotionalContent = {
     prayer: "Lord, thank You for the privilege of raising the children You've entrusted to me. I confess that I often feel inadequate—short on patience, wisdom, and energy. But I know You called me to this, and You will equip me for it. Help me parent with grace, not perfection. Give me eyes to see each child the way You see them—uniquely made, deeply loved, full of potential. Help me model faith authentically, speak life into their identity, and create a home where Your presence is real. When I fail, remind me that Your mercies are new every morning. And Lord, please work in my children's hearts in ways I cannot. Draw them close to You, protect them, and fulfill Your purposes in their lives. In Jesus' name, Amen."
   },
 
+  "job-loss": {
+    title: "Hope in Unemployment: Trusting God Through Job Loss",
+    introduction: "Job loss is one of life's most destabilizing experiences. Your identity, your sense of security, your daily rhythm, your financial stability—all of it is disrupted when employment ends. Whether you were laid off, fired, or caught in circumstances beyond your control, the emotional and spiritual impact is real. You may feel fear about the future, shame about the loss, anger at the situation, or a complicated mix of all three. But the God of Scripture does not abandon His people in seasons of uncertainty. He is not surprised by job loss. He has not forgotten you. This 14-day journey is designed to walk you through faith when employment is gone—to help you see beyond the immediate crisis to a God who provides, who cares for you personally, and who can use this season for transformation. Your job defined much of your life, but your job does not define your worth. God does.",
+    keyVerses: [
+      {
+        reference: "Jeremiah 29:11",
+        text: "For I know the plans I have for you, declares the Lord, plans for welfare and not for evil, to give you a future and a hope.",
+        insight: "These words were written to people in captivity, people whose lives had been completely disrupted. Yet God declared He had a plan. Job loss may feel like captivity, but God still has plans for you—plans that include hope."
+      },
+      {
+        reference: "Philippians 4:6-7",
+        text: "Do not be anxious about anything, but in every situation, by prayer and petition, with thanksgiving, present your requests to God. And the peace of God, which transcends all understanding, will guard your hearts and your minds in Christ Jesus.",
+        insight: "Anxiety is the natural response to financial uncertainty. But Paul invites us to exchange anxiety for prayer. When you bring your fears to God, His peace stands guard over you—even when circumstances haven't changed."
+      },
+      {
+        reference: "Matthew 6:25-34",
+        text: "Therefore I tell you, do not worry about your life, what you will eat or drink; or about your body, what you will wear. Is not life more than food, and the body more than clothes? Look at the birds of the air; they do not sow or reap or store away in barns, and yet your heavenly Father feeds them. Are you not much more valuable than they?",
+        insight: "Jesus addresses the deepest fear behind job loss—the fear that you won't survive. He doesn't promise we'll never go without; He promises that a loving Father sees us and cares for us even more than He cares for the birds."
+      }
+    ],
+    reflection: "Job loss has a way of exposing what we really believe about God. When our paycheck is gone, do we believe God will provide? When our identity as 'the person with that job' is stripped away, do we know who we are in God? When financial anxiety keeps us awake, can we actually trust God? These are not small questions—they are the core questions of faith in a season of unemployment. The temptation in job loss is to panic. To send out frantic resumes, to take any job out of desperation, to slip into depression as weeks pass. But faith calls us to something different: to grieve what has been lost, to seek God's wisdom about next steps, to trust His timing even when our money runs out. This doesn't mean passivity. It means active trust—looking for work, building your skills, seeking counsel—but without the desperation that drives poor decisions. God is not asking you to pretend this is easy. He is asking you to trust that He is still good, that you still matter, and that this season is not the end of your story.",
+    reflectionQuestions: [
+      "What fears about the future are surfacing most strongly for you right now? Can you name them and bring them honestly to God?",
+      "How has job loss affected your sense of identity and worth? What does it mean to separate your identity from your employment?",
+      "Are there people in your life who can walk with you through this—to listen, to pray, to offer practical help? Who can you reach out to?",
+      "What does trusting God look like practically for you right now? What is one step of faith you can take this week?",
+      "Looking back at previous seasons of uncertainty in your life, how did God provide? What did He teach you? How might those lessons apply now?"
+    ],
+    actionPlan: {
+      title: "Moving Forward with Faith and Intention",
+      steps: [
+        "Grieve the loss fully. Job loss is a real loss—of income, routine, identity, perhaps community. Allow yourself to feel the sadness, fear, and frustration rather than pushing it away.",
+        "Assess your financial situation honestly. Know exactly what resources you have, what expenses you must cover, and for how long. This clarity will reduce panic and help you make wise decisions.",
+        "Establish a new rhythm for your days. Without a job structure, days can become aimless. Create a schedule that includes prayer, job searching, skill-building, exercise, and time with family.",
+        "Seek wise counsel before making major decisions. Before accepting the wrong job out of desperation, talk to a mentor, pastor, or trusted friend who can give perspective.",
+        "Use this season for growth or rest, not just survival. Some people use unemployment to develop skills, spend time with family, serve their community, or deepen their faith. What is God inviting you into?",
+        "Keep perspective on your true identity. You are a beloved child of God, created with gifts and purpose. A job is what you do, not who you are.",
+        "Trust God's timing. Unemployment is a season, not a permanent state. God has not forgotten you. He is working even when you can't see it."
+      ]
+    },
+    prayer: "Lord, I am in uncharted territory. The job that defined so much of my life is gone, and I feel unmoored. Help me to grieve this loss without being consumed by fear. Help me to see myself as You see me—not diminished by unemployment, but still valuable, still seen, still held. Give me wisdom to make good decisions about my next steps. Provide for my family. Open doors that lead to good work. And help me to trust You in the waiting—to know that You have not abandoned me, and that this season, though difficult, is not beyond Your care. Give me peace that transcends my circumstances. In Jesus' name, Amen."
+  },
+
   "soulmates-sync": {
     title: "Soulmates in Sync: Fostering Emotional Intimacy in Your Marriage",
     introduction: "In the vast landscape of marriage, few aspects are as essential and transformative as intimacy. The emotional connection experienced through vulnerability, trust, and shared experiences is an irreplaceable component of a thriving relationship. This devotional aims to guide you through the depths of fostering intimacy in your relationship, deepening your emotional connection, and honoring God in the process. The bond between two individuals in marriage is a sacred reflection of God's divine love for us. As we dive into the importance of nurturing intimacy, we draw wisdom from Scripture and discover the beauty of a relationship grounded in Christ. By exploring key verses and engaging in practical exercises, you will uncover the power of intentionality and vulnerability in creating an environment where emotional connection can flourish. As we begin, let us remember the words of Ecclesiastes 4:9-10: 'Two are better than one, because they have a good return for their labor: If either of them falls down, one can help the other up. But pity anyone who falls and has no one to help them up.' May this devotional serve as a reminder of the beauty of your union and the blessings that come from fostering an intimate and supportive relationship.",
