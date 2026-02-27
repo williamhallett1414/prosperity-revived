@@ -15,6 +15,7 @@ import ReminderSettingsModal from '@/components/plans/ReminderSettingsModal';
 import { Toaster } from '@/components/ui/sonner.jsx';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import PlanDevotionalView from '@/components/bible/PlanDevotionalView';
+import ReadingCalendarView from '@/components/plans/ReadingCalendarView';
 import { getReadingForDay } from '@/components/bible/BibleData';
 
 export default function PlanDetail() {
@@ -301,11 +302,12 @@ export default function PlanDetail() {
         <p className="text-gray-600 mb-6">{plan.description}</p>
 
         {/* Tabs for Plan Content and Devotional */}
-        <Tabs defaultValue="progress" className="mb-6">
-          <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="progress">Plan Progress</TabsTrigger>
-            <TabsTrigger value="devotional">Devotional</TabsTrigger>
-          </TabsList>
+         <Tabs defaultValue="progress" className="mb-6">
+           <TabsList className="grid w-full grid-cols-3">
+             <TabsTrigger value="progress">Progress</TabsTrigger>
+             <TabsTrigger value="calendar">Calendar</TabsTrigger>
+             <TabsTrigger value="devotional">Devotional</TabsTrigger>
+           </TabsList>
 
           <TabsContent value="progress" className="space-y-6">
             {/* Progress Card */}
@@ -477,10 +479,33 @@ export default function PlanDetail() {
             )}
           </TabsContent>
 
-          <TabsContent value="devotional">
-            <PlanDevotionalView planId={planId} />
+          <TabsContent value="calendar">
+            {progress ? (
+              <ReadingCalendarView
+                plan={plan}
+                progress={progress}
+                notes={notes}
+                onToggleDay={handleToggleDay}
+                onAddNote={handleDayClick}
+                onOpenReading={handleOpenDayReading}
+                getReadingForDay={(day) => {
+                  if (progress?.is_custom && progress.custom_readings) {
+                    return progress.custom_readings.find(r => r.day === day);
+                  }
+                  return getReadingForDay(planId, day);
+                }}
+              />
+            ) : (
+              <div className="text-center py-12">
+                <p className="text-gray-600">Start the plan to view the calendar</p>
+              </div>
+            )}
           </TabsContent>
-        </Tabs>
+
+           <TabsContent value="devotional">
+             <PlanDevotionalView planId={planId} />
+           </TabsContent>
+          </Tabs>
       </div>
 
       {/* Modals */}
