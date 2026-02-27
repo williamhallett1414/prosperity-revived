@@ -1277,6 +1277,23 @@ export const planReadingSchedules = {
     { day: 14, book: "Revelation", chapter: 21 }
   ],
 
+  "sexual-purity": [
+    { day: 1, book: "1 Corinthians", chapter: 6 },
+    { day: 2, book: "Genesis", chapter: 2 },
+    { day: 3, book: "Song of Solomon", chapter: 4 },
+    { day: 4, book: "Ephesians", chapter: 5 },
+    { day: 5, book: "1 Thessalonians", chapter: 4 },
+    { day: 6, book: "Romans", chapter: 12 },
+    { day: 7, book: "Proverbs", chapter: 6 },
+    { day: 8, book: "2 Timothy", chapter: 2 },
+    { day: 9, book: "Titus", chapter: 2 },
+    { day: 10, book: "1 Peter", chapter: 1 },
+    { day: 11, book: "James", chapter: 1 },
+    { day: 12, book: "Philippians", chapter: 4 },
+    { day: 13, book: "Psalms", chapter: 139 },
+    { day: 14, book: "Revelation", chapter: 3 }
+  ],
+
   "parenting-wisdom": [
     { day: 1, book: "Deuteronomy", chapter: 6 },
     { day: 2, book: "Proverbs", chapter: 22 },
