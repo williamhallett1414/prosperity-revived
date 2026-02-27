@@ -51,8 +51,7 @@ export default function DailyReflectionPrompt() {
         exit={{ opacity: 0, y: -20 }}
         className="mb-6">
 
-        <Card className="bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 border-purple-200 dark:border-purple-700 overflow-hidden">
-          
+        
 
 
 
@@ -134,7 +133,8 @@ export default function DailyReflectionPrompt() {
 
 
 
-        </Card>
+
+
       </motion.div>
     </AnimatePresence>);
 
