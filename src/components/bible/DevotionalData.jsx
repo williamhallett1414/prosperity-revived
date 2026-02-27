@@ -1763,7 +1763,50 @@ export const devotionalContent = {
     prayer: "Dear God, we thank You for the gift of intimacy in our relationship. Help us to cherish and nurture this sacred connection, guiding us as we grow in love and understanding. May our relationship be a testament to Your divine plan for marriage, and may we always seek Your wisdom and guidance on this journey. Above all, help us cherish the gift of emotional intimacy and the deep, abiding love it fosters in our relationship. May our journey together be richly blessed, and may our love story serve as a testament to the beauty and power of a Christ-centered marriage. Amen."
     },
 
-    "social-media": {
+    "evangelism-boldness": {
+     title: "Bold Evangelism: Sharing Your Faith with Confidence",
+     introduction: "Most Christians believe that sharing their faith is important. Yet most don't do it. The gap between belief and action is filled with fear. Fear of rejection. Fear of saying the wrong thing. Fear of being perceived as judgmental or pushy. Fear of not having all the answers. Fear of ruining a friendship by bringing up religion. These fears are real and understandable. But they are also keeping you from the very thing Jesus commanded His followers to do: go into all the world and tell people the Good News about Him. Bold evangelism is not aggression. It is not shoving your beliefs down someone's throat. It is not having all the right words prepared. Bold evangelism is simply the willingness to speak about your faith with confidence in a God who is working, with love for the people you are talking to, and with trust that the outcome is in God's hands, not yours. This 14-day journey will help you overcome your fears, deepen your conviction about the Gospel, and develop the courage to share your faith. You don't need to be perfect. You need to be willing. When you are willing, God works through you in powerful ways.",
+     keyVerses: [
+       {
+         reference: "2 Timothy 1:7",
+         text: "For the Spirit God gave us does not make us timid, but gives us power, love and self-discipline.",
+         insight: "The Holy Spirit is not a spirit of fear. If you are afraid to share your faith, that fear is not from God. The Spirit gives you power to speak, love to motivate you, and self-discipline to be thoughtful about how you share."
+       },
+       {
+         reference: "Romans 10:14-15",
+         text: "How, then, can they call on the one they have not believed in? And how can they believe in the one of whom they have not heard? And how can they hear without someone preaching to them?",
+         insight: "Your willingness to speak is essential to someone's ability to believe. You are the link between a person and the Gospel. That is not a burden—it is an honor."
+       },
+       {
+         reference: "Matthew 28:19-20",
+         text: "Therefore go and make disciples of all nations, baptizing them in the name of the Father and of the Son and of the Holy Spirit, and teaching them to obey everything I have commanded you.",
+         insight: "This is not optional. Jesus commanded all believers—not just pastors or missionaries—to go and make disciples. This is your calling, regardless of your personality or comfort level."
+       }
+     ],
+     reflection: "The Great Commission is not the Great Suggestion. Jesus didn't say 'if you are naturally outgoing, go and tell people about me.' He didn't say 'evangelize if it feels comfortable.' He said go. Share. Teach. Make disciples. Yet for most of church history, evangelism has been left to professional evangelists while ordinary Christians have silently prayed that others would find faith without their help. The result is that billions of people live and die without ever hearing the Gospel from someone who loves them. Your neighbor doesn't know Jesus. Your coworker doesn't know Jesus. Your family member doesn't know Jesus. And you are silent. Not because you don't care. Not because you don't believe. But because you are afraid. Afraid of what others will think. Afraid of being rejected. Afraid of not knowing what to say. But boldness is not the absence of fear; it is action despite fear. Every disciple of Jesus faced fear. Peter was afraid, but he stood up on Pentecost and spoke boldly, and 3,000 people came to faith. Paul was beaten and imprisoned for sharing his faith, yet he continued. Ordinary Christians throughout history have overcome their fear to share their faith, and ordinary people have come to faith as a result. You can do this. Not because you are fearless, but because you trust a God who is greater than your fear.",
+     reflectionQuestions: [
+       "What fears hold you back from sharing your faith? Be honest about them.",
+       "Do you believe that Jesus is Lord? Do you believe that His death and resurrection saves people from sin? If so, do others have a right to know this?",
+       "Who in your life do you believe does not know Jesus? What is stopping you from sharing with them?",
+       "What would it look like to be bold? Is it loud and aggressive, or is it quiet, confident, and loving?",
+       "If you knew that speaking about Jesus to one person would result in their salvation, would you do it? What if you don't know the outcome?"
+     ],
+     actionPlan: {
+       title: "Growing in Evangelistic Boldness",
+       steps: [
+         "Prepare your testimony. Write down how you came to faith. What was your life like before? What moment changed things? How is your life different now? This is your most powerful tool—not theological arguments, but your story.",
+         "Know your story. Practice telling it aloud. Get it down to 5 minutes. When someone asks 'why are you a Christian?', you will have something prepared.",
+         "Identify one person. Think of someone in your life who doesn't know Jesus. Commit to praying for them daily. Ask the Holy Spirit to create opportunities for conversation.",
+         "Start conversations naturally. Don't force it. Ask questions. Listen. When appropriate, ask 'Can I tell you about something that's important to me?'",
+         "Share what Jesus means to you. You don't have to be a theologian. Just tell them what Jesus has done in your life. How He's transformed you. How He's given you hope.",
+         "Invite them to church or to read the Bible with you. The follow-up step matters. Make it easy for them to take the next step.",
+         "Accept that you are not responsible for their response. Your job is to speak. God's job is to transform hearts. Don't carry the burden of their choice. Release it to God."
+       ]
+     },
+     prayer: "Lord, I confess that I have been silent when I should have spoken. I have let fear keep me from sharing the most important truth I know. Forgive me. Give me boldness—not arrogance, but quiet confidence that You are with me and working through me. Help me to see the people around me the way You see them—lost, beloved, and desperate for redemption. Give me words to speak. Give me opportunities. Give me the courage to overcome my fear. And help me to trust that when I plant the seed, You will make it grow. In Jesus' name, Amen."
+   },
+
+   "social-media": {
      title: "Social Media & Faith: Digital Life with Godly Wisdom",
      introduction: "Social media is one of the most significant cultural shifts of our generation. It has connected billions of people, given voice to the voiceless, and created communities that transcend geography. But it has also created new forms of anxiety, comparison, addiction, and disconnection. For Christians, social media presents a unique spiritual challenge: How do we navigate a digital world while maintaining our faith and integrity? How do we use technology that is designed to capture our attention as a tool for discipleship rather than distraction? How do we represent Christ in spaces that often reward outrage, self-promotion, and the curation of false images? This 7-day journey will help you think biblically about your digital presence. It is not about rejecting technology, but about using it with intention, wisdom, and faithfulness. Your online life is not separate from your spiritual life. What you post, what you engage with, what you allow to shape your thoughts—these matter to God. The goal is not to be 'off the grid,' but to be 'in the world but not of it' even in digital spaces.",
      keyVerses: [

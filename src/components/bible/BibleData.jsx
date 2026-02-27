@@ -1260,6 +1260,23 @@ export const planReadingSchedules = {
     { day: 7, book: "Romans", chapter: 12 }
   ],
 
+  "evangelism-boldness": [
+    { day: 1, book: "Matthew", chapter: 28 },
+    { day: 2, book: "2 Corinthians", chapter: 5 },
+    { day: 3, book: "Romans", chapter: 10 },
+    { day: 4, book: "2 Timothy", chapter: 1 },
+    { day: 5, book: "Acts", chapter: 2 },
+    { day: 6, book: "Mark", chapter: 16 },
+    { day: 7, book: "John", chapter: 15 },
+    { day: 8, book: "1 Peter", chapter: 3 },
+    { day: 9, book: "Acts", chapter: 4 },
+    { day: 10, book: "Psalms", chapter: 27 },
+    { day: 11, book: "Isaiah", chapter: 52 },
+    { day: 12, book: "Luke", chapter: 24 },
+    { day: 13, book: "Philippians", chapter: 1 },
+    { day: 14, book: "Revelation", chapter: 21 }
+  ],
+
   "parenting-wisdom": [
     { day: 1, book: "Deuteronomy", chapter: 6 },
     { day: 2, book: "Proverbs", chapter: 22 },
