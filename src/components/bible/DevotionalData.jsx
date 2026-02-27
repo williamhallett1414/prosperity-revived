@@ -643,6 +643,49 @@ export const devotionalContent = {
     prayer: "Lord, I am tired of the cycle. I am tired of the shame, the hiding, the broken promises to myself and to You. I come to You not with a clean record but with a desperate heart, asking You to do what I cannot do on my own. Set me free—not just from the behavior but from the root of it, from the lies that feed it, from the shame that perpetuates it. Give me the courage to let people in. Give me wisdom to know what help to seek. Give me Your Spirit's power each day to choose freedom. And on the days I fall, remind me that Your grace is greater than my failure and that You have not given up on me. I am Yours. In Jesus' name, Amen."
   },
 
+  "missions-calling": {
+    title: "Missions & Calling: Understanding Your Missionary Purpose",
+    introduction: "Every believer is a missionary. This is not a metaphor or an aspirational statement—it is a theological reality grounded in the nature of God and the purpose of the church. The God of the Bible is a sending God. He sent the prophets. He sent His Son. He sent the Spirit. And He sends us. The Great Commission is not addressed to a specialized class of professional Christians—it is the marching orders of the entire church, given to ordinary disciples who were standing on a hillside in Galilee. Missions is not a program the church does—it is the reason the church exists. But calling is deeply personal. The same God who sends all of us does not send all of us the same way or to the same places. Some are called across oceans; others are called across the street. Some are called to full-time vocational ministry; others are called to be witnesses in their workplace, neighborhood, or family. What all callings share is the same foundation: a God who loves the world, a gospel that transforms it, and a people who have been sent to proclaim it. This 14-day plan is designed to help you understand both the universal calling every believer shares and the particular calling that is uniquely yours—and to respond to both with courage and faithfulness.",
+    keyVerses: [
+      {
+        reference: "Matthew 28:19-20",
+        text: "Therefore go and make disciples of all nations, baptizing them in the name of the Father and of the Son and of the Holy Spirit, and teaching them to obey everything I have commanded you. And surely I am with you always, to the very end of the age.",
+        insight: "The Great Commission ends where it begins—with the authority and presence of Jesus. He does not send us out in our own strength to accomplish something for Him; He sends us out in His authority, with His presence, to participate in what He is already doing. The promise 'I am with you always' is not a comfort added to a command—it is the very foundation that makes the command possible."
+      },
+      {
+        reference: "Isaiah 6:8",
+        text: "Then I heard the voice of the Lord saying, 'Whom shall I send? And who will go for us?' And I said, 'Here am I. Send me!'",
+        insight: "Isaiah's response to God's call is one of the most famous in Scripture—but notice what preceded it. He had a vision of God's holiness, an experience of his own unworthiness, and an encounter with grace (the coal to his lips). Calling flows out of encounter. The person most ready to be sent is the one who has most deeply experienced who God is and what God has done."
+      },
+      {
+        reference: "2 Corinthians 5:20",
+        text: "We are therefore Christ's ambassadors, as though God were making his appeal through us. We implore you on Christ's behalf: Be reconciled to God.",
+        insight: "An ambassador doesn't speak his own words or advance his own agenda—he represents the one who sent him. Paul's image of the believer as Christ's ambassador reframes evangelism entirely: you are not trying to convince people of your personal opinion. You are delivering a message from the King, in the King's authority, on behalf of the King's mission."
+      }
+    ],
+    reflection: "One of the most paralyzing questions for sincere believers is 'Am I called?' The question usually means: 'Is there something specific God wants me to do, and how do I know what it is?' The anxiety embedded in the question is understandable, but Scripture's approach to calling is more expansive and less anxious than we often make it. There is a calling that is already clear and requires no special revelation: love God, love your neighbor, make disciples, live justly, serve the poor, be a witness. You are already called to all of this. The question is not whether you are called but whether you are going. Within that broad calling, God does lead particular people to particular places and purposes—through desire, gifting, circumstance, and the confirmation of community. But discerning that particular calling happens in the context of obedience to the general one. You discover where God is sending you by starting to go—by saying yes to the opportunities in front of you, by using the gifts you already have, by paying attention to where your deepest passion meets the world's deepest need. Calling is rarely a lightning bolt; it is usually a path that becomes clear as you walk it.",
+    reflectionQuestions: [
+      "Do you think of yourself as a missionary? Why or why not? How does understanding missions as every believer's calling change how you see your daily life?",
+      "What are the specific 'mission fields' you already occupy—your workplace, neighborhood, family, or social circle? Who in those spaces needs to encounter the love of Christ through you?",
+      "Have you ever sensed a particular calling to a specific people group, place, or type of ministry? What has been your response to that sense?",
+      "What gifts, experiences, or passions has God given you that could be uniquely deployed in His mission? Are you currently using them?",
+      "What is one concrete step you could take in the next month toward greater involvement in God's mission—locally or globally?"
+    ],
+    actionPlan: {
+      title: "Responding to Your Missionary Calling",
+      steps: [
+        "Start where you are. Before dreaming about distant mission fields, identify the people in your immediate world who don't know Christ and begin praying for them by name, looking for natural opportunities to share your faith.",
+        "Learn your gifts. Tools like spiritual gifts assessments or conversations with mature believers can help you identify how God has uniquely equipped you for His mission. Your gifts are clues to your calling.",
+        "Get involved in your church's mission efforts. Most congregations have local and global partnerships that need volunteers, prayer, and financial support. Participation builds vision and reveals where your heart is drawn.",
+        "Go on a short-term mission trip. Even a single week serving in a different cultural context can dramatically expand your understanding of the global church and clarify your sense of calling.",
+        "Read about missions. Stories of missionaries—historical and contemporary—are among the most faith-building and calling-clarifying literature available. Biographies of Hudson Taylor, Amy Carmichael, or William Carey have ignited countless callings.",
+        "Support global mission financially. Even if you are not called to go, you can send. Giving to missionaries and mission organizations is a direct participation in the Great Commission.",
+        "Pray regularly for unreached peoples. The Joshua Project and other organizations provide regular updates on the billions who still have no access to the gospel. Making this a prayer habit keeps your heart aligned with God's global purposes."
+      ]
+    },
+    prayer: "Lord, thank You that You are a sending God—that Your heart is for the whole world, every nation, tribe, people, and language. I want my heart to beat with Yours. Open my eyes to the mission field I already occupy. Show me the people around me who need to hear the good news, and give me the courage to speak it. And if You are calling me to something more—to a particular people, place, or purpose—make that clear as I walk in obedience to what I already know. Here I am. Send me. In Jesus' name, Amen."
+  },
+
   "temptation-victory": {
     title: "Overcoming Temptation: Strategies for Resisting Sin",
     introduction: "Every believer faces temptation. It is not a sign that your faith is weak or that God has abandoned you—it is simply the reality of living as a redeemed person in a fallen world. Jesus Himself was tempted, and the writer of Hebrews makes clear that this was not incidental but purposeful: He was tempted in every way as we are, yet without sin, so that He might be a merciful and faithful high priest who understands our weakness. What Scripture does not promise is a life without temptation. What it does promise is a way through it. 1 Corinthians 10:13 is one of the most important verses a believer can memorize: 'No temptation has overtaken you except what is common to mankind. And God is faithful; he will not let you be tempted beyond what you can bear. But when you are tempted, he will also provide a way out so that you can endure it.' This is not a guarantee that you will never fall—it is a guarantee that you never have to. There is always a door. The question is whether you are looking for it. This 10-day plan is designed to equip you with the biblical understanding and practical strategies you need to stand firm in the moments when temptation comes—because it will come, and you can be ready.",
