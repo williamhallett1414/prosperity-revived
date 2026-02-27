@@ -600,6 +600,49 @@ export const devotionalContent = {
     prayer: "Lord, I commit this year to reading Your Word from beginning to end. I confess that I've often treated the Bible as optional—something I turn to only in crisis or convenience. Forgive me. Your Word is my daily bread, and I need it more than I realize. As I begin this journey, open my eyes to see wonders in Your Law (Psalm 119:18). When I encounter passages I don't understand, give me patience. When I face passages that convict me, give me courage to obey. When I'm tempted to skip a day, remind me that this isn't just a reading plan—it's time with You. May this year in Your Word transform me from the inside out. May I finish this year knowing You better, trusting You more, and living in greater alignment with Your will. In Jesus' name, Amen."
   },
 
+  "new-believer": {
+    title: "New Believer Basics: Essential Teachings for New Christians",
+    introduction: "Welcome to the family of God. If you've recently placed your faith in Jesus Christ, you've made the most important decision of your life—and this is just the beginning. Following Jesus is not a one-time event; it's a lifelong journey of knowing Him more deeply, becoming more like Him, and joining His mission in the world. This 30-day plan is designed to walk you through the essential foundations of the Christian faith: who God is, what Jesus has done for you, how to pray, how to read the Bible, what the Holy Spirit does, and how to live as a follower of Christ. You don't need to have it all figured out—no one does. You just need to keep showing up, keep reading, and keep saying yes to God each day. He who began a good work in you will carry it on to completion (Philippians 1:6).",
+    keyVerses: [
+      {
+        reference: "John 3:16-17",
+        text: "For God so loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life. For God did not send his Son into the world to condemn the world, but to save the world through him.",
+        insight: "This is the Gospel in two verses. God's love motivated the greatest act in history—sending Jesus to die for your sins so you could have eternal life. You are not saved by being good enough; you are saved by believing in what Jesus has already done."
+      },
+      {
+        reference: "2 Corinthians 5:17",
+        text: "Therefore, if anyone is in Christ, the new creation has come: The old has gone, the new is here!",
+        insight: "When you gave your life to Christ, something real and profound happened—you became a new creation. Your past does not define you. Your mistakes do not disqualify you. In Christ, you have a brand new identity and a fresh start."
+      },
+      {
+        reference: "Romans 8:38-39",
+        text: "For I am convinced that neither death nor life, neither angels nor demons, neither the present nor the future, nor any powers, neither height nor depth, nor anything else in all creation, will be able to separate us from the love of God that is in Christ Jesus our Lord.",
+        insight: "God's love for you is not conditional on your performance. Nothing—not your worst day, your biggest failure, your darkest thought—can separate you from His love. This is the security every new believer needs to know."
+      }
+    ],
+    reflection: "Starting your faith journey can feel overwhelming. There's so much to learn, so many questions, and sometimes it can feel like everyone else has it figured out except you. Here's the truth: every mature Christian was once exactly where you are right now. Faith is not a destination you arrive at—it's a relationship you grow in, one day at a time. The most important habits you can build right now are simple ones: read a little Scripture every day, talk to God honestly in prayer, connect with other believers in a church community, and obey what you learn as you learn it. You won't be perfect—no one is. But God's grace covers your stumbles, and His Spirit is at work in you, slowly transforming you from the inside out. Don't try to do this alone. Find a church where the Bible is taught, where people genuinely care for one another, and where you can grow. Ask questions. Be honest about your struggles. The Christian life is not meant to be lived in isolation—it's meant to be lived in community, with the support of other believers who can walk alongside you.",
+    reflectionQuestions: [
+      "What does it mean to you personally that you are a 'new creation' in Christ? What old things are you leaving behind?",
+      "Which spiritual habit feels most challenging to build right now—prayer, Bible reading, or church community? What is one small step you can take this week?",
+      "Is there anything from your past that you're struggling to believe God has truly forgiven? How does Romans 8:38-39 speak to that?",
+      "Who in your life knows about your decision to follow Christ? Who can you tell this week?",
+      "What is one thing you've already learned about God that has surprised or moved you?"
+    ],
+    actionPlan: {
+      title: "Building Your Foundation as a New Believer",
+      steps: [
+        "Read the Bible daily—even just one chapter. Start with the Gospel of John to learn who Jesus is, then explore Romans to understand salvation and grace.",
+        "Pray every day. Prayer doesn't have to be formal—just talk to God honestly, like a conversation with someone who loves you and wants to hear from you.",
+        "Find a local church and attend consistently. Community is not optional in the Christian life—it's essential for growth, accountability, and belonging.",
+        "Get baptized if you haven't already. Baptism is your public declaration of faith and an important step of obedience for new believers.",
+        "Tell someone about your faith. Sharing what God has done in your life deepens your own belief and opens doors for others to hear the Gospel.",
+        "Find a mentor—an older, more mature Christian who can answer your questions, pray with you, and guide you in your early walk with God.",
+        "Be patient with yourself. Growth takes time. You will make mistakes, have doubts, and face struggles. That's normal. God's grace is bigger than all of it."
+      ]
+    },
+    prayer: "Lord Jesus, thank You for saving me. I'm still figuring so much out, and I don't always know how to follow You well. But I know You called me and You are faithful to complete what You started in me. Help me build habits of prayer and Scripture reading. Lead me to a church community where I can grow. Give me courage to tell others about You. When I stumble—and I know I will—remind me that Your grace covers me and that nothing can separate me from Your love. I want to know You more every day. Teach me, shape me, and use me for Your glory. In Your name I pray, Amen."
+  },
+
   "doubt-faith": {
     title: "When Doubts Arise: Strengthening Faith Through Questions",
     introduction: "Doubt is not the opposite of faith—it's often the beginning of a deeper one. Some of the most faithful people in Scripture wrestled deeply with God: Job demanded answers, David cried out in despair, Thomas refused to believe without evidence, and Habakkuk argued with God about injustice. Yet God never turned any of them away. He met them in their questions. Doubt becomes dangerous only when it drives us away from God instead of toward Him. This 10-day journey is for anyone who has ever whispered, 'I believe, but help my unbelief.' It's a safe space to bring your honest questions, your confusion, and your wavering faith—and discover that God is big enough to handle all of it.",
