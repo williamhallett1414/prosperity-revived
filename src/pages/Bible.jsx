@@ -54,7 +54,7 @@ export default function Bible() {
     onSuccess: () => queryClient.invalidateQueries(['bookmarks'])
   });
 
-  // Check URL params on mount
+  // Check URL params on mount AND when location changes
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const bookName = params.get('book');
@@ -77,7 +77,7 @@ export default function Bible() {
         setView(isOldTestament ? 'oldTestament' : 'newTestament');
       }
     }
-  }, []);
+  }, [window.location.search]);
 
   const handleBackToHome = () => {
     setView('home');
