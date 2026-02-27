@@ -600,6 +600,49 @@ export const devotionalContent = {
     prayer: "Lord, I commit this year to reading Your Word from beginning to end. I confess that I've often treated the Bible as optional—something I turn to only in crisis or convenience. Forgive me. Your Word is my daily bread, and I need it more than I realize. As I begin this journey, open my eyes to see wonders in Your Law (Psalm 119:18). When I encounter passages I don't understand, give me patience. When I face passages that convict me, give me courage to obey. When I'm tempted to skip a day, remind me that this isn't just a reading plan—it's time with You. May this year in Your Word transform me from the inside out. May I finish this year knowing You better, trusting You more, and living in greater alignment with Your will. In Jesus' name, Amen."
   },
 
+  "family-conflict": {
+    title: "Healing Family Relationships: Restoration and Peace in Family Dynamics",
+    introduction: "Family relationships are among the most profound and the most painful we will ever experience. The same people who love us most deeply can hurt us most profoundly—and we can do the same to them. Broken family dynamics, unresolved conflict, estrangement, generational wounds, and lingering bitterness can steal joy and fracture the very relationships God designed for love and belonging. But the God of the Bible is a God of restoration. He specializes in bringing beauty from brokenness, reconciliation from rupture, and healing from deep wounds. This 14-day journey will walk you through Scripture's wisdom on forgiveness, communication, boundaries, and the slow, grace-filled work of rebuilding what has been broken. Healing rarely happens overnight—but with God at the center, it is always possible.",
+    keyVerses: [
+      {
+        reference: "Genesis 45:4-5",
+        text: "Then Joseph said to his brothers, 'Come close to me.' When they came close, he said, 'I am your brother Joseph, the one you sold into Egypt! And now, do not be distressed and do not be angry with yourselves for selling me here, because it was to save lives that God sent me ahead of you.'",
+        insight: "Joseph's story is one of the greatest family reconciliation narratives in all of Scripture. Betrayed, sold, imprisoned—yet he forgave completely and saw God's hand in his pain. If God could restore that family, He can restore yours."
+      },
+      {
+        reference: "Colossians 3:13-14",
+        text: "Bear with each other and forgive one another if any of you has a grievance against someone. Forgive as the Lord forgave you. And over all these virtues put on love, which binds them all together in perfect unity.",
+        insight: "Family relationships require extraordinary grace. The standard Paul sets is not fairness—it's Christlikeness. We forgive not because people deserve it, but because we have been forgiven of far more."
+      },
+      {
+        reference: "Romans 12:18",
+        text: "If it is possible, as far as it depends on you, live at peace with everyone.",
+        insight: "Notice the wisdom in this verse: 'if it is possible' and 'as far as it depends on you.' God does not demand that you fix every relationship—only that you do your part. You cannot control others, but you can control your own posture of peace."
+      }
+    ],
+    reflection: "Family wounds often run the deepest because the expectations are the highest. We expect family to be safe, to understand us, to love unconditionally—and when they fail, the hurt is profound. But God's Word offers a path forward that doesn't require pretending the pain didn't happen. Biblical reconciliation is honest: it acknowledges the wound, names the sin, and then chooses forgiveness not as a feeling but as a decision. Reconciliation does not always mean returning to the same dynamics that caused harm. Sometimes healthy reconciliation includes new boundaries, restructured relationships, or simply releasing bitterness without full restoration of closeness. What God always calls us to, however, is freedom from bitterness and a willingness to extend grace. Joseph didn't just forgive his brothers—he wept with them, provided for them, and drew them close. That kind of grace is supernatural, and it's available to you through the Holy Spirit. You cannot manufacture it on your own—but you can ask God for it, and He will give it.",
+    reflectionQuestions: [
+      "Which family relationship feels most broken or painful right now? Have you brought it honestly to God in prayer?",
+      "Is there bitterness or unforgiveness you are holding toward a family member? How is it affecting you spiritually and emotionally?",
+      "What role have you played in the conflict or distance in this relationship? What might God be asking you to own?",
+      "What does healthy reconciliation look like in your situation—and what does it not look like? Are boundaries needed?",
+      "How does Joseph's story (Genesis 45) encourage or challenge you in your own family dynamic?"
+    ],
+    actionPlan: {
+      title: "Taking Steps Toward Family Healing",
+      steps: [
+        "Begin with prayer—ask God to soften your heart, show you your own blind spots, and give you His perspective on the relationship.",
+        "Choose forgiveness as a decision before it becomes a feeling. Forgiveness is not excusing the behavior—it's releasing the debt and trusting God as judge.",
+        "If it is safe and appropriate, initiate a conversation with the family member. Be honest, humble, and focused on healing rather than winning.",
+        "Seek wise, neutral counsel—a pastor, Christian counselor, or trusted mentor can help mediate and guide difficult family conversations.",
+        "Establish healthy boundaries if needed. Love does not require tolerating ongoing harm. You can forgive and still protect yourself.",
+        "Be patient with the process. Family healing is rarely linear—there will be setbacks. Commit to the long journey rather than expecting overnight change.",
+        "Pray specifically for the family member you're in conflict with. It's hard to stay bitter toward someone you are regularly lifting up before God."
+      ]
+    },
+    prayer: "Lord, my family relationships carry both my deepest joys and my deepest wounds. I bring the broken places to You today. Help me see my family members through Your eyes—as people You love, with their own pain and their own stories. Where I have contributed to the conflict, give me the humility to own it and apologize. Where I have been hurt, give me the grace to forgive—not because it was okay, but because You have forgiven me so much more. Guide each conversation, soften each heart, and do what only You can do: bring restoration where there has been rupture. I trust You with my family. In Jesus' name, Amen."
+  },
+
   "new-believer": {
     title: "New Believer Basics: Essential Teachings for New Christians",
     introduction: "Welcome to the family of God. If you've recently placed your faith in Jesus Christ, you've made the most important decision of your life—and this is just the beginning. Following Jesus is not a one-time event; it's a lifelong journey of knowing Him more deeply, becoming more like Him, and joining His mission in the world. This 30-day plan is designed to walk you through the essential foundations of the Christian faith: who God is, what Jesus has done for you, how to pray, how to read the Bible, what the Holy Spirit does, and how to live as a follower of Christ. You don't need to have it all figured out—no one does. You just need to keep showing up, keep reading, and keep saying yes to God each day. He who began a good work in you will carry it on to completion (Philippians 1:6).",
