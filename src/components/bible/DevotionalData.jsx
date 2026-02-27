@@ -724,8 +724,9 @@ export const devotionalContent = {
       ]
     },
     prayer: "Lord, I confess that fear has a grip on my heart. I am afraid of [name the fear], and this fear keeps me from becoming who You have called me to be. Forgive me for letting fear determine my choices. Help me to see that You are with me. You are bigger than my fear. You are more powerful than any threat I face. You are faithful. You are loving. You are present. Strengthen my faith so that it is larger than my fear. Give me courage—not fearlessness, but faith that trusts You even when I am afraid. Help me to take steps of faith despite my fear. And help me to grow in the deep, settled assurance that nothing can separate me from Your love or Your presence. In Jesus' name, Amen."
-    },
-    "leading-jesus": {
+  },
+
+  "leading-jesus": {
     title: "Leading Like Jesus: Servant Leadership in the Kingdom of God",
     introduction: "Leadership in the kingdom of God is fundamentally different from leadership in the world. When you study how Jesus led—his disciples, his followers, his movement—you discover that His approach turns worldly leadership on its head. He didn't lead through power, position, or prestige. He led through sacrifice, humility, and servant-hearted devotion to those He led. He washed feet, ate with sinners, touched the untouchable, and gave His life as a ransom for many. In a world that teaches leaders to assert authority, accumulate power, and demand respect, Jesus taught that the greatest among you will be your servant. Whether you lead in your home, your workplace, your church, or your community, this calling to lead like Jesus is revolutionary. It requires you to examine your motivations, surrender your need for control, and embrace a leadership style that prioritizes the growth, health, and wholeness of those entrusted to your care. This 14-day plan explores the principles of servant leadership as demonstrated by Jesus, and invites you to evaluate your own leadership in light of His example. What would change if you truly led like Jesus?",
     keyVerses: [
