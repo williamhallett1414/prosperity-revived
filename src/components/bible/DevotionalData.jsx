@@ -600,6 +600,49 @@ export const devotionalContent = {
     prayer: "Lord, I commit this year to reading Your Word from beginning to end. I confess that I've often treated the Bible as optional—something I turn to only in crisis or convenience. Forgive me. Your Word is my daily bread, and I need it more than I realize. As I begin this journey, open my eyes to see wonders in Your Law (Psalm 119:18). When I encounter passages I don't understand, give me patience. When I face passages that convict me, give me courage to obey. When I'm tempted to skip a day, remind me that this isn't just a reading plan—it's time with You. May this year in Your Word transform me from the inside out. May I finish this year knowing You better, trusting You more, and living in greater alignment with Your will. In Jesus' name, Amen."
   },
 
+  "health-struggle": {
+    title: "Faith Through Illness: God's Presence in Health Challenges",
+    introduction: "Illness has a way of stripping everything down to what truly matters. When your body fails, when diagnoses arrive, when treatments are uncertain and recovery is slow, you discover very quickly what your faith is actually built on. God does not promise His people a life without sickness—but He does promise to be with us in every valley, to strengthen us in our weakness, and to bring meaning out of our suffering. This 14-day journey will not offer easy answers or false hope. Instead, it will walk you through the Scriptures that have anchored countless believers in their darkest medical moments—and it will point you to the God who heals, comforts, and sustains even when the healing doesn't come the way we expect.",
+    keyVerses: [
+      {
+        reference: "2 Corinthians 12:9",
+        text: "But he said to me, 'My grace is sufficient for you, for my power is made perfect in weakness.' Therefore I will boast all the more gladly about my weaknesses, so that Christ's power may rest on me.",
+        insight: "Paul asked God three times to remove his thorn—and God said no. But He promised something better: His grace. When healing doesn't come immediately, God's sustaining grace often becomes the greatest testimony of all."
+      },
+      {
+        reference: "Isaiah 40:31",
+        text: "But those who hope in the Lord will renew their strength. They will soar on wings like eagles; they will run and not grow weary, they will walk and not be faint.",
+        insight: "Strength in illness is not about positive thinking—it's about placing your hope in God. He supernaturally renews the strength of those who wait on Him, even when their bodies are failing."
+      },
+      {
+        reference: "Romans 8:28",
+        text: "And we know that in all things God works for the good of those who love him, who have been called according to his purpose.",
+        insight: "This does not mean illness is good—it means God is good enough to work through it. He redeems suffering, builds character, draws people closer, and writes stories of grace through the hardest chapters of our lives."
+      }
+    ],
+    reflection: "There is a kind of faith that only gets forged in the furnace of suffering. When health is taken away—whether temporarily or long-term—we are confronted with our own fragility, our dependence on God, and the question of whether we truly trust Him. The Bible does not shy away from this reality. Job lost everything, including his health. Paul had a chronic thorn he prayed to have removed. Jesus Himself experienced physical agony. And yet throughout Scripture, we see the same pattern: suffering does not signal God's absence—it can become the arena where His presence is most powerfully experienced. If you are walking through illness right now, know that God sees you. He has not forgotten you. Your suffering has not fallen through the cracks of His sovereignty. He is with you in the waiting room, in the hospital bed, in the sleepless nights. He collects every tear. He hears every prayer. And whether He heals supernaturally, through medicine, or in His eternal timing, His grace is sufficient for today.",
+    reflectionQuestions: [
+      "How has your illness or health struggle affected your faith? Has it drawn you closer to God or created distance?",
+      "Are you able to bring your honest emotions—fear, anger, grief, confusion—to God in prayer? What's holding you back if not?",
+      "In what ways have you experienced God's presence or comfort during your health challenge?",
+      "How does the promise of Romans 8:28 change the way you view your suffering, even when you can't see the good yet?",
+      "Who around you is also suffering? How might your experience equip you to comfort others in the future (2 Corinthians 1:3-4)?"
+    ],
+    actionPlan: {
+      title: "Anchoring Your Soul in God's Faithfulness",
+      steps: [
+        "Give yourself permission to grieve—illness is a real loss. Bring those emotions honestly to God rather than suppressing them.",
+        "Ask someone you trust to pray with you regularly during this season. You don't have to carry this alone.",
+        "Memorize one verse from this plan each week and speak it out loud when fear or discouragement rises.",
+        "Keep a 'grace journal'—write down every small mercy, moment of peace, or answered prayer during your illness. It builds faith.",
+        "If you are a caregiver rather than the patient, apply these same principles—your suffering is real too, and God's grace covers you.",
+        "Ask your church for practical and spiritual support. This is what the body of Christ is for.",
+        "Hold eternity in view. Read Revelation 21:4 regularly—a day is coming when there will be no more sickness, pain, or death."
+      ]
+    },
+    prayer: "Lord, my body is struggling, and I need You. I confess that illness has shaken me—not just physically, but spiritually. I have questions I can't answer, fears I can't quiet, and pain I can't escape. But I choose to come to You anyway. You are the God who heals, the God who comforts, and the God who promises to never leave me. Help me trust You in this valley. Give me strength for today—not for tomorrow, just for today. Surround me with people who will pray, support, and walk with me. And Lord, whether my healing comes now, later, or in eternity, help me to say with Paul: Your grace is sufficient. Your power is made perfect in my weakness. I trust You. In Jesus' name, Amen."
+  },
+
   "career-guidance": {
     title: "Career & Purpose: Finding God's Direction in Your Work",
     introduction: "You were not created to simply earn a paycheck—you were created for purpose. Work is not a curse; it's a calling. From the very beginning, God worked (Genesis 1-2) and then invited humanity into that work alongside Him. Your career, your skills, your daily labor—all of it can be an act of worship when done unto God. But so many believers struggle to connect their Monday-through-Friday reality with their Sunday faith. They wonder: Is this really what God wants for me? Am I in the right field? How do I know if I'm missing my calling? This 10-day journey will help you seek God's direction for your work, align your gifts with His purposes, and discover that wherever you are right now, God can use you. Your workplace is your mission field, and your work—done with excellence and integrity—is your offering to Him.",

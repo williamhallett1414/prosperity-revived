@@ -790,6 +790,23 @@ export const planReadingSchedules = {
     { day: 7, book: "Romans", chapter: 8 }
   ],
 
+  "health-struggle": [
+    { day: 1, book: "Psalms", chapter: 23 },
+    { day: 2, book: "James", chapter: 5 },
+    { day: 3, book: "2 Corinthians", chapter: 12 },
+    { day: 4, book: "Isaiah", chapter: 40 },
+    { day: 5, book: "Romans", chapter: 8 },
+    { day: 6, book: "Psalms", chapter: 46 },
+    { day: 7, book: "John", chapter: 11 },
+    { day: 8, book: "Philippians", chapter: 4 },
+    { day: 9, book: "Psalms", chapter: 103 },
+    { day: 10, book: "Revelation", chapter: 21 },
+    { day: 11, book: "Isaiah", chapter: 53 },
+    { day: 12, book: "Matthew", chapter: 11 },
+    { day: 13, book: "Hebrews", chapter: 12 },
+    { day: 14, book: "Psalms", chapter: 34 }
+  ],
+
   "career-guidance": [
     { day: 1, book: "Jeremiah", chapter: 29 },
     { day: 2, book: "Proverbs", chapter: 16 },
