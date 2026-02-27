@@ -231,6 +231,7 @@ export default function Layout({ children, currentPageName }) {
               return (
                 <Link
                   key={item.page}
+                  id={`nav-${item.page.toLowerCase()}`}
                   to={createPageUrl(item.page)}
                   onClick={handleNavClick}
                   className="relative flex flex-col items-center py-2 px-4 min-h-[44px]">
