@@ -643,6 +643,49 @@ export const devotionalContent = {
     prayer: "Lord, I am tired of the cycle. I am tired of the shame, the hiding, the broken promises to myself and to You. I come to You not with a clean record but with a desperate heart, asking You to do what I cannot do on my own. Set me free—not just from the behavior but from the root of it, from the lies that feed it, from the shame that perpetuates it. Give me the courage to let people in. Give me wisdom to know what help to seek. Give me Your Spirit's power each day to choose freedom. And on the days I fall, remind me that Your grace is greater than my failure and that You have not given up on me. I am Yours. In Jesus' name, Amen."
   },
 
+  "college-life": {
+    title: "Faith in College: Navigating Faith in University Life",
+    introduction: "College is one of the most faith-shaping seasons of a person's life—for better or worse. For many, it is the first time they are living independently, away from the rhythms and accountability structures that kept their faith active. For others, it is the first time their beliefs are seriously challenged by professors, peers, and philosophies they've never encountered before. The freedom is exhilarating and disorienting at the same time. And statistics tell a sobering story: a significant percentage of young people who were active in faith before college drift away from it during these years. But it doesn't have to be that way. Many of the most deeply rooted believers you will ever meet had their faith forged in exactly this crucible—where it was tested, questioned, and ultimately owned in a way it never was before. This 21-day plan is designed to help you navigate the unique challenges of faith in college: intellectual doubt, community drift, moral pressure, identity questions, and the challenge of maintaining spiritual rhythms in a chaotic environment. Your faith can not only survive college—it can become yours in a deeper way than it has ever been.",
+    keyVerses: [
+      {
+        reference: "Colossians 2:8",
+        text: "See to it that no one takes you captive through hollow and deceptive philosophy, which depends on human tradition and the elemental spiritual forces of this world rather than on Christ.",
+        insight: "Paul's warning is not against learning or intellectual engagement—it's against being taken captive by ideas that sound wise but are built on foundations that cannot hold. Engage every idea with curiosity and critical thinking, always returning to Christ as your anchor and standard."
+      },
+      {
+        reference: "Hebrews 10:24-25",
+        text: "And let us consider how we may spur one another on toward love and good deeds, not giving up meeting together, as some are in the habit of doing, but encouraging one another—and all the more as you see the Day approaching.",
+        insight: "One of the most common ways college students lose their faith is through isolation—dropping out of Christian community without immediately replacing it. Finding a campus fellowship or local church is not optional for spiritual survival in college. You need people who will spur you on."
+      },
+      {
+        reference: "Joshua 1:9",
+        text: "Have I not commanded you? Be strong and courageous. Do not be afraid; do not be discouraged, for the Lord your God will be with you wherever you go.",
+        insight: "This was God's word to Joshua as he stepped into the most daunting transition of his life. It is God's word to you as you step into yours. Wherever you go—new campus, new city, new environment—the Lord your God goes with you."
+      }
+    ],
+    reflection: "The college years present a unique intellectual challenge to faith: for the first time, many students encounter smart, articulate people who believe very different things and can argue for them persuasively. This can be unsettling—but it doesn't have to be faith-destroying. The Christian faith is intellectually robust. It has been examined and defended by some of the greatest minds in human history. Your doubts and questions are not a sign that faith is collapsing—they are often the doorway into a deeper, more examined, more personal faith. Seek out the answers. Read apologetics. Talk to a campus pastor or chaplain. Bring your hardest questions to God and to trusted mentors. Don't resolve doubt by avoiding it—work through it. At the same time, don't underestimate the practical and relational challenges. The social environment of college—parties, relationships, roommates, sleep deprivation, and the constant pull toward what everyone else is doing—can erode faith quietly and gradually. The antidote is intentionality: deliberately building spiritual rhythms, community, and accountability into your new life from the very beginning. What you build in the first weeks of college tends to define the whole experience.",
+    reflectionQuestions: [
+      "What is the most challenging intellectual question about your faith you are facing right now? Have you sought out a thoughtful response, or have you been avoiding it?",
+      "Have you found a church or Christian community on or near campus? If not, what is your plan to do so?",
+      "What spiritual rhythms (Bible reading, prayer, worship) did you have before college? Which ones have survived the transition, and which ones need to be rebuilt?",
+      "Where do you feel the most pressure to compromise your values in the college environment? What does Scripture say into that specific pressure?",
+      "Who is one person in your life who can keep you accountable and encourage your faith during this season?"
+    ],
+    actionPlan: {
+      title: "Anchoring Your Faith in College",
+      steps: [
+        "Find a campus ministry or local church in the first two weeks. Don't wait until you feel settled—community is how you get settled. Check out InterVarsity, Cru, Baptist Collegiate Ministry, or a local church with a college group.",
+        "Establish a daily quiet time early in the semester, before the chaos sets in. Even 15 minutes of Scripture and prayer anchors your day and your identity in something that doesn't change.",
+        "Engage your doubts rather than suppressing them. Find a campus pastor, mentor, or books by Christian thinkers (C.S. Lewis, Tim Keller, N.T. Wright) who engage intellectual questions honestly.",
+        "Find one or two Christian friends who will be genuinely accountable with you—not just people who attend the same Bible study, but people who ask hard questions and tell you the truth.",
+        "Set clear personal boundaries before you need them. Decide in advance, not in the moment, how you will handle parties, relationships, and moral compromises. Knowing where you stand before the pressure hits is crucial.",
+        "Engage your academic work as an act of worship. Study diligently, think critically, and let your intellectual excellence be a testimony. Colossians 3:23 applies to college coursework.",
+        "Stay connected to home mentors. Text your youth pastor, call your parents, keep relationships with people who knew you before. They provide continuity and perspective when the new environment feels all-consuming."
+      ]
+    },
+    prayer: "Lord, this season is bigger than I expected. The freedom is real and so is the pressure. I want my faith to come out of college stronger than it went in—not just survived, but deepened. Give me the courage to ask hard questions and the trust that You can handle them. Help me find community that will sharpen and sustain me. Guard my heart and my values in an environment that pushes back against them constantly. And remind me, on the hardest days, that You go with me wherever I go—into every classroom, every dorm room, every conversation. Be my anchor in this season. In Jesus' name, Amen."
+  },
+
   "teen-faith": {
     title: "Faith for Teens: Building Strong Faith During Youth",
     introduction: "Being a teenager who takes faith seriously is one of the most courageous things a person can do. The pressure to fit in, to be cool, to not care too much about anything—and especially not about God—is real and relentless. Social media tells you who you should be. Culture tells you what you should want. Peers tell you what you should think. And in the middle of all that noise, you are trying to figure out who you actually are and whether any of this faith stuff is real. Here's the truth: what you build into your life right now matters more than you know. The habits, values, and convictions you establish in your teen years will shape decades of your life. And the God you encounter in Scripture is not a boring, irrelevant deity for old people and Sundays. He is the God who formed you in the womb, who calls you by name, who says your youth is not a liability but a gift. Jeremiah was a teenager when God called him as a prophet. Daniel was a teenager when he stood firm in a foreign culture. Timothy was young when Paul told him to let no one look down on his youth but to set an example. This 14-day plan is your invitation to build something real—a faith that is yours, not just your parents', that can withstand pressure and doubt, and that will be the anchor of your life.",
