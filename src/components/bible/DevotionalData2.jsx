@@ -1,6 +1,49 @@
 // Additional devotional content (continued from DevotionalData)
 
 export const devotionalContentPart2 = {
+  "difficult-people": {
+    title: "Loving Difficult People: Grace for Challenging Relationships",
+    introduction: "There is someone in your life who is difficult. Maybe they are critical, controlling, or dismissive. Maybe they have hurt you repeatedly and never apologized. Maybe they are selfish, demanding, or unpredictable. Maybe they simply rub you the wrong way and you cannot figure out why. Difficult people are not an accident. They are not a punishment from God. They are often a gift—an opportunity to grow in grace, to develop patience, to become more like Jesus. Jesus didn't just teach His disciples to love easy people. He taught them to love enemies. To bless those who curse them. To turn the other cheek to those who strike them. To give to those who ask, even if they ask repeatedly. This is not weakness. This is radical strength. This is the power to transform relationships through grace instead of being controlled by bitterness. This 10-day journey will help you understand why people are difficult, how to set healthy boundaries, how to love without enabling, and how to experience healing in your most challenging relationships. You cannot change a difficult person. But you can change how you respond to them. And that change can transform the relationship.",
+    keyVerses: [
+      {
+        reference: "Matthew 5:43-44",
+        text: "You have heard that it was said, 'Love your neighbor and hate your enemy.' But I tell you, love your enemies and pray for those who persecute you.",
+        insight: "Loving difficult people is not a nice suggestion. It is a command. And it is harder than loving easy people because it requires you to choose grace even when grace is not returned."
+      },
+      {
+        reference: "Ephesians 4:2-3",
+        text: "Be completely humble and gentle; be patient, bearing with one another in love.",
+        insight: "Patience is not about tolerating bad behavior. It is about bearing with someone's shortcomings while maintaining boundaries and hope for change."
+      },
+      {
+        reference: "1 Peter 3:9",
+        text: "Do not repay evil with evil or insult with insult. On the contrary, repay evil with blessing, because to this you were called—that you may inherit a blessing.",
+        insight: "When you respond to difficult behavior with love instead of matching their hostility, you break the cycle. You step into God's power to transform the relationship."
+      }
+    ],
+    reflection: "Difficult people often become difficult because someone was difficult to them. They learned their patterns from their own pain. This doesn't excuse their behavior—they are still responsible for how they treat you. But it does help you understand them with compassion. When you see the wound behind the behavior, you can respond to the person, not just the problem. This changes everything. You stop seeing them as an adversary and start seeing them as someone who is hurting. This doesn't mean accepting abuse or staying in unhealthy situations. It means responding with firmness tempered by grace. Boundaries are not unloving. They are necessary for both you and the difficult person. Boundaries say 'I love you, but I will not allow this behavior.' They protect you from bitterness and protect the difficult person from enabling their destructive patterns. The hardest part of loving difficult people is doing it when there is no reciprocal love coming back. You forgive, but they don't apologize. You extend grace, but they demand more. You set a boundary, but they push against it. This is when love requires the most strength. This is when you have to trust that God sees your faithfulness, that He honors your obedience, and that your love is not wasted even if it is not returned.",
+    reflectionQuestions: [
+      "Who is the most difficult person in your life? What makes them difficult?",
+      "What pattern do they repeat that bothers you most? How do you typically respond?",
+      "What might be the wound or story behind their difficult behavior?",
+      "What boundaries do you need to set with this person to protect yourself while still loving them?",
+      "What would it look like to respond to them with grace instead of matching their hostility?"
+    ],
+    actionPlan: {
+      title: "Loving the Difficult Person in Your Life",
+      steps: [
+        "Identify the difficult person and the specific behavior that bothers you. Be clear about what you are dealing with.",
+        "Try to understand their story. What shaped them? What wounds are driving their behavior? This builds compassion without excusing their actions.",
+        "Define your boundaries clearly. What will you tolerate? What will you not tolerate? Communicate these boundaries calmly and consistently.",
+        "Practice responding differently to familiar provocations. Instead of matching their hostility, choose grace. This breaks the cycle.",
+        "Pray for them regularly. Not for them to change (though that's good too), but for yourself—that God would soften your heart and give you wisdom.",
+        "Look for something good in them. Even difficult people have some redeeming qualities. Find them. Acknowledge them.",
+        "Protect your own heart. Don't absorb their words, their moods, their expectations as truth about you. Let their words pass over you like water off a duck's back."
+      ]
+    },
+    prayer: "Lord, help me to love the people in my life who are difficult. Help me to see past their behavior to the person underneath. Give me patience when they frustrate me. Give me wisdom to set boundaries that are both loving and firm. Help me to respond with grace instead of matching their hostility. And help me to believe that my love, even when it is not returned, is not wasted. You see it. You honor it. Use it to transform both of us. In Jesus' name, Amen."
+  },
+
   "sexual-purity": {
     title: "Journey to Purity: God's Design for Sexuality",
     introduction: "Sexuality is a gift from God. It is not shameful, not accidental, not a mistake God tolerates in His creation. God designed you as a sexual being, and He designed sexuality to be a beautiful expression of love, intimacy, and covenant within marriage. But our culture has distorted sexuality. It has separated sex from commitment, from relationship, from God's design. It has taught you to see your body as a commodity, to use people for pleasure, to consume sexual content without consequence. And for many, this has resulted in shame, brokenness, and distance from God. Purity is not about shame. It is about reclaiming God's design for your sexuality. It is about understanding that your body matters, that your choices matter, and that God's boundaries around sex are not restrictive—they are protective. This 14-day journey will help you understand God's design for sexuality, address the shame and brokenness that may have resulted from misuse, and chart a course toward sexual purity and healing. Whether you are a teenager navigating first relationships, a single adult struggling with sexual temptation, or someone healing from sexual sin, this journey invites you to see your sexuality through God's eyes: as beautiful, as worthy of protection, and as designed for something greater.",
