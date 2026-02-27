@@ -37,6 +37,7 @@ export default function Home() {
   const [user, setUser] = useState(null);
   const [showOnboarding, setShowOnboarding] = useState(false);
   const [showGideonOnboarding, setShowGideonOnboarding] = useState(false);
+  const [showWellnessTour, setShowWellnessTour] = useState(false);
   const [showStartDay, setShowStartDay] = useState(false);
   const [showEndDay, setShowEndDay] = useState(false);
   const [showStartHere, setShowStartHere] = useState(true);
