@@ -206,6 +206,10 @@ export default function Bible() {
               </TabsTrigger>
             </TabsList>
 
+            <TabsContent value="year">
+              <BibleYearPlan />
+            </TabsContent>
+
             <TabsContent value="study">
               <BibleStudyGuide />
             </TabsContent>
