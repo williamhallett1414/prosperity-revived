@@ -4,11 +4,11 @@ import OpenAI from 'npm:openai';
 const openai = new OpenAI({ apiKey: Deno.env.get("OPENAI_API_KEY") });
 
 Deno.serve(async (req) => {
+  // Clone request before reading body (base44 sdk may consume it)
+  const body = await req.clone().json();
   const base44 = createClientFromRequest(req);
   const user = await base44.auth.me();
   if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 });
-
-  const body = await req.json();
   const { day_id, day_number, title, ot_readings, nt_reading, psalm_proverb } = body;
 
   // Return cached if already generated
