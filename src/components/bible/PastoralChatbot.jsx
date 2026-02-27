@@ -71,7 +71,7 @@ Respond with compassion and biblical wisdom:`,
             animate={{ scale: 1 }}
             exit={{ scale: 0 }}
             onClick={() => setIsOpen(true)}
-            className="fixed bottom-24 right-4 z-40 w-14 h-14 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full shadow-lg flex items-center justify-center text-white hover:shadow-xl transition-shadow"
+            className="fixed bottom-24 right-4 z-40 w-14 h-14 bg-gradient-to-br from-[#c9a227] to-[#D9B878] rounded-full shadow-lg flex items-center justify-center text-white hover:shadow-xl transition-shadow"
           >
             <MessageCircle className="w-6 h-6" />
           </motion.button>
@@ -88,7 +88,7 @@ Respond with compassion and biblical wisdom:`,
             className="fixed bottom-24 right-4 z-40 w-[90vw] max-w-md h-[500px] bg-white dark:bg-[#2d2d4a] rounded-2xl shadow-2xl flex flex-col overflow-hidden"
           >
             {/* Header */}
-            <div className="bg-gradient-to-r from-purple-500 to-pink-500 p-4 flex items-center justify-between">
+            <div className="bg-gradient-to-r from-[#c9a227] to-[#D9B878] p-4 flex items-center justify-between">
               <div className="flex items-center gap-2 text-white">
                 <MessageCircle className="w-5 h-5" />
                 <h3 className="font-semibold">Gideon</h3>
@@ -111,7 +111,7 @@ Respond with compassion and biblical wisdom:`,
                   <div
                     className={`max-w-[80%] rounded-2xl px-4 py-2 ${
                       message.role === 'user'
-                        ? 'bg-purple-500 text-white'
+                        ? 'bg-[#c9a227] text-white'
                         : 'bg-gray-100 dark:bg-[#1a1a2e] text-gray-800 dark:text-gray-200'
                     }`}
                   >
@@ -123,7 +123,7 @@ Respond with compassion and biblical wisdom:`,
               {loading && (
                 <div className="flex justify-start">
                   <div className="bg-gray-100 dark:bg-[#1a1a2e] rounded-2xl px-4 py-2">
-                    <Loader2 className="w-4 h-4 animate-spin text-purple-500" />
+                    <Loader2 className="w-4 h-4 animate-spin text-[#c9a227]" />
                   </div>
                 </div>
               )}
@@ -150,7 +150,7 @@ Respond with compassion and biblical wisdom:`,
                 <Button
                   onClick={handleSend}
                   disabled={!input.trim() || loading}
-                  className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600"
+                  className="bg-gradient-to-r from-[#c9a227] to-[#D9B878] hover:from-[#b89320] hover:to-[#c9a227]"
                   size="icon"
                 >
                   <Send className="w-4 h-4" />

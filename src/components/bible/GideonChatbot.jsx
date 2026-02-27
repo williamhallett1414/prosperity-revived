@@ -236,7 +236,7 @@ Assistant: ${response}`,
       {/* Floating Button */}
       <motion.button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-24 right-4 w-14 h-14 bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white rounded-full shadow-lg flex items-center justify-center z-50"
+        className="fixed bottom-24 right-4 w-14 h-14 bg-gradient-to-r from-[#c9a227] to-[#D9B878] hover:opacity-90 text-white rounded-full shadow-lg flex items-center justify-center z-50"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
         initial={{ scale: 0 }}
@@ -255,7 +255,7 @@ Assistant: ${response}`,
             className="fixed bottom-24 right-4 w-[calc(100vw-2rem)] sm:w-96 h-[500px] bg-white dark:bg-gray-800 rounded-2xl shadow-2xl flex flex-col z-50 border border-gray-200 dark:border-gray-700"
           >
             {/* Header */}
-            <div className="bg-gradient-to-r from-green-500 to-emerald-500 px-5 py-5 rounded-t-2xl flex items-center justify-between">
+            <div className="bg-gradient-to-r from-[#c9a227] to-[#D9B878] px-5 py-5 rounded-t-2xl flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
                   <BookOpen className="w-6 h-6 text-white" />
@@ -320,7 +320,7 @@ Assistant: ${response}`,
               <div
                 className={`max-w-[80%] rounded-2xl px-4 py-3 ${
                   message.role === 'user'
-                    ? 'bg-gradient-to-r from-green-500 to-emerald-500 text-white'
+                    ? 'bg-gradient-to-r from-[#c9a227] to-[#D9B878] text-white'
                     : 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100'
                 }`}
               >
@@ -338,7 +338,7 @@ Assistant: ${response}`,
           {isLoading && (
             <div className="flex justify-start">
               <div className="bg-gray-100 dark:bg-gray-700 rounded-2xl px-4 py-3">
-                <Loader2 className="w-5 h-5 animate-spin text-green-500" />
+                <Loader2 className="w-5 h-5 animate-spin text-[#c9a227]" />
               </div>
             </div>
           )}
@@ -376,7 +376,7 @@ Assistant: ${response}`,
             <Button
               onClick={handleSend}
               disabled={!input.trim() || isLoading}
-              className="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white h-11 px-5"
+              className="bg-gradient-to-r from-[#c9a227] to-[#D9B878] hover:from-[#b89320] hover:to-[#c9a227] text-white h-11 px-5"
               size="icon"
             >
               <Send className="w-4 h-4" />
