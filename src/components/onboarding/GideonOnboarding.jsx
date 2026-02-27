@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronRight, BookOpen, Brain, Heart, Sparkles, MessageCircle, HelpCircle } from 'lucide-react';
+import { ChevronRight, BookOpen, Brain, Heart, Sparkles, MessageCircle, HelpCircle, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export default function GideonOnboarding({ onComplete, onRevisit }) {
