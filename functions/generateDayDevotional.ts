@@ -8,7 +8,8 @@ Deno.serve(async (req) => {
   const user = await base44.auth.me();
   if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 });
 
-  const { day_id, day_number, title, ot_readings, nt_reading, psalm_proverb } = await req.json();
+  const body = await req.json();
+  const { day_id, day_number, title, ot_readings, nt_reading, psalm_proverb } = body;
 
   // Return cached if already generated
   const existing = await base44.asServiceRole.entities.BibleYearPlanDay.filter({ day_number });
