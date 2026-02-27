@@ -1030,49 +1030,49 @@ Return ONLY valid JSON array:
                 <div className="grid grid-cols-2 gap-2">
                   <button
                     onClick={() => setInput("Help me understand why I keep repeating the same patterns: ")}
-                    className="text-xs bg-white hover:bg-purple-100 text-purple-900 px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-purple-200"
+                    className="text-xs bg-white hover:bg-[#AFC7E3]/25 text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#AFC7E3]/60"
                   >
                     🔄 Breaking Patterns
                   </button>
                   <button
                     onClick={() => setInput("I want to build better habits. Where do I start? ")}
-                    className="text-xs bg-white hover:bg-purple-100 text-purple-900 px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-purple-200"
+                    className="text-xs bg-white hover:bg-[#AFC7E3]/25 text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#AFC7E3]/60"
                   >
                     ✅ Habit Building
                   </button>
                   <button
                     onClick={() => setInput("How do I set healthy boundaries? ")}
-                    className="text-xs bg-white hover:bg-purple-100 text-purple-900 px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-purple-200"
+                    className="text-xs bg-white hover:bg-[#AFC7E3]/25 text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#AFC7E3]/60"
                   >
                     🛡️ Boundaries
                   </button>
                   <button
                     onClick={() => setInput("Help me understand my attachment style: ")}
-                    className="text-xs bg-white hover:bg-purple-100 text-purple-900 px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-purple-200"
+                    className="text-xs bg-white hover:bg-[#AFC7E3]/25 text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#AFC7E3]/60"
                   >
                     💕 Attachment Styles
                   </button>
                   <button
                     onClick={() => setInput("I struggle with emotional regulation. What can I do? ")}
-                    className="text-xs bg-white hover:bg-purple-100 text-purple-900 px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-purple-200"
+                    className="text-xs bg-white hover:bg-[#AFC7E3]/25 text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#AFC7E3]/60"
                   >
                     🧘 Emotional Intelligence
                   </button>
                   <button
                     onClick={() => setInput("I'm dealing with burnout. How do I recover? ")}
-                    className="text-xs bg-white hover:bg-purple-100 text-purple-900 px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-purple-200"
+                    className="text-xs bg-white hover:bg-[#AFC7E3]/25 text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#AFC7E3]/60"
                   >
                     🔥 Burnout Recovery
                   </button>
                   <button
                     onClick={() => setInput("Help me shift my financial mindset: ")}
-                    className="text-xs bg-white hover:bg-purple-100 text-purple-900 px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-purple-200"
+                    className="text-xs bg-white hover:bg-[#AFC7E3]/25 text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#AFC7E3]/60"
                   >
                     💰 Money Mindset
                   </button>
                   <button
                     onClick={() => setInput("I want to find my purpose and clarify my values: ")}
-                    className="text-xs bg-white hover:bg-purple-100 text-purple-900 px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-purple-200"
+                    className="text-xs bg-white hover:bg-[#AFC7E3]/25 text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#AFC7E3]/60"
                   >
                     🎯 Purpose & Values
                   </button>
