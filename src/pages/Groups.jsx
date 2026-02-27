@@ -190,6 +190,10 @@ export default function Groups() {
             )}
           </TabsContent>
 
+          <TabsContent value="my" className="mt-6" forceMount style={{ display: undefined }}>
+            {/* replaced below */}
+          </TabsContent>
+
           <TabsContent value="discover" className="mt-6">
             {filteredGroups(publicGroups).length === 0 ? (
               <div className="text-center py-16">

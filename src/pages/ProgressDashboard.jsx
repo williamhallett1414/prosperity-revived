@@ -86,6 +86,15 @@ export default function ProgressDashboard() {
     queryFn: () => base44.auth.me()
   });
 
+  const { data: userProgress } = useQuery({
+    queryKey: ['userProgress', user?.email],
+    queryFn: async () => {
+      const list = await base44.entities.UserProgress.filter({ created_by: user.email });
+      return list[0] || null;
+    },
+    enabled: !!user?.email
+  });
+
   const { data: allMemories, isLoading } = useQuery({
     queryKey: ['allChatbotMemories', user?.email],
     queryFn: async () => {
@@ -212,6 +221,49 @@ export default function ProgressDashboard() {
             </div>
           </div>
         </motion.div>
+
+        {/* Getting started state for new users */}
+        {(!userProgress || (
+          !userProgress.workouts_completed &&
+          !userProgress.prayers_logged &&
+          !userProgress.journal_entries
+        )) && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-6 bg-gradient-to-br from-blue-50 to-purple-50 border border-blue-200 rounded-2xl p-5"
+          >
+            <div className="flex items-center gap-3 mb-3">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center">
+                <Sparkles className="w-5 h-5 text-white" />
+              </div>
+              <div>
+                <h3 className="font-bold text-gray-900">You're just getting started!</h3>
+                <p className="text-xs text-gray-500">Your journey insights will appear here as you log activity</p>
+              </div>
+            </div>
+            <div className="grid grid-cols-3 gap-2">
+              <Link to={createPageUrl('Bible')}>
+                <div className="bg-white rounded-xl p-3 text-center hover:shadow-sm transition-shadow cursor-pointer">
+                  <p className="text-xl mb-1">📖</p>
+                  <p className="text-xs font-medium text-gray-700">Read Bible</p>
+                </div>
+              </Link>
+              <Link to={createPageUrl('Workouts')}>
+                <div className="bg-white rounded-xl p-3 text-center hover:shadow-sm transition-shadow cursor-pointer">
+                  <p className="text-xl mb-1">💪</p>
+                  <p className="text-xs font-medium text-gray-700">Log Workout</p>
+                </div>
+              </Link>
+              <Link to={createPageUrl('Prayer')}>
+                <div className="bg-white rounded-xl p-3 text-center hover:shadow-sm transition-shadow cursor-pointer">
+                  <p className="text-xl mb-1">🙏</p>
+                  <p className="text-xs font-medium text-gray-700">Pray</p>
+                </div>
+              </Link>
+            </div>
+          </motion.div>
+        )}
 
         {/* Holistic Progress Report */}
         {stats.total > 0 && <HolisticProgressReport user={user} />}

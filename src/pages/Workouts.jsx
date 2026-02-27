@@ -184,6 +184,34 @@ export default function Workouts() {
       <div className="px-4 pt-6 pb-6">
         <PullToRefresh onRefresh={handleRefresh}>
           <div className="max-w-2xl mx-auto">
+            {/* Welcome Banner */}
+            {showWelcome && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mb-6 bg-gradient-to-br from-[#FD9C2D]/10 to-[#FAD98D]/20 border border-[#FD9C2D]/30 rounded-2xl p-5"
+              >
+                <div className="flex items-start justify-between">
+                  <div className="flex-1">
+                    <h3 className="font-bold text-[#0A1A2F] mb-1">💪 Welcome to Workouts!</h3>
+                    <p className="text-sm text-[#0A1A2F]/70 mb-3">
+                      Browse workout categories, try a premade plan, or start one of our quick workouts below. Log a session to start tracking your progress.
+                    </p>
+                    <div className="flex gap-2">
+                      <Link to={createPageUrl('WorkoutCategoryPage')}>
+                        <Button size="sm" className="bg-[#FD9C2D] hover:bg-[#FD9C2D]/90 text-white text-xs">
+                          Browse Categories
+                        </Button>
+                      </Link>
+                      <Button size="sm" variant="outline" onClick={dismissWelcome} className="text-xs">
+                        Got it
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+
             {/* Weekly Theme */}
             <WeeklyThemeBanner />
 
