@@ -600,6 +600,49 @@ export const devotionalContent = {
     prayer: "Lord, I commit this year to reading Your Word from beginning to end. I confess that I've often treated the Bible as optional—something I turn to only in crisis or convenience. Forgive me. Your Word is my daily bread, and I need it more than I realize. As I begin this journey, open my eyes to see wonders in Your Law (Psalm 119:18). When I encounter passages I don't understand, give me patience. When I face passages that convict me, give me courage to obey. When I'm tempted to skip a day, remind me that this isn't just a reading plan—it's time with You. May this year in Your Word transform me from the inside out. May I finish this year knowing You better, trusting You more, and living in greater alignment with Your will. In Jesus' name, Amen."
   },
 
+  "career-guidance": {
+    title: "Career & Purpose: Finding God's Direction in Your Work",
+    introduction: "You were not created to simply earn a paycheck—you were created for purpose. Work is not a curse; it's a calling. From the very beginning, God worked (Genesis 1-2) and then invited humanity into that work alongside Him. Your career, your skills, your daily labor—all of it can be an act of worship when done unto God. But so many believers struggle to connect their Monday-through-Friday reality with their Sunday faith. They wonder: Is this really what God wants for me? Am I in the right field? How do I know if I'm missing my calling? This 10-day journey will help you seek God's direction for your work, align your gifts with His purposes, and discover that wherever you are right now, God can use you. Your workplace is your mission field, and your work—done with excellence and integrity—is your offering to Him.",
+    keyVerses: [
+      {
+        reference: "Jeremiah 29:11",
+        text: "For I know the plans I have for you, declares the Lord, plans to prosper you and not to harm you, plans to give you hope and a future.",
+        insight: "This verse was written to people in a difficult, uncertain season—yet God declared He had a plan. Your career confusion or transition doesn't catch God off guard. He has a purpose for you, and He will reveal it as you seek Him."
+      },
+      {
+        reference: "Colossians 3:23-24",
+        text: "Whatever you do, work at it with all your heart, as working for the Lord, not for human masters, since you know that you will receive an inheritance from the Lord as a reward. It is the Lord Christ you are serving.",
+        insight: "This changes everything. Whether you're a nurse, a teacher, a business owner, or a stay-at-home parent, your work is an act of worship when done wholeheartedly for God. Excellence in your work is a form of faithfulness."
+      },
+      {
+        reference: "Proverbs 16:3",
+        text: "Commit to the Lord whatever you do, and he will establish your plans.",
+        insight: "The path to purpose is not figuring it all out on your own—it's surrendering your plans to God and trusting Him to direct your steps. Commitment precedes clarity."
+      }
+    ],
+    reflection: "God doesn't just care about what happens in church on Sunday—He cares deeply about how you spend your Monday through Friday. Your work matters to God. The way you treat your coworkers, the integrity you bring to your decisions, the excellence you pour into your craft—all of it is spiritual. The danger is living a compartmentalized life where faith stays in the religious box and work operates by different rules. But Scripture refuses that divide. The same God who calls you to worship Him on Sunday calls you to represent Him on Monday. Purpose is not always found by switching jobs or chasing a dream career—sometimes it's found by bringing God into the career you already have. When you work with integrity, serve generously, solve problems creatively, and care for the people around you, you are living out your God-given purpose regardless of your title or paycheck. That said, God does lead some people into seasons of transition, new callings, and career changes. As you seek His direction, look for alignment between your gifts, your passions, and the needs around you. And in every season—whether waiting, working, or transitioning—trust that God is ordering your steps.",
+    reflectionQuestions: [
+      "Do you view your work as a calling or just a job? How would seeing it as a calling change how you show up each day?",
+      "What gifts, skills, and passions has God placed in you? How are you currently using them—or not using them?",
+      "Are there areas of your work life where you are not operating with full integrity or excellence? What needs to change?",
+      "Is God calling you to stay faithful where you are, or are you sensing a transition? How are you seeking His guidance?",
+      "How can your workplace become a mission field? Who around you needs to see Christ demonstrated through your life?"
+    ],
+    actionPlan: {
+      title: "Aligning Your Work with God's Purpose",
+      steps: [
+        "Pray specifically about your work every morning—invite God into your day before you open your laptop or walk through the door.",
+        "Ask God to show you the people in your workplace who need encouragement, prayer, or practical help. Be His hands and feet.",
+        "Identify your top three God-given strengths and ask: Am I currently using these in my work? If not, what step can I take toward alignment?",
+        "Commit to one area of growth in excellence—whether it's punctuality, quality of work, or how you handle conflict with coworkers.",
+        "If you sense a career transition coming, seek wise counsel from a mentor, pray with your spouse or a trusted friend, and give God time to confirm His direction before making moves.",
+        "Memorize Colossians 3:23 and repeat it before difficult work days—let it reframe your perspective from drudgery to worship.",
+        "Journal your career prayers. Look back in 6-12 months to see how God has moved, provided, and guided."
+      ]
+    },
+    prayer: "Lord, I bring my career and my questions about purpose to You. I confess that I sometimes feel lost, frustrated, or disconnected from meaning in my work. Help me see my work the way You see it—as an opportunity to serve, create, and glorify You. Give me clarity about my gifts and the courage to use them. If You're calling me to stay where I am, help me bloom where I'm planted. If You're calling me to something new, give me clear direction and the faith to step forward. Help me be a person of integrity, excellence, and compassion in my workplace. May my work be an act of worship, and may the people I work alongside see Jesus in me. In His name, Amen."
+  },
+
   "parenting-wisdom": {
     title: "Parenting with Grace: Raising Children in Faith",
     introduction: "Parenting is one of the most sacred and challenging callings God entrusts to us. It's not just about raising well-behaved children—it's about stewarding souls. Every child is a unique image-bearer of God, placed in your home not by accident but by divine design. Scripture has profound things to say about parenting: how to discipline with love, how to model faith authentically, how to speak life into your children's identity, and how to trust God when parenting feels impossible. This 30-day journey will take you through the key biblical principles of parenting—anchored in grace, wisdom, and deep dependence on God. You don't have to be a perfect parent; you just need to be a grace-filled one. And when you fall short—and you will—God's mercy covers you and your children alike.",
