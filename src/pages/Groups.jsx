@@ -159,7 +159,7 @@ export default function Groups() {
         </div>
 
         {/* Tabs */}
-        <Tabs defaultValue="my" className="mb-6">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-6">
           <TabsList className="grid grid-cols-2 bg-[#E6EBEF] p-1 rounded-xl">
             <TabsTrigger value="my" className="data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">My Groups</TabsTrigger>
             <TabsTrigger value="discover" className="data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">Discover</TabsTrigger>
@@ -179,10 +179,7 @@ export default function Groups() {
                 </p>
                 <div className="flex flex-col gap-2">
                   <Button
-                    onClick={() => {
-                      const discoverTab = document.querySelector('[value="discover"]');
-                      if (discoverTab) discoverTab.click();
-                    }}
+                    onClick={() => setActiveTab('discover')}
                     className="bg-gradient-to-r from-[#FD9C2D] to-[#FAD98D] text-[#3C4E53] font-semibold w-full"
                   >
                     Browse Groups
