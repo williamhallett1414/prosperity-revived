@@ -1761,5 +1761,48 @@ export const devotionalContent = {
       ]
     },
     prayer: "Dear God, we thank You for the gift of intimacy in our relationship. Help us to cherish and nurture this sacred connection, guiding us as we grow in love and understanding. May our relationship be a testament to Your divine plan for marriage, and may we always seek Your wisdom and guidance on this journey. Above all, help us cherish the gift of emotional intimacy and the deep, abiding love it fosters in our relationship. May our journey together be richly blessed, and may our love story serve as a testament to the beauty and power of a Christ-centered marriage. Amen."
-  }
-};
+    },
+
+    "worship-lifestyle": {
+     title: "Lifestyle of Worship: Making Every Day an Act of Worship",
+     introduction: "Worship is not something that happens on Sunday mornings when you sing with a band and sit in a pew. Worship is a way of life—a daily posture of the heart toward God. It happens in the kitchen when you cook a meal with love. It happens at your desk when you do your work with excellence. It happens in the car when you forgive someone who has wronged you. It happens in ordinary moments when you choose to honor God with your choices, your time, and your attention. Paul writes, 'Whether you eat or drink or whatever you do, do it all for the glory of God.' This is not a call to be constantly thinking about God while you work. It is an invitation to understand that all of life—all of it—is an offering to Him. This 21-day journey will help you see worship not as an event you attend but as a lifestyle you live. Every action can be worship. Every choice can be an offering. Every day is an opportunity to say with your life: 'God, You are worthy. You are the center. I am here for You.'",
+     keyVerses: [
+       {
+         reference: "Romans 12:1-2",
+         text: "Therefore, I urge you, brothers and sisters, in view of God's mercy, to offer your bodies as a living sacrifice, holy and pleasing to God—this is your true and proper worship. Do not conform to the pattern of this world, but be transformed by the renewing of your mind. Then you will be able to test and approve what God's will is—his good, pleasing and perfect will.",
+         insight: "Worship is not a song; it's a surrender. Paul invites us to offer our very lives—our bodies, our choices, our days—as worship. This transforms everything you do into an act of devotion."
+       },
+       {
+         reference: "Colossians 3:17",
+         text: "And whatever you do, whether in word or deed, do it all in the name of the Lord Jesus, giving thanks to God the Father through him.",
+         insight: "Every task, every conversation, every action is an opportunity to worship. When you do things 'in the name of the Lord,' you are acknowledging His authority and inviting Him into the ordinary moments."
+       },
+       {
+         reference: "Psalms 100:1-2",
+         text: "Shout for joy to the Lord, all the earth. Worship the Lord with gladness; come before him with joyful songs.",
+         insight: "Worship is inseparable from joy. When you understand that you are created to worship, and that your worship matters to God, gladness becomes the natural response."
+       }
+     ],
+     reflection: "The danger of modern life is compartmentalization. We worship on Sunday, but Monday is secular. We have faith and we have work, and these are separate things. But God refuses that division. He says all of life belongs to Him, and all of life can be worship. This means your job is worship. Your marriage is worship. How you treat the barista who makes your coffee is worship. How you spend your money, what you watch, how you speak—all of it is either worship of God or worship of something else. There is no neutral ground. The beautiful truth is that worship is not burdensome; it is liberating. When you understand that everything you do can be an offering to God, work becomes meaningful. Mundane tasks become sacred. Relationships deepen. Your life gets a center and a purpose. You are no longer trying to fit God into your life; your whole life becomes a gift to Him. This doesn't mean you perform spiritual acts all day. It means you do whatever you are doing—washing dishes, writing code, raising children, selling cars—with the awareness that God is watching, that He cares, and that your faithfulness matters to Him.",
+     reflectionQuestions: [
+       "What area of your life feels most separate from your faith? How could you bring God into that area?",
+       "When you do daily tasks—eating, working, cleaning—do you think about them as worship? Why or why not?",
+       "What does it mean to you personally to offer your body, your time, and your choices as a 'living sacrifice' to God?",
+       "How would your day change if you did everything 'in the name of the Lord'?",
+       "What is one way you can intentionally transform a mundane task into an act of worship this week?"
+     ],
+     actionPlan: {
+       title: "Creating a Lifestyle of Worship",
+       steps: [
+         "Begin your day with an offering. Each morning, before you do anything else, pause and say to God: 'Today, my life is an offering to You. Everything I do is for Your glory.'",
+         "Choose one daily task and do it as an act of worship. Whether it's washing dishes, your work, exercise, or conversation—do it with intentionality and excellence, aware that you are doing it for God.",
+         "Notice where you have been compartmentalizing. Where have you left God out? Invite Him back into those areas consciously and specifically.",
+         "Practice awareness throughout your day. Pause and remember that even mundane moments are seen by God and matter to Him.",
+         "Evaluate your time and money. Are you spending them in ways that reflect worship of God? Make one change this week that aligns your resources with your values.",
+         "Serve someone this week without expecting anything in return. Acts of service done for God's glory are pure worship.",
+         "End your day in gratitude. Review your day and thank God for opportunities you had to worship Him through your actions, choices, and presence."
+       ]
+     },
+     prayer: "Lord, open my eyes to see that all of life is an opportunity to worship You. Help me to understand that the sacred and the secular are not divided—everything I do can be done for Your glory. Transform my work, my relationships, my daily tasks into acts of devotion. Give me the grace to do ordinary things with extraordinary awareness that I am serving You. Help me to stop compartmentalizing my faith and to bring You into every area of my life. Make my life itself a song of praise. In Jesus' name, Amen."
+    }
+    };
