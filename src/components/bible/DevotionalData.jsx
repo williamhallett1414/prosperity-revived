@@ -643,6 +643,49 @@ export const devotionalContent = {
     prayer: "Lord, I am tired of the cycle. I am tired of the shame, the hiding, the broken promises to myself and to You. I come to You not with a clean record but with a desperate heart, asking You to do what I cannot do on my own. Set me free—not just from the behavior but from the root of it, from the lies that feed it, from the shame that perpetuates it. Give me the courage to let people in. Give me wisdom to know what help to seek. Give me Your Spirit's power each day to choose freedom. And on the days I fall, remind me that Your grace is greater than my failure and that You have not given up on me. I am Yours. In Jesus' name, Amen."
   },
 
+  "teen-faith": {
+    title: "Faith for Teens: Building Strong Faith During Youth",
+    introduction: "Being a teenager who takes faith seriously is one of the most courageous things a person can do. The pressure to fit in, to be cool, to not care too much about anything—and especially not about God—is real and relentless. Social media tells you who you should be. Culture tells you what you should want. Peers tell you what you should think. And in the middle of all that noise, you are trying to figure out who you actually are and whether any of this faith stuff is real. Here's the truth: what you build into your life right now matters more than you know. The habits, values, and convictions you establish in your teen years will shape decades of your life. And the God you encounter in Scripture is not a boring, irrelevant deity for old people and Sundays. He is the God who formed you in the womb, who calls you by name, who says your youth is not a liability but a gift. Jeremiah was a teenager when God called him as a prophet. Daniel was a teenager when he stood firm in a foreign culture. Timothy was young when Paul told him to let no one look down on his youth but to set an example. This 14-day plan is your invitation to build something real—a faith that is yours, not just your parents', that can withstand pressure and doubt, and that will be the anchor of your life.",
+    keyVerses: [
+      {
+        reference: "1 Timothy 4:12",
+        text: "Don't let anyone look down on you because you are young, but set an example for the believers in speech, in conduct, in love, in faith and in purity.",
+        insight: "Paul doesn't tell Timothy to wait until he's older to matter. He tells him to set an example right now. Your age is not a disqualifier—it is the stage on which God wants to display what a life fully surrendered to Him looks like."
+      },
+      {
+        reference: "Psalms 139:13-14",
+        text: "For you created my inmost being; you knit me together in my mother's womb. I praise you because I am fearfully and wonderfully made; your works are wonderful, I know that full well.",
+        insight: "The identity crisis that often hits hardest in the teen years has an answer in Scripture: you were not randomly assembled by chance or defined by what others think of you. You were intentionally, carefully, wonderfully made by a God who knew exactly what He was doing."
+      },
+      {
+        reference: "Proverbs 3:5-6",
+        text: "Trust in the Lord with all your heart and lean not on your own understanding; in all your ways submit to him, and he will make your paths straight.",
+        insight: "You don't have to have everything figured out. God doesn't ask you to have all the answers—He asks you to trust the One who does. When the path ahead is unclear, the invitation is not to panic but to submit your way to Him."
+      }
+    ],
+    reflection: "One of the biggest mistakes young believers make is treating faith as something they inherited rather than something they own. You may have grown up in a Christian home or church—but at some point, faith has to become yours. That doesn't mean rejecting everything you were taught. It means wrestling with it, asking hard questions, and arriving at convictions you actually hold—not just ones you've been handed. Doubt is not the enemy of faith. Shallow, untested faith that was never really yours is far more fragile than honest doubt brought before God. The teens in Scripture who made a lasting impact—Daniel, Joseph, David, Timothy, Mary—all had something in common: they made personal choices to follow God even when it cost them something. Daniel could have eaten the king's food and blended in. Mary could have said no to the angel. David could have let Goliath win. Your moment to make a courageous choice for God will come. Probably multiple times this week. The question is not whether those moments will arrive—it's who you will be when they do. This plan is about preparing you for exactly that.",
+    reflectionQuestions: [
+      "Is your faith truly yours, or is it primarily something you've inherited? What would it look like to make it personally yours?",
+      "What is the biggest pressure you face right now to compromise your faith or values? How does Scripture speak into that specific pressure?",
+      "Are there doubts or questions about God or Christianity you've been afraid to ask? Who is a safe person you could bring them to?",
+      "How do the examples of Daniel, Joseph, or Timothy encourage you? What did they have at your age that you want to develop?",
+      "What is one area of your life where you know God is asking you to take a courageous step, and you've been holding back?"
+    ],
+    actionPlan: {
+      title: "Building a Faith That's Yours",
+      steps: [
+        "Start a personal Bible reading habit—not because someone is making you, but because you want to know God for yourself. Even 10 minutes a day builds something significant over time.",
+        "Find one or two peers who share your faith and who will challenge and encourage you. Lone-wolf Christianity rarely survives the teen years. You need people in your corner.",
+        "Ask your hardest questions out loud. Find a youth pastor, mentor, or parent who will engage honestly with your doubts rather than dismissing them. Good questions lead to deeper faith.",
+        "Identify your values and write them down. What do you believe about God, yourself, relationships, integrity? Having clarity before the pressure hits makes it easier to hold the line.",
+        "Practice spiritual disciplines that work for you—whether that's journaling, worship music, prayer walks, or early morning quiet time. Find what connects you to God and build it into your rhythm.",
+        "Look for ways to serve. Getting outside your own needs and into the needs of others is one of the fastest ways to grow in maturity and faith.",
+        "Be honest about your struggles. You are not expected to be perfect. A faith that includes honest confession and grace is far healthier than one built on performance and hiding."
+      ]
+    },
+    prayer: "Lord, I want a faith that is real—not just what I was raised with, but something I actually believe and live. I know I don't have everything figured out, and I'm okay with that. Help me trust You even when things don't make sense. Give me courage to stand for what I believe when it costs me. Guard me from the pressures that would pull me away from You. Show me who You made me to be—not who culture says I should be. And help me know that being young is not a weakness but an opportunity. Use my life right now, in this season. I am Yours. In Jesus' name, Amen."
+  },
+
   "divorce-healing": {
     title: "Healing After Divorce: God's Comfort Through Separation",
     introduction: "Divorce is one of the most painful experiences a person can go through. Whether it was your choice, your spouse's, or something that happened to you after years of trying, the ending of a marriage carries a unique kind of grief—the loss not just of a person but of a shared life, a future, an identity, and sometimes a community. There is no clean or easy way through it. The Bible takes marriage seriously, and it takes the pain of its dissolution seriously too. But the God of Scripture is not a God who abandons people in the rubble of broken relationships. He is the God who says, 'I will restore to you the years the locusts have eaten.' He is the God who calls Himself the husband of the abandoned (Isaiah 54). He is the God who meets Hagar in the wilderness when she is alone and forgotten. This 21-day plan is not about assigning blame or relitigating the past. It is about walking with you through grief, helping you receive God's comfort, rebuild your identity, and find your footing in a life you didn't necessarily choose—but that God has not abandoned.",
