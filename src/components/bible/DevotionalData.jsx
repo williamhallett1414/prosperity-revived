@@ -643,6 +643,49 @@ export const devotionalContent = {
     prayer: "Lord, I am tired of the cycle. I am tired of the shame, the hiding, the broken promises to myself and to You. I come to You not with a clean record but with a desperate heart, asking You to do what I cannot do on my own. Set me free—not just from the behavior but from the root of it, from the lies that feed it, from the shame that perpetuates it. Give me the courage to let people in. Give me wisdom to know what help to seek. Give me Your Spirit's power each day to choose freedom. And on the days I fall, remind me that Your grace is greater than my failure and that You have not given up on me. I am Yours. In Jesus' name, Amen."
   },
 
+  "divorce-healing": {
+    title: "Healing After Divorce: God's Comfort Through Separation",
+    introduction: "Divorce is one of the most painful experiences a person can go through. Whether it was your choice, your spouse's, or something that happened to you after years of trying, the ending of a marriage carries a unique kind of grief—the loss not just of a person but of a shared life, a future, an identity, and sometimes a community. There is no clean or easy way through it. The Bible takes marriage seriously, and it takes the pain of its dissolution seriously too. But the God of Scripture is not a God who abandons people in the rubble of broken relationships. He is the God who says, 'I will restore to you the years the locusts have eaten.' He is the God who calls Himself the husband of the abandoned (Isaiah 54). He is the God who meets Hagar in the wilderness when she is alone and forgotten. This 21-day plan is not about assigning blame or relitigating the past. It is about walking with you through grief, helping you receive God's comfort, rebuild your identity, and find your footing in a life you didn't necessarily choose—but that God has not abandoned.",
+    keyVerses: [
+      {
+        reference: "Isaiah 54:4-5",
+        text: "Do not be afraid; you will not be put to shame. Do not fear disgrace; you will not be humiliated. You will forget the shame of your youth and remember no more the reproach of your widowhood. For your Maker is your husband—the Lord Almighty is his name—the Holy One of Israel is your Redeemer; he is called the God of all the earth.",
+        insight: "God speaks directly to the abandoned, the divorced, the alone—and He calls Himself their husband. Your worth and security are not ultimately grounded in another human being. They are grounded in the One who made you and who calls Himself your covenant keeper."
+      },
+      {
+        reference: "Psalms 34:18",
+        text: "The Lord is close to the brokenhearted and saves those who are crushed in spirit.",
+        insight: "The pain of divorce is a broken heart in the most literal sense. And God's explicit promise is that He draws nearest precisely at this point. He is not distant from your pain—He is closest to you in it."
+      },
+      {
+        reference: "Joel 2:25",
+        text: "I will repay you for the years the locusts have eaten—the great locust and the locust swarm—the other locusts and the locust horde—my great army that I sent among you.",
+        insight: "God is a God of restoration. The years that felt wasted, the dreams that were lost, the seasons consumed by pain—He is able to redeem and restore. Not erase, but transform. Your story is not over."
+      }
+    ],
+    reflection: "Healing after divorce is not linear, and it is rarely fast. There will be days when you feel genuine freedom and hope, followed by days when the grief crashes back unexpectedly—a song, a holiday, a moment when you reach for someone who isn't there anymore. This is normal, and it does not mean you are not healing. Grief and healing coexist. One of the most important invitations in this season is to resist the temptation to rush. Society will pressure you to 'move on,' to be fine, to get back out there. Well-meaning friends may urge you toward premature closure. But healing takes time, and the God who redeems is not in a hurry. Give yourself permission to grieve fully. Bring the anger, the confusion, the shame, and the sadness to God. The Psalms model this beautifully—honest, raw, and ultimately anchored in trust. Also: be careful about isolation. Your community may feel awkward or may have fractured in the divorce. But you need people. Let a few trusted friends or a support group or a counselor walk with you in this. You were not made to heal alone.",
+    reflectionQuestions: [
+      "What emotions are most present for you right now—grief, anger, relief, shame, fear? Have you brought them honestly to God?",
+      "Are there lies about your worth or your future that the experience of divorce has reinforced? What does Scripture say to counter them?",
+      "Who in your life knows the full truth of where you are? If no one, what would it take to let one person in?",
+      "How do you feel about the concept of God as a 'husband to the abandoned' (Isaiah 54)? Does it comfort you or feel distant?",
+      "What does restoration look like for you? Not returning to what was, but moving forward—what does hope look like in this next chapter?"
+    ],
+    actionPlan: {
+      title: "Steps Toward Healing",
+      steps: [
+        "Allow yourself to grieve fully. Don't rush the process. Grief is not weakness or lack of faith—it is love that has nowhere to go. Give it space and bring it to God.",
+        "Seek counseling. Divorce is complex, and a trained Christian counselor can help you process grief, identify unhealthy patterns, rebuild your sense of self, and navigate co-parenting if children are involved.",
+        "Guard your identity. When a marriage ends, it can feel like your identity ends with it. Reconnect with who you are apart from the relationship—your gifts, callings, relationships, and above all, your identity as God's beloved.",
+        "Pursue forgiveness—at your own pace. This is not about excusing what happened or reconciling a relationship. It is about releasing the weight of bitterness so that it does not define your future. This is a process, not an event.",
+        "Rebuild community intentionally. Your social circle may have shifted. Be proactive about finding safe people—a small group, a support group for divorced people, close friends who knew you before.",
+        "Create new rhythms. Holidays, routines, and traditions will need to be reimagined. Approach this with creativity rather than dread—you are building something new.",
+        "Hold onto hope without forcing a timeline. God restores. He redeems. He makes things new. Trust His timing rather than the world's pressure to be 'over it' by a certain point."
+      ]
+    },
+    prayer: "Lord, I am broken in a way that is hard to put into words. The life I thought I would have is gone, and I am grieving—sometimes quietly, sometimes overwhelmingly. I bring You my pain, my anger, my shame, my fear about the future. I don't know how to do this. But I trust that You are the God who draws near to the brokenhearted, who calls Yourself the husband to the abandoned, who restores what the locusts have eaten. Be near to me in this. Redeem what feels lost. Heal what feels broken. And when I can't see the future You have for me, give me just enough faith for today. In Jesus' name, Amen."
+  },
+
   "depression-light": {
     title: "Light in Depression: Finding Hope in the Darkest Seasons",
     introduction: "If you are in a season of depression, you are not alone—and you are not without hope. Some of the most faithful men and women in Scripture walked through seasons of profound darkness: Elijah collapsed under a broom tree and begged to die. The psalmists cried out from places of despair so deep they felt God had abandoned them. Jeremiah wept so bitterly he became known as the weeping prophet. Jesus himself wept at the tomb of Lazarus and cried out from the cross, 'My God, my God, why have you forsaken me?' The Bible does not pretend that darkness doesn't exist or that faith makes you immune to suffering. It tells the truth about the pain of the human condition—and then points relentlessly toward a God who draws near to the brokenhearted. This 14-day plan is not a quick fix or a promise that everything will suddenly feel better. It is a companion for the journey—an invitation to bring your darkness to the One who is Light, to find Him present in ways you may not yet be able to see, and to take one day at a time with Scripture as your anchor.",
