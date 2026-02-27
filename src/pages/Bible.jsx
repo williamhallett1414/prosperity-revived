@@ -22,7 +22,6 @@ import PastoralChatbot from '@/components/bible/PastoralChatbot';
 import GideonAskAnything from '@/components/bible/GideonAskAnything';
 import UnifiedBibleReader from '@/components/bible/UnifiedBibleReader';
 import BibleSearchBar from '@/components/bible/BibleSearchBar';
-import BibleYearPlan from '@/components/bible/BibleYearPlan';
 
 export default function Bible() {
   const [view, setView] = useState('home'); // home, oldTestament, newTestament
@@ -182,15 +181,15 @@ export default function Bible() {
             </div>
           </div>
 
-          <Tabs defaultValue="read" className="w-full">
+          <Tabs defaultValue="read" className="w-full" onValueChange={(value) => {
+            if (value === 'prayer') {
+              navigate(createPageUrl('Prayer'));
+            }
+          }}>
             <TabsList className="grid w-full grid-cols-4 mb-6">
               <TabsTrigger value="read">
                 <BookOpen className="w-4 h-4 mr-2" />
                 Read
-              </TabsTrigger>
-              <TabsTrigger value="year">
-                <BookOpen className="w-4 h-4 mr-2" />
-                Year
               </TabsTrigger>
               <TabsTrigger value="study">
                 <BookOpen className="w-4 h-4 mr-2" />
@@ -198,13 +197,13 @@ export default function Bible() {
               </TabsTrigger>
               <TabsTrigger value="devotional">
                 <Heart className="w-4 h-4 mr-2" />
-                Daily
+                Devotional
+              </TabsTrigger>
+              <TabsTrigger value="prayer">
+                <Heart className="w-4 h-4 mr-2" />
+                Prayer
               </TabsTrigger>
             </TabsList>
-
-            <TabsContent value="year">
-              <BibleYearPlan />
-            </TabsContent>
 
             <TabsContent value="study">
               <BibleStudyGuide />
