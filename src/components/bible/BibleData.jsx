@@ -1220,6 +1220,19 @@ export const planReadingSchedules = {
     { day: 21, book: "Revelation", chapter: 4 }
   ],
 
+  "patience-waiting": [
+    { day: 1, book: "Psalms", chapter: 27 },
+    { day: 2, book: "Isaiah", chapter: 40 },
+    { day: 3, book: "Lamentations", chapter: 3 },
+    { day: 4, book: "Romans", chapter: 8 },
+    { day: 5, book: "Hebrews", chapter: 10 },
+    { day: 6, book: "Psalms", chapter: 37 },
+    { day: 7, book: "Philippians", chapter: 4 },
+    { day: 8, book: "Proverbs", chapter: 20 },
+    { day: 9, book: "Habakkuk", chapter: 2 },
+    { day: 10, book: "James", chapter: 5 }
+  ],
+
   "parenting-wisdom": [
     { day: 1, book: "Deuteronomy", chapter: 6 },
     { day: 2, book: "Proverbs", chapter: 22 },

@@ -1763,7 +1763,50 @@ export const devotionalContent = {
     prayer: "Dear God, we thank You for the gift of intimacy in our relationship. Help us to cherish and nurture this sacred connection, guiding us as we grow in love and understanding. May our relationship be a testament to Your divine plan for marriage, and may we always seek Your wisdom and guidance on this journey. Above all, help us cherish the gift of emotional intimacy and the deep, abiding love it fosters in our relationship. May our journey together be richly blessed, and may our love story serve as a testament to the beauty and power of a Christ-centered marriage. Amen."
     },
 
-    "worship-lifestyle": {
+    "patience-waiting": {
+     title: "Patience in Waiting: Trusting God's Timing",
+     introduction: "Waiting is one of the most difficult spiritual practices. We live in a culture that rewards speed, that prizes quick results and immediate gratification. But God often works slowly. He grows forests, not instant trees. He builds character through seasons of waiting. He develops trust when we cannot see the next step. Whether you are waiting for a job, a spouse, an answer to prayer, or clarity about your next chapter, this season of not-yet is not wasted time. It is sacred time. God is doing something in you while you wait. He is building patience, developing faith, reshaping your desires, and preparing you for what comes next. This 10-day journey will help you find peace in the waiting—to see it not as a delay, but as a deliberate part of God's design. The wait is not punishment. It is training ground for a deeper trust.",
+     keyVerses: [
+       {
+         reference: "Isaiah 40:31",
+         text: "But those who hope in the Lord will renew their strength. They will soar on wings like eagles; they will run and not grow weary, they will walk and not be faint.",
+         insight: "Waiting on God is not passive weakness. It is the path to renewed strength. When you wait for God instead of forcing your own timeline, you receive power that sustains you for the long journey ahead."
+       },
+       {
+         reference: "Psalms 27:14",
+         text: "Wait for the Lord; be strong and take heart and wait for the Lord.",
+         insight: "Notice that waiting is paired with strength and courage. Patience in waiting is not resignation; it is an active, courageous choice to trust God when you don't have answers."
+       },
+       {
+         reference: "Habakkuk 2:3",
+         text: "For the vision awaits its appointed time; it hastens to the end—it will not lie. If it seems slow, wait for it; it will surely come; it will not delay.",
+         insight: "God's timing is not delayed; it is appointed. What seems slow to us is exactly on schedule in God's plan. Your wait has an end date in God's calendar."
+       }
+     ],
+     reflection: "The hardest part of waiting is not knowing how long it will take. We can endure short-term difficulty. We can wait a week, a month, maybe even a year if we know the end is near. But open-ended waiting—waiting without a timeline—tests our faith to its core. This is where the deepest work happens. When you don't know when your answer will come, you learn to trust God, not your timetable. You learn that His character is more reliable than your circumstances. You discover that waiting itself is a spiritual discipline that shapes you. During seasons of waiting, you will be tempted to take control. To 'help' God along. To step ahead of His timing because the wait is too hard. Resist this. Some of the deepest regrets in life come from running ahead of God's plan. The people who experience the greatest peace are those who learn to wait well—to trust deeply, to pray specifically, to serve faithfully while waiting, and to believe that God's delays are not denials. They are invitations to a deeper faith.",
+     reflectionQuestions: [
+       "What are you currently waiting for? Have you brought that longing honestly to God?",
+       "What tempts you to step ahead of God's timing? What would it look like to actively wait instead?",
+       "How has waiting shaped your faith in the past? What did you learn from seasons of waiting?",
+       "What could God be developing in you through this wait that you couldn't gain any other way?",
+       "What would change if you believed that God's delays are intentional parts of His plan for you?"
+     ],
+     actionPlan: {
+       title: "Learning to Wait Well",
+       steps: [
+         "Name what you are waiting for. Be specific. Write it down. Bring it before God consciously rather than carrying it as an unnamed anxiety.",
+         "Stop trying to control the timeline. Identify one way you've been 'helping God' and choose to release that to Him instead.",
+         "Establish a waiting practice. Daily, commit to the wait and pray for what you are waiting for, trusting God's timing.",
+         "Fill the waiting with service. Use this season to serve others, deepen relationships, develop skills, or grow spiritually in ways you couldn't if you were busy with what you are waiting for.",
+         "Look for God's work in the waiting. How is He changing you? What is He teaching you? Document the growth happening now.",
+         "Practice gratitude for what you have while you wait. Gratitude anchors you in what is true now, rather than always reaching for what is not yet.",
+         "Expect joy in the wait. God's timeline is not a punishment. He is preparing something. Trust that and look for signs of His faithfulness even now."
+       ]
+     },
+     prayer: "Lord, this waiting is harder than I expected. I want to move forward, to see the answer, to know what comes next. But here I am, in the waiting, and I choose to trust You. Help me to believe that You are not slow, but intentional. That my timeline is not Your timeline, and that Your timing is always right. Help me to wait well—not anxiously, but with the quiet confidence of someone who trusts a Father who loves them. Use this season to change me, to deepen my faith, to shape me into who You are making me to be. And when the wait is over, help me to see how You were working all along. In Jesus' name, Amen."
+   },
+
+   "worship-lifestyle": {
      title: "Lifestyle of Worship: Making Every Day an Act of Worship",
      introduction: "Worship is not something that happens on Sunday mornings when you sing with a band and sit in a pew. Worship is a way of life—a daily posture of the heart toward God. It happens in the kitchen when you cook a meal with love. It happens at your desk when you do your work with excellence. It happens in the car when you forgive someone who has wronged you. It happens in ordinary moments when you choose to honor God with your choices, your time, and your attention. Paul writes, 'Whether you eat or drink or whatever you do, do it all for the glory of God.' This is not a call to be constantly thinking about God while you work. It is an invitation to understand that all of life—all of it—is an offering to Him. This 21-day journey will help you see worship not as an event you attend but as a lifestyle you live. Every action can be worship. Every choice can be an offering. Every day is an opportunity to say with your life: 'God, You are worthy. You are the center. I am here for You.'",
      keyVerses: [
