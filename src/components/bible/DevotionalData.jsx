@@ -600,6 +600,49 @@ export const devotionalContent = {
     prayer: "Lord, I commit this year to reading Your Word from beginning to end. I confess that I've often treated the Bible as optional—something I turn to only in crisis or convenience. Forgive me. Your Word is my daily bread, and I need it more than I realize. As I begin this journey, open my eyes to see wonders in Your Law (Psalm 119:18). When I encounter passages I don't understand, give me patience. When I face passages that convict me, give me courage to obey. When I'm tempted to skip a day, remind me that this isn't just a reading plan—it's time with You. May this year in Your Word transform me from the inside out. May I finish this year knowing You better, trusting You more, and living in greater alignment with Your will. In Jesus' name, Amen."
   },
 
+  "spiritual-warfare": {
+    title: "Spiritual Warfare: Standing Firm Against Spiritual Battles",
+    introduction: "There is a battle raging that most people never see. It is not fought with weapons of steel or won through political power—it is a spiritual conflict playing out in the unseen realm, with your soul, your relationships, your faith, and your future as the stakes. The Bible is unambiguous about this reality: we have an enemy who is real, active, and strategic. Peter calls him a roaring lion. Paul says we wrestle not against flesh and blood but against spiritual forces of evil. Jesus himself was tempted in the wilderness by Satan personally. Ignoring this reality does not make you safe—it makes you vulnerable. But the good news is this: the battle has already been decided. At the cross and resurrection of Jesus Christ, the enemy was decisively defeated. His power over believers is broken. What remains is a rear-guard action—a defeated enemy still seeking to steal, kill, and destroy until his final end. This 14-day plan will equip you with the spiritual armor God has given you, teach you how to stand firm in the fight, and fill you with confidence that greater is He who is in you than he who is in the world.",
+    keyVerses: [
+      {
+        reference: "Ephesians 6:11-12",
+        text: "Put on the full armor of God, so that you can take your stand against the devil's schemes. For our struggle is not against flesh and blood, but against the rulers, against the authorities, against the powers of this dark world and against the spiritual forces of evil in the heavenly realms.",
+        insight: "The enemy's primary tactic is not brute force—it's schemes. He is strategic, patient, and deceptive. The armor of God is not optional equipment for the spiritually advanced; it is standard issue for every believer. Put it on daily."
+      },
+      {
+        reference: "1 Peter 5:8-9",
+        text: "Be sober-minded; be watchful. Your adversary the devil prowls around like a roaring lion, seeking someone to devour. Resist him, firm in your faith, knowing that the same kinds of suffering are being experienced by your brotherhood throughout the world.",
+        insight: "A lion's roar is designed to cause panic—panic that causes prey to run into the wrong direction. The enemy wants to frighten you into foolish decisions. The answer is sobriety and watchfulness, not fear. Resist him, firm in faith."
+      },
+      {
+        reference: "1 John 4:4",
+        text: "You, dear children, are from God and have overcome them, because the one who is in you is greater than the one who is in the world.",
+        insight: "This is the bedrock confidence of every Christian in spiritual battle. The Holy Spirit who dwells in you is infinitely greater than any demonic force arrayed against you. You are not fighting for victory—you are fighting from victory."
+      }
+    ],
+    reflection: "Many Christians fall into one of two errors in thinking about spiritual warfare. The first is to ignore it entirely—living as though the spiritual realm doesn't exist, attributing everything to natural causes, and never considering the enemy's role in their struggles. The second error is to become obsessed with the demonic—seeing a demon behind every difficulty, living in fear, and giving the enemy far more attention and credit than he deserves. The biblical balance is clear-eyed awareness without fear. Yes, there is an enemy. Yes, he is real and active. But he is a defeated enemy, operating under strict limits set by a sovereign God who never takes His eyes off His children. The weapons of our warfare are not carnal—they are prayer, the Word of God, worship, confession, community, and the blood of the Lamb. When you are in spiritual battle, the answer is not to panic or to perform elaborate rituals. The answer is to draw near to God, put on His armor, stand firm in truth, and resist the enemy with the quiet confidence of someone who knows how the story ends.",
+    reflectionQuestions: [
+      "Are you more prone to ignoring spiritual warfare entirely or to being overly focused on the demonic? How does Scripture bring you into balance?",
+      "What area of your life feels most under attack right now—your thoughts, relationships, faith, or behavior? How might you apply spiritual armor there?",
+      "How does knowing the enemy is already defeated change the way you approach spiritual battles?",
+      "Which piece of the armor of God (truth, righteousness, gospel of peace, faith, salvation, Scripture) feels weakest in your life right now?",
+      "What role does prayer play in your spiritual defense? Is your prayer life active and specific, or passive and general?"
+    ],
+    actionPlan: {
+      title: "Standing Firm in Spiritual Battle",
+      steps: [
+        "Each morning, consciously 'put on' each piece of the armor of God from Ephesians 6, praying through each element as an act of preparation for the day.",
+        "Identify the specific area of attack in your life right now—is it lies about your identity, temptation toward a specific sin, relational conflict, or discouragement? Name it and bring it to God in targeted prayer.",
+        "Memorize key scriptures to use as a sword in temptation, as Jesus did in Matthew 4. Truth is your most powerful offensive weapon.",
+        "Stay in community—isolation is one of the enemy's most effective tactics. Confess struggles to a trusted believer who can pray with you.",
+        "Practice worship as warfare—praise and thanksgiving shift the spiritual atmosphere and refocus your eyes from the battle to the Victor.",
+        "Be alert to patterns—if you notice recurring thoughts, sins, or discouragements, ask God to reveal whether there is a spiritual root that needs to be addressed.",
+        "Rest in the finished work of Christ. You are not fighting to earn protection—you are fighting from the position of one already loved, already forgiven, already sealed by the Holy Spirit."
+      ]
+    },
+    prayer: "Lord, open my eyes to the spiritual realities around me—not to fear them, but to be equipped for them. I put on Your full armor today: the belt of truth, the breastplate of righteousness, the shoes of peace, the shield of faith, the helmet of salvation, and the sword of Your Word. Where the enemy has gained a foothold in my life through sin, fear, or deception—I renounce it and claim the ground back for Your Kingdom. Remind me daily that greater is He who is in me than he who is in the world. I stand not in my own strength but in Yours. To You belongs the victory, now and forever. In the name of Jesus, Amen."
+  },
+
   "gratitude-journey": {
     title: "Cultivating Gratitude: 30 Days of Thankfulness and Praise",
     introduction: "Gratitude is one of the most transformative spiritual disciplines available to us—and one of the most neglected. In a world designed to make us feel that we always need more, choosing thankfulness is an act of quiet rebellion against anxiety, comparison, and discontentment. The Bible is saturated with commands, invitations, and examples of gratitude—not because God needs our thanks, but because we need to give it. When we deliberately practice thankfulness, something shifts in our perspective. We begin to see God's fingerprints on the ordinary. We recognize gifts we had taken for granted. We find joy not by changing our circumstances, but by changing our gaze. This 30-day journey will walk you through the Psalms and other Scriptures that overflow with praise, teaching you to cultivate a grateful heart in every season—even the hard ones. By the end, you won't just know more about gratitude; you'll be a more grateful person.",
