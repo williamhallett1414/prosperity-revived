@@ -78,8 +78,6 @@ export default function ProgressDashboard() {
   const navigate = useNavigate();
   const [activeChat, setActiveChat] = useState(null);
   const queryClient = useQueryClient();
-  // eslint-disable-next-line no-unused-vars
-  const _ = queryClient; // keep for cache invalidation via useMutation if needed later
   
   const { data: user } = useQuery({
     queryKey: ['currentUser'],
