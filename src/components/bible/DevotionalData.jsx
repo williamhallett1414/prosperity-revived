@@ -643,6 +643,49 @@ export const devotionalContent = {
     prayer: "Lord, I am tired of the cycle. I am tired of the shame, the hiding, the broken promises to myself and to You. I come to You not with a clean record but with a desperate heart, asking You to do what I cannot do on my own. Set me free—not just from the behavior but from the root of it, from the lies that feed it, from the shame that perpetuates it. Give me the courage to let people in. Give me wisdom to know what help to seek. Give me Your Spirit's power each day to choose freedom. And on the days I fall, remind me that Your grace is greater than my failure and that You have not given up on me. I am Yours. In Jesus' name, Amen."
   },
 
+  "empty-nest": {
+    title: "Empty Nest Season: Embracing the Next Chapter",
+    introduction: "For years, your identity has been inseparable from active parenting. You have structured your days around schedules, carpooled through seasons, advocated for your children, prayed through crises, celebrated victories, and molded your life around their needs. It was exhausting and exhilarating, all at once. And then one day—sometimes gradually, sometimes suddenly—they leave. They move to college, launch into careers, start families of their own. And you are left in a house that is quieter than it has been in decades, with a role that has fundamentally changed, and with a question you may not have anticipated: Who am I now? The empty nest season can feel like loss. And it is—there is genuine grief in this transition, and that grief deserves to be acknowledged. But it is not only loss. It is also liberation. It is the opportunity to rediscover yourself, to invest in your marriage or singleness, to pursue dreams you set aside, to serve in ways you couldn't before, and to develop a new kind of relationship with your adult children—one based on mutual respect and genuine friendship rather than parental authority. This is not a lesser chapter of your life. It is a different chapter, one with its own beauty, purpose, and calling. This 10-day plan is designed to help you navigate this transition with hope, purpose, and faith—to grieve what is ending while celebrating what is beginning.",
+    keyVerses: [
+      {
+        reference: "Psalm 92:12-14",
+        text: "The righteous will flourish like the palm tree, they will grow like a cedar of Lebanon; planted in the house of the Lord, they will flourish in the courts of our God. They will still bear fruit in old age, they will stay fresh and green.",
+        insight: "This psalm assures us that life does not peak in one season. The image of bearing fruit in old age—your later seasons—is a profound promise. The empty nest is not the end of your productivity, influence, or purpose. It is an invitation to a different kind of bearing fruit."
+      },
+      {
+        reference: "Ecclesiastes 3:1-2",
+        text: "There is a time for everything, and a season for every activity under the heavens: a time to be born and a time to die, a time to plant and a time to uproot.",
+        insight: "Every season has its purpose. Active parenting of children in your home is one season. This new season—of parenting adult children, of serving in new ways, of pursuing new directions—is no less ordained by God. It is not a consolation prize for a season that has ended. It is a season with its own calling."
+      },
+      {
+        reference: "Isaiah 46:4",
+        text: "Even to your old age and gray hairs I am he, I am he who will sustain you. I have made you and I will carry you; I will sustain you and rescue you.",
+        insight: "God's care does not diminish with age or life stage. He is as present in this season as He was when your children were young. You are not beyond His attention or His purpose. You are still carried, sustained, and loved."
+      }
+    ],
+    reflection: "The empty nest can trigger an identity crisis if your entire sense of self was tied to being a full-time, hands-on parent. That's not weakness—it's evidence that you invested deeply in your children. But it is also an invitation to reconnect with parts of yourself that may have been dormant. Who were you before children? What dreams did you have that you set aside? What relationships need rebuilding? What causes call to your heart? What would you do if you had the time and freedom you have now? These questions are not self-indulgent. They are invitations to stewardship of this new season. Your children are launched. That is success, not failure. Now the question is: How will you invest this next chapter? Your grandchildren, your marriage, your community, your own growth, your service—all these things become more possible now. The empty nest is not the end of your mothering or fathering. It is the beginning of a mature, friendship-based relationship with your adult children, and that relationship will flourish when they see that you have thrived in this season, not simply endured it.",
+    reflectionQuestions: [
+      "What are the emotions you are experiencing in this transition? Can you name them honestly—the grief, the relief, the confusion, the possibility?",
+      "Who were you before your children were born or before they were your daily focus? What parts of that person do you want to rediscover?",
+      "What has this season of intensive parenting cost you—in terms of dreams, relationships, or growth? Is there something you want to recover or pursue now?",
+      "How is your marriage or your singleness affected by this transition? What does this season invite you toward?",
+      "What legacy do you want your relationship with your adult children to be? What does that relationship look like when it's thriving?"
+    ],
+    actionPlan: {
+      title: "Thriving in the Empty Nest Season",
+      steps: [
+        "Give yourself permission to grieve. The end of an era in your life deserves acknowledgment. This is not weakness—it is honesty. Allow yourself to feel the loss alongside the relief.",
+        "Invest in your marriage or build community if you are single. If you are married, this season offers an unprecedented opportunity to invest in your partnership without the demands of active parenting. If you are single, build the chosen family and friendships that will sustain you.",
+        "Reconnect with old interests or pursue new ones. What have you wanted to do but didn't have time for? What brings you joy? What makes you feel alive? This is the season to invest in those things.",
+        "Develop a new kind of parenting relationship. Your children are adults now. The relationship thrives when you treat them as such—offering advice when asked, respecting their autonomy, and being genuinely interested in their lives as peers.",
+        "Volunteer or serve in your community. Studies show that purpose in this season is one of the strongest predictors of well-being. Find a cause that calls to you and invest significant time and energy.",
+        "Invest in spiritual growth. With fewer demands on your time, you have the opportunity to deepen your prayer life, study Scripture, participate in spiritual community, and grow in faith in ways you may not have had time for before.",
+        "Do something bold. Many people find this season is the perfect time to pursue something they have always wanted to do—a career change, a move, additional education, or a long-held dream. Consider what that might be for you."
+      ]
+    },
+    prayer: "Lord, this season feels strange. I am grateful for the work I did as a parent, but I also grieve what is ending. I confess my uncertainty about who I am when parenting is no longer my primary role. Help me grieve without despair. Help me celebrate without guilt. And help me embrace this next chapter—not as a consolation prize, but as a new calling, a new opportunity to serve, grow, and thrive. Show me how to be a parent to adults. Guide me toward the purposes and pursuits that will make this season full and meaningful. And remind me that my worth is not tied to my role—it is tied to being Your beloved child, regardless of season. In Jesus' name, Amen."
+  },
+
   "new-parent": {
     title: "New Parent's Guide: Faith Foundations for New Parents",
     introduction: "Nothing prepares you for parenthood. You can read all the books, attend all the classes, talk to every parent you know, and still nothing fully readies you for the moment when you hold your child and realize: this is real, this is permanent, and I am responsible for this human being. The weight of that responsibility can be paralyzing. You want to get everything right. You're terrified of getting something wrong. You oscillate between profound joy and profound anxiety, sometimes in the same hour. And underneath it all, there's a deeper question: How do I do this? How do I raise a person? How do I pass on what matters? How do I break cycles, build character, nurture faith, and keep them alive while barely sleeping and running on coffee and grace? The Christian answer to 'how do I do this?' is not a parenting technique or a developmental theory, though those things can be helpful. It is this: You don't do it alone. You do it with and through God. Your role as a parent is not to create a perfect human—that's impossible and not your job. Your role is to partner with God in stewarding this image-bearer He has entrusted to you, to point them toward Jesus, to model what it looks like to trust and follow God, and to love them with the fierce, faithful, forgiving love that mirrors God's love for you. This 14-day plan is designed for those early, overwhelming seasons of parenthood—to anchor you in Scripture, to remind you of what actually matters, to help you process the spiritual dimensions of this calling, and to give you permission to be imperfect while trusting a perfect God.",
