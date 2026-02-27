@@ -300,6 +300,10 @@ export default function Prayer() {
     <div className="min-h-screen bg-[#F2F6FA] pb-24">
       <div className="px-4 py-6">
 
+        <div className="mb-6">
+          <p className="text-[#0A1A2F]/60 text-sm">Your space for stillness and connection</p>
+        </div>
+
         {/* Daily Guided Prayer */}
         <DailyGuidedPrayer />
 

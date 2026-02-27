@@ -45,6 +45,28 @@ export default function BibleBooks() {
 
         <ScrollArea className="h-[calc(100vh-180px)]">
           <div className="space-y-2">
+            {testament === 'old' && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mb-5 bg-gradient-to-br from-[#FAD98D]/30 to-[#FD9C2D]/10 border border-[#FD9C2D]/20 rounded-2xl p-4 flex items-center gap-3"
+              >
+                <span className="text-2xl">📜</span>
+                <div>
+                  <p className="text-sm font-semibold text-[#0A1A2F]">Not sure where to start?</p>
+                  <p className="text-xs text-[#0A1A2F]/60">
+                    Try <span
+                      className="text-[#FD9C2D] font-semibold cursor-pointer underline"
+                      onClick={() => window.location.href = createPageUrl('Bible?book=Psalms&chapter=1')}
+                    >Psalms</span> for worship and reflection, or{' '}
+                    <span
+                      className="text-[#FD9C2D] font-semibold cursor-pointer underline"
+                      onClick={() => window.location.href = createPageUrl('Bible?book=Proverbs&chapter=1')}
+                    >Proverbs</span> for daily wisdom.
+                  </p>
+                </div>
+              </motion.div>
+            )}
             {books.map((book, index) => (
               <motion.button
                 key={book.name}

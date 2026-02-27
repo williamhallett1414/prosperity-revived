@@ -32,6 +32,7 @@ export default function Groups() {
     is_private: false
   });
   const [categoryFilter, setCategoryFilter] = useState('all');
+  const [activeTab, setActiveTab] = useState('my');
 
   const queryClient = useQueryClient();
 

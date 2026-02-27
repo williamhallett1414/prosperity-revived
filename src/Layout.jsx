@@ -19,7 +19,7 @@ const navItems = [
 { name: 'Home', icon: Home, page: 'Home' },
 { name: 'Bible', icon: BookOpen, page: 'Bible' },
 { name: 'Wellness', icon: Heart, page: 'Wellness' },
-{ name: 'Prayer', icon: HandHeart, page: 'Prayer' },
+{ name: 'Journey', icon: TrendingUp, page: 'ProgressDashboard' },
 { name: 'Profile', icon: User, page: 'Profile' },
 ];
 
@@ -32,7 +32,7 @@ export default function Layout({ children, currentPageName }) {
 
 
   // Primary navigation pages that should be kept mounted
-  const primaryPages = ['Home', 'Bible', 'Wellness', 'Prayer', 'Profile', 'ProgressDashboard'];
+  const primaryPages = ['Home', 'Bible', 'Wellness', 'ProgressDashboard', 'Profile'];
   const isPrimaryPage = primaryPages.includes(currentPageName);
 
   // Determine if current page is a child route (not a primary nav page)
