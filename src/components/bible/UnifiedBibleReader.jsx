@@ -31,6 +31,22 @@ export default function UnifiedBibleReader({
   const books = testament === 'old' ? bibleBooks.oldTestament : bibleBooks.newTestament;
   const testamentName = testament === 'old' ? 'Old Testament' : 'New Testament';
 
+  // Auto-fetch verses when initialBook and initialChapter are provided
+  useEffect(() => {
+    if (initialBook && initialChapter) {
+      setSelectedBook(initialBook);
+      setSelectedChapter(initialChapter);
+      setLoading(true);
+      base44.functions.invoke('fetchBibleVerse', {
+        book: initialBook.name,
+        chapter: initialChapter
+      }).then(({ data }) => {
+        const versesData = data?.verses || data || [];
+        setVerses(versesData);
+      }).catch(() => setVerses([])).finally(() => setLoading(false));
+    }
+  }, [initialBook?.name, initialChapter]);
+
   // Handle search navigation
   useEffect(() => {
     if (searchData) {
