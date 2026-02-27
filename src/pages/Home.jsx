@@ -9,7 +9,6 @@ import { Button } from '@/components/ui/button';
 import VerseOfDay from '@/components/home/VerseOfDay';
 import DailyDevotional from '@/components/home/DailyDevotional';
 import ReadingPlanCard from '@/components/home/ReadingPlanCard';
-import ReadingPlanProgressTracker from '@/components/home/ReadingPlanProgressTracker';
 import { readingPlans } from '@/components/bible/BibleData';
 import DailyVerseSettings from '@/components/settings/DailyVerseSettings';
 import PostCard from '@/components/community/PostCard';

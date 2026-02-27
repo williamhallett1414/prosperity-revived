@@ -11,6 +11,7 @@ import BookSelector from '@/components/bible/BookSelector';
 import ChapterSelector from '@/components/bible/ChapterSelector';
 import VerseReader from '@/components/bible/VerseReader';
 import ReadingPlanCard from '@/components/home/ReadingPlanCard';
+import ReadingPlanProgressTracker from '@/components/home/ReadingPlanProgressTracker';
 import { readingPlans, getBookByName, bibleBooks } from '@/components/bible/BibleData';
 import BibleStatsModal from '@/components/bible/BibleStatsModal';
 import DevotionalContent from '@/components/bible/DevotionalContent';
