@@ -600,6 +600,49 @@ export const devotionalContent = {
     prayer: "Lord, I commit this year to reading Your Word from beginning to end. I confess that I've often treated the Bible as optional—something I turn to only in crisis or convenience. Forgive me. Your Word is my daily bread, and I need it more than I realize. As I begin this journey, open my eyes to see wonders in Your Law (Psalm 119:18). When I encounter passages I don't understand, give me patience. When I face passages that convict me, give me courage to obey. When I'm tempted to skip a day, remind me that this isn't just a reading plan—it's time with You. May this year in Your Word transform me from the inside out. May I finish this year knowing You better, trusting You more, and living in greater alignment with Your will. In Jesus' name, Amen."
   },
 
+  "doubt-faith": {
+    title: "When Doubts Arise: Strengthening Faith Through Questions",
+    introduction: "Doubt is not the opposite of faith—it's often the beginning of a deeper one. Some of the most faithful people in Scripture wrestled deeply with God: Job demanded answers, David cried out in despair, Thomas refused to believe without evidence, and Habakkuk argued with God about injustice. Yet God never turned any of them away. He met them in their questions. Doubt becomes dangerous only when it drives us away from God instead of toward Him. This 10-day journey is for anyone who has ever whispered, 'I believe, but help my unbelief.' It's a safe space to bring your honest questions, your confusion, and your wavering faith—and discover that God is big enough to handle all of it.",
+    keyVerses: [
+      {
+        reference: "Mark 9:24",
+        text: "Immediately the boy's father exclaimed, 'I do believe; help me overcome my unbelief!'",
+        insight: "This is one of the most honest prayers in the Bible—and Jesus honored it with a miracle. You don't need perfect faith; you need honest faith. Bring what you have to Jesus and ask Him to grow it."
+      },
+      {
+        reference: "Hebrews 11:1",
+        text: "Now faith is confidence in what we hope for and assurance about what we do not see.",
+        insight: "Faith and certainty are not the same thing. Faith is choosing to trust God even when you can't see the full picture—and Scripture calls that confidence, not naivety."
+      },
+      {
+        reference: "John 20:27",
+        text: "Then he said to Thomas, 'Put your finger here; see my hands. Reach out your hand and put it into my side. Stop doubting and believe.'",
+        insight: "Jesus didn't shame Thomas for his doubt—He showed up for him. He met Thomas exactly where he was and gave him what he needed. He will do the same for you."
+      }
+    ],
+    reflection: "Doubt is not a sin—it's a signal. It signals that you're taking your faith seriously enough to wrestle with it. The problem is not asking hard questions; the problem is refusing to bring those questions to God and instead letting them fester in isolation. The great doubters of the Bible—Job, David, Habakkuk, Thomas, even John the Baptist—all had one thing in common: they brought their doubt to God rather than walking away from Him. And God, in His patience and grace, met every one of them. Some received direct answers. Others received a deeper revelation of who God is that transcended the need for answers. The Christian faith is not threatened by honest questions—it's strengthened by them. When you dig into your doubts, when you search the Scriptures, when you wrestle and pray and refuse to give up, your faith emerges refined and unshakeable. Doubt that leads you to seek God more earnestly is not weakness—it's the beginning of a deeper, more resilient faith.",
+    reflectionQuestions: [
+      "What specific doubts or questions are you currently wrestling with? Have you brought them honestly to God?",
+      "Do you feel safe expressing your doubts in your faith community, or do you feel pressure to pretend you have it all together?",
+      "How does the example of Thomas—and Jesus' response to him—change how you view your own doubt?",
+      "What is one truth about God's character that you do believe, even when other things feel uncertain? How can you anchor yourself there?",
+      "Has doubt ever ultimately led you to a stronger, more grounded faith? What did that process look like?"
+    ],
+    actionPlan: {
+      title: "Wrestling Well with Doubt",
+      steps: [
+        "Write down your specific doubts—name them clearly. Vague doubt is harder to address than honest, specific questions brought into the light.",
+        "Bring your doubts to God in prayer, just as the father in Mark 9 did. Tell Him exactly where you are and ask Him to meet you there.",
+        "Read books by honest, thoughtful Christian thinkers who have wrestled with the same questions—doubt often dissolves in the light of good theology.",
+        "Find a trusted pastor, mentor, or friend you can be honest with. Doubt grows in isolation and shrinks in community.",
+        "Study the evidence for your faith—the resurrection, the reliability of Scripture, the testimony of millions of lives transformed. Faith is not blind.",
+        "Identify one truth you are certain of and anchor there daily while you work through other questions. Build from solid ground.",
+        "Give yourself grace and time. Deep faith is rarely built quickly—it's forged through seasons of wrestling, seeking, and discovering."
+      ]
+    },
+    prayer: "Lord, I'll be honest—I have questions I can't answer and doubts I'm ashamed of. But I'm bringing them to You anyway, because I don't want to walk away. I believe—help my unbelief. Meet me in this place of uncertainty the way You met Thomas, the way You answered Job, the way You sustained David in his darkest psalms. You are big enough for my questions. You are not threatened by my wrestling. Give me the courage to seek rather than suppress, to trust rather than run. And as I seek, reveal Yourself to me in new ways. Deepen my faith through this season rather than letting it shipwreck. In Jesus' name, Amen."
+  },
+
   "health-struggle": {
     title: "Faith Through Illness: God's Presence in Health Challenges",
     introduction: "Illness has a way of stripping everything down to what truly matters. When your body fails, when diagnoses arrive, when treatments are uncertain and recovery is slow, you discover very quickly what your faith is actually built on. God does not promise His people a life without sickness—but He does promise to be with us in every valley, to strengthen us in our weakness, and to bring meaning out of our suffering. This 14-day journey will not offer easy answers or false hope. Instead, it will walk you through the Scriptures that have anchored countless believers in their darkest medical moments—and it will point you to the God who heals, comforts, and sustains even when the healing doesn't come the way we expect.",
