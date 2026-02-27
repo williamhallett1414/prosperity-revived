@@ -239,7 +239,6 @@ export default function Home() {
           const gideonComplete = localStorage.getItem('gideon_onboarding_complete');
           if (!gideonComplete) {
             setTimeout(() => setShowGideonOnboarding(true), 500);
-          }
           } else {
             if ('Notification' in window && Notification.permission === 'default') {
               setTimeout(() => setShowNotifPrompt(true), 800);
