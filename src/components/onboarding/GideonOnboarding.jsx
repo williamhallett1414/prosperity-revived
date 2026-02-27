@@ -52,6 +52,12 @@ export default function GideonOnboarding({ onComplete, onRevisit }) {
           >
             {/* Header */}
             <div className="bg-gradient-to-r from-[#c9a227] to-[#D9B878] text-white p-6 relative">
+              <button
+                onClick={() => { localStorage.setItem('gideon_onboarding_complete', 'true'); onComplete(); }}
+                className="absolute top-3 right-3 w-7 h-7 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center transition-colors"
+              >
+                <X className="w-4 h-4 text-white" />
+              </button>
               <div className="flex items-start gap-3">
                 <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center mt-1">
                   <CurrentIcon className="w-6 h-6 text-white" />
