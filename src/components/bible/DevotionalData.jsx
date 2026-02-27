@@ -557,6 +557,49 @@ export const devotionalContent = {
     prayer: "Lord, fill me with Your Holy Spirit. Give me boldness to share the Gospel, passion to serve, and commitment to community. Let my life reflect the power and love of the early church. In Jesus' name, Amen."
   },
 
+  "bible-in-year": {
+    title: "Bible in a Year: A Journey Through the Whole Story of God",
+    introduction: "Reading the entire Bible in a year is one of the most transformative spiritual disciplines you can undertake. It's not just about completing a checklist—it's about immersing yourself in the full story of God: His creation, His covenant, His rescue, and His restoration of all things. From the opening words of Genesis to the final vision of Revelation, the Bible tells one unified story of a God who loves His people and relentlessly pursues them. This year, you will encounter God in new ways, wrestle with difficult passages, be challenged, encouraged, and transformed. Some days will be easy; others will stretch you. But every chapter, every verse, is God's living Word—and it is breathed out for your instruction, correction, and growth (2 Timothy 3:16-17). Commit to showing up daily, even when it's hard. God will meet you in every page.",
+    keyVerses: [
+      {
+        reference: "2 Timothy 3:16-17",
+        text: "All Scripture is God-breathed and is useful for teaching, rebuking, correcting and training in righteousness, so that the servant of God may be thoroughly equipped for every good work.",
+        insight: "Every part of the Bible—from genealogies to prophecies, from laws to letters—is useful. Nothing is wasted. God speaks through all of it, equipping you for the life He's called you to live."
+      },
+      {
+        reference: "Psalm 119:105",
+        text: "Your word is a lamp for my feet, a light on my path.",
+        insight: "The Bible isn't just ancient literature—it's a living guide. As you read through the whole of Scripture, it will illuminate decisions, clarify confusion, and keep your steps aligned with God's purpose."
+      },
+      {
+        reference: "Hebrews 4:12",
+        text: "For the word of God is alive and active. Sharper than any double-edged sword, it penetrates even to dividing soul and spirit, joints and marrow; it judges the thoughts and attitudes of the heart.",
+        insight: "Don't underestimate what God can do through a chapter that seems ordinary. His Word is alive—it will cut through assumptions, awaken conviction, and reshape you from the inside out."
+      }
+    ],
+    reflection: "One of the greatest gifts of reading the Bible in a year is seeing the grand narrative of Scripture for the first time. Many believers know individual stories—Adam and Eve, Moses and the Red Sea, David and Goliath, Jesus and Lazarus—but few have seen how they all connect. The Old Testament is not a separate book; it is the foundation of the New Testament. Every law in Leviticus points to the holiness of God. Every sacrifice foreshadows Christ. Every prophet echoes God's longing for His people to return to Him. When you read Genesis and then the Gospels, you see that the God who said 'Let there be light' is the same God who sent His Son, the Light of the World, to pierce the darkness of sin. As you journey through this year, look for Jesus on every page. In the Law, He is our righteousness. In the Psalms, He is our song. In the Prophets, He is our hope. In the Gospels, He is our Savior. In the Epistles, He is our foundation. In Revelation, He is our King. Let the whole counsel of God build your faith, shape your character, and anchor your soul in the unchanging truth that God is faithful—from Genesis to Revelation.",
+    reflectionQuestions: [
+      "What new understanding of God have you gained from reading books of the Bible you normally skip or avoid?",
+      "How does seeing the Old and New Testaments together deepen your appreciation for Jesus and the Gospel?",
+      "Which section of the Bible has surprised you most so far—and what has it taught you about God's character?",
+      "How is consistent, daily time in God's Word changing the way you think, speak, or make decisions?",
+      "What is one promise from Scripture you've encountered this year that you want to hold onto for the rest of your life?"
+    ],
+    actionPlan: {
+      title: "Your Year in the Word: Practical Guide",
+      steps: [
+        "Read every day, even if it's just one chapter. Consistency matters more than perfection—if you miss a day, don't quit. Just pick up where you left off.",
+        "Keep a reading journal. After each day's reading, write one thing you learned about God, one verse that stood out, and one way you can apply it.",
+        "Use a study Bible or commentary for difficult passages—especially in Leviticus, Numbers, and Revelation. Context and background transform confusing chapters into powerful truth.",
+        "Find a reading partner or Bible-in-a-Year group. Accountability keeps you going when motivation fades, and community deepens what you're learning.",
+        "Pray before you read. Ask the Holy Spirit to open your eyes to truth (Psalm 119:18). Don't approach Scripture as a task to complete—approach it as a conversation with God.",
+        "Memorize key verses as you encounter them. By year's end, you could have dozens of powerful Scriptures hidden in your heart.",
+        "At the end of each month, review what you've read. Journal the ways God has spoken, surprised you, or challenged you. Celebrate your progress—this is a significant commitment."
+      ]
+    },
+    prayer: "Lord, I commit this year to reading Your Word from beginning to end. I confess that I've often treated the Bible as optional—something I turn to only in crisis or convenience. Forgive me. Your Word is my daily bread, and I need it more than I realize. As I begin this journey, open my eyes to see wonders in Your Law (Psalm 119:18). When I encounter passages I don't understand, give me patience. When I face passages that convict me, give me courage to obey. When I'm tempted to skip a day, remind me that this isn't just a reading plan—it's time with You. May this year in Your Word transform me from the inside out. May I finish this year knowing You better, trusting You more, and living in greater alignment with Your will. In Jesus' name, Amen."
+  },
+
   "soulmates-sync": {
     title: "Soulmates in Sync: Fostering Emotional Intimacy in Your Marriage",
     introduction: "In the vast landscape of marriage, few aspects are as essential and transformative as intimacy. The emotional connection experienced through vulnerability, trust, and shared experiences is an irreplaceable component of a thriving relationship. This devotional aims to guide you through the depths of fostering intimacy in your relationship, deepening your emotional connection, and honoring God in the process. The bond between two individuals in marriage is a sacred reflection of God's divine love for us. As we dive into the importance of nurturing intimacy, we draw wisdom from Scripture and discover the beauty of a relationship grounded in Christ. By exploring key verses and engaging in practical exercises, you will uncover the power of intentionality and vulnerability in creating an environment where emotional connection can flourish. As we begin, let us remember the words of Ecclesiastes 4:9-10: 'Two are better than one, because they have a good return for their labor: If either of them falls down, one can help the other up. But pity anyone who falls and has no one to help them up.' May this devotional serve as a reminder of the beauty of your union and the blessings that come from fostering an intimate and supportive relationship.",
