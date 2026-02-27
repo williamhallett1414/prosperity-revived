@@ -1,6 +1,49 @@
 // Additional devotional content (continued from DevotionalData)
 
 export const devotionalContentPart2 = {
+  "spiritual-disciplines": {
+    title: "Spiritual Disciplines: Building Habits That Transform",
+    introduction: "You are what you repeatedly do. This is not just true physically—it is true spiritually. Your spiritual life is not determined by a single act of faith or a moment of emotion. It is shaped by the daily habits you practice, the patterns you establish, and the disciplines you commit to. Spiritual disciplines are practices that strengthen your soul and align your life with God's purpose. They include prayer, Bible study, fasting, meditation, solitude, service, generosity, and worship. These are not burdensome rules. They are the guardrails that keep you close to God. They are the tools that shape your character. They are the practices that transform your mind from the inside out. Many Christians feel stuck. They want to grow spiritually but don't know how. They pray sometimes, read the Bible occasionally, and hope that God will transform them. Transformation requires intention. It requires discipline. Not harsh, legalistic discipline, but loving discipline—the kind that a parent uses when training a child, the kind that an athlete uses when training for excellence. This 30-day journey will introduce you to five core spiritual disciplines: prayer, Bible study, fasting, meditation, and worship. You will learn how to practice each one, why it matters, and how it transforms your relationship with God and your character. By the end of 30 days, you won't be perfect. But you will have established habits that will continue to shape your soul for the rest of your life.",
+    keyVerses: [
+      {
+        reference: "1 Timothy 4:7-8",
+        text: "Have nothing to do with godless myths and old wives' tales; rather, train yourself to be godly. For physical training is of some value, but godliness has value for all things, holding promise for both the present life and the life to come.",
+        insight: "Just as an athlete trains their body, you must train your spirit. This requires intentional practice, consistency, and commitment."
+      },
+      {
+        reference: "2 Peter 1:5-7",
+        text: "For this very reason, make every effort to add to your faith goodness; and to goodness, knowledge; and to knowledge, self-control; and to self-control, perseverance; and to perseverance, godliness.",
+        insight: "Spiritual growth is not automatic. It requires effort, intentionality, and the practice of spiritual disciplines to add these qualities to your faith."
+      },
+      {
+        reference: "Joshua 1:8",
+        text: "Keep this Book of the Law always on your lips; meditate on it day and night, so that you may be careful to do everything written in it. Then you will be prosperous and successful.",
+        insight: "Meditating on Scripture day and night shapes your thoughts, your values, and your actions. This discipline opens the door to God's blessing."
+      }
+    ],
+    reflection: "There are two errors Christians often make with spiritual disciplines. The first is legalism: practicing disciplines to earn God's favor or to become 'righteous enough.' This misses the point. Disciplines are not about earning anything. They are about creating space for God to work in you. They are about positioning yourself to receive grace. The second error is grace-alone passivity: believing that God will transform you without any effort on your part. This also misses the point. God's grace is free, but it is not inactive. Grace works through us. It empowers us to change. It calls us to cooperate with the Holy Spirit in our own transformation. Spiritual disciplines are the bridge between passive waiting and works-righteousness. They are the way you say 'yes' to God's transforming grace. You cannot change your own heart. But you can establish practices that position you to receive the Holy Spirit's transformation. You cannot force spiritual growth. But you can create the conditions in which growth is most likely. You cannot make yourself holy. But you can practice holiness until it becomes a habit, until it becomes who you are.",
+    reflectionQuestions: [
+      "Which spiritual disciplines do you currently practice regularly?",
+      "Which discipline feels most challenging to you? Why?",
+      "What would change in your life if you prayed more consistently?",
+      "How would your perspective shift if you studied Scripture more deeply?",
+      "What role could fasting, solitude, or worship play in your spiritual growth?"
+    ],
+    actionPlan: {
+      title: "Establishing Spiritual Disciplines",
+      steps: [
+        "Start with prayer. Commit to a daily prayer time, even if it's just 10 minutes. Find a quiet place. Bring your honest thoughts and feelings to God. Don't perform. Just be real.",
+        "Read Scripture daily. Even 15 minutes of reading and reflection can transform your thinking. Use a Bible reading plan or open to a random passage and let God speak to you.",
+        "Try fasting. Skip a meal and use that time to pray or meditate on Scripture. Let the hunger remind you of your need for God.",
+        "Practice solitude. Spend time alone with God without distractions. No phone, no music, no agenda. Just be present with Him.",
+        "Commit to worship. Set aside time to sing, pray, or simply express your love for God. Worship is more than music—it is positioning your heart toward God.",
+        "Find accountability. Tell someone about your commitment to these disciplines. Let them ask you how you're doing. The support matters.",
+        "Be consistent, not perfect. You will miss days. You will have days when prayer feels dry or Scripture feels confusing. Keep going. Consistency matters more than perfection."
+      ]
+    },
+    prayer: "Lord, help me to establish disciplines that strengthen my relationship with You. Give me the motivation to pray regularly, to read Your Word, to seek Your presence. Help me to understand that these disciplines are not burdensome—they are gifts. They create space for You to work in me. Transform me from the inside out. Shape my character. Make me more like Jesus through these daily practices. In Jesus' name, Amen."
+  },
+
   "difficult-people": {
     title: "Loving Difficult People: Grace for Challenging Relationships",
     introduction: "There is someone in your life who is difficult. Maybe they are critical, controlling, or dismissive. Maybe they have hurt you repeatedly and never apologized. Maybe they are selfish, demanding, or unpredictable. Maybe they simply rub you the wrong way and you cannot figure out why. Difficult people are not an accident. They are not a punishment from God. They are often a gift—an opportunity to grow in grace, to develop patience, to become more like Jesus. Jesus didn't just teach His disciples to love easy people. He taught them to love enemies. To bless those who curse them. To turn the other cheek to those who strike them. To give to those who ask, even if they ask repeatedly. This is not weakness. This is radical strength. This is the power to transform relationships through grace instead of being controlled by bitterness. This 10-day journey will help you understand why people are difficult, how to set healthy boundaries, how to love without enabling, and how to experience healing in your most challenging relationships. You cannot change a difficult person. But you can change how you respond to them. And that change can transform the relationship.",
