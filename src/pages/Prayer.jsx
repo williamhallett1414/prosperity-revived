@@ -2,9 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, Heart, Send, Image, Video, Loader2, MessageCircle, Share2 } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import { createPageUrl } from '@/utils';
+import { Heart, Send, Image, Video, Loader2, MessageCircle, Share2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
@@ -301,18 +299,6 @@ export default function Prayer() {
   return (
     <div className="min-h-screen bg-[#F2F6FA] pb-24">
       <div className="px-4 py-6">
-        {/* Header */}
-        <div className="mb-6">
-          <div className="flex items-center gap-3 mb-2">
-            <Link
-              to={createPageUrl('Bible')}
-              className="w-10 h-10 rounded-full bg-[#FAD98D] hover:bg-[#FAD98D]/90 shadow-sm flex items-center justify-center text-[#3C4E53] transition-colors">
-
-              <ArrowLeft className="w-5 h-5" />
-            </Link>
-            <h1 className="text-2xl font-bold text-[#0A1A2F]">Prayer</h1>
-          </div>
-        </div>
 
         {/* Daily Guided Prayer */}
         <DailyGuidedPrayer />

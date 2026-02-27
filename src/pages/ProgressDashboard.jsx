@@ -25,7 +25,6 @@ import CoachDavid from '@/components/wellness/CoachDavid';
 import ChefDaniel from '@/components/wellness/ChefDaniel';
 import GideonChatbot from '@/components/bible/GideonChatbot';
 import HolisticProgressReport from '@/components/journey/HolisticProgressReport';
-import WelcomeOnboarding from '@/components/onboarding/WelcomeOnboarding';
 import PersonalizedDevotional from '@/components/gideon/PersonalizedDevotional';
 import DailyReflectionPrompt from '@/components/gideon/DailyReflectionPrompt';
 
@@ -78,8 +77,9 @@ const memoryTypeIcons = {
 export default function ProgressDashboard() {
   const navigate = useNavigate();
   const [activeChat, setActiveChat] = useState(null);
-  const [showOnboarding, setShowOnboarding] = useState(false);
   const queryClient = useQueryClient();
+  // eslint-disable-next-line no-unused-vars
+  const _ = queryClient; // keep for cache invalidation via useMutation if needed later
   
   const { data: user } = useQuery({
     queryKey: ['currentUser'],
@@ -142,27 +142,7 @@ export default function ProgressDashboard() {
     };
   }, [allMemories]);
 
-  // Check if user is new (no memories and onboarding not completed)
-  useEffect(() => {
-    if (user && allMemories.length === 0 && !user.onboarding_completed) {
-      setShowOnboarding(true);
-    }
-  }, [user, allMemories]);
 
-  // Handle onboarding completion
-  const updateOnboardingMutation = useMutation({
-    mutationFn: async () => {
-      await base44.auth.updateMe({ onboarding_completed: true });
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['currentUser'] });
-    }
-  });
-
-  const handleOnboardingComplete = () => {
-    setShowOnboarding(false);
-    updateOnboardingMutation.mutate();
-  };
 
   if (isLoading) {
     return (
@@ -177,11 +157,6 @@ export default function ProgressDashboard() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 pb-8">
-      {/* Onboarding Modal */}
-      {showOnboarding && (
-        <WelcomeOnboarding onComplete={handleOnboardingComplete} />
-      )}
-
       <div className="max-w-6xl mx-auto px-4 py-6">
         {/* Header */}
         <motion.div
@@ -209,15 +184,7 @@ export default function ProgressDashboard() {
                 <MessageCircle className="w-4 h-4 mr-2" />
                 Community
               </Button>
-              <Button
-                onClick={() => setShowOnboarding(true)}
-                variant="outline"
-                size="sm"
-                className="text-purple-600 border-purple-300 hover:bg-purple-50"
-              >
-                <Sparkles className="w-4 h-4 mr-2" />
-                View Tour
-              </Button>
+
             </div>
           </div>
         </motion.div>

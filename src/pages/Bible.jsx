@@ -210,6 +210,37 @@ export default function Bible() {
 
             <TabsContent value="read">
               <div className="space-y-6">
+                {/* Start Reading CTA */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="bg-gradient-to-br from-[#AFC7E3] to-[#D9B878] rounded-2xl p-5 text-white"
+                >
+                  <h2 className="text-xl font-bold mb-1">📖 Read the Bible</h2>
+                  <p className="text-white/80 text-sm mb-4">
+                    Start with the New Testament or explore the full Scripture
+                  </p>
+                  <div className="flex gap-2">
+                    <Button
+                      onClick={() => {
+                        setInitialBook(bibleBooks.newTestament[0]);
+                        setInitialChapter(1);
+                        setView('newTestament');
+                      }}
+                      className="bg-white text-[#3C4E53] hover:bg-white/90 font-semibold flex-1"
+                    >
+                      Start in Matthew
+                    </Button>
+                    <Button
+                      onClick={() => setView('oldTestament')}
+                      variant="outline"
+                      className="border-white/50 text-white hover:bg-white/10 flex-1"
+                    >
+                      Old Testament
+                    </Button>
+                  </div>
+                </motion.div>
+
                 {/* Search Bar */}
                 <BibleSearchBar onNavigate={handleSearchNavigate} />
                 

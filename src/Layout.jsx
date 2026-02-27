@@ -32,7 +32,7 @@ export default function Layout({ children, currentPageName }) {
 
 
   // Primary navigation pages that should be kept mounted
-  const primaryPages = ['Home', 'Bible', 'Wellness', 'Prayer', 'Profile'];
+  const primaryPages = ['Home', 'Bible', 'Wellness', 'Prayer', 'Profile', 'ProgressDashboard'];
   const isPrimaryPage = primaryPages.includes(currentPageName);
 
   // Determine if current page is a child route (not a primary nav page)
