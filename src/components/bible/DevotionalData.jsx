@@ -643,6 +643,49 @@ export const devotionalContent = {
     prayer: "Lord, I am tired of the cycle. I am tired of the shame, the hiding, the broken promises to myself and to You. I come to You not with a clean record but with a desperate heart, asking You to do what I cannot do on my own. Set me free—not just from the behavior but from the root of it, from the lies that feed it, from the shame that perpetuates it. Give me the courage to let people in. Give me wisdom to know what help to seek. Give me Your Spirit's power each day to choose freedom. And on the days I fall, remind me that Your grace is greater than my failure and that You have not given up on me. I am Yours. In Jesus' name, Amen."
   },
 
+  "depression-light": {
+    title: "Light in Depression: Finding Hope in the Darkest Seasons",
+    introduction: "If you are in a season of depression, you are not alone—and you are not without hope. Some of the most faithful men and women in Scripture walked through seasons of profound darkness: Elijah collapsed under a broom tree and begged to die. The psalmists cried out from places of despair so deep they felt God had abandoned them. Jeremiah wept so bitterly he became known as the weeping prophet. Jesus himself wept at the tomb of Lazarus and cried out from the cross, 'My God, my God, why have you forsaken me?' The Bible does not pretend that darkness doesn't exist or that faith makes you immune to suffering. It tells the truth about the pain of the human condition—and then points relentlessly toward a God who draws near to the brokenhearted. This 14-day plan is not a quick fix or a promise that everything will suddenly feel better. It is a companion for the journey—an invitation to bring your darkness to the One who is Light, to find Him present in ways you may not yet be able to see, and to take one day at a time with Scripture as your anchor.",
+    keyVerses: [
+      {
+        reference: "Psalms 34:18",
+        text: "The Lord is close to the brokenhearted and saves those who are crushed in spirit.",
+        insight: "God does not distance Himself from those in despair—He draws closer. Your pain does not push Him away. His presence is most tender precisely where your spirit is most crushed. You are not abandoned in the dark; He is there."
+      },
+      {
+        reference: "Isaiah 40:29-31",
+        text: "He gives strength to the weary and increases the power of the weak. Even youths grow tired and weary, and young men stumble and fall; but those who hope in the Lord will renew their strength. They will soar on wings like eagles; they will run and not grow weary, they will walk and not be faint.",
+        insight: "The promise here is not instant transformation—it is renewed strength for those who hope and wait. In depression, even walking without fainting is a victory. God meets you at your current capacity and builds from there."
+      },
+      {
+        reference: "Lamentations 3:22-23",
+        text: "Because of the Lord's great love we are not consumed, for his compassions never fail. They are new every morning; great is your faithfulness.",
+        insight: "These words were written in the midst of devastation—Jerusalem in ruins, hope seemingly gone. And yet the writer anchors himself to a truth that transcends circumstances: God's mercies are renewed every single morning. Even when yesterday was unbearable, today is a new morning."
+      }
+    ],
+    reflection: "Depression lies. It tells you this is permanent, that you are beyond help, that God is distant or displeased, that you are a burden, that nothing will ever change. None of these things are true, though they can feel absolutely certain when you are in the depths. One of the most important things you can do in a season of depression is to distinguish between what you feel and what is true. Your feelings are real—they are not to be dismissed or pushed down. God honors your lament; the Psalms are full of it. But feelings are not always reliable guides to reality, especially in depression. Hold the truths of Scripture even when you cannot feel them. Speak them out loud, write them down, ask someone else to speak them over you. Seek help—from God, from trusted friends, from a counselor or doctor. Depression often has physiological components that are not a spiritual failure; they are a medical reality in a fallen world. Taking medication if needed is not a lack of faith—it is stewardship of the body God gave you. Walk gently, rest when you need to, and do not demand too much of yourself. God is not asking you to perform right now. He is asking you to let Him hold you.",
+    reflectionQuestions: [
+      "Can you identify the lies depression is telling you most loudly right now? What does Scripture say in response to each one?",
+      "When you read Psalm 42 or Psalm 88, do you feel permission to be honest with God about your darkness? What would you say to Him if you had no filter?",
+      "Have you sought any support—a friend, counselor, pastor, or doctor? Is there a next step you've been avoiding?",
+      "What is one small thing—a walk, a shower, a conversation, a verse—that might be a tiny step toward light today?",
+      "How does the story of Elijah (1 Kings 19) comfort you? What does God's response to his despair tell you about how He sees yours?"
+    ],
+    actionPlan: {
+      title: "Small Steps Toward the Light",
+      steps: [
+        "Be honest with God. Use the lament psalms (42, 88, 34) as permission and template. God can handle your darkness—He already knows it. Hiding it from Him adds isolation to pain.",
+        "Tell one trusted person. Depression thrives in isolation. You don't have to tell everyone—just one safe, trusted person who will listen without trying to immediately fix you.",
+        "Consider professional support. A Christian counselor, therapist, or doctor can offer tools and perspective that complement your faith journey. There is no shame in seeking help.",
+        "Protect sleep, nutrition, and movement as best you can. These have a real physiological impact on mood. Even a short walk outside can shift something. Small acts of self-care are not indulgences—they are stewardship.",
+        "Read one psalm each day. Don't try to feel it—just let the words wash over you. The psalmists modeled honest, raw, faithful prayer in dark times.",
+        "Lower the bar. In depression, getting out of bed may be the victory for today. Do not compare yourself to where you were or where others are. God meets you where you are.",
+        "Hold on to one truth. Choose one verse that cuts through the fog and write it somewhere visible. Return to it when the lies get loud. Lamentations 3:22-23 and Psalm 34:18 are good starting points."
+      ]
+    },
+    prayer: "Lord, I am in the dark and I am tired. I don't have the strength to pretend I'm okay. So I come to You as I am—broken, weary, and struggling to see Your light. I don't understand this season. But I choose to believe, even when I cannot feel it, that You are close to the brokenhearted. That Your mercies are new this morning even when yesterday was unbearable. Hold me when I cannot hold on. Speak truth into the lies. Send the right people at the right time. Give me just enough strength for today. I don't need to see the whole road—just the next step. Be my light in this darkness. In Jesus' name, Amen."
+  },
+
   "spiritual-warfare": {
     title: "Spiritual Warfare: Standing Firm Against Spiritual Battles",
     introduction: "There is a battle raging that most people never see. It is not fought with weapons of steel or won through political power—it is a spiritual conflict playing out in the unseen realm, with your soul, your relationships, your faith, and your future as the stakes. The Bible is unambiguous about this reality: we have an enemy who is real, active, and strategic. Peter calls him a roaring lion. Paul says we wrestle not against flesh and blood but against spiritual forces of evil. Jesus himself was tempted in the wilderness by Satan personally. Ignoring this reality does not make you safe—it makes you vulnerable. But the good news is this: the battle has already been decided. At the cross and resurrection of Jesus Christ, the enemy was decisively defeated. His power over believers is broken. What remains is a rear-guard action—a defeated enemy still seeking to steal, kill, and destroy until his final end. This 14-day plan will equip you with the spiritual armor God has given you, teach you how to stand firm in the fight, and fill you with confidence that greater is He who is in you than he who is in the world.",
