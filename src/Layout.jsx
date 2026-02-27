@@ -17,8 +17,8 @@ const pageCache = {};
 
 const navItems = [
 { name: 'Home', icon: Home, page: 'Home' },
-{ name: 'Bible', icon: BookOpen, page: 'Bible' },
 { name: 'Wellness', icon: Heart, page: 'Wellness' },
+{ name: 'Bible', icon: BookOpen, page: 'Bible' },
 { name: 'Journey', icon: TrendingUp, page: 'ProgressDashboard' },
 { name: 'Profile', icon: User, page: 'Profile' },
 ];
