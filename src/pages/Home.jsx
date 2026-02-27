@@ -54,6 +54,8 @@ export default function Home() {
         const gideonComplete = localStorage.getItem('gideon_onboarding_complete');
         if (!gideonComplete) {
           setShowGideonOnboarding(true);
+        } else if (!u.wellness_tour_completed) {
+          setShowWellnessTour(true);
         }
       }
     });
