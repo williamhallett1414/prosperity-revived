@@ -14,6 +14,7 @@ import NutritionDashboard from '@/components/nutrition/NutritionDashboard';
 import ChefDaniel from '@/components/wellness/ChefDaniel';
 import CommunityRecipeFeed from '@/components/wellness/CommunityRecipeFeed';
 import IngredientRecipeBuilder from '@/components/nutrition/IngredientRecipeBuilder';
+import MealPlannerCard from '@/components/nutrition/MealPlannerCard';
 
 export default function Nutrition() {
   const [user, setUser] = useState(null);

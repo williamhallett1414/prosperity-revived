@@ -49,20 +49,28 @@
  */
 import Achievements from './pages/Achievements';
 import AffirmationsPage from './pages/AffirmationsPage';
+import Bible from './pages/Bible';
 import BibleBooks from './pages/BibleBooks';
 import Bookmarks from './pages/Bookmarks';
+import ChallengeDetailPage from './pages/ChallengeDetailPage';
+import Community from './pages/Community';
 import DiscoverRecipes from './pages/DiscoverRecipes';
 import EmotionalCheckInPage from './pages/EmotionalCheckInPage';
+import FoodLogHistory from './pages/FoodLogHistory';
 import Friends from './pages/Friends';
 import GratitudeJournalPage from './pages/GratitudeJournalPage';
+import GroupDetail from './pages/GroupDetail';
 import GroupPlanDetail from './pages/GroupPlanDetail';
 import Groups from './pages/Groups';
 import GrowthPathwaysPage from './pages/GrowthPathwaysPage';
 import HabitBuilderPage from './pages/HabitBuilderPage';
 import HealthWellnessWaiver from './pages/HealthWellnessWaiver';
+import Home from './pages/Home';
 import IdentityInChristPage from './pages/IdentityInChristPage';
+import MealDetailView from './pages/MealDetailView';
 import Messages from './pages/Messages';
 import MindsetResetPage from './pages/MindsetResetPage';
+import MyJournalEntries from './pages/MyJournalEntries';
 import NotificationSettings from './pages/NotificationSettings';
 import Notifications from './pages/Notifications';
 import Nutrition from './pages/Nutrition';
@@ -75,49 +83,49 @@ import Plans from './pages/Plans';
 import Prayer from './pages/Prayer';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import Profile from './pages/Profile';
+import ProgressDashboard from './pages/ProgressDashboard';
 import Search from './pages/Search';
 import SelfCareChallengesPage from './pages/SelfCareChallengesPage';
 import Settings from './pages/Settings';
 import SpiritualGrowth from './pages/SpiritualGrowth';
+import SpiritualInsights from './pages/SpiritualInsights';
 import SubscriptionTerms from './pages/SubscriptionTerms';
 import TermsAndConditions from './pages/TermsAndConditions';
+import UserProfile from './pages/UserProfile';
 import WeeklyReflectionPage from './pages/WeeklyReflectionPage';
 import Wellness from './pages/Wellness';
-import WorkoutProgress from './pages/WorkoutProgress';
-import Workouts from './pages/Workouts';
-import Bible from './pages/Bible';
-import ChallengeDetailPage from './pages/ChallengeDetailPage';
-import Community from './pages/Community';
-import FoodLogHistory from './pages/FoodLogHistory';
-import GroupDetail from './pages/GroupDetail';
-import Home from './pages/Home';
-import MealDetailView from './pages/MealDetailView';
-import MyJournalEntries from './pages/MyJournalEntries';
-import ProgressDashboard from './pages/ProgressDashboard';
-import SpiritualInsights from './pages/SpiritualInsights';
-import UserProfile from './pages/UserProfile';
 import WorkoutCategoryPage from './pages/WorkoutCategoryPage';
+import WorkoutProgress from './pages/WorkoutProgress';
 import WorkoutTrends from './pages/WorkoutTrends';
+import Workouts from './pages/Workouts';
 import __Layout from './Layout.jsx';
 
 
 export const PAGES = {
     "Achievements": Achievements,
     "AffirmationsPage": AffirmationsPage,
+    "Bible": Bible,
     "BibleBooks": BibleBooks,
     "Bookmarks": Bookmarks,
+    "ChallengeDetailPage": ChallengeDetailPage,
+    "Community": Community,
     "DiscoverRecipes": DiscoverRecipes,
     "EmotionalCheckInPage": EmotionalCheckInPage,
+    "FoodLogHistory": FoodLogHistory,
     "Friends": Friends,
     "GratitudeJournalPage": GratitudeJournalPage,
+    "GroupDetail": GroupDetail,
     "GroupPlanDetail": GroupPlanDetail,
     "Groups": Groups,
     "GrowthPathwaysPage": GrowthPathwaysPage,
     "HabitBuilderPage": HabitBuilderPage,
     "HealthWellnessWaiver": HealthWellnessWaiver,
+    "Home": Home,
     "IdentityInChristPage": IdentityInChristPage,
+    "MealDetailView": MealDetailView,
     "Messages": Messages,
     "MindsetResetPage": MindsetResetPage,
+    "MyJournalEntries": MyJournalEntries,
     "NotificationSettings": NotificationSettings,
     "Notifications": Notifications,
     "Nutrition": Nutrition,
@@ -130,29 +138,21 @@ export const PAGES = {
     "Prayer": Prayer,
     "PrivacyPolicy": PrivacyPolicy,
     "Profile": Profile,
+    "ProgressDashboard": ProgressDashboard,
     "Search": Search,
     "SelfCareChallengesPage": SelfCareChallengesPage,
     "Settings": Settings,
     "SpiritualGrowth": SpiritualGrowth,
+    "SpiritualInsights": SpiritualInsights,
     "SubscriptionTerms": SubscriptionTerms,
     "TermsAndConditions": TermsAndConditions,
+    "UserProfile": UserProfile,
     "WeeklyReflectionPage": WeeklyReflectionPage,
     "Wellness": Wellness,
-    "WorkoutProgress": WorkoutProgress,
-    "Workouts": Workouts,
-    "Bible": Bible,
-    "ChallengeDetailPage": ChallengeDetailPage,
-    "Community": Community,
-    "FoodLogHistory": FoodLogHistory,
-    "GroupDetail": GroupDetail,
-    "Home": Home,
-    "MealDetailView": MealDetailView,
-    "MyJournalEntries": MyJournalEntries,
-    "ProgressDashboard": ProgressDashboard,
-    "SpiritualInsights": SpiritualInsights,
-    "UserProfile": UserProfile,
     "WorkoutCategoryPage": WorkoutCategoryPage,
+    "WorkoutProgress": WorkoutProgress,
     "WorkoutTrends": WorkoutTrends,
+    "Workouts": Workouts,
 }
 
 export const pagesConfig = {
