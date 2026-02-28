@@ -30,10 +30,10 @@ export default function WorkoutCategoryPage() {
   };
 
   const categoryColors = {
-    'Cardio': 'from-red-400 to-[#D9B878]',
-    'Strength': 'from-[#AFC7E3] to-cyan-500',
-    'HIIT': 'from-yellow-400 to-orange-500',
-    'Home': 'from-green-400 to-emerald-500'
+    'Cardio': 'from-[#8fa68a] to-[#6b8f72]',
+    'Strength': 'from-[#4a6b50] to-[#8fa68a]',
+    'HIIT': 'from-[#6b8f72] to-[#D9B878]',
+    'Home': 'from-[#8fa68a] to-[#D9B878]'
   };
 
   // Combine premade and user workouts, filter by category (case-insensitive)
@@ -43,7 +43,7 @@ export default function WorkoutCategoryPage() {
   );
 
   return (
-    <div className="min-h-screen bg-[#F2F6FA]">
+    <div className="min-h-screen bg-[#F4F7F4]">
       <UniversalHeader title={`${category} Workouts`} />
 
       <div className="max-w-2xl mx-auto px-4 py-6 pt-20 pb-24">

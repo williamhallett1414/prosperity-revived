@@ -74,9 +74,9 @@ export default function WorkoutCard({
   });
 
   const difficultyColors = {
-    beginner: 'bg-green-100 text-green-800',
-    intermediate: 'bg-yellow-100 text-yellow-800',
-    advanced: 'bg-red-100 text-red-800'
+    beginner: 'bg-[#8fa68a]/20 text-[#4a6b50]',
+    intermediate: 'bg-[#D9B878]/20 text-[#8a6e1a]',
+    advanced: 'bg-[#8fa68a]/15 text-[#0A1A2F]'
   };
 
   return (
@@ -109,7 +109,7 @@ export default function WorkoutCard({
               variant="ghost"
               size="icon"
               onClick={() => setShowShareModal(true)}
-              className="text-emerald-600 hover:text-emerald-700 hover:bg-emerald-50"
+              className="text-[#4a6b50] hover:text-[#6b8f72] hover:bg-[#8fa68a]/10"
             >
               <Share2 className="w-5 h-5" />
             </Button>
@@ -146,7 +146,7 @@ export default function WorkoutCard({
         </div>
         {!isPremade && workout.completed_dates?.length > 0 && (
           <div className="flex items-center gap-1">
-            <CheckCircle className="w-4 h-4 text-emerald-600" />
+            <CheckCircle className="w-4 h-4 text-[#8fa68a]" />
             <span>{workout.completed_dates.length} completed</span>
           </div>
         )}
@@ -175,7 +175,7 @@ export default function WorkoutCard({
           <>
             <Button
               onClick={() => copyWorkout.mutate()}
-              className="flex-1 bg-emerald-600 hover:bg-emerald-700"
+              className="flex-1 bg-gradient-to-r from-[#8fa68a] to-[#6b8f72] hover:opacity-90"
               disabled={copyWorkout.isPending}
             >
               <Copy className="w-4 h-4 mr-2" />
@@ -184,7 +184,7 @@ export default function WorkoutCard({
             <Button
               variant="outline"
               onClick={() => likeWorkout.mutate()}
-              className={`flex items-center gap-2 ${hasLiked ? 'bg-red-50 text-red-600' : ''}`}
+              className={`flex items-center gap-2 ${hasLiked ? 'bg-[#8fa68a]/10 text-[#4a6b50]' : ''}`}
             >
               <ThumbsUp className={`w-4 h-4 ${hasLiked ? 'fill-current' : ''}`} />
               {workout.likes || 0}
@@ -200,7 +200,7 @@ export default function WorkoutCard({
           <>
             <Button
               onClick={() => setShowStartModal(true)}
-              className="flex-1 bg-emerald-600 hover:bg-emerald-700"
+              className="flex-1 bg-gradient-to-r from-[#8fa68a] to-[#6b8f72] hover:opacity-90"
             >
               <Play className="w-4 h-4 mr-2" />
               Start Workout

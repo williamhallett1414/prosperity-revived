@@ -310,7 +310,7 @@ Return ONLY valid JSON array:
       {/* Floating Chat Button */}
       <motion.button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-24 right-4 w-14 h-14 bg-[#D9B878] hover:bg-[#D9B878]/90 text-[#0A1A2F] rounded-full shadow-lg flex items-center justify-center z-50"
+        className="fixed bottom-24 right-4 w-14 h-14 bg-gradient-to-br from-[#8fa68a] to-[#6b8f72] hover:opacity-90 text-white rounded-full shadow-lg flex items-center justify-center z-50"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
         initial={{ scale: 0 }}
