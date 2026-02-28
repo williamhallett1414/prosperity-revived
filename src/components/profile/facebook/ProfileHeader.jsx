@@ -114,7 +114,7 @@ export default function ProfileHeader({ user, friendsCount, userProgress }) {
           {/* Action Buttons */}
           <div className="flex gap-2 justify-center sm:justify-end flex-wrap">
             <Link to={createPageUrl('Messages')}>
-              <Button className="bg-[#FD9C2D] hover:bg-[#FD9C2D]/90 text-white px-5 py-2.5 shadow-sm hover:shadow-md transition-all">
+              <Button className="bg-gradient-to-br from-[#c9a227] to-[#D9B878] hover:opacity-90 text-white px-5 py-2.5 shadow-sm hover:shadow-md transition-all">
                 <MessageCircle className="w-4 h-4 mr-2" />
                 Message
               </Button>
