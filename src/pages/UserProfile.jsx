@@ -246,7 +246,7 @@ export default function UserProfile() {
         {/* Profile Info Overlay */}
         <div className="absolute bottom-0 left-0 right-0 px-4 pb-4">
           <div className="flex items-end gap-4">
-            <div className="w-24 h-24 rounded-full overflow-hidden bg-gradient-to-br from-[#c9a227] to-[#8fa68a] flex items-center justify-center text-3xl font-bold border-4 border-white shadow-xl">
+            <div className="w-24 h-24 rounded-full overflow-hidden bg-gradient-to-br from-[#c9a227] to-[#D9B878] flex items-center justify-center text-3xl font-bold border-4 border-white shadow-xl">
               {profileUser.profile_image_url ? (
                 <img src={profileUser.profile_image_url} alt={profileUser.full_name} className="w-full h-full object-cover" />
               ) : (
@@ -364,7 +364,7 @@ export default function UserProfile() {
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: index * 0.05 }}
-                    className="w-16 h-16 rounded-full overflow-hidden bg-gradient-to-br from-[#c9a227] to-[#8fa68a] flex items-center justify-center text-white font-semibold shadow-md"
+                    className="w-16 h-16 rounded-full overflow-hidden bg-gradient-to-br from-[#c9a227] to-[#D9B878] flex items-center justify-center text-white font-semibold shadow-md"
                   >
                     {friend.profile_image_url ? (
                       <img src={friend.profile_image_url} alt={friend.full_name} className="w-full h-full object-cover" />
@@ -458,7 +458,7 @@ export default function UserProfile() {
       {completedPlans.length > 0 && (
         <div className="px-4 mb-6">
           <h2 className="text-xl font-bold text-[#0A1A2F] mb-4 flex items-center gap-2">
-            <CheckCircle className="w-6 h-6 text-[#8fa68a]" />
+            <CheckCircle className="w-6 h-6 text-[#c9a227]" />
             Completed Plans ({completedPlans.length})
           </h2>
           <div className="space-y-3">
@@ -542,7 +542,7 @@ function EditProfileSheet({ open, onOpenChange, currentUser, onSave }) {
         <div className="space-y-5 pb-6">
           {/* Profile Photo */}
           <div className="flex flex-col items-center gap-3">
-            <div className="w-20 h-20 rounded-full overflow-hidden bg-gradient-to-br from-[#c9a227] to-[#8fa68a] flex items-center justify-center text-2xl font-bold text-white border-2 border-[#D9B878]/40">
+            <div className="w-20 h-20 rounded-full overflow-hidden bg-gradient-to-br from-[#c9a227] to-[#D9B878] flex items-center justify-center text-2xl font-bold text-white border-2 border-[#D9B878]/40">
               {profileImageUrl ? (
                 <img src={profileImageUrl} alt="Profile" className="w-full h-full object-cover" />
               ) : (

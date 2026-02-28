@@ -87,32 +87,32 @@ export default function InterestsGoalsEditor({ user }) {
 
   const colorClasses = {
     purple: {
-      bg: 'bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5',
-      border: 'border-[#D9B878]/40 dark:border-[#D9B878]/20',
-      icon: 'text-[#8a6e1a] dark:text-[#c9a227]',
-      badge: 'bg-[#FAD98D]/20 text-[#3C4E53] dark:bg-[#FAD98D]/10 dark:text-[#D9B878]',
-      button: 'bg-[#c9a227] hover:bg-[#b89320]'
+      bg: 'bg-[#FAD98D]/10',
+      border: 'border-[#D9B878]/40',
+      icon: 'text-[#c9a227]',
+      badge: 'bg-[#FAD98D]/20 text-[#8a6e1a]',
+      button: 'bg-[#c9a227] hover:bg-[#b89320] text-white'
     },
     pink: {
-      bg: 'bg-[#FAD98D]/10 dark:bg-[#0A1A2F]/20',
-      border: 'border-[#D9B878]/40 dark:border-pink-700',
-      icon: 'text-[#c9a227] dark:text-pink-400',
-      badge: 'bg-[#FAD98D]/20 text-[#8a6e1a] dark:bg-[#0A1A2F]/50 dark:text-[#FAD98D]',
-      button: 'bg-pink-600 hover:bg-pink-700'
+      bg: 'bg-[#FAD98D]/10',
+      border: 'border-[#D9B878]/40',
+      icon: 'text-[#c9a227]',
+      badge: 'bg-[#FAD98D]/20 text-[#8a6e1a]',
+      button: 'bg-[#c9a227] hover:bg-[#b89320] text-white'
     },
     blue: {
-      bg: 'bg-[#F2F6FA] dark:bg-[#0A1A2F]/20',
-      border: 'border-[#AFC7E3]/40 dark:border-blue-700',
-      icon: 'text-[#3C4E53] dark:text-blue-400',
-      badge: 'bg-[#AFC7E3]/20 text-[#3C4E53] dark:bg-[#0A1A2F]/50 dark:text-blue-300',
-      button: 'bg-blue-600 hover:bg-blue-700'
+      bg: 'bg-[#FAD98D]/10',
+      border: 'border-[#D9B878]/40',
+      icon: 'text-[#c9a227]',
+      badge: 'bg-[#FAD98D]/20 text-[#8a6e1a]',
+      button: 'bg-[#c9a227] hover:bg-[#b89320] text-white'
     },
     green: {
-      bg: 'bg-green-50 dark:bg-green-900/20',
-      border: 'border-green-200 dark:border-green-700',
-      icon: 'text-green-600 dark:text-green-400',
-      badge: 'bg-green-100 text-green-700 dark:bg-green-900/50 dark:text-green-300',
-      button: 'bg-green-600 hover:bg-green-700'
+      bg: 'bg-[#FAD98D]/10',
+      border: 'border-[#D9B878]/40',
+      icon: 'text-[#c9a227]',
+      badge: 'bg-[#FAD98D]/20 text-[#8a6e1a]',
+      button: 'bg-[#c9a227] hover:bg-[#b89320] text-white'
     }
   };
 
@@ -128,13 +128,13 @@ export default function InterestsGoalsEditor({ user }) {
           <Card key={section.key} className={`p-4 ${colors.bg} ${colors.border}`}>
             <div className="flex items-center gap-2 mb-4">
               <Icon className={`w-5 h-5 ${colors.icon}`} />
-              <h3 className="font-semibold text-gray-900 dark:text-white">{section.title}</h3>
+              <h3 className="font-semibold text-[#0A1A2F]">{section.title}</h3>
             </div>
 
             {/* Interests */}
             <div className="mb-4">
               <div className="flex items-center justify-between mb-2">
-                <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                <label className="text-sm font-medium text-[#0A1A2F]/75">
                   Interests
                 </label>
                 {editMode !== `${section.key}-interests` && (
@@ -190,7 +190,7 @@ export default function InterestsGoalsEditor({ user }) {
 
               <div className="flex flex-wrap gap-2">
                 {interests.length === 0 && (
-                  <p className="text-sm text-gray-500 dark:text-gray-400 italic">
+                  <p className="text-sm text-[#0A1A2F]/60 italic">
                     No interests added yet
                   </p>
                 )}
@@ -211,7 +211,7 @@ export default function InterestsGoalsEditor({ user }) {
             {/* Goals */}
             <div>
               <div className="flex items-center justify-between mb-2">
-                <label className="text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center gap-1">
+                <label className="text-sm font-medium text-[#0A1A2F]/75 flex items-center gap-1">
                   <Target className="w-4 h-4" />
                   Goals
                 </label>
@@ -268,7 +268,7 @@ export default function InterestsGoalsEditor({ user }) {
 
               <div className="flex flex-wrap gap-2">
                 {goals.length === 0 && (
-                  <p className="text-sm text-gray-500 dark:text-gray-400 italic">
+                  <p className="text-sm text-[#0A1A2F]/60 italic">
                     No goals added yet
                   </p>
                 )}

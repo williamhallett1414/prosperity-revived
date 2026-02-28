@@ -89,8 +89,8 @@ export default function BannerCustomizer({ isOpen, onClose, currentBanner, onSav
           <div>
             <p className="text-sm font-medium mb-2">Upload Custom Image</p>
             <label className="cursor-pointer">
-              <div className="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-xl p-4 hover:border-[#FD9C2D] transition-colors">
-                <div className="flex items-center justify-center gap-2 text-gray-500 dark:text-gray-400">
+              <div className="border-2 border-dashed border-[#D9B878]/40 rounded-xl p-4 hover:border-[#c9a227] transition-colors">
+                <div className="flex items-center justify-center gap-2 text-[#0A1A2F]/60">
                   {uploading ? (
                     <>
                       <Loader2 className="w-5 h-5 animate-spin" />
@@ -124,8 +124,8 @@ export default function BannerCustomizer({ isOpen, onClose, currentBanner, onSav
                   onClick={() => setSelectedBanner(banner)}
                   className={`aspect-video rounded-lg overflow-hidden border-2 transition-all ${
                     selectedBanner === banner
-                      ? 'border-[#FD9C2D] ring-2 ring-[#FD9C2D]/20'
-                      : 'border-gray-200 dark:border-gray-700 hover:border-[#FD9C2D]/50'
+                      ? 'border-[#c9a227] ring-2 ring-[#c9a227]/20'
+                      : 'border-[#D9B878]/25 hover:border-[#c9a227]/50'
                   }`}
                 >
                   <img
@@ -146,7 +146,7 @@ export default function BannerCustomizer({ isOpen, onClose, currentBanner, onSav
             <Button
               onClick={handleSave}
               disabled={!selectedBanner || saving}
-              className="bg-gradient-to-r from-[#FD9C2D] to-[#FAD98D] hover:from-[#E89020] hover:to-[#F0C847]"
+              className="bg-gradient-to-r from-[#c9a227] to-[#D9B878] hover:from-[#b89320] hover:to-[#c9a227]"
             >
               {saving ? (
                 <>

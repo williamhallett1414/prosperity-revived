@@ -11,15 +11,15 @@ export default function ProfileJourneyTab({ user, userProgress, workoutSessions,
       icon: Dumbbell,
       label: 'Workouts',
       value: userProgress?.workouts_completed || workoutSessions.length || 0,
-      color: 'from-orange-400 to-red-500',
-      bg: 'bg-orange-50'
+      color: 'from-[#0A1A2F] to-[#1a3a5c]',
+      bg: 'bg-[#0A1A2F]/5'
     },
     {
       icon: BookOpen,
       label: 'Bible Readings',
       value: userProgress?.bible_readings_completed || 0,
-      color: 'from-[#AFC7E3] to-[#AFC7E3]',
-      bg: 'bg-[#F2F6FA]'
+      color: 'from-[#c9a227] to-[#D9B878]',
+      bg: 'bg-[#FAD98D]/15'
     },
     {
       icon: Brain,
@@ -27,13 +27,14 @@ export default function ProfileJourneyTab({ user, userProgress, workoutSessions,
       value: userProgress?.meditations_completed || meditationSessions.length || 0,
       color: 'from-[#D9B878] to-[#FAD98D]',
       bg: 'bg-[#FAD98D]/10'
+
     },
     {
       icon: BookOpen,
       label: 'Journal Entries',
       value: journalEntries.length || 0,
-      color: 'from-green-400 to-teal-500',
-      bg: 'bg-green-50'
+      color: 'from-[#c9a227] to-[#0A1A2F]',
+      bg: 'bg-[#FAD98D]/10'
     },
   ];
 
@@ -46,7 +47,7 @@ export default function ProfileJourneyTab({ user, userProgress, workoutSessions,
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-gradient-to-br from-[#3C4E53] to-[#2d3a3e] rounded-2xl p-5 text-white"
+          className="bg-gradient-to-br from-[#0A1A2F] to-[#1a3a5c] rounded-2xl p-5 text-white"
         >
           <div className="flex items-center justify-between">
             <div>
@@ -80,8 +81,8 @@ export default function ProfileJourneyTab({ user, userProgress, workoutSessions,
               <div className={`w-9 h-9 rounded-xl bg-gradient-to-br ${stat.color} flex items-center justify-center mb-3`}>
                 <Icon className="w-5 h-5 text-white" />
               </div>
-              <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
-              <p className="text-xs text-gray-500 mt-0.5">{stat.label}</p>
+              <p className="text-2xl font-bold text-[#0A1A2F]">{stat.value}</p>
+              <p className="text-xs text-[#0A1A2F]/60 mt-0.5">{stat.label}</p>
             </motion.div>
           );
         })}
@@ -91,10 +92,10 @@ export default function ProfileJourneyTab({ user, userProgress, workoutSessions,
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="bg-[#F2F6FA] rounded-2xl p-5 text-center"
+          className="bg-[#FAD98D]/10 rounded-2xl p-5 text-center"
         >
-          <p className="text-sm text-[#3C4E53] mb-1 font-medium">Your journey is just beginning!</p>
-          <p className="text-xs text-[#AFC7E3] mb-3">Log workouts, read the Bible, and journal to see your progress here.</p>
+          <p className="text-sm text-[#0A1A2F]/70 mb-1 font-medium">Your journey is just beginning!</p>
+          <p className="text-xs text-[#0A1A2F]/50 mb-3">Log workouts, read the Bible, and journal to see your progress here.</p>
         </motion.div>
       )}
 

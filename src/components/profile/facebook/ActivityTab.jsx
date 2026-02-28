@@ -5,12 +5,12 @@ import { BookOpen, Dumbbell, Heart, Camera, MessageCircle, Users } from 'lucide-
 export default function ActivityTab({ userProgress }) {
   if (!userProgress) {
     return (
-      <div className="bg-white rounded-xl shadow-sm p-12 sm:p-16 text-center border border-gray-100">
-        <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+      <div className="bg-white rounded-xl shadow-sm p-12 sm:p-16 text-center border border-[#D9B878]/25">
+        <div className="w-20 h-20 bg-[#FAD98D]/15 rounded-full flex items-center justify-center mx-auto mb-4">
           <span className="text-4xl">📊</span>
         </div>
-        <p className="text-gray-600 text-lg font-semibold">No activity yet</p>
-        <p className="text-gray-400 text-sm mt-2">Start engaging to see your activity</p>
+        <p className="text-[#0A1A2F]/70 text-lg font-semibold">No activity yet</p>
+        <p className="text-[#0A1A2F]/50 text-sm mt-2">Start engaging to see your activity</p>
       </div>
     );
   }
@@ -20,56 +20,56 @@ export default function ActivityTab({ userProgress }) {
       icon: BookOpen,
       label: 'Reading Plans Completed',
       value: userProgress.reading_plans_completed || 0,
-      color: 'from-[#AFC7E3] to-[#D9B878]',
+      color: 'from-[#c9a227] to-[#D9B878]',
       emoji: '📖'
     },
     {
       icon: MessageCircle,
       label: 'Community Posts',
       value: userProgress.community_posts || 0,
-      color: 'from-[#FAD98D]/100 to-[#c9a227]',
+      color: 'from-[#D9B878] to-[#c9a227]',
       emoji: '💬'
     },
     {
       icon: Dumbbell,
       label: 'Workouts Completed',
       value: userProgress.workouts_completed || 0,
-      color: 'from-green-500 to-green-600',
+      color: 'from-[#0A1A2F] to-[#1a3a5c]',
       emoji: '💪'
     },
     {
       icon: Heart,
       label: 'Meditations Completed',
       value: userProgress.meditations_completed || 0,
-      color: 'from-[#FAD98D]/100 to-[#c9a227]',
+      color: 'from-[#c9a227] to-[#FAD98D]',
       emoji: '🧘'
     },
     {
       icon: Users,
       label: 'Friends',
       value: userProgress.friends_count || 0,
-      color: 'from-[#AFC7E3] to-[#3C4E53]',
+      color: 'from-[#0A1A2F] to-[#c9a227]',
       emoji: '👥'
     },
     {
       icon: MessageCircle,
       label: 'Comments Made',
       value: userProgress.comments_count || 0,
-      color: 'from-orange-500 to-orange-600',
+      color: 'from-[#D9B878] to-[#FAD98D]',
       emoji: '💭'
     },
     {
       icon: MessageCircle,
       label: 'Messages Sent',
       value: userProgress.messages_sent || 0,
-      color: 'from-teal-500 to-teal-600',
+      color: 'from-[#c9a227] to-[#0A1A2F]',
       emoji: '✉️'
     },
     {
       icon: Camera,
       label: 'Photos Uploaded',
       value: userProgress.photos_uploaded || 0,
-      color: 'from-amber-500 to-amber-600',
+      color: 'from-[#FAD98D] to-[#c9a227]',
       emoji: '📸'
     }
   ];
@@ -80,8 +80,8 @@ export default function ActivityTab({ userProgress }) {
       animate={{ opacity: 1 }}
       className="space-y-4"
     >
-      <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
-        <h2 className="text-2xl font-bold text-gray-900 mb-6">Activity Overview</h2>
+      <div className="bg-white rounded-xl shadow-sm p-6 border border-[#D9B878]/25">
+        <h2 className="text-2xl font-bold text-[#0A1A2F] mb-6">Activity Overview</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {activities.map((activity, index) => {
             const Icon = activity.icon;
@@ -106,50 +106,50 @@ export default function ActivityTab({ userProgress }) {
       </div>
 
       {/* Recent Activity Timeline */}
-      <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
-        <h3 className="text-xl font-bold text-gray-900 mb-5">Recent Milestones</h3>
+      <div className="bg-white rounded-xl shadow-sm p-6 border border-[#D9B878]/25">
+        <h3 className="text-xl font-bold text-[#0A1A2F] mb-5">Recent Milestones</h3>
         <div className="space-y-4">
           {userProgress.reading_plans_completed > 0 && (
-            <div className="flex items-start gap-3 p-3 bg-[#F2F6FA] rounded-lg border border-blue-100">
-              <div className="w-10 h-10 rounded-full bg-[#F2F6FA]0 flex items-center justify-center text-white flex-shrink-0">
+            <div className="flex items-start gap-3 p-3 bg-[#FAD98D]/10 rounded-lg border border-[#D9B878]/25">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#c9a227] to-[#D9B878] flex items-center justify-center text-white flex-shrink-0">
                 📖
               </div>
               <div>
-                <p className="font-semibold text-gray-900">Completed Reading Plans</p>
-                <p className="text-sm text-gray-600">{userProgress.reading_plans_completed} plan{userProgress.reading_plans_completed !== 1 ? 's' : ''} completed</p>
+                <p className="font-semibold text-[#0A1A2F]">Completed Reading Plans</p>
+                <p className="text-sm text-[#0A1A2F]/70">{userProgress.reading_plans_completed} plan{userProgress.reading_plans_completed !== 1 ? 's' : ''} completed</p>
               </div>
             </div>
           )}
           {userProgress.workouts_completed > 0 && (
-            <div className="flex items-start gap-3 p-3 bg-green-50 rounded-lg border border-green-100">
-              <div className="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center text-white flex-shrink-0">
+            <div className="flex items-start gap-3 p-3 bg-[#FAD98D]/10 rounded-lg border border-[#D9B878]/25">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#c9a227] to-[#D9B878] flex items-center justify-center text-white flex-shrink-0">
                 💪
               </div>
               <div>
-                <p className="font-semibold text-gray-900">Fitness Journey</p>
-                <p className="text-sm text-gray-600">{userProgress.workouts_completed} workout{userProgress.workouts_completed !== 1 ? 's' : ''} completed</p>
+                <p className="font-semibold text-[#0A1A2F]">Fitness Journey</p>
+                <p className="text-sm text-[#0A1A2F]/70">{userProgress.workouts_completed} workout{userProgress.workouts_completed !== 1 ? 's' : ''} completed</p>
               </div>
             </div>
           )}
           {userProgress.meditations_completed > 0 && (
-            <div className="flex items-start gap-3 p-3 bg-[#FAD98D]/10 rounded-lg border border-pink-100">
-              <div className="w-10 h-10 rounded-full bg-[#FAD98D]/100 flex items-center justify-center text-white flex-shrink-0">
+            <div className="flex items-start gap-3 p-3 bg-[#FAD98D]/10 rounded-lg border border-[#D9B878]/25">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#c9a227] to-[#D9B878] flex items-center justify-center text-white flex-shrink-0">
                 🧘
               </div>
               <div>
-                <p className="font-semibold text-gray-900">Mindfulness Practice</p>
-                <p className="text-sm text-gray-600">{userProgress.meditations_completed} meditation{userProgress.meditations_completed !== 1 ? 's' : ''} completed</p>
+                <p className="font-semibold text-[#0A1A2F]">Mindfulness Practice</p>
+                <p className="text-sm text-[#0A1A2F]/70">{userProgress.meditations_completed} meditation{userProgress.meditations_completed !== 1 ? 's' : ''} completed</p>
               </div>
             </div>
           )}
           {userProgress.friends_count > 0 && (
-            <div className="flex items-start gap-3 p-3 bg-[#F2F6FA] rounded-lg border border-indigo-100">
-              <div className="w-10 h-10 rounded-full bg-[#F2F6FA]0 flex items-center justify-center text-white flex-shrink-0">
+            <div className="flex items-start gap-3 p-3 bg-[#FAD98D]/10 rounded-lg border border-[#D9B878]/25">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#c9a227] to-[#D9B878] flex items-center justify-center text-white flex-shrink-0">
                 👥
               </div>
               <div>
-                <p className="font-semibold text-gray-900">Building Community</p>
-                <p className="text-sm text-gray-600">{userProgress.friends_count} friend{userProgress.friends_count !== 1 ? 's' : ''} connected</p>
+                <p className="font-semibold text-[#0A1A2F]">Building Community</p>
+                <p className="text-sm text-[#0A1A2F]/70">{userProgress.friends_count} friend{userProgress.friends_count !== 1 ? 's' : ''} connected</p>
               </div>
             </div>
           )}

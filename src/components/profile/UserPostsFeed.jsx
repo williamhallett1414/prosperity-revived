@@ -89,7 +89,7 @@ export default function UserPostsFeed({ userEmail, isOwnProfile }) {
   if (posts.length === 0) {
     return (
       <div className="px-4 py-12 text-center">
-        <p className="text-gray-500 dark:text-gray-400">No posts yet</p>
+        <p className="text-[#0A1A2F]/60">No posts yet</p>
       </div>
     );
   }
@@ -109,17 +109,17 @@ export default function UserPostsFeed({ userEmail, isOwnProfile }) {
           >
             <Card className="overflow-hidden">
               {/* Post Header */}
-              <div className="p-4 border-b border-gray-200 dark:border-gray-700 flex items-start justify-between">
+              <div className="p-4 border-b border-[#D9B878]/25 flex items-start justify-between">
                 <div className="flex-1">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#FD9C2D] to-[#FAD98D] flex items-center justify-center font-bold text-white">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#c9a227] to-[#D9B878] flex items-center justify-center font-bold text-white">
                       {post.user_name?.charAt(0) || 'U'}
                     </div>
                     <div>
-                      <p className="font-semibold text-[#1a1a2e] dark:text-white">
+                      <p className="font-semibold text-[#0A1A2F]">
                         {post.user_name || 'Anonymous'}
                       </p>
-                      <p className="text-xs text-gray-500 dark:text-gray-400">
+                      <p className="text-xs text-[#0A1A2F]/60">
                         {new Date(post.created_date).toLocaleDateString()}
                       </p>
                     </div>
@@ -130,8 +130,8 @@ export default function UserPostsFeed({ userEmail, isOwnProfile }) {
                 {isOwnProfile && (
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                      <button className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full">
-                        <MoreVertical className="w-5 h-5 text-gray-500" />
+                      <button className="p-2 hover:bg-[#FAD98D]/10 rounded-full">
+                        <MoreVertical className="w-5 h-5 text-[#0A1A2F]/50" />
                       </button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
@@ -141,7 +141,7 @@ export default function UserPostsFeed({ userEmail, isOwnProfile }) {
                       </DropdownMenuItem>
                       <DropdownMenuItem
                         onClick={() => handleDelete(post.id)}
-                        className="text-red-600"
+                        className="text-[#c9a227]"
                       >
                         <Trash2 className="w-4 h-4 mr-2" />
                         Delete
@@ -165,7 +165,7 @@ export default function UserPostsFeed({ userEmail, isOwnProfile }) {
                       <Button
                         onClick={handleSaveEdit}
                         disabled={updatePostMutation.isPending}
-                        className="flex-1 bg-[#FD9C2D] hover:bg-[#E89020] text-white"
+                        className="flex-1 bg-[#c9a227] hover:bg-[#b89320] text-white"
                         size="sm"
                       >
                         Save
@@ -185,11 +185,11 @@ export default function UserPostsFeed({ userEmail, isOwnProfile }) {
                   </div>
                 ) : (
                   <>
-                    <p className="text-gray-800 dark:text-gray-200 mb-3">{post.content}</p>
+                    <p className="text-[#0A1A2F]/80 mb-3">{post.content}</p>
 
                     {/* Post Image */}
                     {post.image_url && (
-                      <div className="mb-3 rounded-lg overflow-hidden bg-gray-200 dark:bg-gray-700 max-h-96">
+                      <div className="mb-3 rounded-lg overflow-hidden bg-[#F2F6FA] max-h-96">
                         <img
                           src={post.image_url}
                           alt="Post"
@@ -200,11 +200,11 @@ export default function UserPostsFeed({ userEmail, isOwnProfile }) {
 
                     {/* Verse if included */}
                     {post.verse_text && (
-                      <div className="mb-3 p-3 bg-gradient-to-br from-[#FD9C2D]/10 to-[#FAD98D]/10 rounded-lg border-l-4 border-[#FD9C2D]">
-                        <p className="font-semibold text-sm text-[#1a1a2e] dark:text-white mb-1">
+                      <div className="mb-3 p-3 bg-gradient-to-br from-[#c9a227]/10 to-[#FAD98D]/10 rounded-lg border-l-4 border-[#c9a227]">
+                        <p className="font-semibold text-sm text-[#0A1A2F] mb-1">
                           {post.verse_book} {post.verse_chapter}:{post.verse_number}
                         </p>
-                        <p className="text-sm text-gray-700 dark:text-gray-300 italic">
+                        <p className="text-sm text-[#0A1A2F]/75 italic">
                           "{post.verse_text}"
                         </p>
                       </div>
@@ -216,12 +216,12 @@ export default function UserPostsFeed({ userEmail, isOwnProfile }) {
               {/* Post Stats & Actions */}
               {!isEditing && (
                 <>
-                  <div className="px-4 py-2 border-t border-gray-200 dark:border-gray-700 flex items-center justify-between text-sm text-gray-600 dark:text-gray-400">
+                  <div className="px-4 py-2 border-t border-[#D9B878]/25 flex items-center justify-between text-sm text-[#0A1A2F]/60">
                     <span>{post.likes || 0} likes</span>
                     <span>{postComments.length} comments</span>
                   </div>
 
-                  <div className="px-4 py-3 border-t border-gray-200 dark:border-gray-700 flex items-center gap-4">
+                  <div className="px-4 py-3 border-t border-[#D9B878]/25 flex items-center gap-4">
                     <button
                       onClick={() =>
                         toggleLikeMutation.mutate({
@@ -229,7 +229,7 @@ export default function UserPostsFeed({ userEmail, isOwnProfile }) {
                           currentLikes: post.likes || 0
                         })
                       }
-                      className="flex-1 flex items-center justify-center gap-2 py-2 text-gray-600 dark:text-gray-400 hover:text-[#FD9C2D] transition-colors"
+                      className="flex-1 flex items-center justify-center gap-2 py-2 text-[#0A1A2F]/60 hover:text-[#c9a227] transition-colors"
                     >
                       <Heart className="w-5 h-5" />
                       Like
@@ -240,17 +240,17 @@ export default function UserPostsFeed({ userEmail, isOwnProfile }) {
                   {postComments.length > 0 && (
                     <div className="px-4 pb-4 space-y-2">
                       {postComments.slice(0, 2).map(comment => (
-                        <div key={comment.id} className="bg-gray-50 dark:bg-gray-800 rounded-lg p-3">
-                          <p className="font-semibold text-sm text-[#1a1a2e] dark:text-white">
+                        <div key={comment.id} className="bg-[#FAD98D]/10 rounded-lg p-3">
+                          <p className="font-semibold text-sm text-[#0A1A2F]">
                             {comment.user_name}
                           </p>
-                          <p className="text-sm text-gray-700 dark:text-gray-300">
+                          <p className="text-sm text-[#0A1A2F]/75">
                             {comment.content}
                           </p>
                         </div>
                       ))}
                       {postComments.length > 2 && (
-                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                        <p className="text-xs text-[#0A1A2F]/50">
                           +{postComments.length - 2} more comments
                         </p>
                       )}
