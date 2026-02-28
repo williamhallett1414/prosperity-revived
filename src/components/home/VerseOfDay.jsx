@@ -61,7 +61,7 @@ export default function VerseOfDay({ onBookmark }) {
             <Button
               variant="ghost"
               size="sm"
-              className="text-white/70 hover:text-white hover:bg-white/10"
+              className="text-[#0A1A2F]/60 hover:text-[#0A1A2F] hover:bg-[#D9B878]/20"
             >
               <ChevronDown className="w-4 h-4 mr-2" />
               Read More
@@ -71,7 +71,7 @@ export default function VerseOfDay({ onBookmark }) {
             variant="ghost"
             size="sm"
             onClick={handleShare}
-            className="text-white/70 hover:text-white hover:bg-white/10"
+            className="text-[#0A1A2F]/60 hover:text-[#0A1A2F] hover:bg-[#D9B878]/20"
           >
             <Share2 className="w-4 h-4 mr-2" />
             Share
@@ -80,7 +80,7 @@ export default function VerseOfDay({ onBookmark }) {
             variant="ghost"
             size="sm"
             onClick={handleBookmark}
-            className="text-white/70 hover:text-white hover:bg-white/10"
+            className="text-[#0A1A2F]/60 hover:text-[#0A1A2F] hover:bg-[#D9B878]/20"
           >
             <Bookmark className="w-4 h-4 mr-2" />
             Save
