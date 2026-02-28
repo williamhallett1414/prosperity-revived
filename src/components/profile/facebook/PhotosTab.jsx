@@ -85,7 +85,7 @@ export default function PhotosTab({ user }) {
           </h2>
           <Button
             onClick={() => setShowUploadModal(true)}
-            className="bg-[#D9B878] hover:bg-[#D9B878]/90 text-[#0A1A2F]"
+            className="bg-gradient-to-br from-[#c9a227] to-[#D9B878] hover:opacity-90 text-white"
           >
             <Plus className="w-4 h-4 mr-2" />
             Add Photo
