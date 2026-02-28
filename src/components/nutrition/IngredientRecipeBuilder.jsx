@@ -107,7 +107,7 @@ Requirements:
     <div className="bg-white rounded-2xl shadow-sm p-5">
       {/* Header */}
       <div className="flex items-center gap-3 mb-1">
-        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#FD9C2D] to-[#E89020] flex items-center justify-center flex-shrink-0">
+        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#8fa68a] to-[#6b8f72] flex items-center justify-center flex-shrink-0">
           <ChefHat className="w-5 h-5 text-white" />
         </div>
         <div>
@@ -128,7 +128,7 @@ Requirements:
         <Button
           onClick={addIngredient}
           disabled={!inputValue.trim()}
-          className="bg-gradient-to-r from-[#FD9C2D] to-[#E89020] text-white px-3"
+          className="bg-gradient-to-r from-[#8fa68a] to-[#6b8f72] text-white px-3"
           size="sm"
         >
           <Plus className="w-4 h-4" />
@@ -165,7 +165,7 @@ Requirements:
         onClick={generateRecipes}
         disabled={ingredients.length < 2 || isGenerating}
         className={`w-full mt-4 text-white font-semibold ${
-          ingredients.length < 2 ? 'opacity-50 cursor-not-allowed bg-[#FD9C2D]' : 'bg-gradient-to-r from-[#FD9C2D] to-[#E89020]'
+          ingredients.length < 2 ? 'opacity-50 cursor-not-allowed bg-[#8fa68a]' : 'bg-gradient-to-r from-[#8fa68a] to-[#6b8f72]'
         }`}
       >
         {isGenerating ? (
@@ -244,7 +244,7 @@ Requirements:
                   {/* View Full Recipe Toggle */}
                   <button
                     onClick={() => toggleExpand(recipe.name)}
-                    className="flex items-center gap-1 text-[#FD9C2D] text-sm font-semibold"
+                    className="flex items-center gap-1 text-[#4a6b50] text-sm font-semibold"
                   >
                     {isExpanded ? (
                       <>Hide Recipe <ChevronUp className="w-4 h-4" /></>
@@ -273,7 +273,7 @@ Requirements:
                           <ol className="space-y-2">
                             {(recipe.steps || []).map((step, i) => (
                               <li key={i} className="flex gap-2 text-sm text-[#0A1A2F]/80 leading-relaxed">
-                                <span className="flex-shrink-0 w-5 h-5 rounded-full bg-gradient-to-br from-[#FD9C2D] to-[#E89020] text-white text-xs flex items-center justify-center font-bold mt-0.5">
+                                <span className="flex-shrink-0 w-5 h-5 rounded-full bg-gradient-to-br from-[#8fa68a] to-[#6b8f72] text-white text-xs flex items-center justify-center font-bold mt-0.5">
                                   {i + 1}
                                 </span>
                                 <span>{step}</span>
@@ -295,7 +295,7 @@ Requirements:
                                 { label: 'Fiber', value: recipe.nutrition.fiber },
                               ].map(({ label, value }) => (
                                 <div key={label} className="flex flex-col items-center">
-                                  <p className="text-sm font-bold text-[#FD9C2D]">{value || '—'}</p>
+                                  <p className="text-sm font-bold text-[#4a6b50]">{value || '—'}</p>
                                   <p className="text-xs text-[#0A1A2F]/50 mt-0.5">{label}</p>
                                 </div>
                               ))}
@@ -325,7 +325,7 @@ Requirements:
                             <ul className="space-y-1">
                               {recipe.chefTips.map((tip, i) => (
                                 <li key={i} className="text-sm text-[#0A1A2F]/75 flex gap-2">
-                                  <span className="text-[#FD9C2D] flex-shrink-0">•</span>
+                                  <span className="text-[#4a6b50] flex-shrink-0">•</span>
                                   {tip}
                                 </li>
                               ))}

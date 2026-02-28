@@ -40,7 +40,7 @@ export default function Nutrition() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FFF8F0] pb-24">
+    <div className="min-h-screen bg-[#F4F7F4] pb-24">
       <div className="px-4 pt-6 pb-6">
         <PullToRefresh onRefresh={handleRefresh}>
           <div className="space-y-8 max-w-2xl mx-auto">
@@ -67,9 +67,9 @@ export default function Nutrition() {
             {/* Discover Recipes Section */}
             <div className="pt-2">
               <Link to={createPageUrl('DiscoverRecipes')}>
-                <div className="bg-white border border-[#FDE8C8] text-[#0A1A2F] p-5 rounded-2xl cursor-pointer hover:shadow-lg transition-shadow">
+                <div className="bg-white border border-[#8fa68a]/20 text-[#0A1A2F] p-5 rounded-2xl cursor-pointer hover:shadow-lg transition-shadow">
                   <div className="flex items-center gap-3 mb-2">
-                    <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#FD9C2D] to-[#E89020] flex items-center justify-center">
+                    <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#8fa68a] to-[#6b8f72] flex items-center justify-center">
                       <UtensilsCrossed className="w-5 h-5 text-white" />
                     </div>
                     <h3 className="text-lg font-semibold">Discover Recipes</h3>

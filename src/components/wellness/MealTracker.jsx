@@ -118,11 +118,11 @@ export default function MealTracker() {
         </div>
 
         <div className="grid grid-cols-4 gap-2 mb-4">
-          <div className="text-center p-2 bg-[#FD9C2D]/10 dark:bg-[#FD9C2D]/20 rounded">
-            <p className="text-lg font-bold text-[#FD9C2D]">{totalCalories}</p>
+          <div className="text-center p-2 bg-[#8fa68a]/10 dark:bg-[#8fa68a]/20 rounded">
+            <p className="text-lg font-bold text-[#4a6b50]">{totalCalories}</p>
             <p className="text-xs text-gray-500 dark:text-gray-400">Calories</p>
           </div>
-          <div className="text-center p-2 bg-[#FFF8F0] dark:bg-[#0A1A2F]/20 rounded">
+          <div className="text-center p-2 bg-[#F4F7F4] dark:bg-[#0A1A2F]/20 rounded">
             <p className="text-lg font-bold text-[#3C4E53]">{Math.round(totalProtein)}g</p>
             <p className="text-xs text-gray-500 dark:text-gray-400">Protein</p>
           </div>
@@ -130,8 +130,8 @@ export default function MealTracker() {
             <p className="text-lg font-bold text-[#D9B878]">{Math.round(totalCarbs)}g</p>
             <p className="text-xs text-gray-500 dark:text-gray-400">Carbs</p>
           </div>
-          <div className="text-center p-2 bg-[#FD9C2D]/10 dark:bg-[#FD9C2D]/10 rounded">
-            <p className="text-lg font-bold text-[#E89020]">{Math.round(totalFats)}g</p>
+          <div className="text-center p-2 bg-[#8fa68a]/10 dark:bg-[#8fa68a]/10 rounded">
+            <p className="text-lg font-bold text-[#6b8f72]">{Math.round(totalFats)}g</p>
             <p className="text-xs text-gray-500 dark:text-gray-400">Fats</p>
           </div>
         </div>
@@ -146,7 +146,7 @@ export default function MealTracker() {
                   <p className="font-medium text-sm text-[#1a1a2e] dark:text-white">
                     {mealEmoji[m.meal_type]} {m.description}
                   </p>
-                  <span className="text-sm font-medium text-[#FD9C2D]">{m.calories || 0} cal</span>
+                  <span className="text-sm font-medium text-[#4a6b50]">{m.calories || 0} cal</span>
                 </div>
                 {(m.protein || m.carbs || m.fats) && (
                   <div className="text-xs text-gray-500 dark:text-gray-400">
@@ -158,7 +158,7 @@ export default function MealTracker() {
           </div>
         )}
 
-        <Button onClick={() => setShowDetailedLog(true)} className="w-full bg-gradient-to-r from-[#FD9C2D] to-[#E89020] hover:opacity-90">
+        <Button onClick={() => setShowDetailedLog(true)} className="w-full bg-gradient-to-r from-[#8fa68a] to-[#6b8f72] hover:opacity-90">
           <Plus className="w-4 h-4 mr-2" />
           Log Food
         </Button>
@@ -200,7 +200,7 @@ export default function MealTracker() {
             <Button
               size="icon"
               onClick={addGlass}
-              className="h-12 w-12 rounded-full bg-gradient-to-br from-[#FD9C2D] to-[#E89020] hover:opacity-90"
+              className="h-12 w-12 rounded-full bg-gradient-to-br from-[#8fa68a] to-[#6b8f72] hover:opacity-90"
             >
               <Plus className="w-5 h-5" />
             </Button>
