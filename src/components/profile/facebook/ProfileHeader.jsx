@@ -140,7 +140,7 @@ export default function ProfileHeader({ user, friendsCount, userProgress }) {
                 </p>
             }
               {user?.spiritual_goal &&
-            <div className="flex items-start gap-2.5 text-sm bg-[#FAD98D]/20 border border-[#FAD98D] rounded-lg p-3">
+            <div className="flex items-start gap-2.5 text-sm bg-gradient-to-br from-[#FAD98D]/20 to-[#AFC7E3]/20 border border-[#D9B878]/40 rounded-lg p-3">
                  <Sparkles className="w-5 h-5 text-[#FD9C2D] mt-0.5 flex-shrink-0" />
                   <p className="text-gray-700">
                     <span className="font-bold text-gray-900">Spiritual Goal:</span> {user.spiritual_goal}
