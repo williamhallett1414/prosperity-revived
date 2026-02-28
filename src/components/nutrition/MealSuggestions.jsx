@@ -81,7 +81,7 @@ export default function MealSuggestions() {
               size="sm"
               onClick={() => handleLogMeal(meal)}
               disabled={logMeal.isPending}
-              className="bg-gradient-to-r from-[#D9B878] to-[#AFC7E3] hover:from-[#D9B878]/90 hover:to-[#AFC7E3]/90 text-[#0A1A2F] h-8"
+              className="bg-gradient-to-r from-[#FD9C2D] to-[#E89020] hover:opacity-90 text-white h-8"
             >
               {logMeal.isPending ? 'Logging...' : 'Log'}
             </Button>

@@ -137,7 +137,7 @@ export default function CommunityRecipeFeed({ user }) {
               </button>
             </div>
             <div className="flex gap-2 justify-end">
-              <Button variant="ghost" size="sm" className="text-orange-600">
+              <Button variant="ghost" size="sm" className="text-[#FD9C2D]">
                 <Upload className="w-4 h-4 mr-2" />
                 Media
               </Button>
@@ -221,7 +221,7 @@ export default function CommunityRecipeFeed({ user }) {
             <Button
               onClick={handleSubmitPost}
               disabled={createPostMutation.isPending || isUploading}
-              className="w-full bg-[#FD9C2D] hover:bg-orange-700">
+              className="w-full bg-gradient-to-r from-[#FD9C2D] to-[#E89020] hover:opacity-90">
 
               {createPostMutation.isPending ?
               <>
@@ -259,7 +259,7 @@ export default function CommunityRecipeFeed({ user }) {
                 <div className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 border border-gray-200 dark:border-gray-700">
                   {/* User Info */}
                   <div className="flex items-center gap-3 mb-3">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#FD9C2D] to-[#C4E3FD]" />
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#FD9C2D] to-[#E89020]" />
                     <div>
                       <p className="font-semibold text-sm text-[#1a1a2e] dark:text-white">{post.user_name}</p>
                       <p className="text-xs text-gray-500 dark:text-gray-400">

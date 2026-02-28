@@ -144,8 +144,8 @@ export default function PersonalizedNutritionPlan() {
   return (
     <div className="space-y-4">
       {!activePlan ? (
-        <div className="text-center py-12 bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-900/20 dark:to-teal-900/20 rounded-2xl">
-          <Target className="w-16 h-16 text-emerald-600 mx-auto mb-4" />
+        <div className="text-center py-12 bg-gradient-to-br from-[#FFF8F0] to-[#FDE8C8] dark:from-[#0A1A2F]/20 dark:to-[#E89020]/10 rounded-2xl">
+          <Target className="w-16 h-16 text-[#FD9C2D] mx-auto mb-4" />
           <h3 className="text-xl font-bold text-[#1a1a2e] dark:text-white mb-2">
             Create Your Nutrition Plan
           </h3>
@@ -154,7 +154,7 @@ export default function PersonalizedNutritionPlan() {
           </p>
           <Button
             onClick={() => setShowCreatePlan(true)}
-            className="bg-emerald-600 hover:bg-emerald-700"
+            className="bg-gradient-to-r from-[#FD9C2D] to-[#E89020] hover:opacity-90"
           >
             <Plus className="w-4 h-4 mr-2" />
             Create Plan
@@ -163,7 +163,7 @@ export default function PersonalizedNutritionPlan() {
       ) : (
         <div className="space-y-4">
           {/* Active Plan Header */}
-          <div className="bg-gradient-to-br from-emerald-600 to-teal-700 text-white rounded-2xl p-6">
+          <div className="bg-gradient-to-br from-[#FD9C2D] to-[#E89020] text-white rounded-2xl p-6">
             <div className="flex items-start justify-between mb-4">
               <div>
                 <h3 className="text-2xl font-bold mb-1">{activePlan.name}</h3>
@@ -244,13 +244,13 @@ export default function PersonalizedNutritionPlan() {
             <WeeklyMealPlan mealPlanDays={mealPlanDays} activePlan={activePlan} />
           ) : (
             <div className="text-center py-8 bg-white dark:bg-[#2d2d4a] rounded-2xl">
-              <Sparkles className="w-12 h-12 text-emerald-600 mx-auto mb-3" />
+              <Sparkles className="w-12 h-12 text-[#FD9C2D] mx-auto mb-3" />
               <p className="text-gray-600 dark:text-gray-400 mb-4">
                 Generate your weekly meal plan
               </p>
               <Button
                 onClick={() => generateWeeklyPlan.mutate(activePlan.id)}
-                className="bg-emerald-600 hover:bg-emerald-700"
+                className="bg-gradient-to-r from-[#FD9C2D] to-[#E89020] hover:opacity-90"
                 disabled={generateWeeklyPlan.isLoading}
               >
                 <Sparkles className="w-4 h-4 mr-2" />

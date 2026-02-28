@@ -32,7 +32,7 @@ export default function TrendingNutritionArticles() {
       </div>
 
       <Link to={createPageUrl('NutritionGuidance')}>
-        <button className="text-sm font-semibold text-[#D9B878] hover:text-[#D9B878]/80 transition-colors">
+        <button className="text-sm font-semibold text-[#FD9C2D] hover:text-[#FD9C2D]/80 transition-colors">
           View More →
         </button>
       </Link>

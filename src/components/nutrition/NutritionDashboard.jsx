@@ -34,7 +34,7 @@ export default function NutritionDashboard({ mealLogs = [] }) {
               key={stat.label}
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: idx * 0.05 }} className="bg-green-50 p-4 rounded-xl from-[#FD9C2D] to-[#D9B878]">
+              transition={{ delay: idx * 0.05 }} className="bg-white border border-[#FDE8C8] p-4 rounded-xl">
 
 
               <div className="flex items-center gap-2 mb-2">
@@ -47,12 +47,12 @@ export default function NutritionDashboard({ mealLogs = [] }) {
                 </p>
                 <p className="text-xs text-[#0A1A2F]/60">Goal: {stat.target}{stat.unit}</p>
               </div>
-              <div className="w-full bg-[#0A1A2F]/10 rounded-full h-1.5 overflow-hidden">
+              <div className="w-full bg-[#FDE8C8] rounded-full h-1.5 overflow-hidden">
                 <motion.div
                   initial={{ width: 0 }}
                   animate={{ width: `${percentage}%` }}
                   transition={{ delay: 0.3, duration: 0.8 }}
-                  className="bg-[#0A1A2F] h-full rounded-full" />
+                  className="bg-gradient-to-r from-[#FD9C2D] to-[#E89020] h-full rounded-full" />
 
               </div>
             </motion.div>);
