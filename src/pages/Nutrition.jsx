@@ -53,6 +53,11 @@ export default function Nutrition() {
               <MealSuggestions />
             </div>
 
+            {/* Recipe Builder Section */}
+            <div className="pt-2">
+              <IngredientRecipeBuilder />
+            </div>
+
             {/* Discover Recipes Section */}
             <div className="pt-2">
               <Link to={createPageUrl('DiscoverRecipes')}>
