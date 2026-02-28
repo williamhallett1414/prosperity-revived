@@ -37,12 +37,12 @@ export default function GamificationBanner() {
       >
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 bg-[#D9B878]/30 rounded-full flex items-center justify-center">
-              <Crown className="w-6 h-6 text-[#c9a227]" />
+            <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
+              <Crown className="w-6 h-6 text-white" />
             </div>
             <div>
-              <p className="font-semibold text-[#0A1A2F]">Level {progress.level || 1}</p>
-              <p className="text-sm text-[#0A1A2F]/60">{progress.total_points || 0} points</p>
+              <p className="font-semibold text-white">Level {progress.level || 1}</p>
+              <p className="text-sm text-white/80">{progress.total_points || 0} points</p>
             </div>
           </div>
           
