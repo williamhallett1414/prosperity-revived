@@ -6,6 +6,7 @@ import { BookOpen, Brain, Heart, Sparkles, Target, CheckCircle2, Crown, Calendar
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import Hannah from '@/components/mindspirit/Hannah';
+import GuidedMeditationPlayer from '@/components/mindspirit/GuidedMeditationPlayer';
 
 export default function PersonalGrowth() {
   const [user, setUser] = useState(null);
@@ -23,6 +24,9 @@ export default function PersonalGrowth() {
             <h2 className="text-2xl font-bold text-[#0A1A2F] mb-2">Personal Growth</h2>
             <p className="text-sm text-[#0A1A2F]/60">Tools to strengthen your mind, emotions, and spiritual life.</p>
           </div>
+
+          {/* Guided Meditations */}
+          <GuidedMeditationPlayer />
 
           {/* 2-Column Grid */}
           <div className="grid grid-cols-2 gap-4">
