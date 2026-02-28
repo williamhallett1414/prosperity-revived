@@ -77,7 +77,7 @@ export default function MeditationAnalytics({ user }) {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl p-4 text-white"
+          className="bg-gradient-to-br from-[#c9a227] to-[#D9B878] rounded-2xl p-4 text-white"
         >
           <Clock className="w-6 h-6 mb-2 opacity-80" />
           <div className="text-3xl font-bold">{totalMinutes}</div>
@@ -132,7 +132,7 @@ export default function MeditationAnalytics({ user }) {
                 initial={{ height: 0 }}
                 animate={{ height: `${(day.minutes / maxMinutes) * 100}%` }}
                 transition={{ delay: i * 0.1 }}
-                className="w-full bg-gradient-to-t from-purple-500 to-pink-500 rounded-t-lg min-h-[4px]"
+                className="w-full bg-gradient-to-t from-[#c9a227] to-[#D9B878] rounded-t-lg min-h-[4px]"
                 title={`${day.minutes} minutes`}
               />
               <div className="text-xs text-gray-500 mt-1">{day.day}</div>

@@ -114,7 +114,7 @@ export default function ProactiveSuggestions() {
                   <Button
                     size="sm"
                     onClick={() => markAsHelpful.mutate(suggestion.id)}
-                    className="flex-1 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white"
+                    className="flex-1 bg-gradient-to-r from-[#c9a227] to-[#D9B878] hover:from-purple-600 hover:to-pink-600 text-white"
                   >
                     <ThumbsUp className="w-4 h-4 mr-2" />
                     Helpful

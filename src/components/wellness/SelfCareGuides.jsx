@@ -249,7 +249,7 @@ export default function SelfCareGuides({ user }) {
             <Button
               onClick={generatePersonalizedPlan}
               disabled={loadingInsight}
-              className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 mb-4"
+              className="w-full bg-gradient-to-r from-[#AFC7E3] to-[#3C4E53] hover:from-purple-600 hover:to-pink-600 mb-4"
             >
               {loadingInsight ? (
                 <>

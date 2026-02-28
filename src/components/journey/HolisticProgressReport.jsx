@@ -47,7 +47,7 @@ export default function HolisticProgressReport({ user }) {
       className="mb-8"
     >
       <Card className="overflow-hidden border-2 border-purple-200 bg-gradient-to-br from-purple-50 to-pink-50">
-        <CardHeader className="bg-gradient-to-r from-purple-500 to-pink-500 text-white pb-4">
+        <CardHeader className="bg-gradient-to-r from-[#c9a227] to-[#D9B878] text-white pb-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center backdrop-blur">
@@ -88,7 +88,7 @@ export default function HolisticProgressReport({ user }) {
               {/* Overall Summary */}
               <div className="bg-white rounded-xl p-5 shadow-sm border border-purple-100">
                 <div className="flex items-start gap-3 mb-3">
-                  <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center flex-shrink-0">
+                  <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#c9a227] to-[#D9B878] flex items-center justify-center flex-shrink-0">
                     <Heart className="w-5 h-5 text-white" />
                   </div>
                   <div className="flex-1">
@@ -202,7 +202,7 @@ export default function HolisticProgressReport({ user }) {
                       {/* Personalized Recommendation */}
                       <div className="bg-gradient-to-br from-purple-100 to-pink-100 rounded-xl p-5 border-2 border-purple-200">
                         <div className="flex items-start gap-3">
-                          <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center flex-shrink-0">
+                          <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#c9a227] to-[#D9B878] flex items-center justify-center flex-shrink-0">
                             <Sparkles className="w-5 h-5 text-white" />
                           </div>
                           <div>

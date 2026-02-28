@@ -118,7 +118,7 @@ export default function GideonNotificationSettings() {
     <Card className="bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 border-purple-200 dark:border-purple-700">
       <CardHeader>
         <div className="flex items-center gap-3">
-          <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
+          <div className="w-12 h-12 bg-gradient-to-r from-[#c9a227] to-[#D9B878] rounded-full flex items-center justify-center">
             <MessageCircle className="w-6 h-6 text-white" />
           </div>
           <div>

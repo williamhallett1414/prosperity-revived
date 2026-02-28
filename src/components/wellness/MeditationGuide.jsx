@@ -117,7 +117,7 @@ export default function MeditationGuide() {
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           onClick={() => setShowAIMeditation(true)}
-          className="bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl p-4 text-white text-left shadow-lg"
+          className="bg-gradient-to-br from-[#c9a227] to-[#D9B878] rounded-xl p-4 text-white text-left shadow-lg"
         >
           <Sparkles className="w-6 h-6 mb-2" />
           <p className="font-semibold text-sm">Help Me Meditate</p>

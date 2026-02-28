@@ -33,7 +33,7 @@ const chatbotIcons = {
 };
 
 const chatbotColors = {
-  Hannah: 'from-purple-500 to-pink-500',
+  Hannah: 'from-[#c9a227] to-[#D9B878]',
   CoachDavid: 'from-blue-500 to-cyan-500',
   ChefDaniel: 'from-orange-500 to-red-500',
   Gideon: 'from-green-500 to-emerald-500',
@@ -221,7 +221,7 @@ export default function CommunityFeed({ user }) {
                               <HoverCardContent className="w-80">
                                 <div className="flex gap-4">
                                   <Avatar className="h-12 w-12">
-                                    <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white">
+                                    <AvatarFallback className="bg-gradient-to-br from-[#c9a227] to-[#D9B878] text-white">
                                       {share.user_display_name?.split(' ').map(n => n[0]).join('') || '?'}
                                     </AvatarFallback>
                                   </Avatar>
@@ -345,7 +345,7 @@ export default function CommunityFeed({ user }) {
                                       <HoverCardContent className="w-64">
                                         <div className="flex gap-3">
                                           <Avatar className="h-10 w-10">
-                                            <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white text-xs">
+                                            <AvatarFallback className="bg-gradient-to-br from-[#c9a227] to-[#D9B878] text-white text-xs">
                                               {enc.user_display_name?.split(' ').map(n => n[0]).join('') || '?'}
                                             </AvatarFallback>
                                           </Avatar>
