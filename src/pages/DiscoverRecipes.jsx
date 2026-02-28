@@ -75,7 +75,7 @@ export default function DiscoverRecipes() {
   });
 
   return (
-    <div className="min-h-screen bg-[#f6ebe0] pb-24">
+    <div className="min-h-screen bg-[#FFF8F0] pb-24">
       <UniversalHeader title="Discover Recipes" />
 
       <div className="px-4 pt-20 max-w-2xl mx-auto">
@@ -83,7 +83,7 @@ export default function DiscoverRecipes() {
           <h1 className="text-3xl font-bold text-[#3C4E53]">Discover Recipes</h1>
           <Button
            onClick={() => setShowCreateRecipe(true)}
-           className="bg-green-500 hover:bg-green-600"
+           className="bg-gradient-to-r from-[#FD9C2D] to-[#E89020] hover:opacity-90"
            size="sm"
           >
             <Plus className="w-4 h-4 mr-2" />
@@ -102,8 +102,8 @@ export default function DiscoverRecipes() {
         {popularRecipes.length > 0 && recipeFilters.search === '' && recipeFilters.dietType === 'all' && recipeFilters.category === 'all' && recipeFilters.prepTime === 'all' && (
           <div className="mb-6">
             <div className="flex items-center gap-2 mb-3">
-              <TrendingUp className="w-5 h-5 text-orange-500" />
-              <h4 className="text-sm font-semibold text-gray-300">Popular Recipes</h4>
+              <TrendingUp className="w-5 h-5 text-[#FD9C2D]" />
+              <h4 className="text-sm font-semibold text-[#0A1A2F]">Popular Recipes</h4>
             </div>
             <div className="grid gap-4">
               {popularRecipes.map((recipe, index) => (
@@ -116,7 +116,7 @@ export default function DiscoverRecipes() {
         {/* My Recipes */}
         {myRecipes.length > 0 && (
           <div className="mb-6">
-            <h4 className="text-sm font-semibold text-gray-300 mb-3">Your Recipes</h4>
+            <h4 className="text-sm font-semibold text-[#0A1A2F] mb-3">Your Recipes</h4>
             <div className="grid gap-4">
               {myRecipes.map((recipe, index) => (
                 <RecipeCard key={recipe.id} recipe={recipe} index={index} />
@@ -128,7 +128,7 @@ export default function DiscoverRecipes() {
         {/* Filtered Results */}
         {(recipeFilters.search || recipeFilters.dietType !== 'all' || recipeFilters.category !== 'all' || recipeFilters.prepTime !== 'all') && (
           <div>
-            <h4 className="text-sm font-semibold text-gray-300 mb-3">
+            <h4 className="text-sm font-semibold text-[#0A1A2F] mb-3">
               Search Results ({filteredRecipes.length})
             </h4>
             {filteredRecipes.length === 0 ? (
@@ -148,13 +148,13 @@ export default function DiscoverRecipes() {
 
         {/* Collections */}
         <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
-          <h4 className="text-sm font-semibold text-gray-300 mb-3">Collections</h4>
+          <h4 className="text-sm font-semibold text-[#0A1A2F] mb-3">Collections</h4>
           <RecipeCollections allRecipes={recipes} />
         </div>
         
         {/* Community Recipes */}
         <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
-          <h4 className="text-sm font-semibold text-gray-300 mb-3">Community Recipes</h4>
+          <h4 className="text-sm font-semibold text-[#0A1A2F] mb-3">Community Recipes</h4>
           <CommunityRecipes />
         </div>
       </div>
