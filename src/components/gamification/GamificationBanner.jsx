@@ -33,7 +33,7 @@ export default function GamificationBanner() {
       <motion.div
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-gradient-to-r from-[#FAD98D]/30 to-[#AFC7E3]/30 border border-[#D9B878]/40 rounded-2xl p-4 mb-6"
+        className="bg-gradient-to-r from-[#0A1A2F] to-[#AFC7E3] rounded-2xl p-4 mb-6"
       >
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
