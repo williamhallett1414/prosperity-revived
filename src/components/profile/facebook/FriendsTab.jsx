@@ -157,11 +157,11 @@ export default function FriendsTab({ friends, user }) {
           </h2>
           <Button
             onClick={() => setShowSearchModal(true)}
-            className="bg-[#D9B878] hover:bg-[#D9B878]/90 text-[#0A1A2F]"
-          >
-            <UserPlus className="w-4 h-4 mr-2" />
-            Find Friends
-          </Button>
+            className="bg-gradient-to-br from-[#c9a227] to-[#D9B878] hover:opacity-90 text-white"
+            >
+              <UserPlus className="w-4 h-4 mr-2" />
+              Find Friends
+            </Button>
         </div>
 
         <div className="mb-4 relative">
