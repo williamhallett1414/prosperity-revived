@@ -127,7 +127,7 @@ export default function CommunityRecipeFeed({ user }) {
               {user?.profile_image ?
               <img src={user.profile_image} alt={user.full_name} className="w-10 h-10 rounded-full object-cover" /> :
 
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#FD9C2D] to-[#C4E3FD]" />
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#FD9C2D] to-[#E89020]" />
               }
               <button
                 onClick={() => setShowCreatePost(true)}
