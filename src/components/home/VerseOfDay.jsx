@@ -45,7 +45,7 @@ export default function VerseOfDay({ onBookmark }) {
           </span>
         </div>
         
-        <p className="text-white/90 text-xl md:text-2xl font-serif leading-relaxed mb-4">
+        <p className="text-[#0A1A2F] text-xl md:text-2xl font-serif leading-relaxed mb-4">
           "{verse.text}"
         </p>
         
