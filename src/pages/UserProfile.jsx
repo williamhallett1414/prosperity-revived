@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
-import { ArrowLeft, BookOpen, CheckCircle, TrendingUp, UserPlus, UserCheck, MessageCircle, Loader2, Target, Camera } from 'lucide-react';
+import { ArrowLeft, BookOpen, CheckCircle, TrendingUp, UserPlus, UserCheck, MessageCircle, Loader2, Target, Camera, Pencil, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link, useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
@@ -11,6 +11,7 @@ import ReadingPlanCard from '@/components/home/ReadingPlanCard';
 import PostCard from '@/components/community/PostCard';
 import UserPostsFeed from '@/components/profile/UserPostsFeed';
 import BannerCustomizer from '@/components/profile/BannerCustomizer';
+import ProfileStats from '@/components/profile/ProfileStats';
 import { notifyFriendRequest, notifyFriendAccepted } from '@/components/notifications/NotificationHelper';
 
 export default function UserProfile() {
@@ -18,6 +19,7 @@ export default function UserProfile() {
   const [currentUser, setCurrentUser] = useState(null);
   const [profileEmail, setProfileEmail] = useState(null);
   const [showBannerCustomizer, setShowBannerCustomizer] = useState(false);
+  const [showEditProfile, setShowEditProfile] = useState(false);
   const queryClient = useQueryClient();
 
   useEffect(() => {
@@ -77,6 +79,18 @@ export default function UserProfile() {
   });
 
   const userProgressData = userProgressList[0];
+
+  const { data: workoutSessions = [] } = useQuery({
+    queryKey: ['profileWorkouts', profileEmail],
+    queryFn: () => base44.entities.WorkoutSession.filter({ created_by: profileEmail }),
+    enabled: !!profileEmail
+  });
+
+  const { data: journalEntries = [] } = useQuery({
+    queryKey: ['profileJournals', profileEmail],
+    queryFn: () => base44.entities.JournalEntry.filter({ created_by: profileEmail }),
+    enabled: !!profileEmail
+  });
 
   const { data: friends = [] } = useQuery({
     queryKey: ['friends'],
@@ -154,7 +168,7 @@ export default function UserProfile() {
 
   if (!profileUser || !currentUser) {
     return (
-      <div className="min-h-screen bg-[#faf8f5] dark:bg-[#1a1a2e] flex items-center justify-center">
+      <div className="min-h-screen bg-[#FFFDF7] flex items-center justify-center">
         <Loader2 className="w-8 h-8 text-[#c9a227] animate-spin" />
       </div>
     );
@@ -167,7 +181,7 @@ export default function UserProfile() {
   const receivedRequest = isPending && existingFriendship?.friend_email === currentUser.email;
 
   return (
-    <div className="min-h-screen bg-[#faf8f5] dark:bg-[#1a1a2e] pb-24">
+    <div className="min-h-screen bg-[#FFFDF7] pb-24">
       {/* Header with Banner */}
       <div className="relative text-white">
         {/* Banner Image */}
@@ -179,7 +193,7 @@ export default function UserProfile() {
               className="w-full h-full object-cover"
             />
           ) : (
-            <div className="w-full h-full bg-gradient-to-br from-[#1a1a2e] to-[#2d2d4a]" />
+            <div className="w-full h-full bg-gradient-to-br from-[#0A1A2F] via-[#c9a227] to-[#D9B878]" />
           )}
           {/* Overlay for readability */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/60" />
@@ -195,12 +209,21 @@ export default function UserProfile() {
           </button>
           <div className="flex gap-2">
             {isOwnProfile && (
-              <button
-                onClick={() => setShowBannerCustomizer(true)}
-                className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center hover:bg-white/30 transition-colors"
-              >
-                <Camera className="w-5 h-5" />
-              </button>
+              <>
+                <button
+                  onClick={() => setShowBannerCustomizer(true)}
+                  className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center hover:bg-white/30 transition-colors"
+                >
+                  <Camera className="w-5 h-5" />
+                </button>
+                <button
+                  onClick={() => setShowEditProfile(true)}
+                  className="px-3 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center gap-1.5 hover:bg-white/30 transition-colors text-white text-sm font-medium"
+                >
+                  <Pencil className="w-4 h-4" />
+                  Edit Profile
+                </button>
+              </>
             )}
             {!isOwnProfile && (
               <Link
@@ -216,7 +239,7 @@ export default function UserProfile() {
         {/* Profile Info Overlay */}
         <div className="absolute bottom-0 left-0 right-0 px-4 pb-4">
           <div className="flex items-end gap-4">
-            <div className="w-24 h-24 rounded-full overflow-hidden bg-gradient-to-br from-[#c9a227] to-[#8fa68a] flex items-center justify-center text-3xl font-bold border-4 border-white dark:border-gray-800 shadow-xl">
+            <div className="w-24 h-24 rounded-full overflow-hidden bg-gradient-to-br from-[#c9a227] to-[#8fa68a] flex items-center justify-center text-3xl font-bold border-4 border-white shadow-xl">
               {profileUser.profile_image_url ? (
                 <img src={profileUser.profile_image_url} alt={profileUser.full_name} className="w-full h-full object-cover" />
               ) : (
@@ -262,10 +285,19 @@ export default function UserProfile() {
 
 
 
+      {/* Stats */}
+      <div className="px-4 mt-4 mb-4">
+        <ProfileStats
+          userProgress={userProgressData}
+          workoutSessions={workoutSessions}
+          journalEntries={journalEntries}
+        />
+      </div>
+
       {/* Spiritual Goal */}
       {profileUser.spiritual_goal && (
         <div className="px-4 mb-6">
-          <div className="bg-gradient-to-br from-[#AFC7E3] to-[#0A1A2F] rounded-2xl p-4 shadow-lg text-white">
+          <div className="bg-gradient-to-br from-[#0A1A2F] to-[#1a3a5c] rounded-2xl p-4 shadow-lg text-white">
             <h3 className="font-semibold mb-2 flex items-center gap-2">
               <Target className="w-5 h-5" />
               Spiritual Goal
@@ -278,8 +310,8 @@ export default function UserProfile() {
       {/* Favorite Verses */}
       {profileUser.favorite_verse_ids && profileUser.favorite_verse_ids.length > 0 && (
         <div className="px-4 mb-6">
-          <div className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 shadow-sm">
-            <h3 className="font-semibold text-[#1a1a2e] dark:text-white mb-3 flex items-center gap-2">
+          <div className="bg-white border border-[#D9B878]/20 rounded-2xl p-4 shadow-sm">
+            <h3 className="font-semibold text-[#0A1A2F] mb-3 flex items-center gap-2">
               <span className="text-xl">✨</span>
               Favorite Verses
             </h3>
@@ -291,10 +323,10 @@ export default function UserProfile() {
                   animate={{ opacity: 1 }}
                   className="bg-gradient-to-br from-[#c9a227]/10 to-[#8fa68a]/10 rounded-xl p-3 border-l-4 border-[#c9a227]"
                 >
-                  <p className="font-semibold text-sm text-[#1a1a2e] dark:text-white mb-2">
+                  <p className="font-semibold text-sm text-[#0A1A2F] mb-2">
                     {bookmark.book_name} {bookmark.chapter_number}:{bookmark.verse_number}
                   </p>
-                  <p className="text-gray-700 dark:text-gray-300 text-sm italic">
+                  <p className="text-[#0A1A2F]/75 text-sm italic">
                     "{bookmark.verse_text}"
                   </p>
                 </motion.div>
@@ -309,8 +341,8 @@ export default function UserProfile() {
       {/* Mutual Friends */}
       {!isOwnProfile && mutualFriends.length > 0 && (
         <div className="px-4 mb-6">
-          <div className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 shadow-sm">
-            <h3 className="font-semibold text-[#1a1a2e] dark:text-white mb-3">
+          <div className="bg-white border border-[#D9B878]/20 rounded-2xl p-4 shadow-sm">
+            <h3 className="font-semibold text-[#0A1A2F] mb-3">
               {mutualFriends.length} Mutual Friend{mutualFriends.length !== 1 ? 's' : ''}
             </h3>
             <div className="grid grid-cols-3 gap-3">
@@ -332,14 +364,14 @@ export default function UserProfile() {
                       friend.full_name?.charAt(0) || friend.email.charAt(0)
                     )}
                   </motion.div>
-                  <p className="text-xs text-center text-gray-700 dark:text-gray-300 line-clamp-2 w-full">
+                  <p className="text-xs text-center text-[#0A1A2F]/75 line-clamp-2 w-full">
                     {friend.full_name?.split(' ')[0] || 'User'}
                   </p>
                 </Link>
               ))}
             </div>
             {mutualFriends.length > 6 && (
-              <p className="text-sm text-gray-500 dark:text-gray-400 mt-3 text-center">
+              <p className="text-sm text-[#0A1A2F]/50 mt-3 text-center">
                 and {mutualFriends.length - 6} more
               </p>
             )}
@@ -348,19 +380,29 @@ export default function UserProfile() {
       )}
 
       {/* Bio */}
-      {profileUser.bio && (
+      {profileUser.bio ? (
         <div className="px-4 mb-6">
-          <div className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 shadow-sm">
-            <h3 className="font-semibold text-[#1a1a2e] dark:text-white mb-2">Bio</h3>
-            <p className="text-gray-600 dark:text-gray-400">{profileUser.bio}</p>
+          <div className="bg-white rounded-2xl p-4 shadow-sm border border-[#D9B878]/20">
+            <h3 className="font-semibold text-[#0A1A2F] mb-2">Bio</h3>
+            <p className="text-[#0A1A2F]/70">{profileUser.bio}</p>
           </div>
         </div>
-      )}
+      ) : isOwnProfile ? (
+        <div className="px-4 mb-6">
+          <button
+            onClick={() => setShowEditProfile(true)}
+            className="w-full bg-white rounded-2xl p-4 shadow-sm border border-dashed border-[#D9B878]/50 text-[#0A1A2F]/50 text-sm flex items-center justify-center gap-2 hover:border-[#c9a227] hover:text-[#c9a227] transition-colors"
+          >
+            <Plus className="w-4 h-4" />
+            Add a bio to tell people about yourself
+          </button>
+        </div>
+      ) : null}
 
       {/* Photo Gallery */}
       {photos.length > 0 && (
         <div className="px-4 mb-6">
-          <h2 className="text-xl font-bold text-[#1a1a2e] dark:text-white mb-4">Photos</h2>
+          <h2 className="text-xl font-bold text-[#0A1A2F] mb-4">Photos</h2>
           <div className="grid grid-cols-3 gap-2">
             {photos.slice(0, 6).map((photo, index) => (
               <motion.div
@@ -368,7 +410,7 @@ export default function UserProfile() {
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: index * 0.05 }}
-                className="aspect-square rounded-xl overflow-hidden bg-gray-200 dark:bg-gray-700"
+                className="aspect-square rounded-xl overflow-hidden bg-[#F2F6FA]"
               >
                 <img
                   src={photo.image_url}
@@ -383,7 +425,7 @@ export default function UserProfile() {
 
       {/* Posts Feed */}
       <div className="px-4 mb-6">
-        <h2 className="text-xl font-bold text-[#1a1a2e] dark:text-white mb-4">
+        <h2 className="text-xl font-bold text-[#0A1A2F] mb-4">
           {isOwnProfile ? 'My Posts' : 'Posts'}
         </h2>
         <UserPostsFeed userEmail={profileEmail} isOwnProfile={isOwnProfile} />
@@ -392,7 +434,7 @@ export default function UserProfile() {
       {/* Current Plans */}
       {activePlans.length > 0 && (
         <div className="px-4 mb-6">
-          <h2 className="text-xl font-bold text-[#1a1a2e] dark:text-white mb-4">Current Plans</h2>
+          <h2 className="text-xl font-bold text-[#0A1A2F] mb-4">Current Plans</h2>
           <div className="space-y-3">
             {activePlans.slice(0, 3).map(p => {
               const plan = p.is_custom 
@@ -407,10 +449,18 @@ export default function UserProfile() {
       {/* Completed Plans */}
       {completedPlans.length > 0 && (
         <div className="px-4 mb-6">
-          <h2 className="text-xl font-bold text-[#1a1a2e] dark:text-white mb-4 flex items-center gap-2">
+          <h2 className="text-xl font-bold text-[#0A1A2F] mb-4 flex items-center gap-2">
             <CheckCircle className="w-6 h-6 text-[#8fa68a]" />
             Completed Plans ({completedPlans.length})
           </h2>
+          <div className="space-y-3">
+            {completedPlans.slice(0, 3).map(p => {
+              const plan = p.is_custom
+                ? { id: p.plan_id, name: p.plan_name, duration: p.total_days, description: `${p.total_days} days`, category: 'Custom', image: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=400' }
+                : readingPlans.find(rp => rp.id === p.plan_id);
+              return plan ? <ReadingPlanCard key={p.id} plan={plan} progress={p} /> : null;
+            })}
+          </div>
         </div>
       )}
 
