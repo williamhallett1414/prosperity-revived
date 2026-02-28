@@ -243,14 +243,13 @@ export default function ProgressDashboard() {
             {Object.entries(chatbotConfig).map(([key, config]) => {
               return (
                 <Button
-                 key={key}
-                 onClick={() => setActiveChat(key)}
-                 className={`h-auto py-3 px-2 flex flex-col items-center gap-1.5 bg-gradient-to-br ${config.color} hover:opacity-90 text-white shadow-md`}
+                key={key}
+                onClick={() => setActiveChat(key)}
+                className={`h-auto py-4 px-3 flex flex-col items-center gap-1 bg-gradient-to-br ${config.color} hover:opacity-90 text-white shadow-md w-full`}
                 >
-                 <span className="text-xl leading-none">{config.icon}</span>
-                 <span className="text-xs font-bold text-center leading-tight">{config.name}</span>
-                 <span className="text-[10px] opacity-90 leading-tight text-center">{config.category}</span>
-                 <p className="text-[10px] opacity-70 text-center leading-tight line-clamp-2">{config.description}</p>
+                <span className="text-2xl leading-none">{config.icon}</span>
+                <span className="text-xs font-bold text-center leading-snug w-full truncate">{config.name}</span>
+                <span className="text-[11px] opacity-90 leading-snug text-center w-full truncate">{config.category}</span>
                 </Button>
               );
             })}
