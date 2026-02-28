@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
-import { ArrowLeft, BookOpen, CheckCircle, TrendingUp, UserPlus, UserCheck, MessageCircle, Loader2, Target, Camera, Pencil, Plus } from 'lucide-react';
+import { ArrowLeft, BookOpen, CheckCircle, TrendingUp, UserPlus, UserCheck, MessageCircle, Loader2, Target, Camera, Pencil, Plus, X, Upload } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import { Link, useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { readingPlans } from '@/components/bible/BibleData';
@@ -476,6 +477,113 @@ export default function UserProfile() {
           }}
         />
       )}
+
+      {/* Edit Profile Sheet */}
+      <EditProfileSheet
+        open={showEditProfile}
+        onOpenChange={setShowEditProfile}
+        currentUser={profileUser}
+        onSave={async (data) => {
+          await base44.auth.updateMe(data);
+          await base44.auth.me().then(setCurrentUser);
+          queryClient.invalidateQueries(['users']);
+          setShowEditProfile(false);
+        }}
+      />
     </div>
+  );
+}
+
+function EditProfileSheet({ open, onOpenChange, currentUser, onSave }) {
+  const [fullName, setFullName] = useState(currentUser?.full_name || '');
+  const [bio, setBio] = useState(currentUser?.bio || '');
+  const [profileImageUrl, setProfileImageUrl] = useState(currentUser?.profile_image_url || '');
+  const [uploading, setUploading] = useState(false);
+  const [saving, setSaving] = useState(false);
+
+  // Sync state when currentUser changes
+  useEffect(() => {
+    if (currentUser) {
+      setFullName(currentUser.full_name || '');
+      setBio(currentUser.bio || '');
+      setProfileImageUrl(currentUser.profile_image_url || '');
+    }
+  }, [currentUser?.email]);
+
+  const handleImageUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    setUploading(true);
+    const { file_url } = await base44.integrations.Core.UploadFile({ file });
+    setProfileImageUrl(file_url);
+    setUploading(false);
+  };
+
+  const handleSave = async () => {
+    setSaving(true);
+    await onSave({ full_name: fullName, bio, profile_image_url: profileImageUrl });
+    setSaving(false);
+  };
+
+  return (
+    <Sheet open={open} onOpenChange={onOpenChange}>
+      <SheetContent side="bottom" className="rounded-t-2xl max-h-[85vh] overflow-y-auto bg-[#FFFDF7] border-t border-[#D9B878]/30">
+        <SheetHeader className="mb-6">
+          <SheetTitle className="text-[#0A1A2F] text-lg font-bold">Edit Profile</SheetTitle>
+        </SheetHeader>
+
+        <div className="space-y-5 pb-6">
+          {/* Profile Photo */}
+          <div className="flex flex-col items-center gap-3">
+            <div className="w-20 h-20 rounded-full overflow-hidden bg-gradient-to-br from-[#c9a227] to-[#8fa68a] flex items-center justify-center text-2xl font-bold text-white border-2 border-[#D9B878]/40">
+              {profileImageUrl ? (
+                <img src={profileImageUrl} alt="Profile" className="w-full h-full object-cover" />
+              ) : (
+                currentUser?.full_name?.charAt(0) || '?'
+              )}
+            </div>
+            <label className="flex items-center gap-2 px-4 py-2 rounded-full border border-[#D9B878]/50 text-[#0A1A2F]/70 text-sm cursor-pointer hover:border-[#c9a227] hover:text-[#c9a227] transition-colors bg-white">
+              {uploading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />}
+              {uploading ? 'Uploading...' : 'Change Photo'}
+              <input type="file" accept="image/*" className="hidden" onChange={handleImageUpload} disabled={uploading} />
+            </label>
+          </div>
+
+          {/* Full Name */}
+          <div>
+            <label className="block text-sm font-medium text-[#0A1A2F] mb-1.5">Full Name</label>
+            <input
+              type="text"
+              value={fullName}
+              onChange={e => setFullName(e.target.value)}
+              placeholder="Your name"
+              className="w-full px-4 py-3 rounded-xl border border-[#D9B878]/30 bg-white text-[#0A1A2F] placeholder-[#0A1A2F]/40 focus:outline-none focus:border-[#c9a227] transition-colors"
+            />
+          </div>
+
+          {/* Bio */}
+          <div>
+            <label className="block text-sm font-medium text-[#0A1A2F] mb-1.5">Bio</label>
+            <textarea
+              value={bio}
+              onChange={e => setBio(e.target.value)}
+              placeholder="Tell people about yourself..."
+              rows={4}
+              className="w-full px-4 py-3 rounded-xl border border-[#D9B878]/30 bg-white text-[#0A1A2F] placeholder-[#0A1A2F]/40 focus:outline-none focus:border-[#c9a227] transition-colors resize-none"
+            />
+          </div>
+
+          {/* Save Button */}
+          <button
+            onClick={handleSave}
+            disabled={saving || uploading}
+            className="w-full py-3 rounded-xl bg-[#c9a227] text-white font-semibold hover:bg-[#b8911e] transition-colors disabled:opacity-60 flex items-center justify-center gap-2"
+          >
+            {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : null}
+            {saving ? 'Saving...' : 'Save Changes'}
+          </button>
+        </div>
+      </SheetContent>
+    </Sheet>
   );
 }
