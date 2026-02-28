@@ -31,7 +31,7 @@ export default function VerseOfDay({ onBookmark }) {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#3C4E53] to-[#FD9C2D] p-6 md:p-8"
+      className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#FAD98D]/20 to-[#AFC7E3]/20 border border-[#D9B878]/40 p-6 md:p-8"
     >
       <div className="absolute top-4 right-4 opacity-10">
         <Sparkles className="w-24 h-24 text-[#FAD98D]" />
