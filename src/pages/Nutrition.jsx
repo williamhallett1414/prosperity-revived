@@ -54,6 +54,11 @@ export default function Nutrition() {
               <MealSuggestions />
             </div>
 
+            {/* Weekly Meal Planner Section */}
+            <div className="pt-2">
+              <MealPlannerCard />
+            </div>
+
             {/* Recipe Builder Section */}
             <div className="pt-2">
               <IngredientRecipeBuilder />
