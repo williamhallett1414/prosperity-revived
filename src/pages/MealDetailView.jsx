@@ -98,7 +98,7 @@ export default function MealDetailView() {
 
   const getGradeColor = (score) => {
     if (score >= 90) return 'from-green-400 to-emerald-600';
-    if (score >= 80) return 'from-blue-400 to-blue-600';
+    if (score >= 80) return 'from-[#AFC7E3] to-[#D9B878]';
     if (score >= 70) return 'from-yellow-400 to-amber-600';
     if (score >= 60) return 'from-orange-400 to-orange-600';
     return 'from-red-400 to-red-600';
@@ -212,9 +212,9 @@ export default function MealDetailView() {
         >
           <h3 className="text-lg font-semibold text-[#0A1A2F] mb-4">Macronutrients</h3>
           <div className="grid grid-cols-3 gap-3">
-            <div className="bg-blue-50 rounded-xl p-4 text-center">
-              <p className="text-2xl font-bold text-blue-600">{meal.protein || 0}g</p>
-              <p className="text-xs text-blue-700 mt-1">Protein</p>
+            <div className="bg-[#F2F6FA] rounded-xl p-4 text-center">
+              <p className="text-2xl font-bold text-[#3C4E53]">{meal.protein || 0}g</p>
+              <p className="text-xs text-[#3C4E53] mt-1">Protein</p>
             </div>
             <div className="bg-amber-50 rounded-xl p-4 text-center">
               <p className="text-2xl font-bold text-amber-600">{meal.carbs || 0}g</p>
@@ -236,9 +236,9 @@ export default function MealDetailView() {
                 </div>
               )}
               {meal.sugar && (
-                <div className="bg-pink-50 rounded-xl p-4 text-center">
-                  <p className="text-xl font-bold text-pink-600">{meal.sugar}g</p>
-                  <p className="text-xs text-pink-700 mt-1">Sugar</p>
+                <div className="bg-[#FAD98D]/10 rounded-xl p-4 text-center">
+                  <p className="text-xl font-bold text-[#c9a227]">{meal.sugar}g</p>
+                  <p className="text-xs text-[#8a6e1a] mt-1">Sugar</p>
                 </div>
               )}
             </div>
@@ -372,9 +372,9 @@ export default function MealDetailView() {
                 </div>
               )}
               {meal.sugar && (
-                <div className="bg-pink-50 rounded-lg p-3">
+                <div className="bg-[#FAD98D]/10 rounded-lg p-3">
                   <p className="text-sm font-medium text-[#0A1A2F]">Sugar</p>
-                  <p className="text-lg font-bold text-pink-600 mt-1">{meal.sugar}g</p>
+                  <p className="text-lg font-bold text-[#c9a227] mt-1">{meal.sugar}g</p>
                 </div>
               )}
               {meal.saturated_fat && (
@@ -390,9 +390,9 @@ export default function MealDetailView() {
                 </div>
               )}
               {meal.polyunsaturated_fat && (
-                <div className="bg-blue-50 rounded-lg p-3">
+                <div className="bg-[#F2F6FA] rounded-lg p-3">
                   <p className="text-sm font-medium text-[#0A1A2F]">Polyunsaturated Fat</p>
-                  <p className="text-lg font-bold text-blue-600 mt-1">{meal.polyunsaturated_fat}g</p>
+                  <p className="text-lg font-bold text-[#3C4E53] mt-1">{meal.polyunsaturated_fat}g</p>
                 </div>
               )}
               {meal.monounsaturated_fat && (

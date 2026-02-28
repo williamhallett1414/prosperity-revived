@@ -106,7 +106,7 @@ export default function GuidedMeditationSession({ session, onClose }) {
             <div className="w-full max-w-xs mb-6">
               <div className="h-1 bg-gray-700 rounded-full overflow-hidden">
                 <motion.div
-                  className="h-full bg-purple-600"
+                  className="h-full bg-[#c9a227]"
                   initial={{ width: "0%" }}
                   animate={{
                     width:
@@ -136,7 +136,7 @@ export default function GuidedMeditationSession({ session, onClose }) {
 
           <button
             onClick={togglePlay}
-            className="bg-purple-600 hover:bg-purple-700 p-4 rounded-full disabled:opacity-50 disabled:cursor-not-allowed transition"
+            className="bg-[#c9a227] hover:bg-[#b89320] p-4 rounded-full disabled:opacity-50 disabled:cursor-not-allowed transition"
             disabled={!audioUrl}
           >
             {isPlaying ? (

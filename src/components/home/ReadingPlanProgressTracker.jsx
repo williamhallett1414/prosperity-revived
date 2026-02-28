@@ -69,11 +69,11 @@ export default function ReadingPlanProgressTracker({ planProgress, plans }) {
 
       {/* Stats Cards */}
       <div className="grid grid-cols-3 gap-3 mb-4">
-        <Card className="p-4 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 border-blue-200 dark:border-blue-700">
+        <Card className="p-4 bg-gradient-to-br from-[#F2F6FA] to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 border-[#AFC7E3]/40 dark:border-blue-700">
           <div className="flex flex-col items-center">
-            <TrendingUp className="w-6 h-6 text-blue-600 dark:text-blue-400 mb-1" />
+            <TrendingUp className="w-6 h-6 text-[#3C4E53] dark:text-blue-400 mb-1" />
             <p className="text-2xl font-bold text-blue-900 dark:text-blue-100">{totalDaysRead}</p>
-            <p className="text-xs text-blue-700 dark:text-blue-300 text-center">Days Read</p>
+            <p className="text-xs text-[#3C4E53] dark:text-blue-300 text-center">Days Read</p>
           </div>
         </Card>
 
@@ -154,7 +154,7 @@ export default function ReadingPlanProgressTracker({ planProgress, plans }) {
                     ${dayInfo.isCompleted 
                       ? 'bg-gradient-to-br from-[#FD9C2D] to-[#FAD98D] text-white font-bold shadow-sm' 
                       : dayInfo.isToday
-                      ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 font-semibold border-2 border-blue-400'
+                      ? 'bg-[#AFC7E3]/20 dark:bg-[#0A1A2F]/30 text-[#3C4E53] dark:text-blue-300 font-semibold border-2 border-blue-400'
                       : dayInfo.isPast
                       ? 'bg-gray-100 dark:bg-gray-800 text-gray-400 dark:text-gray-600'
                       : 'bg-gray-50 dark:bg-gray-800/50 text-gray-600 dark:text-gray-400'
@@ -181,7 +181,7 @@ export default function ReadingPlanProgressTracker({ planProgress, plans }) {
               <span className="text-xs text-gray-600 dark:text-gray-400">Completed</span>
             </div>
             <div className="flex items-center gap-1.5">
-              <div className="w-4 h-4 rounded bg-blue-100 dark:bg-blue-900/30 border-2 border-blue-400" />
+              <div className="w-4 h-4 rounded bg-[#AFC7E3]/20 dark:bg-[#0A1A2F]/30 border-2 border-blue-400" />
               <span className="text-xs text-gray-600 dark:text-gray-400">Today</span>
             </div>
           </div>

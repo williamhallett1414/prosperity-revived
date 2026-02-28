@@ -34,7 +34,7 @@ export default function VolumeProgressChart({ sessions }) {
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <TrendingUp className="w-5 h-5 text-blue-600" />
+            <TrendingUp className="w-5 h-5 text-[#3C4E53]" />
             Volume Progress
           </CardTitle>
         </CardHeader>
@@ -51,7 +51,7 @@ export default function VolumeProgressChart({ sessions }) {
     <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
-          <TrendingUp className="w-5 h-5 text-blue-600" />
+          <TrendingUp className="w-5 h-5 text-[#3C4E53]" />
           Volume Progress (Last 30 Workouts)
         </CardTitle>
       </CardHeader>

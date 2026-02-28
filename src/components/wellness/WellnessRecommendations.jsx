@@ -127,8 +127,8 @@ export default function WellnessRecommendations({ user }) {
             const iconColors = [
               { bg: 'bg-yellow-100', icon: 'text-yellow-600', Icon: Trophy },
               { bg: 'bg-red-100', icon: 'text-red-600', Icon: Dumbbell },
-              { bg: 'bg-blue-100', icon: 'text-blue-600', Icon: Heart },
-              { bg: 'bg-purple-100', icon: 'text-purple-600', Icon: Target }
+              { bg: 'bg-[#AFC7E3]/20', icon: 'text-[#3C4E53]', Icon: Heart },
+              { bg: 'bg-[#FAD98D]/20', icon: 'text-[#8a6e1a]', Icon: Target }
             ];
             const colorSet = iconColors[index % iconColors.length];
             const Icon = colorSet.Icon;

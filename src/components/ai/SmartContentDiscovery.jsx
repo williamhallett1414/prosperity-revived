@@ -79,7 +79,7 @@ Return 2-3 high-impact insights as JSON.
   if (!user?.onboarding_completed) return null;
 
   return (
-    <div className="bg-gradient-to-br from-purple-500 to-indigo-600 rounded-2xl p-5 mb-6 text-white shadow-lg">
+    <div className="bg-gradient-to-br from-[#c9a227] to-[#D9B878] rounded-2xl p-5 mb-6 text-white shadow-lg">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
           <Sparkles className="w-5 h-5" />

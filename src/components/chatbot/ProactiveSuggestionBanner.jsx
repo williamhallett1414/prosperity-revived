@@ -11,11 +11,11 @@ export default function ProactiveSuggestionBanner({ suggestion, onAccept, onDism
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
-      className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 border-b border-blue-200 dark:border-blue-700 px-5 py-4"
+      className="bg-gradient-to-r from-[#F2F6FA] to-[#FAD98D]/10 dark:from-[#0A1A2F]/30 dark:to-[#1a1a2e]/30 border-b border-[#AFC7E3]/40 dark:border-blue-700 px-5 py-4"
     >
       <div className="flex items-start gap-3">
         <div className="flex-shrink-0 mt-0.5">
-          <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center">
+          <div className="w-8 h-8 rounded-full bg-gradient-to-r from-[#c9a227] to-[#D9B878] flex items-center justify-center">
             <Sparkles className="w-4 h-4 text-white" />
           </div>
         </div>
@@ -31,7 +31,7 @@ export default function ProactiveSuggestionBanner({ suggestion, onAccept, onDism
           {suggestion.prompt_action && (
             <Button
               onClick={() => onAccept(suggestion.prompt_action)}
-              className="mt-3 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white text-sm h-9"
+              className="mt-3 bg-gradient-to-r from-[#c9a227] to-[#D9B878] hover:from-blue-600 hover:to-[#c9a227] text-white text-sm h-9"
               size="sm"
             >
               {suggestion.prompt_action}

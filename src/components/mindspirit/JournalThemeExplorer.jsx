@@ -145,7 +145,7 @@ Format each exercise with clear separators. Make them actionable and emotionally
                         onClick={() => toggleTheme(theme)}
                         className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
                           selectedThemes.includes(theme)
-                            ? 'bg-blue-500 text-white ring-2 ring-blue-300'
+                            ? 'bg-[#F2F6FA]0 text-white ring-2 ring-blue-300'
                             : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                         }`}
                       >
@@ -196,10 +196,10 @@ Format each exercise with clear separators. Make them actionable and emotionally
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="mt-4 bg-gradient-to-br from-purple-50 to-blue-50 rounded-lg p-5 border border-purple-200"
+            className="mt-4 bg-gradient-to-br from-[#FAD98D]/10 to-[#F2F6FA] rounded-lg p-5 border border-[#D9B878]/40"
           >
             <div className="flex items-center gap-2 mb-4">
-              <BookOpen className="w-5 h-5 text-purple-600" />
+              <BookOpen className="w-5 h-5 text-[#8a6e1a]" />
               <h3 className="font-bold text-gray-900">Your Personalized Exercises</h3>
             </div>
 
@@ -212,7 +212,7 @@ Format each exercise with clear separators. Make them actionable and emotionally
                 onSelectExercise?.(exercises);
                 setShowExercises(false);
               }}
-              className="w-full mt-4 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white"
+              className="w-full mt-4 bg-gradient-to-r from-[#b89320] to-[#D9B878] hover:from-[#b89320] hover:to-[#D9B878] text-white"
               size="sm"
             >
               Explore These Exercises with Hannah

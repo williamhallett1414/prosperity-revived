@@ -18,15 +18,15 @@ export default function ProfileJourneyTab({ user, userProgress, workoutSessions,
       icon: BookOpen,
       label: 'Bible Readings',
       value: userProgress?.bible_readings_completed || 0,
-      color: 'from-blue-400 to-indigo-500',
-      bg: 'bg-blue-50'
+      color: 'from-[#AFC7E3] to-[#AFC7E3]',
+      bg: 'bg-[#F2F6FA]'
     },
     {
       icon: Brain,
       label: 'Meditations',
       value: userProgress?.meditations_completed || meditationSessions.length || 0,
-      color: 'from-purple-400 to-pink-500',
-      bg: 'bg-purple-50'
+      color: 'from-[#D9B878] to-[#FAD98D]',
+      bg: 'bg-[#FAD98D]/10'
     },
     {
       icon: BookOpen,
@@ -91,15 +91,15 @@ export default function ProfileJourneyTab({ user, userProgress, workoutSessions,
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="bg-blue-50 rounded-2xl p-5 text-center"
+          className="bg-[#F2F6FA] rounded-2xl p-5 text-center"
         >
-          <p className="text-sm text-blue-700 mb-1 font-medium">Your journey is just beginning!</p>
-          <p className="text-xs text-blue-500 mb-3">Log workouts, read the Bible, and journal to see your progress here.</p>
+          <p className="text-sm text-[#3C4E53] mb-1 font-medium">Your journey is just beginning!</p>
+          <p className="text-xs text-[#AFC7E3] mb-3">Log workouts, read the Bible, and journal to see your progress here.</p>
         </motion.div>
       )}
 
       <Link to={createPageUrl('ProgressDashboard')}>
-        <Button className="w-full bg-gradient-to-r from-blue-500 to-purple-500 text-white gap-2 mt-2">
+        <Button className="w-full bg-gradient-to-r from-[#c9a227] to-[#D9B878] text-white gap-2 mt-2">
           <TrendingUp className="w-4 h-4" /> Full Journey Dashboard
         </Button>
       </Link>

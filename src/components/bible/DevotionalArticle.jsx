@@ -456,7 +456,7 @@ export default function DevotionalArticle({ devotional, onBack }) {
         </Card>
 
         {/* Reflection Questions */}
-        <Card className="p-6 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 mb-6">
+        <Card className="p-6 bg-gradient-to-br from-[#F2F6FA] to-[#F2F6FA] dark:from-blue-900/20 dark:to-[#0A1A2F]/20 mb-6">
           <h2 className="text-xl font-bold text-[#1a1a2e] dark:text-white mb-4">Reflection Questions</h2>
           <div className="space-y-4">
             {content.reflectionQuestions.map((section, index) => (
@@ -473,9 +473,9 @@ export default function DevotionalArticle({ devotional, onBack }) {
         </Card>
 
         {/* Call to Christ */}
-        <Card className="p-6 bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 mb-6">
+        <Card className="p-6 bg-gradient-to-br from-[#FAD98D]/10 to-[#FFF8E7] dark:from-[#0A1A2F]/40 dark:to-[#1a1a2e]/40 mb-6">
           <h2 className="text-xl font-bold text-[#1a1a2e] dark:text-white mb-4 flex items-center gap-2">
-            <Heart className="w-5 h-5 text-purple-600" />
+            <Heart className="w-5 h-5 text-[#8a6e1a]" />
             Call to Christ
           </h2>
           <div className="space-y-4 text-gray-700 dark:text-gray-300 leading-relaxed">

@@ -42,10 +42,10 @@ export default function GratitudeJournal() {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-gradient-to-br from-pink-50 to-purple-50 rounded-2xl p-6 border border-pink-200 mb-6"
+      className="bg-gradient-to-br from-[#FAD98D]/10 to-[#FAD98D]/10 rounded-2xl p-6 border border-[#D9B878]/40 mb-6"
     >
       <div className="flex items-center gap-2 mb-4">
-        <Heart className="w-6 h-6 text-pink-500" />
+        <Heart className="w-6 h-6 text-[#D9B878]" />
         <h3 className="text-lg font-bold text-[#0A1A2F]">Gratitude Journal</h3>
       </div>
 
@@ -54,12 +54,12 @@ export default function GratitudeJournal() {
       <div className="space-y-3 mb-4">
         {gratitudeItems.map((item, index) => (
           <div key={index} className="flex items-center gap-2">
-            <span className="text-pink-500 font-bold">{index + 1}.</span>
+            <span className="text-[#D9B878] font-bold">{index + 1}.</span>
             <Input
               value={item}
               onChange={(e) => updateItem(index, e.target.value)}
               placeholder="I'm grateful for..."
-              className="bg-white border-pink-200 focus:border-pink-400 text-black"
+              className="bg-white border-[#D9B878]/40 focus:border-pink-400 text-black"
             />
           </div>
         ))}
@@ -68,7 +68,7 @@ export default function GratitudeJournal() {
       <Button
         onClick={handleSave}
         disabled={saving}
-        className="w-full bg-pink-500 hover:bg-pink-600 text-white"
+        className="w-full bg-[#FAD98D]/100 hover:bg-pink-600 text-white"
       >
         <Plus className="w-4 h-4 mr-2" />
         {saving ? 'Saving...' : 'Save Gratitude'}

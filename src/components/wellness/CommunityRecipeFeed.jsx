@@ -298,7 +298,7 @@ export default function CommunityRecipeFeed({ user }) {
                       <Heart className="w-4 h-4" />
                       {post.likes || 0}
                     </button>
-                    <button className="flex items-center gap-2 text-gray-500 hover:text-blue-500 transition-colors text-sm">
+                    <button className="flex items-center gap-2 text-gray-500 hover:text-[#AFC7E3] transition-colors text-sm">
                       <MessageCircle className="w-4 h-4" />
                       Comment
                     </button>

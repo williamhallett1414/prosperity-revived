@@ -50,7 +50,7 @@ export default function DailyReflectionSettings() {
     <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
-          <Sparkles className="w-5 h-5 text-purple-600" />
+          <Sparkles className="w-5 h-5 text-[#8a6e1a]" />
           Gideon's Proactive Engagement
         </CardTitle>
       </CardHeader>
@@ -59,7 +59,7 @@ export default function DailyReflectionSettings() {
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Clock className="w-5 h-5 text-purple-600" />
+              <Clock className="w-5 h-5 text-[#8a6e1a]" />
               <div>
                 <Label className="font-semibold">Daily Reflection Prompts</Label>
                 <p className="text-xs text-gray-500">ICF-aligned questions based on your journey</p>
@@ -91,7 +91,7 @@ export default function DailyReflectionSettings() {
         <div className="space-y-4 pt-4 border-t">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Bell className="w-5 h-5 text-purple-600" />
+              <Bell className="w-5 h-5 text-[#8a6e1a]" />
               <div>
                 <Label className="font-semibold">AI-Driven Suggestions</Label>
                 <p className="text-xs text-gray-500">Scripture & insights based on your patterns</p>
@@ -126,8 +126,8 @@ export default function DailyReflectionSettings() {
           )}
         </div>
 
-        <div className="bg-purple-50 dark:bg-purple-900/20 rounded-lg p-4 mt-4">
-          <p className="text-sm text-purple-700 dark:text-purple-300">
+        <div className="bg-[#FAD98D]/10 dark:bg-[#0A1A2F]/20 rounded-lg p-4 mt-4">
+          <p className="text-sm text-[#3C4E53] dark:text-[#FAD98D]">
             <strong>How it works:</strong> Gideon uses AI to understand your spiritual journey, emotional patterns, and recurring themes—then proactively offers timely guidance, scripture, and reflection prompts tailored to what you need most.
           </p>
         </div>
@@ -174,7 +174,7 @@ export default function DailyReflectionSettings() {
         <div className="space-y-4 pt-4 border-t mt-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Sparkles className="w-5 h-5 text-blue-600" />
+              <Sparkles className="w-5 h-5 text-[#3C4E53]" />
               <div>
                 <Label className="font-semibold">Monthly Progress Report</Label>
                 <p className="text-xs text-gray-500">Deep reflection on your spiritual journey</p>

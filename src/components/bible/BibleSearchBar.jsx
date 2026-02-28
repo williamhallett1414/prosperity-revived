@@ -214,7 +214,7 @@ export default function BibleSearchBar({ onNavigate }) {
           
           <button
             onClick={() => setShowAdvancedSearch(true)}
-            className="px-4 py-3.5 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white rounded-2xl font-medium flex items-center gap-2 transition-all shadow-sm"
+            className="px-4 py-3.5 bg-gradient-to-r from-[#c9a227] to-[#D9B878] hover:from-[#b89320] hover:to-[#c9a227] text-white rounded-2xl font-medium flex items-center gap-2 transition-all shadow-sm"
           >
             <Sparkles className="w-5 h-5" />
             <span className="hidden sm:inline">Advanced Search</span>
@@ -249,8 +249,8 @@ export default function BibleSearchBar({ onNavigate }) {
                       </div>
                     )}
                     {suggestion.type === 'verse' && (
-                      <div className="w-8 h-8 rounded-lg bg-purple-100 flex items-center justify-center">
-                        <span className="text-xs font-bold text-purple-700">V</span>
+                      <div className="w-8 h-8 rounded-lg bg-[#FAD98D]/20 flex items-center justify-center">
+                        <span className="text-xs font-bold text-[#3C4E53]">V</span>
                       </div>
                     )}
                     <div>

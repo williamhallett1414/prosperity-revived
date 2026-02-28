@@ -128,7 +128,7 @@ export default function FoodLogHistory() {
                         <p className="text-[#0A1A2F]/60">Calories</p>
                       </div>
                       <div className="text-center">
-                        <p className="font-bold text-blue-600">{Math.round(dateTotalProtein)}g</p>
+                        <p className="font-bold text-[#3C4E53]">{Math.round(dateTotalProtein)}g</p>
                         <p className="text-[#0A1A2F]/60">Protein</p>
                       </div>
                       <div className="text-center">

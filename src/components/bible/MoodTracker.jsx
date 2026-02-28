@@ -11,8 +11,8 @@ const moods = [
   { id: 'peaceful', label: 'Peaceful', icon: Heart, color: 'bg-green-100 text-green-600', description: 'feeling calm and content' },
   { id: 'struggling', label: 'Struggling', icon: Cloud, color: 'bg-gray-100 text-gray-600', description: 'facing challenges' },
   { id: 'anxious', label: 'Anxious', icon: Zap, color: 'bg-orange-100 text-orange-600', description: 'feeling worried or stressed' },
-  { id: 'sad', label: 'Sad', icon: Frown, color: 'bg-blue-100 text-blue-600', description: 'feeling down or discouraged' },
-  { id: 'neutral', label: 'Okay', icon: Meh, color: 'bg-purple-100 text-purple-600', description: 'feeling neutral' },
+  { id: 'sad', label: 'Sad', icon: Frown, color: 'bg-[#AFC7E3]/20 text-[#3C4E53]', description: 'feeling down or discouraged' },
+  { id: 'neutral', label: 'Okay', icon: Meh, color: 'bg-[#FAD98D]/20 text-[#8a6e1a]', description: 'feeling neutral' },
 ];
 
 export default function MoodTracker() {

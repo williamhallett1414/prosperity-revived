@@ -55,7 +55,7 @@ export default function ShareMilestoneModal({ user, onClose, onSuccess }) {
         className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
       >
         {/* Header */}
-        <div className="bg-gradient-to-r from-purple-500 to-pink-500 px-6 py-4 flex items-center justify-between">
+        <div className="bg-gradient-to-r from-[#c9a227] to-[#D9B878] px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center">
               <Share2 className="w-5 h-5 text-white" />
@@ -174,7 +174,7 @@ export default function ShareMilestoneModal({ user, onClose, onSuccess }) {
             <Button
               type="submit"
               disabled={createShareMutation.isPending}
-              className="flex-1 bg-gradient-to-r from-purple-500 to-pink-500 hover:opacity-90 text-white"
+              className="flex-1 bg-gradient-to-r from-[#c9a227] to-[#D9B878] hover:opacity-90 text-white"
             >
               {createShareMutation.isPending ? (
                 <>

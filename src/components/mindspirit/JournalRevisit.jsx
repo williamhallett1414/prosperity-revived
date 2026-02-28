@@ -73,7 +73,7 @@ QUESTIONS:
           }
           setIsExpanded(!isExpanded);
         }}
-        className="flex items-center gap-2 text-sm font-medium text-[#3C4E53] hover:text-purple-700 transition-colors"
+        className="flex items-center gap-2 text-sm font-medium text-[#3C4E53] hover:text-[#3C4E53] transition-colors"
       >
         <Lightbulb className="w-4 h-4" />
         Revisit & Reflect
@@ -110,7 +110,7 @@ QUESTIONS:
                 {questions.length > 0 && (
                   <div className="space-y-3">
                     <h4 className="font-medium text-gray-900 flex items-center gap-2">
-                      <BookOpen className="w-4 h-4 text-blue-600" />
+                      <BookOpen className="w-4 h-4 text-[#3C4E53]" />
                       Reflection Questions
                     </h4>
                     {questions.map((question, idx) => (
@@ -119,7 +119,7 @@ QUESTIONS:
                         initial={{ opacity: 0, x: -10 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: idx * 0.1 }}
-                        className="bg-blue-50 border border-blue-100 rounded-lg p-3"
+                        className="bg-[#F2F6FA] border border-blue-100 rounded-lg p-3"
                       >
                         <p className="text-sm text-blue-900">{question}</p>
                       </motion.div>

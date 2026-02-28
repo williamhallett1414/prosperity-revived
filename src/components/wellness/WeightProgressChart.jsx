@@ -34,7 +34,7 @@ export default function WeightProgressChart({ progressPhotos }) {
       <CardHeader>
         <CardTitle className="flex items-center justify-between">
           <span className="flex items-center gap-2">
-            <Scale className="w-5 h-5 text-blue-600" />
+            <Scale className="w-5 h-5 text-[#3C4E53]" />
             Weight Progress
           </span>
           <div className="text-right text-sm">

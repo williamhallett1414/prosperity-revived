@@ -128,7 +128,7 @@ Also generate a complete shopping list by combining all unique ingredients from 
     <div className="space-y-4">
       <div className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4">
         <div className="flex items-center gap-2 mb-4">
-          <Sparkles className="w-5 h-5 text-purple-500" />
+          <Sparkles className="w-5 h-5 text-[#c9a227]" />
           <h3 className="font-semibold text-[#1a1a2e] dark:text-white">AI Meal Planner</h3>
         </div>
 
@@ -191,7 +191,7 @@ Also generate a complete shopping list by combining all unique ingredients from 
           <Button
             onClick={generateMealPlan}
             disabled={loading}
-            className="w-full bg-purple-600 hover:bg-purple-700"
+            className="w-full bg-[#c9a227] hover:bg-[#b89320]"
           >
             {loading ? (
               <>
@@ -217,7 +217,7 @@ Also generate a complete shopping list by combining all unique ingredients from 
           {/* Weekly Meal Plan */}
           <div className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4">
             <div className="flex items-center gap-2 mb-4">
-              <Calendar className="w-5 h-5 text-purple-500" />
+              <Calendar className="w-5 h-5 text-[#c9a227]" />
               <h3 className="font-semibold text-[#1a1a2e] dark:text-white">{preferences.days}-Day Meal Plan</h3>
             </div>
 
@@ -226,7 +226,7 @@ Also generate a complete shopping list by combining all unique ingredients from 
                 <div key={dayIndex} className="border border-gray-200 dark:border-gray-700 rounded-lg p-3">
                   <div className="flex items-center justify-between mb-3">
                     <h4 className="font-semibold text-[#1a1a2e] dark:text-white">{day.day}</h4>
-                    <span className="text-sm text-purple-600 dark:text-purple-400 font-medium">
+                    <span className="text-sm text-[#8a6e1a] dark:text-[#D9B878] font-medium">
                       {day.total_calories} cal
                     </span>
                   </div>
@@ -250,7 +250,7 @@ Also generate a complete shopping list by combining all unique ingredients from 
                               {meal.meal_type}
                             </p>
                             {recipe && (
-                              <p className="text-xs text-purple-600 dark:text-purple-400 mt-1">
+                              <p className="text-xs text-[#8a6e1a] dark:text-[#D9B878] mt-1">
                                 {recipe.prep_time_minutes + recipe.cook_time_minutes} min total
                               </p>
                             )}
@@ -297,7 +297,7 @@ Also generate a complete shopping list by combining all unique ingredients from 
 
                 {shoppingList.dairy?.length > 0 && (
                   <div>
-                    <h4 className="text-sm font-semibold text-blue-600 dark:text-blue-400 mb-2">🥛 Dairy</h4>
+                    <h4 className="text-sm font-semibold text-[#3C4E53] dark:text-blue-400 mb-2">🥛 Dairy</h4>
                     <ul className="text-sm text-gray-600 dark:text-gray-400 space-y-1">
                       {shoppingList.dairy.map((item, i) => (
                         <li key={i}>• {item}</li>

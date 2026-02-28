@@ -59,7 +59,7 @@ export default function MeditationSessionCard({ session, onBegin }) {
           }}
           className={`w-full font-semibold py-2 rounded-lg flex items-center justify-center gap-2 transition ${
             session.status === "ready"
-              ? "bg-purple-600 hover:bg-purple-700 text-white"
+              ? "bg-[#c9a227] hover:bg-[#b89320] text-white"
               : "bg-gray-700 text-gray-300 cursor-not-allowed"
           }`}
           disabled={session.status !== "ready"}

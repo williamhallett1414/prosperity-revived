@@ -43,9 +43,9 @@ export default function PersonalizedDevotional() {
 
   if (isLoading) {
     return (
-      <Card className="p-6 bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 border-indigo-200 dark:border-indigo-700">
+      <Card className="p-6 bg-gradient-to-br from-[#F2F6FA] to-[#FAD98D]/10 dark:from-indigo-900/20 dark:to-[#1a1a2e]/20 border-[#AFC7E3]/40 dark:border-indigo-700">
         <div className="flex items-center gap-3">
-          <RefreshCw className="w-5 h-5 animate-spin text-indigo-600" />
+          <RefreshCw className="w-5 h-5 animate-spin text-[#3C4E53]" />
           <p className="text-sm text-gray-600 dark:text-gray-400">Loading your personalized devotional...</p>
         </div>
       </Card>);
@@ -54,9 +54,9 @@ export default function PersonalizedDevotional() {
 
   if (!todayReflection) {
     return (
-      <Card className="p-6 bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 border-indigo-200 dark:border-indigo-700">
+      <Card className="p-6 bg-gradient-to-br from-[#F2F6FA] to-[#FAD98D]/10 dark:from-indigo-900/20 dark:to-[#1a1a2e]/20 border-[#AFC7E3]/40 dark:border-indigo-700">
         <div className="flex items-center gap-4 mb-4">
-          <div className="w-12 h-12 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-full flex items-center justify-center">
+          <div className="w-12 h-12 bg-gradient-to-br from-[#AFC7E3] to-[#D9B878] rounded-full flex items-center justify-center">
             <Sparkles className="w-6 h-6 text-white" />
           </div>
           <div className="flex-1">
@@ -73,7 +73,7 @@ export default function PersonalizedDevotional() {
         <Button
           onClick={() => generateDevotional.mutate()}
           disabled={generateDevotional.isPending}
-          className="w-full bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white">
+          className="w-full bg-gradient-to-r from-[#AFC7E3] to-[#D9B878] hover:from-indigo-600 hover:to-[#c9a227] text-white">
 
           {generateDevotional.isPending ?
           <>

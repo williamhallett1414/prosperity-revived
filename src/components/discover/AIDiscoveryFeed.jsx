@@ -144,8 +144,8 @@ Return ONLY a JSON array with this exact structure:
 
   const getTypeColor = (type) => {
     switch (type) {
-      case 'article': return 'from-blue-500 to-indigo-500';
-      case 'post': return 'from-purple-500 to-pink-500';
+      case 'article': return 'from-[#AFC7E3] to-[#AFC7E3]';
+      case 'post': return 'from-[#c9a227] to-[#D9B878]';
       case 'plan': return 'from-amber-500 to-orange-500';
       case 'group': return 'from-green-500 to-emerald-500';
       case 'challenge': return 'from-red-500 to-rose-500';
@@ -156,7 +156,7 @@ Return ONLY a JSON array with this exact structure:
   if (loading) {
     return (
       <div className="flex justify-center py-12">
-        <Loader2 className="w-8 h-8 text-purple-600 animate-spin" />
+        <Loader2 className="w-8 h-8 text-[#8a6e1a] animate-spin" />
       </div>
     );
   }
@@ -195,7 +195,7 @@ Return ONLY a JSON array with this exact structure:
                     {rec.description}
                   </p>
                   <div className="flex items-center gap-2 mb-3">
-                    <div className="flex-1 text-xs text-purple-600 dark:text-purple-400 italic">
+                    <div className="flex-1 text-xs text-[#8a6e1a] dark:text-[#D9B878] italic">
                       💡 {rec.reason}
                     </div>
                   </div>
@@ -204,7 +204,7 @@ Return ONLY a JSON array with this exact structure:
                       href={rec.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-sm text-purple-600 hover:text-purple-700 font-medium"
+                      className="inline-flex items-center gap-2 text-sm text-[#8a6e1a] hover:text-[#3C4E53] font-medium"
                     >
                       Learn More
                       <ExternalLink className="w-4 h-4" />
@@ -217,7 +217,7 @@ Return ONLY a JSON array with this exact structure:
                         rec.type === 'challenge' ? createPageUrl('Achievements') :
                         createPageUrl('Community')
                       }
-                      className="inline-flex items-center gap-2 text-sm text-purple-600 hover:text-purple-700 font-medium"
+                      className="inline-flex items-center gap-2 text-sm text-[#8a6e1a] hover:text-[#3C4E53] font-medium"
                     >
                       Explore
                     </Link>

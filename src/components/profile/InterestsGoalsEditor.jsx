@@ -94,17 +94,17 @@ export default function InterestsGoalsEditor({ user }) {
       button: 'bg-[#c9a227] hover:bg-[#b89320]'
     },
     pink: {
-      bg: 'bg-pink-50 dark:bg-pink-900/20',
-      border: 'border-pink-200 dark:border-pink-700',
-      icon: 'text-pink-600 dark:text-pink-400',
-      badge: 'bg-pink-100 text-pink-700 dark:bg-pink-900/50 dark:text-pink-300',
+      bg: 'bg-[#FAD98D]/10 dark:bg-[#0A1A2F]/20',
+      border: 'border-[#D9B878]/40 dark:border-pink-700',
+      icon: 'text-[#c9a227] dark:text-pink-400',
+      badge: 'bg-[#FAD98D]/20 text-[#8a6e1a] dark:bg-[#0A1A2F]/50 dark:text-[#FAD98D]',
       button: 'bg-pink-600 hover:bg-pink-700'
     },
     blue: {
-      bg: 'bg-blue-50 dark:bg-blue-900/20',
-      border: 'border-blue-200 dark:border-blue-700',
-      icon: 'text-blue-600 dark:text-blue-400',
-      badge: 'bg-blue-100 text-blue-700 dark:bg-blue-900/50 dark:text-blue-300',
+      bg: 'bg-[#F2F6FA] dark:bg-[#0A1A2F]/20',
+      border: 'border-[#AFC7E3]/40 dark:border-blue-700',
+      icon: 'text-[#3C4E53] dark:text-blue-400',
+      badge: 'bg-[#AFC7E3]/20 text-[#3C4E53] dark:bg-[#0A1A2F]/50 dark:text-blue-300',
       button: 'bg-blue-600 hover:bg-blue-700'
     },
     green: {

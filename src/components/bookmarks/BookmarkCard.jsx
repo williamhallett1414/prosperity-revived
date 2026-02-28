@@ -6,9 +6,9 @@ import { Button } from '@/components/ui/button';
 const highlightColors = {
   yellow: 'border-l-yellow-400 bg-yellow-50',
   green: 'border-l-green-400 bg-green-50',
-  blue: 'border-l-blue-400 bg-blue-50',
-  pink: 'border-l-pink-400 bg-pink-50',
-  purple: 'border-l-purple-400 bg-purple-50'
+  blue: 'border-l-blue-400 bg-[#F2F6FA]',
+  pink: 'border-l-pink-400 bg-[#FAD98D]/10',
+  purple: 'border-l-purple-400 bg-[#FAD98D]/10'
 };
 
 export default function BookmarkCard({ bookmark, onDelete, onOpen, index }) {

@@ -43,14 +43,14 @@ export default function AchievementsTab({ userProgress }) {
       <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
         <div className="flex items-center justify-between mb-4">
           <h3 className="font-bold text-gray-900 text-lg">Progress to Next Level</h3>
-          <TrendingUp className="w-5 h-5 text-blue-600" />
+          <TrendingUp className="w-5 h-5 text-[#3C4E53]" />
         </div>
         <div className="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
           <motion.div
             initial={{ width: 0 }}
             animate={{ width: `${Math.min((userProgress.total_points % 1000) / 10, 100)}%` }}
             transition={{ duration: 1, ease: "easeOut" }}
-            className="bg-gradient-to-r from-blue-500 via-blue-600 to-purple-600 h-4 rounded-full shadow-inner"
+            className="bg-gradient-to-r from-[#AFC7E3] via-blue-600 to-[#c9a227] h-4 rounded-full shadow-inner"
           />
         </div>
         <p className="text-sm text-gray-600 mt-3 font-medium">
@@ -96,15 +96,15 @@ export default function AchievementsTab({ userProgress }) {
             <span className="text-gray-700 font-medium">Workouts Completed</span>
             <span className="font-bold text-green-700 text-xl">{userProgress.workouts_completed || 0}</span>
           </div>
-          <div className="flex items-center justify-between p-4 bg-pink-50 rounded-lg border border-pink-100">
+          <div className="flex items-center justify-between p-4 bg-[#FAD98D]/10 rounded-lg border border-pink-100">
             <span className="text-gray-700 font-medium">Meditations Completed</span>
-            <span className="font-bold text-pink-700 text-xl">{userProgress.meditations_completed || 0}</span>
+            <span className="font-bold text-[#8a6e1a] text-xl">{userProgress.meditations_completed || 0}</span>
           </div>
-          <div className="flex items-center justify-between p-4 bg-blue-50 rounded-lg border border-blue-100">
+          <div className="flex items-center justify-between p-4 bg-[#F2F6FA] rounded-lg border border-blue-100">
             <span className="text-gray-700 font-medium">Comments Made</span>
-            <span className="font-bold text-blue-700 text-xl">{userProgress.comments_count || 0}</span>
+            <span className="font-bold text-[#3C4E53] text-xl">{userProgress.comments_count || 0}</span>
           </div>
-          <div className="flex items-center justify-between p-4 bg-indigo-50 rounded-lg border border-indigo-100">
+          <div className="flex items-center justify-between p-4 bg-[#F2F6FA] rounded-lg border border-indigo-100">
             <span className="text-gray-700 font-medium">Friends</span>
             <span className="font-bold text-indigo-700 text-xl">{userProgress.friends_count || 0}</span>
           </div>
@@ -127,9 +127,9 @@ export default function AchievementsTab({ userProgress }) {
               <span className="text-4xl font-bold text-[#8a6e1a]">{userProgress.current_streak || 0}</span>
               <span className="text-xs text-gray-500 mt-1">days</span>
             </div>
-            <div className="flex flex-col items-center p-5 bg-white rounded-lg border border-pink-200">
+            <div className="flex flex-col items-center p-5 bg-white rounded-lg border border-[#D9B878]/40">
               <span className="text-sm text-gray-600 font-medium mb-2">Longest Streak</span>
-              <span className="text-4xl font-bold text-pink-600">{userProgress.longest_streak || 0}</span>
+              <span className="text-4xl font-bold text-[#c9a227]">{userProgress.longest_streak || 0}</span>
               <span className="text-xs text-gray-500 mt-1">days</span>
             </div>
           </div>

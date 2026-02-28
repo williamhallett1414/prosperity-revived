@@ -265,7 +265,7 @@ export default function UserProfile() {
       {/* Spiritual Goal */}
       {profileUser.spiritual_goal && (
         <div className="px-4 mb-6">
-          <div className="bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl p-4 shadow-lg text-white">
+          <div className="bg-gradient-to-br from-[#AFC7E3] to-[#0A1A2F] rounded-2xl p-4 shadow-lg text-white">
             <h3 className="font-semibold mb-2 flex items-center gap-2">
               <Target className="w-5 h-5" />
               Spiritual Goal

@@ -27,7 +27,7 @@ const SELF_CARE_TIPS = [
     id: 2,
     category: 'Emotional Wellness',
     icon: Heart,
-    color: 'from-pink-400 to-rose-500',
+    color: 'from-[#FD9C2D] to-rose-500',
     title: 'Honor Your Emotions',
     description: 'Create space to feel, process, and release your emotions healthily',
     tips: [
@@ -42,7 +42,7 @@ const SELF_CARE_TIPS = [
     id: 3,
     category: 'Mental Clarity',
     icon: Brain,
-    color: 'from-blue-400 to-indigo-500',
+    color: 'from-[#AFC7E3] to-[#AFC7E3]',
     title: 'Declutter Your Mind',
     description: 'Reduce mental noise and create space for peace and focus',
     tips: [
@@ -72,7 +72,7 @@ const SELF_CARE_TIPS = [
     id: 5,
     category: 'Creative Expression',
     icon: Palette,
-    color: 'from-purple-400 to-violet-500',
+    color: 'from-[#AFC7E3] to-[#3C4E53]',
     title: 'Express Your Inner Self',
     description: 'Use creativity as a pathway to self-discovery and healing',
     tips: [
@@ -87,7 +87,7 @@ const SELF_CARE_TIPS = [
     id: 6,
     category: 'Rest & Recovery',
     icon: Moon,
-    color: 'from-indigo-400 to-blue-500',
+    color: 'from-indigo-400 to-[#F2F6FA]0',
     title: 'Embrace Sacred Rest',
     description: 'Prioritize rest as a spiritual practice, not a luxury',
     tips: [
@@ -157,7 +157,7 @@ const MOOD_BOOSTERS = [
   { icon: Music, text: 'Listen to your favorite uplifting song', color: 'text-[#AFC7E3]' },
   { icon: Coffee, text: 'Enjoy a mindful cup of tea or coffee', color: 'text-amber-600' },
   { icon: Book, text: 'Read an inspiring chapter or quote', color: 'text-emerald-600' },
-  { icon: Heart, text: 'Do a random act of kindness', color: 'text-pink-500' }
+  { icon: Heart, text: 'Do a random act of kindness', color: 'text-[#D9B878]' }
 ];
 
 export default function SelfCareGuides({ user }) {
@@ -249,7 +249,7 @@ export default function SelfCareGuides({ user }) {
             <Button
               onClick={generatePersonalizedPlan}
               disabled={loadingInsight}
-              className="w-full bg-gradient-to-r from-[#AFC7E3] to-[#3C4E53] hover:from-purple-600 hover:to-pink-600 mb-4"
+              className="w-full bg-gradient-to-r from-[#AFC7E3] to-[#3C4E53] hover:from-[#b89320] hover:to-[#c9a227] mb-4"
             >
               {loadingInsight ? (
                 <>
@@ -274,15 +274,15 @@ export default function SelfCareGuides({ user }) {
                   <p className="font-semibold text-yellow-800 dark:text-yellow-300 mb-1">🌅 Morning Ritual</p>
                   <p className="text-gray-700 dark:text-gray-300">{aiInsight.morning_ritual}</p>
                 </div>
-                <div className="p-3 bg-pink-50 dark:bg-pink-900/20 rounded-lg">
-                  <p className="font-semibold text-pink-800 dark:text-pink-300 mb-1">💗 Emotional Practice</p>
+                <div className="p-3 bg-[#FAD98D]/10 dark:bg-[#0A1A2F]/20 rounded-lg">
+                  <p className="font-semibold text-pink-800 dark:text-[#FAD98D] mb-1">💗 Emotional Practice</p>
                   <p className="text-gray-700 dark:text-gray-300">{aiInsight.emotional_practice}</p>
                 </div>
                 <div className="p-3 bg-[#AFC7E3]/15 dark:bg-[#AFC7E3]/5 rounded-lg">
                   <p className="font-semibold text-[#3C4E53] dark:text-[#AFC7E3] mb-1">🎨 Creative Activity</p>
                   <p className="text-gray-700 dark:text-gray-300">{aiInsight.creative_activity}</p>
                 </div>
-                <div className="p-3 bg-indigo-50 dark:bg-indigo-900/20 rounded-lg">
+                <div className="p-3 bg-[#F2F6FA] dark:bg-indigo-900/20 rounded-lg">
                   <p className="font-semibold text-indigo-800 dark:text-indigo-300 mb-1">🌙 Evening Practice</p>
                   <p className="text-gray-700 dark:text-gray-300">{aiInsight.evening_practice}</p>
                 </div>

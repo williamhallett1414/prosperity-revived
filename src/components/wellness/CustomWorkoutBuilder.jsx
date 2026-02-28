@@ -133,7 +133,7 @@ export default function CustomWorkoutBuilder({ exercises, onChange }) {
                 ref={provided.innerRef}
                 {...provided.droppableProps}
                 className={`flex-1 overflow-y-auto space-y-2 ${
-                  snapshot.isDraggingOver ? 'bg-blue-50 dark:bg-blue-900/20' : ''
+                  snapshot.isDraggingOver ? 'bg-[#F2F6FA] dark:bg-[#0A1A2F]/20' : ''
                 } ${exercises.length === 0 ? 'border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg' : ''}`}
               >
                 {exercises.length === 0 && (

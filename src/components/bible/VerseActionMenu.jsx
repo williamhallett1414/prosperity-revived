@@ -153,7 +153,7 @@ Keep it warm, accessible, and spiritually enriching - like Dr. Myles Munroe's ki
           <Button
             onClick={handleGetAIInsights}
             disabled={loadingAI}
-            className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white"
+            className="w-full bg-gradient-to-r from-[#c9a227] to-[#D9B878] hover:from-[#b89320] hover:to-[#c9a227] text-white"
             size="sm"
           >
             <Sparkles className="w-4 h-4 mr-2" />
@@ -162,10 +162,10 @@ Keep it warm, accessible, and spiritually enriching - like Dr. Myles Munroe's ki
 
           {/* AI Insights Display */}
           {showAIInsights && aiInsights && (
-            <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-lg p-4 space-y-3 max-h-96 overflow-y-auto">
+            <div className="bg-gradient-to-br from-[#FAD98D]/10 to-[#FFF8E7] rounded-lg p-4 space-y-3 max-h-96 overflow-y-auto">
               <div className="flex items-center gap-2 mb-2">
-                <Sparkles className="w-4 h-4 text-purple-600" />
-                <span className="text-sm font-bold text-purple-900">Gideon's Insights</span>
+                <Sparkles className="w-4 h-4 text-[#8a6e1a]" />
+                <span className="text-sm font-bold text-[#0A1A2F]">Gideon's Insights</span>
               </div>
               <div className="prose prose-sm text-gray-700 text-xs leading-relaxed">
                 {aiInsights.split('\n').map((line, i) => (

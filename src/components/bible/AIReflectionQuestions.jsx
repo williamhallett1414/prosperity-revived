@@ -46,7 +46,7 @@ Return exactly 3 questions that encourage personal reflection and application.`,
         onClick={isExpanded ? () => setIsExpanded(false) : generateQuestions}
         disabled={loading}
         variant="outline"
-        className="w-full bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 border-purple-200 dark:border-purple-700 hover:shadow-md transition-all"
+        className="w-full bg-gradient-to-r from-[#FAD98D]/10 to-[#FFF8E7] dark:from-[#0A1A2F]/40 dark:to-[#1a1a2e]/40 border-[#D9B878]/40 dark:border-[#c9a227]/60 hover:shadow-md transition-all"
       >
         {loading ? (
           <>
@@ -55,7 +55,7 @@ Return exactly 3 questions that encourage personal reflection and application.`,
           </>
         ) : (
           <>
-            <Sparkles className="w-4 h-4 mr-2 text-purple-500" />
+            <Sparkles className="w-4 h-4 mr-2 text-[#c9a227]" />
             Reflection Questions
             {isExpanded && <ChevronUp className="w-4 h-4 ml-2" />}
             {!isExpanded && questions.length === 0 && <ChevronDown className="w-4 h-4 ml-2" />}
@@ -70,9 +70,9 @@ Return exactly 3 questions that encourage personal reflection and application.`,
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
           >
-            <Card className="p-6 mt-3 bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 space-y-4">
+            <Card className="p-6 mt-3 bg-gradient-to-br from-[#FAD98D]/10 to-[#FFF8E7] dark:from-[#0A1A2F]/40 dark:to-[#1a1a2e]/40 space-y-4">
               <div className="flex items-center gap-2 mb-4">
-                <Sparkles className="w-5 h-5 text-purple-500" />
+                <Sparkles className="w-5 h-5 text-[#c9a227]" />
                 <h3 className="font-semibold text-[#1a1a2e] dark:text-white">Personal Reflection Questions</h3>
               </div>
               {questions.map((question, index) => (

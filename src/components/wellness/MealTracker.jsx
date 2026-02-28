@@ -122,8 +122,8 @@ export default function MealTracker() {
             <p className="text-lg font-bold text-emerald-600">{totalCalories}</p>
             <p className="text-xs text-gray-500 dark:text-gray-400">Calories</p>
           </div>
-          <div className="text-center p-2 bg-blue-50 dark:bg-blue-900/20 rounded">
-            <p className="text-lg font-bold text-blue-600">{Math.round(totalProtein)}g</p>
+          <div className="text-center p-2 bg-[#F2F6FA] dark:bg-[#0A1A2F]/20 rounded">
+            <p className="text-lg font-bold text-[#3C4E53]">{Math.round(totalProtein)}g</p>
             <p className="text-xs text-gray-500 dark:text-gray-400">Protein</p>
           </div>
           <div className="text-center p-2 bg-amber-50 dark:bg-amber-900/20 rounded">
@@ -166,7 +166,7 @@ export default function MealTracker() {
         {/* Water Intake Section */}
         <div className="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
           <div className="flex items-center gap-3 mb-4">
-            <Droplets className="w-6 h-6 text-blue-500" />
+            <Droplets className="w-6 h-6 text-[#AFC7E3]" />
             <div className="flex-1">
               <h4 className="font-semibold text-[#1a1a2e] dark:text-white">Water Intake</h4>
               <p className="text-xs text-gray-500 dark:text-gray-400">Goal: {waterGoal} glasses</p>
@@ -176,7 +176,7 @@ export default function MealTracker() {
           <div className="mb-4">
             <div className="flex items-center justify-between mb-2">
               <span className="text-sm text-gray-600 dark:text-gray-400">{glasses} / {waterGoal} glasses</span>
-              <span className="text-sm font-medium text-blue-500">{Math.round(waterPercentage)}%</span>
+              <span className="text-sm font-medium text-[#AFC7E3]">{Math.round(waterPercentage)}%</span>
             </div>
             <Progress value={waterPercentage} className="h-3" />
           </div>
@@ -193,14 +193,14 @@ export default function MealTracker() {
             </Button>
             
             <div className="text-center">
-              <div className="text-4xl font-bold text-blue-500">{glasses}</div>
+              <div className="text-4xl font-bold text-[#AFC7E3]">{glasses}</div>
               <div className="text-xs text-gray-500 dark:text-gray-400">glasses</div>
             </div>
 
             <Button
               size="icon"
               onClick={addGlass}
-              className="h-12 w-12 rounded-full bg-blue-500 hover:bg-blue-600"
+              className="h-12 w-12 rounded-full bg-[#F2F6FA]0 hover:bg-blue-600"
             >
               <Plus className="w-5 h-5" />
             </Button>

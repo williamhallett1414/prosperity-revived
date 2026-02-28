@@ -65,7 +65,7 @@ export default function CoachDavidFormAnalysis({ onAnalysisComplete }) {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
-            className="mt-3 p-4 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl border border-blue-200 space-y-4"
+            className="mt-3 p-4 bg-gradient-to-br from-[#F2F6FA] to-[#F2F6FA] rounded-xl border border-[#AFC7E3]/40 space-y-4"
           >
             <div className="flex items-center justify-between">
               <h4 className="font-semibold text-[#0A1A2F] text-sm">📹 Exercise Form Analysis</h4>
@@ -91,12 +91,12 @@ export default function CoachDavidFormAnalysis({ onAnalysisComplete }) {
                     value={exerciseName}
                     onChange={(e) => setExerciseName(e.target.value)}
                     placeholder="e.g., Barbell Squat, Deadlift"
-                    className="w-full px-3 py-2 text-sm border border-blue-300 rounded-lg bg-white"
+                    className="w-full px-3 py-2 text-sm border border-[#AFC7E3]/60 rounded-lg bg-white"
                     disabled={isAnalyzing}
                   />
                 </div>
 
-                <div className="border-2 border-dashed border-blue-300 rounded-lg p-4 text-center">
+                <div className="border-2 border-dashed border-[#AFC7E3]/60 rounded-lg p-4 text-center">
                   <input
                     type="file"
                     accept="video/*"
@@ -106,7 +106,7 @@ export default function CoachDavidFormAnalysis({ onAnalysisComplete }) {
                     disabled={isAnalyzing}
                   />
                   <label htmlFor="video-upload" className="cursor-pointer">
-                    <Upload className="w-6 h-6 mx-auto mb-2 text-blue-600" />
+                    <Upload className="w-6 h-6 mx-auto mb-2 text-[#3C4E53]" />
                     <p className="text-xs font-medium text-[#0A1A2F]">Click to upload video</p>
                     <p className="text-xs text-gray-600 mt-1">or drag and drop</p>
                   </label>
@@ -132,8 +132,8 @@ export default function CoachDavidFormAnalysis({ onAnalysisComplete }) {
               </div>
             ) : (
               <div className="space-y-4 text-sm">
-                <div className="flex items-center gap-2 p-3 bg-white rounded-lg border border-blue-200">
-                  <div className="text-3xl font-bold text-blue-600">{analysis.overall_form_score}</div>
+                <div className="flex items-center gap-2 p-3 bg-white rounded-lg border border-[#AFC7E3]/40">
+                  <div className="text-3xl font-bold text-[#3C4E53]">{analysis.overall_form_score}</div>
                   <div className="flex-1">
                     <p className="font-semibold text-[#0A1A2F]">Form Score</p>
                     <p className="text-xs text-gray-600">Out of 10</p>
@@ -141,7 +141,7 @@ export default function CoachDavidFormAnalysis({ onAnalysisComplete }) {
                 </div>
 
                 {analysis.diagram_url && (
-                  <div className="rounded-lg overflow-hidden border border-blue-200">
+                  <div className="rounded-lg overflow-hidden border border-[#AFC7E3]/40">
                     <img src={analysis.diagram_url} alt="Form diagram" className="w-full" />
                   </div>
                 )}
@@ -171,7 +171,7 @@ export default function CoachDavidFormAnalysis({ onAnalysisComplete }) {
                 </div>
 
                 {analysis.detailed_corrections?.length > 0 && (
-                  <div className="bg-white rounded-lg p-3 space-y-2 border border-blue-200">
+                  <div className="bg-white rounded-lg p-3 space-y-2 border border-[#AFC7E3]/40">
                     <p className="font-semibold text-[#0A1A2F] text-xs">🔧 Corrections</p>
                     {analysis.detailed_corrections.map((c, i) => (
                       <div key={i} className="text-xs space-y-1">

@@ -101,11 +101,11 @@ export default function HolisticProgressReport({ user }) {
                 <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-gray-100">
                   {report.data_summary && (
                     <>
-                      <Badge variant="outline" className="bg-purple-50 border-purple-200">
+                      <Badge variant="outline" className="bg-[#FAD98D]/10 border-[#D9B878]/40">
                         <Heart className="w-3 h-3 mr-1" />
                         {report.data_summary.total_journals} journals
                       </Badge>
-                      <Badge variant="outline" className="bg-blue-50 border-blue-200">
+                      <Badge variant="outline" className="bg-[#F2F6FA] border-[#AFC7E3]/40">
                         <Dumbbell className="w-3 h-3 mr-1" />
                         {report.data_summary.total_workouts} workouts
                       </Badge>
@@ -186,13 +186,13 @@ export default function HolisticProgressReport({ user }) {
                       {/* Growth Opportunities */}
                       <div className="bg-white rounded-xl p-5 shadow-sm border border-blue-100">
                         <div className="flex items-center gap-2 mb-3">
-                          <Lightbulb className="w-5 h-5 text-blue-600" />
+                          <Lightbulb className="w-5 h-5 text-[#3C4E53]" />
                           <h3 className="font-semibold text-gray-900">Growth Opportunities</h3>
                         </div>
                         <ul className="space-y-2">
                           {report.growth_opportunities?.map((opportunity, idx) => (
                             <li key={idx} className="flex items-start gap-2 text-gray-700 text-sm">
-                              <span className="text-blue-500 mt-1">→</span>
+                              <span className="text-[#AFC7E3] mt-1">→</span>
                               <span>{opportunity}</span>
                             </li>
                           ))}

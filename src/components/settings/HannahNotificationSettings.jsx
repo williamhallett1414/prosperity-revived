@@ -148,7 +148,7 @@ export default function HannahNotificationSettings({ user }) {
           );
         })}
 
-        <div className="mt-6 p-4 bg-purple-50 border border-[#AFC7E3]/40 rounded-xl">
+        <div className="mt-6 p-4 bg-[#FAD98D]/10 border border-[#AFC7E3]/40 rounded-xl">
           <p className="text-xs text-[#3C4E53] leading-relaxed">
             <span className="font-semibold">💡 What Hannah Does:</span> Each notification includes a warm, emotionally intelligent greeting, a mindset insight rooted in habit science, psychology, and personal development, plus a gentle coaching question to help you reflect and grow.
           </p>

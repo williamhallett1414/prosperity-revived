@@ -112,8 +112,8 @@ export default function NutritionBreakdown({ timeRange = 7 }) {
             <p className="text-2xl font-bold text-emerald-600">{stats.avgDaily.calories}</p>
             <p className="text-xs text-gray-500 dark:text-gray-400">Calories</p>
           </div>
-          <div className="text-center p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-            <p className="text-2xl font-bold text-blue-600">{stats.avgDaily.protein}g</p>
+          <div className="text-center p-3 bg-[#F2F6FA] dark:bg-[#0A1A2F]/20 rounded-lg">
+            <p className="text-2xl font-bold text-[#3C4E53]">{stats.avgDaily.protein}g</p>
             <p className="text-xs text-gray-500 dark:text-gray-400">Protein</p>
           </div>
           <div className="text-center p-3 bg-amber-50 dark:bg-amber-900/20 rounded-lg">
@@ -157,9 +157,9 @@ export default function NutritionBreakdown({ timeRange = 7 }) {
               <span className="text-gray-600 dark:text-gray-400">Vitamin D</span>
               <span className="font-medium text-yellow-700 dark:text-yellow-400">{stats.avgDaily.vitamin_d}mcg</span>
             </div>
-            <div className="flex justify-between p-2 bg-blue-50 dark:bg-blue-900/20 rounded">
+            <div className="flex justify-between p-2 bg-[#F2F6FA] dark:bg-[#0A1A2F]/20 rounded">
               <span className="text-gray-600 dark:text-gray-400">Calcium</span>
-              <span className="font-medium text-blue-700 dark:text-blue-400">{stats.avgDaily.calcium}mg</span>
+              <span className="font-medium text-[#3C4E53] dark:text-blue-400">{stats.avgDaily.calcium}mg</span>
             </div>
             <div className="flex justify-between p-2 bg-red-50 dark:bg-red-900/20 rounded">
               <span className="text-gray-600 dark:text-gray-400">Iron</span>
@@ -169,13 +169,13 @@ export default function NutritionBreakdown({ timeRange = 7 }) {
               <span className="text-gray-600 dark:text-gray-400">Potassium</span>
               <span className="font-medium text-green-700 dark:text-green-400">{stats.avgDaily.potassium}mg</span>
             </div>
-            <div className="flex justify-between p-2 bg-indigo-50 dark:bg-indigo-900/20 rounded">
+            <div className="flex justify-between p-2 bg-[#F2F6FA] dark:bg-indigo-900/20 rounded">
               <span className="text-gray-600 dark:text-gray-400">Magnesium</span>
               <span className="font-medium text-indigo-700 dark:text-indigo-400">{stats.avgDaily.magnesium}mg</span>
             </div>
-            <div className="flex justify-between p-2 bg-pink-50 dark:bg-pink-900/20 rounded">
+            <div className="flex justify-between p-2 bg-[#FAD98D]/10 dark:bg-[#0A1A2F]/20 rounded">
               <span className="text-gray-600 dark:text-gray-400">Zinc</span>
-              <span className="font-medium text-pink-700 dark:text-pink-400">{stats.avgDaily.zinc}mg</span>
+              <span className="font-medium text-[#8a6e1a] dark:text-pink-400">{stats.avgDaily.zinc}mg</span>
             </div>
           </div>
         </div>
@@ -190,7 +190,7 @@ export default function NutritionBreakdown({ timeRange = 7 }) {
           className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4"
         >
           <div className="flex items-center gap-2 mb-4">
-            <Calendar className="w-5 h-5 text-blue-500" />
+            <Calendar className="w-5 h-5 text-[#AFC7E3]" />
             <h3 className="font-semibold text-[#1a1a2e] dark:text-white">Daily Calorie Trend</h3>
           </div>
           <ResponsiveContainer width="100%" height={200}>

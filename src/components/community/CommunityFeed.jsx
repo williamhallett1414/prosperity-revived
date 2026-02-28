@@ -34,7 +34,7 @@ const chatbotIcons = {
 
 const chatbotColors = {
   Hannah: 'from-[#c9a227] to-[#D9B878]',
-  CoachDavid: 'from-blue-500 to-cyan-500',
+  CoachDavid: 'from-[#AFC7E3] to-[#7ab3d4]',
   ChefDaniel: 'from-orange-500 to-red-500',
   Gideon: 'from-green-500 to-emerald-500',
   general: 'from-gray-500 to-gray-600'
@@ -43,8 +43,8 @@ const chatbotColors = {
 const encouragementTypes = [
   { type: 'heart', label: '❤️ Love', color: 'text-red-500' },
   { type: 'praise', label: '👏 Praise', color: 'text-yellow-500' },
-  { type: 'strength', label: '💪 Strength', color: 'text-blue-500' },
-  { type: 'pray', label: '🙏 Pray', color: 'text-purple-500' },
+  { type: 'strength', label: '💪 Strength', color: 'text-[#AFC7E3]' },
+  { type: 'pray', label: '🙏 Pray', color: 'text-[#c9a227]' },
   { type: 'celebrate', label: '🎉 Celebrate', color: 'text-green-500' }
 ];
 
@@ -214,7 +214,7 @@ export default function CommunityFeed({ user }) {
                           {!share.is_anonymous ? (
                             <HoverCard>
                               <HoverCardTrigger asChild>
-                                <button className="font-semibold text-gray-900 hover:text-purple-600 transition-colors">
+                                <button className="font-semibold text-gray-900 hover:text-[#8a6e1a] transition-colors">
                                   {share.user_display_name}
                                 </button>
                               </HoverCardTrigger>
@@ -338,7 +338,7 @@ export default function CommunityFeed({ user }) {
                                   {!enc.is_anonymous ? (
                                     <HoverCard>
                                       <HoverCardTrigger asChild>
-                                        <button className="font-semibold text-sm text-gray-900 hover:text-purple-600 transition-colors">
+                                        <button className="font-semibold text-sm text-gray-900 hover:text-[#8a6e1a] transition-colors">
                                           {enc.user_display_name}
                                         </button>
                                       </HoverCardTrigger>

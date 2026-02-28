@@ -133,7 +133,7 @@ export default function PrayForMeFeed({ user }) {
         >
           {/* Input Area */}
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-400 to-blue-500 flex items-center justify-center text-white font-bold text-sm">
+            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#D9B878] to-[#FAD98D] flex items-center justify-center text-white font-bold text-sm">
               {user?.full_name?.charAt(0).toUpperCase() || 'U'}
             </div>
             <div className="flex-1">
@@ -297,7 +297,7 @@ export default function PrayForMeFeed({ user }) {
                   onClick={() => {
                     navigator.share?.({ text: post.content }) || toast.success('Share link copied');
                   }}
-                  className="flex items-center gap-2 text-gray-400 hover:text-purple-400 transition"
+                  className="flex items-center gap-2 text-gray-400 hover:text-[#D9B878] transition"
                 >
                   <Share2 className="w-4 h-4" />
                   <span className="text-xs">Share</span>
@@ -337,7 +337,7 @@ export default function PrayForMeFeed({ user }) {
                             createComment.mutate({ postId: post.id, text: commentText[post.id] });
                           }
                         }}
-                        className="bg-purple-600 hover:bg-purple-700"
+                        className="bg-[#c9a227] hover:bg-[#b89320]"
                         disabled={createComment.isPending || !commentText[post.id]}
                       >
                         Reply

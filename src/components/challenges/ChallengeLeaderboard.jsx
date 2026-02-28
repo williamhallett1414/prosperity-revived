@@ -34,7 +34,7 @@ export default function ChallengeLeaderboard({ participants, challenge }) {
             {getRankIcon(index)}
           </div>
 
-          <Avatar className="w-10 h-10 bg-purple-100 text-purple-600 flex items-center justify-center font-semibold">
+          <Avatar className="w-10 h-10 bg-[#FAD98D]/20 text-[#8a6e1a] flex items-center justify-center font-semibold">
             {participant.user_name?.charAt(0)?.toUpperCase() || '?'}
           </Avatar>
 
@@ -43,7 +43,7 @@ export default function ChallengeLeaderboard({ participants, challenge }) {
             <div className="flex items-center gap-2">
               <div className="flex-1 bg-gray-200 rounded-full h-2">
                 <div
-                  className="bg-gradient-to-r from-purple-600 to-pink-600 h-2 rounded-full transition-all"
+                  className="bg-gradient-to-r from-[#b89320] to-[#c9a227] h-2 rounded-full transition-all"
                   style={{ width: `${getProgressBar(participant)}%` }}
                 />
               </div>

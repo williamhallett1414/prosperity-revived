@@ -44,7 +44,7 @@ export default function CommunityRecipes() {
   return (
     <div className="space-y-4" style={overrideStyle}>
       <div className="flex items-center gap-2 mb-4">
-        <Users className="w-6 h-6 text-purple-600" />
+        <Users className="w-6 h-6 text-[#8a6e1a]" />
         <h3 className="text-xl font-bold" style={{ color: '#000000 !important' }}>Community Recipes</h3>
       </div>
 
@@ -76,13 +76,13 @@ export default function CommunityRecipes() {
       </div>
 
       {/* Stats */}
-      <div className="bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-2xl p-4 mb-4">
+      <div className="bg-gradient-to-r from-[#FAD98D]/10 to-[#FFF8E7] dark:from-[#0A1A2F]/40 dark:to-[#1a1a2e]/40 rounded-2xl p-4 mb-4">
         <div className="flex items-center justify-between">
           <div>
             <p className="text-sm" style={overrideStyle}>Community Contributions</p>
-            <p className="text-2xl font-bold text-purple-600">{communityRecipes.length}</p>
+            <p className="text-2xl font-bold text-[#8a6e1a]">{communityRecipes.length}</p>
           </div>
-          <Users className="w-12 h-12 text-purple-600/20" />
+          <Users className="w-12 h-12 text-[#8a6e1a]/20" />
         </div>
       </div>
 

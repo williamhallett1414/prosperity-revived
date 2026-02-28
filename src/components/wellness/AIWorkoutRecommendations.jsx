@@ -124,7 +124,7 @@ Be specific, actionable, and encouraging.`;
 
   return (
     <div className="space-y-4">
-      <div className="bg-gradient-to-br from-purple-600 to-indigo-700 text-white rounded-2xl p-4">
+      <div className="bg-gradient-to-br from-[#b89320] to-indigo-700 text-white rounded-2xl p-4">
         <div className="flex items-center gap-2 mb-3">
           <Sparkles className="w-5 h-5" />
           <h3 className="font-semibold">AI Workout Coach</h3>
@@ -197,7 +197,7 @@ Be specific, actionable, and encouraging.`;
           <Button
             onClick={generateRecommendations}
             disabled={loading || sessions.length === 0}
-            className="w-full bg-white text-purple-600 hover:bg-white/90"
+            className="w-full bg-white text-[#8a6e1a] hover:bg-white/90"
           >
             {loading ? (
               <>
@@ -229,7 +229,7 @@ Be specific, actionable, and encouraging.`;
           {/* Assessment */}
           <div className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4">
             <h3 className="font-semibold text-[#1a1a2e] dark:text-white mb-2 flex items-center gap-2">
-              <TrendingUp className="w-5 h-5 text-blue-600" />
+              <TrendingUp className="w-5 h-5 text-[#3C4E53]" />
               Performance Assessment
             </h3>
             <p className="text-sm text-gray-700 dark:text-gray-300">{recommendations.assessment}</p>
@@ -243,7 +243,7 @@ Be specific, actionable, and encouraging.`;
                 <div key={index} className="border border-gray-200 dark:border-gray-700 rounded-lg p-3">
                   <div className="flex items-start justify-between mb-2">
                     <h4 className="font-semibold text-[#1a1a2e] dark:text-white">{workout.title}</h4>
-                    <span className="text-xs px-2 py-1 bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300 rounded">
+                    <span className="text-xs px-2 py-1 bg-[#FAD98D]/20 dark:bg-[#0A1A2F] text-[#3C4E53] dark:text-[#FAD98D] rounded">
                       {workout.difficulty}
                     </span>
                   </div>
@@ -253,8 +253,8 @@ Be specific, actionable, and encouraging.`;
                     <span>•</span>
                     <span>{workout.focus}</span>
                   </div>
-                  <div className="bg-purple-50 dark:bg-purple-900/20 p-2 rounded">
-                    <p className="text-xs text-purple-700 dark:text-purple-300">
+                  <div className="bg-[#FAD98D]/10 dark:bg-[#0A1A2F]/20 p-2 rounded">
+                    <p className="text-xs text-[#3C4E53] dark:text-[#FAD98D]">
                       <strong>Why:</strong> {workout.why_recommended}
                     </p>
                   </div>

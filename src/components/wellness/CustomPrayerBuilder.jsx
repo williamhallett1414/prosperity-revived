@@ -146,7 +146,7 @@ Make it meaningful and easy to follow.`;
 
         <Button
           onClick={handleCreate}
-          className="w-full bg-purple-600 hover:bg-purple-700"
+          className="w-full bg-[#c9a227] hover:bg-[#b89320]"
           disabled={!prayer.title.trim() || prayer.elements.length === 0}
         >
           Create Session

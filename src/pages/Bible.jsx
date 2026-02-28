@@ -281,7 +281,7 @@ export default function Bible() {
                   <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="bg-gradient-to-r from-purple-500 via-pink-500 to-indigo-500 rounded-2xl p-4 shadow-lg hover:shadow-xl transition-all">
+                  className="bg-gradient-to-r from-[#FAD98D]/100 via-pink-500 to-[#AFC7E3] rounded-2xl p-4 shadow-lg hover:shadow-xl transition-all">
 
                     <div className="flex items-center justify-between text-white">
                       <div className="flex items-center gap-3">

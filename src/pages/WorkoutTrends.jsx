@@ -526,9 +526,9 @@ export default function WorkoutTrends() {
                     <span className="text-sm text-gray-700">Avg Daily Calories</span>
                     <span className="text-lg font-bold text-orange-600">{avgCaloriesPerDay}</span>
                   </div>
-                  <div className="flex justify-between items-center p-3 bg-blue-50 rounded-xl">
+                  <div className="flex justify-between items-center p-3 bg-[#F2F6FA] rounded-xl">
                     <span className="text-sm text-gray-700">Meals Logged</span>
-                    <span className="text-lg font-bold text-blue-600">{mealLogs.length}</span>
+                    <span className="text-lg font-bold text-[#3C4E53]">{mealLogs.length}</span>
                   </div>
                   <div className="flex justify-between items-center p-3 bg-cyan-50 rounded-xl">
                     <span className="text-sm text-gray-700">Water Logs</span>

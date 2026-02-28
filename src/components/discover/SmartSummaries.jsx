@@ -53,7 +53,7 @@ Provide a clear, engaging summary that captures the main points and key discussi
 
   return (
     <div className="space-y-4">
-      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl p-4 mb-4">
+      <div className="bg-gradient-to-r from-[#F2F6FA] to-[#F2F6FA] dark:from-blue-900/20 dark:to-[#0A1A2F]/20 rounded-xl p-4 mb-4">
         <p className="text-sm text-gray-700 dark:text-gray-300">
           ✨ AI-powered summaries help you quickly understand long posts and discussions
         </p>
@@ -73,7 +73,7 @@ Provide a clear, engaging summary that captures the main points and key discussi
           >
             <Card className="p-4">
               <div className="flex items-start gap-3 mb-3">
-                <div className="p-2 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-500 text-white flex-shrink-0">
+                <div className="p-2 rounded-lg bg-gradient-to-br from-[#AFC7E3] to-[#AFC7E3] text-white flex-shrink-0">
                   <FileText className="w-5 h-5" />
                 </div>
                 <div className="flex-1">
@@ -91,9 +91,9 @@ Provide a clear, engaging summary that captures the main points and key discussi
                   </p>
 
                   {hasSummary ? (
-                    <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-lg p-3 mb-3">
+                    <div className="bg-gradient-to-r from-[#F2F6FA] to-[#F2F6FA] dark:from-blue-900/20 dark:to-[#0A1A2F]/20 rounded-lg p-3 mb-3">
                       <div className="flex items-center gap-2 mb-2">
-                        <span className="text-xs font-semibold text-blue-600 dark:text-blue-400">
+                        <span className="text-xs font-semibold text-[#3C4E53] dark:text-blue-400">
                           AI SUMMARY
                         </span>
                       </div>
@@ -125,7 +125,7 @@ Provide a clear, engaging summary that captures the main points and key discussi
 
                   <Link
                     to={createPageUrl('Community')}
-                    className="text-sm text-blue-600 hover:text-blue-700 font-medium"
+                    className="text-sm text-[#3C4E53] hover:text-[#3C4E53] font-medium"
                   >
                     View Full Discussion →
                   </Link>

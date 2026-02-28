@@ -114,7 +114,7 @@ export default function FriendsTab({ friends, user }) {
                   className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center text-white font-bold">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#AFC7E3] to-[#D9B878] flex items-center justify-center text-white font-bold">
                       {searchUser.full_name?.charAt(0).toUpperCase() || 'U'}
                     </div>
                     <div>
@@ -190,7 +190,7 @@ export default function FriendsTab({ friends, user }) {
               transition={{ delay: index * 0.03 }}
               className="flex flex-col items-center p-4 hover:bg-gray-50 rounded-xl transition-all cursor-pointer group"
             >
-              <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center text-white text-2xl font-bold mb-3 shadow-md group-hover:shadow-lg transition-shadow">
+              <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-br from-[#AFC7E3] to-[#D9B878] flex items-center justify-center text-white text-2xl font-bold mb-3 shadow-md group-hover:shadow-lg transition-shadow">
                 {friendName?.charAt(0).toUpperCase() || 'F'}
               </div>
               <p className="font-semibold text-gray-900 text-center text-sm line-clamp-2 mb-1">

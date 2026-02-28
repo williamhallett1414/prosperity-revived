@@ -9,7 +9,7 @@ const highlightColors = {
   green: { bg: 'bg-green-200', label: 'Green' },
   blue: { bg: 'bg-blue-200', label: 'Blue' },
   pink: { bg: 'bg-pink-200', label: 'Pink' },
-  purple: { bg: 'bg-purple-200', label: 'Purple' }
+  purple: { bg: 'bg-[#D9B878]/30', label: 'Purple' }
 };
 
 export default function VerseAnnotationModal({ isOpen, onClose, verse, bookmark, onSave }) {

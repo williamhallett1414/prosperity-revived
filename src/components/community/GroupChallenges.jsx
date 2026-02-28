@@ -28,8 +28,8 @@ const chatbotIcons = {
 };
 
 const chatbotColors = {
-  Hannah: 'from-purple-500 to-pink-500',
-  CoachDavid: 'from-blue-500 to-cyan-500',
+  Hannah: 'from-[#c9a227] to-[#D9B878]',
+  CoachDavid: 'from-[#AFC7E3] to-[#7ab3d4]',
   ChefDaniel: 'from-orange-500 to-red-500',
   Gideon: 'from-green-500 to-emerald-500'
 };
@@ -88,7 +88,7 @@ export default function GroupChallenges({ user }) {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center py-12">
-        <Loader2 className="w-8 h-8 animate-spin text-purple-500" />
+        <Loader2 className="w-8 h-8 animate-spin text-[#c9a227]" />
       </div>
     );
   }

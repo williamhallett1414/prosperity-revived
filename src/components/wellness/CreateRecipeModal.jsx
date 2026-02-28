@@ -174,9 +174,9 @@ export default function CreateRecipeModal({ isOpen, onClose }) {
             </div>
           </div>
 
-          <div className="flex items-center justify-between p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
+          <div className="flex items-center justify-between p-4 bg-[#FAD98D]/10 dark:bg-[#0A1A2F]/20 rounded-lg">
             <div className="flex items-center gap-2">
-              <Share2 className="w-4 h-4 text-purple-600" />
+              <Share2 className="w-4 h-4 text-[#8a6e1a]" />
               <Label htmlFor="share-recipe" className="text-sm font-medium">
                 Share with community
               </Label>

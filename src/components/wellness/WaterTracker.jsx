@@ -37,7 +37,7 @@ export default function WaterTracker() {
   return (
     <div className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4">
       <div className="flex items-center gap-3 mb-4">
-        <Droplets className="w-6 h-6 text-blue-500" />
+        <Droplets className="w-6 h-6 text-[#AFC7E3]" />
         <div className="flex-1">
           <h3 className="font-semibold text-[#1a1a2e] dark:text-white">Water Intake</h3>
           <p className="text-xs text-gray-500 dark:text-gray-400">Goal: {goal} glasses</p>
@@ -47,7 +47,7 @@ export default function WaterTracker() {
       <div className="mb-4">
         <div className="flex items-center justify-between mb-2">
           <span className="text-sm text-gray-600 dark:text-gray-400">{glasses} / {goal} glasses</span>
-          <span className="text-sm font-medium text-blue-500">{Math.round(percentage)}%</span>
+          <span className="text-sm font-medium text-[#AFC7E3]">{Math.round(percentage)}%</span>
         </div>
         <Progress value={percentage} className="h-3" />
       </div>
@@ -64,14 +64,14 @@ export default function WaterTracker() {
         </Button>
         
         <div className="text-center">
-          <div className="text-4xl font-bold text-blue-500">{glasses}</div>
+          <div className="text-4xl font-bold text-[#AFC7E3]">{glasses}</div>
           <div className="text-xs text-gray-500 dark:text-gray-400">glasses</div>
         </div>
 
         <Button
           size="icon"
           onClick={addGlass}
-          className="h-12 w-12 rounded-full bg-blue-500 hover:bg-blue-600"
+          className="h-12 w-12 rounded-full bg-[#F2F6FA]0 hover:bg-blue-600"
         >
           <Plus className="w-5 h-5" />
         </Button>

@@ -91,7 +91,7 @@ export default function TrendingContent({ user }) {
       {/* Active Groups */}
       <div>
         <h2 className="text-lg font-semibold text-[#1a1a2e] dark:text-white mb-3 flex items-center gap-2">
-          <Users className="w-5 h-5 text-blue-500" />
+          <Users className="w-5 h-5 text-[#AFC7E3]" />
           Most Active Groups
         </h2>
         <div className="space-y-3">

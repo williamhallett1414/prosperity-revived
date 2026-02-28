@@ -181,7 +181,7 @@ export default function CreateChallengeModal({ isOpen, onClose, onSubmit, groupI
           <Button
             type="submit"
             disabled={loading}
-            className="w-full bg-purple-600 hover:bg-purple-700"
+            className="w-full bg-[#c9a227] hover:bg-[#b89320]"
           >
             {loading ? (
               <>

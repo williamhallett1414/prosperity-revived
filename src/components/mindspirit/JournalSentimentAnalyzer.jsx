@@ -99,7 +99,7 @@ export default function JournalSentimentAnalyzer({ userEmail }) {
     >
       <div className="flex items-center justify-between">
         <h3 className="text-lg font-bold text-gray-900 flex items-center gap-2">
-          <TrendingUp className="w-5 h-5 text-purple-600" />
+          <TrendingUp className="w-5 h-5 text-[#8a6e1a]" />
           Emotional Trends
         </h3>
         <div className="flex gap-2">
@@ -119,14 +119,14 @@ export default function JournalSentimentAnalyzer({ userEmail }) {
       {chartData.length > 0 ? (
         <>
           <div className="grid grid-cols-3 gap-4">
-            <div className="bg-purple-50 p-4 rounded-lg">
+            <div className="bg-[#FAD98D]/10 p-4 rounded-lg">
               <p className="text-xs text-gray-600">Average Sentiment</p>
-              <p className="text-2xl font-bold text-purple-600">{avgSentiment}</p>
+              <p className="text-2xl font-bold text-[#8a6e1a]">{avgSentiment}</p>
               <p className="text-xs text-gray-500 mt-1">Scale: -1 to 1</p>
             </div>
-            <div className="bg-blue-50 p-4 rounded-lg">
+            <div className="bg-[#F2F6FA] p-4 rounded-lg">
               <p className="text-xs text-gray-600">Entries</p>
-              <p className="text-2xl font-bold text-blue-600">{entries.length}</p>
+              <p className="text-2xl font-bold text-[#3C4E53]">{entries.length}</p>
               <p className="text-xs text-gray-500 mt-1">Last {timeRange} days</p>
             </div>
             <div className="bg-green-50 p-4 rounded-lg">

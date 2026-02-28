@@ -33,7 +33,7 @@ export default function SpiritualInsightsDashboard() {
   if (themes.length === 0 && emotions.length === 0) {
     return (
       <div className="px-4 py-6">
-        <Card className="bg-gradient-to-br from-[#FAD98D]/10 to-[#FAD98D]/10 dark:from-purple-900/20 dark:to-pink-900/20">
+        <Card className="bg-gradient-to-br from-[#FAD98D]/10 to-[#FAD98D]/10 dark:from-[#0A1A2F]/40 dark:to-[#1a1a2e]/40">
           <CardContent className="pt-6 text-center">
             <Sparkles className="w-12 h-12 mx-auto mb-3 text-[#c9a227]" />
             <h3 className="font-semibold text-lg mb-2">Start Your Journey</h3>
@@ -58,7 +58,7 @@ export default function SpiritualInsightsDashboard() {
       </div>
 
       {/* Spiritual Themes */}
-      <Card className="bg-gradient-to-br from-purple-50 to-indigo-50 dark:from-purple-900/20 dark:to-indigo-900/20">
+      <Card className="bg-gradient-to-br from-[#FAD98D]/10 to-[#F2F6FA] dark:from-[#0A1A2F]/20 dark:to-[#0A1A2F]/20">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-lg">
             <Target className="w-5 h-5 text-[#8a6e1a]" />
@@ -99,7 +99,7 @@ export default function SpiritualInsightsDashboard() {
                     {theme.associated_emotions.slice(0, 4).map((emotion, i) => (
                       <span
                         key={i}
-                        className="text-xs bg-[#FAD98D]/20 dark:bg-purple-900/30 text-[#3C4E53] dark:text-purple-300 px-2 py-1 rounded-full"
+                        className="text-xs bg-[#FAD98D]/20 dark:bg-[#0A1A2F]/30 text-[#3C4E53] dark:text-[#FAD98D] px-2 py-1 rounded-full"
                       >
                         {emotion}
                       </span>
@@ -120,10 +120,10 @@ export default function SpiritualInsightsDashboard() {
       </Card>
 
       {/* Emotional Patterns */}
-      <Card className="bg-gradient-to-br from-pink-50 to-rose-50 dark:from-pink-900/20 dark:to-rose-900/20">
+      <Card className="bg-gradient-to-br from-[#FAD98D]/10 to-rose-50 dark:from-[#0A1A2F]/30 dark:to-[#1a1a2e]/30">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-lg">
-            <Heart className="w-5 h-5 text-pink-600" />
+            <Heart className="w-5 h-5 text-[#c9a227]" />
             Emotional Patterns Gideon Sees
           </CardTitle>
         </CardHeader>
@@ -146,7 +146,7 @@ export default function SpiritualInsightsDashboard() {
                   </p>
                 </div>
                 <div className="text-right">
-                  <div className="text-sm font-bold text-pink-600">{emotion.occurrence_count}x</div>
+                  <div className="text-sm font-bold text-[#c9a227]">{emotion.occurrence_count}x</div>
                   <div className="text-xs text-gray-500">detected</div>
                 </div>
               </div>
@@ -156,7 +156,7 @@ export default function SpiritualInsightsDashboard() {
                   {emotion.related_spiritual_themes.slice(0, 4).map((theme, i) => (
                     <span
                       key={i}
-                      className="text-xs bg-pink-100 dark:bg-pink-900/30 text-pink-700 dark:text-pink-300 px-2 py-1 rounded-full capitalize"
+                      className="text-xs bg-[#FAD98D]/20 dark:bg-[#0A1A2F]/30 text-[#8a6e1a] dark:text-[#FAD98D] px-2 py-1 rounded-full capitalize"
                     >
                       {theme}
                     </span>
@@ -183,7 +183,7 @@ export default function SpiritualInsightsDashboard() {
               <div className="text-xs text-gray-600 dark:text-gray-400">Themes Explored</div>
             </div>
             <div className="bg-white dark:bg-gray-800 rounded-lg p-4 text-center">
-              <div className="text-2xl font-bold text-pink-600">{emotions.length}</div>
+              <div className="text-2xl font-bold text-[#c9a227]">{emotions.length}</div>
               <div className="text-xs text-gray-600 dark:text-gray-400">Emotional States</div>
             </div>
             <div className="bg-white dark:bg-gray-800 rounded-lg p-4 text-center col-span-2">
@@ -196,7 +196,7 @@ export default function SpiritualInsightsDashboard() {
         </CardContent>
       </Card>
 
-      <div className="bg-[#FAD98D]/10 dark:bg-purple-900/20 rounded-lg p-4 text-sm text-gray-700 dark:text-gray-300">
+      <div className="bg-[#FAD98D]/10 dark:bg-[#0A1A2F]/20 rounded-lg p-4 text-sm text-gray-700 dark:text-gray-300">
         <p className="font-medium mb-1">💡 How Gideon Uses This</p>
         <p className="text-xs">
           Gideon analyzes these patterns to offer more personalized guidance, proactive suggestions, 

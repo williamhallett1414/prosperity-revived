@@ -22,7 +22,7 @@ export default function GoalCompletionChart({ workouts }) {
     <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
-          <Target className="w-5 h-5 text-purple-600" />
+          <Target className="w-5 h-5 text-[#8a6e1a]" />
           Goal Completion
         </CardTitle>
       </CardHeader>
@@ -47,7 +47,7 @@ export default function GoalCompletionChart({ workouts }) {
             </PieChart>
           </ResponsiveContainer>
           <div className="text-center mt-4">
-            <p className="text-3xl font-bold text-purple-600">{completionRate}%</p>
+            <p className="text-3xl font-bold text-[#8a6e1a]">{completionRate}%</p>
             <p className="text-sm text-gray-600">Completion Rate</p>
             <div className="flex gap-4 mt-3 text-sm">
               <div>

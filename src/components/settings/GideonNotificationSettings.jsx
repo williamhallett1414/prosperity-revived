@@ -57,21 +57,21 @@ export default function GideonNotificationSettings() {
       title: 'Midday Moments',
       description: 'Peace, clarity, refocus (11 AM-1 PM)',
       icon: Coffee,
-      color: 'text-blue-500'
+      color: 'text-[#AFC7E3]'
     },
     {
       id: 'afternoon_enabled',
       title: 'Afternoon Grace',
       description: 'Strength, perseverance, grace (3-5 PM)',
       icon: Zap,
-      color: 'text-purple-500'
+      color: 'text-[#c9a227]'
     },
     {
       id: 'evening_enabled',
       title: 'Evening Reflection',
       description: 'Reflection, gratitude, release (7-9 PM)',
       icon: Moon,
-      color: 'text-indigo-500'
+      color: 'text-[#AFC7E3]'
     }
   ];
 
@@ -81,7 +81,7 @@ export default function GideonNotificationSettings() {
       title: 'Personalized Notifications',
       description: 'Behavior-based spiritual encouragement',
       icon: MessageCircle,
-      color: 'text-purple-500',
+      color: 'text-[#c9a227]',
       badge: 'Smart'
     },
     {
@@ -96,7 +96,7 @@ export default function GideonNotificationSettings() {
       title: 'Weekly Check-Ins',
       description: 'Spiritual growth reflections',
       icon: Heart,
-      color: 'text-pink-500'
+      color: 'text-[#D9B878]'
     },
     {
       id: 'challenge_reminders_enabled',

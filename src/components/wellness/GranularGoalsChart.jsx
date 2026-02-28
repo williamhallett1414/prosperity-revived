@@ -16,7 +16,7 @@ export default function GranularGoalsChart({ goals = [] }) {
 
   const getProgressColor = (percentage) => {
     if (percentage >= 100) return 'from-green-500 to-emerald-500';
-    if (percentage >= 75) return 'from-blue-500 to-cyan-500';
+    if (percentage >= 75) return 'from-[#AFC7E3] to-[#7ab3d4]';
     if (percentage >= 50) return 'from-yellow-500 to-amber-500';
     return 'from-red-500 to-orange-500';
   };
@@ -25,10 +25,10 @@ export default function GranularGoalsChart({ goals = [] }) {
 
   return (
     <div className="space-y-4">
-      <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-4">
+      <div className="bg-gradient-to-r from-[#FAD98D]/10 to-[#FFF8E7] rounded-xl p-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Target className="w-5 h-5 text-purple-600" />
+            <Target className="w-5 h-5 text-[#8a6e1a]" />
             <span className="font-semibold text-gray-900">Goal Progress</span>
           </div>
           <span className="text-sm text-gray-600">

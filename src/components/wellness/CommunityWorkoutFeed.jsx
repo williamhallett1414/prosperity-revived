@@ -35,7 +35,7 @@ export default function CommunityWorkoutFeed({ user, onComplete }) {
 
   return (
     <div className="space-y-4">
-      <div className="bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl p-5 text-white">
+      <div className="bg-gradient-to-br from-[#AFC7E3] to-[#0A1A2F] rounded-2xl p-5 text-white">
         <div className="flex items-center gap-3 mb-2">
           <Users className="w-6 h-6" />
           <h3 className="text-lg font-semibold">Community Workouts</h3>

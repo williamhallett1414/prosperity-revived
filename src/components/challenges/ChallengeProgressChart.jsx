@@ -21,7 +21,7 @@ export default function ChallengeProgressChart({ progressLogs, goalValue, goalUn
       return (
         <div className="bg-white p-3 rounded-lg shadow-lg border border-gray-100">
           <p className="font-semibold text-gray-900">{payload[0].payload.date}</p>
-          <p className="text-purple-600">Total: {payload[0].value} {goalUnit}</p>
+          <p className="text-[#8a6e1a]">Total: {payload[0].value} {goalUnit}</p>
           <p className="text-gray-600">Daily: +{payload[0].payload.daily} {goalUnit}</p>
         </div>
       );

@@ -241,7 +241,7 @@ export default function GroupDetail() {
             </Button>
             <Button
               onClick={() => setShowCreateChallenge(true)}
-              className="bg-purple-600 hover:bg-purple-700 h-12 rounded-xl"
+              className="bg-[#c9a227] hover:bg-[#b89320] h-12 rounded-xl"
             >
               <Trophy className="w-5 h-5 mr-2" />
               Create Challenge
@@ -288,7 +288,7 @@ export default function GroupDetail() {
                   {isMember && (
                     <Button
                       onClick={() => setShowCreateChallenge(true)}
-                      className="mt-4 bg-purple-600 hover:bg-purple-700"
+                      className="mt-4 bg-[#c9a227] hover:bg-[#b89320]"
                     >
                       Create First Challenge
                     </Button>

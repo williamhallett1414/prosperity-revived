@@ -36,7 +36,7 @@ export default function MoodEnergyChart({ moodEnergyData }) {
           <p className="font-semibold text-gray-900 mb-2">{payload[0].payload.date}</p>
           <div className="space-y-1">
             <div className="flex items-center gap-2">
-              <Smile className="w-4 h-4 text-blue-600" />
+              <Smile className="w-4 h-4 text-[#3C4E53]" />
               <span className="text-sm">Mood: {payload[0].payload.moodLabel}</span>
             </div>
             <div className="flex items-center gap-2">
@@ -67,8 +67,8 @@ export default function MoodEnergyChart({ moodEnergyData }) {
   return (
     <div className="space-y-4">
       <div className="grid grid-cols-2 gap-3">
-        <div className="bg-blue-50 rounded-xl p-3 text-center">
-          <Smile className="w-5 h-5 text-blue-600 mx-auto mb-1" />
+        <div className="bg-[#F2F6FA] rounded-xl p-3 text-center">
+          <Smile className="w-5 h-5 text-[#3C4E53] mx-auto mb-1" />
           <p className="text-lg font-bold text-gray-900">{avgMood.toFixed(1)}/5</p>
           <p className="text-xs text-gray-600">Avg Mood</p>
         </div>

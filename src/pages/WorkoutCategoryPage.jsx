@@ -30,8 +30,8 @@ export default function WorkoutCategoryPage() {
   };
 
   const categoryColors = {
-    'Cardio': 'from-red-400 to-pink-500',
-    'Strength': 'from-blue-400 to-cyan-500',
+    'Cardio': 'from-red-400 to-[#D9B878]',
+    'Strength': 'from-[#AFC7E3] to-cyan-500',
     'HIIT': 'from-yellow-400 to-orange-500',
     'Home': 'from-green-400 to-emerald-500'
   };

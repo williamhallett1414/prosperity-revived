@@ -37,7 +37,7 @@ export default function TodaysRecommendations({ user, mealLogs, workoutSessions,
           title: 'Hydration Check-in',
           description: `You've had ${todayWater} glasses of water. Aim for 8+ glasses today.`,
           action: () => navigate(createPageUrl('Wellness?tab=nutrition')),
-          color: 'from-blue-50 to-cyan-50'
+          color: 'from-[#F2F6FA] to-cyan-50'
         });
       }
     }
@@ -49,7 +49,7 @@ export default function TodaysRecommendations({ user, mealLogs, workoutSessions,
         title: 'Sleep Optimization',
         description: 'Getting 7-9 hours of quality sleep improves recovery and mood.',
         action: () => navigate(createPageUrl('Wellness?tab=mind')),
-        color: 'from-purple-50 to-pink-50'
+        color: 'from-[#FAD98D]/10 to-[#FFF8E7]'
       });
     }
 
@@ -134,7 +134,7 @@ export default function TodaysRecommendations({ user, mealLogs, workoutSessions,
         title: 'Macro Balance Check',
         description: 'Review today\'s nutrition to ensure balanced carbs, protein, and healthy fats.',
         action: () => navigate(createPageUrl('Wellness?tab=nutrition')),
-        color: 'from-indigo-50 to-blue-50'
+        color: 'from-[#F2F6FA] to-[#F2F6FA]'
       });
     }
 

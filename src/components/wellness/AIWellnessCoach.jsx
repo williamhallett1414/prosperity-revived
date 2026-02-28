@@ -676,7 +676,7 @@ Format as specific, actionable recommendations with clear benefits explained.`;
                     <div
                       className={`max-w-[80%] rounded-2xl px-4 py-2 ${
                         message.role === 'user'
-                          ? 'bg-purple-600 text-white'
+                          ? 'bg-[#c9a227] text-white'
                           : 'bg-gray-100 text-gray-900'
                       }`}
                     >
@@ -711,7 +711,7 @@ Format as specific, actionable recommendations with clear benefits explained.`;
                         <button
                           key={index}
                           onClick={() => handleQuickPrompt(prompt)}
-                          className="text-xs px-3 py-1.5 bg-[#8fa68a]/10 text-[#4a6b50] rounded-full hover:bg-purple-100 transition-colors"
+                          className="text-xs px-3 py-1.5 bg-[#8fa68a]/10 text-[#4a6b50] rounded-full hover:bg-[#FAD98D]/20 transition-colors"
                         >
                           {prompt}
                         </button>
@@ -902,7 +902,7 @@ Format as specific, actionable recommendations with clear benefits explained.`;
                            {journalEntries.length >= 5 && (
                              <button
                                onClick={() => analyzeJournalEntryDeep(journalEntries)}
-                               className="text-xs text-[#4a6b50] hover:text-purple-700 font-medium"
+                               className="text-xs text-[#4a6b50] hover:text-[#3C4E53] font-medium"
                              >
                                Analyze Patterns →
                              </button>

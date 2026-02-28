@@ -52,7 +52,7 @@ export default function ProactiveSuggestions() {
 
   const getGradient = (type) => {
     switch (type) {
-      case 'scripture': return 'from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20';
+      case 'scripture': return 'from-[#F2F6FA] to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20';
       case 'reflection': return 'from-[#FAD98D]/10 to-[#FAD98D]/10 dark:from-[#FAD98D]/5 dark:to-[#FAD98D]/5';
       case 'encouragement': return 'from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20';
       case 'prayer_prompt': return 'from-orange-50 to-yellow-50 dark:from-orange-900/20 dark:to-yellow-900/20';
@@ -114,7 +114,7 @@ export default function ProactiveSuggestions() {
                   <Button
                     size="sm"
                     onClick={() => markAsHelpful.mutate(suggestion.id)}
-                    className="flex-1 bg-gradient-to-r from-[#c9a227] to-[#D9B878] hover:from-purple-600 hover:to-pink-600 text-white"
+                    className="flex-1 bg-gradient-to-r from-[#c9a227] to-[#D9B878] hover:from-[#b89320] hover:to-[#c9a227] text-white"
                   >
                     <ThumbsUp className="w-4 h-4 mr-2" />
                     Helpful

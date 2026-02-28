@@ -299,8 +299,8 @@ export default function ChallengeDetailPage() {
         {/* Encouragement Message */}
         {isParticipating &&
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}>
-            <div className="bg-gradient-to-r from-purple-50 to-blue-50 border border-purple-200 rounded-xl p-4">
-              <p className="text-purple-900 font-semibold text-center">{encouragementMessage}</p>
+            <div className="bg-gradient-to-r from-[#FAD98D]/10 to-[#F2F6FA] border border-[#D9B878]/40 rounded-xl p-4">
+              <p className="text-[#0A1A2F] font-semibold text-center">{encouragementMessage}</p>
             </div>
           </motion.div>
         }
@@ -352,7 +352,7 @@ export default function ChallengeDetailPage() {
               
               {recommendedWorkout ?
             <div>
-                  <div className="bg-gradient-to-r from-emerald-50 to-blue-50 rounded-xl p-4 mb-4">
+                  <div className="bg-gradient-to-r from-emerald-50 to-[#F2F6FA] rounded-xl p-4 mb-4">
                     <h4 className="font-bold text-[#0A1A2F] mb-2">{recommendedWorkout.title}</h4>
                     <div className="flex items-center gap-4 text-sm text-[#0A1A2F]/70">
                       <div className="flex items-center gap-1">
@@ -408,7 +408,7 @@ export default function ChallengeDetailPage() {
                   <div className="text-xs text-[#0A1A2F]/60">Total Check-ins</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-purple-600">{longestStreak}</div>
+                  <div className="text-2xl font-bold text-[#8a6e1a]">{longestStreak}</div>
                   <div className="text-xs text-[#0A1A2F]/60">Longest Streak</div>
                 </div>
               </div>
@@ -472,7 +472,7 @@ export default function ChallengeDetailPage() {
 
                 <div className="bg-gray-50 rounded-xl p-4">
                   <div className="flex items-center gap-2 mb-2">
-                    <Clock className="w-5 h-5 text-blue-600" />
+                    <Clock className="w-5 h-5 text-[#3C4E53]" />
                     <span className="text-sm text-[#0A1A2F]/60">Total Minutes</span>
                   </div>
                   <div className="text-2xl font-bold text-[#0A1A2F]">{userParticipation?.total_minutes_trained || 0}</div>

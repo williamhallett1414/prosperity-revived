@@ -12,7 +12,7 @@ import { awardPoints, checkAndAwardBadges } from '@/components/gamification/Prog
 const DIFFICULTY_COLORS = {
   easy: 'from-green-500 to-emerald-600',
   medium: 'from-yellow-500 to-orange-600',
-  hard: 'from-red-500 to-pink-600'
+  hard: 'from-red-500 to-[#c9a227]'
 };
 
 export default function DailyWeeklyChallenges({ user }) {
@@ -126,7 +126,7 @@ export default function DailyWeeklyChallenges({ user }) {
               <Button
                 onClick={() => completionMutation.mutate(challenge)}
                 disabled={completionMutation.isPending}
-                className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
+                className="w-full bg-gradient-to-r from-[#b89320] to-[#c9a227] hover:from-[#b89320] hover:to-[#c9a227]"
               >
                 {completionMutation.isPending ? (
                   <>
@@ -153,7 +153,7 @@ export default function DailyWeeklyChallenges({ user }) {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-gradient-to-br from-purple-600 to-pink-600 rounded-2xl p-6 text-white"
+        className="bg-gradient-to-br from-[#b89320] to-[#c9a227] rounded-2xl p-6 text-white"
       >
         <div className="flex items-center gap-3 mb-2">
           <Zap className="w-7 h-7" />
@@ -221,7 +221,7 @@ export default function DailyWeeklyChallenges({ user }) {
       </Tabs>
 
       {/* Challenge Info */}
-      <Card className="bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800">
+      <Card className="bg-[#F2F6FA] dark:bg-[#0A1A2F]/20 border-[#AFC7E3]/40 dark:border-blue-800">
         <CardContent className="pt-6 space-y-2 text-sm text-blue-900 dark:text-blue-200">
           <p>💡 <strong>Tip:</strong> Daily challenges reset every 24 hours. Weekly challenges span a full week.</p>
           <p>⭐ <strong>Bonus:</strong> Complete all challenges this week for a special achievement!</p>

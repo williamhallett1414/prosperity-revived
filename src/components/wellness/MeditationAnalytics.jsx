@@ -88,7 +88,7 @@ export default function MeditationAnalytics({ user }) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl p-4 text-white"
+          className="bg-gradient-to-br from-[#AFC7E3] to-[#7ab3d4] rounded-2xl p-4 text-white"
         >
           <Target className="w-6 h-6 mb-2 opacity-80" />
           <div className="text-3xl font-bold">{totalSessions}</div>

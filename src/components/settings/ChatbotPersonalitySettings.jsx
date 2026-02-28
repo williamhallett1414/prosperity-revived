@@ -10,8 +10,8 @@ import { Heart, Dumbbell, ChefHat, BookOpen, Save, RotateCcw } from 'lucide-reac
 import { toast } from 'sonner';
 
 const chatbots = [
-  { name: 'Hannah', icon: Heart, color: 'from-purple-500 to-pink-500', description: 'Personal Growth Guide' },
-  { name: 'CoachDavid', icon: Dumbbell, color: 'from-blue-500 to-cyan-500', description: 'Fitness Coach' },
+  { name: 'Hannah', icon: Heart, color: 'from-[#c9a227] to-[#D9B878]', description: 'Personal Growth Guide' },
+  { name: 'CoachDavid', icon: Dumbbell, color: 'from-[#AFC7E3] to-[#7ab3d4]', description: 'Fitness Coach' },
   { name: 'ChefDaniel', icon: ChefHat, color: 'from-orange-500 to-red-500', description: 'Nutrition Expert' },
   { name: 'Gideon', icon: BookOpen, color: 'from-green-500 to-emerald-500', description: 'Spiritual Guide' }
 ];
@@ -252,7 +252,7 @@ export default function ChatbotPersonalitySettings({ user }) {
         })}
       </Tabs>
 
-      <Card className="bg-blue-50 border-blue-200">
+      <Card className="bg-[#F2F6FA] border-[#AFC7E3]/40">
         <CardContent className="pt-6">
           <p className="text-sm text-blue-900">
             <strong>Tip:</strong> Your chatbot will adapt its communication style immediately after you save changes. 

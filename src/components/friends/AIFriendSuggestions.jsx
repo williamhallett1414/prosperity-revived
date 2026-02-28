@@ -157,7 +157,7 @@ Return ONLY a JSON array with top ${limit} email addresses in order of compatibi
     return (
       <div className="bg-white dark:bg-[#2d2d4a] rounded-xl p-6 shadow-sm">
         <div className="flex items-center justify-center gap-3">
-          <Loader2 className="w-5 h-5 text-purple-500 animate-spin" />
+          <Loader2 className="w-5 h-5 text-[#c9a227] animate-spin" />
           <p className="text-gray-600 dark:text-gray-400">Finding friends for you...</p>
         </div>
       </div>
@@ -172,7 +172,7 @@ Return ONLY a JSON array with top ${limit} email addresses in order of compatibi
     <div className="bg-white dark:bg-[#2d2d4a] rounded-xl p-4 shadow-sm">
       {showHeader && (
         <div className="flex items-center gap-2 mb-4">
-          <Sparkles className="w-5 h-5 text-purple-500" />
+          <Sparkles className="w-5 h-5 text-[#c9a227]" />
           <h3 className="font-semibold text-[#1a1a2e] dark:text-white">People You May Know</h3>
         </div>
       )}

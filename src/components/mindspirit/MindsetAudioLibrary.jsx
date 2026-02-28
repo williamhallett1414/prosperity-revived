@@ -34,7 +34,7 @@ const audioTracks = [
     duration: '8:00',
     description: 'Meditate on God\'s Word',
     url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3',
-    gradient: 'from-purple-100 to-pink-100'
+    gradient: 'from-[#FAD98D]/20 to-[#FFF8E7]'
   }
 ];
 

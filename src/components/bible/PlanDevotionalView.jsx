@@ -22,7 +22,7 @@ export default function PlanDevotionalView({ planId }) {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-gradient-to-br from-purple-600 to-indigo-600 rounded-2xl p-6 text-white"
+        className="bg-gradient-to-br from-[#b89320] to-[#3C4E53] rounded-2xl p-6 text-white"
       >
         <div className="flex items-center gap-3 mb-2">
           <BookOpen className="w-8 h-8" />
@@ -64,14 +64,14 @@ export default function PlanDevotionalView({ planId }) {
       </Card>
 
       {/* Reflection Questions */}
-      <Card className="p-6 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20">
+      <Card className="p-6 bg-gradient-to-br from-[#F2F6FA] to-[#F2F6FA] dark:from-blue-900/20 dark:to-[#0A1A2F]/20">
         <h2 className="text-xl font-bold text-[#1a1a2e] dark:text-white mb-4 flex items-center gap-2">
-          <MessageCircle className="w-5 h-5 text-blue-600" />
+          <MessageCircle className="w-5 h-5 text-[#3C4E53]" />
           Reflection Questions
         </h2>
         <ul className="space-y-3">
           {devotional.reflectionQuestions.map((question, index) => (
-            <li key={index} className="text-gray-700 dark:text-gray-300 leading-relaxed pl-4 border-l-2 border-blue-300">
+            <li key={index} className="text-gray-700 dark:text-gray-300 leading-relaxed pl-4 border-l-2 border-[#AFC7E3]/60">
               {question}
             </li>
           ))}
@@ -79,9 +79,9 @@ export default function PlanDevotionalView({ planId }) {
       </Card>
 
       {/* Action Plan */}
-      <Card className="p-6 bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20">
+      <Card className="p-6 bg-gradient-to-br from-[#FAD98D]/10 to-[#FFF8E7] dark:from-[#0A1A2F]/40 dark:to-[#1a1a2e]/40">
         <h2 className="text-xl font-bold text-[#1a1a2e] dark:text-white mb-4 flex items-center gap-2">
-          <Target className="w-5 h-5 text-purple-600" />
+          <Target className="w-5 h-5 text-[#8a6e1a]" />
           {devotional.actionPlan.title}
         </h2>
         <ol className="list-decimal pl-5 space-y-3 text-gray-700 dark:text-gray-300">

@@ -115,7 +115,7 @@ export default function ShareWorkoutModal({ isOpen, onClose, workout, user }) {
                 </div>
               </div>
 
-              <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
+              <div className="bg-[#F2F6FA] border border-[#AFC7E3]/40 rounded-lg p-3">
                 <p className="text-xs text-blue-800">
                   <span className="font-semibold">Public:</span> Anyone with this link can view and copy your workout.
                 </p>

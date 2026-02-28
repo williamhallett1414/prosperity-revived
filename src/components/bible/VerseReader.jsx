@@ -19,7 +19,7 @@ const highlightColors = {
   green: 'bg-green-200/60',
   blue: 'bg-blue-200/60',
   pink: 'bg-pink-200/60',
-  purple: 'bg-purple-200/60'
+  purple: 'bg-[#D9B878]/30/60'
 };
 
 export default function VerseReader({ book, chapter, onBack, onNavigate, bookmarks, onBookmark, planDay, planId }) {

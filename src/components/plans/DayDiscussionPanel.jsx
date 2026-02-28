@@ -107,7 +107,7 @@ export default function DayDiscussionPanel({ groupId, dayNumber, currentUser }) 
       {/* New Post */}
       <Card className="p-4">
         <div className="flex items-start gap-3">
-          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-400 to-indigo-500 flex items-center justify-center text-white text-sm font-semibold flex-shrink-0">
+          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#AFC7E3] to-[#AFC7E3] flex items-center justify-center text-white text-sm font-semibold flex-shrink-0">
             {currentUser?.full_name?.charAt(0).toUpperCase() || '?'}
           </div>
           <div className="flex-1">
@@ -179,7 +179,7 @@ export default function DayDiscussionPanel({ groupId, dayNumber, currentUser }) 
                   </button>
                   <button
                     onClick={() => setReplyingTo(isReplying ? null : discussion.id)}
-                    className="flex items-center gap-1 text-gray-500 hover:text-blue-500 transition-colors"
+                    className="flex items-center gap-1 text-gray-500 hover:text-[#AFC7E3] transition-colors"
                   >
                     <MessageSquare className="w-4 h-4" />
                     <span className="text-xs">{discussion.reply_count || 0}</span>
@@ -224,7 +224,7 @@ export default function DayDiscussionPanel({ groupId, dayNumber, currentUser }) 
                     {discussionReplies.map((reply) => (
                       <div key={reply.id} className="pl-3">
                         <div className="flex items-start gap-2">
-                          <div className="w-6 h-6 rounded-full bg-gradient-to-br from-blue-400 to-indigo-500 flex items-center justify-center text-white text-xs font-semibold flex-shrink-0">
+                          <div className="w-6 h-6 rounded-full bg-gradient-to-br from-[#AFC7E3] to-[#AFC7E3] flex items-center justify-center text-white text-xs font-semibold flex-shrink-0">
                             {reply.user_name?.charAt(0).toUpperCase() || '?'}
                           </div>
                           <div className="flex-1">

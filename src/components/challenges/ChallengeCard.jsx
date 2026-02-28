@@ -68,7 +68,7 @@ export default function ChallengeCard({ challenge, participation, onJoin, onClic
           <div>
             <div className="flex items-center justify-between text-sm mb-2">
               <span className="text-gray-600">Your Progress</span>
-              <span className="font-semibold text-purple-600">{progress.toFixed(0)}%</span>
+              <span className="font-semibold text-[#8a6e1a]">{progress.toFixed(0)}%</span>
             </div>
             <Progress value={progress} className="h-2" />
             <p className="text-xs text-gray-500 mt-1">
@@ -90,7 +90,7 @@ export default function ChallengeCard({ challenge, participation, onJoin, onClic
               e.stopPropagation();
               onJoin();
             }}
-            className="w-full bg-purple-600 hover:bg-purple-700"
+            className="w-full bg-[#c9a227] hover:bg-[#b89320]"
           >
             Join Challenge
           </Button>

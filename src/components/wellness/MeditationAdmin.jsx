@@ -55,7 +55,7 @@ export default function MeditationAdmin() {
               <Button
                 onClick={() => generateAudio.mutate(med)}
                 disabled={generateAudio.isPending}
-                className="bg-purple-600 hover:bg-purple-700"
+                className="bg-[#c9a227] hover:bg-[#b89320]"
               >
                 {generateAudio.isPending ? (
                   <>

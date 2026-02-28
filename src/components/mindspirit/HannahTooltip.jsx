@@ -28,7 +28,7 @@ export default function HannahTooltip({ text, children, position = 'top', showIc
       >
         {children}
         {showIcon && (
-          <HelpCircle className="w-3.5 h-3.5 text-purple-400 ml-1 opacity-70 hover:opacity-100 transition-opacity" />
+          <HelpCircle className="w-3.5 h-3.5 text-[#D9B878] ml-1 opacity-70 hover:opacity-100 transition-opacity" />
         )}
       </div>
 
@@ -41,11 +41,11 @@ export default function HannahTooltip({ text, children, position = 'top', showIc
             transition={{ duration: 0.15 }}
             className={`absolute ${positionClasses[position]} z-50 pointer-events-none`}
           >
-            <div className="bg-purple-100 text-purple-900 text-xs rounded-lg px-3 py-2 max-w-xs whitespace-normal shadow-lg border border-purple-200">
+            <div className="bg-[#FAD98D]/20 text-[#0A1A2F] text-xs rounded-lg px-3 py-2 max-w-xs whitespace-normal shadow-lg border border-[#D9B878]/40">
               {text}
             </div>
             <div
-              className={`absolute w-2 h-2 bg-purple-100 border border-purple-200 ${arrowClasses[position]}`}
+              className={`absolute w-2 h-2 bg-[#FAD98D]/20 border border-[#D9B878]/40 ${arrowClasses[position]}`}
             />
           </motion.div>
         )}

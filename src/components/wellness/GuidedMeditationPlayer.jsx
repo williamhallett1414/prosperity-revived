@@ -47,7 +47,7 @@ export default function GuidedMeditationPlayer() {
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <h3 className="text-2xl font-bold text-white flex items-center gap-2">
-            <Sparkles className="w-6 h-6 text-purple-500" />
+            <Sparkles className="w-6 h-6 text-[#c9a227]" />
             Guided Sessions
           </h3>
           <span className="text-sm text-gray-400">
@@ -62,7 +62,7 @@ export default function GuidedMeditationPlayer() {
               onClick={() => setSelectedCategory(cat.id)}
               className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors ${
                 selectedCategory === cat.id
-                  ? "bg-purple-600 text-white"
+                  ? "bg-[#c9a227] text-white"
                   : "bg-white/5 text-gray-300 hover:bg-white/10"
               }`}
             >

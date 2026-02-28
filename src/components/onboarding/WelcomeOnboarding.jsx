@@ -22,7 +22,7 @@ const chatbotSteps = [
     title: 'Welcome to Your Wellness Journey',
     description: 'Meet your personal team of AI guides who will support you across all areas of life.',
     icon: Sparkles,
-    color: 'from-purple-500 to-pink-500',
+    color: 'from-[#c9a227] to-[#D9B878]',
     features: [
       'Personalized guidance from 4 specialized AI mentors',
       'Track progress across emotional, physical, nutritional, and spiritual health',
@@ -37,7 +37,7 @@ const chatbotSteps = [
     title: 'Meet Hannah - Your Personal Growth Guide',
     description: 'Hannah specializes in emotional intelligence, identity, and personal transformation.',
     icon: Heart,
-    color: 'from-purple-500 to-pink-500',
+    color: 'from-[#c9a227] to-[#D9B878]',
     features: [
       'Journal your thoughts and feelings',
       'Explore emotional patterns and triggers',
@@ -63,7 +63,7 @@ const chatbotSteps = [
     title: 'Meet Coach David - Your Fitness Coach',
     description: 'Coach David brings discipline, motivation, and expert workout guidance to help you reach your fitness goals.',
     icon: Dumbbell,
-    color: 'from-blue-500 to-cyan-500',
+    color: 'from-[#AFC7E3] to-[#7ab3d4]',
     features: [
       'Personalized workout plans',
       'Form analysis and exercise guidance',
@@ -140,7 +140,7 @@ const chatbotSteps = [
     title: 'Your Guides Work Together',
     description: 'The real power comes from how all your guides collaborate to support your whole-person wellbeing.',
     icon: TrendingUp,
-    color: 'from-purple-500 to-blue-500',
+    color: 'from-[#FAD98D]/100 to-[#F2F6FA]0',
     features: [
       'Holistic Progress Reports connect insights from all areas',
       'Mood improvements may correlate with consistent workouts',
@@ -299,7 +299,7 @@ export default function WelcomeOnboarding({ onComplete }) {
                   <ul className="space-y-2">
                     {step.howToUse.map((tip, idx) => (
                       <li key={idx} className="flex items-start gap-2 text-gray-700 dark:text-gray-300">
-                        <span className="text-blue-500 font-bold mt-1">•</span>
+                        <span className="text-[#AFC7E3] font-bold mt-1">•</span>
                         <span>{tip}</span>
                       </li>
                     ))}
@@ -317,7 +317,7 @@ export default function WelcomeOnboarding({ onComplete }) {
                     {step.examplePrompts.map((prompt, idx) => (
                       <div
                         key={idx}
-                        className="p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border-l-4 border-blue-500"
+                        className="p-3 bg-[#F2F6FA] dark:bg-[#0A1A2F]/20 rounded-lg border-l-4 border-blue-500"
                       >
                         <p className="text-sm text-gray-700 dark:text-gray-300 italic">{prompt}</p>
                       </div>
@@ -337,11 +337,11 @@ export default function WelcomeOnboarding({ onComplete }) {
                       <Card key={idx}>
                         <CardContent className="p-4">
                           <div className="flex items-center gap-2 mb-2">
-                            <Badge className="bg-purple-100 text-purple-700 text-xs">
+                            <Badge className="bg-[#FAD98D]/20 text-[#3C4E53] text-xs">
                               {conn.from}
                             </Badge>
                             <ArrowRight className="w-4 h-4 text-gray-400" />
-                            <Badge className="bg-blue-100 text-blue-700 text-xs">
+                            <Badge className="bg-[#AFC7E3]/20 text-[#3C4E53] text-xs">
                               {conn.to}
                             </Badge>
                           </div>

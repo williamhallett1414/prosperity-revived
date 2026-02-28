@@ -69,7 +69,7 @@ export default function MeditationTracker({ user }) {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl p-4 text-white"
+          className="bg-gradient-to-br from-[#AFC7E3] to-[#7ab3d4] rounded-xl p-4 text-white"
         >
           <div className="flex items-center gap-2 mb-2">
             <Clock className="w-5 h-5" />
@@ -97,7 +97,7 @@ export default function MeditationTracker({ user }) {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl p-4 text-white"
+          className="bg-gradient-to-br from-[#c9a227] to-[#D9B878] rounded-xl p-4 text-white"
         >
           <div className="flex items-center gap-2 mb-2">
             <Clock className="w-5 h-5" />

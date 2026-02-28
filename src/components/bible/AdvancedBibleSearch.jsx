@@ -299,8 +299,8 @@ Example format:
                   >
                     <div className="flex items-start justify-between mb-2">
                       <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 rounded-lg bg-purple-100 flex items-center justify-center">
-                          <span className="text-xs font-bold text-purple-700">V</span>
+                        <div className="w-8 h-8 rounded-lg bg-[#FAD98D]/20 flex items-center justify-center">
+                          <span className="text-xs font-bold text-[#3C4E53]">V</span>
                         </div>
                         <span className="font-bold text-[#0A1A2F]">
                           {result.book} {result.chapter}:{result.verse}

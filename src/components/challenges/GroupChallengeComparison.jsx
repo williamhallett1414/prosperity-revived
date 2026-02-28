@@ -20,7 +20,7 @@ export default function GroupChallengeComparison({ participants, challenge, curr
       return (
         <div className="bg-white p-3 rounded-lg shadow-lg border border-gray-100">
           <p className="font-semibold text-gray-900">{data.name}</p>
-          <p className="text-purple-600">
+          <p className="text-[#8a6e1a]">
             {data.progress} {challenge.goal_unit}
           </p>
           <p className="text-sm text-gray-500">Rank #{data.rank}</p>
@@ -42,8 +42,8 @@ export default function GroupChallengeComparison({ participants, challenge, curr
     <div className="space-y-6">
       {/* Stats Overview */}
       <div className="grid grid-cols-3 gap-3">
-        <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl p-4 text-center">
-          <TrendingUp className="w-5 h-5 text-purple-600 mx-auto mb-1" />
+        <div className="bg-gradient-to-br from-[#FAD98D]/10 to-[#FFF8E7] rounded-xl p-4 text-center">
+          <TrendingUp className="w-5 h-5 text-[#8a6e1a] mx-auto mb-1" />
           <p className="text-lg font-bold text-gray-900">{averageProgress.toFixed(1)}</p>
           <p className="text-xs text-gray-600">Avg Progress</p>
         </div>

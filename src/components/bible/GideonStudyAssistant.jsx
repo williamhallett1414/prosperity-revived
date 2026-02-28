@@ -149,12 +149,12 @@ Only reference past guidance when directly relevant. This shows you're walking a
       <Button
         onClick={() => setIsExpanded(!isExpanded)}
         variant="outline"
-        className="w-full bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 border-purple-200 dark:border-purple-700 hover:shadow-md transition-all"
+        className="w-full bg-gradient-to-r from-[#FAD98D]/10 to-[#FFF8E7] dark:from-[#0A1A2F]/40 dark:to-[#1a1a2e]/40 border-[#D9B878]/40 dark:border-[#c9a227]/60 hover:shadow-md transition-all"
       >
-        <MessageCircle className="w-4 h-4 mr-2 text-purple-500" />
+        <MessageCircle className="w-4 h-4 mr-2 text-[#c9a227]" />
         Ask Gideon About This Section
         {savedAdvice.length > 0 && (
-          <span className="ml-2 text-xs bg-purple-500 text-white px-2 py-1 rounded-full">
+          <span className="ml-2 text-xs bg-[#FAD98D]/100 text-white px-2 py-1 rounded-full">
             {savedAdvice.length}
           </span>
         )}
@@ -188,7 +188,7 @@ Only reference past guidance when directly relevant. This shows you're walking a
                 <Button
                   onClick={handleAsk}
                   disabled={!input.trim() || loading}
-                  className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600"
+                  className="bg-gradient-to-r from-[#c9a227] to-[#D9B878] hover:from-[#b89320] hover:to-[#c9a227]"
                   size="icon"
                 >
                   {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
@@ -197,13 +197,13 @@ Only reference past guidance when directly relevant. This shows you're walking a
 
               {/* Current Response */}
               {currentAdvice && (
-                <div className="bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/30 dark:to-pink-900/30 p-4 rounded-lg space-y-3">
+                <div className="bg-gradient-to-br from-[#FAD98D]/10 to-[#FFF8E7] dark:from-[#0A1A2F]/30 dark:to-[#1a1a2e]/30 p-4 rounded-lg space-y-3">
                   <div>
-                    <p className="text-xs font-medium text-purple-600 dark:text-purple-400 mb-1">Your Question:</p>
+                    <p className="text-xs font-medium text-[#8a6e1a] dark:text-[#D9B878] mb-1">Your Question:</p>
                     <p className="text-sm text-gray-700 dark:text-gray-300">{currentAdvice.question}</p>
                   </div>
                   <div>
-                    <p className="text-xs font-medium text-pink-600 dark:text-pink-400 mb-1">Gideon's Guidance:</p>
+                    <p className="text-xs font-medium text-[#c9a227] dark:text-pink-400 mb-1">Gideon's Guidance:</p>
                     <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">{currentAdvice.advice}</p>
                   </div>
                   <Button
@@ -236,7 +236,7 @@ Only reference past guidance when directly relevant. This shows you're walking a
                           <button
                             onClick={() => toggleFavoriteMutation.mutate({ id: item.id, isFavorite: item.is_favorite })}
                             className={`p-1 rounded transition-colors ${
-                              item.is_favorite ? 'text-pink-500' : 'text-gray-400 hover:text-pink-500'
+                              item.is_favorite ? 'text-[#D9B878]' : 'text-gray-400 hover:text-[#D9B878]'
                             }`}
                           >
                             <Heart className={`w-4 h-4 ${item.is_favorite ? 'fill-current' : ''}`} />

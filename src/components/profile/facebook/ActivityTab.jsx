@@ -20,14 +20,14 @@ export default function ActivityTab({ userProgress }) {
       icon: BookOpen,
       label: 'Reading Plans Completed',
       value: userProgress.reading_plans_completed || 0,
-      color: 'from-blue-500 to-blue-600',
+      color: 'from-[#AFC7E3] to-[#D9B878]',
       emoji: '📖'
     },
     {
       icon: MessageCircle,
       label: 'Community Posts',
       value: userProgress.community_posts || 0,
-      color: 'from-purple-500 to-purple-600',
+      color: 'from-[#FAD98D]/100 to-[#c9a227]',
       emoji: '💬'
     },
     {
@@ -41,14 +41,14 @@ export default function ActivityTab({ userProgress }) {
       icon: Heart,
       label: 'Meditations Completed',
       value: userProgress.meditations_completed || 0,
-      color: 'from-pink-500 to-pink-600',
+      color: 'from-[#FAD98D]/100 to-[#c9a227]',
       emoji: '🧘'
     },
     {
       icon: Users,
       label: 'Friends',
       value: userProgress.friends_count || 0,
-      color: 'from-indigo-500 to-indigo-600',
+      color: 'from-[#AFC7E3] to-[#3C4E53]',
       emoji: '👥'
     },
     {
@@ -110,8 +110,8 @@ export default function ActivityTab({ userProgress }) {
         <h3 className="text-xl font-bold text-gray-900 mb-5">Recent Milestones</h3>
         <div className="space-y-4">
           {userProgress.reading_plans_completed > 0 && (
-            <div className="flex items-start gap-3 p-3 bg-blue-50 rounded-lg border border-blue-100">
-              <div className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white flex-shrink-0">
+            <div className="flex items-start gap-3 p-3 bg-[#F2F6FA] rounded-lg border border-blue-100">
+              <div className="w-10 h-10 rounded-full bg-[#F2F6FA]0 flex items-center justify-center text-white flex-shrink-0">
                 📖
               </div>
               <div>
@@ -132,8 +132,8 @@ export default function ActivityTab({ userProgress }) {
             </div>
           )}
           {userProgress.meditations_completed > 0 && (
-            <div className="flex items-start gap-3 p-3 bg-pink-50 rounded-lg border border-pink-100">
-              <div className="w-10 h-10 rounded-full bg-pink-500 flex items-center justify-center text-white flex-shrink-0">
+            <div className="flex items-start gap-3 p-3 bg-[#FAD98D]/10 rounded-lg border border-pink-100">
+              <div className="w-10 h-10 rounded-full bg-[#FAD98D]/100 flex items-center justify-center text-white flex-shrink-0">
                 🧘
               </div>
               <div>
@@ -143,8 +143,8 @@ export default function ActivityTab({ userProgress }) {
             </div>
           )}
           {userProgress.friends_count > 0 && (
-            <div className="flex items-start gap-3 p-3 bg-indigo-50 rounded-lg border border-indigo-100">
-              <div className="w-10 h-10 rounded-full bg-indigo-500 flex items-center justify-center text-white flex-shrink-0">
+            <div className="flex items-start gap-3 p-3 bg-[#F2F6FA] rounded-lg border border-indigo-100">
+              <div className="w-10 h-10 rounded-full bg-[#F2F6FA]0 flex items-center justify-center text-white flex-shrink-0">
                 👥
               </div>
               <div>

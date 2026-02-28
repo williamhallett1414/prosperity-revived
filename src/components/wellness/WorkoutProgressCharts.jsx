@@ -139,13 +139,13 @@ export default function WorkoutProgressCharts({ isOpen, onClose }) {
                 </div>
                 <div className="text-center p-2 bg-white dark:bg-gray-700 rounded">
                   <p className="text-xs text-gray-500 dark:text-gray-400">Average</p>
-                  <p className="font-bold text-blue-600">
+                  <p className="font-bold text-[#3C4E53]">
                     {(chartData.reduce((sum, d) => sum + d[currentMetric.key], 0) / chartData.length).toFixed(1)}
                   </p>
                 </div>
                 <div className="text-center p-2 bg-white dark:bg-gray-700 rounded">
                   <p className="text-xs text-gray-500 dark:text-gray-400">Sessions</p>
-                  <p className="font-bold text-purple-600">{chartData.length}</p>
+                  <p className="font-bold text-[#8a6e1a]">{chartData.length}</p>
                 </div>
               </div>
             </div>

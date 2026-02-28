@@ -111,7 +111,7 @@ export default function WeeklyMealPlan({ mealPlanDays, activePlan }) {
                   </div>
                   <div>
                     <p className="text-xs text-gray-600 dark:text-gray-400 mb-1">Protein</p>
-                    <p className="font-bold text-blue-600">{selectedDay.total_protein}g</p>
+                    <p className="font-bold text-[#3C4E53]">{selectedDay.total_protein}g</p>
                   </div>
                   <div>
                     <p className="text-xs text-gray-600 dark:text-gray-400 mb-1">Carbs</p>
@@ -119,7 +119,7 @@ export default function WeeklyMealPlan({ mealPlanDays, activePlan }) {
                   </div>
                   <div>
                     <p className="text-xs text-gray-600 dark:text-gray-400 mb-1">Fats</p>
-                    <p className="font-bold text-purple-600">{selectedDay.total_fats}g</p>
+                    <p className="font-bold text-[#8a6e1a]">{selectedDay.total_fats}g</p>
                   </div>
                 </div>
               </div>

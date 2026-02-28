@@ -178,7 +178,7 @@ export default function ProgressDashboard() {
                 onClick={() => navigate(createPageUrl('Community'))}
                 variant="outline"
                 size="sm"
-                className="text-blue-600 border-blue-300 hover:bg-blue-50"
+                className="text-[#3C4E53] border-[#AFC7E3]/60 hover:bg-[#F2F6FA]"
               >
                 <MessageCircle className="w-4 h-4 mr-2" />
                 Community
@@ -266,8 +266,8 @@ export default function ProgressDashboard() {
         {/* Overall Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
           {[
-            { label: 'Goals Set', value: stats.byType.goal, icon: Target, color: 'text-blue-500' },
-            { label: 'Milestones', value: stats.byType.milestone, icon: TrendingUp, color: 'text-purple-500' },
+            { label: 'Goals Set', value: stats.byType.goal, icon: Target, color: 'text-[#AFC7E3]' },
+            { label: 'Milestones', value: stats.byType.milestone, icon: TrendingUp, color: 'text-[#c9a227]' },
             { label: 'Achievements', value: stats.byType.achievement, icon: Trophy, color: 'text-yellow-500' },
             { label: 'Successes', value: stats.byType.success, icon: CheckCircle2, color: 'text-green-500' }
           ].map((stat, idx) => {

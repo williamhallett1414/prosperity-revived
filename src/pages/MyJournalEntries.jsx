@@ -246,7 +246,7 @@ export default function MyJournalEntries() {
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="bg-gradient-to-br from-purple-50 to-blue-50 rounded-2xl p-5 border border-purple-200"
+                className="bg-gradient-to-br from-[#FAD98D]/10 to-[#F2F6FA] rounded-2xl p-5 border border-[#D9B878]/40"
               >
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex-1">
@@ -562,7 +562,7 @@ export default function MyJournalEntries() {
                                 </span>
                               )}
                               {entry.suggested_practice && (
-                                <span className="text-xs bg-purple-100 text-purple-700 px-2 py-1 rounded font-medium">
+                                <span className="text-xs bg-[#FAD98D]/20 text-[#3C4E53] px-2 py-1 rounded font-medium">
                                   {entry.suggested_practice}
                                 </span>
                               )}

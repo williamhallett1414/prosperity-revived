@@ -92,7 +92,7 @@ export default function DiscoverWorkouts({ user, myWorkouts, completeWorkout, on
 
   return (
     <div className="space-y-4">
-      <div className="bg-gradient-to-br from-purple-500 to-indigo-600 rounded-2xl p-5 text-white">
+      <div className="bg-gradient-to-br from-[#c9a227] to-[#D9B878] rounded-2xl p-5 text-white">
         <div className="flex items-center gap-3 mb-2">
           <TrendingUp className="w-6 h-6" />
           <h3 className="text-lg font-semibold">Discover Workouts</h3>

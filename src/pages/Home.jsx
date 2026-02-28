@@ -395,7 +395,7 @@ export default function Home() {
                     View progress across all areas: personal growth, fitness, nutrition, and spiritual development
                   </p>
                 </div>
-                <Sparkles className="w-5 h-5 text-blue-500" />
+                <Sparkles className="w-5 h-5 text-[#AFC7E3]" />
               </div>
             </div>
           </Link>

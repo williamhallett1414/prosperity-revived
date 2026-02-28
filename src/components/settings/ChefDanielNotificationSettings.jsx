@@ -69,7 +69,7 @@ export default function ChefDanielNotificationSettings({ user }) {
       title: 'Evening Tips',
       description: 'Healthy habits, digestion tips, next-day prep (7-9 PM)',
       icon: Moon,
-      color: 'text-indigo-600'
+      color: 'text-[#3C4E53]'
     }
   ];
 

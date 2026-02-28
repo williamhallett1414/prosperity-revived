@@ -528,7 +528,7 @@ Example: [VERSE]Romans 8:28 - "And we know that all things work together for goo
                     </button>
                     <button
                       onClick={() => setInput("How do I discover my purpose?")}
-                      className="px-4 py-2 bg-pink-100 dark:bg-pink-900/30 text-pink-700 dark:text-pink-300 rounded-full text-sm hover:bg-pink-200 dark:hover:bg-pink-900/50 transition-colors"
+                      className="px-4 py-2 bg-[#FAD98D]/20 dark:bg-[#0A1A2F]/30 text-[#8a6e1a] dark:text-[#FAD98D] rounded-full text-sm hover:bg-pink-200 dark:hover:bg-[#0A1A2F]/50 transition-colors"
                     >
                       Finding Purpose
                     </button>

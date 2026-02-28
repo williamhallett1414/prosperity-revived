@@ -22,8 +22,8 @@ import GroupChallenges from '@/components/community/GroupChallenges';
 import ShareMilestoneModal from '@/components/community/ShareMilestoneModal';
 
 const chatbotColors = {
-  Hannah: 'from-purple-500 to-pink-500',
-  CoachDavid: 'from-blue-500 to-cyan-500',
+  Hannah: 'from-[#c9a227] to-[#D9B878]',
+  CoachDavid: 'from-[#AFC7E3] to-[#7ab3d4]',
   ChefDaniel: 'from-orange-500 to-red-500',
   Gideon: 'from-green-500 to-emerald-500'
 };
@@ -55,7 +55,7 @@ export default function Community() {
   });
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 pb-8">
+    <div className="min-h-screen bg-gradient-to-br from-[#F2F6FA] to-[#EDF2F7] pb-8">
       <div className="max-w-6xl mx-auto px-4 py-6">
         {/* Header */}
         <motion.div
@@ -65,7 +65,7 @@ export default function Community() {
         >
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#c9a227] to-[#D9B878] flex items-center justify-center">
                 <Users className="w-6 h-6 text-white" />
               </div>
               <div>
@@ -75,7 +75,7 @@ export default function Community() {
             </div>
             <Button
               onClick={() => setShowShareModal(true)}
-              className="bg-gradient-to-r from-purple-500 to-pink-500 hover:opacity-90 text-white"
+              className="bg-gradient-to-r from-[#c9a227] to-[#D9B878] hover:opacity-90 text-white"
             >
               <Plus className="w-4 h-4 mr-2" />
               Share Milestone
@@ -87,7 +87,7 @@ export default function Community() {
             <Card>
               <CardContent className="pt-6">
                 <div className="text-center">
-                  <p className="text-3xl font-bold text-purple-600">{stats?.totalShares || 0}</p>
+                  <p className="text-3xl font-bold text-[#8a6e1a]">{stats?.totalShares || 0}</p>
                   <p className="text-sm text-gray-600 mt-1">Milestones Shared</p>
                 </div>
               </CardContent>
@@ -95,7 +95,7 @@ export default function Community() {
             <Card>
               <CardContent className="pt-6">
                 <div className="text-center">
-                  <p className="text-3xl font-bold text-blue-600">{stats?.activeChallenges || 0}</p>
+                  <p className="text-3xl font-bold text-[#3C4E53]">{stats?.activeChallenges || 0}</p>
                   <p className="text-sm text-gray-600 mt-1">Active Challenges</p>
                 </div>
               </CardContent>

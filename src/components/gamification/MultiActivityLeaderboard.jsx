@@ -9,8 +9,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 const LEADERBOARD_TYPES = [
   { id: 'points', label: 'Total Points', icon: Trophy, color: 'text-yellow-500', gradient: 'from-yellow-400 to-orange-500' },
   { id: 'workouts', label: 'Workouts', icon: Zap, color: 'text-emerald-500', gradient: 'from-emerald-400 to-teal-500' },
-  { id: 'streak', label: 'Current Streak', icon: Flame, color: 'text-red-500', gradient: 'from-red-400 to-pink-500' },
-  { id: 'meditations', label: 'Meditations', icon: Target, color: 'text-purple-500', gradient: 'from-purple-400 to-indigo-500' }
+  { id: 'streak', label: 'Current Streak', icon: Flame, color: 'text-red-500', gradient: 'from-red-400 to-[#D9B878]' },
+  { id: 'meditations', label: 'Meditations', icon: Target, color: 'text-[#c9a227]', gradient: 'from-[#D9B878] to-[#AFC7E3]' }
 ];
 
 export default function MultiActivityLeaderboard() {
@@ -195,7 +195,7 @@ export default function MultiActivityLeaderboard() {
       </Tabs>
 
       {/* Leaderboard Tips */}
-      <Card className="bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800">
+      <Card className="bg-[#F2F6FA] dark:bg-[#0A1A2F]/20 border-[#AFC7E3]/40 dark:border-blue-800">
         <CardContent className="pt-6 space-y-2 text-sm text-blue-900 dark:text-blue-200">
           <p>🏆 <strong>How to climb the ranks:</strong></p>
           <ul className="ml-4 space-y-1 list-disc">
