@@ -41,21 +41,19 @@ export default function ProfileHeader({ user, friendsCount, userProgress }) {
   return (
     <div className="bg-white shadow-sm">
       {/* Cover Photo */}
-      <div className="relative h-64 sm:h-80 lg:h-96 bg-gradient-to-br from-[#3C4E53] via-[#FD9C2D] to-[#FAD98D] overflow-hidden">
+      <div className="relative h-64 sm:h-80 lg:h-96 bg-gradient-to-br from-[#0A1A2F] via-[#c9a227] to-[#D9B878] overflow-hidden">
         {user?.cover_image_url ?
         <img
           src={user.cover_image_url}
           alt="Cover"
           className="w-full h-full object-cover" /> :
-
-
-        <div className="w-full h-full bg-gradient-to-br from-[#3C4E53] via-[#FD9C2D] to-[#FAD98D]" />
+        <div className="w-full h-full bg-gradient-to-br from-[#0A1A2F] via-[#c9a227] to-[#D9B878]" />
         }
         <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
         
-        <label className="absolute bottom-4 right-4 bg-white rounded-lg px-4 py-2.5 shadow-lg cursor-pointer hover:bg-gray-50 transition-all flex items-center gap-2 hover:shadow-xl">
-          <Camera className="w-4 h-4 text-gray-700" />
-          <span className="text-sm font-semibold text-gray-800">
+        <label className="absolute bottom-4 right-4 bg-white/90 backdrop-blur-sm rounded-lg px-4 py-2.5 shadow-lg cursor-pointer hover:bg-white transition-all flex items-center gap-2 hover:shadow-xl">
+          <Camera className="w-4 h-4 text-[#0A1A2F]" />
+          <span className="text-sm font-semibold text-[#0A1A2F]">
             {uploadingCover ? 'Uploading...' : 'Edit Cover'}
           </span>
           <input
@@ -74,7 +72,7 @@ export default function ProfileHeader({ user, friendsCount, userProgress }) {
           {/* Profile Picture & Name */}
           <div className="flex flex-col sm:flex-row sm:items-end sm:gap-5 mb-4 sm:mb-0">
             <div className="relative mb-4 sm:mb-0 mx-auto sm:mx-0">
-              <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-full border-4 border-white shadow-2xl overflow-hidden bg-gradient-to-br from-[#3C4E53] to-[#FD9C2D]">
+              <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-full border-4 border-white shadow-2xl overflow-hidden bg-gradient-to-br from-[#c9a227] to-[#D9B878]">
                 {user?.profile_image_url ?
                 <img
                   src={user.profile_image_url}
@@ -88,8 +86,8 @@ export default function ProfileHeader({ user, friendsCount, userProgress }) {
                 }
               </div>
               
-              <label className="absolute bottom-1 right-1 bg-white rounded-full p-2.5 shadow-lg cursor-pointer hover:bg-gray-50 transition-all hover:scale-105">
-                <Camera className="w-4 h-4 sm:w-5 sm:h-5 text-gray-700" />
+              <label className="absolute bottom-1 right-1 bg-white rounded-full p-2.5 shadow-lg cursor-pointer hover:bg-[#FAD98D]/20 transition-all hover:scale-105">
+                <Camera className="w-4 h-4 sm:w-5 sm:h-5 text-[#c9a227]" />
                 <input
                   type="file"
                   accept="image/*"
@@ -101,12 +99,12 @@ export default function ProfileHeader({ user, friendsCount, userProgress }) {
             </div>
 
             <div className="text-center sm:text-left pb-2">
-              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-1">
+              <h1 className="text-2xl sm:text-3xl font-bold text-[#0A1A2F] mb-1">
                 {user?.full_name || 'User'}
               </h1>
-              <p className="text-gray-600 font-medium text-sm sm:text-base">{friendsCount} {friendsCount === 1 ? 'friend' : 'friends'}</p>
+              <p className="text-[#0A1A2F]/60 font-medium text-sm sm:text-base">{friendsCount} {friendsCount === 1 ? 'friend' : 'friends'}</p>
               {user?.bio &&
-              <p className="text-gray-600 text-sm mt-2 max-w-md leading-relaxed">{user.bio}</p>
+              <p className="text-[#0A1A2F]/70 text-sm mt-2 max-w-md leading-relaxed">{user.bio}</p>
               }
             </div>
           </div>
@@ -114,12 +112,12 @@ export default function ProfileHeader({ user, friendsCount, userProgress }) {
           {/* Action Buttons */}
           <div className="flex gap-2 justify-center sm:justify-end flex-wrap">
             <Link to={createPageUrl('Messages')}>
-              <Button className="bg-[#FD9C2D] hover:bg-[#FD9C2D]/90 text-white px-5 py-2.5 shadow-sm hover:shadow-md transition-all">
+              <Button className="bg-gradient-to-r from-[#c9a227] to-[#D9B878] hover:opacity-90 text-white px-5 py-2.5 shadow-sm hover:shadow-md transition-all">
                 <MessageCircle className="w-4 h-4 mr-2" />
                 Message
               </Button>
             </Link>
-            <Button variant="outline" className="px-5 py-2.5 border-2 border-[#3C4E53] text-[#3C4E53] hover:bg-[#3C4E53]/5 font-medium shadow-sm hover:shadow-md transition-all">
+            <Button variant="outline" className="px-5 py-2.5 border-2 border-[#D9B878]/50 text-[#0A1A2F] hover:bg-[#FAD98D]/10 font-medium shadow-sm hover:shadow-md transition-all">
               <UserPlus className="w-4 h-4 mr-2" />
               Add Friend
             </Button>
@@ -131,19 +129,18 @@ export default function ProfileHeader({ user, friendsCount, userProgress }) {
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="border-t border-gray-200 pt-4 pb-3">
-
+          className="border-t border-[#D9B878]/25 pt-4 pb-3">
             <div className="max-w-3xl mx-auto sm:mx-0">
               {user?.status_message &&
-            <p className="text-gray-700 text-center sm:text-left mb-3 italic text-sm sm:text-base">
+            <p className="text-[#0A1A2F]/70 text-center sm:text-left mb-3 italic text-sm sm:text-base">
                   "{user.status_message}"
                 </p>
             }
               {user?.spiritual_goal &&
-            <div className="flex items-start gap-2.5 text-sm bg-[#FAD98D]/20 border border-[#FAD98D] rounded-lg p-3">
-                 <Sparkles className="w-5 h-5 text-[#FD9C2D] mt-0.5 flex-shrink-0" />
-                  <p className="text-gray-700">
-                    <span className="font-bold text-gray-900">Spiritual Goal:</span> {user.spiritual_goal}
+            <div className="flex items-start gap-2.5 text-sm bg-[#FAD98D]/15 border border-[#D9B878]/40 rounded-lg p-3">
+                 <Sparkles className="w-5 h-5 text-[#c9a227] mt-0.5 flex-shrink-0" />
+                  <p className="text-[#0A1A2F]/80">
+                    <span className="font-bold text-[#0A1A2F]">Spiritual Goal:</span> {user.spiritual_goal}
                   </p>
                 </div>
             }

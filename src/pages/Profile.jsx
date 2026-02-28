@@ -131,14 +131,14 @@ export default function Profile() {
 
   if (!user) {
     return (
-      <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#3C4E53] flex items-center justify-center">
-        <div className="animate-spin w-8 h-8 border-4 border-[#D9B878] border-t-transparent rounded-full" />
+      <div className="min-h-screen bg-[#FFFDF7] flex items-center justify-center">
+        <div className="animate-spin w-8 h-8 border-4 border-[#c9a227] border-t-transparent rounded-full" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#3C4E53]">
+    <div className="min-h-screen bg-[#FFFDF7]">
       {/* Back Button */}
       <div className="fixed top-16 left-4 z-50">
         <BackButton />
@@ -149,24 +149,24 @@ export default function Profile() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: isScrolled ? 1 : 0, y: isScrolled ? 0 : -20 }}
         transition={{ duration: 0.3 }}
-        className="fixed top-16 left-0 right-0 bg-white dark:bg-[#2d2d4a] shadow-md z-30 pointer-events-none"
+        className="fixed top-16 left-0 right-0 bg-white shadow-md z-30 pointer-events-none border-b border-[#D9B878]/25"
         style={{ pointerEvents: isScrolled ? 'auto' : 'none' }}
       >
         <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between pointer-events-auto">
-          <h1 className="text-xl font-bold text-[#0A1A2F] dark:text-white">{user.full_name}</h1>
+          <h1 className="text-xl font-bold text-[#0A1A2F]">{user.full_name}</h1>
           <div className="flex items-center gap-2">
             <Link
               to={createPageUrl('ProgressDashboard')}
-              className="p-2 hover:bg-[#E6EBEF] dark:hover:bg-[#3C4E53] rounded-full transition"
+              className="p-2 hover:bg-[#FAD98D]/20 rounded-full transition"
               title="View Progress Dashboard"
             >
-              <TrendingUp className="w-5 h-5 text-[#0A1A2F] dark:text-white" />
+              <TrendingUp className="w-5 h-5 text-[#0A1A2F]" />
             </Link>
             <Link
               to={createPageUrl('Settings')}
-              className="p-2 hover:bg-[#E6EBEF] dark:hover:bg-[#3C4E53] rounded-full transition"
+              className="p-2 hover:bg-[#FAD98D]/20 rounded-full transition"
             >
-              <Settings className="w-5 h-5 text-[#0A1A2F] dark:text-white" />
+              <Settings className="w-5 h-5 text-[#0A1A2F]" />
             </Link>
           </div>
         </div>
@@ -176,7 +176,7 @@ export default function Profile() {
 
       <div className="max-w-5xl mx-auto">
         {/* Tabs Navigation - Sticky */}
-        <div className={`sticky ${isScrolled ? 'top-28' : 'top-16'} bg-white dark:bg-[#2d2d4a] border-b border-[#E6EBEF] dark:border-gray-700 shadow-sm z-20 transition-all`}>
+        <div className={`sticky ${isScrolled ? 'top-28' : 'top-16'} bg-white border-b border-[#D9B878]/25 shadow-sm z-20 transition-all`}>
           <ProfileTabs activeTab={activeTab} onTabChange={setActiveTab} />
         </div>
 
@@ -212,27 +212,27 @@ export default function Profile() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700"
+              className="mt-8 pt-6 border-t border-[#D9B878]/25"
             >
-              <h3 className="text-lg font-semibold text-[#0A1A2F] dark:text-white mb-4">Account Settings</h3>
+              <h3 className="text-lg font-semibold text-[#0A1A2F] mb-4">Account Settings</h3>
               
               {/* Danger Zone */}
-              <div className="mt-6 pt-6 border-t border-red-200 dark:border-red-900">
-                <h4 className="text-md font-semibold text-red-700 dark:text-red-400 mb-3">Danger Zone</h4>
+              <div className="mt-6 pt-6 border-t border-[#D9B878]/25">
+                <h4 className="text-md font-semibold text-[#0A1A2F]/70 mb-3">Danger Zone</h4>
               <AlertDialog>
                 <AlertDialogTrigger asChild>
                   <Button
                     variant="outline"
-                    className="w-full border-red-300 text-red-700 hover:bg-red-50 dark:border-red-800 dark:text-red-400 dark:hover:bg-red-950 min-h-[44px]"
+                    className="w-full border-[#D9B878]/40 text-[#0A1A2F]/70 hover:bg-[#FAD98D]/10 min-h-[44px]"
                   >
                     <Trash2 className="w-4 h-4 mr-2" />
                     Delete My Account
                   </Button>
                 </AlertDialogTrigger>
-                <AlertDialogContent className="dark:bg-[#2d2d4a]">
+                <AlertDialogContent className="bg-[#FFFDF7] border border-[#D9B878]/30">
                   <AlertDialogHeader>
-                    <AlertDialogTitle className="dark:text-white">Are you absolutely sure?</AlertDialogTitle>
-                    <AlertDialogDescription className="dark:text-gray-400">
+                    <AlertDialogTitle className="text-[#0A1A2F]">Are you absolutely sure?</AlertDialogTitle>
+                    <AlertDialogDescription className="text-[#0A1A2F]/60">
                       This action cannot be undone. This will permanently delete your account
                       and remove all of your data from our servers, including:
                       <ul className="list-disc list-inside mt-2 space-y-1">
@@ -245,9 +245,9 @@ export default function Profile() {
                     </AlertDialogDescription>
                   </AlertDialogHeader>
                   <AlertDialogFooter>
-                    <AlertDialogCancel className="min-h-[44px] dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600">Cancel</AlertDialogCancel>
+                    <AlertDialogCancel className="min-h-[44px]">Cancel</AlertDialogCancel>
                     <AlertDialogAction
-                      className="bg-red-600 hover:bg-red-700 min-h-[44px]"
+                      className="bg-[#0A1A2F] hover:bg-[#0A1A2F]/90 min-h-[44px]"
                       onClick={async () => {
                         setIsDeleting(true);
                         try {
