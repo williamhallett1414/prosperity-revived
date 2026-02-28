@@ -119,7 +119,7 @@ export default function ProfileHeader({ user, friendsCount, userProgress }) {
                 Message
               </Button>
             </Link>
-            <Button variant="outline" className="px-5 py-2.5 border-2 border-[#3C4E53] text-[#3C4E53] hover:bg-[#3C4E53]/5 font-medium shadow-sm hover:shadow-md transition-all">
+            <Button className="px-5 py-2.5 bg-gradient-to-br from-[#3C4E53] to-[#AFC7E3] hover:opacity-90 text-white font-medium shadow-sm hover:shadow-md transition-all">
               <UserPlus className="w-4 h-4 mr-2" />
               Add Friend
             </Button>
