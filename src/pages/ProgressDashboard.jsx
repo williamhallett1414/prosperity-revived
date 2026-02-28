@@ -49,8 +49,8 @@ const chatbotConfig = {
   ChefDaniel: {
     name: 'Chef Daniel',
     icon: '🍽️',
-    color: 'from-[#FD9C2D] to-[#E89020]',
-    bgColor: 'bg-[#FD9C2D]/15',
+    color: 'from-[#8fa68a] to-[#6b8f72]',
+    bgColor: 'bg-[#8fa68a]/20',
     textColor: 'text-[#b86e10]',
     borderColor: 'border-[#FD9C2D]',
     category: 'Nutrition & Meals',
