@@ -70,7 +70,7 @@ export default function BannerCustomizer({ isOpen, onClose, currentBanner, onSav
           {/* Preview */}
           <div>
             <p className="text-sm font-medium mb-2">Preview</p>
-            <div className="w-full h-40 rounded-xl overflow-hidden bg-gradient-to-br from-[#1a1a2e] to-[#2d2d4a]">
+            <div className="w-full h-40 rounded-xl overflow-hidden bg-gradient-to-br from-[#0A1A2F] via-[#c9a227] to-[#D9B878]">
               {selectedBanner ? (
                 <img
                   src={selectedBanner}

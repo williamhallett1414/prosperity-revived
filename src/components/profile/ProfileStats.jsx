@@ -23,7 +23,7 @@ export default function ProfileStats({ userProgress, meditationSessions, workout
     label: 'Journal Entries',
     value: journalEntries?.length || 0,
     unit: '',
-    color: 'from-[#c9a227] to-[#D9B878]'
+    color: 'from-[#D9B878] to-[#FAD98D]'
   },
   {
     icon: Trophy,
