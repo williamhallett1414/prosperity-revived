@@ -93,6 +93,12 @@ export default function UserProfile() {
     enabled: !!profileEmail
   });
 
+  const { data: meditationSessions = [] } = useQuery({
+    queryKey: ['profileMeditations', profileEmail],
+    queryFn: () => base44.entities.MeditationSession.filter({ created_by: profileEmail }),
+    enabled: !!profileEmail
+  });
+
   const { data: friends = [] } = useQuery({
     queryKey: ['friends'],
     queryFn: () => base44.entities.Friend.list(),
@@ -292,6 +298,7 @@ export default function UserProfile() {
           userProgress={userProgressData}
           workoutSessions={workoutSessions}
           journalEntries={journalEntries}
+          meditationSessions={meditationSessions}
         />
       </div>
 
