@@ -298,14 +298,14 @@ export default function Home() {
 
           <Button
             onClick={() => setShowStartDay(true)}
-            className="h-20 bg-gradient-to-r from-[#FAD98D] to-[#FD9C2D] hover:from-[#FAD98D]/90 hover:to-[#FD9C2D]/90 text-[#3C4E53] rounded-2xl shadow-md font-bold text-base flex flex-col items-center gap-1">
+            className="h-20 bg-gradient-to-br from-[#c9a227] to-[#D9B878] hover:opacity-90 text-white rounded-2xl shadow-md font-bold text-base flex flex-col items-center gap-1">
 
             <span className="text-2xl">🌅</span>
             Start My Day
           </Button>
           <Button
             onClick={() => setShowEndDay(true)}
-            className="h-20 bg-gradient-to-r from-[#3C4E53] to-[#FD9C2D] hover:from-[#3C4E53]/90 hover:to-[#FD9C2D]/90 text-white rounded-2xl shadow-md font-bold text-base flex flex-col items-center gap-1">
+            className="h-20 bg-gradient-to-br from-[#3C4E53] to-[#AFC7E3] hover:opacity-90 text-white rounded-2xl shadow-md font-bold text-base flex flex-col items-center gap-1">
 
             <span className="text-2xl">🌙</span>
             End My Day
