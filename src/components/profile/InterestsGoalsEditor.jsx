@@ -86,33 +86,37 @@ export default function InterestsGoalsEditor({ user }) {
   };
 
   const colorClasses = {
+    // Spiritual → Gideon (gold/amber)
     purple: {
-      bg: 'bg-[#FAD98D]/10',
-      border: 'border-[#D9B878]/40',
+      bg: 'bg-[#FAD98D]/15',
+      border: 'border-[#D9B878]/50',
       icon: 'text-[#c9a227]',
-      badge: 'bg-[#FAD98D]/20 text-[#8a6e1a]',
+      badge: 'bg-[#FAD98D]/30 text-[#7a5f10]',
       button: 'bg-[#c9a227] hover:bg-[#b89320] text-white'
     },
+    // Personal Growth → Hannah (purple/lavender)
     pink: {
-      bg: 'bg-[#FAD98D]/10',
-      border: 'border-[#D9B878]/40',
-      icon: 'text-[#c9a227]',
-      badge: 'bg-[#FAD98D]/20 text-[#8a6e1a]',
-      button: 'bg-[#c9a227] hover:bg-[#b89320] text-white'
+      bg: 'bg-purple-50',
+      border: 'border-purple-200',
+      icon: 'text-purple-500',
+      badge: 'bg-purple-100 text-purple-700',
+      button: 'bg-purple-500 hover:bg-purple-600 text-white'
     },
+    // Fitness → Coach David (blue/navy)
     blue: {
-      bg: 'bg-[#FAD98D]/10',
-      border: 'border-[#D9B878]/40',
-      icon: 'text-[#c9a227]',
-      badge: 'bg-[#FAD98D]/20 text-[#8a6e1a]',
-      button: 'bg-[#c9a227] hover:bg-[#b89320] text-white'
+      bg: 'bg-[#AFC7E3]/15',
+      border: 'border-[#AFC7E3]/50',
+      icon: 'text-[#3C4E53]',
+      badge: 'bg-[#AFC7E3]/30 text-[#2a3a40]',
+      button: 'bg-[#3C4E53] hover:bg-[#2a3a40] text-white'
     },
+    // Nutrition → Chef Daniel (green/teal)
     green: {
-      bg: 'bg-[#FAD98D]/10',
-      border: 'border-[#D9B878]/40',
-      icon: 'text-[#c9a227]',
-      badge: 'bg-[#FAD98D]/20 text-[#8a6e1a]',
-      button: 'bg-[#c9a227] hover:bg-[#b89320] text-white'
+      bg: 'bg-emerald-50',
+      border: 'border-emerald-200',
+      icon: 'text-emerald-600',
+      badge: 'bg-emerald-100 text-emerald-700',
+      button: 'bg-emerald-600 hover:bg-emerald-700 text-white'
     }
   };
 
