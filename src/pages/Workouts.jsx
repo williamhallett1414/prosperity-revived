@@ -166,9 +166,9 @@ export default function Workouts() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F4F7F4] pb-24">
+    <div className="min-h-screen bg-[#FFF8F0] pb-24">
       {/* Top Navigation */}
-      <div className="sticky top-0 z-40 bg-white border-b border-[#8fa68a]/20 px-4 py-3">
+      <div className="sticky top-0 z-40 bg-white border-b border-[#FDE8C8] px-4 py-3">
         <div className="max-w-2xl mx-auto flex items-center justify-between">
           
 
@@ -189,7 +189,7 @@ export default function Workouts() {
               <motion.div
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="mb-6 bg-gradient-to-br from-[#8fa68a]/10 to-[#6b8f72]/10 border border-[#8fa68a]/30 rounded-2xl p-5"
+                className="mb-6 bg-gradient-to-br from-[#FD9C2D]/10 to-[#FAD98D]/20 border border-[#FD9C2D]/30 rounded-2xl p-5"
               >
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
@@ -199,7 +199,7 @@ export default function Workouts() {
                     </p>
                     <div className="flex gap-2">
                       <Link to={createPageUrl('WorkoutCategoryPage')}>
-                        <Button size="sm" className="bg-gradient-to-r from-[#8fa68a] to-[#6b8f72] hover:opacity-90 text-white text-xs">
+                        <Button size="sm" className="bg-[#FD9C2D] hover:bg-[#FD9C2D]/90 text-white text-xs">
                           Browse Categories
                         </Button>
                       </Link>
@@ -226,7 +226,7 @@ export default function Workouts() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="bg-gradient-to-br from-[#8fa68a] to-[#6b8f72] rounded-xl p-5 text-[#0A1A2F] shadow-md mb-6">
+              className="bg-gradient-to-br from-[#FD9C2D] to-[#FAD98D] rounded-xl p-5 text-[#0A1A2F] shadow-md mb-6">
 
                 <div className="flex items-start justify-between mb-3">
                   <div>
@@ -242,7 +242,7 @@ export default function Workouts() {
                   </p>
                 </div>
                 <Button
-                className="w-full bg-white text-[#4a6b50] hover:bg-white/90 font-bold"
+                className="w-full bg-[#0A1A2F] text-white hover:bg-[#0A1A2F]/90"
                 onClick={() => {
                   setSelectedWorkout(recommendedWorkout);
                   setShowStartWorkout(true);
@@ -260,9 +260,9 @@ export default function Workouts() {
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="bg-white rounded-xl p-4 border border-[#8fa68a]/20 shadow-sm">
+                  className="bg-white rounded-xl p-4 border border-[#FDE8C8] shadow-sm">
 
-                  <div className="text-2xl font-bold text-[#8fa68a] mb-1">
+                  <div className="text-2xl font-bold text-[#FD9C2D] mb-1">
                     {workoutSessions.filter((s) => {
                       const today = new Date();
                       const weekAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
@@ -276,9 +276,9 @@ export default function Workouts() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.05 }}
-                  className="bg-white rounded-xl p-4 border border-[#8fa68a]/20 shadow-sm">
+                  className="bg-white rounded-xl p-4 border border-[#FDE8C8] shadow-sm">
 
-                  <div className="text-2xl font-bold text-[#6b8f72] mb-1">
+                  <div className="text-2xl font-bold text-[#D9B878] mb-1">
                     {totalWorkoutsCompleted}
                   </div>
                   <p className="text-xs text-[#0A1A2F]/60">Total completed</p>
@@ -288,9 +288,9 @@ export default function Workouts() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.1 }}
-                  className="bg-white rounded-xl p-4 border border-[#8fa68a]/20 shadow-sm">
+                  className="bg-white rounded-xl p-4 border border-[#FDE8C8] shadow-sm">
 
-                  <div className="text-2xl font-bold text-[#8fa68a] mb-1">
+                  <div className="text-2xl font-bold text-[#AFC7E3] mb-1">
                     {workoutSessions.reduce((sum, s) => sum + (s.duration_minutes || 0), 0)}
                   </div>
                   <p className="text-xs text-[#0A1A2F]/60">Total minutes</p>
@@ -300,9 +300,9 @@ export default function Workouts() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.15 }}
-                  className="bg-white rounded-xl p-4 border border-[#8fa68a]/20 shadow-sm">
+                  className="bg-white rounded-xl p-4 border border-[#FDE8C8] shadow-sm">
 
-                  <div className="text-2xl font-bold text-[#4a6b50] mb-1">
+                  <div className="text-2xl font-bold text-[#3C4E53] mb-1">
                     {(() => {
                       const uniqueDays = [...new Set(workoutSessions.map(s => s.date).filter(Boolean))].sort();
                       let streak = 0, maxStreak = 0;
@@ -343,29 +343,29 @@ export default function Workouts() {
                   const quickWorkouts = [
                   {
                     icon: Dumbbell,
-                    iconColor: 'text-[#8fa68a]',
-                    bgColor: 'bg-[#8fa68a]/15',
+                    iconColor: 'text-[#FD9C2D]',
+                    bgColor: 'bg-[#FD9C2D]/20',
                     label: 'Quick Burn',
                     workout: allWorkouts.find((w) => w.category === 'cardio' && w.duration_minutes <= 15) || allWorkouts[0]
                   },
                   {
                     icon: Target,
-                    iconColor: 'text-[#4a6b50]',
-                    bgColor: 'bg-[#8fa68a]/10',
+                    iconColor: 'text-[#3C4E53]',
+                    bgColor: 'bg-[#3C4E53]/10',
                     label: 'Core Reset',
                     workout: allWorkouts.find((w) => w.category === 'strength' && w.duration_minutes <= 15) || allWorkouts[1]
                   },
                   {
                     icon: Heart,
-                    iconColor: 'text-[#6b8f72]',
-                    bgColor: 'bg-[#8fa68a]/15',
+                    iconColor: 'text-[#FAD98D]',
+                    bgColor: 'bg-[#FAD98D]/30',
                     label: 'Stretch & Mobility',
                     workout: allWorkouts.find((w) => w.category === 'flexibility' && w.duration_minutes <= 15) || allWorkouts[2]
                   },
                   {
                     icon: Droplets,
-                    iconColor: 'text-[#4a6b50]',
-                    bgColor: 'bg-[#8fa68a]/10',
+                    iconColor: 'text-[#3C4E53]',
+                    bgColor: 'bg-[#3C4E53]/10',
                     label: 'Low-Impact Cardio',
                     workout: allWorkouts.find((w) => w.category === 'cardio' && w.duration_minutes >= 10 && w.duration_minutes <= 20) || allWorkouts[3]
                   }];
@@ -379,7 +379,7 @@ export default function Workouts() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: index * 0.05 }}
-                        className="bg-white rounded-xl p-4 border border-[#8fa68a]/20 shadow-sm hover:shadow-md transition-all cursor-pointer"
+                        className="bg-white rounded-xl p-4 border border-[#FDE8C8] shadow-sm hover:shadow-md transition-all cursor-pointer"
                         onClick={() => {
                           if (item.workout) {
                             setSelectedWorkout(item.workout);
@@ -413,10 +413,10 @@ export default function Workouts() {
                   const progress = userParticipation?.progress || 0;
 
                   const iconColors = [
-                  { bg: 'bg-[#8fa68a]/15', icon: 'text-[#8fa68a]', Icon: Trophy },
-                  { bg: 'bg-[#8fa68a]/20', icon: 'text-[#6b8f72]', Icon: Dumbbell },
-                  { bg: 'bg-[#8fa68a]/10', icon: 'text-[#4a6b50]', Icon: Heart },
-                  { bg: 'bg-[#8fa68a]/15', icon: 'text-[#4a6b50]', Icon: Target }];
+                  { bg: 'bg-[#FAD98D]/30', icon: 'text-[#FD9C2D]', Icon: Trophy },
+                  { bg: 'bg-[#FD9C2D]/20', icon: 'text-[#FD9C2D]', Icon: Dumbbell },
+                  { bg: 'bg-[#3C4E53]/10', icon: 'text-[#3C4E53]', Icon: Heart },
+                  { bg: 'bg-[#FAD98D]/30', icon: 'text-[#3C4E53]', Icon: Target }];
 
                   const colorSet = iconColors[index % iconColors.length];
                   const Icon = colorSet.Icon;
@@ -427,7 +427,7 @@ export default function Workouts() {
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: index * 0.05 }}
-                      className="bg-white rounded-xl p-3 border border-[#8fa68a]/20 shadow-sm hover:shadow-md transition-all cursor-pointer"
+                      className="bg-white rounded-xl p-3 border border-[#FDE8C8] shadow-sm hover:shadow-md transition-all cursor-pointer"
                       onClick={() => navigate(createPageUrl(`ChallengeDetailPage?id=${challenge.id}`))}>
 
                       <div className="flex flex-col items-center text-center gap-2">
@@ -440,12 +440,12 @@ export default function Workouts() {
                           {isParticipating ?
                           <div className="w-full">
                               <div className="h-1.5 bg-gray-200 rounded-full overflow-hidden">
-                                <div className="h-full bg-gradient-to-r from-[#8fa68a] to-[#6b8f72] rounded-full transition-all" style={{ width: `${progress}%` }} />
+                                <div className="h-full bg-[#D9B878] rounded-full transition-all" style={{ width: `${progress}%` }} />
                               </div>
                               <p className="text-[10px] text-[#0A1A2F]/60 mt-1">{progress}%</p>
                             </div> :
 
-                          <div className="text-[10px] text-[#4a6b50] font-semibold">
+                          <div className="text-[10px] text-emerald-600 font-semibold">
                               Join Now
                             </div>
                           }
@@ -462,10 +462,10 @@ export default function Workouts() {
               <h3 className="text-sm font-semibold text-[#0A1A2F] mb-3">Workout Library</h3>
               <div className="grid grid-cols-2 gap-3">
                 {[
-                { name: 'Cardio', icon: '❤️', color: 'from-[#8fa68a] to-[#6b8f72]', description: 'Get your heart pumping' },
-                { name: 'Strength', icon: '💪', color: 'from-[#4a6b50] to-[#8fa68a]', description: 'Build muscle & power' },
-                { name: 'HIIT', icon: '⚡', color: 'from-[#6b8f72] to-[#4a6b50]', description: 'High intensity intervals' },
-                { name: 'Home', icon: '🏠', color: 'from-[#8fa68a] to-[#D9B878]', description: 'No equipment needed' }].
+                { name: 'Cardio', icon: '❤️', color: 'from-[#FD9C2D] to-[#FAD98D]', description: 'Get your heart pumping' },
+                { name: 'Strength', icon: '💪', color: 'from-[#3C4E53] to-[#AFC7E3]', description: 'Build muscle & power' },
+                { name: 'HIIT', icon: '⚡', color: 'from-[#FAD98D] to-[#FD9C2D]', description: 'High intensity intervals' },
+                { name: 'Home', icon: '🏠', color: 'from-[#D9B878] to-[#AFC7E3]', description: 'No equipment needed' }].
                 map((category, index) =>
                 <motion.div
                   key={category.name}
