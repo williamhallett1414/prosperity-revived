@@ -78,6 +78,7 @@ import NutritionArticle from './pages/NutritionArticle';
 import NutritionGuidance from './pages/NutritionGuidance';
 import PersonalGrowth from './pages/PersonalGrowth';
 import PhotoGallery from './pages/PhotoGallery';
+import PlanDetail from './pages/PlanDetail';
 import Plans from './pages/Plans';
 import Prayer from './pages/Prayer';
 import PrivacyPolicy from './pages/PrivacyPolicy';
@@ -97,7 +98,6 @@ import WorkoutCategoryPage from './pages/WorkoutCategoryPage';
 import WorkoutProgress from './pages/WorkoutProgress';
 import WorkoutTrends from './pages/WorkoutTrends';
 import Workouts from './pages/Workouts';
-import PlanDetail from './pages/PlanDetail';
 import __Layout from './Layout.jsx';
 
 
@@ -133,6 +133,7 @@ export const PAGES = {
     "NutritionGuidance": NutritionGuidance,
     "PersonalGrowth": PersonalGrowth,
     "PhotoGallery": PhotoGallery,
+    "PlanDetail": PlanDetail,
     "Plans": Plans,
     "Prayer": Prayer,
     "PrivacyPolicy": PrivacyPolicy,
@@ -152,7 +153,6 @@ export const PAGES = {
     "WorkoutProgress": WorkoutProgress,
     "WorkoutTrends": WorkoutTrends,
     "Workouts": Workouts,
-    "PlanDetail": PlanDetail,
 }
 
 export const pagesConfig = {

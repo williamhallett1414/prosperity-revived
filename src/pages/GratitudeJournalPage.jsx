@@ -61,10 +61,10 @@ export default function GratitudeJournalPage() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-gradient-to-br from-pink-50 to-purple-50 rounded-2xl p-6 border border-pink-200"
+          className="bg-gradient-to-br from-[#AFC7E3]/15 to-[#AFC7E3]/15 rounded-2xl p-6 border border-[#AFC7E3]/40"
         >
           <div className="flex items-center gap-2 mb-6">
-            <Heart className="w-10 h-10 text-pink-500" />
+            <Heart className="w-10 h-10 text-[#3C4E53]" />
             <div>
               <h3 className="text-xl font-bold text-[#0A1A2F]">Today's Gratitude</h3>
               <p className="text-xs text-[#0A1A2F]/60">What are you grateful for today?</p>
@@ -78,14 +78,14 @@ export default function GratitudeJournalPage() {
           <div className="space-y-4 mb-6">
             {gratitudeItems.map((item, index) => (
               <div key={index} className="flex items-start gap-3">
-                <div className="flex items-center justify-center w-8 h-8 bg-pink-500 text-white rounded-full font-bold text-sm mt-1 flex-shrink-0">
+                <div className="flex items-center justify-center w-8 h-8 bg-[#3C4E53] text-white rounded-full font-bold text-sm mt-1 flex-shrink-0">
                   {index + 1}
                 </div>
                 <Input
                   value={item}
                   onChange={(e) => updateItem(index, e.target.value)}
                   placeholder="I'm grateful for..."
-                  className="bg-white border-pink-200 focus:border-pink-400 h-12 text-base"
+                  className="bg-white border-[#AFC7E3]/40 focus:border-[#AFC7E3] h-12 text-base"
                 />
               </div>
             ))}
@@ -94,7 +94,7 @@ export default function GratitudeJournalPage() {
           <Button
             onClick={handleSave}
             disabled={saving}
-            className="w-full bg-pink-500 hover:bg-pink-600 text-white h-12 text-base font-semibold"
+            className="w-full bg-[#3C4E53] hover:bg-[#0A1A2F] text-white h-12 text-base font-semibold"
           >
             <Plus className="w-5 h-5 mr-2" />
             {saving ? 'Saving...' : 'Save to My Journal'}

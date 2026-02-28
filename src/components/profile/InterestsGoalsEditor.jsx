@@ -87,11 +87,11 @@ export default function InterestsGoalsEditor({ user }) {
 
   const colorClasses = {
     purple: {
-      bg: 'bg-purple-50 dark:bg-purple-900/20',
-      border: 'border-purple-200 dark:border-purple-700',
-      icon: 'text-purple-600 dark:text-purple-400',
-      badge: 'bg-purple-100 text-purple-700 dark:bg-purple-900/50 dark:text-purple-300',
-      button: 'bg-purple-600 hover:bg-purple-700'
+      bg: 'bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5',
+      border: 'border-[#D9B878]/40 dark:border-[#D9B878]/20',
+      icon: 'text-[#8a6e1a] dark:text-[#c9a227]',
+      badge: 'bg-[#FAD98D]/20 text-[#3C4E53] dark:bg-[#FAD98D]/10 dark:text-[#D9B878]',
+      button: 'bg-[#c9a227] hover:bg-[#b89320]'
     },
     pink: {
       bg: 'bg-pink-50 dark:bg-pink-900/20',

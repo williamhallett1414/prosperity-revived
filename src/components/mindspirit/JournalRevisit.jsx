@@ -64,7 +64,7 @@ QUESTIONS:
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="border-t border-purple-100 pt-4"
+      className="border-t border-[#AFC7E3]/40 pt-4"
     >
       <button
         onClick={() => {
@@ -73,7 +73,7 @@ QUESTIONS:
           }
           setIsExpanded(!isExpanded);
         }}
-        className="flex items-center gap-2 text-sm font-medium text-purple-600 hover:text-purple-700 transition-colors"
+        className="flex items-center gap-2 text-sm font-medium text-[#3C4E53] hover:text-purple-700 transition-colors"
       >
         <Lightbulb className="w-4 h-4" />
         Revisit & Reflect
@@ -92,17 +92,17 @@ QUESTIONS:
           >
             {isLoading ? (
               <div className="flex items-center justify-center py-8">
-                <Loader2 className="w-5 h-5 animate-spin text-purple-400" />
+                <Loader2 className="w-5 h-5 animate-spin text-[#AFC7E3]" />
                 <span className="ml-2 text-sm text-gray-600">Generating reflection...</span>
               </div>
             ) : hasLoaded ? (
               <>
-                <div className="bg-purple-50 rounded-lg p-4 border border-purple-100">
+                <div className="bg-[#AFC7E3]/15 rounded-lg p-4 border border-[#AFC7E3]/40">
                   <div className="flex gap-3">
-                    <Lightbulb className="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" />
+                    <Lightbulb className="w-5 h-5 text-[#3C4E53] flex-shrink-0 mt-0.5" />
                     <div>
-                      <h4 className="font-medium text-purple-900 mb-2">Reflection</h4>
-                      <p className="text-sm text-purple-800 leading-relaxed">{reflection}</p>
+                      <h4 className="font-medium text-[#3C4E53] mb-2">Reflection</h4>
+                      <p className="text-sm text-[#3C4E53] leading-relaxed">{reflection}</p>
                     </div>
                   </div>
                 </div>

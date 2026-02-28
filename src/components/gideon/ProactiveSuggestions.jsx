@@ -53,10 +53,10 @@ export default function ProactiveSuggestions() {
   const getGradient = (type) => {
     switch (type) {
       case 'scripture': return 'from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20';
-      case 'reflection': return 'from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20';
+      case 'reflection': return 'from-[#FAD98D]/10 to-[#FAD98D]/10 dark:from-[#FAD98D]/5 dark:to-[#FAD98D]/5';
       case 'encouragement': return 'from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20';
       case 'prayer_prompt': return 'from-orange-50 to-yellow-50 dark:from-orange-900/20 dark:to-yellow-900/20';
-      default: return 'from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20';
+      default: return 'from-[#FAD98D]/10 to-[#FAD98D]/10 dark:from-[#FAD98D]/5 dark:to-[#FAD98D]/5';
     }
   };
 
@@ -73,11 +73,11 @@ export default function ProactiveSuggestions() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.1 }}
           >
-            <Card className={`bg-gradient-to-br ${gradient} border-purple-200 dark:border-purple-700`}>
+            <Card className={`bg-gradient-to-br ${gradient} border-[#D9B878]/40 dark:border-[#D9B878]/20`}>
               <div className="p-5">
                 <div className="flex items-start gap-3 mb-3">
                   <div className="w-10 h-10 bg-white/50 dark:bg-black/20 rounded-full flex items-center justify-center flex-shrink-0">
-                    <Icon className="w-5 h-5 text-purple-600 dark:text-purple-400" />
+                    <Icon className="w-5 h-5 text-[#8a6e1a] dark:text-[#c9a227]" />
                   </div>
                   <div className="flex-1">
                     <h3 className="font-bold text-gray-900 dark:text-white mb-1">
@@ -95,8 +95,8 @@ export default function ProactiveSuggestions() {
 
                 {suggestion.scripture_reference && (
                   <div className="flex items-center gap-2 mb-3 px-3 py-2 bg-white/50 dark:bg-black/20 rounded-lg">
-                    <Book className="w-4 h-4 text-purple-600 dark:text-purple-400" />
-                    <span className="text-sm font-medium text-purple-700 dark:text-purple-300">
+                    <Book className="w-4 h-4 text-[#8a6e1a] dark:text-[#c9a227]" />
+                    <span className="text-sm font-medium text-[#3C4E53] dark:text-[#D9B878]">
                       {suggestion.scripture_reference}
                     </span>
                   </div>

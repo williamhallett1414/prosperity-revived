@@ -94,15 +94,15 @@ export default function HannahNotificationSettings({ user }) {
       description: '7–9 PM',
       detail: 'Reflection, gratitude, self-compassion, emotional processing',
       icon: Moon,
-      color: 'from-purple-100 to-pink-100'
+      color: 'from-[#AFC7E3]/20 to-[#F2F6FA]'
     }
   ];
 
   return (
-    <Card className="border-purple-200">
+    <Card className="border-[#AFC7E3]/40">
       <CardHeader>
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-pink-400 to-purple-500 flex items-center justify-center">
+          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#AFC7E3] to-[#3C4E53] flex items-center justify-center">
             <Heart className="w-6 h-6 text-white" />
           </div>
           <div>
@@ -121,7 +121,7 @@ export default function HannahNotificationSettings({ user }) {
               key={option.field}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              className={`p-4 rounded-xl border border-purple-200 transition-all ${
+              className={`p-4 rounded-xl border border-[#AFC7E3]/40 transition-all ${
                 isEnabled
                   ? `bg-gradient-to-r ${option.color}`
                   : 'bg-gray-50 opacity-60'
@@ -130,7 +130,7 @@ export default function HannahNotificationSettings({ user }) {
               <div className="flex items-start justify-between gap-3">
                 <div className="flex items-start gap-3 flex-1">
                   <div className="mt-1">
-                    <Icon className="w-5 h-5 text-purple-600" />
+                    <Icon className="w-5 h-5 text-[#3C4E53]" />
                   </div>
                   <div className="flex-1">
                     <h3 className="font-semibold text-gray-900">{option.title}</h3>
@@ -148,8 +148,8 @@ export default function HannahNotificationSettings({ user }) {
           );
         })}
 
-        <div className="mt-6 p-4 bg-purple-50 border border-purple-200 rounded-xl">
-          <p className="text-xs text-purple-900 leading-relaxed">
+        <div className="mt-6 p-4 bg-purple-50 border border-[#AFC7E3]/40 rounded-xl">
+          <p className="text-xs text-[#3C4E53] leading-relaxed">
             <span className="font-semibold">💡 What Hannah Does:</span> Each notification includes a warm, emotionally intelligent greeting, a mindset insight rooted in habit science, psychology, and personal development, plus a gentle coaching question to help you reflect and grow.
           </p>
         </div>

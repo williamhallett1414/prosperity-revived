@@ -121,7 +121,7 @@ export default function MeditationAnalytics({ user }) {
       {/* Last 7 Days Activity */}
       <Card className="p-4">
         <div className="flex items-center gap-2 mb-4">
-          <BarChart className="w-5 h-5 text-purple-500" />
+          <BarChart className="w-5 h-5 text-[#c9a227]" />
           <h3 className="font-semibold text-gray-900 dark:text-white">Last 7 Days</h3>
         </div>
         <div className="flex items-end justify-between gap-2 h-32">
@@ -181,7 +181,7 @@ export default function MeditationAnalytics({ user }) {
                       initial={{ width: 0 }}
                       animate={{ width: `${(count / totalSessions) * 100}%` }}
                       transition={{ delay: i * 0.1 }}
-                      className="h-full bg-purple-500"
+                      className="h-full bg-[#c9a227]"
                     />
                   </div>
                   <span className="text-sm font-medium text-gray-900 dark:text-white w-8 text-right">
@@ -195,7 +195,7 @@ export default function MeditationAnalytics({ user }) {
       )}
 
       {/* Feedback Message */}
-      <Card className="p-4 bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 border-purple-200 dark:border-purple-700">
+      <Card className="p-4 bg-gradient-to-br from-[#FAD98D]/10 to-[#FAD98D]/10 dark:from-[#FAD98D]/5 dark:to-[#FAD98D]/5 border-[#D9B878]/40 dark:border-[#D9B878]/20">
         <h3 className="font-semibold text-gray-900 dark:text-white mb-2">💡 Insight</h3>
         <p className="text-sm text-gray-700 dark:text-gray-300">
           {totalSessions === 0 ? 

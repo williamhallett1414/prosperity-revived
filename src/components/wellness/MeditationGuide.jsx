@@ -154,22 +154,22 @@ export default function MeditationGuide() {
                 <XAxis dataKey="date" tick={{ fontSize: 10 }} stroke="#6b7280" interval={6} />
                 <YAxis tick={{ fontSize: 12 }} stroke="#6b7280" />
                 <Tooltip contentStyle={{ backgroundColor: 'white', border: '1px solid #e5e7eb', borderRadius: '8px' }} />
-                <Line type="monotone" dataKey="sessions" stroke="#9333ea" strokeWidth={2} dot={{ fill: '#9333ea', r: 3 }} />
+                <Line type="monotone" dataKey="sessions" stroke="#c9a227" strokeWidth={2} dot={{ fill: '#9333ea', r: 3 }} />
               </LineChart>
             </ResponsiveContainer>
           </div>
           <div className="grid grid-cols-3 gap-3 mt-3">
-            <div className="text-center p-2 bg-purple-50 dark:bg-purple-900/20 rounded">
+            <div className="text-center p-2 bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5 rounded">
               <p className="text-xs text-gray-500">Total Sessions</p>
-              <p className="font-bold text-purple-600">{chartData.reduce((sum, d) => sum + d.sessions, 0)}</p>
+              <p className="font-bold text-[#8a6e1a]">{chartData.reduce((sum, d) => sum + d.sessions, 0)}</p>
             </div>
-            <div className="text-center p-2 bg-purple-50 dark:bg-purple-900/20 rounded">
+            <div className="text-center p-2 bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5 rounded">
               <p className="text-xs text-gray-500">This Week</p>
-              <p className="font-bold text-purple-600">{chartData.slice(-7).reduce((sum, d) => sum + d.sessions, 0)}</p>
+              <p className="font-bold text-[#8a6e1a]">{chartData.slice(-7).reduce((sum, d) => sum + d.sessions, 0)}</p>
             </div>
-            <div className="text-center p-2 bg-purple-50 dark:bg-purple-900/20 rounded">
+            <div className="text-center p-2 bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5 rounded">
               <p className="text-xs text-gray-500">Favorites</p>
-              <p className="font-bold text-purple-600">{favorites.length}</p>
+              <p className="font-bold text-[#8a6e1a]">{favorites.length}</p>
             </div>
           </div>
         </motion.div>

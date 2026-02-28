@@ -155,7 +155,7 @@ export default function CommunityFeed({ user }) {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center py-12">
-        <Loader2 className="w-8 h-8 animate-spin text-purple-500" />
+        <Loader2 className="w-8 h-8 animate-spin text-[#c9a227]" />
       </div>
     );
   }
@@ -174,7 +174,7 @@ export default function CommunityFeed({ user }) {
               onClick={() => setFilterType(option.value)}
               variant={isActive ? "default" : "outline"}
               size="sm"
-              className={isActive ? "bg-purple-600 hover:bg-purple-700" : ""}
+              className={isActive ? "bg-[#c9a227] hover:bg-[#b89320]" : ""}
             >
               <Icon className="w-4 h-4 mr-1" />
               {option.label}
@@ -317,7 +317,7 @@ export default function CommunityFeed({ user }) {
                             })}
                             disabled={!encouragementMessage.trim() || addEncouragementMutation.isPending}
                             size="icon"
-                            className="bg-purple-500 hover:bg-purple-600"
+                            className="bg-[#c9a227] hover:bg-[#b89320]"
                           >
                             <Send className="w-4 h-4" />
                           </Button>

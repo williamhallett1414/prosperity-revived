@@ -113,7 +113,7 @@ export default function HannahOnboarding({ onComplete, onRevisit }) {
             className="bg-white rounded-2xl shadow-2xl max-w-sm w-full overflow-hidden"
           >
             {/* Header */}
-            <div className="bg-gradient-to-r from-pink-400 to-purple-500 text-white p-6 relative">
+            <div className="bg-gradient-to-r from-[#AFC7E3] to-[#3C4E53] text-white p-6 relative">
               <button
                 onClick={handleSkip}
                 className="absolute top-4 right-4 text-white/80 hover:text-white transition-colors"
@@ -141,7 +141,7 @@ export default function HannahOnboarding({ onComplete, onRevisit }) {
                 initial={{ width: 0 }}
                 animate={{ width: `${((step + 1) / steps.length) * 100}%` }}
                 transition={{ duration: 0.3 }}
-                className="h-full bg-gradient-to-r from-pink-400 to-purple-500"
+                className="h-full bg-gradient-to-r from-[#AFC7E3] to-[#3C4E53]"
               />
             </div>
 
@@ -176,7 +176,7 @@ export default function HannahOnboarding({ onComplete, onRevisit }) {
                 </Button>
                 <Button
                   onClick={handleNext}
-                  className="flex-1 bg-gradient-to-r from-pink-400 to-purple-500 hover:from-pink-500 hover:to-purple-600 text-white flex items-center justify-center gap-2"
+                  className="flex-1 bg-gradient-to-r from-[#AFC7E3] to-[#3C4E53] hover:from-[#9ab5d4] hover:to-[#2d3d41] text-white flex items-center justify-center gap-2"
                 >
                   {step === steps.length - 1 ? 'Get Started' : 'Next'}
                   <ChevronRight className="w-4 h-4" />

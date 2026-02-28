@@ -33,9 +33,9 @@ export default function SpiritualInsightsDashboard() {
   if (themes.length === 0 && emotions.length === 0) {
     return (
       <div className="px-4 py-6">
-        <Card className="bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20">
+        <Card className="bg-gradient-to-br from-[#FAD98D]/10 to-[#FAD98D]/10 dark:from-purple-900/20 dark:to-pink-900/20">
           <CardContent className="pt-6 text-center">
-            <Sparkles className="w-12 h-12 mx-auto mb-3 text-purple-500" />
+            <Sparkles className="w-12 h-12 mx-auto mb-3 text-[#c9a227]" />
             <h3 className="font-semibold text-lg mb-2">Start Your Journey</h3>
             <p className="text-sm text-gray-600 dark:text-gray-400">
               Have conversations with Gideon to unlock your spiritual insights dashboard
@@ -50,7 +50,7 @@ export default function SpiritualInsightsDashboard() {
     <div className="px-4 space-y-4 pb-6">
       {/* Header */}
       <div className="flex items-center gap-3 pt-4">
-        <Sparkles className="w-6 h-6 text-purple-500" />
+        <Sparkles className="w-6 h-6 text-[#c9a227]" />
         <div>
           <h2 className="text-xl font-bold text-gray-800 dark:text-white">Your Spiritual Insights</h2>
           <p className="text-sm text-gray-500">Gideon's analysis of your journey</p>
@@ -61,7 +61,7 @@ export default function SpiritualInsightsDashboard() {
       <Card className="bg-gradient-to-br from-purple-50 to-indigo-50 dark:from-purple-900/20 dark:to-indigo-900/20">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-lg">
-            <Target className="w-5 h-5 text-purple-600" />
+            <Target className="w-5 h-5 text-[#8a6e1a]" />
             Spiritual Themes You're Exploring
           </CardTitle>
         </CardHeader>
@@ -89,7 +89,7 @@ export default function SpiritualInsightsDashboard() {
                     </div>
                   </div>
                   <div className="text-right">
-                    <div className="text-sm font-bold text-purple-600">{theme.frequency_count}x</div>
+                    <div className="text-sm font-bold text-[#8a6e1a]">{theme.frequency_count}x</div>
                     <div className="text-xs text-gray-500">explored</div>
                   </div>
                 </div>
@@ -99,7 +99,7 @@ export default function SpiritualInsightsDashboard() {
                     {theme.associated_emotions.slice(0, 4).map((emotion, i) => (
                       <span
                         key={i}
-                        className="text-xs bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 px-2 py-1 rounded-full"
+                        className="text-xs bg-[#FAD98D]/20 dark:bg-purple-900/30 text-[#3C4E53] dark:text-purple-300 px-2 py-1 rounded-full"
                       >
                         {emotion}
                       </span>
@@ -179,7 +179,7 @@ export default function SpiritualInsightsDashboard() {
         <CardContent>
           <div className="grid grid-cols-2 gap-4">
             <div className="bg-white dark:bg-gray-800 rounded-lg p-4 text-center">
-              <div className="text-2xl font-bold text-purple-600">{themes.length}</div>
+              <div className="text-2xl font-bold text-[#8a6e1a]">{themes.length}</div>
               <div className="text-xs text-gray-600 dark:text-gray-400">Themes Explored</div>
             </div>
             <div className="bg-white dark:bg-gray-800 rounded-lg p-4 text-center">
@@ -196,7 +196,7 @@ export default function SpiritualInsightsDashboard() {
         </CardContent>
       </Card>
 
-      <div className="bg-purple-50 dark:bg-purple-900/20 rounded-lg p-4 text-sm text-gray-700 dark:text-gray-300">
+      <div className="bg-[#FAD98D]/10 dark:bg-purple-900/20 rounded-lg p-4 text-sm text-gray-700 dark:text-gray-300">
         <p className="font-medium mb-1">💡 How Gideon Uses This</p>
         <p className="text-xs">
           Gideon analyzes these patterns to offer more personalized guidance, proactive suggestions, 

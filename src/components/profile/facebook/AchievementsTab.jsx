@@ -88,9 +88,9 @@ export default function AchievementsTab({ userProgress }) {
       <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
         <h3 className="text-xl font-bold text-gray-900 mb-5">Activity Stats</h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div className="flex items-center justify-between p-4 bg-purple-50 rounded-lg border border-purple-100">
+          <div className="flex items-center justify-between p-4 bg-[#FAD98D]/10 rounded-lg border border-[#D9B878]/40">
             <span className="text-gray-700 font-medium">Community Posts</span>
-            <span className="font-bold text-purple-700 text-xl">{userProgress.community_posts || 0}</span>
+            <span className="font-bold text-[#3C4E53] text-xl">{userProgress.community_posts || 0}</span>
           </div>
           <div className="flex items-center justify-between p-4 bg-green-50 rounded-lg border border-green-100">
             <span className="text-gray-700 font-medium">Workouts Completed</span>
@@ -117,14 +117,14 @@ export default function AchievementsTab({ userProgress }) {
 
       {/* Streaks */}
       {(userProgress.current_streak > 0 || userProgress.longest_streak > 0) && (
-        <div className="bg-gradient-to-br from-purple-50 via-pink-50 to-red-50 rounded-xl shadow-sm p-6 border border-purple-200">
+        <div className="bg-gradient-to-br from-[#FAD98D]/10 via-[#FAD98D]/10 to-red-50 rounded-xl shadow-sm p-6 border border-[#D9B878]/40">
           <h3 className="text-xl font-bold text-gray-900 mb-5 flex items-center gap-2">
             <span className="text-2xl">🔥</span> Streaks
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="flex flex-col items-center p-5 bg-white rounded-lg border border-purple-200">
+            <div className="flex flex-col items-center p-5 bg-white rounded-lg border border-[#D9B878]/40">
               <span className="text-sm text-gray-600 font-medium mb-2">Current Streak</span>
-              <span className="text-4xl font-bold text-purple-600">{userProgress.current_streak || 0}</span>
+              <span className="text-4xl font-bold text-[#8a6e1a]">{userProgress.current_streak || 0}</span>
               <span className="text-xs text-gray-500 mt-1">days</span>
             </div>
             <div className="flex flex-col items-center p-5 bg-white rounded-lg border border-pink-200">

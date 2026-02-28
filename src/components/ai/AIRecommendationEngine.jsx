@@ -188,9 +188,9 @@ For each recommendation:
   if (!user?.onboarding_completed) return null;
   if (loading) {
     return (
-      <div style={{ background: 'var(--color-background)' }} className="rounded-2xl p-6 mb-6 border border-purple-200 dark:border-purple-800">
+      <div style={{ background: 'var(--color-background)' }} className="rounded-2xl p-6 mb-6 border border-[#D9B878]/40 dark:border-[#D9B878]/20">
         <div className="flex items-center gap-3">
-          <Loader2 className="w-5 h-5 text-purple-600 dark:text-purple-400 animate-spin" />
+          <Loader2 className="w-5 h-5 text-[#8a6e1a] dark:text-[#c9a227] animate-spin" />
           <p className="text-sm" style={{ color: 'var(--color-text)' }}>Discovering personalized recommendations...</p>
         </div>
       </div>
@@ -233,7 +233,7 @@ For each recommendation:
     <div className="mb-6">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
-          <Sparkles className="w-5 h-5 text-purple-600 dark:text-purple-400" />
+          <Sparkles className="w-5 h-5 text-[#8a6e1a] dark:text-[#c9a227]" />
           <h3 className="text-lg font-semibold" style={{ color: 'var(--color-text)' }}>
             AI Recommendations
           </h3>
@@ -242,7 +242,7 @@ For each recommendation:
           onClick={generateRecommendations}
           variant="ghost"
           size="sm"
-          className="text-purple-600 dark:text-purple-400"
+          className="text-[#8a6e1a] dark:text-[#c9a227]"
         >
           Refresh
         </Button>
@@ -259,11 +259,11 @@ For each recommendation:
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
               style={{ background: 'var(--color-background)' }}
-              className="rounded-xl p-4 border border-purple-200 dark:border-purple-800 shadow-sm"
+              className="rounded-xl p-4 border border-[#D9B878]/40 dark:border-[#D9B878]/20 shadow-sm"
             >
               <div className="flex items-start gap-3">
-                <div className="w-10 h-10 rounded-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center flex-shrink-0">
-                  <Icon className="w-5 h-5 text-purple-600 dark:text-purple-400" />
+                <div className="w-10 h-10 rounded-full bg-[#FAD98D]/20 dark:bg-[#FAD98D]/10 flex items-center justify-center flex-shrink-0">
+                  <Icon className="w-5 h-5 text-[#8a6e1a] dark:text-[#c9a227]" />
                 </div>
                 <div className="flex-1 min-w-0">
                   <h4 className="font-semibold mb-1" style={{ color: 'var(--color-text)' }}>
@@ -278,7 +278,7 @@ For each recommendation:
                   <Link to={createPageUrl(getActionUrl(rec.type))}>
                     <Button
                       size="sm"
-                      className="bg-purple-600 hover:bg-purple-700 text-white dark:bg-purple-700 dark:hover:bg-purple-800"
+                      className="bg-[#c9a227] hover:bg-[#b89320] text-white dark:bg-[#b89320] dark:hover:bg-[#b89320]"
                     >
                       {rec.action_label}
                     </Button>

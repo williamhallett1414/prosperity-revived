@@ -608,7 +608,7 @@ Format as specific, actionable recommendations with clear benefits explained.`;
             animate={{ scale: 1 }}
             exit={{ scale: 0 }}
             onClick={() => setIsOpen(true)}
-            className="fixed bottom-24 right-4 w-14 h-14 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full shadow-lg flex items-center justify-center text-white z-50 hover:shadow-xl transition-shadow"
+            className="fixed bottom-24 right-4 w-14 h-14 bg-gradient-to-r from-[#8fa68a] to-[#6b8f72] rounded-full shadow-lg flex items-center justify-center text-white z-50 hover:shadow-xl transition-shadow"
           >
             <MessageCircle className="w-6 h-6" />
             {activeJourney && userProgress?.last_active_date && (
@@ -632,7 +632,7 @@ Format as specific, actionable recommendations with clear benefits explained.`;
             className="fixed bottom-24 right-4 w-96 h-[600px] bg-white rounded-2xl shadow-2xl flex flex-col z-50 overflow-hidden"
           >
             {/* Header */}
-            <div className="bg-gradient-to-r from-purple-600 to-pink-600 p-4 flex items-center justify-between text-white">
+            <div className="bg-gradient-to-r from-[#8fa68a] to-[#6b8f72] p-4 flex items-center justify-between text-white">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
                   {activeTab === 'journal' ? <BookOpen className="w-5 h-5" /> : <Sparkles className="w-5 h-5" />}
@@ -711,7 +711,7 @@ Format as specific, actionable recommendations with clear benefits explained.`;
                         <button
                           key={index}
                           onClick={() => handleQuickPrompt(prompt)}
-                          className="text-xs px-3 py-1.5 bg-purple-50 text-purple-600 rounded-full hover:bg-purple-100 transition-colors"
+                          className="text-xs px-3 py-1.5 bg-[#8fa68a]/10 text-[#4a6b50] rounded-full hover:bg-purple-100 transition-colors"
                         >
                           {prompt}
                         </button>
@@ -785,7 +785,7 @@ Format as specific, actionable recommendations with clear benefits explained.`;
                   <Button
                     onClick={sendMessage}
                     disabled={!input.trim() || isTyping}
-                    className="bg-purple-600 hover:bg-purple-700 px-3"
+                    className="bg-[#4a6b50] hover:bg-[#3a5a40] px-3"
                   >
                     {isTyping ? (
                       <Loader2 className="w-5 h-5 animate-spin" />
@@ -874,9 +874,9 @@ Format as specific, actionable recommendations with clear benefits explained.`;
                        <motion.div
                          initial={{ opacity: 0 }}
                          animate={{ opacity: 1 }}
-                         className="p-3 bg-purple-50 rounded-lg space-y-2"
+                         className="p-3 bg-[#8fa68a]/10 rounded-lg space-y-2"
                        >
-                         <p className="text-xs font-semibold text-purple-900">📊 Your Mood Patterns</p>
+                         <p className="text-xs font-semibold text-[#4a6b50]">📊 Your Mood Patterns</p>
                          <div className="text-xs text-gray-700 space-y-1">
                            <p><span className="font-medium">Trend:</span> {moodPatternInsights.mood_pattern}</p>
                            <p><span className="font-medium">Energy:</span> {moodPatternInsights.energy_correlation}</p>
@@ -902,7 +902,7 @@ Format as specific, actionable recommendations with clear benefits explained.`;
                            {journalEntries.length >= 5 && (
                              <button
                                onClick={() => analyzeJournalEntryDeep(journalEntries)}
-                               className="text-xs text-purple-600 hover:text-purple-700 font-medium"
+                               className="text-xs text-[#4a6b50] hover:text-purple-700 font-medium"
                              >
                                Analyze Patterns →
                              </button>
@@ -917,7 +917,7 @@ Format as specific, actionable recommendations with clear benefits explained.`;
                                </div>
                                <p className="text-xs text-gray-700 line-clamp-2">{entry.content}</p>
                                {entry.ai_insights && (
-                                 <p className="text-xs text-purple-600 mt-1 italic">💡 {entry.ai_insights.substring(0, 80)}...</p>
+                                 <p className="text-xs text-[#4a6b50] mt-1 italic">💡 {entry.ai_insights.substring(0, 80)}...</p>
                                )}
                              </div>
                            ))}
@@ -932,7 +932,7 @@ Format as specific, actionable recommendations with clear benefits explained.`;
                   <Button
                     onClick={handleSaveJournal}
                     disabled={!journalEntry.trim() || isAnalyzing || saveJournalEntry.isPending}
-                    className="w-full bg-purple-600 hover:bg-purple-700"
+                    className="w-full bg-[#4a6b50] hover:bg-[#3a5a40]"
                   >
                     {isAnalyzing || saveJournalEntry.isPending ? (
                       <>

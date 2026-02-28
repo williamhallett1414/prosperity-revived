@@ -145,9 +145,9 @@ export default function NutritionBreakdown({ timeRange = 7 }) {
         <div className="border-t pt-3 mt-3">
           <p className="text-xs font-medium text-gray-500 mb-2">Micronutrients (Daily Avg)</p>
           <div className="grid grid-cols-2 gap-2 text-xs">
-            <div className="flex justify-between p-2 bg-purple-50 dark:bg-purple-900/20 rounded">
+            <div className="flex justify-between p-2 bg-[#FD9C2D]/10 dark:bg-[#FD9C2D]/5 rounded">
               <span className="text-gray-600 dark:text-gray-400">Vitamin A</span>
-              <span className="font-medium text-purple-700 dark:text-purple-400">{stats.avgDaily.vitamin_a}mcg</span>
+              <span className="font-medium text-[#b86e10] dark:text-[#FD9C2D]">{stats.avgDaily.vitamin_a}mcg</span>
             </div>
             <div className="flex justify-between p-2 bg-orange-50 dark:bg-orange-900/20 rounded">
               <span className="text-gray-600 dark:text-gray-400">Vitamin C</span>

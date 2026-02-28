@@ -57,7 +57,7 @@ export default function ProactiveCoachingPanel({ user, onSelectTopic, onClose })
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 20 }}
-      className="bg-gradient-to-br from-purple-50 to-blue-50 rounded-xl p-5 border-2 border-purple-200 relative"
+      className="bg-gradient-to-br from-[#AFC7E3]/15 to-[#AFC7E3]/15 rounded-xl p-5 border-2 border-[#AFC7E3]/40 relative"
     >
       <button
         onClick={onClose}
@@ -70,7 +70,7 @@ export default function ProactiveCoachingPanel({ user, onSelectTopic, onClose })
         <div className="text-2xl">{emotionIcons[intervention.emotion] || '💡'}</div>
         <div className="flex-1">
           <h3 className="font-bold text-gray-900 flex items-center gap-2">
-            <Lightbulb className="w-5 h-5 text-purple-600" />
+            <Lightbulb className="w-5 h-5 text-[#3C4E53]" />
             Personalized Coaching Insight
           </h3>
           <p className="text-xs text-gray-500 mt-1">
@@ -89,7 +89,7 @@ export default function ProactiveCoachingPanel({ user, onSelectTopic, onClose })
         <div className="grid grid-cols-2 gap-2 text-xs">
           <div className="bg-white p-3 rounded-lg border border-purple-100">
             <p className="text-gray-600">Primary emotion</p>
-            <p className="font-semibold text-purple-700 mt-1 capitalize">
+            <p className="font-semibold text-[#3C4E53] mt-1 capitalize">
               {intervention.emotion}
             </p>
           </div>
@@ -114,7 +114,7 @@ export default function ProactiveCoachingPanel({ user, onSelectTopic, onClose })
               {intervention.themes.map(theme => (
                 <span
                   key={theme}
-                  className="text-xs px-2.5 py-1 rounded-full bg-purple-100 text-purple-700 font-medium"
+                  className="text-xs px-2.5 py-1 rounded-full bg-[#AFC7E3]/25 text-[#3C4E53] font-medium"
                 >
                   {theme}
                 </span>
@@ -128,7 +128,7 @@ export default function ProactiveCoachingPanel({ user, onSelectTopic, onClose })
             onSelectTopic(`Help me with ${intervention.topicSuggestion}: `);
             onClose();
           }}
-          className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white"
+          className="w-full bg-gradient-to-r from-[#c9a227] to-[#D9B878] hover:from-[#b89320] hover:to-[#D9B878] text-white"
           size="sm"
         >
           <MessageCircle className="w-4 h-4 mr-2" />

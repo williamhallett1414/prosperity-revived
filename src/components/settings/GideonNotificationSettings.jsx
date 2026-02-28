@@ -115,7 +115,7 @@ export default function GideonNotificationSettings() {
   ];
 
   return (
-    <Card className="bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 border-purple-200 dark:border-purple-700">
+    <Card className="bg-gradient-to-br from-[#FAD98D]/10 to-[#FFF8E7] dark:from-[#0A1A2F]/40 dark:to-[#1a1a2e]/40 border-[#D9B878]/40 dark:border-[#c9a227]/40">
       <CardHeader>
         <div className="flex items-center gap-3">
           <div className="w-12 h-12 bg-gradient-to-r from-[#c9a227] to-[#D9B878] rounded-full flex items-center justify-center">
@@ -176,7 +176,7 @@ export default function GideonNotificationSettings() {
                     <div className="flex items-center gap-2">
                       <p className="font-medium text-gray-900 dark:text-white">{option.title}</p>
                       {option.badge && (
-                        <span className="px-2 py-0.5 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 text-xs font-semibold rounded-full">
+                        <span className="px-2 py-0.5 bg-[#FAD98D]/20 dark:bg-[#FAD98D]/10 text-[#8a6e1a] dark:text-[#c9a227] text-xs font-semibold rounded-full">
                           {option.badge}
                         </span>
                       )}

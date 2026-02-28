@@ -154,7 +154,7 @@ const PERSONAL_DEVELOPMENT = [
 const MOOD_BOOSTERS = [
   { icon: Sun, text: 'Get 10-15 minutes of sunlight', color: 'text-yellow-500' },
   { icon: Wind, text: 'Take 3 deep breaths outdoors', color: 'text-blue-400' },
-  { icon: Music, text: 'Listen to your favorite uplifting song', color: 'text-purple-500' },
+  { icon: Music, text: 'Listen to your favorite uplifting song', color: 'text-[#AFC7E3]' },
   { icon: Coffee, text: 'Enjoy a mindful cup of tea or coffee', color: 'text-amber-600' },
   { icon: Book, text: 'Read an inspiring chapter or quote', color: 'text-emerald-600' },
   { icon: Heart, text: 'Do a random act of kindness', color: 'text-pink-500' }
@@ -221,7 +221,7 @@ export default function SelfCareGuides({ user }) {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-gradient-to-br from-purple-500 via-pink-500 to-rose-500 rounded-2xl p-6 text-white"
+        className="bg-gradient-to-br from-[#AFC7E3] via-[#AFC7E3] to-[#3C4E53] rounded-2xl p-6 text-white"
       >
         <div className="flex items-center gap-3 mb-2">
           <Heart className="w-7 h-7" />
@@ -241,7 +241,7 @@ export default function SelfCareGuides({ user }) {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-lg">
-              <Sparkles className="w-5 h-5 text-purple-500" />
+              <Sparkles className="w-5 h-5 text-[#3C4E53]" />
               Your Personalized Self-Care Plan
             </CardTitle>
           </CardHeader>
@@ -278,8 +278,8 @@ export default function SelfCareGuides({ user }) {
                   <p className="font-semibold text-pink-800 dark:text-pink-300 mb-1">💗 Emotional Practice</p>
                   <p className="text-gray-700 dark:text-gray-300">{aiInsight.emotional_practice}</p>
                 </div>
-                <div className="p-3 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
-                  <p className="font-semibold text-purple-800 dark:text-purple-300 mb-1">🎨 Creative Activity</p>
+                <div className="p-3 bg-[#AFC7E3]/15 dark:bg-[#AFC7E3]/5 rounded-lg">
+                  <p className="font-semibold text-[#3C4E53] dark:text-[#AFC7E3] mb-1">🎨 Creative Activity</p>
                   <p className="text-gray-700 dark:text-gray-300">{aiInsight.creative_activity}</p>
                 </div>
                 <div className="p-3 bg-indigo-50 dark:bg-indigo-900/20 rounded-lg">
@@ -384,7 +384,7 @@ export default function SelfCareGuides({ user }) {
                         <ul className="space-y-2">
                           {tip.tips.map((practice, idx) => (
                             <li key={idx} className="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-400">
-                              <span className="text-purple-500 mt-1">•</span>
+                              <span className="text-[#AFC7E3] mt-1">•</span>
                               <span>{practice}</span>
                             </li>
                           ))}
