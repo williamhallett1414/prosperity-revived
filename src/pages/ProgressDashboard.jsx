@@ -209,24 +209,18 @@ export default function ProgressDashboard() {
               </div>
             </div>
             <div className="grid grid-cols-3 gap-2">
-              <Link to={createPageUrl('Bible')}>
-                <div className="bg-white rounded-xl p-3 text-center hover:shadow-sm transition-shadow cursor-pointer">
-                  <p className="text-xl mb-1">📖</p>
-                  <p className="text-xs font-medium text-gray-700">Read Bible</p>
-                </div>
-              </Link>
-              <Link to={createPageUrl('Workouts')}>
-                <div className="bg-white rounded-xl p-3 text-center hover:shadow-sm transition-shadow cursor-pointer">
-                  <p className="text-xl mb-1">💪</p>
-                  <p className="text-xs font-medium text-gray-700">Log Workout</p>
-                </div>
-              </Link>
-              <Link to={createPageUrl('Prayer')}>
-                <div className="bg-white rounded-xl p-3 text-center hover:shadow-sm transition-shadow cursor-pointer">
-                  <p className="text-xl mb-1">🙏</p>
-                  <p className="text-xs font-medium text-gray-700">Pray</p>
-                </div>
-              </Link>
+              {[
+                { page: 'Bible', emoji: '📖', label: 'Read Bible' },
+                { page: 'Workouts', emoji: '💪', label: 'Log Workout' },
+                { page: 'Prayer', emoji: '🙏', label: 'Pray' },
+              ].map(({ page, emoji, label }) => (
+                <Link key={page} to={createPageUrl(page)}>
+                  <div className="bg-white rounded-xl p-3 text-center hover:shadow-sm transition-shadow cursor-pointer h-full flex flex-col items-center justify-center min-h-[72px]">
+                    <p className="text-xl mb-1">{emoji}</p>
+                    <p className="text-xs font-medium text-gray-700 leading-tight">{label}</p>
+                  </div>
+                </Link>
+              ))}
             </div>
           </motion.div>
         )}
