@@ -38,28 +38,54 @@ export default function IngredientRecipeBuilder() {
     setRecipes([]);
     setExpandedRecipe(null);
 
-    const prompt = `You are Chef Daniel, a warm Christian nutrition coach. The user has these ingredients: ${ingredients.join(', ')}.
+    const prompt = `You are Chef Daniel, a warm and encouraging Christian nutrition coach. The user has these ingredients available: ${ingredients.join(', ')}.
 
-Generate exactly 3 recipe suggestions. Respond ONLY with a valid JSON array, no markdown, no explanation. Format:
+Generate exactly 3 recipe suggestions. Respond ONLY with a valid JSON array — no markdown, no explanation, no code fences. Use this exact format:
 
 [
   {
     "name": "Recipe Name",
-    "description": "One sentence description that sounds appetizing",
+    "description": "One appetizing sentence describing the dish",
     "usedIngredients": ["ingredient1", "ingredient2"],
     "additionalIngredients": ["salt", "olive oil"],
     "prepTime": "10 mins",
     "cookTime": "20 mins",
     "difficulty": "Easy",
+    "servings": "2 servings",
     "steps": [
-      "Step 1 instruction",
-      "Step 2 instruction",
-      "Step 3 instruction"
-    ]
+      "Detailed step 1 with exact quantities and technique (e.g. Heat 2 tbsp olive oil in a large skillet over medium-high heat)",
+      "Detailed step 2",
+      "Detailed step 3",
+      "Detailed step 4",
+      "Detailed step 5"
+    ],
+    "nutrition": {
+      "calories": "420 kcal",
+      "protein": "32g",
+      "carbs": "28g",
+      "fat": "18g",
+      "fiber": "5g"
+    },
+    "healthBenefits": [
+      "One specific health benefit of this meal",
+      "A second specific health benefit",
+      "A third health benefit"
+    ],
+    "chefTips": [
+      "A practical cooking tip to make this dish better",
+      "A storage or meal prep tip"
+    ],
+    "faithNote": "A short encouraging sentence connecting this nourishing meal to caring for the body God gave us"
   }
 ]
 
-Make recipes practical, healthy, and faith-encouraging. Only include recipes that genuinely use most of the provided ingredients.`;
+Requirements:
+- Steps must be detailed and specific with quantities and techniques — at least 5 steps per recipe
+- Nutrition values should be realistic estimates per serving
+- Health benefits should be specific (e.g. 'High in omega-3s which support heart health' not just 'healthy')
+- Chef tips should be genuinely useful practical advice
+- Only include recipes that genuinely use most of the provided ingredients
+- Make all recipes practical, wholesome, and encouraging`;
 
     try {
       const response = await base44.integrations.Core.InvokeLLM({ prompt });
@@ -227,21 +253,94 @@ Make recipes practical, healthy, and faith-encouraging. Only include recipes tha
                     )}
                   </button>
 
-                  {/* Steps */}
+                  {/* Expanded Full Recipe */}
                   <AnimatePresence>
                     {isExpanded && (
-                      <motion.ol
+                      <motion.div
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ opacity: 1, height: 'auto' }}
                         exit={{ opacity: 0, height: 0 }}
-                        className="mt-3 space-y-2 list-decimal list-inside overflow-hidden"
+                        className="mt-4 space-y-4 overflow-hidden"
                       >
-                        {(recipe.steps || []).map((step, i) => (
-                          <li key={i} className="text-sm text-[#0A1A2F]/80 leading-relaxed">
-                            {step}
-                          </li>
-                        ))}
-                      </motion.ol>
+                        {/* Servings */}
+                        {recipe.servings && (
+                          <p className="text-xs text-[#0A1A2F]/50 font-medium">🍽️ {recipe.servings}</p>
+                        )}
+
+                        {/* Step-by-step instructions */}
+                        <div>
+                          <p className="text-xs font-bold text-[#0A1A2F] uppercase tracking-wide mb-2">Instructions</p>
+                          <ol className="space-y-2">
+                            {(recipe.steps || []).map((step, i) => (
+                              <li key={i} className="flex gap-2 text-sm text-[#0A1A2F]/80 leading-relaxed">
+                                <span className="flex-shrink-0 w-5 h-5 rounded-full bg-gradient-to-br from-[#FD9C2D] to-[#E89020] text-white text-xs flex items-center justify-center font-bold mt-0.5">
+                                  {i + 1}
+                                </span>
+                                <span>{step}</span>
+                              </li>
+                            ))}
+                          </ol>
+                        </div>
+
+                        {/* Nutrition Facts */}
+                        {recipe.nutrition && (
+                          <div className="bg-white rounded-xl p-4 border border-[#D9B878]/20">
+                            <p className="text-xs font-bold text-[#0A1A2F] uppercase tracking-wide mb-3">Nutrition Facts <span className="font-normal normal-case text-[#0A1A2F]/50">(per serving)</span></p>
+                            <div className="grid grid-cols-5 gap-2 text-center">
+                              {[
+                                { label: 'Calories', value: recipe.nutrition.calories },
+                                { label: 'Protein', value: recipe.nutrition.protein },
+                                { label: 'Carbs', value: recipe.nutrition.carbs },
+                                { label: 'Fat', value: recipe.nutrition.fat },
+                                { label: 'Fiber', value: recipe.nutrition.fiber },
+                              ].map(({ label, value }) => (
+                                <div key={label} className="flex flex-col items-center">
+                                  <p className="text-sm font-bold text-[#FD9C2D]">{value || '—'}</p>
+                                  <p className="text-xs text-[#0A1A2F]/50 mt-0.5">{label}</p>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Health Benefits */}
+                        {recipe.healthBenefits?.length > 0 && (
+                          <div>
+                            <p className="text-xs font-bold text-[#0A1A2F] uppercase tracking-wide mb-2">Health Benefits</p>
+                            <ul className="space-y-1">
+                              {recipe.healthBenefits.map((benefit, i) => (
+                                <li key={i} className="flex gap-2 text-sm text-[#0A1A2F]/75">
+                                  <span className="text-[#8fa68a] flex-shrink-0">✓</span>
+                                  {benefit}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+
+                        {/* Chef Tips */}
+                        {recipe.chefTips?.length > 0 && (
+                          <div className="bg-[#FAD98D]/15 rounded-xl p-4 border border-[#D9B878]/30">
+                            <p className="text-xs font-bold text-[#8a6e1a] uppercase tracking-wide mb-2">👨‍🍳 Chef Daniel's Tips</p>
+                            <ul className="space-y-1">
+                              {recipe.chefTips.map((tip, i) => (
+                                <li key={i} className="text-sm text-[#0A1A2F]/75 flex gap-2">
+                                  <span className="text-[#FD9C2D] flex-shrink-0">•</span>
+                                  {tip}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+
+                        {/* Faith Note */}
+                        {recipe.faithNote && (
+                          <div className="bg-[#AFC7E3]/15 rounded-xl p-4 border border-[#AFC7E3]/30 flex gap-3">
+                            <span className="text-lg flex-shrink-0">🙏</span>
+                            <p className="text-sm text-[#3C4E53] italic leading-relaxed">{recipe.faithNote}</p>
+                          </div>
+                        )}
+                      </motion.div>
                     )}
                   </AnimatePresence>
                 </motion.div>
