@@ -39,8 +39,8 @@ const chatbotConfig = {
   CoachDavid: {
     name: 'Coach David',
     icon: '💪',
-    color: 'from-[#FD9C2D] to-[#E89020]',
-    bgColor: 'bg-[#FD9C2D]/15',
+    color: 'from-[#0A0A0A] to-[#38BDF8]',
+    bgColor: 'bg-[#38BDF8]/15',
     textColor: 'text-[#4a6b50]',
     borderColor: 'border-[#8fa68a]',
     category: 'Fitness & Wellness',

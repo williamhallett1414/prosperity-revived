@@ -137,7 +137,7 @@ export default function StartWorkoutModal({ isOpen, onClose, workout, user, onCo
               </div>
               <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
                 <div 
-                  className="h-full bg-emerald-600 transition-all duration-300"
+                  className="h-full bg-gradient-to-r from-[#38BDF8] to-[#0EA5E9] transition-all duration-300"
                   style={{ width: `${progress}%` }}
                 />
               </div>
@@ -145,7 +145,7 @@ export default function StartWorkoutModal({ isOpen, onClose, workout, user, onCo
 
             {/* Stopwatch Controls */}
             <div className="flex items-center justify-center gap-2 p-4 bg-gray-50 dark:bg-[#1a1a2e] rounded-lg">
-              <div className="text-3xl font-bold text-emerald-600">
+              <div className="text-3xl font-bold text-[#0EA5E9]">
                 {formatTime(elapsedTime)}
               </div>
               <Button
@@ -158,9 +158,9 @@ export default function StartWorkoutModal({ isOpen, onClose, workout, user, onCo
             </div>
 
             {/* Current Exercise */}
-            <div className="border-2 border-emerald-500 rounded-lg p-4">
+            <div className="border-2 border-[#38BDF8] rounded-lg p-4">
               <div className="flex items-center gap-2 mb-3">
-                <Dumbbell className="w-5 h-5 text-emerald-600" />
+                <Dumbbell className="w-5 h-5 text-[#0EA5E9]" />
                 <h3 className="text-lg font-semibold">{currentExercise.name}</h3>
               </div>
               <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
@@ -216,7 +216,7 @@ export default function StartWorkoutModal({ isOpen, onClose, workout, user, onCo
               {currentExerciseIndex < exerciseStats.length - 1 ? (
                 <Button
                   onClick={nextExercise}
-                  className="flex-1 bg-emerald-600 hover:bg-emerald-700"
+                  className="flex-1 bg-gradient-to-r from-[#FD9C2D] to-[#E89020] hover:opacity-90"
                 >
                   Next Exercise
                   <ChevronRight className="w-4 h-4 ml-1" />
@@ -225,7 +225,7 @@ export default function StartWorkoutModal({ isOpen, onClose, workout, user, onCo
                 <Button
                   onClick={() => completeWorkout.mutate()}
                   disabled={completeWorkout.isPending}
-                  className="flex-1 bg-emerald-600 hover:bg-emerald-700"
+                  className="flex-1 bg-gradient-to-r from-[#FD9C2D] to-[#E89020] hover:opacity-90"
                 >
                   <CheckCircle className="w-4 h-4 mr-2" />
                   {completeWorkout.isPending ? 'Saving...' : 'Complete Workout'}
