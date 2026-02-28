@@ -679,7 +679,7 @@ Return ONLY valid JSON array:
       {/* Floating Chat Button */}
       <motion.button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-24 right-4 w-14 h-14 bg-gradient-to-br from-[#FD9C2D] to-[#E89020] hover:opacity-90 text-white rounded-full shadow-lg flex items-center justify-center z-50"
+        className="fixed bottom-24 right-4 w-14 h-14 bg-gradient-to-br from-[#8fa68a] to-[#6b8f72] hover:opacity-90 text-white rounded-full shadow-lg flex items-center justify-center z-50"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
         initial={{ scale: 0 }}
@@ -698,7 +698,7 @@ Return ONLY valid JSON array:
             className="fixed bottom-24 right-4 w-[calc(100vw-2rem)] sm:w-96 h-[500px] bg-white rounded-2xl shadow-2xl flex flex-col z-50 border border-[#E6EBEF]"
           >
             {/* Header */}
-            <div className="bg-gradient-to-r from-[#FD9C2D] to-[#E89020] text-white p-5 rounded-t-2xl flex items-center justify-between">
+            <div className="bg-gradient-to-r from-[#8fa68a] to-[#6b8f72] text-white p-5 rounded-t-2xl flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
                   <UtensilsCrossed className="w-6 h-6 text-white" />
@@ -892,7 +892,7 @@ Return ONLY valid JSON array:
                   <div
                     className={`max-w-[80%] rounded-2xl px-4 py-3 ${
                       message.role === 'user'
-                        ? 'bg-gradient-to-r from-[#FD9C2D] to-[#E89020] text-white'
+                        ? 'bg-gradient-to-r from-[#8fa68a] to-[#6b8f72] text-white'
                         : 'bg-[#E6EBEF] text-[#0A1A2F]'
                     }`}
                   >
@@ -941,7 +941,7 @@ Return ONLY valid JSON array:
                 <Button
                   onClick={sendMessage}
                   disabled={!input.trim() || isLoading}
-                  className="bg-gradient-to-r from-[#FD9C2D] to-[#E89020] hover:from-[#FD9C2D]/90 hover:to-[#E89020]/90 text-white h-11 px-5"
+                  className="bg-gradient-to-r from-[#8fa68a] to-[#6b8f72] hover:from-[#8fa68a]/90 hover:to-[#6b8f72]/90 text-white h-11 px-5"
                   size="icon"
                 >
                   <Send className="w-4 h-4" />

@@ -127,7 +127,7 @@ export default function CommunityRecipeFeed({ user }) {
               {user?.profile_image ?
               <img src={user.profile_image} alt={user.full_name} className="w-10 h-10 rounded-full object-cover" /> :
 
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#FD9C2D] to-[#E89020]" />
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#8fa68a] to-[#6b8f72]" />
               }
               <button
                 onClick={() => setShowCreatePost(true)}
@@ -137,7 +137,7 @@ export default function CommunityRecipeFeed({ user }) {
               </button>
             </div>
             <div className="flex gap-2 justify-end">
-              <Button variant="ghost" size="sm" className="text-[#FD9C2D]">
+              <Button variant="ghost" size="sm" className="text-[#4a6b50]">
                 <Upload className="w-4 h-4 mr-2" />
                 Media
               </Button>
@@ -191,7 +191,7 @@ export default function CommunityRecipeFeed({ user }) {
                 htmlFor="file-input"
                 className="flex-1 cursor-pointer">
 
-                  <div className="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-4 text-center hover:border-[#FD9C2D] transition-colors">
+                  <div className="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-4 text-center hover:border-[#8fa68a] transition-colors">
                     <Upload className="w-6 h-6 mx-auto mb-2 text-gray-400" />
                     <p className="text-sm text-gray-600 dark:text-gray-400">Click to upload image or video</p>
                   </div>
@@ -221,7 +221,7 @@ export default function CommunityRecipeFeed({ user }) {
             <Button
               onClick={handleSubmitPost}
               disabled={createPostMutation.isPending || isUploading}
-              className="w-full bg-gradient-to-r from-[#FD9C2D] to-[#E89020] hover:opacity-90">
+              className="w-full bg-gradient-to-r from-[#8fa68a] to-[#6b8f72] hover:opacity-90">
 
               {createPostMutation.isPending ?
               <>
@@ -241,7 +241,7 @@ export default function CommunityRecipeFeed({ user }) {
         <h3 className="text-slate-900 text-lg font-semibold">Community Recipes</h3>
         {isLoading ?
         <div className="flex justify-center py-8">
-            <Loader className="w-6 h-6 animate-spin text-[#FD9C2D]" />
+            <Loader className="w-6 h-6 animate-spin text-[#4a6b50]" />
           </div> :
         posts.length === 0 ?
         <div className="text-center py-8 text-gray-400">
@@ -259,7 +259,7 @@ export default function CommunityRecipeFeed({ user }) {
                 <div className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 border border-gray-200 dark:border-gray-700">
                   {/* User Info */}
                   <div className="flex items-center gap-3 mb-3">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#FD9C2D] to-[#E89020]" />
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#8fa68a] to-[#6b8f72]" />
                     <div>
                       <p className="font-semibold text-sm text-[#1a1a2e] dark:text-white">{post.user_name}</p>
                       <p className="text-xs text-gray-500 dark:text-gray-400">

@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 const themes = [
 { name: 'Peace', emoji: '☮️', color: 'from-[#FAD98D] to-[#FD9C2D]', message: 'This week, cultivate inner peace' },
 { name: 'Strength', emoji: '💪', color: 'from-[#FD9C2D] to-[#FAD98D]', message: 'This week, build your strength' },
-{ name: 'Discipline', emoji: '⛓️', color: 'from-[#3C4E53] to-[#FD9C2D]', message: 'This week, embrace discipline' },
+{ name: 'Discipline', emoji: '⛓️', color: 'from-[#FD9C2D] to-[#FAD98D]', message: 'This week, embrace discipline' },
 { name: 'Renewal', emoji: '🌱', color: 'from-[#FD9C2D] to-[#FAD98D]', message: 'This week, renew yourself' }];
 
 
