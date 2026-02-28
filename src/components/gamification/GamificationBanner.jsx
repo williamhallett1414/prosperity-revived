@@ -49,18 +49,18 @@ export default function GamificationBanner() {
           <div className="flex items-center gap-4">
             <div className="text-center">
               <div className="flex items-center gap-1 mb-1">
-                <Flame className="w-4 h-4 text-[#FD9C2D]" />
-                <span className="font-bold text-lg text-[#0A1A2F]">{progress.current_streak || 0}</span>
+                <Flame className="w-4 h-4 text-white" />
+                <span className="font-bold text-lg text-white">{progress.current_streak || 0}</span>
               </div>
-              <p className="text-xs text-[#0A1A2F]/60">streak</p>
+              <p className="text-xs text-white/80">streak</p>
             </div>
             
             <div className="text-center">
               <div className="flex items-center gap-1 mb-1">
-                <Trophy className="w-4 h-4 text-[#c9a227]" />
-                <span className="font-bold text-lg text-[#0A1A2F]">{progress.badges?.length || 0}</span>
+                <Trophy className="w-4 h-4 text-white" />
+                <span className="font-bold text-lg text-white">{progress.badges?.length || 0}</span>
               </div>
-              <p className="text-xs text-[#0A1A2F]/60">badges</p>
+              <p className="text-xs text-white/80">badges</p>
             </div>
           </div>
         </div>
