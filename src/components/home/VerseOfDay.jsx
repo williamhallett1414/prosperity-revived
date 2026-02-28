@@ -49,7 +49,7 @@ export default function VerseOfDay({ onBookmark }) {
           "{verse.text}"
         </p>
         
-        <p className="text-white/60 font-medium mb-6">
+        <p className="text-[#0A1A2F]/60 font-medium mb-6">
           {verse.book} {verse.chapter}:{verse.verse}
         </p>
         
