@@ -1177,7 +1177,7 @@ Return ONLY valid JSON array:
                   key={index}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                  className={`flex flex-col ${message.role === 'user' ? 'items-end' : 'items-start'}`}
                 >
                   <div
                     className={`max-w-[80%] rounded-2xl px-4 py-3 ${
@@ -1188,6 +1188,15 @@ Return ONLY valid JSON array:
                   >
                     <p className="text-sm whitespace-pre-wrap leading-relaxed">{message.content}</p>
                   </div>
+                  {/* Feedback rating for Hannah messages (not welcome, not loading) */}
+                  {message.role === 'assistant' && index > 0 && !ratedMessageIndices.has(index) && (
+                    <HannahFeedbackRating
+                      messageContent={message.content}
+                      userEmail={user?.email}
+                      sessionId={sessionId}
+                      onDone={() => setRatedMessageIndices(prev => new Set([...prev, index]))}
+                    />
+                  )}
                 </motion.div>
               ))}
               {isLoading && (
