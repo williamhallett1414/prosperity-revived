@@ -1,65 +1,56 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ChevronRight, Calendar } from 'lucide-react';
-import { Progress } from '@/components/ui/progress';
 
 export default function ReadingPlanCard({ plan, progress, onClick, index }) {
-  const progressPercent = progress 
+  const progressPercent = progress
     ? Math.round((progress.completed_days?.length || 0) / plan.duration * 100)
     : 0;
 
-  const handleClick = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (onClick) {
-      onClick();
-    }
-  };
-
   return (
     <motion.button
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.1 }}
-      onClick={handleClick}
-      className="group cursor-pointer bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 dark:border-gray-700 w-full text-left"
+      transition={{ delay: index * 0.08 }}
+      onClick={(e) => { e.preventDefault(); e.stopPropagation(); onClick?.(); }}
+      className="group w-full text-left bg-[#FFFDF7] rounded-2xl overflow-hidden border border-[#D9B878]/25 hover:border-[#c9a227]/50 hover:shadow-md transition-all duration-300"
     >
-      <div className="relative h-32 overflow-hidden">
-        <img
-          src={plan.image}
-          alt={plan.name}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+      {/* Image */}
+      <div className="relative h-28 overflow-hidden">
+        <img src={plan.image} alt={plan.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0A1A2F]/70 to-transparent" />
         <div className="absolute bottom-3 left-3">
-          <span className="px-2 py-1 bg-white/20 backdrop-blur-sm rounded-full text-white text-xs">
+          <span className="px-2.5 py-1 bg-[#c9a227]/90 backdrop-blur-sm rounded-full text-white text-[10px] font-semibold tracking-wide uppercase">
             {plan.category}
           </span>
         </div>
       </div>
-      
+
+      {/* Content */}
       <div className="p-4">
-        <h3 className="font-semibold text-gray-900 dark:text-white mb-1 group-hover:text-[#c9a227] transition-colors">
+        <h3 className="font-bold text-[#0A1A2F] mb-1 group-hover:text-[#c9a227] transition-colors text-sm">
           {plan.name}
         </h3>
-        <p className="text-sm text-gray-500 dark:text-gray-400 mb-3 line-clamp-2">
+        <p className="text-xs text-[#0A1A2F]/50 mb-3 line-clamp-2 leading-relaxed">
           {plan.description}
         </p>
-        
-        <div className="flex items-center justify-between text-xs text-gray-400 dark:text-gray-500">
-          <div className="flex items-center gap-1">
+
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-1 text-xs text-[#0A1A2F]/40">
             <Calendar className="w-3.5 h-3.5" />
             <span>{plan.duration} days</span>
           </div>
-          
+
           {progress && (
             <div className="flex items-center gap-2">
-              <Progress value={progressPercent} className="w-16 h-1.5" />
-              <span>{progressPercent}%</span>
+              <div className="w-16 h-1.5 bg-[#FAD98D]/20 rounded-full overflow-hidden">
+                <div className="h-full bg-gradient-to-r from-[#c9a227] to-[#D9B878] rounded-full" style={{ width: `${progressPercent}%` }} />
+              </div>
+              <span className="text-xs font-bold text-[#c9a227]">{progressPercent}%</span>
             </div>
           )}
-          
-          <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+
+          <ChevronRight className="w-4 h-4 text-[#0A1A2F]/30 group-hover:text-[#c9a227] group-hover:translate-x-0.5 transition-all" />
         </div>
       </div>
     </motion.button>

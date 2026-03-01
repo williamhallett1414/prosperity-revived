@@ -6,11 +6,12 @@ import { Textarea } from '@/components/ui/textarea';
 import { toast } from 'sonner';
 import { base44 } from '@/api/base44Client';
 
+// Colours must match HL_COLORS in UnifiedBibleReader exactly so swatches match the rendered wash
 const HIGHLIGHT_COLORS = [
-  { name: 'yellow', color: '#FCD34D', label: 'Yellow' },
-  { name: 'blue', color: '#60A5FA', label: 'Blue' },
-  { name: 'green', color: '#34D399', label: 'Green' },
-  { name: 'pink', color: '#F472B6', label: 'Pink' }
+  { name: 'yellow', color: 'rgba(250,217,141,0.85)', label: 'Gold' },
+  { name: 'blue',   color: 'rgba(175,199,227,0.85)', label: 'Blue' },
+  { name: 'green',  color: 'rgba(120,195,130,0.85)', label: 'Green' },
+  { name: 'pink',   color: 'rgba(242,176,176,0.85)', label: 'Pink' }
 ];
 
 export default function VerseActionMenu({ 
@@ -206,7 +207,7 @@ Keep it warm, accessible, and spiritually enriching - like Dr. Myles Munroe's ki
                   onRemoveHighlight();
                   onClose();
                 }}
-                className="mt-2 w-full text-xs text-red-500 hover:text-red-600 font-medium"
+                className="mt-2 w-full text-xs text-[#0A1A2F]/40 hover:text-[#0A1A2F]/70 font-medium"
               >
                 Remove Highlight
               </button>
@@ -292,7 +293,7 @@ Keep it warm, accessible, and spiritually enriching - like Dr. Myles Munroe's ki
                       setNoteText('');
                       toast.success('Note deleted');
                     }}
-                    className="px-3 py-1 text-xs text-red-500 hover:bg-red-50 rounded transition-colors"
+                    className="px-3 py-1 text-xs text-[#0A1A2F]/40 hover:bg-[#0A1A2F]/5 rounded transition-colors"
                   >
                     <Trash2 className="w-3 h-3" />
                   </button>

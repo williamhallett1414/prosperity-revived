@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useSearchParams } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Compass, BookOpen, TrendingUp, CheckCircle, Heart, Sparkles, Book, ChevronRight, PlayCircle } from 'lucide-react';
+import { ArrowLeft, Compass, BookOpen, TrendingUp, CheckCircle, Heart, Sparkles, ChevronRight, PlayCircle } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
@@ -31,6 +32,7 @@ export default function Bible() {
 
   const queryClient = useQueryClient();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams(); // ← Fix #16: reactive, not window.location.search
 
   // Load last-read position on mount
   useEffect(() => {
@@ -60,20 +62,20 @@ export default function Bible() {
     onSuccess: () => queryClient.invalidateQueries(['bookmarks'])
   });
 
+  // Fix #16: use searchParams hook
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const bookName = params.get('book');
-    const chapter = params.get('chapter');
+    const bookName = searchParams.get('book');
+    const chapter = searchParams.get('chapter');
     if (bookName && chapter) {
       const book = getBookByName(bookName);
       if (book) {
         setInitialBook(book);
         setInitialChapter(parseInt(chapter));
-        const isOld = ['Genesis','Exodus','Leviticus','Numbers','Deuteronomy','Joshua','Judges','Ruth','1 Samuel','2 Samuel','1 Kings','2 Kings','1 Chronicles','2 Chronicles','Ezra','Nehemiah','Esther','Job','Psalms','Proverbs','Ecclesiastes','Song of Solomon','Isaiah','Jeremiah','Lamentations','Ezekiel','Daniel','Hosea','Joel','Amos','Obadiah','Jonah','Micah','Nahum','Habakkuk','Zephaniah','Haggai','Zechariah','Malachi'].includes(book.name);
+        const isOld = bibleBooks.oldTestament.some(b => b.name === book.name);
         setView(isOld ? 'oldTestament' : 'newTestament');
       }
     }
-  }, [window.location.search]);
+  }, [searchParams]);
 
   const handleBackToHome = () => {
     setView('home');
@@ -83,7 +85,6 @@ export default function Bible() {
   };
 
   const openReading = (book, chapter, isOld) => {
-    // Save last read position
     const position = { bookName: book.name, chapter, isOld };
     localStorage.setItem(LAST_READ_KEY, JSON.stringify(position));
     setLastRead(position);
@@ -108,11 +109,12 @@ export default function Bible() {
 
   const getProgressForPlan = (planId) => planProgress.find((p) => p.plan_id === planId);
   const suggestedPlans = readingPlans.filter((plan) => !getProgressForPlan(plan.id)).slice(0, 3);
+
+  // Fix #3: stats only used for modal, not duplicated in UI
   const totalDaysRead = (planProgress || []).reduce((sum, p) => sum + (p.completed_days?.length || 0), 0);
   const longestStreak = Math.max(...(planProgress || []).map((p) => p.longest_streak || 0), 0);
   const handleStatClick = (statType) => { setSelectedStat(statType); setShowStatsModal(true); };
 
-  // Resolve continue-reading book object
   const continueBook = lastRead ? getBookByName(lastRead.bookName) : null;
 
   if (view === 'oldTestament') {
@@ -138,7 +140,6 @@ export default function Bible() {
       </div>
 
       <div className="px-4 py-5 max-w-2xl mx-auto">
-        {/* Tab Bar — Gideon gold, Prayer is now just a link not a tab */}
         <Tabs defaultValue="read" className="w-full">
           <TabsList className="grid w-full grid-cols-3 mb-6 bg-[#FAD98D]/15 rounded-xl p-1 border border-[#D9B878]/20">
             <TabsTrigger value="read" className="rounded-lg text-xs data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#c9a227] data-[state=active]:to-[#D9B878] data-[state=active]:text-white data-[state=active]:shadow-sm">
@@ -154,78 +155,77 @@ export default function Bible() {
 
           {/* ── READ TAB ── */}
           <TabsContent value="read">
-            <div className="space-y-5">
+            <div className="space-y-4">
 
-              {/* Continue Reading — only shows if user has read before */}
+              {/* Fix #8: Continue Reading — softer gold card so two dark navys don't stack */}
               {continueBook && (
                 <motion.button
                   initial={{ opacity: 0, y: -8 }}
                   animate={{ opacity: 1, y: 0 }}
                   onClick={() => openReading(continueBook, lastRead.chapter, lastRead.isOld)}
-                  className="w-full bg-gradient-to-br from-[#0A1A2F] to-[#1a3a5c] rounded-2xl p-4 text-left hover:shadow-lg transition-all"
+                  className="w-full bg-gradient-to-br from-[#FAD98D]/30 to-[#D9B878]/20 border border-[#c9a227]/30 rounded-2xl p-4 text-left hover:shadow-md hover:border-[#c9a227]/50 transition-all"
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-xl bg-[#c9a227] flex items-center justify-center flex-shrink-0">
+                      <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#c9a227] to-[#D9B878] flex items-center justify-center flex-shrink-0 shadow-sm">
                         <PlayCircle className="w-5 h-5 text-white" />
                       </div>
                       <div>
-                        <p className="text-xs text-white/60 mb-0.5">Continue Reading</p>
-                        <p className="text-white font-bold text-sm">{lastRead.bookName} · Chapter {lastRead.chapter}</p>
+                        <p className="text-[10px] text-[#0A1A2F]/45 font-semibold uppercase tracking-wide mb-0.5">Continue Reading</p>
+                        <p className="text-[#0A1A2F] font-bold text-sm">{lastRead.bookName} · Chapter {lastRead.chapter}</p>
                       </div>
                     </div>
-                    <ChevronRight className="w-5 h-5 text-white/50" />
+                    <ChevronRight className="w-5 h-5 text-[#c9a227]" />
                   </div>
                 </motion.button>
               )}
 
-              {/* Hero CTA */}
+              {/* Fix #7+8: Hero CTA — always dark navy, not dependent on continueBook state */}
               <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
-                className="bg-gradient-to-br from-[#0A1A2F] to-[#c9a227] rounded-2xl p-5 text-white">
-                <h2 className="text-lg font-bold mb-1">📖 {continueBook ? 'Open the Word' : 'Start Reading Today'}</h2>
-                <p className="text-white/75 text-sm mb-4">
-                  {continueBook ? 'Dive into a new book or testament' : 'Dive into Scripture — Old or New Testament'}
-                </p>
+                className="bg-gradient-to-br from-[#0A1A2F] to-[#0f2a4a] rounded-2xl p-5 text-white">
+                <h2 className="text-lg font-bold mb-1">📖 Open the Word</h2>
+                <p className="text-white/65 text-sm mb-4">Choose your testament to begin reading</p>
                 <div className="flex gap-2">
                   <Button
-                    onClick={() => {
-                      const matthew = bibleBooks.newTestament[0];
-                      openReading(matthew, 1, false);
-                    }}
-                    className="bg-[#D9B878] hover:bg-[#c9a227] text-[#0A1A2F] font-semibold flex-1 text-sm">
+                    onClick={() => { setInitialBook(null); setView('newTestament'); }}
+                    className="bg-[#D9B878] hover:bg-[#c9a227] text-[#0A1A2F] font-semibold flex-1 text-sm shadow-sm">
                     New Testament
                   </Button>
                   <Button
                     onClick={() => { setInitialBook(null); setView('oldTestament'); }}
-                    className="bg-white/15 hover:bg-white/25 text-white border border-white/30 flex-1 text-sm">
+                    className="bg-white/12 hover:bg-white/20 text-white border border-white/25 flex-1 text-sm">
                     Old Testament
                   </Button>
                 </div>
               </motion.div>
 
-              {/* Search Bar */}
-              <BibleSearchBar onNavigate={handleSearchNavigate} />
+              {/* Fix #11: BibleSearchBar — remove its internal mb-4 via wrapper reset */}
+              <div className="-mb-1">
+                <BibleSearchBar onNavigate={handleSearchNavigate} />
+              </div>
 
-              {/* Stats Cards — with tap hint */}
+              {/* Fix #3+13: Stats cards — removed duplicate (ReadingPlanProgressTracker has its own stats section)
+                  Mobile tap affordance: permanent small dot indicator instead of hover-only text */}
               <div className="grid grid-cols-3 gap-3">
                 {[
-                  { label: 'Days Read', value: totalDaysRead, icon: BookOpen, stat: 'days_read', color: 'text-[#c9a227]' },
-                  { label: 'Best Streak', value: longestStreak, icon: TrendingUp, stat: 'streak', color: 'text-[#0A1A2F]' },
-                  { label: 'Saved Verses', value: bookmarks.length, icon: CheckCircle, stat: 'bookmarks', color: 'text-[#c9a227]' },
-                ].map(({ label, value, icon: Icon, stat, color }, i) => (
+                  { label: 'Days Read',    value: totalDaysRead,    icon: BookOpen,    stat: 'days_read', accent: 'text-[#c9a227]', bg: 'from-[#FAD98D]/25 to-[#D9B878]/12' },
+                  { label: 'Best Streak',  value: longestStreak,    icon: TrendingUp,  stat: 'streak',    accent: 'text-[#0A1A2F]', bg: 'from-[#0A1A2F]/8 to-[#0A1A2F]/4' },
+                  { label: 'Saved Verses', value: bookmarks.length, icon: CheckCircle, stat: 'bookmarks', accent: 'text-[#c9a227]', bg: 'from-[#FAD98D]/25 to-[#D9B878]/12' },
+                ].map(({ label, value, icon: Icon, stat, accent, bg }, i) => (
                   <motion.button key={stat}
-                    initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.07 }}
+                    initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.07 }}
                     onClick={() => handleStatClick(stat)}
-                    className="bg-gradient-to-br from-[#FAD98D]/20 to-[#D9B878]/10 rounded-2xl p-4 border border-[#D9B878]/25 hover:shadow-md hover:border-[#c9a227]/40 active:scale-95 transition-all text-left group">
-                    <Icon className={`w-5 h-5 ${color} mb-2`} />
+                    className={`bg-gradient-to-br ${bg} rounded-2xl p-4 border border-[#D9B878]/25 hover:border-[#c9a227]/50 active:scale-95 transition-all text-left relative overflow-hidden`}>
+                    <Icon className={`w-4 h-4 ${accent} mb-2`} />
                     <p className="text-xl font-bold text-[#0A1A2F]">{value}</p>
-                    <p className="text-xs text-[#0A1A2F]/55">{label}</p>
-                    <p className="text-[10px] text-[#c9a227] mt-1 opacity-0 group-hover:opacity-100 transition-opacity">Tap to view →</p>
+                    <p className="text-[10px] text-[#0A1A2F]/50 leading-tight">{label}</p>
+                    {/* Fix #13: always-visible affordance for mobile */}
+                    <div className="absolute bottom-2.5 right-2.5 w-1.5 h-1.5 rounded-full bg-[#D9B878]/60" />
                   </motion.button>
                 ))}
               </div>
 
-              {/* Spiritual Insights Link */}
+              {/* Spiritual Insights */}
               <Link to={createPageUrl('SpiritualInsights')} className="block">
                 <div className="bg-gradient-to-r from-[#0A1A2F] to-[#c9a227] rounded-2xl p-4 hover:shadow-lg transition-all">
                   <div className="flex items-center justify-between text-white">
@@ -235,36 +235,36 @@ export default function Bible() {
                       </div>
                       <div>
                         <h3 className="font-semibold text-sm">Your Spiritual Insights</h3>
-                        <p className="text-xs text-white/70">See how Gideon understands your journey</p>
+                        <p className="text-xs text-white/65">See how Gideon understands your journey</p>
                       </div>
                     </div>
-                    <ChevronRight className="w-4 h-4 text-white/70" />
+                    <ChevronRight className="w-4 h-4 text-white/60" />
                   </div>
                 </div>
               </Link>
 
-              {/* Prayer — card link, not a tab */}
+              {/* Prayer */}
               <Link to={createPageUrl('Prayer')} className="block">
-                <div className="bg-gradient-to-br from-[#FAD98D]/25 to-[#D9B878]/15 rounded-2xl p-4 border border-[#D9B878]/25 hover:shadow-md hover:border-[#c9a227]/40 transition-all">
+                <div className="bg-gradient-to-br from-[#FAD98D]/20 to-[#D9B878]/12 rounded-2xl p-4 border border-[#D9B878]/25 hover:border-[#c9a227]/40 hover:shadow-sm transition-all">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#c9a227] to-[#D9B878] flex items-center justify-center text-lg">
+                      <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#c9a227] to-[#D9B878] flex items-center justify-center text-lg shadow-sm">
                         🙏
                       </div>
                       <div>
                         <h3 className="font-semibold text-sm text-[#0A1A2F]">Prayer</h3>
-                        <p className="text-xs text-[#0A1A2F]/55">Journal your prayers and requests</p>
+                        <p className="text-xs text-[#0A1A2F]/50">Journal your prayers and requests</p>
                       </div>
                     </div>
-                    <ChevronRight className="w-4 h-4 text-[#0A1A2F]/40" />
+                    <ChevronRight className="w-4 h-4 text-[#0A1A2F]/35" />
                   </div>
                 </div>
               </Link>
 
-              {/* Mood Tracker — after navigation cards */}
+              {/* Mood Tracker */}
               <MoodTracker />
 
-              {/* Reading Plan Tracker */}
+              {/* Reading Plan Progress (has its own heading+stats) */}
               <ReadingPlanProgressTracker planProgress={planProgress} plans={readingPlans} />
 
               {/* Suggested Plans */}
@@ -276,7 +276,7 @@ export default function Bible() {
                     </h2>
                     <Link to={createPageUrl('Plans')} className="text-xs text-[#c9a227] font-semibold hover:underline">View All</Link>
                   </div>
-                  <div className="grid grid-cols-1 gap-3">
+                  <div className="space-y-3">
                     {suggestedPlans.map((plan, index) => (
                       <ReadingPlanCard key={plan.id} plan={plan} progress={null}
                         onClick={() => navigate(createPageUrl(`PlanDetail?id=${plan.id}`))} index={index} />
@@ -300,7 +300,6 @@ export default function Bible() {
       </div>
 
       <BibleStatsModal isOpen={showStatsModal} onClose={() => setShowStatsModal(false)} statType={selectedStat} progress={planProgress} bookmarks={bookmarks} />
-      {/* Only GideonAskAnything — PastoralChatbot removed (duplicate) */}
       <GideonAskAnything />
     </div>
   );

@@ -426,7 +426,7 @@ Example: [VERSE]Romans 8:28 - "And we know that all things work together for goo
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-24 right-4 z-40 bg-gradient-to-r from-[#0A1A2F] to-[#c9a227] text-white rounded-full p-4 shadow-2xl hover:shadow-3xl transition-all">
+        className="fixed bottom-28 right-4 z-40 bg-gradient-to-r from-[#0A1A2F] to-[#c9a227] text-white rounded-full p-4 shadow-2xl hover:shadow-3xl transition-all">
 
         <MessageCircle className="w-6 h-6" />
         <span className="absolute -top-1 -right-1 bg-[#c9a227] text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center">

@@ -13,7 +13,7 @@ import { useQueryClient, useMutation } from '@tanstack/react-query';
 const OLD_GROUPS = [
   { label: 'Torah',          emoji: '📜', books: ['Genesis','Exodus','Leviticus','Numbers','Deuteronomy'] },
   { label: 'History',        emoji: '⚔️', books: ['Joshua','Judges','Ruth','1 Samuel','2 Samuel','1 Kings','2 Kings','1 Chronicles','2 Chronicles','Ezra','Nehemiah','Esther'] },
-  { label: 'Poetry',         emoji: '🎵', books: ['Job','Psalms','Proverbs','Ecclesiastes','Song of Solomon'] },
+  { label: 'Poetry & Wisdom',         emoji: '🎵', books: ['Job','Psalms','Proverbs','Ecclesiastes','Song of Solomon'] },
   { label: 'Major Prophets', emoji: '🔥', books: ['Isaiah','Jeremiah','Lamentations','Ezekiel','Daniel'] },
   { label: 'Minor Prophets', emoji: '📣', books: ['Hosea','Joel','Amos','Obadiah','Jonah','Micah','Nahum','Habakkuk','Zephaniah','Haggai','Zechariah','Malachi'] },
 ];
@@ -95,7 +95,7 @@ function GroupRow({ group, books, isOpen, hasActive, onToggle, selectedBookName,
 // ─── Main Component ──────────────────────────────────────────────────────────
 
 export default function UnifiedBibleReader({
-  testament = 'old',
+  testament: initialTestament = 'old',
   onBack,
   initialBook = null,
   initialChapter = null,
@@ -103,6 +103,20 @@ export default function UnifiedBibleReader({
   onBookmark,
   searchData = null,
 }) {
+  // Fix #9: allow in-reader testament switching
+  const [testament, setTestament] = React.useState(initialTestament);
+  const handleSwitchTestament = (t) => {
+    setTestament(t);
+    setSelectedBook(null);
+    setSelectedChapter(null);
+    setVerses([]);
+    setBookSearch('');
+    // Open the first group in the new testament
+    const newGroups = t === 'old' ? OLD_GROUPS : NEW_GROUPS;
+    const init = {};
+    newGroups.forEach((g, i) => { init[g.label] = i === 0; });
+    setOpenGroups(init);
+  };
   const [selectedBook, setSelectedBook]       = useState(initialBook);
   const [selectedChapter, setSelectedChapter] = useState(initialChapter);
   const [verses, setVerses]                   = useState([]);
@@ -114,7 +128,16 @@ export default function UnifiedBibleReader({
   const [bookSearch, setBookSearch]           = useState('');
   const [openGroups, setOpenGroups]           = useState({});
   const [fontIdx, setFontIdx]                 = useState(1);
+  // Fix #10: track last-read chapter per book for indicator in chapter grid
+  const [lastReadChapterMap, setLastReadChapterMap] = React.useState(() => {
+    try {
+      const s = localStorage.getItem('bible_last_read');
+      if (s) { const d = JSON.parse(s); return { [d.bookName]: d.chapter }; }
+    } catch {}
+    return {};
+  });
   const contentRef = useRef(null);
+  const sidebarListRef = useRef(null); // Fix #14: for scrolling to active book
   const queryClient = useQueryClient();
 
   const allBooks = testament === 'old' ? bibleBooks.oldTestament : bibleBooks.newTestament;
@@ -129,6 +152,16 @@ export default function UnifiedBibleReader({
     });
     setOpenGroups(init);
   }, [testament]);
+
+  // Fix #14: scroll sidebar to selected book when it changes
+  useEffect(() => {
+    if (selectedBook && sidebarListRef.current) {
+      const activeEl = sidebarListRef.current.querySelector('[data-active="true"]');
+      if (activeEl) {
+        setTimeout(() => activeEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100);
+      }
+    }
+  }, [selectedBook]);
 
   useEffect(() => {
     if (initialBook && initialChapter) {
@@ -181,7 +214,9 @@ export default function UnifiedBibleReader({
   const handleChapterSelect = async (num) => {
     setSelectedChapter(num);
     try {
-      localStorage.setItem('bible_last_read', JSON.stringify({ bookName: selectedBook.name, chapter: num, isOld: testament === 'old' }));
+      const lr = { bookName: selectedBook.name, chapter: num, isOld: testament === 'old' };
+      localStorage.setItem('bible_last_read', JSON.stringify(lr));
+      setLastReadChapterMap(prev => ({ ...prev, [selectedBook.name]: num }));
     } catch {}
     await fetchVerses(selectedBook.name, num);
     contentRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
@@ -264,7 +299,7 @@ export default function UnifiedBibleReader({
       </div>
 
       {/* Book list */}
-      <div className="flex-1 overflow-y-auto py-2">
+      <div className="flex-1 overflow-y-auto py-2" ref={sidebarListRef}>
         {filteredBooks ? (
           <div className="px-2">
             {filteredBooks.length === 0 && (
@@ -303,7 +338,7 @@ export default function UnifiedBibleReader({
     // Account for global fixed header (~56px = 3.5rem) + fixed bottom nav (~60px = 3.75rem)
     <div
       className="flex bg-[#FFFDF7]"
-      style={{ height: 'calc(100vh - 7.25rem)' }}
+      style={{ height: 'calc(100vh - 9rem)' }}
     >
       {/* ── Desktop sidebar ── */}
       <div className="hidden md:flex flex-col w-56 flex-shrink-0 border-r border-[#D9B878]/20 bg-[#FFFDF7]">
@@ -372,22 +407,40 @@ export default function UnifiedBibleReader({
               ))}
             </div>
           </div>
-          {/* Right: font size toggle (only when reading) */}
-          {selectedBook && selectedChapter && (
-            <div className="flex items-center gap-0.5 flex-shrink-0 bg-[#FAD98D]/15 rounded-lg p-1">
-              {FONT_SIZES.map((fs, i) => (
-                <button
-                  key={i}
-                  onClick={() => setFontIdx(i)}
-                  className={`w-7 h-6 rounded text-[11px] font-bold transition-all ${
-                    fontIdx === i ? 'bg-[#c9a227] text-white shadow-sm' : 'text-[#0A1A2F]/40 hover:text-[#0A1A2F]'
-                  }`}
-                >
-                  {fs.label}
-                </button>
-              ))}
+          {/* Right: testament toggle + font size */}
+          <div className="flex items-center gap-2 flex-shrink-0">
+            {/* Fix #9: OT / NT switcher */}
+            <div className="flex items-center gap-0.5 bg-[#FAD98D]/15 rounded-lg p-1">
+              <button
+                onClick={() => handleSwitchTestament('old')}
+                className={`px-2 h-6 rounded text-[10px] font-bold transition-all ${
+                  testament === 'old' ? 'bg-[#c9a227] text-white shadow-sm' : 'text-[#0A1A2F]/40 hover:text-[#0A1A2F]'
+                }`}
+              >OT</button>
+              <button
+                onClick={() => handleSwitchTestament('new')}
+                className={`px-2 h-6 rounded text-[10px] font-bold transition-all ${
+                  testament === 'new' ? 'bg-[#c9a227] text-white shadow-sm' : 'text-[#0A1A2F]/40 hover:text-[#0A1A2F]'
+                }`}
+              >NT</button>
             </div>
-          )}
+            {/* Font size (only when reading) */}
+            {selectedBook && selectedChapter && (
+              <div className="flex items-center gap-0.5 bg-[#FAD98D]/15 rounded-lg p-1">
+                {FONT_SIZES.map((fs, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setFontIdx(i)}
+                    className={`w-7 h-6 rounded text-[11px] font-bold transition-all ${
+                      fontIdx === i ? 'bg-[#c9a227] text-white shadow-sm' : 'text-[#0A1A2F]/40 hover:text-[#0A1A2F]'
+                    }`}
+                  >
+                    {fs.label}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Scrollable content */}
@@ -424,9 +477,17 @@ export default function UnifiedBibleReader({
                     whileHover={{ scale: 1.07, y: -1 }}
                     whileTap={{ scale: 0.94 }}
                     onClick={() => handleChapterSelect(n)}
-                    className="aspect-square rounded-xl border-2 border-[#D9B878]/25 bg-[#FAD98D]/10 flex items-center justify-center font-semibold text-sm text-[#0A1A2F]/60 hover:border-[#c9a227] hover:bg-[#c9a227] hover:text-white hover:shadow-md transition-all"
+                    className={`aspect-square rounded-xl border-2 flex items-center justify-center font-semibold text-sm transition-all relative ${
+                      lastReadChapterMap[selectedBook?.name] === n
+                        ? 'border-[#c9a227] bg-[#FAD98D]/30 text-[#c9a227]'
+                        : 'border-[#D9B878]/25 bg-[#FAD98D]/10 text-[#0A1A2F]/60 hover:border-[#c9a227] hover:bg-gradient-to-br hover:from-[#c9a227] hover:to-[#D9B878] hover:text-white hover:shadow-md'
+                    }`}
                   >
                     {n}
+                    {/* Fix #10: last-read indicator dot */}
+                    {lastReadChapterMap[selectedBook?.name] === n && (
+                      <span className="absolute top-0.5 right-0.5 w-1.5 h-1.5 rounded-full bg-[#c9a227]" />
+                    )}
                   </motion.button>
                 ))}
               </div>
