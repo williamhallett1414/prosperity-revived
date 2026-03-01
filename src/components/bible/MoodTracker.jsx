@@ -71,7 +71,7 @@ export default function MoodTracker() {
 
   return (
     <div className="mb-6">
-      <Card className="p-5 bg-gradient-to-br from-[#FAD98D]/20 to-[#c9a227]/20 border-none shadow-lg">
+      <Card className="p-5 bg-gradient-to-br from-[#FAD98D]/10 to-[#F2F6FA] border-none shadow-lg">
         <h3 className="text-sm font-semibold text-[#0A1A2F] mb-3 flex items-center gap-2">
           <Heart className="w-4 h-4 text-[#c9a227]" />
           How are you feeling today?
