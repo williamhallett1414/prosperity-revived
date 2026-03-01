@@ -39,7 +39,7 @@ export default function ProfileGroupsTab({ user }) {
         <h3 className="font-semibold text-gray-800 mb-2">No groups yet</h3>
         <p className="text-sm text-gray-500 mb-4">Join a group to grow together with others.</p>
         <Link to={createPageUrl('Groups')}>
-          <Button className="bg-[#FD9C2D] hover:bg-[#FD9C2D]/90 text-white gap-2">
+          <Button className="bg-gradient-to-br from-[#c9a227] to-[#D9B878] hover:opacity-90 text-white gap-2">
             <Plus className="w-4 h-4" /> Browse Groups
           </Button>
         </Link>

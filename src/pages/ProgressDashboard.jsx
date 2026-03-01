@@ -209,24 +209,18 @@ export default function ProgressDashboard() {
               </div>
             </div>
             <div className="grid grid-cols-3 gap-2">
-              <Link to={createPageUrl('Bible')}>
-                <div className="bg-white rounded-xl p-3 text-center hover:shadow-sm transition-shadow cursor-pointer">
-                  <p className="text-xl mb-1">📖</p>
-                  <p className="text-xs font-medium text-gray-700">Read Bible</p>
-                </div>
-              </Link>
-              <Link to={createPageUrl('Workouts')}>
-                <div className="bg-white rounded-xl p-3 text-center hover:shadow-sm transition-shadow cursor-pointer">
-                  <p className="text-xl mb-1">💪</p>
-                  <p className="text-xs font-medium text-gray-700">Log Workout</p>
-                </div>
-              </Link>
-              <Link to={createPageUrl('Prayer')}>
-                <div className="bg-white rounded-xl p-3 text-center hover:shadow-sm transition-shadow cursor-pointer">
-                  <p className="text-xl mb-1">🙏</p>
-                  <p className="text-xs font-medium text-gray-700">Pray</p>
-                </div>
-              </Link>
+              {[
+                { page: 'Bible', emoji: '📖', label: 'Read Bible' },
+                { page: 'Workouts', emoji: '💪', label: 'Log Workout' },
+                { page: 'Prayer', emoji: '🙏', label: 'Pray' },
+              ].map(({ page, emoji, label }) => (
+                <Link key={page} to={createPageUrl(page)}>
+                  <div className="bg-white rounded-xl p-3 text-center hover:shadow-sm transition-shadow cursor-pointer h-full flex flex-col items-center justify-center min-h-[72px]">
+                    <p className="text-xl mb-1">{emoji}</p>
+                    <p className="text-xs font-medium text-gray-700 leading-tight">{label}</p>
+                  </div>
+                </Link>
+              ))}
             </div>
           </motion.div>
         )}
@@ -249,14 +243,13 @@ export default function ProgressDashboard() {
             {Object.entries(chatbotConfig).map(([key, config]) => {
               return (
                 <Button
-                 key={key}
-                 onClick={() => setActiveChat(key)}
-                 className={`h-auto py-3 px-2 flex flex-col items-center gap-1.5 bg-gradient-to-br ${config.color} hover:opacity-90 text-white shadow-md`}
+                key={key}
+                onClick={() => setActiveChat(key)}
+                className={`h-auto py-4 px-3 flex flex-col items-center gap-1 bg-gradient-to-br ${config.color} hover:opacity-90 text-white shadow-md w-full`}
                 >
-                 <span className="text-xl leading-none">{config.icon}</span>
-                 <span className="text-xs font-bold text-center leading-tight">{config.name}</span>
-                 <span className="text-[10px] opacity-90 leading-tight text-center">{config.category}</span>
-                 <p className="text-[10px] opacity-70 text-center leading-tight line-clamp-2">{config.description}</p>
+                <span className="text-2xl leading-none">{config.icon}</span>
+                <span className="text-xs font-bold text-center leading-snug w-full truncate">{config.name}</span>
+                <span className="text-[11px] opacity-90 leading-snug text-center w-full truncate">{config.category}</span>
                 </Button>
               );
             })}

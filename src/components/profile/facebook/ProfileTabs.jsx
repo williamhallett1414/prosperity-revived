@@ -13,36 +13,41 @@ const tabs = [
 { id: 'journey', label: 'Journey', icon: TrendingUp },
 ];
 
+
 export default function ProfileTabs({ activeTab, onTabChange }) {
   return (
     <div className="max-w-6xl mx-auto px-4">
-      <div className="border-b border-[#D9B878]/25 bg-white rounded-t-lg">
+      <div className="border-b border-gray-200 bg-white rounded-t-lg">
         <div className="flex gap-0 overflow-x-auto">
           {tabs.map((tab) => {
             const Icon = tab.icon;
             const isActive = activeTab === tab.id;
+
             return (
               <button
                 key={tab.id}
-                onClick={() => onTabChange(tab.id)}
-                className={`px-4 py-4 text-sm font-medium flex-1 min-w-max flex items-center justify-center gap-2 transition-colors relative border-b-2 ${
-                  isActive
-                    ? 'text-[#c9a227] border-[#c9a227]'
-                    : 'text-[#0A1A2F]/50 border-transparent hover:text-[#0A1A2F] hover:border-[#D9B878]/40'
-                }`}>
+                onClick={() => onTabChange(tab.id)} className="text-[#3C4E53] px-6 py-4 text-sm font-medium flex-1 min-w-max flex items-center justify-center gap-2 transition-colors relative group border-b-2 border-blue-600">
+
+
+
+
+
+
                 <Icon className="w-4 h-4" />
                 {tab.label}
+                
                 {isActive &&
-                  <motion.div
-                    layoutId="activeTab"
-                    className="bg-[#c9a227] rounded-full absolute bottom-0 left-0 right-0 h-0.5"
-                    transition={{ type: 'spring', stiffness: 500, damping: 30 }} />
+                <motion.div
+                  layoutId="activeTab" className="bg-amber-500 rounded-full absolute bottom-0 left-0 right-0 h-1"
+
+                  transition={{ type: 'spring', stiffness: 500, damping: 30 }} />
+
                 }
-              </button>
-            );
+              </button>);
+
           })}
         </div>
       </div>
-    </div>
-  );
+    </div>);
+
 }
