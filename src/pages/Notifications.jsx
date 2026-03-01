@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Bell, Check, Trash2, Settings, Heart, MessageCircle, UserPlus, Users, Trophy, Loader2 } from 'lucide-react';
+import { Bell, Check, Trash2, Settings, Heart, MessageCircle, UserPlus, Users, Trophy, Loader2, ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
@@ -77,45 +77,49 @@ export default function Notifications() {
 
   if (!user) {
     return (
-      <div className="min-h-screen bg-[#faf8f5] dark:bg-[#1a1a2e] flex items-center justify-center">
+      <div className="min-h-screen bg-[#F2F6FA] flex items-center justify-center">
         <Loader2 className="w-8 h-8 text-[#c9a227] animate-spin" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#faf8f5] dark:bg-[#1a1a2e] pb-24">
+    <div className="min-h-screen bg-[#F2F6FA] pb-24">
       {/* Header */}
-      <div className="bg-gradient-to-br from-[#1a1a2e] to-[#2d2d4a] text-white px-4 py-6">
-        <div className="max-w-2xl mx-auto">
-          <div className="flex items-center justify-between mb-4">
+      <div className="sticky top-0 z-40 bg-white border-b border-[#E6EBEF] px-4 py-3">
+        <div className="max-w-2xl mx-auto flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <Link
+              to={createPageUrl('Home')}
+              className="w-9 h-9 rounded-full bg-[#E6EBEF] hover:bg-[#D9DFE4] flex items-center justify-center transition-colors"
+            >
+              <ArrowLeft className="w-4 h-4 text-[#0A1A2F]" />
+            </Link>
             <div>
-              <h1 className="text-2xl font-bold flex items-center gap-2">
-                <Bell className="w-6 h-6" />
-                Notifications
-              </h1>
+              <h1 className="text-lg font-bold text-[#0A1A2F]">Notifications</h1>
               {unreadCount > 0 && (
-                <p className="text-white/70 text-sm mt-1">{unreadCount} unread</p>
+                <p className="text-xs text-[#0A1A2F]/60">{unreadCount} unread</p>
               )}
             </div>
+          </div>
+          <div className="flex items-center gap-2">
+            {unreadCount > 0 && (
+              <Button
+                onClick={() => markAllAsRead.mutate()}
+                variant="ghost"
+                size="sm"
+                className="text-xs text-[#0A1A2F]/60 hover:text-[#0A1A2F]"
+              >
+                <Check className="w-3.5 h-3.5 mr-1" />
+                Mark all read
+              </Button>
+            )}
             <Link to={createPageUrl('NotificationSettings')}>
-              <Button variant="ghost" size="icon" className="text-white hover:bg-white/20">
-                <Settings className="w-5 h-5" />
+              <Button variant="ghost" size="icon" className="w-9 h-9 text-[#0A1A2F]/50 hover:text-[#0A1A2F]">
+                <Settings className="w-4 h-4" />
               </Button>
             </Link>
           </div>
-
-          {unreadCount > 0 && (
-            <Button
-              onClick={() => markAllAsRead.mutate()}
-              variant="outline"
-              size="sm"
-              className="bg-white/10 border-white/20 text-white hover:bg-white/20"
-            >
-              <Check className="w-4 h-4 mr-2" />
-              Mark all as read
-            </Button>
-          )}
         </div>
       </div>
 
@@ -150,7 +154,7 @@ export default function Notifications() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, x: -100 }}
                   transition={{ delay: index * 0.05 }}
-                  className={`bg-white dark:bg-[#2d2d4a] rounded-xl p-4 shadow-sm transition-all ${
+                  className={`bg-white rounded-xl p-4 shadow-sm transition-all ${
                     !notification.is_read ? 'border-l-4 border-[#FD9C2D]' : ''
                   }`}
                 >
@@ -164,7 +168,7 @@ export default function Notifications() {
                       onClick={() => handleNotificationClick(notification)}
                     >
                       <div className="flex items-start justify-between mb-1">
-                        <h3 className={`font-semibold text-[#1a1a2e] dark:text-white ${
+                        <h3 className={`font-semibold text-[#0A1A2F] ${
                           !notification.is_read ? 'font-bold' : ''
                         }`}>
                           {notification.title}

@@ -143,9 +143,9 @@ Provide warm, helpful guidance (2-4 sentences) about reading plans, Bible study 
           <div className="flex items-center gap-3 mb-2">
             <Link
               to={createPageUrl('Home')}
-              className="w-10 h-10 rounded-full bg-[#D9B878] hover:bg-[#D9B878]/90 shadow-sm flex items-center justify-center text-[#0A1A2F] transition-colors"
+              className="w-9 h-9 rounded-full bg-[#E6EBEF] hover:bg-[#D9DFE4] flex items-center justify-center transition-colors"
             >
-              <ArrowLeft className="w-5 h-5" />
+              <ArrowLeft className="w-4 h-4 text-[#0A1A2F]" />
             </Link>
             <h1 className="text-2xl font-bold text-[#0A1A2F]">Reading Plans</h1>
           </div>

@@ -6,19 +6,19 @@ import SpiritualInsightsDashboard from '@/components/gideon/SpiritualInsightsDas
 
 export default function SpiritualInsights() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#FAD98D]/10 via-pink-50 to-[#F2F6FA] dark:from-[#1a1a2e] dark:via-[#2d2d4a] dark:to-[#1a1a2e] pb-24">
+    <div className="min-h-screen bg-[#F2F6FA] pb-24">
       {/* Header */}
-      <div className="bg-gradient-to-r from-[#b89320] via-pink-600 to-[#3C4E53] text-white px-4 py-6 shadow-lg">
-        <div className="flex items-center gap-4 mb-2">
+      <div className="sticky top-0 z-40 bg-white border-b border-[#E6EBEF] px-4 py-3">
+        <div className="max-w-2xl mx-auto flex items-center gap-3">
           <Link
             to={createPageUrl('Bible')}
-            className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center hover:bg-white/30 transition-colors"
+            className="w-9 h-9 rounded-full bg-[#E6EBEF] hover:bg-[#D9DFE4] flex items-center justify-center transition-colors"
           >
-            <ArrowLeft className="w-5 h-5" />
+            <ArrowLeft className="w-4 h-4 text-[#0A1A2F]" />
           </Link>
           <div>
-            <h1 className="text-2xl font-bold">Spiritual Insights</h1>
-            <p className="text-sm text-white/80">Gideon's analysis of your journey</p>
+            <h1 className="text-lg font-bold text-[#0A1A2F]">Spiritual Insights</h1>
+            <p className="text-xs text-[#0A1A2F]/60">Gideon's analysis of your journey</p>
           </div>
         </div>
       </div>

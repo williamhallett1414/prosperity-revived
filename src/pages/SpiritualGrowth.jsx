@@ -29,27 +29,23 @@ export default function SpiritualGrowth() {
   });
 
   return (
-    <div className="min-h-screen bg-[#faf8f5] pb-24">
-      <div className="max-w-2xl mx-auto px-4 py-6">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-6"
-        >
-          <div className="flex items-center gap-3 mb-2">
-            <Link
-              to={createPageUrl('Home')}
-              className="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center text-[#1a1a2e] hover:bg-gray-50 transition-colors"
-            >
-              <ArrowLeft className="w-5 h-5" />
-            </Link>
-            <h1 className="text-2xl font-bold text-[#1a1a2e]">Spiritual Growth</h1>
+    <div className="min-h-screen bg-[#F2F6FA] pb-24">
+      <div className="sticky top-0 z-40 bg-white border-b border-[#E6EBEF] px-4 py-3">
+        <div className="max-w-2xl mx-auto flex items-center gap-3">
+          <Link
+            to={createPageUrl('Home')}
+            className="w-9 h-9 rounded-full bg-[#E6EBEF] hover:bg-[#D9DFE4] flex items-center justify-center transition-colors"
+          >
+            <ArrowLeft className="w-4 h-4 text-[#0A1A2F]" />
+          </Link>
+          <div>
+            <h1 className="text-lg font-bold text-[#0A1A2F]">Spiritual Growth</h1>
+            <p className="text-xs text-[#0A1A2F]/60">Grow deeper in your faith journey</p>
           </div>
-          <p className="text-gray-500 ml-[52px]">Grow deeper in your faith journey</p>
-        </motion.div>
+        </div>
+      </div>
 
-        {/* AI Daily Encouragement */}
+      <div className="max-w-2xl mx-auto px-4 py-6">
         <AIEncouragement journalEntries={journalEntries} goals={goals} />
 
         {/* Tabs */}

@@ -154,23 +154,33 @@ export default function WorkoutTrends() {
     .map(([name, count]) => ({ name, count }));
 
   return (
-    <div className="min-h-screen bg-[#000000] pb-24">
-      {/* Header with Banner */}
-      <div className="relative bg-black">
-        <img 
-          src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6980ade9ca08df558ed28bdd/71b837d3d_ReeVibeLogonew.jpg"
-          alt="ReeVibe Fitness"
-          className="w-full h-64 object-cover"
-        />
-        <Link
-          to={createPageUrl('Wellness')}
-          className="absolute top-4 left-4 w-10 h-10 rounded-full bg-[#FD9C2D] flex items-center justify-center hover:bg-[#C4E3FD] transition-colors"
-        >
-          <ArrowLeft className="w-5 h-5 text-black" />
-        </Link>
+    <div className="min-h-screen bg-[#F2F6FA] pb-24">
+      {/* Sticky Header */}
+      <div className="sticky top-0 z-40 bg-white border-b border-[#E6EBEF] px-4 py-3">
+        <div className="max-w-2xl mx-auto flex items-center gap-3">
+          <Link
+            to={createPageUrl('Wellness')}
+            className="w-9 h-9 rounded-full bg-[#E6EBEF] hover:bg-[#D9DFE4] flex items-center justify-center transition-colors"
+          >
+            <ArrowLeft className="w-4 h-4 text-[#0A1A2F]" />
+          </Link>
+          <div>
+            <h1 className="text-lg font-bold text-[#0A1A2F]">Workout Trends</h1>
+            <p className="text-xs text-[#0A1A2F]/60">Your progress over time</p>
+          </div>
+        </div>
       </div>
 
-      <div className="px-4 py-6 space-y-6 bg-[#faf8f5]">
+      {/* Banner Image */}
+      <div className="relative">
+        <img
+          src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6980ade9ca08df558ed28bdd/71b837d3d_ReeVibeLogonew.jpg"
+          alt="ReeVibe Fitness"
+          className="w-full h-40 object-cover"
+        />
+      </div>
+
+      <div className="px-4 py-6 space-y-6 bg-[#F2F6FA]">
         {/* Time Range Selector */}
         <div className="flex justify-end">
           <Select value={timeRange.toString()} onValueChange={(val) => setTimeRange(parseInt(val))}>

@@ -28,22 +28,24 @@ export default function BibleBooks() {
   };
 
   return (
-    <div className="min-h-screen bg-[#faf8f5] dark:bg-[#1a1a2e] pb-24">
-      <div className="px-4 py-6">
-        <div className="flex items-center gap-3 mb-6">
+    <div className="min-h-screen bg-[#F2F6FA] pb-24">
+      <div className="sticky top-0 z-40 bg-white border-b border-[#E6EBEF] px-4 py-3">
+        <div className="max-w-2xl mx-auto flex items-center gap-3">
           <button
             onClick={() => window.history.back()}
-            className="w-10 h-10 rounded-full bg-white dark:bg-[#2d2d4a] shadow-sm flex items-center justify-center text-[#1a1a2e] dark:text-white hover:bg-gray-50 dark:hover:bg-[#3d3d5a] transition-colors"
+            className="w-9 h-9 rounded-full bg-[#E6EBEF] hover:bg-[#D9DFE4] flex items-center justify-center transition-colors"
           >
-            <ArrowLeft className="w-5 h-5" />
+            <ArrowLeft className="w-4 h-4 text-[#0A1A2F]" />
           </button>
           <div>
-            <h1 className="text-2xl font-bold text-[#1a1a2e] dark:text-white">{title}</h1>
-            <p className="text-sm text-gray-500 dark:text-gray-400">{books.length} books</p>
+            <h1 className="text-lg font-bold text-[#0A1A2F]">{title}</h1>
+            <p className="text-xs text-[#0A1A2F]/60">{books.length} books</p>
           </div>
         </div>
+      </div>
 
-        <ScrollArea className="h-[calc(100vh-180px)]">
+      <div className="px-4 py-4">
+        <ScrollArea className="h-[calc(100vh-120px)]">
           <div className="space-y-2">
             {testament === 'old' && (
               <motion.div

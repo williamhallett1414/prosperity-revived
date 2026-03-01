@@ -95,7 +95,7 @@ export default function Friends() {
   return (
     <div className="min-h-screen bg-[#faf8f5] pb-24">
       {/* Header */}
-      <div className="bg-white border-b px-4 py-4">
+      <div className="sticky top-0 z-40 bg-white border-b border-[#E6EBEF] px-4 py-3">
         <div className="flex items-center gap-3 mb-4">
           <Link
             to={createPageUrl('Profile')}
