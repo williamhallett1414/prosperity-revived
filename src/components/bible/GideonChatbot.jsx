@@ -321,7 +321,7 @@ Assistant: ${response}`,
                 className={`max-w-[80%] rounded-2xl px-4 py-3 ${
                   message.role === 'user'
                     ? 'bg-gradient-to-r from-[#c9a227] to-[#D9B878] text-white'
-                    : 'bg-[#FAD98D]/12 text-[#0A1A2F]
+                    : 'bg-[#FAD98D]/12 text-[#0A1A2F]'
                 }`}
               >
                 {message.role === 'assistant' ? (
