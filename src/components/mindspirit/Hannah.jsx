@@ -1002,7 +1002,16 @@ Return ONLY valid JSON array:
                   <p className="text-xs text-white/80">Your Personal Growth Guide</p>
                 </div>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1">
+                <Button
+                  onClick={() => setShowProfileSetup(true)}
+                  variant="ghost"
+                  size="icon"
+                  className="text-white hover:bg-white/20"
+                  title={hannahProfile?.profile_completed ? 'Edit my profile' : 'Set up my profile'}
+                >
+                  <UserCircle className={`w-5 h-5 ${!hannahProfile?.profile_completed ? 'animate-pulse' : ''}`} />
+                </Button>
                 <Button
                   onClick={() => {
                     setMessages([]);
