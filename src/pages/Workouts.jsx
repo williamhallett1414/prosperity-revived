@@ -363,7 +363,7 @@ export default function Workouts() {
                     const Icon = item.icon;
                     return (
                       <motion.div
-                        key={item.label}
+                        key={item.category + index}
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: index * 0.05 }}
@@ -380,7 +380,7 @@ export default function Workouts() {
                             <Icon className={`w-5 h-5 ${item.iconColor}`} />
                           </div>
                           <div>
-                            <h4 className="text-sm font-bold text-[#0A1A2F]">{item.workout?.title || item.label}</h4>
+                            <h4 className="text-sm font-bold text-[#0A1A2F]">{item.workout?.title || item.category}</h4>
                             <p className="text-xs text-[#0A1A2F]/60">{item.workout?.duration_minutes || 10} min</p>
                           </div>
                         </div>

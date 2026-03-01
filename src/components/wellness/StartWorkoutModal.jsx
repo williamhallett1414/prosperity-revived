@@ -521,14 +521,14 @@ export default function StartWorkoutModal({ isOpen, onClose, workout, user, onCo
                       </div>
                       <div className="relative flex items-center justify-center mb-6">
                         <CircleTimer
-                          seconds={countdownLeft || currentEx.duration_seconds}
+                          seconds={countdownLeft > 0 ? countdownLeft : currentEx.duration_seconds}
                           total={currentEx.duration_seconds}
                           size={180}
                           color={countdownRunning ? '#FD9C2D' : '#38BDF8'}
                         />
                         <div className="absolute text-center">
                           <p className="text-6xl font-bold text-white tabular-nums">
-                            {countdownLeft > 0 ? countdownLeft : currentEx.duration_seconds}
+                            {countdownLeft}
                           </p>
                           <p className="text-white/25 text-xs mt-1">sec</p>
                         </div>
@@ -628,11 +628,19 @@ export default function StartWorkoutModal({ isOpen, onClose, workout, user, onCo
                     Skip
                   </Button>
                   {currentIdx < exerciseStats.length - 1 ? (
-                    <Button
-                      onClick={() => { setCountdownRunning(false); goToRest(currentIdx + 1); }}
-                      className="flex-1 bg-gradient-to-r from-[#FD9C2D] to-[#E89020] text-white font-bold">
-                      Done — Rest &amp; Next <ChevronRight className="w-4 h-4 ml-1" />
-                    </Button>
+                    <div className="flex flex-1 gap-2">
+                      <Button
+                        onClick={() => { setCountdownRunning(false); goToRest(currentIdx + 1); }}
+                        variant="outline"
+                        className="border-white/15 text-white/60 hover:bg-white/8 bg-transparent text-sm px-3 whitespace-nowrap flex-shrink-0">
+                        Rest 60s
+                      </Button>
+                      <Button
+                        onClick={() => { setCountdownRunning(false); const ni = currentIdx + 1; setCurrentIdx(ni); const ne = exerciseStats[ni]; if (ne?.type === 'timed') { setCountdownLeft(ne.duration_seconds); setCountdownTotal(ne.duration_seconds); setCountdownRunning(false); } setPhase('workout'); }}
+                        className="flex-1 bg-gradient-to-r from-[#FD9C2D] to-[#E89020] text-white font-bold">
+                        Done — Next <ChevronRight className="w-4 h-4 ml-1" />
+                      </Button>
+                    </div>
                   ) : (
                     <Button
                       onClick={() => { setCountdownRunning(false); setTimerRunning(false); setPhase('complete'); }}

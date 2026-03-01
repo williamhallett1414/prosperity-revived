@@ -16,11 +16,11 @@ export default function WeeklyThemeBanner() {
     <motion.div
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
-      className={`bg-gradient-to-r ${theme.color} rounded-2xl p-6 mb-8 mx-4 text-center text-[#3C4E53] shadow-md`}>
+      className={`bg-gradient-to-r ${theme.color} rounded-2xl p-6 mb-6 text-center text-white shadow-md`}>
 
       <div className="text-4xl mb-2">{theme.emoji}</div>
-      <h2 className="bg-transparent text-slate-50 mb-1 text-2xl font-bold">{theme.name}</h2>
-      <p className="text-slate-50 text-sm">{theme.message}</p>
+      <h2 className="bg-transparent text-white mb-1 text-2xl font-bold">{theme.name}</h2>
+      <p className="text-white text-sm">{theme.message}</p>
     </motion.div>);
 
 }

@@ -68,27 +68,27 @@ export default function ShareWorkoutModal({ isOpen, onClose, workout, user }) {
       <DialogContent className="max-w-md">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <Share2 className="w-5 h-5 text-emerald-600" />
+            <Share2 className="w-5 h-5 text-[#0EA5E9]" />
             Share Workout
           </DialogTitle>
         </DialogHeader>
 
         <div className="space-y-4">
-          <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-4">
-            <h3 className="font-semibold text-emerald-900 mb-1">{workout?.title}</h3>
-            <p className="text-sm text-emerald-700">
+          <div className="bg-[#F0F8FF] border border-[#BAE6FD]/30 rounded-lg p-4">
+            <h3 className="font-semibold text-[#0A1A2F] mb-1">{workout?.title}</h3>
+            <p className="text-sm text-[#0A1A2F]/60">
               {workout?.exercises?.length || 0} exercises • {workout?.duration_minutes} min
             </p>
           </div>
 
           {!workout?.is_shared ? (
             <div className="space-y-3">
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-[#0A1A2F]/55">
                 Share this workout with others so they can add it to their routine!
               </p>
               <Button
                 onClick={() => shareWorkout.mutate()}
-                className="w-full bg-emerald-600 hover:bg-emerald-700"
+                className="w-full bg-gradient-to-r from-[#FD9C2D] to-[#E89020] hover:opacity-90"
                 disabled={shareWorkout.isPending}
               >
                 <Globe className="w-4 h-4 mr-2" />
@@ -98,7 +98,7 @@ export default function ShareWorkoutModal({ isOpen, onClose, workout, user }) {
           ) : (
             <div className="space-y-3">
               <div>
-                <p className="text-sm font-medium text-gray-700 mb-2">Share this link:</p>
+                <p className="text-sm font-medium text-[#0A1A2F]/60 mb-2">Share this link:</p>
                 <div className="flex gap-2">
                   <Input
                     value={shareLink}
@@ -124,7 +124,7 @@ export default function ShareWorkoutModal({ isOpen, onClose, workout, user }) {
               <Button
                 onClick={() => unshareWorkout.mutate()}
                 variant="outline"
-                className="w-full border-red-300 text-red-600 hover:bg-red-50"
+                className="w-full border-[#BAE6FD]/40 text-[#0A1A2F]/60 hover:bg-[#F0F8FF]"
                 disabled={unshareWorkout.isPending}
               >
                 {unshareWorkout.isPending ? 'Removing...' : 'Make Private'}
