@@ -226,7 +226,7 @@ export default function Workouts() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="bg-gradient-to-br from-[#0A0A0A] to-[#1a2535] rounded-xl p-5 text-white shadow-md mb-6">
+              className="bg-gradient-to-br from-[#FD9C2D] to-[#38BDF8] rounded-xl p-5 text-white shadow-md mb-6">
 
                 <div className="flex items-start justify-between mb-3">
                   <div>
