@@ -59,7 +59,6 @@ import EmotionalCheckInPage from './pages/EmotionalCheckInPage';
 import FoodLogHistory from './pages/FoodLogHistory';
 import Friends from './pages/Friends';
 import GratitudeJournalPage from './pages/GratitudeJournalPage';
-import GuidedMeditationsPage from './pages/GuidedMeditationsPage';
 import GroupDetail from './pages/GroupDetail';
 import GroupPlanDetail from './pages/GroupPlanDetail';
 import Groups from './pages/Groups';
@@ -77,13 +76,11 @@ import Notifications from './pages/Notifications';
 import Nutrition from './pages/Nutrition';
 import NutritionArticle from './pages/NutritionArticle';
 import NutritionGuidance from './pages/NutritionGuidance';
-import PersonalGrowth from './pages/PersonalGrowth';
 import PhotoGallery from './pages/PhotoGallery';
 import PlanDetail from './pages/PlanDetail';
 import Plans from './pages/Plans';
 import Prayer from './pages/Prayer';
 import PrivacyPolicy from './pages/PrivacyPolicy';
-import Profile from './pages/Profile';
 import ProgressDashboard from './pages/ProgressDashboard';
 import Search from './pages/Search';
 import SelfCareChallengesPage from './pages/SelfCareChallengesPage';
@@ -99,6 +96,9 @@ import WorkoutCategoryPage from './pages/WorkoutCategoryPage';
 import WorkoutProgress from './pages/WorkoutProgress';
 import WorkoutTrends from './pages/WorkoutTrends';
 import Workouts from './pages/Workouts';
+import Profile from './pages/Profile';
+import GuidedMeditationsPage from './pages/GuidedMeditationsPage';
+import PersonalGrowth from './pages/PersonalGrowth';
 import __Layout from './Layout.jsx';
 
 
@@ -115,7 +115,6 @@ export const PAGES = {
     "FoodLogHistory": FoodLogHistory,
     "Friends": Friends,
     "GratitudeJournalPage": GratitudeJournalPage,
-    "GuidedMeditationsPage": GuidedMeditationsPage,
     "GroupDetail": GroupDetail,
     "GroupPlanDetail": GroupPlanDetail,
     "Groups": Groups,
@@ -133,13 +132,11 @@ export const PAGES = {
     "Nutrition": Nutrition,
     "NutritionArticle": NutritionArticle,
     "NutritionGuidance": NutritionGuidance,
-    "PersonalGrowth": PersonalGrowth,
     "PhotoGallery": PhotoGallery,
     "PlanDetail": PlanDetail,
     "Plans": Plans,
     "Prayer": Prayer,
     "PrivacyPolicy": PrivacyPolicy,
-    "Profile": Profile,
     "ProgressDashboard": ProgressDashboard,
     "Search": Search,
     "SelfCareChallengesPage": SelfCareChallengesPage,
@@ -155,6 +152,9 @@ export const PAGES = {
     "WorkoutProgress": WorkoutProgress,
     "WorkoutTrends": WorkoutTrends,
     "Workouts": Workouts,
+    "Profile": Profile,
+    "GuidedMeditationsPage": GuidedMeditationsPage,
+    "PersonalGrowth": PersonalGrowth,
 }
 
 export const pagesConfig = {
