@@ -51,14 +51,14 @@ export default function GideonQuickAskMenu({ onSelectPrompt, isLoading, isCollap
         height: isCollapsed ? 'auto' : 'auto',
         maxHeight: isCollapsed ? '48px' : '320px'
       }}
-      className="border-b border-gray-200 dark:border-gray-700 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-gray-800 dark:to-gray-800"
+      className="border-b border-[#D9B878]/20 bg-gradient-to-r from-[#FAD98D]/15 to-[#D9B878]/10"
     >
       <div className="p-3">
         <Button
           onClick={onToggleCollapse}
           variant="ghost"
           size="sm"
-          className="w-full flex items-center justify-between text-green-700 dark:text-green-400 hover:bg-green-100 dark:hover:bg-gray-700"
+          className="w-full flex items-center justify-between text-[#c9a227] hover:bg-[#FAD98D]/20"
           disabled={isLoading}
         >
           <div className="flex items-center gap-2">
@@ -79,8 +79,8 @@ export default function GideonQuickAskMenu({ onSelectPrompt, isLoading, isCollap
               return (
                 <div key={category.category}>
                   <div className="flex items-center gap-2 mb-2">
-                    <Icon className="w-4 h-4 text-green-600 dark:text-green-400" />
-                    <h4 className="text-xs font-semibold text-green-800 dark:text-green-300">
+                    <Icon className="w-4 h-4 text-[#c9a227]" />
+                    <h4 className="text-xs font-semibold text-[#8a6e1a]">
                       {category.category}
                     </h4>
                   </div>
@@ -90,7 +90,7 @@ export default function GideonQuickAskMenu({ onSelectPrompt, isLoading, isCollap
                         key={prompt}
                         onClick={() => onSelectPrompt(prompt)}
                         disabled={isLoading}
-                        className="block w-full text-left text-xs px-3 py-2 rounded-lg bg-white dark:bg-gray-700 hover:bg-green-100 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 transition-colors border border-gray-200 dark:border-gray-600 disabled:opacity-50"
+                        className="block w-full text-left text-xs px-3 py-2 rounded-lg bg-white hover:bg-[#FAD98D]/20 text-[#0A1A2F]/75 transition-colors border border-[#D9B878]/20 disabled:opacity-50"
                       >
                         {prompt}
                       </button>

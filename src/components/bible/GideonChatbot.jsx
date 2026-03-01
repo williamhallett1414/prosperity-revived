@@ -252,7 +252,7 @@ Assistant: ${response}`,
             initial={{ opacity: 0, y: 100, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 100, scale: 0.9 }}
-            className="fixed bottom-24 right-4 w-[calc(100vw-2rem)] sm:w-96 h-[500px] bg-white dark:bg-gray-800 rounded-2xl shadow-2xl flex flex-col z-50 border border-gray-200 dark:border-gray-700"
+            className="fixed bottom-24 right-4 w-[calc(100vw-2rem)] sm:w-96 h-[500px] bg-white rounded-2xl shadow-2xl flex flex-col z-50 border border-[#D9B878]/20"
           >
             {/* Header */}
             <div className="bg-gradient-to-r from-[#c9a227] to-[#D9B878] px-5 py-5 rounded-t-2xl flex items-center justify-between">
@@ -309,7 +309,7 @@ Assistant: ${response}`,
             )}
 
         {/* Messages */}
-        <div className="flex-1 overflow-y-auto p-5 space-y-4 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
+        <div className="flex-1 overflow-y-auto p-5 space-y-4 bg-gradient-to-b from-[#FFFDF7] to-white">
           {messages.map((message, idx) => (
             <motion.div
               key={idx}
@@ -321,11 +321,11 @@ Assistant: ${response}`,
                 className={`max-w-[80%] rounded-2xl px-4 py-3 ${
                   message.role === 'user'
                     ? 'bg-gradient-to-r from-[#c9a227] to-[#D9B878] text-white'
-                    : 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100'
+                    : 'bg-[#FAD98D]/12 text-[#0A1A2F]
                 }`}
               >
                 {message.role === 'assistant' ? (
-                  <ReactMarkdown className="prose prose-sm max-w-none dark:prose-invert">
+                  <ReactMarkdown className="prose prose-sm max-w-none">
                     {message.content}
                   </ReactMarkdown>
                 ) : (
@@ -337,7 +337,7 @@ Assistant: ${response}`,
           
           {isLoading && (
             <div className="flex justify-start">
-              <div className="bg-gray-100 dark:bg-gray-700 rounded-2xl px-4 py-3">
+              <div className="bg-[#FAD98D]/12 rounded-2xl px-4 py-3">
                 <Loader2 className="w-5 h-5 animate-spin text-[#c9a227]" />
               </div>
             </div>
@@ -346,12 +346,12 @@ Assistant: ${response}`,
           {/* Quick Actions */}
           {messages.length === 1 && !isLoading && (
             <div className="space-y-2 pt-2">
-              <p className="text-xs text-gray-600 dark:text-gray-400 font-medium">Quick questions:</p>
+              <p className="text-xs text-[#0A1A2F]/60 font-medium">Quick questions:</p>
               {quickActions.map((action, idx) => (
                 <button
                   key={idx}
                   onClick={() => setInput(action)}
-                  className="block w-full text-left text-sm px-4 py-3 rounded-xl bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-gray-900 dark:text-gray-100 transition-colors shadow-sm border border-gray-200 dark:border-gray-600"
+                  className="block w-full text-left text-sm px-4 py-3 rounded-xl bg-white hover:bg-[#FFFDF7] text-[#0A1A2F] transition-colors shadow-sm border border-[#D9B878]/20"
                 >
                   {action}
                 </button>
@@ -363,14 +363,14 @@ Assistant: ${response}`,
         </div>
 
         {/* Input */}
-        <div className="p-5 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
+        <div className="p-5 border-t border-[#D9B878]/20 bg-white">
           <div className="flex gap-3">
             <Input
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyPress={(e) => e.key === 'Enter' && handleSend()}
               placeholder="Ask Gideon about faith, Scripture, or spiritual growth..."
-              className="flex-1 bg-gray-50 dark:bg-gray-700 border-gray-200 dark:border-gray-600 h-11"
+              className="flex-1 bg-[#FFFDF7] border-[#D9B878]/20 h-11"
               disabled={isLoading}
             />
             <Button

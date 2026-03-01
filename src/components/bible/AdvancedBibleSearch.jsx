@@ -325,7 +325,7 @@ Example format:
 
           {!searching && searchResults.length === 0 && searchQuery && (
             <div className="text-center py-12">
-              <Search className="w-16 h-16 mx-auto text-gray-300 mb-4" />
+              <Search className="w-16 h-16 mx-auto text-[#D9B878]/50 mb-4" />
               <p className="text-[#0A1A2F]/50">No results found for "{searchQuery}"</p>
               <p className="text-sm text-[#0A1A2F]/40 mt-2">Try different keywords or adjust your filters</p>
             </div>

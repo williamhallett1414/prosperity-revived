@@ -15,10 +15,10 @@ import {
 import VerseAnnotationModal from '@/components/bible/VerseAnnotationModal';
 
 const highlightColors = {
-  yellow: 'bg-yellow-200/60',
-  green: 'bg-green-200/60',
-  blue: 'bg-blue-200/60',
-  pink: 'bg-pink-200/60',
+  yellow: 'bg-[#FAD98D]/60',
+  green: 'bg-[#AFC7E3]/50',
+  blue: 'bg-[#D9B878]/40',
+  pink: 'bg-[#FAD98D]/35',
   purple: 'bg-[#D9B878]/30/60'
 };
 
@@ -146,7 +146,7 @@ export default function VerseReader({ book, chapter, onBack, onNavigate, bookmar
       )}
       
       {/* Header */}
-      <div className="flex items-center justify-between px-4 py-3 bg-white border-b border-[#D9B878]/20">
+      <div className="flex items-center justify-between px-4 py-3 bg-[#FFFDF7] border-b border-[#D9B878]/20">
         <div className="flex items-center gap-2">
           <Button variant="ghost" size="icon" onClick={onBack}>
             <ArrowLeft className="w-5 h-5" />
@@ -224,7 +224,7 @@ export default function VerseReader({ book, chapter, onBack, onNavigate, bookmar
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 20 }}
-                className="fixed bottom-24 left-1/2 -translate-x-1/2 bg-white rounded-2xl shadow-xl p-4 z-50 min-w-[300px]"
+                className="fixed bottom-24 left-1/2 -translate-x-1/2 bg-[#FFFDF7] rounded-2xl shadow-xl p-4 z-50 min-w-[300px]"
               >
                 <p className="text-sm text-[#0A1A2F]/50 mb-3">Actions:</p>
                 <div className="space-y-3">
@@ -245,7 +245,7 @@ export default function VerseReader({ book, chapter, onBack, onNavigate, bookmar
                   </div>
                   <button
                     onClick={() => handleAnnotate(verses.find(v => v.number === selectedVerse))}
-                    className="w-full flex items-center justify-center gap-2 py-2 px-4 bg-white border-2 border-[#c9a227] text-[#0A1A2F] rounded-lg hover:bg-[#FFFDF7] transition-colors"
+                    className="w-full flex items-center justify-center gap-2 py-2 px-4 bg-[#FFFDF7] border-2 border-[#c9a227] text-[#0A1A2F] rounded-lg hover:bg-[#FFFDF7] transition-colors"
                   >
                     <FileText className="w-4 h-4" />
                     Add Note & Highlight
@@ -274,7 +274,7 @@ export default function VerseReader({ book, chapter, onBack, onNavigate, bookmar
       </ScrollArea>
 
       {/* Navigation */}
-      <div className="flex items-center justify-between px-4 py-3 bg-white border-t border-[#D9B878]/20">
+      <div className="flex items-center justify-between px-4 py-3 bg-[#FFFDF7] border-t border-[#D9B878]/20">
         <Button
           variant="ghost"
           disabled={!canGoPrev}

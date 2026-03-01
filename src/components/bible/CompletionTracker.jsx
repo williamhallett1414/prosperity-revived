@@ -11,18 +11,18 @@ export default function CompletionTracker({ sections, completedSections, onToggl
       animate={{ opacity: 1, y: 0 }}
       className="mb-6"
     >
-      <Card className="p-6 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border-l-4 border-green-500">
+      <Card className="p-6 bg-gradient-to-br from-[#FAD98D]/15 to-[#D9B878]/10 border-l-4 border-[#c9a227]">
         <div className="space-y-4">
           <div>
             <div className="flex items-center justify-between mb-2">
-              <h3 className="font-semibold text-[#1a1a2e] dark:text-white">Study Progress</h3>
-              <span className="text-sm font-bold text-green-600">{Math.round(overallProgress)}%</span>
+              <h3 className="font-semibold text-[#0A1A2F]">Study Progress</h3>
+              <span className="text-sm font-bold text-[#c9a227]">{Math.round(overallProgress)}%</span>
             </div>
             <Progress value={overallProgress} className="h-2" />
           </div>
 
           <div className="space-y-2">
-            <p className="text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase">Sections</p>
+            <p className="text-xs font-semibold text-[#0A1A2F]/60 uppercase">Sections</p>
             <div className="grid grid-cols-1 gap-2">
               {sections.map((section, index) => {
                 const isCompleted = completedSections.includes(section);
@@ -33,7 +33,7 @@ export default function CompletionTracker({ sections, completedSections, onToggl
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.05 }}
                     onClick={() => onToggleSection(section)}
-                    className="flex items-center gap-3 p-2 rounded-lg hover:bg-white/40 dark:hover:bg-gray-800/40 transition-all duration-200 text-left group"
+                    className="flex items-center gap-3 p-2 rounded-lg hover:bg-[#FFFDF7]/40 transition-all duration-200 text-left group"
                   >
                     <div className="relative">
                       {isCompleted ? (
@@ -41,18 +41,18 @@ export default function CompletionTracker({ sections, completedSections, onToggl
                           initial={{ scale: 0.8 }}
                           animate={{ scale: 1 }}
                         >
-                          <div className="w-5 h-5 rounded-full bg-green-600 flex items-center justify-center">
+                          <div className="w-5 h-5 rounded-full bg-[#c9a227] flex items-center justify-center">
                             <Check className="w-3 h-3 text-white" />
                           </div>
                         </motion.div>
                       ) : (
-                        <Circle className="w-5 h-5 text-gray-400 group-hover:text-green-500 transition-colors" />
+                        <Circle className="w-5 h-5 text-[#0A1A2F]/40 group-hover:text-[#c9a227] transition-colors" />
                       )}
                     </div>
                     <span className={`text-sm font-medium transition-all ${
                       isCompleted
-                        ? 'text-green-700 dark:text-green-300 line-through'
-                        : 'text-gray-700 dark:text-gray-300 group-hover:text-green-700 dark:group-hover:text-green-300'
+                        ? 'text-[#c9a227] line-through'
+                        : 'text-[#0A1A2F]/75 group-hover:text-[#c9a227]
                     }`}>
                       {section}
                     </span>

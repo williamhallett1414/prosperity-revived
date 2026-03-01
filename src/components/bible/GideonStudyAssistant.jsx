@@ -149,7 +149,7 @@ Only reference past guidance when directly relevant. This shows you're walking a
       <Button
         onClick={() => setIsExpanded(!isExpanded)}
         variant="outline"
-        className="w-full bg-gradient-to-r from-[#FAD98D]/10 to-[#FFF8E7] dark:from-[#0A1A2F]/40 dark:to-[#1a1a2e]/40 border-[#D9B878]/40 dark:border-[#c9a227]/60 hover:shadow-md transition-all"
+        className="w-full bg-gradient-to-r from-[#FAD98D]/10 to-[#FFF8E7] border-[#D9B878]/40 hover:shadow-md transition-all"
       >
         <MessageCircle className="w-4 h-4 mr-2 text-[#c9a227]" />
         Ask Gideon About This Section
@@ -169,7 +169,7 @@ Only reference past guidance when directly relevant. This shows you're walking a
             exit={{ opacity: 0, height: 0 }}
             className="mt-3"
           >
-            <Card className="p-4 bg-white dark:bg-[#2d2d4a] space-y-4">
+            <Card className="p-4 bg-[#FFFDF7] space-y-4">
               {/* Input */}
               <div className="flex gap-2">
                 <Input
@@ -197,14 +197,14 @@ Only reference past guidance when directly relevant. This shows you're walking a
 
               {/* Current Response */}
               {currentAdvice && (
-                <div className="bg-gradient-to-br from-[#FAD98D]/10 to-[#FFF8E7] dark:from-[#0A1A2F]/30 dark:to-[#1a1a2e]/30 p-4 rounded-lg space-y-3">
+                <div className="bg-gradient-to-br from-[#FAD98D]/10 to-[#FFF8E7] p-4 rounded-lg space-y-3">
                   <div>
-                    <p className="text-xs font-medium text-[#8a6e1a] dark:text-[#D9B878] mb-1">Your Question:</p>
-                    <p className="text-sm text-gray-700 dark:text-gray-300">{currentAdvice.question}</p>
+                    <p className="text-xs font-medium text-[#8a6e1a] mb-1">Your Question:</p>
+                    <p className="text-sm text-[#0A1A2F]/75">{currentAdvice.question}</p>
                   </div>
                   <div>
-                    <p className="text-xs font-medium text-[#c9a227] dark:text-pink-400 mb-1">Gideon's Guidance:</p>
-                    <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">{currentAdvice.advice}</p>
+                    <p className="text-xs font-medium text-[#c9a227] mb-1">Gideon's Guidance:</p>
+                    <p className="text-sm text-[#0A1A2F]/75 leading-relaxed">{currentAdvice.advice}</p>
                   </div>
                   <Button
                     onClick={handleSaveAdvice}
@@ -220,30 +220,30 @@ Only reference past guidance when directly relevant. This shows you're walking a
 
               {/* Saved Advice */}
               {savedAdvice.length > 0 && (
-                <div className="space-y-3 border-t border-gray-200 dark:border-gray-700 pt-4">
-                  <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300">Saved Guidance</h4>
+                <div className="space-y-3 border-t border-[#D9B878]/20 pt-4">
+                  <h4 className="text-sm font-semibold text-[#0A1A2F]/75">Saved Guidance</h4>
                   {savedAdvice.map((item) => (
                     <div
                       key={item.id}
-                      className="bg-gray-50 dark:bg-[#1a1a2e] p-3 rounded-lg space-y-2"
+                      className="bg-[#FFFDF7] p-3 rounded-lg space-y-2"
                     >
                       <div className="flex items-start justify-between gap-2">
                         <div className="flex-1 space-y-2">
-                          <p className="text-xs font-medium text-gray-600 dark:text-gray-400">{item.user_question}</p>
-                          <p className="text-sm text-gray-700 dark:text-gray-300">{item.advice}</p>
+                          <p className="text-xs font-medium text-[#0A1A2F]/60">{item.user_question}</p>
+                          <p className="text-sm text-[#0A1A2F]/75">{item.advice}</p>
                         </div>
                         <div className="flex gap-1">
                           <button
                             onClick={() => toggleFavoriteMutation.mutate({ id: item.id, isFavorite: item.is_favorite })}
                             className={`p-1 rounded transition-colors ${
-                              item.is_favorite ? 'text-[#D9B878]' : 'text-gray-400 hover:text-[#D9B878]'
+                              item.is_favorite ? 'text-[#D9B878]' : 'text-[#0A1A2F]/40 hover:text-[#D9B878]'
                             }`}
                           >
                             <Heart className={`w-4 h-4 ${item.is_favorite ? 'fill-current' : ''}`} />
                           </button>
                           <button
                             onClick={() => deleteAdviceMutation.mutate(item.id)}
-                            className="p-1 rounded text-gray-400 hover:text-red-500 transition-colors"
+                            className="p-1 rounded text-[#0A1A2F]/40 hover:text-red-500 transition-colors"
                           >
                             <Trash2 className="w-4 h-4" />
                           </button>

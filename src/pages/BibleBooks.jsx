@@ -83,11 +83,11 @@ export default function BibleBooks() {
                 <div className="flex items-center justify-between">
                   <div>
                     <span className="font-semibold text-[#0A1A2F]">{book.name}</span>
-                    <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">
+                    <p className="text-sm text-[#0A1A2F]/50 mt-0.5">
                       {book.chapters} {book.chapters === 1 ? 'chapter' : 'chapters'}
                     </p>
                   </div>
-                  <div className="text-sm text-gray-400 dark:text-gray-500">
+                  <div className="text-sm text-[#0A1A2F]/40">
                     {book.abbr}
                   </div>
                 </div>

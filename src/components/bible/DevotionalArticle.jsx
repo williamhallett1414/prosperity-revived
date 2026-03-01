@@ -377,7 +377,7 @@ export default function DevotionalArticle({ devotional, onBack }) {
 
   if (!content) {
     return (
-      <div className="min-h-screen bg-[#FFFDF7] dark:bg-[#0A1A2F] p-6">
+      <div className="min-h-screen bg-[#FFFDF7] p-6">
         <Button variant="ghost" onClick={onBack}>
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back
@@ -388,13 +388,13 @@ export default function DevotionalArticle({ devotional, onBack }) {
   }
 
   return (
-    <div className="min-h-screen bg-[#FFFDF7] dark:bg-[#0A1A2F]">
+    <div className="min-h-screen bg-[#FFFDF7]">
       <div className="max-w-3xl mx-auto px-4 py-6">
         {/* Back Button */}
         <Button
           variant="ghost"
           onClick={onBack}
-          className="mb-4 text-[#0A1A2F]/60 dark:text-[#0A1A2F]/40 hover:text-[#0A1A2F] dark:hover:text-white"
+          className="mb-4 text-[#0A1A2F]/60 hover:text-[#0A1A2F]"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back
@@ -424,7 +424,7 @@ export default function DevotionalArticle({ devotional, onBack }) {
             <Sparkles className="w-5 h-5 text-[#c9a227]" />
             Introduction
           </h2>
-          <div className="space-y-4 text-[#0A1A2F]/75 dark:text-gray-300 leading-relaxed">
+          <div className="space-y-4 text-[#0A1A2F]/75 leading-relaxed">
             {content.introduction.map((paragraph, index) => (
               <p key={index}>{paragraph}</p>
             ))}
@@ -432,14 +432,14 @@ export default function DevotionalArticle({ devotional, onBack }) {
         </Card>
 
         {/* Key Bible Verses */}
-        <Card className="p-6 bg-gradient-to-br from-[#FAD98D]/15 to-[#D9B878]/10 dark:from-[#FAD98D]/10 dark:to-[#D9B878]/8 border-l-4 border-[#c9a227] mb-6">
+        <Card className="p-6 bg-gradient-to-br from-[#FAD98D]/15 to-[#D9B878]/10 border-l-4 border-[#c9a227] mb-6">
           <h2 className="text-xl font-bold text-[#0A1A2F] mb-4">Key Bible Verses</h2>
           <div className="space-y-4">
             {content.verses.map((verse, index) => (
               <div key={index}>
                 <h3 className="font-semibold text-[#0A1A2F] mb-2">{index + 1}. {verse.title}</h3>
-                <p className="italic text-[#0A1A2F]/75 dark:text-gray-300 mb-2">{verse.verse}</p>
-                <p className="text-sm text-[#0A1A2F]/60 dark:text-[#0A1A2F]/40">{verse.insight}</p>
+                <p className="italic text-[#0A1A2F]/75 mb-2">{verse.verse}</p>
+                <p className="text-sm text-[#0A1A2F]/60">{verse.insight}</p>
               </div>
             ))}
           </div>
@@ -448,7 +448,7 @@ export default function DevotionalArticle({ devotional, onBack }) {
         {/* Reflection */}
         <Card className="p-6 mb-6">
           <h2 className="text-xl font-bold text-[#0A1A2F] mb-4">Reflection</h2>
-          <div className="space-y-4 text-[#0A1A2F]/75 dark:text-gray-300 leading-relaxed">
+          <div className="space-y-4 text-[#0A1A2F]/75 leading-relaxed">
             {content.reflection.map((paragraph, index) => (
               <p key={index}>{paragraph}</p>
             ))}
@@ -456,13 +456,13 @@ export default function DevotionalArticle({ devotional, onBack }) {
         </Card>
 
         {/* Reflection Questions */}
-        <Card className="p-6 bg-gradient-to-br from-[#F2F6FA] to-[#F2F6FA] dark:from-blue-900/20 dark:to-[#0A1A2F]/20 mb-6">
+        <Card className="p-6 bg-gradient-to-br from-[#FAD98D]/10 to-[#D9B878]/8 mb-6">
           <h2 className="text-xl font-bold text-[#0A1A2F] mb-4">Reflection Questions</h2>
           <div className="space-y-4">
             {content.reflectionQuestions.map((section, index) => (
               <div key={index}>
                 <h3 className="font-semibold text-[#0A1A2F] mb-2">{section.category}</h3>
-                <ul className="list-disc pl-5 space-y-2 text-[#0A1A2F]/75 dark:text-gray-300 text-sm">
+                <ul className="list-disc pl-5 space-y-2 text-[#0A1A2F]/75 text-sm">
                   {section.questions.map((question, qIndex) => (
                     <li key={qIndex}>{question}</li>
                   ))}
@@ -473,12 +473,12 @@ export default function DevotionalArticle({ devotional, onBack }) {
         </Card>
 
         {/* Call to Christ */}
-        <Card className="p-6 bg-gradient-to-br from-[#FAD98D]/10 to-[#FFF8E7] dark:from-[#0A1A2F]/40 dark:to-[#0A1A2F]/40 mb-6">
+        <Card className="p-6 bg-gradient-to-br from-[#FAD98D]/10 to-[#FFF8E7] mb-6">
           <h2 className="text-xl font-bold text-[#0A1A2F] mb-4 flex items-center gap-2">
             <Heart className="w-5 h-5 text-[#8a6e1a]" />
             Call to Christ
           </h2>
-          <div className="space-y-4 text-[#0A1A2F]/75 dark:text-gray-300 leading-relaxed">
+          <div className="space-y-4 text-[#0A1A2F]/75 leading-relaxed">
             <p className="font-semibold">{content.callToChrist.title}</p>
             <p>{content.callToChrist.intro}</p>
             
@@ -500,7 +500,7 @@ export default function DevotionalArticle({ devotional, onBack }) {
         {/* Prayer */}
         <Card className="p-6 bg-gradient-to-br from-[#c9a227]/10 to-[#D9B878]/10 border-l-4 border-[#c9a227] mb-6">
           <h2 className="text-xl font-bold text-[#0A1A2F] mb-4">Prayer</h2>
-          <p className="text-[#0A1A2F]/75 dark:text-gray-300 leading-relaxed italic">
+          <p className="text-[#0A1A2F]/75 leading-relaxed italic">
             {content.prayer}
           </p>
         </Card>
@@ -508,7 +508,7 @@ export default function DevotionalArticle({ devotional, onBack }) {
         {/* Conclusion */}
         <Card className="p-6">
           <h2 className="text-xl font-bold text-[#0A1A2F] mb-4">Conclusion</h2>
-          <div className="space-y-4 text-[#0A1A2F]/75 dark:text-gray-300 leading-relaxed">
+          <div className="space-y-4 text-[#0A1A2F]/75 leading-relaxed">
             {content.conclusion.map((paragraph, index) => (
               <p key={index} className={paragraph.includes('chosen') || paragraph.includes('masterpiece') ? 'font-semibold text-[#0A1A2F]' : ''}>
                 {paragraph}

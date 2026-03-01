@@ -9,7 +9,7 @@ export default function StudyGuideCard({ guide, onClick, index }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.1 }}
       onClick={onClick}
-      className="group w-full text-left bg-white dark:bg-[#2d2d4a] rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 dark:border-gray-700"
+      className="group w-full text-left bg-[#FFFDF7] rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 border border-[#D9B878]/15"
     >
       <div className="relative h-40 overflow-hidden">
         <img
@@ -25,11 +25,11 @@ export default function StudyGuideCard({ guide, onClick, index }) {
       </div>
       
       <div className="p-4">
-        <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2 mb-3">
+        <p className="text-sm text-[#0A1A2F]/60 line-clamp-2 mb-3">
           {guide.description}
         </p>
         
-        <div className="flex items-center justify-between text-xs text-gray-400">
+        <div className="flex items-center justify-between text-xs text-[#0A1A2F]/40">
           <div className="flex items-center gap-1">
             <BookOpen className="w-3.5 h-3.5" />
             <span>{guide.chapters} chapters</span>

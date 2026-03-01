@@ -313,8 +313,8 @@ export default function UnifiedBibleReader({
   return (
     <div className="h-[calc(100vh-8rem)] flex bg-[#FFFDF7]">
       {/* Left Sidebar - Books */}
-      <div className="w-64 bg-white border-r border-[#D9B878]/20 overflow-y-auto">
-        <div className="sticky top-0 bg-white border-b border-[#D9B878]/20 p-4 z-10">
+      <div className="w-64 bg-[#FFFDF7] border-r border-[#D9B878]/20 overflow-y-auto">
+        <div className="sticky top-0 bg-[#FFFDF7] border-b border-[#D9B878]/20 p-4 z-10">
           <button
             onClick={onBack}
             className="flex items-center gap-2 text-[#0A1A2F]/60 hover:text-[#0A1A2F] mb-2"
@@ -351,7 +351,7 @@ export default function UnifiedBibleReader({
         {!selectedBook && (
           <div className="flex items-center justify-center h-full">
             <div className="text-center">
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">
+              <h3 className="text-xl font-semibold text-[#0A1A2F] mb-2">
                 Select a Book
               </h3>
               <p className="text-[#0A1A2F]/50">Choose a book from the {testamentName}</p>
@@ -380,7 +380,7 @@ export default function UnifiedBibleReader({
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => handleChapterSelect(chapterNum)}
-                  className="aspect-square rounded-lg bg-white border-2 border-[#D9B878]/25 hover:border-[#c9a227] hover:bg-[#FAD98D]/15 flex items-center justify-center font-semibold text-[#0A1A2F]/75 hover:text-[#c9a227] transition-all"
+                  className="aspect-square rounded-lg bg-[#FFFDF7] border-2 border-[#D9B878]/25 hover:border-[#c9a227] hover:bg-[#FAD98D]/15 flex items-center justify-center font-semibold text-[#0A1A2F]/75 hover:text-[#c9a227] transition-all"
                 >
                   {chapterNum}
                 </motion.button>
@@ -475,7 +475,7 @@ export default function UnifiedBibleReader({
                         <span className="text-sm font-semibold text-[#c9a227] mt-1 flex-shrink-0 w-8">
                           {verse.verse}
                         </span>
-                        <p className="text-gray-800 leading-relaxed flex-1">
+                        <p className="text-[#0A1A2F] leading-relaxed flex-1">
                           {verse.text}
                         </p>
                         {(bookmark?.highlight_color || hasNote) && (

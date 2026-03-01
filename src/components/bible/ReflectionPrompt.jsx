@@ -33,14 +33,14 @@ Generate only the reflection question, no additional text.`,
       animate={{ opacity: 1, y: 0 }}
       className="mt-3"
     >
-      <Card className="p-4 bg-gradient-to-br from-[#FAD98D]/10 to-[#FFF8E7] dark:from-[#0A1A2F]/40 dark:to-[#1a1a2e]/40 border-l-4 border-[#D9B878]">
+      <Card className="p-4 bg-gradient-to-br from-[#FAD98D]/10 to-[#FFF8E7] border-l-4 border-[#D9B878]">
         <div className="flex items-start gap-3">
           <Sparkles className="w-5 h-5 text-[#8a6e1a] flex-shrink-0 mt-0.5" />
           <div className="flex-1 min-w-0">
             {prompt ? (
               <>
-                <p className="text-sm font-semibold text-[#1a1a2e] dark:text-white mb-3">Reflection Question:</p>
-                <p className="text-sm text-gray-700 dark:text-gray-300 mb-3 italic">"{prompt}"</p>
+                <p className="text-sm font-semibold text-[#0A1A2F] mb-3">Reflection Question:</p>
+                <p className="text-sm text-[#0A1A2F]/75 mb-3 italic">"{prompt}"</p>
                 <Button
                   variant="outline"
                   size="sm"
@@ -58,7 +58,7 @@ Generate only the reflection question, no additional text.`,
                 size="sm"
                 onClick={generatePrompt}
                 disabled={isLoading}
-                className="gap-2 text-[#8a6e1a] hover:text-[#3C4E53]"
+                className="gap-2 text-[#8a6e1a] hover:text-[#0A1A2F]"
               >
                 <Sparkles className="w-4 h-4" />
                 {isLoading ? 'Generating...' : 'AI Reflection Prompt'}
