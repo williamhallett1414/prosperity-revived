@@ -133,7 +133,7 @@ export default function ReeVibeFitness({ user }) {
   return (
     <div className="space-y-4">
       {/* Facebook-style Post Box */}
-      <div className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 shadow-sm mb-4">
+      <div className="bg-white rounded-2xl p-4 shadow-sm mb-4">
         <div className="flex items-center gap-3 mb-3">
           <Avatar className="w-10 h-10">
             <AvatarFallback className="bg-[#FD9C2D]/20 text-[#FD9C2D]">
@@ -142,7 +142,7 @@ export default function ReeVibeFitness({ user }) {
           </Avatar>
           <button
             onClick={() => setShowCreatePost(true)}
-            className="flex-1 text-left px-4 py-2.5 bg-gray-100 dark:bg-gray-800 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+            className="flex-1 text-left px-4 py-2.5 bg-[#F0F8FF] rounded-full text-[#0A1A2F]/45 hover:bg-[#BAE6FD]/20 transition-colors"
           >
             What's your motivation today?
           </button>
@@ -161,7 +161,7 @@ export default function ReeVibeFitness({ user }) {
           <label htmlFor="quick-image-upload" className="flex-1">
             <Button variant="ghost" className="w-full" asChild>
               <span>
-                <ImageIcon className="w-5 h-5 mr-2 text-green-600" />
+                <ImageIcon className="w-5 h-5 mr-2 text-[#0EA5E9]" />
                 Photo
               </span>
             </Button>
@@ -179,7 +179,7 @@ export default function ReeVibeFitness({ user }) {
           <label htmlFor="quick-video-upload" className="flex-1">
             <Button variant="ghost" className="w-full" asChild>
               <span>
-                <Video className="w-5 h-5 mr-2 text-red-600" />
+                <Video className="w-5 h-5 mr-2 text-[#FD9C2D]" />
                 Video
               </span>
             </Button>
@@ -202,9 +202,9 @@ export default function ReeVibeFitness({ user }) {
 
         <TabsContent value={filter} className="space-y-3 mt-4">
           {fitnessPosts.length === 0 ? (
-            <div className="text-center py-12 bg-white dark:bg-[#2d2d4a] rounded-2xl">
-              <Dumbbell className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-              <p className="text-gray-500 dark:text-gray-400">
+            <div className="text-center py-12 bg-white rounded-2xl">
+              <Dumbbell className="w-12 h-12 text-[#0A1A2F]/25 mx-auto mb-3" />
+              <p className="text-[#0A1A2F]/45">
                 No posts yet. Be the first to share your fitness journey!
               </p>
             </div>
@@ -215,7 +215,7 @@ export default function ReeVibeFitness({ user }) {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.05 }}
-                className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 shadow-sm"
+                className="bg-white rounded-2xl p-4 shadow-sm"
               >
                 {/* Post Header */}
                 <div className="flex items-center gap-3 mb-3">
@@ -225,17 +225,17 @@ export default function ReeVibeFitness({ user }) {
                     </AvatarFallback>
                   </Avatar>
                   <div className="flex-1">
-                    <p className="font-semibold text-sm text-gray-900 dark:text-white">
+                    <p className="font-semibold text-sm text-[#0A1A2F]">
                       {post.user_name}
                     </p>
-                    <p className="text-xs text-gray-500">
+                    <p className="text-xs text-[#0A1A2F]/45">
                       {format(new Date(post.created_date), 'MMM d, yyyy • h:mm a')}
                     </p>
                   </div>
                 </div>
 
                 {/* Post Content */}
-                <p className="text-gray-700 dark:text-gray-300 mb-3 whitespace-pre-wrap">
+                <p className="text-[#0A1A2F]/70 mb-3 whitespace-pre-wrap">
                   {post.content}
                 </p>
 

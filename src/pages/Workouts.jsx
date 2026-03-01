@@ -215,12 +215,6 @@ export default function Workouts() {
             {/* Weekly Theme */}
             <WeeklyThemeBanner />
 
-            {/* Page Header */}
-            <div className="mb-6">
-              <h2 className="text-2xl font-bold text-[#0A1A2F] mb-2">Workouts</h2>
-              <p className="text-sm text-[#0A1A2F]/60">Build strength, energy, and consistency.</p>
-            </div>
-
             {/* Today's Recommended Workout */}
             {recommendedWorkout &&
             <motion.div
@@ -230,14 +224,14 @@ export default function Workouts() {
 
                 <div className="flex items-start justify-between mb-3">
                   <div>
-                    <h3 className="text-slate-50 mb-1 text-lg font-bold">Today's Recommended Workout</h3>
+                    <h3 className="text-white mb-1 text-lg font-bold">Today's Recommended Workout</h3>
                     <p className="text-sm text-white/70">Based on your goals and activity</p>
                   </div>
                   <Dumbbell className="w-6 h-6" />
                 </div>
                 <div className="bg-white/30 backdrop-blur-sm rounded-lg p-3 mb-3">
-                  <p className="text-slate-50 font-semibold">{recommendedWorkout.title}</p>
-                  <p className="text-slate-50 text-sm">
+                  <p className="text-white font-semibold">{recommendedWorkout.title}</p>
+                  <p className="text-white text-sm">
                     {recommendedWorkout.duration_minutes} min • {recommendedWorkout.difficulty || 'All Levels'}
                   </p>
                 </div>
@@ -320,18 +314,8 @@ export default function Workouts() {
                   <p className="text-xs text-[#0A1A2F]/60">Day streak</p>
                 </motion.div>
               </div>
-            </div>
-
-            {/* Quick Actions */}
-            <div className="mb-6">
-              <h3 className="text-sm font-semibold text-[#0A1A2F] mb-3">Quick Actions</h3>
-              <Link to={createPageUrl('WorkoutProgress')} className="block">
-                <Button variant="outline" className="w-full py-4">
-                  <div className="flex items-center justify-center gap-2">
-                    <TrendingUp className="w-5 h-5" />
-                    <span className="text-sm">View Progress</span>
-                  </div>
-                </Button>
+              <Link to={createPageUrl('WorkoutProgress')} className="flex items-center justify-end gap-1 mt-2 text-xs text-[#0EA5E9] font-semibold hover:text-[#38BDF8] transition-colors">
+                <TrendingUp className="w-3.5 h-3.5" /> View Progress
               </Link>
             </div>
 
@@ -345,28 +329,32 @@ export default function Workouts() {
                     icon: Dumbbell,
                     iconColor: 'text-[#FD9C2D]',
                     bgColor: 'bg-[#FD9C2D]/20',
-                    label: 'Quick Burn', // keep orange
+                    category: 'cardio',
+                    maxMin: 15,
                     workout: allWorkouts.find((w) => w.category === 'cardio' && w.duration_minutes <= 15) || allWorkouts[0]
                   },
                   {
                     icon: Target,
                     iconColor: 'text-[#0EA5E9]',
                     bgColor: 'bg-[#38BDF8]/10',
-                    label: 'Core Reset',
+                    category: 'strength',
+                    maxMin: 15,
                     workout: allWorkouts.find((w) => w.category === 'strength' && w.duration_minutes <= 15) || allWorkouts[1]
                   },
                   {
                     icon: Heart,
                     iconColor: 'text-[#38BDF8]',
                     bgColor: 'bg-[#38BDF8]/15',
-                    label: 'Stretch & Mobility',
+                    category: 'flexibility',
+                    maxMin: 15,
                     workout: allWorkouts.find((w) => w.category === 'flexibility' && w.duration_minutes <= 15) || allWorkouts[2]
                   },
                   {
                     icon: Droplets,
                     iconColor: 'text-[#0EA5E9]',
                     bgColor: 'bg-[#38BDF8]/10',
-                    label: 'Low-Impact Cardio',
+                    category: 'cardio',
+                    maxMin: 20,
                     workout: allWorkouts.find((w) => w.category === 'cardio' && w.duration_minutes >= 10 && w.duration_minutes <= 20) || allWorkouts[3]
                   }];
 
@@ -439,7 +427,7 @@ export default function Workouts() {
                           <p className="text-[10px] text-[#0A1A2F]/60 mb-2">{challenge.duration_days} Days</p>
                           {isParticipating ?
                           <div className="w-full">
-                              <div className="h-1.5 bg-gray-200 rounded-full overflow-hidden">
+                              <div className="h-1.5 bg-[#BAE6FD]/30 rounded-full overflow-hidden">
                                 <div className="h-full bg-gradient-to-r from-[#38BDF8] to-[#0EA5E9] rounded-full transition-all" style={{ width: `${progress}%` }} />
                               </div>
                               <p className="text-[10px] text-[#0A1A2F]/60 mt-1">{progress}%</p>

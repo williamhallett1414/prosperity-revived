@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { 
-  CheckCircle, Clock, TrendingUp, Dumbbell, 
-  Share2, ChevronDown, ChevronUp, Eye, Play, ThumbsUp, MessageCircle, Copy
+import {
+  CheckCircle, Clock, Dumbbell,
+  Share2, Eye, Play, ThumbsUp, MessageCircle, Copy,
+  ChevronDown, ChevronUp
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -16,15 +15,20 @@ import WorkoutDetailModal from './WorkoutDetailModal';
 import CommentSection from './CommentSection';
 import StartWorkoutModal from './StartWorkoutModal';
 
-export default function WorkoutCard({ 
-  workout, 
-  onComplete, 
-  index = 0, 
+const DIFFICULTY_STYLES = {
+  beginner:     'bg-[#38BDF8]/12 text-[#0EA5E9]',
+  intermediate: 'bg-[#FD9C2D]/12 text-[#E89020]',
+  advanced:     'bg-[#0A1A2F]/8 text-[#0A1A2F]',
+};
+
+export default function WorkoutCard({
+  workout,
+  onComplete,
+  index = 0,
   isPremade = false,
   user,
   showCommunityStats = false
 }) {
-  const [showLogModal, setShowLogModal] = useState(false);
   const [showShareModal, setShowShareModal] = useState(false);
   const [showDetailModal, setShowDetailModal] = useState(false);
   const [showStartModal, setShowStartModal] = useState(false);
@@ -35,9 +39,7 @@ export default function WorkoutCard({
   const likeWorkout = useMutation({
     mutationFn: async () => {
       const newLikes = (workout.likes || 0) + (hasLiked ? -1 : 1);
-      return base44.entities.WorkoutPlan.update(workout.id, {
-        likes: newLikes
-      });
+      return base44.entities.WorkoutPlan.update(workout.id, { likes: newLikes });
     },
     onSuccess: () => {
       setHasLiked(!hasLiked);
@@ -49,7 +51,7 @@ export default function WorkoutCard({
 
   const copyWorkout = useMutation({
     mutationFn: async () => {
-      const workoutCopy = {
+      await base44.entities.WorkoutPlan.create({
         title: `${workout.title} (Copy)`,
         description: workout.description,
         difficulty: workout.difficulty,
@@ -57,10 +59,7 @@ export default function WorkoutCard({
         exercises: workout.exercises,
         category: workout.category,
         completed_dates: []
-      };
-      
-      await base44.entities.WorkoutPlan.create(workoutCopy);
-      
+      });
       if (workout.id) {
         await base44.entities.WorkoutPlan.update(workout.id, {
           times_copied: (workout.times_copied || 0) + 1
@@ -73,207 +72,153 @@ export default function WorkoutCard({
     }
   });
 
-  const difficultyColors = {
-    beginner: 'bg-[#38BDF8]/15 text-[#0EA5E9]',
-    intermediate: 'bg-[#FD9C2D]/15 text-[#E89020]',
-    advanced: 'bg-[#0A0A0A]/10 text-[#0A0A0A]'
-  };
-
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.05 }}
-      className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 shadow-sm"
+      className="bg-white rounded-2xl overflow-hidden border border-[#BAE6FD]/30 shadow-sm"
     >
       {workout.image_url && (
-        <img 
-          src={workout.image_url} 
-          alt={workout.title} 
-          className="w-full h-40 object-cover rounded-lg mb-3"
-        />
-      )}
-
-      <div className="flex items-center justify-between mb-3">
-        <div className="flex items-center gap-2">
-          <h3 className="font-semibold text-lg text-gray-900 dark:text-white">
-            {workout.title}
-          </h3>
-          <Badge className={difficultyColors[workout.difficulty]}>
-            {workout.difficulty}
-          </Badge>
-        </div>
-        <div className="flex gap-2">
-          {!isPremade && (
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setShowShareModal(true)}
-              className="text-[#0EA5E9] hover:text-[#0EA5E9] hover:bg-[#38BDF8]/10"
-            >
-              <Share2 className="w-5 h-5" />
-            </Button>
+        <div className="relative h-36 overflow-hidden">
+          <img src={workout.image_url} alt={workout.title} className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0A1A2F]/50 to-transparent" />
+          {workout.difficulty && (
+            <span className={`absolute bottom-2.5 left-3 text-[10px] font-bold px-2 py-0.5 rounded-full capitalize ${DIFFICULTY_STYLES[workout.difficulty] || 'bg-white/20 text-white'} backdrop-blur-sm`}>
+              {workout.difficulty}
+            </span>
           )}
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setShowDetailModal(true)}
-            className="text-gray-600 hover:text-gray-700"
-          >
-            <Eye className="w-5 h-5" />
-          </Button>
         </div>
-      </div>
-
-      {showCommunityStats && workout.creator_name && (
-        <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">
-          by {workout.creator_name}
-        </p>
       )}
 
-      <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
-        {workout.description}
-      </p>
+      <div className="p-4">
+        <div className="flex items-start justify-between mb-2">
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-2 flex-wrap mb-1">
+              <h3 className="font-bold text-[#0A1A2F] text-base truncate">{workout.title}</h3>
+              {!workout.image_url && workout.difficulty && (
+                <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full capitalize flex-shrink-0 ${DIFFICULTY_STYLES[workout.difficulty] || 'bg-[#BAE6FD]/15 text-[#0A1A2F]/60'}`}>
+                  {workout.difficulty}
+                </span>
+              )}
+            </div>
+            {showCommunityStats && workout.creator_name && (
+              <p className="text-xs text-[#0A1A2F]/40 mb-1">by {workout.creator_name}</p>
+            )}
+          </div>
+          <div className="flex gap-1 flex-shrink-0 ml-2">
+            {!isPremade && (
+              <button onClick={() => setShowShareModal(true)}
+                className="w-8 h-8 rounded-full hover:bg-[#38BDF8]/10 flex items-center justify-center text-[#0EA5E9] transition-colors">
+                <Share2 className="w-4 h-4" />
+              </button>
+            )}
+            <button onClick={() => setShowDetailModal(true)}
+              className="w-8 h-8 rounded-full hover:bg-[#BAE6FD]/20 flex items-center justify-center text-[#0A1A2F]/40 transition-colors">
+              <Eye className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
 
-      <div className="flex items-center gap-4 mb-3 text-sm text-gray-600 dark:text-gray-400">
-        <div className="flex items-center gap-1">
-          <Clock className="w-4 h-4" />
-          <span>{workout.duration_minutes} min</span>
-        </div>
-        <div className="flex items-center gap-1">
-          <Dumbbell className="w-4 h-4" />
-          <span>{workout.exercises?.length || 0} exercises</span>
-        </div>
-        {!isPremade && workout.completed_dates?.length > 0 && (
+        <p className="text-sm text-[#0A1A2F]/50 mb-3 line-clamp-2 leading-relaxed">{workout.description}</p>
+
+        <div className="flex items-center gap-4 mb-3 text-xs text-[#0A1A2F]/45">
           <div className="flex items-center gap-1">
-            <CheckCircle className="w-4 h-4 text-[#38BDF8]" />
-            <span>{workout.completed_dates.length} completed</span>
+            <Clock className="w-3.5 h-3.5" />
+            <span>{workout.duration_minutes} min</span>
           </div>
-        )}
-      </div>
-
-      {workout.exercises && workout.exercises.length > 0 && (
-        <div className="mb-3 text-sm">
-          <p className="text-gray-500 dark:text-gray-400 mb-1 font-medium">Exercises:</p>
-          <div className="space-y-1">
-            {workout.exercises.slice(0, 3).map((ex, i) => (
-              <div key={i} className="text-gray-700 dark:text-gray-300">
-                • {ex.name} {ex.sets && ex.reps && `- ${ex.sets}x${ex.reps}`}
-              </div>
-            ))}
-            {workout.exercises.length > 3 && (
-              <p className="text-gray-500 dark:text-gray-400">
-                +{workout.exercises.length - 3} more exercises
-              </p>
-            )}
+          <div className="flex items-center gap-1">
+            <Dumbbell className="w-3.5 h-3.5" />
+            <span>{workout.exercises?.length || 0} exercises</span>
           </div>
+          {!isPremade && workout.completed_dates?.length > 0 && (
+            <div className="flex items-center gap-1 text-[#38BDF8]">
+              <CheckCircle className="w-3.5 h-3.5" />
+              <span>{workout.completed_dates.length}×</span>
+            </div>
+          )}
         </div>
-      )}
 
-      <div className="flex gap-2 mt-3">
-        {showCommunityStats && workout.created_by !== user?.email ? (
-          <>
-            <Button
-              onClick={() => copyWorkout.mutate()}
-              className="flex-1 bg-gradient-to-r from-[#FD9C2D] to-[#E89020] hover:opacity-90"
-              disabled={copyWorkout.isPending}
-            >
-              <Copy className="w-4 h-4 mr-2" />
-              {copyWorkout.isPending ? 'Adding...' : 'Add to My Workouts'}
-            </Button>
-            <Button
-              variant="outline"
-              onClick={() => likeWorkout.mutate()}
-              className={`flex items-center gap-2 ${hasLiked ? 'bg-[#38BDF8]/10 text-[#0EA5E9]' : ''}`}
-            >
-              <ThumbsUp className={`w-4 h-4 ${hasLiked ? 'fill-current' : ''}`} />
-              {workout.likes || 0}
-            </Button>
-            <Button
-              variant="outline"
-              onClick={() => setShowComments(!showComments)}
-            >
-              <MessageCircle className="w-4 h-4" />
-            </Button>
-          </>
-        ) : (
-          <>
-            <Button
-              onClick={() => setShowStartModal(true)}
-              className="flex-1 bg-gradient-to-r from-[#FD9C2D] to-[#E89020] hover:opacity-90"
-            >
-              <Play className="w-4 h-4 mr-2" />
-              Start Workout
-            </Button>
-            {showCommunityStats && (
-              <div className="flex gap-2">
-                <div className="flex items-center gap-1 text-sm text-gray-500 px-3 py-2 bg-gray-50 dark:bg-gray-800 rounded-md">
-                  <ThumbsUp className="w-4 h-4" />
-                  {workout.likes || 0}
-                </div>
-                <div className="flex items-center gap-1 text-sm text-gray-500 px-3 py-2 bg-gray-50 dark:bg-gray-800 rounded-md">
-                  <Copy className="w-4 h-4" />
-                  {workout.times_copied || 0}
-                </div>
-              </div>
-            )}
-            <Button
-              variant="outline"
-              onClick={() => setShowComments(!showComments)}
-              className="flex items-center gap-2"
-            >
-              {showComments ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-              Comments
-            </Button>
-          </>
+        {workout.exercises?.length > 0 && (
+          <div className="mb-3">
+            <div className="space-y-0.5">
+              {workout.exercises.slice(0, 3).map((ex, i) => (
+                <p key={i} className="text-xs text-[#0A1A2F]/45">
+                  · {ex.name}{ex.sets && ex.reps ? ` — ${ex.sets}×${ex.reps}` : ex.duration_seconds ? ` — ${ex.sets}×${ex.duration_seconds}s` : ''}
+                </p>
+              ))}
+              {workout.exercises.length > 3 && (
+                <p className="text-xs text-[#0A1A2F]/30">+{workout.exercises.length - 3} more</p>
+              )}
+            </div>
+          </div>
         )}
+
+        <div className="flex gap-2">
+          {showCommunityStats && workout.created_by !== user?.email ? (
+            <>
+              <Button onClick={() => copyWorkout.mutate()}
+                className="flex-1 bg-gradient-to-r from-[#FD9C2D] to-[#E89020] hover:opacity-90 text-white text-sm"
+                disabled={copyWorkout.isPending}>
+                <Copy className="w-3.5 h-3.5 mr-1.5" />
+                {copyWorkout.isPending ? 'Adding…' : 'Add to My Workouts'}
+              </Button>
+              <button onClick={() => likeWorkout.mutate()}
+                className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm transition-all border ${
+                  hasLiked
+                    ? 'bg-[#38BDF8]/10 text-[#0EA5E9] border-[#38BDF8]/25'
+                    : 'border-[#BAE6FD]/30 text-[#0A1A2F]/40 hover:bg-[#F0F8FF]'
+                }`}>
+                <ThumbsUp className={`w-4 h-4 ${hasLiked ? 'fill-current' : ''}`} />
+                {workout.likes || 0}
+              </button>
+              <button onClick={() => setShowComments(!showComments)}
+                className="px-3 py-2 rounded-lg border border-[#BAE6FD]/30 text-[#0A1A2F]/40 hover:bg-[#F0F8FF] transition-colors">
+                <MessageCircle className="w-4 h-4" />
+              </button>
+            </>
+          ) : (
+            <>
+              <Button onClick={() => setShowStartModal(true)}
+                className="flex-1 bg-gradient-to-r from-[#FD9C2D] to-[#E89020] hover:opacity-90 text-white font-semibold">
+                <Play className="w-4 h-4 mr-1.5" /> Start Workout
+              </Button>
+              {showCommunityStats && (
+                <div className="flex gap-1.5">
+                  <div className="flex items-center gap-1 text-xs text-[#0A1A2F]/40 px-2.5 py-2 bg-[#F0F8FF] rounded-lg border border-[#BAE6FD]/20">
+                    <ThumbsUp className="w-3.5 h-3.5" />{workout.likes || 0}
+                  </div>
+                  <div className="flex items-center gap-1 text-xs text-[#0A1A2F]/40 px-2.5 py-2 bg-[#F0F8FF] rounded-lg border border-[#BAE6FD]/20">
+                    <Copy className="w-3.5 h-3.5" />{workout.times_copied || 0}
+                  </div>
+                </div>
+              )}
+              <button onClick={() => setShowComments(!showComments)}
+                className="flex items-center gap-1.5 px-3 py-2 rounded-lg border border-[#BAE6FD]/30 text-[#0A1A2F]/40 hover:bg-[#F0F8FF] text-xs transition-colors">
+                {showComments ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+              </button>
+            </>
+          )}
+        </div>
+
+        <AnimatePresence>
+          {showComments && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              className="mt-3 border-t border-[#BAE6FD]/20 pt-3"
+            >
+              <CommentSection contentId={workout.id} contentType="workout" user={user} />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
 
-      <AnimatePresence>
-        {showComments && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="mt-3 border-t pt-3"
-          >
-            <CommentSection 
-              contentId={workout.id}
-              contentType="workout"
-              user={user}
-            />
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      <WorkoutLogModal
-        isOpen={showLogModal}
-        onClose={() => setShowLogModal(false)}
-        workout={workout}
-        user={user}
-      />
-
-      <ShareWorkoutModal
-        isOpen={showShareModal}
-        onClose={() => setShowShareModal(false)}
-        workout={workout}
-        user={user}
-      />
-
-      <WorkoutDetailModal
-        isOpen={showDetailModal}
-        onClose={() => setShowDetailModal(false)}
-        workout={workout}
-        user={user}
-      />
-
-      <StartWorkoutModal
-        isOpen={showStartModal}
-        onClose={() => setShowStartModal(false)}
-        workout={workout}
-        user={user}
-        onComplete={onComplete}
-      />
+      <ShareWorkoutModal isOpen={showShareModal} onClose={() => setShowShareModal(false)} workout={workout} user={user} />
+      <WorkoutDetailModal isOpen={showDetailModal} onClose={() => setShowDetailModal(false)} workout={workout} user={user}
+        onStartWorkout={(w) => setShowStartModal(true)} />
+      <StartWorkoutModal isOpen={showStartModal} onClose={() => setShowStartModal(false)} workout={workout} user={user} onComplete={onComplete} />
     </motion.div>
   );
 }

@@ -32,19 +32,15 @@ export default function WorkoutLogModal({ isOpen, onClose, workout, user }) {
   const logWorkout = useMutation({
     mutationFn: async (data) => {
       const result = await base44.entities.WorkoutSession.create(data);
-      
-      // Award points and update progress
       const allProgress = await base44.entities.UserProgress.list();
       const userProgress = allProgress.find(p => p.created_by === user?.email);
       const workoutCount = (userProgress?.workouts_completed || 0) + 1;
-      
       await awardPoints(user?.email, 15, { workouts_completed: workoutCount });
       await checkAndAwardBadges(user?.email);
-      
       return result;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries(['workout-sessions']);
+      queryClient.invalidateQueries(['workoutSessions']);
       queryClient.invalidateQueries(['workouts']);
       onClose();
     }
@@ -56,78 +52,57 @@ export default function WorkoutLogModal({ isOpen, onClose, workout, user }) {
     setSession({ ...session, exercises_performed: updated });
   };
 
-  const handleSubmit = () => {
-    logWorkout.mutate(session);
-  };
-
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-h-[90vh] overflow-y-auto">
+      <DialogContent className="max-h-[90vh] overflow-y-auto bg-white border-[#BAE6FD]/30">
         <DialogHeader>
-          <DialogTitle>Log Workout: {workout?.title}</DialogTitle>
+          <DialogTitle className="text-[#0A1A2F]">Log Workout: {workout?.title}</DialogTitle>
         </DialogHeader>
 
         <div className="space-y-4">
           <div className="grid grid-cols-2 gap-3">
-            <Input
-              type="date"
-              value={session.date}
-              onChange={(e) => setSession({ ...session, date: e.target.value })}
-            />
-            <Input
-              type="number"
-              placeholder="Duration (min)"
+            <Input type="date" value={session.date}
+              onChange={e => setSession({ ...session, date: e.target.value })}
+              className="border-[#BAE6FD]/40 focus-visible:ring-[#38BDF8]/30" />
+            <Input type="number" placeholder="Duration (min)"
               value={session.duration_minutes}
-              onChange={(e) => setSession({ ...session, duration_minutes: parseInt(e.target.value) || 0 })}
-            />
+              onChange={e => setSession({ ...session, duration_minutes: parseInt(e.target.value) || 0 })}
+              className="border-[#BAE6FD]/40 focus-visible:ring-[#38BDF8]/30" />
           </div>
 
-          <div className="space-y-3">
-            <h3 className="font-semibold text-sm">Exercises Performed</h3>
+          <div className="space-y-2.5">
+            <h3 className="font-semibold text-sm text-[#0A1A2F]">Exercises Performed</h3>
             {session.exercises_performed.map((exercise, index) => (
-              <div key={index} className="border rounded-lg p-3 space-y-2">
-                <p className="font-medium text-sm">{exercise.name}</p>
+              <div key={index} className="border border-[#BAE6FD]/30 rounded-xl p-3 space-y-2 bg-[#F0F8FF]/60">
+                <p className="font-semibold text-sm text-[#0A1A2F]">{exercise.name}</p>
                 <div className="grid grid-cols-2 gap-2">
-                  <Input
-                    type="number"
-                    placeholder="Sets"
+                  <Input type="number" placeholder="Sets"
                     value={exercise.sets_completed}
-                    onChange={(e) => updateExercise(index, 'sets_completed', parseInt(e.target.value) || 0)}
-                  />
-                  <Input
-                    type="number"
-                    placeholder="Reps"
+                    onChange={e => updateExercise(index, 'sets_completed', parseInt(e.target.value) || 0)}
+                    className="border-[#BAE6FD]/40 text-sm" />
+                  <Input type="number" placeholder="Reps"
                     value={exercise.reps_completed}
-                    onChange={(e) => updateExercise(index, 'reps_completed', parseInt(e.target.value) || 0)}
-                  />
+                    onChange={e => updateExercise(index, 'reps_completed', parseInt(e.target.value) || 0)}
+                    className="border-[#BAE6FD]/40 text-sm" />
                 </div>
-                <div className="grid grid-cols-2 gap-2">
-                  <Input
-                    type="number"
-                    placeholder="Weight (lbs)"
+                {exercise.duration_seconds === 0 && (
+                  <Input type="number" placeholder="Weight (lbs)"
                     value={exercise.weight_used}
-                    onChange={(e) => updateExercise(index, 'weight_used', parseFloat(e.target.value) || 0)}
-                  />
-                  <Input
-                    type="number"
-                    placeholder="Duration (sec)"
-                    value={exercise.duration_seconds}
-                    onChange={(e) => updateExercise(index, 'duration_seconds', parseInt(e.target.value) || 0)}
-                  />
-                </div>
-                <Input
-                  placeholder="Notes (optional)"
+                    onChange={e => updateExercise(index, 'weight_used', parseFloat(e.target.value) || 0)}
+                    className="border-[#BAE6FD]/40 text-sm" />
+                )}
+                <Input placeholder="Notes (optional)"
                   value={exercise.notes}
-                  onChange={(e) => updateExercise(index, 'notes', e.target.value)}
-                />
+                  onChange={e => updateExercise(index, 'notes', e.target.value)}
+                  className="border-[#BAE6FD]/40 text-sm" />
               </div>
             ))}
           </div>
 
           <div>
-            <label className="text-sm font-medium mb-2 block">How did it feel?</label>
-            <Select value={session.overall_feeling} onValueChange={(v) => setSession({ ...session, overall_feeling: v })}>
-              <SelectTrigger>
+            <label className="text-sm font-semibold text-[#0A1A2F] mb-2 block">How did it feel?</label>
+            <Select value={session.overall_feeling} onValueChange={v => setSession({ ...session, overall_feeling: v })}>
+              <SelectTrigger className="border-[#BAE6FD]/40">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -139,19 +114,16 @@ export default function WorkoutLogModal({ isOpen, onClose, workout, user }) {
             </Select>
           </div>
 
-          <Textarea
-            placeholder="Overall session notes (optional)"
+          <Textarea placeholder="Overall session notes (optional)"
             value={session.notes}
-            onChange={(e) => setSession({ ...session, notes: e.target.value })}
-            className="h-20"
-          />
+            onChange={e => setSession({ ...session, notes: e.target.value })}
+            className="h-20 border-[#BAE6FD]/40" />
 
-          <Button
-            onClick={handleSubmit}
-            className="w-full bg-emerald-600 hover:bg-emerald-700"
-          >
+          <Button onClick={() => logWorkout.mutate(session)}
+            disabled={logWorkout.isPending}
+            className="w-full bg-gradient-to-r from-[#FD9C2D] to-[#E89020] hover:opacity-90 text-white font-semibold">
             <CheckCircle className="w-4 h-4 mr-2" />
-            Save Workout Session
+            {logWorkout.isPending ? 'Saving…' : 'Save Workout Session'}
           </Button>
         </div>
       </DialogContent>
