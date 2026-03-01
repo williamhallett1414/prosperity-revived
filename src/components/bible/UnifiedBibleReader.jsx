@@ -102,6 +102,16 @@ export default function UnifiedBibleReader({
     setSelectedChapter(chapterNum);
     setLoading(true);
 
+    // Persist last-read position so Bible home can show "Continue Reading"
+    try {
+      const isOld = testament === 'old';
+      localStorage.setItem('bible_last_read', JSON.stringify({
+        bookName: selectedBook.name,
+        chapter: chapterNum,
+        isOld
+      }));
+    } catch {}
+
     try {
       const { data } = await base44.functions.invoke('fetchBibleVerse', {
         book: selectedBook.name,
@@ -307,7 +317,7 @@ export default function UnifiedBibleReader({
         <div className="sticky top-0 bg-white border-b border-[#D9B878]/20 p-4 z-10">
           <button
             onClick={onBack}
-            className="flex items-center gap-2 text-[#0A1A2F]/60 hover:text-gray-900 mb-2"
+            className="flex items-center gap-2 text-[#0A1A2F]/60 hover:text-[#0A1A2F] mb-2"
           >
             <ArrowLeft className="w-4 h-4" />
             <span className="text-sm font-medium">Bible</span>
@@ -354,7 +364,7 @@ export default function UnifiedBibleReader({
             <div className="mb-6">
               <button
                 onClick={handleBackToBooks}
-                className="flex items-center gap-2 text-[#0A1A2F]/60 hover:text-gray-900 mb-4"
+                className="flex items-center gap-2 text-[#0A1A2F]/60 hover:text-[#0A1A2F] mb-4"
               >
                 <ArrowLeft className="w-4 h-4" />
                 <span className="text-sm">Back to Books</span>
@@ -384,7 +394,7 @@ export default function UnifiedBibleReader({
             <div className="mb-6 sticky top-0 bg-[#FFFDF7] py-4 z-10 border-b border-[#D9B878]/20">
               <button
                 onClick={handleBackToChapters}
-                className="flex items-center gap-2 text-[#0A1A2F]/60 hover:text-gray-900 mb-4"
+                className="flex items-center gap-2 text-[#0A1A2F]/60 hover:text-[#0A1A2F] mb-4"
               >
                 <ArrowLeft className="w-4 h-4" />
                 <span className="text-sm">Back to Chapters</span>

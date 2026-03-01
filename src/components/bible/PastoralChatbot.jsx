@@ -85,7 +85,7 @@ Respond with compassion and biblical wisdom:`,
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            className="fixed bottom-24 right-4 z-40 w-[90vw] max-w-md h-[500px] bg-white dark:bg-[#2d2d4a] rounded-2xl shadow-2xl flex flex-col overflow-hidden"
+            className="fixed bottom-24 right-4 z-40 w-[90vw] max-w-md h-[500px] bg-[#FFFDF7] rounded-2xl shadow-2xl flex flex-col overflow-hidden"
           >
             {/* Header */}
             <div className="bg-gradient-to-r from-[#c9a227] to-[#D9B878] p-4 flex items-center justify-between">
@@ -112,7 +112,7 @@ Respond with compassion and biblical wisdom:`,
                     className={`max-w-[80%] rounded-2xl px-4 py-2 ${
                       message.role === 'user'
                         ? 'bg-[#c9a227] text-white'
-                        : 'bg-gray-100 dark:bg-[#1a1a2e] text-gray-800 dark:text-gray-200'
+                        : 'bg-[#FAD98D]/15 text-[#0A1A2F]'
                     }`}
                   >
                     <p className="text-sm leading-relaxed">{message.content}</p>
@@ -122,7 +122,7 @@ Respond with compassion and biblical wisdom:`,
               
               {loading && (
                 <div className="flex justify-start">
-                  <div className="bg-gray-100 dark:bg-[#1a1a2e] rounded-2xl px-4 py-2">
+                  <div className="bg-[#FAD98D]/15 rounded-2xl px-4 py-2">
                     <Loader2 className="w-4 h-4 animate-spin text-[#c9a227]" />
                   </div>
                 </div>
@@ -132,7 +132,7 @@ Respond with compassion and biblical wisdom:`,
             </div>
 
             {/* Input */}
-            <div className="p-4 border-t border-gray-200 dark:border-gray-700">
+            <div className="p-4 border-t border-[#D9B878]/20">
               <div className="flex gap-2">
                 <Input
                   placeholder="Share what's on your heart..."

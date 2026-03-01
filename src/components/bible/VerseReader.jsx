@@ -146,7 +146,7 @@ export default function VerseReader({ book, chapter, onBack, onNavigate, bookmar
       )}
       
       {/* Header */}
-      <div className="flex items-center justify-between px-4 py-3 bg-white border-b">
+      <div className="flex items-center justify-between px-4 py-3 bg-white border-b border-[#D9B878]/20">
         <div className="flex items-center gap-2">
           <Button variant="ghost" size="icon" onClick={onBack}>
             <ArrowLeft className="w-5 h-5" />
@@ -207,7 +207,7 @@ export default function VerseReader({ book, chapter, onBack, onNavigate, bookmar
                           <FileText className="w-2 h-2 text-[#c9a227] absolute -top-1 -right-2" />
                         )}
                       </sup>
-                      <span className={`font-serif ${fontSize} text-gray-800 leading-relaxed`}>
+                      <span className={`font-serif ${fontSize} text-[#0A1A2F] leading-relaxed`}>
                         {verse.text}{' '}
                       </span>
                     </motion.span>
@@ -252,7 +252,7 @@ export default function VerseReader({ book, chapter, onBack, onNavigate, bookmar
                   </button>
                   <button
                     onClick={() => handleShare(verses.find(v => v.number === selectedVerse))}
-                    className="w-full flex items-center justify-center gap-2 py-2 px-4 bg-[#0A1A2F] text-white rounded-lg hover:bg-[#2d2d4a] transition-colors"
+                    className="w-full flex items-center justify-center gap-2 py-2 px-4 bg-[#0A1A2F] text-white rounded-lg hover:bg-[#0A1A2F]/80 transition-colors"
                   >
                     <Share2 className="w-4 h-4" />
                     Share to Community
@@ -274,7 +274,7 @@ export default function VerseReader({ book, chapter, onBack, onNavigate, bookmar
       </ScrollArea>
 
       {/* Navigation */}
-      <div className="flex items-center justify-between px-4 py-3 bg-white border-t">
+      <div className="flex items-center justify-between px-4 py-3 bg-white border-t border-[#D9B878]/20">
         <Button
           variant="ghost"
           disabled={!canGoPrev}

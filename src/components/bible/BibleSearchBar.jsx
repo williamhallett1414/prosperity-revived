@@ -235,7 +235,7 @@ export default function BibleSearchBar({ onNavigate }) {
                 <button
                   key={index}
                   onClick={() => handleSuggestionClick(suggestion)}
-                  className="w-full px-4 py-3 text-left hover:bg-[#F2F6FA] transition-colors flex items-center justify-between group"
+                  className="w-full px-4 py-3 text-left hover:bg-[#FFFDF7] transition-colors flex items-center justify-between group"
                 >
                   <div className="flex items-center gap-3">
                     {suggestion.type === 'book' && (

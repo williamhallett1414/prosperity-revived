@@ -554,8 +554,8 @@ export default function BibleStudyGuide() {
         animate={{ opacity: 1, y: 0 }}
         className="mb-4"
       >
-        <h2 className="text-xl font-bold mb-1" style={{ color: 'var(--color-text)' }}>Bible Study Guides</h2>
-        <p className="text-sm opacity-60" style={{ color: 'var(--color-text)' }}>In-depth explorations of Scripture</p>
+        <h2 className="text-xl font-bold mb-1" className="text-[#0A1A2F]">Bible Study Guides</h2>
+        <p className="text-sm opacity-60" className="text-[#0A1A2F]">In-depth explorations of Scripture</p>
       </motion.div>
 
       <div className="grid grid-cols-1 gap-4">

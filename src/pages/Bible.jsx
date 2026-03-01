@@ -1,27 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
-import { AnimatePresence, motion } from 'framer-motion';
-import { ArrowLeft, Compass, BookOpen, TrendingUp, CheckCircle, Heart, Sparkles, Book, Search } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { ArrowLeft, Compass, BookOpen, TrendingUp, CheckCircle, Heart, Sparkles, Book, ChevronRight, PlayCircle } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
-import BookSelector from '@/components/bible/BookSelector';
-import ChapterSelector from '@/components/bible/ChapterSelector';
-import VerseReader from '@/components/bible/VerseReader';
 import ReadingPlanCard from '@/components/home/ReadingPlanCard';
 import ReadingPlanProgressTracker from '@/components/home/ReadingPlanProgressTracker';
 import { readingPlans, getBookByName, bibleBooks } from '@/components/bible/BibleData';
 import BibleStatsModal from '@/components/bible/BibleStatsModal';
 import DevotionalContent from '@/components/bible/DevotionalContent';
-import BibleQA from '@/components/bible/BibleQA';
 import BibleStudyGuide from '@/components/bible/BibleStudyGuide';
 import MoodTracker from '@/components/bible/MoodTracker';
-import PastoralChatbot from '@/components/bible/PastoralChatbot';
 import GideonAskAnything from '@/components/bible/GideonAskAnything';
 import UnifiedBibleReader from '@/components/bible/UnifiedBibleReader';
 import BibleSearchBar from '@/components/bible/BibleSearchBar';
+
+const LAST_READ_KEY = 'bible_last_read';
 
 export default function Bible() {
   const [view, setView] = useState('home');
@@ -30,9 +27,18 @@ export default function Bible() {
   const [initialBook, setInitialBook] = useState(null);
   const [initialChapter, setInitialChapter] = useState(null);
   const [searchData, setSearchData] = useState(null);
+  const [lastRead, setLastRead] = useState(null);
 
   const queryClient = useQueryClient();
   const navigate = useNavigate();
+
+  // Load last-read position on mount
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem(LAST_READ_KEY);
+      if (stored) setLastRead(JSON.parse(stored));
+    } catch {}
+  }, []);
 
   const { data: bookmarks = [] } = useQuery({
     queryKey: ['bookmarks'],
@@ -69,14 +75,27 @@ export default function Bible() {
     }
   }, [window.location.search]);
 
-  const handleBackToHome = () => { setView('home'); setInitialBook(null); setInitialChapter(null); setSearchData(null); };
+  const handleBackToHome = () => {
+    setView('home');
+    setInitialBook(null);
+    setInitialChapter(null);
+    setSearchData(null);
+  };
+
+  const openReading = (book, chapter, isOld) => {
+    // Save last read position
+    const position = { bookName: book.name, chapter, isOld };
+    localStorage.setItem(LAST_READ_KEY, JSON.stringify(position));
+    setLastRead(position);
+    setInitialBook(book);
+    setInitialChapter(chapter);
+    setView(isOld ? 'oldTestament' : 'newTestament');
+  };
 
   const handleSearchNavigate = (data) => {
     const isOld = bibleBooks.oldTestament.some((b) => b.name === data.book.name);
     setSearchData(data);
-    setInitialBook(data.book);
-    setInitialChapter(data.chapter || null);
-    setView(isOld ? 'oldTestament' : 'newTestament');
+    openReading(data.book, data.chapter || 1, isOld);
   };
 
   const handleBookmark = (verse, color, note = '') => {
@@ -88,10 +107,13 @@ export default function Bible() {
   };
 
   const getProgressForPlan = (planId) => planProgress.find((p) => p.plan_id === planId);
-  const suggestedPlans = readingPlans.filter((plan) => !getProgressForPlan(plan.id)).slice(0, 4);
+  const suggestedPlans = readingPlans.filter((plan) => !getProgressForPlan(plan.id)).slice(0, 3);
   const totalDaysRead = (planProgress || []).reduce((sum, p) => sum + (p.completed_days?.length || 0), 0);
   const longestStreak = Math.max(...(planProgress || []).map((p) => p.longest_streak || 0), 0);
   const handleStatClick = (statType) => { setSelectedStat(statType); setShowStatsModal(true); };
+
+  // Resolve continue-reading book object
+  const continueBook = lastRead ? getBookByName(lastRead.bookName) : null;
 
   if (view === 'oldTestament') {
     return <UnifiedBibleReader testament="old" onBack={handleBackToHome} initialBook={initialBook} initialChapter={initialChapter} bookmarks={bookmarks} onBookmark={handleBookmark} searchData={searchData} />;
@@ -116,9 +138,9 @@ export default function Bible() {
       </div>
 
       <div className="px-4 py-5 max-w-2xl mx-auto">
-        <Tabs defaultValue="read" className="w-full" onValueChange={(v) => { if (v === 'prayer') navigate(createPageUrl('Prayer')); }}>
-          {/* Tab Bar — Gideon gold */}
-          <TabsList className="grid w-full grid-cols-4 mb-6 bg-[#FAD98D]/15 rounded-xl p-1 border border-[#D9B878]/20">
+        {/* Tab Bar — Gideon gold, Prayer is now just a link not a tab */}
+        <Tabs defaultValue="read" className="w-full">
+          <TabsList className="grid w-full grid-cols-3 mb-6 bg-[#FAD98D]/15 rounded-xl p-1 border border-[#D9B878]/20">
             <TabsTrigger value="read" className="rounded-lg text-xs data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#c9a227] data-[state=active]:to-[#D9B878] data-[state=active]:text-white data-[state=active]:shadow-sm">
               <BookOpen className="w-3.5 h-3.5 mr-1" />Read
             </TabsTrigger>
@@ -128,26 +150,53 @@ export default function Bible() {
             <TabsTrigger value="devotional" className="rounded-lg text-xs data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#c9a227] data-[state=active]:to-[#D9B878] data-[state=active]:text-white data-[state=active]:shadow-sm">
               <Heart className="w-3.5 h-3.5 mr-1" />Devotional
             </TabsTrigger>
-            <TabsTrigger value="prayer" className="rounded-lg text-xs data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#c9a227] data-[state=active]:to-[#D9B878] data-[state=active]:text-white data-[state=active]:shadow-sm">
-              🙏 Prayer
-            </TabsTrigger>
           </TabsList>
 
-          {/* READ TAB */}
+          {/* ── READ TAB ── */}
           <TabsContent value="read">
             <div className="space-y-5">
 
-              {/* Hero CTA — Gideon navy→gold */}
+              {/* Continue Reading — only shows if user has read before */}
+              {continueBook && (
+                <motion.button
+                  initial={{ opacity: 0, y: -8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  onClick={() => openReading(continueBook, lastRead.chapter, lastRead.isOld)}
+                  className="w-full bg-gradient-to-br from-[#0A1A2F] to-[#1a3a5c] rounded-2xl p-4 text-left hover:shadow-lg transition-all"
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-xl bg-[#c9a227] flex items-center justify-center flex-shrink-0">
+                        <PlayCircle className="w-5 h-5 text-white" />
+                      </div>
+                      <div>
+                        <p className="text-xs text-white/60 mb-0.5">Continue Reading</p>
+                        <p className="text-white font-bold text-sm">{lastRead.bookName} · Chapter {lastRead.chapter}</p>
+                      </div>
+                    </div>
+                    <ChevronRight className="w-5 h-5 text-white/50" />
+                  </div>
+                </motion.button>
+              )}
+
+              {/* Hero CTA */}
               <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
                 className="bg-gradient-to-br from-[#0A1A2F] to-[#c9a227] rounded-2xl p-5 text-white">
-                <h2 className="text-lg font-bold mb-1">📖 Open the Word</h2>
-                <p className="text-white/75 text-sm mb-4">Dive into Scripture — Old or New Testament</p>
+                <h2 className="text-lg font-bold mb-1">📖 {continueBook ? 'Open the Word' : 'Start Reading Today'}</h2>
+                <p className="text-white/75 text-sm mb-4">
+                  {continueBook ? 'Dive into a new book or testament' : 'Dive into Scripture — Old or New Testament'}
+                </p>
                 <div className="flex gap-2">
-                  <Button onClick={() => { setInitialBook(bibleBooks.newTestament[0]); setInitialChapter(1); setView('newTestament'); }}
+                  <Button
+                    onClick={() => {
+                      const matthew = bibleBooks.newTestament[0];
+                      openReading(matthew, 1, false);
+                    }}
                     className="bg-[#D9B878] hover:bg-[#c9a227] text-[#0A1A2F] font-semibold flex-1 text-sm">
-                    Start in Matthew
+                    New Testament
                   </Button>
-                  <Button onClick={() => setView('oldTestament')}
+                  <Button
+                    onClick={() => { setInitialBook(null); setView('oldTestament'); }}
                     className="bg-white/15 hover:bg-white/25 text-white border border-white/30 flex-1 text-sm">
                     Old Testament
                   </Button>
@@ -157,31 +206,28 @@ export default function Bible() {
               {/* Search Bar */}
               <BibleSearchBar onNavigate={handleSearchNavigate} />
 
-              {/* Testament Cards */}
-              <div className="grid grid-cols-2 gap-3">
-                <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
-                  onClick={() => setView('oldTestament')}
-                  className="bg-gradient-to-br from-[#FAD98D]/30 to-[#D9B878]/15 rounded-2xl p-5 border border-[#D9B878]/30 hover:shadow-md transition-all text-left">
-                  <Book className="w-7 h-7 text-[#c9a227] mb-2" />
-                  <h3 className="font-bold text-[#0A1A2F] text-sm mb-0.5">Old Testament</h3>
-                  <p className="text-xs text-[#0A1A2F]/55">39 books</p>
-                </motion.button>
-                <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
-                  onClick={() => setView('newTestament')}
-                  className="bg-gradient-to-br from-[#0A1A2F]/8 to-[#c9a227]/10 rounded-2xl p-5 border border-[#D9B878]/30 hover:shadow-md transition-all text-left">
-                  <Book className="w-7 h-7 text-[#0A1A2F] mb-2" />
-                  <h3 className="font-bold text-[#0A1A2F] text-sm mb-0.5">New Testament</h3>
-                  <p className="text-xs text-[#0A1A2F]/55">27 books</p>
-                </motion.button>
+              {/* Stats Cards — with tap hint */}
+              <div className="grid grid-cols-3 gap-3">
+                {[
+                  { label: 'Days Read', value: totalDaysRead, icon: BookOpen, stat: 'days_read', color: 'text-[#c9a227]' },
+                  { label: 'Best Streak', value: longestStreak, icon: TrendingUp, stat: 'streak', color: 'text-[#0A1A2F]' },
+                  { label: 'Saved Verses', value: bookmarks.length, icon: CheckCircle, stat: 'bookmarks', color: 'text-[#c9a227]' },
+                ].map(({ label, value, icon: Icon, stat, color }, i) => (
+                  <motion.button key={stat}
+                    initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.07 }}
+                    onClick={() => handleStatClick(stat)}
+                    className="bg-gradient-to-br from-[#FAD98D]/20 to-[#D9B878]/10 rounded-2xl p-4 border border-[#D9B878]/25 hover:shadow-md hover:border-[#c9a227]/40 active:scale-95 transition-all text-left group">
+                    <Icon className={`w-5 h-5 ${color} mb-2`} />
+                    <p className="text-xl font-bold text-[#0A1A2F]">{value}</p>
+                    <p className="text-xs text-[#0A1A2F]/55">{label}</p>
+                    <p className="text-[10px] text-[#c9a227] mt-1 opacity-0 group-hover:opacity-100 transition-opacity">Tap to view →</p>
+                  </motion.button>
+                ))}
               </div>
 
-              {/* Mood Tracker */}
-              <MoodTracker />
-
-              {/* Spiritual Insights Link — Gideon style */}
+              {/* Spiritual Insights Link */}
               <Link to={createPageUrl('SpiritualInsights')} className="block">
-                <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
-                  className="bg-gradient-to-r from-[#0A1A2F] to-[#c9a227] rounded-2xl p-4 hover:shadow-lg transition-all">
+                <div className="bg-gradient-to-r from-[#0A1A2F] to-[#c9a227] rounded-2xl p-4 hover:shadow-lg transition-all">
                   <div className="flex items-center justify-between text-white">
                     <div className="flex items-center gap-3">
                       <div className="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center">
@@ -192,27 +238,31 @@ export default function Bible() {
                         <p className="text-xs text-white/70">See how Gideon understands your journey</p>
                       </div>
                     </div>
-                    <ArrowLeft className="w-4 h-4 rotate-180 text-white/70" />
+                    <ChevronRight className="w-4 h-4 text-white/70" />
                   </div>
-                </motion.div>
+                </div>
               </Link>
 
-              {/* Stats Cards */}
-              <div className="grid grid-cols-3 gap-3">
-                {[
-                  { label: 'Days Read', value: totalDaysRead, icon: BookOpen, stat: 'days_read', color: 'text-[#c9a227]' },
-                  { label: 'Best Streak', value: longestStreak, icon: TrendingUp, stat: 'streak', color: 'text-[#0A1A2F]' },
-                  { label: 'Saved Verses', value: bookmarks.length, icon: CheckCircle, stat: 'bookmarks', color: 'text-[#c9a227]' },
-                ].map(({ label, value, icon: Icon, stat, color }, i) => (
-                  <motion.button key={stat} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.07 }}
-                    onClick={() => handleStatClick(stat)}
-                    className="bg-gradient-to-br from-[#FAD98D]/20 to-[#D9B878]/10 rounded-2xl p-4 border border-[#D9B878]/25 hover:shadow-md transition-all text-left">
-                    <Icon className={`w-5 h-5 ${color} mb-2`} />
-                    <p className="text-xl font-bold text-[#0A1A2F]">{value}</p>
-                    <p className="text-xs text-[#0A1A2F]/55">{label}</p>
-                  </motion.button>
-                ))}
-              </div>
+              {/* Prayer — card link, not a tab */}
+              <Link to={createPageUrl('Prayer')} className="block">
+                <div className="bg-gradient-to-br from-[#FAD98D]/25 to-[#D9B878]/15 rounded-2xl p-4 border border-[#D9B878]/25 hover:shadow-md hover:border-[#c9a227]/40 transition-all">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#c9a227] to-[#D9B878] flex items-center justify-center text-lg">
+                        🙏
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-sm text-[#0A1A2F]">Prayer</h3>
+                        <p className="text-xs text-[#0A1A2F]/55">Journal your prayers and requests</p>
+                      </div>
+                    </div>
+                    <ChevronRight className="w-4 h-4 text-[#0A1A2F]/40" />
+                  </div>
+                </div>
+              </Link>
+
+              {/* Mood Tracker — after navigation cards */}
+              <MoodTracker />
 
               {/* Reading Plan Tracker */}
               <ReadingPlanProgressTracker planProgress={planProgress} plans={readingPlans} />
@@ -227,7 +277,7 @@ export default function Bible() {
                     <Link to={createPageUrl('Plans')} className="text-xs text-[#c9a227] font-semibold hover:underline">View All</Link>
                   </div>
                   <div className="grid grid-cols-1 gap-3">
-                    {suggestedPlans.slice(0, 3).map((plan, index) => (
+                    {suggestedPlans.map((plan, index) => (
                       <ReadingPlanCard key={plan.id} plan={plan} progress={null}
                         onClick={() => navigate(createPageUrl(`PlanDetail?id=${plan.id}`))} index={index} />
                     ))}
@@ -237,12 +287,12 @@ export default function Bible() {
             </div>
           </TabsContent>
 
-          {/* STUDY TAB */}
+          {/* ── STUDY TAB ── */}
           <TabsContent value="study">
             <BibleStudyGuide />
           </TabsContent>
 
-          {/* DEVOTIONAL TAB */}
+          {/* ── DEVOTIONAL TAB ── */}
           <TabsContent value="devotional">
             <DevotionalContent />
           </TabsContent>
@@ -250,7 +300,7 @@ export default function Bible() {
       </div>
 
       <BibleStatsModal isOpen={showStatsModal} onClose={() => setShowStatsModal(false)} statType={selectedStat} progress={planProgress} bookmarks={bookmarks} />
-      <PastoralChatbot />
+      {/* Only GideonAskAnything — PastoralChatbot removed (duplicate) */}
       <GideonAskAnything />
     </div>
   );

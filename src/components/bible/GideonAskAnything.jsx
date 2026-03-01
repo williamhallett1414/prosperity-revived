@@ -496,12 +496,12 @@ Example: [VERSE]Romans 8:28 - "And we know that all things work together for goo
               {conversation.length === 0 &&
             <div className="p-6 text-center space-y-4">
                   <div className="text-6xl">📖</div>
-                  <h3 className="text-2xl font-bold text-gray-800">
+                  <h3 className="text-2xl font-bold text-[#0A1A2F]">
                     Ask Me Anything About Scripture
                   </h3>
                   {memoryContext && memoryContext.total_conversation_count > 0 && (
-                    <div className="bg-[#FAD98D]/20 dark:bg-[#0A1A2F]/20 rounded-lg p-3 text-sm">
-                      <p className="text-[#8a6e1a] dark:text-[#8a6e1a]">
+                    <div className="bg-[#FAD98D]/20 rounded-lg p-3 text-sm">
+                      <p className="text-[#8a6e1a]">
                         💭 I remember our previous {memoryContext.total_conversation_count} conversations and I'm ready to continue your journey.
                       </p>
                     </div>
@@ -522,19 +522,19 @@ Example: [VERSE]Romans 8:28 - "And we know that all things work together for goo
                     </button>
                     <button
                       onClick={() => setInput("What does it mean to be in the Kingdom of God?")}
-                      className="px-4 py-2 bg-[#FAD98D]/30 dark:bg-[#0A1A2F]/30 text-[#8a6e1a] rounded-full text-sm hover:bg-[#FAD98D]/50 transition-colors"
+                      className="px-4 py-2 bg-[#FAD98D]/30 text-[#8a6e1a] rounded-full text-sm hover:bg-[#FAD98D]/50 transition-colors"
                     >
                       Kingdom Principles
                     </button>
                     <button
                       onClick={() => setInput("How do I discover my purpose?")}
-                      className="px-4 py-2 bg-[#FAD98D]/20 dark:bg-[#0A1A2F]/30 text-[#8a6e1a] dark:text-[#FAD98D] rounded-full text-sm hover:bg-pink-200 dark:hover:bg-[#0A1A2F]/50 transition-colors"
+                      className="px-4 py-2 bg-[#FAD98D]/20 text-[#8a6e1a] rounded-full text-sm hover:bg-[#FAD98D]/50 transition-colors"
                     >
                       Finding Purpose
                     </button>
                     <button
                       onClick={() => setInput("What does Romans 8:28 really mean?")}
-                      className="px-4 py-2 bg-[#FAD98D]/30 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 rounded-full text-sm hover:bg-orange-200 dark:hover:bg-orange-900/50 transition-colors"
+                      className="px-4 py-2 bg-[#FAD98D]/30 bg-[#FAD98D]/30 text-[#8a6e1a] rounded-full text-sm hover:bg-[#FAD98D]/50 transition-colors"
                     >
                       Verse Meaning
                     </button>
@@ -556,7 +556,7 @@ Example: [VERSE]Romans 8:28 - "And we know that all things work together for goo
                         <p className="text-sm">{message.content}</p>
                       </div> :
 
-                <div className="bg-[#FAD98D]/12 dark:bg-[#0A1A2F] rounded-2xl px-4 py-3 max-w-[85%]">
+                <div className="bg-[#FAD98D]/12 rounded-2xl px-4 py-3 max-w-[85%]">
                         <div className="flex items-center gap-2 mb-2">
                           <div className="w-6 h-6 bg-gradient-to-r from-[#c9a227] to-[#D9B878] rounded-full flex items-center justify-center">
                             <MessageCircle className="w-3 h-3 text-white" />
@@ -611,7 +611,7 @@ Example: [VERSE]Romans 8:28 - "And we know that all things work together for goo
                                 ) : (
                                   <ReactMarkdown 
                                     key={idx}
-                                    className="text-sm text-[#0A1A2F]/75 dark:text-gray-300 leading-relaxed prose prose-sm max-w-none"
+                                    className="text-sm text-[#0A1A2F]/75 leading-relaxed prose prose-sm max-w-none"
                                     components={{
                                       h1: ({node, ...props}) => <h1 className="font-bold mt-6 mb-3" {...props} />,
                                       h2: ({node, ...props}) => <h2 className="font-bold mt-5 mb-3" {...props} />,
@@ -639,10 +639,10 @@ Example: [VERSE]Romans 8:28 - "And we know that all things work together for goo
                 animate={{ opacity: 1 }}
                 className="flex justify-start">
 
-                    <div className="bg-[#FAD98D]/12 dark:bg-[#0A1A2F] rounded-2xl px-4 py-3">
+                    <div className="bg-[#FAD98D]/12 rounded-2xl px-4 py-3">
                       <div className="flex items-center gap-2">
                         <Loader2 className="w-4 h-4 animate-spin text-[#c9a227]" />
-                        <span className="text-sm text-[#0A1A2F]/50 dark:text-[#0A1A2F]/40">Gideon is thinking...</span>
+                        <span className="text-sm text-[#0A1A2F]/50">Gideon is thinking...</span>
                       </div>
                     </div>
                   </motion.div>
@@ -674,7 +674,7 @@ Example: [VERSE]Romans 8:28 - "And we know that all things work together for goo
                     {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
                   </Button>
                 </div>
-                <p className="text-xs text-[#0A1A2F]/50 dark:text-[#0A1A2F]/40 mt-2 text-center">
+                <p className="text-xs text-[#0A1A2F]/50 mt-2 text-center">
                   Press Enter to send • Type "Deep Study Mode" for comprehensive chapter/passage studies
                 </p>
               </div>
