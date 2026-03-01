@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, ChevronRight, Bookmark, Share2, ChevronDown, ChevronUp } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { ArrowLeft, ChevronRight, ChevronLeft, Bookmark, ChevronDown, ChevronUp, Search, Menu, X } from 'lucide-react';
 import { bibleBooks } from './BibleData';
 import { base44 } from '@/api/base44Client';
 import GideonAskAnything from '@/components/bible/GideonAskAnything';
@@ -9,571 +8,624 @@ import VerseActionMenu from '@/components/bible/VerseActionMenu';
 import { toast } from 'sonner';
 import { useQueryClient, useMutation } from '@tanstack/react-query';
 
-export default function UnifiedBibleReader({ 
-  testament = 'old', // 'old' or 'new'
+// ─── Constants (defined outside component so they never cause re-renders) ───────
+
+const OLD_GROUPS = [
+  { label: 'Torah',          emoji: '📜', books: ['Genesis','Exodus','Leviticus','Numbers','Deuteronomy'] },
+  { label: 'History',        emoji: '⚔️', books: ['Joshua','Judges','Ruth','1 Samuel','2 Samuel','1 Kings','2 Kings','1 Chronicles','2 Chronicles','Ezra','Nehemiah','Esther'] },
+  { label: 'Poetry',         emoji: '🎵', books: ['Job','Psalms','Proverbs','Ecclesiastes','Song of Solomon'] },
+  { label: 'Major Prophets', emoji: '🔥', books: ['Isaiah','Jeremiah','Lamentations','Ezekiel','Daniel'] },
+  { label: 'Minor Prophets', emoji: '📣', books: ['Hosea','Joel','Amos','Obadiah','Jonah','Micah','Nahum','Habakkuk','Zephaniah','Haggai','Zechariah','Malachi'] },
+];
+const NEW_GROUPS = [
+  { label: 'Gospels',         emoji: '✨', books: ['Matthew','Mark','Luke','John'] },
+  { label: 'History',         emoji: '🕊️', books: ['Acts'] },
+  { label: "Paul's Letters",  emoji: '✉️', books: ['Romans','1 Corinthians','2 Corinthians','Galatians','Ephesians','Philippians','Colossians','1 Thessalonians','2 Thessalonians','1 Timothy','2 Timothy','Titus','Philemon'] },
+  { label: 'General Letters', emoji: '📝', books: ['Hebrews','James','1 Peter','2 Peter','1 John','2 John','3 John','Jude'] },
+  { label: 'Prophecy',        emoji: '🌟', books: ['Revelation'] },
+];
+
+const FONT_SIZES = [
+  { label: 'S', prose: 'text-base',   lineH: '1.9' },
+  { label: 'M', prose: 'text-[17px]', lineH: '2.1' },
+  { label: 'L', prose: 'text-xl',     lineH: '2.2' },
+];
+
+const HL = {
+  yellow: { bg: 'rgba(250,217,141,0.4)', dot: '#c9a227' },
+  blue:   { bg: 'rgba(175,199,227,0.4)', dot: '#3c7dd4' },
+  green:  { bg: 'rgba(120,195,130,0.4)', dot: '#3a8a50' },
+  pink:   { bg: 'rgba(242,176,176,0.4)', dot: '#c9607a' },
+};
+
+// ─── Sub-components (outside main to prevent remount on every render) ────────
+
+function BookRow({ book, isActive, onSelect }) {
+  return (
+    <button
+      onClick={() => onSelect(book)}
+      className={`w-full text-left px-3 py-2.5 rounded-lg mb-0.5 transition-all flex items-center justify-between group ${
+        isActive
+          ? 'bg-gradient-to-r from-[#c9a227] to-[#D9B878] text-white shadow-sm'
+          : 'hover:bg-[#FAD98D]/20 text-[#0A1A2F]/65 hover:text-[#0A1A2F]'
+      }`}
+    >
+      <span className="text-sm font-medium">{book.name}</span>
+      <span className={`text-xs tabular-nums ${isActive ? 'text-white/60' : 'text-[#0A1A2F]/30'}`}>{book.chapters}</span>
+    </button>
+  );
+}
+
+function GroupRow({ group, books, isOpen, hasActive, onToggle, selectedBookName, onBookSelect }) {
+  return (
+    <div>
+      <button
+        onClick={() => onToggle(group.label)}
+        className={`w-full flex items-center justify-between px-3 py-2.5 transition-colors ${
+          hasActive ? 'text-[#c9a227]' : 'text-[#0A1A2F]/40 hover:text-[#0A1A2F]'
+        }`}
+      >
+        <span className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.12em]">
+          <span>{group.emoji}</span>
+          {group.label}
+        </span>
+        <ChevronDown className={`w-3 h-3 transition-transform flex-shrink-0 ${isOpen ? 'rotate-180' : ''}`} />
+      </button>
+      <AnimatePresence initial={false}>
+        {isOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.18, ease: 'easeInOut' }}
+            className="overflow-hidden"
+          >
+            <div className="px-2 pb-1.5">
+              {books.map((book, i) => (
+                <BookRow key={i} book={book} isActive={selectedBookName === book.name} onSelect={onBookSelect} />
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
+// ─── Main Component ──────────────────────────────────────────────────────────
+
+export default function UnifiedBibleReader({
+  testament = 'old',
   onBack,
   initialBook = null,
   initialChapter = null,
   bookmarks = [],
   onBookmark,
-  searchData = null
+  searchData = null,
 }) {
-  const [selectedBook, setSelectedBook] = useState(initialBook);
+  const [selectedBook, setSelectedBook]       = useState(initialBook);
   const [selectedChapter, setSelectedChapter] = useState(initialChapter);
-  const [verses, setVerses] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [highlightVerse, setHighlightVerse] = useState(null);
+  const [verses, setVerses]                   = useState([]);
+  const [loading, setLoading]                 = useState(false);
+  const [highlightVerse, setHighlightVerse]   = useState(null);
   const [activeVerseMenu, setActiveVerseMenu] = useState(null);
-  const [expandedNotes, setExpandedNotes] = useState({});
-  const versesRef = useRef(null);
+  const [expandedNotes, setExpandedNotes]     = useState({});
+  const [sidebarOpen, setSidebarOpen]         = useState(false);
+  const [bookSearch, setBookSearch]           = useState('');
+  const [openGroups, setOpenGroups]           = useState({});
+  const [fontIdx, setFontIdx]                 = useState(1);
+  const contentRef = useRef(null);
   const queryClient = useQueryClient();
 
-  const books = testament === 'old' ? bibleBooks.oldTestament : bibleBooks.newTestament;
-  const testamentName = testament === 'old' ? 'Old Testament' : 'New Testament';
+  const allBooks = testament === 'old' ? bibleBooks.oldTestament : bibleBooks.newTestament;
+  const groups   = testament === 'old' ? OLD_GROUPS : NEW_GROUPS;
+  const testName = testament === 'old' ? 'Old Testament' : 'New Testament';
 
-  // Auto-fetch verses when initialBook and initialChapter are provided
+  // Open the group that contains the active book on first load
+  useEffect(() => {
+    const init = {};
+    groups.forEach(g => {
+      init[g.label] = initialBook ? g.books.includes(initialBook.name) : g.label === groups[0].label;
+    });
+    setOpenGroups(init);
+  }, [testament]);
+
   useEffect(() => {
     if (initialBook && initialChapter) {
       setSelectedBook(initialBook);
       setSelectedChapter(initialChapter);
-      setLoading(true);
-      base44.functions.invoke('fetchBibleVerse', {
-        book: initialBook.name,
-        chapter: initialChapter
-      }).then(({ data }) => {
-        const versesData = data?.verses || data || [];
-        setVerses(versesData);
-      }).catch(() => setVerses([])).finally(() => setLoading(false));
+      fetchVerses(initialBook.name, initialChapter);
     }
   }, [initialBook?.name, initialChapter]);
 
-  // Handle search navigation
   useEffect(() => {
     if (searchData) {
       setSelectedBook(searchData.book);
-      
       if (searchData.chapter) {
         setSelectedChapter(searchData.chapter);
-        
         if (searchData.verse) {
           setHighlightVerse(searchData.verse);
-          // Clear highlight after 3 seconds
-          setTimeout(() => setHighlightVerse(null), 3000);
+          setTimeout(() => setHighlightVerse(null), 3500);
         }
       }
     }
   }, [searchData]);
 
-  // Auto-scroll to specific verse
   useEffect(() => {
     if (highlightVerse && verses.length > 0) {
       setTimeout(() => {
-        const verseEl = document.getElementById(`verse-${highlightVerse}`);
-        if (verseEl) {
-          verseEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          verseEl.classList.add('highlight-verse');
-        }
+        document.getElementById(`v-${highlightVerse}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }, 300);
     }
   }, [verses, highlightVerse]);
 
-  // Also handle URL params
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const verseNum = params.get('verse');
-    if (verseNum && versesRef.current && verses.length > 0) {
-      setTimeout(() => {
-        const verseEl = document.getElementById(`verse-${verseNum}`);
-        if (verseEl) {
-          verseEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          verseEl.classList.add('highlight-verse');
-        }
-      }, 300);
+  const fetchVerses = async (bookName, chapterNum) => {
+    setLoading(true);
+    setVerses([]);
+    try {
+      const { data } = await base44.functions.invoke('fetchBibleVerse', { book: bookName, chapter: chapterNum });
+      setVerses(data?.verses || data || []);
+    } catch {
+      setVerses([]);
     }
-  }, [verses]);
+    setLoading(false);
+  };
 
-  const handleBookSelect = (book) => {
+  const handleBookSelect = useCallback((book) => {
     setSelectedBook(book);
     setSelectedChapter(null);
     setVerses([]);
-  };
+    setSidebarOpen(false);
+  }, []);
 
-  const handleChapterSelect = async (chapterNum) => {
-    setSelectedChapter(chapterNum);
-    setLoading(true);
-
-    // Persist last-read position so Bible home can show "Continue Reading"
+  const handleChapterSelect = async (num) => {
+    setSelectedChapter(num);
     try {
-      const isOld = testament === 'old';
-      localStorage.setItem('bible_last_read', JSON.stringify({
-        bookName: selectedBook.name,
-        chapter: chapterNum,
-        isOld
-      }));
+      localStorage.setItem('bible_last_read', JSON.stringify({ bookName: selectedBook.name, chapter: num, isOld: testament === 'old' }));
     } catch {}
-
-    try {
-      const { data } = await base44.functions.invoke('fetchBibleVerse', {
-        book: selectedBook.name,
-        chapter: chapterNum
-      });
-      
-      // Handle different response formats
-      const versesData = data?.verses || data || [];
-      setVerses(versesData);
-    } catch (error) {
-      console.error('Error fetching verses:', error);
-      setVerses([]);
-    } finally {
-      setLoading(false);
-    }
+    await fetchVerses(selectedBook.name, num);
+    contentRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handleBackToBooks = () => {
-    setSelectedBook(null);
-    setSelectedChapter(null);
-    setVerses([]);
-  };
+  const handleBackToBooks    = () => { setSelectedBook(null); setSelectedChapter(null); setVerses([]); };
+  const handleBackToChapters = () => { setSelectedChapter(null); setVerses([]); };
+  const toggleGroup = useCallback((label) => setOpenGroups(prev => ({ ...prev, [label]: !prev[label] })), []);
+  const toggleNote  = (verseNum) => setExpandedNotes(prev => ({ ...prev, [verseNum]: !prev[verseNum] }));
 
-  const handleBackToChapters = () => {
-    setSelectedChapter(null);
-    setVerses([]);
-  };
+  const getBookmark = (verse) =>
+    bookmarks.find(b => b.book === selectedBook?.name && b.chapter === selectedChapter && b.verse === verse.verse);
 
-  const getBookmark = (verse) => {
-    return bookmarks.find(b => 
-      b.book === selectedBook?.name && 
-      b.chapter === selectedChapter && 
-      b.verse === verse.verse
-    );
-  };
-
-  const createBookmark = useMutation({
-    mutationFn: (data) => base44.entities.Bookmark.create(data),
-    onSuccess: () => {
-      queryClient.invalidateQueries(['bookmarks']);
-    }
-  });
-
-  const updateBookmark = useMutation({
-    mutationFn: ({ id, data }) => base44.entities.Bookmark.update(id, data),
-    onSuccess: () => {
-      queryClient.invalidateQueries(['bookmarks']);
-    }
-  });
-
-  const deleteBookmark = useMutation({
-    mutationFn: (id) => base44.entities.Bookmark.delete(id),
-    onSuccess: () => {
-      queryClient.invalidateQueries(['bookmarks']);
-    }
-  });
-
-
-
-  const handleVerseClick = (verse) => {
-    setActiveVerseMenu(activeVerseMenu === verse.verse ? null : verse.verse);
-  };
+  const createBM = useMutation({ mutationFn: d => base44.entities.Bookmark.create(d),                  onSuccess: () => queryClient.invalidateQueries(['bookmarks']) });
+  const updateBM = useMutation({ mutationFn: ({ id, data }) => base44.entities.Bookmark.update(id, data), onSuccess: () => queryClient.invalidateQueries(['bookmarks']) });
+  const deleteBM = useMutation({ mutationFn: id => base44.entities.Bookmark.delete(id),                  onSuccess: () => queryClient.invalidateQueries(['bookmarks']) });
 
   const handleHighlight = (verse, color, note = '') => {
-    const existing = getBookmark(verse);
-    
-    if (existing) {
-      updateBookmark.mutate({
-        id: existing.id,
-        data: { highlight_color: color, note: note || existing.note }
-      });
-    } else {
-      createBookmark.mutate({
-        book: selectedBook.name,
-        chapter: selectedChapter,
-        verse: verse.verse,
-        verse_text: verse.text,
-        highlight_color: color,
-        note: note
-      });
-    }
+    const e = getBookmark(verse);
+    if (e) updateBM.mutate({ id: e.id, data: { highlight_color: color, note: note || e.note } });
+    else   createBM.mutate({ book: selectedBook.name, chapter: selectedChapter, verse: verse.verse, verse_text: verse.text, highlight_color: color, note });
   };
-
   const handleAddNote = (verse, noteText) => {
-    const existing = getBookmark(verse);
-    
-    if (existing) {
-      updateBookmark.mutate({
-        id: existing.id,
-        data: { note: noteText }
-      });
-    } else {
-      createBookmark.mutate({
-        book: selectedBook.name,
-        chapter: selectedChapter,
-        verse: verse.verse,
-        verse_text: verse.text,
-        highlight_color: 'yellow',
-        note: noteText
-      });
-    }
-    setExpandedNotes({ ...expandedNotes, [verse.verse]: true });
+    const e = getBookmark(verse);
+    if (e) updateBM.mutate({ id: e.id, data: { note: noteText } });
+    else   createBM.mutate({ book: selectedBook.name, chapter: selectedChapter, verse: verse.verse, verse_text: verse.text, highlight_color: 'yellow', note: noteText });
+    setExpandedNotes(prev => ({ ...prev, [verse.verse]: true }));
   };
-
-  const handleUpdateNote = (verse, noteText) => {
-    const existing = getBookmark(verse);
-    if (existing) {
-      updateBookmark.mutate({
-        id: existing.id,
-        data: { note: noteText }
-      });
-    }
-  };
-
+  const handleUpdateNote     = (verse, noteText) => { const e = getBookmark(verse); if (e) updateBM.mutate({ id: e.id, data: { note: noteText } }); };
   const handleRemoveHighlight = (verse) => {
-    const existing = getBookmark(verse);
-    if (existing) {
-      if (existing.note) {
-        // Keep the bookmark but remove highlight color
-        updateBookmark.mutate({
-          id: existing.id,
-          data: { highlight_color: null }
-        });
-      } else {
-        // Remove the entire bookmark if no note
-        deleteBookmark.mutate(existing.id);
-      }
-    }
+    const e = getBookmark(verse);
+    if (!e) return;
+    if (e.note) updateBM.mutate({ id: e.id, data: { highlight_color: null } });
+    else        deleteBM.mutate(e.id);
   };
-
   const handleSaveToJournal = async (verse) => {
-    console.log('🔵 handleSaveToJournal called');
-    console.log('🔵 verse:', verse);
-    console.log('🔵 selectedBook:', selectedBook);
-    console.log('🔵 selectedChapter:', selectedChapter);
-    
-    const bookmark = getBookmark(verse);
-    console.log('🔵 bookmark found:', bookmark);
-    
-    if (!bookmark?.note) {
-      console.error('❌ No note found in bookmark');
-      toast.error('No note found to save');
-      return;
-    }
-
-    const verseRef = `${selectedBook.name} ${selectedChapter}:${verse.verse}`;
-    const journalContent = `📖 ${verseRef}\n\n"${verse.text}"\n\n💭 My Reflection:\n${bookmark.note}`;
-
-    const journalData = {
-      title: `Bible Note: ${verseRef}`,
-      content: journalContent,
-      entry_type: 'bible_notes',
-      tags: ['Bible Notes', selectedBook.name]
-    };
-    
-    console.log('🔵 Attempting to save journal data:', JSON.stringify(journalData, null, 2));
-
+    const bm = getBookmark(verse);
+    if (!bm?.note) { toast.error('Add a note first to save to journal'); return; }
+    const ref = `${selectedBook.name} ${selectedChapter}:${verse.verse}`;
     try {
-      console.log('🔵 Calling base44.entities.JournalEntry.create...');
-      const result = await base44.entities.JournalEntry.create(journalData);
-      console.log('✅ CREATE SUCCEEDED! Result:', result);
-      console.log('✅ Entry ID:', result.id);
-      console.log('✅ Entry Type in result:', result.entry_type);
-      console.log('✅ Full result data:', JSON.stringify(result, null, 2));
-      
-      // Invalidate and refetch
-      console.log('🔵 Invalidating queries...');
+      await base44.entities.JournalEntry.create({ title: `Bible Note: ${ref}`, content: `📖 ${ref}\n\n"${verse.text}"\n\n💭 My Reflection:\n${bm.note}`, entry_type: 'bible_notes', tags: ['Bible Notes', selectedBook.name] });
       await queryClient.invalidateQueries({ queryKey: ['journalEntries'] });
-      console.log('✅ Queries invalidated');
-      
-      // Wait a bit and verify
-      setTimeout(async () => {
-        console.log('🔵 Fetching all entries to verify...');
-        const allEntries = await base44.entities.JournalEntry.list();
-        console.log('📋 Total entries in DB:', allEntries.length);
-        const bibleNotes = allEntries.filter(e => e.entry_type === 'bible_notes');
-        console.log('📖 Bible notes entries:', bibleNotes.length);
-        console.log('📖 Bible notes data:', bibleNotes);
-      }, 1000);
-      
-      toast.success('✅ Saved to My Journal!');
-    } catch (error) {
-      console.error('❌ CREATE FAILED!');
-      console.error('❌ Error:', error);
-      console.error('❌ Error message:', error?.message);
-      console.error('❌ Error stack:', error?.stack);
-      console.error('❌ Error details:', JSON.stringify(error, null, 2));
-      toast.error(`Failed to save: ${error.message || 'Unknown error'}`);
-    }
+      toast.success('Saved to My Journal!');
+    } catch (err) { toast.error(`Failed: ${err.message || 'Unknown error'}`); }
   };
 
-  const toggleNoteExpansion = (verseNum) => {
-    setExpandedNotes({
-      ...expandedNotes,
-      [verseNum]: !expandedNotes[verseNum]
-    });
-  };
+  const filteredBooks = bookSearch.trim()
+    ? allBooks.filter(b => b.name.toLowerCase().includes(bookSearch.toLowerCase()))
+    : null;
 
-  return (
-    <div className="h-[calc(100vh-8rem)] flex bg-[#FFFDF7]">
-      {/* Left Sidebar - Books */}
-      <div className="w-64 bg-[#FFFDF7] border-r border-[#D9B878]/20 overflow-y-auto">
-        <div className="sticky top-0 bg-[#FFFDF7] border-b border-[#D9B878]/20 p-4 z-10">
-          <button
-            onClick={onBack}
-            className="flex items-center gap-2 text-[#0A1A2F]/60 hover:text-[#0A1A2F] mb-2"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            <span className="text-sm font-medium">Bible</span>
-          </button>
-          <h2 className="text-lg font-bold text-[#0A1A2F]">{testamentName}</h2>
-          <p className="text-xs text-[#0A1A2F]/50">{books.length} books</p>
-        </div>
+  const crumbs = [
+    { label: testName,       onClick: handleBackToBooks },
+    selectedBook && { label: selectedBook.name, onClick: selectedChapter ? handleBackToChapters : null },
+    selectedBook && selectedChapter && { label: `Chapter ${selectedChapter}`, onClick: null },
+  ].filter(Boolean);
 
-        <div className="p-2">
-          {books.map((book, idx) => (
-            <button
-              key={idx}
-              onClick={() => handleBookSelect(book)}
-              className={`w-full text-left px-3 py-2 rounded-lg mb-1 transition-colors ${
-                selectedBook?.name === book.name
-                  ? 'bg-gradient-to-r from-[#c9a227] to-[#D9B878] text-white font-medium'
-                  : 'hover:bg-[#FAD98D]/15 text-[#0A1A2F]/70'
-              }`}
-            >
-              <div className="flex items-center justify-between">
-                <span className="text-sm">{book.name}</span>
-                <span className="text-xs opacity-70">{book.chapters}</span>
-              </div>
-            </button>
-          ))}
+  // ─── Sidebar JSX (stable reference via extracted components above) ─────────
+  const sidebarContent = (
+    <div className="flex flex-col h-full overflow-hidden">
+      {/* Header */}
+      <div className="flex-shrink-0 px-4 pt-5 pb-4 border-b border-[#D9B878]/20">
+        <button
+          onClick={onBack}
+          className="flex items-center gap-1.5 text-[#0A1A2F]/40 hover:text-[#c9a227] mb-4 transition-colors text-xs font-semibold"
+        >
+          <ArrowLeft className="w-3.5 h-3.5 flex-shrink-0" />
+          Back to Bible
+        </button>
+        <p className="text-xs font-bold text-[#0A1A2F] tracking-wide uppercase mb-3">{testName}</p>
+        {/* Search */}
+        <div className="relative">
+          <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#0A1A2F]/30 pointer-events-none" />
+          <input
+            value={bookSearch}
+            onChange={e => setBookSearch(e.target.value)}
+            placeholder="Search books…"
+            className="w-full pl-8 pr-3 py-2 text-xs rounded-lg bg-[#FAD98D]/15 border border-[#D9B878]/25 focus:outline-none focus:border-[#c9a227]/60 text-[#0A1A2F] placeholder:text-[#0A1A2F]/30"
+          />
         </div>
       </div>
 
-      {/* Right Content Area */}
-      <div className="flex-1 overflow-y-auto">
-        {!selectedBook && (
-          <div className="flex items-center justify-center h-full">
-            <div className="text-center">
-              <h3 className="text-xl font-semibold text-[#0A1A2F] mb-2">
-                Select a Book
-              </h3>
-              <p className="text-[#0A1A2F]/50">Choose a book from the {testamentName}</p>
-            </div>
+      {/* Book list */}
+      <div className="flex-1 overflow-y-auto py-2">
+        {filteredBooks ? (
+          <div className="px-2">
+            {filteredBooks.length === 0 && (
+              <p className="text-xs text-center text-[#0A1A2F]/35 py-5">No books found</p>
+            )}
+            {filteredBooks.map((book, i) => (
+              <BookRow key={i} book={book} isActive={selectedBook?.name === book.name} onSelect={handleBookSelect} />
+            ))}
           </div>
+        ) : (
+          groups.map(group => {
+            const gBooks   = allBooks.filter(b => group.books.includes(b.name));
+            const isOpen   = !!openGroups[group.label];
+            const hasActive = !!(selectedBook && group.books.includes(selectedBook.name));
+            return (
+              <GroupRow
+                key={group.label}
+                group={group}
+                books={gBooks}
+                isOpen={isOpen}
+                hasActive={hasActive}
+                onToggle={toggleGroup}
+                selectedBookName={selectedBook?.name}
+                onBookSelect={handleBookSelect}
+              />
+            );
+          })
         )}
+      </div>
+    </div>
+  );
 
-        {selectedBook && !selectedChapter && (
-          <div className="p-6">
-            <div className="mb-6">
-              <button
-                onClick={handleBackToBooks}
-                className="flex items-center gap-2 text-[#0A1A2F]/60 hover:text-[#0A1A2F] mb-4"
-              >
-                <ArrowLeft className="w-4 h-4" />
-                <span className="text-sm">Back to Books</span>
-              </button>
-              <h2 className="text-2xl font-bold text-[#0A1A2F] mb-1">{selectedBook.name}</h2>
-              <p className="text-[#0A1A2F]/50">{selectedBook.chapters} chapters</p>
-            </div>
+  const fs = FONT_SIZES[fontIdx];
 
-            <div className="grid grid-cols-5 sm:grid-cols-8 md:grid-cols-10 gap-2">
-              {Array.from({ length: selectedBook.chapters }, (_, i) => i + 1).map(chapterNum => (
-                <motion.button
-                  key={chapterNum}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => handleChapterSelect(chapterNum)}
-                  className="aspect-square rounded-lg bg-[#FFFDF7] border-2 border-[#D9B878]/25 hover:border-[#c9a227] hover:bg-[#FAD98D]/15 flex items-center justify-center font-semibold text-[#0A1A2F]/75 hover:text-[#c9a227] transition-all"
+  return (
+    // Account for global fixed header (~56px = 3.5rem) + fixed bottom nav (~60px = 3.75rem)
+    <div
+      className="flex bg-[#FFFDF7]"
+      style={{ height: 'calc(100vh - 7.25rem)' }}
+    >
+      {/* ── Desktop sidebar ── */}
+      <div className="hidden md:flex flex-col w-56 flex-shrink-0 border-r border-[#D9B878]/20 bg-[#FFFDF7]">
+        {sidebarContent}
+      </div>
+
+      {/* ── Mobile sidebar overlay ── */}
+      <AnimatePresence>
+        {sidebarOpen && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-[#0A1A2F]/25 z-40 md:hidden"
+              onClick={() => setSidebarOpen(false)}
+            />
+            <motion.div
+              initial={{ x: -300 }} animate={{ x: 0 }} exit={{ x: -300 }}
+              transition={{ type: 'spring', damping: 26, stiffness: 280 }}
+              className="fixed left-0 top-0 bottom-0 w-72 bg-[#FFFDF7] z-50 shadow-2xl flex flex-col md:hidden"
+            >
+              <div className="flex items-center justify-between px-4 py-3.5 border-b border-[#D9B878]/20 flex-shrink-0">
+                <span className="text-sm font-bold text-[#0A1A2F]">{testName}</span>
+                <button
+                  onClick={() => setSidebarOpen(false)}
+                  className="w-8 h-8 rounded-full bg-[#FAD98D]/20 hover:bg-[#FAD98D]/35 flex items-center justify-center transition-colors"
                 >
-                  {chapterNum}
-                </motion.button>
+                  <X className="w-4 h-4 text-[#0A1A2F]" />
+                </button>
+              </div>
+              <div className="flex-1 overflow-hidden">
+                {sidebarContent}
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+
+      {/* ── Main panel ── */}
+      <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
+
+        {/* Top bar */}
+        <div className="flex-shrink-0 flex items-center justify-between gap-3 px-4 py-3 border-b border-[#D9B878]/20 bg-[#FFFDF7]">
+          {/* Left: hamburger + breadcrumb */}
+          <div className="flex items-center gap-2 min-w-0 overflow-hidden">
+            <button
+              onClick={() => setSidebarOpen(true)}
+              className="md:hidden flex-shrink-0 w-8 h-8 rounded-full bg-[#FAD98D]/20 hover:bg-[#FAD98D]/35 flex items-center justify-center transition-colors"
+            >
+              <Menu className="w-4 h-4 text-[#0A1A2F]" />
+            </button>
+            <button
+              onClick={onBack}
+              className="hidden md:flex items-center justify-center w-7 h-7 rounded-full hover:bg-[#FAD98D]/20 flex-shrink-0 transition-colors"
+            >
+              <ArrowLeft className="w-3.5 h-3.5 text-[#0A1A2F]/50" />
+            </button>
+            <div className="flex items-center gap-1 min-w-0 overflow-hidden">
+              {crumbs.map((c, i) => (
+                <React.Fragment key={i}>
+                  {i > 0 && <ChevronRight className="w-3 h-3 text-[#0A1A2F]/20 flex-shrink-0" />}
+                  {c.onClick
+                    ? <button onClick={c.onClick} className="text-xs text-[#c9a227] hover:text-[#b89320] font-semibold whitespace-nowrap transition-colors">{c.label}</button>
+                    : <span className="text-xs font-bold text-[#0A1A2F] truncate">{c.label}</span>
+                  }
+                </React.Fragment>
               ))}
             </div>
           </div>
-        )}
+          {/* Right: font size toggle (only when reading) */}
+          {selectedBook && selectedChapter && (
+            <div className="flex items-center gap-0.5 flex-shrink-0 bg-[#FAD98D]/15 rounded-lg p-1">
+              {FONT_SIZES.map((fs, i) => (
+                <button
+                  key={i}
+                  onClick={() => setFontIdx(i)}
+                  className={`w-7 h-6 rounded text-[11px] font-bold transition-all ${
+                    fontIdx === i ? 'bg-[#c9a227] text-white shadow-sm' : 'text-[#0A1A2F]/40 hover:text-[#0A1A2F]'
+                  }`}
+                >
+                  {fs.label}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
 
-        {selectedBook && selectedChapter && (
-          <div className="p-6" ref={versesRef}>
-            <div className="mb-6 sticky top-0 bg-[#FFFDF7] py-4 z-10 border-b border-[#D9B878]/20">
+        {/* Scrollable content */}
+        <div className="flex-1 overflow-y-auto" ref={contentRef}>
+
+          {/* ── Empty state ── */}
+          {!selectedBook && (
+            <div className="flex flex-col items-center justify-center h-full text-center px-8 py-12">
+              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#c9a227] to-[#D9B878] flex items-center justify-center mb-5 text-3xl shadow-lg">
+                📖
+              </div>
+              <h3 className="text-xl font-bold text-[#0A1A2F] mb-2">Choose a Book</h3>
+              <p className="text-sm text-[#0A1A2F]/45 mb-8 leading-relaxed">Browse the {testName}<br />to begin reading</p>
               <button
-                onClick={handleBackToChapters}
-                className="flex items-center gap-2 text-[#0A1A2F]/60 hover:text-[#0A1A2F] mb-4"
+                onClick={() => setSidebarOpen(true)}
+                className="md:hidden px-7 py-3 bg-gradient-to-r from-[#c9a227] to-[#D9B878] text-white rounded-xl font-semibold text-sm shadow-md"
               >
-                <ArrowLeft className="w-4 h-4" />
-                <span className="text-sm">Back to Chapters</span>
+                Browse Books
               </button>
-              <div className="flex items-center justify-between">
-                <div>
-                  <h2 className="text-2xl font-bold text-[#0A1A2F]">
-                    {selectedBook.name} {selectedChapter}
-                  </h2>
-                </div>
-                <div className="flex items-center gap-2">
-                  {selectedChapter > 1 && (
-                    <Button
-                      onClick={() => handleChapterSelect(selectedChapter - 1)}
-                      variant="outline"
-                      size="sm"
-                    >
-                      Previous
-                    </Button>
-                  )}
-                  {selectedChapter < selectedBook.chapters && (
-                    <Button
-                      onClick={() => handleChapterSelect(selectedChapter + 1)}
-                      variant="outline"
-                      size="sm"
-                    >
-                      Next
-                    </Button>
-                  )}
-                </div>
+            </div>
+          )}
+
+          {/* ── Chapter picker ── */}
+          {selectedBook && !selectedChapter && (
+            <div className="p-5 pb-16 max-w-xl">
+              <div className="mb-6">
+                <h2 className="text-2xl font-bold text-[#0A1A2F] mb-1">{selectedBook.name}</h2>
+                <p className="text-sm text-[#0A1A2F]/45">{selectedBook.chapters} chapters</p>
+              </div>
+              <div className="grid grid-cols-5 sm:grid-cols-7 md:grid-cols-8 gap-3">
+                {Array.from({ length: selectedBook.chapters }, (_, i) => i + 1).map(n => (
+                  <motion.button
+                    key={n}
+                    whileHover={{ scale: 1.07, y: -1 }}
+                    whileTap={{ scale: 0.94 }}
+                    onClick={() => handleChapterSelect(n)}
+                    className="aspect-square rounded-xl border-2 border-[#D9B878]/25 bg-[#FAD98D]/10 flex items-center justify-center font-semibold text-sm text-[#0A1A2F]/60 hover:border-[#c9a227] hover:bg-[#c9a227] hover:text-white hover:shadow-md transition-all"
+                  >
+                    {n}
+                  </motion.button>
+                ))}
               </div>
             </div>
+          )}
 
-            {loading && (
-              <div className="flex items-center justify-center py-12">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#c9a227]"></div>
+          {/* ── Verse reader ── */}
+          {selectedBook && selectedChapter && (
+            <div className="pb-28">
+              {/* Chapter heading + inline prev/next */}
+              <div className="px-5 pt-6 pb-4 flex items-center justify-between border-b border-[#D9B878]/15">
+                <div>
+                  <h2 className="text-xl font-bold text-[#0A1A2F] leading-tight">{selectedBook.name}</h2>
+                  <p className="text-xs text-[#0A1A2F]/40 mt-0.5 font-medium">
+                    Chapter {selectedChapter} <span className="text-[#D9B878]">·</span> {selectedBook.chapters} total
+                  </p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => selectedChapter > 1 && handleChapterSelect(selectedChapter - 1)}
+                    disabled={selectedChapter <= 1}
+                    className="w-9 h-9 rounded-full bg-[#FAD98D]/20 hover:bg-[#FAD98D]/40 disabled:opacity-25 flex items-center justify-center transition-all"
+                  >
+                    <ChevronLeft className="w-4 h-4 text-[#0A1A2F]" />
+                  </button>
+                  <button
+                    onClick={() => selectedChapter < selectedBook.chapters && handleChapterSelect(selectedChapter + 1)}
+                    disabled={selectedChapter >= selectedBook.chapters}
+                    className="w-9 h-9 rounded-full bg-gradient-to-br from-[#c9a227] to-[#D9B878] hover:opacity-90 disabled:opacity-25 flex items-center justify-center shadow-sm transition-all"
+                  >
+                    <ChevronRight className="w-4 h-4 text-white" />
+                  </button>
+                </div>
               </div>
-            )}
 
-            {!loading && verses.length === 0 && (
-              <div className="text-center py-12">
-                <p className="text-[#0A1A2F]/50">No verses available</p>
-              </div>
-            )}
+              {/* Loading */}
+              {loading && (
+                <div className="flex flex-col items-center justify-center py-24 gap-4">
+                  <div className="w-10 h-10 rounded-full border-2 border-[#D9B878]/30 border-t-[#c9a227] animate-spin" />
+                  <p className="text-sm text-[#0A1A2F]/35">Loading scripture…</p>
+                </div>
+              )}
 
-            {!loading && verses.length > 0 && (
-              <div className="max-w-3xl space-y-4">
-                {verses.map((verse, idx) => {
-                  const bookmark = getBookmark(verse);
-                  const isHighlighted = highlightVerse === verse.verse;
-                  const hasNote = bookmark?.note;
-                  const noteExpanded = expandedNotes[verse.verse];
-                  
-                  return (
-                    <motion.div
-                      key={idx}
-                      id={`verse-${verse.verse}`}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: idx * 0.02 }}
-                      className={`group relative ${isHighlighted ? 'highlight-verse' : ''}`}
-                    >
-                      <div
-                        onClick={() => handleVerseClick(verse)}
-                        className={`flex gap-3 p-3 rounded-lg cursor-pointer transition-all hover:bg-[#FFFDF7] ${
-                          bookmark?.highlight_color ? 'bg-opacity-30' : ''
-                        }`}
-                        style={{
-                          backgroundColor: bookmark?.highlight_color
-                            ? bookmark.highlight_color === 'yellow' ? '#FCD34D40'
-                            : bookmark.highlight_color === 'blue' ? '#60A5FA40'
-                            : bookmark.highlight_color === 'green' ? '#34D39940'
-                            : bookmark.highlight_color === 'pink' ? '#F472B640'
-                            : 'transparent'
-                            : 'transparent'
-                        }}
-                      >
-                        <span className="text-sm font-semibold text-[#c9a227] mt-1 flex-shrink-0 w-8">
-                          {verse.verse}
-                        </span>
-                        <p className="text-[#0A1A2F] leading-relaxed flex-1">
-                          {verse.text}
-                        </p>
-                        {(bookmark?.highlight_color || hasNote) && (
-                          <div className="flex items-center gap-1 flex-shrink-0 mt-1">
-                            {bookmark.highlight_color && (
-                              <div
-                                className="w-3 h-3 rounded-full border-2 border-white shadow-sm"
-                                style={{
-                                  backgroundColor: bookmark.highlight_color === 'yellow' ? '#FCD34D'
-                                    : bookmark.highlight_color === 'blue' ? '#60A5FA'
-                                    : bookmark.highlight_color === 'green' ? '#34D399'
-                                    : '#F472B6'
-                                }}
-                              />
-                            )}
-                            {hasNote && (
-                              <Bookmark className="w-4 h-4 fill-[#D9B878] text-[#D9B878]" />
-                            )}
-                          </div>
-                        )}
-                      </div>
+              {/* Empty */}
+              {!loading && verses.length === 0 && (
+                <div className="text-center py-20 px-6">
+                  <p className="text-[#0A1A2F]/35 text-sm">Unable to load verses. Please try again.</p>
+                </div>
+              )}
 
-                      {/* Action Menu */}
-                      {activeVerseMenu === verse.verse && (
-                        <div className="relative">
-                          <VerseActionMenu
-                            verse={verse}
-                            bookName={selectedBook.name}
-                            chapter={selectedChapter}
-                            existingBookmark={bookmark}
-                            onHighlight={(color, note) => handleHighlight(verse, color, note)}
-                            onAddNote={(note) => handleAddNote(verse, note)}
-                            onUpdateNote={(note) => handleUpdateNote(verse, note)}
-                            onRemoveHighlight={() => handleRemoveHighlight(verse)}
-                            onSaveToJournal={() => handleSaveToJournal(verse)}
-                            onClose={() => setActiveVerseMenu(null)}
-                          />
-                        </div>
-                      )}
+              {/* Verses */}
+              {!loading && verses.length > 0 && (
+                <div className="px-4 sm:px-6 max-w-2xl pt-2">
+                  {verses.map((verse, idx) => {
+                    const bm      = getBookmark(verse);
+                    const hlColor = HL[bm?.highlight_color];
+                    const hasNote = !!bm?.note;
+                    const noteOpen = !!expandedNotes[verse.verse];
+                    const isActive = activeVerseMenu === verse.verse;
 
-                      {/* Note Display */}
-                      {hasNote && (
-                        <AnimatePresence>
-                          <motion.div
-                            initial={{ opacity: 0, height: 0 }}
-                            animate={{ opacity: 1, height: 'auto' }}
-                            exit={{ opacity: 0, height: 0 }}
-                            className="ml-11 mt-2"
+                    return (
+                      <div key={idx} id={`v-${verse.verse}`} className="group">
+                        {/* Verse row */}
+                        <div
+                          onClick={() => setActiveVerseMenu(isActive ? null : verse.verse)}
+                          className="flex gap-3 px-3 py-3 rounded-xl cursor-pointer transition-colors"
+                          style={{
+                            backgroundColor: isActive
+                              ? 'rgba(201,162,39,0.08)'
+                              : hlColor
+                                ? hlColor.bg
+                                : undefined,
+                          }}
+                        >
+                          {/* Verse number — superscript style */}
+                          <span
+                            className="flex-shrink-0 text-[11px] font-bold text-[#c9a227] select-none tabular-nums"
+                            style={{ paddingTop: '0.35em', minWidth: '1.5rem', textAlign: 'right' }}
                           >
-                            <div className="bg-[#FFFDF7] rounded-lg p-3 border-l-4 border-[#D9B878]">
-                              <button
-                                onClick={() => toggleNoteExpansion(verse.verse)}
-                                className="flex items-center justify-between w-full text-left mb-2"
-                              >
-                                <span className="text-xs font-semibold text-[#D9B878]">My Note</span>
-                                {noteExpanded ? (
-                                  <ChevronUp className="w-4 h-4 text-[#0A1A2F]/40" />
-                                ) : (
-                                  <ChevronDown className="w-4 h-4 text-[#0A1A2F]/40" />
-                                )}
-                              </button>
-                              {noteExpanded && (
-                                <motion.p
-                                  initial={{ opacity: 0 }}
-                                  animate={{ opacity: 1 }}
-                                  className="text-sm text-[#0A1A2F] leading-relaxed whitespace-pre-wrap"
-                                >
-                                  {bookmark.note}
-                                </motion.p>
+                            {verse.verse}
+                          </span>
+
+                          {/* Scripture text */}
+                          <p
+                            className={`font-serif ${fs.prose} text-[#0A1A2F] flex-1`}
+                            style={{ lineHeight: fs.lineH }}
+                          >
+                            {verse.text}
+                          </p>
+
+                          {/* Bookmark/highlight indicators */}
+                          {(hlColor || hasNote) && (
+                            <div className="flex flex-col items-center gap-1.5 flex-shrink-0" style={{ paddingTop: '0.4em' }}>
+                              {hlColor && (
+                                <div className="w-2 h-2 rounded-full" style={{ backgroundColor: hlColor.dot }} />
+                              )}
+                              {hasNote && (
+                                <Bookmark className="w-3 h-3" style={{ fill: '#D9B878', color: '#D9B878' }} />
                               )}
                             </div>
-                          </motion.div>
-                        </AnimatePresence>
-                      )}
-                    </motion.div>
-                  );
-                })}
-              </div>
-            )}
-          </div>
-        )}
+                          )}
+                        </div>
+
+                        {/* Verse action menu */}
+                        {isActive && (
+                          <div className="relative z-10 ml-10 mb-1">
+                            <VerseActionMenu
+                              verse={verse}
+                              bookName={selectedBook.name}
+                              chapter={selectedChapter}
+                              existingBookmark={bm}
+                              onHighlight={(color, note) => handleHighlight(verse, color, note)}
+                              onAddNote={note => handleAddNote(verse, note)}
+                              onUpdateNote={note => handleUpdateNote(verse, note)}
+                              onRemoveHighlight={() => handleRemoveHighlight(verse)}
+                              onSaveToJournal={() => handleSaveToJournal(verse)}
+                              onClose={() => setActiveVerseMenu(null)}
+                            />
+                          </div>
+                        )}
+
+                        {/* Inline note */}
+                        {hasNote && (
+                          <AnimatePresence>
+                            <motion.div
+                              initial={{ opacity: 0, height: 0 }}
+                              animate={{ opacity: 1, height: 'auto' }}
+                              exit={{ opacity: 0, height: 0 }}
+                              className="ml-10 mr-2 mb-1"
+                            >
+                              <div
+                                className="rounded-r-lg px-3 py-2.5"
+                                style={{ borderLeft: '3px solid #D9B878', backgroundColor: 'rgba(250,217,141,0.1)' }}
+                              >
+                                <button
+                                  onClick={() => toggleNote(verse.verse)}
+                                  className="flex items-center justify-between w-full text-left mb-1"
+                                >
+                                  <span className="text-[11px] font-bold text-[#8a6e1a]">My Note</span>
+                                  {noteOpen
+                                    ? <ChevronUp className="w-3.5 h-3.5 text-[#0A1A2F]/35" />
+                                    : <ChevronDown className="w-3.5 h-3.5 text-[#0A1A2F]/35" />
+                                  }
+                                </button>
+                                {noteOpen && (
+                                  <motion.p
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    className="text-sm text-[#0A1A2F]/75 leading-relaxed whitespace-pre-wrap"
+                                  >
+                                    {bm.note}
+                                  </motion.p>
+                                )}
+                              </div>
+                            </motion.div>
+                          </AnimatePresence>
+                        )}
+                      </div>
+                    );
+                  })}
+
+                  {/* Footer navigation */}
+                  <div className="mt-10 pt-6 border-t border-[#D9B878]/20 flex items-center justify-between gap-4">
+                    <button
+                      onClick={() => selectedChapter > 1 && handleChapterSelect(selectedChapter - 1)}
+                      disabled={selectedChapter <= 1}
+                      className="flex items-center gap-2 px-5 py-3 rounded-xl border border-[#D9B878]/30 text-sm font-medium text-[#0A1A2F]/55 hover:text-[#0A1A2F] hover:border-[#c9a227]/40 disabled:opacity-25 transition-all"
+                    >
+                      <ChevronLeft className="w-4 h-4" />
+                      Previous
+                    </button>
+                    <span className="text-xs text-[#0A1A2F]/30 text-center hidden sm:block">
+                      {selectedBook.name} · Ch {selectedChapter}
+                    </span>
+                    <button
+                      onClick={() => selectedChapter < selectedBook.chapters && handleChapterSelect(selectedChapter + 1)}
+                      disabled={selectedChapter >= selectedBook.chapters}
+                      className="flex items-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-[#c9a227] to-[#D9B878] text-white text-sm font-semibold hover:opacity-90 disabled:opacity-25 shadow-md transition-all"
+                    >
+                      Next
+                      <ChevronRight className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+
+        </div>
       </div>
 
       <style>{`
-        .highlight-verse {
-          background: rgba(217, 184, 120, 0.2);
-          border-radius: 8px;
-          padding: 8px;
-          animation: highlight-pulse 2s ease-in-out;
-        }
-        
-        @keyframes highlight-pulse {
-          0%, 100% { background: rgba(217, 184, 120, 0.2); }
-          50% { background: rgba(217, 184, 120, 0.4); }
+        .highlight-verse { animation: hl-pulse 2.5s ease-in-out; }
+        @keyframes hl-pulse {
+          0%, 100% { background: transparent; }
+          30%, 70%  { background: rgba(217,184,120,0.22); border-radius: 10px; }
         }
       `}</style>
 
-      {/* Gideon Ask Anything */}
       <GideonAskAnything />
     </div>
   );
