@@ -188,7 +188,7 @@ export default function BibleSearchBar({ onNavigate }) {
 
   return (
     <>
-      <div ref={containerRef} className="relative mb-4">
+      <div ref={containerRef} className="relative">
         <div className="flex gap-2 mb-2">
           <div className="relative flex-1">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#0A1A2F]/40" />

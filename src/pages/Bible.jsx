@@ -193,16 +193,13 @@ export default function Bible() {
                   </Button>
                   <Button
                     onClick={() => { setInitialBook(null); setView('oldTestament'); }}
-                    className="bg-white/12 hover:bg-white/20 text-white border border-white/25 flex-1 text-sm">
+                    className="bg-white/10 hover:bg-white/20 text-white border border-white/25 flex-1 text-sm">
                     Old Testament
                   </Button>
                 </div>
               </motion.div>
 
-              {/* Fix #11: BibleSearchBar — remove its internal mb-4 via wrapper reset */}
-              <div className="-mb-1">
-                <BibleSearchBar onNavigate={handleSearchNavigate} />
-              </div>
+              <BibleSearchBar onNavigate={handleSearchNavigate} />
 
               {/* Fix #3+13: Stats cards — removed duplicate (ReadingPlanProgressTracker has its own stats section)
                   Mobile tap affordance: permanent small dot indicator instead of hover-only text */}

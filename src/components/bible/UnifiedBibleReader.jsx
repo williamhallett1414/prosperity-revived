@@ -142,7 +142,8 @@ export default function UnifiedBibleReader({
 
   const allBooks = testament === 'old' ? bibleBooks.oldTestament : bibleBooks.newTestament;
   const groups   = testament === 'old' ? OLD_GROUPS : NEW_GROUPS;
-  const testName = testament === 'old' ? 'Old Testament' : 'New Testament';
+  const testName        = testament === 'old' ? 'Old Testament' : 'New Testament';
+  const testNameShort   = testament === 'old' ? 'OT' : 'NT';
 
   // Open the group that contains the active book on first load
   useEffect(() => {
@@ -268,7 +269,7 @@ export default function UnifiedBibleReader({
     : null;
 
   const crumbs = [
-    { label: testName,       onClick: handleBackToBooks },
+    { label: testName, labelShort: testNameShort, onClick: handleBackToBooks },
     selectedBook && { label: selectedBook.name, onClick: selectedChapter ? handleBackToChapters : null },
     selectedBook && selectedChapter && { label: `Chapter ${selectedChapter}`, onClick: null },
   ].filter(Boolean);
@@ -400,7 +401,10 @@ export default function UnifiedBibleReader({
                 <React.Fragment key={i}>
                   {i > 0 && <ChevronRight className="w-3 h-3 text-[#0A1A2F]/20 flex-shrink-0" />}
                   {c.onClick
-                    ? <button onClick={c.onClick} className="text-xs text-[#c9a227] hover:text-[#b89320] font-semibold whitespace-nowrap transition-colors">{c.label}</button>
+                    ? <button onClick={c.onClick} className="text-xs text-[#c9a227] hover:text-[#b89320] font-semibold whitespace-nowrap transition-colors">
+                        <span className="sm:hidden">{c.labelShort || c.label}</span>
+                        <span className="hidden sm:inline">{c.label}</span>
+                      </button>
                     : <span className="text-xs font-bold text-[#0A1A2F] truncate">{c.label}</span>
                   }
                 </React.Fragment>
@@ -424,9 +428,9 @@ export default function UnifiedBibleReader({
                 }`}
               >NT</button>
             </div>
-            {/* Font size (only when reading) */}
+            {/* Font size (only when reading, hidden on mobile to avoid crowding) */}
             {selectedBook && selectedChapter && (
-              <div className="flex items-center gap-0.5 bg-[#FAD98D]/15 rounded-lg p-1">
+              <div className="hidden sm:flex items-center gap-0.5 bg-[#FAD98D]/15 rounded-lg p-1">
                 {FONT_SIZES.map((fs, i) => (
                   <button
                     key={i}
@@ -549,7 +553,14 @@ export default function UnifiedBibleReader({
                     const isActive = activeVerseMenu === verse.verse;
 
                     return (
-                      <div key={idx} id={`v-${verse.verse}`} className="group">
+                      <motion.div
+                        key={idx}
+                        id={`v-${verse.verse}`}
+                        className="group"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: Math.min(idx * 0.018, 0.5), duration: 0.3 }}
+                      >
                         {/* Verse row */}
                         <div
                           onClick={() => setActiveVerseMenu(isActive ? null : verse.verse)}
@@ -645,7 +656,7 @@ export default function UnifiedBibleReader({
                             </motion.div>
                           </AnimatePresence>
                         )}
-                      </div>
+                      </motion.div>
                     );
                   })}
 
