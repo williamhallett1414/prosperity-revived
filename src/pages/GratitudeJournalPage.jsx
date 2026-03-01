@@ -8,9 +8,9 @@ import { Textarea } from '@/components/ui/textarea';
 import { base44 } from '@/api/base44Client';
 import { toast } from 'sonner';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import GratitudeAIPrompt from '@/components/mindspirit/GratitudeAIPrompt';
-import GratitudeMoodChart from '@/components/mindspirit/GratitudeMoodChart';
-import GratitudePatternInsights from '@/components/mindspirit/GratitudePatternInsights';
+import GratitudeAIPrompt from '@/components/mindspirit/GratitudeAIPrompt.jsx';
+import GratitudeMoodChart from '@/components/mindspirit/GratitudeMoodChart.jsx';
+import GratitudePatternInsights from '@/components/mindspirit/GratitudePatternInsights.jsx';
 
 const TABS = [
   { id: 'write', label: 'Write', icon: Heart },
