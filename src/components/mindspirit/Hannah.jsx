@@ -49,6 +49,7 @@ export default function Hannah({ user }) {
       loadJournalPatterns();
       loadMemories();
       loadPersonalityPreferences();
+      loadHannahProfile();
     }
   }, [isOpen, user]);
 
