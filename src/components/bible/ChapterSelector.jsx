@@ -13,7 +13,7 @@ export default function ChapterSelector({ book, onSelectChapter, onBack, selecte
         <Button variant="ghost" size="icon" onClick={onBack}>
           <ArrowLeft className="w-5 h-5" />
         </Button>
-        <h2 className="text-xl font-semibold text-[#1a1a2e]">{book.name}</h2>
+        <h2 className="text-xl font-semibold text-[#0A1A2F]">{book.name}</h2>
       </div>
       
       <ScrollArea className="flex-1 px-4">
@@ -26,8 +26,8 @@ export default function ChapterSelector({ book, onSelectChapter, onBack, selecte
               onClick={() => onSelectChapter(chapter)}
               className={`aspect-square rounded-xl font-medium transition-all flex items-center justify-center ${
                 selectedChapter === chapter
-                  ? 'bg-[#1a1a2e] text-white'
-                  : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
+                  ? 'bg-gradient-to-r from-[#c9a227] to-[#D9B878] text-white'
+                  : 'bg-[#FAD98D]/15 hover:bg-[#FAD98D]/25 text-[#0A1A2F]/70'
               }`}
             >
               {chapter}

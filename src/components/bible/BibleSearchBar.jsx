@@ -191,7 +191,7 @@ export default function BibleSearchBar({ onNavigate }) {
       <div ref={containerRef} className="relative mb-4">
         <div className="flex gap-2 mb-2">
           <div className="relative flex-1">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#0A1A2F]/40" />
             <input
               ref={inputRef}
               type="text"
@@ -200,14 +200,14 @@ export default function BibleSearchBar({ onNavigate }) {
               onKeyDown={handleKeyDown}
               onFocus={() => searchQuery && setShowSuggestions(true)}
               placeholder="Quick navigation: books, chapters, verses…"
-              className="w-full pl-12 pr-12 py-3.5 bg-white rounded-2xl border-2 border-gray-200 focus:border-[#D9B878] focus:outline-none text-[#0A1A2F] placeholder:text-gray-400 transition-all shadow-sm"
+              className="w-full pl-12 pr-12 py-3.5 bg-white rounded-2xl border-2 border-[#D9B878]/20 focus:border-[#D9B878] focus:outline-none text-[#0A1A2F] placeholder:text-[#0A1A2F]/40 transition-all shadow-sm"
             />
             {searchQuery && (
               <button
                 onClick={clearSearch}
-                className="absolute right-4 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-gray-200 hover:bg-gray-300 flex items-center justify-center transition-colors"
+                className="absolute right-4 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-[#D9B878]/20 hover:bg-[#D9B878]/35 flex items-center justify-center transition-colors"
               >
-                <X className="w-4 h-4 text-gray-600" />
+                <X className="w-4 h-4 text-[#0A1A2F]/60" />
               </button>
             )}
           </div>
@@ -228,7 +228,7 @@ export default function BibleSearchBar({ onNavigate }) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.15 }}
-            className="absolute top-full left-0 right-0 mt-2 bg-white rounded-2xl border-2 border-gray-200 shadow-xl overflow-hidden z-50"
+            className="absolute top-full left-0 right-0 mt-2 bg-white rounded-2xl border-2 border-[#D9B878]/20 shadow-xl overflow-hidden z-50"
           >
             <div className="py-2 max-h-80 overflow-y-auto">
               {suggestions.map((suggestion, index) => (
@@ -239,13 +239,13 @@ export default function BibleSearchBar({ onNavigate }) {
                 >
                   <div className="flex items-center gap-3">
                     {suggestion.type === 'book' && (
-                      <div className="w-8 h-8 rounded-lg bg-amber-100 flex items-center justify-center">
-                        <Search className="w-4 h-4 text-amber-700" />
+                      <div className="w-8 h-8 rounded-lg bg-[#FAD98D]/30 flex items-center justify-center">
+                        <Search className="w-4 h-4 text-[#c9a227]" />
                       </div>
                     )}
                     {suggestion.type === 'chapter' && (
-                      <div className="w-8 h-8 rounded-lg bg-sky-100 flex items-center justify-center">
-                        <span className="text-xs font-bold text-sky-700">Ch</span>
+                      <div className="w-8 h-8 rounded-lg bg-[#0A1A2F]/8 flex items-center justify-center">
+                        <span className="text-xs font-bold text-[#0A1A2F]">Ch</span>
                       </div>
                     )}
                     {suggestion.type === 'verse' && (
@@ -255,7 +255,7 @@ export default function BibleSearchBar({ onNavigate }) {
                     )}
                     <div>
                       <p className="font-medium text-[#0A1A2F]">{suggestion.text}</p>
-                      <p className="text-xs text-gray-500">
+                      <p className="text-xs text-[#0A1A2F]/50">
                         {suggestion.type === 'book' && 'Open book'}
                         {suggestion.type === 'chapter' && 'Read chapter'}
                         {suggestion.type === 'verse' && 'Go to verse'}

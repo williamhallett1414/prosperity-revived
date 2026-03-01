@@ -129,7 +129,7 @@ Keep it warm, accessible, and spiritually enriching - like Dr. Myles Munroe's ki
         initial={{ opacity: 0, scale: 0.95, y: -10 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.95, y: -10 }}
-        className="absolute z-50 mt-2 bg-white rounded-xl shadow-2xl border-2 border-gray-200 overflow-hidden"
+        className="absolute z-50 mt-2 bg-white rounded-xl shadow-2xl border-2 border-[#D9B878]/20 overflow-hidden"
         style={{ minWidth: '280px' }}
       >
         {/* Header */}
@@ -167,7 +167,7 @@ Keep it warm, accessible, and spiritually enriching - like Dr. Myles Munroe's ki
                 <Sparkles className="w-4 h-4 text-[#8a6e1a]" />
                 <span className="text-sm font-bold text-[#0A1A2F]">Gideon's Insights</span>
               </div>
-              <div className="prose prose-sm text-gray-700 text-xs leading-relaxed">
+              <div className="prose prose-sm text-[#0A1A2F]/75 text-xs leading-relaxed">
                 {aiInsights.split('\n').map((line, i) => (
                   <p key={i} className="mb-2">{line}</p>
                 ))}
@@ -178,8 +178,8 @@ Keep it warm, accessible, and spiritually enriching - like Dr. Myles Munroe's ki
           {/* Highlight Colors */}
           <div>
             <div className="flex items-center gap-2 mb-2">
-              <Highlighter className="w-4 h-4 text-gray-500" />
-              <span className="text-xs font-semibold text-gray-700">Highlight</span>
+              <Highlighter className="w-4 h-4 text-[#0A1A2F]/50" />
+              <span className="text-xs font-semibold text-[#0A1A2F]/75">Highlight</span>
             </div>
             <div className="flex gap-2">
               {HIGHLIGHT_COLORS.map((colorOption) => (
@@ -189,7 +189,7 @@ Keep it warm, accessible, and spiritually enriching - like Dr. Myles Munroe's ki
                   className={`flex-1 h-10 rounded-lg border-2 transition-all hover:scale-105 ${
                     existingBookmark?.highlight_color === colorOption.name
                       ? 'border-[#0A1A2F] ring-2 ring-[#0A1A2F]/20'
-                      : 'border-gray-200'
+                      : 'border-[#D9B878]/20'
                   }`}
                   style={{ backgroundColor: colorOption.color }}
                   title={colorOption.label}
@@ -217,8 +217,8 @@ Keep it warm, accessible, and spiritually enriching - like Dr. Myles Munroe's ki
           <div>
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-2">
-                <StickyNote className="w-4 h-4 text-gray-500" />
-                <span className="text-xs font-semibold text-gray-700">Note</span>
+                <StickyNote className="w-4 h-4 text-[#0A1A2F]/50" />
+                <span className="text-xs font-semibold text-[#0A1A2F]/75">Note</span>
               </div>
               {!showNoteInput && existingBookmark?.note && (
                 <button
@@ -236,7 +236,7 @@ Keep it warm, accessible, and spiritually enriching - like Dr. Myles Munroe's ki
                   value={noteText}
                   onChange={(e) => setNoteText(e.target.value)}
                   placeholder="Write your reflection..."
-                  className="min-h-[100px] text-sm bg-gray-50 border-gray-200"
+                  className="min-h-[100px] text-sm bg-[#FFFDF7] border-[#D9B878]/20"
                   autoFocus
                 />
                 <div className="space-y-2">
@@ -265,7 +265,7 @@ Keep it warm, accessible, and spiritually enriching - like Dr. Myles Munroe's ki
                     <Button
                       onClick={handleSaveToJournal}
                       size="sm"
-                      className="w-full bg-[#8fa68a] hover:bg-[#8fa68a]/90 text-white"
+                      className="w-full bg-[#D9B878] hover:bg-[#D9B878]/90 text-white"
                     >
                       <BookOpen className="w-3 h-3 mr-1" />
                       Save to Journal
@@ -274,8 +274,8 @@ Keep it warm, accessible, and spiritually enriching - like Dr. Myles Munroe's ki
                 </div>
               </div>
             ) : existingBookmark?.note ? (
-              <div className="bg-gray-50 rounded-lg p-3 space-y-2">
-                <p className="text-sm text-gray-700">{existingBookmark.note}</p>
+              <div className="bg-[#FFFDF7] rounded-lg p-3 space-y-2">
+                <p className="text-sm text-[#0A1A2F]/75">{existingBookmark.note}</p>
                 <div className="flex gap-2">
                   <Button
                     onClick={handleSaveToJournal}

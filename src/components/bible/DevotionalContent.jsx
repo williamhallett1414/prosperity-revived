@@ -65,8 +65,8 @@ export default function DevotionalContent() {
         animate={{ opacity: 1, y: 0 }}
         className="mb-4"
       >
-        <h2 className="text-xl font-bold text-[#1a1a2e] dark:text-white mb-1">Featured Devotionals</h2>
-        <p className="text-sm text-gray-500 dark:text-gray-400">Deep dive articles on faith and spiritual growth</p>
+        <h2 className="text-xl font-bold text-[#0A1A2F] mb-1">Featured Devotionals</h2>
+        <p className="text-sm text-[#0A1A2F]/55">Deep dive articles on faith and spiritual growth</p>
       </motion.div>
 
       <div className="grid grid-cols-1 gap-4">

@@ -137,7 +137,7 @@ export default function VerseReader({ book, chapter, onBack, onNavigate, bookmar
   const canGoPrev = chapter > 1;
 
   return (
-    <div className="h-full flex flex-col bg-[#faf8f5]">
+    <div className="h-full flex flex-col bg-[#FFFDF7]">
       {/* Plan Badge */}
       {planDay && planId && (
         <div className="bg-[#c9a227] text-white px-4 py-2 text-sm text-center">
@@ -152,8 +152,8 @@ export default function VerseReader({ book, chapter, onBack, onNavigate, bookmar
             <ArrowLeft className="w-5 h-5" />
           </Button>
           <div>
-            <h2 className="font-semibold text-[#1a1a2e]">{book.name}</h2>
-            <p className="text-sm text-gray-500">Chapter {chapter}</p>
+            <h2 className="font-semibold text-[#0A1A2F]">{book.name}</h2>
+            <p className="text-sm text-[#0A1A2F]/50">Chapter {chapter}</p>
           </div>
         </div>
         
@@ -226,10 +226,10 @@ export default function VerseReader({ book, chapter, onBack, onNavigate, bookmar
                 exit={{ opacity: 0, y: 20 }}
                 className="fixed bottom-24 left-1/2 -translate-x-1/2 bg-white rounded-2xl shadow-xl p-4 z-50 min-w-[300px]"
               >
-                <p className="text-sm text-gray-500 mb-3">Actions:</p>
+                <p className="text-sm text-[#0A1A2F]/50 mb-3">Actions:</p>
                 <div className="space-y-3">
                   <div>
-                    <p className="text-xs text-gray-400 mb-2">Highlight:</p>
+                    <p className="text-xs text-[#0A1A2F]/40 mb-2">Highlight:</p>
                     <div className="flex gap-2">
                       {Object.keys(highlightColors).map(color => (
                         <button
@@ -245,14 +245,14 @@ export default function VerseReader({ book, chapter, onBack, onNavigate, bookmar
                   </div>
                   <button
                     onClick={() => handleAnnotate(verses.find(v => v.number === selectedVerse))}
-                    className="w-full flex items-center justify-center gap-2 py-2 px-4 bg-white border-2 border-[#c9a227] text-[#1a1a2e] rounded-lg hover:bg-[#faf8f5] transition-colors"
+                    className="w-full flex items-center justify-center gap-2 py-2 px-4 bg-white border-2 border-[#c9a227] text-[#0A1A2F] rounded-lg hover:bg-[#FFFDF7] transition-colors"
                   >
                     <FileText className="w-4 h-4" />
                     Add Note & Highlight
                   </button>
                   <button
                     onClick={() => handleShare(verses.find(v => v.number === selectedVerse))}
-                    className="w-full flex items-center justify-center gap-2 py-2 px-4 bg-[#1a1a2e] text-white rounded-lg hover:bg-[#2d2d4a] transition-colors"
+                    className="w-full flex items-center justify-center gap-2 py-2 px-4 bg-[#0A1A2F] text-white rounded-lg hover:bg-[#2d2d4a] transition-colors"
                   >
                     <Share2 className="w-4 h-4" />
                     Share to Community
@@ -285,7 +285,7 @@ export default function VerseReader({ book, chapter, onBack, onNavigate, bookmar
           Previous
         </Button>
         
-        <span className="text-sm text-gray-500">
+        <span className="text-sm text-[#0A1A2F]/50">
           {chapter} of {book.chapters}
         </span>
         

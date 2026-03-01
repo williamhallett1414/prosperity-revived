@@ -28,12 +28,12 @@ export default function BibleBooks() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F2F6FA] pb-24">
-      <div className="sticky top-0 z-40 bg-white border-b border-[#E6EBEF] px-4 py-3">
+    <div className="min-h-screen bg-[#FFFDF7] pb-24">
+      <div className="sticky top-0 z-40 bg-[#FFFDF7] border-b border-[#D9B878]/25 px-4 py-3">
         <div className="max-w-2xl mx-auto flex items-center gap-3">
           <button
             onClick={() => window.history.back()}
-            className="w-9 h-9 rounded-full bg-[#E6EBEF] hover:bg-[#D9DFE4] flex items-center justify-center transition-colors"
+            className="w-9 h-9 rounded-full bg-[#FAD98D]/20 hover:bg-[#FAD98D]/35 flex items-center justify-center transition-colors"
           >
             <ArrowLeft className="w-4 h-4 text-[#0A1A2F]" />
           </button>
@@ -51,18 +51,18 @@ export default function BibleBooks() {
               <motion.div
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="mb-5 bg-gradient-to-br from-[#FAD98D]/30 to-[#FD9C2D]/10 border border-[#FD9C2D]/20 rounded-2xl p-4 flex items-center gap-3"
+                className="mb-5 bg-gradient-to-br from-[#FAD98D]/30 to-[#D9B878]/15 border border-[#D9B878]/25 rounded-2xl p-4 flex items-center gap-3"
               >
                 <span className="text-2xl">📜</span>
                 <div>
                   <p className="text-sm font-semibold text-[#0A1A2F]">Not sure where to start?</p>
                   <p className="text-xs text-[#0A1A2F]/60">
                     Try <span
-                      className="text-[#FD9C2D] font-semibold cursor-pointer underline"
+                      className="text-[#c9a227] font-semibold cursor-pointer underline"
                       onClick={() => window.location.href = createPageUrl('Bible?book=Psalms&chapter=1')}
                     >Psalms</span> for worship and reflection, or{' '}
                     <span
-                      className="text-[#FD9C2D] font-semibold cursor-pointer underline"
+                      className="text-[#c9a227] font-semibold cursor-pointer underline"
                       onClick={() => window.location.href = createPageUrl('Bible?book=Proverbs&chapter=1')}
                     >Proverbs</span> for daily wisdom.
                   </p>
@@ -78,11 +78,11 @@ export default function BibleBooks() {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={() => handleSelectBook(book)}
-                className="w-full text-left px-5 py-4 rounded-xl transition-all bg-white dark:bg-[#2d2d4a] hover:shadow-md"
+                className="w-full text-left px-5 py-4 rounded-xl transition-all bg-[#FFFDF7] border border-[#D9B878]/20 hover:shadow-md hover:border-[#c9a227]/40"
               >
                 <div className="flex items-center justify-between">
                   <div>
-                    <span className="font-semibold text-[#1a1a2e] dark:text-white">{book.name}</span>
+                    <span className="font-semibold text-[#0A1A2F]">{book.name}</span>
                     <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">
                       {book.chapters} {book.chapters === 1 ? 'chapter' : 'chapters'}
                     </p>

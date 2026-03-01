@@ -377,24 +377,24 @@ export default function DevotionalArticle({ devotional, onBack }) {
 
   if (!content) {
     return (
-      <div className="min-h-screen bg-[#faf8f5] dark:bg-[#1a1a2e] p-6">
+      <div className="min-h-screen bg-[#FFFDF7] dark:bg-[#0A1A2F] p-6">
         <Button variant="ghost" onClick={onBack}>
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back
         </Button>
-        <p className="text-center text-gray-500 mt-20">Devotional content not found.</p>
+        <p className="text-center text-[#0A1A2F]/50 mt-20">Devotional content not found.</p>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#faf8f5] dark:bg-[#1a1a2e]">
+    <div className="min-h-screen bg-[#FFFDF7] dark:bg-[#0A1A2F]">
       <div className="max-w-3xl mx-auto px-4 py-6">
         {/* Back Button */}
         <Button
           variant="ghost"
           onClick={onBack}
-          className="mb-4 text-gray-600 dark:text-gray-400 hover:text-[#1a1a2e] dark:hover:text-white"
+          className="mb-4 text-[#0A1A2F]/60 dark:text-[#0A1A2F]/40 hover:text-[#0A1A2F] dark:hover:text-white"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back
@@ -420,11 +420,11 @@ export default function DevotionalArticle({ devotional, onBack }) {
 
         {/* Introduction */}
         <Card className="p-6 mb-6">
-          <h2 className="text-xl font-bold text-[#1a1a2e] dark:text-white mb-4 flex items-center gap-2">
+          <h2 className="text-xl font-bold text-[#0A1A2F] mb-4 flex items-center gap-2">
             <Sparkles className="w-5 h-5 text-[#c9a227]" />
             Introduction
           </h2>
-          <div className="space-y-4 text-gray-700 dark:text-gray-300 leading-relaxed">
+          <div className="space-y-4 text-[#0A1A2F]/75 dark:text-gray-300 leading-relaxed">
             {content.introduction.map((paragraph, index) => (
               <p key={index}>{paragraph}</p>
             ))}
@@ -432,14 +432,14 @@ export default function DevotionalArticle({ devotional, onBack }) {
         </Card>
 
         {/* Key Bible Verses */}
-        <Card className="p-6 bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 border-l-4 border-[#c9a227] mb-6">
-          <h2 className="text-xl font-bold text-[#1a1a2e] dark:text-white mb-4">Key Bible Verses</h2>
+        <Card className="p-6 bg-gradient-to-br from-[#FAD98D]/15 to-[#D9B878]/10 dark:from-[#FAD98D]/10 dark:to-[#D9B878]/8 border-l-4 border-[#c9a227] mb-6">
+          <h2 className="text-xl font-bold text-[#0A1A2F] mb-4">Key Bible Verses</h2>
           <div className="space-y-4">
             {content.verses.map((verse, index) => (
               <div key={index}>
-                <h3 className="font-semibold text-[#1a1a2e] dark:text-white mb-2">{index + 1}. {verse.title}</h3>
-                <p className="italic text-gray-700 dark:text-gray-300 mb-2">{verse.verse}</p>
-                <p className="text-sm text-gray-600 dark:text-gray-400">{verse.insight}</p>
+                <h3 className="font-semibold text-[#0A1A2F] mb-2">{index + 1}. {verse.title}</h3>
+                <p className="italic text-[#0A1A2F]/75 dark:text-gray-300 mb-2">{verse.verse}</p>
+                <p className="text-sm text-[#0A1A2F]/60 dark:text-[#0A1A2F]/40">{verse.insight}</p>
               </div>
             ))}
           </div>
@@ -447,8 +447,8 @@ export default function DevotionalArticle({ devotional, onBack }) {
 
         {/* Reflection */}
         <Card className="p-6 mb-6">
-          <h2 className="text-xl font-bold text-[#1a1a2e] dark:text-white mb-4">Reflection</h2>
-          <div className="space-y-4 text-gray-700 dark:text-gray-300 leading-relaxed">
+          <h2 className="text-xl font-bold text-[#0A1A2F] mb-4">Reflection</h2>
+          <div className="space-y-4 text-[#0A1A2F]/75 dark:text-gray-300 leading-relaxed">
             {content.reflection.map((paragraph, index) => (
               <p key={index}>{paragraph}</p>
             ))}
@@ -457,12 +457,12 @@ export default function DevotionalArticle({ devotional, onBack }) {
 
         {/* Reflection Questions */}
         <Card className="p-6 bg-gradient-to-br from-[#F2F6FA] to-[#F2F6FA] dark:from-blue-900/20 dark:to-[#0A1A2F]/20 mb-6">
-          <h2 className="text-xl font-bold text-[#1a1a2e] dark:text-white mb-4">Reflection Questions</h2>
+          <h2 className="text-xl font-bold text-[#0A1A2F] mb-4">Reflection Questions</h2>
           <div className="space-y-4">
             {content.reflectionQuestions.map((section, index) => (
               <div key={index}>
-                <h3 className="font-semibold text-[#1a1a2e] dark:text-white mb-2">{section.category}</h3>
-                <ul className="list-disc pl-5 space-y-2 text-gray-700 dark:text-gray-300 text-sm">
+                <h3 className="font-semibold text-[#0A1A2F] mb-2">{section.category}</h3>
+                <ul className="list-disc pl-5 space-y-2 text-[#0A1A2F]/75 dark:text-gray-300 text-sm">
                   {section.questions.map((question, qIndex) => (
                     <li key={qIndex}>{question}</li>
                   ))}
@@ -473,17 +473,17 @@ export default function DevotionalArticle({ devotional, onBack }) {
         </Card>
 
         {/* Call to Christ */}
-        <Card className="p-6 bg-gradient-to-br from-[#FAD98D]/10 to-[#FFF8E7] dark:from-[#0A1A2F]/40 dark:to-[#1a1a2e]/40 mb-6">
-          <h2 className="text-xl font-bold text-[#1a1a2e] dark:text-white mb-4 flex items-center gap-2">
+        <Card className="p-6 bg-gradient-to-br from-[#FAD98D]/10 to-[#FFF8E7] dark:from-[#0A1A2F]/40 dark:to-[#0A1A2F]/40 mb-6">
+          <h2 className="text-xl font-bold text-[#0A1A2F] mb-4 flex items-center gap-2">
             <Heart className="w-5 h-5 text-[#8a6e1a]" />
             Call to Christ
           </h2>
-          <div className="space-y-4 text-gray-700 dark:text-gray-300 leading-relaxed">
+          <div className="space-y-4 text-[#0A1A2F]/75 dark:text-gray-300 leading-relaxed">
             <p className="font-semibold">{content.callToChrist.title}</p>
             <p>{content.callToChrist.intro}</p>
             
             <div className="mt-6 space-y-3">
-              <h3 className="font-semibold text-[#1a1a2e] dark:text-white">
+              <h3 className="font-semibold text-[#0A1A2F]">
                 {devotional.id === 'identity-christ' ? 'How to Grow in Christ Through Identity' : 'Practical Steps'}
               </h3>
               <ol className="list-decimal pl-5 space-y-3 text-sm">
@@ -498,19 +498,19 @@ export default function DevotionalArticle({ devotional, onBack }) {
         </Card>
 
         {/* Prayer */}
-        <Card className="p-6 bg-gradient-to-br from-[#c9a227]/10 to-[#8fa68a]/10 border-l-4 border-[#c9a227] mb-6">
-          <h2 className="text-xl font-bold text-[#1a1a2e] dark:text-white mb-4">Prayer</h2>
-          <p className="text-gray-700 dark:text-gray-300 leading-relaxed italic">
+        <Card className="p-6 bg-gradient-to-br from-[#c9a227]/10 to-[#D9B878]/10 border-l-4 border-[#c9a227] mb-6">
+          <h2 className="text-xl font-bold text-[#0A1A2F] mb-4">Prayer</h2>
+          <p className="text-[#0A1A2F]/75 dark:text-gray-300 leading-relaxed italic">
             {content.prayer}
           </p>
         </Card>
 
         {/* Conclusion */}
         <Card className="p-6">
-          <h2 className="text-xl font-bold text-[#1a1a2e] dark:text-white mb-4">Conclusion</h2>
-          <div className="space-y-4 text-gray-700 dark:text-gray-300 leading-relaxed">
+          <h2 className="text-xl font-bold text-[#0A1A2F] mb-4">Conclusion</h2>
+          <div className="space-y-4 text-[#0A1A2F]/75 dark:text-gray-300 leading-relaxed">
             {content.conclusion.map((paragraph, index) => (
-              <p key={index} className={paragraph.includes('chosen') || paragraph.includes('masterpiece') ? 'font-semibold text-[#1a1a2e] dark:text-white' : ''}>
+              <p key={index} className={paragraph.includes('chosen') || paragraph.includes('masterpiece') ? 'font-semibold text-[#0A1A2F]' : ''}>
                 {paragraph}
               </p>
             ))}

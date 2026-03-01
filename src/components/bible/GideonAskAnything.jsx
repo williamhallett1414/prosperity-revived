@@ -429,7 +429,7 @@ Example: [VERSE]Romans 8:28 - "And we know that all things work together for goo
         className="fixed bottom-24 right-4 z-40 bg-gradient-to-r from-[#0A1A2F] to-[#c9a227] text-white rounded-full p-4 shadow-2xl hover:shadow-3xl transition-all">
 
         <MessageCircle className="w-6 h-6" />
-        <span className="absolute -top-1 -right-1 bg-[#FD9C2D] text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center">
+        <span className="absolute -top-1 -right-1 bg-[#c9a227] text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center">
           <Sparkles className="w-3 h-3" />
         </span>
       </motion.button>
@@ -449,7 +449,7 @@ Example: [VERSE]Romans 8:28 - "And we know that all things work together for goo
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.9, opacity: 0 }}
             onClick={(e) => e.stopPropagation()}
-            className="bg-white dark:bg-[#2d2d4a] rounded-2xl shadow-2xl w-[95%] max-w-2xl h-[85vh] flex flex-col overflow-hidden">
+            className="bg-white rounded-2xl shadow-2xl w-[95%] max-w-2xl h-[85vh] flex flex-col overflow-hidden">
 
               {/* Header */}
               <div className="bg-gradient-to-r from-[#0A1A2F] to-[#c9a227] p-5">
@@ -496,7 +496,7 @@ Example: [VERSE]Romans 8:28 - "And we know that all things work together for goo
               {conversation.length === 0 &&
             <div className="p-6 text-center space-y-4">
                   <div className="text-6xl">📖</div>
-                  <h3 className="text-2xl font-bold text-gray-800 dark:text-white">
+                  <h3 className="text-2xl font-bold text-gray-800">
                     Ask Me Anything About Scripture
                   </h3>
                   {memoryContext && memoryContext.total_conversation_count > 0 && (
@@ -534,7 +534,7 @@ Example: [VERSE]Romans 8:28 - "And we know that all things work together for goo
                     </button>
                     <button
                       onClick={() => setInput("What does Romans 8:28 really mean?")}
-                      className="px-4 py-2 bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 rounded-full text-sm hover:bg-orange-200 dark:hover:bg-orange-900/50 transition-colors"
+                      className="px-4 py-2 bg-[#FAD98D]/30 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 rounded-full text-sm hover:bg-orange-200 dark:hover:bg-orange-900/50 transition-colors"
                     >
                       Verse Meaning
                     </button>
@@ -556,7 +556,7 @@ Example: [VERSE]Romans 8:28 - "And we know that all things work together for goo
                         <p className="text-sm">{message.content}</p>
                       </div> :
 
-                <div className="bg-gray-100 dark:bg-[#1a1a2e] rounded-2xl px-4 py-3 max-w-[85%]">
+                <div className="bg-[#FAD98D]/12 dark:bg-[#0A1A2F] rounded-2xl px-4 py-3 max-w-[85%]">
                         <div className="flex items-center gap-2 mb-2">
                           <div className="w-6 h-6 bg-gradient-to-r from-[#c9a227] to-[#D9B878] rounded-full flex items-center justify-center">
                             <MessageCircle className="w-3 h-3 text-white" />
@@ -611,7 +611,7 @@ Example: [VERSE]Romans 8:28 - "And we know that all things work together for goo
                                 ) : (
                                   <ReactMarkdown 
                                     key={idx}
-                                    className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed prose prose-sm max-w-none"
+                                    className="text-sm text-[#0A1A2F]/75 dark:text-gray-300 leading-relaxed prose prose-sm max-w-none"
                                     components={{
                                       h1: ({node, ...props}) => <h1 className="font-bold mt-6 mb-3" {...props} />,
                                       h2: ({node, ...props}) => <h2 className="font-bold mt-5 mb-3" {...props} />,
@@ -639,10 +639,10 @@ Example: [VERSE]Romans 8:28 - "And we know that all things work together for goo
                 animate={{ opacity: 1 }}
                 className="flex justify-start">
 
-                    <div className="bg-gray-100 dark:bg-[#1a1a2e] rounded-2xl px-4 py-3">
+                    <div className="bg-[#FAD98D]/12 dark:bg-[#0A1A2F] rounded-2xl px-4 py-3">
                       <div className="flex items-center gap-2">
                         <Loader2 className="w-4 h-4 animate-spin text-[#c9a227]" />
-                        <span className="text-sm text-gray-500 dark:text-gray-400">Gideon is thinking...</span>
+                        <span className="text-sm text-[#0A1A2F]/50 dark:text-[#0A1A2F]/40">Gideon is thinking...</span>
                       </div>
                     </div>
                   </motion.div>
@@ -650,7 +650,7 @@ Example: [VERSE]Romans 8:28 - "And we know that all things work together for goo
               </div>
 
               {/* Input */}
-              <div className="p-4 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-[#2d2d4a]">
+              <div className="p-4 border-t border-[#D9B878]/20 bg-white">
                 <div className="flex gap-2">
                   <Input
                   placeholder="Ask about any scripture, verse, or topic..."
@@ -674,7 +674,7 @@ Example: [VERSE]Romans 8:28 - "And we know that all things work together for goo
                     {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
                   </Button>
                 </div>
-                <p className="text-xs text-gray-500 dark:text-gray-400 mt-2 text-center">
+                <p className="text-xs text-[#0A1A2F]/50 dark:text-[#0A1A2F]/40 mt-2 text-center">
                   Press Enter to send • Type "Deep Study Mode" for comprehensive chapter/passage studies
                 </p>
               </div>

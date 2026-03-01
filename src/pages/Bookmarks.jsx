@@ -40,7 +40,7 @@ export default function Bookmarks() {
   const colors = ['all', 'yellow', 'green', 'blue', 'pink', 'purple'];
 
   return (
-    <div className="min-h-screen bg-[#faf8f5] pb-24">
+    <div className="min-h-screen bg-[#FFFDF7] pb-24">
       <div className="max-w-2xl mx-auto px-4 py-6">
         {/* Header */}
         <motion.div
@@ -52,11 +52,11 @@ export default function Bookmarks() {
             <div className="flex items-center gap-3 mb-2">
               <Link
                 to={createPageUrl('Home')}
-                className="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center text-[#1a1a2e] hover:bg-gray-50 transition-colors"
+                className="w-9 h-9 rounded-full bg-[#FAD98D]/20 hover:bg-[#FAD98D]/35 flex items-center justify-center transition-colors"
               >
                 <ArrowLeft className="w-4 h-4 text-[#0A1A2F]" />
               </Link>
-              <h1 className="text-2xl font-bold text-[#1a1a2e]">Saved Verses</h1>
+              <h1 className="text-2xl font-bold text-[#0A1A2F]">Saved Verses</h1>
             </div>
             <p className="text-gray-500 ml-[52px]">{bookmarks.length} verses saved</p>
           </div>
@@ -90,8 +90,8 @@ export default function Bookmarks() {
           <div className="space-y-4">
             {[1, 2, 3].map(i => (
               <div key={i} className="bg-white rounded-xl p-4 animate-pulse">
-                <div className="h-4 bg-gray-200 rounded w-3/4 mb-2" />
-                <div className="h-4 bg-gray-200 rounded w-1/2" />
+                <div className="h-4 bg-[#D9B878]/20 rounded w-3/4 mb-2" />
+                <div className="h-4 bg-[#D9B878]/20 rounded w-1/2" />
               </div>
             ))}
           </div>
@@ -104,13 +104,13 @@ export default function Bookmarks() {
             <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-[#c9a227]/10 flex items-center justify-center">
               <Bookmark className="w-10 h-10 text-[#c9a227]" />
             </div>
-            <h3 className="text-lg font-semibold text-[#1a1a2e] mb-2">No saved verses yet</h3>
+            <h3 className="text-lg font-semibold text-[#0A1A2F] mb-2">No saved verses yet</h3>
             <p className="text-gray-500 mb-4">
               Tap on any verse while reading to highlight and save it
             </p>
             <Button
               onClick={() => navigate(createPageUrl('Bible'))}
-              className="bg-[#1a1a2e] hover:bg-[#2d2d4a]"
+              className="bg-gradient-to-r from-[#c9a227] to-[#D9B878] hover:opacity-90"
             >
               Start Reading
             </Button>

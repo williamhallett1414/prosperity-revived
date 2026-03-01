@@ -301,19 +301,19 @@ export default function UnifiedBibleReader({
   };
 
   return (
-    <div className="h-[calc(100vh-8rem)] flex bg-[#faf8f5]">
+    <div className="h-[calc(100vh-8rem)] flex bg-[#FFFDF7]">
       {/* Left Sidebar - Books */}
-      <div className="w-64 bg-white border-r border-gray-200 overflow-y-auto">
-        <div className="sticky top-0 bg-white border-b border-gray-200 p-4 z-10">
+      <div className="w-64 bg-white border-r border-[#D9B878]/20 overflow-y-auto">
+        <div className="sticky top-0 bg-white border-b border-[#D9B878]/20 p-4 z-10">
           <button
             onClick={onBack}
-            className="flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-2"
+            className="flex items-center gap-2 text-[#0A1A2F]/60 hover:text-gray-900 mb-2"
           >
             <ArrowLeft className="w-4 h-4" />
             <span className="text-sm font-medium">Bible</span>
           </button>
           <h2 className="text-lg font-bold text-[#0A1A2F]">{testamentName}</h2>
-          <p className="text-xs text-gray-500">{books.length} books</p>
+          <p className="text-xs text-[#0A1A2F]/50">{books.length} books</p>
         </div>
 
         <div className="p-2">
@@ -323,8 +323,8 @@ export default function UnifiedBibleReader({
               onClick={() => handleBookSelect(book)}
               className={`w-full text-left px-3 py-2 rounded-lg mb-1 transition-colors ${
                 selectedBook?.name === book.name
-                  ? 'bg-[#8fa68a] text-white font-medium'
-                  : 'hover:bg-gray-100 text-gray-700'
+                  ? 'bg-gradient-to-r from-[#c9a227] to-[#D9B878] text-white font-medium'
+                  : 'hover:bg-[#FAD98D]/15 text-[#0A1A2F]/70'
               }`}
             >
               <div className="flex items-center justify-between">
@@ -344,7 +344,7 @@ export default function UnifiedBibleReader({
               <h3 className="text-xl font-semibold text-gray-900 mb-2">
                 Select a Book
               </h3>
-              <p className="text-gray-500">Choose a book from the {testamentName}</p>
+              <p className="text-[#0A1A2F]/50">Choose a book from the {testamentName}</p>
             </div>
           </div>
         )}
@@ -354,13 +354,13 @@ export default function UnifiedBibleReader({
             <div className="mb-6">
               <button
                 onClick={handleBackToBooks}
-                className="flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-4"
+                className="flex items-center gap-2 text-[#0A1A2F]/60 hover:text-gray-900 mb-4"
               >
                 <ArrowLeft className="w-4 h-4" />
                 <span className="text-sm">Back to Books</span>
               </button>
               <h2 className="text-2xl font-bold text-[#0A1A2F] mb-1">{selectedBook.name}</h2>
-              <p className="text-gray-500">{selectedBook.chapters} chapters</p>
+              <p className="text-[#0A1A2F]/50">{selectedBook.chapters} chapters</p>
             </div>
 
             <div className="grid grid-cols-5 sm:grid-cols-8 md:grid-cols-10 gap-2">
@@ -370,7 +370,7 @@ export default function UnifiedBibleReader({
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => handleChapterSelect(chapterNum)}
-                  className="aspect-square rounded-lg bg-white border-2 border-gray-200 hover:border-[#8fa68a] hover:bg-[#8fa68a]/10 flex items-center justify-center font-semibold text-gray-700 hover:text-[#8fa68a] transition-all"
+                  className="aspect-square rounded-lg bg-white border-2 border-[#D9B878]/25 hover:border-[#c9a227] hover:bg-[#FAD98D]/15 flex items-center justify-center font-semibold text-[#0A1A2F]/75 hover:text-[#c9a227] transition-all"
                 >
                   {chapterNum}
                 </motion.button>
@@ -381,10 +381,10 @@ export default function UnifiedBibleReader({
 
         {selectedBook && selectedChapter && (
           <div className="p-6" ref={versesRef}>
-            <div className="mb-6 sticky top-0 bg-[#faf8f5] py-4 z-10 border-b border-gray-200">
+            <div className="mb-6 sticky top-0 bg-[#FFFDF7] py-4 z-10 border-b border-[#D9B878]/20">
               <button
                 onClick={handleBackToChapters}
-                className="flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-4"
+                className="flex items-center gap-2 text-[#0A1A2F]/60 hover:text-gray-900 mb-4"
               >
                 <ArrowLeft className="w-4 h-4" />
                 <span className="text-sm">Back to Chapters</span>
@@ -420,13 +420,13 @@ export default function UnifiedBibleReader({
 
             {loading && (
               <div className="flex items-center justify-center py-12">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#8fa68a]"></div>
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#c9a227]"></div>
               </div>
             )}
 
             {!loading && verses.length === 0 && (
               <div className="text-center py-12">
-                <p className="text-gray-500">No verses available</p>
+                <p className="text-[#0A1A2F]/50">No verses available</p>
               </div>
             )}
 
@@ -449,7 +449,7 @@ export default function UnifiedBibleReader({
                     >
                       <div
                         onClick={() => handleVerseClick(verse)}
-                        className={`flex gap-3 p-3 rounded-lg cursor-pointer transition-all hover:bg-gray-50 ${
+                        className={`flex gap-3 p-3 rounded-lg cursor-pointer transition-all hover:bg-[#FFFDF7] ${
                           bookmark?.highlight_color ? 'bg-opacity-30' : ''
                         }`}
                         style={{
@@ -462,7 +462,7 @@ export default function UnifiedBibleReader({
                             : 'transparent'
                         }}
                       >
-                        <span className="text-sm font-semibold text-[#8fa68a] mt-1 flex-shrink-0 w-8">
+                        <span className="text-sm font-semibold text-[#c9a227] mt-1 flex-shrink-0 w-8">
                           {verse.verse}
                         </span>
                         <p className="text-gray-800 leading-relaxed flex-1">
@@ -515,23 +515,23 @@ export default function UnifiedBibleReader({
                             exit={{ opacity: 0, height: 0 }}
                             className="ml-11 mt-2"
                           >
-                            <div className="bg-gray-50 rounded-lg p-3 border-l-4 border-[#D9B878]">
+                            <div className="bg-[#FFFDF7] rounded-lg p-3 border-l-4 border-[#D9B878]">
                               <button
                                 onClick={() => toggleNoteExpansion(verse.verse)}
                                 className="flex items-center justify-between w-full text-left mb-2"
                               >
                                 <span className="text-xs font-semibold text-[#D9B878]">My Note</span>
                                 {noteExpanded ? (
-                                  <ChevronUp className="w-4 h-4 text-gray-400" />
+                                  <ChevronUp className="w-4 h-4 text-[#0A1A2F]/40" />
                                 ) : (
-                                  <ChevronDown className="w-4 h-4 text-gray-400" />
+                                  <ChevronDown className="w-4 h-4 text-[#0A1A2F]/40" />
                                 )}
                               </button>
                               {noteExpanded && (
                                 <motion.p
                                   initial={{ opacity: 0 }}
                                   animate={{ opacity: 1 }}
-                                  className="text-sm text-gray-700 whitespace-pre-wrap"
+                                  className="text-sm text-[#0A1A2F] leading-relaxed whitespace-pre-wrap"
                                 >
                                   {bookmark.note}
                                 </motion.p>
