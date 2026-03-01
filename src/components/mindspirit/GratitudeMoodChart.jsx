@@ -36,7 +36,6 @@ export default function GratitudeMoodChart({ entries }) {
       };
     });
 
-  // Mood distribution
   const moodCount = {};
   entries.forEach(e => {
     if (e.mood) moodCount[e.mood] = (moodCount[e.mood] || 0) + 1;
@@ -73,7 +72,7 @@ export default function GratitudeMoodChart({ entries }) {
             <YAxis domain={[0, 10]} tick={{ fontSize: 10, fill: '#9ca3af' }} width={20} />
             <Tooltip
               contentStyle={{ fontSize: 11, borderRadius: 8, border: '1px solid #e5e7eb' }}
-              formatter={(val, name) => [`${val}/10`, 'Mood Score']}
+              formatter={(val) => [`${val}/10`, 'Mood Score']}
             />
             <Line
               type="monotone"

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Sparkles, Loader2, TrendingUp } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
@@ -68,7 +68,6 @@ export default function GratitudePatternInsights({ entries }) {
         </div>
       ) : insights ? (
         <div className="space-y-4">
-          {/* Themes */}
           {insights.themes?.length > 0 && (
             <div>
               <p className="text-xs font-medium text-gray-400 uppercase tracking-wide mb-2">Recurring Themes</p>
@@ -82,7 +81,6 @@ export default function GratitudePatternInsights({ entries }) {
             </div>
           )}
 
-          {/* Growth Areas */}
           {insights.growth_areas?.length > 0 && (
             <div>
               <p className="text-xs font-medium text-gray-400 uppercase tracking-wide mb-2">Areas of Growth</p>
@@ -99,7 +97,6 @@ export default function GratitudePatternInsights({ entries }) {
             </div>
           )}
 
-          {/* Reflection */}
           {insights.reflection && (
             <div className="bg-[#F2F6FA] rounded-xl p-4">
               <p className="text-xs font-medium text-gray-400 mb-1">Personalized Reflection</p>
@@ -107,7 +104,6 @@ export default function GratitudePatternInsights({ entries }) {
             </div>
           )}
 
-          {/* Encouragement */}
           {insights.encouragement && (
             <div className="bg-gradient-to-r from-[#FD9C2D]/10 to-[#D9B878]/10 rounded-xl p-4 border border-[#D9B878]/20">
               <p className="text-sm text-[#0A1A2F] font-medium italic">✨ {insights.encouragement}</p>
