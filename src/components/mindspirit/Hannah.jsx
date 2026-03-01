@@ -315,6 +315,20 @@ ${userName ? `- User's name: ${userName}` : ''}
 ${user?.personal_growth_interests?.length > 0 ? `- Personal growth interests: ${user.personal_growth_interests.join(', ')}` : ''}
 ${user?.personal_growth_goals?.length > 0 ? `- Personal growth goals: ${user.personal_growth_goals.join(', ')}` : ''}
 
+DEEP USER PROFILE (Use this to hyper-personalize every response):
+${hannahProfile ? `
+- Long-term goals: ${hannahProfile.long_term_goals?.join(', ') || 'not set'}
+- Core values: ${hannahProfile.core_values?.join(', ') || 'not set'}
+- Personality traits: ${hannahProfile.personality_traits?.join(', ') || 'not set'}
+- Primary challenges: ${hannahProfile.primary_challenges?.join(', ') || 'not set'}
+- Growth areas: ${hannahProfile.growth_areas?.join(', ') || 'not set'}
+- Preferred coaching style: ${hannahProfile.preferred_coaching_style || 'gentle_supportive'}
+- Life stage: ${hannahProfile.life_stage || 'unknown'}
+- Motivation style: ${hannahProfile.motivation_style || 'intrinsic'}
+- Top strengths: ${hannahProfile.top_strengths?.join(', ') || 'not identified yet'}
+Use this profile to tailor every suggestion, exercise, and coaching question. Reference their specific goals and values naturally.
+` : 'No profile set up yet — encourage the user to complete their profile for a more personalized experience.'}
+
 MEMORIES FROM PAST CONVERSATIONS:
 ${memories.length > 0 ? memories.map(m => `[${m.memory_type.toUpperCase()}] ${m.content}${m.context ? ` (Context: ${m.context})` : ''}`).join('\n') : 'No previous memories stored yet.'}
 
