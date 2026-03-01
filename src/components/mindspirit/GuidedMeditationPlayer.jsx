@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Play, Pause, X, Volume2, VolumeX, Loader2, Wind, Moon, Sun, Heart, BookOpen, Leaf } from 'lucide-react';
+import { Play, Pause, X, Volume2, VolumeX, Loader2, Wind, Moon, Sun, Heart, BookOpen, Leaf, Flame, Star, Zap, Shield, Feather, Eye, Coffee, Cloud, Music, Sunrise, Waves, Anchor, Rainbow } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 
 const MEDITATIONS = [
@@ -75,6 +75,246 @@ const MEDITATIONS = [
     accentColor: '#3C4E53',
     description: 'Surrender the day and rest in God\'s faithful care.',
     prompt: 'A 10-minute evening wind-down meditation. Review the day with gratitude, release what didn\'t go well, surrender tomorrow\'s worries to God (Matthew 6:34). Guide progressive muscle relaxation and close with a nighttime blessing. Hushed, sleepy tone.'
+  },
+  {
+    id: 'anxiety-relief',
+    title: 'Anxiety Relief',
+    duration: '6 min',
+    durationSec: 360,
+    theme: '🌊',
+    icon: Waves,
+    gradient: 'from-[#AFC7E3]/30 to-[#3C4E53]/15',
+    accentColor: '#AFC7E3',
+    description: 'Calm racing thoughts and return to stillness through breath and faith.',
+    prompt: 'A 6-minute anxiety relief meditation. Acknowledge anxious feelings without judgment, use slow 4-7-8 breathing, visualize God\'s peace as a still lake, and anchor in Isaiah 41:10. Gentle, grounding tone with long pauses.'
+  },
+  {
+    id: 'confidence-courage',
+    title: 'Confidence & Courage',
+    duration: '5 min',
+    durationSec: 300,
+    theme: '🦁',
+    icon: Flame,
+    gradient: 'from-[#D9B878]/25 to-[#AFC7E3]/15',
+    accentColor: '#D9B878',
+    description: 'Step into the strength and boldness God has placed inside you.',
+    prompt: 'A 5-minute confidence and courage meditation. Remind the user of their God-given identity, use Joshua 1:9 as an anchor, visualize stepping forward with boldness, and close with a declaration of faith. Energizing yet peaceful tone.'
+  },
+  {
+    id: 'deep-sleep',
+    title: 'Deep Sleep Preparation',
+    duration: '12 min',
+    durationSec: 720,
+    theme: '💤',
+    icon: Moon,
+    gradient: 'from-[#3C4E53]/30 to-[#AFC7E3]/10',
+    accentColor: '#3C4E53',
+    description: 'Quiet your mind and drift into peaceful, restorative sleep.',
+    prompt: 'A 12-minute sleep preparation meditation. Slow the breath progressively, guide a full body relaxation from toes to head, visualize resting in God\'s arms, reference Psalm 4:8. Very slow, drowsy narration with extended pauses of 8-12 seconds between segments.'
+  },
+  {
+    id: 'grief-comfort',
+    title: 'Grief & Comfort',
+    duration: '8 min',
+    durationSec: 480,
+    theme: '🫶',
+    icon: Heart,
+    gradient: 'from-[#AFC7E3]/25 to-[#D9B878]/15',
+    accentColor: '#AFC7E3',
+    description: 'Find comfort in God\'s presence when loss or sadness weighs heavy.',
+    prompt: 'An 8-minute grief and comfort meditation. Acknowledge pain with compassion, create space to feel and release sadness, remind the user they are not alone (Psalm 34:18), visualize God\'s arms around them. Deeply tender, unhurried tone.'
+  },
+  {
+    id: 'purpose-calling',
+    title: 'Purpose & Calling',
+    duration: '7 min',
+    durationSec: 420,
+    theme: '⭐',
+    icon: Star,
+    gradient: 'from-[#D9B878]/20 to-[#3C4E53]/15',
+    accentColor: '#D9B878',
+    description: 'Reconnect with your God-given purpose and the life you\'re called to.',
+    prompt: 'A 7-minute purpose and calling meditation. Guide reflection on God\'s unique design for the user, use Jeremiah 29:11, visualize a path lit ahead, invite surrender of self-doubt, close with a commissioning prayer. Inspiring, warm tone.'
+  },
+  {
+    id: 'midday-reset',
+    title: 'Midday Reset',
+    duration: '4 min',
+    durationSec: 240,
+    theme: '☀️',
+    icon: Coffee,
+    gradient: 'from-[#AFC7E3]/20 to-[#D9B878]/15',
+    accentColor: '#AFC7E3',
+    description: 'A quick recharge to clear mental fog and renew focus mid-day.',
+    prompt: 'A 4-minute midday reset meditation. Three deep cleansing breaths, release the morning\'s stress, set a fresh intention for the afternoon, end with a one-line prayer. Crisp, refreshing tone — like a cold glass of water.'
+  },
+  {
+    id: 'healing-prayer',
+    title: 'Healing Prayer',
+    duration: '9 min',
+    durationSec: 540,
+    theme: '✝️',
+    icon: Shield,
+    gradient: 'from-[#D9B878]/25 to-[#AFC7E3]/20',
+    accentColor: '#D9B878',
+    description: 'Bring physical, emotional or spiritual pain before God and receive His healing.',
+    prompt: 'A 9-minute healing prayer meditation. Invite the user to name what needs healing, lay it at the foot of the cross, visualize healing light flowing through the body, reference James 5:16 and Isaiah 53:5. Reverent, faith-filled tone.'
+  },
+  {
+    id: 'letting-go',
+    title: 'Letting Go',
+    duration: '6 min',
+    durationSec: 360,
+    theme: '🍂',
+    icon: Feather,
+    gradient: 'from-[#AFC7E3]/25 to-[#3C4E53]/10',
+    accentColor: '#AFC7E3',
+    description: 'Release control, old wounds, and what no longer serves your growth.',
+    prompt: 'A 6-minute letting go meditation. Guide the user to identify what they\'re gripping tightly, visualize placing it in God\'s open hands, breathe out and release with each exhale, reference Philippians 4:6-7. Gentle, freeing tone.'
+  },
+  {
+    id: 'focus-clarity',
+    title: 'Focus & Clarity',
+    duration: '5 min',
+    durationSec: 300,
+    theme: '🎯',
+    icon: Eye,
+    gradient: 'from-[#3C4E53]/20 to-[#D9B878]/15',
+    accentColor: '#3C4E53',
+    description: 'Cut through distraction and sharpen your mind for the task ahead.',
+    prompt: 'A 5-minute focus and clarity meditation. Clear mental clutter through breath, visualize a clear still pond, set one clear intention, reference Proverbs 4:25. Alert and grounded tone — not sleepy, but calm and sharp.'
+  },
+  {
+    id: 'self-compassion',
+    title: 'Self-Compassion',
+    duration: '7 min',
+    durationSec: 420,
+    theme: '💛',
+    icon: Sun,
+    gradient: 'from-[#D9B878]/20 to-[#AFC7E3]/20',
+    accentColor: '#D9B878',
+    description: 'Speak kindly to yourself the way God speaks over you.',
+    prompt: 'A 7-minute self-compassion meditation. Address harsh inner criticism with gentleness, remind the user they are fearfully and wonderfully made (Psalm 139:14), practice placing a hand on the heart and receiving God\'s love. Warm, motherly tone.'
+  },
+  {
+    id: 'overcoming-fear',
+    title: 'Overcoming Fear',
+    duration: '6 min',
+    durationSec: 360,
+    theme: '⚡',
+    icon: Zap,
+    gradient: 'from-[#3C4E53]/25 to-[#AFC7E3]/15',
+    accentColor: '#3C4E53',
+    description: 'Face what frightens you with faith, not with your own strength.',
+    prompt: 'A 6-minute overcoming fear meditation. Name the fear without shame, place it before God, declare 2 Timothy 1:7 over it, visualize walking through the fear with God beside you. Steady, courageous tone.'
+  },
+  {
+    id: 'relationships',
+    title: 'Healthy Relationships',
+    duration: '7 min',
+    durationSec: 420,
+    theme: '🤝',
+    icon: Heart,
+    gradient: 'from-[#AFC7E3]/25 to-[#D9B878]/15',
+    accentColor: '#AFC7E3',
+    description: 'Open your heart to give and receive love as God intended.',
+    prompt: 'A 7-minute relationships meditation. Reflect on one key relationship, release any hurt or expectation, pray for the other person, visualize connection rooted in love (1 Corinthians 13). Warm, open tone.'
+  },
+  {
+    id: 'abundance-mindset',
+    title: 'Abundance Mindset',
+    duration: '5 min',
+    durationSec: 300,
+    theme: '🌿',
+    icon: Leaf,
+    gradient: 'from-[#D9B878]/20 to-[#3C4E53]/15',
+    accentColor: '#D9B878',
+    description: 'Shift from scarcity thinking to God\'s overflowing provision.',
+    prompt: 'A 5-minute abundance mindset meditation. Name three ways God has provided, counter scarcity fears with truth, reference Philippians 4:19, visualize a table overflowing. Grateful, expectant tone.'
+  },
+  {
+    id: 'sabbath-rest',
+    title: 'Sabbath Rest',
+    duration: '10 min',
+    durationSec: 600,
+    theme: '☁️',
+    icon: Cloud,
+    gradient: 'from-[#AFC7E3]/30 to-[#3C4E53]/20',
+    accentColor: '#AFC7E3',
+    description: 'Enter true rest — ceasing striving and trusting in God\'s sufficiency.',
+    prompt: 'A 10-minute sabbath rest meditation. Invite the user to stop doing and simply be, release productivity pressure, rest in God\'s completed work, reference Psalm 46:10 and Hebrews 4:9-10. Deeply peaceful, unhurried tone with 8-second pauses.'
+  },
+  {
+    id: 'worship-presence',
+    title: 'Worship & Presence',
+    duration: '8 min',
+    durationSec: 480,
+    theme: '🙌',
+    icon: Music,
+    gradient: 'from-[#D9B878]/25 to-[#AFC7E3]/15',
+    accentColor: '#D9B878',
+    description: 'Enter a posture of worship and experience God\'s nearness.',
+    prompt: 'An 8-minute worship and presence meditation. Begin in gratitude, move into adoration, use Psalm 100 as a framework, invite stillness in God\'s presence, close with a declaration of who God is. Reverent, joyful tone.'
+  },
+  {
+    id: 'new-beginnings',
+    title: 'New Beginnings',
+    duration: '6 min',
+    durationSec: 360,
+    theme: '🌱',
+    icon: Sunrise,
+    gradient: 'from-[#AFC7E3]/20 to-[#D9B878]/20',
+    accentColor: '#AFC7E3',
+    description: 'Embrace fresh starts, new seasons, and the God who makes all things new.',
+    prompt: 'A 6-minute new beginnings meditation. Release the past season with gratitude, open hands to what is coming, reference Isaiah 43:19 and Lamentations 3:22-23, visualize a fresh sunrise. Hopeful, forward-looking tone.'
+  },
+  {
+    id: 'strength-exhaustion',
+    title: 'Strength in Exhaustion',
+    duration: '7 min',
+    durationSec: 420,
+    theme: '🌾',
+    icon: Anchor,
+    gradient: 'from-[#3C4E53]/20 to-[#D9B878]/15',
+    accentColor: '#3C4E53',
+    description: 'Find renewed strength when you\'re running on empty.',
+    prompt: 'A 7-minute meditation for exhaustion. Acknowledge tiredness without guilt, receive permission to rest, draw on Isaiah 40:31 — mounting up with wings like eagles. Guide slow energizing breaths and close with a gentle commissioning. Tender and restorative tone.'
+  },
+  {
+    id: 'temptation-resistance',
+    title: 'Resisting Temptation',
+    duration: '5 min',
+    durationSec: 300,
+    theme: '🛡️',
+    icon: Shield,
+    gradient: 'from-[#D9B878]/20 to-[#3C4E53]/20',
+    accentColor: '#D9B878',
+    description: 'Arm your mind and spirit before facing what pulls you away from God.',
+    prompt: 'A 5-minute temptation resistance meditation. Name the area of struggle, put on the armor of God (Ephesians 6:10-11), visualize a shield of faith, declare victory through Christ. Strong, resolute tone.'
+  },
+  {
+    id: 'joy-restoration',
+    title: 'Joy Restoration',
+    duration: '6 min',
+    durationSec: 360,
+    theme: '🌈',
+    icon: Rainbow,
+    gradient: 'from-[#AFC7E3]/25 to-[#D9B878]/20',
+    accentColor: '#AFC7E3',
+    description: 'Recover the joy that circumstances may have stolen from you.',
+    prompt: 'A 6-minute joy restoration meditation. Acknowledge the joy drain, recall a memory of pure delight, connect to Nehemiah 8:10 — the joy of the Lord is your strength, let joy rise from the belly. Playful, light, uplifting tone.'
+  },
+  {
+    id: 'decision-wisdom',
+    title: 'Wisdom for Decisions',
+    duration: '8 min',
+    durationSec: 480,
+    theme: '💡',
+    icon: Eye,
+    gradient: 'from-[#D9B878]/25 to-[#AFC7E3]/20',
+    accentColor: '#D9B878',
+    description: 'Quiet the noise and seek God\'s wisdom for a choice you\'re facing.',
+    prompt: 'An 8-minute decision-making meditation. Still the mind from all the voices, present the decision openly to God, reference James 1:5 and Proverbs 3:5-6, visualize a clear path illuminated ahead, trust the process. Discerning, peaceful tone with thoughtful pauses.'
   }
 ];
 
