@@ -957,7 +957,8 @@ Return ONLY valid JSON array:
             initial={{ opacity: 0, y: 100, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 100, scale: 0.9 }}
-            className="fixed bottom-24 right-4 w-[calc(100vw-2rem)] sm:w-96 h-[500px] bg-white rounded-2xl shadow-2xl flex flex-col z-50 border border-[#AFC7E3]/40"
+            className="fixed bottom-24 right-4 w-[calc(100vw-2rem)] sm:w-96 h-[500px] bg-white rounded-2xl shadow-2xl flex flex-col z-50 border border-[#AFC7E3]/40 overflow-hidden"
+            style={{ paddingTop: 'env(safe-area-inset-top)' }}
           >
             {/* Header */}
             <div className="bg-gradient-to-r from-[#AFC7E3] to-[#3C4E53] text-white p-5 rounded-t-2xl flex items-center justify-between">
