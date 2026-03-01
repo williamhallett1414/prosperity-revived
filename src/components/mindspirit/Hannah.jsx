@@ -969,6 +969,19 @@ Return ONLY valid JSON array:
         />
       )}
 
+      <AnimatePresence>
+        {showProfileSetup && (
+          <HannahProfileSetup
+            user={user}
+            onComplete={(profile) => {
+              setHannahProfile(profile);
+              setShowProfileSetup(false);
+            }}
+            onClose={() => setShowProfileSetup(false)}
+          />
+        )}
+      </AnimatePresence>
+
       {/* Floating Chat Button */}
       <motion.button
         onClick={() => setIsOpen(true)}
