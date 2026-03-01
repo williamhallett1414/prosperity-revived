@@ -37,6 +37,9 @@ export default function Hannah({ user }) {
   const [showProactivePanel, setShowProactivePanel] = useState(false);
   const [memories, setMemories] = useState([]);
   const [personalityPrefs, setPersonalityPrefs] = useState(null);
+  const [hannahProfile, setHannahProfile] = useState(null);
+  const [showProfileSetup, setShowProfileSetup] = useState(false);
+  const [ratedMessageIndices, setRatedMessageIndices] = useState(new Set());
   const queryClient = useQueryClient();
 
   // Load past conversations and emotional patterns
