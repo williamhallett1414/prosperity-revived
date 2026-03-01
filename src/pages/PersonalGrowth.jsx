@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
-import { BookOpen, Brain, Heart, Sparkles, Target, CheckCircle2, Crown, Calendar, Trophy } from 'lucide-react';
+import { BookOpen, Brain, Heart, Sparkles, Target, CheckCircle2, Crown, Calendar, Trophy, Wind } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import Hannah from '@/components/mindspirit/Hannah';
@@ -215,8 +215,6 @@ export default function PersonalGrowth() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.45 }} className="bg-white px-4 py-4 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-all cursor-pointer h-full">
-
-
                 <div className="flex flex-col items-center text-center gap-2">
                   <div className="w-10 h-10 bg-[#FD9C2D] rounded-full flex items-center justify-center">
                     <Heart className="w-5 h-5 text-white" />
@@ -224,6 +222,25 @@ export default function PersonalGrowth() {
                   <div>
                     <h3 className="text-sm font-bold text-[#0A1A2F]">Gratitude Journal</h3>
                     <p className="text-xs text-[#0A1A2F]/60">Count blessings</p>
+                  </div>
+                </div>
+              </motion.div>
+            </Link>
+
+            {/* Guided Meditations */}
+            <Link to={createPageUrl('GuidedMeditationsPage')}>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5 }}
+                className="bg-gradient-to-br from-[#AFC7E3]/20 to-[#3C4E53]/10 rounded-xl p-4 border border-[#AFC7E3]/30 shadow-sm hover:shadow-md transition-all cursor-pointer h-full">
+                <div className="flex flex-col items-center text-center gap-2">
+                  <div className="w-10 h-10 bg-gradient-to-br from-[#AFC7E3] to-[#3C4E53] rounded-full flex items-center justify-center">
+                    <Wind className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-bold text-[#0A1A2F]">Guided Meditations</h3>
+                    <p className="text-xs text-[#0A1A2F]/60">AI voice + music</p>
                   </div>
                 </div>
               </motion.div>

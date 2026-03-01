@@ -59,6 +59,7 @@ import EmotionalCheckInPage from './pages/EmotionalCheckInPage';
 import FoodLogHistory from './pages/FoodLogHistory';
 import Friends from './pages/Friends';
 import GratitudeJournalPage from './pages/GratitudeJournalPage';
+import GuidedMeditationsPage from './pages/GuidedMeditationsPage';
 import GroupDetail from './pages/GroupDetail';
 import GroupPlanDetail from './pages/GroupPlanDetail';
 import Groups from './pages/Groups';
@@ -114,6 +115,7 @@ export const PAGES = {
     "FoodLogHistory": FoodLogHistory,
     "Friends": Friends,
     "GratitudeJournalPage": GratitudeJournalPage,
+    "GuidedMeditationsPage": GuidedMeditationsPage,
     "GroupDetail": GroupDetail,
     "GroupPlanDetail": GroupPlanDetail,
     "Groups": Groups,
