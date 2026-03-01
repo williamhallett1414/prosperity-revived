@@ -191,22 +191,24 @@ export default function PersonalGrowth() {
 
             {/* Self-Care Challenges */}
             <Link to={createPageUrl('SelfCareChallengesPage')}>
-              
+            </Link>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            {/* Gratitude Journal */}
+            <Link to={createPageUrl('GratitudeJournalPage')}>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }} className="bg-white px-4 py-4 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-all cursor-pointer h-full">
+                <div className="flex flex-col items-center text-center gap-2">
+                  <div className="w-10 h-10 bg-[#FD9C2D] rounded-full flex items-center justify-center">
+                    <Heart className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-bold text-[#0A1A2F]">Gratitude Journal</h3>
+                    <p className="text-xs text-[#0A1A2F]/60">Count blessings</p>
+                  </div>
+                </div>
+              </motion.div>
             </Link>
 
             {/* Guided Meditations */}
@@ -223,24 +225,6 @@ export default function PersonalGrowth() {
                   <div>
                     <h3 className="text-sm font-bold text-[#0A1A2F]">Guided Meditations</h3>
                     <p className="text-xs text-[#0A1A2F]/60">AI voice + music</p>
-                  </div>
-                </div>
-              </motion.div>
-            </Link>
-
-            {/* Gratitude Journal */}
-            <Link to={createPageUrl('GratitudeJournalPage')}>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5 }} className="bg-white px-4 py-4 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-all cursor-pointer h-full">
-                <div className="flex flex-col items-center text-center gap-2">
-                  <div className="w-10 h-10 bg-[#FD9C2D] rounded-full flex items-center justify-center">
-                    <Heart className="w-5 h-5 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="text-sm font-bold text-[#0A1A2F]">Gratitude Journal</h3>
-                    <p className="text-xs text-[#0A1A2F]/60">Count blessings</p>
                   </div>
                 </div>
               </motion.div>
