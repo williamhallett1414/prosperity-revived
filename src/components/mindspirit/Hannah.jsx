@@ -58,6 +58,17 @@ export default function Hannah({ user }) {
     setPersonalityPrefs(prefs);
   };
 
+  const loadHannahProfile = async () => {
+    try {
+      const profiles = await base44.entities.HannahUserProfile.filter({ user_email: user.email });
+      if (profiles.length > 0) {
+        setHannahProfile(profiles[0]);
+      }
+    } catch (e) {
+      // silent
+    }
+  };
+
   const loadMemories = async () => {
     try {
       const mems = await base44.entities.ChatbotMemory.filter({ 
