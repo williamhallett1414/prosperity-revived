@@ -431,7 +431,7 @@ const speakSegment = (text, rate = 0.85, pitch = 0.9) => {
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 
 // === Main Component ===
-export default function GuidedMeditationPlayer() {
+export default function GuidedMeditationPlayer({ hideHeader = false }) {
   const [activeMeditation, setActiveMeditation] = useState(null);
   const [phase, setPhase] = useState('idle'); // idle | loading | playing | paused | done
   const [script, setScript] = useState([]);
@@ -593,6 +593,7 @@ Requirements:
   return (
     <div className="mb-8">
       {/* Section Header */}
+      {!hideHeader && (
       <div className="flex items-center gap-3 mb-4">
         <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#AFC7E3] to-[#3C4E53] flex items-center justify-center">
           <Wind className="w-4 h-4 text-white" />
@@ -602,6 +603,7 @@ Requirements:
           <p className="text-xs text-[#0A1A2F]/60">AI voice + ambient music</p>
         </div>
       </div>
+      )}
 
       {/* Cards Grid */}
       <div className="grid grid-cols-2 gap-3">
