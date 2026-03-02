@@ -77,7 +77,7 @@ const FORM_CUES = {
   'leg raise': "Lower back pressed to floor. Lower legs slowly. Don't let them drop.",
   'step-up': 'Full foot on platform. Drive through heel. Stand tall at top.',
   'calf raise': 'Full range of motion. Pause at top. Lower slowly for best results.',
-  'box jump': 'Land soft with bent knees. Full extension at top. Step down, don't jump.',
+  'box jump': "Land soft with bent knees. Full extension at top. Step down, don't jump.",
 };
 
 function getFormCue(exerciseName) {
