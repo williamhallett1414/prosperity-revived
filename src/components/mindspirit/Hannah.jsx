@@ -57,8 +57,12 @@ export default function Hannah({ user }) {
   }, [isOpen, user]);
 
   const loadPersonalityPreferences = async () => {
-    const prefs = await fetchUserPreferences(base44, 'Hannah');
+    const [prefs, crossCtx] = await Promise.all([
+      fetchUserPreferences(base44, 'Hannah'),
+      getHannahCrossContext(base44, user?.email)
+    ]);
     setPersonalityPrefs(prefs);
+    setHannahCrossContext(crossCtx);
   };
 
   const loadHannahProfile = async () => {
