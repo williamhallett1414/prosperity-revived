@@ -48,6 +48,8 @@
  * The mainPage value must match a key in the PAGES object exactly.
  */
 import Achievements from './pages/Achievements';
+import CoachingPlans from './pages/CoachingPlans';
+import CoachingPlanDetail from './pages/CoachingPlanDetail';
 import AffirmationsPage from './pages/AffirmationsPage';
 import Bible from './pages/Bible';
 import BibleBooks from './pages/BibleBooks';
@@ -99,6 +101,7 @@ import WorkoutCategoryPage from './pages/WorkoutCategoryPage';
 import WorkoutProgress from './pages/WorkoutProgress';
 import WorkoutTrends from './pages/WorkoutTrends';
 import Workouts from './pages/Workouts';
+import CoachingPlanPage from './pages/CoachingPlanPage';
 import __Layout from './Layout.jsx';
 
 
@@ -154,6 +157,7 @@ export const PAGES = {
     "WorkoutCategoryPage": WorkoutCategoryPage,
     "WorkoutProgress": WorkoutProgress,
     "WorkoutTrends": WorkoutTrends,
+    "CoachingPlanPage": CoachingPlanPage,
     "Workouts": Workouts,
 }
 
