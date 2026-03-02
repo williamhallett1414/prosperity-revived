@@ -74,7 +74,7 @@ const FORM_CUES = {
   'warrior': 'Front knee directly over ankle. Back foot at 45°. Hips square forward.',
   'child\'s pose': 'Arms extended or by sides. Let gravity sink your hips. Breathe deeply.',
   'side plank': 'Stack feet or stagger. Keep hips elevated. Breathe steadily.',
-  'leg raise': 'Lower back pressed to floor. Lower legs slowly. Don't let them drop.',
+  'leg raise': "Lower back pressed to floor. Lower legs slowly. Don't let them drop.",
   'step-up': 'Full foot on platform. Drive through heel. Stand tall at top.',
   'calf raise': 'Full range of motion. Pause at top. Lower slowly for best results.',
   'box jump': 'Land soft with bent knees. Full extension at top. Step down, don't jump.',
