@@ -48,8 +48,6 @@
  * The mainPage value must match a key in the PAGES object exactly.
  */
 import Achievements from './pages/Achievements';
-import CoachingPlans from './pages/CoachingPlans';
-import CoachingPlanDetail from './pages/CoachingPlanDetail';
 import AffirmationsPage from './pages/AffirmationsPage';
 import Bible from './pages/Bible';
 import BibleBooks from './pages/BibleBooks';

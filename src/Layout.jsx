@@ -70,7 +70,6 @@ export default function Layout({ children, currentPageName }) {
     WorkoutCategoryPage: 'Workout Category',
     WorkoutProgress: 'Workout Progress',
     WorkoutTrends: 'Workout Trends',
-    CoachingPlanPage: 'Coaching Plan',
     SpiritualGrowth: 'Spiritual Growth',
     SpiritualInsights: 'Spiritual Insights',
     PersonalGrowth: 'Personal Growth',
