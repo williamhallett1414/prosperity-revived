@@ -64,7 +64,7 @@ const FORM_CUES = {
   'russian twist': 'Lean back 45°. Rotate through torso, not arms. Control the movement.',
   'glute bridge': 'Feet hip-width, flat. Drive hips up, squeeze at top. Lower slowly.',
   'dumbbell row': 'Flat back, core tight. Pull elbow past your hip. Squeeze at top.',
-  'shoulder press': 'Core tight. Press directly overhead. Don't flare the elbows.',
+  'shoulder press': "Core tight. Press directly overhead. Don't flare the elbows.",
   'bench press': 'Retract shoulder blades. Lower to chest. Drive through the full range.',
   'goblet squat': 'Hold weight at chest. Elbows inside knees at bottom. Chest tall.',
   'kettlebell swing': 'Hinge at hips, not squat. Drive with glutes. Arms guide, hips power.',
