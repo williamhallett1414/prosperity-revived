@@ -24,6 +24,7 @@ export default function CoachDavid({ user, userWorkouts = [], workoutSessions = 
   const [showOnboarding, setShowOnboarding] = useState(false);
   const [memories, setMemories] = useState([]);
   const [personalityPrefs, setPersonalityPrefs] = useState(null);
+  const [nutritionCrossContext, setNutritionCrossContext] = useState('');
   const queryClient = useQueryClient();
 
   useEffect(() => {

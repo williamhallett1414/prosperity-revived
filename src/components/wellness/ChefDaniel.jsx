@@ -21,6 +21,7 @@ export default function ChefDaniel({ user, userRecipes = [], mealLogs = [] }) {
   const [showOnboarding, setShowOnboarding] = useState(false);
   const [memories, setMemories] = useState([]);
   const [personalityPrefs, setPersonalityPrefs] = useState(null);
+  const [spiritualCrossContext, setSpiritualCrossContext] = useState('');
   const queryClient = useQueryClient();
 
   useEffect(() => {
