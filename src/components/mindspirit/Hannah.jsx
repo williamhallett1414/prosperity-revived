@@ -18,6 +18,7 @@ import HannahFeedbackRating from './HannahFeedbackRating';
 import TTSButton from '../chatbot/TTSButton';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { getPersonalityPromptAddition, fetchUserPreferences } from '../chatbot/PersonalityAdapter';
+import { getHannahCrossContext } from '../chatbot/CrossChatbotContext';
 
 export default function Hannah({ user }) {
   const [isOpen, setIsOpen] = useState(false);
