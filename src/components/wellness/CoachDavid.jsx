@@ -11,6 +11,7 @@ import CoachDavidOnboarding from './CoachDavidOnboarding';
 import ProactiveSuggestionBanner from '../chatbot/ProactiveSuggestionBanner';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { getPersonalityPromptAddition, fetchUserPreferences } from '../chatbot/PersonalityAdapter';
+import TTSButton from '../chatbot/TTSButton';
 
 export default function CoachDavid({ user, userWorkouts = [], workoutSessions = [] }) {
   const [isOpen, setIsOpen] = useState(false);

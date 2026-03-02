@@ -15,6 +15,7 @@ import ProactiveCoachingPanel from './ProactiveCoachingPanel';
 import ProactiveSuggestionBanner from '../chatbot/ProactiveSuggestionBanner';
 import HannahProfileSetup from './HannahProfileSetup';
 import HannahFeedbackRating from './HannahFeedbackRating';
+import TTSButton from '../chatbot/TTSButton';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { getPersonalityPromptAddition, fetchUserPreferences } from '../chatbot/PersonalityAdapter';
 
