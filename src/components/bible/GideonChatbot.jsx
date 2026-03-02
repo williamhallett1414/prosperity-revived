@@ -8,6 +8,7 @@ import { BookOpen, Send, X, Loader2, Sparkles, MessageCircle, Trash2 } from 'luc
 import ReactMarkdown from 'react-markdown';
 import { toast } from 'sonner';
 import { getPersonalityPromptAddition, fetchUserPreferences } from '../chatbot/PersonalityAdapter';
+import TTSButton from '../chatbot/TTSButton';
 import GideonQuickAskMenu from './GideonQuickAskMenu';
 import ProactiveSuggestionBanner from '../chatbot/ProactiveSuggestionBanner';
 
