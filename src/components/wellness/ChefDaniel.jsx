@@ -898,6 +898,11 @@ Return ONLY valid JSON array:
                     }`}
                   >
                     <p className="text-sm whitespace-pre-wrap leading-relaxed">{message.content}</p>
+                    {message.role === 'assistant' && (
+                      <div className="flex justify-end mt-1">
+                        <TTSButton text={message.content} />
+                      </div>
+                    )}
                   </div>
                 </motion.div>
               ))}
