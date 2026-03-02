@@ -33,14 +33,17 @@ export default function ChefDaniel({ user, userRecipes = [], mealLogs = [] }) {
   const loadMemories = async () => {
     if (!user?.email) return;
     try {
-      const mems = await base44.entities.ChatbotMemory.filter({ 
-        chatbot_name: 'ChefDaniel',
-        created_by: user.email 
-      }, '-importance', 20);
+      const [mems, prefs, crossCtx] = await Promise.all([
+        base44.entities.ChatbotMemory.filter({ 
+          chatbot_name: 'ChefDaniel',
+          created_by: user.email 
+        }, '-importance', 20),
+        fetchUserPreferences(base44, 'ChefDaniel'),
+        getGideonWellnessContext(base44, user.email)
+      ]);
       setMemories(mems);
-      
-      const prefs = await fetchUserPreferences(base44, 'ChefDaniel');
       setPersonalityPrefs(prefs);
+      setSpiritualCrossContext(crossCtx);
     } catch (error) {
       console.log('Loading memories...');
     }

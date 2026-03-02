@@ -51,14 +51,17 @@ export default function CoachDavid({ user, userWorkouts = [], workoutSessions = 
   const loadMemories = async () => {
     if (!user?.email) return;
     try {
-      const mems = await base44.entities.ChatbotMemory.filter({ 
-        chatbot_name: 'CoachDavid',
-        created_by: user.email 
-      }, '-importance', 20);
+      const [mems, prefs, crossCtx] = await Promise.all([
+        base44.entities.ChatbotMemory.filter({ 
+          chatbot_name: 'CoachDavid',
+          created_by: user.email 
+        }, '-importance', 20),
+        fetchUserPreferences(base44, 'CoachDavid'),
+        getChefDanielNutritionContext(base44, user.email)
+      ]);
       setMemories(mems);
-      
-      const prefs = await fetchUserPreferences(base44, 'CoachDavid');
       setPersonalityPrefs(prefs);
+      setNutritionCrossContext(crossCtx);
     } catch (error) {
       console.log('Loading memories...');
     }
