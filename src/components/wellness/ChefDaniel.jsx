@@ -10,6 +10,7 @@ import ProactiveSuggestionBanner from '../chatbot/ProactiveSuggestionBanner';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { getPersonalityPromptAddition, fetchUserPreferences } from '../chatbot/PersonalityAdapter';
 import TTSButton from '../chatbot/TTSButton';
+import { getGideonWellnessContext } from '../chatbot/CrossChatbotContext';
 
 export default function ChefDaniel({ user, userRecipes = [], mealLogs = [] }) {
   const [isOpen, setIsOpen] = useState(false);

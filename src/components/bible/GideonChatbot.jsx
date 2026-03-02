@@ -9,6 +9,7 @@ import ReactMarkdown from 'react-markdown';
 import { toast } from 'sonner';
 import { getPersonalityPromptAddition, fetchUserPreferences } from '../chatbot/PersonalityAdapter';
 import TTSButton from '../chatbot/TTSButton';
+// No cross-context needed for Gideon — it's the source for others
 import GideonQuickAskMenu from './GideonQuickAskMenu';
 import ProactiveSuggestionBanner from '../chatbot/ProactiveSuggestionBanner';
 
