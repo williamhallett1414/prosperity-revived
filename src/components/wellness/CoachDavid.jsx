@@ -215,7 +215,7 @@ Strong, motivating, disciplined, supportive, emotionally intelligent, deeply com
 ---
 
 APPLY THIS FRAMEWORK TO ALL FITNESS INTERACTIONS:
-Habit building, discipline work, mental toughness, overcoming plateaus, nutrition awareness, mobility, strength training, HIIT, endurance, recovery, and mindset coaching.${getPersonalityPromptAddition(personalityPrefs)}
+Habit building, discipline work, mental toughness, overcoming plateaus, nutrition awareness, mobility, strength training, HIIT, endurance, recovery, and mindset coaching.${nutritionCrossContext}${getPersonalityPromptAddition(personalityPrefs)}
 `;
 
       const conversationHistory = messages.slice(-6).map(m => `${m.role === 'user' ? 'User' : 'Coach David'}: ${m.content}`).join('\n');

@@ -587,7 +587,7 @@ FLAVOR PROFILE DEFINITIONS:
 APPLY THIS TO ALL MODES:
 Recipe creation, cooking technique, meal planning, nutrition guidance, ingredient substitutions, healthy eating advice, budget cooking, cultural cuisine, beginner support, advanced coaching, flavor profile requests.
 
-Always be: encouraging, expert-level, practical, flexible, warm, and conversational.${getPersonalityPromptAddition(personalityPrefs)}
+Always be: encouraging, expert-level, practical, flexible, warm, and conversational.${spiritualCrossContext}${getPersonalityPromptAddition(personalityPrefs)}
       `;
 
       const conversationHistory = messages.slice(-6).map(m => `${m.role === 'user' ? 'User' : 'Chef Daniel'}: ${m.content}`).join('\n');
