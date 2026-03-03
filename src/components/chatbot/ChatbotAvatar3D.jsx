@@ -16,7 +16,6 @@
  */
 import React, { useRef, useMemo, useEffect, Suspense } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { MeshDistortMaterial } from '@react-three/drei';
 import * as THREE from 'three';
 
 const lerp  = THREE.MathUtils.lerp;
