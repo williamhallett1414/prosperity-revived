@@ -802,8 +802,13 @@ Return ONLY valid JSON array:
             exit={{ opacity: 0, y: 100, scale: 0.9 }}
             className="fixed bottom-24 right-4 w-[calc(100vw-2rem)] sm:w-96 h-[min(500px,calc(100dvh-7rem))] bg-white rounded-2xl shadow-2xl flex flex-col z-50 border border-[#bbf7d0] overflow-hidden"
           >
+            {/* Avatar */}
+            <div className="flex justify-center bg-[#f0fdf4] pt-3 pb-1">
+              <AvatarContainer characterName="chef_daniel" avatarState={avatarState} size="md" />
+            </div>
+
             {/* Header */}
-            <div className="bg-gradient-to-r from-[#22c55e] to-[#16a34a] text-white p-5 rounded-t-2xl flex items-center justify-between">
+            <div className="bg-gradient-to-r from-[#22c55e] to-[#16a34a] text-white p-4 flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
                   <UtensilsCrossed className="w-6 h-6 text-white" />
