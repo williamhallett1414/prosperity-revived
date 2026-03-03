@@ -52,6 +52,7 @@ export default function Hannah({ user, autoOpen = false, onClose }) {
   const [insightDismissed, setInsightDismissed] = useState(false);
   const queryClient = useQueryClient();
   const moodSaveTimer = React.useRef(null);
+  const messagesEndRef = React.useRef(null);
 
   // Auto-open if launched from a parent button
   useEffect(() => {
