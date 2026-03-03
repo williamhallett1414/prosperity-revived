@@ -1026,6 +1026,15 @@ Return ONLY valid JSON array:
               </div>
               <div className="flex items-center gap-1">
                 <Button
+                  onClick={() => setShowDataSources(true)}
+                  variant="ghost"
+                  size="icon"
+                  className="text-white hover:bg-white/20"
+                  title="Connect external data sources"
+                >
+                  <Link2 className="w-5 h-5" />
+                </Button>
+                <Button
                   onClick={() => setShowProfileSetup(true)}
                   variant="ghost"
                   size="icon"
