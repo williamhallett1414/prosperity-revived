@@ -11,6 +11,7 @@ const tabs = [
 { id: 'activity', label: 'Activity', icon: Activity },
 { id: 'groups', label: 'Groups', icon: UsersRound },
 { id: 'journey', label: 'Journey', icon: TrendingUp },
+{ id: 'ai_prefs', label: 'AI Guides', icon: Bot },
 ];
 
 
