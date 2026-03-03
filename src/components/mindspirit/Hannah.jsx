@@ -50,6 +50,17 @@ export default function Hannah({ user }) {
   const [insightDismissed, setInsightDismissed] = useState(false);
   const queryClient = useQueryClient();
 
+  // Extract mood scores from past conversations for proactive insights
+  const moodScores = [];
+  // (populated from emotional patterns below)
+
+  const { insight } = useProactiveInsights({
+    chatbot: 'Hannah',
+    conversations: [],
+    memories,
+    moodScores,
+  });
+
   // Load past conversations and emotional patterns
   useEffect(() => {
     if (isOpen && user?.email) {
