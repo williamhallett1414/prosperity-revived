@@ -128,19 +128,43 @@ export default function Community() {
 
         {/* Tabs */}
         <Tabs defaultValue="feed" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-2">
+          <TabsList className="grid w-full grid-cols-3">
             <TabsTrigger value="feed" className="flex items-center gap-2">
               <Sparkles className="w-4 h-4" />
-              Community Feed
+              Feed
+            </TabsTrigger>
+            <TabsTrigger value="blog" className="flex items-center gap-2">
+              <PenLine className="w-4 h-4" />
+              Blog Posts
             </TabsTrigger>
             <TabsTrigger value="challenges" className="flex items-center gap-2">
               <TrendingUp className="w-4 h-4" />
-              Group Challenges
+              Challenges
             </TabsTrigger>
           </TabsList>
 
           <TabsContent value="feed">
             <CommunityFeed user={user} />
+          </TabsContent>
+
+          <TabsContent value="blog">
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h2 className="font-bold text-gray-900">Community Blog</h2>
+                  <p className="text-sm text-gray-500">Inspiring stories & insights from the community</p>
+                </div>
+                <Button
+                  onClick={() => setShowBlogWriter(true)}
+                  className="bg-gradient-to-r from-[#3C4E53] to-[#5a7480] text-white"
+                  size="sm"
+                >
+                  <Wand2 className="w-4 h-4 mr-1" />
+                  Write with AI
+                </Button>
+              </div>
+              <BlogFeed user={user} />
+            </div>
           </TabsContent>
 
           <TabsContent value="challenges">
