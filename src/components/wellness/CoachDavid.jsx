@@ -153,6 +153,7 @@ export default function CoachDavid({ user, userWorkouts = [], workoutSessions = 
 
   const _doSend = async (userMessage) => {
     setIsLoading(true);
+    setAvatarState(getAnimationForEvent('bot_thinking', 'coach_david'));
 
     try {
       // Build context about user's workout history
