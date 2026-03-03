@@ -979,6 +979,12 @@ Return ONLY valid JSON array:
       )}
 
       <AnimatePresence>
+        {showDataSources && (
+          <ExternalDataSources user={user} onClose={() => setShowDataSources(false)} />
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
         {showProfileSetup && (
           <HannahProfileSetup
             user={user}

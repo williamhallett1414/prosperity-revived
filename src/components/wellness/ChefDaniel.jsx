@@ -674,6 +674,12 @@ Return ONLY valid JSON array:
 
   return (
     <>
+      <AnimatePresence>
+        {showDataSources && (
+          <ExternalDataSources user={user} onClose={() => setShowDataSources(false)} />
+        )}
+      </AnimatePresence>
+
       {showOnboarding && (
         <ChefDanielOnboarding
           onComplete={() => {
