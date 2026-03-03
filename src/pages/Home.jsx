@@ -26,6 +26,7 @@ import HelpChatbot from '@/components/home/HelpChatbot';
 import DailyReflectionPrompt from '@/components/gideon/DailyReflectionPrompt';
 import ProactiveSuggestions from '@/components/gideon/ProactiveSuggestions';
 import PersonalizedDevotional from '@/components/gideon/PersonalizedDevotional';
+import ChatbotNudgeBanner from '@/components/home/ChatbotNudgeBanner';
 
 import { Trophy } from 'lucide-react';
 
