@@ -47,6 +47,7 @@ export default function Hannah({ user }) {
   const [ratedMessageIndices, setRatedMessageIndices] = useState(new Set());
   const [hannahCrossContext, setHannahCrossContext] = useState('');
   const [showDataSources, setShowDataSources] = useState(false);
+  const [insightDismissed, setInsightDismissed] = useState(false);
   const queryClient = useQueryClient();
 
   // Load past conversations and emotional patterns

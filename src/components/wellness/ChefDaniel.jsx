@@ -26,7 +26,14 @@ export default function ChefDaniel({ user, userRecipes = [], mealLogs = [] }) {
   const [personalityPrefs, setPersonalityPrefs] = useState(null);
   const [spiritualCrossContext, setSpiritualCrossContext] = useState('');
   const [showDataSources, setShowDataSources] = useState(false);
+  const [insightDismissed, setInsightDismissed] = useState(false);
   const queryClient = useQueryClient();
+
+  const { insight } = useProactiveInsights({
+    chatbot: 'ChefDaniel',
+    mealLogs,
+    memories,
+  });
 
   useEffect(() => {
     if (isOpen && user?.email) {

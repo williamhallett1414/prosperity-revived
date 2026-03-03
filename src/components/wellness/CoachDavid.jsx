@@ -29,7 +29,14 @@ export default function CoachDavid({ user, userWorkouts = [], workoutSessions = 
   const [personalityPrefs, setPersonalityPrefs] = useState(null);
   const [nutritionCrossContext, setNutritionCrossContext] = useState('');
   const [showDataSources, setShowDataSources] = useState(false);
+  const [insightDismissed, setInsightDismissed] = useState(false);
   const queryClient = useQueryClient();
+
+  const { insight } = useProactiveInsights({
+    chatbot: 'CoachDavid',
+    workoutSessions,
+    memories,
+  });
 
   useEffect(() => {
     if (isOpen && messages.length === 0) {
