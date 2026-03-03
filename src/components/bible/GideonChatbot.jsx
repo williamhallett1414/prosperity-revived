@@ -16,7 +16,7 @@ import { useProactiveInsights } from '../chatbot/useProactiveInsights';
 import ProactiveInsightCard from '../chatbot/ProactiveInsightCard';
 import ProactiveSuggestionBanner from '../chatbot/ProactiveSuggestionBanner';
 import AvatarContainer from '../avatar/AvatarContainer';
-import { AVATAR_STATES, getAnimationForEvent } from '../avatar/avatarStateMachine.js';
+import { AVATAR_STATES, getAnimationForEvent } from '../avatar/avatarStateMachine';
 
 export default function GideonChatbot({ user, autoOpen = false, onClose }) {
   const [isOpen, setIsOpen] = useState(false);
