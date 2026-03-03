@@ -173,6 +173,17 @@ export default function Community() {
         </Tabs>
       </div>
 
+      {/* AI Blog Writer Modal */}
+      <AnimatePresence>
+        {showBlogWriter && (
+          <AIBlogWriter
+            user={user}
+            onClose={() => setShowBlogWriter(false)}
+            onPublished={() => setShowBlogWriter(false)}
+          />
+        )}
+      </AnimatePresence>
+
       {/* Share Modal */}
       {showShareModal && (
         <ShareMilestoneModal
