@@ -401,6 +401,17 @@ Return ONLY valid JSON array:
               </div>
             </div>
 
+            {/* Proactive Insight Card */}
+            <AnimatePresence>
+              {insight && !insightDismissed && (
+                <ProactiveInsightCard
+                  insight={insight}
+                  onAccept={(prompt) => { setInput(prompt); setInsightDismissed(true); }}
+                  onDismiss={() => setInsightDismissed(true)}
+                />
+              )}
+            </AnimatePresence>
+
             {/* Proactive Suggestion Banner */}
             {proactiveSuggestions?.length > 0 && (
               <ProactiveSuggestionBanner
