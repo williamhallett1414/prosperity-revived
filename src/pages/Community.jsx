@@ -79,13 +79,22 @@ export default function Community() {
                 <p className="text-gray-600">Grow together, support each other</p>
               </div>
             </div>
-            <Button
-              onClick={() => setShowShareModal(true)}
-              className="bg-gradient-to-r from-[#c9a227] to-[#D9B878] hover:opacity-90 text-white"
-            >
-              <Plus className="w-4 h-4 mr-2" />
-              Share Milestone
-            </Button>
+            <div className="flex gap-2">
+              <Button
+                onClick={() => setShowBlogWriter(true)}
+                className="bg-gradient-to-r from-[#3C4E53] to-[#5a7480] hover:opacity-90 text-white"
+              >
+                <Wand2 className="w-4 h-4 mr-2" />
+                AI Blog
+              </Button>
+              <Button
+                onClick={() => setShowShareModal(true)}
+                className="bg-gradient-to-r from-[#c9a227] to-[#D9B878] hover:opacity-90 text-white"
+              >
+                <Plus className="w-4 h-4 mr-2" />
+                Share Milestone
+              </Button>
+            </div>
           </div>
 
           {/* Stats */}
