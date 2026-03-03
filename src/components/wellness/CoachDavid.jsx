@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageCircle, X, Send, Loader2, Dumbbell, Trash2 } from 'lucide-react';
+import { MessageCircle, X, Send, Loader2, Dumbbell, Trash2, Link2 } from 'lucide-react';
+import ExternalDataSources from '../integrations/ExternalDataSources';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { base44 } from '@/api/base44Client';
