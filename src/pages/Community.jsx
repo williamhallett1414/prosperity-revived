@@ -35,6 +35,7 @@ const chatbotColors = {
 
 export default function Community() {
   const [showShareModal, setShowShareModal] = useState(false);
+  const [showBlogWriter, setShowBlogWriter] = useState(false);
   const queryClient = useQueryClient();
 
   const { data: user } = useQuery({
