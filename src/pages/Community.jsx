@@ -15,11 +15,16 @@ import {
   Users,
   TrendingUp,
   Plus,
-  MessageCircle
+  MessageCircle,
+  Wand2,
+  PenLine
 } from 'lucide-react';
 import CommunityFeed from '@/components/community/CommunityFeed';
 import GroupChallenges from '@/components/community/GroupChallenges';
 import ShareMilestoneModal from '@/components/community/ShareMilestoneModal';
+import AIBlogWriter from '@/components/community/AIBlogWriter';
+import BlogFeed from '@/components/community/BlogFeed';
+import { AnimatePresence } from 'framer-motion';
 
 const chatbotColors = {
   Hannah: 'from-[#c9a227] to-[#D9B878]',
