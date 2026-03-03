@@ -12,6 +12,7 @@ import TTSButton from '../chatbot/TTSButton';
 // No cross-context needed for Gideon — it's the source for others
 import GideonQuickAskMenu from './GideonQuickAskMenu';
 import VoiceInputButton from '../chatbot/VoiceInputButton';
+import AvatarPanel from '../chatbot/AvatarPanel';
 import { useProactiveInsights } from '../chatbot/useProactiveInsights';
 import ProactiveInsightCard from '../chatbot/ProactiveInsightCard';
 import ProactiveSuggestionBanner from '../chatbot/ProactiveSuggestionBanner';
@@ -24,6 +25,8 @@ export default function GideonChatbot({ user, autoOpen = false, onClose }) {
   const [personalityPrefs, setPersonalityPrefs] = useState(null);
   const [insightDismissed, setInsightDismissed] = useState(false);
   const [quickMenuCollapsed, setQuickMenuCollapsed] = useState(false);
+  const [avatarSpeaking, setAvatarSpeaking] = useState(false);
+  const [isListening, setIsListening] = useState(false);
   const messagesEndRef = useRef(null);
   const queryClient = useQueryClient();
 
@@ -333,6 +336,17 @@ Assistant: ${response}`,
               </div>
             </div>
 
+            {/* 3D Avatar */}
+            <AvatarPanel
+              character="gideon"
+              isSpeaking={avatarSpeaking}
+              isListening={isListening}
+              name="Gideon"
+              subtitle="Your Spiritual Guide"
+              gradientFrom="#c9a227"
+              gradientTo="#D9B878"
+            />
+
             {/* Proactive Insight Card */}
             <AnimatePresence>
               {insight && !insightDismissed && (
@@ -388,7 +402,7 @@ Assistant: ${response}`,
                 )}
                 {message.role === 'assistant' && (
                   <div className="flex justify-end mt-1">
-                    <TTSButton text={message.content} />
+                    <TTSButton text={message.content} onSpeakingChange={setAvatarSpeaking} />
                   </div>
                 )}
               </div>
@@ -434,8 +448,9 @@ Assistant: ${response}`,
               disabled={isLoading}
             />
             <VoiceInputButton
-              onTranscript={(text) => setInput(prev => prev ? prev + ' ' + text : text)}
+              onTranscript={(text) => { setIsListening(false); setInput(prev => prev ? prev + ' ' + text : text); }}
               onInterim={(text) => setInput(text)}
+              onListeningChange={setIsListening}
               disabled={isLoading}
               accentColor="bg-[#D9B878]"
               activeColor="bg-[#c9a227]"

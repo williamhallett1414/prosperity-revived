@@ -17,6 +17,7 @@ import { toast } from 'sonner';
 export default function VoiceInputButton({
   onTranscript,
   onInterim,
+  onListeningChange,
   disabled = false,
   accentColor = 'bg-blue-400',
   activeColor = 'bg-red-500',
@@ -40,6 +41,7 @@ export default function VoiceInputButton({
 
   const stopListening = useCallback(() => {
     isListeningRef.current = false;
+    onListeningChange?.(false);
     if (restartTimerRef.current) clearTimeout(restartTimerRef.current);
     if (recognitionRef.current) {
       try { recognitionRef.current.stop(); } catch (_) {}
@@ -66,6 +68,7 @@ export default function VoiceInputButton({
       isListeningRef.current = true;
       setIsListening(true);
       setPermissionDenied(false);
+      onListeningChange?.(true);
     };
 
     recognition.onresult = (event) => {

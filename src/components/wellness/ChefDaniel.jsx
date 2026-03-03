@@ -12,6 +12,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { getPersonalityPromptAddition, fetchUserPreferences } from '../chatbot/PersonalityAdapter';
 import TTSButton from '../chatbot/TTSButton';
 import VoiceInputButton from '../chatbot/VoiceInputButton';
+import AvatarPanel from '../chatbot/AvatarPanel';
 import ReactMarkdown from 'react-markdown';
 import { getGideonWellnessContext } from '../chatbot/CrossChatbotContext';
 import HannahFeedbackRating from '../mindspirit/HannahFeedbackRating';
@@ -23,6 +24,8 @@ export default function ChefDaniel({ user, userRecipes = [], mealLogs = [], auto
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [avatarSpeaking, setAvatarSpeaking] = useState(false);
+  const [isListening, setIsListening] = useState(false);
   const [sessionId] = useState(() => `chef-daniel-${Date.now()}`);
   const [showQuickActions, setShowQuickActions] = useState(true);
   const [showOnboarding, setShowOnboarding] = useState(false);
@@ -839,6 +842,17 @@ Return ONLY valid JSON array:
               </div>
             </div>
 
+            {/* 3D Avatar Panel */}
+            <AvatarPanel
+              character="chef"
+              isSpeaking={avatarSpeaking}
+              isListening={isListening}
+              name="Chef Daniel"
+              subtitle="Your Nutrition Guide"
+              gradientFrom="#22c55e"
+              gradientTo="#16a34a"
+            />
+
             {/* Proactive Insight Card */}
             <AnimatePresence>
               {insight && !insightDismissed && (
@@ -1029,7 +1043,7 @@ Return ONLY valid JSON array:
                     )}
                     {message.role === 'assistant' && (
                       <div className="flex justify-end mt-1">
-                        <TTSButton text={message.content} />
+                        <TTSButton text={message.content} onSpeakingChange={setAvatarSpeaking} />
                       </div>
                     )}
                   </div>
@@ -1081,8 +1095,9 @@ Return ONLY valid JSON array:
                   disabled={isLoading}
                 />
                 <VoiceInputButton
-                  onTranscript={(text) => setInput(prev => prev ? prev + ' ' + text : text)}
+                  onTranscript={(text) => { setIsListening(false); setInput(prev => prev ? prev + ' ' + text : text); }}
                   onInterim={(text) => setInput(text)}
+                  onListeningChange={setIsListening}
                   disabled={isLoading}
                   accentColor="bg-[#22c55e]"
                   activeColor="bg-[#16a34a]"

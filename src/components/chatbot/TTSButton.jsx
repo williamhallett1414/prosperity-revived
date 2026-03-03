@@ -47,7 +47,7 @@ function splitIntoChunks(text, maxLength = 3000) {
   return chunks.length ? chunks : [text.substring(0, maxLength)];
 }
 
-export default function TTSButton({ text, className = '' }) {
+export default function TTSButton({ text, className = '', onSpeakingChange }) {
   const [isSpeaking, setIsSpeaking] = useState(false);
   const chunksRef = useRef([]);
   const chunkIndexRef = useRef(0);
@@ -55,6 +55,7 @@ export default function TTSButton({ text, className = '' }) {
   const speakNextChunk = () => {
     if (chunkIndexRef.current >= chunksRef.current.length) {
       setIsSpeaking(false);
+      onSpeakingChange?.(false);
       return;
     }
 
@@ -65,12 +66,13 @@ export default function TTSButton({ text, className = '' }) {
     utterance.pitch = 1;
     utterance.volume = 1;
 
-    utterance.onstart = () => setIsSpeaking(true);
+    utterance.onstart = () => { setIsSpeaking(true); onSpeakingChange?.(true); };
     utterance.onend = () => {
       chunkIndexRef.current += 1;
+      if (chunkIndexRef.current >= chunksRef.current.length) onSpeakingChange?.(false);
       speakNextChunk();
     };
-    utterance.onerror = () => setIsSpeaking(false);
+    utterance.onerror = () => { setIsSpeaking(false); onSpeakingChange?.(false); };
 
     window.speechSynthesis.speak(utterance);
   };
@@ -81,6 +83,7 @@ export default function TTSButton({ text, className = '' }) {
     if (isSpeaking) {
       window.speechSynthesis.cancel();
       setIsSpeaking(false);
+      onSpeakingChange?.(false);
       return;
     }
 
