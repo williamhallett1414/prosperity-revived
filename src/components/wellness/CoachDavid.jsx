@@ -35,6 +35,7 @@ export default function CoachDavid({ user, userWorkouts = [], workoutSessions = 
   const [nutritionCrossContext, setNutritionCrossContext] = useState('');
   const [showDataSources, setShowDataSources] = useState(false);
   const [insightDismissed, setInsightDismissed] = useState(false);
+  const [avatarState, setAvatarState] = useState(AVATAR_STATES.IDLE);
   const [ratedMessageIndices, setRatedMessageIndices] = useState(new Set());
   const queryClient = useQueryClient();
   const messagesEndRef = useRef(null);
@@ -295,6 +296,8 @@ Habit building, discipline work, mental toughness, overcoming plateaus, nutritio
       });
 
       setMessages(prev => [...prev, { role: 'assistant', content: response }]);
+      setAvatarState(getAnimationForEvent('bot_speaking', 'coach_david', response));
+      setTimeout(() => setAvatarState(AVATAR_STATES.IDLE), 4000);
 
       // Extract and save key insights every 5 messages
       const msgCountForMemory = messages.length + 2; // +2 for user msg + response just added
@@ -355,6 +358,7 @@ Return ONLY valid JSON array:
         role: 'assistant', 
         content: "Sorry, I'm having trouble connecting right now. Try again in a moment!" 
       }]);
+      setAvatarState(AVATAR_STATES.IDLE);
     } finally {
       setIsLoading(false);
     }
@@ -412,8 +416,13 @@ Return ONLY valid JSON array:
             exit={{ opacity: 0, y: 100, scale: 0.9 }}
             className="fixed bottom-24 right-4 w-[calc(100vw-2rem)] sm:w-96 h-[min(500px,calc(100dvh-7rem))] bg-white rounded-2xl shadow-2xl flex flex-col z-50 border border-[#E6EBEF] overflow-hidden"
           >
+            {/* Avatar */}
+            <div className="flex justify-center bg-[#F2F6FA] pt-3 pb-1">
+              <AvatarContainer characterName="coach_david" avatarState={avatarState} size="md" />
+            </div>
+
             {/* Header */}
-            <div className="bg-gradient-to-r from-[#0A0A0A] to-[#38BDF8] text-white p-5 rounded-t-2xl flex items-center justify-between">
+            <div className="bg-gradient-to-r from-[#0A0A0A] to-[#38BDF8] text-white p-4 flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
                   <Dumbbell className="w-6 h-6 text-white" />
