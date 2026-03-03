@@ -322,11 +322,11 @@ Return ONLY valid JSON array:
 
       {showOnboarding && (
         <CoachDavidOnboarding
-          onComplete={() => {
+          user={user}
+          onComplete={(prefs) => {
             setShowOnboarding(false);
             localStorage.setItem('coachDavidOnboardingCompleted', 'true');
           }}
-          onRevisit={() => setShowOnboarding(false)}
         />
       )}
 

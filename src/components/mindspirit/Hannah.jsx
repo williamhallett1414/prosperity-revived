@@ -984,6 +984,7 @@ Return ONLY valid JSON array:
     <>
       {showOnboarding && (
         <HannahOnboarding
+          user={user}
           onComplete={() => {
             setShowOnboarding(false);
             localStorage.setItem('hannahOnboardingCompleted', 'true');
