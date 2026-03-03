@@ -1,5 +1,5 @@
 import React from 'react';
-import { Users, MapPin, Image, Trophy, Activity, LayoutList, UsersRound, TrendingUp } from 'lucide-react';
+import { Users, MapPin, Image, Trophy, Activity, LayoutList, UsersRound, TrendingUp, Bot } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const tabs = [
