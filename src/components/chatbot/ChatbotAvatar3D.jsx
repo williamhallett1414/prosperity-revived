@@ -465,12 +465,17 @@ function AvatarBody({ char, stateRef }) {
   const armRRef    = useRef();
   const bodyRef    = useRef();
 
-  const { headGeo, m } = useMemo(() => {
-    const headGeo  = buildHeadGeo(cfg.hH);
+  const { headPoints, m } = useMemo(() => {
+    const headPoints = [
+      [0.000, -0.420], [0.085, -0.400], [0.195, -0.330],
+      [0.275, -0.200], [0.330, -0.060], [0.360,  0.065],
+      [0.345,  0.200], [0.310,  0.320], [0.265,  0.405],
+      [0.190,  0.460], [0.095,  0.490], [0.000,  0.500],
+    ].map(([r, y]) => new THREE.Vector2(r, y * cfg.hH));
     const irisTex  = makeIrisTex(cfg.irisHex);
     const skinTex  = makeSkinTex(cfg.skin, cfg.skinDark);
     return {
-      headGeo,
+      headPoints,
       m: {
         skin:      new THREE.MeshStandardMaterial({ map:skinTex, roughness:0.72 }),
         skinDark:  mkMat(cfg.skinDark, 0.80),
