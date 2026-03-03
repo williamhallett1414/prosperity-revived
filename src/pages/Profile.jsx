@@ -207,6 +207,7 @@ export default function Profile() {
           {activeTab === 'activity' && <ActivityTab userProgress={userProgress} />}
           {activeTab === 'groups' && <ProfileGroupsTab user={user} />}
           {activeTab === 'journey' && <ProfileJourneyTab user={user} userProgress={userProgress} workoutSessions={workoutSessions} meditationSessions={meditationSessions} journalEntries={journalEntries} />}
+          {activeTab === 'ai_prefs' && <ChatbotPreferencesTab user={user} />}
 
           {/* Account Settings Section */}
           {activeTab === 'about' && (
