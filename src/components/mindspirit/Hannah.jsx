@@ -1056,6 +1056,8 @@ Return ONLY valid JSON array:
         }
       }
 
+      setAvatarState(getAnimationForEvent('bot_speaking', 'hannah', response));
+      setTimeout(() => setAvatarState(AVATAR_STATES.IDLE), 4000);
       // Check if Hannah's response contains a coaching question to set flag for next message
       setLastHannahMessageWasQuestion(detectCoachingQuestion(response));
       setIsAnalyzingAnswer(false);
@@ -1063,6 +1065,7 @@ Return ONLY valid JSON array:
       toast.error('Failed to get response from Hannah');
       const errorMsg = "I'm having trouble connecting right now. Please try again in a moment.";
       setMessages(prev => [...prev, { role: 'assistant', content: errorMsg }]);
+      setAvatarState(AVATAR_STATES.IDLE);
     } finally {
       setIsLoading(false);
     }
