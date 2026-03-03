@@ -28,25 +28,6 @@ function SpeakingWave({ active }) {
   );
 }
 
-// ─── Expanding listen rings ───────────────────────────────────────────────────
-function ListenRings({ active, color }) {
-  if (!active) return null;
-  return (
-    <>
-      {[0, 1, 2].map((i) => (
-        <motion.div
-          key={i}
-          className="absolute inset-0 pointer-events-none"
-          style={{ border: `2px solid ${color}`, borderRadius: '50%' }}
-          initial={{ scale: 1, opacity: 0.55 }}
-          animate={{ scale: 1.30 + i * 0.15, opacity: 0 }}
-          transition={{ duration: 1.4, repeat: Infinity, delay: i * 0.42, ease: 'easeOut' }}
-        />
-      ))}
-    </>
-  );
-}
-
 // ─── State badge ──────────────────────────────────────────────────────────────
 function StateBadge({ state, color }) {
   const cfg = {
@@ -66,6 +47,25 @@ function StateBadge({ state, color }) {
       <span style={{ fontSize: 9 }}>{s.icon}</span>
       <span>{s.label}</span>
     </motion.span>
+  );
+}
+
+// ─── Pulse ring (listen indicator on card edge) ───────────────────────────────
+function ListenPulse({ active, color }) {
+  if (!active) return null;
+  return (
+    <>
+      {[0, 1].map((i) => (
+        <motion.div
+          key={i}
+          className="absolute inset-0 pointer-events-none rounded-xl"
+          style={{ border: `2px solid ${color}`, borderRadius: 12 }}
+          initial={{ scale: 1, opacity: 0.6 }}
+          animate={{ scale: 1.04 + i * 0.04, opacity: 0 }}
+          transition={{ duration: 1.2, repeat: Infinity, delay: i * 0.5, ease: 'easeOut' }}
+        />
+      ))}
+    </>
   );
 }
 
@@ -91,14 +91,10 @@ export default function AvatarPanel({
         aria-expanded={!collapsed}
         onClick={() => setCollapsed((c) => !c)}
         className="flex items-center justify-between px-4 py-2.5 cursor-pointer select-none"
-        style={{
-          background: `linear-gradient(130deg, ${gradientFrom} 0%, ${gradientTo} 100%)`,
-        }}
+        style={{ background: `linear-gradient(130deg, ${gradientFrom} 0%, ${gradientTo} 100%)` }}
       >
         <div className="flex items-center min-w-0">
-          <span className="text-white text-[11px] font-extrabold tracking-[0.13em] uppercase">
-            {name}
-          </span>
+          <span className="text-white text-[11px] font-extrabold tracking-[0.13em] uppercase">{name}</span>
           {isSpeaking && <SpeakingWave active />}
           {isListening && !isSpeaking && (
             <motion.span
@@ -119,7 +115,7 @@ export default function AvatarPanel({
         </motion.div>
       </div>
 
-      {/* ── Collapsible avatar body ── */}
+      {/* ── Collapsible full-body avatar panel ── */}
       <AnimatePresence initial={false}>
         {!collapsed && (
           <motion.div
@@ -127,69 +123,64 @@ export default function AvatarPanel({
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.26, ease: [0.4, 0, 0.2, 1] }}
+            transition={{ duration: 0.28, ease: [0.4, 0, 0.2, 1] }}
             style={{ overflow: 'hidden' }}
           >
             <div
-              className="flex items-center gap-4 py-4 px-5"
+              className="relative"
               style={{
-                background: `linear-gradient(155deg, ${gradientFrom}14 0%, ${gradientTo}2a 100%)`,
+                background: `linear-gradient(170deg, ${gradientFrom}18 0%, ${gradientTo}30 100%)`,
               }}
             >
-              {/* ── Avatar canvas + glow + rings ── */}
-              <div className="relative flex-shrink-0">
-                {/* Soft ambient glow */}
+              <ListenPulse active={isListening && !isSpeaking} color={gradientTo} />
+
+              {/* Full-body avatar — full width, tall card */}
+              <div className="relative flex justify-center" style={{ height: 260 }}>
+                {/* Ambient glow behind avatar */}
                 <motion.div
-                  className="absolute pointer-events-none"
+                  className="absolute bottom-0 left-1/2 pointer-events-none"
                   style={{
-                    inset: '-10px',
+                    transform: 'translateX(-50%)',
+                    width: 160,
+                    height: 80,
                     borderRadius: '50%',
                     background: gradientTo,
-                    filter: 'blur(20px)',
-                    zIndex: 0,
+                    filter: 'blur(32px)',
+                    opacity: 0,
                   }}
-                  animate={{
-                    opacity: isSpeaking ? 0.40 : isListening ? 0.18 : 0.09,
-                  }}
+                  animate={{ opacity: isSpeaking ? 0.35 : isListening ? 0.18 : 0.10 }}
                   transition={{ duration: 0.5 }}
                 />
 
-                {/* Avatar ring border */}
-                <div
-                  className="relative rounded-full overflow-hidden"
-                  style={{
-                    zIndex: 1,
-                    transition: 'box-shadow 0.45s ease',
-                    boxShadow: isSpeaking
-                      ? `0 0 0 3px ${gradientTo}80, 0 6px 24px ${gradientTo}55`
-                      : isListening
-                      ? `0 0 0 2px ${gradientTo}55, 0 4px 14px rgba(0,0,0,0.14)`
-                      : '0 3px 14px rgba(0,0,0,0.12)',
-                  }}
-                >
-                  <ChatbotAvatar3D
-                    character={character}
-                    isSpeaking={isSpeaking}
-                    isListening={isListening}
-                    size={118}
+                {/* Speaking ring around whole panel */}
+                {isSpeaking && (
+                  <motion.div
+                    className="absolute inset-x-0 bottom-0 pointer-events-none"
+                    style={{
+                      height: 3,
+                      background: `linear-gradient(90deg, transparent, ${gradientTo}, transparent)`,
+                    }}
+                    animate={{ opacity: [0.4, 1, 0.4] }}
+                    transition={{ duration: 0.8, repeat: Infinity }}
                   />
-                </div>
+                )}
 
-                <ListenRings active={isListening && !isSpeaking} color={gradientTo} />
+                <ChatbotAvatar3D
+                  character={character}
+                  isSpeaking={isSpeaking}
+                  isListening={isListening}
+                  width={220}
+                  height={260}
+                />
               </div>
 
-              {/* ── Text info ── */}
-              <div className="flex flex-col gap-2 min-w-0">
+              {/* Name + status row below avatar */}
+              <div className="flex items-center justify-between px-4 pb-3 pt-1">
                 <div>
-                  <p
-                    className="text-sm font-bold leading-tight"
-                    style={{ color: gradientTo }}
-                  >
+                  <p className="text-sm font-bold leading-tight" style={{ color: gradientTo }}>
                     {name}
                   </p>
-                  <p className="text-[11px] text-gray-400 mt-0.5 leading-snug">
-                    {subtitle}
-                  </p>
+                  <p className="text-[11px] text-gray-400 mt-0.5">{subtitle}</p>
                 </div>
                 <StateBadge state={state} color={gradientTo} />
               </div>
