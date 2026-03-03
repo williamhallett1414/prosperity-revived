@@ -11,14 +11,17 @@ import { getPersonalityPromptAddition, fetchUserPreferences } from '../chatbot/P
 import TTSButton from '../chatbot/TTSButton';
 // No cross-context needed for Gideon — it's the source for others
 import GideonQuickAskMenu from './GideonQuickAskMenu';
+import { useProactiveInsights } from '../chatbot/useProactiveInsights';
+import ProactiveInsightCard from '../chatbot/ProactiveInsightCard';
 import ProactiveSuggestionBanner from '../chatbot/ProactiveSuggestionBanner';
 
-export default function GideonChatbot({ user, autoOpen = false }) {
+export default function GideonChatbot({ user, autoOpen = false, onClose }) {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [personalityPrefs, setPersonalityPrefs] = useState(null);
+  const [insightDismissed, setInsightDismissed] = useState(false);
   const [quickMenuCollapsed, setQuickMenuCollapsed] = useState(false);
   const messagesEndRef = useRef(null);
   const queryClient = useQueryClient();
@@ -62,6 +65,12 @@ export default function GideonChatbot({ user, autoOpen = false }) {
   useEffect(() => {
     if (autoOpen) setIsOpen(true);
   }, [autoOpen]);
+
+  const { insight } = useProactiveInsights({
+    chatbot: 'Gideon',
+    conversations: [],
+    memories,
+  });
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -112,7 +121,7 @@ export default function GideonChatbot({ user, autoOpen = false }) {
     if (proactiveSuggestions[0]) {
       markSuggestionReadMutation.mutate(proactiveSuggestions[0].id);
     }
-    setInput(promptAction);
+    sendWithText(promptAction);
   };
 
   const handleDismissSuggestion = () => {
@@ -285,7 +294,7 @@ Assistant: ${response}`,
             initial={{ opacity: 0, y: 100, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 100, scale: 0.9 }}
-            className="fixed bottom-24 right-4 w-[calc(100vw-2rem)] sm:w-96 h-[500px] bg-white rounded-2xl shadow-2xl flex flex-col z-50 border border-[#D9B878]/20 overflow-hidden"
+            className="fixed bottom-24 right-4 w-[calc(100vw-2rem)] sm:w-96 h-[min(500px,calc(100dvh-7rem))] bg-white rounded-2xl shadow-2xl flex flex-col z-50 border border-[#D9B878]/20 overflow-hidden"
             style={{ paddingTop: 'env(safe-area-inset-top)' }}
           >
             {/* Header */}
@@ -313,7 +322,7 @@ Assistant: ${response}`,
                   <Trash2 className="w-5 h-5" />
                 </Button>
                 <Button
-                  onClick={() => setIsOpen(false)}
+                  onClick={() => { setIsOpen(false); onClose?.(); }}
                   variant="ghost"
                   size="icon"
                   className="text-white hover:bg-white/20"
@@ -323,8 +332,19 @@ Assistant: ${response}`,
               </div>
             </div>
 
+            {/* Proactive Insight Card */}
+            <AnimatePresence>
+              {insight && !insightDismissed && (
+                <ProactiveInsightCard
+                  insight={insight}
+                  onAccept={(prompt) => { setInsightDismissed(true); sendWithText(prompt); }}
+                  onDismiss={() => setInsightDismissed(true)}
+                />
+              )}
+            </AnimatePresence>
+
             {/* Proactive Suggestion Banner */}
-            {proactiveSuggestions?.length > 0 && (
+            {proactiveSuggestions?.length > 0 && (insightDismissed || !insight) && (
               <ProactiveSuggestionBanner
                 suggestion={proactiveSuggestions[0]}
                 onAccept={handleAcceptSuggestion}
@@ -335,7 +355,7 @@ Assistant: ${response}`,
             {/* Quick-Ask Menu */}
             {messages.length <= 1 && !isLoading && (
               <GideonQuickAskMenu
-                onSelectPrompt={(prompt) => setInput(prompt)}
+                onSelectPrompt={(prompt) => sendWithText(prompt)}
                 isLoading={isLoading}
                 isCollapsed={quickMenuCollapsed}
                 onToggleCollapse={() => setQuickMenuCollapsed(!quickMenuCollapsed)}

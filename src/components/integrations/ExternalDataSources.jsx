@@ -36,7 +36,7 @@ export default function ExternalDataSources({ user, onClose }) {
         {/* Header */}
         <div className="flex items-center justify-between p-5 border-b border-gray-100">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#3C4E53] to-[#FD9C2D] flex items-center justify-center">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#3C4E53] to-[#c9a227] flex items-center justify-center">
               <Link2 className="w-4 h-4 text-white" />
             </div>
             <div>

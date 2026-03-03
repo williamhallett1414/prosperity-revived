@@ -17,13 +17,14 @@ import ProactiveSuggestionBanner from '../chatbot/ProactiveSuggestionBanner';
 import HannahProfileSetup from './HannahProfileSetup';
 import HannahFeedbackRating from './HannahFeedbackRating';
 import TTSButton from '../chatbot/TTSButton';
+import ReactMarkdown from 'react-markdown';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { getPersonalityPromptAddition, fetchUserPreferences } from '../chatbot/PersonalityAdapter';
 import { getHannahCrossContext } from '../chatbot/CrossChatbotContext';
 import { useProactiveInsights } from '../chatbot/useProactiveInsights';
 import ProactiveInsightCard from '../chatbot/ProactiveInsightCard';
 
-export default function Hannah({ user, autoOpen = false }) {
+export default function Hannah({ user, autoOpen = false, onClose }) {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
@@ -137,7 +138,7 @@ export default function Hannah({ user, autoOpen = false }) {
     if (proactiveSuggestions[0]) {
       markSuggestionReadMutation.mutate(proactiveSuggestions[0].id);
     }
-    setInput(promptAction);
+    sendWithText(promptAction);
   };
 
   const handleDismissSuggestion = () => {
@@ -279,13 +280,35 @@ export default function Hannah({ user, autoOpen = false }) {
     }
   }, [isOpen, messages.length, user, emotionalPatterns]);
 
+  const sendWithText = (text) => {
+    if (isLoading || !text?.trim()) return;
+    setInput(text);
+    // Trigger send via a small timeout so React flushes input state
+    setTimeout(() => {
+      if (text?.trim()) {
+        // Directly invoke the core send logic
+        handleQuickSend(text);
+      }
+    }, 0);
+  };
+
+  const handleQuickSend = async (directText) => {
+    if (isLoading) return;
+    setInput('');
+    setMessages(prev => [...prev, { role: 'user', content: directText }]);
+    await _sendCore(directText);
+  };
+
   const sendMessage = async () => {
     if (!input.trim() || isLoading) return;
 
     const userMessage = input.trim();
     setInput('');
     setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
-    
+    await _sendCore(userMessage);
+  };
+
+  const _sendCore = async (userMessage) => {
     let journalEntryId = null;
     
     // Save to journal if in journal mode
@@ -949,7 +972,7 @@ Always be: warm, wise, compassionate, conversational, deeply supportive, grounde
       });
 
       // Save Hannah response
-      await saveConversation('hannah', response);
+      await saveConversation('assistant', response);
       setMessages(prev => [...prev, { role: 'assistant', content: response }]);
       
       // Update journal entry with full conversation if in journal mode
@@ -1101,7 +1124,7 @@ Return ONLY valid JSON array:
             initial={{ opacity: 0, y: 100, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 100, scale: 0.9 }}
-            className="fixed bottom-24 right-4 w-[calc(100vw-2rem)] sm:w-96 h-[500px] bg-white rounded-2xl shadow-2xl flex flex-col z-50 border border-[#AFC7E3]/40 overflow-hidden"
+            className="fixed bottom-24 right-4 w-[calc(100vw-2rem)] sm:w-96 h-[min(500px,calc(100dvh-7rem))] bg-white rounded-2xl shadow-2xl flex flex-col z-50 border border-[#AFC7E3]/40 overflow-hidden"
             style={{ paddingTop: 'env(safe-area-inset-top)' }}
           >
             {/* Header */}
@@ -1147,7 +1170,7 @@ Return ONLY valid JSON array:
                   <Trash2 className="w-5 h-5" />
                 </Button>
                 <Button
-                  onClick={() => setIsOpen(false)}
+                  onClick={() => { setIsOpen(false); onClose?.(); }}
                   variant="ghost"
                   size="icon"
                   className="text-white hover:bg-white/20"
@@ -1162,7 +1185,7 @@ Return ONLY valid JSON array:
               {insight && !insightDismissed && (
                 <ProactiveInsightCard
                   insight={insight}
-                  onAccept={(prompt) => { setInput(prompt); setInsightDismissed(true); }}
+                  onAccept={(prompt) => { setInsightDismissed(true); sendWithText(prompt); }}
                   onDismiss={() => setInsightDismissed(true)}
                 />
               )}
@@ -1203,55 +1226,55 @@ Return ONLY valid JSON array:
               {showQuickActions && (
                 <div className="grid grid-cols-2 gap-2">
                   <button
-                    onClick={() => setInput("Help me understand why I keep repeating the same patterns: ")}
+                    onClick={() => sendWithText("Help me understand why I keep repeating the same patterns")}
                     className="text-xs bg-white hover:bg-[#AFC7E3]/25 text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#AFC7E3]/60"
                   >
                     🔄 Breaking Patterns
                   </button>
                   <button
-                    onClick={() => setInput("I want to build better habits. Where do I start? ")}
+                    onClick={() => sendWithText("I want to build better habits. Where do I start?")}
                     className="text-xs bg-white hover:bg-[#AFC7E3]/25 text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#AFC7E3]/60"
                   >
                     ✅ Habit Building
                   </button>
                   <button
-                    onClick={() => setInput("How do I set healthy boundaries? ")}
+                    onClick={() => sendWithText("How do I set healthy boundaries?")}
                     className="text-xs bg-white hover:bg-[#AFC7E3]/25 text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#AFC7E3]/60"
                   >
                     🛡️ Boundaries
                   </button>
                   <button
-                    onClick={() => setInput("Help me understand my attachment style: ")}
+                    onClick={() => sendWithText("Help me understand my attachment style")}
                     className="text-xs bg-white hover:bg-[#AFC7E3]/25 text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#AFC7E3]/60"
                   >
                     💕 Attachment Styles
                   </button>
                   <button
-                    onClick={() => setInput("I struggle with emotional regulation. What can I do? ")}
+                    onClick={() => sendWithText("I struggle with emotional regulation. What can I do?")}
                     className="text-xs bg-white hover:bg-[#AFC7E3]/25 text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#AFC7E3]/60"
                   >
                     🧘 Emotional Intelligence
                   </button>
                   <button
-                    onClick={() => setInput("I'm dealing with burnout. How do I recover? ")}
+                    onClick={() => sendWithText("I'm dealing with burnout. How do I recover?")}
                     className="text-xs bg-white hover:bg-[#AFC7E3]/25 text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#AFC7E3]/60"
                   >
                     🔥 Burnout Recovery
                   </button>
                   <button
-                    onClick={() => setInput("Help me shift my financial mindset: ")}
+                    onClick={() => sendWithText("Help me shift my financial mindset")}
                     className="text-xs bg-white hover:bg-[#AFC7E3]/25 text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#AFC7E3]/60"
                   >
                     💰 Money Mindset
                   </button>
                   <button
-                    onClick={() => setInput("I want to find my purpose and clarify my values: ")}
+                    onClick={() => sendWithText("I want to find my purpose and clarify my values")}
                     className="text-xs bg-white hover:bg-[#AFC7E3]/25 text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#AFC7E3]/60"
                   >
                     🎯 Purpose & Values
                   </button>
                   <button
-                    onClick={() => setInput("Give me guided journaling prompts tailored to my growth areas and values.")}
+                    onClick={() => sendWithText("Give me guided journaling prompts tailored to my growth areas and values")}
                     className="text-xs bg-white hover:bg-[#AFC7E3]/25 text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#AFC7E3]/60 col-span-2"
                   >
                     📓 Guided journaling prompts
@@ -1327,7 +1350,13 @@ Return ONLY valid JSON array:
                         : 'bg-white text-gray-800 border border-[#AFC7E3]/40'
                     }`}
                   >
-                    <p className="text-sm whitespace-pre-wrap leading-relaxed">{message.content}</p>
+                    {message.role === 'assistant' ? (
+                      <ReactMarkdown className="prose prose-sm max-w-none prose-p:my-1 prose-li:my-0 text-gray-800 text-sm leading-relaxed">
+                        {message.content}
+                      </ReactMarkdown>
+                    ) : (
+                      <p className="text-sm whitespace-pre-wrap leading-relaxed">{message.content}</p>
+                    )}
                     {message.role === 'assistant' && (
                       <div className="flex justify-end mt-1">
                         <TTSButton text={message.content} />

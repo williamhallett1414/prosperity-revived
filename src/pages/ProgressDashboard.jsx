@@ -447,16 +447,16 @@ export default function ProgressDashboard() {
 
       {/* Chatbot Modals */}
       {activeChat === 'Hannah' && user && (
-        <Hannah user={user} autoOpen={true} />
+        <Hannah user={user} autoOpen={true} onClose={() => setActiveChat(null)} />
       )}
       {activeChat === 'CoachDavid' && user && (
-        <CoachDavid user={user} userWorkouts={userWorkoutsForChat} workoutSessions={workoutSessionsForChat} autoOpen={true} />
+        <CoachDavid user={user} userWorkouts={userWorkoutsForChat} workoutSessions={workoutSessionsForChat} autoOpen={true} onClose={() => setActiveChat(null)} />
       )}
       {activeChat === 'ChefDaniel' && user && (
-        <ChefDaniel user={user} userRecipes={userRecipesForChat} mealLogs={mealLogsForChat} autoOpen={true} />
+        <ChefDaniel user={user} userRecipes={userRecipesForChat} mealLogs={mealLogsForChat} autoOpen={true} onClose={() => setActiveChat(null)} />
       )}
       {activeChat === 'Gideon' && user && (
-        <GideonChatbot user={user} autoOpen={true} />
+        <GideonChatbot user={user} autoOpen={true} onClose={() => setActiveChat(null)} />
       )}
     </div>
   );

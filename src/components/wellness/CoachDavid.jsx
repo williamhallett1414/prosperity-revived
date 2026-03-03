@@ -13,12 +13,13 @@ import ProactiveSuggestionBanner from '../chatbot/ProactiveSuggestionBanner';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { getPersonalityPromptAddition, fetchUserPreferences } from '../chatbot/PersonalityAdapter';
 import TTSButton from '../chatbot/TTSButton';
+import ReactMarkdown from 'react-markdown';
 import { getChefDanielNutritionContext } from '../chatbot/CrossChatbotContext';
 import HannahFeedbackRating from '../mindspirit/HannahFeedbackRating';
 import { useProactiveInsights } from '../chatbot/useProactiveInsights';
 import ProactiveInsightCard from '../chatbot/ProactiveInsightCard';
 
-export default function CoachDavid({ user, userWorkouts = [], workoutSessions = [], autoOpen = false }) {
+export default function CoachDavid({ user, userWorkouts = [], workoutSessions = [], autoOpen = false, onClose }) {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
@@ -121,7 +122,7 @@ export default function CoachDavid({ user, userWorkouts = [], workoutSessions = 
     if (proactiveSuggestions[0]) {
       markSuggestionReadMutation.mutate(proactiveSuggestions[0].id);
     }
-    setInput(promptAction);
+    sendWithText(promptAction);
   };
 
   const handleDismissSuggestion = () => {
@@ -406,7 +407,7 @@ Return ONLY valid JSON array:
             initial={{ opacity: 0, y: 100, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 100, scale: 0.9 }}
-            className="fixed bottom-24 right-4 w-[calc(100vw-2rem)] sm:w-96 h-[500px] bg-white rounded-2xl shadow-2xl flex flex-col z-50 border border-[#E6EBEF]"
+            className="fixed bottom-24 right-4 w-[calc(100vw-2rem)] sm:w-96 h-[min(500px,calc(100dvh-7rem))] bg-white rounded-2xl shadow-2xl flex flex-col z-50 border border-[#E6EBEF] overflow-hidden"
           >
             {/* Header */}
             <div className="bg-gradient-to-r from-[#0A0A0A] to-[#38BDF8] text-white p-5 rounded-t-2xl flex items-center justify-between">
@@ -448,7 +449,7 @@ Return ONLY valid JSON array:
                   <Trash2 className="w-5 h-5" />
                 </Button>
                 <Button
-                  onClick={() => setIsOpen(false)}
+                  onClick={() => { setIsOpen(false); onClose?.(); }}
                   variant="ghost"
                   size="icon"
                   className="text-white hover:bg-white/20"
@@ -463,7 +464,7 @@ Return ONLY valid JSON array:
               {insight && !insightDismissed && (
                 <ProactiveInsightCard
                   insight={insight}
-                  onAccept={(prompt) => { setInput(prompt); setInsightDismissed(true); }}
+                  onAccept={(prompt) => { setInsightDismissed(true); sendWithText(prompt); }}
                   onDismiss={() => setInsightDismissed(true)}
                 />
               )}
@@ -481,7 +482,7 @@ Return ONLY valid JSON array:
             {/* Quick-Ask Menu */}
             {messages.length <= 1 && !isLoading && (
               <CoachDavidQuickAskMenu
-                onSelectPrompt={(prompt) => setInput(prompt)}
+                onSelectPrompt={(prompt) => sendWithText(prompt)}
                 isLoading={isLoading}
                 isCollapsed={quickMenuCollapsed}
                 onToggleCollapse={() => setQuickMenuCollapsed(!quickMenuCollapsed)}
@@ -504,7 +505,13 @@ Return ONLY valid JSON array:
                         : 'bg-[#E6EBEF] text-[#0A1A2F]'
                     }`}
                   >
-                    <p className="text-sm whitespace-pre-wrap leading-relaxed">{message.content}</p>
+                    {message.role === 'assistant' ? (
+                      <ReactMarkdown className="prose prose-sm max-w-none prose-p:my-1 prose-li:my-0 text-[#0A1A2F] text-sm leading-relaxed">
+                        {message.content}
+                      </ReactMarkdown>
+                    ) : (
+                      <p className="text-sm whitespace-pre-wrap leading-relaxed">{message.content}</p>
+                    )}
                     {message.role === 'assistant' && (
                       <div className="flex justify-end mt-1">
                         <TTSButton text={message.content} />

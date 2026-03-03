@@ -11,7 +11,7 @@ export default function ProactiveSuggestionBanner({ suggestion, onAccept, onDism
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
-      className="bg-gradient-to-r from-[#F2F6FA] to-[#FAD98D]/10 dark:from-[#0A1A2F]/30 dark:to-[#1a1a2e]/30 border-b border-[#AFC7E3]/40 dark:border-blue-700 px-5 py-4"
+      className="bg-gradient-to-r from-[#F2F6FA] to-[#FAD98D]/10#0A1A2F]/30#1a1a2e]/30 border-b border-[#AFC7E3]/40 px-5 py-4"
     >
       <div className="flex items-start gap-3">
         <div className="flex-shrink-0 mt-0.5">
@@ -21,10 +21,10 @@ export default function ProactiveSuggestionBanner({ suggestion, onAccept, onDism
         </div>
         
         <div className="flex-1 min-w-0">
-          <h4 className="text-sm font-semibold text-gray-900 dark:text-white mb-1">
+          <h4 className="text-sm font-semibold text-gray-900 mb-1">
             {suggestion.title}
           </h4>
-          <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed whitespace-pre-wrap">
+          <p className="text-sm text-gray-700 leading-relaxed whitespace-pre-wrap">
             {suggestion.message}
           </p>
           
@@ -41,7 +41,7 @@ export default function ProactiveSuggestionBanner({ suggestion, onAccept, onDism
         
         <button
           onClick={onDismiss}
-          className="flex-shrink-0 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+          className="flex-shrink-0 text-gray-400 hover:text-gray-600 transition-colors"
           title="Dismiss"
         >
           <X className="w-5 h-5" />
