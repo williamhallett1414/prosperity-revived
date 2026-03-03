@@ -724,7 +724,7 @@ Return ONLY valid JSON array:
 
   const quickActions = [
     "What should I cook tonight?",
-    "Help me meal prep for the week",
+    "Create a full weekly meal plan with grocery list for me",
     "I need more protein in my diet",
     "Teach me a new cooking technique",
     "Create a healthy meal plan for me"

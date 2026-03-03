@@ -336,7 +336,9 @@ Return ONLY valid JSON array:
     "How do I stay consistent?",
     "HIIT vs steady cardio—which for me?",
     "How to recover like a pro",
-    "Mental toughness training"
+    "Mental toughness training",
+    "I'm feeling fatigued — adjust my workout",
+    "My performance dropped today — what should I do?"
   ];
 
   return (
