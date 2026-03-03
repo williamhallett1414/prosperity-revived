@@ -307,8 +307,13 @@ Assistant: ${response}`,
             className="fixed bottom-24 right-4 w-[calc(100vw-2rem)] sm:w-96 h-[min(500px,calc(100dvh-7rem))] bg-white rounded-2xl shadow-2xl flex flex-col z-50 border border-[#D9B878]/20 overflow-hidden"
             style={{ paddingTop: 'env(safe-area-inset-top)' }}
           >
+            {/* Avatar */}
+            <div className="flex justify-center bg-gradient-to-b from-[#FFFDF7] to-white pt-3 pb-1">
+              <AvatarContainer characterName="gideon" avatarState={avatarState} size="md" />
+            </div>
+
             {/* Header */}
-            <div className="bg-gradient-to-r from-[#c9a227] to-[#D9B878] px-5 py-5 rounded-t-2xl flex items-center justify-between">
+            <div className="bg-gradient-to-r from-[#c9a227] to-[#D9B878] px-5 py-3 flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
                   <BookOpen className="w-6 h-6 text-white" />
