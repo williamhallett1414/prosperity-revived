@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageCircle, X, Send, Loader2, Dumbbell, Trash2, Link2 } from 'lucide-react';
 import ExternalDataSources from '../integrations/ExternalDataSources';
@@ -14,10 +14,11 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { getPersonalityPromptAddition, fetchUserPreferences } from '../chatbot/PersonalityAdapter';
 import TTSButton from '../chatbot/TTSButton';
 import { getChefDanielNutritionContext } from '../chatbot/CrossChatbotContext';
+import HannahFeedbackRating from '../mindspirit/HannahFeedbackRating';
 import { useProactiveInsights } from '../chatbot/useProactiveInsights';
 import ProactiveInsightCard from '../chatbot/ProactiveInsightCard';
 
-export default function CoachDavid({ user, userWorkouts = [], workoutSessions = [] }) {
+export default function CoachDavid({ user, userWorkouts = [], workoutSessions = [], autoOpen = false }) {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
@@ -30,7 +31,18 @@ export default function CoachDavid({ user, userWorkouts = [], workoutSessions = 
   const [nutritionCrossContext, setNutritionCrossContext] = useState('');
   const [showDataSources, setShowDataSources] = useState(false);
   const [insightDismissed, setInsightDismissed] = useState(false);
+  const [ratedMessageIndices, setRatedMessageIndices] = useState(new Set());
   const queryClient = useQueryClient();
+  const messagesEndRef = useRef(null);
+
+  // Auto-scroll to latest message
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
+
+  useEffect(() => {
+    if (autoOpen) setIsOpen(true);
+  }, [autoOpen]);
 
   const { insight } = useProactiveInsights({
     chatbot: 'CoachDavid',
@@ -51,8 +63,12 @@ export default function CoachDavid({ user, userWorkouts = [], workoutSessions = 
         setMessages([{ role: 'assistant', content: welcomeMsg }]);
         localStorage.setItem('coachDavidVisited', 'true');
       } else {
-        const welcomeMsg = `Yo ${userName}! 💪 I'm Coach David.\n\nI'm here to build your discipline, unlock your strength, and transform your mindset. We're not just doing workouts—we're building an identity as someone who's unstoppable.\n\nWhether it's strength, endurance, mobility, or overcoming mental blocks, I've got the knowledge and the motivation to push you forward.\n\nWhat's your fitness goal today?`;
-        setMessages([{ role: 'assistant', content: welcomeMsg }]);
+        const totalSessions = workoutSessions.length;
+        const streakMsg = totalSessions > 0
+          ? `You've logged ${totalSessions} workout${totalSessions > 1 ? 's' : ''} — that consistency is building something real.`
+          : `Haven't logged a workout yet — today's the day we change that.`;
+        const returningMsg = `Welcome back${userName ? ', ' + userName : ''}! 💪\n\n${streakMsg}\n\nI'm ready to push you further. What are we working on today — strength, cardio, recovery, or mental game?`;
+        setMessages([{ role: 'assistant', content: returningMsg }]);
       }
       
       loadMemories();
@@ -114,12 +130,23 @@ export default function CoachDavid({ user, userWorkouts = [], workoutSessions = 
     }
   };
 
-  const sendMessage = async () => {
+  const sendMessage = () => {
     if (!input.trim() || isLoading) return;
-
     const userMessage = input.trim();
     setInput('');
     setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
+    _doSend(userMessage);
+  };
+
+  // Send a message directly (from quick-action chips)
+  const sendWithText = (text) => {
+    if (isLoading) return;
+    setMessages(prev => [...prev, { role: 'user', content: text }]);
+    setInput('');
+    _doSend(text);
+  };
+
+  const _doSend = async (userMessage) => {
     setIsLoading(true);
 
     try {
@@ -266,7 +293,8 @@ Habit building, discipline work, mental toughness, overcoming plateaus, nutritio
       setMessages(prev => [...prev, { role: 'assistant', content: response }]);
 
       // Extract and save key insights every 5 messages
-      if (messages.length > 0 && messages.length % 5 === 0) {
+      const msgCountForMemory = messages.length + 2; // +2 for user msg + response just added
+      if (messages.length > 0 && msgCountForMemory % 5 === 0) {
         try {
           const recentConvo = messages.slice(-5).map(m => `${m.role}: ${m.content}`).join('\n');
           const memoryExtraction = await base44.integrations.Core.InvokeLLM({
@@ -442,7 +470,7 @@ Return ONLY valid JSON array:
             </AnimatePresence>
 
             {/* Proactive Suggestion Banner */}
-            {proactiveSuggestions?.length > 0 && (
+            {proactiveSuggestions?.length > 0 && (insightDismissed || !insight) && (
               <ProactiveSuggestionBanner
                 suggestion={proactiveSuggestions[0]}
                 onAccept={handleAcceptSuggestion}
@@ -483,6 +511,14 @@ Return ONLY valid JSON array:
                       </div>
                     )}
                   </div>
+                  {message.role === 'assistant' && index > 0 && !ratedMessageIndices.has(index) && (
+                    <HannahFeedbackRating
+                      messageContent={message.content}
+                      userEmail={user?.email}
+                      sessionId={sessionId}
+                      onDone={() => setRatedMessageIndices(prev => new Set([...prev, index]))}
+                    />
+                  )}
                 </motion.div>
               ))}
               {isLoading && (
@@ -500,9 +536,7 @@ Return ONLY valid JSON array:
                   {quickActions.map((action, idx) => (
                     <button
                       key={idx}
-                      onClick={() => {
-                        setInput(action);
-                      }}
+                      onClick={() => sendWithText(action)}
                       className="block w-full text-left text-sm px-4 py-3 rounded-xl bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] transition-colors shadow-sm"
                     >
                       {action}
@@ -510,6 +544,7 @@ Return ONLY valid JSON array:
                   ))}
                 </div>
               )}
+              <div ref={messagesEndRef} />
             </div>
 
             {/* Input */}

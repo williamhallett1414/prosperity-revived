@@ -43,7 +43,7 @@ const chatbotConfig = {
     icon: '💪',
     color: 'from-[#0A0A0A] to-[#38BDF8]',
     bgColor: 'bg-[#38BDF8]/15',
-    textColor: 'text-[#4a6b50]',
+    textColor: 'text-[#0EA5E9]',
     borderColor: 'border-[#8fa68a]',
     category: 'Fitness & Wellness',
     description: 'Fitness plans, workouts & accountability'
@@ -51,9 +51,9 @@ const chatbotConfig = {
   ChefDaniel: {
     name: 'Chef Daniel',
     icon: '🍽️',
-    color: 'from-[#8fa68a] to-[#6b8f72]',
-    bgColor: 'bg-[#8fa68a]/20',
-    textColor: 'text-[#b86e10]',
+    color: 'from-[#4ade80]/80 to-[#22c55e]',
+    bgColor: 'bg-[#4ade80]/10',
+    textColor: 'text-[#16a34a]',
     borderColor: 'border-[#FD9C2D]',
     category: 'Nutrition & Meals',
     description: 'Nutrition advice, meal ideas & healthy eating'
@@ -112,6 +112,42 @@ export default function ProgressDashboard() {
     },
     enabled: !!user?.email,
     initialData: []
+  });
+
+  const { data: workoutSessionsForChat = [] } = useQuery({
+    queryKey: ['workoutSessionsChat', user?.email],
+    queryFn: async () => {
+      if (!user?.email) return [];
+      return await base44.entities.WorkoutSession.filter({ created_by: user.email }, '-created_date', 20);
+    },
+    enabled: !!user?.email
+  });
+
+  const { data: userWorkoutsForChat = [] } = useQuery({
+    queryKey: ['userWorkoutsChat', user?.email],
+    queryFn: async () => {
+      if (!user?.email) return [];
+      return await base44.entities.Workout.filter({ created_by: user.email }, '-created_date', 20);
+    },
+    enabled: !!user?.email
+  });
+
+  const { data: mealLogsForChat = [] } = useQuery({
+    queryKey: ['mealLogsChat', user?.email],
+    queryFn: async () => {
+      if (!user?.email) return [];
+      return await base44.entities.MealLog.filter({ created_by: user.email }, '-created_date', 20);
+    },
+    enabled: !!user?.email
+  });
+
+  const { data: userRecipesForChat = [] } = useQuery({
+    queryKey: ['userRecipesChat', user?.email],
+    queryFn: async () => {
+      if (!user?.email) return [];
+      return await base44.entities.Recipe.filter({ created_by: user.email }, '-created_date', 20);
+    },
+    enabled: !!user?.email
   });
 
   // Aggregate stats
@@ -411,16 +447,16 @@ export default function ProgressDashboard() {
 
       {/* Chatbot Modals */}
       {activeChat === 'Hannah' && user && (
-        <Hannah user={user} />
+        <Hannah user={user} autoOpen={true} />
       )}
       {activeChat === 'CoachDavid' && user && (
-        <CoachDavid user={user} />
+        <CoachDavid user={user} userWorkouts={userWorkoutsForChat} workoutSessions={workoutSessionsForChat} autoOpen={true} />
       )}
       {activeChat === 'ChefDaniel' && user && (
-        <ChefDaniel user={user} />
+        <ChefDaniel user={user} userRecipes={userRecipesForChat} mealLogs={mealLogsForChat} autoOpen={true} />
       )}
       {activeChat === 'Gideon' && user && (
-        <GideonChatbot user={user} />
+        <GideonChatbot user={user} autoOpen={true} />
       )}
     </div>
   );

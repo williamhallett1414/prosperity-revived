@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageCircle, X, Send, Loader2, Heart, Trash2, Smile, UserCircle, Link2 } from 'lucide-react';
 import ExternalDataSources from '../integrations/ExternalDataSources';
@@ -23,7 +23,7 @@ import { getHannahCrossContext } from '../chatbot/CrossChatbotContext';
 import { useProactiveInsights } from '../chatbot/useProactiveInsights';
 import ProactiveInsightCard from '../chatbot/ProactiveInsightCard';
 
-export default function Hannah({ user }) {
+export default function Hannah({ user, autoOpen = false }) {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
@@ -49,6 +49,12 @@ export default function Hannah({ user }) {
   const [showDataSources, setShowDataSources] = useState(false);
   const [insightDismissed, setInsightDismissed] = useState(false);
   const queryClient = useQueryClient();
+  const moodSaveTimer = React.useRef(null);
+
+  // Auto-open if launched from a parent button
+  useEffect(() => {
+    if (autoOpen) setIsOpen(true);
+  }, [autoOpen]);
 
   // Extract mood scores from past conversations for proactive insights
   const moodScores = [];
@@ -158,6 +164,28 @@ export default function Hannah({ user }) {
         .slice(0, 3)
         .map(([tone]) => tone);
       setEmotionalPatterns(patterns);
+      
+      // Now that patterns are loaded, inject proactive suggestion as a follow-up message
+      if (patterns.length > 0) {
+        const suggestionMap = {
+          overwhelmed: "I've noticed you often feel overwhelmed. Would it help to walk through the 'Money Story Excavation' exercise? It's designed to help untangle complexity.",
+          anxious: "I sense anxiety comes up a lot for you. Our nervous system regulation exercises might create some calm. Want to try?",
+          discouraged: "You've shared discouragement with me before. I want to celebrate something — what's ONE thing you've tried, even imperfectly, that mattered?",
+          burned_out: "I've noticed burnout patterns. Let's talk about real rest — not productivity, just genuine restoration. What does your body need right now?"
+        };
+        const suggestion = suggestionMap[patterns[0]];
+        if (suggestion) {
+          setTimeout(() => {
+            setMessages(prev => {
+              // Only add if we have the welcome message and haven't added suggestion yet
+              if (prev.length === 1 && prev[0].role === 'assistant') {
+                return [...prev, { role: 'assistant', content: suggestion }];
+              }
+              return prev;
+            });
+          }, 800);
+        }
+      }
     } catch (error) {
       console.log('Loading conversation history...');
     }
@@ -176,7 +204,7 @@ export default function Hannah({ user }) {
     }
   };
 
-  const savConversation = async (role, content, emotionalTone = null) => {
+  const saveConversation = async (role, content, emotionalTone = null) => {
     try {
       if (user?.email) {
         await base44.entities.HannahConversation.create({
@@ -245,15 +273,7 @@ export default function Hannah({ user }) {
         setMessages([{ role: 'assistant', content: welcomeMsg }]);
         localStorage.setItem('hannahVisited', 'true');
       } else {
-        let returningMsg = `Welcome back, ${userName}. 💛\n\nI'm so glad you're here.`;
-        
-        // Proactive suggestion based on patterns
-        const suggestion = makeProactiveSuggestion();
-        if (suggestion) {
-          returningMsg += `\n\n${suggestion}`;
-        }
-        
-        returningMsg += `\n\nWhat's alive for you today?`;
+        const returningMsg = `Welcome back, ${userName}. 💛\n\nI'm so glad you're here.\n\nWhat's alive for you today?`;
         setMessages([{ role: 'assistant', content: returningMsg }]);
       }
     }
@@ -283,7 +303,7 @@ export default function Hannah({ user }) {
     }
     
     // Save user message to conversation history
-    await savConversation('user', userMessage);
+    await saveConversation('user', userMessage);
     setIsLoading(true);
 
     const isAnsweringQuestion = lastHannahMessageWasQuestion;
@@ -929,7 +949,7 @@ Always be: warm, wise, compassionate, conversational, deeply supportive, grounde
       });
 
       // Save Hannah response
-      await savConversation('hannah', response);
+      await saveConversation('hannah', response);
       setMessages(prev => [...prev, { role: 'assistant', content: response }]);
       
       // Update journal entry with full conversation if in journal mode
@@ -954,7 +974,8 @@ Always be: warm, wise, compassionate, conversational, deeply supportive, grounde
       }
       
       // Extract and save key insights every 5 messages
-      if (messages.length > 0 && messages.length % 5 === 0) {
+      const msgCountForMemory = messages.length + 2; // +2 for user msg + response just added
+      if (messages.length > 0 && msgCountForMemory % 5 === 0) {
         try {
           const recentConvo = messages.slice(-5).map(m => `${m.role}: ${m.content}`).join('\n');
           const memoryExtraction = await base44.integrations.Core.InvokeLLM({
@@ -1147,8 +1168,8 @@ Return ONLY valid JSON array:
               )}
             </AnimatePresence>
 
-            {/* Proactive Suggestion Banner */}
-            {proactiveSuggestions?.length > 0 && (
+            {/* Proactive Suggestion Banner — only if no insight card is shown */}
+            {proactiveSuggestions?.length > 0 && (insightDismissed || !insight) && (
               <ProactiveSuggestionBanner
                 suggestion={proactiveSuggestions[0]}
                 onAccept={handleAcceptSuggestion}
@@ -1278,7 +1299,9 @@ Return ONLY valid JSON array:
                   onChange={(e) => {
                     const mood = parseInt(e.target.value);
                     setCurrentMood(mood);
-                    saveMoodEntry(mood);
+                    // Debounce: only save after user stops dragging for 600ms
+                    if (moodSaveTimer.current) clearTimeout(moodSaveTimer.current);
+                    moodSaveTimer.current = setTimeout(() => saveMoodEntry(mood), 600);
                   }}
                   className="w-full"
                 />
@@ -1330,23 +1353,8 @@ Return ONLY valid JSON array:
                 </div>
               )}
 
-              {/* Quick Actions */}
-              {messages.length === 1 && !isLoading && (
-                <div className="space-y-2 pt-2">
-                  <p className="text-xs text-[#0A1A2F]/60 font-medium">Quick questions:</p>
-                  {quickActions.map((action, idx) => (
-                    <button
-                      key={idx}
-                      onClick={() => {
-                        setInput(action);
-                      }}
-                      className="block w-full text-left text-sm px-4 py-3 rounded-xl bg-white hover:bg-[#AFC7E3]/15 text-gray-800 transition-colors shadow-sm border border-[#AFC7E3]/40"
-                    >
-                      {action}
-                    </button>
-                  ))}
-                </div>
-              )}
+
+              <div ref={messagesEndRef} />
             </div>
 
             {/* Input */}

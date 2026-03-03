@@ -13,7 +13,7 @@ import TTSButton from '../chatbot/TTSButton';
 import GideonQuickAskMenu from './GideonQuickAskMenu';
 import ProactiveSuggestionBanner from '../chatbot/ProactiveSuggestionBanner';
 
-export default function GideonChatbot({ user }) {
+export default function GideonChatbot({ user, autoOpen = false }) {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
@@ -58,6 +58,10 @@ export default function GideonChatbot({ user }) {
     },
     enabled: !!user?.email
   });
+
+  useEffect(() => {
+    if (autoOpen) setIsOpen(true);
+  }, [autoOpen]);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -117,13 +121,38 @@ export default function GideonChatbot({ user }) {
     }
   };
 
-  const handleSend = async () => {
+  const handleSend = () => {
     if (!input.trim() || isLoading) return;
-
     const userMessage = input.trim();
     setInput('');
     setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
+    _doSend(userMessage);
+  };
+
+  const sendWithText = (text) => {
+    if (isLoading) return;
+    setMessages(prev => [...prev, { role: 'user', content: text }]);
+    setInput('');
+    _doSend(text);
+  };
+
+  const saveGideonConversation = async (role, content) => {
+    if (!user?.email) return;
+    try {
+      await base44.entities.HannahConversation.create({
+        user_email: user.email,
+        role,
+        content,
+        emotional_tone: null,
+        conversation_session_id: `gideon-${new Date().toISOString().split('T')[0]}`,
+        mood_score: null
+      });
+    } catch (e) { /* silent */ }
+  };
+
+  const _doSend = async (userMessage) => {
     setIsLoading(true);
+    saveGideonConversation('user', userMessage);
 
     try {
       // Build context from memories and journals
@@ -168,9 +197,11 @@ Respond with wisdom, compassion, and biblical insight. Keep responses conversati
       });
 
       setMessages(prev => [...prev, { role: 'assistant', content: response }]);
+      saveGideonConversation('assistant', response);
 
       // Extract and save key spiritual insights
-      if (messages.length > 0 && messages.length % 5 === 0) {
+      const msgCountForMemory = messages.length + 2; // +2 for user msg + response just added
+      if (messages.length > 0 && msgCountForMemory % 5 === 0) {
         try {
           const memoryExtraction = await base44.integrations.Core.InvokeLLM({
             prompt: `Extract 1-2 key spiritual insights or milestones from this conversation to remember for future guidance. Return as JSON array of objects with fields: memory_type (goal/milestone/insight/success), content, context, importance (1-10).
@@ -358,7 +389,7 @@ Assistant: ${response}`,
               {quickActions.map((action, idx) => (
                 <button
                   key={idx}
-                  onClick={() => setInput(action)}
+                  onClick={() => sendWithText(action)}
                   className="block w-full text-left text-sm px-4 py-3 rounded-xl bg-white hover:bg-[#FFFDF7] text-[#0A1A2F] transition-colors shadow-sm border border-[#D9B878]/20"
                 >
                   {action}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageCircle, X, Send, Loader2, UtensilsCrossed, Trash2, Link2 } from 'lucide-react';
 import ExternalDataSources from '../integrations/ExternalDataSources';
@@ -12,14 +12,16 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { getPersonalityPromptAddition, fetchUserPreferences } from '../chatbot/PersonalityAdapter';
 import TTSButton from '../chatbot/TTSButton';
 import { getGideonWellnessContext } from '../chatbot/CrossChatbotContext';
+import HannahFeedbackRating from '../mindspirit/HannahFeedbackRating';
 import { useProactiveInsights } from '../chatbot/useProactiveInsights';
 import ProactiveInsightCard from '../chatbot/ProactiveInsightCard';
 
-export default function ChefDaniel({ user, userRecipes = [], mealLogs = [] }) {
+export default function ChefDaniel({ user, userRecipes = [], mealLogs = [], autoOpen = false }) {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [sessionId] = useState(() => `chef-daniel-${Date.now()}`);
   const [showQuickActions, setShowQuickActions] = useState(true);
   const [showOnboarding, setShowOnboarding] = useState(false);
   const [memories, setMemories] = useState([]);
@@ -27,7 +29,18 @@ export default function ChefDaniel({ user, userRecipes = [], mealLogs = [] }) {
   const [spiritualCrossContext, setSpiritualCrossContext] = useState('');
   const [showDataSources, setShowDataSources] = useState(false);
   const [insightDismissed, setInsightDismissed] = useState(false);
+  const [ratedMessageIndices, setRatedMessageIndices] = useState(new Set());
   const queryClient = useQueryClient();
+  const messagesEndRef = useRef(null);
+
+  // Auto-scroll to latest message
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
+
+  useEffect(() => {
+    if (autoOpen) setIsOpen(true);
+  }, [autoOpen]);
 
   const { insight } = useProactiveInsights({
     chatbot: 'ChefDaniel',
@@ -119,12 +132,22 @@ export default function ChefDaniel({ user, userRecipes = [], mealLogs = [] }) {
     }
   }, [isOpen, messages.length, user]);
 
-  const sendMessage = async () => {
+  const sendMessage = () => {
     if (!input.trim() || isLoading) return;
-
     const userMessage = input.trim();
     setInput('');
     setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
+    _doSend(userMessage);
+  };
+
+  const sendWithText = (text) => {
+    if (isLoading) return;
+    setMessages(prev => [...prev, { role: 'user', content: text }]);
+    setInput('');
+    _doSend(text);
+  };
+
+  const _doSend = async (userMessage) => {
     setIsLoading(true);
 
     try {
@@ -660,7 +683,8 @@ Always be: encouraging, expert-level, practical, flexible, warm, and conversatio
       setMessages(prev => [...prev, { role: 'assistant', content: response }]);
 
       // Extract and save key insights every 5 messages
-      if (messages.length > 0 && messages.length % 5 === 0) {
+      const msgCountForMemory = messages.length + 2; // +2 for user msg + response just added
+      if (messages.length > 0 && msgCountForMemory % 5 === 0) {
         try {
           const recentConvo = messages.slice(-5).map(m => `${m.role}: ${m.content}`).join('\n');
           const memoryExtraction = await base44.integrations.Core.InvokeLLM({
@@ -825,7 +849,7 @@ Return ONLY valid JSON array:
             </AnimatePresence>
 
             {/* Proactive Suggestion Banner */}
-            {proactiveSuggestions?.length > 0 && (
+            {proactiveSuggestions?.length > 0 && (insightDismissed || !insight) && (
               <ProactiveSuggestionBanner
                 suggestion={proactiveSuggestions[0]}
                 onAccept={handleAcceptSuggestion}
@@ -1001,6 +1025,14 @@ Return ONLY valid JSON array:
                       </div>
                     )}
                   </div>
+                  {message.role === 'assistant' && index > 0 && !ratedMessageIndices.has(index) && (
+                    <HannahFeedbackRating
+                      messageContent={message.content}
+                      userEmail={user?.email}
+                      sessionId={sessionId}
+                      onDone={() => setRatedMessageIndices(prev => new Set([...prev, index]))}
+                    />
+                  )}
                 </motion.div>
               ))}
               {isLoading && (
@@ -1018,9 +1050,7 @@ Return ONLY valid JSON array:
                   {quickActions.map((action, idx) => (
                     <button
                       key={idx}
-                      onClick={() => {
-                        setInput(action);
-                      }}
+                      onClick={() => sendWithText(action)}
                       className="block w-full text-left text-sm px-4 py-3 rounded-xl bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] transition-colors shadow-sm"
                     >
                       {action}
@@ -1028,6 +1058,7 @@ Return ONLY valid JSON array:
                   ))}
                 </div>
               )}
+              <div ref={messagesEndRef} />
             </div>
 
             {/* Input */}
