@@ -26,6 +26,7 @@ export default function GideonChatbot({ user, autoOpen = false, onClose }) {
   const [personalityPrefs, setPersonalityPrefs] = useState(null);
   const [insightDismissed, setInsightDismissed] = useState(false);
   const [quickMenuCollapsed, setQuickMenuCollapsed] = useState(false);
+  const [avatarState, setAvatarState] = useState(AVATAR_STATES.IDLE);
   const messagesEndRef = useRef(null);
   const queryClient = useQueryClient();
 
@@ -138,6 +139,7 @@ export default function GideonChatbot({ user, autoOpen = false, onClose }) {
     const userMessage = input.trim();
     setInput('');
     setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
+    setAvatarState(getAnimationForEvent('user_sent', 'gideon'));
     _doSend(userMessage);
   };
 
@@ -145,6 +147,7 @@ export default function GideonChatbot({ user, autoOpen = false, onClose }) {
     if (isLoading) return;
     setMessages(prev => [...prev, { role: 'user', content: text }]);
     setInput('');
+    setAvatarState(getAnimationForEvent('user_sent', 'gideon'));
     _doSend(text);
   };
 
@@ -164,6 +167,7 @@ export default function GideonChatbot({ user, autoOpen = false, onClose }) {
 
   const _doSend = async (userMessage) => {
     setIsLoading(true);
+    setAvatarState(getAnimationForEvent('bot_thinking', 'gideon'));
     saveGideonConversation('user', userMessage);
 
     try {
@@ -210,6 +214,8 @@ Respond with wisdom, compassion, and biblical insight. Keep responses conversati
 
       setMessages(prev => [...prev, { role: 'assistant', content: response }]);
       saveGideonConversation('assistant', response);
+      setAvatarState(getAnimationForEvent('bot_speaking', 'gideon', response));
+      setTimeout(() => setAvatarState(AVATAR_STATES.IDLE), 4000);
 
       // Extract and save key spiritual insights
       const msgCountForMemory = messages.length + 2; // +2 for user msg + response just added
@@ -262,6 +268,7 @@ Assistant: ${response}`,
         role: 'assistant', 
         content: "I apologize, but I'm having trouble connecting right now. Please try again in a moment." 
       }]);
+      setAvatarState(AVATAR_STATES.IDLE);
     } finally {
       setIsLoading(false);
     }
