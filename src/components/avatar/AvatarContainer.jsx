@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { AVATAR_STATES, AVATAR_CONFIG } from './avatarStateMachine.js';
+import { AVATAR_STATES, AVATAR_CONFIG } from './avatarStateMachine';
 
 // Animated ring that pulses around the avatar based on state
 function StateRing({ state, color }) {
