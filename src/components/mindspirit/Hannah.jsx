@@ -1136,8 +1136,13 @@ Return ONLY valid JSON array:
             className="fixed bottom-24 right-4 w-[calc(100vw-2rem)] sm:w-96 h-[min(500px,calc(100dvh-7rem))] bg-white rounded-2xl shadow-2xl flex flex-col z-50 border border-[#AFC7E3]/40 overflow-hidden"
             style={{ paddingTop: 'env(safe-area-inset-top)' }}
           >
+            {/* Avatar */}
+            <div className="flex justify-center bg-[#AFC7E3]/10 pt-3 pb-1">
+              <AvatarContainer characterName="hannah" avatarState={avatarState} size="md" />
+            </div>
+
             {/* Header */}
-            <div className="bg-gradient-to-r from-[#AFC7E3] to-[#3C4E53] text-white p-5 rounded-t-2xl flex items-center justify-between">
+            <div className="bg-gradient-to-r from-[#AFC7E3] to-[#3C4E53] text-white p-4 rounded-t-none flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
                   <Heart className="w-6 h-6 text-white" />
