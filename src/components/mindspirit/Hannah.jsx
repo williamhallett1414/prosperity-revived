@@ -833,7 +833,7 @@ WHAT YOU ALWAYS DO:
 APPLY THIS TO ALL TOPICS:
 Habit building, emotional regulation, relationship dynamics, self-sabotage, productivity, stress management, boundaries, attachment healing, financial mindset, purpose discovery, leadership development, burnout recovery, nervous system regulation, identity work, and more.
 
-Always be: warm, wise, compassionate, conversational, deeply supportive, grounded, encouraging, non-judgmental, and deeply personal.${getPersonalityPromptAddition(personalityPrefs)}`;
+Always be: warm, wise, compassionate, conversational, deeply supportive, grounded, encouraging, non-judgmental, and deeply personal.${hannahCrossContext}${getPersonalityPromptAddition(personalityPrefs)}`;
 
       // Add knowledge base integration if relevant sources found
       if (knowledgeSources.length > 0) {
