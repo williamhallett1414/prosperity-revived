@@ -353,6 +353,13 @@ export default function Home() {
           </motion.div>
         )}
 
+        {/* Chatbot Nudge Banner */}
+        <ChatbotNudgeBanner
+          user={user}
+          workoutSessions={workoutSessions}
+          mealLogs={mealLogs}
+        />
+
         {/* Gideon Proactive Engagement */}
         <ProactiveSuggestions />
         <PersonalizedDevotional />
