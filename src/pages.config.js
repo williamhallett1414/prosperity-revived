@@ -53,6 +53,9 @@ import Bible from './pages/Bible';
 import BibleBooks from './pages/BibleBooks';
 import Bookmarks from './pages/Bookmarks';
 import ChallengeDetailPage from './pages/ChallengeDetailPage';
+import CoachingPlanDetail from './pages/CoachingPlanDetail';
+import CoachingPlanPage from './pages/CoachingPlanPage';
+import CoachingPlans from './pages/CoachingPlans';
 import Community from './pages/Community';
 import DiscoverRecipes from './pages/DiscoverRecipes';
 import EmotionalCheckInPage from './pages/EmotionalCheckInPage';
@@ -99,7 +102,6 @@ import WorkoutCategoryPage from './pages/WorkoutCategoryPage';
 import WorkoutProgress from './pages/WorkoutProgress';
 import WorkoutTrends from './pages/WorkoutTrends';
 import Workouts from './pages/Workouts';
-import CoachingPlanPage from './pages/CoachingPlanPage';
 import __Layout from './Layout.jsx';
 
 
@@ -110,6 +112,9 @@ export const PAGES = {
     "BibleBooks": BibleBooks,
     "Bookmarks": Bookmarks,
     "ChallengeDetailPage": ChallengeDetailPage,
+    "CoachingPlanDetail": CoachingPlanDetail,
+    "CoachingPlanPage": CoachingPlanPage,
+    "CoachingPlans": CoachingPlans,
     "Community": Community,
     "DiscoverRecipes": DiscoverRecipes,
     "EmotionalCheckInPage": EmotionalCheckInPage,
@@ -155,7 +160,6 @@ export const PAGES = {
     "WorkoutCategoryPage": WorkoutCategoryPage,
     "WorkoutProgress": WorkoutProgress,
     "WorkoutTrends": WorkoutTrends,
-    "CoachingPlanPage": CoachingPlanPage,
     "Workouts": Workouts,
 }
 
