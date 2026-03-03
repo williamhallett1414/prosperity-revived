@@ -17,6 +17,7 @@ import ProactiveSuggestionBanner from '../chatbot/ProactiveSuggestionBanner';
 import HannahProfileSetup from './HannahProfileSetup';
 import HannahFeedbackRating from './HannahFeedbackRating';
 import TTSButton from '../chatbot/TTSButton';
+import VoiceInputButton from '../chatbot/VoiceInputButton';
 import ReactMarkdown from 'react-markdown';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { getPersonalityPromptAddition, fetchUserPreferences } from '../chatbot/PersonalityAdapter';
@@ -1400,7 +1401,7 @@ Return ONLY valid JSON array:
                   📝 Journal
                 </button>
               </div>
-              <div className="flex gap-3">
+              <div className="flex gap-2 items-center">
                 <Input
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
@@ -1408,6 +1409,13 @@ Return ONLY valid JSON array:
                   placeholder={showJournalMode ? "Write your reflection here..." : "What's on your mind?"}
                   className="flex-1 bg-[#AFC7E3]/15 border-[#AFC7E3]/60 h-11"
                   disabled={isLoading}
+                />
+                <VoiceInputButton
+                  onTranscript={(text) => setInput(prev => prev ? prev + ' ' + text : text)}
+                  onInterim={(text) => setInput(text)}
+                  disabled={isLoading}
+                  accentColor="bg-[#AFC7E3]"
+                  activeColor="bg-[#3C4E53]"
                 />
                 <Button
                   onClick={sendMessage}

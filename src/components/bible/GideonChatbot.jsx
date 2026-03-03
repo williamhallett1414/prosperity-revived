@@ -11,6 +11,7 @@ import { getPersonalityPromptAddition, fetchUserPreferences } from '../chatbot/P
 import TTSButton from '../chatbot/TTSButton';
 // No cross-context needed for Gideon — it's the source for others
 import GideonQuickAskMenu from './GideonQuickAskMenu';
+import VoiceInputButton from '../chatbot/VoiceInputButton';
 import { useProactiveInsights } from '../chatbot/useProactiveInsights';
 import ProactiveInsightCard from '../chatbot/ProactiveInsightCard';
 import ProactiveSuggestionBanner from '../chatbot/ProactiveSuggestionBanner';
@@ -423,7 +424,7 @@ Assistant: ${response}`,
 
         {/* Input */}
         <div className="p-5 border-t border-[#D9B878]/20 bg-white">
-          <div className="flex gap-3">
+          <div className="flex gap-2 items-center">
             <Input
               value={input}
               onChange={(e) => setInput(e.target.value)}
@@ -431,6 +432,13 @@ Assistant: ${response}`,
               placeholder="Ask Gideon about faith, Scripture, or spiritual growth..."
               className="flex-1 bg-[#FFFDF7] border-[#D9B878]/20 h-11"
               disabled={isLoading}
+            />
+            <VoiceInputButton
+              onTranscript={(text) => setInput(prev => prev ? prev + ' ' + text : text)}
+              onInterim={(text) => setInput(text)}
+              disabled={isLoading}
+              accentColor="bg-[#D9B878]"
+              activeColor="bg-[#c9a227]"
             />
             <Button
               onClick={handleSend}

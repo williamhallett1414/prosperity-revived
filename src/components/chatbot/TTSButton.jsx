@@ -1,9 +1,79 @@
-import React, { useState, useRef } from 'react';
-import { Volume2, VolumeX, Square } from 'lucide-react';
+import React, { useState, useRef, useEffect } from 'react';
+import { Volume2, Square } from 'lucide-react';
+
+// Strip everything that sounds bad when read aloud
+function cleanForSpeech(text) {
+  return text
+    // Markdown bold/italic
+    .replace(/\*\*(.*?)\*\*/g, '$1')
+    .replace(/\*(.*?)\*/g, '$1')
+    .replace(/_(.*?)_/g, '$1')
+    // Markdown headers → spoken naturally with a pause
+    .replace(/#{1,6}\s+/g, '')
+    // Inline code
+    .replace(/`[^`]*`/g, '')
+    // Markdown links → just the label
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+    // Bullet list chars (-, *, •, ·) at line start → natural pause via comma
+    .replace(/^[\s]*[-*•·]\s+/gm, '')
+    // Numbered lists: "1. " "2. " etc → strip the number prefix
+    .replace(/^[\s]*\d+\.\s+/gm, '')
+    // Emoji — strip all Unicode emoji ranges
+    .replace(/[\u{1F000}-\u{1FFFF}]/gu, '')
+    .replace(/[\u{2600}-\u{27BF}]/gu, '')
+    .replace(/[\u{1F300}-\u{1F9FF}]/gu, '')
+    // Collapse multiple newlines to single pause
+    .replace(/\n{3,}/g, '\n\n')
+    // Remove trailing whitespace per line
+    .split('\n').map(l => l.trim()).join('\n')
+    .trim();
+}
+
+// Split long texts into chunks to avoid browser TTS 32KB limit
+function splitIntoChunks(text, maxLength = 3000) {
+  if (text.length <= maxLength) return [text];
+  const chunks = [];
+  const sentences = text.split(/(?<=[.!?])\s+/);
+  let current = '';
+  for (const sentence of sentences) {
+    if ((current + ' ' + sentence).trim().length > maxLength) {
+      if (current) chunks.push(current.trim());
+      current = sentence;
+    } else {
+      current = (current + ' ' + sentence).trim();
+    }
+  }
+  if (current) chunks.push(current.trim());
+  return chunks.length ? chunks : [text.substring(0, maxLength)];
+}
 
 export default function TTSButton({ text, className = '' }) {
   const [isSpeaking, setIsSpeaking] = useState(false);
-  const utteranceRef = useRef(null);
+  const chunksRef = useRef([]);
+  const chunkIndexRef = useRef(0);
+
+  const speakNextChunk = () => {
+    if (chunkIndexRef.current >= chunksRef.current.length) {
+      setIsSpeaking(false);
+      return;
+    }
+
+    const utterance = new SpeechSynthesisUtterance(
+      chunksRef.current[chunkIndexRef.current]
+    );
+    utterance.rate = 0.95;
+    utterance.pitch = 1;
+    utterance.volume = 1;
+
+    utterance.onstart = () => setIsSpeaking(true);
+    utterance.onend = () => {
+      chunkIndexRef.current += 1;
+      speakNextChunk();
+    };
+    utterance.onerror = () => setIsSpeaking(false);
+
+    window.speechSynthesis.speak(utterance);
+  };
 
   const handleSpeak = () => {
     if (!('speechSynthesis' in window)) return;
@@ -14,40 +84,36 @@ export default function TTSButton({ text, className = '' }) {
       return;
     }
 
-    // Strip markdown-style formatting for cleaner TTS
-    const cleanText = text
-      .replace(/\*\*(.*?)\*\*/g, '$1')
-      .replace(/\*(.*?)\*/g, '$1')
-      .replace(/#+\s/g, '')
-      .replace(/`[^`]*`/g, '')
-      .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1');
-
-    const utterance = new SpeechSynthesisUtterance(cleanText);
-    utterance.rate = 0.95;
-    utterance.pitch = 1;
-    utterance.volume = 1;
-
-    utterance.onstart = () => setIsSpeaking(true);
-    utterance.onend = () => setIsSpeaking(false);
-    utterance.onerror = () => setIsSpeaking(false);
-
-    utteranceRef.current = utterance;
-    window.speechSynthesis.speak(utterance);
+    const cleaned = cleanForSpeech(text);
+    chunksRef.current = splitIntoChunks(cleaned);
+    chunkIndexRef.current = 0;
+    speakNextChunk();
   };
+
+  // Stop speech if component unmounts (e.g. chat closes)
+  useEffect(() => {
+    return () => {
+      if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+    };
+  }, []);
 
   if (!('speechSynthesis' in window)) return null;
 
   return (
     <button
       onClick={handleSpeak}
-      title={isSpeaking ? 'Stop speaking' : 'Read aloud'}
+      title={isSpeaking ? 'Stop reading' : 'Read aloud'}
       className={`flex items-center justify-center w-6 h-6 rounded-full transition-colors ${
         isSpeaking
           ? 'text-orange-400 hover:text-orange-600'
           : 'text-gray-300 hover:text-gray-500'
       } ${className}`}
     >
-      {isSpeaking ? <Square className="w-3 h-3" /> : <Volume2 className="w-3 h-3" />}
+      {isSpeaking ? (
+        <Square className="w-3 h-3" />
+      ) : (
+        <Volume2 className="w-3 h-3" />
+      )}
     </button>
   );
 }

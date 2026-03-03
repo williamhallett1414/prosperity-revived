@@ -13,6 +13,7 @@ import ProactiveSuggestionBanner from '../chatbot/ProactiveSuggestionBanner';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { getPersonalityPromptAddition, fetchUserPreferences } from '../chatbot/PersonalityAdapter';
 import TTSButton from '../chatbot/TTSButton';
+import VoiceInputButton from '../chatbot/VoiceInputButton';
 import ReactMarkdown from 'react-markdown';
 import { getChefDanielNutritionContext } from '../chatbot/CrossChatbotContext';
 import HannahFeedbackRating from '../mindspirit/HannahFeedbackRating';
@@ -556,7 +557,7 @@ Return ONLY valid JSON array:
 
             {/* Input */}
             <div className="p-5 border-t border-[#E6EBEF] bg-white">
-              <div className="flex gap-3">
+              <div className="flex gap-2 items-center">
                 <Input
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
@@ -564,6 +565,13 @@ Return ONLY valid JSON array:
                   placeholder="Ask Coach David..."
                   className="flex-1 bg-[#F2F6FA] border-[#E6EBEF] h-11"
                   disabled={isLoading}
+                />
+                <VoiceInputButton
+                  onTranscript={(text) => setInput(prev => prev ? prev + ' ' + text : text)}
+                  onInterim={(text) => setInput(text)}
+                  disabled={isLoading}
+                  accentColor="bg-[#38BDF8]"
+                  activeColor="bg-[#0EA5E9]"
                 />
                 <Button
                   onClick={sendMessage}

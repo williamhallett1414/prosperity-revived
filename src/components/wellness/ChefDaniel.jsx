@@ -11,6 +11,7 @@ import ProactiveSuggestionBanner from '../chatbot/ProactiveSuggestionBanner';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { getPersonalityPromptAddition, fetchUserPreferences } from '../chatbot/PersonalityAdapter';
 import TTSButton from '../chatbot/TTSButton';
+import VoiceInputButton from '../chatbot/VoiceInputButton';
 import ReactMarkdown from 'react-markdown';
 import { getGideonWellnessContext } from '../chatbot/CrossChatbotContext';
 import HannahFeedbackRating from '../mindspirit/HannahFeedbackRating';
@@ -1070,7 +1071,7 @@ Return ONLY valid JSON array:
 
             {/* Input */}
             <div className="p-5 border-t border-[#bbf7d0] bg-white">
-              <div className="flex gap-3">
+              <div className="flex gap-2 items-center">
                 <Input
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
@@ -1078,6 +1079,13 @@ Return ONLY valid JSON array:
                   placeholder="Ask Chef Daniel..."
                   className="flex-1 bg-[#f0fdf4] border-[#bbf7d0] h-11"
                   disabled={isLoading}
+                />
+                <VoiceInputButton
+                  onTranscript={(text) => setInput(prev => prev ? prev + ' ' + text : text)}
+                  onInterim={(text) => setInput(text)}
+                  disabled={isLoading}
+                  accentColor="bg-[#22c55e]"
+                  activeColor="bg-[#16a34a]"
                 />
                 <Button
                   onClick={sendMessage}
