@@ -34,6 +34,7 @@ export default function ChefDaniel({ user, userRecipes = [], mealLogs = [], auto
   const [showDataSources, setShowDataSources] = useState(false);
   const [insightDismissed, setInsightDismissed] = useState(false);
   const [ratedMessageIndices, setRatedMessageIndices] = useState(new Set());
+  const [avatarState, setAvatarState] = useState(AVATAR_STATES.IDLE);
   const queryClient = useQueryClient();
   const messagesEndRef = useRef(null);
 
@@ -153,6 +154,7 @@ export default function ChefDaniel({ user, userRecipes = [], mealLogs = [], auto
 
   const _doSend = async (userMessage) => {
     setIsLoading(true);
+    setAvatarState(getAnimationForEvent('bot_thinking', 'chef_daniel'));
 
     try {
       // Build context about user's nutrition history
@@ -685,6 +687,8 @@ Always be: encouraging, expert-level, practical, flexible, warm, and conversatio
       });
 
       setMessages(prev => [...prev, { role: 'assistant', content: response }]);
+      setAvatarState(getAnimationForEvent('bot_speaking', 'chef_daniel', response));
+      setTimeout(() => setAvatarState(AVATAR_STATES.IDLE), 4000);
 
       // Extract and save key insights every 5 messages
       const msgCountForMemory = messages.length + 2; // +2 for user msg + response just added
@@ -745,6 +749,7 @@ Return ONLY valid JSON array:
         role: 'assistant', 
         content: "Sorry, I'm having trouble connecting right now. Try again in a moment!" 
       }]);
+      setAvatarState(AVATAR_STATES.IDLE);
     } finally {
       setIsLoading(false);
     }
