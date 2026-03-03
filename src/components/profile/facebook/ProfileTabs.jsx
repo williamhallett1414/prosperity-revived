@@ -39,7 +39,7 @@ export default function ProfileTabs({ activeTab, onTabChange }) {
                 
                 {isActive &&
                 <motion.div
-                  layoutId="activeTab" className="bg-amber-500 rounded-full absolute bottom-0 left-0 right-0 h-1"
+                  layoutId="activeTab" className="bg-gradient-to-r from-[#3C4E53] to-[#AFC7E3] rounded-full absolute bottom-0 left-0 right-0 h-1"
 
                   transition={{ type: 'spring', stiffness: 500, damping: 30 }} />
 
