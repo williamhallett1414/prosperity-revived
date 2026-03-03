@@ -952,10 +952,16 @@ Return ONLY valid JSON array:
                   🔄 Substitutions
                 </button>
                 <button
-                  onClick={() => setInput("Help me meal-prep for the week. Here are my goals: ")}
+                   onClick={() => setInput("Help me meal-prep for the week. Here are my goals: ")}
                   className="text-xs bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#E6EBEF]"
                 >
                   📅 Weekly meal prep
+                </button>
+                <button
+                  onClick={() => setInput("Create a full weekly meal plan with a complete grocery list based on my preferences and pantry items.")}
+                  className="text-xs bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#E6EBEF] col-span-2"
+                >
+                  🗓️ Full week meal plan + grocery list
                 </button>
                 <button
                   onClick={() => setInput("Make this recipe kid-friendly: ")}

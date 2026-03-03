@@ -1229,6 +1229,12 @@ Return ONLY valid JSON array:
                   >
                     🎯 Purpose & Values
                   </button>
+                  <button
+                    onClick={() => setInput("Give me guided journaling prompts tailored to my growth areas and values.")}
+                    className="text-xs bg-white hover:bg-[#AFC7E3]/25 text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#AFC7E3]/60 col-span-2"
+                  >
+                    📓 Guided journaling prompts
+                  </button>
                 </div>
               )}
             </div>
