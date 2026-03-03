@@ -52,6 +52,7 @@ export default function Hannah({ user, autoOpen = false, onClose }) {
   const [hannahCrossContext, setHannahCrossContext] = useState('');
   const [showDataSources, setShowDataSources] = useState(false);
   const [insightDismissed, setInsightDismissed] = useState(false);
+  const [avatarState, setAvatarState] = useState(AVATAR_STATES.IDLE);
   const queryClient = useQueryClient();
   const moodSaveTimer = React.useRef(null);
   const messagesEndRef = React.useRef(null);
