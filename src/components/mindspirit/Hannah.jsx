@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageCircle, X, Send, Loader2, Heart, Trash2, Smile, UserCircle, Link2 } from 'lucide-react';
-import AvatarContainer from '../avatar/AvatarContainer';
-import { AVATAR_STATES, getAnimationForEvent } from '../avatar/avatarStateMachine';
 import ExternalDataSources from '../integrations/ExternalDataSources';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -52,7 +50,6 @@ export default function Hannah({ user, autoOpen = false, onClose }) {
   const [hannahCrossContext, setHannahCrossContext] = useState('');
   const [showDataSources, setShowDataSources] = useState(false);
   const [insightDismissed, setInsightDismissed] = useState(false);
-  const [avatarState, setAvatarState] = useState(AVATAR_STATES.IDLE);
   const queryClient = useQueryClient();
   const moodSaveTimer = React.useRef(null);
   const messagesEndRef = React.useRef(null);
@@ -314,7 +311,6 @@ export default function Hannah({ user, autoOpen = false, onClose }) {
   };
 
   const _sendCore = async (userMessage) => {
-    setAvatarState(getAnimationForEvent('bot_thinking', 'hannah'));
     let journalEntryId = null;
     
     // Save to journal if in journal mode
@@ -1056,8 +1052,6 @@ Return ONLY valid JSON array:
         }
       }
 
-      setAvatarState(getAnimationForEvent('bot_speaking', 'hannah', response));
-      setTimeout(() => setAvatarState(AVATAR_STATES.IDLE), 4000);
       // Check if Hannah's response contains a coaching question to set flag for next message
       setLastHannahMessageWasQuestion(detectCoachingQuestion(response));
       setIsAnalyzingAnswer(false);
@@ -1065,7 +1059,6 @@ Return ONLY valid JSON array:
       toast.error('Failed to get response from Hannah');
       const errorMsg = "I'm having trouble connecting right now. Please try again in a moment.";
       setMessages(prev => [...prev, { role: 'assistant', content: errorMsg }]);
-      setAvatarState(AVATAR_STATES.IDLE);
     } finally {
       setIsLoading(false);
     }
@@ -1136,13 +1129,8 @@ Return ONLY valid JSON array:
             className="fixed bottom-24 right-4 w-[calc(100vw-2rem)] sm:w-96 h-[min(500px,calc(100dvh-7rem))] bg-white rounded-2xl shadow-2xl flex flex-col z-50 border border-[#AFC7E3]/40 overflow-hidden"
             style={{ paddingTop: 'env(safe-area-inset-top)' }}
           >
-            {/* Avatar */}
-            <div className="flex justify-center bg-[#AFC7E3]/10 pt-3 pb-1">
-              <AvatarContainer characterName="hannah" avatarState={avatarState} size="md" />
-            </div>
-
             {/* Header */}
-            <div className="bg-gradient-to-r from-[#AFC7E3] to-[#3C4E53] text-white p-4 rounded-t-none flex items-center justify-between">
+            <div className="bg-gradient-to-r from-[#AFC7E3] to-[#3C4E53] text-white p-5 rounded-t-2xl flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
                   <Heart className="w-6 h-6 text-white" />

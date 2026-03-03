@@ -15,8 +15,6 @@ import VoiceInputButton from '../chatbot/VoiceInputButton';
 import { useProactiveInsights } from '../chatbot/useProactiveInsights';
 import ProactiveInsightCard from '../chatbot/ProactiveInsightCard';
 import ProactiveSuggestionBanner from '../chatbot/ProactiveSuggestionBanner';
-import AvatarContainer from '../avatar/AvatarContainer';
-import { AVATAR_STATES, getAnimationForEvent } from '../avatar/avatarStateMachine';
 
 export default function GideonChatbot({ user, autoOpen = false, onClose }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -26,7 +24,6 @@ export default function GideonChatbot({ user, autoOpen = false, onClose }) {
   const [personalityPrefs, setPersonalityPrefs] = useState(null);
   const [insightDismissed, setInsightDismissed] = useState(false);
   const [quickMenuCollapsed, setQuickMenuCollapsed] = useState(false);
-  const [avatarState, setAvatarState] = useState(AVATAR_STATES.IDLE);
   const messagesEndRef = useRef(null);
   const queryClient = useQueryClient();
 
@@ -139,7 +136,6 @@ export default function GideonChatbot({ user, autoOpen = false, onClose }) {
     const userMessage = input.trim();
     setInput('');
     setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
-    setAvatarState(getAnimationForEvent('user_sent', 'gideon'));
     _doSend(userMessage);
   };
 
@@ -147,7 +143,6 @@ export default function GideonChatbot({ user, autoOpen = false, onClose }) {
     if (isLoading) return;
     setMessages(prev => [...prev, { role: 'user', content: text }]);
     setInput('');
-    setAvatarState(getAnimationForEvent('user_sent', 'gideon'));
     _doSend(text);
   };
 
@@ -167,7 +162,6 @@ export default function GideonChatbot({ user, autoOpen = false, onClose }) {
 
   const _doSend = async (userMessage) => {
     setIsLoading(true);
-    setAvatarState(getAnimationForEvent('bot_thinking', 'gideon'));
     saveGideonConversation('user', userMessage);
 
     try {
@@ -214,8 +208,6 @@ Respond with wisdom, compassion, and biblical insight. Keep responses conversati
 
       setMessages(prev => [...prev, { role: 'assistant', content: response }]);
       saveGideonConversation('assistant', response);
-      setAvatarState(getAnimationForEvent('bot_speaking', 'gideon', response));
-      setTimeout(() => setAvatarState(AVATAR_STATES.IDLE), 4000);
 
       // Extract and save key spiritual insights
       const msgCountForMemory = messages.length + 2; // +2 for user msg + response just added
@@ -268,7 +260,6 @@ Assistant: ${response}`,
         role: 'assistant', 
         content: "I apologize, but I'm having trouble connecting right now. Please try again in a moment." 
       }]);
-      setAvatarState(AVATAR_STATES.IDLE);
     } finally {
       setIsLoading(false);
     }
@@ -307,13 +298,8 @@ Assistant: ${response}`,
             className="fixed bottom-24 right-4 w-[calc(100vw-2rem)] sm:w-96 h-[min(500px,calc(100dvh-7rem))] bg-white rounded-2xl shadow-2xl flex flex-col z-50 border border-[#D9B878]/20 overflow-hidden"
             style={{ paddingTop: 'env(safe-area-inset-top)' }}
           >
-            {/* Avatar */}
-            <div className="flex justify-center bg-gradient-to-b from-[#FFFDF7] to-white pt-3 pb-1">
-              <AvatarContainer characterName="gideon" avatarState={avatarState} size="md" />
-            </div>
-
             {/* Header */}
-            <div className="bg-gradient-to-r from-[#c9a227] to-[#D9B878] px-5 py-3 flex items-center justify-between">
+            <div className="bg-gradient-to-r from-[#c9a227] to-[#D9B878] px-5 py-5 rounded-t-2xl flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
                   <BookOpen className="w-6 h-6 text-white" />

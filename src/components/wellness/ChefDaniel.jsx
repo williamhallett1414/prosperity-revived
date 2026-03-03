@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageCircle, X, Send, Loader2, UtensilsCrossed, Trash2, Link2 } from 'lucide-react';
-import AvatarContainer from '../avatar/AvatarContainer';
-import { AVATAR_STATES, getAnimationForEvent } from '../avatar/avatarStateMachine';
 import ExternalDataSources from '../integrations/ExternalDataSources';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -34,7 +32,6 @@ export default function ChefDaniel({ user, userRecipes = [], mealLogs = [], auto
   const [showDataSources, setShowDataSources] = useState(false);
   const [insightDismissed, setInsightDismissed] = useState(false);
   const [ratedMessageIndices, setRatedMessageIndices] = useState(new Set());
-  const [avatarState, setAvatarState] = useState(AVATAR_STATES.IDLE);
   const queryClient = useQueryClient();
   const messagesEndRef = useRef(null);
 
@@ -154,7 +151,6 @@ export default function ChefDaniel({ user, userRecipes = [], mealLogs = [], auto
 
   const _doSend = async (userMessage) => {
     setIsLoading(true);
-    setAvatarState(getAnimationForEvent('bot_thinking', 'chef_daniel'));
 
     try {
       // Build context about user's nutrition history
@@ -687,8 +683,6 @@ Always be: encouraging, expert-level, practical, flexible, warm, and conversatio
       });
 
       setMessages(prev => [...prev, { role: 'assistant', content: response }]);
-      setAvatarState(getAnimationForEvent('bot_speaking', 'chef_daniel', response));
-      setTimeout(() => setAvatarState(AVATAR_STATES.IDLE), 4000);
 
       // Extract and save key insights every 5 messages
       const msgCountForMemory = messages.length + 2; // +2 for user msg + response just added
@@ -749,7 +743,6 @@ Return ONLY valid JSON array:
         role: 'assistant', 
         content: "Sorry, I'm having trouble connecting right now. Try again in a moment!" 
       }]);
-      setAvatarState(AVATAR_STATES.IDLE);
     } finally {
       setIsLoading(false);
     }
@@ -802,13 +795,8 @@ Return ONLY valid JSON array:
             exit={{ opacity: 0, y: 100, scale: 0.9 }}
             className="fixed bottom-24 right-4 w-[calc(100vw-2rem)] sm:w-96 h-[min(500px,calc(100dvh-7rem))] bg-white rounded-2xl shadow-2xl flex flex-col z-50 border border-[#bbf7d0] overflow-hidden"
           >
-            {/* Avatar */}
-            <div className="flex justify-center bg-[#f0fdf4] pt-3 pb-1">
-              <AvatarContainer characterName="chef_daniel" avatarState={avatarState} size="md" />
-            </div>
-
             {/* Header */}
-            <div className="bg-gradient-to-r from-[#22c55e] to-[#16a34a] text-white p-4 flex items-center justify-between">
+            <div className="bg-gradient-to-r from-[#22c55e] to-[#16a34a] text-white p-5 rounded-t-2xl flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
                   <UtensilsCrossed className="w-6 h-6 text-white" />
