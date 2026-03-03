@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageCircle, X, Send, Loader2, Heart, Trash2, Smile, UserCircle, Link2 } from 'lucide-react';
+import AvatarContainer from '../avatar/AvatarContainer';
+import { AVATAR_STATES, getAnimationForEvent } from '../avatar/avatarStateMachine.js';
 import ExternalDataSources from '../integrations/ExternalDataSources';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
