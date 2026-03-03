@@ -314,6 +314,7 @@ export default function Hannah({ user, autoOpen = false, onClose }) {
   };
 
   const _sendCore = async (userMessage) => {
+    setAvatarState(getAnimationForEvent('bot_thinking', 'hannah'));
     let journalEntryId = null;
     
     // Save to journal if in journal mode
