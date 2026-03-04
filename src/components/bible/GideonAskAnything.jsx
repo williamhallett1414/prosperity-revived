@@ -78,10 +78,10 @@ The Bible isn't just a book; it's a living conversation between you and the One 
     setIsOpen(false);
   };
 
-  const handleAsk = async (isDeepStudy = false) => {
-    if (!input.trim() || loading) return;
+  const handleAsk = async (isDeepStudy = false, overrideText = null) => {
+    const question = (overrideText || input).trim();
+    if (!question || loading) return;
 
-    const question = input.trim();
     setInput('');
 
     // Add user message
@@ -521,27 +521,26 @@ Example: [VERSE]Romans 8:28 - "And we know that all things work together for goo
                   <div className="flex flex-wrap gap-2 justify-center mt-4">
                     <button
                       onClick={() => {
-                        setInput("Activate Deep Study Mode for Romans 8");
-                        setTimeout(() => handleAsk(true), 100);
+                        handleAsk(true, "Activate Deep Study Mode for Romans 8");
                       }}
                       className="px-4 py-2 bg-gradient-to-r from-[#c9a227] to-[#D9B878] text-white rounded-full text-sm font-semibold hover:from-[#b89320] hover:to-[#c9a227] transition-all shadow-md"
                     >
                       🎓 Deep Study Mode
                     </button>
                     <button
-                      onClick={() => { setInput("What does it mean to be in the Kingdom of God?"); setTimeout(() => handleAsk(), 100); }}
+                      onClick={() => handleAsk(false, "What does it mean to be in the Kingdom of God?")}
                       className="px-4 py-2 bg-[#FAD98D]/30 text-[#8a6e1a] rounded-full text-sm hover:bg-[#FAD98D]/50 transition-colors"
                     >
                       Kingdom Principles
                     </button>
                     <button
-                      onClick={() => { setInput("How do I discover my purpose?"); setTimeout(() => handleAsk(), 100); }}
+                      onClick={() => handleAsk(false, "How do I discover my purpose?")}
                       className="px-4 py-2 bg-[#FAD98D]/20 text-[#8a6e1a] rounded-full text-sm hover:bg-[#FAD98D]/50 transition-colors"
                     >
                       Finding Purpose
                     </button>
                     <button
-                      onClick={() => { setInput("What does Romans 8:28 really mean?"); setTimeout(() => handleAsk(), 100); }}
+                      onClick={() => handleAsk(false, "What does Romans 8:28 really mean?")}
                       className="px-4 py-2 bg-[#FAD98D]/30 bg-[#FAD98D]/30 text-[#8a6e1a] rounded-full text-sm hover:bg-[#FAD98D]/50 transition-colors"
                     >
                       Verse Meaning
