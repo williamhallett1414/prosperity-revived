@@ -50,11 +50,11 @@ export default function CoachingPlans() {
               <div className="w-12 h-12 rounded-xl bg-[#c9a227] flex items-center justify-center text-2xl shadow-lg">👑</div>
               <div>
                 <h2 className="text-xl font-bold">Prosperity Coaching</h2>
-                <p className="text-white/65 text-sm">Whole-life transformation plans</p>
+                <p className="text-white/65 text-sm">Transformation plans for every season</p>
               </div>
             </div>
             <p className="text-white/80 text-sm leading-relaxed mb-4">
-              Each 8-week plan weaves together daily Scripture, progressive workouts, intentional nutrition, and journaling prompts — all connected to the tools already in your app.
+              Choose from 4 to 8-week programs that weave together daily Scripture, workouts, nutrition, and journaling — all connected to the tools already in your app.
             </p>
             <div className="flex flex-wrap gap-2">
               {[
@@ -121,8 +121,8 @@ export default function CoachingPlans() {
 
                   {/* Week themes */}
                   <div className="mb-4">
-                    <p className="text-xs font-bold text-[#0A1A2F]/40 uppercase tracking-wider mb-2">8 Week Journey</p>
-                    <div className="grid grid-cols-4 gap-1.5">
+                    <p className="text-xs font-bold text-[#0A1A2F]/40 uppercase tracking-wider mb-2">{plan.weeks} Week Journey</p>
+                    <div className={`grid gap-1.5 ${plan.weeks === 8 ? 'grid-cols-4' : plan.weeks === 6 ? 'grid-cols-3' : 'grid-cols-2'}`}>
                       {plan.week_themes.map(wt => (
                         <div key={wt.week} className={`rounded-lg p-2 text-center bg-gradient-to-br ${wt.color} bg-opacity-10`}>
                           <p className="text-base mb-0.5">{wt.emoji}</p>
