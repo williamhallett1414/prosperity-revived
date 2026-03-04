@@ -142,57 +142,56 @@ Keep responses conversational, encouraging, and practical. Reference their speci
 
   return (
     <>
-      {/* Floating button */}
+      {/* Floating button — matches other bots: w-14 h-14, hides when open */}
       <motion.button
         onClick={() => setOpen(true)}
-        className="fixed bottom-24 right-4 w-16 h-16 rounded-full bg-gradient-to-br from-[#AFC7E3] to-[#3C4E53] text-white shadow-2xl flex items-center justify-center z-40 hover:shadow-3xl transition-all"
+        className="fixed bottom-24 right-4 w-14 h-14 bg-gradient-to-br from-[#c9a227] to-[#92701a] hover:opacity-90 text-white rounded-full shadow-lg flex items-center justify-center z-40"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
+        initial={{ scale: 0 }}
+        animate={{ scale: open ? 0 : 1 }}
       >
-        <span className="text-xs font-bold">CP</span>
+        <MessageCircle className="w-6 h-6" />
       </motion.button>
 
-      {/* Chat modal */}
+      {/* Chat Window — matches other bots: rounded-2xl, responsive width & height */}
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            initial={{ opacity: 0, y: 100, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            className="fixed bottom-20 right-4 w-96 max-h-[600px] bg-white rounded-3xl shadow-2xl flex flex-col z-50 border border-[#0D4F3C]/10 overflow-hidden"
+            exit={{ opacity: 0, y: 100, scale: 0.9 }}
+            className="fixed bottom-24 right-4 w-[calc(100vw-2rem)] sm:w-96 h-[min(500px,calc(100dvh-7rem))] bg-white rounded-2xl shadow-2xl flex flex-col z-50 border border-[#c9a227]/30 overflow-hidden"
           >
             {/* Header */}
-             <div className="bg-gradient-to-r from-[#AFC7E3] to-[#3C4E53] px-6 py-4 text-white">
-              <div className="flex items-start justify-between mb-2">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center text-2xl">
-                    🏋️
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-lg">Coach Paul</h3>
-                    <p className="text-xs text-white/70">Your Coaching Guide</p>
-                  </div>
+            <div className="bg-gradient-to-r from-[#c9a227] to-[#92701a] text-white p-5 rounded-t-2xl flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
+                  <MessageCircle className="w-6 h-6 text-white" />
                 </div>
-                <button
-                  onClick={() => setOpen(false)}
-                  className="w-8 h-8 rounded-full hover:bg-white/20 flex items-center justify-center transition-colors"
-                >
-                  <X className="w-4 h-4" />
-                </button>
+                <div>
+                  <h3 className="font-bold">Coach Paul</h3>
+                  <p className="text-xs text-white/80">{planTitle} • Day {dayNumber}</p>
+                </div>
               </div>
-              <p className="text-xs text-white/80">{planTitle} • Day {dayNumber}</p>
+              <button
+                onClick={() => setOpen(false)}
+                className="w-8 h-8 rounded-full hover:bg-white/20 flex items-center justify-center transition-colors"
+              >
+                <X className="w-4 h-4" />
+              </button>
             </div>
 
             {/* Quick asks */}
             {messages.length === 0 && (
-              <div className="px-6 py-3 bg-[#F5F8F0] border-b border-[#0D4F3C]/10">
-                <p className="text-[10px] font-bold text-[#0D4F3C] mb-2 uppercase tracking-wide">Quick Ask</p>
+              <div className="px-4 py-3 bg-[#FFF9EC] border-b border-[#c9a227]/20">
+                <p className="text-[10px] font-bold text-[#92701a] mb-2 uppercase tracking-wide">Quick Ask</p>
                 <div className="grid grid-cols-2 gap-2">
                   {quickAsks.map((qa) => (
                     <button
                       key={qa.label}
                       onClick={() => handleQuickAsk(qa)}
-                      className="text-xs font-semibold text-[#0D4F3C] bg-white border border-[#0D4F3C]/20 rounded-lg px-2.5 py-2 hover:border-[#0D4F3C]/40 transition-all flex items-center gap-1.5"
+                      className="text-xs font-semibold text-[#92701a] bg-white border border-[#c9a227]/30 rounded-lg px-2.5 py-2 hover:border-[#c9a227]/60 transition-all flex items-center gap-1.5"
                     >
                       <span>{qa.emoji}</span>
                       <span>{qa.label}</span>
@@ -203,10 +202,10 @@ Keep responses conversational, encouraging, and practical. Reference their speci
             )}
 
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-6 space-y-3">
+            <div className="flex-1 overflow-y-auto p-4 space-y-3">
               {messages.length === 0 && !loading && (
                 <div className="h-full flex flex-col items-center justify-center text-center">
-                  <div className="text-4xl mb-3">🏋️</div>
+                  <div className="text-4xl mb-3">🏆</div>
                   <p className="text-sm font-bold text-[#0A1A2F] mb-1">Let's crush today's goals!</p>
                   <p className="text-[11px] text-[#0A1A2F]/60 leading-relaxed">
                     Ask me about your {planTitle}, get motivation, or request tips on today's activities.
@@ -216,51 +215,51 @@ Keep responses conversational, encouraging, and practical. Reference their speci
 
               <AnimatePresence>
                 {messages.map((msg, idx) => (
-                   <motion.div
-                     key={idx}
-                     initial={{ opacity: 0, y: 10 }}
-                     animate={{ opacity: 1, y: 0 }}
-                     className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
-                   >
-                     <div
-                       className={`max-w-[80%] rounded-2xl px-4 py-3 ${
-                         msg.role === 'user'
-                           ? 'bg-gradient-to-r from-[#AFC7E3] to-[#3C4E53] text-white'
-                           : 'bg-white border border-[#AFC7E3]/40 text-[#0A1A2F]'
-                       }`}
-                     >
-                       {msg.role === 'user' ? (
-                         <p className="text-sm">{msg.content}</p>
-                       ) : (
-                         <>
-                           <ReactMarkdown className="text-sm prose prose-sm max-w-none text-gray-800 [&>*:first-child]:mt-0 [&>*:last-child]:mb-0 [&_p]:mb-1 [&_ul]:mb-1 [&_li]:mb-0">
-                             {msg.content}
-                           </ReactMarkdown>
-                           <div className="flex justify-end mt-1">
-                             <button
-                               onClick={() => speakMessage(msg.content)}
-                               disabled={speaking}
-                               className="text-xs font-semibold text-[#3C4E53] hover:text-[#3C4E53]/70 transition-colors flex items-center gap-1"
-                             >
-                               <Volume2 className="w-3 h-3" /> Listen
-                             </button>
-                           </div>
-                         </>
-                       )}
-                     </div>
-                   </motion.div>
-                 ))}
-                </AnimatePresence>
+                  <motion.div
+                    key={idx}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                  >
+                    <div
+                      className={`max-w-[80%] rounded-2xl px-4 py-3 ${
+                        msg.role === 'user'
+                          ? 'bg-gradient-to-r from-[#c9a227] to-[#92701a] text-white'
+                          : 'bg-white border border-[#c9a227]/30 text-[#0A1A2F]'
+                      }`}
+                    >
+                      {msg.role === 'user' ? (
+                        <p className="text-sm">{msg.content}</p>
+                      ) : (
+                        <>
+                          <ReactMarkdown className="text-sm prose prose-sm max-w-none text-gray-800 [&>*:first-child]:mt-0 [&>*:last-child]:mb-0 [&_p]:mb-1 [&_ul]:mb-1 [&_li]:mb-0">
+                            {msg.content}
+                          </ReactMarkdown>
+                          <div className="flex justify-end mt-1">
+                            <button
+                              onClick={() => speakMessage(msg.content)}
+                              disabled={speaking}
+                              className="text-xs font-semibold text-[#92701a] hover:text-[#c9a227] transition-colors flex items-center gap-1"
+                            >
+                              <Volume2 className="w-3 h-3" /> Listen
+                            </button>
+                          </div>
+                        </>
+                      )}
+                    </div>
+                  </motion.div>
+                ))}
+              </AnimatePresence>
 
               {loading && (
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  className="flex gap-2"
+                  className="flex gap-2 pl-1"
                 >
-                  <div className="w-2 h-2 bg-[#0D4F3C] rounded-full animate-bounce" />
-                  <div className="w-2 h-2 bg-[#0D4F3C] rounded-full animate-bounce delay-100" />
-                  <div className="w-2 h-2 bg-[#0D4F3C] rounded-full animate-bounce delay-200" />
+                  <div className="w-2 h-2 bg-[#c9a227] rounded-full animate-bounce" />
+                  <div className="w-2 h-2 bg-[#c9a227] rounded-full animate-bounce delay-100" />
+                  <div className="w-2 h-2 bg-[#c9a227] rounded-full animate-bounce delay-200" />
                 </motion.div>
               )}
 
@@ -268,7 +267,7 @@ Keep responses conversational, encouraging, and practical. Reference their speci
             </div>
 
             {/* Input */}
-            <div className="border-t border-[#0D4F3C]/10 p-4 space-y-3">
+            <div className="border-t border-[#c9a227]/20 p-4">
               <div className="flex gap-2">
                 <Input
                   placeholder="Ask Coach Paul..."
@@ -281,17 +280,17 @@ Keep responses conversational, encouraging, and practical. Reference their speci
                     }
                   }}
                   disabled={loading}
-                  className="text-sm rounded-xl border-[#0D4F3C]/15"
+                  className="text-sm rounded-xl border-[#c9a227]/25 focus:border-[#c9a227]"
                 />
                 <button
-                   onClick={handleSendMessage}
-                   disabled={!input.trim() || loading}
-                   className="w-10 h-10 rounded-xl bg-gradient-to-r from-[#AFC7E3] to-[#3C4E53] text-white flex items-center justify-center disabled:opacity-50 hover:shadow-lg transition-all"
-                 >
-                   <Send className="w-4 h-4" />
-                 </button>
+                  onClick={() => handleSendMessage()}
+                  disabled={!input.trim() || loading}
+                  className="w-10 h-10 rounded-xl bg-gradient-to-r from-[#c9a227] to-[#92701a] text-white flex items-center justify-center disabled:opacity-50 hover:shadow-lg transition-all flex-shrink-0"
+                >
+                  <Send className="w-4 h-4" />
+                </button>
               </div>
-              <div className="flex items-center justify-between px-1">
+              <div className="flex items-center justify-between px-1 mt-2">
                 <button
                   onClick={() => setShowMenu(!showMenu)}
                   className="text-xs text-[#0A1A2F]/50 hover:text-[#0A1A2F] transition-colors relative"
