@@ -1,7 +1,8 @@
 // ─────────────────────────────────────────────────────────────────────────────
 // PROSPERITY REVIVED — COACHING PLAN DATA
-// "Renewed Strength: 8 Weeks to Whole-Life Transformation"
 // ─────────────────────────────────────────────────────────────────────────────
+import { FINANCIAL_FREEDOM_PLAN } from './financialFreedomPlanData';
+import { LOVE_LANGUAGES_PLAN } from './loveLangaugesPlanData';
 
 export const WEEK_THEMES = [
   { week: 1, theme: 'Foundation',   title: 'Know Your Why',         color: 'from-[#0D4F3C] to-[#22856A]', accent: '#22856A', emoji: '🌱' },
@@ -1347,7 +1348,6 @@ export const PLAN_DAYS = [
   },
 ];
 
-import { FINANCIAL_FREEDOM_PLAN } from './financialFreedomPlanData';
 
 export const COACHING_PLANS = [
   {
@@ -1366,4 +1366,5 @@ export const COACHING_PLANS = [
     days: PLAN_DAYS,
   },
   FINANCIAL_FREEDOM_PLAN,
+  LOVE_LANGUAGES_PLAN,
 ];
