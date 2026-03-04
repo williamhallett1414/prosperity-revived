@@ -189,7 +189,7 @@ export default function CoachingPlanDetail() {
     setDayComplete(p.completed_days?.includes(currentDay) || false);
     // Build task state from stored progress
     const tasks = {};
-    ['bible', 'workout', 'nutrition', 'journal', 'affirmation', 'growth'].forEach(key => {
+    ['bible', 'workout', 'nutrition', 'meditation', 'journal', 'affirmation', 'growth'].forEach(key => {
       tasks[key] = !!p.task_completions?.[`${currentDay}_${key}`];
     });
     setTaskState(tasks);
