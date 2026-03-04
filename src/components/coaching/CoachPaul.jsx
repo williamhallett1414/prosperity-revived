@@ -150,11 +150,12 @@ Keep responses conversational, encouraging, and practical. Reference their speci
       {/* Floating button */}
       <motion.button
         onClick={() => setOpen(true)}
-        className="fixed bottom-24 right-4 w-14 h-14 rounded-full bg-gradient-to-br from-[#0D4F3C] to-[#1a6b50] text-white shadow-lg flex items-center justify-center z-40 hover:shadow-xl transition-shadow"
+        className="fixed bottom-24 right-4 w-16 h-16 rounded-full bg-gradient-to-br from-[#0D4F3C] to-[#22856A] text-white shadow-2xl flex flex-col items-center justify-center z-40 hover:shadow-3xl transition-all gap-0.5"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
       >
-        <MessageCircle className="w-6 h-6" />
+        <span className="text-2xl">🏋️</span>
+        <span className="text-[10px] font-bold">Coach Paul</span>
       </motion.button>
 
       {/* Chat modal */}
