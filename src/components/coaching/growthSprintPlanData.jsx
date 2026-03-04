@@ -4,7 +4,6 @@ export const GROWTH_SPRINT_PLAN = {
   subtitle: '6 Weeks to Rapid Transformation',
   description: 'Fast-track your personal development in 6 intensive weeks.',
   weeks: 6,
-  comingSoon: true,
   days_total: 42,
   difficulty: 'Intermediate',
   gradient: 'from-[#FF9FF3] to-[#54A0FF]',

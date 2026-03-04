@@ -4,7 +4,6 @@ export const MIND_RENEWAL_PLAN = {
   subtitle: '8 Weeks to Mental Clarity',
   description: 'Renew your mind and transform your thinking patterns.',
   weeks: 8,
-  comingSoon: true,
   days_total: 56,
   difficulty: 'All Levels',
   gradient: 'from-[#00D2D3] to-[#54A0FF]',

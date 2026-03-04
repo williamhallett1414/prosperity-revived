@@ -4,7 +4,6 @@ export const POWER_PURPOSE_PLAN = {
   subtitle: '6 Weeks to Athletic Excellence',
   description: 'Build strength, speed, and purpose through intentional training.',
   weeks: 6,
-  comingSoon: true,
   days_total: 42,
   difficulty: 'Intermediate',
   gradient: 'from-[#FF6B6B] to-[#FFD93D]',

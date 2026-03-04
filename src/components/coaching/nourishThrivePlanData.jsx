@@ -4,7 +4,6 @@ export const NOURISH_THRIVE_PLAN = {
   subtitle: '8 Weeks to Nutritional Mastery',
   description: 'Master nutrition and transform your relationship with food.',
   weeks: 8,
-  comingSoon: true,
   days_total: 56,
   difficulty: 'All Levels',
   gradient: 'from-[#6BCB77] to-[#FFD93D]',
