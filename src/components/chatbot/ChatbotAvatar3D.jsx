@@ -447,6 +447,17 @@ function Arm({ side, skin, sleeve, cfg, armSwingRef }) {
   );
 }
 
+// ─── Head mesh using imperative geometry assignment ───────────────────────────
+function HeadMesh({ headGeo, material, scale }) {
+  const meshRef = useRef();
+  useEffect(() => {
+    if (meshRef.current) {
+      meshRef.current.geometry = headGeo;
+    }
+  }, [headGeo]);
+  return <mesh ref={meshRef} material={material} scale={scale} />;
+}
+
 // ─── Full animated character ───────────────────────────────────────────────────
 function AvatarBody({ char, stateRef }) {
   const cfg = CHARS[char] || CHARS.hannah;
