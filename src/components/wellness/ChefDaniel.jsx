@@ -28,7 +28,6 @@ export default function ChefDaniel({ user, userRecipes = [], mealLogs = [], auto
   const [isListening, setIsListening] = useState(false);
   const [sessionId] = useState(() => `chef-daniel-${Date.now()}`);
   const [showQuickActions, setShowQuickActions] = useState(true);
-  const [avatarCollapsed, setAvatarCollapsed] = useState(false);
   const [showOnboarding, setShowOnboarding] = useState(false);
   const [memories, setMemories] = useState([]);
   const [personalityPrefs, setPersonalityPrefs] = useState(null);
@@ -843,12 +842,6 @@ Return ONLY valid JSON array:
               </div>
             </div>
 
-            {/* 3D Avatar Panel */}
-            {/* Avatar Panel — collapsible */}
-            <div className="relative">
-              <AnimatePresence>
-                {!avatarCollapsed && (
-                  <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} style={{ overflow: 'hidden' }}>
             <AvatarPanel
               character="chef"
               isSpeaking={avatarSpeaking}
@@ -858,16 +851,6 @@ Return ONLY valid JSON array:
               gradientFrom="#22c55e"
               gradientTo="#16a34a"
             />
-                  </motion.div>
-                )}
-              </AnimatePresence>
-              <button
-                onClick={() => setAvatarCollapsed(!avatarCollapsed)}
-                className="w-full flex items-center justify-center py-1 text-[10px] text-[#0A1A2F]/40 hover:text-[#0A1A2F]/70 transition-colors bg-white border-b border-[#bbf7d0]/50"
-              >
-                {avatarCollapsed ? '▼ Show Chef Daniel' : '▲ Hide'}
-              </button>
-            </div>
 
             {/* Proactive Insight Card */}
             <AnimatePresence>
