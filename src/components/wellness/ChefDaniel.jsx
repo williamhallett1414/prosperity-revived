@@ -843,12 +843,7 @@ Return ONLY valid JSON array:
               </div>
             </div>
 
-            {/* 3D Avatar Panel */}
-            {/* Avatar Panel — collapsible */}
-            <div className="relative">
-              <AnimatePresence>
-                {!avatarCollapsed && (
-                  <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} style={{ overflow: 'hidden' }}>
+            {/* Avatar Panel — collapsible via AvatarPanel header */}
             <AvatarPanel
               character="chef"
               isSpeaking={avatarSpeaking}
@@ -858,16 +853,6 @@ Return ONLY valid JSON array:
               gradientFrom="#22c55e"
               gradientTo="#16a34a"
             />
-                  </motion.div>
-                )}
-              </AnimatePresence>
-              <button
-                onClick={() => setAvatarCollapsed(!avatarCollapsed)}
-                className="w-full flex items-center justify-center py-1 text-[10px] text-[#0A1A2F]/40 hover:text-[#0A1A2F]/70 transition-colors bg-white border-b border-[#bbf7d0]/50"
-              >
-                {avatarCollapsed ? '▼ Show Chef Daniel' : '▲ Hide'}
-              </button>
-            </div>
 
             {/* Proactive Insight Card */}
             <AnimatePresence>
@@ -890,7 +875,7 @@ Return ONLY valid JSON array:
             )}
 
             {/* Quick-Ask Menu */}
-            <div className="border-b border-[#bbf7d0] bg-[#f0fdf4] px-5 py-3 overflow-x-auto">
+            {messages.length <= 1 && <div className="border-b border-[#bbf7d0] bg-[#f0fdf4] px-5 py-3 overflow-x-auto">
               <div className="flex items-center justify-between mb-2">
                 <p className="text-xs font-semibold text-[#0A1A2F]/70">Quick Actions:</p>
                 <button
@@ -1033,6 +1018,7 @@ Return ONLY valid JSON array:
                 </button>
               </div>}
             </div>
+            }
 
             {/* Messages */}
             <div className="flex-1 overflow-y-auto p-5 space-y-4 bg-[#f0fdf4]">
@@ -1063,14 +1049,7 @@ Return ONLY valid JSON array:
                       </div>
                     )}
                   </div>
-                  {message.role === 'assistant' && index > 0 && index === messages.length - 1 && !ratedMessageIndices.has(index) && (
-                    <HannahFeedbackRating
-                      messageContent={message.content}
-                      userEmail={user?.email}
-                      sessionId={sessionId}
-                      onDone={() => setRatedMessageIndices(prev => new Set([...prev, index]))}
-                    />
-                  )}
+
                 </motion.div>
               ))}
               {isLoading && (

@@ -106,16 +106,16 @@ export default function TTSButton({ text, className = '', onSpeakingChange }) {
     <button
       onClick={handleSpeak}
       title={isSpeaking ? 'Stop reading' : 'Read aloud'}
-      className={`flex items-center justify-center w-6 h-6 rounded-full transition-colors ${
+      className={`flex items-center gap-1 px-2 py-1 rounded-full transition-colors text-[11px] font-medium ${
         isSpeaking
-          ? 'text-orange-400 hover:text-orange-600'
-          : 'text-gray-300 hover:text-gray-500'
+          ? 'bg-orange-50 text-orange-500 hover:bg-orange-100'
+          : 'bg-gray-100 text-gray-400 hover:bg-gray-200 hover:text-gray-600'
       } ${className}`}
     >
       {isSpeaking ? (
-        <Square className="w-3 h-3" />
+        <><Square className="w-3.5 h-3.5" /><span>Stop</span></>
       ) : (
-        <Volume2 className="w-3 h-3" />
+        <><Volume2 className="w-3.5 h-3.5" /><span>Listen</span></>
       )}
     </button>
   );

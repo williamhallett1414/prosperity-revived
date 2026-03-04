@@ -1402,15 +1402,7 @@ Return ONLY valid JSON array:
                       </div>
                     )}
                   </div>
-                  {/* Feedback rating — only on the most recent assistant message */}
-                  {message.role === 'assistant' && index > 0 && index === messages.length - 1 && !ratedMessageIndices.has(index) && (
-                    <HannahFeedbackRating
-                      messageContent={message.content}
-                      userEmail={user?.email}
-                      sessionId={sessionId}
-                      onDone={() => setRatedMessageIndices(prev => new Set([...prev, index]))}
-                    />
-                  )}
+
                 </motion.div>
               ))}
               {isLoading && (
@@ -1427,19 +1419,18 @@ Return ONLY valid JSON array:
 
             {/* Input */}
             <div className="p-5 border-t border-[#AFC7E3]/40 bg-white">
-              <div className="flex gap-3 mb-3">
+              <div className="flex gap-2 items-center">
                 <button
                   onClick={() => setShowJournalMode(!showJournalMode)}
-                  className={`text-xs px-3 py-2 rounded-lg transition-colors ${
+                  title={showJournalMode ? "Exit journal mode" : "Switch to journal mode"}
+                  className={`flex-shrink-0 w-9 h-9 rounded-lg flex items-center justify-center text-base transition-colors ${
                     showJournalMode
                       ? 'bg-[#3C4E53] text-white'
                       : 'bg-[#AFC7E3]/25 text-[#3C4E53] hover:bg-[#AFC7E3]/40'
                   }`}
                 >
-                  📝 Journal
+                  📝
                 </button>
-              </div>
-              <div className="flex gap-2 items-center">
                 <Input
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
