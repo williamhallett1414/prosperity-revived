@@ -446,3 +446,710 @@ export const COACHING_PLANS = [
     ]
   }
 ];
+
+COACHING_PLANS.push({
+  id: 'love-languages-relationships',
+  title: 'Love That Lasts',
+  subtitle: '8-Week Relationship Transformation',
+  description: 'An 8-week journey rooted in the Five Love Languages — Words of Affirmation, Acts of Service, Receiving Gifts, Quality Time, and Physical Touch — combined with Scripture and inner healing work. Whether you\'re growing a marriage, repairing a friendship, deepening family bonds, or learning to love yourself the way God loves you, this plan will transform how you give and receive love.',
+  theme_verse: '"Above all, love each other deeply, because love covers over a multitude of sins." — 1 Peter 4:8',
+  coach: 'Hannah',
+  difficulty: 'beginner',
+  duration_weeks: 8,
+  category: 'relationships',
+  color_from: '#e11d48',
+  color_to: '#0A1A2F',
+  emoji: '❤️',
+  tags: ['Relationships', 'Faith', 'Mindset', 'Journaling', 'Healing'],
+  weeks: [
+    {
+      week: 1,
+      theme: 'The Foundation of Love',
+      theme_verse: '1 Corinthians 13:4-5 — "Love is patient, love is kind. It does not envy, it does not boast, it is not proud."',
+      overview: 'Before we can love others well, we have to understand what love actually is — not Hollywood love, not transactional love, but the kind God modeled for us. This week we lay the foundation: discovering your primary love language, understanding how you received love growing up, and identifying where your love patterns may have broken down.',
+      focus_color: '#e11d48',
+      days: [
+        {
+          day: 1, label: 'Monday',
+          theme: 'What Is Love, Really?',
+          devotion: {
+            title: 'God Defined It First',
+            scripture: '1 John 4:8',
+            reading: 'Read 1 John 4:8 — "Whoever does not love does not know God, because God is love." Love isn\'t just something God does — it\'s who He is. Every healthy relationship you build this week starts from understanding the source.',
+            reflection: 'Journal: What was the primary way love was shown to you growing up? Was it through words, actions, time, gifts, or touch? How has that shaped how you give and receive love today?',
+            prayer: 'God, teach me to love the way You love — patient, kind, and unconditional. Show me where my understanding of love has been distorted.',
+            app_links: [{ label: 'Open Bible to 1 John', page: 'Bible' }, { label: 'Write in Journal', page: 'MyJournalEntries' }]
+          },
+          mindset_work: {
+            title: 'Discover Your Love Language',
+            exercise: 'Take the Love Language self-assessment: For each pair, choose which matters more to you. (A) Hearing "I love you / I\'m proud of you" vs (B) Someone doing something helpful for you without being asked. (A) Receiving a thoughtful gift vs (B) Having someone\'s undivided attention. (A) A long hug or physical closeness vs (B) Someone writing you a heartfelt note. Tally your answers. Which came up most? That\'s likely your primary love language.',
+            prompt: 'Write down your top 2 love languages and one specific memory where you felt deeply loved in that language. What made that moment so meaningful?',
+            app_links: [{ label: 'Open Affirmations', page: 'AffirmationsPage' }, { label: 'Journal Entry', page: 'MyJournalEntries' }]
+          },
+          relationship_challenge: {
+            title: 'The Love Language Audit',
+            action: 'Think of your most important relationship right now. Without asking them, write down what you think their primary love language is. What evidence do you have? What have they complained about that they never receive? What do they ask for most often?',
+            scripture_anchor: 'Philippians 2:4 — "Not looking to your own interests but each of you to the interests of the others."'
+          },
+          reflection: {
+            prompt: 'What is the gap between how you naturally show love and how the people in your life actually need to receive it?',
+            app_links: [{ label: 'Emotional Check-In', page: 'EmotionalCheckInPage' }]
+          }
+        },
+        {
+          day: 2, label: 'Tuesday',
+          theme: 'Words of Affirmation',
+          devotion: {
+            title: 'The Power of the Spoken Word',
+            scripture: 'Proverbs 18:21',
+            reading: 'Read Proverbs 18:21 — "The tongue has the power of life and death." Words are not neutral. Every conversation you have either deposits life or withdraws it. People whose love language is Words of Affirmation don\'t just want compliments — they need verbal acknowledgment that they are seen, valued, and appreciated.',
+            reflection: 'Think of the most encouraging words anyone has ever spoken over you. Write them down. How did those words change you? How long did they stay with you?',
+            prayer: 'God, set a guard over my mouth today. Let every word I speak deposit life into the people around me.',
+            app_links: [{ label: 'Open Bible to Proverbs', page: 'Bible' }, { label: 'Affirmations', page: 'AffirmationsPage' }]
+          },
+          mindset_work: {
+            title: 'Write It Out',
+            exercise: 'Identify 3 people in your life. For each one, write 5 genuine, specific affirmations — not "you\'re great" but "the way you show up for your friends without being asked shows a depth of character I genuinely admire." Specificity is what makes affirmations land.',
+            prompt: 'What words do you wish someone would say to you that you\'ve never heard? Write them to yourself first.',
+            app_links: [{ label: 'Journal Entry', page: 'MyJournalEntries' }]
+          },
+          relationship_challenge: {
+            title: 'Say It Out Loud',
+            action: 'Send one genuine, specific written affirmation to someone in your life today. Not a text emoji — a real sentence. "I noticed that you... and it means more than you know." Watch what happens.',
+            scripture_anchor: 'Ephesians 4:29 — "Do not let any unwholesome talk come out of your mouths, but only what is helpful for building others up."'
+          },
+          reflection: {
+            prompt: 'How do critical or negative words from your past still affect how you speak to yourself or others today?',
+            app_links: [{ label: 'Mindset Reset', page: 'MindsetResetPage' }]
+          }
+        },
+        {
+          day: 3, label: 'Wednesday',
+          theme: 'Acts of Service',
+          devotion: {
+            title: 'Love in Action',
+            scripture: 'Mark 10:45',
+            reading: 'Read Mark 10:45 — "For even the Son of Man did not come to be served, but to serve." Jesus, the King of the universe, washed His disciples\' feet. Acts of Service isn\'t about being a servant with no boundaries — it\'s about choosing to show love through action for someone whose heart opens when people do things for them.',
+            reflection: 'Is there someone in your life whose love language might be Acts of Service — who always seems to notice when you do (or don\'t) help, who says "you never do anything around here" or "I have to do everything myself"? What are they really saying?',
+            prayer: 'Jesus, You served without ego. Help me see service as love, not as weakness.',
+            app_links: [{ label: 'Open Bible', page: 'Bible' }, { label: 'Prayer', page: 'Prayer' }]
+          },
+          mindset_work: {
+            title: 'The Request vs. The Love',
+            exercise: 'Make a list of things the important people in your life have asked you to do repeatedly. These repeated requests are almost always unmet love language needs in disguise. The person who keeps asking you to clean up, help with dinner, or plan ahead — they\'re not nagging. They\'re saying "I feel loved when you do these things for me."',
+            prompt: 'Write about one person whose repeated requests you\'ve interpreted as nagging or controlling. Reframe: what might they really be asking for?',
+            app_links: [{ label: 'Journal Entry', page: 'MyJournalEntries' }]
+          },
+          relationship_challenge: {
+            title: 'Do One Unsolicited Thing',
+            action: 'Today, do one act of service for someone without being asked and without telling them you did it. Clean something, handle something they\'ve been meaning to do, take something off their plate. Notice how it feels to serve without recognition.',
+            scripture_anchor: 'Galatians 5:13 — "Serve one another humbly in love."'
+          },
+          reflection: {
+            prompt: 'Where does serving others feel like burden vs. gift to you? What\'s the difference in those moments?',
+            app_links: [{ label: 'Emotional Check-In', page: 'EmotionalCheckInPage' }]
+          }
+        },
+        {
+          day: 4, label: 'Thursday',
+          theme: 'Receiving Gifts',
+          devotion: {
+            title: 'The Symbol Behind the Gift',
+            scripture: 'James 1:17',
+            reading: 'Read James 1:17 — "Every good and perfect gift is from above." For people whose love language is Receiving Gifts, it\'s never about the money or the object. It\'s about what the gift communicates: you were on my mind, I thought of you, you matter enough for me to mark this moment. God Himself speaks this language — He gave us His Son.',
+            reflection: 'Think of a gift — however small — that someone gave you that meant everything. What made it so meaningful? What did it communicate that words couldn\'t?',
+            prayer: 'God, thank You for Your gifts — the seen and the unseen. Help me become someone who marks the moments that matter in the lives of those I love.',
+            app_links: [{ label: 'Open Bible', page: 'Bible' }, { label: 'Gratitude Journal', page: 'GratitudeJournalPage' }]
+          },
+          mindset_work: {
+            title: 'Mark the Moments',
+            exercise: 'The gift-language person doesn\'t need expensive. They need thoughtful. Make a list of 5 people you love and one meaningful, low-cost or free gesture you could give each one that would say "I see you." It could be a handwritten note, a photo you print and frame, their favorite coffee, a playlist, a book.',
+            prompt: 'Have you ever dismissed someone\'s hurt feelings when you forgot a birthday, anniversary, or moment that mattered to them? Reread that through the lens of their love language.',
+            app_links: [{ label: 'Journal Entry', page: 'MyJournalEntries' }]
+          },
+          relationship_challenge: {
+            title: 'Give Without an Occasion',
+            action: 'Give someone a small, thoughtful, unexpected gift today — something that says "I thought of you." It doesn\'t have to cost anything. A note. A flower. Their favorite snack. The thought is the point.',
+            scripture_anchor: '2 Corinthians 9:7 — "God loves a cheerful giver."'
+          },
+          reflection: {
+            prompt: 'Are you better at giving or receiving? What does that tell you about how you were taught to love?',
+            app_links: [{ label: 'Emotional Check-In', page: 'EmotionalCheckInPage' }]
+          }
+        },
+        {
+          day: 5, label: 'Friday',
+          theme: 'Quality Time',
+          devotion: {
+            title: 'Presence Is the Present',
+            scripture: 'Psalm 46:10',
+            reading: 'Read Psalm 46:10 — "Be still, and know that I am God." Even God speaks this language. He doesn\'t just want your requests — He wants your presence. People whose love language is Quality Time don\'t need grand events. They need you fully there — phone down, eyes up, heart open.',
+            reflection: 'When was the last time you were fully present with someone you love — not distracted, not multitasking, not halfway somewhere else? What made that time special?',
+            prayer: 'Lord, teach me to be fully present — with You, and with the people You\'ve placed in my life.',
+            app_links: [{ label: 'Guided Meditation', page: 'GuidedMeditationsPage' }, { label: 'Open Bible', page: 'Bible' }]
+          },
+          mindset_work: {
+            title: 'Phone-Free Time Experiment',
+            exercise: 'Schedule one hour today that is completely phone-free with another person OR alone in reflection. No notifications, no checking. Full presence. After, journal: What did you notice? What was hard? What opened up when the distractions were removed?',
+            prompt: 'Who in your life is quietly starving for your undivided attention? What has it cost that relationship?',
+            app_links: [{ label: 'Journal Entry', page: 'MyJournalEntries' }]
+          },
+          relationship_challenge: {
+            title: 'Schedule the Time',
+            action: 'Block out and protect one intentional Quality Time event with someone important to you this week. Put it in your calendar. Guard it like a meeting you can\'t cancel. Show up fully.',
+            scripture_anchor: 'Ecclesiastes 3:1 — "There is a time for everything, and a season for every activity under the heavens."'
+          },
+          reflection: {
+            prompt: 'What habits or devices are stealing your presence from the relationships that matter most?',
+            app_links: [{ label: 'Habit Builder', page: 'HabitBuilderPage' }]
+          }
+        },
+        {
+          day: 6, label: 'Saturday',
+          theme: 'Physical Touch',
+          devotion: {
+            title: 'The Healing in Human Contact',
+            scripture: 'Matthew 8:3',
+            reading: 'Read Matthew 8:3 — "Jesus reached out his hand and touched the man." The leper hadn\'t been touched in years. Jesus could have healed him with a word. He chose to touch him first. For people whose love language is Physical Touch, connection is communicated through the body — a hug, a hand on the shoulder, being physically close.',
+            reflection: 'Think about the role physical connection has played in your most important relationships. Have you been starved for it? Have you withheld it? Has it been used against you in a way that made this language complicated?',
+            prayer: 'Jesus, You touched the untouchable. Help me be someone whose presence brings comfort and safety to others.',
+            app_links: [{ label: 'Open Bible', page: 'Bible' }, { label: 'Journal Entry', page: 'MyJournalEntries' }]
+          },
+          mindset_work: {
+            title: 'Presence and Safety',
+            exercise: 'Physical Touch as a love language is about safety and connection, not just physical contact. Write about what makes physical presence feel safe vs. unsafe for you. Then: is there someone in your life who needs more physical affirmation — a hug, a hand squeeze, a pat on the back — that you\'ve been withholding?',
+            prompt: 'What does "safe closeness" look like in your healthiest relationships? How do you cultivate that?',
+            app_links: [{ label: 'Journal Entry', page: 'MyJournalEntries' }]
+          },
+          relationship_challenge: {
+            title: 'Be Present Physically',
+            action: 'Today, offer one meaningful physical gesture of connection to someone you love — a longer hug than usual, sitting close, a hand on their arm when they\'re struggling. Be intentional. Notice their response.',
+            scripture_anchor: 'Romans 16:16 — "Greet one another with a holy kiss." (The culture of warm, genuine human connection in the early church.)'
+          },
+          reflection: {
+            prompt: 'Week 1 reflection: Which love language felt most natural to practice this week? Which was hardest? What does that tell you?',
+            app_links: [{ label: 'Weekly Reflection', page: 'WeeklyReflectionPage' }]
+          }
+        },
+        {
+          day: 7, label: 'Sunday',
+          theme: 'Sabbath & Self-Love',
+          devotion: {
+            title: 'You Cannot Pour from Empty',
+            scripture: 'Matthew 22:39',
+            reading: 'Read Matthew 22:39 — "Love your neighbor as yourself." The command assumes self-love. Not narcissism — dignity. Jesus didn\'t say love your neighbor instead of yourself. He said "as." You cannot give what you don\'t have. Today we rest and receive.',
+            reflection: 'In what ways have you been loving others from an empty tank? What does your own soul need right now — what love language do you need to receive?',
+            prayer: 'God, I receive Your love today. Fill me so that I have something real to give.',
+            app_links: [{ label: 'Guided Meditation', page: 'GuidedMeditationsPage' }, { label: 'Prayer', page: 'Prayer' }]
+          },
+          mindset_work: {
+            title: 'Speak Your Language to Yourself',
+            exercise: 'Identify your top love language and intentionally give it to yourself today. If Words of Affirmation: write 10 true, kind things about yourself. If Quality Time: spend an hour doing something you genuinely enjoy alone. If Gifts: buy yourself something small and meaningful. If Acts of Service: do one thing for Future You (prep, organize, plan). If Physical Touch: get a massage, take a bath, stretch slowly.',
+            prompt: 'What would it mean to treat yourself with the same love and intentionality you\'re learning to show others?',
+            app_links: [{ label: 'Affirmations', page: 'AffirmationsPage' }, { label: 'Journal Entry', page: 'MyJournalEntries' }]
+          },
+          relationship_challenge: {
+            title: 'Rest As an Act of Love',
+            action: 'Protect today as a day of rest. Do not catch up on work, obligations, or relationship labor. Let yourself be loved — by God, and by whatever restores your soul.',
+            scripture_anchor: 'Psalm 23:2-3 — "He makes me lie down in green pastures, he leads me beside quiet waters, he refreshes my soul."'
+          },
+          reflection: {
+            prompt: 'What do you most want from your relationships that you haven\'t been able to ask for? Start by writing it here.',
+            app_links: [{ label: 'Emotional Check-In', page: 'EmotionalCheckInPage' }]
+          }
+        }
+      ]
+    },
+    {
+      week: 2,
+      theme: 'Understanding Your Partner / Person',
+      theme_verse: 'Philippians 2:3-4 — "In humility value others above yourselves, not looking to your own interests but each of you to the interests of the others."',
+      overview: 'This week we go deeper — learning to truly understand the person you\'re trying to love. Most relationship conflict isn\'t about what it seems to be about. Underneath every argument is usually an unmet love language need. This week you\'ll learn to listen at a deeper level, ask better questions, and begin the process of speaking someone else\'s language fluently.',
+      focus_color: '#be123c',
+      days: Array.from({ length: 7 }, (_, i) => ({
+        day: 8 + i, label: ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'][i],
+        theme: ['Listening to Understand','The Complaint Is the Clue','Their Story Shapes Their Language','Asking the Right Questions','Breaking Old Patterns','Practice Week','The Mid-Point Check-In'][i],
+        devotion: {
+          title: ['Hear Before You Speak','What Are They Really Saying?','Love Formed in Childhood','The Power of a Good Question','Old Patterns, New Choices','Consistency Is Love','Pause and Assess'][i],
+          scripture: ['James 1:19','Proverbs 20:5','Psalm 139:13-14','Proverbs 20:5','Romans 12:2','1 Corinthians 13:7','Lamentations 3:40'][i],
+          reading: [
+            'Read James 1:19 — "Everyone should be quick to listen, slow to speak and slow to become angry." Most people listen to respond. This week\'s challenge: listen to understand. There is a huge difference.',
+            'Read Proverbs 20:5 — "The purposes of a person\'s heart are deep waters, but one who has insight draws them out." A complaint is always a surface-level expression of a deeper need. "You never spend time with me" = Quality Time. "You don\'t appreciate anything I do" = Acts of Service. "You forgot our anniversary" = Receiving Gifts. Learn to hear what\'s underneath.',
+            'Read Psalm 139:13-14 — God formed your partner or friend in their mother\'s womb, with their entire history. The way they give and receive love was largely shaped before they met you. Understanding their story changes how you respond to their behavior.',
+            'Read Proverbs 20:5 again. Good questions draw out deep water. "How are you?" draws nothing. "What\'s been weighing on you this week that you haven\'t said out loud yet?" draws out soul.',
+            'Read Romans 12:2 — "Be transformed by the renewing of your mind." Old relationship patterns aren\'t destiny. They\'re defaults. You can choose a new pattern — but it takes awareness, intention, and grace.',
+            '1 Corinthians 13:7 — Love "always perseveres." Consistency is one of the most profound expressions of love there is. Showing up the same way on the 400th day as the first — that\'s love as a decision.',
+            'Lamentations 3:40 — "Let us examine our ways and test them, and let us return to the Lord." Midway through Week 2 — pause and assess. Not to judge yourself, but to see clearly.'
+          ][i],
+          reflection: [
+            'Think of your last significant argument. What was it really about underneath? What love language need was going unmet?',
+            'Write the last 3 complaints or criticisms you received from someone close to you. Translate each one: what love language were they actually expressing?',
+            'What do you know about how the important people in your life experienced love (or its absence) growing up? How might that history show up in your relationship with them today?',
+            'Write 5 questions you\'ve never asked someone important to you — questions that could genuinely change how well you know them.',
+            'What is one relationship pattern you keep repeating that you\'re ready to break? What would the new pattern look like?',
+            'What is one consistent, small action you could take every single day this week that would make someone feel loved in their language?',
+            'Week 2 check-in: What has surprised you most about someone you love since starting this plan?'
+          ][i],
+          prayer: [
+            'God, slow my tongue and open my ears. Help me hear what is really being said.',
+            'Give me insight, Lord, to hear what\'s underneath the surface.',
+            'Help me hold the story of the people I love with tenderness, not judgment.',
+            'Give me the courage to ask the questions that draw out deep water.',
+            'Lord, transform my relational defaults. Help me choose love over reaction.',
+            'Let my consistency be a form of love today.',
+            'Help me see clearly, Lord. Not to judge — but to grow.'
+          ][i],
+          app_links: [{ label: 'Open Bible', page: 'Bible' }, { label: 'Journal Entry', page: 'MyJournalEntries' }]
+        },
+        mindset_work: {
+          title: ['The Listening Exercise','Translation Practice','The Backstory Map','The Deep Question List','Pattern Interrupt','Daily Love Language Deposit','Week 2 Review'][i],
+          exercise: [
+            'Today, in every significant conversation, practice one rule: ask one follow-up question before sharing your own perspective. Just one. "Tell me more about that." "What did that feel like?" "What do you need from me right now?" Notice how the conversation changes.',
+            'Take the 3 complaints from your devotion reflection and write a "translation" for each. Then write what a loving, language-specific response to each would look like.',
+            'Draw or write a brief "love map" for someone you love: What are their biggest stressors? What are their deepest fears? What brings them the most joy? What was love like for them growing up? What do they dream about? Most people have never done this exercise. It\'s transformative.',
+            'Write the 5 questions from your devotion. Then this week, ask at least 2 of them — not in an interview style, but woven naturally into real conversation.',
+            'Identify one moment this week when you felt yourself sliding into an old pattern. Write: what triggered it, what the old response would have been, and what you chose instead.',
+            'Commit to one daily love language deposit for one person this week. Small, consistent, specific. Track it each day.',
+            'Review the week: Where did you grow? Where did you fall back into old patterns? What will you carry into Week 3?'
+          ][i],
+          prompt: [
+            'What makes it hard for you to truly listen without preparing your response?',
+            'Which complaint is the hardest to translate with compassion rather than defensiveness?',
+            'What gaps exist in your "love map" of someone close to you? What don\'t you know that you should?',
+            'What question are you most afraid to ask someone you love? Why?',
+            'What triggers you most in close relationships? Where does that trigger come from?',
+            'How does it feel to love consistently even when you don\'t feel like it?',
+            'What has Week 2 revealed about how you relate to the people you love?'
+          ][i],
+          app_links: [{ label: 'Journal Entry', page: 'MyJournalEntries' }, { label: 'Emotional Check-In', page: 'EmotionalCheckInPage' }]
+        },
+        relationship_challenge: {
+          title: ['Ask Before Assuming','Reframe the Complaint','Learn Their Story','Ask the Deep Question','Choose the New Pattern','Make the Daily Deposit','Celebrate Progress'][i],
+          action: [
+            'Before assuming you know what someone means today, ask a clarifying question. "What I\'m hearing is ___. Is that right?"',
+            'The next time someone complains to you, try to identify the love language underneath before responding.',
+            'Ask someone you love about their childhood experience of love today. "How did the people who raised you show love?" Listen without judgment.',
+            'Ask one of your "deep questions" to someone this week in a natural moment of conversation.',
+            'When you feel an old pattern triggered today, pause for 5 seconds before responding. Use those 5 seconds to choose.',
+            'Make your daily love language deposit every single day this week without announcing it.',
+            'Tell someone you\'ve been doing this work what you\'ve noticed about them. Share an observation, not a critique.'
+          ][i],
+          scripture_anchor: ['James 1:19','Proverbs 20:5','Psalm 139:13','Proverbs 18:13','Romans 12:2','1 Corinthians 13:8','Hebrews 10:24'][i]
+        },
+        reflection: {
+          prompt: [
+            'What did you hear differently today when you slowed down to listen?',
+            'What complaint from someone you love have you been responding to at the surface level instead of the need beneath it?',
+            'How does knowing someone\'s backstory change how you respond to their behavior?',
+            'What happened when you asked a deeper question? What opened up?',
+            'What did you choose this week that your old self wouldn\'t have?',
+            'What does consistency in love feel like — both to give and to receive?',
+            'What is the most important thing you\'ve learned about love in two weeks?'
+          ][i],
+          app_links: [{ label: i === 6 ? 'WeeklyReflectionPage' : 'MyJournalEntries', page: i === 6 ? 'WeeklyReflectionPage' : 'MyJournalEntries' }]
+        }
+      }))
+    },
+    {
+      week: 3,
+      theme: 'Words of Affirmation — Deep Dive',
+      theme_verse: 'Ephesians 4:29 — "Do not let any unwholesome talk come out of your mouths, but only what is helpful for building others up according to their needs."',
+      overview: 'Words are one of the most underused and most misused tools in relationships. This week we go all-in on the language of affirmation — learning to speak life over others, confront lovingly, apologize well, and break the habit of critical, careless, or withholding speech.',
+      focus_color: '#9f1239',
+      days: Array.from({ length: 7 }, (_, i) => ({
+        day: 15 + i, label: ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'][i],
+        theme: ['Specific Praise','Encouragement in Hard Times','The Apology Language','Speaking Life Over Children','Loving Confrontation','Gratitude Out Loud','Sabbath Words'][i],
+        devotion: {
+          title: ['Say It Specifically','Words That Hold People Up','Saying Sorry Well','Blessing the Next Generation','Truth in Love','The Gratitude Voice','Rest the Tongue'][i],
+          scripture: ['1 Thessalonians 5:11','Hebrews 10:24-25','Matthew 5:23-24','Proverbs 22:6','Ephesians 4:15','1 Thessalonians 5:18','Psalm 19:14'][i],
+          reading: [
+            'Read 1 Thessalonians 5:11 — "Encourage one another and build each other up." Generic praise bounces off people. Specific praise penetrates. "You\'re amazing" means little. "The way you stayed calm in that meeting when everyone else panicked — that\'s rare, and it matters" — that lands.',
+            'Read Hebrews 10:24-25 — "Spur one another on toward love and good deeds." The people in your life are fighting battles you can\'t see. Your words of encouragement might be the only fuel they get today.',
+            'Read Matthew 5:23-24. Before going to God with your offering, go reconcile with your brother. A good apology is one of the most healing things a human can offer another. A bad one re-wounds.',
+            'Read Proverbs 22:6. The words you speak over children shape their identity. This applies to anyone younger than you, anyone you lead, anyone who looks up to you.',
+            'Read Ephesians 4:15 — "Speaking the truth in love." Truth without love is brutality. Love without truth is flattery. The skill is holding both at once.',
+            'Read 1 Thessalonians 5:18 — "Give thanks in all circumstances." Gratitude expressed out loud is a gift to the person receiving it and to yourself.',
+            'Read Psalm 19:14 — "May these words of my mouth and this meditation of my heart be pleasing in your sight, Lord." A prayer worth making every morning.'
+          ][i],
+          reflection: [
+            'Think of a time someone gave you a specific compliment that changed how you saw yourself. What was it? Why did it land?',
+            'Who in your life is fighting a battle right now that you haven\'t acknowledged? What words do they need to hear?',
+            'How do you typically apologize? Is your apology about relieving your own guilt or genuinely healing the other person?',
+            'What words have you spoken over a child, younger person, or someone you lead that you wish you could take back? What would you say instead?',
+            'What truth have you been withholding from someone you love out of fear? What is the cost of that silence?',
+            'Who have you never fully thanked — someone whose impact on your life you\'ve felt but never voiced?',
+            'What words have you been speaking over yourself this week? Are they words of life or words of limitation?'
+          ][i],
+          prayer: [
+            'Lord, help me see specifically. Help me name what I notice and say it out loud.',
+            'Use my words today to hold someone up who is about to fall.',
+            'God, give me the humility to apologize well — not to feel better, but to heal.',
+            'Let the words I speak over the young people in my life be seeds of identity and destiny.',
+            'Give me the courage to speak truth and the wisdom to hold it gently.',
+            'I don\'t say thank you enough. Let today be different.',
+            'Guard my tongue today, Lord. Let what comes out of my mouth be worthy of Your ear.'
+          ][i],
+          app_links: [{ label: 'Open Bible', page: 'Bible' }, { label: 'Affirmations', page: 'AffirmationsPage' }]
+        },
+        mindset_work: {
+          title: ['The Specificity Practice','Write the Encouragement Letter','The Full Apology Framework','Blessing Exercise','The Loving Confrontation Script','Gratitude Letter','Affirmation Day'][i],
+          exercise: [
+            'For every compliment or affirmation you give today, add a "because" — "I appreciate you because..." or "That was impressive because..." The "because" is what makes it land.',
+            'Write a full letter of encouragement to someone who is struggling. Don\'t send it yet. Write it as if it might be the last letter they ever receive from you. Then decide whether to share it.',
+            'The Five Languages of Apology (Gary Chapman): (1) Expressing regret — "I\'m sorry." (2) Accepting responsibility — "I was wrong." (3) Making restitution — "What can I do to make it right?" (4) Genuine repentance — "I\'ll work to not repeat this." (5) Requesting forgiveness — "Will you forgive me?" Most apologies only include #1. Try using all five.',
+            'Speak a genuine blessing over someone today — not a wish but a declaration. "I see in you the capacity to ___. I believe God is going to use that in ___." Say it to their face.',
+            'Write out a confrontation you\'ve been avoiding. Use this structure: "When you ___ I feel ___ because ___. What I need is ___." Practice saying it out loud alone first.',
+            'Write a full letter of gratitude to someone who\'s never been fully thanked. Unlike the encouragement letter — send this one.',
+            'Write 10 affirmations about yourself. Not aspirations — truths. Things that are already true. Read them aloud.'
+          ][i],
+          prompt: [
+            'What would change in your relationships if every compliment you gave was specific?',
+            'Who needs your encouragement most right now? What are you waiting for?',
+            'What would it feel like to receive a truly full apology from someone who hurt you? Have you ever given one?',
+            'What identity words are you speaking over the people who look up to you?',
+            'What truth have you been softening so much it lost its power? What would it sound like spoken with both love and clarity?',
+            'Why is it hard to express gratitude out loud, even when we feel it deeply?',
+            'What are the words your soul most needs to hear right now?'
+          ][i],
+          app_links: [{ label: 'Journal Entry', page: 'MyJournalEntries' }, { label: 'Affirmations', page: 'AffirmationsPage' }]
+        },
+        relationship_challenge: {
+          title: ['Specific Compliment Day','Send the Letter','Practice the Apology','Speak a Blessing','Have the Conversation','Send Gratitude','Rest in Truth'][i],
+          action: [
+            'Give 3 specific, genuine compliments today — each one with a "because."',
+            'Share your encouragement letter with the person it was written for.',
+            'If there\'s an apology you owe someone, write the full five-part version and deliver it — in person, by phone, or in a letter.',
+            'Speak a genuine blessing over a child, younger person, or someone who needs to hear it.',
+            'Have one honest, loving conversation you\'ve been avoiding. Use the framework. Be gentle but clear.',
+            'Send your gratitude letter today. Don\'t wait for the right moment.',
+            'Rest. Say kind things to yourself and let today be a day of receiving words of life from God\'s own Word.'
+          ][i],
+          scripture_anchor: ['1 Thessalonians 5:11','Hebrews 10:24','James 5:16','Numbers 6:24-26','Ephesians 4:15','Colossians 3:17','Psalm 19:14'][i]
+        },
+        reflection: {
+          prompt: [
+            'What specific thing did you notice about someone today that you\'ve never said out loud before?',
+            'What did writing the encouragement letter reveal about how much you actually see this person?',
+            'What does your typical apology reveal about who you\'re really trying to make feel better?',
+            'What happened when you spoke a blessing? How did it land?',
+            'How did it feel to speak truth in love? What was the hardest part?',
+            'What did expressing gratitude out loud feel like — for you and for them?',
+            'Summarize Week 3: how has your relationship with words changed?'
+          ][i],
+          app_links: [{ label: i === 6 ? 'WeeklyReflectionPage' : 'MyJournalEntries', page: i === 6 ? 'WeeklyReflectionPage' : 'MyJournalEntries' }]
+        }
+      }))
+    },
+    {
+      week: 4,
+      theme: 'Quality Time — Deep Dive',
+      theme_verse: 'Ecclesiastes 4:9-10 — "Two are better than one... If either of them falls down, one can help the other up."',
+      overview: 'Presence is one of the rarest gifts in the modern world. This week we go deep on the love language of Quality Time — what it means to be truly present, how to protect time in a distracted world, how to create rituals of connection, and what shared experience does for the bond between people.',
+      focus_color: '#881337',
+      days: Array.from({ length: 7 }, (_, i) => ({
+        day: 22 + i, label: ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'][i],
+        theme: ['Undivided Attention','The Date That Matters','Shared Activities','Family Rituals','Quality Over Quantity','Presence in Pain','The Sabbath as Connection'][i],
+        devotion: {
+          title: ['Put the Phone Down','Creating Space to Connect','Doing Life Together','Anchoring the Family','Time Is Currency','Sitting in the Dark Together','Sacred Time'][i],
+          scripture: ['Matthew 6:21','Song of Solomon 2:10-12','Luke 10:38-42','Deuteronomy 6:6-7','Ephesians 5:15-16','Job 2:11-13','Mark 6:31'][i],
+          reading: [
+            'Read Matthew 6:21 — "Where your treasure is, there your heart will be also." Time is treasure. What you spend your time on reveals what you actually value — not what you say you value.',
+            'Read Song of Solomon 2:10-12 — "My beloved spoke and said to me, \'Rise up, come away.\'" The beloved invites the other into an intentional experience. Quality time relationships thrive on invitation — "Come away with me. I want to be with you specifically."',
+            'Read Luke 10:38-42. Martha is doing everything. Mary is just being with Jesus. Jesus says Mary chose better. Sometimes the most loving thing is not to do more — it\'s to stop and be present.',
+            'Read Deuteronomy 6:6-7. These commands were given for everyday rhythms — walking, lying down, getting up. Intentional connection happens in the margins of ordinary life, not just on special occasions.',
+            'Read Ephesians 5:15-16 — "Making the most of every opportunity." Quality time doesn\'t require hours. It requires intention. Five fully-present minutes beats two hours of distracted togetherness.',
+            'Read Job 2:11-13. When Job\'s friends arrived, they sat with him in silence for seven days. They didn\'t fix. They didn\'t explain. They showed up and stayed. That is one of the most profound acts of love in Scripture.',
+            'Read Mark 6:31 — "Come with me by yourselves to a quiet place and get some rest." Jesus built rhythms of withdrawal and rest into His own life. Sabbath rest is relational — with God and with those you love.'
+          ][i],
+          reflection: [
+            'How do the people closest to you experience your presence? Are you physically there but emotionally elsewhere?',
+            'When was the last time you created an intentional experience — not just spent time together, but planned something specifically for someone?',
+            'Is there a "Mary vs. Martha" tension in your closest relationships? Are you doing instead of being?',
+            'What are the natural connection rituals in your household or relationships? Which ones have faded? Which ones could be restored?',
+            'Think of a 5-minute conversation recently that felt like it mattered more than an hour with the same person on another day. What made the difference?',
+            'Think of someone who sat with you in pain without trying to fix it. What did their presence mean?',
+            'What does Sabbath — true rest and connection — look like for you?'
+          ][i],
+          prayer: [
+            'God, help me put down what\'s distracting me and pick up what actually matters.',
+            'Lord, give me the creativity to create moments that say "you are worth my full attention."',
+            'Help me resist the pull to do and instead just be — with You and with the people I love.',
+            'God, build connection into the ordinary moments of my life.',
+            'Let five minutes of full presence be worth more than hours of distraction.',
+            'Give me the gift of showing up in pain without needing to fix it.',
+            'God, I receive rest today — with You, and with the ones I love.'
+          ][i],
+          app_links: [{ label: 'Open Bible', page: 'Bible' }, { label: 'Guided Meditation', page: 'GuidedMeditationsPage' }]
+        },
+        mindset_work: {
+          title: ['The Presence Audit','Plan the Experience','The Shared Activity List','The Ritual Map','The 10-Minute Presence Practice','The Sit-With Exercise','Sabbath Connection Plan'][i],
+          exercise: [
+            'Audit your last 48 hours: when were you physically present with someone but mentally elsewhere? What pulled your attention away? What would full presence have looked like in those moments?',
+            'Plan one intentional Quality Time experience for someone whose love language is Quality Time (or for yourself). It doesn\'t need to be expensive — it needs to be specific to them: their favorite restaurant, activity, or place.',
+            'Make a list of activities you genuinely enjoy doing with other people. Then ask the important person in your life to make their own list. Find the overlap. Schedule one.',
+            'Map your relationship rituals: What do you do consistently together that anchors your connection? (Morning coffee, evening walk, Sunday dinner, weekly call.) Which ones are working? Which have been lost? Which new one would you most want to create?',
+            'Practice 10 minutes of completely undistracted presence with someone today. No agenda, no phones, no multitasking. Just be with them and be curious about them.',
+            'Think of someone who is currently going through pain. Practice the discipline of NOT giving advice — instead, write what it would look like to simply show up and sit with them.',
+            'Design your ideal Sabbath: what does a day of true rest and connection look like for you? Who is in it? What do you do? What do you protect it from?'
+          ][i],
+          prompt: [
+            'What would the people closest to you say about the quality of your presence?',
+            'What experience could you create for someone this week that says "I planned this specifically for you"?',
+            'What shared activity has built the deepest connection in your life? Why did it work?',
+            'What ritual from your past do you miss? Is it possible to restore it?',
+            'What does it feel like to have someone\'s full, undivided attention? When did you last give it?',
+            'What makes it hard to sit with someone in pain without trying to fix them?',
+            'What does your soul most need in a Sabbath rest right now?'
+          ][i],
+          app_links: [{ label: 'Journal Entry', page: 'MyJournalEntries' }, { label: 'Habit Builder', page: 'HabitBuilderPage' }]
+        },
+        relationship_challenge: {
+          title: ['Phone-Free Hour','Book the Experience','Do the Activity','Create a New Ritual','10-Minute Presence','Show Up','Take the Rest'][i],
+          action: [
+            'Spend one full hour phone-free with someone you love today.',
+            'Book or plan the Quality Time experience. Put it on the calendar.',
+            'Do the overlapping activity from your lists this week.',
+            'Start one new small connection ritual this week — something you can sustain.',
+            'Practice 10 minutes of full presence today. Do it daily for the rest of the week.',
+            'Reach out to someone in pain and offer your presence — not your advice.',
+            'Protect today as Sabbath. Be with God, be with people you love, be with yourself.'
+          ][i],
+          scripture_anchor: ['Matthew 6:21','Song of Solomon 2:10','Luke 10:42','Deuteronomy 6:7','Ephesians 5:16','Job 2:13','Mark 6:31'][i]
+        },
+        reflection: {
+          prompt: [
+            'What distracted you from presence today? What would it take to protect against that?',
+            'What does planning an experience say to the person you\'re planning it for?',
+            'What happens inside you when you do something you love with someone you love?',
+            'What would consistent connection rituals change in your most important relationships?',
+            'What did 10 minutes of full presence reveal?',
+            'What is the difference between being with someone and being present with them?',
+            'Week 4 reflection: what has this week taught you about time, presence, and love?'
+          ][i],
+          app_links: [{ label: i === 6 ? 'WeeklyReflectionPage' : 'MyJournalEntries', page: i === 6 ? 'WeeklyReflectionPage' : 'MyJournalEntries' }]
+        }
+      }))
+    },
+    {
+      week: 5,
+      theme: 'Acts of Service — Deep Dive',
+      theme_verse: 'Galatians 5:13 — "Serve one another humbly in love."',
+      overview: 'Service is love made visible. This week we explore what it means to love through action — not as obligation, but as gift. We\'ll work through the difference between serving from love vs. serving from fear, how to identify what service means to the people around you, and how to sustain a life of loving service without burning out.',
+      focus_color: '#e11d48',
+      days: Array.from({ length: 7 }, (_, i) => ({
+        day: 29 + i, label: ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'][i],
+        theme: ['Service vs. Servitude','The Unexpected Help','Service in Marriage','Service at Work','Service to Strangers','Sustaining Service','Rest as Service to Self'][i],
+        devotion: {
+          title: ['Choosing to Serve','The Element of Surprise','The Serving Spouse','The Serving Professional','Love for the Stranger','Fueling the Server','You Cannot Give What You Don\'t Have'][i],
+          scripture: ['Mark 10:45','Romans 12:10','1 Peter 3:8-9','Colossians 3:23','Luke 10:30-37','Isaiah 40:31','Matthew 11:28-29'][i],
+          reading: [
+            'Read Mark 10:45. Jesus served from wholeness, not from wound. There\'s a difference between serving because you are afraid, people-pleasing, or trying to earn love — and serving because you are full and it flows out. Which kind of service are you giving?',
+            'Read Romans 12:10 — "Honor one another above yourselves." The unexpected act of service — the one no one asked for, that no one may even know about — is often the most powerful.',
+            'Read 1 Peter 3:8-9. In marriage and in any close relationship, service isn\'t tit-for-tat. It\'s not "I did the dishes so you owe me." It\'s "I do the dishes because I love you and because your rest is worth more to me than my convenience."',
+            'Read Colossians 3:23 — "Whatever you do, work at it with all your heart, as working for the Lord." Your workplace is a field of service. How you show up for your team, clients, and colleagues is a form of love.',
+            'Read Luke 10:30-37. The Samaritan didn\'t stop to ask "does this person deserve my help?" He saw a need and he filled it. Who is the "neighbor" in your daily path whose need you\'ve been walking past?',
+            'Read Isaiah 40:31 — "Those who hope in the Lord will renew their strength." You cannot sustain a life of service from an empty tank. Renewal is not selfishness — it\'s faithfulness to the people who depend on you.',
+            'Read Matthew 11:28-29 — "Come to me, all you who are weary, and I will give you rest." Jesus invites the burned-out, the exhausted, the over-servers. Receive His rest today.'
+          ][i],
+          reflection: [
+            'Are you serving from love or from fear right now? What would it feel like to serve only from love?',
+            'What unsolicited act of service would mean the most to someone in your life right now?',
+            'In your closest relationship, do you keep score? What would it mean to stop?',
+            'How do you serve the people you work with? What would change if you saw your work as an act of love?',
+            'Who is the "neighbor" in your daily path — the one with a need you\'ve been walking past?',
+            'What renews you? Are you protecting time to refuel?',
+            'What does it mean to receive rest — not just stop working, but genuinely rest?'
+          ][i],
+          prayer: [
+            'God, help me serve from fullness today, not from fear.',
+            'Give me eyes to see the unseen need and a heart that wants to fill it.',
+            'Lord, help me stop keeping score and start giving freely.',
+            'Let my work today be an act of love — for the people I serve and for You.',
+            'Open my eyes to the neighbor in front of me that I keep walking past.',
+            'Help me receive renewal without guilt.',
+            'Jesus, I come to You weary. Give me rest today.'
+          ][i],
+          app_links: [{ label: 'Open Bible', page: 'Bible' }, { label: 'Journal Entry', page: 'MyJournalEntries' }]
+        },
+        mindset_work: {
+          title: ['The Motivation Check','The Unsolicited Service Plan','The Score-Keeping Audit','Service at Work List','The Neighbor Exercise','The Renewal Plan','Rest Practice'][i],
+          exercise: [
+            'Honestly examine your service: List 5 things you regularly do for others. For each one, write: Am I doing this from love, duty, fear, or desire for approval? No judgment — just honesty.',
+            'Identify one person whose love language is Acts of Service. Without telling them, plan and execute one completely unsolicited act of service for them this week.',
+            'In your closest relationship, write an honest assessment of whether you keep score. "I did ___ so they should ___." What would it look like to serve without the ledger?',
+            'List 5 ways you could serve the people you work with more intentionally this week. Pick one and do it.',
+            'Walk through your normal day in your mind. Who are the people you encounter regularly whose needs you\'ve been overlooking? What small act of service could you offer?',
+            'Design your personal renewal plan: What fills your tank? Schedule it this week as non-negotiable.',
+            'Practice receiving. Ask someone to serve you in something small today and say "thank you" without minimizing it or deflecting.'
+          ][i],
+          prompt: [
+            'What would your service look like if you removed the need for recognition or reciprocation?',
+            'How do you think the person will feel when they discover the unsolicited thing you did for them?',
+            'What does score-keeping cost you in relationships?',
+            'What would it mean to see your workplace as a field of love and service?',
+            'Who have you been walking past?',
+            'What happens when you run on empty — to you and to the people you serve?',
+            'What makes rest hard to receive without guilt?'
+          ][i],
+          app_links: [{ label: 'Journal Entry', page: 'MyJournalEntries' }, { label: 'Habit Builder', page: 'HabitBuilderPage' }]
+        },
+        relationship_challenge: {
+          title: ['Service Inventory','Do the Unsolicited Thing','Drop the Ledger','Serve Your Team','See the Neighbor','Schedule Renewal','Receive Rest'][i],
+          action: [
+            'Do a service inventory this week — identify one thing you do out of obligation you\'d like to shift to love.',
+            'Execute the unsolicited act of service. Don\'t tell anyone.',
+            'Go one full day without mentally noting what someone else hasn\'t done.',
+            'Serve one person at work in a way that goes beyond your job description.',
+            'Do one thing for someone outside your inner circle — a neighbor, stranger, or acquaintance.',
+            'Schedule and protect one renewal activity this week. Treat it like a meeting.',
+            'Say yes to help today if someone offers it. Practice receiving.'
+          ][i],
+          scripture_anchor: ['Mark 10:45','Romans 12:10','1 Peter 4:10','Colossians 3:23','Luke 10:37','Isaiah 40:31','Matthew 11:28'][i]
+        },
+        reflection: {
+          prompt: [
+            'What would love-based service look like in your relationships this week?',
+            'What did the unsolicited act of service cost you? What did it give you?',
+            'What would you do differently if you fully dropped the ledger?',
+            'How does serving at work well connect to how you love the people in your life?',
+            'What happened when you noticed and responded to the neighbor in your path?',
+            'What does your renewal plan reveal about what you\'ve been neglecting?',
+            'Week 5: What has serving and being served taught you about love this week?'
+          ][i],
+          app_links: [{ label: i === 6 ? 'WeeklyReflectionPage' : 'MyJournalEntries', page: i === 6 ? 'WeeklyReflectionPage' : 'MyJournalEntries' }]
+        }
+      }))
+    },
+    {
+      week: 6,
+      theme: 'Healing Broken Relationships',
+      theme_verse: 'Colossians 3:13 — "Bear with each other and forgive one another if any of you has a grievance against someone. Forgive as the Lord forgave you."',
+      overview: 'Not all relationships are in a good place. This week we go into the harder work — forgiveness, reconciliation, healthy boundaries, and what to do when love has been broken. This is perhaps the most important week of the entire plan.',
+      focus_color: '#be123c',
+      days: Array.from({ length: 7 }, (_, i) => ({
+        day: 36 + i, label: ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'][i],
+        theme: ['What Forgiveness Is (and Isn\'t)','The Forgiveness Process','Reconciliation vs. Restoration','Healthy Boundaries','When Love Isn\'t Returned','Grieving a Relationship','Receiving God\'s Love'][i],
+        devotion: {
+          title: ['Forgiveness Is for You','The Long Walk','Not All Relationships Are Restored','Boundaries as Love','The Unrequited Love','Permission to Grieve','The Perfect Lover'][i],
+          scripture: ['Matthew 18:21-22','Genesis 50:19-21','Romans 12:18','Matthew 10:16','Luke 15:20','Psalm 34:18','Zephaniah 3:17'][i],
+          reading: [
+            'Read Matthew 18:21-22. Seventy times seven isn\'t a number — it\'s a posture. Forgiveness isn\'t condoning what happened. It\'s releasing the debt. It\'s choosing not to let someone else\'s actions imprison you.',
+            'Read Genesis 50:19-21. Joseph was sold into slavery by his brothers. Spent years in a pit and in prison. And when he had power over them, he said "You intended to harm me, but God intended it for good." The journey to that sentence took 13 years. Forgiveness is rarely instant.',
+            'Read Romans 12:18 — "If it is possible, as far as it depends on you, live at peace with everyone." Note: "if it is possible." And "as far as it depends on you." Paul acknowledges that reconciliation is not always possible. Your job is your side.',
+            'Read Matthew 10:16 — "Be as shrewd as snakes and as innocent as doves." Healthy boundaries are not walls — they are wisdom. They protect the relationship as much as they protect you.',
+            'Read Luke 15:20. The father in the parable doesn\'t chase the son. He watches, he waits, and when the son returns, he runs. Sometimes love looks like holding space without chasing.',
+            'Read Psalm 34:18 — "The Lord is close to the brokenhearted." Grief over a relationship — whether it ended, changed, or never became what you hoped — is a legitimate loss. God meets you there.',
+            'Read Zephaniah 3:17 — "He will take great delight in you; in his love he will no longer rebuke you, but will rejoice over you with singing." The perfect love you\'ve been searching for in every relationship already exists. It comes from God alone.'
+          ][i],
+          reflection: [
+            'Is there someone you need to forgive? Not for their sake — for yours. What is holding that unforgiveness costing you?',
+            'What does your personal forgiveness journey look like — what steps have you taken, and what remains?',
+            'Is there a relationship in your life that should be reconciled vs. one where you\'ve done your part and the other person must choose?',
+            'Where do you need better boundaries in a relationship right now? What are you allowing that is slowly eroding you?',
+            'Is there someone you love who isn\'t ready or able to receive your love right now? What does faithfully loving them from a distance look like?',
+            'What relationship loss — past or present — have you not fully grieved? Give yourself permission today.',
+            'In what ways have you been searching for perfect love from imperfect people? How might your relationships change if you let God fill that need first?'
+          ][i],
+          prayer: [
+            'God, I release ___. I choose forgiveness — not because it was okay, but because I refuse to carry this anymore.',
+            'Lord, help me trust Your timing the way Joseph did. Give me eyes to see purpose in my pain.',
+            'Help me live at peace on my side. I release the outcome of the other side to You.',
+            'God, give me wisdom — the shrewdness to protect myself and the grace to stay open to love.',
+            'Lord, teach me to love faithfully without losing myself.',
+            'You are close to me right now. I receive that nearness.',
+            'God, fill the places in me that I\'ve been trying to fill with people. You are enough.'
+          ][i],
+          app_links: [{ label: 'Open Bible', page: 'Bible' }, { label: 'Prayer', page: 'Prayer' }]
+        },
+        mindset_work: {
+          title: ['The Forgiveness Letter','The Journey Map','The Two Columns','The Boundary Statement','The Faithful Love Plan','The Grief Practice','Receiving Love from God'][i],
+          exercise: [
+            'Write a forgiveness letter to someone who hurt you — not to send, but to release. Write everything: what they did, how it affected you, what it cost you. End with: "I choose to release this. I am no longer holding this debt." You don\'t have to feel it yet. Start with the choice.',
+            'Map your forgiveness journey for one relationship: Where did it start? Where are you now? What\'s the next step — even a tiny one?',
+            'Draw two columns: "My Part" and "Their Part." In "My Part," list only what you are responsible for in a broken relationship. In "Their Part," list what belongs to them. Your job is only to work your column.',
+            'Write a clear, specific boundary statement for one relationship: "I am no longer willing to ___. When that happens, I will ___." Practice saying it out loud.',
+            'Write a "faithful love plan" for someone who isn\'t currently able to receive what you offer. What does loving them well look like from where you are — without self-abandonment?',
+            'Set a timer for 20 minutes. Write freely about a relationship loss you haven\'t fully processed. Let yourself feel it. Then close the journal and do something gentle for yourself.',
+            'Sit quietly for 10 minutes. Read Zephaniah 3:17 slowly. Imagine God singing over you. What does it feel like to be fully known and fully loved?'
+          ][i],
+          prompt: [
+            'What is the unforgiven thing costing you daily? What would freedom feel like?',
+            'What has your forgiveness journey taught you about yourself?',
+            'What clarity does separating "my part" from "their part" bring?',
+            'What relationship would change most immediately if you implemented one clear boundary?',
+            'What does loving someone faithfully look like when they can\'t receive it right now?',
+            'What do you need to grieve that you\'ve been avoiding?',
+            'What would change in your relationships if your deepest need for love was already fully met?'
+          ][i],
+          app_links: [{ label: 'Journal Entry', page: 'MyJournalEntries' }, { label: 'Emotional Check-In', page: 'EmotionalCheckInPage' }]
+        },
+        relationship_challenge: {
+          title: ['Take the First Step','One Step Forward','Work Your Column','Set the Boundary','Love from a Distance','Allow the Grief','Receive It'][i],
+          action: [
+            'Take one concrete step toward forgiveness today — even if it\'s just writing the letter.',
+            'Identify the next step in your forgiveness journey and take it.',
+            'Focus exclusively on your column in one broken relationship this week.',
+            'Practice your boundary statement — say it to a trusted friend first if needed.',
+            'Write a prayer for the person who can\'t receive your love right now. Release the outcome.',
+            'Give yourself 20 minutes to grieve what has been lost.',
+            'Receive God\'s love today in whatever form feels most real to you — through worship, Scripture, prayer, or nature.'
+          ][i],
+          scripture_anchor: ['Matthew 18:22','Genesis 50:20','Romans 12:18','Proverbs 4:23','Luke 15:20','Psalm 34:18','Zephaniah 3:17'][i]
+        },
+        reflection: {
+          prompt: [
+            'What does choosing forgiveness feel like — even before the feeling follows?',
+            'Where are you on your forgiveness journey, honestly?',
+            'What does working your column relieve you of?',
+            'What does a well-placed boundary protect — in the relationship and in yourself?',
+            'What does faithful love look like when it isn\'t being received?',
+            'What grief are you still carrying that deserves to be set down?',
+            'Week 6: What has this week\'s work on healing taught you about love, forgiveness, and yourself?'
+          ][i],
+          app_links: [{ label: i === 6 ? 'WeeklyReflectionPage' : 'MyJournalEntries', page: i === 6 ? 'WeeklyReflectionPage' : 'MyJournalEntries' }]
+        }
+      }))
+    },
+    {
+      week: 7,
+      theme: 'Building a Love Culture',
+      theme_verse: 'Hebrews 10:24 — "And let us consider how we may spur one another on toward love and good deeds."',
+      overview: 'Individual love languages matter. But this week we zoom out — how do you build a culture of love in a household, a friendship group, a team, or a community? This is about love that becomes a way of life, not just a weekly intention.',
+      focus_color: '#9f1239',
+      days: Array.from({ length: 7 }, (_, i) => ({
+        day: 43 + i, label: ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'][i],
+        theme: ['The Love Culture Audit','Leading with Love','Modeling Love for Children','Creating Belonging','Conflict as Connection','Love That Endures','Overflow into Community'][i],
+        devotion: { title: ['What Does Your Environment Communicate?','The Leader Sets the Tone','They Watch Before They Listen','Everyone Belongs','Fighting Well','Love Is a Long Game','Beyond the Inner Circle'][i], scripture: ['1 Corinthians 14:1','John 13:34-35','Deuteronomy 11:19','Romans 15:7','Ephesians 4:26-27','1 Corinthians 13:7','Luke 14:13-14'][i],
+          reading: ['Read 1 Corinthians 14:1 — "Follow the way of love." A culture of love doesn\'t happen accidentally. It\'s cultivated. It requires someone to go first, to model it, to protect it when it\'s threatened.','Read John 13:34-35 — "By this everyone will know that you are my disciples, if you love one another." The primary evidence of a life with God is not doctrine or attendance — it\'s love. And it\'s visible.','Read Deuteronomy 11:19. The command is to talk about these things when you sit, walk, lie down, get up. Children absorb culture in the margins, not in the lectures. What are they absorbing in the margins of your home?','Read Romans 15:7 — "Accept one another, then, just as Christ accepted you." Belonging is not earned in a culture of love. It\'s given. The question for your relationships: do people feel accepted before they feel good enough?','Read Ephesians 4:26-27 — "Do not let the sun go down while you are still angry." Conflict handled well actually deepens connection. Conflict avoided creates distance that compounds over time.','Read 1 Corinthians 13:7 — love "always perseveres." The evidence of real love is not how it shows up on good days. It\'s how it shows up on hard ones.','Read Luke 14:13-14. Jesus describes a party where the uninvited, the overlooked, the forgotten are the guests of honor. A love culture eventually overflows outward to include who others exclude.'][i],
+          reflection: ['What does the emotional environment of your home or primary relationship feel like? If love is an atmosphere, what is the temperature?','What culture are you setting with how you love the people closest to you?','What are the children or younger people in your life absorbing about love from watching you?','Do the people in your closest relationships feel like they belong before they earn it?','What is your conflict pattern in close relationships — do you fight and repair, or avoid and distance?','What in your important relationships has required you to love even when you didn\'t feel like it?','Who outside your inner circle is waiting to experience the overflow of the love culture you\'ve been building?'][i],
+          prayer: ['God, make love the atmosphere of my home and my heart.','Let the way I love be the most visible thing about me.','Lord, let what the people around me catch from watching me be worth catching.','Help me be a person in whose presence people feel they belong exactly as they are.','Give me the courage to repair quickly and the humility to go first.','Help me love on the hard days the same way I love on the good ones.','Let my love overflow to the people on the edges — the ones no one else is going to.'][i],
+          app_links: [{ label: 'Open Bible', page: 'Bible' }, { label: 'Journal Entry', page: 'MyJournalEntries' }]
+        },
+        mindset_work: { title: ['The Culture Assessment','The Leader\'s Love Inventory','The Margin Audit','The Belonging Test','The Repair Playbook','The Long Game Commitment','The Overflow Plan'][i], exercise: ['Rate your relationship culture on a scale of 1-10 in each area: How safe do people feel to be honest with you? How quickly are conflicts repaired? How often are love languages spoken? How often do people leave interactions with you feeling better than before?','As a leader — in your home, your family, your team — write the love culture you want to create. What does it look, sound, and feel like? What is your specific role in building it?','Observe the margins of your home or closest relationships this week: what is being communicated about love when no one is "trying"? At the dinner table, in the car, before bed?','Make a list of people in your life. Put a checkmark next to the ones who feel like they belong unconditionally. Circle the ones you\'re not sure about. What would it take to make them certain?','Design your personal conflict repair playbook: What do you do when things go wrong? How quickly do you repair? What is your first move? What words do you use? Write it out before you need it.','Write a "long game" commitment for your most important relationship: what does loving this person look like in 1 year, 5 years, 20 years? What are you willing to sustain?','Identify one person outside your inner circle who could benefit from the love culture you\'ve been building. Make a plan to include them.'][i],
+          prompt: ['What would people say the temperature is in your relationships right now?','What does your love look like when no one is watching or tracking?','What are the people who watch you learning about love?','What does belonging look like in your relationships?','What is your move when things go wrong in a close relationship?','What does long-game love require of you that short-game love doesn\'t?','Who is on the edges of your relational world who could use an invitation in?'][i],
+          app_links: [{ label: 'Journal Entry', page: 'MyJournalEntries' }, { label: 'Emotional Check-In', page: 'EmotionalCheckInPage' }]
+        },
+        relationship_challenge: { title: ['Raise the Temperature','Model It','Observe the Margins','Create Belonging','Repair First','Love on a Hard Day','Make the Invitation'][i], action: ['Do one concrete thing today to raise the love temperature in your closest environment.','Lead with love in one specific way today — in your home, with your team, in your community.','Pay attention to the margins of your interactions today. What are they communicating?','Do one thing for one person in your life to make them feel they belong unconditionally.','The next time conflict arises, go first in repair — even if it wasn\'t your fault.','Choose to love someone today in their language even though you don\'t feel like it.','Extend an invitation to someone on the edges of your relational world.'][i],
+          scripture_anchor: ['1 Corinthians 14:1','John 13:35','Deuteronomy 11:19','Romans 15:7','Ephesians 4:26','1 Corinthians 13:7','Luke 14:13'][i]
+        },
+        reflection: { prompt: ['What one change would most dramatically shift the love culture in your most important relationship?','What does love look like when it leads?','What did you notice in the margins this week?','What does belonging feel like to receive? To give?','What did going first in repair cost you? What did it create?','What did choosing to love on a hard day teach you?','Week 7: What does a love culture look like in practice?'][i], app_links: [{ label: i === 6 ? 'WeeklyReflectionPage' : 'MyJournalEntries', page: i === 6 ? 'WeeklyReflectionPage' : 'MyJournalEntries' }] }
+      }))
+    },
+    {
+      week: 8,
+      theme: 'Love That Lasts',
+      theme_verse: 'Philippians 1:6 — "He who began a good work in you will carry it on to completion until the day of Christ Jesus."',
+      overview: 'This is the final week — but not the end. Love is not a destination; it\'s a direction. This week we anchor everything you\'ve learned, celebrate the relationships that have grown, name what still needs work, and set your eyes forward on the kind of lover you are becoming.',
+      focus_color: '#e11d48',
+      days: [
+        { day: 50, label: 'Monday', theme: 'The Person You\'ve Become', devotion: { title: 'You Are Not Who You Were', scripture: '2 Corinthians 5:17', reading: 'Read 2 Corinthians 5:17 — "The old has gone, the new is here." Eight weeks ago you began this journey with a certain understanding of love. That understanding has been stretched. You are not the same person who started Week 1.', reflection: 'Write: who were you in relationships 8 weeks ago? What patterns did you bring? What did you not know that you know now?', prayer: 'God, thank You for the transformation You\'ve worked in me. I am not who I was. Help me live from this new place.', app_links: [{ label: 'Open Bible', page: 'Bible' }, { label: 'Journal Entry', page: 'MyJournalEntries' }] }, mindset_work: { title: 'The Before and After', exercise: 'Write your relational "before and after." What were your defaults 8 weeks ago in conflict, in affection, in presence, in service? What are they now? What has changed — even slightly?', prompt: 'What is the most significant shift in how you love someone that has happened in these 8 weeks?', app_links: [{ label: 'Journal Entry', page: 'MyJournalEntries' }] }, relationship_challenge: { title: 'Tell Someone', action: 'Tell one person in your life what you\'ve been doing for 8 weeks and what it has meant for how you love them. Be specific.', scripture_anchor: '2 Corinthians 5:17' }, reflection: { prompt: 'What parts of the "old you" in relationships are you most glad to leave behind?', app_links: [{ label: 'Journal Entry', page: 'MyJournalEntries' }] } },
+        { day: 51, label: 'Tuesday', theme: 'Celebrating What Was Built', devotion: { title: 'Look at What Love Has Done', scripture: 'Psalm 126:1-3', reading: 'Read Psalm 126:1-3 — "We were like those who dreamed... The Lord has done great things for us." Look at what has changed in your relationships over these 8 weeks. Some of it is dramatic. Some of it is subtle. All of it is real.', reflection: 'Write a gratitude list for this journey — every conversation that went better, every moment of presence, every forgiveness step taken, every love language practiced.', prayer: 'Lord, You have done great things. I am filled with joy.', app_links: [{ label: 'Gratitude Journal', page: 'GratitudeJournalPage' }] }, mindset_work: { title: 'The Relationship Wins List', exercise: 'List every relational win from the past 8 weeks — big and small. Include moments you almost defaulted to the old pattern but chose differently. Moments you showed up. Moments you loved well.', prompt: 'Which relationship has changed most noticeably over these 8 weeks? What drove that change?', app_links: [{ label: 'Journal Entry', page: 'MyJournalEntries' }] }, relationship_challenge: { title: 'Celebrate Together', action: 'Do something to celebrate a relationship that has grown during this plan. Mark the moment.', scripture_anchor: 'Psalm 126:3' }, reflection: { prompt: 'What do you most want to protect from these 8 weeks going forward?', app_links: [{ label: 'Journal Entry', page: 'MyJournalEntries' }] } },
+        { day: 52, label: 'Wednesday', theme: 'What Still Needs Work', devotion: { title: 'Honest Without Harsh', scripture: 'Proverbs 27:17', reading: 'Read Proverbs 27:17 — "As iron sharpens iron, so one person sharpens another." Growth requires honest assessment. Not self-condemnation — honest evaluation. Where are you still defaulting to old patterns? Where does love still cost you more than you\'re comfortable giving?', reflection: 'Write an honest assessment: where in your relationships are you still operating from old wiring? What will require continued, intentional work?', prayer: 'God, keep sharpening me. Show me what still needs work — not to shame me, but to grow me.', app_links: [{ label: 'Open Bible', page: 'Bible' }, { label: 'Journal Entry', page: 'MyJournalEntries' }] }, mindset_work: { title: 'The Honest Assessment', exercise: 'Rate yourself honestly in each love language: How naturally do you speak Words of Affirmation? Acts of Service? Giving Gifts? Quality Time? Physical Touch? For your lowest score, write one specific commitment for how you will grow in that language.', prompt: 'What is the hardest love language for you to give consistently? What would it take to grow there?', app_links: [{ label: 'Journal Entry', page: 'MyJournalEntries' }] }, relationship_challenge: { title: 'Name It to Someone', action: 'Tell a trusted person one area of your relationship life that still needs work. Ask them to hold you accountable.', scripture_anchor: 'Proverbs 27:17' }, reflection: { prompt: 'What do you need to keep working on, and what support do you need to do it?', app_links: [{ label: 'Emotional Check-In', page: 'EmotionalCheckInPage' }] } },
+        { day: 53, label: 'Thursday', theme: 'Commitments Going Forward', devotion: { title: 'Not Intentions — Commitments', scripture: 'Joshua 24:15', reading: 'Read Joshua 24:15 — "Choose for yourselves this day whom you will serve." Joshua didn\'t express hope or intention. He made a declaration. Love going forward isn\'t about good feelings — it\'s about commitments you make on ordinary days when feelings are irrelevant.', reflection: 'What commitments — not goals, not intentions, but commitments — do you want to make about how you love the people in your life going forward?', prayer: 'God, I choose today. Not just when it\'s easy — I choose to love the way You love, consistently, regardless of how I feel.', app_links: [{ label: 'Open Bible', page: 'Bible' }, { label: 'Habit Builder', page: 'HabitBuilderPage' }] }, mindset_work: { title: 'The Love Commitment List', exercise: 'Write 5 specific commitments about how you will love going forward. Not "I will be better" — specific: "I will ask one genuine question every day." "I will put my phone away during dinner." "I will say I love you and mean it." "I will initiate repair within 24 hours of conflict."', prompt: 'What is one commitment that, if kept consistently, would most transform your most important relationship?', app_links: [{ label: 'Journal Entry', page: 'MyJournalEntries' }] }, relationship_challenge: { title: 'Write the Commitment', action: 'Write your 5 love commitments somewhere permanent — in your journal, on a card you keep, on your phone. Read them every morning for the next 30 days.', scripture_anchor: 'Joshua 24:15' }, reflection: { prompt: 'What makes a commitment different from an intention? Which are you making?', app_links: [{ label: 'Habit Builder', page: 'HabitBuilderPage' }] } },
+        { day: 54, label: 'Friday', theme: 'The Greatest of These', devotion: { title: 'Love Is the Point', scripture: '1 Corinthians 13:13', reading: 'Read 1 Corinthians 13:13 — "And now these three remain: faith, hope and love. But the greatest of these is love." Everything else in this life is temporary. The love you build — the love you give — is the thing that lasts. It\'s the thing God most cares about.', reflection: 'At the end of your life, what do you want the people who knew you to say about how you loved them? Write that eulogy now — and let it become your north star.', prayer: 'God, let love be the most defining thing about me. Not my achievements, not my reputation — my love. Make me someone who loved well.', app_links: [{ label: 'Open Bible', page: 'Bible' }, { label: 'Journal Entry', page: 'MyJournalEntries' }] }, mindset_work: { title: 'The Love Eulogy', exercise: 'Write the eulogy you want — not the one people would write today, but the one you\'re building toward. How did you love? Who felt most loved by you? What did your presence give to the world? Read it aloud. Let it settle.', prompt: 'What is the one thing you most want to be true about how you loved, at the end of everything?', app_links: [{ label: 'Journal Entry', page: 'MyJournalEntries' }] }, relationship_challenge: { title: 'Live Toward It', action: 'Today, do one thing that the person in your eulogy would have done. Be that person today.', scripture_anchor: '1 Corinthians 13:13' }, reflection: { prompt: 'What does it mean that love is the greatest of these? What does that change about how you spend your time, energy, and attention?', app_links: [{ label: 'Journal Entry', page: 'MyJournalEntries' }] } },
+        { day: 55, label: 'Saturday', theme: 'Share Your Story', devotion: { title: 'Your Testimony Is a Gift', scripture: 'Revelation 12:11', reading: 'Read Revelation 12:11 — "They triumphed by the word of their testimony." Your love story — even incomplete, even messy, even still in process — is a weapon against someone else\'s hopelessness. Share it.', reflection: 'Write your testimony from these 8 weeks: what you brought in, what happened, what has changed, and what you\'re walking toward.', prayer: 'God, use my story. Let what happened in me encourage someone who needs it.', app_links: [{ label: 'Open Bible', page: 'Bible' }, { label: 'Journal Entry', page: 'MyJournalEntries' }] }, mindset_work: { title: 'Write and Share', exercise: 'Write a short testimony — 1-2 paragraphs — about what this 8-week journey did in you and in your relationships. Then share it with at least one person.', prompt: 'What would encourage someone else who is struggling in relationships right now?', app_links: [{ label: 'Journal Entry', page: 'MyJournalEntries' }] }, relationship_challenge: { title: 'Pass It On', action: 'Share what you\'ve learned with someone who could benefit. Give this plan to someone who needs it.', scripture_anchor: 'Revelation 12:11' }, reflection: { prompt: 'What would you tell someone at the beginning of this journey?', app_links: [{ label: 'Journal Entry', page: 'MyJournalEntries' }] } },
+        { day: 56, label: 'Sunday', theme: 'Love Never Ends', devotion: { title: 'This Is Just the Beginning', scripture: '1 Corinthians 13:8', reading: 'Read 1 Corinthians 13:8 — "Love never fails." Everything else passes away. Prophecies, tongues, knowledge — all temporary. Love remains. What you have built in these 8 weeks — in your heart, in your habits, in your relationships — is the work that outlasts everything.', reflection: 'Final reflection: What do you most want to carry from these 8 weeks? Who are you now as a lover of people? Write freely. Write honestly. Write for the version of yourself who will read this in a year and need to remember.', prayer: 'God, I press on. I don\'t stop here. Continue what You\'ve started in me. Make me someone who loves the way You love — for the rest of my life. Amen.', app_links: [{ label: 'Open Bible', page: 'Bible' }, { label: 'Journal Entry', page: 'MyJournalEntries' }, { label: 'Weekly Reflection', page: 'WeeklyReflectionPage' }] }, mindset_work: { title: 'The Final Letter', exercise: 'Write a letter to the person you\'re becoming — the version of you who has been loving intentionally, consistently, and skillfully for one year. What has changed? What do they know that you\'re only beginning to learn? Let this letter be your vision.', prompt: '8 weeks. 56 days. Who are you now as a lover of people?', app_links: [{ label: 'Journal Entry', page: 'MyJournalEntries' }] }, relationship_challenge: { title: 'Love Someone Fully Today', action: 'Today, love one person in their primary love language as fully and intentionally as you know how. Make it count. Let it be a picture of the lover you are becoming.', scripture_anchor: '1 Corinthians 13:8' }, reflection: { prompt: '8 weeks of choosing love. What has it cost you? What has it given you? What does "love never fails" mean to you now, personally?', app_links: [{ label: 'Final Journal Entry', page: 'MyJournalEntries' }, { label: 'Weekly Reflection', page: 'WeeklyReflectionPage' }] } }
+      ]
+    }
+  ]
+});
