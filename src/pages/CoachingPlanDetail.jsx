@@ -14,6 +14,7 @@ import { base44 } from '@/api/base44Client';
 import { toast } from 'sonner';
 import StartWorkoutModal from '@/components/wellness/StartWorkoutModal';
 import MealLoggingSection from '@/components/coaching/MealLoggingSection';
+import CoachPaul from '@/components/coaching/CoachPaul';
 import { useQuery } from '@tanstack/react-query';
 import { MoreVertical } from 'lucide-react';
 
