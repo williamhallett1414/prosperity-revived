@@ -615,65 +615,65 @@ function AvatarBody({ char, stateRef }) {
       <group ref={headRef}>
         <HeadMesh headGeo={headGeo} material={m.skin} scale={[cfg.hW, 1, cfg.hD]} />
         {/* Brow ridge */}
-        <mesh material={m.skinDark} position={[0,0.190,0.348]} scale={[0.38,0.040,0.066]}><sphereGeometry args={[1,18,8]} /></mesh>
+        <ImpMesh geo={bodyGeos.browRidge} material={m.skinDark} position={[0,0.190,0.348]} scale={[0.38,0.040,0.066]} />
         {/* Cheekbones */}
-        <mesh material={m.skin} position={[-0.292,0.002,0.300]} scale={[0.086,0.064,0.064]}><sphereGeometry args={[1,14,10]} /></mesh>
-        <mesh material={m.skin} position={[ 0.292,0.002,0.300]} scale={[0.086,0.064,0.064]}><sphereGeometry args={[1,14,10]} /></mesh>
-        {/* Cheek flush */}
-        <mesh ref={cheekLRef} material={m.cheek} position={[-cfg.ckX,cfg.ckY,0.314]} scale={[0.142,0.108,0.044]}><sphereGeometry args={[1,16,12]} /></mesh>
-        <mesh ref={cheekRRef} material={m.cheek} position={[ cfg.ckX,cfg.ckY,0.314]} scale={[0.142,0.108,0.044]}><sphereGeometry args={[1,16,12]} /></mesh>
+        <ImpMesh geo={bodyGeos.cheekbone} material={m.skin} position={[-0.292,0.002,0.300]} scale={[0.086,0.064,0.064]} />
+        <ImpMesh geo={bodyGeos.cheekbone} material={m.skin} position={[ 0.292,0.002,0.300]} scale={[0.086,0.064,0.064]} />
+        {/* Cheek flush — need refs so use ImpMesh with forwardRef pattern inline */}
+        <ImpMesh geo={bodyGeos.cheekFlush} material={m.cheek} position={[-cfg.ckX,cfg.ckY,0.314]} scale={[0.142,0.108,0.044]} meshRef={cheekLRef} />
+        <ImpMesh geo={bodyGeos.cheekFlush} material={m.cheek} position={[ cfg.ckX,cfg.ckY,0.314]} scale={[0.142,0.108,0.044]} meshRef={cheekRRef} />
         {/* Jaw */}
         <group ref={jawRef} position={[0,-0.188,0]}>
-          <mesh material={m.skin} position={[0,0.024,0.038]} scale={[cfg.jawW,cfg.jawH,0.87]}><sphereGeometry args={[0.40,34,22,0,Math.PI*2,0,Math.PI*0.52]} /></mesh>
-          <mesh material={m.lip} position={[0,0.057,0.312]} scale={[0.308,0.059,0.075]}><sphereGeometry args={[1,18,10]} /></mesh>
-          <mesh material={m.teeth} position={[0,0.047,0.302]} scale={[0.250,0.038,0.058]}><boxGeometry /></mesh>
-          <mesh material={m.skin} position={[0,-0.086,0.245]} scale={[0.178,0.096,0.086]}><sphereGeometry args={[1,16,12]} /></mesh>
+          <ImpMesh geo={bodyGeos.jaw} material={m.skin} position={[0,0.024,0.038]} scale={[cfg.jawW,cfg.jawH,0.87]} />
+          <ImpMesh geo={bodyGeos.jawLip} material={m.lip} position={[0,0.057,0.312]} scale={[0.308,0.059,0.075]} />
+          <ImpMesh geo={bodyGeos.jawTeeth} material={m.teeth} position={[0,0.047,0.302]} scale={[0.250,0.038,0.058]} />
+          <ImpMesh geo={bodyGeos.cheekFlush} material={m.skin} position={[0,-0.086,0.245]} scale={[0.178,0.096,0.086]} />
         </group>
         {/* Upper lip */}
-        <mesh material={m.lip} position={[0,cfg.lipY,0.322]} scale={[0.316,0.060,0.077]}><sphereGeometry args={[1,18,10]} /></mesh>
-        <mesh material={m.lipDark} position={[-0.054,cfg.lipY+0.029,0.325]} scale={[0.067,0.029,0.039]}><sphereGeometry args={[1,12,8]} /></mesh>
-        <mesh material={m.lipDark} position={[ 0.054,cfg.lipY+0.029,0.325]} scale={[0.067,0.029,0.039]}><sphereGeometry args={[1,12,8]} /></mesh>
-        <mesh material={m.teeth} position={[0,cfg.lipY-0.014,0.304]} scale={[0.250,0.038,0.058]}><boxGeometry /></mesh>
-        <mesh material={m.skinDark} position={[0,cfg.lipY+0.064,0.326]} scale={[0.045,0.045,0.018]}><sphereGeometry args={[1,10,8]} /></mesh>
+        <ImpMesh geo={bodyGeos.lipSphere} material={m.lip} position={[0,cfg.lipY,0.322]} scale={[0.316,0.060,0.077]} />
+        <ImpMesh geo={bodyGeos.lipDark} material={m.lipDark} position={[-0.054,cfg.lipY+0.029,0.325]} scale={[0.067,0.029,0.039]} />
+        <ImpMesh geo={bodyGeos.lipDark} material={m.lipDark} position={[ 0.054,cfg.lipY+0.029,0.325]} scale={[0.067,0.029,0.039]} />
+        <ImpMesh geo={bodyGeos.teeth} material={m.teeth} position={[0,cfg.lipY-0.014,0.304]} scale={[0.250,0.038,0.058]} />
+        <ImpMesh geo={bodyGeos.philtrum} material={m.skinDark} position={[0,cfg.lipY+0.064,0.326]} scale={[0.045,0.045,0.018]} />
         {/* Nose */}
         <group position={[0,cfg.noseY,0]}>
-          <mesh material={m.skin} position={[0,0.094,0.336]} scale={[0.058,0.148,0.058]}><sphereGeometry args={[1,14,10]} /></mesh>
-          <mesh material={m.skin} position={[0,0.024,0.372]} scale={[0.088,0.075,0.075]}><sphereGeometry args={[1,16,12]} /></mesh>
-          <mesh material={m.skinDark} position={[0,0.004,0.372]} scale={[0.055,0.040,0.035]}><sphereGeometry args={[1,12,8]} /></mesh>
-          <mesh material={m.nostril} position={[-0.060,-0.008,0.358]} scale={[0.042,0.036,0.044]}><sphereGeometry args={[1,10,8]} /></mesh>
-          <mesh material={m.nostril} position={[ 0.060,-0.008,0.358]} scale={[0.042,0.036,0.044]}><sphereGeometry args={[1,10,8]} /></mesh>
+          <ImpMesh geo={bodyGeos.noseBridge} material={m.skin} position={[0,0.094,0.336]} scale={[0.058,0.148,0.058]} />
+          <ImpMesh geo={bodyGeos.noseTip} material={m.skin} position={[0,0.024,0.372]} scale={[0.088,0.075,0.075]} />
+          <ImpMesh geo={bodyGeos.noseDark} material={m.skinDark} position={[0,0.004,0.372]} scale={[0.055,0.040,0.035]} />
+          <ImpMesh geo={bodyGeos.nostril} material={m.nostril} position={[-0.060,-0.008,0.358]} scale={[0.042,0.036,0.044]} />
+          <ImpMesh geo={bodyGeos.nostril} material={m.nostril} position={[ 0.060,-0.008,0.358]} scale={[0.042,0.036,0.044]} />
         </group>
         {/* Left eye */}
         <group position={[-ex,ey,0.332]}>
-          <mesh material={m.skinDark} scale={[0.098,0.086,0.044]}><sphereGeometry args={[1,18,14]} /></mesh>
-          <mesh material={m.sclera} position={[0,0,0.018]} scale={[0.087,0.077,0.047]}><sphereGeometry args={[1,24,18]} /></mesh>
-          <mesh material={m.irisDisc} position={[0,0,0.054]} rotation={[Math.PI/2,0,0]} scale={[0.052,0.008,0.052]}><cylinderGeometry args={[1,1,1,32]} /></mesh>
-          <mesh material={m.cornea} position={[0,0,0.073]} scale={[0.091,0.079,0.018]}><sphereGeometry args={[1,18,14]} /></mesh>
-          <mesh ref={eyelidLRef} material={m.lid} position={[0,0.046,0.018]} scale={[0.094,0.048,0.055]}><sphereGeometry args={[1,18,10,0,Math.PI*2,0,Math.PI*0.52]} /></mesh>
-          <mesh material={m.lash} position={[0,0.047,0.023]} scale={[0.093,0.014,0.029]}><sphereGeometry args={[1,14,6,0,Math.PI*2,0,Math.PI*0.46]} /></mesh>
-          <mesh material={m.skinDark} position={[0,-0.046,0.023]} scale={[0.091,0.013,0.026]}><sphereGeometry args={[1,14,7,0,Math.PI*2,Math.PI*0.52,Math.PI*0.46]} /></mesh>
+          <ImpMesh geo={bodyGeos.eyeSocket} material={m.skinDark} scale={[0.098,0.086,0.044]} />
+          <ImpMesh geo={bodyGeos.sclera} material={m.sclera} position={[0,0,0.018]} scale={[0.087,0.077,0.047]} />
+          <ImpMesh geo={bodyGeos.irisDisc} material={m.irisDisc} position={[0,0,0.054]} rotation={[Math.PI/2,0,0]} scale={[0.052,0.008,0.052]} />
+          <ImpMesh geo={bodyGeos.cornea} material={m.cornea} position={[0,0,0.073]} scale={[0.091,0.079,0.018]} />
+          <ImpMesh geo={bodyGeos.eyelidTop} material={m.lid} position={[0,0.046,0.018]} scale={[0.094,0.048,0.055]} meshRef={eyelidLRef} />
+          <ImpMesh geo={bodyGeos.lash} material={m.lash} position={[0,0.047,0.023]} scale={[0.093,0.014,0.029]} />
+          <ImpMesh geo={bodyGeos.lashBottom} material={m.skinDark} position={[0,-0.046,0.023]} scale={[0.091,0.013,0.026]} />
         </group>
         {/* Right eye */}
         <group position={[ex,ey,0.332]}>
-          <mesh material={m.skinDark} scale={[0.098,0.086,0.044]}><sphereGeometry args={[1,18,14]} /></mesh>
-          <mesh material={m.sclera} position={[0,0,0.018]} scale={[0.087,0.077,0.047]}><sphereGeometry args={[1,24,18]} /></mesh>
-          <mesh material={m.irisDisc} position={[0,0,0.054]} rotation={[Math.PI/2,0,0]} scale={[0.052,0.008,0.052]}><cylinderGeometry args={[1,1,1,32]} /></mesh>
-          <mesh material={m.cornea} position={[0,0,0.073]} scale={[0.091,0.079,0.018]}><sphereGeometry args={[1,18,14]} /></mesh>
-          <mesh ref={eyelidRRef} material={m.lid} position={[0,0.046,0.018]} scale={[0.094,0.048,0.055]}><sphereGeometry args={[1,18,10,0,Math.PI*2,0,Math.PI*0.52]} /></mesh>
-          <mesh material={m.lash} position={[0,0.047,0.023]} scale={[0.093,0.014,0.029]}><sphereGeometry args={[1,14,6,0,Math.PI*2,0,Math.PI*0.46]} /></mesh>
-          <mesh material={m.skinDark} position={[0,-0.046,0.023]} scale={[0.091,0.013,0.026]}><sphereGeometry args={[1,14,7,0,Math.PI*2,Math.PI*0.52,Math.PI*0.46]} /></mesh>
+          <ImpMesh geo={bodyGeos.eyeSocket} material={m.skinDark} scale={[0.098,0.086,0.044]} />
+          <ImpMesh geo={bodyGeos.sclera} material={m.sclera} position={[0,0,0.018]} scale={[0.087,0.077,0.047]} />
+          <ImpMesh geo={bodyGeos.irisDisc} material={m.irisDisc} position={[0,0,0.054]} rotation={[Math.PI/2,0,0]} scale={[0.052,0.008,0.052]} />
+          <ImpMesh geo={bodyGeos.cornea} material={m.cornea} position={[0,0,0.073]} scale={[0.091,0.079,0.018]} />
+          <ImpMesh geo={bodyGeos.eyelidTop} material={m.lid} position={[0,0.046,0.018]} scale={[0.094,0.048,0.055]} meshRef={eyelidRRef} />
+          <ImpMesh geo={bodyGeos.lash} material={m.lash} position={[0,0.047,0.023]} scale={[0.093,0.014,0.029]} />
+          <ImpMesh geo={bodyGeos.lashBottom} material={m.skinDark} position={[0,-0.046,0.023]} scale={[0.091,0.013,0.026]} />
         </group>
         {/* Eyebrows */}
-        <mesh ref={browLRef} material={m.brow} position={[-ex-0.012,0.242,0.346]} rotation={[0,0.08,cfg.browArc]} scale={[0.110,cfg.browThick,0.024]}><sphereGeometry args={[1,16,10]} /></mesh>
-        <mesh ref={browRRef} material={m.brow} position={[ ex+0.012,0.242,0.346]} rotation={[0,-0.08,-cfg.browArc]} scale={[0.110,cfg.browThick,0.024]}><sphereGeometry args={[1,16,10]} /></mesh>
+        <ImpMesh geo={bodyGeos.brow} material={m.brow} position={[-ex-0.012,0.242,0.346]} rotation={[0,0.08,cfg.browArc]} scale={[0.110,cfg.browThick,0.024]} meshRef={browLRef} />
+        <ImpMesh geo={bodyGeos.brow} material={m.brow} position={[ ex+0.012,0.242,0.346]} rotation={[0,-0.08,-cfg.browArc]} scale={[0.110,cfg.browThick,0.024]} meshRef={browRRef} />
         {/* Ears */}
         <group position={[-0.392,0.036,0]}>
-          <mesh material={m.skin} scale={[0.062,0.098,0.052]}><sphereGeometry args={[1,16,12]} /></mesh>
-          <mesh material={m.skinDark} position={[0.013,0.012,0.025]} scale={[0.025,0.061,0.022]}><torusGeometry args={[1,0.40,8,14,Math.PI]} /></mesh>
+          <ImpMesh geo={bodyGeos.ear} material={m.skin} scale={[0.062,0.098,0.052]} />
+          <ImpMesh geo={bodyGeos.earInner} material={m.skinDark} position={[0.013,0.012,0.025]} scale={[0.025,0.061,0.022]} />
         </group>
         <group position={[0.392,0.036,0]}>
-          <mesh material={m.skin} scale={[0.062,0.098,0.052]}><sphereGeometry args={[1,16,12]} /></mesh>
-          <mesh material={m.skinDark} position={[-0.013,0.012,0.025]} scale={[0.025,0.061,0.022]}><torusGeometry args={[1,0.40,8,14,Math.PI]} /></mesh>
+          <ImpMesh geo={bodyGeos.ear} material={m.skin} scale={[0.062,0.098,0.052]} />
+          <ImpMesh geo={bodyGeos.earInner} material={m.skinDark} position={[-0.013,0.012,0.025]} scale={[0.025,0.061,0.022]} />
         </group>
         {/* Hair */}
         {cfg.hairStyle==='curly'    && <HairCurly    h={m.hair} hs={m.hairSheen} />}
