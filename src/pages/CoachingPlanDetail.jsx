@@ -271,18 +271,33 @@ export default function CoachingPlanDetail() {
        )}
 
        {/* Workout Modal */}
-       {showWorkoutModal && workoutForModal && user && (
-         <StartWorkoutModal
-           isOpen={showWorkoutModal}
-           onClose={() => setShowWorkoutModal(false)}
-           workout={workoutForModal}
-           user={user}
-           onComplete={() => {
-             setShowWorkoutModal(false);
-             handleToggleTask('workout');
-           }}
-         />
-       )}
+        {showWorkoutModal && workoutForModal && user && (
+          <StartWorkoutModal
+            isOpen={showWorkoutModal}
+            onClose={() => setShowWorkoutModal(false)}
+            workout={workoutForModal}
+            user={user}
+            onComplete={() => {
+              setShowWorkoutModal(false);
+              handleToggleTask('workout');
+            }}
+          />
+        )}
+
+        {/* Meditation Player Modal */}
+        {showMeditationPlayer && dayData?.meditation && (
+          <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4">
+            <div className="bg-white rounded-2xl w-full max-w-md max-h-[90vh] overflow-auto">
+              <GuidedMeditationPlayer
+                meditation={dayData.meditation}
+                onClose={() => {
+                  setShowMeditationPlayer(false);
+                  handleToggleTask('meditation');
+                }}
+              />
+            </div>
+          </div>
+        )}
 
       {/* Celebration overlay */}
       <AnimatePresence>
