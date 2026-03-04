@@ -591,28 +591,49 @@ export default function CoachingPlanDetail() {
             </div>
           </SectionCard>
 
-          {/* 4. Journal */}
-          <SectionCard title="Journal Prompt" icon={Brain} color="bg-[#F0F4FF]" accentColor="#AFC7E3">
-            <div className="space-y-3">
-              <div className="p-4 bg-gradient-to-br from-[#AFC7E3]/15 to-[#3C4E53]/5 rounded-xl border border-[#AFC7E3]/25">
-                <p className="text-sm text-[#0A1A2F]/80 leading-relaxed italic">
-                  "{dayData.journal.prompt}"
-                </p>
+          {/* 4. Meditation */}
+          {dayData.meditation && (
+            <SectionCard title="Guided Meditation" icon={Wind} color="bg-[#F2F6FA]" accentColor="#AFC7E3">
+              <div className="space-y-3">
+                <div className="p-4 bg-gradient-to-br from-[#AFC7E3]/15 to-[#3C4E53]/5 rounded-xl border border-[#AFC7E3]/25">
+                  <p className="text-sm font-semibold text-[#0A1A2F] mb-1">{dayData.meditation.title}</p>
+                  <p className="text-xs text-[#0A1A2F]/70">{dayData.meditation.description}</p>
+                </div>
+                <div className="flex gap-2">
+                  <TaskRow
+                    label={`Complete: ${dayData.meditation.title}`}
+                    done={taskState.meditation}
+                    onToggle={() => handleToggleTask('meditation')}
+                    linkTo={createPageUrl('GuidedMeditationsPage')}
+                    linkLabel="Start Meditation"
+                  />
+                </div>
               </div>
-              <TaskRow
-                label="Write your journal entry"
-                done={taskState.journal}
-                onToggle={() => handleToggleTask('journal')}
-                linkTo={journalUrl}
-                linkLabel="Open Journal"
-              />
-              <Link to={createPageUrl('MyJournalEntries')}
-                className="flex items-center justify-between p-3 bg-white rounded-xl border border-[#AFC7E3]/25 hover:border-[#AFC7E3]/50 transition-colors">
-                <span className="text-xs font-semibold text-[#3C4E53]">View past entries</span>
-                <ChevronRight className="w-4 h-4 text-[#3C4E53]" />
-              </Link>
-            </div>
-          </SectionCard>
+            </SectionCard>
+          )}
+
+          {/* 5. Journal */}
+           <SectionCard title="Journal Prompt" icon={Brain} color="bg-[#F0F4FF]" accentColor="#AFC7E3">
+             <div className="space-y-3">
+               <div className="p-4 bg-gradient-to-br from-[#AFC7E3]/15 to-[#3C4E53]/5 rounded-xl border border-[#AFC7E3]/25">
+                 <p className="text-sm text-[#0A1A2F]/80 leading-relaxed italic">
+                   "{dayData.journal.prompt}"
+                 </p>
+               </div>
+               <TaskRow
+                 label="Write your journal entry"
+                 done={taskState.journal}
+                 onToggle={() => handleToggleTask('journal')}
+                 linkTo={journalUrl}
+                 linkLabel="Open Journal"
+               />
+               <Link to={createPageUrl('MyJournalEntries')}
+                 className="flex items-center justify-between p-3 bg-white rounded-xl border border-[#AFC7E3]/25 hover:border-[#AFC7E3]/50 transition-colors">
+                 <span className="text-xs font-semibold text-[#3C4E53]">View past entries</span>
+                 <ChevronRight className="w-4 h-4 text-[#3C4E53]" />
+               </Link>
+             </div>
+           </SectionCard>
 
           {/* 5. Affirmation */}
           <SectionCard title="Today's Affirmation" icon={Sparkles} color="bg-[#FFF9EC]" accentColor="#c9a227">
