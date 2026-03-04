@@ -30,6 +30,7 @@ export const MIND_RENEWAL_PLAN = {
     bible: { book: 'Philippians', chapter: 4, verse_range: '8', key_verse: '"Whatever is true... think about such things." — Philippians 4:8', devotion: 'Your thoughts shape your reality. Choose them carefully.', reflection_q: 'What thought pattern most needs healing?' },
     workout: { premade_id: 'yoga-flow', motivational_tip: 'Movement heals the mind as much as the body.', coach_note: 'Somatic practices integrate trauma.' },
     nutrition: { focus: 'Brain Health', meal_theme: 'Mood-Supporting Foods', plan: 'Omega-3s, B vitamins, and foods that support neurotransmitter production.', tip: 'The gut-brain axis: feed it well.', recipe_search: 'brain health mood nutrition' },
+    meditation: { title: 'Anxiety Relief', description: 'Calm racing thoughts and return to stillness through breath and faith.' },
     journal: { prompt: 'What belief about yourself needs to be challenged?', entry_type: 'emotional_checkin' },
     affirmation: 'My mind is healing. Old patterns are loosening. I am becoming free.',
     personal_growth_page: 'EmotionalCheckInPage',
