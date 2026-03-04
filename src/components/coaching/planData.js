@@ -5,6 +5,13 @@
 
 import { FINANCIAL_FREEDOM_PLAN } from './financialFreedomPlanData';
 import { LOVE_LANGS_PLAN } from './loveLangsPlanData';
+import { POWER_PURPOSE_PLAN } from './powerPurposePlanData';
+import { NOURISH_THRIVE_PLAN } from './nourishThrivePlanData';
+import { SOUL_DEEP_PLAN } from './soulDeepPlanData';
+import { GROWTH_SPRINT_PLAN } from './growthSprintPlanData';
+import { MIND_RENEWAL_PLAN } from './mindRenewalPlanData';
+import { SACRED_KITCHEN_PLAN } from './sacredKitchenPlanData';
+import { BREAKTHROUGH_LEADERS_PLAN } from './breakroughLeadersPlanData';
 
 export const WEEK_THEMES = [
   { week: 1, theme: 'Foundation',   title: 'Know Your Why',         color: 'from-[#0D4F3C] to-[#22856A]', accent: '#22856A', emoji: '🌱' },
@@ -1465,81 +1472,36 @@ export const COACHING_PLANS = [
     comingSoon: false,
   },
   {
-    id: 'temple-strong',
-    title: 'Temple Strong',
-    subtitle: '8 Weeks to Honor God with Your Body',
-    description: 'A faith-rooted fitness and nutrition plan that treats physical health as an act of worship — building sustainable strength, healthy eating, and a godly body image.',
-    weeks: 8, days_total: 56, difficulty: 'Intermediate',
+    ...POWER_PURPOSE_PLAN,
     category: 'body',
-    gradient: 'from-[#0A1A2F] to-[#2563eb]',
-    accent: '#3b82f6', cover_emoji: '🏋️',
-    tags: ['Fitness', 'Nutrition', 'Bible', 'Weight Loss', 'Strength'],
-    week_themes: TEMPLE_STRONG_WEEK_THEMES,
-    days: [],
-    comingSoon: true,
+    comingSoon: false,
   },
   {
-    id: 'athlete-of-faith',
-    title: 'Athlete of Faith',
-    subtitle: '8 Weeks of Performance Training & Purpose',
-    description: 'Elite-level conditioning meets deep faith — for those who want to compete, perform, and train as if God is watching. Because He is.',
-    weeks: 8, days_total: 56, difficulty: 'Advanced',
+    ...NOURISH_THRIVE_PLAN,
     category: 'body',
-    gradient: 'from-[#0A1A2F] to-[#dc2626]',
-    accent: '#f87171', cover_emoji: '🏅',
-    tags: ['Performance', 'Fitness', 'Mindset', 'Discipline', 'Faith'],
-    week_themes: ATHLETE_OF_FAITH_WEEK_THEMES,
-    days: [],
-    comingSoon: true,
+    comingSoon: false,
+  },
+  {
+    ...SACRED_KITCHEN_PLAN,
+    category: 'body',
+    comingSoon: false,
   },
   // ── MIND & SPIRIT ───────────────────────────────────────────────────────────
   {
-    id: 'breaking-free',
-    title: 'Breaking Free',
-    subtitle: '8 Weeks of Healing & Liberation',
-    description: 'A deep healing journey for those battling cycles, strongholds, and habits that won\'t break. Rooted in identity, Scripture, and the power of community.',
-    weeks: 8, days_total: 56, difficulty: 'All Levels',
+    ...SOUL_DEEP_PLAN,
     category: 'mind',
-    gradient: 'from-[#7c3aed] to-[#0A1A2F]',
-    accent: '#a78bfa', cover_emoji: '🦅',
-    tags: ['Healing', 'Identity', 'Bible', 'Freedom', 'Mindset'],
-    week_themes: BREAKING_FREE_WEEK_THEMES,
-    days: [],
-    comingSoon: true,
+    comingSoon: false,
   },
   {
-    id: 'deep-roots',
-    title: 'Deep Roots',
-    subtitle: '8 Weeks of Prayer, Scripture & Stillness',
-    description: 'For those who want to go deeper with God — a daily prayer and Scripture immersion plan that builds an unshakeable spiritual foundation through stillness, fasting, and worship.',
-    weeks: 8, days_total: 56, difficulty: 'All Levels',
+    ...MIND_RENEWAL_PLAN,
     category: 'mind',
-    gradient: 'from-[#0A1A2F] to-[#065f46]',
-    accent: '#34d399', cover_emoji: '🌳',
-    tags: ['Prayer', 'Scripture', 'Fasting', 'Worship', 'Spiritual Growth'],
-    week_themes: DEEP_ROOTS_WEEK_THEMES,
-    days: [],
-    comingSoon: true,
+    comingSoon: false,
   },
   // ── RELATIONSHIPS ───────────────────────────────────────────────────────────
   {
     ...LOVE_LANGS_PLAN,
     category: 'relationships',
     comingSoon: false,
-  },
-  {
-    id: 'stronger-marriage',
-    title: 'Stronger Marriage',
-    subtitle: '8 Weeks to a Deeper, Healthier Bond',
-    description: 'A couples\' plan rooted in Scripture that walks through communication, conflict, intimacy, and vision — rebuilding the foundation or strengthening what\'s already strong.',
-    weeks: 8, days_total: 56, difficulty: 'All Levels',
-    category: 'relationships',
-    gradient: 'from-[#db2777] to-[#0A1A2F]',
-    accent: '#f9a8d4', cover_emoji: '💍',
-    tags: ['Marriage', 'Communication', 'Faith', 'Intimacy', 'Commitment'],
-    week_themes: STRONGER_MARRIAGE_WEEK_THEMES,
-    days: [],
-    comingSoon: true,
   },
   // ── PURPOSE ─────────────────────────────────────────────────────────────────
   {
@@ -1548,31 +1510,13 @@ export const COACHING_PLANS = [
     comingSoon: false,
   },
   {
-    id: 'called-and-equipped',
-    title: 'Called & Equipped',
-    subtitle: '8 Weeks to Discover Your God-Given Purpose',
-    description: 'A guided journey through gifting, calling, and courage — for those who sense God has more for them but aren\'t sure what it is or how to step into it.',
-    weeks: 8, days_total: 56, difficulty: 'All Levels',
+    ...GROWTH_SPRINT_PLAN,
     category: 'purpose',
-    gradient: 'from-[#0A1A2F] to-[#b45309]',
-    accent: '#fbbf24', cover_emoji: '🔥',
-    tags: ['Purpose', 'Calling', 'Faith', 'Courage', 'Gifts'],
-    week_themes: CALLED_EQUIPPED_WEEK_THEMES,
-    days: [],
-    comingSoon: true,
+    comingSoon: false,
   },
   {
-    id: 'kingdom-business',
-    title: 'Kingdom Business',
-    subtitle: '8 Weeks of Faith in the Workplace',
-    description: 'For entrepreneurs, leaders, and professionals who want their work to be an act of worship — building character, leading with integrity, and stewarding business as ministry.',
-    weeks: 8, days_total: 56, difficulty: 'All Levels',
+    ...BREAKTHROUGH_LEADERS_PLAN,
     category: 'purpose',
-    gradient: 'from-[#0A1A2F] to-[#1e40af]',
-    accent: '#60a5fa', cover_emoji: '🏢',
-    tags: ['Business', 'Leadership', 'Integrity', 'Stewardship', 'Purpose'],
-    week_themes: KINGDOM_BUSINESS_WEEK_THEMES,
-    days: [],
-    comingSoon: true,
+    comingSoon: false,
   },
 ];
