@@ -1362,7 +1362,6 @@ export const COACHING_PLANS = [
     gradient: 'from-[#0D4F3C] to-[#c9a227]',
     accent: '#c9a227',
     cover_emoji: '👑',
-    category: 'whole-life',
     tags: ['Bible', 'Fitness', 'Nutrition', 'Journaling', 'Mindset'],
     week_themes: WEEK_THEMES,
     days: PLAN_DAYS,
