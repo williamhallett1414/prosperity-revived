@@ -156,12 +156,20 @@ export default function CoachingPlanDetail() {
   const [dayComplete, setDayComplete] = useState(false);
   const [celebrating, setCelebrating] = useState(false);
   const [currentWeekView, setCurrentWeekView] = useState(1);
+  const [showMenu, setShowMenu] = useState(false);
 
   const { data: mealLogs = [] } = useQuery({
     queryKey: ['mealLogs', currentDay],
     queryFn: () => base44.entities.MealLog.list('-created_date', 50) || [],
     enabled: !!user
   });
+
+  const handleAbandonPlan = () => {
+    if (window.confirm('Are you sure you want to abandon this plan? Your progress will be reset.')) {
+      localStorage.removeItem(`coaching_progress_${planId}`);
+      window.location.reload();
+    }
+  };
 
   const plan = COACHING_PLANS.find(p => p.id === planId) || COACHING_PLANS[0];
   const dayData = plan.days.find(d => d.number === currentDay) || plan.days[currentDay - 1];
