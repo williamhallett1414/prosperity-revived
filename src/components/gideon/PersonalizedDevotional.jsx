@@ -53,41 +53,41 @@ export default function PersonalizedDevotional() {
   }
 
   if (!todayReflection) {
-    return (
-      <Card className="p-6 bg-gradient-to-br from-[#F2F6FA] to-[#FAD98D]/10 dark:from-indigo-900/20 dark:to-[#1a1a2e]/20 border-[#AFC7E3]/40 dark:border-indigo-700">
-        <div className="flex items-center gap-4 mb-4">
-          <div className="w-12 h-12 bg-gradient-to-br from-[#AFC7E3] to-[#D9B878] rounded-full flex items-center justify-center">
-            <Sparkles className="w-6 h-6 text-white" />
-          </div>
-          <div className="flex-1">
-            <h3 className="font-bold text-gray-900 dark:text-white">Personalized Daily Devotional</h3>
-            <p className="text-sm text-gray-600 dark:text-gray-400">Tailored to your spiritual journey</p>
-          </div>
-        </div>
-        
-        <p className="text-sm text-gray-700 dark:text-gray-300 mb-4">
-          Gideon can create a devotional specifically for you based on your recent journal entries, 
-          prayers, reading progress, and current spiritual state.
-        </p>
-        
-        <Button
-          onClick={() => generateDevotional.mutate()}
-          disabled={generateDevotional.isPending}
-          className="w-full bg-gradient-to-r from-[#AFC7E3] to-[#D9B878] hover:from-indigo-600 hover:to-[#c9a227] text-white">
+    return null;
 
-          {generateDevotional.isPending ?
-          <>
-              <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
-              Generating...
-            </> :
 
-          <>
-              <Sparkles className="w-4 h-4 mr-2" />
-              Generate My Devotional
-            </>
-          }
-        </Button>
-      </Card>);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   }
 
