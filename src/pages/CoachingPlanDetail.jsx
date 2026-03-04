@@ -156,6 +156,12 @@ export default function CoachingPlanDetail() {
   const [celebrating, setCelebrating] = useState(false);
   const [currentWeekView, setCurrentWeekView] = useState(1);
 
+  const { data: mealLogs = [] } = useQuery({
+    queryKey: ['mealLogs', currentDay],
+    queryFn: () => base44.entities.MealLog.list('-created_date', 50) || [],
+    enabled: !!user
+  });
+
   const plan = COACHING_PLANS.find(p => p.id === planId) || COACHING_PLANS[0];
   const dayData = plan.days.find(d => d.number === currentDay) || plan.days[currentDay - 1];
   const weekTheme = (plan.week_themes || []).find(w => w.week === dayData?.week) || plan.week_themes?.[0];
