@@ -613,7 +613,7 @@ Example: [VERSE]Romans 8:28 - "And we know that all things work together for goo
                                 ) : (
                                   <ReactMarkdown 
                                     key={idx}
-                                    className="prose prose-sm max-w-none prose-p:my-1 prose-li:my-0 text-[#0A1A2F] text-sm leading-relaxed"
+                                    className="prose prose-sm max-w-none prose-p:my-1.5 prose-li:my-0.5 prose-headings:font-semibold text-[#0A1A2F] text-sm leading-relaxed"
                                     components={{
                                       h1: ({node, ...props}) => <h1 className="font-bold mt-6 mb-3" {...props} />,
                                       h2: ({node, ...props}) => <h2 className="font-bold mt-5 mb-3" {...props} />,
