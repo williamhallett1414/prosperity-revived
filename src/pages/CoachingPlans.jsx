@@ -21,6 +21,14 @@ function PlanCard({ plan, idx }) {
   const isStarted = completedDays > 0;
   const currentDay = completedDays + 1;
 
+  const handleAbandonPlan = (e) => {
+    e.stopPropagation();
+    if (window.confirm(`Are you sure you want to abandon this plan? Your progress will be reset.`)) {
+      localStorage.removeItem(`coaching_progress_${plan.id}`);
+      window.location.reload();
+    }
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 16 }}
