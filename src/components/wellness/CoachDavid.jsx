@@ -363,16 +363,14 @@ Return ONLY valid JSON array:
   };
 
   const quickActions = [
-    "Build my ideal strength routine",
-    "How do I stop making excuses?",
-    "Create a habit of discipline",
-    "I'm hitting a plateau—help!",
-    "How do I stay consistent?",
-    "HIIT vs steady cardio—which for me?",
-    "How to recover like a pro",
-    "Mental toughness training",
-    "I'm feeling fatigued — adjust my workout",
-    "My performance dropped today — what should I do?"
+    { label: "💪 Build my routine", prompt: "Build my ideal strength routine" },
+    { label: "🚫 Stop making excuses", prompt: "How do I stop making excuses?" },
+    { label: "🔥 Beat a plateau", prompt: "I'm hitting a plateau—help!" },
+    { label: "⏱️ HIIT vs cardio", prompt: "HIIT vs steady cardio—which is better for me?" },
+    { label: "😴 Recovery tips", prompt: "How do I recover like a pro?" },
+    { label: "🧠 Mental toughness", prompt: "Mental toughness training techniques" },
+    { label: "😓 Feeling fatigued", prompt: "I'm feeling fatigued — adjust my workout" },
+    { label: "📉 Performance drop", prompt: "My performance dropped today — what should I do?" },
   ];
 
   return (
@@ -554,24 +552,26 @@ Return ONLY valid JSON array:
               {isLoading && (
                 <div className="flex justify-start">
                   <div className="bg-white border border-[#E6EBEF] rounded-2xl px-4 py-3 shadow-sm">
-                    <Loader2 className="w-5 h-5 animate-spin text-[#D9B878]" />
+                    <Loader2 className="w-5 h-5 animate-spin text-[#38BDF8]" />
                   </div>
                 </div>
               )}
 
               {/* Quick Actions */}
               {messages.length === 1 && !isLoading && (
-                <div className="space-y-2 pt-2">
-                  <p className="text-xs text-[#0A1A2F]/60 font-medium">Quick questions:</p>
-                  {quickActions.map((action, idx) => (
-                    <button
-                      key={idx}
-                      onClick={() => sendWithText(action)}
-                      className="block w-full text-left text-sm px-4 py-3 rounded-xl bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] transition-colors shadow-sm"
-                    >
-                      {action}
-                    </button>
-                  ))}
+                <div className="pt-2">
+                  <p className="text-xs text-[#0A1A2F]/60 font-medium mb-2">Quick questions:</p>
+                  <div className="flex flex-wrap gap-2">
+                    {quickActions.map((action, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => sendWithText(action.prompt)}
+                        className="text-xs px-3 py-2 rounded-full bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] transition-colors shadow-sm border border-[#CBD5E1]"
+                      >
+                        {action.label}
+                      </button>
+                    ))}
+                  </div>
                 </div>
               )}
               <div ref={messagesEndRef} />
