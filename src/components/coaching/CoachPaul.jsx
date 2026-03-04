@@ -126,6 +126,25 @@ Keep responses conversational, encouraging, and practical. Reference their speci
     }
   };
 
+  const handleQuickAsk = (suggestion) => {
+    setInput(suggestion.label);
+    setTimeout(() => {
+      const event = new KeyboardEvent('keydown', { key: 'Enter' });
+      document.dispatchEvent(event);
+      handleSendMessage();
+    }, 100);
+  };
+
+  const speakMessage = (text) => {
+    if ('speechSynthesis' in window) {
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.rate = 0.95;
+      setSpeaking(true);
+      utterance.onend = () => setSpeaking(false);
+      window.speechSynthesis.speak(utterance);
+    }
+  };
+
   return (
     <>
       {/* Floating button */}
