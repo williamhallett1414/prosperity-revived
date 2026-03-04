@@ -159,6 +159,7 @@ export default function CoachingPlanDetail() {
   const [celebrating, setCelebrating] = useState(false);
   const [currentWeekView, setCurrentWeekView] = useState(1);
   const [showMenu, setShowMenu] = useState(false);
+  const [showMeditationPlayer, setShowMeditationPlayer] = useState(false);
 
   const { data: mealLogs = [] } = useQuery({
     queryKey: ['mealLogs', currentDay],
