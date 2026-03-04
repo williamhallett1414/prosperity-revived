@@ -126,6 +126,7 @@ export const CONTEMPLATIVE_PRAYER_PLAN = {
   accent: '#3b82f6',
   cover_emoji: '🧘',
   tags: ['Prayer', 'Spirituality', 'Contemplation', 'Meditation', 'Faith'],
+  category: 'spiritual',
   week_themes: CONTEMPLATIVE_PRAYER_WEEK_THEMES,
   days: CONTEMPLATIVE_PRAYER_DAYS,
 };

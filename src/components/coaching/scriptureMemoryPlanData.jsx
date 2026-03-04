@@ -111,6 +111,7 @@ export const SCRIPTURE_MEMORY_PLAN = {
   accent: '#dc2626',
   cover_emoji: '📖',
   tags: ['Bible', 'Scripture', 'Memorization', 'Meditation', 'Spirituality'],
+  category: 'spiritual',
   week_themes: SCRIPTURE_MEMORY_WEEK_THEMES,
   days: SCRIPTURE_MEMORY_DAYS,
 };

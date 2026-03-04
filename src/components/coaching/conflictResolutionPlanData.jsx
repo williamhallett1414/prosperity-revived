@@ -209,6 +209,7 @@ export const CONFLICT_RESOLUTION_PLAN = {
   accent: '#ef4444',
   cover_emoji: '⚔️',
   tags: ['Relationships', 'Communication', 'Conflict', 'Skills', 'Intimacy'],
+  category: 'relationships',
   week_themes: CONFLICT_RESOLUTION_WEEK_THEMES,
   days: CONFLICT_RESOLUTION_DAYS,
 };

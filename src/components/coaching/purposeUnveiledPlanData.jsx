@@ -111,6 +111,7 @@ export const PURPOSE_UNVEILED_PLAN = {
   accent: '#f59e0b',
   cover_emoji: '🎯',
   tags: ['Purpose', 'Calling', 'Vision', 'Life Direction', 'Personal Growth'],
+  category: 'personal',
   week_themes: PURPOSE_UNVEILED_WEEK_THEMES,
   days: PURPOSE_UNVEILED_DAYS,
 };

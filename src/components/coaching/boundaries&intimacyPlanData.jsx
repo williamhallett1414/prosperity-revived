@@ -200,6 +200,7 @@ export const BOUNDARIES_INTIMACY_PLAN = {
   accent: '#059669',
   cover_emoji: '🚧',
   tags: ['Relationships', 'Boundaries', 'Intimacy', 'Self-Care', 'Communication'],
+  category: 'relationships',
   week_themes: BOUNDARIES_INTIMACY_WEEK_THEMES,
   days: BOUNDARIES_INTIMACY_DAYS,
 };

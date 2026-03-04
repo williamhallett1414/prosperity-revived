@@ -211,6 +211,7 @@ export const ATTACHMENT_STYLES_PLAN = {
   accent: '#7c3aed',
   cover_emoji: '🧩',
   tags: ['Relationships', 'Psychology', 'Healing', 'Journaling', 'Mindfulness'],
+  category: 'relationships',
   week_themes: ATTACHMENT_STYLES_WEEK_THEMES,
   days: ATTACHMENT_STYLES_DAYS,
 };
