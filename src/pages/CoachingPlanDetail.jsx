@@ -8,7 +8,7 @@ import {
   Calendar, Heart, Sparkles, Star, Trophy, Timer, List, X
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { COACHING_PLANS } from '@/components/coaching/planData';
+import { COACHING_PLANS, WEEK_THEMES } from '@/components/coaching/planData';
 import { PREMADE_WORKOUTS } from '@/components/wellness/WorkoutLibrary';
 import { base44 } from '@/api/base44Client';
 import { toast } from 'sonner';
