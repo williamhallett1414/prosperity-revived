@@ -1363,6 +1363,7 @@ export const COACHING_PLANS = [
     accent: '#c9a227',
     cover_emoji: '👑',
     tags: ['Bible', 'Fitness', 'Nutrition', 'Journaling', 'Mindset'],
+    category: 'whole-life',
     week_themes: WEEK_THEMES,
     days: PLAN_DAYS,
   },
