@@ -2,9 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
 import { BookOpen, Brain, Heart, Sparkles, Target, CheckCircle2, Crown, Calendar, Wind, Star, ArrowRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate} from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import Hannah from '@/components/mindspirit/Hannah';
 
 // Get a time-of-day recommendation
 const getFeatured = () => {
@@ -50,6 +49,34 @@ const GRID_CARDS = [
   { page: 'WeeklyReflectionPage', icon: Calendar,     iconBg: 'from-[#3C4E53] to-[#AFC7E3]', label: 'Weekly Reflection',    sub: 'Process the week that was',   delay: 0.28 },
   { page: 'GratitudeJournalPage', icon: Star,         iconBg: 'from-[#AFC7E3] to-[#3C4E53]', label: 'Gratitude Journal',    sub: 'Name three gifts from today', delay: 0.32 },
 ];
+
+
+// Floating chat button that navigates to ChatScreen
+function ChatFAB({ bot, gradFrom, gradTo }) {
+  const navigate = useNavigate();
+  return (
+    <button
+      onClick={() => navigate('/ChatScreen?bot=' + bot)}
+      style={{
+        position: 'fixed', bottom: '6rem', right: '1rem', zIndex: 40,
+        background: `linear-gradient(135deg, ${gradFrom}, ${gradTo})`,
+        color: 'white', borderRadius: '9999px', padding: '1rem',
+        boxShadow: '0 8px 32px rgba(0,0,0,0.25)',
+        border: 'none', cursor: 'pointer',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        width: '56px', height: '56px',
+        transition: 'transform 0.15s ease',
+      }}
+      onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.08)'}
+      onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
+      title={`Chat with ${bot}`}
+    >
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+      </svg>
+    </button>
+  );
+}
 
 export default function PersonalGrowth() {
   const [user, setUser] = useState(null);
@@ -142,8 +169,7 @@ export default function PersonalGrowth() {
 
         </div>
       </div>
-
-      <Hannah user={user} />
-    </div>
+      <ChatFAB bot="Hannah" gradFrom="#AFC7E3" gradTo="#3C4E53" />
+</div>
   );
 }

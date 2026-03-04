@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { UtensilsCrossed, Link as LinkIcon } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate} from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import PullToRefresh from '@/components/ui/PullToRefresh';
 import MealTracker from '@/components/wellness/MealTracker';
@@ -11,10 +11,37 @@ import TrendingNutritionArticles from '@/components/nutrition/TrendingNutritionA
 import RecipeCollections from '@/components/wellness/RecipeCollections';
 import PersonalizedNutritionPlan from '@/components/wellness/PersonalizedNutritionPlan';
 import NutritionDashboard from '@/components/nutrition/NutritionDashboard';
-import ChefDaniel from '@/components/wellness/ChefDaniel';
 import CommunityRecipeFeed from '@/components/wellness/CommunityRecipeFeed';
 import IngredientRecipeBuilder from '@/components/nutrition/IngredientRecipeBuilder';
 import MealPlannerCard from '@/components/nutrition/MealPlannerCard';
+
+
+// Floating chat button that navigates to ChatScreen
+function ChatFAB({ bot, gradFrom, gradTo }) {
+  const navigate = useNavigate();
+  return (
+    <button
+      onClick={() => navigate('/ChatScreen?bot=' + bot)}
+      style={{
+        position: 'fixed', bottom: '6rem', right: '1rem', zIndex: 40,
+        background: `linear-gradient(135deg, ${gradFrom}, ${gradTo})`,
+        color: 'white', borderRadius: '9999px', padding: '1rem',
+        boxShadow: '0 8px 32px rgba(0,0,0,0.25)',
+        border: 'none', cursor: 'pointer',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        width: '56px', height: '56px',
+        transition: 'transform 0.15s ease',
+      }}
+      onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.08)'}
+      onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
+      title={`Chat with ${bot}`}
+    >
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+      </svg>
+    </button>
+  );
+}
 
 export default function Nutrition() {
   const [user, setUser] = useState(null);
@@ -103,11 +130,7 @@ export default function Nutrition() {
       </div>
 
       {/* Chef Daniel - Nutrition Chat */}
-      <ChefDaniel
-        user={user}
-        userRecipes={[]}
-        mealLogs={mealLogs} />
-
-    </div>);
+      <ChatFAB bot="ChefDaniel" gradFrom="#166534" gradTo="#22c55e" />
+</div>);
 
 }

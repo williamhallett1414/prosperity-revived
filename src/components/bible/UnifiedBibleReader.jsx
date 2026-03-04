@@ -1,9 +1,9 @@
+import { useNavigate } from 'react-router-dom';
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, ChevronRight, ChevronLeft, Bookmark, ChevronDown, ChevronUp, Search, Menu, X } from 'lucide-react';
 import { bibleBooks } from './BibleData';
 import { base44 } from '@/api/base44Client';
-import GideonAskAnything from '@/components/bible/GideonAskAnything';
 import VerseActionMenu from '@/components/bible/VerseActionMenu';
 import { toast } from 'sonner';
 import { useQueryClient, useMutation } from '@tanstack/react-query';
@@ -94,6 +94,33 @@ function GroupRow({ group, books, isOpen, hasActive, onToggle, selectedBookName,
 
 // ─── Main Component ──────────────────────────────────────────────────────────
 
+
+function ChatFAB({ bot, gradFrom, gradTo }) {
+  const navigate = useNavigate();
+  return (
+    <button
+      onClick={() => navigate('/ChatScreen?bot=' + bot)}
+      style={{
+        position: 'fixed', bottom: '6rem', right: '1rem', zIndex: 40,
+        background: `linear-gradient(135deg, ${gradFrom}, ${gradTo})`,
+        color: 'white', borderRadius: '9999px', padding: '1rem',
+        boxShadow: '0 8px 32px rgba(0,0,0,0.25)',
+        border: 'none', cursor: 'pointer',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        width: '56px', height: '56px',
+        transition: 'transform 0.15s ease',
+      }}
+      onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.08)'}
+      onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
+      title="Chat with Gideon"
+    >
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+      </svg>
+    </button>
+  );
+}
+
 export default function UnifiedBibleReader({
   testament: initialTestament = 'old',
   onBack,
@@ -103,6 +130,7 @@ export default function UnifiedBibleReader({
   onBookmark,
   searchData = null,
 }) {
+  const navigate = useNavigate();
   // Fix #9: allow in-reader testament switching
   const [testament, setTestament] = React.useState(initialTestament);
   const handleSwitchTestament = (t) => {
@@ -697,8 +725,7 @@ export default function UnifiedBibleReader({
           30%, 70%  { background: rgba(217,184,120,0.22); border-radius: 10px; }
         }
       `}</style>
-
-      <GideonAskAnything />
-    </div>
+      <ChatFAB bot="Gideon" gradFrom="#7c5a00" gradTo="#D9B878" />
+</div>
   );
 }
