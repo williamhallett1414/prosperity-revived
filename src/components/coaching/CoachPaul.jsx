@@ -222,41 +222,41 @@ Keep responses conversational, encouraging, and practical. Reference their speci
 
               <AnimatePresence>
                 {messages.map((msg, idx) => (
-                  <motion.div
-                    key={idx}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
-                  >
-                    <div
-                      className={`max-w-[80%] rounded-2xl px-4 py-3 ${
-                        msg.role === 'user'
-                          ? 'bg-[#0D4F3C] text-white'
-                          : 'bg-white border border-[#0D4F3C]/10 text-[#0A1A2F] shadow-sm'
-                      }`}
-                    >
-                      {msg.role === 'user' ? (
-                        <p className="text-sm">{msg.content}</p>
-                      ) : (
-                        <>
-                          <ReactMarkdown className="text-sm prose prose-sm max-w-none [&>*:first-child]:mt-0 [&>*:last-child]:mb-0 [&_p]:mb-1 [&_ul]:mb-1 [&_li]:mb-0">
-                            {msg.content}
-                          </ReactMarkdown>
-                          <div className="flex justify-end mt-1">
-                            <button
-                              onClick={() => speakMessage(msg.content)}
-                              disabled={speaking}
-                              className="text-xs font-semibold text-[#0D4F3C] hover:text-[#0D4F3C]/70 transition-colors flex items-center gap-1"
-                            >
-                              <Volume2 className="w-3 h-3" /> Listen
-                            </button>
-                          </div>
-                        </>
-                      )}
-                    </div>
-                  </motion.div>
-                ))}
-              </AnimatePresence>
+                   <motion.div
+                     key={idx}
+                     initial={{ opacity: 0, y: 10 }}
+                     animate={{ opacity: 1, y: 0 }}
+                     className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                   >
+                     <div
+                       className={`max-w-[80%] rounded-2xl px-4 py-3 ${
+                         msg.role === 'user'
+                           ? 'bg-gradient-to-r from-[#AFC7E3] to-[#3C4E53] text-white'
+                           : 'bg-white border border-[#AFC7E3]/40 text-[#0A1A2F]'
+                       }`}
+                     >
+                       {msg.role === 'user' ? (
+                         <p className="text-sm">{msg.content}</p>
+                       ) : (
+                         <>
+                           <ReactMarkdown className="text-sm prose prose-sm max-w-none text-gray-800 [&>*:first-child]:mt-0 [&>*:last-child]:mb-0 [&_p]:mb-1 [&_ul]:mb-1 [&_li]:mb-0">
+                             {msg.content}
+                           </ReactMarkdown>
+                           <div className="flex justify-end mt-1">
+                             <button
+                               onClick={() => speakMessage(msg.content)}
+                               disabled={speaking}
+                               className="text-xs font-semibold text-[#3C4E53] hover:text-[#3C4E53]/70 transition-colors flex items-center gap-1"
+                             >
+                               <Volume2 className="w-3 h-3" /> Listen
+                             </button>
+                           </div>
+                         </>
+                       )}
+                     </div>
+                   </motion.div>
+                 ))}
+                </AnimatePresence>
 
               {loading && (
                 <motion.div
