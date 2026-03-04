@@ -30,6 +30,7 @@ export const SOUL_DEEP_PLAN = {
     bible: { book: 'Psalm', chapter: 42, verse_range: '1-2', key_verse: '"As the deer pants for streams of water, so my soul pants for you, O God." — Psalm 42:1', devotion: 'Deep spiritual awakening begins with spiritual hunger.', reflection_q: 'What is your soul thirsting for?' },
     workout: { premade_id: 'guided-meditation', motivational_tip: 'Stillness is a spiritual practice.', coach_note: 'Let meditation deepen your prayer life.' },
     nutrition: { focus: 'Fasting & Feast', meal_theme: 'Spiritual Disciplines', plan: 'Simple foods, intentional fasting, sacred meals.', tip: 'Eating can be a spiritual practice too.', recipe_search: 'contemplative simple meal' },
+    meditation: { title: 'Sabbath Rest', description: 'Enter true rest — ceasing striving and trusting in God\'s sufficiency.' },
     journal: { prompt: 'Where do you encounter God most vividly?', entry_type: 'spiritual_reflection' },
     affirmation: 'My soul awakens to God\'s presence. I am known and loved in the depths of my being.',
     personal_growth_page: 'Prayer',
