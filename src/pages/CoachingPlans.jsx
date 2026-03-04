@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { ArrowLeft, BookOpen, Dumbbell, Utensils, Brain, Calendar, CheckCircle2, ChevronRight, Crown, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { COACHING_PLANS, WEEK_THEMES } from '@/components/coaching/planData';
+import { COACHING_PLANS, PLAN_CATEGORIES, WEEK_THEMES } from '@/components/coaching/planData';
 import { base44 } from '@/api/base44Client';
 
 function getPlanProgress(planId) {
