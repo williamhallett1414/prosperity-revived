@@ -890,7 +890,7 @@ Return ONLY valid JSON array:
             )}
 
             {/* Quick-Ask Menu */}
-            <div className="border-b border-[#bbf7d0] bg-[#f0fdf4] px-5 py-3 overflow-x-auto">
+            {messages.length <= 1 && <div className="border-b border-[#bbf7d0] bg-[#f0fdf4] px-5 py-3 overflow-x-auto">
               <div className="flex items-center justify-between mb-2">
                 <p className="text-xs font-semibold text-[#0A1A2F]/70">Quick Actions:</p>
                 <button
