@@ -208,10 +208,10 @@ export default function CoachingPlans() {
             </p>
             <div className="grid grid-cols-4 gap-2">
               {[
-                { emoji: '💪', label: 'Body', count: COACHING_PLANS.filter(p=>p.category==='body').length },
-                { emoji: '🧠', label: 'Mind', count: COACHING_PLANS.filter(p=>p.category==='mind').length },
+                { emoji: '✝️', label: 'Spiritual', count: COACHING_PLANS.filter(p=>p.category==='spiritual').length },
+                { emoji: '🧠', label: 'Personal', count: COACHING_PLANS.filter(p=>p.category==='personal').length },
                 { emoji: '❤️', label: 'Relationships', count: COACHING_PLANS.filter(p=>p.category==='relationships').length },
-                { emoji: '🎯', label: 'Purpose', count: COACHING_PLANS.filter(p=>p.category==='purpose').length },
+                { emoji: '🥗', label: 'Nutrition', count: COACHING_PLANS.filter(p=>p.category==='nutrition').length },
               ].map(({ emoji, label, count }) => (
                 <div key={label} className="bg-white/10 rounded-xl p-2 text-center">
                   <div className="text-base mb-0.5">{emoji}</div>
