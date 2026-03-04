@@ -5,13 +5,6 @@
 
 import { FINANCIAL_FREEDOM_PLAN } from './financialFreedomPlanData';
 import { LOVE_LANGS_PLAN } from './loveLangsPlanData';
-import { POWER_PURPOSE_PLAN } from './powerPurposePlanData';
-import { NOURISH_THRIVE_PLAN } from './nourishThrivePlanData';
-import { SOUL_DEEP_PLAN } from './soulDeepPlanData';
-import { GROWTH_SPRINT_PLAN } from './growthSprintPlanData';
-import { MIND_RENEWAL_PLAN } from './mindRenewalPlanData';
-import { SACRED_KITCHEN_PLAN } from './sacredKitchenPlanData';
-import { BREAKTHROUGH_LEADERS_PLAN } from './breakroughLeadersPlanData';
 
 export const WEEK_THEMES = [
   { week: 1, theme: 'Foundation',   title: 'Know Your Why',         color: 'from-[#0D4F3C] to-[#22856A]', accent: '#22856A', emoji: '🌱' },
@@ -1369,17 +1362,29 @@ export const COACHING_PLANS = [
     gradient: 'from-[#0D4F3C] to-[#c9a227]',
     accent: '#c9a227',
     cover_emoji: '👑',
+    category: 'whole-life',
     tags: ['Bible', 'Fitness', 'Nutrition', 'Journaling', 'Mindset'],
     week_themes: WEEK_THEMES,
     days: PLAN_DAYS,
   },
-  FINANCIAL_FREEDOM_PLAN,
-  LOVE_LANGS_PLAN,
-  POWER_PURPOSE_PLAN,
-  NOURISH_THRIVE_PLAN,
-  SOUL_DEEP_PLAN,
-  GROWTH_SPRINT_PLAN,
-  MIND_RENEWAL_PLAN,
-  SACRED_KITCHEN_PLAN,
-  BREAKTHROUGH_LEADERS_PLAN,
+  { ...FINANCIAL_FREEDOM_PLAN, category: 'financial' },
+  { ...LOVE_LANGS_PLAN, category: 'relationships' },
+  { ...POWER_PURPOSE_PLAN, category: 'fitness' },
+  { ...NOURISH_THRIVE_PLAN, category: 'nutrition' },
+  { ...SOUL_DEEP_PLAN, category: 'spiritual' },
+  { ...GROWTH_SPRINT_PLAN, category: 'personal' },
+  { ...MIND_RENEWAL_PLAN, category: 'personal' },
+  { ...SACRED_KITCHEN_PLAN, category: 'nutrition' },
+  { ...BREAKTHROUGH_LEADERS_PLAN, category: 'personal' },
+];
+
+export const PLAN_CATEGORIES = [
+  { id: 'all', name: 'All Plans', emoji: '✨' },
+  { id: 'whole-life', name: 'Whole-Life Transformation', emoji: '👑' },
+  { id: 'fitness', name: 'Fitness & Athletic', emoji: '💪' },
+  { id: 'nutrition', name: 'Nutrition & Wellness', emoji: '🥗' },
+  { id: 'spiritual', name: 'Spiritual Growth', emoji: '✝️' },
+  { id: 'personal', name: 'Personal Development', emoji: '🧠' },
+  { id: 'relationships', name: 'Relationships', emoji: '💕' },
+  { id: 'financial', name: 'Financial', emoji: '💰' },
 ];
