@@ -461,12 +461,40 @@ function AvatarBody({ char, stateRef }) {
   const armRRef    = useRef();
   const bodyRef    = useRef();
 
-  const { headGeo, m } = useMemo(() => {
+  const { headGeo, bodyGeos, m } = useMemo(() => {
     const headGeo = buildHeadGeo(cfg.hH);
     const irisTex  = makeIrisTex(cfg.irisHex);
     const skinTex  = makeSkinTex(cfg.skin, cfg.skinDark);
+    const bodyGeos = {
+      browRidge:   new THREE.SphereGeometry(1, 18, 8),
+      cheekbone:   new THREE.SphereGeometry(1, 14, 10),
+      cheekFlush:  new THREE.SphereGeometry(1, 16, 12),
+      jaw:         new THREE.SphereGeometry(0.40, 34, 22, 0, Math.PI*2, 0, Math.PI*0.52),
+      jawLip:      new THREE.SphereGeometry(1, 18, 10),
+      jawTeeth:    new THREE.BoxGeometry(),
+      jawChin:     new THREE.SphereGeometry(1, 16, 12),
+      lipSphere:   new THREE.SphereGeometry(1, 18, 10),
+      lipDark:     new THREE.SphereGeometry(1, 12, 8),
+      teeth:       new THREE.BoxGeometry(),
+      philtrum:    new THREE.SphereGeometry(1, 10, 8),
+      noseBridge:  new THREE.SphereGeometry(1, 14, 10),
+      noseTip:     new THREE.SphereGeometry(1, 16, 12),
+      noseDark:    new THREE.SphereGeometry(1, 12, 8),
+      nostril:     new THREE.SphereGeometry(1, 10, 8),
+      eyeSocket:   new THREE.SphereGeometry(1, 18, 14),
+      sclera:      new THREE.SphereGeometry(1, 24, 18),
+      irisDisc:    new THREE.CylinderGeometry(1, 1, 1, 32),
+      cornea:      new THREE.SphereGeometry(1, 18, 14),
+      eyelidTop:   new THREE.SphereGeometry(1, 18, 10, 0, Math.PI*2, 0, Math.PI*0.52),
+      lash:        new THREE.SphereGeometry(1, 14, 6, 0, Math.PI*2, 0, Math.PI*0.46),
+      lashBottom:  new THREE.SphereGeometry(1, 14, 7, 0, Math.PI*2, Math.PI*0.52, Math.PI*0.46),
+      brow:        new THREE.SphereGeometry(1, 16, 10),
+      ear:         new THREE.SphereGeometry(1, 16, 12),
+      earInner:    new THREE.TorusGeometry(1, 0.40, 8, 14, Math.PI),
+    };
     return {
       headGeo,
+      bodyGeos,
       m: {
         skin:      new THREE.MeshStandardMaterial({ map:skinTex, roughness:0.72 }),
         skinDark:  mkMat(cfg.skinDark, 0.80),
