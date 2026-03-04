@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageCircle, Send, Loader2, X, Sparkles, RotateCcw, Menu } from 'lucide-react';
+import TTSButton from '../chatbot/TTSButton';
+import VoiceInputButton from '../chatbot/VoiceInputButton';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
@@ -16,6 +18,12 @@ export default function GideonAskAnything() {
   const [hasShownWelcome, setHasShownWelcome] = useState(false);
   const [sessionId, setSessionId] = useState(null);
   const [memoryContext, setMemoryContext] = useState(null);
+  const messagesEndRef = useRef(null);
+
+  // Auto-scroll to bottom when conversation updates
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [conversation]);
 
   // Initialize session and check for first-time user
   React.useEffect(() => {
@@ -521,19 +529,19 @@ Example: [VERSE]Romans 8:28 - "And we know that all things work together for goo
                       🎓 Deep Study Mode
                     </button>
                     <button
-                      onClick={() => setInput("What does it mean to be in the Kingdom of God?")}
+                      onClick={() => { setInput("What does it mean to be in the Kingdom of God?"); setTimeout(() => handleAsk(), 100); }}
                       className="px-4 py-2 bg-[#FAD98D]/30 text-[#8a6e1a] rounded-full text-sm hover:bg-[#FAD98D]/50 transition-colors"
                     >
                       Kingdom Principles
                     </button>
                     <button
-                      onClick={() => setInput("How do I discover my purpose?")}
+                      onClick={() => { setInput("How do I discover my purpose?"); setTimeout(() => handleAsk(), 100); }}
                       className="px-4 py-2 bg-[#FAD98D]/20 text-[#8a6e1a] rounded-full text-sm hover:bg-[#FAD98D]/50 transition-colors"
                     >
                       Finding Purpose
                     </button>
                     <button
-                      onClick={() => setInput("What does Romans 8:28 really mean?")}
+                      onClick={() => { setInput("What does Romans 8:28 really mean?"); setTimeout(() => handleAsk(), 100); }}
                       className="px-4 py-2 bg-[#FAD98D]/30 bg-[#FAD98D]/30 text-[#8a6e1a] rounded-full text-sm hover:bg-[#FAD98D]/50 transition-colors"
                     >
                       Verse Meaning
@@ -562,6 +570,7 @@ Example: [VERSE]Romans 8:28 - "And we know that all things work together for goo
                             <MessageCircle className="w-3 h-3 text-white" />
                           </div>
                           <span className="text-xs font-semibold text-[#8a6e1a]">Gideon</span>
+                          <TTSButton text={message.content} className="ml-auto" />
                         </div>
                         {(() => {
                           // Parse content for verse markers
@@ -647,11 +656,12 @@ Example: [VERSE]Romans 8:28 - "And we know that all things work together for goo
                     </div>
                   </motion.div>
               }
+                <div ref={messagesEndRef} />
               </div>
 
               {/* Input */}
               <div className="p-4 border-t border-[#D9B878]/20 bg-white">
-                <div className="flex gap-2">
+                <div className="flex gap-2 items-center">
                   <Input
                   placeholder="Ask about any scripture, verse, or topic..."
                   value={input}
@@ -664,7 +674,12 @@ Example: [VERSE]Romans 8:28 - "And we know that all things work together for goo
                   }}
                   className="flex-1"
                   disabled={loading} />
-
+                  <VoiceInputButton
+                    onTranscript={(text) => setInput(prev => prev ? prev + ' ' + text : text)}
+                    disabled={loading}
+                    accentColor="bg-[#D9B878]"
+                    activeColor="bg-[#c9a227]"
+                  />
                   <Button
                   onClick={handleAsk}
                   disabled={!input.trim() || loading}

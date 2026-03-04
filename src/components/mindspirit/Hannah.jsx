@@ -57,6 +57,11 @@ export default function Hannah({ user, autoOpen = false, onClose }) {
   const moodSaveTimer = React.useRef(null);
   const messagesEndRef = React.useRef(null);
 
+  // Auto-scroll to bottom when messages update
+  React.useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
+
   // Auto-open if launched from a parent button
   useEffect(() => {
     if (autoOpen) setIsOpen(true);
