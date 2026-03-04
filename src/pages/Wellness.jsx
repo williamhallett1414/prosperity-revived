@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { motion } from 'framer-motion';
 import WellnessRecommendations from '@/components/wellness/WellnessRecommendations';
+import CoachPaul from '@/components/wellness/CoachPaul';
 import { useQuery } from '@tanstack/react-query';
 
 export default function Wellness() {
