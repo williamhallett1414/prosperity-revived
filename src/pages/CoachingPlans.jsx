@@ -20,6 +20,7 @@ export default function CoachingPlans() {
 
   useEffect(() => {
     base44.auth.me().then(setUser).catch(() => {});
+    console.log('Total coaching plans available:', COACHING_PLANS.length, COACHING_PLANS.map(p => p.title));
   }, []);
 
   return (
