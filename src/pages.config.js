@@ -28,7 +28,8 @@
  *
  *   import Home from './pages/Home';
  *   import Settings from './pages/Settings';
- *   import __Layout from './Layout.jsx';
+ *   import ChatScreen from './pages/ChatScreen';
+import __Layout from './Layout.jsx';
  *
  *   export const PAGES = {
  *       "Home": Home,
@@ -102,6 +103,7 @@ import WorkoutCategoryPage from './pages/WorkoutCategoryPage';
 import WorkoutProgress from './pages/WorkoutProgress';
 import WorkoutTrends from './pages/WorkoutTrends';
 import Workouts from './pages/Workouts';
+import ChatScreen from './pages/ChatScreen';
 import __Layout from './Layout.jsx';
 
 
@@ -111,6 +113,7 @@ export const PAGES = {
     "Bible": Bible,
     "BibleBooks": BibleBooks,
     "Bookmarks": Bookmarks,
+    "ChatScreen": ChatScreen,
     "ChallengeDetailPage": ChallengeDetailPage,
     "CoachingPlanDetail": CoachingPlanDetail,
     "CoachingPlanPage": CoachingPlanPage,
