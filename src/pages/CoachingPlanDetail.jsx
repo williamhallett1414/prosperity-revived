@@ -368,7 +368,7 @@ export default function CoachingPlanDetail() {
 
         {/* Week navigation */}
         <div className="mb-4">
-          <WeekNav currentWeek={dayData.week} weeks={8} onSelectWeek={handleWeekSelect} planId={planId} />
+          <WeekNav currentWeek={dayData.week} weeks={8} onSelectWeek={handleWeekSelect} planId={planId} weekThemes={plan.week_themes} />
         </div>
 
         {/* Day header card */}
