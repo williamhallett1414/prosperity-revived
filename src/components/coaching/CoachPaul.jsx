@@ -168,7 +168,7 @@ Keep responses conversational, encouraging, and practical. Reference their speci
             className="fixed bottom-20 right-4 w-96 max-h-[600px] bg-white rounded-3xl shadow-2xl flex flex-col z-50 border border-[#0D4F3C]/10 overflow-hidden"
           >
             {/* Header */}
-            <div className="bg-gradient-to-r from-[#0D4F3C] to-[#22856A] px-6 py-4 text-white">
+             <div className="bg-gradient-to-r from-[#AFC7E3] to-[#3C4E53] px-6 py-4 text-white">
               <div className="flex items-start justify-between mb-2">
                 <div className="flex items-center gap-3">
                   <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center text-2xl">
