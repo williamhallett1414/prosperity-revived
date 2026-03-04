@@ -370,6 +370,15 @@ function Cardigan({ skin, c1, c2, c3, sw, cd }) {
   );
 }
 
+// ─── Imperative mesh helpers ──────────────────────────────────────────────────
+function ImpMesh({ geo, material, position, rotation, scale }) {
+  const meshRef = useRef();
+  useEffect(() => {
+    if (meshRef.current) meshRef.current.geometry = geo;
+  }, [geo]);
+  return <mesh ref={meshRef} material={material} position={position} rotation={rotation} scale={scale} />;
+}
+
 // ─── Arm assembly (upper arm + elbow + forearm + wrist + hand) ────────────────
 function Arm({ side, skin, sleeve, cfg, armSwingRef }) {
   const s = side === 'L' ? -1 : 1;
@@ -380,67 +389,43 @@ function Arm({ side, skin, sleeve, cfg, armSwingRef }) {
   const fL = cfg.forearmLen;
   const hs = cfg.handSize;
 
+  const geos = useMemo(() => ({
+    upperArm:   new THREE.CylinderGeometry(0.9, 1, 1, 14),
+    elbow:      new THREE.SphereGeometry(1, 14, 10),
+    forearm:    new THREE.CylinderGeometry(0.85, 1, 1, 12),
+    wrist:      new THREE.SphereGeometry(1, 12, 10),
+    palm:       new THREE.SphereGeometry(1, 14, 10),
+    finger:     new THREE.CylinderGeometry(0.5, 0.5, 1, 8),
+  }), []);
+
   return (
-    // Arm group pivots at shoulder
     <group
       ref={armSwingRef}
       position={[s * sw * 0.94, -0.78, 0]}
       rotation={[aX, 0, aZ]}
     >
       {/* Upper arm */}
-      <mesh material={sleeve} position={[0,-aL*0.28,0]} rotation={[0,0,0]}
-        scale={[0.115,aL*0.55,0.105]}>
-        <cylinderGeometry args={[0.9,1,1,14]} />
-      </mesh>
+      <ImpMesh geo={geos.upperArm} material={sleeve} position={[0,-aL*0.28,0]} scale={[0.115,aL*0.55,0.105]} />
       {/* Elbow */}
-      <mesh material={skin} position={[0,-aL*0.56,0]} scale={[0.095,0.095,0.095]}>
-        <sphereGeometry args={[1,14,10]} />
-      </mesh>
-      {/* Forearm — slight rotation so hands face somewhat forward */}
+      <ImpMesh geo={geos.elbow} material={skin} position={[0,-aL*0.56,0]} scale={[0.095,0.095,0.095]} />
+      {/* Forearm */}
       <group position={[0,-aL*0.56,0]} rotation={[0.15, 0, 0]}>
-        <mesh material={skin} position={[0,-fL*0.28,0]}
-          scale={[0.088,fL*0.52,0.080]}>
-          <cylinderGeometry args={[0.85,1,1,12]} />
-        </mesh>
+        <ImpMesh geo={geos.forearm} material={skin} position={[0,-fL*0.28,0]} scale={[0.088,fL*0.52,0.080]} />
         {/* Wrist */}
-        <mesh material={skin} position={[0,-fL*0.56,0]} scale={[0.076,0.076,0.064]}>
-          <sphereGeometry args={[1,12,10]} />
-        </mesh>
+        <ImpMesh geo={geos.wrist} material={skin} position={[0,-fL*0.56,0]} scale={[0.076,0.076,0.064]} />
         {/* Hand (palm) */}
         <group position={[0,-fL*0.56-hs*0.55,0]} rotation={[0.1,0,0]}>
-          <mesh material={skin} scale={[hs*1.05, hs*0.72, hs*0.55]}>
-            <sphereGeometry args={[1,14,10]} />
-          </mesh>
+          <ImpMesh geo={geos.palm} material={skin} scale={[hs*1.05, hs*0.72, hs*0.55]} />
           {/* Thumb */}
-          <mesh material={skin} position={[s*hs*0.80,-hs*0.10,hs*0.20]}
-            rotation={[0.1,0,s*0.6]}
-            scale={[hs*0.30,hs*0.48,hs*0.26]}>
-            <capsuleGeometry args={[0.6,0.4,4,8]} />
-          </mesh>
+          <ImpMesh geo={geos.finger} material={skin} position={[s*hs*0.80,-hs*0.10,hs*0.20]} rotation={[0.1,0,s*0.6]} scale={[hs*0.30,hs*0.48,hs*0.26]} />
           {/* Index finger */}
-          <mesh material={skin} position={[s*hs*0.30,-hs*0.80,hs*0.10]}
-            rotation={[0.18,0,s*0.04]}
-            scale={[hs*0.21,hs*0.56,hs*0.20]}>
-            <capsuleGeometry args={[0.6,0.4,4,8]} />
-          </mesh>
+          <ImpMesh geo={geos.finger} material={skin} position={[s*hs*0.30,-hs*0.80,hs*0.10]} rotation={[0.18,0,s*0.04]} scale={[hs*0.21,hs*0.56,hs*0.20]} />
           {/* Middle finger */}
-          <mesh material={skin} position={[s*hs*0.08,-hs*0.90,hs*0.06]}
-            rotation={[0.12,0,0]}
-            scale={[hs*0.21,hs*0.60,hs*0.20]}>
-            <capsuleGeometry args={[0.6,0.4,4,8]} />
-          </mesh>
+          <ImpMesh geo={geos.finger} material={skin} position={[s*hs*0.08,-hs*0.90,hs*0.06]} rotation={[0.12,0,0]} scale={[hs*0.21,hs*0.60,hs*0.20]} />
           {/* Ring finger */}
-          <mesh material={skin} position={[-s*hs*0.14,-hs*0.86,hs*0.04]}
-            rotation={[0.14,0,-s*0.04]}
-            scale={[hs*0.20,hs*0.56,hs*0.19]}>
-            <capsuleGeometry args={[0.6,0.4,4,8]} />
-          </mesh>
+          <ImpMesh geo={geos.finger} material={skin} position={[-s*hs*0.14,-hs*0.86,hs*0.04]} rotation={[0.14,0,-s*0.04]} scale={[hs*0.20,hs*0.56,hs*0.19]} />
           {/* Pinky */}
-          <mesh material={skin} position={[-s*hs*0.36,-hs*0.72,hs*0.02]}
-            rotation={[0.16,0,-s*0.10]}
-            scale={[hs*0.18,hs*0.44,hs*0.17]}>
-            <capsuleGeometry args={[0.6,0.4,4,8]} />
-          </mesh>
+          <ImpMesh geo={geos.finger} material={skin} position={[-s*hs*0.36,-hs*0.72,hs*0.02]} rotation={[0.16,0,-s*0.10]} scale={[hs*0.18,hs*0.44,hs*0.17]} />
         </group>
       </group>
     </group>
