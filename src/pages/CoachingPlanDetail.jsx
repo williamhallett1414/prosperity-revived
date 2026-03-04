@@ -516,6 +516,20 @@ export default function CoachingPlanDetail() {
                 <span className="text-base flex-shrink-0">💡</span>
                 <p className="text-xs text-[#0A1A2F]/70 leading-relaxed">{dayData.nutrition.tip}</p>
               </div>
+
+              {/* Meal Logging Section */}
+              <div className="pt-1">
+                <p className="text-[10px] font-bold uppercase tracking-wider text-[#0D4F3C] mb-2">Log Your Meals</p>
+                <MealLoggingSection
+                  nutritionPlan={dayData.nutrition.plan}
+                  mealLogs={mealLogs}
+                  date={new Date()}
+                  onMealLogged={() => {
+                    toast.success('Meal logged! Great job tracking your nutrition.');
+                  }}
+                />
+              </div>
+
               <div className="flex gap-2">
                 <TaskRow
                   label="Log your meals today"
