@@ -123,7 +123,7 @@ export default function CoachingPlans() {
                   <div className="mb-4">
                     <p className="text-xs font-bold text-[#0A1A2F]/40 uppercase tracking-wider mb-2">8 Week Journey</p>
                     <div className="grid grid-cols-4 gap-1.5">
-                      {plan.week_themes.map(wt => (
+                      {(plan.week_themes || []).map(wt => (
                         <div key={wt.week} className={`rounded-lg p-2 text-center bg-gradient-to-br ${wt.color} bg-opacity-10`}>
                           <p className="text-base mb-0.5">{wt.emoji}</p>
                           <p className="text-white text-[9px] font-bold leading-tight">{wt.theme}</p>
