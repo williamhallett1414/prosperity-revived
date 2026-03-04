@@ -29,7 +29,6 @@ import DailyReflectionPrompt from '@/components/gideon/DailyReflectionPrompt';
 import HannahBookmarksSection from '@/components/journey/HannahBookmarksSection';
 import CoachingSection from '@/components/journey/CoachingSection';
 import { COACHING_PLANS } from '@/components/coaching/planData';
-import { ChevronRight, Crown } from 'lucide-react';
 
 const chatbotConfig = {
   Hannah: {
