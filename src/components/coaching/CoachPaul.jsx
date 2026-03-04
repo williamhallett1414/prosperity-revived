@@ -209,13 +209,13 @@ Keep responses conversational, encouraging, and practical. Reference their speci
             )}
 
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-3">
-              {messages.length === 0 && (
+            <div className="flex-1 overflow-y-auto p-6 space-y-3">
+              {messages.length === 0 && !loading && (
                 <div className="h-full flex flex-col items-center justify-center text-center">
-                  <div className="text-3xl mb-2">👋</div>
-                  <p className="text-xs font-bold text-[#0A1A2F]">Hi! I'm Coach Paul</p>
-                  <p className="text-[10px] text-[#0A1A2F]/50 mt-1">
-                    Ask me anything about today's coaching plan or get some encouragement!
+                  <div className="text-4xl mb-3">🏋️</div>
+                  <p className="text-sm font-bold text-[#0A1A2F] mb-1">Let's crush today's goals!</p>
+                  <p className="text-[11px] text-[#0A1A2F]/60 leading-relaxed">
+                    Ask me about your {planTitle}, get motivation, or request tips on today's activities.
                   </p>
                 </div>
               )}
