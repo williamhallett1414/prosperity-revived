@@ -4,6 +4,7 @@ export const BREAKTHROUGH_LEADERS_PLAN = {
   subtitle: '8 Weeks to Transformational Leadership',
   description: 'Develop leadership that creates lasting transformation in yourself and others.',
   weeks: 8,
+  comingSoon: true,
   days_total: 56,
   difficulty: 'Intermediate',
   gradient: 'from-[#FF6348] to-[#FFD700]',

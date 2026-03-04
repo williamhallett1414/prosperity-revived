@@ -4,6 +4,7 @@ export const SACRED_KITCHEN_PLAN = {
   subtitle: '6 Weeks to Conscious Cooking',
   description: 'Transform cooking into a spiritual practice and healing art.',
   weeks: 6,
+  comingSoon: true,
   days_total: 42,
   difficulty: 'All Levels',
   gradient: 'from-[#FFB347] to-[#6BCB77]',

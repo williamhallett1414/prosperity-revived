@@ -85,10 +85,10 @@ Keep responses conversational, encouraging, and practical. Reference their speci
 `;
   };
 
-  const handleSendMessage = async () => {
-    if (!input.trim()) return;
+  const handleSendMessage = async (overrideText) => {
+    const userMessage = (overrideText || input).trim();
+    if (!userMessage) return;
 
-    const userMessage = input.trim();
     setInput('');
 
     const newMessages = [...messages, { role: 'user', content: userMessage }];
@@ -127,12 +127,7 @@ Keep responses conversational, encouraging, and practical. Reference their speci
   };
 
   const handleQuickAsk = (suggestion) => {
-    setInput(suggestion.label);
-    setTimeout(() => {
-      const event = new KeyboardEvent('keydown', { key: 'Enter' });
-      document.dispatchEvent(event);
-      handleSendMessage();
-    }, 100);
+    handleSendMessage(suggestion.label);
   };
 
   const speakMessage = (text) => {

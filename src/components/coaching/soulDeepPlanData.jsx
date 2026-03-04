@@ -4,6 +4,7 @@ export const SOUL_DEEP_PLAN = {
   subtitle: '8 Weeks of Spiritual Transformation',
   description: 'Go deep in spiritual growth and inner transformation.',
   weeks: 8,
+  comingSoon: true,
   days_total: 56,
   difficulty: 'All Levels',
   gradient: 'from-[#4D96FF] to-[#A29BFE]',

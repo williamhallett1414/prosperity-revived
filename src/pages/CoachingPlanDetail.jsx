@@ -110,10 +110,15 @@ function TaskRow({ label, done, onToggle, linkTo, linkLabel }) {
 }
 
 function WeekNav({ currentWeek, weeks, onSelectWeek, planId, weekThemes }) {
+  const themes = weekThemes && weekThemes.length > 0
+    ? weekThemes
+    : Array.from({ length: weeks }, (_, i) => ({
+        week: i + 1, emoji: '📅', theme: `Week ${i + 1}`, title: ''
+      }));
   return (
     <div className="overflow-x-auto -mx-4 px-4 pb-1">
       <div className="flex gap-2 min-w-max">
-        {weekThemes.map(wt => {
+        {themes.map(wt => {
           const progress = getProgress(planId);
           const weekDaysCompleted = (progress.completed_days || []).filter(d => {
             return d >= (wt.week - 1) * 7 + 1 && d <= wt.week * 7;
@@ -147,7 +152,19 @@ export default function CoachingPlanDetail() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const planId = searchParams.get('id') || 'renewed-strength';
-  const initialDay = parseInt(searchParams.get('day') || '1', 10);
+  const initialDay = (() => {
+    const urlDay = searchParams.get('day');
+    if (urlDay) return parseInt(urlDay, 10);
+    try {
+      const saved = localStorage.getItem(`coaching_progress_${planId}`);
+      if (saved) {
+        const p = JSON.parse(saved);
+        const completedCount = p.completed_days?.length || 0;
+        if (completedCount > 0) return completedCount + 1;
+      }
+    } catch {}
+    return 1;
+  })();
 
   const [user, setUser] = useState(null);
   const [currentDay, setCurrentDay] = useState(initialDay);
@@ -175,7 +192,7 @@ export default function CoachingPlanDetail() {
   };
 
   const plan = COACHING_PLANS.find(p => p.id === planId) || COACHING_PLANS[0];
-  const dayData = plan.days.find(d => d.number === currentDay) || plan.days[currentDay - 1];
+  const dayData = plan.days.find(d => d.day === currentDay || d.number === currentDay) || plan.days[currentDay - 1];
   const weekTheme = (plan.week_themes || []).find(w => w.week === dayData?.week) || {
     week: dayData?.week || 1,
     theme: 'Week',
@@ -363,7 +380,12 @@ export default function CoachingPlanDetail() {
                 </button>
               </div>
               <div className="overflow-y-auto p-4 space-y-4">
-                {plan.week_themes.map(wt => (
+                {(plan.week_themes && plan.week_themes.length > 0
+                  ? plan.week_themes
+                  : Array.from({ length: Math.ceil(plan.days_total / 7) }, (_, i) => ({
+                      week: i + 1, emoji: '📅', title: `Week ${i + 1}`
+                    }))
+                ).map(wt => (
                   <div key={wt.week}>
                     <p className={`text-xs font-bold uppercase tracking-wider mb-2 flex items-center gap-1.5 ${wt.week === dayData.week ? 'text-[#0D4F3C]' : 'text-[#0A1A2F]/40'}`}>
                       {wt.emoji} Week {wt.week} — {wt.title}
@@ -564,15 +586,22 @@ export default function CoachingPlanDetail() {
             </div>
           </SectionCard>
 
-          {/* 3. Nutrition */}
-          <SectionCard title="Nutrition Focus" icon={Utensils} color="bg-[#F0FFF4]" accentColor="#22856A">
+          {/* 3. Nutrition / Financial Habit */}
+          <SectionCard
+            title={plan.category === 'financial' ? 'Financial Habit' : 'Nutrition Focus'}
+            icon={plan.category === 'financial' ? Star : Utensils}
+            color={plan.category === 'financial' ? 'bg-[#FFF9EC]' : 'bg-[#F0FFF4]'}
+            accentColor={plan.category === 'financial' ? '#c9a227' : '#22856A'}
+          >
             <div className="space-y-3">
               <div className="flex items-center gap-2 flex-wrap">
                 <span className="text-xs font-bold text-white bg-[#0D4F3C] px-2.5 py-1 rounded-full">{dayData.nutrition.focus}</span>
                 <span className="text-xs font-semibold text-[#0D4F3C] bg-[#0D4F3C]/10 px-2.5 py-1 rounded-full">{dayData.nutrition.meal_theme}</span>
               </div>
               <div className="p-3 bg-[#F5F8F0] rounded-xl border border-[#0D4F3C]/12">
-                <p className="text-[10px] font-bold uppercase tracking-wider text-[#0D4F3C] mb-1.5">Today's Meal Plan</p>
+                <p className="text-[10px] font-bold uppercase tracking-wider text-[#0D4F3C] mb-1.5">
+                  {plan.category === 'financial' ? "Today's Practice" : "Today's Meal Plan"}
+                </p>
                 <p className="text-sm text-[#0A1A2F]/70 leading-relaxed">{dayData.nutrition.plan}</p>
               </div>
               <div className="flex items-start gap-2 p-3 bg-[#c9a227]/8 rounded-xl border border-[#c9a227]/15">
@@ -580,29 +609,31 @@ export default function CoachingPlanDetail() {
                 <p className="text-xs text-[#0A1A2F]/70 leading-relaxed">{dayData.nutrition.tip}</p>
               </div>
 
-              {/* Meal Logging Section */}
-              <div className="pt-1">
-                <p className="text-[10px] font-bold uppercase tracking-wider text-[#0D4F3C] mb-2">Log Your Meals</p>
-                <MealLoggingSection
-                  nutritionPlan={dayData.nutrition.plan}
-                  mealLogs={mealLogs}
-                  date={new Date()}
-                  onMealLogged={() => {
-                    toast.success('Meal logged! Great job tracking your nutrition.');
-                  }}
-                />
-              </div>
+              {/* Meal Logging — only show for non-financial plans */}
+              {plan.category !== 'financial' && (
+                <div className="pt-1">
+                  <p className="text-[10px] font-bold uppercase tracking-wider text-[#0D4F3C] mb-2">Log Your Meals</p>
+                  <MealLoggingSection
+                    nutritionPlan={dayData.nutrition.plan}
+                    mealLogs={mealLogs}
+                    date={new Date()}
+                    onMealLogged={() => {
+                      toast.success('Meal logged! Great job tracking your nutrition.');
+                    }}
+                  />
+                </div>
+              )}
 
               <div className="flex gap-2">
                 <TaskRow
-                  label="Log your meals today"
+                  label={plan.category === 'financial' ? 'Complete today\'s financial habit' : 'Log your meals today'}
                   done={taskState.nutrition}
                   onToggle={() => handleToggleTask('nutrition')}
-                  linkTo={nutritionUrl}
-                  linkLabel="Log Food"
+                  linkTo={plan.category === 'financial' ? createPageUrl('PersonalGrowth') : nutritionUrl}
+                  linkLabel={plan.category === 'financial' ? 'Open' : 'Log Food'}
                 />
               </div>
-              {dayData.nutrition.recipe_search && (
+              {plan.category !== 'financial' && dayData.nutrition.recipe_search && (
                 <Link
                   to={createPageUrl('DiscoverRecipes')}
                   className="flex items-center justify-between p-3 bg-white rounded-xl border border-[#0D4F3C]/12 hover:border-[#0D4F3C]/30 transition-colors"
@@ -769,9 +800,12 @@ export default function CoachingPlanDetail() {
           {[
             { label: 'Days Done', value: completedDays, icon: CheckCircle2, color: 'text-[#0D4F3C]', bg: 'bg-[#F5F8F0]' },
             { label: 'Streak', value: (() => {
+              const completed = progress.completed_days || [];
+              if (completed.length === 0) return 0;
+              const maxCompleted = Math.max(...completed);
               let streak = 0;
-              for (let d = currentDay; d >= 1; d--) {
-                if (progress.completed_days?.includes(d)) streak++;
+              for (let d = maxCompleted; d >= 1; d--) {
+                if (completed.includes(d)) streak++;
                 else break;
               }
               return streak;

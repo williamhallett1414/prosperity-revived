@@ -5,6 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { X, BookOpen, Dumbbell, Utensils, BookMarked } from 'lucide-react';
 import { createPageUrl } from '@/utils';
 import { useNavigate } from 'react-router-dom';
+import { PREMADE_WORKOUTS } from '@/components/wellness/WorkoutLibrary';
 
 export default function PreviewPlanModal({ plan, open, onOpenChange }) {
   const navigate = useNavigate();
@@ -98,7 +99,9 @@ export default function PreviewPlanModal({ plan, open, onOpenChange }) {
                 <div className="space-y-3">
                   <div>
                     <p className="text-sm font-semibold text-gray-600">Type</p>
-                    <p className="text-lg font-bold text-gray-900 capitalize">{day1.workout.premade_id}</p>
+                    <p className="text-lg font-bold text-gray-900">
+                      {PREMADE_WORKOUTS.find(w => w.id === day1.workout.premade_id)?.title || day1.workout.workout_title || day1.workout.premade_id}
+                    </p>
                   </div>
 
                   {day1.workout.motivational_tip && (
