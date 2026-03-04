@@ -113,12 +113,24 @@ function PlanCard({ plan, idx }) {
             <span className="text-xs font-semibold">Coming Soon</span>
           </div>
         ) : (
-          <Button
-            onClick={() => navigate(createPageUrl(`CoachingPlanDetail?id=${plan.id}&day=${isStarted ? currentDay : 1}`))}
-            className="w-full bg-gradient-to-r from-[#0D4F3C] to-[#22856A] hover:opacity-90 text-white font-bold py-2.5 rounded-xl text-sm"
-          >
-            {isStarted ? <>Continue Day {currentDay} <ChevronRight className="w-3.5 h-3.5 ml-1" /></> : <>Begin Journey <ChevronRight className="w-3.5 h-3.5 ml-1" /></>}
-          </Button>
+          <div className="space-y-2">
+            <Button
+              onClick={() => navigate(createPageUrl(`CoachingPlanDetail?id=${plan.id}&day=${isStarted ? currentDay : 1}`))}
+              className="w-full bg-gradient-to-r from-[#0D4F3C] to-[#22856A] hover:opacity-90 text-white font-bold py-2.5 rounded-xl text-sm"
+            >
+              {isStarted ? <>Continue Day {currentDay} <ChevronRight className="w-3.5 h-3.5 ml-1" /></> : <>Begin Journey <ChevronRight className="w-3.5 h-3.5 ml-1" /></>}
+            </Button>
+            {isStarted && (
+              <Button
+                onClick={handleAbandonPlan}
+                variant="outline"
+                className="w-full border border-red-200 text-red-600 hover:bg-red-50 font-semibold py-2 rounded-xl text-xs"
+              >
+                <X className="w-3.5 h-3.5 mr-1.5" />
+                Abandon Plan
+              </Button>
+            )}
+          </div>
         )}
       </div>
     </motion.div>
