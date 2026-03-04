@@ -1349,8 +1349,6 @@ export const PLAN_DAYS = [
   },
 ];
 
-import { FINANCIAL_FREEDOM_PLAN } from './financialFreedomPlanData';
-
 export const COACHING_PLANS = [
   {
     id: 'renewed-strength',
