@@ -4,6 +4,13 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 import { FINANCIAL_FREEDOM_PLAN } from './financialFreedomPlanData';
+import { POWER_PURPOSE_PLAN } from './powerPurposePlanData';
+import { NOURISH_THRIVE_PLAN } from './nourishThrivePlanData';
+import { SOUL_DEEP_PLAN } from './soulDeepPlanData';
+import { GROWTH_SPRINT_PLAN } from './growthSprintPlanData';
+import { MIND_RENEWAL_PLAN } from './mindRenewalPlanData';
+import { SACRED_KITCHEN_PLAN } from './sacredKitchenPlanData';
+import { BREAKTHROUGH_LEADERS_PLAN } from './breakroughLeadersPlanData';
 import { LOVE_LANGS_PLAN } from './loveLangsPlanData';
 
 export const WEEK_THEMES = [
