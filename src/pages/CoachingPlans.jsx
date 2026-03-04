@@ -73,7 +73,7 @@ export default function CoachingPlans() {
 
         {/* Plans list */}
         <div className="space-y-4">
-          {COACHING_PLANS.map((plan, idx) => {
+          {(COACHING_PLANS || []).filter(Boolean).map((plan, idx) => {
             const progress = getPlanProgress(plan.id);
             const completedDays = progress.completed_days?.length || 0;
             const pct = Math.round((completedDays / plan.days_total) * 100);
