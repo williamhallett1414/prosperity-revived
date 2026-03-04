@@ -617,13 +617,22 @@ export default function CoachingPlanDetail() {
                   <p className="text-xs text-[#0A1A2F]/70">{dayData.meditation.description}</p>
                 </div>
                 <div className="flex gap-2">
-                  <TaskRow
-                    label={`Complete: ${dayData.meditation.title}`}
-                    done={taskState.meditation}
-                    onToggle={() => handleToggleTask('meditation')}
-                    linkTo={createPageUrl('GuidedMeditationsPage')}
-                    linkLabel="Start Meditation"
-                  />
+                  <button
+                    onClick={() => setShowMeditationPlayer(true)}
+                    className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-[#AFC7E3] to-[#8FACBE] text-white font-bold rounded-xl hover:shadow-md transition-shadow text-sm"
+                  >
+                    <Play className="w-4 h-4" /> Start Meditation
+                  </button>
+                  <button
+                    onClick={() => handleToggleTask('meditation')}
+                    className={`px-3 py-2 rounded-xl border text-xs font-bold transition-all ${
+                      taskState.meditation
+                        ? 'bg-[#0D4F3C] text-white border-[#0D4F3C]'
+                        : 'bg-white text-[#0A1A2F]/50 border-[#0A1A2F]/15 hover:border-[#0D4F3C]/40'
+                    }`}
+                  >
+                    {taskState.meditation ? '✓ Done' : 'Mark Done'}
+                  </button>
                 </div>
               </div>
             </SectionCard>
