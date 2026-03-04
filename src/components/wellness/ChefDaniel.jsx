@@ -1063,14 +1063,7 @@ Return ONLY valid JSON array:
                       </div>
                     )}
                   </div>
-                  {message.role === 'assistant' && index > 0 && index === messages.length - 1 && !ratedMessageIndices.has(index) && (
-                    <HannahFeedbackRating
-                      messageContent={message.content}
-                      userEmail={user?.email}
-                      sessionId={sessionId}
-                      onDone={() => setRatedMessageIndices(prev => new Set([...prev, index]))}
-                    />
-                  )}
+
                 </motion.div>
               ))}
               {isLoading && (
