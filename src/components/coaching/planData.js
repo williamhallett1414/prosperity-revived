@@ -1350,22 +1350,229 @@ export const PLAN_DAYS = [
   },
 ];
 
+// ─────────────────────────────────────────────────────────────────────────────
+// PLAN CATEGORIES
+// ─────────────────────────────────────────────────────────────────────────────
+
+export const PLAN_CATEGORIES = [
+  { id: 'all',           name: 'All Plans',     emoji: '✨' },
+  { id: 'body',          name: 'Body',          emoji: '💪' },
+  { id: 'mind',          name: 'Mind & Spirit', emoji: '🧠' },
+  { id: 'relationships', name: 'Relationships', emoji: '❤️' },
+  { id: 'purpose',       name: 'Purpose',       emoji: '🎯' },
+];
+
+// ─────────────────────────────────────────────────────────────────────────────
+// COMING SOON PLAN STUBS
+// week_themes follow: { week, theme, title, color, accent, emoji }
+// ─────────────────────────────────────────────────────────────────────────────
+
+const TEMPLE_STRONG_WEEK_THEMES = [
+  { week: 1, theme: 'Foundation',    title: 'Why This Body Matters',      color: 'from-[#0A1A2F] to-[#2563eb]', accent: '#3b82f6', emoji: '🏗️' },
+  { week: 2, theme: 'Fuel',          title: 'Eating for the Temple',      color: 'from-[#2563eb] to-[#1d4ed8]', accent: '#60a5fa', emoji: '🥦' },
+  { week: 3, theme: 'Strength',      title: 'Building Real Strength',     color: 'from-[#1d4ed8] to-[#0A1A2F]', accent: '#93c5fd', emoji: '🏋️' },
+  { week: 4, theme: 'Cardio',        title: 'The Heart of the Matter',    color: 'from-[#0A1A2F] to-[#2563eb]', accent: '#3b82f6', emoji: '🏃' },
+  { week: 5, theme: 'Rest',          title: 'Recovery Is Discipline',     color: 'from-[#2563eb] to-[#1d4ed8]', accent: '#60a5fa', emoji: '😴' },
+  { week: 6, theme: 'Mindset',       title: 'What You Think, You Become', color: 'from-[#1d4ed8] to-[#0A1A2F]', accent: '#93c5fd', emoji: '🧠' },
+  { week: 7, theme: 'Momentum',      title: 'Don\'t Stop Now',            color: 'from-[#0A1A2F] to-[#2563eb]', accent: '#3b82f6', emoji: '🔥' },
+  { week: 8, theme: 'Legacy',        title: 'A Body Worth Keeping',       color: 'from-[#2563eb] to-[#0A1A2F]', accent: '#60a5fa', emoji: '🏆' },
+];
+
+const BREAKING_FREE_WEEK_THEMES = [
+  { week: 1, theme: 'Awareness',     title: 'Name What Holds You',        color: 'from-[#7c3aed] to-[#4c1d95]', accent: '#a78bfa', emoji: '👁️' },
+  { week: 2, theme: 'Identity',      title: 'Who You Are in Christ',      color: 'from-[#4c1d95] to-[#7c3aed]', accent: '#c4b5fd', emoji: '✝️' },
+  { week: 3, theme: 'Renewing',      title: 'Renewing the Mind',          color: 'from-[#7c3aed] to-[#0A1A2F]', accent: '#a78bfa', emoji: '🔄' },
+  { week: 4, theme: 'Community',     title: 'You Can\'t Do This Alone',   color: 'from-[#0A1A2F] to-[#7c3aed]', accent: '#c4b5fd', emoji: '🤝' },
+  { week: 5, theme: 'Surrender',     title: 'Letting Go Completely',      color: 'from-[#7c3aed] to-[#4c1d95]', accent: '#a78bfa', emoji: '🕊️' },
+  { week: 6, theme: 'Healing',       title: 'Roots of the Wound',         color: 'from-[#4c1d95] to-[#0A1A2F]', accent: '#c4b5fd', emoji: '🌱' },
+  { week: 7, theme: 'New Habits',    title: 'Building What Replaces',     color: 'from-[#0A1A2F] to-[#7c3aed]', accent: '#a78bfa', emoji: '🔧' },
+  { week: 8, theme: 'Freedom',       title: 'Walking in Liberty',         color: 'from-[#7c3aed] to-[#0A1A2F]', accent: '#c4b5fd', emoji: '🦅' },
+];
+
+const DEEP_ROOTS_WEEK_THEMES = [
+  { week: 1, theme: 'Stillness',     title: 'Learning to Be Still',       color: 'from-[#0A1A2F] to-[#065f46]', accent: '#34d399', emoji: '🌊' },
+  { week: 2, theme: 'Listening',     title: 'Hearing God\'s Voice',       color: 'from-[#065f46] to-[#0A1A2F]', accent: '#6ee7b7', emoji: '👂' },
+  { week: 3, theme: 'Scripture',     title: 'Hiding It in Your Heart',    color: 'from-[#0A1A2F] to-[#065f46]', accent: '#34d399', emoji: '📖' },
+  { week: 4, theme: 'Worship',       title: 'A Life of Praise',           color: 'from-[#065f46] to-[#0A1A2F]', accent: '#6ee7b7', emoji: '🙌' },
+  { week: 5, theme: 'Fasting',       title: 'Clearing Space for God',     color: 'from-[#0A1A2F] to-[#065f46]', accent: '#34d399', emoji: '🤍' },
+  { week: 6, theme: 'Intercession',  title: 'Praying for Others',         color: 'from-[#065f46] to-[#0A1A2F]', accent: '#6ee7b7', emoji: '🙏' },
+  { week: 7, theme: 'Obedience',     title: 'Faith That Acts',            color: 'from-[#0A1A2F] to-[#065f46]', accent: '#34d399', emoji: '⚡' },
+  { week: 8, theme: 'Abiding',       title: 'Staying Connected',          color: 'from-[#065f46] to-[#0A1A2F]', accent: '#6ee7b7', emoji: '🌳' },
+];
+
+const STRONGER_MARRIAGE_WEEK_THEMES = [
+  { week: 1, theme: 'Foundation',    title: 'Why You Married',             color: 'from-[#db2777] to-[#9d174d]', accent: '#f9a8d4', emoji: '💍' },
+  { week: 2, theme: 'Communication', title: 'Talking — Really Talking',   color: 'from-[#9d174d] to-[#db2777]', accent: '#fbcfe8', emoji: '💬' },
+  { week: 3, theme: 'Conflict',      title: 'Fighting for the Marriage',  color: 'from-[#db2777] to-[#0A1A2F]', accent: '#f9a8d4', emoji: '🛡️' },
+  { week: 4, theme: 'Intimacy',      title: 'Closeness on Every Level',   color: 'from-[#0A1A2F] to-[#db2777]', accent: '#fbcfe8', emoji: '🫶' },
+  { week: 5, theme: 'Service',       title: 'Love Made Visible',          color: 'from-[#db2777] to-[#9d174d]', accent: '#f9a8d4', emoji: '🤲' },
+  { week: 6, theme: 'Forgiveness',   title: 'The Gift You Give Yourself', color: 'from-[#9d174d] to-[#0A1A2F]', accent: '#fbcfe8', emoji: '🕊️' },
+  { week: 7, theme: 'Vision',        title: 'Where Are You Going?',       color: 'from-[#0A1A2F] to-[#db2777]', accent: '#f9a8d4', emoji: '🗺️' },
+  { week: 8, theme: 'Legacy',        title: 'A Marriage Worth Modeling',  color: 'from-[#db2777] to-[#0A1A2F]', accent: '#fbcfe8', emoji: '👨‍👩‍👧' },
+];
+
+const CALLED_EQUIPPED_WEEK_THEMES = [
+  { week: 1, theme: 'Created',       title: 'Made for a Purpose',         color: 'from-[#0A1A2F] to-[#b45309]', accent: '#fbbf24', emoji: '✨' },
+  { week: 2, theme: 'Gifted',        title: 'What God Put in You',        color: 'from-[#b45309] to-[#0A1A2F]', accent: '#fcd34d', emoji: '🎁' },
+  { week: 3, theme: 'Called',        title: 'Hearing the Invitation',     color: 'from-[#0A1A2F] to-[#b45309]', accent: '#fbbf24', emoji: '📞' },
+  { week: 4, theme: 'Prepared',      title: 'The Wilderness Season',      color: 'from-[#b45309] to-[#0A1A2F]', accent: '#fcd34d', emoji: '🏜️' },
+  { week: 5, theme: 'Courage',       title: 'Step Out in Faith',          color: 'from-[#0A1A2F] to-[#b45309]', accent: '#fbbf24', emoji: '🦁' },
+  { week: 6, theme: 'Equipped',      title: 'Skills for the Mission',     color: 'from-[#b45309] to-[#0A1A2F]', accent: '#fcd34d', emoji: '⚙️' },
+  { week: 7, theme: 'Impact',        title: 'Serving the World Around',   color: 'from-[#0A1A2F] to-[#b45309]', accent: '#fbbf24', emoji: '🌍' },
+  { week: 8, theme: 'Legacy',        title: 'Living Your Calling Daily',  color: 'from-[#b45309] to-[#0A1A2F]', accent: '#fcd34d', emoji: '🏛️' },
+];
+
+const KINGDOM_BUSINESS_WEEK_THEMES = [
+  { week: 1, theme: 'Foundation',    title: 'Business Built on Truth',    color: 'from-[#0A1A2F] to-[#1e40af]', accent: '#60a5fa', emoji: '🏢' },
+  { week: 2, theme: 'Integrity',     title: 'Character at Work',          color: 'from-[#1e40af] to-[#0A1A2F]', accent: '#93c5fd', emoji: '🤝' },
+  { week: 3, theme: 'Leadership',    title: 'Servant Leadership',         color: 'from-[#0A1A2F] to-[#1e40af]', accent: '#60a5fa', emoji: '👑' },
+  { week: 4, theme: 'Team',          title: 'Building Others Up',         color: 'from-[#1e40af] to-[#0A1A2F]', accent: '#93c5fd', emoji: '👥' },
+  { week: 5, theme: 'Stewardship',   title: 'Every Dollar Has a Mission', color: 'from-[#0A1A2F] to-[#1e40af]', accent: '#60a5fa', emoji: '💼' },
+  { week: 6, theme: 'Generosity',    title: 'The Generous Business',      color: 'from-[#1e40af] to-[#0A1A2F]', accent: '#93c5fd', emoji: '🎁' },
+  { week: 7, theme: 'Vision',        title: 'Where Is God Taking This?',  color: 'from-[#0A1A2F] to-[#1e40af]', accent: '#60a5fa', emoji: '🔭' },
+  { week: 8, theme: 'Legacy',        title: 'Business as Ministry',       color: 'from-[#1e40af] to-[#0A1A2F]', accent: '#93c5fd', emoji: '🌟' },
+];
+
+const ATHLETE_OF_FAITH_WEEK_THEMES = [
+  { week: 1, theme: 'Foundation',    title: 'Train Like You Mean It',     color: 'from-[#0A1A2F] to-[#dc2626]', accent: '#f87171', emoji: '🏅' },
+  { week: 2, theme: 'Discipline',    title: 'The Athlete\'s Mindset',     color: 'from-[#dc2626] to-[#0A1A2F]', accent: '#fca5a5', emoji: '🎯' },
+  { week: 3, theme: 'Strength',      title: 'Building Power',             color: 'from-[#0A1A2F] to-[#dc2626]', accent: '#f87171', emoji: '💪' },
+  { week: 4, theme: 'Endurance',     title: 'Run With Perseverance',      color: 'from-[#dc2626] to-[#0A1A2F]', accent: '#fca5a5', emoji: '🏃' },
+  { week: 5, theme: 'Recovery',      title: 'Rest Is a Weapon',           color: 'from-[#0A1A2F] to-[#dc2626]', accent: '#f87171', emoji: '⚡' },
+  { week: 6, theme: 'Nutrition',     title: 'Fuel the Machine',           color: 'from-[#dc2626] to-[#0A1A2F]', accent: '#fca5a5', emoji: '🥗' },
+  { week: 7, theme: 'Competition',   title: 'Compete Against Yourself',   color: 'from-[#0A1A2F] to-[#dc2626]', accent: '#f87171', emoji: '🏆' },
+  { week: 8, theme: 'Legacy',        title: 'Play for an Audience of One',color: 'from-[#dc2626] to-[#0A1A2F]', accent: '#fca5a5', emoji: '✝️' },
+];
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ALL 10 COACHING PLANS
+// ─────────────────────────────────────────────────────────────────────────────
+
 export const COACHING_PLANS = [
+  // ── BODY ───────────────────────────────────────────────────────────────────
   {
     id: 'renewed-strength',
     title: 'Renewed Strength',
     subtitle: '8 Weeks to Whole-Life Transformation',
-    description: 'A comprehensive 8-week program integrating daily Scripture devotions, progressive workouts, intentional nutrition, and journal prompts across 56 days. Built for those ready to align body, mind, and spirit in one unified pursuit.',
-    weeks: 8,
-    days_total: 56,
-    difficulty: 'All Levels',
+    description: 'The flagship plan — 56 days of Scripture, progressive workouts, intentional nutrition, and journal prompts built to align body, mind, and spirit.',
+    weeks: 8, days_total: 56, difficulty: 'All Levels',
+    category: 'body',
     gradient: 'from-[#0D4F3C] to-[#c9a227]',
-    accent: '#c9a227',
-    cover_emoji: '👑',
+    accent: '#c9a227', cover_emoji: '👑',
     tags: ['Bible', 'Fitness', 'Nutrition', 'Journaling', 'Mindset'],
     week_themes: WEEK_THEMES,
     days: PLAN_DAYS,
+    comingSoon: false,
   },
-  FINANCIAL_FREEDOM_PLAN,
-  LOVE_LANGS_PLAN,
+  {
+    id: 'temple-strong',
+    title: 'Temple Strong',
+    subtitle: '8 Weeks to Honor God with Your Body',
+    description: 'A faith-rooted fitness and nutrition plan that treats physical health as an act of worship — building sustainable strength, healthy eating, and a godly body image.',
+    weeks: 8, days_total: 56, difficulty: 'Intermediate',
+    category: 'body',
+    gradient: 'from-[#0A1A2F] to-[#2563eb]',
+    accent: '#3b82f6', cover_emoji: '🏋️',
+    tags: ['Fitness', 'Nutrition', 'Bible', 'Weight Loss', 'Strength'],
+    week_themes: TEMPLE_STRONG_WEEK_THEMES,
+    days: [],
+    comingSoon: true,
+  },
+  {
+    id: 'athlete-of-faith',
+    title: 'Athlete of Faith',
+    subtitle: '8 Weeks of Performance Training & Purpose',
+    description: 'Elite-level conditioning meets deep faith — for those who want to compete, perform, and train as if God is watching. Because He is.',
+    weeks: 8, days_total: 56, difficulty: 'Advanced',
+    category: 'body',
+    gradient: 'from-[#0A1A2F] to-[#dc2626]',
+    accent: '#f87171', cover_emoji: '🏅',
+    tags: ['Performance', 'Fitness', 'Mindset', 'Discipline', 'Faith'],
+    week_themes: ATHLETE_OF_FAITH_WEEK_THEMES,
+    days: [],
+    comingSoon: true,
+  },
+  // ── MIND & SPIRIT ───────────────────────────────────────────────────────────
+  {
+    id: 'breaking-free',
+    title: 'Breaking Free',
+    subtitle: '8 Weeks of Healing & Liberation',
+    description: 'A deep healing journey for those battling cycles, strongholds, and habits that won\'t break. Rooted in identity, Scripture, and the power of community.',
+    weeks: 8, days_total: 56, difficulty: 'All Levels',
+    category: 'mind',
+    gradient: 'from-[#7c3aed] to-[#0A1A2F]',
+    accent: '#a78bfa', cover_emoji: '🦅',
+    tags: ['Healing', 'Identity', 'Bible', 'Freedom', 'Mindset'],
+    week_themes: BREAKING_FREE_WEEK_THEMES,
+    days: [],
+    comingSoon: true,
+  },
+  {
+    id: 'deep-roots',
+    title: 'Deep Roots',
+    subtitle: '8 Weeks of Prayer, Scripture & Stillness',
+    description: 'For those who want to go deeper with God — a daily prayer and Scripture immersion plan that builds an unshakeable spiritual foundation through stillness, fasting, and worship.',
+    weeks: 8, days_total: 56, difficulty: 'All Levels',
+    category: 'mind',
+    gradient: 'from-[#0A1A2F] to-[#065f46]',
+    accent: '#34d399', cover_emoji: '🌳',
+    tags: ['Prayer', 'Scripture', 'Fasting', 'Worship', 'Spiritual Growth'],
+    week_themes: DEEP_ROOTS_WEEK_THEMES,
+    days: [],
+    comingSoon: true,
+  },
+  // ── RELATIONSHIPS ───────────────────────────────────────────────────────────
+  {
+    ...LOVE_LANGS_PLAN,
+    category: 'relationships',
+    comingSoon: false,
+  },
+  {
+    id: 'stronger-marriage',
+    title: 'Stronger Marriage',
+    subtitle: '8 Weeks to a Deeper, Healthier Bond',
+    description: 'A couples\' plan rooted in Scripture that walks through communication, conflict, intimacy, and vision — rebuilding the foundation or strengthening what\'s already strong.',
+    weeks: 8, days_total: 56, difficulty: 'All Levels',
+    category: 'relationships',
+    gradient: 'from-[#db2777] to-[#0A1A2F]',
+    accent: '#f9a8d4', cover_emoji: '💍',
+    tags: ['Marriage', 'Communication', 'Faith', 'Intimacy', 'Commitment'],
+    week_themes: STRONGER_MARRIAGE_WEEK_THEMES,
+    days: [],
+    comingSoon: true,
+  },
+  // ── PURPOSE ─────────────────────────────────────────────────────────────────
+  {
+    ...FINANCIAL_FREEDOM_PLAN,
+    category: 'purpose',
+    comingSoon: false,
+  },
+  {
+    id: 'called-and-equipped',
+    title: 'Called & Equipped',
+    subtitle: '8 Weeks to Discover Your God-Given Purpose',
+    description: 'A guided journey through gifting, calling, and courage — for those who sense God has more for them but aren\'t sure what it is or how to step into it.',
+    weeks: 8, days_total: 56, difficulty: 'All Levels',
+    category: 'purpose',
+    gradient: 'from-[#0A1A2F] to-[#b45309]',
+    accent: '#fbbf24', cover_emoji: '🔥',
+    tags: ['Purpose', 'Calling', 'Faith', 'Courage', 'Gifts'],
+    week_themes: CALLED_EQUIPPED_WEEK_THEMES,
+    days: [],
+    comingSoon: true,
+  },
+  {
+    id: 'kingdom-business',
+    title: 'Kingdom Business',
+    subtitle: '8 Weeks of Faith in the Workplace',
+    description: 'For entrepreneurs, leaders, and professionals who want their work to be an act of worship — building character, leading with integrity, and stewarding business as ministry.',
+    weeks: 8, days_total: 56, difficulty: 'All Levels',
+    category: 'purpose',
+    gradient: 'from-[#0A1A2F] to-[#1e40af]',
+    accent: '#60a5fa', cover_emoji: '🏢',
+    tags: ['Business', 'Leadership', 'Integrity', 'Stewardship', 'Purpose'],
+    week_themes: KINGDOM_BUSINESS_WEEK_THEMES,
+    days: [],
+    comingSoon: true,
+  },
 ];

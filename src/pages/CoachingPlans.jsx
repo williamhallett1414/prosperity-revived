@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { ArrowLeft, BookOpen, Dumbbell, Utensils, Brain, Calendar, CheckCircle2, ChevronRight, Crown, Star } from 'lucide-react';
+import { ArrowLeft, BookOpen, Dumbbell, Utensils, Brain, Calendar, CheckCircle2, ChevronRight, Crown, Star, Lock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { COACHING_PLANS, PLAN_CATEGORIES, WEEK_THEMES } from '@/components/coaching/planData';
 import { base44 } from '@/api/base44Client';
@@ -119,7 +119,13 @@ export default function CoachingPlans() {
                 className="bg-white rounded-2xl overflow-hidden border border-[#0D4F3C]/10 shadow-sm hover:shadow-md transition-all"
               >
                 {/* Plan header */}
-                <div className={`bg-gradient-to-r ${plan.gradient} p-5`}>
+                <div className={`bg-gradient-to-r ${plan.gradient} p-5 relative`}>
+                  {plan.comingSoon && (
+                    <div className="absolute top-3 right-3 flex items-center gap-1.5 bg-black/30 backdrop-blur-sm px-2.5 py-1 rounded-full">
+                      <Lock className="w-3 h-3 text-white/80" />
+                      <span className="text-[10px] font-bold text-white/80 uppercase tracking-wider">Coming Soon</span>
+                    </div>
+                  )}
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-2">
@@ -182,23 +188,31 @@ export default function CoachingPlans() {
                   )}
 
                   {/* CTA */}
-                  <Button
-                    onClick={() => navigate(createPageUrl(`CoachingPlanDetail?id=${plan.id}&day=${isStarted ? currentDay : 1}`))}
-                    className="w-full bg-gradient-to-r from-[#0D4F3C] to-[#22856A] hover:opacity-90 text-white font-bold py-3 rounded-xl shadow-md"
-                  >
-                    {isStarted ? (
-                      <>Continue Day {currentDay} <ChevronRight className="w-4 h-4 ml-1" /></>
-                    ) : (
-                      <>Begin the Journey <ChevronRight className="w-4 h-4 ml-1" /></>
-                    )}
-                  </Button>
-
-                  {isStarted && (
-                    <button
-                      onClick={() => navigate(createPageUrl(`CoachingPlanDetail?id=${plan.id}&day=1`))}
-                      className="w-full mt-2 text-xs text-[#0A1A2F]/40 hover:text-[#0D4F3C] transition-colors py-1">
-                      View from Day 1
-                    </button>
+                  {plan.comingSoon ? (
+                    <div className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-[#0A1A2F]/6 border border-[#0A1A2F]/10">
+                      <Lock className="w-4 h-4 text-[#0A1A2F]/35" />
+                      <span className="text-sm font-semibold text-[#0A1A2F]/40">Coming Soon</span>
+                    </div>
+                  ) : (
+                    <>
+                      <Button
+                        onClick={() => navigate(createPageUrl(`CoachingPlanDetail?id=${plan.id}&day=${isStarted ? currentDay : 1}`))}
+                        className="w-full bg-gradient-to-r from-[#0D4F3C] to-[#22856A] hover:opacity-90 text-white font-bold py-3 rounded-xl shadow-md"
+                      >
+                        {isStarted ? (
+                          <>Continue Day {currentDay} <ChevronRight className="w-4 h-4 ml-1" /></>
+                        ) : (
+                          <>Begin the Journey <ChevronRight className="w-4 h-4 ml-1" /></>
+                        )}
+                      </Button>
+                      {isStarted && (
+                        <button
+                          onClick={() => navigate(createPageUrl(`CoachingPlanDetail?id=${plan.id}&day=1`))}
+                          className="w-full mt-2 text-xs text-[#0A1A2F]/40 hover:text-[#0D4F3C] transition-colors py-1">
+                          View from Day 1
+                        </button>
+                      )}
+                    </>
                   )}
                 </div>
               </motion.div>
@@ -207,15 +221,6 @@ export default function CoachingPlans() {
           )}
         </div>
 
-        {/* Coming soon placeholder */}
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }}
-          className="mt-4 border-2 border-dashed border-[#0D4F3C]/20 rounded-2xl p-6 text-center">
-          <div className="w-12 h-12 rounded-xl bg-[#0D4F3C]/8 flex items-center justify-center mx-auto mb-3">
-            <Star className="w-6 h-6 text-[#0D4F3C]/40" />
-          </div>
-          <h3 className="font-bold text-[#0A1A2F]/60 text-sm mb-1">More Plans Coming</h3>
-          <p className="text-xs text-[#0A1A2F]/40">New coaching plans are in development — focused on weight loss, mental health, spiritual deepening, and athletic performance.</p>
-        </motion.div>
       </div>
     </div>
   );
