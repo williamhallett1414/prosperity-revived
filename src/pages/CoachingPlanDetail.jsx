@@ -15,6 +15,7 @@ import { toast } from 'sonner';
 import StartWorkoutModal from '@/components/wellness/StartWorkoutModal';
 import MealLoggingSection from '@/components/coaching/MealLoggingSection';
 import CoachPaul from '@/components/coaching/CoachPaul';
+import GuidedMeditationPlayer from '@/components/mindspirit/GuidedMeditationPlayer';
 import { useQuery } from '@tanstack/react-query';
 import { MoreVertical } from 'lucide-react';
 
