@@ -14,7 +14,7 @@ function getPlanProgress(planId) {
   } catch { return { completed_days: [] }; }
 }
 
-function PlanCard({ plan, idx }) {
+function PlanCard({ plan, idx, onPreview }) {
   const navigate = useNavigate();
   const progress = getPlanProgress(plan.id);
   const completedDays = progress.completed_days?.length || 0;
