@@ -17,6 +17,10 @@ import {
   MessageCircle
 } from 'lucide-react';
 import { format } from 'date-fns';
+import Hannah from '@/components/mindspirit/Hannah';
+import CoachDavid from '@/components/wellness/CoachDavid';
+import ChefDaniel from '@/components/wellness/ChefDaniel';
+import GideonChatbot from '@/components/bible/GideonChatbot';
 import HolisticProgressReport from '@/components/journey/HolisticProgressReport';
 import PersonalizedDevotional from '@/components/gideon/PersonalizedDevotional';
 import DailyReflectionPrompt from '@/components/gideon/DailyReflectionPrompt';
@@ -75,7 +79,7 @@ const memoryTypeIcons = {
 
 export default function ProgressDashboard() {
   const navigate = useNavigate();
-  // chatbots now open as full-screen ChatScreen pages
+  const [activeChat, setActiveChat] = useState(null);
   const queryClient = useQueryClient();
   
   const { data: user } = useQuery({
@@ -284,7 +288,7 @@ export default function ProgressDashboard() {
               return (
                 <Button
                 key={key}
-                onClick={() => navigate(createPageUrl('ChatScreen') + '?bot=' + key)}
+                onClick={() => setActiveChat(key)}
                 className={`h-auto py-4 px-3 flex flex-col items-center gap-1 bg-gradient-to-br ${config.color} hover:opacity-90 text-white shadow-md w-full`}
                 >
                 <span className="text-2xl leading-none">{config.icon}</span>
@@ -364,7 +368,7 @@ export default function ProgressDashboard() {
                        </Badge>
                        <Button
                          size="sm"
-                         onClick={() => navigate(createPageUrl('ChatScreen') + '?bot=' + key)}
+                         onClick={() => setActiveChat(key)}
                          className={`bg-gradient-to-br ${config.color} hover:opacity-90 text-white`}
                        >
                          <MessageCircle className="w-4 h-4 mr-1" />
@@ -440,6 +444,20 @@ export default function ProgressDashboard() {
           </motion.div>
         )}
       </div>
+
+      {/* Chatbot Modals */}
+      {activeChat === 'Hannah' && user && (
+        <Hannah user={user} autoOpen={true} onClose={() => setActiveChat(null)} />
+      )}
+      {activeChat === 'CoachDavid' && user && (
+        <CoachDavid user={user} userWorkouts={userWorkoutsForChat} workoutSessions={workoutSessionsForChat} autoOpen={true} onClose={() => setActiveChat(null)} />
+      )}
+      {activeChat === 'ChefDaniel' && user && (
+        <ChefDaniel user={user} userRecipes={userRecipesForChat} mealLogs={mealLogsForChat} autoOpen={true} onClose={() => setActiveChat(null)} />
+      )}
+      {activeChat === 'Gideon' && user && (
+        <GideonChatbot user={user} autoOpen={true} onClose={() => setActiveChat(null)} />
+      )}
     </div>
   );
 }

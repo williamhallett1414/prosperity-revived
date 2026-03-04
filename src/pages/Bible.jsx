@@ -3,7 +3,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useSearchParams } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Compass, BookOpen, TrendingUp, CheckCircle, Heart, Sparkles, ChevronRight, PlayCircle, MessageCircle } from 'lucide-react';
+import { ArrowLeft, Compass, BookOpen, TrendingUp, CheckCircle, Heart, Sparkles, ChevronRight, PlayCircle } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
@@ -15,6 +15,7 @@ import BibleStatsModal from '@/components/bible/BibleStatsModal';
 import DevotionalContent from '@/components/bible/DevotionalContent';
 import BibleStudyGuide from '@/components/bible/BibleStudyGuide';
 import MoodTracker from '@/components/bible/MoodTracker';
+import GideonAskAnything from '@/components/bible/GideonAskAnything';
 import UnifiedBibleReader from '@/components/bible/UnifiedBibleReader';
 import BibleSearchBar from '@/components/bible/BibleSearchBar';
 
@@ -296,20 +297,7 @@ export default function Bible() {
       </div>
 
       <BibleStatsModal isOpen={showStatsModal} onClose={() => setShowStatsModal(false)} statType={selectedStat} progress={planProgress} bookmarks={bookmarks} />
-      {/* Gideon floating chat button → full screen ChatScreen */}
-      <motion.button
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        onClick={() => navigate('/ChatScreen?bot=Gideon')}
-        className="fixed bottom-28 right-4 z-40 bg-gradient-to-r from-[#0A1A2F] to-[#c9a227] text-white rounded-full p-4 shadow-2xl"
-      >
-        <MessageCircle className="w-6 h-6" />
-        <span className="absolute -top-1 -right-1 bg-[#c9a227] text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center">
-          <Sparkles className="w-3 h-3" />
-        </span>
-      </motion.button>
+      <GideonAskAnything />
     </div>
   );
 }

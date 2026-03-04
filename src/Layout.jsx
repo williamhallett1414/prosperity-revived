@@ -86,7 +86,6 @@ export default function Layout({ children, currentPageName }) {
     Messages: 'Messages',
     Friends: 'Friends',
     Search: 'Search',
-    ChatScreen: 'Chat',
   };
 
   const currentPageTitle = pageTitles[currentPageName] || currentPageName;

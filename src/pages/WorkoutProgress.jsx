@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
@@ -12,35 +11,8 @@ import WorkoutStreakCard from '@/components/wellness/WorkoutStreakCard';
 import WeightProgressChart from '@/components/wellness/WeightProgressChart';
 import GoalCompletionChart from '@/components/wellness/GoalCompletionChart';
 import ProgressPhotoGallery from '@/components/wellness/ProgressPhotoGallery';
+import CoachDavid from '@/components/wellness/CoachDavid';
 import UniversalHeader from '@/components/navigation/UniversalHeader';
-
-
-// Floating chat button that navigates to ChatScreen
-function ChatFAB({ bot, gradFrom, gradTo }) {
-  const navigate = useNavigate();
-  return (
-    <button
-      onClick={() => navigate('/ChatScreen?bot=' + bot)}
-      style={{
-        position: 'fixed', bottom: '6rem', right: '1rem', zIndex: 40,
-        background: `linear-gradient(135deg, ${gradFrom}, ${gradTo})`,
-        color: 'white', borderRadius: '9999px', padding: '1rem',
-        boxShadow: '0 8px 32px rgba(0,0,0,0.25)',
-        border: 'none', cursor: 'pointer',
-        display: 'flex', alignItems: 'center', justifyContent: 'center',
-        width: '56px', height: '56px',
-        transition: 'transform 0.15s ease',
-      }}
-      onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.08)'}
-      onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
-      title={`Chat with ${bot}`}
-    >
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-      </svg>
-    </button>
-  );
-}
 
 export default function WorkoutProgress() {
   const [user, setUser] = useState(null);
@@ -175,7 +147,11 @@ export default function WorkoutProgress() {
       </div>
 
       {/* Coach David Chatbot */}
-      <ChatFAB bot="CoachDavid" gradFrom="#1e40af" gradTo="#38BDF8" />
-</div>
+      <CoachDavid 
+        user={user} 
+        userWorkouts={workouts}
+        workoutSessions={sessions}
+      />
+    </div>
   );
 }
