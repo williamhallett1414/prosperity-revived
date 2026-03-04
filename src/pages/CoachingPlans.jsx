@@ -121,6 +121,19 @@ function PlanCard({ plan, idx, onPreview }) {
             >
               {isStarted ? <>Continue Day {currentDay} <ChevronRight className="w-3.5 h-3.5 ml-1" /></> : <>Begin Journey <ChevronRight className="w-3.5 h-3.5 ml-1" /></>}
             </Button>
+            {!isStarted && (
+              <Button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onPreview(plan);
+                }}
+                variant="outline"
+                className="w-full border border-[#0D4F3C]/20 text-[#0D4F3C] hover:bg-[#F5F8F0] font-semibold py-2 rounded-xl text-xs"
+              >
+                <Eye className="w-3.5 h-3.5 mr-1.5" />
+                Preview Day 1
+              </Button>
+            )}
             {isStarted && (
               <Button
                 onClick={handleAbandonPlan}
