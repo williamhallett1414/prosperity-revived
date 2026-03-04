@@ -272,27 +272,45 @@ Keep responses conversational, encouraging, and practical. Reference their speci
             </div>
 
             {/* Input */}
-            <div className="border-t border-[#0D4F3C]/10 p-3 flex gap-2">
-              <Input
-                placeholder="Ask Coach Paul..."
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' && !e.shiftKey) {
-                    e.preventDefault();
-                    handleSendMessage();
-                  }
-                }}
-                disabled={loading}
-                className="text-sm"
-              />
-              <button
-                onClick={handleSendMessage}
-                disabled={!input.trim() || loading}
-                className="w-10 h-10 rounded-lg bg-[#0D4F3C] text-white flex items-center justify-center disabled:opacity-50 hover:bg-[#0D4F3C]/90 transition-colors"
-              >
-                <Send className="w-4 h-4" />
-              </button>
+            <div className="border-t border-[#0D4F3C]/10 p-4 space-y-3">
+              <div className="flex gap-2">
+                <Input
+                  placeholder="Ask Coach Paul..."
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                      e.preventDefault();
+                      handleSendMessage();
+                    }
+                  }}
+                  disabled={loading}
+                  className="text-sm rounded-xl border-[#0D4F3C]/15"
+                />
+                <button
+                  onClick={handleSendMessage}
+                  disabled={!input.trim() || loading}
+                  className="w-10 h-10 rounded-xl bg-gradient-to-r from-[#0D4F3C] to-[#22856A] text-white flex items-center justify-center disabled:opacity-50 hover:shadow-lg transition-all"
+                >
+                  <Send className="w-4 h-4" />
+                </button>
+              </div>
+              <div className="flex items-center justify-between px-1">
+                <button
+                  onClick={() => setShowMenu(!showMenu)}
+                  className="text-xs text-[#0A1A2F]/50 hover:text-[#0A1A2F] transition-colors relative"
+                >
+                  <MoreVertical className="w-4 h-4" />
+                  {showMenu && (
+                    <button
+                      onClick={handleClearChat}
+                      className="absolute bottom-full right-0 mb-2 bg-red-50 border border-red-200 rounded-lg shadow-lg px-2.5 py-1.5 text-[10px] font-bold text-red-600 hover:bg-red-100 whitespace-nowrap flex items-center gap-1.5"
+                    >
+                      <Trash2 className="w-3 h-3" /> Clear Chat
+                    </button>
+                  )}
+                </button>
+              </div>
             </div>
           </motion.div>
         )}
