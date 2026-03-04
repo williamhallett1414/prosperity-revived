@@ -363,23 +363,41 @@ export default function CoachingPlanDetail() {
       </AnimatePresence>
 
       {/* Sticky header */}
-      <div className="sticky top-0 z-30 bg-white border-b border-[#0D4F3C]/10 px-4 py-3">
-        <div className="max-w-2xl mx-auto flex items-center gap-3">
-          <Link to={createPageUrl('CoachingPlans')}
-            className="w-9 h-9 rounded-full bg-[#E8F0E8] hover:bg-[#D8E8D8] flex items-center justify-center transition-colors flex-shrink-0">
-            <ArrowLeft className="w-4 h-4 text-[#0D4F3C]" />
-          </Link>
-          <div className="flex-1 min-w-0">
-            <h1 className="text-sm font-bold text-[#0A1A2F] truncate">{plan.title}</h1>
-            <p className="text-xs text-[#0A1A2F]/50">Day {currentDay} of {plan.days_total}</p>
-          </div>
-          <button onClick={() => setShowDayPicker(true)}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#F5F8F0] border border-[#0D4F3C]/15 text-xs font-bold text-[#0D4F3C] hover:bg-[#E8F0E8] transition-colors">
-            <List className="w-3.5 h-3.5" />
-            Day {currentDay}
-          </button>
-        </div>
-      </div>
+       <div className="sticky top-0 z-30 bg-white border-b border-[#0D4F3C]/10 px-4 py-3">
+         <div className="max-w-2xl mx-auto flex items-center gap-3">
+           <Link to={createPageUrl('CoachingPlans')}
+             className="w-9 h-9 rounded-full bg-[#E8F0E8] hover:bg-[#D8E8D8] flex items-center justify-center transition-colors flex-shrink-0">
+             <ArrowLeft className="w-4 h-4 text-[#0D4F3C]" />
+           </Link>
+           <div className="flex-1 min-w-0">
+             <h1 className="text-sm font-bold text-[#0A1A2F] truncate">{plan.title}</h1>
+             <p className="text-xs text-[#0A1A2F]/50">Day {currentDay} of {plan.days_total}</p>
+           </div>
+           <button onClick={() => setShowDayPicker(true)}
+             className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#F5F8F0] border border-[#0D4F3C]/15 text-xs font-bold text-[#0D4F3C] hover:bg-[#E8F0E8] transition-colors">
+             <List className="w-3.5 h-3.5" />
+             Day {currentDay}
+           </button>
+           <div className="relative">
+             <button 
+               onClick={() => setShowMenu(!showMenu)}
+               className="w-9 h-9 rounded-full bg-[#E8F0E8] hover:bg-[#D8E8D8] flex items-center justify-center transition-colors">
+               <MoreVertical className="w-4 h-4 text-[#0D4F3C]" />
+             </button>
+             {showMenu && (
+               <button
+                 onClick={() => {
+                   handleAbandonPlan();
+                   setShowMenu(false);
+                 }}
+                 className="absolute top-full right-0 mt-2 bg-white border border-red-200 rounded-lg shadow-lg px-3 py-2 text-xs font-bold text-red-600 hover:bg-red-50 whitespace-nowrap"
+               >
+                 ✕ Abandon Plan
+               </button>
+             )}
+           </div>
+         </div>
+       </div>
 
       <div className="max-w-2xl mx-auto px-4 pt-4">
 
