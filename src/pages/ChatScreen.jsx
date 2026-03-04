@@ -12,8 +12,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, Send, Loader2, RotateCcw, Mic, MicOff, Volume2, Square } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import { base44 } from '@/api/base44Client';
-import { useQuery } from '@tanstack/react-query';
-import ChatbotAvatar3D from '@/components/chatbot/ChatbotAvatar3D';
+import CartoonAvatar from '@/components/chatbot/CartoonAvatar';
 
 // ─── Bot config ───────────────────────────────────────────────────────────────
 const BOT_CONFIG = {
@@ -451,12 +450,11 @@ export default function ChatScreen() {
             ))}
           </AnimatePresence>
 
-          <ChatbotAvatar3D
+          <CartoonAvatar
             character={cfg.character}
             isSpeaking={avatarSpeaking}
             isListening={avatarListening}
-            width={220}
-            height={220}
+            size={220}
           />
         </div>
       </div>
