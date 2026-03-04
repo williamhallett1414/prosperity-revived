@@ -319,6 +319,13 @@ export default function CoachingPlans() {
         </motion.div>
 
       </div>
+
+      {/* Preview Modal */}
+      <PreviewPlanModal
+        plan={previewPlan}
+        open={!!previewPlan}
+        onOpenChange={(open) => !open && setPreviewPlan(null)}
+      />
     </div>
   );
 }
