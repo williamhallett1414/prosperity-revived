@@ -156,7 +156,7 @@ export default function CoachingPlanDetail() {
 
   const plan = COACHING_PLANS.find(p => p.id === planId) || COACHING_PLANS[0];
   const dayData = plan.days.find(d => d.number === currentDay) || plan.days[currentDay - 1];
-  const weekTheme = WEEK_THEMES.find(w => w.week === dayData?.week) || WEEK_THEMES[0];
+  const weekTheme = (plan.week_themes || []).find(w => w.week === dayData?.week) || plan.week_themes?.[0];
 
   // Progress state
   const [progress, setProgress] = useState(() => getProgress(planId));
