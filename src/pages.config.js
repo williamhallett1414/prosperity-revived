@@ -53,6 +53,7 @@ import Bible from './pages/Bible';
 import BibleBooks from './pages/BibleBooks';
 import Bookmarks from './pages/Bookmarks';
 import ChallengeDetailPage from './pages/ChallengeDetailPage';
+import ChatScreen from './pages/ChatScreen';
 import CoachingPlanDetail from './pages/CoachingPlanDetail';
 import CoachingPlanPage from './pages/CoachingPlanPage';
 import CoachingPlans from './pages/CoachingPlans';
@@ -112,6 +113,7 @@ export const PAGES = {
     "BibleBooks": BibleBooks,
     "Bookmarks": Bookmarks,
     "ChallengeDetailPage": ChallengeDetailPage,
+    "ChatScreen": ChatScreen,
     "CoachingPlanDetail": CoachingPlanDetail,
     "CoachingPlanPage": CoachingPlanPage,
     "CoachingPlans": CoachingPlans,

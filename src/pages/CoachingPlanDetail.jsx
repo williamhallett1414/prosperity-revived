@@ -104,14 +104,13 @@ function TaskRow({ label, done, onToggle, linkTo, linkLabel }) {
   );
 }
 
-function WeekNav({ currentWeek, weeks, onSelectWeek, planId }) {
+function WeekNav({ currentWeek, weeks, onSelectWeek, planId, weekThemes }) {
   return (
     <div className="overflow-x-auto -mx-4 px-4 pb-1">
       <div className="flex gap-2 min-w-max">
-        {WEEK_THEMES.map(wt => {
+        {weekThemes.map(wt => {
           const progress = getProgress(planId);
           const weekDaysCompleted = (progress.completed_days || []).filter(d => {
-            // days 1-7 = week 1, 8-14 = week 2, etc.
             return d >= (wt.week - 1) * 7 + 1 && d <= wt.week * 7;
           }).length;
           const isActive = wt.week === currentWeek;
