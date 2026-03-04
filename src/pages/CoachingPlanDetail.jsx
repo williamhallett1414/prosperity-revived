@@ -176,7 +176,13 @@ export default function CoachingPlanDetail() {
 
   const plan = COACHING_PLANS.find(p => p.id === planId) || COACHING_PLANS[0];
   const dayData = plan.days.find(d => d.number === currentDay) || plan.days[currentDay - 1];
-  const weekTheme = (plan.week_themes || []).find(w => w.week === dayData?.week) || plan.week_themes?.[0];
+  const weekTheme = (plan.week_themes || []).find(w => w.week === dayData?.week) || {
+    week: dayData?.week || 1,
+    theme: 'Week',
+    title: 'Growth',
+    color: 'from-[#0D4F3C] to-[#22856A]',
+    emoji: '✨'
+  };
 
   // Progress state
   const [progress, setProgress] = useState(() => getProgress(planId));
