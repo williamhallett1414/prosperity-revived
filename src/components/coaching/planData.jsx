@@ -3,6 +3,8 @@
 // "Renewed Strength: 8 Weeks to Whole-Life Transformation"
 // ─────────────────────────────────────────────────────────────────────────────
 
+import { FINANCIAL_FREEDOM_PLAN } from './financialFreedomPlanData';
+
 export const WEEK_THEMES = [
   { week: 1, theme: 'Foundation',   title: 'Know Your Why',         color: 'from-[#0D4F3C] to-[#22856A]', accent: '#22856A', emoji: '🌱' },
   { week: 2, theme: 'Body',         title: 'Temple Strong',          color: 'from-[#0A1A2F] to-[#38BDF8]', accent: '#38BDF8', emoji: '💪' },
