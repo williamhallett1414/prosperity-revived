@@ -14,7 +14,9 @@ import {
   Calendar,
   CheckCircle2,
   Sparkles,
-  MessageCircle
+  MessageCircle,
+  ChevronRight,
+  Crown
 } from 'lucide-react';
 import { format } from 'date-fns';
 import Hannah from '@/components/mindspirit/Hannah';
