@@ -204,7 +204,7 @@ export default function CoachingPlanDetail() {
   };
 
   const completedTaskCount = Object.values(taskState).filter(Boolean).length;
-  const totalTasks = 6;
+  const totalTasks = dayData?.meditation ? 7 : 6;
   const allTasksDone = completedTaskCount === totalTasks;
 
   const handleCompleteDay = () => {
