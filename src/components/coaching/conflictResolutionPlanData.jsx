@@ -13,7 +13,7 @@ export const CONFLICT_RESOLUTION_WEEK_THEMES = [
 
 export const CONFLICT_RESOLUTION_DAYS = [
   {
-    day: 1, week: 1, title: 'The First Myth: Healthy Couples Don\'t Fight',
+    day: 1, week: 1, title: 'Reframing Conflict as Connection',
     bible: { book: 'Ephesians', chapter: 4, verse_range: '26', key_verse: '"In your anger do not sin... Do not let the sun go down while you are still angry." — Ephesians 4:26–27', devotion: 'Scripture does not call for the absence of conflict. It calls for the speed of repair. The healthiest couples don\'t avoid fighting — they fight and return quickly. This changes everything about how you see your conflicts.', reflection_q: 'When was the last time you had a conflict that actually deepened your relationship? What made the difference?' },
     workout: { premade_id: 'morning-energizer', motivational_tip: 'Conflict is exercise for your relational muscles. Let\'s get strong.', coach_note: 'This week is about reframing conflict from threat to opportunity.' },
     nutrition: { focus: 'Fuel for Difficulty', meal_theme: 'Grounding', plan: 'Eat foods that calm your nervous system and ground you — root vegetables, warming spices, proteins that sustain.', tip: 'When conflict is coming, eat well. Your nervous system is going to need fuel.', recipe_search: 'grounding vegetables' },
