@@ -256,19 +256,31 @@ export default function CoachingPlanDetail() {
   return (
     <div className="min-h-screen bg-[#F5F8F0] pb-28">
 
-      {/* Workout Modal */}
-      {showWorkoutModal && workoutForModal && user && (
-        <StartWorkoutModal
-          isOpen={showWorkoutModal}
-          onClose={() => setShowWorkoutModal(false)}
-          workout={workoutForModal}
-          user={user}
-          onComplete={() => {
-            setShowWorkoutModal(false);
-            handleToggleTask('workout');
-          }}
-        />
-      )}
+      {/* Coach Paul Chatbot */}
+       {user && (
+         <CoachPaul
+           planId={planId}
+           dayNumber={currentDay}
+           planTitle={plan.title}
+           dayData={dayData}
+           user={user}
+           taskState={taskState}
+         />
+       )}
+
+       {/* Workout Modal */}
+       {showWorkoutModal && workoutForModal && user && (
+         <StartWorkoutModal
+           isOpen={showWorkoutModal}
+           onClose={() => setShowWorkoutModal(false)}
+           workout={workoutForModal}
+           user={user}
+           onComplete={() => {
+             setShowWorkoutModal(false);
+             handleToggleTask('workout');
+           }}
+         />
+       )}
 
       {/* Celebration overlay */}
       <AnimatePresence>
