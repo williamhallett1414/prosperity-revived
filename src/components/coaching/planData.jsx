@@ -1350,6 +1350,17 @@ export const PLAN_DAYS = [
   },
 ];
 
+export const PLAN_CATEGORIES = [
+  { id: 'all', name: 'All Plans', emoji: '✨' },
+  { id: 'whole-life', name: 'Whole-Life Transformation', emoji: '👑' },
+  { id: 'fitness', name: 'Fitness & Athletic', emoji: '💪' },
+  { id: 'nutrition', name: 'Nutrition & Wellness', emoji: '🥗' },
+  { id: 'spiritual', name: 'Spiritual Growth', emoji: '✝️' },
+  { id: 'personal', name: 'Personal Development', emoji: '🧠' },
+  { id: 'relationships', name: 'Relationships', emoji: '💕' },
+  { id: 'financial', name: 'Financial', emoji: '💰' },
+];
+
 export const COACHING_PLANS = [
   {
     id: 'renewed-strength',
@@ -1376,15 +1387,4 @@ export const COACHING_PLANS = [
   { ...MIND_RENEWAL_PLAN, category: 'personal' },
   { ...SACRED_KITCHEN_PLAN, category: 'nutrition' },
   { ...BREAKTHROUGH_LEADERS_PLAN, category: 'personal' },
-];
-
-export const PLAN_CATEGORIES = [
-  { id: 'all', name: 'All Plans', emoji: '✨' },
-  { id: 'whole-life', name: 'Whole-Life Transformation', emoji: '👑' },
-  { id: 'fitness', name: 'Fitness & Athletic', emoji: '💪' },
-  { id: 'nutrition', name: 'Nutrition & Wellness', emoji: '🥗' },
-  { id: 'spiritual', name: 'Spiritual Growth', emoji: '✝️' },
-  { id: 'personal', name: 'Personal Development', emoji: '🧠' },
-  { id: 'relationships', name: 'Relationships', emoji: '💕' },
-  { id: 'financial', name: 'Financial', emoji: '💰' },
 ];
