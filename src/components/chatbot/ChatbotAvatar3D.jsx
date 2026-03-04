@@ -590,7 +590,7 @@ function AvatarBody({ char, stateRef }) {
       {/* ── HEAD ─── */}
       <group ref={headRef}>
         <mesh material={m.skin} scale={[cfg.hW, 1, cfg.hD]}>
-          <latheGeometry args={[headPoints, 36]} />
+          <primitive object={headGeo} attach="geometry" />
         </mesh>
         {/* Brow ridge */}
         <mesh material={m.skinDark} position={[0,0.190,0.348]} scale={[0.38,0.040,0.066]}><sphereGeometry args={[1,18,8]} /></mesh>
