@@ -14,8 +14,11 @@ import {
   Calendar,
   CheckCircle2,
   Sparkles,
-  MessageCircle
+  MessageCircle,
+  ChevronRight,
+  Crown
 } from 'lucide-react';
+
 import { format } from 'date-fns';
 import Hannah from '@/components/mindspirit/Hannah';
 import CoachDavid from '@/components/wellness/CoachDavid';
@@ -26,6 +29,7 @@ import PersonalizedDevotional from '@/components/gideon/PersonalizedDevotional';
 import DailyReflectionPrompt from '@/components/gideon/DailyReflectionPrompt';
 import HannahBookmarksSection from '@/components/journey/HannahBookmarksSection';
 import CoachingSection from '@/components/journey/CoachingSection';
+import { COACHING_PLANS } from '@/components/coaching/planData';
 
 const chatbotConfig = {
   Hannah: {
@@ -271,6 +275,73 @@ export default function ProgressDashboard() {
 
         {/* Coaching Plan Section */}
         <CoachingSection />
+
+        {/* All Coaching Plans */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.15 }}
+          className="mb-8"
+        >
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#0D4F3C] to-[#22856A] flex items-center justify-center shadow-sm">
+                <Crown className="w-5 h-5 text-white" />
+              </div>
+              <div>
+                <h2 className="text-lg font-bold text-[#0A1A2F]">Coaching Plans</h2>
+                <p className="text-xs text-[#0A1A2F]/50">Choose your next 8-week journey</p>
+              </div>
+            </div>
+            <Link to={createPageUrl('CoachingPlans')} className="flex items-center gap-1 text-xs font-semibold text-[#0D4F3C] hover:opacity-75">
+              View All <ChevronRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+          <div className="space-y-3">
+            {COACHING_PLANS.map((plan) => {
+              let progress = {};
+              try { progress = JSON.parse(localStorage.getItem(`coaching_progress_${plan.id}`)) || {}; } catch {}
+              const completedDays = (progress.completed_days || []).length;
+              const pct = Math.round((completedDays / plan.days_total) * 100);
+              const isStarted = completedDays > 0;
+              return (
+                <Link key={plan.id} to={createPageUrl(`CoachingPlanDetail?id=${plan.id}&day=${isStarted ? completedDays + 1 : 1}`)}>
+                  <div className="bg-white rounded-2xl border border-[#0D4F3C]/10 overflow-hidden hover:shadow-md transition-shadow">
+                    <div className={`bg-gradient-to-r ${plan.gradient} px-4 py-3 flex items-center gap-3`}>
+                      <span className="text-2xl">{plan.cover_emoji}</span>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-white font-bold text-sm leading-tight">{plan.title}</p>
+                        <p className="text-white/65 text-xs truncate">{plan.subtitle}</p>
+                      </div>
+                      <ChevronRight className="w-4 h-4 text-white/50 flex-shrink-0" />
+                    </div>
+                    {isStarted && (
+                      <div className="px-4 py-2">
+                        <div className="flex items-center justify-between text-[10px] text-[#0A1A2F]/45 mb-1">
+                          <span>Day {completedDays}/{plan.days_total}</span>
+                          <span>{pct}%</span>
+                        </div>
+                        <div className="h-1.5 bg-[#F2F6FA] rounded-full overflow-hidden">
+                          <div className="h-full bg-gradient-to-r from-[#0D4F3C] to-[#c9a227] rounded-full" style={{ width: `${pct}%` }} />
+                        </div>
+                      </div>
+                    )}
+                    {!isStarted && (
+                      <div className="px-4 py-2 flex items-center gap-2">
+                        <div className="flex gap-1">
+                          {plan.tags.slice(0, 3).map(tag => (
+                            <span key={tag} className="text-[10px] px-2 py-0.5 bg-[#F5F8F0] text-[#0D4F3C] rounded-full font-medium">{tag}</span>
+                          ))}
+                        </div>
+                        <span className="ml-auto text-[10px] font-semibold text-[#0D4F3C]">Start →</span>
+                      </div>
+                    )}
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+        </motion.div>
 
         {/* Personalized Devotional */}
         <PersonalizedDevotional />

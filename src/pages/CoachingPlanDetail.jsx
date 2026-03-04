@@ -8,7 +8,7 @@ import {
   Calendar, Heart, Sparkles, Star, Trophy, Timer, List, X
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { COACHING_PLANS, WEEK_THEMES } from '@/components/coaching/planData';
+import { COACHING_PLANS } from '@/components/coaching/planData';
 import { PREMADE_WORKOUTS } from '@/components/wellness/WorkoutLibrary';
 import { base44 } from '@/api/base44Client';
 import { toast } from 'sonner';
@@ -104,14 +104,13 @@ function TaskRow({ label, done, onToggle, linkTo, linkLabel }) {
   );
 }
 
-function WeekNav({ currentWeek, weeks, onSelectWeek, planId }) {
+function WeekNav({ currentWeek, weeks, onSelectWeek, planId, weekThemes }) {
   return (
     <div className="overflow-x-auto -mx-4 px-4 pb-1">
       <div className="flex gap-2 min-w-max">
-        {WEEK_THEMES.map(wt => {
+        {weekThemes.map(wt => {
           const progress = getProgress(planId);
           const weekDaysCompleted = (progress.completed_days || []).filter(d => {
-            // days 1-7 = week 1, 8-14 = week 2, etc.
             return d >= (wt.week - 1) * 7 + 1 && d <= wt.week * 7;
           }).length;
           const isActive = wt.week === currentWeek;
@@ -157,7 +156,7 @@ export default function CoachingPlanDetail() {
 
   const plan = COACHING_PLANS.find(p => p.id === planId) || COACHING_PLANS[0];
   const dayData = plan.days.find(d => d.number === currentDay) || plan.days[currentDay - 1];
-  const weekTheme = WEEK_THEMES.find(w => w.week === dayData?.week) || WEEK_THEMES[0];
+  const weekTheme = (plan.week_themes || []).find(w => w.week === dayData?.week) || plan.week_themes?.[0];
 
   // Progress state
   const [progress, setProgress] = useState(() => getProgress(planId));
@@ -311,7 +310,7 @@ export default function CoachingPlanDetail() {
                 </button>
               </div>
               <div className="overflow-y-auto p-4 space-y-4">
-                {WEEK_THEMES.map(wt => (
+                {plan.week_themes.map(wt => (
                   <div key={wt.week}>
                     <p className={`text-xs font-bold uppercase tracking-wider mb-2 flex items-center gap-1.5 ${wt.week === dayData.week ? 'text-[#0D4F3C]' : 'text-[#0A1A2F]/40'}`}>
                       {wt.emoji} Week {wt.week} — {wt.title}
@@ -369,7 +368,7 @@ export default function CoachingPlanDetail() {
 
         {/* Week navigation */}
         <div className="mb-4">
-          <WeekNav currentWeek={dayData.week} weeks={8} onSelectWeek={handleWeekSelect} planId={planId} />
+          <WeekNav currentWeek={dayData.week} weeks={8} onSelectWeek={handleWeekSelect} planId={planId} weekThemes={plan.week_themes} />
         </div>
 
         {/* Day header card */}
