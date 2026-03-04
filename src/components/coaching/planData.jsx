@@ -5,6 +5,9 @@
 
 import { FINANCIAL_FREEDOM_PLAN } from './financialFreedomPlanData';
 import { LOVE_LANGS_PLAN } from './loveLangsPlanData';
+import { ATTACHMENT_STYLES_PLAN } from './attachmentStylesPlanData';
+import { CONFLICT_RESOLUTION_PLAN } from './conflictResolutionPlanData';
+import { BOUNDARIES_INTIMACY_PLAN } from './boundaries&intimacyPlanData';
 
 export const WEEK_THEMES = [
   { week: 1, theme: 'Foundation',   title: 'Know Your Why',         color: 'from-[#0D4F3C] to-[#22856A]', accent: '#22856A', emoji: '🌱' },
@@ -1369,6 +1372,9 @@ export const COACHING_PLANS = [
   },
   { ...FINANCIAL_FREEDOM_PLAN, category: 'financial' },
   { ...LOVE_LANGS_PLAN, category: 'relationships' },
+  { ...ATTACHMENT_STYLES_PLAN, category: 'relationships' },
+  { ...CONFLICT_RESOLUTION_PLAN, category: 'relationships' },
+  { ...BOUNDARIES_INTIMACY_PLAN, category: 'relationships' },
   { ...POWER_PURPOSE_PLAN, category: 'fitness' },
   { ...NOURISH_THRIVE_PLAN, category: 'nutrition' },
   { ...SOUL_DEEP_PLAN, category: 'spiritual' },
