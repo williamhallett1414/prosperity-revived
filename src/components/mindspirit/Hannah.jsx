@@ -36,6 +36,7 @@ export default function Hannah({ user, autoOpen = false, onClose }) {
   const [showQuickActions, setShowQuickActions] = useState(true);
   const [currentMood, setCurrentMood] = useState(5);
   const [showMoodTracker, setShowMoodTracker] = useState(false);
+  const [avatarCollapsed, setAvatarCollapsed] = useState(false);
   const [sessionId, setSessionId] = useState('');
   const [emotionalPatterns, setEmotionalPatterns] = useState([]);
   const [showJournalMode, setShowJournalMode] = useState(false);
@@ -1191,15 +1192,30 @@ Return ONLY valid JSON array:
             </div>
 
             {/* 3D Avatar Panel */}
-            <AvatarPanel
-              character="hannah"
-              isSpeaking={avatarSpeaking}
-              isListening={isListening}
-              name="Hannah"
-              subtitle="Your Personal Growth Guide"
-              gradientFrom="#AFC7E3"
-              gradientTo="#3C4E53"
-            />
+            {/* Avatar Panel — collapsible */}
+            <div className="relative">
+              <AnimatePresence>
+                {!avatarCollapsed && (
+                  <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} style={{ overflow: 'hidden' }}>
+                    <AvatarPanel
+                      character="hannah"
+                      isSpeaking={avatarSpeaking}
+                      isListening={isListening}
+                      name="Hannah"
+                      subtitle="Your Personal Growth Guide"
+                      gradientFrom="#AFC7E3"
+                      gradientTo="#3C4E53"
+                    />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+              <button
+                onClick={() => setAvatarCollapsed(!avatarCollapsed)}
+                className="w-full flex items-center justify-center py-1 text-[10px] text-[#3C4E53]/40 hover:text-[#3C4E53]/70 transition-colors bg-white border-b border-[#AFC7E3]/30"
+              >
+                {avatarCollapsed ? '▼ Show Hannah' : '▲ Hide'}
+              </button>
+            </div>
 
             {/* Proactive Insight Card */}
             <AnimatePresence>
@@ -1221,8 +1237,8 @@ Return ONLY valid JSON array:
               />
             )}
 
-            {/* Quick-Ask Menu */}
-            <div className="border-b border-[#AFC7E3]/40 bg-[#AFC7E3]/15 px-5 py-3 overflow-x-auto">
+            {/* Quick-Ask Menu — only show before first user message */}
+            {messages.length <= 1 && <div className="border-b border-[#AFC7E3]/40 bg-[#AFC7E3]/15 px-5 py-3 overflow-x-auto">
               <div className="flex items-center justify-between mb-2">
                 <HannahTooltip text="Jump straight into conversations about topics that matter to you. These are personalized quick-starts." position="bottom" showIcon={true}>
                   <p className="text-xs font-semibold text-[#0A1A2F]/70">Quick Topics:</p>
@@ -1304,6 +1320,8 @@ Return ONLY valid JSON array:
               )}
             </div>
 
+            }
+
             {/* Proactive Coaching Panel */}
             <AnimatePresence>
               {showProactivePanel && (
@@ -1372,7 +1390,7 @@ Return ONLY valid JSON array:
                     }`}
                   >
                     {message.role === 'assistant' ? (
-                      <ReactMarkdown className="prose prose-sm max-w-none prose-p:my-1 prose-li:my-0 text-gray-800 text-sm leading-relaxed">
+                      <ReactMarkdown className="prose prose-sm max-w-none prose-p:my-1.5 prose-li:my-0.5 prose-headings:font-semibold text-gray-800 text-sm leading-relaxed">
                         {message.content}
                       </ReactMarkdown>
                     ) : (
@@ -1384,8 +1402,8 @@ Return ONLY valid JSON array:
                       </div>
                     )}
                   </div>
-                  {/* Feedback rating for Hannah messages (not welcome, not loading) */}
-                  {message.role === 'assistant' && index > 0 && !ratedMessageIndices.has(index) && (
+                  {/* Feedback rating — only on the most recent assistant message */}
+                  {message.role === 'assistant' && index > 0 && index === messages.length - 1 && !ratedMessageIndices.has(index) && (
                     <HannahFeedbackRating
                       messageContent={message.content}
                       userEmail={user?.email}

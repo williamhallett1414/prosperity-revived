@@ -79,7 +79,7 @@ export default function AvatarPanel({
   gradientFrom,
   gradientTo,
 }) {
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
   const state = isSpeaking ? 'speaking' : isListening ? 'listening' : 'idle';
 
   return (

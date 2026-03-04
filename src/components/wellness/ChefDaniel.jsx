@@ -28,6 +28,7 @@ export default function ChefDaniel({ user, userRecipes = [], mealLogs = [], auto
   const [isListening, setIsListening] = useState(false);
   const [sessionId] = useState(() => `chef-daniel-${Date.now()}`);
   const [showQuickActions, setShowQuickActions] = useState(true);
+  const [avatarCollapsed, setAvatarCollapsed] = useState(false);
   const [showOnboarding, setShowOnboarding] = useState(false);
   const [memories, setMemories] = useState([]);
   const [personalityPrefs, setPersonalityPrefs] = useState(null);
@@ -843,6 +844,11 @@ Return ONLY valid JSON array:
             </div>
 
             {/* 3D Avatar Panel */}
+            {/* Avatar Panel — collapsible */}
+            <div className="relative">
+              <AnimatePresence>
+                {!avatarCollapsed && (
+                  <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} style={{ overflow: 'hidden' }}>
             <AvatarPanel
               character="chef"
               isSpeaking={avatarSpeaking}
@@ -852,6 +858,16 @@ Return ONLY valid JSON array:
               gradientFrom="#22c55e"
               gradientTo="#16a34a"
             />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+              <button
+                onClick={() => setAvatarCollapsed(!avatarCollapsed)}
+                className="w-full flex items-center justify-center py-1 text-[10px] text-[#0A1A2F]/40 hover:text-[#0A1A2F]/70 transition-colors bg-white border-b border-[#bbf7d0]/50"
+              >
+                {avatarCollapsed ? '▼ Show Chef Daniel' : '▲ Hide'}
+              </button>
+            </div>
 
             {/* Proactive Insight Card */}
             <AnimatePresence>
@@ -886,7 +902,7 @@ Return ONLY valid JSON array:
               </div>
               
               {/* Flavor Profile Selector */}
-              {showQuickActions && (
+              {messages.length <= 1 && showQuickActions && (
                 <div className="mb-3 pb-3 border-b border-[#bbf7d0]">
                   <p className="text-xs font-semibold text-[#0A1A2F]/70 mb-2">🎨 Flavor Profiles:</p>
                   <div className="grid grid-cols-2 gap-2">
@@ -1031,11 +1047,11 @@ Return ONLY valid JSON array:
                     className={`max-w-[80%] rounded-2xl px-4 py-3 ${
                       message.role === 'user'
                         ? 'bg-gradient-to-r from-[#22c55e] to-[#16a34a] text-white'
-                        : 'bg-[#dcfce7] text-[#0A1A2F]'
+                        : 'bg-white border border-[#bbf7d0] text-[#0A1A2F] shadow-sm'
                     }`}
                   >
                     {message.role === 'assistant' ? (
-                      <ReactMarkdown className="prose prose-sm max-w-none prose-p:my-1 prose-li:my-0 text-[#0A1A2F] text-sm leading-relaxed">
+                      <ReactMarkdown className="prose prose-sm max-w-none prose-p:my-1.5 prose-li:my-0.5 prose-headings:font-semibold text-[#0A1A2F] text-sm leading-relaxed">
                         {message.content}
                       </ReactMarkdown>
                     ) : (
@@ -1047,7 +1063,7 @@ Return ONLY valid JSON array:
                       </div>
                     )}
                   </div>
-                  {message.role === 'assistant' && index > 0 && !ratedMessageIndices.has(index) && (
+                  {message.role === 'assistant' && index > 0 && index === messages.length - 1 && !ratedMessageIndices.has(index) && (
                     <HannahFeedbackRating
                       messageContent={message.content}
                       userEmail={user?.email}

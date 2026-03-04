@@ -563,14 +563,8 @@ Example: [VERSE]Romans 8:28 - "And we know that all things work together for goo
                         <p className="text-sm">{message.content}</p>
                       </div> :
 
-                <div className="bg-[#FAD98D]/12 rounded-2xl px-4 py-3 max-w-[85%]">
-                        <div className="flex items-center gap-2 mb-2">
-                          <div className="w-6 h-6 bg-gradient-to-r from-[#c9a227] to-[#D9B878] rounded-full flex items-center justify-center">
-                            <MessageCircle className="w-3 h-3 text-white" />
-                          </div>
-                          <span className="text-xs font-semibold text-[#8a6e1a]">Gideon</span>
-                          <TTSButton text={message.content} className="ml-auto" />
-                        </div>
+                <div className="bg-[#FFF8E7] border border-[#D9B878]/40 rounded-2xl px-4 py-3 max-w-[85%] shadow-sm">
+                        <div className="flex justify-end mb-1"><TTSButton text={message.content} /></div>
                         {(() => {
                           // Parse content for verse markers
                           const content = message.content;
@@ -619,7 +613,7 @@ Example: [VERSE]Romans 8:28 - "And we know that all things work together for goo
                                 ) : (
                                   <ReactMarkdown 
                                     key={idx}
-                                    className="text-sm text-[#0A1A2F]/75 leading-relaxed prose prose-sm max-w-none"
+                                    className="prose prose-sm max-w-none prose-p:my-1 prose-li:my-0 text-[#0A1A2F] text-sm leading-relaxed"
                                     components={{
                                       h1: ({node, ...props}) => <h1 className="font-bold mt-6 mb-3" {...props} />,
                                       h2: ({node, ...props}) => <h2 className="font-bold mt-5 mb-3" {...props} />,

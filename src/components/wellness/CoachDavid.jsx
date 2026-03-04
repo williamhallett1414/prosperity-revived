@@ -37,6 +37,7 @@ export default function CoachDavid({ user, userWorkouts = [], workoutSessions = 
   const [showDataSources, setShowDataSources] = useState(false);
   const [insightDismissed, setInsightDismissed] = useState(false);
   const [ratedMessageIndices, setRatedMessageIndices] = useState(new Set());
+  const [avatarCollapsed, setAvatarCollapsed] = useState(false);
   const queryClient = useQueryClient();
   const messagesEndRef = useRef(null);
 
@@ -463,16 +464,30 @@ Return ONLY valid JSON array:
               </div>
             </div>
 
-            {/* 3D Avatar Panel */}
-            <AvatarPanel
-              character="coach"
-              isSpeaking={avatarSpeaking}
-              isListening={isListening}
-              name="Coach David"
-              subtitle="Your Fitness Guide"
-              gradientFrom="#0A0A0A"
-              gradientTo="#38BDF8"
-            />
+            {/* Avatar Panel — collapsible */}
+            <div className="relative">
+              <AnimatePresence>
+                {!avatarCollapsed && (
+                  <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} style={{ overflow: 'hidden' }}>
+                    <AvatarPanel
+                      character="coach"
+                      isSpeaking={avatarSpeaking}
+                      isListening={isListening}
+                      name="Coach David"
+                      subtitle="Your Fitness Guide"
+                      gradientFrom="#0A0A0A"
+                      gradientTo="#38BDF8"
+                    />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+              <button
+                onClick={() => setAvatarCollapsed(!avatarCollapsed)}
+                className="w-full flex items-center justify-center py-1 text-[10px] text-[#0A1A2F]/40 hover:text-[#0A1A2F]/70 transition-colors bg-white border-b border-[#E6EBEF]"
+              >
+                {avatarCollapsed ? '▼ Show coach' : '▲ Hide'}
+              </button>
+            </div>
 
             {/* Proactive Insight Card */}
             <AnimatePresence>
@@ -505,7 +520,7 @@ Return ONLY valid JSON array:
             )}
 
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-5 space-y-4 bg-[#F2F6FA]">
+            <div className="flex-1 overflow-y-auto p-5 space-y-4 bg-[#EEF3F8]">
               {messages.map((message, index) => (
                 <motion.div
                   key={index}
@@ -517,11 +532,11 @@ Return ONLY valid JSON array:
                     className={`max-w-[80%] rounded-2xl px-4 py-3 ${
                       message.role === 'user'
                         ? 'bg-gradient-to-r from-[#38BDF8] to-[#0EA5E9] text-white'
-                        : 'bg-[#E6EBEF] text-[#0A1A2F]'
+                        : 'bg-white border border-[#CBD5E1] text-[#0A1A2F] shadow-sm'
                     }`}
                   >
                     {message.role === 'assistant' ? (
-                      <ReactMarkdown className="prose prose-sm max-w-none prose-p:my-1 prose-li:my-0 text-[#0A1A2F] text-sm leading-relaxed">
+                      <ReactMarkdown className="prose prose-sm max-w-none prose-p:my-1.5 prose-li:my-0.5 prose-headings:font-semibold text-[#0A1A2F] text-sm leading-relaxed">
                         {message.content}
                       </ReactMarkdown>
                     ) : (
@@ -533,7 +548,7 @@ Return ONLY valid JSON array:
                       </div>
                     )}
                   </div>
-                  {message.role === 'assistant' && index > 0 && !ratedMessageIndices.has(index) && (
+                  {message.role === 'assistant' && index > 0 && index === messages.length - 1 && !ratedMessageIndices.has(index) && (
                     <HannahFeedbackRating
                       messageContent={message.content}
                       userEmail={user?.email}
@@ -545,7 +560,7 @@ Return ONLY valid JSON array:
               ))}
               {isLoading && (
                 <div className="flex justify-start">
-                  <div className="bg-[#E6EBEF] rounded-2xl px-4 py-3">
+                  <div className="bg-white border border-[#E6EBEF] rounded-2xl px-4 py-3 shadow-sm">
                     <Loader2 className="w-5 h-5 animate-spin text-[#D9B878]" />
                   </div>
                 </div>
