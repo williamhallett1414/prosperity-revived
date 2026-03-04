@@ -6,6 +6,9 @@ import { ArrowLeft, BookOpen, Dumbbell, Utensils, Brain, Calendar, CheckCircle2,
 import { Button } from '@/components/ui/button';
 import { COACHING_PLANS } from '@/components/coaching/planData';
 import { FINANCIAL_FREEDOM_PLAN } from '@/components/coaching/financialFreedomPlanData';
+
+const ALL_PLANS = [...(COACHING_PLANS || []), FINANCIAL_FREEDOM_PLAN]
+  .filter((plan, index, self) => plan && self.findIndex(p => p?.id === plan?.id) === index);
 import { base44 } from '@/api/base44Client';
 
 function getPlanProgress(planId) {
