@@ -17,11 +17,15 @@ function getPlanProgress(planId) {
 export default function CoachingPlans() {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState('all');
 
   useEffect(() => {
     base44.auth.me().then(setUser).catch(() => {});
-    console.log('Total coaching plans available:', COACHING_PLANS.length, COACHING_PLANS.map(p => p.title));
   }, []);
+
+  const filteredPlans = selectedCategory === 'all' 
+    ? COACHING_PLANS 
+    : COACHING_PLANS.filter(plan => plan.category === selectedCategory);
 
   return (
     <div className="min-h-screen bg-[#F5F8F0] pb-28">
@@ -72,9 +76,35 @@ export default function CoachingPlans() {
           </div>
         </motion.div>
 
+        {/* Category filter */}
+        <div className="mb-6">
+          <p className="text-xs font-bold text-[#0A1A2F]/40 uppercase tracking-wider mb-3">Filter by Category</p>
+          <div className="flex flex-wrap gap-2">
+            {PLAN_CATEGORIES.map(cat => (
+              <button
+                key={cat.id}
+                onClick={() => setSelectedCategory(cat.id)}
+                className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all flex items-center gap-2 ${
+                  selectedCategory === cat.id
+                    ? 'bg-gradient-to-r from-[#0D4F3C] to-[#22856A] text-white shadow-md'
+                    : 'bg-white border border-[#0D4F3C]/20 text-[#0D4F3C] hover:border-[#0D4F3C]/40'
+                }`}
+              >
+                <span>{cat.emoji}</span>
+                {cat.name}
+              </button>
+            ))}
+          </div>
+        </div>
+
         {/* Plans list */}
         <div className="space-y-4">
-          {COACHING_PLANS.map((plan, idx) => {
+          {filteredPlans.length === 0 ? (
+            <div className="text-center py-8 text-[#0A1A2F]/40">
+              <p>No plans in this category yet.</p>
+            </div>
+          ) : (
+            filteredPlans.map((plan, idx) => {
             const progress = getPlanProgress(plan.id);
             const completedDays = progress.completed_days?.length || 0;
             const pct = Math.round((completedDays / plan.days_total) * 100);
@@ -173,7 +203,8 @@ export default function CoachingPlans() {
                 </div>
               </motion.div>
             );
-          })}
+            })
+          )}
         </div>
 
         {/* Coming soon placeholder */}
