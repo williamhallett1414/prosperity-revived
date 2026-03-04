@@ -150,7 +150,7 @@ Keep responses conversational, encouraging, and practical. Reference their speci
       {/* Floating button */}
       <motion.button
         onClick={() => setOpen(true)}
-        className="fixed bottom-24 right-4 w-16 h-16 rounded-full bg-gradient-to-br from-[#0D4F3C] to-[#22856A] text-white shadow-2xl flex flex-col items-center justify-center z-40 hover:shadow-3xl transition-all gap-0.5"
+        className="fixed bottom-24 right-4 w-16 h-16 rounded-full bg-gradient-to-br from-[#AFC7E3] to-[#3C4E53] text-white shadow-2xl flex flex-col items-center justify-center z-40 hover:shadow-3xl transition-all gap-0.5"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
       >
