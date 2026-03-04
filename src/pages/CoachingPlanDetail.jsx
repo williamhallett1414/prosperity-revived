@@ -310,7 +310,7 @@ export default function CoachingPlanDetail() {
                 </button>
               </div>
               <div className="overflow-y-auto p-4 space-y-4">
-                {WEEK_THEMES.map(wt => (
+                {plan.week_themes.map(wt => (
                   <div key={wt.week}>
                     <p className={`text-xs font-bold uppercase tracking-wider mb-2 flex items-center gap-1.5 ${wt.week === dayData.week ? 'text-[#0D4F3C]' : 'text-[#0A1A2F]/40'}`}>
                       {wt.emoji} Week {wt.week} — {wt.title}
