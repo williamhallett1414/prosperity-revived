@@ -15,6 +15,7 @@ import { toast } from 'sonner';
 import StartWorkoutModal from '@/components/wellness/StartWorkoutModal';
 import MealLoggingSection from '@/components/coaching/MealLoggingSection';
 import { useQuery } from '@tanstack/react-query';
+import { MoreVertical } from 'lucide-react';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Helpers
