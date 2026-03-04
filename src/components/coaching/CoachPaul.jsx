@@ -165,37 +165,48 @@ Keep responses conversational, encouraging, and practical. Reference their speci
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            className="fixed bottom-20 right-4 w-80 h-96 bg-white rounded-2xl shadow-2xl flex flex-col z-50 border border-[#0D4F3C]/10"
+            className="fixed bottom-20 right-4 w-96 max-h-[600px] bg-white rounded-3xl shadow-2xl flex flex-col z-50 border border-[#0D4F3C]/10 overflow-hidden"
           >
             {/* Header */}
-            <div className="flex items-center justify-between p-4 border-b border-[#0D4F3C]/10">
-              <div>
-                <h3 className="font-bold text-[#0A1A2F]">Coach Paul</h3>
-                <p className="text-[10px] text-[#0A1A2F]/50">Day {dayNumber} Guide</p>
-              </div>
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={() => setShowMenu(!showMenu)}
-                  className="w-8 h-8 rounded-full hover:bg-[#F5F8F0] flex items-center justify-center transition-colors relative"
-                >
-                  <MoreVertical className="w-4 h-4 text-[#0A1A2F]/60" />
-                  {showMenu && (
-                    <button
-                      onClick={handleClearChat}
-                      className="absolute top-full right-0 mt-1 bg-red-50 border border-red-200 rounded-lg shadow-lg px-2 py-1 text-[10px] font-bold text-red-600 hover:bg-red-100 whitespace-nowrap flex items-center gap-1"
-                    >
-                      <Trash2 className="w-3 h-3" /> Clear
-                    </button>
-                  )}
-                </button>
+            <div className="bg-gradient-to-r from-[#0D4F3C] to-[#22856A] px-6 py-4 text-white">
+              <div className="flex items-start justify-between mb-2">
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center text-2xl">
+                    🏋️
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-lg">Coach Paul</h3>
+                    <p className="text-xs text-white/70">Your Coaching Guide</p>
+                  </div>
+                </div>
                 <button
                   onClick={() => setOpen(false)}
-                  className="w-8 h-8 rounded-full hover:bg-[#F5F8F0] flex items-center justify-center transition-colors"
+                  className="w-8 h-8 rounded-full hover:bg-white/20 flex items-center justify-center transition-colors"
                 >
-                  <X className="w-4 h-4 text-[#0A1A2F]/60" />
+                  <X className="w-4 h-4" />
                 </button>
               </div>
+              <p className="text-xs text-white/80">{planTitle} • Day {dayNumber}</p>
             </div>
+
+            {/* Quick asks */}
+            {messages.length === 0 && (
+              <div className="px-6 py-3 bg-[#F5F8F0] border-b border-[#0D4F3C]/10">
+                <p className="text-[10px] font-bold text-[#0D4F3C] mb-2 uppercase tracking-wide">Quick Ask</p>
+                <div className="grid grid-cols-2 gap-2">
+                  {quickAsks.map((qa) => (
+                    <button
+                      key={qa.label}
+                      onClick={() => handleQuickAsk(qa)}
+                      className="text-xs font-semibold text-[#0D4F3C] bg-white border border-[#0D4F3C]/20 rounded-lg px-2.5 py-2 hover:border-[#0D4F3C]/40 transition-all flex items-center gap-1.5"
+                    >
+                      <span>{qa.emoji}</span>
+                      <span>{qa.label}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
 
             {/* Messages */}
             <div className="flex-1 overflow-y-auto p-4 space-y-3">
