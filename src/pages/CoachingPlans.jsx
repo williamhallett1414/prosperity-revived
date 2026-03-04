@@ -257,7 +257,7 @@ export default function CoachingPlans() {
               className="space-y-4"
             >
               {filteredPlans.map((plan, idx) => (
-                <PlanCard key={plan.id} plan={plan} idx={idx} />
+                <PlanCard key={plan.id} plan={plan} idx={idx} onPreview={setPreviewPlan} />
               ))}
             </motion.div>
           ) : (
