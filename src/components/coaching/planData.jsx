@@ -4,6 +4,7 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 import { FINANCIAL_FREEDOM_PLAN } from './financialFreedomPlanData';
+import { LOVE_LANGS_PLAN } from './loveLangsPlanData';
 import { POWER_PURPOSE_PLAN } from './powerPurposePlanData';
 import { NOURISH_THRIVE_PLAN } from './nourishThrivePlanData';
 import { SOUL_DEEP_PLAN } from './soulDeepPlanData';
@@ -11,7 +12,6 @@ import { GROWTH_SPRINT_PLAN } from './growthSprintPlanData';
 import { MIND_RENEWAL_PLAN } from './mindRenewalPlanData';
 import { SACRED_KITCHEN_PLAN } from './sacredKitchenPlanData';
 import { BREAKTHROUGH_LEADERS_PLAN } from './breakroughLeadersPlanData';
-import { LOVE_LANGS_PLAN } from './loveLangsPlanData';
 
 export const WEEK_THEMES = [
   { week: 1, theme: 'Foundation',   title: 'Know Your Why',         color: 'from-[#0D4F3C] to-[#22856A]', accent: '#22856A', emoji: '🌱' },
@@ -1374,6 +1374,7 @@ export const COACHING_PLANS = [
     days: PLAN_DAYS,
   },
   FINANCIAL_FREEDOM_PLAN,
+  LOVE_LANGS_PLAN,
   POWER_PURPOSE_PLAN,
   NOURISH_THRIVE_PLAN,
   SOUL_DEEP_PLAN,
