@@ -153,6 +153,7 @@ function PlanCard({ plan, idx, onPreview }) {
 
 export default function CoachingPlans() {
   const [activeCategory, setActiveCategory] = useState('all');
+  const [previewPlan, setPreviewPlan] = useState(null);
 
   const filteredPlans = activeCategory === 'all'
     ? COACHING_PLANS
