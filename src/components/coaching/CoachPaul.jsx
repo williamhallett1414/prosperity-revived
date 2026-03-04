@@ -7,12 +7,20 @@ import { Input } from '@/components/ui/input';
 import ReactMarkdown from 'react-markdown';
 import { toast } from 'sonner';
 
+const quickAsks = [
+  { label: 'Motivation', emoji: '💪' },
+  { label: 'Today\'s Tips', emoji: '💡' },
+  { label: 'Nutrition Help', emoji: '🥗' },
+  { label: 'Workout Tips', emoji: '🏋️' },
+];
+
 export default function CoachPaul({ planId, dayNumber, planTitle, dayData, user, taskState }) {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
+  const [speaking, setSpeaking] = useState(false);
   const messagesEndRef = useRef(null);
 
   // Load conversation from localStorage
