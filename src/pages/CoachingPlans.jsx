@@ -297,7 +297,7 @@ export default function CoachingPlans() {
 
                   <div className="space-y-3">
                     {cat.plans.map((plan, idx) => (
-                      <PlanCard key={plan.id} plan={plan} idx={idx} />
+                      <PlanCard key={plan.id} plan={plan} idx={idx} onPreview={setPreviewPlan} />
                     ))}
                   </div>
                 </div>
