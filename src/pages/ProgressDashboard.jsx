@@ -298,7 +298,7 @@ export default function ProgressDashboard() {
             </Link>
           </div>
           <div className="space-y-3">
-            {COACHING_PLANS.map((plan) => {
+            {COACHING_PLANS.slice(0, 3).map((plan) => {
               let progress = {};
               try { progress = JSON.parse(localStorage.getItem(`coaching_progress_${plan.id}`)) || {}; } catch {}
               const completedDays = (progress.completed_days || []).length;
