@@ -11,6 +11,13 @@ import { BOUNDARIES_INTIMACY_PLAN } from './boundaries&intimacyPlanData';
 import { CONTEMPLATIVE_PRAYER_PLAN } from './contemplativePrayerPlanData';
 import { SCRIPTURE_MEMORY_PLAN } from './scriptureMemoryPlanData';
 import { PURPOSE_UNVEILED_PLAN } from './purposeUnveiledPlanData';
+import { POWER_PURPOSE_PLAN } from './powerPurposePlanData';
+import { NOURISH_THRIVE_PLAN } from './nourishThrivePlanData';
+import { SOUL_DEEP_PLAN } from './soulDeepPlanData';
+import { GROWTH_SPRINT_PLAN } from './growthSprintPlanData';
+import { MIND_RENEWAL_PLAN } from './mindRenewalPlanData';
+import { SACRED_KITCHEN_PLAN } from './sacredKitchenPlanData';
+import { BREAKTHROUGH_LEADERS_PLAN } from './breakthroughLeadersPlanData';
 
 export const WEEK_THEMES = [
   { week: 1, theme: 'Foundation',   title: 'Know Your Why',         color: 'from-[#0D4F3C] to-[#22856A]', accent: '#22856A', emoji: '🌱' },
