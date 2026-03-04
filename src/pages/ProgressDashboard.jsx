@@ -18,6 +18,7 @@ import {
   ChevronRight,
   Crown
 } from 'lucide-react';
+
 import { format } from 'date-fns';
 import Hannah from '@/components/mindspirit/Hannah';
 import CoachDavid from '@/components/wellness/CoachDavid';
