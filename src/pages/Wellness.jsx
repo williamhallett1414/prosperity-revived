@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { motion } from 'framer-motion';
 import WellnessRecommendations from '@/components/wellness/WellnessRecommendations';
-import CoachPaul from '@/components/wellness/CoachPaul';
 import { useQuery } from '@tanstack/react-query';
 
 export default function Wellness() {
@@ -36,7 +35,6 @@ export default function Wellness() {
 
   return (
     <div className="min-h-screen bg-[#F2F6FA] pb-24">
-      <CoachPaul />
       <div className="px-4 pt-6 pb-6">
         <div className="max-w-2xl mx-auto">
           <div className="grid grid-cols-3 gap-3 mb-6">

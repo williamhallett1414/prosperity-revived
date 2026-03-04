@@ -4,11 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { ArrowLeft, BookOpen, Dumbbell, Utensils, Brain, Calendar, CheckCircle2, ChevronRight, Crown, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { COACHING_PLANS } from '@/components/coaching/planData';
-import { FINANCIAL_FREEDOM_PLAN } from '@/components/coaching/financialFreedomPlanData';
-
-const ALL_PLANS = [...(COACHING_PLANS || []), FINANCIAL_FREEDOM_PLAN]
-  .filter((plan, index, self) => plan && self.findIndex(p => p?.id === plan?.id) === index);
+import { COACHING_PLANS, WEEK_THEMES } from '@/components/coaching/planData';
 import { base44 } from '@/api/base44Client';
 
 function getPlanProgress(planId) {
@@ -77,7 +73,7 @@ export default function CoachingPlans() {
 
         {/* Plans list */}
         <div className="space-y-4">
-          {ALL_PLANS.map((plan, idx) => {
+          {COACHING_PLANS.map((plan, idx) => {
             const progress = getPlanProgress(plan.id);
             const completedDays = progress.completed_days?.length || 0;
             const pct = Math.round((completedDays / plan.days_total) * 100);
@@ -127,7 +123,7 @@ export default function CoachingPlans() {
                   <div className="mb-4">
                     <p className="text-xs font-bold text-[#0A1A2F]/40 uppercase tracking-wider mb-2">8 Week Journey</p>
                     <div className="grid grid-cols-4 gap-1.5">
-                      {(plan.week_themes || []).map(wt => (
+                      {plan.week_themes.map(wt => (
                         <div key={wt.week} className={`rounded-lg p-2 text-center bg-gradient-to-br ${wt.color} bg-opacity-10`}>
                           <p className="text-base mb-0.5">{wt.emoji}</p>
                           <p className="text-white text-[9px] font-bold leading-tight">{wt.theme}</p>
