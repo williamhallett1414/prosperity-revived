@@ -10,6 +10,7 @@ import { CONFLICT_RESOLUTION_PLAN } from './conflictResolutionPlanData';
 import { BOUNDARIES_INTIMACY_PLAN } from './boundaries&intimacyPlanData';
 import { CONTEMPLATIVE_PRAYER_PLAN } from './contemplativePrayerPlanData';
 import { SCRIPTURE_MEMORY_PLAN } from './scriptureMemoryPlanData';
+import { PURPOSE_UNVEILED_PLAN } from './purposeUnveiledPlanData';
 
 export const WEEK_THEMES = [
   { week: 1, theme: 'Foundation',   title: 'Know Your Why',         color: 'from-[#0D4F3C] to-[#22856A]', accent: '#22856A', emoji: '🌱' },
@@ -1382,6 +1383,7 @@ export const COACHING_PLANS = [
   { ...SOUL_DEEP_PLAN, category: 'spiritual' },
   { ...CONTEMPLATIVE_PRAYER_PLAN, category: 'spiritual' },
   { ...SCRIPTURE_MEMORY_PLAN, category: 'spiritual' },
+  { ...PURPOSE_UNVEILED_PLAN, category: 'personal' },
   { ...GROWTH_SPRINT_PLAN, category: 'personal' },
   { ...MIND_RENEWAL_PLAN, category: 'personal' },
   { ...SACRED_KITCHEN_PLAN, category: 'nutrition' },
