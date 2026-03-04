@@ -440,16 +440,6 @@ export default function ProgressDashboard() {
           </motion.div>
         )}
       </div>
-
-      {/* Chatbot Modals */}
-       />
-      )}
-       />
-      )}
-       />
-      )}
-       />
-      )}
     </div>
   );
 }
