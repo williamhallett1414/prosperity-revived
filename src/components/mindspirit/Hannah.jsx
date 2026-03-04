@@ -1422,12 +1422,12 @@ Return ONLY valid JSON array:
               <div className="flex gap-2 items-center">
                 <button
                   onClick={() => setShowJournalMode(!showJournalMode)}
-                  title={showJournalMode ? "Exit journal mode" : "Switch to journal mode"}
-                  className={`flex-shrink-0 w-9 h-9 rounded-lg flex items-center justify-center text-base transition-colors ${
+                  className={`w-9 h-9 rounded-lg flex items-center justify-center text-base transition-colors ${
                     showJournalMode
                       ? 'bg-[#3C4E53] text-white'
                       : 'bg-[#AFC7E3]/25 text-[#3C4E53] hover:bg-[#AFC7E3]/40'
                   }`}
+                  title="Journal mode"
                 >
                   📝
                 </button>

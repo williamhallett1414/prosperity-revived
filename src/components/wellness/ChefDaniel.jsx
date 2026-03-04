@@ -28,7 +28,6 @@ export default function ChefDaniel({ user, userRecipes = [], mealLogs = [], auto
   const [isListening, setIsListening] = useState(false);
   const [sessionId] = useState(() => `chef-daniel-${Date.now()}`);
   const [showQuickActions, setShowQuickActions] = useState(true);
-  const [avatarCollapsed, setAvatarCollapsed] = useState(false);
   const [showOnboarding, setShowOnboarding] = useState(false);
   const [memories, setMemories] = useState([]);
   const [personalityPrefs, setPersonalityPrefs] = useState(null);
@@ -843,7 +842,6 @@ Return ONLY valid JSON array:
               </div>
             </div>
 
-            {/* Avatar Panel — collapsible via AvatarPanel header */}
             <AvatarPanel
               character="chef"
               isSpeaking={avatarSpeaking}
