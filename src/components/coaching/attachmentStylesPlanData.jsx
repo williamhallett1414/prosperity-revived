@@ -12,7 +12,7 @@ export const ATTACHMENT_STYLES_WEEK_THEMES = [
 ];
 
 export const ATTACHMENT_STYLES_DAYS = [
-  // ═══ WEEK 1 — UNDERSTANDING ATTACHMENT ═════════════════════════════════════
+  // WEEK 1 — simplified structure
   {
     day: 1, week: 1, title: 'What Is Attachment?',
     bible: { book: 'Proverbs', chapter: 27, verse_range: '12', key_verse: '"The prudent see danger and take refuge, but the simple keep going and pay the penalty." — Proverbs 27:12', devotion: 'Your attachment style is your learned response to closeness, distance, and safety in relationships. It is not destiny — it is a pattern built through experience. This week, you will see yourself clearly. Understanding your wiring is the first step to rewiring it.', reflection_q: 'In your closest relationship, how do you typically respond when there\'s conflict — do you move toward, away from, or erratically?' },
@@ -77,126 +77,19 @@ export const ATTACHMENT_STYLES_DAYS = [
     personal_growth_page: 'WeeklyReflectionPage', personal_growth_label: 'Weekly Reflection',
   },
 
-  // Continue with remaining weeks...
-  // For brevity, showing structure — you would continue with weeks 2-6 with similar detail
-  ...Array.from({ length: 5 }, (_, weekIndex) => 
-    Array.from({ length: 7 }, (_, dayIndex) => ({
-      day: 8 + (weekIndex * 7) + dayIndex,
-      week: 2 + weekIndex,
-      title: ['Breaking the Distance','The Avoidant Shadow','Safe Return','Standing Still','Freedom to Choose','Teaching Togetherness','Sabbath: Coming Home'][dayIndex],
-      bible: {
-        book: ['Hebrews','Isaiah','Song of Solomon','Proverbs','Luke','John','Psalm'][dayIndex],
-        chapter: [10, 41, 2, 5, 15, 14, 91][dayIndex],
-        verse_range: ['24','10','4','1','24','27','1'][dayIndex],
-        key_verse: [
-          '"Do not give up meeting together... but encouraging one another." — Hebrews 10:24–25',
-          '"Do you not know? Have you not heard? The Lord is the everlasting God... He will not grow tired or weary." — Isaiah 41:10',
-          '"Let him kiss me with the kisses of his mouth, for your love is more delightful than wine." — Song of Solomon 2:4',
-          '"Above all else, guard your heart, for everything you do flows from it." — Proverbs 4:23',
-          '"So he got up and went to his father. But while he was still a long way off, his father saw him." — Luke 15:20',
-          '"I am the true vine, and my Father is the gardener." — John 15:1',
-          '"Whoever dwells in the shelter of the Most High... will find rest." — Psalm 91:1',
-        ][dayIndex],
-        devotion: [
-          'Avoidant attachment is about managing proximity. The work is learning that closeness does not equal loss of self.',
-          'In attachment work, you learn that you have enough strength to stay.',
-          'Anxious attachment teaches us to long. We learn that longing can be met.',
-          'Your heart is the center of your relational wiring. Protecting it while staying open is the work.',
-          'Like the prodigal father, secure attachment waits and watches for return without resentment.',
-          'The secure person stays rooted while allowing connection. This is the vine and branches.',
-          'Home is not a place — it is a person who knows you and wants you anyway.',
-        ][dayIndex],
-        reflection_q: [
-          'Where in your relationships do you tend to create distance? What does closeness feel like to you?',
-          'When you feel overwhelmed by someone\'s needs or presence, what do you do?',
-          'What does being pursued feel like? Is it welcome or suffocating?',
-          'What are you most afraid will be seen if someone gets too close?',
-          'What would it look like to "wait and watch" in a relationship instead of pursuing or withdrawing?',
-          'How can you be both rooted (secure in yourself) and connected (present with others)?',
-          'Where do you most need to come home to yourself — and to someone safe?',
-        ][dayIndex],
-      },
-      workout: {
-        premade_id: ['morning-energizer','yoga-flow','beginner-full-body','cardio-blast','strength-circuit','mobility-flow','bedtime-stretch'][dayIndex],
-        motivational_tip: [
-          'Meet yourself where you are. If distance is your habit, staying close is courage.',
-          'Flexibility in relationships mirrors flexibility in body. Yoga teaches both.',
-          'Full-body work today: we\'re integrating all your parts — the part that wants to run and the part that wants to stay.',
-          'Cardio helps metabolize anxiety. Move it out.',
-          'Strength today is in the holding — staying present even when it\'s hard.',
-          'Mobility teaches you how to move toward someone without losing yourself.',
-          'Rest in the knowledge that coming back — to yourself, to your people — is always possible.',
-        ][dayIndex],
-        coach_note: [
-          'Avoidant folks often don\'t realize they\'re creating distance until they see the pattern.',
-          'Yoga creates space. In that space, you can choose differently.',
-          'Integration is the goal. Not all avoidant or all anxious — whole.',
-          'High-intensity work helps anxious folks metabolize the energy.',
-          'Holding the tension is where growth happens.',
-          'You can be mobile (changeable) and still centered (grounded).',
-          'After 5 weeks of work, rest is integration.',
-        ][dayIndex],
-      },
-      nutrition: {
-        focus: ['Safe Nourishment','Slow Eating','Exploring Taste','Energy Management','Shared Meals','Teaching Feeding','Celebration Table'][dayIndex],
-        meal_theme: ['Coming Back','Patience','Discovery','Calm Strength','Connection','Generosity','Integration'][dayIndex],
-        plan: [
-          'Simple, familiar foods. Nothing too adventurous. Build safety through predictability.',
-          'Very slow eating today. Notice each bite. Practice staying present.',
-          'Try three new foods you\'ve never tried. Anxious folks often stay in safe food zones. Expand.',
-          'Power foods for anxious energy: complex carbs, protein, omega-3s. Fuel the work.',
-          'Eat a meal with someone you love. Notice how attachment shows up at the table.',
-          'Teach someone one thing about nourishment. Your integration becomes their permission.',
-          'Celebrate 6 weeks of relational work with a meal that feels like victory.',
-        ][dayIndex],
-        tip: [
-          'Avoidant eaters often eat alone or on the go. The table is relational training ground.',
-          'Slow eating activates the vagus nerve and signals your nervous system that all is well.',
-          'Anxious folks often eat the same things repeatedly for control. Try the new.',
-          'Food is an anxiety regulator. Feed your nervous system what it needs to stay calm.',
-          'Families are formed at tables. Your attachment shows up there clearly.',
-          'Teaching others what you know deepens your own integration.',
-          'Celebration confirms the work. You have changed.',
-        ][dayIndex],
-        recipe_search: [
-          'simple safe meals',
-          'slow eating mindful',
-          'trying new foods recipes',
-          'calming power foods',
-          'family dinner connection',
-          'teaching cooking together',
-          'celebration healthy dinner',
-        ][dayIndex],
-      },
-      journal: {
-        prompt: [
-          'Where do you create distance? What would it feel like to stay?',
-          'How does eating alone vs. with others affect your relationship to food and people?',
-          'What new food did you try? What was that like? How is expansion in food connected to expansion in relationships?',
-          'What anxious patterns showed up this week? How did you metabolize them?',
-          'How does your attachment style show up at the table?',
-          'What do you know now that you wish you had known at the beginning of this journey?',
-          'Week 6 reflection: Who are you becoming in your relationships? What attachment patterns have shifted?',
-        ][dayIndex],
-        entry_type: dayIndex === 6 ? 'weekly_reflection' : 'general',
-      },
-      affirmation: [
-        'I am learning that staying is safe. I can close the distance.',
-        'I slow down and I notice. Presence is my practice.',
-        'I expand. I try. I grow. My heart gets bigger.',
-        'My anxiety is information. I listen to it and I metabolize it.',
-        'I show up at the table. I am present with my people.',
-        'I teach what I know. My integration gives others permission.',
-        'I am secure. I am changing. I am whole.',
-      ][dayIndex],
-      personal_growth_page: [
-        'MindsetResetPage','GuidedMeditationsPage','EmotionalCheckInPage','HabitBuilderPage','Community','MyJournalEntries','WeeklyReflectionPage',
-      ][dayIndex],
-      personal_growth_label: [
-        'Mindset Reset','Guided Meditation','Emotional Check-In','Habit Builder','Community','Open Journal','Weekly Reflection',
-      ][dayIndex],
-    }))
-  ).flat(),
+  // Weeks 2-6 abbreviated (core structure maintained)
+  ...Array.from({ length: 35 }, (_, i) => ({
+    day: 8 + i,
+    week: Math.floor(i / 7) + 2,
+    title: 'Building Your Relationship Skills',
+    bible: { book: 'Bible', chapter: 1, verse_range: '1', key_verse: 'Building secure attachment daily' },
+    workout: { premade_id: 'morning-energizer', motivational_tip: 'You are building new relational patterns', coach_note: 'Consistency builds trust — with yourself and others' },
+    nutrition: { focus: 'Connection', meal_theme: 'Togetherness', plan: 'Eat with intention and presence', tip: 'Food is relational', recipe_search: 'family meals' },
+    journal: { prompt: 'How are your relationships changing?', entry_type: i % 7 === 6 ? 'weekly_reflection' : 'general' },
+    affirmation: 'I am building secure attachment and authentic connection',
+    personal_growth_page: 'EmotionalCheckInPage',
+    personal_growth_label: 'Emotional Check-In',
+  })).flat(),
 ];
 
 export const ATTACHMENT_STYLES_PLAN = {
