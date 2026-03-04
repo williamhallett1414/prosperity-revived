@@ -290,12 +290,12 @@ Keep responses conversational, encouraging, and practical. Reference their speci
                   className="text-sm rounded-xl border-[#0D4F3C]/15"
                 />
                 <button
-                  onClick={handleSendMessage}
-                  disabled={!input.trim() || loading}
-                  className="w-10 h-10 rounded-xl bg-gradient-to-r from-[#0D4F3C] to-[#22856A] text-white flex items-center justify-center disabled:opacity-50 hover:shadow-lg transition-all"
-                >
-                  <Send className="w-4 h-4" />
-                </button>
+                   onClick={handleSendMessage}
+                   disabled={!input.trim() || loading}
+                   className="w-10 h-10 rounded-xl bg-gradient-to-r from-[#AFC7E3] to-[#3C4E53] text-white flex items-center justify-center disabled:opacity-50 hover:shadow-lg transition-all"
+                 >
+                   <Send className="w-4 h-4" />
+                 </button>
               </div>
               <div className="flex items-center justify-between px-1">
                 <button
