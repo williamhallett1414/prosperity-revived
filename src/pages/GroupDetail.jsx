@@ -1,18 +1,157 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { createPageUrl } from '@/utils';
-import { ArrowLeft, Users, Lock, Globe, UserPlus, Plus, Loader2, Trophy } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import {
+  ArrowLeft, Users, Lock, Globe, UserPlus, Plus,
+  Loader2, Trophy, MessageSquare, ChevronDown, ChevronUp,
+  Crown, Sparkles, Clock, Zap
+} from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import PostCard from '@/components/community/PostCard';
 import CreatePostModal from '@/components/community/CreatePostModal';
 import MemberManagement from '@/components/groups/MemberManagement';
 import CreateChallengeModal from '@/components/challenges/CreateChallengeModal';
 import ChallengeCard from '@/components/challenges/ChallengeCard';
 
+// ─── Category config ────────────────────────────────────────────────────────
+const CATEGORY_CONFIG = {
+  bible_study: { emoji: '📖', label: 'Bible Study',  gradient: 'from-[#c9a227] to-[#D9B878]' },
+  workout:     { emoji: '💪', label: 'Workout',       gradient: 'from-[#0A1A2F] to-[#1a3a5c]' },
+  cooking:     { emoji: '🍳', label: 'Cooking',       gradient: 'from-[#D9B878] to-[#FAD98D]' },
+  prayer:      { emoji: '🙏', label: 'Prayer',        gradient: 'from-[#AFC7E3] to-[#3C4E53]' },
+  wellness:    { emoji: '🧘', label: 'Wellness',      gradient: 'from-[#3C4E53] to-[#AFC7E3]' },
+  youth:       { emoji: '👥', label: 'Youth',         gradient: 'from-[#c9a227] to-[#AFC7E3]' },
+  parents:     { emoji: '👨‍👩‍👧‍👦', label: 'Parents',  gradient: 'from-[#D9B878] to-[#AFC7E3]' },
+  marriage:    { emoji: '💑', label: 'Marriage',      gradient: 'from-[#c9a227] to-[#0A1A2F]' },
+  other:       { emoji: '💬', label: 'Community',     gradient: 'from-[#3C4E53] to-[#D9B878]' },
+};
+
+function getCat(category) {
+  return CATEGORY_CONFIG[category] || CATEGORY_CONFIG.other;
+}
+
+function timeAgo(dateStr) {
+  if (!dateStr) return null;
+  const diff = Date.now() - new Date(dateStr).getTime();
+  const mins = Math.floor(diff / 60000);
+  if (mins < 1) return 'just now';
+  if (mins < 60) return `${mins}m ago`;
+  const hrs = Math.floor(mins / 60);
+  if (hrs < 24) return `${hrs}h ago`;
+  const days = Math.floor(hrs / 24);
+  return `${days}d ago`;
+}
+
+// ─── Member avatar strip ─────────────────────────────────────────────────────
+function MemberAvatarStrip({ memberships, totalCount }) {
+  const visible = memberships.slice(0, 5);
+  const overflow = totalCount > 5 ? totalCount - 5 : 0;
+  const COLORS = [
+    'from-[#c9a227] to-[#D9B878]', 'from-[#AFC7E3] to-[#3C4E53]',
+    'from-[#FD9C2D] to-[#c9a227]', 'from-[#8fa68a] to-[#AFC7E3]',
+    'from-[#3C4E53] to-[#D9B878]'
+  ];
+  return (
+    <div className="flex items-center gap-2">
+      <div className="flex -space-x-2">
+        {visible.map((m, i) => (
+          <div key={m.id}
+            className={`w-8 h-8 rounded-full bg-gradient-to-br ${COLORS[i % COLORS.length]} border-2 border-white flex items-center justify-center text-white text-xs font-bold`}>
+            {(m.user_email || '?').charAt(0).toUpperCase()}
+          </div>
+        ))}
+        {overflow > 0 && (
+          <div className="w-8 h-8 rounded-full bg-[#F2F6FA] border-2 border-white flex items-center justify-center text-[#0A1A2F]/50 text-[10px] font-bold">
+            +{overflow}
+          </div>
+        )}
+      </div>
+      <span className="text-xs text-[#0A1A2F]/50 font-medium">
+        {totalCount} {totalCount === 1 ? 'member' : 'members'}
+      </span>
+    </div>
+  );
+}
+
+// ─── Join CTA card ───────────────────────────────────────────────────────────
+function JoinCard({ group, onJoin, joining, cat }) {
+  return (
+    <div className="bg-white rounded-2xl border border-[#D9B878]/20 overflow-hidden">
+      <div className={`bg-gradient-to-r ${cat.gradient} p-4 flex items-center gap-3`}>
+        <span className="text-3xl">{cat.emoji}</span>
+        <div>
+          <p className="text-white font-bold text-sm">Join this group</p>
+          <p className="text-white/70 text-xs">Connect with {group.member_count || 0} members</p>
+        </div>
+      </div>
+      <div className="p-4 space-y-3">
+        <div className="space-y-2">
+          {['Post updates and encourage others', 'Join group challenges', 'See all member activity'].map((b, i) => (
+            <div key={i} className="flex items-center gap-2">
+              <div className="w-4 h-4 rounded-full bg-[#D9B878]/20 flex items-center justify-center flex-shrink-0">
+                <div className="w-1.5 h-1.5 rounded-full bg-[#c9a227]" />
+              </div>
+              <p className="text-xs text-[#0A1A2F]/60">{b}</p>
+            </div>
+          ))}
+        </div>
+        <button
+          onClick={onJoin}
+          disabled={joining}
+          className="w-full py-3 rounded-xl bg-gradient-to-r from-[#D9B878] to-[#c9a227] text-[#0A1A2F] font-bold text-sm flex items-center justify-center gap-2 disabled:opacity-50 hover:opacity-90 transition-opacity"
+        >
+          {joining ? <Loader2 className="w-4 h-4 animate-spin" /> : <UserPlus className="w-4 h-4" />}
+          {joining ? 'Joining…' : 'Join Group'}
+        </button>
+      </div>
+    </div>
+  );
+}
+
+// ─── Empty states ─────────────────────────────────────────────────────────────
+function EmptyFeed({ isMember, onPost }) {
+  return (
+    <div className="bg-white rounded-2xl border border-[#AFC7E3]/20 p-8 text-center">
+      <div className="w-14 h-14 bg-[#F2F6FA] rounded-2xl flex items-center justify-center mx-auto mb-4">
+        <MessageSquare className="w-7 h-7 text-[#AFC7E3]" />
+      </div>
+      <h3 className="font-bold text-[#0A1A2F] mb-1">No posts yet</h3>
+      <p className="text-sm text-[#0A1A2F]/40 leading-relaxed mb-4">
+        {isMember ? 'Be the first to share something with the group.' : 'Join the group to see posts and share your own.'}
+      </p>
+      {isMember && (
+        <button onClick={onPost}
+          className="px-5 py-2.5 rounded-xl bg-[#0A1A2F] text-white font-bold text-sm hover:bg-[#0A1A2F]/85 transition-colors">
+          Share the First Post
+        </button>
+      )}
+    </div>
+  );
+}
+
+function EmptyChallenges({ isMember, onCreate }) {
+  return (
+    <div className="bg-white rounded-2xl border border-[#D9B878]/20 p-8 text-center">
+      <div className="w-14 h-14 bg-[#FFF9ED] rounded-2xl flex items-center justify-center mx-auto mb-4">
+        <Trophy className="w-7 h-7 text-[#D9B878]" />
+      </div>
+      <h3 className="font-bold text-[#0A1A2F] mb-1">No challenges yet</h3>
+      <p className="text-sm text-[#0A1A2F]/40 leading-relaxed mb-4">
+        {isMember ? 'Create a group challenge to build momentum together.' : 'Join to participate in challenges.'}
+      </p>
+      {isMember && (
+        <button onClick={onCreate}
+          className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#D9B878] to-[#c9a227] text-[#0A1A2F] font-bold text-sm hover:opacity-90 transition-opacity">
+          Create First Challenge
+        </button>
+      )}
+    </div>
+  );
+}
+
+// ─── Main page ────────────────────────────────────────────────────────────────
 export default function GroupDetail() {
   const navigate = useNavigate();
   const params = new URLSearchParams(window.location.search);
@@ -20,11 +159,10 @@ export default function GroupDetail() {
   const [user, setUser] = useState(null);
   const [showCreatePost, setShowCreatePost] = useState(false);
   const [showCreateChallenge, setShowCreateChallenge] = useState(false);
+  const [showChallenges, setShowChallenges] = useState(true);
   const queryClient = useQueryClient();
 
-  useEffect(() => {
-    base44.auth.me().then(setUser).catch(() => {});
-  }, []);
+  useEffect(() => { base44.auth.me().then(setUser).catch(() => {}); }, []);
 
   const { data: group, isLoading: groupLoading } = useQuery({
     queryKey: ['group', groupId],
@@ -125,7 +263,6 @@ export default function GroupDetail() {
         progress_percentage: 0,
         progress_logs: []
       });
-
       const challenge = challenges.find(c => c.id === challengeId);
       await base44.entities.Challenge.update(challengeId, {
         participant_count: (challenge?.participant_count || 0) + 1
@@ -139,7 +276,7 @@ export default function GroupDetail() {
 
   if (groupLoading) {
     return (
-      <div className="min-h-screen bg-[#faf8f5] flex items-center justify-center">
+      <div className="min-h-screen bg-[#F2F6FA] flex items-center justify-center">
         <Loader2 className="w-8 h-8 animate-spin text-[#c9a227]" />
       </div>
     );
@@ -147,123 +284,178 @@ export default function GroupDetail() {
 
   if (!group) {
     return (
-      <div className="min-h-screen bg-[#faf8f5] flex items-center justify-center">
-        <p>Group not found</p>
+      <div className="min-h-screen bg-[#F2F6FA] flex flex-col items-center justify-center gap-4">
+        <p className="text-[#0A1A2F]/50 font-medium">Group not found</p>
+        <button onClick={() => navigate(-1)} className="text-sm text-[#c9a227] font-bold">← Go back</button>
       </div>
     );
   }
 
   const isMember = user && memberships.some(m => m.user_email === user.email);
-  const isAdmin = user && memberships.some(m => m.user_email === user.email && m.role === 'admin');
+  const isAdmin  = user && memberships.some(m => m.user_email === user.email && m.role === 'admin');
+  const cat      = getCat(group.category);
+  const lastPost = posts[0]?.created_date;
+  const activeChallenges = challenges.filter(c => c.status !== 'completed');
 
   const handleLike = (postId, isLiked) => {
     const post = posts.find(p => p.id === postId);
-    if (post) {
-      updatePost.mutate({
-        id: postId,
-        likes: (post.likes || 0) + (isLiked ? 1 : -1)
-      });
-    }
+    if (post) updatePost.mutate({ id: postId, likes: (post.likes || 0) + (isLiked ? 1 : -1) });
   };
 
-  const handleComment = (postId, content) => {
-    createComment.mutate({ postId, content });
-  };
+  const handleComment = (postId, content) => createComment.mutate({ postId, content });
 
   return (
-    <div className="min-h-screen bg-[#faf8f5] pb-24">
-      {/* Hero */}
-      <div className="relative h-48 bg-gradient-to-br from-[#1a1a2e] to-[#2d2d4a]">
-        <img
-          src={group.cover_image}
-          alt={group.name}
-          className="w-full h-full object-cover opacity-30"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
-        
-        <button
-          onClick={() => window.history.back()}
-          className="absolute top-4 left-4 w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-white"
-        >
+    <div className="min-h-screen bg-[#F2F6FA] pb-28">
+
+      {/* ── Hero ── */}
+      <div className="relative h-52 overflow-hidden">
+        {group.cover_image ? (
+          <img src={group.cover_image} alt={group.name}
+            className="w-full h-full object-cover"
+            onError={e => { e.target.style.display = 'none'; }} />
+        ) : null}
+        {/* Always-on gradient overlay (also acts as full bg if no image) */}
+        <div className={`absolute inset-0 bg-gradient-to-br ${cat.gradient} ${group.cover_image ? 'opacity-75' : 'opacity-100'}`} />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+
+        {/* Back button */}
+        <button onClick={() => window.history.back()}
+          className="absolute top-4 left-4 w-10 h-10 rounded-full bg-black/30 backdrop-blur-sm flex items-center justify-center text-white hover:bg-black/40 transition-colors">
           <ArrowLeft className="w-5 h-5" />
         </button>
-        
-        <div className="absolute bottom-4 left-4 right-4">
-          <div className="flex items-center gap-2 mb-2">
-            {group.is_private ? (
-              <Lock className="w-4 h-4 text-white" />
-            ) : (
-              <Globe className="w-4 h-4 text-white" />
-            )}
-            <span className="text-white text-sm">
-              {group.is_private ? 'Private' : 'Public'} Group
-            </span>
-          </div>
-          <h1 className="text-2xl font-bold text-white">{group.name}</h1>
-        </div>
-      </div>
 
-      <div className="max-w-2xl mx-auto px-4 py-6">
-        {/* Group Info */}
-        <div className="bg-white rounded-2xl p-4 shadow-sm mb-6">
-          <p className="text-gray-700 mb-4">{group.description}</p>
-          <div className="space-y-3">
-            <div className="flex items-center gap-2 text-sm text-gray-500">
-              <Users className="w-4 h-4" />
-              <span>{group.member_count} members</span>
-            </div>
-            
-            {!isMember && user && (
-              <Button
-                onClick={() => joinGroup.mutate()}
-                className="w-full bg-[#1a1a2e] hover:bg-[#2d2d4a]"
-              >
-                <UserPlus className="w-4 h-4 mr-2" />
-                Join Group
-              </Button>
-            )}
-
-            {isMember && (
-              <MemberManagement groupId={groupId} isAdmin={isAdmin} />
-            )}
-          </div>
-        </div>
-
-        {/* Actions */}
+        {/* Member + create actions for members */}
         {isMember && (
-          <div className="grid grid-cols-2 gap-3 mb-6">
-            <Button
-              onClick={() => setShowCreatePost(true)}
-              className="bg-[#1a1a2e] hover:bg-[#2d2d4a] h-12 rounded-xl"
-            >
-              <Plus className="w-5 h-5 mr-2" />
-              Share Post
-            </Button>
-            <Button
-              onClick={() => setShowCreateChallenge(true)}
-              className="bg-[#c9a227] hover:bg-[#b89320] h-12 rounded-xl"
-            >
-              <Trophy className="w-5 h-5 mr-2" />
-              Create Challenge
-            </Button>
+          <div className="absolute top-4 right-4 flex gap-2">
+            <button onClick={() => setShowCreatePost(true)}
+              className="h-9 px-3 rounded-full bg-white/20 backdrop-blur-sm text-white text-xs font-bold flex items-center gap-1.5 hover:bg-white/30 transition-colors border border-white/20">
+              <Plus className="w-3.5 h-3.5" /> Post
+            </button>
+            <button onClick={() => setShowCreateChallenge(true)}
+              className="h-9 px-3 rounded-full bg-[#c9a227]/80 backdrop-blur-sm text-white text-xs font-bold flex items-center gap-1.5 hover:bg-[#c9a227] transition-colors">
+              <Trophy className="w-3.5 h-3.5" /> Challenge
+            </button>
           </div>
         )}
 
-        {/* Tabs */}
-        <Tabs defaultValue="feed" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 mb-6">
-            <TabsTrigger value="feed">Feed</TabsTrigger>
-            <TabsTrigger value="challenges">
-              Challenges {challenges.length > 0 && `(${challenges.length})`}
-            </TabsTrigger>
-          </TabsList>
+        {/* Group identity */}
+        <div className="absolute bottom-0 left-0 right-0 p-4">
+          <div className="flex items-center gap-2 mb-1.5">
+            <span className="text-2xl">{cat.emoji}</span>
+            <span className="text-white/70 text-xs font-semibold bg-black/20 px-2 py-0.5 rounded-full">
+              {cat.label}
+            </span>
+            {group.is_private
+              ? <span className="flex items-center gap-1 text-white/60 text-xs"><Lock className="w-3 h-3" /> Private</span>
+              : <span className="flex items-center gap-1 text-white/60 text-xs"><Globe className="w-3 h-3" /> Public</span>}
+            {isAdmin && (
+              <span className="flex items-center gap-1 text-[#D9B878] text-xs font-bold bg-black/20 px-2 py-0.5 rounded-full">
+                <Crown className="w-3 h-3" /> Admin
+              </span>
+            )}
+          </div>
+          <h1 className="text-xl font-bold text-white leading-tight">{group.name}</h1>
+        </div>
+      </div>
 
-          <TabsContent value="feed">
-            {posts.length === 0 ? (
-              <div className="text-center py-16">
-                <p className="text-gray-500">No posts in this group yet</p>
-              </div>
-            ) : (
+      <div className="max-w-lg mx-auto px-4 py-5 space-y-5">
+
+        {/* ── Group info strip ── */}
+        <div className="bg-white rounded-2xl border border-[#AFC7E3]/20 p-4 space-y-3">
+          {group.description && (
+            <p className="text-sm text-[#0A1A2F]/65 leading-relaxed">{group.description}</p>
+          )}
+          <div className="flex items-center justify-between flex-wrap gap-3">
+            <MemberAvatarStrip memberships={memberships} totalCount={group.member_count || memberships.length} />
+            <div className="flex items-center gap-3 text-[10px] text-[#0A1A2F]/35 font-semibold">
+              {lastPost && (
+                <span className="flex items-center gap-1">
+                  <Clock className="w-3 h-3" /> {timeAgo(lastPost)}
+                </span>
+              )}
+              {activeChallenges.length > 0 && (
+                <span className="flex items-center gap-1 text-[#c9a227]">
+                  <Zap className="w-3 h-3" /> {activeChallenges.length} active challenge{activeChallenges.length !== 1 ? 's' : ''}
+                </span>
+              )}
+            </div>
+          </div>
+
+          {/* Member management for members */}
+          {isMember && <MemberManagement groupId={groupId} isAdmin={isAdmin} />}
+        </div>
+
+        {/* ── Join CTA for non-members ── */}
+        {!isMember && user && (
+          <JoinCard group={group} onJoin={() => joinGroup.mutate()} joining={joinGroup.isPending} cat={cat} />
+        )}
+
+        {/* ── Challenges (collapsible, always first) ── */}
+        {(challenges.length > 0 || isMember) && (
+          <div>
+            <button onClick={() => setShowChallenges(s => !s)}
+              className="w-full flex items-center gap-2 mb-2">
+              <Trophy className="w-4 h-4 text-[#D9B878]" />
+              <span className="text-sm font-bold text-[#0A1A2F]">
+                Challenges
+                {challenges.length > 0 && <span className="text-[#0A1A2F]/30 font-normal ml-1">({challenges.length})</span>}
+              </span>
+              {activeChallenges.length > 0 && (
+                <span className="text-[10px] font-bold text-[#c9a227] bg-[#FFF9ED] border border-[#D9B878]/30 px-2 py-0.5 rounded-full">
+                  {activeChallenges.length} active
+                </span>
+              )}
+              {showChallenges
+                ? <ChevronUp className="w-4 h-4 text-[#0A1A2F]/25 ml-auto" />
+                : <ChevronDown className="w-4 h-4 text-[#0A1A2F]/25 ml-auto" />}
+            </button>
+
+            <AnimatePresence>
+              {showChallenges && (
+                <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }}
+                  className="overflow-hidden space-y-3">
+                  {challenges.length === 0
+                    ? <EmptyChallenges isMember={isMember} onCreate={() => setShowCreateChallenge(true)} />
+                    : challenges.map((challenge, index) => {
+                        const participation = challengeParticipants.find(
+                          p => p.challenge_id === challenge.id && p.user_email === user?.email
+                        );
+                        return (
+                          <ChallengeCard
+                            key={challenge.id}
+                            challenge={challenge}
+                            participation={participation}
+                            onJoin={() => joinChallenge.mutate(challenge.id)}
+                            onClick={() => navigate(createPageUrl(`ChallengeDetailPage?id=${challenge.id}`))}
+                            index={index}
+                          />
+                        );
+                      })}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        )}
+
+        {/* ── Feed ── */}
+        <div>
+          <div className="flex items-center gap-2 mb-3">
+            <MessageSquare className="w-4 h-4 text-[#AFC7E3]" />
+            <h2 className="text-sm font-bold text-[#0A1A2F]">
+              Group Feed
+              {posts.length > 0 && <span className="text-[#0A1A2F]/30 font-normal ml-1">({posts.length})</span>}
+            </h2>
+            {isMember && (
+              <button onClick={() => setShowCreatePost(true)}
+                className="ml-auto flex items-center gap-1 text-xs font-bold text-[#AFC7E3] hover:text-[#0A1A2F]/60 transition-colors">
+                <Plus className="w-3.5 h-3.5" /> Post
+              </button>
+            )}
+          </div>
+
+          {posts.length === 0
+            ? <EmptyFeed isMember={isMember} onPost={() => setShowCreatePost(true)} />
+            : (
               <div className="space-y-4">
                 {posts.map((post, index) => (
                   <PostCard
@@ -277,51 +469,16 @@ export default function GroupDetail() {
                 ))}
               </div>
             )}
-          </TabsContent>
+        </div>
 
-          <TabsContent value="challenges">
-            <div className="space-y-4">
-              {challenges.length === 0 ? (
-                <div className="text-center py-16">
-                  <Trophy className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-                  <p className="text-gray-500">No challenges yet</p>
-                  {isMember && (
-                    <Button
-                      onClick={() => setShowCreateChallenge(true)}
-                      className="mt-4 bg-[#c9a227] hover:bg-[#b89320]"
-                    >
-                      Create First Challenge
-                    </Button>
-                  )}
-                </div>
-              ) : (
-                challenges.map((challenge, index) => {
-                  const participation = challengeParticipants.find(
-                    p => p.challenge_id === challenge.id && p.user_email === user?.email
-                  );
-                  return (
-                    <ChallengeCard
-                      key={challenge.id}
-                      challenge={challenge}
-                      participation={participation}
-                      onJoin={() => joinChallenge.mutate(challenge.id)}
-                      onClick={() => navigate(createPageUrl(`ChallengeDetailPage?id=${challenge.id}`))}
-                      index={index}
-                    />
-                  );
-                })
-              )}
-            </div>
-          </TabsContent>
-        </Tabs>
       </div>
 
+      {/* ── Modals ── */}
       <CreatePostModal
         isOpen={showCreatePost}
         onClose={() => setShowCreatePost(false)}
         onSubmit={(data) => createPost.mutate(data)}
       />
-
       <CreateChallengeModal
         isOpen={showCreateChallenge}
         onClose={() => setShowCreateChallenge(false)}
