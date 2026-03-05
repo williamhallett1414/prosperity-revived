@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
-import { Dumbbell, Heart, Plus, TrendingUp, Droplets, ArrowLeft, Sparkles, Target, Trophy, Calendar } from 'lucide-react';
+import { Dumbbell, Heart, Plus, TrendingUp, Droplets, ArrowLeft, Sparkles, Target, Trophy, Calendar, ClipboardList } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link, useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
@@ -166,24 +166,55 @@ export default function Workouts() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F0F8FF] pb-24">
-      {/* Top Navigation */}
+    <div className="min-h-screen bg-[#F0F8FF] pb-24">      {/* Top Navigation */}
       <div className="sticky top-0 z-40 bg-white border-b border-[#BAE6FD]/40 px-4 py-3">
         <div className="max-w-2xl mx-auto flex items-center justify-between">
-          
-
-
-
-
-
           <h1 className="text-lg font-bold text-[#0A1A2F]">Workouts</h1>
-          <div className="w-10" />
+          <button
+            onClick={() => navigate(createPageUrl('WorkoutPlanner'))}
+            className="flex items-center gap-1.5 bg-gradient-to-r from-[#FD9C2D] to-[#E89020] text-white text-xs font-bold px-3 py-2 rounded-xl hover:opacity-90 shadow-sm transition-opacity"
+          >
+            <ClipboardList className="w-3.5 h-3.5" />
+            Planner
+          </button>
         </div>
       </div>
 
       <div className="px-4 pt-6 pb-6">
         <PullToRefresh onRefresh={handleRefresh}>
           <div className="max-w-2xl mx-auto">
+
+            {/* Workout Planner Banner */}
+            <motion.div
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mb-6 cursor-pointer"
+              onClick={() => navigate(createPageUrl('WorkoutPlanner'))}
+            >
+              <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#0A0A0A] to-[#1a2535] p-5 shadow-md">
+                <div className="absolute right-0 top-0 w-32 h-32 bg-[#FD9C2D]/10 rounded-full -translate-y-8 translate-x-8" />
+                <div className="absolute right-8 bottom-0 w-20 h-20 bg-[#38BDF8]/10 rounded-full translate-y-6" />
+                <div className="relative flex items-center justify-between">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-1">
+                      <ClipboardList className="w-4 h-4 text-[#FD9C2D]" />
+                      <span className="text-[10px] font-bold text-[#FD9C2D] uppercase tracking-widest">Workout Planner</span>
+                    </div>
+                    <h3 className="text-base font-bold text-white mb-1">Build Your Custom Plan</h3>
+                    <p className="text-xs text-white/60 leading-relaxed">Schedule workouts, track progress, and hit your goals with a personalised weekly plan.</p>
+                  </div>
+                  <div className="ml-4 flex-shrink-0 w-12 h-12 rounded-2xl bg-[#FD9C2D]/20 flex items-center justify-center">
+                    <ClipboardList className="w-6 h-6 text-[#FD9C2D]" />
+                  </div>
+                </div>
+                <div className="relative mt-4">
+                  <div className="inline-flex items-center gap-1.5 bg-[#FD9C2D] text-white text-xs font-bold px-4 py-2 rounded-xl">
+                    <Sparkles className="w-3.5 h-3.5" />
+                    Open Planner
+                  </div>
+                </div>
+              </div>
+            </motion.div>
             {/* Welcome Banner */}
             {showWelcome && (
               <motion.div
