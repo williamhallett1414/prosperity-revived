@@ -1,130 +1,276 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { createPageUrl } from '@/utils';
-import { Link, useNavigate } from 'react-router-dom';
-import { Bookmark, Filter, Trash2, ArrowLeft } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import BookmarkCard from '@/components/bookmarks/BookmarkCard';
+import { useNavigate } from 'react-router-dom';
+import { Bookmark, Trash2, BookOpen, Search, Heart, X } from 'lucide-react';
 
+// ── Highlight colours matching VerseActionMenu exactly ──────────────────────
+const COLORS = {
+  yellow: { bg: 'rgba(250,217,141,0.30)', border: 'rgba(201,162,39,0.40)',  dot: 'rgba(250,217,141,0.85)', label: 'Gold'   },
+  blue:   { bg: 'rgba(175,199,227,0.30)', border: 'rgba(60,78,83,0.30)',    dot: 'rgba(175,199,227,0.85)', label: 'Blue'   },
+  green:  { bg: 'rgba(120,195,130,0.25)', border: 'rgba(120,195,130,0.40)', dot: 'rgba(120,195,130,0.85)', label: 'Green'  },
+  pink:   { bg: 'rgba(242,176,176,0.25)', border: 'rgba(242,176,176,0.50)', dot: 'rgba(242,176,176,0.85)', label: 'Pink'   },
+};
+
+function BookmarkItem({ bookmark, onDelete, onOpen, index }) {
+  const isAffirmation = bookmark.book === 'Affirmation';
+  const col = COLORS[bookmark.highlight_color];
+
+  const ref = isAffirmation
+    ? null
+    : `${bookmark.book} ${bookmark.chapter}:${bookmark.verse}`;
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, x: -20 }}
+      transition={{ delay: index * 0.03 }}
+      className="bg-white rounded-2xl border border-[#D9B878]/25 overflow-hidden shadow-sm"
+    >
+      {/* Colour accent bar */}
+      {col && (
+        <div className="h-1 w-full" style={{ backgroundColor: col.dot }} />
+      )}
+
+      <div className="p-4">
+        {/* Verse / affirmation text */}
+        <p
+          className="font-serif text-[#0A1A2F] leading-relaxed mb-3 text-sm"
+          style={col ? { backgroundColor: col.bg, borderRadius: '6px', padding: '8px 10px' } : undefined}
+        >
+          "{bookmark.verse_text}"
+        </p>
+
+        {/* Reference row */}
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            {isAffirmation ? (
+              <span className="flex items-center gap-1 text-xs font-semibold text-[#c9a227]">
+                <Heart className="w-3 h-3 fill-[#c9a227]" /> Affirmation
+              </span>
+            ) : (
+              <span className="text-xs font-semibold text-[#0A1A2F]/60">{ref}</span>
+            )}
+          </div>
+
+          <div className="flex gap-1">
+            <button
+              onClick={() => onOpen(bookmark)}
+              className="w-8 h-8 rounded-lg flex items-center justify-center text-[#0A1A2F]/40 hover:text-[#0A1A2F] hover:bg-[#F2F6FA] transition-colors"
+              title={isAffirmation ? 'Open affirmations' : 'Open in Bible'}
+            >
+              <BookOpen className="w-3.5 h-3.5" />
+            </button>
+            <button
+              onClick={() => onDelete(bookmark.id)}
+              className="w-8 h-8 rounded-lg flex items-center justify-center text-[#0A1A2F]/40 hover:text-red-400 hover:bg-red-50 transition-colors"
+              title="Delete"
+            >
+              <Trash2 className="w-3.5 h-3.5" />
+            </button>
+          </div>
+        </div>
+
+        {/* Note */}
+        {bookmark.note && bookmark.book !== 'Affirmation' && (
+          <p className="mt-3 pt-3 border-t border-[#D9B878]/20 text-xs text-[#0A1A2F]/55 italic leading-relaxed">
+            {bookmark.note}
+          </p>
+        )}
+      </div>
+    </motion.div>
+  );
+}
+
+// ── Filter chip ──────────────────────────────────────────────────────────────
+function Chip({ active, onClick, children, dot }) {
+  return (
+    <button
+      onClick={onClick}
+      className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold border transition-all flex-shrink-0 ${
+        active
+          ? 'bg-[#0A1A2F] text-white border-[#0A1A2F]'
+          : 'bg-white text-[#0A1A2F]/60 border-[#D9B878]/30 hover:border-[#c9a227]/50'
+      }`}
+    >
+      {dot && (
+        <span className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ backgroundColor: dot }} />
+      )}
+      {children}
+    </button>
+  );
+}
+
+// ── Main ─────────────────────────────────────────────────────────────────────
 export default function Bookmarks() {
-  const [filter, setFilter] = useState('all');
-  const queryClient = useQueryClient();
-  const navigate = useNavigate();
+  const [user, setUser]       = useState(null);
+  const [filter, setFilter]   = useState('all');
+  const [search, setSearch]   = useState('');
+  const queryClient           = useQueryClient();
+  const navigate              = useNavigate();
 
+  useEffect(() => { base44.auth.me().then(setUser); }, []);
+
+  // Fixed: filter by user, not list() which returns everyone's bookmarks
   const { data: bookmarks = [], isLoading } = useQuery({
-    queryKey: ['bookmarks'],
-    queryFn: () => base44.entities.Bookmark.list('-created_date')
+    queryKey: ['bookmarks', user?.email],
+    queryFn:  () => base44.entities.Bookmark.filter({ created_by: user.email }, '-created_date'),
+    enabled:  !!user?.email,
   });
 
   const deleteBookmark = useMutation({
     mutationFn: (id) => base44.entities.Bookmark.delete(id),
-    onSuccess: () => queryClient.invalidateQueries(['bookmarks'])
+    onSuccess:  () => queryClient.invalidateQueries(['bookmarks']),
   });
 
-  const handleOpenVerse = (bookmark) => {
-    navigate(createPageUrl(`Bible?book=${bookmark.book}&chapter=${bookmark.chapter}`));
+  const handleOpen = (bookmark) => {
+    if (bookmark.book === 'Affirmation') {
+      navigate(createPageUrl('AffirmationsPage'));
+    } else {
+      navigate(createPageUrl(`Bible?book=${bookmark.book}&chapter=${bookmark.chapter}`));
+    }
   };
 
-  const filteredBookmarks = filter === 'all'
-    ? bookmarks
-    : bookmarks.filter(b => b.highlight_color === filter);
+  // Build filter counts
+  const bibleCount       = bookmarks.filter(b => b.book !== 'Affirmation').length;
+  const affirmationCount = bookmarks.filter(b => b.book === 'Affirmation').length;
 
-  const colors = ['all', 'yellow', 'green', 'blue', 'pink', 'purple'];
+  // Apply filter then search
+  const afterFilter = filter === 'all'
+    ? bookmarks
+    : filter === 'affirmations'
+      ? bookmarks.filter(b => b.book === 'Affirmation')
+      : filter === 'bible'
+        ? bookmarks.filter(b => b.book !== 'Affirmation')
+        : bookmarks.filter(b => b.highlight_color === filter);
+
+  const filtered = search.trim()
+    ? afterFilter.filter(b =>
+        b.verse_text?.toLowerCase().includes(search.toLowerCase()) ||
+        b.book?.toLowerCase().includes(search.toLowerCase()) ||
+        b.note?.toLowerCase().includes(search.toLowerCase())
+      )
+    : afterFilter;
+
+  const FILTERS = [
+    { id: 'all',          label: `All (${bookmarks.length})`,          dot: null },
+    { id: 'bible',        label: `Bible (${bibleCount})`,              dot: null },
+    { id: 'affirmations', label: `Affirmations (${affirmationCount})`, dot: null },
+    ...Object.entries(COLORS).map(([id, c]) => ({ id, label: c.label, dot: c.dot })),
+  ];
+
+  if (!user) {
+    return (
+      <div className="min-h-screen bg-[#FFFDF7] flex items-center justify-center">
+        <div className="w-8 h-8 border-4 border-[#c9a227] border-t-transparent rounded-full animate-spin" />
+      </div>
+    );
+  }
 
   return (
-    <div className="min-h-screen bg-[#FFFDF7] pb-24">
-      <div className="max-w-2xl mx-auto px-4 py-6">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="flex items-center justify-between mb-6"
-        >
-          <div>
-            <div className="flex items-center gap-3 mb-2">
-              <Link
-                to={createPageUrl('Home')}
-                className="w-9 h-9 rounded-full bg-[#FAD98D]/20 hover:bg-[#FAD98D]/35 flex items-center justify-center transition-colors"
-              >
-                <ArrowLeft className="w-4 h-4 text-[#0A1A2F]" />
-              </Link>
-              <h1 className="text-2xl font-bold text-[#0A1A2F]">Saved Verses</h1>
-            </div>
-            <p className="text-gray-500 ml-[52px]">{bookmarks.length} verses saved</p>
-          </div>
-          
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline" size="sm" className="flex items-center gap-2">
-                <Filter className="w-4 h-4" />
-                Filter
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              {colors.map(color => (
-                <DropdownMenuItem
-                  key={color}
-                  onClick={() => setFilter(color)}
-                  className="flex items-center gap-2 capitalize"
-                >
-                  {color !== 'all' && (
-                    <div className={`w-3 h-3 rounded-full bg-${color}-400`} />
-                  )}
-                  {color}
-                </DropdownMenuItem>
-              ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </motion.div>
+    <div className="min-h-screen bg-[#FFFDF7] pb-28">
 
-        {/* Bookmarks List */}
+      {/* ── Header ── */}
+      <div className="bg-white border-b border-[#D9B878]/20 px-4 pt-5 pb-4">
+        <div className="max-w-lg mx-auto">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#c9a227] to-[#D9B878] flex items-center justify-center flex-shrink-0">
+              <Bookmark className="w-5 h-5 text-white" />
+            </div>
+            <div>
+              <h1 className="text-xl font-bold text-[#0A1A2F]">Saved Verses</h1>
+              <p className="text-xs text-[#0A1A2F]/45">
+                {bookmarks.length === 0
+                  ? 'No bookmarks yet'
+                  : `${bibleCount} Bible · ${affirmationCount} Affirmation`}
+              </p>
+            </div>
+          </div>
+
+          {/* Search */}
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#0A1A2F]/30" />
+            <input
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+              placeholder="Search verses, books, notes…"
+              className="w-full pl-9 pr-9 py-2.5 rounded-xl bg-[#F2F6FA] text-sm text-[#0A1A2F] placeholder-[#0A1A2F]/35 border border-[#D9B878]/20 focus:outline-none focus:border-[#c9a227]/50"
+            />
+            {search && (
+              <button onClick={() => setSearch('')}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-[#0A1A2F]/30 hover:text-[#0A1A2F]/60">
+                <X className="w-3.5 h-3.5" />
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* ── Filter chips ── */}
+      {bookmarks.length > 0 && (
+        <div className="border-b border-[#D9B878]/15 bg-white">
+          <div className="max-w-lg mx-auto px-4 py-2.5 flex gap-2 overflow-x-auto">
+            {FILTERS.map(({ id, label, dot }) => (
+              <Chip key={id} active={filter === id} onClick={() => setFilter(id)} dot={dot}>
+                {label}
+              </Chip>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* ── Content ── */}
+      <div className="max-w-lg mx-auto px-4 py-4">
         {isLoading ? (
-          <div className="space-y-4">
+          <div className="space-y-3">
             {[1, 2, 3].map(i => (
-              <div key={i} className="bg-white rounded-xl p-4 animate-pulse">
-                <div className="h-4 bg-[#D9B878]/20 rounded w-3/4 mb-2" />
-                <div className="h-4 bg-[#D9B878]/20 rounded w-1/2" />
+              <div key={i} className="bg-white rounded-2xl p-4 animate-pulse border border-[#D9B878]/20">
+                <div className="h-3 bg-[#FAD98D]/30 rounded w-3/4 mb-3" />
+                <div className="h-3 bg-[#FAD98D]/20 rounded w-1/2" />
               </div>
             ))}
           </div>
-        ) : filteredBookmarks.length === 0 ? (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="text-center py-16"
-          >
-            <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-[#c9a227]/10 flex items-center justify-center">
-              <Bookmark className="w-10 h-10 text-[#c9a227]" />
+        ) : bookmarks.length === 0 ? (
+          /* Empty state */
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+            className="text-center py-16">
+            <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-[#FAD98D]/20 flex items-center justify-center">
+              <Bookmark className="w-8 h-8 text-[#c9a227]" />
             </div>
-            <h3 className="text-lg font-semibold text-[#0A1A2F] mb-2">No saved verses yet</h3>
-            <p className="text-gray-500 mb-4">
-              Tap on any verse while reading to highlight and save it
+            <h3 className="text-base font-bold text-[#0A1A2F] mb-1">No saved verses yet</h3>
+            <p className="text-sm text-[#0A1A2F]/50 mb-5 max-w-xs mx-auto">
+              Tap any verse while reading to highlight and save it here
             </p>
-            <Button
+            <button
               onClick={() => navigate(createPageUrl('Bible'))}
-              className="bg-gradient-to-r from-[#c9a227] to-[#D9B878] hover:opacity-90"
+              className="bg-gradient-to-r from-[#c9a227] to-[#D9B878] text-white font-semibold text-sm px-6 py-2.5 rounded-xl hover:opacity-90 transition-opacity"
             >
-              Start Reading
-            </Button>
+              Open Bible
+            </button>
+          </motion.div>
+        ) : filtered.length === 0 ? (
+          /* No results for filter/search */
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+            className="text-center py-12">
+            <p className="text-[#0A1A2F]/40 text-sm">No verses match this filter</p>
+            <button onClick={() => { setFilter('all'); setSearch(''); }}
+              className="mt-3 text-xs font-semibold text-[#c9a227] hover:opacity-75">
+              Clear filters
+            </button>
           </motion.div>
         ) : (
           <div className="space-y-3">
             <AnimatePresence>
-              {filteredBookmarks.map((bookmark, index) => (
-                <BookmarkCard
+              {filtered.map((bookmark, i) => (
+                <BookmarkItem
                   key={bookmark.id}
                   bookmark={bookmark}
                   onDelete={deleteBookmark.mutate}
-                  onOpen={handleOpenVerse}
-                  index={index}
+                  onOpen={handleOpen}
+                  index={i}
                 />
               ))}
             </AnimatePresence>
