@@ -5,6 +5,7 @@ import {
   ShoppingCart, Check, Lightbulb, Utensils, BarChart3,
   UtensilsCrossed, Sparkles, Loader2, ThermometerSun, Timer
 } from 'lucide-react';
+import { base44 } from '@/api/base44Client';
 import AddToCollectionButton from './AddToCollectionButton';
 import CommentSection from './CommentSection';
 import LogMealModal from './LogMealModal';
@@ -97,35 +98,27 @@ export default function RecipeCard({ recipe, index }) {
     if (enriched || enriching) return;
     setEnriching(true);
     try {
-      const res = await fetch('https://api.anthropic.com/v1/messages', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          model: 'claude-sonnet-4-20250514',
-          max_tokens: 1000,
-          messages: [{
-            role: 'user',
-            content: `You are a professional chef and recipe writer. Enrich this recipe with detailed, clear cooking instructions and helpful tips.
+      const text = await base44.integrations.Core.InvokeLLM({
+        prompt: `You are a professional chef and recipe writer. Enrich this recipe with detailed, clear cooking instructions and helpful tips.
 
 Recipe: ${recipe.title}
 Category: ${recipe.category}
-Current ingredients: ${(recipe.ingredients || []).join(', ')}
+Ingredients: ${(recipe.ingredients || []).join(', ')}
 Current instructions: ${(recipe.instructions || []).join(' | ')}
 
-Return ONLY a valid JSON object (no markdown, no explanation) with these fields:
+Return ONLY a valid JSON object (no markdown, no code fences) with these exact fields:
 {
-  "instructions": ["detailed step 1 with temperatures in °F and exact times", "detailed step 2", ...],
+  "instructions": ["detailed step 1 with exact temperatures in °F and exact cook times", "step 2", ...],
   "cooking_tips": ["practical tip 1", "tip 2", "tip 3"],
   "serving_suggestions": "how to plate and serve this dish"
 }
 
-Make each instruction step clear and specific. Include exact temperatures, times, visual cues (e.g. 'until golden brown'), and technique details. Aim for 6-10 steps.`
-          }]
-        })
+Rules:
+- 6 to 10 instruction steps
+- Include exact temperatures (e.g. 375°F), exact times (e.g. 20 minutes), and visual doneness cues (e.g. until golden brown)
+- Tips should be practical and specific to this recipe`,
       });
-      const data = await res.json();
-      const text = data.content?.[0]?.text || '{}';
-      const clean = text.replace(/```json|```/g, '').trim();
+      const clean = (text || '{}').replace(/```json|```/g, '').trim();
       const parsed = JSON.parse(clean);
       setEnriched({ ...recipe, ...parsed });
     } catch (e) {
