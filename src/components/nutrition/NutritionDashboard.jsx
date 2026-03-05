@@ -10,7 +10,7 @@ export default function NutritionDashboard({ mealLogs = [] }) {
   const totalCalories = todayMeals.reduce((sum, m) => sum + (m.calories || 0), 0);
   const totalProtein = todayMeals.reduce((sum, m) => sum + (m.protein || 0), 0);
   const totalCarbs = todayMeals.reduce((sum, m) => sum + (m.carbs || 0), 0);
-  const totalFat = todayMeals.reduce((sum, m) => sum + (m.fat || 0), 0);
+  const totalFat = todayMeals.reduce((sum, m) => sum + (m.fats || 0), 0);
 
   const stats = [
   { icon: Flame, label: 'Calories', value: Math.round(totalCalories), unit: 'kcal', color: 'from-[#FD9C2D] to-[#D9B878]', target: 2000 },
@@ -47,12 +47,12 @@ export default function NutritionDashboard({ mealLogs = [] }) {
                 </p>
                 <p className="text-xs text-[#0A1A2F]/60">Goal: {stat.target}{stat.unit}</p>
               </div>
-              <div className="w-full bg-[#8fa68a]/20 rounded-full h-1.5 overflow-hidden">
+              <div className="w-full bg-[#D9B878]/20 rounded-full h-1.5 overflow-hidden">
                 <motion.div
                   initial={{ width: 0 }}
                   animate={{ width: `${percentage}%` }}
                   transition={{ delay: 0.3, duration: 0.8 }}
-                  className="bg-gradient-to-r from-[#8fa68a] to-[#6b8f72] h-full rounded-full" />
+                  className="bg-gradient-to-r from-[#c9a227] to-[#D9B878] h-full rounded-full" />
 
               </div>
             </motion.div>);

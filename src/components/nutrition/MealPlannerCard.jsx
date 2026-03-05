@@ -134,7 +134,7 @@ Consolidate duplicates, include realistic quantities (e.g. "2 lbs chicken breast
     <div className="bg-white rounded-2xl shadow-sm p-5 space-y-5">
       {/* Header */}
       <div className="flex items-center gap-3">
-        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#8fa68a] to-[#6b8f72] flex items-center justify-center flex-shrink-0">
+        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#c9a227] to-[#D9B878] flex items-center justify-center flex-shrink-0">
           <CalendarDays className="w-5 h-5 text-white" />
         </div>
         <div>
@@ -149,7 +149,7 @@ Consolidate duplicates, include realistic quantities (e.g. "2 lbs chicken breast
           <p className="text-sm font-semibold text-[#0A1A2F]">Selected Recipes ({selectedRecipes.length})</p>
           <button
             onClick={() => setShowRecipePicker(!showRecipePicker)}
-            className="flex items-center gap-1 text-[#4a6b50] text-sm font-semibold"
+            className="flex items-center gap-1 text-[#c9a227] text-sm font-semibold"
           >
             <Plus className="w-4 h-4" />
             {showRecipePicker ? 'Done' : 'Pick Recipes'}
@@ -194,7 +194,7 @@ Consolidate duplicates, include realistic quantities (e.g. "2 lbs chicken breast
                         onClick={() => toggleRecipe(recipe)}
                         className={`flex items-center justify-between p-3 rounded-xl border text-left transition-all ${
                           isSelected
-                            ? 'bg-[#8fa68a]/10 border-[#8fa68a]/40'
+                            ? 'bg-[#FAD98D]/15 border-[#c9a227]/30'
                             : 'bg-[#F2F6FA] border-[#D9B878]/20 hover:border-[#8fa68a]/30'
                         }`}
                       >
@@ -202,7 +202,7 @@ Consolidate duplicates, include realistic quantities (e.g. "2 lbs chicken breast
                           <p className="text-sm font-semibold text-[#0A1A2F]">{recipe.title}</p>
                           <p className="text-xs text-[#0A1A2F]/50 capitalize">{recipe.category} · {recipe.diet_type?.replace('_', ' ')}</p>
                         </div>
-                        {isSelected && <CheckCircle2 className="w-5 h-5 text-[#4a6b50] flex-shrink-0" />}
+                        {isSelected && <CheckCircle2 className="w-5 h-5 text-[#c9a227] flex-shrink-0" />}
                       </button>
                     );
                   })}
@@ -218,7 +218,7 @@ Consolidate duplicates, include realistic quantities (e.g. "2 lbs chicken breast
         onClick={generateWeekPlan}
         disabled={selectedRecipes.length === 0 || isGenerating}
         className={`w-full text-white font-semibold ${
-          selectedRecipes.length === 0 ? 'opacity-50 cursor-not-allowed bg-[#8fa68a]' : 'bg-gradient-to-r from-[#8fa68a] to-[#6b8f72]'
+          selectedRecipes.length === 0 ? 'opacity-50 cursor-not-allowed bg-[#D9B878]' : 'bg-gradient-to-r from-[#c9a227] to-[#D9B878]'
         }`}
       >
         {isGenerating ? (
@@ -246,7 +246,7 @@ Consolidate duplicates, include realistic quantities (e.g. "2 lbs chicken breast
                 <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="space-y-2 overflow-hidden">
                   {weekPlan.map((day, i) => (
                     <div key={i} className="bg-[#F2F6FA] rounded-xl p-4 border border-[#D9B878]/20">
-                      <p className="text-xs font-bold text-[#4a6b50] uppercase tracking-wide mb-2">{day.day}</p>
+                      <p className="text-xs font-bold text-[#c9a227] uppercase tracking-wide mb-2">{day.day}</p>
                       <div className="space-y-1.5">
                         {MEAL_TYPES.map(type => (
                           <div key={type} className="flex gap-2 text-sm">
@@ -298,7 +298,7 @@ Consolidate duplicates, include realistic quantities (e.g. "2 lbs chicken breast
                       <ul className="space-y-1">
                         {cat.items.map((item, j) => (
                           <li key={j} className="flex gap-2 text-sm text-[#0A1A2F]/80">
-                            <span className="text-[#4a6b50] flex-shrink-0">•</span>
+                            <span className="text-[#c9a227] flex-shrink-0">•</span>
                             {item}
                           </li>
                         ))}

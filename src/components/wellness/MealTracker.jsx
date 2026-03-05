@@ -104,9 +104,9 @@ export default function MealTracker() {
 
   return (
     <div className="space-y-4">
-      <div className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4">
+      <div className="bg-white  rounded-2xl p-4">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="font-semibold text-[#1a1a2e] dark:text-white">Today's Nutrition</h3>
+          <h3 className="font-semibold text-[#0A1A2F] ">Today's Nutrition</h3>
           <Link to={createPageUrl('FoodLogHistory')}>
             <Button
               variant="ghost"
@@ -118,38 +118,38 @@ export default function MealTracker() {
         </div>
 
         <div className="grid grid-cols-4 gap-2 mb-4">
-          <div className="text-center p-2 bg-[#8fa68a]/10 dark:bg-[#8fa68a]/20 rounded">
-            <p className="text-lg font-bold text-[#4a6b50]">{totalCalories}</p>
-            <p className="text-xs text-gray-500 dark:text-gray-400">Calories</p>
+          <div className="text-center p-2 bg-[#FAD98D]/15  rounded">
+            <p className="text-lg font-bold text-[#c9a227]">{totalCalories}</p>
+            <p className="text-xs text-[#0A1A2F]/50 ">Calories</p>
           </div>
-          <div className="text-center p-2 bg-[#F4F7F4] dark:bg-[#0A1A2F]/20 rounded">
+          <div className="text-center p-2 bg-[#F2F6FA]  rounded">
             <p className="text-lg font-bold text-[#3C4E53]">{Math.round(totalProtein)}g</p>
-            <p className="text-xs text-gray-500 dark:text-gray-400">Protein</p>
+            <p className="text-xs text-[#0A1A2F]/50 ">Protein</p>
           </div>
-          <div className="text-center p-2 bg-[#FAD98D]/20 dark:bg-[#FAD98D]/20 rounded">
+          <div className="text-center p-2 bg-[#FAD98D]/20  rounded">
             <p className="text-lg font-bold text-[#D9B878]">{Math.round(totalCarbs)}g</p>
-            <p className="text-xs text-gray-500 dark:text-gray-400">Carbs</p>
+            <p className="text-xs text-[#0A1A2F]/50 ">Carbs</p>
           </div>
-          <div className="text-center p-2 bg-[#8fa68a]/10 dark:bg-[#8fa68a]/10 rounded">
+          <div className="text-center p-2 bg-[#FAD98D]/15 rounded">
             <p className="text-lg font-bold text-[#6b8f72]">{Math.round(totalFats)}g</p>
-            <p className="text-xs text-gray-500 dark:text-gray-400">Fats</p>
+            <p className="text-xs text-[#0A1A2F]/50 ">Fats</p>
           </div>
         </div>
 
         {todaysMeals.length === 0 ? (
-          <p className="text-sm text-gray-500 dark:text-gray-400 text-center py-4">No meals logged today</p>
+          <p className="text-sm text-[#0A1A2F]/50  text-center py-4">No meals logged today</p>
         ) : (
           <div className="space-y-2 mb-4">
             {todaysMeals.map((m, i) => (
-              <div key={i} className="bg-gray-50 dark:bg-gray-800 rounded-lg p-3">
+              <div key={i} className="bg-[#F2F6FA]  rounded-lg p-3">
                 <div className="flex items-start justify-between mb-1">
-                  <p className="font-medium text-sm text-[#1a1a2e] dark:text-white">
+                  <p className="font-medium text-sm text-[#0A1A2F] ">
                     {mealEmoji[m.meal_type]} {m.description}
                   </p>
-                  <span className="text-sm font-medium text-[#4a6b50]">{m.calories || 0} cal</span>
+                  <span className="text-sm font-medium text-[#c9a227]">{m.calories || 0} cal</span>
                 </div>
                 {(m.protein || m.carbs || m.fats) && (
-                  <div className="text-xs text-gray-500 dark:text-gray-400">
+                  <div className="text-xs text-[#0A1A2F]/50 ">
                     P: {m.protein || 0}g | C: {m.carbs || 0}g | F: {m.fats || 0}g
                   </div>
                 )}
@@ -158,24 +158,24 @@ export default function MealTracker() {
           </div>
         )}
 
-        <Button onClick={() => setShowDetailedLog(true)} className="w-full bg-gradient-to-r from-[#8fa68a] to-[#6b8f72] hover:opacity-90">
+        <Button onClick={() => setShowDetailedLog(true)} className="w-full bg-gradient-to-r from-[#c9a227] to-[#D9B878] hover:opacity-90">
           <Plus className="w-4 h-4 mr-2" />
           Log Food
         </Button>
 
         {/* Water Intake Section */}
-        <div className="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
+        <div className="mt-6 pt-4 border-t border-[#D9B878]/20 ">
           <div className="flex items-center gap-3 mb-4">
             <Droplets className="w-6 h-6 text-[#AFC7E3]" />
             <div className="flex-1">
-              <h4 className="font-semibold text-[#1a1a2e] dark:text-white">Water Intake</h4>
-              <p className="text-xs text-gray-500 dark:text-gray-400">Goal: {waterGoal} glasses</p>
+              <h4 className="font-semibold text-[#0A1A2F] ">Water Intake</h4>
+              <p className="text-xs text-[#0A1A2F]/50 ">Goal: {waterGoal} glasses</p>
             </div>
           </div>
 
           <div className="mb-4">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-sm text-gray-600 dark:text-gray-400">{glasses} / {waterGoal} glasses</span>
+              <span className="text-sm text-[#0A1A2F]/55 ">{glasses} / {waterGoal} glasses</span>
               <span className="text-sm font-medium text-[#AFC7E3]">{Math.round(waterPercentage)}%</span>
             </div>
             <Progress value={waterPercentage} className="h-3" />
@@ -194,13 +194,13 @@ export default function MealTracker() {
             
             <div className="text-center">
               <div className="text-4xl font-bold text-[#AFC7E3]">{glasses}</div>
-              <div className="text-xs text-gray-500 dark:text-gray-400">glasses</div>
+              <div className="text-xs text-[#0A1A2F]/50 ">glasses</div>
             </div>
 
             <Button
               size="icon"
               onClick={addGlass}
-              className="h-12 w-12 rounded-full bg-gradient-to-br from-[#8fa68a] to-[#6b8f72] hover:opacity-90"
+              className="h-12 w-12 rounded-full bg-gradient-to-br from-[#c9a227] to-[#D9B878] hover:opacity-90"
             >
               <Plus className="w-5 h-5" />
             </Button>

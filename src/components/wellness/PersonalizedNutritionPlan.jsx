@@ -22,10 +22,6 @@ export default function PersonalizedNutritionPlan() {
   const { data: plans = [] } = useQuery({
     queryKey: ['nutrition-plans'],
     queryFn: () => base44.entities.NutritionPlan.list('-created_date'),
-    onSuccess: (data) => {
-      const active = data.find(p => p.is_active);
-      if (active) setActivePlan(active);
-    }
   });
 
   const { data: mealLogs = [] } = useQuery({
@@ -154,7 +150,7 @@ export default function PersonalizedNutritionPlan() {
           </p>
           <Button
             onClick={() => setShowCreatePlan(true)}
-            className="bg-gradient-to-r from-[#8fa68a] to-[#6b8f72] hover:opacity-90"
+            className="bg-gradient-to-r from-[#c9a227] to-[#D9B878] hover:opacity-90"
           >
             <Plus className="w-4 h-4 mr-2" />
             Create Plan
@@ -163,7 +159,7 @@ export default function PersonalizedNutritionPlan() {
       ) : (
         <div className="space-y-4">
           {/* Active Plan Header */}
-          <div className="bg-gradient-to-br from-[#8fa68a] to-[#6b8f72] text-white rounded-2xl p-6">
+          <div className="bg-gradient-to-br from-[#c9a227] to-[#D9B878] text-white rounded-2xl p-6">
             <div className="flex items-start justify-between mb-4">
               <div>
                 <h3 className="text-2xl font-bold mb-1">{activePlan.name}</h3>
@@ -250,7 +246,7 @@ export default function PersonalizedNutritionPlan() {
               </p>
               <Button
                 onClick={() => generateWeeklyPlan.mutate(activePlan.id)}
-                className="bg-gradient-to-r from-[#8fa68a] to-[#6b8f72] hover:opacity-90"
+                className="bg-gradient-to-r from-[#c9a227] to-[#D9B878] hover:opacity-90"
                 disabled={generateWeeklyPlan.isLoading}
               >
                 <Sparkles className="w-4 h-4 mr-2" />
