@@ -184,6 +184,9 @@ export default function Workouts() {
         <PullToRefresh onRefresh={handleRefresh}>
           <div className="max-w-2xl mx-auto">
 
+            {/* Weekly Theme */}
+            <WeeklyThemeBanner />
+
             {/* Welcome Banner */}
             {showWelcome && (
               <motion.div

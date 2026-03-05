@@ -58,7 +58,6 @@ import CoachingPlanDetail from './pages/CoachingPlanDetail';
 import CoachingPlanPage from './pages/CoachingPlanPage';
 import CoachingPlans from './pages/CoachingPlans';
 import Community from './pages/Community';
-import DiscoverRecipes from './pages/DiscoverRecipes';
 import EmotionalCheckInPage from './pages/EmotionalCheckInPage';
 import FoodLogHistory from './pages/FoodLogHistory';
 import Friends from './pages/Friends';
@@ -100,10 +99,11 @@ import UserProfile from './pages/UserProfile';
 import WeeklyReflectionPage from './pages/WeeklyReflectionPage';
 import Wellness from './pages/Wellness';
 import WorkoutCategoryPage from './pages/WorkoutCategoryPage';
+import WorkoutPlanner from './pages/WorkoutPlanner';
 import WorkoutProgress from './pages/WorkoutProgress';
 import WorkoutTrends from './pages/WorkoutTrends';
+import DiscoverRecipes from './pages/DiscoverRecipes';
 import Workouts from './pages/Workouts';
-import WorkoutPlanner from './pages/WorkoutPlanner';
 import __Layout from './Layout.jsx';
 
 
@@ -119,7 +119,6 @@ export const PAGES = {
     "CoachingPlanPage": CoachingPlanPage,
     "CoachingPlans": CoachingPlans,
     "Community": Community,
-    "DiscoverRecipes": DiscoverRecipes,
     "EmotionalCheckInPage": EmotionalCheckInPage,
     "FoodLogHistory": FoodLogHistory,
     "Friends": Friends,
@@ -161,10 +160,11 @@ export const PAGES = {
     "WeeklyReflectionPage": WeeklyReflectionPage,
     "Wellness": Wellness,
     "WorkoutCategoryPage": WorkoutCategoryPage,
+    "WorkoutPlanner": WorkoutPlanner,
     "WorkoutProgress": WorkoutProgress,
     "WorkoutTrends": WorkoutTrends,
+    "DiscoverRecipes": DiscoverRecipes,
     "Workouts": Workouts,
-    "WorkoutPlanner": WorkoutPlanner,
 }
 
 export const pagesConfig = {
