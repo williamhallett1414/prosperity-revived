@@ -14,26 +14,26 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
+  AlertDialogTrigger } from
+'@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
 
-import AboutTab         from '@/components/profile/facebook/AboutTab';
-import FriendsTab       from '@/components/profile/facebook/FriendsTab';
-import PhotosTab        from '@/components/profile/facebook/PhotosTab';
-import TimelineTab      from '@/components/profile/facebook/TimelineTab';
-import ProfileStreaks   from '@/components/profile/ProfileStreaks';
-import ProfileStats     from '@/components/profile/ProfileStats';
+import AboutTab from '@/components/profile/facebook/AboutTab';
+import FriendsTab from '@/components/profile/facebook/FriendsTab';
+import PhotosTab from '@/components/profile/facebook/PhotosTab';
+import TimelineTab from '@/components/profile/facebook/TimelineTab';
+import ProfileStreaks from '@/components/profile/ProfileStreaks';
+import ProfileStats from '@/components/profile/ProfileStats';
 import ChatbotPreferencesTab from '@/components/profile/ChatbotPreferencesTab';
 
 // ─── Tabs ──────────────────────────────────────────────────────────────────────
 const TABS = [
-  { id: 'overview', label: 'Overview' },
-  { id: 'about',    label: 'About'    },
-  { id: 'friends',  label: 'Friends'  },
-  { id: 'photos',   label: 'Photos'   },
-  { id: 'ai',       label: 'AI Guides'},
-];
+{ id: 'overview', label: 'Overview' },
+{ id: 'about', label: 'About' },
+{ id: 'friends', label: 'Friends' },
+{ id: 'photos', label: 'Photos' },
+{ id: 'ai', label: 'AI Guides' }];
+
 
 // ─── Profile header ────────────────────────────────────────────────────────────
 function Header({ user, friendsCount, onCoverUpload, onAvatarUpload, uploading }) {
@@ -41,9 +41,9 @@ function Header({ user, friendsCount, onCoverUpload, onAvatarUpload, uploading }
     <div className="bg-white shadow-sm">
       {/* Cover */}
       <div className="relative h-40 sm:h-52 bg-gradient-to-br from-[#3C4E53] via-[#FD9C2D] to-[#FAD98D] overflow-hidden">
-        {user?.cover_image_url
-          ? <img src={user.cover_image_url} alt="Cover" className="w-full h-full object-cover" />
-          : <div className="w-full h-full bg-gradient-to-br from-[#3C4E53] via-[#FD9C2D] to-[#FAD98D]" />
+        {user?.cover_image_url ?
+        <img src={user.cover_image_url} alt="Cover" className="w-full h-full object-cover" /> :
+        <div className="w-full h-full bg-gradient-to-br from-[#3C4E53] via-[#FD9C2D] to-[#FAD98D]" />
         }
         <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
         <label className="absolute bottom-3 right-3 bg-white/90 backdrop-blur rounded-lg px-3 py-1.5 shadow-sm cursor-pointer hover:bg-white transition-all flex items-center gap-1.5 text-xs font-semibold text-gray-700">
@@ -59,9 +59,9 @@ function Header({ user, friendsCount, onCoverUpload, onAvatarUpload, uploading }
           {/* Avatar */}
           <div className="relative flex-shrink-0">
             <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full border-4 border-white shadow-xl overflow-hidden bg-gradient-to-br from-[#3C4E53] to-[#FD9C2D]">
-              {user?.profile_image_url
-                ? <img src={user.profile_image_url} alt={user?.full_name} className="w-full h-full object-cover" />
-                : <div className="w-full h-full flex items-center justify-center text-white text-3xl font-bold">
+              {user?.profile_image_url ?
+              <img src={user.profile_image_url} alt={user?.full_name} className="w-full h-full object-cover" /> :
+              <div className="w-full h-full flex items-center justify-center text-white text-3xl font-bold">
                     {user?.full_name?.charAt(0).toUpperCase() || 'U'}
                   </div>
               }
@@ -74,34 +74,34 @@ function Header({ user, friendsCount, onCoverUpload, onAvatarUpload, uploading }
 
           {/* Name + meta */}
           <div className="flex-1 min-w-0 pt-10">
-            <h1 className="text-xl font-bold text-[#0A1A2F] leading-tight truncate">{user?.full_name || 'Your Profile'}</h1>
+            <h1 className="text-[#0A1A2F] py-3 text-xl font-bold leading-tight truncate">{user?.full_name || 'Your Profile'}</h1>
             <p className="text-sm text-[#0A1A2F]/50">{friendsCount} {friendsCount === 1 ? 'friend' : 'friends'}</p>
           </div>
 
           {/* Settings link */}
           <Link to={createPageUrl('Settings')}
-            className="flex-shrink-0 w-9 h-9 rounded-full bg-[#FAD98D]/20 hover:bg-[#FAD98D]/35 flex items-center justify-center transition-colors">
+          className="flex-shrink-0 w-9 h-9 rounded-full bg-[#FAD98D]/20 hover:bg-[#FAD98D]/35 flex items-center justify-center transition-colors">
             <Settings className="w-4 h-4 text-[#0A1A2F]" />
           </Link>
         </div>
 
         {/* Status / spiritual goal */}
-        {(user?.status_message || user?.spiritual_goal) && (
-          <div className="pb-4 space-y-2">
-            {user.status_message && (
-              <p className="text-sm text-[#0A1A2F]/70 italic">"{user.status_message}"</p>
-            )}
-            {user.spiritual_goal && (
-              <div className="flex items-start gap-2 bg-[#FAD98D]/15 border border-[#D9B878]/30 rounded-xl p-3 text-sm">
+        {(user?.status_message || user?.spiritual_goal) &&
+        <div className="pb-4 space-y-2">
+            {user.status_message &&
+          <p className="text-sm text-[#0A1A2F]/70 italic">"{user.status_message}"</p>
+          }
+            {user.spiritual_goal &&
+          <div className="flex items-start gap-2 bg-[#FAD98D]/15 border border-[#D9B878]/30 rounded-xl p-3 text-sm">
                 <span className="text-base leading-none mt-0.5">✨</span>
                 <p className="text-[#0A1A2F]/80"><span className="font-semibold text-[#0A1A2F]">Goal:</span> {user.spiritual_goal}</p>
               </div>
-            )}
+          }
           </div>
-        )}
+        }
       </div>
-    </div>
-  );
+    </div>);
+
 }
 
 // ─── Tab bar ───────────────────────────────────────────────────────────────────
@@ -109,22 +109,22 @@ function TabBar({ activeTab, onChange }) {
   return (
     <div className="sticky top-0 z-30 bg-white border-b border-[#D9B878]/25 shadow-sm">
       <div className="max-w-lg mx-auto px-4 flex gap-0 overflow-x-auto">
-        {TABS.map(({ id, label }) => (
-          <button key={id} onClick={() => onChange(id)}
-            className={`px-4 py-3.5 text-xs font-semibold flex-shrink-0 relative transition-colors ${
-              activeTab === id ? 'text-[#c9a227]' : 'text-[#0A1A2F]/50 hover:text-[#0A1A2F]/70'
-            }`}>
+        {TABS.map(({ id, label }) =>
+        <button key={id} onClick={() => onChange(id)}
+        className={`px-4 py-3.5 text-xs font-semibold flex-shrink-0 relative transition-colors ${
+        activeTab === id ? 'text-[#c9a227]' : 'text-[#0A1A2F]/50 hover:text-[#0A1A2F]/70'}`
+        }>
             {label}
-            {activeTab === id && (
-              <motion.div layoutId="profileTab"
-                className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#c9a227] to-[#D9B878] rounded-full"
-                transition={{ type: 'spring', stiffness: 500, damping: 30 }} />
-            )}
+            {activeTab === id &&
+          <motion.div layoutId="profileTab"
+          className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#c9a227] to-[#D9B878] rounded-full"
+          transition={{ type: 'spring', stiffness: 500, damping: 30 }} />
+          }
           </button>
-        ))}
+        )}
       </div>
-    </div>
-  );
+    </div>);
+
 }
 
 // ─── Journey + Achievements quick-links ───────────────────────────────────────
@@ -155,8 +155,8 @@ function QuickLinks() {
           <ChevronRight className="w-4 h-4 text-white/30" />
         </div>
       </Link>
-    </div>
-  );
+    </div>);
+
 }
 
 // ─── Main ──────────────────────────────────────────────────────────────────────
@@ -166,7 +166,7 @@ export default function Profile() {
   const [isDeleting, setIsDeleting] = useState(false);
   const [uploading, setUploading] = useState({ cover: false, avatar: false });
 
-  useEffect(() => { base44.auth.me().then(setUser); }, []);
+  useEffect(() => {base44.auth.me().then(setUser);}, []);
 
   // ── Eager: userProgress + friends (both needed for header/tab content) ──
   const { data: userProgress = null } = useQuery({
@@ -176,75 +176,75 @@ export default function Profile() {
       return list[0] || null;
     },
     enabled: !!user,
-    retry: false,
+    retry: false
   });
 
   const { data: friends = [] } = useQuery({
     queryKey: ['friends'],
     queryFn: async () => {
       const [a, b] = await Promise.all([
-        base44.entities.Friend.filter({ user_email: user.email, status: 'accepted' }),
-        base44.entities.Friend.filter({ friend_email: user.email, status: 'accepted' }),
-      ]);
+      base44.entities.Friend.filter({ user_email: user.email, status: 'accepted' }),
+      base44.entities.Friend.filter({ friend_email: user.email, status: 'accepted' })]
+      );
       return [...a, ...b];
     },
-    enabled: !!user,
+    enabled: !!user
   });
 
   // ── Lazy: only load when Overview tab is active ──────────────────────────
   const { data: myPosts = [] } = useQuery({
     queryKey: ['myPosts'],
     queryFn: () => base44.entities.Post.filter({ created_by: user?.email }),
-    enabled: !!user && activeTab === 'overview',
+    enabled: !!user && activeTab === 'overview'
   });
   const { data: meditationSessions = [] } = useQuery({
     queryKey: ['meditationSessions'],
     queryFn: () => base44.entities.MeditationSession.filter({ created_by: user?.email }, '-created_date', 100).catch(() => []),
     enabled: !!user && activeTab === 'overview',
-    retry: false,
+    retry: false
   });
   const { data: workoutSessions = [] } = useQuery({
     queryKey: ['workoutSessions'],
     queryFn: () => base44.entities.WorkoutSession.filter({ created_by: user?.email }, '-created_date', 100).catch(() => []),
     enabled: !!user && activeTab === 'overview',
-    retry: false,
+    retry: false
   });
   const { data: journalEntries = [] } = useQuery({
     queryKey: ['journalEntries'],
     queryFn: () => base44.entities.JournalEntry.filter({ created_by: user?.email }, '-created_date', 100).catch(() => []),
     enabled: !!user && activeTab === 'overview',
-    retry: false,
+    retry: false
   });
 
   // ── Photo uploads ─────────────────────────────────────────────────────────
   const handleCoverUpload = async (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    setUploading(u => ({ ...u, cover: true }));
+    setUploading((u) => ({ ...u, cover: true }));
     try {
       const { file_url } = await base44.integrations.Core.UploadFile({ file });
       await base44.auth.updateMe({ cover_image_url: file_url });
       window.location.reload();
-    } catch { setUploading(u => ({ ...u, cover: false })); }
+    } catch {setUploading((u) => ({ ...u, cover: false }));}
   };
 
   const handleAvatarUpload = async (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    setUploading(u => ({ ...u, avatar: true }));
+    setUploading((u) => ({ ...u, avatar: true }));
     try {
       const { file_url } = await base44.integrations.Core.UploadFile({ file });
       await base44.auth.updateMe({ profile_image_url: file_url });
       window.location.reload();
-    } catch { setUploading(u => ({ ...u, avatar: false })); }
+    } catch {setUploading((u) => ({ ...u, avatar: false }));}
   };
 
   if (!user) {
     return (
       <div className="min-h-screen bg-[#FFFDF7] flex items-center justify-center">
         <div className="animate-spin w-8 h-8 border-4 border-[#c9a227] border-t-transparent rounded-full" />
-      </div>
-    );
+      </div>);
+
   }
 
   return (
@@ -254,47 +254,47 @@ export default function Profile() {
         friendsCount={friends.length}
         onCoverUpload={handleCoverUpload}
         onAvatarUpload={handleAvatarUpload}
-        uploading={uploading}
-      />
+        uploading={uploading} />
+
 
       <TabBar activeTab={activeTab} onChange={setActiveTab} />
 
       <div className="max-w-lg mx-auto px-4 py-5 space-y-4">
 
         {/* OVERVIEW ── stats → streaks → quick-links → posts */}
-        {activeTab === 'overview' && (
-          <>
+        {activeTab === 'overview' &&
+        <>
             <ProfileStats
-              userProgress={userProgress}
-              meditationSessions={meditationSessions}
-              workoutSessions={workoutSessions}
-              journalEntries={journalEntries}
-            />
+            userProgress={userProgress}
+            meditationSessions={meditationSessions}
+            workoutSessions={workoutSessions}
+            journalEntries={journalEntries} />
+
             <ProfileStreaks
-              userProgress={userProgress}
-              meditationSessions={meditationSessions}
-              workoutSessions={workoutSessions}
-              journalEntries={journalEntries}
-            />
+            userProgress={userProgress}
+            meditationSessions={meditationSessions}
+            workoutSessions={workoutSessions}
+            journalEntries={journalEntries} />
+
             <QuickLinks />
             <TimelineTab user={user} posts={myPosts} comments={[]} />
           </>
-        )}
+        }
 
         {/* ABOUT ── bio editor + account settings */}
-        {activeTab === 'about' && (
-          <>
+        {activeTab === 'about' &&
+        <>
             <AboutTab user={user} />
 
             {/* Account settings — only on About tab */}
             <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
-              className="bg-white rounded-2xl border border-[#D9B878]/25 shadow-sm overflow-hidden">
+          className="bg-white rounded-2xl border border-[#D9B878]/25 shadow-sm overflow-hidden">
               <div className="px-4 py-3 border-b border-[#D9B878]/20">
                 <p className="text-xs font-bold text-[#0A1A2F]/40 uppercase tracking-widest">Account</p>
               </div>
               <div className="p-4 space-y-3">
                 <Link to={createPageUrl('Settings')}
-                  className="flex items-center gap-3 p-3 rounded-xl bg-[#F2F6FA] hover:bg-[#FAD98D]/15 transition-colors">
+              className="flex items-center gap-3 p-3 rounded-xl bg-[#F2F6FA] hover:bg-[#FAD98D]/15 transition-colors">
                   <Settings className="w-4 h-4 text-[#0A1A2F]/60" />
                   <span className="text-sm font-medium text-[#0A1A2F]">App Settings</span>
                   <ChevronRight className="w-4 h-4 text-[#0A1A2F]/30 ml-auto" />
@@ -317,14 +317,14 @@ export default function Profile() {
                     <AlertDialogFooter>
                       <AlertDialogCancel className="min-h-[44px]">Cancel</AlertDialogCancel>
                       <AlertDialogAction
-                        className="bg-[#0A1A2F] hover:bg-[#0A1A2F]/90 min-h-[44px]"
-                        onClick={async () => {
-                          setIsDeleting(true);
-                          try { await base44.auth.deleteAccount(); window.location.href = '/'; }
-                          catch { setIsDeleting(false); }
-                        }}
-                        disabled={isDeleting}
-                      >
+                      className="bg-[#0A1A2F] hover:bg-[#0A1A2F]/90 min-h-[44px]"
+                      onClick={async () => {
+                        setIsDeleting(true);
+                        try {await base44.auth.deleteAccount();window.location.href = '/';}
+                        catch {setIsDeleting(false);}
+                      }}
+                      disabled={isDeleting}>
+
                         {isDeleting ? 'Deleting…' : 'Delete Account'}
                       </AlertDialogAction>
                     </AlertDialogFooter>
@@ -333,24 +333,24 @@ export default function Profile() {
               </div>
             </motion.div>
           </>
-        )}
+        }
 
         {/* FRIENDS */}
-        {activeTab === 'friends' && (
-          <FriendsTab friends={friends} user={user} />
-        )}
+        {activeTab === 'friends' &&
+        <FriendsTab friends={friends} user={user} />
+        }
 
         {/* PHOTOS */}
-        {activeTab === 'photos' && (
-          <PhotosTab user={user} />
-        )}
+        {activeTab === 'photos' &&
+        <PhotosTab user={user} />
+        }
 
         {/* AI GUIDES ── chatbot preferences */}
-        {activeTab === 'ai' && (
-          <ChatbotPreferencesTab user={user} />
-        )}
+        {activeTab === 'ai' &&
+        <ChatbotPreferencesTab user={user} />
+        }
 
       </div>
-    </div>
-  );
+    </div>);
+
 }
