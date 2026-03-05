@@ -4,7 +4,7 @@ import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
 import {
   UtensilsCrossed, Plus, Sparkles, TrendingUp, Users, BookOpen,
-  ShoppingCart, SortAsc, ArrowUpDown
+  ShoppingCart, ArrowUpDown, Heart
 } from 'lucide-react';
 import RecipeCard          from '@/components/wellness/RecipeCard';
 import RecipeFilters       from '@/components/wellness/RecipeFilters';
@@ -13,21 +13,23 @@ import PersonalizedRecipes from '@/components/recommendations/PersonalizedRecipe
 import RecipeCollections   from '@/components/wellness/RecipeCollections';
 import GroceryListDrawer   from '@/components/wellness/GroceryListDrawer';
 import ChefDaniel          from '@/components/wellness/ChefDaniel';
-import { useGroceryList }  from '@/components/wellness/useGroceryList';
+import HealthRecipesTab    from '@/components/wellness/HealthRecipesTab';
+import { useGroceryList }  from '@/hooks/useGroceryList';
 
 // ─── constants ────────────────────────────────────────────────────────────────
 const TABS = [
   { id: 'all',         label: 'All',         icon: Sparkles   },
+  { id: 'health',      label: 'Health',      icon: Heart      },
   { id: 'mine',        label: 'My Recipes',  icon: BookOpen   },
   { id: 'community',   label: 'Community',   icon: Users      },
   { id: 'collections', label: 'Collections', icon: TrendingUp },
 ];
 
 const SORT_OPTIONS = [
-  { value: 'newest',  label: 'Newest'   },
-  { value: 'popular', label: 'Popular'  },
-  { value: 'az',      label: 'A – Z'    },
-  { value: 'fastest', label: 'Fastest'  },
+  { value: 'newest',  label: 'Newest'  },
+  { value: 'popular', label: 'Popular' },
+  { value: 'az',      label: 'A – Z'   },
+  { value: 'fastest', label: 'Fastest' },
 ];
 
 const isFiltered = (f) =>
@@ -42,7 +44,6 @@ function applySort(list, sort) {
     const tb = (b.prep_time_minutes || 0) + (b.cook_time_minutes || 0);
     return ta - tb;
   });
-  // newest: already sorted by -created_date from API
   return sorted;
 }
 
@@ -94,6 +95,7 @@ export default function DiscoverRecipes() {
 
   const myRecipes        = recipes.filter(r => r.created_by === user?.email);
   const communityRecipes = recipes.filter(r => r.is_shared && r.created_by !== user?.email);
+  const healthRecipes    = recipes.filter(r => r.health_conditions?.length > 0);
 
   const filterList = (list) => {
     if (!isFiltered(filters)) return list;
@@ -115,19 +117,22 @@ export default function DiscoverRecipes() {
     });
   };
 
-  const allSrc       = applySort(filterList(recipes),        sort);
-  const mineSrc      = applySort(filterList(myRecipes),      sort);
+  const allSrc       = applySort(filterList(recipes),          sort);
+  const mineSrc      = applySort(filterList(myRecipes),        sort);
   const communitySrc = applySort(filterList(communityRecipes), sort);
   const clearFilters = () => setFilters({ search: '', dietType: 'all', category: 'all', prepTime: 'all' });
 
   const activeSort = SORT_OPTIONS.find(o => o.value === sort);
 
-  // count badges per tab
   const counts = {
     all:       allSrc.length,
+    health:    healthRecipes.length,
     mine:      mineSrc.length,
     community: communitySrc.length,
   };
+
+  // Hide sort + filters on health tab (has its own filtering)
+  const showFilters = activeTab !== 'health' && activeTab !== 'collections';
 
   return (
     <div className="min-h-screen bg-[#FFFDF7] pb-28">
@@ -151,29 +156,31 @@ export default function DiscoverRecipes() {
             </div>
 
             <div className="flex items-center gap-2">
-              {/* Sort */}
-              <div className="relative">
-                <button onClick={() => setShowSort(s => !s)}
-                  className="flex items-center gap-1 px-2.5 py-2 rounded-xl bg-[#F2F6FA] text-xs font-bold text-[#0A1A2F]/55 hover:bg-[#FAD98D]/15 transition-colors">
-                  <ArrowUpDown className="w-3.5 h-3.5" />
-                  {activeSort?.label}
-                </button>
-                {showSort && (
-                  <div className="absolute right-0 top-full mt-1 bg-white rounded-2xl border border-[#D9B878]/20 shadow-lg py-1.5 z-50 min-w-[110px]">
-                    {SORT_OPTIONS.map(opt => (
-                      <button key={opt.value}
-                        onClick={() => { setSort(opt.value); setShowSort(false); }}
-                        className={`w-full text-left px-4 py-2 text-xs font-semibold transition-colors ${
-                          sort === opt.value
-                            ? 'text-[#c9a227] bg-[#FAD98D]/15'
-                            : 'text-[#0A1A2F]/60 hover:bg-[#F2F6FA]'
-                        }`}>
-                        {opt.label}
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
+              {/* Sort — hidden on health / collections tabs */}
+              {showFilters && (
+                <div className="relative">
+                  <button onClick={() => setShowSort(s => !s)}
+                    className="flex items-center gap-1 px-2.5 py-2 rounded-xl bg-[#F2F6FA] text-xs font-bold text-[#0A1A2F]/55 hover:bg-[#FAD98D]/15 transition-colors">
+                    <ArrowUpDown className="w-3.5 h-3.5" />
+                    {activeSort?.label}
+                  </button>
+                  {showSort && (
+                    <div className="absolute right-0 top-full mt-1 bg-white rounded-2xl border border-[#D9B878]/20 shadow-lg py-1.5 z-50 min-w-[110px]">
+                      {SORT_OPTIONS.map(opt => (
+                        <button key={opt.value}
+                          onClick={() => { setSort(opt.value); setShowSort(false); }}
+                          className={`w-full text-left px-4 py-2 text-xs font-semibold transition-colors ${
+                            sort === opt.value
+                              ? 'text-[#c9a227] bg-[#FAD98D]/15'
+                              : 'text-[#0A1A2F]/60 hover:bg-[#F2F6FA]'
+                          }`}>
+                          {opt.label}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
 
               {/* Cart */}
               <button onClick={() => setCartOpen(true)}
@@ -195,22 +202,26 @@ export default function DiscoverRecipes() {
             </div>
           </div>
 
-          {/* Filters */}
-          <RecipeFilters filters={filters} onFilterChange={setFilters} />
+          {/* Filters (hidden on health / collections) */}
+          {showFilters && (
+            <RecipeFilters filters={filters} onFilterChange={setFilters} />
+          )}
 
           {/* Tab bar */}
-          <div className="flex gap-1.5">
+          <div className="flex gap-1.5 overflow-x-auto pb-0.5 scrollbar-hide">
             {TABS.map(({ id, label, icon: Icon }) => (
               <button key={id} onClick={() => setActiveTab(id)}
-                className={`flex-1 flex flex-col items-center gap-0.5 py-2 rounded-xl text-[11px] font-bold transition-all relative ${
+                className={`flex-shrink-0 flex flex-col items-center gap-0.5 py-2 px-3 rounded-xl text-[11px] font-bold transition-all relative ${
                   activeTab === id
-                    ? 'bg-gradient-to-b from-[#c9a227] to-[#D9B878] text-white shadow-sm'
+                    ? id === 'health'
+                      ? 'bg-gradient-to-b from-red-400 to-pink-400 text-white shadow-sm'
+                      : 'bg-gradient-to-b from-[#c9a227] to-[#D9B878] text-white shadow-sm'
                     : 'bg-[#F2F6FA] text-[#0A1A2F]/45 hover:text-[#0A1A2F]/65'
                 }`}>
                 <Icon className="w-3.5 h-3.5" />
                 {label}
                 {id !== 'collections' && counts[id] > 0 && activeTab !== id && (
-                  <span className="absolute -top-1 -right-1 bg-[#0A1A2F]/20 text-[#0A1A2F] text-[8px] font-bold rounded-full px-1 leading-4">
+                  <span className="absolute -top-1 -right-1 bg-[#0A1A2F]/15 text-[#0A1A2F] text-[8px] font-bold rounded-full px-1 leading-4">
                     {counts[id]}
                   </span>
                 )}
@@ -224,13 +235,11 @@ export default function DiscoverRecipes() {
       {/* ── Content ── */}
       <div className="max-w-lg mx-auto px-4 py-4 space-y-3">
 
-        {/* ALL recipes */}
+        {/* ALL */}
         {activeTab === 'all' && (() => {
           if (isLoading) return (
             <div className="space-y-3">
-              {[1,2,3].map(i => (
-                <div key={i} className="bg-white rounded-2xl border border-[#D9B878]/20 h-36 animate-pulse" />
-              ))}
+              {[1,2,3].map(i => <div key={i} className="bg-white rounded-2xl border border-[#D9B878]/20 h-36 animate-pulse" />)}
             </div>
           );
           if (allSrc.length === 0) return (
@@ -244,10 +253,7 @@ export default function DiscoverRecipes() {
           );
           return (
             <>
-              {/* Personalised picks only when unfiltered */}
-              {!isFiltered(filters) && (
-                <PersonalizedRecipes user={user} allRecipes={recipes} />
-              )}
+              {!isFiltered(filters) && <PersonalizedRecipes user={user} allRecipes={recipes} />}
               <p className="text-[10px] font-bold text-[#0A1A2F]/35 uppercase tracking-widest pt-1">
                 {isFiltered(filters) ? `${allSrc.length} result${allSrc.length !== 1 ? 's' : ''}` : `All · ${allSrc.length} recipes`}
               </p>
@@ -257,6 +263,11 @@ export default function DiscoverRecipes() {
             </>
           );
         })()}
+
+        {/* HEALTH */}
+        {activeTab === 'health' && (
+          <HealthRecipesTab recipes={recipes} user={user} />
+        )}
 
         {/* MY RECIPES */}
         {activeTab === 'mine' && (() => {
@@ -334,11 +345,8 @@ export default function DiscoverRecipes() {
       <GroceryListDrawer isOpen={cartOpen}   onClose={() => setCartOpen(false)} />
 
       <ChefDaniel
-        user={user}
-        userRecipes={myRecipes}
-        mealLogs={mealLogs}
-        onOpen={() => setChefOpen(true)}
-        onClose={() => setChefOpen(false)}
+        user={user} userRecipes={myRecipes} mealLogs={mealLogs}
+        onOpen={() => setChefOpen(true)} onClose={() => setChefOpen(false)}
       />
     </div>
   );
