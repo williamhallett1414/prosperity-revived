@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { Home, User, Heart, TrendingUp, ArrowLeft, BookOpen } from 'lucide-react';
+import { Home, User, Heart, TrendingUp, ArrowLeft, BookOpen, Users } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Toaster } from '@/components/ui/sonner.jsx';
 import NotificationBell from '@/components/notifications/NotificationBell';
@@ -19,7 +19,7 @@ const navItems = [
 { name: 'Home', icon: Home, page: 'Home' },
 { name: 'Wellness', icon: Heart, page: 'Wellness' },
 { name: 'Bible', icon: BookOpen, page: 'Bible' },
-{ name: 'Journey', icon: TrendingUp, page: 'ProgressDashboard' },
+{ name: 'Community', icon: Users, page: 'Community' },
 { name: 'Profile', icon: User, page: 'Profile' },
 ];
 

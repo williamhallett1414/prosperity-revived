@@ -11,7 +11,7 @@ export default function CommunityRecipes() {
   const [searchTerm, setSearchTerm] = useState('');
   const [sortBy, setSortBy] = useState('popular');
 
-  const overrideStyle = { color: '#000000' };
+  
 
   const { data: recipes = [] } = useQuery({
     queryKey: ['recipes'],
@@ -42,10 +42,10 @@ export default function CommunityRecipes() {
   }
 
   return (
-    <div className="space-y-4" style={overrideStyle}>
+    <div className="space-y-4">
       <div className="flex items-center gap-2 mb-4">
-        <Users className="w-6 h-6 text-[#8a6e1a]" />
-        <h3 className="text-xl font-bold" style={{ color: '#000000 !important' }}>Community Recipes</h3>
+        <Users className="w-6 h-6 text-[#c9a227]" />
+        <h3 className="text-xl font-bold" >Community Recipes</h3>
       </div>
 
       {/* Search and Filters */}
@@ -79,22 +79,22 @@ export default function CommunityRecipes() {
       <div className="bg-gradient-to-r from-[#FAD98D]/10 to-[#FFF8E7] dark:from-[#0A1A2F]/40 dark:to-[#1a1a2e]/40 rounded-2xl p-4 mb-4">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-sm" style={overrideStyle}>Community Contributions</p>
-            <p className="text-2xl font-bold text-[#8a6e1a]">{communityRecipes.length}</p>
+            <p className="text-sm">Community Contributions</p>
+            <p className="text-2xl font-bold text-[#c9a227]">{communityRecipes.length}</p>
           </div>
-          <Users className="w-12 h-12 text-[#8a6e1a]/20" />
+          <Users className="w-12 h-12 text-[#c9a227]/20" />
         </div>
       </div>
 
       {/* Recipe Grid */}
       {filteredRecipes.length === 0 ? (
-        <div className="text-center py-12 bg-white dark:bg-[#2d2d4a] rounded-2xl" style={overrideStyle}>
+        <div className="text-center py-12 bg-white rounded-2xl">
           <Users className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-          <p className="mb-2" style={overrideStyle}>
+          <p className="mb-2">
             {searchTerm ? 'No recipes found' : 'No community recipes yet'}
           </p>
           {!searchTerm && (
-            <p className="text-sm" style={overrideStyle}>Share your first recipe to inspire others!</p>
+            <p className="text-sm">Share your first recipe to inspire others!</p>
           )}
         </div>
       ) : (

@@ -1,174 +1,249 @@
 import React, { useState, useEffect } from 'react';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
-import { UtensilsCrossed, Plus, TrendingUp } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import RecipeCard from '@/components/wellness/RecipeCard';
-import RecipeFilters from '@/components/wellness/RecipeFilters';
-import CreateRecipeModal from '@/components/wellness/CreateRecipeModal';
-import PersonalizedRecipes from '@/components/recommendations/PersonalizedRecipes';
-import CommunityRecipes from '@/components/wellness/CommunityRecipes';
-import RecipeCollections from '@/components/wellness/RecipeCollections';
-import ChefDaniel from '@/components/wellness/ChefDaniel';
-import UniversalHeader from '@/components/navigation/UniversalHeader';
+import { UtensilsCrossed, Plus, Sparkles, TrendingUp, Users, BookOpen } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import RecipeCard            from '@/components/wellness/RecipeCard';
+import RecipeFilters         from '@/components/wellness/RecipeFilters';
+import CreateRecipeModal     from '@/components/wellness/CreateRecipeModal';
+import PersonalizedRecipes   from '@/components/recommendations/PersonalizedRecipes';
+import RecipeCollections     from '@/components/wellness/RecipeCollections';
+import ChefDaniel            from '@/components/wellness/ChefDaniel';
+
+// ── Tabs ──────────────────────────────────────────────────────────────────────
+const TABS = [
+  { id: 'browse',      label: 'Browse',      icon: Sparkles   },
+  { id: 'mine',        label: 'My Recipes',  icon: BookOpen   },
+  { id: 'community',   label: 'Community',   icon: Users      },
+  { id: 'collections', label: 'Collections', icon: TrendingUp },
+];
+
+const isFiltered = (f) =>
+  f.search || f.dietType !== 'all' || f.category !== 'all' || f.prepTime !== 'all';
 
 export default function DiscoverRecipes() {
-  const [user, setUser] = useState(null);
-  const [showCreateRecipe, setShowCreateRecipe] = useState(false);
-  const [recipeFilters, setRecipeFilters] = useState({
-    search: '',
-    dietType: 'all',
-    category: 'all',
-    prepTime: 'all'
+  const [user,             setUser]             = useState(null);
+  const [activeTab,        setActiveTab]        = useState('browse');
+  const [showCreate,       setShowCreate]       = useState(false);
+  const [chefOpen,         setChefOpen]         = useState(false);
+  const [filters,          setFilters]          = useState({
+    search: '', dietType: 'all', category: 'all', prepTime: 'all',
   });
-  const queryClient = useQueryClient();
 
-  useEffect(() => {
-    base44.auth.me().then(setUser);
-  }, []);
+  useEffect(() => { base44.auth.me().then(setUser); }, []);
 
   const { data: recipes = [] } = useQuery({
     queryKey: ['recipes'],
-    queryFn: () => base44.entities.Recipe.list('-created_date')
+    queryFn:  () => base44.entities.Recipe.list('-created_date'),
   });
 
+  // mealLogs only needed when ChefDaniel is open
   const { data: mealLogs = [] } = useQuery({
     queryKey: ['mealLogs'],
-    queryFn: () => base44.entities.MealLog.list('-date', 100),
-    initialData: [],
-    enabled: !!user
+    queryFn:  () => base44.entities.MealLog.list('-date', 100),
+    enabled:  !!user && chefOpen,
   });
 
-  const myRecipes = recipes.filter(r => r.created_by === user?.email);
-  const allRecipes = recipes;
-  const popularRecipes = [...allRecipes]
-    .filter(r => !r.created_by || r.created_by !== user?.email)
-    .slice(0, 6);
+  const myRecipes        = recipes.filter(r => r.created_by === user?.email);
+  const communityRecipes = recipes.filter(r => r.is_shared && r.created_by !== user?.email);
+  const popularRecipes   = [...communityRecipes]
+    .sort((a, b) => (b.likes || 0) - (a.likes || 0))
+    .slice(0, 8);
 
-  const filteredRecipes = allRecipes.filter(recipe => {
-    if (recipeFilters.search) {
-      const searchLower = recipeFilters.search.toLowerCase();
-      const matchesTitle = recipe.title?.toLowerCase().includes(searchLower);
-      const matchesIngredients = recipe.ingredients?.some(ing => 
-        ing.toLowerCase().includes(searchLower)
-      );
-      if (!matchesTitle && !matchesIngredients) return false;
-    }
+  const applyFilters = (list) => {
+    if (!isFiltered(filters)) return list;
+    return list.filter(recipe => {
+      if (filters.search) {
+        const q = filters.search.toLowerCase();
+        if (!recipe.title?.toLowerCase().includes(q) &&
+            !recipe.ingredients?.some(i => i.toLowerCase().includes(q))) return false;
+      }
+      if (filters.dietType !== 'all' && recipe.diet_type !== filters.dietType) return false;
+      if (filters.category !== 'all' && recipe.category !== filters.category)   return false;
+      if (filters.prepTime !== 'all') {
+        const t = (recipe.prep_time_minutes || 0) + (recipe.cook_time_minutes || 0);
+        if (filters.prepTime === 'quick'  && t >= 15)          return false;
+        if (filters.prepTime === 'medium' && (t < 15 || t > 30)) return false;
+        if (filters.prepTime === 'long'   && t < 30)           return false;
+      }
+      return true;
+    });
+  };
 
-    if (recipeFilters.dietType !== 'all' && recipe.diet_type !== recipeFilters.dietType) {
-      return false;
-    }
-
-    if (recipeFilters.category !== 'all' && recipe.category !== recipeFilters.category) {
-      return false;
-    }
-
-    if (recipeFilters.prepTime !== 'all') {
-      const totalTime = (recipe.prep_time_minutes || 0) + (recipe.cook_time_minutes || 0);
-      if (recipeFilters.prepTime === 'quick' && totalTime >= 15) return false;
-      if (recipeFilters.prepTime === 'medium' && (totalTime < 15 || totalTime > 30)) return false;
-      if (recipeFilters.prepTime === 'long' && totalTime < 30) return false;
-    }
-
-    return true;
-  });
+  const browseSrc    = isFiltered(filters) ? applyFilters(recipes) : popularRecipes;
+  const mineSrc      = applyFilters(myRecipes);
+  const communitySrc = applyFilters(communityRecipes);
 
   return (
-    <div className="min-h-screen bg-[#FFF8F0] pb-24">
-      <UniversalHeader title="Discover Recipes" />
+    <div className="min-h-screen bg-[#FFFDF7] pb-28">
 
-      <div className="px-4 pt-20 max-w-2xl mx-auto">
-        <div className="flex items-center justify-between mb-6">
-          <h1 className="text-3xl font-bold text-[#3C4E53]">Discover Recipes</h1>
-          <Button
-           onClick={() => setShowCreateRecipe(true)}
-           className="bg-gradient-to-r from-[#FD9C2D] to-[#E89020] hover:opacity-90"
-           size="sm"
-          >
-            <Plus className="w-4 h-4 mr-2" />
-            Add Recipe
-          </Button>
-        </div>
-
-        <RecipeFilters filters={recipeFilters} onFilterChange={setRecipeFilters} />
-
-        {/* Personalized Recipes */}
-        {recipeFilters.search === '' && recipeFilters.dietType === 'all' && recipeFilters.category === 'all' && recipeFilters.prepTime === 'all' && (
-          <PersonalizedRecipes user={user} allRecipes={recipes} />
-        )}
-
-        {/* Popular Recipes */}
-        {popularRecipes.length > 0 && recipeFilters.search === '' && recipeFilters.dietType === 'all' && recipeFilters.category === 'all' && recipeFilters.prepTime === 'all' && (
-          <div className="mb-6">
-            <div className="flex items-center gap-2 mb-3">
-              <TrendingUp className="w-5 h-5 text-[#FD9C2D]" />
-              <h4 className="text-sm font-semibold text-[#0A1A2F]">Popular Recipes</h4>
-            </div>
-            <div className="grid gap-4">
-              {popularRecipes.map((recipe, index) => (
-                <RecipeCard key={recipe.id} recipe={recipe} index={index} />
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* My Recipes */}
-        {myRecipes.length > 0 && (
-          <div className="mb-6">
-            <h4 className="text-sm font-semibold text-[#0A1A2F] mb-3">Your Recipes</h4>
-            <div className="grid gap-4">
-              {myRecipes.map((recipe, index) => (
-                <RecipeCard key={recipe.id} recipe={recipe} index={index} />
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Filtered Results */}
-        {(recipeFilters.search || recipeFilters.dietType !== 'all' || recipeFilters.category !== 'all' || recipeFilters.prepTime !== 'all') && (
-          <div>
-            <h4 className="text-sm font-semibold text-[#0A1A2F] mb-3">
-              Search Results ({filteredRecipes.length})
-            </h4>
-            {filteredRecipes.length === 0 ? (
-              <div className="text-center py-12 bg-white dark:bg-[#2d2d4a] rounded-2xl">
-                <UtensilsCrossed className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-                <p className="text-gray-500 dark:text-gray-400">No recipes match your filters</p>
+      {/* ── Sticky header ── */}
+      <div className="sticky top-0 z-40 bg-white border-b border-[#D9B878]/20 px-4 pt-4 pb-3">
+        <div className="max-w-lg mx-auto">
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#c9a227] to-[#D9B878] flex items-center justify-center">
+                <UtensilsCrossed className="w-5 h-5 text-white" />
               </div>
-            ) : (
-              <div className="grid gap-4">
-                {filteredRecipes.map((recipe, index) => (
-                  <RecipeCard key={recipe.id} recipe={recipe} index={index} />
-                ))}
+              <div>
+                <h1 className="text-base font-bold text-[#0A1A2F]">Discover Recipes</h1>
+                <p className="text-xs text-[#0A1A2F]/45">{recipes.length} recipes in the library</p>
               </div>
-            )}
+            </div>
+            <button onClick={() => setShowCreate(true)}
+              className="flex items-center gap-1.5 bg-gradient-to-r from-[#c9a227] to-[#D9B878] text-white text-xs font-bold px-3 py-2 rounded-xl hover:opacity-90 shadow-sm">
+              <Plus className="w-3.5 h-3.5" /> Add
+            </button>
           </div>
-        )}
 
-        {/* Collections */}
-        <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
-          <h4 className="text-sm font-semibold text-[#0A1A2F] mb-3">Collections</h4>
-          <RecipeCollections allRecipes={recipes} />
-        </div>
-        
-        {/* Community Recipes */}
-        <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
-          <h4 className="text-sm font-semibold text-[#0A1A2F] mb-3">Community Recipes</h4>
-          <CommunityRecipes />
+          {/* Filters */}
+          <RecipeFilters filters={filters} onFilterChange={setFilters} />
+
+          {/* Tabs */}
+          <div className="flex gap-1.5 mt-3">
+            {TABS.map(({ id, label, icon: Icon }) => (
+              <button key={id} onClick={() => setActiveTab(id)}
+                className={`flex-1 flex flex-col items-center gap-0.5 py-2 rounded-xl text-[11px] font-bold transition-all ${
+                  activeTab === id
+                    ? 'bg-gradient-to-b from-[#c9a227] to-[#D9B878] text-white shadow-sm'
+                    : 'bg-[#F2F6FA] text-[#0A1A2F]/45 hover:text-[#0A1A2F]/65'
+                }`}>
+                <Icon className="w-3.5 h-3.5" />
+                {label}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
-      <CreateRecipeModal
-        isOpen={showCreateRecipe}
-        onClose={() => setShowCreateRecipe(false)}
-      />
+      {/* ── Content ── */}
+      <div className="max-w-lg mx-auto px-4 py-4 space-y-4">
 
-      <ChefDaniel 
-        user={user} 
+        {/* BROWSE */}
+        {activeTab === 'browse' && (
+          <>
+            {/* Personalized picks (only when no filter active) */}
+            {!isFiltered(filters) && (
+              <PersonalizedRecipes user={user} allRecipes={recipes} />
+            )}
+
+            {browseSrc.length === 0 ? (
+              <EmptyState
+                icon={<UtensilsCrossed className="w-8 h-8 text-[#0A1A2F]/15" />}
+                title="No recipes match"
+                sub="Try adjusting your filters"
+                action="Clear filters"
+                onAction={() => setFilters({ search: '', dietType: 'all', category: 'all', prepTime: 'all' })}
+              />
+            ) : (
+              <>
+                {!isFiltered(filters) && (
+                  <p className="text-[10px] font-bold text-[#0A1A2F]/35 uppercase tracking-widest">
+                    Popular · {browseSrc.length} recipes
+                  </p>
+                )}
+                {isFiltered(filters) && (
+                  <p className="text-[10px] font-bold text-[#0A1A2F]/35 uppercase tracking-widest">
+                    Results · {browseSrc.length} found
+                  </p>
+                )}
+                <div className="space-y-3">
+                  {browseSrc.map((r, i) => <RecipeCard key={r.id} recipe={r} index={i} />)}
+                </div>
+              </>
+            )}
+          </>
+        )}
+
+        {/* MY RECIPES */}
+        {activeTab === 'mine' && (
+          <>
+            {myRecipes.length === 0 ? (
+              <EmptyState
+                icon={<BookOpen className="w-8 h-8 text-[#0A1A2F]/15" />}
+                title="No recipes yet"
+                sub="Add your first recipe to build your personal cookbook"
+                action="Add Recipe"
+                onAction={() => setShowCreate(true)}
+              />
+            ) : mineSrc.length === 0 ? (
+              <EmptyState
+                icon={<UtensilsCrossed className="w-8 h-8 text-[#0A1A2F]/15" />}
+                title="No matches"
+                sub="None of your recipes match this filter"
+                action="Clear filters"
+                onAction={() => setFilters({ search: '', dietType: 'all', category: 'all', prepTime: 'all' })}
+              />
+            ) : (
+              <div className="space-y-3">
+                {mineSrc.map((r, i) => <RecipeCard key={r.id} recipe={r} index={i} />)}
+              </div>
+            )}
+          </>
+        )}
+
+        {/* COMMUNITY */}
+        {activeTab === 'community' && (
+          <>
+            {communityRecipes.length === 0 ? (
+              <EmptyState
+                icon={<Users className="w-8 h-8 text-[#0A1A2F]/15" />}
+                title="No shared recipes yet"
+                sub="Share your recipes so others can discover them"
+                action="Add Recipe"
+                onAction={() => setShowCreate(true)}
+              />
+            ) : communitySrc.length === 0 ? (
+              <EmptyState
+                icon={<UtensilsCrossed className="w-8 h-8 text-[#0A1A2F]/15" />}
+                title="No matches"
+                sub="Try adjusting your filters"
+                action="Clear filters"
+                onAction={() => setFilters({ search: '', dietType: 'all', category: 'all', prepTime: 'all' })}
+              />
+            ) : (
+              <div className="space-y-3">
+                {communitySrc.map((r, i) => <RecipeCard key={r.id} recipe={r} index={i} />)}
+              </div>
+            )}
+          </>
+        )}
+
+        {/* COLLECTIONS */}
+        {activeTab === 'collections' && (
+          <RecipeCollections allRecipes={recipes} />
+        )}
+      </div>
+
+      {/* ── Modals ── */}
+      <CreateRecipeModal isOpen={showCreate} onClose={() => setShowCreate(false)} />
+
+      <ChefDaniel
+        user={user}
         userRecipes={myRecipes}
         mealLogs={mealLogs}
+        onOpen={() => setChefOpen(true)}
+        onClose={() => setChefOpen(false)}
       />
+    </div>
+  );
+}
+
+function EmptyState({ icon, title, sub, action, onAction }) {
+  return (
+    <div className="text-center py-12">
+      <div className="w-16 h-16 rounded-2xl bg-[#F2F6FA] flex items-center justify-center mx-auto mb-3">
+        {icon}
+      </div>
+      <p className="font-bold text-[#0A1A2F]/60 text-sm">{title}</p>
+      {sub && <p className="text-xs text-[#0A1A2F]/35 mt-1 mb-4">{sub}</p>}
+      {action && (
+        <button onClick={onAction}
+          className="text-xs font-bold text-[#c9a227] hover:opacity-70 transition-opacity">
+          {action}
+        </button>
+      )}
     </div>
   );
 }
