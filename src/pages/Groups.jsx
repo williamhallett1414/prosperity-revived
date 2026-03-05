@@ -3,24 +3,28 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { createPageUrl } from '@/utils';
-import { Plus, Search, ArrowLeft, X, Users, Lock, Globe, ChevronRight, Loader2 } from 'lucide-react';
+import {
+  Plus, Search, ArrowLeft, X, Users, Lock, Globe,
+  ChevronRight, Loader2, Star, SlidersHorizontal
+} from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Switch } from '@/components/ui/switch';
 import GroupCard from '@/components/groups/GroupCard';
 import { toast } from 'sonner';
+import { SEED_GROUPS, SEED_KEY } from '@/components/groups/GroupSeed';
 
 // ─── Category config ─────────────────────────────────────────────────────────
 const CATEGORIES = [
-  { value: 'all',        label: 'All',        emoji: '✨' },
-  { value: 'bible_study',label: 'Bible Study', emoji: '📖' },
-  { value: 'prayer',     label: 'Prayer',      emoji: '🙏' },
-  { value: 'wellness',   label: 'Wellness',    emoji: '🧘' },
-  { value: 'workout',    label: 'Workout',     emoji: '💪' },
-  { value: 'cooking',    label: 'Cooking',     emoji: '🍳' },
-  { value: 'marriage',   label: 'Marriage',    emoji: '💑' },
-  { value: 'parents',    label: 'Parents',     emoji: '👨‍👩‍👧‍👦' },
-  { value: 'youth',      label: 'Youth',       emoji: '👥' },
-  { value: 'other',      label: 'Other',       emoji: '💬' },
+  { value: 'all',         label: 'All',         emoji: '✨' },
+  { value: 'bible_study', label: 'Bible Study',  emoji: '📖' },
+  { value: 'prayer',      label: 'Prayer',       emoji: '🙏' },
+  { value: 'wellness',    label: 'Wellness',     emoji: '🧘' },
+  { value: 'workout',     label: 'Workout',      emoji: '💪' },
+  { value: 'cooking',     label: 'Cooking',      emoji: '🍳' },
+  { value: 'marriage',    label: 'Marriage',     emoji: '💑' },
+  { value: 'parents',     label: 'Parents',      emoji: '👨‍👩‍👧‍👦' },
+  { value: 'youth',       label: 'Youth',        emoji: '👥' },
+  { value: 'other',       label: 'Other',        emoji: '💬' },
 ];
 
 const CAT_GRADIENT = {
@@ -35,6 +39,12 @@ const CAT_GRADIENT = {
   other:       'from-[#3C4E53] to-[#D9B878]',
 };
 
+const SORT_OPTIONS = [
+  { value: 'popular',  label: 'Most Popular' },
+  { value: 'newest',   label: 'Newest' },
+  { value: 'members',  label: 'Most Members' },
+];
+
 // ─── Create group slide-up panel ─────────────────────────────────────────────
 function CreateGroupPanel({ isOpen, onClose, onSubmit, creating }) {
   const [form, setForm] = useState({ name: '', description: '', category: 'other', is_private: false });
@@ -42,7 +52,10 @@ function CreateGroupPanel({ isOpen, onClose, onSubmit, creating }) {
   const canSubmit = form.name.trim().length > 0;
 
   const handleSubmit = () => {
-    if (canSubmit) { onSubmit(form); setForm({ name: '', description: '', category: 'other', is_private: false }); }
+    if (canSubmit) {
+      onSubmit(form);
+      setForm({ name: '', description: '', category: 'other', is_private: false });
+    }
   };
 
   return (
@@ -50,53 +63,38 @@ function CreateGroupPanel({ isOpen, onClose, onSubmit, creating }) {
       {isOpen && (
         <>
           <motion.div key="backdrop" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50"
-            onClick={onClose} />
-
+            className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50" onClick={onClose} />
           <motion.div key="panel"
             initial={{ y: '100%' }} animate={{ y: 0 }} exit={{ y: '100%' }}
             transition={{ type: 'spring', damping: 30, stiffness: 300 }}
             className="fixed bottom-0 left-0 right-0 z-50 bg-white rounded-t-3xl shadow-2xl max-h-[92vh] overflow-y-auto"
           >
-            {/* Handle */}
             <div className="flex justify-center pt-3 pb-1">
               <div className="w-10 h-1 bg-[#E2E8F0] rounded-full" />
             </div>
-
-            <div className="px-5 pb-8 pt-3 space-y-5">
+            <div className="px-5 pb-10 pt-3 space-y-5">
               <div className="flex items-center justify-between">
                 <h2 className="text-lg font-bold text-[#0A1A2F]">Create a Group</h2>
-                <button onClick={onClose}
-                  className="w-8 h-8 rounded-full bg-[#F2F6FA] flex items-center justify-center hover:bg-[#E8EFF6] transition-colors">
+                <button onClick={onClose} className="w-8 h-8 rounded-full bg-[#F2F6FA] flex items-center justify-center">
                   <X className="w-4 h-4 text-[#0A1A2F]/50" />
                 </button>
               </div>
 
-              {/* Group name */}
               <div>
                 <p className="text-xs font-bold text-[#0A1A2F]/40 uppercase tracking-widest mb-1.5">Group Name *</p>
-                <input
-                  type="text"
-                  placeholder="e.g., Morning Prayer Warriors"
-                  value={form.name}
-                  onChange={e => set('name', e.target.value)}
-                  className="w-full px-3 py-2.5 rounded-xl border border-[#E2E8F0] bg-[#F8FAFC] text-sm text-[#0A1A2F] placeholder-[#0A1A2F]/25 focus:outline-none focus:border-[#D9B878]/60 transition-colors"
-                />
+                <input type="text" placeholder="e.g., Morning Prayer Warriors"
+                  value={form.name} onChange={e => set('name', e.target.value)}
+                  className="w-full px-3 py-2.5 rounded-xl border border-[#E2E8F0] bg-[#F8FAFC] text-sm text-[#0A1A2F] placeholder-[#0A1A2F]/25 focus:outline-none focus:border-[#D9B878]/60 transition-colors" />
               </div>
 
-              {/* Description */}
               <div>
                 <p className="text-xs font-bold text-[#0A1A2F]/40 uppercase tracking-widest mb-1.5">Description</p>
-                <textarea
-                  placeholder="What is this group about? Who should join?"
-                  value={form.description}
-                  onChange={e => set('description', e.target.value)}
+                <textarea placeholder="What is this group about? Who should join?"
+                  value={form.description} onChange={e => set('description', e.target.value)}
                   rows={3}
-                  className="w-full resize-none px-3 py-2.5 rounded-xl border border-[#E2E8F0] bg-[#F8FAFC] text-sm text-[#0A1A2F] placeholder-[#0A1A2F]/25 focus:outline-none focus:border-[#D9B878]/60 transition-colors leading-relaxed"
-                />
+                  className="w-full resize-none px-3 py-2.5 rounded-xl border border-[#E2E8F0] bg-[#F8FAFC] text-sm text-[#0A1A2F] placeholder-[#0A1A2F]/25 focus:outline-none focus:border-[#D9B878]/60 transition-colors leading-relaxed" />
               </div>
 
-              {/* Category chips */}
               <div>
                 <p className="text-xs font-bold text-[#0A1A2F]/40 uppercase tracking-widest mb-2">Category</p>
                 <div className="flex flex-wrap gap-2">
@@ -113,14 +111,11 @@ function CreateGroupPanel({ isOpen, onClose, onSubmit, creating }) {
                 </div>
               </div>
 
-              {/* Preview */}
               {form.name.trim() && (
                 <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }}
                   className="rounded-2xl overflow-hidden border border-[#E2E8F0]">
                   <div className={`h-16 bg-gradient-to-br ${CAT_GRADIENT[form.category] || CAT_GRADIENT.other} flex items-center justify-center`}>
-                    <span className="text-3xl opacity-70">
-                      {CATEGORIES.find(c => c.value === form.category)?.emoji || '💬'}
-                    </span>
+                    <span className="text-3xl opacity-70">{CATEGORIES.find(c => c.value === form.category)?.emoji || '💬'}</span>
                   </div>
                   <div className="px-3 py-2.5">
                     <p className="text-sm font-bold text-[#0A1A2F]">{form.name}</p>
@@ -129,21 +124,17 @@ function CreateGroupPanel({ isOpen, onClose, onSubmit, creating }) {
                 </motion.div>
               )}
 
-              {/* Privacy */}
               <div className="flex items-center justify-between bg-[#F2F6FA] rounded-xl p-3.5">
                 <div className="flex items-center gap-2.5">
                   {form.is_private ? <Lock className="w-4 h-4 text-[#0A1A2F]/50" /> : <Globe className="w-4 h-4 text-[#0A1A2F]/50" />}
                   <div>
                     <p className="text-sm font-semibold text-[#0A1A2F]">{form.is_private ? 'Private Group' : 'Public Group'}</p>
-                    <p className="text-xs text-[#0A1A2F]/40">
-                      {form.is_private ? 'Only invited members can join' : 'Anyone can discover and join'}
-                    </p>
+                    <p className="text-xs text-[#0A1A2F]/40">{form.is_private ? 'Only invited members can join' : 'Anyone can discover and join'}</p>
                   </div>
                 </div>
                 <Switch checked={form.is_private} onCheckedChange={v => set('is_private', v)} />
               </div>
 
-              {/* Submit */}
               <button onClick={handleSubmit} disabled={!canSubmit || creating}
                 className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-[#D9B878] to-[#c9a227] text-[#0A1A2F] font-bold text-sm disabled:opacity-40 hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
                 {creating ? <><Loader2 className="w-4 h-4 animate-spin" /> Creating…</> : <><Plus className="w-4 h-4" /> Create Group</>}
@@ -173,7 +164,7 @@ function MyGroupRow({ group, onClick, index }) {
         <p className="text-sm font-bold text-[#0A1A2F] truncate">{group.name}</p>
         <div className="flex items-center gap-2 mt-0.5">
           <span className="text-[10px] text-[#0A1A2F]/35 flex items-center gap-1">
-            <Users className="w-3 h-3" /> {group.member_count || 0}
+            <Users className="w-3 h-3" /> {(group.member_count || 0).toLocaleString()}
           </span>
           {group.is_private && (
             <span className="text-[10px] text-[#0A1A2F]/30 flex items-center gap-1">
@@ -187,12 +178,97 @@ function MyGroupRow({ group, onClick, index }) {
   );
 }
 
+// ─── Featured spotlight card ──────────────────────────────────────────────────
+function FeaturedCard({ group, onClick }) {
+  const gradient = CAT_GRADIENT[group.category] || CAT_GRADIENT.other;
+  const cat = CATEGORIES.find(c => c.value === group.category);
+  return (
+    <motion.button
+      whileTap={{ scale: 0.98 }}
+      onClick={onClick}
+      className="relative flex-shrink-0 w-56 bg-white rounded-2xl overflow-hidden border border-[#D9B878]/20 hover:shadow-md transition-all text-left"
+    >
+      <div className={`h-20 bg-gradient-to-br ${gradient} flex items-center justify-center`}>
+        <span className="text-3xl opacity-60">{cat?.emoji || '💬'}</span>
+      </div>
+      <div className="absolute top-2 left-2">
+        <span className="flex items-center gap-1 bg-[#D9B878] text-[#0A1A2F] text-[9px] font-bold px-2 py-0.5 rounded-full">
+          <Star className="w-2.5 h-2.5" /> Featured
+        </span>
+      </div>
+      <div className="p-3">
+        <p className="text-xs font-bold text-[#0A1A2F] line-clamp-1 mb-0.5">{group.name}</p>
+        <p className="text-[10px] text-[#0A1A2F]/40 flex items-center gap-1">
+          <Users className="w-2.5 h-2.5" /> {(group.member_count || 0).toLocaleString()} members
+        </p>
+      </div>
+    </motion.button>
+  );
+}
+
+// ─── Seeding banner ───────────────────────────────────────────────────────────
+function SeedBanner({ onSeed, seeding }) {
+  return (
+    <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }}
+      className="bg-gradient-to-r from-[#0A1A2F] to-[#1a2a3f] rounded-2xl p-4 flex items-center gap-3">
+      <div className="w-10 h-10 bg-[#D9B878]/20 rounded-xl flex items-center justify-center flex-shrink-0">
+        <Users className="w-5 h-5 text-[#D9B878]" />
+      </div>
+      <div className="flex-1 min-w-0">
+        <p className="text-sm font-bold text-white">Populate the community</p>
+        <p className="text-xs text-white/45">Add 32 starter groups across all categories</p>
+      </div>
+      <button onClick={onSeed} disabled={seeding}
+        className="flex-shrink-0 px-3.5 py-2 rounded-xl bg-[#D9B878] text-[#0A1A2F] text-xs font-bold disabled:opacity-50 hover:bg-[#c9a227] transition-colors flex items-center gap-1.5">
+        {seeding ? <><Loader2 className="w-3.5 h-3.5 animate-spin" /> Adding…</> : 'Add Groups'}
+      </button>
+    </motion.div>
+  );
+}
+
+// ─── Sort dropdown ────────────────────────────────────────────────────────────
+function SortDropdown({ value, onChange }) {
+  const [open, setOpen] = useState(false);
+  const current = SORT_OPTIONS.find(o => o.value === value);
+  return (
+    <div className="relative">
+      <button onClick={() => setOpen(o => !o)}
+        className="flex items-center gap-1.5 text-xs font-bold text-[#0A1A2F]/50 hover:text-[#0A1A2F]/80 transition-colors">
+        <SlidersHorizontal className="w-3.5 h-3.5" />
+        {current?.label}
+      </button>
+      <AnimatePresence>
+        {open && (
+          <>
+            <div className="fixed inset-0 z-10" onClick={() => setOpen(false)} />
+            <motion.div initial={{ opacity: 0, scale: 0.95, y: -4 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95 }}
+              className="absolute right-0 top-6 z-20 bg-white rounded-xl shadow-lg border border-[#E2E8F0] overflow-hidden min-w-[140px]">
+              {SORT_OPTIONS.map(opt => (
+                <button key={opt.value}
+                  onClick={() => { onChange(opt.value); setOpen(false); }}
+                  className={`w-full text-left px-4 py-2.5 text-xs font-semibold transition-colors ${
+                    opt.value === value ? 'bg-[#FFF9ED] text-[#c9a227]' : 'text-[#0A1A2F]/60 hover:bg-[#F8FAFC]'
+                  }`}>
+                  {opt.label}
+                </button>
+              ))}
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
 // ─── Main page ────────────────────────────────────────────────────────────────
 export default function Groups() {
   const [showCreate, setShowCreate] = useState(false);
   const [search, setSearch] = useState('');
   const [user, setUser] = useState(null);
   const [categoryFilter, setCategoryFilter] = useState('all');
+  const [sort, setSort] = useState('popular');
+  const [seeded, setSeeded] = useState(() => !!localStorage.getItem(SEED_KEY));
+  const [seeding, setSeeding] = useState(false);
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const searchRef = useRef(null);
@@ -226,9 +302,37 @@ export default function Groups() {
     onError: () => toast.error('Failed to create group')
   });
 
+  // ── Seed 32 starter groups ─────────────────────────────────────────────────
+  const handleSeed = async () => {
+    setSeeding(true);
+    try {
+      let created = 0;
+      for (const g of SEED_GROUPS) {
+        await base44.entities.StudyGroup.create(g);
+        created++;
+      }
+      localStorage.setItem(SEED_KEY, '1');
+      setSeeded(true);
+      queryClient.invalidateQueries(['groups']);
+      toast.success(`${created} groups added to the community!`);
+    } catch (e) {
+      console.error(e);
+      toast.error('Some groups may not have saved — try again');
+    }
+    setSeeding(false);
+  };
+
   const myGroupIds = new Set(memberships.map(m => m.group_id));
   const myGroups = groups.filter(g => myGroupIds.has(g.id));
   const discoverGroups = groups.filter(g => !g.is_private && !myGroupIds.has(g.id));
+
+  // Sorting
+  const sortGroups = (list) => {
+    if (sort === 'members')  return [...list].sort((a, b) => (b.member_count || 0) - (a.member_count || 0));
+    if (sort === 'newest')   return [...list]; // already sorted by created_date desc from API
+    // popular: member_count weighted + recency
+    return [...list].sort((a, b) => (b.member_count || 0) - (a.member_count || 0));
+  };
 
   const applyFilters = (list) => {
     let out = list;
@@ -237,12 +341,17 @@ export default function Groups() {
       const q = search.toLowerCase();
       out = out.filter(g => g.name?.toLowerCase().includes(q) || g.description?.toLowerCase().includes(q));
     }
-    return out;
+    return sortGroups(out);
   };
 
   const filteredMyGroups = applyFilters(myGroups);
   const filteredDiscover = applyFilters(discoverGroups);
   const isFiltering = search.trim() || categoryFilter !== 'all';
+
+  // Featured: top 3 by member_count from discover
+  const featured = [...discoverGroups]
+    .sort((a, b) => (b.member_count || 0) - (a.member_count || 0))
+    .slice(0, 3);
 
   return (
     <div className="min-h-screen bg-[#F2F6FA] pb-28">
@@ -256,16 +365,12 @@ export default function Groups() {
           </Link>
           <div className="flex-1 relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#0A1A2F]/30" />
-            <input ref={searchRef}
-              type="text"
-              placeholder="Search groups…"
-              value={search}
-              onChange={e => setSearch(e.target.value)}
-              className="w-full pl-9 pr-8 py-2 rounded-xl bg-[#F2F6FA] border border-[#E2E8F0] text-sm text-[#0A1A2F] placeholder-[#0A1A2F]/30 focus:outline-none focus:border-[#D9B878]/50 transition-colors"
-            />
+            <input ref={searchRef} type="text" placeholder="Search groups…"
+              value={search} onChange={e => setSearch(e.target.value)}
+              className="w-full pl-9 pr-8 py-2 rounded-xl bg-[#F2F6FA] border border-[#E2E8F0] text-sm text-[#0A1A2F] placeholder-[#0A1A2F]/30 focus:outline-none focus:border-[#D9B878]/50 transition-colors" />
             {search && (
               <button onClick={() => setSearch('')} className="absolute right-2.5 top-1/2 -translate-y-1/2">
-                <X className="w-3.5 h-3.5 text-[#0A1A2F]/30 hover:text-[#0A1A2F]/60" />
+                <X className="w-3.5 h-3.5 text-[#0A1A2F]/30" />
               </button>
             )}
           </div>
@@ -295,6 +400,29 @@ export default function Groups() {
       </div>
 
       <div className="max-w-lg mx-auto px-4 py-5 space-y-6">
+
+        {/* ── Seed banner (only when not seeded and no filters active) ── */}
+        {!seeded && !isFiltering && (
+          <SeedBanner onSeed={handleSeed} seeding={seeding} />
+        )}
+
+        {/* ── Featured spotlight (only when no filters, groups exist) ── */}
+        {!isFiltering && featured.length > 0 && (
+          <div>
+            <div className="flex items-center gap-2 mb-2">
+              <Star className="w-4 h-4 text-[#D9B878]" />
+              <h2 className="text-sm font-bold text-[#0A1A2F]">Featured Groups</h2>
+            </div>
+            <div className="overflow-x-auto scrollbar-none -mx-4 px-4">
+              <div className="flex gap-3 w-max pb-1">
+                {featured.map(group => (
+                  <FeaturedCard key={group.id} group={group}
+                    onClick={() => navigate(createPageUrl(`GroupDetail?id=${group.id}`))} />
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* ── My Groups ── */}
         <div>
@@ -349,6 +477,9 @@ export default function Groups() {
               {isFiltering ? 'Results' : 'Discover Groups'}
               {filteredDiscover.length > 0 && <span className="text-[#0A1A2F]/30 font-normal ml-1">({filteredDiscover.length})</span>}
             </h2>
+            {filteredDiscover.length > 0 && (
+              <SortDropdown value={sort} onChange={setSort} />
+            )}
           </div>
 
           {filteredDiscover.length === 0 ? (
@@ -360,33 +491,26 @@ export default function Groups() {
                 {isFiltering ? 'No groups found' : 'No public groups yet'}
               </h3>
               <p className="text-sm text-[#0A1A2F]/40 leading-relaxed mb-4">
-                {isFiltering
-                  ? 'Try a different category or search term.'
-                  : 'Be the first to start a community group.'}
+                {isFiltering ? 'Try a different category or search term.' : 'Be the first to start a community group.'}
               </p>
-              {!isFiltering && (
-                <button onClick={() => setShowCreate(true)}
-                  className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#D9B878] to-[#c9a227] text-[#0A1A2F] font-bold text-sm hover:opacity-90 transition-opacity">
-                  Create the First Group
-                </button>
-              )}
-              {isFiltering && (
+              {isFiltering ? (
                 <button onClick={() => { setSearch(''); setCategoryFilter('all'); }}
                   className="px-5 py-2.5 rounded-xl bg-[#F2F6FA] text-[#0A1A2F]/60 font-semibold text-sm hover:bg-[#E8EFF6] transition-colors">
                   Clear Filters
+                </button>
+              ) : (
+                <button onClick={() => setShowCreate(true)}
+                  className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#D9B878] to-[#c9a227] text-[#0A1A2F] font-bold text-sm hover:opacity-90 transition-opacity">
+                  Create the First Group
                 </button>
               )}
             </div>
           ) : (
             <div className="grid grid-cols-2 gap-3">
               {filteredDiscover.map((group, index) => (
-                <GroupCard
-                  key={group.id}
-                  group={group}
+                <GroupCard key={group.id} group={group}
                   onClick={() => navigate(createPageUrl(`GroupDetail?id=${group.id}`))}
-                  index={index}
-                  isMember={false}
-                />
+                  index={index} isMember={false} />
               ))}
             </div>
           )}
@@ -394,13 +518,8 @@ export default function Groups() {
 
       </div>
 
-      {/* ── Create panel ── */}
-      <CreateGroupPanel
-        isOpen={showCreate}
-        onClose={() => setShowCreate(false)}
-        onSubmit={(data) => createGroup.mutate(data)}
-        creating={createGroup.isPending}
-      />
+      <CreateGroupPanel isOpen={showCreate} onClose={() => setShowCreate(false)}
+        onSubmit={(data) => createGroup.mutate(data)} creating={createGroup.isPending} />
     </div>
   );
 }
