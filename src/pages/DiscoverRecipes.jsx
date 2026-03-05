@@ -13,7 +13,7 @@ import PersonalizedRecipes from '@/components/recommendations/PersonalizedRecipe
 import RecipeCollections   from '@/components/wellness/RecipeCollections';
 import GroceryListDrawer   from '@/components/wellness/GroceryListDrawer';
 import ChefDaniel          from '@/components/wellness/ChefDaniel';
-import { useGroceryList }  from '@/hooks/useGroceryList';
+import { useGroceryList }  from '@/components/wellness/useGroceryList';
 
 // ─── constants ────────────────────────────────────────────────────────────────
 const TABS = [

@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Download, Trash2, ShoppingCart, Check, ChevronRight } from 'lucide-react';
-import { useGroceryList } from '@/hooks/useGroceryList';
+import { useGroceryList } from '@/components/wellness/useGroceryList';
 
 const CAT_ICON = {
   'Produce':        '🥬',

@@ -9,7 +9,7 @@ import { base44 } from '@/api/base44Client';
 import AddToCollectionButton from './AddToCollectionButton';
 import CommentSection from './CommentSection';
 import LogMealModal from './LogMealModal';
-import { useGroceryList } from '@/hooks/useGroceryList';
+import { useGroceryList } from '@/components/wellness/useGroceryList';
 
 const CATEGORY_EMOJI  = { breakfast:'🍳', lunch:'🥗', dinner:'🍽️', snack:'🍎', dessert:'🍰' };
 const DIFFICULTY_STYLE = {
