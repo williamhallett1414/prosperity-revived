@@ -1,44 +1,203 @@
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { createPageUrl } from '@/utils';
-import { Plus, Search, ArrowLeft } from 'lucide-react';
+import { Plus, Search, ArrowLeft, X, Users, Lock, Globe, ChevronRight, Loader2 } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
 import { Switch } from '@/components/ui/switch';
 import GroupCard from '@/components/groups/GroupCard';
+import { toast } from 'sonner';
 
+// ─── Category config ─────────────────────────────────────────────────────────
+const CATEGORIES = [
+  { value: 'all',        label: 'All',        emoji: '✨' },
+  { value: 'bible_study',label: 'Bible Study', emoji: '📖' },
+  { value: 'prayer',     label: 'Prayer',      emoji: '🙏' },
+  { value: 'wellness',   label: 'Wellness',    emoji: '🧘' },
+  { value: 'workout',    label: 'Workout',     emoji: '💪' },
+  { value: 'cooking',    label: 'Cooking',     emoji: '🍳' },
+  { value: 'marriage',   label: 'Marriage',    emoji: '💑' },
+  { value: 'parents',    label: 'Parents',     emoji: '👨‍👩‍👧‍👦' },
+  { value: 'youth',      label: 'Youth',       emoji: '👥' },
+  { value: 'other',      label: 'Other',       emoji: '💬' },
+];
+
+const CAT_GRADIENT = {
+  bible_study: 'from-[#c9a227] to-[#D9B878]',
+  workout:     'from-[#0A1A2F] to-[#1a3a5c]',
+  cooking:     'from-[#D9B878] to-[#FAD98D]',
+  prayer:      'from-[#AFC7E3] to-[#3C4E53]',
+  wellness:    'from-[#3C4E53] to-[#AFC7E3]',
+  youth:       'from-[#c9a227] to-[#AFC7E3]',
+  parents:     'from-[#D9B878] to-[#AFC7E3]',
+  marriage:    'from-[#c9a227] to-[#0A1A2F]',
+  other:       'from-[#3C4E53] to-[#D9B878]',
+};
+
+// ─── Create group slide-up panel ─────────────────────────────────────────────
+function CreateGroupPanel({ isOpen, onClose, onSubmit, creating }) {
+  const [form, setForm] = useState({ name: '', description: '', category: 'other', is_private: false });
+  const set = (k, v) => setForm(f => ({ ...f, [k]: v }));
+  const canSubmit = form.name.trim().length > 0;
+
+  const handleSubmit = () => {
+    if (canSubmit) { onSubmit(form); setForm({ name: '', description: '', category: 'other', is_private: false }); }
+  };
+
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <>
+          <motion.div key="backdrop" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50"
+            onClick={onClose} />
+
+          <motion.div key="panel"
+            initial={{ y: '100%' }} animate={{ y: 0 }} exit={{ y: '100%' }}
+            transition={{ type: 'spring', damping: 30, stiffness: 300 }}
+            className="fixed bottom-0 left-0 right-0 z-50 bg-white rounded-t-3xl shadow-2xl max-h-[92vh] overflow-y-auto"
+          >
+            {/* Handle */}
+            <div className="flex justify-center pt-3 pb-1">
+              <div className="w-10 h-1 bg-[#E2E8F0] rounded-full" />
+            </div>
+
+            <div className="px-5 pb-8 pt-3 space-y-5">
+              <div className="flex items-center justify-between">
+                <h2 className="text-lg font-bold text-[#0A1A2F]">Create a Group</h2>
+                <button onClick={onClose}
+                  className="w-8 h-8 rounded-full bg-[#F2F6FA] flex items-center justify-center hover:bg-[#E8EFF6] transition-colors">
+                  <X className="w-4 h-4 text-[#0A1A2F]/50" />
+                </button>
+              </div>
+
+              {/* Group name */}
+              <div>
+                <p className="text-xs font-bold text-[#0A1A2F]/40 uppercase tracking-widest mb-1.5">Group Name *</p>
+                <input
+                  type="text"
+                  placeholder="e.g., Morning Prayer Warriors"
+                  value={form.name}
+                  onChange={e => set('name', e.target.value)}
+                  className="w-full px-3 py-2.5 rounded-xl border border-[#E2E8F0] bg-[#F8FAFC] text-sm text-[#0A1A2F] placeholder-[#0A1A2F]/25 focus:outline-none focus:border-[#D9B878]/60 transition-colors"
+                />
+              </div>
+
+              {/* Description */}
+              <div>
+                <p className="text-xs font-bold text-[#0A1A2F]/40 uppercase tracking-widest mb-1.5">Description</p>
+                <textarea
+                  placeholder="What is this group about? Who should join?"
+                  value={form.description}
+                  onChange={e => set('description', e.target.value)}
+                  rows={3}
+                  className="w-full resize-none px-3 py-2.5 rounded-xl border border-[#E2E8F0] bg-[#F8FAFC] text-sm text-[#0A1A2F] placeholder-[#0A1A2F]/25 focus:outline-none focus:border-[#D9B878]/60 transition-colors leading-relaxed"
+                />
+              </div>
+
+              {/* Category chips */}
+              <div>
+                <p className="text-xs font-bold text-[#0A1A2F]/40 uppercase tracking-widest mb-2">Category</p>
+                <div className="flex flex-wrap gap-2">
+                  {CATEGORIES.filter(c => c.value !== 'all').map(cat => (
+                    <button key={cat.value} onClick={() => set('category', cat.value)}
+                      className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-semibold transition-all ${
+                        form.category === cat.value
+                          ? 'bg-[#0A1A2F] text-white border-[#0A1A2F]'
+                          : 'bg-white text-[#0A1A2F]/50 border-[#E2E8F0] hover:border-[#D9B878]/40'
+                      }`}>
+                      <span>{cat.emoji}</span> {cat.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Preview */}
+              {form.name.trim() && (
+                <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }}
+                  className="rounded-2xl overflow-hidden border border-[#E2E8F0]">
+                  <div className={`h-16 bg-gradient-to-br ${CAT_GRADIENT[form.category] || CAT_GRADIENT.other} flex items-center justify-center`}>
+                    <span className="text-3xl opacity-70">
+                      {CATEGORIES.find(c => c.value === form.category)?.emoji || '💬'}
+                    </span>
+                  </div>
+                  <div className="px-3 py-2.5">
+                    <p className="text-sm font-bold text-[#0A1A2F]">{form.name}</p>
+                    {form.description && <p className="text-xs text-[#0A1A2F]/45 mt-0.5 line-clamp-1">{form.description}</p>}
+                  </div>
+                </motion.div>
+              )}
+
+              {/* Privacy */}
+              <div className="flex items-center justify-between bg-[#F2F6FA] rounded-xl p-3.5">
+                <div className="flex items-center gap-2.5">
+                  {form.is_private ? <Lock className="w-4 h-4 text-[#0A1A2F]/50" /> : <Globe className="w-4 h-4 text-[#0A1A2F]/50" />}
+                  <div>
+                    <p className="text-sm font-semibold text-[#0A1A2F]">{form.is_private ? 'Private Group' : 'Public Group'}</p>
+                    <p className="text-xs text-[#0A1A2F]/40">
+                      {form.is_private ? 'Only invited members can join' : 'Anyone can discover and join'}
+                    </p>
+                  </div>
+                </div>
+                <Switch checked={form.is_private} onCheckedChange={v => set('is_private', v)} />
+              </div>
+
+              {/* Submit */}
+              <button onClick={handleSubmit} disabled={!canSubmit || creating}
+                className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-[#D9B878] to-[#c9a227] text-[#0A1A2F] font-bold text-sm disabled:opacity-40 hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
+                {creating ? <><Loader2 className="w-4 h-4 animate-spin" /> Creating…</> : <><Plus className="w-4 h-4" /> Create Group</>}
+              </button>
+            </div>
+          </motion.div>
+        </>
+      )}
+    </AnimatePresence>
+  );
+}
+
+// ─── My group compact row ─────────────────────────────────────────────────────
+function MyGroupRow({ group, onClick, index }) {
+  const gradient = CAT_GRADIENT[group.category] || CAT_GRADIENT.other;
+  const cat = CATEGORIES.find(c => c.value === group.category) || CATEGORIES[0];
+  return (
+    <motion.button
+      initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: index * 0.05 }}
+      onClick={onClick}
+      className="w-full flex items-center gap-3 bg-white rounded-2xl border border-[#AFC7E3]/20 p-3.5 hover:border-[#D9B878]/40 hover:shadow-sm transition-all text-left"
+    >
+      <div className={`w-11 h-11 rounded-xl bg-gradient-to-br ${gradient} flex items-center justify-center flex-shrink-0`}>
+        <span className="text-xl">{cat.emoji}</span>
+      </div>
+      <div className="flex-1 min-w-0">
+        <p className="text-sm font-bold text-[#0A1A2F] truncate">{group.name}</p>
+        <div className="flex items-center gap-2 mt-0.5">
+          <span className="text-[10px] text-[#0A1A2F]/35 flex items-center gap-1">
+            <Users className="w-3 h-3" /> {group.member_count || 0}
+          </span>
+          {group.is_private && (
+            <span className="text-[10px] text-[#0A1A2F]/30 flex items-center gap-1">
+              <Lock className="w-3 h-3" /> Private
+            </span>
+          )}
+        </div>
+      </div>
+      <ChevronRight className="w-4 h-4 text-[#0A1A2F]/20 flex-shrink-0" />
+    </motion.button>
+  );
+}
+
+// ─── Main page ────────────────────────────────────────────────────────────────
 export default function Groups() {
   const [showCreate, setShowCreate] = useState(false);
   const [search, setSearch] = useState('');
   const [user, setUser] = useState(null);
-  const navigate = useNavigate();
-  const [newGroup, setNewGroup] = useState({
-    name: '',
-    description: '',
-    category: 'other',
-    is_private: false
-  });
   const [categoryFilter, setCategoryFilter] = useState('all');
-  const [activeTab, setActiveTab] = useState('my');
-
+  const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const searchRef = useRef(null);
 
-  useEffect(() => {
-    base44.auth.me().then(setUser).catch(() => {});
-  }, []);
+  useEffect(() => { base44.auth.me().then(setUser).catch(() => {}); }, []);
 
   const { data: groups = [] } = useQuery({
     queryKey: ['groups'],
@@ -54,259 +213,194 @@ export default function Groups() {
   const createGroup = useMutation({
     mutationFn: async (data) => {
       const group = await base44.entities.StudyGroup.create(data);
-      // Add creator as admin member
-      await base44.entities.GroupMember.create({
-        group_id: group.id,
-        user_email: user.email,
-        role: 'admin'
-      });
+      await base44.entities.GroupMember.create({ group_id: group.id, user_email: user.email, role: 'admin' });
       return group;
     },
-    onSuccess: () => {
+    onSuccess: (group) => {
       queryClient.invalidateQueries(['groups']);
       queryClient.invalidateQueries(['memberships']);
       setShowCreate(false);
-      setNewGroup({ name: '', description: '', category: 'other', is_private: false });
-    }
+      toast.success('Group created!');
+      navigate(createPageUrl(`GroupDetail?id=${group.id}`));
+    },
+    onError: () => toast.error('Failed to create group')
   });
 
-  const handleCreateGroup = () => {
-    if (newGroup.name.trim()) {
-      createGroup.mutate(newGroup);
+  const myGroupIds = new Set(memberships.map(m => m.group_id));
+  const myGroups = groups.filter(g => myGroupIds.has(g.id));
+  const discoverGroups = groups.filter(g => !g.is_private && !myGroupIds.has(g.id));
+
+  const applyFilters = (list) => {
+    let out = list;
+    if (categoryFilter !== 'all') out = out.filter(g => g.category === categoryFilter);
+    if (search.trim()) {
+      const q = search.toLowerCase();
+      out = out.filter(g => g.name?.toLowerCase().includes(q) || g.description?.toLowerCase().includes(q));
     }
+    return out;
   };
 
-  const myGroupIds = memberships.map(m => m.group_id);
-  const myGroups = groups.filter(g => myGroupIds.includes(g.id));
-  const publicGroups = groups.filter(g => !g.is_private && !myGroupIds.includes(g.id));
-
-  const filteredGroups = (groupList) => {
-    let filtered = groupList;
-    
-    if (categoryFilter !== 'all') {
-      filtered = filtered.filter(g => g.category === categoryFilter);
-    }
-    
-    if (search) {
-      filtered = filtered.filter(g =>
-        g.name.toLowerCase().includes(search.toLowerCase()) ||
-        g.description?.toLowerCase().includes(search.toLowerCase())
-      );
-    }
-    
-    return filtered;
-  };
+  const filteredMyGroups = applyFilters(myGroups);
+  const filteredDiscover = applyFilters(discoverGroups);
+  const isFiltering = search.trim() || categoryFilter !== 'all';
 
   return (
-    <div className="min-h-screen bg-[#F2F6FA] pb-24">
-      <div className="max-w-2xl mx-auto px-4 py-6">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-8"
-        >
-          <div className="flex items-center gap-3 mb-2">
-            <Link
-              to={createPageUrl('Home')}
-              className="w-9 h-9 rounded-full bg-[#E6EBEF] hover:bg-[#D9DFE4] flex items-center justify-center transition-colors"
-            >
-              <ArrowLeft className="w-4 h-4 text-[#0A1A2F]" />
-            </Link>
-            <h1 className="text-2xl font-bold text-[#0A1A2F]">Study Groups</h1>
-          </div>
-          <p className="text-[#0A1A2F]/60 ml-[52px]">Join or create groups to study together</p>
-        </motion.div>
+    <div className="min-h-screen bg-[#F2F6FA] pb-28">
 
-        {/* Category Filter */}
-        <div className="mb-6">
-          <Select value={categoryFilter} onValueChange={setCategoryFilter}>
-            <SelectTrigger className="bg-[#E6EBEF] border-[#E6EBEF] rounded-xl h-12">
-              <SelectValue placeholder="All Categories" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Categories</SelectItem>
-              <SelectItem value="bible_study">📖 Bible Study</SelectItem>
-              <SelectItem value="workout">💪 Workout</SelectItem>
-              <SelectItem value="cooking">🍳 Cooking</SelectItem>
-              <SelectItem value="prayer">🙏 Prayer</SelectItem>
-              <SelectItem value="wellness">🧘 Wellness</SelectItem>
-              <SelectItem value="youth">👥 Youth</SelectItem>
-              <SelectItem value="parents">👨‍👩‍👧‍👦 Parents</SelectItem>
-              <SelectItem value="marriage">💑 Marriage</SelectItem>
-              <SelectItem value="other">💬 Other</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-
-        {/* Search & Create */}
-        <div className="flex gap-3 mb-8">
-          <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[#0A1A2F]/40" />
-            <Input
-              placeholder="Search groups..."
+      {/* ── Sticky header ── */}
+      <div className="sticky top-0 z-40 bg-white border-b border-[#AFC7E3]/20 px-4 py-3">
+        <div className="max-w-lg mx-auto flex items-center gap-3">
+          <Link to={createPageUrl('Community')}
+            className="w-9 h-9 rounded-full bg-[#F2F6FA] hover:bg-[#E8EFF6] flex items-center justify-center transition-colors flex-shrink-0">
+            <ArrowLeft className="w-4 h-4 text-[#0A1A2F]" />
+          </Link>
+          <div className="flex-1 relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#0A1A2F]/30" />
+            <input ref={searchRef}
+              type="text"
+              placeholder="Search groups…"
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="pl-10 bg-[#E6EBEF] border-[#E6EBEF] rounded-xl h-12"
+              onChange={e => setSearch(e.target.value)}
+              className="w-full pl-9 pr-8 py-2 rounded-xl bg-[#F2F6FA] border border-[#E2E8F0] text-sm text-[#0A1A2F] placeholder-[#0A1A2F]/30 focus:outline-none focus:border-[#D9B878]/50 transition-colors"
             />
+            {search && (
+              <button onClick={() => setSearch('')} className="absolute right-2.5 top-1/2 -translate-y-1/2">
+                <X className="w-3.5 h-3.5 text-[#0A1A2F]/30 hover:text-[#0A1A2F]/60" />
+              </button>
+            )}
           </div>
-          <Button
-            onClick={() => setShowCreate(true)}
-            className="bg-gradient-to-r from-[#D9B878] to-[#AFC7E3] hover:from-[#D9B878]/90 hover:to-[#AFC7E3]/90 text-[#0A1A2F] h-12 px-6 shadow-md"
-          >
-            <Plus className="w-5 h-5" />
-          </Button>
+          <button onClick={() => setShowCreate(true)}
+            className="w-9 h-9 rounded-full bg-gradient-to-br from-[#D9B878] to-[#c9a227] flex items-center justify-center shadow-sm hover:opacity-90 transition-opacity flex-shrink-0">
+            <Plus className="w-4 h-4 text-white" />
+          </button>
         </div>
-
-        {/* Tabs */}
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-6">
-          <TabsList className="grid grid-cols-2 bg-[#E6EBEF] p-1 rounded-xl">
-            <TabsTrigger value="my" className="data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">My Groups</TabsTrigger>
-            <TabsTrigger value="discover" className="data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]">Discover</TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="my" className="mt-6">
-            {myGroups.length === 0 ? (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="bg-gradient-to-br from-[#FD9C2D]/10 to-[#FAD98D]/20 border border-[#FD9C2D]/30 rounded-2xl p-6 text-center"
-              >
-                <div className="text-4xl mb-3">🤝</div>
-                <h3 className="font-bold text-[#0A1A2F] text-lg mb-2">Grow together</h3>
-                <p className="text-sm text-[#0A1A2F]/70 mb-4">
-                  Join a group to share your journey, stay accountable, and encourage others walking the same path.
-                </p>
-                <div className="flex flex-col gap-2">
-                  <Button
-                    onClick={() => setActiveTab('discover')}
-                    className="bg-gradient-to-r from-[#FD9C2D] to-[#FAD98D] text-[#3C4E53] font-semibold w-full"
-                  >
-                    Browse Groups
-                  </Button>
-                  <Button
-                    variant="outline"
-                    onClick={() => setShowCreate(true)}
-                    className="w-full"
-                  >
-                    Create Your Own Group
-                  </Button>
-                </div>
-              </motion.div>
-            ) : (
-              <div className="grid gap-4 md:grid-cols-2">
-                {filteredGroups(myGroups).map((group, index) => (
-                  <GroupCard
-                    key={group.id}
-                    group={group}
-                    onClick={() => navigate(createPageUrl(`GroupDetail?id=${group.id}`))}
-                    index={index}
-                    isMember={true}
-                  />
-                ))}
-              </div>
-            )}
-          </TabsContent>
-
-          <TabsContent value="discover" className="mt-6">
-            {filteredGroups(publicGroups).length === 0 ? (
-              <div className="text-center py-16">
-                <p className="text-[#0A1A2F]/60 mb-2">No public groups found</p>
-                {search && (
-                  <p className="text-sm text-[#0A1A2F]/40">Try a different search term</p>
-                )}
-              </div>
-            ) : (
-              <div className="grid gap-4 md:grid-cols-2">
-                {filteredGroups(publicGroups).map((group, index) => (
-                  <GroupCard
-                    key={group.id}
-                    group={group}
-                    onClick={() => navigate(createPageUrl(`GroupDetail?id=${group.id}`))}
-                    index={index}
-                    isMember={false}
-                  />
-                ))}
-              </div>
-            )}
-          </TabsContent>
-        </Tabs>
       </div>
 
-      {/* Create Group Modal */}
-      <Dialog open={showCreate} onOpenChange={setShowCreate}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Create Study Group</DialogTitle>
-          </DialogHeader>
-
-          <div className="space-y-4">
-            <div>
-              <Label>Group Name</Label>
-              <Input
-                placeholder="e.g., Daily Bible Study"
-                value={newGroup.name}
-                onChange={(e) => setNewGroup({ ...newGroup, name: e.target.value })}
-                className="mt-2"
-              />
-            </div>
-
-            <div>
-              <Label>Description</Label>
-              <Textarea
-                placeholder="What is this group about?"
-                value={newGroup.description}
-                onChange={(e) => setNewGroup({ ...newGroup, description: e.target.value })}
-                className="mt-2 min-h-[80px]"
-              />
-            </div>
-
-            <div>
-              <Label>Category</Label>
-              <Select 
-                value={newGroup.category} 
-                onValueChange={(value) => setNewGroup({ ...newGroup, category: value })}
-              >
-                <SelectTrigger className="mt-2">
-                  <SelectValue placeholder="Select category" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="bible_study">📖 Bible Study</SelectItem>
-                  <SelectItem value="workout">💪 Workout</SelectItem>
-                  <SelectItem value="cooking">🍳 Cooking</SelectItem>
-                  <SelectItem value="prayer">🙏 Prayer</SelectItem>
-                  <SelectItem value="wellness">🧘 Wellness</SelectItem>
-                  <SelectItem value="youth">👥 Youth</SelectItem>
-                  <SelectItem value="parents">👨‍👩‍👧‍👦 Parents</SelectItem>
-                  <SelectItem value="marriage">💑 Marriage</SelectItem>
-                  <SelectItem value="other">💬 Other</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div className="flex items-center justify-between">
-              <Label>Private Group</Label>
-              <Switch
-                checked={newGroup.is_private}
-                onCheckedChange={(checked) => setNewGroup({ ...newGroup, is_private: checked })}
-              />
-            </div>
-
-            <div className="flex justify-end gap-2 pt-4">
-              <Button variant="outline" onClick={() => setShowCreate(false)}>
-                Cancel
-              </Button>
-              <Button
-                onClick={handleCreateGroup}
-                disabled={!newGroup.name.trim()}
-                className="bg-gradient-to-r from-[#D9B878] to-[#AFC7E3] hover:from-[#D9B878]/90 hover:to-[#AFC7E3]/90 text-[#0A1A2F]"
-              >
-                Create Group
-              </Button>
-            </div>
+      {/* ── Category chips ── */}
+      <div className="bg-white border-b border-[#AFC7E3]/10 px-4 py-3">
+        <div className="max-w-lg mx-auto overflow-x-auto scrollbar-none">
+          <div className="flex gap-2 w-max">
+            {CATEGORIES.map(cat => (
+              <button key={cat.value} onClick={() => setCategoryFilter(cat.value)}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-semibold whitespace-nowrap transition-all ${
+                  categoryFilter === cat.value
+                    ? 'bg-[#0A1A2F] text-white border-[#0A1A2F]'
+                    : 'bg-white text-[#0A1A2F]/50 border-[#E2E8F0] hover:border-[#D9B878]/40'
+                }`}>
+                <span>{cat.emoji}</span> {cat.label}
+              </button>
+            ))}
           </div>
-        </DialogContent>
-      </Dialog>
+        </div>
+      </div>
+
+      <div className="max-w-lg mx-auto px-4 py-5 space-y-6">
+
+        {/* ── My Groups ── */}
+        <div>
+          <div className="flex items-center justify-between mb-3">
+            <h2 className="text-sm font-bold text-[#0A1A2F]">
+              My Groups
+              {myGroups.length > 0 && <span className="text-[#0A1A2F]/30 font-normal ml-1">({myGroups.length})</span>}
+            </h2>
+            {myGroups.length > 0 && (
+              <button onClick={() => setShowCreate(true)}
+                className="text-xs font-bold text-[#c9a227] hover:text-[#b89120] transition-colors flex items-center gap-1">
+                <Plus className="w-3.5 h-3.5" /> New
+              </button>
+            )}
+          </div>
+
+          {myGroups.length === 0 ? (
+            <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
+              className="bg-white rounded-2xl border border-[#AFC7E3]/20 p-6 text-center">
+              <div className="text-3xl mb-3">🤝</div>
+              <h3 className="font-bold text-[#0A1A2F] mb-1">Grow together</h3>
+              <p className="text-sm text-[#0A1A2F]/45 leading-relaxed mb-4">
+                Join a group to share your journey, stay accountable, and encourage others on the same path.
+              </p>
+              <div className="flex gap-2">
+                <button onClick={() => { setCategoryFilter('all'); searchRef.current?.focus(); }}
+                  className="flex-1 py-2.5 rounded-xl bg-[#F2F6FA] text-[#0A1A2F]/60 font-semibold text-sm hover:bg-[#E8EFF6] transition-colors">
+                  Browse Below
+                </button>
+                <button onClick={() => setShowCreate(true)}
+                  className="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-[#D9B878] to-[#c9a227] text-[#0A1A2F] font-bold text-sm hover:opacity-90 transition-opacity">
+                  Create One
+                </button>
+              </div>
+            </motion.div>
+          ) : filteredMyGroups.length === 0 ? (
+            <p className="text-sm text-[#0A1A2F]/40 text-center py-4">No groups match your filter</p>
+          ) : (
+            <div className="space-y-2">
+              {filteredMyGroups.map((group, i) => (
+                <MyGroupRow key={group.id} group={group} index={i}
+                  onClick={() => navigate(createPageUrl(`GroupDetail?id=${group.id}`))} />
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* ── Discover ── */}
+        <div>
+          <div className="flex items-center justify-between mb-3">
+            <h2 className="text-sm font-bold text-[#0A1A2F]">
+              {isFiltering ? 'Results' : 'Discover Groups'}
+              {filteredDiscover.length > 0 && <span className="text-[#0A1A2F]/30 font-normal ml-1">({filteredDiscover.length})</span>}
+            </h2>
+          </div>
+
+          {filteredDiscover.length === 0 ? (
+            <div className="bg-white rounded-2xl border border-[#AFC7E3]/20 p-8 text-center">
+              <div className="w-12 h-12 bg-[#F2F6FA] rounded-2xl flex items-center justify-center mx-auto mb-3">
+                <Users className="w-6 h-6 text-[#AFC7E3]" />
+              </div>
+              <h3 className="font-bold text-[#0A1A2F] mb-1">
+                {isFiltering ? 'No groups found' : 'No public groups yet'}
+              </h3>
+              <p className="text-sm text-[#0A1A2F]/40 leading-relaxed mb-4">
+                {isFiltering
+                  ? 'Try a different category or search term.'
+                  : 'Be the first to start a community group.'}
+              </p>
+              {!isFiltering && (
+                <button onClick={() => setShowCreate(true)}
+                  className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#D9B878] to-[#c9a227] text-[#0A1A2F] font-bold text-sm hover:opacity-90 transition-opacity">
+                  Create the First Group
+                </button>
+              )}
+              {isFiltering && (
+                <button onClick={() => { setSearch(''); setCategoryFilter('all'); }}
+                  className="px-5 py-2.5 rounded-xl bg-[#F2F6FA] text-[#0A1A2F]/60 font-semibold text-sm hover:bg-[#E8EFF6] transition-colors">
+                  Clear Filters
+                </button>
+              )}
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 gap-3">
+              {filteredDiscover.map((group, index) => (
+                <GroupCard
+                  key={group.id}
+                  group={group}
+                  onClick={() => navigate(createPageUrl(`GroupDetail?id=${group.id}`))}
+                  index={index}
+                  isMember={false}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+
+      </div>
+
+      {/* ── Create panel ── */}
+      <CreateGroupPanel
+        isOpen={showCreate}
+        onClose={() => setShowCreate(false)}
+        onSubmit={(data) => createGroup.mutate(data)}
+        creating={createGroup.isPending}
+      />
     </div>
   );
 }
