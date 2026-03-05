@@ -14,6 +14,7 @@ import RecipeCollections   from '@/components/wellness/RecipeCollections';
 import GroceryListDrawer   from '@/components/wellness/GroceryListDrawer';
 import ChefDaniel          from '@/components/wellness/ChefDaniel';
 import HealthRecipesTab    from '@/components/wellness/HealthRecipesTab';
+import { RECIPE_CONDITION_MAP } from '@/components/wellness/HealthRecipeSeed';
 import { useGroceryList }  from '@/hooks/useGroceryList';
 
 // ─── constants ────────────────────────────────────────────────────────────────
@@ -95,7 +96,9 @@ export default function DiscoverRecipes() {
 
   const myRecipes        = recipes.filter(r => r.created_by === user?.email);
   const communityRecipes = recipes.filter(r => r.is_shared && r.created_by !== user?.email);
-  const healthRecipes    = recipes.filter(r => r.health_conditions?.length > 0);
+  const healthRecipes    = recipes.filter(r =>
+    (r.health_conditions?.length > 0) || (RECIPE_CONDITION_MAP[r.title]?.length > 0)
+  );
 
   const filterList = (list) => {
     if (!isFiltered(filters)) return list;

@@ -5,10 +5,17 @@ import { base44 } from '@/api/base44Client';
 import { Loader2, CheckCircle2, Heart, ChevronRight, X } from 'lucide-react';
 import { toast } from 'sonner';
 import RecipeCard from './RecipeCard';
-import { HEALTH_CONDITIONS, SEED_RECIPES } from './HealthRecipeSeed';
+import { HEALTH_CONDITIONS, SEED_RECIPES, RECIPE_CONDITION_MAP } from './HealthRecipeSeed';
 
 // ── seed state key (persisted in localStorage so we only seed once) ──────────
 const SEED_KEY = 'health_recipes_seeded_v1';
+
+// Returns health_conditions from the stored field OR falls back to the
+// local title-based map (handles backends that strip unknown entity fields).
+const getConditions = (recipe) => {
+  if (recipe.health_conditions?.length > 0) return recipe.health_conditions;
+  return RECIPE_CONDITION_MAP[recipe.title] || [];
+};
 
 function ConditionPill({ condition, selected, count, onClick }) {
   return (
@@ -39,13 +46,13 @@ export default function HealthRecipesTab({ recipes, user }) {
 
   // Group loaded recipes by condition
   const byCondition = (conditionId) =>
-    recipes.filter(r => r.health_conditions?.includes(conditionId));
+    recipes.filter(r => getConditions(r).includes(conditionId));
 
   const displayList = selected
-    ? recipes.filter(r => r.health_conditions?.includes(selected))
-    : recipes.filter(r => r.health_conditions?.length > 0);
+    ? recipes.filter(r => getConditions(r).includes(selected))
+    : recipes.filter(r => getConditions(r).length > 0);
 
-  const hasHealthRecipes = recipes.some(r => r.health_conditions?.length > 0);
+  const hasHealthRecipes = recipes.some(r => getConditions(r).length > 0);
 
   // ── Seed recipes into the DB ──────────────────────────────────────────────
   const handleSeed = async () => {
@@ -90,7 +97,7 @@ export default function HealthRecipesTab({ recipes, user }) {
           {displayList.length > 0 && (
             <span className={`text-[9px] rounded-full px-1.5 py-0.5 ${
               selected === null ? 'bg-white/25 text-white' : 'bg-[#F2F6FA] text-[#0A1A2F]/40'
-            }`}>{recipes.filter(r => r.health_conditions?.length > 0).length}</span>
+            }`}>{recipes.filter(r => getConditions(r).length > 0).length}</span>
           )}
         </button>
         {HEALTH_CONDITIONS.map(c => (

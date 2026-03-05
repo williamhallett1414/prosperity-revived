@@ -1,5 +1,7 @@
 // Seed data for health-condition recipes.
 // Each recipe has health_conditions: string[] for filtering.
+// RECIPE_CONDITION_MAP is a title→conditions lookup used as a fallback
+// when the Base44 entity schema doesn't persist the health_conditions field.
 
 export const HEALTH_CONDITIONS = [
   {
@@ -1671,3 +1673,9 @@ export const SEED_RECIPES = [
     is_shared: true,
   },
 ];
+
+// Title → conditions lookup.  Used as a fallback when the backend entity
+// schema does not persist the health_conditions array field.
+export const RECIPE_CONDITION_MAP = Object.fromEntries(
+  SEED_RECIPES.map(r => [r.title, r.health_conditions || []])
+);
