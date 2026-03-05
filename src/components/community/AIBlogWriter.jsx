@@ -1,22 +1,19 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Sparkles, Wand2, RefreshCw, Pencil, Check, ChevronDown, Loader2, BookOpen } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Badge } from '@/components/ui/badge';
+import { X, Sparkles, Wand2, RefreshCw, Pencil, Check, Loader2, BookOpen, ArrowLeft } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 import { toast } from 'sonner';
 import ReactMarkdown from 'react-markdown';
+import { useQueryClient } from '@tanstack/react-query';
 
 const TOPICS = [
-  { value: 'faith',           label: '✝️ Faith' },
-  { value: 'fitness',         label: '💪 Fitness' },
-  { value: 'nutrition',       label: '🥗 Nutrition' },
-  { value: 'mental_health',   label: '🧘 Mental Health' },
-  { value: 'personal_growth', label: '🌱 Personal Growth' },
-  { value: 'relationships',   label: '💕 Relationships' },
-  { value: 'general',         label: '✨ General' },
+  { value: 'faith',           label: 'Faith',          emoji: '✝️' },
+  { value: 'fitness',         label: 'Fitness',         emoji: '💪' },
+  { value: 'nutrition',       label: 'Nutrition',       emoji: '🥗' },
+  { value: 'mental_health',   label: 'Mental Health',   emoji: '🧘' },
+  { value: 'personal_growth', label: 'Personal Growth', emoji: '🌱' },
+  { value: 'relationships',   label: 'Relationships',   emoji: '💕' },
+  { value: 'general',         label: 'General',         emoji: '✨' },
 ];
 
 const TONES = [
@@ -28,74 +25,92 @@ const TONES = [
 ];
 
 const SUGGESTED_TOPICS = [
-  "How faith shapes my daily wellness routine",
-  "5 small habits that changed my life",
-  "Finding peace in the chaos of everyday life",
-  "What I learned from 30 days of clean eating",
-  "The power of community in personal growth",
-  "Lessons from my fitness journey",
-  "How to rebuild after burnout",
-  "The link between spirituality and mental health",
+  'How faith shapes my daily wellness routine',
+  '5 small habits that changed my life',
+  'Finding peace in the chaos of everyday life',
+  'What I learned from 30 days of clean eating',
+  'The power of community in personal growth',
+  'Lessons from my fitness journey',
+  'How to rebuild after burnout',
+  'The link between spirituality and mental health',
 ];
 
+const REFINE_SHORTCUTS = [
+  'Make it shorter',
+  'Add a personal story',
+  'More devotional tone',
+  'Add bullet points',
+  'Stronger ending',
+  'Add a scripture quote',
+];
+
+// ─── Chip button ──────────────────────────────────────────────────────────────
+function Chip({ selected, onClick, children }) {
+  return (
+    <button onClick={onClick}
+      className={`text-xs px-3 py-1.5 rounded-full border font-semibold transition-all ${
+        selected
+          ? 'bg-[#0A1A2F] text-white border-[#0A1A2F]'
+          : 'bg-white text-[#0A1A2F]/50 border-[#E2E8F0] hover:border-[#D9B878]/50'
+      }`}>
+      {children}
+    </button>
+  );
+}
+
+// ─── Main component ───────────────────────────────────────────────────────────
 export default function AIBlogWriter({ user, onClose, onPublished }) {
-  const [step, setStep] = useState('setup'); // setup | generating | edit | preview
-  const [title, setTitle] = useState('');
-  const [topic, setTopic] = useState('personal_growth');
-  const [tone, setTone] = useState('inspirational');
-  const [keywords, setKeywords] = useState('');
-  const [content, setContent] = useState('');
-  const [excerpt, setExcerpt] = useState('');
-  const [editMode, setEditMode] = useState(false);
-  const [isGenerating, setIsGenerating] = useState(false);
-  const [isRefining, setIsRefining] = useState(false);
-  const [refineInstruction, setRefineInstruction] = useState('');
-  const [isPublishing, setIsPublishing] = useState(false);
+  const [step,               setStep]               = useState('setup');
+  const [title,              setTitle]              = useState('');
+  const [topic,              setTopic]              = useState('personal_growth');
+  const [tone,               setTone]               = useState('inspirational');
+  const [keywords,           setKeywords]           = useState('');
+  const [content,            setContent]            = useState('');
+  const [excerpt,            setExcerpt]            = useState('');
+  const [editMode,           setEditMode]           = useState(false);
+  const [isGenerating,       setIsGenerating]       = useState(false);
+  const [isRefining,         setIsRefining]         = useState(false);
+  const [refineInstruction,  setRefineInstruction]  = useState('');
+  const [isPublishing,       setIsPublishing]       = useState(false);
+  const queryClient = useQueryClient();
 
   const generate = async () => {
-    if (!title.trim()) { toast.error('Please enter a title or topic first'); return; }
+    if (!title.trim()) { toast.error('Please enter a title or idea first'); return; }
     setIsGenerating(true);
     setStep('generating');
     try {
       const topicLabel = TOPICS.find(t => t.value === topic)?.label || topic;
-      const toneLabel  = TONES.find(t => t.value === tone)?.label || tone;
+      const toneLabel  = TONES.find(t  => t.value === tone )?.label || tone;
       const result = await base44.integrations.Core.InvokeLLM({
         prompt: `Write a compelling blog post for a wellness and faith community app called "Prosperity Revived".
 
 Title: "${title}"
-Topic category: ${topicLabel}
+Topic: ${topicLabel}
 Tone: ${toneLabel}
-${keywords ? `Key themes / keywords to include: ${keywords}` : ''}
+${keywords ? `Keywords to include: ${keywords}` : ''}
 
 Requirements:
-- Write in a warm, authentic, personal voice — as if written by a real community member sharing their journey
-- Length: 400-600 words
-- Use markdown formatting (## subheadings, **bold** for emphasis, bullet lists where appropriate)
-- Start with an engaging opening hook (no generic "In today's world..." openings)
-- Include a personal insight or story moment
-- End with an actionable takeaway or reflective question for readers
-- Tone should be ${toneLabel.toLowerCase()} but always grounded and human
-- Do NOT use AI-sounding clichés
+- Warm, authentic, personal voice — as if written by a real community member
+- 400–600 words
+- Markdown formatting (## subheadings, **bold**, bullet lists where natural)
+- Engaging opening hook — NO generic "In today's world..." openers
+- Include a personal insight or moment
+- End with an actionable takeaway or reflective question
+- Tone: ${toneLabel.toLowerCase()}, grounded, human — NO AI clichés
 
-After the blog post, on a NEW LINE write exactly:
-EXCERPT: [one compelling sentence that makes someone want to read the full post, max 25 words]`,
-        add_context_from_internet: false,
+After the post, on a new line write exactly:
+EXCERPT: [one compelling sentence that makes someone want to read, max 25 words]`,
       });
 
-      // Split content and excerpt
       const parts = result.split('\nEXCERPT:');
-      const postContent = parts[0].trim();
-      const postExcerpt = parts[1] ? parts[1].trim() : postContent.substring(0, 120) + '...';
-
-      setContent(postContent);
-      setExcerpt(postExcerpt);
+      setContent(parts[0].trim());
+      setExcerpt(parts[1] ? parts[1].trim() : result.substring(0, 120) + '...');
       setStep('edit');
-    } catch (e) {
-      toast.error('Failed to generate post');
+    } catch {
+      toast.error('Failed to generate — please try again');
       setStep('setup');
-    } finally {
-      setIsGenerating(false);
     }
+    setIsGenerating(false);
   };
 
   const refine = async () => {
@@ -103,17 +118,15 @@ EXCERPT: [one compelling sentence that makes someone want to read the full post,
     setIsRefining(true);
     try {
       const result = await base44.integrations.Core.InvokeLLM({
-        prompt: `Here is a blog post:\n\n${content}\n\nPlease refine it with this instruction: "${refineInstruction}"\n\nReturn ONLY the revised blog post content in markdown. Do not add any explanation or commentary outside the post.`,
-        add_context_from_internet: false,
+        prompt: `Here is a blog post:\n\n${content}\n\nRefine it with this instruction: "${refineInstruction}"\n\nReturn ONLY the revised post in markdown. No commentary outside the post.`,
       });
       setContent(result.trim());
       setRefineInstruction('');
-      toast.success('Post refined!');
-    } catch (e) {
+      toast.success('Post refined ✨');
+    } catch {
       toast.error('Failed to refine');
-    } finally {
-      setIsRefining(false);
     }
+    setIsRefining(false);
   };
 
   const publish = async () => {
@@ -129,50 +142,84 @@ EXCERPT: [one compelling sentence that makes someone want to read the full post,
         is_published: true,
         likes: 0,
       });
-      toast.success('Blog post published! 🎉');
+      queryClient.invalidateQueries({ queryKey: ['blogPosts'] });
+      toast.success('Published to the community! 🎉');
       onPublished?.();
       onClose();
-    } catch (e) {
+    } catch {
       toast.error('Failed to publish');
-    } finally {
-      setIsPublishing(false);
     }
+    setIsPublishing(false);
+  };
+
+  // "Redo" returns to setup but keeps title/topic/tone so you can tweak, not restart cold
+  const handleRedo = () => {
+    setContent('');
+    setExcerpt('');
+    setEditMode(false);
+    setStep('setup');
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4">
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-end sm:items-center justify-center p-0 sm:p-4">
       <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: 40 }}
-        className="bg-white w-full sm:max-w-2xl sm:rounded-2xl rounded-t-2xl max-h-[92dvh] flex flex-col overflow-hidden shadow-2xl"
+        initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 40 }}
+        className="bg-white w-full sm:max-w-2xl sm:rounded-2xl rounded-t-3xl max-h-[94dvh] flex flex-col overflow-hidden shadow-2xl"
       >
-        {/* Header */}
-        <div className="bg-gradient-to-r from-[#3C4E53] to-[#5a7480] text-white px-5 py-4 flex items-center justify-between flex-shrink-0">
-          <div className="flex items-center gap-2">
-            <Wand2 className="w-5 h-5" />
-            <h2 className="font-bold text-lg">AI Blog Writer</h2>
+        {/* ── Header ── */}
+        <div className="bg-gradient-to-r from-[#0A1A2F] to-[#1a3a5c] text-white px-5 py-4 flex items-center gap-3 flex-shrink-0">
+          {step === 'edit' && (
+            <button onClick={handleRedo}
+              className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors flex-shrink-0">
+              <ArrowLeft className="w-4 h-4" />
+            </button>
+          )}
+          <div className="flex items-center gap-2 flex-1">
+            <Wand2 className="w-5 h-5 text-[#D9B878]" />
+            <h2 className="font-bold text-base">
+              {step === 'setup' ? 'AI Blog Writer' : step === 'generating' ? 'Writing your post…' : 'Review & Publish'}
+            </h2>
           </div>
-          <Button variant="ghost" size="icon" onClick={onClose} className="text-white hover:bg-white/20">
-            <X className="w-5 h-5" />
-          </Button>
+          <button onClick={onClose}
+            className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors flex-shrink-0">
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+
+        {/* Step indicators */}
+        <div className="flex items-center bg-[#0A1A2F]/5 px-5 py-2 gap-3 flex-shrink-0">
+          {['Setup', 'Generate', 'Publish'].map((s, i) => {
+            const stepIdx = step === 'setup' ? 0 : step === 'generating' ? 1 : 2;
+            return (
+              <React.Fragment key={s}>
+                <div className={`flex items-center gap-1.5 text-xs font-semibold ${i <= stepIdx ? 'text-[#c9a227]' : 'text-[#0A1A2F]/25'}`}>
+                  <div className={`w-4 h-4 rounded-full flex items-center justify-center text-[9px] font-bold ${i <= stepIdx ? 'bg-[#c9a227] text-white' : 'bg-[#E2E8F0] text-[#0A1A2F]/30'}`}>
+                    {i + 1}
+                  </div>
+                  {s}
+                </div>
+                {i < 2 && <div className={`flex-1 h-px ${i < stepIdx ? 'bg-[#c9a227]/40' : 'bg-[#E2E8F0]'}`} />}
+              </React.Fragment>
+            );
+          })}
         </div>
 
         <div className="flex-1 overflow-y-auto">
 
-          {/* STEP: Setup */}
-          {(step === 'setup') && (
+          {/* ── Setup step ── */}
+          {step === 'setup' && (
             <div className="p-5 space-y-5">
-              {/* Suggested Topics */}
+              {/* Suggested topics */}
               <div>
-                <p className="text-xs font-semibold text-gray-500 uppercase mb-2">✨ Suggested topics</p>
+                <p className="text-xs font-bold text-[#0A1A2F]/40 uppercase tracking-widest mb-2">✨ Topic ideas</p>
                 <div className="flex flex-wrap gap-2">
                   {SUGGESTED_TOPICS.map(s => (
-                    <button
-                      key={s}
-                      onClick={() => setTitle(s)}
-                      className="text-xs bg-gray-100 hover:bg-[#3C4E53]/10 text-gray-700 px-3 py-1.5 rounded-full transition-colors border border-gray-200"
-                    >
+                    <button key={s} onClick={() => setTitle(s)}
+                      className={`text-xs px-3 py-1.5 rounded-full border font-medium transition-all ${
+                        title === s
+                          ? 'bg-[#0A1A2F] text-white border-[#0A1A2F]'
+                          : 'bg-[#F8FAFC] text-[#0A1A2F]/55 border-[#E2E8F0] hover:border-[#D9B878]/40'
+                      }`}>
                       {s}
                     </button>
                   ))}
@@ -181,41 +228,37 @@ EXCERPT: [one compelling sentence that makes someone want to read the full post,
 
               {/* Title */}
               <div>
-                <label className="text-sm font-semibold text-gray-700 block mb-1">Blog title or main idea *</label>
-                <Input
+                <p className="text-xs font-bold text-[#0A1A2F]/40 uppercase tracking-widest mb-1.5">Blog title or main idea *</p>
+                <input type="text"
                   placeholder="e.g. How my faith transformed my fitness journey"
-                  value={title}
-                  onChange={e => setTitle(e.target.value)}
-                  className="h-11"
+                  value={title} onChange={e => setTitle(e.target.value)}
+                  className="w-full px-3 py-2.5 rounded-xl border border-[#E2E8F0] bg-[#F8FAFC] text-sm text-[#0A1A2F] placeholder-[#0A1A2F]/25 focus:outline-none focus:border-[#D9B878]/60 transition-colors"
                 />
               </div>
 
               {/* Topic */}
               <div>
-                <label className="text-sm font-semibold text-gray-700 block mb-2">Topic</label>
+                <p className="text-xs font-bold text-[#0A1A2F]/40 uppercase tracking-widest mb-2">Topic</p>
                 <div className="flex flex-wrap gap-2">
                   {TOPICS.map(t => (
-                    <button
-                      key={t.value}
-                      onClick={() => setTopic(t.value)}
-                      className={`text-xs px-3 py-1.5 rounded-full border transition-colors ${topic === t.value ? 'bg-[#3C4E53] text-white border-[#3C4E53]' : 'bg-white text-gray-600 border-gray-200 hover:border-[#3C4E53]'}`}
-                    >
-                      {t.label}
-                    </button>
+                    <Chip key={t.value} selected={topic === t.value} onClick={() => setTopic(t.value)}>
+                      {t.emoji} {t.label}
+                    </Chip>
                   ))}
                 </div>
               </div>
 
               {/* Tone */}
               <div>
-                <label className="text-sm font-semibold text-gray-700 block mb-2">Writing tone</label>
+                <p className="text-xs font-bold text-[#0A1A2F]/40 uppercase tracking-widest mb-2">Writing tone</p>
                 <div className="flex flex-wrap gap-2">
                   {TONES.map(t => (
-                    <button
-                      key={t.value}
-                      onClick={() => setTone(t.value)}
-                      className={`text-xs px-3 py-1.5 rounded-full border transition-colors ${tone === t.value ? 'bg-[#FD9C2D] text-white border-[#FD9C2D]' : 'bg-white text-gray-600 border-gray-200 hover:border-[#FD9C2D]'}`}
-                    >
+                    <button key={t.value} onClick={() => setTone(t.value)}
+                      className={`text-xs px-3 py-1.5 rounded-full border font-semibold transition-all ${
+                        tone === t.value
+                          ? 'bg-[#D9B878] text-[#0A1A2F] border-[#D9B878]'
+                          : 'bg-white text-[#0A1A2F]/50 border-[#E2E8F0] hover:border-[#D9B878]/40'
+                      }`}>
                       {t.label}
                     </button>
                   ))}
@@ -224,54 +267,58 @@ EXCERPT: [one compelling sentence that makes someone want to read the full post,
 
               {/* Keywords */}
               <div>
-                <label className="text-sm font-semibold text-gray-700 block mb-1">Key themes / keywords <span className="text-gray-400 font-normal">(optional)</span></label>
-                <Input
+                <p className="text-xs font-bold text-[#0A1A2F]/40 uppercase tracking-widest mb-1.5">
+                  Keywords <span className="normal-case font-normal text-[#0A1A2F]/25">(optional)</span>
+                </p>
+                <input type="text"
                   placeholder="e.g. prayer, discipline, morning routine"
-                  value={keywords}
-                  onChange={e => setKeywords(e.target.value)}
-                  className="h-10"
+                  value={keywords} onChange={e => setKeywords(e.target.value)}
+                  className="w-full px-3 py-2.5 rounded-xl border border-[#E2E8F0] bg-[#F8FAFC] text-sm text-[#0A1A2F] placeholder-[#0A1A2F]/25 focus:outline-none focus:border-[#D9B878]/60 transition-colors"
                 />
               </div>
             </div>
           )}
 
-          {/* STEP: Generating */}
+          {/* ── Generating step ── */}
           {step === 'generating' && (
-            <div className="flex flex-col items-center justify-center py-20 gap-4 text-center px-8">
-              <Loader2 className="w-10 h-10 text-[#3C4E53] animate-spin" />
-              <p className="font-semibold text-gray-700">Writing your blog post...</p>
-              <p className="text-sm text-gray-500">Crafting something meaningful just for you ✨</p>
+            <div className="flex flex-col items-center justify-center py-20 gap-5 text-center px-8">
+              <div className="w-16 h-16 bg-gradient-to-br from-[#D9B878] to-[#c9a227] rounded-2xl flex items-center justify-center">
+                <Loader2 className="w-8 h-8 text-white animate-spin" />
+              </div>
+              <div>
+                <p className="font-bold text-[#0A1A2F] mb-1">Writing your post…</p>
+                <p className="text-sm text-[#0A1A2F]/40">Crafting something meaningful just for you ✨</p>
+              </div>
             </div>
           )}
 
-          {/* STEP: Edit */}
+          {/* ── Edit step ── */}
           {step === 'edit' && (
             <div className="p-5 space-y-4">
               {/* Title edit */}
               <div>
-                <label className="text-xs font-semibold text-gray-500 uppercase">Title</label>
-                <Input value={title} onChange={e => setTitle(e.target.value)} className="mt-1 font-semibold text-lg h-11" />
+                <p className="text-xs font-bold text-[#0A1A2F]/40 uppercase tracking-widest mb-1.5">Title</p>
+                <input type="text" value={title} onChange={e => setTitle(e.target.value)}
+                  className="w-full px-3 py-2.5 rounded-xl border border-[#E2E8F0] bg-[#F8FAFC] text-sm font-bold text-[#0A1A2F] focus:outline-none focus:border-[#D9B878]/60 transition-colors"
+                />
               </div>
 
               {/* Content */}
               <div>
-                <div className="flex items-center justify-between mb-1">
-                  <label className="text-xs font-semibold text-gray-500 uppercase">Content</label>
-                  <button
-                    onClick={() => setEditMode(!editMode)}
-                    className="text-xs text-[#3C4E53] underline"
-                  >
-                    {editMode ? 'Preview' : 'Edit raw'}
+                <div className="flex items-center justify-between mb-1.5">
+                  <p className="text-xs font-bold text-[#0A1A2F]/40 uppercase tracking-widest">Content</p>
+                  <button onClick={() => setEditMode(e => !e)}
+                    className="text-xs font-bold text-[#c9a227] hover:opacity-70 transition-opacity flex items-center gap-1">
+                    {editMode ? <><BookOpen className="w-3 h-3" /> Preview</> : <><Pencil className="w-3 h-3" /> Edit raw</>}
                   </button>
                 </div>
                 {editMode ? (
-                  <Textarea
-                    value={content}
-                    onChange={e => setContent(e.target.value)}
-                    className="min-h-[260px] text-sm font-mono"
+                  <textarea value={content} onChange={e => setContent(e.target.value)}
+                    rows={12}
+                    className="w-full resize-none px-3 py-2.5 rounded-xl border border-[#E2E8F0] bg-[#F8FAFC] text-xs font-mono text-[#0A1A2F] focus:outline-none focus:border-[#D9B878]/60 transition-colors leading-relaxed"
                   />
                 ) : (
-                  <div className="border rounded-lg p-4 bg-gray-50 min-h-[260px] prose prose-sm max-w-none overflow-auto text-gray-800">
+                  <div className="border border-[#E2E8F0] rounded-xl p-4 bg-[#F8FAFC] min-h-[200px] prose prose-sm max-w-none overflow-auto text-[#0A1A2F]/80 prose-headings:text-[#0A1A2F] prose-headings:font-bold">
                     <ReactMarkdown>{content}</ReactMarkdown>
                   </div>
                 )}
@@ -279,36 +326,31 @@ EXCERPT: [one compelling sentence that makes someone want to read the full post,
 
               {/* Excerpt */}
               <div>
-                <label className="text-xs font-semibold text-gray-500 uppercase">Excerpt (preview text)</label>
-                <Textarea
-                  value={excerpt}
-                  onChange={e => setExcerpt(e.target.value)}
-                  className="mt-1 text-sm h-16"
+                <p className="text-xs font-bold text-[#0A1A2F]/40 uppercase tracking-widest mb-1.5">Excerpt (preview text)</p>
+                <textarea value={excerpt} onChange={e => setExcerpt(e.target.value)} rows={2}
+                  className="w-full resize-none px-3 py-2.5 rounded-xl border border-[#E2E8F0] bg-[#F8FAFC] text-sm text-[#0A1A2F] focus:outline-none focus:border-[#D9B878]/60 transition-colors leading-relaxed"
                 />
               </div>
 
               {/* Refine with AI */}
-              <div className="bg-[#FD9C2D]/10 rounded-xl p-4 border border-[#FD9C2D]/30">
-                <p className="text-xs font-semibold text-[#3C4E53] mb-2">🪄 Refine with AI</p>
-                <div className="flex gap-2">
-                  <Input
-                    value={refineInstruction}
-                    onChange={e => setRefineInstruction(e.target.value)}
-                    placeholder='e.g. "Make it more personal" or "Add a scripture quote"'
-                    className="text-sm h-9"
+              <div className="bg-[#FFF9ED] rounded-xl p-4 border border-[#D9B878]/25">
+                <p className="text-xs font-bold text-[#0A1A2F]/50 uppercase tracking-widest mb-2.5">🪄 Refine with AI</p>
+                <div className="flex gap-2 mb-2">
+                  <input type="text"
+                    value={refineInstruction} onChange={e => setRefineInstruction(e.target.value)}
+                    placeholder='"Make it more personal" or "Add a scripture quote"'
+                    className="flex-1 px-3 py-2 rounded-lg border border-[#E2E8F0] bg-white text-xs text-[#0A1A2F] focus:outline-none focus:border-[#D9B878]/60 transition-colors"
                     onKeyDown={e => e.key === 'Enter' && refine()}
                   />
-                  <Button
-                    onClick={refine}
-                    disabled={isRefining || !refineInstruction.trim()}
-                    className="bg-[#FD9C2D] hover:bg-[#e08820] text-white h-9 px-3 flex-shrink-0"
-                  >
-                    {isRefining ? <Loader2 className="w-4 h-4 animate-spin" /> : <Wand2 className="w-4 h-4" />}
-                  </Button>
+                  <button onClick={refine} disabled={isRefining || !refineInstruction.trim()}
+                    className="px-3 py-2 rounded-lg bg-[#D9B878] text-[#0A1A2F] font-bold text-xs disabled:opacity-40 hover:bg-[#c9a227] transition-colors flex items-center gap-1">
+                    {isRefining ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Wand2 className="w-3.5 h-3.5" />}
+                  </button>
                 </div>
-                <div className="flex flex-wrap gap-1.5 mt-2">
-                  {['Make it shorter', 'Add a personal story', 'More devotional tone', 'Add bullet points', 'Make the ending stronger'].map(s => (
-                    <button key={s} onClick={() => setRefineInstruction(s)} className="text-xs bg-white text-gray-600 px-2 py-1 rounded border hover:border-[#FD9C2D] transition-colors">
+                <div className="flex flex-wrap gap-1.5">
+                  {REFINE_SHORTCUTS.map(s => (
+                    <button key={s} onClick={() => setRefineInstruction(s)}
+                      className="text-[11px] bg-white text-[#0A1A2F]/55 px-2.5 py-1 rounded-lg border border-[#E2E8F0] hover:border-[#D9B878]/40 transition-colors font-medium">
                       {s}
                     </button>
                   ))}
@@ -318,35 +360,26 @@ EXCERPT: [one compelling sentence that makes someone want to read the full post,
           )}
         </div>
 
-        {/* Footer actions */}
-        <div className="border-t px-5 py-4 flex gap-3 flex-shrink-0 bg-white">
+        {/* ── Footer actions ── */}
+        <div className="border-t border-[#E2E8F0] px-5 py-4 flex gap-3 flex-shrink-0 bg-white">
           {step === 'setup' && (
             <>
-              <Button variant="outline" onClick={onClose} className="flex-1">Cancel</Button>
-              <Button
-                onClick={generate}
-                disabled={!title.trim()}
-                className="flex-1 bg-gradient-to-r from-[#3C4E53] to-[#5a7480] text-white"
-              >
-                <Sparkles className="w-4 h-4 mr-2" />
-                Generate Blog Post
-              </Button>
+              <button onClick={onClose}
+                className="flex-1 py-3 rounded-xl border border-[#E2E8F0] text-[#0A1A2F]/50 font-semibold text-sm hover:bg-[#F8FAFC] transition-colors">
+                Cancel
+              </button>
+              <button onClick={generate} disabled={!title.trim()}
+                className="flex-1 py-3 rounded-xl bg-gradient-to-r from-[#D9B878] to-[#c9a227] text-[#0A1A2F] font-bold text-sm disabled:opacity-40 hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
+                <Sparkles className="w-4 h-4" /> Generate Post
+              </button>
             </>
           )}
           {step === 'edit' && (
-            <>
-              <Button variant="outline" onClick={() => setStep('setup')} className="flex-shrink-0">
-                <RefreshCw className="w-4 h-4 mr-1" /> Redo
-              </Button>
-              <Button
-                onClick={publish}
-                disabled={isPublishing}
-                className="flex-1 bg-gradient-to-r from-[#FD9C2D] to-[#e08820] text-white font-semibold"
-              >
-                {isPublishing ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <Check className="w-4 h-4 mr-2" />}
-                Publish to Community
-              </Button>
-            </>
+            <button onClick={publish} disabled={isPublishing}
+              className="flex-1 py-3 rounded-xl bg-gradient-to-r from-[#D9B878] to-[#c9a227] text-[#0A1A2F] font-bold text-sm disabled:opacity-40 hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
+              {isPublishing ? <Loader2 className="w-4 h-4 animate-spin" /> : <Check className="w-4 h-4" />}
+              {isPublishing ? 'Publishing…' : 'Publish to Community'}
+            </button>
           )}
         </div>
       </motion.div>
