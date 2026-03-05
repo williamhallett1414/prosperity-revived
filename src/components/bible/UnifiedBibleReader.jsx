@@ -363,7 +363,8 @@ export default function UnifiedBibleReader({
               <div className="flex items-center justify-between px-4 py-3.5 border-b border-[#D9B878]/20 flex-shrink-0">
                 <span className="text-sm font-bold text-[#0A1A2F]">{testName}</span>
                 <button
-                  onClick={() => setSidebarOpen(false)}
+                  type="button"
+                  onClick={(e) => { e.stopPropagation(); setSidebarOpen(false); }}
                   className="w-8 h-8 rounded-full bg-[#FAD98D]/20 hover:bg-[#FAD98D]/35 flex items-center justify-center transition-colors"
                 >
                   <X className="w-4 h-4 text-[#0A1A2F]" />
