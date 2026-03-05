@@ -1,92 +1,182 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
-import { 
-  Target, 
-  TrendingUp, 
-  Trophy, 
-  Calendar,
-  CheckCircle2,
-  Sparkles,
-  MessageCircle,
-  ChevronRight
+import {
+  Target, TrendingUp, Trophy, CheckCircle2,
+  Sparkles, MessageCircle, ChevronRight,
+  Flame, Crown, Calendar
 } from 'lucide-react';
-
 import { format } from 'date-fns';
 import Hannah from '@/components/mindspirit/Hannah';
 import CoachDavid from '@/components/wellness/CoachDavid';
 import ChefDaniel from '@/components/wellness/ChefDaniel';
 import GideonChatbot from '@/components/bible/GideonChatbot';
 import HolisticProgressReport from '@/components/journey/HolisticProgressReport';
-import PersonalizedDevotional from '@/components/gideon/PersonalizedDevotional';
-import DailyReflectionPrompt from '@/components/gideon/DailyReflectionPrompt';
 import HannahBookmarksSection from '@/components/journey/HannahBookmarksSection';
 import CoachingSection from '@/components/journey/CoachingSection';
 
-const chatbotConfig = {
-  Hannah: {
-    name: 'Hannah',
-    icon: '🧠',
-    color: 'from-[#AFC7E3] to-[#7ab3d4]',
-    bgColor: 'bg-[#AFC7E3]/20',
-    textColor: 'text-[#3C4E53]',
-    borderColor: 'border-[#AFC7E3]',
-    category: 'Personal Growth & Mindset',
-    description: 'Personal growth, mindset & emotional wellbeing'
-  },
-  CoachDavid: {
-    name: 'Coach David',
-    icon: '💪',
-    color: 'from-[#0A0A0A] to-[#38BDF8]',
-    bgColor: 'bg-[#38BDF8]/15',
-    textColor: 'text-[#0EA5E9]',
-    borderColor: 'border-[#8fa68a]',
-    category: 'Fitness & Wellness',
-    description: 'Fitness plans, workouts & accountability'
-  },
-  ChefDaniel: {
-    name: 'Chef Daniel',
-    icon: '🍽️',
-    color: 'from-[#4ade80]/80 to-[#22c55e]',
-    bgColor: 'bg-[#4ade80]/10',
-    textColor: 'text-[#16a34a]',
-    borderColor: 'border-[#FD9C2D]',
-    category: 'Nutrition & Meals',
-    description: 'Nutrition advice, meal ideas & healthy eating'
-  },
-  Gideon: {
-    name: 'Gideon',
-    icon: '📖',
-    color: 'from-[#c9a227] to-[#D9B878]',
-    bgColor: 'bg-[#D9B878]/20',
-    textColor: 'text-[#8a6e1a]',
-    borderColor: 'border-[#D9B878]',
-    category: 'Scripture & Spiritual Growth',
-    description: 'Scripture, spiritual guidance & daily devotionals'
-  }
+// ─── Chatbot config ────────────────────────────────────────────────────────────
+const CHATBOTS = [
+  { key: 'Hannah',    name: 'Hannah',       icon: '🧠', label: 'Mind & Growth',  gradient: 'from-[#AFC7E3] to-[#7ab3d4]' },
+  { key: 'CoachDavid', name: 'Coach David', icon: '💪', label: 'Fitness',        gradient: 'from-[#0A0A0A] to-[#38BDF8]' },
+  { key: 'ChefDaniel', name: 'Chef Daniel', icon: '🍽️', label: 'Nutrition',      gradient: 'from-[#4ade80]/80 to-[#22c55e]' },
+  { key: 'Gideon',   name: 'Gideon',       icon: '📖', label: 'Scripture',      gradient: 'from-[#c9a227] to-[#D9B878]' },
+];
+
+const MEMORY_ICONS = {
+  goal:        { icon: Target,       color: 'text-[#AFC7E3]',  bg: 'bg-[#AFC7E3]/15' },
+  milestone:   { icon: TrendingUp,   color: 'text-[#c9a227]',  bg: 'bg-[#FAD98D]/20' },
+  achievement: { icon: Trophy,       color: 'text-yellow-500', bg: 'bg-yellow-50'      },
+  success:     { icon: CheckCircle2, color: 'text-green-500',  bg: 'bg-green-50'       },
 };
 
-const memoryTypeIcons = {
-  goal: Target,
-  milestone: TrendingUp,
-  achievement: Trophy,
-  success: CheckCircle2
-};
+// ─── Streak / level banner ─────────────────────────────────────────────────────
+function ProgressBanner({ progress }) {
+  if (!progress) return null;
+  const level   = progress.level || 1;
+  const streak  = progress.current_streak || 0;
+  const badges  = progress.badges?.length || 0;
+  const points  = progress.total_points || 0;
 
+  return (
+    <Link to={createPageUrl('Achievements')}>
+      <motion.div
+        initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }}
+        className="bg-gradient-to-r from-[#0A1A2F] to-[#AFC7E3] rounded-2xl p-4 flex items-center gap-4 shadow-md hover:opacity-90 transition-opacity"
+      >
+        <div className="w-12 h-12 rounded-full bg-white/15 flex items-center justify-center flex-shrink-0">
+          <Crown className="w-6 h-6 text-white" />
+        </div>
+        <div className="flex-1 min-w-0">
+          <p className="font-bold text-white text-sm">Level {level}</p>
+          <p className="text-white/60 text-xs">{points} total points</p>
+        </div>
+        <div className="flex items-center gap-4 flex-shrink-0">
+          {streak > 0 && (
+            <div className="text-center">
+              <div className="flex items-center gap-1 justify-center">
+                <Flame className="w-4 h-4 text-white" />
+                <span className="font-bold text-white">{streak}</span>
+              </div>
+              <p className="text-[10px] text-white/60">streak</p>
+            </div>
+          )}
+          <div className="text-center">
+            <div className="flex items-center gap-1 justify-center">
+              <Trophy className="w-4 h-4 text-white" />
+              <span className="font-bold text-white">{badges}</span>
+            </div>
+            <p className="text-[10px] text-white/60">badges</p>
+          </div>
+          <ChevronRight className="w-4 h-4 text-white/40" />
+        </div>
+      </motion.div>
+    </Link>
+  );
+}
+
+// ─── Guides grid ───────────────────────────────────────────────────────────────
+function GuidesGrid({ onOpen }) {
+  return (
+    <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
+      <p className="text-[10px] font-bold text-[#0A1A2F]/40 uppercase tracking-widest mb-3">Chat with Your Guides</p>
+      <div className="grid grid-cols-2 gap-3">
+        {CHATBOTS.map(({ key, name, icon, label, gradient }) => (
+          <button key={key} onClick={() => onOpen(key)}
+            className={`bg-gradient-to-br ${gradient} rounded-2xl p-4 flex flex-col items-start gap-2 text-left hover:opacity-90 active:scale-95 transition-all shadow-sm`}>
+            <span className="text-2xl leading-none">{icon}</span>
+            <div>
+              <p className="font-bold text-white text-sm leading-tight">{name}</p>
+              <p className="text-white/65 text-[11px]">{label}</p>
+            </div>
+          </button>
+        ))}
+      </div>
+    </motion.div>
+  );
+}
+
+// ─── Recent milestones ─────────────────────────────────────────────────────────
+function RecentMilestones({ memories }) {
+  const recent = memories.slice(0, 6);
+  if (recent.length === 0) return null;
+
+  return (
+    <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}>
+      <div className="flex items-center justify-between mb-3">
+        <p className="text-[10px] font-bold text-[#0A1A2F]/40 uppercase tracking-widest">Recent Milestones</p>
+        <span className="text-[10px] text-[#0A1A2F]/30">{memories.length} total</span>
+      </div>
+      <div className="space-y-2">
+        {recent.map((memory) => {
+          const cfg  = MEMORY_ICONS[memory.memory_type] || MEMORY_ICONS.goal;
+          const Icon = cfg.icon;
+          return (
+            <div key={memory.id}
+              className="bg-white rounded-2xl p-3.5 flex items-start gap-3 border border-gray-100 shadow-sm">
+              <div className={`w-8 h-8 rounded-xl ${cfg.bg} flex items-center justify-center flex-shrink-0`}>
+                <Icon className={`w-4 h-4 ${cfg.color}`} />
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 mb-0.5">
+                  <span className="text-[10px] font-bold text-[#0A1A2F]/40 uppercase tracking-wide capitalize">{memory.memory_type}</span>
+                  <span className="text-[10px] text-[#0A1A2F]/25 flex items-center gap-0.5">
+                    <Calendar className="w-2.5 h-2.5" />{format(new Date(memory.created_date), 'MMM d')}
+                  </span>
+                </div>
+                <p className="text-sm text-[#0A1A2F] leading-snug line-clamp-2">{memory.content}</p>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </motion.div>
+  );
+}
+
+// ─── New user onboarding nudge ─────────────────────────────────────────────────
+function StartHereCard() {
+  return (
+    <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
+      className="bg-gradient-to-br from-[#FAD98D]/20 to-[#AFC7E3]/15 rounded-2xl p-5 border border-[#D9B878]/30">
+      <div className="flex items-center gap-3 mb-4">
+        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#c9a227] to-[#D9B878] flex items-center justify-center">
+          <Sparkles className="w-5 h-5 text-white" />
+        </div>
+        <div>
+          <p className="font-bold text-[#0A1A2F] text-sm">Your journey starts here</p>
+          <p className="text-xs text-[#0A1A2F]/50">Insights appear as you log activity</p>
+        </div>
+      </div>
+      <div className="grid grid-cols-3 gap-2">
+        {[
+          { page: 'Bible',    emoji: '📖', label: 'Read Bible'   },
+          { page: 'Workouts', emoji: '💪', label: 'Log Workout'  },
+          { page: 'Prayer',   emoji: '🙏', label: 'Pray'         },
+        ].map(({ page, emoji, label }) => (
+          <Link key={page} to={createPageUrl(page)}>
+            <div className="bg-white rounded-xl p-3 text-center hover:shadow-sm transition-shadow min-h-[64px] flex flex-col items-center justify-center gap-1">
+              <p className="text-xl">{emoji}</p>
+              <p className="text-xs font-medium text-[#0A1A2F]/70 leading-tight">{label}</p>
+            </div>
+          </Link>
+        ))}
+      </div>
+    </motion.div>
+  );
+}
+
+// ─── Main ──────────────────────────────────────────────────────────────────────
 export default function ProgressDashboard() {
-  const navigate = useNavigate();
   const [activeChat, setActiveChat] = useState(null);
-  const queryClient = useQueryClient();
-  
+
+  // ── 3 queries (chatbot context is now lazy — fetched only when that chatbot opens) ──
   const { data: user } = useQuery({
     queryKey: ['currentUser'],
-    queryFn: () => base44.auth.me()
+    queryFn: () => base44.auth.me(),
   });
 
   const { data: userProgress } = useQuery({
@@ -95,379 +185,100 @@ export default function ProgressDashboard() {
       const list = await base44.entities.UserProgress.filter({ created_by: user.email });
       return list[0] || null;
     },
-    enabled: !!user?.email
+    enabled: !!user?.email,
   });
 
-  const { data: allMemories, isLoading } = useQuery({
+  const { data: allMemories = [], isLoading } = useQuery({
     queryKey: ['allChatbotMemories', user?.email],
     queryFn: async () => {
-      if (!user?.email) return [];
-      
-      const memories = await base44.entities.ChatbotMemory.filter({
+      const m = await base44.entities.ChatbotMemory.filter({
         created_by: user.email,
-        memory_type: ['goal', 'milestone', 'achievement', 'success']
+        memory_type: ['goal', 'milestone', 'achievement', 'success'],
       });
-      
-      return memories.sort((a, b) => 
-        new Date(b.created_date) - new Date(a.created_date)
-      );
+      return m.sort((a, b) => new Date(b.created_date) - new Date(a.created_date));
     },
     enabled: !!user?.email,
-    initialData: []
+    initialData: [],
   });
 
+  // ── Chatbot context — lazy: only fetch when that chatbot is actually opened ──
   const { data: workoutSessionsForChat = [] } = useQuery({
     queryKey: ['workoutSessionsChat', user?.email],
-    queryFn: async () => {
-      if (!user?.email) return [];
-      return await base44.entities.WorkoutSession.filter({ created_by: user.email }, '-created_date', 20);
-    },
-    enabled: !!user?.email
+    queryFn: async () => base44.entities.WorkoutSession.filter({ created_by: user.email }, '-created_date', 20),
+    enabled: !!user?.email && activeChat === 'CoachDavid',
   });
-
   const { data: userWorkoutsForChat = [] } = useQuery({
     queryKey: ['userWorkoutsChat', user?.email],
-    queryFn: async () => {
-      if (!user?.email) return [];
-      return await base44.entities.Workout.filter({ created_by: user.email }, '-created_date', 20);
-    },
-    enabled: !!user?.email
+    queryFn: async () => base44.entities.Workout.filter({ created_by: user.email }, '-created_date', 20),
+    enabled: !!user?.email && activeChat === 'CoachDavid',
   });
-
   const { data: mealLogsForChat = [] } = useQuery({
     queryKey: ['mealLogsChat', user?.email],
-    queryFn: async () => {
-      if (!user?.email) return [];
-      return await base44.entities.MealLog.filter({ created_by: user.email }, '-created_date', 20);
-    },
-    enabled: !!user?.email
+    queryFn: async () => base44.entities.MealLog.filter({ created_by: user.email }, '-created_date', 20),
+    enabled: !!user?.email && activeChat === 'ChefDaniel',
   });
-
   const { data: userRecipesForChat = [] } = useQuery({
     queryKey: ['userRecipesChat', user?.email],
-    queryFn: async () => {
-      if (!user?.email) return [];
-      return await base44.entities.Recipe.filter({ created_by: user.email }, '-created_date', 20);
-    },
-    enabled: !!user?.email
+    queryFn: async () => base44.entities.Recipe.filter({ created_by: user.email }, '-created_date', 20),
+    enabled: !!user?.email && activeChat === 'ChefDaniel',
   });
 
-  // Aggregate stats
-  const stats = React.useMemo(() => {
-    const byType = {
-      goal: allMemories.filter(m => m.memory_type === 'goal').length,
-      milestone: allMemories.filter(m => m.memory_type === 'milestone').length,
-      achievement: allMemories.filter(m => m.memory_type === 'achievement').length,
-      success: allMemories.filter(m => m.memory_type === 'success').length
-    };
-    
-    const byChatbot = {
-      Hannah: allMemories.filter(m => m.chatbot_name === 'Hannah').length,
-      CoachDavid: allMemories.filter(m => m.chatbot_name === 'CoachDavid').length,
-      ChefDaniel: allMemories.filter(m => m.chatbot_name === 'ChefDaniel').length,
-      Gideon: allMemories.filter(m => m.chatbot_name === 'Gideon').length
-    };
-    
-    return { byType, byChatbot, total: allMemories.length };
-  }, [allMemories]);
+  const hasActivity = allMemories.length > 0 || userProgress?.workouts_completed || userProgress?.prayers_logged;
 
-  // Group by chatbot
-  const memoriesByChatbot = React.useMemo(() => {
-    return {
-      Hannah: allMemories.filter(m => m.chatbot_name === 'Hannah'),
-      CoachDavid: allMemories.filter(m => m.chatbot_name === 'CoachDavid'),
-      ChefDaniel: allMemories.filter(m => m.chatbot_name === 'ChefDaniel'),
-      Gideon: allMemories.filter(m => m.chatbot_name === 'Gideon')
-    };
-  }, [allMemories]);
-
-
+  const hasActivePlan = Object.keys(localStorage).some(k =>
+    k.startsWith('coaching_progress_') &&
+    (() => { try { return (JSON.parse(localStorage.getItem(k))?.completed_days?.length || 0) > 0; } catch { return false; } })()
+  );
 
   if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="text-center">
-          <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-gray-600">Loading your journey...</p>
+          <div className="w-10 h-10 border-4 border-[#c9a227] border-t-transparent rounded-full animate-spin mx-auto mb-3" />
+          <p className="text-[#0A1A2F]/50 text-sm">Loading your journey…</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#F2F6FA] pb-8">
-      <div className="max-w-6xl mx-auto px-4 py-6">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-8"
-        >
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#c9a227] to-[#D9B878] flex items-center justify-center">
-                <Sparkles className="w-6 h-6 text-white" />
-              </div>
-              <div>
-                <h1 className="text-3xl font-bold text-gray-900">Your Journey</h1>
-                <p className="text-gray-600">Progress across all areas of growth</p>
-              </div>
-            </div>
-            <div className="flex gap-2">
-              <Button
-                onClick={() => navigate(createPageUrl('Community'))}
-                variant="outline"
-                size="sm"
-                className="text-[#3C4E53] border-[#AFC7E3]/60 hover:bg-[#F2F6FA]"
-              >
-                <MessageCircle className="w-4 h-4 mr-2" />
-                Community
-              </Button>
+    <div className="min-h-screen bg-[#F2F6FA] pb-28">
+      <div className="max-w-lg mx-auto px-4 pt-4 pb-6 space-y-5">
 
-            </div>
-          </div>
+        {/* 1. Page header */}
+        <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}>
+          <h1 className="text-2xl font-bold text-[#0A1A2F]">Your Journey</h1>
+          <p className="text-sm text-[#0A1A2F]/50 mt-0.5">Progress across all areas of growth</p>
         </motion.div>
 
-        {/* Getting started state for new users */}
-        {(!userProgress || (
-          !userProgress.workouts_completed &&
-          !userProgress.prayers_logged &&
-          !userProgress.journal_entries
-        )) && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="mb-6 bg-gradient-to-br from-[#FAD98D]/20 to-[#AFC7E3]/20 border border-[#D9B878]/40 rounded-2xl p-5"
-          >
-            <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#c9a227] to-[#D9B878] flex items-center justify-center">
-                <Sparkles className="w-5 h-5 text-white" />
-              </div>
-              <div>
-                <h3 className="font-bold text-gray-900">You're just getting started!</h3>
-                <p className="text-xs text-gray-500">Your journey insights will appear here as you log activity</p>
-              </div>
-            </div>
-            <div className="grid grid-cols-3 gap-2">
-              {[
-                { page: 'Bible', emoji: '📖', label: 'Read Bible' },
-                { page: 'Workouts', emoji: '💪', label: 'Log Workout' },
-                { page: 'Prayer', emoji: '🙏', label: 'Pray' },
-              ].map(({ page, emoji, label }) => (
-                <Link key={page} to={createPageUrl(page)}>
-                  <div className="bg-white rounded-xl p-3 text-center hover:shadow-sm transition-shadow cursor-pointer h-full flex flex-col items-center justify-center min-h-[72px]">
-                    <p className="text-xl mb-1">{emoji}</p>
-                    <p className="text-xs font-medium text-gray-700 leading-tight">{label}</p>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </motion.div>
-        )}
+        {/* 2. Streak / level banner (taps to Achievements) */}
+        <ProgressBanner progress={userProgress} />
 
-        {/* Hannah Bookmarks */}
+        {/* 3. New user nudge — only shown with no activity */}
+        {!hasActivity && <StartHereCard />}
+
+        {/* 4. Active coaching plan */}
+        {hasActivePlan && <CoachingSection />}
+
+        {/* 5. Holistic progress report (only when there are memories to analyse) */}
+        {allMemories.length > 0 && <HolisticProgressReport user={user} />}
+
+        {/* 6. Chat with Guides */}
+        <GuidesGrid onOpen={setActiveChat} />
+
+        {/* 7. Recent milestones */}
+        <RecentMilestones memories={allMemories} />
+
+        {/* 8. Hannah bookmarks */}
         {user?.email && <HannahBookmarksSection userEmail={user.email} />}
 
-        {/* Holistic Progress Report */}
-        {stats.total > 0 && <HolisticProgressReport user={user} />}
-
-        {/* Active Coaching Plan — only shown when user has started a plan */}
-        {(() => {
-          const hasActivePlan = Object.keys(localStorage).some(k =>
-            k.startsWith('coaching_progress_') &&
-            (() => { try { const p = JSON.parse(localStorage.getItem(k)); return (p?.completed_days?.length || 0) > 0; } catch { return false; } })()
-          );
-          return hasActivePlan ? <CoachingSection /> : null;
-        })()}
-
-
-
-        {/* Personalized Devotional */}
-        <PersonalizedDevotional />
-
-        {/* Chat with Guides Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="mb-8"
-        >
-          <h2 className="text-xl font-bold text-gray-900 mb-4">Chat with Your Guides</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            {Object.entries(chatbotConfig).map(([key, config]) => {
-              return (
-                <Button
-                key={key}
-                onClick={() => setActiveChat(key)}
-                className={`h-auto py-4 px-3 flex flex-col items-center gap-1 bg-gradient-to-br ${config.color} hover:opacity-90 text-white shadow-md w-full`}
-                >
-                <span className="text-2xl leading-none">{config.icon}</span>
-                <span className="text-xs font-bold text-center leading-snug w-full truncate">{config.name}</span>
-                <span className="text-[11px] opacity-90 leading-snug text-center w-full truncate">{config.category}</span>
-                </Button>
-              );
-            })}
-          </div>
-        </motion.div>
-
-        {/* Overall Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-          {[
-            { label: 'Goals Set', value: stats.byType.goal, icon: Target, color: 'text-[#AFC7E3]' },
-            { label: 'Milestones', value: stats.byType.milestone, icon: TrendingUp, color: 'text-[#c9a227]' },
-            { label: 'Achievements', value: stats.byType.achievement, icon: Trophy, color: 'text-yellow-500' },
-            { label: 'Successes', value: stats.byType.success, icon: CheckCircle2, color: 'text-green-500' }
-          ].map((stat, idx) => {
-            const Icon = stat.icon;
-            return (
-              <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: idx * 0.1 }}
-              >
-                <Card>
-                  <CardContent className="pt-6">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <p className="text-sm text-gray-600 mb-1">{stat.label}</p>
-                        <p className="text-3xl font-bold text-gray-900">{stat.value}</p>
-                      </div>
-                      <Icon className={`w-8 h-8 ${stat.color}`} />
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            );
-          })}
-        </div>
-
-        {/* Daily Reflection Prompt */}
-        <DailyReflectionPrompt />
-
-        {/* Progress by Chatbot */}
-        <div className="space-y-6">
-          {Object.entries(chatbotConfig).map(([key, config], idx) => {
-            const Icon = config.icon;
-            const memories = memoriesByChatbot[key] || [];
-            
-            if (memories.length === 0) return null;
-
-            return (
-              <motion.div
-                key={key}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.4 + idx * 0.1 }}
-              >
-                <Card className="overflow-hidden">
-                  <CardHeader className={`${config.bgColor} border-b`}>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-3">
-                        <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${config.color} flex items-center justify-center text-xl`}>
-                          {config.icon}
-                        </div>
-                        <div>
-                          <CardTitle className="text-xl">{config.name}</CardTitle>
-                          <p className={`text-sm ${config.textColor}`}>{config.category}</p>
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-2">
-                       <Badge variant="secondary" className="text-lg px-3 py-1">
-                         {memories.length}
-                       </Badge>
-                       <Button
-                         size="sm"
-                         onClick={() => setActiveChat(key)}
-                         className={`bg-gradient-to-br ${config.color} hover:opacity-90 text-white`}
-                       >
-                         <MessageCircle className="w-4 h-4 mr-1" />
-                         Chat
-                       </Button>
-                      </div>
-                      </div>
-                      </CardHeader>
-                  <CardContent className="p-6">
-                    <div className="space-y-4">
-                      {memories.slice(0, 5).map((memory) => {
-                        const TypeIcon = memoryTypeIcons[memory.memory_type] || Target;
-                        return (
-                          <div
-                            key={memory.id}
-                            className="flex items-start gap-3 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
-                          >
-                            <div className={`w-8 h-8 rounded-full ${config.bgColor} flex items-center justify-center flex-shrink-0 mt-0.5`}>
-                              <TypeIcon className={`w-4 h-4 ${config.textColor}`} />
-                            </div>
-                            <div className="flex-1 min-w-0">
-                              <div className="flex items-center gap-2 mb-1">
-                                <Badge variant="outline" className="text-xs capitalize">
-                                  {memory.memory_type}
-                                </Badge>
-                                <span className="text-xs text-gray-500 flex items-center gap-1">
-                                  <Calendar className="w-3 h-3" />
-                                  {format(new Date(memory.created_date), 'MMM d, yyyy')}
-                                </span>
-                              </div>
-                              <p className="text-sm text-gray-900 leading-relaxed">
-                                {memory.content}
-                              </p>
-                              {memory.context && (
-                                <p className="text-xs text-gray-600 mt-1 italic">
-                                  {memory.context}
-                                </p>
-                              )}
-                            </div>
-                          </div>
-                        );
-                      })}
-                      
-                      {memories.length > 5 && (
-                        <p className="text-sm text-gray-500 text-center pt-2">
-                          + {memories.length - 5} more items
-                        </p>
-                      )}
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            );
-          })}
-        </div>
-
-        {/* Empty State */}
-        {stats.total === 0 && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="text-center py-16"
-          >
-            <div className="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-4">
-              <Sparkles className="w-10 h-10 text-gray-400" />
-            </div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">
-              Your Journey Awaits
-            </h3>
-            <p className="text-gray-600 max-w-md mx-auto">
-              Start conversations with Hannah, Coach David, Chef Daniel, or Gideon to track your progress across personal growth, fitness, nutrition, and spiritual development.
-            </p>
-          </motion.div>
-        )}
       </div>
 
-      {/* Chatbot Modals */}
-      {activeChat === 'Hannah' && user && (
-        <Hannah user={user} autoOpen={true} onClose={() => setActiveChat(null)} />
-      )}
-      {activeChat === 'CoachDavid' && user && (
-        <CoachDavid user={user} userWorkouts={userWorkoutsForChat} workoutSessions={workoutSessionsForChat} autoOpen={true} onClose={() => setActiveChat(null)} />
-      )}
-      {activeChat === 'ChefDaniel' && user && (
-        <ChefDaniel user={user} userRecipes={userRecipesForChat} mealLogs={mealLogsForChat} autoOpen={true} onClose={() => setActiveChat(null)} />
-      )}
-      {activeChat === 'Gideon' && user && (
-        <GideonChatbot user={user} autoOpen={true} onClose={() => setActiveChat(null)} />
-      )}
+      {/* ── Chatbot modals — rendered only when activeChat is set ── */}
+      {activeChat === 'Hannah'     && user && <Hannah     user={user} autoOpen onClose={() => setActiveChat(null)} />}
+      {activeChat === 'CoachDavid' && user && <CoachDavid user={user} userWorkouts={userWorkoutsForChat} workoutSessions={workoutSessionsForChat} autoOpen onClose={() => setActiveChat(null)} />}
+      {activeChat === 'ChefDaniel' && user && <ChefDaniel user={user} userRecipes={userRecipesForChat} mealLogs={mealLogsForChat} autoOpen onClose={() => setActiveChat(null)} />}
+      {activeChat === 'Gideon'     && user && <GideonChatbot user={user} autoOpen onClose={() => setActiveChat(null)} />}
     </div>
   );
 }
