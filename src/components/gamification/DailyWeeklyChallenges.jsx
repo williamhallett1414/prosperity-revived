@@ -1,232 +1,157 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
-import { Zap, Calendar, Target, Loader2, Check } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Progress } from '@/components/ui/progress';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Zap, Calendar, Target, Loader2, CheckCircle2 } from 'lucide-react';
 import { awardPoints, checkAndAwardBadges } from '@/components/gamification/ProgressManager';
 
-const DIFFICULTY_COLORS = {
-  easy: 'from-green-500 to-emerald-600',
-  medium: 'from-yellow-500 to-orange-600',
-  hard: 'from-red-500 to-[#c9a227]'
+const DIFFICULTY = {
+  easy:   { bar: 'from-[#AFC7E3] to-[#3C4E53]',   label: 'Easy',   text: 'text-[#3C4E53]'   },
+  medium: { bar: 'from-[#c9a227] to-[#D9B878]',   label: 'Medium', text: 'text-[#c9a227]'   },
+  hard:   { bar: 'from-[#0A1A2F] to-[#1a3a5c]',   label: 'Hard',   text: 'text-[#0A1A2F]'   },
 };
 
+function ChallengeCard({ challenge, isCompleted, onComplete, loading }) {
+  const diff = DIFFICULTY[challenge.difficulty] || DIFFICULTY.medium;
+  return (
+    <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
+      className="bg-white rounded-2xl border border-[#D9B878]/25 overflow-hidden shadow-sm">
+      {/* Difficulty bar */}
+      <div className={`h-1 bg-gradient-to-r ${diff.bar}`} />
+      <div className="p-4 space-y-3">
+        <div className="flex items-start gap-3">
+          <span className="text-2xl leading-none flex-shrink-0">{challenge.icon || '⚡'}</span>
+          <div className="flex-1 min-w-0">
+            <p className="font-bold text-[#0A1A2F] text-sm leading-snug">{challenge.title}</p>
+            <p className="text-xs text-[#0A1A2F]/50 mt-0.5">{challenge.description}</p>
+          </div>
+        </div>
+        <div className="flex items-center justify-between">
+          <span className={`text-xs font-semibold ${diff.text}`}>{diff.label}</span>
+          <span className="text-xs font-bold text-[#c9a227]">+{challenge.bonus_points} pts</span>
+        </div>
+        {isCompleted ? (
+          <div className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-[#FAD98D]/20 border border-[#D9B878]/30">
+            <CheckCircle2 className="w-4 h-4 text-[#c9a227]" />
+            <span className="text-sm font-semibold text-[#c9a227]">Completed</span>
+          </div>
+        ) : (
+          <button onClick={onComplete} disabled={loading}
+            className="w-full bg-gradient-to-r from-[#c9a227] to-[#D9B878] text-white font-semibold text-sm py-2.5 rounded-xl hover:opacity-90 active:scale-95 transition-all flex items-center justify-center gap-2 disabled:opacity-60">
+            {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Zap className="w-4 h-4" />}
+            {loading ? 'Marking…' : 'Complete Challenge'}
+          </button>
+        )}
+      </div>
+    </motion.div>
+  );
+}
+
+function EmptyState({ icon, label }) {
+  return (
+    <div className="bg-white rounded-2xl border border-[#D9B878]/20 p-8 text-center">
+      <p className="text-2xl mb-2">{icon}</p>
+      <p className="text-sm text-[#0A1A2F]/45">{label}</p>
+    </div>
+  );
+}
+
 export default function DailyWeeklyChallenges({ user }) {
-  const [challenges, setChallenges] = useState([]);
   const queryClient = useQueryClient();
+
+  const today = new Date().toISOString().split('T')[0];
+  const weekStart = (() => {
+    const d = new Date(); d.setDate(d.getDate() - d.getDay()); return d.toISOString().split('T')[0];
+  })();
 
   const { data: dailyChallenges = [] } = useQuery({
     queryKey: ['dailyChallenges'],
     queryFn: async () => {
-      const today = new Date().toISOString().split('T')[0];
       const all = await base44.entities.DailyChallenge.list('-created_date', 50);
       return all.filter(c => c.date === today && c.is_active);
     },
-    enabled: !!user
+    enabled: !!user,
   });
-
   const { data: weeklyChallenges = [] } = useQuery({
     queryKey: ['weeklyChallenges'],
     queryFn: async () => {
-      const today = new Date();
-      const weekStart = new Date(today.setDate(today.getDate() - today.getDay()));
-      const weekStartStr = weekStart.toISOString().split('T')[0];
-      
       const all = await base44.entities.DailyChallenge.list('-created_date', 50);
-      return all.filter(c => c.is_weekly && c.week_start === weekStartStr && c.is_active);
+      return all.filter(c => c.is_weekly && c.week_start === weekStart && c.is_active);
     },
-    enabled: !!user
+    enabled: !!user,
   });
-
   const { data: completions = [] } = useQuery({
     queryKey: ['challengeCompletions', user?.email],
     queryFn: () => base44.entities.ChallengeCompletion.list(),
-    enabled: !!user
+    enabled: !!user,
   });
 
   const completionMutation = useMutation({
     mutationFn: async (challenge) => {
-      const completion = await base44.entities.ChallengeCompletion.create({
+      await base44.entities.ChallengeCompletion.create({
         challenge_id: challenge.id,
         user_email: user?.email,
-        completion_date: new Date().toISOString().split('T')[0],
-        bonus_points_earned: challenge.bonus_points
+        completion_date: today,
+        bonus_points_earned: challenge.bonus_points,
       });
-
-      // Award bonus points
-      await awardPoints(user?.email, challenge.bonus_points, { 
-        challenge_completed: 1 
-      });
+      await awardPoints(user?.email, challenge.bonus_points, { challenge_completed: 1 });
       await checkAndAwardBadges(user?.email);
-
-      return completion;
     },
     onSuccess: () => {
       queryClient.invalidateQueries(['challengeCompletions']);
       queryClient.invalidateQueries(['userProgress']);
-    }
+    },
   });
 
-  const isChallengeCompleted = (challengeId) => {
-    const today = new Date().toISOString().split('T')[0];
-    return completions.some(c => c.challenge_id === challengeId && c.completion_date === today);
-  };
+  const isCompleted = (id) => completions.some(c => c.challenge_id === id && c.completion_date === today);
 
-  const ChallengeCard = ({ challenge, isCompleted }) => {
-    const Icon = challenge.icon;
-    
-    return (
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        whileHover={{ y: -4 }}
-        className="relative"
-      >
-        <Card className="overflow-hidden hover:shadow-lg transition-shadow">
-          <div className={`h-1 bg-gradient-to-r ${DIFFICULTY_COLORS[challenge.difficulty]}`} />
-          
-          <CardHeader className="pb-3">
-            <div className="flex items-start justify-between mb-2">
-              <div>
-                <CardTitle className="text-base">{challenge.title}</CardTitle>
-                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{challenge.description}</p>
-              </div>
-              <span className="text-2xl">{challenge.icon}</span>
-            </div>
-          </CardHeader>
-
-          <CardContent className="space-y-4">
-            {/* Difficulty Badge */}
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-medium text-gray-600 dark:text-gray-400 capitalize">
-                {challenge.difficulty} Challenge
-              </span>
-              <span className="text-sm font-bold text-emerald-600">+{challenge.bonus_points} pts</span>
-            </div>
-
-            {/* Target Info */}
-            <div className="p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
-              <p className="text-xs text-gray-600 dark:text-gray-400 mb-2">
-                Target: <span className="font-bold text-gray-900 dark:text-white">{challenge.target_value}</span>
-              </p>
-              <Progress value={25} className="h-2" />
-            </div>
-
-            {/* Action Button */}
-            {isCompleted ? (
-              <Button disabled className="w-full bg-emerald-500 hover:bg-emerald-600">
-                <Check className="w-4 h-4 mr-2" />
-                Completed Today
-              </Button>
-            ) : (
-              <Button
-                onClick={() => completionMutation.mutate(challenge)}
-                disabled={completionMutation.isPending}
-                className="w-full bg-gradient-to-r from-[#b89320] to-[#c9a227] hover:from-[#b89320] hover:to-[#c9a227]"
-              >
-                {completionMutation.isPending ? (
-                  <>
-                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                    Completing...
-                  </>
-                ) : (
-                  <>
-                    <Zap className="w-4 h-4 mr-2" />
-                    Complete Challenge
-                  </>
-                )}
-              </Button>
-            )}
-          </CardContent>
-        </Card>
-      </motion.div>
-    );
-  };
+  const [tab, setTab] = React.useState('daily');
 
   return (
-    <div className="space-y-6">
-      {/* Header */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="bg-gradient-to-br from-[#b89320] to-[#c9a227] rounded-2xl p-6 text-white"
-      >
-        <div className="flex items-center gap-3 mb-2">
-          <Zap className="w-7 h-7" />
-          <h2 className="text-xl font-bold">Daily & Weekly Challenges</h2>
-        </div>
-        <p className="text-white/90 text-sm">
-          Complete challenges to earn bonus points and level up faster!
-        </p>
-      </motion.div>
+    <div className="space-y-4">
+      {/* Tab toggle */}
+      <div className="flex gap-2">
+        {[{ id: 'daily', icon: Calendar, label: 'Daily' }, { id: 'weekly', icon: Target, label: 'Weekly' }].map(({ id, icon: Icon, label }) => (
+          <button key={id} onClick={() => setTab(id)}
+            className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-semibold transition-all ${
+              tab === id
+                ? 'bg-gradient-to-r from-[#c9a227] to-[#D9B878] text-white shadow-sm'
+                : 'bg-white text-[#0A1A2F]/50 border border-[#D9B878]/25'
+            }`}>
+            <Icon className="w-4 h-4" />{label}
+          </button>
+        ))}
+      </div>
 
-      {/* Tabs */}
-      <Tabs defaultValue="daily" className="w-full">
-        <TabsList className="grid w-full grid-cols-2 bg-white/50 backdrop-blur-sm">
-          <TabsTrigger value="daily" className="flex items-center gap-2">
-            <Calendar className="w-4 h-4" />
-            Daily
-          </TabsTrigger>
-          <TabsTrigger value="weekly" className="flex items-center gap-2">
-            <Target className="w-4 h-4" />
-            Weekly
-          </TabsTrigger>
-        </TabsList>
-
-        {/* Daily Challenges */}
-        <TabsContent value="daily" className="space-y-4 mt-4">
-          {dailyChallenges.length === 0 ? (
-            <Card>
-              <CardContent className="pt-8 pb-8 text-center">
-                <p className="text-gray-500">No daily challenges available today. Check back tomorrow!</p>
-              </CardContent>
-            </Card>
-          ) : (
-            <div className="grid gap-4">
-              {dailyChallenges.map((challenge) => (
-                <ChallengeCard
-                  key={challenge.id}
-                  challenge={challenge}
-                  isCompleted={isChallengeCompleted(challenge.id)}
-                />
+      {/* Challenges */}
+      {tab === 'daily' && (
+        dailyChallenges.length === 0
+          ? <EmptyState icon="📅" label="No daily challenges today — check back tomorrow!" />
+          : <div className="space-y-3">
+              {dailyChallenges.map(c => (
+                <ChallengeCard key={c.id} challenge={c} isCompleted={isCompleted(c.id)}
+                  onComplete={() => completionMutation.mutate(c)} loading={completionMutation.isPending} />
               ))}
             </div>
-          )}
-        </TabsContent>
-
-        {/* Weekly Challenges */}
-        <TabsContent value="weekly" className="space-y-4 mt-4">
-          {weeklyChallenges.length === 0 ? (
-            <Card>
-              <CardContent className="pt-8 pb-8 text-center">
-                <p className="text-gray-500">No weekly challenges this week.</p>
-              </CardContent>
-            </Card>
-          ) : (
-            <div className="grid gap-4">
-              {weeklyChallenges.map((challenge) => (
-                <ChallengeCard
-                  key={challenge.id}
-                  challenge={challenge}
-                  isCompleted={isChallengeCompleted(challenge.id)}
-                />
+      )}
+      {tab === 'weekly' && (
+        weeklyChallenges.length === 0
+          ? <EmptyState icon="📆" label="No weekly challenges this week." />
+          : <div className="space-y-3">
+              {weeklyChallenges.map(c => (
+                <ChallengeCard key={c.id} challenge={c} isCompleted={isCompleted(c.id)}
+                  onComplete={() => completionMutation.mutate(c)} loading={completionMutation.isPending} />
               ))}
             </div>
-          )}
-        </TabsContent>
-      </Tabs>
+      )}
 
-      {/* Challenge Info */}
-      <Card className="bg-[#F2F6FA] dark:bg-[#0A1A2F]/20 border-[#AFC7E3]/40 dark:border-blue-800">
-        <CardContent className="pt-6 space-y-2 text-sm text-blue-900 dark:text-blue-200">
-          <p>💡 <strong>Tip:</strong> Daily challenges reset every 24 hours. Weekly challenges span a full week.</p>
-          <p>⭐ <strong>Bonus:</strong> Complete all challenges this week for a special achievement!</p>
-        </CardContent>
-      </Card>
+      {/* Tip */}
+      <div className="bg-[#FAD98D]/15 border border-[#D9B878]/25 rounded-2xl p-4 text-sm text-[#0A1A2F]/65 space-y-1">
+        <p className="font-semibold text-[#0A1A2F] text-xs uppercase tracking-wide mb-1.5">How challenges work</p>
+        <p>📅 Daily challenges reset every 24 hours</p>
+        <p>📆 Weekly challenges span the full week</p>
+        <p>⭐ Complete all to earn bonus points and badges</p>
+      </div>
     </div>
   );
 }

@@ -2,162 +2,177 @@ import React, { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Trophy, Award, TrendingUp, Flame, Crown } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import { createPageUrl } from '@/utils';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Trophy, Flame, Crown, TrendingUp, Sparkles } from 'lucide-react';
 import BadgeCard from '@/components/gamification/BadgeCard';
 import MultiActivityLeaderboard from '@/components/gamification/MultiActivityLeaderboard';
 import DailyWeeklyChallenges from '@/components/gamification/DailyWeeklyChallenges';
 import { BADGES } from '@/components/gamification/ProgressManager';
 
+// Level formula matches ProgressManager: level = floor(total / 500) + 1
+// So points needed for level N = (N - 1) * 500, next level at N * 500
+function getXp(progress) {
+  const total   = progress?.total_points || 0;
+  const level   = progress?.level || 1;
+  const floor   = (level - 1) * 500;  // points at start of current level
+  const ceiling = level * 500;         // points needed to reach next level
+  const inLevel = total - floor;
+  const span    = ceiling - floor;     // always 500
+  return { total, level, inLevel, span, toNext: span - inLevel };
+}
+
+// ─── Stat chip ────────────────────────────────────────────────────────────────
+function StatChip({ icon: Icon, label, value, sub, bg, accent }) {
+  return (
+    <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
+      className={`${bg} rounded-2xl p-4 border border-[#D9B878]/25`}>
+      <Icon className={`w-4 h-4 ${accent} mb-2`} />
+      <p className="text-2xl font-bold text-[#0A1A2F]">{value}</p>
+      <p className="text-xs font-semibold text-[#0A1A2F]/60 leading-tight">{label}</p>
+      {sub && <p className="text-[10px] text-[#0A1A2F]/35 mt-0.5">{sub}</p>}
+    </motion.div>
+  );
+}
+
+// ─── Tab bar ──────────────────────────────────────────────────────────────────
+const TABS = [
+  { id: 'badges',      label: 'Badges'      },
+  { id: 'challenges',  label: 'Challenges'  },
+  { id: 'leaderboard', label: 'Leaderboard' },
+];
+
+function TabBar({ active, onChange }) {
+  return (
+    <div className="flex gap-2 mb-5">
+      {TABS.map(({ id, label }) => (
+        <button key={id} onClick={() => onChange(id)}
+          className={`flex-1 py-2.5 rounded-xl text-xs font-bold transition-all ${
+            active === id
+              ? 'bg-gradient-to-r from-[#c9a227] to-[#D9B878] text-white shadow-sm'
+              : 'bg-white text-[#0A1A2F]/50 border border-[#D9B878]/25'
+          }`}>
+          {label}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+// ─── Main ─────────────────────────────────────────────────────────────────────
 export default function Achievements() {
   const [user, setUser] = useState(null);
+  const [tab, setTab] = useState('badges');
 
-  useEffect(() => {
-    base44.auth.me().then(setUser);
-  }, []);
+  useEffect(() => { base44.auth.me().then(setUser); }, []);
 
+  // Fixed: filter by email instead of list() + find()
   const { data: progress } = useQuery({
-    queryKey: ['userProgress'],
+    queryKey: ['userProgress', user?.email],
     queryFn: async () => {
-      const all = await base44.entities.UserProgress.list();
-      return all.find(p => p.created_by === user?.email);
+      const list = await base44.entities.UserProgress.filter({ created_by: user.email });
+      return list[0] || null;
     },
-    enabled: !!user
+    enabled: !!user?.email,
   });
 
-  const earnedBadges = BADGES.filter(b => progress?.badges?.includes(b.id));
-  const availableBadges = BADGES.filter(b => !progress?.badges?.includes(b.id));
-
-  const pointsToNextLevel = ((progress?.level || 1) * 100) - (progress?.total_points || 0) % ((progress?.level || 1) * 100);
+  const earned    = BADGES.filter(b =>  progress?.badges?.includes(b.id));
+  const available = BADGES.filter(b => !progress?.badges?.includes(b.id));
+  const xp        = getXp(progress);
+  const xpPct     = Math.round((xp.inLevel / xp.span) * 100);
 
   return (
-    <div className="min-h-screen bg-[#faf8f5] dark:bg-[#1a1a2e] pb-24">
-      {/* Header */}
-      <div className="bg-gradient-to-br from-amber-600 to-orange-600 text-white px-4 pt-4 pb-6">
-        <Link
-          to={createPageUrl('Profile')}
-          className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center mb-4 inline-flex"
-        >
-          <ArrowLeft className="w-5 h-5" />
-        </Link>
-        <h1 className="text-2xl font-bold mb-2">Achievements</h1>
-        <p className="text-white/80 text-sm">Track your journey and progress</p>
-      </div>
+    <div className="min-h-screen bg-[#F2F6FA] pb-28">
 
-      {/* Stats */}
-      <div className="px-4 -mt-4 mb-6">
-        <div className="grid grid-cols-2 gap-3">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 shadow-lg"
-          >
-            <div className="flex items-center gap-2 mb-2">
-              <Crown className="w-5 h-5 text-amber-500" />
-              <span className="text-sm text-gray-500 dark:text-gray-400">Level</span>
+      {/* ── Hero header ── */}
+      <div className="bg-gradient-to-br from-[#0A1A2F] to-[#1a3a5c] px-4 pt-5 pb-8">
+        <div className="max-w-lg mx-auto">
+          <div className="flex items-center gap-3 mb-5">
+            <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-[#c9a227] to-[#D9B878] flex items-center justify-center shadow-md">
+              <Trophy className="w-5 h-5 text-white" />
             </div>
-            <p className="text-3xl font-bold text-[#1a1a2e] dark:text-white">{progress?.level || 1}</p>
-            <p className="text-xs text-gray-500 dark:text-gray-400">{pointsToNextLevel} pts to next</p>
-          </motion.div>
-          
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 shadow-lg"
-          >
-            <div className="flex items-center gap-2 mb-2">
-              <Trophy className="w-5 h-5 text-amber-500" />
-              <span className="text-sm text-gray-500 dark:text-gray-400">Points</span>
+            <div>
+              <h1 className="text-xl font-bold text-white">Achievements</h1>
+              <p className="text-white/50 text-xs">Badges · Challenges · Leaderboard</p>
             </div>
-            <p className="text-3xl font-bold text-[#1a1a2e] dark:text-white">{progress?.total_points || 0}</p>
-            <p className="text-xs text-gray-500 dark:text-gray-400">{earnedBadges.length} badges</p>
-          </motion.div>
-          
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="bg-gradient-to-br from-orange-500 to-red-500 rounded-2xl p-4 shadow-lg text-white"
-          >
-            <div className="flex items-center gap-2 mb-2">
-              <Flame className="w-5 h-5" />
-              <span className="text-sm text-white/80">Current Streak</span>
+          </div>
+
+          {/* Level + XP bar */}
+          <div className="bg-white/10 rounded-2xl p-4">
+            <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center gap-2">
+                <Crown className="w-4 h-4 text-[#D9B878]" />
+                <span className="font-bold text-white text-sm">Level {xp.level}</span>
+              </div>
+              <span className="text-[#D9B878] text-xs font-semibold">{xp.toNext} pts to next level</span>
             </div>
-            <p className="text-3xl font-bold">{progress?.current_streak || 0}</p>
-            <p className="text-xs text-white/80">days</p>
-          </motion.div>
-          
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 shadow-lg"
-          >
-            <div className="flex items-center gap-2 mb-2">
-              <TrendingUp className="w-5 h-5 text-green-500" />
-              <span className="text-sm text-gray-500 dark:text-gray-400">Best Streak</span>
+            <div className="h-2 bg-white/10 rounded-full overflow-hidden">
+              <motion.div
+                initial={{ width: 0 }} animate={{ width: `${xpPct}%` }}
+                transition={{ duration: 0.8, ease: 'easeOut' }}
+                className="h-full bg-gradient-to-r from-[#c9a227] to-[#D9B878] rounded-full"
+              />
             </div>
-            <p className="text-3xl font-bold text-[#1a1a2e] dark:text-white">{progress?.longest_streak || 0}</p>
-            <p className="text-xs text-gray-500 dark:text-gray-400">days</p>
-          </motion.div>
+            <div className="flex justify-between mt-1.5">
+              <span className="text-[10px] text-white/35">{xp.inLevel} / {xp.span} XP</span>
+              <span className="text-[10px] text-white/35">{xp.total} total pts</span>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div className="px-4">
-        <Tabs defaultValue="badges" className="w-full">
-          <TabsList className="grid w-full grid-cols-4 mb-6 bg-white/50 dark:bg-[#2d2d4a]/50 backdrop-blur-sm p-1 rounded-xl">
-            <TabsTrigger value="badges">Badges</TabsTrigger>
-            <TabsTrigger value="challenges">Challenges</TabsTrigger>
-            <TabsTrigger value="leaderboards">Leaderboards</TabsTrigger>
-          </TabsList>
+      <div className="max-w-lg mx-auto px-4 -mt-4">
+        {/* ── Stat grid (overlaps header) ── */}
+        <div className="grid grid-cols-2 gap-3 mb-5">
+          <StatChip icon={Sparkles}   label="Badges Earned"   value={earned.length}
+            sub={`${available.length} remaining`}
+            bg="bg-gradient-to-br from-[#FAD98D]/30 to-[#D9B878]/15" accent="text-[#c9a227]" />
+          <StatChip icon={TrendingUp} label="Total Points"    value={xp.total}
+            sub={`Level ${xp.level}`}
+            bg="bg-white" accent="text-[#c9a227]" />
+          <StatChip icon={Flame}      label="Current Streak"  value={progress?.current_streak || 0}
+            sub="days"
+            bg="bg-gradient-to-br from-[#0A1A2F]/8 to-[#0A1A2F]/4" accent="text-[#0A1A2F]" />
+          <StatChip icon={Trophy}     label="Best Streak"     value={progress?.longest_streak || 0}
+            sub="days"
+            bg="bg-white" accent="text-[#c9a227]" />
+        </div>
 
-          {/* Badges Tab */}
-          <TabsContent value="badges" className="space-y-6">
-            {earnedBadges.length > 0 && (
+        {/* ── Tabs ── */}
+        <TabBar active={tab} onChange={setTab} />
+
+        {/* BADGES */}
+        {tab === 'badges' && (
+          <div className="space-y-5">
+            {earned.length > 0 && (
               <div>
-                <h2 className="text-lg font-semibold text-[#1a1a2e] dark:text-white mb-3">Earned ({earnedBadges.length})</h2>
+                <p className="text-[10px] font-bold text-[#0A1A2F]/40 uppercase tracking-widest mb-3">
+                  Earned ({earned.length})
+                </p>
                 <div className="grid grid-cols-2 gap-3">
-                  {earnedBadges.map((badge, i) => (
-                    <BadgeCard key={badge.id} badge={badge} earned={true} index={i} />
-                  ))}
+                  {earned.map((b, i) => <BadgeCard key={b.id} badge={b} earned index={i} />)}
                 </div>
               </div>
             )}
-
             <div>
-              <h2 className="text-lg font-semibold text-[#1a1a2e] dark:text-white mb-3">Available</h2>
+              <p className="text-[10px] font-bold text-[#0A1A2F]/40 uppercase tracking-widest mb-3">
+                Available ({available.length})
+              </p>
               <div className="grid grid-cols-2 gap-3">
-                {availableBadges.map((badge, i) => {
-                  const reqField = badge.requirement.field || badge.requirement.external;
-                  const currentValue = progress?.[reqField] || 0;
-                  const progressPercent = Math.min((currentValue / badge.requirement.value) * 100, 100);
-                  return (
-                    <BadgeCard 
-                      key={badge.id} 
-                      badge={badge} 
-                      earned={false} 
-                      progress={progressPercent}
-                      index={i} 
-                    />
-                  );
+                {available.map((b, i) => {
+                  const field = b.requirement.field || b.requirement.external;
+                  const cur   = progress?.[field] || 0;
+                  const pct   = Math.min((cur / b.requirement.value) * 100, 100);
+                  return <BadgeCard key={b.id} badge={b} earned={false} progress={pct} index={i} />;
                 })}
               </div>
             </div>
-          </TabsContent>
+          </div>
+        )}
 
-          {/* Challenges Tab */}
-          <TabsContent value="challenges">
-            <DailyWeeklyChallenges user={user} />
-          </TabsContent>
+        {/* CHALLENGES */}
+        {tab === 'challenges' && <DailyWeeklyChallenges user={user} />}
 
-          {/* Leaderboards Tab */}
-          <TabsContent value="leaderboards">
-            <MultiActivityLeaderboard />
-          </TabsContent>
-        </Tabs>
+        {/* LEADERBOARD */}
+        {tab === 'leaderboard' && <MultiActivityLeaderboard />}
       </div>
     </div>
   );
