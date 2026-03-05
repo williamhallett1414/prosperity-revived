@@ -440,6 +440,14 @@ Return ONLY valid JSON array:
                   }}
                 />
                 <Button
+                  onClick={() => { setIsOpen(false); onClose?.(); }}
+                  variant="ghost"
+                  size="icon"
+                  className="text-white hover:bg-white/20"
+                >
+                  <X className="w-5 h-5" />
+                </Button>
+                <Button
                   onClick={() => {
                     setMessages([]);
                     toast.success('Chat cleared');
@@ -450,14 +458,6 @@ Return ONLY valid JSON array:
                   title="Clear chat"
                 >
                   <Trash2 className="w-5 h-5" />
-                </Button>
-                <Button
-                  onClick={() => { setIsOpen(false); onClose?.(); }}
-                  variant="ghost"
-                  size="icon"
-                  className="text-white hover:bg-white/20"
-                >
-                  <X className="w-5 h-5" />
                 </Button>
               </div>
             </div>
