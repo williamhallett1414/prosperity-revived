@@ -87,7 +87,8 @@ export default function RecipeCard({ recipe, index }) {
 
   const displayed       = enriched || recipe;
   const hasNutrition    = displayed.calories || displayed.protein || displayed.carbs || displayed.fat || displayed.fiber;
-  const hasTips         = displayed.cooking_tips?.length > 0;
+  const visibleTips     = (displayed.cooking_tips || []).filter(t => !t.startsWith('__hc:'));
+  const hasTips         = visibleTips.length > 0;
   const hasSuggestion   = displayed.serving_suggestions;
   const instructions    = displayed.instructions || [];
   const ingredients     = displayed.ingredients   || [];
@@ -308,7 +309,7 @@ Rules:
                         <p className="text-xs font-bold text-[#0A1A2F]/50 uppercase tracking-widest">Chef's Tips</p>
                       </div>
                       <ul className="space-y-2">
-                        {displayed.cooking_tips.map((tip, i) => (
+                        {visibleTips.map((tip, i) => (
                           <li key={i} className="text-sm text-[#0A1A2F]/70 leading-relaxed flex gap-2">
                             <span className="flex-shrink-0">💡</span>{tip}
                           </li>

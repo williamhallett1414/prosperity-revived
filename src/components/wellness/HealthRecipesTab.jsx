@@ -5,17 +5,46 @@ import { base44 } from '@/api/base44Client';
 import { Loader2, CheckCircle2, Heart, ChevronRight, X } from 'lucide-react';
 import { toast } from 'sonner';
 import RecipeCard from './RecipeCard';
-import { HEALTH_CONDITIONS, SEED_RECIPES, RECIPE_CONDITION_MAP } from './HealthRecipeSeed';
+import { HEALTH_CONDITIONS, SEED_RECIPES } from './HealthRecipeSeed';
 
-// ── seed state key (persisted in localStorage so we only seed once) ──────────
-const SEED_KEY = 'health_recipes_seeded_v1';
+// ── seed state key — bump version to force re-seed with condition markers ──────
+const SEED_KEY = 'health_recipes_seeded_v3';
 
-// Returns health_conditions from the stored field OR falls back to the
-// local title-based map (handles backends that strip unknown entity fields).
-const getConditions = (recipe) => {
-  if (recipe.health_conditions?.length > 0) return recipe.health_conditions;
-  return RECIPE_CONDITION_MAP[recipe.title] || [];
+// Build title→conditions map from seed data at module load time
+const CONDITION_BY_TITLE = {};
+SEED_RECIPES.forEach(r => {
+  if (r.health_conditions?.length) CONDITION_BY_TITLE[r.title] = r.health_conditions;
+});
+
+const MARKER_PREFIX = '__hc:';
+
+// Encode conditions as a hidden cooking_tip marker so Base44 stores them
+const encodeConditions = (conditions) => `${MARKER_PREFIX}${conditions.join(',')}`;
+
+// Decode conditions from the hidden marker in cooking_tips
+const decodeConditions = (tips = []) => {
+  const marker = tips.find(t => t.startsWith(MARKER_PREFIX));
+  if (!marker) return null;
+  return marker.slice(MARKER_PREFIX.length).split(',').filter(Boolean);
 };
+
+// Priority: 1) hidden marker in cooking_tips  2) title map  3) health_conditions field
+const getConditions = (recipe) => {
+  const fromMarker = decodeConditions(recipe.cooking_tips);
+  if (fromMarker?.length) return fromMarker;
+  const fromTitle = CONDITION_BY_TITLE[recipe.title];
+  if (fromTitle?.length) return fromTitle;
+  return recipe.health_conditions || [];
+};
+
+// Prepare recipe for seeding: inject condition marker into cooking_tips
+const prepareForSeed = (recipe) => ({
+  ...recipe,
+  cooking_tips: [
+    encodeConditions(recipe.health_conditions || []),
+    ...(recipe.cooking_tips || []),
+  ],
+});
 
 function ConditionPill({ condition, selected, count, onClick }) {
   return (
@@ -60,7 +89,7 @@ export default function HealthRecipesTab({ recipes, user }) {
     try {
       let created = 0;
       for (const recipe of SEED_RECIPES) {
-        await base44.entities.Recipe.create(recipe);
+        await base44.entities.Recipe.create(prepareForSeed(recipe));
         created++;
       }
       localStorage.setItem(SEED_KEY, '1');
