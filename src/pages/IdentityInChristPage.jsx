@@ -217,7 +217,7 @@ const DECLARATIONS = [
   },
   {
     id: 'nothing-separate',
-    truth: 'Nothing can separate me from God's love',
+    truth: "Nothing can separate me from God's love",
     pillar: 'Protected',
     verse: 'Romans 8:38–39',
     fullVerse: 'For I am convinced that neither death nor life, neither angels nor demons... will be able to separate us from the love of God that is in Christ Jesus our Lord.',
