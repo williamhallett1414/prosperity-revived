@@ -272,12 +272,14 @@ export default function Groups() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const searchRef = useRef(null);
+  const seedRanRef = useRef(false);
 
   useEffect(() => { base44.auth.me().then(setUser).catch(() => {}); }, []);
 
   // ── Seed 32 starter groups ─────────────────────────────────────────────────
   const handleSeed = async () => {
-    if (seeding) return;
+    if (seeding || seedRanRef.current) return;
+    seedRanRef.current = true;
     setSeeding(true);
     try {
       let created = 0;
@@ -285,11 +287,11 @@ export default function Groups() {
         await base44.entities.StudyGroup.create(g);
         created++;
       }
-      localStorage.setItem(SEED_KEY, '1');
       setSeeded(true);
       queryClient.invalidateQueries(['groups']);
-      toast.success(`${created} groups added to the community!`);
+      toast.success(`${created} groups added!`);
     } catch (e) {
+      seedRanRef.current = false;
       console.error(e);
       toast.error('Some groups may not have saved — try again');
     }
@@ -300,6 +302,13 @@ export default function Groups() {
     queryKey: ['groups'],
     queryFn: () => base44.entities.StudyGroup.list('-created_date')
   });
+
+  // Auto-seed once when data loads and fewer than 10 groups exist
+  useEffect(() => {
+    if (!groupsLoading && groups.length < 10 && !seedRanRef.current) {
+      handleSeed();
+    }
+  }, [groupsLoading]);
 
   const { data: memberships = [] } = useQuery({
     queryKey: ['memberships'],
