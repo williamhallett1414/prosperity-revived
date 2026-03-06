@@ -143,7 +143,7 @@ const DECLARATIONS = [
   },
   {
     id: 'wisdom',
-    truth: 'I have access to God's wisdom',
+    truth: "I have access to God's wisdom",
     pillar: 'Equipped',
     verse: 'James 1:5',
     fullVerse: 'If any of you lacks wisdom, you should ask God, who gives generously to all without finding fault.',
