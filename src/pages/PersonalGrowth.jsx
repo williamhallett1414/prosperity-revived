@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
-import { BookOpen, Brain, Heart, Sparkles, Target, CheckCircle2, Crown, Calendar, Wind, Star, ArrowRight } from 'lucide-react';
+import { BookOpen, Brain, Heart, Sparkles, Target, CheckCircle2, Crown, Calendar, Wind, Star, ArrowRight, Flower2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import Hannah from '@/components/mindspirit/Hannah';
@@ -48,7 +48,8 @@ const GRID_CARDS = [
   { page: 'HabitBuilderPage',     icon: CheckCircle2, iconBg: 'from-[#3C4E53] to-[#AFC7E3]', label: 'Habit Builder',        sub: 'Track what you do daily',     delay: 0.20 },
   { page: 'IdentityInChristPage', icon: Crown,        iconBg: 'from-[#AFC7E3] to-[#3C4E53]', label: 'Identity in Christ',   sub: 'Remember who you really are', delay: 0.24 },
   { page: 'WeeklyReflectionPage', icon: Calendar,     iconBg: 'from-[#3C4E53] to-[#AFC7E3]', label: 'Weekly Reflection',    sub: 'Process the week that was',   delay: 0.28 },
-  { page: 'GratitudeJournalPage', icon: Star,         iconBg: 'from-[#AFC7E3] to-[#3C4E53]', label: 'Gratitude Journal',    sub: 'Name three gifts from today', delay: 0.32 },
+  { page: 'GratitudeJournalPage',     icon: Star,         iconBg: 'from-[#AFC7E3] to-[#3C4E53]', label: 'Gratitude Journal',    sub: 'Name three gifts from today', delay: 0.32 },
+  { page: 'SelfCareChallengesPage',   icon: Flower2,      iconBg: 'from-[#D9B878] to-[#c9a227]', label: 'Self-Care Challenges', sub: '8 challenges, your pace',    delay: 0.36 },
 ];
 
 export default function PersonalGrowth() {
