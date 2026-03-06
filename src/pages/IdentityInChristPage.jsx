@@ -24,7 +24,7 @@ const DECLARATIONS = [
     truth: 'I am chosen and dearly loved',
     pillar: 'Beloved',
     verse: 'Colossians 3:12',
-    fullVerse: 'Therefore, as God's chosen people, holy and dearly loved, clothe yourselves with compassion, kindness, humility, gentleness and patience.',
+    fullVerse: "Therefore, as God's chosen people, holy and dearly loved, clothe yourselves with compassion, kindness, humility, gentleness and patience.",
     explanation: "God didn't choose you reluctantly or as a last resort. He handpicked you with deliberate intention before the world was made. You are not chosen despite your flaws — you are chosen, full stop.",
   },
   {

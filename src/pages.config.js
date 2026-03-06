@@ -58,6 +58,7 @@ import CoachingPlanDetail from './pages/CoachingPlanDetail';
 import CoachingPlanPage from './pages/CoachingPlanPage';
 import CoachingPlans from './pages/CoachingPlans';
 import Community from './pages/Community';
+import DiscoverRecipes from './pages/DiscoverRecipes';
 import EmotionalCheckInPage from './pages/EmotionalCheckInPage';
 import FoodLogHistory from './pages/FoodLogHistory';
 import Friends from './pages/Friends';
@@ -65,12 +66,7 @@ import GratitudeJournalPage from './pages/GratitudeJournalPage';
 import GroupDetail from './pages/GroupDetail';
 import GroupPlanDetail from './pages/GroupPlanDetail';
 import Groups from './pages/Groups';
-import GrowthPathwaysPage from './pages/GrowthPathwaysPage';
-import GuidedMeditationsPage from './pages/GuidedMeditationsPage';
-import HabitBuilderPage from './pages/HabitBuilderPage';
 import HealthWellnessWaiver from './pages/HealthWellnessWaiver';
-import Home from './pages/Home';
-import IdentityInChristPage from './pages/IdentityInChristPage';
 import MealDetailView from './pages/MealDetailView';
 import Messages from './pages/Messages';
 import MindsetResetPage from './pages/MindsetResetPage';
@@ -102,8 +98,12 @@ import WorkoutCategoryPage from './pages/WorkoutCategoryPage';
 import WorkoutPlanner from './pages/WorkoutPlanner';
 import WorkoutProgress from './pages/WorkoutProgress';
 import WorkoutTrends from './pages/WorkoutTrends';
-import DiscoverRecipes from './pages/DiscoverRecipes';
 import Workouts from './pages/Workouts';
+import Home from './pages/Home';
+import GrowthPathwaysPage from './pages/GrowthPathwaysPage';
+import GuidedMeditationsPage from './pages/GuidedMeditationsPage';
+import HabitBuilderPage from './pages/HabitBuilderPage';
+import IdentityInChristPage from './pages/IdentityInChristPage';
 import __Layout from './Layout.jsx';
 
 
@@ -119,6 +119,7 @@ export const PAGES = {
     "CoachingPlanPage": CoachingPlanPage,
     "CoachingPlans": CoachingPlans,
     "Community": Community,
+    "DiscoverRecipes": DiscoverRecipes,
     "EmotionalCheckInPage": EmotionalCheckInPage,
     "FoodLogHistory": FoodLogHistory,
     "Friends": Friends,
@@ -126,12 +127,7 @@ export const PAGES = {
     "GroupDetail": GroupDetail,
     "GroupPlanDetail": GroupPlanDetail,
     "Groups": Groups,
-    "GrowthPathwaysPage": GrowthPathwaysPage,
-    "GuidedMeditationsPage": GuidedMeditationsPage,
-    "HabitBuilderPage": HabitBuilderPage,
     "HealthWellnessWaiver": HealthWellnessWaiver,
-    "Home": Home,
-    "IdentityInChristPage": IdentityInChristPage,
     "MealDetailView": MealDetailView,
     "Messages": Messages,
     "MindsetResetPage": MindsetResetPage,
@@ -163,8 +159,12 @@ export const PAGES = {
     "WorkoutPlanner": WorkoutPlanner,
     "WorkoutProgress": WorkoutProgress,
     "WorkoutTrends": WorkoutTrends,
-    "DiscoverRecipes": DiscoverRecipes,
     "Workouts": Workouts,
+    "Home": Home,
+    "GrowthPathwaysPage": GrowthPathwaysPage,
+    "GuidedMeditationsPage": GuidedMeditationsPage,
+    "HabitBuilderPage": HabitBuilderPage,
+    "IdentityInChristPage": IdentityInChristPage,
 }
 
 export const pagesConfig = {
