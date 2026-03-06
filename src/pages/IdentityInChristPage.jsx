@@ -195,7 +195,7 @@ const DECLARATIONS = [
     truth: 'I am an ambassador for Christ',
     pillar: 'Called',
     verse: '2 Corinthians 5:20',
-    fullVerse: 'We are therefore Christ's ambassadors, as though God were making his appeal through us.',
+    fullVerse: `We are therefore Christ's ambassadors, as though God were making his appeal through us.`,
     explanation: "An ambassador carries the full weight of the nation they represent. When you speak, when you love, when you serve — God is making an appeal through you. You represent the Kingdom in every room you enter.",
   },
   // ── PROTECTED ────────────────────────────────────────────────────────────
