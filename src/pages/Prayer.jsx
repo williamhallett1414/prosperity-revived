@@ -4,15 +4,10 @@ import { base44 } from '@/api/base44Client';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Heart, Send, X, ChevronRight, Loader2, MessageCircle,
-  Plus, Shield, ArrowLeft, Trash2, CheckCircle2, RefreshCw
+  Plus, Shield, ArrowLeft, Trash2, CheckCircle2, RefreshCw,
+  Lock, Flame, Sparkles
 } from 'lucide-react';
-import { Textarea } from '@/components/ui/textarea';
-import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
-import DailyGuidedPrayer from '@/components/prayer/DailyGuidedPrayer';
-import CalmingScriptureMeditation from '@/components/prayer/CalmingScriptureMeditation';
-import DailyPrayer from '@/components/selfcare/DailyPrayer';
-import TakeTimeWithGod from '@/components/selfcare/TakeTimeWithGod';
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 const SPOTLIGHT_DURATION = 30;
@@ -39,14 +34,33 @@ function initials(name) {
   return (name || 'A').split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
 }
 
-// Fix #5 — require auth before interactive actions
 function requireAuth(user, action) {
-  if (!user) {
-    toast.error('Please sign in to ' + action);
-    return false;
-  }
+  if (!user) { toast.error('Please sign in to ' + action); return false; }
   return true;
 }
+
+// ─── Streak helpers ───────────────────────────────────────────────────────────
+const STREAK_KEY = 'prayer_streak_v1';
+const MY_PRAYERS_KEY = 'my_prayers_v1';
+
+function loadStreak() {
+  try { return JSON.parse(localStorage.getItem(STREAK_KEY) || '{"lastDate":null,"streak":0}'); }
+  catch { return { lastDate: null, streak: 0 }; }
+}
+function markPrayedToday() {
+  const today = new Date().toISOString().slice(0, 10);
+  const s = loadStreak();
+  if (s.lastDate === today) return s;
+  const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+  const streak = s.lastDate === yesterday ? s.streak + 1 : 1;
+  const updated = { lastDate: today, streak };
+  localStorage.setItem(STREAK_KEY, JSON.stringify(updated));
+  return updated;
+}
+function loadMyPrayers() {
+  try { return JSON.parse(localStorage.getItem(MY_PRAYERS_KEY) || '[]'); } catch { return []; }
+}
+function saveMyPrayers(p) { localStorage.setItem(MY_PRAYERS_KEY, JSON.stringify(p)); }
 
 // ─── Countdown Ring ───────────────────────────────────────────────────────────
 function CountdownRing({ seconds, total }) {
@@ -57,8 +71,7 @@ function CountdownRing({ seconds, total }) {
       <circle cx="22" cy="22" r={r} fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="2.5" />
       <circle cx="22" cy="22" r={r} fill="none" stroke="#c9a227" strokeWidth="2.5"
         strokeDasharray={circ} strokeDashoffset={circ - progress} strokeLinecap="round"
-        style={{ transition: 'stroke-dashoffset 1s linear' }}
-      />
+        style={{ transition: 'stroke-dashoffset 1s linear' }} />
     </svg>
   );
 }
@@ -69,10 +82,8 @@ function SpotlightCard({ request, countdown, total, onPray, onNext, onClick, has
   return (
     <div className="relative rounded-3xl overflow-hidden cursor-pointer"
       style={{ background: 'linear-gradient(135deg, #0f2027 0%, #1a3a4a 50%, #203a43 100%)', boxShadow: '0 20px 60px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08)' }}
-      onClick={onClick}
-    >
+      onClick={onClick}>
       <div className="absolute inset-0 opacity-30" style={{ background: 'radial-gradient(ellipse at 30% 50%, rgba(201,162,39,0.3) 0%, transparent 70%)' }} />
-      {/* Answered badge */}
       {request?.is_answered && (
         <div className="absolute top-3 right-3 flex items-center gap-1 bg-emerald-500/25 border border-emerald-400/40 rounded-full px-2 py-0.5 z-10">
           <CheckCircle2 className="w-3 h-3 text-emerald-400" />
@@ -106,12 +117,9 @@ function SpotlightCard({ request, countdown, total, onPray, onNext, onClick, has
             </span>
           </div>
           <div className="flex items-center gap-2">
-            {/* Fix #12 — show "Prayed" state if already prayed */}
             <button onClick={e => { e.stopPropagation(); onPray(); }}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full border transition-all text-xs font-bold ${
-                hasPrayed
-                  ? 'bg-[#c9a227]/40 border-[#c9a227] text-[#c9a227]'
-                  : 'bg-[#c9a227]/20 border-[#c9a227]/40 hover:bg-[#c9a227]/30 text-[#c9a227]'
+                hasPrayed ? 'bg-[#c9a227]/40 border-[#c9a227] text-[#c9a227]' : 'bg-[#c9a227]/20 border-[#c9a227]/40 hover:bg-[#c9a227]/30 text-[#c9a227]'
               }`}>
               <Heart className={`w-3.5 h-3.5 ${hasPrayed ? 'fill-[#c9a227]' : ''}`} />
               {hasPrayed ? 'Prayed ✓' : 'I Prayed'}
@@ -134,8 +142,7 @@ function PrayerRow({ request, index, onOpen, user }) {
   return (
     <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: Math.min(index * 0.04, 0.4) }}
       onClick={() => onOpen(request)} className="group cursor-pointer"
-      style={{ background: request.is_answered ? 'linear-gradient(135deg, rgba(52,211,153,0.08), rgba(52,211,153,0.03))' : 'linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%)', border: request.is_answered ? '1px solid rgba(52,211,153,0.2)' : '1px solid rgba(255,255,255,0.08)', borderRadius: '20px', padding: '16px', backdropFilter: 'blur(10px)' }}
-    >
+      style={{ background: request.is_answered ? 'linear-gradient(135deg, rgba(52,211,153,0.08), rgba(52,211,153,0.03))' : 'linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%)', border: request.is_answered ? '1px solid rgba(52,211,153,0.2)' : '1px solid rgba(255,255,255,0.08)', borderRadius: '20px', padding: '16px', backdropFilter: 'blur(10px)' }}>
       <div className="flex items-start gap-3">
         <div className="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm text-white"
           style={{ background: request.is_answered ? 'linear-gradient(135deg, #065f46, #059669)' : 'linear-gradient(135deg, #1a3a4a, #2d5a70)' }}>
@@ -145,7 +152,6 @@ function PrayerRow({ request, index, onOpen, user }) {
           <div className="flex items-center justify-between mb-1">
             <div className="flex items-center gap-1.5">
               <span className="font-semibold text-white text-sm">{request.user_name}</span>
-              {/* Fix #10 — answered badge on row */}
               {request.is_answered && (
                 <span className="flex items-center gap-0.5 text-[9px] font-bold text-emerald-400 bg-emerald-500/15 border border-emerald-500/25 rounded-full px-1.5 py-0.5 uppercase tracking-wide">
                   <CheckCircle2 className="w-2.5 h-2.5" /> Answered
@@ -172,20 +178,17 @@ function PrayerRow({ request, index, onOpen, user }) {
   );
 }
 
-// ─── Prayer Detail Drawer ─────────────────────────────────────────────────────
-function PrayerDrawer({ request, user, onClose, onPray, onComment, onDelete, onMarkAnswered, refetchInterval }) {
+// ─── Prayer Drawer ────────────────────────────────────────────────────────────
+function PrayerDrawer({ request, user, onClose, onPray, onComment, onDelete, onMarkAnswered }) {
   const [commentText, setCommentText] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
   const catColor = CATEGORY_COLORS[request?.category] || CATEGORY_COLORS.Other;
   const comments = request?.comments || [];
-
-  // Fix #12 — use prayed_by array for per-user guard
   const hasPrayed = (request?.prayed_by || []).includes(user?.email);
   const isOwner = user?.email && (
     request?.created_by === user.email ||
     request?.user_email === user.email ||
-    // fallback: name match if not anonymous
     (!request?.is_anonymous && request?.user_name === user?.full_name)
   );
 
@@ -201,15 +204,12 @@ function PrayerDrawer({ request, user, onClose, onPray, onComment, onDelete, onM
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
       className="fixed inset-0 z-50 flex flex-col"
-      style={{ background: 'rgba(5,15,25,0.97)', backdropFilter: 'blur(20px)' }}
-    >
-      {/* Header */}
+      style={{ background: 'rgba(5,15,25,0.97)', backdropFilter: 'blur(20px)' }}>
       <div className="flex-shrink-0 flex items-center justify-between px-5 pt-5 pb-3">
         <button onClick={onClose} className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center">
           <ArrowLeft className="w-4 h-4 text-white" />
         </button>
         <div className="w-10 h-1 rounded-full bg-white/20" />
-        {/* Fix #8 — delete button for own requests */}
         {isOwner ? (
           <button onClick={() => setConfirmDelete(true)} className="w-9 h-9 rounded-full bg-red-500/15 border border-red-500/25 flex items-center justify-center">
             <Trash2 className="w-4 h-4 text-red-400" />
@@ -218,7 +218,6 @@ function PrayerDrawer({ request, user, onClose, onPray, onComment, onDelete, onM
       </div>
 
       <div className="flex-1 overflow-y-auto px-5 pb-4">
-        {/* Author */}
         <div className="flex items-center gap-3 mb-5">
           <div className="w-12 h-12 rounded-full flex items-center justify-center font-bold text-white"
             style={{ background: request?.is_answered ? 'linear-gradient(135deg, #065f46, #059669)' : 'linear-gradient(135deg, #1a3a4a, #2d5a70)' }}>
@@ -240,28 +239,20 @@ function PrayerDrawer({ request, user, onClose, onPray, onComment, onDelete, onM
           </div>
         </div>
 
-        {/* Prayer text */}
         <div className="rounded-2xl p-5 mb-5" style={{ background: 'linear-gradient(135deg, rgba(201,162,39,0.08), rgba(201,162,39,0.03))', border: '1px solid rgba(201,162,39,0.2)' }}>
           <p className="text-white leading-relaxed text-[15px]" style={{ fontFamily: 'Georgia, serif' }}>{request?.prayer_text}</p>
         </div>
 
-        {/* Actions */}
         <div className="flex gap-3 mb-3">
-          {/* Fix #12 — disable pray button if already prayed */}
           <button onClick={() => { if (requireAuth(user, 'record a prayer')) onPray(); }}
             disabled={hasPrayed}
-            className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-2xl font-bold text-sm transition-all ${
-              hasPrayed
-                ? 'opacity-60 cursor-default'
-                : 'hover:opacity-90'
-            }`}
+            className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-2xl font-bold text-sm transition-all ${hasPrayed ? 'opacity-60 cursor-default' : 'hover:opacity-90'}`}
             style={{ background: 'linear-gradient(135deg, #c9a227, #92701a)', color: 'white' }}>
             <span>🙏</span>
             {hasPrayed ? `Prayed (${request?.prayer_count || 0}) ✓` : `I Prayed (${request?.prayer_count || 0})`}
           </button>
         </div>
 
-        {/* Fix #10 — mark as answered (owner only, not yet answered) */}
         {isOwner && !request?.is_answered && (
           <button onClick={onMarkAnswered}
             className="w-full flex items-center justify-center gap-2 py-2.5 rounded-2xl font-bold text-sm mb-5 transition-all bg-emerald-500/12 border border-emerald-500/25 text-emerald-400 hover:bg-emerald-500/20">
@@ -269,7 +260,6 @@ function PrayerDrawer({ request, user, onClose, onPray, onComment, onDelete, onM
           </button>
         )}
 
-        {/* Comments section */}
         <div>
           <p className="text-[11px] font-bold text-white/40 uppercase tracking-widest mb-4">
             {comments.length} {comments.length === 1 ? 'Comment' : 'Comments'}
@@ -294,7 +284,6 @@ function PrayerDrawer({ request, user, onClose, onPray, onComment, onDelete, onM
         </div>
       </div>
 
-      {/* Fix #5 — show sign-in prompt if not authenticated */}
       {!user ? (
         <div className="flex-shrink-0 px-5 py-4 border-t border-white/8 text-center"
           style={{ background: 'rgba(10,20,30,0.98)' }}>
@@ -304,12 +293,11 @@ function PrayerDrawer({ request, user, onClose, onPray, onComment, onDelete, onM
         <div className="flex-shrink-0 px-5 py-4 border-t border-white/8"
           style={{ background: 'rgba(10,20,30,0.98)', backdropFilter: 'blur(20px)' }}>
           <div className="flex gap-2">
-            <Input value={commentText} onChange={e => setCommentText(e.target.value)}
+            <input value={commentText} onChange={e => setCommentText(e.target.value)}
               onKeyDown={e => e.key === 'Enter' && !e.shiftKey && handleComment()}
               placeholder="Share a word of encouragement…"
-              className="flex-1 border-white/12 text-white placeholder:text-white/30 rounded-xl text-sm"
-              style={{ background: 'rgba(255,255,255,0.07)' }}
-            />
+              className="flex-1 rounded-xl px-4 py-2.5 text-sm text-white placeholder-white/30 outline-none border border-white/12"
+              style={{ background: 'rgba(255,255,255,0.07)' }} />
             <button onClick={handleComment} disabled={!commentText.trim() || submitting}
               className="w-10 h-10 rounded-xl flex items-center justify-center disabled:opacity-40 transition-all flex-shrink-0"
               style={{ background: 'linear-gradient(135deg, #c9a227, #92701a)' }}>
@@ -319,7 +307,6 @@ function PrayerDrawer({ request, user, onClose, onPray, onComment, onDelete, onM
         </div>
       )}
 
-      {/* Fix #8 — delete confirm overlay */}
       <AnimatePresence>
         {confirmDelete && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
@@ -342,13 +329,12 @@ function PrayerDrawer({ request, user, onClose, onPray, onComment, onDelete, onM
   );
 }
 
-// ─── New Prayer Modal (with review step) ─────────────────────────────────────
+// ─── New Prayer Modal ─────────────────────────────────────────────────────────
 function NewPrayerModal({ user, onClose, onSubmit }) {
   const [text, setText] = useState('');
   const [category, setCategory] = useState('Other');
   const [anonymous, setAnonymous] = useState(false);
   const [submitting, setSubmitting] = useState(false);
-  // Fix #13 — review step
   const [reviewing, setReviewing] = useState(false);
 
   const handleSubmit = async () => {
@@ -363,17 +349,14 @@ function NewPrayerModal({ user, onClose, onSubmit }) {
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
       className="fixed inset-0 z-50 flex flex-col justify-end"
       style={{ background: 'rgba(5,15,25,0.85)', backdropFilter: 'blur(16px)' }}
-      onClick={e => e.target === e.currentTarget && onClose()}
-    >
+      onClick={e => e.target === e.currentTarget && onClose()}>
       <motion.div initial={{ y: '100%' }} animate={{ y: 0 }} exit={{ y: '100%' }}
         transition={{ type: 'spring', damping: 28, stiffness: 320 }}
         className="rounded-t-3xl px-5 pt-5 pb-8"
-        style={{ background: 'linear-gradient(180deg, #0f2027 0%, #0a1520 100%)', border: '1px solid rgba(255,255,255,0.08)', borderBottom: 'none' }}
-      >
+        style={{ background: 'linear-gradient(180deg, #0f2027 0%, #0a1520 100%)', border: '1px solid rgba(255,255,255,0.08)', borderBottom: 'none' }}>
         <div className="w-10 h-1 rounded-full bg-white/20 mx-auto mb-5" />
 
         {!reviewing ? (
-          // ── Compose step ──
           <>
             <div className="flex items-center justify-between mb-5">
               <h2 className="text-lg font-bold text-white" style={{ fontFamily: 'Georgia, serif' }}>Share Prayer Request</h2>
@@ -389,11 +372,10 @@ function NewPrayerModal({ user, onClose, onSubmit }) {
                 </button>
               ))}
             </div>
-            <Textarea value={text} onChange={e => setText(e.target.value)}
+            <textarea value={text} onChange={e => setText(e.target.value)}
               placeholder="Share what's on your heart…"
-              className="border-white/12 text-white placeholder:text-white/30 rounded-2xl min-h-[120px] mb-4 resize-none text-sm"
-              style={{ background: 'rgba(255,255,255,0.06)', fontFamily: 'Georgia, serif', lineHeight: '1.7' }}
-            />
+              className="w-full rounded-2xl px-4 py-3 min-h-[120px] mb-4 resize-none text-sm text-white placeholder-white/30 outline-none"
+              style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.12)', fontFamily: 'Georgia, serif', lineHeight: '1.7' }} />
             <button onClick={() => setAnonymous(p => !p)}
               className={`flex items-center gap-2 text-sm mb-5 transition-colors ${anonymous ? 'text-[#c9a227]' : 'text-white/40'}`}>
               <div className={`w-4 h-4 rounded flex items-center justify-center border transition-all ${anonymous ? 'bg-[#c9a227] border-[#c9a227]' : 'border-white/25'}`}>
@@ -402,13 +384,12 @@ function NewPrayerModal({ user, onClose, onSubmit }) {
               Post anonymously
             </button>
             <button onClick={() => text.trim() && setReviewing(true)} disabled={!text.trim()}
-              className="w-full py-4 rounded-2xl font-bold text-white text-sm disabled:opacity-40 transition-all flex items-center justify-center gap-2"
+              className="w-full py-4 rounded-2xl font-bold text-white text-sm disabled:opacity-40 transition-all"
               style={{ background: 'linear-gradient(135deg, #c9a227, #92701a)' }}>
               Review Before Posting →
             </button>
           </>
         ) : (
-          // ── Review step (Fix #13) ──
           <>
             <div className="flex items-center justify-between mb-5">
               <button onClick={() => setReviewing(false)} className="flex items-center gap-1.5 text-white/60 text-sm font-semibold">
@@ -442,37 +423,223 @@ function NewPrayerModal({ user, onClose, onSubmit }) {
   );
 }
 
-// ─── Devotional wrapper — Fix #6 dark theme ──────────────────────────────────
-function DevotionalSection() {
+// ─── ACTS Guided Prayer ───────────────────────────────────────────────────────
+const ACTS_STEPS = [
+  { key: 'adoration',    label: 'Adoration',    emoji: '✨', color: '#c9a227',
+    prompt: 'Praise God for who He is — His holiness, goodness, faithfulness. Not what He has done, but His character.',
+    placeholder: 'Lord, I praise You because You are…' },
+  { key: 'confession',   label: 'Confession',   emoji: '🕊️', color: '#60a5fa',
+    prompt: 'Honestly name anything between you and God. He already knows. This is about clearing the channel.',
+    placeholder: 'Father, I confess…' },
+  { key: 'thanksgiving', label: 'Thanksgiving', emoji: '🙏', color: '#34d399',
+    prompt: 'Thank God specifically — for what He has done, what He prevented, who He placed in your life.',
+    placeholder: 'Thank You, Lord, for…' },
+  { key: 'supplication', label: 'Supplication', emoji: '💫', color: '#a78bfa',
+    prompt: 'Bring your requests — for yourself, for others, for the world. Be specific. He invites it.',
+    placeholder: 'Lord, I ask You for…' },
+];
+
+function ActsGuidedPrayer({ onComplete }) {
+  const [step, setStep] = useState(0);
+  const [answers, setAnswers] = useState({ adoration: '', confession: '', thanksgiving: '', supplication: '' });
+  const [done, setDone] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const current = ACTS_STEPS[step];
+
+  const finish = async () => {
+    setSaving(true);
+    const content = ACTS_STEPS.map(s => `${s.label.toUpperCase()}:\n${answers[s.key]}`).join('\n\n');
+    try {
+      await base44.entities.JournalEntry.create({ entry_type: 'prayer', content });
+      onComplete();
+    } catch {}
+    setSaving(false);
+    setDone(true);
+  };
+
+  if (done) return (
+    <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}
+      className="rounded-3xl p-6 text-center" style={{ background: 'rgba(201,162,39,0.08)', border: '1px solid rgba(201,162,39,0.2)' }}>
+      <div className="text-4xl mb-3">🙏</div>
+      <p className="font-bold text-white text-lg mb-1" style={{ fontFamily: 'Georgia, serif' }}>Prayer complete</p>
+      <p className="text-white/45 text-sm mb-4">He heard every word.</p>
+      <button onClick={() => { setStep(0); setAnswers({ adoration: '', confession: '', thanksgiving: '', supplication: '' }); setDone(false); }}
+        className="text-xs font-bold text-white/40 hover:text-white/70 transition-colors">Pray again →</button>
+    </motion.div>
+  );
+
   return (
     <div className="rounded-3xl overflow-hidden" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)' }}>
-      <div className="px-4 pt-4 pb-1">
-        <p className="text-[10px] font-bold text-white/30 uppercase tracking-widest mb-3">Daily Practice</p>
+      <div className="px-5 pt-5 pb-0">
+        <div className="flex items-center justify-between mb-4">
+          <div>
+            <p className="text-[10px] font-bold text-white/30 uppercase tracking-widest">Guided Prayer</p>
+            <p className="text-white font-bold mt-0.5" style={{ fontFamily: 'Georgia, serif' }}>ACTS Model</p>
+          </div>
+          <div className="flex gap-2">
+            {ACTS_STEPS.map((s, i) => (
+              <div key={s.key} className="flex flex-col items-center gap-1">
+                <div className="w-7 h-1 rounded-full transition-all duration-300" style={{ background: i <= step ? s.color : 'rgba(255,255,255,0.1)' }} />
+                <span className="text-[8px] text-white/25 font-bold uppercase">{s.label.slice(0, 1)}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <AnimatePresence mode="wait">
+          <motion.div key={step} initial={{ opacity: 0, x: 14 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -14 }}
+            transition={{ duration: 0.18 }}>
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-xl">{current.emoji}</span>
+              <span className="text-sm font-bold" style={{ color: current.color }}>{current.label}</span>
+            </div>
+            <p className="text-white/45 text-xs leading-relaxed mb-3">{current.prompt}</p>
+            <textarea
+              value={answers[current.key]}
+              onChange={e => setAnswers(a => ({ ...a, [current.key]: e.target.value }))}
+              placeholder={current.placeholder}
+              rows={4} autoFocus
+              className="w-full rounded-2xl px-4 py-3 text-sm leading-relaxed resize-none outline-none text-white placeholder-white/20"
+              style={{ background: 'rgba(255,255,255,0.06)', border: `1px solid ${current.color}30`, caretColor: current.color }}
+            />
+          </motion.div>
+        </AnimatePresence>
       </div>
-      <div className="px-3 pb-3 space-y-3 [&_*]:!text-inherit [&_.bg-white]:!bg-white/8 [&_[class*='bg-white']]:!bg-white/8">
-        <DailyGuidedPrayer />
-        <CalmingScriptureMeditation />
-        <DailyPrayer />
-        <TakeTimeWithGod />
+
+      <div className="flex items-center gap-2 px-5 py-4">
+        {step > 0 && (
+          <button onClick={() => setStep(s => s - 1)}
+            className="px-4 py-2.5 rounded-2xl text-xs font-bold text-white/40 border border-white/10 hover:border-white/25 transition-colors">
+            ← Back
+          </button>
+        )}
+        {step < 3 ? (
+          <button onClick={() => answers[current.key].trim() && setStep(s => s + 1)}
+            disabled={!answers[current.key].trim()}
+            className="flex-1 py-2.5 rounded-2xl text-xs font-bold text-white transition-all disabled:opacity-30"
+            style={{ background: answers[current.key].trim() ? `linear-gradient(135deg, ${current.color}, ${current.color}99)` : 'rgba(255,255,255,0.08)' }}>
+            Next: {ACTS_STEPS[step + 1].label} →
+          </button>
+        ) : (
+          <button onClick={finish} disabled={!answers.supplication.trim() || saving}
+            className="flex-1 py-2.5 rounded-2xl text-xs font-bold text-white transition-all disabled:opacity-30"
+            style={{ background: 'linear-gradient(135deg, #c9a227, #92701a)' }}>
+            {saving ? 'Saving…' : '🙏 Complete Prayer'}
+          </button>
+        )}
       </div>
     </div>
   );
 }
 
-// ─── Main Page ────────────────────────────────────────────────────────────────
+// ─── My Prayers (private) ─────────────────────────────────────────────────────
+function MyPrayers() {
+  const [prayers, setPrayers] = useState(loadMyPrayers);
+  const [text, setText] = useState('');
+  const [adding, setAdding] = useState(false);
+
+  const add = () => {
+    if (!text.trim()) return;
+    const p = { id: Date.now(), text: text.trim(), ts: Date.now(), answered: false };
+    const updated = [p, ...prayers];
+    setPrayers(updated);
+    saveMyPrayers(updated);
+    setText('');
+    setAdding(false);
+  };
+
+  const toggleAnswered = (id) => {
+    const updated = prayers.map(p => p.id === id ? { ...p, answered: !p.answered } : p);
+    setPrayers(updated);
+    saveMyPrayers(updated);
+  };
+
+  const remove = (id) => {
+    const updated = prayers.filter(p => p.id !== id);
+    setPrayers(updated);
+    saveMyPrayers(updated);
+  };
+
+  return (
+    <div className="rounded-3xl overflow-hidden" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)' }}>
+      <div className="flex items-center justify-between px-5 pt-5 pb-3">
+        <div className="flex items-center gap-2.5">
+          <Lock className="w-3.5 h-3.5 text-white/30" />
+          <div>
+            <p className="text-[10px] font-bold text-white/30 uppercase tracking-widest">My Prayers</p>
+            <p className="text-white font-bold mt-0.5 text-sm" style={{ fontFamily: 'Georgia, serif' }}>Private — just you and God</p>
+          </div>
+        </div>
+        <button onClick={() => setAdding(a => !a)}
+          className="w-8 h-8 rounded-full flex items-center justify-center transition-all"
+          style={{ background: adding ? 'rgba(201,162,39,0.3)' : 'rgba(255,255,255,0.08)' }}>
+          <Plus className="w-4 h-4 text-white" />
+        </button>
+      </div>
+
+      <AnimatePresence>
+        {adding && (
+          <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }}
+            className="overflow-hidden px-5 pb-3">
+            <textarea value={text} onChange={e => setText(e.target.value)}
+              placeholder="Bring your request to God…"
+              rows={3} autoFocus
+              className="w-full rounded-2xl px-4 py-3 text-sm resize-none outline-none text-white placeholder-white/20 mb-2"
+              style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(201,162,39,0.2)' }}
+              onKeyDown={e => { if (e.key === 'Enter' && e.metaKey) add(); }} />
+            <div className="flex gap-2">
+              <button onClick={() => setAdding(false)} className="flex-1 py-2 rounded-xl text-xs font-bold text-white/40 border border-white/10">Cancel</button>
+              <button onClick={add} disabled={!text.trim()}
+                className="flex-1 py-2 rounded-xl text-xs font-bold text-white disabled:opacity-30"
+                style={{ background: 'linear-gradient(135deg, #c9a227, #92701a)' }}>Add Prayer</button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <div className="px-5 pb-5 space-y-2">
+        {prayers.length === 0 && !adding && (
+          <div className="text-center py-5">
+            <p className="text-white/25 text-xs">Your private prayers live here — only you can see them</p>
+            <button onClick={() => setAdding(true)} className="mt-3 text-xs font-bold text-[#c9a227]/60 hover:text-[#c9a227] transition-colors">
+              + Add your first prayer
+            </button>
+          </div>
+        )}
+        {prayers.map(p => (
+          <div key={p.id} className="rounded-2xl p-3.5 flex items-start gap-3 group"
+            style={{ background: p.answered ? 'rgba(52,211,153,0.08)' : 'rgba(255,255,255,0.04)', border: p.answered ? '1px solid rgba(52,211,153,0.2)' : '1px solid rgba(255,255,255,0.06)' }}>
+            <button onClick={() => toggleAnswered(p.id)} className="mt-0.5 flex-shrink-0">
+              {p.answered
+                ? <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                : <div className="w-4 h-4 rounded-full border border-white/20 hover:border-white/40 transition-colors" />}
+            </button>
+            <p className={`text-sm flex-1 leading-relaxed ${p.answered ? 'text-white/35 line-through' : 'text-white/75'}`}
+              style={{ fontFamily: 'Georgia, serif' }}>{p.text}</p>
+            <button onClick={() => remove(p.id)} className="flex-shrink-0 text-white/0 group-hover:text-white/25 hover:!text-red-400 transition-all">
+              <X className="w-3.5 h-3.5" />
+            </button>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ─── Main ─────────────────────────────────────────────────────────────────────
 export default function Prayer() {
-  const [user, setUser] = useState(null);
-  const [spotlightIdx, setSpotlightIdx] = useState(0);
-  const [countdown, setCountdown] = useState(SPOTLIGHT_DURATION);
+  const [user, setUser]                   = useState(null);
+  const [spotlightIdx, setSpotlightIdx]   = useState(0);
+  const [countdown, setCountdown]         = useState(SPOTLIGHT_DURATION);
   const [selectedRequest, setSelectedRequest] = useState(null);
   const [showNewPrayer, setShowNewPrayer] = useState(false);
   const [activeCategory, setActiveCategory] = useState('All');
-  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [isRefreshing, setIsRefreshing]   = useState(false);
+  const [streak, setStreak]               = useState(loadStreak);
   const queryClient = useQueryClient();
 
   useEffect(() => { base44.auth.me().then(setUser); }, []);
 
-  // Fix #4 — faster refetch when drawer is open (10s), otherwise 30s
   const refetchInterval = selectedRequest ? 10_000 : 30_000;
 
   const { data: prayerRequests = [] } = useQuery({
@@ -484,14 +651,10 @@ export default function Prayer() {
   const filtered = activeCategory === 'All' ? prayerRequests : prayerRequests.filter(r => r.category === activeCategory);
   const spotlightRequests = prayerRequests.slice(0, 10);
 
-  // Fix #2 — clamp spotlightIdx when list shrinks
   useEffect(() => {
-    if (spotlightRequests.length > 0 && spotlightIdx >= spotlightRequests.length) {
-      setSpotlightIdx(0);
-    }
+    if (spotlightRequests.length > 0 && spotlightIdx >= spotlightRequests.length) setSpotlightIdx(0);
   }, [spotlightRequests.length, spotlightIdx]);
 
-  // Countdown timer
   useEffect(() => {
     if (spotlightRequests.length === 0) return;
     const tick = setInterval(() => {
@@ -509,20 +672,17 @@ export default function Prayer() {
   const currentSpotlight = spotlightRequests[spotlightIdx] || null;
   const totalPraying = prayerRequests.reduce((sum, r) => sum + (r.prayer_count || 0), 0);
 
-  // Fix #11 — manual refresh
   const handleRefresh = async () => {
     setIsRefreshing(true);
     await queryClient.invalidateQueries(['prayerRequests']);
     setTimeout(() => setIsRefreshing(false), 800);
   };
 
-  // Fix #12 — use prayed_by array; prevent spam
   const recordPrayer = useMutation({
     mutationFn: async (request) => {
-      // Re-fetch fresh copy to avoid race on prayed_by array
       const fresh = await base44.entities.PrayerRequest.get(request.id);
       const prayedBy = fresh?.prayed_by || [];
-      if (prayedBy.includes(user?.email)) return; // already prayed
+      if (prayedBy.includes(user?.email)) return;
       return base44.entities.PrayerRequest.update(request.id, {
         prayed_by: [...prayedBy, user?.email],
         prayer_count: (fresh?.prayer_count || 0) + 1,
@@ -531,13 +691,10 @@ export default function Prayer() {
     onSuccess: () => queryClient.invalidateQueries(['prayerRequests']),
   });
 
-  // Fix #1 — re-fetch fresh comments before writing to avoid race condition
   const addComment = useMutation({
     mutationFn: async ({ requestId, commentText }) => {
       if (!user?.email) throw new Error('Not authenticated');
-      // Fetch the freshest version of this request first
       const fresh = await base44.entities.PrayerRequest.get(requestId);
-      const existingComments = fresh?.comments || [];
       const newComment = {
         comment_id: `${Date.now()}_${Math.random().toString(36).slice(2)}`,
         user_email: user.email,
@@ -545,31 +702,24 @@ export default function Prayer() {
         comment_text: commentText,
         timestamp: new Date().toISOString(),
       };
-      return base44.entities.PrayerRequest.update(requestId, {
-        comments: [...existingComments, newComment],
-      });
+      return base44.entities.PrayerRequest.update(requestId, { comments: [...(fresh?.comments || []), newComment] });
     },
     onSuccess: () => { queryClient.invalidateQueries(['prayerRequests']); toast.success('Encouragement sent 🙏'); },
     onError: () => toast.error('Failed to send — please try again'),
   });
 
   const deleteRequest = useMutation({
-    mutationFn: async (requestId) => base44.entities.PrayerRequest.delete(requestId),
-    onSuccess: () => {
-      queryClient.invalidateQueries(['prayerRequests']);
-      setSelectedRequest(null);
-      toast.success('Prayer request removed');
-    },
+    mutationFn: (id) => base44.entities.PrayerRequest.delete(id),
+    onSuccess: () => { queryClient.invalidateQueries(['prayerRequests']); setSelectedRequest(null); toast.success('Prayer request removed'); },
   });
 
-  // Fix #10 — mark as answered
   const markAnswered = useMutation({
-    mutationFn: async (requestId) => base44.entities.PrayerRequest.update(requestId, { is_answered: true }),
+    mutationFn: (id) => base44.entities.PrayerRequest.update(id, { is_answered: true }),
     onSuccess: () => { queryClient.invalidateQueries(['prayerRequests']); toast.success('🙌 Praise God — marked as answered!'); },
   });
 
   const createRequest = useMutation({
-    mutationFn: async ({ text, category, anonymous }) => base44.entities.PrayerRequest.create({
+    mutationFn: ({ text, category, anonymous }) => base44.entities.PrayerRequest.create({
       user_name: anonymous ? 'Anonymous' : user?.full_name || 'Anonymous',
       user_email: anonymous ? null : user?.email,
       prayer_text: text,
@@ -591,7 +741,12 @@ export default function Prayer() {
     toast.success('🙏 Prayer recorded', { duration: 1500 });
   }, [user, recordPrayer]);
 
-  // freshSelected: always use latest from query for live comment updates
+  const handleActsComplete = useCallback(() => {
+    const updated = markPrayedToday();
+    setStreak(updated);
+    if (updated.streak > 1) toast.success(`🔥 ${updated.streak}-day prayer streak!`);
+  }, []);
+
   const freshSelected = selectedRequest
     ? prayerRequests.find(r => r.id === selectedRequest.id) || selectedRequest
     : null;
@@ -603,17 +758,22 @@ export default function Prayer() {
       <div className="sticky top-0 z-30 flex items-center justify-between px-5 py-4"
         style={{ background: 'rgba(5,15,24,0.92)', backdropFilter: 'blur(20px)', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
         <div>
-          <h1 className="text-lg font-bold text-white" style={{ fontFamily: 'Georgia, serif' }}>Prayer Wall</h1>
-          <div className="flex items-center gap-1.5 mt-0.5">
-            <div className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse" />
-            {/* Fix #9 — "requests" not "waiting" */}
-            <span className="text-[11px] text-white/40 font-medium">
-              {prayerRequests.length} requests · {totalPraying.toLocaleString()} prayers offered
-            </span>
+          <h1 className="text-lg font-bold text-white" style={{ fontFamily: 'Georgia, serif' }}>Prayer</h1>
+          <div className="flex items-center gap-3 mt-0.5 flex-wrap">
+            <div className="flex items-center gap-1.5">
+              <div className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse" />
+              <span className="text-[11px] text-white/40 font-medium">
+                {prayerRequests.length} requests · {totalPraying.toLocaleString()} prayers
+              </span>
+            </div>
+            {streak.streak > 0 && (
+              <span className="flex items-center gap-1 text-[11px] font-bold" style={{ color: '#c9a227' }}>
+                <Flame className="w-3 h-3" />{streak.streak}d streak
+              </span>
+            )}
           </div>
         </div>
         <div className="flex items-center gap-2">
-          {/* Fix #11 — manual refresh button */}
           <button onClick={handleRefresh}
             className={`w-9 h-9 rounded-full bg-white/8 border border-white/10 flex items-center justify-center transition-all ${isRefreshing ? 'opacity-50' : 'hover:bg-white/15'}`}>
             <RefreshCw className={`w-4 h-4 text-white/60 ${isRefreshing ? 'animate-spin' : ''}`} />
@@ -640,7 +800,6 @@ export default function Prayer() {
               onNext={() => { setSpotlightIdx(i => (i + 1) % Math.max(spotlightRequests.length, 1)); setCountdown(SPOTLIGHT_DURATION); }}
               onClick={() => setSelectedRequest(currentSpotlight)}
             />
-            {/* Fix #7 — dots match spotlight count exactly */}
             <div className="flex justify-center gap-1.5 mt-3">
               {spotlightRequests.map((_, i) => (
                 <button key={i} onClick={() => { setSpotlightIdx(i); setCountdown(SPOTLIGHT_DURATION); }}>
@@ -651,18 +810,19 @@ export default function Prayer() {
           </div>
         )}
 
-        {/* Fix #6 — devotional tools in dark wrapper */}
-        <DevotionalSection />
+        {/* ACTS Guided Prayer */}
+        <ActsGuidedPrayer onComplete={handleActsComplete} />
 
-        {/* Prayer Wall list */}
+        {/* Private prayer list */}
+        <MyPrayers />
+
+        {/* Prayer Wall */}
         <div>
           <div className="flex items-center justify-between mb-3">
-            <p className="text-[11px] font-bold text-white/40 uppercase tracking-widest">Prayer Requests</p>
-            {/* Fix #9 — accurate label */}
+            <p className="text-[11px] font-bold text-white/40 uppercase tracking-widest">Prayer Wall</p>
             <span className="text-[11px] text-white/30 font-medium">{filtered.length} requests</span>
           </div>
 
-          {/* Category filter */}
           <div className="flex gap-2 overflow-x-auto pb-2 mb-4 -mx-1 px-1" style={{ scrollbarWidth: 'none' }}>
             {CATEGORIES.map(cat => (
               <button key={cat} onClick={() => setActiveCategory(cat)}
@@ -692,7 +852,6 @@ export default function Prayer() {
         </div>
       </div>
 
-      {/* Drawer */}
       <AnimatePresence>
         {selectedRequest && freshSelected && (
           <PrayerDrawer
@@ -707,7 +866,6 @@ export default function Prayer() {
         )}
       </AnimatePresence>
 
-      {/* New prayer modal */}
       <AnimatePresence>
         {showNewPrayer && (
           <NewPrayerModal user={user} onClose={() => setShowNewPrayer(false)} onSubmit={createRequest.mutateAsync} />
