@@ -267,7 +267,7 @@ export default function Groups() {
   const [user, setUser] = useState(null);
   const [categoryFilter, setCategoryFilter] = useState('all');
   const [sort, setSort] = useState('popular');
-  const [seeded, setSeeded] = useState(false); // rely on actual groups count, not localStorage
+  const [seeded, setSeeded] = useState(false);
   const [seeding, setSeeding] = useState(false);
   const navigate = useNavigate();
   const queryClient = useQueryClient();
@@ -300,13 +300,6 @@ export default function Groups() {
     queryKey: ['groups'],
     queryFn: () => base44.entities.StudyGroup.list('-created_date')
   });
-
-  // Auto-seed when groups list comes back empty and we haven't seeded yet
-  useEffect(() => {
-    if (!groupsLoading && groups.length === 0 && !seeded && !seeding) {
-      handleSeed();
-    }
-  }, [groupsLoading, groups.length]);
 
   const { data: memberships = [] } = useQuery({
     queryKey: ['memberships'],
@@ -410,7 +403,7 @@ export default function Groups() {
       <div className="max-w-lg mx-auto px-4 py-5 space-y-6">
 
         {/* ── Seed banner (only when not seeded and no filters active) ── */}
-        {!seeded && !isFiltering && (
+        {!seeded && (
           <SeedBanner onSeed={handleSeed} seeding={seeding} />
         )}
 
