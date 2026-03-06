@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
-import { Settings, Camera, Loader2, ChevronRight, Trophy, TrendingUp } from 'lucide-react';
+import { Settings, Camera, Loader2, ChevronRight, Trophy, TrendingUp, MessageCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import {
@@ -77,6 +77,12 @@ function Header({ user, friendsCount, onCoverUpload, onAvatarUpload, uploading }
             <h1 className="text-[#0A1A2F] py-3 text-xl font-bold leading-tight truncate">{user?.full_name || 'Your Profile'}</h1>
             <p className="text-sm text-[#0A1A2F]/50">{friendsCount} {friendsCount === 1 ? 'friend' : 'friends'}</p>
           </div>
+
+          {/* Messages link */}
+          <Link to={createPageUrl('Messages')}
+          className="flex-shrink-0 w-9 h-9 rounded-full bg-[#FAD98D]/20 hover:bg-[#FAD98D]/35 flex items-center justify-center transition-colors">
+            <MessageCircle className="w-4 h-4 text-[#0A1A2F]" />
+          </Link>
 
           {/* Settings link */}
           <Link to={createPageUrl('Settings')}
