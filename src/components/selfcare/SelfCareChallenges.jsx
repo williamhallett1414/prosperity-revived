@@ -137,7 +137,7 @@ export default function SelfCareChallenges({ challenges = [], participations = [
         <h2 className="text-xl font-bold text-[#0A1A2F] mb-4">Self-Care Challenges</h2>
         <div className="space-y-3">
           {displayChallenges.map((challenge, index) => {
-            const Icon = challenge.icon;
+            const Icon = challenge.icon || Trophy;
             const progress = getProgress(challenge.id);
             const isParticipating = !!progress.participation;
 
