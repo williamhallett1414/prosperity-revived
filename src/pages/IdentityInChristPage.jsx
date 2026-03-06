@@ -135,7 +135,7 @@ const DECLARATIONS = [
   },
   {
     id: 'grace-sufficient',
-    truth: 'God's grace is sufficient for me',
+    truth: "God's grace is sufficient for me",
     pillar: 'Equipped',
     verse: '2 Corinthians 12:9',
     fullVerse: 'My grace is sufficient for you, for my power is made perfect in weakness.',
