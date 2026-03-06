@@ -201,7 +201,7 @@ const DECLARATIONS = [
   // ── PROTECTED ────────────────────────────────────────────────────────────
   {
     id: 'upheld',
-    truth: 'I am upheld by God's right hand',
+    truth: "I am upheld by God's right hand",
     pillar: 'Protected',
     verse: 'Isaiah 41:10',
     fullVerse: 'So do not fear, for I am with you; do not be dismayed, for I am your God. I will strengthen you and help you; I will uphold you with my righteous right hand.',
