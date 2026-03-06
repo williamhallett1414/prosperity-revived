@@ -217,6 +217,12 @@ export default function UserProfile() {
           <div className="flex gap-2">
             {isOwnProfile && (
               <>
+                <Link
+                  to={createPageUrl('Messages')}
+                  className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center hover:bg-white/30 transition-colors"
+                >
+                  <MessageCircle className="w-5 h-5 text-white" />
+                </Link>
                 <button
                   onClick={() => setShowBannerCustomizer(true)}
                   className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center hover:bg-white/30 transition-colors"
@@ -234,10 +240,11 @@ export default function UserProfile() {
             )}
             {!isOwnProfile && (
               <Link
-                to={createPageUrl(`Messages?recipient=${profileEmail}`)}
-                className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center hover:bg-white/30 transition-colors"
+                to={createPageUrl(`Messages?recipient=${profileEmail}&name=${profileUser.full_name || profileEmail}`)}
+                className="flex items-center gap-1.5 px-3 h-10 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 transition-colors text-white text-sm font-medium"
               >
-                <MessageCircle className="w-5 h-5" />
+                <MessageCircle className="w-4 h-4" />
+                Message
               </Link>
             )}
           </div>
