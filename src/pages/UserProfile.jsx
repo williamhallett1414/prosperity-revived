@@ -292,6 +292,19 @@ export default function UserProfile() {
 
 
 
+      {/* Action buttons row — only for other people's profiles */}
+      {!isOwnProfile && (
+        <div className="px-4 pt-3 pb-1 flex gap-3">
+          <Link
+            to={createPageUrl(`Messages?recipient=${profileEmail}&name=${profileUser.full_name || profileEmail}`)}
+            className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-2xl bg-gradient-to-r from-[#D9B878] to-[#c9a227] text-[#0A1A2F] font-bold text-sm hover:opacity-90 transition-opacity shadow-sm"
+          >
+            <MessageCircle className="w-4 h-4" />
+            Message
+          </Link>
+        </div>
+      )}
+
       {/* Stats */}
       <div className="px-4 mt-4 mb-4">
         <ProfileStats
