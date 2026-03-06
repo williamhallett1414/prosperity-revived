@@ -187,7 +187,7 @@ const DECLARATIONS = [
     truth: 'I am part of a royal priesthood',
     pillar: 'Called',
     verse: '1 Peter 2:9',
-    fullVerse: 'But you are a chosen people, a royal priesthood, a holy nation, God's special possession, that you may declare the praises of him who called you out of darkness into his wonderful light.',
+    fullVerse: "But you are a chosen people, a royal priesthood, a holy nation, God's special possession, that you may declare the praises of him who called you out of darkness into his wonderful light.",
     explanation: "Royalty speaks to authority. Priesthood speaks to access. You have both. You are not a commoner hoping for an audience with God — you are a member of His household with full access and delegated authority.",
   },
   {
