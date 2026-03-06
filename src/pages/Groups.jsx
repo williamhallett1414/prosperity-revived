@@ -267,7 +267,7 @@ export default function Groups() {
   const [user, setUser] = useState(null);
   const [categoryFilter, setCategoryFilter] = useState('all');
   const [sort, setSort] = useState('popular');
-  const [seeded, setSeeded] = useState(() => !!localStorage.getItem(SEED_KEY));
+  const [seeded, setSeeded] = useState(false); // rely on actual groups count, not localStorage
   const [seeding, setSeeding] = useState(false);
   const navigate = useNavigate();
   const queryClient = useQueryClient();
@@ -275,10 +275,38 @@ export default function Groups() {
 
   useEffect(() => { base44.auth.me().then(setUser).catch(() => {}); }, []);
 
-  const { data: groups = [] } = useQuery({
+  // ── Seed 32 starter groups ─────────────────────────────────────────────────
+  const handleSeed = async () => {
+    if (seeding) return;
+    setSeeding(true);
+    try {
+      let created = 0;
+      for (const g of SEED_GROUPS) {
+        await base44.entities.StudyGroup.create(g);
+        created++;
+      }
+      localStorage.setItem(SEED_KEY, '1');
+      setSeeded(true);
+      queryClient.invalidateQueries(['groups']);
+      toast.success(`${created} groups added to the community!`);
+    } catch (e) {
+      console.error(e);
+      toast.error('Some groups may not have saved — try again');
+    }
+    setSeeding(false);
+  };
+
+  const { data: groups = [], isLoading: groupsLoading } = useQuery({
     queryKey: ['groups'],
     queryFn: () => base44.entities.StudyGroup.list('-created_date')
   });
+
+  // Auto-seed when groups list comes back empty and we haven't seeded yet
+  useEffect(() => {
+    if (!groupsLoading && groups.length === 0 && !seeded && !seeding) {
+      handleSeed();
+    }
+  }, [groupsLoading, groups.length]);
 
   const { data: memberships = [] } = useQuery({
     queryKey: ['memberships'],
@@ -301,26 +329,6 @@ export default function Groups() {
     },
     onError: () => toast.error('Failed to create group')
   });
-
-  // ── Seed 32 starter groups ─────────────────────────────────────────────────
-  const handleSeed = async () => {
-    setSeeding(true);
-    try {
-      let created = 0;
-      for (const g of SEED_GROUPS) {
-        await base44.entities.StudyGroup.create(g);
-        created++;
-      }
-      localStorage.setItem(SEED_KEY, '1');
-      setSeeded(true);
-      queryClient.invalidateQueries(['groups']);
-      toast.success(`${created} groups added to the community!`);
-    } catch (e) {
-      console.error(e);
-      toast.error('Some groups may not have saved — try again');
-    }
-    setSeeding(false);
-  };
 
   const myGroupIds = new Set(memberships.map(m => m.group_id));
   const myGroups = groups.filter(g => myGroupIds.has(g.id));
