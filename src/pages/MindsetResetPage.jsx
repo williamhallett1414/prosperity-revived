@@ -123,7 +123,7 @@ function ReframeSession({ prompt, category, onComplete, onClose }) {
   const STEPS = [
     {
       num: 1, label: 'Identify',
-      heading: 'What's the thought?',
+      heading: "What's the thought?",
       sub: 'Name the exact negative thought running in your head right now. Be specific.',
       placeholder: 'The thought is: "I am…" / "This situation means…"',
       value: thought, set: setThought,

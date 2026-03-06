@@ -66,10 +66,13 @@ import GratitudeJournalPage from './pages/GratitudeJournalPage';
 import GroupDetail from './pages/GroupDetail';
 import GroupPlanDetail from './pages/GroupPlanDetail';
 import Groups from './pages/Groups';
+import GrowthPathwaysPage from './pages/GrowthPathwaysPage';
+import GuidedMeditationsPage from './pages/GuidedMeditationsPage';
+import HabitBuilderPage from './pages/HabitBuilderPage';
 import HealthWellnessWaiver from './pages/HealthWellnessWaiver';
+import Home from './pages/Home';
+import IdentityInChristPage from './pages/IdentityInChristPage';
 import MealDetailView from './pages/MealDetailView';
-import Messages from './pages/Messages';
-import MindsetResetPage from './pages/MindsetResetPage';
 import MyJournalEntries from './pages/MyJournalEntries';
 import NotificationSettings from './pages/NotificationSettings';
 import Notifications from './pages/Notifications';
@@ -82,7 +85,6 @@ import PlanDetail from './pages/PlanDetail';
 import Plans from './pages/Plans';
 import Prayer from './pages/Prayer';
 import PrivacyPolicy from './pages/PrivacyPolicy';
-import Profile from './pages/Profile';
 import ProgressDashboard from './pages/ProgressDashboard';
 import Search from './pages/Search';
 import SelfCareChallengesPage from './pages/SelfCareChallengesPage';
@@ -91,7 +93,6 @@ import SpiritualGrowth from './pages/SpiritualGrowth';
 import SpiritualInsights from './pages/SpiritualInsights';
 import SubscriptionTerms from './pages/SubscriptionTerms';
 import TermsAndConditions from './pages/TermsAndConditions';
-import UserProfile from './pages/UserProfile';
 import WeeklyReflectionPage from './pages/WeeklyReflectionPage';
 import Wellness from './pages/Wellness';
 import WorkoutCategoryPage from './pages/WorkoutCategoryPage';
@@ -99,11 +100,10 @@ import WorkoutPlanner from './pages/WorkoutPlanner';
 import WorkoutProgress from './pages/WorkoutProgress';
 import WorkoutTrends from './pages/WorkoutTrends';
 import Workouts from './pages/Workouts';
-import Home from './pages/Home';
-import GrowthPathwaysPage from './pages/GrowthPathwaysPage';
-import GuidedMeditationsPage from './pages/GuidedMeditationsPage';
-import HabitBuilderPage from './pages/HabitBuilderPage';
-import IdentityInChristPage from './pages/IdentityInChristPage';
+import Messages from './pages/Messages';
+import UserProfile from './pages/UserProfile';
+import Profile from './pages/Profile';
+import MindsetResetPage from './pages/MindsetResetPage';
 import __Layout from './Layout.jsx';
 
 
@@ -127,10 +127,13 @@ export const PAGES = {
     "GroupDetail": GroupDetail,
     "GroupPlanDetail": GroupPlanDetail,
     "Groups": Groups,
+    "GrowthPathwaysPage": GrowthPathwaysPage,
+    "GuidedMeditationsPage": GuidedMeditationsPage,
+    "HabitBuilderPage": HabitBuilderPage,
     "HealthWellnessWaiver": HealthWellnessWaiver,
+    "Home": Home,
+    "IdentityInChristPage": IdentityInChristPage,
     "MealDetailView": MealDetailView,
-    "Messages": Messages,
-    "MindsetResetPage": MindsetResetPage,
     "MyJournalEntries": MyJournalEntries,
     "NotificationSettings": NotificationSettings,
     "Notifications": Notifications,
@@ -143,7 +146,6 @@ export const PAGES = {
     "Plans": Plans,
     "Prayer": Prayer,
     "PrivacyPolicy": PrivacyPolicy,
-    "Profile": Profile,
     "ProgressDashboard": ProgressDashboard,
     "Search": Search,
     "SelfCareChallengesPage": SelfCareChallengesPage,
@@ -152,7 +154,6 @@ export const PAGES = {
     "SpiritualInsights": SpiritualInsights,
     "SubscriptionTerms": SubscriptionTerms,
     "TermsAndConditions": TermsAndConditions,
-    "UserProfile": UserProfile,
     "WeeklyReflectionPage": WeeklyReflectionPage,
     "Wellness": Wellness,
     "WorkoutCategoryPage": WorkoutCategoryPage,
@@ -160,11 +161,10 @@ export const PAGES = {
     "WorkoutProgress": WorkoutProgress,
     "WorkoutTrends": WorkoutTrends,
     "Workouts": Workouts,
-    "Home": Home,
-    "GrowthPathwaysPage": GrowthPathwaysPage,
-    "GuidedMeditationsPage": GuidedMeditationsPage,
-    "HabitBuilderPage": HabitBuilderPage,
-    "IdentityInChristPage": IdentityInChristPage,
+    "Messages": Messages,
+    "UserProfile": UserProfile,
+    "Profile": Profile,
+    "MindsetResetPage": MindsetResetPage,
 }
 
 export const pagesConfig = {
