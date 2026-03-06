@@ -137,7 +137,7 @@ function ReframeSession({ prompt, category, onComplete, onClose }) {
     },
     {
       num: 3, label: 'Replace',
-      heading: 'What's the truth?',
+      heading: "What's the truth?",
       sub: 'Write a replacement thought grounded in reality and faith. Make it something you could actually believe.',
       placeholder: 'A more truthful thought is…',
       value: truth, set: setTruth,
