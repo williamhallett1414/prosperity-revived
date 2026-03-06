@@ -176,7 +176,7 @@ const DECLARATIONS = [
   },
   {
     id: 'handiwork',
-    truth: 'I am God's handiwork, created for good works',
+    truth: `I am God's handiwork, created for good works`,
     pillar: 'Called',
     verse: 'Ephesians 2:10',
     fullVerse: 'For we are God's handiwork, created in Christ Jesus to do good works, which God prepared in advance for us to do.',
