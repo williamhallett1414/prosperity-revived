@@ -4,8 +4,9 @@ import { createPageUrl } from '@/utils';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   ArrowLeft, ChevronRight, Check, Flame, Trophy,
-  Calendar, Star, Flower2
+  Star, Flower2, Lock, RotateCcw, ChevronDown, Loader2
 } from 'lucide-react';
+import { base44 } from '@/api/base44Client';
 import { toast } from 'sonner';
 
 // ─── Challenge catalogue ───────────────────────────────────────────────────────
@@ -162,22 +163,78 @@ const CAT_PILL = {
   Relationships: 'bg-rose-100 text-rose-700 border-rose-200',
 };
 
-// ─── persistence ──────────────────────────────────────────────────────────────
-const LOCAL_KEY = 'selfcare_challenges_v1';
+// ─── Persistence (fix: store per-day timestamps for streak + one-per-day gate) ──
+// Shape: { [challengeId]: { startedAt: ts, days: { [dayNum]: ts } } }
+const LOCAL_KEY = 'selfcare_v2';
 function loadLocal() {
   try { return JSON.parse(localStorage.getItem(LOCAL_KEY) || '{}'); } catch { return {}; }
 }
 function saveLocal(d) { localStorage.setItem(LOCAL_KEY, JSON.stringify(d)); }
 
-// ─── Challenge detail (full-screen overlay) ───────────────────────────────────
-function ChallengeDetail({ challenge, localData, onClose, onStart, onComplete }) {
+function todayStr() { return new Date().toISOString().slice(0, 10); }
+
+function getCompletedDays(cData) {
+  if (!cData?.days) return [];
+  return Object.keys(cData.days).map(Number).sort((a, b) => a - b);
+}
+
+// Returns how many consecutive days ending today have been completed
+function calcStreak(cData) {
+  if (!cData?.days) return 0;
+  const today = todayStr();
+  let streak = 0;
+  let check = new Date(today);
+  // Walk backwards from today
+  const daysByDate = {};
+  Object.entries(cData.days).forEach(([dayNum, ts]) => {
+    const d = new Date(ts).toISOString().slice(0, 10);
+    daysByDate[d] = dayNum;
+  });
+  while (daysByDate[check.toISOString().slice(0, 10)]) {
+    streak++;
+    check.setDate(check.getDate() - 1);
+  }
+  return streak;
+}
+
+function completedTodayAlready(cData) {
+  if (!cData?.days) return false;
+  return Object.values(cData.days).some(ts => new Date(ts).toISOString().slice(0, 10) === todayStr());
+}
+
+// ─── Challenge detail overlay ─────────────────────────────────────────────────
+function ChallengeDetail({ challenge, localData, onClose, onStart, onComplete, onReset }) {
+  const [reflection, setReflection] = useState('');
+  const [saving, setSaving] = useState(false);
+  const [confirmReset, setConfirmReset] = useState(false);
+  const [showAllDays, setShowAllDays] = useState(false);
+
   const cData = localData[challenge.id] || null;
-  const completedDays = cData?.completedDays || [];
+  const completedDays = getCompletedDays(cData);
   const isStarted = !!cData;
   const isDone = completedDays.length >= challenge.duration;
-  const nextDay = completedDays.length + 1;
+  const alreadyToday = completedTodayAlready(cData);
+  const nextDayNum = completedDays.length + 1;
   const currentTask = !isDone ? challenge.tasks[completedDays.length] : null;
   const pct = Math.round((completedDays.length / challenge.duration) * 100);
+  const streak = isStarted ? calcStreak(cData) : 0;
+
+  const handleComplete = async () => {
+    if (!reflection.trim()) { toast.error('Please write a reflection first'); return; }
+    setSaving(true);
+    try {
+      // Save to journal
+      await base44.entities.JournalEntry.create({
+        entry_type: 'self_care_challenge',
+        content: `Challenge: ${challenge.title}\nDay ${nextDayNum}: ${currentTask?.title}\n\n${reflection}`,
+        prompt: currentTask?.content,
+      });
+    } catch {} // Journal save is best-effort
+    onComplete(challenge.id, nextDayNum);
+    setReflection('');
+    setSaving(false);
+    toast.success(nextDayNum >= challenge.duration ? '🏆 Challenge complete!' : `Day ${nextDayNum} done! 🔥`);
+  };
 
   return (
     <motion.div initial={{ x: '100%' }} animate={{ x: 0 }} exit={{ x: '100%' }}
@@ -192,9 +249,19 @@ function ChallengeDetail({ challenge, localData, onClose, onStart, onComplete })
         </button>
         <div className="flex-1 min-w-0">
           <p className="font-bold text-sm text-[#0A1A2F] truncate">{challenge.title}</p>
-          <p className="text-[10px] text-[#0A1A2F]/40 uppercase tracking-widest font-semibold">{challenge.duration} days · {challenge.category}</p>
+          <p className="text-[10px] text-[#0A1A2F]/40 uppercase tracking-widest font-semibold">
+            {challenge.duration} days · {challenge.category}
+            {streak > 1 ? ` · 🔥 ${streak}-day streak` : ''}
+          </p>
         </div>
-        <span className="text-2xl">{challenge.emoji}</span>
+        {/* Reset button (fix: allow restarting) */}
+        {isStarted && (
+          <button onClick={() => setConfirmReset(true)}
+            className="w-9 h-9 rounded-full bg-[#F2F6FA] flex items-center justify-center text-[#0A1A2F]/30 hover:text-[#0A1A2F]/60 transition-colors"
+            title="Reset challenge">
+            <RotateCcw className="w-4 h-4" />
+          </button>
+        )}
       </div>
 
       <div className="flex-1 overflow-y-auto pb-6">
@@ -207,82 +274,154 @@ function ChallengeDetail({ challenge, localData, onClose, onStart, onComplete })
           {isStarted && !isDone && (
             <div className="bg-white/15 rounded-xl p-3">
               <div className="flex justify-between text-white text-xs font-semibold mb-2">
-                <span>Progress</span>
-                <span>{completedDays.length} / {challenge.duration} days · {pct}%</span>
+                <span>{completedDays.length}/{challenge.duration} days complete</span>
+                <span>{pct}%</span>
               </div>
               <div className="h-2 bg-white/25 rounded-full overflow-hidden">
                 <motion.div className="h-full bg-white rounded-full"
-                  initial={{ width: 0 }} animate={{ width: `${pct}%` }} transition={{ duration: 0.6, ease: 'easeOut' }} />
+                  animate={{ width: `${pct}%` }} transition={{ duration: 0.6, ease: 'easeOut' }} />
               </div>
             </div>
           )}
 
           {isDone && (
-            <div className="bg-white/20 rounded-xl p-3 flex items-center gap-3">
-              <Trophy className="w-6 h-6 text-white flex-shrink-0" />
-              <div>
-                <p className="text-white font-bold text-sm">Challenge complete!</p>
-                <p className="text-white/70 text-xs">You finished all {challenge.duration} days.</p>
-              </div>
+            <div className="bg-white/20 rounded-xl p-4 text-center">
+              <p className="text-3xl mb-1">🏆</p>
+              <p className="text-white font-bold">Challenge complete!</p>
+              <p className="text-white/70 text-xs mt-0.5">You finished all {challenge.duration} days</p>
             </div>
           )}
         </div>
 
-        {/* Today's task */}
-        {isStarted && !isDone && currentTask && (
-          <div className="mx-4 mt-4">
-            <p className="text-[10px] font-bold text-[#0A1A2F]/35 uppercase tracking-widest mb-2">Today — Day {nextDay}</p>
-            <motion.div key={nextDay} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
-              className="bg-white rounded-2xl border-2 p-4 shadow-sm" style={{ borderColor: challenge.color + '40' }}>
-              <div className="flex items-center gap-2.5 mb-2">
-                <div className="w-7 h-7 rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0"
-                  style={{ background: challenge.color }}>{nextDay}</div>
-                <p className="font-bold text-sm text-[#0A1A2F]">{currentTask.title}</p>
+        {/* Post-completion CTA (fix: was a dead end) */}
+        {isDone && (
+          <div className="mx-4 mt-4 space-y-2">
+            <Link to={createPageUrl('MyJournalEntries')} onClick={onClose}
+              className="flex items-center justify-between bg-white rounded-2xl border border-[#E2E8F0] px-4 py-3 hover:border-[#D9B878]/50 transition-colors">
+              <div>
+                <p className="font-bold text-sm text-[#0A1A2F]">View your reflections</p>
+                <p className="text-xs text-[#0A1A2F]/45">All your journal entries from this challenge</p>
               </div>
-              <p className="text-sm text-[#0A1A2F]/60 leading-relaxed mb-4">{currentTask.content}</p>
-              <button onClick={() => onComplete(challenge.id, nextDay)}
-                className="w-full py-3 rounded-xl text-sm font-bold text-white flex items-center justify-center gap-2 transition-opacity hover:opacity-90"
-                style={{ background: `linear-gradient(135deg, ${challenge.color}, ${challenge.color}bb)` }}>
-                <Check className="w-4 h-4" /> Mark Day {nextDay} Complete
-              </button>
-            </motion.div>
+              <ChevronRight className="w-4 h-4 text-[#0A1A2F]/25" />
+            </Link>
+            <button onClick={() => onReset(challenge.id)}
+              className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl border border-[#E2E8F0] text-xs font-bold text-[#0A1A2F]/40 hover:border-[#0A1A2F]/20 hover:text-[#0A1A2F]/60 transition-colors">
+              <RotateCcw className="w-3.5 h-3.5" /> Repeat this challenge
+            </button>
           </div>
         )}
 
-        {/* All task steps */}
-        <div className="mx-4 mt-5">
-          <p className="text-[10px] font-bold text-[#0A1A2F]/35 uppercase tracking-widest mb-3">All {challenge.duration} Days</p>
-          <div className="space-y-2">
-            {challenge.tasks.map((task) => {
-              const done = completedDays.includes(task.day);
-              const isToday = isStarted && task.day === nextDay && !isDone;
-              return (
-                <div key={task.day}
-                  className={`rounded-xl p-3.5 flex items-start gap-3 border transition-colors ${
-                    done ? 'bg-emerald-50 border-emerald-200'
-                    : isToday ? 'bg-white shadow-sm'
-                    : 'bg-white border-[#E2E8F0]'
-                  }`}
-                  style={isToday ? { borderColor: challenge.color + '50' } : {}}>
-                  <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5`}
-                    style={{
-                      background: done ? '#10b981' : isToday ? challenge.color : '#E2E8F0',
-                      color: done || isToday ? 'white' : '#94a3b8',
-                    }}>
-                    {done ? <Check className="w-3.5 h-3.5" /> : task.day}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className={`text-sm font-semibold leading-snug ${done ? 'text-emerald-700' : 'text-[#0A1A2F]'}`}>
-                      {task.title}
-                    </p>
-                    <p className={`text-xs leading-relaxed mt-0.5 ${done ? 'text-emerald-600/70' : 'text-[#0A1A2F]/45'}`}>
-                      {task.content}
-                    </p>
-                  </div>
+        {/* Today's task with reflection input (fix: require reflection) */}
+        {isStarted && !isDone && currentTask && (
+          <div className="mx-4 mt-4">
+            <p className="text-[10px] font-bold text-[#0A1A2F]/35 uppercase tracking-widest mb-2">
+              {alreadyToday ? 'Completed today ✓' : `Today — Day ${nextDayNum}`}
+            </p>
+
+            {alreadyToday ? (
+              // Fix: already completed today - show lock until tomorrow
+              <div className="bg-white rounded-2xl border border-[#E2E8F0] p-4 flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center flex-shrink-0">
+                  <Check className="w-5 h-5 text-emerald-600" />
                 </div>
-              );
-            })}
+                <div>
+                  <p className="font-bold text-sm text-[#0A1A2F]">Day {completedDays[completedDays.length - 1]} done</p>
+                  <p className="text-xs text-[#0A1A2F]/45">Come back tomorrow for Day {nextDayNum}</p>
+                </div>
+              </div>
+            ) : (
+              <motion.div key={nextDayNum} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
+                className="bg-white rounded-2xl border-2 p-4 shadow-sm" style={{ borderColor: challenge.color + '40' }}>
+                <div className="flex items-center gap-2.5 mb-2">
+                  <div className="w-7 h-7 rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0"
+                    style={{ background: challenge.color }}>{nextDayNum}</div>
+                  <p className="font-bold text-sm text-[#0A1A2F]">{currentTask.title}</p>
+                </div>
+                <p className="text-sm text-[#0A1A2F]/60 leading-relaxed mb-4">{currentTask.content}</p>
+
+                {/* Reflection input (fix: require write-up before marking done) */}
+                <div className="mb-3">
+                  <p className="text-[10px] font-bold text-[#0A1A2F]/35 uppercase tracking-widest mb-1.5">
+                    Your reflection (required)
+                  </p>
+                  <textarea
+                    value={reflection}
+                    onChange={e => setReflection(e.target.value)}
+                    placeholder="Write what you did and what God showed you today…"
+                    rows={3}
+                    className="w-full bg-[#F8FAFB] rounded-xl px-3 py-2.5 text-sm text-[#0A1A2F] placeholder-[#0A1A2F]/25 outline-none border border-transparent focus:border-[#D9B878]/50 resize-none leading-relaxed transition-colors"
+                  />
+                </div>
+
+                <button onClick={handleComplete} disabled={saving || !reflection.trim()}
+                  className="w-full py-3 rounded-xl text-sm font-bold text-white flex items-center justify-center gap-2 transition-opacity hover:opacity-90 disabled:opacity-40"
+                  style={{ background: `linear-gradient(135deg, ${challenge.color}, ${challenge.color}bb)` }}>
+                  {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Check className="w-4 h-4" />}
+                  {saving ? 'Saving…' : `Complete Day ${nextDayNum}`}
+                </button>
+              </motion.div>
+            )}
           </div>
+        )}
+
+        {/* All days — collapsed by default, expand to see (fix: was showing future content) */}
+        <div className="mx-4 mt-5">
+          <button onClick={() => setShowAllDays(s => !s)}
+            className="w-full flex items-center justify-between py-1 mb-2">
+            <p className="text-[10px] font-bold text-[#0A1A2F]/35 uppercase tracking-widest">
+              All {challenge.duration} Days
+            </p>
+            <ChevronDown className={`w-3.5 h-3.5 text-[#0A1A2F]/25 transition-transform ${showAllDays ? 'rotate-180' : ''}`} />
+          </button>
+
+          <AnimatePresence>
+            {showAllDays && (
+              <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
+                <div className="space-y-2 pb-2">
+                  {challenge.tasks.map((task) => {
+                    const done = completedDays.includes(task.day);
+                    const isToday = isStarted && task.day === nextDayNum && !isDone && !alreadyToday;
+                    const isLocked = isStarted && task.day > nextDayNum;
+                    const completedYet = isStarted && task.day <= nextDayNum - 1;
+
+                    return (
+                      <div key={task.day}
+                        className={`rounded-xl p-3.5 flex items-start gap-3 border ${
+                          done ? 'bg-emerald-50 border-emerald-200'
+                          : isToday ? 'bg-white shadow-sm'
+                          : isLocked ? 'bg-[#F8FAFB] border-[#E2E8F0] opacity-50'
+                          : 'bg-white border-[#E2E8F0]'
+                        }`}
+                        style={isToday ? { borderColor: challenge.color + '50' } : {}}>
+                        <div className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5"
+                          style={{
+                            background: done ? '#10b981' : isToday ? challenge.color : '#E2E8F0',
+                            color: done || isToday ? 'white' : '#94a3b8',
+                          }}>
+                          {done ? <Check className="w-3.5 h-3.5" /> : isLocked ? <Lock className="w-3 h-3" /> : task.day}
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className={`text-sm font-semibold leading-snug ${done ? 'text-emerald-700' : 'text-[#0A1A2F]'}`}>
+                            Day {task.day}: {task.title}
+                          </p>
+                          {/* Fix: hide content for future locked days */}
+                          {!isLocked && (
+                            <p className={`text-xs leading-relaxed mt-0.5 ${done ? 'text-emerald-600/70' : 'text-[#0A1A2F]/45'}`}>
+                              {task.content}
+                            </p>
+                          )}
+                          {isLocked && (
+                            <p className="text-xs text-[#0A1A2F]/25 mt-0.5">Unlocks after Day {task.day - 1}</p>
+                          )}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
 
@@ -296,6 +435,33 @@ function ChallengeDetail({ challenge, localData, onClose, onStart, onComplete })
           </button>
         </div>
       )}
+
+      {/* Reset confirm modal (fix: allow restart) */}
+      <AnimatePresence>
+        {confirmReset && (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            className="absolute inset-0 flex items-end justify-center pb-8 px-4 z-10"
+            style={{ background: 'rgba(0,0,0,0.4)', backdropFilter: 'blur(8px)' }}>
+            <motion.div initial={{ y: 40 }} animate={{ y: 0 }} exit={{ y: 40 }}
+              className="bg-white rounded-3xl p-6 w-full max-w-sm shadow-xl">
+              <p className="font-bold text-[#0A1A2F] text-base text-center mb-1">Reset this challenge?</p>
+              <p className="text-xs text-[#0A1A2F]/50 text-center mb-5 leading-relaxed">
+                Your progress and streak will be cleared. Journal entries will remain.
+              </p>
+              <div className="flex gap-3">
+                <button onClick={() => setConfirmReset(false)}
+                  className="flex-1 py-3 rounded-2xl border border-[#E2E8F0] text-[#0A1A2F]/60 font-bold text-sm">
+                  Cancel
+                </button>
+                <button onClick={() => { onReset(challenge.id); setConfirmReset(false); }}
+                  className="flex-1 py-3 rounded-2xl bg-red-500 text-white font-bold text-sm">
+                  Reset
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 }
@@ -303,10 +469,12 @@ function ChallengeDetail({ challenge, localData, onClose, onStart, onComplete })
 // ─── Challenge card ───────────────────────────────────────────────────────────
 function ChallengeCard({ challenge, localData, onOpen, index }) {
   const cData = localData[challenge.id] || null;
-  const completedDays = cData?.completedDays || [];
+  const completedDays = getCompletedDays(cData);
   const isStarted = !!cData;
   const isDone = completedDays.length >= challenge.duration;
   const pct = (completedDays.length / challenge.duration) * 100;
+  const streak = isStarted ? calcStreak(cData) : 0;
+  const doneToday = completedTodayAlready(cData);
 
   return (
     <motion.button
@@ -314,7 +482,6 @@ function ChallengeCard({ challenge, localData, onOpen, index }) {
       onClick={() => onOpen(challenge)}
       className="w-full bg-white rounded-2xl border border-[#E2E8F0] hover:border-[#D9B878]/50 hover:shadow-sm transition-all text-left overflow-hidden group">
 
-      {/* Accent top bar */}
       <div className={`h-1 bg-gradient-to-r ${challenge.gradient}`} />
 
       <div className="p-4">
@@ -332,10 +499,14 @@ function ChallengeCard({ challenge, localData, onOpen, index }) {
                 {challenge.category}
               </span>
               <span className="text-[10px] text-[#0A1A2F]/35">{challenge.duration} days</span>
-              {isStarted && !isDone && (
+              {/* Fix: show real streak, not count */}
+              {isStarted && !isDone && streak > 0 && (
                 <span className="flex items-center gap-0.5 text-[10px] font-bold text-amber-500">
-                  <Flame className="w-3 h-3" />{completedDays.length} done
+                  <Flame className="w-3 h-3" />{streak}d streak
                 </span>
+              )}
+              {isStarted && !isDone && doneToday && (
+                <span className="text-[10px] font-bold text-emerald-600">✓ Done today</span>
               )}
               {isDone && (
                 <span className="flex items-center gap-0.5 text-[10px] font-bold text-emerald-600">
@@ -374,15 +545,16 @@ export default function SelfCareChallengesPage() {
 
   const selected = selectedId ? CHALLENGES.find(c => c.id === selectedId) : null;
 
-  const activeCount    = CHALLENGES.filter(c => localData[c.id] && (localData[c.id].completedDays || []).length < c.duration).length;
-  const completedCount = CHALLENGES.filter(c => localData[c.id] && (localData[c.id].completedDays || []).length >= c.duration).length;
+  const activeCount    = CHALLENGES.filter(c => localData[c.id] && getCompletedDays(localData[c.id]).length < c.duration).length;
+  const completedCount = CHALLENGES.filter(c => localData[c.id] && getCompletedDays(localData[c.id]).length >= c.duration).length;
 
-  const filtered = (activeCat === 'All' ? CHALLENGES : CHALLENGES.filter(c => c.category === activeCat))
+  // Fix: spread into new array before sort to avoid mutating the CHALLENGES const
+  const filtered = [...(activeCat === 'All' ? CHALLENGES : CHALLENGES.filter(c => c.category === activeCat))]
     .sort((a, b) => {
-      const aActive = localData[a.id] && (localData[a.id].completedDays || []).length < a.duration;
-      const bActive = localData[b.id] && (localData[b.id].completedDays || []).length < b.duration;
-      const aDone   = localData[a.id] && (localData[a.id].completedDays || []).length >= a.duration;
-      const bDone   = localData[b.id] && (localData[b.id].completedDays || []).length >= b.duration;
+      const aActive = localData[a.id] && getCompletedDays(localData[a.id]).length < a.duration;
+      const bActive = localData[b.id] && getCompletedDays(localData[b.id]).length < b.duration;
+      const aDone   = localData[a.id] && getCompletedDays(localData[a.id]).length >= a.duration;
+      const bDone   = localData[b.id] && getCompletedDays(localData[b.id]).length >= b.duration;
       if (aActive && !bActive) return -1;
       if (bActive && !aActive) return 1;
       if (aDone && !bDone) return 1;
@@ -391,32 +563,33 @@ export default function SelfCareChallengesPage() {
     });
 
   const handleStart = (id) => {
-    const updated = { ...localData, [id]: { startedAt: Date.now(), completedDays: [] } };
+    const updated = { ...localData, [id]: { startedAt: Date.now(), days: {} } };
     setLocalData(updated);
     saveLocal(updated);
-    toast.success('Challenge started! 💪');
+    toast.success('Challenge started! Come back each day to progress.');
   };
 
   const handleComplete = (id, dayNum) => {
-    const existing = localData[id] || { startedAt: Date.now(), completedDays: [] };
-    if ((existing.completedDays || []).includes(dayNum)) return;
-    const completedDays = [...(existing.completedDays || []), dayNum];
-    const updated = { ...localData, [id]: { ...existing, completedDays } };
+    const existing = localData[id] || { startedAt: Date.now(), days: {} };
+    const days = { ...(existing.days || {}), [dayNum]: Date.now() };
+    const updated = { ...localData, [id]: { ...existing, days } };
     setLocalData(updated);
     saveLocal(updated);
-    const challenge = CHALLENGES.find(c => c.id === id);
-    if (completedDays.length >= (challenge?.duration || 0)) {
-      toast.success('🏆 Challenge complete! You did it!');
-    } else {
-      toast.success(`Day ${dayNum} done! Keep going 🔥`);
-    }
+  };
+
+  const handleReset = (id) => {
+    const updated = { ...localData };
+    delete updated[id];
+    setLocalData(updated);
+    saveLocal(updated);
+    toast.success('Challenge reset — start fresh when you\'re ready');
+    setSelectedId(null);
   };
 
   return (
     <>
       <div className="min-h-screen bg-[#F2F6FA] pb-28">
 
-        {/* Header */}
         <div className="sticky top-0 z-40 bg-white border-b border-[#E2E8F0] px-4 py-3">
           <div className="max-w-2xl mx-auto flex items-center gap-3">
             <Link to={createPageUrl('PersonalGrowth')}
@@ -436,13 +609,12 @@ export default function SelfCareChallengesPage() {
 
         <div className="max-w-2xl mx-auto px-4 py-5 space-y-4">
 
-          {/* Stats row */}
           {(activeCount > 0 || completedCount > 0) && (
             <div className="grid grid-cols-3 gap-3">
               {[
-                { label: 'Active',     value: activeCount,                                  color: '#c9a227', Icon: Flame   },
-                { label: 'Completed',  value: completedCount,                               color: '#10b981', Icon: Trophy  },
-                { label: 'Remaining',  value: CHALLENGES.length - activeCount - completedCount, color: '#6366f1', Icon: Star    },
+                { label: 'Active',    value: activeCount,                                       color: '#c9a227', Icon: Flame  },
+                { label: 'Completed', value: completedCount,                                    color: '#10b981', Icon: Trophy },
+                { label: 'Remaining', value: CHALLENGES.length - activeCount - completedCount,  color: '#6366f1', Icon: Star   },
               ].map(({ label, value, color, Icon }) => (
                 <div key={label} className="bg-white rounded-2xl border border-[#E2E8F0] p-3 text-center">
                   <Icon className="w-4 h-4 mx-auto mb-1" style={{ color }} />
@@ -453,7 +625,6 @@ export default function SelfCareChallengesPage() {
             </div>
           )}
 
-          {/* Category filter */}
           <div className="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1" style={{ scrollbarWidth: 'none' }}>
             {CATS.map(cat => (
               <button key={cat} onClick={() => setActiveCat(cat)}
@@ -467,7 +638,6 @@ export default function SelfCareChallengesPage() {
             ))}
           </div>
 
-          {/* Cards */}
           <div className="space-y-3">
             {filtered.map((challenge, i) => (
               <ChallengeCard
@@ -483,7 +653,6 @@ export default function SelfCareChallengesPage() {
         </div>
       </div>
 
-      {/* Detail overlay — slide in from right */}
       <AnimatePresence>
         {selected && (
           <ChallengeDetail
@@ -493,6 +662,7 @@ export default function SelfCareChallengesPage() {
             onClose={() => setSelectedId(null)}
             onStart={handleStart}
             onComplete={handleComplete}
+            onReset={handleReset}
           />
         )}
       </AnimatePresence>
