@@ -267,35 +267,30 @@ export default function Groups() {
   const [user, setUser] = useState(null);
   const [categoryFilter, setCategoryFilter] = useState('all');
   const [sort, setSort] = useState('popular');
-  const [seeded, setSeeded] = useState(false);
   const [seeding, setSeeding] = useState(false);
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const searchRef = useRef(null);
-  const seedRanRef = useRef(false);
 
   useEffect(() => { base44.auth.me().then(setUser).catch(() => {}); }, []);
 
   // ── Seed 32 starter groups ─────────────────────────────────────────────────
   const handleSeed = async () => {
-    if (seeding || seedRanRef.current) return;
-    seedRanRef.current = true;
+    if (seeding) return;
     setSeeding(true);
-    try {
-      let created = 0;
-      for (const g of SEED_GROUPS) {
+    let created = 0;
+    for (const g of SEED_GROUPS) {
+      try {
         await base44.entities.StudyGroup.create(g);
         created++;
+      } catch (e) {
+        console.error('Failed to create group:', g.name, e);
       }
-      setSeeded(true);
-      queryClient.invalidateQueries(['groups']);
-      toast.success(`${created} groups added!`);
-    } catch (e) {
-      seedRanRef.current = false;
-      console.error(e);
-      toast.error('Some groups may not have saved — try again');
     }
     setSeeding(false);
+    queryClient.invalidateQueries(['groups']);
+    if (created > 0) toast.success(`${created} groups added!`);
+    else toast.error('No groups were created — check console for errors');
   };
 
   const { data: groups = [], isLoading: groupsLoading } = useQuery({
@@ -303,12 +298,7 @@ export default function Groups() {
     queryFn: () => base44.entities.StudyGroup.list('-created_date')
   });
 
-  // Auto-seed once when data loads and fewer than 10 groups exist
-  useEffect(() => {
-    if (!groupsLoading && groups.length < 10 && !seedRanRef.current) {
-      handleSeed();
-    }
-  }, [groupsLoading]);
+
 
   const { data: memberships = [] } = useQuery({
     queryKey: ['memberships'],
@@ -411,10 +401,8 @@ export default function Groups() {
 
       <div className="max-w-lg mx-auto px-4 py-5 space-y-6">
 
-        {/* ── Seed banner (only when not seeded and no filters active) ── */}
-        {!seeded && (
-          <SeedBanner onSeed={handleSeed} seeding={seeding} />
-        )}
+        {/* ── Seed groups banner ── */}
+        <SeedBanner onSeed={handleSeed} seeding={seeding} />
 
         {/* ── Featured spotlight (only when no filters, groups exist) ── */}
         {!isFiltering && featured.length > 0 && (
