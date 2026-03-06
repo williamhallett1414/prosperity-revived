@@ -179,7 +179,7 @@ const DECLARATIONS = [
     truth: `I am God's handiwork, created for good works`,
     pillar: 'Called',
     verse: 'Ephesians 2:10',
-    fullVerse: 'For we are God's handiwork, created in Christ Jesus to do good works, which God prepared in advance for us to do.',
+    fullVerse: `For we are God's handiwork, created in Christ Jesus to do good works, which God prepared in advance for us to do.`,
     explanation: "The Greek word for handiwork is poiema — the root of 'poem.' You are God's masterwork, not a mass-produced item. And the good works He prepared for you are specific to you — not generic volunteer work, but your particular assignment.",
   },
   {
