@@ -292,6 +292,97 @@ function StartHereCard() {
   );
 }
 
+
+// ─── Active Challenges widget ─────────────────────────────────────────────────
+function ActiveChallengesWidget({ user }) {
+  const navigate = useNavigate();
+
+  const { data: myParticipations = [] } = useQuery({
+    queryKey: ['myParticipations', user?.email],
+    queryFn: () => base44.entities.ChallengeParticipation.filter({ user_email: user.email }),
+    enabled: !!user?.email,
+  });
+
+  const { data: allChallenges = [] } = useQuery({
+    queryKey: ['activeChallenges'],
+    queryFn: () => base44.entities.GroupChallenge.filter({ is_active: true }, '-created_date', 20),
+    enabled: myParticipations.length > 0,
+  });
+
+  const today = new Date().toISOString().split('T')[0];
+
+  // Only show in-progress (not completed) participations
+  const active = myParticipations.filter(p => {
+    const challenge = allChallenges.find(c => c.id === p.challenge_id);
+    if (!challenge) return false;
+    return (p.completed_days?.length || 0) < challenge.duration_days;
+  }).slice(0, 3);
+
+  if (!active.length) return null;
+
+  return (
+    <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.18 }}>
+      <div className="flex items-center justify-between mb-2">
+        <p className="text-xs font-bold text-[#0A1A2F]/40 uppercase tracking-widest">Active Challenges</p>
+        <button onClick={() => navigate(createPageUrl('Community'))}
+          className="text-xs font-bold text-[#c9a227]">See all →</button>
+      </div>
+      <div className="space-y-2">
+        {active.map((p) => {
+          const challenge = allChallenges.find(c => c.id === p.challenge_id);
+          if (!challenge) return null;
+          const completedDays = p.completed_days?.length || 0;
+          const progress      = Math.min(100, Math.round((completedDays / challenge.duration_days) * 100));
+          const checkedToday  = p.last_check_in_date === today;
+          const streak        = p.current_streak || 0;
+
+          // Type → visual
+          const TYPE_VIS = {
+            prayer:      { emoji: '🙏', color: 'bg-violet-500' },
+            reading:     { emoji: '📖', color: 'bg-amber-500'  },
+            workouts:    { emoji: '💪', color: 'bg-blue-600'   },
+            meditation:  { emoji: '📵', color: 'bg-slate-600'  },
+            water_intake:{ emoji: '🥗', color: 'bg-green-600' },
+            custom:      { emoji: '🤝', color: 'bg-emerald-600'},
+          };
+          const vis = TYPE_VIS[challenge.challenge_type || challenge.type] || TYPE_VIS.custom;
+
+          return (
+            <button key={p.id}
+              onClick={() => navigate(createPageUrl('Community'))}
+              className="w-full text-left bg-white rounded-2xl p-3.5 border border-[#D9B878]/15 hover:border-[#c9a227]/30 transition-all shadow-sm flex items-center gap-3">
+              <div className={`w-10 h-10 rounded-xl ${vis.color} flex items-center justify-center flex-shrink-0`}>
+                <span className="text-lg">{vis.emoji}</span>
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center justify-between mb-1">
+                  <p className="font-bold text-xs text-[#0A1A2F] truncate">{challenge.title}</p>
+                  <div className="flex items-center gap-1.5 flex-shrink-0 ml-2">
+                    {streak > 0 && (
+                      <span className="text-[10px] font-bold text-orange-500 flex items-center gap-0.5">
+                        <Flame className="w-3 h-3" />{streak}
+                      </span>
+                    )}
+                    {checkedToday
+                      ? <span className="text-[9px] font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded-full">✓ Done</span>
+                      : <span className="text-[9px] font-bold text-[#c9a227] bg-[#FFF9ED] px-1.5 py-0.5 rounded-full">Check in</span>
+                    }
+                  </div>
+                </div>
+                <div className="h-1.5 bg-[#F2F6FA] rounded-full overflow-hidden">
+                  <div className={`h-full rounded-full ${vis.color} transition-all`}
+                    style={{ width: `${progress}%`, opacity: 0.7 }} />
+                </div>
+                <p className="text-[10px] text-[#0A1A2F]/35 mt-0.5">Day {completedDays} of {challenge.duration_days}</p>
+              </div>
+            </button>
+          );
+        })}
+      </div>
+    </motion.div>
+  );
+}
+
 // ─── Main ─────────────────────────────────────────────────────────────────────
 export default function Home() {
   const navigate = useNavigate();
@@ -436,6 +527,9 @@ export default function Home() {
 
         {/* 4. Verse of the Day */}
         <VerseCard />
+
+        {/* 4b. Active challenges (only shown if user has joined any) */}
+        {user && <ActiveChallengesWidget user={user} />}
 
         {/* 5. Resume card — active plan, if any */}
         {(activeCoaching || activeReadingPlan) && (
