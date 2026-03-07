@@ -4,7 +4,6 @@ import { useQuery } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import WorkoutCard from '@/components/wellness/WorkoutCard';
 import { PREMADE_WORKOUTS } from '@/components/wellness/WorkoutLibrary';
-import UniversalHeader from '@/components/navigation/UniversalHeader';
 
 // Maps every possible URL label → data category value(s)
 const LABEL_TO_CATEGORY = {
@@ -76,9 +75,7 @@ export default function WorkoutCategoryPage() {
 
   return (
     <div className="min-h-screen bg-[#F0F8FF]">
-      <UniversalHeader title={meta.label} backTo="Workouts" />
-
-      <div className="max-w-2xl mx-auto px-4 pt-20 pb-24">
+      <div className="max-w-2xl mx-auto px-4 pt-6 pb-24">
 
         {/* Category header */}
         <motion.div

@@ -91,6 +91,33 @@ export default function Layout({ children, currentPageName }) {
 
   const currentPageTitle = pageTitles[currentPageName] || currentPageName;
 
+  // Back destinations for child pages
+  const pageBackTo = {
+    WorkoutCategoryPage: 'Workouts',
+    WorkoutProgress:     'Workouts',
+    WorkoutTrends:       'Workouts',
+    WorkoutPlanner:      'Workouts',
+    CoachingPlanDetail:  'Workouts',
+    ChallengeDetailPage: 'Workouts',
+    PersonalGrowth:      'Home',
+    WeeklyReflectionPage:'PersonalGrowth',
+    GrowthPathwaysPage:  'PersonalGrowth',
+    HabitBuilderPage:    'PersonalGrowth',
+    EmotionalCheckInPage:'PersonalGrowth',
+    AffirmationsPage:    'PersonalGrowth',
+    GratitudeJournalPage:'PersonalGrowth',
+    IdentityInChristPage:'PersonalGrowth',
+    MindsetResetPage:    'PersonalGrowth',
+    SelfCareChallengesPage:'PersonalGrowth',
+    MyJournalEntries:    'PersonalGrowth',
+    FoodLogHistory:      'Nutrition',
+    MealDetailView:      'Nutrition',
+    NutritionArticle:    'Nutrition',
+    NutritionGuidance:   'Nutrition',
+    DiscoverRecipes:     'Nutrition',
+  };
+  const currentPageBack = pageBackTo[currentPageName] || null;
+
 
 
   // Save scroll position when navigating away
@@ -171,7 +198,7 @@ export default function Layout({ children, currentPageName }) {
       
       {/* Top Bar with Universal Header */}
       {isChildRoute ? (
-        <UniversalHeader title={currentPageTitle} />
+        <UniversalHeader title={currentPageTitle} backTo={currentPageBack} />
       ) : (
         <div className="fixed top-0 left-0 right-0 bg-white dark:bg-[#2d2d4a] border-b border-gray-200 dark:border-gray-700 px-4 py-3 z-40 pt-[env(safe-area-inset-top)] select-none">
           <div className="max-w-lg mx-auto flex items-center justify-between">

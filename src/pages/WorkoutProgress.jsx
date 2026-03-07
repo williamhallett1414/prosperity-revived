@@ -12,7 +12,6 @@ import WeightProgressChart from '@/components/wellness/WeightProgressChart';
 import GoalCompletionChart from '@/components/wellness/GoalCompletionChart';
 import ProgressPhotoGallery from '@/components/wellness/ProgressPhotoGallery';
 import ChatButton from '@/components/chatbot/ChatButton';
-import UniversalHeader from '@/components/navigation/UniversalHeader';
 
 export default function WorkoutProgress() {
   const [user, setUser] = useState(null);
@@ -53,9 +52,7 @@ export default function WorkoutProgress() {
 
   return (
     <div className="min-h-screen bg-[#F2F6FA] pb-24">
-      <UniversalHeader title="Workout Progress" backTo="Workouts" />
-
-      <div className="max-w-4xl mx-auto px-4 space-y-6 pt-20">
+      <div className="max-w-4xl mx-auto px-4 space-y-6 pt-4">
 
         {/* Stats Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 px-4 pt-6">

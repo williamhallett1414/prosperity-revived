@@ -11,7 +11,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, AreaChart, Area } from 'recharts';
 import { format, subDays, startOfWeek, endOfWeek, eachDayOfInterval, isSameDay } from 'date-fns';
 import ChatButton from '@/components/chatbot/ChatButton';
-import UniversalHeader from '@/components/navigation/UniversalHeader';
 
 export default function WorkoutTrends() {
   const [user, setUser] = useState(null);
@@ -156,9 +155,7 @@ export default function WorkoutTrends() {
 
   return (
     <div className="min-h-screen bg-[#F2F6FA] pb-24">
-      <UniversalHeader title="Workout Trends" backTo="Workouts" />
-
-      <div className="px-4 pt-20 py-6 space-y-6 bg-[#F2F6FA]">
+      <div className="px-4 pt-6 py-6 space-y-6 bg-[#F2F6FA]">
         {/* Time Range Selector */}
         <div className="flex justify-end">
           <Select value={timeRange.toString()} onValueChange={(val) => setTimeRange(parseInt(val))}>

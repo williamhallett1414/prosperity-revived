@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import {
-  Dumbbell, Flame, Wind, Heart, Plus, X, ArrowLeft,
+  Dumbbell, Flame, Wind, Heart, Plus, X,
   Calendar, BarChart2, BookOpen, Search, Clock, CheckCircle2, Trash2, Zap, ChevronRight
 } from 'lucide-react';
 import { createPageUrl } from '@/utils';
@@ -513,15 +513,7 @@ export default function WorkoutPlanner() {
         <div className="absolute -top-8 -right-8 w-40 h-40 rounded-full bg-[#FD9C2D]/10" />
         <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-[#FD9C2D] via-[#FAD98D] to-transparent" />
         <div className="relative z-10 max-w-2xl mx-auto">
-          <div className="flex items-center gap-3 mb-2">
-            <button
-              onClick={() => navigate(createPageUrl('Workouts'))}
-              className="w-8 h-8 rounded-full bg-white/15 hover:bg-white/25 flex items-center justify-center transition-colors flex-shrink-0"
-            >
-              <ArrowLeft className="w-4 h-4 text-white" />
-            </button>
-            <p className="text-[#FAD98D] text-xs font-bold tracking-widest uppercase">Prosperity Revived</p>
-          </div>
+          <p className="text-[#FAD98D] text-xs font-bold tracking-widest uppercase mb-2">Prosperity Revived</p>
           <h1 className="text-white text-2xl font-black mb-1">Workout Planner 🏋️</h1>
           <p className="text-white/60 text-sm">Train your body. Strengthen your faith.</p>
         </div>
