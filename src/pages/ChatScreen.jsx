@@ -6,7 +6,7 @@ import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, Send, Loader2, RotateCcw, Mic, MicOff, Volume2, Square, X, Zap, ChevronRight } from 'lucide-react';
+import { ArrowLeft, Send, Loader2, RotateCcw, Mic, MicOff, Volume2, Square, X, Zap } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import { base44 } from '@/api/base44Client';
 import CloudAvatar    from '@/components/avatar/CloudAvatar';
@@ -702,7 +702,6 @@ export default function ChatScreen() {
   const [isListening,      setIsListening]      = useState(false);
   const [speakingIdx,      setSpeakingIdx]      = useState(null);
   const [permissionDenied, setPermissionDenied] = useState(false);
-  const [showPrompts,      setShowPrompts]      = useState(false);
 
   const inputRef           = useRef(null);
   const messagesEndRef     = useRef(null);
@@ -925,7 +924,7 @@ export default function ChatScreen() {
 
         {/* Left — Back */}
         <button onClick={() => navigate(-1)}
-          className="flex items-center gap-1.5 text-white/55 hover:text-white transition-colors px-1 py-1 min-w-[60px]">
+          className="flex items-center gap-1.5 text-white/55 hover:text-white transition-colors px-1 py-1 flex-shrink-0">
           <ArrowLeft className="w-5 h-5" />
           <span className="text-sm font-medium">Back</span>
         </button>
@@ -937,29 +936,65 @@ export default function ChatScreen() {
         </div>
 
         {/* Right — Restart + Close */}
-        <div className="flex items-center gap-1 min-w-[60px] justify-end">
-          <button
-            onClick={() => setShowPrompts(p => !p)}
-            aria-label="Quick prompts"
-            title="Quick prompts"
-            className="text-white/40 hover:text-white/70 transition-colors p-1.5 rounded-full hover:bg-white/10"
-            style={{ color: showPrompts ? cfg.gradTo : undefined }}>
-            <Zap className="w-3.5 h-3.5" />
-          </button>
+        <div className="flex items-center gap-2 flex-shrink-0">
           <button
             onClick={clearChat}
             aria-label="Restart conversation"
             title="Restart"
-            className="text-white/40 hover:text-white/70 transition-colors p-1.5 rounded-full hover:bg-white/10">
-            <RotateCcw className="w-3.5 h-3.5" />
+            className="flex items-center justify-center transition-colors rounded-full"
+            style={{ width: 36, height: 36, background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.14)', color: 'rgba(255,255,255,0.55)' }}>
+            <RotateCcw style={{ width: 14, height: 14 }} />
           </button>
           <button
             onClick={() => navigate(-1)}
             aria-label="Close chat"
             title="Close"
-            className="text-white/40 hover:text-white transition-colors p-1.5 rounded-full hover:bg-white/10">
-            <X className="w-4 h-4" />
+            className="flex items-center justify-center transition-all rounded-full"
+            style={{ width: 44, height: 44, background: 'rgba(255,255,255,0.13)', border: `1.5px solid rgba(255,255,255,0.28)`, color: 'white' }}>
+            <X style={{ width: 18, height: 18 }} />
           </button>
+        </div>
+      </div>
+
+      {/* ── Quick Prompt Chip Strip (top, always visible, horizontal scroll) ── */}
+      <div
+        className="relative z-20 flex-shrink-0"
+        style={{ borderBottom: `1px solid ${cfg.gradTo}18`, background: 'rgba(0,0,0,0.28)', backdropFilter: 'blur(12px)' }}
+      >
+        {/* Label row */}
+        <div className="flex items-center gap-1.5 px-4 pt-2 pb-1">
+          <Zap style={{ width: 11, height: 11, color: cfg.gradTo, flexShrink: 0 }} />
+          <span style={{ fontSize: 10, fontWeight: 600, color: `${cfg.gradTo}BB`, letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+            Quick Prompts
+          </span>
+        </div>
+        {/* Scrollable chip row */}
+        <div
+          className="flex gap-2 px-4 pb-2.5 overflow-x-auto"
+          style={{ WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        >
+          {(QUICK_PROMPTS[bot] || []).map((item, idx) => (
+            <button
+              key={idx}
+              onClick={() => sendMessage(item.prompt)}
+              disabled={isLoading}
+              className="flex-shrink-0 transition-all"
+              style={{
+                padding: '5px 12px',
+                borderRadius: 100,
+                fontSize: 12,
+                fontWeight: 500,
+                whiteSpace: 'nowrap',
+                color: 'rgba(255,255,255,0.82)',
+                background: `${cfg.gradTo}18`,
+                border: `1px solid ${cfg.gradTo}38`,
+                cursor: isLoading ? 'not-allowed' : 'pointer',
+                opacity: isLoading ? 0.45 : 1,
+              }}
+            >
+              {item.label}
+            </button>
+          ))}
         </div>
       </div>
 
@@ -1175,90 +1210,6 @@ export default function ChatScreen() {
         )}
       </motion.div>
 
-      {/* ── Quick Prompt Drawer ─────────────────────────────────────────────── */}
-      <AnimatePresence>
-        {showPrompts && (
-          <>
-            {/* Backdrop tap to close */}
-            <motion.div
-              className="absolute inset-0 z-30"
-              initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-              onClick={() => setShowPrompts(false)}
-              style={{ background: 'rgba(0,0,0,0.35)' }}
-            />
-            {/* Drawer panel */}
-            <motion.div
-              className="absolute right-0 top-0 bottom-0 z-40 flex flex-col overflow-hidden"
-              style={{
-                width: 'min(88vw, 300px)',
-                background: `linear-gradient(160deg, ${cfg.bgDark}f0 0%, rgba(0,0,0,0.96) 100%)`,
-                borderLeft: `1px solid ${cfg.gradTo}25`,
-                backdropFilter: 'blur(24px)',
-              }}
-              initial={{ x: '100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '100%' }}
-              transition={{ type: 'spring', stiffness: 340, damping: 32 }}
-            >
-              {/* Drawer header */}
-              <div className="flex items-center justify-between px-4 flex-shrink-0"
-                style={{ paddingTop: 'max(16px, env(safe-area-inset-top))', paddingBottom: 14,
-                  borderBottom: `1px solid ${cfg.gradTo}20` }}>
-                <div className="flex items-center gap-2">
-                  <Zap className="w-4 h-4" style={{ color: cfg.gradTo }} />
-                  <span className="text-white font-semibold text-sm">Quick Prompts</span>
-                </div>
-                <button onClick={() => setShowPrompts(false)}
-                  className="text-white/40 hover:text-white transition-colors p-1 rounded-full hover:bg-white/10">
-                  <X className="w-4 h-4" />
-                </button>
-              </div>
-
-              {/* Prompt list */}
-              <div className="flex-1 overflow-y-auto py-3 px-3" style={{ WebkitOverflowScrolling: 'touch' }}>
-                <p className="text-xs px-1 mb-3" style={{ color: `${cfg.gradTo}80` }}>
-                  Tap any prompt — it sends immediately.
-                </p>
-                {(QUICK_PROMPTS[bot] || []).map((item, idx) => (
-                  <motion.button
-                    key={idx}
-                    initial={{ opacity: 0, x: 18 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: idx * 0.04 }}
-                    onClick={() => {
-                      setShowPrompts(false);
-                      sendMessage(item.prompt);
-                    }}
-                    disabled={isLoading}
-                    className="w-full text-left mb-2 flex items-center justify-between group"
-                    style={{
-                      padding: '10px 12px',
-                      borderRadius: 10,
-                      background: `${cfg.gradTo}0D`,
-                      border: `1px solid ${cfg.gradTo}20`,
-                      color: 'rgba(255,255,255,0.80)',
-                      fontSize: 13,
-                      lineHeight: 1.4,
-                      transition: 'background 0.15s, border-color 0.15s',
-                    }}
-                    onMouseEnter={e => {
-                      e.currentTarget.style.background = `${cfg.gradTo}22`;
-                      e.currentTarget.style.borderColor = `${cfg.gradTo}50`;
-                    }}
-                    onMouseLeave={e => {
-                      e.currentTarget.style.background = `${cfg.gradTo}0D`;
-                      e.currentTarget.style.borderColor = `${cfg.gradTo}20`;
-                    }}
-                  >
-                    <span>{item.label}</span>
-                    <ChevronRight className="w-3.5 h-3.5 flex-shrink-0 opacity-30 group-hover:opacity-70 transition-opacity" />
-                  </motion.button>
-                ))}
-              </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
 
     </motion.div>,
     document.body
