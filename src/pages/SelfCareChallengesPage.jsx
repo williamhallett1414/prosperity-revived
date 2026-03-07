@@ -148,11 +148,14 @@ const GLOBAL_STYLES = `
   @keyframes pulse-ring { 0%{box-shadow:0 0 0 0 rgba(217,184,120,0.4)} 70%{box-shadow:0 0 0 10px rgba(217,184,120,0)} 100%{box-shadow:0 0 0 0 rgba(217,184,120,0)} }
   @keyframes spin { to { transform: rotate(360deg); } }
   @keyframes fadeSlideUp { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
-  * { box-sizing:border-box; margin:0; padding:0; }
   .sc-scroll::-webkit-scrollbar { display:none; }
-  .sc-scroll { -ms-overflow-style:none; scrollbar-width:none; }
-  .cat-btn { transition:all 0.2s; }
+  .sc-scroll { -ms-overflow-style:none; scrollbar-width:none; -webkit-overflow-scrolling:touch; }
+  .sc-detail-scroll { overflow-y:auto; flex:1; min-height:0; -webkit-overflow-scrolling:touch; scrollbar-width:none; padding-bottom:32px; }
+  .sc-detail-scroll::-webkit-scrollbar { display:none; }
+  .cat-btn { transition:all 0.2s; touch-action:manipulation; }
   .cat-btn:hover { transform:translateY(-1px); }
+  .sc-btn { touch-action:manipulation; cursor:pointer; }
+  .sc-btn:active { opacity:0.85; }
   .challenge-card { transition:all 0.2s; }
   .challenge-card:hover { box-shadow:0 8px 32px rgba(0,0,0,0.1); transform:translateY(-1px); }
 `;
@@ -293,14 +296,15 @@ function ChallengeDetail({ challenge, localData, onClose, onStart, onComplete, o
     <div style={{
       position:"fixed",inset:0,zIndex:100,background:"#F8F4EE",
       display:"flex",flexDirection:"column",fontFamily:"Nunito,sans-serif",
-      animation:"slideInRight 0.35s cubic-bezier(.34,1.3,.64,1)",
+      height:"100%",overflow:"hidden",
+      animation:"slideInRight 0.25s ease-out",animationFillMode:"both",
     }}>
       <Confetti show={showConfetti}/>
       <XPToast show={showXP} xp={challenge.xpPerDay + streakBonus}/>
 
       {/* Header */}
       <div style={{background:"white",borderBottom:"1px solid #E8EDF3",padding:"14px 16px",display:"flex",alignItems:"center",gap:12,flexShrink:0}}>
-        <button onClick={onClose} style={{width:38,height:38,borderRadius:"50%",background:"#F8F4EE",border:"none",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",fontSize:18,color:"#0A1A2F"}}>←</button>
+        <button className="sc-btn" onClick={onClose} style={{width:38,height:38,borderRadius:"50%",background:"#F8F4EE",border:"none",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",fontSize:18,color:"#0A1A2F"}}>←</button>
         <div style={{flex:1}}>
           <div style={{fontFamily:"Lora,serif",fontWeight:700,fontSize:15,color:"#0A1A2F"}}>{challenge.title}</div>
           <div style={{fontSize:10,color:"#0A1A2F66",fontWeight:700,textTransform:"uppercase",letterSpacing:1.2}}>
@@ -312,11 +316,11 @@ function ChallengeDetail({ challenge, localData, onClose, onStart, onComplete, o
           +{challenge.xpPerDay} XP/day
         </div>
         {isStarted && (
-          <button onClick={()=>setConfirmReset(true)} style={{width:38,height:38,borderRadius:"50%",background:"#F8F4EE",border:"none",cursor:"pointer",fontSize:16,color:"#94a3b8"}} title="Reset challenge">↺</button>
+          <button className="sc-btn" onClick={()=>setConfirmReset(true)} style={{width:38,height:38,borderRadius:"50%",background:"#F8F4EE",border:"none",cursor:"pointer",fontSize:16,color:"#94a3b8"}} title="Reset challenge">↺</button>
         )}
       </div>
 
-      <div className="sc-scroll" style={{flex:1,overflowY:"auto",paddingBottom:32}}>
+      <div className="sc-detail-scroll">
 
         {/* Hero */}
         <div style={{margin:"16px 16px 0",borderRadius:24,padding:20,background:challenge.bg,boxShadow:"0 12px 40px rgba(0,0,0,0.15)"}}>
@@ -363,7 +367,7 @@ function ChallengeDetail({ challenge, localData, onClose, onStart, onComplete, o
                   <div style={{fontSize:12,color:"#0A1A2F66",marginBottom:12}}>You've built real momentum. Keep growing.</div>
                   {nextSuggestions.map(next => (
                     // FIX: onClick now actually opens the suggested challenge, not just closes
-                    <button key={next.id} onClick={()=>onOpenChallenge(next)} style={{
+                    <button key={next.id} className="sc-btn" onClick={()=>onOpenChallenge(next)} style={{
                       width:"100%",background:"#F8F4EE",borderRadius:14,border:"1px solid #E8EDF3",
                       padding:"10px 14px",display:"flex",alignItems:"center",gap:10,marginBottom:8,
                       cursor:"pointer",textAlign:"left",
@@ -379,7 +383,7 @@ function ChallengeDetail({ challenge, localData, onClose, onStart, onComplete, o
                 </>
               )}
             </div>
-            <button onClick={()=>onReset(challenge.id)} style={{
+            <button className="sc-btn" onClick={()=>onReset(challenge.id)} style={{
               background:"white",border:"1px solid #E8EDF3",borderRadius:16,
               padding:"12px",color:"#94a3b8",fontSize:12,fontWeight:700,cursor:"pointer",
             }}>↺ Repeat This Challenge</button>
@@ -451,7 +455,7 @@ function ChallengeDetail({ challenge, localData, onClose, onStart, onComplete, o
                     🔥 {streak}-day streak — bonus +10 XP!
                   </div>
                 )}
-                <button onClick={handleComplete} disabled={saving||!reflection.trim()} style={{
+                <button className="sc-btn" onClick={handleComplete} disabled={saving||!reflection.trim()} style={{
                   width:"100%",padding:"15px",borderRadius:18,
                   background:reflection.trim()?challenge.bg:"#E8EDF3",
                   border:"none",color:reflection.trim()?"white":"#94a3b8",
@@ -472,7 +476,7 @@ function ChallengeDetail({ challenge, localData, onClose, onStart, onComplete, o
 
         {/* All days collapsible */}
         <div style={{margin:"20px 16px 0"}}>
-          <button onClick={()=>setShowAllDays(s=>!s)} style={{
+          <button className="sc-btn" onClick={()=>setShowAllDays(s=>!s)} style={{
             width:"100%",background:"none",border:"none",cursor:"pointer",
             display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:10,padding:0,
           }}>
@@ -521,7 +525,7 @@ function ChallengeDetail({ challenge, localData, onClose, onStart, onComplete, o
       {/* Start CTA */}
       {!isStarted && (
         <div style={{padding:"16px",background:"white",borderTop:"1px solid #E8EDF3",flexShrink:0}}>
-          <button onClick={()=>onStart(challenge.id)} style={{
+          <button className="sc-btn" onClick={()=>onStart(challenge.id)} style={{
             width:"100%",padding:"16px",borderRadius:20,
             background:"linear-gradient(135deg,#D9B878,#c9a227)",
             border:"none",color:"#0A1A2F",fontFamily:"Nunito,sans-serif",
@@ -544,8 +548,8 @@ function ChallengeDetail({ challenge, localData, onClose, onStart, onComplete, o
             <div style={{fontFamily:"Lora,serif",fontWeight:700,fontSize:18,color:"#0A1A2F",textAlign:"center",marginBottom:6}}>Reset Challenge?</div>
             <div style={{fontSize:12,color:"#0A1A2F55",textAlign:"center",marginBottom:24,lineHeight:1.6}}>Your progress will be cleared. Journal entries will stay.</div>
             <div style={{display:"flex",gap:12}}>
-              <button onClick={()=>setConfirmReset(false)} style={{flex:1,padding:14,borderRadius:16,border:"1px solid #E8EDF3",background:"white",cursor:"pointer",fontWeight:700,fontSize:13,color:"#0A1A2F66"}}>Cancel</button>
-              <button onClick={()=>{onReset(challenge.id);setConfirmReset(false);}} style={{flex:1,padding:14,borderRadius:16,border:"none",background:"#f43f5e",color:"white",cursor:"pointer",fontWeight:800,fontSize:13}}>Reset</button>
+              <button className="sc-btn" onClick={()=>setConfirmReset(false)} style={{flex:1,padding:14,borderRadius:16,border:"1px solid #E8EDF3",background:"white",cursor:"pointer",fontWeight:700,fontSize:13,color:"#0A1A2F66"}}>Cancel</button>
+              <button className="sc-btn" onClick={()=>{onReset(challenge.id);setConfirmReset(false);}} style={{flex:1,padding:14,borderRadius:16,border:"none",background:"#f43f5e",color:"white",cursor:"pointer",fontWeight:800,fontSize:13}}>Reset</button>
             </div>
           </div>
         </div>
