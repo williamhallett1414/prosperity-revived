@@ -199,18 +199,20 @@ function ParticleHalo({ cfg, stateRef }) {
     return geo;
   }, [positions]);
 
+  const material = useMemo(() => new THREE.PointsMaterial({
+    color: cfg.particleCol,
+    size: 0.015,
+    transparent: true,
+    opacity: 0.24,
+    depthWrite: false,
+    sizeAttenuation: true,
+  }), [cfg.particleCol]);
+
+  // Keep matRef pointing at the imperative material for useFrame mutations
+  matRef.current = material;
+
   return (
-    <points ref={pointsRef} geometry={geometry}>
-      <pointsMaterial
-        ref={matRef}
-        color={cfg.particleCol}
-        size={0.015}
-        transparent
-        opacity={0.24}
-        depthWrite={false}
-        sizeAttenuation
-      />
-    </points>
+    <points ref={pointsRef} geometry={geometry} material={material} />
   );
 }
 
