@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { createPortal } from "react-dom";
 
 // ─── Challenge Catalogue ─────────────────────────────────────────────────────
 const CHALLENGES = [
@@ -698,7 +699,7 @@ export default function SelfCareChallengesPage() {
 
   return (
     <>
-      <style>{GLOBAL_STYLES}</style>
+      {createPortal(<style>{GLOBAL_STYLES}</style>, document.head)}
       <div style={{minHeight:"100vh",background:"#F8F4EE",fontFamily:"Nunito,sans-serif",paddingBottom:100}}>
 
         {/* Sticky header with XP level progress */}
@@ -806,8 +807,8 @@ export default function SelfCareChallengesPage() {
         </div>
       </div>
 
-      {/* Detail overlay */}
-      {selected && (
+      {/* Detail overlay — rendered via portal to escape Framer Motion's transform stacking context */}
+      {selected && createPortal(
         <ChallengeDetail
           key={selected.id}
           challenge={selected}
@@ -817,7 +818,8 @@ export default function SelfCareChallengesPage() {
           onComplete={handleComplete}
           onReset={handleReset}
           onOpenChallenge={handleOpenChallenge}
-        />
+        />,
+        document.body
       )}
     </>
   );
