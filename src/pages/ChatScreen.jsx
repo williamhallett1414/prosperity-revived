@@ -50,15 +50,20 @@ const BOT_CONFIG = {
     // Neural preference: Jenny/Aria (Natural) > Samantha (Enhanced) > Zira Desktop
     voiceGender: 'female',
     voiceNames:  [
+      // macOS / Safari — female voices
       'Samantha', 'Karen', 'Victoria', 'Moira', 'Tessa',
-      'Google UK English Female', 'Google US English Female',
+      // Chrome
+      'Google UK English Female',
+      'Google US English Female',
+      // Windows Neural — female only
       'Microsoft Jenny Online (Natural) - English (United States)',
       'Microsoft Aria Online (Natural) - English (United States)',
+      // Windows Desktop — female only
       'Microsoft Zira Desktop - English (United States)',
       'Microsoft Hazel Desktop - English (Great Britain)',
     ],
-    voiceRate:   0.88,
-    voicePitch:  1.06,
+    voiceRate:   0.84,   // unhurried warmth
+    voicePitch:  1.20,   // elevated — clearly distinct from all males
     voiceVolume: 0.93,
     welcomeMsg:  "I'm Hannah. No pressure, no agenda — I'm just here. Whether you're processing something heavy, chasing a goal, or just need to talk it out, I've got you. What's on your mind?",
     placeholder: "What's on your mind?",
@@ -92,37 +97,31 @@ SAFETY: If someone expresses thoughts of self-harm, suicide, or a mental health 
     micActive:   '#38BDF8',
     icon:        'D',
     // Voice: High-Energy Male Fitness Coach
-    // Rate 1.1  — driven, punchy, relentless cadence
-    // Pitch 1.0 — neutral-to-warm male (avoid going too low which reads as sleepy)
-    // Volume 1.0 — full presence
-    //
-    // Voice priority order covers all major platforms:
-    //   Chrome/Mac:    Tom, Alex, Fred (macOS), Google UK English Male, Google US English
-    //   Windows:       Guy Online (Natural), Davis Online (Natural), Chris Online (Natural)
-    //                  David Desktop, Mark Desktop, Christopher, Richard
-    //   iOS/iPadOS:    Aaron, Rishi, Gordon, Daniel (British)
+    // Rate 1.22 — FASTEST bot — driven, relentless, punchy cadence
+    // Pitch 0.90 — lower than neutral — masculine authority, not hollow
+    // Unique first priorities: 'Tom' (macOS), 'Google US English', 'Guy Online'
     voiceGender: 'male',
     voiceNames:  [
-      // macOS / Safari
-      'Tom', 'Alex', 'Fred', 'Daniel',
-      // Chrome built-in
-      'Google UK English Male',
+      // macOS — Tom is distinct from Alex/Fred (more upbeat cadence)
+      'Tom', 'Alex', 'Fred',
+      // Chrome — American neutral male
       'Google US English',
-      // Windows — Neural (highest quality)
+      // Windows Neural — energetic American males first
       'Microsoft Guy Online (Natural) - English (United States)',
       'Microsoft Davis Online (Natural) - English (United States)',
       'Microsoft Christopher Online (Natural) - English (United States)',
       'Microsoft Eric Online (Natural) - English (United States)',
+      // UK as lower priority for David (he's American-energy)
+      'Google UK English Male',
       'Microsoft Ryan Online (Natural) - English (United Kingdom)',
-      // Windows — Desktop fallbacks
+      // Desktop fallbacks
       'Microsoft David Desktop - English (United States)',
       'Microsoft Mark Desktop - English (United States)',
-      'Microsoft George Desktop - English (Great Britain)',
-      // iOS / iPadOS
-      'Aaron', 'Rishi', 'Gordon',
+      // iOS
+      'Aaron', 'Rishi',
     ],
-    voiceRate:   1.1,
-    voicePitch:  1.0,
+    voiceRate:   1.22,   // fastest — driven, no-nonsense
+    voicePitch:  0.90,   // masculine authority, punchy depth
     voiceVolume: 1.0,
     welcomeMsg:  "I'm Coach David. No fluff, no excuses — just you, your goals, and the work it takes to get there. What are we attacking today?",
     placeholder: 'Ask about training, goals, or recovery…',
@@ -155,19 +154,27 @@ SAFETY: For any injury, pain, or medical symptom, always recommend the person se
     userBubble:  'from-[#166534] to-[#22c55e]',
     micActive:   '#22c55e',
     icon:        'C',
-    // Voice: Friendly Culinary Guide
-    // Rate 0.96 — expressive, conversational; pitch 1.03 — lifted warmth; slight humor in pausing
-    // Neural preference: Ryan Online (Natural, UK) > Daniel > George
+    // Voice: Friendly Culinary Guide — British warmth, expressive
+    // Rate 0.96 — natural conversational pace, room for flavour
+    // Pitch 1.08 — slightly bright/lifted, enthusiastic about food
+    // Unique first priorities: 'Daniel'/'Oliver'/'Arthur' (British warmth)
     voiceGender: 'male',
     voiceNames:  [
-      'Daniel', 'Arthur', 'Oliver',
+      // macOS — Daniel (British, warm) is Chef Daniel's anchor voice
+      'Daniel', 'Oliver', 'Arthur',
+      // Chrome British
       'Google UK English Male',
+      // Windows Neural UK (warm British accent fits chef persona)
       'Microsoft Ryan Online (Natural) - English (United Kingdom)',
       'Microsoft George Desktop - English (Great Britain)',
+      // US fallback (lower priority — British fits better)
+      'Microsoft Davis Online (Natural) - English (United States)',
       'Microsoft David Desktop - English (United States)',
+      // iOS
+      'Gordon', 'Rishi',
     ],
-    voiceRate:   0.96,
-    voicePitch:  1.03,
+    voiceRate:   0.96,   // conversational, room to breathe
+    voicePitch:  1.08,   // bright, enthusiastic — food energy
     voiceVolume: 0.97,
     welcomeMsg:  "I'm Chef Daniel. Food should feel like joy, not a chore — and I'm here to help you make that real. What are you working with today?",
     placeholder: 'Ask about meals, nutrition, or recipes…',
@@ -200,21 +207,30 @@ SAFETY: Always ask about allergies or dietary restrictions before making specifi
     userBubble:  'from-[#7c5a00] to-[#c9a227]',
     micActive:   '#D9B878',
     icon:        'G',
-    // Voice: Old Prophet — aged, warm, slightly raspy, slow and wise
-    // Rate 0.80 — most unhurried of all bots; pitch 0.85 — deep gravitas; volume 0.90 — intimate
-    // Neural preference: Ryan Online (Natural, UK) > Daniel > George
+    // Voice: Old Prophet — SLOWEST + DEEPEST of all bots — unmistakable
+    // Rate 0.65 — ancient, unhurried, every word has weight (was 0.80)
+    // Pitch 0.70 — deepest voice — gravitas, earned authority (was 0.85)
+    // Volume 0.90 — intimate, not booming
+    // Unique first priorities: 'Alex' (deep macOS voice), 'Fred' (gravelly macOS)
     voiceGender: 'male',
     voiceNames:  [
-      'Daniel', 'Arthur',
-      'Google UK English Male',
+      // macOS — Alex is the deepest/most authoritative built-in voice
+      'Alex', 'Fred',
+      // Windows Neural UK (measured British accent suits prophet archetype)
       'Microsoft Ryan Online (Natural) - English (United Kingdom)',
       'Microsoft George Desktop - English (Great Britain)',
-      'Microsoft David Desktop - English (United States)',
+      // macOS British
+      'Daniel', 'Arthur',
+      // Chrome
+      'Google UK English Male',
+      // US fallbacks
       'Microsoft Mark Desktop - English (United States)',
-      'Alex',
+      'Microsoft David Desktop - English (United States)',
+      // iOS
+      'Gordon',
     ],
-    voiceRate:   0.80,
-    voicePitch:  0.85,
+    voiceRate:   0.65,   // SLOWEST — ancient wisdom, every word measured
+    voicePitch:  0.70,   // DEEPEST — unmistakable gravitas
     voiceVolume: 0.90,
     welcomeMsg:  "Peace be with you. I'm Gideon. I'm here to walk with you through God's Word — not as a scholar behind a desk, but as a fellow traveler on the journey. What's stirring in your heart today?",
     placeholder: 'Ask about Scripture, faith, or spiritual life…',
@@ -249,20 +265,31 @@ DENOMINATIONAL NEUTRALITY: Speak to people across all Christian traditions. Avoi
     userBubble:  'from-[#3B0764] to-[#7C3AED]',
     micActive:   '#A78BFA',
     icon:        'P',
-    // Voice: Calm Inspirational Mentor — smooth, steady, grounded
-    // Rate 0.86 — deliberate weight; pitch 0.87 — grounded authority; volume 0.94 — measured
-    // Neural preference: Davis Online (Natural) > Guy Online (Natural) > Alex
+    // Voice: Calm Measured Authority — deliberate, grounded, pastor-coach weight
+    // Rate 0.88 — deliberate, not slow — each word intentional
+    // Pitch 0.84 — grounded male depth, calmer than David, deeper than Daniel
+    // Unique first priorities: 'Fred' (gravelly macOS) then 'Arthur' (British authority)
     voiceGender: 'male',
     voiceNames:  [
-      'Alex', 'Arthur', 'Daniel',
-      'Google UK English Male', 'Google US English',
+      // macOS — Fred has a slightly gravelly authority
+      'Fred', 'Arthur', 'Alex',
+      // Chrome US
+      'Google US English',
+      // Windows Neural US — calm, measured American voices
       'Microsoft Davis Online (Natural) - English (United States)',
-      'Microsoft Guy Online (Natural) - English (United States)',
+      'Microsoft Christopher Online (Natural) - English (United States)',
+      // Chrome UK
+      'Google UK English Male',
+      // Windows Neural UK
+      'Microsoft Ryan Online (Natural) - English (United Kingdom)',
+      // Desktop
       'Microsoft Mark Desktop - English (United States)',
       'Microsoft David Desktop - English (United States)',
+      // iOS
+      'Rishi', 'Aaron',
     ],
-    voiceRate:   0.86,
-    voicePitch:  0.87,
+    voiceRate:   0.88,   // deliberate — every word carries weight
+    voicePitch:  0.84,   // grounded depth, calmer than David
     voiceVolume: 0.94,
     welcomeMsg:  "I'm Coach Paul. I don't do hype — I do clarity. Let's figure out what's actually in your way and build something that lasts. What are we working on?",
     placeholder: 'Ask about leadership, discipline, or purpose…',
@@ -327,14 +354,21 @@ function prosodyFor(sentence, sentIdx, baseCfg) {
   const words = sentence.split(/\s+/).length;
   let rate  = baseCfg.voiceRate  ?? 0.95;
   let pitch = baseCfg.voicePitch ?? 1.0;
-  if (sentIdx === 0)        rate  -= 0.04;
-  if (isQ)  { pitch += 0.06; rate  -= 0.03; }
-  if (isEx) { rate  += 0.06; pitch += 0.03; }
-  if (words <= 7 && sentIdx > 0) rate += 0.03;
-  if (words > 18)           rate  -= 0.03;
+  // First sentence: ease in — voice establishes before full pace
+  if (sentIdx === 0)         rate  -= 0.05;
+  // Questions: rising intonation — pitch up, pace down
+  if (isQ)  { pitch += 0.10; rate  -= 0.06; }
+  // Exclamations: energy spike — faster + brighter
+  if (isEx) { rate  += 0.10; pitch += 0.06; }
+  // Short punchy sentences: snap them out
+  if (words <= 5 && sentIdx > 0) rate += 0.06;
+  // Long complex sentences: give them room
+  if (words > 20) rate -= 0.06;
+  // Medium-short (6-9 words): slight lift
+  if (words >= 6 && words <= 9 && sentIdx > 0) rate += 0.03;
   return {
-    rate:  Math.max(0.62, Math.min(1.38, rate)),
-    pitch: Math.max(0.72, Math.min(1.38, pitch)),
+    rate:  Math.max(0.58, Math.min(1.40, rate)),
+    pitch: Math.max(0.65, Math.min(1.40, pitch)),
   };
 }
 
@@ -476,7 +510,14 @@ async function speakText({ text, cfg, onStart, onEnd, onError }) {
   };
 
   const voices = await loadVoices();
-  if (!cancelled) speakNext(pickVoice(voices, cfg.voiceNames || [], cfg.voiceGender));
+  if (!cancelled) {
+    const chosen = pickVoice(voices, cfg.voiceNames || [], cfg.voiceGender);
+    // Debug: log which voice is selected so you can verify in browser console
+    if (typeof window !== 'undefined' && window.location?.hostname === 'localhost') {
+      console.log(`[TTS] ${cfg.name ?? 'Bot'} → voice: "${chosen?.name ?? 'default'}" | rate: ${cfg.voiceRate} | pitch: ${cfg.voicePitch}`);
+    }
+    speakNext(chosen);
+  }
 
   return () => {
     cancelled = true;
