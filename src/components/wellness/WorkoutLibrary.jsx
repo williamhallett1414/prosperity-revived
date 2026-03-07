@@ -344,5 +344,166 @@ export const PREMADE_WORKOUTS = [
       { name: 'Foam Rolling', sets: 1, reps: 0, duration_seconds: 300 },
       { name: 'Deep Breathing', sets: 3, reps: 10, duration_seconds: 0 }
     ]
-  }
+  },
+  {
+    id: 'morning-flexibility',
+    title: 'Morning Flexibility Flow',
+    description: 'Ease your body into the day with full-body stretching',
+    difficulty: 'beginner',
+    duration_minutes: 15,
+    category: 'flexibility',
+    image_url: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=400',
+    exercises: [
+      { name: 'Neck Side Stretch', sets: 2, reps: 0, duration_seconds: 30 },
+      { name: 'Chest Opener', sets: 2, reps: 0, duration_seconds: 40 },
+      { name: 'Standing Quad Stretch', sets: 2, reps: 0, duration_seconds: 30 },
+      { name: 'Standing Forward Fold', sets: 3, reps: 0, duration_seconds: 45 },
+      { name: 'Hip Flexor Lunge Stretch', sets: 2, reps: 0, duration_seconds: 45 }
+    ]
+  },
+  {
+    id: 'hip-opener',
+    title: 'Deep Hip Opener',
+    description: 'Release tight hips and improve lower body mobility',
+    difficulty: 'intermediate',
+    duration_minutes: 20,
+    category: 'flexibility',
+    image_url: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400',
+    exercises: [
+      { name: 'Pigeon Pose', sets: 2, reps: 0, duration_seconds: 90 },
+      { name: 'Butterfly Stretch', sets: 3, reps: 0, duration_seconds: 60 },
+      { name: 'Figure-4 Stretch', sets: 2, reps: 0, duration_seconds: 60 },
+      { name: 'Deep Squat Hold', sets: 3, reps: 0, duration_seconds: 45 },
+      { name: 'Lizard Pose', sets: 2, reps: 0, duration_seconds: 60 }
+    ]
+  },
+  {
+    id: 'full-body-stretch',
+    title: 'Full Body Deep Stretch',
+    description: 'Head-to-toe stretching for total body relief',
+    difficulty: 'beginner',
+    duration_minutes: 25,
+    category: 'flexibility',
+    image_url: 'https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?w=400',
+    exercises: [
+      { name: 'Standing Forward Fold', sets: 2, reps: 0, duration_seconds: 60 },
+      { name: 'Seated Hamstring Stretch', sets: 3, reps: 0, duration_seconds: 60 },
+      { name: 'Seated Spinal Twist', sets: 2, reps: 0, duration_seconds: 45 },
+      { name: 'Shoulder Cross-Body Stretch', sets: 2, reps: 0, duration_seconds: 30 },
+      { name: 'Lying Glute Stretch', sets: 2, reps: 0, duration_seconds: 60 },
+      { name: "Child's Pose", sets: 1, reps: 0, duration_seconds: 90 }
+    ]
+  },
+  {
+    id: 'post-workout-cooldown',
+    title: 'Post-Workout Cooldown',
+    description: 'Essential stretches to recover after any workout',
+    difficulty: 'beginner',
+    duration_minutes: 12,
+    category: 'flexibility',
+    image_url: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=400',
+    exercises: [
+      { name: 'Standing Quad Stretch', sets: 2, reps: 0, duration_seconds: 30 },
+      { name: 'Calf Stretch', sets: 2, reps: 0, duration_seconds: 30 },
+      { name: 'Chest Opener', sets: 2, reps: 0, duration_seconds: 30 },
+      { name: 'Seated Hamstring Stretch', sets: 2, reps: 0, duration_seconds: 45 },
+      { name: 'Neck Side Stretch', sets: 2, reps: 0, duration_seconds: 30 }
+    ]
+  },
+  {
+    id: 'spinal-health',
+    title: 'Spinal Health & Back Relief',
+    description: 'Decompress your spine and relieve back tension',
+    difficulty: 'beginner',
+    duration_minutes: 20,
+    category: 'flexibility',
+    image_url: 'https://images.unsplash.com/photo-1593642532400-2682810df593?w=400',
+    exercises: [
+      { name: 'Cat-Cow Stretch', sets: 3, reps: 12, duration_seconds: 0 },
+      { name: 'Seated Spinal Twist', sets: 3, reps: 0, duration_seconds: 45 },
+      { name: "Thread the Needle", sets: 2, reps: 0, duration_seconds: 40 },
+      { name: 'Knee-to-Chest Stretch', sets: 3, reps: 0, duration_seconds: 45 },
+      { name: 'Sphinx Pose', sets: 2, reps: 0, duration_seconds: 60 }
+    ]
+  },
+  {
+    id: 'runners-stretch',
+    title: "Runner's Stretch Routine",
+    description: 'Target legs, hips and calves to prevent injury',
+    difficulty: 'beginner',
+    duration_minutes: 18,
+    category: 'flexibility',
+    image_url: 'https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=400',
+    exercises: [
+      { name: 'Standing Hip Flexor Lunge', sets: 2, reps: 0, duration_seconds: 60 },
+      { name: 'Seated Hamstring Stretch', sets: 3, reps: 0, duration_seconds: 60 },
+      { name: 'Calf Stretch (Wall)', sets: 3, reps: 0, duration_seconds: 45 },
+      { name: 'IT Band Stretch', sets: 2, reps: 0, duration_seconds: 45 },
+      { name: 'Quad Stretch', sets: 2, reps: 0, duration_seconds: 40 }
+    ]
+  },
+  {
+    id: 'shoulder-neck-release',
+    title: 'Shoulder & Neck Release',
+    description: 'Melt away tension from your upper body',
+    difficulty: 'beginner',
+    duration_minutes: 12,
+    category: 'flexibility',
+    image_url: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=400',
+    exercises: [
+      { name: 'Neck Forward Tilt', sets: 3, reps: 0, duration_seconds: 30 },
+      { name: 'Ear-to-Shoulder Stretch', sets: 3, reps: 0, duration_seconds: 30 },
+      { name: 'Cross-Body Shoulder Stretch', sets: 3, reps: 0, duration_seconds: 35 },
+      { name: 'Chest Doorway Stretch', sets: 2, reps: 0, duration_seconds: 45 },
+      { name: 'Overhead Tricep Stretch', sets: 2, reps: 0, duration_seconds: 30 }
+    ]
+  },
+  {
+    id: 'splits-progression',
+    title: 'Splits Progression',
+    description: 'Build flexibility over time toward the full splits',
+    difficulty: 'intermediate',
+    duration_minutes: 30,
+    category: 'flexibility',
+    image_url: 'https://images.unsplash.com/photo-1575052814086-f385e2e2ad1b?w=400',
+    exercises: [
+      { name: 'Low Lunge Stretch', sets: 3, reps: 0, duration_seconds: 90 },
+      { name: 'Half Split Hold', sets: 3, reps: 0, duration_seconds: 90 },
+      { name: 'Hamstring Stretch Strap', sets: 3, reps: 0, duration_seconds: 60 },
+      { name: 'Hip Flexor Stretch', sets: 3, reps: 0, duration_seconds: 60 },
+      { name: 'Butterfly Inner Thigh', sets: 2, reps: 0, duration_seconds: 60 }
+    ]
+  },
+  {
+    id: 'evening-unwind',
+    title: 'Evening Unwind Stretch',
+    description: 'Release the stress of the day and prepare for rest',
+    difficulty: 'beginner',
+    duration_minutes: 20,
+    category: 'flexibility',
+    image_url: 'https://images.unsplash.com/photo-1611672585731-fa10603fb9e0?w=400',
+    exercises: [
+      { name: "Child's Pose", sets: 1, reps: 0, duration_seconds: 90 },
+      { name: 'Supine Spinal Twist', sets: 2, reps: 0, duration_seconds: 60 },
+      { name: 'Legs Up Wall', sets: 1, reps: 0, duration_seconds: 120 },
+      { name: 'Reclined Butterfly', sets: 1, reps: 0, duration_seconds: 90 },
+      { name: 'Shavasana Breathing', sets: 1, reps: 0, duration_seconds: 120 }
+    ]
+  },
+  {
+    id: 'office-mobility',
+    title: 'Office Mobility Reset',
+    description: 'Fight stiffness from sitting all day — do this anywhere',
+    difficulty: 'beginner',
+    duration_minutes: 10,
+    category: 'flexibility',
+    image_url: 'https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=400',
+    exercises: [
+      { name: 'Seated Figure-4 Stretch', sets: 2, reps: 0, duration_seconds: 40 },
+      { name: 'Chest Opener (hands clasped)', sets: 2, reps: 0, duration_seconds: 30 },
+      { name: 'Seated Neck Stretch', sets: 3, reps: 0, duration_seconds: 25 },
+      { name: 'Standing Hip Circles', sets: 2, reps: 15, duration_seconds: 0 },
+      { name: 'Wrist & Forearm Stretch', sets: 2, reps: 0, duration_seconds: 30 }
+    ]
+  },
 ];

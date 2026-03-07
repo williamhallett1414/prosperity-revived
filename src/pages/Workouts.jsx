@@ -30,12 +30,12 @@ const TRAINING_VERSES = [
 
 // ── Category config ──────────────────────────────────────────────────────────
 const CATEGORIES = [
+  { key: "all",         label: "All",       emoji: "🏋️", grad: "from-[#FD9C2D] to-[#38BDF8]",   desc: "Every workout" },
   { key: "cardio",      label: "Cardio",    emoji: "❤️", grad: "from-rose-500 to-pink-400",     desc: "Get your heart pumping" },
-  { key: "strength",   label: "Strength",  emoji: "💪", grad: "from-slate-700 to-slate-500",   desc: "Build muscle & power" },
-  { key: "hiit",       label: "HIIT",      emoji: "⚡", grad: "from-orange-500 to-amber-400",  desc: "High intensity intervals" },
-  { key: "home",       label: "Home",      emoji: "🏠", grad: "from-sky-500 to-cyan-400",      desc: "No equipment needed" },
-  { key: "flexibility",label: "Flex",      emoji: "🧘", grad: "from-teal-500 to-emerald-400",  desc: "Stretch & recover" },
-  { key: "full_body",  label: "Full Body", emoji: "🏋️", grad: "from-violet-500 to-purple-400", desc: "Total body training" },
+  { key: "strength",    label: "Strength",  emoji: "💪", grad: "from-slate-700 to-slate-500",   desc: "Build muscle & power" },
+  { key: "flexibility", label: "Flex",      emoji: "🧘", grad: "from-teal-500 to-emerald-400",  desc: "Stretch & recover" },
+  { key: "full_body",   label: "Full Body", emoji: "🏋️", grad: "from-violet-500 to-purple-400", desc: "Total body training" },
+  { key: "hiit",        label: "HIIT",      emoji: "⚡", grad: "from-orange-500 to-amber-400",  desc: "High intensity" },
 ];
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
@@ -481,7 +481,7 @@ export default function Workouts() {
                     transition={{ delay: 0.30 + i * 0.04 }}
                   >
                     <button
-                      onClick={() => navigate(`/WorkoutCategoryPage?category=${cat.label}`)}
+                      onClick={() => navigate(createPageUrl(`WorkoutCategoryPage?category=${cat.key}`))}
                       className={`w-full bg-gradient-to-br ${cat.grad} rounded-2xl p-3.5 shadow-sm hover:shadow-md transition-all text-left`}
                     >
                       <span className="text-2xl block mb-1.5">{cat.emoji}</span>
