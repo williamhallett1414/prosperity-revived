@@ -766,7 +766,7 @@ export default function CoachingPlanDetail() {
                 onClick={handleCompleteDay}
                 className={`w-full py-3 rounded-xl font-bold text-sm shadow-md transition-all ${
                   allTasksDone
-                    ? 'bg-gradient-to-r from-[#3C4E53] to-[#c9a227] text-white shadow-[#0D4F3C]/30'
+                    ? 'bg-gradient-to-r from-[#3C4E53] to-[#c9a227] text-white shadow-[#3C4E53]/30'
                     : 'bg-white border border-[#3C4E53]/30/20 text-[#3C4E53]'
                 }`}
               >

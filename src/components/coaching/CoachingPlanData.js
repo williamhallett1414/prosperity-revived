@@ -18,14 +18,14 @@ export const COACHING_PLAN = {
   description:
     'A holistic 8-week journey that weaves together daily Scripture, purposeful workouts, nourishing meals, and deep inner reflection. Each day builds on the last, creating lasting habits across your faith, fitness, nutrition, and mindset.',
   duration_weeks: 8,
-  theme_color: 'from-[#0A1A2F] via-[#1a3a5c] to-[#c9a227]',
+  theme_color: 'from-[#0A1A2F] via-[#0A1A2F] to-[#c9a227]',
   accent: '#c9a227',
   pillars: [
     { id: 'devotion',   icon: '📖', label: 'Daily Devotion',        color: '#c9a227',  page: 'Bible' },
     { id: 'workout',    icon: '💪', label: 'Workout',               color: '#38BDF8',  page: 'Workouts' },
     { id: 'nutrition',  icon: '🥗', label: 'Nutrition',             color: '#4ade80',  page: 'Nutrition' },
     { id: 'journal',    icon: '✍️', label: 'Journal Prompt',        color: '#AFC7E3',  page: 'GratitudeJournalPage' },
-    { id: 'affirmation',icon: '✨', label: 'Daily Affirmation',     color: '#D9B878',  page: 'AffirmationsPage' },
+    { id: 'affirmation',icon: '✨', label: 'Daily Affirmation',     color: '#FAD98D',  page: 'AffirmationsPage' },
   ],
   weeks: [
     // ─────────────────────────────────────────────────────────────────────────
@@ -36,7 +36,7 @@ export const COACHING_PLAN = {
       title: 'Foundations',
       theme: 'Who You Are in Christ',
       overview: 'Before you can build anything lasting, you need to know whose you are. This week we lay the spiritual, physical, and emotional groundwork for everything that follows.',
-      color: 'from-[#0A1A2F] to-[#1a3a5c]',
+      color: 'from-[#0A1A2F] to-[#0A1A2F]',
       days: [
         {
           day: 1,
@@ -244,7 +244,7 @@ export const COACHING_PLAN = {
       title: 'Discipline',
       theme: 'Building the Temple',
       overview: 'Motivation gets you started. Discipline keeps you going. This week we build the systems and habits that will sustain this transformation long after the feelings fade.',
-      color: 'from-[#1a3a5c] to-[#0d4a6b]',
+      color: 'from-[#0A1A2F] to-[#0A1A2F]',
       days: [
         {
           day: 8,
@@ -452,7 +452,7 @@ export const COACHING_PLAN = {
       title: 'Healing',
       theme: 'Addressing the Roots',
       overview: 'Lasting transformation requires healing — not just of the body, but of the soul. This week we address the emotional and spiritual roots of the patterns that have held you back.',
-      color: 'from-[#0d4a6b] to-[#1a5c4a]',
+      color: 'from-[#0A1A2F] to-[#1a5c4a]',
       days: [
         { day: 15, title: 'Forgiveness Unlocks Freedom', devotion: { title: 'Set Yourself Free', scripture: '"Get rid of all bitterness, rage and anger... Be kind and compassionate to one another, forgiving each other, just as in Christ God forgave you." — Ephesians 4:31-32', book: 'Ephesians', chapter: 4, reflection: 'Unforgiveness is like drinking poison and waiting for the other person to die. The person most imprisoned by your bitterness is you. Forgiveness is not condoning what happened — it is releasing your right to be the one who makes it right. That is God\'s job. Today we begin the deep work.' }, workout: { workoutId: 'hiit-30', title: '30-Minute HIIT', tip: 'Physical exertion can be a powerful emotional release. If you feel emotion rising during today\'s workout, let it. Tears during exercise are not weakness — they are healing.', category: 'cardio' }, nutrition: { meal: 'Anti-Inflammatory Day', recipe: 'Turmeric Golden Milk Smoothie', description: 'Almond milk blended with 1 tsp turmeric, 1/2 tsp ginger, cinnamon, black pepper, mango chunks, and a banana. Anti-inflammatory powerhouse.', macros: { calories: 280, protein: 6, carbs: 52, fat: 8 }, logPrompt: 'Turmeric is one of the most studied anti-inflammatory foods. Log this as your morning drink and note how you feel an hour later.' }, journal: { prompt: 'Is there someone you need to forgive — including yourself? Write their name. Write what they did. Then write: "I choose to release this to God. I am free." This is not for them. This is for you.', reflection: 'You may need to choose forgiveness more than once. That\'s okay.' }, affirmation: 'I am free. I release what was done to me and trust God to heal every wound. Forgiveness is my superpower.' },
         { day: 16, title: 'Breaking Emotional Eating', devotion: { title: 'Hunger That Food Can\'t Fill', scripture: '"Blessed are those who hunger and thirst for righteousness, for they will be filled." — Matthew 5:6', book: 'Matthew', chapter: 5, reflection: 'Much of our struggle with food isn\'t about food at all — it\'s about unmet emotional needs. Boredom, loneliness, stress, and grief all send us to the pantry. Today, before you eat anything, pause and ask: "Am I physically hungry, or is this something else?" That pause is the beginning of freedom.' }, workout: { workoutId: 'mobility-flow', title: 'Mobility & Flexibility', tip: 'Today\'s slower workout gives you space to notice your body\'s signals. Practice the pause: before each water break, check in — am I thirsty, tired, or hungry?', category: 'flexibility' }, nutrition: { meal: 'Mindful Eating Practice', recipe: 'Slow-Cooked Vegetable & Bean Chili', description: 'A hearty chili with kidney beans, black beans, fire-roasted tomatoes, bell peppers, and warm spices. High fiber, deeply satisfying, naturally filling.', macros: { calories: 420, protein: 22, carbs: 58, fat: 8 }, logPrompt: 'Practice eating this meal without distractions. Log it before and after — note your hunger level (1-10) before you start and your fullness level when you finish.' }, journal: { prompt: 'What emotions most often drive you to eat when you\'re not physically hungry? What are those emotions really asking for? What is a non-food response you could try next time?', reflection: 'You are not broken. You developed coping mechanisms that once protected you.' }, affirmation: 'I eat to nourish, not to numb. I am learning to hear my body\'s true signals and meet my needs with wisdom.' },
@@ -491,7 +491,7 @@ export const COACHING_PLAN = {
       title: 'Purpose',
       theme: 'Living with Intention',
       overview: 'You\'ve built the foundation, done the healing work, and developed real strength. Now we begin to live from that place — with clarity, intentionality, and an understanding of the unique calling on your life.',
-      color: 'from-[#2d6a1e] to-[#6b4a1a]',
+      color: 'from-[#2d6a1e] to-[#C9A227]',
       days: Array.from({ length: 7 }, (_, i) => ({
         day: 29 + i,
         title: ['Called & Equipped', 'Serving From Strength', 'The Long Game', 'Generous Living', 'Finishing Strong', 'Community & Legacy', 'Week 5 Integration'][i],
@@ -535,7 +535,7 @@ export const COACHING_PLAN = {
       title: 'Abundance',
       theme: 'The Overflow Life',
       overview: 'You cannot give what you don\'t have. This week focuses on living from overflow — spiritually, physically, and emotionally — so that your life pours into the people around you.',
-      color: 'from-[#6b4a1a] to-[#8a6e1a]',
+      color: 'from-[#C9A227] to-[#C9A227]',
       days: Array.from({ length: 7 }, (_, i) => ({
         day: 36 + i,
         title: ['Overflow', 'The Cup Runs Over', 'Sowing & Reaping', 'Living Well', 'The Body at Its Best', 'Spiritual Overflow', 'Week 6 Integration'][i],
@@ -579,7 +579,7 @@ export const COACHING_PLAN = {
       title: 'Legacy',
       theme: 'Living for Something Greater',
       overview: 'You\'re not just building a healthy body — you\'re building a life that will outlast you. This week we lift our eyes to legacy: the impact of a life lived with intentionality, faith, and love.',
-      color: 'from-[#8a6e1a] to-[#c9a227]',
+      color: 'from-[#C9A227] to-[#c9a227]',
       days: Array.from({ length: 7 }, (_, i) => ({
         day: 43 + i,
         title: ['Living for Legacy', 'Planting Trees', 'The Faithful Servant', 'Investing in Others', 'The Long View', 'What Remains', 'Week 7 Integration'][i],
@@ -623,7 +623,7 @@ export const COACHING_PLAN = {
       title: 'Flourishing',
       theme: 'The Life You Were Made For',
       overview: 'This is it. The final week. Not an ending — a launching. Everything you\'ve built over 56 days becomes the foundation for the rest of your life. This week we celebrate, consolidate, and commission.',
-      color: 'from-[#c9a227] to-[#D9B878]',
+      color: 'from-[#c9a227] to-[#FAD98D]',
       days: [
         { day: 50, title: 'The Final Push', devotion: { title: 'Finish What You Started', scripture: '"Being confident of this, that he who began a good work in you will carry it on to completion until the day of Christ Jesus." — Philippians 1:6', book: 'Philippians', chapter: 1, reflection: 'God finishes what He starts. And He started something in you 50 days ago. You are not just "almost done with a program" — you are being completed. The work will continue. But mark today: you showed up.' }, workout: { workoutId: 'strength-circuit', title: 'Total Strength Circuit (Final Challenge)', tip: 'Week 8, Day 1. Set personal records today. Log every weight, every rep. You will look back at this workout someday and be amazed at how far you\'ve come.', category: 'strength' }, nutrition: { meal: 'Champion\'s Breakfast', recipe: 'Smoked Salmon & Avocado Bagel', description: 'Toasted whole grain bagel with cream cheese, smoked salmon, sliced avocado, capers, and red onion. A champion\'s breakfast for a champion\'s final week.', macros: { calories: 520, protein: 36, carbs: 46, fat: 22 }, logPrompt: 'Final week nutrition: eat like the person you have become, not the person you were on Day 1. Log with the confidence of 50 days of discipline.' }, journal: { prompt: 'You have 7 days left. What do you want to make sure you do, say, or feel before this program ends? Write a plan for your final week that honors everything the previous 7 weeks built.', reflection: 'Don\'t coast to the finish. Sprint.' }, affirmation: 'God who started this work in me will carry it to completion. I run hard to the finish line with everything I have.' },
         { day: 51, title: 'Legacy in the Making', devotion: { title: 'Your Story Isn\'t Over', scripture: '"I have fought the good fight, I have finished the race, I have kept the faith." — 2 Timothy 4:7', book: '2 Timothy', chapter: 4, reflection: 'Paul\'s "finished race" was martyrdom — the ultimate completion. Your race has decades to run. But you\'re learning what it means to fight well, finish what you start, and keep faith through every mile. These 8 weeks are practice for the marathon of a life well-lived.' }, workout: { workoutId: 'athlete-conditioning', title: 'Athletic Conditioning', tip: 'You are an athlete now. Not metaphorically — literally. 51 days of consistent training has changed your body, your metabolism, and your identity. Wear it proudly today.', category: 'full_body' }, nutrition: { meal: 'Lunch', recipe: 'Warrior Bowl: Beef & Roasted Vegetables', description: 'Sliced lean sirloin over farro with roasted beets, sweet potato, arugula, pomegranate seeds, and a tahini dressing. A warrior\'s fuel for the final stretch.', macros: { calories: 560, protein: 44, carbs: 52, fat: 18 }, logPrompt: 'Track your final week meals with pride. Compare your daily nutrition averages to Week 1. Celebrate the consistency.' }, journal: { prompt: 'Write the opening paragraph of the next chapter of your life. The chapter that begins the day after this program ends. What does that person look like, live like, and believe?', reflection: 'This is a beginning, not an ending.' }, affirmation: 'I fight the good fight. I run my race. I keep the faith. My story is far from over — it is just getting good.' },

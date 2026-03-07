@@ -57,7 +57,7 @@ export const HEALTH_CONDITIONS = [
     id: 'thyroid',
     label: 'Thyroid Support',
     emoji: '🦋',
-    color: 'bg-[#D9B878]/20 text-[#0A1A2F]/70',
+    color: 'bg-[#FAD98D]/20 text-[#0A1A2F]/70',
     description: 'Selenium, iodine, antioxidant-rich',
   },
   {
