@@ -273,125 +273,292 @@ SAFETY: If someone expresses thoughts of self-harm, depression, or a mental heal
 // Waits for voices to load, picks the best neural/natural voice per character,
 // adds natural pauses by inserting speech breaks into the text.
 
+// ─── ElevenLabs Neural TTS ────────────────────────────────────────────────────
+//
+// PRIMARY ENGINE — photorealistic voice, per-bot character tuning.
+// Requires VITE_ELEVENLABS_API_KEY in your .env or Base44 project env settings.
+//
+// Voice IDs (ElevenLabs v2 voices — swap via their voice library if desired):
+//   Hannah  → Rachel  (21m00Tcm4TlvDq8ikWAM) — warm, empathetic female
+//   David   → Josh    (TxGEqnHWrfWFTfGW9XjX) — energetic, driven male
+//   Daniel  → Antoni  (ErXwobaYiN019PkySvjV) — warm, conversational male
+//   Gideon  → Adam    (pNInz6obpgDQGcFmaJgB) — deep, authoritative, unhurried
+//   Paul    → Callum  (N2lVS1w4EtoT3dr4eOWO) — calm, grounded, deliberate
+//
+// Voice settings tuned per archetype:
+//   stability       0.0–1.0  higher = consistent/predictable, lower = expressive/variable
+//   similarity      0.0–1.0  higher = adheres closely to base voice character
+//   style           0.0–1.0  higher = more style exaggeration (emotion, intensity)
+//   use_speaker_boost         always true — improves clarity
+
+const EL_KEY   = import.meta.env.VITE_ELEVENLABS_API_KEY;
+const EL_MODEL = 'eleven_turbo_v2_5'; // low-latency (<600ms), high quality, English-optimised
+
+const EL_VOICES = {
+  hannah: {
+    voiceId:    '21m00Tcm4TlvDq8ikWAM', // Rachel
+    stability:  0.52,  // some variation = natural, not robotic
+    similarity: 0.82,
+    style:      0.38,  // moderate warmth — not theatrical
+  },
+  coach: {
+    voiceId:    'TxGEqnHWrfWFTfGW9XjX', // Josh
+    stability:  0.36,  // low = punchy, variable, high-energy cadence
+    similarity: 0.75,
+    style:      0.68,  // high intensity — driven, impactful
+  },
+  chef: {
+    voiceId:    'ErXwobaYiN019PkySvjV', // Antoni
+    stability:  0.56,
+    similarity: 0.82,
+    style:      0.44,  // playful warmth, expressive but not over the top
+  },
+  gideon: {
+    voiceId:    'pNInz6obpgDQGcFmaJgB', // Adam
+    stability:  0.84,  // high = consistent, measured, earned authority
+    similarity: 0.78,
+    style:      0.16,  // gravitas not drama — very low exaggeration
+  },
+  paul: {
+    voiceId:    'N2lVS1w4EtoT3dr4eOWO', // Callum
+    stability:  0.72,
+    similarity: 0.78,
+    style:      0.22,  // grounded clarity, not showy
+  },
+};
+
+// Minimal text prep for ElevenLabs — it reads punctuation naturally,
+// so we just clean markdown and normalize. No fake pause hacks needed.
+function prepareForElevenLabs(text) {
+  return text
+    .replace(/\[VERSE\](.*?) - "(.*?)"\[\/VERSE\]/g, (_, ref, verse) =>
+      `${ref}: "${verse}"`)
+    .replace(/\*\*(.*?)\*\*/g, '$1')
+    .replace(/\*(.*?)\*/g, '$1')
+    .replace(/#{1,6}\s+/g, '')
+    .replace(/`[^`]*`/g, '')
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+    .replace(/[\u{1F000}-\u{1FFFF}]/gu, '')
+    .replace(/[\u{2600}-\u{27BF}]/gu, '')
+    .replace(/[\u{1F300}-\u{1F9FF}]/gu, '')
+    .replace(/[\u{FE00}-\u{FEFF}]/gu, '')
+    .replace(/^\s*[-*•]\s+(.*)/gm, '$1.')
+    .replace(/^\s*\d+\.\s+(.*)/gm, '$1.')
+    .replace(/\n{2,}/g, ' ')
+    .replace(/\n/g, ' ')
+    .replace(/\s{2,}/g, ' ')
+    .trim();
+}
+
+// Returns a cancel fn if successful, null if ElevenLabs unavailable/failed (→ fall back)
+async function elevenLabsSpeak({ text, character, onStart, onEnd, onError }) {
+  if (!EL_KEY) return null;
+  const voice = EL_VOICES[character];
+  if (!voice) return null;
+
+  const prepared = prepareForElevenLabs(text);
+  if (!prepared) return null;
+
+  let audioEl = null;
+  let blobUrl = null;
+  let cancelled = false;
+
+  try {
+    const res = await fetch(
+      `https://api.elevenlabs.io/v1/text-to-speech/${voice.voiceId}`,
+      {
+        method: 'POST',
+        headers: {
+          'xi-api-key':    EL_KEY,
+          'Content-Type':  'application/json',
+          'Accept':        'audio/mpeg',
+        },
+        body: JSON.stringify({
+          text:     prepared,
+          model_id: EL_MODEL,
+          voice_settings: {
+            stability:         voice.stability,
+            similarity_boost:  voice.similarity,
+            style:             voice.style,
+            use_speaker_boost: true,
+          },
+        }),
+      }
+    );
+
+    if (!res.ok) {
+      const msg = await res.text().catch(() => '');
+      console.warn(`ElevenLabs ${res.status}:`, msg);
+      return null;
+    }
+
+    if (cancelled) return () => {};
+
+    const blob = await res.blob();
+    if (cancelled) return () => {};
+
+    blobUrl  = URL.createObjectURL(blob);
+    audioEl  = new Audio(blobUrl);
+
+    await new Promise((resolve, reject) => {
+      audioEl.oncanplaythrough = resolve;
+      audioEl.onerror          = reject;
+      setTimeout(resolve, 3000); // safety timeout — proceed anyway
+    });
+
+    if (cancelled) { URL.revokeObjectURL(blobUrl); return () => {}; }
+
+    audioEl.onplay  = () => onStart?.();
+    audioEl.onended = () => { URL.revokeObjectURL(blobUrl); onEnd?.(); };
+    audioEl.onerror = () => { URL.revokeObjectURL(blobUrl); onError?.(); };
+
+    await audioEl.play();
+
+    return () => {
+      cancelled = true;
+      if (audioEl) { audioEl.pause(); audioEl.currentTime = 0; }
+      if (blobUrl) URL.revokeObjectURL(blobUrl);
+    };
+
+  } catch (err) {
+    console.warn('ElevenLabs TTS failed:', err?.message ?? err);
+    if (blobUrl) URL.revokeObjectURL(blobUrl);
+    return null; // signal fall-through to Web Speech
+  }
+}
+
+// ─── Web Speech prosody engine (fallback) ────────────────────────────────────
+//
+// Significantly upgraded vs vanilla Web Speech:
+//   • Abbreviation-aware sentence splitting (won't split on "Dr.", "vs.", etc.)
+//   • Per-sentence prosody variation based on type (question/exclamation/length)
+//   • First sentence eases in slower — voice establishes before full pace
+//   • Short punchy sentences run faster; long complex ones slow down
+//   • Questions: pitch rises + rate falls (natural rising intonation)
+//   • Exclamations: rate bumps up + slight pitch lift (energy/impact)
+
+const ABBREV_RE = /\b(Mr|Mrs|Ms|Dr|Prof|Sr|Jr|St|vs|e\.g|i\.e|etc|approx|dept|est|vol|no)\.\s*$/i;
+
+function splitSentencesWSA(text) {
+  const parts   = text.split(/(?<=[.!?])\s+/);
+  const merged  = [];
+  let pending   = '';
+  for (const s of parts) {
+    const candidate = pending ? `${pending} ${s}` : s;
+    if (ABBREV_RE.test(candidate.replace(/[!?]$/, '.'))) {
+      pending = candidate; // abbreviation — keep accumulating
+    } else {
+      if (candidate.trim()) merged.push(candidate.trim());
+      pending = '';
+    }
+  }
+  if (pending.trim()) merged.push(pending.trim());
+  return merged.length ? merged : [text];
+}
+
+function prosodyFor(sentence, sentIdx, baseCfg) {
+  const isQ   = sentence.endsWith('?');
+  const isEx  = sentence.endsWith('!');
+  const words = sentence.split(/\s+/).length;
+
+  let rate  = baseCfg.voiceRate  ?? 0.95;
+  let pitch = baseCfg.voicePitch ?? 1.0;
+
+  if (sentIdx === 0)        rate  -= 0.04;              // ease in — let voice establish
+  if (isQ)  { pitch += 0.06; rate  -= 0.03; }           // rising intonation, slower
+  if (isEx) { rate  += 0.06; pitch += 0.03; }           // punchy, slightly higher
+  if (words <= 7 && sentIdx > 0) rate += 0.03;          // short sentence = snappy
+  if (words > 18) rate -= 0.03;                         // long sentence = breathe
+
+  return {
+    rate:  Math.max(0.62, Math.min(1.38, rate)),
+    pitch: Math.max(0.72, Math.min(1.38, pitch)),
+  };
+}
+
 function loadVoices() {
   return new Promise(resolve => {
     const voices = window.speechSynthesis.getVoices();
     if (voices.length > 0) { resolve(voices); return; }
     window.speechSynthesis.onvoiceschanged = () => resolve(window.speechSynthesis.getVoices());
-    // Fallback timeout in case onvoiceschanged never fires
     setTimeout(() => resolve(window.speechSynthesis.getVoices()), 1500);
   });
 }
 
 function pickVoice(voices, preferredNames, gender) {
   if (!voices.length) return null;
-
-  // Prefer neural/enhanced/premium voices first (highest quality across platforms)
-  const neuralKeywords = ['neural', 'enhanced', 'premium', 'natural', 'wavenet'];
-  const enVoices = voices.filter(v => v.lang?.startsWith('en'));
-
-  // 1. Try exact name match from preferred list
+  const neuralKW  = ['neural', 'enhanced', 'premium', 'natural', 'wavenet'];
+  const enVoices  = voices.filter(v => v.lang?.startsWith('en'));
   for (const name of preferredNames) {
     const v = voices.find(v => v.name === name);
     if (v) return v;
   }
-
-  // 2. Try partial match on preferred names (handles version suffixes like "Samantha (Enhanced)")
   for (const name of preferredNames) {
     const v = voices.find(v => v.name.toLowerCase().includes(name.toLowerCase()));
     if (v) return v;
   }
-
-  // 3. Try any neural/enhanced English voice matching gender keywords
-  const genderKeywords = gender === 'female'
+  const gKW = gender === 'female'
     ? ['female', 'zira', 'hazel', 'siri', 'cortana']
     : ['male', 'david', 'mark', 'james', 'guy'];
-
-  const neuralEn = enVoices.find(v =>
-    neuralKeywords.some(kw => v.name.toLowerCase().includes(kw)) &&
-    genderKeywords.some(kw => v.name.toLowerCase().includes(kw))
+  const neuralGen = enVoices.find(v =>
+    neuralKW.some(k => v.name.toLowerCase().includes(k)) &&
+    gKW.some(k => v.name.toLowerCase().includes(k))
   );
-  if (neuralEn) return neuralEn;
-
-  // 4. Any neural English voice
-  const anyNeural = enVoices.find(v => neuralKeywords.some(kw => v.name.toLowerCase().includes(kw)));
+  if (neuralGen) return neuralGen;
+  const anyNeural = enVoices.find(v => neuralKW.some(k => v.name.toLowerCase().includes(k)));
   if (anyNeural) return anyNeural;
-
-  // 5. Fallback: first English voice
   return enVoices[0] || voices[0] || null;
 }
 
 function prepareTextForSpeech(text) {
   return text
-    // ① Verse tags — convert to speakable form BEFORE colon replacement
-    //    "[VERSE]John 3:16 - "text"[/VERSE]" → "John 3 16.  text."
     .replace(/\[VERSE\](.*?) - "(.*?)"\[\/VERSE\]/g, (_, ref, verse) => {
-      const spokenRef = ref.replace(/:/g, ' ').replace(/\s+/g, ' ').trim();
-      return `${spokenRef}.  ${verse}.`;
+      const r = ref.replace(/:/g, ' ').replace(/\s+/g, ' ').trim();
+      return `${r}.  ${verse}.`;
     })
-    // ② Strip markdown
-    .replace(/\*\*(.*?)\*\*/g, '$1')
-    .replace(/\*(.*?)\*/g, '$1')
-    .replace(/#{1,6}\s+/g, '')
-    .replace(/`[^`]*`/g, '')
+    .replace(/\*\*(.*?)\*\*/g, '$1').replace(/\*(.*?)\*/g, '$1')
+    .replace(/#{1,6}\s+/g, '').replace(/`[^`]*`/g, '')
     .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
-    // ③ Strip all emoji ranges including variation selectors
-    .replace(/[\u{1F000}-\u{1FFFF}]/gu, '')
-    .replace(/[\u{2600}-\u{27BF}]/gu, '')
-    .replace(/[\u{1F300}-\u{1F9FF}]/gu, '')
-    .replace(/[\u{FE00}-\u{FEFF}]/gu, '')
-    // ④ List items with breath pause after each
-    .replace(/^\s*[-*•]\s+(.*)/gm, '$1.  ')
-    .replace(/^\s*\d+\.\s+(.*)/gm, '$1.  ')
-    // ⑤ Ellipsis → full stop + breath (longer pause than em-dash)
+    .replace(/[\u{1F000}-\u{1FFFF}]/gu, '').replace(/[\u{2600}-\u{27BF}]/gu, '')
+    .replace(/[\u{1F300}-\u{1F9FF}]/gu, '').replace(/[\u{FE00}-\u{FEFF}]/gu, '')
+    .replace(/^\s*[-*•]\s+(.*)/gm, '$1.  ').replace(/^\s*\d+\.\s+(.*)/gm, '$1.  ')
     .replace(/\.\.\.\s*/g, '.  ')
-    // ⑥ Em-dash → comma pause (slight dip, not full stop)
-    .replace(/\s*—\s*/g, ', ')
-    // ⑦ Semicolon → comma pause (two clauses flowing together)
-    .replace(/;\s*/g, ', ')
-    // ⑧ Parenthetical asides → comma-wrapped (prosodic dip)
+    .replace(/\s*—\s*/g, ', ').replace(/;\s*/g, ', ')
     .replace(/\(([^)]{1,80})\)/g, ', $1, ')
-    // ⑨ Colon → comma pause (AFTER verse refs handled)
     .replace(/:\s*/g, ', ')
-    // ⑩ Double-space after sentence-ending punctuation = TTS breath hint
     .replace(/([.!?])\s+/g, '$1  ')
-    // ⑪ Newlines → pauses
-    .replace(/\n{2,}/g, '.  ')
-    .replace(/\n/g, ', ')
-    // ⑫ Clean up
-    .replace(/\.{2,}/g, '.')
-    .replace(/\.\s*\./g, '.')
-    .replace(/,\s*,/g, ',')
-    .replace(/,\s*\./g, '.')
+    .replace(/\n{2,}/g, '.  ').replace(/\n/g, ', ')
+    .replace(/\.{2,}/g, '.').replace(/\.\s*\./g, '.')
+    .replace(/,\s*,/g, ',').replace(/,\s*\./g, '.')
     .replace(/[ \t]{3,}/g, '  ')
     .trim();
 }
 
-function speakText({ text, cfg, onStart, onEnd, onError }) {
+function webSpeechSpeak({ text, cfg, onStart, onEnd, onError }) {
   if (!('speechSynthesis' in window)) { onEnd?.(); return () => {}; }
   try { window.speechSynthesis.cancel(); } catch (_) {}
 
   const prepared = prepareTextForSpeech(text);
   if (!prepared) { onEnd?.(); return () => {}; }
 
-  // Split into sentences for better TTS rhythm
-  const sentences = prepared.match(/[^.!?]+[.!?]+\s*/g) || [prepared];
+  const sentences = splitSentencesWSA(prepared);
   let idx = 0;
   let cancelled = false;
 
   const speakNext = (voiceToUse) => {
     if (cancelled || idx >= sentences.length) { onEnd?.(); return; }
+    const sentIdx = idx;
     const isFirst = idx === 0;
-    const chunk = sentences[idx++].trim();
+    const chunk   = sentences[idx++].trim();
     if (!chunk) { speakNext(voiceToUse); return; }
 
     try {
+      const { rate, pitch } = prosodyFor(chunk, sentIdx, cfg);
       const utt = new SpeechSynthesisUtterance(chunk);
-      utt.rate   = cfg.voiceRate   ?? 0.95;
-      utt.pitch  = cfg.voicePitch  ?? 1.0;
+      utt.rate   = rate;
+      utt.pitch  = pitch;
       utt.volume = cfg.voiceVolume ?? 1.0;
       if (voiceToUse) utt.voice = voiceToUse;
-
       if (isFirst) utt.onstart = () => onStart?.();
       utt.onend   = () => speakNext(voiceToUse);
       utt.onerror = (e) => {
@@ -402,17 +569,42 @@ function speakText({ text, cfg, onStart, onEnd, onError }) {
     } catch (_) { onEnd?.(); }
   };
 
-  // Load voices then speak — handles async voice loading on mobile
   loadVoices().then(voices => {
     if (cancelled) return;
-    const voice = pickVoice(voices, cfg.voiceNames || [], cfg.voiceGender);
-    speakNext(voice);
+    speakNext(pickVoice(voices, cfg.voiceNames || [], cfg.voiceGender));
   });
 
   return () => {
     cancelled = true;
     try { window.speechSynthesis.cancel(); } catch (_) {}
   };
+}
+
+// ─── Unified speakText — ElevenLabs → Web Speech fallback ─────────────────────
+// Returns a Promise<cancel fn>. The cancel fn is safe to call at any time.
+// onEngineChange(engine) fires with 'elevenlabs' or 'webspeech' when engine is chosen.
+async function speakText({ text, cfg, onStart, onEnd, onError, onEngineChange }) {
+  // ① Try ElevenLabs (neural, photorealistic)
+  if (EL_KEY) {
+    const cancel = await elevenLabsSpeak({
+      text,
+      character: cfg.character,
+      onStart,
+      onEnd,
+      onError,
+    });
+    if (cancel !== null) {
+      onEngineChange?.('elevenlabs');
+      return cancel;
+    }
+    // null = failed → fall through
+    console.info('ElevenLabs unavailable — using Web Speech fallback');
+  }
+
+  // ② Web Speech fallback (browser-native, prosody-enhanced)
+  onEngineChange?.('webspeech');
+  const cancel = webSpeechSpeak({ text, cfg, onStart, onEnd, onError });
+  return cancel;
 }
 
 // ─── Waveform ─────────────────────────────────────────────────────────────────
@@ -529,6 +721,7 @@ export default function ChatScreen() {
   const [isListening,      setIsListening]      = useState(false);
   const [speakingIdx,      setSpeakingIdx]      = useState(null);
   const [permissionDenied, setPermissionDenied] = useState(false);
+  const [ttsEngine,        setTtsEngine]        = useState(null); // 'elevenlabs'|'webspeech'|null
 
   const inputRef           = useRef(null);
   const messagesEndRef     = useRef(null);
@@ -569,6 +762,7 @@ export default function ChatScreen() {
 
     stopSpeechRef.current?.();
     setSpeakingIdx(null);
+    setTtsEngine(null);
     setInput('');
     setMessages(prev => [...prev, { role: 'user', content: trimmed }]);
     setIsLoading(true);
@@ -600,18 +794,45 @@ export default function ChatScreen() {
     if (speakingIdx === idx) {
       stopSpeechRef.current?.();
       setSpeakingIdx(null);
+      setTtsEngine(null);
       return;
     }
+
+    // Cancel any ongoing speech
     stopSpeechRef.current?.();
     setSpeakingIdx(idx);
-    const cancel = speakText({
+
+    // Track whether a cancel was requested before the async fetch resolved
+    let hasBeenCancelled = false;
+    let innerCancel      = null;
+
+    // Immediate cancel handle — works even during ElevenLabs fetch
+    stopSpeechRef.current = () => {
+      hasBeenCancelled = true;
+      innerCancel?.();
+      setSpeakingIdx(null);
+      setTtsEngine(null);
+    };
+
+    speakText({
       text: content,
       cfg,
-      onStart: () => setSpeakingIdx(idx),
-      onEnd:   () => setSpeakingIdx(null),
-      onError: () => setSpeakingIdx(null),
+      onStart:        () => setSpeakingIdx(idx),
+      onEnd:          () => { setSpeakingIdx(null); setTtsEngine(null); },
+      onError:        () => { setSpeakingIdx(null); setTtsEngine(null); },
+      onEngineChange: (engine) => setTtsEngine(engine),
+    }).then(cancelFn => {
+      if (hasBeenCancelled) {
+        cancelFn?.();
+        return;
+      }
+      innerCancel = cancelFn;
+      stopSpeechRef.current = () => {
+        cancelFn?.();
+        setSpeakingIdx(null);
+        setTtsEngine(null);
+      };
     });
-    stopSpeechRef.current = cancel;
   }, [speakingIdx, cfg]);
 
   // ── STT ──────────────────────────────────────────────────────────────────────
@@ -694,6 +915,7 @@ export default function ChatScreen() {
   const clearChat = () => {
     stopSpeechRef.current?.();
     setSpeakingIdx(null);
+    setTtsEngine(null);
     window.speechSynthesis?.cancel();
     setMessages([{ role: 'assistant', content: cfg.welcomeMsg }]);
     setInput('');
@@ -774,7 +996,12 @@ export default function ChatScreen() {
               <motion.div key="sp" initial={{ opacity: 0, scale: 0.85 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.85 }}
                 className="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold"
                 style={{ background: `${cfg.gradTo}20`, border: `1px solid ${cfg.gradTo}50`, color: cfg.gradTo }}>
-                <Waveform active color={cfg.gradTo} /><span>Speaking</span>
+                <Waveform active color={cfg.gradTo} />
+                <span>Speaking</span>
+                {ttsEngine === 'elevenlabs' && (
+                  <span style={{ fontSize: 9, fontWeight: 700, opacity: 0.65, letterSpacing: '0.04em',
+                    background: `${cfg.gradTo}30`, padding: '1px 5px', borderRadius: 4 }}>EL</span>
+                )}
               </motion.div>
             ) : avatarListening ? (
               <motion.div key="li" initial={{ opacity: 0, scale: 0.85 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.85 }}
@@ -961,10 +1188,15 @@ export default function ChatScreen() {
           </motion.button>
         </div>
 
-        {/* Mic hint */}
+        {/* Hints */}
         {permissionDenied && (
           <p className="text-center text-[10px] text-white/35 mt-1.5">
             Microphone access denied — please enable it in browser settings
+          </p>
+        )}
+        {!EL_KEY && (
+          <p className="text-center text-[10px] mt-1" style={{ color: `${cfg.gradTo}60` }}>
+            Add <span style={{ fontFamily: 'monospace', letterSpacing: '0.02em' }}>VITE_ELEVENLABS_API_KEY</span> for neural voices
           </p>
         )}
       </motion.div>
