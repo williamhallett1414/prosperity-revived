@@ -8,13 +8,13 @@ export default function DanielBackground({ speaking = false }) {
     pendantRef.current.style.opacity = speaking ? '0.62' : '0.42';
   }, [speaking]);
   return (
-    <svg viewBox="0 0 390 844" xmlns="http://www.w3.org/2000/svg"
+    <svg viewBox="0 0 390 844" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice"
       style={{ position:'absolute', inset:0, width:'100%', height:'100%' }} aria-hidden="true">
       <defs>
         <linearGradient id="d-wall" x1="0%" y1="0%" x2="0%" y2="100%">
           <stop offset="0%" stopColor="#F5EDD8"/>
           <stop offset="65%" stopColor="#EEDD C0"/>
-          <stop offset="100%" stopColor="#D8C89A"/>
+          <stop offset="100%" stopColor="#E4D4A8"/>
         </linearGradient>
         <linearGradient id="d-wall2" x1="0%" y1="0%" x2="0%" y2="100%">
           <stop offset="0%" stopColor="#F5EDD8"/>
@@ -37,7 +37,7 @@ export default function DanielBackground({ speaking = false }) {
         </radialGradient>
         <radialGradient id="d-vig" cx="50%" cy="50%" r="72%">
           <stop offset="50%" stopColor="transparent"/>
-          <stop offset="100%" stopColor="#2A1000" stopOpacity="0.35"/>
+          <stop offset="100%" stopColor="#2A1000" stopOpacity="0.18"/>
         </radialGradient>
         <filter id="d-glow"><feGaussianBlur stdDeviation="10" result="b"/>
           <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
@@ -161,7 +161,7 @@ export default function DanielBackground({ speaking = false }) {
       {/* Counter tiles front edge */}
       {[0,52,104,156,208,260,312,364].map((x,i) => <rect key={i} x={x} y="644" width="50" height="8" fill="#C0986A" opacity="0.90"/>)}
       {/* Floor */}
-      <rect x="0" y="648" width="390" height="196" fill="#E8D090" opacity="0.35"/>
+      <rect x="0" y="648" width="390" height="196" fill="#E8D090" opacity="0.55"/>
       {[660,680,700,720,740,760,780,800,820,840].map((y,i) => <line key={i} x1="0" y1={y} x2="390" y2={y} stroke="#B0904A" strokeWidth="1" opacity="0.14"/>)}
       {[0,78,156,234,312,390].map((x,i) => <line key={i} x1={x} y1="648" x2={x} y2="844" stroke="#B0904A" strokeWidth="1" opacity="0.12"/>)}
       <rect width="390" height="844" fill="url(#d-vig)"/>

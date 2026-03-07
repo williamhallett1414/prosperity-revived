@@ -8,7 +8,7 @@ export default function PaulBackground({ speaking = false }) {
     horizonRef.current.style.opacity = speaking ? '0.52' : '0.32';
   }, [speaking]);
   return (
-    <svg viewBox="0 0 390 844" xmlns="http://www.w3.org/2000/svg"
+    <svg viewBox="0 0 390 844" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice"
       style={{ position:'absolute', inset:0, width:'100%', height:'100%' }} aria-hidden="true">
       <defs>
         <linearGradient id="p-sky" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -34,7 +34,7 @@ export default function PaulBackground({ speaking = false }) {
         </radialGradient>
         <radialGradient id="p-vig" cx="50%" cy="50%" r="72%">
           <stop offset="45%" stopColor="transparent"/>
-          <stop offset="100%" stopColor="#080420" stopOpacity="0.72"/>
+          <stop offset="100%" stopColor="#080420" stopOpacity="0.42"/>
         </radialGradient>
         <linearGradient id="p-mist" x1="0%" y1="0%" x2="0%" y2="100%">
           <stop offset="0%" stopColor="#C8A0FF" stopOpacity="0.20"/>
@@ -90,10 +90,10 @@ export default function PaulBackground({ speaking = false }) {
         fill="#3A5028" opacity="0.80"/>
       {/* Rolling hills layer 3 - mid green */}
       <path d="M 0 640 Q 55 605 108 624 Q 152 606 198 622 Q 245 604 296 622 Q 342 604 390 622 L 390 650 L 0 650Z"
-        fill="#4A6830" opacity="0.88"/>
+        fill="#5A7840" opacity="0.92"/>
       {/* Foreground meadow */}
       <path d="M 0 680 Q 80 656 160 670 Q 230 654 310 668 Q 355 658 390 666 L 390 720 L 0 720Z"
-        fill="#5A7A38" opacity="0.92"/>
+        fill="#6A8A48" opacity="0.95"/>
       {/* Oak tree silhouette right */}
       <rect x="298" y="498" width="14" height="210" rx="5" fill="#1A0C08" opacity="0.88"/>
       {/* Main trunk curves */}
@@ -139,7 +139,7 @@ export default function PaulBackground({ speaking = false }) {
       {/* Horizon mist layers */}
       <rect x="0" y="490" width="390" height="30" fill="#9060D0" opacity="0.08" filter="url(#p-blur)"/>
       {/* Ground grass detail */}
-      <rect x="0" y="700" width="390" height="144" fill="#4A6A30" opacity="0.35"/>
+      <rect x="0" y="700" width="390" height="144" fill="#5A7A38" opacity="0.50"/>
       {[710,724,738,752,766,780,794,808,822,836].map((y,i) => (
         <line key={i} x1="0" y1={y} x2="390" y2={y} stroke="#3A5820" strokeWidth="1" opacity="0.12"/>
       ))}

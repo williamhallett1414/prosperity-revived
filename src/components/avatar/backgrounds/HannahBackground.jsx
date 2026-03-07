@@ -8,13 +8,13 @@ export default function HannahBackground({ speaking = false, listening = false }
     glowRef.current.style.opacity = speaking ? '0.65' : listening ? '0.50' : '0.38';
   }, [speaking, listening]);
   return (
-    <svg viewBox="0 0 390 844" xmlns="http://www.w3.org/2000/svg"
+    <svg viewBox="0 0 390 844" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice"
       style={{ position:'absolute', inset:0, width:'100%', height:'100%' }} aria-hidden="true">
       <defs>
         <linearGradient id="h-wall" x1="0%" y1="0%" x2="0%" y2="100%">
           <stop offset="0%" stopColor="#F8EFE0"/>
           <stop offset="70%" stopColor="#F0E3CC"/>
-          <stop offset="100%" stopColor="#D8C8A8"/>
+          <stop offset="100%" stopColor="#E0D0B0"/>
         </linearGradient>
         <linearGradient id="h-sky" x1="0%" y1="0%" x2="0%" y2="100%">
           <stop offset="0%" stopColor="#90C8E8"/>
@@ -33,7 +33,7 @@ export default function HannahBackground({ speaking = false, listening = false }
         </radialGradient>
         <radialGradient id="h-vig" cx="50%" cy="50%" r="72%">
           <stop offset="48%" stopColor="transparent"/>
-          <stop offset="100%" stopColor="#2A1808" stopOpacity="0.36"/>
+          <stop offset="100%" stopColor="#2A1808" stopOpacity="0.20"/>
         </radialGradient>
         <filter id="h-glow"><feGaussianBlur stdDeviation="10" result="b"/>
           <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
@@ -153,7 +153,7 @@ export default function HannahBackground({ speaking = false, listening = false }
       <ellipse cx="195" cy="796" rx="146" ry="36" fill="none" stroke="#C4A882" strokeWidth="2.5" opacity="0.14"/>
       <ellipse cx="195" cy="796" rx="114" ry="26" fill="none" stroke="#C4A882" strokeWidth="1.5" opacity="0.10"/>
       {/* Wood floor */}
-      <rect x="0" y="726" width="390" height="118" fill="#8B6030" opacity="0.14"/>
+      <rect x="0" y="726" width="390" height="118" fill="#8B6030" opacity="0.22"/>
       {[736,752,768,784,800,816,832].map((y,i) => <line key={i} x1="0" y1={y} x2="390" y2={y} stroke="#4A3010" strokeWidth="1" opacity="0.09"/>)}
       <rect width="390" height="844" fill="url(#h-vig)"/>
       {[{cx:290,cy:315,r:2,delay:'0s',dur:'9s'},{cx:318,cy:258,r:1.5,delay:'2.5s',dur:'12s'},{cx:344,cy:380,r:2.5,delay:'5s',dur:'10s'}].map((p,i) => (

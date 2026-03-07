@@ -8,13 +8,13 @@ export default function DavidBackground({ speaking = false }) {
     lightsRef.current.style.opacity = speaking ? '0.55' : '0.32';
   }, [speaking]);
   return (
-    <svg viewBox="0 0 390 844" xmlns="http://www.w3.org/2000/svg"
+    <svg viewBox="0 0 390 844" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice"
       style={{ position:'absolute', inset:0, width:'100%', height:'100%' }} aria-hidden="true">
       <defs>
         <linearGradient id="dv-bg" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stopColor="#060E1E"/>
-          <stop offset="50%" stopColor="#0C1A2E"/>
-          <stop offset="100%" stopColor="#040A18"/>
+          <stop offset="0%" stopColor="#0A1830"/>
+          <stop offset="50%" stopColor="#112238"/>
+          <stop offset="100%" stopColor="#0A1628"/>
         </linearGradient>
         <linearGradient id="dv-dawn" x1="0%" y1="0%" x2="0%" y2="100%">
           <stop offset="0%" stopColor="#080E20"/>
@@ -31,19 +31,19 @@ export default function DavidBackground({ speaking = false }) {
         </radialGradient>
         <radialGradient id="dv-light1" cx="20%" cy="0%" r="52%">
           <stop offset="0%" stopColor="#A0D0FF" stopOpacity="0.50"/>
-          <stop offset="100%" stopColor="#0C1A2E" stopOpacity="0"/>
+          <stop offset="100%" stopColor="#112238" stopOpacity="0"/>
         </radialGradient>
         <radialGradient id="dv-light2" cx="50%" cy="0%" r="52%">
           <stop offset="0%" stopColor="#C0E0FF" stopOpacity="0.60"/>
-          <stop offset="100%" stopColor="#0C1A2E" stopOpacity="0"/>
+          <stop offset="100%" stopColor="#112238" stopOpacity="0"/>
         </radialGradient>
         <radialGradient id="dv-light3" cx="80%" cy="0%" r="52%">
           <stop offset="0%" stopColor="#A0D0FF" stopOpacity="0.48"/>
-          <stop offset="100%" stopColor="#0C1A2E" stopOpacity="0"/>
+          <stop offset="100%" stopColor="#112238" stopOpacity="0"/>
         </radialGradient>
         <radialGradient id="dv-vig" cx="50%" cy="50%" r="70%">
           <stop offset="50%" stopColor="transparent"/>
-          <stop offset="100%" stopColor="#020810" stopOpacity="0.78"/>
+          <stop offset="100%" stopColor="#0A1830" stopOpacity="0.45"/>
         </radialGradient>
         <filter id="dv-glow"><feGaussianBlur stdDeviation="8" result="b"/>
           <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
@@ -52,7 +52,7 @@ export default function DavidBackground({ speaking = false }) {
       </defs>
       <rect width="390" height="844" fill="url(#dv-bg)"/>
       {/* Ceiling track */}
-      <rect width="390" height="58" fill="#0A1428"/>
+      <rect width="390" height="58" fill="#0E1C38"/>
       {/* Floor-to-ceiling window panorama */}
       <rect x="28" y="58" width="334" height="330" fill="url(#dv-dawn)"/>
       <rect x="28" y="58" width="334" height="330" fill="url(#dv-sunrise)"/>
@@ -104,7 +104,7 @@ export default function DavidBackground({ speaking = false }) {
       <rect x="0" y="500" width="390" height="5" fill="#38BDF8" opacity="0.90"/>
       <rect x="0" y="498" width="390" height="5" fill="#38BDF8" opacity="0.25" filter="url(#dv-soft)"/>
       {/* Premium dumbbell rack */}
-      <rect x="24" y="390" width="342" height="108" rx="6" fill="#0C1828" stroke="#1C2C46" strokeWidth="2"/>
+      <rect x="24" y="390" width="342" height="108" rx="6" fill="#10203C" stroke="#1C2C46" strokeWidth="2"/>
       <rect x="30" y="402" width="330" height="6" rx="2" fill="#1C2C46"/>
       <rect x="30" y="440" width="330" height="6" rx="2" fill="#1C2C46"/>
       <rect x="30" y="478" width="330" height="6" rx="2" fill="#1C2C46"/>
@@ -119,7 +119,7 @@ export default function DavidBackground({ speaking = false }) {
       ))}
       {/* Row 2 — heavier, darker */}
       {[{cx:65,r:12,c:'#263952'},{cx:113,r:14,c:'#1E3048'},{cx:165,r:15,c:'#182840'},{cx:219,r:16,c:'#142038'},
-        {cx:275,r:17,c:'#102030'},{cx:333,r:18,c:'#0C1828'}].map(({cx,r,c},i) => (
+        {cx:275,r:17,c:'#102030'},{cx:333,r:18,c:'#10203C'}].map(({cx,r,c},i) => (
         <g key={i}>
           <ellipse cx={cx-r-4} cy="443" rx={r} ry={r*0.58} fill={c} opacity="0.80"/>
           <rect x={cx-4} y={443-r*0.29} width="8" height={r*0.58} rx="2" fill="#1C2C46"/>
@@ -127,22 +127,22 @@ export default function DavidBackground({ speaking = false }) {
         </g>
       ))}
       {/* Barbell rack left */}
-      <rect x="0" y="330" width="24" height="172" rx="4" fill="#0C1828" opacity="0.90"/>
+      <rect x="0" y="330" width="24" height="172" rx="4" fill="#10203C" opacity="0.90"/>
       <rect x="4" y="340" width="16" height="4" rx="1" fill="#1C2C46"/>
       <rect x="4" y="370" width="16" height="4" rx="1" fill="#1C2C46"/>
       <rect x="4" y="400" width="16" height="4" rx="1" fill="#1C2C46"/>
       {/* Barbell rack right */}
-      <rect x="366" y="330" width="24" height="172" rx="4" fill="#0C1828" opacity="0.90"/>
+      <rect x="366" y="330" width="24" height="172" rx="4" fill="#10203C" opacity="0.90"/>
       <rect x="370" y="340" width="16" height="4" rx="1" fill="#1C2C46"/>
       <rect x="370" y="370" width="16" height="4" rx="1" fill="#1C2C46"/>
       {/* Rubber floor */}
-      <rect x="0" y="504" width="390" height="340" fill="#10182A"/>
+      <rect x="0" y="504" width="390" height="340" fill="#182844"/>
       {/* Floor grid */}
       {[540,580,620,660,700,740,780,820].map((y,i) => (
-        <line key={i} x1="0" y1={y} x2="390" y2={y} stroke="#1A2840" strokeWidth="1.5"/>
+        <line key={i} x1="0" y1={y} x2="390" y2={y} stroke="#243850" strokeWidth="1.2"/>
       ))}
       {[78,156,234,312].map((x,i) => (
-        <line key={i} x1={x} y1="504" x2={x} y2="844" stroke="#1A2840" strokeWidth="1.5"/>
+        <line key={i} x1={x} y1="504" x2={x} y2="844" stroke="#243850" strokeWidth="1.2"/>
       ))}
       {/* Blue LED accent on floor edge */}
       <rect x="0" y="504" width="390" height="3" fill="#38BDF8" opacity="0.30" filter="url(#dv-soft)"/>

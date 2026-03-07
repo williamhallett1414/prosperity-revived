@@ -8,7 +8,7 @@ export default function GideonBackground({ speaking = false, listening = false, 
     glowRef.current.style.opacity = speaking ? '0.60' : '0.38';
   }, [speaking]);
   return (
-    <svg viewBox="0 0 390 844" xmlns="http://www.w3.org/2000/svg"
+    <svg viewBox="0 0 390 844" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice"
       style={{ position:'absolute', inset:0, width:'100%', height:'100%' }} aria-hidden="true">
       <defs>
         <linearGradient id="g-bg" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -44,7 +44,7 @@ export default function GideonBackground({ speaking = false, listening = false, 
         </radialGradient>
         <radialGradient id="g-vig" cx="50%" cy="50%" r="70%">
           <stop offset="50%" stopColor="transparent"/>
-          <stop offset="100%" stopColor="#100800" stopOpacity="0.75"/>
+          <stop offset="100%" stopColor="#100800" stopOpacity="0.45"/>
         </radialGradient>
         <filter id="g-glow"><feGaussianBlur stdDeviation="8" result="b"/>
           <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
@@ -141,7 +141,7 @@ export default function GideonBackground({ speaking = false, listening = false, 
         <ellipse cx="195" cy="724" rx="110" ry="64" fill="url(#g-floor-gold)"/>
       </g>
       {/* Stone floor */}
-      <rect x="0" y="700" width="390" height="144" fill="#221000" opacity="0.80"/>
+      <rect x="0" y="700" width="390" height="144" fill="#2A1800" opacity="0.60"/>
       {[720,744,768,792,816,840].map((y,i) => <line key={i} x1="0" y1={y} x2="390" y2={y} stroke="#3A1800" strokeWidth="1.5"/>)}
       {[78,156,234,312].map((x,i) => <line key={i} x1={x} y1="700" x2={x} y2="844" stroke="#3A1800" strokeWidth="1.5"/>)}
       {/* Left pew */}
