@@ -1,553 +1,517 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
-import { motion } from 'framer-motion';
-import { TrendingUp, Dumbbell, Calendar, Target, Award, Flame, BarChart3 } from 'lucide-react';
-
+import { motion, AnimatePresence } from 'framer-motion';
+import {
+  Dumbbell, Flame, Calendar, Award, BarChart3,
+  TrendingUp, TrendingDown, Minus, ChevronRight,
+  MessageCircle, Star, Target, Zap, CheckCircle2
+} from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, AreaChart, Area } from 'recharts';
-import { format, subDays, startOfWeek, endOfWeek, eachDayOfInterval, isSameDay } from 'date-fns';
+import {
+  AreaChart, Area, BarChart, Bar, LineChart, Line,
+  XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
+} from 'recharts';
+import { format, subDays, eachDayOfInterval } from 'date-fns';
 import ChatButton from '@/components/chatbot/ChatButton';
 
+// ── Helpers ────────────────────────────────────────────────────────────────
+function todayKey() { return new Date().toISOString().split('T')[0]; }
+
+function calcStreak(sessions) {
+  const days = new Set(sessions.map(s => (s.date || '').slice(0, 10)).filter(Boolean));
+  let streak = 0;
+  for (let i = 0; i < 365; i++) {
+    const d = new Date();
+    d.setDate(d.getDate() - i);
+    if (days.has(d.toISOString().slice(0, 10))) streak++;
+    else if (i > 0) break;
+  }
+  return streak;
+}
+
+function calcLongestStreak(sessions) {
+  const days = [...new Set(sessions.map(s => (s.date || '').slice(0, 10)).filter(Boolean))].sort();
+  let best = 0, cur = 0;
+  for (let i = 0; i < days.length; i++) {
+    if (i === 0) { cur = 1; }
+    else {
+      const diff = (new Date(days[i]) - new Date(days[i - 1])) / 86400000;
+      cur = diff <= 1 ? cur + 1 : 1;
+    }
+    best = Math.max(best, cur);
+  }
+  return best;
+}
+
+function weekLabel(weeksAgo) {
+  if (weeksAgo === 0) return 'This week';
+  if (weeksAgo === 1) return 'Last week';
+  return `${weeksAgo}w ago`;
+}
+
+const TABS = [
+  { key: 'overview',  label: 'Overview' },
+  { key: 'frequency', label: 'Frequency' },
+  { key: 'exercises', label: 'Exercises' },
+];
+
+// ── Stat card ────────────────────────────────────────────────────────────────
+function StatCard({ value, label, color, trend, trendLabel, icon: Icon }) {
+  const TrendIcon = trend === 'up' ? TrendingUp : trend === 'down' ? TrendingDown : Minus;
+  const trendColor = trend === 'up' ? 'text-emerald-500' : trend === 'down' ? 'text-rose-500' : 'text-gray-400';
+  return (
+    <div className="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm">
+      <div className="flex items-start justify-between mb-1">
+        <div className="w-8 h-8 rounded-xl flex items-center justify-center" style={{ background: color + '22' }}>
+          <Icon className="w-4 h-4" style={{ color }} />
+        </div>
+        {trend && (
+          <div className={`flex items-center gap-0.5 text-[10px] font-bold ${trendColor}`}>
+            <TrendIcon className="w-3 h-3" /> {trendLabel}
+          </div>
+        )}
+      </div>
+      <p className="text-2xl font-black text-gray-900 mt-2">{value}</p>
+      <p className="text-xs text-gray-500 mt-0.5">{label}</p>
+    </div>
+  );
+}
+
+// ── Tooltip ──────────────────────────────────────────────────────────────────
+const ChartTooltip = ({ active, payload, label }) => {
+  if (!active || !payload?.length) return null;
+  return (
+    <div className="bg-white border border-gray-100 rounded-xl px-3 py-2 shadow-lg text-xs">
+      <p className="font-bold text-gray-700 mb-1">{label}</p>
+      {payload.map((p, i) => (
+        <p key={i} style={{ color: p.color }}>{p.name}: <strong>{p.value}</strong></p>
+      ))}
+    </div>
+  );
+};
+
+// ── Empty state ───────────────────────────────────────────────────────────────
+function EmptyState({ navigate }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="text-center py-16 px-6"
+    >
+      <div className="w-16 h-16 bg-[#38BDF8]/10 rounded-full flex items-center justify-center mx-auto mb-4">
+        <BarChart3 className="w-8 h-8 text-[#38BDF8]" />
+      </div>
+      <h3 className="text-base font-bold text-gray-800 mb-2">No workout data yet</h3>
+      <p className="text-sm text-gray-500 mb-6 leading-relaxed">
+        Log your first session to start seeing your trends, streaks, and exercise progress.
+      </p>
+      <button
+        onPointerDown={() => { window.location.href = createPageUrl('Workouts'); }}
+        className="inline-flex items-center gap-2 bg-gradient-to-r from-[#FD9C2D] to-[#E89020] text-white font-bold px-6 py-3 rounded-xl text-sm"
+      >
+        <Dumbbell className="w-4 h-4" /> Start a Workout
+      </button>
+    </motion.div>
+  );
+}
+
+// ── Main ──────────────────────────────────────────────────────────────────────
 export default function WorkoutTrends() {
-  const [user, setUser] = useState(null);
-  const [selectedExercise, setSelectedExercise] = useState('');
-  const [selectedMetric, setSelectedMetric] = useState('weight_used');
-  const [timeRange, setTimeRange] = useState(30);
+  const navigate  = useNavigate();
+  const [user, setUser]     = useState(null);
+  const [tab, setTab]       = useState('overview');
+  const [range, setRange]   = useState(30);
+  const [selExercise, setSelExercise] = useState('');
 
-  useEffect(() => {
-    base44.auth.me().then(setUser);
-  }, []);
+  useEffect(() => { base44.auth.me().then(setUser); }, []);
 
-  const { data: workoutSessions = [] } = useQuery({
+  const { data: sessions = [] } = useQuery({
     queryKey: ['workoutSessions'],
     queryFn: () => base44.entities.WorkoutSession.list('-date', 200),
-    enabled: !!user
+    enabled: !!user,
   });
 
-  const { data: mealLogs = [] } = useQuery({
-    queryKey: ['mealLogs'],
-    queryFn: () => base44.entities.MealLog.list('-date', 200),
-    enabled: !!user
-  });
+  // ── Core stats ──────────────────────────────────────────────────────────────
+  const streak       = calcStreak(sessions);
+  const longestStreak = calcLongestStreak(sessions);
+  const totalMins    = sessions.reduce((s, x) => s + (x.duration_minutes || 0), 0);
+  const totalSessions = sessions.length;
 
-  const { data: waterLogs = [] } = useQuery({
-    queryKey: ['waterLogs'],
-    queryFn: () => base44.entities.WaterLog.list('-date', 200),
-    enabled: !!user
-  });
+  const thisWeekCount = useMemo(() => {
+    const mon = (() => {
+      const d = new Date(); const day = d.getDay();
+      d.setDate(d.getDate() - (day === 0 ? 6 : day - 1));
+      return d.toISOString().slice(0, 10);
+    })();
+    return sessions.filter(s => (s.date || '') >= mon).length;
+  }, [sessions]);
 
-  // Overall Activity Trend Data
-  const activityChartData = [];
-  for (let i = timeRange - 1; i >= 0; i--) {
-    const date = subDays(new Date(), i);
-    const dateStr = format(date, 'yyyy-MM-dd');
-    
-    const workoutsCount = workoutSessions.filter(w => w.date === dateStr).length;
-    const mealsCount = mealLogs.filter(m => m.date === dateStr).length;
-    const waterLog = waterLogs.find(w => w.date === dateStr);
-    const waterGlasses = waterLog?.glasses || 0;
+  const lastWeekCount = useMemo(() => {
+    const d = new Date(); const day = d.getDay();
+    const thisMonday = new Date(d);
+    thisMonday.setDate(d.getDate() - (day === 0 ? 6 : day - 1));
+    const lastMonday = new Date(thisMonday);
+    lastMonday.setDate(thisMonday.getDate() - 7);
+    const lm = lastMonday.toISOString().slice(0, 10);
+    const tm = thisMonday.toISOString().slice(0, 10);
+    return sessions.filter(s => (s.date || '') >= lm && (s.date || '') < tm).length;
+  }, [sessions]);
 
-    activityChartData.push({
-      date: format(date, 'MMM dd'),
-      workouts: workoutsCount,
-      meals: mealsCount,
-      water: waterGlasses
+  const weekTrend = thisWeekCount > lastWeekCount ? 'up' : thisWeekCount < lastWeekCount ? 'down' : 'flat';
+  const weekTrendLabel = weekTrend === 'up' ? `+${thisWeekCount - lastWeekCount} vs last week`
+    : weekTrend === 'down' ? `-${lastWeekCount - thisWeekCount} vs last week`
+    : 'Same as last week';
+
+  // ── Daily frequency chart ────────────────────────────────────────────────
+  const freqData = useMemo(() => {
+    const map = {};
+    sessions.forEach(s => { const d = (s.date || '').slice(0, 10); if (d) map[d] = (map[d] || 0) + 1; });
+    return Array.from({ length: range }, (_, i) => {
+      const d = subDays(new Date(), range - 1 - i);
+      const key = d.toISOString().slice(0, 10);
+      return { date: format(d, range <= 14 ? 'MMM d' : range <= 31 ? 'd' : 'MMM d'), sessions: map[key] || 0 };
     });
-  }
+  }, [sessions, range]);
 
-  // Calculate streak
-  let currentStreak = 0;
-  let longestStreak = 0;
-  let tempStreak = 0;
-  
-  for (let i = 0; i < timeRange; i++) {
-    const date = subDays(new Date(), i);
-    const dateStr = format(date, 'yyyy-MM-dd');
-    const hasWorkout = workoutSessions.some(w => w.date === dateStr);
-    
-    if (hasWorkout) {
-      if (i === 0) currentStreak++;
-      tempStreak++;
-      longestStreak = Math.max(longestStreak, tempStreak);
-    } else {
-      if (i === 0) currentStreak = 0;
-      tempStreak = 0;
-    }
-  }
+  // ── Weekly bar chart ─────────────────────────────────────────────────────
+  const weeklyData = useMemo(() => {
+    return Array.from({ length: 8 }, (_, weeksAgo) => {
+      const end = subDays(new Date(), weeksAgo * 7);
+      const start = subDays(end, 6);
+      const dates = new Set(eachDayOfInterval({ start, end }).map(d => format(d, 'yyyy-MM-dd')));
+      const count = sessions.filter(s => dates.has((s.date || '').slice(0, 10))).length;
+      const mins  = sessions.filter(s => dates.has((s.date || '').slice(0, 10)))
+        .reduce((sum, s) => sum + (s.duration_minutes || 0), 0);
+      return { week: weekLabel(weeksAgo), sessions: count, minutes: mins };
+    }).reverse();
+  }, [sessions]);
 
-  // Get unique exercises
-  const allExercises = [...new Set(
-    workoutSessions.flatMap(s => s.exercises_performed?.map(e => e.name) || [])
-  )].sort();
+  // ── Exercise list + progress ─────────────────────────────────────────────
+  const allExercises = useMemo(() => {
+    const freq = {};
+    sessions.forEach(s => s.exercises_performed?.forEach(e => {
+      freq[e.name] = (freq[e.name] || 0) + 1;
+    }));
+    return Object.entries(freq).sort((a, b) => b[1] - a[1]).map(([name, count]) => ({ name, count }));
+  }, [sessions]);
 
-  // Exercise-specific progress data
-  const exerciseChartData = selectedExercise ? workoutSessions
-    .filter(s => s.exercises_performed?.some(e => e.name === selectedExercise))
-    .map(session => {
-      const exercise = session.exercises_performed.find(e => e.name === selectedExercise);
-      return {
-        date: format(new Date(session.date), 'MMM dd'),
-        weight: exercise?.weight_used || 0,
-        reps: exercise?.reps_completed || 0,
-        sets: exercise?.sets_completed || 0,
-        duration: exercise?.duration_seconds || 0
-      };
-    })
-    .reverse()
-    .slice(-20) : [];
+  useEffect(() => {
+    if (allExercises.length && !selExercise) setSelExercise(allExercises[0]?.name || '');
+  }, [allExercises]);
 
-  const metricConfig = {
-    weight_used: { key: 'weight', label: 'Weight (lbs)', color: '#10b981' },
-    reps_completed: { key: 'reps', label: 'Reps', color: '#3b82f6' },
-    sets_completed: { key: 'sets', label: 'Sets', color: '#8b5cf6' },
-    duration_seconds: { key: 'duration', label: 'Duration (sec)', color: '#f59e0b' }
-  };
+  const exerciseData = useMemo(() => {
+    if (!selExercise) return [];
+    return sessions
+      .filter(s => s.exercises_performed?.some(e => e.name === selExercise))
+      .map(s => {
+        const ex = s.exercises_performed.find(e => e.name === selExercise);
+        return {
+          date: format(new Date(s.date), 'MMM d'),
+          weight: ex?.weight_used || 0,
+          reps: ex?.reps_completed || 0,
+          sets: ex?.sets_completed || 0,
+        };
+      })
+      .reverse()
+      .slice(-20);
+  }, [sessions, selExercise]);
 
-  const currentMetric = metricConfig[selectedMetric];
-
-  // Weekly Summary Data
-  const weeklyData = [];
-  for (let i = 0; i < 8; i++) {
-    const weekEnd = subDays(new Date(), i * 7);
-    const weekStart = subDays(weekEnd, 6);
-    const weekDates = eachDayOfInterval({ start: weekStart, end: weekEnd })
-      .map(d => format(d, 'yyyy-MM-dd'));
-
-    const weekWorkouts = workoutSessions.filter(w => weekDates.includes(w.date)).length;
-    const weekMeals = mealLogs.filter(m => weekDates.includes(m.date)).length;
-    
-    const totalCalories = mealLogs
-      .filter(m => weekDates.includes(m.date))
-      .reduce((sum, m) => sum + (m.calories || 0), 0);
-
-    weeklyData.unshift({
-      week: `Week ${i === 0 ? 'Current' : '-' + i}`,
-      workouts: weekWorkouts,
-      meals: weekMeals,
-      avgCalories: weekMeals > 0 ? Math.round(totalCalories / weekMeals) : 0
-    });
-  }
-
-  // Stats
-  const totalWorkouts = workoutSessions.length;
-  const avgWorkoutsPerWeek = (totalWorkouts / (timeRange / 7)).toFixed(1);
-  const totalMinutes = workoutSessions.reduce((sum, s) => sum + (s.duration_minutes || 0), 0);
-  const avgCaloriesPerDay = mealLogs.length > 0 
-    ? Math.round(mealLogs.reduce((sum, m) => sum + (m.calories || 0), 0) / mealLogs.length)
-    : 0;
-
-  // Most performed exercises
-  const exerciseFrequency = {};
-  workoutSessions.forEach(session => {
-    session.exercises_performed?.forEach(ex => {
-      exerciseFrequency[ex.name] = (exerciseFrequency[ex.name] || 0) + 1;
-    });
-  });
-
-  const topExercises = Object.entries(exerciseFrequency)
-    .sort((a, b) => b[1] - a[1])
-    .slice(0, 5)
-    .map(([name, count]) => ({ name, count }));
+  const hasData = sessions.length > 0;
 
   return (
-    <div className="min-h-screen bg-[#F2F6FA] pb-24">
-      <div className="px-4 pt-6 py-6 space-y-6 bg-[#F2F6FA]">
-        {/* Time Range Selector */}
-        <div className="flex justify-end">
-          <Select value={timeRange.toString()} onValueChange={(val) => setTimeRange(parseInt(val))}>
-            <SelectTrigger className="w-32 bg-white">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="7">7 Days</SelectItem>
-              <SelectItem value="30">30 Days</SelectItem>
-              <SelectItem value="90">90 Days</SelectItem>
-              <SelectItem value="180">6 Months</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
+    <div className="min-h-screen bg-[#F0F8FF] pb-28">
+      <div className="px-4 pt-5 pb-4">
+        <div className="max-w-2xl mx-auto space-y-4">
 
-        {/* Key Stats */}
-        <div className="grid grid-cols-2 gap-3">
-          <Card className="bg-white dark:bg-[#2d2d4a]">
-            <CardContent className="p-4 text-center">
-              <Dumbbell className="w-8 h-8 text-[#FD9C2D] mb-2 mx-auto" />
-              <p className="text-2xl font-bold text-[#1a1a2e] dark:text-white">{totalWorkouts}</p>
-              <p className="text-xs text-gray-500 dark:text-gray-400">Total Workouts</p>
-            </CardContent>
-          </Card>
+          {/* ── Empty state ── */}
+          {!hasData && user && <EmptyState navigate={navigate} />}
 
-          <Card className="bg-white dark:bg-[#2d2d4a]">
-            <CardContent className="p-4 text-center">
-              <Flame className="w-8 h-8 text-[#FD9C2D] mb-2 mx-auto" />
-              <p className="text-2xl font-bold text-[#1a1a2e] dark:text-white">{currentStreak}</p>
-              <p className="text-xs text-gray-500 dark:text-gray-400">Day Streak</p>
-            </CardContent>
-          </Card>
+          {hasData && <>
 
-          <Card className="bg-white dark:bg-[#2d2d4a]">
-            <CardContent className="p-4 text-center">
-              <Calendar className="w-8 h-8 text-[#C4E3FD] mb-2 mx-auto" />
-              <p className="text-2xl font-bold text-[#1a1a2e] dark:text-white">{avgWorkoutsPerWeek}</p>
-              <p className="text-xs text-gray-500 dark:text-gray-400">Workouts/Week</p>
-            </CardContent>
-          </Card>
+            {/* ── Hero stats row ── */}
+            <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
+              <div className="grid grid-cols-2 gap-3">
+                <StatCard
+                  value={thisWeekCount}
+                  label="Sessions this week"
+                  color="#38BDF8"
+                  icon={Dumbbell}
+                  trend={weekTrend}
+                  trendLabel={weekTrendLabel}
+                />
+                <StatCard
+                  value={streak}
+                  label="Day streak"
+                  color="#F97316"
+                  icon={Flame}
+                  trend={streak > 0 ? 'up' : null}
+                  trendLabel={streak > 0 ? `Best: ${longestStreak}d` : null}
+                />
+                <StatCard
+                  value={totalSessions}
+                  label="All-time sessions"
+                  color="#8B5CF6"
+                  icon={Award}
+                  trend={null}
+                />
+                <StatCard
+                  value={totalMins}
+                  label="Total minutes"
+                  color="#22C55E"
+                  icon={Target}
+                  trend={null}
+                />
+              </div>
+            </motion.div>
 
-          <Card className="bg-white dark:bg-[#2d2d4a]">
-            <CardContent className="p-4 text-center">
-              <Award className="w-8 h-8 text-[#FD9C2D] mb-2 mx-auto" />
-              <p className="text-2xl font-bold text-[#1a1a2e] dark:text-white">{totalMinutes}</p>
-              <p className="text-xs text-gray-500 dark:text-gray-400">Total Minutes</p>
-            </CardContent>
-          </Card>
-        </div>
+            {/* ── Range selector ── */}
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.06 }}>
+              <div className="flex gap-2">
+                {[7, 30, 90].map(r => (
+                  <button key={r}
+                    onPointerDown={() => setRange(r)}
+                    className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all ${
+                      range === r
+                        ? 'bg-[#38BDF8] text-white'
+                        : 'bg-white text-gray-500 border border-gray-200'
+                    }`}
+                  >
+                    {r === 7 ? '7 days' : r === 30 ? '30 days' : '90 days'}
+                  </button>
+                ))}
+              </div>
+            </motion.div>
 
-        {/* Tabs */}
-        <Tabs defaultValue="overview" className="w-full">
-          <TabsList className="grid w-full grid-cols-3 bg-white/50 backdrop-blur-sm">
-            <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="exercises">Exercises</TabsTrigger>
-            <TabsTrigger value="weekly">Weekly</TabsTrigger>
-          </TabsList>
+            {/* ── Tab bar ── */}
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.08 }}>
+              <div className="bg-white rounded-2xl p-1 flex gap-1 shadow-sm border border-gray-100">
+                {TABS.map(t => (
+                  <button key={t.key}
+                    onPointerDown={() => setTab(t.key)}
+                    className={`flex-1 py-2 rounded-xl text-xs font-bold transition-all ${
+                      tab === t.key ? 'bg-[#0A1828] text-white' : 'text-gray-400 hover:text-gray-600'
+                    }`}
+                  >
+                    {t.label}
+                  </button>
+                ))}
+              </div>
+            </motion.div>
 
-          {/* Overview Tab */}
-          <TabsContent value="overview" className="space-y-4">
-            {/* Activity Timeline */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-base">Activity Timeline</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ResponsiveContainer width="100%" height={300}>
-                  <AreaChart data={activityChartData}>
-                    <defs>
-                      <linearGradient id="workoutGradient" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#FD9C2D" stopOpacity={0.3}/>
-                        <stop offset="95%" stopColor="#FD9C2D" stopOpacity={0}/>
-                      </linearGradient>
-                      <linearGradient id="mealGradient" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#f59e0b" stopOpacity={0.3}/>
-                        <stop offset="95%" stopColor="#f59e0b" stopOpacity={0}/>
-                      </linearGradient>
-                      <linearGradient id="waterGradient" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#C4E3FD" stopOpacity={0.3}/>
-                        <stop offset="95%" stopColor="#C4E3FD" stopOpacity={0}/>
-                      </linearGradient>
-                    </defs>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-                    <XAxis 
-                      dataKey="date" 
-                      stroke="#9ca3af"
-                      style={{ fontSize: '10px' }}
-                      interval="preserveStartEnd"
-                    />
-                    <YAxis 
-                      stroke="#9ca3af"
-                      style={{ fontSize: '11px' }}
-                    />
-                    <Tooltip 
-                      contentStyle={{
-                        backgroundColor: 'white',
-                        border: '1px solid #e5e7eb',
-                        borderRadius: '8px'
-                      }}
-                    />
-                    <Legend />
-                    <Area
-                      type="monotone"
-                      dataKey="workouts"
-                      stroke="#FD9C2D"
-                      fill="url(#workoutGradient)"
-                      strokeWidth={2}
-                      name="Workouts"
-                    />
-                    <Area
-                      type="monotone"
-                      dataKey="meals"
-                      stroke="#f59e0b"
-                      fill="url(#mealGradient)"
-                      strokeWidth={2}
-                      name="Meals Logged"
-                    />
-                    <Area
-                      type="monotone"
-                      dataKey="water"
-                      stroke="#C4E3FD"
-                      fill="url(#waterGradient)"
-                      strokeWidth={2}
-                      name="Water (glasses)"
-                    />
-                  </AreaChart>
-                </ResponsiveContainer>
-              </CardContent>
-            </Card>
+            <AnimatePresence mode="wait">
 
-            {/* Top Exercises */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-base">Most Performed Exercises</CardTitle>
-              </CardHeader>
-              <CardContent>
-                {topExercises.length > 0 ? (
-                  <div className="space-y-3">
-                    {topExercises.map((exercise, idx) => (
-                      <div key={exercise.name} className="flex items-center justify-between">
-                        <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 rounded-full bg-[#FD9C2D]/20 text-[#FD9C2D] flex items-center justify-center font-bold text-sm">
-                            {idx + 1}
-                          </div>
-                          <span className="font-medium text-gray-700">{exercise.name}</span>
-                        </div>
-                        <span className="text-sm text-gray-500">{exercise.count} sessions</span>
+              {/* ── OVERVIEW tab ── */}
+              {tab === 'overview' && (
+                <motion.div key="overview"
+                  initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
+                  className="space-y-4"
+                >
+                  {/* Streak history */}
+                  <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
+                    <div className="flex items-center justify-between mb-4">
+                      <p className="text-sm font-bold text-gray-800">Streak history</p>
+                      <div className="flex items-center gap-1.5">
+                        <Flame className="w-4 h-4 text-orange-500" />
+                        <span className="text-xs font-bold text-orange-500">{streak} day current</span>
                       </div>
-                    ))}
-                  </div>
-                ) : (
-                  <p className="text-gray-500 text-center py-6">No workout data yet</p>
-                )}
-              </CardContent>
-            </Card>
-
-            {/* Streak & Consistency */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-base flex items-center gap-2">
-                  <Flame className="w-5 h-5 text-orange-500" />
-                  Consistency Tracking
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="bg-[#FD9C2D]/10 rounded-xl p-4 text-center">
-                    <Flame className="w-6 h-6 text-[#FD9C2D] mb-2 mx-auto" />
-                    <p className="text-2xl font-bold text-[#FD9C2D]">{currentStreak}</p>
-                    <p className="text-xs text-gray-600">Current Streak</p>
-                  </div>
-                  <div className="bg-[#C4E3FD]/30 rounded-xl p-4 text-center">
-                    <Award className="w-6 h-6 text-[#C4E3FD] mb-2 mx-auto" />
-                    <p className="text-2xl font-bold text-[#000000]">{longestStreak}</p>
-                    <p className="text-xs text-gray-600">Longest Streak</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          {/* Exercise Progress Tab */}
-          <TabsContent value="exercises" className="space-y-4">
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-base">Exercise-Specific Progress</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <label className="text-sm font-medium mb-2 block">Exercise</label>
-                    <Select value={selectedExercise} onValueChange={setSelectedExercise}>
-                      <SelectTrigger className="bg-white">
-                        <SelectValue placeholder="Select exercise" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {allExercises.map(ex => (
-                          <SelectItem key={ex} value={ex}>{ex}</SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                    </div>
+                    <div className="grid grid-cols-2 gap-3">
+                      <div className="bg-orange-50 rounded-xl p-3 text-center">
+                        <p className="text-2xl font-black text-orange-500">{streak}</p>
+                        <p className="text-[10px] text-orange-400 font-semibold mt-0.5">Current streak</p>
+                      </div>
+                      <div className="bg-gray-50 rounded-xl p-3 text-center">
+                        <p className="text-2xl font-black text-gray-700">{longestStreak}</p>
+                        <p className="text-[10px] text-gray-400 font-semibold mt-0.5">Best streak</p>
+                      </div>
+                    </div>
                   </div>
 
-                  <div>
-                    <label className="text-sm font-medium mb-2 block">Metric</label>
-                    <Select value={selectedMetric} onValueChange={setSelectedMetric}>
-                      <SelectTrigger className="bg-white">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="weight_used">Weight</SelectItem>
-                        <SelectItem value="reps_completed">Reps</SelectItem>
-                        <SelectItem value="sets_completed">Sets</SelectItem>
-                        <SelectItem value="duration_seconds">Duration</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-
-                {selectedExercise && exerciseChartData.length > 0 ? (
-                  <>
-                    <ResponsiveContainer width="100%" height={300}>
-                      <LineChart data={exerciseChartData}>
-                        <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
-                        <XAxis 
-                          dataKey="date" 
-                          tick={{ fontSize: 11 }}
-                          stroke="#6b7280"
-                        />
-                        <YAxis 
-                          tick={{ fontSize: 12 }}
-                          stroke="#6b7280"
-                        />
-                        <Tooltip 
-                          contentStyle={{ 
-                            backgroundColor: 'white', 
-                            border: '1px solid #e5e7eb',
-                            borderRadius: '8px'
-                          }}
-                        />
-                        <Legend />
-                        <Line 
-                          type="monotone" 
-                          dataKey={currentMetric.key}
-                          stroke={currentMetric.color}
-                          strokeWidth={3}
-                          dot={{ fill: currentMetric.color, r: 5 }}
-                          name={currentMetric.label}
-                        />
-                      </LineChart>
+                  {/* Weekly volume */}
+                  <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
+                    <p className="text-sm font-bold text-gray-800 mb-4">Weekly sessions (8 weeks)</p>
+                    <ResponsiveContainer width="100%" height={180}>
+                      <BarChart data={weeklyData} barSize={24}>
+                        <CartesianGrid strokeDasharray="3 3" stroke="#f3f4f6" />
+                        <XAxis dataKey="week" tick={{ fontSize: 10 }} stroke="#d1d5db" />
+                        <YAxis tick={{ fontSize: 11 }} stroke="#d1d5db" allowDecimals={false} width={24} />
+                        <Tooltip content={<ChartTooltip />} />
+                        <Bar dataKey="sessions" fill="#38BDF8" radius={[6, 6, 0, 0]} name="Sessions" />
+                      </BarChart>
                     </ResponsiveContainer>
+                  </div>
 
-                    {/* Stats */}
-                    <div className="grid grid-cols-3 gap-3">
-                      <div className="text-center p-3 bg-gradient-to-br from-[#FD9C2D]/10 to-[#FD9C2D]/20 rounded-xl">
-                        <p className="text-xs text-gray-600">Best</p>
-                        <p className="text-xl font-bold text-[#FD9C2D]">
-                          {Math.max(...exerciseChartData.map(d => d[currentMetric.key]))}
-                        </p>
-                      </div>
-                      <div className="text-center p-3 bg-gradient-to-br from-[#C4E3FD]/20 to-[#C4E3FD]/40 rounded-xl">
-                        <p className="text-xs text-gray-600">Average</p>
-                        <p className="text-xl font-bold text-[#000000]">
-                          {(exerciseChartData.reduce((sum, d) => sum + d[currentMetric.key], 0) / exerciseChartData.length).toFixed(1)}
-                        </p>
-                      </div>
-                      <div className="text-center p-3 bg-gradient-to-br from-[#000000] to-[#FD9C2D]/20 rounded-xl">
-                        <p className="text-xs text-white">Sessions</p>
-                        <p className="text-xl font-bold text-white">{exerciseChartData.length}</p>
-                      </div>
-                    </div>
-
-                    {/* Recent Sessions */}
-                    <div>
-                      <h4 className="font-semibold text-sm mb-2 text-gray-700">Recent Sessions</h4>
-                      <div className="space-y-2 max-h-48 overflow-y-auto">
-                        {workoutSessions
-                          .filter(s => s.exercises_performed?.some(e => e.name === selectedExercise))
-                          .slice(0, 10)
-                          .map(session => {
-                            const exercise = session.exercises_performed.find(e => e.name === selectedExercise);
-                            return (
-                              <div key={session.id} className="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                                <span className="text-sm text-gray-600 dark:text-gray-400">
-                                  {format(new Date(session.date), 'MMM dd, yyyy')}
-                                </span>
-                                <div className="flex gap-3 text-xs font-medium">
-                                 {exercise.weight_used > 0 && <span className="text-[#FD9C2D]">{exercise.weight_used} lbs</span>}
-                                 {exercise.sets_completed > 0 && <span className="text-[#C4E3FD]">{exercise.sets_completed} sets</span>}
-                                 {exercise.reps_completed > 0 && <span className="text-[#000000]">{exercise.reps_completed} reps</span>}
+                  {/* Most performed */}
+                  {allExercises.length > 0 && (
+                    <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
+                      <p className="text-sm font-bold text-gray-800 mb-4">Top exercises</p>
+                      <div className="space-y-3">
+                        {allExercises.slice(0, 5).map((ex, i) => {
+                          const pct = Math.round((ex.count / allExercises[0].count) * 100);
+                          return (
+                            <div key={ex.name}>
+                              <div className="flex items-center justify-between mb-1">
+                                <div className="flex items-center gap-2">
+                                  <span className="w-5 h-5 rounded-full bg-[#38BDF8]/15 text-[#38BDF8] text-[10px] font-black flex items-center justify-center">{i + 1}</span>
+                                  <span className="text-sm text-gray-700 font-medium">{ex.name}</span>
                                 </div>
+                                <span className="text-xs text-gray-400">{ex.count}×</span>
                               </div>
-                            );
-                          })}
+                              <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                                <motion.div
+                                  className="h-full rounded-full bg-gradient-to-r from-[#38BDF8] to-[#0EA5E9]"
+                                  initial={{ width: 0 }}
+                                  animate={{ width: `${pct}%` }}
+                                  transition={{ duration: 0.6, ease: 'easeOut', delay: i * 0.08 }}
+                                />
+                              </div>
+                            </div>
+                          );
+                        })}
                       </div>
                     </div>
-                  </>
-                ) : selectedExercise ? (
-                  <div className="text-center py-12 text-gray-500">
-                    No data recorded for this exercise yet
-                  </div>
-                ) : (
-                  <div className="text-center py-12 text-gray-500">
-                    Select an exercise to view progress
-                  </div>
-                )}
-              </CardContent>
-            </Card>
-          </TabsContent>
+                  )}
+                </motion.div>
+              )}
 
-          {/* Weekly Summary Tab */}
-          <TabsContent value="weekly" className="space-y-4">
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-base">Weekly Performance</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ResponsiveContainer width="100%" height={300}>
-                  <BarChart data={weeklyData}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-                    <XAxis 
-                      dataKey="week" 
-                      stroke="#9ca3af"
-                      style={{ fontSize: '10px' }}
-                    />
-                    <YAxis 
-                      stroke="#9ca3af"
-                      style={{ fontSize: '11px' }}
-                    />
-                    <Tooltip 
-                      contentStyle={{
-                        backgroundColor: 'white',
-                        border: '1px solid #e5e7eb',
-                        borderRadius: '8px'
-                      }}
-                    />
-                    <Legend />
-                    <Bar dataKey="workouts" fill="#FD9C2D" name="Workouts" radius={[8, 8, 0, 0]} />
-                    <Bar dataKey="meals" fill="#f59e0b" name="Meals Logged" radius={[8, 8, 0, 0]} />
-                  </BarChart>
-                </ResponsiveContainer>
-              </CardContent>
-            </Card>
+              {/* ── FREQUENCY tab ── */}
+              {tab === 'frequency' && (
+                <motion.div key="frequency"
+                  initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
+                  className="space-y-4"
+                >
+                  <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
+                    <p className="text-sm font-bold text-gray-800 mb-4">Sessions per day</p>
+                    <ResponsiveContainer width="100%" height={200}>
+                      <AreaChart data={freqData}>
+                        <defs>
+                          <linearGradient id="freqGrad" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="5%" stopColor="#38BDF8" stopOpacity={0.25} />
+                            <stop offset="95%" stopColor="#38BDF8" stopOpacity={0} />
+                          </linearGradient>
+                        </defs>
+                        <CartesianGrid strokeDasharray="3 3" stroke="#f3f4f6" />
+                        <XAxis dataKey="date" tick={{ fontSize: 10 }} stroke="#d1d5db"
+                          interval={range <= 14 ? 1 : range <= 31 ? 4 : 9} />
+                        <YAxis tick={{ fontSize: 11 }} stroke="#d1d5db" allowDecimals={false} width={24} />
+                        <Tooltip content={<ChartTooltip />} />
+                        <Area type="monotone" dataKey="sessions" stroke="#38BDF8" strokeWidth={2.5}
+                          fill="url(#freqGrad)" name="Sessions" />
+                      </AreaChart>
+                    </ResponsiveContainer>
+                  </div>
 
-            {/* Nutrition Summary */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-base">Nutrition Insights</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  <div className="flex justify-between items-center p-3 bg-orange-50 rounded-xl">
-                    <span className="text-sm text-gray-700">Avg Daily Calories</span>
-                    <span className="text-lg font-bold text-orange-600">{avgCaloriesPerDay}</span>
+                  <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
+                    <p className="text-sm font-bold text-gray-800 mb-4">Minutes per week</p>
+                    <ResponsiveContainer width="100%" height={180}>
+                      <BarChart data={weeklyData} barSize={24}>
+                        <CartesianGrid strokeDasharray="3 3" stroke="#f3f4f6" />
+                        <XAxis dataKey="week" tick={{ fontSize: 10 }} stroke="#d1d5db" />
+                        <YAxis tick={{ fontSize: 11 }} stroke="#d1d5db" width={30} />
+                        <Tooltip content={<ChartTooltip />} />
+                        <Bar dataKey="minutes" fill="#FD9C2D" radius={[6, 6, 0, 0]} name="Minutes" />
+                      </BarChart>
+                    </ResponsiveContainer>
                   </div>
-                  <div className="flex justify-between items-center p-3 bg-[#F2F6FA] rounded-xl">
-                    <span className="text-sm text-gray-700">Meals Logged</span>
-                    <span className="text-lg font-bold text-[#3C4E53]">{mealLogs.length}</span>
-                  </div>
-                  <div className="flex justify-between items-center p-3 bg-cyan-50 rounded-xl">
-                    <span className="text-sm text-gray-700">Water Logs</span>
-                    <span className="text-lg font-bold text-cyan-600">{waterLogs.length}</span>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+                </motion.div>
+              )}
 
-            {/* Weekly Breakdown */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-base">8-Week Summary</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-2">
-                  {weeklyData.map((week, idx) => (
-                    <div key={idx} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                      <span className="text-sm font-medium text-gray-700">{week.week}</span>
-                      <div className="flex gap-4 text-sm">
-                        <span className="text-emerald-600">{week.workouts} workouts</span>
-                        <span className="text-orange-600">{week.meals} meals</span>
-                      </div>
+              {/* ── EXERCISES tab ── */}
+              {tab === 'exercises' && (
+                <motion.div key="exercises"
+                  initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
+                  className="space-y-4"
+                >
+                  {allExercises.length === 0 ? (
+                    <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-8 text-center">
+                      <p className="text-gray-500 text-sm">No exercise data recorded yet.</p>
+                      <p className="text-gray-400 text-xs mt-1">Log sessions with exercises to track progress here.</p>
                     </div>
-                  ))}
+                  ) : (
+                    <>
+                      {/* Exercise picker */}
+                      <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4">
+                        <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-3">Select exercise</p>
+                        <div className="flex flex-wrap gap-2 max-h-40 overflow-y-auto">
+                          {allExercises.map(ex => (
+                            <button key={ex.name}
+                              onPointerDown={() => setSelExercise(ex.name)}
+                              className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all ${
+                                selExercise === ex.name
+                                  ? 'bg-[#38BDF8] text-white'
+                                  : 'bg-gray-100 text-gray-600'
+                              }`}
+                            >
+                              {ex.name} <span className="opacity-60">({ex.count})</span>
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Progress chart */}
+                      {selExercise && exerciseData.length > 0 && (
+                        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
+                          <p className="text-sm font-bold text-gray-800 mb-1">{selExercise}</p>
+                          <p className="text-xs text-gray-400 mb-4">Weight used over last {exerciseData.length} sessions</p>
+                          <ResponsiveContainer width="100%" height={200}>
+                            <LineChart data={exerciseData}>
+                              <CartesianGrid strokeDasharray="3 3" stroke="#f3f4f6" />
+                              <XAxis dataKey="date" tick={{ fontSize: 10 }} stroke="#d1d5db" />
+                              <YAxis tick={{ fontSize: 11 }} stroke="#d1d5db" width={30} />
+                              <Tooltip content={<ChartTooltip />} />
+                              <Line type="monotone" dataKey="weight" stroke="#10b981" strokeWidth={2.5}
+                                dot={{ fill: '#10b981', r: 4 }} name="Weight (lbs)" />
+                              <Line type="monotone" dataKey="reps" stroke="#3b82f6" strokeWidth={2.5}
+                                dot={{ fill: '#3b82f6', r: 4 }} name="Reps" strokeDasharray="4 2" />
+                            </LineChart>
+                          </ResponsiveContainer>
+
+                          {/* Exercise stats */}
+                          <div className="grid grid-cols-3 gap-2 mt-4">
+                            {[
+                              { label: 'Best weight', value: Math.max(...exerciseData.map(d => d.weight)) + ' lbs', color: '#10b981' },
+                              { label: 'Best reps',   value: Math.max(...exerciseData.map(d => d.reps)),          color: '#3b82f6' },
+                              { label: 'Sessions',    value: exerciseData.length,                                 color: '#8b5cf6' },
+                            ].map(s => (
+                              <div key={s.label} className="rounded-xl p-3 text-center" style={{ background: s.color + '12' }}>
+                                <p className="text-sm font-black" style={{ color: s.color }}>{s.value}</p>
+                                <p className="text-[10px] text-gray-400 mt-0.5">{s.label}</p>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </>
+                  )}
+                </motion.div>
+              )}
+
+            </AnimatePresence>
+
+            {/* ── Coach David nudge ── */}
+            <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
+              <button
+                onPointerDown={() => { window.location.href = createPageUrl('ChatScreen?bot=CoachDavid'); }}
+                className="w-full flex items-center justify-between px-5 py-4 bg-white rounded-2xl border border-[#38BDF8]/25 shadow-sm hover:border-[#38BDF8]/55 transition-all"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full flex items-center justify-center text-white text-sm font-bold flex-shrink-0"
+                    style={{ background: 'linear-gradient(135deg,#1e40af,#38BDF8)' }}>D</div>
+                  <div className="text-left">
+                    <p className="text-sm font-bold text-gray-800">Talk your progress through</p>
+                    <p className="text-xs text-gray-500">Coach David can help you read these numbers</p>
+                  </div>
                 </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-        </Tabs>
+                <MessageCircle className="w-4 h-4 text-gray-300 flex-shrink-0" />
+              </button>
+            </motion.div>
+
+          </>}
+
+        </div>
       </div>
-
-      {/* Coach David Chatbot */}
-      <ChatButton bot="CoachDavid" />
     </div>
   );
 }
