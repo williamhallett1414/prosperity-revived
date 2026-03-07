@@ -330,27 +330,24 @@ function CloudBody({ cfg, stateRef }) {
     });
   });
 
+  const geos = useMemo(() => ({
+    outerGlow: new THREE.SphereGeometry(cfg.coreRadius * 1.55, 16, 12),
+    midGlow:   new THREE.SphereGeometry(cfg.coreRadius * 1.25, 20, 16),
+    ring:      new THREE.TorusGeometry(cfg.ringRadius, 0.06, 8, 48),
+    core:      new THREE.SphereGeometry(cfg.coreRadius, 36, 30),
+    innerGlow: new THREE.SphereGeometry(cfg.coreRadius * 0.82, 24, 20),
+    lobe:      new THREE.SphereGeometry(1, 22, 18),
+  }), [cfg]);
+
   return (
     <group ref={groupRef}>
-      <mesh ref={outerGlRef} material={mats.outerGlow}>
-        <sphereGeometry args={[cfg.coreRadius * 1.55, 16, 12]} />
-      </mesh>
-      <mesh ref={midGlRef} material={mats.midGlow}>
-        <sphereGeometry args={[cfg.coreRadius * 1.25, 20, 16]} />
-      </mesh>
-      <mesh ref={ringRef} material={mats.ring}>
-        <torusGeometry args={[cfg.ringRadius, 0.06, 8, 48]} />
-      </mesh>
-      <mesh ref={coreRef} material={mats.core}>
-        <sphereGeometry args={[cfg.coreRadius, 36, 30]} />
-      </mesh>
-      <mesh ref={innerGlRef} material={mats.innerGlow}>
-        <sphereGeometry args={[cfg.coreRadius * 0.82, 24, 20]} />
-      </mesh>
+      <mesh ref={outerGlRef} geometry={geos.outerGlow} material={mats.outerGlow} />
+      <mesh ref={midGlRef}   geometry={geos.midGlow}   material={mats.midGlow} />
+      <mesh ref={ringRef}    geometry={geos.ring}       material={mats.ring} />
+      <mesh ref={coreRef}    geometry={geos.core}       material={mats.core} />
+      <mesh ref={innerGlRef} geometry={geos.innerGlow}  material={mats.innerGlow} />
       {cfg.lobes.map((pos, i) => (
-        <mesh key={i} ref={lobeRefs.current[i]} material={mats.lobe} position={pos} scale={cfg.lobeScale}>
-          <sphereGeometry args={[1, 22, 18]} />
-        </mesh>
+        <mesh key={i} ref={lobeRefs.current[i]} geometry={geos.lobe} material={mats.lobe} position={pos} scale={cfg.lobeScale} />
       ))}
       <ParticleHalo cfg={cfg} stateRef={stateRef} />
     </group>
