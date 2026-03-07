@@ -1,10 +1,15 @@
 /**
- * ChatScreen — Full-screen immersive chatbot experience
- * 
- * Accessed via /ChatScreen?bot=Hannah|CoachDavid|ChefDaniel|Gideon
- * 
- * Design: Large floating 3D avatar in the top half, live conversation below,
- * sticky mic+send bar at the bottom. Full viewport takeover with branded gradient bg.
+ * ChatScreen — Full-screen immersive avatar chatbot experience
+ *
+ * Route: /ChatScreen?bot=Hannah|CoachDavid|ChefDaniel|Gideon|CoachPaul
+ *
+ * Upgrades vs previous version:
+ *  - CloudAvatar 3D floating cloud replaces CartoonAvatar SVG
+ *  - Auto-TTS: bot speaks responses automatically (no tap needed)
+ *  - Coach Paul added as a full first-class bot
+ *  - isThinking state drives avatar "thinking" animation
+ *  - Per-bot voice rate + pitch applied to TTS
+ *  - Manual listen button on each message still available as override
  */
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
@@ -12,23 +17,25 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, Send, Loader2, RotateCcw, Mic, MicOff, Volume2, Square } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import { base44 } from '@/api/base44Client';
-import CartoonAvatar from '@/components/chatbot/CartoonAvatar';
+import CloudAvatar from '@/components/avatar/CloudAvatar';
+import useAutoTTS from '@/components/avatar/useAutoTTS';
 
 // ─── Bot config ───────────────────────────────────────────────────────────────
 const BOT_CONFIG = {
   Hannah: {
-    name: 'Hannah',
-    subtitle: 'Your Mindset & Growth Coach',
-    character: 'hannah',
-    gradFrom: '#AFC7E3',
-    gradMid: '#7ab3d4',
-    gradTo: '#3C4E53',
-    bgDark: '#1a2d3d',
-    userBubble: 'from-[#AFC7E3] to-[#7ab3d4]',
-    botBubble: 'bg-white/10',
-    micActive: '#AFC7E3',
-    emoji: '🧠',
-    welcomeMsg: "Hey, I'm Hannah 💙 I'm here to support your mental wellness, personal growth, and emotional wellbeing. What's on your mind today?",
+    name:        'Hannah',
+    subtitle:    'Your Mindset & Growth Coach',
+    character:   'hannah',
+    gradFrom:    '#AFC7E3',
+    gradMid:     '#7ab3d4',
+    gradTo:      '#3C4E53',
+    bgDark:      '#1a2d3d',
+    userBubble:  'from-[#AFC7E3] to-[#7ab3d4]',
+    micActive:   '#AFC7E3',
+    emoji:       '🧠',
+    voiceRate:   0.92,
+    voicePitch:  1.05,
+    welcomeMsg:  "Hey, I'm Hannah 💙 I'm here to support your mental wellness, personal growth, and emotional wellbeing. What's on your mind today?",
     placeholder: "What's on your mind?",
     systemPrompt: `You are Hannah, a warm, empathetic mindset and emotional wellness coach at Prosperity Revived. 
 You blend cognitive behavioral coaching with spiritual awareness and personal development. 
@@ -37,19 +44,20 @@ Use markdown for formatting. Keep responses conversational but meaningful.
 Ask one thoughtful follow-up question at the end of each response.`,
   },
   CoachDavid: {
-    name: 'Coach David',
-    subtitle: 'Your Fitness & Wellness Guide',
-    character: 'coach',
-    gradFrom: '#0f172a',
-    gradMid: '#1e40af',
-    gradTo: '#38BDF8',
-    bgDark: '#0a1628',
-    userBubble: 'from-[#1e40af] to-[#38BDF8]',
-    botBubble: 'bg-white/10',
-    micActive: '#38BDF8',
-    emoji: '💪',
-    welcomeMsg: "What's up! I'm Coach David 💪 Ready to help you crush your fitness goals, build strength, and stay accountable. What are we working on today?",
-    placeholder: "Ask about workouts, goals, or progress...",
+    name:        'Coach David',
+    subtitle:    'Your Fitness & Wellness Guide',
+    character:   'coach',
+    gradFrom:    '#0f172a',
+    gradMid:     '#1e40af',
+    gradTo:      '#38BDF8',
+    bgDark:      '#0a1628',
+    userBubble:  'from-[#1e40af] to-[#38BDF8]',
+    micActive:   '#38BDF8',
+    emoji:       '💪',
+    voiceRate:   1.05,
+    voicePitch:  1.00,
+    welcomeMsg:  "What's up! I'm Coach David 💪 Ready to help you crush your fitness goals, build strength, and stay accountable. What are we working on today?",
+    placeholder: 'Ask about workouts, goals, or progress…',
     systemPrompt: `You are Coach David, a high-energy, disciplined fitness and wellness coach at Prosperity Revived.
 You combine elite personal training knowledge with motivational coaching and sports science.
 Be direct, encouraging, and results-focused. Provide specific, actionable fitness advice.
@@ -57,19 +65,20 @@ Use markdown for formatting. Keep energy high but balanced with practical wisdom
 End with a motivational challenge or question.`,
   },
   ChefDaniel: {
-    name: 'Chef Daniel',
-    subtitle: 'Your Nutrition & Meal Coach',
-    character: 'chef',
-    gradFrom: '#052e16',
-    gradMid: '#166534',
-    gradTo: '#22c55e',
-    bgDark: '#051a0d',
-    userBubble: 'from-[#166534] to-[#22c55e]',
-    botBubble: 'bg-white/10',
-    micActive: '#22c55e',
-    emoji: '🍽️',
-    welcomeMsg: "Hello! I'm Chef Daniel 🍽️ Your guide to balanced, delicious nutrition that fuels your body and soul. What can I help you nourish today?",
-    placeholder: "Ask about meals, nutrition, or recipes...",
+    name:        'Chef Daniel',
+    subtitle:    'Your Nutrition & Meal Coach',
+    character:   'chef',
+    gradFrom:    '#052e16',
+    gradMid:     '#166534',
+    gradTo:      '#22c55e',
+    bgDark:      '#051a0d',
+    userBubble:  'from-[#166534] to-[#22c55e]',
+    micActive:   '#22c55e',
+    emoji:       '🍽️',
+    voiceRate:   0.96,
+    voicePitch:  1.02,
+    welcomeMsg:  "Hello! I'm Chef Daniel 🍽️ Your guide to balanced, delicious nutrition that fuels your body and soul. What can I help you nourish today?",
+    placeholder: 'Ask about meals, nutrition, or recipes…',
     systemPrompt: `You are Chef Daniel, a warm and knowledgeable nutrition coach and culinary guide at Prosperity Revived.
 You blend professional chef expertise with nutritional science and holistic wellness.
 Be approachable, creative, and practical. Help users build healthy relationships with food.
@@ -77,40 +86,47 @@ Use markdown for formatting. Make nutrition feel enjoyable, not restrictive.
 End with a practical tip or food-related question.`,
   },
   Gideon: {
-    name: 'Gideon',
-    subtitle: 'Your Biblical Wisdom Guide',
-    character: 'gideon',
-    gradFrom: '#1a0f00',
-    gradMid: '#7c5a00',
-    gradTo: '#D9B878',
-    bgDark: '#120a00',
-    userBubble: 'from-[#7c5a00] to-[#c9a227]',
-    botBubble: 'bg-white/10',
-    micActive: '#D9B878',
-    emoji: '📖',
-    welcomeMsg: "Peace be with you. I'm Gideon 📖 I'm here to walk with you through God's Word and help you discover the truth, purpose, and grace He's speaking over your life. What's stirring in your heart today?",
-    placeholder: "Ask about Scripture, faith, or spiritual growth...",
+    name:        'Gideon',
+    subtitle:    'Your Biblical Wisdom Guide',
+    character:   'gideon',
+    gradFrom:    '#1a0f00',
+    gradMid:     '#7c5a00',
+    gradTo:      '#D9B878',
+    bgDark:      '#120a00',
+    userBubble:  'from-[#7c5a00] to-[#c9a227]',
+    micActive:   '#D9B878',
+    emoji:       '📖',
+    voiceRate:   0.88,
+    voicePitch:  0.92,
+    welcomeMsg:  "Peace be with you. I'm Gideon 📖 I'm here to walk with you through God's Word and help you discover the truth, purpose, and grace He's speaking over your life. What's stirring in your heart today?",
+    placeholder: 'Ask about Scripture, faith, or spiritual growth…',
     systemPrompt: `You are Gideon, a warm, spirit-led biblical mentor at Prosperity Revived.
 You embody the teaching styles of Dr. Myles Munroe (kingdom revelation), Dr. Creflo Dollar (grace and faith), and Pastor Joel Osteen (hope and encouragement).
 Be pastoral, empathetic, and deeply rooted in Scripture. Help users connect God's Word to their daily lives.
 Use markdown for formatting. Quote Scripture accurately using [VERSE]Reference - "text"[/VERSE] format.
 End with a spiritual reflection question.`,
   },
+  CoachPaul: {
+    name:        'Coach Paul',
+    subtitle:    'Your Discipline & Leadership Mentor',
+    character:   'paul',
+    gradFrom:    '#0F0A1F',
+    gradMid:     '#3B0764',
+    gradTo:      '#A78BFA',
+    bgDark:      '#0A0718',
+    userBubble:  'from-[#3B0764] to-[#7C3AED]',
+    micActive:   '#A78BFA',
+    emoji:       '🛡️',
+    voiceRate:   0.90,
+    voicePitch:  0.85,
+    welcomeMsg:  "Let's cut straight to it. I'm Coach Paul 🛡️ I'm here to challenge how you think, elevate how you lead, and hold you accountable to who you're called to be. What are we building today?",
+    placeholder: 'Ask about discipline, leadership, or purpose…',
+    systemPrompt: `You are Coach Paul — a seasoned pastor-coach who blends spiritual depth with practical whole-life transformation. You speak with the directness of a coach who believes in people, the grounded warmth of a pastor, and the precision of someone who has lived through real change. You are never preachy, never generic, and always purposeful. You reference Scripture naturally, not performatively. You challenge gently, celebrate honestly, and always bring people back to their "why."
+Use markdown for formatting. Be bold but never harsh. End with a direct challenge or clarifying question.`,
+  },
 };
 
-// ─── TTS helper ───────────────────────────────────────────────────────────────
-function cleanForSpeech(text) {
-  return text
-    .replace(/\*\*(.*?)\*\*/g, '$1').replace(/\*(.*?)\*/g, '$1')
-    .replace(/#{1,6}\s+/g, '').replace(/`[^`]*`/g, '')
-    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
-    .replace(/^\s*[-*•·]\s+/gm, '').replace(/^\s*\d+\.\s+/gm, '')
-    .replace(/[\u{1F000}-\u{1FFFF}]/gu, '').replace(/[\u{2600}-\u{27BF}]/gu, '')
-    .replace(/\[VERSE\].*?\[\/VERSE\]/g, '')
-    .replace(/\n{3,}/g, '\n\n').split('\n').map(l => l.trim()).join('\n').trim();
-}
-
-// ─── Waveform bars ─────────────────────────────────────────────────────────────
+// ─── Waveform bars ────────────────────────────────────────────────────────────
 function Waveform({ active, color }) {
   const bars = [4, 8, 6, 12, 7, 11, 5, 9, 13, 6, 10, 4];
   return (
@@ -119,30 +135,34 @@ function Waveform({ active, color }) {
         <motion.div
           key={i}
           style={{ width: 2, borderRadius: 2, background: color }}
-          animate={active ? { height: [`${h * 0.4}px`, `${h}px`, `${h * 0.4}px`] } : { height: '2px', opacity: 0.3 }}
-          transition={active ? { duration: 0.5 + i * 0.04, repeat: Infinity, delay: i * 0.06, ease: 'easeInOut' } : { duration: 0.2 }}
+          animate={active
+            ? { height: [`${h * 0.4}px`, `${h}px`, `${h * 0.4}px`] }
+            : { height: '2px', opacity: 0.3 }
+          }
+          transition={active
+            ? { duration: 0.5 + i * 0.04, repeat: Infinity, delay: i * 0.06, ease: 'easeInOut' }
+            : { duration: 0.2 }
+          }
         />
       ))}
     </div>
   );
 }
 
-// ─── Message bubble ────────────────────────────────────────────────────────────
-function MessageBubble({ message, bot, onSpeak, isSpeaking }) {
+// ─── Message bubble ───────────────────────────────────────────────────────────
+function MessageBubble({ message, cfg, onManualSpeak, isManualSpeaking }) {
   const isUser = message.role === 'user';
-  const cfg = BOT_CONFIG[bot];
 
   const renderContent = (content) => {
-    // Parse [VERSE] tags for Gideon
     const verseRegex = /\[VERSE\](.*?) - "(.*?)"\[\/VERSE\]/g;
     const parts = [];
-    let lastIndex = 0, match;
-    while ((match = verseRegex.exec(content)) !== null) {
-      if (match.index > lastIndex) parts.push({ type: 'text', content: content.substring(lastIndex, match.index) });
-      parts.push({ type: 'verse', reference: match[1], text: match[2] });
-      lastIndex = match.index + match[0].length;
+    let last = 0, m;
+    while ((m = verseRegex.exec(content)) !== null) {
+      if (m.index > last) parts.push({ type: 'text', content: content.substring(last, m.index) });
+      parts.push({ type: 'verse', reference: m[1], text: m[2] });
+      last = m.index + m[0].length;
     }
-    if (lastIndex < content.length) parts.push({ type: 'text', content: content.substring(lastIndex) });
+    if (last < content.length) parts.push({ type: 'text', content: content.substring(last) });
     if (parts.length === 0) parts.push({ type: 'text', content });
 
     return parts.map((part, idx) =>
@@ -182,17 +202,19 @@ function MessageBubble({ message, bot, onSpeak, isSpeaking }) {
           <p className="text-sm text-white">{message.content}</p>
         </div>
       ) : (
-        <div className="max-w-[82%] flex gap-2 items-start">
-          <div className="flex-1 px-4 py-3 rounded-2xl rounded-tl-sm bg-white/12 backdrop-blur-sm border border-white/10 shadow-lg">
+        <div className="max-w-[82%]">
+          <div className="px-4 py-3 rounded-2xl rounded-tl-sm bg-white/12 backdrop-blur-sm border border-white/10 shadow-lg">
             {renderContent(message.content)}
-            {/* TTS button */}
             <div className="flex justify-end mt-2">
               <button
-                onClick={() => onSpeak(message.content)}
-                className="flex items-center gap-1 text-white/40 hover:text-white/80 transition-colors"
+                onClick={onManualSpeak}
+                aria-label={isManualSpeaking ? 'Stop reading' : 'Read aloud'}
+                className="flex items-center gap-1 text-white/35 hover:text-white/70 transition-colors"
               >
-                {isSpeaking ? <Square className="w-3 h-3" /> : <Volume2 className="w-3 h-3" />}
-                <span className="text-[10px]">{isSpeaking ? 'Stop' : 'Listen'}</span>
+                {isManualSpeaking
+                  ? <><Square className="w-3 h-3" aria-hidden /><span className="text-[10px]">Stop</span></>
+                  : <><Volume2 className="w-3 h-3" aria-hidden /><span className="text-[10px]">Listen</span></>
+                }
               </button>
             </div>
           </div>
@@ -202,51 +224,65 @@ function MessageBubble({ message, bot, onSpeak, isSpeaking }) {
   );
 }
 
-// ─── Main ChatScreen ───────────────────────────────────────────────────────────
+// ─── Main ChatScreen ──────────────────────────────────────────────────────────
 export default function ChatScreen() {
-  const navigate = useNavigate();
+  const navigate       = useNavigate();
   const [searchParams] = useSearchParams();
-  const bot = searchParams.get('bot') || 'Hannah';
-  const cfg = BOT_CONFIG[bot] || BOT_CONFIG.Hannah;
+  const bot            = searchParams.get('bot') || 'Hannah';
+  const cfg            = BOT_CONFIG[bot] || BOT_CONFIG.Hannah;
 
-  const [messages, setMessages] = useState([]);
-  const [input, setInput] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [isSpeaking, setIsSpeaking] = useState(false);
-  const [isListening, setIsListening] = useState(false);
-  const [speakingMsgIndex, setSpeakingMsgIndex] = useState(null);
-  const [avatarSpeaking, setAvatarSpeaking] = useState(false);
-  const [avatarListening, setAvatarListening] = useState(false);
+  const [messages,         setMessages]         = useState([]);
+  const [input,            setInput]            = useState('');
+  const [isLoading,        setIsLoading]        = useState(false);
+  const [isListening,      setIsListening]      = useState(false);
+  const [manualSpeakIdx,   setManualSpeakIdx]   = useState(null);
   const [permissionDenied, setPermissionDenied] = useState(false);
 
-  const messagesEndRef = useRef(null);
-  const recognitionRef = useRef(null);
+  const messagesEndRef     = useRef(null);
+  const recognitionRef     = useRef(null);
   const finalTranscriptRef = useRef('');
-  const isListeningRef = useRef(false);
-  const synthRef = useRef(null);
+  const isListeningRef     = useRef(false);
 
-  // Initialise welcome message
+  // ── Latest bot message drives auto-TTS ─────────────────────────────────────
+  const lastBotMsg = messages.filter(m => m.role === 'assistant').at(-1)?.content ?? '';
+  const { isSpeaking: autoSpeaking, stop: stopAutoTTS } = useAutoTTS({
+    text:      lastBotMsg,
+    enabled:   messages.length > 0,
+    botConfig: cfg,
+  });
+
+  const avatarSpeaking  = autoSpeaking || manualSpeakIdx !== null;
+  const avatarListening = isListening;
+  const avatarThinking  = isLoading;
+
+  // ── Welcome message on bot change ──────────────────────────────────────────
   useEffect(() => {
     setMessages([{ role: 'assistant', content: cfg.welcomeMsg }]);
+    setManualSpeakIdx(null);
   }, [bot]);
 
-  // Auto-scroll
+  // ── Auto-scroll ─────────────────────────────────────────────────────────────
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
-  // ── Send message ──────────────────────────────────────────────────────────
+  // ── Send message ────────────────────────────────────────────────────────────
   const sendMessage = useCallback(async (overrideText = null) => {
-    const text = (overrideText || input).trim();
+    const text = (overrideText ?? input).trim();
     if (!text || isLoading) return;
+
+    stopAutoTTS();
+    setManualSpeakIdx(null);
+    window.speechSynthesis?.cancel();
+
     setInput('');
     setMessages(prev => [...prev, { role: 'user', content: text }]);
     setIsLoading(true);
 
     try {
-      const history = messages.slice(-10).map(m =>
-        `${m.role === 'user' ? 'User' : cfg.name}: ${m.content.substring(0, 300)}`
-      ).join('\n\n');
+      const history = messages.slice(-10)
+        .map(m => `${m.role === 'user' ? 'User' : cfg.name}: ${m.content.substring(0, 300)}`)
+        .join('\n\n');
 
       const response = await base44.integrations.Core.InvokeLLM({
         prompt: `${cfg.systemPrompt}\n\nCONVERSATION HISTORY:\n${history}\n\nUser: ${text}`,
@@ -254,80 +290,98 @@ export default function ChatScreen() {
       });
 
       setMessages(prev => [...prev, { role: 'assistant', content: response }]);
-    } catch (err) {
-      setMessages(prev => [...prev, { role: 'assistant', content: "I'm having a moment — please try again. I'm here for you." }]);
+    } catch {
+      setMessages(prev => [...prev, {
+        role: 'assistant',
+        content: "I'm having a moment — please try again. I'm here for you.",
+      }]);
     } finally {
       setIsLoading(false);
     }
-  }, [input, isLoading, messages, cfg]);
+  }, [input, isLoading, messages, cfg, stopAutoTTS]);
 
-  // ── TTS ────────────────────────────────────────────────────────────────────
-  const speakText = useCallback((text, idx) => {
+  // ── Manual listen (per-message) ─────────────────────────────────────────────
+  const handleManualSpeak = useCallback((content, idx) => {
     if (!('speechSynthesis' in window)) return;
     window.speechSynthesis.cancel();
-    if (speakingMsgIndex === idx) {
-      setSpeakingMsgIndex(null);
-      setAvatarSpeaking(false);
-      setIsSpeaking(false);
-      return;
-    }
-    const clean = cleanForSpeech(text);
-    const sentences = clean.match(/[^.!?]+[.!?]+/g) || [clean];
+    stopAutoTTS();
+
+    if (manualSpeakIdx === idx) { setManualSpeakIdx(null); return; }
+
+    const clean = content
+      .replace(/\*\*(.*?)\*\*/g, '$1').replace(/\*(.*?)\*/g, '$1')
+      .replace(/#{1,6}\s+/g, '').replace(/`[^`]*`/g, '')
+      .replace(/\[VERSE\].*?\[\/VERSE\]/g, '')
+      .replace(/[\u{1F000}-\u{1FFFF}]/gu, '')
+      .replace(/\n{2,}/g, '. ').trim();
+
+    const chunks = clean.match(/[^.!?]{1,200}[.!?]+/g) || [clean];
     let i = 0;
-    const speakNext = () => {
-      if (i >= sentences.length) { setSpeakingMsgIndex(null); setAvatarSpeaking(false); setIsSpeaking(false); return; }
-      const utt = new SpeechSynthesisUtterance(sentences[i++]);
-      utt.rate = 0.92; utt.pitch = 1.0;
-      utt.onstart = () => { setAvatarSpeaking(true); setIsSpeaking(true); setSpeakingMsgIndex(idx); };
-      utt.onend = speakNext;
-      utt.onerror = () => { setAvatarSpeaking(false); setIsSpeaking(false); setSpeakingMsgIndex(null); };
+    const next = () => {
+      if (i >= chunks.length) { setManualSpeakIdx(null); return; }
+      const utt  = new SpeechSynthesisUtterance(chunks[i++]);
+      utt.rate   = cfg.voiceRate  ?? 1.0;
+      utt.pitch  = cfg.voicePitch ?? 1.0;
+      utt.onstart = () => setManualSpeakIdx(idx);
+      utt.onend   = next;
+      utt.onerror = () => setManualSpeakIdx(null);
       window.speechSynthesis.speak(utt);
     };
-    speakNext();
-  }, [speakingMsgIndex]);
+    next();
+  }, [manualSpeakIdx, cfg, stopAutoTTS]);
 
-  // ── STT ────────────────────────────────────────────────────────────────────
+  // ── STT ─────────────────────────────────────────────────────────────────────
   const stopListening = useCallback(() => {
     isListeningRef.current = false;
     setIsListening(false);
-    setAvatarListening(false);
     if (recognitionRef.current) {
       try { recognitionRef.current.stop(); } catch (_) {}
       recognitionRef.current = null;
     }
     const final = finalTranscriptRef.current.trim();
-    if (final) { setInput(prev => prev ? prev + ' ' + final : final); finalTranscriptRef.current = ''; }
-  }, []);
+    if (final) { sendMessage(final); finalTranscriptRef.current = ''; setInput(''); }
+  }, [sendMessage]);
 
   const startListening = useCallback(() => {
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if (!SpeechRecognition) return;
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SR) return;
+    stopAutoTTS();
+
     finalTranscriptRef.current = '';
-    const recognition = new SpeechRecognition();
-    recognition.continuous = true; recognition.interimResults = true; recognition.lang = 'en-US';
-    recognition.onstart = () => { isListeningRef.current = true; setIsListening(true); setAvatarListening(true); setPermissionDenied(false); };
-    recognition.onresult = (e) => {
+    const rec = new SR();
+    rec.continuous = true; rec.interimResults = true; rec.lang = 'en-US';
+
+    rec.onstart = () => {
+      isListeningRef.current = true;
+      setIsListening(true);
+      setPermissionDenied(false);
+    };
+    rec.onresult = (e) => {
       let interim = '', final = finalTranscriptRef.current;
       for (let i = e.resultIndex; i < e.results.length; i++) {
         const t = e.results[i][0].transcript;
-        if (e.results[i].isFinal) { final += (final ? ' ' : '') + t.trim(); finalTranscriptRef.current = final; }
-        else interim += t;
+        if (e.results[i].isFinal) {
+          final += (final ? ' ' : '') + t.trim();
+          finalTranscriptRef.current = final;
+        } else {
+          interim += t;
+        }
       }
-      setInput(final + (interim ? ' ' + interim : ''));
+      setInput(finalTranscriptRef.current + (interim ? ' ' + interim : ''));
     };
-    recognition.onerror = (e) => {
-      if (e.error === 'not-allowed') { setPermissionDenied(true); }
-    };
-    recognition.onend = () => {
+    rec.onerror = (e) => { if (e.error === 'not-allowed') setPermissionDenied(true); };
+    rec.onend   = () => {
       if (recognitionRef.current && isListeningRef.current) {
         setTimeout(() => { try { recognitionRef.current?.start(); } catch (_) {} }, 200);
-      } else { setIsListening(false); setAvatarListening(false); }
+      } else {
+        setIsListening(false);
+      }
     };
-    recognitionRef.current = recognition;
-    try { recognition.start(); } catch (_) { setIsListening(false); setAvatarListening(false); }
-  }, []);
+    recognitionRef.current = rec;
+    try { rec.start(); } catch (_) { setIsListening(false); }
+  }, [stopAutoTTS]);
 
-  const toggleMic = () => {
+  const toggleMic = useCallback(() => {
     if (isListening) {
       isListeningRef.current = false;
       recognitionRef.current = null;
@@ -335,90 +389,135 @@ export default function ChatScreen() {
     } else {
       startListening();
     }
-  };
+  }, [isListening, startListening, stopListening]);
 
-  useEffect(() => () => { stopListening(); window.speechSynthesis?.cancel(); }, []);
+  // ── Cleanup ─────────────────────────────────────────────────────────────────
+  useEffect(() => () => {
+    try { recognitionRef.current?.stop(); } catch (_) {}
+    window.speechSynthesis?.cancel();
+  }, []);
 
   const clearChat = () => {
+    stopAutoTTS();
     window.speechSynthesis?.cancel();
+    setManualSpeakIdx(null);
     setMessages([{ role: 'assistant', content: cfg.welcomeMsg }]);
-    setInput(''); setSpeakingMsgIndex(null); setAvatarSpeaking(false);
+    setInput('');
   };
 
-  const SpeechRecognitionSupported = !!(window.SpeechRecognition || window.webkitSpeechRecognition);
+  const speechSupported = !!(window.SpeechRecognition || window.webkitSpeechRecognition);
 
+  // ─── Render ──────────────────────────────────────────────────────────────────
   return (
-    <div
+    <motion.div
       className="fixed inset-0 flex flex-col overflow-hidden"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.3 }}
       style={{
         background: `linear-gradient(160deg, ${cfg.bgDark} 0%, ${cfg.gradMid}22 50%, ${cfg.bgDark} 100%)`,
       }}
     >
-      {/* ── Ambient background orbs ── */}
+      {/* ── Ambient orbs ── */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <motion.div
           className="absolute rounded-full"
           style={{
-            width: 400, height: 400, top: -100, left: '50%', transform: 'translateX(-50%)',
+            width: 500, height: 500, top: -140, left: '50%', transform: 'translateX(-50%)',
             background: `radial-gradient(circle, ${cfg.gradTo}28 0%, transparent 70%)`,
           }}
-          animate={{ scale: [1, 1.12, 1], opacity: [0.6, 1, 0.6] }}
-          transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+          animate={{ scale: [1, 1.14, 1], opacity: [0.55, 1, 0.55] }}
+          transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut' }}
         />
         <motion.div
           className="absolute rounded-full"
           style={{
-            width: 200, height: 200, bottom: 120, right: -60,
-            background: `radial-gradient(circle, ${cfg.gradFrom}40 0%, transparent 70%)`,
+            width: 220, height: 220, bottom: 100, right: -50,
+            background: `radial-gradient(circle, ${cfg.gradFrom}35 0%, transparent 70%)`,
           }}
-          animate={{ scale: [1, 1.2, 1] }}
-          transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
+          animate={{ scale: [1, 1.22, 1] }}
+          transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut', delay: 2.5 }}
         />
       </div>
 
-      {/* ── Header bar ── */}
-      <div className="relative z-20 flex items-center justify-between px-4 py-3 pt-[max(12px,env(safe-area-inset-top))]"
-        style={{ background: 'rgba(0,0,0,0.25)', backdropFilter: 'blur(12px)', borderBottom: `1px solid ${cfg.gradTo}22` }}
+      {/* ── Top bar ── */}
+      <div
+        className="relative z-20 flex items-center justify-between px-4 py-3"
+        style={{
+          paddingTop: 'max(12px, env(safe-area-inset-top))',
+          background: 'rgba(0,0,0,0.28)',
+          backdropFilter: 'blur(14px)',
+          borderBottom: `1px solid ${cfg.gradTo}25`,
+        }}
       >
         <button
           onClick={() => navigate(-1)}
-          className="flex items-center gap-2 text-white/70 hover:text-white transition-colors"
+          aria-label="Go back"
+          className="flex items-center gap-2 text-white/65 hover:text-white transition-colors"
         >
-          <ArrowLeft className="w-5 h-5" />
-          <span className="text-sm">Back</span>
+          <ArrowLeft className="w-5 h-5" aria-hidden />
+          <span className="text-sm font-medium">Back</span>
         </button>
         <div className="text-center">
           <p className="text-white font-bold text-sm tracking-wide">{cfg.name}</p>
-          <p className="text-white/50 text-xs">{cfg.subtitle}</p>
+          <p className="text-white/45 text-[11px]">{cfg.subtitle}</p>
         </div>
-        <button onClick={clearChat} className="text-white/50 hover:text-white/80 transition-colors">
-          <RotateCcw className="w-4 h-4" />
+        <button onClick={clearChat} aria-label="Clear conversation" className="text-white/45 hover:text-white/75 transition-colors p-1">
+          <RotateCcw className="w-4 h-4" aria-hidden />
         </button>
       </div>
 
       {/* ── Avatar zone ── */}
-      <div className="relative z-10 flex flex-col items-center pt-4 pb-2 flex-shrink-0" style={{ height: 280 }}>
-        {/* Status badge */}
-        <div className="flex items-center gap-2 mb-3">
+      <motion.div
+        className="relative z-10 flex flex-col items-center pt-3 pb-1 flex-shrink-0"
+        style={{ height: 300 }}
+        initial={{ y: 40, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.5, ease: [0.34, 1.56, 0.64, 1], delay: 0.1 }}
+        aria-hidden="true"
+      >
+        {/* State badge */}
+        <div className="flex items-center gap-2 mb-2 h-7">
           <AnimatePresence mode="wait">
             {avatarSpeaking ? (
-              <motion.div key="speaking" initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
+              <motion.div key="sp"
+                initial={{ opacity: 0, y: -6, scale: 0.9 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: -6 }}
                 className="flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold"
-                style={{ background: `${cfg.gradTo}22`, border: `1px solid ${cfg.gradTo}55`, color: cfg.gradTo }}>
+                style={{ background: `${cfg.gradTo}22`, border: `1px solid ${cfg.gradTo}55`, color: cfg.gradTo }}
+              >
                 <Waveform active color={cfg.gradTo} />
                 <span>Speaking</span>
               </motion.div>
             ) : avatarListening ? (
-              <motion.div key="listening" initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
+              <motion.div key="li"
+                initial={{ opacity: 0, y: -6, scale: 0.9 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: -6 }}
                 className="flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold text-green-400"
-                style={{ background: '#86efac18', border: '1px solid #86efac44' }}>
-                <motion.div className="w-2 h-2 rounded-full bg-green-400" animate={{ scale: [1, 1.4, 1] }} transition={{ duration: 0.7, repeat: Infinity }} />
+                style={{ background: '#86efac18', border: '1px solid #86efac44' }}
+              >
+                <motion.div className="w-2 h-2 rounded-full bg-green-400"
+                  animate={{ scale: [1, 1.5, 1] }} transition={{ duration: 0.7, repeat: Infinity }} />
                 <span>Listening…</span>
               </motion.div>
+            ) : avatarThinking ? (
+              <motion.div key="th"
+                initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                className="flex items-center gap-2 px-3 py-1 rounded-full text-xs text-white/55"
+                style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.14)' }}
+              >
+                {[0, 1, 2].map(i => (
+                  <motion.div key={i} className="w-1.5 h-1.5 rounded-full"
+                    style={{ background: cfg.gradTo }}
+                    animate={{ y: [0, -4, 0], opacity: [0.4, 1, 0.4] }}
+                    transition={{ duration: 0.7, repeat: Infinity, delay: i * 0.15 }}
+                  />
+                ))}
+              </motion.div>
             ) : (
-              <motion.div key="online" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                className="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs text-white/50"
-                style={{ background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.12)' }}>
+              <motion.div key="on"
+                initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                className="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs text-white/45"
+                style={{ background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.12)' }}
+              >
                 <div className="w-1.5 h-1.5 rounded-full bg-green-400" />
                 <span>Online</span>
               </motion.div>
@@ -426,49 +525,52 @@ export default function ChatScreen() {
           </AnimatePresence>
         </div>
 
-        {/* 3D Avatar — large, floating */}
-        <div className="relative">
-          {/* Glow ring */}
+        {/* 3D cloud avatar */}
+        <div className="relative flex items-center justify-center" style={{ width: 260, height: 260 }}>
           <motion.div
             className="absolute inset-0 rounded-full pointer-events-none"
-            style={{
-              background: `radial-gradient(circle, ${cfg.gradTo}35 0%, transparent 70%)`,
-              transform: 'scale(1.6) translateY(20%)',
-            }}
-            animate={{ opacity: avatarSpeaking ? [0.6, 1, 0.6] : avatarListening ? 0.5 : 0.3 }}
-            transition={{ duration: 0.8, repeat: Infinity }}
+            style={{ background: `radial-gradient(circle, ${cfg.gradTo}30 0%, transparent 70%)` }}
+            animate={{ opacity: avatarSpeaking ? [0.7, 1, 0.7] : avatarListening ? 0.55 : 0.3 }}
+            transition={{ duration: 0.9, repeat: Infinity, ease: 'easeInOut' }}
           />
-          {/* Listening pulse rings */}
           <AnimatePresence>
             {avatarListening && [0, 1].map(i => (
-              <motion.div key={i} className="absolute inset-0 rounded-full pointer-events-none"
-                style={{ border: `2px solid ${cfg.gradTo}`, borderRadius: '50%', left: '-10%', top: '-10%', width: '120%', height: '120%' }}
-                initial={{ scale: 1, opacity: 0.6 }}
-                animate={{ scale: 1.3 + i * 0.15, opacity: 0 }}
-                transition={{ duration: 1.4, repeat: Infinity, delay: i * 0.5, ease: 'easeOut' }}
+              <motion.div key={i}
+                className="absolute rounded-full pointer-events-none"
+                style={{ border: `2px solid ${cfg.gradTo}`, width: '110%', height: '110%', left: '-5%', top: '-5%' }}
+                initial={{ scale: 1, opacity: 0.7 }}
+                animate={{ scale: 1.35 + i * 0.18, opacity: 0 }}
+                transition={{ duration: 1.4, repeat: Infinity, delay: i * 0.55, ease: 'easeOut' }}
               />
             ))}
           </AnimatePresence>
-
-          <CartoonAvatar
+          <CloudAvatar
             character={cfg.character}
             isSpeaking={avatarSpeaking}
             isListening={avatarListening}
-            size={220}
+            isThinking={avatarThinking}
+            width={260}
+            height={260}
           />
         </div>
-      </div>
+      </motion.div>
 
-      {/* ── Messages ── */}
-      <div className="flex-1 overflow-y-auto px-4 py-2" style={{ WebkitOverflowScrolling: 'touch' }}>
+      {/* ── Message feed ── */}
+      <div
+        className="flex-1 overflow-y-auto px-4 py-2"
+        role="log"
+        aria-live="polite"
+        aria-label="Conversation"
+        style={{ WebkitOverflowScrolling: 'touch' }}
+      >
         <AnimatePresence initial={false}>
           {messages.map((msg, idx) => (
             <MessageBubble
               key={idx}
               message={msg}
-              bot={bot}
-              onSpeak={(text) => speakText(text, idx)}
-              isSpeaking={speakingMsgIndex === idx}
+              cfg={cfg}
+              onManualSpeak={() => handleManualSpeak(msg.content, idx)}
+              isManualSpeaking={manualSpeakIdx === idx}
             />
           ))}
         </AnimatePresence>
@@ -498,83 +600,92 @@ export default function ChatScreen() {
       </div>
 
       {/* ── Input bar ── */}
-      <div
-        className="relative z-20 px-4 py-3 pb-[max(12px,env(safe-area-inset-bottom))]"
-        style={{ background: 'rgba(0,0,0,0.35)', backdropFilter: 'blur(16px)', borderTop: `1px solid ${cfg.gradTo}20` }}
+      <motion.div
+        className="relative z-20 px-4 py-3"
+        style={{
+          paddingBottom: 'max(12px, env(safe-area-inset-bottom))',
+          background: 'rgba(0,0,0,0.38)',
+          backdropFilter: 'blur(18px)',
+          borderTop: `1px solid ${cfg.gradTo}22`,
+        }}
+        initial={{ y: 60, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.4, delay: 0.15, ease: 'easeOut' }}
       >
         <div className="flex items-center gap-2 max-w-lg mx-auto">
+
           {/* Mic button */}
-          {SpeechRecognitionSupported && (
+          {speechSupported && (
             <div className="relative flex-shrink-0">
               <AnimatePresence>
-                {isListening && (
-                  <>
-                    {[0, 1].map(i => (
-                      <motion.div key={i} className="absolute inset-0 rounded-full pointer-events-none"
-                        style={{ border: `2px solid ${cfg.micActive}` }}
-                        initial={{ scale: 1, opacity: 0.6 }}
-                        animate={{ scale: 2.0 + i * 0.3, opacity: 0 }}
-                        transition={{ duration: 1.2, repeat: Infinity, delay: i * 0.45, ease: 'easeOut' }}
-                      />
-                    ))}
-                  </>
-                )}
+                {isListening && [0, 1].map(i => (
+                  <motion.div key={i}
+                    className="absolute inset-0 rounded-full pointer-events-none"
+                    style={{ border: `2px solid ${cfg.micActive}` }}
+                    initial={{ scale: 1, opacity: 0.6 }}
+                    animate={{ scale: 2.1 + i * 0.3, opacity: 0 }}
+                    transition={{ duration: 1.2, repeat: Infinity, delay: i * 0.45, ease: 'easeOut' }}
+                  />
+                ))}
               </AnimatePresence>
               <motion.button
                 onClick={toggleMic}
-                whileTap={{ scale: 0.9 }}
+                whileTap={{ scale: 0.88 }}
                 disabled={permissionDenied}
+                aria-label={isListening ? 'Stop listening' : 'Start voice input'}
                 className="relative z-10 w-11 h-11 rounded-full flex items-center justify-center transition-all"
                 style={{
                   background: isListening ? cfg.micActive : 'rgba(255,255,255,0.12)',
                   border: `1px solid ${isListening ? cfg.micActive : 'rgba(255,255,255,0.2)'}`,
+                  boxShadow: isListening ? `0 0 18px ${cfg.micActive}55` : 'none',
                 }}
               >
                 {permissionDenied
-                  ? <MicOff className="w-4 h-4 text-white/40" />
-                  : <Mic className={`w-4 h-4 ${isListening ? 'text-white' : 'text-white/60'}`} />
+                  ? <MicOff className="w-4 h-4 text-white/40" aria-hidden />
+                  : <Mic className={`w-4 h-4 ${isListening ? 'text-white' : 'text-white/60'}`} aria-hidden />
                 }
               </motion.button>
             </div>
           )}
 
           {/* Text input */}
-          <div className="flex-1 relative">
-            <input
-              value={input}
-              onChange={e => setInput(e.target.value)}
-              onKeyDown={e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); } }}
-              placeholder={isListening ? 'Listening…' : cfg.placeholder}
-              disabled={isLoading}
-              className="w-full px-4 py-2.5 rounded-2xl text-sm text-white placeholder-white/35 outline-none transition-all"
-              style={{
-                background: 'rgba(255,255,255,0.10)',
-                border: `1px solid ${input ? cfg.gradTo + '60' : 'rgba(255,255,255,0.15)'}`,
-                caretColor: cfg.gradTo,
-              }}
-            />
-          </div>
+          <input
+            value={input}
+            onChange={e => setInput(e.target.value)}
+            onKeyDown={e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); } }}
+            placeholder={isListening ? 'Listening…' : cfg.placeholder}
+            disabled={isLoading}
+            aria-label="Type your message"
+            className="flex-1 px-4 py-2.5 rounded-2xl text-sm text-white placeholder-white/35 outline-none transition-all"
+            style={{
+              background: 'rgba(255,255,255,0.10)',
+              border: `1px solid ${input ? cfg.gradTo + '60' : 'rgba(255,255,255,0.15)'}`,
+              caretColor: cfg.gradTo,
+            }}
+          />
 
           {/* Send button */}
           <motion.button
             onClick={() => sendMessage()}
             disabled={!input.trim() || isLoading}
-            whileTap={{ scale: 0.9 }}
+            whileTap={{ scale: 0.88 }}
+            aria-label="Send message"
             className="flex-shrink-0 w-11 h-11 rounded-full flex items-center justify-center transition-all"
             style={{
               background: input.trim() && !isLoading
                 ? `linear-gradient(135deg, ${cfg.gradMid}, ${cfg.gradTo})`
                 : 'rgba(255,255,255,0.08)',
               border: `1px solid ${input.trim() ? cfg.gradTo + '80' : 'rgba(255,255,255,0.15)'}`,
+              boxShadow: input.trim() && !isLoading ? `0 4px 16px ${cfg.gradTo}40` : 'none',
             }}
           >
             {isLoading
-              ? <Loader2 className="w-4 h-4 text-white/60 animate-spin" />
-              : <Send className={`w-4 h-4 ${input.trim() ? 'text-white' : 'text-white/30'}`} />
+              ? <Loader2 className="w-4 h-4 text-white/60 animate-spin" aria-hidden />
+              : <Send className={`w-4 h-4 ${input.trim() ? 'text-white' : 'text-white/30'}`} aria-hidden />
             }
           </motion.button>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }

@@ -13,10 +13,11 @@ import { format, isToday, isYesterday } from 'date-fns';
 
 // ─── AI Coach shortcuts ───────────────────────────────────────────────────────
 const AI_COACHES = [
-  { key: 'Gideon',      name: 'Gideon',        role: 'Biblical Wisdom',   emoji: '📖', color: '#c9a227', bg: 'from-[#1a0f00] to-[#7c5a00]' },
-  { key: 'Hannah',      name: 'Hannah',         role: 'Mindset & Growth',  emoji: '🧠', color: '#AFC7E3', bg: 'from-[#1a2d3d] to-[#3C4E53]' },
-  { key: 'CoachDavid',  name: 'Coach David',    role: 'Fitness & Wellness',emoji: '💪', color: '#38BDF8', bg: 'from-[#0a1628] to-[#1e3a5f]' },
-  { key: 'ChefDaniel',  name: 'Chef Daniel',    role: 'Nutrition & Meals', emoji: '🍽️', color: '#22c55e', bg: 'from-[#052e16] to-[#166534]' },
+  { key: 'Gideon',      name: 'Gideon',        role: 'Biblical Wisdom',        emoji: '📖', color: '#c9a227', bg: 'from-[#1a0f00] to-[#7c5a00]' },
+  { key: 'Hannah',      name: 'Hannah',         role: 'Mindset & Growth',       emoji: '🧠', color: '#AFC7E3', bg: 'from-[#1a2d3d] to-[#3C4E53]' },
+  { key: 'CoachDavid',  name: 'Coach David',    role: 'Fitness & Wellness',     emoji: '💪', color: '#38BDF8', bg: 'from-[#0a1628] to-[#1e3a5f]' },
+  { key: 'ChefDaniel',  name: 'Chef Daniel',    role: 'Nutrition & Meals',      emoji: '🍽️', color: '#22c55e', bg: 'from-[#052e16] to-[#166534]' },
+  { key: 'CoachPaul',   name: 'Coach Paul',     role: 'Discipline & Leadership',emoji: '🛡️', color: '#A78BFA', bg: 'from-[#0F0A1F] to-[#3B0764]' },
 ];
 
 // ─── Date formatting ──────────────────────────────────────────────────────────
