@@ -6,7 +6,7 @@ import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, Send, Loader2, RotateCcw, Mic, MicOff, Volume2, Square, X } from 'lucide-react';
+import { ArrowLeft, Send, Loader2, RotateCcw, Mic, MicOff, Volume2, Square, X, Zap, ChevronRight } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import { base44 } from '@/api/base44Client';
 import CloudAvatar    from '@/components/avatar/CloudAvatar';
@@ -105,15 +105,14 @@ SAFETY: If someone expresses thoughts of self-harm, suicide, or a mental health 
     voiceNames:  [
       // macOS — Tom is distinct from Alex/Fred (more upbeat cadence)
       'Tom', 'Alex', 'Fred',
-      // Chrome — American neutral male
-      'Google US English',
+      // Chrome — Male voices only (Google US English is female on most Chrome builds)
+      'Google UK English Male',
       // Windows Neural — energetic American males first
       'Microsoft Guy Online (Natural) - English (United States)',
       'Microsoft Davis Online (Natural) - English (United States)',
       'Microsoft Christopher Online (Natural) - English (United States)',
       'Microsoft Eric Online (Natural) - English (United States)',
-      // UK as lower priority for David (he's American-energy)
-      'Google UK English Male',
+      // UK as lower priority for David
       'Microsoft Ryan Online (Natural) - English (United Kingdom)',
       // Desktop fallbacks
       'Microsoft David Desktop - English (United States)',
@@ -385,10 +384,12 @@ function loadVoices() {
 // Male voice keywords — broad enough to catch Google/MS/Apple male voices
 const MALE_KW   = ['male', 'david', 'mark', 'james', 'guy', 'ryan', 'daniel', 'arthur',
                    'george', 'fred', 'alex', 'tom', 'chris', 'rishi', 'aaron', 'eric',
-                   'brian', 'christopher', 'reed', 'rodney', 'cepstral'];
+                   'brian', 'christopher', 'reed', 'rodney', 'cepstral',
+                   'liam', 'oliver', 'gordon', 'matthew', 'stephen', 'charles', 'jack'];
 const FEMALE_KW = ['female', 'zira', 'hazel', 'siri', 'cortana', 'samantha', 'karen',
                    'victoria', 'moira', 'tessa', 'jenny', 'aria', 'rachel', 'susan',
-                   'lisa', 'linda', 'joanna', 'ivy'];
+                   'lisa', 'linda', 'joanna', 'ivy', 'alice', 'kate', 'emma', 'clara',
+                   'nicky', 'serena', 'allison', 'ava', 'fiona', 'kyoko', 'luciana'];
 
 function isVoiceMale(v) {
   const n = v.name.toLowerCase();
@@ -416,33 +417,38 @@ function pickVoice(voices, preferredNames, gender) {
     if (v) return v;
   }
 
-  // 2. Partial preferred name match (handles suffix variants like "Samantha (Enhanced)")
+  // 2. Partial preferred name match — but reject confirmed-opposite-gender voices
+  const isTargetMalePre = gender === 'male';
+  const genderReject    = isTargetMalePre ? isVoiceFemale : isVoiceMale;
   for (const name of preferredNames) {
-    const v = voices.find(v => v.name.toLowerCase().includes(name.toLowerCase()));
+    const v = voices.find(v =>
+      v.name.toLowerCase().includes(name.toLowerCase()) && genderReject(v) !== true
+    );
     if (v) return v;
   }
 
-  const isTargetMale = gender === 'male';
-  const genderCheck  = isTargetMale ? isVoiceMale : isVoiceFemale;
+  const isTargetMale = isTargetMalePre;
+  const genderCheck   = isTargetMale ? isVoiceMale  : isVoiceFemale;
+  const genderRejectH = isTargetMale ? isVoiceFemale : isVoiceMale; // confirmed opposite
 
-  // 3. Neural English voice matching gender
+  // 3. Neural English voice — confirmed correct gender
   const neuralGen = enVoices.find(v =>
     neuralKW.some(k => v.name.toLowerCase().includes(k)) && genderCheck(v) === true
   );
   if (neuralGen) return neuralGen;
 
-  // 4. Any neural English voice (gender unknown is ok — but reject confirmed opposite gender)
+  // 4. Any English voice — confirmed correct gender (neural or not)
+  const anyConfirmed = enVoices.find(v => genderCheck(v) === true);
+  if (anyConfirmed) return anyConfirmed;
+
+  // 5. Any neural English voice that isn't confirmed wrong gender
   const anyNeural = enVoices.find(v =>
-    neuralKW.some(k => v.name.toLowerCase().includes(k)) && genderCheck(v) !== false
+    neuralKW.some(k => v.name.toLowerCase().includes(k)) && genderRejectH(v) !== true
   );
   if (anyNeural) return anyNeural;
 
-  // 5. Any English voice matching gender (non-neural)
-  const genMatch = enVoices.find(v => genderCheck(v) === true);
-  if (genMatch) return genMatch;
-
-  // 6. Any English voice that isn't confirmed opposite gender
-  const notOpposite = enVoices.find(v => genderCheck(v) !== false);
+  // 6. Any English voice that isn't confirmed wrong gender
+  const notOpposite = enVoices.find(v => genderRejectH(v) !== true);
   if (notOpposite) return notOpposite;
 
   // 7. Last resort — first English voice
@@ -525,6 +531,61 @@ async function speakText({ text, cfg, onStart, onEnd, onError }) {
     try { window.speechSynthesis.cancel(); } catch (_) {}
   };
 }
+
+
+// ─── Quick-prompt library — one drawer per bot ───────────────────────────────
+const QUICK_PROMPTS = {
+  Hannah: [
+    { label: 'Build a better habit',     prompt: 'Help me build a better daily habit. Here is what I am trying to change:' },
+    { label: 'Feeling stuck',            prompt: 'I am feeling stuck and cannot move forward. Here is what has been going on:' },
+    { label: 'Set better boundaries',    prompt: 'Help me set better boundaries. This situation keeps happening:' },
+    { label: 'Stop self-sabotaging',     prompt: 'I keep sabotaging myself. Here is the pattern I notice:' },
+    { label: 'Manage stress & burnout',  prompt: 'Help me manage stress and burnout. Here is what my days look like:' },
+    { label: 'Attachment style',         prompt: 'Help me understand my attachment style and how it affects my relationships.' },
+    { label: 'Emotional intelligence',   prompt: 'How can I become more emotionally intelligent in my daily life?' },
+    { label: 'Focus & productivity',     prompt: 'I need help with focus and productivity. Here is where I keep getting distracted:' },
+  ],
+  CoachDavid: [
+    { label: 'Build a workout plan',     prompt: 'Build me a personalized workout plan. My goals are:' },
+    { label: 'Quick workout now',        prompt: 'Give me a quick workout I can do right now. I have this much time:' },
+    { label: 'Break a plateau',          prompt: 'Help me break a plateau. Here is what I have been doing and where I am stuck:' },
+    { label: 'Fix my form',              prompt: 'Help me fix my form on this exercise. The movement I am struggling with:' },
+    { label: 'Weekly schedule',          prompt: 'Create a weekly workout schedule for me. My constraints and goals are:' },
+    { label: 'Fat-loss strategy',        prompt: 'Give me a real fat-loss strategy. Here is my current routine:' },
+    { label: 'Muscle-building',          prompt: 'Give me a muscle-building strategy. Here is where I am at right now:' },
+    { label: 'Hold me accountable',      prompt: 'Hold me accountable. The commitment I am making today is:' },
+  ],
+  ChefDaniel: [
+    { label: 'What should I cook?',      prompt: 'I need dinner ideas. Here is what I have in my fridge:' },
+    { label: 'Weekly meal plan',         prompt: 'Create a full weekly meal plan with a grocery list. My dietary preferences:' },
+    { label: 'More protein',             prompt: 'Help me get more protein in my diet. Here is what I typically eat:' },
+    { label: 'Healthy meal prep',        prompt: 'Teach me how to meal prep for the week. I have this much time on weekends:' },
+    { label: 'New cooking technique',    prompt: 'Teach me a cooking technique I should know. My current skill level is:' },
+    { label: 'Cut calories, keep taste', prompt: 'Help me cut calories without sacrificing taste. My favorite foods are:' },
+    { label: 'Batch cook for the week',  prompt: 'Give me a batch cooking plan I can do Sunday. My goals this week are:' },
+    { label: 'Explain a recipe',         prompt: 'Help me understand how to cook this properly:' },
+  ],
+  Gideon: [
+    { label: 'Understand a passage',     prompt: 'Help me understand this Bible passage. Here is the verse I am reading:' },
+    { label: 'Guide me in prayer',       prompt: 'Guide me in prayer today. Here is what is on my heart:' },
+    { label: 'Find verses on strength',  prompt: 'Share some verses about strength and perseverance for what I am facing.' },
+    { label: 'Anxiety & worry',          prompt: 'What does the Bible say about anxiety and how to find peace?' },
+    { label: 'Devotional plan',          prompt: 'Create a short devotional plan for me. I am going through:' },
+    { label: 'Grow closer to God',       prompt: 'How can I grow closer to God in my daily life right now?' },
+    { label: 'Faith & doubt',            prompt: 'I am struggling with doubt. How do I hold onto faith when things are hard?' },
+    { label: 'Apply scripture to life',  prompt: 'Help me apply this scripture to something I am dealing with:' },
+  ],
+  CoachPaul: [
+    { label: 'Motivate me today',        prompt: 'I need motivation today. Here is where my head is at:' },
+    { label: 'My focus this week',       prompt: 'What should I focus on this week to make real progress? Here is my situation:' },
+    { label: 'Build discipline',         prompt: 'Help me build more discipline. Here is where I keep falling short:' },
+    { label: 'Overcome fear',            prompt: 'I am letting fear stop me. Help me move past it. Here is what it is:' },
+    { label: 'Leadership at work',       prompt: 'I need to step up as a leader. Here is the situation I am in:' },
+    { label: 'Morning routine',          prompt: 'Help me build a powerful morning routine that sets me up for success.' },
+    { label: 'Identify my purpose',      prompt: 'Help me get clearer on my purpose and what I am really building toward.' },
+    { label: 'Hold the standard',        prompt: 'I have been slipping on my standards. Help me reset and recommit.' },
+  ],
+};
 
 
 // ─── Waveform ─────────────────────────────────────────────────────────────────
@@ -641,6 +702,7 @@ export default function ChatScreen() {
   const [isListening,      setIsListening]      = useState(false);
   const [speakingIdx,      setSpeakingIdx]      = useState(null);
   const [permissionDenied, setPermissionDenied] = useState(false);
+  const [showPrompts,      setShowPrompts]      = useState(false);
 
   const inputRef           = useRef(null);
   const messagesEndRef     = useRef(null);
@@ -877,6 +939,14 @@ export default function ChatScreen() {
         {/* Right — Restart + Close */}
         <div className="flex items-center gap-1 min-w-[60px] justify-end">
           <button
+            onClick={() => setShowPrompts(p => !p)}
+            aria-label="Quick prompts"
+            title="Quick prompts"
+            className="text-white/40 hover:text-white/70 transition-colors p-1.5 rounded-full hover:bg-white/10"
+            style={{ color: showPrompts ? cfg.gradTo : undefined }}>
+            <Zap className="w-3.5 h-3.5" />
+          </button>
+          <button
             onClick={clearChat}
             aria-label="Restart conversation"
             title="Restart"
@@ -1104,6 +1174,92 @@ export default function ChatScreen() {
           </p>
         )}
       </motion.div>
+
+      {/* ── Quick Prompt Drawer ─────────────────────────────────────────────── */}
+      <AnimatePresence>
+        {showPrompts && (
+          <>
+            {/* Backdrop tap to close */}
+            <motion.div
+              className="absolute inset-0 z-30"
+              initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+              onClick={() => setShowPrompts(false)}
+              style={{ background: 'rgba(0,0,0,0.35)' }}
+            />
+            {/* Drawer panel */}
+            <motion.div
+              className="absolute right-0 top-0 bottom-0 z-40 flex flex-col overflow-hidden"
+              style={{
+                width: 'min(88vw, 300px)',
+                background: `linear-gradient(160deg, ${cfg.bgDark}f0 0%, rgba(0,0,0,0.96) 100%)`,
+                borderLeft: `1px solid ${cfg.gradTo}25`,
+                backdropFilter: 'blur(24px)',
+              }}
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'spring', stiffness: 340, damping: 32 }}
+            >
+              {/* Drawer header */}
+              <div className="flex items-center justify-between px-4 flex-shrink-0"
+                style={{ paddingTop: 'max(16px, env(safe-area-inset-top))', paddingBottom: 14,
+                  borderBottom: `1px solid ${cfg.gradTo}20` }}>
+                <div className="flex items-center gap-2">
+                  <Zap className="w-4 h-4" style={{ color: cfg.gradTo }} />
+                  <span className="text-white font-semibold text-sm">Quick Prompts</span>
+                </div>
+                <button onClick={() => setShowPrompts(false)}
+                  className="text-white/40 hover:text-white transition-colors p-1 rounded-full hover:bg-white/10">
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+
+              {/* Prompt list */}
+              <div className="flex-1 overflow-y-auto py-3 px-3" style={{ WebkitOverflowScrolling: 'touch' }}>
+                <p className="text-xs px-1 mb-3" style={{ color: `${cfg.gradTo}80` }}>
+                  Tap any prompt — it sends immediately.
+                </p>
+                {(QUICK_PROMPTS[bot] || []).map((item, idx) => (
+                  <motion.button
+                    key={idx}
+                    initial={{ opacity: 0, x: 18 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: idx * 0.04 }}
+                    onClick={() => {
+                      setShowPrompts(false);
+                      sendMessage(item.prompt);
+                    }}
+                    disabled={isLoading}
+                    className="w-full text-left mb-2 flex items-center justify-between group"
+                    style={{
+                      padding: '10px 12px',
+                      borderRadius: 10,
+                      background: `${cfg.gradTo}0D`,
+                      border: `1px solid ${cfg.gradTo}20`,
+                      color: 'rgba(255,255,255,0.80)',
+                      fontSize: 13,
+                      lineHeight: 1.4,
+                      transition: 'background 0.15s, border-color 0.15s',
+                    }}
+                    onMouseEnter={e => {
+                      e.currentTarget.style.background = `${cfg.gradTo}22`;
+                      e.currentTarget.style.borderColor = `${cfg.gradTo}50`;
+                    }}
+                    onMouseLeave={e => {
+                      e.currentTarget.style.background = `${cfg.gradTo}0D`;
+                      e.currentTarget.style.borderColor = `${cfg.gradTo}20`;
+                    }}
+                  >
+                    <span>{item.label}</span>
+                    <ChevronRight className="w-3.5 h-3.5 flex-shrink-0 opacity-30 group-hover:opacity-70 transition-opacity" />
+                  </motion.button>
+                ))}
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+
     </motion.div>,
     document.body
   );

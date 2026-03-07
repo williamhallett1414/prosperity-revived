@@ -23,41 +23,41 @@ export default function HannahBackground({ speaking = false, listening = false }
     >
       <defs>
         <radialGradient id="hn-lamp" cx="14%" cy="58%" r="46%">
-          <stop offset="0%"   stopColor="#E8C4A0" stopOpacity="0.38" />
+          <stop offset="0%"   stopColor="#E8C4A0" stopOpacity="0.58" />
           <stop offset="100%" stopColor="#1a2d3d" stopOpacity="0" />
         </radialGradient>
         <radialGradient id="hn-window" cx="0%" cy="28%" r="48%">
-          <stop offset="0%"   stopColor="#C8E4F6" stopOpacity="0.18" />
+          <stop offset="0%"   stopColor="#C8E4F6" stopOpacity="0.28" />
           <stop offset="100%" stopColor="#1a2d3d" stopOpacity="0" />
         </radialGradient>
         <radialGradient id="hn-vignette" cx="50%" cy="50%" r="70%">
           <stop offset="55%"  stopColor="transparent" />
-          <stop offset="100%" stopColor="#1a2d3d" stopOpacity="0.90" />
+          <stop offset="100%" stopColor="#1e3348" stopOpacity="0.72" />
         </radialGradient>
       </defs>
 
       {/* ── Base ── */}
-      <rect width="390" height="844" fill="#1a2d3d" />
+      <rect width="390" height="844" fill="#1e3348" />
 
       {/* ── Warm cream wall ── */}
-      <rect x="0" y="0" width="390" height="645" fill="#c8b8a0" opacity="0.24" />
+      <rect x="0" y="0" width="390" height="645" fill="#d4c4ac" opacity="0.40" />
 
       {/* ── Sheer curtain (far left) ── */}
-      <rect x="0" y="0" width="88" height="555" fill="#C8E4F6" opacity="0.07" />
+      <rect x="0" y="0" width="88" height="555" fill="#C8E4F6" opacity="0.12" />
       <rect x="0" y="0" width="88" height="555" fill="url(#hn-window)" />
       <path d="M 14 0 Q 19 100 11 200 Q 7 300 17 400 Q 21 500 13 555"  fill="none" stroke="#C8E4F6" strokeWidth="1" opacity="0.12" />
       <path d="M 44 0 Q 51 100 43 200 Q 39 300 47 400 Q 51 500 43 555"  fill="none" stroke="#C8E4F6" strokeWidth="1" opacity="0.10" />
       <path d="M 74 0 Q 81 100 73 200 Q 69 300 77 400 Q 81 500 73 555"  fill="none" stroke="#C8E4F6" strokeWidth="1" opacity="0.08" />
 
       {/* ── Framed artwork (back wall centre-ish) ── */}
-      <rect x="148" y="96"  width="122" height="84" rx="5" fill="#1e2c3a" stroke="#8B9E8B" strokeWidth="2" opacity="0.92" />
+      <rect x="148" y="96"  width="122" height="84" rx="5" fill="#263848" stroke="#8B9E8B" strokeWidth="2" opacity="0.92" />
       <rect x="154" y="102" width="110" height="72" rx="3" fill="#243444" />
       <ellipse cx="196" cy="142" rx="32" ry="24" fill="#7AB3D4" opacity="0.22" />
       <path d="M 164 130 Q 196 118 228 132 L 224 150 Q 196 162 168 150 Z" fill="#E8C4A0" opacity="0.18" />
       <line x1="154" y1="158" x2="264" y2="153" stroke="#8B9E8B" strokeWidth="0.8" opacity="0.28" />
 
       {/* ── Bookshelf (right wall) ── */}
-      <rect x="292" y="78"  width="98"  height="408" rx="4" fill="#1e2c3a" opacity="0.92" />
+      <rect x="292" y="78"  width="98"  height="408" rx="4" fill="#263848" opacity="0.92" />
       {/* Shelf boards */}
       <rect x="292" y="78"  width="98" height="6" rx="2" fill="#3a2c1e" />
       <rect x="292" y="176" width="98" height="6" rx="2" fill="#3a2c1e" />
@@ -117,10 +117,10 @@ export default function HannahBackground({ speaking = false, listening = false }
 
       {/* ── Sofa ── */}
       <path d="M 8 690 L 8 615 Q 8 598 24 598 L 278 598 Q 292 598 292 614 L 292 690 Z"
-            fill="#6B8060" opacity="0.88" />
+            fill="#7A9070" opacity="0.95" />
       {/* Sofa back */}
       <path d="M 8 598 L 8 548 Q 8 538 22 538 L 280 538 Q 292 538 292 548 L 292 598 Z"
-            fill="#5c7050" opacity="0.82" />
+            fill="#6A8060" opacity="0.88" />
       {/* Seat dividers */}
       <line x1="100" y1="598" x2="100" y2="690" stroke="#4a5e40" strokeWidth="1.5" opacity="0.45" />
       <line x1="200" y1="598" x2="200" y2="690" stroke="#4a5e40" strokeWidth="1.5" opacity="0.45" />
@@ -129,7 +129,7 @@ export default function HannahBackground({ speaking = false, listening = false }
       <rect x="106" y="542" width="76"  height="57" rx="8" fill="#7a9472" opacity="0.92" />
       <rect x="196" y="542" width="76"  height="57" rx="8" fill="#7a9472" opacity="0.92" />
       {/* Sofa arm */}
-      <rect x="276" y="538" width="28" height="104" rx="8" fill="#5c7050" opacity="0.82" />
+      <rect x="276" y="538" width="28" height="104" rx="8" fill="#6A8060" opacity="0.88" />
       {/* Decorative pillow */}
       <rect x="243" y="550" width="46"  height="42" rx="6" fill="#C4A882" opacity="0.88" />
       <line x1="266" y1="550" x2="266" y2="592" stroke="#a88a60" strokeWidth="0.8" opacity="0.4" />
@@ -144,7 +144,7 @@ export default function HannahBackground({ speaking = false, listening = false }
       <ellipse cx="42" cy="542" rx="18" ry="8" fill="#F5D87A" opacity="0.55" />
 
       {/* Lamp glow overlay (speaking-reactive) */}
-      <g ref={lampRef} opacity="0.34">
+      <g ref={lampRef} opacity="0.50">
         <rect width="390" height="844" fill="url(#hn-lamp)" />
       </g>
 
@@ -154,7 +154,7 @@ export default function HannahBackground({ speaking = false, listening = false }
       <ellipse cx="162" cy="732" rx="100" ry="28" fill="none" stroke="#C4A882" strokeWidth="1"   opacity="0.10" />
 
       {/* ── Floor ── */}
-      <rect x="0" y="700" width="390" height="144" fill="#141e28" opacity="0.72" />
+      <rect x="0" y="700" width="390" height="144" fill="#1a2a38" opacity="0.60" />
 
       {/* ── Vignette ── */}
       <rect width="390" height="844" fill="url(#hn-vignette)" />

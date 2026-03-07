@@ -22,39 +22,39 @@ export default function DavidBackground({ speaking = false }) {
     >
       <defs>
         <radialGradient id="dv-l1" cx="20%" cy="0%" r="50%">
-          <stop offset="0%"   stopColor="#E8F4FD" stopOpacity="0.24" />
+          <stop offset="0%"   stopColor="#E8F4FD" stopOpacity="0.40" />
           <stop offset="100%" stopColor="#0a1628" stopOpacity="0" />
         </radialGradient>
         <radialGradient id="dv-l2" cx="50%" cy="0%" r="50%">
-          <stop offset="0%"   stopColor="#E8F4FD" stopOpacity="0.30" />
+          <stop offset="0%"   stopColor="#E8F4FD" stopOpacity="0.50" />
           <stop offset="100%" stopColor="#0a1628" stopOpacity="0" />
         </radialGradient>
         <radialGradient id="dv-l3" cx="80%" cy="0%" r="50%">
-          <stop offset="0%"   stopColor="#E8F4FD" stopOpacity="0.20" />
+          <stop offset="0%"   stopColor="#E8F4FD" stopOpacity="0.36" />
           <stop offset="100%" stopColor="#0a1628" stopOpacity="0" />
         </radialGradient>
         <radialGradient id="dv-vignette" cx="50%" cy="50%" r="70%">
           <stop offset="55%"  stopColor="transparent" />
-          <stop offset="100%" stopColor="#0a1628" stopOpacity="0.92" />
+          <stop offset="100%" stopColor="#0e1e38" stopOpacity="0.72" />
         </radialGradient>
       </defs>
 
       {/* ── Base ── */}
-      <rect width="390" height="844" fill="#0a1628" />
+      <rect width="390" height="844" fill="#0e1e38" />
 
       {/* ── Ceiling ── */}
-      <rect width="390" height="62" fill="#0d1e38" />
+      <rect width="390" height="62" fill="#122438" />
 
       {/* ── Back wall ── */}
-      <rect x="0" y="62" width="390" height="440" fill="#131e32" />
+      <rect x="0" y="62" width="390" height="440" fill="#1a2840" />
 
       {/* ── Mirror panel ── */}
-      <rect x="28" y="68" width="334" height="185" rx="4" fill="#1a2840" opacity="0.85" />
+      <rect x="28" y="68" width="334" height="185" rx="4" fill="#1e3050" opacity="0.85" />
       <rect x="28" y="68" width="334" height="185" rx="4" fill="#38BDF8" fillOpacity="0.025"
             stroke="#38BDF825" strokeWidth="1" />
 
       {/* ── Dumbbell rack ── */}
-      <rect x="32" y="278" width="326" height="125" rx="4" fill="#0d1e38" stroke="#1e2d48" strokeWidth="2" />
+      <rect x="32" y="278" width="326" height="125" rx="4" fill="#122438" stroke="#1e2d48" strokeWidth="2" />
       {/* Rack shelves */}
       <rect x="38" y="293" width="314" height="6"  rx="2" fill="#1e2d48" />
       <rect x="38" y="338" width="314" height="6"  rx="2" fill="#1e2d48" />
@@ -96,28 +96,28 @@ export default function DavidBackground({ speaking = false }) {
         {/* Left pendant */}
         <line x1="78"  y1="0" x2="78"  y2="38" stroke="#2a3a52" strokeWidth="2" />
         <path d="M 52 38 Q 52 28 78 28 Q 104 28 104 38 L 96 58 L 60 58 Z" fill="#1e2d48" />
-        <ellipse cx="78"  cy="38" rx="20" ry="10" fill="#38BDF8" opacity="0.38" />
+        <ellipse cx="78"  cy="38" rx="20" ry="10" fill="#38BDF8" opacity="0.60" />
         {/* Centre pendant */}
         <line x1="195" y1="0" x2="195" y2="38" stroke="#2a3a52" strokeWidth="2" />
         <path d="M 167 38 Q 167 26 195 26 Q 223 26 223 38 L 213 60 L 177 60 Z" fill="#1e2d48" />
-        <ellipse cx="195" cy="38" rx="22" ry="11" fill="#E8F4FD" opacity="0.5" />
+        <ellipse cx="195" cy="38" rx="22" ry="11" fill="#E8F4FD" opacity="0.75" />
         {/* Right pendant */}
         <line x1="312" y1="0" x2="312" y2="38" stroke="#2a3a52" strokeWidth="2" />
         <path d="M 286 38 Q 286 28 312 28 Q 338 28 338 38 L 330 58 L 294 58 Z" fill="#1e2d48" />
-        <ellipse cx="312" cy="38" rx="20" ry="10" fill="#38BDF8" opacity="0.32" />
+        <ellipse cx="312" cy="38" rx="20" ry="10" fill="#38BDF8" opacity="0.55" />
       </g>
 
       {/* Light cones (speaking-reactive) */}
-      <g ref={lightsRef} opacity="0.28">
+      <g ref={lightsRef} opacity="0.40">
         <rect width="390" height="844" fill="url(#dv-l1)" />
         <rect width="390" height="844" fill="url(#dv-l2)" />
         <rect width="390" height="844" fill="url(#dv-l3)" />
       </g>
 
       {/* ── Rubber floor ── */}
-      <rect x="0" y="502" width="390" height="342" fill="#131c2a" />
+      <rect x="0" y="502" width="390" height="342" fill="#182438" />
       {/* Blue accent stripe */}
-      <rect x="0" y="500" width="390" height="4" fill="#38BDF8" opacity="0.62" />
+      <rect x="0" y="500" width="390" height="4" fill="#38BDF8" opacity="0.85" />
       {/* Floor grid */}
       <g stroke="#1a2440" strokeWidth="1.5" opacity="0.65">
         <line x1="0" y1="542" x2="390" y2="542" />

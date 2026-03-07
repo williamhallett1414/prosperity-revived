@@ -22,16 +22,16 @@ export default function DanielBackground({ speaking = false }) {
     >
       <defs>
         <radialGradient id="dn-window" cx="18%" cy="28%" r="52%">
-          <stop offset="0%"   stopColor="#F5C842" stopOpacity="0.38" />
+          <stop offset="0%"   stopColor="#F5C842" stopOpacity="0.55" />
           <stop offset="100%" stopColor="#051a0d" stopOpacity="0" />
         </radialGradient>
         <radialGradient id="dn-pendant" cx="50%" cy="28%" r="38%">
-          <stop offset="0%"   stopColor="#F5C842" stopOpacity="0.42" />
+          <stop offset="0%"   stopColor="#F5C842" stopOpacity="0.60" />
           <stop offset="100%" stopColor="#051a0d" stopOpacity="0" />
         </radialGradient>
         <radialGradient id="dn-vignette" cx="50%" cy="50%" r="70%">
           <stop offset="55%"  stopColor="transparent" />
-          <stop offset="100%" stopColor="#051a0d" stopOpacity="0.88" />
+          <stop offset="100%" stopColor="#082814" stopOpacity="0.72" />
         </radialGradient>
         <pattern id="dn-tiles" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
           <rect width="40" height="40" fill="#e8d0b0" />
@@ -42,13 +42,13 @@ export default function DanielBackground({ speaking = false }) {
       </defs>
 
       {/* ── Base ── */}
-      <rect width="390" height="844" fill="#051a0d" />
+      <rect width="390" height="844" fill="#082814" />
 
       {/* ── Ceiling ── */}
-      <rect width="390" height="78" fill="#0f3020" />
+      <rect width="390" height="78" fill="#164030" />
 
       {/* ── Back wall ── */}
-      <rect x="0" y="78" width="390" height="410" fill="#c8b898" opacity="0.28" />
+      <rect x="0" y="78" width="390" height="410" fill="#d4c8a8" opacity="0.42" />
 
       {/* ── Window (upper left) ── */}
       <rect x="18" y="88" width="132" height="182" rx="8" fill="#87CEEB" opacity="0.6" />
@@ -65,7 +65,7 @@ export default function DanielBackground({ speaking = false }) {
 
       {/* ── Tile backsplash ── */}
       <rect x="0" y="358" width="390" height="82" fill="url(#dn-tiles)" opacity="0.88" />
-      <rect x="0" y="358" width="390" height="82" fill="#051a0d" opacity="0.32" />
+      <rect x="0" y="358" width="390" height="82" fill="#082814" opacity="0.32" />
 
       {/* ── Open shelves (right) ── */}
       {/* Shelf boards */}
@@ -117,7 +117,7 @@ export default function DanielBackground({ speaking = false }) {
       {/* Light cone */}
       <path d="M 174 112 L 95 285 L 295 285 L 216 112 Z" fill="#F5C842" fillOpacity="0.055" />
       {/* Pendant glow overlay */}
-      <g ref={pendantRef} opacity="0.38">
+      <g ref={pendantRef} opacity="0.50">
         <rect width="390" height="844" fill="url(#dn-pendant)" />
       </g>
 
@@ -141,7 +141,7 @@ export default function DanielBackground({ speaking = false }) {
       <ellipse cx="322" cy="433" rx="7"  ry="8"  fill="#22C55E" opacity="0.8" />
 
       {/* ── Floor ── */}
-      <rect x="0" y="582" width="390" height="262" fill="#0a2010" />
+      <rect x="0" y="582" width="390" height="262" fill="#0e2e18" />
       <line x1="0" y1="614" x2="390" y2="614" stroke="#0d2a14" strokeWidth="2" />
       <line x1="0" y1="654" x2="390" y2="654" stroke="#0d2a14" strokeWidth="2" />
       <line x1="0" y1="694" x2="390" y2="694" stroke="#0d2a14" strokeWidth="2" />

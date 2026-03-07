@@ -23,16 +23,16 @@ export default function GideonBackground({ speaking = false, listening = false, 
     >
       <defs>
         <radialGradient id="gb-ambient" cx="50%" cy="35%" r="60%">
-          <stop offset="0%"   stopColor="#7A5500" stopOpacity="0.35" />
+          <stop offset="0%"   stopColor="#9A7010" stopOpacity="0.50" />
           <stop offset="100%" stopColor="#120a00" stopOpacity="0" />
         </radialGradient>
         <radialGradient id="gb-window" cx="50%" cy="0%" r="70%">
-          <stop offset="0%"   stopColor="#F0D98A" stopOpacity="0.55" />
-          <stop offset="50%"  stopColor="#C9A227" stopOpacity="0.22" />
+          <stop offset="0%"   stopColor="#F0D98A" stopOpacity="0.75" />
+          <stop offset="50%"  stopColor="#C9A227" stopOpacity="0.38" />
           <stop offset="100%" stopColor="#120a00" stopOpacity="0" />
         </radialGradient>
         <radialGradient id="gb-gold-pool" cx="50%" cy="50%" r="50%">
-          <stop offset="0%"   stopColor="#C9A227" stopOpacity="0.22" />
+          <stop offset="0%"   stopColor="#C9A227" stopOpacity="0.38" />
           <stop offset="100%" stopColor="#C9A227" stopOpacity="0" />
         </radialGradient>
         <radialGradient id="gb-ruby-pool" cx="50%" cy="50%" r="50%">
@@ -45,13 +45,13 @@ export default function GideonBackground({ speaking = false, listening = false, 
         </radialGradient>
         <radialGradient id="gb-vignette" cx="50%" cy="50%" r="70%">
           <stop offset="60%"  stopColor="transparent" />
-          <stop offset="100%" stopColor="#120a00" stopOpacity="0.82" />
+          <stop offset="100%" stopColor="#1c1200" stopOpacity="0.68" />
         </radialGradient>
       </defs>
 
       {/* ── Base ── */}
-      <rect width="390" height="844" fill="#120a00" />
-      <rect width="390" height="620" fill="#1e1000" />
+      <rect width="390" height="844" fill="#1c1200" />
+      <rect width="390" height="620" fill="#2e1e08" />
       <rect width="390" height="620" fill="url(#gb-ambient)" />
 
       {/* ── Architectural arch frame ── */}
@@ -61,8 +61,8 @@ export default function GideonBackground({ speaking = false, listening = false, 
             fill="none" stroke="#5A3F00" strokeWidth="2.5" />
 
       {/* ── Side walls ── */}
-      <rect x="0"   y="0" width="46"  height="700" fill="#1a1000" opacity="0.65" />
-      <rect x="344" y="0" width="46"  height="700" fill="#1a1000" opacity="0.65" />
+      <rect x="0"   y="0" width="46"  height="700" fill="#1a1000" opacity="0.40" />
+      <rect x="344" y="0" width="46"  height="700" fill="#1a1000" opacity="0.40" />
 
       {/* ── Stained-glass window frame ── */}
       <path d="M 98 385 L 98 148 Q 98 68 195 68 Q 292 68 292 148 L 292 385 Z"
@@ -97,7 +97,7 @@ export default function GideonBackground({ speaking = false, listening = false, 
       <line x1="102" y1="338" x2="288" y2="338" stroke="#7A5500" strokeWidth="1.5" opacity="0.5" />
 
       {/* ── Window glow spill ── */}
-      <rect width="390" height="844" fill="url(#gb-window)" opacity="0.65" />
+      <rect width="390" height="844" fill="url(#gb-window)" opacity="0.85" />
 
       {/* ── Coloured light pools on floor (speaking-reactive) ── */}
       <g ref={glowRef} opacity="0.35">
@@ -107,7 +107,7 @@ export default function GideonBackground({ speaking = false, listening = false, 
       </g>
 
       {/* ── Stone floor ── */}
-      <rect x="0" y="700" width="390" height="144" fill="#1a0f00" opacity="0.82" />
+      <rect x="0" y="700" width="390" height="144" fill="#2a1a08" opacity="0.75" />
       <line x1="0" y1="732" x2="390" y2="732" stroke="#2a1800" strokeWidth="1.5" />
       <line x1="0" y1="762" x2="390" y2="762" stroke="#2a1800" strokeWidth="1.5" />
       <line x1="0" y1="792" x2="390" y2="792" stroke="#2a1800" strokeWidth="1.5" />

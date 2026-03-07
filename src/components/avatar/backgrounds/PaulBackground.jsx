@@ -24,20 +24,20 @@ export default function PaulBackground({ speaking = false }) {
         <linearGradient id="pl-sky" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%"   stopColor="#0A0718" />
           <stop offset="16%"  stopColor="#1E1B4B" />
-          <stop offset="42%"  stopColor="#4C1D95" />
-          <stop offset="66%"  stopColor="#7C3AED" />
-          <stop offset="80%"  stopColor="#A78BFA" />
-          <stop offset="91%"  stopColor="#FCD34D" />
-          <stop offset="100%" stopColor="#F59E0B" />
+          <stop offset="42%"  stopColor="#5B21B6" />
+          <stop offset="66%"  stopColor="#8B5CF6" />
+          <stop offset="80%"  stopColor="#C4B5FD" />
+          <stop offset="91%"  stopColor="#FDE68A" />
+          <stop offset="100%" stopColor="#FCD34D" />
         </linearGradient>
         <radialGradient id="pl-horizon" cx="50%" cy="100%" r="58%">
-          <stop offset="0%"   stopColor="#FCD34D" stopOpacity="0.58" />
-          <stop offset="45%"  stopColor="#F59E0B" stopOpacity="0.18" />
+          <stop offset="0%"   stopColor="#FDE68A" stopOpacity="0.75" />
+          <stop offset="45%"  stopColor="#FCD34D" stopOpacity="0.30" />
           <stop offset="100%" stopColor="#0A0718" stopOpacity="0" />
         </radialGradient>
         <radialGradient id="pl-vignette" cx="50%" cy="50%" r="72%">
           <stop offset="55%"  stopColor="transparent" />
-          <stop offset="100%" stopColor="#0A0718" stopOpacity="0.88" />
+          <stop offset="100%" stopColor="#0A0718" stopOpacity="0.68" />
         </radialGradient>
       </defs>
 
@@ -45,19 +45,19 @@ export default function PaulBackground({ speaking = false }) {
       <rect width="390" height="844" fill="url(#pl-sky)" />
 
       {/* ── Clouds (very soft, upper zone only) ── */}
-      <g opacity="0.21">
+      <g opacity="0.30">
         <circle cx="78"  cy="98"  r="28" fill="#E0E7FF" />
         <circle cx="106" cy="90"  r="22" fill="#E0E7FF" />
         <circle cx="128" cy="96"  r="18" fill="#E0E7FF" />
         <circle cx="56"  cy="104" r="17" fill="#E0E7FF" />
       </g>
-      <g opacity="0.15">
+      <g opacity="0.22">
         <circle cx="292" cy="138" r="22" fill="#E0E7FF" />
         <circle cx="316" cy="130" r="17" fill="#E0E7FF" />
         <circle cx="334" cy="136" r="14" fill="#E0E7FF" />
         <circle cx="273" cy="144" r="14" fill="#E0E7FF" />
       </g>
-      <g opacity="0.11">
+      <g opacity="0.17">
         <circle cx="195" cy="76"  r="14" fill="#E0E7FF" />
         <circle cx="212" cy="70"  r="11" fill="#E0E7FF" />
         <circle cx="226" cy="74"  r="9"  fill="#E0E7FF" />
@@ -75,20 +75,20 @@ export default function PaulBackground({ speaking = false }) {
       {/* ── Hill layers (far → near) ── */}
       {/* Far hill */}
       <path d="M 0 562 Q 80 512 200 532 Q 312 550 390 512 L 390 844 L 0 844 Z"
-            fill="#2D4A2D" opacity="0.44" />
+            fill="#3A5E3A" opacity="0.60" />
       {/* Mid hill */}
       <path d="M 0 602 Q 72 560 182 572 Q 282 582 390 552 L 390 844 L 0 844 Z"
-            fill="#3D6040" opacity="0.66" />
+            fill="#4D7A50" opacity="0.78" />
       {/* Near hill / field edge */}
       <path d="M 0 652 Q 102 620 222 632 Q 322 642 390 612 L 390 844 L 0 844 Z"
-            fill="#4D7C4D" opacity="0.82" />
+            fill="#5D8C5D" opacity="0.92" />
 
       {/* ── Horizon glow bar ── */}
-      <rect x="0" y="558" width="390" height="12" fill="#FCD34D" fillOpacity="0.13" />
-      <rect x="0" y="558" width="390" height="4"  fill="#FCD34D" fillOpacity="0.22" />
+      <rect x="0" y="558" width="390" height="12" fill="#FDE68A" fillOpacity="0.22" />
+      <rect x="0" y="558" width="390" height="4"  fill="#FDE68A" fillOpacity="0.35" />
 
       {/* Horizon radial glow (speaking-reactive) */}
-      <g ref={glowRef} opacity="0.26">
+      <g ref={glowRef} opacity="0.42">
         <rect width="390" height="844" fill="url(#pl-horizon)" />
       </g>
 
