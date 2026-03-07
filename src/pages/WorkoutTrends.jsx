@@ -221,7 +221,7 @@ export default function WorkoutTrends() {
   const hasData = sessions.length > 0;
 
   return (
-    <div className="min-h-screen bg-[#F0F8FF] pb-28">
+    <div className="min-h-screen bg-[#F2F6FA] pb-28">
       <div className="px-4 pt-5 pb-4">
         <div className="max-w-2xl mx-auto space-y-4">
 
@@ -291,7 +291,7 @@ export default function WorkoutTrends() {
                   <button key={t.key}
                     onPointerDown={() => setTab(t.key)}
                     className={`flex-1 py-2 rounded-xl text-xs font-bold transition-all ${
-                      tab === t.key ? 'bg-[#0A1828] text-white' : 'text-gray-400 hover:text-gray-600'
+                      tab === t.key ? 'bg-[#0A1A2F] text-white' : 'text-gray-400 hover:text-gray-600'
                     }`}
                   >
                     {t.label}

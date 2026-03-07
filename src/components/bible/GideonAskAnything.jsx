@@ -509,7 +509,7 @@ Example: [VERSE]Romans 8:28 - "And we know that all things work together for goo
                   </h3>
                   {memoryContext && memoryContext.total_conversation_count > 0 && (
                     <div className="bg-[#FAD98D]/20 rounded-lg p-3 text-sm">
-                      <p className="text-[#8a6e1a]">
+                      <p className="text-[#C9A227]">
                         💭 I remember our previous {memoryContext.total_conversation_count} conversations and I'm ready to continue your journey.
                       </p>
                     </div>
@@ -523,25 +523,25 @@ Example: [VERSE]Romans 8:28 - "And we know that all things work together for goo
                       onClick={() => {
                         handleAsk(true, "Activate Deep Study Mode for Romans 8");
                       }}
-                      className="px-4 py-2 bg-gradient-to-r from-[#c9a227] to-[#D9B878] text-white rounded-full text-sm font-semibold hover:from-[#b89320] hover:to-[#c9a227] transition-all shadow-md"
+                      className="px-4 py-2 bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white rounded-full text-sm font-semibold hover:from-[#C9A227] hover:to-[#c9a227] transition-all shadow-md"
                     >
                       🎓 Deep Study Mode
                     </button>
                     <button
                       onClick={() => handleAsk(false, "What does it mean to be in the Kingdom of God?")}
-                      className="px-4 py-2 bg-[#FAD98D]/30 text-[#8a6e1a] rounded-full text-sm hover:bg-[#FAD98D]/50 transition-colors"
+                      className="px-4 py-2 bg-[#FAD98D]/30 text-[#C9A227] rounded-full text-sm hover:bg-[#FAD98D]/50 transition-colors"
                     >
                       Kingdom Principles
                     </button>
                     <button
                       onClick={() => handleAsk(false, "How do I discover my purpose?")}
-                      className="px-4 py-2 bg-[#FAD98D]/20 text-[#8a6e1a] rounded-full text-sm hover:bg-[#FAD98D]/50 transition-colors"
+                      className="px-4 py-2 bg-[#FAD98D]/20 text-[#C9A227] rounded-full text-sm hover:bg-[#FAD98D]/50 transition-colors"
                     >
                       Finding Purpose
                     </button>
                     <button
                       onClick={() => handleAsk(false, "What does Romans 8:28 really mean?")}
-                      className="px-4 py-2 bg-[#FAD98D]/30 bg-[#FAD98D]/30 text-[#8a6e1a] rounded-full text-sm hover:bg-[#FAD98D]/50 transition-colors"
+                      className="px-4 py-2 bg-[#FAD98D]/30 bg-[#FAD98D]/30 text-[#C9A227] rounded-full text-sm hover:bg-[#FAD98D]/50 transition-colors"
                     >
                       Verse Meaning
                     </button>
@@ -559,11 +559,11 @@ Example: [VERSE]Romans 8:28 - "And we know that all things work together for goo
                 className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}>
 
                     {message.role === 'user' ?
-                <div className="bg-gradient-to-r from-[#c9a227] to-[#D9B878] text-white rounded-2xl px-4 py-3 max-w-[75%]">
+                <div className="bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white rounded-2xl px-4 py-3 max-w-[75%]">
                         <p className="text-sm">{message.content}</p>
                       </div> :
 
-                <div className="bg-[#FFF8E7] border border-[#D9B878]/40 rounded-2xl px-4 py-3 max-w-[85%] shadow-sm">
+                <div className="bg-[#FFF9EC] border border-[#FAD98D]/40 rounded-2xl px-4 py-3 max-w-[85%] shadow-sm">
                         <div className="flex justify-end mb-1"><TTSButton text={message.content} /></div>
                         {(() => {
                           // Parse content for verse markers
@@ -653,7 +653,7 @@ Example: [VERSE]Romans 8:28 - "And we know that all things work together for goo
               </div>
 
               {/* Input */}
-              <div className="p-4 border-t border-[#D9B878]/20 bg-white">
+              <div className="p-4 border-t border-[#FAD98D]/20 bg-white">
                 <div className="flex gap-2 items-center">
                   <Input
                   placeholder="Ask about any scripture, verse, or topic..."
@@ -670,13 +670,13 @@ Example: [VERSE]Romans 8:28 - "And we know that all things work together for goo
                   <VoiceInputButton
                     onTranscript={(text) => setInput(prev => prev ? prev + ' ' + text : text)}
                     disabled={loading}
-                    accentColor="bg-[#D9B878]"
+                    accentColor="bg-[#FAD98D]"
                     activeColor="bg-[#c9a227]"
                   />
                   <Button
                   onClick={handleAsk}
                   disabled={!input.trim() || loading}
-                  className="bg-gradient-to-r from-[#c9a227] to-[#D9B878] hover:from-[#b89320] hover:to-[#c9a227]"
+                  className="bg-gradient-to-r from-[#c9a227] to-[#FAD98D] hover:from-[#C9A227] hover:to-[#c9a227]"
                   size="icon">
 
                     {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}

@@ -135,7 +135,7 @@ Example format:
       <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold text-[#0A1A2F] flex items-center gap-2">
-            <Search className="w-6 h-6 text-[#D9B878]" />
+            <Search className="w-6 h-6 text-[#FAD98D]" />
             Advanced Bible Search
           </DialogTitle>
         </DialogHeader>
@@ -151,14 +151,14 @@ Example format:
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onKeyDown={handleKeyDown}
                 placeholder="Search for keywords, phrases, or themes..."
-                className="w-full pl-12 pr-4 py-3 bg-[#FFFDF7] rounded-xl border-2 border-[#D9B878]/20 focus:border-[#D9B878] focus:outline-none text-[#0A1A2F]"
+                className="w-full pl-12 pr-4 py-3 bg-[#F2F6FA] rounded-xl border-2 border-[#FAD98D]/20 focus:border-[#FAD98D] focus:outline-none text-[#0A1A2F]"
                 autoFocus
               />
             </div>
             <Button 
               onClick={handleSearch} 
               disabled={searching || !searchQuery.trim()}
-              className="w-full bg-[#D9B878] hover:bg-[#D9B878]/90 text-[#0A1A2F]"
+              className="w-full bg-[#FAD98D] hover:bg-[#FAD98D]/90 text-[#0A1A2F]"
             >
               {searching ? (
                 <>
@@ -175,7 +175,7 @@ Example format:
           </div>
 
           {/* Filters */}
-          <div className="bg-[#FFFDF7] rounded-xl p-4 space-y-4">
+          <div className="bg-[#F2F6FA] rounded-xl p-4 space-y-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <Filter className="w-4 h-4 text-[#0A1A2F]/60" />
@@ -184,7 +184,7 @@ Example format:
               {(filters.testament !== 'all' || filters.books.length > 0 || filters.searchType !== 'keywords') && (
                 <button
                   onClick={clearFilters}
-                  className="text-xs text-[#D9B878] hover:text-[#D9B878]/80 font-medium"
+                  className="text-xs text-[#FAD98D] hover:text-[#FAD98D]/80 font-medium"
                 >
                   Clear All
                 </button>
@@ -201,7 +201,7 @@ Example format:
                     onClick={() => setFilters(prev => ({ ...prev, searchType: type }))}
                     className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                       filters.searchType === type
-                        ? 'bg-[#D9B878] text-[#0A1A2F]'
+                        ? 'bg-[#FAD98D] text-[#0A1A2F]'
                         : 'bg-white text-[#0A1A2F]/60 hover:bg-[#FAD98D]/12'
                     }`}
                   >
@@ -223,7 +223,7 @@ Example format:
                     onClick={() => setFilters(prev => ({ ...prev, testament, books: [] }))}
                     className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                       filters.testament === testament
-                        ? 'bg-[#D9B878] text-[#0A1A2F]'
+                        ? 'bg-[#FAD98D] text-[#0A1A2F]'
                         : 'bg-white text-[#0A1A2F]/60 hover:bg-[#FAD98D]/12'
                     }`}
                   >
@@ -248,7 +248,7 @@ Example format:
                       onClick={() => toggleBookFilter(book)}
                       className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
                         filters.books.includes(book)
-                          ? 'bg-[#D9B878] text-[#0A1A2F]'
+                          ? 'bg-[#FAD98D] text-[#0A1A2F]'
                           : 'bg-white text-[#0A1A2F]/60 hover:bg-[#FAD98D]/12'
                       }`}
                     >
@@ -263,7 +263,7 @@ Example format:
           {/* Search Results */}
           {searching && (
             <div className="text-center py-12">
-              <Loader2 className="w-12 h-12 animate-spin mx-auto text-[#D9B878]" />
+              <Loader2 className="w-12 h-12 animate-spin mx-auto text-[#FAD98D]" />
               <p className="text-[#0A1A2F]/50 mt-4">Searching the Bible for "{searchQuery}"...</p>
             </div>
           )}
@@ -286,7 +286,7 @@ Example format:
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.05 }}
-                    className="bg-white rounded-xl p-4 border-2 border-[#D9B878]/20 hover:border-[#D9B878] transition-colors cursor-pointer"
+                    className="bg-white rounded-xl p-4 border-2 border-[#FAD98D]/20 hover:border-[#FAD98D] transition-colors cursor-pointer"
                     onClick={() => {
                       onNavigateToVerse({
                         type: 'verse',
@@ -313,7 +313,7 @@ Example format:
                     </p>
                     
                     <div className="bg-[#FAD98D]/15 rounded-lg p-2">
-                      <p className="text-xs text-[#8a6e1a]">
+                      <p className="text-xs text-[#C9A227]">
                         <span className="font-semibold">Why this matches:</span> {result.relevance}
                       </p>
                     </div>
@@ -325,7 +325,7 @@ Example format:
 
           {!searching && searchResults.length === 0 && searchQuery && (
             <div className="text-center py-12">
-              <Search className="w-16 h-16 mx-auto text-[#D9B878]/50 mb-4" />
+              <Search className="w-16 h-16 mx-auto text-[#FAD98D]/50 mb-4" />
               <p className="text-[#0A1A2F]/50">No results found for "{searchQuery}"</p>
               <p className="text-sm text-[#0A1A2F]/40 mt-2">Try different keywords or adjust your filters</p>
             </div>

@@ -89,10 +89,10 @@ export default function InterestsGoalsEditor({ user }) {
     // Spiritual → Gideon (gold/amber)
     purple: {
       bg: 'bg-[#FAD98D]/15',
-      border: 'border-[#D9B878]/50',
+      border: 'border-[#FAD98D]/50',
       icon: 'text-[#c9a227]',
       badge: 'bg-[#FAD98D]/30 text-[#7a5f10]',
-      button: 'bg-[#c9a227] hover:bg-[#b89320] text-white'
+      button: 'bg-[#c9a227] hover:bg-[#C9A227] text-white'
     },
     // Personal Growth → Hannah (purple/lavender)
     pink: {

@@ -3,15 +3,15 @@ import { motion } from 'framer-motion';
 import { Users, Lock, Globe } from 'lucide-react';
 
 const CATEGORY_COLORS = {
-  bible_study: 'from-[#c9a227] to-[#D9B878]',
-  workout:     'from-[#0A1A2F] to-[#1a3a5c]',
-  cooking:     'from-[#D9B878] to-[#FAD98D]',
+  bible_study: 'from-[#c9a227] to-[#FAD98D]',
+  workout:     'from-[#0A1A2F] to-[#0A1A2F]',
+  cooking:     'from-[#FAD98D] to-[#FAD98D]',
   prayer:      'from-[#AFC7E3] to-[#3C4E53]',
   wellness:    'from-[#3C4E53] to-[#AFC7E3]',
   youth:       'from-[#c9a227] to-[#AFC7E3]',
-  parents:     'from-[#D9B878] to-[#AFC7E3]',
+  parents:     'from-[#FAD98D] to-[#AFC7E3]',
   marriage:    'from-[#c9a227] to-[#0A1A2F]',
-  other:       'from-[#3C4E53] to-[#D9B878]',
+  other:       'from-[#3C4E53] to-[#FAD98D]',
 };
 
 const CATEGORY_EMOJI = {
@@ -29,7 +29,7 @@ const CATEGORY_LABEL = {
 function getMemberColour(count) {
   if (count >= 150) return { bar: 'bg-[#c9a227]', text: 'text-[#c9a227]' };
   if (count >= 75)  return { bar: 'bg-[#AFC7E3]', text: 'text-[#3C4E53]' };
-  return { bar: 'bg-[#E2E8F0]', text: 'text-[#0A1A2F]/30' };
+  return { bar: 'bg-[#F2F6FA]', text: 'text-[#0A1A2F]/30' };
 }
 
 export default function GroupCard({ group, onClick, index, isMember }) {
@@ -47,7 +47,7 @@ export default function GroupCard({ group, onClick, index, isMember }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.04 }}
       onClick={onClick}
-      className="cursor-pointer bg-white rounded-2xl overflow-hidden border border-[#D9B878]/20 hover:border-[#c9a227]/40 hover:shadow-md transition-all active:scale-[0.98]"
+      className="cursor-pointer bg-white rounded-2xl overflow-hidden border border-[#FAD98D]/20 hover:border-[#c9a227]/40 hover:shadow-md transition-all active:scale-[0.98]"
     >
       {/* Cover */}
       <div className="relative h-28 overflow-hidden">

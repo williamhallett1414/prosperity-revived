@@ -44,13 +44,13 @@ export const prosperityRevivedPlan = {
   totalDays: 56,
   author: 'Prosperity Revived Coaches',
   tags: ['faith', 'fitness', 'nutrition', 'mindset', 'transformation'],
-  coverGradient: 'from-[#0A1A2F] via-[#1a3a5c] to-[#c9a227]',
+  coverGradient: 'from-[#0A1A2F] via-[#0A1A2F] to-[#c9a227]',
   accentColor: '#c9a227',
 
   weeks: [
 
     // ═══════════════════════════════════════════════════════════════════════
-    w(1, 'Foundation', 'Knowing Who You Are in Christ', 'Identity shapes everything. Before transformation, know the foundation.', 'from-[#0A1A2F] to-[#1a3a5c]', [
+    w(1, 'Foundation', 'Knowing Who You Are in Christ', 'Identity shapes everything. Before transformation, know the foundation.', 'from-[#0A1A2F] to-[#0A1A2F]', [
 
       day(1,
         dev('Made in His Image', 'So God created mankind in his own image, in the image of God he created them; male and female he created them.', 'Genesis 1:27', 'Genesis', 1,
@@ -117,7 +117,7 @@ export const prosperityRevivedPlan = {
     ]),
 
     // ═══════════════════════════════════════════════════════════════════════
-    w(2, 'Renewing Your Mind', 'Rewiring Thoughts for Transformation', 'What you think in secret becomes what you live in public.', 'from-[#1a3a5c] to-[#2d5a8e]', [
+    w(2, 'Renewing Your Mind', 'Rewiring Thoughts for Transformation', 'What you think in secret becomes what you live in public.', 'from-[#0A1A2F] to-[#2d5a8e]', [
 
       day(8,
         dev('As a Man Thinketh', 'For as he thinks in his heart, so is he.', 'Proverbs 23:7', 'Proverbs', 23,
@@ -184,7 +184,7 @@ export const prosperityRevivedPlan = {
     ]),
 
     // ═══════════════════════════════════════════════════════════════════════
-    w(3, 'Nourishing the Temple', 'Food as Fuel, Not Comfort', 'You don\'t eat to live — you eat to thrive.', 'from-[#2d5a8e] to-[#4a7c59]', [
+    w(3, 'Nourishing the Temple', 'Food as Fuel, Not Comfort', 'You don\'t eat to live — you eat to thrive.', 'from-[#2d5a8e] to-[#3C4E53]', [
 
       day(15,
         dev('Eat to Honor', 'So whether you eat or drink or whatever you do, do it all for the glory of God.', '1 Corinthians 10:31', '1 Corinthians', 10,
@@ -251,7 +251,7 @@ export const prosperityRevivedPlan = {
     ]),
 
     // ═══════════════════════════════════════════════════════════════════════
-    w(4, 'Strengthening Your Body', 'Training with Purpose and Power', 'Your body is the vehicle for everything God has called you to do. Train it accordingly.', 'from-[#4a7c59] to-[#0A1A2F]', [
+    w(4, 'Strengthening Your Body', 'Training with Purpose and Power', 'Your body is the vehicle for everything God has called you to do. Train it accordingly.', 'from-[#3C4E53] to-[#0A1A2F]', [
 
       day(22,
         dev('Run With Endurance', 'Therefore, since we are surrounded by such a great cloud of witnesses, let us throw off everything that hinders and the sin that so easily entangles. And let us run with perseverance the race marked out for us.', 'Hebrews 12:1', 'Hebrews', 12,
@@ -452,7 +452,7 @@ export const prosperityRevivedPlan = {
     ]),
 
     // ═══════════════════════════════════════════════════════════════════════
-    w(7, 'Walking in Purpose', 'Aligning Your Whole Life With God\'s Call', 'You were made for more than personal improvement. You were made for purpose.', 'from-[#D9B878] to-[#0A1A2F]', [
+    w(7, 'Walking in Purpose', 'Aligning Your Whole Life With God\'s Call', 'You were made for more than personal improvement. You were made for purpose.', 'from-[#FAD98D] to-[#0A1A2F]', [
 
       day(43,
         dev('Created for Good Works', 'For we are God\'s handiwork, created in Christ Jesus to do good works, which God prepared in advance for us to do.', 'Ephesians 2:10', 'Ephesians', 2,
@@ -519,7 +519,7 @@ export const prosperityRevivedPlan = {
     ]),
 
     // ═══════════════════════════════════════════════════════════════════════
-    w(8, 'Living Abundantly', 'The Life You Were Created For', 'You have done the work. Now live from the transformation, not toward it.', 'from-[#c9a227] to-[#D9B878]', [
+    w(8, 'Living Abundantly', 'The Life You Were Created For', 'You have done the work. Now live from the transformation, not toward it.', 'from-[#c9a227] to-[#FAD98D]', [
 
       day(50,
         dev('The Abundant Life', '"I have come that they may have life, and have it to the full."', 'John 10:10', 'John', 10,

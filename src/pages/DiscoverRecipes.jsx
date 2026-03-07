@@ -138,16 +138,16 @@ export default function DiscoverRecipes() {
   const showFilters = activeTab !== 'health' && activeTab !== 'collections';
 
   return (
-    <div className="min-h-screen bg-[#FFFDF7] pb-28">
+    <div className="min-h-screen bg-[#F2F6FA] pb-28">
 
       {/* ── Sticky header ── */}
-      <div className="sticky top-0 z-40 bg-white border-b border-[#D9B878]/20 px-4 pt-4 pb-3">
+      <div className="sticky top-0 z-40 bg-white border-b border-[#FAD98D]/20 px-4 pt-4 pb-3">
         <div className="max-w-lg mx-auto space-y-3">
 
           {/* Title row */}
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#c9a227] to-[#D9B878] flex items-center justify-center">
+              <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center">
                 <UtensilsCrossed className="w-5 h-5 text-white" />
               </div>
               <div>
@@ -168,7 +168,7 @@ export default function DiscoverRecipes() {
                     {activeSort?.label}
                   </button>
                   {showSort && (
-                    <div className="absolute right-0 top-full mt-1 bg-white rounded-2xl border border-[#D9B878]/20 shadow-lg py-1.5 z-50 min-w-[110px]">
+                    <div className="absolute right-0 top-full mt-1 bg-white rounded-2xl border border-[#FAD98D]/20 shadow-lg py-1.5 z-50 min-w-[110px]">
                       {SORT_OPTIONS.map(opt => (
                         <button key={opt.value}
                           onClick={() => { setSort(opt.value); setShowSort(false); }}
@@ -199,7 +199,7 @@ export default function DiscoverRecipes() {
 
               {/* Add */}
               <button onClick={() => setShowCreate(true)}
-                className="flex items-center gap-1.5 bg-gradient-to-r from-[#c9a227] to-[#D9B878] text-white text-xs font-bold px-3 py-2 rounded-xl hover:opacity-90 shadow-sm">
+                className="flex items-center gap-1.5 bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white text-xs font-bold px-3 py-2 rounded-xl hover:opacity-90 shadow-sm">
                 <Plus className="w-3.5 h-3.5" /> Add
               </button>
             </div>
@@ -218,7 +218,7 @@ export default function DiscoverRecipes() {
                   activeTab === id
                     ? id === 'health'
                       ? 'bg-gradient-to-b from-red-400 to-pink-400 text-white shadow-sm'
-                      : 'bg-gradient-to-b from-[#c9a227] to-[#D9B878] text-white shadow-sm'
+                      : 'bg-gradient-to-b from-[#c9a227] to-[#FAD98D] text-white shadow-sm'
                     : 'bg-[#F2F6FA] text-[#0A1A2F]/45 hover:text-[#0A1A2F]/65'
                 }`}>
                 <Icon className="w-3.5 h-3.5" />
@@ -242,7 +242,7 @@ export default function DiscoverRecipes() {
         {activeTab === 'all' && (() => {
           if (isLoading) return (
             <div className="space-y-3">
-              {[1,2,3].map(i => <div key={i} className="bg-white rounded-2xl border border-[#D9B878]/20 h-36 animate-pulse" />)}
+              {[1,2,3].map(i => <div key={i} className="bg-white rounded-2xl border border-[#FAD98D]/20 h-36 animate-pulse" />)}
             </div>
           );
           if (allSrc.length === 0) return (

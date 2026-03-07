@@ -11,7 +11,7 @@ export default function CompletionTracker({ sections, completedSections, onToggl
       animate={{ opacity: 1, y: 0 }}
       className="mb-6"
     >
-      <Card className="p-6 bg-gradient-to-br from-[#FAD98D]/15 to-[#D9B878]/10 border-l-4 border-[#c9a227]">
+      <Card className="p-6 bg-gradient-to-br from-[#FAD98D]/15 to-[#FAD98D]/10 border-l-4 border-[#c9a227]">
         <div className="space-y-4">
           <div>
             <div className="flex items-center justify-between mb-2">
@@ -33,7 +33,7 @@ export default function CompletionTracker({ sections, completedSections, onToggl
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.05 }}
                     onClick={() => onToggleSection(section)}
-                    className="flex items-center gap-3 p-2 rounded-lg hover:bg-[#FFFDF7]/40 transition-all duration-200 text-left group"
+                    className="flex items-center gap-3 p-2 rounded-lg hover:bg-[#F2F6FA]/40 transition-all duration-200 text-left group"
                   >
                     <div className="relative">
                       {isCompleted ? (

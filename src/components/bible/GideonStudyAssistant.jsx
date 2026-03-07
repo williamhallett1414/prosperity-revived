@@ -149,7 +149,7 @@ Only reference past guidance when directly relevant. This shows you're walking a
       <Button
         onClick={() => setIsExpanded(!isExpanded)}
         variant="outline"
-        className="w-full bg-gradient-to-r from-[#FAD98D]/10 to-[#FFF8E7] border-[#D9B878]/40 hover:shadow-md transition-all"
+        className="w-full bg-gradient-to-r from-[#FAD98D]/10 to-[#FFF9EC] border-[#FAD98D]/40 hover:shadow-md transition-all"
       >
         <MessageCircle className="w-4 h-4 mr-2 text-[#c9a227]" />
         Ask Gideon About This Section
@@ -169,7 +169,7 @@ Only reference past guidance when directly relevant. This shows you're walking a
             exit={{ opacity: 0, height: 0 }}
             className="mt-3"
           >
-            <Card className="p-4 bg-[#FFFDF7] space-y-4">
+            <Card className="p-4 bg-[#F2F6FA] space-y-4">
               {/* Input */}
               <div className="flex gap-2">
                 <Input
@@ -188,7 +188,7 @@ Only reference past guidance when directly relevant. This shows you're walking a
                 <Button
                   onClick={handleAsk}
                   disabled={!input.trim() || loading}
-                  className="bg-gradient-to-r from-[#c9a227] to-[#D9B878] hover:from-[#b89320] hover:to-[#c9a227]"
+                  className="bg-gradient-to-r from-[#c9a227] to-[#FAD98D] hover:from-[#C9A227] hover:to-[#c9a227]"
                   size="icon"
                 >
                   {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
@@ -197,9 +197,9 @@ Only reference past guidance when directly relevant. This shows you're walking a
 
               {/* Current Response */}
               {currentAdvice && (
-                <div className="bg-gradient-to-br from-[#FAD98D]/10 to-[#FFF8E7] p-4 rounded-lg space-y-3">
+                <div className="bg-gradient-to-br from-[#FAD98D]/10 to-[#FFF9EC] p-4 rounded-lg space-y-3">
                   <div>
-                    <p className="text-xs font-medium text-[#8a6e1a] mb-1">Your Question:</p>
+                    <p className="text-xs font-medium text-[#C9A227] mb-1">Your Question:</p>
                     <p className="text-sm text-[#0A1A2F]/75">{currentAdvice.question}</p>
                   </div>
                   <div>
@@ -220,12 +220,12 @@ Only reference past guidance when directly relevant. This shows you're walking a
 
               {/* Saved Advice */}
               {savedAdvice.length > 0 && (
-                <div className="space-y-3 border-t border-[#D9B878]/20 pt-4">
+                <div className="space-y-3 border-t border-[#FAD98D]/20 pt-4">
                   <h4 className="text-sm font-semibold text-[#0A1A2F]/75">Saved Guidance</h4>
                   {savedAdvice.map((item) => (
                     <div
                       key={item.id}
-                      className="bg-[#FFFDF7] p-3 rounded-lg space-y-2"
+                      className="bg-[#F2F6FA] p-3 rounded-lg space-y-2"
                     >
                       <div className="flex items-start justify-between gap-2">
                         <div className="flex-1 space-y-2">
@@ -236,7 +236,7 @@ Only reference past guidance when directly relevant. This shows you're walking a
                           <button
                             onClick={() => toggleFavoriteMutation.mutate({ id: item.id, isFavorite: item.is_favorite })}
                             className={`p-1 rounded transition-colors ${
-                              item.is_favorite ? 'text-[#D9B878]' : 'text-[#0A1A2F]/40 hover:text-[#D9B878]'
+                              item.is_favorite ? 'text-[#FAD98D]' : 'text-[#0A1A2F]/40 hover:text-[#FAD98D]'
                             }`}
                           >
                             <Heart className={`w-4 h-4 ${item.is_favorite ? 'fill-current' : ''}`} />

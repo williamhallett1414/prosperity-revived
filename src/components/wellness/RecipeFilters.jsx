@@ -34,7 +34,7 @@ function ChipRow({ options, value, onChange }) {
           className={`px-3 py-1.5 rounded-full text-xs font-semibold border flex-shrink-0 transition-colors ${
             value === opt.value
               ? 'bg-[#0A1A2F] text-white border-[#0A1A2F]'
-              : 'bg-white text-[#0A1A2F]/50 border-[#D9B878]/30 hover:border-[#c9a227]/40'
+              : 'bg-white text-[#0A1A2F]/50 border-[#FAD98D]/30 hover:border-[#c9a227]/40'
           }`}>
           {opt.label}
         </button>
@@ -56,7 +56,7 @@ export default function RecipeFilters({ filters, onFilterChange }) {
           placeholder="Search recipes or ingredients…"
           value={filters.search}
           onChange={e => onFilterChange({ ...filters, search: e.target.value })}
-          className="w-full pl-9 pr-9 py-2.5 rounded-xl bg-white border border-[#D9B878]/25 text-sm text-[#0A1A2F] placeholder-[#0A1A2F]/35 focus:outline-none focus:border-[#c9a227]/50"
+          className="w-full pl-9 pr-9 py-2.5 rounded-xl bg-white border border-[#FAD98D]/25 text-sm text-[#0A1A2F] placeholder-[#0A1A2F]/35 focus:outline-none focus:border-[#c9a227]/50"
         />
         {filters.search && (
           <button onClick={() => onFilterChange({ ...filters, search: '' })}

@@ -114,7 +114,7 @@ export default function ProfileHeader({ user, friendsCount, userProgress }) {
           {/* Action Buttons */}
           <div className="flex gap-2 justify-center sm:justify-end flex-wrap">
             <Link to={createPageUrl('Messages')}>
-              <Button className="bg-gradient-to-br from-[#c9a227] to-[#D9B878] hover:opacity-90 text-white px-5 py-2.5 shadow-sm hover:shadow-md transition-all">
+              <Button className="bg-gradient-to-br from-[#c9a227] to-[#FAD98D] hover:opacity-90 text-white px-5 py-2.5 shadow-sm hover:shadow-md transition-all">
                 <MessageCircle className="w-4 h-4 mr-2" />
                 Message
               </Button>
@@ -140,7 +140,7 @@ export default function ProfileHeader({ user, friendsCount, userProgress }) {
                 </p>
             }
               {user?.spiritual_goal &&
-            <div className="flex items-start gap-2.5 text-sm bg-gradient-to-br from-[#FAD98D]/20 to-[#AFC7E3]/20 border border-[#D9B878]/40 rounded-lg p-3">
+            <div className="flex items-start gap-2.5 text-sm bg-gradient-to-br from-[#FAD98D]/20 to-[#AFC7E3]/20 border border-[#FAD98D]/40 rounded-lg p-3">
                  <Sparkles className="w-5 h-5 text-[#FD9C2D] mt-0.5 flex-shrink-0" />
                   <p className="text-gray-700">
                     <span className="font-bold text-gray-900">Spiritual Goal:</span> {user.spiritual_goal}

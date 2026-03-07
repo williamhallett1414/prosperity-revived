@@ -4,13 +4,13 @@
 
 export const FINANCIAL_FREEDOM_WEEK_THEMES = [
   { week: 1, theme: 'Identity & Worth',        title: 'Who You Are, Not What You Have',  color: 'from-[#22c55e] to-[#16a34a]', accent: '#22c55e', emoji: '👑' },
-  { week: 2, theme: 'Stewardship',             title: 'Managing What God Gave You',       color: 'from-[#16a34a] to-[#0A1A2F]', accent: '#4ade80', emoji: '🌱' },
+  { week: 2, theme: 'Stewardship',             title: 'Managing What God Gave You',       color: 'from-[#16a34a] to-[#0A1A2F]', accent: '#22C55E', emoji: '🌱' },
   { week: 3, theme: 'Poverty Mindset',         title: 'Breaking the Scarcity Cycle',      color: 'from-[#0A1A2F] to-[#22c55e]', accent: '#86efac', emoji: '🔓' },
   { week: 4, theme: 'Generosity',              title: 'You Cannot Out-Give God',           color: 'from-[#22c55e] to-[#0A1A2F]', accent: '#22c55e', emoji: '🤲' },
-  { week: 5, theme: 'Budgeting with Purpose',  title: 'Every Dollar Has a Mission',       color: 'from-[#0A1A2F] to-[#166534]', accent: '#4ade80', emoji: '📊' },
+  { week: 5, theme: 'Budgeting with Purpose',  title: 'Every Dollar Has a Mission',       color: 'from-[#0A1A2F] to-[#166534]', accent: '#22C55E', emoji: '📊' },
   { week: 6, theme: 'Income & Opportunity',    title: 'Opening Your Eyes to Provision',   color: 'from-[#166534] to-[#22c55e]', accent: '#86efac', emoji: '🚪' },
   { week: 7, theme: 'Wealth Building',         title: 'Planting for the Harvest',         color: 'from-[#22c55e] to-[#0A1A2F]', accent: '#22c55e', emoji: '📈' },
-  { week: 8, theme: 'Legacy & Overflow',       title: 'Living to Leave Something Behind', color: 'from-[#0A1A2F] to-[#22c55e]', accent: '#4ade80', emoji: '🏛️' },
+  { week: 8, theme: 'Legacy & Overflow',       title: 'Living to Leave Something Behind', color: 'from-[#0A1A2F] to-[#22c55e]', accent: '#22C55E', emoji: '🏛️' },
 ];
 
 export const FINANCIAL_FREEDOM_DAYS = [

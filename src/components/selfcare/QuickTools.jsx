@@ -37,7 +37,7 @@ export default function QuickTools() {
        id: 'prayer',
        icon: Heart,
        label: '2-Minute Prayer',
-       gradient: 'from-[#D9B878] to-[#D9B878]',
+       gradient: 'from-[#FAD98D] to-[#FAD98D]',
        isModal: true,
        content: (
          <div className="text-center space-y-4">
@@ -54,7 +54,7 @@ export default function QuickTools() {
        id: 'scripture',
        icon: BookOpen,
        label: 'Scripture of the Day',
-       gradient: 'from-[#D9B878] to-[#AFC7E3]',
+       gradient: 'from-[#FAD98D] to-[#AFC7E3]',
        isModal: false,
        action: () => navigate(createPageUrl('Bible')),
        content: (
@@ -80,7 +80,7 @@ export default function QuickTools() {
        id: 'mood',
        icon: Smile,
        label: 'Mood Check-In',
-       gradient: 'from-[#AFC7E3] to-[#D9B878]',
+       gradient: 'from-[#AFC7E3] to-[#FAD98D]',
        isModal: false,
        action: () => navigate(createPageUrl('SelfCare')),
        content: (

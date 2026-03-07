@@ -48,7 +48,7 @@ export default function ChallengeDetailModal({ challenge, user, participation, o
         animate={{ opacity: 1, scale: 1 }}
         className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
       >
-        <div className="bg-gradient-to-r from-[#c9a227] to-[#D9B878] px-6 py-4 flex items-center justify-between">
+        <div className="bg-gradient-to-r from-[#c9a227] to-[#FAD98D] px-6 py-4 flex items-center justify-between">
           <h2 className="text-xl font-bold text-white">{challenge.title}</h2>
           <Button
             onClick={onClose}
@@ -76,7 +76,7 @@ export default function ChallengeDetailModal({ challenge, user, participation, o
 
           {participation && (
             <>
-              <div className="bg-[#FAD98D]/10 rounded-lg p-4 border border-[#D9B878]/40">
+              <div className="bg-[#FAD98D]/10 rounded-lg p-4 border border-[#FAD98D]/40">
                 <div className="flex items-center justify-between mb-2">
                   <h3 className="font-semibold text-gray-900">Your Progress</h3>
                   <Badge className="bg-[#c9a227]">
@@ -119,7 +119,7 @@ export default function ChallengeDetailModal({ challenge, user, participation, o
                       reflectionText: reflection 
                     })}
                     disabled={!reflection.trim() || completeDayMutation.isPending}
-                    className="w-full bg-gradient-to-r from-[#c9a227] to-[#D9B878] hover:opacity-90 text-white"
+                    className="w-full bg-gradient-to-r from-[#c9a227] to-[#FAD98D] hover:opacity-90 text-white"
                   >
                     <Send className="w-4 h-4 mr-2" />
                     Complete Day {currentDay}

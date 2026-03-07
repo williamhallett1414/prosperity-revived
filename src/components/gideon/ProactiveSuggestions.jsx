@@ -73,11 +73,11 @@ export default function ProactiveSuggestions() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.1 }}
           >
-            <Card className={`bg-gradient-to-br ${gradient} border-[#D9B878]/40 dark:border-[#D9B878]/20`}>
+            <Card className={`bg-gradient-to-br ${gradient} border-[#FAD98D]/40 dark:border-[#FAD98D]/20`}>
               <div className="p-5">
                 <div className="flex items-start gap-3 mb-3">
                   <div className="w-10 h-10 bg-white/50 dark:bg-black/20 rounded-full flex items-center justify-center flex-shrink-0">
-                    <Icon className="w-5 h-5 text-[#8a6e1a] dark:text-[#c9a227]" />
+                    <Icon className="w-5 h-5 text-[#C9A227] dark:text-[#c9a227]" />
                   </div>
                   <div className="flex-1">
                     <h3 className="font-bold text-gray-900 dark:text-white mb-1">
@@ -95,8 +95,8 @@ export default function ProactiveSuggestions() {
 
                 {suggestion.scripture_reference && (
                   <div className="flex items-center gap-2 mb-3 px-3 py-2 bg-white/50 dark:bg-black/20 rounded-lg">
-                    <Book className="w-4 h-4 text-[#8a6e1a] dark:text-[#c9a227]" />
-                    <span className="text-sm font-medium text-[#3C4E53] dark:text-[#D9B878]">
+                    <Book className="w-4 h-4 text-[#C9A227] dark:text-[#c9a227]" />
+                    <span className="text-sm font-medium text-[#3C4E53] dark:text-[#FAD98D]">
                       {suggestion.scripture_reference}
                     </span>
                   </div>
@@ -114,7 +114,7 @@ export default function ProactiveSuggestions() {
                   <Button
                     size="sm"
                     onClick={() => markAsHelpful.mutate(suggestion.id)}
-                    className="flex-1 bg-gradient-to-r from-[#c9a227] to-[#D9B878] hover:from-[#b89320] hover:to-[#c9a227] text-white"
+                    className="flex-1 bg-gradient-to-r from-[#c9a227] to-[#FAD98D] hover:from-[#C9A227] hover:to-[#c9a227] text-white"
                   >
                     <ThumbsUp className="w-4 h-4 mr-2" />
                     Helpful

@@ -5,7 +5,7 @@ import { BookOpen, Dumbbell, Heart, Camera, MessageCircle, Users } from 'lucide-
 export default function ActivityTab({ userProgress }) {
   if (!userProgress) {
     return (
-      <div className="bg-white rounded-xl shadow-sm p-12 sm:p-16 text-center border border-[#D9B878]/25">
+      <div className="bg-white rounded-xl shadow-sm p-12 sm:p-16 text-center border border-[#FAD98D]/25">
         <div className="w-20 h-20 bg-[#FAD98D]/15 rounded-full flex items-center justify-center mx-auto mb-4">
           <span className="text-4xl">📊</span>
         </div>
@@ -20,21 +20,21 @@ export default function ActivityTab({ userProgress }) {
       icon: BookOpen,
       label: 'Reading Plans Completed',
       value: userProgress.reading_plans_completed || 0,
-      color: 'from-[#c9a227] to-[#D9B878]',
+      color: 'from-[#c9a227] to-[#FAD98D]',
       emoji: '📖'
     },
     {
       icon: MessageCircle,
       label: 'Community Posts',
       value: userProgress.community_posts || 0,
-      color: 'from-[#D9B878] to-[#c9a227]',
+      color: 'from-[#FAD98D] to-[#c9a227]',
       emoji: '💬'
     },
     {
       icon: Dumbbell,
       label: 'Workouts Completed',
       value: userProgress.workouts_completed || 0,
-      color: 'from-[#0A1A2F] to-[#1a3a5c]',
+      color: 'from-[#0A1A2F] to-[#0A1A2F]',
       emoji: '💪'
     },
     {
@@ -55,7 +55,7 @@ export default function ActivityTab({ userProgress }) {
       icon: MessageCircle,
       label: 'Comments Made',
       value: userProgress.comments_count || 0,
-      color: 'from-[#D9B878] to-[#FAD98D]',
+      color: 'from-[#FAD98D] to-[#FAD98D]',
       emoji: '💭'
     },
     {
@@ -80,7 +80,7 @@ export default function ActivityTab({ userProgress }) {
       animate={{ opacity: 1 }}
       className="space-y-4"
     >
-      <div className="bg-white rounded-xl shadow-sm p-6 border border-[#D9B878]/25">
+      <div className="bg-white rounded-xl shadow-sm p-6 border border-[#FAD98D]/25">
         <h2 className="text-2xl font-bold text-[#0A1A2F] mb-6">Activity Overview</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {activities.map((activity, index) => {
@@ -106,12 +106,12 @@ export default function ActivityTab({ userProgress }) {
       </div>
 
       {/* Recent Activity Timeline */}
-      <div className="bg-white rounded-xl shadow-sm p-6 border border-[#D9B878]/25">
+      <div className="bg-white rounded-xl shadow-sm p-6 border border-[#FAD98D]/25">
         <h3 className="text-xl font-bold text-[#0A1A2F] mb-5">Recent Milestones</h3>
         <div className="space-y-4">
           {userProgress.reading_plans_completed > 0 && (
-            <div className="flex items-start gap-3 p-3 bg-[#FAD98D]/10 rounded-lg border border-[#D9B878]/25">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#c9a227] to-[#D9B878] flex items-center justify-center text-white flex-shrink-0">
+            <div className="flex items-start gap-3 p-3 bg-[#FAD98D]/10 rounded-lg border border-[#FAD98D]/25">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center text-white flex-shrink-0">
                 📖
               </div>
               <div>
@@ -121,8 +121,8 @@ export default function ActivityTab({ userProgress }) {
             </div>
           )}
           {userProgress.workouts_completed > 0 && (
-            <div className="flex items-start gap-3 p-3 bg-[#FAD98D]/10 rounded-lg border border-[#D9B878]/25">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#c9a227] to-[#D9B878] flex items-center justify-center text-white flex-shrink-0">
+            <div className="flex items-start gap-3 p-3 bg-[#FAD98D]/10 rounded-lg border border-[#FAD98D]/25">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center text-white flex-shrink-0">
                 💪
               </div>
               <div>
@@ -132,8 +132,8 @@ export default function ActivityTab({ userProgress }) {
             </div>
           )}
           {userProgress.meditations_completed > 0 && (
-            <div className="flex items-start gap-3 p-3 bg-[#FAD98D]/10 rounded-lg border border-[#D9B878]/25">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#c9a227] to-[#D9B878] flex items-center justify-center text-white flex-shrink-0">
+            <div className="flex items-start gap-3 p-3 bg-[#FAD98D]/10 rounded-lg border border-[#FAD98D]/25">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center text-white flex-shrink-0">
                 🧘
               </div>
               <div>
@@ -143,8 +143,8 @@ export default function ActivityTab({ userProgress }) {
             </div>
           )}
           {userProgress.friends_count > 0 && (
-            <div className="flex items-start gap-3 p-3 bg-[#FAD98D]/10 rounded-lg border border-[#D9B878]/25">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#c9a227] to-[#D9B878] flex items-center justify-center text-white flex-shrink-0">
+            <div className="flex items-start gap-3 p-3 bg-[#FAD98D]/10 rounded-lg border border-[#FAD98D]/25">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center text-white flex-shrink-0">
                 👥
               </div>
               <div>

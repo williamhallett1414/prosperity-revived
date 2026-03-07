@@ -128,7 +128,7 @@ export default function ProactiveCoachingPanel({ user, onSelectTopic, onClose })
             onSelectTopic(`Help me with ${intervention.topicSuggestion}: `);
             onClose();
           }}
-          className="w-full bg-gradient-to-r from-[#c9a227] to-[#D9B878] hover:from-[#b89320] hover:to-[#D9B878] text-white"
+          className="w-full bg-gradient-to-r from-[#c9a227] to-[#FAD98D] hover:from-[#C9A227] hover:to-[#FAD98D] text-white"
           size="sm"
         >
           <MessageCircle className="w-4 h-4 mr-2" />

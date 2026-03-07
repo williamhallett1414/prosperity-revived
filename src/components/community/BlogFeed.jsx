@@ -13,7 +13,7 @@ const TOPICS = {
   faith:           { label: 'Faith',          emoji: '✝️', bg: 'bg-[#FAD98D]/30 text-[#c9a227]',      accent: '#c9a227' },
   fitness:         { label: 'Fitness',         emoji: '💪', bg: 'bg-[#AFC7E3]/30 text-[#3C4E53]',      accent: '#3C4E53' },
   nutrition:       { label: 'Nutrition',       emoji: '🥗', bg: 'bg-green-50 text-green-700',          accent: '#16a34a' },
-  mental_health:   { label: 'Mental Health',   emoji: '🧘', bg: 'bg-purple-50 text-purple-700',        accent: '#7c3aed' },
+  mental_health:   { label: 'Mental Health',   emoji: '🧘', bg: 'bg-purple-50 text-purple-700',        accent: '#8B5CF6' },
   personal_growth: { label: 'Personal Growth', emoji: '🌱', bg: 'bg-[#FAD98D]/20 text-[#c9a227]',      accent: '#FD9C2D' },
   relationships:   { label: 'Relationships',   emoji: '💕', bg: 'bg-pink-50 text-pink-700',            accent: '#db2777' },
   general:         { label: 'General',         emoji: '✨', bg: 'bg-[#F2F6FA] text-[#0A1A2F]/50',     accent: '#AFC7E3' },
@@ -21,12 +21,12 @@ const TOPICS = {
 
 // Deterministic avatar colour from author name
 const AVATAR_GRADIENTS = [
-  'from-[#c9a227] to-[#D9B878]',
+  'from-[#c9a227] to-[#FAD98D]',
   'from-[#3C4E53] to-[#AFC7E3]',
-  'from-[#0A1A2F] to-[#1a3a5c]',
+  'from-[#0A1A2F] to-[#0A1A2F]',
   'from-[#FD9C2D] to-[#c9a227]',
   'from-[#AFC7E3] to-[#3C4E53]',
-  'from-[#D9B878] to-[#FAD98D]',
+  'from-[#FAD98D] to-[#FAD98D]',
 ];
 function avatarGradient(name = '') {
   const code = [...name].reduce((s, c) => s + c.charCodeAt(0), 0);
@@ -100,7 +100,7 @@ function HeroBlogCard({ post }) {
 
   return (
     <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
-      className="bg-white rounded-2xl border border-[#D9B878]/20 overflow-hidden shadow-sm">
+      className="bg-white rounded-2xl border border-[#FAD98D]/20 overflow-hidden shadow-sm">
 
       {/* Coloured header band */}
       <div className="h-2 w-full" style={{ backgroundColor: topic.accent + '40' }} />
@@ -145,7 +145,7 @@ function HeroBlogCard({ post }) {
         </AnimatePresence>
 
         {/* Actions */}
-        <div className="flex items-center gap-4 mt-4 pt-3 border-t border-[#D9B878]/10">
+        <div className="flex items-center gap-4 mt-4 pt-3 border-t border-[#FAD98D]/10">
           <LikeButton post={post} />
           <ShareButton title={post.title} />
           <button onClick={() => setExpanded(e => !e)}
@@ -169,7 +169,7 @@ function BlogCard({ post, index }) {
 
   return (
     <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.04 }}
-      className="bg-white rounded-2xl border border-[#D9B878]/15 overflow-hidden">
+      className="bg-white rounded-2xl border border-[#FAD98D]/15 overflow-hidden">
       <div className="p-4">
 
         {/* Author row */}
@@ -209,7 +209,7 @@ function BlogCard({ post, index }) {
         </AnimatePresence>
 
         {/* Actions */}
-        <div className="flex items-center gap-3 mt-3 pt-2.5 border-t border-[#D9B878]/10">
+        <div className="flex items-center gap-3 mt-3 pt-2.5 border-t border-[#FAD98D]/10">
           <LikeButton post={post} />
           <ShareButton title={post.title} />
           <button onClick={() => setExpanded(e => !e)}
@@ -228,16 +228,16 @@ function BlogCard({ post, index }) {
 function SeedBanner({ onSeed, seeding }) {
   return (
     <motion.div initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }}
-      className="bg-gradient-to-r from-[#0A1A2F] to-[#1a2a3f] rounded-2xl p-4 flex items-center gap-3">
-      <div className="w-10 h-10 bg-[#D9B878]/20 rounded-xl flex items-center justify-center flex-shrink-0">
-        <BookOpen className="w-5 h-5 text-[#D9B878]" />
+      className="bg-gradient-to-r from-[#0A1A2F] to-[#0A1A2F] rounded-2xl p-4 flex items-center gap-3">
+      <div className="w-10 h-10 bg-[#FAD98D]/20 rounded-xl flex items-center justify-center flex-shrink-0">
+        <BookOpen className="w-5 h-5 text-[#FAD98D]" />
       </div>
       <div className="flex-1 min-w-0">
         <p className="text-sm font-bold text-white">Populate the Blog</p>
         <p className="text-xs text-white/45">Add 8 starter community posts</p>
       </div>
       <button onClick={onSeed} disabled={seeding}
-        className="flex-shrink-0 px-3.5 py-2 rounded-xl bg-[#D9B878] text-[#0A1A2F] text-xs font-bold disabled:opacity-50 hover:bg-[#c9a227] transition-colors flex items-center gap-1.5">
+        className="flex-shrink-0 px-3.5 py-2 rounded-xl bg-[#FAD98D] text-[#0A1A2F] text-xs font-bold disabled:opacity-50 hover:bg-[#c9a227] transition-colors flex items-center gap-1.5">
         {seeding ? <><Loader2 className="w-3.5 h-3.5 animate-spin" /> Adding…</> : 'Add Posts'}
       </button>
     </motion.div>
@@ -251,7 +251,7 @@ function FilterChip({ active, onClick, children }) {
       className={`text-xs px-3 py-1.5 rounded-full border flex-shrink-0 font-semibold transition-all ${
         active
           ? 'bg-[#0A1A2F] text-white border-[#0A1A2F]'
-          : 'bg-white text-[#0A1A2F]/50 border-[#D9B878]/25 hover:border-[#c9a227]/40'
+          : 'bg-white text-[#0A1A2F]/50 border-[#FAD98D]/25 hover:border-[#c9a227]/40'
       }`}>
       {children}
     </button>
@@ -301,15 +301,15 @@ export default function BlogFeed({ user, onWriteWithAI }) {
       {/* ── Write CTA ── */}
       {onWriteWithAI && (
         <button onClick={onWriteWithAI}
-          className="w-full flex items-center gap-3 bg-gradient-to-r from-[#0A1A2F] to-[#1a3a5c] text-white rounded-2xl p-4 hover:opacity-90 transition-opacity group">
-          <div className="w-9 h-9 rounded-xl bg-[#D9B878]/25 flex items-center justify-center group-hover:bg-[#D9B878]/35 transition-colors flex-shrink-0">
-            <Wand2 className="w-5 h-5 text-[#D9B878]" />
+          className="w-full flex items-center gap-3 bg-gradient-to-r from-[#0A1A2F] to-[#0A1A2F] text-white rounded-2xl p-4 hover:opacity-90 transition-opacity group">
+          <div className="w-9 h-9 rounded-xl bg-[#FAD98D]/25 flex items-center justify-center group-hover:bg-[#FAD98D]/35 transition-colors flex-shrink-0">
+            <Wand2 className="w-5 h-5 text-[#FAD98D]" />
           </div>
           <div className="text-left">
             <p className="font-bold text-sm">Write with AI</p>
             <p className="text-xs text-white/55">Share your story, faith journey, or insight with the community</p>
           </div>
-          <span className="ml-auto text-[#D9B878]/60 text-xs font-semibold flex-shrink-0">→</span>
+          <span className="ml-auto text-[#FAD98D]/60 text-xs font-semibold flex-shrink-0">→</span>
         </button>
       )}
 
@@ -337,16 +337,16 @@ export default function BlogFeed({ user, onWriteWithAI }) {
       {/* ── Loading skeletons ── */}
       {isLoading && (
         <div className="space-y-3">
-          <div className="bg-white rounded-2xl p-5 animate-pulse border border-[#D9B878]/15 h-40" />
-          {[1, 2].map(i => <div key={i} className="bg-white rounded-2xl p-4 animate-pulse border border-[#D9B878]/15 h-24" />)}
+          <div className="bg-white rounded-2xl p-5 animate-pulse border border-[#FAD98D]/15 h-40" />
+          {[1, 2].map(i => <div key={i} className="bg-white rounded-2xl p-4 animate-pulse border border-[#FAD98D]/15 h-24" />)}
         </div>
       )}
 
       {/* ── Empty state ── */}
       {!isLoading && filtered.length === 0 && (
-        <div className="bg-white rounded-2xl border border-[#D9B878]/15 p-10 text-center">
-          <div className="w-14 h-14 bg-[#FFF9ED] rounded-2xl flex items-center justify-center mx-auto mb-4">
-            <BookOpen className="w-7 h-7 text-[#D9B878]" />
+        <div className="bg-white rounded-2xl border border-[#FAD98D]/15 p-10 text-center">
+          <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <BookOpen className="w-7 h-7 text-[#FAD98D]" />
           </div>
           <h3 className="font-bold text-[#0A1A2F] mb-1">
             {filterTopic === 'all' ? 'No posts yet' : `No ${TOPICS[filterTopic]?.label} posts yet`}
@@ -358,7 +358,7 @@ export default function BlogFeed({ user, onWriteWithAI }) {
           </p>
           {onWriteWithAI && (
             <button onClick={onWriteWithAI}
-              className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#D9B878] to-[#c9a227] text-[#0A1A2F] font-bold text-sm hover:opacity-90 transition-opacity">
+              className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#FAD98D] to-[#c9a227] text-[#0A1A2F] font-bold text-sm hover:opacity-90 transition-opacity">
               Write the First Post
             </button>
           )}

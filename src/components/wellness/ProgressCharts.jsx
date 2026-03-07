@@ -50,8 +50,8 @@ export default function ProgressCharts() {
   });
 
   return (
-    <div className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4">
-      <h3 className="font-semibold text-[#1a1a2e] dark:text-white mb-4">Progress Tracking</h3>
+    <div className="bg-white dark:bg-[#0A1A2F] rounded-2xl p-4">
+      <h3 className="font-semibold text-[#0A1A2F] dark:text-white mb-4">Progress Tracking</h3>
 
       <Tabs defaultValue="water">
         <TabsList className="grid w-full grid-cols-2 mb-4">

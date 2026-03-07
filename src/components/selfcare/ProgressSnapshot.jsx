@@ -25,19 +25,19 @@ export default function ProgressSnapshot({ meditationSessions = [], challengePar
       icon: BookOpen,
       label: 'Days Read',
       value: daysRead,
-      color: 'from-[#D9B878] to-[#AFC7E3]'
+      color: 'from-[#FAD98D] to-[#AFC7E3]'
     },
     {
       icon: TrendingUp,
       label: 'Mood Trend',
       value: '↗️ Improving',
-      color: 'from-[#AFC7E3] to-[#D9B878]'
+      color: 'from-[#AFC7E3] to-[#FAD98D]'
     },
     {
       icon: Trophy,
       label: 'Active Challenges',
       value: activeChallenges,
-      color: 'from-[#D9B878] to-[#D9B878]'
+      color: 'from-[#FAD98D] to-[#FAD98D]'
     }
   ];
 

@@ -46,7 +46,7 @@ export default function PersonalizedRecommendations({
       title: 'Join a Study Group',
       description: "You're active in the community! Connect with like-minded believers",
       icon: Users,
-      color: 'text-[#8fa68a]',
+      color: 'text-[#AFC7E3]',
       link: 'Groups'
     });
   }
@@ -70,7 +70,7 @@ export default function PersonalizedRecommendations({
       title: 'Track Your Growth',
       description: 'Use our prayer journal and goal-setting tools',
       icon: TrendingUp,
-      color: 'text-[#8fa68a]',
+      color: 'text-[#AFC7E3]',
       link: 'SpiritualGrowth'
     });
   }
@@ -79,7 +79,7 @@ export default function PersonalizedRecommendations({
 
   return (
     <div className="mb-6">
-      <h2 className="text-xl font-bold text-[#1a1a2e] dark:text-white mb-4 flex items-center gap-2">
+      <h2 className="text-xl font-bold text-[#0A1A2F] dark:text-white mb-4 flex items-center gap-2">
         <Sparkles className="w-5 h-5 text-[#c9a227]" />
         For You
       </h2>
@@ -93,14 +93,14 @@ export default function PersonalizedRecommendations({
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: index * 0.1 }}
-                className="bg-gradient-to-r from-white to-[#faf8f5] dark:from-[#2d2d4a] dark:to-[#1a1a2e] rounded-2xl p-4 shadow-sm hover:shadow-md transition-shadow border border-gray-100 dark:border-gray-800"
+                className="bg-gradient-to-r from-white to-[#F2F6FA] dark:from-[#0A1A2F] dark:to-[#0A1A2F] rounded-2xl p-4 shadow-sm hover:shadow-md transition-shadow border border-gray-100 dark:border-gray-800"
               >
                 <div className="flex items-start gap-3">
-                  <div className={`w-10 h-10 rounded-full bg-[#faf8f5] dark:bg-[#1a1a2e] flex items-center justify-center ${rec.color}`}>
+                  <div className={`w-10 h-10 rounded-full bg-[#F2F6FA] dark:bg-[#0A1A2F] flex items-center justify-center ${rec.color}`}>
                     <Icon className="w-5 h-5" />
                   </div>
                   <div className="flex-1">
-                    <h3 className="font-semibold text-[#1a1a2e] dark:text-white mb-1">{rec.title}</h3>
+                    <h3 className="font-semibold text-[#0A1A2F] dark:text-white mb-1">{rec.title}</h3>
                     <p className="text-sm text-gray-600 dark:text-gray-400">{rec.description}</p>
                   </div>
                 </div>

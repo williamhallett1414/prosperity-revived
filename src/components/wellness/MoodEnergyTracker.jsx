@@ -62,8 +62,8 @@ export default function MoodEnergyTracker({ isOpen, onClose, onSubmit }) {
                     onClick={() => setMood(m.value)}
                     className={`p-3 rounded-lg border-2 flex flex-col items-center gap-1 transition-all ${
                       mood === m.value
-                        ? 'border-[#D9B878] bg-[#FAD98D]/10'
-                        : 'border-gray-200 hover:border-[#D9B878]/50'
+                        ? 'border-[#FAD98D] bg-[#FAD98D]/10'
+                        : 'border-gray-200 hover:border-[#FAD98D]/50'
                     }`}
                   >
                     <Icon className={`w-6 h-6 ${m.color}`} />
@@ -86,8 +86,8 @@ export default function MoodEnergyTracker({ isOpen, onClose, onSubmit }) {
                     onClick={() => setEnergy(e.value)}
                     className={`p-3 rounded-lg border-2 flex flex-col items-center gap-1 transition-all ${
                       energy === e.value
-                        ? 'border-[#D9B878] bg-[#FAD98D]/10'
-                        : 'border-gray-200 hover:border-[#D9B878]/50'
+                        ? 'border-[#FAD98D] bg-[#FAD98D]/10'
+                        : 'border-gray-200 hover:border-[#FAD98D]/50'
                     }`}
                   >
                     <Icon className={`w-6 h-6 ${e.color}`} />
@@ -114,7 +114,7 @@ export default function MoodEnergyTracker({ isOpen, onClose, onSubmit }) {
           <Button
             onClick={handleSubmit}
             disabled={!mood || !energy}
-            className="w-full bg-[#c9a227] hover:bg-[#b89320]"
+            className="w-full bg-[#c9a227] hover:bg-[#C9A227]"
           >
             Save Entry
           </Button>

@@ -167,13 +167,13 @@ export default function WorkoutCard({
                 className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm transition-all border ${
                   hasLiked
                     ? 'bg-[#38BDF8]/10 text-[#0EA5E9] border-[#38BDF8]/25'
-                    : 'border-[#BAE6FD]/30 text-[#0A1A2F]/40 hover:bg-[#F0F8FF]'
+                    : 'border-[#BAE6FD]/30 text-[#0A1A2F]/40 hover:bg-[#F2F6FA]'
                 }`}>
                 <ThumbsUp className={`w-4 h-4 ${hasLiked ? 'fill-current' : ''}`} />
                 {workout.likes || 0}
               </button>
               <button onClick={() => setShowComments(!showComments)}
-                className="px-3 py-2 rounded-lg border border-[#BAE6FD]/30 text-[#0A1A2F]/40 hover:bg-[#F0F8FF] transition-colors">
+                className="px-3 py-2 rounded-lg border border-[#BAE6FD]/30 text-[#0A1A2F]/40 hover:bg-[#F2F6FA] transition-colors">
                 <MessageCircle className="w-4 h-4" />
               </button>
             </>
@@ -185,16 +185,16 @@ export default function WorkoutCard({
               </Button>
               {showCommunityStats && (
                 <div className="flex gap-1.5">
-                  <div className="flex items-center gap-1 text-xs text-[#0A1A2F]/40 px-2.5 py-2 bg-[#F0F8FF] rounded-lg border border-[#BAE6FD]/20">
+                  <div className="flex items-center gap-1 text-xs text-[#0A1A2F]/40 px-2.5 py-2 bg-[#F2F6FA] rounded-lg border border-[#BAE6FD]/20">
                     <ThumbsUp className="w-3.5 h-3.5" />{workout.likes || 0}
                   </div>
-                  <div className="flex items-center gap-1 text-xs text-[#0A1A2F]/40 px-2.5 py-2 bg-[#F0F8FF] rounded-lg border border-[#BAE6FD]/20">
+                  <div className="flex items-center gap-1 text-xs text-[#0A1A2F]/40 px-2.5 py-2 bg-[#F2F6FA] rounded-lg border border-[#BAE6FD]/20">
                     <Copy className="w-3.5 h-3.5" />{workout.times_copied || 0}
                   </div>
                 </div>
               )}
               <button onClick={() => setShowComments(!showComments)}
-                className="flex items-center gap-1.5 px-3 py-2 rounded-lg border border-[#BAE6FD]/30 text-[#0A1A2F]/40 hover:bg-[#F0F8FF] text-xs transition-colors">
+                className="flex items-center gap-1.5 px-3 py-2 rounded-lg border border-[#BAE6FD]/30 text-[#0A1A2F]/40 hover:bg-[#F2F6FA] text-xs transition-colors">
                 {showComments ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
               </button>
             </>

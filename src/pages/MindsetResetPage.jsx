@@ -202,7 +202,7 @@ Write a 3-4 sentence personal coaching response. Affirm their insight, add one s
       className="fixed inset-0 z-50 bg-[#F2F6FA] flex flex-col overflow-y-auto">
 
       {/* Header */}
-      <div className="flex items-center justify-between px-4 py-3 bg-white border-b border-[#E2E8F0] flex-shrink-0 sticky top-0 z-10">
+      <div className="flex items-center justify-between px-4 py-3 bg-white border-b border-[#F2F6FA] flex-shrink-0 sticky top-0 z-10">
         <button onClick={onClose} className="w-9 h-9 rounded-full bg-[#F2F6FA] flex items-center justify-center">
           <ArrowLeft className="w-4 h-4 text-[#0A1A2F]" />
         </button>
@@ -214,7 +214,7 @@ Write a 3-4 sentence personal coaching response. Affirm their insight, add one s
         <div className="flex items-center gap-1">
           {[1,2,3].map(n => (
             <div key={n} className={`w-6 h-1.5 rounded-full transition-all ${
-              step >= n - 1 ? `bg-gradient-to-r ${cat.gradient}` : 'bg-[#E2E8F0]'
+              step >= n - 1 ? `bg-gradient-to-r ${cat.gradient}` : 'bg-[#F2F6FA]'
             }`} />
           ))}
         </div>
@@ -233,7 +233,7 @@ Write a 3-4 sentence personal coaching response. Affirm their insight, add one s
         {/* Steps 1–3 */}
         {step <= 2 && current && (
           <motion.div key={step} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
-            className="bg-white rounded-2xl border border-[#E2E8F0] p-5">
+            className="bg-white rounded-2xl border border-[#F2F6FA] p-5">
             <div className="flex items-center gap-2 mb-1">
               <div className="w-6 h-6 rounded-full flex items-center justify-center text-white text-xs font-bold"
                 style={{ background: cat.color }}>
@@ -249,7 +249,7 @@ Write a 3-4 sentence personal coaching response. Affirm their insight, add one s
               onChange={e => current.set(e.target.value)}
               placeholder={current.placeholder}
               rows={5}
-              className="w-full bg-[#F8FAFB] rounded-xl px-4 py-3 text-sm text-[#0A1A2F] placeholder-[#0A1A2F]/25 outline-none border border-transparent focus:border-[#D9B878]/50 resize-none transition-colors leading-relaxed"
+              className="w-full bg-[#F2F6FA] rounded-xl px-4 py-3 text-sm text-[#0A1A2F] placeholder-[#0A1A2F]/25 outline-none border border-transparent focus:border-[#FAD98D]/50 resize-none transition-colors leading-relaxed"
             />
           </motion.div>
         )}
@@ -257,7 +257,7 @@ Write a 3-4 sentence personal coaching response. Affirm their insight, add one s
         {/* AI loading */}
         {step === 3 && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-            className="bg-white rounded-2xl border border-[#E2E8F0] p-8 flex flex-col items-center text-center">
+            className="bg-white rounded-2xl border border-[#F2F6FA] p-8 flex flex-col items-center text-center">
             <Loader2 className="w-7 h-7 animate-spin mb-3" style={{ color: cat.color }} />
             <p className="text-sm font-semibold text-[#0A1A2F]">Getting your coaching response…</p>
             <p className="text-xs text-[#0A1A2F]/40 mt-1">Personalised to what you just wrote</p>
@@ -273,7 +273,7 @@ Write a 3-4 sentence personal coaching response. Affirm their insight, add one s
               { label: 'The challenge', value: challenge, num: 2 },
               { label: 'The truth', value: truth, num: 3 },
             ].map(({ label, value, num }) => (
-              <div key={num} className="bg-white rounded-2xl border border-[#E2E8F0] p-4">
+              <div key={num} className="bg-white rounded-2xl border border-[#F2F6FA] p-4">
                 <div className="flex items-center gap-2 mb-2">
                   <div className="w-5 h-5 rounded-full flex items-center justify-center text-white text-[10px] font-bold"
                     style={{ background: cat.color }}>{num}</div>
@@ -284,7 +284,7 @@ Write a 3-4 sentence personal coaching response. Affirm their insight, add one s
             ))}
 
             {/* AI coach card */}
-            <div className="rounded-2xl p-5 border border-[#D9B878]/30" style={{ background: `${cat.color}0f` }}>
+            <div className="rounded-2xl p-5 border border-[#FAD98D]/30" style={{ background: `${cat.color}0f` }}>
               <div className="flex items-center gap-2 mb-3">
                 <Sparkles className="w-4 h-4" style={{ color: cat.color }} />
                 <p className="text-xs font-bold uppercase tracking-widest" style={{ color: cat.color }}>Your coaching response</p>
@@ -295,7 +295,7 @@ Write a 3-4 sentence personal coaching response. Affirm their insight, add one s
             {/* Save */}
             <button onClick={handleSave} disabled={saving}
               className="w-full py-3.5 rounded-2xl text-[#0A1A2F] font-bold text-sm flex items-center justify-center gap-2 hover:opacity-90 transition-opacity"
-              style={{ background: `linear-gradient(135deg, #D9B878, #c9a227)` }}>
+              style={{ background: `linear-gradient(135deg, #FAD98D, #c9a227)` }}>
               {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Check className="w-4 h-4" />}
               {saving ? 'Saving…' : 'Save to Journal & Finish'}
             </button>
@@ -308,7 +308,7 @@ Write a 3-4 sentence personal coaching response. Affirm their insight, add one s
             onClick={nextStep}
             disabled={!current?.value.trim()}
             className="w-full py-3.5 rounded-2xl font-bold text-sm text-white flex items-center justify-center gap-2 disabled:opacity-30 transition-opacity hover:opacity-90"
-            style={{ background: current?.value.trim() ? `linear-gradient(135deg, ${cat.color}, ${cat.color}cc)` : '#E2E8F0' }}
+            style={{ background: current?.value.trim() ? `linear-gradient(135deg, ${cat.color}, ${cat.color}cc)` : '#F2F6FA' }}
           >
             {step === 2 ? (
               <><Sparkles className="w-4 h-4" />Get coaching response</>
@@ -358,10 +358,10 @@ export default function MindsetResetPage() {
     <>
       <div className="min-h-screen bg-[#F2F6FA] pb-28">
         {/* Header */}
-        <div className="sticky top-0 z-40 bg-white border-b border-[#E2E8F0] px-4 py-3">
+        <div className="sticky top-0 z-40 bg-white border-b border-[#F2F6FA] px-4 py-3">
           <div className="max-w-2xl mx-auto flex items-center gap-3">
             <Link to={createPageUrl('PersonalGrowth')}
-              className="w-9 h-9 rounded-full bg-[#F2F6FA] hover:bg-[#E8EFF6] flex items-center justify-center transition-colors">
+              className="w-9 h-9 rounded-full bg-[#F2F6FA] hover:bg-white flex items-center justify-center transition-colors">
               <ArrowLeft className="w-4 h-4 text-[#0A1A2F]" />
             </Link>
             <div className="flex-1">
@@ -372,7 +372,7 @@ export default function MindsetResetPage() {
             </div>
             <button onClick={() => setShowHistory(h => !h)}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-bold transition-all ${
-                showHistory ? 'bg-[#0A1A2F] text-white border-[#0A1A2F]' : 'bg-white text-[#0A1A2F]/50 border-[#E2E8F0]'
+                showHistory ? 'bg-[#0A1A2F] text-white border-[#0A1A2F]' : 'bg-white text-[#0A1A2F]/50 border-[#F2F6FA]'
               }`}>
               <Clock className="w-3.5 h-3.5" />
               History
@@ -387,7 +387,7 @@ export default function MindsetResetPage() {
             {showHistory && (
               <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }}
                 exit={{ opacity: 0, height: 0 }} className="overflow-hidden">
-                <div className="bg-white rounded-2xl border border-[#E2E8F0] divide-y divide-[#F2F6FA]">
+                <div className="bg-white rounded-2xl border border-[#F2F6FA] divide-y divide-[#F2F6FA]">
                   <div className="px-4 py-3 flex items-center justify-between">
                     <p className="text-xs font-bold text-[#0A1A2F]/40 uppercase tracking-widest">Recent Sessions</p>
                     <span className="text-xs text-[#0A1A2F]/35">{history.length} total</span>
@@ -428,7 +428,7 @@ export default function MindsetResetPage() {
               {QUICK_RESETS.map((r, i) => (
                 <motion.div key={i}
                   initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.04 }}
-                  className="bg-white rounded-xl border border-[#E2E8F0] p-3">
+                  className="bg-white rounded-xl border border-[#F2F6FA] p-3">
                   <p className="text-lg mb-1">{r.emoji}</p>
                   <p className="text-xs font-bold text-[#0A1A2F] leading-snug">{r.label}</p>
                   <p className="text-[10px] text-[#0A1A2F]/40 leading-tight mt-0.5">{r.sub}</p>
@@ -446,12 +446,12 @@ export default function MindsetResetPage() {
               {PROMPT_CATEGORIES.map((cat, i) => (
                 <motion.div key={cat.id}
                   initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}
-                  className="bg-white rounded-2xl border border-[#E2E8F0] overflow-hidden">
+                  className="bg-white rounded-2xl border border-[#F2F6FA] overflow-hidden">
 
                   {/* Category header */}
                   <button
                     onClick={() => setExpandedCat(expandedCat === cat.id ? null : cat.id)}
-                    className="w-full flex items-center gap-3 p-4 text-left hover:bg-[#F8FAFB] transition-colors">
+                    className="w-full flex items-center gap-3 p-4 text-left hover:bg-[#F2F6FA] transition-colors">
                     <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${cat.gradient} flex items-center justify-center flex-shrink-0 text-xl`}>
                       {cat.emoji}
                     </div>
@@ -462,7 +462,7 @@ export default function MindsetResetPage() {
                     {/* Shuffle button */}
                     <button
                       onClick={e => { e.stopPropagation(); shuffle(cat); }}
-                      className="w-8 h-8 rounded-full border border-[#E2E8F0] flex items-center justify-center hover:border-[#D9B878]/50 transition-colors flex-shrink-0"
+                      className="w-8 h-8 rounded-full border border-[#F2F6FA] flex items-center justify-center hover:border-[#FAD98D]/50 transition-colors flex-shrink-0"
                       title="Random prompt">
                       <RefreshCw className="w-3.5 h-3.5 text-[#0A1A2F]/40" />
                     </button>
@@ -480,7 +480,7 @@ export default function MindsetResetPage() {
                           {cat.prompts.map((prompt, j) => (
                             <button key={j}
                               onClick={() => startSession(prompt, cat)}
-                              className="w-full text-left flex items-start gap-3 py-2.5 px-3 rounded-xl hover:bg-[#F8FAFB] transition-colors group">
+                              className="w-full text-left flex items-start gap-3 py-2.5 px-3 rounded-xl hover:bg-[#F2F6FA] transition-colors group">
                               <div className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 text-white text-[10px] font-bold"
                                 style={{ background: cat.color }}>
                                 {j + 1}
@@ -507,7 +507,7 @@ export default function MindsetResetPage() {
 
           {/* Link to Growth Pathways */}
           <Link to={createPageUrl('GrowthPathwaysPage')}
-            className="flex items-center gap-3 bg-white rounded-2xl border border-[#E2E8F0] hover:border-[#D9B878]/40 p-4 transition-all group">
+            className="flex items-center gap-3 bg-white rounded-2xl border border-[#F2F6FA] hover:border-[#FAD98D]/40 p-4 transition-all group">
             <div className="w-10 h-10 bg-gradient-to-br from-violet-500 to-purple-400 rounded-xl flex items-center justify-center flex-shrink-0">
               <Brain className="w-5 h-5 text-white" />
             </div>

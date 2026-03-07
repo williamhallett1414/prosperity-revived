@@ -80,7 +80,7 @@ export default function WellnessRecommendations({ user }) {
         transition={{ delay: 0.2 }}
       >
         <Link to={createPageUrl('DiscoverRecipes')}>
-          <div className="bg-gradient-to-br from-[#D9B878] to-[#AFC7E3] rounded-2xl p-5 text-[#0A1A2F] cursor-pointer hover:shadow-lg transition-shadow">
+          <div className="bg-gradient-to-br from-[#FAD98D] to-[#AFC7E3] rounded-2xl p-5 text-[#0A1A2F] cursor-pointer hover:shadow-lg transition-shadow">
             <div className="flex items-center gap-3 mb-2">
               <UtensilsCrossed className="w-6 h-6" />
               <h3 className="text-lg font-semibold">Discover Recipes</h3>
@@ -128,7 +128,7 @@ export default function WellnessRecommendations({ user }) {
               { bg: 'bg-yellow-100', icon: 'text-yellow-600', Icon: Trophy },
               { bg: 'bg-red-100', icon: 'text-red-600', Icon: Dumbbell },
               { bg: 'bg-[#AFC7E3]/20', icon: 'text-[#3C4E53]', Icon: Heart },
-              { bg: 'bg-[#FAD98D]/20', icon: 'text-[#8a6e1a]', Icon: Target }
+              { bg: 'bg-[#FAD98D]/20', icon: 'text-[#C9A227]', Icon: Target }
             ];
             const colorSet = iconColors[index % iconColors.length];
             const Icon = colorSet.Icon;
@@ -152,7 +152,7 @@ export default function WellnessRecommendations({ user }) {
                     {isParticipating ? (
                       <div className="w-full">
                         <div className="h-1.5 bg-gray-200 rounded-full overflow-hidden">
-                          <div className="h-full bg-[#D9B878] rounded-full transition-all" style={{ width: `${progress}%` }} />
+                          <div className="h-full bg-[#FAD98D] rounded-full transition-all" style={{ width: `${progress}%` }} />
                         </div>
                         <p className="text-[10px] text-[#0A1A2F]/60 mt-1">{progress}%</p>
                       </div>

@@ -73,7 +73,7 @@ export default function WorkoutLogModal({ isOpen, onClose, workout, user }) {
           <div className="space-y-2.5">
             <h3 className="font-semibold text-sm text-[#0A1A2F]">Exercises Performed</h3>
             {session.exercises_performed.map((exercise, index) => (
-              <div key={index} className="border border-[#BAE6FD]/30 rounded-xl p-3 space-y-2 bg-[#F0F8FF]/60">
+              <div key={index} className="border border-[#BAE6FD]/30 rounded-xl p-3 space-y-2 bg-[#F2F6FA]/60">
                 <p className="font-semibold text-sm text-[#0A1A2F]">{exercise.name}</p>
                 <div className="grid grid-cols-2 gap-2">
                   <Input type="number" placeholder="Sets"

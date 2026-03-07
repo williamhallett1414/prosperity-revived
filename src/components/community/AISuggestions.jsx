@@ -55,7 +55,7 @@ export default function AISuggestions({ userPlans, onPostClick }) {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
-          className="bg-gradient-to-r from-[#1a1a2e] to-[#2d2d4a] rounded-2xl p-4 mb-6 relative overflow-hidden"
+          className="bg-gradient-to-r from-[#0A1A2F] to-[#0A1A2F] rounded-2xl p-4 mb-6 relative overflow-hidden"
         >
           <div className="absolute top-0 right-0 w-32 h-32 bg-[#c9a227] opacity-10 rounded-full -mr-16 -mt-16" />
           

@@ -268,7 +268,7 @@ export default function AffirmationsPage() {
         <AnimatePresence mode="wait">
           <motion.div key={currentIndex}
             initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }}
-            className="bg-gradient-to-br from-[#AFC7E3]/25 to-[#D9B878]/20 rounded-2xl border border-[#AFC7E3]/30 overflow-hidden">
+            className="bg-gradient-to-br from-[#AFC7E3]/25 to-[#FAD98D]/20 rounded-2xl border border-[#AFC7E3]/30 overflow-hidden">
 
             {/* Label pill */}
             <div className="px-5 pt-5 pb-1 flex items-center gap-2">
@@ -287,7 +287,7 @@ export default function AffirmationsPage() {
             </div>
 
             {/* Full verse */}
-            <div className="mx-5 mb-4 bg-white/70 rounded-xl p-4 border border-[#D9B878]/20">
+            <div className="mx-5 mb-4 bg-white/70 rounded-xl p-4 border border-[#FAD98D]/20">
               <p className="text-sm text-[#0A1A2F]/70 leading-relaxed italic">
                 {current.fullVerse}
               </p>
@@ -318,14 +318,14 @@ export default function AffirmationsPage() {
           <button onClick={handleSave} disabled={isSaved || saving}
             className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-2xl text-sm font-semibold border transition-all ${
               isSaved
-                ? 'bg-[#FAD98D]/20 border-[#D9B878]/40 text-[#c9a227]'
-                : 'bg-white border-[#D9B878]/30 text-[#0A1A2F]/70 hover:bg-[#FAD98D]/15'
+                ? 'bg-[#FAD98D]/20 border-[#FAD98D]/40 text-[#c9a227]'
+                : 'bg-white border-[#FAD98D]/30 text-[#0A1A2F]/70 hover:bg-[#FAD98D]/15'
             }`}>
-            <Heart className={`w-4 h-4 ${isSaved ? 'fill-[#c9a227] text-[#c9a227]' : 'text-[#D9B878]'}`} />
+            <Heart className={`w-4 h-4 ${isSaved ? 'fill-[#c9a227] text-[#c9a227]' : 'text-[#FAD98D]'}`} />
             {isSaved ? 'Saved' : saving ? 'Saving…' : 'Save to Favorites'}
           </button>
           <button onClick={handleShuffle}
-            className="flex items-center justify-center gap-2 px-5 py-3 rounded-2xl text-sm font-semibold bg-gradient-to-r from-[#c9a227] to-[#D9B878] text-white hover:opacity-90 active:scale-95 transition-all shadow-sm">
+            className="flex items-center justify-center gap-2 px-5 py-3 rounded-2xl text-sm font-semibold bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white hover:opacity-90 active:scale-95 transition-all shadow-sm">
             <RefreshCw className="w-4 h-4" />
             New
           </button>
@@ -348,8 +348,8 @@ export default function AffirmationsPage() {
                     <button key={i} onClick={() => { setCurrentIndex(i); setExpanded(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                       className={`w-full text-left rounded-2xl p-4 border transition-all ${
                         i === currentIndex
-                          ? 'bg-gradient-to-r from-[#AFC7E3]/25 to-[#D9B878]/15 border-[#AFC7E3]/40'
-                          : 'bg-white border-[#D9B878]/20 hover:border-[#AFC7E3]/40 hover:bg-[#F2F6FA]'
+                          ? 'bg-gradient-to-r from-[#AFC7E3]/25 to-[#FAD98D]/15 border-[#AFC7E3]/40'
+                          : 'bg-white border-[#FAD98D]/20 hover:border-[#AFC7E3]/40 hover:bg-[#F2F6FA]'
                       }`}>
                       <div className="flex items-start gap-3">
                         <div className="flex-1 min-w-0">

@@ -112,11 +112,11 @@ export default function PhotoGallery() {
   return (
     <div>
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-xl font-bold text-[#1a1a2e] dark:text-white">Photo Gallery</h2>
+        <h2 className="text-xl font-bold text-[#0A1A2F] dark:text-white">Photo Gallery</h2>
         <Button
           onClick={() => setShowAddPhoto(true)}
           size="sm"
-          className="bg-[#c9a227] hover:bg-[#b89120]"
+          className="bg-[#c9a227] hover:bg-[#C9A227]"
         >
           <Plus className="w-4 h-4 mr-2" />
           Add Photo
@@ -124,7 +124,7 @@ export default function PhotoGallery() {
       </div>
 
       {photos.length === 0 ? (
-        <div className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-8 text-center">
+        <div className="bg-white dark:bg-[#0A1A2F] rounded-2xl p-8 text-center">
           <ImageIcon className="w-12 h-12 text-gray-300 dark:text-gray-600 mx-auto mb-3" />
           <p className="text-gray-500 dark:text-gray-400 mb-4">No photos yet</p>
           <Button
@@ -172,7 +172,7 @@ export default function PhotoGallery() {
       {/* Add Photo Modal */}
       <Dialog open={showAddPhoto} onOpenChange={setShowAddPhoto}>
         <DialogContent>
-          <h3 className="text-lg font-semibold text-[#1a1a2e] dark:text-white mb-4">Add Photo</h3>
+          <h3 className="text-lg font-semibold text-[#0A1A2F] dark:text-white mb-4">Add Photo</h3>
           <div className="space-y-4">
             <Input
               placeholder="Caption (optional)"
@@ -224,7 +224,7 @@ export default function PhotoGallery() {
               animate={{ scale: 1 }}
               exit={{ scale: 0.8 }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-white dark:bg-[#2d2d4a] rounded-2xl max-w-2xl w-full overflow-hidden"
+              className="bg-white dark:bg-[#0A1A2F] rounded-2xl max-w-2xl w-full overflow-hidden"
             >
               <div className="relative">
                 {selectedPhoto.type === 'video' ? (

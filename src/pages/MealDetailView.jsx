@@ -98,7 +98,7 @@ export default function MealDetailView() {
 
   const getGradeColor = (score) => {
     if (score >= 90) return 'from-green-400 to-emerald-600';
-    if (score >= 80) return 'from-[#AFC7E3] to-[#D9B878]';
+    if (score >= 80) return 'from-[#AFC7E3] to-[#FAD98D]';
     if (score >= 70) return 'from-yellow-400 to-amber-600';
     if (score >= 60) return 'from-orange-400 to-orange-600';
     return 'from-red-400 to-red-600';
@@ -122,11 +122,11 @@ export default function MealDetailView() {
   return (
     <div className="min-h-screen bg-[#F2F6FA] pb-24">
       {/* Header */}
-      <div className="sticky top-0 z-40 bg-white border-b border-[#E6EBEF] px-4 py-3">
+      <div className="sticky top-0 z-40 bg-white border-b border-[#F2F6FA] px-4 py-3">
         <div className="max-w-2xl mx-auto flex items-center gap-3">
           <Link
             to={createPageUrl('FoodLogHistory')}
-            className="w-9 h-9 rounded-full bg-[#E6EBEF] hover:bg-[#D9DFE4] flex items-center justify-center transition-colors"
+            className="w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors"
           >
             <ArrowLeft className="w-4 h-4 text-[#0A1A2F]" />
           </Link>
@@ -238,7 +238,7 @@ export default function MealDetailView() {
               {meal.sugar && (
                 <div className="bg-[#FAD98D]/10 rounded-xl p-4 text-center">
                   <p className="text-xl font-bold text-[#c9a227]">{meal.sugar}g</p>
-                  <p className="text-xs text-[#8a6e1a] mt-1">Sugar</p>
+                  <p className="text-xs text-[#C9A227] mt-1">Sugar</p>
                 </div>
               )}
             </div>

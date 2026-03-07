@@ -117,7 +117,7 @@ export default function MeditationGuide() {
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           onClick={() => setShowAIMeditation(true)}
-          className="bg-gradient-to-br from-[#c9a227] to-[#D9B878] rounded-xl p-4 text-white text-left shadow-lg"
+          className="bg-gradient-to-br from-[#c9a227] to-[#FAD98D] rounded-xl p-4 text-white text-left shadow-lg"
         >
           <Sparkles className="w-6 h-6 mb-2" />
           <p className="font-semibold text-sm">Help Me Meditate</p>
@@ -144,9 +144,9 @@ export default function MeditationGuide() {
         <motion.div
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: 1, height: 'auto' }}
-          className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4"
+          className="bg-white dark:bg-[#0A1A2F] rounded-2xl p-4"
         >
-          <h3 className="font-semibold text-[#1a1a2e] dark:text-white mb-3">30-Day Meditation History</h3>
+          <h3 className="font-semibold text-[#0A1A2F] dark:text-white mb-3">30-Day Meditation History</h3>
           <div className="h-48">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={chartData}>
@@ -161,15 +161,15 @@ export default function MeditationGuide() {
           <div className="grid grid-cols-3 gap-3 mt-3">
             <div className="text-center p-2 bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5 rounded">
               <p className="text-xs text-gray-500">Total Sessions</p>
-              <p className="font-bold text-[#8a6e1a]">{chartData.reduce((sum, d) => sum + d.sessions, 0)}</p>
+              <p className="font-bold text-[#C9A227]">{chartData.reduce((sum, d) => sum + d.sessions, 0)}</p>
             </div>
             <div className="text-center p-2 bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5 rounded">
               <p className="text-xs text-gray-500">This Week</p>
-              <p className="font-bold text-[#8a6e1a]">{chartData.slice(-7).reduce((sum, d) => sum + d.sessions, 0)}</p>
+              <p className="font-bold text-[#C9A227]">{chartData.slice(-7).reduce((sum, d) => sum + d.sessions, 0)}</p>
             </div>
             <div className="text-center p-2 bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5 rounded">
               <p className="text-xs text-gray-500">Favorites</p>
-              <p className="font-bold text-[#8a6e1a]">{favorites.length}</p>
+              <p className="font-bold text-[#C9A227]">{favorites.length}</p>
             </div>
           </div>
         </motion.div>

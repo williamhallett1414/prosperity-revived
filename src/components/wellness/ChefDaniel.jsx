@@ -1052,7 +1052,7 @@ Return ONLY valid JSON array:
               ))}
               {isLoading && (
                 <div className="flex justify-start">
-                  <div className="bg-[#E6EBEF] rounded-2xl px-4 py-3">
+                  <div className="bg-gray-100 rounded-2xl px-4 py-3">
                     <Loader2 className="w-5 h-5 animate-spin text-[#AFC7E3]" />
                   </div>
                 </div>

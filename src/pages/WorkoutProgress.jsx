@@ -110,7 +110,7 @@ export default function WorkoutProgress() {
 
         {/* Charts */}
         <Tabs defaultValue="frequency" className="w-full px-4">
-          <TabsList className="grid w-full grid-cols-3 lg:grid-cols-5 bg-[#E6EBEF]">
+          <TabsList className="grid w-full grid-cols-3 lg:grid-cols-5 bg-gray-100">
             <TabsTrigger value="frequency">Frequency</TabsTrigger>
             <TabsTrigger value="prs">PRs</TabsTrigger>
             <TabsTrigger value="volume">Volume</TabsTrigger>

@@ -20,14 +20,14 @@ import { SACRED_KITCHEN_PLAN } from './sacredKitchenPlanData';
 import { BREAKTHROUGH_LEADERS_PLAN } from './breakthroughLeadersPlanData';
 
 export const WEEK_THEMES = [
-  { week: 1, theme: 'Foundation',   title: 'Know Your Why',         color: 'from-[#0D4F3C] to-[#22856A]', accent: '#22856A', emoji: '🌱' },
+  { week: 1, theme: 'Foundation',   title: 'Know Your Why',         color: 'from-[#3C4E53] to-[#FD9C2D]', accent: '#22856A', emoji: '🌱' },
   { week: 2, theme: 'Body',         title: 'Temple Strong',          color: 'from-[#0A1A2F] to-[#38BDF8]', accent: '#38BDF8', emoji: '💪' },
   { week: 3, theme: 'Mind',         title: 'Renew Your Mind',        color: 'from-[#3C4E53] to-[#AFC7E3]', accent: '#AFC7E3', emoji: '🧠' },
   { week: 4, theme: 'Spirit',       title: 'Deeper Waters',          color: 'from-[#0A1A2F] to-[#c9a227]', accent: '#c9a227', emoji: '✝️' },
-  { week: 5, theme: 'Nutrition',    title: 'Fuel the Mission',       color: 'from-[#1a4d1e] to-[#4ade80]', accent: '#4ade80', emoji: '🥗' },
-  { week: 6, theme: 'Habits',       title: 'Daily Discipline',       color: 'from-[#1e1a4d] to-[#FD9C2D]', accent: '#FD9C2D', emoji: '🔥' },
-  { week: 7, theme: 'Community',    title: 'Iron Sharpens Iron',     color: 'from-[#4d1a1a] to-[#D9B878]', accent: '#D9B878', emoji: '🤝' },
-  { week: 8, theme: 'Legacy',       title: 'Living Your Purpose',    color: 'from-[#0D4F3C] to-[#c9a227]', accent: '#c9a227', emoji: '👑' },
+  { week: 5, theme: 'Nutrition',    title: 'Fuel the Mission',       color: 'from-[#1a4d1e] to-[#22C55E]', accent: '#22C55E', emoji: '🥗' },
+  { week: 6, theme: 'Habits',       title: 'Daily Discipline',       color: 'from-[#0A1A2F] to-[#FD9C2D]', accent: '#FD9C2D', emoji: '🔥' },
+  { week: 7, theme: 'Community',    title: 'Iron Sharpens Iron',     color: 'from-[#4d1a1a] to-[#FAD98D]', accent: '#FAD98D', emoji: '🤝' },
+  { week: 8, theme: 'Legacy',       title: 'Living Your Purpose',    color: 'from-[#3C4E53] to-[#c9a227]', accent: '#c9a227', emoji: '👑' },
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -1372,7 +1372,7 @@ export const COACHING_PLANS = [
     weeks: 8,
     days_total: 56,
     difficulty: 'All Levels',
-    gradient: 'from-[#0D4F3C] to-[#c9a227]',
+    gradient: 'from-[#3C4E53] to-[#c9a227]',
     accent: '#c9a227',
     cover_emoji: '👑',
     tags: ['Bible', 'Fitness', 'Nutrition', 'Journaling', 'Mindset'],

@@ -98,7 +98,7 @@ const CHARS = {
     label: 'Coach David',
     skin:'#7a4a28', skinDark:'#5c3418', skinHi:'#9c6842',
     hair:'#080808', hairMid:'#181210', hairSheen:'#2e1c14',
-    irisHex:'#3a5a1c', lip:'#6a3424', lipDark:'#4e2418',
+    irisHex:'#3C4E53', lip:'#6a3424', lipDark:'#4e2418',
     // Dark performance athletic shirt
     cloth1:'#18182c', cloth2:'#28284c', cloth3:'#0e0e1e',
     bodyScale:[1.10, 1.0, 0.96],  // broad athletic build

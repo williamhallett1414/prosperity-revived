@@ -52,8 +52,8 @@ function ConditionPill({ condition, selected, count, onClick }) {
       onClick={onClick}
       className={`flex-shrink-0 flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold transition-all ${
         selected
-          ? 'bg-gradient-to-b from-[#c9a227] to-[#D9B878] text-white shadow-sm'
-          : 'bg-white border border-[#D9B878]/25 text-[#0A1A2F]/60 hover:border-[#c9a227]/40'
+          ? 'bg-gradient-to-b from-[#c9a227] to-[#FAD98D] text-white shadow-sm'
+          : 'bg-white border border-[#FAD98D]/25 text-[#0A1A2F]/60 hover:border-[#c9a227]/40'
       }`}
     >
       <span>{condition.emoji}</span>
@@ -117,8 +117,8 @@ export default function HealthRecipesTab({ recipes, user }) {
           onClick={() => setSelected(null)}
           className={`flex-shrink-0 flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold transition-all ${
             selected === null
-              ? 'bg-gradient-to-b from-[#c9a227] to-[#D9B878] text-white shadow-sm'
-              : 'bg-white border border-[#D9B878]/25 text-[#0A1A2F]/60 hover:border-[#c9a227]/40'
+              ? 'bg-gradient-to-b from-[#c9a227] to-[#FAD98D] text-white shadow-sm'
+              : 'bg-white border border-[#FAD98D]/25 text-[#0A1A2F]/60 hover:border-[#c9a227]/40'
           }`}
         >
           <Heart className="w-3.5 h-3.5" />
@@ -165,8 +165,8 @@ export default function HealthRecipesTab({ recipes, user }) {
 
       {/* ── Empty / seed state ── */}
       {!hasHealthRecipes && (
-        <div className="bg-white rounded-2xl border border-[#D9B878]/20 p-6 text-center space-y-4">
-          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#c9a227] to-[#D9B878] flex items-center justify-center mx-auto">
+        <div className="bg-white rounded-2xl border border-[#FAD98D]/20 p-6 text-center space-y-4">
+          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center mx-auto">
             <Heart className="w-7 h-7 text-white" />
           </div>
           <div>
@@ -194,7 +194,7 @@ export default function HealthRecipesTab({ recipes, user }) {
           <button
             onClick={handleSeed}
             disabled={seeding}
-            className="w-full py-3 rounded-xl bg-gradient-to-r from-[#c9a227] to-[#D9B878] text-white font-bold text-sm hover:opacity-90 disabled:opacity-50 flex items-center justify-center gap-2"
+            className="w-full py-3 rounded-xl bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white font-bold text-sm hover:opacity-90 disabled:opacity-50 flex items-center justify-center gap-2"
           >
             {seeding
               ? <><Loader2 className="w-4 h-4 animate-spin" /> Adding recipes ({SEED_RECIPES.length})…</>
@@ -247,7 +247,7 @@ export default function HealthRecipesTab({ recipes, user }) {
                       {condRecipes.length > 2 && (
                         <button
                           onClick={() => setSelected(cond.id)}
-                          className="w-full py-2.5 rounded-xl border border-[#D9B878]/25 text-xs font-bold text-[#c9a227] hover:bg-[#FAD98D]/10 transition-colors"
+                          className="w-full py-2.5 rounded-xl border border-[#FAD98D]/25 text-xs font-bold text-[#c9a227] hover:bg-[#FAD98D]/10 transition-colors"
                         >
                           + {condRecipes.length - 2} more {cond.label} recipes
                         </button>

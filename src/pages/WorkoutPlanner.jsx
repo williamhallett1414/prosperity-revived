@@ -27,7 +27,7 @@ const VERSES = [
 
 const CATEGORY_META = {
   cardio:      { label: 'Cardio',      icon: <Wind   className="w-3.5 h-3.5" />, color: 'bg-sky-100 text-sky-700 border-sky-200',      bar: 'bg-sky-500'    },
-  strength:    { label: 'Strength',    icon: <Dumbbell className="w-3.5 h-3.5" />, color: 'bg-[#FD9C2D]/10 text-[#c97a1a] border-[#FD9C2D]/30', bar: 'bg-[#FD9C2D]' },
+  strength:    { label: 'Strength',    icon: <Dumbbell className="w-3.5 h-3.5" />, color: 'bg-[#FD9C2D]/10 text-[#FD9C2D] border-[#FD9C2D]/30', bar: 'bg-[#FD9C2D]' },
   core:        { label: 'Core',        icon: <Zap    className="w-3.5 h-3.5" />, color: 'bg-purple-100 text-purple-700 border-purple-200', bar: 'bg-purple-500'  },
   flexibility: { label: 'Flexibility', icon: <Heart  className="w-3.5 h-3.5" />, color: 'bg-green-100 text-green-700 border-green-200',  bar: 'bg-green-500'  },
   hiit:        { label: 'HIIT',        icon: <Flame  className="w-3.5 h-3.5" />, color: 'bg-red-100 text-red-700 border-red-200',        bar: 'bg-red-500'    },
@@ -274,7 +274,7 @@ function DayView({ dayIdx, week, schedule, setSchedule, onAddWorkout }) {
           )}
         </div>
         <button onClick={onAddWorkout}
-          className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#FD9C2D] text-white font-bold text-sm hover:bg-[#e58a1f] transition-colors shadow-sm shadow-[#FD9C2D]/30"
+          className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#FD9C2D] text-white font-bold text-sm hover:bg-[#FD9C2D] transition-colors shadow-sm shadow-[#FD9C2D]/30"
         >
           <Plus className="w-4 h-4" /> Add
         </button>
@@ -507,7 +507,7 @@ export default function WorkoutPlanner() {
   const weekTotalWorkouts = Object.values(schedule).flat().length;
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[#F2F6FA]">
       {/* ── Page Header ── */}
       <div className="bg-[#3C4E53] px-5 pt-7 pb-6 relative overflow-hidden">
         <div className="absolute -top-8 -right-8 w-40 h-40 rounded-full bg-[#FD9C2D]/10" />

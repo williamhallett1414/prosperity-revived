@@ -97,7 +97,7 @@ export default function WorkoutDetailModal({ isOpen, onClose, workout, user, onS
                 </h3>
                 <div className="space-y-2">
                   {workout.exercises.map((ex, i) => (
-                    <div key={i} className="flex items-center gap-3 p-3 bg-[#F0F8FF] rounded-xl border border-[#BAE6FD]/25">
+                    <div key={i} className="flex items-center gap-3 p-3 bg-[#F2F6FA] rounded-xl border border-[#BAE6FD]/25">
                       <div className="w-7 h-7 rounded-full bg-gradient-to-br from-[#FD9C2D] to-[#E89020] text-white flex items-center justify-center font-bold text-xs flex-shrink-0">
                         {i + 1}
                       </div>
@@ -122,7 +122,7 @@ export default function WorkoutDetailModal({ isOpen, onClose, workout, user, onS
               </Button>
               <Button onClick={() => copyWorkout.mutate()} variant="outline"
                 disabled={copyWorkout.isPending}
-                className="border-[#BAE6FD]/40 text-[#0A1A2F]/60 hover:bg-[#F0F8FF]">
+                className="border-[#BAE6FD]/40 text-[#0A1A2F]/60 hover:bg-[#F2F6FA]">
                 <Copy className="w-4 h-4 mr-1.5" />
                 {copyWorkout.isPending ? 'Adding…' : 'Save'}
               </Button>

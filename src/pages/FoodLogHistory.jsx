@@ -52,11 +52,11 @@ export default function FoodLogHistory() {
   return (
     <div className="min-h-screen bg-[#F2F6FA] pb-24">
       {/* Header */}
-      <div className="sticky top-0 z-40 bg-white border-b border-[#E6EBEF] px-4 py-3">
+      <div className="sticky top-0 z-40 bg-white border-b border-[#F2F6FA] px-4 py-3">
         <div className="max-w-2xl mx-auto flex items-center gap-3">
           <Link
             to={createPageUrl('Wellness?tab=nutrition')}
-            className="w-9 h-9 rounded-full bg-[#E6EBEF] hover:bg-[#D9DFE4] flex items-center justify-center transition-colors"
+            className="w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors"
           >
             <ArrowLeft className="w-4 h-4 text-[#0A1A2F]" />
           </Link>
@@ -110,7 +110,7 @@ export default function FoodLogHistory() {
                   className="bg-white rounded-xl overflow-hidden shadow-sm"
                 >
                   {/* Date Header */}
-                  <div className="bg-gradient-to-r from-[#E6EBEF] to-[#AFC7E3] p-4">
+                  <div className="bg-gradient-to-r from-[#F2F6FA] to-[#AFC7E3] p-4">
                     <div className="flex items-center gap-2 mb-3">
                       <Calendar className="w-4 h-4 text-[#0A1A2F]" />
                       <h2 className="font-semibold text-[#0A1A2F]">

@@ -41,12 +41,12 @@ export default function DailyAffirmation() {
     >
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-xl font-bold text-[#0A1A2F] flex items-center gap-2">
-          <Sparkles className="w-5 h-5 text-[#D9B878]" />
+          <Sparkles className="w-5 h-5 text-[#FAD98D]" />
           Daily Affirmation
         </h2>
       </div>
 
-      <div className="bg-gradient-to-br from-[#E6EBEF] to-[#AFC7E3]/30 rounded-2xl p-6 border border-[#D9B878]/30 shadow-lg relative">
+      <div className="bg-gradient-to-br from-[#F2F6FA] to-[#AFC7E3]/30 rounded-2xl p-6 border border-[#FAD98D]/30 shadow-lg relative">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -55,7 +55,7 @@ export default function DailyAffirmation() {
           <p className="text-[#0A1A2F] text-lg font-serif italic mb-3">
             "{todaysAffirmation.text}"
           </p>
-          <p className="text-[#D9B878] text-sm font-semibold mb-4">
+          <p className="text-[#FAD98D] text-sm font-semibold mb-4">
             {todaysAffirmation.reference}
           </p>
 
@@ -68,7 +68,7 @@ export default function DailyAffirmation() {
             <Heart
               className={`w-5 h-5 ${
                 favorites.includes(affirmationIndex)
-                  ? 'fill-[#D9B878] text-[#D9B878]'
+                  ? 'fill-[#FAD98D] text-[#FAD98D]'
                   : 'text-[#0A1A2F]/40'
               }`}
             />

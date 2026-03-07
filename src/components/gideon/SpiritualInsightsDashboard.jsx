@@ -33,7 +33,7 @@ export default function SpiritualInsightsDashboard() {
   if (themes.length === 0 && emotions.length === 0) {
     return (
       <div className="px-4 py-6">
-        <Card className="bg-gradient-to-br from-[#FAD98D]/10 to-[#FAD98D]/10 dark:from-[#0A1A2F]/40 dark:to-[#1a1a2e]/40">
+        <Card className="bg-gradient-to-br from-[#FAD98D]/10 to-[#FAD98D]/10 dark:from-[#0A1A2F]/40 dark:to-[#0A1A2F]/40">
           <CardContent className="pt-6 text-center">
             <Sparkles className="w-12 h-12 mx-auto mb-3 text-[#c9a227]" />
             <h3 className="font-semibold text-lg mb-2">Start Your Journey</h3>
@@ -61,7 +61,7 @@ export default function SpiritualInsightsDashboard() {
       <Card className="bg-gradient-to-br from-[#FAD98D]/10 to-[#F2F6FA] dark:from-[#0A1A2F]/20 dark:to-[#0A1A2F]/20">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-lg">
-            <Target className="w-5 h-5 text-[#8a6e1a]" />
+            <Target className="w-5 h-5 text-[#C9A227]" />
             Spiritual Themes You're Exploring
           </CardTitle>
         </CardHeader>
@@ -89,7 +89,7 @@ export default function SpiritualInsightsDashboard() {
                     </div>
                   </div>
                   <div className="text-right">
-                    <div className="text-sm font-bold text-[#8a6e1a]">{theme.frequency_count}x</div>
+                    <div className="text-sm font-bold text-[#C9A227]">{theme.frequency_count}x</div>
                     <div className="text-xs text-gray-500">explored</div>
                   </div>
                 </div>
@@ -120,7 +120,7 @@ export default function SpiritualInsightsDashboard() {
       </Card>
 
       {/* Emotional Patterns */}
-      <Card className="bg-gradient-to-br from-[#FAD98D]/10 to-rose-50 dark:from-[#0A1A2F]/30 dark:to-[#1a1a2e]/30">
+      <Card className="bg-gradient-to-br from-[#FAD98D]/10 to-rose-50 dark:from-[#0A1A2F]/30 dark:to-[#0A1A2F]/30">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-lg">
             <Heart className="w-5 h-5 text-[#c9a227]" />
@@ -156,7 +156,7 @@ export default function SpiritualInsightsDashboard() {
                   {emotion.related_spiritual_themes.slice(0, 4).map((theme, i) => (
                     <span
                       key={i}
-                      className="text-xs bg-[#FAD98D]/20 dark:bg-[#0A1A2F]/30 text-[#8a6e1a] dark:text-[#FAD98D] px-2 py-1 rounded-full capitalize"
+                      className="text-xs bg-[#FAD98D]/20 dark:bg-[#0A1A2F]/30 text-[#C9A227] dark:text-[#FAD98D] px-2 py-1 rounded-full capitalize"
                     >
                       {theme}
                     </span>
@@ -179,7 +179,7 @@ export default function SpiritualInsightsDashboard() {
         <CardContent>
           <div className="grid grid-cols-2 gap-4">
             <div className="bg-white dark:bg-gray-800 rounded-lg p-4 text-center">
-              <div className="text-2xl font-bold text-[#8a6e1a]">{themes.length}</div>
+              <div className="text-2xl font-bold text-[#C9A227]">{themes.length}</div>
               <div className="text-xs text-gray-600 dark:text-gray-400">Themes Explored</div>
             </div>
             <div className="bg-white dark:bg-gray-800 rounded-lg p-4 text-center">

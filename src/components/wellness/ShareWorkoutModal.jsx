@@ -74,7 +74,7 @@ export default function ShareWorkoutModal({ isOpen, onClose, workout, user }) {
         </DialogHeader>
 
         <div className="space-y-4">
-          <div className="bg-[#F0F8FF] border border-[#BAE6FD]/30 rounded-lg p-4">
+          <div className="bg-[#F2F6FA] border border-[#BAE6FD]/30 rounded-lg p-4">
             <h3 className="font-semibold text-[#0A1A2F] mb-1">{workout?.title}</h3>
             <p className="text-sm text-[#0A1A2F]/60">
               {workout?.exercises?.length || 0} exercises • {workout?.duration_minutes} min
@@ -124,7 +124,7 @@ export default function ShareWorkoutModal({ isOpen, onClose, workout, user }) {
               <Button
                 onClick={() => unshareWorkout.mutate()}
                 variant="outline"
-                className="w-full border-[#BAE6FD]/40 text-[#0A1A2F]/60 hover:bg-[#F0F8FF]"
+                className="w-full border-[#BAE6FD]/40 text-[#0A1A2F]/60 hover:bg-[#F2F6FA]"
                 disabled={unshareWorkout.isPending}
               >
                 {unshareWorkout.isPending ? 'Removing...' : 'Make Private'}

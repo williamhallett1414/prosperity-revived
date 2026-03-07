@@ -72,7 +72,7 @@ export default function RecipeCollections({ allRecipes }) {
         <h3 className="text-lg font-semibold text-[#0A1A2F]">My Collections</h3>
         <Button
           onClick={() => setShowCreateModal(true)}
-          className="bg-[#c9a227] hover:bg-[#b89320]"
+          className="bg-[#c9a227] hover:bg-[#C9A227]"
           size="sm"
         >
           <Plus className="w-4 h-4 mr-2" />
@@ -147,7 +147,7 @@ export default function RecipeCollections({ allRecipes }) {
               <Button
                 onClick={() => createCollection.mutate(newCollection)}
                 disabled={!newCollection.name}
-                className="flex-1 bg-[#c9a227] hover:bg-[#b89320]"
+                className="flex-1 bg-[#c9a227] hover:bg-[#C9A227]"
               >
                 Create Collection
               </Button>

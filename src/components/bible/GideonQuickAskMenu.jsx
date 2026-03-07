@@ -51,7 +51,7 @@ export default function GideonQuickAskMenu({ onSelectPrompt, isLoading, isCollap
         height: isCollapsed ? 'auto' : 'auto',
         maxHeight: isCollapsed ? '48px' : '320px'
       }}
-      className="border-b border-[#D9B878]/20 bg-gradient-to-r from-[#FAD98D]/15 to-[#D9B878]/10"
+      className="border-b border-[#FAD98D]/20 bg-gradient-to-r from-[#FAD98D]/15 to-[#FAD98D]/10"
     >
       <div className="p-3">
         <Button
@@ -80,7 +80,7 @@ export default function GideonQuickAskMenu({ onSelectPrompt, isLoading, isCollap
                 <div key={category.category}>
                   <div className="flex items-center gap-2 mb-2">
                     <Icon className="w-4 h-4 text-[#c9a227]" />
-                    <h4 className="text-xs font-semibold text-[#8a6e1a]">
+                    <h4 className="text-xs font-semibold text-[#C9A227]">
                       {category.category}
                     </h4>
                   </div>
@@ -90,7 +90,7 @@ export default function GideonQuickAskMenu({ onSelectPrompt, isLoading, isCollap
                         key={prompt}
                         onClick={() => onSelectPrompt(prompt)}
                         disabled={isLoading}
-                        className="block w-full text-left text-xs px-3 py-2 rounded-lg bg-white hover:bg-[#FAD98D]/20 text-[#0A1A2F]/75 transition-colors border border-[#D9B878]/20 disabled:opacity-50"
+                        className="block w-full text-left text-xs px-3 py-2 rounded-lg bg-white hover:bg-[#FAD98D]/20 text-[#0A1A2F]/75 transition-colors border border-[#FAD98D]/20 disabled:opacity-50"
                       >
                         {prompt}
                       </button>

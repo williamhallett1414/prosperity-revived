@@ -242,10 +242,10 @@ const DECLARATIONS = [
 ];
 
 const PILLARS = [
-  { id: 'all',       label: 'All',        emoji: '✦',  gradient: 'from-[#0A1A2F] to-[#1a3a5c]',     color: '#D9B878' },
+  { id: 'all',       label: 'All',        emoji: '✦',  gradient: 'from-[#0A1A2F] to-[#0A1A2F]',     color: '#FAD98D' },
   { id: 'Beloved',   label: 'Beloved',    emoji: '💛',  gradient: 'from-rose-500 to-pink-400',        color: '#f43f5e' },
   { id: 'Redeemed',  label: 'Redeemed',   emoji: '✝️', gradient: 'from-[#c9a227] to-amber-400',      color: '#c9a227' },
-  { id: 'Equipped',  label: 'Equipped',   emoji: '⚡',  gradient: 'from-violet-600 to-purple-400',    color: '#7c3aed' },
+  { id: 'Equipped',  label: 'Equipped',   emoji: '⚡',  gradient: 'from-violet-600 to-purple-400',    color: '#8B5CF6' },
   { id: 'Called',    label: 'Called',     emoji: '🌟',  gradient: 'from-orange-500 to-amber-400',     color: '#f97316' },
   { id: 'Protected', label: 'Protected',  emoji: '🛡️', gradient: 'from-sky-600 to-blue-400',         color: '#0ea5e9' },
 ];
@@ -288,12 +288,12 @@ function DeclarationMode({ declarations, startIndex, onClose }) {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       className="fixed inset-0 z-50 flex flex-col"
-      style={{ background: 'linear-gradient(160deg, #0A1A2F 0%, #0f2440 50%, #1a1a2e 100%)' }}
+      style={{ background: 'linear-gradient(160deg, #0A1A2F 0%, #0f2440 50%, #0A1A2F 100%)' }}
     >
       {/* Subtle radial glow behind declaration */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
         <div className="w-80 h-80 rounded-full opacity-10"
-          style={{ background: `radial-gradient(circle, ${pillar?.color || '#D9B878'} 0%, transparent 70%)` }} />
+          style={{ background: `radial-gradient(circle, ${pillar?.color || '#FAD98D'} 0%, transparent 70%)` }} />
       </div>
 
       {/* Top bar */}
@@ -311,7 +311,7 @@ function DeclarationMode({ declarations, startIndex, onClose }) {
             <div key={i} className={`rounded-full transition-all duration-300 ${
               i === idx ? 'w-5 h-1.5' : 'w-1.5 h-1.5'
             }`}
-              style={{ background: i <= idx ? (pillar?.color || '#D9B878') : 'rgba(255,255,255,0.15)' }} />
+              style={{ background: i <= idx ? (pillar?.color || '#FAD98D') : 'rgba(255,255,255,0.15)' }} />
           ))}
         </div>
       </div>
@@ -326,7 +326,7 @@ function DeclarationMode({ declarations, startIndex, onClose }) {
           className="flex items-center gap-1.5 mb-6"
         >
           <span className="text-sm">{pillar?.emoji}</span>
-          <span className="text-[10px] font-bold uppercase tracking-widest" style={{ color: pillar?.color || '#D9B878' }}>
+          <span className="text-[10px] font-bold uppercase tracking-widest" style={{ color: pillar?.color || '#FAD98D' }}>
             {decl.pillar}
           </span>
         </motion.div>
@@ -347,7 +347,7 @@ function DeclarationMode({ declarations, startIndex, onClose }) {
               style={{ fontSize: 'clamp(1.5rem, 5vw, 2.25rem)', fontFamily: 'Georgia, serif', lineHeight: 1.2 }}>
               "{decl.truth}"
             </h2>
-            <p className="text-sm font-bold" style={{ color: pillar?.color || '#D9B878' }}>{decl.verse}</p>
+            <p className="text-sm font-bold" style={{ color: pillar?.color || '#FAD98D' }}>{decl.verse}</p>
           </motion.div>
         </AnimatePresence>
 
@@ -369,7 +369,7 @@ function DeclarationMode({ declarations, startIndex, onClose }) {
             <motion.div key="confirmed"
               initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ opacity: 0 }}
               className="flex items-center gap-2 px-6 py-3 rounded-2xl"
-              style={{ background: pillar?.color || '#D9B878' }}
+              style={{ background: pillar?.color || '#FAD98D' }}
             >
               <Check className="w-5 h-5 text-white" />
               <span className="text-white font-bold text-sm">Declared!</span>
@@ -379,7 +379,7 @@ function DeclarationMode({ declarations, startIndex, onClose }) {
               initial={{ opacity: 0 }} animate={{ opacity: 1 }}
               onClick={markSpoken}
               className="flex items-center gap-2 px-6 py-3 rounded-2xl border-2 text-white font-bold text-sm hover:bg-white/10 transition-colors"
-              style={{ borderColor: pillar?.color || '#D9B878', color: pillar?.color || '#D9B878' }}
+              style={{ borderColor: pillar?.color || '#FAD98D', color: pillar?.color || '#FAD98D' }}
             >
               <Mic className="w-4 h-4" />
               I declared this
@@ -406,7 +406,7 @@ function DeclarationMode({ declarations, startIndex, onClose }) {
         {isLast ? (
           <button onClick={onClose}
             className="px-4 py-2 rounded-full text-xs font-bold transition-all border"
-            style={{ borderColor: pillar?.color || '#D9B878', color: pillar?.color || '#D9B878' }}>
+            style={{ borderColor: pillar?.color || '#FAD98D', color: pillar?.color || '#FAD98D' }}>
             Finish
           </button>
         ) : (
@@ -431,7 +431,7 @@ function DeclarationCard({ decl, isFav, isMemorized, onToggleFav, onToggleMemori
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.035 }}
       className={`bg-white rounded-2xl border overflow-hidden transition-all ${
-        isMemorized ? 'border-emerald-200' : 'border-[#E2E8F0]'
+        isMemorized ? 'border-emerald-200' : 'border-[#F2F6FA]'
       }`}
     >
       {/* Pillar color bar */}
@@ -508,7 +508,7 @@ function DeclarationCard({ decl, isFav, isMemorized, onToggleFav, onToggleMemori
             className={`flex items-center justify-center gap-1 px-3 py-2 rounded-xl text-xs font-bold border transition-all ${
               isMemorized
                 ? 'bg-emerald-50 border-emerald-200 text-emerald-600'
-                : 'bg-[#F2F6FA] border-[#E2E8F0] text-[#0A1A2F]/40 hover:border-emerald-200'
+                : 'bg-[#F2F6FA] border-[#F2F6FA] text-[#0A1A2F]/40 hover:border-emerald-200'
             }`}
           >
             <Check className="w-3 h-3" />
@@ -571,10 +571,10 @@ export default function IdentityInChristPage() {
       <div className="min-h-screen bg-[#F2F6FA] pb-28">
 
         {/* ── Header ─────────────────────────────────────────────────────── */}
-        <div className="sticky top-0 z-40 bg-white border-b border-[#E2E8F0] px-4 py-3">
+        <div className="sticky top-0 z-40 bg-white border-b border-[#F2F6FA] px-4 py-3">
           <div className="max-w-2xl mx-auto flex items-center gap-3">
             <Link to={createPageUrl('PersonalGrowth')}
-              className="w-9 h-9 rounded-full bg-[#F2F6FA] hover:bg-[#E8EFF6] flex items-center justify-center transition-colors">
+              className="w-9 h-9 rounded-full bg-[#F2F6FA] hover:bg-white flex items-center justify-center transition-colors">
               <ArrowLeft className="w-4 h-4 text-[#0A1A2F]" />
             </Link>
             <div className="flex-1">
@@ -584,7 +584,7 @@ export default function IdentityInChristPage() {
               </p>
             </div>
             <button onClick={startDeclareAll}
-              className="flex items-center gap-1.5 bg-gradient-to-r from-[#D9B878] to-[#c9a227] text-[#0A1A2F] rounded-xl px-3 py-1.5 hover:opacity-90 transition-opacity">
+              className="flex items-center gap-1.5 bg-gradient-to-r from-[#FAD98D] to-[#c9a227] text-[#0A1A2F] rounded-xl px-3 py-1.5 hover:opacity-90 transition-opacity">
               <Mic className="w-3.5 h-3.5" />
               <span className="text-xs font-bold">Declare All</span>
             </button>
@@ -598,15 +598,15 @@ export default function IdentityInChristPage() {
             <div className="flex items-center justify-between mb-2">
               <p className="text-xs font-bold text-[#0A1A2F]/35 uppercase tracking-widest">Today's Declaration</p>
             </div>
-            <div className="bg-gradient-to-br from-[#0A1A2F] to-[#1a3a5c] rounded-3xl p-6 shadow-lg border border-[#D9B878]/15 relative overflow-hidden">
+            <div className="bg-gradient-to-br from-[#0A1A2F] to-[#0A1A2F] rounded-3xl p-6 shadow-lg border border-[#FAD98D]/15 relative overflow-hidden">
               {/* Glow */}
               <div className="absolute top-0 right-0 w-48 h-48 rounded-full pointer-events-none"
-                style={{ background: `radial-gradient(circle at 100% 0%, ${todayPillar?.color || '#D9B878'}20 0%, transparent 70%)` }} />
+                style={{ background: `radial-gradient(circle at 100% 0%, ${todayPillar?.color || '#FAD98D'}20 0%, transparent 70%)` }} />
 
               <div className="relative">
                 <div className="flex items-center gap-2 mb-4">
                   <span className="text-lg">{todayPillar?.emoji}</span>
-                  <span className="text-[10px] font-bold uppercase tracking-widest" style={{ color: todayPillar?.color || '#D9B878' }}>
+                  <span className="text-[10px] font-bold uppercase tracking-widest" style={{ color: todayPillar?.color || '#FAD98D' }}>
                     {today.pillar}
                   </span>
                 </div>
@@ -615,7 +615,7 @@ export default function IdentityInChristPage() {
                   style={{ fontFamily: 'Georgia, serif' }}>
                   "{today.truth}"
                 </h2>
-                <p className="text-sm font-semibold mb-3" style={{ color: todayPillar?.color || '#D9B878' }}>
+                <p className="text-sm font-semibold mb-3" style={{ color: todayPillar?.color || '#FAD98D' }}>
                   {today.verse}
                 </p>
                 <p className="text-white/55 text-xs italic leading-relaxed mb-4" style={{ fontFamily: 'Georgia, serif' }}>
@@ -625,7 +625,7 @@ export default function IdentityInChristPage() {
                 <div className="flex gap-2">
                   <button onClick={() => startDeclareSingle(today)}
                     className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-[#0A1A2F] text-xs font-bold hover:opacity-90 transition-opacity"
-                    style={{ background: todayPillar?.color || '#D9B878' }}>
+                    style={{ background: todayPillar?.color || '#FAD98D' }}>
                     <Mic className="w-3.5 h-3.5" />
                     Declare now
                   </button>
@@ -647,11 +647,11 @@ export default function IdentityInChristPage() {
           <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }}
             className="grid grid-cols-3 gap-3">
             {[
-              { value: DECLARATIONS.length, label: 'Total',     sub: 'declarations', color: '#D9B878' },
+              { value: DECLARATIONS.length, label: 'Total',     sub: 'declarations', color: '#FAD98D' },
               { value: memorizedCount,       label: 'Memorized', sub: 'committed',    color: '#10b981' },
               { value: favCount,             label: 'Saved',     sub: 'favorites',    color: '#f59e0b' },
             ].map(({ value, label, sub, color }) => (
-              <div key={label} className="bg-white rounded-2xl border border-[#E2E8F0] p-3.5 text-center">
+              <div key={label} className="bg-white rounded-2xl border border-[#F2F6FA] p-3.5 text-center">
                 <p className="font-bold text-xl text-[#0A1A2F]" style={value > 0 ? { color } : {}}>{value}</p>
                 <p className="text-xs font-bold text-[#0A1A2F] mt-0.5">{label}</p>
                 <p className="text-[10px] text-[#0A1A2F]/35">{sub}</p>
@@ -667,7 +667,7 @@ export default function IdentityInChristPage() {
                   className={`flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-semibold whitespace-nowrap transition-all ${
                     pillarFilter === p.id && !showFavOnly
                       ? 'bg-[#0A1A2F] text-white border-[#0A1A2F]'
-                      : 'bg-white text-[#0A1A2F]/50 border-[#E2E8F0] hover:border-[#D9B878]/40'
+                      : 'bg-white text-[#0A1A2F]/50 border-[#F2F6FA] hover:border-[#FAD98D]/40'
                   }`}>
                   <span>{p.emoji}</span>
                   {p.label}
@@ -683,7 +683,7 @@ export default function IdentityInChristPage() {
                 className={`flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-semibold whitespace-nowrap transition-all ${
                   showFavOnly
                     ? 'bg-amber-500 text-white border-amber-500'
-                    : 'bg-white text-[#0A1A2F]/50 border-[#E2E8F0] hover:border-amber-300'
+                    : 'bg-white text-[#0A1A2F]/50 border-[#F2F6FA] hover:border-amber-300'
                 }`}>
                 <Star className={`w-3 h-3 ${showFavOnly ? 'fill-white' : ''}`} />
                 Saved
@@ -738,7 +738,7 @@ export default function IdentityInChristPage() {
           {/* ── Cross-link to Growth Pathways ─────────────────────────────── */}
           <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
             <Link to={createPageUrl('GrowthPathwaysPage')}
-              className="flex items-center gap-3 bg-white rounded-2xl border border-[#E2E8F0] hover:border-[#D9B878]/40 p-4 transition-all group">
+              className="flex items-center gap-3 bg-white rounded-2xl border border-[#F2F6FA] hover:border-[#FAD98D]/40 p-4 transition-all group">
               <div className="w-10 h-10 bg-gradient-to-br from-rose-500 to-pink-400 rounded-xl flex items-center justify-center flex-shrink-0">
                 <Crown className="w-5 h-5 text-white" />
               </div>

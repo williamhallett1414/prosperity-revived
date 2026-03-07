@@ -21,7 +21,7 @@ const DIET_STYLE = {
   keto:        'bg-[#FAD98D]/30 text-[#c9a227]',
   vegan:       'bg-[#AFC7E3]/25 text-[#3C4E53]',
   vegetarian:  'bg-[#AFC7E3]/20 text-[#3C4E53]',
-  paleo:       'bg-[#D9B878]/25 text-[#0A1A2F]/70',
+  paleo:       'bg-[#FAD98D]/25 text-[#0A1A2F]/70',
   gluten_free: 'bg-[#FAD98D]/20 text-[#c9a227]',
 };
 
@@ -42,7 +42,7 @@ function RichStep({ text, stepNum }) {
 
   return (
     <li className="flex gap-3">
-      <span className="w-7 h-7 rounded-full bg-gradient-to-br from-[#c9a227] to-[#D9B878] text-white text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5 shadow-sm">
+      <span className="w-7 h-7 rounded-full bg-gradient-to-br from-[#c9a227] to-[#FAD98D] text-white text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5 shadow-sm">
         {stepNum}
       </span>
       <p className="text-sm text-[#0A1A2F]/80 leading-relaxed flex-1 pt-0.5">
@@ -134,7 +134,7 @@ Rules:
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: Math.min(index * 0.04, 0.4) }}
-        className="bg-white rounded-2xl overflow-hidden border border-[#D9B878]/20 shadow-sm"
+        className="bg-white rounded-2xl overflow-hidden border border-[#FAD98D]/20 shadow-sm"
       >
         {recipe.image_url && (
           <img src={recipe.image_url} alt={recipe.title} className="w-full h-44 object-cover" />
@@ -193,7 +193,7 @@ Rules:
             <div className="flex gap-2 mb-3 overflow-x-auto pb-0.5">
               <NutritionPill label="Cal"     value={displayed.calories} unit=""   color="bg-[#FAD98D]/20" />
               <NutritionPill label="Protein" value={displayed.protein}  unit="g"  color="bg-[#AFC7E3]/20" />
-              <NutritionPill label="Carbs"   value={displayed.carbs}    unit="g"  color="bg-[#D9B878]/15" />
+              <NutritionPill label="Carbs"   value={displayed.carbs}    unit="g"  color="bg-[#FAD98D]/15" />
               <NutritionPill label="Fat"     value={displayed.fat}      unit="g"  color="bg-[#FAD98D]/15" />
               {displayed.fiber && <NutritionPill label="Fiber" value={displayed.fiber} unit="g" color="bg-[#AFC7E3]/15" />}
             </div>

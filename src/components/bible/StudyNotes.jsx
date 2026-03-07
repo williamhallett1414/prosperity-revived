@@ -26,7 +26,7 @@ export default function StudyNotes({ section, subsection, notes, onSave }) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setIsOpen(true)}
-            className="flex items-center gap-2 text-sm text-[#c9a227] hover:text-[#b8931f] transition-colors"
+            className="flex items-center gap-2 text-sm text-[#c9a227] hover:text-[#C9A227] transition-colors"
           >
             <FileText className="w-4 h-4" />
             {notes ? 'Edit notes' : 'Add notes'}
@@ -60,7 +60,7 @@ export default function StudyNotes({ section, subsection, notes, onSave }) {
                   </Button>
                   <Button
                     size="sm"
-                    className="bg-[#c9a227] hover:bg-[#b8931f] text-white"
+                    className="bg-[#c9a227] hover:bg-[#C9A227] text-white"
                     onClick={handleSave}
                     disabled={isSaving}
                   >

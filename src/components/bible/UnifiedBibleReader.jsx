@@ -46,7 +46,7 @@ function BookRow({ book, isActive, onSelect }) {
       onClick={() => onSelect(book)}
       className={`w-full text-left px-3 py-2.5 rounded-lg mb-0.5 transition-all flex items-center justify-between group ${
         isActive
-          ? 'bg-gradient-to-r from-[#c9a227] to-[#D9B878] text-white shadow-sm'
+          ? 'bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white shadow-sm'
           : 'hover:bg-[#FAD98D]/20 text-[#0A1A2F]/65 hover:text-[#0A1A2F]'
       }`}
     >
@@ -278,7 +278,7 @@ export default function UnifiedBibleReader({
   const sidebarContent = (
     <div className="flex flex-col h-full overflow-hidden">
       {/* Header */}
-      <div className="flex-shrink-0 px-4 pt-5 pb-4 border-b border-[#D9B878]/20">
+      <div className="flex-shrink-0 px-4 pt-5 pb-4 border-b border-[#FAD98D]/20">
         <button
           onClick={onBack}
           className="flex items-center gap-1.5 text-[#0A1A2F]/40 hover:text-[#c9a227] mb-4 transition-colors text-xs font-semibold"
@@ -294,7 +294,7 @@ export default function UnifiedBibleReader({
             value={bookSearch}
             onChange={e => setBookSearch(e.target.value)}
             placeholder="Search books…"
-            className="w-full pl-8 pr-3 py-2 text-xs rounded-lg bg-[#FAD98D]/15 border border-[#D9B878]/25 focus:outline-none focus:border-[#c9a227]/60 text-[#0A1A2F] placeholder:text-[#0A1A2F]/30"
+            className="w-full pl-8 pr-3 py-2 text-xs rounded-lg bg-[#FAD98D]/15 border border-[#FAD98D]/25 focus:outline-none focus:border-[#c9a227]/60 text-[#0A1A2F] placeholder:text-[#0A1A2F]/30"
           />
         </div>
       </div>
@@ -338,11 +338,11 @@ export default function UnifiedBibleReader({
   return (
     // Account for global fixed header (~56px = 3.5rem) + fixed bottom nav (~60px = 3.75rem)
     <div
-      className="flex bg-[#FFFDF7]"
+      className="flex bg-[#F2F6FA]"
       style={{ height: 'calc(100vh - 9rem)' }}
     >
       {/* ── Desktop sidebar ── */}
-      <div className="hidden md:flex flex-col w-56 flex-shrink-0 border-r border-[#D9B878]/20 bg-[#FFFDF7]">
+      <div className="hidden md:flex flex-col w-56 flex-shrink-0 border-r border-[#FAD98D]/20 bg-[#F2F6FA]">
         {sidebarContent}
       </div>
 
@@ -358,9 +358,9 @@ export default function UnifiedBibleReader({
             <motion.div
               initial={{ x: -300 }} animate={{ x: 0 }} exit={{ x: -300 }}
               transition={{ type: 'spring', damping: 26, stiffness: 280 }}
-              className="fixed left-0 top-0 bottom-0 w-72 bg-[#FFFDF7] z-50 shadow-2xl flex flex-col md:hidden"
+              className="fixed left-0 top-0 bottom-0 w-72 bg-[#F2F6FA] z-50 shadow-2xl flex flex-col md:hidden"
             >
-              <div className="flex items-center justify-between px-4 py-3.5 border-b border-[#D9B878]/20 flex-shrink-0">
+              <div className="flex items-center justify-between px-4 py-3.5 border-b border-[#FAD98D]/20 flex-shrink-0">
                 <span className="text-sm font-bold text-[#0A1A2F]">{testName}</span>
                 <button
                   type="button"
@@ -382,7 +382,7 @@ export default function UnifiedBibleReader({
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
 
         {/* Top bar */}
-        <div className="flex-shrink-0 flex items-center justify-between gap-3 px-4 py-3 border-b border-[#D9B878]/20 bg-[#FFFDF7]">
+        <div className="flex-shrink-0 flex items-center justify-between gap-3 px-4 py-3 border-b border-[#FAD98D]/20 bg-[#F2F6FA]">
           {/* Left: hamburger + breadcrumb */}
           <div className="flex items-center gap-2 min-w-0 overflow-hidden">
             <button
@@ -402,7 +402,7 @@ export default function UnifiedBibleReader({
                 <React.Fragment key={i}>
                   {i > 0 && <ChevronRight className="w-3 h-3 text-[#0A1A2F]/20 flex-shrink-0" />}
                   {c.onClick
-                    ? <button onClick={c.onClick} className="text-xs text-[#c9a227] hover:text-[#b89320] font-semibold whitespace-nowrap transition-colors">
+                    ? <button onClick={c.onClick} className="text-xs text-[#c9a227] hover:text-[#C9A227] font-semibold whitespace-nowrap transition-colors">
                         <span className="sm:hidden">{c.labelShort || c.label}</span>
                         <span className="hidden sm:inline">{c.label}</span>
                       </button>
@@ -454,14 +454,14 @@ export default function UnifiedBibleReader({
           {/* ── Empty state ── */}
           {!selectedBook && (
             <div className="flex flex-col items-center justify-center h-full text-center px-8 py-12">
-              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#c9a227] to-[#D9B878] flex items-center justify-center mb-5 text-3xl shadow-lg">
+              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center mb-5 text-3xl shadow-lg">
                 📖
               </div>
               <h3 className="text-xl font-bold text-[#0A1A2F] mb-2">Choose a Book</h3>
               <p className="text-sm text-[#0A1A2F]/45 mb-8 leading-relaxed">Browse the {testName}<br />to begin reading</p>
               <button
                 onClick={() => setSidebarOpen(true)}
-                className="md:hidden px-7 py-3 bg-gradient-to-r from-[#c9a227] to-[#D9B878] text-white rounded-xl font-semibold text-sm shadow-md"
+                className="md:hidden px-7 py-3 bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white rounded-xl font-semibold text-sm shadow-md"
               >
                 Browse Books
               </button>
@@ -485,7 +485,7 @@ export default function UnifiedBibleReader({
                     className={`aspect-square rounded-xl border-2 flex items-center justify-center font-semibold text-sm transition-all relative ${
                       lastReadChapterMap[selectedBook?.name] === n
                         ? 'border-[#c9a227] bg-[#FAD98D]/30 text-[#c9a227]'
-                        : 'border-[#D9B878]/25 bg-[#FAD98D]/10 text-[#0A1A2F]/60 hover:border-[#c9a227] hover:bg-gradient-to-br hover:from-[#c9a227] hover:to-[#D9B878] hover:text-white hover:shadow-md'
+                        : 'border-[#FAD98D]/25 bg-[#FAD98D]/10 text-[#0A1A2F]/60 hover:border-[#c9a227] hover:bg-gradient-to-br hover:from-[#c9a227] hover:to-[#FAD98D] hover:text-white hover:shadow-md'
                     }`}
                   >
                     {n}
@@ -503,11 +503,11 @@ export default function UnifiedBibleReader({
           {selectedBook && selectedChapter && (
             <div className="pb-28">
               {/* Chapter heading + inline prev/next */}
-              <div className="px-5 pt-6 pb-4 flex items-center justify-between border-b border-[#D9B878]/15">
+              <div className="px-5 pt-6 pb-4 flex items-center justify-between border-b border-[#FAD98D]/15">
                 <div>
                   <h2 className="text-xl font-bold text-[#0A1A2F] leading-tight">{selectedBook.name}</h2>
                   <p className="text-xs text-[#0A1A2F]/40 mt-0.5 font-medium">
-                    Chapter {selectedChapter} <span className="text-[#D9B878]">·</span> {selectedBook.chapters} total
+                    Chapter {selectedChapter} <span className="text-[#FAD98D]">·</span> {selectedBook.chapters} total
                   </p>
                 </div>
                 <div className="flex items-center gap-2">
@@ -521,7 +521,7 @@ export default function UnifiedBibleReader({
                   <button
                     onClick={() => selectedChapter < selectedBook.chapters && handleChapterSelect(selectedChapter + 1)}
                     disabled={selectedChapter >= selectedBook.chapters}
-                    className="w-9 h-9 rounded-full bg-gradient-to-br from-[#c9a227] to-[#D9B878] hover:opacity-90 disabled:opacity-25 flex items-center justify-center shadow-sm transition-all"
+                    className="w-9 h-9 rounded-full bg-gradient-to-br from-[#c9a227] to-[#FAD98D] hover:opacity-90 disabled:opacity-25 flex items-center justify-center shadow-sm transition-all"
                   >
                     <ChevronRight className="w-4 h-4 text-white" />
                   </button>
@@ -531,7 +531,7 @@ export default function UnifiedBibleReader({
               {/* Loading */}
               {loading && (
                 <div className="flex flex-col items-center justify-center py-24 gap-4">
-                  <div className="w-10 h-10 rounded-full border-2 border-[#D9B878]/30 border-t-[#c9a227] animate-spin" />
+                  <div className="w-10 h-10 rounded-full border-2 border-[#FAD98D]/30 border-t-[#c9a227] animate-spin" />
                   <p className="text-sm text-[#0A1A2F]/35">Loading scripture…</p>
                 </div>
               )}
@@ -597,7 +597,7 @@ export default function UnifiedBibleReader({
                                 <div className="w-2 h-2 rounded-full" style={{ backgroundColor: hlColor.dot }} />
                               )}
                               {hasNote && (
-                                <Bookmark className="w-3 h-3" style={{ fill: '#D9B878', color: '#D9B878' }} />
+                                <Bookmark className="w-3 h-3" style={{ fill: '#FAD98D', color: '#FAD98D' }} />
                               )}
                             </div>
                           )}
@@ -632,13 +632,13 @@ export default function UnifiedBibleReader({
                             >
                               <div
                                 className="rounded-r-lg px-3 py-2.5"
-                                style={{ borderLeft: '3px solid #D9B878', backgroundColor: 'rgba(250,217,141,0.1)' }}
+                                style={{ borderLeft: '3px solid #FAD98D', backgroundColor: 'rgba(250,217,141,0.1)' }}
                               >
                                 <button
                                   onClick={() => toggleNote(verse.verse)}
                                   className="flex items-center justify-between w-full text-left mb-1"
                                 >
-                                  <span className="text-[11px] font-bold text-[#8a6e1a]">My Note</span>
+                                  <span className="text-[11px] font-bold text-[#C9A227]">My Note</span>
                                   {noteOpen
                                     ? <ChevronUp className="w-3.5 h-3.5 text-[#0A1A2F]/35" />
                                     : <ChevronDown className="w-3.5 h-3.5 text-[#0A1A2F]/35" />
@@ -662,11 +662,11 @@ export default function UnifiedBibleReader({
                   })}
 
                   {/* Footer navigation */}
-                  <div className="mt-10 pt-6 border-t border-[#D9B878]/20 flex items-center justify-between gap-4">
+                  <div className="mt-10 pt-6 border-t border-[#FAD98D]/20 flex items-center justify-between gap-4">
                     <button
                       onClick={() => selectedChapter > 1 && handleChapterSelect(selectedChapter - 1)}
                       disabled={selectedChapter <= 1}
-                      className="flex items-center gap-2 px-5 py-3 rounded-xl border border-[#D9B878]/30 text-sm font-medium text-[#0A1A2F]/55 hover:text-[#0A1A2F] hover:border-[#c9a227]/40 disabled:opacity-25 transition-all"
+                      className="flex items-center gap-2 px-5 py-3 rounded-xl border border-[#FAD98D]/30 text-sm font-medium text-[#0A1A2F]/55 hover:text-[#0A1A2F] hover:border-[#c9a227]/40 disabled:opacity-25 transition-all"
                     >
                       <ChevronLeft className="w-4 h-4" />
                       Previous
@@ -677,7 +677,7 @@ export default function UnifiedBibleReader({
                     <button
                       onClick={() => selectedChapter < selectedBook.chapters && handleChapterSelect(selectedChapter + 1)}
                       disabled={selectedChapter >= selectedBook.chapters}
-                      className="flex items-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-[#c9a227] to-[#D9B878] text-white text-sm font-semibold hover:opacity-90 disabled:opacity-25 shadow-md transition-all"
+                      className="flex items-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white text-sm font-semibold hover:opacity-90 disabled:opacity-25 shadow-md transition-all"
                     >
                       Next
                       <ChevronRight className="w-4 h-4" />

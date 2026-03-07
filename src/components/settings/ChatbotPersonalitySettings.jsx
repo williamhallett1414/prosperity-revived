@@ -10,8 +10,8 @@ import { Heart, Dumbbell, ChefHat, BookOpen, Save, RotateCcw } from 'lucide-reac
 import { toast } from 'sonner';
 
 const chatbots = [
-  { name: 'Hannah', icon: Heart, color: 'from-[#c9a227] to-[#D9B878]', description: 'Personal Growth Guide' },
-  { name: 'CoachDavid', icon: Dumbbell, color: 'from-[#AFC7E3] to-[#7ab3d4]', description: 'Fitness Coach' },
+  { name: 'Hannah', icon: Heart, color: 'from-[#c9a227] to-[#FAD98D]', description: 'Personal Growth Guide' },
+  { name: 'CoachDavid', icon: Dumbbell, color: 'from-[#AFC7E3] to-[#AFC7E3]', description: 'Fitness Coach' },
   { name: 'ChefDaniel', icon: ChefHat, color: 'from-orange-500 to-red-500', description: 'Nutrition Expert' },
   { name: 'Gideon', icon: BookOpen, color: 'from-green-500 to-emerald-500', description: 'Spiritual Guide' }
 ];

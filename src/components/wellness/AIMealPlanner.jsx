@@ -126,10 +126,10 @@ Also generate a complete shopping list by combining all unique ingredients from 
 
   return (
     <div className="space-y-4">
-      <div className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4">
+      <div className="bg-white dark:bg-[#0A1A2F] rounded-2xl p-4">
         <div className="flex items-center gap-2 mb-4">
           <Sparkles className="w-5 h-5 text-[#c9a227]" />
-          <h3 className="font-semibold text-[#1a1a2e] dark:text-white">AI Meal Planner</h3>
+          <h3 className="font-semibold text-[#0A1A2F] dark:text-white">AI Meal Planner</h3>
         </div>
 
         <div className="space-y-3">
@@ -191,7 +191,7 @@ Also generate a complete shopping list by combining all unique ingredients from 
           <Button
             onClick={generateMealPlan}
             disabled={loading}
-            className="w-full bg-[#c9a227] hover:bg-[#b89320]"
+            className="w-full bg-[#c9a227] hover:bg-[#C9A227]"
           >
             {loading ? (
               <>
@@ -215,18 +215,18 @@ Also generate a complete shopping list by combining all unique ingredients from 
           className="space-y-4"
         >
           {/* Weekly Meal Plan */}
-          <div className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4">
+          <div className="bg-white dark:bg-[#0A1A2F] rounded-2xl p-4">
             <div className="flex items-center gap-2 mb-4">
               <Calendar className="w-5 h-5 text-[#c9a227]" />
-              <h3 className="font-semibold text-[#1a1a2e] dark:text-white">{preferences.days}-Day Meal Plan</h3>
+              <h3 className="font-semibold text-[#0A1A2F] dark:text-white">{preferences.days}-Day Meal Plan</h3>
             </div>
 
             <div className="space-y-4">
               {mealPlan?.map((day, dayIndex) => (
                 <div key={dayIndex} className="border border-gray-200 dark:border-gray-700 rounded-lg p-3">
                   <div className="flex items-center justify-between mb-3">
-                    <h4 className="font-semibold text-[#1a1a2e] dark:text-white">{day.day}</h4>
-                    <span className="text-sm text-[#8a6e1a] dark:text-[#D9B878] font-medium">
+                    <h4 className="font-semibold text-[#0A1A2F] dark:text-white">{day.day}</h4>
+                    <span className="text-sm text-[#C9A227] dark:text-[#FAD98D] font-medium">
                       {day.total_calories} cal
                     </span>
                   </div>
@@ -239,7 +239,7 @@ Also generate a complete shopping list by combining all unique ingredients from 
                           <UtensilsCrossed className="w-4 h-4 text-gray-400 mt-0.5" />
                           <div className="flex-1">
                             <div className="flex items-center justify-between">
-                              <p className="text-sm font-medium text-[#1a1a2e] dark:text-white">
+                              <p className="text-sm font-medium text-[#0A1A2F] dark:text-white">
                                 {meal.recipe_title}
                               </p>
                               <span className="text-xs text-gray-500 dark:text-gray-400">
@@ -250,7 +250,7 @@ Also generate a complete shopping list by combining all unique ingredients from 
                               {meal.meal_type}
                             </p>
                             {recipe && (
-                              <p className="text-xs text-[#8a6e1a] dark:text-[#D9B878] mt-1">
+                              <p className="text-xs text-[#C9A227] dark:text-[#FAD98D] mt-1">
                                 {recipe.prep_time_minutes + recipe.cook_time_minutes} min total
                               </p>
                             )}
@@ -266,10 +266,10 @@ Also generate a complete shopping list by combining all unique ingredients from 
 
           {/* Shopping List */}
           {shoppingList && (
-            <div className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4">
+            <div className="bg-white dark:bg-[#0A1A2F] rounded-2xl p-4">
               <div className="flex items-center gap-2 mb-4">
                 <ShoppingCart className="w-5 h-5 text-green-500" />
-                <h3 className="font-semibold text-[#1a1a2e] dark:text-white">Shopping List</h3>
+                <h3 className="font-semibold text-[#0A1A2F] dark:text-white">Shopping List</h3>
               </div>
 
               <div className="space-y-3">

@@ -77,7 +77,7 @@ export default function MeditationAnalytics({ user }) {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-gradient-to-br from-[#c9a227] to-[#D9B878] rounded-2xl p-4 text-white"
+          className="bg-gradient-to-br from-[#c9a227] to-[#FAD98D] rounded-2xl p-4 text-white"
         >
           <Clock className="w-6 h-6 mb-2 opacity-80" />
           <div className="text-3xl font-bold">{totalMinutes}</div>
@@ -88,7 +88,7 @@ export default function MeditationAnalytics({ user }) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="bg-gradient-to-br from-[#AFC7E3] to-[#7ab3d4] rounded-2xl p-4 text-white"
+          className="bg-gradient-to-br from-[#AFC7E3] to-[#AFC7E3] rounded-2xl p-4 text-white"
         >
           <Target className="w-6 h-6 mb-2 opacity-80" />
           <div className="text-3xl font-bold">{totalSessions}</div>
@@ -132,7 +132,7 @@ export default function MeditationAnalytics({ user }) {
                 initial={{ height: 0 }}
                 animate={{ height: `${(day.minutes / maxMinutes) * 100}%` }}
                 transition={{ delay: i * 0.1 }}
-                className="w-full bg-gradient-to-t from-[#c9a227] to-[#D9B878] rounded-t-lg min-h-[4px]"
+                className="w-full bg-gradient-to-t from-[#c9a227] to-[#FAD98D] rounded-t-lg min-h-[4px]"
                 title={`${day.minutes} minutes`}
               />
               <div className="text-xs text-gray-500 mt-1">{day.day}</div>
@@ -195,7 +195,7 @@ export default function MeditationAnalytics({ user }) {
       )}
 
       {/* Feedback Message */}
-      <Card className="p-4 bg-gradient-to-br from-[#FAD98D]/10 to-[#FAD98D]/10 dark:from-[#FAD98D]/5 dark:to-[#FAD98D]/5 border-[#D9B878]/40 dark:border-[#D9B878]/20">
+      <Card className="p-4 bg-gradient-to-br from-[#FAD98D]/10 to-[#FAD98D]/10 dark:from-[#FAD98D]/5 dark:to-[#FAD98D]/5 border-[#FAD98D]/40 dark:border-[#FAD98D]/20">
         <h3 className="font-semibold text-gray-900 dark:text-white mb-2">💡 Insight</h3>
         <p className="text-sm text-gray-700 dark:text-gray-300">
           {totalSessions === 0 ? 

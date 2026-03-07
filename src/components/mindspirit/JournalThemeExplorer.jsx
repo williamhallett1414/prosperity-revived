@@ -196,10 +196,10 @@ Format each exercise with clear separators. Make them actionable and emotionally
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="mt-4 bg-gradient-to-br from-[#FAD98D]/10 to-[#F2F6FA] rounded-lg p-5 border border-[#D9B878]/40"
+            className="mt-4 bg-gradient-to-br from-[#FAD98D]/10 to-[#F2F6FA] rounded-lg p-5 border border-[#FAD98D]/40"
           >
             <div className="flex items-center gap-2 mb-4">
-              <BookOpen className="w-5 h-5 text-[#8a6e1a]" />
+              <BookOpen className="w-5 h-5 text-[#C9A227]" />
               <h3 className="font-bold text-gray-900">Your Personalized Exercises</h3>
             </div>
 
@@ -212,7 +212,7 @@ Format each exercise with clear separators. Make them actionable and emotionally
                 onSelectExercise?.(exercises);
                 setShowExercises(false);
               }}
-              className="w-full mt-4 bg-gradient-to-r from-[#b89320] to-[#D9B878] hover:from-[#b89320] hover:to-[#D9B878] text-white"
+              className="w-full mt-4 bg-gradient-to-r from-[#C9A227] to-[#FAD98D] hover:from-[#C9A227] hover:to-[#FAD98D] text-white"
               size="sm"
             >
               Explore These Exercises with Hannah

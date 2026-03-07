@@ -35,7 +35,7 @@ function PlanCard({ plan, idx, onPreview }) {
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: idx * 0.05 }}
-      className="bg-white rounded-2xl overflow-hidden border border-[#0D4F3C]/10 shadow-sm">
+      className="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm">
 
       {/* Header gradient */}
       <div className={`bg-gradient-to-r ${plan.gradient} p-4 relative overflow-hidden`}>
@@ -76,7 +76,7 @@ function PlanCard({ plan, idx, onPreview }) {
         {/* Tags */}
         <div className="flex flex-wrap gap-1 mb-3">
           {plan.tags.slice(0, 4).map((tag) =>
-          <span key={tag} className="text-[10px] px-2 py-0.5 rounded-full bg-[#F5F8F0] text-[#0D4F3C] font-medium border border-[#0D4F3C]/12">
+          <span key={tag} className="text-[10px] px-2 py-0.5 rounded-full bg-[#F2F6FA] text-[#3C4E53] font-medium border border-[#3C4E53]/30/12">
               {tag}
             </span>
           )}
@@ -96,20 +96,20 @@ function PlanCard({ plan, idx, onPreview }) {
 
         {/* Progress bar if started */}
         {isStarted && !plan.comingSoon &&
-        <div className="mb-3 p-2.5 bg-[#F5F8F0] rounded-xl">
+        <div className="mb-3 p-2.5 bg-[#F2F6FA] rounded-xl">
             <div className="flex justify-between mb-1.5">
-              <span className="text-[10px] font-bold text-[#0D4F3C]">Your Progress</span>
-              <span className="text-[10px] font-bold text-[#0D4F3C]">Day {completedDays}/{plan.days_total}</span>
+              <span className="text-[10px] font-bold text-[#3C4E53]">Your Progress</span>
+              <span className="text-[10px] font-bold text-[#3C4E53]">Day {completedDays}/{plan.days_total}</span>
             </div>
-            <div className="h-1.5 bg-[#0D4F3C]/10 rounded-full overflow-hidden">
-              <div className="h-full bg-gradient-to-r from-[#0D4F3C] to-[#c9a227] rounded-full" style={{ width: `${pct}%` }} />
+            <div className="h-1.5 bg-[#3C4E53]/10 rounded-full overflow-hidden">
+              <div className="h-full bg-gradient-to-r from-[#3C4E53] to-[#c9a227] rounded-full" style={{ width: `${pct}%` }} />
             </div>
           </div>
         }
 
         {/* CTA */}
         {plan.comingSoon ?
-        <div className="flex items-center justify-center gap-2 py-2.5 rounded-xl border-2 border-dashed border-[#0D4F3C]/20 text-[#0D4F3C]/40">
+        <div className="flex items-center justify-center gap-2 py-2.5 rounded-xl border-2 border-dashed border-[#3C4E53]/30/20 text-[#3C4E53]/40">
             <Lock className="w-3.5 h-3.5" />
             <span className="text-xs font-semibold">Coming Soon</span>
           </div> :
@@ -117,7 +117,7 @@ function PlanCard({ plan, idx, onPreview }) {
         <div className="space-y-2">
             <Button
             onClick={() => navigate(createPageUrl(`CoachingPlanDetail?id=${plan.id}&day=${isStarted ? currentDay : 1}`))}
-            className="w-full bg-gradient-to-r from-[#0D4F3C] to-[#22856A] hover:opacity-90 text-white font-bold py-2.5 rounded-xl text-sm">
+            className="w-full bg-gradient-to-r from-[#3C4E53] to-[#FD9C2D] hover:opacity-90 text-white font-bold py-2.5 rounded-xl text-sm">
 
               {isStarted ? <>Continue Day {currentDay} <ChevronRight className="w-3.5 h-3.5 ml-1" /></> : <>Begin Journey <ChevronRight className="w-3.5 h-3.5 ml-1" /></>}
             </Button>
@@ -128,7 +128,7 @@ function PlanCard({ plan, idx, onPreview }) {
               onPreview(plan);
             }}
             variant="outline"
-            className="w-full border border-[#0D4F3C]/20 text-[#0D4F3C] hover:bg-[#F5F8F0] font-semibold py-2 rounded-xl text-xs">
+            className="w-full border border-[#3C4E53]/30/20 text-[#3C4E53] hover:bg-[#F2F6FA] font-semibold py-2 rounded-xl text-xs">
 
                 <Eye className="w-3.5 h-3.5 mr-1.5" />
                 Preview Day 1
@@ -172,14 +172,14 @@ export default function CoachingPlans() {
   const totalPlans = COACHING_PLANS.length;
 
   return (
-    <div className="min-h-screen bg-[#F5F8F0] pb-28">
+    <div className="min-h-screen bg-[#F2F6FA] pb-28">
 
       {/* Header */}
-      <div className="sticky top-0 z-40 bg-white border-b border-[#0D4F3C]/10 px-4 py-3">
+      <div className="sticky top-0 z-40 bg-white border-b border-gray-100 px-4 py-3">
         <div className="max-w-2xl mx-auto flex items-center gap-3">
           <Link to={createPageUrl('ProgressDashboard')}
-          className="w-9 h-9 rounded-full bg-[#E8F0E8] hover:bg-[#D8E8D8] flex items-center justify-center transition-colors">
-            <ArrowLeft className="w-4 h-4 text-[#0D4F3C]" />
+          className="w-9 h-9 rounded-full bg-white hover:bg-white flex items-center justify-center transition-colors">
+            <ArrowLeft className="w-4 h-4 text-[#3C4E53]" />
           </Link>
           <div>
             <h1 className="text-lg font-bold text-[#0A1A2F]">Coaching Plans</h1>
@@ -192,7 +192,7 @@ export default function CoachingPlans() {
 
         {/* Hero */}
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
-        className="bg-gradient-to-br from-[#0D4F3C] to-[#1a6b50] rounded-2xl p-5 mb-5 text-white relative overflow-hidden">
+        className="bg-gradient-to-br from-[#3C4E53] to-[#3C4E53] rounded-2xl p-5 mb-5 text-white relative overflow-hidden">
           <div className="absolute top-0 right-0 w-28 h-28 bg-[#c9a227]/15 rounded-full -translate-y-6 translate-x-6" />
           <div className="absolute bottom-0 left-0 w-20 h-20 bg-white/5 rounded-full translate-y-4 -translate-x-4" />
           <div className="relative">
@@ -231,14 +231,14 @@ export default function CoachingPlans() {
             onClick={() => setActiveCategory(cat.id)}
             className={`flex-shrink-0 flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-bold transition-all border ${
             activeCategory === cat.id ?
-            'bg-[#0D4F3C] text-white border-[#0D4F3C] shadow-md' :
-            'bg-white text-[#0A1A2F]/60 border-[#0D4F3C]/15 hover:border-[#0D4F3C]/40'}`
+            'bg-[#3C4E53] text-white border-[#3C4E53]/30 shadow-md' :
+            'bg-white text-[#0A1A2F]/60 border-[#3C4E53]/30/15 hover:border-[#3C4E53]/30/40'}`
             }>
 
               <span>{cat.emoji}</span>
               <span>{cat.name}</span>
               <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded-full ${
-            activeCategory === cat.id ? 'bg-white/20 text-white' : 'bg-[#F5F8F0] text-[#0A1A2F]/40'}`
+            activeCategory === cat.id ? 'bg-white/20 text-white' : 'bg-[#F2F6FA] text-[#0A1A2F]/40'}`
             }>
                 {cat.id === 'all' ? COACHING_PLANS.length : COACHING_PLANS.filter((p) => p.category === cat.id).length}
               </span>
@@ -277,7 +277,7 @@ export default function CoachingPlans() {
                 transition={{ delay: catIdx * 0.08 }}
                 className="flex items-center gap-2.5 mb-3">
 
-                    <div className="w-8 h-8 rounded-xl bg-[#0D4F3C] flex items-center justify-center text-base shadow-sm">
+                    <div className="w-8 h-8 rounded-xl bg-[#3C4E53] flex items-center justify-center text-base shadow-sm">
                       {cat.emoji}
                     </div>
                     <div className="flex-1">
@@ -289,7 +289,7 @@ export default function CoachingPlans() {
                     </div>
                     <button
                   onClick={() => setActiveCategory(cat.id)}
-                  className="text-[10px] font-semibold text-[#0D4F3C] bg-[#E8F0E8] px-2.5 py-1 rounded-full hover:bg-[#D8E8D8] transition-colors">
+                  className="text-[10px] font-semibold text-[#3C4E53] bg-white px-2.5 py-1 rounded-full hover:bg-white transition-colors">
 
                       View all
                     </button>
@@ -309,7 +309,7 @@ export default function CoachingPlans() {
         {/* Footer nudge */}
         <motion.div
           initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}
-          className="mt-6 border-2 border-dashed border-[#0D4F3C]/15 rounded-2xl p-5 text-center">
+          className="mt-6 border-2 border-dashed border-[#3C4E53]/30/15 rounded-2xl p-5 text-center">
 
           <div className="text-2xl mb-2">🚀</div>
           <h3 className="font-bold text-[#0A1A2F]/60 text-sm mb-1">New Plans in Development</h3>

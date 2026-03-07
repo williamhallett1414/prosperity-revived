@@ -88,7 +88,7 @@ export default function MealLoggingSection({ nutritionPlan, mealLogs, onMealLogg
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: idx * 0.05 }}
-              className="bg-white rounded-xl border border-[#0D4F3C]/12 p-3 hover:border-[#0D4F3C]/25 transition-colors"
+              className="bg-white rounded-xl border border-[#3C4E53]/30/12 p-3 hover:border-[#3C4E53]/30/25 transition-colors"
             >
               <div className="flex items-start gap-3">
                 <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-[#FD9C2D] to-[#E89020] flex items-center justify-center text-lg flex-shrink-0">
@@ -109,8 +109,8 @@ export default function MealLoggingSection({ nutritionPlan, mealLogs, onMealLogg
                   variant={isLogged ? 'default' : 'outline'}
                   className={`flex-shrink-0 text-xs font-bold py-1.5 px-2.5 rounded-lg transition-all ${
                     isLogged
-                      ? 'bg-[#0D4F3C] text-white border-[#0D4F3C]'
-                      : 'border border-[#0D4F3C]/20 text-[#0D4F3C] hover:border-[#0D4F3C]/40'
+                      ? 'bg-[#3C4E53] text-white border-[#3C4E53]/30'
+                      : 'border border-[#3C4E53]/30/20 text-[#3C4E53] hover:border-[#3C4E53]/30/40'
                   }`}
                 >
                   {isLogged ? (
@@ -181,7 +181,7 @@ export default function MealLoggingSection({ nutritionPlan, mealLogs, onMealLogg
               <Button
                 type="submit"
                 disabled={!loggedMeals.description || isLogging}
-                className="flex-1 bg-[#0D4F3C] hover:bg-[#0D4F3C]/90 text-white font-bold"
+                className="flex-1 bg-[#3C4E53] hover:bg-[#3C4E53]/90 text-white font-bold"
               >
                 {isLogging ? 'Logging...' : 'Log Meal'}
               </Button>

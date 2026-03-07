@@ -78,7 +78,7 @@ export default function LogMealModal({ recipe, isOpen, onClose }) {
             className="fixed bottom-0 left-0 right-0 z-50 bg-white rounded-t-3xl max-w-lg mx-auto"
           >
             <div className="flex justify-center pt-3 pb-1">
-              <div className="w-10 h-1 rounded-full bg-[#D9B878]/40" />
+              <div className="w-10 h-1 rounded-full bg-[#FAD98D]/40" />
             </div>
 
             <div className="px-5 py-4 space-y-5 pb-8">
@@ -102,7 +102,7 @@ export default function LogMealModal({ recipe, isOpen, onClose }) {
                     <button key={value} onClick={() => setMealType(value)}
                       className={`py-2.5 rounded-xl text-xs font-bold transition-all ${
                         mealType === value
-                          ? 'bg-gradient-to-b from-[#c9a227] to-[#D9B878] text-white shadow-sm'
+                          ? 'bg-gradient-to-b from-[#c9a227] to-[#FAD98D] text-white shadow-sm'
                           : 'bg-[#F2F6FA] text-[#0A1A2F]/50 hover:bg-[#FAD98D]/15'
                       }`}>
                       {label}
@@ -142,12 +142,12 @@ export default function LogMealModal({ recipe, isOpen, onClose }) {
                 <p className="text-xs font-bold text-[#0A1A2F]/40 uppercase tracking-widest mb-1.5">Notes (optional)</p>
                 <input value={notes} onChange={e => setNotes(e.target.value)}
                   placeholder="How did it taste?"
-                  className="w-full px-3 py-2.5 rounded-xl border border-[#D9B878]/25 bg-[#F2F6FA] text-sm text-[#0A1A2F] placeholder-[#0A1A2F]/30 focus:outline-none focus:border-[#c9a227]/50" />
+                  className="w-full px-3 py-2.5 rounded-xl border border-[#FAD98D]/25 bg-[#F2F6FA] text-sm text-[#0A1A2F] placeholder-[#0A1A2F]/30 focus:outline-none focus:border-[#c9a227]/50" />
               </div>
 
               {/* Submit */}
               <button onClick={handleLog} disabled={logMeal.isPending}
-                className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-[#c9a227] to-[#D9B878] text-white font-bold text-sm hover:opacity-90 disabled:opacity-50 transition-opacity flex items-center justify-center gap-2">
+                className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white font-bold text-sm hover:opacity-90 disabled:opacity-50 transition-opacity flex items-center justify-center gap-2">
                 {logMeal.isPending
                   ? <><Loader2 className="w-4 h-4 animate-spin" /> Logging…</>
                   : <><UtensilsCrossed className="w-4 h-4" /> Log to {MEAL_TYPES.find(m => m.value === mealType)?.label}</>

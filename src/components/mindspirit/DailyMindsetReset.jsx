@@ -51,11 +51,11 @@ export default function DailyMindsetReset() {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-gradient-to-br from-[#D9B878]/10 to-[#AFC7E3]/10 rounded-2xl p-6 border border-[#D9B878]/20 mb-6"
+      className="bg-gradient-to-br from-[#FAD98D]/10 to-[#AFC7E3]/10 rounded-2xl p-6 border border-[#FAD98D]/20 mb-6"
     >
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
-          <Brain className="w-6 h-6 text-[#D9B878]" />
+          <Brain className="w-6 h-6 text-[#FAD98D]" />
           <h3 className="text-lg font-bold text-[#0A1A2F]">Daily Mindset Reset</h3>
         </div>
         <RefreshCw className="w-4 h-4 text-[#0A1A2F]/40" />
@@ -67,14 +67,14 @@ export default function DailyMindsetReset() {
           value={reflection}
           onChange={(e) => setReflection(e.target.value)}
           placeholder="Write your thoughts here..."
-          className="min-h-[120px] border-gray-200 focus:border-[#D9B878] resize-none"
+          className="min-h-[120px] border-gray-200 focus:border-[#FAD98D] resize-none"
         />
       </div>
 
       <Button
         onClick={handleSave}
         disabled={saving || !reflection.trim()}
-        className="w-full bg-[#D9B878] hover:bg-[#D9B878]/90 text-[#0A1A2F]"
+        className="w-full bg-[#FAD98D] hover:bg-[#FAD98D]/90 text-[#0A1A2F]"
       >
         {saving ? 'Saving...' : 'Save Reflection'}
       </Button>

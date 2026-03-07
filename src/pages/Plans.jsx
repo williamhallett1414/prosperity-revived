@@ -143,7 +143,7 @@ Provide warm, helpful guidance (2-4 sentences) about reading plans, Bible study 
           <div className="flex items-center gap-3 mb-2">
             <Link
               to={createPageUrl('Home')}
-              className="w-9 h-9 rounded-full bg-[#E6EBEF] hover:bg-[#D9DFE4] flex items-center justify-center transition-colors"
+              className="w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors"
             >
               <ArrowLeft className="w-4 h-4 text-[#0A1A2F]" />
             </Link>
@@ -160,12 +160,12 @@ Provide warm, helpful guidance (2-4 sentences) about reading plans, Bible study 
               placeholder="Search plans..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="pl-10 bg-[#E6EBEF] border-[#E6EBEF] rounded-xl h-12"
+              className="pl-10 bg-gray-100 border-[#F2F6FA] rounded-xl h-12"
             />
           </div>
           <Button
             onClick={() => setShowCreateCustom(true)}
-            className="bg-gradient-to-r from-[#D9B878] to-[#AFC7E3] hover:from-[#D9B878]/90 hover:to-[#AFC7E3]/90 text-[#0A1A2F] h-12 px-4 shadow-md"
+            className="bg-gradient-to-r from-[#FAD98D] to-[#AFC7E3] hover:from-[#FAD98D]/90 hover:to-[#AFC7E3]/90 text-[#0A1A2F] h-12 px-4 shadow-md"
           >
             <Plus className="w-5 h-5 sm:mr-2" />
             <span className="hidden sm:inline">Custom</span>
@@ -180,7 +180,7 @@ Provide warm, helpful guidance (2-4 sentences) about reading plans, Bible study 
             className="mb-8"
           >
             <div className="flex items-center gap-2 mb-4">
-              <Users className="w-5 h-5 text-[#8fa68a]" />
+              <Users className="w-5 h-5 text-[#AFC7E3]" />
               <h2 className="text-lg font-semibold text-[#0A1A2F]">My Group Plans</h2>
               <Badge variant="secondary">{myGroupPlans.length}</Badge>
             </div>
@@ -219,12 +219,12 @@ Provide warm, helpful guidance (2-4 sentences) about reading plans, Bible study 
 
         {/* Categories */}
         <Tabs value={category} onValueChange={setCategory} className="mb-8">
-          <TabsList className="bg-[#E6EBEF] p-1 h-auto flex-wrap gap-1 rounded-xl">
+          <TabsList className="bg-gray-100 p-1 h-auto flex-wrap gap-1 rounded-xl">
             {categories.map(cat => (
               <TabsTrigger
                 key={cat}
                 value={cat}
-                className="rounded-lg capitalize text-xs sm:text-sm data-[state=active]:bg-[#D9B878] data-[state=active]:text-[#0A1A2F]"
+                className="rounded-lg capitalize text-xs sm:text-sm data-[state=active]:bg-[#FAD98D] data-[state=active]:text-[#0A1A2F]"
               >
                 {cat}
               </TabsTrigger>
@@ -255,8 +255,8 @@ Provide warm, helpful guidance (2-4 sentences) about reading plans, Bible study 
               exit={{ opacity: 0, y: 20, scale: 0.9 }}
               className="fixed bottom-44 right-6 w-80 max-w-[calc(100vw-3rem)] z-30"
             >
-              <div className="bg-white rounded-2xl shadow-2xl border border-[#E6EBEF] overflow-hidden">
-                <div className="bg-gradient-to-r from-[#AFC7E3] to-[#D9B878] p-5 text-[#0A1A2F]">
+              <div className="bg-white rounded-2xl shadow-2xl border border-[#F2F6FA] overflow-hidden">
+                <div className="bg-gradient-to-r from-[#AFC7E3] to-[#FAD98D] p-5 text-[#0A1A2F]">
                   <h3 className="font-semibold flex items-center gap-2">
                     <MessageCircle className="w-5 h-5" />
                     Chat with Gideon 🐱
@@ -267,11 +267,11 @@ Provide warm, helpful guidance (2-4 sentences) about reading plans, Bible study 
                 <div className="p-5 max-h-96 overflow-y-auto space-y-4 bg-[#F2F6FA]">
                   {gideonResponse && (
                     <div className="space-y-3">
-                      <div className="bg-[#E6EBEF] p-4 rounded-xl">
+                      <div className="bg-gray-100 p-4 rounded-xl">
                         <p className="text-xs font-medium text-[#0A1A2F]/60 mb-1">You asked:</p>
                         <p className="text-sm text-[#0A1A2F]">{gideonResponse.question}</p>
                       </div>
-                      <div className="bg-gradient-to-br from-[#AFC7E3] to-[#D9B878] p-4 rounded-xl">
+                      <div className="bg-gradient-to-br from-[#AFC7E3] to-[#FAD98D] p-4 rounded-xl">
                         <p className="text-xs font-medium text-[#0A1A2F]/80 mb-1">Gideon says:</p>
                         <p className="text-sm text-[#0A1A2F] leading-relaxed">{gideonResponse.advice}</p>
                       </div>
@@ -291,7 +291,7 @@ Provide warm, helpful guidance (2-4 sentences) about reading plans, Bible study 
                   )}
                 </div>
 
-                <div className="p-5 border-t border-[#E6EBEF] bg-white">
+                <div className="p-5 border-t border-[#F2F6FA] bg-white">
                   <div className="flex gap-3">
                     <Input
                       placeholder="Ask Gideon..."
@@ -303,13 +303,13 @@ Provide warm, helpful guidance (2-4 sentences) about reading plans, Bible study 
                           handleGideonAsk();
                         }
                       }}
-                      className="flex-1 text-sm bg-[#F2F6FA] border-[#E6EBEF] h-11"
+                      className="flex-1 text-sm bg-[#F2F6FA] border-[#F2F6FA] h-11"
                       disabled={gideonLoading}
                     />
                     <Button
                       onClick={handleGideonAsk}
                       disabled={!gideonInput.trim() || gideonLoading}
-                      className="bg-gradient-to-r from-[#AFC7E3] to-[#D9B878] hover:from-[#AFC7E3]/90 hover:to-[#D9B878]/90 text-[#0A1A2F] h-11 px-5"
+                      className="bg-gradient-to-r from-[#AFC7E3] to-[#FAD98D] hover:from-[#AFC7E3]/90 hover:to-[#FAD98D]/90 text-[#0A1A2F] h-11 px-5"
                       size="icon"
                     >
                       <Send className="w-4 h-4" />

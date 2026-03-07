@@ -214,7 +214,7 @@ Return ONLY the prayer text, no additional formatting or explanation.`;
               <p className="text-white/80 text-sm">Personal prayer</p>
             </div>
 
-            <div className="bg-gray-50 dark:bg-[#1a1a2e] rounded-lg p-6 max-h-96 overflow-y-auto">
+            <div className="bg-gray-50 dark:bg-[#0A1A2F] rounded-lg p-6 max-h-96 overflow-y-auto">
               <p className="text-gray-800 dark:text-gray-200 whitespace-pre-wrap leading-relaxed font-serif">
                 {generatedPrayer}
               </p>

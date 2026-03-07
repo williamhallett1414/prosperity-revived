@@ -146,7 +146,7 @@ export default function CreateCustomPlanModal({ isOpen, onClose, onSubmit }) {
             <Button
               onClick={handleSubmit}
               disabled={!planName.trim() || readings.filter(r => r.book && r.chapter).length === 0}
-              className="bg-[#1a1a2e] hover:bg-[#2d2d4a]"
+              className="bg-[#0A1A2F] hover:bg-[#0A1A2F]"
             >
               Create Plan
             </Button>

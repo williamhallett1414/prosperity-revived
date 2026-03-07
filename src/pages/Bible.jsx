@@ -30,7 +30,7 @@ function ActivePlanCard({ progress, plan, navigate }) {
     <motion.button
       initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
       onClick={() => navigate(createPageUrl(`PlanDetail?id=${plan.id}`))}
-      className="w-full text-left bg-white rounded-2xl border border-[#D9B878]/30 overflow-hidden shadow-sm hover:shadow-md transition-all"
+      className="w-full text-left bg-white rounded-2xl border border-[#FAD98D]/30 overflow-hidden shadow-sm hover:shadow-md transition-all"
     >
       <div className="relative h-14 overflow-hidden">
         <img src={plan.image} alt={plan.name} className="w-full h-full object-cover" />
@@ -47,7 +47,7 @@ function ActivePlanCard({ progress, plan, navigate }) {
       </div>
       <div className="px-3 py-2 flex items-center gap-3">
         <div className="flex-1 h-1.5 bg-[#FAD98D]/20 rounded-full overflow-hidden">
-          <div className="h-full bg-gradient-to-r from-[#c9a227] to-[#D9B878] rounded-full" style={{ width: `${pct}%` }} />
+          <div className="h-full bg-gradient-to-r from-[#c9a227] to-[#FAD98D] rounded-full" style={{ width: `${pct}%` }} />
         </div>
         <span className="text-[11px] font-bold text-[#c9a227] flex-shrink-0">{pct}%</span>
         <ChevronRight className="w-4 h-4 text-[#0A1A2F]/30 flex-shrink-0" />
@@ -66,7 +66,7 @@ function QuickTools({ bookmarkCount, onStatsClick }) {
     <div className="flex gap-3">
       {tools.map(({ label, icon: Icon, value, page, color, bg }) => (
         <Link key={page} to={createPageUrl(page)} className="flex-1">
-          <div className={`${bg} rounded-2xl p-3.5 flex items-center gap-2.5 border border-transparent hover:border-[#D9B878]/40 transition-all`}>
+          <div className={`${bg} rounded-2xl p-3.5 flex items-center gap-2.5 border border-transparent hover:border-[#FAD98D]/40 transition-all`}>
             <div className="w-8 h-8 rounded-xl bg-white flex items-center justify-center shadow-sm flex-shrink-0">
               <Icon className={`w-4 h-4 ${color}`} />
             </div>
@@ -94,7 +94,7 @@ function StudyTabContent() {
           value={query}
           onChange={e => setQuery(e.target.value)}
           placeholder="Search study guides…"
-          className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-[#FAD98D]/15 border border-[#D9B878]/25 text-sm text-[#0A1A2F] placeholder:text-[#0A1A2F]/40 focus:outline-none focus:border-[#c9a227]/50"
+          className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-[#FAD98D]/15 border border-[#FAD98D]/25 text-sm text-[#0A1A2F] placeholder:text-[#0A1A2F]/40 focus:outline-none focus:border-[#c9a227]/50"
         />
       </div>
       <BibleStudyGuide filterQuery={query} />
@@ -204,7 +204,7 @@ export default function Bible() {
 
   // ── Hub ───────────────────────────────────────────────────────────────────
   return (
-    <div className="min-h-screen bg-[#FFFDF7] pb-28">
+    <div className="min-h-screen bg-[#F2F6FA] pb-28">
       <div className="px-4 pt-4 pb-6 max-w-lg mx-auto">
 
         {/* Page header — no back arrow (Bible is a primary tab) */}
@@ -214,14 +214,14 @@ export default function Bible() {
         </motion.div>
 
         <Tabs defaultValue="read" className="w-full">
-          <TabsList className="grid w-full grid-cols-3 mb-5 bg-[#FAD98D]/15 rounded-xl p-1 border border-[#D9B878]/20">
+          <TabsList className="grid w-full grid-cols-3 mb-5 bg-[#FAD98D]/15 rounded-xl p-1 border border-[#FAD98D]/20">
             {[
               { value: 'read',       icon: BookOpen, label: 'Read'       },
               { value: 'study',      icon: TrendingUp, label: 'Study'    },
               { value: 'devotional', icon: Heart,    label: 'Devotional' },
             ].map(({ value, icon: Icon, label }) => (
               <TabsTrigger key={value} value={value}
-                className="rounded-lg text-xs data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#c9a227] data-[state=active]:to-[#D9B878] data-[state=active]:text-white data-[state=active]:shadow-sm">
+                className="rounded-lg text-xs data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#c9a227] data-[state=active]:to-[#FAD98D] data-[state=active]:text-white data-[state=active]:shadow-sm">
                 <Icon className="w-3.5 h-3.5 mr-1" />{label}
               </TabsTrigger>
             ))}
@@ -233,7 +233,7 @@ export default function Bible() {
 
               {/* 1. Verse of the Day */}
               <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
-                <div className="bg-gradient-to-br from-[#FAD98D]/25 to-[#D9B878]/15 rounded-2xl p-4 border border-[#D9B878]/30">
+                <div className="bg-gradient-to-br from-[#FAD98D]/25 to-[#FAD98D]/15 rounded-2xl p-4 border border-[#FAD98D]/30">
                   <div className="flex items-center gap-2 mb-2">
                     <div className="w-1 h-4 bg-[#c9a227] rounded-full" />
                     <span className="text-[10px] font-bold text-[#c9a227] uppercase tracking-widest">Verse of the Day</span>
@@ -263,11 +263,11 @@ export default function Bible() {
                 <motion.button
                   initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
                   onClick={() => openReading(continueBook, lastRead.chapter, lastRead.isOld)}
-                  className="w-full bg-gradient-to-br from-[#0A1A2F] to-[#0f2a4a] rounded-2xl p-4 text-left hover:opacity-90 transition-all"
+                  className="w-full bg-gradient-to-br from-[#0A1A2F] to-[#0A1A2F] rounded-2xl p-4 text-left hover:opacity-90 transition-all"
                 >
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center flex-shrink-0">
-                      <PlayCircle className="w-5 h-5 text-[#D9B878]" />
+                      <PlayCircle className="w-5 h-5 text-[#FAD98D]" />
                     </div>
                     <div className="flex-1">
                       <p className="text-[10px] text-white/50 font-semibold uppercase tracking-wide mb-0.5">Continue Reading</p>
@@ -280,12 +280,12 @@ export default function Bible() {
 
               {/* 3. Open the Word */}
               <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }}
-                className="bg-white rounded-2xl border border-[#D9B878]/25 p-4 shadow-sm">
+                className="bg-white rounded-2xl border border-[#FAD98D]/25 p-4 shadow-sm">
                 <p className="text-xs font-bold text-[#0A1A2F]/40 uppercase tracking-widest mb-3">Open the Bible</p>
                 <div className="flex gap-2 mb-3">
                   <button
                     onClick={() => { setInitialBook(null); setView('newTestament'); }}
-                    className="flex-1 bg-gradient-to-r from-[#c9a227] to-[#D9B878] text-white font-semibold text-sm py-2.5 rounded-xl shadow-sm hover:opacity-90 transition-all">
+                    className="flex-1 bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white font-semibold text-sm py-2.5 rounded-xl shadow-sm hover:opacity-90 transition-all">
                     New Testament
                   </button>
                   <button

@@ -73,7 +73,7 @@ export default function GroupPlanDetail() {
 
   if (isLoading || !group) {
     return (
-      <div className="min-h-screen bg-[#faf8f5] flex items-center justify-center">
+      <div className="min-h-screen bg-[#F2F6FA] flex items-center justify-center">
         <p>Loading...</p>
       </div>
     );
@@ -83,7 +83,7 @@ export default function GroupPlanDetail() {
   const completedDays = myProgress?.completed_days || [];
 
   return (
-    <div className="min-h-screen bg-[#faf8f5] pb-24">
+    <div className="min-h-screen bg-[#F2F6FA] pb-24">
       {/* Header */}
       <div className="bg-gradient-to-br from-green-500 to-emerald-600 text-white p-6">
         <button

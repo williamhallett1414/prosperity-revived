@@ -33,8 +33,8 @@ const chatbotIcons = {
 };
 
 const chatbotColors = {
-  Hannah: 'from-[#c9a227] to-[#D9B878]',
-  CoachDavid: 'from-[#AFC7E3] to-[#7ab3d4]',
+  Hannah: 'from-[#c9a227] to-[#FAD98D]',
+  CoachDavid: 'from-[#AFC7E3] to-[#AFC7E3]',
   ChefDaniel: 'from-orange-500 to-red-500',
   Gideon: 'from-green-500 to-emerald-500',
   general: 'from-gray-500 to-gray-600'
@@ -174,7 +174,7 @@ export default function CommunityFeed({ user }) {
               onClick={() => setFilterType(option.value)}
               variant={isActive ? "default" : "outline"}
               size="sm"
-              className={isActive ? "bg-[#c9a227] hover:bg-[#b89320]" : ""}
+              className={isActive ? "bg-[#c9a227] hover:bg-[#C9A227]" : ""}
             >
               <Icon className="w-4 h-4 mr-1" />
               {option.label}
@@ -214,14 +214,14 @@ export default function CommunityFeed({ user }) {
                           {!share.is_anonymous ? (
                             <HoverCard>
                               <HoverCardTrigger asChild>
-                                <button className="font-semibold text-gray-900 hover:text-[#8a6e1a] transition-colors">
+                                <button className="font-semibold text-gray-900 hover:text-[#C9A227] transition-colors">
                                   {share.user_display_name}
                                 </button>
                               </HoverCardTrigger>
                               <HoverCardContent className="w-80">
                                 <div className="flex gap-4">
                                   <Avatar className="h-12 w-12">
-                                    <AvatarFallback className="bg-gradient-to-br from-[#c9a227] to-[#D9B878] text-white">
+                                    <AvatarFallback className="bg-gradient-to-br from-[#c9a227] to-[#FAD98D] text-white">
                                       {share.user_display_name?.split(' ').map(n => n[0]).join('') || '?'}
                                     </AvatarFallback>
                                   </Avatar>
@@ -317,7 +317,7 @@ export default function CommunityFeed({ user }) {
                             })}
                             disabled={!encouragementMessage.trim() || addEncouragementMutation.isPending}
                             size="icon"
-                            className="bg-[#c9a227] hover:bg-[#b89320]"
+                            className="bg-[#c9a227] hover:bg-[#C9A227]"
                           >
                             <Send className="w-4 h-4" />
                           </Button>
@@ -338,14 +338,14 @@ export default function CommunityFeed({ user }) {
                                   {!enc.is_anonymous ? (
                                     <HoverCard>
                                       <HoverCardTrigger asChild>
-                                        <button className="font-semibold text-sm text-gray-900 hover:text-[#8a6e1a] transition-colors">
+                                        <button className="font-semibold text-sm text-gray-900 hover:text-[#C9A227] transition-colors">
                                           {enc.user_display_name}
                                         </button>
                                       </HoverCardTrigger>
                                       <HoverCardContent className="w-64">
                                         <div className="flex gap-3">
                                           <Avatar className="h-10 w-10">
-                                            <AvatarFallback className="bg-gradient-to-br from-[#c9a227] to-[#D9B878] text-white text-xs">
+                                            <AvatarFallback className="bg-gradient-to-br from-[#c9a227] to-[#FAD98D] text-white text-xs">
                                               {enc.user_display_name?.split(' ').map(n => n[0]).join('') || '?'}
                                             </AvatarFallback>
                                           </Avatar>

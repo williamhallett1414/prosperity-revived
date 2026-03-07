@@ -377,7 +377,7 @@ export default function DevotionalArticle({ devotional, onBack }) {
 
   if (!content) {
     return (
-      <div className="min-h-screen bg-[#FFFDF7] p-6">
+      <div className="min-h-screen bg-[#F2F6FA] p-6">
         <Button variant="ghost" onClick={onBack}>
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back
@@ -388,7 +388,7 @@ export default function DevotionalArticle({ devotional, onBack }) {
   }
 
   return (
-    <div className="min-h-screen bg-[#FFFDF7]">
+    <div className="min-h-screen bg-[#F2F6FA]">
       <div className="max-w-3xl mx-auto px-4 py-6">
         {/* Back Button */}
         <Button
@@ -432,7 +432,7 @@ export default function DevotionalArticle({ devotional, onBack }) {
         </Card>
 
         {/* Key Bible Verses */}
-        <Card className="p-6 bg-gradient-to-br from-[#FAD98D]/15 to-[#D9B878]/10 border-l-4 border-[#c9a227] mb-6">
+        <Card className="p-6 bg-gradient-to-br from-[#FAD98D]/15 to-[#FAD98D]/10 border-l-4 border-[#c9a227] mb-6">
           <h2 className="text-xl font-bold text-[#0A1A2F] mb-4">Key Bible Verses</h2>
           <div className="space-y-4">
             {content.verses.map((verse, index) => (
@@ -456,7 +456,7 @@ export default function DevotionalArticle({ devotional, onBack }) {
         </Card>
 
         {/* Reflection Questions */}
-        <Card className="p-6 bg-gradient-to-br from-[#FAD98D]/10 to-[#D9B878]/8 mb-6">
+        <Card className="p-6 bg-gradient-to-br from-[#FAD98D]/10 to-[#FAD98D]/8 mb-6">
           <h2 className="text-xl font-bold text-[#0A1A2F] mb-4">Reflection Questions</h2>
           <div className="space-y-4">
             {content.reflectionQuestions.map((section, index) => (
@@ -473,9 +473,9 @@ export default function DevotionalArticle({ devotional, onBack }) {
         </Card>
 
         {/* Call to Christ */}
-        <Card className="p-6 bg-gradient-to-br from-[#FAD98D]/10 to-[#FFF8E7] mb-6">
+        <Card className="p-6 bg-gradient-to-br from-[#FAD98D]/10 to-[#FFF9EC] mb-6">
           <h2 className="text-xl font-bold text-[#0A1A2F] mb-4 flex items-center gap-2">
-            <Heart className="w-5 h-5 text-[#8a6e1a]" />
+            <Heart className="w-5 h-5 text-[#C9A227]" />
             Call to Christ
           </h2>
           <div className="space-y-4 text-[#0A1A2F]/75 leading-relaxed">
@@ -498,7 +498,7 @@ export default function DevotionalArticle({ devotional, onBack }) {
         </Card>
 
         {/* Prayer */}
-        <Card className="p-6 bg-gradient-to-br from-[#c9a227]/10 to-[#D9B878]/10 border-l-4 border-[#c9a227] mb-6">
+        <Card className="p-6 bg-gradient-to-br from-[#c9a227]/10 to-[#FAD98D]/10 border-l-4 border-[#c9a227] mb-6">
           <h2 className="text-xl font-bold text-[#0A1A2F] mb-4">Prayer</h2>
           <p className="text-[#0A1A2F]/75 leading-relaxed italic">
             {content.prayer}

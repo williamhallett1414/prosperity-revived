@@ -36,7 +36,7 @@ const TABS = [
 const MACRO_CONFIG = [
   { key:'calories', label:'Calories', unit:'',   target:2000, color:'bg-[#FAD98D]'     },
   { key:'protein',  label:'Protein',  unit:'g',  target:150,  color:'bg-[#AFC7E3]'     },
-  { key:'carbs',    label:'Carbs',    unit:'g',  target:250,  color:'bg-[#D9B878]'     },
+  { key:'carbs',    label:'Carbs',    unit:'g',  target:250,  color:'bg-[#FAD98D]'     },
   { key:'fats',     label:'Fat',      unit:'g',  target:65,   color:'bg-[#FAD98D]/60'  },
 ];
 
@@ -139,14 +139,14 @@ export default function Nutrition() {
   const suggestions = QUICK_MEALS.filter(m => m.meal === suggestType);
 
   return (
-    <div className="min-h-screen bg-[#FFFDF7] pb-28">
+    <div className="min-h-screen bg-[#F2F6FA] pb-28">
 
       {/* ── Sticky header ── */}
-      <div className="sticky top-0 z-40 bg-white border-b border-[#D9B878]/20 px-4 pt-4 pb-3">
+      <div className="sticky top-0 z-40 bg-white border-b border-[#FAD98D]/20 px-4 pt-4 pb-3">
         <div className="max-w-lg mx-auto">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#c9a227] to-[#D9B878] flex items-center justify-center">
+              <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center">
                 <UtensilsCrossed className="w-5 h-5 text-white" />
               </div>
               <div>
@@ -163,7 +163,7 @@ export default function Nutrition() {
                 </button>
               </Link>
               <button onClick={() => setShowLogModal(true)}
-                className="flex items-center gap-1.5 bg-gradient-to-r from-[#c9a227] to-[#D9B878] text-white text-xs font-bold px-3 py-2 rounded-xl hover:opacity-90 shadow-sm">
+                className="flex items-center gap-1.5 bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white text-xs font-bold px-3 py-2 rounded-xl hover:opacity-90 shadow-sm">
                 <Plus className="w-3.5 h-3.5" /> Log Food
               </button>
             </div>
@@ -175,7 +175,7 @@ export default function Nutrition() {
               <button key={id} onClick={() => setActiveTab(id)}
                 className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-xl text-xs font-bold transition-all ${
                   activeTab === id
-                    ? 'bg-gradient-to-b from-[#c9a227] to-[#D9B878] text-white shadow-sm'
+                    ? 'bg-gradient-to-b from-[#c9a227] to-[#FAD98D] text-white shadow-sm'
                     : 'bg-[#F2F6FA] text-[#0A1A2F]/45 hover:text-[#0A1A2F]/65'
                 }`}>
                 <Icon className="w-3.5 h-3.5" />{label}
@@ -192,7 +192,7 @@ export default function Nutrition() {
         {activeTab === 'today' && (
           <>
             {/* Macro summary card */}
-            <div className="bg-white rounded-2xl border border-[#D9B878]/20 p-4">
+            <div className="bg-white rounded-2xl border border-[#FAD98D]/20 p-4">
               <p className="text-xs font-bold text-[#0A1A2F]/35 uppercase tracking-widest mb-3">Today's Progress</p>
               <div className="grid grid-cols-4 gap-2">
                 {MACRO_CONFIG.map(({ key, label, unit, target }) => (
@@ -200,7 +200,7 @@ export default function Nutrition() {
                 ))}
               </div>
               {/* Calorie bar */}
-              <div className="mt-4 pt-3 border-t border-[#D9B878]/15">
+              <div className="mt-4 pt-3 border-t border-[#FAD98D]/15">
                 <div className="flex justify-between text-xs mb-1.5">
                   <span className="text-[#0A1A2F]/50 font-semibold">{Math.round(totals.calories)} kcal eaten</span>
                   <span className="text-[#0A1A2F]/35">{Math.max(0, 2000 - Math.round(totals.calories))} remaining</span>
@@ -210,14 +210,14 @@ export default function Nutrition() {
                     initial={{ width: 0 }}
                     animate={{ width: `${Math.min((totals.calories / 2000) * 100, 100)}%` }}
                     transition={{ duration: 0.8, delay: 0.2 }}
-                    className={`h-full rounded-full ${totals.calories > 2000 ? 'bg-red-400' : 'bg-gradient-to-r from-[#c9a227] to-[#D9B878]'}`}
+                    className={`h-full rounded-full ${totals.calories > 2000 ? 'bg-red-400' : 'bg-gradient-to-r from-[#c9a227] to-[#FAD98D]'}`}
                   />
                 </div>
               </div>
             </div>
 
             {/* Water tracker */}
-            <div className="bg-white rounded-2xl border border-[#D9B878]/20 p-4">
+            <div className="bg-white rounded-2xl border border-[#FAD98D]/20 p-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2.5">
                   <div className="w-9 h-9 rounded-xl bg-[#AFC7E3]/20 flex items-center justify-center">
@@ -253,7 +253,7 @@ export default function Nutrition() {
                 <p className="text-xs font-bold text-[#0A1A2F]/35 uppercase tracking-widest">Meals Logged Today · {todayMeals.length}</p>
               </div>
               {todayMeals.length === 0 ? (
-                <div className="bg-white rounded-2xl border border-[#D9B878]/20 p-6 text-center">
+                <div className="bg-white rounded-2xl border border-[#FAD98D]/20 p-6 text-center">
                   <p className="text-sm text-[#0A1A2F]/40 font-semibold">Nothing logged yet</p>
                   <p className="text-xs text-[#0A1A2F]/25 mt-1">Tap a suggestion below or use Log Food</p>
                 </div>
@@ -262,7 +262,7 @@ export default function Nutrition() {
                   {todayMeals.map((m, i) => (
                     <motion.div key={m.id || i} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: i * 0.04 }}
-                      className="bg-white rounded-xl border border-[#D9B878]/15 p-3 flex items-center gap-3">
+                      className="bg-white rounded-xl border border-[#FAD98D]/15 p-3 flex items-center gap-3">
                       <span className="text-xl flex-shrink-0">{MEAL_EMOJI[m.meal_type] || '🍴'}</span>
                       <div className="flex-1 min-w-0">
                         <p className="font-semibold text-[#0A1A2F] text-sm leading-tight truncate">{m.description}</p>
@@ -294,7 +294,7 @@ export default function Nutrition() {
                 {suggestions.map((meal, i) => (
                   <motion.div key={meal.id} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: i * 0.06 }}
-                    className="bg-white rounded-xl border border-[#D9B878]/15 p-3 flex items-center gap-3">
+                    className="bg-white rounded-xl border border-[#FAD98D]/15 p-3 flex items-center gap-3">
                     <span className="text-2xl flex-shrink-0">{meal.emoji}</span>
                     <div className="flex-1 min-w-0">
                       <p className="font-semibold text-[#0A1A2F] text-sm leading-tight">{meal.name}</p>
@@ -318,8 +318,8 @@ export default function Nutrition() {
             {/* Quick nav cards */}
             <div className="grid grid-cols-2 gap-3">
               <Link to={createPageUrl('DiscoverRecipes')}>
-                <div className="bg-white border border-[#D9B878]/20 rounded-2xl p-4 hover:border-[#c9a227]/30 transition-colors">
-                  <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#c9a227] to-[#D9B878] flex items-center justify-center mb-2">
+                <div className="bg-white border border-[#FAD98D]/20 rounded-2xl p-4 hover:border-[#c9a227]/30 transition-colors">
+                  <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center mb-2">
                     <UtensilsCrossed className="w-4.5 h-4.5 text-white" style={{ width: 18, height: 18 }} />
                   </div>
                   <p className="font-bold text-[#0A1A2F] text-sm">Discover Recipes</p>
@@ -327,7 +327,7 @@ export default function Nutrition() {
                 </div>
               </Link>
               <Link to={createPageUrl('FoodLogHistory')}>
-                <div className="bg-white border border-[#D9B878]/20 rounded-2xl p-4 hover:border-[#c9a227]/30 transition-colors">
+                <div className="bg-white border border-[#FAD98D]/20 rounded-2xl p-4 hover:border-[#c9a227]/30 transition-colors">
                   <div className="w-9 h-9 rounded-xl bg-[#AFC7E3]/20 flex items-center justify-center mb-2">
                     <TrendingUp className="w-4.5 h-4.5 text-[#3C4E53]" style={{ width: 18, height: 18 }} />
                   </div>

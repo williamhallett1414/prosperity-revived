@@ -49,7 +49,7 @@ export default function TodaysRecommendations({ user, mealLogs, workoutSessions,
         title: 'Sleep Optimization',
         description: 'Getting 7-9 hours of quality sleep improves recovery and mood.',
         action: () => navigate(createPageUrl('Wellness?tab=mind')),
-        color: 'from-[#FAD98D]/10 to-[#FFF8E7]'
+        color: 'from-[#FAD98D]/10 to-[#FFF9EC]'
       });
     }
 

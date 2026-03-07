@@ -90,7 +90,7 @@ export default function DailyVerseSettings({ isOpen, onClose }) {
             </div>
           )}
 
-          <div className="bg-[#faf8f5] rounded-lg p-4">
+          <div className="bg-[#F2F6FA] rounded-lg p-4">
             <p className="text-sm text-gray-600">
               📖 Daily verses are curated to provide inspiration, encouragement, and wisdom for your spiritual journey.
             </p>
@@ -100,7 +100,7 @@ export default function DailyVerseSettings({ isOpen, onClose }) {
             <Button variant="outline" onClick={onClose}>
               Cancel
             </Button>
-            <Button onClick={handleSave} className="bg-[#1a1a2e]" disabled={saveReminder.isPending}>
+            <Button onClick={handleSave} className="bg-[#0A1A2F]" disabled={saveReminder.isPending}>
               Save Settings
             </Button>
           </div>

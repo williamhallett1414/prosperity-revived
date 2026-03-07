@@ -31,7 +31,7 @@ export default function CreateGroupPlanModal({ isOpen, onClose, onSubmit, basePl
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <Users className="w-5 h-5 text-[#8fa68a]" />
+            <Users className="w-5 h-5 text-[#AFC7E3]" />
             Create Group Reading Plan
           </DialogTitle>
         </DialogHeader>
@@ -99,7 +99,7 @@ export default function CreateGroupPlanModal({ isOpen, onClose, onSubmit, basePl
             </Button>
             <Button 
               type="submit" 
-              className="flex-1 bg-[#8fa68a] hover:bg-[#7a9179] text-white"
+              className="flex-1 bg-[#AFC7E3] hover:bg-[#AFC7E3] text-white"
               disabled={!formData.group_name.trim()}
             >
               Create Group

@@ -193,7 +193,7 @@ export default function HannahProfileSetup({ user, onComplete, onClose }) {
             <Button
               onClick={() => setStep(s => s + 1)}
               disabled={!canNext()}
-              className="flex-1 bg-[#3C4E53] hover:bg-[#2a3c40] text-white"
+              className="flex-1 bg-[#3C4E53] hover:bg-[#3C4E53] text-white"
             >
               Next <ChevronRight className="w-4 h-4 ml-1" />
             </Button>

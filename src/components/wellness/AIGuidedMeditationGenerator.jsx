@@ -138,7 +138,7 @@ Return ONLY the meditation script, no additional formatting or explanation.`;
     { value: 'neutral', label: 'Neutral 😐', color: 'text-gray-600' },
     { value: 'calm', label: 'Calm 😌', color: 'text-green-600' },
     { value: 'energized', label: 'Energized 🤩', color: 'text-yellow-600' },
-    { value: 'grateful', label: 'Grateful 🙏', color: 'text-[#8a6e1a]' }
+    { value: 'grateful', label: 'Grateful 🙏', color: 'text-[#C9A227]' }
   ];
 
   const focusAreas = [
@@ -157,14 +157,14 @@ Return ONLY the meditation script, no additional formatting or explanation.`;
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <Sparkles className="w-5 h-5 text-[#8a6e1a]" />
+            <Sparkles className="w-5 h-5 text-[#C9A227]" />
             AI Guided Meditation Generator
           </DialogTitle>
         </DialogHeader>
 
         {!generatedScript ? (
           <div className="space-y-6">
-            <div className="bg-gradient-to-r from-[#FAD98D]/10 to-[#FFF8E7] dark:from-[#0A1A2F]/40 dark:to-[#1a1a2e]/40 rounded-lg p-4">
+            <div className="bg-gradient-to-r from-[#FAD98D]/10 to-[#FFF9EC] dark:from-[#0A1A2F]/40 dark:to-[#0A1A2F]/40 rounded-lg p-4">
               <p className="text-sm text-gray-700 dark:text-gray-300">
                 Share how you're feeling, and I'll create a personalized meditation just for you. ✨
               </p>
@@ -181,7 +181,7 @@ Return ONLY the meditation script, no additional formatting or explanation.`;
                     onClick={() => setMood(m.value)}
                     className={`p-3 rounded-lg border-2 transition-all text-left ${
                       mood === m.value
-                        ? 'border-[#D9B878] bg-[#FAD98D]/10 dark:bg-[#0A1A2F]/20'
+                        ? 'border-[#FAD98D] bg-[#FAD98D]/10 dark:bg-[#0A1A2F]/20'
                         : 'border-gray-200 hover:border-gray-300'
                     }`}
                   >
@@ -256,7 +256,7 @@ Return ONLY the meditation script, no additional formatting or explanation.`;
             <Button
               onClick={generateMeditation}
               disabled={isGenerating}
-              className="w-full bg-gradient-to-r from-[#b89320] to-[#c9a227] hover:from-[#b89320] hover:to-[#c9a227]"
+              className="w-full bg-gradient-to-r from-[#C9A227] to-[#c9a227] hover:from-[#C9A227] hover:to-[#c9a227]"
               size="lg"
             >
               {isGenerating ? (
@@ -278,12 +278,12 @@ Return ONLY the meditation script, no additional formatting or explanation.`;
             animate={{ opacity: 1, y: 0 }}
             className="space-y-4"
           >
-            <div className="bg-gradient-to-r from-[#b89320] to-[#c9a227] rounded-xl p-6 text-white">
+            <div className="bg-gradient-to-r from-[#C9A227] to-[#c9a227] rounded-xl p-6 text-white">
               <h3 className="text-xl font-bold mb-2">{generatedTitle}</h3>
               <p className="text-white/80 text-sm">{duration} minute guided meditation</p>
             </div>
 
-            <div className="bg-gray-50 dark:bg-[#1a1a2e] rounded-lg p-6 max-h-96 overflow-y-auto">
+            <div className="bg-gray-50 dark:bg-[#0A1A2F] rounded-lg p-6 max-h-96 overflow-y-auto">
               <p className="text-gray-800 dark:text-gray-200 whitespace-pre-wrap leading-relaxed">
                 {generatedScript}
               </p>
@@ -303,7 +303,7 @@ Return ONLY the meditation script, no additional formatting or explanation.`;
               <Button
                 onClick={() => saveMeditation.mutate()}
                 disabled={saveMeditation.isPending}
-                className="flex-1 bg-[#c9a227] hover:bg-[#b89320]"
+                className="flex-1 bg-[#c9a227] hover:bg-[#C9A227]"
               >
                 <Save className="w-4 h-4 mr-2" />
                 Save to Library

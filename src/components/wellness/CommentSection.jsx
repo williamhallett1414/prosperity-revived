@@ -114,7 +114,7 @@ export default function CommentSection({ contentId, contentType }) {
             className="space-y-4"
           >
             {/* Comment Input */}
-            <div className="bg-[#F0F8FF] rounded-xl p-4">
+            <div className="bg-[#F2F6FA] rounded-xl p-4">
               <Textarea
                 placeholder="Share your thoughts..."
                 value={newComment}

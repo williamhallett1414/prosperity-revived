@@ -109,10 +109,10 @@ export default function UserPostsFeed({ userEmail, isOwnProfile }) {
           >
             <Card className="overflow-hidden">
               {/* Post Header */}
-              <div className="p-4 border-b border-[#D9B878]/25 flex items-start justify-between">
+              <div className="p-4 border-b border-[#FAD98D]/25 flex items-start justify-between">
                 <div className="flex-1">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#c9a227] to-[#D9B878] flex items-center justify-center font-bold text-white">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center font-bold text-white">
                       {post.user_name?.charAt(0) || 'U'}
                     </div>
                     <div>
@@ -165,7 +165,7 @@ export default function UserPostsFeed({ userEmail, isOwnProfile }) {
                       <Button
                         onClick={handleSaveEdit}
                         disabled={updatePostMutation.isPending}
-                        className="flex-1 bg-[#c9a227] hover:bg-[#b89320] text-white"
+                        className="flex-1 bg-[#c9a227] hover:bg-[#C9A227] text-white"
                         size="sm"
                       >
                         Save
@@ -216,12 +216,12 @@ export default function UserPostsFeed({ userEmail, isOwnProfile }) {
               {/* Post Stats & Actions */}
               {!isEditing && (
                 <>
-                  <div className="px-4 py-2 border-t border-[#D9B878]/25 flex items-center justify-between text-sm text-[#0A1A2F]/60">
+                  <div className="px-4 py-2 border-t border-[#FAD98D]/25 flex items-center justify-between text-sm text-[#0A1A2F]/60">
                     <span>{post.likes || 0} likes</span>
                     <span>{postComments.length} comments</span>
                   </div>
 
-                  <div className="px-4 py-3 border-t border-[#D9B878]/25 flex items-center gap-4">
+                  <div className="px-4 py-3 border-t border-[#FAD98D]/25 flex items-center gap-4">
                     <button
                       onClick={() =>
                         toggleLikeMutation.mutate({

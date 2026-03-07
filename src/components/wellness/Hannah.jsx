@@ -163,10 +163,10 @@ When the user mentions stress, anxiety, or specific goals, proactively recommend
             initial={{ opacity: 0, y: 100, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 100, scale: 0.9 }}
-            className="fixed bottom-24 right-4 w-[calc(100vw-2rem)] sm:w-96 h-[500px] bg-white rounded-2xl shadow-2xl flex flex-col z-50 border border-[#E6EBEF]"
+            className="fixed bottom-24 right-4 w-[calc(100vw-2rem)] sm:w-96 h-[500px] bg-white rounded-2xl shadow-2xl flex flex-col z-50 border border-[#F2F6FA]"
           >
             {/* Header */}
-            <div className="bg-gradient-to-r from-[#AFC7E3] to-[#D9B878] text-[#0A1A2F] p-5 rounded-t-2xl flex items-center justify-between">
+            <div className="bg-gradient-to-r from-[#AFC7E3] to-[#FAD98D] text-[#0A1A2F] p-5 rounded-t-2xl flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-[#0A1A2F]/10 flex items-center justify-center">
                   <Sparkles className="w-6 h-6 text-[#0A1A2F]" />
@@ -198,8 +198,8 @@ When the user mentions stress, anxiety, or specific goals, proactively recommend
                   <div
                     className={`max-w-[80%] rounded-2xl px-4 py-3 ${
                       message.role === 'user'
-                        ? 'bg-gradient-to-r from-[#AFC7E3] to-[#D9B878] text-[#0A1A2F]'
-                        : 'bg-[#E6EBEF] text-[#0A1A2F]'
+                        ? 'bg-gradient-to-r from-[#AFC7E3] to-[#FAD98D] text-[#0A1A2F]'
+                        : 'bg-gray-100 text-[#0A1A2F]'
                     }`}
                   >
                     <p className="text-sm whitespace-pre-wrap leading-relaxed">{message.content}</p>
@@ -208,7 +208,7 @@ When the user mentions stress, anxiety, or specific goals, proactively recommend
               ))}
               {isLoading && (
                 <div className="flex justify-start">
-                  <div className="bg-[#E6EBEF] rounded-2xl px-4 py-3">
+                  <div className="bg-gray-100 rounded-2xl px-4 py-3">
                     <Loader2 className="w-5 h-5 animate-spin text-[#AFC7E3]" />
                   </div>
                 </div>
@@ -224,7 +224,7 @@ When the user mentions stress, anxiety, or specific goals, proactively recommend
                       onClick={() => {
                         setInput(action);
                       }}
-                      className="block w-full text-left text-sm px-4 py-3 rounded-xl bg-white hover:bg-[#E6EBEF] text-[#0A1A2F] transition-colors shadow-sm"
+                      className="block w-full text-left text-sm px-4 py-3 rounded-xl bg-white hover:bg-gray-100 text-[#0A1A2F] transition-colors shadow-sm"
                     >
                       {action}
                     </button>
@@ -234,20 +234,20 @@ When the user mentions stress, anxiety, or specific goals, proactively recommend
             </div>
 
             {/* Input */}
-            <div className="p-5 border-t border-[#E6EBEF] bg-white">
+            <div className="p-5 border-t border-[#F2F6FA] bg-white">
               <div className="flex gap-3">
                 <Input
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
                   placeholder="Ask Hannah..."
-                  className="flex-1 bg-[#F2F6FA] border-[#E6EBEF] h-11"
+                  className="flex-1 bg-[#F2F6FA] border-[#F2F6FA] h-11"
                   disabled={isLoading}
                 />
                 <Button
                   onClick={sendMessage}
                   disabled={!input.trim() || isLoading}
-                  className="bg-gradient-to-r from-[#AFC7E3] to-[#D9B878] hover:from-[#AFC7E3]/90 hover:to-[#D9B878]/90 text-[#0A1A2F] h-11 px-5"
+                  className="bg-gradient-to-r from-[#AFC7E3] to-[#FAD98D] hover:from-[#AFC7E3]/90 hover:to-[#FAD98D]/90 text-[#0A1A2F] h-11 px-5"
                   size="icon"
                 >
                   <Send className="w-4 h-4" />

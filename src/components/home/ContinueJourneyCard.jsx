@@ -21,7 +21,7 @@ export default function ContinueJourneyCard({
         title: 'Continue Reading Plan',
         subtitle: plan.plan_name,
         link: createPageUrl(`PlanDetail?id=${plan.plan_id}`),
-        gradient: 'from-[#AFC7E3] to-[#D9B878]'
+        gradient: 'from-[#AFC7E3] to-[#FAD98D]'
       };
     }
 
@@ -34,7 +34,7 @@ export default function ContinueJourneyCard({
         title: 'Continue Challenge',
         subtitle: `Day ${(challenge.completed_days?.length || 0) + 1}`,
         link: createPageUrl('SelfCare'),
-        gradient: 'from-[#D9B878] to-[#AFC7E3]'
+        gradient: 'from-[#FAD98D] to-[#AFC7E3]'
       };
     }
 
@@ -61,7 +61,7 @@ export default function ContinueJourneyCard({
          title: 'Journal Your Thoughts',
          subtitle: 'Reflect on your day',
          link: `${createPageUrl('Wellness')}?tab=journaling`,
-         gradient: 'from-[#D9B878] to-[#D9B878]'
+         gradient: 'from-[#FAD98D] to-[#FAD98D]'
        };
      }
 

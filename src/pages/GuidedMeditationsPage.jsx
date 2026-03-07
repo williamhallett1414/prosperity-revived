@@ -23,11 +23,11 @@ const MEDITATIONS = [
   { id: 'grief-comfort',       title: 'Grief & Comfort',         duration: '8 min',  durationSec: 480, theme: '🫶', icon: Heart,    category: 'heal',    gradient: 'from-purple-500 to-violet-400',     accentColor: '#a855f7', description: "Find comfort in God's presence when loss or sadness weighs heavy.", prompt: "An 8-minute grief and comfort meditation. Acknowledge pain with compassion, create space to feel and release sadness, remind the user they are not alone (Psalm 34:18), visualize God's arms around them. Deeply tender, unhurried tone." },
   { id: 'purpose-calling',     title: 'Purpose & Calling',       duration: '7 min',  durationSec: 420, theme: '⭐', icon: StarIcon,  category: 'faith',   gradient: 'from-[#c9a227] to-orange-400',      accentColor: '#c9a227', description: "Reconnect with your God-given purpose and the life you're called to.", prompt: "A 7-minute purpose and calling meditation. Guide reflection on God's unique design for the user, use Jeremiah 29:11, visualize a path lit ahead, invite surrender of self-doubt, close with a commissioning prayer. Inspiring, warm tone." },
   { id: 'midday-reset',        title: 'Midday Reset',            duration: '4 min',  durationSec: 240, theme: '☀️', icon: Coffee,   category: 'focus',   gradient: 'from-lime-500 to-green-400',        accentColor: '#84cc16', description: 'A quick recharge to clear mental fog and renew focus mid-day.', prompt: "A 4-minute midday reset meditation. Three deep cleansing breaths, release the morning's stress, set a fresh intention for the afternoon, end with a one-line prayer. Crisp, refreshing tone — like a cold glass of water." },
-  { id: 'healing-prayer',      title: 'Healing Prayer',          duration: '9 min',  durationSec: 540, theme: '✝️', icon: Shield,   category: 'faith',   gradient: 'from-[#D9B878] to-yellow-400',      accentColor: '#D9B878', description: 'Bring physical, emotional or spiritual pain before God and receive His healing.', prompt: "A 9-minute healing prayer meditation. Invite the user to name what needs healing, lay it at the foot of the cross, visualize healing light flowing through the body, reference James 5:16 and Isaiah 53:5. Reverent, faith-filled tone." },
+  { id: 'healing-prayer',      title: 'Healing Prayer',          duration: '9 min',  durationSec: 540, theme: '✝️', icon: Shield,   category: 'faith',   gradient: 'from-[#FAD98D] to-yellow-400',      accentColor: '#FAD98D', description: 'Bring physical, emotional or spiritual pain before God and receive His healing.', prompt: "A 9-minute healing prayer meditation. Invite the user to name what needs healing, lay it at the foot of the cross, visualize healing light flowing through the body, reference James 5:16 and Isaiah 53:5. Reverent, faith-filled tone." },
   { id: 'letting-go',          title: 'Letting Go',              duration: '6 min',  durationSec: 360, theme: '🍂', icon: Feather,  category: 'calm',    gradient: 'from-orange-400 to-amber-400',      accentColor: '#fb923c', description: "Release control, old wounds, and what no longer serves your growth.", prompt: "A 6-minute letting go meditation. Guide the user to identify what they're gripping tightly, visualize placing it in God's open hands, breathe out and release with each exhale, reference Philippians 4:6-7. Gentle, freeing tone." },
   { id: 'focus-clarity',       title: 'Focus & Clarity',         duration: '5 min',  durationSec: 300, theme: '🎯', icon: Eye,      category: 'focus',   gradient: 'from-teal-500 to-cyan-500',         accentColor: '#14b8a6', description: 'Cut through distraction and sharpen your mind for the task ahead.', prompt: "A 5-minute focus and clarity meditation. Clear mental clutter through breath, visualize a clear still pond, set one clear intention, reference Proverbs 4:25. Alert and grounded tone — not sleepy, but calm and sharp." },
   { id: 'self-compassion',     title: 'Self-Compassion',         duration: '7 min',  durationSec: 420, theme: '💛', icon: Sun,      category: 'heal',    gradient: 'from-yellow-400 to-amber-400',      accentColor: '#eab308', description: "Speak kindly to yourself the way God speaks over you.",        prompt: "A 7-minute self-compassion meditation. Address harsh inner criticism with gentleness, remind the user they are fearfully and wonderfully made (Psalm 139:14), practice placing a hand on the heart and receiving God's love. Warm, motherly tone." },
-  { id: 'overcoming-fear',     title: 'Overcoming Fear',         duration: '6 min',  durationSec: 360, theme: '⚡', icon: Zap,      category: 'calm',    gradient: 'from-violet-600 to-purple-500',     accentColor: '#7c3aed', description: "Face what frightens you with faith, not with your own strength.", prompt: "A 6-minute overcoming fear meditation. Name the fear without shame, place it before God, declare 2 Timothy 1:7 over it, visualize walking through the fear with God beside you. Steady, courageous tone." },
+  { id: 'overcoming-fear',     title: 'Overcoming Fear',         duration: '6 min',  durationSec: 360, theme: '⚡', icon: Zap,      category: 'calm',    gradient: 'from-violet-600 to-purple-500',     accentColor: '#8B5CF6', description: "Face what frightens you with faith, not with your own strength.", prompt: "A 6-minute overcoming fear meditation. Name the fear without shame, place it before God, declare 2 Timothy 1:7 over it, visualize walking through the fear with God beside you. Steady, courageous tone." },
   { id: 'relationships',       title: 'Healthy Relationships',   duration: '7 min',  durationSec: 420, theme: '🤝', icon: Heart,    category: 'heal',    gradient: 'from-fuchsia-500 to-pink-400',      accentColor: '#d946ef', description: "Open your heart to give and receive love as God intended.",  prompt: "A 7-minute relationships meditation. Reflect on one key relationship, release any hurt or expectation, pray for the other person, visualize connection rooted in love (1 Corinthians 13). Warm, open tone." },
   { id: 'abundance-mindset',   title: 'Abundance Mindset',       duration: '5 min',  durationSec: 300, theme: '🌿', icon: Leaf,     category: 'focus',   gradient: 'from-green-500 to-emerald-400',     accentColor: '#22c55e', description: "Shift from scarcity thinking to God's overflowing provision.", prompt: "A 5-minute abundance mindset meditation. Name three ways God has provided, counter scarcity fears with truth, reference Philippians 4:19, visualize a table overflowing. Grateful, expectant tone." },
   { id: 'sabbath-rest',        title: 'Sabbath Rest',            duration: '10 min', durationSec: 600, theme: '☁️', icon: Cloud,    category: 'sleep',   gradient: 'from-blue-400 to-indigo-400',       accentColor: '#60a5fa', description: "Enter true rest — ceasing striving and trusting in God's sufficiency.", prompt: "A 10-minute sabbath rest meditation. Invite the user to stop doing and simply be, release productivity pressure, rest in God's completed work, reference Psalm 46:10 and Hebrews 4:9-10. Deeply peaceful, unhurried tone with 8-second pauses." },
@@ -244,7 +244,7 @@ function MeditationPlayer({ meditation, onClose }) {
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
       className="fixed inset-0 z-50 flex flex-col"
-      style={{ background: 'linear-gradient(160deg, #0A1A2F 0%, #1a3a5c 40%, #2a4a6c 70%, #3C4E53 100%)' }}
+      style={{ background: 'linear-gradient(160deg, #0A1A2F 0%, #0A1A2F 40%, #2a4a6c 70%, #3C4E53 100%)' }}
     >
       {/* Breathing bg orb */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
@@ -376,7 +376,7 @@ function MeditationCard({ med, isFav, isRecent, onPlay, onToggleFav, index }) {
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.04 }}
-      className="bg-white rounded-2xl border border-[#E2E8F0] overflow-hidden group hover:shadow-md hover:border-[#D9B878]/40 transition-all cursor-pointer"
+      className="bg-white rounded-2xl border border-[#F2F6FA] overflow-hidden group hover:shadow-md hover:border-[#FAD98D]/40 transition-all cursor-pointer"
       onClick={() => onPlay(med)}
     >
       {/* Gradient accent bar */}
@@ -454,10 +454,10 @@ export default function GuidedMeditationsPage() {
       <div className="min-h-screen bg-[#F2F6FA] pb-28">
 
         {/* ── Sticky header ─────────────────────────────────────────────── */}
-        <div className="sticky top-0 z-40 bg-white border-b border-[#E2E8F0] px-4 py-3">
+        <div className="sticky top-0 z-40 bg-white border-b border-[#F2F6FA] px-4 py-3">
           <div className="max-w-2xl mx-auto flex items-center gap-3">
             <button onClick={() => navigate(-1)}
-              className="w-9 h-9 rounded-full bg-[#F2F6FA] hover:bg-[#E8EFF6] flex items-center justify-center transition-colors">
+              className="w-9 h-9 rounded-full bg-[#F2F6FA] hover:bg-white flex items-center justify-center transition-colors">
               <ArrowLeft className="w-4 h-4 text-[#0A1A2F]" />
             </button>
             <div className="flex-1">
@@ -466,7 +466,7 @@ export default function GuidedMeditationsPage() {
                 {count > 0 ? `${count} session${count !== 1 ? 's' : ''} completed · ` : ''}{MEDITATIONS.length} sessions available
               </p>
             </div>
-            <div className="flex items-center gap-1.5 bg-[#FFF9ED] border border-[#D9B878]/30 rounded-full px-2.5 py-1">
+            <div className="flex items-center gap-1.5 bg-white border border-[#FAD98D]/30 rounded-full px-2.5 py-1">
               <span className="text-[10px]">🎧</span>
               <span className="text-[10px] font-bold text-[#c9a227]">Use headphones</span>
             </div>
@@ -540,7 +540,7 @@ export default function GuidedMeditationsPage() {
                   className={`flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-semibold whitespace-nowrap transition-all ${
                     category === cat.id
                       ? 'bg-[#0A1A2F] text-white border-[#0A1A2F]'
-                      : 'bg-white text-[#0A1A2F]/50 border-[#E2E8F0] hover:border-[#D9B878]/40'
+                      : 'bg-white text-[#0A1A2F]/50 border-[#F2F6FA] hover:border-[#FAD98D]/40'
                   }`}>
                   <span>{cat.emoji}</span>
                   {cat.label}
@@ -575,7 +575,7 @@ export default function GuidedMeditationsPage() {
           </div>
 
           {/* ── Tips footer ───────────────────────────────────────────────── */}
-          <div className="bg-white rounded-2xl border border-[#E2E8F0] p-4">
+          <div className="bg-white rounded-2xl border border-[#F2F6FA] p-4">
             <p className="text-xs font-bold text-[#0A1A2F]/35 uppercase tracking-widest mb-3">Getting the most from each session</p>
             <div className="grid grid-cols-3 gap-3 text-center">
               {[

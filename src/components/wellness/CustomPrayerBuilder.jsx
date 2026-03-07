@@ -68,8 +68,8 @@ Make it meaningful and easy to follow.`;
   };
 
   return (
-    <div className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4">
-      <h3 className="font-semibold text-[#1a1a2e] dark:text-white mb-4">Create Custom Prayer/Meditation</h3>
+    <div className="bg-white dark:bg-[#0A1A2F] rounded-2xl p-4">
+      <h3 className="font-semibold text-[#0A1A2F] dark:text-white mb-4">Create Custom Prayer/Meditation</h3>
 
       <div className="space-y-3">
         <Input
@@ -146,7 +146,7 @@ Make it meaningful and easy to follow.`;
 
         <Button
           onClick={handleCreate}
-          className="w-full bg-[#c9a227] hover:bg-[#b89320]"
+          className="w-full bg-[#c9a227] hover:bg-[#C9A227]"
           disabled={!prayer.title.trim() || prayer.elements.length === 0}
         >
           Create Session

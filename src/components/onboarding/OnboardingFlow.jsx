@@ -83,7 +83,7 @@ export default function OnboardingFlow({ onComplete }) {
               <p className="text-white/70 text-xs mt-1">Please enter your name to continue</p>
             )}
           </div>
-          <div className="bg-gradient-to-br from-[#c9a227] to-[#D9B878] rounded-2xl p-4 text-white">
+          <div className="bg-gradient-to-br from-[#c9a227] to-[#FAD98D] rounded-2xl p-4 text-white">
             <Target className="w-8 h-8 mb-3" />
             <h3 className="font-semibold mb-2">Set Your Spiritual Goal</h3>
             <p className="text-sm text-white/80 mb-4">What's one thing you'd like to focus on spiritually?</p>
@@ -130,7 +130,7 @@ export default function OnboardingFlow({ onComplete }) {
               variant={data.fitness_level === level ? 'default' : 'outline'}
               className={`w-full justify-start h-auto p-4 ${
                 data.fitness_level === level 
-                  ? 'bg-[#8fa68a] hover:bg-[#8fa68a]/90 text-white' 
+                  ? 'bg-[#AFC7E3] hover:bg-[#AFC7E3]/90 text-white' 
                   : 'border-gray-300 hover:bg-gray-50'
               }`}
             >
@@ -173,7 +173,7 @@ export default function OnboardingFlow({ onComplete }) {
   const currentStep = steps[step - 1];
 
   return (
-    <div className="fixed inset-0 bg-gradient-to-br from-[#1a1a2e] to-[#2d2d4a] z-50 overflow-y-auto">
+    <div className="fixed inset-0 bg-gradient-to-br from-[#0A1A2F] to-[#0A1A2F] z-50 overflow-y-auto">
       <div className="min-h-screen flex flex-col items-center justify-center p-4">
         <div className="w-full max-w-lg">
           {/* Progress Bar */}
@@ -184,7 +184,7 @@ export default function OnboardingFlow({ onComplete }) {
             </div>
             <div className="h-2 bg-white/10 rounded-full overflow-hidden">
               <motion.div
-                className="h-full bg-gradient-to-r from-[#c9a227] to-[#8fa68a]"
+                className="h-full bg-gradient-to-r from-[#c9a227] to-[#AFC7E3]"
                 initial={{ width: 0 }}
                 animate={{ width: `${(step / steps.length) * 100}%` }}
                 transition={{ duration: 0.3 }}
@@ -199,10 +199,10 @@ export default function OnboardingFlow({ onComplete }) {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
-              className="bg-white dark:bg-[#2d2d4a] rounded-3xl p-6 shadow-2xl"
+              className="bg-white dark:bg-[#0A1A2F] rounded-3xl p-6 shadow-2xl"
             >
               <div className="mb-6">
-                <h2 className="text-2xl font-bold text-[#1a1a2e] dark:text-white mb-2">
+                <h2 className="text-2xl font-bold text-[#0A1A2F] dark:text-white mb-2">
                   {currentStep.title}
                 </h2>
                 <p className="text-gray-600 dark:text-gray-400 text-sm">
@@ -233,7 +233,7 @@ export default function OnboardingFlow({ onComplete }) {
                     }
                   }}
                   disabled={step === 1 && !data.full_name.trim()}
-                  className="flex-1 bg-gradient-to-r from-[#c9a227] to-[#8fa68a] hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed"
+                  className="flex-1 bg-gradient-to-r from-[#c9a227] to-[#AFC7E3] hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed"
                 >
                   {step === steps.length ? (
                     <>

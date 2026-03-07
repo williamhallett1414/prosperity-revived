@@ -165,7 +165,7 @@ export default function GroceryListGenerator({ isOpen, onClose, mealPlanDays }) 
           {Object.entries(groceryList).map(([category, items]) => (
             items.length > 0 && (
               <div key={category}>
-                <h4 className="font-semibold text-[#1a1a2e] dark:text-white mb-3 flex items-center gap-2">
+                <h4 className="font-semibold text-[#0A1A2F] dark:text-white mb-3 flex items-center gap-2">
                   <span className="text-2xl">{categoryIcons[category]}</span>
                   {categoryNames[category]}
                   <span className="text-sm font-normal text-gray-500">({items.length})</span>
@@ -176,8 +176,8 @@ export default function GroceryListGenerator({ isOpen, onClose, mealPlanDays }) 
                       key={idx}
                       className={`flex items-start gap-3 p-3 rounded-lg transition-colors ${
                         checkedItems[item.name]
-                          ? 'bg-gray-100 dark:bg-[#1a1a2e]'
-                          : 'bg-white dark:bg-[#2d2d4a] hover:bg-gray-50 dark:hover:bg-[#3d3d5a]'
+                          ? 'bg-gray-100 dark:bg-[#0A1A2F]'
+                          : 'bg-white dark:bg-[#0A1A2F] hover:bg-gray-50 dark:hover:bg-[#3C4E53]'
                       }`}
                     >
                       <Checkbox
@@ -189,7 +189,7 @@ export default function GroceryListGenerator({ isOpen, onClose, mealPlanDays }) 
                         <p className={`font-medium ${
                           checkedItems[item.name]
                             ? 'text-gray-500 line-through'
-                            : 'text-[#1a1a2e] dark:text-white'
+                            : 'text-[#0A1A2F] dark:text-white'
                         }`}>
                           {item.name}
                           {item.count > 1 && (

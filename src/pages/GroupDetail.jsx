@@ -17,15 +17,15 @@ import ChallengeCard from '@/components/challenges/ChallengeCard';
 
 // ─── Category config ────────────────────────────────────────────────────────
 const CATEGORY_CONFIG = {
-  bible_study: { emoji: '📖', label: 'Bible Study',  gradient: 'from-[#c9a227] to-[#D9B878]' },
-  workout:     { emoji: '💪', label: 'Workout',       gradient: 'from-[#0A1A2F] to-[#1a3a5c]' },
-  cooking:     { emoji: '🍳', label: 'Cooking',       gradient: 'from-[#D9B878] to-[#FAD98D]' },
+  bible_study: { emoji: '📖', label: 'Bible Study',  gradient: 'from-[#c9a227] to-[#FAD98D]' },
+  workout:     { emoji: '💪', label: 'Workout',       gradient: 'from-[#0A1A2F] to-[#0A1A2F]' },
+  cooking:     { emoji: '🍳', label: 'Cooking',       gradient: 'from-[#FAD98D] to-[#FAD98D]' },
   prayer:      { emoji: '🙏', label: 'Prayer',        gradient: 'from-[#AFC7E3] to-[#3C4E53]' },
   wellness:    { emoji: '🧘', label: 'Wellness',      gradient: 'from-[#3C4E53] to-[#AFC7E3]' },
   youth:       { emoji: '👥', label: 'Youth',         gradient: 'from-[#c9a227] to-[#AFC7E3]' },
-  parents:     { emoji: '👨‍👩‍👧‍👦', label: 'Parents',  gradient: 'from-[#D9B878] to-[#AFC7E3]' },
+  parents:     { emoji: '👨‍👩‍👧‍👦', label: 'Parents',  gradient: 'from-[#FAD98D] to-[#AFC7E3]' },
   marriage:    { emoji: '💑', label: 'Marriage',      gradient: 'from-[#c9a227] to-[#0A1A2F]' },
-  other:       { emoji: '💬', label: 'Community',     gradient: 'from-[#3C4E53] to-[#D9B878]' },
+  other:       { emoji: '💬', label: 'Community',     gradient: 'from-[#3C4E53] to-[#FAD98D]' },
 };
 
 function getCat(category) {
@@ -49,9 +49,9 @@ function MemberAvatarStrip({ memberships, totalCount }) {
   const visible = memberships.slice(0, 5);
   const overflow = totalCount > 5 ? totalCount - 5 : 0;
   const COLORS = [
-    'from-[#c9a227] to-[#D9B878]', 'from-[#AFC7E3] to-[#3C4E53]',
-    'from-[#FD9C2D] to-[#c9a227]', 'from-[#8fa68a] to-[#AFC7E3]',
-    'from-[#3C4E53] to-[#D9B878]'
+    'from-[#c9a227] to-[#FAD98D]', 'from-[#AFC7E3] to-[#3C4E53]',
+    'from-[#FD9C2D] to-[#c9a227]', 'from-[#AFC7E3] to-[#AFC7E3]',
+    'from-[#3C4E53] to-[#FAD98D]'
   ];
   return (
     <div className="flex items-center gap-2">
@@ -78,7 +78,7 @@ function MemberAvatarStrip({ memberships, totalCount }) {
 // ─── Join CTA card ───────────────────────────────────────────────────────────
 function JoinCard({ group, onJoin, joining, cat }) {
   return (
-    <div className="bg-white rounded-2xl border border-[#D9B878]/20 overflow-hidden">
+    <div className="bg-white rounded-2xl border border-[#FAD98D]/20 overflow-hidden">
       <div className={`bg-gradient-to-r ${cat.gradient} p-4 flex items-center gap-3`}>
         <span className="text-3xl">{cat.emoji}</span>
         <div>
@@ -90,7 +90,7 @@ function JoinCard({ group, onJoin, joining, cat }) {
         <div className="space-y-2">
           {['Post updates and encourage others', 'Join group challenges', 'See all member activity'].map((b, i) => (
             <div key={i} className="flex items-center gap-2">
-              <div className="w-4 h-4 rounded-full bg-[#D9B878]/20 flex items-center justify-center flex-shrink-0">
+              <div className="w-4 h-4 rounded-full bg-[#FAD98D]/20 flex items-center justify-center flex-shrink-0">
                 <div className="w-1.5 h-1.5 rounded-full bg-[#c9a227]" />
               </div>
               <p className="text-xs text-[#0A1A2F]/60">{b}</p>
@@ -100,7 +100,7 @@ function JoinCard({ group, onJoin, joining, cat }) {
         <button
           onClick={onJoin}
           disabled={joining}
-          className="w-full py-3 rounded-xl bg-gradient-to-r from-[#D9B878] to-[#c9a227] text-[#0A1A2F] font-bold text-sm flex items-center justify-center gap-2 disabled:opacity-50 hover:opacity-90 transition-opacity"
+          className="w-full py-3 rounded-xl bg-gradient-to-r from-[#FAD98D] to-[#c9a227] text-[#0A1A2F] font-bold text-sm flex items-center justify-center gap-2 disabled:opacity-50 hover:opacity-90 transition-opacity"
         >
           {joining ? <Loader2 className="w-4 h-4 animate-spin" /> : <UserPlus className="w-4 h-4" />}
           {joining ? 'Joining…' : 'Join Group'}
@@ -133,9 +133,9 @@ function EmptyFeed({ isMember, onPost }) {
 
 function EmptyChallenges({ isMember, onCreate }) {
   return (
-    <div className="bg-white rounded-2xl border border-[#D9B878]/20 p-8 text-center">
-      <div className="w-14 h-14 bg-[#FFF9ED] rounded-2xl flex items-center justify-center mx-auto mb-4">
-        <Trophy className="w-7 h-7 text-[#D9B878]" />
+    <div className="bg-white rounded-2xl border border-[#FAD98D]/20 p-8 text-center">
+      <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center mx-auto mb-4">
+        <Trophy className="w-7 h-7 text-[#FAD98D]" />
       </div>
       <h3 className="font-bold text-[#0A1A2F] mb-1">No challenges yet</h3>
       <p className="text-sm text-[#0A1A2F]/40 leading-relaxed mb-4">
@@ -143,7 +143,7 @@ function EmptyChallenges({ isMember, onCreate }) {
       </p>
       {isMember && (
         <button onClick={onCreate}
-          className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#D9B878] to-[#c9a227] text-[#0A1A2F] font-bold text-sm hover:opacity-90 transition-opacity">
+          className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#FAD98D] to-[#c9a227] text-[#0A1A2F] font-bold text-sm hover:opacity-90 transition-opacity">
           Create First Challenge
         </button>
       )}
@@ -349,7 +349,7 @@ export default function GroupDetail() {
               ? <span className="flex items-center gap-1 text-white/60 text-xs"><Lock className="w-3 h-3" /> Private</span>
               : <span className="flex items-center gap-1 text-white/60 text-xs"><Globe className="w-3 h-3" /> Public</span>}
             {isAdmin && (
-              <span className="flex items-center gap-1 text-[#D9B878] text-xs font-bold bg-black/20 px-2 py-0.5 rounded-full">
+              <span className="flex items-center gap-1 text-[#FAD98D] text-xs font-bold bg-black/20 px-2 py-0.5 rounded-full">
                 <Crown className="w-3 h-3" /> Admin
               </span>
             )}
@@ -395,13 +395,13 @@ export default function GroupDetail() {
           <div>
             <button onClick={() => setShowChallenges(s => !s)}
               className="w-full flex items-center gap-2 mb-2">
-              <Trophy className="w-4 h-4 text-[#D9B878]" />
+              <Trophy className="w-4 h-4 text-[#FAD98D]" />
               <span className="text-sm font-bold text-[#0A1A2F]">
                 Challenges
                 {challenges.length > 0 && <span className="text-[#0A1A2F]/30 font-normal ml-1">({challenges.length})</span>}
               </span>
               {activeChallenges.length > 0 && (
-                <span className="text-[10px] font-bold text-[#c9a227] bg-[#FFF9ED] border border-[#D9B878]/30 px-2 py-0.5 rounded-full">
+                <span className="text-[10px] font-bold text-[#c9a227] bg-white border border-[#FAD98D]/30 px-2 py-0.5 rounded-full">
                   {activeChallenges.length} active
                 </span>
               )}

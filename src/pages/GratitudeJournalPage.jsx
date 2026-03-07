@@ -34,7 +34,7 @@ const MOOD_CONFIG = {
 };
 
 function getMoodStyle(mood) {
-  return MOOD_CONFIG[mood] || { color: 'text-[#D9B878]', bg: 'bg-[#FFF9ED]', border: 'border-[#D9B878]/30', dot: '#D9B878', emoji: '✨' };
+  return MOOD_CONFIG[mood] || { color: 'text-[#FAD98D]', bg: 'bg-white', border: 'border-[#FAD98D]/30', dot: '#FAD98D', emoji: '✨' };
 }
 
 // ─── Streak helpers ─────────────────────────────────────────────────────────
@@ -70,7 +70,7 @@ function calcStreak(entries) {
 // ─── Week strip ─────────────────────────────────────────────────────────────
 function WeekStrip({ days, streak }) {
   return (
-    <div className="bg-white rounded-2xl border border-[#D9B878]/20 p-4">
+    <div className="bg-white rounded-2xl border border-[#FAD98D]/20 p-4">
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-1.5">
           <Flame className="w-4 h-4 text-orange-400" />
@@ -88,7 +88,7 @@ function WeekStrip({ days, streak }) {
               <div className="w-9 h-9 rounded-full flex items-center justify-center border-2 transition-all"
                 style={style
                   ? { backgroundColor: style.dot + '22', borderColor: style.dot }
-                  : { backgroundColor: '#F2F6FA', borderColor: '#E2E8F0' }}>
+                  : { backgroundColor: '#F2F6FA', borderColor: '#F2F6FA' }}>
                 {d.mood
                   ? <span className="text-sm">{getMoodStyle(d.mood).emoji}</span>
                   : <span className="text-[9px] text-[#0A1A2F]/20">–</span>}
@@ -125,7 +125,7 @@ function EntryCard({ entry, index }) {
           {score !== null && (
             <div className="flex items-center gap-0.5">
               {[1,2,3,4,5].map(n => (
-                <div key={n} className="w-2 h-2 rounded-full" style={{ backgroundColor: n <= Math.round(score / 2) ? style.dot : '#E2E8F0' }} />
+                <div key={n} className="w-2 h-2 rounded-full" style={{ backgroundColor: n <= Math.round(score / 2) ? style.dot : '#F2F6FA' }} />
               ))}
             </div>
           )}
@@ -139,7 +139,7 @@ function EntryCard({ entry, index }) {
       </p>
       {isLong && (
         <button onClick={() => setExpanded(e => !e)}
-          className="mt-2 flex items-center gap-1 text-xs font-semibold text-[#D9B878] hover:text-[#c9a227] transition-colors">
+          className="mt-2 flex items-center gap-1 text-xs font-semibold text-[#FAD98D] hover:text-[#c9a227] transition-colors">
           {expanded ? <><ChevronUp className="w-3 h-3" /> Show less</> : <><ChevronDown className="w-3 h-3" /> Read more</>}
         </button>
       )}
@@ -156,7 +156,7 @@ function CompletionScreen({ entry, streak, aiReflection, loadingReflection, onRe
     <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-4">
 
       {/* Celebration */}
-      <div className={`rounded-2xl p-6 text-center bg-gradient-to-br from-[#FD9C2D] to-[#D9B878] shadow-md`}>
+      <div className={`rounded-2xl p-6 text-center bg-gradient-to-br from-[#FD9C2D] to-[#FAD98D] shadow-md`}>
         <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }}
           transition={{ type: 'spring', stiffness: 300, damping: 20, delay: 0.1 }}
           className="text-5xl mb-3">🙏</motion.div>
@@ -178,15 +178,15 @@ function CompletionScreen({ entry, streak, aiReflection, loadingReflection, onRe
 
       {/* AI Reflection */}
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
-        className="bg-white rounded-2xl border border-[#D9B878]/20 p-5">
+        className="bg-white rounded-2xl border border-[#FAD98D]/20 p-5">
         <div className="flex items-center gap-2 mb-3">
-          <Sparkles className="w-4 h-4 text-[#D9B878]" />
+          <Sparkles className="w-4 h-4 text-[#FAD98D]" />
           <span className="text-xs font-bold text-[#0A1A2F]/40 uppercase tracking-widest">AI Reflection</span>
         </div>
         {loadingReflection ? (
           <div className="space-y-2">
-            <div className="h-3 bg-[#D9B878]/15 rounded-full w-full animate-pulse" />
-            <div className="h-3 bg-[#D9B878]/15 rounded-full w-3/4 animate-pulse" />
+            <div className="h-3 bg-[#FAD98D]/15 rounded-full w-full animate-pulse" />
+            <div className="h-3 bg-[#FAD98D]/15 rounded-full w-3/4 animate-pulse" />
           </div>
         ) : (
           <p className="text-sm text-[#0A1A2F]/75 leading-relaxed italic">"{aiReflection}"</p>
@@ -195,13 +195,13 @@ function CompletionScreen({ entry, streak, aiReflection, loadingReflection, onRe
 
       {/* Scripture */}
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}
-        className="bg-[#FFF9ED] rounded-2xl border border-[#D9B878]/20 p-5">
+        className="bg-white rounded-2xl border border-[#FAD98D]/20 p-5">
         <div className="flex items-center gap-2 mb-2">
-          <BookOpen className="w-4 h-4 text-[#D9B878]" />
+          <BookOpen className="w-4 h-4 text-[#FAD98D]" />
           <span className="text-xs font-bold text-[#0A1A2F]/35 uppercase tracking-widest">Today's Word</span>
         </div>
         <p className="text-sm text-[#0A1A2F]/75 leading-relaxed italic mb-1.5">"{scripture.text}"</p>
-        <p className="text-xs font-bold text-[#D9B878]">{scripture.ref}</p>
+        <p className="text-xs font-bold text-[#FAD98D]">{scripture.ref}</p>
       </motion.div>
 
       <button onClick={onReset}
@@ -319,10 +319,10 @@ export default function GratitudeJournalPage() {
     <div className="min-h-screen bg-[#F2F6FA] pb-28">
 
       {/* ── Header ── */}
-      <div className="sticky top-0 z-40 bg-white border-b border-[#D9B878]/20 px-4 py-3">
+      <div className="sticky top-0 z-40 bg-white border-b border-[#FAD98D]/20 px-4 py-3">
         <div className="max-w-lg mx-auto flex items-center gap-3">
           <Link to={createPageUrl('PersonalGrowth')}
-            className="w-9 h-9 rounded-full bg-[#FFF9ED] hover:bg-[#FFF3D6] flex items-center justify-center transition-colors">
+            className="w-9 h-9 rounded-full bg-white hover:bg-[#FFF9EC] flex items-center justify-center transition-colors">
             <ArrowLeft className="w-4 h-4 text-[#0A1A2F]" />
           </Link>
           <div className="flex-1">
@@ -331,7 +331,7 @@ export default function GratitudeJournalPage() {
               {new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
             </p>
           </div>
-          <div className="w-9 h-9 bg-gradient-to-br from-[#FD9C2D] to-[#D9B878] rounded-full flex items-center justify-center shadow-sm">
+          <div className="w-9 h-9 bg-gradient-to-br from-[#FD9C2D] to-[#FAD98D] rounded-full flex items-center justify-center shadow-sm">
             <Sparkles className="w-4 h-4 text-white" />
           </div>
         </div>
@@ -362,33 +362,33 @@ export default function GratitudeJournalPage() {
           <motion.div key="form" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="space-y-4">
 
             {/* Scripture banner */}
-            <div className="bg-gradient-to-br from-[#0A1A2F] to-[#1a2a3f] rounded-2xl p-5">
+            <div className="bg-gradient-to-br from-[#0A1A2F] to-[#0A1A2F] rounded-2xl p-5">
               <div className="flex items-center gap-2 mb-2">
-                <BookOpen className="w-4 h-4 text-[#D9B878]" />
-                <span className="text-[10px] font-bold text-[#D9B878] uppercase tracking-widest">Today's Word</span>
+                <BookOpen className="w-4 h-4 text-[#FAD98D]" />
+                <span className="text-[10px] font-bold text-[#FAD98D] uppercase tracking-widest">Today's Word</span>
               </div>
               <p className="text-white/80 text-sm leading-relaxed italic mb-1.5">"{scripture.text}"</p>
-              <p className="text-[#D9B878] text-xs font-bold">{scripture.ref}</p>
+              <p className="text-[#FAD98D] text-xs font-bold">{scripture.ref}</p>
             </div>
 
             {/* AI Prompt */}
-            <div className="bg-[#FFF9ED] rounded-2xl border border-[#D9B878]/25 p-4">
+            <div className="bg-white rounded-2xl border border-[#FAD98D]/25 p-4">
               <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-2">
-                  <div className="w-6 h-6 bg-gradient-to-br from-[#FD9C2D] to-[#D9B878] rounded-full flex items-center justify-center">
+                  <div className="w-6 h-6 bg-gradient-to-br from-[#FD9C2D] to-[#FAD98D] rounded-full flex items-center justify-center">
                     <Sparkles className="w-3 h-3 text-white" />
                   </div>
                   <span className="text-xs font-bold text-[#0A1A2F]/50 uppercase tracking-widest">Today's Prompt</span>
                 </div>
                 <button onClick={fetchAIPrompt} disabled={loadingPrompt}
-                  className="w-7 h-7 rounded-full hover:bg-[#D9B878]/20 flex items-center justify-center transition-colors">
-                  <RefreshCw className={`w-3.5 h-3.5 text-[#D9B878] ${loadingPrompt ? 'animate-spin' : ''}`} />
+                  className="w-7 h-7 rounded-full hover:bg-[#FAD98D]/20 flex items-center justify-center transition-colors">
+                  <RefreshCw className={`w-3.5 h-3.5 text-[#FAD98D] ${loadingPrompt ? 'animate-spin' : ''}`} />
                 </button>
               </div>
               {loadingPrompt ? (
                 <div className="space-y-1.5 mt-2">
-                  <div className="h-3 bg-[#D9B878]/15 rounded-full w-full animate-pulse" />
-                  <div className="h-3 bg-[#D9B878]/15 rounded-full w-2/3 animate-pulse" />
+                  <div className="h-3 bg-[#FAD98D]/15 rounded-full w-full animate-pulse" />
+                  <div className="h-3 bg-[#FAD98D]/15 rounded-full w-2/3 animate-pulse" />
                 </div>
               ) : (
                 <p className="text-sm text-[#0A1A2F]/70 leading-relaxed italic">{aiPrompt}</p>
@@ -396,7 +396,7 @@ export default function GratitudeJournalPage() {
             </div>
 
             {/* Journal input */}
-            <div className="bg-white rounded-2xl border border-[#D9B878]/20 p-4">
+            <div className="bg-white rounded-2xl border border-[#FAD98D]/20 p-4">
               <div className="flex items-center gap-2 mb-3">
                 <Heart className="w-4 h-4 text-[#FD9C2D]" />
                 <h3 className="text-sm font-bold text-[#0A1A2F]">Today's Gratitude</h3>
@@ -406,7 +406,7 @@ export default function GratitudeJournalPage() {
                 onChange={e => setContent(e.target.value)}
                 placeholder="Write freely about what you're grateful for today…"
                 rows={6}
-                className="w-full resize-none rounded-xl border border-[#E2E8F0] bg-[#F8FAFC] px-3 py-2.5 text-sm text-[#0A1A2F] placeholder-[#0A1A2F]/25 focus:outline-none focus:border-[#D9B878]/60 transition-colors leading-relaxed"
+                className="w-full resize-none rounded-xl border border-[#F2F6FA] bg-[#F2F6FA] px-3 py-2.5 text-sm text-[#0A1A2F] placeholder-[#0A1A2F]/25 focus:outline-none focus:border-[#FAD98D]/60 transition-colors leading-relaxed"
               />
 
               {/* Live sentiment feedback */}
@@ -428,7 +428,7 @@ export default function GratitudeJournalPage() {
                       <div className="flex items-center gap-1">
                         {[1,2,3,4,5].map(n => (
                           <div key={n} className="w-2.5 h-2.5 rounded-full transition-all"
-                            style={{ backgroundColor: n <= Math.round(sentimentResult.sentiment_score / 2) ? getMoodStyle(sentimentResult.mood).dot : '#E2E8F0' }} />
+                            style={{ backgroundColor: n <= Math.round(sentimentResult.sentiment_score / 2) ? getMoodStyle(sentimentResult.mood).dot : '#F2F6FA' }} />
                         ))}
                         <span className="text-[10px] text-[#0A1A2F]/35 ml-0.5">{sentimentResult.sentiment_score}/10</span>
                       </div>
@@ -442,7 +442,7 @@ export default function GratitudeJournalPage() {
                 whileTap={{ scale: 0.98 }}
                 onClick={handleSave}
                 disabled={saving || !content.trim()}
-                className="w-full mt-4 py-3.5 rounded-xl bg-gradient-to-r from-[#FD9C2D] to-[#D9B878] text-white font-bold text-sm disabled:opacity-40 hover:opacity-90 transition-opacity flex items-center justify-center gap-2"
+                className="w-full mt-4 py-3.5 rounded-xl bg-gradient-to-r from-[#FD9C2D] to-[#FAD98D] text-white font-bold text-sm disabled:opacity-40 hover:opacity-90 transition-opacity flex items-center justify-center gap-2"
               >
                 {saving
                   ? <><Loader2 className="w-4 h-4 animate-spin" /> Saving…</>
@@ -459,7 +459,7 @@ export default function GratitudeJournalPage() {
           <div>
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-2">
-                <BookOpen className="w-4 h-4 text-[#D9B878]" />
+                <BookOpen className="w-4 h-4 text-[#FAD98D]" />
                 <h2 className="text-sm font-bold text-[#0A1A2F]">
                   Journal History <span className="text-[#0A1A2F]/30 font-normal">({entries.length})</span>
                 </h2>
@@ -474,7 +474,7 @@ export default function GratitudeJournalPage() {
 
             {entries.length > 3 && (
               <button onClick={() => setShowAllHistory(s => !s)}
-                className="w-full mt-3 py-2.5 rounded-xl bg-white border border-[#D9B878]/20 text-xs font-bold text-[#0A1A2F]/40 hover:text-[#0A1A2F]/70 hover:border-[#D9B878]/40 transition-all flex items-center justify-center gap-1.5">
+                className="w-full mt-3 py-2.5 rounded-xl bg-white border border-[#FAD98D]/20 text-xs font-bold text-[#0A1A2F]/40 hover:text-[#0A1A2F]/70 hover:border-[#FAD98D]/40 transition-all flex items-center justify-center gap-1.5">
                 {showAllHistory
                   ? <><ChevronUp className="w-3.5 h-3.5" /> Show less</>
                   : <><ChevronDown className="w-3.5 h-3.5" /> Show all {entries.length} entries</>}
@@ -507,9 +507,9 @@ export default function GratitudeJournalPage() {
 
         {/* ── Empty state ── */}
         {entries.length === 0 && !done && (
-          <div className="bg-white rounded-2xl border border-[#D9B878]/15 p-8 text-center">
-            <div className="w-14 h-14 bg-gradient-to-br from-[#FD9C2D]/15 to-[#D9B878]/15 rounded-2xl flex items-center justify-center mx-auto mb-4">
-              <Heart className="w-7 h-7 text-[#D9B878]" />
+          <div className="bg-white rounded-2xl border border-[#FAD98D]/15 p-8 text-center">
+            <div className="w-14 h-14 bg-gradient-to-br from-[#FD9C2D]/15 to-[#FAD98D]/15 rounded-2xl flex items-center justify-center mx-auto mb-4">
+              <Heart className="w-7 h-7 text-[#FAD98D]" />
             </div>
             <h3 className="font-bold text-[#0A1A2F] mb-1">Your journal awaits</h3>
             <p className="text-sm text-[#0A1A2F]/40 leading-relaxed">

@@ -47,7 +47,7 @@ export default function PostSummary({ content, comments }) {
           variant="ghost"
           size="sm"
           onClick={generateSummary}
-          className="text-[#c9a227] hover:text-[#8fa68a] text-xs"
+          className="text-[#c9a227] hover:text-[#AFC7E3] text-xs"
         >
           <Sparkles className="w-3 h-3 mr-1" />
           AI Summary
@@ -65,12 +65,12 @@ export default function PostSummary({ content, comments }) {
         <motion.div
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: 1, height: 'auto' }}
-          className="bg-gradient-to-r from-[#faf8f5] to-[#f5f3ed] rounded-lg p-3"
+          className="bg-gradient-to-r from-[#F2F6FA] to-[#F2F6FA] rounded-lg p-3"
         >
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-2">
               <Sparkles className="w-4 h-4 text-[#c9a227]" />
-              <span className="text-xs font-semibold text-[#1a1a2e]">AI Summary</span>
+              <span className="text-xs font-semibold text-[#0A1A2F]">AI Summary</span>
             </div>
             <Button
               variant="ghost"

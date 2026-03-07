@@ -26,7 +26,7 @@ function Field({ label, children }) {
 function TextInput({ value, onChange, placeholder, type = 'text', className = '' }) {
   return (
     <input type={type} value={value} onChange={onChange} placeholder={placeholder}
-      className={`w-full px-3 py-2.5 rounded-xl border border-[#D9B878]/30 bg-[#F2F6FA] text-sm text-[#0A1A2F] placeholder-[#0A1A2F]/30 focus:outline-none focus:border-[#c9a227]/50 ${className}`} />
+      className={`w-full px-3 py-2.5 rounded-xl border border-[#FAD98D]/30 bg-[#F2F6FA] text-sm text-[#0A1A2F] placeholder-[#0A1A2F]/30 focus:outline-none focus:border-[#c9a227]/50 ${className}`} />
   );
 }
 
@@ -38,7 +38,7 @@ function ChipSelect({ options, value, onChange }) {
           className={`px-3 py-1.5 rounded-full text-xs font-bold border transition-colors ${
             value === v
               ? 'bg-[#0A1A2F] text-white border-[#0A1A2F]'
-              : 'bg-white text-[#0A1A2F]/50 border-[#D9B878]/30 hover:border-[#c9a227]/40'
+              : 'bg-white text-[#0A1A2F]/50 border-[#FAD98D]/30 hover:border-[#c9a227]/40'
           }`}>
           {label}
         </button>
@@ -57,7 +57,7 @@ function ListBuilder({ items, setItems, placeholder, multiline }) {
   return (
     <div className="space-y-2">
       {items.map((item, i) => (
-        <div key={i} className="flex items-start gap-2 bg-white rounded-xl border border-[#D9B878]/20 p-2.5">
+        <div key={i} className="flex items-start gap-2 bg-white rounded-xl border border-[#FAD98D]/20 p-2.5">
           <span className="text-[#c9a227] font-bold text-xs mt-0.5 flex-shrink-0">
             {items.length > 1 ? `${i + 1}.` : '·'}
           </span>
@@ -71,11 +71,11 @@ function ListBuilder({ items, setItems, placeholder, multiline }) {
       <div className="flex gap-2">
         {multiline
           ? <Textarea value={current} onChange={e => setCurrent(e.target.value)} placeholder={placeholder}
-              className="min-h-[60px] text-sm border-[#D9B878]/30 bg-[#F2F6FA] resize-none flex-1"
+              className="min-h-[60px] text-sm border-[#FAD98D]/30 bg-[#F2F6FA] resize-none flex-1"
               onKeyDown={e => { if (e.key === 'Enter' && e.metaKey) add(); }} />
           : <input value={current} onChange={e => setCurrent(e.target.value)} placeholder={placeholder}
               onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); add(); } }}
-              className="flex-1 px-3 py-2 rounded-xl border border-[#D9B878]/30 bg-[#F2F6FA] text-sm text-[#0A1A2F] placeholder-[#0A1A2F]/30 focus:outline-none focus:border-[#c9a227]/50" />
+              className="flex-1 px-3 py-2 rounded-xl border border-[#FAD98D]/30 bg-[#F2F6FA] text-sm text-[#0A1A2F] placeholder-[#0A1A2F]/30 focus:outline-none focus:border-[#c9a227]/50" />
         }
         <button onClick={add}
           className="w-10 h-10 rounded-xl bg-[#FAD98D]/30 text-[#c9a227] flex items-center justify-center hover:bg-[#FAD98D]/50 transition-colors flex-shrink-0 self-end">
@@ -106,7 +106,7 @@ export default function CreateRecipeModal({ isOpen, onClose }) {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto bg-[#FFFDF7]">
+      <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto bg-[#F2F6FA]">
         <DialogHeader>
           <DialogTitle className="text-[#0A1A2F]">Add Recipe</DialogTitle>
         </DialogHeader>
@@ -119,7 +119,7 @@ export default function CreateRecipeModal({ isOpen, onClose }) {
 
           <Field label="Description">
             <Textarea value={recipe.description} onChange={e => set('description', e.target.value)}
-              placeholder="Brief description of the dish" className="text-sm border-[#D9B878]/30 bg-[#F2F6FA] resize-none min-h-[60px]" />
+              placeholder="Brief description of the dish" className="text-sm border-[#FAD98D]/30 bg-[#F2F6FA] resize-none min-h-[60px]" />
           </Field>
 
           <div className="grid grid-cols-2 gap-4">
@@ -174,7 +174,7 @@ export default function CreateRecipeModal({ isOpen, onClose }) {
                 <div key={key}>
                   <p className="text-[10px] font-bold text-[#0A1A2F]/40 mb-1">{label}</p>
                   <input type="number" value={recipe[key]} onChange={e => num(key, e.target.value)} placeholder="0"
-                    className="w-full px-2.5 py-2 rounded-xl border border-[#D9B878]/25 bg-white text-sm text-[#0A1A2F] text-center focus:outline-none focus:border-[#c9a227]/50" />
+                    className="w-full px-2.5 py-2 rounded-xl border border-[#FAD98D]/25 bg-white text-sm text-[#0A1A2F] text-center focus:outline-none focus:border-[#c9a227]/50" />
                 </div>
               ))}
             </div>
@@ -202,7 +202,7 @@ export default function CreateRecipeModal({ isOpen, onClose }) {
           <Field label="Serving Suggestions (optional)">
             <Textarea value={recipe.serving_suggestions} onChange={e => set('serving_suggestions', e.target.value)}
               placeholder="e.g., Serve over brown rice with a side of roasted vegetables"
-              className="text-sm border-[#D9B878]/30 bg-[#F2F6FA] resize-none min-h-[50px]" />
+              className="text-sm border-[#FAD98D]/30 bg-[#F2F6FA] resize-none min-h-[50px]" />
           </Field>
 
           {/* Share toggle */}
@@ -219,7 +219,7 @@ export default function CreateRecipeModal({ isOpen, onClose }) {
 
           <button onClick={() => canSubmit && createRecipe.mutate(recipe)}
             disabled={!canSubmit || createRecipe.isPending}
-            className="w-full py-3 rounded-xl bg-gradient-to-r from-[#c9a227] to-[#D9B878] text-white font-bold text-sm hover:opacity-90 disabled:opacity-50 transition-opacity">
+            className="w-full py-3 rounded-xl bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white font-bold text-sm hover:opacity-90 disabled:opacity-50 transition-opacity">
             {createRecipe.isPending ? 'Saving…' : 'Save Recipe'}
           </button>
         </div>

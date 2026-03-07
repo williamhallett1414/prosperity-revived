@@ -30,7 +30,7 @@ export default function WellnessMetricsOverview({
       label: 'Meditation', 
       value: `${totalMeditationMinutes}m`, 
       subtext: `${meditationSessions?.length || 0} sessions`,
-      color: 'from-[#D9B878] to-[#D9B878]/50',
+      color: 'from-[#FAD98D] to-[#FAD98D]/50',
       link: createPageUrl('DiscoverMeditations')
     },
     { 
@@ -54,7 +54,7 @@ export default function WellnessMetricsOverview({
        label: 'Journaling', 
        value: totalJournalEntries, 
        subtext: 'total entries',
-       color: 'from-[#D9B878] to-[#D9B878]/50',
+       color: 'from-[#FAD98D] to-[#FAD98D]/50',
        link: createPageUrl('MyJournalEntries')
       },
     { 

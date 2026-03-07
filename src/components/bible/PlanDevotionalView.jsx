@@ -22,7 +22,7 @@ export default function PlanDevotionalView({ planId }) {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-gradient-to-br from-[#b89320] to-[#0A1A2F] rounded-2xl p-6 text-white"
+        className="bg-gradient-to-br from-[#C9A227] to-[#0A1A2F] rounded-2xl p-6 text-white"
       >
         <div className="flex items-center gap-3 mb-2">
           <BookOpen className="w-8 h-8" />
@@ -42,7 +42,7 @@ export default function PlanDevotionalView({ planId }) {
       </Card>
 
       {/* Key Bible Verses */}
-      <Card className="p-6 bg-gradient-to-br from-[#FAD98D]/15 to-[#D9B878]/10 border-l-4 border-[#c9a227]">
+      <Card className="p-6 bg-gradient-to-br from-[#FAD98D]/15 to-[#FAD98D]/10 border-l-4 border-[#c9a227]">
         <h2 className="text-xl font-bold text-[#0A1A2F] mb-4">Key Bible Verses</h2>
         <div className="space-y-4">
           {devotional.keyVerses.map((verse, index) => (
@@ -64,7 +64,7 @@ export default function PlanDevotionalView({ planId }) {
       </Card>
 
       {/* Reflection Questions */}
-      <Card className="p-6 bg-gradient-to-br from-[#FAD98D]/10 to-[#D9B878]/8">
+      <Card className="p-6 bg-gradient-to-br from-[#FAD98D]/10 to-[#FAD98D]/8">
         <h2 className="text-xl font-bold text-[#0A1A2F] mb-4 flex items-center gap-2">
           <MessageCircle className="w-5 h-5 text-[#0A1A2F]" />
           Reflection Questions
@@ -79,9 +79,9 @@ export default function PlanDevotionalView({ planId }) {
       </Card>
 
       {/* Action Plan */}
-      <Card className="p-6 bg-gradient-to-br from-[#FAD98D]/10 to-[#FFF8E7]">
+      <Card className="p-6 bg-gradient-to-br from-[#FAD98D]/10 to-[#FFF9EC]">
         <h2 className="text-xl font-bold text-[#0A1A2F] mb-4 flex items-center gap-2">
-          <Target className="w-5 h-5 text-[#8a6e1a]" />
+          <Target className="w-5 h-5 text-[#C9A227]" />
           {devotional.actionPlan.title}
         </h2>
         <ol className="list-decimal pl-5 space-y-3 text-[#0A1A2F]/75">
@@ -92,7 +92,7 @@ export default function PlanDevotionalView({ planId }) {
       </Card>
 
       {/* Prayer */}
-      <Card className="p-6 bg-gradient-to-br from-[#c9a227]/10 to-[#D9B878]/10 border-l-4 border-[#c9a227]">
+      <Card className="p-6 bg-gradient-to-br from-[#c9a227]/10 to-[#FAD98D]/10 border-l-4 border-[#c9a227]">
         <h2 className="text-xl font-bold text-[#0A1A2F] mb-4 flex items-center gap-2">
           <Heart className="w-5 h-5 text-[#c9a227]" />
           Prayer

@@ -44,7 +44,7 @@ export default function TrendingContent({ user }) {
     <div className="space-y-6">
       {/* Trending Posts */}
       <div>
-        <h2 className="text-lg font-semibold text-[#1a1a2e] dark:text-white mb-3 flex items-center gap-2">
+        <h2 className="text-lg font-semibold text-[#0A1A2F] dark:text-white mb-3 flex items-center gap-2">
           <TrendingUp className="w-5 h-5 text-orange-500" />
           Trending Posts
         </h2>
@@ -63,7 +63,7 @@ export default function TrendingContent({ user }) {
                       #{index + 1}
                     </div>
                     <div className="flex-1">
-                      <p className="text-sm font-medium text-[#1a1a2e] dark:text-white mb-2 line-clamp-2">
+                      <p className="text-sm font-medium text-[#0A1A2F] dark:text-white mb-2 line-clamp-2">
                         {post.content}
                       </p>
                       <div className="flex items-center gap-4 text-xs text-gray-500">
@@ -90,7 +90,7 @@ export default function TrendingContent({ user }) {
 
       {/* Active Groups */}
       <div>
-        <h2 className="text-lg font-semibold text-[#1a1a2e] dark:text-white mb-3 flex items-center gap-2">
+        <h2 className="text-lg font-semibold text-[#0A1A2F] dark:text-white mb-3 flex items-center gap-2">
           <Users className="w-5 h-5 text-[#AFC7E3]" />
           Most Active Groups
         </h2>
@@ -119,7 +119,7 @@ export default function TrendingContent({ user }) {
                       )}
                     </div>
                     <div className="flex-1">
-                      <h3 className="font-semibold text-[#1a1a2e] dark:text-white">
+                      <h3 className="font-semibold text-[#0A1A2F] dark:text-white">
                         {group.name}
                       </h3>
                       <p className="text-sm text-gray-500">

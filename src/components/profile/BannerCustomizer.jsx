@@ -70,7 +70,7 @@ export default function BannerCustomizer({ isOpen, onClose, currentBanner, onSav
           {/* Preview */}
           <div>
             <p className="text-sm font-medium mb-2">Preview</p>
-            <div className="w-full h-40 rounded-xl overflow-hidden bg-gradient-to-br from-[#0A1A2F] via-[#c9a227] to-[#D9B878]">
+            <div className="w-full h-40 rounded-xl overflow-hidden bg-gradient-to-br from-[#0A1A2F] via-[#c9a227] to-[#FAD98D]">
               {selectedBanner ? (
                 <img
                   src={selectedBanner}
@@ -89,7 +89,7 @@ export default function BannerCustomizer({ isOpen, onClose, currentBanner, onSav
           <div>
             <p className="text-sm font-medium mb-2">Upload Custom Image</p>
             <label className="cursor-pointer">
-              <div className="border-2 border-dashed border-[#D9B878]/40 rounded-xl p-4 hover:border-[#c9a227] transition-colors">
+              <div className="border-2 border-dashed border-[#FAD98D]/40 rounded-xl p-4 hover:border-[#c9a227] transition-colors">
                 <div className="flex items-center justify-center gap-2 text-[#0A1A2F]/60">
                   {uploading ? (
                     <>
@@ -125,7 +125,7 @@ export default function BannerCustomizer({ isOpen, onClose, currentBanner, onSav
                   className={`aspect-video rounded-lg overflow-hidden border-2 transition-all ${
                     selectedBanner === banner
                       ? 'border-[#c9a227] ring-2 ring-[#c9a227]/20'
-                      : 'border-[#D9B878]/25 hover:border-[#c9a227]/50'
+                      : 'border-[#FAD98D]/25 hover:border-[#c9a227]/50'
                   }`}
                 >
                   <img
@@ -146,7 +146,7 @@ export default function BannerCustomizer({ isOpen, onClose, currentBanner, onSav
             <Button
               onClick={handleSave}
               disabled={!selectedBanner || saving}
-              className="bg-gradient-to-r from-[#c9a227] to-[#D9B878] hover:from-[#b89320] hover:to-[#c9a227]"
+              className="bg-gradient-to-r from-[#c9a227] to-[#FAD98D] hover:from-[#C9A227] hover:to-[#c9a227]"
             >
               {saving ? (
                 <>

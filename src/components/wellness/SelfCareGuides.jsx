@@ -157,7 +157,7 @@ const MOOD_BOOSTERS = [
   { icon: Music, text: 'Listen to your favorite uplifting song', color: 'text-[#AFC7E3]' },
   { icon: Coffee, text: 'Enjoy a mindful cup of tea or coffee', color: 'text-amber-600' },
   { icon: Book, text: 'Read an inspiring chapter or quote', color: 'text-emerald-600' },
-  { icon: Heart, text: 'Do a random act of kindness', color: 'text-[#D9B878]' }
+  { icon: Heart, text: 'Do a random act of kindness', color: 'text-[#FAD98D]' }
 ];
 
 export default function SelfCareGuides({ user }) {
@@ -249,7 +249,7 @@ export default function SelfCareGuides({ user }) {
             <Button
               onClick={generatePersonalizedPlan}
               disabled={loadingInsight}
-              className="w-full bg-gradient-to-r from-[#AFC7E3] to-[#3C4E53] hover:from-[#b89320] hover:to-[#c9a227] mb-4"
+              className="w-full bg-gradient-to-r from-[#AFC7E3] to-[#3C4E53] hover:from-[#C9A227] hover:to-[#c9a227] mb-4"
             >
               {loadingInsight ? (
                 <>
@@ -313,7 +313,7 @@ export default function SelfCareGuides({ user }) {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.3 + index * 0.05 }}
-                className="bg-white dark:bg-[#2d2d4a] rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow"
+                className="bg-white dark:bg-[#0A1A2F] rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow"
               >
                 <Icon className={`w-6 h-6 ${booster.color} mb-2`} />
                 <p className="text-xs text-gray-700 dark:text-gray-300">{booster.text}</p>

@@ -46,7 +46,7 @@ Return exactly 3 questions that encourage personal reflection and application.`,
         onClick={isExpanded ? () => setIsExpanded(false) : generateQuestions}
         disabled={loading}
         variant="outline"
-        className="w-full bg-gradient-to-r from-[#FAD98D]/10 to-[#FFF8E7] border-[#D9B878]/40 hover:shadow-md transition-all"
+        className="w-full bg-gradient-to-r from-[#FAD98D]/10 to-[#FFF9EC] border-[#FAD98D]/40 hover:shadow-md transition-all"
       >
         {loading ? (
           <>
@@ -70,13 +70,13 @@ Return exactly 3 questions that encourage personal reflection and application.`,
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
           >
-            <Card className="p-6 mt-3 bg-gradient-to-br from-[#FAD98D]/10 to-[#FFF8E7] space-y-4">
+            <Card className="p-6 mt-3 bg-gradient-to-br from-[#FAD98D]/10 to-[#FFF9EC] space-y-4">
               <div className="flex items-center gap-2 mb-4">
                 <Sparkles className="w-5 h-5 text-[#c9a227]" />
                 <h3 className="font-semibold text-[#0A1A2F]">Personal Reflection Questions</h3>
               </div>
               {questions.map((question, index) => (
-                <div key={index} className="bg-[#FFFDF7] p-4 rounded-lg">
+                <div key={index} className="bg-[#F2F6FA] p-4 rounded-lg">
                   <p className="text-sm font-medium text-[#0A1A2F]/75">
                     {index + 1}. {question}
                   </p>

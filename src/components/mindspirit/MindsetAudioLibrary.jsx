@@ -34,7 +34,7 @@ const audioTracks = [
     duration: '8:00',
     description: 'Meditate on God\'s Word',
     url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3',
-    gradient: 'from-[#FAD98D]/20 to-[#FFF8E7]'
+    gradient: 'from-[#FAD98D]/20 to-[#FFF9EC]'
   }
 ];
 
@@ -74,7 +74,7 @@ export default function MindsetAudioLibrary() {
       className="mb-6"
     >
       <div className="flex items-center gap-2 mb-3">
-        <Volume2 className="w-6 h-6 text-[#D9B878]" />
+        <Volume2 className="w-6 h-6 text-[#FAD98D]" />
         <h3 className="text-lg font-bold text-[#0A1A2F]">Mindset Audio Library</h3>
       </div>
 
@@ -109,7 +109,7 @@ export default function MindsetAudioLibrary() {
                 <Button
                   size="sm"
                   onClick={() => handlePlayPause(track)}
-                  className="h-10 w-10 rounded-full bg-[#D9B878] hover:bg-[#D9B878]/90 text-[#0A1A2F] p-0"
+                  className="h-10 w-10 rounded-full bg-[#FAD98D] hover:bg-[#FAD98D]/90 text-[#0A1A2F] p-0"
                 >
                   {currentTrack?.id === track.id && isPlaying ? (
                     <Pause className="w-5 h-5" />

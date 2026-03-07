@@ -36,7 +36,7 @@ export default function WeeklyMealPlan({ mealPlanDays, activePlan }) {
   return (
     <div className="space-y-3">
       <div className="flex items-center justify-between">
-        <h4 className="font-semibold text-[#1a1a2e] dark:text-white flex items-center gap-2">
+        <h4 className="font-semibold text-[#0A1A2F] dark:text-white flex items-center gap-2">
           <Calendar className="w-5 h-5 text-emerald-600" />
           Your Weekly Meal Plan
         </h4>
@@ -67,12 +67,12 @@ export default function WeeklyMealPlan({ mealPlanDays, activePlan }) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: index * 0.05 }}
-          className="bg-white dark:bg-[#2d2d4a] rounded-xl p-4 cursor-pointer hover:shadow-md transition-shadow"
+          className="bg-white dark:bg-[#0A1A2F] rounded-xl p-4 cursor-pointer hover:shadow-md transition-shadow"
           onClick={() => setSelectedDay(day)}
         >
           <div className="flex items-center justify-between">
             <div className="flex-1">
-              <h5 className="font-semibold text-[#1a1a2e] dark:text-white mb-1">
+              <h5 className="font-semibold text-[#0A1A2F] dark:text-white mb-1">
                 {getDayName(day.date)}
               </h5>
               <div className="flex items-center gap-4 text-sm text-gray-600 dark:text-gray-400">
@@ -119,7 +119,7 @@ export default function WeeklyMealPlan({ mealPlanDays, activePlan }) {
                   </div>
                   <div>
                     <p className="text-xs text-gray-600 dark:text-gray-400 mb-1">Fats</p>
-                    <p className="font-bold text-[#8a6e1a]">{selectedDay.total_fats}g</p>
+                    <p className="font-bold text-[#C9A227]">{selectedDay.total_fats}g</p>
                   </div>
                 </div>
               </div>
@@ -139,7 +139,7 @@ export default function WeeklyMealPlan({ mealPlanDays, activePlan }) {
                           {meal.calories} cal
                         </span>
                       </div>
-                      <h6 className="font-semibold text-[#1a1a2e] dark:text-white mb-2">
+                      <h6 className="font-semibold text-[#0A1A2F] dark:text-white mb-2">
                         {meal.recipe_title}
                       </h6>
                       <div className="flex gap-4 text-xs text-gray-600 dark:text-gray-400">

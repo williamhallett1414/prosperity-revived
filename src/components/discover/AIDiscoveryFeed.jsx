@@ -145,7 +145,7 @@ Return ONLY a JSON array with this exact structure:
   const getTypeColor = (type) => {
     switch (type) {
       case 'article': return 'from-[#AFC7E3] to-[#AFC7E3]';
-      case 'post': return 'from-[#c9a227] to-[#D9B878]';
+      case 'post': return 'from-[#c9a227] to-[#FAD98D]';
       case 'plan': return 'from-amber-500 to-orange-500';
       case 'group': return 'from-green-500 to-emerald-500';
       case 'challenge': return 'from-red-500 to-rose-500';
@@ -156,7 +156,7 @@ Return ONLY a JSON array with this exact structure:
   if (loading) {
     return (
       <div className="flex justify-center py-12">
-        <Loader2 className="w-8 h-8 text-[#8a6e1a] animate-spin" />
+        <Loader2 className="w-8 h-8 text-[#C9A227] animate-spin" />
       </div>
     );
   }
@@ -188,14 +188,14 @@ Return ONLY a JSON array with this exact structure:
                       </span>
                     )}
                   </div>
-                  <h3 className="font-semibold text-[#1a1a2e] dark:text-white mb-1">
+                  <h3 className="font-semibold text-[#0A1A2F] dark:text-white mb-1">
                     {rec.title}
                   </h3>
                   <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
                     {rec.description}
                   </p>
                   <div className="flex items-center gap-2 mb-3">
-                    <div className="flex-1 text-xs text-[#8a6e1a] dark:text-[#D9B878] italic">
+                    <div className="flex-1 text-xs text-[#C9A227] dark:text-[#FAD98D] italic">
                       💡 {rec.reason}
                     </div>
                   </div>
@@ -204,7 +204,7 @@ Return ONLY a JSON array with this exact structure:
                       href={rec.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-sm text-[#8a6e1a] hover:text-[#3C4E53] font-medium"
+                      className="inline-flex items-center gap-2 text-sm text-[#C9A227] hover:text-[#3C4E53] font-medium"
                     >
                       Learn More
                       <ExternalLink className="w-4 h-4" />
@@ -217,7 +217,7 @@ Return ONLY a JSON array with this exact structure:
                         rec.type === 'challenge' ? createPageUrl('Achievements') :
                         createPageUrl('Community')
                       }
-                      className="inline-flex items-center gap-2 text-sm text-[#8a6e1a] hover:text-[#3C4E53] font-medium"
+                      className="inline-flex items-center gap-2 text-sm text-[#C9A227] hover:text-[#3C4E53] font-medium"
                     >
                       Explore
                     </Link>

@@ -70,7 +70,7 @@ export default function PersonalBestsChart({ sessions }) {
                   {index + 1}
                 </div>
                 <div>
-                  <h4 className="font-semibold text-[#1a1a2e] dark:text-white">
+                  <h4 className="font-semibold text-[#0A1A2F] dark:text-white">
                     {exercise}
                   </h4>
                   <p className="text-sm text-gray-600 dark:text-gray-400">

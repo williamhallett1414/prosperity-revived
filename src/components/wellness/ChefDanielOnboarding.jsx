@@ -224,7 +224,7 @@ export default function ChefDanielOnboarding({ onComplete, user }) {
                           onClick={() => toggleAllergy(a.id)}
                           className={`rounded-xl border-2 p-3 text-xs font-semibold transition-all flex items-center gap-2 ${
                             selectedAllergies.includes(a.id)
-                              ? 'border-[#FD9C2D] bg-[#FD9C2D]/10 text-[#b86e10]'
+                              ? 'border-[#FD9C2D] bg-[#FD9C2D]/10 text-[#FD9C2D]'
                               : 'border-gray-200 text-gray-700 hover:border-gray-300'
                           }`}
                         >
@@ -248,7 +248,7 @@ export default function ChefDanielOnboarding({ onComplete, user }) {
                           onClick={() => togglePantry(item)}
                           className={`text-xs px-3 py-1.5 rounded-full border transition-all ${
                             selectedPantry.includes(item)
-                              ? 'border-[#FD9C2D] bg-[#FD9C2D]/10 text-[#b86e10] font-semibold'
+                              ? 'border-[#FD9C2D] bg-[#FD9C2D]/10 text-[#FD9C2D] font-semibold'
                               : 'border-gray-200 text-gray-600 hover:border-gray-300'
                           }`}
                         >
@@ -260,7 +260,7 @@ export default function ChefDanielOnboarding({ onComplete, user }) {
                       <motion.p
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        className="text-xs text-[#b86e10] mt-2"
+                        className="text-xs text-[#FD9C2D] mt-2"
                       >
                         {selectedPantry.length} items selected — I'll use these to suggest easy meals!
                       </motion.p>

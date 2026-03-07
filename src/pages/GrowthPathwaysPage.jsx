@@ -222,7 +222,7 @@ function AssessmentQuiz({ onComplete, onSkip }) {
   return (
     <div className="min-h-screen bg-[#F2F6FA] flex flex-col pb-24">
       {/* Header */}
-      <div className="bg-white border-b border-[#E2E8F0] px-4 py-3 sticky top-0 z-40">
+      <div className="bg-white border-b border-[#F2F6FA] px-4 py-3 sticky top-0 z-40">
         <div className="max-w-2xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Sparkles className="w-5 h-5 text-[#c9a227]" />
@@ -239,7 +239,7 @@ function AssessmentQuiz({ onComplete, onSkip }) {
         <div className="flex items-center justify-center gap-2 mb-8">
           {QUESTIONS.map((_, i) => (
             <div key={i} className={`rounded-full transition-all duration-300 ${
-              i === step ? 'w-6 h-2 bg-[#c9a227]' : i < step ? 'w-2 h-2 bg-[#D9B878]' : 'w-2 h-2 bg-[#E2E8F0]'
+              i === step ? 'w-6 h-2 bg-[#c9a227]' : i < step ? 'w-2 h-2 bg-[#FAD98D]' : 'w-2 h-2 bg-[#F2F6FA]'
             }`} />
           ))}
         </div>
@@ -260,13 +260,13 @@ function AssessmentQuiz({ onComplete, onSkip }) {
                   onClick={() => setChosen(i)}
                   className={`w-full text-left px-4 py-4 rounded-2xl border-2 text-sm font-medium transition-all leading-snug ${
                     chosen === i
-                      ? 'border-[#c9a227] bg-[#FFF9ED] text-[#0A1A2F]'
-                      : 'border-[#E2E8F0] bg-white text-[#0A1A2F]/70 hover:border-[#D9B878]/50'
+                      ? 'border-[#c9a227] bg-white text-[#0A1A2F]'
+                      : 'border-[#F2F6FA] bg-white text-[#0A1A2F]/70 hover:border-[#FAD98D]/50'
                   }`}
                 >
                   <div className="flex items-start gap-3">
                     <div className={`w-5 h-5 rounded-full border-2 flex-shrink-0 mt-0.5 flex items-center justify-center transition-all ${
-                      chosen === i ? 'border-[#c9a227] bg-[#c9a227]' : 'border-[#E2E8F0]'
+                      chosen === i ? 'border-[#c9a227] bg-[#c9a227]' : 'border-[#F2F6FA]'
                     }`}>
                       {chosen === i && <div className="w-2 h-2 bg-white rounded-full" />}
                     </div>
@@ -280,7 +280,7 @@ function AssessmentQuiz({ onComplete, onSkip }) {
 
         <div className="mt-auto pt-8">
           <button onClick={handleNext} disabled={chosen === null}
-            className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-[#D9B878] to-[#c9a227] text-[#0A1A2F] font-bold text-sm disabled:opacity-30 hover:opacity-90 transition-opacity">
+            className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-[#FAD98D] to-[#c9a227] text-[#0A1A2F] font-bold text-sm disabled:opacity-30 hover:opacity-90 transition-opacity">
             {isLast ? 'Find My Pathway →' : 'Next →'}
           </button>
         </div>
@@ -316,7 +316,7 @@ function RecommendationScreen({ pathway, onStart, onBrowse }) {
             Start This Pathway →
           </button>
           <button onClick={onBrowse}
-            className="w-full py-3 rounded-2xl border border-[#E2E8F0] bg-white text-[#0A1A2F]/50 font-semibold text-sm hover:bg-[#F2F6FA] transition-colors">
+            className="w-full py-3 rounded-2xl border border-[#F2F6FA] bg-white text-[#0A1A2F]/50 font-semibold text-sm hover:bg-[#F2F6FA] transition-colors">
             Browse All Pathways
           </button>
         </motion.div>
@@ -397,8 +397,8 @@ function StepRow({ step, pathwayId, completedIds, isLocked, onToggle, reflection
     <motion.div
       initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: step.id * 0.06 }}
       className={`rounded-2xl border overflow-hidden transition-all ${
-        isLocked ? 'border-[#E2E8F0] bg-[#FAFBFC] opacity-60' :
-        isDone   ? 'border-emerald-200 bg-emerald-50/40' : 'border-[#E2E8F0] bg-white'
+        isLocked ? 'border-[#F2F6FA] bg-[#F2F6FA] opacity-60' :
+        isDone   ? 'border-emerald-200 bg-emerald-50/40' : 'border-[#F2F6FA] bg-white'
       }`}
     >
       <button className="w-full flex items-center gap-3 p-4 text-left" onClick={handleOpen}>
@@ -445,7 +445,7 @@ function StepRow({ step, pathwayId, completedIds, isLocked, onToggle, reflection
 
               {step.type === 'scripture' && (
                 <div className="space-y-3">
-                  <div className="bg-[#FFF9ED] rounded-xl p-4 border border-[#D9B878]/20">
+                  <div className="bg-white rounded-xl p-4 border border-[#FAD98D]/20">
                     <p className="text-xs font-bold text-[#c9a227] mb-1.5">{step.verse}</p>
                     <p className="text-sm text-[#0A1A2F] italic leading-relaxed font-medium" style={{ fontFamily: 'Georgia, serif' }}>
                       "{step.text}"
@@ -463,10 +463,10 @@ function StepRow({ step, pathwayId, completedIds, isLocked, onToggle, reflection
                     onChange={e => onReflectionChange(e.target.value)}
                     placeholder="Write your reflection here…"
                     rows={4}
-                    className="w-full resize-none text-sm px-3 py-3 rounded-xl border border-[#E2E8F0] bg-white text-[#0A1A2F] placeholder-[#0A1A2F]/25 focus:outline-none focus:border-[#D9B878]/60 leading-relaxed"
+                    className="w-full resize-none text-sm px-3 py-3 rounded-xl border border-[#F2F6FA] bg-white text-[#0A1A2F] placeholder-[#0A1A2F]/25 focus:outline-none focus:border-[#FAD98D]/60 leading-relaxed"
                   />
                   {reflection?.trim() && (
-                    <button onClick={onSaveReflection} className="text-xs font-bold text-[#c9a227] hover:text-[#b89320] transition-colors">
+                    <button onClick={onSaveReflection} className="text-xs font-bold text-[#c9a227] hover:text-[#C9A227] transition-colors">
                       Save reflection →
                     </button>
                   )}
@@ -478,7 +478,7 @@ function StepRow({ step, pathwayId, completedIds, isLocked, onToggle, reflection
                   <p className="text-sm text-[#0A1A2F]/70 leading-relaxed">{step.content}</p>
                   {step.linkPage && (
                     <button onClick={() => navigate(createPageUrl(step.linkPage))}
-                      className="flex items-center gap-2 text-xs font-bold text-[#0A1A2F] bg-[#F2F6FA] hover:bg-[#E8EFF6] transition-colors px-3 py-2.5 rounded-xl w-full">
+                      className="flex items-center gap-2 text-xs font-bold text-[#0A1A2F] bg-[#F2F6FA] hover:bg-white transition-colors px-3 py-2.5 rounded-xl w-full">
                       <ExternalLink className="w-3.5 h-3.5 text-[#c9a227] flex-shrink-0" />
                       {step.linkLabel}
                     </button>
@@ -490,7 +490,7 @@ function StepRow({ step, pathwayId, completedIds, isLocked, onToggle, reflection
                 className={`w-full py-2.5 rounded-xl font-bold text-xs transition-all ${
                   isDone
                     ? 'bg-[#F2F6FA] text-[#0A1A2F]/40 hover:bg-red-50 hover:text-red-400'
-                    : 'bg-gradient-to-r from-[#D9B878] to-[#c9a227] text-[#0A1A2F] hover:opacity-90'
+                    : 'bg-gradient-to-r from-[#FAD98D] to-[#c9a227] text-[#0A1A2F] hover:opacity-90'
                 }`}>
                 {isDone ? 'Mark incomplete' : 'Mark complete ✓'}
               </button>
@@ -548,10 +548,10 @@ function PathwayDetail({ pathway, onBack }) {
   return (
     <div className="min-h-screen bg-[#F2F6FA] pb-28">
       {/* Sticky header */}
-      <div className="sticky top-0 z-40 bg-white border-b border-[#E2E8F0] px-4 py-3">
+      <div className="sticky top-0 z-40 bg-white border-b border-[#F2F6FA] px-4 py-3">
         <div className="max-w-2xl mx-auto flex items-center gap-3">
           <button onClick={onBack}
-            className="w-9 h-9 rounded-full bg-[#F2F6FA] hover:bg-[#E8EFF6] flex items-center justify-center transition-colors">
+            className="w-9 h-9 rounded-full bg-[#F2F6FA] hover:bg-white flex items-center justify-center transition-colors">
             <ArrowLeft className="w-4 h-4 text-[#0A1A2F]" />
           </button>
           <div className="flex-1 min-w-0">
@@ -603,8 +603,8 @@ function PathwayDetail({ pathway, onBack }) {
         {!isActive && !isComplete && (
           <motion.button initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
             onClick={setAsActive}
-            className="w-full flex items-center gap-3 bg-white border border-[#D9B878]/30 rounded-2xl p-4 hover:border-[#c9a227] hover:bg-[#FFF9ED] transition-all text-left">
-            <div className="w-9 h-9 bg-[#FFF9ED] rounded-xl flex items-center justify-center flex-shrink-0">
+            className="w-full flex items-center gap-3 bg-white border border-[#FAD98D]/30 rounded-2xl p-4 hover:border-[#c9a227] hover:bg-white transition-all text-left">
+            <div className="w-9 h-9 bg-white rounded-xl flex items-center justify-center flex-shrink-0">
               <Flame className="w-4 h-4 text-[#c9a227]" />
             </div>
             <div className="flex-1">
@@ -666,7 +666,7 @@ function PathwayCard({ pathway, progress, activeId, index, onClick }) {
       initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.05 }}
       onClick={onClick}
       className={`w-full text-left bg-white rounded-2xl border overflow-hidden hover:shadow-md transition-all group ${
-        isActive ? 'border-[#c9a227] shadow-sm' : isDone ? 'border-emerald-200' : 'border-[#E2E8F0] hover:border-[#D9B878]/50'
+        isActive ? 'border-[#c9a227] shadow-sm' : isDone ? 'border-emerald-200' : 'border-[#F2F6FA] hover:border-[#FAD98D]/50'
       }`}
     >
       <div className={`h-1 bg-gradient-to-r ${pathway.gradient}`} />
@@ -677,7 +677,7 @@ function PathwayCard({ pathway, progress, activeId, index, onClick }) {
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-0.5">
             <h3 className="font-bold text-sm text-[#0A1A2F] truncate">{pathway.title}</h3>
-            {isActive && <span className="text-[9px] font-bold bg-[#FFF9ED] text-[#c9a227] border border-[#D9B878]/30 px-1.5 py-0.5 rounded-full flex-shrink-0">Focus</span>}
+            {isActive && <span className="text-[9px] font-bold bg-white text-[#c9a227] border border-[#FAD98D]/30 px-1.5 py-0.5 rounded-full flex-shrink-0">Focus</span>}
             {isDone  && <span className="text-[9px] font-bold bg-emerald-50 text-emerald-600 border border-emerald-200 px-1.5 py-0.5 rounded-full flex-shrink-0">Done ✓</span>}
           </div>
           <p className="text-xs text-[#0A1A2F]/45 truncate mb-2">{pathway.subtitle}</p>
@@ -770,10 +770,10 @@ export default function GrowthPathwaysPage() {
 
   return (
     <div className="min-h-screen bg-[#F2F6FA] pb-28">
-      <div className="sticky top-0 z-40 bg-white border-b border-[#E2E8F0] px-4 py-3">
+      <div className="sticky top-0 z-40 bg-white border-b border-[#F2F6FA] px-4 py-3">
         <div className="max-w-2xl mx-auto flex items-center gap-3">
           <Link to={createPageUrl('PersonalGrowth')}
-            className="w-9 h-9 rounded-full bg-[#F2F6FA] hover:bg-[#E8EFF6] flex items-center justify-center transition-colors">
+            className="w-9 h-9 rounded-full bg-[#F2F6FA] hover:bg-white flex items-center justify-center transition-colors">
             <ArrowLeft className="w-4 h-4 text-[#0A1A2F]" />
           </Link>
           <div className="flex-1">
@@ -832,7 +832,7 @@ export default function GrowthPathwaysPage() {
               className={`flex-shrink-0 px-3 py-1.5 rounded-full border text-xs font-semibold whitespace-nowrap transition-all ${
                 category === cat
                   ? 'bg-[#0A1A2F] text-white border-[#0A1A2F]'
-                  : 'bg-white text-[#0A1A2F]/50 border-[#E2E8F0] hover:border-[#D9B878]/40'
+                  : 'bg-white text-[#0A1A2F]/50 border-[#F2F6FA] hover:border-[#FAD98D]/40'
               }`}>
               {cat}
             </button>

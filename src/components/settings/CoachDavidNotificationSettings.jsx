@@ -73,7 +73,7 @@ export default function CoachDavidNotificationSettings({ user }) {
       className="bg-white rounded-2xl border border-gray-200 p-6 space-y-6"
     >
       <div className="flex items-center gap-3 mb-6">
-        <Dumbbell className="w-6 h-6 text-[#D9B878]" />
+        <Dumbbell className="w-6 h-6 text-[#FAD98D]" />
         <h3 className="text-xl font-bold text-[#0A1A2F]">Coach David Notifications</h3>
       </div>
 

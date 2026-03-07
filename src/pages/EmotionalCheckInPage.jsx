@@ -225,7 +225,7 @@ export default function EmotionalCheckInPage() {
                   <div className="w-9 h-9 rounded-full flex items-center justify-center border-2 transition-all"
                     style={d.mood
                       ? { backgroundColor: getMoodDot(d.mood) + '22', borderColor: getMoodDot(d.mood) }
-                      : { backgroundColor: '#F2F6FA', borderColor: '#E2E8F0' }}>
+                      : { backgroundColor: '#F2F6FA', borderColor: '#F2F6FA' }}>
                     {d.mood
                       ? <span className="text-sm">{MOODS.find(m => m.value === d.mood)?.emoji}</span>
                       : <span className="text-[9px] text-[#0A1A2F]/20">–</span>}
@@ -264,13 +264,13 @@ export default function EmotionalCheckInPage() {
 
               {/* Scripture */}
               <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
-                className="bg-white rounded-2xl border border-[#D9B878]/20 p-5">
+                className="bg-white rounded-2xl border border-[#FAD98D]/20 p-5">
                 <div className="flex items-center gap-2 mb-3">
-                  <BookOpen className="w-4 h-4 text-[#D9B878]" />
+                  <BookOpen className="w-4 h-4 text-[#FAD98D]" />
                   <span className="text-xs font-bold text-[#0A1A2F]/40 uppercase tracking-widest">A word for you</span>
                 </div>
                 <p className="text-sm text-[#0A1A2F]/80 leading-relaxed italic mb-2">"{moodObj.scripture.text}"</p>
-                <p className="text-xs font-bold text-[#D9B878]">{moodObj.scripture.ref}</p>
+                <p className="text-xs font-bold text-[#FAD98D]">{moodObj.scripture.ref}</p>
               </motion.div>
 
               {/* Practice CTA */}
@@ -299,10 +299,10 @@ export default function EmotionalCheckInPage() {
           <motion.div key="form" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="space-y-4">
 
             {/* Greeting */}
-            <div className="bg-gradient-to-br from-[#0A1A2F] to-[#1a2a3f] rounded-2xl p-5">
+            <div className="bg-gradient-to-br from-[#0A1A2F] to-[#0A1A2F] rounded-2xl p-5">
               <div className="flex items-center gap-2 mb-1">
-                <Heart className="w-4 h-4 text-[#D9B878]" />
-                <span className="text-[10px] font-bold text-[#D9B878] uppercase tracking-widest">Daily Check-In</span>
+                <Heart className="w-4 h-4 text-[#FAD98D]" />
+                <span className="text-[10px] font-bold text-[#FAD98D] uppercase tracking-widest">Daily Check-In</span>
               </div>
               <h2 className="text-white font-bold text-lg mb-1">How is your soul today?</h2>
               <p className="text-white/45 text-xs leading-relaxed">{dailyPrompt}</p>
@@ -318,7 +318,7 @@ export default function EmotionalCheckInPage() {
                     className={`py-3.5 px-2 rounded-xl border-2 transition-all flex flex-col items-center gap-1.5 ${
                       selectedMood?.value === mood.value
                         ? `${mood.border} ${mood.bg} shadow-sm`
-                        : 'border-[#E2E8F0] bg-[#F8FAFC] hover:border-[#AFC7E3]/50'
+                        : 'border-[#F2F6FA] bg-[#F2F6FA] hover:border-[#AFC7E3]/50'
                     }`}>
                     <span className="text-2xl leading-none">{mood.emoji}</span>
                     <span className={`text-[11px] font-semibold ${selectedMood?.value === mood.value ? 'text-[#0A1A2F]' : 'text-[#0A1A2F]/45'}`}>
@@ -344,7 +344,7 @@ export default function EmotionalCheckInPage() {
                       {[1, 2, 3, 4, 5].map(n => (
                         <button key={n} onClick={() => setIntensity(n)}
                           className="flex-1 h-2.5 rounded-full transition-all"
-                          style={{ backgroundColor: n <= intensity ? moodObj.dot : '#E2E8F0' }} />
+                          style={{ backgroundColor: n <= intensity ? moodObj.dot : '#F2F6FA' }} />
                       ))}
                     </div>
                   </div>
@@ -356,7 +356,7 @@ export default function EmotionalCheckInPage() {
                     <textarea value={reflection} onChange={e => setReflection(e.target.value)}
                       placeholder="Write freely — this is just for you…"
                       rows={4}
-                      className="w-full resize-none rounded-xl border border-[#E2E8F0] bg-[#F8FAFC] px-3 py-2.5 text-sm text-[#0A1A2F] placeholder-[#0A1A2F]/25 focus:outline-none focus:border-[#D9B878]/60 transition-colors leading-relaxed" />
+                      className="w-full resize-none rounded-xl border border-[#F2F6FA] bg-[#F2F6FA] px-3 py-2.5 text-sm text-[#0A1A2F] placeholder-[#0A1A2F]/25 focus:outline-none focus:border-[#FAD98D]/60 transition-colors leading-relaxed" />
                   </div>
 
                   {/* Scripture */}
@@ -371,7 +371,7 @@ export default function EmotionalCheckInPage() {
 
                   {/* Practice link */}
                   <button onClick={() => navigate(createPageUrl(moodObj.practicePage))}
-                    className="w-full bg-white rounded-2xl border border-[#AFC7E3]/20 p-4 flex items-center justify-between hover:border-[#D9B878]/40 hover:shadow-sm transition-all">
+                    className="w-full bg-white rounded-2xl border border-[#AFC7E3]/20 p-4 flex items-center justify-between hover:border-[#FAD98D]/40 hover:shadow-sm transition-all">
                     <div className="flex items-center gap-3">
                       <span className="text-xl">{moodObj.practiceIcon}</span>
                       <div className="text-left">
@@ -384,7 +384,7 @@ export default function EmotionalCheckInPage() {
 
                   {/* Save */}
                   <motion.button whileTap={{ scale: 0.98 }} onClick={handleSave} disabled={saving}
-                    className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-[#D9B878] to-[#c9a227] text-[#0A1A2F] font-bold text-sm shadow-sm hover:opacity-90 disabled:opacity-50 transition-opacity flex items-center justify-center gap-2">
+                    className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-[#FAD98D] to-[#c9a227] text-[#0A1A2F] font-bold text-sm shadow-sm hover:opacity-90 disabled:opacity-50 transition-opacity flex items-center justify-center gap-2">
                     {saving
                       ? <><Sparkles className="w-4 h-4 animate-spin" /> Saving…</>
                       : <><CheckCircle2 className="w-4 h-4" /> Save Check-In</>}

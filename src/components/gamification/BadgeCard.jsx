@@ -10,8 +10,8 @@ export default function BadgeCard({ badge, earned, progress, index }) {
       transition={{ delay: index * 0.05 }}
       className={`rounded-2xl p-4 text-center border ${
         earned
-          ? 'bg-gradient-to-br from-[#FAD98D]/30 to-[#D9B878]/20 border-[#c9a227]/30'
-          : 'bg-white border-[#D9B878]/20'
+          ? 'bg-gradient-to-br from-[#FAD98D]/30 to-[#FAD98D]/20 border-[#c9a227]/30'
+          : 'bg-white border-[#FAD98D]/20'
       }`}
     >
       <div className={`text-5xl mb-2 ${!earned && 'opacity-25 grayscale'}`}>
@@ -26,7 +26,7 @@ export default function BadgeCard({ badge, earned, progress, index }) {
         <div className="mt-3">
           <div className="h-1.5 bg-[#FAD98D]/20 rounded-full overflow-hidden">
             <div
-              className="h-full bg-gradient-to-r from-[#c9a227] to-[#D9B878] rounded-full transition-all"
+              className="h-full bg-gradient-to-r from-[#c9a227] to-[#FAD98D] rounded-full transition-all"
               style={{ width: `${progress}%` }}
             />
           </div>

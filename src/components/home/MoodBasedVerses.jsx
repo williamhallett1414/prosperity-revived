@@ -69,7 +69,7 @@ export default function MoodBasedVerses() {
     >
       <div className="flex items-center gap-2 mb-4">
         <Sparkles className="w-5 h-5 text-[#c9a227]" />
-        <h3 className="font-semibold text-[#1a1a2e]">How are you feeling today?</h3>
+        <h3 className="font-semibold text-[#0A1A2F]">How are you feeling today?</h3>
       </div>
 
       {!suggestions ? (
@@ -83,7 +83,7 @@ export default function MoodBasedVerses() {
                     onClick={() => setSelectedMood(mood.value)}
                     className={`py-3 px-4 rounded-xl text-sm font-medium transition-all ${
                       selectedMood === mood.value
-                        ? 'bg-[#1a1a2e] text-white'
+                        ? 'bg-[#0A1A2F] text-white'
                         : 'bg-gray-50 text-gray-700 hover:bg-gray-100'
                     }`}
                   >
@@ -104,7 +104,7 @@ export default function MoodBasedVerses() {
                 <Button
                   onClick={getSuggestions}
                   disabled={loading}
-                  className="w-full bg-[#c9a227] hover:bg-[#b89320] text-white"
+                  className="w-full bg-[#c9a227] hover:bg-[#C9A227] text-white"
                 >
                   {loading ? (
                     <>
@@ -139,7 +139,7 @@ export default function MoodBasedVerses() {
                 <Button
                   onClick={getSuggestions}
                   disabled={!customInput.trim() || loading}
-                  className="flex-1 bg-[#c9a227] hover:bg-[#b89320] text-white"
+                  className="flex-1 bg-[#c9a227] hover:bg-[#C9A227] text-white"
                 >
                   {loading ? (
                     <Loader2 className="w-4 h-4 animate-spin" />
@@ -158,7 +158,7 @@ export default function MoodBasedVerses() {
             animate={{ opacity: 1 }}
             className="space-y-4"
           >
-            <div className="bg-gradient-to-r from-[#faf8f5] to-[#f5f3ed] rounded-xl p-4 border-l-4 border-[#c9a227]">
+            <div className="bg-gradient-to-r from-[#F2F6FA] to-[#F2F6FA] rounded-xl p-4 border-l-4 border-[#c9a227]">
               <p className="text-sm text-gray-700 leading-relaxed">
                 {suggestions.overall_message}
               </p>

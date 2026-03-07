@@ -26,7 +26,7 @@ const PILLAR_CONFIG = {
   devotion: {
     icon: BookOpen, color: '#c9a227', bg: 'bg-[#c9a227]/10',
     border: 'border-[#c9a227]/20', label: 'Daily Devotion', emoji: '📖',
-    gradient: 'from-[#c9a227] to-[#D9B878]'
+    gradient: 'from-[#c9a227] to-[#FAD98D]'
   },
   workout: {
     icon: Dumbbell, color: '#38BDF8', bg: 'bg-[#38BDF8]/10',
@@ -34,26 +34,26 @@ const PILLAR_CONFIG = {
     gradient: 'from-[#38BDF8] to-[#0EA5E9]'
   },
   nutrition: {
-    icon: Utensils, color: '#4ade80', bg: 'bg-[#4ade80]/10',
-    border: 'border-[#4ade80]/20', label: 'Nutrition', emoji: '🥗',
-    gradient: 'from-[#4ade80] to-[#22c55e]'
+    icon: Utensils, color: '#22C55E', bg: 'bg-[#22C55E]/10',
+    border: 'border-[#22C55E]/20', label: 'Nutrition', emoji: '🥗',
+    gradient: 'from-[#22C55E] to-[#22c55e]'
   },
   growth: {
     icon: Brain, color: '#a78bfa', bg: 'bg-[#a78bfa]/10',
     border: 'border-[#a78bfa]/20', label: 'Personal Growth', emoji: '🧠',
-    gradient: 'from-[#a78bfa] to-[#7c3aed]'
+    gradient: 'from-[#a78bfa] to-[#8B5CF6]'
   },
 };
 
 const WEEK_COLORS = [
-  'from-[#0A1A2F] to-[#1a3a5c]',
-  'from-[#1a3a5c] to-[#2d5a8e]',
-  'from-[#2d5a8e] to-[#4a7c59]',
-  'from-[#4a7c59] to-[#0A1A2F]',
+  'from-[#0A1A2F] to-[#0A1A2F]',
+  'from-[#0A1A2F] to-[#2d5a8e]',
+  'from-[#2d5a8e] to-[#3C4E53]',
+  'from-[#3C4E53] to-[#0A1A2F]',
   'from-[#c9a227] to-[#0A1A2F]',
   'from-[#0A1A2F] to-[#c9a227]',
-  'from-[#D9B878] to-[#0A1A2F]',
-  'from-[#c9a227] to-[#D9B878]',
+  'from-[#FAD98D] to-[#0A1A2F]',
+  'from-[#c9a227] to-[#FAD98D]',
 ];
 
 export default function CoachingPlanPage() {
@@ -156,7 +156,7 @@ export default function CoachingPlanPage() {
           {/* Progress strip */}
           <div className="h-0.5 bg-white/10">
             <motion.div
-              className="h-full bg-gradient-to-r from-[#c9a227] to-[#D9B878]"
+              className="h-full bg-gradient-to-r from-[#c9a227] to-[#FAD98D]"
               animate={{ width: `${(pillarsCompleted / 4) * 100}%` }}
               transition={{ duration: 0.4 }}
             />
@@ -167,7 +167,7 @@ export default function CoachingPlanPage() {
 
           {/* Future day lock notice */}
           {isFutureDay && (
-            <div className="bg-white/50 border border-[#D9B878]/30 rounded-2xl p-4 text-center">
+            <div className="bg-white/50 border border-[#FAD98D]/30 rounded-2xl p-4 text-center">
               <Lock className="w-6 h-6 text-[#c9a227]/50 mx-auto mb-1" />
               <p className="text-[#0A1A2F]/50 text-sm">This day unlocks when you reach it — complete Day {selectedDay.day - 1} first</p>
             </div>
@@ -216,7 +216,7 @@ export default function CoachingPlanPage() {
                 <p className="text-[#0A1A2F]/70 text-sm italic leading-relaxed">{selectedDay.devotion.prayer}</p>
               </div>
               <Link to={createPageUrl('Bible') + `?book=${encodeURIComponent(selectedDay.devotion.book)}&chapter=${selectedDay.devotion.ch}`}>
-                <Button size="sm" className="w-full bg-gradient-to-r from-[#c9a227] to-[#D9B878] text-white">
+                <Button size="sm" className="w-full bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white">
                   <BookOpen className="w-3.5 h-3.5 mr-2" />
                   Read {selectedDay.devotion.book} {selectedDay.devotion.ch} in Bible
                   <ExternalLink className="w-3 h-3 ml-auto opacity-60" />
@@ -287,7 +287,7 @@ export default function CoachingPlanPage() {
             locked={isFutureDay}
           >
             <div className="space-y-3">
-              <div className="p-3 bg-[#4ade80]/8 border border-[#4ade80]/15 rounded-xl">
+              <div className="p-3 bg-[#22C55E]/8 border border-[#22C55E]/15 rounded-xl">
                 <p className="text-[10px] font-bold text-[#22c55e] uppercase tracking-wider mb-1">Today's Focus</p>
                 <p className="text-[#0A1A2F] font-semibold text-sm">{selectedDay.nutrition.focus}</p>
               </div>
@@ -295,22 +295,22 @@ export default function CoachingPlanPage() {
                 <p className="text-[10px] font-bold text-[#0A1A2F]/40 uppercase tracking-wider mb-1">Recommended Meal</p>
                 <p className="text-[#0A1A2F]/80 text-sm leading-relaxed">{selectedDay.nutrition.meal}</p>
               </div>
-              <div className="p-3 bg-[#4ade80]/5 rounded-xl border border-[#4ade80]/10">
+              <div className="p-3 bg-[#22C55E]/5 rounded-xl border border-[#22C55E]/10">
                 <p className="text-[10px] font-bold text-[#22c55e] uppercase tracking-wider mb-1">Food Log Tip</p>
                 <p className="text-[#0A1A2F]/70 text-sm leading-relaxed">{selectedDay.nutrition.logTip}</p>
               </div>
-              <div className="p-3 bg-white border border-[#4ade80]/15 rounded-xl">
+              <div className="p-3 bg-white border border-[#22C55E]/15 rounded-xl">
                 <p className="text-[10px] font-bold text-[#22c55e] uppercase tracking-wider mb-1">Nutrition Insight</p>
                 <p className="text-[#0A1A2F]/70 text-sm leading-relaxed">{selectedDay.nutrition.tip}</p>
               </div>
               <div className="flex gap-2">
                 <Link to={createPageUrl('Nutrition')} className="flex-1">
-                  <Button size="sm" className="w-full bg-gradient-to-r from-[#4ade80] to-[#22c55e] text-white text-xs">
+                  <Button size="sm" className="w-full bg-gradient-to-r from-[#22C55E] to-[#22c55e] text-white text-xs">
                     <Utensils className="w-3 h-3 mr-1.5" /> Log Food
                   </Button>
                 </Link>
                 <Link to={createPageUrl('DiscoverRecipes')} className="flex-1">
-                  <Button size="sm" variant="outline" className="w-full border-[#4ade80]/30 text-[#22c55e] text-xs hover:bg-[#4ade80]/5">
+                  <Button size="sm" variant="outline" className="w-full border-[#22C55E]/30 text-[#22c55e] text-xs hover:bg-[#22C55E]/5">
                     Find Recipes
                   </Button>
                 </Link>
@@ -334,7 +334,7 @@ export default function CoachingPlanPage() {
             locked={isFutureDay}
           >
             <div className="space-y-3">
-              <div className="p-4 bg-gradient-to-br from-[#a78bfa]/10 to-[#7c3aed]/5 border border-[#a78bfa]/20 rounded-xl">
+              <div className="p-4 bg-gradient-to-br from-[#a78bfa]/10 to-[#8B5CF6]/5 border border-[#a78bfa]/20 rounded-xl">
                 <p className="text-[10px] font-bold text-[#a78bfa] uppercase tracking-wider mb-2">Journal Prompt</p>
                 <p className="text-[#0A1A2F]/80 text-sm leading-relaxed font-medium italic">"{selectedDay.growth.journalPrompt}"</p>
               </div>
@@ -347,7 +347,7 @@ export default function CoachingPlanPage() {
                 <p className="text-[#0A1A2F]/70 text-sm leading-relaxed">{selectedDay.growth.habit}</p>
               </div>
               <Link to={createPageUrl(selectedDay.growth.appLink)}>
-                <Button size="sm" className="w-full bg-gradient-to-r from-[#a78bfa] to-[#7c3aed] text-white">
+                <Button size="sm" className="w-full bg-gradient-to-r from-[#a78bfa] to-[#8B5CF6] text-white">
                   <Brain className="w-3.5 h-3.5 mr-2" />
                   {selectedDay.growth.appLabel}
                   <ExternalLink className="w-3 h-3 ml-auto opacity-60" />
@@ -372,7 +372,7 @@ export default function CoachingPlanPage() {
           {!isFutureDay && !dayProgress.completed && (
             <button
               onClick={() => markDayComplete(selectedDay.day)}
-              className="w-full bg-gradient-to-r from-[#0A1A2F] to-[#1a3a5c] text-white font-bold py-3.5 rounded-2xl flex items-center justify-center gap-2 hover:opacity-90 transition-opacity shadow-lg"
+              className="w-full bg-gradient-to-r from-[#0A1A2F] to-[#0A1A2F] text-white font-bold py-3.5 rounded-2xl flex items-center justify-center gap-2 hover:opacity-90 transition-opacity shadow-lg"
             >
               <CheckCircle2 className="w-5 h-5 text-[#c9a227]" />
               Mark Day {selectedDay.day} Complete
@@ -380,7 +380,7 @@ export default function CoachingPlanPage() {
           )}
 
           {dayProgress.completed && (
-            <div className="bg-gradient-to-r from-[#c9a227]/15 to-[#D9B878]/10 border border-[#c9a227]/30 rounded-2xl p-4 text-center">
+            <div className="bg-gradient-to-r from-[#c9a227]/15 to-[#FAD98D]/10 border border-[#c9a227]/30 rounded-2xl p-4 text-center">
               <CheckCircle2 className="w-8 h-8 text-[#c9a227] mx-auto mb-2" />
               <p className="text-[#0A1A2F] font-bold">Day {selectedDay.day} Complete!</p>
               <p className="text-[#0A1A2F]/50 text-sm mt-0.5">Well done, faithful servant. 🏆</p>
@@ -399,13 +399,13 @@ export default function CoachingPlanPage() {
           <div className="flex gap-2 pt-2">
             {selectedDay.day > 1 && (
               <button onClick={() => openDay(selectedDay.day - 1)}
-                className="flex-1 flex items-center justify-center gap-2 py-3 bg-white border border-[#E6EBEF] rounded-xl text-sm text-[#0A1A2F]/60 hover:bg-[#F2F6FA]">
+                className="flex-1 flex items-center justify-center gap-2 py-3 bg-white border border-[#F2F6FA] rounded-xl text-sm text-[#0A1A2F]/60 hover:bg-[#F2F6FA]">
                 <ChevronLeft className="w-4 h-4" /> Day {selectedDay.day - 1}
               </button>
             )}
             {selectedDay.day < plan.totalDays && (
               <button onClick={() => openDay(selectedDay.day + 1)}
-                className="flex-1 flex items-center justify-center gap-2 py-3 bg-white border border-[#E6EBEF] rounded-xl text-sm text-[#0A1A2F]/60 hover:bg-[#F2F6FA]">
+                className="flex-1 flex items-center justify-center gap-2 py-3 bg-white border border-[#F2F6FA] rounded-xl text-sm text-[#0A1A2F]/60 hover:bg-[#F2F6FA]">
                 Day {selectedDay.day + 1} <ChevronRight className="w-4 h-4" />
               </button>
             )}
@@ -421,9 +421,9 @@ export default function CoachingPlanPage() {
   return (
     <div className="min-h-screen bg-[#F2F6FA] pb-24">
       {/* Header */}
-      <div className="sticky top-0 z-40 bg-white border-b border-[#E6EBEF]">
+      <div className="sticky top-0 z-40 bg-white border-b border-[#F2F6FA]">
         <div className="max-w-2xl mx-auto px-4 h-14 flex items-center gap-3">
-          <button onClick={() => navigate(-1)} className="w-9 h-9 rounded-full bg-[#E6EBEF] hover:bg-[#D9DFE4] flex items-center justify-center flex-shrink-0">
+          <button onClick={() => navigate(-1)} className="w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center flex-shrink-0">
             <ArrowLeft className="w-4 h-4 text-[#0A1A2F]" />
           </button>
           <div className="flex-1">
@@ -442,7 +442,7 @@ export default function CoachingPlanPage() {
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-gradient-to-br from-[#0A1A2F] via-[#1a3a5c] to-[#c9a227] rounded-2xl p-6 mt-4 mb-4 relative overflow-hidden"
+          className="bg-gradient-to-br from-[#0A1A2F] via-[#0A1A2F] to-[#c9a227] rounded-2xl p-6 mt-4 mb-4 relative overflow-hidden"
         >
           <div className="absolute inset-0 opacity-5">
             <div className="absolute top-4 right-4 w-32 h-32 rounded-full bg-[#c9a227] blur-3xl" />
@@ -465,7 +465,7 @@ export default function CoachingPlanPage() {
               </div>
               <div className="h-2 bg-white/10 rounded-full overflow-hidden">
                 <motion.div
-                  className="h-full bg-gradient-to-r from-[#c9a227] to-[#D9B878] rounded-full"
+                  className="h-full bg-gradient-to-r from-[#c9a227] to-[#FAD98D] rounded-full"
                   initial={{ width: 0 }}
                   animate={{ width: `${overallPct}%` }}
                   transition={{ duration: 1 }}
@@ -475,7 +475,7 @@ export default function CoachingPlanPage() {
 
             <button
               onClick={() => openDay(currentDay)}
-              className="w-full bg-gradient-to-r from-[#c9a227] to-[#D9B878] text-white font-bold py-3 rounded-xl flex items-center justify-center gap-2 hover:opacity-90 transition-opacity"
+              className="w-full bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white font-bold py-3 rounded-xl flex items-center justify-center gap-2 hover:opacity-90 transition-opacity"
             >
               <Play className="w-4 h-4" />
               Continue — Day {currentDay}
@@ -511,7 +511,7 @@ export default function CoachingPlanPage() {
                   className={`rounded-xl p-3 text-left transition-all border ${
                     selectedWeek === i
                       ? 'bg-[#0A1A2F] border-[#0A1A2F] shadow-md'
-                      : 'bg-white border-[#E6EBEF] hover:border-[#D9B878]/50'
+                      : 'bg-white border-[#F2F6FA] hover:border-[#FAD98D]/50'
                   }`}>
                   <p className={`text-[10px] font-bold mb-1 ${selectedWeek === i ? 'text-[#c9a227]' : 'text-[#0A1A2F]/40'}`}>
                     Week {i + 1}
@@ -573,8 +573,8 @@ export default function CoachingPlanPage() {
                     className={`w-full flex items-center gap-3 p-3.5 rounded-xl text-left transition-all border ${
                       done ? 'bg-[#c9a227]/8 border-[#c9a227]/20' :
                       isToday ? 'bg-white border-[#c9a227]/40 shadow-sm' :
-                      isPast ? 'bg-white/60 border-[#E6EBEF]' :
-                      'bg-white border-[#E6EBEF] opacity-60'
+                      isPast ? 'bg-white/60 border-[#F2F6FA]' :
+                      'bg-white border-[#F2F6FA] opacity-60'
                     }`}
                   >
                     {/* Day number */}
@@ -602,7 +602,7 @@ export default function CoachingPlanPage() {
                       {(isPast || isToday) && (
                         <div className="flex gap-1 mt-1.5">
                           {Object.keys(PILLAR_CONFIG).map(pk => (
-                            <div key={pk} className={`w-2 h-2 rounded-full ${pillars[pk] ? 'bg-[#c9a227]' : 'bg-[#E6EBEF]'}`} />
+                            <div key={pk} className={`w-2 h-2 rounded-full ${pillars[pk] ? 'bg-[#c9a227]' : 'bg-gray-100'}`} />
                           ))}
                         </div>
                       )}
@@ -630,7 +630,7 @@ function PillarCard({ pillarKey, data, done, expanded, onToggleExpand, onToggleD
 
   return (
     <div className={`bg-white rounded-2xl border transition-all shadow-sm overflow-hidden ${
-      done ? `border-[${cfg.color}]/30` : 'border-[#E6EBEF]'
+      done ? `border-[${cfg.color}]/30` : 'border-[#F2F6FA]'
     }`}>
       <button
         onClick={onToggleExpand}
@@ -661,7 +661,7 @@ function PillarCard({ pillarKey, data, done, expanded, onToggleExpand, onToggleD
               className={`w-7 h-7 rounded-full border-2 flex items-center justify-center transition-all ${
                 done
                   ? 'border-transparent bg-gradient-to-br ' + cfg.gradient
-                  : 'border-[#E6EBEF] hover:border-[#c9a227]/50'
+                  : 'border-[#F2F6FA] hover:border-[#c9a227]/50'
               }`}
             >
               {done && <CheckCircle2 className="w-4 h-4 text-white" />}

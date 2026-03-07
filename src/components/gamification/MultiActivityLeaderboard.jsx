@@ -5,14 +5,14 @@ import { motion } from 'framer-motion';
 import { Trophy, Flame, Zap, Target } from 'lucide-react';
 
 const BOARDS = [
-  { id: 'points',      label: 'Points',     icon: Trophy, gradient: 'from-[#c9a227] to-[#D9B878]'  },
-  { id: 'workouts',    label: 'Workouts',   icon: Zap,    gradient: 'from-[#0A1A2F] to-[#1a3a5c]'  },
+  { id: 'points',      label: 'Points',     icon: Trophy, gradient: 'from-[#c9a227] to-[#FAD98D]'  },
+  { id: 'workouts',    label: 'Workouts',   icon: Zap,    gradient: 'from-[#0A1A2F] to-[#0A1A2F]'  },
   { id: 'streak',      label: 'Streak',     icon: Flame,  gradient: 'from-[#AFC7E3] to-[#3C4E53]'  },
-  { id: 'meditations', label: 'Mind',       icon: Target, gradient: 'from-[#D9B878] to-[#c9a227]'  },
+  { id: 'meditations', label: 'Mind',       icon: Target, gradient: 'from-[#FAD98D] to-[#c9a227]'  },
 ];
 
 const RANK_STYLES = [
-  'bg-gradient-to-r from-[#FAD98D]/40 to-[#D9B878]/20 border border-[#c9a227]/30',
+  'bg-gradient-to-r from-[#FAD98D]/40 to-[#FAD98D]/20 border border-[#c9a227]/30',
   'bg-gradient-to-r from-[#F2F6FA] to-[#E8EEF4]',
   'bg-gradient-to-r from-[#FAD98D]/15 to-[#F2F6FA]',
   'bg-white',
@@ -65,7 +65,7 @@ export default function MultiActivityLeaderboard() {
             className={`rounded-xl py-2.5 flex flex-col items-center gap-1 text-[11px] font-bold transition-all ${
               selected === id
                 ? `bg-gradient-to-br ${gradient} text-white shadow-sm`
-                : 'bg-white text-[#0A1A2F]/50 border border-[#D9B878]/25'
+                : 'bg-white text-[#0A1A2F]/50 border border-[#FAD98D]/25'
             }`}>
             <Icon className="w-3.5 h-3.5" />
             {label}
@@ -107,7 +107,7 @@ export default function MultiActivityLeaderboard() {
       </div>
 
       {/* Tips */}
-      <div className="bg-[#FAD98D]/15 border border-[#D9B878]/25 rounded-2xl p-4 text-sm text-[#0A1A2F]/70 space-y-1">
+      <div className="bg-[#FAD98D]/15 border border-[#FAD98D]/25 rounded-2xl p-4 text-sm text-[#0A1A2F]/70 space-y-1">
         <p className="font-semibold text-[#0A1A2F] text-xs uppercase tracking-wide mb-2">How to climb the ranks</p>
         <p>🏆 Complete activities and challenges to earn points</p>
         <p>🔥 Maintain your daily streak for consistent gains</p>

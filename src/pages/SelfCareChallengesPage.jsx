@@ -4,7 +4,7 @@ import { useState } from "react";
 const CHALLENGES = [
   {
     id: "gratitude-7", title: "7-Day Gratitude", emoji: "🙏", category: "Faith",
-    duration: 7, color: "#D9A84A", bg: "linear-gradient(135deg,#f59e0b,#D9B878)",
+    duration: 7, color: "#D9A84A", bg: "linear-gradient(135deg,#f59e0b,#FAD98D)",
     tagline: "Cultivate a thankful heart in one week", xpPerDay: 40,
     tasks: [
       { day: 1, title: "Three blessings", content: "Write down three things you're grateful for — no matter how small. Look for God's fingerprints in ordinary moments.", prompt: "What three moments today revealed something beautiful?" },
@@ -68,7 +68,7 @@ const CHALLENGES = [
   },
   {
     id: "movement-7", title: "7-Day Movement Challenge", emoji: "🏃", category: "Body",
-    duration: 7, color: "#22c55e", bg: "linear-gradient(135deg,#22c55e,#4ade80)",
+    duration: 7, color: "#22c55e", bg: "linear-gradient(135deg,#22c55e,#22C55E)",
     tagline: "Move your body, lift your spirit", xpPerDay: 40,
     tasks: [
       { day: 1, title: "10-minute walk", content: "Go for a 10-minute walk - outside if possible. Pray while you walk.", prompt: "What happened when movement and prayer merged?" },
@@ -149,7 +149,7 @@ function getLevel(xp) {
 // ─── Confetti ─────────────────────────────────────────────────────────────────
 function Confetti({ show }) {
   if (!show) return null;
-  const colors = ["#D9B878","#f43f5e","#0ea5e9","#22c55e","#8b5cf6","#f97316","#fbbf24"];
+  const colors = ["#FAD98D","#f43f5e","#0ea5e9","#22c55e","#8b5cf6","#f97316","#fbbf24"];
   return (
     <div style={{position:"fixed",inset:0,pointerEvents:"none",zIndex:9999,overflow:"hidden"}}>
       <style>{`@keyframes cf{to{transform:translateY(110vh) rotate(720deg);opacity:0}}`}</style>
@@ -171,7 +171,7 @@ function XPToast({ show, xp }) {
   return (
     <div style={{
       position:"fixed",top:70,right:16,zIndex:9998,
-      background:"linear-gradient(135deg,#D9B878,#c9a227)",
+      background:"linear-gradient(135deg,#FAD98D,#c9a227)",
       color:"#0A1A2F",borderRadius:20,padding:"10px 18px",
       fontFamily:"Nunito,sans-serif",fontWeight:900,fontSize:15,
       boxShadow:"0 8px 32px rgba(217,184,120,0.5)",
@@ -194,14 +194,14 @@ function JourneyMap({ challenge, completedDays }) {
           <div key={t.day} style={{display:"flex",alignItems:"center"}}>
             <div style={{
               width:30,height:30,borderRadius:"50%",
-              background: done ? challenge.color : cur ? challenge.color+"33" : "#E2E8F0",
-              border:`2px solid ${done ? challenge.color : cur ? challenge.color : "#E2E8F0"}`,
+              background: done ? challenge.color : cur ? challenge.color+"33" : "#F2F6FA",
+              border:`2px solid ${done ? challenge.color : cur ? challenge.color : "#F2F6FA"}`,
               display:"flex",alignItems:"center",justifyContent:"center",
               fontSize:done?13:10,color:done?"white":cur?challenge.color:"#94a3b8",
               fontWeight:800,
             }}>{done?"✓":t.day}</div>
             {i < challenge.tasks.length-1 && (
-              <div style={{width:8,height:2,background:done?"#D9B878":"#E2E8F0",borderRadius:1}}/>
+              <div style={{width:8,height:2,background:done?"#FAD98D":"#F2F6FA",borderRadius:1}}/>
             )}
           </div>
         );
@@ -254,7 +254,7 @@ function ChallengeDetail({ challenge, localData, onBack, onStart, onComplete, on
       <XPToast show={showXP} xp={xpEarned}/>
 
       {/* Back header */}
-      <div style={{background:"white",borderBottom:"1px solid #E8EDF3",padding:"12px 16px",display:"flex",alignItems:"center",gap:12}}>
+      <div style={{background:"white",borderBottom:"1px solid #F2F6FA",padding:"12px 16px",display:"flex",alignItems:"center",gap:12}}>
         <button
           onClick={onBack}
           style={{width:38,height:38,borderRadius:"50%",background:"#F8F4EE",border:"none",
@@ -266,7 +266,7 @@ function ChallengeDetail({ challenge, localData, onBack, onStart, onComplete, on
             {challenge.duration} days · {challenge.category}{streak>1?` · 🔥 ${streak}-day streak`:""}
           </div>
         </div>
-        <div style={{background:"linear-gradient(135deg,#D9B878,#c9a227)",borderRadius:12,padding:"4px 10px",fontSize:11,fontWeight:900,color:"#0A1A2F"}}>
+        <div style={{background:"linear-gradient(135deg,#FAD98D,#c9a227)",borderRadius:12,padding:"4px 10px",fontSize:11,fontWeight:900,color:"#0A1A2F"}}>
           +{challenge.xpPerDay} XP/day
         </div>
         {isStarted && (
@@ -310,25 +310,25 @@ function ChallengeDetail({ challenge, localData, onBack, onStart, onComplete, on
         {isDone && (
           <div style={{marginTop:16,display:"flex",flexDirection:"column",gap:10}}>
             {suggested.length > 0 && (
-              <div style={{background:"white",borderRadius:20,border:"1px solid #E8EDF3",padding:"16px 20px"}}>
+              <div style={{background:"white",borderRadius:20,border:"1px solid #F2F6FA",padding:"16px 20px"}}>
                 <div style={{fontFamily:"Lora,serif",fontWeight:600,fontSize:14,color:"#0A1A2F",marginBottom:4}}>🌱 What's Next?</div>
                 <div style={{fontSize:12,color:"#0A1A2F55",marginBottom:12}}>You've built real momentum. Keep growing.</div>
                 {suggested.map(next => (
                   <button key={next.id} onClick={() => onOpenChallenge(next)}
-                    style={{width:"100%",background:"#F8F4EE",borderRadius:14,border:"1px solid #E8EDF3",
+                    style={{width:"100%",background:"#F8F4EE",borderRadius:14,border:"1px solid #F2F6FA",
                       padding:"10px 14px",display:"flex",alignItems:"center",gap:10,marginBottom:8,cursor:"pointer",textAlign:"left"}}>
                     <span style={{fontSize:24}}>{next.emoji}</span>
                     <div>
                       <div style={{fontWeight:700,fontSize:13,color:"#0A1A2F"}}>{next.title}</div>
                       <div style={{fontSize:11,color:"#0A1A2F44"}}>{next.duration} days · {next.xpPerDay} XP/day</div>
                     </div>
-                    <span style={{marginLeft:"auto",color:"#D9B878",fontWeight:900}}>→</span>
+                    <span style={{marginLeft:"auto",color:"#FAD98D",fontWeight:900}}>→</span>
                   </button>
                 ))}
               </div>
             )}
             <button onClick={() => onReset(challenge.id)}
-              style={{background:"white",border:"1px solid #E8EDF3",borderRadius:16,padding:"12px",
+              style={{background:"white",border:"1px solid #F2F6FA",borderRadius:16,padding:"12px",
                 color:"#94a3b8",fontSize:12,fontWeight:700,cursor:"pointer"}}>
               ↺ Repeat This Challenge
             </button>
@@ -385,7 +385,7 @@ function ChallengeDetail({ challenge, localData, onBack, onStart, onComplete, on
                       style={{
                         width:"100%",background:"#F8F4EE",borderRadius:14,
                         padding:"12px 14px",fontSize:13,color:"#0A1A2F",
-                        border:`1.5px solid ${chars>0?challenge.color+"66":"#E8EDF3"}`,
+                        border:`1.5px solid ${chars>0?challenge.color+"66":"#F2F6FA"}`,
                         outline:"none",resize:"none",lineHeight:1.7,
                         fontFamily:"Nunito,sans-serif",boxSizing:"border-box",
                       }}
@@ -407,7 +407,7 @@ function ChallengeDetail({ challenge, localData, onBack, onStart, onComplete, on
                   disabled={saving || !reflection.trim()}
                   style={{
                     width:"100%",padding:"15px",borderRadius:18,
-                    background:reflection.trim()?challenge.bg:"#E8EDF3",
+                    background:reflection.trim()?challenge.bg:"#F2F6FA",
                     border:"none",color:reflection.trim()?"white":"#94a3b8",
                     fontFamily:"Nunito,sans-serif",fontWeight:900,fontSize:15,
                     cursor:reflection.trim()?"pointer":"not-allowed",
@@ -441,11 +441,11 @@ function ChallengeDetail({ challenge, localData, onBack, onStart, onComplete, on
                 return (
                   <div key={task.day} style={{
                     background:done?"#ECFDF5":isCurr?"white":"#F8F4EE",
-                    border:`1.5px solid ${done?"#A7F3D0":isCurr?challenge.color+"44":"#E8EDF3"}`,
+                    border:`1.5px solid ${done?"#A7F3D0":isCurr?challenge.color+"44":"#F2F6FA"}`,
                     borderRadius:18,padding:"12px 14px",display:"flex",gap:12,alignItems:"flex-start",
                     opacity:locked?0.45:1,
                   }}>
-                    <div style={{width:30,height:30,borderRadius:"50%",background:done?"#10b981":isCurr?challenge.color:"#E2E8F0",color:done||isCurr?"white":"#94a3b8",display:"flex",alignItems:"center",justifyContent:"center",fontSize:12,fontWeight:900,flexShrink:0}}>
+                    <div style={{width:30,height:30,borderRadius:"50%",background:done?"#10b981":isCurr?challenge.color:"#F2F6FA",color:done||isCurr?"white":"#94a3b8",display:"flex",alignItems:"center",justifyContent:"center",fontSize:12,fontWeight:900,flexShrink:0}}>
                       {done?"✓":locked?"🔒":task.day}
                     </div>
                     <div style={{flex:1}}>
@@ -467,7 +467,7 @@ function ChallengeDetail({ challenge, localData, onBack, onStart, onComplete, on
         <div style={{padding:"16px",marginTop:16}}>
           <button onClick={() => onStart(challenge.id)}
             style={{width:"100%",padding:"16px",borderRadius:20,
-              background:"linear-gradient(135deg,#D9B878,#c9a227)",
+              background:"linear-gradient(135deg,#FAD98D,#c9a227)",
               border:"none",color:"#0A1A2F",fontFamily:"Nunito,sans-serif",
               fontWeight:900,fontSize:16,cursor:"pointer",
               boxShadow:"0 8px 24px rgba(217,184,120,0.4)"}}>
@@ -485,7 +485,7 @@ function ChallengeDetail({ challenge, localData, onBack, onStart, onComplete, on
             <div style={{fontSize:12,color:"#0A1A2F55",textAlign:"center",marginBottom:24,lineHeight:1.6}}>Your progress will be cleared. Journal entries will stay.</div>
             <div style={{display:"flex",gap:12}}>
               <button onClick={() => setConfirmReset(false)}
-                style={{flex:1,padding:14,borderRadius:16,border:"1px solid #E8EDF3",background:"white",cursor:"pointer",fontWeight:700,fontSize:13,color:"#0A1A2F66"}}>Cancel</button>
+                style={{flex:1,padding:14,borderRadius:16,border:"1px solid #F2F6FA",background:"white",cursor:"pointer",fontWeight:700,fontSize:13,color:"#0A1A2F66"}}>Cancel</button>
               <button onClick={() => { onReset(challenge.id); setConfirmReset(false); }}
                 style={{flex:1,padding:14,borderRadius:16,border:"none",background:"#f43f5e",color:"white",cursor:"pointer",fontWeight:800,fontSize:13}}>Reset</button>
             </div>
@@ -509,7 +509,7 @@ function ChallengeCard({ challenge, localData, onOpen }) {
 
   return (
     <button onClick={() => onOpen(challenge)}
-      style={{width:"100%",background:"white",borderRadius:22,border:"1.5px solid #E8EDF3",
+      style={{width:"100%",background:"white",borderRadius:22,border:"1.5px solid #F2F6FA",
         cursor:"pointer",textAlign:"left",overflow:"hidden",padding:0}}>
       <div style={{height:3,background:challenge.bg}}/>
       <div style={{padding:"14px 16px"}}>
@@ -525,7 +525,7 @@ function ChallengeCard({ challenge, localData, onOpen }) {
             <div style={{display:"flex",flexWrap:"wrap",gap:5,margin:"5px 0"}}>
               <span style={{fontSize:9,fontWeight:800,textTransform:"uppercase",letterSpacing:1,padding:"2px 7px",borderRadius:99,background:catColor+"18",color:catColor,border:`1px solid ${catColor}33`}}>{challenge.category}</span>
               <span style={{fontSize:10,color:"#0A1A2F44"}}>{challenge.duration} days</span>
-              <span style={{fontSize:10,color:"#D9B878",fontWeight:700}}>· {challenge.xpPerDay*challenge.duration} XP</span>
+              <span style={{fontSize:10,color:"#FAD98D",fontWeight:700}}>· {challenge.xpPerDay*challenge.duration} XP</span>
               {isStarted && !isDone && streak>0 && <span style={{fontSize:10,fontWeight:800,color:"#f97316"}}>🔥 {streak}d</span>}
               {doneToday && !isDone && <span style={{fontSize:10,fontWeight:800,color:"#22c55e"}}>✓ Done</span>}
               {isDone && <span style={{fontSize:10,fontWeight:800,color:"#8b5cf6"}}>🏆 Complete</span>}
@@ -607,7 +607,7 @@ export default function SelfCareChallengesPage() {
       `}</style>
 
       {/* Header */}
-      <div style={{background:"white",borderBottom:"1px solid #E8EDF3",padding:"12px 16px",display:"flex",alignItems:"center",gap:12}}>
+      <div style={{background:"white",borderBottom:"1px solid #F2F6FA",padding:"12px 16px",display:"flex",alignItems:"center",gap:12}}>
         <div style={{flex:1}}>
           <h1 style={{fontFamily:"Lora,serif",fontWeight:700,fontSize:18,color:"#0A1A2F",margin:0}}>Self-Care Challenges</h1>
           <p style={{fontSize:11,color:"#0A1A2F55",margin:0}}>
@@ -615,7 +615,7 @@ export default function SelfCareChallengesPage() {
             {completedCount>0 ? ` · ${completedCount} completed` : ""}
           </p>
         </div>
-        <div style={{background:"linear-gradient(135deg,#D9B878,#c9a227)",borderRadius:20,padding:"6px 14px",display:"flex",alignItems:"center",gap:6,boxShadow:"0 4px 12px rgba(217,184,120,0.3)"}}>
+        <div style={{background:"linear-gradient(135deg,#FAD98D,#c9a227)",borderRadius:20,padding:"6px 14px",display:"flex",alignItems:"center",gap:6,boxShadow:"0 4px 12px rgba(217,184,120,0.3)"}}>
           <span style={{fontSize:14}}>{level.emoji}</span>
           <div>
             <div style={{fontSize:11,fontWeight:900,color:"#0A1A2F"}}>{totalXP} XP</div>
@@ -662,7 +662,7 @@ export default function SelfCareChallengesPage() {
               {label:"Done",value:completedCount,emoji:"🏆"},
               {label:"Level",value:level.label,emoji:level.emoji},
             ].map(s=>(
-              <div key={s.label} style={{background:"white",borderRadius:20,border:"1px solid #E8EDF3",padding:"12px 8px",textAlign:"center"}}>
+              <div key={s.label} style={{background:"white",borderRadius:20,border:"1px solid #F2F6FA",padding:"12px 8px",textAlign:"center"}}>
                 <div style={{fontSize:20,marginBottom:4}}>{s.emoji}</div>
                 <div style={{fontSize:15,fontWeight:900,color:"#0A1A2F"}}>{s.value}</div>
                 <div style={{fontSize:9,fontWeight:800,color:"#0A1A2F44",textTransform:"uppercase",letterSpacing:1}}>{s.label}</div>
@@ -673,13 +673,13 @@ export default function SelfCareChallengesPage() {
 
         {/* Onboarding */}
         {!hasAny && (
-          <div style={{background:"linear-gradient(135deg,#0A1A2F,#1a3a5c)",borderRadius:24,padding:"20px",marginBottom:20,position:"relative",overflow:"hidden"}}>
+          <div style={{background:"linear-gradient(135deg,#0A1A2F,#0A1A2F)",borderRadius:24,padding:"20px",marginBottom:20,position:"relative",overflow:"hidden"}}>
             <div style={{position:"absolute",right:-10,top:-10,fontSize:80,opacity:0.08}}>🌱</div>
-            <div style={{color:"#D9B878",fontFamily:"Lora,serif",fontWeight:700,fontSize:18,marginBottom:6}}>Start Your Growth Journey</div>
+            <div style={{color:"#FAD98D",fontFamily:"Lora,serif",fontWeight:700,fontSize:18,marginBottom:6}}>Start Your Growth Journey</div>
             <div style={{color:"rgba(255,255,255,0.7)",fontSize:13,lineHeight:1.6,marginBottom:14}}>Each challenge builds one positive habit — for your faith, mind, body, and relationships.</div>
             <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
               {["Complete a day","Write your reflection","Earn XP & level up","Build real habits"].map(s=>(
-                <div key={s} style={{background:"rgba(217,184,120,0.15)",border:"1px solid rgba(217,184,120,0.3)",borderRadius:99,padding:"4px 10px",fontSize:11,color:"#D9B878",fontWeight:700}}>✦ {s}</div>
+                <div key={s} style={{background:"rgba(217,184,120,0.15)",border:"1px solid rgba(217,184,120,0.3)",borderRadius:99,padding:"4px 10px",fontSize:11,color:"#FAD98D",fontWeight:700}}>✦ {s}</div>
               ))}
             </div>
           </div>
@@ -690,7 +690,7 @@ export default function SelfCareChallengesPage() {
           {CATS.map(cat=>(
             <button key={cat} onClick={()=>setActiveCat(cat)}
               style={{flexShrink:0,fontSize:12,fontWeight:800,padding:"7px 16px",borderRadius:99,border:"1.5px solid",
-                borderColor:activeCat===cat?"#0A1A2F":"#E8EDF3",
+                borderColor:activeCat===cat?"#0A1A2F":"#F2F6FA",
                 background:activeCat===cat?"#0A1A2F":"white",
                 color:activeCat===cat?"white":"#0A1A2F66",cursor:"pointer"}}>
               {cat}
@@ -707,7 +707,7 @@ export default function SelfCareChallengesPage() {
 
         {/* All-done nudge */}
         {hasAny && activeList.length===0 && completedCount>0 && (
-          <div style={{marginTop:24,background:"white",borderRadius:22,border:"1px solid #E8EDF3",padding:"18px 20px",textAlign:"center"}}>
+          <div style={{marginTop:24,background:"white",borderRadius:22,border:"1px solid #F2F6FA",padding:"18px 20px",textAlign:"center"}}>
             <div style={{fontSize:32,marginBottom:8}}>🌟</div>
             <div style={{fontFamily:"Lora,serif",fontWeight:700,fontSize:16,color:"#0A1A2F",marginBottom:4}}>You're on a roll!</div>
             <div style={{fontSize:13,color:"#0A1A2F55"}}>Pick a new challenge below and keep growing.</div>

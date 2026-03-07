@@ -52,7 +52,7 @@ export default function SelfCareChallenges({ challenges = [], participations = [
       description: 'Cultivate thankfulness through daily practice',
       icon: Trophy,
       duration: 7,
-      gradient: 'from-[#D9B878] to-[#AFC7E3]',
+      gradient: 'from-[#FAD98D] to-[#AFC7E3]',
       tasks: [
         { day: 1, title: 'Write 3 things you\'re grateful for', content: 'List three blessings from today, no matter how small.' },
         { day: 2, title: 'Send someone encouragement', content: 'Text, call, or message someone to tell them you appreciate them.' },
@@ -167,7 +167,7 @@ export default function SelfCareChallenges({ challenges = [], participations = [
                     <div className="flex items-center justify-between text-sm">
                       <span>{progress.completed} / {progress.total} days completed</span>
                       {progress.percentage === 100 && (
-                        <span className="bg-[#D9B878] px-2 py-1 rounded-full text-xs">
+                        <span className="bg-[#FAD98D] px-2 py-1 rounded-full text-xs">
                           🏆 Completed!
                         </span>
                       )}

@@ -107,7 +107,7 @@ Requirements:
     <div className="bg-white rounded-2xl shadow-sm p-5">
       {/* Header */}
       <div className="flex items-center gap-3 mb-1">
-        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#8fa68a] to-[#6b8f72] flex items-center justify-center flex-shrink-0">
+        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#AFC7E3] to-[#6B7280] flex items-center justify-center flex-shrink-0">
           <ChefHat className="w-5 h-5 text-white" />
         </div>
         <div>
@@ -128,7 +128,7 @@ Requirements:
         <Button
           onClick={addIngredient}
           disabled={!inputValue.trim()}
-          className="bg-gradient-to-r from-[#8fa68a] to-[#6b8f72] text-white px-3"
+          className="bg-gradient-to-r from-[#AFC7E3] to-[#6B7280] text-white px-3"
           size="sm"
         >
           <Plus className="w-4 h-4" />
@@ -145,7 +145,7 @@ Requirements:
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.8 }}
-                className="flex items-center gap-1.5 bg-[#FAD98D]/30 text-[#0A1A2F] border border-[#D9B878]/40 rounded-full px-3 py-1 text-sm"
+                className="flex items-center gap-1.5 bg-[#FAD98D]/30 text-[#0A1A2F] border border-[#FAD98D]/40 rounded-full px-3 py-1 text-sm"
               >
                 {ing}
                 <button
@@ -165,7 +165,7 @@ Requirements:
         onClick={generateRecipes}
         disabled={ingredients.length < 2 || isGenerating}
         className={`w-full mt-4 text-white font-semibold ${
-          ingredients.length < 2 ? 'opacity-50 cursor-not-allowed bg-[#8fa68a]' : 'bg-gradient-to-r from-[#8fa68a] to-[#6b8f72]'
+          ingredients.length < 2 ? 'opacity-50 cursor-not-allowed bg-[#AFC7E3]' : 'bg-gradient-to-r from-[#AFC7E3] to-[#6B7280]'
         }`}
       >
         {isGenerating ? (
@@ -197,8 +197,8 @@ Requirements:
             {recipes.map((recipe, idx) => {
               const isExpanded = expandedRecipe === recipe.name;
               const difficultyClass = recipe.difficulty === 'Easy'
-                ? 'bg-[#8fa68a]/20 text-[#4a6b50]'
-                : 'bg-[#FAD98D]/30 text-[#8a6e1a]';
+                ? 'bg-[#AFC7E3]/20 text-[#3C4E53]'
+                : 'bg-[#FAD98D]/30 text-[#C9A227]';
 
               return (
                 <motion.div
@@ -206,7 +206,7 @@ Requirements:
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: idx * 0.08 }}
-                  className="bg-[#F2F6FA] rounded-xl p-4 border border-[#D9B878]/20"
+                  className="bg-[#F2F6FA] rounded-xl p-4 border border-[#FAD98D]/20"
                 >
                   {/* Recipe Header */}
                   <div className="flex items-start justify-between gap-2 mb-1">
@@ -234,7 +234,7 @@ Requirements:
                     <p className="text-xs font-semibold text-[#0A1A2F]/60 mb-1">Ingredients needed:</p>
                     <div className="flex flex-wrap gap-1">
                       {[...(recipe.usedIngredients || []), ...(recipe.additionalIngredients || [])].map((ing) => (
-                        <span key={ing} className="text-xs bg-white border border-[#D9B878]/30 rounded-full px-2 py-0.5 text-[#0A1A2F]/80">
+                        <span key={ing} className="text-xs bg-white border border-[#FAD98D]/30 rounded-full px-2 py-0.5 text-[#0A1A2F]/80">
                           {ing}
                         </span>
                       ))}
@@ -244,7 +244,7 @@ Requirements:
                   {/* View Full Recipe Toggle */}
                   <button
                     onClick={() => toggleExpand(recipe.name)}
-                    className="flex items-center gap-1 text-[#4a6b50] text-sm font-semibold"
+                    className="flex items-center gap-1 text-[#3C4E53] text-sm font-semibold"
                   >
                     {isExpanded ? (
                       <>Hide Recipe <ChevronUp className="w-4 h-4" /></>
@@ -273,7 +273,7 @@ Requirements:
                           <ol className="space-y-2">
                             {(recipe.steps || []).map((step, i) => (
                               <li key={i} className="flex gap-2 text-sm text-[#0A1A2F]/80 leading-relaxed">
-                                <span className="flex-shrink-0 w-5 h-5 rounded-full bg-gradient-to-br from-[#8fa68a] to-[#6b8f72] text-white text-xs flex items-center justify-center font-bold mt-0.5">
+                                <span className="flex-shrink-0 w-5 h-5 rounded-full bg-gradient-to-br from-[#AFC7E3] to-[#6B7280] text-white text-xs flex items-center justify-center font-bold mt-0.5">
                                   {i + 1}
                                 </span>
                                 <span>{step}</span>
@@ -284,7 +284,7 @@ Requirements:
 
                         {/* Nutrition Facts */}
                         {recipe.nutrition && (
-                          <div className="bg-white rounded-xl p-4 border border-[#D9B878]/20">
+                          <div className="bg-white rounded-xl p-4 border border-[#FAD98D]/20">
                             <p className="text-xs font-bold text-[#0A1A2F] uppercase tracking-wide mb-3">Nutrition Facts <span className="font-normal normal-case text-[#0A1A2F]/50">(per serving)</span></p>
                             <div className="grid grid-cols-5 gap-2 text-center">
                               {[
@@ -295,7 +295,7 @@ Requirements:
                                 { label: 'Fiber', value: recipe.nutrition.fiber },
                               ].map(({ label, value }) => (
                                 <div key={label} className="flex flex-col items-center">
-                                  <p className="text-sm font-bold text-[#4a6b50]">{value || '—'}</p>
+                                  <p className="text-sm font-bold text-[#3C4E53]">{value || '—'}</p>
                                   <p className="text-xs text-[#0A1A2F]/50 mt-0.5">{label}</p>
                                 </div>
                               ))}
@@ -310,7 +310,7 @@ Requirements:
                             <ul className="space-y-1">
                               {recipe.healthBenefits.map((benefit, i) => (
                                 <li key={i} className="flex gap-2 text-sm text-[#0A1A2F]/75">
-                                  <span className="text-[#8fa68a] flex-shrink-0">✓</span>
+                                  <span className="text-[#AFC7E3] flex-shrink-0">✓</span>
                                   {benefit}
                                 </li>
                               ))}
@@ -320,12 +320,12 @@ Requirements:
 
                         {/* Chef Tips */}
                         {recipe.chefTips?.length > 0 && (
-                          <div className="bg-[#FAD98D]/15 rounded-xl p-4 border border-[#D9B878]/30">
-                            <p className="text-xs font-bold text-[#8a6e1a] uppercase tracking-wide mb-2">👨‍🍳 Chef Daniel's Tips</p>
+                          <div className="bg-[#FAD98D]/15 rounded-xl p-4 border border-[#FAD98D]/30">
+                            <p className="text-xs font-bold text-[#C9A227] uppercase tracking-wide mb-2">👨‍🍳 Chef Daniel's Tips</p>
                             <ul className="space-y-1">
                               {recipe.chefTips.map((tip, i) => (
                                 <li key={i} className="text-sm text-[#0A1A2F]/75 flex gap-2">
-                                  <span className="text-[#4a6b50] flex-shrink-0">•</span>
+                                  <span className="text-[#3C4E53] flex-shrink-0">•</span>
                                   {tip}
                                 </li>
                               ))}

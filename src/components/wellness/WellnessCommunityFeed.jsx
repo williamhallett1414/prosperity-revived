@@ -92,7 +92,7 @@ export default function WellnessCommunityFeed({
   }, [posts, recipes, meditations, workouts, comments]);
 
   const typeColors = {
-    post: { bg: 'from-[#D9B878] to-[#D9B878]/50', icon: '💬' },
+    post: { bg: 'from-[#FAD98D] to-[#FAD98D]/50', icon: '💬' },
     recipe: { bg: 'from-[#FD9C2D] to-[#FD9C2D]/50', icon: '🍳' },
     meditation: { bg: 'from-[#AFC7E3] to-[#AFC7E3]/50', icon: '🧘' },
     workout: { bg: 'from-[#0A1A2F] to-[#0A1A2F]/50', icon: '💪' }
@@ -105,12 +105,12 @@ export default function WellnessCommunityFeed({
       className="space-y-4"
     >
       <div className="flex items-center gap-2">
-        <TrendingUp className="w-5 h-5 text-[#D9B878]" />
+        <TrendingUp className="w-5 h-5 text-[#FAD98D]" />
         <h2 className="text-xl font-bold text-[#0A1A2F]">Trending from Community</h2>
       </div>
 
       {trendingContent.length === 0 ? (
-        <div className="text-center py-8 bg-[#E6EBEF] rounded-xl">
+        <div className="text-center py-8 bg-gray-100 rounded-xl">
           <p className="text-[#0A1A2F]/60">No trending content yet</p>
         </div>
       ) : (
@@ -135,7 +135,7 @@ export default function WellnessCommunityFeed({
                           <h3 className="font-semibold text-[#0A1A2F] line-clamp-1">{item.title}</h3>
                           <p className="text-xs text-[#0A1A2F]/60 mt-1">by {item.author}</p>
                         </div>
-                        <span className="text-xs bg-[#E6EBEF] text-[#0A1A2F] px-2 py-1 rounded-full whitespace-nowrap">
+                        <span className="text-xs bg-gray-100 text-[#0A1A2F] px-2 py-1 rounded-full whitespace-nowrap">
                           {item.type}
                         </span>
                       </div>

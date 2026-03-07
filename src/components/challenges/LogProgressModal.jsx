@@ -33,13 +33,13 @@ export default function LogProgressModal({ isOpen, onClose, onSubmit, challenge,
           <div className="bg-[#FAD98D]/10 rounded-xl p-4 mb-4">
             <div className="flex items-center justify-between mb-2">
               <span className="text-sm text-gray-600">Current Progress</span>
-              <span className="font-semibold text-[#8a6e1a]">
+              <span className="font-semibold text-[#C9A227]">
                 {currentProgress} / {challenge.goal_value} {challenge.goal_unit}
               </span>
             </div>
             <div className="w-full bg-gray-200 rounded-full h-2">
               <div
-                className="bg-gradient-to-r from-[#b89320] to-[#c9a227] h-2 rounded-full"
+                className="bg-gradient-to-r from-[#C9A227] to-[#c9a227] h-2 rounded-full"
                 style={{ width: `${(currentProgress / challenge.goal_value) * 100}%` }}
               />
             </div>
@@ -75,7 +75,7 @@ export default function LogProgressModal({ isOpen, onClose, onSubmit, challenge,
 
           <Button
             type="submit"
-            className="w-full bg-[#c9a227] hover:bg-[#b89320]"
+            className="w-full bg-[#c9a227] hover:bg-[#C9A227]"
           >
             <TrendingUp className="w-4 h-4 mr-2" />
             Log Progress

@@ -76,7 +76,7 @@ export default function AffirmationsCarousel() {
       className="mb-8"
     >
       <h2 className="text-xl font-bold text-white mb-4">Daily Affirmations</h2>
-      <div className="bg-gradient-to-br from-[#c9a227]/20 to-[#d4af37]/20 backdrop-blur-sm rounded-2xl p-6 border border-[#c9a227]/30 relative">
+      <div className="bg-gradient-to-br from-[#c9a227]/20 to-[#C9A227]/20 backdrop-blur-sm rounded-2xl p-6 border border-[#c9a227]/30 relative">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentIndex}

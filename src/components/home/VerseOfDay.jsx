@@ -31,7 +31,7 @@ export default function VerseOfDay({ onBookmark }) {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#FAD98D]/20 to-[#AFC7E3]/20 border border-[#D9B878]/40 p-6 md:p-8"
+      className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#FAD98D]/20 to-[#AFC7E3]/20 border border-[#FAD98D]/40 p-6 md:p-8"
     >
       <div className="absolute top-4 right-4 opacity-10">
         <Sparkles className="w-24 h-24 text-[#FAD98D]" />
@@ -61,7 +61,7 @@ export default function VerseOfDay({ onBookmark }) {
             <Button
               variant="ghost"
               size="sm"
-              className="text-[#0A1A2F]/60 hover:text-[#0A1A2F] hover:bg-[#D9B878]/20"
+              className="text-[#0A1A2F]/60 hover:text-[#0A1A2F] hover:bg-[#FAD98D]/20"
             >
               <ChevronDown className="w-4 h-4 mr-2" />
               Read More
@@ -71,7 +71,7 @@ export default function VerseOfDay({ onBookmark }) {
             variant="ghost"
             size="sm"
             onClick={handleShare}
-            className="text-[#0A1A2F]/60 hover:text-[#0A1A2F] hover:bg-[#D9B878]/20"
+            className="text-[#0A1A2F]/60 hover:text-[#0A1A2F] hover:bg-[#FAD98D]/20"
           >
             <Share2 className="w-4 h-4 mr-2" />
             Share
@@ -80,7 +80,7 @@ export default function VerseOfDay({ onBookmark }) {
             variant="ghost"
             size="sm"
             onClick={handleBookmark}
-            className="text-[#0A1A2F]/60 hover:text-[#0A1A2F] hover:bg-[#D9B878]/20"
+            className="text-[#0A1A2F]/60 hover:text-[#0A1A2F] hover:bg-[#FAD98D]/20"
           >
             <Bookmark className="w-4 h-4 mr-2" />
             Save

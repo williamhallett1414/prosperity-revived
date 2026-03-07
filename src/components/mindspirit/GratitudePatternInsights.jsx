@@ -57,7 +57,7 @@ export default function GratitudePatternInsights({ entries }) {
           <Button
             onClick={generateInsights}
             disabled={loading}
-            className="bg-gradient-to-r from-[#FD9C2D] to-[#D9B878] text-white hover:opacity-90"
+            className="bg-gradient-to-r from-[#FD9C2D] to-[#FAD98D] text-white hover:opacity-90"
           >
             {loading ? (
               <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Analyzing...</>
@@ -105,7 +105,7 @@ export default function GratitudePatternInsights({ entries }) {
           )}
 
           {insights.encouragement && (
-            <div className="bg-gradient-to-r from-[#FD9C2D]/10 to-[#D9B878]/10 rounded-xl p-4 border border-[#D9B878]/20">
+            <div className="bg-gradient-to-r from-[#FD9C2D]/10 to-[#FAD98D]/10 rounded-xl p-4 border border-[#FAD98D]/20">
               <p className="text-sm text-[#0A1A2F] font-medium italic">✨ {insights.encouragement}</p>
             </div>
           )}

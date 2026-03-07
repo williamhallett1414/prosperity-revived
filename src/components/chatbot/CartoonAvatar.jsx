@@ -142,8 +142,8 @@ function ChefDanielAvatar({ isSpeaking, isListening }) {
       {/* Eyes */}
       <ellipse cx="83" cy="104" rx="10" ry="10" fill="white"/>
       <ellipse cx="117" cy="104" rx="10" ry="10" fill="white"/>
-      <ellipse cx="85" cy="105" rx="6" ry="6.5" fill="#2d5a27"/>
-      <ellipse cx="119" cy="105" rx="6" ry="6.5" fill="#2d5a27"/>
+      <ellipse cx="85" cy="105" rx="6" ry="6.5" fill="#3C4E53"/>
+      <ellipse cx="119" cy="105" rx="6" ry="6.5" fill="#3C4E53"/>
       <ellipse cx="87" cy="103" rx="2.5" ry="2.5" fill="white"/>
       <ellipse cx="121" cy="103" rx="2.5" ry="2.5" fill="white"/>
       {/* Eyebrows */}
@@ -178,7 +178,7 @@ function GideonAvatar({ isSpeaking, isListening }) {
       {/* Robe detail */}
       <path d="M100 178 L88 220 M100 178 L112 220" stroke="#c9a227" strokeWidth="2" opacity="0.6"/>
       {/* Gold trim */}
-      <path d="M38 188 Q100 196 162 188" stroke="#D9B878" strokeWidth="3" fill="none"/>
+      <path d="M38 188 Q100 196 162 188" stroke="#FAD98D" strokeWidth="3" fill="none"/>
       {/* Neck */}
       <rect x="85" y="150" width="30" height="30" rx="8" fill="#D4A574"/>
       {/* Head */}
@@ -194,7 +194,7 @@ function GideonAvatar({ isSpeaking, isListening }) {
       <path d="M50 80 L45 110 Q48 115 55 108 L58 85" fill="#6b4e00"/>
       <path d="M150 80 L155 110 Q152 115 145 108 L142 85" fill="#6b4e00"/>
       {/* Cloth gold band */}
-      <path d="M50 82 Q100 65 150 82" stroke="#D9B878" strokeWidth="2.5" fill="none"/>
+      <path d="M50 82 Q100 65 150 82" stroke="#FAD98D" strokeWidth="2.5" fill="none"/>
       {/* Eyes — wise, warm */}
       <ellipse cx="83" cy="103" rx="10" ry="10" fill="white"/>
       <ellipse cx="117" cy="103" rx="10" ry="10" fill="white"/>

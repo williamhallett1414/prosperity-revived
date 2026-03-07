@@ -83,10 +83,10 @@ export default function HabitBuilder() {
     >
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
-          <TrendingUp className="w-6 h-6 text-[#D9B878]" />
+          <TrendingUp className="w-6 h-6 text-[#FAD98D]" />
           <h3 className="text-lg font-bold text-[#0A1A2F]">Habit Builder</h3>
         </div>
-        <div className="text-sm font-semibold text-[#D9B878]">
+        <div className="text-sm font-semibold text-[#FAD98D]">
           {completedHabits.length}/{habits.length}
         </div>
       </div>
@@ -94,13 +94,13 @@ export default function HabitBuilder() {
       <div className="mb-4">
         <div className="flex items-center justify-between mb-2">
           <span className="text-xs text-[#0A1A2F]/60">Daily Progress</span>
-          <span className="text-xs font-semibold text-[#D9B878]">{completionRate}%</span>
+          <span className="text-xs font-semibold text-[#FAD98D]">{completionRate}%</span>
         </div>
         <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
           <motion.div
             initial={{ width: 0 }}
             animate={{ width: `${completionRate}%` }}
-            className="h-full bg-[#D9B878]"
+            className="h-full bg-[#FAD98D]"
           />
         </div>
       </div>
@@ -117,7 +117,7 @@ export default function HabitBuilder() {
               onClick={() => toggleHabit(habit.id)}
               className={`w-full flex items-center justify-between p-4 rounded-xl border-2 transition-all ${
                 isCompleted
-                  ? 'border-[#D9B878] bg-[#D9B878]/10'
+                  ? 'border-[#FAD98D] bg-[#FAD98D]/10'
                   : 'border-gray-200 hover:border-gray-300'
               }`}
             >
@@ -128,7 +128,7 @@ export default function HabitBuilder() {
                 </span>
               </div>
               {isCompleted ? (
-                <CheckCircle2 className="w-6 h-6 text-[#D9B878]" />
+                <CheckCircle2 className="w-6 h-6 text-[#FAD98D]" />
               ) : (
                 <Circle className="w-6 h-6 text-gray-300" />
               )}

@@ -13,7 +13,7 @@ import { toast } from 'sonner';
 // ─── Habit catalogue ──────────────────────────────────────────────────────────
 const PRESET_HABITS = [
   // Faith
-  { id: 'prayer',       label: 'Prayer',          emoji: '🙏', category: 'Faith',         gradient: 'from-violet-500 to-purple-400',  color: '#7c3aed', description: 'Intentional time with God' },
+  { id: 'prayer',       label: 'Prayer',          emoji: '🙏', category: 'Faith',         gradient: 'from-violet-500 to-purple-400',  color: '#8B5CF6', description: 'Intentional time with God' },
   { id: 'bible',        label: 'Bible Reading',   emoji: '📖', category: 'Faith',         gradient: 'from-amber-500 to-yellow-400',   color: '#c9a227', description: "Sit with God's Word" },
   { id: 'gratitude',    label: 'Gratitude',       emoji: '✨', category: 'Faith',         gradient: 'from-[#c9a227] to-amber-400',    color: '#c9a227', description: 'Name three genuine gifts' },
   { id: 'worship',      label: 'Worship',         emoji: '🎵', category: 'Faith',         gradient: 'from-rose-500 to-pink-400',      color: '#f43f5e', description: 'Music, prayer, presence' },
@@ -33,7 +33,7 @@ const PRESET_HABITS = [
 ];
 
 const CUSTOM_EMOJI_OPTIONS = ['⭐','🎯','🌱','🏋️','🍎','☕','🎨','🎸','💡','🌍','🔑','📿','🕯️','🌊','🦋'];
-const CATEGORY_COLORS = { Faith: '#7c3aed', Mindset: '#0ea5e9', Body: '#f97316', Relationships: '#d946ef', Custom: '#10b981' };
+const CATEGORY_COLORS = { Faith: '#8B5CF6', Mindset: '#0ea5e9', Body: '#f97316', Relationships: '#d946ef', Custom: '#10b981' };
 
 const CATEGORIES    = ['All', 'Faith', 'Mindset', 'Body', 'Relationships'];
 const DEFAULT_ACTIVE = ['prayer', 'bible', 'gratitude', 'movement', 'water', 'rest'];
@@ -105,11 +105,11 @@ function MilestoneModal({ habitLabel, days, onClose }) {
         transition={{ type: 'spring', stiffness: 300, damping: 22 }}
         className="w-full max-w-xs" onClick={e => e.stopPropagation()}
       >
-        <div className="bg-gradient-to-br from-[#0A1A2F] to-[#1a3a5c] rounded-3xl p-8 text-white text-center border border-[#D9B878]/25 shadow-2xl">
+        <div className="bg-gradient-to-br from-[#0A1A2F] to-[#0A1A2F] rounded-3xl p-8 text-white text-center border border-[#FAD98D]/25 shadow-2xl">
           <motion.div initial={{ scale: 0 }} animate={{ scale: [0, 1.4, 1] }} transition={{ delay: 0.15, duration: 0.7, times: [0, 0.6, 1] }}
             className="text-6xl mb-4">🔥</motion.div>
           <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
-            <p className="text-[#D9B878] text-[10px] font-bold uppercase tracking-widest mb-1">{days}-Day Streak</p>
+            <p className="text-[#FAD98D] text-[10px] font-bold uppercase tracking-widest mb-1">{days}-Day Streak</p>
             <h2 className="text-xl font-bold mb-2">{habitLabel}</h2>
             <p className="text-white/55 text-sm leading-relaxed mb-6">
               {days} days in a row. Small daily actions become the person you're becoming.
@@ -117,7 +117,7 @@ function MilestoneModal({ habitLabel, days, onClose }) {
           </motion.div>
           <motion.button initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.8 }}
             onClick={onClose}
-            className="w-full py-3 rounded-2xl bg-gradient-to-r from-[#D9B878] to-[#c9a227] text-[#0A1A2F] font-bold text-sm">
+            className="w-full py-3 rounded-2xl bg-gradient-to-r from-[#FAD98D] to-[#c9a227] text-[#0A1A2F] font-bold text-sm">
             Keep the streak alive 💪
           </motion.button>
         </div>
@@ -139,11 +139,11 @@ function AllDoneOverlay({ habits, onClose }) {
         transition={{ type: 'spring', stiffness: 320, damping: 24 }}
         className="w-full max-w-xs" onClick={e => e.stopPropagation()}
       >
-        <div className="bg-gradient-to-br from-[#0A1A2F] to-[#1a3a5c] rounded-3xl p-8 text-white text-center border border-[#D9B878]/20 shadow-2xl">
+        <div className="bg-gradient-to-br from-[#0A1A2F] to-[#0A1A2F] rounded-3xl p-8 text-white text-center border border-[#FAD98D]/20 shadow-2xl">
           <motion.div initial={{ scale: 0 }} animate={{ scale: [0, 1.3, 1] }} transition={{ delay: 0.15, duration: 0.6, times: [0, 0.65, 1] }}
             className="text-6xl mb-4">🏅</motion.div>
           <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
-            <p className="text-[#D9B878] text-[10px] font-bold uppercase tracking-widest mb-1">Perfect Day</p>
+            <p className="text-[#FAD98D] text-[10px] font-bold uppercase tracking-widest mb-1">Perfect Day</p>
             <h2 className="text-xl font-bold mb-2">Every habit complete</h2>
             <p className="text-white/55 text-sm leading-relaxed mb-5">
               {habits.length} habits today. That's not nothing — that's who you're becoming.
@@ -159,7 +159,7 @@ function AllDoneOverlay({ habits, onClose }) {
           </motion.div>
           <motion.button initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.9 }}
             onClick={onClose}
-            className="w-full py-3 rounded-2xl bg-gradient-to-r from-[#D9B878] to-[#c9a227] text-[#0A1A2F] font-bold text-sm">
+            className="w-full py-3 rounded-2xl bg-gradient-to-r from-[#FAD98D] to-[#c9a227] text-[#0A1A2F] font-bold text-sm">
             Keep building 🌱
           </motion.button>
         </div>
@@ -184,7 +184,7 @@ function CustomHabitForm({ onAdd }) {
 
   if (!open) return (
     <button onClick={() => setOpen(true)}
-      className="w-full flex items-center gap-2 p-3 rounded-xl border-2 border-dashed border-[#E2E8F0] hover:border-[#D9B878]/50 text-[#0A1A2F]/40 hover:text-[#c9a227] transition-all">
+      className="w-full flex items-center gap-2 p-3 rounded-xl border-2 border-dashed border-[#F2F6FA] hover:border-[#FAD98D]/50 text-[#0A1A2F]/40 hover:text-[#c9a227] transition-all">
       <Plus className="w-4 h-4" />
       <span className="text-sm font-semibold">Create custom habit</span>
     </button>
@@ -192,14 +192,14 @@ function CustomHabitForm({ onAdd }) {
 
   return (
     <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
-      className="border-2 border-[#D9B878]/40 rounded-xl p-4 bg-[#FFF9ED] space-y-3">
+      className="border-2 border-[#FAD98D]/40 rounded-xl p-4 bg-white space-y-3">
       <p className="text-xs font-bold text-[#c9a227] uppercase tracking-widest">New Custom Habit</p>
 
       {/* Emoji picker */}
       <div className="flex flex-wrap gap-2">
         {CUSTOM_EMOJI_OPTIONS.map(e => (
           <button key={e} onClick={() => setEmoji(e)}
-            className={`w-9 h-9 rounded-xl text-xl transition-all ${emoji === e ? 'bg-[#D9B878] scale-110' : 'bg-white hover:bg-[#F2F6FA]'}`}>
+            className={`w-9 h-9 rounded-xl text-xl transition-all ${emoji === e ? 'bg-[#FAD98D] scale-110' : 'bg-white hover:bg-[#F2F6FA]'}`}>
             {e}
           </button>
         ))}
@@ -209,7 +209,7 @@ function CustomHabitForm({ onAdd }) {
       <input
         value={name} onChange={e => setName(e.target.value)}
         placeholder="e.g. Cold shower, Walk outside…"
-        className="w-full px-3 py-2.5 rounded-xl border border-[#E2E8F0] text-sm text-[#0A1A2F] bg-white focus:outline-none focus:border-[#D9B878]/60"
+        className="w-full px-3 py-2.5 rounded-xl border border-[#F2F6FA] text-sm text-[#0A1A2F] bg-white focus:outline-none focus:border-[#FAD98D]/60"
         onKeyDown={e => e.key === 'Enter' && handle()}
       />
 
@@ -217,16 +217,16 @@ function CustomHabitForm({ onAdd }) {
       <div className="flex gap-2 flex-wrap">
         {['Faith','Mindset','Body','Relationships','Custom'].map(c => (
           <button key={c} onClick={() => setCat(c)}
-            className={`px-3 py-1 rounded-full text-xs font-semibold transition-all ${cat === c ? 'bg-[#0A1A2F] text-white' : 'bg-white text-[#0A1A2F]/50 border border-[#E2E8F0]'}`}>
+            className={`px-3 py-1 rounded-full text-xs font-semibold transition-all ${cat === c ? 'bg-[#0A1A2F] text-white' : 'bg-white text-[#0A1A2F]/50 border border-[#F2F6FA]'}`}>
             {c}
           </button>
         ))}
       </div>
 
       <div className="flex gap-2">
-        <button onClick={() => setOpen(false)} className="flex-1 py-2 rounded-xl text-xs font-bold text-[#0A1A2F]/40 bg-white border border-[#E2E8F0]">Cancel</button>
+        <button onClick={() => setOpen(false)} className="flex-1 py-2 rounded-xl text-xs font-bold text-[#0A1A2F]/40 bg-white border border-[#F2F6FA]">Cancel</button>
         <button onClick={handle} disabled={!name.trim()}
-          className="flex-1 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-[#D9B878] to-[#c9a227] text-[#0A1A2F] disabled:opacity-40">
+          className="flex-1 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-[#FAD98D] to-[#c9a227] text-[#0A1A2F] disabled:opacity-40">
           Add Habit →
         </button>
       </div>
@@ -270,7 +270,7 @@ function HabitPickerModal({ activeIds, onSave, onClose }) {
         className="bg-white w-full sm:max-w-md sm:rounded-2xl rounded-t-3xl max-h-[90dvh] flex flex-col overflow-hidden shadow-2xl">
 
         {/* Header */}
-        <div className="bg-gradient-to-r from-[#0A1A2F] to-[#1a3a5c] text-white px-5 py-4 flex items-center justify-between flex-shrink-0">
+        <div className="bg-gradient-to-r from-[#0A1A2F] to-[#0A1A2F] text-white px-5 py-4 flex items-center justify-between flex-shrink-0">
           <div>
             <h2 className="font-bold text-base">Choose Your Habits</h2>
             <p className="text-white/50 text-xs">{selected.size} selected · tap to toggle</p>
@@ -294,7 +294,7 @@ function HabitPickerModal({ activeIds, onSave, onClose }) {
                     return (
                       <div key={habit.id} className="relative">
                         <button onClick={() => toggle(habit.id)}
-                          className={`w-full flex items-center gap-3 p-3 rounded-xl border-2 transition-all text-left ${on ? 'border-[#c9a227] bg-[#FFF9ED]' : 'border-[#E2E8F0] bg-white hover:border-[#D9B878]/40'}`}>
+                          className={`w-full flex items-center gap-3 p-3 rounded-xl border-2 transition-all text-left ${on ? 'border-[#c9a227] bg-white' : 'border-[#F2F6FA] bg-white hover:border-[#FAD98D]/40'}`}>
                           <div className={`w-9 h-9 rounded-xl bg-gradient-to-br ${habit.gradient} flex items-center justify-center flex-shrink-0`}>
                             <span className="text-lg">{habit.emoji}</span>
                           </div>
@@ -302,7 +302,7 @@ function HabitPickerModal({ activeIds, onSave, onClose }) {
                             <p className="font-bold text-sm text-[#0A1A2F]">{habit.label}</p>
                             <p className="text-xs text-[#0A1A2F]/45 truncate">{habit.description}</p>
                           </div>
-                          <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-all ${on ? 'bg-[#c9a227] border-[#c9a227]' : 'border-[#E2E8F0]'}`}>
+                          <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-all ${on ? 'bg-[#c9a227] border-[#c9a227]' : 'border-[#F2F6FA]'}`}>
                             {on && <Check className="w-3 h-3 text-white" />}
                           </div>
                         </button>
@@ -327,9 +327,9 @@ function HabitPickerModal({ activeIds, onSave, onClose }) {
           </div>
         </div>
 
-        <div className="border-t border-[#E2E8F0] px-5 py-4 flex-shrink-0">
+        <div className="border-t border-[#F2F6FA] px-5 py-4 flex-shrink-0">
           <button onClick={() => onSave([...selected])}
-            className="w-full py-3 rounded-xl bg-gradient-to-r from-[#D9B878] to-[#c9a227] text-[#0A1A2F] font-bold text-sm hover:opacity-90 transition-opacity">
+            className="w-full py-3 rounded-xl bg-gradient-to-r from-[#FAD98D] to-[#c9a227] text-[#0A1A2F] font-bold text-sm hover:opacity-90 transition-opacity">
             Save {selected.size} Habit{selected.size !== 1 ? 's' : ''}
           </button>
         </div>
@@ -346,19 +346,19 @@ function MonthHeatmap({ activeIds, history }) {
 
   const colorForFrac = (frac, isToday, isFuture) => {
     if (isFuture) return 'bg-transparent';
-    if (frac === 0) return 'bg-[#E8EFF6]';
+    if (frac === 0) return 'bg-white';
     if (frac <= 0.33) return 'bg-[#AFC7E3]';
-    if (frac <= 0.66) return 'bg-[#D9B878]';
+    if (frac <= 0.66) return 'bg-[#FAD98D]';
     return 'bg-[#c9a227]';
   };
 
   return (
-    <div className="bg-white rounded-2xl border border-[#E2E8F0] p-4">
+    <div className="bg-white rounded-2xl border border-[#F2F6FA] p-4">
       <div className="flex items-center justify-between mb-3">
         <p className="text-xs font-bold text-[#0A1A2F]/35 uppercase tracking-widest">35-Day History</p>
         <div className="flex items-center gap-2">
           <div className="flex items-center gap-1">
-            <div className="w-2.5 h-2.5 rounded-sm bg-[#E8EFF6]" />
+            <div className="w-2.5 h-2.5 rounded-sm bg-white" />
             <span className="text-[9px] text-[#0A1A2F]/35">None</span>
           </div>
           <div className="flex items-center gap-1">
@@ -418,7 +418,7 @@ function HabitCard({ habit, isDone, streak, history, onToggle, index }) {
       className={`w-full text-left rounded-2xl overflow-hidden transition-all group ${
         isDone
           ? 'shadow-sm'
-          : 'bg-white border border-[#E2E8F0] hover:border-[#D9B878]/40 hover:shadow-sm'
+          : 'bg-white border border-[#F2F6FA] hover:border-[#FAD98D]/40 hover:shadow-sm'
       }`}
       style={isDone ? { background: `linear-gradient(135deg, ${habit.color}22 0%, ${habit.color}0d 100%)`, border: `2px solid ${habit.color}35` } : {}}
     >
@@ -430,7 +430,7 @@ function HabitCard({ habit, isDone, streak, history, onToggle, index }) {
         <div className="flex items-center gap-3">
           {/* Emoji icon */}
           <div className={`w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 transition-all ${
-            isDone ? `bg-gradient-to-br ${habit.gradient} shadow-sm` : 'bg-[#F2F6FA] group-hover:bg-[#EDF2F7]'
+            isDone ? `bg-gradient-to-br ${habit.gradient} shadow-sm` : 'bg-[#F2F6FA] group-hover:bg-white'
           }`}>
             <span className="text-xl">{habit.emoji}</span>
           </div>
@@ -445,7 +445,7 @@ function HabitCard({ habit, isDone, streak, history, onToggle, index }) {
               <motion.div
                 animate={isDone ? { scale: [1.2, 1] } : { scale: 1 }}
                 className={`w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 transition-all ${
-                  isDone ? '' : 'border-2 border-[#E2E8F0]'
+                  isDone ? '' : 'border-2 border-[#F2F6FA]'
                 }`}
                 style={isDone ? { background: habit.color } : {}}
               >
@@ -597,10 +597,10 @@ export default function HabitBuilderPage() {
       <div className="min-h-screen bg-[#F2F6FA] pb-28">
 
         {/* ── Header ──────────────────────────────────────────────────────── */}
-        <div className="sticky top-0 z-40 bg-white border-b border-[#E2E8F0] px-4 py-3">
+        <div className="sticky top-0 z-40 bg-white border-b border-[#F2F6FA] px-4 py-3">
           <div className="max-w-2xl mx-auto flex items-center gap-3">
             <Link to={createPageUrl('PersonalGrowth')}
-              className="w-9 h-9 rounded-full bg-[#F2F6FA] hover:bg-[#E8EFF6] flex items-center justify-center transition-colors">
+              className="w-9 h-9 rounded-full bg-[#F2F6FA] hover:bg-white flex items-center justify-center transition-colors">
               <ArrowLeft className="w-4 h-4 text-[#0A1A2F]" />
             </Link>
             <div className="flex-1">
@@ -608,7 +608,7 @@ export default function HabitBuilderPage() {
               <p className="text-xs text-[#0A1A2F]/45">{dateLabel}</p>
             </div>
             <button onClick={() => setShowPicker(true)}
-              className="flex items-center gap-1.5 bg-[#F2F6FA] hover:bg-[#E8EFF6] border border-[#E2E8F0] rounded-xl px-3 py-1.5 transition-colors">
+              className="flex items-center gap-1.5 bg-[#F2F6FA] hover:bg-white border border-[#F2F6FA] rounded-xl px-3 py-1.5 transition-colors">
               <Settings2 className="w-3.5 h-3.5 text-[#0A1A2F]/50" />
               <span className="text-xs font-semibold text-[#0A1A2F]/60">Edit</span>
             </button>
@@ -622,12 +622,12 @@ export default function HabitBuilderPage() {
             {[
               { value: `${completedCount}/${totalCount}`, label: 'Today', sub: pct === 100 ? '🎉 All done!' : `${pct}% complete`, color: '#c9a227', highlight: pct === 100 },
               { value: overallStreak,  label: 'Day Streak', sub: overallStreak > 0 ? '🔥 keep going' : 'Start today',    color: '#f97316', highlight: overallStreak > 0 },
-              { value: bestStreak,     label: 'Best Streak', sub: bestStreak > 0 ? `${bestStreak}d in a row` : 'Keep tracking', color: '#7c3aed', highlight: bestStreak > 0 },
+              { value: bestStreak,     label: 'Best Streak', sub: bestStreak > 0 ? `${bestStreak}d in a row` : 'Keep tracking', color: '#8B5CF6', highlight: bestStreak > 0 },
             ].map(({ value, label, sub, color, highlight }) => (
               <motion.div key={label}
                 animate={highlight ? { scale: [1, 1.02, 1] } : {}}
                 transition={{ duration: 0.4 }}
-                className={`rounded-2xl border p-3.5 text-center transition-all ${highlight ? 'bg-white shadow-sm border-[#E2E8F0]' : 'bg-white border-[#E2E8F0]'}`}>
+                className={`rounded-2xl border p-3.5 text-center transition-all ${highlight ? 'bg-white shadow-sm border-[#F2F6FA]' : 'bg-white border-[#F2F6FA]'}`}>
                 <p className="font-bold text-xl text-[#0A1A2F]" style={highlight ? { color } : {}}>{value}</p>
                 <p className="text-xs font-bold text-[#0A1A2F] mt-0.5">{label}</p>
                 <p className="text-[10px] text-[#0A1A2F]/35">{sub}</p>
@@ -637,7 +637,7 @@ export default function HabitBuilderPage() {
 
           {/* ── Progress bar ───────────────────────────────────────────────── */}
           <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }}
-            className="bg-white rounded-2xl border border-[#E2E8F0] p-4">
+            className="bg-white rounded-2xl border border-[#F2F6FA] p-4">
             <div className="flex items-center justify-between mb-2">
               <p className="text-xs font-bold text-[#0A1A2F]/50">Today's progress</p>
               <p className="text-xs font-bold" style={{ color: allDoneNow ? '#10b981' : '#c9a227' }}>{pct}%</p>
@@ -646,7 +646,7 @@ export default function HabitBuilderPage() {
               <motion.div
                 initial={{ width: 0 }} animate={{ width: `${pct}%` }}
                 transition={{ duration: 0.7, ease: 'easeOut' }}
-                className={`h-full rounded-full ${allDoneNow ? 'bg-gradient-to-r from-emerald-400 to-teal-400' : 'bg-gradient-to-r from-[#D9B878] to-[#c9a227]'}`}
+                className={`h-full rounded-full ${allDoneNow ? 'bg-gradient-to-r from-emerald-400 to-teal-400' : 'bg-gradient-to-r from-[#FAD98D] to-[#c9a227]'}`}
               />
             </div>
             <AnimatePresence>
@@ -670,7 +670,7 @@ export default function HabitBuilderPage() {
                     className={`flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-semibold whitespace-nowrap transition-all ${
                       category === cat
                         ? 'bg-[#0A1A2F] text-white border-[#0A1A2F]'
-                        : 'bg-white text-[#0A1A2F]/50 border-[#E2E8F0] hover:border-[#D9B878]/40'
+                        : 'bg-white text-[#0A1A2F]/50 border-[#F2F6FA] hover:border-[#FAD98D]/40'
                     }`}>
                     {cat}
                     <span className={`text-[9px] font-bold rounded-full px-1.5 py-0.5 ${category === cat ? 'bg-white/20' : catDone === catHabits.length && catHabits.length > 0 ? 'bg-emerald-100 text-emerald-600' : 'bg-[#F2F6FA]'}`}>
@@ -689,7 +689,7 @@ export default function HabitBuilderPage() {
                 {category === 'All' ? `${activeHabits.length} Habits` : category}
               </p>
               <button onClick={() => setShowPicker(true)}
-                className="flex items-center gap-1 text-xs font-bold text-[#c9a227] hover:text-[#b89320] transition-colors">
+                className="flex items-center gap-1 text-xs font-bold text-[#c9a227] hover:text-[#C9A227] transition-colors">
                 <Plus className="w-3.5 h-3.5" /> Add habit
               </button>
             </div>
@@ -724,8 +724,8 @@ export default function HabitBuilderPage() {
           {/* ── Growth pathway link ─────────────────────────────────────────── */}
           <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
             <Link to={createPageUrl('GrowthPathwaysPage')}
-              className="flex items-center gap-3 bg-white rounded-2xl border border-[#E2E8F0] hover:border-[#D9B878]/40 p-4 transition-all group">
-              <div className="w-10 h-10 bg-gradient-to-br from-[#D9B878] to-[#c9a227] rounded-xl flex items-center justify-center flex-shrink-0">
+              className="flex items-center gap-3 bg-white rounded-2xl border border-[#F2F6FA] hover:border-[#FAD98D]/40 p-4 transition-all group">
+              <div className="w-10 h-10 bg-gradient-to-br from-[#FAD98D] to-[#c9a227] rounded-xl flex items-center justify-center flex-shrink-0">
                 <Sparkles className="w-5 h-5 text-[#0A1A2F]" />
               </div>
               <div className="flex-1">

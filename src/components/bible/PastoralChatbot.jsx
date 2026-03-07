@@ -71,7 +71,7 @@ Respond with compassion and biblical wisdom:`,
             animate={{ scale: 1 }}
             exit={{ scale: 0 }}
             onClick={() => setIsOpen(true)}
-            className="fixed bottom-24 right-4 z-40 w-14 h-14 bg-gradient-to-br from-[#c9a227] to-[#D9B878] rounded-full shadow-lg flex items-center justify-center text-white hover:shadow-xl transition-shadow"
+            className="fixed bottom-24 right-4 z-40 w-14 h-14 bg-gradient-to-br from-[#c9a227] to-[#FAD98D] rounded-full shadow-lg flex items-center justify-center text-white hover:shadow-xl transition-shadow"
           >
             <MessageCircle className="w-6 h-6" />
           </motion.button>
@@ -85,10 +85,10 @@ Respond with compassion and biblical wisdom:`,
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            className="fixed bottom-24 right-4 z-40 w-[90vw] max-w-md h-[500px] bg-[#FFFDF7] rounded-2xl shadow-2xl flex flex-col overflow-hidden"
+            className="fixed bottom-24 right-4 z-40 w-[90vw] max-w-md h-[500px] bg-[#F2F6FA] rounded-2xl shadow-2xl flex flex-col overflow-hidden"
           >
             {/* Header */}
-            <div className="bg-gradient-to-r from-[#c9a227] to-[#D9B878] p-4 flex items-center justify-between">
+            <div className="bg-gradient-to-r from-[#c9a227] to-[#FAD98D] p-4 flex items-center justify-between">
               <div className="flex items-center gap-2 text-white">
                 <MessageCircle className="w-5 h-5" />
                 <h3 className="font-semibold">Gideon</h3>
@@ -132,7 +132,7 @@ Respond with compassion and biblical wisdom:`,
             </div>
 
             {/* Input */}
-            <div className="p-4 border-t border-[#D9B878]/20">
+            <div className="p-4 border-t border-[#FAD98D]/20">
               <div className="flex gap-2">
                 <Input
                   placeholder="Share what's on your heart..."
@@ -150,7 +150,7 @@ Respond with compassion and biblical wisdom:`,
                 <Button
                   onClick={handleSend}
                   disabled={!input.trim() || loading}
-                  className="bg-gradient-to-r from-[#c9a227] to-[#D9B878] hover:from-[#b89320] hover:to-[#c9a227]"
+                  className="bg-gradient-to-r from-[#c9a227] to-[#FAD98D] hover:from-[#C9A227] hover:to-[#c9a227]"
                   size="icon"
                 >
                   <Send className="w-4 h-4" />

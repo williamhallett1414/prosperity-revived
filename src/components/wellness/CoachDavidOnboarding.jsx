@@ -76,8 +76,8 @@ export default function CoachDavidOnboarding({ onComplete, user }) {
     return true;
   };
 
-  const gradientFrom = 'from-[#8fa68a]';
-  const gradientTo = 'to-[#6b8f72]';
+  const gradientFrom = 'from-[#AFC7E3]';
+  const gradientTo = 'to-[#6B7280]';
 
   return (
     <AnimatePresence>
@@ -156,14 +156,14 @@ export default function CoachDavidOnboarding({ onComplete, user }) {
                           onClick={() => toggleGoal(goal.id)}
                           className={`rounded-xl border-2 p-3 text-left transition-all ${
                             selectedGoals.includes(goal.id)
-                              ? 'border-[#8fa68a] bg-[#8fa68a]/10'
+                              ? 'border-[#AFC7E3] bg-[#AFC7E3]/10'
                               : 'border-gray-200 hover:border-gray-300'
                           }`}
                         >
                           <div className="font-semibold text-xs text-gray-800">{goal.label}</div>
                           <div className="text-xs text-gray-500">{goal.desc}</div>
                           {selectedGoals.includes(goal.id) && (
-                            <CheckCircle2 className="w-3.5 h-3.5 text-[#8fa68a] mt-1" />
+                            <CheckCircle2 className="w-3.5 h-3.5 text-[#AFC7E3] mt-1" />
                           )}
                         </button>
                       ))}
@@ -182,7 +182,7 @@ export default function CoachDavidOnboarding({ onComplete, user }) {
                           onClick={() => setFitnessLevel(lvl.id)}
                           className={`w-full flex items-center gap-3 rounded-xl border-2 p-3.5 text-left transition-all ${
                             fitnessLevel === lvl.id
-                              ? 'border-[#8fa68a] bg-[#8fa68a]/10'
+                              ? 'border-[#AFC7E3] bg-[#AFC7E3]/10'
                               : 'border-gray-200 hover:border-gray-300'
                           }`}
                         >
@@ -192,7 +192,7 @@ export default function CoachDavidOnboarding({ onComplete, user }) {
                             <div className="text-xs text-gray-500">{lvl.desc}</div>
                           </div>
                           {fitnessLevel === lvl.id && (
-                            <CheckCircle2 className="w-4 h-4 text-[#8fa68a] ml-auto" />
+                            <CheckCircle2 className="w-4 h-4 text-[#AFC7E3] ml-auto" />
                           )}
                         </button>
                       ))}
@@ -212,7 +212,7 @@ export default function CoachDavidOnboarding({ onComplete, user }) {
                           onClick={() => setSelectedTracker(t.id)}
                           className={`rounded-xl border-2 p-3 flex flex-col items-center gap-1 transition-all ${
                             selectedTracker === t.id
-                              ? 'border-[#8fa68a] bg-[#8fa68a]/10'
+                              ? 'border-[#AFC7E3] bg-[#AFC7E3]/10'
                               : 'border-gray-200 hover:border-gray-300'
                           }`}
                         >
@@ -225,7 +225,7 @@ export default function CoachDavidOnboarding({ onComplete, user }) {
                       <motion.p
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        className="text-xs text-[#6b8f72] mt-3 bg-[#8fa68a]/10 rounded-lg p-2"
+                        className="text-xs text-[#6B7280] mt-3 bg-[#AFC7E3]/10 rounded-lg p-2"
                       >
                         ✅ I'll factor in your {TRACKERS.find(t => t.id === selectedTracker)?.label} data for smarter recovery and intensity recommendations.
                       </motion.p>
@@ -244,8 +244,8 @@ export default function CoachDavidOnboarding({ onComplete, user }) {
                           onClick={() => setWorkoutDays(d)}
                           className={`w-10 h-10 rounded-full border-2 font-bold text-sm transition-all ${
                             workoutDays === d
-                              ? 'border-[#8fa68a] bg-[#8fa68a] text-white'
-                              : 'border-gray-200 text-gray-600 hover:border-[#8fa68a]'
+                              ? 'border-[#AFC7E3] bg-[#AFC7E3] text-white'
+                              : 'border-gray-200 text-gray-600 hover:border-[#AFC7E3]'
                           }`}
                         >
                           {d}

@@ -28,15 +28,15 @@ const CATEGORIES = [
 ];
 
 const CAT_GRADIENT = {
-  bible_study: 'from-[#c9a227] to-[#D9B878]',
-  workout:     'from-[#0A1A2F] to-[#1a3a5c]',
-  cooking:     'from-[#D9B878] to-[#FAD98D]',
+  bible_study: 'from-[#c9a227] to-[#FAD98D]',
+  workout:     'from-[#0A1A2F] to-[#0A1A2F]',
+  cooking:     'from-[#FAD98D] to-[#FAD98D]',
   prayer:      'from-[#AFC7E3] to-[#3C4E53]',
   wellness:    'from-[#3C4E53] to-[#AFC7E3]',
   youth:       'from-[#c9a227] to-[#AFC7E3]',
-  parents:     'from-[#D9B878] to-[#AFC7E3]',
+  parents:     'from-[#FAD98D] to-[#AFC7E3]',
   marriage:    'from-[#c9a227] to-[#0A1A2F]',
-  other:       'from-[#3C4E53] to-[#D9B878]',
+  other:       'from-[#3C4E53] to-[#FAD98D]',
 };
 
 const SORT_OPTIONS = [
@@ -70,7 +70,7 @@ function CreateGroupPanel({ isOpen, onClose, onSubmit, creating }) {
             className="fixed bottom-0 left-0 right-0 z-50 bg-white rounded-t-3xl shadow-2xl max-h-[92vh] overflow-y-auto"
           >
             <div className="flex justify-center pt-3 pb-1">
-              <div className="w-10 h-1 bg-[#E2E8F0] rounded-full" />
+              <div className="w-10 h-1 bg-[#F2F6FA] rounded-full" />
             </div>
             <div className="px-5 pb-10 pt-3 space-y-5">
               <div className="flex items-center justify-between">
@@ -84,7 +84,7 @@ function CreateGroupPanel({ isOpen, onClose, onSubmit, creating }) {
                 <p className="text-xs font-bold text-[#0A1A2F]/40 uppercase tracking-widest mb-1.5">Group Name *</p>
                 <input type="text" placeholder="e.g., Morning Prayer Warriors"
                   value={form.name} onChange={e => set('name', e.target.value)}
-                  className="w-full px-3 py-2.5 rounded-xl border border-[#E2E8F0] bg-[#F8FAFC] text-sm text-[#0A1A2F] placeholder-[#0A1A2F]/25 focus:outline-none focus:border-[#D9B878]/60 transition-colors" />
+                  className="w-full px-3 py-2.5 rounded-xl border border-[#F2F6FA] bg-[#F2F6FA] text-sm text-[#0A1A2F] placeholder-[#0A1A2F]/25 focus:outline-none focus:border-[#FAD98D]/60 transition-colors" />
               </div>
 
               <div>
@@ -92,7 +92,7 @@ function CreateGroupPanel({ isOpen, onClose, onSubmit, creating }) {
                 <textarea placeholder="What is this group about? Who should join?"
                   value={form.description} onChange={e => set('description', e.target.value)}
                   rows={3}
-                  className="w-full resize-none px-3 py-2.5 rounded-xl border border-[#E2E8F0] bg-[#F8FAFC] text-sm text-[#0A1A2F] placeholder-[#0A1A2F]/25 focus:outline-none focus:border-[#D9B878]/60 transition-colors leading-relaxed" />
+                  className="w-full resize-none px-3 py-2.5 rounded-xl border border-[#F2F6FA] bg-[#F2F6FA] text-sm text-[#0A1A2F] placeholder-[#0A1A2F]/25 focus:outline-none focus:border-[#FAD98D]/60 transition-colors leading-relaxed" />
               </div>
 
               <div>
@@ -103,7 +103,7 @@ function CreateGroupPanel({ isOpen, onClose, onSubmit, creating }) {
                       className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-semibold transition-all ${
                         form.category === cat.value
                           ? 'bg-[#0A1A2F] text-white border-[#0A1A2F]'
-                          : 'bg-white text-[#0A1A2F]/50 border-[#E2E8F0] hover:border-[#D9B878]/40'
+                          : 'bg-white text-[#0A1A2F]/50 border-[#F2F6FA] hover:border-[#FAD98D]/40'
                       }`}>
                       <span>{cat.emoji}</span> {cat.label}
                     </button>
@@ -113,7 +113,7 @@ function CreateGroupPanel({ isOpen, onClose, onSubmit, creating }) {
 
               {form.name.trim() && (
                 <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }}
-                  className="rounded-2xl overflow-hidden border border-[#E2E8F0]">
+                  className="rounded-2xl overflow-hidden border border-[#F2F6FA]">
                   <div className={`h-16 bg-gradient-to-br ${CAT_GRADIENT[form.category] || CAT_GRADIENT.other} flex items-center justify-center`}>
                     <span className="text-3xl opacity-70">{CATEGORIES.find(c => c.value === form.category)?.emoji || '💬'}</span>
                   </div>
@@ -136,7 +136,7 @@ function CreateGroupPanel({ isOpen, onClose, onSubmit, creating }) {
               </div>
 
               <button onClick={handleSubmit} disabled={!canSubmit || creating}
-                className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-[#D9B878] to-[#c9a227] text-[#0A1A2F] font-bold text-sm disabled:opacity-40 hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
+                className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-[#FAD98D] to-[#c9a227] text-[#0A1A2F] font-bold text-sm disabled:opacity-40 hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
                 {creating ? <><Loader2 className="w-4 h-4 animate-spin" /> Creating…</> : <><Plus className="w-4 h-4" /> Create Group</>}
               </button>
             </div>
@@ -155,7 +155,7 @@ function MyGroupRow({ group, onClick, index }) {
     <motion.button
       initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: index * 0.05 }}
       onClick={onClick}
-      className="w-full flex items-center gap-3 bg-white rounded-2xl border border-[#AFC7E3]/20 p-3.5 hover:border-[#D9B878]/40 hover:shadow-sm transition-all text-left"
+      className="w-full flex items-center gap-3 bg-white rounded-2xl border border-[#AFC7E3]/20 p-3.5 hover:border-[#FAD98D]/40 hover:shadow-sm transition-all text-left"
     >
       <div className={`w-11 h-11 rounded-xl bg-gradient-to-br ${gradient} flex items-center justify-center flex-shrink-0`}>
         <span className="text-xl">{cat.emoji}</span>
@@ -186,13 +186,13 @@ function FeaturedCard({ group, onClick }) {
     <motion.button
       whileTap={{ scale: 0.98 }}
       onClick={onClick}
-      className="relative flex-shrink-0 w-56 bg-white rounded-2xl overflow-hidden border border-[#D9B878]/20 hover:shadow-md transition-all text-left"
+      className="relative flex-shrink-0 w-56 bg-white rounded-2xl overflow-hidden border border-[#FAD98D]/20 hover:shadow-md transition-all text-left"
     >
       <div className={`h-20 bg-gradient-to-br ${gradient} flex items-center justify-center`}>
         <span className="text-3xl opacity-60">{cat?.emoji || '💬'}</span>
       </div>
       <div className="absolute top-2 left-2">
-        <span className="flex items-center gap-1 bg-[#D9B878] text-[#0A1A2F] text-[9px] font-bold px-2 py-0.5 rounded-full">
+        <span className="flex items-center gap-1 bg-[#FAD98D] text-[#0A1A2F] text-[9px] font-bold px-2 py-0.5 rounded-full">
           <Star className="w-2.5 h-2.5" /> Featured
         </span>
       </div>
@@ -210,16 +210,16 @@ function FeaturedCard({ group, onClick }) {
 function SeedBanner({ onSeed, seeding }) {
   return (
     <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }}
-      className="bg-gradient-to-r from-[#0A1A2F] to-[#1a2a3f] rounded-2xl p-4 flex items-center gap-3">
-      <div className="w-10 h-10 bg-[#D9B878]/20 rounded-xl flex items-center justify-center flex-shrink-0">
-        <Users className="w-5 h-5 text-[#D9B878]" />
+      className="bg-gradient-to-r from-[#0A1A2F] to-[#0A1A2F] rounded-2xl p-4 flex items-center gap-3">
+      <div className="w-10 h-10 bg-[#FAD98D]/20 rounded-xl flex items-center justify-center flex-shrink-0">
+        <Users className="w-5 h-5 text-[#FAD98D]" />
       </div>
       <div className="flex-1 min-w-0">
         <p className="text-sm font-bold text-white">Populate the community</p>
         <p className="text-xs text-white/45">Add 32 starter groups across all categories</p>
       </div>
       <button onClick={onSeed} disabled={seeding}
-        className="flex-shrink-0 px-3.5 py-2 rounded-xl bg-[#D9B878] text-[#0A1A2F] text-xs font-bold disabled:opacity-50 hover:bg-[#c9a227] transition-colors flex items-center gap-1.5">
+        className="flex-shrink-0 px-3.5 py-2 rounded-xl bg-[#FAD98D] text-[#0A1A2F] text-xs font-bold disabled:opacity-50 hover:bg-[#c9a227] transition-colors flex items-center gap-1.5">
         {seeding ? <><Loader2 className="w-3.5 h-3.5 animate-spin" /> Adding…</> : 'Add Groups'}
       </button>
     </motion.div>
@@ -242,12 +242,12 @@ function SortDropdown({ value, onChange }) {
           <>
             <div className="fixed inset-0 z-10" onClick={() => setOpen(false)} />
             <motion.div initial={{ opacity: 0, scale: 0.95, y: -4 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95 }}
-              className="absolute right-0 top-6 z-20 bg-white rounded-xl shadow-lg border border-[#E2E8F0] overflow-hidden min-w-[140px]">
+              className="absolute right-0 top-6 z-20 bg-white rounded-xl shadow-lg border border-[#F2F6FA] overflow-hidden min-w-[140px]">
               {SORT_OPTIONS.map(opt => (
                 <button key={opt.value}
                   onClick={() => { onChange(opt.value); setOpen(false); }}
                   className={`w-full text-left px-4 py-2.5 text-xs font-semibold transition-colors ${
-                    opt.value === value ? 'bg-[#FFF9ED] text-[#c9a227]' : 'text-[#0A1A2F]/60 hover:bg-[#F8FAFC]'
+                    opt.value === value ? 'bg-white text-[#c9a227]' : 'text-[#0A1A2F]/60 hover:bg-[#F2F6FA]'
                   }`}>
                   {opt.label}
                 </button>
@@ -360,14 +360,14 @@ export default function Groups() {
       <div className="sticky top-0 z-40 bg-white border-b border-[#AFC7E3]/20 px-4 py-3">
         <div className="max-w-lg mx-auto flex items-center gap-3">
           <Link to={createPageUrl('Community')}
-            className="w-9 h-9 rounded-full bg-[#F2F6FA] hover:bg-[#E8EFF6] flex items-center justify-center transition-colors flex-shrink-0">
+            className="w-9 h-9 rounded-full bg-[#F2F6FA] hover:bg-white flex items-center justify-center transition-colors flex-shrink-0">
             <ArrowLeft className="w-4 h-4 text-[#0A1A2F]" />
           </Link>
           <div className="flex-1 relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#0A1A2F]/30" />
             <input ref={searchRef} type="text" placeholder="Search groups…"
               value={search} onChange={e => setSearch(e.target.value)}
-              className="w-full pl-9 pr-8 py-2 rounded-xl bg-[#F2F6FA] border border-[#E2E8F0] text-sm text-[#0A1A2F] placeholder-[#0A1A2F]/30 focus:outline-none focus:border-[#D9B878]/50 transition-colors" />
+              className="w-full pl-9 pr-8 py-2 rounded-xl bg-[#F2F6FA] border border-[#F2F6FA] text-sm text-[#0A1A2F] placeholder-[#0A1A2F]/30 focus:outline-none focus:border-[#FAD98D]/50 transition-colors" />
             {search && (
               <button onClick={() => setSearch('')} className="absolute right-2.5 top-1/2 -translate-y-1/2">
                 <X className="w-3.5 h-3.5 text-[#0A1A2F]/30" />
@@ -375,7 +375,7 @@ export default function Groups() {
             )}
           </div>
           <button onClick={() => setShowCreate(true)}
-            className="w-9 h-9 rounded-full bg-gradient-to-br from-[#D9B878] to-[#c9a227] flex items-center justify-center shadow-sm hover:opacity-90 transition-opacity flex-shrink-0">
+            className="w-9 h-9 rounded-full bg-gradient-to-br from-[#FAD98D] to-[#c9a227] flex items-center justify-center shadow-sm hover:opacity-90 transition-opacity flex-shrink-0">
             <Plus className="w-4 h-4 text-white" />
           </button>
         </div>
@@ -390,7 +390,7 @@ export default function Groups() {
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-semibold whitespace-nowrap transition-all ${
                   categoryFilter === cat.value
                     ? 'bg-[#0A1A2F] text-white border-[#0A1A2F]'
-                    : 'bg-white text-[#0A1A2F]/50 border-[#E2E8F0] hover:border-[#D9B878]/40'
+                    : 'bg-white text-[#0A1A2F]/50 border-[#F2F6FA] hover:border-[#FAD98D]/40'
                 }`}>
                 <span>{cat.emoji}</span> {cat.label}
               </button>
@@ -408,7 +408,7 @@ export default function Groups() {
         {!isFiltering && featured.length > 0 && (
           <div>
             <div className="flex items-center gap-2 mb-2">
-              <Star className="w-4 h-4 text-[#D9B878]" />
+              <Star className="w-4 h-4 text-[#FAD98D]" />
               <h2 className="text-sm font-bold text-[#0A1A2F]">Featured Groups</h2>
             </div>
             <div className="overflow-x-auto scrollbar-none -mx-4 px-4">
@@ -431,7 +431,7 @@ export default function Groups() {
             </h2>
             {myGroups.length > 0 && (
               <button onClick={() => setShowCreate(true)}
-                className="text-xs font-bold text-[#c9a227] hover:text-[#b89120] transition-colors flex items-center gap-1">
+                className="text-xs font-bold text-[#c9a227] hover:text-[#C9A227] transition-colors flex items-center gap-1">
                 <Plus className="w-3.5 h-3.5" /> New
               </button>
             )}
@@ -447,11 +447,11 @@ export default function Groups() {
               </p>
               <div className="flex gap-2">
                 <button onClick={() => { setCategoryFilter('all'); searchRef.current?.focus(); }}
-                  className="flex-1 py-2.5 rounded-xl bg-[#F2F6FA] text-[#0A1A2F]/60 font-semibold text-sm hover:bg-[#E8EFF6] transition-colors">
+                  className="flex-1 py-2.5 rounded-xl bg-[#F2F6FA] text-[#0A1A2F]/60 font-semibold text-sm hover:bg-white transition-colors">
                   Browse Below
                 </button>
                 <button onClick={() => setShowCreate(true)}
-                  className="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-[#D9B878] to-[#c9a227] text-[#0A1A2F] font-bold text-sm hover:opacity-90 transition-opacity">
+                  className="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-[#FAD98D] to-[#c9a227] text-[#0A1A2F] font-bold text-sm hover:opacity-90 transition-opacity">
                   Create One
                 </button>
               </div>
@@ -493,12 +493,12 @@ export default function Groups() {
               </p>
               {isFiltering ? (
                 <button onClick={() => { setSearch(''); setCategoryFilter('all'); }}
-                  className="px-5 py-2.5 rounded-xl bg-[#F2F6FA] text-[#0A1A2F]/60 font-semibold text-sm hover:bg-[#E8EFF6] transition-colors">
+                  className="px-5 py-2.5 rounded-xl bg-[#F2F6FA] text-[#0A1A2F]/60 font-semibold text-sm hover:bg-white transition-colors">
                   Clear Filters
                 </button>
               ) : (
                 <button onClick={() => setShowCreate(true)}
-                  className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#D9B878] to-[#c9a227] text-[#0A1A2F] font-bold text-sm hover:opacity-90 transition-opacity">
+                  className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#FAD98D] to-[#c9a227] text-[#0A1A2F] font-bold text-sm hover:opacity-90 transition-opacity">
                   Create the First Group
                 </button>
               )}

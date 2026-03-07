@@ -125,7 +125,7 @@ const WEEKLY_TOOLS = [
   {
     page: "SelfCareChallengesPage",
     icon: Flower2,
-    grad: "from-[#D9B878] to-[#c9a227]",
+    grad: "from-[#FAD98D] to-[#c9a227]",
     label: "Self-Care Challenges",
     sub: "8 challenges, your pace",
     entryType: null,
@@ -348,11 +348,11 @@ export default function PersonalGrowth() {
             style={{ background: "linear-gradient(135deg,#0A1A2F,#1E3050)" }}
           >
             <div className="flex items-start gap-3">
-              <div className="w-8 h-8 rounded-full bg-[#D9B878]/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                <Star className="w-4 h-4 text-[#D9B878]" />
+              <div className="w-8 h-8 rounded-full bg-[#FAD98D]/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <Star className="w-4 h-4 text-[#FAD98D]" />
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-[10px] font-bold text-[#D9B878] uppercase tracking-widest mb-1.5">Today's Affirmation</p>
+                <p className="text-[10px] font-bold text-[#FAD98D] uppercase tracking-widest mb-1.5">Today's Affirmation</p>
                 <p className="text-base font-bold text-white leading-snug mb-1">"{affirmation.text}"</p>
                 <p className="text-xs text-white/45">{affirmation.verse}</p>
               </div>

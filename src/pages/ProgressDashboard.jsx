@@ -17,10 +17,10 @@ import CoachingSection from '@/components/journey/CoachingSection';
 
 // ─── Chatbot config ────────────────────────────────────────────────────────────
 const CHATBOTS = [
-  { key: 'Hannah',    name: 'Hannah',       icon: '🧠', label: 'Mind & Growth',  gradient: 'from-[#AFC7E3] to-[#7ab3d4]' },
-  { key: 'CoachDavid', name: 'Coach David', icon: '💪', label: 'Fitness',        gradient: 'from-[#0A0A0A] to-[#38BDF8]' },
-  { key: 'ChefDaniel', name: 'Chef Daniel', icon: '🍽️', label: 'Nutrition',      gradient: 'from-[#4ade80]/80 to-[#22c55e]' },
-  { key: 'Gideon',   name: 'Gideon',       icon: '📖', label: 'Scripture',      gradient: 'from-[#c9a227] to-[#D9B878]' },
+  { key: 'Hannah',    name: 'Hannah',       icon: '🧠', label: 'Mind & Growth',  gradient: 'from-[#AFC7E3] to-[#AFC7E3]' },
+  { key: 'CoachDavid', name: 'Coach David', icon: '💪', label: 'Fitness',        gradient: 'from-[#0A1A2F] to-[#38BDF8]' },
+  { key: 'ChefDaniel', name: 'Chef Daniel', icon: '🍽️', label: 'Nutrition',      gradient: 'from-[#22C55E]/80 to-[#22c55e]' },
+  { key: 'Gideon',   name: 'Gideon',       icon: '📖', label: 'Scripture',      gradient: 'from-[#c9a227] to-[#FAD98D]' },
 ];
 
 const MEMORY_ICONS = {
@@ -138,9 +138,9 @@ function RecentMilestones({ memories }) {
 function StartHereCard() {
   return (
     <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
-      className="bg-gradient-to-br from-[#FAD98D]/20 to-[#AFC7E3]/15 rounded-2xl p-5 border border-[#D9B878]/30">
+      className="bg-gradient-to-br from-[#FAD98D]/20 to-[#AFC7E3]/15 rounded-2xl p-5 border border-[#FAD98D]/30">
       <div className="flex items-center gap-3 mb-4">
-        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#c9a227] to-[#D9B878] flex items-center justify-center">
+        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center">
           <Sparkles className="w-5 h-5 text-white" />
         </div>
         <div>

@@ -176,7 +176,7 @@ function ResumeCard({ coachingPlan, readingPlan, readingProgress, navigate }) {
           onClick={() => navigate(createPageUrl(`CoachingPlanDetail?id=${plan.id}&day=${nextDay}`))}
           className="w-full text-left rounded-3xl overflow-hidden shadow-md"
         >
-          <div className={`bg-gradient-to-br ${plan.gradient || 'from-[#0D4F3C] to-[#c9a227]'} p-5`}>
+          <div className={`bg-gradient-to-br ${plan.gradient || 'from-[#3C4E53] to-[#c9a227]'} p-5`}>
             <div className="flex items-center justify-between mb-3">
               <span className="text-[11px] font-bold text-white/60 uppercase tracking-widest">Continue Plan</span>
               <span className="text-xs font-bold text-white/80">{pct}% complete</span>
@@ -350,7 +350,7 @@ function ActiveChallengesWidget({ user }) {
           return (
             <button key={p.id}
               onClick={() => navigate(createPageUrl('Community'))}
-              className="w-full text-left bg-white rounded-2xl p-3.5 border border-[#D9B878]/15 hover:border-[#c9a227]/30 transition-all shadow-sm flex items-center gap-3">
+              className="w-full text-left bg-white rounded-2xl p-3.5 border border-[#FAD98D]/15 hover:border-[#c9a227]/30 transition-all shadow-sm flex items-center gap-3">
               <div className={`w-10 h-10 rounded-xl ${vis.color} flex items-center justify-center flex-shrink-0`}>
                 <span className="text-lg">{vis.emoji}</span>
               </div>
@@ -365,7 +365,7 @@ function ActiveChallengesWidget({ user }) {
                     )}
                     {checkedToday
                       ? <span className="text-[9px] font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded-full">✓ Done</span>
-                      : <span className="text-[9px] font-bold text-[#c9a227] bg-[#FFF9ED] px-1.5 py-0.5 rounded-full">Check in</span>
+                      : <span className="text-[9px] font-bold text-[#c9a227] bg-white px-1.5 py-0.5 rounded-full">Check in</span>
                     }
                   </div>
                 </div>

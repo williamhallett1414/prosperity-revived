@@ -164,7 +164,7 @@ export default function WellnessTour({ onComplete, onSkip }) {
           {/* Progress bar */}
           <div className="h-1.5 bg-gray-100">
             <motion.div
-              className="h-full bg-gradient-to-r from-[#FD9C2D] to-[#D9B878]"
+              className="h-full bg-gradient-to-r from-[#FD9C2D] to-[#FAD98D]"
               animate={{ width: `${progress}%` }}
               transition={{ duration: 0.3 }}
             />
@@ -203,7 +203,7 @@ export default function WellnessTour({ onComplete, onSkip }) {
             )}
             <Button
               onClick={handleNext}
-              className="flex-1 bg-gradient-to-r from-[#FD9C2D] to-[#D9B878] hover:opacity-90 text-white font-semibold"
+              className="flex-1 bg-gradient-to-r from-[#FD9C2D] to-[#FAD98D] hover:opacity-90 text-white font-semibold"
             >
               {isLast ? (
                 <>

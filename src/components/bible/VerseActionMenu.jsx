@@ -130,11 +130,11 @@ Keep it warm, accessible, and spiritually enriching - like Dr. Myles Munroe's ki
         initial={{ opacity: 0, scale: 0.95, y: -10 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.95, y: -10 }}
-        className="absolute z-50 mt-2 bg-white rounded-xl shadow-2xl border-2 border-[#D9B878]/20 overflow-hidden"
+        className="absolute z-50 mt-2 bg-white rounded-xl shadow-2xl border-2 border-[#FAD98D]/20 overflow-hidden"
         style={{ minWidth: '280px' }}
       >
         {/* Header */}
-        <div className="bg-gradient-to-r from-[#D9B878] to-[#AFC7E3] px-4 py-3 flex items-center justify-between">
+        <div className="bg-gradient-to-r from-[#FAD98D] to-[#AFC7E3] px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <BookOpen className="w-4 h-4 text-[#0A1A2F]" />
             <span className="text-sm font-semibold text-[#0A1A2F]">
@@ -154,7 +154,7 @@ Keep it warm, accessible, and spiritually enriching - like Dr. Myles Munroe's ki
           <Button
             onClick={handleGetAIInsights}
             disabled={loadingAI}
-            className="w-full bg-gradient-to-r from-[#c9a227] to-[#D9B878] hover:from-[#b89320] hover:to-[#c9a227] text-white"
+            className="w-full bg-gradient-to-r from-[#c9a227] to-[#FAD98D] hover:from-[#C9A227] hover:to-[#c9a227] text-white"
             size="sm"
           >
             <Sparkles className="w-4 h-4 mr-2" />
@@ -163,9 +163,9 @@ Keep it warm, accessible, and spiritually enriching - like Dr. Myles Munroe's ki
 
           {/* AI Insights Display */}
           {showAIInsights && aiInsights && (
-            <div className="bg-gradient-to-br from-[#FAD98D]/10 to-[#FFF8E7] rounded-lg p-4 space-y-3 max-h-96 overflow-y-auto">
+            <div className="bg-gradient-to-br from-[#FAD98D]/10 to-[#FFF9EC] rounded-lg p-4 space-y-3 max-h-96 overflow-y-auto">
               <div className="flex items-center gap-2 mb-2">
-                <Sparkles className="w-4 h-4 text-[#8a6e1a]" />
+                <Sparkles className="w-4 h-4 text-[#C9A227]" />
                 <span className="text-sm font-bold text-[#0A1A2F]">Gideon's Insights</span>
               </div>
               <div className="prose prose-sm text-[#0A1A2F]/75 text-xs leading-relaxed">
@@ -190,7 +190,7 @@ Keep it warm, accessible, and spiritually enriching - like Dr. Myles Munroe's ki
                   className={`flex-1 h-10 rounded-lg border-2 transition-all hover:scale-105 ${
                     existingBookmark?.highlight_color === colorOption.name
                       ? 'border-[#0A1A2F] ring-2 ring-[#0A1A2F]/20'
-                      : 'border-[#D9B878]/20'
+                      : 'border-[#FAD98D]/20'
                   }`}
                   style={{ backgroundColor: colorOption.color }}
                   title={colorOption.label}
@@ -224,7 +224,7 @@ Keep it warm, accessible, and spiritually enriching - like Dr. Myles Munroe's ki
               {!showNoteInput && existingBookmark?.note && (
                 <button
                   onClick={() => setShowNoteInput(true)}
-                  className="text-xs text-[#D9B878] hover:text-[#D9B878]/80 font-medium"
+                  className="text-xs text-[#FAD98D] hover:text-[#FAD98D]/80 font-medium"
                 >
                   Edit
                 </button>
@@ -237,7 +237,7 @@ Keep it warm, accessible, and spiritually enriching - like Dr. Myles Munroe's ki
                   value={noteText}
                   onChange={(e) => setNoteText(e.target.value)}
                   placeholder="Write your reflection..."
-                  className="min-h-[100px] text-sm bg-[#FFFDF7] border-[#D9B878]/20"
+                  className="min-h-[100px] text-sm bg-[#F2F6FA] border-[#FAD98D]/20"
                   autoFocus
                 />
                 <div className="space-y-2">
@@ -245,7 +245,7 @@ Keep it warm, accessible, and spiritually enriching - like Dr. Myles Munroe's ki
                     <Button
                       onClick={handleSaveNote}
                       size="sm"
-                      className="flex-1 bg-[#D9B878] hover:bg-[#D9B878]/90 text-[#0A1A2F]"
+                      className="flex-1 bg-[#FAD98D] hover:bg-[#FAD98D]/90 text-[#0A1A2F]"
                     >
                       <Save className="w-3 h-3 mr-1" />
                       Save Note
@@ -266,7 +266,7 @@ Keep it warm, accessible, and spiritually enriching - like Dr. Myles Munroe's ki
                     <Button
                       onClick={handleSaveToJournal}
                       size="sm"
-                      className="w-full bg-[#D9B878] hover:bg-[#D9B878]/90 text-white"
+                      className="w-full bg-[#FAD98D] hover:bg-[#FAD98D]/90 text-white"
                     >
                       <BookOpen className="w-3 h-3 mr-1" />
                       Save to Journal
@@ -275,7 +275,7 @@ Keep it warm, accessible, and spiritually enriching - like Dr. Myles Munroe's ki
                 </div>
               </div>
             ) : existingBookmark?.note ? (
-              <div className="bg-[#FFFDF7] rounded-lg p-3 space-y-2">
+              <div className="bg-[#F2F6FA] rounded-lg p-3 space-y-2">
                 <p className="text-sm text-[#0A1A2F]/75">{existingBookmark.note}</p>
                 <div className="flex gap-2">
                   <Button

@@ -92,7 +92,7 @@ export default function DiscoverWorkouts({ user, myWorkouts, completeWorkout, on
 
   return (
     <div className="space-y-4">
-      <div className="bg-gradient-to-br from-[#c9a227] to-[#D9B878] rounded-2xl p-5 text-white">
+      <div className="bg-gradient-to-br from-[#c9a227] to-[#FAD98D] rounded-2xl p-5 text-white">
         <div className="flex items-center gap-3 mb-2">
           <TrendingUp className="w-6 h-6" />
           <h3 className="text-lg font-semibold">Discover Workouts</h3>
@@ -167,7 +167,7 @@ export default function DiscoverWorkouts({ user, myWorkouts, completeWorkout, on
       )}
 
       {searchQuery && filteredWorkouts.length === 0 && filteredPremade.length === 0 ? (
-        <div className="text-center py-12 bg-white dark:bg-[#2d2d4a] rounded-2xl">
+        <div className="text-center py-12 bg-white dark:bg-[#0A1A2F] rounded-2xl">
           <TrendingUp className="w-12 h-12 text-gray-300 mx-auto mb-3" />
           <p className="text-gray-500 dark:text-gray-400">
             No workouts match your search
@@ -185,13 +185,13 @@ export default function DiscoverWorkouts({ user, myWorkouts, completeWorkout, on
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.05 }}
-              className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 shadow-sm"
+              className="bg-white dark:bg-[#0A1A2F] rounded-2xl p-4 shadow-sm"
             >
               <div className="flex items-start justify-between mb-3">
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-1">
                     <span className="text-xl">{categoryEmojis[workout.category]}</span>
-                    <h3 className="font-semibold text-[#1a1a2e] dark:text-white">
+                    <h3 className="font-semibold text-[#0A1A2F] dark:text-white">
                       {workout.title}
                     </h3>
                   </div>
@@ -273,13 +273,13 @@ export default function DiscoverWorkouts({ user, myWorkouts, completeWorkout, on
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.05 }}
                 onClick={() => setSelectedWorkout(workout)}
-                className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 shadow-sm cursor-pointer hover:shadow-md transition-shadow"
+                className="bg-white dark:bg-[#0A1A2F] rounded-2xl p-4 shadow-sm cursor-pointer hover:shadow-md transition-shadow"
               >
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-1">
                       <span className="text-xl">{categoryEmojis[workout.category]}</span>
-                      <h3 className="font-semibold text-[#1a1a2e] dark:text-white">
+                      <h3 className="font-semibold text-[#0A1A2F] dark:text-white">
                         {workout.title}
                       </h3>
                     </div>

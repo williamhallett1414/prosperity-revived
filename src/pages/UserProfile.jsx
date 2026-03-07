@@ -175,7 +175,7 @@ export default function UserProfile() {
 
   if (!profileUser || !currentUser) {
     return (
-      <div className="min-h-screen bg-[#FFFDF7] flex items-center justify-center">
+      <div className="min-h-screen bg-[#F2F6FA] flex items-center justify-center">
         <Loader2 className="w-8 h-8 text-[#c9a227] animate-spin" />
       </div>
     );
@@ -188,7 +188,7 @@ export default function UserProfile() {
   const receivedRequest = isPending && existingFriendship?.friend_email === currentUser.email;
 
   return (
-    <div className="min-h-screen bg-[#FFFDF7] pb-24">
+    <div className="min-h-screen bg-[#F2F6FA] pb-24">
       {/* Header with Banner */}
       <div className="relative text-white">
         {/* Banner Image */}
@@ -200,7 +200,7 @@ export default function UserProfile() {
               className="w-full h-full object-cover"
             />
           ) : (
-            <div className="w-full h-full bg-gradient-to-br from-[#0A1A2F] via-[#c9a227] to-[#D9B878]" />
+            <div className="w-full h-full bg-gradient-to-br from-[#0A1A2F] via-[#c9a227] to-[#FAD98D]" />
           )}
           {/* Overlay for readability */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/60" />
@@ -253,7 +253,7 @@ export default function UserProfile() {
         {/* Profile Info Overlay */}
         <div className="absolute bottom-0 left-0 right-0 px-4 pb-4">
           <div className="flex items-end gap-4">
-            <div className="w-24 h-24 rounded-full overflow-hidden bg-gradient-to-br from-[#c9a227] to-[#D9B878] flex items-center justify-center text-3xl font-bold border-4 border-white shadow-xl">
+            <div className="w-24 h-24 rounded-full overflow-hidden bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center text-3xl font-bold border-4 border-white shadow-xl">
               {profileUser.profile_image_url ? (
                 <img src={profileUser.profile_image_url} alt={profileUser.full_name} className="w-full h-full object-cover" />
               ) : (
@@ -304,7 +304,7 @@ export default function UserProfile() {
         <div className="px-4 pt-3 pb-1 flex gap-3">
           <Link
             to={createPageUrl(`Messages?recipient=${profileEmail}&name=${profileUser.full_name || profileEmail}`)}
-            className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-2xl bg-gradient-to-r from-[#D9B878] to-[#c9a227] text-[#0A1A2F] font-bold text-sm hover:opacity-90 transition-opacity shadow-sm"
+            className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-2xl bg-gradient-to-r from-[#FAD98D] to-[#c9a227] text-[#0A1A2F] font-bold text-sm hover:opacity-90 transition-opacity shadow-sm"
           >
             <MessageCircle className="w-4 h-4" />
             Message
@@ -325,7 +325,7 @@ export default function UserProfile() {
       {/* Spiritual Goal */}
       {profileUser.spiritual_goal && (
         <div className="px-4 mb-6">
-          <div className="bg-gradient-to-br from-[#0A1A2F] to-[#1a3a5c] rounded-2xl p-4 shadow-lg text-white">
+          <div className="bg-gradient-to-br from-[#0A1A2F] to-[#0A1A2F] rounded-2xl p-4 shadow-lg text-white">
             <h3 className="font-semibold mb-2 flex items-center gap-2">
               <Target className="w-5 h-5" />
               Spiritual Goal
@@ -338,7 +338,7 @@ export default function UserProfile() {
       {/* Favorite Verses */}
       {profileUser.favorite_verse_ids && profileUser.favorite_verse_ids.length > 0 && (
         <div className="px-4 mb-6">
-          <div className="bg-white border border-[#D9B878]/20 rounded-2xl p-4 shadow-sm">
+          <div className="bg-white border border-[#FAD98D]/20 rounded-2xl p-4 shadow-sm">
             <h3 className="font-semibold text-[#0A1A2F] mb-3 flex items-center gap-2">
               <span className="text-xl">✨</span>
               Favorite Verses
@@ -349,7 +349,7 @@ export default function UserProfile() {
                   key={bookmark.id}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  className="bg-gradient-to-br from-[#c9a227]/10 to-[#8fa68a]/10 rounded-xl p-3 border-l-4 border-[#c9a227]"
+                  className="bg-gradient-to-br from-[#c9a227]/10 to-[#AFC7E3]/10 rounded-xl p-3 border-l-4 border-[#c9a227]"
                 >
                   <p className="font-semibold text-sm text-[#0A1A2F] mb-2">
                     {bookmark.book_name} {bookmark.chapter_number}:{bookmark.verse_number}
@@ -369,7 +369,7 @@ export default function UserProfile() {
       {/* Mutual Friends */}
       {!isOwnProfile && mutualFriends.length > 0 && (
         <div className="px-4 mb-6">
-          <div className="bg-white border border-[#D9B878]/20 rounded-2xl p-4 shadow-sm">
+          <div className="bg-white border border-[#FAD98D]/20 rounded-2xl p-4 shadow-sm">
             <h3 className="font-semibold text-[#0A1A2F] mb-3">
               {mutualFriends.length} Mutual Friend{mutualFriends.length !== 1 ? 's' : ''}
             </h3>
@@ -384,7 +384,7 @@ export default function UserProfile() {
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: index * 0.05 }}
-                    className="w-16 h-16 rounded-full overflow-hidden bg-gradient-to-br from-[#c9a227] to-[#D9B878] flex items-center justify-center text-white font-semibold shadow-md"
+                    className="w-16 h-16 rounded-full overflow-hidden bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center text-white font-semibold shadow-md"
                   >
                     {friend.profile_image_url ? (
                       <img src={friend.profile_image_url} alt={friend.full_name} className="w-full h-full object-cover" />
@@ -410,7 +410,7 @@ export default function UserProfile() {
       {/* Bio */}
       {profileUser.bio ? (
         <div className="px-4 mb-6">
-          <div className="bg-white rounded-2xl p-4 shadow-sm border border-[#D9B878]/20">
+          <div className="bg-white rounded-2xl p-4 shadow-sm border border-[#FAD98D]/20">
             <h3 className="font-semibold text-[#0A1A2F] mb-2">Bio</h3>
             <p className="text-[#0A1A2F]/70">{profileUser.bio}</p>
           </div>
@@ -419,7 +419,7 @@ export default function UserProfile() {
         <div className="px-4 mb-6">
           <button
             onClick={() => setShowEditProfile(true)}
-            className="w-full bg-white rounded-2xl p-4 shadow-sm border border-dashed border-[#D9B878]/50 text-[#0A1A2F]/50 text-sm flex items-center justify-center gap-2 hover:border-[#c9a227] hover:text-[#c9a227] transition-colors"
+            className="w-full bg-white rounded-2xl p-4 shadow-sm border border-dashed border-[#FAD98D]/50 text-[#0A1A2F]/50 text-sm flex items-center justify-center gap-2 hover:border-[#c9a227] hover:text-[#c9a227] transition-colors"
           >
             <Plus className="w-4 h-4" />
             Add a bio to tell people about yourself
@@ -554,7 +554,7 @@ function EditProfileSheet({ open, onOpenChange, currentUser, onSave }) {
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent side="bottom" className="rounded-t-2xl max-h-[85vh] overflow-y-auto bg-[#FFFDF7] border-t border-[#D9B878]/30">
+      <SheetContent side="bottom" className="rounded-t-2xl max-h-[85vh] overflow-y-auto bg-[#F2F6FA] border-t border-[#FAD98D]/30">
         <SheetHeader className="mb-6">
           <SheetTitle className="text-[#0A1A2F] text-lg font-bold">Edit Profile</SheetTitle>
         </SheetHeader>
@@ -562,14 +562,14 @@ function EditProfileSheet({ open, onOpenChange, currentUser, onSave }) {
         <div className="space-y-5 pb-6">
           {/* Profile Photo */}
           <div className="flex flex-col items-center gap-3">
-            <div className="w-20 h-20 rounded-full overflow-hidden bg-gradient-to-br from-[#c9a227] to-[#D9B878] flex items-center justify-center text-2xl font-bold text-white border-2 border-[#D9B878]/40">
+            <div className="w-20 h-20 rounded-full overflow-hidden bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center text-2xl font-bold text-white border-2 border-[#FAD98D]/40">
               {profileImageUrl ? (
                 <img src={profileImageUrl} alt="Profile" className="w-full h-full object-cover" />
               ) : (
                 currentUser?.full_name?.charAt(0) || '?'
               )}
             </div>
-            <label className="flex items-center gap-2 px-4 py-2 rounded-full border border-[#D9B878]/50 text-[#0A1A2F]/70 text-sm cursor-pointer hover:border-[#c9a227] hover:text-[#c9a227] transition-colors bg-white">
+            <label className="flex items-center gap-2 px-4 py-2 rounded-full border border-[#FAD98D]/50 text-[#0A1A2F]/70 text-sm cursor-pointer hover:border-[#c9a227] hover:text-[#c9a227] transition-colors bg-white">
               {uploading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />}
               {uploading ? 'Uploading...' : 'Change Photo'}
               <input type="file" accept="image/*" className="hidden" onChange={handleImageUpload} disabled={uploading} />
@@ -584,7 +584,7 @@ function EditProfileSheet({ open, onOpenChange, currentUser, onSave }) {
               value={fullName}
               onChange={e => setFullName(e.target.value)}
               placeholder="Your name"
-              className="w-full px-4 py-3 rounded-xl border border-[#D9B878]/30 bg-white text-[#0A1A2F] placeholder-[#0A1A2F]/40 focus:outline-none focus:border-[#c9a227] transition-colors"
+              className="w-full px-4 py-3 rounded-xl border border-[#FAD98D]/30 bg-white text-[#0A1A2F] placeholder-[#0A1A2F]/40 focus:outline-none focus:border-[#c9a227] transition-colors"
             />
           </div>
 
@@ -596,7 +596,7 @@ function EditProfileSheet({ open, onOpenChange, currentUser, onSave }) {
               onChange={e => setBio(e.target.value)}
               placeholder="Tell people about yourself..."
               rows={4}
-              className="w-full px-4 py-3 rounded-xl border border-[#D9B878]/30 bg-white text-[#0A1A2F] placeholder-[#0A1A2F]/40 focus:outline-none focus:border-[#c9a227] transition-colors resize-none"
+              className="w-full px-4 py-3 rounded-xl border border-[#FAD98D]/30 bg-white text-[#0A1A2F] placeholder-[#0A1A2F]/40 focus:outline-none focus:border-[#c9a227] transition-colors resize-none"
             />
           </div>
 
@@ -604,7 +604,7 @@ function EditProfileSheet({ open, onOpenChange, currentUser, onSave }) {
           <button
             onClick={handleSave}
             disabled={saving || uploading}
-            className="w-full py-3 rounded-xl bg-[#c9a227] text-white font-semibold hover:bg-[#b8911e] transition-colors disabled:opacity-60 flex items-center justify-center gap-2"
+            className="w-full py-3 rounded-xl bg-[#c9a227] text-white font-semibold hover:bg-[#C9A227] transition-colors disabled:opacity-60 flex items-center justify-center gap-2"
           >
             {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : null}
             {saving ? 'Saving...' : 'Save Changes'}

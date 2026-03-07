@@ -73,11 +73,11 @@ export default function Search() {
 
   return (
     <div className="min-h-screen bg-[#F2F6FA] pb-24">
-      <div className="sticky top-0 z-40 bg-white border-b border-[#E6EBEF] px-4 py-3">
+      <div className="sticky top-0 z-40 bg-white border-b border-[#F2F6FA] px-4 py-3">
         <div className="max-w-2xl mx-auto flex items-center gap-3">
           <Link
             to={createPageUrl('Home')}
-            className="w-9 h-9 rounded-full bg-[#E6EBEF] hover:bg-[#D9DFE4] flex items-center justify-center transition-colors"
+            className="w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors"
           >
             <ArrowLeft className="w-4 h-4 text-[#0A1A2F]" />
           </Link>
@@ -102,7 +102,7 @@ export default function Search() {
             <Button
               type="submit"
               disabled={loading || !query.trim()}
-              className="absolute right-2 top-1/2 -translate-y-1/2 bg-[#1a1a2e] hover:bg-[#2d2d4a] h-10"
+              className="absolute right-2 top-1/2 -translate-y-1/2 bg-[#0A1A2F] hover:bg-[#0A1A2F] h-10"
             >
               {loading ? (
                 <Loader2 className="w-4 h-4 animate-spin" />
@@ -135,7 +135,7 @@ export default function Search() {
               <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gray-100 flex items-center justify-center">
                 <SearchIcon className="w-10 h-10 text-gray-400" />
               </div>
-              <h3 className="text-lg font-semibold text-[#1a1a2e] mb-2">No results found</h3>
+              <h3 className="text-lg font-semibold text-[#0A1A2F] mb-2">No results found</h3>
               <p className="text-gray-500">Try different keywords</p>
             </motion.div>
           ) : results.length > 0 ? (
@@ -159,13 +159,13 @@ export default function Search() {
                     className="bg-white rounded-xl p-4 cursor-pointer hover:shadow-md transition-all border border-gray-100 group"
                   >
                     <div className="flex items-start gap-3">
-                      <div className="w-10 h-10 rounded-lg bg-[#1a1a2e]/5 flex items-center justify-center flex-shrink-0 group-hover:bg-[#c9a227]/10 transition-colors">
-                        <BookOpen className="w-5 h-5 text-[#1a1a2e] group-hover:text-[#c9a227] transition-colors" />
+                      <div className="w-10 h-10 rounded-lg bg-[#0A1A2F]/5 flex items-center justify-center flex-shrink-0 group-hover:bg-[#c9a227]/10 transition-colors">
+                        <BookOpen className="w-5 h-5 text-[#0A1A2F] group-hover:text-[#c9a227] transition-colors" />
                       </div>
                       
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 mb-2">
-                          <span className="font-semibold text-[#1a1a2e] group-hover:text-[#c9a227] transition-colors">
+                          <span className="font-semibold text-[#0A1A2F] group-hover:text-[#c9a227] transition-colors">
                             {result.book} {result.chapter}:{result.verse}
                           </span>
                         </div>
@@ -188,7 +188,7 @@ export default function Search() {
               <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-[#c9a227]/10 flex items-center justify-center">
                 <SearchIcon className="w-10 h-10 text-[#c9a227]" />
               </div>
-              <h3 className="text-lg font-semibold text-[#1a1a2e] mb-2">Search the Bible</h3>
+              <h3 className="text-lg font-semibold text-[#0A1A2F] mb-2">Search the Bible</h3>
               <p className="text-gray-500 mb-6">
                 Enter keywords to find relevant verses
               </p>

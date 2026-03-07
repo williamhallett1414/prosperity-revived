@@ -173,7 +173,7 @@ export default function ChallengeDetailPage() {
   if (isLoading) {
     return (
       <div className="min-h-screen bg-[#F2F6FA] flex items-center justify-center">
-        <div className="w-8 h-8 border-4 border-[#D9B878] border-t-transparent rounded-full animate-spin" />
+        <div className="w-8 h-8 border-4 border-[#FAD98D] border-t-transparent rounded-full animate-spin" />
       </div>);
 
   }
@@ -225,11 +225,11 @@ export default function ChallengeDetailPage() {
   return (
     <div className="min-h-screen bg-[#F2F6FA] pb-24">
       {/* Header */}
-      <div className="sticky top-0 z-40 bg-white border-b border-[#E6EBEF] px-4 py-3">
+      <div className="sticky top-0 z-40 bg-white border-b border-[#F2F6FA] px-4 py-3">
         <div className="max-w-2xl mx-auto flex items-center justify-between">
           <button
             onClick={() => navigate(-1)}
-            className="w-9 h-9 rounded-full bg-[#E6EBEF] hover:bg-[#D9DFE4] flex items-center justify-center transition-colors">
+            className="w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors">
 
             <ArrowLeft className="w-4 h-4 text-[#0A1A2F]" />
           </button>
@@ -299,7 +299,7 @@ export default function ChallengeDetailPage() {
         {/* Encouragement Message */}
         {isParticipating &&
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}>
-            <div className="bg-gradient-to-r from-[#FAD98D]/10 to-[#F2F6FA] border border-[#D9B878]/40 rounded-xl p-4">
+            <div className="bg-gradient-to-r from-[#FAD98D]/10 to-[#F2F6FA] border border-[#FAD98D]/40 rounded-xl p-4">
               <p className="text-[#0A1A2F] font-semibold text-center">{encouragementMessage}</p>
             </div>
           </motion.div>
@@ -322,7 +322,7 @@ export default function ChallengeDetailPage() {
                     onClick={() => setSelectedDay(day)}
                     className={`flex-shrink-0 w-16 h-16 rounded-xl flex flex-col items-center justify-center text-xs font-semibold transition-all ${
                     isSelected ?
-                    'bg-[#D9B878] text-white shadow-md' :
+                    'bg-[#FAD98D] text-white shadow-md' :
                     isCompleted ?
                     'bg-emerald-500 text-white' :
                     'bg-gray-100 text-[#0A1A2F]/60 hover:bg-gray-200'}`
@@ -400,7 +400,7 @@ export default function ChallengeDetailPage() {
               
               <div className="grid grid-cols-3 gap-4 mb-4">
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-[#D9B878]">{currentStreak}</div>
+                  <div className="text-2xl font-bold text-[#FAD98D]">{currentStreak}</div>
                   <div className="text-xs text-[#0A1A2F]/60">Current Streak</div>
                 </div>
                 <div className="text-center">
@@ -408,7 +408,7 @@ export default function ChallengeDetailPage() {
                   <div className="text-xs text-[#0A1A2F]/60">Total Check-ins</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-[#8a6e1a]">{longestStreak}</div>
+                  <div className="text-2xl font-bold text-[#C9A227]">{longestStreak}</div>
                   <div className="text-xs text-[#0A1A2F]/60">Longest Streak</div>
                 </div>
               </div>
@@ -422,7 +422,7 @@ export default function ChallengeDetailPage() {
             <Button
               onClick={() => checkInToday.mutate()}
               disabled={checkInToday.isPending}
-              className="w-full bg-[#D9B878] hover:bg-[#D9B878]/90">
+              className="w-full bg-[#FAD98D] hover:bg-[#FAD98D]/90">
 
                   <CheckCircle2 className="w-5 h-5 mr-2" />
                   Check In for Today
@@ -464,7 +464,7 @@ export default function ChallengeDetailPage() {
 
                 <div className="bg-gray-50 rounded-xl p-4">
                   <div className="flex items-center gap-2 mb-2">
-                    <TrendingUp className="w-5 h-5 text-[#D9B878]" />
+                    <TrendingUp className="w-5 h-5 text-[#FAD98D]" />
                     <span className="text-sm text-[#0A1A2F]/60">Completion %</span>
                   </div>
                   <div className="text-2xl font-bold text-[#0A1A2F]">{userProgress}%</div>
@@ -504,7 +504,7 @@ export default function ChallengeDetailPage() {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: idx * 0.05 }}
                 className={`flex items-center gap-3 p-3 rounded-lg ${
-                participant.user_email === user?.email ? 'bg-[#D9B878]/10 border border-[#D9B878]' : 'bg-gray-50'}`
+                participant.user_email === user?.email ? 'bg-[#FAD98D]/10 border border-[#FAD98D]' : 'bg-gray-50'}`
                 }>
 
                     <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold shrink-0 ${
@@ -515,13 +515,13 @@ export default function ChallengeDetailPage() {
                 }>
                       {idx + 1}
                     </div>
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#D9B878] to-[#AFC7E3] flex items-center justify-center text-white font-bold shrink-0">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#FAD98D] to-[#AFC7E3] flex items-center justify-center text-white font-bold shrink-0">
                       {participant.user_name?.charAt(0).toUpperCase() || 'U'}
                     </div>
                     <div className="flex-1">
                       <h4 className="font-semibold text-[#0A1A2F] text-sm">
                         {participant.user_name || 'Anonymous'}
-                        {participant.user_email === user?.email && <span className="text-[#D9B878] ml-1">(You)</span>}
+                        {participant.user_email === user?.email && <span className="text-[#FAD98D] ml-1">(You)</span>}
                       </h4>
                       <div className="flex items-center gap-3 text-xs text-[#0A1A2F]/60">
                         <span>🔥 {participant.current_streak || 0} streak</span>
@@ -597,7 +597,7 @@ export default function ChallengeDetailPage() {
                 transition={{ delay: idx * 0.03 }}
                 className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors">
 
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#D9B878] to-[#AFC7E3] flex items-center justify-center text-white font-bold shrink-0">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#FAD98D] to-[#AFC7E3] flex items-center justify-center text-white font-bold shrink-0">
                       {participant.user_name?.charAt(0).toUpperCase() || 'U'}
                     </div>
                     <div className="flex-1">
@@ -607,7 +607,7 @@ export default function ChallengeDetailPage() {
                       <div className="flex items-center gap-2 mt-1">
                         <div className="flex-1 h-1.5 bg-gray-200 rounded-full overflow-hidden">
                           <div
-                        className="h-full bg-[#D9B878] transition-all"
+                        className="h-full bg-[#FAD98D] transition-all"
                         style={{ width: `${participant.progress || 0}%` }} />
 
                         </div>

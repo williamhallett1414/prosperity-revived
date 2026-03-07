@@ -119,7 +119,7 @@ Provide a clear, helpful answer in 2-3 sentences. Guide them to the right sectio
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            className="fixed bottom-24 right-6 w-80 h-96 bg-white dark:bg-[#2d2d4a] rounded-2xl shadow-2xl z-50 flex flex-col overflow-hidden border border-gray-200 dark:border-gray-700"
+            className="fixed bottom-24 right-6 w-80 h-96 bg-white dark:bg-[#0A1A2F] rounded-2xl shadow-2xl z-50 flex flex-col overflow-hidden border border-gray-200 dark:border-gray-700"
           >
             {/* Header */}
             <div className="bg-gradient-to-r from-[#3C4E53] to-[#FD9C2D] p-4 flex items-center justify-between">

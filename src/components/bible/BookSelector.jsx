@@ -22,7 +22,7 @@ export default function BookSelector({ onSelectBook, selectedBook }) {
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           onClick={() => handleNavigateToTestament('old')}
-          className="bg-[#FFFDF7] rounded-2xl shadow-md overflow-hidden hover:shadow-lg transition-all"
+          className="bg-[#F2F6FA] rounded-2xl shadow-md overflow-hidden hover:shadow-lg transition-all"
         >
           <div className="relative h-32 overflow-hidden">
             <img 
@@ -46,7 +46,7 @@ export default function BookSelector({ onSelectBook, selectedBook }) {
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           onClick={() => handleNavigateToTestament('new')}
-          className="bg-[#FFFDF7] rounded-2xl shadow-md overflow-hidden hover:shadow-lg transition-all"
+          className="bg-[#F2F6FA] rounded-2xl shadow-md overflow-hidden hover:shadow-lg transition-all"
         >
           <div className="relative h-32 overflow-hidden">
             <img 

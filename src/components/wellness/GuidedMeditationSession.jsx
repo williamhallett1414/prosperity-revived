@@ -136,7 +136,7 @@ export default function GuidedMeditationSession({ session, onClose }) {
 
           <button
             onClick={togglePlay}
-            className="bg-[#c9a227] hover:bg-[#b89320] p-4 rounded-full disabled:opacity-50 disabled:cursor-not-allowed transition"
+            className="bg-[#c9a227] hover:bg-[#C9A227] p-4 rounded-full disabled:opacity-50 disabled:cursor-not-allowed transition"
             disabled={!audioUrl}
           >
             {isPlaying ? (

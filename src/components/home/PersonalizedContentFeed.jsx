@@ -141,7 +141,7 @@ Return as JSON array with objects containing: type (post/user/plan), title, desc
       <div className="mb-6">
         <div className="flex items-center gap-2 mb-4">
           <Sparkles className="w-5 h-5 text-[#FD9C2D]" />
-          <h2 className="text-lg font-semibold text-[#1a1a2e] dark:text-white">For You</h2>
+          <h2 className="text-lg font-semibold text-[#0A1A2F] dark:text-white">For You</h2>
         </div>
         <div className="flex items-center justify-center py-8">
           <Loader2 className="w-6 h-6 text-[#FD9C2D] animate-spin" />
@@ -158,7 +158,7 @@ Return as JSON array with objects containing: type (post/user/plan), title, desc
     <div className="mb-6">
       <div className="flex items-center gap-2 mb-4">
         <Sparkles className="w-5 h-5 text-[#FD9C2D]" />
-        <h2 className="text-lg font-semibold text-[#1a1a2e] dark:text-white">Recommended For You</h2>
+        <h2 className="text-lg font-semibold text-[#0A1A2F] dark:text-white">Recommended For You</h2>
       </div>
 
       <div className="space-y-3">
@@ -178,7 +178,7 @@ Return as JSON array with objects containing: type (post/user/plan), title, desc
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center justify-between mb-1">
-                    <h3 className="font-semibold text-[#1a1a2e] dark:text-white text-sm">
+                    <h3 className="font-semibold text-[#0A1A2F] dark:text-white text-sm">
                       {rec.title}
                     </h3>
                     <span className="text-xs bg-[#FD9C2D]/20 text-[#FD9C2D] px-2 py-1 rounded-full font-medium">
@@ -196,7 +196,7 @@ Return as JSON array with objects containing: type (post/user/plan), title, desc
 
               <Button
                 size="sm"
-                className="w-full bg-gradient-to-r from-[#FD9C2D] to-[#FAD98D] hover:from-[#E89020] hover:to-[#F0C847] text-white"
+                className="w-full bg-gradient-to-r from-[#FD9C2D] to-[#FAD98D] hover:from-[#E89020] hover:to-[#C9A227] text-white"
               >
                 {rec.type === 'post' && 'View Post'}
                 {rec.type === 'user' && 'Visit Profile'}

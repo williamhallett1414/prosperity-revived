@@ -282,7 +282,7 @@ Assistant: ${response}`,
       {/* Floating Button */}
       <motion.button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-24 right-4 w-14 h-14 bg-gradient-to-r from-[#c9a227] to-[#D9B878] hover:opacity-90 text-white rounded-full shadow-lg flex items-center justify-center z-50"
+        className="fixed bottom-24 right-4 w-14 h-14 bg-gradient-to-r from-[#c9a227] to-[#FAD98D] hover:opacity-90 text-white rounded-full shadow-lg flex items-center justify-center z-50"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
         initial={{ scale: 0 }}
@@ -298,11 +298,11 @@ Assistant: ${response}`,
             initial={{ opacity: 0, y: 100, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 100, scale: 0.9 }}
-            className="fixed bottom-24 right-4 w-[calc(100vw-2rem)] sm:w-96 h-[min(500px,calc(100dvh-7rem))] bg-white rounded-2xl shadow-2xl flex flex-col z-50 border border-[#D9B878]/20 overflow-hidden"
+            className="fixed bottom-24 right-4 w-[calc(100vw-2rem)] sm:w-96 h-[min(500px,calc(100dvh-7rem))] bg-white rounded-2xl shadow-2xl flex flex-col z-50 border border-[#FAD98D]/20 overflow-hidden"
             style={{ paddingTop: 'env(safe-area-inset-top)' }}
           >
             {/* Header */}
-            <div className="bg-gradient-to-r from-[#c9a227] to-[#D9B878] px-5 py-5 rounded-t-2xl flex items-center justify-between">
+            <div className="bg-gradient-to-r from-[#c9a227] to-[#FAD98D] px-5 py-5 rounded-t-2xl flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
                   <BookOpen className="w-6 h-6 text-white" />
@@ -344,7 +344,7 @@ Assistant: ${response}`,
               name="Gideon"
               subtitle="Your Spiritual Guide"
               gradientFrom="#c9a227"
-              gradientTo="#D9B878"
+              gradientTo="#FAD98D"
             />
 
             {/* Proactive Insight Card */}
@@ -378,7 +378,7 @@ Assistant: ${response}`,
             )}
 
         {/* Messages */}
-        <div className="flex-1 overflow-y-auto p-5 space-y-4 bg-gradient-to-b from-[#FFFDF7] to-white">
+        <div className="flex-1 overflow-y-auto p-5 space-y-4 bg-gradient-to-b from-[#F2F6FA] to-white">
           {messages.map((message, idx) => (
             <motion.div
               key={idx}
@@ -389,7 +389,7 @@ Assistant: ${response}`,
               <div
                 className={`max-w-[80%] rounded-2xl px-4 py-3 ${
                   message.role === 'user'
-                    ? 'bg-gradient-to-r from-[#c9a227] to-[#D9B878] text-white'
+                    ? 'bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white'
                     : 'bg-[#FAD98D]/12 text-[#0A1A2F]'
                 }`}
               >
@@ -425,7 +425,7 @@ Assistant: ${response}`,
                 <button
                   key={idx}
                   onClick={() => sendWithText(action)}
-                  className="block w-full text-left text-sm px-4 py-3 rounded-xl bg-white hover:bg-[#FFFDF7] text-[#0A1A2F] transition-colors shadow-sm border border-[#D9B878]/20"
+                  className="block w-full text-left text-sm px-4 py-3 rounded-xl bg-white hover:bg-[#F2F6FA] text-[#0A1A2F] transition-colors shadow-sm border border-[#FAD98D]/20"
                 >
                   {action}
                 </button>
@@ -437,14 +437,14 @@ Assistant: ${response}`,
         </div>
 
         {/* Input */}
-        <div className="p-5 border-t border-[#D9B878]/20 bg-white">
+        <div className="p-5 border-t border-[#FAD98D]/20 bg-white">
           <div className="flex gap-2 items-center">
             <Input
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyPress={(e) => e.key === 'Enter' && handleSend()}
               placeholder="Ask Gideon about faith, Scripture, or spiritual growth..."
-              className="flex-1 bg-[#FFFDF7] border-[#D9B878]/20 h-11"
+              className="flex-1 bg-[#F2F6FA] border-[#FAD98D]/20 h-11"
               disabled={isLoading}
             />
             <VoiceInputButton
@@ -452,13 +452,13 @@ Assistant: ${response}`,
               onInterim={(text) => setInput(text)}
               onListeningChange={setIsListening}
               disabled={isLoading}
-              accentColor="bg-[#D9B878]"
+              accentColor="bg-[#FAD98D]"
               activeColor="bg-[#c9a227]"
             />
             <Button
               onClick={handleSend}
               disabled={!input.trim() || isLoading}
-              className="bg-gradient-to-r from-[#c9a227] to-[#D9B878] hover:from-[#b89320] hover:to-[#c9a227] text-white h-11 px-5"
+              className="bg-gradient-to-r from-[#c9a227] to-[#FAD98D] hover:from-[#C9A227] hover:to-[#c9a227] text-white h-11 px-5"
               size="icon"
             >
               <Send className="w-4 h-4" />

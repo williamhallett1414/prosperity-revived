@@ -9,7 +9,7 @@ const pathways = [
     id: 'confidence',
     title: 'Confidence',
     icon: Target,
-    color: '#D9B878',
+    color: '#FAD98D',
     teaching: "True confidence comes from knowing who you are in Christ. You are not defined by your performance, but by God's love for you.",
     scripture: "Philippians 4:13 - I can do all things through Christ who strengthens me.",
     reflection: "What area of your life needs more confidence? How can you lean on God's strength today?",
@@ -29,7 +29,7 @@ const pathways = [
     id: 'discipline',
     title: 'Discipline',
     icon: Zap,
-    color: '#D9B878',
+    color: '#FAD98D',
     teaching: "Discipline is not about perfection—it's about consistency. Small daily steps lead to lasting transformation.",
     scripture: "1 Corinthians 9:27 - I discipline my body and keep it under control.",
     reflection: "What area of your life needs more structure? What small step can you take today?",
@@ -49,7 +49,7 @@ const pathways = [
     id: 'faith_habits',
     title: 'Faith Habits',
     icon: BookOpen,
-    color: '#D9B878',
+    color: '#FAD98D',
     teaching: "Faith grows through intentional practice—prayer, reading Scripture, worship, and fellowship. Consistency builds a strong foundation.",
     scripture: "Hebrews 10:25 - Not giving up meeting together, as some are in the habit of doing, but encouraging one another.",
     reflection: "What spiritual disciplines do you want to strengthen? What's holding you back?",
@@ -78,7 +78,7 @@ export default function PersonalGrowthPathways() {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: index * 0.05 }}
                 onClick={() => setSelectedPathway(pathway)}
-                className="bg-white rounded-xl p-4 border border-gray-200 hover:border-[#D9B878] hover:shadow-md transition-all text-left"
+                className="bg-white rounded-xl p-4 border border-gray-200 hover:border-[#FAD98D] hover:shadow-md transition-all text-left"
               >
                 <Icon className="w-6 h-6 mb-2" style={{ color: pathway.color }} />
                 <h4 className="text-sm font-semibold text-[#0A1A2F] mb-1">{pathway.title}</h4>
@@ -107,8 +107,8 @@ export default function PersonalGrowthPathways() {
                   <p className="text-[#0A1A2F]">{selectedPathway.teaching}</p>
                 </div>
 
-                <div className="bg-[#D9B878]/10 rounded-xl p-4">
-                  <p className="text-sm font-semibold text-[#D9B878] mb-1">Scripture</p>
+                <div className="bg-[#FAD98D]/10 rounded-xl p-4">
+                  <p className="text-sm font-semibold text-[#FAD98D] mb-1">Scripture</p>
                   <p className="text-sm text-[#0A1A2F] italic">{selectedPathway.scripture}</p>
                 </div>
 
@@ -125,7 +125,7 @@ export default function PersonalGrowthPathways() {
 
               <Button
                 onClick={() => setSelectedPathway(null)}
-                className="w-full mt-6 bg-[#D9B878] hover:bg-[#D9B878]/90 text-[#0A1A2F]"
+                className="w-full mt-6 bg-[#FAD98D] hover:bg-[#FAD98D]/90 text-[#0A1A2F]"
               >
                 Close
               </Button>

@@ -64,7 +64,7 @@ export default function CustomWorkoutBuilder({ exercises, onChange }) {
       <div className="grid md:grid-cols-2 gap-4 h-[500px]">
         {/* Exercise Library */}
         <div className="flex flex-col bg-gray-50 dark:bg-gray-800 rounded-xl p-4">
-          <h3 className="font-semibold text-[#1a1a2e] dark:text-white mb-3">Exercise Library</h3>
+          <h3 className="font-semibold text-[#0A1A2F] dark:text-white mb-3">Exercise Library</h3>
           
           <Input
             placeholder="Search exercises..."
@@ -98,7 +98,7 @@ export default function CustomWorkoutBuilder({ exercises, onChange }) {
                           ref={provided.innerRef}
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
-                          className={`bg-white dark:bg-[#2d2d4a] rounded-lg p-3 cursor-grab active:cursor-grabbing ${
+                          className={`bg-white dark:bg-[#0A1A2F] rounded-lg p-3 cursor-grab active:cursor-grabbing ${
                             snapshot.isDragging ? 'shadow-lg opacity-80' : ''
                           }`}
                         >
@@ -106,7 +106,7 @@ export default function CustomWorkoutBuilder({ exercises, onChange }) {
                             <GripVertical className="w-4 h-4 text-gray-400 flex-shrink-0 mt-1" />
                             {Icon && <Icon className="w-4 h-4 text-gray-600 dark:text-gray-400 flex-shrink-0 mt-1" />}
                             <div className="flex-1 min-w-0">
-                              <p className="font-medium text-sm text-[#1a1a2e] dark:text-white">{exercise.name}</p>
+                              <p className="font-medium text-sm text-[#0A1A2F] dark:text-white">{exercise.name}</p>
                               <p className="text-xs text-gray-500 dark:text-gray-400 truncate">{exercise.description}</p>
                             </div>
                           </div>
@@ -123,7 +123,7 @@ export default function CustomWorkoutBuilder({ exercises, onChange }) {
 
         {/* Workout Plan */}
         <div className="flex flex-col bg-gray-50 dark:bg-gray-800 rounded-xl p-4">
-          <h3 className="font-semibold text-[#1a1a2e] dark:text-white mb-3">
+          <h3 className="font-semibold text-[#0A1A2F] dark:text-white mb-3">
             Your Workout ({exercises.length} exercises)
           </h3>
 
@@ -153,7 +153,7 @@ export default function CustomWorkoutBuilder({ exercises, onChange }) {
                       <div
                         ref={provided.innerRef}
                         {...provided.draggableProps}
-                        className={`bg-white dark:bg-[#2d2d4a] rounded-lg p-3 ${
+                        className={`bg-white dark:bg-[#0A1A2F] rounded-lg p-3 ${
                           snapshot.isDragging ? 'shadow-lg' : ''
                         }`}
                       >
@@ -162,7 +162,7 @@ export default function CustomWorkoutBuilder({ exercises, onChange }) {
                             <GripVertical className="w-4 h-4 text-gray-400 cursor-grab active:cursor-grabbing" />
                           </div>
                           <div className="flex-1">
-                            <p className="font-medium text-sm text-[#1a1a2e] dark:text-white">{exercise.name}</p>
+                            <p className="font-medium text-sm text-[#0A1A2F] dark:text-white">{exercise.name}</p>
                           </div>
                           <Button
                             variant="ghost"

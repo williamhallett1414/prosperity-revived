@@ -197,7 +197,7 @@ STYLE RULES:
       {/* Floating button */}
       <motion.button
         onClick={handleOpen}
-        className="fixed bottom-24 right-4 w-14 h-14 bg-gradient-to-br from-[#c9a227] to-[#92701a] hover:opacity-90 text-white rounded-full shadow-lg flex items-center justify-center z-40"
+        className="fixed bottom-24 right-4 w-14 h-14 bg-gradient-to-br from-[#c9a227] to-[#C9A227] hover:opacity-90 text-white rounded-full shadow-lg flex items-center justify-center z-40"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
         initial={{ scale: 0 }}
@@ -216,7 +216,7 @@ STYLE RULES:
             className="fixed bottom-24 right-4 w-[calc(100vw-2rem)] sm:w-96 h-[min(500px,calc(100dvh-7rem))] bg-white rounded-2xl shadow-2xl flex flex-col z-50 border border-[#c9a227]/30 overflow-hidden"
           >
             {/* Header */}
-            <div className="bg-gradient-to-r from-[#c9a227] to-[#92701a] text-white p-5 rounded-t-2xl flex items-center justify-between flex-shrink-0">
+            <div className="bg-gradient-to-r from-[#c9a227] to-[#C9A227] text-white p-5 rounded-t-2xl flex items-center justify-between flex-shrink-0">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
                   <MessageCircle className="w-6 h-6 text-white" />
@@ -271,7 +271,7 @@ STYLE RULES:
                     ) : (
                       <div className={`max-w-[80%] rounded-2xl px-4 py-3 ${
                         msg.role === 'user'
-                          ? 'bg-gradient-to-r from-[#c9a227] to-[#92701a] text-white'
+                          ? 'bg-gradient-to-r from-[#c9a227] to-[#C9A227] text-white'
                           : 'bg-white border border-[#c9a227]/30 text-[#0A1A2F]'
                       }`}>
                         {msg.role === 'user' ? (
@@ -293,7 +293,7 @@ STYLE RULES:
                               ) : (
                                 <button
                                   onClick={() => speakMessage(msg.content)}
-                                  className="text-[10px] font-semibold text-[#92701a] hover:text-[#c9a227] flex items-center gap-1 transition-colors"
+                                  className="text-[10px] font-semibold text-[#C9A227] hover:text-[#c9a227] flex items-center gap-1 transition-colors"
                                 >
                                   <Volume2 className="w-3 h-3" /> Listen
                                 </button>
@@ -326,10 +326,10 @@ STYLE RULES:
             <div className="flex-shrink-0 border-t border-[#c9a227]/15">
               <button
                 onClick={() => setShowQuickAsks(p => !p)}
-                className="w-full flex items-center justify-between px-4 py-2 bg-[#FFF9EC] hover:bg-[#fff3d6] transition-colors"
+                className="w-full flex items-center justify-between px-4 py-2 bg-[#FFF9EC] hover:bg-[#FFF9EC] transition-colors"
               >
-                <span className="text-[10px] font-bold text-[#92701a] uppercase tracking-wide">Quick Ask</span>
-                <ChevronDown className={`w-3.5 h-3.5 text-[#92701a] transition-transform duration-200 ${showQuickAsks ? 'rotate-180' : ''}`} />
+                <span className="text-[10px] font-bold text-[#C9A227] uppercase tracking-wide">Quick Ask</span>
+                <ChevronDown className={`w-3.5 h-3.5 text-[#C9A227] transition-transform duration-200 ${showQuickAsks ? 'rotate-180' : ''}`} />
               </button>
               <AnimatePresence>
                 {showQuickAsks && (
@@ -343,7 +343,7 @@ STYLE RULES:
                           key={qa.label}
                           onClick={() => handleQuickAsk(qa)}
                           disabled={loading}
-                          className="text-xs font-semibold text-[#92701a] bg-white border border-[#c9a227]/30 rounded-lg px-2.5 py-2 hover:border-[#c9a227]/60 transition-all flex items-center gap-1.5 disabled:opacity-50"
+                          className="text-xs font-semibold text-[#C9A227] bg-white border border-[#c9a227]/30 rounded-lg px-2.5 py-2 hover:border-[#c9a227]/60 transition-all flex items-center gap-1.5 disabled:opacity-50"
                         >
                           <span>{qa.emoji}</span>
                           <span className="truncate">{qa.label}</span>
@@ -372,7 +372,7 @@ STYLE RULES:
                 <button
                   onClick={() => handleSendMessage()}
                   disabled={!input.trim() || loading}
-                  className="w-10 h-10 rounded-xl bg-gradient-to-r from-[#c9a227] to-[#92701a] text-white flex items-center justify-center disabled:opacity-50 hover:shadow-lg transition-all flex-shrink-0"
+                  className="w-10 h-10 rounded-xl bg-gradient-to-r from-[#c9a227] to-[#C9A227] text-white flex items-center justify-center disabled:opacity-50 hover:shadow-lg transition-all flex-shrink-0"
                 >
                   <Send className="w-4 h-4" />
                 </button>

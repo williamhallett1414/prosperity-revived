@@ -60,7 +60,7 @@ export default function AIEncouragement({ journalEntries, goals }) {
 
   if (!encouragement && !loading) {
     return (
-      <div className="bg-gradient-to-r from-[#1a1a2e] to-[#2d2d4a] rounded-2xl p-5 text-white mb-6">
+      <div className="bg-gradient-to-r from-[#0A1A2F] to-[#0A1A2F] rounded-2xl p-5 text-white mb-6">
         <div className="flex items-center gap-2 mb-3">
           <Sparkles className="w-5 h-5 text-[#c9a227]" />
           <h3 className="font-semibold">Daily AI Encouragement</h3>
@@ -70,7 +70,7 @@ export default function AIEncouragement({ journalEntries, goals }) {
         </p>
         <Button
           onClick={generateEncouragement}
-          className="w-full bg-[#c9a227] hover:bg-[#b89320] text-white"
+          className="w-full bg-[#c9a227] hover:bg-[#C9A227] text-white"
         >
           Generate Encouragement
         </Button>
@@ -83,7 +83,7 @@ export default function AIEncouragement({ journalEntries, goals }) {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-gradient-to-r from-[#1a1a2e] to-[#2d2d4a] rounded-2xl p-5 text-white mb-6"
+        className="bg-gradient-to-r from-[#0A1A2F] to-[#0A1A2F] rounded-2xl p-5 text-white mb-6"
       >
         {loading ? (
           <div className="flex items-center justify-center py-8">

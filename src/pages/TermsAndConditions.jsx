@@ -13,7 +13,7 @@ export default function TermsAndConditions() {
           <div className="flex items-center gap-3 mb-2">
             <Link
               to={createPageUrl('Settings')}
-              className="w-9 h-9 rounded-full bg-[#E6EBEF] hover:bg-[#D9DFE4] flex items-center justify-center transition-colors">
+              className="w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors">
               <ArrowLeft className="w-4 h-4 text-[#0A1A2F]" />
             </Link>
             <h1 className="text-2xl font-bold text-[#0A1A2F] flex items-center gap-2">

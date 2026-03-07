@@ -134,7 +134,7 @@ Consolidate duplicates, include realistic quantities (e.g. "2 lbs chicken breast
     <div className="bg-white rounded-2xl shadow-sm p-5 space-y-5">
       {/* Header */}
       <div className="flex items-center gap-3">
-        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#c9a227] to-[#D9B878] flex items-center justify-center flex-shrink-0">
+        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center flex-shrink-0">
           <CalendarDays className="w-5 h-5 text-white" />
         </div>
         <div>
@@ -162,7 +162,7 @@ Consolidate duplicates, include realistic quantities (e.g. "2 lbs chicken breast
             {selectedRecipes.map(r => (
               <span
                 key={r.id}
-                className="flex items-center gap-1.5 bg-[#FAD98D]/30 text-[#0A1A2F] border border-[#D9B878]/40 rounded-full px-3 py-1 text-sm"
+                className="flex items-center gap-1.5 bg-[#FAD98D]/30 text-[#0A1A2F] border border-[#FAD98D]/40 rounded-full px-3 py-1 text-sm"
               >
                 {r.title}
                 <button onClick={() => toggleRecipe(r)} className="text-[#0A1A2F]/50 hover:text-[#0A1A2F]">
@@ -195,7 +195,7 @@ Consolidate duplicates, include realistic quantities (e.g. "2 lbs chicken breast
                         className={`flex items-center justify-between p-3 rounded-xl border text-left transition-all ${
                           isSelected
                             ? 'bg-[#FAD98D]/15 border-[#c9a227]/30'
-                            : 'bg-[#F2F6FA] border-[#D9B878]/20 hover:border-[#8fa68a]/30'
+                            : 'bg-[#F2F6FA] border-[#FAD98D]/20 hover:border-[#AFC7E3]/30'
                         }`}
                       >
                         <div>
@@ -218,7 +218,7 @@ Consolidate duplicates, include realistic quantities (e.g. "2 lbs chicken breast
         onClick={generateWeekPlan}
         disabled={selectedRecipes.length === 0 || isGenerating}
         className={`w-full text-white font-semibold ${
-          selectedRecipes.length === 0 ? 'opacity-50 cursor-not-allowed bg-[#D9B878]' : 'bg-gradient-to-r from-[#c9a227] to-[#D9B878]'
+          selectedRecipes.length === 0 ? 'opacity-50 cursor-not-allowed bg-[#FAD98D]' : 'bg-gradient-to-r from-[#c9a227] to-[#FAD98D]'
         }`}
       >
         {isGenerating ? (
@@ -245,7 +245,7 @@ Consolidate duplicates, include realistic quantities (e.g. "2 lbs chicken breast
               {showPlan && (
                 <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="space-y-2 overflow-hidden">
                   {weekPlan.map((day, i) => (
-                    <div key={i} className="bg-[#F2F6FA] rounded-xl p-4 border border-[#D9B878]/20">
+                    <div key={i} className="bg-[#F2F6FA] rounded-xl p-4 border border-[#FAD98D]/20">
                       <p className="text-xs font-bold text-[#c9a227] uppercase tracking-wide mb-2">{day.day}</p>
                       <div className="space-y-1.5">
                         {MEAL_TYPES.map(type => (
@@ -266,7 +266,7 @@ Consolidate duplicates, include realistic quantities (e.g. "2 lbs chicken breast
               onClick={generateShoppingList}
               disabled={isGeneratingList}
               variant="outline"
-              className="w-full border-[#D9B878]/50 text-[#0A1A2F] hover:bg-[#FAD98D]/10"
+              className="w-full border-[#FAD98D]/50 text-[#0A1A2F] hover:bg-[#FAD98D]/10"
             >
               {isGeneratingList ? (
                 <><Loader2 className="w-4 h-4 mr-2 animate-spin" />Building list...</>
@@ -293,8 +293,8 @@ Consolidate duplicates, include realistic quantities (e.g. "2 lbs chicken breast
               {showList && (
                 <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="space-y-3 overflow-hidden">
                   {shoppingList.map((cat, i) => (
-                    <div key={i} className="bg-[#F2F6FA] rounded-xl p-4 border border-[#D9B878]/20">
-                      <p className="text-xs font-bold text-[#8a6e1a] uppercase tracking-wide mb-2">{cat.name}</p>
+                    <div key={i} className="bg-[#F2F6FA] rounded-xl p-4 border border-[#FAD98D]/20">
+                      <p className="text-xs font-bold text-[#C9A227] uppercase tracking-wide mb-2">{cat.name}</p>
                       <ul className="space-y-1">
                         {cat.items.map((item, j) => (
                           <li key={j} className="flex gap-2 text-sm text-[#0A1A2F]/80">

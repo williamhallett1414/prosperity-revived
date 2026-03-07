@@ -66,7 +66,7 @@ export default function JournalTagManager({ entry, onUpdate }) {
   };
 
   const tagColors = [
-    'bg-[#FAD98D]/20 text-[#1a1a2e]',
+    'bg-[#FAD98D]/20 text-[#0A1A2F]',
     'bg-[#FAD98D]/20 text-pink-800',
     'bg-[#AFC7E3]/20 text-blue-800',
     'bg-green-100 text-green-800',

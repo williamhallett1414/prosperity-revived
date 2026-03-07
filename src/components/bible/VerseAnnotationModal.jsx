@@ -7,9 +7,9 @@ import { Label } from '@/components/ui/label';
 const highlightColors = {
   yellow: { bg: 'bg-yellow-200', label: 'Yellow' },
   green: { bg: 'bg-[#AFC7E3]/50', label: 'Blue' },
-  blue: { bg: 'bg-[#D9B878]/40', label: 'Gold' },
+  blue: { bg: 'bg-[#FAD98D]/40', label: 'Gold' },
   pink: { bg: 'bg-[#FAD98D]/35', label: 'Warm' },
-  purple: { bg: 'bg-[#D9B878]/30', label: 'Purple' }
+  purple: { bg: 'bg-[#FAD98D]/30', label: 'Purple' }
 };
 
 export default function VerseAnnotationModal({ isOpen, onClose, verse, bookmark, onSave }) {
@@ -32,7 +32,7 @@ export default function VerseAnnotationModal({ isOpen, onClose, verse, bookmark,
         
         <div className="space-y-4">
           {/* Verse Display */}
-          <div className="bg-[#FFFDF7] rounded-lg p-4 border-l-4 border-[#c9a227]">
+          <div className="bg-[#F2F6FA] rounded-lg p-4 border-l-4 border-[#c9a227]">
             <p className="font-serif text-[#0A1A2F] leading-relaxed mb-2">
               {verse.text}
             </p>

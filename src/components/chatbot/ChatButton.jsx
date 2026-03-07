@@ -19,8 +19,8 @@ const BOT_STYLES = {
   Hannah:     { label: 'Chat with Hannah',      icon: 'H', from: '#AFC7E3', to: '#3C4E53' },
   CoachDavid: { label: 'Chat with Coach David', icon: 'D', from: '#1e40af', to: '#38BDF8' },
   ChefDaniel: { label: 'Chat with Chef Daniel', icon: 'C', from: '#166534', to: '#22c55e' },
-  Gideon:     { label: 'Chat with Gideon',      icon: 'G', from: '#7c5a00', to: '#D9B878' },
-  CoachPaul:  { label: 'Chat with Coach Paul',  icon: 'P', from: '#3B0764', to: '#A78BFA' },
+  Gideon:     { label: 'Chat with Gideon',      icon: 'G', from: '#7c5a00', to: '#FAD98D' },
+  CoachPaul:  { label: 'Chat with Coach Paul',  icon: 'P', from: '#0A1A2F', to: '#A78BFA' },
 };
 
 export default function ChatButton({ bot = 'Hannah' }) {

@@ -200,12 +200,12 @@ export default function BibleSearchBar({ onNavigate }) {
               onKeyDown={handleKeyDown}
               onFocus={() => searchQuery && setShowSuggestions(true)}
               placeholder="Quick navigation: books, chapters, verses…"
-              className="w-full pl-12 pr-12 py-3.5 bg-white rounded-2xl border-2 border-[#D9B878]/20 focus:border-[#D9B878] focus:outline-none text-[#0A1A2F] placeholder:text-[#0A1A2F]/40 transition-all shadow-sm"
+              className="w-full pl-12 pr-12 py-3.5 bg-white rounded-2xl border-2 border-[#FAD98D]/20 focus:border-[#FAD98D] focus:outline-none text-[#0A1A2F] placeholder:text-[#0A1A2F]/40 transition-all shadow-sm"
             />
             {searchQuery && (
               <button
                 onClick={clearSearch}
-                className="absolute right-4 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-[#D9B878]/20 hover:bg-[#D9B878]/35 flex items-center justify-center transition-colors"
+                className="absolute right-4 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-[#FAD98D]/20 hover:bg-[#FAD98D]/35 flex items-center justify-center transition-colors"
               >
                 <X className="w-4 h-4 text-[#0A1A2F]/60" />
               </button>
@@ -214,7 +214,7 @@ export default function BibleSearchBar({ onNavigate }) {
           
           <button
             onClick={() => setShowAdvancedSearch(true)}
-            className="px-4 py-3.5 bg-gradient-to-r from-[#c9a227] to-[#D9B878] hover:from-[#b89320] hover:to-[#c9a227] text-white rounded-2xl font-medium flex items-center gap-2 transition-all shadow-sm"
+            className="px-4 py-3.5 bg-gradient-to-r from-[#c9a227] to-[#FAD98D] hover:from-[#C9A227] hover:to-[#c9a227] text-white rounded-2xl font-medium flex items-center gap-2 transition-all shadow-sm"
           >
             <Sparkles className="w-5 h-5" />
             <span className="hidden sm:inline">Advanced Search</span>
@@ -228,14 +228,14 @@ export default function BibleSearchBar({ onNavigate }) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.15 }}
-            className="absolute top-full left-0 right-0 mt-2 bg-white rounded-2xl border-2 border-[#D9B878]/20 shadow-xl overflow-hidden z-50"
+            className="absolute top-full left-0 right-0 mt-2 bg-white rounded-2xl border-2 border-[#FAD98D]/20 shadow-xl overflow-hidden z-50"
           >
             <div className="py-2 max-h-80 overflow-y-auto">
               {suggestions.map((suggestion, index) => (
                 <button
                   key={index}
                   onClick={() => handleSuggestionClick(suggestion)}
-                  className="w-full px-4 py-3 text-left hover:bg-[#FFFDF7] transition-colors flex items-center justify-between group"
+                  className="w-full px-4 py-3 text-left hover:bg-[#F2F6FA] transition-colors flex items-center justify-between group"
                 >
                   <div className="flex items-center gap-3">
                     {suggestion.type === 'book' && (
@@ -263,7 +263,7 @@ export default function BibleSearchBar({ onNavigate }) {
                     </div>
                   </div>
                   <div className="opacity-0 group-hover:opacity-100 transition-opacity">
-                    <div className="w-6 h-6 rounded-full bg-[#D9B878] flex items-center justify-center">
+                    <div className="w-6 h-6 rounded-full bg-[#FAD98D] flex items-center justify-center">
                       <span className="text-white text-xs">→</span>
                     </div>
                   </div>

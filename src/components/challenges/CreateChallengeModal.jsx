@@ -122,9 +122,9 @@ export default function CreateChallengeModal({ isOpen, onClose, onSubmit, groupI
         className="bg-white w-full sm:max-w-md sm:rounded-2xl rounded-t-3xl max-h-[90dvh] flex flex-col overflow-hidden shadow-2xl"
       >
         {/* Header */}
-        <div className="bg-gradient-to-r from-[#0A1A2F] to-[#1a3a5c] px-5 py-4 flex items-center justify-between flex-shrink-0">
+        <div className="bg-gradient-to-r from-[#0A1A2F] to-[#0A1A2F] px-5 py-4 flex items-center justify-between flex-shrink-0">
           <div className="flex items-center gap-2">
-            <Sparkles className="w-5 h-5 text-[#D9B878]" />
+            <Sparkles className="w-5 h-5 text-[#FAD98D]" />
             <h2 className="font-bold text-white">New Challenge</h2>
           </div>
           <button onClick={onClose} className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20">
@@ -146,8 +146,8 @@ export default function CreateChallengeModal({ isOpen, onClose, onSubmit, groupI
                 initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.04 }}
                 className={`w-full text-left rounded-2xl border p-4 transition-all ${
                   isChosen
-                    ? 'border-[#c9a227] bg-[#FFF9ED] shadow-sm'
-                    : 'border-[#E2E8F0] bg-white hover:border-[#D9B878]/50'
+                    ? 'border-[#c9a227] bg-white shadow-sm'
+                    : 'border-[#F2F6FA] bg-white hover:border-[#FAD98D]/50'
                 }`}
               >
                 <div className="flex items-start gap-3">
@@ -174,13 +174,13 @@ export default function CreateChallengeModal({ isOpen, onClose, onSubmit, groupI
         </div>
 
         {/* Footer */}
-        <div className="border-t border-[#E2E8F0] px-5 py-4 flex gap-3 bg-white flex-shrink-0">
+        <div className="border-t border-[#F2F6FA] px-5 py-4 flex gap-3 bg-white flex-shrink-0">
           <button onClick={onClose}
-            className="flex-1 py-3 rounded-xl border border-[#E2E8F0] text-[#0A1A2F]/50 font-semibold text-sm">
+            className="flex-1 py-3 rounded-xl border border-[#F2F6FA] text-[#0A1A2F]/50 font-semibold text-sm">
             Cancel
           </button>
           <button onClick={handleCreate} disabled={!selected || loading}
-            className="flex-1 py-3 rounded-xl bg-gradient-to-r from-[#D9B878] to-[#c9a227] text-[#0A1A2F] font-bold text-sm disabled:opacity-40 hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
+            className="flex-1 py-3 rounded-xl bg-gradient-to-r from-[#FAD98D] to-[#c9a227] text-[#0A1A2F] font-bold text-sm disabled:opacity-40 hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
             {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Sparkles className="w-4 h-4" />}
             {loading ? 'Creating…' : 'Launch Challenge'}
           </button>

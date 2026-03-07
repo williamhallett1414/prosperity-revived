@@ -17,9 +17,9 @@ import VerseAnnotationModal from '@/components/bible/VerseAnnotationModal';
 const highlightColors = {
   yellow: 'bg-[#FAD98D]/60',
   green: 'bg-[#AFC7E3]/50',
-  blue: 'bg-[#D9B878]/40',
+  blue: 'bg-[#FAD98D]/40',
   pink: 'bg-[#FAD98D]/35',
-  purple: 'bg-[#D9B878]/30/60'
+  purple: 'bg-[#FAD98D]/30/60'
 };
 
 export default function VerseReader({ book, chapter, onBack, onNavigate, bookmarks, onBookmark, planDay, planId }) {
@@ -137,7 +137,7 @@ export default function VerseReader({ book, chapter, onBack, onNavigate, bookmar
   const canGoPrev = chapter > 1;
 
   return (
-    <div className="h-full flex flex-col bg-[#FFFDF7]">
+    <div className="h-full flex flex-col bg-[#F2F6FA]">
       {/* Plan Badge */}
       {planDay && planId && (
         <div className="bg-[#c9a227] text-white px-4 py-2 text-sm text-center">
@@ -146,7 +146,7 @@ export default function VerseReader({ book, chapter, onBack, onNavigate, bookmar
       )}
       
       {/* Header */}
-      <div className="flex items-center justify-between px-4 py-3 bg-[#FFFDF7] border-b border-[#D9B878]/20">
+      <div className="flex items-center justify-between px-4 py-3 bg-[#F2F6FA] border-b border-[#FAD98D]/20">
         <div className="flex items-center gap-2">
           <Button variant="ghost" size="icon" onClick={onBack}>
             <ArrowLeft className="w-5 h-5" />
@@ -224,7 +224,7 @@ export default function VerseReader({ book, chapter, onBack, onNavigate, bookmar
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 20 }}
-                className="fixed bottom-24 left-1/2 -translate-x-1/2 bg-[#FFFDF7] rounded-2xl shadow-xl p-4 z-50 min-w-[300px]"
+                className="fixed bottom-24 left-1/2 -translate-x-1/2 bg-[#F2F6FA] rounded-2xl shadow-xl p-4 z-50 min-w-[300px]"
               >
                 <p className="text-sm text-[#0A1A2F]/50 mb-3">Actions:</p>
                 <div className="space-y-3">
@@ -245,7 +245,7 @@ export default function VerseReader({ book, chapter, onBack, onNavigate, bookmar
                   </div>
                   <button
                     onClick={() => handleAnnotate(verses.find(v => v.number === selectedVerse))}
-                    className="w-full flex items-center justify-center gap-2 py-2 px-4 bg-[#FFFDF7] border-2 border-[#c9a227] text-[#0A1A2F] rounded-lg hover:bg-[#FFFDF7] transition-colors"
+                    className="w-full flex items-center justify-center gap-2 py-2 px-4 bg-[#F2F6FA] border-2 border-[#c9a227] text-[#0A1A2F] rounded-lg hover:bg-[#F2F6FA] transition-colors"
                   >
                     <FileText className="w-4 h-4" />
                     Add Note & Highlight
@@ -274,7 +274,7 @@ export default function VerseReader({ book, chapter, onBack, onNavigate, bookmar
       </ScrollArea>
 
       {/* Navigation */}
-      <div className="flex items-center justify-between px-4 py-3 bg-[#FFFDF7] border-t border-[#D9B878]/20">
+      <div className="flex items-center justify-between px-4 py-3 bg-[#F2F6FA] border-t border-[#FAD98D]/20">
         <Button
           variant="ghost"
           disabled={!canGoPrev}

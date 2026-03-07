@@ -3,7 +3,7 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const ATTACHMENT_STYLES_WEEK_THEMES = [
-  { week: 1, theme: 'Understanding Attachment',   title: 'Your Wiring Revealed',         color: 'from-[#7c3aed] to-[#0A1A2F]', accent: '#7c3aed', emoji: '🧩' },
+  { week: 1, theme: 'Understanding Attachment',   title: 'Your Wiring Revealed',         color: 'from-[#8B5CF6] to-[#0A1A2F]', accent: '#8B5CF6', emoji: '🧩' },
   { week: 2, theme: 'Avoidant Patterns',          title: 'Breaking the Distance',        color: 'from-[#06b6d4] to-[#0A1A2F]', accent: '#06b6d4', emoji: '🚀' },
   { week: 3, theme: 'Anxious Patterns',           title: 'Finding Your Anchor',          color: 'from-[#ec4899] to-[#0A1A2F]', accent: '#ec4899', emoji: '⚓' },
   { week: 4, theme: 'Fearful-Avoidant Patterns',  title: 'The Push-Pull Dynamic',        color: 'from-[#f59e0b] to-[#0A1A2F]', accent: '#f59e0b', emoji: '🔄' },
@@ -100,8 +100,8 @@ export const ATTACHMENT_STYLES_PLAN = {
   weeks: 6,
   days_total: 42,
   difficulty: 'All Levels',
-  gradient: 'from-[#7c3aed] to-[#0A1A2F]',
-  accent: '#7c3aed',
+  gradient: 'from-[#8B5CF6] to-[#0A1A2F]',
+  accent: '#8B5CF6',
   cover_emoji: '🧩',
   tags: ['Relationships', 'Psychology', 'Healing', 'Journaling', 'Mindfulness'],
   category: 'relationships',

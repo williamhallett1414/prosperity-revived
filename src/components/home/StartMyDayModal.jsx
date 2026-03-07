@@ -58,7 +58,7 @@ export default function StartMyDayModal({ isOpen, onClose, meditations = [], wor
     {
       title: 'Scripture of the Day',
       emoji: '📖',
-      color: 'from-[#AFC7E3] to-[#D9B878]',
+      color: 'from-[#AFC7E3] to-[#FAD98D]',
       content: (
         <div className="space-y-3">
           <p className="font-serif italic text-[#0A1A2F] text-lg leading-relaxed">
@@ -73,7 +73,7 @@ export default function StartMyDayModal({ isOpen, onClose, meditations = [], wor
     {
       title: '2-Minute Prayer',
       emoji: '🙏',
-      color: 'from-[#D9B878] to-[#AFC7E3]',
+      color: 'from-[#FAD98D] to-[#AFC7E3]',
       content: (
         <div className="space-y-3 text-center">
           <p className="text-[#0A1A2F] leading-relaxed">
@@ -103,7 +103,7 @@ export default function StartMyDayModal({ isOpen, onClose, meditations = [], wor
     {
       title: 'Daily Affirmation',
       emoji: '✨',
-      color: 'from-[#D9B878] to-[#FD9C2D]',
+      color: 'from-[#FAD98D] to-[#FD9C2D]',
       content: (
         <div className="space-y-3 text-center">
           <p className="text-[#0A1A2F] text-xl font-semibold leading-relaxed">
@@ -116,7 +116,7 @@ export default function StartMyDayModal({ isOpen, onClose, meditations = [], wor
     ...(suggestedMeditation ? [{
       title: 'Suggested Meditation',
       emoji: '🧘',
-      color: 'from-[#AFC7E3] to-[#D9B878]',
+      color: 'from-[#AFC7E3] to-[#FAD98D]',
       content: (
         <div className="space-y-3">
           <p className="text-sm text-[#0A1A2F]/70">{suggestedMeditation.description}</p>
@@ -136,7 +136,7 @@ export default function StartMyDayModal({ isOpen, onClose, meditations = [], wor
     ...(suggestedWorkout ? [{
        title: "Today's Workout",
        emoji: '💪',
-       color: 'from-[#D9B878] to-[#AFC7E3]',
+       color: 'from-[#FAD98D] to-[#AFC7E3]',
        content: (
          <div className="space-y-3">
            <p className="text-sm text-[#0A1A2F]/70">{suggestedWorkout.description}</p>
@@ -154,7 +154,7 @@ export default function StartMyDayModal({ isOpen, onClose, meditations = [], wor
     {
       title: 'Nutrition Reminder',
       emoji: '🥗',
-      color: 'from-[#AFC7E3] to-[#D9B878]',
+      color: 'from-[#AFC7E3] to-[#FAD98D]',
       content: (
         <div className="space-y-3 text-center">
           <p className="text-[#0A1A2F]">
@@ -201,7 +201,7 @@ export default function StartMyDayModal({ isOpen, onClose, meditations = [], wor
               <motion.div
                 key={idx}
                 className={`h-1 flex-1 rounded-full ${
-                  idx <= step ? `bg-gradient-to-r ${currentStep.color}` : 'bg-[#E6EBEF]'
+                  idx <= step ? `bg-gradient-to-r ${currentStep.color}` : 'bg-gray-100'
                 }`}
                 layoutId={`progress-${idx}`}
               />
@@ -249,7 +249,7 @@ export default function StartMyDayModal({ isOpen, onClose, meditations = [], wor
                   onClose();
                 }
               }}
-              className="flex-1 bg-gradient-to-r from-[#D9B878] to-[#AFC7E3] hover:from-[#D9B878]/90 hover:to-[#AFC7E3]/90 text-[#0A1A2F]"
+              className="flex-1 bg-gradient-to-r from-[#FAD98D] to-[#AFC7E3] hover:from-[#FAD98D]/90 hover:to-[#AFC7E3]/90 text-[#0A1A2F]"
               size="sm"
             >
               {step === steps.length - 1 ? 'Complete' : 'Next'}

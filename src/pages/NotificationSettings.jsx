@@ -95,16 +95,16 @@ export default function NotificationSettings() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#faf8f5] dark:bg-[#1a1a2e] flex items-center justify-center">
+      <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] flex items-center justify-center">
         <Loader2 className="w-8 h-8 text-[#c9a227] animate-spin" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#faf8f5] dark:bg-[#1a1a2e] pb-24">
+    <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-24">
       {/* Header */}
-      <div className="bg-gradient-to-br from-[#1a1a2e] to-[#2d2d4a] text-white px-4 py-6">
+      <div className="bg-gradient-to-br from-[#0A1A2F] to-[#0A1A2F] text-white px-4 py-6">
         <div className="max-w-2xl mx-auto">
           <button
             onClick={() => window.history.back()}
@@ -130,13 +130,13 @@ export default function NotificationSettings() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.05 }}
-              className="bg-white dark:bg-[#2d2d4a] rounded-xl p-4 shadow-sm"
+              className="bg-white dark:bg-[#0A1A2F] rounded-xl p-4 shadow-sm"
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-start gap-3 flex-1">
                   <div className="text-2xl mt-0.5">{type.icon}</div>
                   <div className="flex-1">
-                    <h3 className="font-semibold text-[#1a1a2e] dark:text-white mb-1">
+                    <h3 className="font-semibold text-[#0A1A2F] dark:text-white mb-1">
                       {type.label}
                     </h3>
                     <p className="text-sm text-gray-600 dark:text-gray-400">
@@ -156,7 +156,7 @@ export default function NotificationSettings() {
         <Button
           onClick={handleSave}
           disabled={saving}
-          className="w-full bg-gradient-to-r from-[#FD9C2D] to-[#FAD98D] hover:from-[#E89020] hover:to-[#F0C847] h-12"
+          className="w-full bg-gradient-to-r from-[#FD9C2D] to-[#FAD98D] hover:from-[#E89020] hover:to-[#C9A227] h-12"
         >
           {saving ? (
             <>

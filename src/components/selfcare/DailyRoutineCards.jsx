@@ -99,13 +99,13 @@ export default function DailyRoutineCards({ meditations = [] }) {
       id: 'morning-reset',
       icon: Sunrise,
       title: 'Morning Reset',
-      gradient: 'from-[#D9B878] to-[#AFC7E3]',
+      gradient: 'from-[#FAD98D] to-[#AFC7E3]',
       modal: (
         <div className="space-y-6">
           <div className="text-center">
             <div className="text-6xl mb-4">🌅</div>
             <h3 className="text-xl font-bold text-gray-800 mb-2">Breath Prayer</h3>
-            <div className="bg-gradient-to-br from-[#D9B878] to-[#AFC7E3] rounded-xl p-5 mb-4">
+            <div className="bg-gradient-to-br from-[#FAD98D] to-[#AFC7E3] rounded-xl p-5 mb-4">
               <p className="text-[#0A1A2F] font-serif italic leading-relaxed">
                 Breathe in: "Lord Jesus"<br />
                 Breathe out: "Fill me with peace"
@@ -114,14 +114,14 @@ export default function DailyRoutineCards({ meditations = [] }) {
             </div>
             </div>
 
-            <div className="bg-[#E6EBEF] rounded-xl p-5">
+            <div className="bg-gray-100 rounded-xl p-5">
             <p className="text-sm font-semibold text-[#0A1A2F] mb-2">Today's Scripture</p>
             <p className="font-serif italic text-[#0A1A2F]">"{verse.text}"</p>
             <p className="text-xs text-[#0A1A2F]/60 mt-1">{verse.book} {verse.chapter}:{verse.verse}</p>
             </div>
 
             {morningMeditation && (
-            <div className="bg-gradient-to-br from-[#AFC7E3] to-[#D9B878] rounded-xl p-5">
+            <div className="bg-gradient-to-br from-[#AFC7E3] to-[#FAD98D] rounded-xl p-5">
               <p className="text-sm font-semibold text-[#0A1A2F] mb-2">Guided Meditation</p>
               <p className="text-[#0A1A2F]">{morningMeditation.title}</p>
               <Button 
@@ -146,7 +146,7 @@ export default function DailyRoutineCards({ meditations = [] }) {
       id: 'midday-checkin',
       icon: Sun,
       title: 'Midday Check-In',
-      gradient: 'from-[#AFC7E3] to-[#D9B878]',
+      gradient: 'from-[#AFC7E3] to-[#FAD98D]',
       modal: (
         <div className="space-y-5">
           <div>
@@ -165,7 +165,7 @@ export default function DailyRoutineCards({ meditations = [] }) {
             </div>
           </div>
 
-          <div className="bg-gradient-to-br from-[#AFC7E3] to-[#D9B878] rounded-xl p-5">
+          <div className="bg-gradient-to-br from-[#AFC7E3] to-[#FAD98D] rounded-xl p-5">
             <p className="text-sm font-semibold text-[#0A1A2F] mb-3">💧 Hydration Check</p>
             <div className="flex items-center justify-between">
               <span className="text-sm text-[#0A1A2F]">{todayWater?.glasses || 0} / 8 glasses</span>
@@ -185,7 +185,7 @@ export default function DailyRoutineCards({ meditations = [] }) {
               placeholder="What are you grateful for right now?"
               value={gratitude}
               onChange={(e) => setGratitude(e.target.value)}
-              className="min-h-[80px] bg-[#E6EBEF] border-[#E6EBEF]"
+              className="min-h-[80px] bg-gray-100 border-[#F2F6FA]"
             />
             <Button
               onClick={() => saveGratitude.mutate({
@@ -195,7 +195,7 @@ export default function DailyRoutineCards({ meditations = [] }) {
                 mood: 'grateful'
               })}
               disabled={!gratitude.trim()}
-              className="w-full mt-3 bg-gradient-to-r from-[#D9B878] to-[#AFC7E3] hover:from-[#D9B878]/90 hover:to-[#AFC7E3]/90 text-[#0A1A2F]"
+              className="w-full mt-3 bg-gradient-to-r from-[#FAD98D] to-[#AFC7E3] hover:from-[#FAD98D]/90 hover:to-[#AFC7E3]/90 text-[#0A1A2F]"
             >
               Save
             </Button>
@@ -215,13 +215,13 @@ export default function DailyRoutineCards({ meditations = [] }) {
             <h3 className="text-xl font-bold text-[#0A1A2F] mb-4">Evening Reflection</h3>
           </div>
 
-          <div className="bg-gradient-to-br from-[#AFC7E3] to-[#D9B878] rounded-xl p-5">
+          <div className="bg-gradient-to-br from-[#AFC7E3] to-[#FAD98D] rounded-xl p-5">
             <p className="text-sm font-semibold text-[#0A1A2F] mb-3">Reflect on today:</p>
             <Textarea
               placeholder="What went well today? What did you learn?"
               value={reflection}
               onChange={(e) => setReflection(e.target.value)}
-              className="min-h-[100px] bg-white border-[#E6EBEF]"
+              className="min-h-[100px] bg-white border-[#F2F6FA]"
             />
             <Button
               onClick={() => saveReflection.mutate({
@@ -237,7 +237,7 @@ export default function DailyRoutineCards({ meditations = [] }) {
             </Button>
           </div>
 
-          <div className="bg-[#E6EBEF] rounded-xl p-5">
+          <div className="bg-gray-100 rounded-xl p-5">
             <p className="text-sm font-semibold text-[#0A1A2F] mb-3">Light Stretching</p>
             <ul className="text-sm text-[#0A1A2F]/80 space-y-2">
               <li>• Neck rolls (30 seconds)</li>
@@ -269,7 +269,7 @@ export default function DailyRoutineCards({ meditations = [] }) {
       id: 'gratitude-practice',
       icon: Heart,
       title: 'Gratitude Practice',
-      gradient: 'from-[#D9B878] to-[#D9B878]',
+      gradient: 'from-[#FAD98D] to-[#FAD98D]',
       modal: (
         <div className="space-y-4">
           <div className="text-center">
@@ -285,11 +285,11 @@ export default function DailyRoutineCards({ meditations = [] }) {
                 placeholder="1. &#10;2. &#10;3. "
                 value={gratitude}
                 onChange={(e) => setGratitude(e.target.value)}
-                className="min-h-[120px] bg-[#E6EBEF] border-[#E6EBEF]"
+                className="min-h-[120px] bg-gray-100 border-[#F2F6FA]"
               />
             </div>
 
-            <div className="bg-gradient-to-br from-[#D9B878] to-[#AFC7E3] rounded-xl p-4 text-sm text-[#0A1A2F]">
+            <div className="bg-gradient-to-br from-[#FAD98D] to-[#AFC7E3] rounded-xl p-4 text-sm text-[#0A1A2F]">
               <p className="font-semibold mb-2">💡 Prompts:</p>
               <ul className="space-y-1">
                 <li>• A person who blessed you today</li>
@@ -306,7 +306,7 @@ export default function DailyRoutineCards({ meditations = [] }) {
                 mood: 'grateful'
               })}
               disabled={!gratitude.trim()}
-              className="w-full bg-gradient-to-r from-[#D9B878] to-[#AFC7E3] hover:from-[#D9B878]/90 hover:to-[#AFC7E3]/90 text-[#0A1A2F]"
+              className="w-full bg-gradient-to-r from-[#FAD98D] to-[#AFC7E3] hover:from-[#FAD98D]/90 hover:to-[#AFC7E3]/90 text-[#0A1A2F]"
             >
               Save Gratitude
             </Button>
@@ -326,7 +326,7 @@ export default function DailyRoutineCards({ meditations = [] }) {
             <h3 className="text-xl font-bold text-gray-800 mb-4">Today's Scripture</h3>
           </div>
 
-          <div className="bg-[#E6EBEF] rounded-xl p-5">
+          <div className="bg-gray-100 rounded-xl p-5">
             <p className="font-serif italic text-[#0A1A2F] text-lg mb-3 leading-relaxed">
               "{verse.text}"
             </p>
@@ -335,14 +335,14 @@ export default function DailyRoutineCards({ meditations = [] }) {
             </p>
           </div>
 
-          <div className="bg-gradient-to-br from-[#AFC7E3] to-[#D9B878] rounded-xl p-5">
+          <div className="bg-gradient-to-br from-[#AFC7E3] to-[#FAD98D] rounded-xl p-5">
             <p className="text-sm font-semibold text-[#0A1A2F] mb-2">Reflection Question:</p>
             <p className="text-[#0A1A2F]/80 mb-3">How can this verse guide your actions today?</p>
             <Textarea
               placeholder="Write your thoughts..."
               value={reflection}
               onChange={(e) => setReflection(e.target.value)}
-              className="min-h-[100px] bg-white border-[#E6EBEF]"
+              className="min-h-[100px] bg-white border-[#F2F6FA]"
             />
             <Button
               onClick={() => saveReflection.mutate({
@@ -372,7 +372,7 @@ export default function DailyRoutineCards({ meditations = [] }) {
             <p className="text-sm text-gray-600">Gentle stretches and breathwork</p>
           </div>
 
-          <div className="bg-[#E6EBEF] rounded-xl p-5 space-y-3">
+          <div className="bg-gray-100 rounded-xl p-5 space-y-3">
             <div>
               <p className="font-semibold text-[#0A1A2F] text-sm mb-1">🧘 Neck Rolls</p>
               <p className="text-xs text-[#0A1A2F]/70">Slowly roll your head in circles - 30 seconds each direction</p>
@@ -392,7 +392,7 @@ export default function DailyRoutineCards({ meditations = [] }) {
           </div>
 
           <div className="text-center">
-            <Button className="w-full bg-gradient-to-r from-[#AFC7E3] to-[#D9B878] hover:from-[#AFC7E3]/90 hover:to-[#D9B878]/90 text-[#0A1A2F]">
+            <Button className="w-full bg-gradient-to-r from-[#AFC7E3] to-[#FAD98D] hover:from-[#AFC7E3]/90 hover:to-[#FAD98D]/90 text-[#0A1A2F]">
               ✓ Mark as Complete
             </Button>
           </div>
@@ -440,7 +440,7 @@ export default function DailyRoutineCards({ meditations = [] }) {
           <DialogContent className="max-w-md max-h-[80vh] overflow-y-auto bg-[#F2F6FA]">
             <DialogHeader>
               <DialogTitle className="flex items-center gap-2 text-[#0A1A2F]">
-                <card.icon className="w-5 h-5 text-[#D9B878]" />
+                <card.icon className="w-5 h-5 text-[#FAD98D]" />
                 {card.title}
               </DialogTitle>
             </DialogHeader>

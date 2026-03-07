@@ -5,10 +5,10 @@ import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 
 const actions = [
-  { icon: BookOpen, label: 'Journal', color: 'from-[#D9B878] to-[#AFC7E3]', page: 'Wellness' },
-  { icon: Heart, label: 'Prayer', color: 'from-[#AFC7E3] to-[#D9B878]', page: 'SelfCare' },
-  { icon: Zap, label: 'Meditate', color: 'from-[#FD9C2D] to-[#D9B878]', page: 'DiscoverMeditations' },
-  { icon: Dumbbell, label: 'Workout', color: 'from-[#D9B878] to-[#FD9C2D]', page: 'Wellness' },
+  { icon: BookOpen, label: 'Journal', color: 'from-[#FAD98D] to-[#AFC7E3]', page: 'Wellness' },
+  { icon: Heart, label: 'Prayer', color: 'from-[#AFC7E3] to-[#FAD98D]', page: 'SelfCare' },
+  { icon: Zap, label: 'Meditate', color: 'from-[#FD9C2D] to-[#FAD98D]', page: 'DiscoverMeditations' },
+  { icon: Dumbbell, label: 'Workout', color: 'from-[#FAD98D] to-[#FD9C2D]', page: 'Wellness' },
   { icon: UtensilsCrossed, label: 'Nutrition', color: 'from-[#AFC7E3] to-[#FD9C2D]', page: 'Wellness' }
 ];
 

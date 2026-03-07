@@ -90,7 +90,7 @@ export default function ChefDanielNotificationSettings({ user }) {
         {notificationOptions.map((option) => {
           const Icon = option.icon;
           return (
-            <div key={option.id} className="flex items-start gap-4 p-4 rounded-lg bg-[#F2F6FA] hover:bg-[#E6EBEF] transition-colors">
+            <div key={option.id} className="flex items-start gap-4 p-4 rounded-lg bg-[#F2F6FA] hover:bg-gray-100 transition-colors">
               <div className={`mt-1 ${option.color}`}>
                 <Icon className="w-5 h-5" />
               </div>
@@ -110,7 +110,7 @@ export default function ChefDanielNotificationSettings({ user }) {
           );
         })}
 
-        <div className="pt-4 border-t border-[#E6EBEF]">
+        <div className="pt-4 border-t border-[#F2F6FA]">
           <p className="text-xs text-[#0A1A2F]/60">
             💡 Each notification includes a warm greeting, practical cooking tip, and a coaching question to inspire your culinary journey.
           </p>

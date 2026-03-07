@@ -46,8 +46,8 @@ export default function HolisticProgressReport({ user }) {
       animate={{ opacity: 1, y: 0 }}
       className="mb-8"
     >
-      <Card className="overflow-hidden border-2 border-[#D9B878]/40 bg-gradient-to-br from-[#FAD98D]/10 to-[#FFF8E7]">
-        <CardHeader className="bg-gradient-to-r from-[#c9a227] to-[#D9B878] text-white pb-4">
+      <Card className="overflow-hidden border-2 border-[#FAD98D]/40 bg-gradient-to-br from-[#FAD98D]/10 to-[#FFF9EC]">
+        <CardHeader className="bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white pb-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center backdrop-blur">
@@ -86,9 +86,9 @@ export default function HolisticProgressReport({ user }) {
           ) : report ? (
             <div className="space-y-6">
               {/* Overall Summary */}
-              <div className="bg-white rounded-xl p-5 shadow-sm border border-[#D9B878]/40">
+              <div className="bg-white rounded-xl p-5 shadow-sm border border-[#FAD98D]/40">
                 <div className="flex items-start gap-3 mb-3">
-                  <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#c9a227] to-[#D9B878] flex items-center justify-center flex-shrink-0">
+                  <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center flex-shrink-0">
                     <Heart className="w-5 h-5 text-white" />
                   </div>
                   <div className="flex-1">
@@ -101,7 +101,7 @@ export default function HolisticProgressReport({ user }) {
                 <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-gray-100">
                   {report.data_summary && (
                     <>
-                      <Badge variant="outline" className="bg-[#FAD98D]/10 border-[#D9B878]/40">
+                      <Badge variant="outline" className="bg-[#FAD98D]/10 border-[#FAD98D]/40">
                         <Heart className="w-3 h-3 mr-1" />
                         {report.data_summary.total_journals} journals
                       </Badge>
@@ -123,9 +123,9 @@ export default function HolisticProgressReport({ user }) {
               </div>
 
               {/* Interconnected Insights */}
-              <div className="bg-white rounded-xl p-5 shadow-sm border border-[#D9B878]/40">
+              <div className="bg-white rounded-xl p-5 shadow-sm border border-[#FAD98D]/40">
                 <div className="flex items-center gap-2 mb-4">
-                  <TrendingUp className="w-5 h-5 text-[#8a6e1a]" />
+                  <TrendingUp className="w-5 h-5 text-[#C9A227]" />
                   <h3 className="font-semibold text-gray-900 text-lg">Interconnected Insights</h3>
                 </div>
                 <div className="space-y-3">
@@ -137,7 +137,7 @@ export default function HolisticProgressReport({ user }) {
                       transition={{ delay: idx * 0.1 }}
                       className="flex items-start gap-3 p-3 bg-[#FAD98D]/10 rounded-lg"
                     >
-                      <div className="w-6 h-6 rounded-full bg-[#D9B878]/40 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <div className="w-6 h-6 rounded-full bg-[#FAD98D]/40 flex items-center justify-center flex-shrink-0 mt-0.5">
                         <span className="text-xs font-semibold text-[#3C4E53]">{idx + 1}</span>
                       </div>
                       <p className="text-gray-700 leading-relaxed text-sm">{insight}</p>
@@ -200,9 +200,9 @@ export default function HolisticProgressReport({ user }) {
                       </div>
 
                       {/* Personalized Recommendation */}
-                      <div className="bg-gradient-to-br from-[#FAD98D]/20 to-[#FFF8E7] rounded-xl p-5 border-2 border-[#D9B878]/40">
+                      <div className="bg-gradient-to-br from-[#FAD98D]/20 to-[#FFF9EC] rounded-xl p-5 border-2 border-[#FAD98D]/40">
                         <div className="flex items-start gap-3">
-                          <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#c9a227] to-[#D9B878] flex items-center justify-center flex-shrink-0">
+                          <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center flex-shrink-0">
                             <Sparkles className="w-5 h-5 text-white" />
                           </div>
                           <div>
@@ -222,7 +222,7 @@ export default function HolisticProgressReport({ user }) {
                   <Calendar className="w-3 h-3" />
                   <span>Generated {format(new Date(report.generated_date), 'MMM d, yyyy \'at\' h:mm a')}</span>
                 </div>
-                <span className="text-[#8a6e1a] font-medium">
+                <span className="text-[#C9A227] font-medium">
                   {report.data_summary?.total_memories || 0} total insights analyzed
                 </span>
               </div>

@@ -67,16 +67,16 @@ export default function Settings() {
 
   if (!user) {
     return (
-      <div className="min-h-screen bg-[#faf8f5] dark:bg-[#1a1a2e] flex items-center justify-center">
+      <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] flex items-center justify-center">
         <div className="animate-spin w-8 h-8 border-4 border-[#c9a227] border-t-transparent rounded-full" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#faf8f5] dark:bg-[#1a1a2e] pb-24">
+    <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-24">
       {/* Header */}
-      <div className="bg-gradient-to-br from-[#1a1a2e] to-[#2d2d4a] text-white px-4 py-6">
+      <div className="bg-gradient-to-br from-[#0A1A2F] to-[#0A1A2F] text-white px-4 py-6">
         <div className="flex items-center gap-4 mb-6">
           <Link
             to={createPageUrl('Profile')}
@@ -90,15 +90,15 @@ export default function Settings() {
 
       <div className="px-4 -mt-4">
         {/* Chatbot Personalities */}
-        <div className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 shadow-sm mb-4">
+        <div className="bg-white dark:bg-[#0A1A2F] rounded-2xl p-4 shadow-sm mb-4">
           <ChatbotPersonalitySettings user={user} />
         </div>
 
         {/* Theme Settings */}
-        <div className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 shadow-sm mb-4">
+        <div className="bg-white dark:bg-[#0A1A2F] rounded-2xl p-4 shadow-sm mb-4">
           <div className="flex items-center gap-3 mb-4">
             <Palette className="w-5 h-5 text-[#c9a227]" />
-            <h2 className="font-semibold text-[#1a1a2e] dark:text-white">Appearance</h2>
+            <h2 className="font-semibold text-[#0A1A2F] dark:text-white">Appearance</h2>
           </div>
           
           <div className="space-y-3">
@@ -112,7 +112,7 @@ export default function Settings() {
             >
               <div className="flex items-center gap-3">
                 <Sun className="w-5 h-5 text-[#c9a227]" />
-                <span className="font-medium text-[#1a1a2e] dark:text-white">Light Mode</span>
+                <span className="font-medium text-[#0A1A2F] dark:text-white">Light Mode</span>
               </div>
               {user.theme === 'light' && (
                 <div className="w-5 h-5 rounded-full bg-[#c9a227] flex items-center justify-center">
@@ -130,8 +130,8 @@ export default function Settings() {
               }`}
             >
               <div className="flex items-center gap-3">
-                <Moon className="w-5 h-5 text-[#8fa68a]" />
-                <span className="font-medium text-[#1a1a2e] dark:text-white">Dark Mode</span>
+                <Moon className="w-5 h-5 text-[#AFC7E3]" />
+                <span className="font-medium text-[#0A1A2F] dark:text-white">Dark Mode</span>
               </div>
               {user.theme === 'dark' && (
                 <div className="w-5 h-5 rounded-full bg-[#c9a227] flex items-center justify-center">
@@ -150,7 +150,7 @@ export default function Settings() {
             >
               <div className="flex items-center gap-3">
                 <Monitor className="w-5 h-5 text-gray-600 dark:text-gray-400" />
-                <span className="font-medium text-[#1a1a2e] dark:text-white">Auto (System)</span>
+                <span className="font-medium text-[#0A1A2F] dark:text-white">Auto (System)</span>
               </div>
               {user.theme === 'auto' && (
                 <div className="w-5 h-5 rounded-full bg-[#c9a227] flex items-center justify-center">
@@ -187,21 +187,21 @@ export default function Settings() {
         </div>
 
         {/* Reminders */}
-        <div className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 shadow-sm mb-4">
+        <div className="bg-white dark:bg-[#0A1A2F] rounded-2xl p-4 shadow-sm mb-4">
           <ReminderSettings />
         </div>
 
         {/* Notifications */}
-        <div className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 shadow-sm mb-4">
+        <div className="bg-white dark:bg-[#0A1A2F] rounded-2xl p-4 shadow-sm mb-4">
           <div className="flex items-center gap-3 mb-4">
             <Bell className="w-5 h-5 text-[#c9a227]" />
-            <h2 className="font-semibold text-[#1a1a2e] dark:text-white">Notifications</h2>
+            <h2 className="font-semibold text-[#0A1A2F] dark:text-white">Notifications</h2>
           </div>
           
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <div className="flex-1">
-                <Label className="font-medium text-[#1a1a2e] dark:text-white">Push Notifications</Label>
+                <Label className="font-medium text-[#0A1A2F] dark:text-white">Push Notifications</Label>
                 <p className="text-sm text-gray-500 dark:text-gray-400">Get notified about updates</p>
               </div>
               <Switch
@@ -212,7 +212,7 @@ export default function Settings() {
 
             <div className="flex items-center justify-between">
               <div className="flex-1">
-                <Label className="font-medium text-[#1a1a2e] dark:text-white">Email Notifications</Label>
+                <Label className="font-medium text-[#0A1A2F] dark:text-white">Email Notifications</Label>
                 <p className="text-sm text-gray-500 dark:text-gray-400">Receive updates via email</p>
               </div>
               <Switch
@@ -224,20 +224,20 @@ export default function Settings() {
         </div>
 
         {/* Account */}
-        <div className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 shadow-sm">
+        <div className="bg-white dark:bg-[#0A1A2F] rounded-2xl p-4 shadow-sm">
           <div className="flex items-center gap-3 mb-4">
             <User className="w-5 h-5 text-[#c9a227]" />
-            <h2 className="font-semibold text-[#1a1a2e] dark:text-white">Account</h2>
+            <h2 className="font-semibold text-[#0A1A2F] dark:text-white">Account</h2>
           </div>
           
           <div className="space-y-3">
             <div className="flex items-center justify-between py-2">
               <span className="text-gray-600 dark:text-gray-400">Email</span>
-              <span className="font-medium text-[#1a1a2e] dark:text-white">{user.email}</span>
+              <span className="font-medium text-[#0A1A2F] dark:text-white">{user.email}</span>
             </div>
             <div className="flex items-center justify-between py-2">
               <span className="text-gray-600 dark:text-gray-400">Member Since</span>
-              <span className="font-medium text-[#1a1a2e] dark:text-white">
+              <span className="font-medium text-[#0A1A2F] dark:text-white">
                 {new Date(user.created_date).toLocaleDateString()}
               </span>
             </div>
@@ -293,7 +293,7 @@ export default function Settings() {
                 Delete Account
               </Button>
             </AlertDialogTrigger>
-            <AlertDialogContent className="dark:bg-[#2d2d4a]">
+            <AlertDialogContent className="dark:bg-[#0A1A2F]">
               <AlertDialogHeader>
                 <AlertDialogTitle className="dark:text-white">Are you absolutely sure?</AlertDialogTitle>
                 <AlertDialogDescription className="dark:text-gray-400">

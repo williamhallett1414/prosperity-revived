@@ -140,9 +140,9 @@ export default function PersonalizedNutritionPlan() {
   return (
     <div className="space-y-4">
       {!activePlan ? (
-        <div className="text-center py-12 bg-gradient-to-br from-[#F4F7F4] to-[#8fa68a]/20 dark:from-[#0A1A2F]/20 dark:to-[#6b8f72]/10 rounded-2xl">
-          <Target className="w-16 h-16 text-[#4a6b50] mx-auto mb-4" />
-          <h3 className="text-xl font-bold text-[#1a1a2e] dark:text-white mb-2">
+        <div className="text-center py-12 bg-gradient-to-br from-[#F2F6FA] to-[#AFC7E3]/20 dark:from-[#0A1A2F]/20 dark:to-[#6B7280]/10 rounded-2xl">
+          <Target className="w-16 h-16 text-[#3C4E53] mx-auto mb-4" />
+          <h3 className="text-xl font-bold text-[#0A1A2F] dark:text-white mb-2">
             Create Your Nutrition Plan
           </h3>
           <p className="text-gray-600 dark:text-gray-400 mb-6">
@@ -150,7 +150,7 @@ export default function PersonalizedNutritionPlan() {
           </p>
           <Button
             onClick={() => setShowCreatePlan(true)}
-            className="bg-gradient-to-r from-[#c9a227] to-[#D9B878] hover:opacity-90"
+            className="bg-gradient-to-r from-[#c9a227] to-[#FAD98D] hover:opacity-90"
           >
             <Plus className="w-4 h-4 mr-2" />
             Create Plan
@@ -159,7 +159,7 @@ export default function PersonalizedNutritionPlan() {
       ) : (
         <div className="space-y-4">
           {/* Active Plan Header */}
-          <div className="bg-gradient-to-br from-[#c9a227] to-[#D9B878] text-white rounded-2xl p-6">
+          <div className="bg-gradient-to-br from-[#c9a227] to-[#FAD98D] text-white rounded-2xl p-6">
             <div className="flex items-start justify-between mb-4">
               <div>
                 <h3 className="text-2xl font-bold mb-1">{activePlan.name}</h3>
@@ -201,8 +201,8 @@ export default function PersonalizedNutritionPlan() {
           </div>
 
           {/* Daily Macros */}
-          <div className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4">
-            <h4 className="font-semibold text-[#1a1a2e] dark:text-white mb-4">Daily Targets</h4>
+          <div className="bg-white dark:bg-[#0A1A2F] rounded-2xl p-4">
+            <h4 className="font-semibold text-[#0A1A2F] dark:text-white mb-4">Daily Targets</h4>
             <div className="space-y-3">
               <div>
                 <div className="flex justify-between text-sm mb-1">
@@ -239,14 +239,14 @@ export default function PersonalizedNutritionPlan() {
           {mealPlanDays.length > 0 ? (
             <WeeklyMealPlan mealPlanDays={mealPlanDays} activePlan={activePlan} />
           ) : (
-            <div className="text-center py-8 bg-white dark:bg-[#2d2d4a] rounded-2xl">
-              <Sparkles className="w-12 h-12 text-[#4a6b50] mx-auto mb-3" />
+            <div className="text-center py-8 bg-white dark:bg-[#0A1A2F] rounded-2xl">
+              <Sparkles className="w-12 h-12 text-[#3C4E53] mx-auto mb-3" />
               <p className="text-gray-600 dark:text-gray-400 mb-4">
                 Generate your weekly meal plan
               </p>
               <Button
                 onClick={() => generateWeeklyPlan.mutate(activePlan.id)}
-                className="bg-gradient-to-r from-[#c9a227] to-[#D9B878] hover:opacity-90"
+                className="bg-gradient-to-r from-[#c9a227] to-[#FAD98D] hover:opacity-90"
                 disabled={generateWeeklyPlan.isLoading}
               >
                 <Sparkles className="w-4 h-4 mr-2" />

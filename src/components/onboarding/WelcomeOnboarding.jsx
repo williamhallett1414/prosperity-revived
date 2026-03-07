@@ -22,7 +22,7 @@ const chatbotSteps = [
     title: 'Welcome to Your Wellness Journey',
     description: 'Meet your personal team of AI guides who will support you across all areas of life.',
     icon: Sparkles,
-    color: 'from-[#c9a227] to-[#D9B878]',
+    color: 'from-[#c9a227] to-[#FAD98D]',
     features: [
       'Personalized guidance from 4 specialized AI mentors',
       'Track progress across emotional, physical, nutritional, and spiritual health',
@@ -37,7 +37,7 @@ const chatbotSteps = [
     title: 'Meet Hannah - Your Personal Growth Guide',
     description: 'Hannah specializes in emotional intelligence, identity, and personal transformation.',
     icon: Heart,
-    color: 'from-[#c9a227] to-[#D9B878]',
+    color: 'from-[#c9a227] to-[#FAD98D]',
     features: [
       'Journal your thoughts and feelings',
       'Explore emotional patterns and triggers',
@@ -63,7 +63,7 @@ const chatbotSteps = [
     title: 'Meet Coach David - Your Fitness Coach',
     description: 'Coach David brings discipline, motivation, and expert workout guidance to help you reach your fitness goals.',
     icon: Dumbbell,
-    color: 'from-[#AFC7E3] to-[#7ab3d4]',
+    color: 'from-[#AFC7E3] to-[#AFC7E3]',
     features: [
       'Personalized workout plans',
       'Form analysis and exercise guidance',

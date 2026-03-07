@@ -353,10 +353,10 @@ export default function WeeklyReflectionPage() {
           style={{ background: 'linear-gradient(135deg,#0A1A2F,#1E3050)' }}
         >
           <div className="flex items-start gap-3">
-            <Star className="w-4 h-4 text-[#D9B878] mt-0.5 flex-shrink-0" />
+            <Star className="w-4 h-4 text-[#FAD98D] mt-0.5 flex-shrink-0" />
             <div>
               <p className="text-sm text-white/85 leading-relaxed italic mb-1.5">"{scripture.text}"</p>
-              <p className="text-xs text-[#D9B878] font-semibold">{scripture.ref}</p>
+              <p className="text-xs text-[#FAD98D] font-semibold">{scripture.ref}</p>
             </div>
           </div>
         </motion.div>

@@ -127,11 +127,11 @@ export default function MealTracker() {
             <p className="text-xs text-[#0A1A2F]/50 ">Protein</p>
           </div>
           <div className="text-center p-2 bg-[#FAD98D]/20  rounded">
-            <p className="text-lg font-bold text-[#D9B878]">{Math.round(totalCarbs)}g</p>
+            <p className="text-lg font-bold text-[#FAD98D]">{Math.round(totalCarbs)}g</p>
             <p className="text-xs text-[#0A1A2F]/50 ">Carbs</p>
           </div>
           <div className="text-center p-2 bg-[#FAD98D]/15 rounded">
-            <p className="text-lg font-bold text-[#6b8f72]">{Math.round(totalFats)}g</p>
+            <p className="text-lg font-bold text-[#6B7280]">{Math.round(totalFats)}g</p>
             <p className="text-xs text-[#0A1A2F]/50 ">Fats</p>
           </div>
         </div>
@@ -158,13 +158,13 @@ export default function MealTracker() {
           </div>
         )}
 
-        <Button onClick={() => setShowDetailedLog(true)} className="w-full bg-gradient-to-r from-[#c9a227] to-[#D9B878] hover:opacity-90">
+        <Button onClick={() => setShowDetailedLog(true)} className="w-full bg-gradient-to-r from-[#c9a227] to-[#FAD98D] hover:opacity-90">
           <Plus className="w-4 h-4 mr-2" />
           Log Food
         </Button>
 
         {/* Water Intake Section */}
-        <div className="mt-6 pt-4 border-t border-[#D9B878]/20 ">
+        <div className="mt-6 pt-4 border-t border-[#FAD98D]/20 ">
           <div className="flex items-center gap-3 mb-4">
             <Droplets className="w-6 h-6 text-[#AFC7E3]" />
             <div className="flex-1">
@@ -200,7 +200,7 @@ export default function MealTracker() {
             <Button
               size="icon"
               onClick={addGlass}
-              className="h-12 w-12 rounded-full bg-gradient-to-br from-[#c9a227] to-[#D9B878] hover:opacity-90"
+              className="h-12 w-12 rounded-full bg-gradient-to-br from-[#c9a227] to-[#FAD98D] hover:opacity-90"
             >
               <Plus className="w-5 h-5" />
             </Button>

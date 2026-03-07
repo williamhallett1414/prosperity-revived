@@ -46,7 +46,7 @@ export default function ReminderSettings() {
     <div className="space-y-4">
       <div className="flex items-center gap-2 mb-4">
         <Bell className="w-5 h-5 text-[#c9a227]" />
-        <h3 className="text-lg font-semibold text-[#1a1a2e] dark:text-white">Daily Reminders</h3>
+        <h3 className="text-lg font-semibold text-[#0A1A2F] dark:text-white">Daily Reminders</h3>
       </div>
 
       {reminderTypes.map(({ key, label, icon: Icon, color }) => (
@@ -54,14 +54,14 @@ export default function ReminderSettings() {
           key={key}
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-white dark:bg-[#2d2d4a] rounded-xl p-4 shadow-sm"
+          className="bg-white dark:bg-[#0A1A2F] rounded-xl p-4 shadow-sm"
         >
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-3">
               <div className={`w-10 h-10 rounded-full bg-${color}-100 dark:bg-${color}-900/30 flex items-center justify-center`}>
                 <Icon className={`w-5 h-5 text-${color}-600`} />
               </div>
-              <p className="font-medium text-[#1a1a2e] dark:text-white">{label}</p>
+              <p className="font-medium text-[#0A1A2F] dark:text-white">{label}</p>
             </div>
             <Button
               size="sm"
@@ -96,7 +96,7 @@ export default function ReminderSettings() {
       <Button
         onClick={handleSave}
         disabled={saving}
-        className="w-full bg-gradient-to-r from-[#c9a227] to-[#8fa68a] hover:opacity-90"
+        className="w-full bg-gradient-to-r from-[#c9a227] to-[#AFC7E3] hover:opacity-90"
       >
         {saving ? (
           'Saving...'

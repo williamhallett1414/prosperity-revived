@@ -13,10 +13,10 @@ export default function NutritionDashboard({ mealLogs = [] }) {
   const totalFat = todayMeals.reduce((sum, m) => sum + (m.fats || 0), 0);
 
   const stats = [
-  { icon: Flame, label: 'Calories', value: Math.round(totalCalories), unit: 'kcal', color: 'from-[#FD9C2D] to-[#D9B878]', target: 2000 },
-  { icon: Zap, label: 'Protein', value: Math.round(totalProtein), unit: 'g', color: 'from-[#D9B878] to-[#AFC7E3]', target: 150 },
-  { icon: TrendingUp, label: 'Carbs', value: Math.round(totalCarbs), unit: 'g', color: 'from-[#AFC7E3] to-[#D9B878]', target: 250 },
-  { icon: Droplets, label: 'Fat', value: Math.round(totalFat), unit: 'g', color: 'from-[#D9B878] to-[#FD9C2D]', target: 65 }];
+  { icon: Flame, label: 'Calories', value: Math.round(totalCalories), unit: 'kcal', color: 'from-[#FD9C2D] to-[#FAD98D]', target: 2000 },
+  { icon: Zap, label: 'Protein', value: Math.round(totalProtein), unit: 'g', color: 'from-[#FAD98D] to-[#AFC7E3]', target: 150 },
+  { icon: TrendingUp, label: 'Carbs', value: Math.round(totalCarbs), unit: 'g', color: 'from-[#AFC7E3] to-[#FAD98D]', target: 250 },
+  { icon: Droplets, label: 'Fat', value: Math.round(totalFat), unit: 'g', color: 'from-[#FAD98D] to-[#FD9C2D]', target: 65 }];
 
 
   return (
@@ -34,7 +34,7 @@ export default function NutritionDashboard({ mealLogs = [] }) {
               key={stat.label}
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: idx * 0.05 }} className="bg-white border border-[#8fa68a]/20 p-4 rounded-xl">
+              transition={{ delay: idx * 0.05 }} className="bg-white border border-[#AFC7E3]/20 p-4 rounded-xl">
 
 
               <div className="flex items-center gap-2 mb-2">
@@ -47,12 +47,12 @@ export default function NutritionDashboard({ mealLogs = [] }) {
                 </p>
                 <p className="text-xs text-[#0A1A2F]/60">Goal: {stat.target}{stat.unit}</p>
               </div>
-              <div className="w-full bg-[#D9B878]/20 rounded-full h-1.5 overflow-hidden">
+              <div className="w-full bg-[#FAD98D]/20 rounded-full h-1.5 overflow-hidden">
                 <motion.div
                   initial={{ width: 0 }}
                   animate={{ width: `${percentage}%` }}
                   transition={{ delay: 0.3, duration: 0.8 }}
-                  className="bg-gradient-to-r from-[#c9a227] to-[#D9B878] h-full rounded-full" />
+                  className="bg-gradient-to-r from-[#c9a227] to-[#FAD98D] h-full rounded-full" />
 
               </div>
             </motion.div>);

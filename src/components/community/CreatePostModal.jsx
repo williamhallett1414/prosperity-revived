@@ -68,7 +68,7 @@ export default function CreatePostModal({ isOpen, onClose, onSubmit, initialVers
 
         <div className="space-y-4">
           {verse && (
-            <div className="bg-[#faf8f5] rounded-xl p-3 border-l-4 border-[#c9a227]">
+            <div className="bg-[#F2F6FA] rounded-xl p-3 border-l-4 border-[#c9a227]">
               <p className="font-serif text-sm text-gray-800 mb-1">"{verse.text}"</p>
               <p className="text-xs text-gray-600">
                 {verse.book} {verse.chapter}:{verse.verse}
@@ -164,7 +164,7 @@ export default function CreatePostModal({ isOpen, onClose, onSubmit, initialVers
             <Button
               onClick={handleSubmit}
               disabled={!content.trim()}
-              className="bg-[#1a1a2e] hover:bg-[#2d2d4a]"
+              className="bg-[#0A1A2F] hover:bg-[#0A1A2F]"
             >
               Post
             </Button>

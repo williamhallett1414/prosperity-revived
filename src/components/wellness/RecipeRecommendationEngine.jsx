@@ -227,7 +227,7 @@ Be conversational and encouraging in your reasons. Think like a personal chef wh
           <Button
             onClick={generateRecommendations}
             disabled={isGenerating}
-            className="w-full bg-gradient-to-r from-[#AFC7E3] to-[#D9B878] hover:from-[#AFC7E3]/90 hover:to-[#D9B878]/90 text-[#0A1A2F] font-semibold"
+            className="w-full bg-gradient-to-r from-[#AFC7E3] to-[#FAD98D] hover:from-[#AFC7E3]/90 hover:to-[#FAD98D]/90 text-[#0A1A2F] font-semibold"
           >
             {isGenerating ? (
               <>
@@ -260,7 +260,7 @@ Be conversational and encouraging in your reasons. Think like a personal chef wh
                 transition={{ delay: index * 0.1 }}
               >
                 <Card className="hover:shadow-lg transition-shadow cursor-pointer h-full">
-                  <div className="relative h-48 bg-gradient-to-br from-[#AFC7E3] to-[#D9B878] rounded-t-xl overflow-hidden">
+                  <div className="relative h-48 bg-gradient-to-br from-[#AFC7E3] to-[#FAD98D] rounded-t-xl overflow-hidden">
                     {recipe.image_url ? (
                       <img src={recipe.image_url} alt={recipe.title} className="w-full h-full object-cover" />
                     ) : (

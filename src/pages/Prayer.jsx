@@ -247,7 +247,7 @@ function PrayerDrawer({ request, user, onClose, onPray, onComment, onDelete, onM
           <button onClick={() => { if (requireAuth(user, 'record a prayer')) onPray(); }}
             disabled={hasPrayed}
             className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-2xl font-bold text-sm transition-all ${hasPrayed ? 'opacity-60 cursor-default' : 'hover:opacity-90'}`}
-            style={{ background: 'linear-gradient(135deg, #c9a227, #92701a)', color: 'white' }}>
+            style={{ background: 'linear-gradient(135deg, #c9a227, #C9A227)', color: 'white' }}>
             <span>🙏</span>
             {hasPrayed ? `Prayed (${request?.prayer_count || 0}) ✓` : `I Prayed (${request?.prayer_count || 0})`}
           </button>
@@ -300,7 +300,7 @@ function PrayerDrawer({ request, user, onClose, onPray, onComment, onDelete, onM
               style={{ background: 'rgba(255,255,255,0.07)' }} />
             <button onClick={handleComment} disabled={!commentText.trim() || submitting}
               className="w-10 h-10 rounded-xl flex items-center justify-center disabled:opacity-40 transition-all flex-shrink-0"
-              style={{ background: 'linear-gradient(135deg, #c9a227, #92701a)' }}>
+              style={{ background: 'linear-gradient(135deg, #c9a227, #C9A227)' }}>
               {submitting ? <Loader2 className="w-4 h-4 text-white animate-spin" /> : <Send className="w-4 h-4 text-white" />}
             </button>
           </div>
@@ -385,7 +385,7 @@ function NewPrayerModal({ user, onClose, onSubmit }) {
             </button>
             <button onClick={() => text.trim() && setReviewing(true)} disabled={!text.trim()}
               className="w-full py-4 rounded-2xl font-bold text-white text-sm disabled:opacity-40 transition-all"
-              style={{ background: 'linear-gradient(135deg, #c9a227, #92701a)' }}>
+              style={{ background: 'linear-gradient(135deg, #c9a227, #C9A227)' }}>
               Review Before Posting →
             </button>
           </>
@@ -413,7 +413,7 @@ function NewPrayerModal({ user, onClose, onSubmit }) {
             <p className="text-white/35 text-xs text-center mb-5">This will be visible to everyone on the prayer wall.</p>
             <button onClick={handleSubmit} disabled={submitting}
               className="w-full py-4 rounded-2xl font-bold text-white text-sm disabled:opacity-40 transition-all flex items-center justify-center gap-2"
-              style={{ background: submitting ? '#555' : 'linear-gradient(135deg, #c9a227, #92701a)' }}>
+              style={{ background: submitting ? '#555' : 'linear-gradient(135deg, #c9a227, #C9A227)' }}>
               {submitting ? <><Loader2 className="w-4 h-4 animate-spin" /> Submitting…</> : <>🙏 Submit Prayer Request</>}
             </button>
           </>
@@ -523,7 +523,7 @@ function ActsGuidedPrayer({ onComplete }) {
         ) : (
           <button onClick={finish} disabled={!answers.supplication.trim() || saving}
             className="flex-1 py-2.5 rounded-2xl text-xs font-bold text-white transition-all disabled:opacity-30"
-            style={{ background: 'linear-gradient(135deg, #c9a227, #92701a)' }}>
+            style={{ background: 'linear-gradient(135deg, #c9a227, #C9A227)' }}>
             {saving ? 'Saving…' : '🙏 Complete Prayer'}
           </button>
         )}
@@ -591,7 +591,7 @@ function MyPrayers() {
               <button onClick={() => setAdding(false)} className="flex-1 py-2 rounded-xl text-xs font-bold text-white/40 border border-white/10">Cancel</button>
               <button onClick={add} disabled={!text.trim()}
                 className="flex-1 py-2 rounded-xl text-xs font-bold text-white disabled:opacity-30"
-                style={{ background: 'linear-gradient(135deg, #c9a227, #92701a)' }}>Add Prayer</button>
+                style={{ background: 'linear-gradient(135deg, #c9a227, #C9A227)' }}>Add Prayer</button>
             </div>
           </motion.div>
         )}
@@ -780,7 +780,7 @@ export default function Prayer() {
           </button>
           <button onClick={() => { if (requireAuth(user, 'share a prayer request')) setShowNewPrayer(true); }}
             className="w-11 h-11 rounded-full flex items-center justify-center shadow-lg transition-all active:scale-95"
-            style={{ background: 'linear-gradient(135deg, #c9a227, #92701a)' }}>
+            style={{ background: 'linear-gradient(135deg, #c9a227, #C9A227)' }}>
             <Plus className="w-5 h-5 text-white" strokeWidth={2.5} />
           </button>
         </div>
@@ -838,7 +838,7 @@ export default function Prayer() {
               <p className="text-white/30 text-sm">No prayer requests yet.</p>
               <button onClick={() => setShowNewPrayer(true)}
                 className="mt-4 px-5 py-2.5 rounded-full text-sm font-bold text-white"
-                style={{ background: 'linear-gradient(135deg, #c9a227, #92701a)' }}>
+                style={{ background: 'linear-gradient(135deg, #c9a227, #C9A227)' }}>
                 Be the first to share
               </button>
             </div>

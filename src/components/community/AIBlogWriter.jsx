@@ -51,7 +51,7 @@ function Chip({ selected, onClick, children }) {
       className={`text-xs px-3 py-1.5 rounded-full border font-semibold transition-all ${
         selected
           ? 'bg-[#0A1A2F] text-white border-[#0A1A2F]'
-          : 'bg-white text-[#0A1A2F]/50 border-[#E2E8F0] hover:border-[#D9B878]/50'
+          : 'bg-white text-[#0A1A2F]/50 border-[#F2F6FA] hover:border-[#FAD98D]/50'
       }`}>
       {children}
     </button>
@@ -167,7 +167,7 @@ EXCERPT: [one compelling sentence that makes someone want to read, max 25 words]
         className="bg-white w-full sm:max-w-2xl sm:rounded-2xl rounded-t-3xl max-h-[94dvh] flex flex-col overflow-hidden shadow-2xl"
       >
         {/* ── Header ── */}
-        <div className="bg-gradient-to-r from-[#0A1A2F] to-[#1a3a5c] text-white px-5 py-4 flex items-center gap-3 flex-shrink-0">
+        <div className="bg-gradient-to-r from-[#0A1A2F] to-[#0A1A2F] text-white px-5 py-4 flex items-center gap-3 flex-shrink-0">
           {step === 'edit' && (
             <button onClick={handleRedo}
               className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors flex-shrink-0">
@@ -175,7 +175,7 @@ EXCERPT: [one compelling sentence that makes someone want to read, max 25 words]
             </button>
           )}
           <div className="flex items-center gap-2 flex-1">
-            <Wand2 className="w-5 h-5 text-[#D9B878]" />
+            <Wand2 className="w-5 h-5 text-[#FAD98D]" />
             <h2 className="font-bold text-base">
               {step === 'setup' ? 'AI Blog Writer' : step === 'generating' ? 'Writing your post…' : 'Review & Publish'}
             </h2>
@@ -193,12 +193,12 @@ EXCERPT: [one compelling sentence that makes someone want to read, max 25 words]
             return (
               <React.Fragment key={s}>
                 <div className={`flex items-center gap-1.5 text-xs font-semibold ${i <= stepIdx ? 'text-[#c9a227]' : 'text-[#0A1A2F]/25'}`}>
-                  <div className={`w-4 h-4 rounded-full flex items-center justify-center text-[9px] font-bold ${i <= stepIdx ? 'bg-[#c9a227] text-white' : 'bg-[#E2E8F0] text-[#0A1A2F]/30'}`}>
+                  <div className={`w-4 h-4 rounded-full flex items-center justify-center text-[9px] font-bold ${i <= stepIdx ? 'bg-[#c9a227] text-white' : 'bg-[#F2F6FA] text-[#0A1A2F]/30'}`}>
                     {i + 1}
                   </div>
                   {s}
                 </div>
-                {i < 2 && <div className={`flex-1 h-px ${i < stepIdx ? 'bg-[#c9a227]/40' : 'bg-[#E2E8F0]'}`} />}
+                {i < 2 && <div className={`flex-1 h-px ${i < stepIdx ? 'bg-[#c9a227]/40' : 'bg-[#F2F6FA]'}`} />}
               </React.Fragment>
             );
           })}
@@ -218,7 +218,7 @@ EXCERPT: [one compelling sentence that makes someone want to read, max 25 words]
                       className={`text-xs px-3 py-1.5 rounded-full border font-medium transition-all ${
                         title === s
                           ? 'bg-[#0A1A2F] text-white border-[#0A1A2F]'
-                          : 'bg-[#F8FAFC] text-[#0A1A2F]/55 border-[#E2E8F0] hover:border-[#D9B878]/40'
+                          : 'bg-[#F2F6FA] text-[#0A1A2F]/55 border-[#F2F6FA] hover:border-[#FAD98D]/40'
                       }`}>
                       {s}
                     </button>
@@ -232,7 +232,7 @@ EXCERPT: [one compelling sentence that makes someone want to read, max 25 words]
                 <input type="text"
                   placeholder="e.g. How my faith transformed my fitness journey"
                   value={title} onChange={e => setTitle(e.target.value)}
-                  className="w-full px-3 py-2.5 rounded-xl border border-[#E2E8F0] bg-[#F8FAFC] text-sm text-[#0A1A2F] placeholder-[#0A1A2F]/25 focus:outline-none focus:border-[#D9B878]/60 transition-colors"
+                  className="w-full px-3 py-2.5 rounded-xl border border-[#F2F6FA] bg-[#F2F6FA] text-sm text-[#0A1A2F] placeholder-[#0A1A2F]/25 focus:outline-none focus:border-[#FAD98D]/60 transition-colors"
                 />
               </div>
 
@@ -256,8 +256,8 @@ EXCERPT: [one compelling sentence that makes someone want to read, max 25 words]
                     <button key={t.value} onClick={() => setTone(t.value)}
                       className={`text-xs px-3 py-1.5 rounded-full border font-semibold transition-all ${
                         tone === t.value
-                          ? 'bg-[#D9B878] text-[#0A1A2F] border-[#D9B878]'
-                          : 'bg-white text-[#0A1A2F]/50 border-[#E2E8F0] hover:border-[#D9B878]/40'
+                          ? 'bg-[#FAD98D] text-[#0A1A2F] border-[#FAD98D]'
+                          : 'bg-white text-[#0A1A2F]/50 border-[#F2F6FA] hover:border-[#FAD98D]/40'
                       }`}>
                       {t.label}
                     </button>
@@ -273,7 +273,7 @@ EXCERPT: [one compelling sentence that makes someone want to read, max 25 words]
                 <input type="text"
                   placeholder="e.g. prayer, discipline, morning routine"
                   value={keywords} onChange={e => setKeywords(e.target.value)}
-                  className="w-full px-3 py-2.5 rounded-xl border border-[#E2E8F0] bg-[#F8FAFC] text-sm text-[#0A1A2F] placeholder-[#0A1A2F]/25 focus:outline-none focus:border-[#D9B878]/60 transition-colors"
+                  className="w-full px-3 py-2.5 rounded-xl border border-[#F2F6FA] bg-[#F2F6FA] text-sm text-[#0A1A2F] placeholder-[#0A1A2F]/25 focus:outline-none focus:border-[#FAD98D]/60 transition-colors"
                 />
               </div>
             </div>
@@ -282,7 +282,7 @@ EXCERPT: [one compelling sentence that makes someone want to read, max 25 words]
           {/* ── Generating step ── */}
           {step === 'generating' && (
             <div className="flex flex-col items-center justify-center py-20 gap-5 text-center px-8">
-              <div className="w-16 h-16 bg-gradient-to-br from-[#D9B878] to-[#c9a227] rounded-2xl flex items-center justify-center">
+              <div className="w-16 h-16 bg-gradient-to-br from-[#FAD98D] to-[#c9a227] rounded-2xl flex items-center justify-center">
                 <Loader2 className="w-8 h-8 text-white animate-spin" />
               </div>
               <div>
@@ -299,7 +299,7 @@ EXCERPT: [one compelling sentence that makes someone want to read, max 25 words]
               <div>
                 <p className="text-xs font-bold text-[#0A1A2F]/40 uppercase tracking-widest mb-1.5">Title</p>
                 <input type="text" value={title} onChange={e => setTitle(e.target.value)}
-                  className="w-full px-3 py-2.5 rounded-xl border border-[#E2E8F0] bg-[#F8FAFC] text-sm font-bold text-[#0A1A2F] focus:outline-none focus:border-[#D9B878]/60 transition-colors"
+                  className="w-full px-3 py-2.5 rounded-xl border border-[#F2F6FA] bg-[#F2F6FA] text-sm font-bold text-[#0A1A2F] focus:outline-none focus:border-[#FAD98D]/60 transition-colors"
                 />
               </div>
 
@@ -315,10 +315,10 @@ EXCERPT: [one compelling sentence that makes someone want to read, max 25 words]
                 {editMode ? (
                   <textarea value={content} onChange={e => setContent(e.target.value)}
                     rows={12}
-                    className="w-full resize-none px-3 py-2.5 rounded-xl border border-[#E2E8F0] bg-[#F8FAFC] text-xs font-mono text-[#0A1A2F] focus:outline-none focus:border-[#D9B878]/60 transition-colors leading-relaxed"
+                    className="w-full resize-none px-3 py-2.5 rounded-xl border border-[#F2F6FA] bg-[#F2F6FA] text-xs font-mono text-[#0A1A2F] focus:outline-none focus:border-[#FAD98D]/60 transition-colors leading-relaxed"
                   />
                 ) : (
-                  <div className="border border-[#E2E8F0] rounded-xl p-4 bg-[#F8FAFC] min-h-[200px] prose prose-sm max-w-none overflow-auto text-[#0A1A2F]/80 prose-headings:text-[#0A1A2F] prose-headings:font-bold">
+                  <div className="border border-[#F2F6FA] rounded-xl p-4 bg-[#F2F6FA] min-h-[200px] prose prose-sm max-w-none overflow-auto text-[#0A1A2F]/80 prose-headings:text-[#0A1A2F] prose-headings:font-bold">
                     <ReactMarkdown>{content}</ReactMarkdown>
                   </div>
                 )}
@@ -328,29 +328,29 @@ EXCERPT: [one compelling sentence that makes someone want to read, max 25 words]
               <div>
                 <p className="text-xs font-bold text-[#0A1A2F]/40 uppercase tracking-widest mb-1.5">Excerpt (preview text)</p>
                 <textarea value={excerpt} onChange={e => setExcerpt(e.target.value)} rows={2}
-                  className="w-full resize-none px-3 py-2.5 rounded-xl border border-[#E2E8F0] bg-[#F8FAFC] text-sm text-[#0A1A2F] focus:outline-none focus:border-[#D9B878]/60 transition-colors leading-relaxed"
+                  className="w-full resize-none px-3 py-2.5 rounded-xl border border-[#F2F6FA] bg-[#F2F6FA] text-sm text-[#0A1A2F] focus:outline-none focus:border-[#FAD98D]/60 transition-colors leading-relaxed"
                 />
               </div>
 
               {/* Refine with AI */}
-              <div className="bg-[#FFF9ED] rounded-xl p-4 border border-[#D9B878]/25">
+              <div className="bg-white rounded-xl p-4 border border-[#FAD98D]/25">
                 <p className="text-xs font-bold text-[#0A1A2F]/50 uppercase tracking-widest mb-2.5">🪄 Refine with AI</p>
                 <div className="flex gap-2 mb-2">
                   <input type="text"
                     value={refineInstruction} onChange={e => setRefineInstruction(e.target.value)}
                     placeholder='"Make it more personal" or "Add a scripture quote"'
-                    className="flex-1 px-3 py-2 rounded-lg border border-[#E2E8F0] bg-white text-xs text-[#0A1A2F] focus:outline-none focus:border-[#D9B878]/60 transition-colors"
+                    className="flex-1 px-3 py-2 rounded-lg border border-[#F2F6FA] bg-white text-xs text-[#0A1A2F] focus:outline-none focus:border-[#FAD98D]/60 transition-colors"
                     onKeyDown={e => e.key === 'Enter' && refine()}
                   />
                   <button onClick={refine} disabled={isRefining || !refineInstruction.trim()}
-                    className="px-3 py-2 rounded-lg bg-[#D9B878] text-[#0A1A2F] font-bold text-xs disabled:opacity-40 hover:bg-[#c9a227] transition-colors flex items-center gap-1">
+                    className="px-3 py-2 rounded-lg bg-[#FAD98D] text-[#0A1A2F] font-bold text-xs disabled:opacity-40 hover:bg-[#c9a227] transition-colors flex items-center gap-1">
                     {isRefining ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Wand2 className="w-3.5 h-3.5" />}
                   </button>
                 </div>
                 <div className="flex flex-wrap gap-1.5">
                   {REFINE_SHORTCUTS.map(s => (
                     <button key={s} onClick={() => setRefineInstruction(s)}
-                      className="text-[11px] bg-white text-[#0A1A2F]/55 px-2.5 py-1 rounded-lg border border-[#E2E8F0] hover:border-[#D9B878]/40 transition-colors font-medium">
+                      className="text-[11px] bg-white text-[#0A1A2F]/55 px-2.5 py-1 rounded-lg border border-[#F2F6FA] hover:border-[#FAD98D]/40 transition-colors font-medium">
                       {s}
                     </button>
                   ))}
@@ -361,22 +361,22 @@ EXCERPT: [one compelling sentence that makes someone want to read, max 25 words]
         </div>
 
         {/* ── Footer actions ── */}
-        <div className="border-t border-[#E2E8F0] px-5 py-4 flex gap-3 flex-shrink-0 bg-white">
+        <div className="border-t border-[#F2F6FA] px-5 py-4 flex gap-3 flex-shrink-0 bg-white">
           {step === 'setup' && (
             <>
               <button onClick={onClose}
-                className="flex-1 py-3 rounded-xl border border-[#E2E8F0] text-[#0A1A2F]/50 font-semibold text-sm hover:bg-[#F8FAFC] transition-colors">
+                className="flex-1 py-3 rounded-xl border border-[#F2F6FA] text-[#0A1A2F]/50 font-semibold text-sm hover:bg-[#F2F6FA] transition-colors">
                 Cancel
               </button>
               <button onClick={generate} disabled={!title.trim()}
-                className="flex-1 py-3 rounded-xl bg-gradient-to-r from-[#D9B878] to-[#c9a227] text-[#0A1A2F] font-bold text-sm disabled:opacity-40 hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
+                className="flex-1 py-3 rounded-xl bg-gradient-to-r from-[#FAD98D] to-[#c9a227] text-[#0A1A2F] font-bold text-sm disabled:opacity-40 hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
                 <Sparkles className="w-4 h-4" /> Generate Post
               </button>
             </>
           )}
           {step === 'edit' && (
             <button onClick={publish} disabled={isPublishing}
-              className="flex-1 py-3 rounded-xl bg-gradient-to-r from-[#D9B878] to-[#c9a227] text-[#0A1A2F] font-bold text-sm disabled:opacity-40 hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
+              className="flex-1 py-3 rounded-xl bg-gradient-to-r from-[#FAD98D] to-[#c9a227] text-[#0A1A2F] font-bold text-sm disabled:opacity-40 hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
               {isPublishing ? <Loader2 className="w-4 h-4 animate-spin" /> : <Check className="w-4 h-4" />}
               {isPublishing ? 'Publishing…' : 'Publish to Community'}
             </button>

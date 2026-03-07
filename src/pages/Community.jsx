@@ -49,8 +49,8 @@ function TabBar({ active, onChange }) {
         <button key={id} onClick={() => onChange(id)}
           className={`flex-1 flex flex-col items-center gap-1 py-2.5 rounded-xl text-[11px] font-bold transition-all ${
             active === id
-              ? 'bg-gradient-to-b from-[#c9a227] to-[#D9B878] text-white shadow-sm'
-              : 'bg-white text-[#0A1A2F]/45 border border-[#D9B878]/25 hover:text-[#0A1A2F]/65'
+              ? 'bg-gradient-to-b from-[#c9a227] to-[#FAD98D] text-white shadow-sm'
+              : 'bg-white text-[#0A1A2F]/45 border border-[#FAD98D]/25 hover:text-[#0A1A2F]/65'
           }`}>
           <Icon className="w-4 h-4" />
           {label}
@@ -66,7 +66,7 @@ function Chip({ active, onClick, children }) {
       className={`px-3 py-1.5 rounded-full text-xs font-semibold border flex-shrink-0 transition-colors ${
         active
           ? 'bg-[#0A1A2F] text-white border-[#0A1A2F]'
-          : 'bg-white text-[#0A1A2F]/50 border-[#D9B878]/30 hover:border-[#c9a227]/40'
+          : 'bg-white text-[#0A1A2F]/50 border-[#FAD98D]/30 hover:border-[#c9a227]/40'
       }`}>
       {children}
     </button>
@@ -133,8 +133,8 @@ function GroupsTab({ user }) {
           <button key={val} onClick={() => setSubTab(val)}
             className={`flex-1 py-2.5 rounded-xl text-xs font-bold transition-all ${
               subTab === val
-                ? 'bg-gradient-to-r from-[#c9a227] to-[#D9B878] text-white shadow-sm'
-                : 'bg-white text-[#0A1A2F]/50 border border-[#D9B878]/25'
+                ? 'bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white shadow-sm'
+                : 'bg-white text-[#0A1A2F]/50 border border-[#FAD98D]/25'
             }`}>
             {label}
           </button>
@@ -147,10 +147,10 @@ function GroupsTab({ user }) {
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#0A1A2F]/30" />
           <input value={search} onChange={e => setSearch(e.target.value)}
             placeholder="Search groups…"
-            className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-white border border-[#D9B878]/25 text-sm text-[#0A1A2F] placeholder-[#0A1A2F]/35 focus:outline-none focus:border-[#c9a227]/50" />
+            className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-white border border-[#FAD98D]/25 text-sm text-[#0A1A2F] placeholder-[#0A1A2F]/35 focus:outline-none focus:border-[#c9a227]/50" />
         </div>
         <button onClick={() => setShowCreate(true)}
-          className="w-11 h-11 rounded-xl bg-gradient-to-r from-[#c9a227] to-[#D9B878] flex items-center justify-center text-white shadow-sm hover:opacity-90 flex-shrink-0">
+          className="w-11 h-11 rounded-xl bg-gradient-to-r from-[#c9a227] to-[#FAD98D] flex items-center justify-center text-white shadow-sm hover:opacity-90 flex-shrink-0">
           <Plus className="w-5 h-5" />
         </button>
       </div>
@@ -164,17 +164,17 @@ function GroupsTab({ user }) {
 
       {/* Grid */}
       {subTab === 'my' && myGroups.length === 0 ? (
-        <div className="bg-gradient-to-br from-[#FAD98D]/20 to-[#AFC7E3]/15 border border-[#D9B878]/25 rounded-2xl p-6 text-center">
+        <div className="bg-gradient-to-br from-[#FAD98D]/20 to-[#AFC7E3]/15 border border-[#FAD98D]/25 rounded-2xl p-6 text-center">
           <p className="text-3xl mb-3">🤝</p>
           <h3 className="font-bold text-[#0A1A2F] mb-1">Grow together</h3>
           <p className="text-sm text-[#0A1A2F]/60 mb-4">Join a group to share your journey and encourage others.</p>
           <div className="flex gap-2">
             <button onClick={() => setSubTab('discover')}
-              className="flex-1 bg-gradient-to-r from-[#c9a227] to-[#D9B878] text-white text-sm font-semibold py-2.5 rounded-xl hover:opacity-90">
+              className="flex-1 bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white text-sm font-semibold py-2.5 rounded-xl hover:opacity-90">
               Browse Groups
             </button>
             <button onClick={() => setShowCreate(true)}
-              className="flex-1 bg-white text-[#0A1A2F]/70 text-sm font-semibold py-2.5 rounded-xl border border-[#D9B878]/30 hover:bg-[#FAD98D]/10">
+              className="flex-1 bg-white text-[#0A1A2F]/70 text-sm font-semibold py-2.5 rounded-xl border border-[#FAD98D]/30 hover:bg-[#FAD98D]/10">
               Create Group
             </button>
           </div>
@@ -193,7 +193,7 @@ function GroupsTab({ user }) {
 
       {/* Create group modal */}
       <Dialog open={showCreate} onOpenChange={setShowCreate}>
-        <DialogContent className="bg-[#FFFDF7] border border-[#D9B878]/30">
+        <DialogContent className="bg-[#F2F6FA] border border-[#FAD98D]/30">
           <DialogHeader>
             <DialogTitle className="text-[#0A1A2F]">Create Study Group</DialogTitle>
           </DialogHeader>
@@ -204,7 +204,7 @@ function GroupsTab({ user }) {
                 placeholder="e.g., Daily Bible Study"
                 value={newGroup.name}
                 onChange={e => setNewGroup({ ...newGroup, name: e.target.value })}
-                className="mt-1.5 w-full px-3 py-2.5 rounded-xl border border-[#D9B878]/30 bg-[#F2F6FA] text-sm text-[#0A1A2F] focus:outline-none focus:border-[#c9a227]/50"
+                className="mt-1.5 w-full px-3 py-2.5 rounded-xl border border-[#FAD98D]/30 bg-[#F2F6FA] text-sm text-[#0A1A2F] focus:outline-none focus:border-[#c9a227]/50"
               />
             </div>
             <div>
@@ -213,7 +213,7 @@ function GroupsTab({ user }) {
                 placeholder="What is this group about?"
                 value={newGroup.description}
                 onChange={e => setNewGroup({ ...newGroup, description: e.target.value })}
-                className="mt-1.5 min-h-[70px] border-[#D9B878]/30 bg-[#F2F6FA] text-sm resize-none"
+                className="mt-1.5 min-h-[70px] border-[#FAD98D]/30 bg-[#F2F6FA] text-sm resize-none"
               />
             </div>
             <div>
@@ -224,7 +224,7 @@ function GroupsTab({ user }) {
                     className={`px-3 py-1.5 rounded-full text-xs font-semibold border transition-colors ${
                       newGroup.category === value
                         ? 'bg-[#0A1A2F] text-white border-[#0A1A2F]'
-                        : 'bg-white text-[#0A1A2F]/50 border-[#D9B878]/30'
+                        : 'bg-white text-[#0A1A2F]/50 border-[#FAD98D]/30'
                     }`}>
                     {label}
                   </button>
@@ -243,13 +243,13 @@ function GroupsTab({ user }) {
             </div>
             <div className="flex gap-2 pt-2">
               <button onClick={() => setShowCreate(false)}
-                className="flex-1 py-2.5 rounded-xl border border-[#D9B878]/30 text-sm font-semibold text-[#0A1A2F]/60 hover:bg-[#FAD98D]/10">
+                className="flex-1 py-2.5 rounded-xl border border-[#FAD98D]/30 text-sm font-semibold text-[#0A1A2F]/60 hover:bg-[#FAD98D]/10">
                 Cancel
               </button>
               <button
                 onClick={() => newGroup.name.trim() && createGroup.mutate(newGroup)}
                 disabled={!newGroup.name.trim() || createGroup.isPending}
-                className="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-[#c9a227] to-[#D9B878] text-white text-sm font-semibold hover:opacity-90 disabled:opacity-50">
+                className="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white text-sm font-semibold hover:opacity-90 disabled:opacity-50">
                 {createGroup.isPending ? 'Creating…' : 'Create Group'}
               </button>
             </div>
@@ -274,11 +274,11 @@ export default function Community() {
     <div className="min-h-screen bg-[#F2F6FA] pb-28">
 
       {/* ── Header ── */}
-      <div className="bg-white border-b border-[#D9B878]/20 px-4 pt-5 pb-4">
+      <div className="bg-white border-b border-[#FAD98D]/20 px-4 pt-5 pb-4">
         <div className="max-w-lg mx-auto">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#c9a227] to-[#D9B878] flex items-center justify-center">
+              <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center">
                 <Users className="w-5 h-5 text-white" />
               </div>
               <div>
@@ -290,7 +290,7 @@ export default function Community() {
             {/* Contextual action button */}
             {activeTab === 'feed' && (
               <button onClick={() => setShowShareModal(true)}
-                className="flex items-center gap-1.5 bg-gradient-to-r from-[#c9a227] to-[#D9B878] text-white text-xs font-bold px-3 py-2 rounded-xl hover:opacity-90 shadow-sm">
+                className="flex items-center gap-1.5 bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white text-xs font-bold px-3 py-2 rounded-xl hover:opacity-90 shadow-sm">
                 <Plus className="w-3.5 h-3.5" /> Share
               </button>
             )}

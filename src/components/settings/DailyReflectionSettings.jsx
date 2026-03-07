@@ -50,7 +50,7 @@ export default function DailyReflectionSettings() {
     <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
-          <Sparkles className="w-5 h-5 text-[#8a6e1a]" />
+          <Sparkles className="w-5 h-5 text-[#C9A227]" />
           Gideon's Proactive Engagement
         </CardTitle>
       </CardHeader>
@@ -59,7 +59,7 @@ export default function DailyReflectionSettings() {
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Clock className="w-5 h-5 text-[#8a6e1a]" />
+              <Clock className="w-5 h-5 text-[#C9A227]" />
               <div>
                 <Label className="font-semibold">Daily Reflection Prompts</Label>
                 <p className="text-xs text-gray-500">ICF-aligned questions based on your journey</p>
@@ -91,7 +91,7 @@ export default function DailyReflectionSettings() {
         <div className="space-y-4 pt-4 border-t">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Bell className="w-5 h-5 text-[#8a6e1a]" />
+              <Bell className="w-5 h-5 text-[#C9A227]" />
               <div>
                 <Label className="font-semibold">AI-Driven Suggestions</Label>
                 <p className="text-xs text-gray-500">Scripture & insights based on your patterns</p>

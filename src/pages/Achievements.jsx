@@ -24,7 +24,7 @@ function getXp(progress) {
 function StatChip({ icon: Icon, label, value, sub, bg, accent }) {
   return (
     <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
-      className={`${bg} rounded-2xl p-4 border border-[#D9B878]/25`}>
+      className={`${bg} rounded-2xl p-4 border border-[#FAD98D]/25`}>
       <Icon className={`w-4 h-4 ${accent} mb-2`} />
       <p className="text-2xl font-bold text-[#0A1A2F]">{value}</p>
       <p className="text-xs font-semibold text-[#0A1A2F]/60 leading-tight">{label}</p>
@@ -47,8 +47,8 @@ function TabBar({ active, onChange }) {
         <button key={id} onClick={() => onChange(id)}
           className={`flex-1 py-2.5 rounded-xl text-xs font-bold transition-all ${
             active === id
-              ? 'bg-gradient-to-r from-[#c9a227] to-[#D9B878] text-white shadow-sm'
-              : 'bg-white text-[#0A1A2F]/50 border border-[#D9B878]/25'
+              ? 'bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white shadow-sm'
+              : 'bg-white text-[#0A1A2F]/50 border border-[#FAD98D]/25'
           }`}>
           {label}
         </button>
@@ -83,10 +83,10 @@ export default function Achievements() {
     <div className="min-h-screen bg-[#F2F6FA] pb-28">
 
       {/* ── Hero header ── */}
-      <div className="bg-gradient-to-br from-[#0A1A2F] to-[#1a3a5c] px-4 pt-5 pb-8">
+      <div className="bg-gradient-to-br from-[#0A1A2F] to-[#0A1A2F] px-4 pt-5 pb-8">
         <div className="max-w-lg mx-auto">
           <div className="flex items-center gap-3 mb-5">
-            <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-[#c9a227] to-[#D9B878] flex items-center justify-center shadow-md">
+            <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center shadow-md">
               <Trophy className="w-5 h-5 text-white" />
             </div>
             <div>
@@ -99,16 +99,16 @@ export default function Achievements() {
           <div className="bg-white/10 rounded-2xl p-4">
             <div className="flex items-center justify-between mb-3">
               <div className="flex items-center gap-2">
-                <Crown className="w-4 h-4 text-[#D9B878]" />
+                <Crown className="w-4 h-4 text-[#FAD98D]" />
                 <span className="font-bold text-white text-sm">Level {xp.level}</span>
               </div>
-              <span className="text-[#D9B878] text-xs font-semibold">{xp.toNext} pts to next level</span>
+              <span className="text-[#FAD98D] text-xs font-semibold">{xp.toNext} pts to next level</span>
             </div>
             <div className="h-2 bg-white/10 rounded-full overflow-hidden">
               <motion.div
                 initial={{ width: 0 }} animate={{ width: `${xpPct}%` }}
                 transition={{ duration: 0.8, ease: 'easeOut' }}
-                className="h-full bg-gradient-to-r from-[#c9a227] to-[#D9B878] rounded-full"
+                className="h-full bg-gradient-to-r from-[#c9a227] to-[#FAD98D] rounded-full"
               />
             </div>
             <div className="flex justify-between mt-1.5">
@@ -124,7 +124,7 @@ export default function Achievements() {
         <div className="grid grid-cols-2 gap-3 mb-5">
           <StatChip icon={Sparkles}   label="Badges Earned"   value={earned.length}
             sub={`${available.length} remaining`}
-            bg="bg-gradient-to-br from-[#FAD98D]/30 to-[#D9B878]/15" accent="text-[#c9a227]" />
+            bg="bg-gradient-to-br from-[#FAD98D]/30 to-[#FAD98D]/15" accent="text-[#c9a227]" />
           <StatChip icon={TrendingUp} label="Total Points"    value={xp.total}
             sub={`Level ${xp.level}`}
             bg="bg-white" accent="text-[#c9a227]" />

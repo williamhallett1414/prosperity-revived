@@ -96,7 +96,7 @@ export default function GideonNotificationSettings() {
       title: 'Weekly Check-Ins',
       description: 'Spiritual growth reflections',
       icon: Heart,
-      color: 'text-[#D9B878]'
+      color: 'text-[#FAD98D]'
     },
     {
       id: 'challenge_reminders_enabled',
@@ -115,10 +115,10 @@ export default function GideonNotificationSettings() {
   ];
 
   return (
-    <Card className="bg-gradient-to-br from-[#FAD98D]/10 to-[#FFF8E7] dark:from-[#0A1A2F]/40 dark:to-[#1a1a2e]/40 border-[#D9B878]/40 dark:border-[#c9a227]/40">
+    <Card className="bg-gradient-to-br from-[#FAD98D]/10 to-[#FFF9EC] dark:from-[#0A1A2F]/40 dark:to-[#0A1A2F]/40 border-[#FAD98D]/40 dark:border-[#c9a227]/40">
       <CardHeader>
         <div className="flex items-center gap-3">
-          <div className="w-12 h-12 bg-gradient-to-r from-[#c9a227] to-[#D9B878] rounded-full flex items-center justify-center">
+          <div className="w-12 h-12 bg-gradient-to-r from-[#c9a227] to-[#FAD98D] rounded-full flex items-center justify-center">
             <MessageCircle className="w-6 h-6 text-white" />
           </div>
           <div>
@@ -139,7 +139,7 @@ export default function GideonNotificationSettings() {
             return (
               <div
                 key={option.id}
-                className="flex items-center justify-between p-4 bg-white dark:bg-[#1a1a2e] rounded-lg border border-gray-200 dark:border-gray-700"
+                className="flex items-center justify-between p-4 bg-white dark:bg-[#0A1A2F] rounded-lg border border-gray-200 dark:border-gray-700"
               >
                 <div className="flex items-center gap-3 flex-1">
                   <Icon className={`w-5 h-5 ${option.color}`} />
@@ -168,7 +168,7 @@ export default function GideonNotificationSettings() {
             return (
               <div
                 key={option.id}
-                className="flex items-center justify-between p-4 bg-white dark:bg-[#1a1a2e] rounded-lg border border-gray-200 dark:border-gray-700"
+                className="flex items-center justify-between p-4 bg-white dark:bg-[#0A1A2F] rounded-lg border border-gray-200 dark:border-gray-700"
               >
                 <div className="flex items-center gap-3 flex-1">
                   <Icon className={`w-5 h-5 ${option.color}`} />
@@ -176,7 +176,7 @@ export default function GideonNotificationSettings() {
                     <div className="flex items-center gap-2">
                       <p className="font-medium text-gray-900 dark:text-white">{option.title}</p>
                       {option.badge && (
-                        <span className="px-2 py-0.5 bg-[#FAD98D]/20 dark:bg-[#FAD98D]/10 text-[#8a6e1a] dark:text-[#c9a227] text-xs font-semibold rounded-full">
+                        <span className="px-2 py-0.5 bg-[#FAD98D]/20 dark:bg-[#FAD98D]/10 text-[#C9A227] dark:text-[#c9a227] text-xs font-semibold rounded-full">
                           {option.badge}
                         </span>
                       )}

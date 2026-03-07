@@ -120,7 +120,7 @@ export default function DayDiscussionPanel({ groupId, dayNumber, currentUser }) 
             <Button
               onClick={() => createDiscussion.mutate(newPost)}
               disabled={!newPost.trim() || createDiscussion.isPending}
-              className="bg-[#8fa68a] hover:bg-[#7a9179] text-white"
+              className="bg-[#AFC7E3] hover:bg-[#AFC7E3] text-white"
               size="sm"
             >
               <Send className="w-4 h-4 mr-2" />

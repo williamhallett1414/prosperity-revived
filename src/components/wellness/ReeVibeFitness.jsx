@@ -142,7 +142,7 @@ export default function ReeVibeFitness({ user }) {
           </Avatar>
           <button
             onClick={() => setShowCreatePost(true)}
-            className="flex-1 text-left px-4 py-2.5 bg-[#F0F8FF] rounded-full text-[#0A1A2F]/45 hover:bg-[#BAE6FD]/20 transition-colors"
+            className="flex-1 text-left px-4 py-2.5 bg-[#F2F6FA] rounded-full text-[#0A1A2F]/45 hover:bg-[#BAE6FD]/20 transition-colors"
           >
             What's your motivation today?
           </button>

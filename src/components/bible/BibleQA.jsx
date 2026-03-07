@@ -68,7 +68,7 @@ Provide a clear, encouraging answer that:
         animate={{ opacity: 1, y: 0 }}
         className="text-center"
       >
-        <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-[#c9a227] to-[#D9B878] flex items-center justify-center">
+        <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center">
           <Sparkles className="w-8 h-8 text-white" />
         </div>
         <h2 className="text-2xl font-bold text-[#0A1A2F] mb-2">Ask a Bible Question</h2>
@@ -79,13 +79,13 @@ Provide a clear, encouraging answer that:
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-[#FFFDF7] rounded-2xl p-6 shadow-lg"
+        className="bg-[#F2F6FA] rounded-2xl p-6 shadow-lg"
       >
         <Textarea
           value={question}
           onChange={(e) => setQuestion(e.target.value)}
           placeholder="What would you like to know from Scripture?"
-          className="min-h-[100px] mb-4 resize-none bg-[#FFFDF7] border-[#D9B878]/20"
+          className="min-h-[100px] mb-4 resize-none bg-[#F2F6FA] border-[#FAD98D]/20"
           onKeyDown={(e) => {
             if (e.key === 'Enter' && !e.shiftKey) {
               e.preventDefault();
@@ -96,7 +96,7 @@ Provide a clear, encouraging answer that:
         <Button
           onClick={handleAskQuestion}
           disabled={!question.trim() || isLoading}
-          className="w-full bg-gradient-to-r from-[#c9a227] to-[#D9B878] hover:opacity-90 h-12"
+          className="w-full bg-gradient-to-r from-[#c9a227] to-[#FAD98D] hover:opacity-90 h-12"
         >
           {isLoading ? (
             <>
@@ -128,7 +128,7 @@ Provide a clear, encouraging answer that:
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.3 + i * 0.1 }}
               onClick={() => handleSuggestedQuestion(q)}
-              className="w-full text-left bg-[#FFFDF7] rounded-xl p-4 hover:shadow-md transition-all border border-[#D9B878]/15 group"
+              className="w-full text-left bg-[#F2F6FA] rounded-xl p-4 hover:shadow-md transition-all border border-[#FAD98D]/15 group"
             >
               <div className="flex items-start gap-3">
                 <BookOpen className="w-5 h-5 text-[#c9a227] mt-0.5 group-hover:scale-110 transition-transform" />
@@ -144,7 +144,7 @@ Provide a clear, encouraging answer that:
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-[#FFFDF7] rounded-2xl p-6 shadow-lg border-2 border-[#c9a227]/20"
+          className="bg-[#F2F6FA] rounded-2xl p-6 shadow-lg border-2 border-[#c9a227]/20"
         >
           <div className="flex items-center gap-2 mb-4">
             <Sparkles className="w-5 h-5 text-[#c9a227]" />
@@ -167,7 +167,7 @@ Provide a clear, encouraging answer that:
               key={i}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="bg-[#FFFDF7] rounded-xl p-5 shadow-sm border border-[#D9B878]/15"
+              className="bg-[#F2F6FA] rounded-xl p-5 shadow-sm border border-[#FAD98D]/15"
             >
               <div className="flex items-start gap-2 mb-3">
                 <BookOpen className="w-4 h-4 text-[#c9a227] mt-1 flex-shrink-0" />

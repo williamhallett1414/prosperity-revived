@@ -6,7 +6,7 @@ import React, { useMemo } from 'react';
 
 const BOT_CLOUD = {
   gideon: { color: '#C9A227', glow: '#F0D98A', particle: '#F5E49A' },
-  hannah: { color: '#7AB3D4', glow: '#C8E4F6', particle: '#D0EAFC' },
+  hannah: { color: '#AFC7E3', glow: '#C8E4F6', particle: '#D0EAFC' },
   coach:  { color: '#38BDF8', glow: '#A8DEFF', particle: '#7DD3FC' },
   chef:   { color: '#22C55E', glow: '#A7F3C4', particle: '#86EFAC' },
   paul:   { color: '#A78BFA', glow: '#DDD6FE', particle: '#C4B5FD' },

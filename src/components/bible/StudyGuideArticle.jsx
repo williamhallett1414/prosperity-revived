@@ -3144,7 +3144,7 @@ export default function StudyGuideArticle({ guide, onBack }) {
 
   if (!content) {
     return (
-      <div className="min-h-screen bg-[#FFFDF7] p-6">
+      <div className="min-h-screen bg-[#F2F6FA] p-6">
         <Button variant="ghost" onClick={onBack}>
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back
@@ -3173,7 +3173,7 @@ export default function StudyGuideArticle({ guide, onBack }) {
   const SectionHeader = ({ title, section, isExpanded }) => (
     <button
       onClick={() => toggleSection(section)}
-      className="w-full flex items-center justify-between p-4 bg-gradient-to-r from-[#c9a227] to-[#D9B878] text-white rounded-lg hover:shadow-lg transition-all duration-300"
+      className="w-full flex items-center justify-between p-4 bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white rounded-lg hover:shadow-lg transition-all duration-300"
     >
       <h2 className="text-lg font-semibold flex items-center gap-3">
         <BookOpen className="w-5 h-5" />
@@ -3184,7 +3184,7 @@ export default function StudyGuideArticle({ guide, onBack }) {
   );
 
   return (
-    <div className="min-h-screen bg-[#FFFDF7]">
+    <div className="min-h-screen bg-[#F2F6FA]">
       <div className="max-w-3xl mx-auto px-4 py-6">
         {/* Back Button */}
         <Button
@@ -3283,7 +3283,7 @@ export default function StudyGuideArticle({ guide, onBack }) {
             <>
               <Card className="p-6 mt-2 space-y-4 text-[#0A1A2F]/75">
                 {content.keyEvents.map((item, index) => (
-                  <div key={index} className="border-l-4 border-[#D9B878] pl-4">
+                  <div key={index} className="border-l-4 border-[#FAD98D] pl-4">
                     <h3 className="font-semibold text-[#0A1A2F] mb-1">{item.event}</h3>
                     <p className="text-sm">{item.desc}</p>
                   </div>
@@ -3301,7 +3301,7 @@ export default function StudyGuideArticle({ guide, onBack }) {
           <SectionHeader title="Key Scriptures" section="keyScriptures" isExpanded={expandedSections.keyScriptures} />
           {expandedSections.keyScriptures && (
             <>
-              <Card className="p-6 mt-2 space-y-6 text-[#0A1A2F]/75 bg-gradient-to-br from-[#FAD98D]/15 to-[#D9B878]/10">
+              <Card className="p-6 mt-2 space-y-6 text-[#0A1A2F]/75 bg-gradient-to-br from-[#FAD98D]/15 to-[#FAD98D]/10">
                 {content.keyScriptures.map((item, index) => (
                   <div key={index}>
                     <p className="font-semibold text-[#0A1A2F] mb-1">{item.verse}</p>
@@ -3359,7 +3359,7 @@ export default function StudyGuideArticle({ guide, onBack }) {
 
         {/* Conclusion */}
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7 }} className="mt-6">
-          <Card className="p-6 bg-gradient-to-br from-[#FAD98D]/10 to-[#FFF8E7]">
+          <Card className="p-6 bg-gradient-to-br from-[#FAD98D]/10 to-[#FFF9EC]">
             <h2 className="text-lg font-bold text-[#0A1A2F] mb-4">Study Takeaway</h2>
             <p className="text-[#0A1A2F]/75 leading-relaxed">
               The Book of Genesis serves as the foundation upon which the entire Bible stands. Its narratives about faith, obedience, and redemption remain profoundly relevant today. Genesis invites us to reflect on our place in God's redemptive plan and to embrace the timeless values of faith, obedience, and trust in the sovereign God who created and sustains the universe.

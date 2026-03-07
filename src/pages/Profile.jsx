@@ -98,7 +98,7 @@ function Header({ user, friendsCount, onCoverUpload, onAvatarUpload, uploading }
           <p className="text-sm text-[#0A1A2F]/70 italic">"{user.status_message}"</p>
           }
             {user.spiritual_goal &&
-          <div className="flex items-start gap-2 bg-[#FAD98D]/15 border border-[#D9B878]/30 rounded-xl p-3 text-sm">
+          <div className="flex items-start gap-2 bg-[#FAD98D]/15 border border-[#FAD98D]/30 rounded-xl p-3 text-sm">
                 <span className="text-base leading-none mt-0.5">✨</span>
                 <p className="text-[#0A1A2F]/80"><span className="font-semibold text-[#0A1A2F]">Goal:</span> {user.spiritual_goal}</p>
               </div>
@@ -113,7 +113,7 @@ function Header({ user, friendsCount, onCoverUpload, onAvatarUpload, uploading }
 // ─── Tab bar ───────────────────────────────────────────────────────────────────
 function TabBar({ activeTab, onChange }) {
   return (
-    <div className="sticky top-0 z-30 bg-white border-b border-[#D9B878]/25 shadow-sm">
+    <div className="sticky top-0 z-30 bg-white border-b border-[#FAD98D]/25 shadow-sm">
       <div className="max-w-lg mx-auto px-4 flex gap-0 overflow-x-auto">
         {TABS.map(({ id, label }) =>
         <button key={id} onClick={() => onChange(id)}
@@ -123,7 +123,7 @@ function TabBar({ activeTab, onChange }) {
             {label}
             {activeTab === id &&
           <motion.div layoutId="profileTab"
-          className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#c9a227] to-[#D9B878] rounded-full"
+          className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#c9a227] to-[#FAD98D] rounded-full"
           transition={{ type: 'spring', stiffness: 500, damping: 30 }} />
           }
           </button>
@@ -138,7 +138,7 @@ function QuickLinks() {
   return (
     <div className="flex gap-3">
       <Link to={createPageUrl('ProgressDashboard')} className="flex-1">
-        <div className="bg-gradient-to-br from-[#0A1A2F] to-[#1a3a5c] rounded-2xl p-4 flex items-center gap-3 hover:opacity-90 transition-opacity">
+        <div className="bg-gradient-to-br from-[#0A1A2F] to-[#0A1A2F] rounded-2xl p-4 flex items-center gap-3 hover:opacity-90 transition-opacity">
           <div className="w-9 h-9 rounded-xl bg-white/15 flex items-center justify-center flex-shrink-0">
             <TrendingUp className="w-4 h-4 text-white" />
           </div>
@@ -150,7 +150,7 @@ function QuickLinks() {
         </div>
       </Link>
       <Link to={createPageUrl('Achievements')} className="flex-1">
-        <div className="bg-gradient-to-br from-[#c9a227] to-[#D9B878] rounded-2xl p-4 flex items-center gap-3 hover:opacity-90 transition-opacity">
+        <div className="bg-gradient-to-br from-[#c9a227] to-[#FAD98D] rounded-2xl p-4 flex items-center gap-3 hover:opacity-90 transition-opacity">
           <div className="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center flex-shrink-0">
             <Trophy className="w-4 h-4 text-white" />
           </div>
@@ -247,7 +247,7 @@ export default function Profile() {
 
   if (!user) {
     return (
-      <div className="min-h-screen bg-[#FFFDF7] flex items-center justify-center">
+      <div className="min-h-screen bg-[#F2F6FA] flex items-center justify-center">
         <div className="animate-spin w-8 h-8 border-4 border-[#c9a227] border-t-transparent rounded-full" />
       </div>);
 
@@ -294,8 +294,8 @@ export default function Profile() {
 
             {/* Account settings — only on About tab */}
             <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
-          className="bg-white rounded-2xl border border-[#D9B878]/25 shadow-sm overflow-hidden">
-              <div className="px-4 py-3 border-b border-[#D9B878]/20">
+          className="bg-white rounded-2xl border border-[#FAD98D]/25 shadow-sm overflow-hidden">
+              <div className="px-4 py-3 border-b border-[#FAD98D]/20">
                 <p className="text-xs font-bold text-[#0A1A2F]/40 uppercase tracking-widest">Account</p>
               </div>
               <div className="p-4 space-y-3">
@@ -313,7 +313,7 @@ export default function Profile() {
                       <span className="text-sm font-medium text-red-500">Delete My Account</span>
                     </button>
                   </AlertDialogTrigger>
-                  <AlertDialogContent className="bg-[#FFFDF7] border border-[#D9B878]/30">
+                  <AlertDialogContent className="bg-[#F2F6FA] border border-[#FAD98D]/30">
                     <AlertDialogHeader>
                       <AlertDialogTitle className="text-[#0A1A2F]">Are you absolutely sure?</AlertDialogTitle>
                       <AlertDialogDescription className="text-[#0A1A2F]/60">

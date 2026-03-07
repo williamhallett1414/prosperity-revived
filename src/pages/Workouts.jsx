@@ -256,7 +256,7 @@ export default function Workouts() {
   }, [challenges, challengeParticipants]);
 
   return (
-    <div className="min-h-screen bg-[#F0F8FF] pb-28">
+    <div className="min-h-screen bg-[#F2F6FA] pb-28">
 
       {/* ── Header ── */}
       <div className="sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b border-[#BAE6FD]/40 px-4 py-3">
@@ -290,7 +290,7 @@ export default function Workouts() {
             <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
               <div
                 className="rounded-2xl p-5 border border-[#38BDF8]/20"
-                style={{ background: "linear-gradient(135deg,#0A1828,#0F2540)" }}
+                style={{ background: "linear-gradient(135deg,#0A1A2F,#0F2540)" }}
               >
                 <p className="text-base font-bold text-white mb-3">{greeting.text}</p>
                 <div className="flex items-start gap-2">
@@ -538,7 +538,7 @@ export default function Workouts() {
               <button
                 onClick={() => navigate(createPageUrl("WorkoutPlanner"))}
                 className="w-full rounded-2xl p-5 flex items-center gap-4 shadow-sm hover:shadow-md transition-all"
-                style={{ background: "linear-gradient(135deg,#0A1828,#1a2535)" }}
+                style={{ background: "linear-gradient(135deg,#0A1A2F,#0A1A2F)" }}
               >
                 <div className="w-12 h-12 bg-[#FD9C2D]/20 rounded-xl flex items-center justify-center flex-shrink-0">
                   <ClipboardList className="w-6 h-6 text-[#FD9C2D]" />

@@ -11,7 +11,7 @@ import { motion } from 'framer-motion';
 
 const typeColors = {
   exercise: 'bg-[#AFC7E3]/25 text-[#3C4E53]',
-  book_summary: 'bg-[#c9a227]/20 text-[#8a6e1a]',
+  book_summary: 'bg-[#c9a227]/20 text-[#C9A227]',
   insight: 'bg-green-100 text-green-800'
 };
 

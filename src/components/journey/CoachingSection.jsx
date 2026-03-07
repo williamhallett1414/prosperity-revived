@@ -61,7 +61,7 @@ const DAY_REFS = {
 const PILLARS = [
   { key: 'devotion',  Icon: BookOpen, color: '#c9a227', label: 'Devotion'   },
   { key: 'workout',   Icon: Dumbbell, color: '#38BDF8', label: 'Workout'    },
-  { key: 'nutrition', Icon: Utensils, color: '#4ade80', label: 'Nutrition'  },
+  { key: 'nutrition', Icon: Utensils, color: '#22C55E', label: 'Nutrition'  },
   { key: 'growth',    Icon: Brain,    color: '#a78bfa', label: 'Growth'     },
 ];
 
@@ -114,7 +114,7 @@ export default function CoachingSection() {
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#c9a227] to-[#D9B878] flex items-center justify-center shadow-sm">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center shadow-sm">
             <Star className="w-5 h-5 text-white" />
           </div>
           <div>
@@ -131,7 +131,7 @@ export default function CoachingSection() {
       </div>
 
       {/* Progress card */}
-      <div className="bg-white rounded-2xl p-4 border border-[#D9B878]/25 shadow-sm mb-4">
+      <div className="bg-white rounded-2xl p-4 border border-[#FAD98D]/25 shadow-sm mb-4">
         <div className="flex items-center justify-between mb-2">
           <div>
             <p className="text-sm font-bold text-[#0A1A2F]">
@@ -149,7 +149,7 @@ export default function CoachingSection() {
         </div>
         <div className="h-2 bg-[#F2F6FA] rounded-full overflow-hidden">
           <motion.div
-            className="h-full rounded-full bg-gradient-to-r from-[#c9a227] to-[#D9B878]"
+            className="h-full rounded-full bg-gradient-to-r from-[#c9a227] to-[#FAD98D]"
             initial={{ width: 0 }}
             animate={{ width: overallPct + '%' }}
             transition={{ duration: 0.9, ease: 'easeOut' }}
@@ -162,7 +162,7 @@ export default function CoachingSection() {
       </div>
 
       {/* Today card */}
-      <div className="bg-gradient-to-br from-[#0A1A2F] to-[#1a3a5c] rounded-2xl p-5 shadow-md mb-4">
+      <div className="bg-gradient-to-br from-[#0A1A2F] to-[#0A1A2F] rounded-2xl p-5 shadow-md mb-4">
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
             <span className="text-[10px] font-bold text-[#c9a227] uppercase tracking-widest">Day {currentDay}</span>
@@ -211,7 +211,7 @@ export default function CoachingSection() {
 
         <button
           onClick={() => openPlan(currentDay)}
-          className="w-full bg-gradient-to-r from-[#c9a227] to-[#D9B878] text-white font-bold py-2.5 rounded-xl text-sm flex items-center justify-center gap-2 hover:opacity-90 transition-opacity"
+          className="w-full bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white font-bold py-2.5 rounded-xl text-sm flex items-center justify-center gap-2 hover:opacity-90 transition-opacity"
         >
           <Play className="w-4 h-4" />
           Open Today's Plan
@@ -219,7 +219,7 @@ export default function CoachingSection() {
       </div>
 
       {/* This Week grid */}
-      <div className="bg-white rounded-2xl p-4 border border-[#E6EBEF] shadow-sm">
+      <div className="bg-white rounded-2xl p-4 border border-[#F2F6FA] shadow-sm">
         <p className="text-[10px] font-bold text-[#0A1A2F]/45 uppercase tracking-wider mb-3">
           Week {weekInfo.week} — {weekInfo.theme}
         </p>

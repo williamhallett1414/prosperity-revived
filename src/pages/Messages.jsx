@@ -17,7 +17,7 @@ const AI_COACHES = [
   { key: 'Hannah',      name: 'Hannah',         role: 'Mindset & Growth',        icon: 'H', color: '#AFC7E3', bg: 'from-[#1a2d3d] to-[#3C4E53]' },
   { key: 'CoachDavid',  name: 'Coach David',    role: 'Fitness & Wellness',      icon: 'D', color: '#38BDF8', bg: 'from-[#0a1628] to-[#1e3a5f]' },
   { key: 'ChefDaniel',  name: 'Chef Daniel',    role: 'Nutrition & Meals',       icon: 'C', color: '#22c55e', bg: 'from-[#052e16] to-[#166534]' },
-  { key: 'CoachPaul',   name: 'Coach Paul',     role: 'Discipline & Leadership', icon: 'P', color: '#A78BFA', bg: 'from-[#0F0A1F] to-[#3B0764]' },
+  { key: 'CoachPaul',   name: 'Coach Paul',     role: 'Discipline & Leadership', icon: 'P', color: '#A78BFA', bg: 'from-[#0A1A2F] to-[#0A1A2F]' },
 ];
 
 // ─── Date formatting ──────────────────────────────────────────────────────────
@@ -70,7 +70,7 @@ function ConvRow({ conv, isSelected, userEmail, onClick, index }) {
       transition={{ delay: index * 0.04 }}
       onClick={onClick}
       className={`w-full flex items-center gap-3 px-4 py-3.5 text-left transition-colors ${
-        isSelected ? 'bg-[#FFF9ED]' : 'hover:bg-[#F8FAFB]'
+        isSelected ? 'bg-white' : 'hover:bg-[#F2F6FA]'
       }`}
     >
       <Avatar name={conv.name} />
@@ -125,9 +125,9 @@ function ChatThread({ conv, messages, userEmail, onSend, isSending, onBack }) {
   return (
     <div className="flex flex-col h-full">
       {/* Thread header */}
-      <div className="flex items-center gap-3 px-4 py-3 border-b border-[#E2E8F0] bg-white flex-shrink-0">
+      <div className="flex items-center gap-3 px-4 py-3 border-b border-[#F2F6FA] bg-white flex-shrink-0">
         <button onClick={onBack}
-          className="w-9 h-9 rounded-full bg-[#F2F6FA] hover:bg-[#E8EFF6] flex items-center justify-center transition-colors lg:hidden">
+          className="w-9 h-9 rounded-full bg-[#F2F6FA] hover:bg-white flex items-center justify-center transition-colors lg:hidden">
           <ArrowLeft className="w-4 h-4 text-[#0A1A2F]" />
         </button>
         <Avatar name={conv.name} />
@@ -138,7 +138,7 @@ function ChatThread({ conv, messages, userEmail, onSend, isSending, onBack }) {
       </div>
 
       {/* Messages */}
-      <div className="flex-1 overflow-y-auto px-4 py-4 space-y-2 bg-[#F8FAFB]">
+      <div className="flex-1 overflow-y-auto px-4 py-4 space-y-2 bg-[#F2F6FA]">
         {thread.length === 0 && (
           <div className="flex flex-col items-center justify-center h-full text-center py-12">
             <Avatar name={conv.name} size="lg" />
@@ -154,7 +154,7 @@ function ChatThread({ conv, messages, userEmail, onSend, isSending, onBack }) {
             <div key={msg.id}>
               {showDate && (
                 <div className="flex items-center justify-center my-3">
-                  <span className="text-[10px] font-semibold text-[#0A1A2F]/30 bg-white border border-[#E2E8F0] rounded-full px-3 py-1">
+                  <span className="text-[10px] font-semibold text-[#0A1A2F]/30 bg-white border border-[#F2F6FA] rounded-full px-3 py-1">
                     {isToday(new Date(msg.created_date)) ? 'Today' : isYesterday(new Date(msg.created_date)) ? 'Yesterday' : format(new Date(msg.created_date), 'MMM d')}
                   </span>
                 </div>
@@ -166,7 +166,7 @@ function ChatThread({ conv, messages, userEmail, onSend, isSending, onBack }) {
                 <div className={`max-w-[72%] px-4 py-2.5 rounded-2xl text-sm leading-relaxed ${
                   isOwn
                     ? 'bg-[#0A1A2F] text-white rounded-br-md'
-                    : 'bg-white text-[#0A1A2F] border border-[#E2E8F0] rounded-bl-md'
+                    : 'bg-white text-[#0A1A2F] border border-[#F2F6FA] rounded-bl-md'
                 }`}>
                   <p className="whitespace-pre-wrap break-words">{msg.content}</p>
                   <p className={`text-[10px] mt-1 ${isOwn ? 'text-white/40' : 'text-[#0A1A2F]/30'}`}>
@@ -181,7 +181,7 @@ function ChatThread({ conv, messages, userEmail, onSend, isSending, onBack }) {
       </div>
 
       {/* Input bar */}
-      <div className="px-4 py-3 border-t border-[#E2E8F0] bg-white flex-shrink-0">
+      <div className="px-4 py-3 border-t border-[#F2F6FA] bg-white flex-shrink-0">
         <div className="flex items-center gap-2">
           <input
             ref={inputRef}
@@ -189,13 +189,13 @@ function ChatThread({ conv, messages, userEmail, onSend, isSending, onBack }) {
             onChange={e => setText(e.target.value)}
             onKeyDown={e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleSend(); } }}
             placeholder="Message…"
-            className="flex-1 bg-[#F2F6FA] rounded-2xl px-4 py-2.5 text-sm text-[#0A1A2F] placeholder-[#0A1A2F]/30 outline-none border border-transparent focus:border-[#D9B878]/50 transition-colors"
+            className="flex-1 bg-[#F2F6FA] rounded-2xl px-4 py-2.5 text-sm text-[#0A1A2F] placeholder-[#0A1A2F]/30 outline-none border border-transparent focus:border-[#FAD98D]/50 transition-colors"
           />
           <button
             onClick={handleSend}
             disabled={!text.trim() || isSending}
             className="w-10 h-10 rounded-full flex items-center justify-center transition-all flex-shrink-0 disabled:opacity-30"
-            style={{ background: text.trim() ? 'linear-gradient(135deg, #D9B878, #c9a227)' : '#F2F6FA' }}
+            style={{ background: text.trim() ? 'linear-gradient(135deg, #FAD98D, #c9a227)' : '#F2F6FA' }}
           >
             {isSending
               ? <Loader2 className="w-4 h-4 text-white animate-spin" />
@@ -317,7 +317,7 @@ export default function Messages() {
     <div className="min-h-screen bg-[#F2F6FA] flex flex-col" style={{ maxHeight: '100dvh' }}>
 
       {/* ── Header ─────────────────────────────────────────────────────────── */}
-      <div className="sticky top-0 z-40 bg-white border-b border-[#E2E8F0] px-4 py-3 flex-shrink-0">
+      <div className="sticky top-0 z-40 bg-white border-b border-[#F2F6FA] px-4 py-3 flex-shrink-0">
         <div className="max-w-2xl mx-auto flex items-center gap-3">
           <h1 className="text-base font-bold text-[#0A1A2F] flex items-center gap-2 flex-1">
             Messages
@@ -334,10 +334,10 @@ export default function Messages() {
       <div className="flex flex-1 overflow-hidden max-w-2xl mx-auto w-full lg:max-w-5xl">
 
         {/* LEFT: conversation list (hidden on mobile when thread open) */}
-        <div className={`flex flex-col flex-shrink-0 w-full lg:w-80 lg:border-r lg:border-[#E2E8F0] bg-white ${selectedConv ? 'hidden lg:flex' : 'flex'}`}>
+        <div className={`flex flex-col flex-shrink-0 w-full lg:w-80 lg:border-r lg:border-[#F2F6FA] bg-white ${selectedConv ? 'hidden lg:flex' : 'flex'}`}>
 
           {/* Tab switcher: DMs | Coaches */}
-          <div className="flex border-b border-[#E2E8F0] flex-shrink-0">
+          <div className="flex border-b border-[#F2F6FA] flex-shrink-0">
             {[
               { id: 'dms',     label: 'Messages', icon: Users },
               { id: 'coaches', label: 'AI Coaches', icon: Bot },
@@ -357,7 +357,7 @@ export default function Messages() {
           {tab === 'dms' && (
             <>
               {/* Search */}
-              <div className="px-4 py-3 border-b border-[#E2E8F0] flex-shrink-0">
+              <div className="px-4 py-3 border-b border-[#F2F6FA] flex-shrink-0">
                 <div className="relative">
                   <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#0A1A2F]/30" />
                   <input
@@ -393,7 +393,7 @@ export default function Messages() {
                     )}
                     {!search && (
                       <button onClick={() => navigate(createPageUrl('Friends'))}
-                        className="mt-4 text-xs font-bold text-[#c9a227] hover:text-[#b89320] transition-colors">
+                        className="mt-4 text-xs font-bold text-[#c9a227] hover:text-[#C9A227] transition-colors">
                         Go to Friends →
                       </button>
                     )}
@@ -426,7 +426,7 @@ export default function Messages() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.06 }}
                   onClick={() => navigate(createPageUrl(`ChatScreen?bot=${coach.key}`))}
-                  className="w-full flex items-center gap-3 bg-white rounded-2xl border border-[#E2E8F0] hover:border-[#D9B878]/40 hover:shadow-sm p-4 transition-all text-left"
+                  className="w-full flex items-center gap-3 bg-white rounded-2xl border border-[#F2F6FA] hover:border-[#FAD98D]/40 hover:shadow-sm p-4 transition-all text-left"
                 >
                   <div className={`w-11 h-11 rounded-xl bg-gradient-to-br ${coach.bg} flex items-center justify-center flex-shrink-0`}>
                     <span style={{ fontSize: 14, fontWeight: 700, color: '#fff', letterSpacing: 0 }}>{coach.icon}</span>

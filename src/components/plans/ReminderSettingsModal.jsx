@@ -66,7 +66,7 @@ export default function ReminderSettingsModal({ isOpen, onClose, progress, onSav
             </Button>
             <Button
               onClick={handleSave}
-              className="bg-[#1a1a2e] hover:bg-[#2d2d4a]"
+              className="bg-[#0A1A2F] hover:bg-[#0A1A2F]"
             >
               Save Settings
             </Button>

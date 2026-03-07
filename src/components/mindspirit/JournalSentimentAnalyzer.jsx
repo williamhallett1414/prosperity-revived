@@ -99,7 +99,7 @@ export default function JournalSentimentAnalyzer({ userEmail }) {
     >
       <div className="flex items-center justify-between">
         <h3 className="text-lg font-bold text-gray-900 flex items-center gap-2">
-          <TrendingUp className="w-5 h-5 text-[#8a6e1a]" />
+          <TrendingUp className="w-5 h-5 text-[#C9A227]" />
           Emotional Trends
         </h3>
         <div className="flex gap-2">
@@ -121,7 +121,7 @@ export default function JournalSentimentAnalyzer({ userEmail }) {
           <div className="grid grid-cols-3 gap-4">
             <div className="bg-[#FAD98D]/10 p-4 rounded-lg">
               <p className="text-xs text-gray-600">Average Sentiment</p>
-              <p className="text-2xl font-bold text-[#8a6e1a]">{avgSentiment}</p>
+              <p className="text-2xl font-bold text-[#C9A227]">{avgSentiment}</p>
               <p className="text-xs text-gray-500 mt-1">Scale: -1 to 1</p>
             </div>
             <div className="bg-[#F2F6FA] p-4 rounded-lg">

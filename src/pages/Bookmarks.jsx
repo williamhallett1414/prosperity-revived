@@ -28,7 +28,7 @@ function BookmarkItem({ bookmark, onDelete, onOpen, index }) {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, x: -20 }}
       transition={{ delay: index * 0.03 }}
-      className="bg-white rounded-2xl border border-[#D9B878]/25 overflow-hidden shadow-sm"
+      className="bg-white rounded-2xl border border-[#FAD98D]/25 overflow-hidden shadow-sm"
     >
       {/* Colour accent bar */}
       {col && (
@@ -76,7 +76,7 @@ function BookmarkItem({ bookmark, onDelete, onOpen, index }) {
 
         {/* Note */}
         {bookmark.note && bookmark.book !== 'Affirmation' && (
-          <p className="mt-3 pt-3 border-t border-[#D9B878]/20 text-xs text-[#0A1A2F]/55 italic leading-relaxed">
+          <p className="mt-3 pt-3 border-t border-[#FAD98D]/20 text-xs text-[#0A1A2F]/55 italic leading-relaxed">
             {bookmark.note}
           </p>
         )}
@@ -93,7 +93,7 @@ function Chip({ active, onClick, children, dot }) {
       className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold border transition-all flex-shrink-0 ${
         active
           ? 'bg-[#0A1A2F] text-white border-[#0A1A2F]'
-          : 'bg-white text-[#0A1A2F]/60 border-[#D9B878]/30 hover:border-[#c9a227]/50'
+          : 'bg-white text-[#0A1A2F]/60 border-[#FAD98D]/30 hover:border-[#c9a227]/50'
       }`}
     >
       {dot && (
@@ -164,20 +164,20 @@ export default function Bookmarks() {
 
   if (!user) {
     return (
-      <div className="min-h-screen bg-[#FFFDF7] flex items-center justify-center">
+      <div className="min-h-screen bg-[#F2F6FA] flex items-center justify-center">
         <div className="w-8 h-8 border-4 border-[#c9a227] border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#FFFDF7] pb-28">
+    <div className="min-h-screen bg-[#F2F6FA] pb-28">
 
       {/* ── Header ── */}
-      <div className="bg-white border-b border-[#D9B878]/20 px-4 pt-5 pb-4">
+      <div className="bg-white border-b border-[#FAD98D]/20 px-4 pt-5 pb-4">
         <div className="max-w-lg mx-auto">
           <div className="flex items-center gap-3 mb-4">
-            <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#c9a227] to-[#D9B878] flex items-center justify-center flex-shrink-0">
+            <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center flex-shrink-0">
               <Bookmark className="w-5 h-5 text-white" />
             </div>
             <div>
@@ -197,7 +197,7 @@ export default function Bookmarks() {
               value={search}
               onChange={e => setSearch(e.target.value)}
               placeholder="Search verses, books, notes…"
-              className="w-full pl-9 pr-9 py-2.5 rounded-xl bg-[#F2F6FA] text-sm text-[#0A1A2F] placeholder-[#0A1A2F]/35 border border-[#D9B878]/20 focus:outline-none focus:border-[#c9a227]/50"
+              className="w-full pl-9 pr-9 py-2.5 rounded-xl bg-[#F2F6FA] text-sm text-[#0A1A2F] placeholder-[#0A1A2F]/35 border border-[#FAD98D]/20 focus:outline-none focus:border-[#c9a227]/50"
             />
             {search && (
               <button onClick={() => setSearch('')}
@@ -211,7 +211,7 @@ export default function Bookmarks() {
 
       {/* ── Filter chips ── */}
       {bookmarks.length > 0 && (
-        <div className="border-b border-[#D9B878]/15 bg-white">
+        <div className="border-b border-[#FAD98D]/15 bg-white">
           <div className="max-w-lg mx-auto px-4 py-2.5 flex gap-2 overflow-x-auto">
             {FILTERS.map(({ id, label, dot }) => (
               <Chip key={id} active={filter === id} onClick={() => setFilter(id)} dot={dot}>
@@ -227,7 +227,7 @@ export default function Bookmarks() {
         {isLoading ? (
           <div className="space-y-3">
             {[1, 2, 3].map(i => (
-              <div key={i} className="bg-white rounded-2xl p-4 animate-pulse border border-[#D9B878]/20">
+              <div key={i} className="bg-white rounded-2xl p-4 animate-pulse border border-[#FAD98D]/20">
                 <div className="h-3 bg-[#FAD98D]/30 rounded w-3/4 mb-3" />
                 <div className="h-3 bg-[#FAD98D]/20 rounded w-1/2" />
               </div>
@@ -246,7 +246,7 @@ export default function Bookmarks() {
             </p>
             <button
               onClick={() => navigate(createPageUrl('Bible'))}
-              className="bg-gradient-to-r from-[#c9a227] to-[#D9B878] text-white font-semibold text-sm px-6 py-2.5 rounded-xl hover:opacity-90 transition-opacity"
+              className="bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white font-semibold text-sm px-6 py-2.5 rounded-xl hover:opacity-90 transition-opacity"
             >
               Open Bible
             </button>

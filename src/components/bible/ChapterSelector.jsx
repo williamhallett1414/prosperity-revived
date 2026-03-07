@@ -26,7 +26,7 @@ export default function ChapterSelector({ book, onSelectChapter, onBack, selecte
               onClick={() => onSelectChapter(chapter)}
               className={`aspect-square rounded-xl font-medium transition-all flex items-center justify-center ${
                 selectedChapter === chapter
-                  ? 'bg-gradient-to-r from-[#c9a227] to-[#D9B878] text-white'
+                  ? 'bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white'
                   : 'bg-[#FAD98D]/15 hover:bg-[#FAD98D]/25 text-[#0A1A2F]/70'
               }`}
             >

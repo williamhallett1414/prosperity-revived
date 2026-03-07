@@ -74,7 +74,7 @@ export default function WorkoutCategoryPage() {
   );
 
   return (
-    <div className="min-h-screen bg-[#F0F8FF]">
+    <div className="min-h-screen bg-[#F2F6FA]">
       <div className="max-w-2xl mx-auto px-4 pt-6 pb-24">
 
         {/* Category header */}

@@ -122,22 +122,22 @@ export default function CommunityRecipeFeed({ user }) {
       {/* Create Post Dialog */}
       <Dialog open={showCreatePost} onOpenChange={setShowCreatePost}>
         <DialogTrigger asChild>
-          <div className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 border border-gray-200 dark:border-gray-700">
+          <div className="bg-white dark:bg-[#0A1A2F] rounded-2xl p-4 border border-gray-200 dark:border-gray-700">
             <div className="flex items-center gap-3 mb-3">
               {user?.profile_image ?
               <img src={user.profile_image} alt={user.full_name} className="w-10 h-10 rounded-full object-cover" /> :
 
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#8fa68a] to-[#6b8f72]" />
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#AFC7E3] to-[#6B7280]" />
               }
               <button
                 onClick={() => setShowCreatePost(true)}
-                className="flex-1 text-left px-4 py-2 rounded-full bg-gray-100 dark:bg-[#3d3d5a] text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-[#4d4d6a] transition-colors">
+                className="flex-1 text-left px-4 py-2 rounded-full bg-gray-100 dark:bg-[#3C4E53] text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-[#3C4E53] transition-colors">
 
                 Share a recipe...
               </button>
             </div>
             <div className="flex gap-2 justify-end">
-              <Button variant="ghost" size="sm" className="text-[#4a6b50]">
+              <Button variant="ghost" size="sm" className="text-[#3C4E53]">
                 <Upload className="w-4 h-4 mr-2" />
                 Media
               </Button>
@@ -158,7 +158,7 @@ export default function CommunityRecipeFeed({ user }) {
 
             {/* File Upload Preview */}
             {filePreview &&
-            <div className="relative rounded-lg overflow-hidden bg-gray-100 dark:bg-[#3d3d5a]">
+            <div className="relative rounded-lg overflow-hidden bg-gray-100 dark:bg-[#3C4E53]">
                 {selectedFile?.type.startsWith('video/') ?
               <video src={filePreview} className="w-full h-64 object-cover" controls /> :
 
@@ -191,7 +191,7 @@ export default function CommunityRecipeFeed({ user }) {
                 htmlFor="file-input"
                 className="flex-1 cursor-pointer">
 
-                  <div className="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-4 text-center hover:border-[#8fa68a] transition-colors">
+                  <div className="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-4 text-center hover:border-[#AFC7E3] transition-colors">
                     <Upload className="w-6 h-6 mx-auto mb-2 text-gray-400" />
                     <p className="text-sm text-gray-600 dark:text-gray-400">Click to upload image or video</p>
                   </div>
@@ -221,7 +221,7 @@ export default function CommunityRecipeFeed({ user }) {
             <Button
               onClick={handleSubmitPost}
               disabled={createPostMutation.isPending || isUploading}
-              className="w-full bg-gradient-to-r from-[#8fa68a] to-[#6b8f72] hover:opacity-90">
+              className="w-full bg-gradient-to-r from-[#AFC7E3] to-[#6B7280] hover:opacity-90">
 
               {createPostMutation.isPending ?
               <>
@@ -241,7 +241,7 @@ export default function CommunityRecipeFeed({ user }) {
         <h3 className="text-slate-900 text-lg font-semibold">Community Recipes</h3>
         {isLoading ?
         <div className="flex justify-center py-8">
-            <Loader className="w-6 h-6 animate-spin text-[#4a6b50]" />
+            <Loader className="w-6 h-6 animate-spin text-[#3C4E53]" />
           </div> :
         posts.length === 0 ?
         <div className="text-center py-8 text-gray-400">
@@ -256,12 +256,12 @@ export default function CommunityRecipeFeed({ user }) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.05 }}>
 
-                <div className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4 border border-gray-200 dark:border-gray-700">
+                <div className="bg-white dark:bg-[#0A1A2F] rounded-2xl p-4 border border-gray-200 dark:border-gray-700">
                   {/* User Info */}
                   <div className="flex items-center gap-3 mb-3">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#8fa68a] to-[#6b8f72]" />
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#AFC7E3] to-[#6B7280]" />
                     <div>
-                      <p className="font-semibold text-sm text-[#1a1a2e] dark:text-white">{post.user_name}</p>
+                      <p className="font-semibold text-sm text-[#0A1A2F] dark:text-white">{post.user_name}</p>
                       <p className="text-xs text-gray-500 dark:text-gray-400">
                         {new Date(post.created_date).toLocaleDateString()}
                       </p>
@@ -270,7 +270,7 @@ export default function CommunityRecipeFeed({ user }) {
 
                   {/* Content */}
                   {post.content &&
-              <p className="text-sm text-[#1a1a2e] dark:text-gray-200 mb-3">{post.content}</p>
+              <p className="text-sm text-[#0A1A2F] dark:text-gray-200 mb-3">{post.content}</p>
               }
 
                   {/* Media */}

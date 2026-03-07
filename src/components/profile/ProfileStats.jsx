@@ -9,21 +9,21 @@ export default function ProfileStats({ userProgress, meditationSessions, workout
     label: 'Meditation Minutes',
     value: meditationSessions?.reduce((sum, s) => sum + (s.duration_minutes || 0), 0) || 0,
     unit: 'min',
-    color: 'from-[#0A1A2F] to-[#1a3a5c]'
+    color: 'from-[#0A1A2F] to-[#0A1A2F]'
   },
   {
     icon: Zap,
     label: 'Workouts Completed',
     value: workoutSessions?.length || 0,
     unit: '',
-    color: 'from-[#c9a227] to-[#D9B878]'
+    color: 'from-[#c9a227] to-[#FAD98D]'
   },
   {
     icon: BookOpen,
     label: 'Journal Entries',
     value: journalEntries?.length || 0,
     unit: '',
-    color: 'from-[#D9B878] to-[#FAD98D]'
+    color: 'from-[#FAD98D] to-[#FAD98D]'
   },
   {
     icon: Trophy,
@@ -47,7 +47,7 @@ export default function ProfileStats({ userProgress, meditationSessions, workout
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: idx * 0.05 }}
-              className="bg-[#FAD98D]/10 rounded-xl p-4 border border-[#D9B878]/25 shadow-sm"
+              className="bg-[#FAD98D]/10 rounded-xl p-4 border border-[#FAD98D]/25 shadow-sm"
             >
               <div className={`w-9 h-9 rounded-lg bg-gradient-to-br ${stat.color} flex items-center justify-center mb-2`}>
                 <Icon className="w-4 h-4 text-white" />

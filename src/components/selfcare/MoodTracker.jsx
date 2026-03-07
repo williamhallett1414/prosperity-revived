@@ -49,7 +49,7 @@ export default function MoodTracker() {
 
   const levels = [
     { label: 'Low', color: 'from-[#AFC7E3] to-[#AFC7E3]' },
-    { label: 'Medium', color: 'from-[#D9B878] to-[#D9B878]' },
+    { label: 'Medium', color: 'from-[#FAD98D] to-[#FAD98D]' },
     { label: 'High', color: 'from-[#0A1A2F] to-[#0A1A2F]' }
   ];
 
@@ -60,7 +60,7 @@ export default function MoodTracker() {
       transition={{ delay: 0.4 }}
       className="mb-8"
     >
-      <div className="bg-[#E6EBEF] rounded-2xl p-6 border border-[#D9B878]/20 shadow-lg">
+      <div className="bg-gray-100 rounded-2xl p-6 border border-[#FAD98D]/20 shadow-lg">
         <h2 className="text-xl font-bold text-[#0A1A2F] mb-4">Check-In</h2>
 
         {/* Mood */}
@@ -73,7 +73,7 @@ export default function MoodTracker() {
                 onClick={() => setMood(m.value)}
                 className={`flex-1 p-3 rounded-xl transition ${
                   mood === m.value 
-                    ? 'bg-[#D9B878] scale-110' 
+                    ? 'bg-[#FAD98D] scale-110' 
                     : 'bg-white hover:bg-[#F2F6FA]'
                 }`}
               >
@@ -127,7 +127,7 @@ export default function MoodTracker() {
         <Button
           onClick={handleSave}
           disabled={!mood || !energy || !stress}
-          className="w-full bg-gradient-to-r from-[#D9B878] to-[#AFC7E3] hover:from-[#D9B878]/90 hover:to-[#AFC7E3]/90 text-[#0A1A2F]"
+          className="w-full bg-gradient-to-r from-[#FAD98D] to-[#AFC7E3] hover:from-[#FAD98D]/90 hover:to-[#AFC7E3]/90 text-[#0A1A2F]"
         >
           Save Check-In
         </Button>

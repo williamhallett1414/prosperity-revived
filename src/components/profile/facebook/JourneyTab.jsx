@@ -11,21 +11,21 @@ export default function ProfileJourneyTab({ user, userProgress, workoutSessions,
       icon: Dumbbell,
       label: 'Workouts',
       value: userProgress?.workouts_completed || workoutSessions.length || 0,
-      color: 'from-[#0A1A2F] to-[#1a3a5c]',
+      color: 'from-[#0A1A2F] to-[#0A1A2F]',
       bg: 'bg-[#0A1A2F]/5'
     },
     {
       icon: BookOpen,
       label: 'Bible Readings',
       value: userProgress?.bible_readings_completed || 0,
-      color: 'from-[#c9a227] to-[#D9B878]',
+      color: 'from-[#c9a227] to-[#FAD98D]',
       bg: 'bg-[#FAD98D]/15'
     },
     {
       icon: Brain,
       label: 'Meditations',
       value: userProgress?.meditations_completed || meditationSessions.length || 0,
-      color: 'from-[#D9B878] to-[#FAD98D]',
+      color: 'from-[#FAD98D] to-[#FAD98D]',
       bg: 'bg-[#FAD98D]/10'
 
     },
@@ -47,7 +47,7 @@ export default function ProfileJourneyTab({ user, userProgress, workoutSessions,
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-gradient-to-br from-[#0A1A2F] to-[#1a3a5c] rounded-2xl p-5 text-white"
+          className="bg-gradient-to-br from-[#0A1A2F] to-[#0A1A2F] rounded-2xl p-5 text-white"
         >
           <div className="flex items-center justify-between">
             <div>
@@ -100,7 +100,7 @@ export default function ProfileJourneyTab({ user, userProgress, workoutSessions,
       )}
 
       <Link to={createPageUrl('ProgressDashboard')}>
-        <Button className="w-full bg-gradient-to-r from-[#c9a227] to-[#D9B878] text-white gap-2 mt-2">
+        <Button className="w-full bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white gap-2 mt-2">
           <TrendingUp className="w-4 h-4" /> Full Journey Dashboard
         </Button>
       </Link>

@@ -100,11 +100,11 @@ export default function NutritionBreakdown({ timeRange = 7 }) {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4"
+        className="bg-white dark:bg-[#0A1A2F] rounded-2xl p-4"
       >
         <div className="flex items-center gap-2 mb-4">
           <TrendingUp className="w-5 h-5 text-emerald-500" />
-          <h3 className="font-semibold text-[#1a1a2e] dark:text-white">Daily Average ({timeRange} days)</h3>
+          <h3 className="font-semibold text-[#0A1A2F] dark:text-white">Daily Average ({timeRange} days)</h3>
         </div>
 
         <div className="grid grid-cols-4 gap-3 mb-4">
@@ -147,7 +147,7 @@ export default function NutritionBreakdown({ timeRange = 7 }) {
           <div className="grid grid-cols-2 gap-2 text-xs">
             <div className="flex justify-between p-2 bg-[#FD9C2D]/10 dark:bg-[#FD9C2D]/5 rounded">
               <span className="text-gray-600 dark:text-gray-400">Vitamin A</span>
-              <span className="font-medium text-[#b86e10] dark:text-[#FD9C2D]">{stats.avgDaily.vitamin_a}mcg</span>
+              <span className="font-medium text-[#FD9C2D] dark:text-[#FD9C2D]">{stats.avgDaily.vitamin_a}mcg</span>
             </div>
             <div className="flex justify-between p-2 bg-orange-50 dark:bg-orange-900/20 rounded">
               <span className="text-gray-600 dark:text-gray-400">Vitamin C</span>
@@ -175,7 +175,7 @@ export default function NutritionBreakdown({ timeRange = 7 }) {
             </div>
             <div className="flex justify-between p-2 bg-[#FAD98D]/10 dark:bg-[#0A1A2F]/20 rounded">
               <span className="text-gray-600 dark:text-gray-400">Zinc</span>
-              <span className="font-medium text-[#8a6e1a] dark:text-pink-400">{stats.avgDaily.zinc}mg</span>
+              <span className="font-medium text-[#C9A227] dark:text-pink-400">{stats.avgDaily.zinc}mg</span>
             </div>
           </div>
         </div>
@@ -187,11 +187,11 @@ export default function NutritionBreakdown({ timeRange = 7 }) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4"
+          className="bg-white dark:bg-[#0A1A2F] rounded-2xl p-4"
         >
           <div className="flex items-center gap-2 mb-4">
             <Calendar className="w-5 h-5 text-[#AFC7E3]" />
-            <h3 className="font-semibold text-[#1a1a2e] dark:text-white">Daily Calorie Trend</h3>
+            <h3 className="font-semibold text-[#0A1A2F] dark:text-white">Daily Calorie Trend</h3>
           </div>
           <ResponsiveContainer width="100%" height={200}>
             <BarChart data={stats.dailyData}>
@@ -210,9 +210,9 @@ export default function NutritionBreakdown({ timeRange = 7 }) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="bg-white dark:bg-[#2d2d4a] rounded-2xl p-4"
+          className="bg-white dark:bg-[#0A1A2F] rounded-2xl p-4"
         >
-          <h3 className="font-semibold text-[#1a1a2e] dark:text-white mb-4">Macro Distribution (Calories)</h3>
+          <h3 className="font-semibold text-[#0A1A2F] dark:text-white mb-4">Macro Distribution (Calories)</h3>
           <ResponsiveContainer width="100%" height={200}>
             <PieChart>
               <Pie

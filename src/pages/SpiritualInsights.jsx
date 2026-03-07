@@ -6,9 +6,9 @@ import SpiritualInsightsDashboard from '@/components/gideon/SpiritualInsightsDas
 
 export default function SpiritualInsights() {
   return (
-    <div className="min-h-screen bg-[#FFFDF7] pb-24">
+    <div className="min-h-screen bg-[#F2F6FA] pb-24">
       {/* Header */}
-      <div className="sticky top-0 z-40 bg-white border-b border-[#D9B878]/25 px-4 py-3">
+      <div className="sticky top-0 z-40 bg-white border-b border-[#FAD98D]/25 px-4 py-3">
         <div className="max-w-2xl mx-auto flex items-center gap-3">
           <Link
             to={createPageUrl('Bible')}

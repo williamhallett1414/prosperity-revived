@@ -255,7 +255,7 @@ function CoachDavidPrefs({ user }) {
         </div>
       </div>
       <Button onClick={() => mutation.mutate()} disabled={mutation.isPending}
-        className="w-full bg-gradient-to-r from-[#8fa68a] to-[#6b8f72] text-white">
+        className="w-full bg-gradient-to-r from-[#AFC7E3] to-[#6B7280] text-white">
         {mutation.isPending ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <Save className="w-4 h-4 mr-2" />}
         Save Coach David Preferences
       </Button>

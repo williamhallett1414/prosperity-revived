@@ -95,7 +95,7 @@ export default function SpiritualGoals() {
     <div className="space-y-4">
       <Button
         onClick={() => setShowCreate(true)}
-        className="w-full bg-[#1a1a2e] hover:bg-[#2d2d4a]"
+        className="w-full bg-[#0A1A2F] hover:bg-[#0A1A2F]"
       >
         <Plus className="w-4 h-4 mr-2" />
         Set New Goal
@@ -114,7 +114,7 @@ export default function SpiritualGoals() {
           {/* Active Goals */}
           {activeGoals.length > 0 && (
             <div className="space-y-3">
-              <h3 className="font-semibold text-[#1a1a2e]">Active Goals</h3>
+              <h3 className="font-semibold text-[#0A1A2F]">Active Goals</h3>
               {activeGoals.map((goal, index) => (
                 <motion.div
                   key={goal.id}
@@ -127,7 +127,7 @@ export default function SpiritualGoals() {
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-2">
                         <span className="text-2xl">{categoryIcons[goal.category]}</span>
-                        <h4 className="font-semibold text-[#1a1a2e]">{goal.title}</h4>
+                        <h4 className="font-semibold text-[#0A1A2F]">{goal.title}</h4>
                       </div>
                       {goal.description && (
                         <p className="text-sm text-gray-600 mb-2">{goal.description}</p>
@@ -160,7 +160,7 @@ export default function SpiritualGoals() {
                       className={`flex-1 ${
                         isCompletedToday(goal)
                           ? 'bg-green-100 text-green-800'
-                          : 'bg-[#c9a227] hover:bg-[#b89320] text-white'
+                          : 'bg-[#c9a227] hover:bg-[#C9A227] text-white'
                       }`}
                     >
                       <Check className="w-3 h-3 mr-1" />
@@ -285,7 +285,7 @@ export default function SpiritualGoals() {
               <Button
                 onClick={handleSubmit}
                 disabled={!newGoal.title.trim()}
-                className="bg-[#1a1a2e] hover:bg-[#2d2d4a]"
+                className="bg-[#0A1A2F] hover:bg-[#0A1A2F]"
               >
                 Set Goal
               </Button>

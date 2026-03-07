@@ -72,7 +72,7 @@ export default function SermonNotes() {
     <div className="space-y-4">
       <Button
         onClick={() => setShowCreate(true)}
-        className="w-full bg-[#1a1a2e] hover:bg-[#2d2d4a]"
+        className="w-full bg-[#0A1A2F] hover:bg-[#0A1A2F]"
       >
         <Plus className="w-4 h-4 mr-2" />
         Add Sermon Notes
@@ -98,7 +98,7 @@ export default function SermonNotes() {
             >
               <div className="flex items-start justify-between mb-3">
                 <div>
-                  <h3 className="font-semibold text-[#1a1a2e] text-lg">{note.title}</h3>
+                  <h3 className="font-semibold text-[#0A1A2F] text-lg">{note.title}</h3>
                   <div className="flex items-center gap-3 mt-1 text-sm text-gray-500">
                     {note.speaker && (
                       <span className="flex items-center gap-1">
@@ -119,7 +119,7 @@ export default function SermonNotes() {
                     href={note.audio_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-[#c9a227] hover:text-[#b89320]"
+                    className="text-[#c9a227] hover:text-[#C9A227]"
                   >
                     <ExternalLink className="w-4 h-4" />
                   </a>
@@ -149,8 +149,8 @@ export default function SermonNotes() {
               )}
 
               {note.action_items && note.action_items.length > 0 && (
-                <div className="bg-[#faf8f5] rounded-lg p-3">
-                  <p className="text-sm font-semibold text-[#1a1a2e] mb-2 flex items-center gap-2">
+                <div className="bg-[#F2F6FA] rounded-lg p-3">
+                  <p className="text-sm font-semibold text-[#0A1A2F] mb-2 flex items-center gap-2">
                     <ListChecks className="w-4 h-4" />
                     Action Items:
                   </p>
@@ -280,7 +280,7 @@ export default function SermonNotes() {
               <Button
                 onClick={handleSubmit}
                 disabled={!newNote.title.trim()}
-                className="bg-[#1a1a2e] hover:bg-[#2d2d4a]"
+                className="bg-[#0A1A2F] hover:bg-[#0A1A2F]"
               >
                 Save Notes
               </Button>

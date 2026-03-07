@@ -144,7 +144,7 @@ export default function PlanDetail() {
 
   if (!plan) {
     return (
-      <div className="min-h-screen bg-[#faf8f5] flex items-center justify-center">
+      <div className="min-h-screen bg-[#F2F6FA] flex items-center justify-center">
         <p>Plan not found</p>
       </div>
     );
@@ -271,7 +271,7 @@ export default function PlanDetail() {
   return (
     <>
       <Toaster position="top-center" richColors />
-      <div className="min-h-screen bg-[#faf8f5] pb-24">
+      <div className="min-h-screen bg-[#F2F6FA] pb-24">
       {/* Hero Image */}
       <div className="relative h-64">
         <img
@@ -318,7 +318,7 @@ export default function PlanDetail() {
             <div className="flex items-center justify-between mb-4">
               <div>
                 <p className="text-sm text-gray-500">Your Progress</p>
-                <p className="text-2xl font-bold text-[#1a1a2e]">
+                <p className="text-2xl font-bold text-[#0A1A2F]">
                   {completedCount} / {plan.duration} days
                 </p>
               </div>
@@ -392,7 +392,7 @@ export default function PlanDetail() {
             </div>
             <Button
               onClick={handleStartPlan}
-              className="w-full bg-[#1a1a2e] hover:bg-[#2d2d4a] h-12 text-lg"
+              className="w-full bg-[#0A1A2F] hover:bg-[#0A1A2F] h-12 text-lg"
             >
               <Play className="w-5 h-5 mr-2" />
               Start Plan
@@ -403,7 +403,7 @@ export default function PlanDetail() {
             {/* Days Grid */}
             {progress && (
               <div>
-                <h2 className="text-lg font-semibold text-[#1a1a2e] mb-4">Daily Readings</h2>
+                <h2 className="text-lg font-semibold text-[#0A1A2F] mb-4">Daily Readings</h2>
                 <div className="grid grid-cols-1 gap-3">
                   {days.map(day => {
                     const isCompleted = progress.completed_days?.includes(day);
@@ -418,7 +418,7 @@ export default function PlanDetail() {
                         whileHover={{ scale: 1.02 }}
                         className={`bg-white rounded-xl p-4 border-2 transition-all ${
                           isCompleted 
-                            ? 'border-[#8fa68a] bg-[#8fa68a]/5' 
+                            ? 'border-[#AFC7E3] bg-[#AFC7E3]/5' 
                             : 'border-gray-200 hover:border-[#c9a227]'
                         }`}
                       >
@@ -428,7 +428,7 @@ export default function PlanDetail() {
                               onClick={() => handleToggleDay(day)}
                               className={`w-10 h-10 rounded-lg flex items-center justify-center font-semibold transition-all ${
                                 isCompleted
-                                  ? 'bg-[#8fa68a] text-white'
+                                  ? 'bg-[#AFC7E3] text-white'
                                   : 'bg-gray-100 text-gray-600'
                               }`}
                             >
@@ -436,7 +436,7 @@ export default function PlanDetail() {
                             </button>
                             
                             <div>
-                              <h3 className="font-semibold text-[#1a1a2e]">Day {day}</h3>
+                              <h3 className="font-semibold text-[#0A1A2F]">Day {day}</h3>
                               {reading && (
                                 <p className="text-sm text-gray-600">
                                   {reading.book} {reading.chapter}

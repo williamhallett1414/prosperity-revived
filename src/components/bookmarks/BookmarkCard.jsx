@@ -33,7 +33,7 @@ export default function BookmarkCard({ bookmark, onDelete, onOpen, index }) {
             variant="ghost"
             size="sm"
             onClick={() => onOpen(bookmark)}
-            className="text-gray-500 hover:text-[#1a1a2e]"
+            className="text-gray-500 hover:text-[#0A1A2F]"
           >
             <BookOpen className="w-4 h-4" />
           </Button>

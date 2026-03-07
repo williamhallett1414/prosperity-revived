@@ -41,7 +41,7 @@ export default function EndMyDayModal({ isOpen, onClose, meditations = [] }) {
     {
       title: 'Journaling Prompt',
       emoji: '📝',
-      color: 'from-[#AFC7E3] to-[#D9B878]',
+      color: 'from-[#AFC7E3] to-[#FAD98D]',
       content: (
         <div className="space-y-3 text-center">
           <p className="text-[#0A1A2F] font-semibold">
@@ -64,7 +64,7 @@ export default function EndMyDayModal({ isOpen, onClose, meditations = [] }) {
     ...(sleepMeditation ? [{
       title: 'Sleep Meditation',
       emoji: '😴',
-      color: 'from-[#0A1A2F] to-[#D9B878]',
+      color: 'from-[#0A1A2F] to-[#FAD98D]',
       content: (
         <div className="space-y-3 text-center">
           <p className="text-[#0A1A2F]/70 text-sm mb-4">
@@ -110,7 +110,7 @@ export default function EndMyDayModal({ isOpen, onClose, meditations = [] }) {
               <motion.div
                 key={idx}
                 className={`h-1 flex-1 rounded-full ${
-                  idx <= step ? `bg-gradient-to-r ${currentStep.color}` : 'bg-[#E6EBEF]'
+                  idx <= step ? `bg-gradient-to-r ${currentStep.color}` : 'bg-gray-100'
                 }`}
               />
             ))}

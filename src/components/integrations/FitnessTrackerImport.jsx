@@ -209,7 +209,7 @@ ${dataToProcess}`,
           <Button
             onClick={handleImport}
             disabled={isLoading || (!file && !manualText.trim())}
-            className="w-full bg-gradient-to-r from-[#0A0A0A] to-[#38BDF8] text-white"
+            className="w-full bg-gradient-to-r from-[#0A1A2F] to-[#38BDF8] text-white"
           >
             {isLoading ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Importing...</> : <><Activity className="w-4 h-4 mr-2" /> Import to Coach David</>}
           </Button>

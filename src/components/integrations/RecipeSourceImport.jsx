@@ -143,7 +143,7 @@ export default function RecipeSourceImport({ user }) {
           <Button
             onClick={handleImport}
             disabled={isLoading || !textInput.trim()}
-            className="w-full bg-gradient-to-r from-[#8fa68a] to-[#6b8f72] text-white"
+            className="w-full bg-gradient-to-r from-[#AFC7E3] to-[#6B7280] text-white"
           >
             {isLoading ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Importing...</> : <><UtensilsCrossed className="w-4 h-4 mr-2" /> Import to Chef Daniel</>}
           </Button>

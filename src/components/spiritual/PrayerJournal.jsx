@@ -14,7 +14,7 @@ import { format } from 'date-fns';
 const prayerTypes = [
   { value: 'praise', label: '🙌 Praise', color: 'bg-yellow-100 text-yellow-800' },
   { value: 'thanksgiving', label: '🙏 Thanksgiving', color: 'bg-green-100 text-green-800' },
-  { value: 'confession', label: '💭 Confession', color: 'bg-[#FAD98D]/20 text-[#1a1a2e]' },
+  { value: 'confession', label: '💭 Confession', color: 'bg-[#FAD98D]/20 text-[#0A1A2F]' },
   { value: 'petition', label: '🤲 Petition', color: 'bg-[#AFC7E3]/20 text-blue-800' },
   { value: 'intercession', label: '❤️ Intercession', color: 'bg-red-100 text-red-800' }
 ];
@@ -91,7 +91,7 @@ export default function PrayerJournal() {
       <div className="flex gap-2">
         <Button
           onClick={() => setShowCreate(true)}
-          className="flex-1 bg-[#1a1a2e] hover:bg-[#2d2d4a]"
+          className="flex-1 bg-[#0A1A2F] hover:bg-[#0A1A2F]"
         >
           <Plus className="w-4 h-4 mr-2" />
           New Journal Entry
@@ -270,7 +270,7 @@ export default function PrayerJournal() {
               <Button
                 onClick={handleSubmit}
                 disabled={!newEntry.content.trim()}
-                className="bg-[#1a1a2e] hover:bg-[#2d2d4a]"
+                className="bg-[#0A1A2F] hover:bg-[#0A1A2F]"
               >
                 Save Entry
               </Button>

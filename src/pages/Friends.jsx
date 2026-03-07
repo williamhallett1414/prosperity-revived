@@ -16,7 +16,7 @@ import AIFriendSuggestions from '@/components/friends/AIFriendSuggestions';
 function Avatar({ name, email, imageUrl, size = 'md' }) {
   const initials = (name || email || '?').charAt(0).toUpperCase();
   const sizeClasses = size === 'sm' ? 'w-10 h-10 text-sm' : size === 'lg' ? 'w-14 h-14 text-lg' : 'w-12 h-12 text-base';
-  const colors = ['from-[#c9a227] to-[#8fa68a]', 'from-[#AFC7E3] to-[#3C4E53]', 'from-[#FD9C2D] to-[#c9a227]', 'from-[#8fa68a] to-[#AFC7E3]'];
+  const colors = ['from-[#c9a227] to-[#AFC7E3]', 'from-[#AFC7E3] to-[#3C4E53]', 'from-[#FD9C2D] to-[#c9a227]', 'from-[#AFC7E3] to-[#AFC7E3]'];
   const colorIdx = (email || '').charCodeAt(0) % colors.length;
   return (
     <div className={`${sizeClasses} rounded-full bg-gradient-to-br ${colors[colorIdx]} flex items-center justify-center text-white font-bold flex-shrink-0 overflow-hidden`}>
@@ -42,14 +42,14 @@ function RequestCard({ request, onAccept, onDecline, accepting, declining }) {
         <button
           onClick={() => onAccept(request.id)}
           disabled={accepting}
-          className="w-9 h-9 rounded-xl bg-[#8fa68a] hover:bg-[#7a9179] flex items-center justify-center transition-colors disabled:opacity-50"
+          className="w-9 h-9 rounded-xl bg-[#AFC7E3] hover:bg-[#AFC7E3] flex items-center justify-center transition-colors disabled:opacity-50"
         >
           <Check className="w-4 h-4 text-white" />
         </button>
         <button
           onClick={() => onDecline(request.id)}
           disabled={declining}
-          className="w-9 h-9 rounded-xl bg-[#F2F6FA] hover:bg-red-50 border border-[#E2E8F0] hover:border-red-200 flex items-center justify-center transition-colors"
+          className="w-9 h-9 rounded-xl bg-[#F2F6FA] hover:bg-red-50 border border-[#F2F6FA] hover:border-red-200 flex items-center justify-center transition-colors"
         >
           <X className="w-4 h-4 text-[#0A1A2F]/40" />
         </button>
@@ -66,7 +66,7 @@ function FriendCard({ friend, currentUserEmail, navigate }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
-      className="bg-white rounded-2xl border border-[#AFC7E3]/20 p-4 flex items-center gap-3 hover:border-[#D9B878]/30 hover:shadow-sm transition-all"
+      className="bg-white rounded-2xl border border-[#AFC7E3]/20 p-4 flex items-center gap-3 hover:border-[#FAD98D]/30 hover:shadow-sm transition-all"
     >
       <Link to={createPageUrl(`UserProfile?email=${friendEmail}`)}>
         <Avatar name={friendName} email={friendEmail} size="md" />
@@ -79,7 +79,7 @@ function FriendCard({ friend, currentUserEmail, navigate }) {
       </div>
       <button
         onClick={() => navigate(createPageUrl(`Messages?friend=${friendEmail}&name=${friendName}`))}
-        className="w-10 h-10 rounded-xl bg-[#F2F6FA] hover:bg-[#D9B878]/15 border border-[#E2E8F0] hover:border-[#D9B878]/30 flex items-center justify-center transition-all"
+        className="w-10 h-10 rounded-xl bg-[#F2F6FA] hover:bg-[#FAD98D]/15 border border-[#F2F6FA] hover:border-[#FAD98D]/30 flex items-center justify-center transition-all"
       >
         <MessageCircle className="w-4 h-4 text-[#c9a227]" />
       </button>
@@ -91,7 +91,7 @@ function FriendCard({ friend, currentUserEmail, navigate }) {
 function EmptyFriends({ onFocusAdd }) {
   return (
     <div className="bg-white rounded-2xl border border-[#AFC7E3]/20 p-8 text-center">
-      <div className="w-16 h-16 bg-gradient-to-br from-[#D9B878]/20 to-[#AFC7E3]/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+      <div className="w-16 h-16 bg-gradient-to-br from-[#FAD98D]/20 to-[#AFC7E3]/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
         <Users className="w-8 h-8 text-[#c9a227]" />
       </div>
       <h3 className="font-bold text-[#0A1A2F] mb-2">No connections yet</h3>
@@ -101,12 +101,12 @@ function EmptyFriends({ onFocusAdd }) {
       <div className="flex flex-col gap-2">
         <button
           onClick={onFocusAdd}
-          className="w-full py-2.5 rounded-xl bg-gradient-to-r from-[#D9B878] to-[#c9a227] text-[#0A1A2F] font-bold text-sm"
+          className="w-full py-2.5 rounded-xl bg-gradient-to-r from-[#FAD98D] to-[#c9a227] text-[#0A1A2F] font-bold text-sm"
         >
           Add a Friend
         </button>
         <Link to={createPageUrl('Community')}>
-          <button className="w-full py-2.5 rounded-xl bg-[#F2F6FA] text-[#0A1A2F]/60 font-semibold text-sm hover:bg-[#E8EFF6] transition-colors">
+          <button className="w-full py-2.5 rounded-xl bg-[#F2F6FA] text-[#0A1A2F]/60 font-semibold text-sm hover:bg-white transition-colors">
             Browse Community
           </button>
         </Link>
@@ -212,10 +212,10 @@ export default function Friends() {
     <div className="min-h-screen bg-[#F2F6FA] pb-28">
 
       {/* ── Header ── */}
-      <div className="sticky top-0 z-40 bg-white border-b border-[#E6EBEF]/60 px-4 py-3">
+      <div className="sticky top-0 z-40 bg-white border-b border-[#F2F6FA]/60 px-4 py-3">
         <div className="max-w-lg mx-auto flex items-center gap-3">
           <Link to={createPageUrl('Profile')}
-            className="w-9 h-9 rounded-full bg-[#F2F6FA] hover:bg-[#E8EFF6] flex items-center justify-center transition-colors">
+            className="w-9 h-9 rounded-full bg-[#F2F6FA] hover:bg-white flex items-center justify-center transition-colors">
             <ArrowLeft className="w-4 h-4 text-[#0A1A2F]" />
           </Link>
           <div className="flex-1">
@@ -233,7 +233,7 @@ export default function Friends() {
             )}
             <button
               onClick={focusAdd}
-              className="w-9 h-9 rounded-full bg-gradient-to-br from-[#D9B878] to-[#c9a227] flex items-center justify-center shadow-sm hover:opacity-90 transition-opacity"
+              className="w-9 h-9 rounded-full bg-gradient-to-br from-[#FAD98D] to-[#c9a227] flex items-center justify-center shadow-sm hover:opacity-90 transition-opacity"
             >
               <UserPlus className="w-4 h-4 text-white" />
             </button>
@@ -251,9 +251,9 @@ export default function Friends() {
               initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }}
               className="overflow-hidden"
             >
-              <div className="bg-gradient-to-br from-[#0A1A2F] to-[#1a2a3f] rounded-2xl p-5">
+              <div className="bg-gradient-to-br from-[#0A1A2F] to-[#0A1A2F] rounded-2xl p-5">
                 <div className="flex items-center gap-2 mb-4">
-                  <UserPlus className="w-4 h-4 text-[#D9B878]" />
+                  <UserPlus className="w-4 h-4 text-[#FAD98D]" />
                   <h3 className="text-sm font-bold text-white">Add a Friend</h3>
                   <button onClick={() => { setAddFocused(false); setSearchEmail(''); }}
                     className="ml-auto text-white/30 hover:text-white/60 transition-colors">
@@ -268,12 +268,12 @@ export default function Friends() {
                     value={searchEmail}
                     onChange={e => setSearchEmail(e.target.value)}
                     onKeyDown={e => e.key === 'Enter' && handleSendRequest()}
-                    className="flex-1 px-3 py-2.5 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/30 text-sm focus:outline-none focus:border-[#D9B878]/50 transition-colors"
+                    className="flex-1 px-3 py-2.5 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/30 text-sm focus:outline-none focus:border-[#FAD98D]/50 transition-colors"
                   />
                   <button
                     onClick={handleSendRequest}
                     disabled={!searchEmail.trim() || sendRequest.isPending}
-                    className="px-4 py-2.5 rounded-xl bg-[#D9B878] text-[#0A1A2F] font-bold text-sm disabled:opacity-40 hover:bg-[#c9a227] transition-colors flex items-center gap-1.5"
+                    className="px-4 py-2.5 rounded-xl bg-[#FAD98D] text-[#0A1A2F] font-bold text-sm disabled:opacity-40 hover:bg-[#c9a227] transition-colors flex items-center gap-1.5"
                   >
                     <Send className="w-3.5 h-3.5" />
                     Send

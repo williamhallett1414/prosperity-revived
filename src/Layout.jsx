@@ -161,7 +161,7 @@ export default function Layout({ children, currentPageName }) {
             --color-primary: #3C4E53;
             --color-secondary: #FD9C2D;
             --color-accent: #FAD98D;
-            --color-background: #2d2d4a;
+            --color-background: #0A1A2F;
             --color-text: #FFFFFF;
           }
         }
@@ -200,7 +200,7 @@ export default function Layout({ children, currentPageName }) {
       {isChildRoute ? (
         <UniversalHeader title={currentPageTitle} backTo={currentPageBack} />
       ) : (
-        <div className="fixed top-0 left-0 right-0 bg-white dark:bg-[#2d2d4a] border-b border-gray-200 dark:border-gray-700 px-4 py-3 z-40 pt-[env(safe-area-inset-top)] select-none">
+        <div className="fixed top-0 left-0 right-0 bg-white dark:bg-[#0A1A2F] border-b border-gray-200 dark:border-gray-700 px-4 py-3 z-40 pt-[env(safe-area-inset-top)] select-none">
           <div className="max-w-lg mx-auto flex items-center justify-between">
             <h1 className="text-xl font-bold text-[#3C4E53] dark:text-white font-imprint">
               Prosperity Revived
@@ -241,7 +241,7 @@ export default function Layout({ children, currentPageName }) {
       </main>
 
       {/* Bottom Navigation */}
-      <nav className="fixed bottom-0 left-0 right-0 bg-white dark:bg-[#2d2d4a] border-t border-gray-200 dark:border-gray-700 px-4 py-2 z-50 pb-[env(safe-area-inset-bottom)] select-none">
+      <nav className="fixed bottom-0 left-0 right-0 bg-white dark:bg-[#0A1A2F] border-t border-gray-200 dark:border-gray-700 px-4 py-2 z-50 pb-[env(safe-area-inset-bottom)] select-none">
         <div className="max-w-lg mx-auto flex items-center justify-around">
           {navItems.map((item) => {
               const isActive = currentPageName === item.page;

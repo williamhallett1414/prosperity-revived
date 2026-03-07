@@ -40,7 +40,7 @@ export default function TodaysOverview({ meditations = [], workoutPlans = [], ch
       <motion.div
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 0.15 }} className="bg-slate-50 mx-4 p-4 rounded-xl from-[#D9B878] to-[#FD9C2D]">
+        transition={{ delay: 0.15 }} className="bg-slate-50 mx-4 p-4 rounded-xl from-[#FAD98D] to-[#FD9C2D]">
 
 
         <div className="flex items-start gap-2">

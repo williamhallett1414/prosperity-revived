@@ -84,17 +84,17 @@ export default function ConversationList({ messages, user, onSelectConversation,
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: index * 0.05 }}
                 onClick={() => onSelectConversation(conv.email)}
-                className={`w-full p-4 text-left hover:bg-gray-50 dark:hover:bg-[#2d2d4a] transition-colors ${
-                  selectedEmail === conv.email ? 'bg-gray-100 dark:bg-[#2d2d4a]' : ''
+                className={`w-full p-4 text-left hover:bg-gray-50 dark:hover:bg-[#0A1A2F] transition-colors ${
+                  selectedEmail === conv.email ? 'bg-gray-100 dark:bg-[#0A1A2F]' : ''
                 }`}
               >
                 <div className="flex items-start gap-3">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#c9a227] to-[#8fa68a] flex items-center justify-center text-white font-semibold flex-shrink-0">
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#c9a227] to-[#AFC7E3] flex items-center justify-center text-white font-semibold flex-shrink-0">
                     {conv.name.charAt(0).toUpperCase()}
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between mb-1">
-                      <p className="font-semibold text-[#1a1a2e] dark:text-white truncate">
+                      <p className="font-semibold text-[#0A1A2F] dark:text-white truncate">
                         {conv.name}
                       </p>
                       <span className="text-xs text-gray-500 dark:text-gray-400 ml-2 flex-shrink-0">

@@ -35,8 +35,8 @@ const MEDITATIONS = [
     durationSec: 420,
     theme: '📖',
     icon: BookOpen,
-    gradient: 'from-[#D9B878]/20 to-[#AFC7E3]/15',
-    accentColor: '#D9B878',
+    gradient: 'from-[#FAD98D]/20 to-[#AFC7E3]/15',
+    accentColor: '#FAD98D',
     description: 'Sit with God\'s Word and let it speak to your heart.',
     prompt: 'A 7-minute scripture-based meditation using Psalm 23. Read the psalm slowly, pause for reflection on each verse, guide the user to visualize the imagery, and close with a prayer of surrender. Gentle, reverent tone.'
   },
@@ -95,8 +95,8 @@ const MEDITATIONS = [
     durationSec: 300,
     theme: '🦁',
     icon: Flame,
-    gradient: 'from-[#D9B878]/25 to-[#AFC7E3]/15',
-    accentColor: '#D9B878',
+    gradient: 'from-[#FAD98D]/25 to-[#AFC7E3]/15',
+    accentColor: '#FAD98D',
     description: 'Step into the strength and boldness God has placed inside you.',
     prompt: 'A 5-minute confidence and courage meditation. Remind the user of their God-given identity, use Joshua 1:9 as an anchor, visualize stepping forward with boldness, and close with a declaration of faith. Energizing yet peaceful tone.'
   },
@@ -119,7 +119,7 @@ const MEDITATIONS = [
     durationSec: 480,
     theme: '🫶',
     icon: Heart,
-    gradient: 'from-[#AFC7E3]/25 to-[#D9B878]/15',
+    gradient: 'from-[#AFC7E3]/25 to-[#FAD98D]/15',
     accentColor: '#AFC7E3',
     description: 'Find comfort in God\'s presence when loss or sadness weighs heavy.',
     prompt: 'An 8-minute grief and comfort meditation. Acknowledge pain with compassion, create space to feel and release sadness, remind the user they are not alone (Psalm 34:18), visualize God\'s arms around them. Deeply tender, unhurried tone.'
@@ -131,8 +131,8 @@ const MEDITATIONS = [
     durationSec: 420,
     theme: '⭐',
     icon: Star,
-    gradient: 'from-[#D9B878]/20 to-[#3C4E53]/15',
-    accentColor: '#D9B878',
+    gradient: 'from-[#FAD98D]/20 to-[#3C4E53]/15',
+    accentColor: '#FAD98D',
     description: 'Reconnect with your God-given purpose and the life you\'re called to.',
     prompt: 'A 7-minute purpose and calling meditation. Guide reflection on God\'s unique design for the user, use Jeremiah 29:11, visualize a path lit ahead, invite surrender of self-doubt, close with a commissioning prayer. Inspiring, warm tone.'
   },
@@ -143,7 +143,7 @@ const MEDITATIONS = [
     durationSec: 240,
     theme: '☀️',
     icon: Coffee,
-    gradient: 'from-[#AFC7E3]/20 to-[#D9B878]/15',
+    gradient: 'from-[#AFC7E3]/20 to-[#FAD98D]/15',
     accentColor: '#AFC7E3',
     description: 'A quick recharge to clear mental fog and renew focus mid-day.',
     prompt: 'A 4-minute midday reset meditation. Three deep cleansing breaths, release the morning\'s stress, set a fresh intention for the afternoon, end with a one-line prayer. Crisp, refreshing tone — like a cold glass of water.'
@@ -155,8 +155,8 @@ const MEDITATIONS = [
     durationSec: 540,
     theme: '✝️',
     icon: Shield,
-    gradient: 'from-[#D9B878]/25 to-[#AFC7E3]/20',
-    accentColor: '#D9B878',
+    gradient: 'from-[#FAD98D]/25 to-[#AFC7E3]/20',
+    accentColor: '#FAD98D',
     description: 'Bring physical, emotional or spiritual pain before God and receive His healing.',
     prompt: 'A 9-minute healing prayer meditation. Invite the user to name what needs healing, lay it at the foot of the cross, visualize healing light flowing through the body, reference James 5:16 and Isaiah 53:5. Reverent, faith-filled tone.'
   },
@@ -179,7 +179,7 @@ const MEDITATIONS = [
     durationSec: 300,
     theme: '🎯',
     icon: Eye,
-    gradient: 'from-[#3C4E53]/20 to-[#D9B878]/15',
+    gradient: 'from-[#3C4E53]/20 to-[#FAD98D]/15',
     accentColor: '#3C4E53',
     description: 'Cut through distraction and sharpen your mind for the task ahead.',
     prompt: 'A 5-minute focus and clarity meditation. Clear mental clutter through breath, visualize a clear still pond, set one clear intention, reference Proverbs 4:25. Alert and grounded tone — not sleepy, but calm and sharp.'
@@ -191,8 +191,8 @@ const MEDITATIONS = [
     durationSec: 420,
     theme: '💛',
     icon: Sun,
-    gradient: 'from-[#D9B878]/20 to-[#AFC7E3]/20',
-    accentColor: '#D9B878',
+    gradient: 'from-[#FAD98D]/20 to-[#AFC7E3]/20',
+    accentColor: '#FAD98D',
     description: 'Speak kindly to yourself the way God speaks over you.',
     prompt: 'A 7-minute self-compassion meditation. Address harsh inner criticism with gentleness, remind the user they are fearfully and wonderfully made (Psalm 139:14), practice placing a hand on the heart and receiving God\'s love. Warm, motherly tone.'
   },
@@ -215,7 +215,7 @@ const MEDITATIONS = [
     durationSec: 420,
     theme: '🤝',
     icon: Heart,
-    gradient: 'from-[#AFC7E3]/25 to-[#D9B878]/15',
+    gradient: 'from-[#AFC7E3]/25 to-[#FAD98D]/15',
     accentColor: '#AFC7E3',
     description: 'Open your heart to give and receive love as God intended.',
     prompt: 'A 7-minute relationships meditation. Reflect on one key relationship, release any hurt or expectation, pray for the other person, visualize connection rooted in love (1 Corinthians 13). Warm, open tone.'
@@ -227,8 +227,8 @@ const MEDITATIONS = [
     durationSec: 300,
     theme: '🌿',
     icon: Leaf,
-    gradient: 'from-[#D9B878]/20 to-[#3C4E53]/15',
-    accentColor: '#D9B878',
+    gradient: 'from-[#FAD98D]/20 to-[#3C4E53]/15',
+    accentColor: '#FAD98D',
     description: 'Shift from scarcity thinking to God\'s overflowing provision.',
     prompt: 'A 5-minute abundance mindset meditation. Name three ways God has provided, counter scarcity fears with truth, reference Philippians 4:19, visualize a table overflowing. Grateful, expectant tone.'
   },
@@ -251,8 +251,8 @@ const MEDITATIONS = [
     durationSec: 480,
     theme: '🙌',
     icon: Music,
-    gradient: 'from-[#D9B878]/25 to-[#AFC7E3]/15',
-    accentColor: '#D9B878',
+    gradient: 'from-[#FAD98D]/25 to-[#AFC7E3]/15',
+    accentColor: '#FAD98D',
     description: 'Enter a posture of worship and experience God\'s nearness.',
     prompt: 'An 8-minute worship and presence meditation. Begin in gratitude, move into adoration, use Psalm 100 as a framework, invite stillness in God\'s presence, close with a declaration of who God is. Reverent, joyful tone.'
   },
@@ -263,7 +263,7 @@ const MEDITATIONS = [
     durationSec: 360,
     theme: '🌱',
     icon: Sunrise,
-    gradient: 'from-[#AFC7E3]/20 to-[#D9B878]/20',
+    gradient: 'from-[#AFC7E3]/20 to-[#FAD98D]/20',
     accentColor: '#AFC7E3',
     description: 'Embrace fresh starts, new seasons, and the God who makes all things new.',
     prompt: 'A 6-minute new beginnings meditation. Release the past season with gratitude, open hands to what is coming, reference Isaiah 43:19 and Lamentations 3:22-23, visualize a fresh sunrise. Hopeful, forward-looking tone.'
@@ -275,7 +275,7 @@ const MEDITATIONS = [
     durationSec: 420,
     theme: '🌾',
     icon: Anchor,
-    gradient: 'from-[#3C4E53]/20 to-[#D9B878]/15',
+    gradient: 'from-[#3C4E53]/20 to-[#FAD98D]/15',
     accentColor: '#3C4E53',
     description: 'Find renewed strength when you\'re running on empty.',
     prompt: 'A 7-minute meditation for exhaustion. Acknowledge tiredness without guilt, receive permission to rest, draw on Isaiah 40:31 — mounting up with wings like eagles. Guide slow energizing breaths and close with a gentle commissioning. Tender and restorative tone.'
@@ -287,8 +287,8 @@ const MEDITATIONS = [
     durationSec: 300,
     theme: '🛡️',
     icon: Shield,
-    gradient: 'from-[#D9B878]/20 to-[#3C4E53]/20',
-    accentColor: '#D9B878',
+    gradient: 'from-[#FAD98D]/20 to-[#3C4E53]/20',
+    accentColor: '#FAD98D',
     description: 'Arm your mind and spirit before facing what pulls you away from God.',
     prompt: 'A 5-minute temptation resistance meditation. Name the area of struggle, put on the armor of God (Ephesians 6:10-11), visualize a shield of faith, declare victory through Christ. Strong, resolute tone.'
   },
@@ -299,7 +299,7 @@ const MEDITATIONS = [
     durationSec: 360,
     theme: '🌈',
     icon: Rainbow,
-    gradient: 'from-[#AFC7E3]/25 to-[#D9B878]/20',
+    gradient: 'from-[#AFC7E3]/25 to-[#FAD98D]/20',
     accentColor: '#AFC7E3',
     description: 'Recover the joy that circumstances may have stolen from you.',
     prompt: 'A 6-minute joy restoration meditation. Acknowledge the joy drain, recall a memory of pure delight, connect to Nehemiah 8:10 — the joy of the Lord is your strength, let joy rise from the belly. Playful, light, uplifting tone.'
@@ -311,8 +311,8 @@ const MEDITATIONS = [
     durationSec: 480,
     theme: '💡',
     icon: Eye,
-    gradient: 'from-[#D9B878]/25 to-[#AFC7E3]/20',
-    accentColor: '#D9B878',
+    gradient: 'from-[#FAD98D]/25 to-[#AFC7E3]/20',
+    accentColor: '#FAD98D',
     description: 'Quiet the noise and seek God\'s wisdom for a choice you\'re facing.',
     prompt: 'An 8-minute decision-making meditation. Still the mind from all the voices, present the decision openly to God, reference James 1:5 and Proverbs 3:5-6, visualize a clear path illuminated ahead, trust the process. Discerning, peaceful tone with thoughtful pauses.'
   }
@@ -644,7 +644,7 @@ Requirements:
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-50 flex flex-col"
             style={{
-              background: 'linear-gradient(160deg, #0A1A2F 0%, #1a3a5c 40%, #2a4a6c 70%, #3C4E53 100%)'
+              background: 'linear-gradient(160deg, #0A1A2F 0%, #0A1A2F 40%, #2a4a6c 70%, #3C4E53 100%)'
             }}
           >
             {/* Breathing circle background */}

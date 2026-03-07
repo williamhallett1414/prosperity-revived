@@ -30,7 +30,7 @@ export function showBadgeNotification(badge) {
       initial={{ opacity: 0, scale: 0.5, rotate: -10 }}
       animate={{ opacity: 1, scale: 1, rotate: 0 }}
       exit={{ opacity: 0, scale: 0.5 }}
-      className="bg-gradient-to-r from-[#b89320] to-[#c9a227] text-white rounded-2xl p-5 shadow-2xl min-w-[280px]"
+      className="bg-gradient-to-r from-[#C9A227] to-[#c9a227] text-white rounded-2xl p-5 shadow-2xl min-w-[280px]"
     >
       <div className="text-center">
         <motion.div

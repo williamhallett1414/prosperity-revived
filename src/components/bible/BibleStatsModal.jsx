@@ -116,7 +116,7 @@ export default function BibleStatsModal({ isOpen, onClose, statType, progress, b
 
             <div className="grid grid-cols-2 gap-3">
               {progress.slice(0, 4).map((p, i) => (
-                <div key={i} className="bg-[#FFFDF7] rounded-xl p-4">
+                <div key={i} className="bg-[#F2F6FA] rounded-xl p-4">
                   <p className="text-xs text-[#0A1A2F]/50 mb-1">{p.plan_name}</p>
                   <p className="text-2xl font-bold text-[#c9a227]">{p.longest_streak || 0}</p>
                   <p className="text-xs text-[#0A1A2F]/50">days</p>
@@ -180,7 +180,7 @@ export default function BibleStatsModal({ isOpen, onClose, statType, progress, b
               <h3 className="font-semibold text-[#0A1A2F] mb-3">Recent Bookmarks</h3>
               <div className="space-y-2 max-h-48 overflow-y-auto">
                 {bookmarks.slice(0, 5).map((bookmark, i) => (
-                  <div key={i} className="bg-[#FFFDF7] rounded-lg p-3">
+                  <div key={i} className="bg-[#F2F6FA] rounded-lg p-3">
                     <div className="flex items-start justify-between gap-2">
                       <div className="flex-1">
                         <p className="font-medium text-sm text-[#0A1A2F]">
@@ -190,7 +190,7 @@ export default function BibleStatsModal({ isOpen, onClose, statType, progress, b
                           {bookmark.verse_text}
                         </p>
                         {bookmark.note && (
-                          <p className="text-xs text-[#D9B878] mt-2 italic line-clamp-1">
+                          <p className="text-xs text-[#FAD98D] mt-2 italic line-clamp-1">
                             💭 {bookmark.note}
                           </p>
                         )}

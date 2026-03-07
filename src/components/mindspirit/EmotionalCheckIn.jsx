@@ -50,7 +50,7 @@ export default function EmotionalCheckIn() {
       className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm mb-6"
     >
       <div className="flex items-center gap-2 mb-4">
-        <Heart className="w-6 h-6 text-[#D9B878]" />
+        <Heart className="w-6 h-6 text-[#FAD98D]" />
         <h3 className="text-lg font-bold text-[#0A1A2F]">Emotional Check-In</h3>
       </div>
 
@@ -63,8 +63,8 @@ export default function EmotionalCheckIn() {
             onClick={() => setSelectedMood(mood)}
             className={`p-4 rounded-xl border-2 transition-all ${
               selectedMood?.value === mood.value
-                ? 'border-[#D9B878] bg-[#D9B878]/10'
-                : 'border-gray-200 hover:border-[#D9B878]/50'
+                ? 'border-[#FAD98D] bg-[#FAD98D]/10'
+                : 'border-gray-200 hover:border-[#FAD98D]/50'
             }`}
           >
             <div className="text-3xl mb-1">{mood.emoji}</div>
@@ -83,7 +83,7 @@ export default function EmotionalCheckIn() {
             value={influence}
             onChange={(e) => setInfluence(e.target.value)}
             placeholder="What influenced your mood today? (optional)"
-            className="border-gray-200 focus:border-[#D9B878]"
+            className="border-gray-200 focus:border-[#FAD98D]"
           />
 
           <div className="bg-[#AFC7E3]/10 rounded-xl p-4">
@@ -97,7 +97,7 @@ export default function EmotionalCheckIn() {
           <Button
             onClick={handleSave}
             disabled={saving}
-            className="w-full bg-[#D9B878] hover:bg-[#D9B878]/90 text-[#0A1A2F]"
+            className="w-full bg-[#FAD98D] hover:bg-[#FAD98D]/90 text-[#0A1A2F]"
           >
             {saving ? 'Saving...' : 'Save Check-In'}
           </Button>

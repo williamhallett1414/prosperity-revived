@@ -12,7 +12,7 @@ const moods = [
   { id: 'struggling', label: 'Struggling', icon: Cloud, color: 'bg-[#0A1A2F]/8 text-[#0A1A2F]/60', description: 'facing challenges' },
   { id: 'anxious', label: 'Anxious', icon: Zap, color: 'bg-[#FAD98D]/30 text-[#c9a227]', description: 'feeling worried or stressed' },
   { id: 'sad', label: 'Sad', icon: Frown, color: 'bg-[#AFC7E3]/20 text-[#0A1A2F]', description: 'feeling down or discouraged' },
-  { id: 'neutral', label: 'Okay', icon: Meh, color: 'bg-[#FAD98D]/20 text-[#8a6e1a]', description: 'feeling neutral' },
+  { id: 'neutral', label: 'Okay', icon: Meh, color: 'bg-[#FAD98D]/20 text-[#C9A227]', description: 'feeling neutral' },
 ];
 
 export default function MoodTracker() {
@@ -71,7 +71,7 @@ export default function MoodTracker() {
 
   return (
     <div className="mb-0">
-      <Card className="p-5 bg-gradient-to-br from-[#FAD98D]/15 to-[#D9B878]/10 border-none shadow-lg">
+      <Card className="p-5 bg-gradient-to-br from-[#FAD98D]/15 to-[#FAD98D]/10 border-none shadow-lg">
         <h3 className="text-sm font-semibold text-[#0A1A2F] mb-3 flex items-center gap-2">
           <Heart className="w-4 h-4 text-[#c9a227]" />
           How are you feeling today?
@@ -103,7 +103,7 @@ export default function MoodTracker() {
             placeholder="Or type how you're feeling..."
             value={customMood}
             onChange={(e) => setCustomMood(e.target.value)}
-            className="flex-1 text-sm bg-[#FFFDF7]"
+            className="flex-1 text-sm bg-[#F2F6FA]"
             onKeyDown={(e) => {
               if (e.key === 'Enter' && customMood.trim()) {
                 handleMoodSelect({ id: 'custom', label: 'Custom' }, customMood.trim());
@@ -120,7 +120,7 @@ export default function MoodTracker() {
               }
             }}
             disabled={!customMood.trim()}
-            className="bg-gradient-to-r from-[#c9a227] to-[#D9B878] hover:opacity-90"
+            className="bg-gradient-to-r from-[#c9a227] to-[#FAD98D] hover:opacity-90"
           >
             Go
           </Button>
@@ -142,7 +142,7 @@ export default function MoodTracker() {
               )}
 
               {!loading && aiResponse && (
-                <div className="space-y-4 bg-[#FFFDF7] rounded-xl p-4">
+                <div className="space-y-4 bg-[#F2F6FA] rounded-xl p-4">
                    {/* Verses */}
                    <div>
                      <h4 className="font-semibold text-[#0A1A2F] mb-3 text-sm">Scripture for You</h4>

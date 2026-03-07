@@ -35,7 +35,7 @@ const CATEGORIES = [
     label: 'Nutrition',
     sub: 'Fuel your mission',
     page: 'Nutrition',
-    gradient: 'from-[#4ade80] to-[#16a34a]',
+    gradient: 'from-[#22c55e] to-[#16a34a]',
     icon: Utensils,
     image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=500&h=300&fit=crop',
   },
@@ -182,7 +182,7 @@ function CoachingSection({ active }) {
     <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#0D4F3C] to-[#22856A] flex items-center justify-center shadow-sm">
+          <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#3C4E53] to-[#FD9C2D] flex items-center justify-center shadow-sm">
             <Crown className="w-4 h-4 text-white" />
           </div>
           <div>
@@ -191,7 +191,7 @@ function CoachingSection({ active }) {
           </div>
         </div>
         <Link to={createPageUrl('CoachingPlans')}
-          className="flex items-center gap-0.5 text-xs font-semibold text-[#0D4F3C] hover:opacity-75">
+          className="flex items-center gap-0.5 text-xs font-semibold text-[#3C4E53] hover:opacity-75">
           Browse All <ChevronRight className="w-3.5 h-3.5" />
         </Link>
       </div>
@@ -203,7 +203,7 @@ function CoachingSection({ active }) {
           return (
             <Link key={plan.id} to={createPageUrl(`CoachingPlanDetail?id=${plan.id}&day=${nextDay}`)}>
               <motion.div whileHover={{ y: -1 }}
-                className="bg-white rounded-2xl border border-[#0D4F3C]/10 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                className="bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
                 <div className={`bg-gradient-to-r ${plan.gradient} px-4 py-3 flex items-center gap-3`}>
                   <span className="text-2xl">{plan.cover_emoji}</span>
                   <div className="flex-1 min-w-0">
@@ -216,10 +216,10 @@ function CoachingSection({ active }) {
                   <div className="px-4 py-2.5">
                     <div className="flex items-center justify-between text-[10px] text-[#0A1A2F]/45 mb-1.5">
                       <span>Day {completedDays} of {plan.days_total}</span>
-                      <span className="font-semibold text-[#0D4F3C]">{pct}% complete</span>
+                      <span className="font-semibold text-[#3C4E53]">{pct}% complete</span>
                     </div>
                     <div className="h-1.5 bg-[#F2F6FA] rounded-full overflow-hidden">
-                      <div className="h-full bg-gradient-to-r from-[#0D4F3C] to-[#c9a227] rounded-full transition-all"
+                      <div className="h-full bg-gradient-to-r from-[#3C4E53] to-[#c9a227] rounded-full transition-all"
                         style={{ width: `${pct}%` }} />
                     </div>
                   </div>
@@ -227,10 +227,10 @@ function CoachingSection({ active }) {
                   <div className="px-4 py-2.5 flex items-center gap-2">
                     <div className="flex gap-1 flex-wrap">
                       {plan.tags.slice(0, 3).map(tag => (
-                        <span key={tag} className="text-[10px] px-2 py-0.5 bg-[#F5F8F0] text-[#0D4F3C] rounded-full font-medium">{tag}</span>
+                        <span key={tag} className="text-[10px] px-2 py-0.5 bg-[#F2F6FA] text-[#3C4E53] rounded-full font-medium">{tag}</span>
                       ))}
                     </div>
-                    <span className="ml-auto text-[10px] font-semibold text-[#0D4F3C] whitespace-nowrap">Start →</span>
+                    <span className="ml-auto text-[10px] font-semibold text-[#3C4E53] whitespace-nowrap">Start →</span>
                   </div>
                 )}
               </motion.div>

@@ -1246,7 +1246,7 @@ Return ONLY valid JSON array:
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => setShowOnboarding(true)}
-                    className="text-xs text-[#3C4E53] hover:text-[#1a3a5c] transition-colors underline"
+                    className="text-xs text-[#3C4E53] hover:text-[#0A1A2F] transition-colors underline"
                     title="Revisit the tour"
                   >
                     ? Help
@@ -1340,7 +1340,7 @@ Return ONLY valid JSON array:
               <HannahTooltip text="Track your mood to help me understand your emotional state and provide better support" position="bottom">
                 <button
                   onClick={() => setShowMoodTracker(!showMoodTracker)}
-                  className="flex items-center gap-2 text-xs text-[#3C4E53] hover:text-[#1a3a5c] transition-colors"
+                  className="flex items-center gap-2 text-xs text-[#3C4E53] hover:text-[#0A1A2F] transition-colors"
                 >
                   <Smile className="w-4 h-4" />
                   {currentMood}/10 Mood

@@ -145,7 +145,7 @@ export default function WorkoutProgressCharts({ isOpen, onClose }) {
                 </div>
                 <div className="text-center p-2 bg-white dark:bg-gray-700 rounded">
                   <p className="text-xs text-gray-500 dark:text-gray-400">Sessions</p>
-                  <p className="font-bold text-[#8a6e1a]">{chartData.length}</p>
+                  <p className="font-bold text-[#C9A227]">{chartData.length}</p>
                 </div>
               </div>
             </div>

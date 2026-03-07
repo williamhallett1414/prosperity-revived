@@ -28,7 +28,7 @@ export default function DailyStartSection({
       icon: Book,
       label: 'Scripture',
       subtitle: verse.book + ' ' + verse.chapter + ':' + verse.verse,
-      gradient: 'from-[#AFC7E3] to-[#D9B878]',
+      gradient: 'from-[#AFC7E3] to-[#FAD98D]',
       link: createPageUrl(`Bible?book=${verse.book}&chapter=${verse.chapter}`)
     },
     {
@@ -36,7 +36,7 @@ export default function DailyStartSection({
       icon: Sparkles,
       label: 'Affirmation',
       subtitle: todaysAffirmation.slice(0, 30) + '...',
-      gradient: 'from-[#D9B878] to-[#AFC7E3]',
+      gradient: 'from-[#FAD98D] to-[#AFC7E3]',
       link: createPageUrl('SelfCare')
     },
     {
@@ -44,7 +44,7 @@ export default function DailyStartSection({
       icon: Heart,
       label: '2-Min Prayer',
       subtitle: 'Start your day',
-      gradient: 'from-[#D9B878] to-[#D9B878]',
+      gradient: 'from-[#FAD98D] to-[#FAD98D]',
       link: createPageUrl('SelfCare')
     },
     {
@@ -70,7 +70,7 @@ export default function DailyStartSection({
        icon: Utensils,
        label: 'Nutrition',
        subtitle: todayMealLog ? 'Log meal' : 'Track meals',
-       gradient: 'from-[#AFC7E3] to-[#D9B878]',
+       gradient: 'from-[#AFC7E3] to-[#FAD98D]',
        link: `${createPageUrl('Wellness')}?tab=nutrition`
      }
   ];

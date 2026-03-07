@@ -75,7 +75,7 @@ export default function ScriptureAffirmations() {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-gradient-to-br from-[#AFC7E3]/20 to-[#D9B878]/20 rounded-2xl p-6 border border-[#AFC7E3]/30 mb-6"
+      className="bg-gradient-to-br from-[#AFC7E3]/20 to-[#FAD98D]/20 rounded-2xl p-6 border border-[#AFC7E3]/30 mb-6"
     >
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
@@ -90,7 +90,7 @@ export default function ScriptureAffirmations() {
           "{todaysAffirmation.text}"
         </p>
         <div className="text-center mb-4">
-          <p className="text-sm font-semibold text-[#D9B878]">{todaysAffirmation.verse}</p>
+          <p className="text-sm font-semibold text-[#FAD98D]">{todaysAffirmation.verse}</p>
           <p className="text-xs text-[#0A1A2F]/60 mt-2 italic">{todaysAffirmation.fullVerse}</p>
         </div>
       </div>
@@ -99,9 +99,9 @@ export default function ScriptureAffirmations() {
         onClick={handleSaveToFavorites}
         disabled={isFavorited}
         variant="outline"
-        className="w-full border-[#D9B878] hover:bg-[#D9B878]/10"
+        className="w-full border-[#FAD98D] hover:bg-[#FAD98D]/10"
       >
-        <Heart className={`w-4 h-4 mr-2 ${isFavorited ? 'fill-[#D9B878] text-[#D9B878]' : 'text-[#D9B878]'}`} />
+        <Heart className={`w-4 h-4 mr-2 ${isFavorited ? 'fill-[#FAD98D] text-[#FAD98D]' : 'text-[#FAD98D]'}`} />
         {isFavorited ? 'Saved to Favorites' : 'Save to Favorites'}
       </Button>
     </motion.div>

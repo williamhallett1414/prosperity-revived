@@ -63,7 +63,7 @@ export default function PhotosTab({ user }) {
         <p className="text-gray-400 text-sm mt-2 mb-4">Photos you upload will appear here</p>
         <Button
           onClick={() => setShowUploadModal(true)}
-          className="bg-gradient-to-br from-[#c9a227] to-[#D9B878] hover:opacity-90 text-white"
+          className="bg-gradient-to-br from-[#c9a227] to-[#FAD98D] hover:opacity-90 text-white"
         >
           <Plus className="w-4 h-4 mr-2" />
           Add Photo
@@ -85,7 +85,7 @@ export default function PhotosTab({ user }) {
           </h2>
           <Button
             onClick={() => setShowUploadModal(true)}
-            className="bg-gradient-to-br from-[#c9a227] to-[#D9B878] hover:opacity-90 text-white"
+            className="bg-gradient-to-br from-[#c9a227] to-[#FAD98D] hover:opacity-90 text-white"
           >
             <Plus className="w-4 h-4 mr-2" />
             Add Photo
@@ -146,7 +146,7 @@ export default function PhotosTab({ user }) {
           </label>
           {uploading && (
             <div className="text-center">
-              <div className="animate-spin w-6 h-6 border-4 border-[#D9B878] border-t-transparent rounded-full mx-auto" />
+              <div className="animate-spin w-6 h-6 border-4 border-[#FAD98D] border-t-transparent rounded-full mx-auto" />
               <p className="text-sm text-gray-500 mt-2">Uploading...</p>
             </div>
           )}

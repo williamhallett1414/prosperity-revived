@@ -33,9 +33,9 @@ Generate only the reflection question, no additional text.`,
       animate={{ opacity: 1, y: 0 }}
       className="mt-3"
     >
-      <Card className="p-4 bg-gradient-to-br from-[#FAD98D]/10 to-[#FFF8E7] border-l-4 border-[#D9B878]">
+      <Card className="p-4 bg-gradient-to-br from-[#FAD98D]/10 to-[#FFF9EC] border-l-4 border-[#FAD98D]">
         <div className="flex items-start gap-3">
-          <Sparkles className="w-5 h-5 text-[#8a6e1a] flex-shrink-0 mt-0.5" />
+          <Sparkles className="w-5 h-5 text-[#C9A227] flex-shrink-0 mt-0.5" />
           <div className="flex-1 min-w-0">
             {prompt ? (
               <>
@@ -58,7 +58,7 @@ Generate only the reflection question, no additional text.`,
                 size="sm"
                 onClick={generatePrompt}
                 disabled={isLoading}
-                className="gap-2 text-[#8a6e1a] hover:text-[#0A1A2F]"
+                className="gap-2 text-[#C9A227] hover:text-[#0A1A2F]"
               >
                 <Sparkles className="w-4 h-4" />
                 {isLoading ? 'Generating...' : 'AI Reflection Prompt'}

@@ -173,14 +173,14 @@ export default function PostCard({ post, comments = [], onLike, onComment, index
       {/* Header */}
       <div className="flex items-center gap-3 mb-3">
         <div 
-          className="w-10 h-10 rounded-full bg-gradient-to-br from-[#1a1a2e] to-[#c9a227] flex items-center justify-center text-white font-semibold cursor-pointer hover:opacity-80"
+          className="w-10 h-10 rounded-full bg-gradient-to-br from-[#0A1A2F] to-[#c9a227] flex items-center justify-center text-white font-semibold cursor-pointer hover:opacity-80"
           onClick={() => post.created_by && navigate(createPageUrl(`UserProfile?email=${post.created_by}`))}
         >
           {post.user_name?.[0]?.toUpperCase() || 'U'}
         </div>
         <div className="flex-1">
           <p 
-            className="font-semibold text-[#1a1a2e] cursor-pointer hover:text-[#c9a227]"
+            className="font-semibold text-[#0A1A2F] cursor-pointer hover:text-[#c9a227]"
             onClick={() => post.created_by && navigate(createPageUrl(`UserProfile?email=${post.created_by}`))}
           >
             {post.user_name || 'Anonymous'}
@@ -193,14 +193,14 @@ export default function PostCard({ post, comments = [], onLike, onComment, index
             size="sm"
             onClick={() => sendFriendRequest.mutate()}
             disabled={requestSent || sendFriendRequest.isPending}
-            className="text-[#c9a227] hover:text-[#8fa68a]"
+            className="text-[#c9a227] hover:text-[#AFC7E3]"
           >
             <UserPlus className="w-4 h-4 mr-1" />
             {requestSent ? 'Sent' : 'Add'}
           </Button>
         )}
         {alreadyFriends && !isMyPost && (
-          <span className="text-xs text-[#8fa68a] font-medium">Friends</span>
+          <span className="text-xs text-[#AFC7E3] font-medium">Friends</span>
         )}
       </div>
 
@@ -317,7 +317,7 @@ export default function PostCard({ post, comments = [], onLike, onComment, index
             <Button
               onClick={handleComment}
               disabled={!commentText.trim()}
-              className="bg-[#1a1a2e] hover:bg-[#2d2d4a] self-end"
+              className="bg-[#0A1A2F] hover:bg-[#0A1A2F] self-end"
             >
               Post
             </Button>

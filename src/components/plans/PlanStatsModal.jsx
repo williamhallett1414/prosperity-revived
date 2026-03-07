@@ -19,7 +19,7 @@ export default function PlanStatsModal({ isOpen, onClose, progress }) {
 
         <div className="space-y-4">
           {/* Overview */}
-          <div className="bg-gradient-to-br from-[#1a1a2e] to-[#2d2d4a] rounded-xl p-4 text-white">
+          <div className="bg-gradient-to-br from-[#0A1A2F] to-[#0A1A2F] rounded-xl p-4 text-white">
             <div className="text-center">
               <div className="text-4xl font-bold mb-1">{completionRate}%</div>
               <div className="text-sm opacity-90">Completion Rate</div>
@@ -57,11 +57,11 @@ export default function PlanStatsModal({ isOpen, onClose, progress }) {
 
             <div className="bg-[#FAD98D]/10 rounded-lg p-3">
               <div className="flex items-center gap-2 mb-1">
-                <Award className="w-4 h-4 text-[#8a6e1a]" />
-                <span className="text-xs text-[#8a6e1a] font-medium">Best Streak</span>
+                <Award className="w-4 h-4 text-[#C9A227]" />
+                <span className="text-xs text-[#C9A227] font-medium">Best Streak</span>
               </div>
               <div className="text-2xl font-bold text-[#0A1A2F]">{progress.longest_streak || 0}</div>
-              <div className="text-xs text-[#8a6e1a]">days</div>
+              <div className="text-xs text-[#C9A227]">days</div>
             </div>
           </div>
 

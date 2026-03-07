@@ -9,7 +9,7 @@ export default function DevotionalCard({ devotional, onClick, index }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.1 }}
       onClick={onClick}
-      className="group w-full text-left bg-[#FFFDF7] rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 border border-[#D9B878]/15"
+      className="group w-full text-left bg-[#F2F6FA] rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 border border-[#FAD98D]/15"
     >
       <div className="relative h-40 overflow-hidden">
         <img
