@@ -12,6 +12,7 @@
  *  - Manual listen button on each message still available as override
  */
 import React, { useState, useRef, useEffect, useCallback } from 'react';
+import { createPortal } from 'react-dom';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, Send, Loader2, RotateCcw, Mic, MicOff, Volume2, Square } from 'lucide-react';
@@ -407,8 +408,10 @@ export default function ChatScreen() {
 
   const speechSupported = !!(window.SpeechRecognition || window.webkitSpeechRecognition);
 
-  // ─── Render ──────────────────────────────────────────────────────────────────
-  return (
+  // ── Portal render — escapes Layout's CSS transform / main container ─────────
+  // Layout wraps child routes in motion.div with transform: translateX(), which
+  // breaks position:fixed and constrains the canvas. Portal to body fixes this.
+  return createPortal(
     <motion.div
       className="fixed inset-0 flex flex-col overflow-hidden"
       initial={{ opacity: 0 }}
@@ -686,6 +689,7 @@ export default function ChatScreen() {
           </motion.button>
         </div>
       </motion.div>
-    </motion.div>
+    </motion.div>,
+    document.body
   );
 }
