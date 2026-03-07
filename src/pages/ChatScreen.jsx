@@ -427,7 +427,7 @@ export default function ChatScreen() {
   // breaks position:fixed and constrains the canvas. Portal to body fixes this.
   return createPortal(
     <motion.div
-      className="fixed inset-0 flex flex-col overflow-hidden"
+      className="fixed inset-0 z-[100] flex flex-col overflow-hidden"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.3 }}
