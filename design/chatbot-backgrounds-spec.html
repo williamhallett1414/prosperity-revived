@@ -1,0 +1,1667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prosperity Revived — Chatbot Background Design System</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=DM+Mono&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --gideon:  #C9A227;
+    --daniel:  #22C55E;
+    --david:   #38BDF8;
+    --hannah:  #7AB3D4;
+    --paul:    #A78BFA;
+    --bg:      #0C0A0F;
+    --surface: #161320;
+    --border:  rgba(255,255,255,0.07);
+    --text:    #E8E4DC;
+    --muted:   #888380;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  /* ── Cover ── */
+  .cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 80px 72px;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border);
+  }
+  .cover::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 70% 50%,
+      rgba(167,139,250,0.08) 0%,
+      rgba(56,189,248,0.05) 40%,
+      transparent 70%);
+    pointer-events: none;
+  }
+  .cover-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 32px;
+  }
+  .cover h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(42px, 6vw, 80px);
+    line-height: 1.05;
+    color: #fff;
+    max-width: 700px;
+    margin-bottom: 28px;
+  }
+  .cover h1 em {
+    font-style: italic;
+    color: var(--paul);
+  }
+  .cover-sub {
+    font-size: 17px;
+    color: var(--muted);
+    max-width: 480px;
+    margin-bottom: 56px;
+    line-height: 1.7;
+  }
+  .bot-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .bot-pill {
+    padding: 6px 16px;
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    border: 1px solid;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+  .bot-pill:hover { transform: translateY(-1px); }
+
+  /* ── Nav ── */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(12,10,15,0.92);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 0 32px;
+    height: 52px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .nav::-webkit-scrollbar { display: none; }
+  .nav-item {
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--muted);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.15s;
+    border: none;
+    background: none;
+    text-decoration: none;
+  }
+  .nav-item:hover { color: #fff; background: rgba(255,255,255,0.06); }
+  .nav-item.active { color: #fff; }
+  .nav-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+
+  /* ── Bot section ── */
+  .bot-section {
+    padding: 96px 0 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-header {
+    padding: 0 72px 64px;
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 48px;
+    align-items: start;
+  }
+  .section-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+  .section-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(36px, 4vw, 56px);
+    line-height: 1;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+  .section-role {
+    font-size: 15px;
+    color: var(--muted);
+    margin-bottom: 24px;
+  }
+  .section-tagline {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    font-size: 18px;
+    line-height: 1.5;
+    color: #ccc;
+    max-width: 520px;
+    padding-left: 20px;
+    border-left: 2px solid;
+    opacity: 0.9;
+  }
+
+  /* ── Spec cards ── */
+  .spec-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+  }
+  .spec-card {
+    background: var(--surface);
+    padding: 28px 32px;
+  }
+  .spec-card-full { grid-column: 1 / -1; }
+  .spec-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+  .spec-body {
+    font-size: 14px;
+    line-height: 1.7;
+    color: #b8b4ae;
+  }
+  .spec-body strong { color: #fff; font-weight: 500; }
+
+  /* ── Preview stage ── */
+  .preview-stage {
+    background: var(--border);
+    padding: 1px 0 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+  }
+  .preview-frame {
+    background: var(--bg);
+    display: flex;
+    flex-direction: column;
+  }
+  .preview-label {
+    padding: 12px 20px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+  }
+  .preview-phone {
+    margin: 24px auto;
+    width: 220px;
+    height: 420px;
+    border-radius: 28px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 32px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.08);
+  }
+  .preview-phone svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  /* Cloud avatar overlay */
+  .avatar-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90px;
+    height: 90px;
+    pointer-events: none;
+  }
+
+  /* ── Palette row ── */
+  .palette-row {
+    display: flex;
+    gap: 0;
+    height: 48px;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 16px;
+  }
+  .swatch {
+    flex: 1;
+    cursor: default;
+    position: relative;
+    transition: flex 0.2s;
+  }
+  .swatch:hover { flex: 2; }
+  .swatch-tip {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%) translateY(100%);
+    background: #1a1818;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 4px 8px;
+    font-size: 11px;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.15s;
+    z-index: 10;
+  }
+  .swatch:hover .swatch-tip { opacity: 1; }
+
+  /* ── Dev code block ── */
+  .code-block {
+    background: #0D0B12;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 24px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    line-height: 1.8;
+    color: #b8b4ae;
+    overflow-x: auto;
+  }
+  .code-block .kw  { color: #A78BFA; }
+  .code-block .str { color: #86EFAC; }
+  .code-block .cm  { color: #4a4860; }
+  .code-block .nm  { color: #7DD3FC; }
+
+  /* ── Composition diagram ── */
+  .comp-diagram {
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  /* ── Layer list ── */
+  .layer-list { list-style: none; }
+  .layer-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+    color: #a0a0a0;
+  }
+  .layer-list li:last-child { border-bottom: none; }
+  .layer-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: rgba(255,255,255,0.06);
+    color: var(--muted);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  /* ── System rules section ── */
+  .rules-section {
+    padding: 96px 72px;
+  }
+  .rules-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 48px;
+  }
+  .rule-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px;
+  }
+  .rule-card-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+  .rule-card h4 {
+    font-weight: 600;
+    font-size: 15px;
+    color: #fff;
+    margin-bottom: 10px;
+  }
+  .rule-card p { font-size: 13px; color: #888; line-height: 1.6; }
+
+  .h2-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+  .h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 36px;
+    color: #fff;
+    margin-bottom: 16px;
+  }
+  .h2-body { font-size: 15px; color: #888; max-width: 640px; line-height: 1.7; }
+
+  /* ── Responsive ── */
+  @media (max-width: 900px) {
+    .cover { padding: 60px 28px; }
+    .section-header { grid-template-columns: 1fr; padding: 0 28px 48px; }
+    .spec-grid { grid-template-columns: 1fr; }
+    .spec-card-full { grid-column: 1; }
+    .preview-stage { grid-template-columns: 1fr; }
+    .rules-grid { grid-template-columns: 1fr; }
+    .rules-section { padding: 60px 28px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── COVER ─────────────────────────────────────────────────────────────────── -->
+<section class="cover">
+  <div class="cover-eyebrow">Prosperity Revived · Visual Experience Architecture · Senior Product Design</div>
+  <h1>Chatbot Background<br><em>Environment</em><br>Design System</h1>
+  <p class="cover-sub">Five 2D cartoon environments, each tuned to a bot's personality, palette, and emotional role. Designed to sit behind a 3D floating cloud avatar without competing with it.</p>
+  <div class="bot-pills">
+    <a class="bot-pill" href="#gideon"   style="color:#C9A227;border-color:#C9A22740;background:#C9A22710">Gideon — Church Interior</a>
+    <a class="bot-pill" href="#daniel"   style="color:#22C55E;border-color:#22C55E40;background:#22C55E10">Chef Daniel — Kitchen</a>
+    <a class="bot-pill" href="#david"    style="color:#38BDF8;border-color:#38BDF840;background:#38BDF810">Coach David — Gym</a>
+    <a class="bot-pill" href="#hannah"   style="color:#7AB3D4;border-color:#7AB3D440;background:#7AB3D410">Hannah — Therapy Office</a>
+    <a class="bot-pill" href="#paul"     style="color:#A78BFA;border-color:#A78BFA40;background:#A78BFA10">Coach Paul — Outdoors</a>
+  </div>
+</section>
+
+<!-- ── NAV ───────────────────────────────────────────────────────────────────── -->
+<nav class="nav">
+  <div class="nav-dot" style="background:#C9A227"></div>
+  <a class="nav-item" href="#gideon">Gideon</a>
+  <div class="nav-dot" style="background:#22C55E"></div>
+  <a class="nav-item" href="#daniel">Chef Daniel</a>
+  <div class="nav-dot" style="background:#38BDF8"></div>
+  <a class="nav-item" href="#david">Coach David</a>
+  <div class="nav-dot" style="background:#7AB3D4"></div>
+  <a class="nav-item" href="#hannah">Hannah</a>
+  <div class="nav-dot" style="background:#A78BFA"></div>
+  <a class="nav-item" href="#paul">Coach Paul</a>
+  <div class="nav-dot" style="background:#555"></div>
+  <a class="nav-item" href="#system">System Rules</a>
+</nav>
+
+
+<!-- ════════════════════════════════════════════════════════════════════════════
+     01 · GIDEON
+═══════════════════════════════════════════════════════════════════════════════ -->
+<section class="bot-section" id="gideon">
+  <div class="section-header">
+    <div>
+      <div class="section-num">01 / SPIRITUAL MENTOR</div>
+      <div class="section-name" style="color:#C9A227">Gideon</div>
+      <div class="section-role">Biblical Wisdom Guide</div>
+      <p class="section-tagline" style="border-color:#C9A227">"A warm sanctified space that feels like arriving somewhere sacred — not intimidating, but reverent. The kind of light that makes people feel seen."</p>
+    </div>
+    <div>
+      <div class="spec-label">Colour Palette</div>
+      <div class="palette-row">
+        <div class="swatch" style="background:#120a00"><div class="swatch-tip">Deep Void #120a00<br>Scene base</div></div>
+        <div class="swatch" style="background:#7A5500"><div class="swatch-tip">Deep Amber #7A5500<br>Shadow depth</div></div>
+        <div class="swatch" style="background:#C9A227"><div class="swatch-tip">Scripture Gold #C9A227<br>Primary accent</div></div>
+        <div class="swatch" style="background:#F0D98A"><div class="swatch-tip">Warm Parchment #F0D98A<br>Light highlight</div></div>
+        <div class="swatch" style="background:#1B3A6B"><div class="swatch-tip">Cobalt Glass #1B3A6B<br>Stained glass blue</div></div>
+        <div class="swatch" style="background:#8B1A1A"><div class="swatch-tip">Ruby Glass #8B1A1A<br>Stained glass red</div></div>
+      </div>
+      <div style="font-size:12px;color:#666;line-height:1.6">
+        <strong style="color:#C9A227">Temperature:</strong> Warm 3200K<br>
+        <strong style="color:#C9A227">Key light:</strong> Stained glass backlight<br>
+        <strong style="color:#C9A227">Mood:</strong> Golden-hour intimacy
+      </div>
+    </div>
+  </div>
+
+  <!-- Preview + Spec Grid -->
+  <div class="preview-stage">
+    <div class="preview-frame">
+      <div class="preview-label">Background Illustration · Mobile</div>
+      <div class="preview-phone">
+        <svg viewBox="0 0 390 844" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="g-ambient" cx="50%" cy="35%" r="60%">
+              <stop offset="0%" stop-color="#7A5500" stop-opacity="0.35"/>
+              <stop offset="100%" stop-color="#120a00" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="g-window-glow" cx="50%" cy="0%" r="70%">
+              <stop offset="0%" stop-color="#F0D98A" stop-opacity="0.5"/>
+              <stop offset="50%" stop-color="#C9A227" stop-opacity="0.2"/>
+              <stop offset="100%" stop-color="#120a00" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="g-floor-light1" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#C9A227" stop-opacity="0.18"/>
+              <stop offset="100%" stop-color="#C9A227" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="g-floor-light2" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#8B1A1A" stop-opacity="0.12"/>
+              <stop offset="100%" stop-color="#8B1A1A" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="g-floor-light3" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#1B3A6B" stop-opacity="0.12"/>
+              <stop offset="100%" stop-color="#1B3A6B" stop-opacity="0"/>
+            </radialGradient>
+            <filter id="glow-gold">
+              <feGaussianBlur stdDeviation="8" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <clipPath id="phone-clip"><rect width="390" height="844" rx="0"/></clipPath>
+          </defs>
+          <g clip-path="url(#phone-clip)">
+          <!-- Base background -->
+          <rect width="390" height="844" fill="#120a00"/>
+
+          <!-- Back wall - warm stone -->
+          <rect x="0" y="0" width="390" height="620" fill="#1e1000"/>
+          <rect x="0" y="0" width="390" height="620" fill="url(#g-ambient)"/>
+
+          <!-- Architectural arch frame - outer -->
+          <path d="M 20 620 L 20 220 Q 20 20 195 20 Q 370 20 370 220 L 370 620 Z" fill="none" stroke="#7A5500" stroke-width="6" fill-opacity="0"/>
+          <!-- Inner arch -->
+          <path d="M 50 620 L 50 240 Q 50 50 195 50 Q 340 50 340 240 L 340 620 Z" fill="none" stroke="#5A3F00" stroke-width="3" fill-opacity="0"/>
+
+          <!-- Stained glass window -->
+          <!-- Window frame -->
+          <path d="M 100 380 L 100 150 Q 100 70 195 70 Q 290 70 290 150 L 290 380 Z" fill="#2a1500" stroke="#7A5500" stroke-width="3"/>
+          <!-- Window glow -->
+          <path d="M 105 375 L 105 155 Q 105 78 195 78 Q 285 78 285 155 L 285 375 Z" fill="url(#g-window-glow)"/>
+
+          <!-- Stained glass panes - arch top -->
+          <!-- Amber center top -->
+          <path d="M 155 80 Q 195 72 235 80 L 230 130 Q 195 115 160 130 Z" fill="#C9A227" opacity="0.7"/>
+          <!-- Red left -->
+          <path d="M 105 170 L 105 150 Q 105 100 155 82 L 160 130 Q 125 145 120 180 Z" fill="#8B1A1A" opacity="0.6"/>
+          <!-- Blue right -->
+          <path d="M 285 170 L 285 150 Q 285 100 235 82 L 230 130 Q 265 145 270 180 Z" fill="#1B3A6B" opacity="0.6"/>
+          <!-- Gold center panel -->
+          <path d="M 160 130 Q 195 115 230 130 L 225 200 L 165 200 Z" fill="#E8B830" opacity="0.65"/>
+          <!-- Side panels mid -->
+          <path d="M 108 180 L 120 180 L 168 200 L 168 260 L 108 260 Z" fill="#7A2A1A" opacity="0.5"/>
+          <path d="M 282 180 L 270 180 L 222 200 L 222 260 L 282 260 Z" fill="#2A4A8B" opacity="0.5"/>
+          <!-- Center lower -->
+          <path d="M 168 200 L 222 200 L 222 290 L 168 290 Z" fill="#C9A227" opacity="0.55"/>
+          <!-- More panes -->
+          <path d="M 108 260 L 168 260 L 168 340 L 108 340 Z" fill="#1B3A6B" opacity="0.4"/>
+          <path d="M 222 260 L 282 260 L 282 340 L 222 340 Z" fill="#8B1A1A" opacity="0.4"/>
+          <path d="M 168 290 L 222 290 L 222 380 L 168 380 Z" fill="#C9A227" opacity="0.45"/>
+          <path d="M 108 340 L 168 340 L 168 380 L 108 380 Z" fill="#C9A227" opacity="0.35"/>
+          <path d="M 222 340 L 282 340 L 282 380 L 222 380 Z" fill="#1B5A1A" opacity="0.35"/>
+
+          <!-- Lead lines on window -->
+          <line x1="195" y1="78" x2="195" y2="378" stroke="#7A5500" stroke-width="2" opacity="0.7"/>
+          <line x1="108" y1="200" x2="282" y2="200" stroke="#7A5500" stroke-width="2" opacity="0.6"/>
+          <line x1="108" y1="260" x2="282" y2="260" stroke="#7A5500" stroke-width="2" opacity="0.6"/>
+          <line x1="108" y1="340" x2="282" y2="340" stroke="#7A5500" stroke-width="2" opacity="0.5"/>
+
+          <!-- Window glow spill on wall -->
+          <rect x="0" y="0" width="390" height="844" fill="url(#g-window-glow)" opacity="0.6"/>
+
+          <!-- Coloured light pools on floor -->
+          <ellipse cx="155" cy="680" rx="80" ry="45" fill="url(#g-floor-light2)"/>
+          <ellipse cx="235" cy="680" rx="80" ry="45" fill="url(#g-floor-light3)"/>
+          <ellipse cx="195" cy="720" rx="100" ry="60" fill="url(#g-floor-light1)"/>
+
+          <!-- Stone floor -->
+          <rect x="0" y="700" width="390" height="144" fill="#1a0f00" opacity="0.8"/>
+          <!-- Floor tiles -->
+          <line x1="0" y1="730" x2="390" y2="730" stroke="#2a1800" stroke-width="1.5"/>
+          <line x1="0" y1="760" x2="390" y2="760" stroke="#2a1800" stroke-width="1.5"/>
+          <line x1="0" y1="790" x2="390" y2="790" stroke="#2a1800" stroke-width="1.5"/>
+          <line x1="97" y1="700" x2="97" y2="844" stroke="#2a1800" stroke-width="1.5"/>
+          <line x1="195" y1="700" x2="195" y2="844" stroke="#2a1800" stroke-width="1.5"/>
+          <line x1="293" y1="700" x2="293" y2="844" stroke="#2a1800" stroke-width="1.5"/>
+
+          <!-- Left pew -->
+          <path d="M 0 680 L 0 620 Q 0 610 10 610 L 150 610 Q 158 610 158 618 L 158 680 Z" fill="#2D1A00"/>
+          <rect x="0" y="608" width="158" height="14" rx="4" fill="#3D2400"/>
+          <!-- Left pew back -->
+          <path d="M 8 610 L 8 560 Q 8 550 18 550 L 150 550 Q 150 560 150 610 Z" fill="#251400" opacity="0.8"/>
+
+          <!-- Right pew -->
+          <path d="M 390 680 L 390 620 Q 390 610 380 610 L 240 610 Q 232 610 232 618 L 232 680 Z" fill="#2D1A00"/>
+          <rect x="232" y="608" width="158" height="14" rx="4" fill="#3D2400"/>
+          <!-- Right pew back -->
+          <path d="M 382 610 L 382 560 Q 382 550 372 550 L 240 550 Q 240 560 240 610 Z" fill="#251400" opacity="0.8"/>
+
+          <!-- Side walls -->
+          <rect x="0" y="0" width="45" height="700" fill="#1a1000" opacity="0.7"/>
+          <rect x="345" y="0" width="45" height="700" fill="#1a1000" opacity="0.7"/>
+
+          <!-- Wall sconces -->
+          <g opacity="0.9">
+            <!-- Left sconce -->
+            <rect x="28" y="300" width="18" height="6" rx="2" fill="#C9A227"/>
+            <rect x="33" y="288" width="8" height="14" rx="3" fill="#E8B830" opacity="0.8"/>
+            <ellipse cx="37" cy="288" rx="12" ry="8" fill="#F0D98A" opacity="0.3"/>
+            <!-- Right sconce -->
+            <rect x="344" y="300" width="18" height="6" rx="2" fill="#C9A227"/>
+            <rect x="349" y="288" width="8" height="14" rx="3" fill="#E8B830" opacity="0.8"/>
+            <ellipse cx="353" cy="288" rx="12" ry="8" fill="#F0D98A" opacity="0.3"/>
+          </g>
+
+          <!-- Vignette -->
+          <rect x="0" y="0" width="390" height="844" fill="url(#g-ambient)" opacity="0.3"/>
+          <radialGradient id="g-vignette" cx="50%" cy="50%" r="70%">
+            <stop offset="60%" stop-color="transparent"/>
+            <stop offset="100%" stop-color="#120a00" stop-opacity="0.8"/>
+          </radialGradient>
+          <rect x="0" y="0" width="390" height="844" fill="url(#g-vignette)"/>
+
+          <!-- Avatar placeholder -->
+          <circle cx="195" cy="422" r="52" fill="#C9A227" fill-opacity="0.08" stroke="#C9A227" stroke-width="1" stroke-opacity="0.2" stroke-dasharray="4 4"/>
+          <text x="195" y="418" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#C9A227" fill-opacity="0.4">AVATAR</text>
+          <text x="195" y="432" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#C9A227" fill-opacity="0.4">ZONE</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+
+    <div class="preview-frame">
+      <div class="preview-label">Composition Diagram</div>
+      <div style="padding: 24px 28px;">
+        <svg class="comp-diagram" viewBox="0 0 320 220" xmlns="http://www.w3.org/2000/svg">
+          <rect width="320" height="220" fill="#0e0c15" rx="8"/>
+          <!-- Zones -->
+          <rect x="8" y="8" width="304" height="60" fill="#C9A22715" rx="4" stroke="#C9A22730" stroke-width="1"/>
+          <rect x="8" y="76" width="304" height="88" fill="#ffffff05" rx="4" stroke="#ffffff15" stroke-width="1" stroke-dasharray="3 3"/>
+          <rect x="8" y="172" width="304" height="40" fill="#C9A22710" rx="4" stroke="#C9A22720" stroke-width="1"/>
+          <!-- Zone labels -->
+          <text x="18" y="23" font-family="DM Mono,monospace" font-size="8" fill="#C9A227" opacity="0.7">TOP ZONE — Stained glass window, arch frame</text>
+          <text x="18" y="95" font-family="DM Mono,monospace" font-size="8" fill="#fff" opacity="0.3">CLEAR ZONE — Avatar lives here</text>
+          <text x="18" y="186" font-family="DM Mono,monospace" font-size="8" fill="#C9A227" opacity="0.7">BOTTOM — Pews, stone floor, light pools</text>
+          <!-- Avatar circle -->
+          <circle cx="160" cy="120" r="28" fill="none" stroke="#C9A227" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.5"/>
+          <text x="160" y="116" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#C9A227" opacity="0.5">3D</text>
+          <text x="160" y="127" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#C9A227" opacity="0.5">AVATAR</text>
+          <!-- Arrows pointing inward at pews -->
+          <line x1="50" y1="188" x2="100" y2="165" stroke="#C9A22760" stroke-width="1"/>
+          <line x1="270" y1="188" x2="220" y2="165" stroke="#C9A22760" stroke-width="1"/>
+          <text x="25" y="200" font-family="DM Sans,sans-serif" font-size="7" fill="#888">Pew L</text>
+          <text x="248" y="200" font-family="DM Sans,sans-serif" font-size="7" fill="#888">Pew R</text>
+          <!-- Window pointer -->
+          <line x1="160" y1="38" x2="160" y2="58" stroke="#C9A22760" stroke-width="1"/>
+          <text x="160" y="34" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="7" fill="#888">Window glow</text>
+        </svg>
+
+        <div style="margin-top:20px">
+          <div class="spec-label">Layer Architecture</div>
+          <ul class="layer-list">
+            <li><span class="layer-badge">L1</span><span>Stone wall, stained-glass window SVG, architectural arch</span></li>
+            <li><span class="layer-badge">L2</span><span>Pew rows in cartoon perspective, coloured light pool overlays (opacity 0.35)</span></li>
+            <li><span class="layer-badge">L3</span><span>Radial vignette, ambient warm glow bleed</span></li>
+            <li><span class="layer-badge">L4</span><span>Avatar clear zone — nothing above this layer in the centre</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="spec-grid">
+    <div class="spec-card">
+      <div class="spec-label">Visual Description</div>
+      <div class="spec-body">A cartoon church interior viewed toward a large <strong>arched stained-glass window</strong>. Architecturally intimate — warm stone, shallow depth. Afternoon sun filters through coloured glass in amber, burgundy, and cobalt, casting warm polygonal light shapes across stone floor and wooden pews. Two rows of simplified pews recede in cartoon perspective. Wall-mounted brass sconces flank the scene at mid-height.</div>
+    </div>
+    <div class="spec-card">
+      <div class="spec-label">Lighting & Mood Direction</div>
+      <div class="spec-body"><strong>Key light: Stained-glass backlight — warm 3200K.</strong> The scene is lit from behind and above. Coloured light pools fall across surfaces. No hard shadows — all transitions are soft, cartoon-blurred. A secondary ambient fill from below prevents truly dark zones. Net result: <strong>golden-hour intimacy</strong> inside a protected architectural space.</div>
+    </div>
+    <div class="spec-card spec-card-full">
+      <div class="spec-label">Developer Implementation Guidelines</div>
+      <div class="code-block">
+<span class="cm">/* Gideon — Church Interior */</span>
+<span class="kw">background:</span> <span class="str">linear-gradient(160deg, #120a00 0%, #7c5a0020 55%, #120a00 100%)</span>;
+
+<span class="cm">/* Speaking state — light pulses */</span>
+<span class="kw">.speaking</span> .light-pool { opacity: <span class="nm">0.45</span>; transition: opacity <span class="nm">400ms</span> ease; }
+<span class="kw">.idle</span>     .light-pool { opacity: <span class="nm">0.35</span>; }
+
+<span class="cm">/* Dust mote particles: 6–8 elements, opacity 0.08–0.18, 8–14s loops */</span>
+<span class="kw">@keyframes</span> float-up { <span class="nm">0%</span> { transform: translateY(0) } <span class="nm">100%</span> { transform: translateY(-120px); opacity: 0 } }
+
+<span class="cm">/* SVG viewBox: 0 0 390 844  |  Export layers as separate SVG groups  */</span>
+<span class="cm">/* Stained glass: flat polygon fills — no gradients — maintains cartoon clarity */</span>
+<span class="cm">/* Pew perspective: cubic perspective, vanishing point at 60% screen height */</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════════════════════════════
+     02 · CHEF DANIEL
+═══════════════════════════════════════════════════════════════════════════════ -->
+<section class="bot-section" id="daniel">
+  <div class="section-header">
+    <div>
+      <div class="section-num">02 / CULINARY GUIDE</div>
+      <div class="section-name" style="color:#22C55E">Chef Daniel</div>
+      <div class="section-role">Nutrition & Meal Coach</div>
+      <p class="section-tagline" style="border-color:#22C55E">"A kitchen that feels like someone actually cooks in it — lived-in, warm, and full of appetite. The smell of garlic and herbs should be implied by the colour palette alone."</p>
+    </div>
+    <div>
+      <div class="spec-label">Colour Palette</div>
+      <div class="palette-row">
+        <div class="swatch" style="background:#051a0d"><div class="swatch-tip">Deep Forest #051a0d<br>Scene base</div></div>
+        <div class="swatch" style="background:#166534"><div class="swatch-tip">Forest Green #166534<br>Shadow depth</div></div>
+        <div class="swatch" style="background:#22C55E"><div class="swatch-tip">Fresh Herb #22C55E<br>Primary accent</div></div>
+        <div class="swatch" style="background:#F5C842"><div class="swatch-tip">Golden Sauté #F5C842<br>Warm light</div></div>
+        <div class="swatch" style="background:#C45C2A"><div class="swatch-tip">Terracotta #C45C2A<br>Tiles / pots</div></div>
+        <div class="swatch" style="background:#F5EDD8"><div class="swatch-tip">Warm Cream #F5EDD8<br>Wall base</div></div>
+      </div>
+      <div style="font-size:12px;color:#666;line-height:1.6">
+        <strong style="color:#22C55E">Temperature:</strong> Warm 4000K<br>
+        <strong style="color:#22C55E">Key light:</strong> Afternoon window + pendant<br>
+        <strong style="color:#22C55E">Mood:</strong> Saturday morning cook
+      </div>
+    </div>
+  </div>
+
+  <div class="preview-stage">
+    <div class="preview-frame">
+      <div class="preview-label">Background Illustration · Mobile</div>
+      <div class="preview-phone">
+        <svg viewBox="0 0 390 844" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="d-window" cx="20%" cy="25%" r="55%">
+              <stop offset="0%" stop-color="#F5C842" stop-opacity="0.35"/>
+              <stop offset="100%" stop-color="#051a0d" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="d-pendant" cx="50%" cy="30%" r="35%">
+              <stop offset="0%" stop-color="#F5C842" stop-opacity="0.40"/>
+              <stop offset="100%" stop-color="#051a0d" stop-opacity="0"/>
+            </radialGradient>
+            <clipPath id="dc"><rect width="390" height="844"/></clipPath>
+            <pattern id="tile-pattern" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+              <rect width="40" height="40" fill="#e8d8b8"/>
+              <rect x="1" y="1" width="38" height="38" fill="#f5edd8"/>
+              <line x1="0" y1="0" x2="40" y2="0" stroke="#C45C2A" stroke-width="1" opacity="0.4"/>
+              <line x1="0" y1="0" x2="0" y2="40" stroke="#C45C2A" stroke-width="1" opacity="0.4"/>
+            </pattern>
+          </defs>
+          <g clip-path="url(#dc)">
+          <!-- Base -->
+          <rect width="390" height="844" fill="#051a0d"/>
+
+          <!-- Ceiling -->
+          <rect x="0" y="0" width="390" height="80" fill="#0f3020"/>
+
+          <!-- Back wall - warm cream with tile backsplash area -->
+          <rect x="0" y="80" width="390" height="400" fill="#c8b898"/>
+          <!-- Wall tone -->
+          <rect x="0" y="80" width="390" height="400" fill="#051a0d" opacity="0.55"/>
+
+          <!-- Window (upper left) -->
+          <rect x="20" y="90" width="130" height="180" rx="8" fill="#87CEEB" opacity="0.7"/>
+          <rect x="20" y="90" width="130" height="180" rx="8" fill="url(#d-window)"/>
+          <!-- Window frame -->
+          <rect x="20" y="90" width="130" height="180" rx="8" fill="none" stroke="#8B6914" stroke-width="5"/>
+          <line x1="85" y1="90" x2="85" y2="270" stroke="#8B6914" stroke-width="3"/>
+          <line x1="20" y1="182" x2="150" y2="182" stroke="#8B6914" stroke-width="3"/>
+          <!-- Outdoor tree -->
+          <ellipse cx="65" cy="130" rx="30" ry="35" fill="#1a5c28" opacity="0.5"/>
+          <ellipse cx="90" cy="120" rx="22" ry="28" fill="#22703a" opacity="0.4"/>
+
+          <!-- Tile backsplash -->
+          <rect x="0" y="360" width="390" height="80" fill="url(#tile-pattern)" opacity="0.85"/>
+          <rect x="0" y="360" width="390" height="80" fill="#051a0d" opacity="0.3"/>
+
+          <!-- Open shelves (right side) -->
+          <!-- Shelf 1 -->
+          <rect x="255" y="100" width="130" height="8" rx="3" fill="#5c3a18"/>
+          <!-- Olive oil bottle -->
+          <rect x="265" y="64" width="14" height="38" rx="4" fill="#B8960C" opacity="0.9"/>
+          <rect x="267" y="56" width="10" height="12" rx="3" fill="#8B6914"/>
+          <!-- Green herb pot -->
+          <rect x="288" y="75" width="22" height="26" rx="4" fill="#C45C2A" opacity="0.8"/>
+          <ellipse cx="299" cy="70" rx="12" ry="14" fill="#16A34A" opacity="0.9"/>
+          <ellipse cx="293" cy="63" rx="8" ry="9" fill="#22C55E" opacity="0.8"/>
+          <!-- Spice jars -->
+          <rect x="322" y="68" width="12" height="32" rx="3" fill="#8B6040" opacity="0.8"/>
+          <rect x="337" y="71" width="12" height="29" rx="3" fill="#6B4830" opacity="0.8"/>
+          <rect x="352" y="65" width="12" height="35" rx="3" fill="#4A7C4A" opacity="0.8"/>
+          <!-- Shelf 2 -->
+          <rect x="255" y="180" width="130" height="8" rx="3" fill="#5c3a18"/>
+          <!-- Lemon bowl -->
+          <ellipse cx="290" cy="168" rx="24" ry="12" fill="#8B6914" opacity="0.7"/>
+          <ellipse cx="283" cy="162" rx="8" ry="8" fill="#F5C842" opacity="0.9"/>
+          <ellipse cx="295" cy="160" rx="9" ry="9" fill="#EAB830" opacity="0.9"/>
+          <ellipse cx="303" cy="163" rx="7" ry="7" fill="#F5C842" opacity="0.8"/>
+          <!-- Bottles -->
+          <rect x="330" y="145" width="11" height="36" rx="3" fill="#1B4A2B" opacity="0.8"/>
+          <rect x="344" y="149" width="11" height="32" rx="3" fill="#2D6B3A" opacity="0.7"/>
+
+          <!-- Counter / island -->
+          <path d="M 0 580 L 0 480 Q 0 468 12 468 L 378 468 Q 390 468 390 480 L 390 580 Z" fill="#5c3a18"/>
+          <!-- Counter top surface -->
+          <rect x="0" y="460" width="390" height="22" rx="6" fill="#7a5230"/>
+          <!-- Counter wood grain lines -->
+          <line x1="0" y1="466" x2="390" y2="466" stroke="#6a4220" stroke-width="1" opacity="0.6"/>
+          <line x1="0" y1="471" x2="390" y2="471" stroke="#6a4220" stroke-width="1" opacity="0.4"/>
+          <line x1="0" y1="478" x2="390" y2="478" stroke="#6a4220" stroke-width="1" opacity="0.3"/>
+
+          <!-- Cutting board on counter -->
+          <rect x="60" y="440" width="120" height="24" rx="5" fill="#8B6914" opacity="0.9"/>
+          <rect x="65" y="443" width="110" height="18" rx="4" fill="#A07828"/>
+          <!-- Cartoon veggies on board -->
+          <ellipse cx="100" cy="452" rx="10" ry="8" fill="#22C55E" opacity="0.9"/>
+          <ellipse cx="125" cy="451" rx="8" ry="9" fill="#F5C842" opacity="0.9"/>
+          <rect x="145" y="446" width="6" height="12" rx="3" fill="#C45C2A" opacity="0.8"/>
+
+          <!-- Pot rack (upper center) -->
+          <!-- Rail -->
+          <rect x="100" y="85" width="190" height="6" rx="3" fill="#8B6914"/>
+          <!-- Hooks + pans -->
+          <!-- Pan 1 (copper) -->
+          <line x1="130" y1="91" x2="130" y2="110" stroke="#8B6914" stroke-width="2"/>
+          <ellipse cx="130" cy="140" rx="22" ry="14" fill="#B87333" opacity="0.9"/>
+          <line x1="130" y1="126" x2="130" y2="115" stroke="#6B4220" stroke-width="4" stroke-linecap="round"/>
+          <ellipse cx="130" cy="140" rx="14" ry="8" fill="#C8874A" opacity="0.5"/>
+          <!-- Pan 2 (cast iron) -->
+          <line x1="175" y1="91" x2="175" y2="110" stroke="#8B6914" stroke-width="2"/>
+          <ellipse cx="175" cy="142" rx="24" ry="15" fill="#2A2A2A" opacity="0.9"/>
+          <line x1="175" y1="127" x2="175" y2="112" stroke="#1A1A1A" stroke-width="5" stroke-linecap="round"/>
+          <!-- Pan 3 (copper small) -->
+          <line x1="222" y1="91" x2="222" y2="108" stroke="#8B6914" stroke-width="2"/>
+          <ellipse cx="222" cy="132" rx="18" ry="11" fill="#B87333" opacity="0.85"/>
+          <line x1="222" y1="121" x2="222" y2="110" stroke="#6B4220" stroke-width="3" stroke-linecap="round"/>
+          <!-- Herbs hanging -->
+          <line x1="260" y1="91" x2="260" y2="115" stroke="#5c3a18" stroke-width="1.5"/>
+          <ellipse cx="260" cy="122" rx="8" ry="10" fill="#16803D" opacity="0.8"/>
+          <ellipse cx="255" cy="118" rx="5" ry="6" fill="#22C55E" opacity="0.7"/>
+
+          <!-- Pendant lamp -->
+          <line x1="195" y1="0" x2="195" y2="95" stroke="#3a2a10" stroke-width="2"/>
+          <path d="M 165 95 Q 165 80 195 80 Q 225 80 225 95 L 215 115 L 175 115 Z" fill="#8B6914"/>
+          <ellipse cx="195" cy="95" rx="16" ry="8" fill="#F5C842" opacity="0.6"/>
+          <!-- Pendant light cone -->
+          <path d="M 175 115 L 100 280 L 290 280 L 215 115 Z" fill="#F5C842" fill-opacity="0.06"/>
+
+          <!-- Window light shaft -->
+          <rect x="0" y="0" width="390" height="844" fill="url(#d-pendant)"/>
+          <rect x="0" y="0" width="390" height="844" fill="url(#d-window)" opacity="0.7"/>
+
+          <!-- Floor -->
+          <rect x="0" y="580" width="390" height="264" fill="#0a2010"/>
+          <!-- Floor tiles -->
+          <line x1="0" y1="610" x2="390" y2="610" stroke="#0d2a14" stroke-width="2"/>
+          <line x1="0" y1="650" x2="390" y2="650" stroke="#0d2a14" stroke-width="2"/>
+          <line x1="0" y1="690" x2="390" y2="690" stroke="#0d2a14" stroke-width="2"/>
+          <line x1="0" y1="730" x2="390" y2="730" stroke="#0d2a14" stroke-width="2"/>
+
+          <!-- Vignette -->
+          <radialGradient id="d-vig" cx="50%" cy="50%" r="70%"><stop offset="55%" stop-color="transparent"/><stop offset="100%" stop-color="#051a0d" stop-opacity="0.85"/></radialGradient>
+          <rect x="0" y="0" width="390" height="844" fill="url(#d-vig)"/>
+
+          <!-- Avatar zone -->
+          <circle cx="195" cy="400" r="52" fill="#22C55E" fill-opacity="0.05" stroke="#22C55E" stroke-width="1" stroke-opacity="0.18" stroke-dasharray="4 4"/>
+          <text x="195" y="396" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#22C55E" fill-opacity="0.35">AVATAR</text>
+          <text x="195" y="410" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#22C55E" fill-opacity="0.35">ZONE</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+
+    <div class="preview-frame">
+      <div class="preview-label">Composition Diagram</div>
+      <div style="padding: 24px 28px;">
+        <svg class="comp-diagram" viewBox="0 0 320 220" xmlns="http://www.w3.org/2000/svg">
+          <rect width="320" height="220" fill="#0e0c15" rx="8"/>
+          <rect x="8" y="8" width="304" height="60" fill="#22C55E15" rx="4" stroke="#22C55E30" stroke-width="1"/>
+          <rect x="8" y="76" width="304" height="88" fill="#ffffff05" rx="4" stroke="#ffffff15" stroke-width="1" stroke-dasharray="3 3"/>
+          <rect x="8" y="172" width="304" height="40" fill="#22C55E10" rx="4" stroke="#22C55E20" stroke-width="1"/>
+          <text x="18" y="23" font-family="DM Mono,monospace" font-size="8" fill="#22C55E" opacity="0.7">TOP — Pot rack, pendant lamp, window, shelves</text>
+          <text x="18" y="95" font-family="DM Mono,monospace" font-size="8" fill="#fff" opacity="0.3">CLEAR ZONE — Avatar lives here</text>
+          <text x="18" y="186" font-family="DM Mono,monospace" font-size="8" fill="#22C55E" opacity="0.7">BOTTOM — Counter top, cutting board, floor</text>
+          <circle cx="160" cy="120" r="28" fill="none" stroke="#22C55E" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.5"/>
+          <text x="160" y="116" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#22C55E" opacity="0.5">3D</text>
+          <text x="160" y="127" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#22C55E" opacity="0.5">AVATAR</text>
+          <line x1="60" y1="12" x2="90" y2="65" stroke="#22C55E60" stroke-width="1"/>
+          <text x="30" y="11" font-family="DM Sans,sans-serif" font-size="7" fill="#888">Pendant lamp</text>
+          <line x1="260" y1="12" x2="230" y2="65" stroke="#22C55E60" stroke-width="1"/>
+          <text x="235" y="11" font-family="DM Sans,sans-serif" font-size="7" fill="#888">Pot rack</text>
+        </svg>
+
+        <div style="margin-top:20px">
+          <div class="spec-label">Layer Architecture</div>
+          <ul class="layer-list">
+            <li><span class="layer-badge">L1</span><span>Wall, tiled backsplash, window, open shelving unit</span></li>
+            <li><span class="layer-badge">L2</span><span>Pot rack + pans, pendant lamp, upper counter edge</span></li>
+            <li><span class="layer-badge">L3</span><span>Counter surface, cutting board, herb pot, floor tiles</span></li>
+            <li><span class="layer-badge">L4</span><span>Window light shaft (opacity 0.20), pendant cone (opacity 0.25)</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="spec-grid">
+    <div class="spec-card">
+      <div class="spec-label">Visual Description</div>
+      <div class="spec-body">A domestic cartoon kitchen — <strong>not a restaurant</strong>. Copper pot rack hangs from ceiling centre. Large window upper-left streams warm afternoon light across the counter. Open shelving right holds jars, oils, and a fresh basil pot. <strong>Terracotta-tiled backsplash</strong> runs behind the counter. A cutting board with cartoon vegetables anchors the lower foreground. Warm, lived-in, inviting.</div>
+    </div>
+    <div class="spec-card">
+      <div class="spec-label">Lighting & Mood Direction</div>
+      <div class="spec-body"><strong>Key light: Window (warm 4000K, left-diagonal).</strong> Secondary pendant pool over counter. Shadow falls softly right. The <strong>warm-green palette</strong> reads as "fresh produce" without cooling the light quality. Goal: the feeling of cooking with good music on a Saturday morning — joyful and grounded, never clinical.</div>
+    </div>
+    <div class="spec-card spec-card-full">
+      <div class="spec-label">Developer Implementation Guidelines</div>
+      <div class="code-block">
+<span class="cm">/* Chef Daniel — Kitchen */</span>
+<span class="kw">background:</span> <span class="str">linear-gradient(160deg, #051a0d 0%, #16653420 55%, #051a0d 100%)</span>;
+
+<span class="cm">/* Warm palette bias: all greys tinted yellow-brown — no cool greys */</span>
+<span class="cm">/* Copper pans: flat ellipse shapes + single highlight stroke, no gradients */</span>
+<span class="cm">/* Tile pattern: SVG repeat 40×40px, 2px terracotta border, cream fill */</span>
+<span class="kw">pattern</span> tile { fill: <span class="str">#f5edd8</span>; stroke: <span class="str">#C45C2A</span>; stroke-width: <span class="nm">1</span>; opacity: <span class="nm">0.4</span> }
+
+<span class="cm">/* Pendant cone: radial-gradient, amber-white centre → transparent, 200px radius */</span>
+<span class="cm">/* Counter: cartoon wood grain — 3–4 parallel curved lines, no photographic texture */</span>
+<span class="cm">/* Window exterior: simple tree silhouette, sky #87CEEB → #F5C842 gradient */</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════════════════════════════
+     03 · COACH DAVID
+═══════════════════════════════════════════════════════════════════════════════ -->
+<section class="bot-section" id="david">
+  <div class="section-header">
+    <div>
+      <div class="section-num">03 / FITNESS COACH</div>
+      <div class="section-name" style="color:#38BDF8">Coach David</div>
+      <div class="section-role">Fitness & Wellness Guide</div>
+      <p class="section-tagline" style="border-color:#38BDF8">"Walk in and feel the urge to move. Clean, charged, purposeful. The gym at 6am before anyone else arrives — everything ready, everything possible."</p>
+    </div>
+    <div>
+      <div class="spec-label">Colour Palette</div>
+      <div class="palette-row">
+        <div class="swatch" style="background:#0a1628"><div class="swatch-tip">Deep Navy #0a1628<br>Scene base</div></div>
+        <div class="swatch" style="background:#1e40af"><div class="swatch-tip">Navy Blue #1e40af<br>Shadow depth</div></div>
+        <div class="swatch" style="background:#38BDF8"><div class="swatch-tip">Electric Blue #38BDF8<br>Primary accent</div></div>
+        <div class="swatch" style="background:#E8F4FD"><div class="swatch-tip">Cold White #E8F4FD<br>Light highlights</div></div>
+        <div class="swatch" style="background:#2D3142"><div class="swatch-tip">Charcoal #2D3142<br>Floor / rubber</div></div>
+        <div class="swatch" style="background:#94A3B8"><div class="swatch-tip">Steel Grey #94A3B8<br>Equipment metal</div></div>
+      </div>
+      <div style="font-size:12px;color:#666;line-height:1.6">
+        <strong style="color:#38BDF8">Temperature:</strong> Cool 6500K<br>
+        <strong style="color:#38BDF8">Key light:</strong> Industrial overhead pendants<br>
+        <strong style="color:#38BDF8">Mood:</strong> 6am performance focus
+      </div>
+    </div>
+  </div>
+
+  <div class="preview-stage">
+    <div class="preview-frame">
+      <div class="preview-label">Background Illustration · Mobile</div>
+      <div class="preview-phone">
+        <svg viewBox="0 0 390 844" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="dv-light1" cx="20%" cy="0%" r="50%">
+              <stop offset="0%" stop-color="#E8F4FD" stop-opacity="0.22"/>
+              <stop offset="100%" stop-color="#0a1628" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="dv-light2" cx="50%" cy="0%" r="50%">
+              <stop offset="0%" stop-color="#E8F4FD" stop-opacity="0.28"/>
+              <stop offset="100%" stop-color="#0a1628" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="dv-light3" cx="80%" cy="0%" r="50%">
+              <stop offset="0%" stop-color="#E8F4FD" stop-opacity="0.18"/>
+              <stop offset="100%" stop-color="#0a1628" stop-opacity="0"/>
+            </radialGradient>
+            <clipPath id="dvc"><rect width="390" height="844"/></clipPath>
+          </defs>
+          <g clip-path="url(#dvc)">
+          <!-- Base -->
+          <rect width="390" height="844" fill="#0a1628"/>
+
+          <!-- Ceiling -->
+          <rect x="0" y="0" width="390" height="60" fill="#0d1e38"/>
+
+          <!-- Back wall -->
+          <rect x="0" y="60" width="390" height="440" fill="#131e32"/>
+
+          <!-- Mirror panel -->
+          <rect x="30" y="65" width="330" height="180" rx="4" fill="#1a2840" opacity="0.8"/>
+          <rect x="30" y="65" width="330" height="180" rx="4" fill="#38BDF8" fill-opacity="0.03" stroke="#38BDF830" stroke-width="1"/>
+
+          <!-- Dumbbell rack on back wall -->
+          <!-- Rack frame -->
+          <rect x="35" y="280" width="320" height="120" rx="4" fill="#0d1e38" stroke="#1e2d48" stroke-width="2"/>
+          <!-- Rack shelves -->
+          <rect x="40" y="295" width="310" height="6" rx="2" fill="#1e2d48"/>
+          <rect x="40" y="340" width="310" height="6" rx="2" fill="#1e2d48"/>
+          <rect x="40" y="385" width="310" height="6" rx="2" fill="#1e2d48"/>
+
+          <!-- Dumbbells on rack (pairs, light to heavy) -->
+          <!-- 5lb pair -->
+          <g fill="#2A3A52">
+            <ellipse cx="62" cy="298" rx="12" ry="8"/><rect x="70" y="292" width="8" height="12" rx="1"/><ellipse cx="82" cy="298" rx="12" ry="8"/>
+          </g>
+          <!-- 10lb pair -->
+          <g fill="#344866">
+            <ellipse cx="115" cy="297" rx="14" ry="9"/><rect x="125" y="290" width="10" height="14" rx="1"/><ellipse cx="139" cy="297" rx="14" ry="9"/>
+          </g>
+          <!-- 15lb pair - blue accent -->
+          <g fill="#1e3a6e">
+            <ellipse cx="178" cy="296" rx="15" ry="10"/><rect x="189" y="289" width="12" height="14" rx="1"/><ellipse cx="205" cy="296" rx="15" ry="10"/>
+          </g>
+          <!-- 20lb pair -->
+          <g fill="#38BDF8" opacity="0.7">
+            <ellipse cx="248" cy="295" rx="16" ry="11"/><rect x="260" y="287" width="14" height="16" rx="1"/><ellipse cx="278" cy="295" rx="16" ry="11"/>
+          </g>
+          <!-- 25lb pair -->
+          <g fill="#2a4880">
+            <ellipse cx="318" cy="294" rx="18" ry="12"/><rect x="332" y="285" width="16" height="18" rx="1"/><ellipse cx="352" cy="294" rx="18" ry="12"/>
+          </g>
+
+          <!-- Second shelf - heavier dumbbells -->
+          <g fill="#1A2840" opacity="0.7">
+            <ellipse cx="75" cy="343" rx="16" ry="11"/><rect x="87" y="335" width="16" height="16" rx="1"/><ellipse cx="107" cy="343" rx="16" ry="11"/>
+            <ellipse cx="150" cy="342" rx="18" ry="12"/><rect x="164" y="333" width="18" height="18" rx="1"/><ellipse cx="186" cy="342" rx="18" ry="12"/>
+            <ellipse cx="230" cy="341" rx="20" ry="13"/><rect x="246" y="331" width="20" height="20" rx="1"/><ellipse cx="270" cy="341" rx="20" ry="13"/>
+            <ellipse cx="320" cy="340" rx="22" ry="14"/><rect x="338" y="329" width="22" height="22" rx="1"/><ellipse cx="364" cy="340" rx="22" ry="14"/>
+          </g>
+
+          <!-- Cable machine silhouette (right) -->
+          <rect x="340" y="180" width="50" height="320" rx="6" fill="#0f1c2e" opacity="0.9"/>
+          <rect x="348" y="185" width="34" height="12" rx="3" fill="#1a2840"/>
+          <line x1="365" y1="197" x2="365" y2="420" stroke="#2a3a52" stroke-width="3" opacity="0.6"/>
+          <rect x="352" y="420" width="26" height="20" rx="3" fill="#2A3A52"/>
+
+          <!-- Rubber floor -->
+          <rect x="0" y="500" width="390" height="344" fill="#131c2a"/>
+          <!-- Floor grid -->
+          <g stroke="#1a2440" stroke-width="1.5" opacity="0.7">
+            <line x1="0" y1="540" x2="390" y2="540"/>
+            <line x1="0" y1="580" x2="390" y2="580"/>
+            <line x1="0" y1="620" x2="390" y2="620"/>
+            <line x1="0" y1="660" x2="390" y2="660"/>
+            <line x1="0" y1="700" x2="390" y2="700"/>
+            <line x1="0" y1="740" x2="390" y2="740"/>
+            <line x1="78" y1="500" x2="78" y2="844"/>
+            <line x1="156" y1="500" x2="156" y2="844"/>
+            <line x1="234" y1="500" x2="234" y2="844"/>
+            <line x1="312" y1="500" x2="312" y2="844"/>
+          </g>
+          <!-- Blue accent stripe -->
+          <rect x="0" y="498" width="390" height="4" fill="#38BDF8" opacity="0.6"/>
+
+          <!-- Industrial lights -->
+          <!-- Light 1 (left) -->
+          <line x1="78" y1="0" x2="78" y2="40" stroke="#2a3a52" stroke-width="2"/>
+          <path d="M 52 40 Q 52 30 78 30 Q 104 30 104 40 L 96 60 L 60 60 Z" fill="#1e2d48"/>
+          <ellipse cx="78" cy="40" rx="20" ry="10" fill="#38BDF8" opacity="0.4"/>
+          <!-- Light 2 (center) -->
+          <line x1="195" y1="0" x2="195" y2="40" stroke="#2a3a52" stroke-width="2"/>
+          <path d="M 167 40 Q 167 28 195 28 Q 223 28 223 40 L 213 62 L 177 62 Z" fill="#1e2d48"/>
+          <ellipse cx="195" cy="40" rx="22" ry="11" fill="#E8F4FD" opacity="0.5"/>
+          <!-- Light 3 (right) -->
+          <line x1="312" y1="0" x2="312" y2="40" stroke="#2a3a52" stroke-width="2"/>
+          <path d="M 286 40 Q 286 30 312 30 Q 338 30 338 40 L 330 60 L 294 60 Z" fill="#1e2d48"/>
+          <ellipse cx="312" cy="40" rx="20" ry="10" fill="#38BDF8" opacity="0.35"/>
+
+          <!-- Light cones from pendants -->
+          <rect x="0" y="0" width="390" height="844" fill="url(#dv-light1)"/>
+          <rect x="0" y="0" width="390" height="844" fill="url(#dv-light2)"/>
+          <rect x="0" y="0" width="390" height="844" fill="url(#dv-light3)"/>
+
+          <!-- Small equipment foreground right -->
+          <rect x="5" y="470" width="35" height="20" rx="6" fill="#1e2d48" opacity="0.8"/>
+          <rect x="12" y="462" width="20" height="10" rx="3" fill="#2a3a52" opacity="0.7"/>
+
+          <!-- Vignette -->
+          <radialGradient id="dv-vig" cx="50%" cy="50%" r="70%"><stop offset="55%" stop-color="transparent"/><stop offset="100%" stop-color="#0a1628" stop-opacity="0.9"/></radialGradient>
+          <rect x="0" y="0" width="390" height="844" fill="url(#dv-vig)"/>
+
+          <!-- Avatar zone -->
+          <circle cx="195" cy="420" r="52" fill="#38BDF8" fill-opacity="0.04" stroke="#38BDF8" stroke-width="1" stroke-opacity="0.18" stroke-dasharray="4 4"/>
+          <text x="195" y="416" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#38BDF8" fill-opacity="0.35">AVATAR</text>
+          <text x="195" y="430" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#38BDF8" fill-opacity="0.35">ZONE</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+
+    <div class="preview-frame">
+      <div class="preview-label">Composition Diagram</div>
+      <div style="padding: 24px 28px;">
+        <svg class="comp-diagram" viewBox="0 0 320 220" xmlns="http://www.w3.org/2000/svg">
+          <rect width="320" height="220" fill="#0e0c15" rx="8"/>
+          <rect x="8" y="8" width="304" height="60" fill="#38BDF815" rx="4" stroke="#38BDF830" stroke-width="1"/>
+          <rect x="8" y="76" width="304" height="88" fill="#ffffff05" rx="4" stroke="#ffffff15" stroke-width="1" stroke-dasharray="3 3"/>
+          <rect x="8" y="172" width="304" height="40" fill="#38BDF810" rx="4" stroke="#38BDF820" stroke-width="1"/>
+          <text x="18" y="23" font-family="DM Mono,monospace" font-size="8" fill="#38BDF8" opacity="0.7">TOP — Pendants, ceiling, mirror panel</text>
+          <text x="18" y="95" font-family="DM Mono,monospace" font-size="8" fill="#fff" opacity="0.3">CLEAR ZONE — Avatar lives here</text>
+          <text x="18" y="186" font-family="DM Mono,monospace" font-size="8" fill="#38BDF8" opacity="0.7">BOTTOM — Dumbbell rack, rubber floor, blue stripe</text>
+          <circle cx="160" cy="120" r="28" fill="none" stroke="#38BDF8" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.5"/>
+          <text x="160" y="116" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#38BDF8" opacity="0.5">3D</text>
+          <text x="160" y="127" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#38BDF8" opacity="0.5">AVATAR</text>
+          <!-- Light cones pointing down -->
+          <path d="M 70 8 L 50 70 L 90 70 Z" fill="#38BDF8" fill-opacity="0.08"/>
+          <path d="M 160 8 L 130 70 L 190 70 Z" fill="#38BDF8" fill-opacity="0.12"/>
+          <path d="M 250 8 L 230 70 L 270 70 Z" fill="#38BDF8" fill-opacity="0.08"/>
+          <text x="160" y="12" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="7" fill="#38BDF8" opacity="0.6">Central pendant aligns with avatar</text>
+        </svg>
+
+        <div style="margin-top:20px">
+          <div class="spec-label">Layer Architecture</div>
+          <ul class="layer-list">
+            <li><span class="layer-badge">L1</span><span>Back wall, mirror panel, dumbbell rack silhouette</span></li>
+            <li><span class="layer-badge">L2</span><span>Machine silhouettes (sides), overhead pendant fixtures</span></li>
+            <li><span class="layer-badge">L3</span><span>Rubber floor grid, blue accent stripe, small foreground items</span></li>
+            <li><span class="layer-badge">L4</span><span>Three light cone SVGs, radial gradient, opacity 0.22–0.30</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="spec-grid">
+    <div class="spec-card">
+      <div class="spec-label">Visual Description</div>
+      <div class="spec-body">Cartoon gym from a <strong>low, wide-angle view</strong> across the training floor. Dumbbell rack lines the full back wall — symmetric, light-to-heavy. Charcoal rubber-mat floor recedes in perspective. Three industrial pendants cast strong cool-white light circles downward. <strong>Mirror panel</strong> fills the upper back wall, implying depth and scale. A <strong>blue accent stripe</strong> runs the full floor width — directional energy.</div>
+    </div>
+    <div class="spec-card">
+      <div class="spec-label">Lighting & Mood Direction</div>
+      <div class="spec-body"><strong>Key light: Industrial overhead pendants — cool 6500K.</strong> Hard-edged light circles on the floor. Deliberately cool-white, contrasting with the warm palettes of other bots. Cool temperature enforces focus and performance. Secondary ambient blue-tint fill prevents full black. Result: <strong>clinically clean without feeling cold</strong>. The central pendant light aligns directly with the avatar x-position.</div>
+    </div>
+    <div class="spec-card spec-card-full">
+      <div class="spec-label">Developer Implementation Guidelines</div>
+      <div class="code-block">
+<span class="cm">/* Coach David — Gym */</span>
+<span class="kw">background:</span> <span class="str">linear-gradient(160deg, #0a1628 0%, #1e40af15 55%, #0a1628 100%)</span>;
+
+<span class="cm">/* Strict cool palette: all shadows use blue-shifted dark — no warm blacks */</span>
+<span class="cm">/* Dumbbell rack: SVG pattern — 8 pairs, circles + connecting bar, scale L→R */</span>
+<span class="cm">/* Floor grid: perspective trapezoid grid, 12×8 visible, converges at horizon */</span>
+<span class="cm">/* Mirror panel: rect + 15% opacity white + CSS filter: blur(0.5px) */</span>
+<span class="kw">.blue-stripe</span> { height: <span class="nm">4px</span>; width: <span class="nm">100%</span>; background: <span class="str">#38BDF8</span>; opacity: <span class="nm">0.6</span> }
+<span class="cm">/* Equipment silhouettes: flat dark shapes only — no detail — hierarchy with avatar */</span>
+<span class="cm">/* Light cones: SVG radial gradient, white-40% → transparent, 160px ellipse */</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════════════════════════════
+     04 · HANNAH
+═══════════════════════════════════════════════════════════════════════════════ -->
+<section class="bot-section" id="hannah">
+  <div class="section-header">
+    <div>
+      <div class="section-num">04 / EMOTIONAL WELLNESS COACH</div>
+      <div class="section-name" style="color:#7AB3D4">Hannah</div>
+      <div class="section-role">Mindset & Growth Mentor</div>
+      <p class="section-tagline" style="border-color:#7AB3D4">"A room that holds you. Soft, considered, and lived-in in all the right ways. The kind of space where it feels safe to say something true."</p>
+    </div>
+    <div>
+      <div class="spec-label">Colour Palette</div>
+      <div class="palette-row">
+        <div class="swatch" style="background:#1a2d3d"><div class="swatch-tip">Deep Slate #1a2d3d<br>Scene base</div></div>
+        <div class="swatch" style="background:#2A6A9C"><div class="swatch-tip">Still Water #2A6A9C<br>Shadow depth</div></div>
+        <div class="swatch" style="background:#7AB3D4"><div class="swatch-tip">Horizon Blue #7AB3D4<br>Primary accent</div></div>
+        <div class="swatch" style="background:#E8C4A0"><div class="swatch-tip">Warm Sand #E8C4A0<br>Lamp / fill</div></div>
+        <div class="swatch" style="background:#8B9E8B"><div class="swatch-tip">Sage Green #8B9E8B<br>Sofa / plants</div></div>
+        <div class="swatch" style="background:#F5F0EC"><div class="swatch-tip">Soft Cream #F5F0EC<br>Wall base</div></div>
+      </div>
+      <div style="font-size:12px;color:#666;line-height:1.6">
+        <strong style="color:#7AB3D4">Temperature:</strong> Warm-neutral 2700K<br>
+        <strong style="color:#7AB3D4">Key light:</strong> Table lamp, left-biased<br>
+        <strong style="color:#7AB3D4">Mood:</strong> Safe containment
+      </div>
+    </div>
+  </div>
+
+  <div class="preview-stage">
+    <div class="preview-frame">
+      <div class="preview-label">Background Illustration · Mobile</div>
+      <div class="preview-phone">
+        <svg viewBox="0 0 390 844" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="h-lamp" cx="20%" cy="60%" r="45%">
+              <stop offset="0%" stop-color="#E8C4A0" stop-opacity="0.35"/>
+              <stop offset="100%" stop-color="#1a2d3d" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="h-window" cx="0%" cy="30%" r="50%">
+              <stop offset="0%" stop-color="#C8E4F6" stop-opacity="0.18"/>
+              <stop offset="100%" stop-color="#1a2d3d" stop-opacity="0"/>
+            </radialGradient>
+            <clipPath id="hc"><rect width="390" height="844"/></clipPath>
+          </defs>
+          <g clip-path="url(#hc)">
+          <!-- Base -->
+          <rect width="390" height="844" fill="#1a2d3d"/>
+
+          <!-- Soft cream wall -->
+          <rect x="0" y="0" width="390" height="640" fill="#c8b8a0" opacity="0.25"/>
+
+          <!-- Sheer curtain (left) -->
+          <rect x="0" y="0" width="90" height="550" fill="#C8E4F6" opacity="0.08"/>
+          <rect x="0" y="0" width="90" height="550" fill="url(#h-window)"/>
+          <!-- Curtain drape lines -->
+          <path d="M 15 0 Q 20 100 12 200 Q 8 300 18 400 Q 22 500 14 550" fill="none" stroke="#C8E4F6" stroke-width="1" opacity="0.12"/>
+          <path d="M 45 0 Q 52 100 44 200 Q 40 300 48 400 Q 52 500 44 550" fill="none" stroke="#C8E4F6" stroke-width="1" opacity="0.10"/>
+          <path d="M 75 0 Q 82 100 74 200 Q 70 300 78 400 Q 82 500 74 550" fill="none" stroke="#C8E4F6" stroke-width="1" opacity="0.08"/>
+
+          <!-- Framed artwork (back wall, center) -->
+          <rect x="150" y="100" width="120" height="80" rx="5" fill="#1e2c3a" stroke="#8B9E8B" stroke-width="2" opacity="0.9"/>
+          <!-- Abstract art inside -->
+          <rect x="156" y="106" width="108" height="68" rx="3" fill="#243444"/>
+          <ellipse cx="195" cy="145" rx="30" ry="22" fill="#7AB3D4" opacity="0.25"/>
+          <path d="M 165 130 Q 195 118 225 132 L 222 150 Q 195 160 168 148 Z" fill="#E8C4A0" opacity="0.2"/>
+          <line x1="156" y1="160" x2="264" y2="155" stroke="#8B9E8B" stroke-width="1" opacity="0.3"/>
+
+          <!-- Bookshelf (right side) -->
+          <rect x="295" y="80" width="95" height="400" rx="4" fill="#1e2c3a" opacity="0.9"/>
+          <!-- Shelf boards -->
+          <rect x="295" y="80" width="95" height="6" rx="2" fill="#3a2c1e"/>
+          <rect x="295" y="180" width="95" height="6" rx="2" fill="#3a2c1e"/>
+          <rect x="295" y="280" width="95" height="6" rx="2" fill="#3a2c1e"/>
+          <rect x="295" y="380" width="95" height="6" rx="2" fill="#3a2c1e"/>
+          <!-- Books shelf 1 -->
+          <g opacity="0.85">
+            <rect x="300" y="98" width="10" height="78" rx="2" fill="#C45C2A"/>
+            <rect x="312" y="105" width="14" height="71" rx="2" fill="#7AB3D4"/>
+            <rect x="328" y="100" width="9" height="76" rx="2" fill="#E8C4A0"/>
+            <rect x="339" y="108" width="12" height="68" rx="2" fill="#8B9E8B"/>
+            <rect x="353" y="103" width="8" height="73" rx="2" fill="#A78BFA" opacity="0.7"/>
+            <rect x="363" y="96" width="11" height="80" rx="2" fill="#5c7a5c"/>
+            <rect x="376" y="106" width="10" height="70" rx="2" fill="#8B6914"/>
+          </g>
+          <!-- Books shelf 2 -->
+          <g opacity="0.75">
+            <rect x="300" y="196" width="12" height="80" rx="2" fill="#5c4a8B"/>
+            <rect x="314" y="200" width="9" height="76" rx="2" fill="#C45C2A"/>
+            <rect x="325" y="194" width="15" height="82" rx="2" fill="#2A6A9C"/>
+            <rect x="342" y="198" width="8" height="78" rx="2" fill="#8B9E8B"/>
+            <rect x="352" y="193" width="11" height="83" rx="2" fill="#E8C4A0" opacity="0.8"/>
+            <rect x="365" y="201" width="10" height="75" rx="2" fill="#7AB3D4" opacity="0.7"/>
+            <rect x="377" y="196" width="9" height="80" rx="2" fill="#5c3a18"/>
+          </g>
+          <!-- Books shelf 3 -->
+          <g opacity="0.65">
+            <rect x="300" y="296" width="14" height="80" rx="2" fill="#7AB3D4"/>
+            <rect x="316" y="300" width="10" height="76" rx="2" fill="#E8C4A0"/>
+            <rect x="328" y="294" width="12" height="82" rx="2" fill="#8B9E8B"/>
+            <rect x="342" y="298" width="9" height="78" rx="2" fill="#C45C2A" opacity="0.8"/>
+            <rect x="353" y="293" width="13" height="83" rx="2" fill="#2A6A9C" opacity="0.7"/>
+            <rect x="368" y="299" width="10" height="77" rx="2" fill="#8B6914" opacity="0.7"/>
+          </g>
+
+          <!-- Monstera plant (upper left) -->
+          <!-- Stem -->
+          <path d="M 90 550 Q 80 480 75 420 Q 70 370 80 310 Q 90 260 85 180" fill="none" stroke="#2D5016" stroke-width="4" opacity="0.9"/>
+          <!-- Large leaf 1 -->
+          <path d="M 82 200 Q 30 170 10 200 Q -10 230 40 250 Q 75 260 90 230 Z" fill="#2D5016" opacity="0.85"/>
+          <path d="M 82 200 Q 30 175 15 210 Q 5 235 40 248" fill="none" stroke="#4A7C2A" stroke-width="1.5" opacity="0.5"/>
+          <!-- Leaf splits (characteristic monstera) -->
+          <path d="M 82 200 Q 50 180 30 185" fill="none" stroke="#1a3a0a" stroke-width="2" opacity="0.6"/>
+          <path d="M 78 210 Q 45 220 28 230" fill="none" stroke="#1a3a0a" stroke-width="2" opacity="0.6"/>
+          <!-- Large leaf 2 -->
+          <path d="M 80 300 Q 20 275 5 310 Q -10 345 35 360 Q 72 368 88 340 Z" fill="#1a4a10" opacity="0.8"/>
+          <!-- Small leaf 3 -->
+          <path d="M 85 380 Q 40 365 30 390 Q 22 415 55 422 Q 80 424 88 400 Z" fill="#22703a" opacity="0.75"/>
+          <!-- Pot -->
+          <path d="M 70 540 Q 62 555 68 568 Q 75 578 105 578 Q 130 578 135 568 Q 140 555 128 540 Z" fill="#C45C2A" opacity="0.8"/>
+          <ellipse cx="99" cy="540" rx="28" ry="10" fill="#8B3a1A" opacity="0.8"/>
+
+          <!-- Sofa -->
+          <!-- Sofa base -->
+          <path d="M 10 680 L 10 610 Q 10 595 25 595 L 275 595 Q 290 595 290 610 L 290 680 Z" fill="#6B8060" opacity="0.85"/>
+          <!-- Sofa back -->
+          <path d="M 10 595 L 10 545 Q 10 535 22 535 L 278 535 Q 290 535 290 545 L 290 595 Z" fill="#5c7050" opacity="0.8"/>
+          <!-- Sofa seat panels -->
+          <line x1="100" y1="595" x2="100" y2="680" stroke="#4a5e40" stroke-width="1.5" opacity="0.5"/>
+          <line x1="200" y1="595" x2="200" y2="680" stroke="#4a5e40" stroke-width="1.5" opacity="0.5"/>
+          <!-- Cushions -->
+          <rect x="18" y="540" width="75" height="56" rx="8" fill="#7a9472" opacity="0.9"/>
+          <rect x="108" y="540" width="75" height="56" rx="8" fill="#7a9472" opacity="0.9"/>
+          <rect x="198" y="540" width="75" height="56" rx="8" fill="#7a9472" opacity="0.9"/>
+          <!-- Cushion center lines -->
+          <line x1="56" y1="538" x2="56" y2="596" stroke="#5c7050" stroke-width="1" opacity="0.4"/>
+          <line x1="146" y1="538" x2="146" y2="596" stroke="#5c7050" stroke-width="1" opacity="0.4"/>
+          <line x1="236" y1="538" x2="236" y2="596" stroke="#5c7050" stroke-width="1" opacity="0.4"/>
+          <!-- Sofa arm right -->
+          <rect x="275" y="535" width="28" height="100" rx="8" fill="#5c7050" opacity="0.8"/>
+          <!-- Decorative pillow -->
+          <rect x="245" y="548" width="44" height="40" rx="6" fill="#C4A882" opacity="0.85"/>
+          <line x1="267" y1="548" x2="267" y2="588" stroke="#a88a60" stroke-width="1" opacity="0.4"/>
+          <line x1="245" y1="568" x2="289" y2="568" stroke="#a88a60" stroke-width="1" opacity="0.4"/>
+
+          <!-- Side table + lamp (left) -->
+          <!-- Table -->
+          <ellipse cx="45" cy="590" rx="38" ry="12" fill="#3a2a18" opacity="0.9"/>
+          <rect x="38" y="590" width="14" height="60" fill="#2a1e10" opacity="0.8"/>
+          <!-- Lamp base -->
+          <rect x="30" y="560" width="28" height="32" rx="6" fill="#8B6914" opacity="0.9"/>
+          <!-- Lamp shade -->
+          <path d="M 18 540 Q 18 525 44 525 Q 70 525 70 540 L 60 562 L 28 562 Z" fill="#E8C4A0" opacity="0.9"/>
+          <!-- Lamp light glow -->
+          <ellipse cx="44" cy="541" rx="18" ry="8" fill="#F5D87A" opacity="0.5"/>
+
+          <!-- Light overlays -->
+          <rect x="0" y="0" width="390" height="844" fill="url(#h-lamp)"/>
+          <rect x="0" y="0" width="390" height="844" fill="url(#h-window)" opacity="0.8"/>
+
+          <!-- Rug -->
+          <ellipse cx="165" cy="730" rx="165" ry="55" fill="#C4A882" opacity="0.12"/>
+          <ellipse cx="165" cy="730" rx="135" ry="42" fill="none" stroke="#C4A882" stroke-width="1.5" opacity="0.15"/>
+          <ellipse cx="165" cy="730" rx="105" ry="30" fill="none" stroke="#C4A882" stroke-width="1" opacity="0.1"/>
+
+          <!-- Floor -->
+          <rect x="0" y="700" width="390" height="144" fill="#141e28" opacity="0.7"/>
+
+          <!-- Vignette -->
+          <radialGradient id="h-vig" cx="50%" cy="50%" r="70%"><stop offset="55%" stop-color="transparent"/><stop offset="100%" stop-color="#1a2d3d" stop-opacity="0.88"/></radialGradient>
+          <rect x="0" y="0" width="390" height="844" fill="url(#h-vig)"/>
+
+          <!-- Avatar zone -->
+          <circle cx="195" cy="420" r="52" fill="#7AB3D4" fill-opacity="0.04" stroke="#7AB3D4" stroke-width="1" stroke-opacity="0.18" stroke-dasharray="4 4"/>
+          <text x="195" y="416" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#7AB3D4" fill-opacity="0.35">AVATAR</text>
+          <text x="195" y="430" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#7AB3D4" fill-opacity="0.35">ZONE</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+
+    <div class="preview-frame">
+      <div class="preview-label">Composition Diagram</div>
+      <div style="padding: 24px 28px;">
+        <svg class="comp-diagram" viewBox="0 0 320 220" xmlns="http://www.w3.org/2000/svg">
+          <rect width="320" height="220" fill="#0e0c15" rx="8"/>
+          <rect x="8" y="8" width="304" height="60" fill="#7AB3D415" rx="4" stroke="#7AB3D430" stroke-width="1"/>
+          <rect x="8" y="76" width="304" height="88" fill="#ffffff05" rx="4" stroke="#ffffff15" stroke-width="1" stroke-dasharray="3 3"/>
+          <rect x="8" y="172" width="304" height="40" fill="#7AB3D410" rx="4" stroke="#7AB3D420" stroke-width="1"/>
+          <text x="18" y="23" font-family="DM Mono,monospace" font-size="8" fill="#7AB3D4" opacity="0.7">TOP — Artwork, monstera, bookshelf, curtain</text>
+          <text x="18" y="95" font-family="DM Mono,monospace" font-size="8" fill="#fff" opacity="0.3">CLEAR ZONE — Warm cream wall behind avatar</text>
+          <text x="18" y="186" font-family="DM Mono,monospace" font-size="8" fill="#7AB3D4" opacity="0.7">BOTTOM — Sofa, side table, lamp, rug</text>
+          <circle cx="160" cy="120" r="28" fill="none" stroke="#7AB3D4" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.5"/>
+          <text x="160" y="116" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#7AB3D4" opacity="0.5">3D</text>
+          <text x="160" y="127" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#7AB3D4" opacity="0.5">AVATAR</text>
+          <line x1="45" y1="185" x2="90" y2="162" stroke="#7AB3D460" stroke-width="1"/>
+          <text x="10" y="198" font-family="DM Sans,sans-serif" font-size="7" fill="#888">Lamp glow</text>
+          <line x1="280" y1="40" x2="230" y2="70" stroke="#7AB3D460" stroke-width="1"/>
+          <text x="255" y="37" font-family="DM Sans,sans-serif" font-size="7" fill="#888">Bookshelf</text>
+          <line x1="40" y1="40" x2="80" y2="70" stroke="#7AB3D460" stroke-width="1"/>
+          <text x="10" y="37" font-family="DM Sans,sans-serif" font-size="7" fill="#888">Monstera</text>
+        </svg>
+
+        <div style="margin-top:20px">
+          <div class="spec-label">Layer Architecture</div>
+          <ul class="layer-list">
+            <li><span class="layer-badge">L1</span><span>Warm cream wall, framed artwork, sheer curtain glow</span></li>
+            <li><span class="layer-badge">L2</span><span>Bookshelf (right), monstera (left), lamp glow backlight</span></li>
+            <li><span class="layer-badge">L3</span><span>Sofa, cushions, side table, lamp, rug edge</span></li>
+            <li><span class="layer-badge">L4</span><span>Lamp cone (opacity 0.20), ambient warm tint (opacity 0.08)</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="spec-grid">
+    <div class="spec-card">
+      <div class="spec-label">Visual Description</div>
+      <div class="spec-body">A cartoon therapist's office — warm, personal, <strong>asymmetric by design</strong>. Wide sage-green sofa centre-lower. Tall bookshelf with staggered muted spines fills the upper-right. Monstera plant frames the upper-left with simplified characteristic split leaves. A table lamp lower-left creates a soft amber pool. Back wall: <strong>plain warm cream</strong> — maximum contrast for the avatar's silhouette. Framed abstract art above the sofa, perfectly centred.</div>
+    </div>
+    <div class="spec-card">
+      <div class="spec-label">Lighting & Mood Direction</div>
+      <div class="spec-body"><strong>Key light: Table lamp — warm amber 2700K, left-biased.</strong> No overhead lighting anywhere in this scene. Secondary: diffused window light through sheer curtain (soft cool fill, opposing direction). The back wall is deliberately dim — creates depth without darkness. Net result: the <strong>quality of light that makes someone want to exhale</strong>. Slow down. Stay.</div>
+    </div>
+    <div class="spec-card spec-card-full">
+      <div class="spec-label">Developer Implementation Guidelines</div>
+      <div class="code-block">
+<span class="cm">/* Hannah — Therapist Office */</span>
+<span class="kw">background:</span> <span class="str">linear-gradient(160deg, #1a2d3d 0%, #7ab3d420 55%, #1a2d3d 100%)</span>;
+
+<span class="cm">/* Muted palette: all colours pass through warm-desaturate mentally — no pure saturated hues */</span>
+<span class="cm">/* Sofa: simplified flat shape + 1–2 lighter panels (upholstery), 3 geometric cushions */</span>
+<span class="cm">/* Books: SVG rect strips of varying heights (60–100px), muted palette, groups of 3–5 */</span>
+<span class="cm">/* Monstera: SVG path leaves, 3 size variants, dark green base + highlight stroke */</span>
+<span class="kw">.lamp-cone</span> { fill: <span class="str">radial-gradient(#E8C4A0_0%, transparent_100%)</span>; opacity: <span class="nm">0.20</span> }
+<span class="cm">/* Curtain: rect + 12% white opacity + CSS backdrop-filter: blur(2px) */</span>
+<span class="cm">/* Rug: subtle SVG repeat pattern — thin concentric borders, dusty rose tones */</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════════════════════════════
+     05 · COACH PAUL
+═══════════════════════════════════════════════════════════════════════════════ -->
+<section class="bot-section" id="paul">
+  <div class="section-header">
+    <div>
+      <div class="section-num">05 / LEADERSHIP MENTOR</div>
+      <div class="section-name" style="color:#A78BFA">Coach Paul</div>
+      <div class="section-role">Discipline & Whole-Life Transformation</div>
+      <p class="section-tagline" style="border-color:#A78BFA">"The feeling of stepping outside on a clear morning and knowing exactly who you are and where you are going. Honest light. Open sky. Room to think."</p>
+    </div>
+    <div>
+      <div class="spec-label">Colour Palette</div>
+      <div class="palette-row">
+        <div class="swatch" style="background:#0A0718"><div class="swatch-tip">Midnight #0A0718<br>Scene base</div></div>
+        <div class="swatch" style="background:#1E1B4B"><div class="swatch-tip">Deep Indigo #1E1B4B<br>Sky top</div></div>
+        <div class="swatch" style="background:#A78BFA"><div class="swatch-tip">Purpose Purple #A78BFA<br>Primary accent</div></div>
+        <div class="swatch" style="background:#FCD34D"><div class="swatch-tip">Horizon Gold #FCD34D<br>Morning glow</div></div>
+        <div class="swatch" style="background:#4D7C4D"><div class="swatch-tip">Field Green #4D7C4D<br>Hill / grass</div></div>
+        <div class="swatch" style="background:#E0E7FF"><div class="swatch-tip">Clear Sky #E0E7FF<br>Cloud fills</div></div>
+      </div>
+      <div style="font-size:12px;color:#666;line-height:1.6">
+        <strong style="color:#A78BFA">Temperature:</strong> Warm 3800K at horizon<br>
+        <strong style="color:#A78BFA">Key light:</strong> Rising sun, edge-lit<br>
+        <strong style="color:#A78BFA">Mood:</strong> Everything still possible
+      </div>
+    </div>
+  </div>
+
+  <div class="preview-stage">
+    <div class="preview-frame">
+      <div class="preview-label">Background Illustration · Mobile</div>
+      <div class="preview-phone">
+        <svg viewBox="0 0 390 844" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="p-sky" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%"   stop-color="#0A0718"/>
+              <stop offset="18%"  stop-color="#1E1B4B"/>
+              <stop offset="45%"  stop-color="#4C1D95"/>
+              <stop offset="68%"  stop-color="#7C3AED"/>
+              <stop offset="82%"  stop-color="#A78BFA"/>
+              <stop offset="92%"  stop-color="#FCD34D"/>
+              <stop offset="100%" stop-color="#F59E0B"/>
+            </linearGradient>
+            <radialGradient id="p-horizon-glow" cx="50%" cy="100%" r="60%">
+              <stop offset="0%" stop-color="#FCD34D" stop-opacity="0.55"/>
+              <stop offset="50%" stop-color="#F59E0B" stop-opacity="0.15"/>
+              <stop offset="100%" stop-color="#0A0718" stop-opacity="0"/>
+            </radialGradient>
+            <clipPath id="pc"><rect width="390" height="844"/></clipPath>
+          </defs>
+          <g clip-path="url(#pc)">
+          <!-- Sky gradient -->
+          <rect x="0" y="0" width="390" height="844" fill="url(#p-sky)"/>
+
+          <!-- Clouds (very soft, upper zone) -->
+          <!-- Cloud 1 -->
+          <g opacity="0.22">
+            <circle cx="80" cy="100" r="28" fill="#E0E7FF"/>
+            <circle cx="108" cy="92" r="22" fill="#E0E7FF"/>
+            <circle cx="130" cy="98" r="18" fill="#E0E7FF"/>
+            <circle cx="58" cy="106" r="18" fill="#E0E7FF"/>
+          </g>
+          <!-- Cloud 2 -->
+          <g opacity="0.16">
+            <circle cx="290" cy="140" r="22" fill="#E0E7FF"/>
+            <circle cx="315" cy="132" r="18" fill="#E0E7FF"/>
+            <circle cx="335" cy="138" r="14" fill="#E0E7FF"/>
+            <circle cx="272" cy="146" r="15" fill="#E0E7FF"/>
+          </g>
+          <!-- Cloud 3 (tiny, far) -->
+          <g opacity="0.12">
+            <circle cx="195" cy="80" r="14" fill="#E0E7FF"/>
+            <circle cx="212" cy="75" r="11" fill="#E0E7FF"/>
+            <circle cx="226" cy="79" r="9" fill="#E0E7FF"/>
+          </g>
+
+          <!-- Birds (simple V shapes, upper right) -->
+          <g fill="none" stroke="#1E1B4B" stroke-width="1.5" stroke-linecap="round" opacity="0.6">
+            <path d="M 295 90 Q 299 86 303 90"/>
+            <path d="M 310 78 Q 315 73 320 78"/>
+            <path d="M 326 94 Q 331 89 336 94"/>
+            <path d="M 340 72 Q 346 66 352 72"/>
+            <path d="M 308 110 Q 313 105 318 110"/>
+          </g>
+
+          <!-- Far hill (lightest) -->
+          <path d="M 0 560 Q 80 510 200 530 Q 310 548 390 510 L 390 844 L 0 844 Z" fill="#2D4A2D" opacity="0.45"/>
+
+          <!-- Mid hill -->
+          <path d="M 0 600 Q 70 558 180 570 Q 280 580 390 550 L 390 844 L 0 844 Z" fill="#3D6040" opacity="0.65"/>
+
+          <!-- Near hill / field -->
+          <path d="M 0 650 Q 100 618 220 630 Q 320 640 390 610 L 390 844 L 0 844 Z" fill="#4D7C4D" opacity="0.8"/>
+
+          <!-- Horizon glow spill -->
+          <rect x="0" y="0" width="390" height="844" fill="url(#p-horizon-glow)"/>
+
+          <!-- Tree silhouette (right) -->
+          <rect x="318" y="420" width="16" height="200" rx="4" fill="#0D0B18"/>
+          <!-- Tree canopy -->
+          <circle cx="326" cy="400" r="52" fill="#0D0B18"/>
+          <circle cx="304" cy="420" r="38" fill="#0D0B18"/>
+          <circle cx="350" cy="416" r="35" fill="#0D0B18"/>
+          <circle cx="326" cy="380" r="30" fill="#0D0B18"/>
+
+          <!-- Stone path (leading toward centre horizon) -->
+          <!-- Path stones -->
+          <g fill="#2a2040" opacity="0.55">
+            <ellipse cx="195" cy="740" rx="40" ry="14"/>
+            <ellipse cx="188" cy="710" rx="32" ry="11"/>
+            <ellipse cx="193" cy="683" rx="26" ry="9"/>
+            <ellipse cx="196" cy="659" rx="20" ry="7"/>
+            <ellipse cx="195" cy="638" rx="16" ry="5"/>
+            <ellipse cx="195" cy="622" rx="12" ry="4"/>
+          </g>
+          <!-- Path edges -->
+          <path d="M 155 844 Q 170 720 182 640 Q 188 600 195 570" fill="none" stroke="#1E1B4B" stroke-width="1.5" opacity="0.35"/>
+          <path d="M 235 844 Q 220 720 208 640 Q 202 600 195 570" fill="none" stroke="#1E1B4B" stroke-width="1.5" opacity="0.35"/>
+
+          <!-- Ground -->
+          <rect x="0" y="750" width="390" height="94" fill="#1a2a1a" opacity="0.4"/>
+
+          <!-- Horizon glow bar -->
+          <rect x="0" y="555" width="390" height="12" fill="#FCD34D" fill-opacity="0.12"/>
+          <rect x="0" y="555" width="390" height="4" fill="#FCD34D" fill-opacity="0.2"/>
+
+          <!-- Vignette -->
+          <radialGradient id="p-vig" cx="50%" cy="50%" r="70%"><stop offset="55%" stop-color="transparent"/><stop offset="100%" stop-color="#0A0718" stop-opacity="0.85"/></radialGradient>
+          <rect x="0" y="0" width="390" height="844" fill="url(#p-vig)"/>
+
+          <!-- Avatar zone (sits right at horizon) -->
+          <circle cx="195" cy="440" r="52" fill="#A78BFA" fill-opacity="0.05" stroke="#A78BFA" stroke-width="1" stroke-opacity="0.20" stroke-dasharray="4 4"/>
+          <text x="195" y="436" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#A78BFA" fill-opacity="0.35">AVATAR</text>
+          <text x="195" y="450" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#A78BFA" fill-opacity="0.35">ZONE</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+
+    <div class="preview-frame">
+      <div class="preview-label">Composition Diagram</div>
+      <div style="padding: 24px 28px;">
+        <svg class="comp-diagram" viewBox="0 0 320 220" xmlns="http://www.w3.org/2000/svg">
+          <rect width="320" height="220" fill="#0e0c15" rx="8"/>
+          <!-- Sky gradient mini -->
+          <defs><linearGradient id="mini-sky" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#1E1B4B"/>
+            <stop offset="60%" stop-color="#7C3AED"/>
+            <stop offset="100%" stop-color="#FCD34D"/>
+          </linearGradient></defs>
+          <rect x="8" y="8" width="304" height="60" fill="#A78BFA15" rx="4" stroke="#A78BFA30" stroke-width="1"/>
+          <rect x="8" y="76" width="304" height="88" fill="#ffffff05" rx="4" stroke="#ffffff15" stroke-width="1" stroke-dasharray="3 3"/>
+          <rect x="8" y="172" width="304" height="40" fill="#A78BFA10" rx="4" stroke="#A78BFA20" stroke-width="1"/>
+          <text x="18" y="23" font-family="DM Mono,monospace" font-size="8" fill="#A78BFA" opacity="0.7">TOP — Sky gradient, clouds, birds (upper-right only)</text>
+          <text x="18" y="95" font-family="DM Mono,monospace" font-size="8" fill="#fff" opacity="0.3">CLEAR ZONE — Avatar sits at horizon line</text>
+          <text x="18" y="186" font-family="DM Mono,monospace" font-size="8" fill="#A78BFA" opacity="0.7">BOTTOM — Hill layers, path, tree silhouette (right)</text>
+          <circle cx="160" cy="120" r="28" fill="none" stroke="#A78BFA" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.5"/>
+          <text x="160" y="116" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#A78BFA" opacity="0.5">3D</text>
+          <text x="160" y="127" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="#A78BFA" opacity="0.5">AVATAR</text>
+          <!-- Path converges to avatar -->
+          <line x1="100" y1="212" x2="145" y2="155" stroke="#A78BFA50" stroke-width="1"/>
+          <line x1="220" y1="212" x2="175" y2="155" stroke="#A78BFA50" stroke-width="1"/>
+          <text x="100" y="218" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="7" fill="#888">Path converges</text>
+          <!-- Horizon glow line -->
+          <line x1="8" y1="164" x2="312" y2="164" stroke="#FCD34D" stroke-width="1" opacity="0.4"/>
+          <text x="240" y="161" font-family="DM Sans,sans-serif" font-size="7" fill="#FCD34D" opacity="0.6">horizon</text>
+        </svg>
+
+        <div style="margin-top:20px">
+          <div class="spec-label">Layer Architecture</div>
+          <ul class="layer-list">
+            <li><span class="layer-badge">L1</span><span>Sky gradient fill, cloud shapes, bird marks — full height</span></li>
+            <li><span class="layer-badge">L2</span><span>Hill silhouettes × 3 (opacity 1.0 / 0.75 / 0.55 for depth)</span></li>
+            <li><span class="layer-badge">L3</span><span>Stone path, foreground grass edge, tree silhouette (right)</span></li>
+            <li><span class="layer-badge">L4</span><span>Horizon radial glow (amber, opacity 0.25), vignette overlay</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="spec-grid">
+    <div class="spec-card">
+      <div class="spec-label">Visual Description</div>
+      <div class="spec-body">An early-morning outdoor scene from a gentle hillside. <strong>Sky dominates 65% of screen height</strong> — deep indigo at top fading through purple to a golden-white horizon glow. This is specifically pre-dawn morning: not midday (ordinary), not sunset (melancholy). Rolling hills in three receding layers. Single <strong>tree silhouette at right</strong>. Stone path leads from lower foreground toward horizon — compositional lines all converge at the avatar's position.</div>
+    </div>
+    <div class="spec-card">
+      <div class="spec-label">Lighting & Mood Direction</div>
+      <div class="spec-body"><strong>Key light: Rising sun at/below horizon — warm 3800K, edge-lit.</strong> Sun not yet visible — only its glow. Horizontal light illuminates undersides of clouds, top planes of hills, path surface. Sky darkens to deep indigo at top: <strong>high-contrast, clean, expansive</strong>. A warm halo surrounds the avatar zone at low opacity — light emanates from behind the bot. The mood: a decision already made. Calm confidence.</div>
+    </div>
+    <div class="spec-card spec-card-full">
+      <div class="spec-label">Developer Implementation Guidelines</div>
+      <div class="code-block">
+<span class="cm">/* Coach Paul — Outdoor Morning */</span>
+<span class="kw">background:</span> <span class="str">linear-gradient(160deg, #0A0718 0%, #3B076420 55%, #0A0718 100%)</span>;
+
+<span class="cm">/* Sky: CSS/SVG linearGradient — #0A0718 → #1E1B4B → #4C1D95 → #A78BFA → #FCD34D */</span>
+<span class="kw">stop</span> { <span class="nm">0%</span>: <span class="str">#1E1B4B</span>; <span class="nm">45%</span>: <span class="str">#7C3AED</span>; <span class="nm">82%</span>: <span class="str">#A78BFA</span>; <span class="nm">92%</span>: <span class="str">#FCD34D</span> }
+<span class="cm">/* Hill layers: 3 SVG paths, opacity 1.0 / 0.75 / 0.55 — depth recession */</span>
+<span class="cm">/* Tree: single SVG path — trunk + rounded canopy silhouette, fill: #1E1B4B, no detail */</span>
+<span class="cm">/* Path: two converging lines from lower-centre to avatar zone — forced perspective */</span>
+<span class="cm">/* Horizon glow: SVG ellipse, radialGradient #FCD34D-50%→transparent, 320×80px */</span>
+<span class="cm">/* Birds: 3–5 SVG open-V paths, 8–14px, fill #1E1B4B — upper-right quadrant only */</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════════════════════════════
+     SYSTEM RULES
+═══════════════════════════════════════════════════════════════════════════════ -->
+<section class="rules-section" id="system">
+  <div class="h2-label">06 / CROSS-BOT CONSISTENCY</div>
+  <div class="h2">System Rules</div>
+  <p class="h2-body">All five backgrounds share the same underlying visual grammar. Individual personalities are expressed through palette, geometry, and light quality — never through structural deviation.</p>
+
+  <div class="rules-grid">
+    <div class="rule-card">
+      <div class="rule-card-num">RULE 01</div>
+      <h4>Three-Zone Composition</h4>
+      <p>Every background uses the same vertical zone structure. Top 30%: character energy, architectural or environmental mood-setter. Middle 40%: clear zone, avatar only. Bottom 30%: ground anchor, heaviest visual weight.</p>
+    </div>
+    <div class="rule-card">
+      <div class="rule-card-num">RULE 02</div>
+      <h4>Flat Art, Layered Depth</h4>
+      <p>No gradients within individual cartoon elements. Depth comes from opacity layering between elements. 2–3px outlines on primary shapes, 1px on details. All corners 4–8px radius — never sharp 90° or fully circular.</p>
+    </div>
+    <div class="rule-card">
+      <div class="rule-card-num">RULE 03</div>
+      <h4>Speaking State Response</h4>
+      <p>When the bot speaks: ambient light overlays +0.10 opacity (400ms ease). Particle systems speed up 1.4×. Background radial glow behind avatar +0.15. No structural changes — luminosity only.</p>
+    </div>
+    <div class="rule-card">
+      <div class="rule-card-num">RULE 04</div>
+      <h4>Performance Budget</h4>
+      <p>SVG only — no canvas, no WebGL. Max 120 DOM nodes per background. CSS animations only, no JS libraries. 60fps target on iPhone 12 / Pixel 6. prefers-reduced-motion: all animations off, static illustration only.</p>
+    </div>
+    <div class="rule-card">
+      <div class="rule-card-num">RULE 05</div>
+      <h4>Colour Temperature Logic</h4>
+      <p>Each bot's temperature is intentional: Gideon 3200K (warmth, candlelight), Daniel 4000K (kitchen warmth), David 6500K (cool focus), Hannah 2700K (intimate amber), Paul 3800K (dawn, possibility).</p>
+    </div>
+    <div class="rule-card">
+      <div class="rule-card-num">RULE 06</div>
+      <h4>Component Architecture</h4>
+      <p>Single entry component: &lt;BotBackground character="…" /&gt;. Pure presentational — no state, memo-wrapped, no re-renders on message updates. Accepts speaking, listening, thinking props for state-driven light adjustments.</p>
+    </div>
+  </div>
+
+  <!-- Component structure code -->
+  <div style="margin-top:48px">
+    <div class="spec-label">Recommended React Component Structure</div>
+    <div class="code-block" style="margin-top:12px">
+<span class="cm">// src/components/avatar/BotBackground.jsx</span>
+<span class="kw">import</span> React, { memo } from <span class="str">'react'</span>;
+<span class="kw">import</span> GideonBackground  from <span class="str">'./backgrounds/GideonBackground'</span>;
+<span class="kw">import</span> DanielBackground  from <span class="str">'./backgrounds/DanielBackground'</span>;
+<span class="kw">import</span> DavidBackground   from <span class="str">'./backgrounds/DavidBackground'</span>;
+<span class="kw">import</span> HannahBackground  from <span class="str">'./backgrounds/HannahBackground'</span>;
+<span class="kw">import</span> PaulBackground    from <span class="str">'./backgrounds/PaulBackground'</span>;
+
+<span class="kw">const</span> BACKGROUNDS = {
+  gideon: GideonBackground,
+  chef:   DanielBackground,
+  coach:  DavidBackground,
+  hannah: HannahBackground,
+  paul:   PaulBackground,
+};
+
+<span class="kw">const</span> BotBackground = memo(({ character, speaking, listening, thinking }) => {
+  <span class="kw">const</span> Background = BACKGROUNDS[character] ?? GideonBackground;
+  <span class="kw">return</span> <span class="str">&lt;Background speaking={speaking} listening={listening} thinking={thinking} /&gt;</span>;
+});
+
+<span class="kw">export default</span> BotBackground;
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div style="margin-top: 80px; padding-top: 32px; border-top: 1px solid var(--border); display:flex; justify-content:space-between; align-items:center;">
+    <div>
+      <div style="font-family:'DM Serif Display',serif; font-size:20px; color:#fff;">Prosperity Revived</div>
+      <div style="font-size:12px; color:var(--muted); margin-top:4px;">Visual Experience Architecture · Senior Product Design</div>
+    </div>
+    <div style="text-align:right; font-family:'DM Mono',monospace; font-size:11px; color:var(--muted); line-height:1.8;">
+      5 unique environments<br>
+      2D cartoon illustration system<br>
+      Mobile-first · SVG-native
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

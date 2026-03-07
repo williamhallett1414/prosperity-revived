@@ -9,7 +9,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, Send, Loader2, RotateCcw, Mic, MicOff, Volume2, Square, X } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import { base44 } from '@/api/base44Client';
-import CloudAvatar from '@/components/avatar/CloudAvatar';
+import CloudAvatar    from '@/components/avatar/CloudAvatar';
+import BotBackground from '@/components/avatar/BotBackground';
 
 // ─── Error boundary — if WebGL/R3F fails, show pulsing circle ────────────────
 class CloudAvatarSafe extends React.Component {
@@ -842,15 +843,15 @@ export default function ChatScreen() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.25 }}
-      style={{ background: `linear-gradient(160deg, ${cfg.bgDark} 0%, ${cfg.gradMid}20 55%, ${cfg.bgDark} 100%)` }}
+      style={{ background: cfg.bgDark }}
     >
-      {/* Ambient glow orbs */}
+      {/* 2D cartoon background environment */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <motion.div className="absolute rounded-full"
-          style={{ width: 480, height: 480, top: -120, left: '50%', transform: 'translateX(-50%)',
-            background: `radial-gradient(circle, ${cfg.gradTo}25 0%, transparent 70%)` }}
-          animate={{ scale: [1, 1.12, 1], opacity: [0.5, 0.9, 0.5] }}
-          transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+        <BotBackground
+          character={cfg.character}
+          speaking={isSpeaking}
+          listening={isListening}
+          thinking={isThinking}
         />
       </div>
 
