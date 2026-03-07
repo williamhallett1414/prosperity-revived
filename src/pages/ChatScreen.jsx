@@ -19,7 +19,28 @@ import { ArrowLeft, Send, Loader2, RotateCcw, Mic, MicOff, Volume2, Square } fro
 import ReactMarkdown from 'react-markdown';
 import { base44 } from '@/api/base44Client';
 import CloudAvatar from '@/components/avatar/CloudAvatar';
-import useAutoTTS from '@/components/avatar/useAutoTTS';
+
+
+// ─── Error boundary around 3D canvas so WebGL failure won't crash the page ───
+class CloudAvatarSafe extends React.Component {
+  constructor(props) { super(props); this.state = { failed: false }; }
+  static getDerivedStateFromError() { return { failed: true }; }
+  render() {
+    if (this.state.failed) {
+      // Graceful fallback: pulsing circle in brand color
+      return (
+        <div style={{ width: 160, height: 160, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <div style={{
+            width: 80, height: 80, borderRadius: '50%',
+            background: `radial-gradient(circle, ${this.props.color}88, ${this.props.color}22)`,
+            animation: 'pulse 2s ease-in-out infinite',
+          }} />
+        </div>
+      );
+    }
+    return <CloudAvatar {...this.props} width={160} height={160} />;
+  }
+}
 
 // ─── Bot config ───────────────────────────────────────────────────────────────
 const BOT_CONFIG = {
@@ -244,15 +265,7 @@ export default function ChatScreen() {
   const finalTranscriptRef = useRef('');
   const isListeningRef     = useRef(false);
 
-  // ── Latest bot message drives auto-TTS ─────────────────────────────────────
-  const lastBotMsg = messages.filter(m => m.role === 'assistant').at(-1)?.content ?? '';
-  const { isSpeaking: autoSpeaking, stop: stopAutoTTS } = useAutoTTS({
-    text:      lastBotMsg,
-    enabled:   messages.length > 0,
-    botConfig: cfg,
-  });
-
-  const avatarSpeaking  = autoSpeaking || manualSpeakIdx !== null;
+  const avatarSpeaking  = manualSpeakIdx !== null;
   const avatarListening = isListening;
   const avatarThinking  = isLoading;
 
@@ -272,7 +285,7 @@ export default function ChatScreen() {
     const text = (overrideText ?? input).trim();
     if (!text || isLoading) return;
 
-    stopAutoTTS();
+    
     setManualSpeakIdx(null);
     window.speechSynthesis?.cancel();
 
@@ -299,13 +312,12 @@ export default function ChatScreen() {
     } finally {
       setIsLoading(false);
     }
-  }, [input, isLoading, messages, cfg, stopAutoTTS]);
+  }, [input, isLoading, messages, cfg]);
 
   // ── Manual listen (per-message) ─────────────────────────────────────────────
   const handleManualSpeak = useCallback((content, idx) => {
     if (!('speechSynthesis' in window)) return;
-    window.speechSynthesis.cancel();
-    stopAutoTTS();
+    try { window.speechSynthesis.cancel(); } catch (_) {}
 
     if (manualSpeakIdx === idx) { setManualSpeakIdx(null); return; }
 
@@ -320,16 +332,18 @@ export default function ChatScreen() {
     let i = 0;
     const next = () => {
       if (i >= chunks.length) { setManualSpeakIdx(null); return; }
-      const utt  = new SpeechSynthesisUtterance(chunks[i++]);
-      utt.rate   = cfg.voiceRate  ?? 1.0;
-      utt.pitch  = cfg.voicePitch ?? 1.0;
-      utt.onstart = () => setManualSpeakIdx(idx);
-      utt.onend   = next;
-      utt.onerror = () => setManualSpeakIdx(null);
-      window.speechSynthesis.speak(utt);
+      try {
+        const utt  = new SpeechSynthesisUtterance(chunks[i++]);
+        utt.rate   = cfg.voiceRate  ?? 1.0;
+        utt.pitch  = cfg.voicePitch ?? 1.0;
+        utt.onstart = () => setManualSpeakIdx(idx);
+        utt.onend   = next;
+        utt.onerror = () => setManualSpeakIdx(null);
+        window.speechSynthesis.speak(utt);
+      } catch (_) { setManualSpeakIdx(null); }
     };
     next();
-  }, [manualSpeakIdx, cfg, stopAutoTTS]);
+  }, [manualSpeakIdx, cfg]);
 
   // ── STT ─────────────────────────────────────────────────────────────────────
   const stopListening = useCallback(() => {
@@ -346,7 +360,7 @@ export default function ChatScreen() {
   const startListening = useCallback(() => {
     const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (!SR) return;
-    stopAutoTTS();
+    
 
     finalTranscriptRef.current = '';
     const rec = new SR();
@@ -380,7 +394,7 @@ export default function ChatScreen() {
     };
     recognitionRef.current = rec;
     try { rec.start(); } catch (_) { setIsListening(false); }
-  }, [stopAutoTTS]);
+  }, []);
 
   const toggleMic = useCallback(() => {
     if (isListening) {
@@ -399,7 +413,7 @@ export default function ChatScreen() {
   }, []);
 
   const clearChat = () => {
-    stopAutoTTS();
+    
     window.speechSynthesis?.cancel();
     setManualSpeakIdx(null);
     setMessages([{ role: 'assistant', content: cfg.welcomeMsg }]);
@@ -547,13 +561,12 @@ export default function ChatScreen() {
               />
             ))}
           </AnimatePresence>
-          <CloudAvatar
+          <CloudAvatarSafe
             character={cfg.character}
             isSpeaking={avatarSpeaking}
             isListening={avatarListening}
             isThinking={avatarThinking}
-            width={160}
-            height={160}
+            color={cfg.gradTo}
           />
         </div>
       </motion.div>
