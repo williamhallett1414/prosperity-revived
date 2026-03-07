@@ -76,7 +76,9 @@ NO EMOJIS: Never use emojis, emoticons, or emoji-like symbols in any response. N
 
 NEVER: Be generic, sycophantic, or overly cheerful. Don't say "That's so great!" or "Amazing!" Don't give motivational poster quotes. Don't rush to fix things.
 
-ALWAYS: End with ONE follow-up question that goes one level deeper than what they said. Make it feel natural, not clinical.`,
+ALWAYS: End with ONE follow-up question that goes one level deeper than what they said. Make it feel natural, not clinical.
+
+SAFETY: If someone expresses thoughts of self-harm, suicide, or a mental health crisis, do not try to be their therapist. Acknowledge what they shared with warmth, then gently encourage them to speak with a mental health professional or call a crisis line. You are a growth coach, not a crisis counselor.`,
   },
   CoachDavid: {
     name:        'Coach David',
@@ -121,7 +123,9 @@ NO EMOJIS: Never use emojis, emoticons, or emoji-like symbols in any response. N
 
 NEVER: Be vague, use filler motivation like "You've got this!", or write like a fitness magazine headline. Don't be condescending.
 
-ALWAYS: End with a direct challenge, a specific action, or a question that holds them accountable.`,
+ALWAYS: End with a direct challenge, a specific action, or a question that holds them accountable.
+
+SAFETY: For any injury, pain, or medical symptom, always recommend the person see a doctor or physical therapist before training through it. Never diagnose or prescribe rehabilitation for injuries. Your role is training guidance, not medical advice.`,
   },
   ChefDaniel: {
     name:        'Chef Daniel',
@@ -164,7 +168,9 @@ NO EMOJIS: Never use emojis, emoticons, or emoji-like symbols in any response. N
 
 NEVER: Make people feel bad about their current eating habits. Give vague advice like "eat more vegetables." Be preachy about health.
 
-ALWAYS: End with a practical tip, a question about their preferences, or an invitation to try something specific.`,
+ALWAYS: End with a practical tip, a question about their preferences, or an invitation to try something specific.
+
+SAFETY: Always ask about allergies or dietary restrictions before making specific food recommendations if they haven't been mentioned. For medical nutrition needs — diabetes, eating disorders, kidney disease — defer to a registered dietitian. You are a culinary and wellness guide, not a clinical nutritionist.`,
   },
   Gideon: {
     name:        'Gideon',
@@ -209,7 +215,11 @@ NO EMOJIS: Never use emojis, emoticons, or emoji-like symbols in any response. N
 
 NEVER: Lecture. Moralize. Use Christianese jargon. Sound like a Sunday bulletin. Give generic "just pray about it" responses.
 
-ALWAYS: End with one sincere question that helps the person go deeper — spiritually or personally.`,
+ALWAYS: End with one sincere question that helps the person go deeper — spiritually or personally.
+
+ACCURACY: Only use [VERSE] tags for Scripture you are confident is accurate. If uncertain of exact wording, describe the passage without quoting it. Never fabricate a verse or reference.
+
+DENOMINATIONAL NEUTRALITY: Speak to people across all Christian traditions. Avoid language or theology that belongs exclusively to one denomination.`,
   },
   CoachPaul: {
     name:        'Coach Paul',
@@ -253,7 +263,9 @@ NO EMOJIS: Never use emojis, emoticons, or emoji-like symbols in any response. N
 
 NEVER: Be preachy, generic, or falsely positive. Don't pad responses with affirmations. Don't quote Scripture just to seem spiritual.
 
-ALWAYS: End with one direct question or challenge that forces clarity — something they have to actually think about.`,
+ALWAYS: End with one direct question or challenge that forces clarity — something they have to actually think about.
+
+SAFETY: If someone expresses thoughts of self-harm, depression, or a mental health crisis, step outside the coaching frame. Acknowledge what they shared with genuine care and encourage them to speak with a mental health professional. You are a life coach, not a therapist.`,
   },
 };
 
@@ -311,39 +323,46 @@ function pickVoice(voices, preferredNames, gender) {
 
 function prepareTextForSpeech(text) {
   return text
-    // ① Verse tags first — convert to speakable form BEFORE colon replacement
-    //    "[VERSE]John 3:16 - "text"[/VERSE]" → "John 3 16. text"
+    // ① Verse tags — convert to speakable form BEFORE colon replacement
+    //    "[VERSE]John 3:16 - "text"[/VERSE]" → "John 3 16.  text."
     .replace(/\[VERSE\](.*?) - "(.*?)"\[\/VERSE\]/g, (_, ref, verse) => {
       const spokenRef = ref.replace(/:/g, ' ').replace(/\s+/g, ' ').trim();
-      return `${spokenRef}. ${verse}`;
+      return `${spokenRef}.  ${verse}.`;
     })
-    // ② Strip markdown formatting
+    // ② Strip markdown
     .replace(/\*\*(.*?)\*\*/g, '$1')
     .replace(/\*(.*?)\*/g, '$1')
     .replace(/#{1,6}\s+/g, '')
     .replace(/`[^`]*`/g, '')
     .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
-    // ③ Strip emoji
+    // ③ Strip all emoji ranges including variation selectors
     .replace(/[\u{1F000}-\u{1FFFF}]/gu, '')
     .replace(/[\u{2600}-\u{27BF}]/gu, '')
     .replace(/[\u{1F300}-\u{1F9FF}]/gu, '')
-    // ④ Convert list items — capture text and append period so items don't run together
-    .replace(/^\s*[-*•]\s+(.*)/gm, '$1.')
-    .replace(/^\s*\d+\.\s+(.*)/gm, '$1.')
-    // ⑤ Em-dash and ellipsis → natural spoken pauses
+    .replace(/[\u{FE00}-\u{FEFF}]/gu, '')
+    // ④ List items with breath pause after each
+    .replace(/^\s*[-*•]\s+(.*)/gm, '$1.  ')
+    .replace(/^\s*\d+\.\s+(.*)/gm, '$1.  ')
+    // ⑤ Ellipsis → full stop + breath (longer pause than em-dash)
+    .replace(/\.\.\.\s*/g, '.  ')
+    // ⑥ Em-dash → comma pause (slight dip, not full stop)
     .replace(/\s*—\s*/g, ', ')
-    .replace(/\.\.\./g, ',')
-    // ⑥ Colon → spoken pause (AFTER verse refs already handled)
+    // ⑦ Semicolon → comma pause (two clauses flowing together)
+    .replace(/;\s*/g, ', ')
+    // ⑧ Parenthetical asides → comma-wrapped (prosodic dip)
+    .replace(/\(([^)]{1,80})\)/g, ', $1, ')
+    // ⑨ Colon → comma pause (AFTER verse refs handled)
     .replace(/:\s*/g, ', ')
-    // ⑦ Natural breath pauses after sentence punctuation
+    // ⑩ Double-space after sentence-ending punctuation = TTS breath hint
     .replace(/([.!?])\s+/g, '$1  ')
-    // ⑧ Collapse newlines
+    // ⑪ Newlines → pauses
     .replace(/\n{2,}/g, '.  ')
-    .replace(/\n/g, ' ')
-    // ⑨ Clean up artefacts
+    .replace(/\n/g, ', ')
+    // ⑫ Clean up
     .replace(/\.{2,}/g, '.')
     .replace(/\.\s*\./g, '.')
     .replace(/,\s*,/g, ',')
+    .replace(/,\s*\./g, '.')
     .replace(/[ \t]{3,}/g, '  ')
     .trim();
 }

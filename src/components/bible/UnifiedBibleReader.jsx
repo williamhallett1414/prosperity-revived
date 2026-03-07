@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, ChevronRight, ChevronLeft, Bookmark, ChevronDown, ChevronUp, Search, Menu, X } from 'lucide-react';
 import { bibleBooks } from './BibleData';
 import { base44 } from '@/api/base44Client';
-import GideonAskAnything from '@/components/bible/GideonAskAnything';
+import ChatButton from '@/components/chatbot/ChatButton';
 import VerseActionMenu from '@/components/bible/VerseActionMenu';
 import { toast } from 'sonner';
 import { useQueryClient, useMutation } from '@tanstack/react-query';
@@ -699,7 +699,7 @@ export default function UnifiedBibleReader({
         }
       `}</style>
 
-      <GideonAskAnything />
+      <ChatButton bot="Gideon" />
     </div>
   );
 }

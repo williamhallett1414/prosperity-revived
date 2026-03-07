@@ -13,11 +13,11 @@ import { format, isToday, isYesterday } from 'date-fns';
 
 // ─── AI Coach shortcuts ───────────────────────────────────────────────────────
 const AI_COACHES = [
-  { key: 'Gideon',      name: 'Gideon',        role: 'Biblical Wisdom',        emoji: '📖', color: '#c9a227', bg: 'from-[#1a0f00] to-[#7c5a00]' },
-  { key: 'Hannah',      name: 'Hannah',         role: 'Mindset & Growth',       emoji: '🧠', color: '#AFC7E3', bg: 'from-[#1a2d3d] to-[#3C4E53]' },
-  { key: 'CoachDavid',  name: 'Coach David',    role: 'Fitness & Wellness',     emoji: '💪', color: '#38BDF8', bg: 'from-[#0a1628] to-[#1e3a5f]' },
-  { key: 'ChefDaniel',  name: 'Chef Daniel',    role: 'Nutrition & Meals',      emoji: '🍽️', color: '#22c55e', bg: 'from-[#052e16] to-[#166534]' },
-  { key: 'CoachPaul',   name: 'Coach Paul',     role: 'Discipline & Leadership',emoji: '🛡️', color: '#A78BFA', bg: 'from-[#0F0A1F] to-[#3B0764]' },
+  { key: 'Gideon',      name: 'Gideon',        role: 'Biblical Wisdom',         icon: 'G', color: '#c9a227', bg: 'from-[#1a0f00] to-[#7c5a00]' },
+  { key: 'Hannah',      name: 'Hannah',         role: 'Mindset & Growth',        icon: 'H', color: '#AFC7E3', bg: 'from-[#1a2d3d] to-[#3C4E53]' },
+  { key: 'CoachDavid',  name: 'Coach David',    role: 'Fitness & Wellness',      icon: 'D', color: '#38BDF8', bg: 'from-[#0a1628] to-[#1e3a5f]' },
+  { key: 'ChefDaniel',  name: 'Chef Daniel',    role: 'Nutrition & Meals',       icon: 'C', color: '#22c55e', bg: 'from-[#052e16] to-[#166534]' },
+  { key: 'CoachPaul',   name: 'Coach Paul',     role: 'Discipline & Leadership', icon: 'P', color: '#A78BFA', bg: 'from-[#0F0A1F] to-[#3B0764]' },
 ];
 
 // ─── Date formatting ──────────────────────────────────────────────────────────
@@ -428,8 +428,8 @@ export default function Messages() {
                   onClick={() => navigate(createPageUrl(`ChatScreen?bot=${coach.key}`))}
                   className="w-full flex items-center gap-3 bg-white rounded-2xl border border-[#E2E8F0] hover:border-[#D9B878]/40 hover:shadow-sm p-4 transition-all text-left"
                 >
-                  <div className={`w-11 h-11 rounded-xl bg-gradient-to-br ${coach.bg} flex items-center justify-center flex-shrink-0 text-xl`}>
-                    {coach.emoji}
+                  <div className={`w-11 h-11 rounded-xl bg-gradient-to-br ${coach.bg} flex items-center justify-center flex-shrink-0`}>
+                    <span style={{ fontSize: 14, fontWeight: 700, color: '#fff', letterSpacing: 0 }}>{coach.icon}</span>
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="font-bold text-sm text-[#0A1A2F]">{coach.name}</p>

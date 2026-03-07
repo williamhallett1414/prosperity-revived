@@ -16,11 +16,11 @@ import { motion } from 'framer-motion';
 import { MessageCircle } from 'lucide-react';
 
 const BOT_STYLES = {
-  Hannah:     { label: 'Chat with Hannah',      emoji: '🧠', from: '#AFC7E3', to: '#3C4E53' },
-  CoachDavid: { label: 'Chat with Coach David', emoji: '💪', from: '#1e40af', to: '#38BDF8' },
-  ChefDaniel: { label: 'Chat with Chef Daniel', emoji: '🍽️', from: '#166534', to: '#22c55e' },
-  Gideon:     { label: 'Chat with Gideon',      emoji: '📖', from: '#7c5a00', to: '#D9B878' },
-  CoachPaul:  { label: 'Chat with Coach Paul',  emoji: '🛡️', from: '#3B0764', to: '#A78BFA' },
+  Hannah:     { label: 'Chat with Hannah',      icon: 'H', from: '#AFC7E3', to: '#3C4E53' },
+  CoachDavid: { label: 'Chat with Coach David', icon: 'D', from: '#1e40af', to: '#38BDF8' },
+  ChefDaniel: { label: 'Chat with Chef Daniel', icon: 'C', from: '#166534', to: '#22c55e' },
+  Gideon:     { label: 'Chat with Gideon',      icon: 'G', from: '#7c5a00', to: '#D9B878' },
+  CoachPaul:  { label: 'Chat with Coach Paul',  icon: 'P', from: '#3B0764', to: '#A78BFA' },
 };
 
 export default function ChatButton({ bot = 'Hannah' }) {
@@ -37,7 +37,7 @@ export default function ChatButton({ bot = 'Hannah' }) {
       transition={{ type: 'spring', stiffness: 260, damping: 20, delay: 0.3 }}
       whileTap={{ scale: 0.92 }}
     >
-      <span className="text-base leading-none">{style.emoji}</span>
+      <span style={{ width: 20, height: 20, borderRadius: '50%', background: 'rgba(255,255,255,0.20)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 700, flexShrink: 0 }}>{style.icon}</span>
       <span>{style.label}</span>
       <MessageCircle className="w-4 h-4 opacity-80" />
     </motion.button>
