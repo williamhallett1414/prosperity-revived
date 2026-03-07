@@ -692,8 +692,8 @@ export default function ChatScreen() {
       text: content,
       cfg,
       onStart:        () => setSpeakingIdx(idx),
-      onEnd:          () => { setSpeakingIdx(null); setTtsEngine(null); },
-      onError:        () => { setSpeakingIdx(null); setTtsEngine(null); },
+      onEnd:          () => { setSpeakingIdx(null); },
+      onError:        () => { setSpeakingIdx(null); },
     }).then(cancelFn => {
       if (hasBeenCancelled) {
         cancelFn?.();

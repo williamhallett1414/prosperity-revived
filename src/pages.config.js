@@ -53,7 +53,6 @@ import Bible from './pages/Bible';
 import BibleBooks from './pages/BibleBooks';
 import Bookmarks from './pages/Bookmarks';
 import ChallengeDetailPage from './pages/ChallengeDetailPage';
-import ChatScreen from './pages/ChatScreen';
 import CoachingPlanDetail from './pages/CoachingPlanDetail';
 import CoachingPlanPage from './pages/CoachingPlanPage';
 import CoachingPlans from './pages/CoachingPlans';
@@ -73,6 +72,7 @@ import HealthWellnessWaiver from './pages/HealthWellnessWaiver';
 import Home from './pages/Home';
 import IdentityInChristPage from './pages/IdentityInChristPage';
 import MealDetailView from './pages/MealDetailView';
+import MindsetResetPage from './pages/MindsetResetPage';
 import MyJournalEntries from './pages/MyJournalEntries';
 import NotificationSettings from './pages/NotificationSettings';
 import Notifications from './pages/Notifications';
@@ -85,6 +85,7 @@ import PlanDetail from './pages/PlanDetail';
 import Plans from './pages/Plans';
 import Prayer from './pages/Prayer';
 import PrivacyPolicy from './pages/PrivacyPolicy';
+import Profile from './pages/Profile';
 import ProgressDashboard from './pages/ProgressDashboard';
 import Search from './pages/Search';
 import SelfCareChallengesPage from './pages/SelfCareChallengesPage';
@@ -93,6 +94,7 @@ import SpiritualGrowth from './pages/SpiritualGrowth';
 import SpiritualInsights from './pages/SpiritualInsights';
 import SubscriptionTerms from './pages/SubscriptionTerms';
 import TermsAndConditions from './pages/TermsAndConditions';
+import UserProfile from './pages/UserProfile';
 import WeeklyReflectionPage from './pages/WeeklyReflectionPage';
 import Wellness from './pages/Wellness';
 import WorkoutCategoryPage from './pages/WorkoutCategoryPage';
@@ -101,9 +103,7 @@ import WorkoutProgress from './pages/WorkoutProgress';
 import WorkoutTrends from './pages/WorkoutTrends';
 import Workouts from './pages/Workouts';
 import Messages from './pages/Messages';
-import UserProfile from './pages/UserProfile';
-import Profile from './pages/Profile';
-import MindsetResetPage from './pages/MindsetResetPage';
+import ChatScreen from './pages/ChatScreen';
 import __Layout from './Layout.jsx';
 
 
@@ -114,7 +114,6 @@ export const PAGES = {
     "BibleBooks": BibleBooks,
     "Bookmarks": Bookmarks,
     "ChallengeDetailPage": ChallengeDetailPage,
-    "ChatScreen": ChatScreen,
     "CoachingPlanDetail": CoachingPlanDetail,
     "CoachingPlanPage": CoachingPlanPage,
     "CoachingPlans": CoachingPlans,
@@ -134,6 +133,7 @@ export const PAGES = {
     "Home": Home,
     "IdentityInChristPage": IdentityInChristPage,
     "MealDetailView": MealDetailView,
+    "MindsetResetPage": MindsetResetPage,
     "MyJournalEntries": MyJournalEntries,
     "NotificationSettings": NotificationSettings,
     "Notifications": Notifications,
@@ -146,6 +146,7 @@ export const PAGES = {
     "Plans": Plans,
     "Prayer": Prayer,
     "PrivacyPolicy": PrivacyPolicy,
+    "Profile": Profile,
     "ProgressDashboard": ProgressDashboard,
     "Search": Search,
     "SelfCareChallengesPage": SelfCareChallengesPage,
@@ -154,6 +155,7 @@ export const PAGES = {
     "SpiritualInsights": SpiritualInsights,
     "SubscriptionTerms": SubscriptionTerms,
     "TermsAndConditions": TermsAndConditions,
+    "UserProfile": UserProfile,
     "WeeklyReflectionPage": WeeklyReflectionPage,
     "Wellness": Wellness,
     "WorkoutCategoryPage": WorkoutCategoryPage,
@@ -162,9 +164,7 @@ export const PAGES = {
     "WorkoutTrends": WorkoutTrends,
     "Workouts": Workouts,
     "Messages": Messages,
-    "UserProfile": UserProfile,
-    "Profile": Profile,
-    "MindsetResetPage": MindsetResetPage,
+    "ChatScreen": ChatScreen,
 }
 
 export const pagesConfig = {
