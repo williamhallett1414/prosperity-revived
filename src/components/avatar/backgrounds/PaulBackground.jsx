@@ -1,148 +1,222 @@
-// PaulBackground — Epic Sunrise Mountain Vista
+// PaulBackground — Bright Sunny Park
 import { useEffect, useRef } from 'react';
 export default function PaulBackground({ speaking = false }) {
-  const horizonRef = useRef(null);
+  const sunRef = useRef(null);
   useEffect(() => {
-    if (!horizonRef.current) return;
-    horizonRef.current.style.transition = 'opacity 400ms ease';
-    horizonRef.current.style.opacity = speaking ? '0.52' : '0.32';
+    if (!sunRef.current) return;
+    sunRef.current.style.transition = 'opacity 500ms ease';
+    sunRef.current.style.opacity = speaking ? '0.72' : '0.55';
   }, [speaking]);
   return (
-    <svg viewBox="0 0 390 844" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice"
+    <svg viewBox="0 0 390 844" xmlns="http://www.w3.org/2000/svg"
+      preserveAspectRatio="xMidYMid slice"
       style={{ position:'absolute', inset:0, width:'100%', height:'100%' }} aria-hidden="true">
       <defs>
         <linearGradient id="p-sky" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%"   stopColor="#120830"/>
-          <stop offset="18%"  stopColor="#230A50"/>
-          <stop offset="36%"  stopColor="#4A1580"/>
-          <stop offset="54%"  stopColor="#8B35C0"/>
-          <stop offset="70%"  stopColor="#D06030"/>
-          <stop offset="84%"  stopColor="#F0900A"/>
-          <stop offset="93%"  stopColor="#FFB820"/>
-          <stop offset="100%" stopColor="#FFD840"/>
+          <stop offset="0%" stopColor="#1E90FF"/>
+          <stop offset="45%" stopColor="#56B4FF"/>
+          <stop offset="80%" stopColor="#88CCFF"/>
+          <stop offset="100%" stopColor="#B8E4FF"/>
         </linearGradient>
-        <radialGradient id="p-sun" cx="50%" cy="96%" r="62%">
-          <stop offset="0%"   stopColor="#FFE060" stopOpacity="0.95"/>
-          <stop offset="28%"  stopColor="#FF7800" stopOpacity="0.65"/>
-          <stop offset="60%"  stopColor="#FF4400" stopOpacity="0.28"/>
-          <stop offset="100%" stopColor="#FF7800" stopOpacity="0"/>
+        <linearGradient id="p-grass" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stopColor="#4CAF50"/>
+          <stop offset="100%" stopColor="#2E7D32"/>
+        </linearGradient>
+        <linearGradient id="p-path" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stopColor="#D4B896"/>
+          <stop offset="100%" stopColor="#B89870"/>
+        </linearGradient>
+        <radialGradient id="p-sun" cx="72%" cy="12%" r="25%">
+          <stop offset="0%" stopColor="#FFEE58" stopOpacity="1.00"/>
+          <stop offset="40%" stopColor="#FFD600" stopOpacity="0.75"/>
+          <stop offset="100%" stopColor="#FFD600" stopOpacity="0"/>
         </radialGradient>
-        <radialGradient id="p-horizon" cx="50%" cy="100%" r="65%">
-          <stop offset="0%"   stopColor="#FFD840" stopOpacity="0.85"/>
-          <stop offset="40%"  stopColor="#FF8800" stopOpacity="0.38"/>
-          <stop offset="100%" stopColor="#FFD840" stopOpacity="0"/>
+        <radialGradient id="p-sunhalo" cx="72%" cy="12%" r="45%">
+          <stop offset="0%" stopColor="#FFF9C4" stopOpacity="0.65"/>
+          <stop offset="100%" stopColor="#FFF9C4" stopOpacity="0"/>
+        </radialGradient>
+        <radialGradient id="p-glow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#FFF9C4" stopOpacity="0.75"/>
+          <stop offset="100%" stopColor="#FFF9C4" stopOpacity="0"/>
         </radialGradient>
         <radialGradient id="p-vig" cx="50%" cy="50%" r="72%">
           <stop offset="45%" stopColor="transparent"/>
-          <stop offset="100%" stopColor="#080420" stopOpacity="0.42"/>
+          <stop offset="100%" stopColor="#0A2010" stopOpacity="0.38"/>
         </radialGradient>
-        <linearGradient id="p-mist" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stopColor="#C8A0FF" stopOpacity="0.20"/>
-          <stop offset="100%" stopColor="#C8A0FF" stopOpacity="0"/>
-        </linearGradient>
         <filter id="p-blur"><feGaussianBlur stdDeviation="5"/></filter>
-        <filter id="p-blur2"><feGaussianBlur stdDeviation="12"/></filter>
-        <filter id="p-glow"><feGaussianBlur stdDeviation="18" result="b"/>
+        <filter id="p-blur2"><feGaussianBlur stdDeviation="10"/></filter>
+        <filter id="p-sh"><feDropShadow dx="3" dy="4" stdDeviation="6" floodColor="#1A3010" floodOpacity="0.35"/></filter>
+        <filter id="p-glow2"><feGaussianBlur stdDeviation="8" result="b"/>
           <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
       </defs>
-      {/* Sky gradient */}
+
+      {/* ── Bright blue sky ── */}
       <rect width="390" height="844" fill="url(#p-sky)"/>
-      {/* Stars */}
-      {[[28,42],[68,18],[112,30],[145,52],[180,14],[222,38],[265,22],[298,48],[332,16],[358,40],[18,72],[340,70]].map(([x,y],i) => (
-        <circle key={i} cx={x} cy={y} r={i%3===0?1.8:1.2} fill="white" opacity={0.35+i*0.03}>
-          <animate attributeName="opacity" values={`${0.2+i*0.03};${0.6+i*0.02};${0.2+i*0.03}`}
-            dur={`${3+i*0.4}s`} repeatCount="indefinite"/>
-        </circle>
-      ))}
-      {/* Sun rising */}
-      <ellipse cx="195" cy="506" rx="48" ry="48" fill="#FFD840" opacity="0.90" filter="url(#p-glow)"/>
-      <ellipse cx="195" cy="506" rx="36" ry="36" fill="#FFEE80" opacity="0.95"/>
-      <ellipse cx="195" cy="506" rx="24" ry="24" fill="#FFFAAA" opacity="1.0"/>
-      {/* Sun rays */}
-      {[0,22,45,67,90,112,135,157,180,202,225,247,270,292,315,337].map((angle,i) => {
-        const rad = angle * Math.PI / 180;
-        const x1 = 195 + Math.round(52 * Math.sin(rad));
-        const y1 = 506 - Math.round(52 * Math.cos(rad));
-        const x2 = 195 + Math.round((68+i%3*6) * Math.sin(rad));
-        const y2 = 506 - Math.round((68+i%3*6) * Math.cos(rad));
-        return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#FFD040" strokeWidth={i%2===0?2:1} opacity="0.45"/>;
-      })}
-      {/* Horizon glow */}
-      <rect width="390" height="844" fill="url(#p-sun)"/>
-      <g ref={horizonRef} opacity="0.32">
-        <rect width="390" height="844" fill="url(#p-horizon)"/>
+
+      {/* ── Sun halo glow ── */}
+      <rect width="390" height="844" fill="url(#p-sunhalo)"/>
+      <g ref={sunRef} opacity="0.55">
+        <rect width="390" height="844" fill="url(#p-sun)"/>
       </g>
-      {/* Horizon bar */}
-      <rect x="0" y="500" width="390" height="12" fill="#FFD840" opacity="0.28" filter="url(#p-blur)"/>
-      {/* Far mountain range */}
-      <path d="M 0 495 Q 40 438 80 460 Q 110 440 140 455 Q 165 430 195 445 Q 220 428 248 448 Q 270 432 298 450 Q 325 434 352 452 Q 368 440 390 455 L 390 510 L 0 510Z"
-        fill="#4A1A70" opacity="0.60"/>
-      {/* Mountain mist */}
-      <rect x="0" y="462" width="390" height="50" fill="url(#p-mist)"/>
-      {/* Mid mountains */}
-      <path d="M 0 520 Q 32 468 68 490 Q 95 470 120 488 Q 148 462 175 480 Q 200 460 228 478 Q 255 465 280 484 Q 310 462 340 480 Q 362 466 390 480 L 390 528 L 0 528Z"
-        fill="#3A1458" opacity="0.75"/>
-      {/* Rolling hills layer 1 */}
-      <path d="M 0 556 Q 50 520 100 540 Q 145 516 195 534 Q 242 518 290 536 Q 335 520 390 538 L 390 570 L 0 570Z"
-        fill="#5A2888" opacity="0.70"/>
-      {/* Rolling hills layer 2 - deep purple-green */}
-      <path d="M 0 600 Q 60 560 115 580 Q 160 558 210 576 Q 255 558 305 578 Q 345 560 390 578 L 390 615 L 0 615Z"
-        fill="#3A5028" opacity="0.80"/>
-      {/* Rolling hills layer 3 - mid green */}
-      <path d="M 0 640 Q 55 605 108 624 Q 152 606 198 622 Q 245 604 296 622 Q 342 604 390 622 L 390 650 L 0 650Z"
-        fill="#5A7840" opacity="0.92"/>
-      {/* Foreground meadow */}
-      <path d="M 0 680 Q 80 656 160 670 Q 230 654 310 668 Q 355 658 390 666 L 390 720 L 0 720Z"
-        fill="#6A8A48" opacity="0.95"/>
-      {/* Oak tree silhouette right */}
-      <rect x="298" y="498" width="14" height="210" rx="5" fill="#1A0C08" opacity="0.88"/>
-      {/* Main trunk curves */}
-      <path d="M 305 508 Q 295 480 280 460 Q 265 440 278 428" fill="none" stroke="#1A0C08" strokeWidth="10" strokeLinecap="round"/>
-      <path d="M 305 508 Q 318 482 332 468 Q 346 454 338 440" fill="none" stroke="#1A0C08" strokeWidth="8" strokeLinecap="round"/>
-      {/* Main canopy */}
-      <ellipse cx="305" cy="410" rx="58" ry="52" fill="#1A1008" opacity="0.90"/>
-      <ellipse cx="278" cy="440" rx="42" ry="36" fill="#1A1008" opacity="0.85"/>
-      <ellipse cx="335" cy="438" rx="40" ry="34" fill="#1A1008" opacity="0.85"/>
-      <ellipse cx="305" cy="380" rx="44" ry="38" fill="#201408" opacity="0.82"/>
-      <ellipse cx="268" cy="418" rx="32" ry="28" fill="#1A1008" opacity="0.80"/>
-      <ellipse cx="342" cy="416" rx="30" ry="26" fill="#1A1008" opacity="0.80"/>
-      {/* Tree silhouette hint of leaves catching light */}
-      <ellipse cx="295" cy="388" rx="22" ry="18" fill="#2A2010" opacity="0.35"/>
-      <ellipse cx="320" cy="392" rx="18" ry="14" fill="#2A2010" opacity="0.30"/>
-      {/* Left smaller tree */}
-      <rect x="58" y="558" width="8" height="150" rx="3" fill="#1A0C08" opacity="0.82"/>
-      <ellipse cx="62" cy="520" rx="34" ry="42" fill="#1A1008" opacity="0.85"/>
-      <ellipse cx="44" cy="540" rx="26" ry="30" fill="#1A1008" opacity="0.80"/>
-      <ellipse cx="80" cy="540" rx="24" ry="28" fill="#1A1008" opacity="0.80"/>
-      {/* Stone path center */}
-      <path d="M 155 844 Q 175 760 184 680 Q 188 624 192 560 Q 193 530 195 505"
-        fill="none" stroke="#C8A870" strokeWidth="28" opacity="0.38"/>
-      <path d="M 230 844 Q 212 760 204 680 Q 200 624 197 560 Q 196 530 195 505"
-        fill="none" stroke="#C8A870" strokeWidth="28" opacity="0.38"/>
-      {/* Path stones */}
-      {[[182,780,28,16],[190,740,22,13],[188,700,20,12],[191,660,18,11],[192,630,16,10],
-        [193,600,14,9],[194,575,12,8]].map(([x,y,w,h],i) => (
-        <ellipse key={i} cx={x+(i%2)*10+w/2} cy={y} rx={w/2} ry={h/2} fill="#B89050" opacity={0.35+i*0.03}/>
+
+      {/* ── SUN ── */}
+      <circle cx="310" cy="68" r="46" fill="#FFEE58" opacity="0.95" filter="url(#p-glow2)"/>
+      <circle cx="310" cy="68" r="36" fill="#FFEE58" opacity="1.00"/>
+      <circle cx="310" cy="68" r="26" fill="#FFF9C4" opacity="0.90"/>
+      {/* Sun rays */}
+      {[0,22,45,67,90,112,135,157,180,202,225,247,270,292,315,337].map((a,i) => {
+        const r=a*Math.PI/180;
+        const r1=52, r2=72+i%3*8;
+        return <line key={i}
+          x1={Math.round(310+r1*Math.sin(r))} y1={Math.round(68-r1*Math.cos(r))}
+          x2={Math.round(310+r2*Math.sin(r))} y2={Math.round(68-r2*Math.cos(r))}
+          stroke="#FFD600" strokeWidth={i%2===0?3:2} opacity="0.65"/>;
+      })}
+
+      {/* ── CLOUDS ── */}
+      {/* Cloud 1 large left */}
+      <ellipse cx="60" cy="85" rx="55" ry="28" fill="white" opacity="0.92"/>
+      <ellipse cx="30" cy="98" rx="38" ry="22" fill="white" opacity="0.88"/>
+      <ellipse cx="90" cy="96" rx="42" ry="24" fill="white" opacity="0.88"/>
+      <ellipse cx="62" cy="105" rx="48" ry="20" fill="white" opacity="0.85"/>
+      {/* Cloud 2 right */}
+      <ellipse cx="185" cy="52" rx="40" ry="20" fill="white" opacity="0.90"/>
+      <ellipse cx="162" cy="62" rx="30" ry="18" fill="white" opacity="0.85"/>
+      <ellipse cx="208" cy="60" rx="34" ry="18" fill="white" opacity="0.88"/>
+      {/* Cloud 3 small far right */}
+      <ellipse cx="355" cy="130" rx="30" ry="16" fill="white" opacity="0.80"/>
+      <ellipse cx="338" cy="140" rx="22" ry="14" fill="white" opacity="0.75"/>
+      <ellipse cx="372" cy="138" rx="24" ry="14" fill="white" opacity="0.78"/>
+
+      {/* ── FAR BACKGROUND TREES (tree line) ── */}
+      {[0,30,60,90,120,155,190,220,250,280,310,340,365].map((x,i) => {
+        const h=[120,100,140,110,130,95,125,105,135,115,120,100,90][i];
+        const g=['#2E7D32','#388E3C','#1B5E20','#33691E','#2E7D32','#388E3C','#1B5E20'][i%7];
+        return (
+          <g key={i}>
+            <rect x={x+8} y={330-h} width={8} height={h*0.4} fill="#5D4037" opacity="0.70"/>
+            <ellipse cx={x+12} cy={330-h} rx={22} ry={h*0.55}
+              fill={g} opacity="0.82"/>
+          </g>
+        );
+      })}
+
+      {/* ── MID-GROUND GRASS ── */}
+      <rect x="0" y="390" width="390" height="454" fill="url(#p-grass)"/>
+      {/* Grass horizon line */}
+      <path d="M 0 392 Q 98 382 195 390 Q 292 398 390 388 L 390 844 L 0 844Z" fill="#43A047"/>
+
+      {/* ── PARK PATH (centre, perspective) ── */}
+      <path d="M 148 844 Q 168 700 180 600 Q 186 540 190 470 Q 192 430 195 400"
+        fill="none" stroke="#D4B896" strokeWidth="50" opacity="0.70"/>
+      <path d="M 242 844 Q 222 700 210 600 Q 204 540 200 470 Q 198 430 195 400"
+        fill="none" stroke="#D4B896" strokeWidth="50" opacity="0.70"/>
+      {/* Path fill between */}
+      <path d="M 148 844 Q 168 700 180 600 Q 186 540 190 470 Q 192 430 195 400
+               Q 198 430 200 470 Q 204 540 210 600 Q 222 700 242 844Z"
+        fill="url(#p-path)" opacity="0.82"/>
+      {/* Path edge lines */}
+      <path d="M 150 844 Q 170 700 182 600 Q 188 538 192 468" fill="none"
+        stroke="#C4A880" strokeWidth="2" opacity="0.50" strokeDasharray="8,6"/>
+      <path d="M 240 844 Q 220 700 208 600 Q 202 538 198 468" fill="none"
+        stroke="#C4A880" strokeWidth="2" opacity="0.50" strokeDasharray="8,6"/>
+
+      {/* ── PARK BENCH (left of path) ── */}
+      {/* Bench shadow */}
+      <ellipse cx="90" cy="660" rx="60" ry="12" fill="#1A3010" opacity="0.22" filter="url(#p-blur)"/>
+      {/* Bench seat */}
+      <rect x="38" y="608" width="100" height="10" rx="3" fill="#8B6040" filter="url(#p-sh)"/>
+      <rect x="38" y="618" width="100" height="8" rx="2" fill="#7A5030"/>
+      {/* Bench back */}
+      <rect x="38" y="580" width="100" height="8" rx="3" fill="#8B6040"/>
+      <rect x="38" y="591" width="100" height="8" rx="3" fill="#7A5030" opacity="0.85"/>
+      {/* Back vertical supports */}
+      <rect x="50" y="580" width="7" height="38" rx="2" fill="#6A4020"/>
+      <rect x="121" y="580" width="7" height="38" rx="2" fill="#6A4020"/>
+      {/* Bench legs */}
+      <rect x="46" y="624" width="8" height="30" rx="2" fill="#6A4020"/>
+      <rect x="124" y="624" width="8" height="30" rx="2" fill="#6A4020"/>
+      <rect x="48" y="650" width="42" height="6" rx="2" fill="#5A3810"/>
+      <rect x="90" y="650" width="42" height="6" rx="2" fill="#5A3810"/>
+
+      {/* ── PARK BENCH (right of path) ── */}
+      <ellipse cx="305" cy="640" rx="58" ry="11" fill="#1A3010" opacity="0.20" filter="url(#p-blur)"/>
+      <rect x="256" y="590" width="96" height="10" rx="3" fill="#8B6040" filter="url(#p-sh)"/>
+      <rect x="256" y="600" width="96" height="8" rx="2" fill="#7A5030"/>
+      <rect x="256" y="564" width="96" height="8" rx="3" fill="#8B6040"/>
+      <rect x="256" y="574" width="96" height="8" rx="3" fill="#7A5030" opacity="0.85"/>
+      <rect x="268" y="564" width="7" height="36" rx="2" fill="#6A4020"/>
+      <rect x="337" y="564" width="7" height="36" rx="2" fill="#6A4020"/>
+      <rect x="264" y="606" width="8" height="28" rx="2" fill="#6A4020"/>
+      <rect x="336" y="606" width="8" height="28" rx="2" fill="#6A4020"/>
+      <rect x="266" y="630" width="40" height="6" rx="2" fill="#5A3810"/>
+      <rect x="306" y="630" width="40" height="6" rx="2" fill="#5A3810"/>
+
+      {/* ── BIG OAK TREE (left) ── */}
+      <rect x="10" y="400" width="18" height="320" rx="5" fill="#5D4037" filter="url(#p-sh)"/>
+      {/* Branches */}
+      <path d="M 19 440 Q 0 400 -10 370" fill="none" stroke="#5D4037" strokeWidth="10" strokeLinecap="round"/>
+      <path d="M 19 460 Q 55 420 65 390" fill="none" stroke="#5D4037" strokeWidth="8" strokeLinecap="round"/>
+      <path d="M 19 420 Q 10 380 15 350" fill="none" stroke="#5D4037" strokeWidth="9" strokeLinecap="round"/>
+      {/* Big canopy */}
+      <ellipse cx="19" cy="340" rx="72" ry="90" fill="#2E7D32" opacity="0.92" filter="url(#p-sh)"/>
+      <ellipse cx="-10" cy="368" rx="52" ry="62" fill="#388E3C" opacity="0.85"/>
+      <ellipse cx="58" cy="360" rx="50" ry="60" fill="#2E7D32" opacity="0.88"/>
+      <ellipse cx="22" cy="305" rx="58" ry="68" fill="#43A047" opacity="0.82"/>
+      <ellipse cx="-5" cy="325" rx="40" ry="48" fill="#4CAF50" opacity="0.60"/>
+      <ellipse cx="48" cy="318" rx="38" ry="46" fill="#4CAF50" opacity="0.58"/>
+      {/* Light dapple on tree */}
+      <ellipse cx="30" cy="320" rx="18" ry="22" fill="#A5D6A7" opacity="0.25"/>
+
+      {/* ── TALL TREE (right) ── */}
+      <rect x="362" y="420" width="16" height="300" rx="4" fill="#5D4037" filter="url(#p-sh)"/>
+      <path d="M 370 460 Q 388 418 395 390" fill="none" stroke="#5D4037" strokeWidth="9" strokeLinecap="round"/>
+      <path d="M 370 480 Q 345 440 340 408" fill="none" stroke="#5D4037" strokeWidth="7" strokeLinecap="round"/>
+      <ellipse cx="370" cy="360" rx="68" ry="85" fill="#1B5E20" opacity="0.90" filter="url(#p-sh)"/>
+      <ellipse cx="398" cy="385" rx="48" ry="58" fill="#2E7D32" opacity="0.85"/>
+      <ellipse cx="342" cy="378" rx="46" ry="56" fill="#1B5E20" opacity="0.88"/>
+      <ellipse cx="370" cy="328" rx="52" ry="62" fill="#388E3C" opacity="0.80"/>
+      <ellipse cx="395" cy="342" rx="36" ry="44" fill="#43A047" opacity="0.58"/>
+
+      {/* ── LAMP POST (left of path) ── */}
+      <rect x="140" y="440" width="8" height="260" rx="2" fill="#555" filter="url(#p-sh)"/>
+      <path d="M 144 440 Q 160 436 165 448 L 162 460 L 144 458Z" fill="#555"/>
+      <ellipse cx="165" cy="450" rx="10" ry="6" fill="#FFEE58" opacity="0.85" filter="url(#p-blur)"/>
+      {/* Lamp base */}
+      <rect x="136" y="694" width="16" height="8" rx="3" fill="#444"/>
+      <ellipse cx="144" cy="695" rx="20" ry="6" fill="#333" opacity="0.60"/>
+
+      {/* ── FLOWERS in grass ── */}
+      {[{x:55,y:620},{x:80,y:680},{x:310,y:610},{x:340,y:672},{x:25,y:740},{x:365,y:730},{x:115,y:760},{x:278,y:750}].map(({x,y},i) => {
+        const colors=['#FF5252','#FFD600','#E040FB','#FF9800','#40C4FF','#FF5252','#FFD600','#E040FB'][i];
+        return (
+          <g key={i}>
+            <line x1={x} y1={y} x2={x} y2={y+14} stroke="#388E3C" strokeWidth="2"/>
+            <circle cx={x} cy={y} r="6" fill={colors} opacity="0.90"/>
+            <circle cx={x} cy={y} r="3" fill="#FFF9C4" opacity="0.85"/>
+          </g>
+        );
+      })}
+
+      {/* ── GRASS TEXTURE (foreground blades) ── */}
+      {[580,620,660,700,740,780,820].map((y,i) => (
+        <line key={i} x1="0" y1={y} x2="390" y2={y} stroke="#388E3C" strokeWidth="1" opacity="0.10"/>
       ))}
-      {/* Path edge grasses */}
-      {[650,680,710,740,770,800,830].map((y,i) => [160,205].map((bx,j) => (
-        <path key={`${i}-${j}`} d={`M ${bx+(j?15:-15)} ${y} Q ${bx+(j?18:-18)} ${y-12} ${bx+(j?12:-12)} ${y-20}`}
-          fill="none" stroke="#4A6828" strokeWidth="2" opacity="0.40"/>
-      )))}
-      {/* Birds V formation upper right */}
-      {[[288,98],[298,90],[308,84],[318,90],[328,98]].map(([x,y],i) => (
-        <path key={i} d={`M ${x-6} ${y} Q ${x} ${y-5} ${x+6} ${y}`} fill="none" stroke="#2A1040" strokeWidth="1.8" opacity="0.55">
+
+      {/* ── DISTANT BUILDINGS (right skyline) ── */}
+      <rect x="338" y="296" width="28" height="96" fill="#4A90C8" opacity="0.30"/>
+      <rect x="358" y="280" width="32" height="112" fill="#3A80B8" opacity="0.25"/>
+
+      {/* ── Birds ── */}
+      {[[60,155],[75,148],[88,155],[120,138],[134,132],[147,138]].map(([x,y],i) => (
+        <path key={i} d={`M ${x-5} ${y} Q ${x} ${y-5} ${x+5} ${y}`}
+          fill="none" stroke="#1A3080" strokeWidth="1.8" opacity="0.45">
           <animateTransform attributeName="transform" type="translate"
-            values={`0,0; -${4+i},${-2+i%2}`} dur={`${8+i*0.6}s`} repeatCount="indefinite" additive="sum"/>
+            values="0,0; -6,-3" dur={`${10+i*1.2}s`} repeatCount="indefinite" additive="sum"/>
         </path>
       ))}
-      {/* Horizon mist layers */}
-      <rect x="0" y="490" width="390" height="30" fill="#9060D0" opacity="0.08" filter="url(#p-blur)"/>
-      {/* Ground grass detail */}
-      <rect x="0" y="700" width="390" height="144" fill="#5A7A38" opacity="0.50"/>
-      {[710,724,738,752,766,780,794,808,822,836].map((y,i) => (
-        <line key={i} x1="0" y1={y} x2="390" y2={y} stroke="#3A5820" strokeWidth="1" opacity="0.12"/>
-      ))}
+
+      {/* ── Vignette ── */}
       <rect width="390" height="844" fill="url(#p-vig)"/>
     </svg>
   );
