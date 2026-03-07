@@ -72,6 +72,7 @@ import HealthWellnessWaiver from './pages/HealthWellnessWaiver';
 import Home from './pages/Home';
 import IdentityInChristPage from './pages/IdentityInChristPage';
 import MealDetailView from './pages/MealDetailView';
+import Messages from './pages/Messages';
 import MindsetResetPage from './pages/MindsetResetPage';
 import MyJournalEntries from './pages/MyJournalEntries';
 import NotificationSettings from './pages/NotificationSettings';
@@ -102,7 +103,6 @@ import WorkoutPlanner from './pages/WorkoutPlanner';
 import WorkoutProgress from './pages/WorkoutProgress';
 import WorkoutTrends from './pages/WorkoutTrends';
 import Workouts from './pages/Workouts';
-import Messages from './pages/Messages';
 import ChatScreen from './pages/ChatScreen';
 import __Layout from './Layout.jsx';
 
@@ -133,6 +133,7 @@ export const PAGES = {
     "Home": Home,
     "IdentityInChristPage": IdentityInChristPage,
     "MealDetailView": MealDetailView,
+    "Messages": Messages,
     "MindsetResetPage": MindsetResetPage,
     "MyJournalEntries": MyJournalEntries,
     "NotificationSettings": NotificationSettings,
@@ -163,7 +164,6 @@ export const PAGES = {
     "WorkoutProgress": WorkoutProgress,
     "WorkoutTrends": WorkoutTrends,
     "Workouts": Workouts,
-    "Messages": Messages,
     "ChatScreen": ChatScreen,
 }
 

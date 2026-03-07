@@ -849,9 +849,9 @@ export default function ChatScreen() {
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <BotBackground
           character={cfg.character}
-          speaking={isSpeaking}
-          listening={isListening}
-          thinking={isThinking}
+          speaking={avatarSpeaking}
+          listening={avatarListening}
+          thinking={avatarThinking}
         />
       </div>
 
