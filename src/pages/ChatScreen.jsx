@@ -472,15 +472,15 @@ export default function ChatScreen() {
 
       {/* ── Avatar zone ── */}
       <motion.div
-        className="relative z-10 flex flex-col items-center pt-3 pb-1 flex-shrink-0"
-        style={{ height: 300 }}
+        className="relative z-10 flex flex-col items-center pt-2 pb-0 flex-shrink-0"
+        style={{ height: 200 }}
         initial={{ y: 40, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5, ease: [0.34, 1.56, 0.64, 1], delay: 0.1 }}
         aria-hidden="true"
       >
         {/* State badge */}
-        <div className="flex items-center gap-2 mb-2 h-7">
+        <div className="flex items-center gap-2 mb-1 h-6">
           <AnimatePresence mode="wait">
             {avatarSpeaking ? (
               <motion.div key="sp"
@@ -529,7 +529,7 @@ export default function ChatScreen() {
         </div>
 
         {/* 3D cloud avatar */}
-        <div className="relative flex items-center justify-center" style={{ width: 260, height: 260 }}>
+        <div className="relative flex items-center justify-center" style={{ width: 160, height: 160 }}>
           <motion.div
             className="absolute inset-0 rounded-full pointer-events-none"
             style={{ background: `radial-gradient(circle, ${cfg.gradTo}30 0%, transparent 70%)` }}
@@ -552,8 +552,8 @@ export default function ChatScreen() {
             isSpeaking={avatarSpeaking}
             isListening={avatarListening}
             isThinking={avatarThinking}
-            width={260}
-            height={260}
+            width={160}
+            height={160}
           />
         </div>
       </motion.div>
