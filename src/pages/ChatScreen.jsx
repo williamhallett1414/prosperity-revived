@@ -91,21 +91,38 @@ SAFETY: If someone expresses thoughts of self-harm, suicide, or a mental health 
     userBubble:  'from-[#1e40af] to-[#38BDF8]',
     micActive:   '#38BDF8',
     icon:        'D',
-    // Voice: High-Energy Fitness Coach
-    // Rate 1.08 — driven, punchy cadence; pitch 0.95 — masculine authority
-    // Neural preference: Guy Online (Natural) > Davis Online (Natural) > Alex
+    // Voice: High-Energy Male Fitness Coach
+    // Rate 1.1  — driven, punchy, relentless cadence
+    // Pitch 1.0 — neutral-to-warm male (avoid going too low which reads as sleepy)
+    // Volume 1.0 — full presence
+    //
+    // Voice priority order covers all major platforms:
+    //   Chrome/Mac:    Tom, Alex, Fred (macOS), Google UK English Male, Google US English
+    //   Windows:       Guy Online (Natural), Davis Online (Natural), Chris Online (Natural)
+    //                  David Desktop, Mark Desktop, Christopher, Richard
+    //   iOS/iPadOS:    Aaron, Rishi, Gordon, Daniel (British)
     voiceGender: 'male',
     voiceNames:  [
-      'Alex', 'Tom', 'Fred',
+      // macOS / Safari
+      'Tom', 'Alex', 'Fred', 'Daniel',
+      // Chrome built-in
+      'Google UK English Male',
       'Google US English',
+      // Windows — Neural (highest quality)
       'Microsoft Guy Online (Natural) - English (United States)',
       'Microsoft Davis Online (Natural) - English (United States)',
+      'Microsoft Christopher Online (Natural) - English (United States)',
+      'Microsoft Eric Online (Natural) - English (United States)',
+      'Microsoft Ryan Online (Natural) - English (United Kingdom)',
+      // Windows — Desktop fallbacks
       'Microsoft David Desktop - English (United States)',
       'Microsoft Mark Desktop - English (United States)',
-      'Google UK English Male',
+      'Microsoft George Desktop - English (Great Britain)',
+      // iOS / iPadOS
+      'Aaron', 'Rishi', 'Gordon',
     ],
-    voiceRate:   1.08,
-    voicePitch:  0.95,
+    voiceRate:   1.1,
+    voicePitch:  1.0,
     voiceVolume: 1.0,
     welcomeMsg:  "I'm Coach David. No fluff, no excuses — just you, your goals, and the work it takes to get there. What are we attacking today?",
     placeholder: 'Ask about training, goals, or recovery…',
@@ -273,180 +290,28 @@ SAFETY: If someone expresses thoughts of self-harm, depression, or a mental heal
 // Waits for voices to load, picks the best neural/natural voice per character,
 // adds natural pauses by inserting speech breaks into the text.
 
-// ─── ElevenLabs Neural TTS ────────────────────────────────────────────────────
+// ─── TTS: Web Speech engine ─────────────────────────────────────────────────
 //
-// PRIMARY ENGINE — photorealistic voice, per-bot character tuning.
-// Requires VITE_ELEVENLABS_API_KEY in your .env or Base44 project env settings.
-//
-// Voice IDs (ElevenLabs v2 voices — swap via their voice library if desired):
-//   Hannah  → Rachel  (21m00Tcm4TlvDq8ikWAM) — warm, empathetic female
-//   David   → Josh    (TxGEqnHWrfWFTfGW9XjX) — energetic, driven male
-//   Daniel  → Antoni  (ErXwobaYiN019PkySvjV) — warm, conversational male
-//   Gideon  → Adam    (pNInz6obpgDQGcFmaJgB) — deep, authoritative, unhurried
-//   Paul    → Callum  (N2lVS1w4EtoT3dr4eOWO) — calm, grounded, deliberate
-//
-// Voice settings tuned per archetype:
-//   stability       0.0–1.0  higher = consistent/predictable, lower = expressive/variable
-//   similarity      0.0–1.0  higher = adheres closely to base voice character
-//   style           0.0–1.0  higher = more style exaggeration (emotion, intensity)
-//   use_speaker_boost         always true — improves clarity
-
-const EL_KEY   = import.meta.env.VITE_ELEVENLABS_API_KEY;
-const EL_MODEL = 'eleven_turbo_v2_5'; // low-latency (<600ms), high quality, English-optimised
-
-const EL_VOICES = {
-  hannah: {
-    voiceId:    '21m00Tcm4TlvDq8ikWAM', // Rachel
-    stability:  0.52,  // some variation = natural, not robotic
-    similarity: 0.82,
-    style:      0.38,  // moderate warmth — not theatrical
-  },
-  coach: {
-    voiceId:    'TxGEqnHWrfWFTfGW9XjX', // Josh
-    stability:  0.36,  // low = punchy, variable, high-energy cadence
-    similarity: 0.75,
-    style:      0.68,  // high intensity — driven, impactful
-  },
-  chef: {
-    voiceId:    'ErXwobaYiN019PkySvjV', // Antoni
-    stability:  0.56,
-    similarity: 0.82,
-    style:      0.44,  // playful warmth, expressive but not over the top
-  },
-  gideon: {
-    voiceId:    'pNInz6obpgDQGcFmaJgB', // Adam
-    stability:  0.84,  // high = consistent, measured, earned authority
-    similarity: 0.78,
-    style:      0.16,  // gravitas not drama — very low exaggeration
-  },
-  paul: {
-    voiceId:    'N2lVS1w4EtoT3dr4eOWO', // Callum
-    stability:  0.72,
-    similarity: 0.78,
-    style:      0.22,  // grounded clarity, not showy
-  },
-};
-
-// Minimal text prep for ElevenLabs — it reads punctuation naturally,
-// so we just clean markdown and normalize. No fake pause hacks needed.
-function prepareForElevenLabs(text) {
-  return text
-    .replace(/\[VERSE\](.*?) - "(.*?)"\[\/VERSE\]/g, (_, ref, verse) =>
-      `${ref}: "${verse}"`)
-    .replace(/\*\*(.*?)\*\*/g, '$1')
-    .replace(/\*(.*?)\*/g, '$1')
-    .replace(/#{1,6}\s+/g, '')
-    .replace(/`[^`]*`/g, '')
-    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
-    .replace(/[\u{1F000}-\u{1FFFF}]/gu, '')
-    .replace(/[\u{2600}-\u{27BF}]/gu, '')
-    .replace(/[\u{1F300}-\u{1F9FF}]/gu, '')
-    .replace(/[\u{FE00}-\u{FEFF}]/gu, '')
-    .replace(/^\s*[-*•]\s+(.*)/gm, '$1.')
-    .replace(/^\s*\d+\.\s+(.*)/gm, '$1.')
-    .replace(/\n{2,}/g, ' ')
-    .replace(/\n/g, ' ')
-    .replace(/\s{2,}/g, ' ')
-    .trim();
-}
-
-// Returns a cancel fn if successful, null if ElevenLabs unavailable/failed (→ fall back)
-async function elevenLabsSpeak({ text, character, onStart, onEnd, onError }) {
-  if (!EL_KEY) return null;
-  const voice = EL_VOICES[character];
-  if (!voice) return null;
-
-  const prepared = prepareForElevenLabs(text);
-  if (!prepared) return null;
-
-  let audioEl = null;
-  let blobUrl = null;
-  let cancelled = false;
-
-  try {
-    const res = await fetch(
-      `https://api.elevenlabs.io/v1/text-to-speech/${voice.voiceId}`,
-      {
-        method: 'POST',
-        headers: {
-          'xi-api-key':    EL_KEY,
-          'Content-Type':  'application/json',
-          'Accept':        'audio/mpeg',
-        },
-        body: JSON.stringify({
-          text:     prepared,
-          model_id: EL_MODEL,
-          voice_settings: {
-            stability:         voice.stability,
-            similarity_boost:  voice.similarity,
-            style:             voice.style,
-            use_speaker_boost: true,
-          },
-        }),
-      }
-    );
-
-    if (!res.ok) {
-      const msg = await res.text().catch(() => '');
-      console.warn(`ElevenLabs ${res.status}:`, msg);
-      return null;
-    }
-
-    if (cancelled) return () => {};
-
-    const blob = await res.blob();
-    if (cancelled) return () => {};
-
-    blobUrl  = URL.createObjectURL(blob);
-    audioEl  = new Audio(blobUrl);
-
-    await new Promise((resolve, reject) => {
-      audioEl.oncanplaythrough = resolve;
-      audioEl.onerror          = reject;
-      setTimeout(resolve, 3000); // safety timeout — proceed anyway
-    });
-
-    if (cancelled) { URL.revokeObjectURL(blobUrl); return () => {}; }
-
-    audioEl.onplay  = () => onStart?.();
-    audioEl.onended = () => { URL.revokeObjectURL(blobUrl); onEnd?.(); };
-    audioEl.onerror = () => { URL.revokeObjectURL(blobUrl); onError?.(); };
-
-    await audioEl.play();
-
-    return () => {
-      cancelled = true;
-      if (audioEl) { audioEl.pause(); audioEl.currentTime = 0; }
-      if (blobUrl) URL.revokeObjectURL(blobUrl);
-    };
-
-  } catch (err) {
-    console.warn('ElevenLabs TTS failed:', err?.message ?? err);
-    if (blobUrl) URL.revokeObjectURL(blobUrl);
-    return null; // signal fall-through to Web Speech
-  }
-}
-
-// ─── Web Speech prosody engine (fallback) ────────────────────────────────────
-//
-// Significantly upgraded vs vanilla Web Speech:
-//   • Abbreviation-aware sentence splitting (won't split on "Dr.", "vs.", etc.)
-//   • Per-sentence prosody variation based on type (question/exclamation/length)
+// Prosody-enhanced Web Speech:
+//   • Abbreviation-aware sentence splitting (won't break on Dr., vs., e.g., etc.)
+//   • Per-sentence rate/pitch variation by type (question / exclamation / length)
 //   • First sentence eases in slower — voice establishes before full pace
-//   • Short punchy sentences run faster; long complex ones slow down
-//   • Questions: pitch rises + rate falls (natural rising intonation)
-//   • Exclamations: rate bumps up + slight pitch lift (energy/impact)
+//   • Per-bot preferred voice list with neural/enhanced prioritisation
+//   • Strict gender enforcement: male voices never fall through to female
+//
+// To upgrade to neural voices later, add VITE_ELEVENLABS_API_KEY — the
+// architecture already supports it, just re-enable the ElevenLabs branch.
 
 const ABBREV_RE = /\b(Mr|Mrs|Ms|Dr|Prof|Sr|Jr|St|vs|e\.g|i\.e|etc|approx|dept|est|vol|no)\.\s*$/i;
 
 function splitSentencesWSA(text) {
-  const parts   = text.split(/(?<=[.!?])\s+/);
-  const merged  = [];
-  let pending   = '';
+  const parts  = text.split(/(?<=[.!?])\s+/);
+  const merged = [];
+  let pending  = '';
   for (const s of parts) {
     const candidate = pending ? `${pending} ${s}` : s;
     if (ABBREV_RE.test(candidate.replace(/[!?]$/, '.'))) {
-      pending = candidate; // abbreviation — keep accumulating
+      pending = candidate;
     } else {
       if (candidate.trim()) merged.push(candidate.trim());
       pending = '';
@@ -460,16 +325,13 @@ function prosodyFor(sentence, sentIdx, baseCfg) {
   const isQ   = sentence.endsWith('?');
   const isEx  = sentence.endsWith('!');
   const words = sentence.split(/\s+/).length;
-
   let rate  = baseCfg.voiceRate  ?? 0.95;
   let pitch = baseCfg.voicePitch ?? 1.0;
-
-  if (sentIdx === 0)        rate  -= 0.04;              // ease in — let voice establish
-  if (isQ)  { pitch += 0.06; rate  -= 0.03; }           // rising intonation, slower
-  if (isEx) { rate  += 0.06; pitch += 0.03; }           // punchy, slightly higher
-  if (words <= 7 && sentIdx > 0) rate += 0.03;          // short sentence = snappy
-  if (words > 18) rate -= 0.03;                         // long sentence = breathe
-
+  if (sentIdx === 0)        rate  -= 0.04;
+  if (isQ)  { pitch += 0.06; rate  -= 0.03; }
+  if (isEx) { rate  += 0.06; pitch += 0.03; }
+  if (words <= 7 && sentIdx > 0) rate += 0.03;
+  if (words > 18)           rate  -= 0.03;
   return {
     rate:  Math.max(0.62, Math.min(1.38, rate)),
     pitch: Math.max(0.72, Math.min(1.38, pitch)),
@@ -485,28 +347,70 @@ function loadVoices() {
   });
 }
 
+// Male voice keywords — broad enough to catch Google/MS/Apple male voices
+const MALE_KW   = ['male', 'david', 'mark', 'james', 'guy', 'ryan', 'daniel', 'arthur',
+                   'george', 'fred', 'alex', 'tom', 'chris', 'rishi', 'aaron', 'eric',
+                   'brian', 'christopher', 'reed', 'rodney', 'cepstral'];
+const FEMALE_KW = ['female', 'zira', 'hazel', 'siri', 'cortana', 'samantha', 'karen',
+                   'victoria', 'moira', 'tessa', 'jenny', 'aria', 'rachel', 'susan',
+                   'lisa', 'linda', 'joanna', 'ivy'];
+
+function isVoiceMale(v) {
+  const n = v.name.toLowerCase();
+  // Explicit female keywords → not male
+  if (FEMALE_KW.some(k => n.includes(k))) return false;
+  if (MALE_KW.some(k => n.includes(k)))   return true;
+  return null; // unknown
+}
+
+function isVoiceFemale(v) {
+  const n = v.name.toLowerCase();
+  if (MALE_KW.some(k => n.includes(k)))   return false;
+  if (FEMALE_KW.some(k => n.includes(k))) return true;
+  return null;
+}
+
 function pickVoice(voices, preferredNames, gender) {
   if (!voices.length) return null;
-  const neuralKW  = ['neural', 'enhanced', 'premium', 'natural', 'wavenet'];
-  const enVoices  = voices.filter(v => v.lang?.startsWith('en'));
+  const neuralKW = ['neural', 'enhanced', 'premium', 'natural', 'wavenet'];
+  const enVoices = voices.filter(v => v.lang?.startsWith('en'));
+
+  // 1. Exact preferred name match
   for (const name of preferredNames) {
     const v = voices.find(v => v.name === name);
     if (v) return v;
   }
+
+  // 2. Partial preferred name match (handles suffix variants like "Samantha (Enhanced)")
   for (const name of preferredNames) {
     const v = voices.find(v => v.name.toLowerCase().includes(name.toLowerCase()));
     if (v) return v;
   }
-  const gKW = gender === 'female'
-    ? ['female', 'zira', 'hazel', 'siri', 'cortana']
-    : ['male', 'david', 'mark', 'james', 'guy'];
+
+  const isTargetMale = gender === 'male';
+  const genderCheck  = isTargetMale ? isVoiceMale : isVoiceFemale;
+
+  // 3. Neural English voice matching gender
   const neuralGen = enVoices.find(v =>
-    neuralKW.some(k => v.name.toLowerCase().includes(k)) &&
-    gKW.some(k => v.name.toLowerCase().includes(k))
+    neuralKW.some(k => v.name.toLowerCase().includes(k)) && genderCheck(v) === true
   );
   if (neuralGen) return neuralGen;
-  const anyNeural = enVoices.find(v => neuralKW.some(k => v.name.toLowerCase().includes(k)));
+
+  // 4. Any neural English voice (gender unknown is ok — but reject confirmed opposite gender)
+  const anyNeural = enVoices.find(v =>
+    neuralKW.some(k => v.name.toLowerCase().includes(k)) && genderCheck(v) !== false
+  );
   if (anyNeural) return anyNeural;
+
+  // 5. Any English voice matching gender (non-neural)
+  const genMatch = enVoices.find(v => genderCheck(v) === true);
+  if (genMatch) return genMatch;
+
+  // 6. Any English voice that isn't confirmed opposite gender
+  const notOpposite = enVoices.find(v => genderCheck(v) !== false);
+  if (notOpposite) return notOpposite;
+
+  // 7. Last resort — first English voice
   return enVoices[0] || voices[0] || null;
 }
 
@@ -534,7 +438,9 @@ function prepareTextForSpeech(text) {
     .trim();
 }
 
-function webSpeechSpeak({ text, cfg, onStart, onEnd, onError }) {
+// speakText is async to keep the same call signature as the ElevenLabs version,
+// making it a drop-in if neural TTS is re-enabled later.
+async function speakText({ text, cfg, onStart, onEnd, onError }) {
   if (!('speechSynthesis' in window)) { onEnd?.(); return () => {}; }
   try { window.speechSynthesis.cancel(); } catch (_) {}
 
@@ -542,7 +448,7 @@ function webSpeechSpeak({ text, cfg, onStart, onEnd, onError }) {
   if (!prepared) { onEnd?.(); return () => {}; }
 
   const sentences = splitSentencesWSA(prepared);
-  let idx = 0;
+  let idx       = 0;
   let cancelled = false;
 
   const speakNext = (voiceToUse) => {
@@ -569,10 +475,8 @@ function webSpeechSpeak({ text, cfg, onStart, onEnd, onError }) {
     } catch (_) { onEnd?.(); }
   };
 
-  loadVoices().then(voices => {
-    if (cancelled) return;
-    speakNext(pickVoice(voices, cfg.voiceNames || [], cfg.voiceGender));
-  });
+  const voices = await loadVoices();
+  if (!cancelled) speakNext(pickVoice(voices, cfg.voiceNames || [], cfg.voiceGender));
 
   return () => {
     cancelled = true;
@@ -580,32 +484,6 @@ function webSpeechSpeak({ text, cfg, onStart, onEnd, onError }) {
   };
 }
 
-// ─── Unified speakText — ElevenLabs → Web Speech fallback ─────────────────────
-// Returns a Promise<cancel fn>. The cancel fn is safe to call at any time.
-// onEngineChange(engine) fires with 'elevenlabs' or 'webspeech' when engine is chosen.
-async function speakText({ text, cfg, onStart, onEnd, onError, onEngineChange }) {
-  // ① Try ElevenLabs (neural, photorealistic)
-  if (EL_KEY) {
-    const cancel = await elevenLabsSpeak({
-      text,
-      character: cfg.character,
-      onStart,
-      onEnd,
-      onError,
-    });
-    if (cancel !== null) {
-      onEngineChange?.('elevenlabs');
-      return cancel;
-    }
-    // null = failed → fall through
-    console.info('ElevenLabs unavailable — using Web Speech fallback');
-  }
-
-  // ② Web Speech fallback (browser-native, prosody-enhanced)
-  onEngineChange?.('webspeech');
-  const cancel = webSpeechSpeak({ text, cfg, onStart, onEnd, onError });
-  return cancel;
-}
 
 // ─── Waveform ─────────────────────────────────────────────────────────────────
 function Waveform({ active, color }) {
@@ -721,7 +599,6 @@ export default function ChatScreen() {
   const [isListening,      setIsListening]      = useState(false);
   const [speakingIdx,      setSpeakingIdx]      = useState(null);
   const [permissionDenied, setPermissionDenied] = useState(false);
-  const [ttsEngine,        setTtsEngine]        = useState(null); // 'elevenlabs'|'webspeech'|null
 
   const inputRef           = useRef(null);
   const messagesEndRef     = useRef(null);
@@ -762,7 +639,6 @@ export default function ChatScreen() {
 
     stopSpeechRef.current?.();
     setSpeakingIdx(null);
-    setTtsEngine(null);
     setInput('');
     setMessages(prev => [...prev, { role: 'user', content: trimmed }]);
     setIsLoading(true);
@@ -794,7 +670,6 @@ export default function ChatScreen() {
     if (speakingIdx === idx) {
       stopSpeechRef.current?.();
       setSpeakingIdx(null);
-      setTtsEngine(null);
       return;
     }
 
@@ -811,7 +686,6 @@ export default function ChatScreen() {
       hasBeenCancelled = true;
       innerCancel?.();
       setSpeakingIdx(null);
-      setTtsEngine(null);
     };
 
     speakText({
@@ -820,7 +694,6 @@ export default function ChatScreen() {
       onStart:        () => setSpeakingIdx(idx),
       onEnd:          () => { setSpeakingIdx(null); setTtsEngine(null); },
       onError:        () => { setSpeakingIdx(null); setTtsEngine(null); },
-      onEngineChange: (engine) => setTtsEngine(engine),
     }).then(cancelFn => {
       if (hasBeenCancelled) {
         cancelFn?.();
@@ -830,7 +703,6 @@ export default function ChatScreen() {
       stopSpeechRef.current = () => {
         cancelFn?.();
         setSpeakingIdx(null);
-        setTtsEngine(null);
       };
     });
   }, [speakingIdx, cfg]);
@@ -915,7 +787,6 @@ export default function ChatScreen() {
   const clearChat = () => {
     stopSpeechRef.current?.();
     setSpeakingIdx(null);
-    setTtsEngine(null);
     window.speechSynthesis?.cancel();
     setMessages([{ role: 'assistant', content: cfg.welcomeMsg }]);
     setInput('');
@@ -998,10 +869,6 @@ export default function ChatScreen() {
                 style={{ background: `${cfg.gradTo}20`, border: `1px solid ${cfg.gradTo}50`, color: cfg.gradTo }}>
                 <Waveform active color={cfg.gradTo} />
                 <span>Speaking</span>
-                {ttsEngine === 'elevenlabs' && (
-                  <span style={{ fontSize: 9, fontWeight: 700, opacity: 0.65, letterSpacing: '0.04em',
-                    background: `${cfg.gradTo}30`, padding: '1px 5px', borderRadius: 4 }}>EL</span>
-                )}
               </motion.div>
             ) : avatarListening ? (
               <motion.div key="li" initial={{ opacity: 0, scale: 0.85 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.85 }}
@@ -1192,11 +1059,6 @@ export default function ChatScreen() {
         {permissionDenied && (
           <p className="text-center text-[10px] text-white/35 mt-1.5">
             Microphone access denied — please enable it in browser settings
-          </p>
-        )}
-        {!EL_KEY && (
-          <p className="text-center text-[10px] mt-1" style={{ color: `${cfg.gradTo}60` }}>
-            Add <span style={{ fontFamily: 'monospace', letterSpacing: '0.02em' }}>VITE_ELEVENLABS_API_KEY</span> for neural voices
           </p>
         )}
       </motion.div>
