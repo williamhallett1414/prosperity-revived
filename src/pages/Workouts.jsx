@@ -1,571 +1,599 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
-import { motion } from 'framer-motion';
-import { Dumbbell, Heart, Plus, TrendingUp, Droplets, ArrowLeft, Sparkles, Target, Trophy, Calendar, ClipboardList } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { motion, AnimatePresence } from 'framer-motion';
+import {
+  Dumbbell, Heart, TrendingUp, Sparkles, Target, Trophy,
+  Calendar, ClipboardList, Flame, ChevronRight, Play,
+  CheckCircle2, MessageCircle, ArrowRight, Zap, Star,
+  BarChart3, Users, Sun, Moon
+} from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { toast } from 'sonner';
-import WorkoutCard from '@/components/wellness/WorkoutCard';
 import StartWorkoutModal from '@/components/wellness/StartWorkoutModal';
 import PullToRefresh from '@/components/ui/PullToRefresh';
 import { PREMADE_WORKOUTS } from '@/components/wellness/WorkoutLibrary';
 import { awardPoints, checkAndAwardBadges } from '@/components/gamification/ProgressManager';
-import ReeVibeFitness from '@/components/wellness/ReeVibeFitness';
 import ChatButton from '@/components/chatbot/ChatButton';
-import WeeklyThemeBanner from '@/components/wellness/WeeklyThemeBanner';
 
+// ── Motivational verses for training ────────────────────────────────────────
+const TRAINING_VERSES = [
+  { text: "I can do all things through Christ who strengthens me.", ref: "Philippians 4:13" },
+  { text: "Do you not know that your bodies are temples of the Holy Spirit? Honor God with your bodies.", ref: "1 Corinthians 6:19-20" },
+  { text: "Physical training is of some value, but godliness has value for all things.", ref: "1 Timothy 4:8" },
+  { text: "Run in such a way as to get the prize.", ref: "1 Corinthians 9:24" },
+  { text: "Be strong and courageous. Do not be afraid; do not be discouraged.", ref: "Joshua 1:9" },
+  { text: "The Lord is my strength and my shield; my heart trusts in Him.", ref: "Psalm 28:7" },
+  { text: "Let us not become weary in doing good, for at the proper time we will reap a harvest.", ref: "Galatians 6:9" },
+];
+
+// ── Category config ──────────────────────────────────────────────────────────
+const CATEGORIES = [
+  { key: "cardio",      label: "Cardio",    emoji: "❤️", grad: "from-rose-500 to-pink-400",     desc: "Get your heart pumping" },
+  { key: "strength",   label: "Strength",  emoji: "💪", grad: "from-slate-700 to-slate-500",   desc: "Build muscle & power" },
+  { key: "hiit",       label: "HIIT",      emoji: "⚡", grad: "from-orange-500 to-amber-400",  desc: "High intensity intervals" },
+  { key: "home",       label: "Home",      emoji: "🏠", grad: "from-sky-500 to-cyan-400",      desc: "No equipment needed" },
+  { key: "flexibility",label: "Flex",      emoji: "🧘", grad: "from-teal-500 to-emerald-400",  desc: "Stretch & recover" },
+  { key: "full_body",  label: "Full Body", emoji: "🏋️", grad: "from-violet-500 to-purple-400", desc: "Total body training" },
+];
+
+// ── Helpers ──────────────────────────────────────────────────────────────────
+function todayKey() { return new Date().toISOString().split("T")[0]; }
+
+function getWeekDays() {
+  const days = [];
+  const today = new Date();
+  const dow = today.getDay(); // 0=Sun
+  const monday = new Date(today);
+  monday.setDate(today.getDate() - (dow === 0 ? 6 : dow - 1));
+  for (let i = 0; i < 7; i++) {
+    const d = new Date(monday);
+    d.setDate(monday.getDate() + i);
+    days.push({
+      key: d.toISOString().slice(0, 10),
+      label: d.toLocaleDateString("en-US", { weekday: "short" }).slice(0, 1),
+      isToday: d.toISOString().slice(0, 10) === todayKey(),
+      isFuture: d > today,
+    });
+  }
+  return days;
+}
+
+function calcStreak(sessions) {
+  const days = new Set(sessions.map(s => (s.date || "").slice(0, 10)).filter(Boolean));
+  let streak = 0;
+  for (let i = 0; i < 365; i++) {
+    const d = new Date();
+    d.setDate(d.getDate() - i);
+    if (days.has(d.toISOString().slice(0, 10))) streak++;
+    else if (i > 0) break;
+  }
+  return streak;
+}
+
+function getWeekSessions(sessions) {
+  const mon = getWeekDays()[0].key;
+  return sessions.filter(s => (s.date || "") >= mon);
+}
+
+function getTimeGreeting(name) {
+  const h = new Date().getHours();
+  const first = name ? name.split(" ")[0] : null;
+  const s = first ? `, ${first}` : "";
+  if (h < 12) return { text: `Morning${s} 💪`, sub: "Start the day strong." };
+  if (h < 17) return { text: `Afternoon${s}`, sub: "Midday session? Let's go." };
+  return { text: `Evening${s}`, sub: "End the day right." };
+}
+
+// ── Sub-components ────────────────────────────────────────────────────────────
+function SectionLabel({ children, action, actionTo }) {
+  return (
+    <div className="flex items-center justify-between mb-3 px-0.5">
+      <span className="text-sm font-bold text-[#0A1A2F]">{children}</span>
+      {action && actionTo && (
+        <Link to={createPageUrl(actionTo)}
+          className="flex items-center gap-1 text-xs font-semibold text-[#38BDF8] hover:text-[#0EA5E9]">
+          {action} <ChevronRight className="w-3 h-3" />
+        </Link>
+      )}
+    </div>
+  );
+}
+
+function StatPill({ value, label, color, sub }) {
+  return (
+    <div className="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm flex-1 min-w-0">
+      <p className="text-2xl font-black" style={{ color }}>{value}</p>
+      <p className="text-xs text-[#0A1A2F]/55 mt-0.5 leading-tight">{label}</p>
+      {sub && <p className="text-[10px] text-[#0A1A2F]/35 mt-0.5">{sub}</p>}
+    </div>
+  );
+}
+
+function WorkoutPill({ workout, onStart, done }) {
+  if (!workout) return null;
+  return (
+    <motion.div
+      whileTap={{ scale: 0.98 }}
+      className="bg-white rounded-2xl border shadow-sm overflow-hidden mb-3"
+      style={{ borderColor: done ? "#BBF7D0" : "#F3F4F6" }}
+    >
+      <div className="flex items-center gap-3 px-4 py-3.5">
+        <div className="w-10 h-10 bg-gradient-to-br from-[#FD9C2D] to-[#E89020] rounded-xl flex items-center justify-center flex-shrink-0">
+          <Dumbbell className="w-5 h-5 text-white" />
+        </div>
+        <div className="flex-1 min-w-0">
+          <p className="text-sm font-bold text-[#0A1A2F] truncate">{workout.title}</p>
+          <p className="text-xs text-[#0A1A2F]/50">
+            {workout.duration_minutes} min · {workout.difficulty || "All levels"}
+          </p>
+        </div>
+        {done
+          ? <CheckCircle2 className="w-5 h-5 text-emerald-500 flex-shrink-0" />
+          : (
+            <button
+              onClick={() => onStart(workout)}
+              className="flex items-center gap-1.5 bg-[#FD9C2D] text-white text-xs font-bold px-3 py-2 rounded-xl flex-shrink-0"
+            >
+              <Play className="w-3 h-3" /> Start
+            </button>
+          )
+        }
+      </div>
+    </motion.div>
+  );
+}
+
+// ── Main page ─────────────────────────────────────────────────────────────────
 export default function Workouts() {
-  const navigate = useNavigate();
-  const [showWelcome, setShowWelcome] = useState(() => {
-    return !localStorage.getItem('workouts_welcomed');
-  });
-  const dismissWelcome = () => {
-    localStorage.setItem('workouts_welcomed', 'true');
-    setShowWelcome(false);
-  };
-  const [user, setUser] = useState(null);
-  const [showStartWorkout, setShowStartWorkout] = useState(false);
-  const [selectedWorkout, setSelectedWorkout] = useState(null);
+  const navigate    = useNavigate();
   const queryClient = useQueryClient();
+  const [user, setUser]               = useState(null);
+  const [showStartWorkout, setShowStartWorkout] = useState(false);
+  const [selectedWorkout, setSelectedWorkout]   = useState(null);
 
   useEffect(() => {
     base44.auth.me().then(setUser);
-
-    base44.functions.invoke('ensureChallengesExist', {}).catch((err) => {
-      console.error('Failed to ensure challenges exist:', err);
-    });
-
-    base44.functions.invoke('ensureCategoryWorkouts', {}).catch((err) => {
-      console.error('Failed to ensure category workouts exist:', err);
-    });
-
-    const hasPopulated = localStorage.getItem('workouts_populated');
-    if (!hasPopulated) {
-      base44.functions.invoke('populateMissingWorkoutExercises', {}).then(() => {
-        localStorage.setItem('workouts_populated', 'true');
-        queryClient.invalidateQueries(['workoutPlans']);
-      }).catch((err) => {
-        console.error('Failed to populate workout exercises:', err);
-      });
+    base44.functions.invoke("ensureChallengesExist", {}).catch(() => {});
+    base44.functions.invoke("ensureCategoryWorkouts", {}).catch(() => {});
+    const done = localStorage.getItem("workouts_populated");
+    if (!done) {
+      base44.functions.invoke("populateMissingWorkoutExercises", {}).then(() => {
+        localStorage.setItem("workouts_populated", "true");
+        queryClient.invalidateQueries(["workoutPlans"]);
+      }).catch(() => {});
     }
   }, []);
 
   const { data: workouts = [] } = useQuery({
-    queryKey: ['workouts'],
-    queryFn: () => base44.entities.WorkoutPlan.list('-created_date')
+    queryKey: ["workouts"],
+    queryFn: () => base44.entities.WorkoutPlan.list("-created_date"),
   });
 
-  const { data: workoutSessions = [] } = useQuery({
-    queryKey: ['workoutSessions'],
-    queryFn: () => base44.entities.WorkoutSession.list('-date', 100),
+  const { data: sessions = [] } = useQuery({
+    queryKey: ["workoutSessions"],
+    queryFn: () => base44.entities.WorkoutSession.list("-date", 100),
+    enabled: !!user,
     initialData: [],
-    enabled: !!user
   });
 
   const { data: challenges = [] } = useQuery({
-    queryKey: ['challenges'],
-    queryFn: async () => {
-      try {
-        return await base44.entities.Challenge.filter({});
-      } catch (error) {
-        return [];
-      }
-    },
-    retry: false
+    queryKey: ["challenges"],
+    queryFn: async () => { try { return await base44.entities.Challenge.filter({}); } catch { return []; } },
+    retry: false,
   });
 
   const { data: challengeParticipants = [] } = useQuery({
-    queryKey: ['challengeParticipants'],
-    queryFn: async () => {
-      try {
-        return await base44.entities.ChallengeParticipant.filter({ user_email: user?.email });
-      } catch (error) {
-        return [];
-      }
-    },
+    queryKey: ["challengeParticipants"],
+    queryFn: async () => { try { return await base44.entities.ChallengeParticipant.filter({ user_email: user?.email }); } catch { return []; } },
     enabled: !!user,
-    retry: false
+    retry: false,
   });
 
   const completeWorkout = useMutation({
     mutationFn: async ({ id, workout }) => {
       const dates = workout.completed_dates || [];
-      const today = new Date().toISOString().split('T')[0];
+      const today = todayKey();
       if (!dates.includes(today)) {
         dates.push(today);
-
         const allProgress = await base44.entities.UserProgress.list();
-        const userProgress = allProgress.find((p) => p.created_by === user?.email);
+        const userProgress = allProgress.find(p => p.created_by === user?.email);
         const workoutCount = (userProgress?.workouts_completed || 0) + 1;
-
         await awardPoints(user?.email, 15, { workouts_completed: workoutCount });
         await checkAndAwardBadges(user?.email);
       }
       return base44.entities.WorkoutPlan.update(id, { completed_dates: dates });
     },
-    onSuccess: () => queryClient.invalidateQueries(['workouts'])
-  });
-
-  const myWorkouts = workouts.filter((w) => w.created_by === user?.email);
-  const allWorkouts = [...PREMADE_WORKOUTS, ...myWorkouts];
-
-  const recommendedWorkout = React.useMemo(() => {
-    const today = new Date().toISOString().split('T')[0];
-    const notCompletedToday = allWorkouts.filter((w) =>
-    !w.completed_dates?.includes(today)
-    );
-    return notCompletedToday[0] || allWorkouts[Math.floor(Math.random() * allWorkouts.length)] || null;
-  }, [allWorkouts]);
-
-  const totalWorkoutsCompleted = myWorkouts.reduce((sum, w) => sum + (w.completed_dates?.length || 0), 0);
-
-  const { data: sharedWorkouts = [] } = useQuery({
-    queryKey: ['sharedWorkouts'],
-    queryFn: async () => {
-      const all = await base44.entities.WorkoutPlan.list('-created_date', 50);
-      return all.filter((w) => w.is_shared && w.created_by !== user?.email);
-    },
-    enabled: !!user
-  });
-
-  const copyWorkout = useMutation({
-    mutationFn: async (workout) => {
-      const workoutCopy = {
-        title: `${workout.title} (Copy)`,
-        description: workout.description,
-        difficulty: workout.difficulty,
-        duration_minutes: workout.duration_minutes,
-        exercises: workout.exercises,
-        category: workout.category,
-        completed_dates: []
-      };
-
-      await base44.entities.WorkoutPlan.create(workoutCopy);
-
-      if (workout.id) {
-        await base44.entities.WorkoutPlan.update(workout.id, {
-          times_copied: (workout.times_copied || 0) + 1
-        });
-      }
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries(['workouts']);
-      queryClient.invalidateQueries(['sharedWorkouts']);
-      toast.success('Workout added to your library!');
-    }
+    onSuccess: () => queryClient.invalidateQueries(["workouts"]),
   });
 
   const handleRefresh = async () => {
     await Promise.all([
-    queryClient.invalidateQueries(['workouts']),
-    queryClient.invalidateQueries(['workoutSessions']),
-    queryClient.invalidateQueries(['challenges'])]
-    );
+      queryClient.invalidateQueries(["workouts"]),
+      queryClient.invalidateQueries(["workoutSessions"]),
+      queryClient.invalidateQueries(["challenges"]),
+    ]);
   };
 
+  function startWorkout(w) { setSelectedWorkout(w); setShowStartWorkout(true); }
+
+  // ── Derived data ────────────────────────────────────────────────────────────
+  const today          = todayKey();
+  const myWorkouts     = workouts.filter(w => w.created_by === user?.email);
+  const allWorkouts    = [...PREMADE_WORKOUTS, ...myWorkouts];
+  const streak         = calcStreak(sessions);
+  const weekSessions   = getWeekSessions(sessions);
+  const weekDays       = getWeekDays();
+  const workedOutToday = sessions.some(s => (s.date || "").startsWith(today));
+  const workedOutDays  = new Set(sessions.map(s => (s.date || "").slice(0, 10)));
+  const thisWeekMins   = weekSessions.reduce((sum, s) => sum + (s.duration_minutes || 0), 0);
+  const totalMins      = sessions.reduce((sum, s) => sum + (s.duration_minutes || 0), 0);
+
+  const verse = TRAINING_VERSES[Math.floor((new Date() - new Date(new Date().getFullYear(), 0, 1)) / 86400000 / 7) % TRAINING_VERSES.length];
+  const greeting = getTimeGreeting(user?.full_name);
+
+  // Smart recommendation: pick from category not done recently, appropriate duration for time of day
+  const recommendedWorkout = useMemo(() => {
+    const h = new Date().getHours();
+    const maxMin = h < 7 ? 15 : h < 18 ? 45 : 20;
+    const recentCats = new Set(sessions.slice(0, 3).map(s => s.category).filter(Boolean));
+    const notTodayNotRecent = allWorkouts.filter(w =>
+      !w.completed_dates?.includes(today) &&
+      !recentCats.has(w.category) &&
+      (w.duration_minutes || 30) <= maxMin
+    );
+    if (notTodayNotRecent.length) return notTodayNotRecent[0];
+    const notToday = allWorkouts.filter(w => !w.completed_dates?.includes(today));
+    return notToday[0] || allWorkouts[0] || null;
+  }, [allWorkouts, sessions, today]);
+
+  const activeChallenge = useMemo(() => {
+    const joined = challengeParticipants[0];
+    if (!joined) return null;
+    const ch = challenges.find(c => c.id === joined.challenge_id);
+    return ch ? { ...ch, progress: joined.progress || 0 } : null;
+  }, [challenges, challengeParticipants]);
+
   return (
-    <div className="min-h-screen bg-[#F0F8FF] pb-24">      {/* Top Navigation */}
-      <div className="sticky top-0 z-40 bg-white border-b border-[#BAE6FD]/40 px-4 py-3">
+    <div className="min-h-screen bg-[#F0F8FF] pb-28">
+
+      {/* ── Header ── */}
+      <div className="sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b border-[#BAE6FD]/40 px-4 py-3">
         <div className="max-w-2xl mx-auto flex items-center justify-between">
-          <h1 className="text-lg font-bold text-[#0A1A2F]">Workouts</h1>
-          <button
-            onClick={() => navigate(createPageUrl('WorkoutPlanner'))}
-            className="flex items-center gap-1.5 bg-gradient-to-r from-[#FD9C2D] to-[#E89020] text-white text-xs font-bold px-3 py-2 rounded-xl hover:opacity-90 shadow-sm transition-opacity"
-          >
-            <ClipboardList className="w-3.5 h-3.5" />
-            Planner
-          </button>
+          <div>
+            <h1 className="text-base font-bold text-[#0A1A2F] leading-tight">Workouts</h1>
+            <p className="text-xs text-[#0A1A2F]/45">{greeting.sub}</p>
+          </div>
+          <div className="flex items-center gap-2">
+            {streak > 0 && (
+              <div className="flex items-center gap-1 bg-orange-50 border border-orange-100 px-2.5 py-1.5 rounded-full">
+                <Flame className="w-3.5 h-3.5 text-orange-500" />
+                <span className="text-xs font-bold text-orange-600">{streak}d</span>
+              </div>
+            )}
+            <button
+              onClick={() => navigate(createPageUrl("WorkoutPlanner"))}
+              className="flex items-center gap-1.5 bg-gradient-to-r from-[#FD9C2D] to-[#E89020] text-white text-xs font-bold px-3 py-2 rounded-xl shadow-sm"
+            >
+              <ClipboardList className="w-3.5 h-3.5" /> Planner
+            </button>
+          </div>
         </div>
       </div>
 
-      <div className="px-4 pt-6 pb-6">
+      <div className="px-4 pt-5 pb-4">
         <PullToRefresh onRefresh={handleRefresh}>
-          <div className="max-w-2xl mx-auto">
+          <div className="max-w-2xl mx-auto space-y-5">
 
-            {/* Weekly Theme */}
-            <WeeklyThemeBanner />
-
-            {/* Welcome Banner */}
-            {showWelcome && (
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="mb-6 bg-gradient-to-br from-[#38BDF8]/10 to-[#FD9C2D]/10 border border-[#38BDF8]/30 rounded-2xl p-5"
+            {/* ── Greeting + verse ── */}
+            <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
+              <div
+                className="rounded-2xl p-5 border border-[#38BDF8]/20"
+                style={{ background: "linear-gradient(135deg,#0A1828,#0F2540)" }}
               >
-                <div className="flex items-start justify-between">
-                  <div className="flex-1">
-                    <h3 className="font-bold text-[#0A1A2F] mb-1">💪 Welcome to Workouts!</h3>
-                    <p className="text-sm text-[#0A1A2F]/70 mb-3">
-                      Browse workout categories, try a premade plan, or start one of our quick workouts below. Log a session to start tracking your progress.
-                    </p>
-                    <div className="flex gap-2">
-                      <Link to={createPageUrl('WorkoutCategoryPage')}>
-                        <Button size="sm" className="bg-[#FD9C2D] hover:bg-[#FD9C2D]/90 text-white text-xs">
-                          Browse Categories
-                        </Button>
-                      </Link>
-                      <Button size="sm" variant="outline" onClick={dismissWelcome} className="text-xs">
-                        Got it
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            )}
-
-            {/* Workout Planner Banner */}
-            <motion.div
-              initial={{ opacity: 0, y: -8 }}
-
-              animate={{ opacity: 1, y: 0 }}
-              className="mb-6 cursor-pointer"
-              onClick={() => navigate(createPageUrl('WorkoutPlanner'))}
-            >
-              <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#0A0A0A] to-[#1a2535] p-5 shadow-md">
-                <div className="absolute right-0 top-0 w-32 h-32 bg-[#FD9C2D]/10 rounded-full -translate-y-8 translate-x-8" />
-                <div className="absolute right-8 bottom-0 w-20 h-20 bg-[#38BDF8]/10 rounded-full translate-y-6" />
-                <div className="relative flex items-center justify-between">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-1">
-                      <ClipboardList className="w-4 h-4 text-[#FD9C2D]" />
-                      <span className="text-[10px] font-bold text-[#FD9C2D] uppercase tracking-widest">Workout Planner</span>
-                    </div>
-                    <h3 className="text-base font-bold text-white mb-1">Build Your Custom Plan</h3>
-                    <p className="text-xs text-white/60 leading-relaxed">Schedule workouts, track progress, and hit your goals with a personalised weekly plan.</p>
-                  </div>
-                  <div className="ml-4 flex-shrink-0 w-12 h-12 rounded-2xl bg-[#FD9C2D]/20 flex items-center justify-center">
-                    <ClipboardList className="w-6 h-6 text-[#FD9C2D]" />
-                  </div>
-                </div>
-                <div className="relative mt-4">
-                  <div className="inline-flex items-center gap-1.5 bg-[#FD9C2D] text-white text-xs font-bold px-4 py-2 rounded-xl">
-                    <Sparkles className="w-3.5 h-3.5" />
-                    Open Planner
+                <p className="text-base font-bold text-white mb-3">{greeting.text}</p>
+                <div className="flex items-start gap-2">
+                  <Star className="w-3.5 h-3.5 text-[#FD9C2D] mt-0.5 flex-shrink-0" />
+                  <div>
+                    <p className="text-xs text-white/75 leading-relaxed italic">"{verse.text}"</p>
+                    <p className="text-[10px] text-[#FD9C2D] font-semibold mt-1">{verse.ref}</p>
                   </div>
                 </div>
               </div>
             </motion.div>
 
-            {/* Today's Recommended Workout */}
-            {recommendedWorkout &&
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="bg-gradient-to-br from-[#FD9C2D] to-[#38BDF8] rounded-xl p-5 text-white shadow-md mb-6">
-
-                <div className="flex items-start justify-between mb-3">
-                  <div>
-                    <h3 className="text-white mb-1 text-lg font-bold">Today's Recommended Workout</h3>
-                    <p className="text-sm text-white/70">Based on your goals and activity</p>
-                  </div>
-                  <Dumbbell className="w-6 h-6" />
+            {/* ── Week at a Glance ── */}
+            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }}>
+              <div className="bg-white rounded-2xl border border-gray-100 shadow-sm px-5 py-4">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-sm font-bold text-[#0A1A2F]">This Week</span>
+                  <Link to={createPageUrl("WorkoutTrends")}
+                    className="text-xs font-semibold text-[#38BDF8] flex items-center gap-0.5">
+                    Trends <ChevronRight className="w-3 h-3" />
+                  </Link>
                 </div>
-                <div className="bg-white/30 backdrop-blur-sm rounded-lg p-3 mb-3">
-                  <p className="text-white font-semibold">{recommendedWorkout.title}</p>
-                  <p className="text-white text-sm">
-                    {recommendedWorkout.duration_minutes} min • {recommendedWorkout.difficulty || 'All Levels'}
-                  </p>
-                </div>
-                <Button
-                className="w-full bg-gradient-to-r from-[#FD9C2D] to-[#E89020] text-white hover:opacity-90 font-bold"
-                onClick={() => {
-                  setSelectedWorkout(recommendedWorkout);
-                  setShowStartWorkout(true);
-                }}>
-
-                  Start Workout
-                </Button>
-              </motion.div>
-            }
-
-            {/* Workout Streaks & Wins */}
-            <div className="mb-6">
-              <h3 className="text-sm font-semibold text-[#0A1A2F] mb-3">Your Stats at a Glance</h3>
-              <div className="grid grid-cols-2 gap-3">
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="bg-white rounded-xl p-4 border border-[#BAE6FD]/40 shadow-sm">
-
-                  <div className="text-2xl font-bold text-[#FD9C2D] mb-1">
-                    {workoutSessions.filter((s) => {
-                      const today = new Date();
-                      const weekAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
-                      return new Date(s.date) >= weekAgo;
-                    }).length}
-                  </div>
-                  <p className="text-xs text-[#0A1A2F]/60">This week</p>
-                </motion.div>
-
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.05 }}
-                  className="bg-white rounded-xl p-4 border border-[#BAE6FD]/40 shadow-sm">
-
-                  <div className="text-2xl font-bold text-[#38BDF8] mb-1">
-                    {totalWorkoutsCompleted}
-                  </div>
-                  <p className="text-xs text-[#0A1A2F]/60">Total completed</p>
-                </motion.div>
-
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 }}
-                  className="bg-white rounded-xl p-4 border border-[#BAE6FD]/40 shadow-sm">
-
-                  <div className="text-2xl font-bold text-[#0EA5E9] mb-1">
-                    {workoutSessions.reduce((sum, s) => sum + (s.duration_minutes || 0), 0)}
-                  </div>
-                  <p className="text-xs text-[#0A1A2F]/60">Total minutes</p>
-                </motion.div>
-
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.15 }}
-                  className="bg-white rounded-xl p-4 border border-[#BAE6FD]/40 shadow-sm">
-
-                  <div className="text-2xl font-bold text-[#0A0A0A] mb-1">
-                    {(() => {
-                      const uniqueDays = [...new Set(workoutSessions.map(s => s.date).filter(Boolean))].sort();
-                      let streak = 0, maxStreak = 0;
-                      for (let i = 0; i < uniqueDays.length; i++) {
-                        if (i === 0) { streak = 1; }
-                        else {
-                          const diff = (new Date(uniqueDays[i]) - new Date(uniqueDays[i - 1])) / 86400000;
-                          streak = diff <= 1 ? streak + 1 : 1;
-                        }
-                        maxStreak = Math.max(maxStreak, streak);
-                      }
-                      return maxStreak;
-                    })()}
-                  </div>
-                  <p className="text-xs text-[#0A1A2F]/60">Day streak</p>
-                </motion.div>
-              </div>
-              <Link to={createPageUrl('WorkoutProgress')} className="flex items-center justify-end gap-1 mt-2 text-xs text-[#0EA5E9] font-semibold hover:text-[#38BDF8] transition-colors">
-                <TrendingUp className="w-3.5 h-3.5" /> View Progress
-              </Link>
-            </div>
-
-            {/* Quick Workouts (5-15 Minutes) */}
-            <div className="mb-6">
-              <h3 className="text-sm font-semibold text-[#0A1A2F] mb-3">Quick Workouts (5–15 Minutes)</h3>
-              <div className="grid grid-cols-2 gap-3">
-                {(() => {
-                  const quickWorkouts = [
-                  {
-                    icon: Dumbbell,
-                    iconColor: 'text-[#FD9C2D]',
-                    bgColor: 'bg-[#FD9C2D]/20',
-                    category: 'cardio',
-                    maxMin: 15,
-                    workout: allWorkouts.find((w) => w.category === 'cardio' && w.duration_minutes <= 15) || allWorkouts[0]
-                  },
-                  {
-                    icon: Target,
-                    iconColor: 'text-[#0EA5E9]',
-                    bgColor: 'bg-[#38BDF8]/10',
-                    category: 'strength',
-                    maxMin: 15,
-                    workout: allWorkouts.find((w) => w.category === 'strength' && w.duration_minutes <= 15) || allWorkouts[1]
-                  },
-                  {
-                    icon: Heart,
-                    iconColor: 'text-[#38BDF8]',
-                    bgColor: 'bg-[#38BDF8]/15',
-                    category: 'flexibility',
-                    maxMin: 15,
-                    workout: allWorkouts.find((w) => w.category === 'flexibility' && w.duration_minutes <= 15) || allWorkouts[2]
-                  },
-                  {
-                    icon: Droplets,
-                    iconColor: 'text-[#0EA5E9]',
-                    bgColor: 'bg-[#38BDF8]/10',
-                    category: 'cardio',
-                    maxMin: 20,
-                    workout: allWorkouts.find((w) => w.category === 'cardio' && w.duration_minutes >= 10 && w.duration_minutes <= 20) || allWorkouts[3]
-                  }];
-
-
-                  return quickWorkouts.map((item, index) => {
-                    const Icon = item.icon;
+                {/* 7-day dot row */}
+                <div className="flex justify-between mb-3">
+                  {weekDays.map(day => {
+                    const done = workedOutDays.has(day.key);
                     return (
-                      <motion.div
-                        key={item.category + index}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: index * 0.05 }}
-                        className="bg-white rounded-xl p-4 border border-[#BAE6FD]/40 shadow-sm hover:shadow-md transition-all cursor-pointer"
-                        onClick={() => {
-                          if (item.workout) {
-                            setSelectedWorkout(item.workout);
-                            setShowStartWorkout(true);
-                          }
-                        }}>
-
-                        <div className="flex flex-col items-center text-center gap-2">
-                          <div className={`w-10 h-10 ${item.bgColor} rounded-full flex items-center justify-center`}>
-                            <Icon className={`w-5 h-5 ${item.iconColor}`} />
-                          </div>
-                          <div>
-                            <h4 className="text-sm font-bold text-[#0A1A2F]">{item.workout?.title || item.category}</h4>
-                            <p className="text-xs text-[#0A1A2F]/60">{item.workout?.duration_minutes || 10} min</p>
-                          </div>
-                        </div>
-                      </motion.div>);
-
-                  });
-                })()}
-              </div>
-            </div>
-
-            {/* Workout Challenges */}
-            <div className="mb-6">
-              <h3 className="text-sm font-semibold text-[#0A1A2F] mb-3">Workout Challenges</h3>
-              <div className="grid grid-cols-2 gap-3">
-                {challenges.slice(0, 4).map((challenge, index) => {
-                  const userParticipation = challengeParticipants.find((p) => p.challenge_id === challenge.id);
-                  const isParticipating = !!userParticipation;
-                  const progress = userParticipation?.progress || 0;
-
-                  const iconColors = [
-                  { bg: 'bg-[#FD9C2D]/20', icon: 'text-[#FD9C2D]', Icon: Trophy },
-                  { bg: 'bg-[#38BDF8]/15', icon: 'text-[#0EA5E9]', Icon: Dumbbell },
-                  { bg: 'bg-[#0A0A0A]/10', icon: 'text-[#0A0A0A]', Icon: Heart },
-                  { bg: 'bg-[#FD9C2D]/20', icon: 'text-[#FD9C2D]', Icon: Target }];
-
-                  const colorSet = iconColors[index % iconColors.length];
-                  const Icon = colorSet.Icon;
-
-                  return (
-                    <motion.div
-                      key={challenge.id}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: index * 0.05 }}
-                      className="bg-white rounded-xl p-3 border border-[#BAE6FD]/40 shadow-sm hover:shadow-md transition-all cursor-pointer"
-                      onClick={() => navigate(createPageUrl(`ChallengeDetailPage?id=${challenge.id}`))}>
-
-                      <div className="flex flex-col items-center text-center gap-2">
-                        <div className={`w-10 h-10 ${colorSet.bg} rounded-full flex items-center justify-center shrink-0`}>
-                          <Icon className={`w-5 h-5 ${colorSet.icon}`} />
-                        </div>
-                        <div className="w-full">
-                          <h4 className="font-bold text-[#0A1A2F] text-xs mb-1 line-clamp-2">{challenge.title}</h4>
-                          <p className="text-[10px] text-[#0A1A2F]/60 mb-2">{challenge.duration_days} Days</p>
-                          {isParticipating ?
-                          <div className="w-full">
-                              <div className="h-1.5 bg-[#BAE6FD]/30 rounded-full overflow-hidden">
-                                <div className="h-full bg-gradient-to-r from-[#38BDF8] to-[#0EA5E9] rounded-full transition-all" style={{ width: `${progress}%` }} />
-                              </div>
-                              <p className="text-[10px] text-[#0A1A2F]/60 mt-1">{progress}%</p>
-                            </div> :
-
-                          <div className="text-[10px] text-[#0EA5E9] font-semibold">
-                              Join Now
-                            </div>
+                      <div key={day.key} className="flex flex-col items-center gap-1.5">
+                        <span className="text-[10px] font-bold text-[#0A1A2F]/40">{day.label}</span>
+                        <div
+                          className="w-7 h-7 rounded-full flex items-center justify-center border-2 transition-all"
+                          style={{
+                            background: done ? "#38BDF8" : day.isToday ? "#EFF9FF" : "transparent",
+                            borderColor: done ? "#38BDF8" : day.isToday ? "#38BDF8" : "#E5E7EB",
+                          }}
+                        >
+                          {done
+                            ? <CheckCircle2 className="w-3.5 h-3.5 text-white" />
+                            : day.isToday
+                              ? <div className="w-1.5 h-1.5 rounded-full bg-[#38BDF8]" />
+                              : day.isFuture
+                                ? null
+                                : <div className="w-1.5 h-1.5 rounded-full bg-gray-200" />
                           }
                         </div>
                       </div>
-                    </motion.div>);
-
-                })}
-              </div>
-            </div>
-
-            {/* Workout Library */}
-            <div className="mb-6">
-              <h3 className="text-sm font-semibold text-[#0A1A2F] mb-3">Workout Library</h3>
-              <div className="grid grid-cols-2 gap-3">
-                {[
-                { name: 'Cardio', icon: '❤️', color: 'from-[#FD9C2D] to-[#E89020]', description: 'Get your heart pumping' },
-                { name: 'Strength', icon: '💪', color: 'from-[#0A0A0A] to-[#1a2535]', description: 'Build muscle & power' },
-                { name: 'HIIT', icon: '⚡', color: 'from-[#FD9C2D] to-[#38BDF8]', description: 'High intensity intervals' },
-                { name: 'Home', icon: '🏠', color: 'from-[#38BDF8] to-[#0EA5E9]', description: 'No equipment needed' }].
-                map((category, index) =>
-                <motion.div
-                  key={category.name}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.05 }}
-                  className={`bg-gradient-to-br ${category.color} rounded-xl p-4 shadow-sm cursor-pointer hover:shadow-md transition-all`}
-                  onClick={() => {
-                    navigate(`/WorkoutCategoryPage?category=${category.name}`);
-                  }}>
-
-                    <div className="text-3xl mb-2">{category.icon}</div>
-                    <h4 className="font-bold text-white text-sm mb-1">{category.name}</h4>
-                    <p className="text-white/90 text-xs">{category.description}</p>
-                  </motion.div>
-                )}
-              </div>
-            </div>
-
-            {/* New Workouts to Try */}
-            <div className="mb-6">
-              <h3 className="text-sm font-semibold text-[#0A1A2F] mb-3">New Workouts to Try</h3>
-              <div className="space-y-3">
-                {PREMADE_WORKOUTS.slice(0, 3).map((workout, index) =>
-                <WorkoutCard
-                  key={workout.id}
-                  workout={workout}
-                  onComplete={() => {}}
-                  index={index}
-                  isPremade
-                  user={user} />
-
-                )}
-              </div>
-            </div>
-
-            {/* My Workouts */}
-            {myWorkouts.length > 0 &&
-            <div className="mb-6">
-                <h3 className="text-sm font-semibold text-[#0A1A2F] mb-3">Your Custom Workouts</h3>
-                <div className="space-y-3">
-                  {myWorkouts.map((workout, index) =>
-                <WorkoutCard
-                  key={workout.id}
-                  workout={workout}
-                  onComplete={() => completeWorkout.mutate({ id: workout.id, workout })}
-                  index={index}
-                  user={user} />
-
-                )}
+                    );
+                  })}
+                </div>
+                {/* Stat row */}
+                <div className="flex items-center gap-4 pt-3 border-t border-gray-50">
+                  <div className="flex-1 text-center">
+                    <p className="text-lg font-black text-[#38BDF8]">{weekSessions.length}</p>
+                    <p className="text-[10px] text-[#0A1A2F]/45">sessions</p>
+                  </div>
+                  <div className="w-px h-8 bg-gray-100" />
+                  <div className="flex-1 text-center">
+                    <p className="text-lg font-black text-[#FD9C2D]">{thisWeekMins}</p>
+                    <p className="text-[10px] text-[#0A1A2F]/45">minutes</p>
+                  </div>
+                  <div className="w-px h-8 bg-gray-100" />
+                  <div className="flex-1 text-center">
+                    <p className="text-lg font-black text-[#0A1A2F]">{totalMins}</p>
+                    <p className="text-[10px] text-[#0A1A2F]/45">total mins</p>
+                  </div>
+                  <div className="w-px h-8 bg-gray-100" />
+                  <div className="flex-1 text-center">
+                    <p className="text-lg font-black text-orange-500">{streak}</p>
+                    <p className="text-[10px] text-[#0A1A2F]/45">day streak</p>
+                  </div>
                 </div>
               </div>
-            }
+            </motion.div>
 
-            {/* Community Feed */}
-            <div className="mb-6">
-              <h3 className="text-sm font-semibold text-[#0A1A2F] mb-3">Community Workouts</h3>
-              <ReeVibeFitness user={user} />
-            </div>
+            {/* ── Today's Workout ── */}
+            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }}>
+              <SectionLabel action="Progress" actionTo="WorkoutProgress">
+                {workedOutToday ? "✅ Today's Workout — Done!" : "Today's Workout"}
+              </SectionLabel>
+              {recommendedWorkout ? (
+                <motion.div
+                  whileTap={{ scale: 0.98 }}
+                  className="rounded-2xl overflow-hidden shadow-md mb-3"
+                  style={{ background: "linear-gradient(135deg,#FD9C2D,#38BDF8)" }}
+                >
+                  <div className="p-5">
+                    <div className="flex items-start justify-between mb-3">
+                      <div>
+                        <span className="text-[10px] font-bold text-white/65 uppercase tracking-widest">
+                          {workedOutToday ? "Keep Going" : "Recommended"}
+                        </span>
+                        <h3 className="text-lg font-black text-white leading-tight mt-0.5">
+                          {recommendedWorkout.title}
+                        </h3>
+                        <p className="text-sm text-white/80 mt-0.5">
+                          {recommendedWorkout.duration_minutes} min · {recommendedWorkout.difficulty || "All levels"}
+                        </p>
+                      </div>
+                      <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                        <Dumbbell className="w-6 h-6 text-white" />
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => startWorkout(recommendedWorkout)}
+                      className="w-full flex items-center justify-center gap-2 bg-white/20 hover:bg-white/30 text-white font-bold py-3 rounded-xl transition-all text-sm"
+                    >
+                      <Play className="w-4 h-4" />
+                      {workedOutToday ? "Do Another" : "Start Workout"}
+                    </button>
+                  </div>
+                </motion.div>
+              ) : null}
+              <Link to={createPageUrl("WorkoutCategoryPage")}>
+                <div className="flex items-center justify-between px-4 py-3.5 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all">
+                  <div className="flex items-center gap-3">
+                    <div className="w-9 h-9 bg-gradient-to-br from-slate-700 to-slate-500 rounded-xl flex items-center justify-center">
+                      <Dumbbell className="w-4 h-4 text-white" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-bold text-[#0A1A2F]">Browse All Workouts</p>
+                      <p className="text-xs text-[#0A1A2F]/50">Cardio, strength, HIIT, home & more</p>
+                    </div>
+                  </div>
+                  <ChevronRight className="w-4 h-4 text-[#0A1A2F]/30" />
+                </div>
+              </Link>
+            </motion.div>
+
+            {/* ── Active Challenge ── */}
+            {activeChallenge && (
+              <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.12 }}>
+                <SectionLabel action="All challenges" actionTo="DailyWeeklyChallenges">
+                  Active Challenge
+                </SectionLabel>
+                <button
+                  onClick={() => navigate(createPageUrl(`ChallengeDetailPage?id=${activeChallenge.id}`))}
+                  className="w-full text-left bg-white rounded-2xl border border-gray-100 shadow-sm px-4 py-4 hover:shadow-md transition-all"
+                >
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-10 h-10 bg-gradient-to-br from-[#FD9C2D] to-[#E89020] rounded-xl flex items-center justify-center">
+                      <Trophy className="w-5 h-5 text-white" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-bold text-[#0A1A2F] truncate">{activeChallenge.title}</p>
+                      <p className="text-xs text-[#0A1A2F]/50">{activeChallenge.duration_days} day challenge</p>
+                    </div>
+                    <span className="text-sm font-black text-[#FD9C2D]">{activeChallenge.progress}%</span>
+                  </div>
+                  <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+                    <motion.div
+                      className="h-full rounded-full bg-gradient-to-r from-[#FD9C2D] to-[#E89020]"
+                      initial={{ width: 0 }}
+                      animate={{ width: `${activeChallenge.progress}%` }}
+                      transition={{ duration: 0.8, ease: "easeOut" }}
+                    />
+                  </div>
+                </button>
+              </motion.div>
+            )}
+
+            {/* ── Quick Start Workouts ── */}
+            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}>
+              <SectionLabel action="View all" actionTo="WorkoutCategoryPage">Quick Start</SectionLabel>
+              {PREMADE_WORKOUTS.slice(0, 4).map((workout, i) => {
+                const done = workout.completed_dates?.includes(today);
+                return (
+                  <motion.div
+                    key={workout.id}
+                    initial={{ opacity: 0, x: -8 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.17 + i * 0.04 }}
+                  >
+                    <WorkoutPill workout={workout} onStart={startWorkout} done={done} />
+                  </motion.div>
+                );
+              })}
+            </motion.div>
+
+            {/* ── Browse Categories ── */}
+            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.28 }}>
+              <SectionLabel>Browse by Category</SectionLabel>
+              <div className="grid grid-cols-3 gap-2.5">
+                {CATEGORIES.map((cat, i) => (
+                  <motion.div
+                    key={cat.key}
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.30 + i * 0.04 }}
+                  >
+                    <button
+                      onClick={() => navigate(`/WorkoutCategoryPage?category=${cat.label}`)}
+                      className={`w-full bg-gradient-to-br ${cat.grad} rounded-2xl p-3.5 shadow-sm hover:shadow-md transition-all text-left`}
+                    >
+                      <span className="text-2xl block mb-1.5">{cat.emoji}</span>
+                      <p className="text-xs font-bold text-white leading-tight">{cat.label}</p>
+                      <p className="text-[10px] text-white/70 mt-0.5 leading-tight">{cat.desc}</p>
+                    </button>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* ── Challenges ── */}
+            {challenges.length > 0 && (
+              <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.38 }}>
+                <SectionLabel action="See all" actionTo="DailyWeeklyChallenges">Challenges</SectionLabel>
+                <div className="grid grid-cols-2 gap-3">
+                  {challenges.slice(0, 4).map((challenge, i) => {
+                    const joined = challengeParticipants.find(p => p.challenge_id === challenge.id);
+                    const prog = joined?.progress || 0;
+                    return (
+                      <motion.div
+                        key={challenge.id}
+                        initial={{ opacity: 0, y: 12 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.40 + i * 0.04 }}
+                        onClick={() => navigate(createPageUrl(`ChallengeDetailPage?id=${challenge.id}`))}
+                        className="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm hover:shadow-md transition-all cursor-pointer"
+                      >
+                        <div className="w-9 h-9 bg-gradient-to-br from-[#FD9C2D] to-[#E89020] rounded-xl flex items-center justify-center mb-2.5">
+                          <Trophy className="w-4.5 h-4.5 text-white w-[18px] h-[18px]" />
+                        </div>
+                        <p className="text-xs font-bold text-[#0A1A2F] leading-tight mb-1 line-clamp-2">{challenge.title}</p>
+                        <p className="text-[10px] text-[#0A1A2F]/45 mb-2">{challenge.duration_days}d</p>
+                        {joined ? (
+                          <>
+                            <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                              <div className="h-full bg-gradient-to-r from-[#38BDF8] to-[#0EA5E9] rounded-full"
+                                style={{ width: `${prog}%` }} />
+                            </div>
+                            <p className="text-[10px] text-[#0A1A2F]/40 mt-1">{prog}%</p>
+                          </>
+                        ) : (
+                          <p className="text-[10px] font-bold text-[#38BDF8]">Join →</p>
+                        )}
+                      </motion.div>
+                    );
+                  })}
+                </div>
+              </motion.div>
+            )}
+
+            {/* ── Workout Planner CTA ── */}
+            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.44 }}>
+              <button
+                onClick={() => navigate(createPageUrl("WorkoutPlanner"))}
+                className="w-full rounded-2xl p-5 flex items-center gap-4 shadow-sm hover:shadow-md transition-all"
+                style={{ background: "linear-gradient(135deg,#0A1828,#1a2535)" }}
+              >
+                <div className="w-12 h-12 bg-[#FD9C2D]/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <ClipboardList className="w-6 h-6 text-[#FD9C2D]" />
+                </div>
+                <div className="flex-1 text-left">
+                  <p className="text-[10px] font-bold text-[#FD9C2D] uppercase tracking-widest mb-0.5">Workout Planner</p>
+                  <p className="text-base font-bold text-white">Build Your Custom Plan</p>
+                  <p className="text-xs text-white/55 mt-0.5">Schedule sessions, track progress, hit goals</p>
+                </div>
+                <ArrowRight className="w-5 h-5 text-white/50 flex-shrink-0" />
+              </button>
+            </motion.div>
+
+            {/* ── My Custom Workouts ── */}
+            {myWorkouts.length > 0 && (
+              <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.48 }}>
+                <SectionLabel>My Workouts</SectionLabel>
+                {myWorkouts.slice(0, 3).map((workout, i) => (
+                  <WorkoutPill key={workout.id} workout={workout} done={workout.completed_dates?.includes(today)}
+                    onStart={startWorkout} />
+                ))}
+              </motion.div>
+            )}
+
+            {/* ── Coach David nudge ── */}
+            <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.52 }}>
+              <button
+                onClick={() => navigate(createPageUrl("ChatScreen?bot=CoachDavid"))}
+                className="w-full flex items-center justify-between px-5 py-4 bg-white rounded-2xl border border-[#38BDF8]/25 shadow-sm hover:border-[#38BDF8]/55 hover:shadow-md transition-all"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full flex items-center justify-center text-white text-sm font-bold flex-shrink-0"
+                    style={{ background: "linear-gradient(135deg,#1e40af,#38BDF8)" }}>D</div>
+                  <div className="text-left">
+                    <p className="text-sm font-bold text-[#0A1A2F]">Need a push?</p>
+                    <p className="text-xs text-[#0A1A2F]/50">Coach David is here to motivate and guide you</p>
+                  </div>
+                </div>
+                <MessageCircle className="w-4 h-4 text-[#0A1A2F]/30 flex-shrink-0" />
+              </button>
+            </motion.div>
+
           </div>
         </PullToRefresh>
       </div>
 
-      {/* Modals */}
-      {selectedWorkout &&
-      <StartWorkoutModal
-        isOpen={showStartWorkout}
-        onClose={() => {
-          setShowStartWorkout(false);
-          setSelectedWorkout(null);
-        }}
-        workout={selectedWorkout}
-        user={user} />
-
-      }
-
-      {/* Coach David */}
-      <ChatButton bot="CoachDavid" />
-
-    </div>);
-
+      {/* Modal */}
+      {selectedWorkout && (
+        <StartWorkoutModal
+          isOpen={showStartWorkout}
+          onClose={() => { setShowStartWorkout(false); setSelectedWorkout(null); }}
+          workout={selectedWorkout}
+          user={user}
+        />
+      )}
+    </div>
+  );
 }
