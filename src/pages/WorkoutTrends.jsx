@@ -10,7 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, AreaChart, Area } from 'recharts';
 import { format, subDays, startOfWeek, endOfWeek, eachDayOfInterval, isSameDay } from 'date-fns';
-import CoachDavid from '@/components/wellness/CoachDavid';
+import ChatButton from '@/components/chatbot/ChatButton';
 
 export default function WorkoutTrends() {
   const [user, setUser] = useState(null);
@@ -572,11 +572,7 @@ export default function WorkoutTrends() {
       </div>
 
       {/* Coach David Chatbot */}
-      <CoachDavid 
-        user={user} 
-        userWorkouts={[]}
-        workoutSessions={workoutSessions}
-      />
+      <ChatButton bot="CoachDavid" />
     </div>
   );
 }

@@ -13,7 +13,7 @@ import PullToRefresh from '@/components/ui/PullToRefresh';
 import { PREMADE_WORKOUTS } from '@/components/wellness/WorkoutLibrary';
 import { awardPoints, checkAndAwardBadges } from '@/components/gamification/ProgressManager';
 import ReeVibeFitness from '@/components/wellness/ReeVibeFitness';
-import CoachDavid from '@/components/wellness/CoachDavid';
+import ChatButton from '@/components/chatbot/ChatButton';
 import WeeklyThemeBanner from '@/components/wellness/WeeklyThemeBanner';
 
 export default function Workouts() {
@@ -564,10 +564,7 @@ export default function Workouts() {
       }
 
       {/* Coach David */}
-      <CoachDavid
-        user={user}
-        userWorkouts={myWorkouts}
-        workoutSessions={workoutSessions} />
+      <ChatButton bot="CoachDavid" />
 
     </div>);
 

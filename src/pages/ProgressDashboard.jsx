@@ -10,10 +10,7 @@ import {
   Flame, Crown, Calendar
 } from 'lucide-react';
 import { format } from 'date-fns';
-import Hannah from '@/components/mindspirit/Hannah';
-import CoachDavid from '@/components/wellness/CoachDavid';
-import ChefDaniel from '@/components/wellness/ChefDaniel';
-import GideonChatbot from '@/components/bible/GideonChatbot';
+
 import HolisticProgressReport from '@/components/journey/HolisticProgressReport';
 import HannahBookmarksSection from '@/components/journey/HannahBookmarksSection';
 import CoachingSection from '@/components/journey/CoachingSection';
@@ -171,7 +168,9 @@ function StartHereCard() {
 
 // ─── Main ──────────────────────────────────────────────────────────────────────
 export default function ProgressDashboard() {
-  const [activeChat, setActiveChat] = useState(null);
+  const navigate = useNavigate();
+
+  const openBot = (key) => navigate(createPageUrl(`ChatScreen?bot=${key}`));
 
   // ── 3 queries (chatbot context is now lazy — fetched only when that chatbot opens) ──
   const { data: user } = useQuery({
@@ -199,28 +198,6 @@ export default function ProgressDashboard() {
     },
     enabled: !!user?.email,
     initialData: [],
-  });
-
-  // ── Chatbot context — lazy: only fetch when that chatbot is actually opened ──
-  const { data: workoutSessionsForChat = [] } = useQuery({
-    queryKey: ['workoutSessionsChat', user?.email],
-    queryFn: async () => base44.entities.WorkoutSession.filter({ created_by: user.email }, '-created_date', 20),
-    enabled: !!user?.email && activeChat === 'CoachDavid',
-  });
-  const { data: userWorkoutsForChat = [] } = useQuery({
-    queryKey: ['userWorkoutsChat', user?.email],
-    queryFn: async () => base44.entities.Workout.filter({ created_by: user.email }, '-created_date', 20),
-    enabled: !!user?.email && activeChat === 'CoachDavid',
-  });
-  const { data: mealLogsForChat = [] } = useQuery({
-    queryKey: ['mealLogsChat', user?.email],
-    queryFn: async () => base44.entities.MealLog.filter({ created_by: user.email }, '-created_date', 20),
-    enabled: !!user?.email && activeChat === 'ChefDaniel',
-  });
-  const { data: userRecipesForChat = [] } = useQuery({
-    queryKey: ['userRecipesChat', user?.email],
-    queryFn: async () => base44.entities.Recipe.filter({ created_by: user.email }, '-created_date', 20),
-    enabled: !!user?.email && activeChat === 'ChefDaniel',
   });
 
   const hasActivity = allMemories.length > 0 || userProgress?.workouts_completed || userProgress?.prayers_logged;
@@ -264,7 +241,7 @@ export default function ProgressDashboard() {
         {allMemories.length > 0 && <HolisticProgressReport user={user} />}
 
         {/* 6. Chat with Guides */}
-        <GuidesGrid onOpen={setActiveChat} />
+        <GuidesGrid onOpen={openBot} />
 
         {/* 7. Recent milestones */}
         <RecentMilestones memories={allMemories} />
@@ -273,12 +250,6 @@ export default function ProgressDashboard() {
         {user?.email && <HannahBookmarksSection userEmail={user.email} />}
 
       </div>
-
-      {/* ── Chatbot modals — rendered only when activeChat is set ── */}
-      {activeChat === 'Hannah'     && user && <Hannah     user={user} autoOpen onClose={() => setActiveChat(null)} />}
-      {activeChat === 'CoachDavid' && user && <CoachDavid user={user} userWorkouts={userWorkoutsForChat} workoutSessions={workoutSessionsForChat} autoOpen onClose={() => setActiveChat(null)} />}
-      {activeChat === 'ChefDaniel' && user && <ChefDaniel user={user} userRecipes={userRecipesForChat} mealLogs={mealLogsForChat} autoOpen onClose={() => setActiveChat(null)} />}
-      {activeChat === 'Gideon'     && user && <GideonChatbot user={user} autoOpen onClose={() => setActiveChat(null)} />}
     </div>
   );
 }

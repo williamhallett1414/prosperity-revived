@@ -12,7 +12,7 @@ import CreateRecipeModal   from '@/components/wellness/CreateRecipeModal';
 import PersonalizedRecipes from '@/components/recommendations/PersonalizedRecipes';
 import RecipeCollections   from '@/components/wellness/RecipeCollections';
 import GroceryListDrawer   from '@/components/wellness/GroceryListDrawer';
-import ChefDaniel          from '@/components/wellness/ChefDaniel';
+import ChatButton from '@/components/chatbot/ChatButton';
 import HealthRecipesTab    from '@/components/wellness/HealthRecipesTab';
 import { RECIPE_CONDITION_MAP } from '@/components/wellness/HealthRecipeSeed';
 import { useGroceryList }  from '@/hooks/useGroceryList';
@@ -91,7 +91,7 @@ export default function DiscoverRecipes() {
   const { data: mealLogs = [] } = useQuery({
     queryKey: ['mealLogs'],
     queryFn:  () => base44.entities.MealLog.list('-date', 100),
-    enabled:  !!user && chefOpen,
+    enabled:  !!user,
   });
 
   const myRecipes        = recipes.filter(r => r.created_by === user?.email);
@@ -347,10 +347,7 @@ export default function DiscoverRecipes() {
       <CreateRecipeModal isOpen={showCreate} onClose={() => setShowCreate(false)} />
       <GroceryListDrawer isOpen={cartOpen}   onClose={() => setCartOpen(false)} />
 
-      <ChefDaniel
-        user={user} userRecipes={myRecipes} mealLogs={mealLogs}
-        onOpen={() => setChefOpen(true)} onClose={() => setChefOpen(false)}
-      />
+      <ChatButton bot="ChefDaniel" />
     </div>
   );
 }

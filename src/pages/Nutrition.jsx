@@ -11,7 +11,7 @@ import DetailedFoodLogModal from '@/components/wellness/DetailedFoodLogModal';
 import MealPlannerCard from '@/components/nutrition/MealPlannerCard';
 import IngredientRecipeBuilder from '@/components/nutrition/IngredientRecipeBuilder';
 import TrendingNutritionArticles from '@/components/nutrition/TrendingNutritionArticles';
-import ChefDaniel from '@/components/wellness/ChefDaniel';
+import ChatButton from '@/components/chatbot/ChatButton';
 
 // ─── Quick-log suggestions ────────────────────────────────────────────────────
 const QUICK_MEALS = [
@@ -360,8 +360,7 @@ export default function Nutrition() {
         }}
       />
 
-      <ChefDaniel user={user} userRecipes={[]} mealLogs={meals.slice(0, 20)}
-        onOpen={() => setChefOpen(true)} onClose={() => setChefOpen(false)} />
+      <ChatButton bot="ChefDaniel" />
     </div>
   );
 }

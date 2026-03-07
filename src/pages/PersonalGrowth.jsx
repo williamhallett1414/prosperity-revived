@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { BookOpen, Brain, Heart, Sparkles, Target, CheckCircle2, Crown, Calendar, Wind, Star, ArrowRight, Flower2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import Hannah from '@/components/mindspirit/Hannah';
+import ChatButton from '@/components/chatbot/ChatButton';
 
 // Get a time-of-day recommendation
 const getFeatured = () => {
@@ -144,7 +144,7 @@ export default function PersonalGrowth() {
         </div>
       </div>
 
-      <Hannah user={user} />
+      <ChatButton bot="Hannah" />
     </div>
   );
 }

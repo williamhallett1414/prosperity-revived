@@ -11,7 +11,7 @@ import WorkoutStreakCard from '@/components/wellness/WorkoutStreakCard';
 import WeightProgressChart from '@/components/wellness/WeightProgressChart';
 import GoalCompletionChart from '@/components/wellness/GoalCompletionChart';
 import ProgressPhotoGallery from '@/components/wellness/ProgressPhotoGallery';
-import CoachDavid from '@/components/wellness/CoachDavid';
+import ChatButton from '@/components/chatbot/ChatButton';
 import UniversalHeader from '@/components/navigation/UniversalHeader';
 
 export default function WorkoutProgress() {
@@ -147,11 +147,7 @@ export default function WorkoutProgress() {
       </div>
 
       {/* Coach David Chatbot */}
-      <CoachDavid 
-        user={user} 
-        userWorkouts={workouts}
-        workoutSessions={sessions}
-      />
+      <ChatButton bot="CoachDavid" />
     </div>
   );
 }
