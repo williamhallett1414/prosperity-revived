@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
-import { ArrowLeft, TrendingUp, Dumbbell, Calendar, Target, Award, Flame, BarChart3 } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { TrendingUp, Dumbbell, Calendar, Target, Award, Flame, BarChart3 } from 'lucide-react';
+
 import { createPageUrl } from '@/utils';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -11,6 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, AreaChart, Area } from 'recharts';
 import { format, subDays, startOfWeek, endOfWeek, eachDayOfInterval, isSameDay } from 'date-fns';
 import ChatButton from '@/components/chatbot/ChatButton';
+import UniversalHeader from '@/components/navigation/UniversalHeader';
 
 export default function WorkoutTrends() {
   const [user, setUser] = useState(null);
@@ -155,32 +156,9 @@ export default function WorkoutTrends() {
 
   return (
     <div className="min-h-screen bg-[#F2F6FA] pb-24">
-      {/* Sticky Header */}
-      <div className="sticky top-0 z-40 bg-white border-b border-[#E6EBEF] px-4 py-3">
-        <div className="max-w-2xl mx-auto flex items-center gap-3">
-          <Link
-            to={createPageUrl('Wellness')}
-            className="w-9 h-9 rounded-full bg-[#E6EBEF] hover:bg-[#D9DFE4] flex items-center justify-center transition-colors"
-          >
-            <ArrowLeft className="w-4 h-4 text-[#0A1A2F]" />
-          </Link>
-          <div>
-            <h1 className="text-lg font-bold text-[#0A1A2F]">Workout Trends</h1>
-            <p className="text-xs text-[#0A1A2F]/60">Your progress over time</p>
-          </div>
-        </div>
-      </div>
+      <UniversalHeader title="Workout Trends" backTo="Workouts" />
 
-      {/* Banner Image */}
-      <div className="relative">
-        <img
-          src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6980ade9ca08df558ed28bdd/71b837d3d_ReeVibeLogonew.jpg"
-          alt="ReeVibe Fitness"
-          className="w-full h-40 object-cover"
-        />
-      </div>
-
-      <div className="px-4 py-6 space-y-6 bg-[#F2F6FA]">
+      <div className="px-4 pt-20 py-6 space-y-6 bg-[#F2F6FA]">
         {/* Time Range Selector */}
         <div className="flex justify-end">
           <Select value={timeRange.toString()} onValueChange={(val) => setTimeRange(parseInt(val))}>
