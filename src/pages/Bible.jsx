@@ -14,7 +14,7 @@ import BibleStatsModal from '@/components/bible/BibleStatsModal';
 import DevotionalContent from '@/components/bible/DevotionalContent';
 import BibleStudyGuide from '@/components/bible/BibleStudyGuide';
 import MoodTracker from '@/components/bible/MoodTracker';
-import GideonAskAnything from '@/components/bible/GideonAskAnything';
+import ChatButton from '@/components/chatbot/ChatButton';
 import UnifiedBibleReader from '@/components/bible/UnifiedBibleReader';
 import BibleSearchBar from '@/components/bible/BibleSearchBar';
 import ReadingPlanCard from '@/components/home/ReadingPlanCard';
@@ -353,7 +353,7 @@ export default function Bible() {
         progress={planProgress}
         bookmarks={bookmarks}
       />
-      <GideonAskAnything />
+      <ChatButton bot="Gideon" />
     </div>
   );
 }

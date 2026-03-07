@@ -14,7 +14,7 @@ import { base44 } from '@/api/base44Client';
 import { toast } from 'sonner';
 import StartWorkoutModal from '@/components/wellness/StartWorkoutModal';
 import MealLoggingSection from '@/components/coaching/MealLoggingSection';
-import CoachPaul from '@/components/coaching/CoachPaul';
+import ChatButton from '@/components/chatbot/ChatButton';
 import GuidedMeditationPlayer from '@/components/mindspirit/GuidedMeditationPlayer';
 import { useQuery } from '@tanstack/react-query';
 import { MoreVertical } from 'lucide-react';
@@ -281,17 +281,8 @@ export default function CoachingPlanDetail() {
   return (
     <div className="min-h-screen bg-[#F5F8F0] pb-28">
 
-      {/* Coach Paul Chatbot */}
-       {user && (
-         <CoachPaul
-           planId={planId}
-           dayNumber={currentDay}
-           planTitle={plan.title}
-           dayData={dayData}
-           user={user}
-           taskState={taskState}
-         />
-       )}
+      {/* Coach Paul */}
+      {user && <ChatButton bot="CoachPaul" />}
 
        {/* Workout Modal */}
         {showWorkoutModal && workoutForModal && user && (
