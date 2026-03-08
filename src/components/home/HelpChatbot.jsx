@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   HelpCircle, X, Send, Loader2, Map, BookOpen, Play,
-  ChevronRight, Sparkles, Navigation, Lightbulb, ExternalLink, Target, Salad
+  ChevronRight, Sparkles, Navigation, Lightbulb, ExternalLink, Target, Salad, Brain
 } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 import { createPageUrl } from '@/utils';
@@ -363,6 +363,47 @@ export const MINI_TOURS = {
   ],
 
 
+  growth_goals: [
+    {
+      id: 'gg_entry', targetId: 'tour-growth-goals-entry', navigateTo: 'PersonalGrowth',
+      title: 'Growth Profile 🧠',
+      body: 'At the top of the Personal Growth page is your Growth Profile card. Tap it to see your full personalised growth dashboard.',
+      tapToAdvance: true, tapLabel: 'Open Growth Goals',
+    },
+    {
+      id: 'gg_areas', targetId: 'tour-growth-areas', navigateTo: 'PersonalGrowthGoalsPage',
+      title: 'Your Growth Areas 💪',
+      body: 'The up-to-3 areas you picked in onboarding — like Confidence, Habits, or Emotional Intelligence. Tap each card to expand it and see which daily tools are mapped to it.',
+      tapToAdvance: false,
+    },
+    {
+      id: 'gg_values', targetId: 'tour-core-values', navigateTo: null,
+      title: 'Core Values ⭐',
+      body: 'Your up-to-5 core values shape the affirmations Hannah gives you and the lens she uses in coaching. A personalised affirmation rooted in your top value is shown here.',
+      tapToAdvance: false,
+    },
+    {
+      id: 'gg_coaching', targetId: 'tour-coaching-style', navigateTo: null,
+      title: "Hannah's Coaching Style 🌸",
+      body: 'Your preferred style — Gentle, Direct, Exploratory, or Structured — tells Hannah exactly how to communicate. She adapts every response to match it.',
+      tip: 'You can ask Hannah to switch styles at any time in chat',
+      tapToAdvance: false,
+    },
+    {
+      id: 'gg_tools', targetId: 'tour-growth-tools', navigateTo: null,
+      title: 'Recommended Tools ⚡',
+      body: 'Daily tools like Habit Builder, Emotional Check-in, and Gratitude Journal are matched to your growth areas. Each links directly into the tool.',
+      tapToAdvance: false,
+    },
+    {
+      id: 'gg_hannah', targetId: 'tour-hannah-goals-cta', navigateTo: null,
+      title: 'Talk to Hannah 💬',
+      body: 'Hannah knows your growth areas, core values, 90-day goal, and coaching style. Every session is built around you.',
+      tapToAdvance: true, tapLabel: 'Open Hannah',
+    },
+  ],
+
+
 };
 
 // ── Intent → tour key map (used to interpret LLM response) ───────────────────
@@ -386,7 +427,8 @@ const PAGE_SHORTCUTS = {
   plans:      { label: 'Browse Coaching Plans',page: 'CoachingPlans',    color: '#38BDF8' },
   fitness:    { label: 'Open Fitness Goals',   page: 'FitnessGoalsPage',    color: '#38BDF8' },
   nutrition_goals: { label: 'Open Nutrition Goals', page: 'NutritionGoalsPage', color: '#22C55E' },
-  bible_goals:     { label: 'Open Bible Study Goals', page: 'BibleGoalsPage',     color: '#C9A227' },
+  bible_goals:     { label: 'Open Bible Study Goals',  page: 'BibleGoalsPage',            color: '#C9A227' },
+  growth_goals:    { label: 'Open Growth Goals',        page: 'PersonalGrowthGoalsPage',   color: '#AFC7E3' },
   gideon:     { label: 'Chat with Gideon',     page: 'ChatScreen?bot=Gideon',     color: '#C9A227' },
   hannah:     { label: 'Chat with Hannah',     page: 'ChatScreen?bot=Hannah',     color: '#AFC7E3' },
   david:      { label: 'Chat with Coach David',page: 'ChatScreen?bot=CoachDavid', color: '#38BDF8' },
@@ -404,6 +446,7 @@ const QUICK_ACTIONS = [
   { icon: Target,   label: 'Show my fitness goals',      sub: 'BMI · calories · macros · timeline',  color: '#38BDF8', tourKey: 'fitness_goals' },
   { icon: Salad,    label: 'Walk me through nutrition goals', sub: 'Diet · macros · meal schedule',        color: '#22C55E', tourKey: 'nutrition_goals' },
   { icon: BookOpen, label: 'Show my Bible study profile',      sub: 'Translation · topics · reading plans',  color: '#C9A227', tourKey: 'bible_goals' },
+  { icon: Brain,    label: 'Show my growth profile',           sub: 'Areas · values · coaching style',       color: '#AFC7E3', tourKey: 'growth_goals' },
 ];
 
 // ── System prompt for LLM ─────────────────────────────────────────────────────
@@ -420,7 +463,7 @@ App features:
 - Profile: progress dashboard (Journey), achievements/badges, journal entries, settings
 - 4 AI coaches: Hannah (personal growth/emotions), Gideon (spiritual/Bible), Coach David (fitness), Chef Daniel (nutrition)
 
-Available tour keys: daily_ritual, workouts, nutrition, bible, growth, community, profile, ai_coaches, coaching, habits, prayer, fitness_goals, nutrition_goals, bible_goals
+Available tour keys: daily_ritual, workouts, nutrition, bible, growth, community, profile, ai_coaches, coaching, habits, prayer, fitness_goals, nutrition_goals, bible_goals, growth_goals
 
 Available page shortcuts: workouts, nutrition, bible, growth, community, profile, habits, gratitude, meditation, affirmations, checkin, challenges, journal, plans, gideon, hannah, david, daniel
 

@@ -328,18 +328,41 @@ export default function PersonalGrowth() {
                 <GreetIcon className="w-5 h-5" style={{ color: greeting.color }} />
                 <h2 className="text-xl font-bold text-[#0A1A2F]">{greeting.text}</h2>
               </div>
-              {habitStreak > 0 && (
-                <motion.div
-                  initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", delay: 0.3 }}
-                  className="flex items-center gap-1.5 bg-orange-50 border border-orange-100 px-3 py-1.5 rounded-full"
-                >
-                  <Flame className="w-3.5 h-3.5 text-orange-500" />
-                  <span className="text-xs font-bold text-orange-600">{habitStreak} day streak</span>
-                </motion.div>
-              )}
+              <div className="flex items-center gap-2">
+                {habitStreak > 0 && (
+                  <motion.div
+                    initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", delay: 0.3 }}
+                    className="flex items-center gap-1.5 bg-orange-50 border border-orange-100 px-3 py-1.5 rounded-full"
+                  >
+                    <Flame className="w-3.5 h-3.5 text-orange-500" />
+                    <span className="text-xs font-bold text-orange-600">{habitStreak} day streak</span>
+                  </motion.div>
+                )}
+                <Link to={createPageUrl('PersonalGrowthGoalsPage')}>
+                  <button className="flex items-center gap-1.5 bg-[#EFF9FF] border border-[#AFC7E3]/40 text-[#3C4E53] text-xs font-bold px-3 py-2 rounded-xl">
+                    <Target className="w-3.5 h-3.5" /> Goals
+                  </button>
+                </Link>
+              </div>
             </div>
             <p className="text-sm text-[#0A1A2F]/55 pl-7">Strengthen your mind, emotions, and spirit.</p>
           </motion.div>
+
+          {/* ── Growth Goals entry card ── */}
+          <Link to={createPageUrl('PersonalGrowthGoalsPage')}>
+            <motion.div id="tour-growth-goals-entry" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.03 }}
+              className="rounded-2xl p-4 flex items-center gap-3 shadow-sm"
+              style={{ background: 'linear-gradient(135deg, #3C4E53 0%, #2a3840 60%, #AFC7E3 260%)' }}>
+              <div className="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center flex-shrink-0">
+                <span className="text-xl">🧠</span>
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="font-bold text-white text-sm leading-tight">My Growth Profile</p>
+                <p className="text-white/55 text-xs mt-0.5">Growth areas · Values · Coaching style · Tools</p>
+              </div>
+              <ChevronRight className="w-4 h-4 text-white/40 flex-shrink-0" />
+            </motion.div>
+          </Link>
 
           {/* ── Daily Affirmation banner ── */}
           <motion.div
