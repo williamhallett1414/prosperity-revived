@@ -23,12 +23,13 @@ const BOT_STYLES = {
   CoachPaul:  { label: 'Chat with Coach Paul',  icon: 'P', from: '#0A1A2F', to: '#A78BFA' },
 };
 
-export default function ChatButton({ bot = 'Hannah' }) {
+export default function ChatButton({ bot = 'Hannah', id }) {
   const navigate = useNavigate();
   const style = BOT_STYLES[bot] || BOT_STYLES.Hannah;
 
   return (
     <motion.button
+      id={id}
       onClick={() => navigate(createPageUrl(`ChatScreen?bot=${bot}`))}
       className="fixed bottom-24 right-4 z-50 flex items-center gap-2 px-4 py-3 rounded-full shadow-xl text-white text-sm font-semibold"
       style={{ background: `linear-gradient(135deg, ${style.from}, ${style.to})` }}

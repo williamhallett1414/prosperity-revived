@@ -255,6 +255,17 @@ export default function Settings() {
               <ArrowLeft className="w-4 h-4 text-gray-400 rotate-180" />
             </button>
 
+            <button
+              onPointerDown={() => { if (window.__startGuidedTour) window.__startGuidedTour(); }}
+              className="flex items-center justify-between py-3 px-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors min-h-[44px] w-full text-left"
+            >
+              <span className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
+                <Play className="w-4 h-4 text-[#38BDF8]" />
+                Interactive Guided Tour
+              </span>
+              <ArrowLeft className="w-4 h-4 text-gray-400 rotate-180" />
+            </button>
+
             <Link
               to={createPageUrl('TermsAndConditions')}
               className="flex items-center justify-between py-3 px-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors min-h-[44px]"

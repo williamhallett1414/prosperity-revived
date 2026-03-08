@@ -214,7 +214,7 @@ export default function Bible() {
         </motion.div>
 
         <Tabs defaultValue="read" className="w-full">
-          <TabsList className="grid w-full grid-cols-3 mb-5 bg-[#FAD98D]/15 rounded-xl p-1 border border-[#FAD98D]/20">
+          <TabsList id="tour-bible-tabs" className="grid w-full grid-cols-3 mb-5 bg-[#FAD98D]/15 rounded-xl p-1 border border-[#FAD98D]/20">
             {[
               { value: 'read',       icon: BookOpen, label: 'Read'       },
               { value: 'study',      icon: TrendingUp, label: 'Study'    },
@@ -353,7 +353,7 @@ export default function Bible() {
         progress={planProgress}
         bookmarks={bookmarks}
       />
-      <ChatButton bot="Gideon" />
+      <ChatButton bot="Gideon" id="tour-gideon-btn" />
     </div>
   );
 }

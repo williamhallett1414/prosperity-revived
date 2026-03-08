@@ -97,6 +97,7 @@ function RitualButton({ isMorning, onStartDay, onEndDay }) {
   return (
     <motion.button
       initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }}
+      id="tour-ritual-btn"
       onClick={isMorning ? onStartDay : onEndDay}
       className="w-full rounded-3xl p-5 text-left shadow-lg overflow-hidden relative"
       style={{
@@ -137,7 +138,7 @@ function RitualButton({ isMorning, onStartDay, onEndDay }) {
 function VerseCard({ onBookmark }) {
   const verse = getVerseOfDay();
   return (
-    <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
+    <motion.div id="tour-verse-card" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
       <Link to={createPageUrl(`Bible?book=${verse.book}&chapter=${verse.chapter}&verse=${verse.verse}`)}>
         <div className="bg-white rounded-3xl p-5 shadow-sm border border-[#FAD98D]/30 relative overflow-hidden">
           <div className="absolute top-0 right-0 w-24 h-24 opacity-5">
@@ -481,6 +482,10 @@ export default function Home() {
           onComplete={() => {
           setShowAppTour(false);
           base44.auth.me().then(setUser);
+          // Launch interactive guided tour after a short pause
+          setTimeout(() => {
+            if (window.__startGuidedTour) window.__startGuidedTour();
+          }, 800);
         }} />
       )}
       {/* ── Content ──────────────────────────────────────────────────────── */}

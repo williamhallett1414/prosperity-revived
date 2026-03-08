@@ -452,7 +452,7 @@ export default function Workouts() {
             )}
 
             {/* ── Quick Start Workouts ── */}
-            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}>
+            <motion.div id="tour-quick-start" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}>
               <SectionLabel action="View all" actionTo="WorkoutCategoryPage">Quick Start</SectionLabel>
               {PREMADE_WORKOUTS.slice(0, 4).map((workout, i) => {
                 const done = workout.completed_dates?.includes(today);
@@ -470,7 +470,7 @@ export default function Workouts() {
             </motion.div>
 
             {/* ── Browse Categories ── */}
-            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.28 }}>
+            <motion.div id="tour-categories" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.28 }}>
               <SectionLabel>Browse by Category</SectionLabel>
               <div className="grid grid-cols-3 gap-2.5">
                 {CATEGORIES.map((cat, i) => (

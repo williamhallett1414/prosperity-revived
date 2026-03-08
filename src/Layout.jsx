@@ -8,6 +8,7 @@ import NotificationBell from '@/components/notifications/NotificationBell';
 import PullToRefresh from '@/components/ui/PullToRefresh';
 import UniversalHeader from '@/components/navigation/UniversalHeader';
 import { useQueryClient } from '@tanstack/react-query';
+import GuidedTour from '@/components/onboarding/GuidedTour';
 
 // Scroll position cache per page
 const scrollCache = {};
@@ -29,6 +30,13 @@ export default function Layout({ children, currentPageName }) {
   const location = useLocation();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const [showGuidedTour, setShowGuidedTour] = useState(false);
+
+  // Expose startGuidedTour globally so Home.jsx (and Settings) can trigger it
+  useEffect(() => {
+    window.__startGuidedTour = () => setShowGuidedTour(true);
+    return () => { delete window.__startGuidedTour; };
+  }, []);
 
 
   // Primary navigation pages that should be kept mounted
@@ -288,6 +296,11 @@ export default function Layout({ children, currentPageName }) {
         </div>
       </nav>
     </div>
+
+    {/* Guided Tour — persists across route changes */}
+    {showGuidedTour && (
+      <GuidedTour onComplete={() => setShowGuidedTour(false)} />
+    )}
     </>);
 
 }

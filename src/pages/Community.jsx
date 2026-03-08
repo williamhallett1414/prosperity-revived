@@ -44,7 +44,7 @@ const TABS = [
 
 function TabBar({ active, onChange }) {
   return (
-    <div className="flex gap-1.5">
+    <div id="tour-community-groups" className="flex gap-1.5">
       {TABS.map(({ id, label, icon: Icon }) => (
         <button key={id} onClick={() => onChange(id)}
           className={`flex-1 flex flex-col items-center gap-1 py-2.5 rounded-xl text-[11px] font-bold transition-all ${

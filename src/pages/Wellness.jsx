@@ -140,7 +140,7 @@ function CategoryGrid() {
       <p className="text-[10px] font-bold text-[#0A1A2F]/40 uppercase tracking-widest mb-3">Explore</p>
       <div className="grid grid-cols-2 gap-3">
         {CATEGORIES.map(({ label, sub, page, gradient, icon: Icon, image }, i) => (
-          <motion.div key={page} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.12 + i * 0.05 }}>
+          <motion.div key={page} id={i === 0 ? 'tour-workouts-card' : undefined} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.12 + i * 0.05 }}>
             <Link to={createPageUrl(page)}>
               <div className="relative rounded-2xl overflow-hidden h-36 shadow-md group">
                 {/* Background image */}
