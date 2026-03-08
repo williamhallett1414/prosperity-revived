@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   HelpCircle, X, Send, Loader2, Map, BookOpen, Play,
-  ChevronRight, Sparkles, Navigation, Lightbulb, ExternalLink
+  ChevronRight, Sparkles, Navigation, Lightbulb, ExternalLink, Target
 } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 import { createPageUrl } from '@/utils';
@@ -245,6 +245,42 @@ export const MINI_TOURS = {
   ],
 
 
+  fitness_goals: [
+    {
+      id: 'fg_entry', targetId: 'tour-fitness-goals-entry', navigateTo: 'Workouts',
+      title: 'Fitness Goals card 🎯',
+      body: 'At the top of your Workouts page is a personalised Fitness Goals card. Tap it to open your full fitness dashboard.',
+      tapToAdvance: true, tapLabel: 'Open Fitness Goals',
+    },
+    {
+      id: 'fg_bmi', targetId: 'tour-bmi-card', navigateTo: 'FitnessGoalsPage',
+      title: 'BMI Calculator 📊',
+      body: 'Your Body Mass Index is calculated live from your height and weight. The gauge shows where you sit across Underweight / Healthy / Overweight / Obese.',
+      tip: 'Log your latest weight at the bottom of this card to keep your BMI current',
+      tapToAdvance: false,
+    },
+    {
+      id: 'fg_cals', targetId: 'tour-calories-card', navigateTo: null,
+      title: 'Calorie Targets 🔥',
+      body: 'Your TDEE (maintenance calories) and goal calories are calculated using the Mifflin-St Jeor formula and your workout frequency. Tap ⓘ for the full breakdown.',
+      tapToAdvance: false,
+    },
+    {
+      id: 'fg_macros', targetId: 'tour-macros-split', navigateTo: null,
+      title: 'Macro Split 🥗',
+      body: 'Protein, carbs and fat targets are tuned to your goal. Losing weight gets more protein; building muscle gets more carbs. Tap "Open Nutrition" to log against these daily.',
+      tapToAdvance: false,
+    },
+    {
+      id: 'fg_timeline', targetId: 'tour-timeline-card', navigateTo: null,
+      title: 'Goal Timeline ⏳',
+      body: "Based on your current weight, goal weight, and deficit, this predicts when you'll hit your goal. It updates automatically when you log new weights.",
+      tip: 'Log weight weekly for the most accurate timeline',
+      tapToAdvance: false,
+    },
+  ],
+
+
 };
 
 // ── Intent → tour key map (used to interpret LLM response) ───────────────────
@@ -266,6 +302,7 @@ const PAGE_SHORTCUTS = {
   challenges: { label: 'Open Challenges',      page: 'SelfCareChallengesPage', color: '#FD9C2D' },
   journal:    { label: 'Open Journal',         page: 'MyJournalEntries', color: '#AFC7E3' },
   plans:      { label: 'Browse Coaching Plans',page: 'CoachingPlans',    color: '#38BDF8' },
+  fitness:    { label: 'Open Fitness Goals',   page: 'FitnessGoalsPage',  color: '#38BDF8' },
   gideon:     { label: 'Chat with Gideon',     page: 'ChatScreen?bot=Gideon',     color: '#C9A227' },
   hannah:     { label: 'Chat with Hannah',     page: 'ChatScreen?bot=Hannah',     color: '#AFC7E3' },
   david:      { label: 'Chat with Coach David',page: 'ChatScreen?bot=CoachDavid', color: '#38BDF8' },
@@ -280,6 +317,7 @@ const QUICK_ACTIONS = [
   { icon: Play,     label: 'Walk me through nutrition', sub: 'Macros, meals & Chef Daniel',       color: '#22C55E', tourKey: 'nutrition' },
   { icon: Sparkles, label: 'Show me Personal Growth',   sub: 'Habits, emotions & Hannah',         color: '#AFC7E3', tourKey: 'growth' },
   { icon: Play,     label: "What's my daily routine?",  sub: 'Morning & evening ritual',          color: '#FD9C2D', tourKey: 'daily_ritual' },
+  { icon: Target,   label: 'Show my fitness goals',     sub: 'BMI · calories · macros · timeline', color: '#38BDF8', tourKey: 'fitness_goals' },
 ];
 
 // ── System prompt for LLM ─────────────────────────────────────────────────────
@@ -289,14 +327,14 @@ Respond in structured JSON only. No markdown, no preamble.
 App features:
 - Home: daily ritual (Start/End My Day), verse of the day, progress ring, AI coach nudges
 - Bible: 66-book reader, Gideon AI spiritual guide, Read/Study/Devotional tabs, bookmarks, topic search
-- Wellness > Workouts: 33+ workouts in 6 categories (HIIT, strength, cardio, flexibility, yoga, recovery), workout trends, quick-start sessions, browse by category
+- Wellness > Workouts: 33+ workouts in 6 categories, workout trends, quick-start, browse by category, Fitness Goals page (BMI, TDEE/calorie calculator, macro split, goal timeline, weight log, hydration goal, Coach David CTA)
 - Wellness > Nutrition: macro tracking (calories/protein/carbs/fat), meal logging, quick-log meals, water tracker, meal planner, Chef Daniel AI coach
 - Personal Growth: habit builder, emotional check-in, gratitude journal, affirmations, guided meditations, identity in Christ, Hannah AI growth coach
 - Community: feed, groups (Bible study/workout/prayer), blog, challenges, leaderboards, friends
 - Profile: progress dashboard (Journey), achievements/badges, journal entries, settings
 - 4 AI coaches: Hannah (personal growth/emotions), Gideon (spiritual/Bible), Coach David (fitness), Chef Daniel (nutrition)
 
-Available tour keys: daily_ritual, workouts, nutrition, bible, growth, community, profile, ai_coaches, coaching, habits, prayer
+Available tour keys: daily_ritual, workouts, nutrition, bible, growth, community, profile, ai_coaches, coaching, habits, prayer, fitness_goals
 
 Available page shortcuts: workouts, nutrition, bible, growth, community, profile, habits, gratitude, meditation, affirmations, checkin, challenges, journal, plans, gideon, hannah, david, daniel
 
