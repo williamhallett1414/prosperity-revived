@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
-import { ArrowLeft, Moon, Sun, Monitor, Bell, Mail, User, Palette, Trash2 } from 'lucide-react';
+import { ArrowLeft, Moon, Sun, Monitor, Bell, Mail, User, Palette, Trash2, Play } from 'lucide-react';
+import AppTour from '@/components/onboarding/AppTour';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import { Link } from 'react-router-dom';
@@ -29,6 +30,7 @@ import {
 export default function Settings() {
   const [user, setUser] = useState(null);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [showTour, setShowTour] = useState(false);
   const queryClient = useQueryClient();
 
   useEffect(() => {
@@ -242,6 +244,17 @@ export default function Settings() {
               </span>
             </div>
             
+            <button
+              onPointerDown={() => setShowTour(true)}
+              className="flex items-center justify-between py-3 px-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors min-h-[44px] w-full text-left"
+            >
+              <span className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
+                <Play className="w-4 h-4 text-[#FD9C2D]" />
+                Replay App Tour
+              </span>
+              <ArrowLeft className="w-4 h-4 text-gray-400 rotate-180" />
+            </button>
+
             <Link
               to={createPageUrl('TermsAndConditions')}
               className="flex items-center justify-between py-3 px-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors min-h-[44px]"
@@ -331,6 +344,12 @@ export default function Settings() {
           </AlertDialog>
         </div>
       </div>
+      {showTour && (
+        <AppTour
+          userName={user?.full_name?.split(' ')[0]}
+          onComplete={() => setShowTour(false)}
+        />
+      )}
     </div>
   );
 }

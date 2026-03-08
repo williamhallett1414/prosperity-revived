@@ -11,8 +11,7 @@ import {
 import { readingPlans, getVerseOfDay } from '@/components/bible/BibleData';
 import { COACHING_PLANS } from '@/components/coaching/planData';
 import OnboardingFlow from '@/components/onboarding/OnboardingFlow';
-import GideonOnboarding from '@/components/onboarding/GideonOnboarding';
-import WellnessTour from '@/components/onboarding/WellnessTour';
+import AppTour from '@/components/onboarding/AppTour';
 import StartMyDayModal from '@/components/home/StartMyDayModal';
 import EndMyDayModal from '@/components/home/EndMyDayModal';
 import CreatePostModal from '@/components/community/CreatePostModal';
@@ -389,8 +388,7 @@ export default function Home() {
   const queryClient = useQueryClient();
   const [user, setUser] = useState(null);
   const [showOnboarding, setShowOnboarding] = useState(false);
-  const [showGideonOnboarding, setShowGideonOnboarding] = useState(false);
-  const [showWellnessTour, setShowWellnessTour] = useState(false);
+  const [showAppTour, setShowAppTour] = useState(false);
   const [showStartDay, setShowStartDay] = useState(false);
   const [showEndDay, setShowEndDay] = useState(false);
   const [showNotifPrompt, setShowNotifPrompt] = useState(false);
@@ -403,6 +401,8 @@ export default function Home() {
       setUser(u);
       if (!u.onboarding_completed) {
         setShowOnboarding(true);
+      } else if (!u.app_tour_completed) {
+        setShowAppTour(true);
       }
     });
   }, []);
@@ -472,15 +472,17 @@ export default function Home() {
         <OnboardingFlow onComplete={() => {
           setShowOnboarding(false);
           base44.auth.me().then(setUser);
+          setTimeout(() => setShowAppTour(true), 600);
         }} />
       )}
-      {showWellnessTour && (
-        <WellnessTour
-          onComplete={() => { setShowWellnessTour(false); if ('Notification' in window && Notification.permission === 'default') setTimeout(() => setShowNotifPrompt(true), 800); }}
-          onSkip={() => setShowWellnessTour(false)}
-        />
+      {showAppTour && (
+        <AppTour
+          userName={user?.full_name?.split(' ')[0]}
+          onComplete={() => {
+          setShowAppTour(false);
+          base44.auth.me().then(setUser);
+        }} />
       )}
-
       {/* ── Content ──────────────────────────────────────────────────────── */}
       <div className="max-w-lg mx-auto px-4 pt-4 pb-28 space-y-4">
 
