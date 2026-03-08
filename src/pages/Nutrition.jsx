@@ -192,7 +192,7 @@ export default function Nutrition() {
         {activeTab === 'today' && (
           <>
             {/* Macro summary card */}
-            <div className="bg-white rounded-2xl border border-[#FAD98D]/20 p-4">
+            <div id="tour-nutrition-macros" className="bg-white rounded-2xl border border-[#FAD98D]/20 p-4">
               <p className="text-xs font-bold text-[#0A1A2F]/35 uppercase tracking-widest mb-3">Today's Progress</p>
               <div className="grid grid-cols-4 gap-2">
                 {MACRO_CONFIG.map(({ key, label, unit, target }) => (
@@ -217,7 +217,7 @@ export default function Nutrition() {
             </div>
 
             {/* Water tracker */}
-            <div className="bg-white rounded-2xl border border-[#FAD98D]/20 p-4">
+            <div id="tour-water-tracker" className="bg-white rounded-2xl border border-[#FAD98D]/20 p-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2.5">
                   <div className="w-9 h-9 rounded-xl bg-[#AFC7E3]/20 flex items-center justify-center">
@@ -360,7 +360,7 @@ export default function Nutrition() {
         }}
       />
 
-      <ChatButton bot="ChefDaniel" />
+      <ChatButton bot="ChefDaniel" id="tour-chef-daniel-btn" />
     </div>
   );
 }

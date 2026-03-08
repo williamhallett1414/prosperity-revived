@@ -307,7 +307,7 @@ function ConnectArrow({ rect, arrowDown }) {
 }
 
 // ── Bottom tooltip card ────────────────────────────────────────────────────────
-function TooltipCard({ step, current, total, onNext, onSkip, targetRect }) {
+function TooltipCard({ step, current, total, onNext, onSkip, targetRect, isLastStep }) {
   const isNearBottom = targetRect && targetRect.top > window.innerHeight * 0.65;
   const centerX = targetRect ? targetRect.left + targetRect.width / 2 : window.innerWidth / 2;
   const arrowLeft = Math.min(Math.max(centerX - 10, 24), window.innerWidth - 44);
@@ -428,6 +428,14 @@ function TooltipCard({ step, current, total, onNext, onSkip, targetRect }) {
                 Explore on my own →
               </button>
             </div>
+          ) : isLastStep ? (
+            <button
+              onPointerDown={onSkip}
+              className="w-full h-11 rounded-2xl text-[#0A1A2F] font-bold text-sm flex items-center justify-center gap-2 active:scale-95 transition-transform"
+              style={{ background: 'linear-gradient(135deg, #FAD98D, #FD9C2D)' }}
+            >
+              ✓ Done
+            </button>
           ) : current.tapToAdvance ? (
             <p className="text-[#FD9C2D] text-xs font-bold text-center py-1">
               ↑ Tap the highlighted element above to continue
@@ -448,14 +456,15 @@ function TooltipCard({ step, current, total, onNext, onSkip, targetRect }) {
 }
 
 // ── Main component ─────────────────────────────────────────────────────────────
-export default function GuidedTour({ onComplete }) {
+export default function GuidedTour({ onComplete, customSteps }) {
   const navigate = useNavigate();
+  const steps = customSteps || TOUR_STEPS;
   const [step, setStep] = useState(0);
   const [targetRect, setTargetRect] = useState(null);
   const rafRef = useRef(null);
 
-  const current = TOUR_STEPS[step];
-  const total = TOUR_STEPS.length;
+  const current = steps[step];
+  const total = steps.length;
 
   // ── Measure target element (retry until found) ────────────────────────────
   useEffect(() => {
@@ -496,7 +505,7 @@ export default function GuidedTour({ onComplete }) {
       finish();
       return;
     }
-    const next = TOUR_STEPS[step + 1];
+    const next = steps[step + 1];
     if (next?.navigateTo) {
       navigate(createPageUrl(next.navigateTo));
     }
@@ -515,7 +524,7 @@ export default function GuidedTour({ onComplete }) {
         if (actualEl) actualEl.click();
       }
     }
-    const next = TOUR_STEPS[step + 1];
+    const next = steps[step + 1];
     const delay = current.navigateTo ? 350 : 0;
     setTimeout(() => {
       if (next?.navigateTo && !current.navigateTo) navigate(createPageUrl(next.navigateTo));
@@ -524,7 +533,10 @@ export default function GuidedTour({ onComplete }) {
   }, [current, step, navigate]);
 
   const finish = async () => {
-    try { await base44.auth.updateMe({ guided_tour_completed: true }); } catch {}
+    // Only save completion flag for the full guided tour, not mini-tours
+    if (!customSteps) {
+      try { await base44.auth.updateMe({ guided_tour_completed: true }); } catch {}
+    }
     onComplete();
   };
 
@@ -551,6 +563,7 @@ export default function GuidedTour({ onComplete }) {
           onNext={advance}
           onSkip={finish}
           targetRect={targetRect}
+          isLastStep={step === total - 1}
         />
       </AnimatePresence>
     </>

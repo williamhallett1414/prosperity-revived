@@ -417,7 +417,7 @@ export default function PersonalGrowth() {
           </motion.div>
 
           {/* ── Daily Practices ── */}
-          <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.14 }}>
+          <motion.div id="tour-daily-tools" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.14 }}>
             <SectionLabel>
               Daily Practices
               {dailyDoneCount > 0 && (
@@ -469,7 +469,7 @@ export default function PersonalGrowth() {
           </motion.div>
 
           {/* ── Talk to Hannah ── */}
-          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}>
+          <motion.div id="tour-hannah-btn" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}>
             <button
               onClick={() => navigate(createPageUrl("ChatScreen?bot=Hannah"))}
               className="w-full flex items-center justify-between px-5 py-4 bg-white rounded-2xl border border-[#AFC7E3]/30 shadow-sm hover:border-[#AFC7E3]/60 hover:shadow-md transition-all"

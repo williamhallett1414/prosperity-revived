@@ -138,7 +138,7 @@ function CategoryGrid() {
   return (
     <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.12 }}>
       <p className="text-[10px] font-bold text-[#0A1A2F]/40 uppercase tracking-widest mb-3">Explore</p>
-      <div className="grid grid-cols-2 gap-3">
+      <div id="tour-wellness-categories" className="grid grid-cols-2 gap-3">
         {CATEGORIES.map(({ label, sub, page, gradient, icon: Icon, image }, i) => (
           <motion.div key={page} id={i === 0 ? 'tour-workouts-card' : undefined} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.12 + i * 0.05 }}>
             <Link to={createPageUrl(page)}>
@@ -179,7 +179,7 @@ function CoachingSection({ active }) {
   const toShow   = [...started, ...featured].slice(0, 3);
 
   return (
-    <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
+    <motion.div id="tour-coaching-section" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2.5">
           <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#3C4E53] to-[#FD9C2D] flex items-center justify-center shadow-sm">

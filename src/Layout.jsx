@@ -35,7 +35,15 @@ export default function Layout({ children, currentPageName }) {
   // Expose startGuidedTour globally so Home.jsx (and Settings) can trigger it
   useEffect(() => {
     window.__startGuidedTour = () => setShowGuidedTour(true);
-    return () => { delete window.__startGuidedTour; };
+    window.__startMiniTour   = (steps) => {
+      // Dynamically inject steps into the GuidedTour via a shared signal
+      window.__pendingMiniTourSteps = steps;
+      setShowGuidedTour(true);
+    };
+    return () => {
+      delete window.__startGuidedTour;
+      delete window.__startMiniTour;
+    };
   }, []);
 
 
@@ -299,7 +307,13 @@ export default function Layout({ children, currentPageName }) {
 
     {/* Guided Tour — persists across route changes */}
     {showGuidedTour && (
-      <GuidedTour onComplete={() => setShowGuidedTour(false)} />
+      <GuidedTour
+        customSteps={window.__pendingMiniTourSteps || null}
+        onComplete={() => {
+          window.__pendingMiniTourSteps = null;
+          setShowGuidedTour(false);
+        }}
+      />
     )}
     </>);
 
