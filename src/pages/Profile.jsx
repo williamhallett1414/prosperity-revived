@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
-import { Settings, Camera, Loader2, ChevronRight, Trophy, TrendingUp, MessageCircle, Target, Salad } from 'lucide-react';
+import { Settings, Camera, Loader2, ChevronRight, Trophy, TrendingUp, MessageCircle, Target, Salad, BookOpen } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import {
@@ -192,6 +192,19 @@ function QuickLinks() {
           <div className="flex-1 min-w-0">
             <p className="font-bold text-white text-sm">Nutrition Goals</p>
             <p className="text-white/50 text-[11px]">Diet · Macros · Meal schedule · Allergens</p>
+          </div>
+          <ChevronRight className="w-4 h-4 text-white/30" />
+        </div>
+      </Link>
+      <Link to={createPageUrl('BibleGoalsPage')}>
+        <div className="rounded-2xl p-4 flex items-center gap-3 hover:opacity-90 transition-opacity"
+          style={{ background: 'linear-gradient(135deg, #0A1A2F 0%, #1a3050 70%, #C9A227 220%)' }}>
+          <div className="w-9 h-9 rounded-xl bg-white/15 flex items-center justify-center flex-shrink-0">
+            <BookOpen className="w-4 h-4 text-white" />
+          </div>
+          <div className="flex-1 min-w-0">
+            <p className="font-bold text-white text-sm">Bible Study Goals</p>
+            <p className="text-white/50 text-[11px]">Translation · Topics · Reading plans · Tips</p>
           </div>
           <ChevronRight className="w-4 h-4 text-white/30" />
         </div>

@@ -322,6 +322,47 @@ export const MINI_TOURS = {
   ],
 
 
+  bible_goals: [
+    {
+      id: 'bg_entry', targetId: 'tour-bible-goals-entry', navigateTo: 'Bible',
+      title: 'Bible Study Goals 📖',
+      body: 'At the top of the Bible Read tab is your personalised Bible Goals card. Tap it to open your full study profile.',
+      tapToAdvance: true, tapLabel: 'Open Bible Goals',
+    },
+    {
+      id: 'bg_translation', targetId: 'tour-bible-translation', navigateTo: 'BibleGoalsPage',
+      title: 'Your Translation 📜',
+      body: 'Your preferred Bible translation is shown here with a plain-English explanation of its reading style. Tap ⓘ for more detail.',
+      tapToAdvance: false,
+    },
+    {
+      id: 'bg_topics', targetId: 'tour-bible-topics', navigateTo: null,
+      title: 'Topics That Matter ❤️',
+      body: 'The themes you care most about — from prayer to finances — shape which reading plans and verses Gideon recommends to you.',
+      tapToAdvance: false,
+    },
+    {
+      id: 'bg_depth', targetId: 'tour-devotional-depth', navigateTo: null,
+      title: 'Devotional Depth ⏱️',
+      body: 'Your preferred study depth — short (2–3 min), medium (10–15 min), or deep (30+ min) — tells Gideon how detailed to be in devotional responses.',
+      tip: 'You can ask Gideon to go deeper or shallower at any time in chat',
+      tapToAdvance: false,
+    },
+    {
+      id: 'bg_plans', targetId: 'tour-topic-plans', navigateTo: null,
+      title: 'Recommended Plans 📚',
+      body: 'Reading plans are matched to your selected topics. Each plan links directly into the Bible reader.',
+      tapToAdvance: false,
+    },
+    {
+      id: 'bg_gideon', targetId: 'tour-gideon-goals-cta', navigateTo: null,
+      title: 'Start Studying with Gideon 🙏',
+      body: 'Gideon knows your translation preference, topics, and depth level. Every chat session is personalised to your faith journey.',
+      tapToAdvance: true, tapLabel: 'Open Gideon',
+    },
+  ],
+
+
 };
 
 // ── Intent → tour key map (used to interpret LLM response) ───────────────────
@@ -345,6 +386,7 @@ const PAGE_SHORTCUTS = {
   plans:      { label: 'Browse Coaching Plans',page: 'CoachingPlans',    color: '#38BDF8' },
   fitness:    { label: 'Open Fitness Goals',   page: 'FitnessGoalsPage',    color: '#38BDF8' },
   nutrition_goals: { label: 'Open Nutrition Goals', page: 'NutritionGoalsPage', color: '#22C55E' },
+  bible_goals:     { label: 'Open Bible Study Goals', page: 'BibleGoalsPage',     color: '#C9A227' },
   gideon:     { label: 'Chat with Gideon',     page: 'ChatScreen?bot=Gideon',     color: '#C9A227' },
   hannah:     { label: 'Chat with Hannah',     page: 'ChatScreen?bot=Hannah',     color: '#AFC7E3' },
   david:      { label: 'Chat with Coach David',page: 'ChatScreen?bot=CoachDavid', color: '#38BDF8' },
@@ -361,6 +403,7 @@ const QUICK_ACTIONS = [
   { icon: Play,     label: "What's my daily routine?",  sub: 'Morning & evening ritual',          color: '#FD9C2D', tourKey: 'daily_ritual' },
   { icon: Target,   label: 'Show my fitness goals',      sub: 'BMI · calories · macros · timeline',  color: '#38BDF8', tourKey: 'fitness_goals' },
   { icon: Salad,    label: 'Walk me through nutrition goals', sub: 'Diet · macros · meal schedule',        color: '#22C55E', tourKey: 'nutrition_goals' },
+  { icon: BookOpen, label: 'Show my Bible study profile',      sub: 'Translation · topics · reading plans',  color: '#C9A227', tourKey: 'bible_goals' },
 ];
 
 // ── System prompt for LLM ─────────────────────────────────────────────────────
@@ -377,7 +420,7 @@ App features:
 - Profile: progress dashboard (Journey), achievements/badges, journal entries, settings
 - 4 AI coaches: Hannah (personal growth/emotions), Gideon (spiritual/Bible), Coach David (fitness), Chef Daniel (nutrition)
 
-Available tour keys: daily_ritual, workouts, nutrition, bible, growth, community, profile, ai_coaches, coaching, habits, prayer, fitness_goals, nutrition_goals
+Available tour keys: daily_ritual, workouts, nutrition, bible, growth, community, profile, ai_coaches, coaching, habits, prayer, fitness_goals, nutrition_goals, bible_goals
 
 Available page shortcuts: workouts, nutrition, bible, growth, community, profile, habits, gratitude, meditation, affirmations, checkin, challenges, journal, plans, gideon, hannah, david, daniel
 

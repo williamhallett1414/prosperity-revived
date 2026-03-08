@@ -105,6 +105,7 @@ import WorkoutTrends from './pages/WorkoutTrends';
 import Workouts from './pages/Workouts';
 import FitnessGoalsPage from './pages/FitnessGoalsPage';
 import NutritionGoalsPage from './pages/NutritionGoalsPage';
+import BibleGoalsPage from './pages/BibleGoalsPage';
 import ChatScreen from './pages/ChatScreen';
 import __Layout from './Layout.jsx';
 
@@ -167,6 +168,7 @@ export const PAGES = {
     "WorkoutTrends": WorkoutTrends,
     "FitnessGoalsPage": FitnessGoalsPage,
     "NutritionGoalsPage": NutritionGoalsPage,
+    "BibleGoalsPage": BibleGoalsPage,
     "Workouts": Workouts,
     "ChatScreen": ChatScreen,
 }

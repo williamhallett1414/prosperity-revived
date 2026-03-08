@@ -5,7 +5,7 @@ import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
 import {
   BookOpen, Sparkles, Heart, ChevronRight, PlayCircle,
-  Bookmark, TrendingUp, Search, Compass, Flame
+  Bookmark, TrendingUp, Search, Compass, Flame, Target
 } from 'lucide-react';
 import { createPageUrl } from '@/utils';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
@@ -208,9 +208,16 @@ export default function Bible() {
       <div className="px-4 pt-4 pb-6 max-w-lg mx-auto">
 
         {/* Page header — no back arrow (Bible is a primary tab) */}
-        <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="mb-4">
-          <h1 className="text-2xl font-bold text-[#0A1A2F]">Bible</h1>
-          <p className="text-sm text-[#0A1A2F]/50 mt-0.5">Read · Study · Reflect</p>
+        <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="mb-4 flex items-center justify-between">
+          <div>
+            <h1 className="text-2xl font-bold text-[#0A1A2F]">Bible</h1>
+            <p className="text-sm text-[#0A1A2F]/50 mt-0.5">Read · Study · Reflect</p>
+          </div>
+          <Link to={createPageUrl('BibleGoalsPage')}>
+            <button className="flex items-center gap-1.5 bg-[#FAD98D]/25 border border-[#FAD98D]/40 text-[#C9A227] text-xs font-bold px-3 py-2 rounded-xl">
+              <Target className="w-3.5 h-3.5" /> Goals
+            </button>
+          </Link>
         </motion.div>
 
         <Tabs defaultValue="read" className="w-full">
@@ -230,6 +237,22 @@ export default function Bible() {
           {/* ── READ TAB ── */}
           <TabsContent value="read">
             <div className="space-y-4">
+
+              {/* Bible Goals entry card */}
+              <Link to={createPageUrl('BibleGoalsPage')}>
+                <motion.div id="tour-bible-goals-entry" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
+                  className="rounded-2xl p-4 flex items-center gap-3 shadow-sm"
+                  style={{ background: 'linear-gradient(135deg, #0A1A2F 0%, #1a3050 60%, #C9A227 220%)' }}>
+                  <div className="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center flex-shrink-0">
+                    <span className="text-xl">📖</span>
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="font-bold text-white text-sm leading-tight">My Bible Study Goals</p>
+                    <p className="text-white/55 text-xs mt-0.5">Translation · Topics · Reading plans · Tips</p>
+                  </div>
+                  <ChevronRight className="w-4 h-4 text-white/40 flex-shrink-0" />
+                </motion.div>
+              </Link>
 
               {/* 1. Verse of the Day */}
               <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
