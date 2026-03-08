@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
-import { Settings, Camera, Loader2, ChevronRight, Trophy, TrendingUp, MessageCircle } from 'lucide-react';
+import { Settings, Camera, Loader2, ChevronRight, Trophy, TrendingUp, MessageCircle, Target } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import {
@@ -143,33 +143,48 @@ function TabBar({ activeTab, onChange }) {
 // ─── Journey + Achievements quick-links ───────────────────────────────────────
 function QuickLinks() {
   return (
-    <div id="tour-profile-progress" className="flex gap-3">
-      <Link to={createPageUrl('ProgressDashboard')} className="flex-1">
-        <div className="bg-gradient-to-br from-[#0A1A2F] to-[#0A1A2F] rounded-2xl p-4 flex items-center gap-3 hover:opacity-90 transition-opacity">
+    <div id="tour-profile-progress" className="space-y-2.5">
+      <div className="flex gap-3">
+        <Link to={createPageUrl('ProgressDashboard')} className="flex-1">
+          <div className="bg-gradient-to-br from-[#0A1A2F] to-[#0A1A2F] rounded-2xl p-4 flex items-center gap-3 hover:opacity-90 transition-opacity">
+            <div className="w-9 h-9 rounded-xl bg-white/15 flex items-center justify-center flex-shrink-0">
+              <TrendingUp className="w-4 h-4 text-white" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="font-bold text-white text-sm">Journey</p>
+              <p className="text-white/50 text-[11px]">Progress & guides</p>
+            </div>
+            <ChevronRight className="w-4 h-4 text-white/30" />
+          </div>
+        </Link>
+        <Link to={createPageUrl('Achievements')} className="flex-1">
+          <div className="bg-gradient-to-br from-[#c9a227] to-[#FAD98D] rounded-2xl p-4 flex items-center gap-3 hover:opacity-90 transition-opacity">
+            <div className="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center flex-shrink-0">
+              <Trophy className="w-4 h-4 text-white" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="font-bold text-white text-sm">Achievements</p>
+              <p className="text-white/65 text-[11px]">Badges & level</p>
+            </div>
+            <ChevronRight className="w-4 h-4 text-white/30" />
+          </div>
+        </Link>
+      </div>
+      <Link to={createPageUrl('FitnessGoalsPage')}>
+        <div className="rounded-2xl p-4 flex items-center gap-3 hover:opacity-90 transition-opacity"
+          style={{ background: 'linear-gradient(135deg, #0A1A2F 0%, #1A3050 70%, #38BDF8 200%)' }}>
           <div className="w-9 h-9 rounded-xl bg-white/15 flex items-center justify-center flex-shrink-0">
-            <TrendingUp className="w-4 h-4 text-white" />
+            <Target className="w-4 h-4 text-white" />
           </div>
           <div className="flex-1 min-w-0">
-            <p className="font-bold text-white text-sm">Journey</p>
-            <p className="text-white/50 text-[11px]">Progress & guides</p>
+            <p className="font-bold text-white text-sm">Fitness Goals</p>
+            <p className="text-white/50 text-[11px]">BMI · Calories · Macros · Goal timeline</p>
           </div>
           <ChevronRight className="w-4 h-4 text-white/30" />
         </div>
       </Link>
-      <Link to={createPageUrl('Achievements')} className="flex-1">
-        <div className="bg-gradient-to-br from-[#c9a227] to-[#FAD98D] rounded-2xl p-4 flex items-center gap-3 hover:opacity-90 transition-opacity">
-          <div className="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center flex-shrink-0">
-            <Trophy className="w-4 h-4 text-white" />
-          </div>
-          <div className="flex-1 min-w-0">
-            <p className="font-bold text-white text-sm">Achievements</p>
-            <p className="text-white/65 text-[11px]">Badges & level</p>
-          </div>
-          <ChevronRight className="w-4 h-4 text-white/30" />
-        </div>
-      </Link>
-    </div>);
-
+    </div>
+  );
 }
 
 // ─── Main ──────────────────────────────────────────────────────────────────────

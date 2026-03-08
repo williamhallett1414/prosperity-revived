@@ -273,6 +273,12 @@ export default function Workouts() {
               </div>
             )}
             <button
+              onClick={() => navigate(createPageUrl("FitnessGoalsPage"))}
+              className="flex items-center gap-1.5 bg-[#EFF9FF] border border-[#38BDF8]/30 text-[#38BDF8] text-xs font-bold px-3 py-2 rounded-xl"
+            >
+              <Target className="w-3.5 h-3.5" /> Goals
+            </button>
+            <button
               onClick={() => navigate(createPageUrl("WorkoutPlanner"))}
               className="flex items-center gap-1.5 bg-gradient-to-r from-[#FD9C2D] to-[#E89020] text-white text-xs font-bold px-3 py-2 rounded-xl shadow-sm"
             >
@@ -304,25 +310,23 @@ export default function Workouts() {
             </motion.div>
 
             {/* ── Fitness Goals card ── */}
-            {user && (user.weight_kg || user.fitness_goal) && (
-              <motion.div id="tour-fitness-goals-entry" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.03 }}>
-                <Link to={createPageUrl('FitnessGoalsPage')}>
-                  <div className="rounded-2xl p-4 flex items-center gap-3 shadow-sm"
-                    style={{ background: 'linear-gradient(135deg, #0A1A2F 0%, #1A3050 70%, #38BDF8 200%)' }}>
-                    <div className="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center flex-shrink-0">
-                      <span className="text-xl">🎯</span>
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="font-bold text-white text-sm leading-tight">
-                        {user.fitness_goal ? ({'lose_weight':'Lose Weight','build_muscle':'Build Muscle','general_fitness':'General Fitness','improve_endurance':'Endurance Training','improve_flexibility':'Flexibility'}[user.fitness_goal] || 'My Fitness Goal') : 'My Fitness Goals'}
-                      </p>
-                      <p className="text-white/55 text-xs mt-0.5">BMI · Calories · Macros · Timeline</p>
-                    </div>
-                    <ChevronRight className="w-4 h-4 text-white/40 flex-shrink-0" />
+            <motion.div id="tour-fitness-goals-entry" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.03 }}>
+              <Link to={createPageUrl('FitnessGoalsPage')}>
+                <div className="rounded-2xl p-4 flex items-center gap-3 shadow-sm"
+                  style={{ background: 'linear-gradient(135deg, #0A1A2F 0%, #1A3050 70%, #38BDF8 200%)' }}>
+                  <div className="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center flex-shrink-0">
+                    <span className="text-xl">🎯</span>
                   </div>
-                </Link>
-              </motion.div>
-            )}
+                  <div className="flex-1 min-w-0">
+                    <p className="font-bold text-white text-sm leading-tight">
+                      {user?.fitness_goal ? ({'lose_weight':'Lose Weight','build_muscle':'Build Muscle','general_fitness':'General Fitness','improve_endurance':'Endurance Training','improve_flexibility':'Flexibility'}[user.fitness_goal] || 'My Fitness Goal') : 'My Fitness Goals'}
+                    </p>
+                    <p className="text-white/55 text-xs mt-0.5">BMI · Calories · Macros · Timeline</p>
+                  </div>
+                  <ChevronRight className="w-4 h-4 text-white/40 flex-shrink-0" />
+                </div>
+              </Link>
+            </motion.div>
 
             {/* ── Week at a Glance ── */}
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }}>
