@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   HelpCircle, X, Send, Loader2, Map, BookOpen, Play,
-  ChevronRight, Sparkles, Navigation, Lightbulb, ExternalLink, Target
+  ChevronRight, Sparkles, Navigation, Lightbulb, ExternalLink, Target, Salad
 } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 import { createPageUrl } from '@/utils';
@@ -281,6 +281,47 @@ export const MINI_TOURS = {
   ],
 
 
+  nutrition_goals: [
+    {
+      id: 'ng_entry', targetId: 'tour-nutrition-goals-entry', navigateTo: 'Nutrition',
+      title: 'Nutrition Goals card 🥗',
+      body: 'At the top of the Nutrition page is your personalised Nutrition Goals card. Tap it to open your full nutrition dashboard.',
+      tapToAdvance: true, tapLabel: 'Open Nutrition Goals',
+    },
+    {
+      id: 'ng_cals', targetId: 'tour-nutrition-calories', navigateTo: 'NutritionGoalsPage',
+      title: 'Daily Calorie Target 🔥',
+      body: 'Your calorie target is calculated from your diet type, fitness goal, and workout frequency. Keto users get an auto-adjusted macro split. Tap ⓘ for the full formula.',
+      tapToAdvance: false,
+    },
+    {
+      id: 'ng_macros', targetId: 'tour-nutrition-macros-goals', navigateTo: null,
+      title: 'Macro Targets 📊',
+      body: 'Protein, carbs and fat are split based on your goal and diet. Keto overrides carbs to under 5%. Tap "Track in Nutrition" to log meals against these daily.',
+      tapToAdvance: false,
+    },
+    {
+      id: 'ng_timing', targetId: 'tour-meal-timing', navigateTo: null,
+      title: 'Meal Schedule ⏰',
+      body: 'Your meal timing is built from your meals-per-day preference. Intermittent fasting users get a 16-hour window plan. Each slot shows how many calories to eat.',
+      tip: 'Spacing meals evenly keeps energy stable throughout the day',
+      tapToAdvance: false,
+    },
+    {
+      id: 'ng_allergens', targetId: 'tour-allergens', navigateTo: null,
+      title: 'Foods to Avoid 🛡️',
+      body: 'Your allergens from onboarding are shown here. Chef Daniel checks these automatically when suggesting meals. Update them in Settings if they change.',
+      tapToAdvance: false,
+    },
+    {
+      id: 'ng_water', targetId: 'tour-nutrition-water', navigateTo: null,
+      title: 'Water Goal 💧',
+      body: 'Your daily water target is calculated at 33ml per kg of bodyweight, with an extra 0.5L added if you train 4+ times per week.',
+      tapToAdvance: false,
+    },
+  ],
+
+
 };
 
 // ── Intent → tour key map (used to interpret LLM response) ───────────────────
@@ -302,7 +343,8 @@ const PAGE_SHORTCUTS = {
   challenges: { label: 'Open Challenges',      page: 'SelfCareChallengesPage', color: '#FD9C2D' },
   journal:    { label: 'Open Journal',         page: 'MyJournalEntries', color: '#AFC7E3' },
   plans:      { label: 'Browse Coaching Plans',page: 'CoachingPlans',    color: '#38BDF8' },
-  fitness:    { label: 'Open Fitness Goals',   page: 'FitnessGoalsPage',  color: '#38BDF8' },
+  fitness:    { label: 'Open Fitness Goals',   page: 'FitnessGoalsPage',    color: '#38BDF8' },
+  nutrition_goals: { label: 'Open Nutrition Goals', page: 'NutritionGoalsPage', color: '#22C55E' },
   gideon:     { label: 'Chat with Gideon',     page: 'ChatScreen?bot=Gideon',     color: '#C9A227' },
   hannah:     { label: 'Chat with Hannah',     page: 'ChatScreen?bot=Hannah',     color: '#AFC7E3' },
   david:      { label: 'Chat with Coach David',page: 'ChatScreen?bot=CoachDavid', color: '#38BDF8' },
@@ -317,7 +359,8 @@ const QUICK_ACTIONS = [
   { icon: Play,     label: 'Walk me through nutrition', sub: 'Macros, meals & Chef Daniel',       color: '#22C55E', tourKey: 'nutrition' },
   { icon: Sparkles, label: 'Show me Personal Growth',   sub: 'Habits, emotions & Hannah',         color: '#AFC7E3', tourKey: 'growth' },
   { icon: Play,     label: "What's my daily routine?",  sub: 'Morning & evening ritual',          color: '#FD9C2D', tourKey: 'daily_ritual' },
-  { icon: Target,   label: 'Show my fitness goals',     sub: 'BMI · calories · macros · timeline', color: '#38BDF8', tourKey: 'fitness_goals' },
+  { icon: Target,   label: 'Show my fitness goals',      sub: 'BMI · calories · macros · timeline',  color: '#38BDF8', tourKey: 'fitness_goals' },
+  { icon: Salad,    label: 'Walk me through nutrition goals', sub: 'Diet · macros · meal schedule',        color: '#22C55E', tourKey: 'nutrition_goals' },
 ];
 
 // ── System prompt for LLM ─────────────────────────────────────────────────────
@@ -328,13 +371,13 @@ App features:
 - Home: daily ritual (Start/End My Day), verse of the day, progress ring, AI coach nudges
 - Bible: 66-book reader, Gideon AI spiritual guide, Read/Study/Devotional tabs, bookmarks, topic search
 - Wellness > Workouts: 33+ workouts in 6 categories, workout trends, quick-start, browse by category, Fitness Goals page (BMI, TDEE/calorie calculator, macro split, goal timeline, weight log, hydration goal, Coach David CTA)
-- Wellness > Nutrition: macro tracking (calories/protein/carbs/fat), meal logging, quick-log meals, water tracker, meal planner, Chef Daniel AI coach
+- Wellness > Nutrition: macro tracking, meal logging, water tracker, meal planner, Chef Daniel AI coach, Nutrition Goals page (calorie target by diet type, macro split, meal schedule by meals/day including intermittent fasting, allergen list, water goal, recipe ideas per diet)
 - Personal Growth: habit builder, emotional check-in, gratitude journal, affirmations, guided meditations, identity in Christ, Hannah AI growth coach
 - Community: feed, groups (Bible study/workout/prayer), blog, challenges, leaderboards, friends
 - Profile: progress dashboard (Journey), achievements/badges, journal entries, settings
 - 4 AI coaches: Hannah (personal growth/emotions), Gideon (spiritual/Bible), Coach David (fitness), Chef Daniel (nutrition)
 
-Available tour keys: daily_ritual, workouts, nutrition, bible, growth, community, profile, ai_coaches, coaching, habits, prayer, fitness_goals
+Available tour keys: daily_ritual, workouts, nutrition, bible, growth, community, profile, ai_coaches, coaching, habits, prayer, fitness_goals, nutrition_goals
 
 Available page shortcuts: workouts, nutrition, bible, growth, community, profile, habits, gratitude, meditation, affirmations, checkin, challenges, journal, plans, gideon, hannah, david, daniel
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
-import { UtensilsCrossed, CalendarDays, ChefHat, History, Plus, Droplets, Flame, Zap, TrendingUp, Minus, Check } from 'lucide-react';
+import { UtensilsCrossed, CalendarDays, ChefHat, History, Plus, Droplets, Flame, Zap, TrendingUp, Minus, Check, Target } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -157,6 +157,11 @@ export default function Nutrition() {
               </div>
             </div>
             <div className="flex items-center gap-2">
+              <Link to={createPageUrl('NutritionGoalsPage')}>
+                <button className="flex items-center gap-1.5 bg-[#F0FDF4] border border-[#22C55E]/30 text-[#22C55E] text-xs font-bold px-3 py-2 rounded-xl">
+                  <Target className="w-3.5 h-3.5" /> Goals
+                </button>
+              </Link>
               <Link to={createPageUrl('FoodLogHistory')}>
                 <button className="w-9 h-9 rounded-xl bg-[#F2F6FA] flex items-center justify-center text-[#0A1A2F]/45 hover:bg-[#FAD98D]/20 transition-colors">
                   <History className="w-4 h-4" />
@@ -191,6 +196,21 @@ export default function Nutrition() {
         {/* ══ TODAY TAB ══ */}
         {activeTab === 'today' && (
           <>
+            {/* Nutrition Goals entry card */}
+            <Link to={createPageUrl('NutritionGoalsPage')}>
+              <motion.div id="tour-nutrition-goals-entry" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
+                className="rounded-2xl p-4 flex items-center gap-3 shadow-sm"
+                style={{ background: 'linear-gradient(135deg, #14532d 0%, #166534 60%, #22C55E 180%)' }}>
+                <div className="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center flex-shrink-0">
+                  <span className="text-xl">🥗</span>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="font-bold text-white text-sm leading-tight">My Nutrition Goals</p>
+                  <p className="text-white/55 text-xs mt-0.5">Diet · Calories · Macros · Meal schedule</p>
+                </div>
+                <ChevronRight className="w-4 h-4 text-white/40 flex-shrink-0" />
+              </motion.div>
+            </Link>
             {/* Macro summary card */}
             <div id="tour-nutrition-macros" className="bg-white rounded-2xl border border-[#FAD98D]/20 p-4">
               <p className="text-xs font-bold text-[#0A1A2F]/35 uppercase tracking-widest mb-3">Today's Progress</p>
