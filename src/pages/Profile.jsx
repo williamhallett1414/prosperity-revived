@@ -91,18 +91,25 @@ function Header({ user, friendsCount, onCoverUpload, onAvatarUpload, uploading }
           </Link>
         </div>
 
-        {/* Status / spiritual goal */}
-        {(user?.status_message || user?.spiritual_goal) &&
+        {/* 90-day goal / status */}
+        {(user?.status_message || user?.goal_90_day || user?.spiritual_goal) &&
         <div className="pb-4 space-y-2">
             {user.status_message &&
           <p className="text-sm text-[#0A1A2F]/70 italic">"{user.status_message}"</p>
           }
-            {user.spiritual_goal &&
+            {(user.goal_90_day || user.spiritual_goal) &&
           <div className="flex items-start gap-2 bg-[#FAD98D]/15 border border-[#FAD98D]/30 rounded-xl p-3 text-sm">
-                <span className="text-base leading-none mt-0.5">✨</span>
-                <p className="text-[#0A1A2F]/80"><span className="font-semibold text-[#0A1A2F]">Goal:</span> {user.spiritual_goal}</p>
+                <span className="text-base leading-none mt-0.5">🌟</span>
+                <p className="text-[#0A1A2F]/80"><span className="font-semibold text-[#0A1A2F]">90-day goal:</span> {user.goal_90_day || user.spiritual_goal}</p>
               </div>
           }
+          {/* Profile pills */}
+          <div className="flex flex-wrap gap-1.5 pt-1">
+            {user.fitness_level && <span className="text-[10px] font-semibold px-2 py-1 rounded-full bg-[#38BDF8]/15 text-[#38BDF8]">💪 {user.fitness_level}</span>}
+            {user.diet_type && user.diet_type !== 'no_restrictions' && <span className="text-[10px] font-semibold px-2 py-1 rounded-full bg-[#22C55E]/15 text-[#22C55E]">🥗 {user.diet_type}</span>}
+            {user.bible_level && <span className="text-[10px] font-semibold px-2 py-1 rounded-full bg-[#FAD98D]/40 text-[#0A1A2F]">📖 {user.bible_level} reader</span>}
+            {user.coaching_style && <span className="text-[10px] font-semibold px-2 py-1 rounded-full bg-[#AFC7E3]/40 text-[#0A1A2F]">🧭 {user.coaching_style}</span>}
+          </div>
           </div>
         }
       </div>

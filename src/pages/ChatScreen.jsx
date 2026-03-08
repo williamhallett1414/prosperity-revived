@@ -702,6 +702,56 @@ export default function ChatScreen() {
   const [isListening,      setIsListening]      = useState(false);
   const [speakingIdx,      setSpeakingIdx]      = useState(null);
   const [permissionDenied, setPermissionDenied] = useState(false);
+  const [userProfile,      setUserProfile]      = useState(null);
+
+  // Load user profile once — injected into every bot prompt
+  useEffect(() => {
+    base44.auth.me().then(u => setUserProfile(u)).catch(() => {});
+  }, []);
+
+  // Build personalised system prompt with user context
+  const buildPrompt = useCallback((basePrompt) => {
+    if (!userProfile) return basePrompt;
+    const u = userProfile;
+    const age = u.dob ? Math.floor((Date.now() - new Date(u.dob)) / 31557600000) : null;
+    const lines = [
+      `USER PROFILE:`,
+      u.full_name              && `- Name: ${u.full_name}`,
+      age                      && `- Age: ${age}`,
+      u.biological_sex         && `- Sex: ${u.biological_sex}`,
+      u.life_stage             && `- Life stage: ${u.life_stage}`,
+      u.job_type               && `- Job type: ${u.job_type}`,
+      u.goal_90_day            && `- 90-day goal: "${u.goal_90_day}"`,
+      u.coaching_style         && `- Preferred coaching style: ${u.coaching_style}`,
+      // Fitness
+      u.fitness_level          && `- Fitness level: ${u.fitness_level}`,
+      u.fitness_goals?.length  && `- Fitness goals: ${u.fitness_goals.join(', ')}`,
+      u.weight_lbs             && `- Current weight: ${u.weight_lbs} lbs`,
+      u.goal_weight_lbs        && `- Goal weight: ${u.goal_weight_lbs} lbs`,
+      u.height_ft              && `- Height: ${u.height_ft}ft ${u.height_in || 0}in`,
+      u.equipment?.length      && `- Equipment: ${u.equipment.join(', ')}`,
+      u.workout_days           && `- Trains ${u.workout_days}x/week, ${u.workout_duration || '?'} min sessions`,
+      u.preferred_workout_time && `- Prefers ${u.preferred_workout_time} workouts`,
+      u.injuries               && `- Injuries/limitations: ${u.injuries}`,
+      // Nutrition
+      u.diet_type              && `- Diet: ${u.diet_type}`,
+      u.allergies?.filter(a => a !== 'none').length && `- Allergies: ${u.allergies.filter(a => a !== 'none').join(', ')}`,
+      u.meals_per_day          && `- Eats ${u.meals_per_day} meals/day`,
+      u.cooking_time           && `- Cooking preference: ${u.cooking_time}`,
+      // Faith
+      u.bible_level            && `- Bible experience: ${u.bible_level}`,
+      u.bible_translation      && `- Preferred translation: ${u.bible_translation}`,
+      u.bible_topics?.length   && `- Scripture interests: ${u.bible_topics.join(', ')}`,
+      u.devotional_depth       && `- Devotional depth: ${u.devotional_depth}`,
+      u.in_church              && `- Church involvement: ${u.in_church}`,
+      // Growth
+      u.growth_areas?.length   && `- Growth focus areas: ${u.growth_areas.join(', ')}`,
+      u.core_values?.length    && `- Core values: ${u.core_values.join(', ')}`,
+      u.motivations?.length    && `- Motivations for joining: ${u.motivations.join(', ')}`,
+    ].filter(Boolean).join('\n');
+
+    return `${basePrompt}\n\n${lines}\n\nUse this profile to personalise your responses. Address them by first name occasionally. Reference their specific goals, stage, and preferences naturally — don't recite the profile back to them.`;
+  }, [userProfile]);
 
   const inputRef           = useRef(null);
   const messagesEndRef     = useRef(null);
@@ -752,7 +802,7 @@ export default function ChatScreen() {
         .join('\n\n');
 
       const response = await base44.integrations.Core.InvokeLLM({
-        prompt: `${cfg.systemPrompt}\n\nCONVERSATION HISTORY:\n${history}\n\nUser: ${trimmed}`,
+        prompt: `${buildPrompt(cfg.systemPrompt)}\n\nCONVERSATION HISTORY:\n${history}\n\nUser: ${trimmed}`,
         add_context_from_internet: false,
       });
 
