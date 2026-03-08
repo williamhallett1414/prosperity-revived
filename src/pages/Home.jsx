@@ -403,13 +403,6 @@ export default function Home() {
       setUser(u);
       if (!u.onboarding_completed) {
         setShowOnboarding(true);
-      } else {
-        const gideonComplete = localStorage.getItem('gideon_onboarding_complete');
-        if (!gideonComplete) {
-          setShowGideonOnboarding(true);
-        } else if (!u.wellness_tour_completed) {
-          setShowWellnessTour(true);
-        }
       }
     });
   }, []);
@@ -479,20 +472,6 @@ export default function Home() {
         <OnboardingFlow onComplete={() => {
           setShowOnboarding(false);
           base44.auth.me().then(setUser);
-          const gideonComplete = localStorage.getItem('gideon_onboarding_complete');
-          if (!gideonComplete) setTimeout(() => setShowGideonOnboarding(true), 500);
-          else if ('Notification' in window && Notification.permission === 'default')
-            setTimeout(() => setShowNotifPrompt(true), 800);
-        }} />
-      )}
-      {showGideonOnboarding && (
-        <GideonOnboarding onComplete={() => {
-          setShowGideonOnboarding(false);
-          base44.auth.me().then(u => {
-            if (!u.wellness_tour_completed) setTimeout(() => setShowWellnessTour(true), 500);
-            else if ('Notification' in window && Notification.permission === 'default')
-              setTimeout(() => setShowNotifPrompt(true), 800);
-          });
         }} />
       )}
       {showWellnessTour && (
