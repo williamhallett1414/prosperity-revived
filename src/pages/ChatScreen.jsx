@@ -496,10 +496,9 @@ function prepareTextForSpeech(text) {
  * Calls the gideonTTS backend function which returns a base64 MP3.
  * Falls back to browser TTS on any error.
  * ───────────────────────────────────────────────────────────────────────── */
-async function speakWithGoogleTTS({ text, onStart, onEnd, onError, onLog, primedAudio }) {
+async function speakWithGoogleTTS({ text, onStart, onEnd, onError, primedAudio }) {
   let cancelled = false;
 
-  const log = (msg) => { console.log('[Gideon TTS]', msg); onLog?.(msg); };
 
   try {
     const cleaned = text
@@ -509,7 +508,6 @@ async function speakWithGoogleTTS({ text, onStart, onEnd, onError, onLog, primed
 
     if (!cleaned) { onEnd?.(); return () => {}; }
 
-    log('Calling backend...');
     const result = await base44.functions.invoke('gideonTTS', { text: cleaned });
     log('Got response. Keys: ' + (result ? Object.keys(result).join(', ') : 'null'));
 
@@ -524,7 +522,6 @@ async function speakWithGoogleTTS({ text, onStart, onEnd, onError, onLog, primed
     for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
     const blob   = new Blob([bytes], { type: 'audio/mpeg' });
     const url    = URL.createObjectURL(blob);
-    log('Blob URL created, size: ' + bytes.length + ' bytes');
 
     // Reuse the audio element that was created+loaded during the tap gesture.
     // iOS Safari trusts play() on an element that was already load()-ed
@@ -540,8 +537,7 @@ async function speakWithGoogleTTS({ text, onStart, onEnd, onError, onLog, primed
     audio.onerror = (e) => {
       const code = audio.error?.code;
       const msg  = audio.error?.message || String(e);
-      log('Audio error code ' + code + ': ' + msg);
-      URL.revokeObjectURL(url);
+        URL.revokeObjectURL(url);
       onError?.();
     };
 
@@ -562,7 +558,6 @@ async function speakWithGoogleTTS({ text, onStart, onEnd, onError, onLog, primed
     };
 
   } catch (err) {
-    log('FAILED: ' + err.message);
     console.error('[Gideon TTS]', err);
     return speakWithBrowserTTS({ text, onStart, onEnd, onError });
   }
@@ -601,9 +596,9 @@ async function speakWithBrowserTTS({ text, cfg, onStart, onEnd, onError }) {
 }
 
 // speakText — uses Google Cloud TTS for Gideon, browser TTS for all others.
-async function speakText({ text, cfg, onStart, onEnd, onError, onLog, primedAudio }) {
+async function speakText({ text, cfg, onStart, onEnd, onError, primedAudio }) {
   if (cfg?.character === 'gideon') {
-    return speakWithGoogleTTS({ text, onStart, onEnd, onError, onLog, primedAudio });
+    return speakWithGoogleTTS({ text, onStart, onEnd, onError, primedAudio });
   }
   return speakWithBrowserTTS({ text, cfg, onStart, onEnd, onError });
 }
@@ -778,7 +773,6 @@ export default function ChatScreen() {
   const [isListening,      setIsListening]      = useState(false);
   const [speakingIdx,      setSpeakingIdx]      = useState(null);
   const [permissionDenied, setPermissionDenied] = useState(false);
-  const [ttsLog,           setTtsLog]           = useState([]);
   const [userProfile,      setUserProfile]      = useState(null);
 
   // Load user profile once — injected into every bot prompt
@@ -918,8 +912,6 @@ export default function ChatScreen() {
       setSpeakingIdx(null);
     };
 
-    setTtsLog(['Tap received...']);
-
     // iOS Safari requires an <audio> element to be created and .load()-ed
     // synchronously within the user gesture. We do that HERE before any await,
     // then pass the primed element to the async TTS function which sets its
@@ -930,9 +922,7 @@ export default function ChatScreen() {
         primedAudio = new Audio();
         primedAudio.preload = 'auto';
         primedAudio.load(); // prime within the gesture
-        setTtsLog(prev => [...prev, 'Audio element primed']);
       } catch(e) {
-        setTtsLog(prev => [...prev, 'Prime failed: ' + e.message]);
       }
     }
 
@@ -943,7 +933,6 @@ export default function ChatScreen() {
       onStart:        () => setSpeakingIdx(idx),
       onEnd:          () => { setSpeakingIdx(null); },
       onError:        () => { setSpeakingIdx(null); },
-      onLog:          (msg) => setTtsLog(prev => [...prev.slice(-8), msg]),
     }).then(cancelFn => {
       if (hasBeenCancelled) {
         cancelFn?.();
@@ -1271,27 +1260,6 @@ export default function ChatScreen() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.35, delay: 0.12, ease: 'easeOut' }}
       >
-        {/* TTS debug log — only shows when there are log entries */}
-        {ttsLog.length > 0 && (
-          <div style={{
-            position:'absolute', bottom:'100%', left:0, right:0,
-            background:'rgba(0,0,0,0.85)', padding:'8px 12px',
-            fontSize:11, fontFamily:'monospace', color:'#4ade80',
-            borderTop:'1px solid #333', maxHeight:120, overflowY:'auto',
-            zIndex:9999
-          }}>
-            <div style={{display:'flex',justifyContent:'space-between',marginBottom:4}}>
-              <span style={{color:'#facc15',fontWeight:'bold'}}>🎙 Gideon TTS Debug</span>
-              <button onClick={()=>setTtsLog([])} style={{color:'#999',background:'none',border:'none',cursor:'pointer',fontSize:11}}>✕ clear</button>
-            </div>
-            {ttsLog.map((line,i)=>(
-              <div key={i} style={{color: line.startsWith('FAILED') || line.startsWith('No') ? '#f87171' : line.startsWith('✓') ? '#4ade80' : '#e2e8f0'}}>
-                › {line}
-              </div>
-            ))}
-          </div>
-        )}
-
         <div className="flex items-center gap-2 max-w-lg mx-auto">
 
           {/* Mic button */}
