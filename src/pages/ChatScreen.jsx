@@ -496,17 +496,10 @@ function prepareTextForSpeech(text) {
  * Calls the gideonTTS backend function which returns a base64 MP3.
  * Falls back to browser TTS on any error.
  * ───────────────────────────────────────────────────────────────────────── */
-async function speakWithGoogleTTS({ text, onStart, onEnd, onError, onLog, unlockedCtx }) {
-  let cancelled  = false;
-  let sourceNode = null;
-  // Use the pre-unlocked context passed in from the tap handler (iOS requires
-  // AudioContext to be created+resumed synchronously during the user gesture).
-  let audioCtx   = unlockedCtx || null;
+async function speakWithGoogleTTS({ text, onStart, onEnd, onError, onLog, primedAudio }) {
+  let cancelled = false;
 
-  const log = (msg) => {
-    console.log('[Gideon TTS]', msg);
-    onLog?.(msg);
-  };
+  const log = (msg) => { console.log('[Gideon TTS]', msg); onLog?.(msg); };
 
   try {
     const cleaned = text
@@ -520,7 +513,7 @@ async function speakWithGoogleTTS({ text, onStart, onEnd, onError, onLog, unlock
     const result = await base44.functions.invoke('gideonTTS', { text: cleaned });
     log('Got response. Keys: ' + (result ? Object.keys(result).join(', ') : 'null'));
 
-    if (cancelled) { onEnd?.(); return () => {}; }
+    if (cancelled) { primedAudio && (primedAudio.src = ''); onEnd?.(); return () => {}; }
 
     const audioContent = result?.audioContent ?? result?.data?.audioContent;
     log('audioContent: ' + (audioContent ? 'YES (' + audioContent.length + ' chars)' : 'NO'));
@@ -529,43 +522,52 @@ async function speakWithGoogleTTS({ text, onStart, onEnd, onError, onLog, unlock
     const binary = atob(audioContent);
     const bytes  = new Uint8Array(binary.length);
     for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
-    log('Decoded ' + bytes.length + ' bytes');
+    const blob   = new Blob([bytes], { type: 'audio/mpeg' });
+    const url    = URL.createObjectURL(blob);
+    log('Blob URL created, size: ' + bytes.length + ' bytes');
 
-    // If no pre-unlocked context, create one now (non-iOS fallback)
-    if (!audioCtx) {
-      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    // Reuse the audio element that was created+loaded during the tap gesture.
+    // iOS Safari trusts play() on an element that was already load()-ed
+    // synchronously in the same user gesture call stack.
+    const audio = primedAudio || new Audio();
+    audio.src = url;
+
+    audio.oncanplaythrough = () => {
+      log('canplaythrough — calling play()');
+    };
+    audio.onplay  = () => { log('onplay fired'); onStart?.(); };
+    audio.onended = () => { URL.revokeObjectURL(url); log('ended'); onEnd?.(); };
+    audio.onerror = (e) => {
+      const code = audio.error?.code;
+      const msg  = audio.error?.message || String(e);
+      log('Audio error code ' + code + ': ' + msg);
+      URL.revokeObjectURL(url);
+      onError?.();
+    };
+
+    log('Calling audio.play()...');
+    try {
+      await audio.play();
+      log('✓ play() resolved');
+    } catch (playErr) {
+      log('play() rejected: ' + playErr.message);
+      throw playErr;
     }
-    log('AudioContext state: ' + audioCtx.state);
-    if (audioCtx.state === 'suspended') {
-      await audioCtx.resume();
-      log('Resumed: ' + audioCtx.state);
-    }
 
-    const decoded = await audioCtx.decodeAudioData(bytes.buffer.slice(0));
-    log('Decoded audio: ' + decoded.duration.toFixed(1) + 's');
-
-    if (cancelled) { try { audioCtx.close(); } catch(_){} onEnd?.(); return () => {}; }
-
-    sourceNode = audioCtx.createBufferSource();
-    sourceNode.buffer = decoded;
-    sourceNode.connect(audioCtx.destination);
-    sourceNode.onended = () => { try { audioCtx.close(); } catch(_){} onEnd?.(); };
-    sourceNode.start(0);
-    onStart?.();
-    log('✓ Playing!');
+    return () => {
+      cancelled = true;
+      audio.pause();
+      audio.src = '';
+      URL.revokeObjectURL(url);
+    };
 
   } catch (err) {
     log('FAILED: ' + err.message);
-    console.error('[Gideon TTS] Full error:', err);
-    try { audioCtx?.close(); } catch(_) {}
+    console.error('[Gideon TTS]', err);
     return speakWithBrowserTTS({ text, onStart, onEnd, onError });
   }
 
-  return () => {
-    cancelled = true;
-    try { sourceNode?.stop(); } catch (_) {}
-    try { audioCtx?.close(); } catch (_) {}
-  };
+  return () => { cancelled = true; };
 }
 
 
@@ -599,9 +601,9 @@ async function speakWithBrowserTTS({ text, cfg, onStart, onEnd, onError }) {
 }
 
 // speakText — uses Google Cloud TTS for Gideon, browser TTS for all others.
-async function speakText({ text, cfg, onStart, onEnd, onError, onLog, unlockedCtx }) {
+async function speakText({ text, cfg, onStart, onEnd, onError, onLog, primedAudio }) {
   if (cfg?.character === 'gideon') {
-    return speakWithGoogleTTS({ text, onStart, onEnd, onError, onLog, unlockedCtx });
+    return speakWithGoogleTTS({ text, onStart, onEnd, onError, onLog, primedAudio });
   }
   return speakWithBrowserTTS({ text, cfg, onStart, onEnd, onError });
 }
@@ -916,32 +918,28 @@ export default function ChatScreen() {
       setSpeakingIdx(null);
     };
 
-    setTtsLog(['Tap received — unlocking audio...']);
+    setTtsLog(['Tap received...']);
 
-    // iOS Safari requires AudioContext to be created synchronously during
-    // the user gesture tap. We create + resume it HERE, before any awaits,
-    // then pass the unlocked context into the async TTS function.
-    let unlockedCtx = null;
+    // iOS Safari requires an <audio> element to be created and .load()-ed
+    // synchronously within the user gesture. We do that HERE before any await,
+    // then pass the primed element to the async TTS function which sets its
+    // src and calls play() — iOS trusts play() on an already-primed element.
+    let primedAudio = null;
     if (cfg?.character === 'gideon') {
       try {
-        unlockedCtx = new (window.AudioContext || window.webkitAudioContext)();
-        // Kick it with a silent buffer — this is the iOS unlock trick
-        const silentBuf = unlockedCtx.createBuffer(1, 1, 22050);
-        const silent    = unlockedCtx.createBufferSource();
-        silent.buffer   = silentBuf;
-        silent.connect(unlockedCtx.destination);
-        silent.start(0);
-        if (unlockedCtx.state === 'suspended') unlockedCtx.resume();
-        setTtsLog(prev => [...prev, 'AudioContext unlocked: ' + unlockedCtx.state]);
+        primedAudio = new Audio();
+        primedAudio.preload = 'auto';
+        primedAudio.load(); // prime within the gesture
+        setTtsLog(prev => [...prev, 'Audio element primed']);
       } catch(e) {
-        setTtsLog(prev => [...prev, 'AudioContext unlock failed: ' + e.message]);
+        setTtsLog(prev => [...prev, 'Prime failed: ' + e.message]);
       }
     }
 
     speakText({
       text: content,
       cfg,
-      unlockedCtx,
+      primedAudio,
       onStart:        () => setSpeakingIdx(idx),
       onEnd:          () => { setSpeakingIdx(null); },
       onError:        () => { setSpeakingIdx(null); },
