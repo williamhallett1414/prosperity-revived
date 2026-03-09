@@ -497,11 +497,11 @@ function prepareTextForSpeech(text) {
  * Falls back to browser TTS on any error.
  * ───────────────────────────────────────────────────────────────────────── */
 async function speakWithGoogleTTS({ text, onStart, onEnd, onError }) {
-  let audioEl = null;
-  let cancelled = false;
+  let cancelled  = false;
+  let sourceNode = null;
+  let audioCtx   = null;
 
   try {
-    // Sanitise text the same way the backend does (belt-and-suspenders)
     const cleaned = text
       .replace(/\*\*(.+?)\*\*/g, '$1').replace(/\*(.+?)\*/g, '$1')
       .replace(/#{1,6}\s+/g, '').replace(/`{1,3}[^`]*`{1,3}/g, '')
@@ -509,93 +509,93 @@ async function speakWithGoogleTTS({ text, onStart, onEnd, onError }) {
 
     if (!cleaned) { onEnd?.(); return () => {}; }
 
-    // Call base44 backend function
+    console.log('[Gideon TTS] Calling gideonTTS function...');
     const result = await base44.functions.invoke('gideonTTS', { text: cleaned });
+    console.log('[Gideon TTS] Raw result keys:', result ? Object.keys(result) : 'null');
 
     if (cancelled) { onEnd?.(); return () => {}; }
 
-    if (!result?.audioContent) throw new Error('No audioContent returned');
+    // base44.functions.invoke may wrap the response — handle both shapes
+    const audioContent = result?.audioContent ?? result?.data?.audioContent;
+    console.log('[Gideon TTS] audioContent present:', !!audioContent, 'length:', audioContent?.length);
 
-    // Decode base64 MP3 → Blob → Object URL
-    const binary = atob(result.audioContent);
+    if (!audioContent) throw new Error('No audioContent: ' + JSON.stringify(result));
+
+    // Decode base64 → ArrayBuffer
+    const binary = atob(audioContent);
     const bytes  = new Uint8Array(binary.length);
     for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
-    const blob   = new Blob([bytes], { type: 'audio/mpeg' });
-    const url    = URL.createObjectURL(blob);
 
-    audioEl = new Audio(url);
-    audioEl.onplay  = () => onStart?.();
-    audioEl.onended = () => { URL.revokeObjectURL(url); onEnd?.(); };
-    audioEl.onerror = () => { URL.revokeObjectURL(url); onError?.(); };
+    // Use Web Audio API — bypasses browser autoplay restrictions
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    if (audioCtx.state === 'suspended') {
+      console.log('[Gideon TTS] AudioContext suspended, resuming...');
+      await audioCtx.resume();
+    }
+    console.log('[Gideon TTS] AudioContext state:', audioCtx.state);
 
-    await audioEl.play();
+    const decoded = await audioCtx.decodeAudioData(bytes.buffer);
+    console.log('[Gideon TTS] Decoded audio duration:', decoded.duration.toFixed(1) + 's');
+
+    if (cancelled) { audioCtx.close(); onEnd?.(); return () => {}; }
+
+    sourceNode = audioCtx.createBufferSource();
+    sourceNode.buffer = decoded;
+    sourceNode.connect(audioCtx.destination);
+    sourceNode.onended = () => { try { audioCtx.close(); } catch(_) {} onEnd?.(); };
+    sourceNode.start(0);
+    onStart?.();
+    console.log('[Gideon TTS] ✓ Playing via Web Audio API');
+
   } catch (err) {
-    console.warn('[Gideon TTS] Google TTS failed, falling back to browser TTS:', err);
-    onError?.();
+    console.error('[Gideon TTS] Failed:', err);
+    try { audioCtx?.close(); } catch(_) {}
+    // Fallback: browser TTS
+    return speakWithBrowserTTS({ text, onStart, onEnd, onError });
   }
 
   return () => {
     cancelled = true;
-    if (audioEl) { audioEl.pause(); audioEl.src = ''; }
+    try { sourceNode?.stop(); } catch (_) {}
+    try { audioCtx?.close(); } catch (_) {}
   };
+}
+
+// Browser TTS for all non-Gideon bots (and Gideon fallback)
+async function speakWithBrowserTTS({ text, cfg, onStart, onEnd, onError }) {
+  if (!('speechSynthesis' in window)) { onEnd?.(); return () => {}; }
+  try { window.speechSynthesis.cancel(); } catch (_) {}
+  const prepared  = prepareTextForSpeech(text);
+  if (!prepared) { onEnd?.(); return () => {}; }
+  const sentences = splitSentencesWSA(prepared);
+  let idx = 0, cancelled = false;
+  const speakNext = (voice) => {
+    if (cancelled || idx >= sentences.length) { onEnd?.(); return; }
+    const i = idx++;
+    const chunk = sentences[i].trim();
+    if (!chunk) { speakNext(voice); return; }
+    try {
+      const { rate, pitch } = prosodyFor(chunk, i, cfg || {});
+      const utt = new SpeechSynthesisUtterance(chunk);
+      utt.rate = rate; utt.pitch = pitch; utt.volume = cfg?.voiceVolume ?? 1.0;
+      if (voice) utt.voice = voice;
+      if (i === 0) utt.onstart = () => onStart?.();
+      utt.onend   = () => speakNext(voice);
+      utt.onerror = (e) => { if (e.error !== 'interrupted' && e.error !== 'canceled') onError?.(); else onEnd?.(); };
+      window.speechSynthesis.speak(utt);
+    } catch (_) { onEnd?.(); }
+  };
+  const voices = await loadVoices();
+  if (!cancelled) speakNext(pickVoice(voices, cfg?.voiceNames || [], cfg?.voiceGender));
+  return () => { cancelled = true; try { window.speechSynthesis.cancel(); } catch (_) {} };
 }
 
 // speakText — uses Google Cloud TTS for Gideon, browser TTS for all others.
 async function speakText({ text, cfg, onStart, onEnd, onError }) {
-  // ── Gideon: real Google Cloud TTS ──────────────────────────────────────
   if (cfg?.character === 'gideon') {
     return speakWithGoogleTTS({ text, onStart, onEnd, onError });
   }
-
-  // ── All other bots: browser speechSynthesis ─────────────────────────────
-  if (!('speechSynthesis' in window)) { onEnd?.(); return () => {}; }
-  try { window.speechSynthesis.cancel(); } catch (_) {}
-
-  const prepared = prepareTextForSpeech(text);
-  if (!prepared) { onEnd?.(); return () => {}; }
-
-  const sentences = splitSentencesWSA(prepared);
-  let idx       = 0;
-  let cancelled = false;
-
-  const speakNext = (voiceToUse) => {
-    if (cancelled || idx >= sentences.length) { onEnd?.(); return; }
-    const sentIdx = idx;
-    const isFirst = idx === 0;
-    const chunk   = sentences[idx++].trim();
-    if (!chunk) { speakNext(voiceToUse); return; }
-
-    try {
-      const { rate, pitch } = prosodyFor(chunk, sentIdx, cfg);
-      const utt = new SpeechSynthesisUtterance(chunk);
-      utt.rate   = rate;
-      utt.pitch  = pitch;
-      utt.volume = cfg.voiceVolume ?? 1.0;
-      if (voiceToUse) utt.voice = voiceToUse;
-      if (isFirst) utt.onstart = () => onStart?.();
-      utt.onend   = () => speakNext(voiceToUse);
-      utt.onerror = (e) => {
-        if (e.error !== 'interrupted' && e.error !== 'canceled') onError?.();
-        else onEnd?.();
-      };
-      window.speechSynthesis.speak(utt);
-    } catch (_) { onEnd?.(); }
-  };
-
-  const voices = await loadVoices();
-  if (!cancelled) {
-    const chosen = pickVoice(voices, cfg.voiceNames || [], cfg.voiceGender);
-    // Debug: log which voice is selected so you can verify in browser console
-    if (typeof window !== 'undefined' && window.location?.hostname === 'localhost') {
-      console.log(`[TTS] ${cfg.name ?? 'Bot'} → voice: "${chosen?.name ?? 'default'}" | rate: ${cfg.voiceRate} | pitch: ${cfg.voicePitch}`);
-    }
-    speakNext(chosen);
-  }
-
-  return () => {
-    cancelled = true;
-    try { window.speechSynthesis.cancel(); } catch (_) {}
-  };
+  return speakWithBrowserTTS({ text, cfg, onStart, onEnd, onError });
 }
 
 
