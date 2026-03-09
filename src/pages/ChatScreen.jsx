@@ -37,8 +37,8 @@ class CloudAvatarSafe extends React.Component {
           isSpeaking={this.props.isSpeaking}
           isListening={this.props.isListening}
           isThinking={this.props.isThinking}
-          width={320}
-          height={380}
+          width={280}
+          height={320}
         />
       );
     }
@@ -1112,7 +1112,7 @@ export default function ChatScreen() {
       {/* Avatar zone — absolute, sits behind messages AND behind input bar */}
       <motion.div
         className="absolute flex flex-col items-center pointer-events-none"
-        style={{ bottom: 80, left: 0, right: 0, zIndex: 5 }}
+        style={{ bottom: 60, left: 0, right: 0, zIndex: 5 }}
         initial={{ y: 30, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.45, ease: [0.34, 1.56, 0.64, 1], delay: 0.08 }}
@@ -1158,7 +1158,7 @@ export default function ChatScreen() {
         </div>
 
         {/* 3D cloud */}
-        <div className="relative flex items-center justify-center" style={{ width: 320, height: 380 }}>
+        <div className="relative flex items-center justify-center" style={{ width: 280, height: 320 }}>
           <motion.div className="absolute inset-0 rounded-full pointer-events-none"
             style={{ background: `radial-gradient(circle, ${cfg.gradTo}28 0%, transparent 70%)` }}
             animate={{ opacity: avatarSpeaking ? [0.6, 1, 0.6] : 0.35 }}
@@ -1182,6 +1182,16 @@ export default function ChatScreen() {
           />
         </div>
       </motion.div>
+
+      {/* Gradient scrim — sits above avatar (z-5), below messages (z-10)
+           Darkens the lower 50% of screen so input bar + messages are always legible */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          zIndex: 7,
+          background: 'linear-gradient(to bottom, transparent 0%, transparent 30%, rgba(8,18,38,0.55) 60%, rgba(8,18,38,0.90) 85%, rgba(8,18,38,0.98) 100%)',
+        }}
+      />
 
       {/* Message feed — z-10 so bubbles render over Gideon image */}
       <div className="flex-1 overflow-y-auto px-3 pt-2 relative"
