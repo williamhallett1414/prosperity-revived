@@ -496,10 +496,12 @@ function prepareTextForSpeech(text) {
  * Calls the gideonTTS backend function which returns a base64 MP3.
  * Falls back to browser TTS on any error.
  * ───────────────────────────────────────────────────────────────────────── */
-async function speakWithGoogleTTS({ text, onStart, onEnd, onError, onLog }) {
+async function speakWithGoogleTTS({ text, onStart, onEnd, onError, onLog, unlockedCtx }) {
   let cancelled  = false;
   let sourceNode = null;
-  let audioCtx   = null;
+  // Use the pre-unlocked context passed in from the tap handler (iOS requires
+  // AudioContext to be created+resumed synchronously during the user gesture).
+  let audioCtx   = unlockedCtx || null;
 
   const log = (msg) => {
     console.log('[Gideon TTS]', msg);
@@ -516,55 +518,41 @@ async function speakWithGoogleTTS({ text, onStart, onEnd, onError, onLog }) {
 
     log('Calling backend...');
     const result = await base44.functions.invoke('gideonTTS', { text: cleaned });
-    log('Response received. Keys: ' + (result ? Object.keys(result).join(', ') : 'null'));
+    log('Got response. Keys: ' + (result ? Object.keys(result).join(', ') : 'null'));
 
     if (cancelled) { onEnd?.(); return () => {}; }
 
     const audioContent = result?.audioContent ?? result?.data?.audioContent;
-    log('audioContent: ' + (audioContent ? 'YES (' + audioContent.length + ' chars)' : 'NO — ' + JSON.stringify(result)));
-
+    log('audioContent: ' + (audioContent ? 'YES (' + audioContent.length + ' chars)' : 'NO'));
     if (!audioContent) throw new Error('No audioContent in response');
 
-    // Decode base64 → bytes
     const binary = atob(audioContent);
     const bytes  = new Uint8Array(binary.length);
     for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
     log('Decoded ' + bytes.length + ' bytes');
 
-    // Try method 1: Web Audio API
-    try {
+    // If no pre-unlocked context, create one now (non-iOS fallback)
+    if (!audioCtx) {
       audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      log('AudioContext state: ' + audioCtx.state);
-      if (audioCtx.state === 'suspended') {
-        await audioCtx.resume();
-        log('AudioContext resumed: ' + audioCtx.state);
-      }
-      const decoded = await audioCtx.decodeAudioData(bytes.buffer.slice(0));
-      log('Audio decoded. Duration: ' + decoded.duration.toFixed(1) + 's');
-      if (cancelled) { audioCtx.close(); onEnd?.(); return () => {}; }
-      sourceNode = audioCtx.createBufferSource();
-      sourceNode.buffer = decoded;
-      sourceNode.connect(audioCtx.destination);
-      sourceNode.onended = () => { try { audioCtx.close(); } catch(_){} onEnd?.(); };
-      sourceNode.start(0);
-      onStart?.();
-      log('✓ Playing via Web Audio API');
-    } catch (webAudioErr) {
-      log('Web Audio failed: ' + webAudioErr.message + ' — trying HTML Audio...');
-      // Method 2: HTML Audio element with blob URL
-      const blob = new Blob([bytes], { type: 'audio/mpeg' });
-      const url  = URL.createObjectURL(blob);
-      const audio = new Audio(url);
-      audio.volume = 1.0;
-      audio.onended = () => { URL.revokeObjectURL(url); onEnd?.(); };
-      audio.onerror = (e) => { log('HTML Audio error: ' + e.message); URL.revokeObjectURL(url); onError?.(); };
-      const playPromise = audio.play();
-      if (playPromise) {
-        await playPromise.catch(e => { log('HTML Audio play() blocked: ' + e.message); throw e; });
-      }
-      onStart?.();
-      log('✓ Playing via HTML Audio element');
     }
+    log('AudioContext state: ' + audioCtx.state);
+    if (audioCtx.state === 'suspended') {
+      await audioCtx.resume();
+      log('Resumed: ' + audioCtx.state);
+    }
+
+    const decoded = await audioCtx.decodeAudioData(bytes.buffer.slice(0));
+    log('Decoded audio: ' + decoded.duration.toFixed(1) + 's');
+
+    if (cancelled) { try { audioCtx.close(); } catch(_){} onEnd?.(); return () => {}; }
+
+    sourceNode = audioCtx.createBufferSource();
+    sourceNode.buffer = decoded;
+    sourceNode.connect(audioCtx.destination);
+    sourceNode.onended = () => { try { audioCtx.close(); } catch(_){} onEnd?.(); };
+    sourceNode.start(0);
+    onStart?.();
+    log('✓ Playing!');
 
   } catch (err) {
     log('FAILED: ' + err.message);
@@ -611,9 +599,9 @@ async function speakWithBrowserTTS({ text, cfg, onStart, onEnd, onError }) {
 }
 
 // speakText — uses Google Cloud TTS for Gideon, browser TTS for all others.
-async function speakText({ text, cfg, onStart, onEnd, onError, onLog }) {
+async function speakText({ text, cfg, onStart, onEnd, onError, onLog, unlockedCtx }) {
   if (cfg?.character === 'gideon') {
-    return speakWithGoogleTTS({ text, onStart, onEnd, onError, onLog });
+    return speakWithGoogleTTS({ text, onStart, onEnd, onError, onLog, unlockedCtx });
   }
   return speakWithBrowserTTS({ text, cfg, onStart, onEnd, onError });
 }
@@ -928,14 +916,36 @@ export default function ChatScreen() {
       setSpeakingIdx(null);
     };
 
-    setTtsLog(['Tap received — starting TTS...']);
+    setTtsLog(['Tap received — unlocking audio...']);
+
+    // iOS Safari requires AudioContext to be created synchronously during
+    // the user gesture tap. We create + resume it HERE, before any awaits,
+    // then pass the unlocked context into the async TTS function.
+    let unlockedCtx = null;
+    if (cfg?.character === 'gideon') {
+      try {
+        unlockedCtx = new (window.AudioContext || window.webkitAudioContext)();
+        // Kick it with a silent buffer — this is the iOS unlock trick
+        const silentBuf = unlockedCtx.createBuffer(1, 1, 22050);
+        const silent    = unlockedCtx.createBufferSource();
+        silent.buffer   = silentBuf;
+        silent.connect(unlockedCtx.destination);
+        silent.start(0);
+        if (unlockedCtx.state === 'suspended') unlockedCtx.resume();
+        setTtsLog(prev => [...prev, 'AudioContext unlocked: ' + unlockedCtx.state]);
+      } catch(e) {
+        setTtsLog(prev => [...prev, 'AudioContext unlock failed: ' + e.message]);
+      }
+    }
+
     speakText({
       text: content,
       cfg,
+      unlockedCtx,
       onStart:        () => setSpeakingIdx(idx),
       onEnd:          () => { setSpeakingIdx(null); },
       onError:        () => { setSpeakingIdx(null); },
-      onLog:          (msg) => setTtsLog(prev => [...prev.slice(-6), msg]),
+      onLog:          (msg) => setTtsLog(prev => [...prev.slice(-8), msg]),
     }).then(cancelFn => {
       if (hasBeenCancelled) {
         cancelFn?.();
