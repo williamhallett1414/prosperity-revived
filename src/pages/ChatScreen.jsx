@@ -496,10 +496,15 @@ function prepareTextForSpeech(text) {
  * Calls the gideonTTS backend function which returns a base64 MP3.
  * Falls back to browser TTS on any error.
  * ───────────────────────────────────────────────────────────────────────── */
-async function speakWithGoogleTTS({ text, onStart, onEnd, onError }) {
+async function speakWithGoogleTTS({ text, onStart, onEnd, onError, onLog }) {
   let cancelled  = false;
   let sourceNode = null;
   let audioCtx   = null;
+
+  const log = (msg) => {
+    console.log('[Gideon TTS]', msg);
+    onLog?.(msg);
+  };
 
   try {
     const cleaned = text
@@ -509,48 +514,62 @@ async function speakWithGoogleTTS({ text, onStart, onEnd, onError }) {
 
     if (!cleaned) { onEnd?.(); return () => {}; }
 
-    console.log('[Gideon TTS] Calling gideonTTS function...');
+    log('Calling backend...');
     const result = await base44.functions.invoke('gideonTTS', { text: cleaned });
-    console.log('[Gideon TTS] Raw result keys:', result ? Object.keys(result) : 'null');
+    log('Response received. Keys: ' + (result ? Object.keys(result).join(', ') : 'null'));
 
     if (cancelled) { onEnd?.(); return () => {}; }
 
-    // base44.functions.invoke may wrap the response — handle both shapes
     const audioContent = result?.audioContent ?? result?.data?.audioContent;
-    console.log('[Gideon TTS] audioContent present:', !!audioContent, 'length:', audioContent?.length);
+    log('audioContent: ' + (audioContent ? 'YES (' + audioContent.length + ' chars)' : 'NO — ' + JSON.stringify(result)));
 
-    if (!audioContent) throw new Error('No audioContent: ' + JSON.stringify(result));
+    if (!audioContent) throw new Error('No audioContent in response');
 
-    // Decode base64 → ArrayBuffer
+    // Decode base64 → bytes
     const binary = atob(audioContent);
     const bytes  = new Uint8Array(binary.length);
     for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+    log('Decoded ' + bytes.length + ' bytes');
 
-    // Use Web Audio API — bypasses browser autoplay restrictions
-    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    if (audioCtx.state === 'suspended') {
-      console.log('[Gideon TTS] AudioContext suspended, resuming...');
-      await audioCtx.resume();
+    // Try method 1: Web Audio API
+    try {
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      log('AudioContext state: ' + audioCtx.state);
+      if (audioCtx.state === 'suspended') {
+        await audioCtx.resume();
+        log('AudioContext resumed: ' + audioCtx.state);
+      }
+      const decoded = await audioCtx.decodeAudioData(bytes.buffer.slice(0));
+      log('Audio decoded. Duration: ' + decoded.duration.toFixed(1) + 's');
+      if (cancelled) { audioCtx.close(); onEnd?.(); return () => {}; }
+      sourceNode = audioCtx.createBufferSource();
+      sourceNode.buffer = decoded;
+      sourceNode.connect(audioCtx.destination);
+      sourceNode.onended = () => { try { audioCtx.close(); } catch(_){} onEnd?.(); };
+      sourceNode.start(0);
+      onStart?.();
+      log('✓ Playing via Web Audio API');
+    } catch (webAudioErr) {
+      log('Web Audio failed: ' + webAudioErr.message + ' — trying HTML Audio...');
+      // Method 2: HTML Audio element with blob URL
+      const blob = new Blob([bytes], { type: 'audio/mpeg' });
+      const url  = URL.createObjectURL(blob);
+      const audio = new Audio(url);
+      audio.volume = 1.0;
+      audio.onended = () => { URL.revokeObjectURL(url); onEnd?.(); };
+      audio.onerror = (e) => { log('HTML Audio error: ' + e.message); URL.revokeObjectURL(url); onError?.(); };
+      const playPromise = audio.play();
+      if (playPromise) {
+        await playPromise.catch(e => { log('HTML Audio play() blocked: ' + e.message); throw e; });
+      }
+      onStart?.();
+      log('✓ Playing via HTML Audio element');
     }
-    console.log('[Gideon TTS] AudioContext state:', audioCtx.state);
-
-    const decoded = await audioCtx.decodeAudioData(bytes.buffer);
-    console.log('[Gideon TTS] Decoded audio duration:', decoded.duration.toFixed(1) + 's');
-
-    if (cancelled) { audioCtx.close(); onEnd?.(); return () => {}; }
-
-    sourceNode = audioCtx.createBufferSource();
-    sourceNode.buffer = decoded;
-    sourceNode.connect(audioCtx.destination);
-    sourceNode.onended = () => { try { audioCtx.close(); } catch(_) {} onEnd?.(); };
-    sourceNode.start(0);
-    onStart?.();
-    console.log('[Gideon TTS] ✓ Playing via Web Audio API');
 
   } catch (err) {
-    console.error('[Gideon TTS] Failed:', err);
+    log('FAILED: ' + err.message);
+    console.error('[Gideon TTS] Full error:', err);
     try { audioCtx?.close(); } catch(_) {}
-    // Fallback: browser TTS
     return speakWithBrowserTTS({ text, onStart, onEnd, onError });
   }
 
@@ -560,6 +579,7 @@ async function speakWithGoogleTTS({ text, onStart, onEnd, onError }) {
     try { audioCtx?.close(); } catch (_) {}
   };
 }
+
 
 // Browser TTS for all non-Gideon bots (and Gideon fallback)
 async function speakWithBrowserTTS({ text, cfg, onStart, onEnd, onError }) {
@@ -591,9 +611,9 @@ async function speakWithBrowserTTS({ text, cfg, onStart, onEnd, onError }) {
 }
 
 // speakText — uses Google Cloud TTS for Gideon, browser TTS for all others.
-async function speakText({ text, cfg, onStart, onEnd, onError }) {
+async function speakText({ text, cfg, onStart, onEnd, onError, onLog }) {
   if (cfg?.character === 'gideon') {
-    return speakWithGoogleTTS({ text, onStart, onEnd, onError });
+    return speakWithGoogleTTS({ text, onStart, onEnd, onError, onLog });
   }
   return speakWithBrowserTTS({ text, cfg, onStart, onEnd, onError });
 }
@@ -768,6 +788,7 @@ export default function ChatScreen() {
   const [isListening,      setIsListening]      = useState(false);
   const [speakingIdx,      setSpeakingIdx]      = useState(null);
   const [permissionDenied, setPermissionDenied] = useState(false);
+  const [ttsLog,           setTtsLog]           = useState([]);
   const [userProfile,      setUserProfile]      = useState(null);
 
   // Load user profile once — injected into every bot prompt
@@ -907,12 +928,14 @@ export default function ChatScreen() {
       setSpeakingIdx(null);
     };
 
+    setTtsLog(['Tap received — starting TTS...']);
     speakText({
       text: content,
       cfg,
       onStart:        () => setSpeakingIdx(idx),
       onEnd:          () => { setSpeakingIdx(null); },
       onError:        () => { setSpeakingIdx(null); },
+      onLog:          (msg) => setTtsLog(prev => [...prev.slice(-6), msg]),
     }).then(cancelFn => {
       if (hasBeenCancelled) {
         cancelFn?.();
@@ -1240,6 +1263,27 @@ export default function ChatScreen() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.35, delay: 0.12, ease: 'easeOut' }}
       >
+        {/* TTS debug log — only shows when there are log entries */}
+        {ttsLog.length > 0 && (
+          <div style={{
+            position:'absolute', bottom:'100%', left:0, right:0,
+            background:'rgba(0,0,0,0.85)', padding:'8px 12px',
+            fontSize:11, fontFamily:'monospace', color:'#4ade80',
+            borderTop:'1px solid #333', maxHeight:120, overflowY:'auto',
+            zIndex:9999
+          }}>
+            <div style={{display:'flex',justifyContent:'space-between',marginBottom:4}}>
+              <span style={{color:'#facc15',fontWeight:'bold'}}>🎙 Gideon TTS Debug</span>
+              <button onClick={()=>setTtsLog([])} style={{color:'#999',background:'none',border:'none',cursor:'pointer',fontSize:11}}>✕ clear</button>
+            </div>
+            {ttsLog.map((line,i)=>(
+              <div key={i} style={{color: line.startsWith('FAILED') || line.startsWith('No') ? '#f87171' : line.startsWith('✓') ? '#4ade80' : '#e2e8f0'}}>
+                › {line}
+              </div>
+            ))}
+          </div>
+        )}
+
         <div className="flex items-center gap-2 max-w-lg mx-auto">
 
           {/* Mic button */}
