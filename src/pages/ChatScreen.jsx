@@ -10,6 +10,7 @@ import { ArrowLeft, Send, Loader2, RotateCcw, Mic, MicOff, Volume2, Square, X, Z
 import ReactMarkdown from 'react-markdown';
 import { base44 } from '@/api/base44Client';
 import CloudAvatar    from '@/components/avatar/CloudAvatar';
+import GideonAvatar   from '@/components/avatar/GideonAvatar';
 import BotBackground from '@/components/avatar/BotBackground';
 
 // ─── Error boundary — if WebGL/R3F fails, show pulsing circle ────────────────
@@ -27,6 +28,18 @@ class CloudAvatarSafe extends React.Component {
             transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
           />
         </div>
+      );
+    }
+    // Gideon gets the 3D figure avatar; all other bots keep the cloud avatar
+    if (this.props.character === 'gideon') {
+      return (
+        <GideonAvatar
+          isSpeaking={this.props.isSpeaking}
+          isListening={this.props.isListening}
+          isThinking={this.props.isThinking}
+          width={160}
+          height={160}
+        />
       );
     }
     return <CloudAvatar {...this.props} width={160} height={160} />;
