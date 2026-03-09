@@ -498,7 +498,7 @@ function prepareTextForSpeech(text) {
  * ───────────────────────────────────────────────────────────────────────── */
 async function speakWithGoogleTTS({ text, onStart, onEnd, onError, primedAudio }) {
   let cancelled = false;
-
+  let audioEl   = null;
 
   try {
     const cleaned = text
@@ -509,60 +509,35 @@ async function speakWithGoogleTTS({ text, onStart, onEnd, onError, primedAudio }
     if (!cleaned) { onEnd?.(); return () => {}; }
 
     const result = await base44.functions.invoke('gideonTTS', { text: cleaned });
-    log('Got response. Keys: ' + (result ? Object.keys(result).join(', ') : 'null'));
-
-    if (cancelled) { primedAudio && (primedAudio.src = ''); onEnd?.(); return () => {}; }
+    if (cancelled) { onEnd?.(); return () => {}; }
 
     const audioContent = result?.audioContent ?? result?.data?.audioContent;
-    log('audioContent: ' + (audioContent ? 'YES (' + audioContent.length + ' chars)' : 'NO'));
     if (!audioContent) throw new Error('No audioContent in response');
 
     const binary = atob(audioContent);
     const bytes  = new Uint8Array(binary.length);
     for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
-    const blob   = new Blob([bytes], { type: 'audio/mpeg' });
-    const url    = URL.createObjectURL(blob);
+    const blob = new Blob([bytes], { type: 'audio/mpeg' });
+    const url  = URL.createObjectURL(blob);
 
-    // Reuse the audio element that was created+loaded during the tap gesture.
-    // iOS Safari trusts play() on an element that was already load()-ed
-    // synchronously in the same user gesture call stack.
-    const audio = primedAudio || new Audio();
-    audio.src = url;
+    // Use primed element on iOS, fresh element on desktop
+    audioEl = primedAudio || new Audio();
+    audioEl.src = url;
+    audioEl.onplay  = () => onStart?.();
+    audioEl.onended = () => { URL.revokeObjectURL(url); onEnd?.(); };
+    audioEl.onerror = () => { URL.revokeObjectURL(url); onError?.(); };
 
-    audio.oncanplaythrough = () => {
-      log('canplaythrough — calling play()');
-    };
-    audio.onplay  = () => { log('onplay fired'); onStart?.(); };
-    audio.onended = () => { URL.revokeObjectURL(url); log('ended'); onEnd?.(); };
-    audio.onerror = (e) => {
-      const code = audio.error?.code;
-      const msg  = audio.error?.message || String(e);
-        URL.revokeObjectURL(url);
-      onError?.();
-    };
-
-    log('Calling audio.play()...');
-    try {
-      await audio.play();
-      log('✓ play() resolved');
-    } catch (playErr) {
-      log('play() rejected: ' + playErr.message);
-      throw playErr;
-    }
-
-    return () => {
-      cancelled = true;
-      audio.pause();
-      audio.src = '';
-      URL.revokeObjectURL(url);
-    };
+    await audioEl.play();
 
   } catch (err) {
     console.error('[Gideon TTS]', err);
     return speakWithBrowserTTS({ text, onStart, onEnd, onError });
   }
 
-  return () => { cancelled = true; };
+  return () => {
+    cancelled = true;
+    if (audioEl) { try { audioEl.pause(); audioEl.src = ''; } catch(_){} }
+  };
 }
 
 
