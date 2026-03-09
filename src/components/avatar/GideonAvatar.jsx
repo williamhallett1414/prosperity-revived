@@ -39,8 +39,8 @@ export default function GideonAvatar({
   isSpeaking  = false,
   isListening = false,
   isThinking  = false,
-  width       = 300,
-  height      = 340,
+  width       = 320,
+  height      = 380,
   className   = '',
 }) {
   const state = isSpeaking ? 'speaking' : isListening ? 'listening' : isThinking ? 'thinking' : 'idle';
