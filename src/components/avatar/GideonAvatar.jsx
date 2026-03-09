@@ -1,364 +1,469 @@
 /**
- * GideonAvatar — fully illustrated SVG character built in code.
- * Inspired by: white gold-trimmed biblical robes, warm brown skin,
- * curly hair, full beard, floating orbs, chalice in right hand.
- *
+ * GideonAvatar v2 — fully illustrated SVG character, larger + higher quality.
+ * Bigger proportions, richer gradients, more anatomical detail, better hair/beard texture.
  * States: idle | speaking | listening | thinking
- * Features: blinking eyes, speaking mouth (opens/closes), body float/bounce,
- *           orbiting golden spheres, sparkle stars, warm glow halo
  */
 import React, { useEffect, useRef, useState } from 'react';
 
 const C = {
-  skin:'#C8845A', skinShadow:'#A0622E', skinLight:'#DFA070',
-  hair:'#4A2E14', hairLight:'#6B4422',
-  beard:'#3D2410', beardLight:'#5C3A1E',
-  robeMain:'#F2EDE0', robeShadow:'#D8D2C0',
-  gold:'#C9A227', goldBright:'#F0D060', goldPale:'#F5E49A',
-  eyeWhite:'#FEFCF8', iris:'#5C3A1E', pupil:'#1A0A00', lash:'#2A1608',
-  mouthDark:'#7A3820', teeth:'#FEFEFE',
-  slipper:'#EDE8DC',
-  chalice:'#E0D0A0', chaliceGold:'#C9A227',
+  skin:'#C8845A', skinShadow:'#8C5430', skinLight:'#E8A878', skinHighlight:'#F0C8A0',
+  hair:'#3A2010', hairMid:'#5A3418', hairLight:'#7A4E28',
+  beard:'#2E1A08', beardMid:'#4A2E14', beardLight:'#6A4020',
+  robeWhite:'#F5F0E8', robeLight:'#EDE8DC', robeMid:'#D8D2C4', robeShadow:'#C0BAB0', robeDark:'#A8A298',
+  gold:'#C9A227', goldBright:'#F0D060', goldPale:'#F8EBA0', goldDark:'#8A6A00',
+  eyeWhite:'#FEFCF8', iris:'#6B4422', irisMid:'#4A2C10', pupil:'#0A0400',
+  lash:'#1E0C04', brow:'#3A2010',
+  mouthPink:'#C07060', mouthDark:'#7A3820', teeth:'#FEFEFE', tongue:'#D06050',
+  slipper:'#EAE4D8', slipperFuzz:'#F8F4EE',
+  chaliceBody:'#D8C890', chaliceGold:'#B8960C', chaliceLight:'#F0E0A0',
   orbGold:'#C9A227', orbTan:'#C4A882',
 };
 
 const ORBS = [
-  {id:0,cx:82, cy:28, r:9,  col:'gold', dl:0.0, dur:3.2},
-  {id:1,cx:118,cy:18, r:11, col:'gold', dl:0.4, dur:2.8},
-  {id:2,cx:60, cy:38, r:6,  col:'tan',  dl:0.8, dur:3.6},
-  {id:3,cx:140,cy:32, r:8,  col:'gold', dl:0.2, dur:2.6},
-  {id:4,cx:98, cy:14, r:7,  col:'tan',  dl:1.1, dur:3.0},
-  {id:5,cx:152,cy:52, r:5,  col:'gold', dl:0.6, dur:4.0},
-  {id:6,cx:54, cy:58, r:7,  col:'tan',  dl:1.4, dur:3.4},
-  {id:7,cx:130,cy:56, r:6,  col:'gold', dl:0.9, dur:2.9},
-  {id:8,cx:73, cy:16, r:5,  col:'tan',  dl:1.7, dur:3.8},
+  {id:0,cx:105,cy:42, r:12, col:'gold',dl:0.0,dur:3.2},
+  {id:1,cx:152,cy:28, r:14, col:'gold',dl:0.4,dur:2.8},
+  {id:2,cx:76, cy:56, r:8,  col:'tan', dl:0.8,dur:3.6},
+  {id:3,cx:178,cy:50, r:10, col:'gold',dl:0.2,dur:2.6},
+  {id:4,cx:125,cy:20, r:9,  col:'tan', dl:1.1,dur:3.0},
+  {id:5,cx:196,cy:75, r:7,  col:'gold',dl:0.6,dur:4.0},
+  {id:6,cx:66, cy:80, r:9,  col:'tan', dl:1.4,dur:3.4},
+  {id:7,cx:165,cy:78, r:8,  col:'gold',dl:0.9,dur:2.9},
+  {id:8,cx:90, cy:24, r:7,  col:'tan', dl:1.7,dur:3.8},
+  {id:9,cx:140,cy:60, r:6,  col:'gold',dl:0.5,dur:2.5},
 ];
 
-const STARS=[{cx:106,cy:34,sz:4,dl:0.3},{cx:68,cy:24,sz:3,dl:1.0},{cx:145,cy:44,sz:3.5,dl:0.7},{cx:90,cy:46,sz:2.5,dl:1.5}];
+const STARS=[
+  {cx:136,cy:48,sz:5,dl:0.3},{cx:84,cy:34,sz:4,dl:1.0},
+  {cx:182,cy:60,sz:4.5,dl:0.7},{cx:112,cy:64,sz:3.5,dl:1.5},{cx:158,cy:38,sz:3,dl:0.9}
+];
 
-export default function GideonAvatar({isSpeaking=false,isListening=false,isThinking=false,width=260,height=260,className=''}) {
+export default function GideonAvatar({isSpeaking=false,isListening=false,isThinking=false,width=280,height=310,className=''}) {
   const state = isSpeaking?'speaking':isListening?'listening':isThinking?'thinking':'idle';
 
   const [blink,setBlink]=useState(false);
   const blinkTimer=useRef(null);
   useEffect(()=>{
-    const go=()=>{
-      blinkTimer.current=setTimeout(()=>{
-        setBlink(true);
-        setTimeout(()=>{setBlink(false);go();},160);
-      },2500+Math.random()*3500);
-    };
-    go();
-    return()=>clearTimeout(blinkTimer.current);
+    const go=()=>{ blinkTimer.current=setTimeout(()=>{ setBlink(true); setTimeout(()=>{ setBlink(false); go(); },150); },2200+Math.random()*3800); };
+    go(); return()=>clearTimeout(blinkTimer.current);
   },[]);
 
   const [mouthOpen,setMouthOpen]=useState(0);
   const mouthTimer=useRef(null);
   useEffect(()=>{
     if(!isSpeaking){setMouthOpen(0);return;}
-    let ph=0;
-    mouthTimer.current=setInterval(()=>{ph+=0.38;setMouthOpen(Math.max(0,Math.sin(ph)*0.9));},75);
+    let ph=0; mouthTimer.current=setInterval(()=>{ ph+=0.36; setMouthOpen(Math.max(0,Math.sin(ph)*0.92)); },72);
     return()=>clearInterval(mouthTimer.current);
   },[isSpeaking]);
 
-  const bodyAnim=state==='speaking'?'gb-bounce':state==='listening'?'gb-lean':state==='thinking'?'gb-sway':'gb-float';
-  const bodyDur=state==='speaking'?'0.52s':state==='listening'?'1.4s':state==='thinking'?'2.8s':'3.6s';
-  const orbAnim=state==='speaking'?'gb-orb-fast':'gb-orb';
-  const orbMul=state==='speaking'?0.36:1;
-  const glowOp=state==='speaking'?0.75:state==='listening'?0.50:state==='thinking'?0.38:0.22;
-  const eyeSY=blink?0.08:1;
+  const bodyAnim=state==='speaking'?'ga2-bounce':state==='listening'?'ga2-lean':state==='thinking'?'ga2-sway':'ga2-float';
+  const bodyDur=state==='speaking'?'0.50s':state==='listening'?'1.4s':state==='thinking'?'2.8s':'3.8s';
+  const glowOp=state==='speaking'?0.80:state==='listening'?0.55:state==='thinking'?0.40:0.25;
+  const eyeSY=blink?0.06:1;
 
   return (
-    <div className={className} style={{width,height,position:'relative',display:'flex',alignItems:'center',justifyContent:'center'}}>
+    <div className={className} style={{width,height,display:'flex',alignItems:'center',justifyContent:'center'}}>
       <style>{`
-        @keyframes gb-float{0%,100%{transform:translateY(0px) rotate(0deg)}40%{transform:translateY(-7px) rotate(.5deg)}70%{transform:translateY(-5px) rotate(-.4deg)}}
-        @keyframes gb-bounce{0%,100%{transform:translateY(-2px) scale(1)}20%{transform:translateY(-9px) scale(1.04)}45%{transform:translateY(-3px) scale(1.01)}65%{transform:translateY(-10px) scale(1.05)}85%{transform:translateY(-4px) scale(1.02)}}
-        @keyframes gb-lean{0%,100%{transform:translateY(-4px) rotate(0deg)}30%{transform:translateY(-9px) rotate(1.5deg)}70%{transform:translateY(-8px) rotate(-1.5deg)}}
-        @keyframes gb-sway{0%,100%{transform:translateY(0) rotate(0deg)}25%{transform:translateY(-3px) rotate(2deg)}75%{transform:translateY(-3px) rotate(-2deg)}}
-        @keyframes gb-orb{0%,100%{transform:translateY(0) scale(1);opacity:.88}50%{transform:translateY(-6px) scale(1.08);opacity:1}}
-        @keyframes gb-orb-fast{0%,100%{transform:translateY(0) scale(.95);opacity:.8}50%{transform:translateY(-9px) scale(1.14);opacity:1}}
-        @keyframes gb-star{0%,100%{opacity:.1;transform:scale(.6) rotate(0deg)}50%{opacity:.9;transform:scale(1.4) rotate(45deg)}}
-        @keyframes gb-ripple{0%{transform:scale(1);opacity:.55}100%{transform:scale(1.7);opacity:0}}
-        @keyframes gb-dot{0%,80%,100%{opacity:.15;transform:translateY(0)}40%{opacity:1;transform:translateY(-4px)}}
-        @keyframes gb-ring-cw{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
-        @keyframes gb-ring-ccw{from{transform:rotate(0deg)}to{transform:rotate(-360deg)}}
-        @keyframes gb-shimmer{0%,100%{filter:brightness(1)}50%{filter:brightness(1.14)}}
-        @keyframes gb-shimmer-spk{0%,100%{filter:brightness(1.05) drop-shadow(0 0 8px rgba(201,162,39,.45))}30%{filter:brightness(1.32) drop-shadow(0 0 22px rgba(201,162,39,.95))}60%{filter:brightness(1.1) drop-shadow(0 0 10px rgba(201,162,39,.55))}}
-        @keyframes gb-arm-idle{0%,100%{transform:rotate(0deg)}50%{transform:rotate(-6deg)}}
-        @keyframes gb-arm-spk{0%,100%{transform:rotate(-4deg)}25%{transform:rotate(-12deg)}75%{transform:rotate(2deg)}}
-        @keyframes gb-halo{0%,100%{opacity:var(--gho,.22)}50%{opacity:calc(var(--gho,.22) + .14)}}
+        @keyframes ga2-float{0%,100%{transform:translateY(0) rotate(0deg)}45%{transform:translateY(-9px) rotate(.6deg)}72%{transform:translateY(-6px) rotate(-.5deg)}}
+        @keyframes ga2-bounce{0%,100%{transform:translateY(-2px) scale(1)}18%{transform:translateY(-12px) scale(1.04)}42%{transform:translateY(-3px) scale(1.01)}62%{transform:translateY(-13px) scale(1.05)}82%{transform:translateY(-4px) scale(1.02)}}
+        @keyframes ga2-lean{0%,100%{transform:translateY(-5px) rotate(0deg)}32%{transform:translateY(-11px) rotate(1.8deg)}68%{transform:translateY(-10px) rotate(-1.8deg)}}
+        @keyframes ga2-sway{0%,100%{transform:translateY(0) rotate(0deg)}25%{transform:translateY(-4px) rotate(2.2deg)}75%{transform:translateY(-4px) rotate(-2.2deg)}}
+        @keyframes ga2-orb{0%,100%{transform:translateY(0) scale(1);opacity:.85}50%{transform:translateY(-8px) scale(1.10);opacity:1}}
+        @keyframes ga2-orb-fast{0%,100%{transform:translateY(0) scale(.93);opacity:.78}50%{transform:translateY(-11px) scale(1.18);opacity:1}}
+        @keyframes ga2-star{0%,100%{opacity:.08;transform:scale(.5) rotate(0deg)}50%{opacity:.95;transform:scale(1.5) rotate(45deg)}}
+        @keyframes ga2-ripple{0%{transform:scale(1);opacity:.5}100%{transform:scale(1.8);opacity:0}}
+        @keyframes ga2-dot{0%,80%,100%{opacity:.15;transform:translateY(0)}40%{opacity:1;transform:translateY(-5px)}}
+        @keyframes ga2-halo{0%,100%{opacity:var(--gho,.25);transform:scale(1)}50%{opacity:calc(var(--gho,.25) + .15);transform:scale(1.04)}}
+        @keyframes ga2-ring-cw{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+        @keyframes ga2-ring-ccw{from{transform:rotate(0)}to{transform:rotate(-360deg)}}
+        @keyframes ga2-shimmer{0%,100%{filter:brightness(1)}50%{filter:brightness(1.12)}}
+        @keyframes ga2-shimmer-spk{0%,100%{filter:brightness(1.06) drop-shadow(0 0 10px rgba(201,162,39,.5))}28%{filter:brightness(1.36) drop-shadow(0 0 28px rgba(201,162,39,1))}58%{filter:brightness(1.12) drop-shadow(0 0 12px rgba(201,162,39,.6))}}
+        @keyframes ga2-arm-idle{0%,100%{transform:rotate(0deg)}50%{transform:rotate(-7deg)}}
+        @keyframes ga2-arm-spk{0%,100%{transform:rotate(-5deg)}22%{transform:rotate(-15deg)}72%{transform:rotate(3deg)}}
       `}</style>
 
-      <svg viewBox="0 0 200 290" width={width} height={height} style={{overflow:'visible'}}>
+      <svg viewBox="0 0 260 380" width={width} height={height} style={{overflow:'visible'}}>
         <defs>
-          <radialGradient id="ghalo" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor={C.goldPale} stopOpacity=".85"/>
-            <stop offset="50%" stopColor={C.gold} stopOpacity=".35"/>
+          <radialGradient id="ga2-halo-g" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor={C.goldPale} stopOpacity=".9"/>
+            <stop offset="45%" stopColor={C.gold} stopOpacity=".4"/>
             <stop offset="100%" stopColor={C.gold} stopOpacity="0"/>
           </radialGradient>
-          <radialGradient id="gskin" cx="42%" cy="36%" r="60%">
-            <stop offset="0%" stopColor={C.skinLight}/>
-            <stop offset="70%" stopColor={C.skin}/>
+          <radialGradient id="ga2-skin" cx="40%" cy="34%" r="62%">
+            <stop offset="0%" stopColor={C.skinHighlight}/>
+            <stop offset="40%" stopColor={C.skinLight}/>
+            <stop offset="75%" stopColor={C.skin}/>
             <stop offset="100%" stopColor={C.skinShadow}/>
           </radialGradient>
-          <linearGradient id="grobe" x1="0%" y1="0%" x2="100%" y2="0%">
+          <radialGradient id="ga2-skin2" cx="38%" cy="36%" r="58%">
+            <stop offset="0%" stopColor={C.skinLight}/>
+            <stop offset="65%" stopColor={C.skin}/>
+            <stop offset="100%" stopColor={C.skinShadow}/>
+          </radialGradient>
+          <linearGradient id="ga2-robe" x1="0%" y1="0%" x2="100%" y2="0%">
             <stop offset="0%" stopColor={C.robeShadow}/>
-            <stop offset="35%" stopColor={C.robeMain}/>
-            <stop offset="65%" stopColor={C.robeMain}/>
+            <stop offset="22%" stopColor={C.robeLight}/>
+            <stop offset="50%" stopColor={C.robeWhite}/>
+            <stop offset="78%" stopColor={C.robeLight}/>
             <stop offset="100%" stopColor={C.robeShadow}/>
           </linearGradient>
-          <radialGradient id="gorb-gold" cx="38%" cy="32%" r="60%">
+          <linearGradient id="ga2-robe-v" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor={C.robeWhite}/>
+            <stop offset="60%" stopColor={C.robeLight}/>
+            <stop offset="100%" stopColor={C.robeMid}/>
+          </linearGradient>
+          <radialGradient id="ga2-orb-gold" cx="36%" cy="30%" r="62%">
             <stop offset="0%" stopColor={C.goldBright}/>
-            <stop offset="55%" stopColor={C.gold}/>
-            <stop offset="100%" stopColor="#7A5A00"/>
+            <stop offset="50%" stopColor={C.gold}/>
+            <stop offset="100%" stopColor={C.goldDark}/>
           </radialGradient>
-          <radialGradient id="gorb-tan" cx="38%" cy="32%" r="60%">
-            <stop offset="0%" stopColor="#E8D4B0"/>
+          <radialGradient id="ga2-orb-tan" cx="36%" cy="30%" r="62%">
+            <stop offset="0%" stopColor="#EAD4AE"/>
             <stop offset="55%" stopColor={C.orbTan}/>
             <stop offset="100%" stopColor="#6A5030"/>
           </radialGradient>
-          <radialGradient id="giris" cx="38%" cy="32%" r="65%">
-            <stop offset="0%" stopColor="#8C5830"/>
-            <stop offset="60%" stopColor={C.iris}/>
-            <stop offset="100%" stopColor="#1A0800"/>
+          <radialGradient id="ga2-iris" cx="35%" cy="28%" r="68%">
+            <stop offset="0%" stopColor="#9C6840"/>
+            <stop offset="50%" stopColor={C.iris}/>
+            <stop offset="100%" stopColor={C.irisMid}/>
           </radialGradient>
-          <radialGradient id="ghair" cx="45%" cy="30%" r="65%">
+          <radialGradient id="ga2-hair" cx="42%" cy="25%" r="68%">
             <stop offset="0%" stopColor={C.hairLight}/>
+            <stop offset="55%" stopColor={C.hairMid}/>
             <stop offset="100%" stopColor={C.hair}/>
           </radialGradient>
-          <clipPath id="ecL"><ellipse cx="83" cy="95" rx="10" ry="8"/></clipPath>
-          <clipPath id="ecR"><ellipse cx="117" cy="95" rx="10" ry="8"/></clipPath>
+          <radialGradient id="ga2-beard" cx="50%" cy="30%" r="65%">
+            <stop offset="0%" stopColor={C.beardLight}/>
+            <stop offset="60%" stopColor={C.beardMid}/>
+            <stop offset="100%" stopColor={C.beard}/>
+          </radialGradient>
+          <radialGradient id="ga2-gold-trim" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor={C.goldBright}/>
+            <stop offset="100%" stopColor={C.gold}/>
+          </radialGradient>
+          <filter id="ga2-soft" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="1.5"/>
+          </filter>
+          <clipPath id="ga2-ecL"><ellipse cx="106" cy="124" rx="13" ry="11"/></clipPath>
+          <clipPath id="ga2-ecR"><ellipse cx="154" cy="124" rx="13" ry="11"/></clipPath>
         </defs>
 
-        {/* Halo */}
-        <ellipse cx="100" cy="150" rx="62" ry="78" fill="url(#ghalo)"
-          style={{'--gho':glowOp,transformOrigin:'100px 150px',animation:'gb-halo 3s ease-in-out infinite'}}/>
+        {/* ── Halo ── */}
+        <ellipse cx="130" cy="195" rx="80" ry="100" fill="url(#ga2-halo-g)"
+          style={{'--gho':glowOp,transformOrigin:'130px 195px',animation:'ga2-halo 3.2s ease-in-out infinite'}}/>
 
-        {/* Listening ripples */}
-        {state==='listening'&&[0,1].map(i=>(
-          <ellipse key={i} cx="100" cy="150" rx="65" ry="80" fill="none" stroke={C.goldPale} strokeWidth="1.2"
-            style={{transformOrigin:'100px 150px',animation:'gb-ripple 1.8s ease-out infinite',animationDelay:`${i*.75}s`}}/>
+        {/* ── Listening ripples ── */}
+        {state==='listening'&&[0,1,2].map(i=>(
+          <ellipse key={i} cx="130" cy="195" rx="84" ry="104" fill="none"
+            stroke={C.goldPale} strokeWidth="1.4"
+            style={{transformOrigin:'130px 195px',animation:'ga2-ripple 2.0s ease-out infinite',animationDelay:`${i*0.65}s`}}/>
         ))}
 
-        {/* Deco rings */}
-        <circle cx="100" cy="85" r="60" fill="none" stroke={C.goldPale} strokeWidth=".4" strokeDasharray="8 10"
-          opacity={state==='speaking'?.38:.12}
-          style={{transformOrigin:'100px 85px',animation:`gb-ring-cw ${state==='speaking'?'3s':'11s'} linear infinite`}}/>
-        <circle cx="100" cy="85" r="52" fill="none" stroke={C.gold} strokeWidth=".35" strokeDasharray="4 14"
-          opacity={state==='idle'?.08:.16}
-          style={{transformOrigin:'100px 85px',animation:`gb-ring-ccw ${state==='speaking'?'4.5s':'15s'} linear infinite`}}/>
+        {/* ── Spinning rings ── */}
+        <circle cx="130" cy="112" r="78" fill="none" stroke={C.goldPale} strokeWidth=".5" strokeDasharray="10 12"
+          opacity={state==='speaking'?.45:.14}
+          style={{transformOrigin:'130px 112px',animation:`ga2-ring-cw ${state==='speaking'?'3.5s':'12s'} linear infinite`}}/>
+        <circle cx="130" cy="112" r="66" fill="none" stroke={C.gold} strokeWidth=".4" strokeDasharray="5 16"
+          opacity={state==='idle'?.09:.18}
+          style={{transformOrigin:'130px 112px',animation:`ga2-ring-ccw ${state==='speaking'?'5s':'18s'} linear infinite`}}/>
 
-        {/* Orbs */}
+        {/* ── Orbs ── */}
         {ORBS.map(o=>(
           <g key={o.id} style={{transformOrigin:`${o.cx}px ${o.cy}px`,
-            animation:`${orbAnim} ${(o.dur*orbMul).toFixed(1)}s ease-in-out infinite`,animationDelay:`${o.dl}s`}}>
-            <ellipse cx={o.cx+1.5} cy={o.cy+1.5} rx={o.r} ry={o.r*.92} fill={o.col==='gold'?'#806010':'#806840'} opacity=".4"/>
-            <circle cx={o.cx} cy={o.cy} r={o.r} fill={o.col==='gold'?'url(#gorb-gold)':'url(#gorb-tan)'}/>
-            <ellipse cx={o.cx-o.r*.28} cy={o.cy-o.r*.3} rx={o.r*.32} ry={o.r*.22} fill="white" opacity=".5"
-              transform={`rotate(-25,${o.cx-o.r*.28},${o.cy-o.r*.3})`}/>
+            animation:`${state==='speaking'?'ga2-orb-fast':'ga2-orb'} ${state==='speaking'?(o.dur*.34).toFixed(1)+'s':o.dur+'s'} ease-in-out infinite`,
+            animationDelay:`${o.dl}s`}}>
+            <ellipse cx={o.cx+2} cy={o.cy+2} rx={o.r*1.05} ry={o.r*.9}
+              fill={o.col==='gold'?'#705000':'#604020'} opacity=".35"/>
+            <circle cx={o.cx} cy={o.cy} r={o.r} fill={o.col==='gold'?'url(#ga2-orb-gold)':'url(#ga2-orb-tan)'}/>
+            <ellipse cx={o.cx-o.r*.3} cy={o.cy-o.r*.32} rx={o.r*.35} ry={o.r*.24}
+              fill="white" opacity=".52" transform={`rotate(-28,${o.cx-o.r*.3},${o.cy-o.r*.32})`}/>
+            <ellipse cx={o.cx+o.r*.2} cy={o.cy+o.r*.25} rx={o.r*.18} ry={o.r*.12}
+              fill="white" opacity=".18"/>
           </g>
         ))}
 
-        {/* Sparkle stars */}
+        {/* ── Stars ── */}
         {STARS.map(s=>(
           <g key={s.cx} transform={`translate(${s.cx},${s.cy})`}
-            style={{transformOrigin:'0 0',animation:`gb-star ${state==='speaking'?'0.9s':'2.4s'} ease-in-out infinite`,animationDelay:`${s.dl}s`}}>
+            style={{transformOrigin:'0 0',animation:`ga2-star ${state==='speaking'?'0.85s':'2.6s'} ease-in-out infinite`,animationDelay:`${s.dl}s`}}>
             {[0,45,90,135].map(a=>(
-              <line key={a} x1="0" y1={-s.sz} x2="0" y2={s.sz} stroke={C.goldBright} strokeWidth=".9"
-                strokeLinecap="round" transform={`rotate(${a})`}/>
+              <line key={a} x1="0" y1={-s.sz} x2="0" y2={s.sz}
+                stroke={C.goldBright} strokeWidth="1.1" strokeLinecap="round" transform={`rotate(${a})`}/>
             ))}
+            <circle cx="0" cy="0" r="1.2" fill={C.goldBright} opacity=".8"/>
           </g>
         ))}
 
-        {/* ── BODY GROUP (float/bounce/sway/lean) ── */}
-        <g style={{transformOrigin:'100px 275px',
-          animation:`${bodyAnim} ${bodyDur} ease-in-out infinite, ${state==='speaking'?'gb-shimmer-spk .52s ease-in-out infinite':'gb-shimmer 3.8s ease-in-out infinite'}`}}>
+        {/* ══ BODY GROUP ══ */}
+        <g style={{transformOrigin:'130px 360px',
+          animation:`${bodyAnim} ${bodyDur} ease-in-out infinite, ${state==='speaking'?'ga2-shimmer-spk .50s ease-in-out infinite':'ga2-shimmer 4s ease-in-out infinite'}`}}>
 
-          {/* Slippers */}
-          <ellipse cx="82" cy="272" rx="18" ry="8" fill={C.slipper}/>
-          <path d="M65,270 Q82,264 99,270 Q82,278 65,270Z" fill="white" opacity=".55"/>
-          <ellipse cx="118" cy="272" rx="18" ry="8" fill={C.slipper}/>
-          <path d="M101,270 Q118,264 135,270 Q118,278 101,270Z" fill="white" opacity=".55"/>
+          {/* ── Slippers ── */}
+          <ellipse cx="104" cy="358" rx="24" ry="11" fill={C.slipper}/>
+          <path d="M80,355 Q104,347 128,355 Q104,365 80,355Z" fill={C.slipperFuzz} opacity=".65"/>
+          <ellipse cx="104" cy="358" rx="24" ry="11" fill="none" stroke={C.robeShadow} strokeWidth=".5" opacity=".3"/>
+          <ellipse cx="156" cy="358" rx="24" ry="11" fill={C.slipper}/>
+          <path d="M132,355 Q156,347 180,355 Q156,365 132,355Z" fill={C.slipperFuzz} opacity=".65"/>
+          <ellipse cx="156" cy="358" rx="24" ry="11" fill="none" stroke={C.robeShadow} strokeWidth=".5" opacity=".3"/>
 
-          {/* Robe main */}
-          <path d="M72,128 C62,132 54,145 50,160 L46,265 L154,265 L150,160 C146,145 138,132 128,128 Z" fill="url(#grobe)"/>
-          {/* Robe sides fold shadow */}
-          <path d="M50,165 C48,185 47,215 47,255 L54,265 L50,160Z" fill={C.robeShadow} opacity=".4"/>
-          <path d="M150,165 C152,185 153,215 153,255 L146,265 L150,160Z" fill={C.robeShadow} opacity=".4"/>
+          {/* ── Robe main body ── */}
+          <path d="M88,166 C74,172 64,188 58,208 L52,350 L208,350 L202,208 C196,188 186,172 172,166 Z" fill="url(#ga2-robe)"/>
+          {/* Robe vertical center highlight */}
+          <path d="M118,170 L118,348 L142,348 L142,170 Z" fill={C.robeWhite} opacity=".45"/>
+          {/* Robe fold shadows sides */}
+          <path d="M58,215 C55,240 54,280 54,330 L62,350 L58,208Z" fill={C.robeShadow} opacity=".5"/>
+          <path d="M202,215 C205,240 206,280 206,330 L198,350 L202,208Z" fill={C.robeShadow} opacity=".5"/>
+          {/* Robe hem folds */}
+          <path d="M52,340 Q90,332 130,335 Q170,332 208,340 L208,350 L52,350Z" fill={C.robeMid} opacity=".6"/>
 
-          {/* Gold collar trim */}
-          <path d="M78,128 Q100,122 122,128" fill="none" stroke={C.gold} strokeWidth="4" strokeLinecap="round"/>
-          <path d="M78,128 Q100,122 122,128" fill="none" stroke={C.goldBright} strokeWidth="1.5" strokeLinecap="round" opacity=".6"/>
+          {/* ── Gold collar trim ── */}
+          <path d="M94,166 Q130,156 166,166" fill="none" stroke={C.gold} strokeWidth="5.5" strokeLinecap="round"/>
+          <path d="M94,166 Q130,156 166,166" fill="none" stroke={C.goldBright} strokeWidth="2" strokeLinecap="round" opacity=".65"/>
+          <path d="M94,166 Q130,156 166,166" fill="none" stroke="white" strokeWidth=".8" strokeLinecap="round" opacity=".3"/>
 
-          {/* Left sleeve */}
-          <path d="M72,128 C68,132 60,142 56,150 L48,190 C52,192 56,192 59,190 L66,156 C69,147 72,137 74,131Z"
-            fill={C.robeShadow} opacity=".55"/>
-          <path d="M63,149 L50,190" stroke={C.gold} strokeWidth="3.5" strokeLinecap="round"/>
-          <path d="M63,149 L50,190" stroke={C.goldBright} strokeWidth="1.2" strokeLinecap="round" opacity=".6"/>
+          {/* ── Left sleeve ── */}
+          <path d="M88,166 C82,172 72,184 66,196 L56,246 C60,248 66,248 70,246 L80,202 C84,190 88,178 90,170Z"
+            fill={C.robeShadow} opacity=".6"/>
+          {/* Left sleeve gold trim */}
+          <path d="M78,194 L58,247" stroke={C.gold} strokeWidth="4.5" strokeLinecap="round"/>
+          <path d="M78,194 L58,247" stroke={C.goldBright} strokeWidth="1.6" strokeLinecap="round" opacity=".65"/>
+          <path d="M78,194 L58,247" stroke="white" strokeWidth=".7" strokeLinecap="round" opacity=".3"/>
 
-          {/* Right sleeve */}
-          <path d="M128,128 C132,132 140,142 144,150 L152,188 C148,190 144,190 141,188 L135,155 C131,146 128,136 126,131Z"
-            fill={C.robeShadow} opacity=".55"/>
-          <path d="M137,149 L150,187" stroke={C.gold} strokeWidth="3.5" strokeLinecap="round"/>
-          <path d="M137,149 L150,187" stroke={C.goldBright} strokeWidth="1.2" strokeLinecap="round" opacity=".6"/>
+          {/* ── Right sleeve ── */}
+          <path d="M172,166 C178,172 188,184 194,196 L204,244 C200,246 194,246 190,244 L180,200 C176,188 172,177 170,170Z"
+            fill={C.robeShadow} opacity=".6"/>
+          {/* Right sleeve gold trim */}
+          <path d="M182,194 L202,244" stroke={C.gold} strokeWidth="4.5" strokeLinecap="round"/>
+          <path d="M182,194 L202,244" stroke={C.goldBright} strokeWidth="1.6" strokeLinecap="round" opacity=".65"/>
+          <path d="M182,194 L202,244" stroke="white" strokeWidth=".7" strokeLinecap="round" opacity=".3"/>
 
-          {/* Sash/belt center panel with gold stripes */}
-          <rect x="88" y="148" width="24" height="115" rx="2" fill={C.robeMain} opacity=".9"/>
-          {[156,167,178,189].map(y=>(
-            <rect key={y} x="88" y={y} width="24" height="2.5" rx="1.2" fill={C.gold} opacity=".7"/>
+          {/* ── Sash/belt center panel ── */}
+          <rect x="110" y="192" width="40" height="156" rx="3" fill={C.robeWhite} opacity=".88"/>
+          {/* Gold horizontal sash stripes */}
+          {[202,216,230,244].map(y=>(
+            <g key={y}>
+              <rect x="110" y={y} width="40" height="3.5" rx="1.8" fill={C.gold} opacity=".82"/>
+              <rect x="110" y={y} width="40" height="3.5" rx="1.8" fill="none" stroke={C.goldBright} strokeWidth=".6" opacity=".5"/>
+            </g>
           ))}
           {/* Belt knot */}
-          <ellipse cx="100" cy="150" rx="10" ry="6" fill={C.gold}/>
-          <ellipse cx="100" cy="150" rx="10" ry="6" fill="none" stroke={C.goldBright} strokeWidth=".8" opacity=".5"/>
-          <ellipse cx="99" cy="149" rx="3.5" ry="2.5" fill={C.goldBright} opacity=".45"/>
+          <ellipse cx="130" cy="194" rx="14" ry="8.5" fill={C.gold}/>
+          <ellipse cx="130" cy="194" rx="14" ry="8.5" fill="none" stroke={C.goldBright} strokeWidth="1" opacity=".6"/>
+          <ellipse cx="128.5" cy="192.5" rx="5" ry="3.5" fill={C.goldBright} opacity=".5"/>
 
-          {/* LEFT ARM — gesturing open palm */}
-          <g style={{transformOrigin:'76px 135px',
-            animation:`${state==='speaking'?'gb-arm-spk .52s':'gb-arm-idle 3.6s'} ease-in-out infinite`}}>
-            <path d="M76,135 C70,138 60,150 50,167" stroke={C.skin} strokeWidth="15" strokeLinecap="round" fill="none"/>
-            <path d="M76,135 C70,138 60,150 50,167" stroke={C.skinShadow} strokeWidth="15" strokeLinecap="round" fill="none" opacity=".22"/>
-            <path d="M76,135 C70,138 60,150 50,167" stroke={C.skinLight} strokeWidth="8" strokeLinecap="round" fill="none" opacity=".42"/>
-            {/* forearm */}
-            <path d="M50,167 C44,174 42,180 43,186" stroke={C.skin} strokeWidth="13" strokeLinecap="round" fill="none"/>
-            <path d="M50,167 C44,174 42,180 43,186" stroke={C.skinLight} strokeWidth="7" strokeLinecap="round" fill="none" opacity=".38"/>
-            {/* palm */}
-            <ellipse cx="46" cy="190" rx="11" ry="8.5" fill="url(#gskin)" transform="rotate(-18,46,190)"/>
-            {/* fingers */}
-            <path d="M39,185 C36,177 36,169 38,166" stroke={C.skin} strokeWidth="4.5" strokeLinecap="round" fill="none"/>
-            <path d="M45,183 C43,175 44,167 46,164" stroke={C.skin} strokeWidth="5" strokeLinecap="round" fill="none"/>
-            <path d="M51,185 C51,177 52,169 54,166" stroke={C.skin} strokeWidth="4.5" strokeLinecap="round" fill="none"/>
-            <path d="M56,188 C57,181 58,175 59,172" stroke={C.skin} strokeWidth="4" strokeLinecap="round" fill="none"/>
-            {/* thumb */}
-            <path d="M37,188 C33,184 33,179 35,177 C38,175 41,178 41,182" stroke={C.skin} strokeWidth="5.5" strokeLinecap="round" fill="none"/>
-            {/* knuckle line */}
-            <path d="M38,166 Q46,163 54,166" fill="none" stroke={C.skinLight} strokeWidth="1" opacity=".5"/>
+          {/* ── LEFT ARM — open palm gesture ── */}
+          <g style={{transformOrigin:'96px 174px',
+            animation:`${state==='speaking'?'ga2-arm-spk .50s':'ga2-arm-idle 3.8s'} ease-in-out infinite`}}>
+            {/* Upper arm */}
+            <path d="M96,174 C88,178 76,194 62,214" stroke={C.skin} strokeWidth="20" strokeLinecap="round" fill="none"/>
+            <path d="M96,174 C88,178 76,194 62,214" stroke={C.skinShadow} strokeWidth="20" strokeLinecap="round" fill="none" opacity=".25"/>
+            <path d="M96,174 C88,178 76,194 62,214" stroke={C.skinLight} strokeWidth="11" strokeLinecap="round" fill="none" opacity=".45"/>
+            {/* Forearm */}
+            <path d="M62,214 C54,224 50,234 52,244" stroke={C.skin} strokeWidth="18" strokeLinecap="round" fill="none"/>
+            <path d="M62,214 C54,224 50,234 52,244" stroke={C.skinLight} strokeWidth="10" strokeLinecap="round" fill="none" opacity=".4"/>
+            {/* Palm */}
+            <ellipse cx="54" cy="250" rx="15" ry="12" fill="url(#ga2-skin2)" transform="rotate(-22,54,250)"/>
+            {/* Fingers */}
+            <path d="M43,244 C39,234 38,224 41,220" stroke={C.skin} strokeWidth="7" strokeLinecap="round" fill="none"/>
+            <path d="M52,241 C49,231 50,221 53,217" stroke={C.skin} strokeWidth="7.5" strokeLinecap="round" fill="none"/>
+            <path d="M61,244 C60,234 61,224 64,220" stroke={C.skin} strokeWidth="7" strokeLinecap="round" fill="none"/>
+            <path d="M69,248 C69,239 70,231 72,227" stroke={C.skin} strokeWidth="6.5" strokeLinecap="round" fill="none"/>
+            {/* Thumb */}
+            <path d="M42,248 C36,242 36,235 39,232 C42,229 47,232 47,237" stroke={C.skin} strokeWidth="8" strokeLinecap="round" fill="none"/>
+            {/* Knuckle shading */}
+            <path d="M41,220 Q53,215 64,220" fill="none" stroke={C.skinShadow} strokeWidth="1.2" opacity=".4"/>
+            {/* Highlight on back of hand */}
+            <ellipse cx="52" cy="242" rx="6" ry="4" fill={C.skinLight} opacity=".3" transform="rotate(-15,52,242)"/>
           </g>
 
-          {/* RIGHT ARM — holding chalice */}
-          <g style={{transformOrigin:'124px 135px',
-            animation:`gb-arm-idle ${state==='speaking'?'.52s':'3.6s'} ease-in-out infinite`,animationDelay:'.4s'}}>
-            <path d="M124,135 C130,138 140,150 148,163" stroke={C.skin} strokeWidth="15" strokeLinecap="round" fill="none"/>
-            <path d="M124,135 C130,138 140,150 148,163" stroke={C.skinShadow} strokeWidth="15" strokeLinecap="round" fill="none" opacity=".22"/>
-            <path d="M124,135 C130,138 140,150 148,163" stroke={C.skinLight} strokeWidth="8" strokeLinecap="round" fill="none" opacity=".42"/>
-            {/* forearm raised */}
-            <path d="M148,163 C153,156 154,148 152,141" stroke={C.skin} strokeWidth="13" strokeLinecap="round" fill="none"/>
-            <path d="M148,163 C153,156 154,148 152,141" stroke={C.skinLight} strokeWidth="7" strokeLinecap="round" fill="none" opacity=".38"/>
-            {/* hand */}
-            <ellipse cx="153" cy="138" rx="9.5" ry="7.5" fill="url(#gskin)" transform="rotate(14,153,138)"/>
-            <path d="M146,134 C143,128 144,123 147,122" stroke={C.skin} strokeWidth="4.5" strokeLinecap="round" fill="none"/>
-            <path d="M151,133 C149,127 150,122 153,121" stroke={C.skin} strokeWidth="4.5" strokeLinecap="round" fill="none"/>
-            <path d="M156,135 C155,129 156,124 158,123" stroke={C.skin} strokeWidth="4" strokeLinecap="round" fill="none"/>
-            <path d="M160,138 C160,132 161,128 162,126" stroke={C.skin} strokeWidth="4" strokeLinecap="round" fill="none"/>
-            {/* CHALICE */}
-            <path d="M143,122 L145,110 L161,110 L163,122Z" fill={C.chalice}/>
-            <path d="M143,122 L145,110 L161,110 L163,122Z" fill="none" stroke={C.chaliceGold} strokeWidth="1.2"/>
-            <ellipse cx="153" cy="110" rx="8" ry="3" fill={C.chalice}/>
-            <ellipse cx="153" cy="110" rx="8" ry="3" fill="none" stroke={C.chaliceGold} strokeWidth="1"/>
-            <path d="M143,117 L163,117" stroke={C.chaliceGold} strokeWidth=".8" opacity=".7"/>
-            <path d="M143,120 L163,120" stroke={C.chaliceGold} strokeWidth=".8" opacity=".7"/>
-            <rect x="151" y="122" width="4" height="6" rx="1" fill={C.chalice}/>
-            <rect x="151" y="122" width="4" height="6" fill="none" stroke={C.chaliceGold} strokeWidth=".8"/>
-            <ellipse cx="153" cy="128" rx="7.5" ry="2.8" fill={C.chalice}/>
-            <ellipse cx="153" cy="128" rx="7.5" ry="2.8" fill="none" stroke={C.chaliceGold} strokeWidth="1"/>
-            <path d="M147,112 C147,111 149,110 152,111" fill="none" stroke="white" strokeWidth="1.2" strokeLinecap="round" opacity=".55"/>
+          {/* ── RIGHT ARM — holding chalice ── */}
+          <g style={{transformOrigin:'164px 174px',
+            animation:`ga2-arm-idle ${state==='speaking'?'.50s':'3.8s'} ease-in-out infinite`,animationDelay:'.5s'}}>
+            {/* Upper arm */}
+            <path d="M164,174 C172,178 184,194 198,212" stroke={C.skin} strokeWidth="20" strokeLinecap="round" fill="none"/>
+            <path d="M164,174 C172,178 184,194 198,212" stroke={C.skinShadow} strokeWidth="20" strokeLinecap="round" fill="none" opacity=".25"/>
+            <path d="M164,174 C172,178 184,194 198,212" stroke={C.skinLight} strokeWidth="11" strokeLinecap="round" fill="none" opacity=".45"/>
+            {/* Forearm — raised up toward chalice */}
+            <path d="M198,212 C204,200 206,188 202,180" stroke={C.skin} strokeWidth="18" strokeLinecap="round" fill="none"/>
+            <path d="M198,212 C204,200 206,188 202,180" stroke={C.skinLight} strokeWidth="10" strokeLinecap="round" fill="none" opacity=".4"/>
+            {/* Hand holding chalice */}
+            <ellipse cx="204" cy="176" rx="13" ry="10" fill="url(#ga2-skin2)" transform="rotate(18,204,176)"/>
+            <path d="M195,170 C192,162 193,155 196,152" stroke={C.skin} strokeWidth="7" strokeLinecap="round" fill="none"/>
+            <path d="M202,168 C199,160 200,153 204,150" stroke={C.skin} strokeWidth="7.5" strokeLinecap="round" fill="none"/>
+            <path d="M209,170 C207,162 208,155 211,152" stroke={C.skin} strokeWidth="6.5" strokeLinecap="round" fill="none"/>
+            <path d="M215,174 C214,167 215,161 217,158" stroke={C.skin} strokeWidth="6" strokeLinecap="round" fill="none"/>
+
+            {/* ── CHALICE ── */}
+            {/* Shadow */}
+            <ellipse cx="205" cy="178" rx="12" ry="4" fill="rgba(0,0,0,0.2)" filter="url(#ga2-soft)"/>
+            {/* Stem */}
+            <rect x="199" y="155" width="6" height="10" rx="2" fill={C.chaliceBody}/>
+            <rect x="199" y="155" width="6" height="10" rx="2" fill="none" stroke={C.chaliceGold} strokeWidth="1"/>
+            {/* Stem node */}
+            <ellipse cx="202" cy="155" rx="5.5" ry="3" fill={C.chaliceBody}/>
+            <ellipse cx="202" cy="155" rx="5.5" ry="3" fill="none" stroke={C.chaliceGold} strokeWidth=".9"/>
+            {/* Cup bowl */}
+            <path d="M190,152 L193,136 L211,136 L214,152Z" fill={C.chaliceBody}/>
+            <path d="M190,152 L193,136 L211,136 L214,152Z" fill="none" stroke={C.chaliceGold} strokeWidth="1.4"/>
+            {/* Gold decorative lines */}
+            <path d="M191,145 L213,145" stroke={C.chaliceGold} strokeWidth="1" opacity=".8"/>
+            <path d="M191,149 L213,149" stroke={C.chaliceGold} strokeWidth="1" opacity=".8"/>
+            {/* Cup rim */}
+            <ellipse cx="202" cy="136" rx="9.5" ry="3.5" fill={C.chaliceBody}/>
+            <ellipse cx="202" cy="136" rx="9.5" ry="3.5" fill="none" stroke={C.chaliceGold} strokeWidth="1.2"/>
+            {/* Base */}
+            <ellipse cx="202" cy="166" rx="10" ry="3.8" fill={C.chaliceBody}/>
+            <ellipse cx="202" cy="166" rx="10" ry="3.8" fill="none" stroke={C.chaliceGold} strokeWidth="1.2"/>
+            {/* Cup highlight */}
+            <path d="M194,138 C194,136 197,135 200,136" fill="none" stroke={C.chaliceLight} strokeWidth="1.8" strokeLinecap="round" opacity=".7"/>
+            {/* Interior liquid hint */}
+            <ellipse cx="202" cy="139" rx="7" ry="2" fill={C.gold} opacity=".35"/>
           </g>
 
-          {/* Neck */}
-          <rect x="91" y="120" width="18" height="14" rx="4" fill="url(#gskin)"/>
+          {/* ── Neck ── */}
+          <path d="M114,154 L114,168 Q130,174 146,168 L146,154 Z" fill="url(#ga2-skin)"/>
+          <path d="M114,154 L114,168 Q130,174 146,168 L146,154 Z" fill={C.skinShadow} opacity=".18"/>
 
-          {/* HEAD */}
-          <ellipse cx="100" cy="96" rx="38" ry="40" fill="url(#gskin)"/>
-          <path d="M64,106 Q62,120 68,128 Q80,140 100,142 Q120,140 132,128 Q138,120 136,106Z" fill="url(#gskin)"/>
-          {/* cheek blush */}
-          <ellipse cx="76" cy="109" rx="10" ry="7" fill={C.skinLight} opacity=".2" transform="rotate(-10,76,109)"/>
-          <ellipse cx="124" cy="109" rx="10" ry="7" fill={C.skinLight} opacity=".2" transform="rotate(10,124,109)"/>
-          {/* ears */}
-          <ellipse cx="63" cy="98" rx="6.5" ry="8.5" fill={C.skin}/>
-          <ellipse cx="63" cy="98" rx="4" ry="5.5" fill={C.skinShadow} opacity=".3"/>
-          <ellipse cx="137" cy="98" rx="6.5" ry="8.5" fill={C.skin}/>
-          <ellipse cx="137" cy="98" rx="4" ry="5.5" fill={C.skinShadow} opacity=".3"/>
+          {/* ── HEAD ── */}
+          {/* Head shape */}
+          <ellipse cx="130" cy="122" rx="50" ry="52" fill="url(#ga2-skin)"/>
+          {/* Jaw widening */}
+          <path d="M82,132 Q78,152 85,164 Q100,178 130,180 Q160,178 175,164 Q182,152 178,132Z" fill="url(#ga2-skin)"/>
+          {/* Cheek blush */}
+          <ellipse cx="96" cy="142" rx="14" ry="10" fill={C.skinLight} opacity=".22" transform="rotate(-12,96,142)"/>
+          <ellipse cx="164" cy="142" rx="14" ry="10" fill={C.skinLight} opacity=".22" transform="rotate(12,164,142)"/>
+          {/* Forehead shadow */}
+          <path d="M86,108 Q130,100 174,108 Q168,86 130,80 Q92,86 86,108Z" fill={C.skinShadow} opacity=".12"/>
+          {/* Ears */}
+          <ellipse cx="81" cy="126" rx="8.5" ry="11" fill={C.skin}/>
+          <ellipse cx="81" cy="126" rx="5.5" ry="7.5" fill={C.skinShadow} opacity=".32"/>
+          <path d="M79,120 Q76,126 79,132" fill="none" stroke={C.skinShadow} strokeWidth="1.5" opacity=".5"/>
+          <ellipse cx="179" cy="126" rx="8.5" ry="11" fill={C.skin}/>
+          <ellipse cx="179" cy="126" rx="5.5" ry="7.5" fill={C.skinShadow} opacity=".32"/>
+          <path d="M181,120 Q184,126 181,132" fill="none" stroke={C.skinShadow} strokeWidth="1.5" opacity=".5"/>
 
-          {/* HAIR */}
-          {/* back layer */}
-          <path d="M65,86 Q60,68 67,54 Q76,40 100,38 Q124,40 133,54 Q140,68 135,86" fill={C.hair} opacity=".55"/>
-          {/* main mass */}
-          <path d="M66,90 Q62,72 68,57 Q77,43 100,40 Q123,43 132,57 Q138,72 134,90 Q128,82 124,77 Q116,70 100,69 Q84,70 76,77 Q72,82 66,90Z" fill="url(#ghair)"/>
-          {/* curls left */}
-          <path d="M68,80 Q70,70 76,65 Q81,62 84,64 Q80,69 78,75" fill={C.hair} opacity=".75"/>
-          {/* curls right */}
-          <path d="M132,80 Q130,70 124,65 Q119,62 116,64 Q120,69 122,75" fill={C.hair} opacity=".75"/>
-          {/* front wisps */}
-          <path d="M82,69 Q84,60 89,56 Q93,52 96,54 Q92,59 90,65" fill={C.hairLight} opacity=".8"/>
-          <path d="M118,69 Q116,60 111,56 Q107,52 104,54 Q108,59 110,65" fill={C.hairLight} opacity=".8"/>
-          {/* hair highlight */}
-          <path d="M86,54 Q93,48 100,46 Q107,48 114,54" fill="none" stroke={C.hairLight} strokeWidth="2.5" strokeLinecap="round" opacity=".38"/>
+          {/* ── HAIR ── */}
+          {/* Back shadow layer */}
+          <path d="M84,114 Q78,90 86,70 Q98,48 130,45 Q162,48 174,70 Q182,90 176,114" fill={C.hair} opacity=".6"/>
+          {/* Main hair mass */}
+          <path d="M85,118 Q80,96 86,74 Q98,50 130,46 Q162,50 174,74 Q180,96 175,118 Q168,108 162,102 Q150,94 130,92 Q110,94 98,102 Q92,108 85,118Z" fill="url(#ga2-hair)"/>
+          {/* Hair curls — left */}
+          <path d="M86,108 Q90,94 98,86 Q104,80 108,83 Q104,90 100,98" fill={C.hair} opacity=".75"/>
+          <path d="M84,116 Q86,104 92,96 Q96,91 100,93 Q97,100 95,107" fill={C.hairMid} opacity=".6"/>
+          {/* Hair curls — right */}
+          <path d="M174,108 Q170,94 162,86 Q156,80 152,83 Q156,90 160,98" fill={C.hair} opacity=".75"/>
+          <path d="M176,116 Q174,104 168,96 Q164,91 160,93 Q163,100 165,107" fill={C.hairMid} opacity=".6"/>
+          {/* Front wisps */}
+          <path d="M104,92 Q106,78 112,70 Q117,64 120,67 Q116,75 114,84" fill={C.hairLight} opacity=".82"/>
+          <path d="M156,92 Q154,78 148,70 Q143,64 140,67 Q144,75 146,84" fill={C.hairLight} opacity=".82"/>
+          <path d="M124,88 Q126,74 128,66 Q130,62 132,66 Q134,74 136,88" fill={C.hairMid} opacity=".6"/>
+          {/* Hair sheen highlight */}
+          <path d="M108,68 Q120,60 130,58 Q140,60 152,68" fill="none" stroke={C.hairLight} strokeWidth="3" strokeLinecap="round" opacity=".42"/>
+          <path d="M118,64 Q130,58 142,64" fill="none" stroke="white" strokeWidth="1.2" strokeLinecap="round" opacity=".18"/>
 
-          {/* EYEBROWS */}
-          <path d="M76,82 Q82,78 90,80" stroke={C.hair} strokeWidth="4" strokeLinecap="round" fill="none"/>
-          <path d="M76,82 Q82,78 90,80" stroke={C.lash} strokeWidth="2" strokeLinecap="round" fill="none" opacity=".7"/>
-          <path d="M110,80 Q118,78 124,82" stroke={C.hair} strokeWidth="4" strokeLinecap="round" fill="none"/>
-          <path d="M110,80 Q118,78 124,82" stroke={C.lash} strokeWidth="2" strokeLinecap="round" fill="none" opacity=".7"/>
+          {/* ── EYEBROWS — thick, expressive ── */}
+          <path d="M94,106 Q104,100 116,103" stroke={C.brow} strokeWidth="5.5" strokeLinecap="round" fill="none"/>
+          <path d="M94,106 Q104,100 116,103" stroke={C.lash} strokeWidth="2.5" strokeLinecap="round" fill="none" opacity=".75"/>
+          <path d="M144,103 Q156,100 166,106" stroke={C.brow} strokeWidth="5.5" strokeLinecap="round" fill="none"/>
+          <path d="M144,103 Q156,100 166,106" stroke={C.lash} strokeWidth="2.5" strokeLinecap="round" fill="none" opacity=".75"/>
 
-          {/* EYES */}
-          <g style={{transformOrigin:'83px 95px',transform:`scaleY(${eyeSY})`,transition:'transform .07s'}}>
-            <ellipse cx="83" cy="95" rx="10.5" ry="8.5" fill={C.eyeWhite}/>
-            <ellipse cx="83" cy="95" rx="10.5" ry="8.5" fill="none" stroke={C.lash} strokeWidth="1.2"/>
-            <ellipse cx="83" cy="95" rx="7" ry="7" fill="url(#giris)" clipPath="url(#ecL)"/>
-            <circle cx="83" cy="95" r="3.4" fill={C.pupil}/>
-            <circle cx="81" cy="93" r="1.5" fill="white" opacity=".92"/>
-            <circle cx="85" cy="97" r=".7" fill="white" opacity=".4"/>
-            <path d="M72.5,89.5 Q83,85 93.5,89.5" fill={C.lash} opacity=".9"/>
-            <path d="M72.5,100 Q83,104 93.5,100" fill="none" stroke={C.lash} strokeWidth=".9" opacity=".35"/>
+          {/* ── EYES ── */}
+          {/* Left eye */}
+          <g style={{transformOrigin:'106px 124px',transform:`scaleY(${eyeSY})`,transition:'transform .07s'}}>
+            <ellipse cx="106" cy="124" rx="13.5" ry="11" fill={C.eyeWhite}/>
+            <ellipse cx="106" cy="124" rx="13.5" ry="11" fill="none" stroke={C.lash} strokeWidth="1.5"/>
+            <ellipse cx="106" cy="124" rx="9" ry="9" fill="url(#ga2-iris)" clipPath="url(#ga2-ecL)"/>
+            <circle cx="106" cy="124" r="4.5" fill={C.pupil}/>
+            {/* Double catchlight */}
+            <circle cx="103" cy="121" r="2" fill="white" opacity=".95"/>
+            <circle cx="109" cy="127" r="1" fill="white" opacity=".5"/>
+            {/* Top lash */}
+            <path d="M92.5,116 Q106,111 119.5,116" fill={C.lash} opacity=".92"/>
+            {/* Bottom lash */}
+            <path d="M92.5,132 Q106,136 119.5,132" fill="none" stroke={C.lash} strokeWidth="1.1" opacity=".38"/>
+            {/* Lid crease */}
+            <path d="M94,119 Q106,115 118,119" fill="none" stroke={C.skinShadow} strokeWidth=".8" opacity=".3"/>
           </g>
-          <g style={{transformOrigin:'117px 95px',transform:`scaleY(${eyeSY})`,transition:'transform .07s'}}>
-            <ellipse cx="117" cy="95" rx="10.5" ry="8.5" fill={C.eyeWhite}/>
-            <ellipse cx="117" cy="95" rx="10.5" ry="8.5" fill="none" stroke={C.lash} strokeWidth="1.2"/>
-            <ellipse cx="117" cy="95" rx="7" ry="7" fill="url(#giris)" clipPath="url(#ecR)"/>
-            <circle cx="117" cy="95" r="3.4" fill={C.pupil}/>
-            <circle cx="115" cy="93" r="1.5" fill="white" opacity=".92"/>
-            <circle cx="119" cy="97" r=".7" fill="white" opacity=".4"/>
-            <path d="M106.5,89.5 Q117,85 127.5,89.5" fill={C.lash} opacity=".9"/>
-            <path d="M106.5,100 Q117,104 127.5,100" fill="none" stroke={C.lash} strokeWidth=".9" opacity=".35"/>
+          {/* Right eye */}
+          <g style={{transformOrigin:'154px 124px',transform:`scaleY(${eyeSY})`,transition:'transform .07s'}}>
+            <ellipse cx="154" cy="124" rx="13.5" ry="11" fill={C.eyeWhite}/>
+            <ellipse cx="154" cy="124" rx="13.5" ry="11" fill="none" stroke={C.lash} strokeWidth="1.5"/>
+            <ellipse cx="154" cy="124" rx="9" ry="9" fill="url(#ga2-iris)" clipPath="url(#ga2-ecR)"/>
+            <circle cx="154" cy="124" r="4.5" fill={C.pupil}/>
+            <circle cx="151" cy="121" r="2" fill="white" opacity=".95"/>
+            <circle cx="157" cy="127" r="1" fill="white" opacity=".5"/>
+            <path d="M140.5,116 Q154,111 167.5,116" fill={C.lash} opacity=".92"/>
+            <path d="M140.5,132 Q154,136 167.5,132" fill="none" stroke={C.lash} strokeWidth="1.1" opacity=".38"/>
+            <path d="M142,119 Q154,115 166,119" fill="none" stroke={C.skinShadow} strokeWidth=".8" opacity=".3"/>
           </g>
 
-          {/* NOSE */}
-          <path d="M100,86 Q100,96 98,102" fill="none" stroke={C.skinShadow} strokeWidth="1.8" strokeLinecap="round" opacity=".38"/>
-          <ellipse cx="100" cy="107" rx="6.5" ry="5" fill={C.skin}/>
-          <ellipse cx="95.5" cy="108.5" rx="2.8" ry="2" fill={C.skinShadow} opacity=".5" transform="rotate(-10,95.5,108.5)"/>
-          <ellipse cx="104.5" cy="108.5" rx="2.8" ry="2" fill={C.skinShadow} opacity=".5" transform="rotate(10,104.5,108.5)"/>
-          <ellipse cx="100" cy="105" rx="2" ry="1.5" fill={C.skinLight} opacity=".48"/>
+          {/* ── NOSE ── */}
+          {/* Bridge */}
+          <path d="M130,112 Q130,122 127,130" fill="none" stroke={C.skinShadow} strokeWidth="2.2" strokeLinecap="round" opacity=".35"/>
+          {/* Tip */}
+          <ellipse cx="130" cy="136" rx="8.5" ry="6.5" fill={C.skin}/>
+          <ellipse cx="130" cy="136" rx="8.5" ry="6.5" fill={C.skinShadow} opacity=".22"/>
+          {/* Nostrils */}
+          <ellipse cx="123" cy="138.5" rx="3.8" ry="2.8" fill={C.skinShadow} opacity=".55" transform="rotate(-12,123,138.5)"/>
+          <ellipse cx="137" cy="138.5" rx="3.8" ry="2.8" fill={C.skinShadow} opacity=".55" transform="rotate(12,137,138.5)"/>
+          {/* Nose tip highlight */}
+          <ellipse cx="130" cy="133" rx="2.8" ry="2" fill={C.skinHighlight} opacity=".52"/>
 
-          {/* MOUTH */}
+          {/* ── MOUTH ── */}
           {mouthOpen<0.05?(
-            <path d="M91,118 Q100,123 109,118" fill="none" stroke={C.mouthDark} strokeWidth="2" strokeLinecap="round"/>
+            <g>
+              <path d="M116,150 Q130,156 144,150" fill="none" stroke={C.mouthDark} strokeWidth="2.5" strokeLinecap="round"/>
+              {/* Upper lip bow */}
+              <path d="M116,150 Q122,147 130,149 Q138,147 144,150" fill={C.mouthPink} opacity=".4"/>
+            </g>
           ):(
             <g>
-              <path d={`M91,117 Q100,${116+mouthOpen*7} 109,117 Q108,${117+mouthOpen*13} 100,${118+mouthOpen*13} Q92,${117+mouthOpen*13} 91,117Z`} fill={C.mouthDark}/>
-              <path d={`M93,118 Q100,${117+mouthOpen*5} 107,118 Q107,${119+mouthOpen*6} 100,${119+mouthOpen*7} Q93,${119+mouthOpen*6} 93,118Z`} fill={C.teeth}/>
-              <path d={`M96,${118+mouthOpen*2} L100,${118+mouthOpen*2} L104,${118+mouthOpen*2}`} stroke={C.robeShadow} strokeWidth=".6" opacity=".35"/>
-              <path d={`M91,117 Q96,115 100,116 Q104,115 109,117`} fill={C.mouthDark} opacity=".55"/>
+              {/* Mouth opening */}
+              <path d={`M116,149 Q130,${148+mouthOpen*9} 144,149 Q143,${150+mouthOpen*16} 130,${151+mouthOpen*16} Q117,${150+mouthOpen*16} 116,149Z`}
+                fill={C.mouthDark}/>
+              {/* Teeth */}
+              <path d={`M118,150 Q130,${149+mouthOpen*6} 142,150 Q142,${152+mouthOpen*8} 130,${153+mouthOpen*9} Q118,${152+mouthOpen*8} 118,150Z`}
+                fill={C.teeth}/>
+              {/* Teeth center line */}
+              <path d={`M124,${151+mouthOpen*3} L130,${151+mouthOpen*3} L136,${151+mouthOpen*3}`}
+                stroke={C.robeShadow} strokeWidth=".8" opacity=".35"/>
+              {/* Upper lip */}
+              <path d={`M116,149 Q122,146 130,148 Q138,146 144,149`} fill={C.mouthPink} opacity=".5"/>
             </g>
           )}
-          <path d="M89,117 Q87,120 88,122" fill="none" stroke={C.skinShadow} strokeWidth="1" strokeLinecap="round" opacity=".3"/>
-          <path d="M111,117 Q113,120 112,122" fill="none" stroke={C.skinShadow} strokeWidth="1" strokeLinecap="round" opacity=".3"/>
+          {/* Dimples */}
+          <path d="M114,149 Q111,153 112,157" fill="none" stroke={C.skinShadow} strokeWidth="1.2" strokeLinecap="round" opacity=".32"/>
+          <path d="M146,149 Q149,153 148,157" fill="none" stroke={C.skinShadow} strokeWidth="1.2" strokeLinecap="round" opacity=".32"/>
 
-          {/* BEARD */}
-          <path d="M72,112 Q68,120 68,128 Q69,136 75,140 Q83,146 100,148 Q117,146 125,140 Q131,136 132,128 Q132,120 128,112 Q122,122 118,126 Q110,134 100,136 Q90,134 82,126 Q78,122 72,112Z" fill={C.beard}/>
-          <path d="M74,114 Q71,122 71,128 Q72,133 77,137 Q84,143 100,145 Q116,143 123,137 Q128,133 129,128 Q129,122 126,114 Q120,124 116,128 Q108,136 100,138 Q92,136 84,128 Q80,124 74,114Z" fill={C.beardLight} opacity=".42"/>
-          <ellipse cx="100" cy="144" rx="8" ry="5" fill={C.beard}/>
-          {/* mustache */}
-          <path d="M88,113 Q94,110 100,113 Q106,110 112,113 Q110,117 100,117 Q90,117 88,113Z" fill={C.beard}/>
-          {/* beard texture */}
-          {[{x1:79,x2:77,y1:120,y2:134},{x1:87,x2:85,y1:124,y2:138},{x1:95,x2:94,y1:128,y2:142},{x1:100,x2:100,y1:130,y2:144},{x1:105,x2:106,y1:128,y2:142},{x1:113,x2:115,y1:124,y2:138},{x1:121,x2:123,y1:120,y2:134}].map((s,i)=>(
-            <path key={i} d={`M${s.x1},${s.y1} Q${(s.x1+s.x2)/2},${(s.y1+s.y2)/2} ${s.x2},${s.y2}`} fill="none" stroke={C.beardLight} strokeWidth=".8" opacity=".38"/>
+          {/* ── BEARD ── */}
+          {/* Main beard shape */}
+          <path d="M90,140 Q86,152 86,164 Q88,176 96,182 Q108,190 130,192 Q152,190 164,182 Q172,176 174,164 Q174,152 170,140 Q162,156 156,162 Q146,172 130,174 Q114,172 104,162 Q98,156 90,140Z" fill="url(#ga2-beard)"/>
+          {/* Beard lighter overlay */}
+          <path d="M92,142 Q89,154 89,164 Q91,173 98,178 Q110,188 130,190 Q150,188 162,178 Q169,173 171,164 Q171,154 168,142 Q160,158 154,164 Q144,174 130,176 Q116,174 106,164 Q100,158 92,142Z" fill={C.beardLight} opacity=".38"/>
+          {/* Chin tuft */}
+          <ellipse cx="130" cy="188" rx="11" ry="7" fill="url(#ga2-beard)"/>
+          {/* Mustache */}
+          <path d="M112,143 Q120,138 130,142 Q140,138 148,143 Q146,149 130,150 Q114,149 112,143Z" fill={C.beard}/>
+          <path d="M112,143 Q121,140 130,142 Q139,140 148,143" fill="none" stroke={C.beardLight} strokeWidth="1.2" opacity=".45"/>
+          {/* Beard texture strands */}
+          {[
+            {x1:98,y1:152,x2:95,y2:170},{x1:106,y1:158,x2:103,y2:176},
+            {x1:116,y1:164,x2:114,y2:180},{x1:130,y1:168,x2:130,y2:186},
+            {x1:144,y1:164,x2:146,y2:180},{x1:154,y1:158,x2:157,y2:176},
+            {x1:162,y1:152,x2:165,y2:170}
+          ].map((s,i)=>(
+            <path key={i} d={`M${s.x1},${s.y1} Q${(s.x1+s.x2)/2},${(s.y1+s.y2)/2} ${s.x2},${s.y2}`}
+              fill="none" stroke={C.beardLight} strokeWidth="1" opacity=".38"/>
           ))}
+          {/* Beard sheen highlight */}
+          <path d="M118,154 Q130,150 142,154" fill="none" stroke="white" strokeWidth="1" opacity=".14"/>
 
-        </g>{/* end body */}
+        </g>{/* end body group */}
 
-        {/* Thinking dots */}
+        {/* ── Thinking dots ── */}
         {state==='thinking'&&[0,1,2].map(i=>(
-          <circle key={i} cx={90+i*10} cy={282} r={2.8} fill={C.gold}
-            style={{animation:'gb-dot 1.1s ease-in-out infinite',animationDelay:`${i*.22}s`}}/>
+          <circle key={i} cx={114+i*14} cy={368} r={4}
+            fill={C.gold}
+            style={{animation:'ga2-dot 1.1s ease-in-out infinite',animationDelay:`${i*.24}s`}}/>
         ))}
 
       </svg>
