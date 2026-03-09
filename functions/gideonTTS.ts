@@ -62,7 +62,7 @@ Deno.serve(async (req) => {
     }
 
     // ── Google Cloud TTS API key ─────────────────────────────────────────
-    const apiKey = Deno.env.get('GOOGLE_TTS_API_KEY');
+    const apiKey = Deno.env.get('Google_TTS');
     if (!apiKey) {
       console.error('[gideonTTS] GOOGLE_TTS_API_KEY secret not set');
       return Response.json({ error: 'TTS not configured' }, {
