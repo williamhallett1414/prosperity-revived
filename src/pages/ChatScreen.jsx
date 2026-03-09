@@ -1109,10 +1109,10 @@ export default function ChatScreen() {
         </div>
       </div>
 
-      {/* Avatar zone */}
+      {/* Avatar zone — absolute, sits behind messages AND behind input bar */}
       <motion.div
-        className="relative z-10 flex flex-col items-center flex-shrink-0"
-        style={{ height: 400, paddingTop: 4 }}
+        className="absolute flex flex-col items-center pointer-events-none"
+        style={{ bottom: 80, left: 0, right: 0, zIndex: 5 }}
         initial={{ y: 30, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.45, ease: [0.34, 1.56, 0.64, 1], delay: 0.08 }}
@@ -1183,9 +1183,9 @@ export default function ChatScreen() {
         </div>
       </motion.div>
 
-      {/* Message feed */}
-      <div className="flex-1 overflow-y-auto px-3 pt-2 pb-1"
-        style={{ WebkitOverflowScrolling: 'touch' }}
+      {/* Message feed — z-10 so bubbles render over Gideon image */}
+      <div className="flex-1 overflow-y-auto px-3 pt-2 relative"
+        style={{ WebkitOverflowScrolling: 'touch', zIndex: 10, paddingBottom: '260px' }}
         role="log" aria-live="polite" aria-label="Conversation">
         <AnimatePresence initial={false}>
           {messages.map((msg, idx) => (
@@ -1227,10 +1227,12 @@ export default function ChatScreen() {
 
       {/* Input bar */}
       <motion.div
-        className="relative z-20 px-3 pt-2"
+        className="relative px-3 pt-2"
         style={{ paddingBottom: 'max(14px, env(safe-area-inset-bottom))',
-          background: 'rgba(0,0,0,0.40)', backdropFilter: 'blur(20px)',
-          borderTop: `1px solid ${cfg.gradTo}18` }}
+          zIndex: 50,
+          background: 'rgba(8,18,38,0.92)', backdropFilter: 'blur(24px)',
+          borderTop: `1px solid ${cfg.gradTo}40`,
+          boxShadow: '0 -8px 32px rgba(0,0,0,0.55)' }}
         initial={{ y: 50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.35, delay: 0.12, ease: 'easeOut' }}
