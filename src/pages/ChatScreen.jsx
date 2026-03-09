@@ -913,17 +913,17 @@ export default function ChatScreen() {
     };
 
     // iOS Safari requires an <audio> element to be created and .load()-ed
-    // synchronously within the user gesture. We do that HERE before any await,
-    // then pass the primed element to the async TTS function which sets its
-    // src and calls play() — iOS trusts play() on an already-primed element.
+    // synchronously within the user gesture. Desktop browsers don't need this
+    // and work fine creating Audio after the async call.
+    const isIOS = /iP(hone|ad|od)/.test(navigator.userAgent) ||
+                  (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
     let primedAudio = null;
-    if (cfg?.character === 'gideon') {
+    if (cfg?.character === 'gideon' && isIOS) {
       try {
         primedAudio = new Audio();
         primedAudio.preload = 'auto';
         primedAudio.load(); // prime within the gesture
-      } catch(e) {
-      }
+      } catch(e) {}
     }
 
     speakText({
