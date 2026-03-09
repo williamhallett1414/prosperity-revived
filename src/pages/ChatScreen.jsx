@@ -492,9 +492,62 @@ function prepareTextForSpeech(text) {
     .trim();
 }
 
-// speakText is async to keep the same call signature as the ElevenLabs version,
-// making it a drop-in if neural TTS is re-enabled later.
+/* ─── Google Cloud TTS for Gideon ───────────────────────────────────────────
+ * Calls the gideonTTS backend function which returns a base64 MP3.
+ * Falls back to browser TTS on any error.
+ * ───────────────────────────────────────────────────────────────────────── */
+async function speakWithGoogleTTS({ text, onStart, onEnd, onError }) {
+  let audioEl = null;
+  let cancelled = false;
+
+  try {
+    // Sanitise text the same way the backend does (belt-and-suspenders)
+    const cleaned = text
+      .replace(/\*\*(.+?)\*\*/g, '$1').replace(/\*(.+?)\*/g, '$1')
+      .replace(/#{1,6}\s+/g, '').replace(/`{1,3}[^`]*`{1,3}/g, '')
+      .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1').trim().slice(0, 4500);
+
+    if (!cleaned) { onEnd?.(); return () => {}; }
+
+    // Call base44 backend function
+    const result = await base44.functions.invoke('gideonTTS', { text: cleaned });
+
+    if (cancelled) { onEnd?.(); return () => {}; }
+
+    if (!result?.audioContent) throw new Error('No audioContent returned');
+
+    // Decode base64 MP3 → Blob → Object URL
+    const binary = atob(result.audioContent);
+    const bytes  = new Uint8Array(binary.length);
+    for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+    const blob   = new Blob([bytes], { type: 'audio/mpeg' });
+    const url    = URL.createObjectURL(blob);
+
+    audioEl = new Audio(url);
+    audioEl.onplay  = () => onStart?.();
+    audioEl.onended = () => { URL.revokeObjectURL(url); onEnd?.(); };
+    audioEl.onerror = () => { URL.revokeObjectURL(url); onError?.(); };
+
+    await audioEl.play();
+  } catch (err) {
+    console.warn('[Gideon TTS] Google TTS failed, falling back to browser TTS:', err);
+    onError?.();
+  }
+
+  return () => {
+    cancelled = true;
+    if (audioEl) { audioEl.pause(); audioEl.src = ''; }
+  };
+}
+
+// speakText — uses Google Cloud TTS for Gideon, browser TTS for all others.
 async function speakText({ text, cfg, onStart, onEnd, onError }) {
+  // ── Gideon: real Google Cloud TTS ──────────────────────────────────────
+  if (cfg?.character === 'gideon') {
+    return speakWithGoogleTTS({ text, onStart, onEnd, onError });
+  }
+
+  // ── All other bots: browser speechSynthesis ─────────────────────────────
   if (!('speechSynthesis' in window)) { onEnd?.(); return () => {}; }
   try { window.speechSynthesis.cancel(); } catch (_) {}
 
