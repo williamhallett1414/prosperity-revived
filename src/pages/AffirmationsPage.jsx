@@ -6,6 +6,7 @@ import { createPageUrl } from '@/utils';
 import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { toast } from 'sonner';
+import ShareToFeedButton from '@/components/community/ShareToFeedButton';
 
 // ─── 28 affirmations — full 4-week rotation ────────────────────────────────
 const AFFIRMATIONS = [
@@ -186,6 +187,8 @@ export default function AffirmationsPage() {
 
   const [currentIndex, setCurrentIndex] = useState(todayIndex);
   const [savedIds,      setSavedIds]     = useState(new Set());
+  const [user,          setUser]          = useState(null);
+  useEffect(() => { base44.auth.me().then(setUser); }, []);
   const [saving,        setSaving]       = useState(false);
   const [expanded,      setExpanded]     = useState(false);
   const [showAll,       setShowAll]      = useState(false);
@@ -324,6 +327,15 @@ export default function AffirmationsPage() {
             <Heart className={`w-4 h-4 ${isSaved ? 'fill-[#c9a227] text-[#c9a227]' : 'text-[#FAD98D]'}`} />
             {isSaved ? 'Saved' : saving ? 'Saving…' : 'Save to Favorites'}
           </button>
+          <ShareToFeedButton
+            type="spiritual_insight"
+            title="Today's affirmation 🌟"
+            content={`"${current.text}" — ${current.verse}\n\nSpoke this truth over myself today on Prosperity Revived.`}
+            source="Hannah"
+            variant="icon"
+            color="#C9A227"
+            user={user}
+          />
           <button onClick={handleShuffle}
             className="flex items-center justify-center gap-2 px-5 py-3 rounded-2xl text-sm font-semibold bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white hover:opacity-90 active:scale-95 transition-all shadow-sm">
             <RefreshCw className="w-4 h-4" />

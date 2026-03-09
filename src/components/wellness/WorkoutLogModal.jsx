@@ -3,6 +3,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
+import ShareToFeedButton from '@/components/community/ShareToFeedButton';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -10,6 +11,7 @@ import { CheckCircle } from 'lucide-react';
 import { awardPoints, checkAndAwardBadges } from '@/components/gamification/ProgressManager';
 
 export default function WorkoutLogModal({ isOpen, onClose, workout, user }) {
+  const [savedOk, setSavedOk] = React.useState(false);
   const [session, setSession] = useState({
     workout_plan_id: workout?.id || '',
     workout_title: workout?.title || '',
@@ -42,7 +44,8 @@ export default function WorkoutLogModal({ isOpen, onClose, workout, user }) {
     onSuccess: () => {
       queryClient.invalidateQueries(['workoutSessions']);
       queryClient.invalidateQueries(['workouts']);
-      onClose();
+      setSavedOk(true);
+      setTimeout(onClose, 2200);
     }
   });
 
@@ -119,6 +122,19 @@ export default function WorkoutLogModal({ isOpen, onClose, workout, user }) {
             onChange={e => setSession({ ...session, notes: e.target.value })}
             className="h-20 border-[#BAE6FD]/40" />
 
+          {savedOk && (
+            <div className="flex justify-center mb-2">
+              <ShareToFeedButton
+                type="fitness_goal"
+                title={`${workout?.title || 'Workout'} complete 💪`}
+                content={`Just finished "${workout?.title || 'a workout'}" on Prosperity Revived! ${workout?.duration_minutes ? `${workout.duration_minutes} mins.` : ''} "Run with endurance the race set before us." — Hebrews 12:1`}
+                source="CoachDavid"
+                label="Share to Community"
+                color="#38BDF8"
+                user={user}
+              />
+            </div>
+          )}
           <Button onClick={() => logWorkout.mutate(session)}
             disabled={logWorkout.isPending}
             className="w-full bg-gradient-to-r from-[#FD9C2D] to-[#E89020] hover:opacity-90 text-white font-semibold">

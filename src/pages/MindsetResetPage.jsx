@@ -8,6 +8,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { base44 } from '@/api/base44Client';
 import { toast } from 'sonner';
+import ShareToFeedButton from '@/components/community/ShareToFeedButton';
 
 // ─── Prompt library ───────────────────────────────────────────────────────────
 const PROMPT_CATEGORIES = [
@@ -111,7 +112,7 @@ const loadHistory = () => { try { return JSON.parse(localStorage.getItem(HISTORY
 const saveHistory = (h) => localStorage.setItem(HISTORY_KEY, JSON.stringify(h));
 
 // ─── 3-step reframe session ───────────────────────────────────────────────────
-function ReframeSession({ prompt, category, onComplete, onClose }) {
+function ReframeSession({ prompt, category, onComplete, onClose, user }) {
   const [step, setStep] = useState(0); // 0=identify, 1=challenge, 2=replace, 3=ai, 4=done
   const [thought, setThought]     = useState('');
   const [challenge, setChallenge] = useState('');
@@ -119,6 +120,7 @@ function ReframeSession({ prompt, category, onComplete, onClose }) {
   const [aiCoach, setAiCoach]     = useState('');
   const [loadingAi, setLoadingAi] = useState(false);
   const [saving, setSaving]       = useState(false);
+  const [savedOk, setSavedOk]     = useState(false);
 
   const STEPS = [
     {
@@ -188,6 +190,7 @@ Write a 3-4 sentence personal coaching response. Affirm their insight, add one s
       const history = [session, ...loadHistory()].slice(0, 20);
       saveHistory(history);
       toast.success('Session saved to your journal');
+      setSavedOk(true);
       onComplete();
     } catch {
       toast.error('Failed to save — try again');
@@ -293,7 +296,20 @@ Write a 3-4 sentence personal coaching response. Affirm their insight, add one s
             </div>
 
             {/* Save */}
-            <button onClick={handleSave} disabled={saving}
+            {savedOk && (
+          <div className="flex justify-center mb-2">
+            <ShareToFeedButton
+              type="growth_win"
+              title="Completed a 3-step mindset reset 🧠"
+              content={`Just worked through a 3-step cognitive reframe on Prosperity Revived. Taking every thought captive and replacing lies with truth. 'Be transformed by the renewing of your mind.' — Romans 12:2`}
+              source="Hannah"
+              label="Share to Community"
+              color="#AFC7E3"
+              user={user}
+            />
+          </div>
+        )}
+        <button onClick={handleSave} disabled={saving}
               className="w-full py-3.5 rounded-2xl text-[#0A1A2F] font-bold text-sm flex items-center justify-center gap-2 hover:opacity-90 transition-opacity"
               style={{ background: `linear-gradient(135deg, #FAD98D, #c9a227)` }}>
               {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Check className="w-4 h-4" />}
@@ -325,6 +341,8 @@ Write a 3-4 sentence personal coaching response. Affirm their insight, add one s
 // ─── Main ─────────────────────────────────────────────────────────────────────
 export default function MindsetResetPage() {
   const [selectedCat, setSelectedCat]   = useState(null);
+  const [user, setUser] = useState(null);
+  useEffect(() => { base44.auth.me().then(setUser); }, []);
   const [selectedPrompt, setSelectedPrompt] = useState(null);
   const [activeSession, setActiveSession] = useState(null);
   const [history, setHistory]           = useState(loadHistory);
@@ -528,6 +546,7 @@ export default function MindsetResetPage() {
             prompt={selectedPrompt}
             category={selectedCat}
             onComplete={handleComplete}
+            user={user}
             onClose={() => setActiveSession(null)}
           />
         )}

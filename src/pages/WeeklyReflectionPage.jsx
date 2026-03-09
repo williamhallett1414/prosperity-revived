@@ -9,6 +9,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { base44 } from '@/api/base44Client';
 import { toast } from 'sonner';
+import ShareToFeedButton from '@/components/community/ShareToFeedButton';
 
 // ── Reflection sections ────────────────────────────────────────────────────
 const SECTIONS = [
@@ -174,7 +175,7 @@ function PreviousWeekCard({ entry }) {
 }
 
 // ── Completed celebration state ───────────────────────────────────────────────
-function CompletedState({ weekLabel, onEdit, navigate }) {
+function CompletedState({ weekLabel, onEdit, navigate, user }) {
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.96 }}
@@ -191,9 +192,20 @@ function CompletedState({ weekLabel, onEdit, navigate }) {
       </motion.div>
       <h3 className="text-xl font-bold text-[#0A1A2F] mb-1">Reflection Complete</h3>
       <p className="text-sm text-[#0A1A2F]/50 mb-2">{weekLabel}</p>
-      <p className="text-sm text-[#0A1A2F]/65 leading-relaxed mb-7 max-w-xs mx-auto">
+      <p className="text-sm text-[#0A1A2F]/65 leading-relaxed mb-5 max-w-xs mx-auto">
         Taking time to reflect is one of the most powerful habits of people who keep growing. Well done.
       </p>
+      <div className="flex justify-center mb-5">
+        <ShareToFeedButton
+          type="growth_win"
+          title={`Weekly reflection complete — ${weekLabel}`}
+          content={`Just finished my weekly reflection on Prosperity Revived. Taking time to pause, look back, and grow forward. Grateful for this practice. 🙏`}
+          source="Hannah"
+          label="Share this win"
+          color="#AFC7E3"
+          user={user}
+        />
+      </div>
       <div className="space-y-3">
         <button
           onClick={() => navigate(createPageUrl('ChatScreen?bot=Hannah'))}
@@ -237,6 +249,9 @@ export default function WeeklyReflectionPage() {
   const [previousEntry, setPreviousEntry] = useState(null);
   const [entryId, setEntryId] = useState(null);
   const [lastSaved, setLastSaved] = useState(null);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => { base44.auth.me().then(setUser); }, []);
 
   const scripture = SCRIPTURES[getWeekNumber() % SCRIPTURES.length];
   const weekLabel = getWeekLabel();
@@ -367,7 +382,7 @@ export default function WeeklyReflectionPage() {
         {/* Editor or completed state */}
         <AnimatePresence mode="wait">
           {completed ? (
-            <CompletedState key="done" weekLabel={weekLabel} navigate={navigate} onEdit={() => setCompleted(false)} />
+            <CompletedState key="done" weekLabel={weekLabel} navigate={navigate} onEdit={() => setCompleted(false)} user={user} />
           ) : (
             <motion.div key="editor" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="space-y-4">
 

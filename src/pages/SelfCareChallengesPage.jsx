@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { base44 } from '@/api/base44Client';
+import ShareToFeedButton from '@/components/community/ShareToFeedButton';
 
 // ─── Challenge Catalogue ─────────────────────────────────────────────────────
 const CHALLENGES = [
@@ -211,7 +213,7 @@ function JourneyMap({ challenge, completedDays }) {
 }
 
 // ─── Challenge Detail View (NOT an overlay — renders as normal page content) ─
-function ChallengeDetail({ challenge, localData, onBack, onStart, onComplete, onReset, onOpenChallenge }) {
+function ChallengeDetail({ challenge, localData, onBack, onStart, onComplete, onReset, onOpenChallenge, user }) {
   const [reflection, setReflection] = useState("");
   const [saving, setSaving] = useState(false);
   const [confirmReset, setConfirmReset] = useState(false);
@@ -327,6 +329,17 @@ function ChallengeDetail({ challenge, localData, onBack, onStart, onComplete, on
                 ))}
               </div>
             )}
+            <div style={{display:"flex",justifyContent:"center"}}>
+              <ShareToFeedButton
+                type="general_win"
+                title={`Completed the ${challenge.title} challenge! 🏆`}
+                content={`Just finished all ${challenge.duration} days of the "${challenge.title}" self-care challenge on Prosperity Revived. Consistency is built one day at a time. 🙏`}
+                source="Hannah"
+                label="Share this win"
+                color="#FD9C2D"
+                user={user}
+              />
+            </div>
             <button onClick={() => onReset(challenge.id)}
               style={{background:"white",border:"1px solid #F2F6FA",borderRadius:16,padding:"12px",
                 color:"#94a3b8",fontSize:12,fontWeight:700,cursor:"pointer"}}>
@@ -553,6 +566,8 @@ function ChallengeCard({ challenge, localData, onOpen }) {
 export default function SelfCareChallengesPage() {
   const [localData,   setLocalData]   = useState(loadLocal);
   const [selectedId,  setSelectedId]  = useState(null);
+  const [user, setUser] = useState(null);
+  useEffect(() => { base44.auth.me().then(setUser); }, []);
   const [activeCat,   setActiveCat]   = useState("All");
 
   const selected      = selectedId ? CHALLENGES.find(c => c.id === selectedId) : null;
@@ -594,6 +609,7 @@ export default function SelfCareChallengesPage() {
         onComplete={handleComplete}
         onReset={handleReset}
         onOpenChallenge={c => setSelectedId(c.id)}
+        user={user}
       />
     );
   }

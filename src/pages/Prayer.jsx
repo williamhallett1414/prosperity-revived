@@ -8,6 +8,7 @@ import {
   Lock, Flame, Sparkles
 } from 'lucide-react';
 import { toast } from 'sonner';
+import ShareToFeedButton from '@/components/community/ShareToFeedButton';
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 const SPOTLIGHT_DURATION = 30;
@@ -439,7 +440,7 @@ const ACTS_STEPS = [
     placeholder: 'Lord, I ask You for…' },
 ];
 
-function ActsGuidedPrayer({ onComplete }) {
+function ActsGuidedPrayer({ onComplete, user }) {
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState({ adoration: '', confession: '', thanksgiving: '', supplication: '' });
   const [done, setDone] = useState(false);
@@ -463,6 +464,17 @@ function ActsGuidedPrayer({ onComplete }) {
       <div className="text-4xl mb-3">🙏</div>
       <p className="font-bold text-white text-lg mb-1" style={{ fontFamily: 'Georgia, serif' }}>Prayer complete</p>
       <p className="text-white/45 text-sm mb-4">He heard every word.</p>
+      <div className="flex justify-center my-3">
+        <ShareToFeedButton
+          type="spiritual_insight"
+          title="Completed guided ACTS prayer 🙏"
+          content={`Just worked through a full ACTS prayer — Adoration, Confession, Thanksgiving, Supplication. Taking every concern to God. 'Do not be anxious about anything, but in every situation, present your requests to God.' — Phil 4:6`}
+          source="Gideon"
+          label="Share to Community"
+          color="#C9A227"
+          user={user}
+        />
+      </div>
       <button onClick={() => { setStep(0); setAnswers({ adoration: '', confession: '', thanksgiving: '', supplication: '' }); setDone(false); }}
         className="text-xs font-bold text-white/40 hover:text-white/70 transition-colors">Pray again →</button>
     </motion.div>
@@ -811,7 +823,7 @@ export default function Prayer() {
         )}
 
         {/* ACTS Guided Prayer */}
-        <ActsGuidedPrayer onComplete={handleActsComplete} />
+        <ActsGuidedPrayer onComplete={handleActsComplete} user={user} />
 
         {/* Private prayer list */}
         <MyPrayers />

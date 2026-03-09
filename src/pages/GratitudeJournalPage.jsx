@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { base44 } from '@/api/base44Client';
 import { toast } from 'sonner';
+import ShareToFeedButton from '@/components/community/ShareToFeedButton';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import GratitudeMoodChart from '@/components/mindspirit/GratitudeMoodChart.jsx';
 import GratitudePatternInsights from '@/components/mindspirit/GratitudePatternInsights.jsx';
@@ -148,7 +149,7 @@ function EntryCard({ entry, index }) {
 }
 
 // ─── Completion screen ───────────────────────────────────────────────────────
-function CompletionScreen({ entry, streak, aiReflection, loadingReflection, onReset }) {
+function CompletionScreen({ entry, streak, aiReflection, loadingReflection, onReset, user }) {
   const style = getMoodStyle(entry.mood);
   const scripture = GRATITUDE_SCRIPTURES[new Date().getDay() % GRATITUDE_SCRIPTURES.length];
 
@@ -204,6 +205,17 @@ function CompletionScreen({ entry, streak, aiReflection, loadingReflection, onRe
         <p className="text-xs font-bold text-[#FAD98D]">{scripture.ref}</p>
       </motion.div>
 
+      <div className="flex justify-center">
+        <ShareToFeedButton
+          type="general_win"
+          title={`Gratitude practice complete${streak > 1 ? ` — ${streak} day streak! 🔥` : ''}`}
+          content={`Just completed my daily gratitude journal on Prosperity Revived. Taking a moment to count my blessings. "Give thanks in all circumstances." — 1 Thess 5:18 🙏`}
+          source="Hannah"
+          label="Share to Community"
+          color="#FD9C2D"
+          user={user}
+        />
+      </div>
       <button onClick={onReset}
         className="w-full text-xs text-[#0A1A2F]/30 hover:text-[#0A1A2F]/60 transition-colors py-2">
         Write another entry
@@ -215,6 +227,8 @@ function CompletionScreen({ entry, streak, aiReflection, loadingReflection, onRe
 // ─── Main page ───────────────────────────────────────────────────────────────
 export default function GratitudeJournalPage() {
   const [content, setContent] = useState('');
+  const [user, setUser] = useState(null);
+  useEffect(() => { base44.auth.me().then(setUser); }, []);
   const [saving, setSaving] = useState(false);
   const [done, setDone] = useState(false);
   const [savedEntry, setSavedEntry] = useState(null);
@@ -353,6 +367,7 @@ export default function GratitudeJournalPage() {
                 aiReflection={aiReflection}
                 loadingReflection={loadingReflection}
                 onReset={() => { setDone(false); setSavedEntry(null); setAiReflection(null); fetchAIPrompt(); }}
+                user={user}
               />
             </motion.div>
 

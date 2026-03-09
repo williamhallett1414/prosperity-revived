@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { motion, AnimatePresence } from 'framer-motion';
+import ShareToFeedButton from '@/components/community/ShareToFeedButton';
 import {
   CheckCircle2, Users, Calendar, Flame, Trophy, X,
   ChevronRight, ChevronDown, ChevronUp, Loader2, Plus,
@@ -417,6 +418,7 @@ function ChallengeCard({ challenge, myParticipation, allParticipations, user, in
             challenge={challenge}
             streak={celebrating.streak}
             onClose={() => setCelebrating(null)}
+            user={user}
           />
         )}
       </AnimatePresence>
@@ -425,7 +427,7 @@ function ChallengeCard({ challenge, myParticipation, allParticipations, user, in
 }
 
 // ─── Completion celebration modal ────────────────────────────────────────────
-function CelebrationModal({ challenge, streak, onClose }) {
+function CelebrationModal({ challenge, streak, onClose, user }) {
   // Auto-close after 7s
   React.useEffect(() => {
     const t = setTimeout(onClose, 7000);
@@ -474,6 +476,19 @@ function CelebrationModal({ challenge, streak, onClose }) {
                 <p className="text-white/60 text-[10px]">{label}</p>
               </div>
             ))}
+          </motion.div>
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.85 }}
+            className="flex justify-center mb-3"
+            onClick={e => e.stopPropagation()}>
+            <ShareToFeedButton
+              type="general_win"
+              title={`Completed the "${challenge?.title}" challenge! 🏆`}
+              content={`Just finished all ${challenge?.duration_days} days of the "${challenge?.title}" challenge on Prosperity Revived! ${streak ? `Hit a ${streak}-day streak. ` : ''}Consistency is a spiritual discipline. 💪🙏`}
+              source="Hannah"
+              label="Share this win"
+              color="#FAD98D"
+              user={user}
+            />
           </motion.div>
           <motion.button
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.9 }}

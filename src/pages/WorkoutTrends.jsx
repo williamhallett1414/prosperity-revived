@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { motion, AnimatePresence } from 'framer-motion';
+import ShareToFeedButton from '@/components/community/ShareToFeedButton';
 import {
   Dumbbell, Flame, Calendar, Award, BarChart3,
   TrendingUp, TrendingDown, Minus, ChevronRight,
@@ -312,9 +313,23 @@ export default function WorkoutTrends() {
                   <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
                     <div className="flex items-center justify-between mb-4">
                       <p className="text-sm font-bold text-gray-800">Streak history</p>
-                      <div className="flex items-center gap-1.5">
-                        <Flame className="w-4 h-4 text-orange-500" />
-                        <span className="text-xs font-bold text-orange-500">{streak} day current</span>
+                      <div className="flex items-center gap-2">
+                        {streak > 0 && (
+                          <ShareToFeedButton
+                            type="fitness_goal"
+                            title={`${streak}-day workout streak! 💪`}
+                            content={`Just checked my workout stats on Prosperity Revived — I'm on a ${streak}-day streak with ${totalSessions} total sessions. Staying consistent and trusting the process. 💪`}
+                            source="CoachDavid"
+                            label="Share"
+                            variant="icon"
+                            color="#38BDF8"
+                            user={user}
+                          />
+                        )}
+                        <div className="flex items-center gap-1.5">
+                          <Flame className="w-4 h-4 text-orange-500" />
+                          <span className="text-xs font-bold text-orange-500">{streak} day current</span>
+                        </div>
                       </div>
                     </div>
                     <div className="grid grid-cols-2 gap-3">

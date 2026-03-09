@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { base44 } from '@/api/base44Client';
 import { toast } from 'sonner';
+import ShareToFeedButton from '@/components/community/ShareToFeedButton';
 
 // ─── Habit catalogue ──────────────────────────────────────────────────────────
 const PRESET_HABITS = [
@@ -93,7 +94,7 @@ function getHeatmapData(activeIds, history) {
 }
 
 // ─── Milestone modal ──────────────────────────────────────────────────────────
-function MilestoneModal({ habitLabel, days, onClose }) {
+function MilestoneModal({ habitLabel, days, onClose, user }) {
   useEffect(() => { const t = setTimeout(onClose, 6000); return () => clearTimeout(t); }, [onClose]);
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
@@ -115,6 +116,17 @@ function MilestoneModal({ habitLabel, days, onClose }) {
               {days} days in a row. Small daily actions become the person you're becoming.
             </p>
           </motion.div>
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.9 }} className="flex justify-center mb-3">
+            <ShareToFeedButton
+              type="habit_streak"
+              title={`${days}-day streak — ${habitLabel}! 🔥`}
+              content={`Just hit a ${days}-day streak on my ${habitLabel} habit on Prosperity Revived. Small daily actions compound into who you're becoming. Keep going! 🙏`}
+              source="Hannah"
+              label="Share to Community"
+              color="#FD9C2D"
+              user={user}
+            />
+          </motion.div>
           <motion.button initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.8 }}
             onClick={onClose}
             className="w-full py-3 rounded-2xl bg-gradient-to-r from-[#FAD98D] to-[#c9a227] text-[#0A1A2F] font-bold text-sm">
@@ -127,7 +139,7 @@ function MilestoneModal({ habitLabel, days, onClose }) {
 }
 
 // ─── All-done celebration ─────────────────────────────────────────────────────
-function AllDoneOverlay({ habits, onClose }) {
+function AllDoneOverlay({ habits, onClose, user }) {
   useEffect(() => { const t = setTimeout(onClose, 5000); return () => clearTimeout(t); }, [onClose]);
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
@@ -156,6 +168,17 @@ function AllDoneOverlay({ habits, onClose }) {
                 <span className="text-lg">{h.emoji}</span>
               </div>
             ))}
+          </motion.div>
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.0 }} className="flex justify-center mb-3">
+            <ShareToFeedButton
+              type="habit_streak"
+              title={`Perfect habit day — all ${habits.length} habits complete! 🏅`}
+              content={`Just finished every single habit for today on Prosperity Revived. ${habits.length} habits, done. That's not nothing — that's who I'm becoming. 🌱`}
+              source="Hannah"
+              label="Share this win"
+              color="#c9a227"
+              user={user}
+            />
           </motion.div>
           <motion.button initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.9 }}
             onClick={onClose}
@@ -401,7 +424,7 @@ function MonthHeatmap({ activeIds, history }) {
 }
 
 // ─── Single habit card ────────────────────────────────────────────────────────
-function HabitCard({ habit, isDone, streak, history, onToggle, index }) {
+function HabitCard({ habit, isDone, streak, history, onToggle, index, user }) {
   const week = getWeekData(habit.id, history);
 
   // milestone label
@@ -497,6 +520,8 @@ export default function HabitBuilderPage() {
   const [entryId, setEntryId]       = useState(null);
   const [loaded, setLoaded]         = useState(false);
   const [showPicker, setShowPicker] = useState(false);
+  const [user, setUser] = useState(null);
+  useEffect(() => { base44.auth.me().then(setUser); }, []);
   const [showCelebration, setShowCelebration] = useState(false);
   const [milestone, setMilestone]   = useState(null); // { habitLabel, days }
   const [category, setCategory]     = useState('All');
@@ -702,6 +727,7 @@ export default function HabitBuilderPage() {
                   streak={streaks[habit.id] || 0}
                   history={history}
                   onToggle={toggleHabit}
+                  user={user}
                   index={i}
                 />
               ))}
@@ -742,8 +768,8 @@ export default function HabitBuilderPage() {
       {/* ── Modals ───────────────────────────────────────────────────────────── */}
       <AnimatePresence>
         {showPicker    && <HabitPickerModal activeIds={activeIds} onSave={savePicker} onClose={() => setShowPicker(false)} />}
-        {showCelebration && <AllDoneOverlay habits={activeHabits} onClose={() => setShowCelebration(false)} />}
-        {milestone     && <MilestoneModal habitLabel={milestone.habitLabel} days={milestone.days} onClose={() => setMilestone(null)} />}
+        {showCelebration && <AllDoneOverlay habits={activeHabits} onClose={() => setShowCelebration(false)} user={user} />}
+        {milestone     && <MilestoneModal habitLabel={milestone.habitLabel} days={milestone.days} onClose={() => setMilestone(null)} user={user} />}
       </AnimatePresence>
     </>
   );

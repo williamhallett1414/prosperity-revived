@@ -8,6 +8,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { base44 } from '@/api/base44Client';
 import { toast } from 'sonner';
+import ShareToFeedButton from '@/components/community/ShareToFeedButton';
 import { useQuery } from '@tanstack/react-query';
 
 const MOODS = [
@@ -139,6 +140,8 @@ export default function EmotionalCheckInPage() {
   const [done, setDone] = useState(false);
   const [streak, setStreak] = useState(0);
   const [weekDays, setWeekDays] = useState([]);
+  const [user, setUser] = useState(null);
+  useEffect(() => { base44.auth.me().then(setUser); }, []);
 
   const { data: recentEntries = [] } = useQuery({
     queryKey: ['journalEntries_checkin'],
@@ -291,6 +294,18 @@ export default function EmotionalCheckInPage() {
                 className="w-full text-xs text-[#0A1A2F]/30 hover:text-[#0A1A2F]/60 transition-colors py-2">
                 Check in again
               </button>
+
+              <div className="flex justify-center pb-2">
+                <ShareToFeedButton
+                  type="emotional_breakthrough"
+                  title={`Emotional check-in complete${streak > 1 ? ` — ${streak} day streak 🔥` : ''}`}
+                  content={`Just completed my daily emotional check-in on Prosperity Revived. Taking a moment to be honest with myself and with God about how I'm really doing. 💙`}
+                  source="Hannah"
+                  label="Share to Community"
+                  color="#AFC7E3"
+                  user={user}
+                />
+              </div>
             </motion.div>
 
           ) : (
