@@ -109,10 +109,10 @@ export default function HannahAvatar({
   const orbFast = state === 'speaking';
 
   /* Hannah face positions — slim figure, head at top of image */
-  const eyeLX = 44, eyeLY = 23, eyeRX = 56, eyeRY = 23;
-  const mouthX = 50, mouthY = 29;
-  const mouthW = 6 + mouthOpen * 3.5;  // 6–9.5% wide
-  const mouthH = 1.2 + mouthOpen * 5.0; // 1.2–6.2% tall // 1–4.8% tall
+  const eyeLX = 45, eyeLY = 24, eyeRX = 53, eyeRY = 24;
+  const mouthX = 50, mouthY = 26;
+  const mouthW = 5.8 + mouthOpen * 3.8;
+  const mouthH = 1.0 + mouthOpen * 2.5;
 
   return (
     <div className={className} style={{ width, height, position:'relative', display:'flex', alignItems:'center', justifyContent:'center' }}>
@@ -321,7 +321,6 @@ export default function HannahAvatar({
           style={{
             width:'100%', height:'100%',
             objectFit:'contain', objectPosition:'center bottom',
-            transform:'scale(1.6)', transformOrigin:'50% top',
             display:'block', userSelect:'none',
             animation: state==='speaking'
               ? 'hn-glow-spk 0.90s ease-in-out infinite'

@@ -115,10 +115,10 @@ export default function GideonAvatar({
   const orbFast = state === 'speaking';
 
   /* ── Facial feature % positions (relative to img bounds) ── */
-  const eyeLX = 38, eyeLY = 42, eyeRX = 56, eyeRY = 42;
-  const mouthX = 48, mouthY = 49;
-  const mouthW = 13 + mouthOpen * 6;  // 13–19% wide
-  const mouthH = 2.0 + mouthOpen * 7.0; // 2–9% tall // 1.5–7% tall
+  const eyeLX = 40, eyeLY = 33, eyeRX = 59, eyeRY = 33;
+  const mouthX = 48, mouthY = 36;
+  const mouthW = 14.2 + mouthOpen * 9.5;  // mouth width
+  const mouthH = 1.0 + mouthOpen * 6.3;   // mouth height
 
   return (
     <div className={className} style={{ width, height, position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -377,7 +377,6 @@ export default function GideonAvatar({
             height: '100%',
             objectFit: 'contain',
             objectPosition: 'center bottom',
-            transform: 'scale(1.6)', transformOrigin: '50% top',
             display: 'block',
             userSelect: 'none',
             animation: state === 'speaking'

@@ -103,10 +103,10 @@ export default function CoachDavidAvatar({
   const orbFast = state === 'speaking';
 
   /* Coach David face positions — head is higher up, more athletic build */
-  const eyeLX = 43, eyeLY = 24, eyeRX = 54, eyeRY = 24;
-  const mouthX = 48, mouthY = 29;
-  const mouthW = 6 + mouthOpen * 4;  // 6–10% wide
-  const mouthH = 1.5 + mouthOpen * 5.0; // 1.5–6.5% tall  // 1.2–4.7% tall
+  const eyeLX = 45, eyeLY = 19, eyeRX = 52, eyeRY = 19;
+  const mouthX = 49, mouthY = 23;
+  const mouthW = 5.0 + mouthOpen * 3.3;
+  const mouthH = 1.0 + mouthOpen * 2.2;
 
   return (
     <div className={className} style={{ width, height, position:'relative', display:'flex', alignItems:'center', justifyContent:'center' }}>
@@ -313,7 +313,6 @@ export default function CoachDavidAvatar({
           style={{
             width:'100%', height:'100%',
             objectFit:'contain', objectPosition:'center bottom',
-            transform:'scale(1.6)', transformOrigin:'50% top',
             display:'block', userSelect:'none',
             animation: state==='speaking'
               ? 'cvd-glow-spk 0.75s ease-in-out infinite'
