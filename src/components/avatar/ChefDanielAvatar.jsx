@@ -109,8 +109,8 @@ export default function ChefDanielAvatar({
 
   /* Chef Daniel facial feature positions (% of image) */
   /* Head is larger/higher — chef hat adds height */
-  const eyeLX = 41, eyeLY = 38, eyeRX = 57, eyeRY = 38;
-  const mouthX = 48, mouthY = 46;
+  const eyeLX = 43, eyeLY = 37, eyeRX = 57, eyeRY = 37;
+  const mouthX = 52, mouthY = 44;
   const mouthW = 9 + mouthOpen * 5;  // 9–14% wide
   const mouthH = 1.5 + mouthOpen * 6.0; // 1.5–7.5% tall  // 1.2–5.2% tall
 

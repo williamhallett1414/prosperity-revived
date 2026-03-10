@@ -115,8 +115,8 @@ export default function GideonAvatar({
   const orbFast = state === 'speaking';
 
   /* ── Facial feature % positions (relative to img bounds) ── */
-  const eyeLX = 37, eyeLY = 43, eyeRX = 58, eyeRY = 43;
-  const mouthX = 50, mouthY = 54;
+  const eyeLX = 38, eyeLY = 42, eyeRX = 56, eyeRY = 42;
+  const mouthX = 48, mouthY = 49;
   const mouthW = 13 + mouthOpen * 6;  // 13–19% wide
   const mouthH = 2.0 + mouthOpen * 7.0; // 2–9% tall // 1.5–7% tall
 
