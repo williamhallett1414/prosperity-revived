@@ -109,8 +109,8 @@ export default function HannahAvatar({
   const orbFast = state === 'speaking';
 
   /* Hannah face positions — slim figure, head at top of image */
-  const eyeLX = 44, eyeLY = 22, eyeRX = 55, eyeRY = 22;
-  const mouthX = 49, mouthY = 25;
+  const eyeLX = 46, eyeLY = 20, eyeRX = 53, eyeRY = 20;
+  const mouthX = 49, mouthY = 22;
   const mouthW = 3.5 + mouthOpen * 2.5;
   const mouthH = 0.6 + mouthOpen * 1.5;
 

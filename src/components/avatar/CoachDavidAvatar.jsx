@@ -103,7 +103,7 @@ export default function CoachDavidAvatar({
   const orbFast = state === 'speaking';
 
   /* Coach David face positions — head is higher up, more athletic build */
-  const eyeLX = 44, eyeLY = 19, eyeRX = 54, eyeRY = 19;
+  const eyeLX = 44, eyeLY = 21, eyeRX = 54, eyeRY = 21;
   const mouthX = 49, mouthY = 23;
   const mouthW = 3.2 + mouthOpen * 2.2;
   const mouthH = 0.5 + mouthOpen * 1.4;

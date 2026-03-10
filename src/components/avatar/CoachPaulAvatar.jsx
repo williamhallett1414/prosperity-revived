@@ -106,8 +106,8 @@ export default function CoachPaulAvatar({
   const orbFast = state === 'speaking';
 
   /* Coach Paul face positions — smaller image (319×329), head sits mid-upper */
-  const eyeLX = 43, eyeLY = 24, eyeRX = 56, eyeRY = 24;
-  const mouthX = 49, mouthY = 27;
+  const eyeLX = 45, eyeLY = 26, eyeRX = 54, eyeRY = 26;
+  const mouthX = 49, mouthY = 29;
   const mouthW = 5.0 + mouthOpen * 3.5;
   const mouthH = 0.8 + mouthOpen * 2.0;
 
