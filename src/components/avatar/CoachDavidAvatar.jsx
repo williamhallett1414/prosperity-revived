@@ -103,11 +103,11 @@ export default function CoachDavidAvatar({
   const orbFast = state === 'speaking';
 
   /* Coach David face positions — head is higher up, more athletic build */
-  const eyeLX = 40, eyeLY = 25.5;
-  const eyeRX = 60, eyeRY = 25.5;
-  const mouthX = 50, mouthY = 36.5;
-  const mouthW = 10 + mouthOpen * 4;
-  const mouthH = 1.2 + mouthOpen * 3.8;
+  const eyeLX = 45.6, eyeLY = 22.7;
+  const eyeRX = 50.8, eyeRY = 22.7;
+  const mouthX = 50.3, mouthY = 32.5;
+  const mouthW = 3.0 + mouthOpen * 2.0;  // 3–5% wide (narrow face)
+  const mouthH = 1.2 + mouthOpen * 3.5;  // 1.2–4.7% tall
 
   return (
     <div className={className} style={{ width, height, position:'relative', display:'flex', alignItems:'center', justifyContent:'center' }}>
@@ -296,9 +296,11 @@ export default function CoachDavidAvatar({
         ))}
       </svg>
 
-      {/* Image + face overlays */}
+      {/* Image + face overlays — clipped+zoomed */}
+      <div style={{ position:'absolute', inset:0, overflow:'hidden', zIndex:2, pointerEvents:'none' }}>
       <div style={{
         position:'relative', width:'100%', height:'100%',
+        transform:'scale(2.0)', transformOrigin:'50% 0%',
         animation: state==='speaking'
           ? 'cvd-speak-sway 1.6s ease-in-out infinite, cvd-speak-breath 0.75s ease-in-out infinite'
           : state==='listening' ? 'cvd-lean 1.5s ease-in-out infinite'
@@ -312,6 +314,7 @@ export default function CoachDavidAvatar({
           style={{
             width:'100%', height:'100%',
             objectFit:'contain', objectPosition:'center bottom',
+            transform:'scale(1.45)', transformOrigin:'50.2% top',
             display:'block', userSelect:'none',
             animation: state==='speaking'
               ? 'cvd-glow-spk 0.75s ease-in-out infinite'
@@ -321,9 +324,9 @@ export default function CoachDavidAvatar({
 
         {/* Eye blink */}
         {blink && (<>
-          <div style={{ position:'absolute', left:`${eyeLX-5}%`, top:`${eyeLY-1.8}%`, width:'10%', height:'3.5%',
+          <div style={{ position:'absolute', left:`${eyeLX-4.5}%`, top:`${eyeLY-2.0}%`, width:'9%', height:'4.0%',
             background:'linear-gradient(to bottom, #8C4E20, #A86030)', borderRadius:'50%', opacity:.90 }}/>
-          <div style={{ position:'absolute', left:`${eyeRX-5}%`, top:`${eyeRY-1.8}%`, width:'10%', height:'3.5%',
+          <div style={{ position:'absolute', left:`${eyeRX-4.5}%`, top:`${eyeRY-2.0}%`, width:'9%', height:'4.0%',
             background:'linear-gradient(to bottom, #8C4E20, #A86030)', borderRadius:'50%', opacity:.90 }}/>
         </>)}
 
@@ -356,6 +359,7 @@ export default function CoachDavidAvatar({
         )}
       </div>
 
+      </div>
       {/* Thinking dots */}
       {state === 'thinking' && (
         <div style={{ position:'absolute', bottom:6, display:'flex', gap:12, pointerEvents:'none' }}>

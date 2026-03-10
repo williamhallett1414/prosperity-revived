@@ -115,11 +115,11 @@ export default function GideonAvatar({
   const orbFast = state === 'speaking';
 
   /* ── Facial feature % positions (relative to img bounds) ── */
-  const eyeLX = 37, eyeLY = 27.5, eyeRX = 61, eyeRY = 27.5;
-  const mouthX = 49, mouthY = 38.5;
+  const eyeLX = 37.0, eyeLY = 36.2, eyeRX = 60.0, eyeRY = 36.2;
+  const mouthX = 48.7, mouthY = 42.3;
   // mouth overlay sizes scale with open amount
-  const mouthW  = 10 + mouthOpen * 4;   // 10–14% wide
-  const mouthH  = 1.2 + mouthOpen * 3.8; // 1.2–5% tall
+  const mouthW  = 11 + mouthOpen * 11;  // 11–22% wide
+  const mouthH  = 1.5 + mouthOpen * 5.5; // 1.5–7% tall
 
   return (
     <div className={className} style={{ width, height, position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -354,11 +354,14 @@ export default function GideonAvatar({
         ))}
       </svg>
 
-      {/* ══ Image + face overlays (animated as one unit) ══ */}
+      {/* ══ Image + face overlays — clipped + zoomed for bigger face ══ */}
+      <div style={{ position:'absolute', inset:0, overflow:'hidden', zIndex:2, pointerEvents:'none' }}>
       <div style={{
         position: 'relative',
         width: '100%',
         height: '100%',
+        transform: 'scale(1.5)',
+        transformOrigin: '50% 0%',
         /* Layer two animations: sway + breath when speaking */
         animation: state === 'speaking'
           ? 'ga-speak-sway 1.6s ease-in-out infinite, ga-speak-breath 0.80s ease-in-out infinite'
@@ -376,6 +379,8 @@ export default function GideonAvatar({
             height: '100%',
             objectFit: 'contain',
             objectPosition: 'center bottom',
+            transform: 'scale(1.45)',
+            transformOrigin: '48.3% top',
             display: 'block',
             userSelect: 'none',
             animation: state === 'speaking'
@@ -434,6 +439,7 @@ export default function GideonAvatar({
             }}/>
           </div>
         )}
+      </div>
       </div>
 
       {/* ── Thinking dots ── */}

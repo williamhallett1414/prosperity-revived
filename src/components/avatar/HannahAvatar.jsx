@@ -109,11 +109,11 @@ export default function HannahAvatar({
   const orbFast = state === 'speaking';
 
   /* Hannah face positions — slim figure, head at top of image */
-  const eyeLX = 40, eyeLY = 22;
-  const eyeRX = 59, eyeRY = 22;
-  const mouthX = 49.5, mouthY = 32;
-  const mouthW = 8 + mouthOpen * 3.5;
-  const mouthH = 1.0 + mouthOpen * 3.2;
+  const eyeLX = 42.0, eyeLY = 24.1;
+  const eyeRX = 57.0, eyeRY = 24.1;
+  const mouthX = 50.7, mouthY = 30.2;
+  const mouthW = 6 + mouthOpen * 4.5;  // 6–10.5% wide
+  const mouthH = 1.0 + mouthOpen * 3.8; // 1–4.8% tall
 
   return (
     <div className={className} style={{ width, height, position:'relative', display:'flex', alignItems:'center', justifyContent:'center' }}>
@@ -308,7 +308,7 @@ export default function HannahAvatar({
 
       {/* Image + face overlays */}
       <div style={{
-        position:'relative', width:'100%', height:'100%',
+        position:'relative', width:'100%', height:'100%', overflow:'hidden',
         animation: state==='speaking'
           ? 'hn-speak-sway 2.0s ease-in-out infinite, hn-speak-breath 0.90s ease-in-out infinite'
           : state==='listening' ? 'hn-lean 1.8s ease-in-out infinite'
@@ -322,6 +322,7 @@ export default function HannahAvatar({
           style={{
             width:'100%', height:'100%',
             objectFit:'contain', objectPosition:'center bottom',
+            transform:'scale(1.45)', transformOrigin:'50% top',
             display:'block', userSelect:'none',
             animation: state==='speaking'
               ? 'hn-glow-spk 0.90s ease-in-out infinite'
@@ -331,17 +332,17 @@ export default function HannahAvatar({
 
         {/* Eye blink — skin tone matching her complexion */}
         {blink && (<>
-          <div style={{ position:'absolute', left:`${eyeLX-5}%`, top:`${eyeLY-1.5}%`, width:'9%', height:'3%',
+          <div style={{ position:'absolute', left:`${eyeLX-5.5}%`, top:`${eyeLY-2.0}%`, width:'11%', height:'4.0%',
             background:'linear-gradient(to bottom, #6B3A1F, #8B5030)', borderRadius:'50%', opacity:.88 }}/>
-          <div style={{ position:'absolute', left:`${eyeRX-4.5}%`, top:`${eyeRY-1.5}%`, width:'9%', height:'3%',
+          <div style={{ position:'absolute', left:`${eyeRX-5.5}%`, top:`${eyeRY-2.0}%`, width:'11%', height:'4.0%',
             background:'linear-gradient(to bottom, #6B3A1F, #8B5030)', borderRadius:'50%', opacity:.88 }}/>
         </>)}
 
         {/* Eye glow when speaking — soft blue/lavender blend */}
         {state==='speaking' && !blink && (<>
-          <div style={{ position:'absolute', left:`${eyeLX-6}%`, top:`${eyeLY-3}%`, width:'12%', height:'7%',
+          <div style={{ position:'absolute', left:`${eyeLX-6}%`, top:`${eyeLY-3}%`, width:'13%', height:'8%',
             background:`radial-gradient(ellipse, ${LAV_PALE}60 0%, transparent 70%)`, borderRadius:'50%', pointerEvents:'none' }}/>
-          <div style={{ position:'absolute', left:`${eyeRX-6}%`, top:`${eyeRY-3}%`, width:'12%', height:'7%',
+          <div style={{ position:'absolute', left:`${eyeRX-6}%`, top:`${eyeRY-3}%`, width:'13%', height:'8%',
             background:`radial-gradient(ellipse, ${LAV_PALE}60 0%, transparent 70%)`, borderRadius:'50%', pointerEvents:'none' }}/>
         </>)}
 
