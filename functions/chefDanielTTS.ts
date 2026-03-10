@@ -1,10 +1,10 @@
 /**
  * chefDanielTTS — Google Cloud Text-to-Speech for Chef Daniel
  *
- * Voice: en-US-Studio-O
+ * Voice: en-US-Studio-M
  *   Google's warm, bright Studio male voice — upbeat and expressive,
  *   perfect for a charismatic culinary coach who loves food.
- *   Studio-O sits higher and more energetic than Studio-Q (Gideon's deep gravitas).
+ *   Studio-M sits higher and more energetic than Studio-Q (Gideon's deep gravitas).
  *
  * Speaking rate: 1.02  — lively, food-enthusiast energy without rushing
  * Pitch:         +1.5  — slightly lifted, bright warmth (semitones)
@@ -70,7 +70,7 @@ Deno.serve(async (req) => {
       });
     }
 
-    // Voice: en-US-Studio-O — warm, bright, expressive Studio male
+    // Voice: en-US-Studio-M — warm, bright, expressive Studio male
     const ttsResponse = await fetch(
       `https://texttospeech.googleapis.com/v1/text:synthesize?key=${apiKey}`,
       {
@@ -80,7 +80,7 @@ Deno.serve(async (req) => {
           input: { text: cleaned },
           voice: {
             languageCode: 'en-US',
-            name: 'en-US-Studio-O',  // Bright, warm, enthusiastic — perfect chef energy
+            name: 'en-US-Studio-M',  // Bright, warm, enthusiastic — perfect chef energy
           },
           audioConfig: {
             audioEncoding:    'MP3',
