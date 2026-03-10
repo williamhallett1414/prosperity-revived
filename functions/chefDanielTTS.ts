@@ -1,15 +1,16 @@
 /**
  * chefDanielTTS — Google Cloud Text-to-Speech for Chef Daniel
  *
- * Voice: en-US-Studio-M
- *   Google's warm, bright Studio male voice — upbeat and expressive,
- *   perfect for a charismatic culinary coach who loves food.
- *   Studio-M sits higher and more energetic than Studio-Q (Gideon's deep gravitas).
+ * Voice: en-US-Neural2-J
+ *   Warm, friendly, natural Neural2 male — bright and expressive.
+ *   Neural2 = Google's highest quality tier after Studio.
+ *   Distinct from Gideon (Studio-Q: deep/reverent) and
+ *   Coach David (Neural2-D: authoritative/grounded).
  *
- * Speaking rate: 1.02  — lively, food-enthusiast energy without rushing
- * Pitch:         +1.5  — slightly lifted, bright warmth (semitones)
+ * Speaking rate: 1.04  — lively food-coach energy, easy to follow
+ * Pitch:         +1.0  — slightly lifted warmth (semitones)
  * Volume:        +1.2 dB
- * EQ:            headphone-class-device (warm, present)
+ * EQ:            headphone-class-device
  *
  * Returns: { audioContent: <base64 MP3> }
  * Secret required in base44: Google_TTS
@@ -53,7 +54,6 @@ Deno.serve(async (req) => {
       });
     }
 
-    // Strip markdown formatting before sending to TTS
     const cleaned = text
       .replace(/\*\*(.+?)\*\*/g, '$1')
       .replace(/\*(.+?)\*/g, '$1')
@@ -70,7 +70,6 @@ Deno.serve(async (req) => {
       });
     }
 
-    // Voice: en-US-Studio-M — warm, bright, expressive Studio male
     const ttsResponse = await fetch(
       `https://texttospeech.googleapis.com/v1/text:synthesize?key=${apiKey}`,
       {
@@ -80,13 +79,13 @@ Deno.serve(async (req) => {
           input: { text: cleaned },
           voice: {
             languageCode: 'en-US',
-            name: 'en-US-Studio-M',  // Bright, warm, enthusiastic — perfect chef energy
+            name: 'en-US-Neural2-J',  // Warm, friendly, natural male — chef energy
           },
           audioConfig: {
             audioEncoding:    'MP3',
-            speakingRate:     1.02,   // Lively food-coach pace
-            pitch:            1.5,    // Slightly lifted warmth (semitones)
-            volumeGainDb:     1.2,    // Present but not overpowering
+            speakingRate:     1.04,   // Lively food-coach pace
+            pitch:            1.0,    // Slightly lifted warmth (semitones)
+            volumeGainDb:     1.2,
             effectsProfileId: ['headphone-class-device'],
           },
         }),
@@ -103,16 +102,13 @@ Deno.serve(async (req) => {
     }
 
     const { audioContent } = await ttsResponse.json();
-
     if (!audioContent) {
       return Response.json({ error: 'Empty audio from Google TTS' }, {
-        status: 502,
-        headers: { 'Access-Control-Allow-Origin': '*' },
+        status: 502, headers: { 'Access-Control-Allow-Origin': '*' },
       });
     }
 
     console.log(`[chefDanielTTS] ✓ Generated for user ${user.id}`);
-
     return Response.json(
       { audioContent },
       { headers: { 'Access-Control-Allow-Origin': '*' } }
@@ -121,8 +117,7 @@ Deno.serve(async (req) => {
   } catch (err) {
     console.error('[chefDanielTTS] Unexpected error:', err);
     return Response.json({ error: 'Internal server error' }, {
-      status: 500,
-      headers: { 'Access-Control-Allow-Origin': '*' },
+      status: 500, headers: { 'Access-Control-Allow-Origin': '*' },
     });
   }
 });

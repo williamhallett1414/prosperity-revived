@@ -1,15 +1,15 @@
 /**
  * coachDavidTTS — Google Cloud Text-to-Speech for Coach David
  *
- * Voice: en-US-Studio-B
- *   Google's bold, authoritative, driven Studio male voice.
+ * Voice: en-US-Neural2-D
+ *   Authoritative, grounded, commanding Neural2 male voice.
+ *   Google's own recommended male Neural2 for en-US.
+ *   Deeper and more driven than Chef Daniel (Neural2-J).
  *   Distinct from Gideon (Studio-Q: deep/reverent) and
- *   Chef Daniel (Studio-M: warm/bright).
- *   Studio-B has a punchy, commanding presence — perfect for
- *   a high-energy fitness coach who pushes people past their limits.
+ *   Chef Daniel (Neural2-J: warm/friendly).
  *
- * Speaking rate: 1.08  — driven pace, no fluff, no dead air
- * Pitch:         -1.5  — masculine authority, grounded power (semitones)
+ * Speaking rate: 1.10  — driven pace, punchy coach energy
+ * Pitch:         -1.5  — grounded masculine authority (semitones)
  * Volume:        +1.8 dB — fills the room like a real coach
  * EQ:            headphone-class-device
  *
@@ -80,11 +80,11 @@ Deno.serve(async (req) => {
           input: { text: cleaned },
           voice: {
             languageCode: 'en-US',
-            name: 'en-US-Studio-B',  // Bold, driven, authoritative — coach energy
+            name: 'en-US-Neural2-D',  // Authoritative, grounded — Google's recommended male Neural2
           },
           audioConfig: {
             audioEncoding:    'MP3',
-            speakingRate:     1.08,   // Punchy driven pace
+            speakingRate:     1.10,   // Punchy driven coach pace
             pitch:            -1.5,   // Grounded masculine authority (semitones)
             volumeGainDb:     1.8,    // Fills the room — coach energy
             effectsProfileId: ['headphone-class-device'],
