@@ -122,8 +122,16 @@ export default function HannahAvatar({
           35%     { transform: translateY(-8px) rotate(.5deg); }
           70%     { transform: translateY(-5px) rotate(-.4deg); }
         }
-        @keyframes hn-speak-sway {
-          0%   { transform: translateY(-2px) rotate(0deg)    translateX(0px); }
+        @keyframes hn-speak {
+          0%   { transform: translateY(-2px) rotate(0deg)    translateX(0px)  scale(1.000); }
+          15%  { transform: translateY(-5px) rotate(-1.0deg) translateX(-2px) scale(1.008); }
+          30%  { transform: translateY(-3px) rotate(0deg)    translateX(0px)  scale(1.014); }
+          45%  { transform: translateY(-5px) rotate(1.2deg)  translateX(2px)  scale(1.012); }
+          60%  { transform: translateY(-2px) rotate(0deg)    translateX(0px)  scale(1.007); }
+          75%  { transform: translateY(-5px) rotate(-0.9deg) translateX(-2px) scale(1.003); }
+          90%  { transform: translateY(-3px) rotate(.4deg)   translateX(1px)  scale(1.001); }
+          100% { transform: translateY(-2px) rotate(0deg)    translateX(0px)  scale(1.000); }
+        }
           15%  { transform: translateY(-5px) rotate(-1.0deg) translateX(-2px); }
           30%  { transform: translateY(-3px) rotate(0deg)    translateX(0px); }
           45%  { transform: translateY(-5px) rotate(1.2deg)  translateX(2px); }
@@ -132,8 +140,6 @@ export default function HannahAvatar({
           90%  { transform: translateY(-3px) rotate(.4deg)   translateX(1px); }
           100% { transform: translateY(-2px) rotate(0deg)    translateX(0px); }
         }
-        @keyframes hn-speak-breath {
-          0%,100% { transform: scale(1.000); }
           35%     { transform: scale(1.016); }
           65%     { transform: scale(1.007); }
         }
@@ -309,7 +315,7 @@ export default function HannahAvatar({
       <div style={{
         position:'relative', width:'100%', height:'100%', overflow:'hidden',
         animation: state==='speaking'
-          ? 'hn-speak-sway 2.6s ease-in-out infinite, hn-speak-breath 1.8s ease-in-out infinite'
+          ? 'hn-speak 2.6s ease-in-out infinite'
           : state==='listening' ? 'hn-lean 1.8s ease-in-out infinite'
           : state==='thinking'  ? 'hn-sway 3.2s ease-in-out infinite'
           : 'hn-float 4.2s ease-in-out infinite',

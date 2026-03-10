@@ -116,8 +116,16 @@ export default function CoachDavidAvatar({
           40%     { transform: translateY(-7px) rotate(.4deg); }
           72%     { transform: translateY(-5px) rotate(-.3deg); }
         }
-        @keyframes cvd-speak-sway {
-          0%   { transform: translateY(-2px) rotate(0deg)    translateX(0px); }
+        @keyframes cvd-speak {
+          0%   { transform: translateY(-2px) rotate(0deg)    translateX(0px)  scale(1.000); }
+          15%  { transform: translateY(-5px) rotate(-1.4deg) translateX(-3px) scale(1.012); }
+          30%  { transform: translateY(-3px) rotate(0deg)    translateX(0px)  scale(1.020); }
+          45%  { transform: translateY(-5px) rotate(1.6deg)  translateX(3px)  scale(1.018); }
+          60%  { transform: translateY(-2px) rotate(0deg)    translateX(0px)  scale(1.010); }
+          75%  { transform: translateY(-5px) rotate(-1.2deg) translateX(-2px) scale(1.004); }
+          90%  { transform: translateY(-3px) rotate(.5deg)   translateX(1px)  scale(1.001); }
+          100% { transform: translateY(-2px) rotate(0deg)    translateX(0px)  scale(1.000); }
+        }
           15%  { transform: translateY(-5px) rotate(-1.4deg) translateX(-3px); }
           30%  { transform: translateY(-3px) rotate(0deg)    translateX(0px); }
           45%  { transform: translateY(-5px) rotate(1.6deg)  translateX(3px); }
@@ -126,8 +134,6 @@ export default function CoachDavidAvatar({
           90%  { transform: translateY(-3px) rotate(.5deg)   translateX(1px); }
           100% { transform: translateY(-2px) rotate(0deg)    translateX(0px); }
         }
-        @keyframes cvd-speak-breath {
-          0%,100% { transform: scale(1.000); }
           35%     { transform: scale(1.022); }
           65%     { transform: scale(1.010); }
         }
@@ -300,7 +306,7 @@ export default function CoachDavidAvatar({
       <div style={{
         position:'relative', width:'100%', height:'100%',
         animation: state==='speaking'
-          ? 'cvd-speak-sway 2.4s ease-in-out infinite, cvd-speak-breath 1.8s ease-in-out infinite'
+          ? 'cvd-speak 2.4s ease-in-out infinite'
           : state==='listening' ? 'cvd-lean 1.5s ease-in-out infinite'
           : state==='thinking'  ? 'cvd-sway 2.8s ease-in-out infinite'
           : 'cvd-float 3.8s ease-in-out infinite',

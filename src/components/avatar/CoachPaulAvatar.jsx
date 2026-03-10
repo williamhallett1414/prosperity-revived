@@ -119,8 +119,16 @@ export default function CoachPaulAvatar({
           40%     { transform: translateY(-7px) rotate(.4deg); }
           72%     { transform: translateY(-5px) rotate(-.3deg); }
         }
-        @keyframes cp-speak-sway {
-          0%   { transform: translateY(-2px) rotate(0deg)    translateX(0px); }
+        @keyframes cp-speak {
+          0%   { transform: translateY(-2px) rotate(0deg)    translateX(0px)  scale(1.000); }
+          15%  { transform: translateY(-5px) rotate(-1.2deg) translateX(-3px) scale(1.010); }
+          30%  { transform: translateY(-3px) rotate(0deg)    translateX(0px)  scale(1.016); }
+          45%  { transform: translateY(-5px) rotate(1.4deg)  translateX(3px)  scale(1.014); }
+          60%  { transform: translateY(-2px) rotate(0deg)    translateX(0px)  scale(1.008); }
+          75%  { transform: translateY(-5px) rotate(-1.0deg) translateX(-2px) scale(1.003); }
+          90%  { transform: translateY(-3px) rotate(.4deg)   translateX(1px)  scale(1.001); }
+          100% { transform: translateY(-2px) rotate(0deg)    translateX(0px)  scale(1.000); }
+        }
           15%  { transform: translateY(-5px) rotate(-1.2deg) translateX(-3px); }
           30%  { transform: translateY(-3px) rotate(0deg)    translateX(0px); }
           45%  { transform: translateY(-5px) rotate(1.4deg)  translateX(3px); }
@@ -129,8 +137,6 @@ export default function CoachPaulAvatar({
           90%  { transform: translateY(-3px) rotate(.4deg)   translateX(1px); }
           100% { transform: translateY(-2px) rotate(0deg)    translateX(0px); }
         }
-        @keyframes cp-speak-breath {
-          0%,100% { transform: scale(1.000); }
           35%     { transform: scale(1.018); }
           65%     { transform: scale(1.008); }
         }
@@ -303,7 +309,7 @@ export default function CoachPaulAvatar({
       <div style={{
         position:'relative', width:'100%', height:'100%',
         animation: state==='speaking'
-          ? 'cp-speak-sway 2.6s ease-in-out infinite, cp-speak-breath 1.8s ease-in-out infinite'
+          ? 'cp-speak 2.6s ease-in-out infinite'
           : state==='listening' ? 'cp-lean 1.6s ease-in-out infinite'
           : state==='thinking'  ? 'cp-sway 3.0s ease-in-out infinite'
           : 'cp-float 4.0s ease-in-out infinite',

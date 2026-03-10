@@ -131,8 +131,16 @@ export default function GideonAvatar({
         }
 
         /* ── Speaking: natural figure-8 sway — head tilts & shifts as words flow ── */
-        @keyframes ga-speak-sway {
-          0%   { transform: translateY(-2px) rotate(0deg)   translateX(0px); }
+        @keyframes ga-speak {
+          0%   { transform: translateY(-2px) rotate(0deg)    translateX(0px)  scale(1.000); }
+          15%  { transform: translateY(-5px) rotate(-1.4deg) translateX(-3px) scale(1.012); }
+          30%  { transform: translateY(-3px) rotate(0deg)    translateX(0px)  scale(1.020); }
+          45%  { transform: translateY(-5px) rotate(1.6deg)  translateX(3px)  scale(1.018); }
+          60%  { transform: translateY(-2px) rotate(0deg)    translateX(0px)  scale(1.010); }
+          75%  { transform: translateY(-5px) rotate(-1.2deg) translateX(-2px) scale(1.004); }
+          90%  { transform: translateY(-3px) rotate(.5deg)   translateX(1px)  scale(1.001); }
+          100% { transform: translateY(-2px) rotate(0deg)    translateX(0px)  scale(1.000); }
+        }
           15%  { transform: translateY(-5px) rotate(-1.4deg) translateX(-3px); }
           30%  { transform: translateY(-3px) rotate(0deg)   translateX(0px); }
           45%  { transform: translateY(-5px) rotate(1.6deg)  translateX(3px); }
@@ -142,8 +150,6 @@ export default function GideonAvatar({
           100% { transform: translateY(-2px) rotate(0deg)   translateX(0px); }
         }
         /* ── Speaking: breath scale ── */
-        @keyframes ga-speak-breath {
-          0%,100% { transform: scale(1.000); }
           35%     { transform: scale(1.022); }
           65%     { transform: scale(1.010); }
         }
@@ -360,7 +366,7 @@ export default function GideonAvatar({
         width: '100%',
         height: '100%',
         animation: state === 'speaking'
-          ? 'ga-speak-sway 2.4s ease-in-out infinite, ga-speak-breath 1.8s ease-in-out infinite'
+          ? 'ga-speak 2.4s ease-in-out infinite'
           : state === 'listening' ? 'ga-lean 1.5s ease-in-out infinite'
           : state === 'thinking'  ? 'ga-sway 2.8s ease-in-out infinite'
           : 'ga-float 3.8s ease-in-out infinite',

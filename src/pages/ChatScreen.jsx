@@ -544,7 +544,7 @@ function prepareTextForSpeech(text) {
  * Calls the gideonTTS backend function which returns a base64 MP3.
  * Falls back to browser TTS on any error.
  * ───────────────────────────────────────────────────────────────────────── */
-async function speakWithGoogleTTS({ text, onStart, onEnd, onError, primedAudio }) {
+async function speakWithGoogleTTS({ text, cfg, onStart, onEnd, onError, primedAudio }) {
   let cancelled = false;
   let audioEl   = null;
 
@@ -579,7 +579,7 @@ async function speakWithGoogleTTS({ text, onStart, onEnd, onError, primedAudio }
 
   } catch (err) {
     console.error('[Gideon TTS]', err);
-    return speakWithBrowserTTS({ text, onStart, onEnd, onError });
+    return speakWithBrowserTTS({ text, cfg, onStart, onEnd, onError });
   }
 
   return () => {
@@ -593,7 +593,7 @@ async function speakWithGoogleTTS({ text, onStart, onEnd, onError, primedAudio }
  * Calls the chefDanielTTS backend function which returns a base64 MP3.
  * Falls back to browser TTS on any error.
  * ───────────────────────────────────────────────────────────────────────── */
-async function speakWithChefDanielTTS({ text, onStart, onEnd, onError, primedAudio }) {
+async function speakWithChefDanielTTS({ text, cfg, onStart, onEnd, onError, primedAudio }) {
   let cancelled = false;
   let audioEl   = null;
 
@@ -627,7 +627,7 @@ async function speakWithChefDanielTTS({ text, onStart, onEnd, onError, primedAud
 
   } catch (err) {
     console.error('[Chef Daniel TTS]', err);
-    return speakWithBrowserTTS({ text, onStart, onEnd, onError });
+    return speakWithBrowserTTS({ text, cfg, onStart, onEnd, onError });
   }
 
   return () => {
@@ -641,7 +641,7 @@ async function speakWithChefDanielTTS({ text, onStart, onEnd, onError, primedAud
  * Calls the coachDavidTTS backend function which returns a base64 MP3.
  * Falls back to browser TTS on any error.
  * ───────────────────────────────────────────────────────────────────────── */
-async function speakWithCoachDavidTTS({ text, onStart, onEnd, onError, primedAudio }) {
+async function speakWithCoachDavidTTS({ text, cfg, onStart, onEnd, onError, primedAudio }) {
   let cancelled = false;
   let audioEl   = null;
 
@@ -675,7 +675,7 @@ async function speakWithCoachDavidTTS({ text, onStart, onEnd, onError, primedAud
 
   } catch (err) {
     console.error('[Coach David TTS]', err);
-    return speakWithBrowserTTS({ text, onStart, onEnd, onError });
+    return speakWithBrowserTTS({ text, cfg, onStart, onEnd, onError });
   }
 
   return () => {
@@ -689,7 +689,7 @@ async function speakWithCoachDavidTTS({ text, onStart, onEnd, onError, primedAud
  * Calls the coachPaulTTS backend function which returns a base64 MP3.
  * Falls back to browser TTS on any error.
  * ───────────────────────────────────────────────────────────────────────── */
-async function speakWithCoachPaulTTS({ text, onStart, onEnd, onError, primedAudio }) {
+async function speakWithCoachPaulTTS({ text, cfg, onStart, onEnd, onError, primedAudio }) {
   let cancelled = false;
   let audioEl   = null;
 
@@ -723,7 +723,7 @@ async function speakWithCoachPaulTTS({ text, onStart, onEnd, onError, primedAudi
 
   } catch (err) {
     console.error('[Coach Paul TTS]', err);
-    return speakWithBrowserTTS({ text, onStart, onEnd, onError });
+    return speakWithBrowserTTS({ text, cfg, onStart, onEnd, onError });
   }
 
   return () => {
@@ -737,7 +737,7 @@ async function speakWithCoachPaulTTS({ text, onStart, onEnd, onError, primedAudi
  * Calls the hannahTTS backend function which returns a base64 MP3.
  * Falls back to browser TTS on any error.
  * ───────────────────────────────────────────────────────────────────────── */
-async function speakWithHannahTTS({ text, onStart, onEnd, onError, primedAudio }) {
+async function speakWithHannahTTS({ text, cfg, onStart, onEnd, onError, primedAudio }) {
   let cancelled = false;
   let audioEl   = null;
 
@@ -771,7 +771,7 @@ async function speakWithHannahTTS({ text, onStart, onEnd, onError, primedAudio }
 
   } catch (err) {
     console.error('[Hannah TTS]', err);
-    return speakWithBrowserTTS({ text, onStart, onEnd, onError });
+    return speakWithBrowserTTS({ text, cfg, onStart, onEnd, onError });
   }
 
   return () => {
@@ -813,19 +813,19 @@ async function speakWithBrowserTTS({ text, cfg, onStart, onEnd, onError }) {
 // speakText — routes to correct TTS backend per character.
 async function speakText({ text, cfg, onStart, onEnd, onError, primedAudio }) {
   if (cfg?.character === 'gideon') {
-    return speakWithGoogleTTS({ text, onStart, onEnd, onError, primedAudio });
+    return speakWithGoogleTTS({ text, cfg, onStart, onEnd, onError, primedAudio });
   }
   if (cfg?.character === 'chef') {
-    return speakWithChefDanielTTS({ text, onStart, onEnd, onError, primedAudio });
+    return speakWithChefDanielTTS({ text, cfg, onStart, onEnd, onError, primedAudio });
   }
   if (cfg?.character === 'coach') {
-    return speakWithCoachDavidTTS({ text, onStart, onEnd, onError, primedAudio });
+    return speakWithCoachDavidTTS({ text, cfg, onStart, onEnd, onError, primedAudio });
   }
   if (cfg?.character === 'paul') {
-    return speakWithCoachPaulTTS({ text, onStart, onEnd, onError, primedAudio });
+    return speakWithCoachPaulTTS({ text, cfg, onStart, onEnd, onError, primedAudio });
   }
   if (cfg?.character === 'hannah') {
-    return speakWithHannahTTS({ text, onStart, onEnd, onError, primedAudio });
+    return speakWithHannahTTS({ text, cfg, onStart, onEnd, onError, primedAudio });
   }
   return speakWithBrowserTTS({ text, cfg, onStart, onEnd, onError });
 }
