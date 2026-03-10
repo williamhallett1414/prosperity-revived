@@ -14,6 +14,7 @@ import GideonAvatar       from '@/components/avatar/GideonAvatar';
 import ChefDanielAvatar   from '@/components/avatar/ChefDanielAvatar';
 import CoachDavidAvatar   from '@/components/avatar/CoachDavidAvatar';
 import CoachPaulAvatar    from '@/components/avatar/CoachPaulAvatar';
+import HannahAvatar        from '@/components/avatar/HannahAvatar';
 import BotBackground from '@/components/avatar/BotBackground';
 
 // ─── Error boundary — if WebGL/R3F fails, show pulsing circle ────────────────
@@ -70,6 +71,17 @@ class CloudAvatarSafe extends React.Component {
     if (this.props.character === 'paul') {
       return (
         <CoachPaulAvatar
+          isSpeaking={this.props.isSpeaking}
+          isListening={this.props.isListening}
+          isThinking={this.props.isThinking}
+          width={280}
+          height={320}
+        />
+      );
+    }
+    if (this.props.character === 'hannah') {
+      return (
+        <HannahAvatar
           isSpeaking={this.props.isSpeaking}
           isListening={this.props.isListening}
           isThinking={this.props.isThinking}
@@ -721,6 +733,54 @@ async function speakWithCoachPaulTTS({ text, onStart, onEnd, onError, primedAudi
 }
 
 
+/* ─── Google Cloud TTS for Hannah ───────────────────────────────────────────
+ * Calls the hannahTTS backend function which returns a base64 MP3.
+ * Falls back to browser TTS on any error.
+ * ───────────────────────────────────────────────────────────────────────── */
+async function speakWithHannahTTS({ text, onStart, onEnd, onError, primedAudio }) {
+  let cancelled = false;
+  let audioEl   = null;
+
+  try {
+    const cleaned = text
+      .replace(/\*\*(.+?)\*\*/g, '$1').replace(/\*(.+?)\*/g, '$1')
+      .replace(/#{1,6}\s+/g, '').replace(/`{1,3}[^`]*`{1,3}/g, '')
+      .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1').trim().slice(0, 4500);
+
+    if (!cleaned) { onEnd?.(); return () => {}; }
+
+    const result = await base44.functions.invoke('hannahTTS', { text: cleaned });
+    if (cancelled) { onEnd?.(); return () => {}; }
+
+    const audioContent = result?.audioContent ?? result?.data?.audioContent;
+    if (!audioContent) throw new Error('No audioContent in response');
+
+    const binary = atob(audioContent);
+    const bytes  = new Uint8Array(binary.length);
+    for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+    const blob = new Blob([bytes], { type: 'audio/mpeg' });
+    const url  = URL.createObjectURL(blob);
+
+    audioEl = primedAudio || new Audio();
+    audioEl.src = url;
+    audioEl.onplay  = () => onStart?.();
+    audioEl.onended = () => { URL.revokeObjectURL(url); onEnd?.(); };
+    audioEl.onerror = () => { URL.revokeObjectURL(url); onError?.(); };
+
+    await audioEl.play();
+
+  } catch (err) {
+    console.error('[Hannah TTS]', err);
+    return speakWithBrowserTTS({ text, onStart, onEnd, onError });
+  }
+
+  return () => {
+    cancelled = true;
+    if (audioEl) { try { audioEl.pause(); audioEl.src = ''; } catch(_){} }
+  };
+}
+
+
 // Browser TTS for all non-Gideon bots (and Gideon fallback)
 async function speakWithBrowserTTS({ text, cfg, onStart, onEnd, onError }) {
   if (!('speechSynthesis' in window)) { onEnd?.(); return () => {}; }
@@ -763,6 +823,9 @@ async function speakText({ text, cfg, onStart, onEnd, onError, primedAudio }) {
   }
   if (cfg?.character === 'paul') {
     return speakWithCoachPaulTTS({ text, onStart, onEnd, onError, primedAudio });
+  }
+  if (cfg?.character === 'hannah') {
+    return speakWithHannahTTS({ text, onStart, onEnd, onError, primedAudio });
   }
   return speakWithBrowserTTS({ text, cfg, onStart, onEnd, onError });
 }
@@ -1082,7 +1145,7 @@ export default function ChatScreen() {
     const isIOS = /iP(hone|ad|od)/.test(navigator.userAgent) ||
                   (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
     let primedAudio = null;
-    if ((cfg?.character === 'gideon' || cfg?.character === 'chef' || cfg?.character === 'coach' || cfg?.character === 'paul') && isIOS) {
+    if ((cfg?.character === 'gideon' || cfg?.character === 'chef' || cfg?.character === 'coach' || cfg?.character === 'paul' || cfg?.character === 'hannah') && isIOS) {
       try {
         primedAudio = new Audio();
         primedAudio.preload = 'auto';
