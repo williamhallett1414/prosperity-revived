@@ -1,284 +1,338 @@
-// DanielBackground — Kitchen with Stove and Fridge
+/**
+ * DanielBackground — Faith Kitchen Illustration
+ * Real cartoon kitchen painting as base. Animated SVG overlay adds:
+ *   - 3 pendant light glow pulses (ceiling lamps)
+ *   - Front-left candle flicker + right candle flicker
+ *   - Steam wisps rising from pot on stove
+ *   - Oven window orange glow pulse
+ *   - Cross light rays (background, subtle) + sparkle stars
+ *   - Ambient warm kitchen breathing glow
+ *   - Speaking state: steam intensifies, lights brighten, cross rays appear
+ */
 import { useEffect, useRef } from 'react';
-export default function DanielBackground({ speaking = false }) {
-  const lightRef = useRef(null);
+import kitchenBg from '@/assets/chef-daniel-background.jpg';
+
+export default function DanielBackground({ speaking = false, listening = false, thinking = false }) {
+  const ambientRef = useRef(null);
+  const raysRef    = useRef(null);
+  const steamRef   = useRef(null);
+
   useEffect(() => {
-    if (!lightRef.current) return;
-    lightRef.current.style.transition = 'opacity 400ms ease';
-    lightRef.current.style.opacity = speaking ? '0.55' : '0.35';
-  }, [speaking]);
+    if (ambientRef.current) {
+      ambientRef.current.style.transition = 'opacity 600ms ease';
+      ambientRef.current.style.opacity = speaking ? '0.55' : listening ? '0.40' : '0.28';
+    }
+    if (raysRef.current) {
+      raysRef.current.style.transition = 'opacity 600ms ease';
+      raysRef.current.style.opacity = speaking ? '0.60' : '0.28';
+    }
+    if (steamRef.current) {
+      steamRef.current.style.transition = 'opacity 600ms ease';
+      steamRef.current.style.opacity = speaking ? '0.90' : '0.65';
+    }
+  }, [speaking, listening]);
+
   return (
-    <svg viewBox="0 0 390 844" xmlns="http://www.w3.org/2000/svg"
-      preserveAspectRatio="xMidYMid slice"
-      style={{ position:'absolute', inset:0, width:'100%', height:'100%' }} aria-hidden="true">
-      <defs>
-        <linearGradient id="k-wall" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stopColor="#F0EAD8"/>
-          <stop offset="100%" stopColor="#E4DAC4"/>
-        </linearGradient>
-        <linearGradient id="k-cabinet" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stopColor="#6B4C2A"/>
-          <stop offset="100%" stopColor="#4E3518"/>
-        </linearGradient>
-        <linearGradient id="k-counter" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stopColor="#D0D0D0"/>
-          <stop offset="100%" stopColor="#B8B8B8"/>
-        </linearGradient>
-        <linearGradient id="k-stove" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stopColor="#2A2A2A"/>
-          <stop offset="100%" stopColor="#1A1A1A"/>
-        </linearGradient>
-        <linearGradient id="k-fridge" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stopColor="#E8E8E8"/>
-          <stop offset="100%" stopColor="#D0D0D0"/>
-        </linearGradient>
-        <radialGradient id="k-light" cx="50%" cy="0%" r="65%">
-          <stop offset="0%" stopColor="#FFF5D0" stopOpacity="0.65"/>
-          <stop offset="100%" stopColor="#F0EAD8" stopOpacity="0"/>
-        </radialGradient>
-        <radialGradient id="k-vig" cx="50%" cy="50%" r="72%">
-          <stop offset="42%" stopColor="transparent"/>
-          <stop offset="100%" stopColor="#1A1008" stopOpacity="0.42"/>
-        </radialGradient>
-        <radialGradient id="k-burner" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#FF4500" stopOpacity="0.90"/>
-          <stop offset="50%" stopColor="#FF6800" stopOpacity="0.50"/>
-          <stop offset="100%" stopColor="#FF4500" stopOpacity="0"/>
-        </radialGradient>
-        <filter id="k-blur"><feGaussianBlur stdDeviation="4"/></filter>
-        <filter id="k-blur2"><feGaussianBlur stdDeviation="8"/></filter>
-        <filter id="k-sh"><feDropShadow dx="2" dy="3" stdDeviation="5" floodColor="#2A1808" floodOpacity="0.20"/></filter>
-      </defs>
+    <div style={{ position:'absolute', inset:0, overflow:'hidden' }}>
+      <style>{`
+        /* Pendant lamp glow */
+        @keyframes db-lamp-l {
+          0%,100% { opacity:.42; r:28; }
+          40%     { opacity:.60; r:34; }
+          70%     { opacity:.38; r:26; }
+        }
+        @keyframes db-lamp-m {
+          0%,100% { opacity:.45; r:30; }
+          30%     { opacity:.65; r:38; }
+          65%     { opacity:.40; r:27; }
+        }
+        @keyframes db-lamp-r {
+          0%,100% { opacity:.40; r:26; }
+          50%     { opacity:.58; r:32; }
+          80%     { opacity:.36; r:24; }
+        }
+        /* Candle flicker */
+        @keyframes db-candle-l {
+          0%,100% { opacity:.60; }
+          25%     { opacity:.88; }
+          55%     { opacity:.52; }
+          80%     { opacity:.80; }
+        }
+        @keyframes db-candle-r {
+          0%,100% { opacity:.55; }
+          20%     { opacity:.82; }
+          60%     { opacity:.90; }
+          85%     { opacity:.48; }
+        }
+        @keyframes db-flame {
+          0%,100% { transform:scaleY(1)   translateX(0px); }
+          25%     { transform:scaleY(1.35) translateX(1px); }
+          50%     { transform:scaleY(.80) translateX(-1px); }
+          75%     { transform:scaleY(1.25) translateX(.5px); }
+        }
+        @keyframes db-flame-r {
+          0%,100% { transform:scaleY(1)   translateX(0px); }
+          20%     { transform:scaleY(.78) translateX(1px); }
+          50%     { transform:scaleY(1.40) translateX(-1px); }
+          80%     { transform:scaleY(.92) translateX(1px); }
+        }
+        /* Steam wisp */
+        @keyframes db-steam-a {
+          0%   { transform:translate(0,0)     opacity:0; }
+          8%   { opacity:.70; }
+          60%  { opacity:.55; }
+          100% { transform:translate(-12px,-80px) opacity:0; }
+        }
+        @keyframes db-steam-b {
+          0%   { transform:translate(0,0)    opacity:0; }
+          10%  { opacity:.60; }
+          65%  { opacity:.48; }
+          100% { transform:translate(10px,-70px) opacity:0; }
+        }
+        @keyframes db-steam-c {
+          0%   { transform:translate(0,0)    opacity:0; }
+          12%  { opacity:.65; }
+          70%  { opacity:.50; }
+          100% { transform:translate(-6px,-90px) opacity:0; }
+        }
+        /* Oven glow */
+        @keyframes db-oven {
+          0%,100% { opacity:.40; }
+          35%     { opacity:.68; }
+          70%     { opacity:.34; }
+        }
+        /* Cross rays */
+        @keyframes db-rays {
+          from { transform:rotate(0deg); }
+          to   { transform:rotate(360deg); }
+        }
+        /* Ambient breathe */
+        @keyframes db-breathe {
+          0%,100% { opacity:.28; }
+          50%     { opacity:.44; }
+        }
+        /* Sparkle */
+        @keyframes db-twinkle {
+          0%,100% { opacity:0;   transform:scale(.3); }
+          50%     { opacity:.90; transform:scale(1.4); }
+        }
+        /* Tomato/veggie shimmer */
+        @keyframes db-shimmer {
+          0%,100% { opacity:.12; }
+          50%     { opacity:.28; }
+        }
+      `}</style>
 
-      {/* ── Wall ── */}
-      <rect width="390" height="844" fill="url(#k-wall)"/>
+      {/* ── Base kitchen illustration ── */}
+      <img
+        src={kitchenBg}
+        alt="" aria-hidden="true" draggable={false}
+        style={{
+          position:'absolute', inset:0,
+          width:'100%', height:'100%',
+          objectFit:'cover', objectPosition:'center top',
+          display:'block',
+        }}
+      />
 
-      {/* ── Ceiling / light ambient ── */}
-      <rect width="390" height="20" fill="#E8E0C8"/>
-      <rect width="390" height="844" fill="url(#k-light)"/>
+      {/* ── Dark vignette for readability ── */}
+      <div style={{
+        position:'absolute', inset:0,
+        background:'radial-gradient(ellipse at 50% 35%, transparent 25%, rgba(8,4,0,0.50) 100%)',
+        pointerEvents:'none',
+      }}/>
 
-      {/* ── WINDOW (upper centre) ── */}
-      <rect x="128" y="24" width="134" height="112" fill="#A8D8F8"/>
-      {/* Sky outside */}
-      <rect x="128" y="24" width="134" height="112" fill="#87CEEB"/>
-      <rect x="128" y="90" width="134" height="46" fill="#A8D870" opacity="0.30"/>
-      {/* Window frame */}
-      <rect x="128" y="24" width="134" height="112" fill="none" stroke="#8B6040" strokeWidth="5"/>
-      <line x1="195" y1="24" x2="195" y2="136" stroke="#8B6040" strokeWidth="3.5"/>
-      <line x1="128" y1="80" x2="262" y2="80" stroke="#8B6040" strokeWidth="3"/>
-      {/* Window sill */}
-      <rect x="118" y="132" width="154" height="12" rx="3" fill="#8B6040"/>
-      {/* Pot on sill */}
-      <ellipse cx="148" cy="130" rx="14" ry="10" fill="#3A8818" opacity="0.88"/>
-      <path d="M 148 131 L 143 143 L 153 143Z" fill="#A03818" opacity="0.80"/>
-      <ellipse cx="245" cy="130" rx="14" ry="10" fill="#6A9828" opacity="0.82"/>
-      <path d="M 245 131 L 240 143 L 250 143Z" fill="#A03818" opacity="0.78"/>
+      {/* ── Bottom fade for message area ── */}
+      <div style={{
+        position:'absolute', left:0, right:0, bottom:0, height:'55%',
+        background:'linear-gradient(to bottom, transparent 0%, rgba(12,6,0,0.62) 50%, rgba(12,6,0,0.88) 100%)',
+        pointerEvents:'none',
+      }}/>
 
-      {/* ── UPPER CABINETS (left) ── */}
-      <rect x="0" y="20" width="120" height="200" rx="3" fill="url(#k-cabinet)" filter="url(#k-sh)"/>
-      <line x1="0" y1="20" x2="120" y2="20" stroke="#3A2410" strokeWidth="2"/>
-      {/* Cabinet doors left */}
-      <rect x="5" y="28" width="50" height="88" rx="3" fill="#7A5830" stroke="#3A2410" strokeWidth="1.5"/>
-      <rect x="61" y="28" width="50" height="88" rx="3" fill="#7A5830" stroke="#3A2410" strokeWidth="1.5"/>
-      {/* Cabinet door knobs */}
-      <circle cx="52" cy="72" r="4" fill="#C8A860" opacity="0.90"/>
-      <circle cx="64" cy="72" r="4" fill="#C8A860" opacity="0.90"/>
-      {/* Cabinet lower shelf items (visible through gap) */}
-      <rect x="5" y="122" width="50" height="88" rx="3" fill="#7A5830" stroke="#3A2410" strokeWidth="1.5"/>
-      <rect x="61" y="122" width="50" height="88" rx="3" fill="#7A5830" stroke="#3A2410" strokeWidth="1.5"/>
-      <circle cx="52" cy="164" r="4" fill="#C8A860" opacity="0.90"/>
-      <circle cx="64" cy="164" r="4" fill="#C8A860" opacity="0.90"/>
+      {/* ── Animated SVG overlay ── */}
+      <svg viewBox="0 0 390 844" xmlns="http://www.w3.org/2000/svg"
+        preserveAspectRatio="xMidYMid slice"
+        style={{ position:'absolute', inset:0, width:'100%', height:'100%', pointerEvents:'none', overflow:'visible' }}>
+        <defs>
+          <radialGradient id="db-lamp-g" cx="50%" cy="50%" r="50%">
+            <stop offset="0%"   stopColor="#FFE090" stopOpacity="1"/>
+            <stop offset="100%" stopColor="#FF9030" stopOpacity="0"/>
+          </radialGradient>
+          <radialGradient id="db-cbl" cx="50%" cy="50%" r="50%">
+            <stop offset="0%"   stopColor="#FFD060" stopOpacity="1"/>
+            <stop offset="100%" stopColor="#FF8800" stopOpacity="0"/>
+          </radialGradient>
+          <radialGradient id="db-oven-g" cx="50%" cy="50%" r="50%">
+            <stop offset="0%"   stopColor="#FF6010" stopOpacity="1"/>
+            <stop offset="100%" stopColor="#FF3000" stopOpacity="0"/>
+          </radialGradient>
+          <radialGradient id="db-ray-g" cx="50%" cy="50%" r="50%">
+            <stop offset="0%"   stopColor="#FFE87A" stopOpacity="0.88"/>
+            <stop offset="40%"  stopColor="#FFC940" stopOpacity="0.42"/>
+            <stop offset="100%" stopColor="#FF8800" stopOpacity="0"/>
+          </radialGradient>
+          <filter id="db-blur4"><feGaussianBlur stdDeviation="4"/></filter>
+          <filter id="db-blur8"><feGaussianBlur stdDeviation="8"/></filter>
+          <filter id="db-blur14"><feGaussianBlur stdDeviation="14"/></filter>
+          <filter id="db-blur20"><feGaussianBlur stdDeviation="20"/></filter>
+        </defs>
 
-      {/* ── UPPER CABINETS (right) ── */}
-      <rect x="270" y="20" width="120" height="200" rx="3" fill="url(#k-cabinet)" filter="url(#k-sh)"/>
-      <rect x="275" y="28" width="50" height="88" rx="3" fill="#7A5830" stroke="#3A2410" strokeWidth="1.5"/>
-      <rect x="331" y="28" width="50" height="88" rx="3" fill="#7A5830" stroke="#3A2410" strokeWidth="1.5"/>
-      <circle cx="277" cy="72" r="4" fill="#C8A860" opacity="0.90"/>
-      <circle cx="329" cy="72" r="4" fill="#C8A860" opacity="0.90"/>
-      <rect x="275" y="122" width="50" height="88" rx="3" fill="#7A5830" stroke="#3A2410" strokeWidth="1.5"/>
-      <rect x="331" y="122" width="50" height="88" rx="3" fill="#7A5830" stroke="#3A2410" strokeWidth="1.5"/>
-      <circle cx="277" cy="164" r="4" fill="#C8A860" opacity="0.90"/>
-      <circle cx="329" cy="164" r="4" fill="#C8A860" opacity="0.90"/>
+        {/* ── PENDANT LAMPS glow (left ~88, mid ~215, right ~310) ── */}
+        {/* Left lamp */}
+        <circle cx="88" cy="95" r="28" fill="url(#db-lamp-g)" filter="url(#db-blur14)"
+          style={{ animation:'db-lamp-l 2.8s ease-in-out infinite' }}/>
+        <ellipse cx="88" cy="130" rx="50" ry="28" fill="#FFD060" filter="url(#db-blur14)" opacity="0.14"
+          style={{ animation:'db-lamp-l 2.8s ease-in-out infinite', animationDelay:'0.3s' }}/>
 
-      {/* ── POT RACK hanging from ceiling ── */}
-      <rect x="0" y="22" width="390" height="6" rx="2" fill="#6B4C2A" opacity="0.80"/>
-      {/* Hanging pots */}
-      {[22,60,100].map((x,i) => {
-        const h=[58,72,64][i];
-        return (<g key={i}>
-          <line x1={x+16} y1="28" x2={x+16} y2={28+h*0.4} stroke="#5A3C18" strokeWidth="2"/>
-          <path d={`M ${x} ${28+h*0.4} Q ${x} ${28+h*0.75} ${x+16} ${28+h} Q ${x+32} ${28+h*0.75} ${x+32} ${28+h*0.4}Z`}
-            fill="#A07830" opacity="0.88"/>
-          <ellipse cx={x+16} cy={28+h*0.4} rx="16" ry="8" fill="#B88840" opacity="0.85"/>
-        </g>);
-      })}
-      {[288,328,358].map((x,i) => {
-        const h=[68,58,62][i];
-        return (<g key={i}>
-          <line x1={x+16} y1="28" x2={x+16} y2={28+h*0.4} stroke="#5A3C18" strokeWidth="2"/>
-          <path d={`M ${x} ${28+h*0.4} Q ${x} ${28+h*0.75} ${x+16} ${28+h} Q ${x+32} ${28+h*0.75} ${x+32} ${28+h*0.4}Z`}
-            fill="#A07830" opacity="0.85"/>
-          <ellipse cx={x+16} cy={28+h*0.4} rx="16" ry="8" fill="#B88840" opacity="0.82"/>
-        </g>);
-      })}
+        {/* Mid lamp */}
+        <circle cx="215" cy="82" r="30" fill="url(#db-lamp-g)" filter="url(#db-blur14)"
+          style={{ animation:'db-lamp-m 3.2s ease-in-out infinite', animationDelay:'0.7s' }}/>
+        <ellipse cx="215" cy="120" rx="55" ry="30" fill="#FFD060" filter="url(#db-blur14)" opacity="0.16"
+          style={{ animation:'db-lamp-m 3.2s ease-in-out infinite', animationDelay:'0.5s' }}/>
 
-      {/* ── BACKSPLASH TILES ── */}
-      <rect x="0" y="220" width="390" height="130" fill="#D8C8A0"/>
-      {/* Tile grid */}
-      {[220,254,288,322,350].map((y,i) => (
-        <line key={i} x1="0" y1={y} x2="390" y2={y} stroke="#B8A880" strokeWidth="2"/>
-      ))}
-      {[0,48,96,144,192,240,288,336,384].map((x,i) => (
-        <line key={i} x1={x} y1="220" x2={x} y2="350" stroke="#B8A880" strokeWidth="2"/>
-      ))}
-      {/* Decorative tiles */}
-      {[{x:8,y:228},{x:104,y:228},{x:200,y:228},{x:296,y:228},{x:56,y:262},{x:152,y:262},{x:248,y:262},{x:344,y:262}].map((t,i) => (
-        <g key={i}>
-          <circle cx={t.x+20} cy={t.y+13} r="9" fill="none" stroke="#7A8A60" strokeWidth="1.5" opacity="0.55"/>
-          <circle cx={t.x+20} cy={t.y+13} r="5" fill="#9AAA78" opacity="0.35"/>
+        {/* Right lamp */}
+        <circle cx="314" cy="90" r="26" fill="url(#db-lamp-g)" filter="url(#db-blur14)"
+          style={{ animation:'db-lamp-r 2.4s ease-in-out infinite', animationDelay:'1.4s' }}/>
+        <ellipse cx="314" cy="122" rx="46" ry="24" fill="#FFD060" filter="url(#db-blur14)" opacity="0.12"
+          style={{ animation:'db-lamp-r 2.4s ease-in-out infinite', animationDelay:'1.1s' }}/>
+
+        {/* ── CROSS LIGHT RAYS (centred on cross ~210,285) ── */}
+        <g ref={raysRef} opacity="0.28" style={{ transformOrigin:'210px 285px' }}>
+          <g style={{ transformOrigin:'210px 285px', animation:'db-rays 32s linear infinite' }}>
+            {[0,22.5,45,67.5,90,112.5,135,157.5,180,202.5,225,247.5,270,292.5,315,337.5].map((a,i) => {
+              const rad = a * Math.PI / 180;
+              const len = i % 2 === 0 ? 160 : 100;
+              return (
+                <line key={i}
+                  x1={210 + Math.cos(rad)*10} y1={285 + Math.sin(rad)*10}
+                  x2={210 + Math.cos(rad)*len} y2={285 + Math.sin(rad)*len}
+                  stroke="#FFE87A" strokeWidth={i%2===0 ? 2.0 : 1.2}
+                  opacity={i%2===0 ? 0.50 : 0.28} strokeLinecap="round"
+                />
+              );
+            })}
+          </g>
+          <ellipse cx="210" cy="285" rx="36" ry="36"
+            fill="url(#db-ray-g)" filter="url(#db-blur14)" opacity="0.65"/>
         </g>
-      ))}
 
-      {/* ── COUNTER TOP ── */}
-      <rect x="0" y="350" width="390" height="22" rx="3" fill="url(#k-counter)" filter="url(#k-sh)"/>
-      <rect x="0" y="348" width="390" height="6" rx="2" fill="#C8C8C8"/>
+        {/* ── CROSS sparkle stars ── */}
+        {[
+          { x:196, y:265, sz:5, delay:'0s',   dur:'2.6s' },
+          { x:224, y:270, sz:4, delay:'0.9s', dur:'3.0s' },
+          { x:208, y:258, sz:3, delay:'1.6s', dur:'2.2s' },
+          { x:198, y:296, sz:3, delay:'0.4s', dur:'3.4s' },
+          { x:222, y:300, sz:4, delay:'1.2s', dur:'2.8s' },
+        ].map((s,i) => (
+          <g key={i} transform={`translate(${s.x},${s.y})`}
+            style={{ transformOrigin:'0 0', animation:`db-twinkle ${speaking ? (parseFloat(s.dur)*0.5).toFixed(1)+'s' : s.dur} ease-in-out infinite`, animationDelay:s.delay }}>
+            {[0,45,90,135].map(a => (
+              <line key={a} x1="0" y1={-s.sz} x2="0" y2={s.sz}
+                stroke="#FFEE80" strokeWidth="1.2" strokeLinecap="round"
+                transform={`rotate(${a})`}/>
+            ))}
+            <circle r="1.1" fill="#FFEE80"/>
+          </g>
+        ))}
 
-      {/* ── STOVE (left, big feature) ── */}
-      <rect x="5" y="352" width="165" height="270" rx="4" fill="url(#k-stove)" filter="url(#k-sh)"/>
-      {/* Stove top surface */}
-      <rect x="8" y="352" width="159" height="90" rx="3" fill="#1E1E1E"/>
-      {/* 4 Burners */}
-      {[{cx:52,cy:384},{cx:118,cy:384},{cx:52,cy:426},{cx:118,cy:426}].map(({cx,cy},i) => (
-        <g key={i}>
-          <circle cx={cx} cy={cy} r="22" fill="#111111" stroke="#333" strokeWidth="1.5"/>
-          <circle cx={cx} cy={cy} r="18" fill="#0A0A0A" stroke="#222" strokeWidth="1"/>
-          <circle cx={cx} cy={cy} r="10" fill="#161616"/>
-          {/* Burner grate spokes */}
-          {[0,45,90,135].map((a,j) => {
-            const r=a*Math.PI/180;
-            return <line key={j} x1={cx+Math.round(11*Math.sin(r))} y1={cy-Math.round(11*Math.cos(r))}
-              x2={cx+Math.round(20*Math.sin(r))} y2={cy-Math.round(20*Math.cos(r))}
-              stroke="#2A2A2A" strokeWidth="3" strokeLinecap="round"/>;
-          })}
+        {/* ── FRONT-LEFT CANDLE (~72,598) ── */}
+        <g>
+          <circle cx="72" cy="592" r="20" fill="url(#db-cbl)" filter="url(#db-blur8)"
+            style={{ animation:'db-candle-l 1.7s ease-in-out infinite' }}/>
+          <ellipse cx="72" cy="590" rx="4" ry="7" fill="#FFB300" opacity="0.88"
+            style={{ transformOrigin:'72px 597px', animation:'db-flame 0.42s ease-in-out infinite' }}/>
+          <ellipse cx="72" cy="588" rx="2.5" ry="4.5" fill="#FFED60" opacity="0.92"
+            style={{ transformOrigin:'72px 597px', animation:'db-flame 0.42s ease-in-out infinite', animationDelay:'0.1s' }}/>
         </g>
-      ))}
-      {/* Front left burner ON — glowing blue */}
-      <circle cx="52" cy="426" r="22" fill="url(#k-burner)" opacity="0.00"/>
-      <circle cx="52" cy="426" r="18" fill="none" stroke="#1E6AFF" strokeWidth="1.5" opacity="0.60">
-        <animate attributeName="opacity" values="0.60;0.90;0.60" dur="2s" repeatCount="indefinite"/>
-      </circle>
-      <circle cx="52" cy="426" r="8" fill="none" stroke="#4A9AFF" strokeWidth="1" opacity="0.40">
-        <animate attributeName="opacity" values="0.40;0.70;0.40" dur="1.5s" repeatCount="indefinite"/>
-      </circle>
-      {/* Flame on front-left burner */}
-      <ellipse cx="52" cy="414" rx="5" ry="8" fill="#FF6800" opacity="0.70">
-        <animate attributeName="ry" values="8;11;7;10;8" dur="0.8s" repeatCount="indefinite"/>
-        <animate attributeName="opacity" values="0.70;0.90;0.60;0.80;0.70" dur="0.8s" repeatCount="indefinite"/>
-      </ellipse>
-      {/* Stove control knobs */}
-      {[30,63,97,130].map((x,i) => (
-        <g key={i}>
-          <circle cx={x} cy={470} r="10" fill="#2A2A2A" stroke="#444" strokeWidth="1.5"/>
-          <line x1={x} y1="462" x2={x} y2="466" stroke="#888" strokeWidth="2.5" strokeLinecap="round"/>
+
+        {/* ── RIGHT ALTAR CANDLE (~280,378) ── */}
+        <g>
+          <circle cx="280" cy="372" r="16" fill="url(#db-cbl)" filter="url(#db-blur8)"
+            style={{ animation:'db-candle-r 2.0s ease-in-out infinite', animationDelay:'0.6s' }}/>
+          <ellipse cx="280" cy="370" rx="3.5" ry="6" fill="#FFB300" opacity="0.85"
+            style={{ transformOrigin:'280px 376px', animation:'db-flame-r 0.50s ease-in-out infinite' }}/>
+          <ellipse cx="280" cy="368" rx="2" ry="3.5" fill="#FFED60" opacity="0.90"
+            style={{ transformOrigin:'280px 376px', animation:'db-flame-r 0.50s ease-in-out infinite', animationDelay:'0.12s' }}/>
         </g>
-      ))}
-      {/* Oven door */}
-      <rect x="10" y="490" width="155" height="126" rx="3" fill="#1A1A1A" stroke="#2A2A2A" strokeWidth="2"/>
-      <rect x="18" y="498" width="139" height="110" rx="2" fill="#0E0E0E" stroke="#333" strokeWidth="1.5"/>
-      {/* Oven window */}
-      <rect x="30" y="510" width="115" height="62" rx="4" fill="#1A0800" stroke="#333" strokeWidth="1.5"/>
-      <rect x="32" y="512" width="111" height="58" rx="3" fill="#1E0C04" opacity="0.90"/>
-      {/* Oven interior glow */}
-      <rect x="32" y="512" width="111" height="58" rx="3" fill="#FF4500" opacity="0.10"/>
-      {/* Oven handle */}
-      <rect x="40" y="500" width="95" height="8" rx="4" fill="#555" stroke="#666" strokeWidth="1"/>
 
-      {/* ── POT ON STOVE (front right burner) ── */}
-      <path d="M 96 414 Q 96 398 118 395 Q 140 398 140 414 L 136 440 L 100 440Z" fill="#A07830" opacity="0.92"/>
-      <ellipse cx="118" cy="414" rx="22" ry="9" fill="#B88840" opacity="0.90"/>
-      <ellipse cx="118" cy="412" rx="19" ry="7" fill="#C8A050" opacity="0.70"/>
-      {/* Pot lid */}
-      <ellipse cx="118" cy="393" rx="24" ry="9" fill="#8A6828" opacity="0.88"/>
-      <ellipse cx="118" cy="390" rx="20" ry="7" fill="#9A7830" opacity="0.85"/>
-      <circle cx="118" cy="385" r="5" fill="#6A5020" opacity="0.90"/>
-      {/* Steam */}
-      {[108,118,128].map((x,i) => (
-        <path key={i} d={`M ${x} 384 Q ${x+4} 372 ${x} 360 Q ${x-4} 348 ${x} 336`}
-          fill="none" stroke="white" strokeWidth="2" opacity="0.18" strokeLinecap="round">
-          <animate attributeName="opacity" values="0.18;0.06;0.18" dur={`${1.2+i*0.4}s`} repeatCount="indefinite"/>
-          <animateTransform attributeName="transform" type="translate" values="0,0; 3,-20; 0,0" dur={`${1.8+i*0.3}s`} repeatCount="indefinite"/>
-        </path>
-      ))}
+        {/* ── LEFT ALTAR CANDLE (~148,378) ── */}
+        <g>
+          <circle cx="148" cy="372" r="15" fill="url(#db-cbl)" filter="url(#db-blur8)"
+            style={{ animation:'db-candle-l 1.5s ease-in-out infinite', animationDelay:'0.9s' }}/>
+          <ellipse cx="148" cy="370" rx="3.5" ry="6" fill="#FFB300" opacity="0.82"
+            style={{ transformOrigin:'148px 376px', animation:'db-flame 0.46s ease-in-out infinite', animationDelay:'0.2s' }}/>
+          <ellipse cx="148" cy="368" rx="2" ry="3.5" fill="#FFED60" opacity="0.88"
+            style={{ transformOrigin:'148px 376px', animation:'db-flame 0.46s ease-in-out infinite', animationDelay:'0.05s' }}/>
+        </g>
 
-      {/* ── REFRIGERATOR (right side) ── */}
-      <rect x="218" y="352" width="168" height="490" rx="5" fill="url(#k-fridge)" filter="url(#k-sh)"/>
-      {/* Fridge border */}
-      <rect x="218" y="352" width="168" height="490" rx="5" fill="none" stroke="#B0B0B0" strokeWidth="3"/>
-      {/* Fridge door divider */}
-      <line x1="218" y1="532" x2="386" y2="532" stroke="#A0A0A0" strokeWidth="3"/>
-      {/* Top fridge section (main) */}
-      <rect x="222" y="356" width="160" height="172" rx="4" fill="#DCDCDC"/>
-      {/* Fridge handle top */}
-      <rect x="370" y="380" width="10" height="60" rx="5" fill="#909090" stroke="#808080" strokeWidth="1"/>
-      {/* Fridge handle bottom (freezer) */}
-      <rect x="370" y="548" width="10" height="50" rx="5" fill="#909090" stroke="#808080" strokeWidth="1"/>
-      {/* Freezer section */}
-      <rect x="222" y="536" width="160" height="302" rx="4" fill="#D0D0D0"/>
-      {/* Fridge interior shelves (top section, door ajar illusion) */}
-      <line x1="222" y1="420" x2="382" y2="420" stroke="#C0C0C0" strokeWidth="1.5" opacity="0.60"/>
-      <line x1="222" y1="460" x2="382" y2="460" stroke="#C0C0C0" strokeWidth="1.5" opacity="0.60"/>
-      <line x1="222" y1="500" x2="382" y2="500" stroke="#C0C0C0" strokeWidth="1.5" opacity="0.60"/>
-      {/* Fridge items visible through door */}
-      <rect x="228" y="426" width="24" height="30" rx="4" fill="#A8C840" opacity="0.60"/>
-      <rect x="258" y="422" width="18" height="34" rx="3" fill="#D84040" opacity="0.55"/>
-      <rect x="282" y="424" width="20" height="32" rx="3" fill="#F0A830" opacity="0.58"/>
-      <rect x="308" y="426" width="16" height="30" rx="3" fill="#4888D8" opacity="0.55"/>
-      {/* Freezer items */}
-      <rect x="228" y="550" width="60" height="40" rx="3" fill="#C8E8F8" opacity="0.50"/>
-      <rect x="296" y="550" width="60" height="40" rx="3" fill="#A8D8F8" opacity="0.48"/>
-      {/* Brand label area on fridge */}
-      <rect x="240" y="360" width="90" height="18" rx="3" fill="#E0E0E0"/>
-      <text x="285" y="373" textAnchor="middle" fill="#888" fontSize="9"
-        fontFamily="Arial,sans-serif" fontWeight="bold" letterSpacing="2">FROSTPRO</text>
+        {/* ── WALL SCONCE right side (~355,360) ── */}
+        <g>
+          <circle cx="355" cy="355" r="18" fill="url(#db-cbl)" filter="url(#db-blur8)"
+            style={{ animation:'db-candle-r 2.3s ease-in-out infinite', animationDelay:'1.2s' }}/>
+          <ellipse cx="355" cy="353" rx="3" ry="5" fill="#FFB300" opacity="0.80"
+            style={{ transformOrigin:'355px 358px', animation:'db-flame-r 0.55s ease-in-out infinite', animationDelay:'0.3s' }}/>
+        </g>
 
-      {/* ── COUNTER (lower, base cabinets) ── */}
-      <rect x="0" y="372" width="210" height="100" fill="#5A3C18" opacity="0.90"/>
-      <rect x="5" y="376" width="200" height="92" fill="#4A3010" opacity="0.88"/>
-      {/* Counter items */}
-      {/* Knife block */}
-      <rect x="170" y="340" width="34" height="38" rx="4" fill="#3A2810" opacity="0.90"/>
-      {[177,183,189,195].map((x,i) => (
-        <rect key={i} x={x} y={336} width="3" height={[28,32,26,30][i]} rx="1" fill="#888" opacity="0.80"/>
-      ))}
-      {/* Cutting board */}
-      <rect x="10" y="338" width="80" height="18" rx="4" fill="#9B7A40" opacity="0.90"/>
-      {/* Bowl with vegetables */}
-      <path d="M 110 354 Q 110 338 135 335 Q 160 338 160 354 L 156 366 L 114 366Z" fill="#D4C090" opacity="0.88"/>
-      <ellipse cx="135" cy="354" rx="25" ry="9" fill="#E0CC9A" opacity="0.85"/>
-      <ellipse cx="125" cy="350" rx="8" ry="6" fill="#E03030" opacity="0.78"/>
-      <ellipse cx="138" cy="349" rx="7" ry="5" fill="#3A8818" opacity="0.75"/>
-      <ellipse cx="150" cy="350" rx="7" ry="6" fill="#FF8C00" opacity="0.78"/>
+        {/* ── STEAM from pot (~192,390) ── */}
+        <g ref={steamRef} opacity="0.65">
+          {[
+            { x:178, y:400, dur:'5.5s', delay:'0s',   kf:'db-steam-a' },
+            { x:192, y:398, dur:'6.2s', delay:'1.8s', kf:'db-steam-b' },
+            { x:205, y:402, dur:'5.0s', delay:'3.5s', kf:'db-steam-c' },
+            { x:184, y:405, dur:'7.0s', delay:'0.9s', kf:'db-steam-b' },
+            { x:198, y:400, dur:'5.8s', delay:'4.8s', kf:'db-steam-a' },
+          ].map((s,i) => (
+            <ellipse key={i} cx={s.x} cy={s.y} rx="8" ry="14"
+              fill="white" opacity="0"
+              filter="url(#db-blur4)"
+              style={{ animation:`${s.kf} ${s.dur} ease-in-out infinite`, animationDelay:s.delay }}
+            />
+          ))}
+        </g>
 
-      {/* ── FLOOR TILES ── */}
-      <rect x="0" y="620" width="390" height="224" fill="#E8D8B8" opacity="0.55"/>
-      {/* Floor grid */}
-      {[640,680,720,760,800,840].map((y,i) => (
-        <line key={i} x1="0" y1={y} x2="390" y2={y} stroke="#C4B490" strokeWidth="1.5"/>
-      ))}
-      {[0,78,156,234,312,390].map((x,i) => (
-        <line key={i} x1={x} y1="620" x2={x} y2="844" stroke="#C4B490" strokeWidth="1.5"/>
-      ))}
+        {/* ── OVEN window glow (~195,548) ── */}
+        <ellipse cx="195" cy="548" rx="62" ry="28"
+          fill="url(#db-oven-g)" filter="url(#db-blur14)" opacity="0.40"
+          style={{ animation:'db-oven 2.6s ease-in-out infinite' }}
+        />
+        {/* Floor glow from oven */}
+        <ellipse cx="195" cy="640" rx="90" ry="38"
+          fill="#FF6010" filter="url(#db-blur14)" opacity="0.12"
+          style={{ animation:'db-oven 2.6s ease-in-out infinite', animationDelay:'0.4s' }}
+        />
 
-      {/* ── Base cabinet under stove ── */}
-      <rect x="0" y="468" width="210" height="155" fill="#5A3C18" opacity="0.92"/>
-      <line x1="0" y1="468" x2="210" y2="468" stroke="#4A3010" strokeWidth="2"/>
-      <rect x="5" y="472" width="96" height="145" rx="2" fill="#4A3010" stroke="#3A2410" strokeWidth="1.5"/>
-      <circle cx="53" cy="545" r="5" fill="#C8A860" opacity="0.88"/>
-      <rect x="108" y="472" width="96" height="145" rx="2" fill="#4A3010" stroke="#3A2410" strokeWidth="1.5"/>
-      <circle cx="156" cy="545" r="5" fill="#C8A860" opacity="0.88"/>
+        {/* ── AMBIENT warm kitchen glow ── */}
+        <ellipse cx="195" cy="420" rx="160" ry="110"
+          ref={ambientRef}
+          fill="#FFD060" filter="url(#db-blur20)" opacity="0.28"
+          style={{ animation:'db-breathe 3.8s ease-in-out infinite' }}
+        />
 
-      {/* Vignette */}
-      <rect width="390" height="844" fill="url(#k-vig)"/>
-    </svg>
+        {/* ── TOMATO / veggie shimmer (foreground counter, ~135,660) ── */}
+        <ellipse cx="148" cy="650" rx="50" ry="22"
+          fill="#FF4020" filter="url(#db-blur8)" opacity="0.12"
+          style={{ animation:'db-shimmer 4.5s ease-in-out infinite' }}
+        />
+
+        {/* ── SPEAKING: extra steam + ray burst ── */}
+        {speaking && (
+          <>
+            {/* Extra fast ray spin */}
+            <g style={{ transformOrigin:'210px 285px', animation:'db-rays 9s linear infinite', opacity:0.30 }}>
+              {[11.25,33.75,56.25,78.75,101.25,123.75,146.25,168.75,191.25,213.75,236.25,258.75,281.25,303.75,326.25,348.75].map((a,i) => {
+                const rad = a * Math.PI / 180;
+                return (
+                  <line key={i}
+                    x1={210 + Math.cos(rad)*8} y1={285 + Math.sin(rad)*8}
+                    x2={210 + Math.cos(rad)*130} y2={285 + Math.sin(rad)*130}
+                    stroke="#FFF0A0" strokeWidth="1.0" opacity="0.40" strokeLinecap="round"
+                  />
+                );
+              })}
+            </g>
+          </>
+        )}
+      </svg>
+    </div>
   );
 }
