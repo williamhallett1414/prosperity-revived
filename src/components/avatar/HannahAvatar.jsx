@@ -109,10 +109,10 @@ export default function HannahAvatar({
   const orbFast = state === 'speaking';
 
   /* Hannah face positions — slim figure, head at top of image */
-  const eyeLX = 45, eyeLY = 24, eyeRX = 53, eyeRY = 24;
-  const mouthX = 50, mouthY = 26;
-  const mouthW = 5.8 + mouthOpen * 3.8;
-  const mouthH = 1.0 + mouthOpen * 2.5;
+  const eyeLX = 44, eyeLY = 22, eyeRX = 55, eyeRY = 22;
+  const mouthX = 49, mouthY = 25;
+  const mouthW = 3.5 + mouthOpen * 2.5;
+  const mouthH = 0.6 + mouthOpen * 1.5;
 
   return (
     <div className={className} style={{ width, height, position:'relative', display:'flex', alignItems:'center', justifyContent:'center' }}>
@@ -336,17 +336,17 @@ export default function HannahAvatar({
 
         {/* Eye blink — skin tone matching her complexion */}
         {blink && (<>
-          <div style={{ position:'absolute', left:`${eyeLX-5.5}%`, top:`${eyeLY-2}%`, width:'11%', height:'4%',
+          <div style={{ position:'absolute', left:`${eyeLX-3}%`, top:`${eyeLY-1.2}%`, width:'6%', height:'2.5%',
             background:'linear-gradient(to bottom, #6B3A1F, #8B5030)', borderRadius:'50%', opacity:.88 }}/>
-          <div style={{ position:'absolute', left:`${eyeRX-5.5}%`, top:`${eyeRY-2}%`, width:'11%', height:'4%',
+          <div style={{ position:'absolute', left:`${eyeRX-3}%`, top:`${eyeRY-1.2}%`, width:'6%', height:'2.5%',
             background:'linear-gradient(to bottom, #6B3A1F, #8B5030)', borderRadius:'50%', opacity:.88 }}/>
         </>)}
 
         {/* Eye glow when speaking — soft blue/lavender blend */}
         {state==='speaking' && !blink && (<>
-          <div style={{ position:'absolute', left:`${eyeLX-6}%`, top:`${eyeLY-3}%`, width:'13%', height:'8%',
+          <div style={{ position:'absolute', left:`${eyeLX-3.5}%`, top:`${eyeLY-2}%`, width:'7%', height:'4%',
             background:`radial-gradient(ellipse, ${LAV_PALE}60 0%, transparent 70%)`, borderRadius:'50%', pointerEvents:'none' }}/>
-          <div style={{ position:'absolute', left:`${eyeRX-6}%`, top:`${eyeRY-3}%`, width:'13%', height:'8%',
+          <div style={{ position:'absolute', left:`${eyeRX-3.5}%`, top:`${eyeRY-2}%`, width:'7%', height:'4%',
             background:`radial-gradient(ellipse, ${LAV_PALE}60 0%, transparent 70%)`, borderRadius:'50%', pointerEvents:'none' }}/>
         </>)}
 

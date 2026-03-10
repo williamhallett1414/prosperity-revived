@@ -109,10 +109,10 @@ export default function ChefDanielAvatar({
 
   /* Chef Daniel facial feature positions (% of image) */
   /* Head is larger/higher — chef hat adds height */
-  const eyeLX = 44, eyeLY = 42, eyeRX = 55, eyeRY = 42;
-  const mouthX = 50, mouthY = 46;
-  const mouthW = 7.9 + mouthOpen * 5.3;
-  const mouthH = 1.0 + mouthOpen * 3.5;
+  const eyeLX = 44, eyeLY = 30, eyeRX = 55, eyeRY = 30;
+  const mouthX = 50, mouthY = 35;
+  const mouthW = 5.5 + mouthOpen * 3.5;
+  const mouthH = 0.8 + mouthOpen * 2.2;
 
   return (
     <div className={className} style={{ width, height, position:'relative', display:'flex', alignItems:'center', justifyContent:'center' }}>
@@ -337,17 +337,17 @@ export default function ChefDanielAvatar({
 
         {/* Eye blink overlay */}
         {blink && (<>
-          <div style={{ position:'absolute', left:`${eyeLX-5.5}%`, top:`${eyeLY-2}%`, width:'11%', height:'4%',
+          <div style={{ position:'absolute', left:`${eyeLX-4}%`, top:`${eyeLY-1.5}%`, width:'8%', height:'3%',
             background:'linear-gradient(to bottom, #8C4E20, #A86030)', borderRadius:'50%', opacity:.90 }}/>
-          <div style={{ position:'absolute', left:`${eyeRX-5.5}%`, top:`${eyeRY-2}%`, width:'11%', height:'4%',
+          <div style={{ position:'absolute', left:`${eyeRX-4}%`, top:`${eyeRY-1.5}%`, width:'8%', height:'3%',
             background:'linear-gradient(to bottom, #8C4E20, #A86030)', borderRadius:'50%', opacity:.90 }}/>
         </>)}
 
         {/* Eye glow when speaking */}
         {state==='speaking' && !blink && (<>
-          <div style={{ position:'absolute', left:`${eyeLX-6}%`, top:`${eyeLY-3}%`, width:'12%', height:'7%',
+          <div style={{ position:'absolute', left:`${eyeLX-4.5}%`, top:`${eyeLY-2}%`, width:'9%', height:'4%',
             background:`radial-gradient(ellipse, ${GREEN_PALE}50 0%, transparent 70%)`, borderRadius:'50%', pointerEvents:'none' }}/>
-          <div style={{ position:'absolute', left:`${eyeRX-6}%`, top:`${eyeRY-3}%`, width:'12%', height:'7%',
+          <div style={{ position:'absolute', left:`${eyeRX-4.5}%`, top:`${eyeRY-2}%`, width:'9%', height:'4%',
             background:`radial-gradient(ellipse, ${GREEN_PALE}50 0%, transparent 70%)`, borderRadius:'50%', pointerEvents:'none' }}/>
         </>)}
 
