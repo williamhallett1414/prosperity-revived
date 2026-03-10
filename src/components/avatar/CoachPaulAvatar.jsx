@@ -106,11 +106,10 @@ export default function CoachPaulAvatar({
   const orbFast = state === 'speaking';
 
   /* Coach Paul face positions — smaller image (319×329), head sits mid-upper */
-  const eyeLX = 40.6, eyeLY = 32.0;
-  const eyeRX = 62.5, eyeRY = 32.0;
-  const mouthX = 51.1, mouthY = 39.6;
-  const mouthW = 12.0 + mouthOpen * 6.0; // 12–18% wide
-  const mouthH = 1.5  + mouthOpen * 5.0; // 1.5–6.5% tall
+  const eyeLX = 40, eyeLY = 30, eyeRX = 57, eyeRY = 30;
+  const mouthX = 49, mouthY = 37;
+  const mouthW = 10 + mouthOpen * 5;  // 10–15% wide
+  const mouthH = 1.5 + mouthOpen * 6.0; // 1.5–7.5% tall // 1.5–6.5% tall
 
   return (
     <div className={className} style={{ width, height, position:'relative', display:'flex', alignItems:'center', justifyContent:'center' }}>
@@ -303,7 +302,7 @@ export default function CoachPaulAvatar({
       <div style={{ position:'absolute', inset:0, overflow:'hidden', zIndex:2, pointerEvents:'none' }}>
       <div style={{
         position:'relative', width:'100%', height:'100%',
-        transform:'scale(2.0)', transformOrigin:'50% 0%',
+        transform:'scale(1.6)', transformOrigin:'50% top',
         animation: state==='speaking'
           ? 'cp-speak-sway 1.8s ease-in-out infinite, cp-speak-breath 0.84s ease-in-out infinite'
           : state==='listening' ? 'cp-lean 1.6s ease-in-out infinite'
@@ -317,7 +316,7 @@ export default function CoachPaulAvatar({
           style={{
             width:'100%', height:'100%',
             objectFit:'contain', objectPosition:'center bottom',
-            transform:'scale(1.45)', transformOrigin:'51.1% top',
+            transform:'scale(1.6)', transformOrigin:'50% top',
             display:'block', userSelect:'none',
             animation: state==='speaking'
               ? 'cp-glow-spk 0.84s ease-in-out infinite'
@@ -327,9 +326,9 @@ export default function CoachPaulAvatar({
 
         {/* Eye blink */}
         {blink && (<>
-          <div style={{ position:'absolute', left:`${eyeLX-5.5}%`, top:`${eyeLY-2.0}%`, width:'11%', height:'4.0%',
+          <div style={{ position:'absolute', left:`${eyeLX-5.5}%`, top:`${eyeLY-2}%`, width:'11%', height:'4%',
             background:'linear-gradient(to bottom, #8C4E20, #A86030)', borderRadius:'50%', opacity:.90 }}/>
-          <div style={{ position:'absolute', left:`${eyeRX-5.5}%`, top:`${eyeRY-2.0}%`, width:'11%', height:'4.0%',
+          <div style={{ position:'absolute', left:`${eyeRX-5.5}%`, top:`${eyeRY-2}%`, width:'11%', height:'4%',
             background:'linear-gradient(to bottom, #8C4E20, #A86030)', borderRadius:'50%', opacity:.90 }}/>
         </>)}
 

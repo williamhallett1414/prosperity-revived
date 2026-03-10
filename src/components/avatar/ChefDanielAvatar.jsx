@@ -109,11 +109,10 @@ export default function ChefDanielAvatar({
 
   /* Chef Daniel facial feature positions (% of image) */
   /* Head is larger/higher — chef hat adds height */
-  const eyeLX = 49.5, eyeLY = 32.0;
-  const eyeRX = 57.8, eyeRY = 32.0;
-  const mouthX = 48.4, mouthY = 43.0;
-  const mouthW  = 4.6 + mouthOpen * 2.5;  // 4.6–7.1% wide (3/4 profile)
-  const mouthH  = 1.2 + mouthOpen * 4.0;  // 1.2–5.2% tall
+  const eyeLX = 41, eyeLY = 38, eyeRX = 57, eyeRY = 38;
+  const mouthX = 48, mouthY = 46;
+  const mouthW = 9 + mouthOpen * 5;  // 9–14% wide
+  const mouthH = 1.5 + mouthOpen * 6.0; // 1.5–7.5% tall  // 1.2–5.2% tall
 
   return (
     <div className={className} style={{ width, height, position:'relative', display:'flex', alignItems:'center', justifyContent:'center' }}>
@@ -310,7 +309,7 @@ export default function ChefDanielAvatar({
       <div style={{ position:'absolute', inset:0, overflow:'hidden', zIndex:2, pointerEvents:'none' }}>
       <div style={{
         position:'relative', width:'100%', height:'100%',
-        transform:'scale(1.6)', transformOrigin:'50% 0%',
+        transform:'scale(1.6)', transformOrigin:'50% top',
         animation: state==='speaking'
           ? 'cd-speak-sway 1.6s ease-in-out infinite, cd-speak-breath 0.80s ease-in-out infinite'
           : state==='listening' ? 'cd-lean 1.5s ease-in-out infinite'
@@ -324,7 +323,7 @@ export default function ChefDanielAvatar({
           style={{
             width:'100%', height:'100%',
             objectFit:'contain', objectPosition:'center bottom',
-            transform:'scale(1.45)', transformOrigin:'36.5% top',
+            transform:'scale(1.6)', transformOrigin:'50% top',
             display:'block', userSelect:'none',
             animation: state==='speaking'
               ? 'cd-glow-spk 0.80s ease-in-out infinite'
@@ -334,9 +333,9 @@ export default function ChefDanielAvatar({
 
         {/* Eye blink overlay */}
         {blink && (<>
-          <div style={{ position:'absolute', left:`${eyeLX-5.5}%`, top:`${eyeLY-1.8}%`, width:'11%', height:'4.0%',
+          <div style={{ position:'absolute', left:`${eyeLX-5.5}%`, top:`${eyeLY-2}%`, width:'11%', height:'4%',
             background:'linear-gradient(to bottom, #8C4E20, #A86030)', borderRadius:'50%', opacity:.90 }}/>
-          <div style={{ position:'absolute', left:`${eyeRX-5.5}%`, top:`${eyeRY-1.8}%`, width:'11%', height:'4.0%',
+          <div style={{ position:'absolute', left:`${eyeRX-5.5}%`, top:`${eyeRY-2}%`, width:'11%', height:'4%',
             background:'linear-gradient(to bottom, #8C4E20, #A86030)', borderRadius:'50%', opacity:.90 }}/>
         </>)}
 

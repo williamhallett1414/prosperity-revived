@@ -115,11 +115,10 @@ export default function GideonAvatar({
   const orbFast = state === 'speaking';
 
   /* ── Facial feature % positions (relative to img bounds) ── */
-  const eyeLX = 37.0, eyeLY = 36.2, eyeRX = 60.0, eyeRY = 36.2;
-  const mouthX = 48.7, mouthY = 42.3;
-  // mouth overlay sizes scale with open amount
-  const mouthW  = 11 + mouthOpen * 11;  // 11–22% wide
-  const mouthH  = 1.5 + mouthOpen * 5.5; // 1.5–7% tall
+  const eyeLX = 37, eyeLY = 43, eyeRX = 58, eyeRY = 43;
+  const mouthX = 50, mouthY = 54;
+  const mouthW = 13 + mouthOpen * 6;  // 13–19% wide
+  const mouthH = 2.0 + mouthOpen * 7.0; // 2–9% tall // 1.5–7% tall
 
   return (
     <div className={className} style={{ width, height, position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -360,8 +359,7 @@ export default function GideonAvatar({
         position: 'relative',
         width: '100%',
         height: '100%',
-        transform: 'scale(1.5)',
-        transformOrigin: '50% 0%',
+        transform: 'scale(1.6)', transformOrigin: '50% top',
         /* Layer two animations: sway + breath when speaking */
         animation: state === 'speaking'
           ? 'ga-speak-sway 1.6s ease-in-out infinite, ga-speak-breath 0.80s ease-in-out infinite'
@@ -379,8 +377,7 @@ export default function GideonAvatar({
             height: '100%',
             objectFit: 'contain',
             objectPosition: 'center bottom',
-            transform: 'scale(1.45)',
-            transformOrigin: '48.3% top',
+            transform: 'scale(1.6)', transformOrigin: '50% top',
             display: 'block',
             userSelect: 'none',
             animation: state === 'speaking'
