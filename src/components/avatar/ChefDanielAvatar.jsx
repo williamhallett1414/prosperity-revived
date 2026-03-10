@@ -109,8 +109,8 @@ export default function ChefDanielAvatar({
 
   /* Chef Daniel facial feature positions (% of image) */
   /* Head is larger/higher — chef hat adds height */
-  const eyeLX = 44, eyeLY = 27, eyeRX = 55, eyeRY = 27;
-  const mouthX = 50, mouthY = 32;
+  const eyeLX = 44, eyeLY = 42, eyeRX = 55, eyeRY = 42;
+  const mouthX = 50, mouthY = 46;
   const mouthW = 7.9 + mouthOpen * 5.3;
   const mouthH = 1.0 + mouthOpen * 3.5;
 
@@ -309,7 +309,6 @@ export default function ChefDanielAvatar({
       <div style={{ position:'absolute', inset:0, overflow:'hidden', zIndex:2, pointerEvents:'none' }}>
       <div style={{
         position:'relative', width:'100%', height:'100%',
-        transform:'scale(1.6)', transformOrigin:'50% top',
         animation: state==='speaking'
           ? 'cd-speak-sway 1.6s ease-in-out infinite, cd-speak-breath 0.80s ease-in-out infinite'
           : state==='listening' ? 'cd-lean 1.5s ease-in-out infinite'

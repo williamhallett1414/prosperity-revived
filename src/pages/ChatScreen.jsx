@@ -41,8 +41,8 @@ class CloudAvatarSafe extends React.Component {
           isSpeaking={this.props.isSpeaking}
           isListening={this.props.isListening}
           isThinking={this.props.isThinking}
-          width={280}
-          height={320}
+          width={320}
+          height={460}
         />
       );
     }
@@ -52,8 +52,8 @@ class CloudAvatarSafe extends React.Component {
           isSpeaking={this.props.isSpeaking}
           isListening={this.props.isListening}
           isThinking={this.props.isThinking}
-          width={280}
-          height={320}
+          width={320}
+          height={460}
         />
       );
     }
@@ -63,8 +63,8 @@ class CloudAvatarSafe extends React.Component {
           isSpeaking={this.props.isSpeaking}
           isListening={this.props.isListening}
           isThinking={this.props.isThinking}
-          width={280}
-          height={320}
+          width={320}
+          height={460}
         />
       );
     }
@@ -74,8 +74,8 @@ class CloudAvatarSafe extends React.Component {
           isSpeaking={this.props.isSpeaking}
           isListening={this.props.isListening}
           isThinking={this.props.isThinking}
-          width={280}
-          height={320}
+          width={320}
+          height={460}
         />
       );
     }
@@ -85,8 +85,8 @@ class CloudAvatarSafe extends React.Component {
           isSpeaking={this.props.isSpeaking}
           isListening={this.props.isListening}
           isThinking={this.props.isThinking}
-          width={280}
-          height={320}
+          width={320}
+          height={460}
         />
       );
     }
@@ -1410,7 +1410,7 @@ export default function ChatScreen() {
         </div>
 
         {/* 3D cloud */}
-        <div className="relative flex items-center justify-center" style={{ width: 280, height: 320 }}>
+        <div className="relative flex items-center justify-center" style={{ width: 320, height: 460 }}>
           <motion.div className="absolute inset-0 rounded-full pointer-events-none"
             style={{ background: `radial-gradient(circle, ${cfg.gradTo}28 0%, transparent 70%)` }}
             animate={{ opacity: avatarSpeaking ? [0.6, 1, 0.6] : 0.35 }}
