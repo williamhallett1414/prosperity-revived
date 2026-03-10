@@ -103,10 +103,10 @@ export default function CoachDavidAvatar({
   const orbFast = state === 'speaking';
 
   /* Coach David face positions — head is higher up, more athletic build */
-  const eyeLX = 44, eyeLY = 21, eyeRX = 54, eyeRY = 21;
-  const mouthX = 49, mouthY = 23;
-  const mouthW = 3.2 + mouthOpen * 2.2;
-  const mouthH = 0.5 + mouthOpen * 1.4;
+  const eyeLX = 45, eyeLY = 20, eyeRX = 52, eyeRY = 20;
+  const mouthX = 49, mouthY = 24;
+  const mouthW = 1.5 + mouthOpen * 2.5;
+  const mouthH = 0.4 + mouthOpen * 1.2;
 
   return (
     <div className={className} style={{ width, height, position:'relative', display:'flex', alignItems:'center', justifyContent:'center' }}>
@@ -327,17 +327,17 @@ export default function CoachDavidAvatar({
 
         {/* Eye blink */}
         {blink && (<>
-          <div style={{ position:'absolute', left:`${eyeLX-3}%`, top:`${eyeLY-1}%`, width:'6%', height:'2%',
+          <div style={{ position:'absolute', left:`${eyeLX-1.75}%`, top:`${eyeLY-1}%`, width:'3.5%', height:'2%',
             background:'linear-gradient(to bottom, #8C4E20, #A86030)', borderRadius:'50%', opacity:.90 }}/>
-          <div style={{ position:'absolute', left:`${eyeRX-3}%`, top:`${eyeRY-1}%`, width:'6%', height:'2%',
+          <div style={{ position:'absolute', left:`${eyeRX-1.75}%`, top:`${eyeRY-1}%`, width:'3.5%', height:'2%',
             background:'linear-gradient(to bottom, #8C4E20, #A86030)', borderRadius:'50%', opacity:.90 }}/>
         </>)}
 
         {/* Eye glow when speaking */}
         {state==='speaking' && !blink && (<>
-          <div style={{ position:'absolute', left:`${eyeLX-3.5}%`, top:`${eyeLY-1.5}%`, width:'7%', height:'3%',
+          <div style={{ position:'absolute', left:`${eyeLX-2.5}%`, top:`${eyeLY-1.5}%`, width:'5%', height:'3%',
             background:`radial-gradient(ellipse, ${BLUE_PALE}50 0%, transparent 70%)`, borderRadius:'50%', pointerEvents:'none' }}/>
-          <div style={{ position:'absolute', left:`${eyeRX-3.5}%`, top:`${eyeRY-1.5}%`, width:'7%', height:'3%',
+          <div style={{ position:'absolute', left:`${eyeRX-2.5}%`, top:`${eyeRY-1.5}%`, width:'5%', height:'3%',
             background:`radial-gradient(ellipse, ${BLUE_PALE}50 0%, transparent 70%)`, borderRadius:'50%', pointerEvents:'none' }}/>
         </>)}
 
