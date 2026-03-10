@@ -45,8 +45,8 @@ export default function ChefDanielAvatar({
   isSpeaking  = false,
   isListening = false,
   isThinking  = false,
-  width       = 280,
-  height      = 320,
+  width       = 360,
+  height      = 420,
   className   = '',
 }) {
   const state = isSpeaking ? 'speaking' : isListening ? 'listening' : isThinking ? 'thinking' : 'idle';
@@ -58,9 +58,9 @@ export default function ChefDanielAvatar({
     if (!isSpeaking) { setMouthOpen(0); return; }
     let ph = 0;
     mouthRef.current = setInterval(() => {
-      ph += 0.40;
+      ph += 0.32;
       setMouthOpen(Math.max(0, Math.sin(ph)));
-    }, 68);
+    }, 55);
     return () => clearInterval(mouthRef.current);
   }, [isSpeaking]);
 
@@ -89,9 +89,9 @@ export default function ChefDanielAvatar({
                   + (Math.random() - 0.5) * 24;
       const id = burstId.current++;
       setBursts(prev => [...prev.slice(-14), { id, angle, born: Date.now() }]);
-      burstRef.current = setTimeout(spawn, 120 + Math.random() * 160);
+      burstRef.current = setTimeout(spawn, 220 + Math.random() * 200);
     };
-    burstRef.current = setTimeout(spawn, 80);
+    burstRef.current = setTimeout(spawn, 150);
     return () => clearTimeout(burstRef.current);
   }, [isSpeaking]);
 
@@ -229,7 +229,7 @@ export default function ChefDanielAvatar({
           style={{
             '--gh': glowOp,
             transformOrigin:'130px 210px',
-            animation: state==='speaking' ? 'cd-halo-spk 0.80s ease-in-out infinite' : 'cd-halo 3.2s ease-in-out infinite',
+            animation: state==='speaking' ? 'cd-halo-spk 1.4s ease-in-out infinite' : 'cd-halo 3.2s ease-in-out infinite',
           }}
         />
 
@@ -237,7 +237,7 @@ export default function ChefDanielAvatar({
         {state === 'speaking' && [0,1,2,3].map(i => (
           <ellipse key={i} cx="130" cy="200" rx="62" ry="70"
             fill="none" stroke={GREEN_PALE} strokeWidth={1.8 - i*0.3}
-            style={{ transformOrigin:'130px 200px', animation:'cd-wave 1.4s ease-out infinite', animationDelay:`${i*0.35}s`, opacity:0 }}
+            style={{ transformOrigin:'130px 200px', animation:'cd-wave 1.8s ease-out infinite', animationDelay:`${i*0.35}s`, opacity:0 }}
           />
         ))}
 
@@ -253,12 +253,12 @@ export default function ChefDanielAvatar({
         <circle cx="130" cy="110" r="88" fill="none" stroke={GREEN_PALE} strokeWidth=".6"
           strokeDasharray="10 13"
           opacity={state==='speaking' ? .50 : .13}
-          style={{ transformOrigin:'130px 110px', animation:`cd-cw ${state==='speaking'?'2.8s':'13s'} linear infinite` }}
+          style={{ transformOrigin:'130px 110px', animation:`cd-cw ${state==='speaking'?'4.5s':'13s'} linear infinite` }}
         />
         <circle cx="130" cy="110" r="72" fill="none" stroke={GREEN} strokeWidth=".45"
           strokeDasharray="5 18"
           opacity={state==='idle' ? .10 : .20}
-          style={{ transformOrigin:'130px 110px', animation:`cd-ccw ${state==='speaking'?'4s':'20s'} linear infinite` }}
+          style={{ transformOrigin:'130px 110px', animation:`cd-ccw ${state==='speaking'?'6s':'20s'} linear infinite` }}
         />
 
         {/* Burst particles */}
@@ -279,7 +279,7 @@ export default function ChefDanielAvatar({
 
         {/* Orbs */}
         {ORBS.map(o => {
-          const dur = orbFast ? (o.dur * 0.32).toFixed(1)+'s' : o.dur+'s';
+          const dur = orbFast ? (o.dur * 0.55).toFixed(1)+'s' : o.dur+'s';
           return (
             <g key={o.id} style={{ transformOrigin:`${o.cx}px ${o.cy}px`, animation:`${orbFast?'cd-orb-f':'cd-orb'} ${dur} ease-in-out infinite`, animationDelay:`${o.dl}s` }}>
               <ellipse cx={o.cx+2} cy={o.cy+2} rx={o.r*1.1} ry={o.r*.85}
@@ -295,7 +295,7 @@ export default function ChefDanielAvatar({
         {/* Stars */}
         {STARS.map(s => (
           <g key={s.cx} transform={`translate(${s.cx},${s.cy})`}
-            style={{ transformOrigin:'0 0', animation:`cd-star ${state==='speaking'?'0.70s':'2.6s'} ease-in-out infinite`, animationDelay:`${s.dl}s` }}>
+            style={{ transformOrigin:'0 0', animation:`cd-star 1.2s':'2.6s'} ease-in-out infinite`, animationDelay:`${s.dl}s` }}>
             {[0,45,90,135].map(a => (
               <line key={a} x1="0" y1={-s.sz} x2="0" y2={s.sz}
                 stroke={GREEN_PALE} strokeWidth="1.2" strokeLinecap="round" transform={`rotate(${a})`}/>
@@ -310,7 +310,7 @@ export default function ChefDanielAvatar({
       <div style={{
         position:'relative', width:'100%', height:'100%',
         animation: state==='speaking'
-          ? 'cd-speak-sway 1.6s ease-in-out infinite, cd-speak-breath 0.80s ease-in-out infinite'
+          ? 'cd-speak-sway 2.4s ease-in-out infinite, cd-speak-breath 1.8s ease-in-out infinite'
           : state==='listening' ? 'cd-lean 1.5s ease-in-out infinite'
           : state==='thinking'  ? 'cd-sway 2.8s ease-in-out infinite'
           : 'cd-float 3.8s ease-in-out infinite',
@@ -324,7 +324,7 @@ export default function ChefDanielAvatar({
             objectFit:'contain', objectPosition:'center bottom',
             display:'block', userSelect:'none',
             animation: state==='speaking'
-              ? 'cd-glow-spk 0.80s ease-in-out infinite'
+              ? 'cd-glow-spk 1.4s ease-in-out infinite'
               : 'cd-glow-idle 3.8s ease-in-out infinite',
           }}
         />

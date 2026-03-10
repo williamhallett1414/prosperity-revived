@@ -24,7 +24,7 @@ class CloudAvatarSafe extends React.Component {
   render() {
     if (this.state.failed) {
       return (
-        <div style={{ width: 160, height: 160, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div style={{ width: 200, height: 200, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <motion.div
             style={{ width: 80, height: 80, borderRadius: '50%',
               background: `radial-gradient(circle, ${this.props.color}99, ${this.props.color}22)` }}
@@ -41,8 +41,8 @@ class CloudAvatarSafe extends React.Component {
           isSpeaking={this.props.isSpeaking}
           isListening={this.props.isListening}
           isThinking={this.props.isThinking}
-          width={320}
-          height={460}
+          width={360}
+          height={420}
         />
       );
     }
@@ -52,8 +52,8 @@ class CloudAvatarSafe extends React.Component {
           isSpeaking={this.props.isSpeaking}
           isListening={this.props.isListening}
           isThinking={this.props.isThinking}
-          width={320}
-          height={460}
+          width={360}
+          height={420}
         />
       );
     }
@@ -63,8 +63,8 @@ class CloudAvatarSafe extends React.Component {
           isSpeaking={this.props.isSpeaking}
           isListening={this.props.isListening}
           isThinking={this.props.isThinking}
-          width={320}
-          height={460}
+          width={360}
+          height={420}
         />
       );
     }
@@ -74,8 +74,8 @@ class CloudAvatarSafe extends React.Component {
           isSpeaking={this.props.isSpeaking}
           isListening={this.props.isListening}
           isThinking={this.props.isThinking}
-          width={320}
-          height={460}
+          width={360}
+          height={420}
         />
       );
     }
@@ -85,12 +85,12 @@ class CloudAvatarSafe extends React.Component {
           isSpeaking={this.props.isSpeaking}
           isListening={this.props.isListening}
           isThinking={this.props.isThinking}
-          width={320}
-          height={460}
+          width={360}
+          height={420}
         />
       );
     }
-    return <CloudAvatar {...this.props} width={160} height={160} />;
+    return <CloudAvatar {...this.props} width={200} height={200} />;
   }
 }
 
@@ -1410,7 +1410,7 @@ export default function ChatScreen() {
         </div>
 
         {/* 3D cloud */}
-        <div className="relative flex items-center justify-center" style={{ width: 320, height: 460 }}>
+        <div className="relative flex items-center justify-center" style={{ width: 360, height: 420 }}>
           <motion.div className="absolute inset-0 rounded-full pointer-events-none"
             style={{ background: `radial-gradient(circle, ${cfg.gradTo}28 0%, transparent 70%)` }}
             animate={{ opacity: avatarSpeaking ? [0.6, 1, 0.6] : 0.35 }}
@@ -1447,7 +1447,7 @@ export default function ChatScreen() {
 
       {/* Message feed — z-10 so bubbles render over Gideon image */}
       <div className="flex-1 overflow-y-auto px-3 pt-2 relative"
-        style={{ WebkitOverflowScrolling: 'touch', zIndex: 10, paddingBottom: '260px' }}
+        style={{ WebkitOverflowScrolling: 'touch', zIndex: 10, paddingBottom: '340px' }}
         role="log" aria-live="polite" aria-label="Conversation">
         <AnimatePresence initial={false}>
           {messages.map((msg, idx) => (

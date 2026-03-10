@@ -43,8 +43,8 @@ export default function CoachPaulAvatar({
   isSpeaking  = false,
   isListening = false,
   isThinking  = false,
-  width       = 280,
-  height      = 320,
+  width       = 360,
+  height      = 420,
   className   = '',
 }) {
   const state = isSpeaking ? 'speaking' : isListening ? 'listening' : isThinking ? 'thinking' : 'idle';
@@ -56,9 +56,9 @@ export default function CoachPaulAvatar({
     if (!isSpeaking) { setMouthOpen(0); return; }
     let ph = 0;
     mouthRef.current = setInterval(() => {
-      ph += 0.38;
+      ph += 0.30;
       setMouthOpen(Math.max(0, Math.sin(ph)));
-    }, 72);
+    }, 55);
     return () => clearInterval(mouthRef.current);
   }, [isSpeaking]);
 
@@ -87,9 +87,9 @@ export default function CoachPaulAvatar({
                   + (Math.random() - 0.5) * 22;
       const id = burstId.current++;
       setBursts(prev => [...prev.slice(-14), { id, angle, born: Date.now() }]);
-      burstRef.current = setTimeout(spawn, 140 + Math.random() * 180);
+      burstRef.current = setTimeout(spawn, 220 + Math.random() * 200);
     };
-    burstRef.current = setTimeout(spawn, 100);
+    burstRef.current = setTimeout(spawn, 150);
     return () => clearTimeout(burstRef.current);
   }, [isSpeaking]);
 
@@ -224,7 +224,7 @@ export default function CoachPaulAvatar({
           style={{
             '--gh': glowOp,
             transformOrigin:'130px 210px',
-            animation: state==='speaking' ? 'cp-halo-spk 0.84s ease-in-out infinite' : 'cp-halo 3.5s ease-in-out infinite',
+            animation: state==='speaking' ? 'cp-halo-spk 1.5s ease-in-out infinite' : 'cp-halo 3.5s ease-in-out infinite',
           }}
         />
 
@@ -232,7 +232,7 @@ export default function CoachPaulAvatar({
         {state === 'speaking' && [0,1,2,3].map(i => (
           <ellipse key={i} cx="130" cy="200" rx="62" ry="70"
             fill="none" stroke={VIOLET_PALE} strokeWidth={1.8 - i*0.3}
-            style={{ transformOrigin:'130px 200px', animation:'cp-wave 1.5s ease-out infinite', animationDelay:`${i*0.38}s`, opacity:0 }}
+            style={{ transformOrigin:'130px 200px', animation:'cp-wave 1.9s ease-out infinite', animationDelay:`${i*0.38}s`, opacity:0 }}
           />
         ))}
 
@@ -248,12 +248,12 @@ export default function CoachPaulAvatar({
         <circle cx="130" cy="110" r="88" fill="none" stroke={VIOLET_PALE} strokeWidth=".6"
           strokeDasharray="10 13"
           opacity={state==='speaking' ? .46 : .12}
-          style={{ transformOrigin:'130px 110px', animation:`cp-cw ${state==='speaking'?'3.2s':'15s'} linear infinite` }}
+          style={{ transformOrigin:'130px 110px', animation:`cp-cw ${state==='speaking'?'4.5s':'15s'} linear infinite` }}
         />
         <circle cx="130" cy="110" r="72" fill="none" stroke={VIOLET} strokeWidth=".45"
           strokeDasharray="5 18"
           opacity={state==='idle' ? .09 : .18}
-          style={{ transformOrigin:'130px 110px', animation:`cp-ccw ${state==='speaking'?'4.8s':'24s'} linear infinite` }}
+          style={{ transformOrigin:'130px 110px', animation:`cp-ccw ${state==='speaking'?'6.5s':'24s'} linear infinite` }}
         />
 
         {/* Burst particles */}
@@ -273,7 +273,7 @@ export default function CoachPaulAvatar({
 
         {/* Orbs */}
         {ORBS.map(o => {
-          const dur = orbFast ? (o.dur * 0.34).toFixed(1)+'s' : o.dur+'s';
+          const dur = orbFast ? (o.dur * 0.55).toFixed(1)+'s' : o.dur+'s';
           return (
             <g key={o.id} style={{ transformOrigin:`${o.cx}px ${o.cy}px`, animation:`${orbFast?'cp-orb-f':'cp-orb'} ${dur} ease-in-out infinite`, animationDelay:`${o.dl}s` }}>
               <ellipse cx={o.cx+2} cy={o.cy+2} rx={o.r*1.1} ry={o.r*.85}
@@ -288,7 +288,7 @@ export default function CoachPaulAvatar({
         {/* Stars */}
         {STARS.map(s => (
           <g key={s.cx} transform={`translate(${s.cx},${s.cy})`}
-            style={{ transformOrigin:'0 0', animation:`cp-star ${state==='speaking'?'0.75s':'2.8s'} ease-in-out infinite`, animationDelay:`${s.dl}s` }}>
+            style={{ transformOrigin:'0 0', animation:`cp-star 1.2s':'2.8s'} ease-in-out infinite`, animationDelay:`${s.dl}s` }}>
             {[0,45,90,135].map(a => (
               <line key={a} x1="0" y1={-s.sz} x2="0" y2={s.sz}
                 stroke={VIOLET_PALE} strokeWidth="1.2" strokeLinecap="round" transform={`rotate(${a})`}/>
@@ -303,7 +303,7 @@ export default function CoachPaulAvatar({
       <div style={{
         position:'relative', width:'100%', height:'100%',
         animation: state==='speaking'
-          ? 'cp-speak-sway 1.8s ease-in-out infinite, cp-speak-breath 0.84s ease-in-out infinite'
+          ? 'cp-speak-sway 2.6s ease-in-out infinite, cp-speak-breath 1.8s ease-in-out infinite'
           : state==='listening' ? 'cp-lean 1.6s ease-in-out infinite'
           : state==='thinking'  ? 'cp-sway 3.0s ease-in-out infinite'
           : 'cp-float 4.0s ease-in-out infinite',
@@ -317,7 +317,7 @@ export default function CoachPaulAvatar({
             objectFit:'contain', objectPosition:'center bottom',
             display:'block', userSelect:'none',
             animation: state==='speaking'
-              ? 'cp-glow-spk 0.84s ease-in-out infinite'
+              ? 'cp-glow-spk 1.5s ease-in-out infinite'
               : 'cp-glow-idle 4.0s ease-in-out infinite',
           }}
         />

@@ -50,8 +50,8 @@ export default function GideonAvatar({
   isSpeaking  = false,
   isListening = false,
   isThinking  = false,
-  width       = 280,
-  height      = 320,
+  width       = 360,
+  height      = 420,
   className   = '',
 }) {
   const state = isSpeaking ? 'speaking' : isListening ? 'listening' : isThinking ? 'thinking' : 'idle';
@@ -63,9 +63,9 @@ export default function GideonAvatar({
     if (!isSpeaking) { setMouthOpen(0); return; }
     let ph = 0;
     mouthRef.current = setInterval(() => {
-      ph += 0.40;
+      ph += 0.32;
       setMouthOpen(Math.max(0, Math.sin(ph)));
-    }, 68);
+    }, 55);
     return () => clearInterval(mouthRef.current);
   }, [isSpeaking]);
 
@@ -94,9 +94,9 @@ export default function GideonAvatar({
                   + (Math.random() - 0.5) * 24;
       const id = burstId.current++;
       setBursts(prev => [...prev.slice(-14), { id, angle, born: Date.now() }]);
-      burstRef.current = setTimeout(spawn, 120 + Math.random() * 160);
+      burstRef.current = setTimeout(spawn, 220 + Math.random() * 200);
     };
-    burstRef.current = setTimeout(spawn, 80);
+    burstRef.current = setTimeout(spawn, 150);
     return () => clearTimeout(burstRef.current);
   }, [isSpeaking]);
 
@@ -265,7 +265,7 @@ export default function GideonAvatar({
             '--gh': glowOp,
             transformOrigin: '130px 210px',
             animation: state === 'speaking'
-              ? 'ga-halo-spk 0.80s ease-in-out infinite'
+              ? 'ga-halo-spk 1.4s ease-in-out infinite'
               : 'ga-halo 3.2s ease-in-out infinite',
           }}
         />
@@ -277,7 +277,7 @@ export default function GideonAvatar({
             fill="none" stroke={GOLD_PALE} strokeWidth={1.8 - i * 0.3}
             style={{
               transformOrigin: '130px 200px',
-              animation: 'ga-wave 1.4s ease-out infinite',
+              animation: 'ga-wave 1.8s ease-out infinite',
               animationDelay: `${i * 0.35}s`,
               opacity: 0,
             }}
@@ -296,12 +296,12 @@ export default function GideonAvatar({
         <circle cx="130" cy="110" r="88" fill="none" stroke={GOLD_PALE} strokeWidth=".6"
           strokeDasharray="10 13"
           opacity={state === 'speaking' ? .55 : .14}
-          style={{ transformOrigin:'130px 110px', animation:`ga-cw ${state==='speaking'?'2.8s':'13s'} linear infinite` }}
+          style={{ transformOrigin:'130px 110px', animation:`ga-cw ${state==='speaking'?'4.5s':'13s'} linear infinite` }}
         />
         <circle cx="130" cy="110" r="72" fill="none" stroke={GOLD} strokeWidth=".45"
           strokeDasharray="5 18"
           opacity={state === 'idle' ? .10 : .22}
-          style={{ transformOrigin:'130px 110px', animation:`ga-ccw ${state==='speaking'?'4s':'20s'} linear infinite` }}
+          style={{ transformOrigin:'130px 110px', animation:`ga-ccw ${state==='speaking'?'6s':'20s'} linear infinite` }}
         />
 
         {/* Gold burst particles */}
@@ -329,7 +329,7 @@ export default function GideonAvatar({
 
         {/* Orbs */}
         {ORBS.map(o => {
-          const dur = orbFast ? (o.dur * 0.32).toFixed(1) + 's' : o.dur + 's';
+          const dur = orbFast ? (o.dur * 0.55).toFixed(1) + 's' : o.dur + 's';
           return (
             <g key={o.id} style={{ transformOrigin:`${o.cx}px ${o.cy}px`, animation:`${orbFast?'ga-orb-f':'ga-orb'} ${dur} ease-in-out infinite`, animationDelay:`${o.dl}s` }}>
               <ellipse cx={o.cx+2} cy={o.cy+2} rx={o.r*1.1} ry={o.r*.85} fill={o.gold?'#604800':'#504020'} opacity=".28"/>
@@ -343,7 +343,7 @@ export default function GideonAvatar({
         {/* Stars */}
         {STARS.map(s => (
           <g key={s.cx} transform={`translate(${s.cx},${s.cy})`}
-            style={{ transformOrigin:'0 0', animation:`ga-star ${state==='speaking'?'0.70s':'2.6s'} ease-in-out infinite`, animationDelay:`${s.dl}s` }}>
+            style={{ transformOrigin:'0 0', animation:`ga-star 1.2s':'2.6s'} ease-in-out infinite`, animationDelay:`${s.dl}s` }}>
             {[0,45,90,135].map(a => (
               <line key={a} x1="0" y1={-s.sz} x2="0" y2={s.sz}
                 stroke={GOLD_BRT} strokeWidth="1.2" strokeLinecap="round" transform={`rotate(${a})`}/>
@@ -360,7 +360,7 @@ export default function GideonAvatar({
         width: '100%',
         height: '100%',
         animation: state === 'speaking'
-          ? 'ga-speak-sway 1.6s ease-in-out infinite, ga-speak-breath 0.80s ease-in-out infinite'
+          ? 'ga-speak-sway 2.4s ease-in-out infinite, ga-speak-breath 1.8s ease-in-out infinite'
           : state === 'listening' ? 'ga-lean 1.5s ease-in-out infinite'
           : state === 'thinking'  ? 'ga-sway 2.8s ease-in-out infinite'
           : 'ga-float 3.8s ease-in-out infinite',
@@ -378,7 +378,7 @@ export default function GideonAvatar({
             display: 'block',
             userSelect: 'none',
             animation: state === 'speaking'
-              ? 'ga-glow-spk 0.80s ease-in-out infinite'
+              ? 'ga-glow-spk 1.4s ease-in-out infinite'
               : 'ga-glow-idle 3.8s ease-in-out infinite',
           }}
         />

@@ -46,8 +46,8 @@ export default function HannahAvatar({
   isSpeaking  = false,
   isListening = false,
   isThinking  = false,
-  width       = 280,
-  height      = 320,
+  width       = 360,
+  height      = 420,
   className   = '',
 }) {
   const state = isSpeaking ? 'speaking' : isListening ? 'listening' : isThinking ? 'thinking' : 'idle';
@@ -59,9 +59,9 @@ export default function HannahAvatar({
     if (!isSpeaking) { setMouthOpen(0); return; }
     let ph = 0;
     mouthRef.current = setInterval(() => {
-      ph += 0.36;
+      ph += 0.30;
       setMouthOpen(Math.max(0, Math.sin(ph)));
-    }, 75);
+    }, 55);
     return () => clearInterval(mouthRef.current);
   }, [isSpeaking]);
 
@@ -90,9 +90,9 @@ export default function HannahAvatar({
                   + (Math.random() - 0.5) * 20;
       const id = burstId.current++;
       setBursts(prev => [...prev.slice(-12), { id, angle, born: Date.now() }]);
-      burstRef.current = setTimeout(spawn, 150 + Math.random() * 200);
+      burstRef.current = setTimeout(spawn, 220 + Math.random() * 200);
     };
-    burstRef.current = setTimeout(spawn, 120);
+    burstRef.current = setTimeout(spawn, 150);
     return () => clearTimeout(burstRef.current);
   }, [isSpeaking]);
 
@@ -230,7 +230,7 @@ export default function HannahAvatar({
           style={{
             '--gh': glowOp,
             transformOrigin:'130px 210px',
-            animation: state==='speaking' ? 'hn-halo-spk 0.90s ease-in-out infinite' : 'hn-halo 3.8s ease-in-out infinite',
+            animation: state==='speaking' ? 'hn-halo-spk 1.5s ease-in-out infinite' : 'hn-halo 3.8s ease-in-out infinite',
           }}
         />
 
@@ -238,7 +238,7 @@ export default function HannahAvatar({
         {state === 'speaking' && [0,1,2,3].map(i => (
           <ellipse key={i} cx="130" cy="200" rx="62" ry="70"
             fill="none" stroke={LAV_PALE} strokeWidth={1.6 - i*0.25}
-            style={{ transformOrigin:'130px 200px', animation:'hn-wave 1.6s ease-out infinite', animationDelay:`${i*0.40}s`, opacity:0 }}
+            style={{ transformOrigin:'130px 200px', animation:'hn-wave 2.0s ease-out infinite', animationDelay:`${i*0.40}s`, opacity:0 }}
           />
         ))}
 
@@ -254,12 +254,12 @@ export default function HannahAvatar({
         <circle cx="130" cy="110" r="88" fill="none" stroke={BLUE_PALE} strokeWidth=".6"
           strokeDasharray="8 15"
           opacity={state==='speaking' ? .42 : .11}
-          style={{ transformOrigin:'130px 110px', animation:`hn-cw ${state==='speaking'?'3.6s':'16s'} linear infinite` }}
+          style={{ transformOrigin:'130px 110px', animation:`hn-cw ${state==='speaking'?'5s':'16s'} linear infinite` }}
         />
         <circle cx="130" cy="110" r="72" fill="none" stroke={LAVENDER} strokeWidth=".45"
           strokeDasharray="5 20"
           opacity={state==='idle' ? .09 : .17}
-          style={{ transformOrigin:'130px 110px', animation:`hn-ccw ${state==='speaking'?'5.2s':'26s'} linear infinite` }}
+          style={{ transformOrigin:'130px 110px', animation:`hn-ccw ${state==='speaking'?'7s':'26s'} linear infinite` }}
         />
 
         {/* Burst particles — softer, more spread */}
@@ -280,7 +280,7 @@ export default function HannahAvatar({
 
         {/* Orbs — alternating blue and lavender */}
         {ORBS.map(o => {
-          const dur = orbFast ? (o.dur * 0.36).toFixed(1)+'s' : o.dur+'s';
+          const dur = orbFast ? (o.dur * 0.55).toFixed(1)+'s' : o.dur+'s';
           return (
             <g key={o.id} style={{ transformOrigin:`${o.cx}px ${o.cy}px`, animation:`${orbFast?'hn-orb-f':'hn-orb'} ${dur} ease-in-out infinite`, animationDelay:`${o.dl}s` }}>
               <ellipse cx={o.cx+2} cy={o.cy+2} rx={o.r*1.1} ry={o.r*.85}
@@ -295,7 +295,7 @@ export default function HannahAvatar({
         {/* Stars */}
         {STARS.map(s => (
           <g key={s.cx} transform={`translate(${s.cx},${s.cy})`}
-            style={{ transformOrigin:'0 0', animation:`hn-star ${state==='speaking'?'0.80s':'3.0s'} ease-in-out infinite`, animationDelay:`${s.dl}s` }}>
+            style={{ transformOrigin:'0 0', animation:`hn-star 1.3s':'3.0s'} ease-in-out infinite`, animationDelay:`${s.dl}s` }}>
             {[0,45,90,135].map(a => (
               <line key={a} x1="0" y1={-s.sz} x2="0" y2={s.sz}
                 stroke={LAV_PALE} strokeWidth="1.2" strokeLinecap="round" transform={`rotate(${a})`}/>
@@ -309,7 +309,7 @@ export default function HannahAvatar({
       <div style={{
         position:'relative', width:'100%', height:'100%', overflow:'hidden',
         animation: state==='speaking'
-          ? 'hn-speak-sway 2.0s ease-in-out infinite, hn-speak-breath 0.90s ease-in-out infinite'
+          ? 'hn-speak-sway 2.6s ease-in-out infinite, hn-speak-breath 1.8s ease-in-out infinite'
           : state==='listening' ? 'hn-lean 1.8s ease-in-out infinite'
           : state==='thinking'  ? 'hn-sway 3.2s ease-in-out infinite'
           : 'hn-float 4.2s ease-in-out infinite',
@@ -323,7 +323,7 @@ export default function HannahAvatar({
             objectFit:'contain', objectPosition:'center bottom',
             display:'block', userSelect:'none',
             animation: state==='speaking'
-              ? 'hn-glow-spk 0.90s ease-in-out infinite'
+              ? 'hn-glow-spk 1.5s ease-in-out infinite'
               : 'hn-glow-idle 4.2s ease-in-out infinite',
           }}
         />
