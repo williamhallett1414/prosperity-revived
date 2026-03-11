@@ -53,8 +53,6 @@ export default function HannahAvatar({
   const state = isSpeaking ? 'speaking' : isListening ? 'listening' : isThinking ? 'thinking' : 'idle';
 
   /* Mouth pulse — gentle, softer than male bots */
-  const [mouthOpen, setMouthOpen] = useState(0);
-  const mouthRef = useRef(null);
   useEffect(() => {
     if (!isSpeaking) { setMouthOpen(0); return; }
     let ph = 0;
@@ -66,8 +64,6 @@ export default function HannahAvatar({
   }, [isSpeaking]);
 
   /* Blink */
-  const [blink, setBlink] = useState(false);
-  const blinkRef = useRef(null);
   useEffect(() => {
     const go = () => {
       blinkRef.current = setTimeout(() => {
@@ -109,10 +105,6 @@ export default function HannahAvatar({
   const orbFast = state === 'speaking';
 
   /* Hannah face positions — slim figure, head at top of image */
-  const eyeLX = 44, eyeLY = 21, eyeRX = 52, eyeRY = 21;
-  const mouthX = 48, mouthY = 24;
-  const mouthW = 1.2 + mouthOpen * 2.0;
-  const mouthH = 0.3 + mouthOpen * 0.8;
 
   return (
     <div className={className} style={{ width, height, position:'relative', display:'flex', alignItems:'center', justifyContent:'center' }}>
@@ -335,49 +327,30 @@ export default function HannahAvatar({
           }}
         />
 
-        {/* Eye blink — skin tone matching her complexion */}
-        {blink && (<>
-          <div style={{ position:'absolute', left:`${eyeLX-1.75}%`, top:`${eyeLY-1}%`, width:'3.5%', height:'2%',
-            background:'linear-gradient(to bottom, #6B3A1F, #8B5030)', borderRadius:'50%', opacity:.88 }}/>
-          <div style={{ position:'absolute', left:`${eyeRX-1.75}%`, top:`${eyeRY-1}%`, width:'3.5%', height:'2%',
-            background:'linear-gradient(to bottom, #6B3A1F, #8B5030)', borderRadius:'50%', opacity:.88 }}/>
-        </>)}
+        </div>
+      {/* ── EQ visualizer when speaking ── */}
+      {isSpeaking && (
+        <div style={{ position:'absolute', bottom:18, left:'50%', transform:'translateX(-50%)', display:'flex', alignItems:'flex-end', gap:3, height:28, pointerEvents:'none', zIndex:20 }}>
+          {[0,1,2,3,4,5,6].map(i => (
+            <div key={i} style={{
+              width:4, borderRadius:2,
+              background:'#AFC7E3',
+              opacity:0.88,
+              animation:`hn-eq ${0.6 + (i % 3) * 0.12}s ease-in-out infinite`,
+              animationDelay:`${i * 0.09}s`,
+            }}/>
+          ))}
+        </div>
+      )}
 
-        {/* Eye glow when speaking — soft blue/lavender blend */}
-        {state==='speaking' && !blink && (<>
-          <div style={{ position:'absolute', left:`${eyeLX-2.5}%`, top:`${eyeLY-1.5}%`, width:'5%', height:'3%',
-            background:`radial-gradient(ellipse, ${LAV_PALE}60 0%, transparent 70%)`, borderRadius:'50%', pointerEvents:'none' }}/>
-          <div style={{ position:'absolute', left:`${eyeRX-2.5}%`, top:`${eyeRY-1.5}%`, width:'5%', height:'3%',
-            background:`radial-gradient(ellipse, ${LAV_PALE}60 0%, transparent 70%)`, borderRadius:'50%', pointerEvents:'none' }}/>
-        </>)}
-
-        {/* Mouth overlay — smaller, feminine proportions */}
-        {isSpeaking && mouthOpen > 0.04 && (
-          <div style={{
-            position:'absolute',
-            left:`${mouthX - mouthW/2}%`, top:`${mouthY}%`,
-            width:`${mouthW}%`, height:`${mouthH}%`,
-            borderRadius:'50%', overflow:'hidden',
-            opacity: 0.75 + mouthOpen * 0.18,
-          }}>
-            <div style={{ position:'absolute', inset:0,
-              background:'radial-gradient(ellipse at 50% 35%, #1A0600 0%, #2E0C06 55%, #4A1A0A 100%)',
-              borderRadius:'50%' }}/>
-            <div style={{ position:'absolute', top:0, left:0, right:0, height:'28%',
-              background:'linear-gradient(to bottom, rgba(140,60,30,0.65), transparent)',
-              borderRadius:'50% 50% 0 0' }}/>
-            <div style={{ position:'absolute', bottom:0, left:'15%', right:'15%', height:'22%',
-              background:'rgba(210,120,90,0.28)', borderRadius:'0 0 50% 50%' }}/>
-          </div>
-        )}
-      </div>
-
-      {/* Thinking dots — lavender */}
+      {/* ── Thinking dots ── */}
       {state === 'thinking' && (
-        <div style={{ position:'absolute', bottom:6, display:'flex', gap:10, pointerEvents:'none' }}>
+        <div style={{ position:'absolute', bottom:6, display:'flex', gap:12, pointerEvents:'none' }}>
           {[0,1,2].map(i => (
-            <div key={i} style={{ width:10, height:10, borderRadius:'50%', background:LAVENDER,
-              animation:'hn-dot 1.3s ease-in-out infinite', animationDelay:`${i*0.28}s` }}/>
+            <div key={i} style={{
+              width:11, height:11, borderRadius:'50%', background:'#AFC7E3',
+              animation:`hn-dot 1.1s ease-in-out infinite`, animationDelay:`${i*0.24}s`,
+            }}/>
           ))}
         </div>
       )}

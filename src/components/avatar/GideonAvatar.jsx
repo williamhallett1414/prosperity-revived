@@ -56,33 +56,6 @@ export default function GideonAvatar({
 }) {
   const state = isSpeaking ? 'speaking' : isListening ? 'listening' : isThinking ? 'thinking' : 'idle';
 
-  /* ── Mouth open/close (sin wave 0..1) ── */
-  const [mouthOpen, setMouthOpen] = useState(0);
-  const mouthRef = useRef(null);
-  useEffect(() => {
-    if (!isSpeaking) { setMouthOpen(0); return; }
-    let ph = 0;
-    mouthRef.current = setInterval(() => {
-      ph += 0.32;
-      setMouthOpen(Math.max(0, Math.sin(ph)));
-    }, 55);
-    return () => clearInterval(mouthRef.current);
-  }, [isSpeaking]);
-
-  /* ── Eye blink ── */
-  const [blink, setBlink] = useState(false);
-  const blinkRef = useRef(null);
-  useEffect(() => {
-    const go = () => {
-      blinkRef.current = setTimeout(() => {
-        setBlink(true);
-        setTimeout(() => { setBlink(false); go(); }, 130);
-      }, 2200 + Math.random() * 3800);
-    };
-    go();
-    return () => clearTimeout(blinkRef.current);
-  }, []);
-
   /* ── Gold burst particles (speaking only) ── */
   const [bursts, setBursts] = useState([]);
   const burstRef = useRef(null);
@@ -114,15 +87,14 @@ export default function GideonAvatar({
   const glowOp  = state === 'speaking' ? 0.92 : state === 'listening' ? 0.58 : state === 'thinking' ? 0.42 : 0.26;
   const orbFast = state === 'speaking';
 
-  /* ── Facial feature % positions (relative to img bounds) ── */
-  const eyeLX = 42, eyeLY = 34, eyeRX = 57, eyeRY = 34;
-  const mouthX = 50, mouthY = 41;
-  const mouthW = 7.0 + mouthOpen * 5.0;
-  const mouthH = 0.8 + mouthOpen * 3.2;
-
   return (
     <div className={className} style={{ width, height, position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <style>{`
+
+        @keyframes ga-eq {
+          0%,100% { height:4px; }
+          50%     { height:24px; }
+        }
         /* ── Idle: gentle float ── */
         @keyframes ga-float {
           0%,100% { transform: translateY(0px) rotate(0deg); }
@@ -389,66 +361,31 @@ export default function GideonAvatar({
           }}
         />
 
-        {/* ── Eye blink overlay ── */}
-        {blink && (<>
-          <div style={{ position:'absolute', left:`${eyeLX-4}%`, top:`${eyeLY-1.5}%`, width:'8%', height:'3%',
-            background:'linear-gradient(to bottom, #A05828, #B86A38)', borderRadius:'50%', opacity:.92 }}/>
-          <div style={{ position:'absolute', left:`${eyeRX-4}%`, top:`${eyeRY-1.5}%`, width:'8%', height:'3%',
-            background:'linear-gradient(to bottom, #A05828, #B86A38)', borderRadius:'50%', opacity:.92 }}/>
-        </>)}
-
-        {/* ── Eye brightness overlay when speaking (subtle glow on eyes) ── */}
-        {state === 'speaking' && !blink && (<>
-          <div style={{ position:'absolute', left:`${eyeLX-4.5}%`, top:`${eyeLY-2}%`, width:'9%', height:'4%',
-            background:`radial-gradient(ellipse, ${GOLD_PALE}55 0%, transparent 70%)`,
-            borderRadius:'50%', pointerEvents:'none' }}/>
-          <div style={{ position:'absolute', left:`${eyeRX-4.5}%`, top:`${eyeRY-2}%`, width:'9%', height:'4%',
-            background:`radial-gradient(ellipse, ${GOLD_PALE}55 0%, transparent 70%)`,
-            borderRadius:'50%', pointerEvents:'none' }}/>
-        </>)}
-
-        {/* ── Mouth overlay when speaking ── */}
-        {isSpeaking && mouthOpen > 0.04 && (
-          <div style={{
-            position: 'absolute',
-            left:     `${mouthX - mouthW / 2}%`,
-            top:      `${mouthY}%`,
-            width:    `${mouthW}%`,
-            height:   `${mouthH}%`,
-            borderRadius: '50%',
-            overflow: 'hidden',
-            opacity: 0.82 + mouthOpen * 0.12,
-          }}>
-            {/* Dark mouth cavity */}
-            <div style={{
-              position:'absolute', inset:0,
-              background: 'radial-gradient(ellipse at 50% 35%, #1A0600 0%, #2E0C06 55%, #4A1A0A 100%)',
-              borderRadius:'50%',
-            }}/>
-            {/* Upper lip shadow */}
-            <div style={{
-              position:'absolute', top:0, left:0, right:0, height:'28%',
-              background:'linear-gradient(to bottom, rgba(160,60,20,0.7), transparent)',
-              borderRadius:'50% 50% 0 0',
-            }}/>
-            {/* Lower lip highlight */}
-            <div style={{
-              position:'absolute', bottom:0, left:'15%', right:'15%', height:'20%',
-              background:'rgba(220,130,80,0.25)',
-              borderRadius:'0 0 50% 50%',
-            }}/>
-          </div>
-        )}
+        </div>
       </div>
-      </div>
+
+      {/* ── EQ visualizer when speaking ── */}
+      {isSpeaking && (
+        <div style={{ position:'absolute', bottom:18, left:'50%', transform:'translateX(-50%)', display:'flex', alignItems:'flex-end', gap:3, height:28, pointerEvents:'none', zIndex:20 }}>
+          {[0,1,2,3,4,5,6].map(i => (
+            <div key={i} style={{
+              width:4, borderRadius:2,
+              background:'#C9A227',
+              opacity:0.88,
+              animation:`ga-eq ${0.6 + (i % 3) * 0.12}s ease-in-out infinite`,
+              animationDelay:`${i * 0.09}s`,
+            }}/>
+          ))}
+        </div>
+      )}
 
       {/* ── Thinking dots ── */}
       {state === 'thinking' && (
         <div style={{ position:'absolute', bottom:6, display:'flex', gap:12, pointerEvents:'none' }}>
           {[0,1,2].map(i => (
             <div key={i} style={{
-              width:11, height:11, borderRadius:'50%', background:GOLD,
-              animation:'ga-dot 1.1s ease-in-out infinite', animationDelay:`${i*0.24}s`,
+              width:11, height:11, borderRadius:'50%', background:'#C9A227',
+              animation:`ga-dot 1.1s ease-in-out infinite`, animationDelay:`${i*0.24}s`,
             }}/>
           ))}
         </div>

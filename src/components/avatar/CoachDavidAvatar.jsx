@@ -48,9 +48,6 @@ export default function CoachDavidAvatar({
   className   = '',
 }) {
   const state = isSpeaking ? 'speaking' : isListening ? 'listening' : isThinking ? 'thinking' : 'idle';
-
-  const [mouthOpen, setMouthOpen] = useState(0);
-  const mouthRef = useRef(null);
   useEffect(() => {
     if (!isSpeaking) { setMouthOpen(0); return; }
     let ph = 0;
@@ -60,9 +57,6 @@ export default function CoachDavidAvatar({
     }, 55);
     return () => clearInterval(mouthRef.current);
   }, [isSpeaking]);
-
-  const [blink, setBlink] = useState(false);
-  const blinkRef = useRef(null);
   useEffect(() => {
     const go = () => {
       blinkRef.current = setTimeout(() => {
@@ -103,10 +97,6 @@ export default function CoachDavidAvatar({
   const orbFast = state === 'speaking';
 
   /* Coach David face positions — head is higher up, more athletic build */
-  const eyeLX = 45, eyeLY = 20, eyeRX = 52, eyeRY = 20;
-  const mouthX = 49, mouthY = 24;
-  const mouthW = 1.5 + mouthOpen * 2.5;
-  const mouthH = 0.4 + mouthOpen * 1.2;
 
   return (
     <div className={className} style={{ width, height, position:'relative', display:'flex', alignItems:'center', justifyContent:'center' }}>
@@ -326,50 +316,31 @@ export default function CoachDavidAvatar({
           }}
         />
 
-        {/* Eye blink */}
-        {blink && (<>
-          <div style={{ position:'absolute', left:`${eyeLX-1.75}%`, top:`${eyeLY-1}%`, width:'3.5%', height:'2%',
-            background:'linear-gradient(to bottom, #8C4E20, #A86030)', borderRadius:'50%', opacity:.90 }}/>
-          <div style={{ position:'absolute', left:`${eyeRX-1.75}%`, top:`${eyeRY-1}%`, width:'3.5%', height:'2%',
-            background:'linear-gradient(to bottom, #8C4E20, #A86030)', borderRadius:'50%', opacity:.90 }}/>
-        </>)}
-
-        {/* Eye glow when speaking */}
-        {state==='speaking' && !blink && (<>
-          <div style={{ position:'absolute', left:`${eyeLX-2.5}%`, top:`${eyeLY-1.5}%`, width:'5%', height:'3%',
-            background:`radial-gradient(ellipse, ${BLUE_PALE}50 0%, transparent 70%)`, borderRadius:'50%', pointerEvents:'none' }}/>
-          <div style={{ position:'absolute', left:`${eyeRX-2.5}%`, top:`${eyeRY-1.5}%`, width:'5%', height:'3%',
-            background:`radial-gradient(ellipse, ${BLUE_PALE}50 0%, transparent 70%)`, borderRadius:'50%', pointerEvents:'none' }}/>
-        </>)}
-
-        {/* Mouth overlay */}
-        {isSpeaking && mouthOpen > 0.04 && (
-          <div style={{
-            position:'absolute',
-            left:`${mouthX - mouthW/2}%`, top:`${mouthY}%`,
-            width:`${mouthW}%`, height:`${mouthH}%`,
-            borderRadius:'50%', overflow:'hidden',
-            opacity: 0.80 + mouthOpen * 0.14,
-          }}>
-            <div style={{ position:'absolute', inset:0,
-              background:'radial-gradient(ellipse at 50% 35%, #1A0600 0%, #2E0C06 55%, #4A1A0A 100%)',
-              borderRadius:'50%' }}/>
-            <div style={{ position:'absolute', top:0, left:0, right:0, height:'28%',
-              background:'linear-gradient(to bottom, rgba(120,50,20,0.7), transparent)',
-              borderRadius:'50% 50% 0 0' }}/>
-            <div style={{ position:'absolute', bottom:0, left:'15%', right:'15%', height:'20%',
-              background:'rgba(200,110,70,0.25)', borderRadius:'0 0 50% 50%' }}/>
-          </div>
-        )}
+        </div>
       </div>
+      {/* ── EQ visualizer when speaking ── */}
+      {isSpeaking && (
+        <div style={{ position:'absolute', bottom:18, left:'50%', transform:'translateX(-50%)', display:'flex', alignItems:'flex-end', gap:3, height:28, pointerEvents:'none', zIndex:20 }}>
+          {[0,1,2,3,4,5,6].map(i => (
+            <div key={i} style={{
+              width:4, borderRadius:2,
+              background:'#38BDF8',
+              opacity:0.88,
+              animation:`cvd-eq ${0.6 + (i % 3) * 0.12}s ease-in-out infinite`,
+              animationDelay:`${i * 0.09}s`,
+            }}/>
+          ))}
+        </div>
+      )}
 
-      </div>
-      {/* Thinking dots */}
+      {/* ── Thinking dots ── */}
       {state === 'thinking' && (
         <div style={{ position:'absolute', bottom:6, display:'flex', gap:12, pointerEvents:'none' }}>
           {[0,1,2].map(i => (
-            <div key={i} style={{ width:11, height:11, borderRadius:'50%', background:BLUE,
-              animation:'cvd-dot 1.1s ease-in-out infinite', animationDelay:`${i*0.24}s` }}/>
+            <div key={i} style={{
+              width:11, height:11, borderRadius:'50%', background:'#38BDF8',
+              animation:`cvd-dot 1.1s ease-in-out infinite`, animationDelay:`${i*0.24}s`,
+            }}/>
           ))}
         </div>
       )}

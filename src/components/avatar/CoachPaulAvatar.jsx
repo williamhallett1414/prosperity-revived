@@ -50,8 +50,6 @@ export default function CoachPaulAvatar({
   const state = isSpeaking ? 'speaking' : isListening ? 'listening' : isThinking ? 'thinking' : 'idle';
 
   /* Mouth pulse */
-  const [mouthOpen, setMouthOpen] = useState(0);
-  const mouthRef = useRef(null);
   useEffect(() => {
     if (!isSpeaking) { setMouthOpen(0); return; }
     let ph = 0;
@@ -63,8 +61,6 @@ export default function CoachPaulAvatar({
   }, [isSpeaking]);
 
   /* Blink */
-  const [blink, setBlink] = useState(false);
-  const blinkRef = useRef(null);
   useEffect(() => {
     const go = () => {
       blinkRef.current = setTimeout(() => {
@@ -106,10 +102,6 @@ export default function CoachPaulAvatar({
   const orbFast = state === 'speaking';
 
   /* Coach Paul face positions — smaller image (319×329), head sits mid-upper */
-  const eyeLX = 43, eyeLY = 23, eyeRX = 52, eyeRY = 23;
-  const mouthX = 47, mouthY = 27;
-  const mouthW = 1.5 + mouthOpen * 3.0;
-  const mouthH = 0.5 + mouthOpen * 1.2;
 
   return (
     <div className={className} style={{ width, height, position:'relative', display:'flex', alignItems:'center', justifyContent:'center' }}>
@@ -328,50 +320,31 @@ export default function CoachPaulAvatar({
           }}
         />
 
-        {/* Eye blink */}
-        {blink && (<>
-          <div style={{ position:'absolute', left:`${eyeLX-2}%`, top:`${eyeLY-1.25}%`, width:'4%', height:'2.5%',
-            background:'linear-gradient(to bottom, #8C4E20, #A86030)', borderRadius:'50%', opacity:.90 }}/>
-          <div style={{ position:'absolute', left:`${eyeRX-2}%`, top:`${eyeRY-1.25}%`, width:'4%', height:'2.5%',
-            background:'linear-gradient(to bottom, #8C4E20, #A86030)', borderRadius:'50%', opacity:.90 }}/>
-        </>)}
-
-        {/* Eye glow when speaking */}
-        {state==='speaking' && !blink && (<>
-          <div style={{ position:'absolute', left:`${eyeLX-3}%`, top:`${eyeLY-1.75}%`, width:'6%', height:'3.5%',
-            background:`radial-gradient(ellipse, ${VIOLET_PALE}50 0%, transparent 70%)`, borderRadius:'50%', pointerEvents:'none' }}/>
-          <div style={{ position:'absolute', left:`${eyeRX-3}%`, top:`${eyeRY-1.75}%`, width:'6%', height:'3.5%',
-            background:`radial-gradient(ellipse, ${VIOLET_PALE}50 0%, transparent 70%)`, borderRadius:'50%', pointerEvents:'none' }}/>
-        </>)}
-
-        {/* Mouth overlay */}
-        {isSpeaking && mouthOpen > 0.04 && (
-          <div style={{
-            position:'absolute',
-            left:`${mouthX - mouthW/2}%`, top:`${mouthY}%`,
-            width:`${mouthW}%`, height:`${mouthH}%`,
-            borderRadius:'50%', overflow:'hidden',
-            opacity: 0.78 + mouthOpen * 0.16,
-          }}>
-            <div style={{ position:'absolute', inset:0,
-              background:'radial-gradient(ellipse at 50% 35%, #1A0600 0%, #2E0C06 55%, #4A1A0A 100%)',
-              borderRadius:'50%' }}/>
-            <div style={{ position:'absolute', top:0, left:0, right:0, height:'28%',
-              background:'linear-gradient(to bottom, rgba(120,50,20,0.7), transparent)',
-              borderRadius:'50% 50% 0 0' }}/>
-            <div style={{ position:'absolute', bottom:0, left:'15%', right:'15%', height:'20%',
-              background:'rgba(200,110,70,0.25)', borderRadius:'0 0 50% 50%' }}/>
-          </div>
-        )}
+        </div>
       </div>
+      {/* ── EQ visualizer when speaking ── */}
+      {isSpeaking && (
+        <div style={{ position:'absolute', bottom:18, left:'50%', transform:'translateX(-50%)', display:'flex', alignItems:'flex-end', gap:3, height:28, pointerEvents:'none', zIndex:20 }}>
+          {[0,1,2,3,4,5,6].map(i => (
+            <div key={i} style={{
+              width:4, borderRadius:2,
+              background:'#A78BFA',
+              opacity:0.88,
+              animation:`cp-eq ${0.6 + (i % 3) * 0.12}s ease-in-out infinite`,
+              animationDelay:`${i * 0.09}s`,
+            }}/>
+          ))}
+        </div>
+      )}
 
-      </div>
-      {/* Thinking dots */}
+      {/* ── Thinking dots ── */}
       {state === 'thinking' && (
         <div style={{ position:'absolute', bottom:6, display:'flex', gap:12, pointerEvents:'none' }}>
           {[0,1,2].map(i => (
-            <div key={i} style={{ width:11, height:11, borderRadius:'50%', background:VIOLET,
-              animation:'cp-dot 1.2s ease-in-out infinite', animationDelay:`${i*0.26}s` }}/>
+            <div key={i} style={{
+              width:11, height:11, borderRadius:'50%', background:'#A78BFA',
+              animation:`cp-dot 1.1s ease-in-out infinite`, animationDelay:`${i*0.24}s`,
+            }}/>
           ))}
         </div>
       )}
