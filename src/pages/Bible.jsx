@@ -5,7 +5,7 @@ import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
 import {
   BookOpen, Sparkles, Heart, ChevronRight, PlayCircle,
-  Bookmark, TrendingUp, Search, Compass, Flame, Target, Star
+  Bookmark, TrendingUp, Search, Compass, Flame, Target
 } from 'lucide-react';
 import { createPageUrl } from '@/utils';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
@@ -18,7 +18,6 @@ import ChatButton from '@/components/chatbot/ChatButton';
 import UnifiedBibleReader from '@/components/bible/UnifiedBibleReader';
 import BibleSearchBar from '@/components/bible/BibleSearchBar';
 import ReadingPlanCard from '@/components/home/ReadingPlanCard';
-import KidsComicBible from '@/components/bible/KidsComicBible';
 
 const LAST_READ_KEY = 'bible_last_read';
 
@@ -222,19 +221,14 @@ export default function Bible() {
         </motion.div>
 
         <Tabs defaultValue="read" className="w-full">
-          <TabsList id="tour-bible-tabs" className="grid w-full grid-cols-4 mb-5 bg-[#FAD98D]/15 rounded-xl p-1 border border-[#FAD98D]/20">
+          <TabsList id="tour-bible-tabs" className="grid w-full grid-cols-3 mb-5 bg-[#FAD98D]/15 rounded-xl p-1 border border-[#FAD98D]/20">
             {[
-              { value: 'read',       icon: BookOpen,   label: 'Read'       },
-              { value: 'study',      icon: TrendingUp, label: 'Study'      },
-              { value: 'devotional', icon: Heart,      label: 'Devotional' },
-              { value: 'kids',       icon: Star,       label: 'Kids'       },
+              { value: 'read',       icon: BookOpen, label: 'Read'       },
+              { value: 'study',      icon: TrendingUp, label: 'Study'    },
+              { value: 'devotional', icon: Heart,    label: 'Devotional' },
             ].map(({ value, icon: Icon, label }) => (
               <TabsTrigger key={value} value={value}
-                className={`rounded-lg text-xs data-[state=active]:shadow-sm ${
-                  value === 'kids'
-                    ? 'data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:to-pink-500 data-[state=active]:text-white'
-                    : 'data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#c9a227] data-[state=active]:to-[#FAD98D] data-[state=active]:text-white'
-                }`}>
+                className="rounded-lg text-xs data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#c9a227] data-[state=active]:to-[#FAD98D] data-[state=active]:text-white data-[state=active]:shadow-sm">
                 <Icon className="w-3.5 h-3.5 mr-1" />{label}
               </TabsTrigger>
             ))}
@@ -370,11 +364,6 @@ export default function Bible() {
               <MoodTracker />
               <DevotionalContent />
             </div>
-          </TabsContent>
-
-          {/* ── KIDS TAB ── */}
-          <TabsContent value="kids">
-            <KidsComicBible />
           </TabsContent>
 
         </Tabs>
