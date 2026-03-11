@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   HelpCircle, X, Send, Loader2, Map, BookOpen, Play,
-  ChevronRight, Sparkles, Navigation, Lightbulb, ExternalLink, Target, Salad, Brain
+  ChevronRight, Sparkles, Navigation, Lightbulb, ExternalLink, Target, Salad, Brain, Trash2
 } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 import { createPageUrl } from '@/utils';
