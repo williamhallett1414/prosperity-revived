@@ -1,14 +1,8 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import { createPageUrl } from '@/utils';
 
 export default function UniversalHeader({ title, rightAction = null, backTo = null }) {
-  const location = useLocation();
-
-  const rootPages = ['/', '/Home', '/Wellness', '/Bible', '/Groups', '/Profile'];
-  const isRootPage = rootPages.includes(location.pathname);
-
   const handleBack = () => {
     if (backTo) {
       window.location.href = createPageUrl(backTo);
