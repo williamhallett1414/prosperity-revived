@@ -677,11 +677,21 @@ export default function HelpChatbot() {
                   <p className="text-white/45 text-[10px] mt-0.5">Ask anything · Tour any feature</p>
                 </div>
               </div>
-              <button onPointerDown={() => setIsOpen(false)}
-                className="w-7 h-7 rounded-full flex items-center justify-center"
-                style={{ background: 'rgba(255,255,255,0.1)' }}>
-                <X className="w-3.5 h-3.5 text-white/70" />
-              </button>
+              <div className="flex items-center gap-1.5">
+                <button
+                  onPointerDown={() => { setMessages([]); setShowQuickActions(true); }}
+                  className="w-7 h-7 rounded-full flex items-center justify-center"
+                  style={{ background: 'rgba(255,255,255,0.1)' }}
+                  title="Clear chat"
+                >
+                  <Trash2 className="w-3.5 h-3.5 text-white/70" />
+                </button>
+                <button onPointerDown={() => setIsOpen(false)}
+                  className="w-7 h-7 rounded-full flex items-center justify-center"
+                  style={{ background: 'rgba(255,255,255,0.1)' }}>
+                  <X className="w-3.5 h-3.5 text-white/70" />
+                </button>
+              </div>
             </div>
 
             {/* Messages */}
