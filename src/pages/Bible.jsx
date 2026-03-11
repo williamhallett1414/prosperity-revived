@@ -5,7 +5,7 @@ import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
 import {
   BookOpen, Sparkles, Heart, ChevronRight, PlayCircle,
-  Bookmark, TrendingUp, Search, Compass, Flame, Target
+  Bookmark, TrendingUp, Search, Compass, Flame, Target, Star
 } from 'lucide-react';
 import { createPageUrl } from '@/utils';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
