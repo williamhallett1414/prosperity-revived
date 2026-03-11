@@ -372,6 +372,11 @@ export default function Bible() {
             </div>
           </TabsContent>
 
+          {/* ── KIDS TAB ── */}
+          <TabsContent value="kids">
+            <KidsComicBible />
+          </TabsContent>
+
         </Tabs>
       </div>
 
