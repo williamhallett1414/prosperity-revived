@@ -305,6 +305,7 @@ export default function CoachDavidAvatar({
       <div style={{ position:'absolute', inset:0, overflow:'hidden', zIndex:2, pointerEvents:'none' }}>
       <div style={{
         position:'relative', width:'100%', height:'100%',
+        transform: 'scale(2.2)', transformOrigin: 'center top',
         animation: state==='speaking'
           ? 'cvd-speak 2.4s ease-in-out infinite'
           : state==='listening' ? 'cvd-lean 1.5s ease-in-out infinite'

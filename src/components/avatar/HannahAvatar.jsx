@@ -314,6 +314,7 @@ export default function HannahAvatar({
       {/* Image + face overlays */}
       <div style={{
         position:'relative', width:'100%', height:'100%', overflow:'hidden',
+        transform: 'scale(1.6)', transformOrigin: 'center top',
         animation: state==='speaking'
           ? 'hn-speak 2.6s ease-in-out infinite'
           : state==='listening' ? 'hn-lean 1.8s ease-in-out infinite'
