@@ -51,14 +51,17 @@ import Achievements from './pages/Achievements';
 import AffirmationsPage from './pages/AffirmationsPage';
 import Bible from './pages/Bible';
 import BibleBooks from './pages/BibleBooks';
+import BibleGoalsPage from './pages/BibleGoalsPage';
 import Bookmarks from './pages/Bookmarks';
 import ChallengeDetailPage from './pages/ChallengeDetailPage';
+import ChatScreen from './pages/ChatScreen';
 import CoachingPlanDetail from './pages/CoachingPlanDetail';
 import CoachingPlanPage from './pages/CoachingPlanPage';
 import CoachingPlans from './pages/CoachingPlans';
 import Community from './pages/Community';
 import DiscoverRecipes from './pages/DiscoverRecipes';
 import EmotionalCheckInPage from './pages/EmotionalCheckInPage';
+import FitnessGoalsPage from './pages/FitnessGoalsPage';
 import FoodLogHistory from './pages/FoodLogHistory';
 import Friends from './pages/Friends';
 import GratitudeJournalPage from './pages/GratitudeJournalPage';
@@ -79,8 +82,10 @@ import NotificationSettings from './pages/NotificationSettings';
 import Notifications from './pages/Notifications';
 import Nutrition from './pages/Nutrition';
 import NutritionArticle from './pages/NutritionArticle';
+import NutritionGoalsPage from './pages/NutritionGoalsPage';
 import NutritionGuidance from './pages/NutritionGuidance';
 import PersonalGrowth from './pages/PersonalGrowth';
+import PersonalGrowthGoalsPage from './pages/PersonalGrowthGoalsPage';
 import PhotoGallery from './pages/PhotoGallery';
 import PlanDetail from './pages/PlanDetail';
 import Plans from './pages/Plans';
@@ -103,11 +108,6 @@ import WorkoutPlanner from './pages/WorkoutPlanner';
 import WorkoutProgress from './pages/WorkoutProgress';
 import WorkoutTrends from './pages/WorkoutTrends';
 import Workouts from './pages/Workouts';
-import FitnessGoalsPage from './pages/FitnessGoalsPage';
-import NutritionGoalsPage from './pages/NutritionGoalsPage';
-import BibleGoalsPage from './pages/BibleGoalsPage';
-import PersonalGrowthGoalsPage from './pages/PersonalGrowthGoalsPage';
-import ChatScreen from './pages/ChatScreen';
 import __Layout from './Layout.jsx';
 
 
@@ -116,14 +116,17 @@ export const PAGES = {
     "AffirmationsPage": AffirmationsPage,
     "Bible": Bible,
     "BibleBooks": BibleBooks,
+    "BibleGoalsPage": BibleGoalsPage,
     "Bookmarks": Bookmarks,
     "ChallengeDetailPage": ChallengeDetailPage,
+    "ChatScreen": ChatScreen,
     "CoachingPlanDetail": CoachingPlanDetail,
     "CoachingPlanPage": CoachingPlanPage,
     "CoachingPlans": CoachingPlans,
     "Community": Community,
     "DiscoverRecipes": DiscoverRecipes,
     "EmotionalCheckInPage": EmotionalCheckInPage,
+    "FitnessGoalsPage": FitnessGoalsPage,
     "FoodLogHistory": FoodLogHistory,
     "Friends": Friends,
     "GratitudeJournalPage": GratitudeJournalPage,
@@ -144,8 +147,10 @@ export const PAGES = {
     "Notifications": Notifications,
     "Nutrition": Nutrition,
     "NutritionArticle": NutritionArticle,
+    "NutritionGoalsPage": NutritionGoalsPage,
     "NutritionGuidance": NutritionGuidance,
     "PersonalGrowth": PersonalGrowth,
+    "PersonalGrowthGoalsPage": PersonalGrowthGoalsPage,
     "PhotoGallery": PhotoGallery,
     "PlanDetail": PlanDetail,
     "Plans": Plans,
@@ -167,12 +172,7 @@ export const PAGES = {
     "WorkoutPlanner": WorkoutPlanner,
     "WorkoutProgress": WorkoutProgress,
     "WorkoutTrends": WorkoutTrends,
-    "FitnessGoalsPage": FitnessGoalsPage,
-    "NutritionGoalsPage": NutritionGoalsPage,
-    "BibleGoalsPage": BibleGoalsPage,
-    "PersonalGrowthGoalsPage": PersonalGrowthGoalsPage,
     "Workouts": Workouts,
-    "ChatScreen": ChatScreen,
 }
 
 export const pagesConfig = {

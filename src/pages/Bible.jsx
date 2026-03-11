@@ -18,6 +18,7 @@ import ChatButton from '@/components/chatbot/ChatButton';
 import UnifiedBibleReader from '@/components/bible/UnifiedBibleReader';
 import BibleSearchBar from '@/components/bible/BibleSearchBar';
 import ReadingPlanCard from '@/components/home/ReadingPlanCard';
+import KidsComicBible from '@/components/bible/KidsComicBible';
 
 const LAST_READ_KEY = 'bible_last_read';
 
