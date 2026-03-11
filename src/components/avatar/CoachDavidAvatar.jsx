@@ -5,6 +5,7 @@
  * States: idle | speaking | listening | thinking
  */
 import React, { useEffect, useRef, useState } from 'react';
+
 import coachImg from '@/assets/coach-david-avatar.png';
 
 const BLUE      = '#38BDF8';
