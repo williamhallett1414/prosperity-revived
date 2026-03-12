@@ -51,6 +51,33 @@ export default function HannahAvatar({
   className   = '',
 }) {
   const state = isSpeaking ? 'speaking' : isListening ? 'listening' : isThinking ? 'thinking' : 'idle';
+  /* ── Mouth open/close (sin wave 0→1) ── */
+  const [mouthOpen, setMouthOpen] = useState(0);
+  const mouthRef = useRef(null);
+  useEffect(() => {
+    if (!isSpeaking) { setMouthOpen(0); return; }
+    let ph = 0;
+    mouthRef.current = setInterval(() => {
+      ph += 0.30;
+      setMouthOpen(Math.max(0, Math.sin(ph)));
+    }, 55);
+    return () => clearInterval(mouthRef.current);
+  }, [isSpeaking]);
+
+  /* ── Eye blink ── */
+  const [blink, setBlink] = useState(false);
+  const blinkRef = useRef(null);
+  useEffect(() => {
+    const go = () => {
+      blinkRef.current = setTimeout(() => {
+        setBlink(true);
+        setTimeout(() => { setBlink(false); go(); }, 120);
+      }, 2500 + Math.random() * 3500);
+    };
+    go();
+    return () => clearTimeout(blinkRef.current);
+  }, []);
+
 
 
 
@@ -298,7 +325,35 @@ export default function HannahAvatar({
               : 'hn-glow-idle 4.2s ease-in-out infinite',
           }}
         />
+        {/* ── Eye blink ── */}
+        {blink && (<>
+          <div style={{
+            position:'absolute', pointerEvents:'none',
+            left:`${41.3}%`, top:`${23.1}%`,
+            width:`${7.6}%`, height:`${4.4}%`,
+            background:'linear-gradient(to bottom, #7A4830 0%, #9A6048 60%, #7A4830 100%)', borderRadius:'50%', opacity:.95,
+          }}/>
+          <div style={{
+            position:'absolute', pointerEvents:'none',
+            left:`${49.0}%`, top:`${23.1}%`,
+            width:`${7.6}%`, height:`${4.4}%`,
+            background:'linear-gradient(to bottom, #7A4830 0%, #9A6048 60%, #7A4830 100%)', borderRadius:'50%', opacity:.95,
+          }}/>
+        </>)}
 
+        {/* ── Mouth open/close ── */}
+        {mouthOpen > 0.05 && (
+          <div style={{
+            position:'absolute', pointerEvents:'none', overflow:'hidden',
+            left:`${(50.0 - (4.0 + mouthOpen * 3.0) / 2).toFixed(2)}%`,
+            top:`${28.5}%`,
+            width:`${(4.0 + mouthOpen * 3.0).toFixed(2)}%`,
+            height:`${(0.4 + mouthOpen * 3.2).toFixed(2)}%`,
+            background:'radial-gradient(ellipse at 50% 30%, #120500 0%, #280A04 60%, #441606 100%)',
+            borderRadius:'50%',
+            opacity: 0.85 + mouthOpen * 0.10,
+          }}/>
+        )}
         </div>
       {/* ── EQ visualizer when speaking ── */}
       {isSpeaking && (

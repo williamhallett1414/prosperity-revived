@@ -55,6 +55,33 @@ export default function GideonAvatar({
   className   = '',
 }) {
   const state = isSpeaking ? 'speaking' : isListening ? 'listening' : isThinking ? 'thinking' : 'idle';
+  /* ── Mouth open/close (sin wave 0→1) ── */
+  const [mouthOpen, setMouthOpen] = useState(0);
+  const mouthRef = useRef(null);
+  useEffect(() => {
+    if (!isSpeaking) { setMouthOpen(0); return; }
+    let ph = 0;
+    mouthRef.current = setInterval(() => {
+      ph += 0.30;
+      setMouthOpen(Math.max(0, Math.sin(ph)));
+    }, 55);
+    return () => clearInterval(mouthRef.current);
+  }, [isSpeaking]);
+
+  /* ── Eye blink ── */
+  const [blink, setBlink] = useState(false);
+  const blinkRef = useRef(null);
+  useEffect(() => {
+    const go = () => {
+      blinkRef.current = setTimeout(() => {
+        setBlink(true);
+        setTimeout(() => { setBlink(false); go(); }, 120);
+      }, 2500 + Math.random() * 3500);
+    };
+    go();
+    return () => clearTimeout(blinkRef.current);
+  }, []);
+
 
   /* ── Gold burst particles (speaking only) ── */
   const [bursts, setBursts] = useState([]);
@@ -348,7 +375,35 @@ export default function GideonAvatar({
               : 'ga-glow-idle 3.8s ease-in-out infinite',
           }}
         />
+        {/* ── Eye blink ── */}
+        {blink && (<>
+          <div style={{
+            position:'absolute', pointerEvents:'none',
+            left:`${33.2}%`, top:`${30.0}%`,
+            width:`${14.4}%`, height:`${5.6}%`,
+            background:'linear-gradient(to bottom, #9A5828 0%, #B87040 60%, #9A5828 100%)', borderRadius:'50%', opacity:.95,
+          }}/>
+          <div style={{
+            position:'absolute', pointerEvents:'none',
+            left:`${49.1}%`, top:`${30.0}%`,
+            width:`${14.4}%`, height:`${5.6}%`,
+            background:'linear-gradient(to bottom, #9A5828 0%, #B87040 60%, #9A5828 100%)', borderRadius:'50%', opacity:.95,
+          }}/>
+        </>)}
 
+        {/* ── Mouth open/close ── */}
+        {mouthOpen > 0.05 && (
+          <div style={{
+            position:'absolute', pointerEvents:'none', overflow:'hidden',
+            left:`${(48.3 - (9.0 + mouthOpen * 5.5) / 2).toFixed(2)}%`,
+            top:`${36.4}%`,
+            width:`${(9.0 + mouthOpen * 5.5).toFixed(2)}%`,
+            height:`${(0.4 + mouthOpen * 5.5).toFixed(2)}%`,
+            background:'radial-gradient(ellipse at 50% 30%, #1A0600 0%, #2E0C06 60%, #5A2010 100%)',
+            borderRadius:'50%',
+            opacity: 0.85 + mouthOpen * 0.10,
+          }}/>
+        )}
         </div>
       </div>
 
