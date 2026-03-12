@@ -172,6 +172,38 @@ export default function AvatarPanel({
                   width={220}
                   height={260}
                 />
+
+                {/* Animated mouth overlay — visible talking indicator */}
+                {isSpeaking && (
+                  <div style={{
+                    position: 'absolute',
+                    bottom: 52,
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    display: 'flex',
+                    alignItems: 'flex-end',
+                    gap: 3,
+                    pointerEvents: 'none',
+                    zIndex: 10,
+                  }}>
+                    <style>{`
+                      @keyframes ap-bar {
+                        0%,100% { height: 4px; }
+                        50% { height: 18px; }
+                      }
+                    `}</style>
+                    {[0.6,0.9,0.7,1.0,0.75,0.85,0.65].map((spd, i) => (
+                      <div key={i} style={{
+                        width: 5,
+                        borderRadius: 3,
+                        background: gradientTo,
+                        opacity: 0.9,
+                        animation: `ap-bar ${spd}s ease-in-out infinite`,
+                        animationDelay: `${i * 0.08}s`,
+                      }} />
+                    ))}
+                  </div>
+                )}
               </div>
 
               {/* Name + status row below avatar */}
