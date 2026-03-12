@@ -107,17 +107,6 @@ export default function HannahAvatar({
           90%  { transform: translateY(-3px) rotate(.4deg)   translateX(1px)  scale(1.001); }
           100% { transform: translateY(-2px) rotate(0deg)    translateX(0px)  scale(1.000); }
         }
-          15%  { transform: translateY(-5px) rotate(-1.0deg) translateX(-2px); }
-          30%  { transform: translateY(-3px) rotate(0deg)    translateX(0px); }
-          45%  { transform: translateY(-5px) rotate(1.2deg)  translateX(2px); }
-          60%  { transform: translateY(-2px) rotate(0deg)    translateX(0px); }
-          75%  { transform: translateY(-5px) rotate(-0.9deg) translateX(-2px); }
-          90%  { transform: translateY(-3px) rotate(.4deg)   translateX(1px); }
-          100% { transform: translateY(-2px) rotate(0deg)    translateX(0px); }
-        }
-          35%     { transform: scale(1.016); }
-          65%     { transform: scale(1.007); }
-        }
         @keyframes hn-lean {
           0%,100% { transform: translateY(-4px) rotate(0deg); }
           35%     { transform: translateY(-10px) rotate(1.6deg); }

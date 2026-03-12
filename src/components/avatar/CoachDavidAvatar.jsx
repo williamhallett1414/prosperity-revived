@@ -102,17 +102,6 @@ export default function CoachDavidAvatar({
           90%  { transform: translateY(-3px) rotate(.5deg)   translateX(1px)  scale(1.001); }
           100% { transform: translateY(-2px) rotate(0deg)    translateX(0px)  scale(1.000); }
         }
-          15%  { transform: translateY(-5px) rotate(-1.4deg) translateX(-3px); }
-          30%  { transform: translateY(-3px) rotate(0deg)    translateX(0px); }
-          45%  { transform: translateY(-5px) rotate(1.6deg)  translateX(3px); }
-          60%  { transform: translateY(-2px) rotate(0deg)    translateX(0px); }
-          75%  { transform: translateY(-5px) rotate(-1.2deg) translateX(-2px); }
-          90%  { transform: translateY(-3px) rotate(.5deg)   translateX(1px); }
-          100% { transform: translateY(-2px) rotate(0deg)    translateX(0px); }
-        }
-          35%     { transform: scale(1.022); }
-          65%     { transform: scale(1.010); }
-        }
         @keyframes cvd-lean {
           0%,100% { transform: translateY(-4px) rotate(0deg); }
           35%     { transform: translateY(-9px) rotate(1.5deg); }
