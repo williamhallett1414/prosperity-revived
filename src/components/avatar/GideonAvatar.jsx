@@ -12,7 +12,6 @@
  *  - Faster spinning rings + stronger halo flare
  */
 import React, { useEffect, useRef, useState, useCallback } from 'react';
-
 import gideonImg from '@/assets/gideon-avatar.png';
 
 const GOLD      = '#C9A227';
