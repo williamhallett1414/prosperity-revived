@@ -379,15 +379,15 @@ export default function GideonAvatar({
         {blink && (<>
           <div style={{
             position:'absolute', pointerEvents:'none',
-            left:`${33.2}%`, top:`${30.0}%`,
-            width:`${14.4}%`, height:`${5.6}%`,
-            background:'linear-gradient(to bottom, #9A5828 0%, #B87040 60%, #9A5828 100%)', borderRadius:'50%', opacity:.95,
+            left:`${42.1 - 2.5}%`, top:`${31.3}%`,
+            width:`${5.0}%`, height:`${3.0}%`,
+            background:'linear-gradient(to bottom, #9A5828 0%, #B87040 60%, #9A5828 100%)', borderRadius:'50%', opacity:.92,
           }}/>
           <div style={{
             position:'absolute', pointerEvents:'none',
-            left:`${49.1}%`, top:`${30.0}%`,
-            width:`${14.4}%`, height:`${5.6}%`,
-            background:'linear-gradient(to bottom, #9A5828 0%, #B87040 60%, #9A5828 100%)', borderRadius:'50%', opacity:.95,
+            left:`${57.4 - 2.5}%`, top:`${31.3}%`,
+            width:`${5.0}%`, height:`${3.0}%`,
+            background:'linear-gradient(to bottom, #9A5828 0%, #B87040 60%, #9A5828 100%)', borderRadius:'50%', opacity:.92,
           }}/>
         </>)}
 
@@ -395,13 +395,13 @@ export default function GideonAvatar({
         {mouthOpen > 0.05 && (
           <div style={{
             position:'absolute', pointerEvents:'none', overflow:'hidden',
-            left:`${(48.3 - (9.0 + mouthOpen * 5.5) / 2).toFixed(2)}%`,
-            top:`${36.4}%`,
-            width:`${(9.0 + mouthOpen * 5.5).toFixed(2)}%`,
-            height:`${(0.4 + mouthOpen * 5.5).toFixed(2)}%`,
-            background:'radial-gradient(ellipse at 50% 30%, #1A0600 0%, #2E0C06 60%, #5A2010 100%)',
-            borderRadius:'50%',
-            opacity: 0.85 + mouthOpen * 0.10,
+            left:`${(47.8 - (11.1 + mouthOpen * 4.4) / 2).toFixed(2)}%`,
+            top:`${35.6}%`,
+            width:`${(11.1 + mouthOpen * 4.4).toFixed(2)}%`,
+            height:`${(0.2 + mouthOpen * 1.9).toFixed(2)}%`,
+            background:'radial-gradient(ellipse at 50% 40%, #1A0600 0%, #2E0C06 70%, #5A2010 100%)',
+            borderRadius:'40%',
+            opacity: 0.72 + mouthOpen * 0.18,
           }}/>
         )}
         </div>
