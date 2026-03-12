@@ -375,8 +375,11 @@ export default function GideonAvatar({
         ))}
       </svg>
 
-      {/* ══ Image + face overlays — clipped + zoomed for bigger face ══ */}
-      <div style={{ position:'absolute', inset:0, overflow:'hidden', zIndex:2, pointerEvents:'none' }}>
+      {/* ══ Image + face overlays ══ */}
+      <div
+        ref={containerRef}
+        style={{ position:'absolute', inset:0, overflow:'hidden', zIndex:2, pointerEvents:'none' }}
+      >
       <div style={{
         position: 'relative',
         width: '100%',
@@ -389,9 +392,11 @@ export default function GideonAvatar({
       }}>
         {/* Gideon image */}
         <img
+          ref={imgRef}
           src={gideonImg}
           alt="Gideon"
           draggable={false}
+          onLoad={measureImage}
           style={{
             width: '100%',
             height: '100%',
@@ -404,35 +409,49 @@ export default function GideonAvatar({
               : 'ga-glow-idle 3.8s ease-in-out infinite',
           }}
         />
-        {/* ── Eye blink ── */}
-        {blink && (<>
-          <div style={{
-            position:'absolute', pointerEvents:'none',
-            left:`${42.1 - 2.5}%`, top:`${31.3}%`,
-            width:`${5.0}%`, height:`${3.0}%`,
-            background:'linear-gradient(to bottom, #9A5828 0%, #B87040 60%, #9A5828 100%)', borderRadius:'50%', opacity:.92,
-          }}/>
-          <div style={{
-            position:'absolute', pointerEvents:'none',
-            left:`${57.4 - 2.5}%`, top:`${31.3}%`,
-            width:`${5.0}%`, height:`${3.0}%`,
-            background:'linear-gradient(to bottom, #9A5828 0%, #B87040 60%, #9A5828 100%)', borderRadius:'50%', opacity:.92,
-          }}/>
-        </>)}
 
-        {/* ── Mouth open/close ── */}
-        {mouthOpen > 0.05 && (
-          <div style={{
-            position:'absolute', pointerEvents:'none', overflow:'hidden',
-            left:`${(47.8 - (11.1 + mouthOpen * 4.4) / 2).toFixed(2)}%`,
-            top:`${35.6}%`,
-            width:`${(11.1 + mouthOpen * 4.4).toFixed(2)}%`,
-            height:`${(0.2 + mouthOpen * 1.9).toFixed(2)}%`,
-            background:'radial-gradient(ellipse at 50% 40%, #1A0600 0%, #2E0C06 70%, #5A2010 100%)',
-            borderRadius:'40%',
-            opacity: 0.72 + mouthOpen * 0.18,
-          }}/>
-        )}
+        {/* ── Face overlays — pixel-precise relative to actual rendered image ── */}
+        {imgBounds && (<>
+          {/* Left eye blink */}
+          {blink && (
+            <div style={{
+              position:'absolute', pointerEvents:'none',
+              left:  imgBounds.left + imgBounds.w * 0.355,
+              top:   imgBounds.top  + imgBounds.h * 0.255,
+              width: imgBounds.w * 0.095,
+              height:imgBounds.h * 0.028,
+              background:'linear-gradient(to bottom, #8B4513 0%, #A0522D 60%, #8B4513 100%)',
+              borderRadius:'50%', opacity: blink ? 0.95 : 0,
+              transition:'opacity 0.06s',
+            }}/>
+          )}
+          {/* Right eye blink */}
+          {blink && (
+            <div style={{
+              position:'absolute', pointerEvents:'none',
+              left:  imgBounds.left + imgBounds.w * 0.545,
+              top:   imgBounds.top  + imgBounds.h * 0.255,
+              width: imgBounds.w * 0.095,
+              height:imgBounds.h * 0.028,
+              background:'linear-gradient(to bottom, #8B4513 0%, #A0522D 60%, #8B4513 100%)',
+              borderRadius:'50%', opacity: blink ? 0.95 : 0,
+              transition:'opacity 0.06s',
+            }}/>
+          )}
+          {/* Mouth open */}
+          {mouthOpen > 0.05 && (
+            <div style={{
+              position:'absolute', pointerEvents:'none', overflow:'hidden',
+              left:   imgBounds.left + imgBounds.w * (0.5 - (0.14 + mouthOpen * 0.06) / 2),
+              top:    imgBounds.top  + imgBounds.h * 0.365,
+              width:  imgBounds.w * (0.14 + mouthOpen * 0.06),
+              height: imgBounds.h * (0.008 + mouthOpen * 0.032),
+              background:'radial-gradient(ellipse at 50% 40%, #1A0600 0%, #2E0C06 70%, #5A2010 100%)',
+              borderRadius:'40%',
+              opacity: 0.78 + mouthOpen * 0.15,
+            }}/>
+          )}
+        </>)}
         </div>
       </div>
 
