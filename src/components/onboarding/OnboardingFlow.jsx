@@ -3,8 +3,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { base44 } from '@/api/base44Client';
 import {
   ChevronRight, ChevronLeft, Sparkles, Check, X,
-  Heart, Dumbbell, Utensils, BookOpen, Brain, Bell, User
+  Heart, Dumbbell, Utensils, BookOpen, Brain, Bell, User, Shield, AlertTriangle
 } from 'lucide-react';
+import LegalDocModal from './LegalDocModal';
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
@@ -222,6 +223,7 @@ function NumberInput({ label, value, onChange, min, max, unit }) {
 // ─── Step definitions (content is rendered inline in main component) ──────────
 
 const STEPS = [
+  { id: 'legal',     icon: Shield,    label: 'Legal',     color: '#C9A227' },
   { id: 'welcome',   icon: User,      label: 'You',       color: '#0A1A2F' },
   { id: 'why',       icon: Sparkles,  label: 'Your Why',  color: '#FD9C2D' },
   { id: 'fitness',   icon: Dumbbell,  label: 'Fitness',   color: '#38BDF8' },
@@ -236,6 +238,16 @@ const STEPS = [
 export default function OnboardingFlow({ onComplete }) {
   const [step, setStep] = useState(0);
   const [saving, setSaving] = useState(false);
+
+  // ── Legal step state ──────────────────────────────────────────────────────
+  const [ageGroup, setAgeGroup] = useState(''); // '18plus' | '13to17' | 'under13'
+  const [openDoc, setOpenDoc] = useState(null); // 'terms' | 'privacy' | 'waiver' | 'subscription'
+  const [acceptedDocs, setAcceptedDocs] = useState({ terms: false, privacy: false, waiver: false, subscription: false });
+  const [masterChecked, setMasterChecked] = useState(false);
+
+  const allDocsAccepted = Object.values(acceptedDocs).every(Boolean);
+  const legalComplete = ageGroup === '18plus' || ageGroup === '13to17';
+  const legalCanAdvance = legalComplete && allDocsAccepted && masterChecked;
 
   const [d, setD] = useState({
     // Step 0 — You
@@ -299,7 +311,8 @@ export default function OnboardingFlow({ onComplete }) {
   };
 
   const canAdvance = () => {
-    if (step === 0) return d.full_name.trim().length > 0;
+    if (step === 0) return legalCanAdvance;
+    if (step === 1) return d.full_name.trim().length > 0;
     return true;
   };
 
@@ -307,6 +320,8 @@ export default function OnboardingFlow({ onComplete }) {
     setSaving(true);
     try {
       await base44.auth.updateMe({
+        terms_accepted_at: new Date().toISOString(),
+        age_group: ageGroup,
         full_name: d.full_name.trim(),
         dob: d.dob,
         biological_sex: d.biological_sex,
@@ -400,30 +415,181 @@ export default function OnboardingFlow({ onComplete }) {
               {/* Card header */}
               <div className="px-6 pt-6 pb-4" style={{ background: `linear-gradient(135deg, ${cfg.color}18, ${cfg.color}05)` }}>
                 <h2 className="text-xl font-black text-[#0A1A2F] leading-tight">
-                  {step === 0 && 'Welcome to Prosperity Revived 🙏'}
-                  {step === 1 && "What's bringing you here?"}
-                  {step === 2 && 'Fitness & body'}
-                  {step === 3 && 'Nutrition & eating'}
-                  {step === 4 && 'Faith & Bible study'}
-                  {step === 5 && 'Personal growth'}
-                  {step === 6 && 'Your daily routine'}
+                  {step === 0 && 'Before you begin 📋'}
+                  {step === 1 && 'Welcome to Prosperity Revived 🙏'}
+                  {step === 2 && "What's bringing you here?"}
+                  {step === 3 && 'Fitness & body'}
+                  {step === 4 && 'Nutrition & eating'}
+                  {step === 5 && 'Faith & Bible study'}
+                  {step === 6 && 'Personal growth'}
+                  {step === 7 && 'Your daily routine'}
                 </h2>
                 <p className="text-gray-500 text-xs mt-1">
-                  {step === 0 && "A few quick questions so everything feels personal from day one."}
-                  {step === 1 && "Pick everything that resonates — no right answers."}
-                  {step === 2 && "This helps Coach David personalise your workouts."}
-                  {step === 3 && "Helps Chef Daniel plan meals you'll actually enjoy."}
-                  {step === 4 && "So Gideon can meet you exactly where you are."}
-                  {step === 5 && "Hannah will use this to guide your growth journey."}
-                  {step === 6 && "We'll send reminders that fit your actual schedule."}
+                  {step === 0 && 'Please review and accept our legal documents to continue.'}
+                  {step === 1 && 'A few quick questions so everything feels personal from day one.'}
+                  {step === 2 && 'Pick everything that resonates — no right answers.'}
+                  {step === 3 && 'This helps Coach David personalise your workouts.'}
+                  {step === 4 && 'Helps Chef Daniel plan meals you\'ll actually enjoy.'}
+                  {step === 5 && 'So Gideon can meet you exactly where you are.'}
+                  {step === 6 && 'Hannah will use this to guide your growth journey.'}
+                  {step === 7 && "We'll send reminders that fit your actual schedule."}
                 </p>
               </div>
 
               {/* Card content */}
               <div className="px-5 py-4 space-y-4 max-h-[60vh] overflow-y-auto">
 
-                {/* ─── STEP 0: You ─────────────────────────────────────────── */}
-                {step === 0 && (
+                {/* ─── STEP 0: Legal ───────────────────────────────────────── */}
+                {step === 0 && (() => {
+                  const DOCS_LIST = [
+                    { key: 'terms',        icon: '📄', label: 'Terms & Conditions',   sub: 'Usage rules, AI disclosure, liability' },
+                    { key: 'privacy',      icon: '🔒', label: 'Privacy Policy',        sub: 'How we collect & protect your data' },
+                    { key: 'waiver',       icon: '❤️', label: 'Health & Wellness Waiver', sub: 'Exercise risks, AI chatbot limits' },
+                    { key: 'subscription', icon: '💳', label: 'Subscription Terms',    sub: 'Billing, auto-renewal, cancellation' },
+                  ];
+                  return (
+                    <div className="space-y-4">
+                      {/* Age Gate */}
+                      <div>
+                        <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Age Confirmation *</p>
+                        <div className="space-y-2">
+                          {[
+                            { id: '18plus',  label: 'I am 18 years of age or older',         color: '#0A1A2F' },
+                            { id: '13to17',  label: 'I am 13–17 and have parental consent',  color: '#0A1A2F' },
+                            { id: 'under13', label: 'I am under 13',                          color: '#EF4444' },
+                          ].map(opt => (
+                            <button
+                              key={opt.id}
+                              onPointerDown={() => setAgeGroup(opt.id)}
+                              className={`w-full text-left px-4 py-3 rounded-2xl border-2 transition-all flex items-center gap-3 ${
+                                ageGroup === opt.id
+                                  ? opt.id === 'under13'
+                                    ? 'border-red-400 bg-red-50'
+                                    : 'border-[#FD9C2D] bg-[#FD9C2D]/8'
+                                  : 'border-gray-100 bg-white hover:border-gray-200'
+                              }`}
+                            >
+                              <div className={`w-4 h-4 rounded-full border-2 flex-shrink-0 flex items-center justify-center ${
+                                ageGroup === opt.id
+                                  ? opt.id === 'under13' ? 'border-red-400 bg-red-400' : 'border-[#FD9C2D] bg-[#FD9C2D]'
+                                  : 'border-gray-300'
+                              }`}>
+                                {ageGroup === opt.id && <div className="w-1.5 h-1.5 rounded-full bg-white" />}
+                              </div>
+                              <span className={`text-sm font-semibold ${
+                                ageGroup === opt.id
+                                  ? opt.id === 'under13' ? 'text-red-600' : 'text-[#0A1A2F]'
+                                  : 'text-gray-700'
+                              }`}>{opt.label}</span>
+                            </button>
+                          ))}
+                        </div>
+
+                        {/* Under-13 block */}
+                        {ageGroup === 'under13' && (
+                          <motion.div
+                            initial={{ opacity: 0, y: -4 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="mt-3 bg-red-50 border border-red-200 rounded-2xl p-4 flex gap-3"
+                          >
+                            <AlertTriangle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
+                            <div>
+                              <p className="text-sm font-bold text-red-700">Sorry — you must be at least 13 to use this app</p>
+                              <p className="text-xs text-red-600 mt-1 leading-relaxed">
+                                Prosperity Revived is not available to users under 13 years of age in compliance with COPPA (Children's Online Privacy Protection Act).
+                              </p>
+                            </div>
+                          </motion.div>
+                        )}
+
+                        {ageGroup === '13to17' && (
+                          <motion.div
+                            initial={{ opacity: 0, y: -4 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="mt-3 bg-amber-50 border border-amber-200 rounded-2xl p-3"
+                          >
+                            <p className="text-xs text-amber-800 leading-relaxed">
+                              <strong>Parental consent required.</strong> A parent or guardian must review and approve your use of this app. By proceeding, you confirm that a parent or guardian has given consent.
+                            </p>
+                          </motion.div>
+                        )}
+                      </div>
+
+                      {/* Legal Documents */}
+                      {(ageGroup === '18plus' || ageGroup === '13to17') && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 8 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          className="space-y-2"
+                        >
+                          <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Review & Accept Documents *</p>
+                          {DOCS_LIST.map(({ key, icon, label, sub }) => (
+                            <div
+                              key={key}
+                              className={`flex items-center gap-3 px-4 py-3 rounded-2xl border-2 transition-all ${
+                                acceptedDocs[key]
+                                  ? 'border-green-300 bg-green-50'
+                                  : 'border-gray-100 bg-white'
+                              }`}
+                            >
+                              <span className="text-xl flex-shrink-0">{icon}</span>
+                              <div className="flex-1 min-w-0">
+                                <p className="text-sm font-semibold text-[#0A1A2F] leading-tight">{label}</p>
+                                <p className="text-[10px] text-gray-400 mt-0.5">{sub}</p>
+                              </div>
+                              {acceptedDocs[key] ? (
+                                <div className="w-7 h-7 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0">
+                                  <Check className="w-4 h-4 text-white" />
+                                </div>
+                              ) : (
+                                <button
+                                  onPointerDown={() => setOpenDoc(key)}
+                                  className="px-3 py-1.5 rounded-xl text-xs font-bold border-2 border-[#C9A227] text-[#C9A227] hover:bg-[#C9A227] hover:text-white transition-all flex-shrink-0"
+                                >
+                                  Review
+                                </button>
+                              )}
+                            </div>
+                          ))}
+
+                          {/* Progress hint */}
+                          <p className="text-xs text-center text-gray-400 pt-1">
+                            {Object.values(acceptedDocs).filter(Boolean).length} of 4 reviewed
+                          </p>
+                        </motion.div>
+                      )}
+
+                      {/* Master checkbox */}
+                      {allDocsAccepted && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 8 }}
+                          animate={{ opacity: 1, y: 0 }}
+                        >
+                          <button
+                            onPointerDown={() => setMasterChecked(v => !v)}
+                            className={`w-full flex items-start gap-3 px-4 py-4 rounded-2xl border-2 text-left transition-all ${
+                              masterChecked
+                                ? 'border-[#0A1A2F] bg-[#0A1A2F]'
+                                : 'border-gray-200 bg-gray-50 hover:border-gray-300'
+                            }`}
+                          >
+                            <div className={`w-5 h-5 rounded-md border-2 flex-shrink-0 mt-0.5 flex items-center justify-center transition-all ${
+                              masterChecked ? 'bg-[#FD9C2D] border-[#FD9C2D]' : 'border-gray-400 bg-white'
+                            }`}>
+                              {masterChecked && <Check className="w-3 h-3 text-white" strokeWidth={3} />}
+                            </div>
+                            <p className={`text-sm leading-relaxed font-medium ${masterChecked ? 'text-white' : 'text-gray-700'}`}>
+                              I have read and agree to all of the documents above. I understand the AI Disclosure, Health & Wellness Waiver, Privacy Policy, and Subscription Terms.
+                            </p>
+                          </button>
+                        </motion.div>
+                      )}
+                    </div>
+                  );
+                })()}
+
+                {/* ─── STEP 1: You ─────────────────────────────────────────── */}
+                {step === 1 && (
                   <div className="space-y-3">
                     <div>
                       <SectionLabel>First name *</SectionLabel>
@@ -464,8 +630,8 @@ export default function OnboardingFlow({ onComplete }) {
                   </div>
                 )}
 
-                {/* ─── STEP 1: Why ─────────────────────────────────────────── */}
-                {step === 1 && (
+                {/* ─── STEP 2: Why ─────────────────────────────────────────── */}
+                {step === 2 && (
                   <div className="space-y-4">
                     <div>
                       <SectionLabel>What's bringing you here? (pick all that apply)</SectionLabel>
@@ -486,8 +652,8 @@ export default function OnboardingFlow({ onComplete }) {
                   </div>
                 )}
 
-                {/* ─── STEP 2: Fitness ─────────────────────────────────────── */}
-                {step === 2 && (
+                {/* ─── STEP 3: Fitness ─────────────────────────────────────── */}
+                {step === 3 && (
                   <div className="space-y-4">
                     <div>
                       <SectionLabel>Primary fitness goal</SectionLabel>
@@ -572,8 +738,8 @@ export default function OnboardingFlow({ onComplete }) {
                   </div>
                 )}
 
-                {/* ─── STEP 3: Nutrition ──────────────────────────────────── */}
-                {step === 3 && (
+                {/* ─── STEP 4: Nutrition ──────────────────────────────────── */}
+                {step === 4 && (
                   <div className="space-y-4">
                     <div>
                       <SectionLabel>Dietary style</SectionLabel>
@@ -614,8 +780,8 @@ export default function OnboardingFlow({ onComplete }) {
                   </div>
                 )}
 
-                {/* ─── STEP 4: Faith ──────────────────────────────────────── */}
-                {step === 4 && (
+                {/* ─── STEP 5: Faith ──────────────────────────────────────── */}
+                {step === 5 && (
                   <div className="space-y-4">
                     <div>
                       <SectionLabel>Bible reading experience</SectionLabel>
@@ -660,8 +826,8 @@ export default function OnboardingFlow({ onComplete }) {
                   </div>
                 )}
 
-                {/* ─── STEP 5: Growth ─────────────────────────────────────── */}
-                {step === 5 && (
+                {/* ─── STEP 6: Growth ─────────────────────────────────────── */}
+                {step === 6 && (
                   <div className="space-y-4">
                     <div>
                       <SectionLabel>Top areas to work on (pick up to 3)</SectionLabel>
@@ -713,8 +879,8 @@ export default function OnboardingFlow({ onComplete }) {
                   </div>
                 )}
 
-                {/* ─── STEP 6: Routine ─────────────────────────────────────── */}
-                {step === 6 && (
+                {/* ─── STEP 7: Routine ─────────────────────────────────────── */}
+                {step === 7 && (
                   <div className="space-y-4">
                     <div className="grid grid-cols-2 gap-3">
                       <div>
@@ -799,7 +965,7 @@ export default function OnboardingFlow({ onComplete }) {
               </div>
 
               {/* ── Skip ── */}
-              {step < STEPS.length - 1 && (
+              {step > 0 && step < STEPS.length - 1 && (
                 <button onPointerDown={handleComplete}
                   className="w-full text-center text-xs text-gray-400 hover:text-gray-600 pb-4 transition-colors"
                 >
@@ -818,6 +984,18 @@ export default function OnboardingFlow({ onComplete }) {
           </div>
         </div>
       </div>
+
+      {/* ── Legal Doc Modal ── */}
+      {openDoc && (
+        <LegalDocModal
+          doc={openDoc}
+          onAccept={() => {
+            setAcceptedDocs(prev => ({ ...prev, [openDoc]: true }));
+            setOpenDoc(null);
+          }}
+          onClose={() => setOpenDoc(null)}
+        />
+      )}
     </div>
   );
 }
