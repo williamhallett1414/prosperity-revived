@@ -416,9 +416,9 @@ export default function GideonAvatar({
           {blink && (
             <div style={{
               position:'absolute', pointerEvents:'none',
-              left:  imgBounds.left + imgBounds.w * 0.420,
+              left:  imgBounds.left + imgBounds.w * 0.422,
               top:   imgBounds.top  + imgBounds.h * 0.233,
-              width: imgBounds.w * 0.044,
+              width: imgBounds.w * 0.036,
               height:imgBounds.h * 0.020,
               background:'linear-gradient(to bottom, #8B4513 0%, #A0522D 60%, #8B4513 100%)',
               borderRadius:'50%', opacity: 0.95,
@@ -428,9 +428,9 @@ export default function GideonAvatar({
           {blink && (
             <div style={{
               position:'absolute', pointerEvents:'none',
-              left:  imgBounds.left + imgBounds.w * 0.536,
+              left:  imgBounds.left + imgBounds.w * 0.542,
               top:   imgBounds.top  + imgBounds.h * 0.233,
-              width: imgBounds.w * 0.044,
+              width: imgBounds.w * 0.036,
               height:imgBounds.h * 0.020,
               background:'linear-gradient(to bottom, #8B4513 0%, #A0522D 60%, #8B4513 100%)',
               borderRadius:'50%', opacity: 0.95,
