@@ -416,36 +416,34 @@ export default function GideonAvatar({
           {blink && (
             <div style={{
               position:'absolute', pointerEvents:'none',
-              left:  imgBounds.left + imgBounds.w * 0.355,
-              top:   imgBounds.top  + imgBounds.h * 0.255,
-              width: imgBounds.w * 0.095,
-              height:imgBounds.h * 0.028,
+              left:  imgBounds.left + imgBounds.w * 0.365,
+              top:   imgBounds.top  + imgBounds.h * 0.215,
+              width: imgBounds.w * 0.072,
+              height:imgBounds.h * 0.020,
               background:'linear-gradient(to bottom, #8B4513 0%, #A0522D 60%, #8B4513 100%)',
-              borderRadius:'50%', opacity: blink ? 0.95 : 0,
-              transition:'opacity 0.06s',
+              borderRadius:'50%', opacity: 0.95,
             }}/>
           )}
           {/* Right eye blink */}
           {blink && (
             <div style={{
               position:'absolute', pointerEvents:'none',
-              left:  imgBounds.left + imgBounds.w * 0.545,
-              top:   imgBounds.top  + imgBounds.h * 0.255,
-              width: imgBounds.w * 0.095,
-              height:imgBounds.h * 0.028,
+              left:  imgBounds.left + imgBounds.w * 0.558,
+              top:   imgBounds.top  + imgBounds.h * 0.215,
+              width: imgBounds.w * 0.072,
+              height:imgBounds.h * 0.020,
               background:'linear-gradient(to bottom, #8B4513 0%, #A0522D 60%, #8B4513 100%)',
-              borderRadius:'50%', opacity: blink ? 0.95 : 0,
-              transition:'opacity 0.06s',
+              borderRadius:'50%', opacity: 0.95,
             }}/>
           )}
           {/* Mouth open */}
           {mouthOpen > 0.05 && (
             <div style={{
               position:'absolute', pointerEvents:'none', overflow:'hidden',
-              left:   imgBounds.left + imgBounds.w * (0.5 - (0.14 + mouthOpen * 0.06) / 2),
-              top:    imgBounds.top  + imgBounds.h * 0.365,
-              width:  imgBounds.w * (0.14 + mouthOpen * 0.06),
-              height: imgBounds.h * (0.008 + mouthOpen * 0.032),
+              left:   imgBounds.left + imgBounds.w * (0.5 - (0.10 + mouthOpen * 0.04) / 2),
+              top:    imgBounds.top  + imgBounds.h * 0.325,
+              width:  imgBounds.w * (0.10 + mouthOpen * 0.04),
+              height: imgBounds.h * (0.006 + mouthOpen * 0.026),
               background:'radial-gradient(ellipse at 50% 40%, #1A0600 0%, #2E0C06 70%, #5A2010 100%)',
               borderRadius:'40%',
               opacity: 0.78 + mouthOpen * 0.15,
