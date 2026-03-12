@@ -416,10 +416,10 @@ export default function GideonAvatar({
           {blink && (
             <div style={{
               position:'absolute', pointerEvents:'none',
-              left:  imgBounds.left + imgBounds.w * 0.375,
+              left:  imgBounds.left + imgBounds.w * 0.390,
               top:   imgBounds.top  + imgBounds.h * 0.235,
-              width: imgBounds.w * 0.058,
-              height:imgBounds.h * 0.016,
+              width: imgBounds.w * 0.046,
+              height:imgBounds.h * 0.013,
               background:'linear-gradient(to bottom, #8B4513 0%, #A0522D 60%, #8B4513 100%)',
               borderRadius:'50%', opacity: 0.95,
             }}/>
@@ -428,10 +428,10 @@ export default function GideonAvatar({
           {blink && (
             <div style={{
               position:'absolute', pointerEvents:'none',
-              left:  imgBounds.left + imgBounds.w * 0.567,
+              left:  imgBounds.left + imgBounds.w * 0.564,
               top:   imgBounds.top  + imgBounds.h * 0.235,
-              width: imgBounds.w * 0.058,
-              height:imgBounds.h * 0.016,
+              width: imgBounds.w * 0.046,
+              height:imgBounds.h * 0.013,
               background:'linear-gradient(to bottom, #8B4513 0%, #A0522D 60%, #8B4513 100%)',
               borderRadius:'50%', opacity: 0.95,
             }}/>
@@ -441,7 +441,7 @@ export default function GideonAvatar({
             <div style={{
               position:'absolute', pointerEvents:'none', overflow:'hidden',
               left:   imgBounds.left + imgBounds.w * (0.5 - (0.08 + mouthOpen * 0.03) / 2),
-              top:    imgBounds.top  + imgBounds.h * 0.310,
+              top:    imgBounds.top  + imgBounds.h * 0.300,
               width:  imgBounds.w * (0.08 + mouthOpen * 0.03),
               height: imgBounds.h * (0.005 + mouthOpen * 0.022),
               background:'radial-gradient(ellipse at 50% 40%, #1A0600 0%, #2E0C06 70%, #5A2010 100%)',
