@@ -576,8 +576,8 @@ function AvatarBody({ char, stateRef }) {
     if (bodyRef.current) bodyRef.current.position.y = breathe * 0.5;
 
     if (jawRef.current) {
-      jawRef.current.position.y=-0.188-a.mouth*0.068;
-      jawRef.current.rotation.x=a.mouth*0.21;
+      jawRef.current.position.y=-0.188-a.mouth*0.13;
+      jawRef.current.rotation.x=a.mouth*0.38;
     }
     const browBase=0.242;
     if (browLRef.current) browLRef.current.position.y=lerp(browLRef.current.position.y,browBase+a.browL,d*6.5);
