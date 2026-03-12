@@ -588,16 +588,23 @@ function AvatarBody({ char, stateRef }) {
     if (armLRef.current) armLRef.current.rotation.x = cfg.armAngleX + a.armL;
     if (armRRef.current) armRRef.current.rotation.x = cfg.armAngleX + a.armR;
 
-    // Blink
+    // Blink — lidScale=0 means eye open (lid hidden), lidScale=1 means eye closed (lid down)
     a.blinkT+=d;
     if (!a.blinking && a.blinkT>=a.nextBlink) { a.blinking=true; a.blinkT=0; }
-    let lidY=0;
+    let lidScale=0;
     if (a.blinking) {
-      const t=a.blinkT/0.12; lidY=t<0.5?t*2:(1-t)*2;
-      if (a.blinkT>=0.12) { a.blinking=false; a.blinkT=0; a.nextBlink=2+Math.random()*4.2; }
+      const t=a.blinkT/0.14;
+      lidScale = t<0.5 ? t*2 : (1-(t-0.5)*2);
+      if (a.blinkT>=0.14) { a.blinking=false; a.blinkT=0; a.nextBlink=2.5+Math.random()*3.5; }
     }
-    if (eyelidLRef.current) eyelidLRef.current.scale.y=Math.max(0.02,lidY);
-    if (eyelidRRef.current) eyelidRRef.current.scale.y=Math.max(0.02,lidY);
+    // lidScale=0: eyelid at top (eye open), lidScale=1: eyelid drops down covering iris
+    const openScaleY = 0.048;
+    const closedScaleY = 0.38;
+    const lyVal = openScaleY + lidScale * (closedScaleY - openScaleY);
+    // Also shift lid down as it closes
+    const lyOff = 0.046 - lidScale * 0.05;
+    if (eyelidLRef.current) { eyelidLRef.current.scale.y = lyVal; eyelidLRef.current.position.y = lyOff; }
+    if (eyelidRRef.current) { eyelidRRef.current.scale.y = lyVal; eyelidRRef.current.position.y = lyOff; }
   });
 
   const ex=cfg.eyeX, ey=cfg.eyeY;
