@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
-import { ArrowLeft, Moon, Sun, Monitor, Bell, Mail, User, Palette, Trash2, Play } from 'lucide-react';
+import { ArrowLeft, Moon, Sun, Monitor, Bell, Mail, User, Palette, Trash2, Play, Database } from 'lucide-react';
 import AppTour from '@/components/onboarding/AppTour';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { Label } from '@/components/ui/label';
 import ReminderSettings from '@/components/settings/ReminderSettings';
+import ManageMyData from '@/components/settings/ManageMyData';
 import GideonNotificationSettings from '@/components/settings/GideonNotificationSettings';
 import DailyReflectionSettings from '@/components/settings/DailyReflectionSettings';
 import HannahNotificationSettings from '@/components/settings/HannahNotificationSettings';
@@ -298,6 +299,15 @@ export default function Settings() {
               <ArrowLeft className="w-4 h-4 text-gray-400 rotate-180" />
             </Link>
           </div>
+
+          {/* ── Manage My Data ──────────────────────────────────────────── */}
+          <div className="mt-6 mb-1">
+            <div className="flex items-center gap-2">
+              <Database className="w-4 h-4 text-[#C9A227]" />
+              <h2 className="font-semibold text-[#0A1A2F] dark:text-white">Manage My Data</h2>
+            </div>
+          </div>
+          <ManageMyData user={user} />
 
           <Button
             onClick={() => base44.auth.logout()}

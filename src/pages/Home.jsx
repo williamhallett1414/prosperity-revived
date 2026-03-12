@@ -11,6 +11,7 @@ import {
 import { readingPlans, getVerseOfDay } from '@/components/bible/BibleData';
 import { COACHING_PLANS } from '@/components/coaching/planData';
 import OnboardingFlow from '@/components/onboarding/OnboardingFlow';
+import TermsUpdateGate, { needsTermsUpdate } from '@/components/onboarding/TermsUpdateGate';
 import AppTour from '@/components/onboarding/AppTour';
 import StartMyDayModal from '@/components/home/StartMyDayModal';
 import EndMyDayModal from '@/components/home/EndMyDayModal';
@@ -394,6 +395,7 @@ export default function Home() {
   const [showEndDay, setShowEndDay] = useState(false);
   const [showNotifPrompt, setShowNotifPrompt] = useState(false);
   const [showCreatePost, setShowCreatePost] = useState(false);
+  const [showTermsGate, setShowTermsGate] = useState(false);
 
   const greeting = getGreeting();
 
@@ -402,6 +404,8 @@ export default function Home() {
       setUser(u);
       if (!u.onboarding_completed) {
         setShowOnboarding(true);
+      } else if (needsTermsUpdate(u)) {
+        setShowTermsGate(true);
       } else if (!u.app_tour_completed) {
         setShowAppTour(true);
       }
@@ -475,6 +479,18 @@ export default function Home() {
           base44.auth.me().then(setUser);
           setTimeout(() => setShowAppTour(true), 600);
         }} />
+      )}
+      {showTermsGate && (
+        <TermsUpdateGate
+          user={user}
+          onAccepted={() => {
+            setShowTermsGate(false);
+            base44.auth.me().then(u => {
+              setUser(u);
+              if (!u.app_tour_completed) setTimeout(() => setShowAppTour(true), 400);
+            });
+          }}
+        />
       )}
       {showAppTour && (
         <AppTour
