@@ -55,6 +55,35 @@ export default function GideonAvatar({
   className   = '',
 }) {
   const state = isSpeaking ? 'speaking' : isListening ? 'listening' : isThinking ? 'thinking' : 'idle';
+
+  /* ── Measure actual rendered image bounds so overlays align correctly ── */
+  const imgRef       = useRef(null);
+  const containerRef = useRef(null);
+  const [imgBounds, setImgBounds] = useState(null); // { left, top, w, h } in px relative to container
+
+  const measureImage = useCallback(() => {
+    const img = imgRef.current;
+    const con = containerRef.current;
+    if (!img || !con) return;
+    const nat = { w: img.naturalWidth  || img.width  || 360,
+                  h: img.naturalHeight || img.height || 420 };
+    const conW = con.offsetWidth;
+    const conH = con.offsetHeight;
+    const scale = Math.min(conW / nat.w, conH / nat.h);
+    const rendW = nat.w * scale;
+    const rendH = nat.h * scale;
+    // objectPosition: center bottom
+    const left = (conW - rendW) / 2;
+    const top  = conH - rendH;           // bottom-aligned
+    setImgBounds({ left, top, w: rendW, h: rendH });
+  }, []);
+
+  useEffect(() => {
+    measureImage();
+    window.addEventListener('resize', measureImage);
+    return () => window.removeEventListener('resize', measureImage);
+  }, [measureImage]);
+
   /* ── Mouth open/close (sin wave 0→1) ── */
   const [mouthOpen, setMouthOpen] = useState(0);
   const mouthRef = useRef(null);
