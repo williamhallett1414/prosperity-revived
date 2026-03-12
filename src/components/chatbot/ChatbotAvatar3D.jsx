@@ -371,8 +371,9 @@ function Cardigan({ skin, c1, c2, c3, sw, cd }) {
 }
 
 // ─── Imperative mesh helpers ──────────────────────────────────────────────────
-function ImpMesh({ geo, material, position, rotation, scale }) {
-  const meshRef = useRef();
+function ImpMesh({ geo, material, position, rotation, scale, meshRef: externalRef }) {
+  const internalRef = useRef();
+  const meshRef = externalRef || internalRef;
   useEffect(() => {
     if (meshRef.current) meshRef.current.geometry = geo;
   }, [geo]);
