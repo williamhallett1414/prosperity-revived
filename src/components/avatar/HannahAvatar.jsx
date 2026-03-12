@@ -88,6 +88,10 @@ export default function HannahAvatar({
   return (
     <div className={className} style={{ width, height, position:'relative', display:'flex', alignItems:'center', justifyContent:'center' }}>
       <style>{`
+        @keyframes hn-eq {
+          0%,100% { height:4px; }
+          50%     { height:22px; }
+        }
         @keyframes hn-float {
           0%,100% { transform: translateY(0px) rotate(0deg); }
           35%     { transform: translateY(-8px) rotate(.5deg); }

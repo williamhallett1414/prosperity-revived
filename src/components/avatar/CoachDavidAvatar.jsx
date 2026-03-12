@@ -83,6 +83,10 @@ export default function CoachDavidAvatar({
   return (
     <div className={className} style={{ width, height, position:'relative', display:'flex', alignItems:'center', justifyContent:'center' }}>
       <style>{`
+        @keyframes cvd-eq {
+          0%,100% { height:4px; }
+          50%     { height:24px; }
+        }
         @keyframes cvd-float {
           0%,100% { transform: translateY(0px) rotate(0deg); }
           40%     { transform: translateY(-7px) rotate(.4deg); }

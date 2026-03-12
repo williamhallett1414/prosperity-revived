@@ -88,6 +88,10 @@ export default function ChefDanielAvatar({
   return (
     <div className={className} style={{ width, height, position:'relative', display:'flex', alignItems:'center', justifyContent:'center' }}>
       <style>{`
+        @keyframes cd-eq {
+          0%,100% { height:4px; }
+          50%     { height:24px; }
+        }
         @keyframes cd-float {
           0%,100% { transform: translateY(0px) rotate(0deg); }
           40%     { transform: translateY(-7px) rotate(.4deg); }
