@@ -49,28 +49,7 @@ export default function CoachPaulAvatar({
 }) {
   const state = isSpeaking ? 'speaking' : isListening ? 'listening' : isThinking ? 'thinking' : 'idle';
 
-  /* Mouth pulse */
-  useEffect(() => {
-    if (!isSpeaking) { setMouthOpen(0); return; }
-    let ph = 0;
-    mouthRef.current = setInterval(() => {
-      ph += 0.30;
-      setMouthOpen(Math.max(0, Math.sin(ph)));
-    }, 55);
-    return () => clearInterval(mouthRef.current);
-  }, [isSpeaking]);
 
-  /* Blink */
-  useEffect(() => {
-    const go = () => {
-      blinkRef.current = setTimeout(() => {
-        setBlink(true);
-        setTimeout(() => { setBlink(false); go(); }, 130);
-      }, 2500 + Math.random() * 4000);
-    };
-    go();
-    return () => clearTimeout(blinkRef.current);
-  }, []);
 
   /* Burst particles */
   const [bursts, setBursts] = useState([]);
