@@ -340,14 +340,14 @@ export default function ChefDanielAvatar({
         {blink && (<>
           <div style={{
             position:'absolute', pointerEvents:'none',
-            left:`${44.2}%`, top:`${26.2}%`,
-            width:`${4.8}%`, height:`${4.4}%`,
+            left:`${44.8}%`, top:`${26.2}%`,
+            width:`${3.6}%`, height:`${4.8}%`,
             background:'linear-gradient(to bottom, #6A3218 0%, #8A5030 60%, #6A3218 100%)', borderRadius:'50%', opacity:.95,
           }}/>
           <div style={{
             position:'absolute', pointerEvents:'none',
-            left:`${48.5}%`, top:`${26.2}%`,
-            width:`${4.8}%`, height:`${4.4}%`,
+            left:`${48.8}%`, top:`${26.2}%`,
+            width:`${3.6}%`, height:`${4.8}%`,
             background:'linear-gradient(to bottom, #6A3218 0%, #8A5030 60%, #6A3218 100%)', borderRadius:'50%', opacity:.95,
           }}/>
         </>)}
