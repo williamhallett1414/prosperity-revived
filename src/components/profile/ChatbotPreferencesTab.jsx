@@ -504,16 +504,275 @@ function HannahPrefs({ user }) {
   );
 }
 
+// ── Gideon panel ──────────────────────────────────────────────────────────────
+const SPIRITUAL_TOPICS = [
+  { id: 'prayer_life', label: '🙏 Prayer Life' },
+  { id: 'scripture_study', label: '📖 Scripture Study' },
+  { id: 'purpose_calling', label: '🎯 Purpose & Calling' },
+  { id: 'faith_challenges', label: '⛰️ Faith Challenges' },
+  { id: 'relationships', label: '💞 Relationships' },
+  { id: 'forgiveness', label: '🕊️ Forgiveness & Healing' },
+  { id: 'gratitude', label: '🌅 Gratitude' },
+  { id: 'anxiety_worry', label: '🌿 Anxiety & Worry' },
+  { id: 'identity_in_christ', label: '👑 Identity in Christ' },
+  { id: 'spiritual_warfare', label: '🛡️ Spiritual Warfare' },
+];
+const TEACHING_STYLES = [
+  { id: 'deep_exegesis', label: '📚 Deep Verse Study' },
+  { id: 'practical', label: '🔧 Practical Application' },
+  { id: 'story_driven', label: '📜 Story-Driven' },
+  { id: 'encouragement', label: '💛 Encouragement-Focused' },
+];
+const SPIRITUAL_SEASONS = [
+  { id: 'new_believer', label: '🌱 New Believer' },
+  { id: 'growing', label: '📈 Growing Deeper' },
+  { id: 'in_valley', label: '🌧️ In a Valley' },
+  { id: 'on_fire', label: '🔥 On Fire' },
+  { id: 'questioning', label: '❓ Questioning' },
+  { id: 'returning', label: '🏠 Returning to Faith' },
+];
+
+function GideonPrefs({ user }) {
+  const qc = useQueryClient();
+
+  const { data: mems } = useQuery({
+    queryKey: ['gideonMemory', user?.email],
+    queryFn: () => base44.entities.ChatbotMemory.filter({ chatbot_name: 'Gideon', created_by: user.email }),
+    enabled: !!user?.email,
+  });
+
+  const parseMem = (mems) => {
+    const onb = mems?.find(m => m.context === 'Onboarding setup' || m.context === 'Profile preferences');
+    if (!onb) return {};
+    const content = onb.content || '';
+    const topics = (content.match(/Topics: ([^.]+)/) || [])[1]?.split(', ').map(l => SPIRITUAL_TOPICS.find(t => t.label === l)?.id).filter(Boolean) || [];
+    const style = (content.match(/Teaching style: ([^.]+)/) || [])[1]?.trim() || '';
+    const styleId = TEACHING_STYLES.find(s => s.label === style)?.id || '';
+    const season = (content.match(/Season: ([^.]+)/) || [])[1]?.trim() || '';
+    const seasonId = SPIRITUAL_SEASONS.find(s => s.label === season)?.id || '';
+    return { topics, style: styleId, season: seasonId, memId: onb.id };
+  };
+
+  const parsed = parseMem(mems);
+  const [topics, setTopics] = useState(parsed.topics || []);
+  const [style, setStyle] = useState(parsed.style || '');
+  const [season, setSeason] = useState(parsed.season || '');
+
+  React.useEffect(() => {
+    const p = parseMem(mems);
+    if (p.topics?.length) setTopics(p.topics);
+    if (p.style) setStyle(p.style);
+    if (p.season) setSeason(p.season);
+  }, [mems]);
+
+  const toggleTopic = (id) => setTopics(prev => prev.includes(id) ? prev.filter(t => t !== id) : prev.length < 5 ? [...prev, id] : prev);
+
+  const mutation = useMutation({
+    mutationFn: async () => {
+      const topicLabels = topics.map(t => SPIRITUAL_TOPICS.find(s => s.id === t)?.label || t);
+      const styleLabel = TEACHING_STYLES.find(s => s.id === style)?.label || '';
+      const seasonLabel = SPIRITUAL_SEASONS.find(s => s.id === season)?.label || '';
+      const content = `Topics: ${topicLabels.join(', ')}. Teaching style: ${styleLabel}. Season: ${seasonLabel}.`;
+      if (parsed.memId) {
+        await base44.entities.ChatbotMemory.update(parsed.memId, { content, last_referenced: new Date().toISOString() });
+      } else {
+        await base44.entities.ChatbotMemory.create({
+          chatbot_name: 'Gideon', memory_type: 'preference', content,
+          context: 'Profile preferences', importance: 10,
+          conversation_date: new Date().toISOString().split('T')[0],
+          last_referenced: new Date().toISOString(),
+        });
+      }
+    },
+    onSuccess: () => { qc.invalidateQueries({ queryKey: ['gideonMemory'] }); toast.success('Gideon preferences saved!'); },
+  });
+
+  return (
+    <Section title="Gideon" emoji="📖" color="amber" defaultOpen>
+      <div>
+        <p className="text-xs font-semibold text-gray-500 mb-2">SPIRITUAL TOPICS <span className="text-gray-400">(up to 5)</span></p>
+        <div className="flex flex-wrap gap-2">
+          {SPIRITUAL_TOPICS.map(t => {
+            const sel = topics.includes(t.id);
+            const disabled = !sel && topics.length >= 5;
+            return (
+              <button key={t.id} onClick={() => !disabled && toggleTopic(t.id)}
+                className={`text-xs px-3 py-1.5 rounded-full border-2 font-medium transition-all ${sel ? 'border-amber-400 bg-amber-50 text-amber-700' : disabled ? 'border-gray-100 text-gray-300 cursor-not-allowed' : 'border-gray-200 text-gray-600 hover:border-gray-300'}`}>
+                {t.label}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+      <div>
+        <p className="text-xs font-semibold text-gray-500 mb-2">TEACHING STYLE</p>
+        <div className="grid grid-cols-2 gap-2">
+          {TEACHING_STYLES.map(s => (
+            <button key={s.id} onClick={() => setStyle(s.id)}
+              className={`text-xs px-3 py-2.5 rounded-xl border-2 font-medium text-left transition-all ${style === s.id ? 'border-amber-400 bg-amber-50 text-amber-700' : 'border-gray-200 text-gray-600 hover:border-gray-300'}`}>
+              {style === s.id && <CheckCircle2 className="w-3 h-3 inline mr-1" />}{s.label}
+            </button>
+          ))}
+        </div>
+      </div>
+      <div>
+        <p className="text-xs font-semibold text-gray-500 mb-2">SPIRITUAL SEASON</p>
+        <div className="flex flex-wrap gap-2">
+          {SPIRITUAL_SEASONS.map(s => (
+            <button key={s.id} onClick={() => setSeason(s.id)}
+              className={`text-xs px-3 py-1.5 rounded-full border-2 font-medium transition-all ${season === s.id ? 'border-amber-400 bg-amber-50 text-amber-700' : 'border-gray-200 text-gray-600 hover:border-gray-300'}`}>
+              {s.label}
+            </button>
+          ))}
+        </div>
+      </div>
+      <Button onClick={() => mutation.mutate()} disabled={mutation.isPending}
+        className="w-full bg-gradient-to-r from-[#c9a227] to-[#D9B878] text-white">
+        {mutation.isPending ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <Save className="w-4 h-4 mr-2" />}
+        Save Gideon Preferences
+      </Button>
+    </Section>
+  );
+}
+
+// ── Coach Paul panel ─────────────────────────────────────────────────────────
+const TRANSFORMATION_AREAS = [
+  { id: 'discipline', label: '⏰ Daily Discipline' },
+  { id: 'leadership', label: '🏅 Leadership' },
+  { id: 'identity', label: '👑 Identity & Purpose' },
+  { id: 'time_management', label: '📋 Time Management' },
+  { id: 'relationships', label: '💞 Relationships' },
+  { id: 'financial', label: '💰 Financial Stewardship' },
+  { id: 'spiritual_depth', label: '🙏 Spiritual Depth' },
+  { id: 'health_fitness', label: '💪 Health & Fitness' },
+  { id: 'career', label: '🚀 Career & Calling' },
+  { id: 'emotional', label: '🧠 Emotional Resilience' },
+];
+const CHALLENGE_LEVELS = [
+  { id: 'gentle', label: '🌸 Gentle' },
+  { id: 'moderate', label: '⚡ Moderate' },
+  { id: 'intense', label: '🔥 Intense' },
+];
+const ACCOUNTABILITY_STYLES = [
+  { id: 'encouraging', label: '💛 Encouraging' },
+  { id: 'direct', label: '🎯 Direct & Honest' },
+  { id: 'structured', label: '📋 Structured Steps' },
+  { id: 'flexible', label: '🌊 Flexible & Adaptive' },
+];
+
+function CoachPaulPrefs({ user }) {
+  const qc = useQueryClient();
+
+  const { data: mems } = useQuery({
+    queryKey: ['coachPaulMemory', user?.email],
+    queryFn: () => base44.entities.ChatbotMemory.filter({ chatbot_name: 'CoachPaul', created_by: user.email }),
+    enabled: !!user?.email,
+  });
+
+  const parseMem = (mems) => {
+    const onb = mems?.find(m => m.context === 'Onboarding setup' || m.context === 'Profile preferences');
+    if (!onb) return {};
+    const content = onb.content || '';
+    const areas = (content.match(/Areas: ([^.]+)/) || [])[1]?.split(', ').map(l => TRANSFORMATION_AREAS.find(a => a.label === l)?.id).filter(Boolean) || [];
+    const challenge = (content.match(/Challenge: (\w+)/) || [])[1] || '';
+    const acct = (content.match(/Accountability: ([^.]+)/) || [])[1]?.trim() || '';
+    const acctId = ACCOUNTABILITY_STYLES.find(s => s.label === acct)?.id || '';
+    return { areas, challenge, accountability: acctId, memId: onb.id };
+  };
+
+  const parsed = parseMem(mems);
+  const [areas, setAreas] = useState(parsed.areas || []);
+  const [challenge, setChallenge] = useState(parsed.challenge || '');
+  const [accountability, setAccountability] = useState(parsed.accountability || '');
+
+  React.useEffect(() => {
+    const p = parseMem(mems);
+    if (p.areas?.length) setAreas(p.areas);
+    if (p.challenge) setChallenge(p.challenge);
+    if (p.accountability) setAccountability(p.accountability);
+  }, [mems]);
+
+  const toggleArea = (id) => setAreas(prev => prev.includes(id) ? prev.filter(a => a !== id) : prev.length < 4 ? [...prev, id] : prev);
+
+  const mutation = useMutation({
+    mutationFn: async () => {
+      const areaLabels = areas.map(a => TRANSFORMATION_AREAS.find(t => t.id === a)?.label || a);
+      const acctLabel = ACCOUNTABILITY_STYLES.find(s => s.id === accountability)?.label || '';
+      const content = `Areas: ${areaLabels.join(', ')}. Challenge: ${challenge}. Accountability: ${acctLabel}.`;
+      if (parsed.memId) {
+        await base44.entities.ChatbotMemory.update(parsed.memId, { content, last_referenced: new Date().toISOString() });
+      } else {
+        await base44.entities.ChatbotMemory.create({
+          chatbot_name: 'CoachPaul', memory_type: 'preference', content,
+          context: 'Profile preferences', importance: 10,
+          conversation_date: new Date().toISOString().split('T')[0],
+          last_referenced: new Date().toISOString(),
+        });
+      }
+    },
+    onSuccess: () => { qc.invalidateQueries({ queryKey: ['coachPaulMemory'] }); toast.success('Coach Paul preferences saved!'); },
+  });
+
+  return (
+    <Section title="Coach Paul" emoji="🏛️" color="violet">
+      <div>
+        <p className="text-xs font-semibold text-gray-500 mb-2">TRANSFORMATION AREAS <span className="text-gray-400">(up to 4)</span></p>
+        <div className="flex flex-wrap gap-2">
+          {TRANSFORMATION_AREAS.map(a => {
+            const sel = areas.includes(a.id);
+            const disabled = !sel && areas.length >= 4;
+            return (
+              <button key={a.id} onClick={() => !disabled && toggleArea(a.id)}
+                className={`text-xs px-3 py-1.5 rounded-full border-2 font-medium transition-all ${sel ? 'border-violet-400 bg-violet-50 text-violet-700' : disabled ? 'border-gray-100 text-gray-300 cursor-not-allowed' : 'border-gray-200 text-gray-600 hover:border-gray-300'}`}>
+                {a.label}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+      <div>
+        <p className="text-xs font-semibold text-gray-500 mb-2">CHALLENGE LEVEL</p>
+        <div className="flex gap-2">
+          {CHALLENGE_LEVELS.map(l => (
+            <button key={l.id} onClick={() => setChallenge(l.id)}
+              className={`flex-1 text-xs px-3 py-2.5 rounded-xl border-2 font-medium text-center transition-all ${challenge === l.id ? 'border-violet-400 bg-violet-50 text-violet-700' : 'border-gray-200 text-gray-600 hover:border-gray-300'}`}>
+              {challenge === l.id && <CheckCircle2 className="w-3 h-3 inline mr-1" />}{l.label}
+            </button>
+          ))}
+        </div>
+      </div>
+      <div>
+        <p className="text-xs font-semibold text-gray-500 mb-2">ACCOUNTABILITY STYLE</p>
+        <div className="grid grid-cols-2 gap-2">
+          {ACCOUNTABILITY_STYLES.map(s => (
+            <button key={s.id} onClick={() => setAccountability(s.id)}
+              className={`text-xs px-3 py-2.5 rounded-xl border-2 font-medium text-left transition-all ${accountability === s.id ? 'border-violet-400 bg-violet-50 text-violet-700' : 'border-gray-200 text-gray-600 hover:border-gray-300'}`}>
+              {accountability === s.id && <CheckCircle2 className="w-3 h-3 inline mr-1" />}{s.label}
+            </button>
+          ))}
+        </div>
+      </div>
+      <Button onClick={() => mutation.mutate()} disabled={mutation.isPending}
+        className="w-full bg-gradient-to-r from-[#3B0764] to-[#7C3AED] text-white">
+        {mutation.isPending ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <Save className="w-4 h-4 mr-2" />}
+        Save Coach Paul Preferences
+      </Button>
+    </Section>
+  );
+}
+
 // ── Main export ───────────────────────────────────────────────────────────────
 export default function ChatbotPreferencesTab({ user }) {
   return (
     <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-1 pt-2">
       <p className="text-sm text-gray-500 mb-4">
-        Update your preferences anytime — changes are reflected immediately in each chatbot's conversations.
+        Update your preferences anytime — changes are reflected immediately in each guide's conversations.
       </p>
+      <GideonPrefs user={user} />
+      <HannahPrefs user={user} />
       <CoachDavidPrefs user={user} />
       <ChefDanielPrefs user={user} />
-      <HannahPrefs user={user} />
+      <CoachPaulPrefs user={user} />
     </motion.div>
   );
 }

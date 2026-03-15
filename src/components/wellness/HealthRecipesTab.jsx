@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
-import { Loader2, CheckCircle2, Heart, ChevronRight, X } from 'lucide-react';
+import { Loader2, Heart, ChevronRight, X } from 'lucide-react';
 import { toast } from 'sonner';
 import RecipeCard from './RecipeCard';
 import { HEALTH_CONDITIONS, SEED_RECIPES } from './HealthRecipeSeed';

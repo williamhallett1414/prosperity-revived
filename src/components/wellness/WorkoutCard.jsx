@@ -9,7 +9,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { toast } from 'sonner';
-import WorkoutLogModal from './WorkoutLogModal';
 import ShareWorkoutModal from './ShareWorkoutModal';
 import WorkoutDetailModal from './WorkoutDetailModal';
 import CommentSection from './CommentSection';

@@ -1,6 +1,5 @@
 import React from 'react';
-import { Progress } from '@/components/ui/progress';
-import { TrendingUp, Target, CheckCircle } from 'lucide-react';
+import { Target, CheckCircle } from 'lucide-react';
 
 export default function GranularGoalsChart({ goals = [] }) {
   const getGoalIcon = (type) => {

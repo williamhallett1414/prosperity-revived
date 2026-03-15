@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Target, Shield, Zap, Heart, BookOpen, ChevronRight, X } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Target, Shield, Zap, Heart, BookOpen, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 

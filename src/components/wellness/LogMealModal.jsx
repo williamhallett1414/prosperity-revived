@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
-import { X, UtensilsCrossed, Check, Loader2 } from 'lucide-react';
+import { X, UtensilsCrossed, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
 
 const MEAL_TYPES = [

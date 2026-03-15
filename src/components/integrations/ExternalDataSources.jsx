@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { 
-  Link2, X, Activity, UtensilsCrossed, Heart, ChevronRight,
-  Check, Upload, Loader2, RefreshCw, Info
+  Link2, X, Activity, UtensilsCrossed, Heart
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';

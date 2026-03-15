@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
-import { Lightbulb, Loader2 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Lightbulb } from 'lucide-react';
 
 export default function ContextualSuggestions({ 
   user, 

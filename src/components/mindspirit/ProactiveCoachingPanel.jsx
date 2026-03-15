@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Lightbulb, TrendingUp, Heart, Zap, MessageCircle, X } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Lightbulb, MessageCircle, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { base44 } from '@/api/base44Client';
 import { analyzeJournalPatterns, generatePatternBasedIntervention } from './HannahPatternAnalyzer';

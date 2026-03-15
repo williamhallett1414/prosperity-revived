@@ -5,7 +5,6 @@ import TTSButton from '../chatbot/TTSButton';
 import VoiceInputButton from '../chatbot/VoiceInputButton';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Card } from '@/components/ui/card';
 import { base44 } from '@/api/base44Client';
 import ReactMarkdown from 'react-markdown';
 import VerseDisplay from './VerseDisplay';

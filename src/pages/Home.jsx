@@ -6,7 +6,7 @@ import { base44 } from '@/api/base44Client';
 import { createPageUrl } from '@/utils';
 import {
   BookOpen, Heart, Dumbbell, Users, TrendingUp, ChevronRight,
-  Flame, Trophy, Utensils, Play, Sparkles
+  Flame, Trophy, Utensils, Play, Sparkles, MessageCircle
 } from 'lucide-react';
 import { readingPlans, getVerseOfDay } from '@/components/bible/BibleData';
 import { COACHING_PLANS } from '@/components/coaching/planData';
@@ -254,6 +254,39 @@ function QuickNav() {
                 <Icon className="w-5 h-5 text-white" />
               </div>
               <span className="text-xs font-semibold text-[#0A1A2F]/70">{label}</span>
+            </motion.div>
+          </Link>
+        ))}
+      </div>
+    </motion.div>
+  );
+}
+
+// ─── Meet Your AI Guides ──────────────────────────────────────────────────────
+const AI_GUIDES = [
+  { name: 'Gideon',  emoji: '📖', sub: 'Biblical wisdom',   color: 'bg-amber-100',   bot: 'Gideon' },
+  { name: 'Hannah',  emoji: '💛', sub: 'Mindset coach',     color: 'bg-sky-100',     bot: 'Hannah' },
+  { name: 'David',   emoji: '💪', sub: 'Fitness guide',     color: 'bg-blue-100',    bot: 'CoachDavid' },
+  { name: 'Daniel',  emoji: '🍽️', sub: 'Nutrition expert',  color: 'bg-orange-100',  bot: 'ChefDaniel' },
+  { name: 'Paul',    emoji: '👑', sub: 'Discipline mentor', color: 'bg-violet-100',  bot: 'CoachPaul' },
+];
+
+function MeetYourGuidesCard() {
+  return (
+    <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.22 }}>
+      <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center gap-2">
+          <MessageCircle className="w-4 h-4 text-[#c9a227]" />
+          <p className="text-xs font-bold text-[#0A1A2F]/40 uppercase tracking-widest">Your AI Guides</p>
+        </div>
+      </div>
+      <div className="grid grid-cols-5 gap-2">
+        {AI_GUIDES.map(({ name, emoji, sub, color, bot }) => (
+          <Link key={bot} to={createPageUrl(`ChatScreen?bot=${bot}`)}>
+            <motion.div whileTap={{ scale: 0.93 }}
+              className={`${color} rounded-2xl p-2.5 flex flex-col items-center gap-1 shadow-sm border border-gray-100/80`}>
+              <span className="text-xl">{emoji}</span>
+              <span className="text-[10px] font-bold text-[#0A1A2F]/70 leading-tight text-center">{name}</span>
             </motion.div>
           </Link>
         ))}
@@ -543,10 +576,35 @@ export default function Home() {
           />
         )}
 
+        {/* 5b. Coaching plan discovery — if no active coaching plan */}
+        {!activeCoaching && (
+          <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}>
+            <Link to={createPageUrl('CoachingPlans')}>
+              <div className="bg-gradient-to-br from-[#0D4F3C] to-[#1a8a6a] rounded-3xl p-5 shadow-md relative overflow-hidden">
+                <div className="absolute -right-4 -top-4 w-28 h-28 rounded-full bg-white/10" />
+                <div className="absolute -right-1 top-8 w-14 h-14 rounded-full bg-white/5" />
+                <div className="relative flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-2xl bg-white/20 flex items-center justify-center flex-shrink-0">
+                    <span className="text-2xl">📋</span>
+                  </div>
+                  <div className="flex-1">
+                    <p className="font-bold text-white text-base leading-tight">Coaching Plans</p>
+                    <p className="text-white/70 text-xs mt-0.5">8-week guided programs for body, mind & spirit</p>
+                  </div>
+                  <ChevronRight className="w-5 h-5 text-white/50" />
+                </div>
+              </div>
+            </Link>
+          </motion.div>
+        )}
+
         {/* 6. Quick navigation */}
         <QuickNav />
 
-        {/* 7. New user Start Here (conditional) */}
+        {/* 7. Meet Your AI Guides */}
+        <MeetYourGuidesCard />
+
+        {/* 8. New user Start Here (conditional) */}
         {isNewUser && <StartHereCard />}
 
       </div>

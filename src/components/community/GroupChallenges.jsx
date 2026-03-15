@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -6,7 +6,7 @@ import ShareToFeedButton from '@/components/community/ShareToFeedButton';
 import {
   CheckCircle2, Users, Calendar, Flame, Trophy, X,
   ChevronRight, ChevronDown, ChevronUp, Loader2, Plus,
-  Award, Sparkles, Wand2
+  Award, Sparkles
 } from 'lucide-react';
 import { differenceInDays } from 'date-fns';
 import { toast } from 'sonner';

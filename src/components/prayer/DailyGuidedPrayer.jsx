@@ -1,8 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Play, Pause, BookOpen, RotateCcw, RotateCw, Loader2, Volume2, VolumeX } from 'lucide-react';
+import { BookOpen, Loader2, Volume2, VolumeX } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { base44 } from '@/api/base44Client';
+import { MEDITATION_VOICE, findHannahVoice } from '@/utils/meditationVoice';
 
 export default function DailyGuidedPrayer() {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -181,29 +182,20 @@ export default function DailyGuidedPrayer() {
     await new Promise((resolve) => setTimeout(resolve, 100));
 
     const speakText = () => {
-      console.log('speakText function called');
-
       const utterance = new SpeechSynthesisUtterance(todaysPrayer.text);
-      console.log('Utterance created with text length:', todaysPrayer.text.length);
 
       const voices = window.speechSynthesis.getVoices();
-      console.log('Available voices:', voices.length);
 
-      // Find a suitable voice
-      const preferredVoice = voices.find((voice) =>
-      voice.lang.startsWith('en') && (voice.name.includes('Female') || voice.name.includes('Samantha') || voice.name.includes('Zira'))
-      ) || voices.find((voice) => voice.lang.startsWith('en')) || voices[0];
+      // Use Hannah's voice for guided prayers
+      const preferredVoice = findHannahVoice(voices);
 
       if (preferredVoice) {
         utterance.voice = preferredVoice;
-        console.log('Selected voice:', preferredVoice.name, preferredVoice.lang);
-      } else {
-        console.log('Using default voice');
       }
 
-      utterance.rate = 0.85;
-      utterance.pitch = 1;
-      utterance.volume = 1;
+      utterance.rate = MEDITATION_VOICE.rate;
+      utterance.pitch = MEDITATION_VOICE.pitch;
+      utterance.volume = MEDITATION_VOICE.volume;
       utterance.lang = 'en-US';
 
       utterance.onstart = () => {

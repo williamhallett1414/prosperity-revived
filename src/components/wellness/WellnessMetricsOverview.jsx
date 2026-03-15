@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { TrendingUp, Flame, Droplet, BookOpen, Heart, PenLine, Zap } from 'lucide-react';
+import { TrendingUp, Flame, Droplet, BookOpen, PenLine, Zap } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Switch } from '@/components/ui/switch';
 import { MessageCircle, Sun, Coffee, Zap, Moon, BookOpen, Heart, TrendingUp, Target } from 'lucide-react';

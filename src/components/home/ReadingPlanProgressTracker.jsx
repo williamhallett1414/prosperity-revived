@@ -1,7 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Calendar as CalendarIcon, CheckCircle2, Flame, TrendingUp } from 'lucide-react';
-import { Progress } from '@/components/ui/progress';
+import { Calendar as CalendarIcon, CheckCircle2, Flame } from 'lucide-react';
 
 export default function ReadingPlanProgressTracker({ planProgress, plans }) {
   if (!planProgress || planProgress.length === 0) return null;

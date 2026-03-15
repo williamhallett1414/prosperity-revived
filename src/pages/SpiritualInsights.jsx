@@ -1,21 +1,18 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { createPageUrl } from '@/utils';
+import { useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import SpiritualInsightsDashboard from '@/components/gideon/SpiritualInsightsDashboard';
 
 export default function SpiritualInsights() {
+  const navigate = useNavigate();
   return (
     <div className="min-h-screen bg-[#F2F6FA] pb-24">
       {/* Header */}
       <div className="sticky top-0 z-40 bg-white border-b border-[#FAD98D]/25 px-4 py-3">
         <div className="max-w-2xl mx-auto flex items-center gap-3">
-          <Link
-            to={createPageUrl('Bible')}
-            className="w-9 h-9 rounded-full bg-[#FAD98D]/20 hover:bg-[#FAD98D]/35 flex items-center justify-center transition-colors"
-          >
+          <button onClick={() => navigate(-1)} className="w-9 h-9 rounded-full bg-[#FAD98D]/20 hover:bg-[#FAD98D]/35 flex items-center justify-center transition-colors">
             <ArrowLeft className="w-4 h-4 text-[#0A1A2F]" />
-          </Link>
+          </button>
           <div>
             <h1 className="text-lg font-bold text-[#0A1A2F]">Spiritual Insights</h1>
             <p className="text-xs text-[#0A1A2F]/60">Gideon's analysis of your journey</p>

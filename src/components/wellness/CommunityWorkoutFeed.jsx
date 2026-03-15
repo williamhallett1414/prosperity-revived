@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
-import { TrendingUp, Users, ThumbsUp, MessageCircle, Eye } from 'lucide-react';
+import { TrendingUp, Users, ThumbsUp } from 'lucide-react';
 import WorkoutCard from './WorkoutCard';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 

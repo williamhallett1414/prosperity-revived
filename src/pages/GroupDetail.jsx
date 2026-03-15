@@ -4,11 +4,11 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { createPageUrl } from '@/utils';
 import {
-  ArrowLeft, Users, Lock, Globe, UserPlus, Plus,
+  ArrowLeft, Lock, Globe, UserPlus, Plus,
   Loader2, Trophy, MessageSquare, ChevronDown, ChevronUp,
-  Crown, Sparkles, Clock, Zap
+  Crown, Clock, Zap
 } from 'lucide-react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import PostCard from '@/components/community/PostCard';
 import CreatePostModal from '@/components/community/CreatePostModal';
 import MemberManagement from '@/components/groups/MemberManagement';

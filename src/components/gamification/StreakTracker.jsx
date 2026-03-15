@@ -1,6 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
-import { Flame, Calendar } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 export default function StreakTracker({ type, count, lastDate }) {
   const [isActive, setIsActive] = useState(false);

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { X, ChevronRight, Loader2, Sparkles, Check } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { X, Loader2, Sparkles, Check } from 'lucide-react';
 
 // ─── Pre-built templates (2-tap creation) ────────────────────────────────────
 const TEMPLATES = [

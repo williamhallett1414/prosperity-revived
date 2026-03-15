@@ -52,7 +52,7 @@ export default function CompletionTracker({ sections, completedSections, onToggl
                     <span className={`text-sm font-medium transition-all ${
                       isCompleted
                         ? 'text-[#c9a227] line-through'
-                        : 'text-[#0A1A2F]/75 group-hover:text-[#c9a227]
+                        : 'text-[#0A1A2F]/75 group-hover:text-[#c9a227]'
                     }`}>
                       {section}
                     </span>

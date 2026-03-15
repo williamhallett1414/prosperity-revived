@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Activity, Upload, Check, AlertCircle, ChevronRight, Info, Loader2 } from 'lucide-react';
+import { Activity, Upload, Check, ChevronRight, Info, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { base44 } from '@/api/base44Client';
 import { toast } from 'sonner';

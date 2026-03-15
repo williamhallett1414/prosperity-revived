@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Camera, Loader2, MessageCircle, UserPlus, Sparkles } from 'lucide-react';
+import { Camera, MessageCircle, UserPlus, Sparkles } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { base44 } from '@/api/base44Client';

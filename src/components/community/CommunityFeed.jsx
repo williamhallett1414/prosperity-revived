@@ -13,7 +13,6 @@ import {
   Dumbbell, 
   ChefHat, 
   BookOpen,
-  ThumbsUp,
   Sparkles,
   MessageCircle,
   Send,

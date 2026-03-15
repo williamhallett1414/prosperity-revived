@@ -28,9 +28,9 @@ export default function NotificationBell() {
   if (!user) return null;
 
   return (
-    <Link to={createPageUrl('Notifications')} className="relative">
-      <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center hover:bg-white/30 transition-colors">
-        <Bell className="w-5 h-5 text-white" />
+    <Link to={createPageUrl('Notifications')} className="relative" aria-label={unreadCount > 0 ? `Notifications, ${unreadCount} unread` : 'Notifications'}>
+      <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center hover:bg-white/30 transition-colors min-h-[44px] min-w-[44px]">
+        <Bell className="w-5 h-5 text-white" aria-hidden="true" />
         <AnimatePresence>
           {unreadCount > 0 && (
             <motion.div
@@ -38,6 +38,7 @@ export default function NotificationBell() {
               animate={{ scale: 1 }}
               exit={{ scale: 0 }}
               className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center text-xs font-bold text-white shadow-lg"
+              aria-hidden="true"
             >
               {unreadCount > 9 ? '9+' : unreadCount}
             </motion.div>

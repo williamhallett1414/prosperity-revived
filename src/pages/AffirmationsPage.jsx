@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Sparkles, Heart, RefreshCw, ArrowLeft, ChevronDown, ChevronUp } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import { createPageUrl } from '@/utils';
+import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { toast } from 'sonner';
@@ -181,6 +180,7 @@ const AFFIRMATIONS = [
 ];
 
 export default function AffirmationsPage() {
+  const navigate = useNavigate();
   const todayIndex = Math.floor(
     (new Date() - new Date(new Date().getFullYear(), 0, 0)) / 86400000
   ) % AFFIRMATIONS.length;
@@ -249,10 +249,10 @@ export default function AffirmationsPage() {
       {/* ── Sticky header ── */}
       <div className="sticky top-0 z-40 bg-white border-b border-[#AFC7E3]/20 px-4 py-3">
         <div className="max-w-lg mx-auto flex items-center gap-3">
-          <Link to={createPageUrl('PersonalGrowth')}
+          <button onClick={() => navigate(-1)}
             className="w-9 h-9 rounded-full bg-[#AFC7E3]/20 hover:bg-[#AFC7E3]/30 flex items-center justify-center transition-colors flex-shrink-0">
             <ArrowLeft className="w-4 h-4 text-[#0A1A2F]" />
-          </Link>
+          </button>
           <div className="flex-1 min-w-0">
             <h1 className="text-base font-bold text-[#0A1A2F]">Scripture Affirmations</h1>
             <p className="text-xs text-[#0A1A2F]/50">Speak truth over yourself daily</p>

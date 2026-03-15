@@ -17,7 +17,6 @@ import VoiceInputButton from '../chatbot/VoiceInputButton';
 import AvatarPanel from '../chatbot/AvatarPanel';
 import ReactMarkdown from 'react-markdown';
 import { getChefDanielNutritionContext } from '../chatbot/CrossChatbotContext';
-import HannahFeedbackRating from '../mindspirit/HannahFeedbackRating';
 import { useProactiveInsights } from '../chatbot/useProactiveInsights';
 import ProactiveInsightCard from '../chatbot/ProactiveInsightCard';
 

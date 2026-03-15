@@ -1,6 +1,5 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/button';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 
 export default function CoachDavidQuickAskMenu({ onSelectPrompt, isLoading, isCollapsed, onToggleCollapse }) {

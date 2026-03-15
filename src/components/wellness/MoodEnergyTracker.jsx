@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
-import { Smile, Frown, Meh, TrendingUp, TrendingDown, Battery, BatteryLow, BatteryFull } from 'lucide-react';
+import { Smile, Frown, Meh, Battery, BatteryLow, BatteryFull } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 
 export default function MoodEnergyTracker({ isOpen, onClose, onSubmit }) {

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Award, TrendingUp } from 'lucide-react';
-import { Badge } from '@/components/ui/badge';
+import { Award } from 'lucide-react';
 
 export default function PersonalBestsChart({ sessions }) {
   // Calculate PRs for each exercise

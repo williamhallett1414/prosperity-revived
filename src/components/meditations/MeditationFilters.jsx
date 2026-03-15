@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
 import { Search, X } from 'lucide-react';
 

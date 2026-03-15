@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
-import { GripVertical, X, Plus, Play, Dumbbell, Heart, Zap } from 'lucide-react';
+import { GripVertical, X, Plus, Dumbbell, Heart, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { EXERCISE_LIBRARY } from './ExerciseLibrary';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 export default function CustomWorkoutBuilder({ exercises, onChange }) {
   const [searchTerm, setSearchTerm] = useState('');

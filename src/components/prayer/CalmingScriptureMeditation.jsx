@@ -1,8 +1,5 @@
 import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { Play, Pause, RotateCcw, RotateCw, Volume2 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 export default function CalmingScriptureMeditation() {
   const [isPlaying, setIsPlaying] = useState(false);

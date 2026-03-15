@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   Heart, Send, X, ChevronRight, Loader2, MessageCircle,
   Plus, Shield, ArrowLeft, Trash2, CheckCircle2, RefreshCw,
-  Lock, Flame, Sparkles
+  Lock, Flame
 } from 'lucide-react';
 import { toast } from 'sonner';
 import ShareToFeedButton from '@/components/community/ShareToFeedButton';

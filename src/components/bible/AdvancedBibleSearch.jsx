@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search, X, Filter, Loader2 } from 'lucide-react';
+import { Search, Filter, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { base44 } from '@/api/base44Client';

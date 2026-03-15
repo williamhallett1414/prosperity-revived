@@ -1,7 +1,8 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Play, Pause, X, Volume2, VolumeX, Loader2, Wind, Moon, Sun, Heart, BookOpen, Leaf, Flame, Star, Zap, Shield, Feather, Eye, Coffee, Cloud, Music, Sunrise, Waves, Anchor, Rainbow } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
+import { MEDITATION_VOICE, findHannahVoice } from '@/utils/meditationVoice';
 
 const MEDITATIONS = [
   {
@@ -400,26 +401,19 @@ class AmbientSoundscape {
   }
 }
 
-// === Voice Narration using Web Speech API ===
-const speakSegment = (text, rate = 0.85, pitch = 0.9) => {
+// === Voice Narration using Web Speech API (Hannah's voice) ===
+const speakSegment = (text, rate = MEDITATION_VOICE.rate, pitch = MEDITATION_VOICE.pitch) => {
   return new Promise((resolve) => {
     if (!window.speechSynthesis) { resolve(); return; }
     window.speechSynthesis.cancel();
     const utter = new SpeechSynthesisUtterance(text);
     utter.rate = rate;
     utter.pitch = pitch;
-    utter.volume = 0.95;
+    utter.volume = MEDITATION_VOICE.volume;
 
-    // Prefer a calm, warm voice
+    // Use Hannah's voice for all guided meditations
     const voices = window.speechSynthesis.getVoices();
-    const preferred = voices.find(v =>
-      v.name.toLowerCase().includes('samantha') ||
-      v.name.toLowerCase().includes('karen') ||
-      v.name.toLowerCase().includes('moira') ||
-      v.name.toLowerCase().includes('tessa') ||
-      v.name.toLowerCase().includes('female') ||
-      (v.lang === 'en-US' && v.name.includes('Google'))
-    ) || voices.find(v => v.lang.startsWith('en')) || voices[0];
+    const preferred = findHannahVoice(voices);
 
     if (preferred) utter.voice = preferred;
     utter.onend = resolve;

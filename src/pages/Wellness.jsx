@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { motion } from 'framer-motion';
 import { useQuery } from '@tanstack/react-query';
 import { COACHING_PLANS } from '@/components/coaching/planData';
 import {
   Dumbbell, Utensils, Brain, Trophy, ChevronRight,
-  Crown, Play, Flame, Droplets, Apple, Moon, Sun, Wind
+  Crown, Play, Droplets, Apple, Moon, Wind, Heart
 } from 'lucide-react';
 
 // ─── Time-aware featured action ───────────────────────────────────────────────
@@ -40,12 +40,28 @@ const CATEGORIES = [
     image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=500&h=300&fit=crop',
   },
   {
+    label: 'Prayer',
+    sub: 'Talk with God',
+    page: 'Prayer',
+    gradient: 'from-[#f472b6] to-[#db2777]',
+    icon: Heart,
+    image: 'https://images.unsplash.com/photo-1507692049790-de58290a4334?w=500&h=300&fit=crop',
+  },
+  {
     label: 'Personal Growth',
     sub: 'Mind & spirit',
     page: 'PersonalGrowth',
     gradient: 'from-[#AFC7E3] to-[#3C4E53]',
     icon: Brain,
     image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=500&h=300&fit=crop',
+  },
+  {
+    label: 'Meditations',
+    sub: 'Guided peace',
+    page: 'GuidedMeditationsPage',
+    gradient: 'from-[#a78bfa] to-[#7c3aed]',
+    icon: Wind,
+    image: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=500&h=300&fit=crop',
   },
   {
     label: 'Challenges',

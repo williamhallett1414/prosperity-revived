@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ChevronDown, ChevronUp, BookOpen, Heart, Lightbulb, MessageSquare, Users, Sparkles } from 'lucide-react';
+import { ChevronDown, ChevronUp, BookOpen, Heart, Lightbulb, MessageSquare, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export default function GideonQuickAskMenu({ onSelectPrompt, isLoading, isCollapsed, onToggleCollapse }) {

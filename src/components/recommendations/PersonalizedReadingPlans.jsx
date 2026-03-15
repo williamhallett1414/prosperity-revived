@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Sparkles, TrendingUp } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 import { readingPlans } from '@/components/bible/BibleData';
 import ReadingPlanCard from '@/components/home/ReadingPlanCard';
 

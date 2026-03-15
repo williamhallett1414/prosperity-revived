@@ -2,7 +2,7 @@ import React from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { X, BookOpen, Dumbbell, Utensils, BookMarked } from 'lucide-react';
+import { BookOpen, Dumbbell, Utensils, BookMarked } from 'lucide-react';
 import { createPageUrl } from '@/utils';
 import { useNavigate } from 'react-router-dom';
 import { PREMADE_WORKOUTS } from '@/components/wellness/WorkoutLibrary';

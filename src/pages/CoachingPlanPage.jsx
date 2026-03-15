@@ -5,9 +5,9 @@ import { createPageUrl } from '@/utils';
 import { Button } from '@/components/ui/button';
 import {
   ArrowLeft, BookOpen, Dumbbell, Utensils, Brain,
-  ChevronRight, ChevronLeft, CheckCircle2, Circle,
-  Star, Calendar, TrendingUp, Trophy, Sparkles,
-  Play, ExternalLink, Quote, Zap, Target, Heart,
+  ChevronRight, ChevronLeft, CheckCircle2,
+  Star,
+  Play, ExternalLink, Quote,
   ChevronDown, ChevronUp, Lock
 } from 'lucide-react';
 import { prosperityRevivedPlan, PLAN_ID } from '@/components/journey/CoachingPlanData';

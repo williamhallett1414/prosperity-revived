@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { Card } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
-import { Users, TrendingUp, CheckCircle2, Eye, EyeOff } from 'lucide-react';
+import { Users, TrendingUp, CheckCircle2, EyeOff } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export default function GroupProgressDashboard({ groupId, totalDays }) {

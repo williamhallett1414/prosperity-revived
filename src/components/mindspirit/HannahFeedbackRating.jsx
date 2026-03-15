@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { base44 } from '@/api/base44Client';
-import { ThumbsUp, ThumbsDown, Star } from 'lucide-react';
-import { toast } from 'sonner';
+import { ThumbsUp, Star } from 'lucide-react';
 
 const FEEDBACK_OPTIONS = [
   { value: 'helpful', label: '✅ Helpful' },

@@ -1,12 +1,11 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { motion, AnimatePresence, useMotionValue, useTransform } from 'framer-motion';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import {
   Play, Pause, CheckCircle, ChevronRight, ChevronLeft,
   SkipForward, Timer, Dumbbell, Zap, Trophy, Flame,
-  RotateCcw, X, List, Meh, Frown, Smile, Plus, Minus,
-  ChevronDown
+  RotateCcw, X, List, Plus, Minus
 } from 'lucide-react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';

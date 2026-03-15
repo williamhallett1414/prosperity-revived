@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
-import { Heart, BookOpen, Wand2, Clock, Share2, ChevronDown, ChevronUp, Loader2 } from 'lucide-react';
+import { Heart, BookOpen, Wand2, Clock, Share2, ChevronUp, Loader2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ReactMarkdown from 'react-markdown';
 import { formatDistanceToNow } from 'date-fns';

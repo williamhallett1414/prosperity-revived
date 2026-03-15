@@ -4,7 +4,7 @@ import {
   Heart, ArrowLeft, Flame, ChevronRight,
   BookOpen, Sparkles, CheckCircle2
 } from 'lucide-react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { base44 } from '@/api/base44Client';
 import { toast } from 'sonner';
@@ -189,10 +189,10 @@ export default function EmotionalCheckInPage() {
       {/* ── Header ── */}
       <div className="sticky top-0 z-40 bg-white border-b border-[#AFC7E3]/20 px-4 py-3">
         <div className="max-w-lg mx-auto flex items-center gap-3">
-          <Link to={createPageUrl('PersonalGrowth')}
+          <button onClick={() => navigate(-1)}
             className="w-9 h-9 rounded-full bg-[#AFC7E3]/20 hover:bg-[#AFC7E3]/30 flex items-center justify-center transition-colors">
             <ArrowLeft className="w-4 h-4 text-[#0A1A2F]" />
-          </Link>
+          </button>
           <div className="flex-1">
             <h1 className="text-base font-bold text-[#0A1A2F]">Emotional Check-In</h1>
             <p className="text-xs text-[#0A1A2F]/50">

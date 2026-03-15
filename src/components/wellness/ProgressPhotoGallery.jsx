@@ -7,7 +7,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { Camera, Plus, Calendar, Scale, Ruler } from 'lucide-react';
+import { Camera, Plus, Scale, Ruler } from 'lucide-react';
 import { format } from 'date-fns';
 import { toast } from 'sonner';
 

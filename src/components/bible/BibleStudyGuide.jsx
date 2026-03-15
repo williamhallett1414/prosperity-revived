@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { BookOpen } from 'lucide-react';
 import StudyGuideCard from './StudyGuideCard';
 import StudyGuideArticle from './StudyGuideArticle';
 

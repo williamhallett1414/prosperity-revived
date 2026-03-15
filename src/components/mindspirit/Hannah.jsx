@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageCircle, X, Send, Loader2, Heart, Trash2, Smile, UserCircle, Link2 } from 'lucide-react';
+import { X, Send, Loader2, Heart, Trash2, Smile, UserCircle, Link2 } from 'lucide-react';
 import ExternalDataSources from '../integrations/ExternalDataSources';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -15,7 +15,6 @@ import HannahTooltip from './HannahTooltip';
 import ProactiveCoachingPanel from './ProactiveCoachingPanel';
 import ProactiveSuggestionBanner from '../chatbot/ProactiveSuggestionBanner';
 import HannahProfileSetup from './HannahProfileSetup';
-import HannahFeedbackRating from './HannahFeedbackRating';
 import TTSButton from '../chatbot/TTSButton';
 import VoiceInputButton from '../chatbot/VoiceInputButton';
 import AvatarPanel from '../chatbot/AvatarPanel';

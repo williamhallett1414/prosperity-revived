@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { useQuery } from '@tanstack/react-query';
@@ -6,7 +6,7 @@ import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
 import {
   Target, TrendingUp, Trophy, CheckCircle2,
-  Sparkles, MessageCircle, ChevronRight,
+  Sparkles, ChevronRight,
   Flame, Crown, Calendar
 } from 'lucide-react';
 import { format } from 'date-fns';

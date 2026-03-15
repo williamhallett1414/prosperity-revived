@@ -12,8 +12,7 @@ import {
   Check,
   MessageCircle,
   Target,
-  TrendingUp,
-  X
+  TrendingUp
 } from 'lucide-react';
 
 const chatbotSteps = [

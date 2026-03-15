@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React from 'react';
+import { motion } from 'framer-motion';
 import { Sparkles, Trophy, Star } from 'lucide-react';
 import { toast } from 'sonner';
 

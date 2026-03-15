@@ -2,7 +2,7 @@ import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { Sparkles, TrendingUp, Heart, BookOpen, Target, Award } from 'lucide-react';
+import { Sparkles, Heart, BookOpen, Target, Award } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export default function SpiritualInsightsDashboard() {

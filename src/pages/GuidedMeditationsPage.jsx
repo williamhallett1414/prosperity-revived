@@ -4,10 +4,11 @@ import {
   ArrowLeft, Play, Pause, X, Volume2, VolumeX, Loader2,
   Wind, Moon, Sun, Heart, BookOpen, Leaf, Flame, Star as StarIcon,
   Zap, Shield, Feather, Eye, Coffee, Cloud, Music, Sunrise,
-  Waves, Anchor, Rainbow, ChevronRight, Clock, Sparkles
+  Waves, Anchor, Rainbow
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
+import { MEDITATION_VOICE, findHannahVoice } from '@/utils/meditationVoice';
 
 // ─── Meditation catalogue with categories ────────────────────────────────────
 const MEDITATIONS = [
@@ -117,17 +118,13 @@ class AmbientSoundscape {
   }
 }
 
-const speakSegment = (text, rate = 0.85, pitch = 0.9) => new Promise(resolve => {
+const speakSegment = (text, rate = MEDITATION_VOICE.rate, pitch = MEDITATION_VOICE.pitch) => new Promise(resolve => {
   if (!window.speechSynthesis) { resolve(); return; }
   window.speechSynthesis.cancel();
   const utter = new SpeechSynthesisUtterance(text);
-  utter.rate = rate; utter.pitch = pitch; utter.volume = 0.95;
+  utter.rate = rate; utter.pitch = pitch; utter.volume = MEDITATION_VOICE.volume;
   const voices = window.speechSynthesis.getVoices();
-  const preferred = voices.find(v =>
-    v.name.toLowerCase().includes('samantha') || v.name.toLowerCase().includes('karen') ||
-    v.name.toLowerCase().includes('moira')    || v.name.toLowerCase().includes('tessa') ||
-    (v.lang === 'en-US' && v.name.includes('Google'))
-  ) || voices.find(v => v.lang.startsWith('en')) || voices[0];
+  const preferred = findHannahVoice(voices);
   if (preferred) utter.voice = preferred;
   utter.onend = resolve; utter.onerror = resolve;
   window.speechSynthesis.speak(utter);

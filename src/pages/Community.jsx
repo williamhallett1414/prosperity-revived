@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
 import {
   Sparkles, Users, TrendingUp, Plus, Wand2, PenLine,
-  Search, X, Lock, Globe
+  Search, MessageCircle, UserPlus
 } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
@@ -300,6 +300,22 @@ export default function Community() {
                 <Wand2 className="w-3.5 h-3.5" /> Write
               </button>
             )}
+          </div>
+
+          {/* Quick links — Friends & Messages */}
+          <div className="flex gap-2 mb-3">
+            <Link to={createPageUrl('Friends')} className="flex-1">
+              <div className="flex items-center gap-2 bg-[#F2F6FA] rounded-xl px-3 py-2.5 border border-[#D9B878]/15 hover:border-[#c9a227]/30 transition-all">
+                <UserPlus className="w-4 h-4 text-[#c9a227]" />
+                <span className="text-xs font-semibold text-[#0A1A2F]">Friends</span>
+              </div>
+            </Link>
+            <Link to={createPageUrl('Messages')} className="flex-1">
+              <div className="flex items-center gap-2 bg-[#F2F6FA] rounded-xl px-3 py-2.5 border border-[#D9B878]/15 hover:border-[#c9a227]/30 transition-all">
+                <MessageCircle className="w-4 h-4 text-[#c9a227]" />
+                <span className="text-xs font-semibold text-[#0A1A2F]">Messages</span>
+              </div>
+            </Link>
           </div>
 
           <TabBar active={activeTab} onChange={setActiveTab} />
