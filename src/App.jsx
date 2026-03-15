@@ -8,7 +8,29 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import PageNotFound from './lib/PageNotFound';
 import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
-import useCapacitorInit from '@/hooks/useCapacitorInit';
+// Capacitor init — dynamically loaded to avoid missing-package errors in browser
+const useCapacitorInit = () => {
+  React.useEffect(() => {
+    (async () => {
+      try {
+        const { Capacitor } = await import('@capacitor/core').catch(() => ({}));
+        if (!Capacitor?.isNativePlatform?.()) return;
+        const { StatusBar, Style } = await import('@capacitor/status-bar').catch(() => ({}));
+        if (StatusBar && Style) {
+          await StatusBar.setStyle({ style: Style.Light });
+          await StatusBar.setBackgroundColor({ color: '#FFFFFF' });
+        }
+        const { SplashScreen } = await import('@capacitor/splash-screen').catch(() => ({}));
+        if (SplashScreen) await SplashScreen.hide();
+        const { Keyboard } = await import('@capacitor/keyboard').catch(() => ({}));
+        if (Keyboard) {
+          Keyboard.addListener('keyboardWillShow', () => document.body.classList.add('keyboard-open'));
+          Keyboard.addListener('keyboardWillHide', () => document.body.classList.remove('keyboard-open'));
+        }
+      } catch (_) {}
+    })();
+  }, []);
+};
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
