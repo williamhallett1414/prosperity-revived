@@ -30,7 +30,7 @@ const TABS = [
 { id: 'about', label: 'About' },
 { id: 'friends', label: 'Friends' },
 { id: 'photos', label: 'Photos' },
-{ id: 'ai', label: 'AI Guides' }];
+{ id: 'ai', label: 'Guides' }];
 
 
 // ─── Profile header ────────────────────────────────────────────────────────────
