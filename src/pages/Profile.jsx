@@ -22,8 +22,6 @@ import AboutTab from '@/components/profile/facebook/AboutTab';
 import FriendsTab from '@/components/profile/facebook/FriendsTab';
 import PhotosTab from '@/components/profile/facebook/PhotosTab';
 import TimelineTab from '@/components/profile/facebook/TimelineTab';
-import ProfileStreaks from '@/components/profile/ProfileStreaks';
-import ProfileStats from '@/components/profile/ProfileStats';
 import ChatbotPreferencesTab from '@/components/profile/ChatbotPreferencesTab';
 
 // ─── Tabs ──────────────────────────────────────────────────────────────────────
@@ -140,89 +138,252 @@ function TabBar({ activeTab, onChange }) {
 
 }
 
-// ─── Journey + Achievements quick-links ───────────────────────────────────────
-function QuickLinks() {
+// ─── Section heading ──────────────────────────────────────────────────────────
+function SectionHeading({ children, accent }) {
   return (
-    <div id="tour-profile-progress" className="space-y-2.5">
-      <div className="flex gap-3">
-        <Link to={createPageUrl('ProgressDashboard')} className="flex-1">
-          <div className="bg-gradient-to-br from-[#0A1A2F] to-[#0A1A2F] rounded-2xl p-4 flex items-center gap-3 hover:opacity-90 transition-opacity">
-            <div className="w-9 h-9 rounded-xl bg-white/15 flex items-center justify-center flex-shrink-0">
-              <TrendingUp className="w-4 h-4 text-white" />
+    <div className="flex items-center gap-2 mb-3">
+      {accent && <div className="w-1 h-4 rounded-full" style={{ background: accent }} />}
+      <p className="text-[11px] font-black text-[#0A1A2F]/40 uppercase tracking-widest">{children}</p>
+    </div>
+  );
+}
+
+// ─── North Star hero card ─────────────────────────────────────────────────────
+function NorthStarCard({ user }) {
+  const goal = user?.main_goal_text || user?.goal_90_day;
+  const firstName = user?.full_name?.split(' ')[0] || 'Friend';
+
+  if (!goal) {
+    return (
+      <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
+        className="relative overflow-hidden rounded-3xl px-5 py-5"
+        style={{ background: 'linear-gradient(135deg, #0A1A2F 0%, #0f2744 100%)' }}>
+        {/* Decorative glow */}
+        <div className="absolute top-0 right-0 w-32 h-32 rounded-full opacity-20"
+          style={{ background: 'radial-gradient(circle, #C9A227, transparent)', transform: 'translate(30%, -30%)' }} />
+        <div className="relative z-10">
+          <p className="text-[#C9A227] text-[10px] font-black uppercase tracking-widest mb-2">Welcome back, {firstName}</p>
+          <p className="text-white font-black text-lg leading-snug" style={{ fontFamily: 'Georgia, serif' }}>
+            "I can do all things through Christ who strengthens me."
+          </p>
+          <p className="text-white/40 text-xs mt-2">— Philippians 4:13</p>
+        </div>
+      </motion.div>
+    );
+  }
+
+  return (
+    <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
+      className="relative overflow-hidden rounded-3xl px-5 py-5"
+      style={{ background: 'linear-gradient(135deg, #0A1A2F 0%, #0f2744 100%)' }}>
+      <div className="absolute top-0 right-0 w-40 h-40 rounded-full opacity-15"
+        style={{ background: 'radial-gradient(circle, #C9A227, transparent)', transform: 'translate(35%, -35%)' }} />
+      <div className="absolute bottom-0 left-0 w-24 h-24 rounded-full opacity-10"
+        style={{ background: 'radial-gradient(circle, #FD9C2D, transparent)', transform: 'translate(-30%, 30%)' }} />
+      <div className="relative z-10">
+        <div className="flex items-center gap-1.5 mb-3">
+          <span className="text-base">🎯</span>
+          <p className="text-[#C9A227] text-[10px] font-black uppercase tracking-widest">Your north star</p>
+        </div>
+        <p className="text-white/90 text-base leading-relaxed italic font-medium" style={{ fontFamily: 'Georgia, serif' }}>
+          "{goal}"
+        </p>
+        <p className="text-white/30 text-[10px] mt-3 font-semibold">— {firstName}</p>
+      </div>
+    </motion.div>
+  );
+}
+
+// ─── Activity stats strip ─────────────────────────────────────────────────────
+function ActivityStrip({ meditationSessions, workoutSessions, journalEntries, userProgress }) {
+  const stats = [
+    {
+      emoji: '💪',
+      label: 'Workouts',
+      value: workoutSessions?.length || 0,
+      color: '#38BDF8',
+      bg: '#38BDF808',
+      border: '#38BDF820',
+    },
+    {
+      emoji: '📓',
+      label: 'Journals',
+      value: journalEntries?.length || 0,
+      color: '#AFC7E3',
+      bg: '#AFC7E308',
+      border: '#AFC7E320',
+    },
+    {
+      emoji: '🧘',
+      label: 'Med. mins',
+      value: meditationSessions?.reduce((s, m) => s + (m.duration_minutes || 0), 0) || 0,
+      color: '#C9A227',
+      bg: '#C9A22708',
+      border: '#C9A22720',
+    },
+    {
+      emoji: '🏅',
+      label: 'Badges',
+      value: userProgress?.badges?.length || 0,
+      color: '#FD9C2D',
+      bg: '#FD9C2D08',
+      border: '#FD9C2D20',
+    },
+  ];
+
+  return (
+    <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }}>
+      <SectionHeading accent="#C9A227">Activity</SectionHeading>
+      <div className="grid grid-cols-4 gap-2">
+        {stats.map((s, i) => (
+          <motion.div key={s.label}
+            initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 + i * 0.04 }}
+            className="rounded-2xl px-2 py-3 text-center border"
+            style={{ background: s.bg, borderColor: s.border }}>
+            <p className="text-xl mb-1">{s.emoji}</p>
+            <p className="font-black text-lg leading-none" style={{ color: s.color }}>{s.value}</p>
+            <p className="text-[9px] font-semibold text-[#0A1A2F]/40 mt-1 leading-tight">{s.label}</p>
+          </motion.div>
+        ))}
+      </div>
+    </motion.div>
+  );
+}
+
+// ─── Streak row ───────────────────────────────────────────────────────────────
+function StreakRow({ meditationSessions, workoutSessions, journalEntries }) {
+  const calcStreak = (sessions) => {
+    if (!sessions?.length) return 0;
+    let streak = 0;
+    const today = new Date();
+    const sorted = [...sessions]
+      .map(s => new Date(s.date || s.created_date))
+      .sort((a, b) => b - a);
+    for (const d of sorted) {
+      const diff = Math.floor((today - d) / 86400000);
+      if (diff === streak) streak++;
+      else break;
+    }
+    return streak;
+  };
+
+  const streaks = [
+    { label: 'Workout',    count: calcStreak(workoutSessions),    color: '#38BDF8', emoji: '💪' },
+    { label: 'Journaling', count: calcStreak(journalEntries),     color: '#AFC7E3', emoji: '📓' },
+    { label: 'Meditation', count: calcStreak(meditationSessions), color: '#C9A227', emoji: '🧘' },
+  ];
+
+  return (
+    <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
+      <SectionHeading accent="#FD9C2D">Streaks 🔥</SectionHeading>
+      <div className="grid grid-cols-3 gap-2.5">
+        {streaks.map((s, i) => {
+          const active = s.count > 0;
+          return (
+            <motion.div key={s.label}
+              initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.1 + i * 0.05 }}
+              className="rounded-2xl p-3.5 border text-center"
+              style={{
+                background: active ? `${s.color}10` : '#ffffff',
+                borderColor: active ? `${s.color}30` : '#e5e7eb',
+              }}>
+              <p className="text-2xl mb-1">{s.emoji}</p>
+              <p className="font-black text-2xl leading-none" style={{ color: active ? s.color : '#CBD5E1' }}>{s.count}</p>
+              <p className="text-[9px] text-[#0A1A2F]/40 font-bold uppercase tracking-wide mt-1">{s.label}</p>
+              <p className="text-[9px] font-semibold mt-1" style={{ color: active ? s.color : '#CBD5E1' }}>
+                {active ? `${s.count === 1 ? '1 day' : `${s.count} days`}` : 'Start today'}
+              </p>
+            </motion.div>
+          );
+        })}
+      </div>
+    </motion.div>
+  );
+}
+
+// ─── Goal bento grid ──────────────────────────────────────────────────────────
+function GoalBento() {
+  return (
+    <motion.div id="tour-profile-progress" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}>
+      <SectionHeading accent="#0A1A2F">Your Goals</SectionHeading>
+
+      {/* Row 1 — Journey (wide) + Achievements (narrow) */}
+      <div className="flex gap-2.5 mb-2.5">
+        <Link to={createPageUrl('ProgressDashboard')} className="flex-[2]">
+          <div className="relative overflow-hidden rounded-3xl p-4 h-full min-h-[96px] hover:opacity-95 transition-opacity"
+            style={{ background: 'linear-gradient(135deg, #0A1A2F, #162944)' }}>
+            <div className="absolute top-0 right-0 w-20 h-20 rounded-full opacity-20"
+              style={{ background: 'radial-gradient(circle, #38BDF8, transparent)', transform: 'translate(30%, -30%)' }} />
+            <div className="relative z-10">
+              <div className="w-8 h-8 rounded-xl bg-white/10 flex items-center justify-center mb-3">
+                <TrendingUp className="w-4 h-4 text-white" />
+              </div>
+              <p className="font-black text-white text-sm">My Journey</p>
+              <p className="text-white/40 text-[10px] mt-0.5">Progress & guides</p>
             </div>
-            <div className="flex-1 min-w-0">
-              <p className="font-bold text-white text-sm">Journey</p>
-              <p className="text-white/50 text-[11px]">Progress & guides</p>
-            </div>
-            <ChevronRight className="w-4 h-4 text-white/30" />
           </div>
         </Link>
-        <Link to={createPageUrl('Achievements')} className="flex-1">
-          <div className="bg-gradient-to-br from-[#c9a227] to-[#FAD98D] rounded-2xl p-4 flex items-center gap-3 hover:opacity-90 transition-opacity">
-            <div className="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center flex-shrink-0">
-              <Trophy className="w-4 h-4 text-white" />
+        <Link to={createPageUrl('Achievements')} className="flex-[1]">
+          <div className="relative overflow-hidden rounded-3xl p-4 h-full min-h-[96px] flex flex-col justify-between hover:opacity-95 transition-opacity"
+            style={{ background: 'linear-gradient(135deg, #C9A227, #FD9C2D)' }}>
+            <div className="absolute bottom-0 right-0 w-16 h-16 rounded-full opacity-20"
+              style={{ background: 'radial-gradient(circle, #fff, transparent)', transform: 'translate(30%, 30%)' }} />
+            <div className="relative z-10">
+              <Trophy className="w-5 h-5 text-white mb-3" />
+              <p className="font-black text-white text-sm">Achievements</p>
+              <p className="text-white/65 text-[10px] mt-0.5">Badges & level</p>
             </div>
-            <div className="flex-1 min-w-0">
-              <p className="font-bold text-white text-sm">Achievements</p>
-              <p className="text-white/65 text-[11px]">Badges & level</p>
-            </div>
-            <ChevronRight className="w-4 h-4 text-white/30" />
           </div>
         </Link>
       </div>
-      <Link to={createPageUrl('FitnessGoalsPage')}>
-        <div className="rounded-2xl p-4 flex items-center gap-3 hover:opacity-90 transition-opacity"
-          style={{ background: 'linear-gradient(135deg, #0A1A2F 0%, #1A3050 70%, #38BDF8 200%)' }}>
-          <div className="w-9 h-9 rounded-xl bg-white/15 flex items-center justify-center flex-shrink-0">
-            <Target className="w-4 h-4 text-white" />
+
+      {/* Row 2 — 3 domain tiles */}
+      <div className="grid grid-cols-3 gap-2.5 mb-2.5">
+        <Link to={createPageUrl('FitnessGoalsPage')}>
+          <div className="rounded-2xl p-3.5 hover:opacity-95 transition-opacity border border-[#38BDF8]/20"
+            style={{ background: 'linear-gradient(160deg, #EFF9FF, #dbeeff)' }}>
+            <p className="text-xl mb-2">💪</p>
+            <p className="font-black text-[#0A1A2F] text-xs leading-tight">Fitness</p>
+            <p className="text-[#38BDF8] text-[9px] font-semibold mt-1 uppercase tracking-wide">Goals →</p>
           </div>
-          <div className="flex-1 min-w-0">
-            <p className="font-bold text-white text-sm">Fitness Goals</p>
-            <p className="text-white/50 text-[11px]">BMI · Calories · Macros · Goal timeline</p>
+        </Link>
+        <Link to={createPageUrl('NutritionGoalsPage')}>
+          <div className="rounded-2xl p-3.5 hover:opacity-95 transition-opacity border border-[#22C55E]/20"
+            style={{ background: 'linear-gradient(160deg, #F0FFF4, #dcfce7)' }}>
+            <p className="text-xl mb-2">🥗</p>
+            <p className="font-black text-[#0A1A2F] text-xs leading-tight">Nutrition</p>
+            <p className="text-[#22C55E] text-[9px] font-semibold mt-1 uppercase tracking-wide">Goals →</p>
           </div>
-          <ChevronRight className="w-4 h-4 text-white/30" />
-        </div>
-      </Link>
-      <Link to={createPageUrl('NutritionGoalsPage')}>
-        <div className="rounded-2xl p-4 flex items-center gap-3 hover:opacity-90 transition-opacity"
-          style={{ background: 'linear-gradient(135deg, #14532d 0%, #166534 70%, #22C55E 200%)' }}>
-          <div className="w-9 h-9 rounded-xl bg-white/15 flex items-center justify-center flex-shrink-0">
-            <Salad className="w-4 h-4 text-white" />
+        </Link>
+        <Link to={createPageUrl('BibleGoalsPage')}>
+          <div className="rounded-2xl p-3.5 hover:opacity-95 transition-opacity border border-[#C9A227]/20"
+            style={{ background: 'linear-gradient(160deg, #FFFDF0, #fef9c3)' }}>
+            <p className="text-xl mb-2">📖</p>
+            <p className="font-black text-[#0A1A2F] text-xs leading-tight">Bible Study</p>
+            <p className="text-[#C9A227] text-[9px] font-semibold mt-1 uppercase tracking-wide">Goals →</p>
           </div>
-          <div className="flex-1 min-w-0">
-            <p className="font-bold text-white text-sm">Nutrition Goals</p>
-            <p className="text-white/50 text-[11px]">Diet · Macros · Meal schedule · Allergens</p>
-          </div>
-          <ChevronRight className="w-4 h-4 text-white/30" />
-        </div>
-      </Link>
-      <Link to={createPageUrl('BibleGoalsPage')}>
-        <div className="rounded-2xl p-4 flex items-center gap-3 hover:opacity-90 transition-opacity"
-          style={{ background: 'linear-gradient(135deg, #0A1A2F 0%, #1a3050 70%, #C9A227 220%)' }}>
-          <div className="w-9 h-9 rounded-xl bg-white/15 flex items-center justify-center flex-shrink-0">
-            <BookOpen className="w-4 h-4 text-white" />
-          </div>
-          <div className="flex-1 min-w-0">
-            <p className="font-bold text-white text-sm">Bible Study Goals</p>
-            <p className="text-white/50 text-[11px]">Translation · Topics · Reading plans · Tips</p>
-          </div>
-          <ChevronRight className="w-4 h-4 text-white/30" />
-        </div>
-      </Link>
+        </Link>
+      </div>
+
+      {/* Row 3 — Growth (full width, editorial) */}
       <Link to={createPageUrl('PersonalGrowthGoalsPage')}>
-        <div className="rounded-2xl p-4 flex items-center gap-3 hover:opacity-90 transition-opacity"
-          style={{ background: 'linear-gradient(135deg, #3C4E53 0%, #2a3840 70%, #AFC7E3 260%)' }}>
-          <div className="w-9 h-9 rounded-xl bg-white/15 flex items-center justify-center flex-shrink-0">
-            <Brain className="w-4 h-4 text-white" />
+        <div className="relative overflow-hidden rounded-3xl p-4 hover:opacity-95 transition-opacity"
+          style={{ background: 'linear-gradient(135deg, #3C4E53, #2a3840)' }}>
+          <div className="absolute inset-0 opacity-10"
+            style={{ backgroundImage: 'radial-gradient(circle at 80% 50%, #AFC7E3 0%, transparent 60%)' }} />
+          <div className="relative z-10 flex items-center gap-4">
+            <div className="w-10 h-10 rounded-2xl bg-white/10 flex items-center justify-center flex-shrink-0">
+              <Brain className="w-5 h-5 text-[#AFC7E3]" />
+            </div>
+            <div className="flex-1">
+              <p className="font-black text-white text-sm">Personal Growth Goals</p>
+              <p className="text-white/40 text-[10px] mt-0.5">Mindset · Values · Coaching style · Tools</p>
+            </div>
+            <ChevronRight className="w-4 h-4 text-white/25 flex-shrink-0" />
           </div>
-          <div className="flex-1 min-w-0">
-            <p className="font-bold text-white text-sm">Growth Goals</p>
-            <p className="text-white/50 text-[11px]">Areas · Values · Coaching style · Tools</p>
-          </div>
-          <ChevronRight className="w-4 h-4 text-white/30" />
         </div>
       </Link>
-    </div>
+    </motion.div>
   );
 }
 
@@ -328,24 +489,25 @@ export default function Profile() {
 
       <div className="max-w-lg mx-auto px-4 py-5 space-y-4">
 
-        {/* OVERVIEW ── stats → streaks → quick-links → posts */}
+        {/* OVERVIEW */}
         {activeTab === 'overview' &&
-        <>
-            <ProfileStats
-            userProgress={userProgress}
-            meditationSessions={meditationSessions}
-            workoutSessions={workoutSessions}
-            journalEntries={journalEntries} />
-
-            <ProfileStreaks
-            userProgress={userProgress}
-            meditationSessions={meditationSessions}
-            workoutSessions={workoutSessions}
-            journalEntries={journalEntries} />
-
-            <QuickLinks />
-            <TimelineTab user={user} posts={myPosts} comments={[]} />
-          </>
+        <div className="space-y-6">
+            <NorthStarCard user={user} />
+            <ActivityStrip
+              meditationSessions={meditationSessions}
+              workoutSessions={workoutSessions}
+              journalEntries={journalEntries}
+              userProgress={userProgress} />
+            <StreakRow
+              meditationSessions={meditationSessions}
+              workoutSessions={workoutSessions}
+              journalEntries={journalEntries} />
+            <GoalBento />
+            <div>
+              <SectionHeading accent="#FAD98D">Recent Posts</SectionHeading>
+              <TimelineTab user={user} posts={myPosts} comments={[]} />
+            </div>
+          </div>
         }
 
         {/* ABOUT ── bio editor + account settings */}
