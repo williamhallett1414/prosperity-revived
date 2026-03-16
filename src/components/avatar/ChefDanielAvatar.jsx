@@ -134,17 +134,6 @@ export default function ChefDanielAvatar({
           90%  { transform: translateY(-3px) rotate(.5deg)   translateX(1px)  scale(1.001); }
           100% { transform: translateY(-2px) rotate(0deg)    translateX(0px)  scale(1.000); }
         }
-          15%  { transform: translateY(-5px) rotate(-1.4deg) translateX(-3px); }
-          30%  { transform: translateY(-3px) rotate(0deg)    translateX(0px); }
-          45%  { transform: translateY(-5px) rotate(1.6deg)  translateX(3px); }
-          60%  { transform: translateY(-2px) rotate(0deg)    translateX(0px); }
-          75%  { transform: translateY(-5px) rotate(-1.2deg) translateX(-2px); }
-          90%  { transform: translateY(-3px) rotate(.5deg)   translateX(1px); }
-          100% { transform: translateY(-2px) rotate(0deg)    translateX(0px); }
-        }
-          35%     { transform: scale(1.022); }
-          65%     { transform: scale(1.010); }
-        }
         @keyframes cd-lean {
           0%,100% { transform: translateY(-4px) rotate(0deg); }
           35%     { transform: translateY(-9px) rotate(1.5deg); }
@@ -303,7 +292,7 @@ export default function ChefDanielAvatar({
         {/* Stars */}
         {STARS.map(s => (
           <g key={s.cx} transform={`translate(${s.cx},${s.cy})`}
-            style={{ transformOrigin:'0 0', animation:`cd-star 1.2s':'2.6s'} ease-in-out infinite`, animationDelay:`${s.dl}s` }}>
+            style={{ transformOrigin:'0 0', animation:`cd-star 2.6s ease-in-out infinite`, animationDelay:`${s.dl}s` }}>
             {[0,45,90,135].map(a => (
               <line key={a} x1="0" y1={-s.sz} x2="0" y2={s.sz}
                 stroke={GREEN_PALE} strokeWidth="1.2" strokeLinecap="round" transform={`rotate(${a})`}/>

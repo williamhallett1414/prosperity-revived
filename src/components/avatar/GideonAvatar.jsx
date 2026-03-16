@@ -365,7 +365,7 @@ export default function GideonAvatar({
         {/* Stars */}
         {STARS.map(s => (
           <g key={s.cx} transform={`translate(${s.cx},${s.cy})`}
-            style={{ transformOrigin:'0 0', animation:`ga-star 1.2s':'2.6s'} ease-in-out infinite`, animationDelay:`${s.dl}s` }}>
+            style={{ transformOrigin:'0 0', animation:`ga-star 2.6s ease-in-out infinite`, animationDelay:`${s.dl}s` }}>
             {[0,45,90,135].map(a => (
               <line key={a} x1="0" y1={-s.sz} x2="0" y2={s.sz}
                 stroke={GOLD_BRT} strokeWidth="1.2" strokeLinecap="round" transform={`rotate(${a})`}/>
