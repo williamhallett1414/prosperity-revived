@@ -52,7 +52,7 @@ export default function ChefDanielAvatar({
   className   = '',
 }) {
   const state = isSpeaking ? 'speaking' : isListening ? 'listening' : isThinking ? 'thinking' : 'idle';
-  const { blinkProgress, mouthOpen, idleFloat, idleTilt, idleShift, idleBreathing } = useAvatarAnimation('chef', { isSpeaking, isListening, isThinking });
+  const { blinkProgress, mouthOpen, breathPhase, floatY, tiltDeg, shiftX } = useAvatarAnimation('chef', { isSpeaking, isListening, isThinking });
 
   const imgRef = useRef(null);
   const containerRef = useRef(null);
@@ -294,9 +294,7 @@ export default function ChefDanielAvatar({
       <div ref={containerRef} style={{ position:'absolute', inset:0, overflow:'hidden', zIndex:2, pointerEvents:'none' }}>
       <div style={{
         position:'relative', width:'100%', height:'100%',
-        transform: state === 'idle'
-          ? `translateY(${idleFloat}px) translateX(${idleShift}px) rotate(${idleTilt}deg) scaleY(${1 + idleBreathing * 0.009})`
-          : undefined,
+        transform: `scale(1.0) translateY(${floatY}px) translateX(${shiftX}px) rotate(${tiltDeg}deg)`,
         animation: state==='speaking'
           ? 'cd-speak 2.4s ease-in-out infinite'
           : state==='listening' ? 'cd-lean 1.5s ease-in-out infinite'

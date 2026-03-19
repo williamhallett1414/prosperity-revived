@@ -50,7 +50,7 @@ export default function CoachPaulAvatar({
   className   = '',
 }) {
   const state = isSpeaking ? 'speaking' : isListening ? 'listening' : isThinking ? 'thinking' : 'idle';
-  const { blinkProgress, mouthOpen, idleFloat, idleTilt, idleShift, idleBreathing } = useAvatarAnimation('paul', { isSpeaking, isListening, isThinking });
+  const { blinkProgress, mouthOpen, breathPhase, floatY, tiltDeg, shiftX } = useAvatarAnimation('paul', { isSpeaking, isListening, isThinking });
 
   const imgRef = useRef(null);
   const containerRef = useRef(null);
@@ -287,9 +287,7 @@ export default function CoachPaulAvatar({
       <div ref={containerRef} style={{ position:'absolute', inset:0, overflow:'hidden', zIndex:2, pointerEvents:'none' }}>
       <div style={{
         position:'relative', width:'100%', height:'100%',
-        transform: state === 'idle'
-          ? `translateY(${idleFloat}px) translateX(${idleShift}px) rotate(${idleTilt}deg) scaleY(${1 + idleBreathing * 0.007})`
-          : undefined,
+        transform: `scale(1.0) translateY(${floatY}px) translateX(${shiftX}px) rotate(${tiltDeg}deg)`,
         animation: state==='speaking'
           ? 'cp-speak 2.6s ease-in-out infinite'
           : state==='listening' ? 'cp-lean 1.6s ease-in-out infinite'

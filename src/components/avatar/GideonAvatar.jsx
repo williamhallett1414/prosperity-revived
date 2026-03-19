@@ -87,7 +87,7 @@ export default function GideonAvatar({
   }, [measureImage]);
 
   /* ── Animation engine (personality-driven blink, mouth, idle) ── */
-  const { blinkProgress, mouthOpen, idleFloat, idleTilt, idleShift, idleBreathing } = useAvatarAnimation('gideon', { isSpeaking, isListening, isThinking });
+  const { blinkProgress, mouthOpen, breathPhase, floatY, tiltDeg, shiftX } = useAvatarAnimation('gideon', { isSpeaking, isListening, isThinking });
 
 
   /* ── Gold burst particles (speaking only) ── */
@@ -362,9 +362,7 @@ export default function GideonAvatar({
         position: 'relative',
         width: '100%',
         height: '100%',
-        transform: state === 'idle'
-          ? `translateY(${idleFloat}px) translateX(${idleShift}px) rotate(${idleTilt}deg) scaleY(${1 + idleBreathing * 0.006})`
-          : undefined,
+        transform: `scale(1.55) translateY(${floatY}px) translateX(${shiftX}px) rotate(${tiltDeg}deg)`,
         animation: state === 'speaking'
           ? 'ga-speak 2.4s ease-in-out infinite'
           : state === 'listening' ? 'ga-lean 1.5s ease-in-out infinite'

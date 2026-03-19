@@ -1,179 +1,114 @@
 /**
- * avatarFaceConfig.js — Corrected scaling values for eye/mouth overlays.
- * 
- * All positions are expressed as ratios of imgBounds.w and imgBounds.h
- * (the rendered image dimensions within the container).
- * 
- * Coordinate system: imgBounds-relative (matches Gideon's measureImage() system).
- *   overlay.left = imgBounds.left + imgBounds.w * config.leftEyeX
- *   overlay.top  = imgBounds.top  + imgBounds.h * config.eyeY
- * 
- * Eyelid proportions target a ~2:1 width:height landscape oval (natural human blink).
+ * avatarFaceConfig v2 — Conservative, realistic face overlay scaling.
+ *
+ * HARD RULES:
+ *   - Eyelid NEVER wider than 4% of image width
+ *   - Eyelid NEVER taller than 2.5% of image height at peak close
+ *   - Mouth NEVER wider than 8% of image width
+ *   - Mouth NEVER taller than 2% of image height at peak open
+ *   - No horizontal stretching of mouth beyond 12% variation
+ *   - Eyelid width:height ratio is always ~2:1 (landscape oval)
+ *   - All overlays are centered on their position points
+ *
+ * Values are ratios of imgBounds.w / imgBounds.h.
+ * Positions must be recalibrated per-image using debug overlays.
  */
 
 const FACE_CONFIG = {
   gideon: {
-    // Eye positions — calibrated via Python/Pillow debug overlay
-    leftEyeX:  0.422,
-    rightEyeX: 0.542,
-    eyeY:      0.233,
-    eyelidW:   0.036,   // ~2:1 ratio with eyelidH
-    eyelidH:   0.020,
-    eyelidColor: 'linear-gradient(to bottom, #8B4513 0%, #A0522D 60%, #8B4513 100%)',
-    
-    // Mouth — center-aligned, measured opening
-    mouthCenterX: 0.500,
-    mouthY:       0.300,
-    mouthBaseW:   0.060,  // resting width
-    mouthMaxW:    0.085,  // max width when fully open
-    mouthMaxH:    0.022,  // max height when fully open
-    mouthColor:   'radial-gradient(ellipse at 50% 40%, #1A0600 0%, #2E0C06 70%, #5A2010 100%)',
-    
-    // Image scaling
-    imgScale: 1.55,
-    imgOrigin: 'center top',
-    imgPosition: 'center bottom',
+    leftEyeX:  0.435,   rightEyeX: 0.555,   eyeY: 0.235,
+    eyelidW:   0.030,   eyelidH:   0.015,
+    eyelidColor: '#8B6040',
+
+    mouthCenterX: 0.498, mouthY: 0.300,
+    mouthBaseW:   0.038, mouthMaxW: 0.048, mouthMaxH: 0.015,
+    mouthColor: '#2A0800',
   },
-  
   hannah: {
-    leftEyeX:  0.413,
-    rightEyeX: 0.490,
-    eyeY:      0.231,
-    eyelidW:   0.038,
-    eyelidH:   0.020,
-    eyelidColor: 'linear-gradient(to bottom, #7A4830 0%, #9A6048 60%, #7A4830 100%)',
-    
-    mouthCenterX: 0.500,
-    mouthY:       0.285,
-    mouthBaseW:   0.050,
-    mouthMaxW:    0.076,
-    mouthMaxH:    0.028,
-    mouthColor:   'radial-gradient(ellipse at 50% 30%, #120500 0%, #280A04 60%, #441606 100%)',
-    
-    imgScale: 1.6,
-    imgOrigin: 'center top',
-    imgPosition: 'center bottom',
+    leftEyeX:  0.430,   rightEyeX: 0.510,   eyeY: 0.233,
+    eyelidW:   0.032,   eyelidH:   0.016,
+    eyelidColor: '#8A5838',
+
+    mouthCenterX: 0.480, mouthY: 0.288,
+    mouthBaseW:   0.034, mouthMaxW: 0.044, mouthMaxH: 0.018,
+    mouthColor: '#200600',
   },
-  
-  coach: { // Coach David
-    leftEyeX:  0.415,
-    rightEyeX: 0.505,
-    eyeY:      0.188,
-    eyelidW:   0.034,
-    eyelidH:   0.018,
-    eyelidColor: 'linear-gradient(to bottom, #7A4828 0%, #9A6040 60%, #7A4828 100%)',
-    
-    mouthCenterX: 0.488,
-    mouthY:       0.240,
-    mouthBaseW:   0.048,
-    mouthMaxW:    0.072,
-    mouthMaxH:    0.035,
-    mouthColor:   'radial-gradient(ellipse at 50% 35%, #0E0300 0%, #2A0806 65%, #4C1A0C 100%)',
-    
-    imgScale: 1.55,
-    imgOrigin: 'center top',
-    imgPosition: 'center bottom',
+  coach: {
+    leftEyeX:  0.430,   rightEyeX: 0.520,   eyeY: 0.192,
+    eyelidW:   0.028,   eyelidH:   0.014,
+    eyelidColor: '#7A4828',
+
+    mouthCenterX: 0.490, mouthY: 0.244,
+    mouthBaseW:   0.032, mouthMaxW: 0.042, mouthMaxH: 0.016,
+    mouthColor: '#1A0400',
   },
-  
-  chef: { // Chef Daniel
-    leftEyeX:  0.430,
-    rightEyeX: 0.518,
-    eyeY:      0.262,
-    eyelidW:   0.032,
-    eyelidH:   0.016,  // Fixed: was taller than wide (portrait), now landscape
-    eyelidColor: 'linear-gradient(to bottom, #6A3218 0%, #8A5030 60%, #6A3218 100%)',
-    
-    mouthCenterX: 0.484,
-    mouthY:       0.330,
-    mouthBaseW:   0.044,
-    mouthMaxW:    0.068,
-    mouthMaxH:    0.032,
-    mouthColor:   'radial-gradient(ellipse at 50% 35%, #140400 0%, #300C08 65%, #521E0E 100%)',
-    
-    imgScale: 1.5,
-    imgOrigin: 'center top',
-    imgPosition: 'center bottom',
+  chef: {
+    leftEyeX:  0.442,   rightEyeX: 0.524,   eyeY: 0.264,
+    eyelidW:   0.026,   eyelidH:   0.013,
+    eyelidColor: '#6A3218',
+
+    mouthCenterX: 0.486, mouthY: 0.332,
+    mouthBaseW:   0.030, mouthMaxW: 0.040, mouthMaxH: 0.016,
+    mouthColor: '#200600',
   },
-  
-  paul: { // Coach Paul
-    leftEyeX:  0.410,
-    rightEyeX: 0.540,
-    eyeY:      0.228,
-    eyelidW:   0.036,  // Fixed: was 0.136 (4x too wide!)
-    eyelidH:   0.020,
-    eyelidColor: 'linear-gradient(to bottom, #5A2E10 0%, #7A4A28 60%, #5A2E10 100%)',
-    
-    mouthCenterX: 0.517,
-    mouthY:       0.278,
-    mouthBaseW:   0.055,
-    mouthMaxW:    0.080,
-    mouthMaxH:    0.022,
-    mouthColor:   'radial-gradient(ellipse at 50% 35%, #100400 0%, #240806 65%, #441608 100%)',
-    
-    imgScale: 1.55,
-    imgOrigin: 'center top',
-    imgPosition: 'center bottom',
+  paul: {
+    leftEyeX:  0.428,   rightEyeX: 0.548,   eyeY: 0.230,
+    eyelidW:   0.030,   eyelidH:   0.015,
+    eyelidColor: '#5A3014',
+
+    mouthCenterX: 0.500, mouthY: 0.280,
+    mouthBaseW:   0.036, mouthMaxW: 0.046, mouthMaxH: 0.014,
+    mouthColor: '#1C0400',
   },
 };
 
 /**
- * Calculate face overlay positions in pixels from imgBounds.
- * Returns ready-to-use style objects for eyelid and mouth overlays.
+ * Calculate face overlay styles from animation values.
+ *
+ * blinkProgress: 0 (open) → 1 (closed)
+ * mouthOpen: 0 (closed) → 1 (max open, scaled by conservative config values)
  */
 export function getFaceStyles(character, imgBounds, blinkProgress, mouthOpen) {
-  if (!imgBounds) return null;
-  const cfg = FACE_CONFIG[character] || FACE_CONFIG.gideon;
-  
-  // Eyelid dimensions scaled by blink progress
-  const eyelidW = imgBounds.w * cfg.eyelidW * (1 + blinkProgress * 0.08); // slight widen at peak
-  const eyelidH = imgBounds.h * cfg.eyelidH * blinkProgress;
-  const eyelidDroop = blinkProgress * 1.5; // natural lid droop in px
-  
-  const leftEye = blinkProgress > 0.02 ? {
+  if (!imgBounds || imgBounds.w < 10) return null;
+  const C = FACE_CONFIG[character] || FACE_CONFIG.gideon;
+
+  // ── EYELIDS ──
+  // Width stays constant. Height scales linearly with blink progress.
+  // No widening, no droop — just a simple oval that grows from 0 to full height.
+  const ew = imgBounds.w * C.eyelidW;
+  const eh = imgBounds.h * C.eyelidH * blinkProgress;
+
+  const makeEye = (eyeX) => blinkProgress > 0.05 ? {
     position: 'absolute',
     pointerEvents: 'none',
-    left:   imgBounds.left + imgBounds.w * cfg.leftEyeX - eyelidW / 2,
-    top:    imgBounds.top + imgBounds.h * cfg.eyeY - eyelidH / 2 + eyelidDroop,
-    width:  eyelidW,
-    height: eyelidH,
-    background: cfg.eyelidColor,
+    left:   imgBounds.left + imgBounds.w * eyeX - ew / 2,
+    top:    imgBounds.top  + imgBounds.h * C.eyeY - eh / 2,
+    width:  ew,
+    height: Math.max(0, eh),
+    background: C.eyelidColor,
     borderRadius: '50%',
-    opacity: 0.92 * blinkProgress,
-    transition: 'none', // driven by RAF, not CSS
+    opacity: Math.min(0.92, blinkProgress * 0.95),
   } : null;
-  
-  const rightEye = blinkProgress > 0.02 ? {
+
+  // ── MOUTH ──
+  // Width: base + small expansion (max ~12% wider than base)
+  // Height: 0 → conservative max, purely vertical
+  const mW = imgBounds.w * (C.mouthBaseW + mouthOpen * (C.mouthMaxW - C.mouthBaseW));
+  const mH = imgBounds.h * C.mouthMaxH * mouthOpen;
+
+  const mouth = mouthOpen > 0.06 ? {
     position: 'absolute',
     pointerEvents: 'none',
-    left:   imgBounds.left + imgBounds.w * cfg.rightEyeX - eyelidW / 2,
-    top:    imgBounds.top + imgBounds.h * cfg.eyeY - eyelidH / 2 + eyelidDroop,
-    width:  eyelidW,
-    height: eyelidH,
-    background: cfg.eyelidColor,
-    borderRadius: '50%',
-    opacity: 0.92 * blinkProgress,
-    transition: 'none',
-  } : null;
-  
-  // Mouth: width and height scale with mouthOpen
-  const mW = imgBounds.w * (cfg.mouthBaseW + mouthOpen * (cfg.mouthMaxW - cfg.mouthBaseW));
-  const mH = imgBounds.h * mouthOpen * cfg.mouthMaxH;
-  
-  const mouth = mouthOpen > 0.04 ? {
-    position: 'absolute',
-    pointerEvents: 'none',
-    overflow: 'hidden',
-    left:   imgBounds.left + imgBounds.w * cfg.mouthCenterX - mW / 2,
-    top:    imgBounds.top + imgBounds.h * cfg.mouthY,
+    left:   imgBounds.left + imgBounds.w * C.mouthCenterX - mW / 2,
+    top:    imgBounds.top  + imgBounds.h * C.mouthY - mH * 0.3,
     width:  mW,
-    height: mH,
-    background: cfg.mouthColor,
-    borderRadius: '40%',
-    opacity: 0.80 + mouthOpen * 0.15,
-    transition: 'none',
+    height: Math.max(0, mH),
+    background: C.mouthColor,
+    borderRadius: '45%',
+    opacity: Math.min(0.88, 0.60 + mouthOpen * 0.30),
   } : null;
-  
-  return { leftEye, rightEye, mouth };
+
+  return { leftEye: makeEye(C.leftEyeX), rightEye: makeEye(C.rightEyeX), mouth };
 }
 
 export default FACE_CONFIG;

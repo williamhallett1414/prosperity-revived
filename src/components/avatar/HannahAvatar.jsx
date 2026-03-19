@@ -53,7 +53,7 @@ export default function HannahAvatar({
   className   = '',
 }) {
   const state = isSpeaking ? 'speaking' : isListening ? 'listening' : isThinking ? 'thinking' : 'idle';
-  const { blinkProgress, mouthOpen, idleFloat, idleTilt, idleShift, idleBreathing } = useAvatarAnimation('hannah', { isSpeaking, isListening, isThinking });
+  const { blinkProgress, mouthOpen, breathPhase, floatY, tiltDeg, shiftX } = useAvatarAnimation('hannah', { isSpeaking, isListening, isThinking });
 
   /* ── Measure rendered image bounds for face overlays ── */
   const imgRef = useRef(null);
@@ -305,9 +305,7 @@ export default function HannahAvatar({
       >
       <div style={{
         position:'relative', width:'100%', height:'100%',
-        transform: state === 'idle'
-          ? `scale(1.6) translateY(${idleFloat}px) translateX(${idleShift}px) rotate(${idleTilt}deg) scaleY(${1 + idleBreathing * 0.008})`
-          : 'scale(1.6)',
+        transform: `scale(1.6) translateY(${floatY}px) translateX(${shiftX}px) rotate(${tiltDeg}deg)`,
         transformOrigin: 'center top',
         animation: state==='speaking'
           ? 'hn-speak 2.6s ease-in-out infinite'

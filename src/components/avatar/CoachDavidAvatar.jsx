@@ -5,7 +5,8 @@
  * States: idle | speaking | listening | thinking
  */
 import React, { useEffect, useRef, useState } from 'react';
-
+import useAvatarAnimation from './useAvatarAnimation';
+import { getFaceStyles } from './avatarFaceConfig';
 import coachImg from '@/assets/coach-david-avatar.png';
 
 const BLUE      = '#38BDF8';
@@ -49,32 +50,24 @@ export default function CoachDavidAvatar({
   className   = '',
 }) {
   const state = isSpeaking ? 'speaking' : isListening ? 'listening' : isThinking ? 'thinking' : 'idle';
-  /* ── Mouth open/close (sin wave 0→1) ── */
-  const [mouthOpen, setMouthOpen] = useState(0);
-  const mouthRef = useRef(null);
-  useEffect(() => {
-    if (!isSpeaking) { setMouthOpen(0); return; }
-    let ph = 0;
-    mouthRef.current = setInterval(() => {
-      ph += 0.30;
-      setMouthOpen(Math.max(0, Math.sin(ph)));
-    }, 55);
-    return () => clearInterval(mouthRef.current);
-  }, [isSpeaking]);
 
-  /* ── Eye blink ── */
-  const [blink, setBlink] = useState(false);
-  const blinkRef = useRef(null);
-  useEffect(() => {
-    const go = () => {
-      blinkRef.current = setTimeout(() => {
-        setBlink(true);
-        setTimeout(() => { setBlink(false); go(); }, 120);
-      }, 2500 + Math.random() * 3500);
-    };
-    go();
-    return () => clearTimeout(blinkRef.current);
-  }, []);
+  /* ── Animation engine ── */
+  const { blinkProgress, mouthOpen, breathPhase, floatY, tiltDeg, shiftX } = useAvatarAnimation('coach', { isSpeaking, isListening, isThinking });
+
+  /* ── Measure image bounds for face overlays ── */
+  const imgRef = useRef(null);
+  const containerRef = useRef(null);
+  const [imgBounds, setImgBounds] = useState(null);
+  const measureImage = () => {
+    const img = imgRef.current; const con = containerRef.current;
+    if (!img || !con) return;
+    const nat = { w: img.naturalWidth || 806, h: img.naturalHeight || 806 };
+    const conW = con.offsetWidth; const conH = con.offsetHeight;
+    const scale = Math.min(conW / nat.w, conH / nat.h);
+    const rendW = nat.w * scale; const rendH = nat.h * scale;
+    setImgBounds({ left: (conW - rendW) / 2, top: conH - rendH, w: rendW, h: rendH });
+  };
+  useEffect(() => { measureImage(); window.addEventListener('resize', measureImage); return () => window.removeEventListener('resize', measureImage); }, []);
 
 
   const [bursts, setBursts] = useState([]);
@@ -294,20 +287,24 @@ export default function CoachDavidAvatar({
       </svg>
 
       {/* Image + face overlays — clipped+zoomed */}
-      <div style={{ position:'absolute', inset:0, overflow:'hidden', zIndex:2, pointerEvents:'none' }}>
+      <div ref={containerRef} style={{ position:'absolute', inset:0, overflow:'hidden', zIndex:2, pointerEvents:'none' }}>
       <div style={{
         position:'relative', width:'100%', height:'100%',
-        transform: 'scale(2.2)', transformOrigin: 'center top',
+        transform: `scale(2.2) translateY(${floatY}px) translateX(${shiftX}px) rotate(${tiltDeg}deg)`,
+        transformOrigin: 'center top',
         animation: state==='speaking'
           ? 'cvd-speak 2.4s ease-in-out infinite'
           : state==='listening' ? 'cvd-lean 1.5s ease-in-out infinite'
           : state==='thinking'  ? 'cvd-sway 2.8s ease-in-out infinite'
-          : 'cvd-float 3.8s ease-in-out infinite',
+          : undefined,
+        transition: 'transform 0.5s ease-out',
       }}>
         <img
+          ref={imgRef}
           src={coachImg}
           alt="Coach David"
           draggable={false}
+          onLoad={measureImage}
           style={{
             width:'100%', height:'100%',
             objectFit:'contain', objectPosition:'center bottom',
@@ -317,35 +314,15 @@ export default function CoachDavidAvatar({
               : 'cvd-glow-idle 3.8s ease-in-out infinite',
           }}
         />
-        {/* ── Eye blink ── */}
-        {blink && (<>
-          <div style={{
-            position:'absolute', pointerEvents:'none',
-            left:`${43.0}%`, top:`${18.8}%`,
-            width:`${3.2}%`, height:`${2.0}%`,
-            background:'linear-gradient(to bottom, #7A4828 0%, #9A6040 60%, #7A4828 100%)', borderRadius:'50%', opacity:.95,
-          }}/>
-          <div style={{
-            position:'absolute', pointerEvents:'none',
-            left:`${50.2}%`, top:`${18.8}%`,
-            width:`${3.2}%`, height:`${2.0}%`,
-            background:'linear-gradient(to bottom, #7A4828 0%, #9A6040 60%, #7A4828 100%)', borderRadius:'50%', opacity:.95,
-          }}/>
-        </>)}
-
-        {/* ── Mouth open/close ── */}
-        {mouthOpen > 0.05 && (
-          <div style={{
-            position:'absolute', pointerEvents:'none', overflow:'hidden',
-            left:`${(48.8 - (1.8 + mouthOpen * 1.2) / 2).toFixed(2)}%`,
-            top:`${24.0}%`,
-            width:`${(1.8 + mouthOpen * 1.2).toFixed(2)}%`,
-            height:`${(0.2 + mouthOpen * 1.8).toFixed(2)}%`,
-            background:'radial-gradient(ellipse at 50% 30%, #100400 0%, #240A04 60%, #401408 100%)',
-            borderRadius:'50%',
-            opacity: 0.85 + mouthOpen * 0.10,
-          }}/>
-        )}
+        {(() => {
+          const face = getFaceStyles('coach', imgBounds, blinkProgress, mouthOpen);
+          if (!face) return null;
+          return (<>
+            {face.leftEye && <div style={face.leftEye} />}
+            {face.rightEye && <div style={face.rightEye} />}
+            {face.mouth && <div style={face.mouth} />}
+          </>);
+        })()}
         </div>
       </div>
       {/* ── EQ visualizer when speaking ── */}
