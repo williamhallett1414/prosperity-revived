@@ -306,7 +306,7 @@ export default function HannahAvatar({
       <div style={{
         position:'relative', width:'100%', height:'100%',
         transform: isSpeaking
-          ? `scale(2.9) translateY(${floatY * 0.5}px) rotate(${tiltDeg * 0.3}deg)`
+          ? `scale(2.9)`
           : `scale(1.6) translateY(${floatY}px) translateX(${shiftX}px) rotate(${tiltDeg}deg)`,
         transformOrigin: isSpeaking ? 'center 26%' : 'center top',
         transition: 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform-origin 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
@@ -332,6 +332,7 @@ export default function HannahAvatar({
           }}
         />
         {/* Face overlays — driven by animation hook */}
+        </div>
         {(() => {
           const face = getFaceStyles('hannah', imgBounds, blinkProgress, mouthOpen);
           if (!face) return null;
@@ -341,7 +342,6 @@ export default function HannahAvatar({
             {face.mouth && <div style={face.mouth} />}
           </>);
         })()}
-        </div>
       </div>
 
       {/* EQ visualizer when speaking */}

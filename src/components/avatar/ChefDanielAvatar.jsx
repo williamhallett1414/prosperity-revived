@@ -295,7 +295,7 @@ export default function ChefDanielAvatar({
       <div style={{
         position:'relative', width:'100%', height:'100%',
         transform: isSpeaking
-          ? `scale(1.9) translateY(${floatY * 0.5}px) rotate(${tiltDeg * 0.3}deg)`
+          ? `scale(1.9)`
           : `scale(1.0) translateY(${floatY}px) translateX(${shiftX}px) rotate(${tiltDeg}deg)`,
         transformOrigin: isSpeaking ? 'center 30%' : 'center top',
         transition: 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform-origin 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
@@ -320,6 +320,7 @@ export default function ChefDanielAvatar({
               : 'cd-glow-idle 3.8s ease-in-out infinite',
           }}
         />
+        </div>
         {(() => {
           const face = getFaceStyles('chef', imgBounds, blinkProgress, mouthOpen);
           if (!face) return null;
@@ -329,7 +330,6 @@ export default function ChefDanielAvatar({
             {face.mouth && <div style={face.mouth} />}
           </>);
         })()}
-        </div>
       </div>
 
       {/* EQ visualizer when speaking */}

@@ -291,7 +291,7 @@ export default function CoachDavidAvatar({
       <div style={{
         position:'relative', width:'100%', height:'100%',
         transform: isSpeaking
-          ? `scale(3.8) translateY(${floatY * 0.5}px) rotate(${tiltDeg * 0.3}deg)`
+          ? `scale(3.8)`
           : `scale(2.2) translateY(${floatY}px) translateX(${shiftX}px) rotate(${tiltDeg}deg)`,
         transformOrigin: isSpeaking ? 'center 22%' : 'center top',
         transition: 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform-origin 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
@@ -316,6 +316,7 @@ export default function CoachDavidAvatar({
               : 'cvd-glow-idle 3.8s ease-in-out infinite',
           }}
         />
+        </div>
         {(() => {
           const face = getFaceStyles('coach', imgBounds, blinkProgress, mouthOpen);
           if (!face) return null;
@@ -325,7 +326,6 @@ export default function CoachDavidAvatar({
             {face.mouth && <div style={face.mouth} />}
           </>);
         })()}
-        </div>
       </div>
       {/* ── EQ visualizer when speaking ── */}
       {isSpeaking && (

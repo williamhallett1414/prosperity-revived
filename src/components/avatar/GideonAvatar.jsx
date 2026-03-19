@@ -363,7 +363,7 @@ export default function GideonAvatar({
         width: '100%',
         height: '100%',
         transform: isSpeaking
-          ? `scale(2.8) translateY(${floatY * 0.5}px) rotate(${tiltDeg * 0.3}deg)`
+          ? `scale(2.8)`
           : `scale(1.55) translateY(${floatY}px) translateX(${shiftX}px) rotate(${tiltDeg}deg)`,
         transformOrigin: isSpeaking ? 'center 28%' : 'center top',
         transition: 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform-origin 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
@@ -394,6 +394,7 @@ export default function GideonAvatar({
         />
 
         {/* ── Face overlays — driven by useAvatarAnimation + avatarFaceConfig ── */}
+        </div>
         {(() => {
           const face = getFaceStyles('gideon', imgBounds, blinkProgress, mouthOpen);
           if (!face) return null;
@@ -403,7 +404,6 @@ export default function GideonAvatar({
             {face.mouth && <div style={face.mouth} />}
           </>);
         })()}
-        </div>
       </div>
 
       {/* ── EQ visualizer when speaking ── */}
