@@ -320,7 +320,6 @@ export default function ChefDanielAvatar({
               : 'cd-glow-idle 3.8s ease-in-out infinite',
           }}
         />
-        </div>
         {(() => {
           const face = getFaceStyles('chef', imgBounds, blinkProgress, mouthOpen);
           if (!face) return null;
@@ -330,6 +329,7 @@ export default function ChefDanielAvatar({
             {face.mouth && <div style={face.mouth} />}
           </>);
         })()}
+        </div>
       </div>
 
       {/* EQ visualizer when speaking */}

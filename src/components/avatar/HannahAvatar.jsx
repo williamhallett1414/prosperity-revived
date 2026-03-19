@@ -332,7 +332,6 @@ export default function HannahAvatar({
           }}
         />
         {/* Face overlays — driven by animation hook */}
-        </div>
         {(() => {
           const face = getFaceStyles('hannah', imgBounds, blinkProgress, mouthOpen);
           if (!face) return null;
@@ -342,6 +341,7 @@ export default function HannahAvatar({
             {face.mouth && <div style={face.mouth} />}
           </>);
         })()}
+        </div>
       </div>
 
       {/* EQ visualizer when speaking */}

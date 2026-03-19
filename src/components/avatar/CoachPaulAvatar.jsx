@@ -313,7 +313,6 @@ export default function CoachPaulAvatar({
               : 'cp-glow-idle 4.0s ease-in-out infinite',
           }}
         />
-        </div>
         {(() => {
           const face = getFaceStyles('paul', imgBounds, blinkProgress, mouthOpen);
           if (!face) return null;
@@ -323,6 +322,7 @@ export default function CoachPaulAvatar({
             {face.mouth && <div style={face.mouth} />}
           </>);
         })()}
+        </div>
       </div>
 
       {/* EQ visualizer when speaking */}

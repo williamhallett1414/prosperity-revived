@@ -394,7 +394,6 @@ export default function GideonAvatar({
         />
 
         {/* ── Face overlays — driven by useAvatarAnimation + avatarFaceConfig ── */}
-        </div>
         {(() => {
           const face = getFaceStyles('gideon', imgBounds, blinkProgress, mouthOpen);
           if (!face) return null;
@@ -404,6 +403,7 @@ export default function GideonAvatar({
             {face.mouth && <div style={face.mouth} />}
           </>);
         })()}
+        </div>
       </div>
 
       {/* ── EQ visualizer when speaking ── */}

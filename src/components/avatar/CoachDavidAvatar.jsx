@@ -316,7 +316,6 @@ export default function CoachDavidAvatar({
               : 'cvd-glow-idle 3.8s ease-in-out infinite',
           }}
         />
-        </div>
         {(() => {
           const face = getFaceStyles('coach', imgBounds, blinkProgress, mouthOpen);
           if (!face) return null;
@@ -326,6 +325,7 @@ export default function CoachDavidAvatar({
             {face.mouth && <div style={face.mouth} />}
           </>);
         })()}
+        </div>
       </div>
       {/* ── EQ visualizer when speaking ── */}
       {isSpeaking && (

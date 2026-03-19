@@ -1,114 +1,125 @@
 /**
- * avatarFaceConfig v2 — Conservative, realistic face overlay scaling.
+ * avatarFaceConfig v3 — Pure CSS percentage positioning.
  *
- * HARD RULES:
- *   - Eyelid NEVER wider than 4% of image width
- *   - Eyelid NEVER taller than 2.5% of image height at peak close
- *   - Mouth NEVER wider than 8% of image width
- *   - Mouth NEVER taller than 2% of image height at peak open
- *   - No horizontal stretching of mouth beyond 12% variation
- *   - Eyelid width:height ratio is always ~2:1 (landscape oval)
- *   - All overlays are centered on their position points
+ * ALL positions are percentages of the image container (the div holding the <img>).
+ * This works correctly regardless of scale() transforms because percentages
+ * are relative to the element's own coordinate space, not the screen.
  *
- * Values are ratios of imgBounds.w / imgBounds.h.
- * Positions must be recalibrated per-image using debug overlays.
+ * Face positions measured by visual inspection of each avatar PNG.
+ * The image uses objectFit:contain, objectPosition:center bottom,
+ * so the character fills the container width and sits at the bottom.
  */
 
 const FACE_CONFIG = {
   gideon: {
-    leftEyeX:  0.435,   rightEyeX: 0.555,   eyeY: 0.235,
-    eyelidW:   0.030,   eyelidH:   0.015,
-    eyelidColor: '#8B6040',
+    // Eyes: Gideon's eyes are about 38% from top, ~44% and ~54% from left
+    leftEyeLeft:  '42.5%',  leftEyeTop:  '37.5%',
+    rightEyeLeft: '52.5%',  rightEyeTop: '37.5%',
+    eyeWidth:  '5%',   eyeHeight: '2.5%',
+    eyeColor: '#8B6040',
 
-    mouthCenterX: 0.498, mouthY: 0.300,
-    mouthBaseW:   0.038, mouthMaxW: 0.048, mouthMaxH: 0.015,
+    // Mouth: centered, about 47% from top
+    mouthLeft: '46%', mouthTop: '47%',
+    mouthWidth: '8%', mouthMaxHeight: '3%',
     mouthColor: '#2A0800',
   },
   hannah: {
-    leftEyeX:  0.430,   rightEyeX: 0.510,   eyeY: 0.233,
-    eyelidW:   0.032,   eyelidH:   0.016,
-    eyelidColor: '#8A5838',
+    // Hannah: face is higher in image, smaller features
+    leftEyeLeft:  '41%',  leftEyeTop:  '27%',
+    rightEyeLeft: '51%',  rightEyeTop: '27%',
+    eyeWidth:  '5%',   eyeHeight: '2.5%',
+    eyeColor: '#7A4830',
 
-    mouthCenterX: 0.480, mouthY: 0.288,
-    mouthBaseW:   0.034, mouthMaxW: 0.044, mouthMaxH: 0.018,
+    mouthLeft: '45%', mouthTop: '35.5%',
+    mouthWidth: '7%', mouthMaxHeight: '2.8%',
     mouthColor: '#200600',
   },
   coach: {
-    leftEyeX:  0.430,   rightEyeX: 0.520,   eyeY: 0.192,
-    eyelidW:   0.028,   eyelidH:   0.014,
-    eyelidColor: '#7A4828',
+    // Coach David: tall figure, face in upper ~15-20% of image
+    leftEyeLeft:  '43%',  leftEyeTop:  '14.5%',
+    rightEyeLeft: '52%',  rightEyeTop: '14.5%',
+    eyeWidth:  '4.5%', eyeHeight: '2.2%',
+    eyeColor: '#7A4828',
 
-    mouthCenterX: 0.490, mouthY: 0.244,
-    mouthBaseW:   0.032, mouthMaxW: 0.042, mouthMaxH: 0.016,
+    mouthLeft: '45.5%', mouthTop: '21%',
+    mouthWidth: '7%', mouthMaxHeight: '2.5%',
     mouthColor: '#1A0400',
   },
   chef: {
-    leftEyeX:  0.442,   rightEyeX: 0.524,   eyeY: 0.264,
-    eyelidW:   0.026,   eyelidH:   0.013,
-    eyelidColor: '#6A3218',
+    // Chef Daniel: similar proportions to Coach David, chef hat adds height
+    leftEyeLeft:  '43%',  leftEyeTop:  '19%',
+    rightEyeLeft: '52.5%',  rightEyeTop: '19%',
+    eyeWidth:  '4.5%', eyeHeight: '2.2%',
+    eyeColor: '#6A3218',
 
-    mouthCenterX: 0.486, mouthY: 0.332,
-    mouthBaseW:   0.030, mouthMaxW: 0.040, mouthMaxH: 0.016,
+    mouthLeft: '45.5%', mouthTop: '26%',
+    mouthWidth: '7%', mouthMaxHeight: '2.5%',
     mouthColor: '#200600',
   },
   paul: {
-    leftEyeX:  0.428,   rightEyeX: 0.548,   eyeY: 0.230,
-    eyelidW:   0.030,   eyelidH:   0.015,
-    eyelidColor: '#5A3014',
+    // Coach Paul: similar to Hannah proportions (smaller image)
+    leftEyeLeft:  '39%',  leftEyeTop:  '24%',
+    rightEyeLeft: '51%',  rightEyeTop: '24%',
+    eyeWidth:  '5.5%', eyeHeight: '2.5%',
+    eyeColor: '#5A3014',
 
-    mouthCenterX: 0.500, mouthY: 0.280,
-    mouthBaseW:   0.036, mouthMaxW: 0.046, mouthMaxH: 0.014,
+    mouthLeft: '43.5%', mouthTop: '32%',
+    mouthWidth: '8%', mouthMaxHeight: '3%',
     mouthColor: '#1C0400',
   },
 };
 
 /**
- * Calculate face overlay styles from animation values.
+ * Build inline style objects for face overlays using pure CSS percentages.
+ * These work correctly inside scaled containers.
  *
  * blinkProgress: 0 (open) → 1 (closed)
- * mouthOpen: 0 (closed) → 1 (max open, scaled by conservative config values)
+ * mouthOpen: 0 (closed) → 1 (fully open)
  */
-export function getFaceStyles(character, imgBounds, blinkProgress, mouthOpen) {
-  if (!imgBounds || imgBounds.w < 10) return null;
+export function getFaceStyles(character, _imgBounds, blinkProgress, mouthOpen) {
+  // imgBounds is ignored — we use pure percentages now
   const C = FACE_CONFIG[character] || FACE_CONFIG.gideon;
 
-  // ── EYELIDS ──
-  // Width stays constant. Height scales linearly with blink progress.
-  // No widening, no droop — just a simple oval that grows from 0 to full height.
-  const ew = imgBounds.w * C.eyelidW;
-  const eh = imgBounds.h * C.eyelidH * blinkProgress;
-
-  const makeEye = (eyeX) => blinkProgress > 0.05 ? {
+  const leftEye = blinkProgress > 0.05 ? {
     position: 'absolute',
     pointerEvents: 'none',
-    left:   imgBounds.left + imgBounds.w * eyeX - ew / 2,
-    top:    imgBounds.top  + imgBounds.h * C.eyeY - eh / 2,
-    width:  ew,
-    height: Math.max(0, eh),
-    background: C.eyelidColor,
+    left: C.leftEyeLeft,
+    top: C.leftEyeTop,
+    width: C.eyeWidth,
+    height: `calc(${C.eyeHeight} * ${blinkProgress})`,
+    background: C.eyeColor,
     borderRadius: '50%',
-    opacity: Math.min(0.92, blinkProgress * 0.95),
+    opacity: Math.min(0.93, blinkProgress),
+    zIndex: 5,
   } : null;
 
-  // ── MOUTH ──
-  // Width: base + small expansion (max ~12% wider than base)
-  // Height: 0 → conservative max, purely vertical
-  const mW = imgBounds.w * (C.mouthBaseW + mouthOpen * (C.mouthMaxW - C.mouthBaseW));
-  const mH = imgBounds.h * C.mouthMaxH * mouthOpen;
+  const rightEye = blinkProgress > 0.05 ? {
+    position: 'absolute',
+    pointerEvents: 'none',
+    left: C.rightEyeLeft,
+    top: C.rightEyeTop,
+    width: C.eyeWidth,
+    height: `calc(${C.eyeHeight} * ${blinkProgress})`,
+    background: C.eyeColor,
+    borderRadius: '50%',
+    opacity: Math.min(0.93, blinkProgress),
+    zIndex: 5,
+  } : null;
 
   const mouth = mouthOpen > 0.06 ? {
     position: 'absolute',
     pointerEvents: 'none',
-    left:   imgBounds.left + imgBounds.w * C.mouthCenterX - mW / 2,
-    top:    imgBounds.top  + imgBounds.h * C.mouthY - mH * 0.3,
-    width:  mW,
-    height: Math.max(0, mH),
+    left: C.mouthLeft,
+    top: C.mouthTop,
+    width: C.mouthWidth,
+    height: `calc(${C.mouthMaxHeight} * ${mouthOpen})`,
     background: C.mouthColor,
     borderRadius: '45%',
-    opacity: Math.min(0.88, 0.60 + mouthOpen * 0.30),
+    opacity: Math.min(0.88, 0.5 + mouthOpen * 0.4),
+    zIndex: 5,
   } : null;
 
-  return { leftEye: makeEye(C.leftEyeX), rightEye: makeEye(C.rightEyeX), mouth };
+  return { leftEye, rightEye, mouth };
 }
 
 export default FACE_CONFIG;
