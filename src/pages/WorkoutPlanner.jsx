@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { base44 } from '@/api/base44Client';
 import {
   Dumbbell, Flame, Wind, Heart, Plus, X,
   Calendar, BarChart2, BookOpen, Search, Clock, CheckCircle2, Trash2, Zap, ChevronRight
 } from 'lucide-react';
-import { createPageUrl } from '@/utils';
 import { toast } from 'sonner';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
 import { PREMADE_WORKOUTS } from '@/components/wellness/WorkoutLibrary';
 
 // ── Constants ────────────────────────────────────────────────────────────────

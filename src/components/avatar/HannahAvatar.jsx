@@ -7,6 +7,8 @@
  */
 import React, { useEffect, useRef, useState } from 'react';
 import hannahImg from '@/assets/hannah-avatar.png';
+import useAvatarAnimation from './useAvatarAnimation';
+import { getFaceStyles } from './avatarFaceConfig';
 
 const BLUE       = '#AFC7E3';
 const BLUE_PALE  = '#dbeafe';
@@ -51,35 +53,29 @@ export default function HannahAvatar({
   className   = '',
 }) {
   const state = isSpeaking ? 'speaking' : isListening ? 'listening' : isThinking ? 'thinking' : 'idle';
-  /* ── Mouth open/close (sin wave 0→1) ── */
-  const [mouthOpen, setMouthOpen] = useState(0);
-  const mouthRef = useRef(null);
-  useEffect(() => {
-    if (!isSpeaking) { setMouthOpen(0); return; }
-    let ph = 0;
-    mouthRef.current = setInterval(() => {
-      ph += 0.30;
-      setMouthOpen(Math.max(0, Math.sin(ph)));
-    }, 55);
-    return () => clearInterval(mouthRef.current);
-  }, [isSpeaking]);
+  const { blinkProgress, mouthOpen, idleFloat, idleTilt, idleShift, idleBreathing } = useAvatarAnimation('hannah', { isSpeaking, isListening, isThinking });
 
-  /* ── Eye blink ── */
-  const [blink, setBlink] = useState(false);
-  const blinkRef = useRef(null);
+  /* ── Measure rendered image bounds for face overlays ── */
+  const imgRef = useRef(null);
+  const containerRef = useRef(null);
+  const [imgBounds, setImgBounds] = useState(null);
+  const measureImage = () => {
+    const img = imgRef.current;
+    const con = containerRef.current;
+    if (!img || !con) return;
+    const nat = { w: img.naturalWidth || 326, h: img.naturalHeight || 329 };
+    const conW = con.offsetWidth;
+    const conH = con.offsetHeight;
+    const scale = Math.min(conW / nat.w, conH / nat.h);
+    const rendW = nat.w * scale;
+    const rendH = nat.h * scale;
+    setImgBounds({ left: (conW - rendW) / 2, top: conH - rendH, w: rendW, h: rendH });
+  };
   useEffect(() => {
-    const go = () => {
-      blinkRef.current = setTimeout(() => {
-        setBlink(true);
-        setTimeout(() => { setBlink(false); go(); }, 120);
-      }, 2500 + Math.random() * 3500);
-    };
-    go();
-    return () => clearTimeout(blinkRef.current);
+    measureImage();
+    window.addEventListener('resize', measureImage);
+    return () => window.removeEventListener('resize', measureImage);
   }, []);
-
-
-
 
   /* Burst particles */
   const [bursts, setBursts] = useState([]);
@@ -303,19 +299,29 @@ export default function HannahAvatar({
       </svg>
 
       {/* Image + face overlays */}
+      <div
+        ref={containerRef}
+        style={{ position:'absolute', inset:0, overflow:'hidden', zIndex:2, pointerEvents:'none' }}
+      >
       <div style={{
-        position:'relative', width:'100%', height:'100%', overflow:'hidden',
-        transform: 'scale(1.6)', transformOrigin: 'center top',
+        position:'relative', width:'100%', height:'100%',
+        transform: state === 'idle'
+          ? `scale(1.6) translateY(${idleFloat}px) translateX(${idleShift}px) rotate(${idleTilt}deg) scaleY(${1 + idleBreathing * 0.008})`
+          : 'scale(1.6)',
+        transformOrigin: 'center top',
         animation: state==='speaking'
           ? 'hn-speak 2.6s ease-in-out infinite'
           : state==='listening' ? 'hn-lean 1.8s ease-in-out infinite'
           : state==='thinking'  ? 'hn-sway 3.2s ease-in-out infinite'
-          : 'hn-float 4.2s ease-in-out infinite',
+          : undefined,
+        transition: 'transform 0.4s ease-out',
       }}>
         <img
+          ref={imgRef}
           src={hannahImg}
           alt="Hannah"
           draggable={false}
+          onLoad={measureImage}
           style={{
             width:'100%', height:'100%',
             objectFit:'contain', objectPosition:'center bottom',
@@ -325,37 +331,20 @@ export default function HannahAvatar({
               : 'hn-glow-idle 4.2s ease-in-out infinite',
           }}
         />
-        {/* ── Eye blink ── */}
-        {blink && (<>
-          <div style={{
-            position:'absolute', pointerEvents:'none',
-            left:`${41.3}%`, top:`${23.1}%`,
-            width:`${7.6}%`, height:`${4.4}%`,
-            background:'linear-gradient(to bottom, #7A4830 0%, #9A6048 60%, #7A4830 100%)', borderRadius:'50%', opacity:.95,
-          }}/>
-          <div style={{
-            position:'absolute', pointerEvents:'none',
-            left:`${49.0}%`, top:`${23.1}%`,
-            width:`${7.6}%`, height:`${4.4}%`,
-            background:'linear-gradient(to bottom, #7A4830 0%, #9A6048 60%, #7A4830 100%)', borderRadius:'50%', opacity:.95,
-          }}/>
-        </>)}
-
-        {/* ── Mouth open/close ── */}
-        {mouthOpen > 0.05 && (
-          <div style={{
-            position:'absolute', pointerEvents:'none', overflow:'hidden',
-            left:`${(50.0 - (4.0 + mouthOpen * 3.0) / 2).toFixed(2)}%`,
-            top:`${28.5}%`,
-            width:`${(4.0 + mouthOpen * 3.0).toFixed(2)}%`,
-            height:`${(0.4 + mouthOpen * 3.2).toFixed(2)}%`,
-            background:'radial-gradient(ellipse at 50% 30%, #120500 0%, #280A04 60%, #441606 100%)',
-            borderRadius:'50%',
-            opacity: 0.85 + mouthOpen * 0.10,
-          }}/>
-        )}
+        {/* Face overlays — driven by animation hook */}
+        {(() => {
+          const face = getFaceStyles('hannah', imgBounds, blinkProgress, mouthOpen);
+          if (!face) return null;
+          return (<>
+            {face.leftEye && <div style={face.leftEye} />}
+            {face.rightEye && <div style={face.rightEye} />}
+            {face.mouth && <div style={face.mouth} />}
+          </>);
+        })()}
         </div>
-      {/* ── EQ visualizer when speaking ── */}
+      </div>
+
+      {/* EQ visualizer when speaking */}
       {isSpeaking && (
         <div style={{ position:'absolute', bottom:18, left:'50%', transform:'translateX(-50%)', display:'flex', alignItems:'flex-end', gap:3, height:28, pointerEvents:'none', zIndex:20 }}>
           {[0,1,2,3,4,5,6].map(i => (
@@ -370,7 +359,7 @@ export default function HannahAvatar({
         </div>
       )}
 
-      {/* ── Thinking dots ── */}
+      {/* Thinking dots */}
       {state === 'thinking' && (
         <div style={{ position:'absolute', bottom:6, display:'flex', gap:12, pointerEvents:'none' }}>
           {[0,1,2].map(i => (

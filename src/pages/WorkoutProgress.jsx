@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
-import { TrendingUp, Award, Calendar, Dumbbell, Activity } from 'lucide-react';
+import { Award, Calendar, Dumbbell, Activity } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import WorkoutFrequencyChart from '@/components/wellness/WorkoutFrequencyChart';
 import PersonalBestsChart from '@/components/wellness/PersonalBestsChart';
 import VolumeProgressChart from '@/components/wellness/VolumeProgressChart';

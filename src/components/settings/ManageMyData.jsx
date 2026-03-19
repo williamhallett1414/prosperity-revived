@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import {
-  Database, Download, Pencil, Trash2, ChevronDown, ChevronUp,
+import { Download, Pencil, Trash2, ChevronDown, ChevronUp,
   Check, Mail, ExternalLink, Shield
 } from 'lucide-react';
 import { toast } from 'sonner';

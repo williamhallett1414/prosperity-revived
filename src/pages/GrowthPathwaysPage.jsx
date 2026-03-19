@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import {
-  Target, Shield, Zap, Heart, BookOpen, Crown, Brain,
+import { Zap, BookOpen, Brain,
   ArrowLeft, ChevronRight, CheckCircle2, Pencil, ExternalLink,
-  Flame, Sparkles, Lock, Star, ChevronDown
+  Flame, Sparkles, Lock
 } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';

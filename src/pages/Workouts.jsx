@@ -1,21 +1,17 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import {
-  Dumbbell, Heart, TrendingUp, Sparkles, Target, Trophy,
-  Calendar, ClipboardList, Flame, ChevronRight, Play,
-  CheckCircle2, MessageCircle, ArrowRight, Zap, Star,
-  BarChart3, Users, Sun, Moon
+  Dumbbell, Target, Trophy, ClipboardList, Flame, ChevronRight, Play,
+  CheckCircle2, MessageCircle, ArrowRight, Star
 } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { toast } from 'sonner';
 import StartWorkoutModal from '@/components/wellness/StartWorkoutModal';
 import PullToRefresh from '@/components/ui/PullToRefresh';
 import { PREMADE_WORKOUTS } from '@/components/wellness/WorkoutLibrary';
 import { awardPoints, checkAndAwardBadges } from '@/components/gamification/ProgressManager';
-import ChatButton from '@/components/chatbot/ChatButton';
 
 // ── Motivational verses for training ────────────────────────────────────────
 const TRAINING_VERSES = [

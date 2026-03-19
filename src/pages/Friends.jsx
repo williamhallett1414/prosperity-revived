@@ -6,7 +6,6 @@ import {
   ArrowLeft, UserPlus, MessageCircle, Check, X,
   Users, Sparkles, ChevronDown, ChevronUp, Bell, Clock, Send
 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import { Link, useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { toast } from 'sonner';

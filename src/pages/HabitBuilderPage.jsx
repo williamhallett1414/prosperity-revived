@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import {
-  CheckCircle2, ArrowLeft, Flame, Plus, X,
-  ChevronRight, Sparkles, Settings2, Check, Trophy,
-  Target, Heart, Brain, Zap, Star
+import { ArrowLeft, Flame, Plus, X,
+  ChevronRight, Sparkles, Settings2, Check
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';

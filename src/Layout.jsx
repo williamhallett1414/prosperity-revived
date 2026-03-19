@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { Home, User, Heart, TrendingUp, ArrowLeft, BookOpen, Users } from 'lucide-react';
+import { Home, User, Heart, BookOpen, Users } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Toaster } from '@/components/ui/sonner.jsx';
 import NotificationBell from '@/components/notifications/NotificationBell';

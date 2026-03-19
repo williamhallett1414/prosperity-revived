@@ -4,8 +4,8 @@ import { base44 } from '@/api/base44Client';
 import { createPageUrl } from '@/utils';
 import { Link, useNavigate } from 'react-router-dom';
 import {
-  Salad, Droplets, Flame, ChefHat, Clock, ShieldCheck,
-  ChevronRight, Info, Zap, Apple, BarChart2, BookOpen, AlertTriangle
+  Salad, Droplets, Flame, Clock, ShieldCheck,
+  ChevronRight, Info, Apple, BarChart2, BookOpen, AlertTriangle
 } from 'lucide-react';
 
 // ── Label maps ────────────────────────────────────────────────────────────────

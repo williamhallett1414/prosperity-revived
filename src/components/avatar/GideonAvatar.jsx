@@ -13,6 +13,8 @@
  */
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import gideonImg from '@/assets/gideon-avatar.png';
+import useAvatarAnimation from './useAvatarAnimation';
+import { getFaceStyles } from './avatarFaceConfig';
 
 const GOLD      = '#C9A227';
 const GOLD_PALE = '#F8EBA0';
@@ -84,32 +86,8 @@ export default function GideonAvatar({
     return () => window.removeEventListener('resize', measureImage);
   }, [measureImage]);
 
-  /* ── Mouth open/close (sin wave 0→1) ── */
-  const [mouthOpen, setMouthOpen] = useState(0);
-  const mouthRef = useRef(null);
-  useEffect(() => {
-    if (!isSpeaking) { setMouthOpen(0); return; }
-    let ph = 0;
-    mouthRef.current = setInterval(() => {
-      ph += 0.30;
-      setMouthOpen(Math.max(0, Math.sin(ph)));
-    }, 55);
-    return () => clearInterval(mouthRef.current);
-  }, [isSpeaking]);
-
-  /* ── Eye blink ── */
-  const [blink, setBlink] = useState(false);
-  const blinkRef = useRef(null);
-  useEffect(() => {
-    const go = () => {
-      blinkRef.current = setTimeout(() => {
-        setBlink(true);
-        setTimeout(() => { setBlink(false); go(); }, 120);
-      }, 2500 + Math.random() * 3500);
-    };
-    go();
-    return () => clearTimeout(blinkRef.current);
-  }, []);
+  /* ── Animation engine (personality-driven blink, mouth, idle) ── */
+  const { blinkProgress, mouthOpen, idleFloat, idleTilt, idleShift, idleBreathing } = useAvatarAnimation('gideon', { isSpeaking, isListening, isThinking });
 
 
   /* ── Gold burst particles (speaking only) ── */
@@ -384,11 +362,15 @@ export default function GideonAvatar({
         position: 'relative',
         width: '100%',
         height: '100%',
+        transform: state === 'idle'
+          ? `translateY(${idleFloat}px) translateX(${idleShift}px) rotate(${idleTilt}deg) scaleY(${1 + idleBreathing * 0.006})`
+          : undefined,
         animation: state === 'speaking'
           ? 'ga-speak 2.4s ease-in-out infinite'
           : state === 'listening' ? 'ga-lean 1.5s ease-in-out infinite'
           : state === 'thinking'  ? 'ga-sway 2.8s ease-in-out infinite'
-          : 'ga-float 3.8s ease-in-out infinite',
+          : undefined,
+        transition: 'transform 0.4s ease-out',
       }}>
         {/* Gideon image */}
         <img
@@ -410,46 +392,16 @@ export default function GideonAvatar({
           }}
         />
 
-        {/* ── Face overlays — pixel-precise relative to actual rendered image ── */}
-        {imgBounds && (<>
-          {/* Left eye blink */}
-          {blink && (
-            <div style={{
-              position:'absolute', pointerEvents:'none',
-              left:  imgBounds.left + imgBounds.w * 0.422,
-              top:   imgBounds.top  + imgBounds.h * 0.233,
-              width: imgBounds.w * 0.036,
-              height:imgBounds.h * 0.020,
-              background:'linear-gradient(to bottom, #8B4513 0%, #A0522D 60%, #8B4513 100%)',
-              borderRadius:'50%', opacity: 0.95,
-            }}/>
-          )}
-          {/* Right eye blink */}
-          {blink && (
-            <div style={{
-              position:'absolute', pointerEvents:'none',
-              left:  imgBounds.left + imgBounds.w * 0.542,
-              top:   imgBounds.top  + imgBounds.h * 0.233,
-              width: imgBounds.w * 0.036,
-              height:imgBounds.h * 0.020,
-              background:'linear-gradient(to bottom, #8B4513 0%, #A0522D 60%, #8B4513 100%)',
-              borderRadius:'50%', opacity: 0.95,
-            }}/>
-          )}
-          {/* Mouth open */}
-          {mouthOpen > 0.05 && (
-            <div style={{
-              position:'absolute', pointerEvents:'none', overflow:'hidden',
-              left:   imgBounds.left + imgBounds.w * (0.5 - (0.065 + mouthOpen * 0.025) / 2),
-              top:    imgBounds.top  + imgBounds.h * 0.300,
-              width:  imgBounds.w * (0.065 + mouthOpen * 0.025),
-              height: imgBounds.h * (0.005 + mouthOpen * 0.022),
-              background:'radial-gradient(ellipse at 50% 40%, #1A0600 0%, #2E0C06 70%, #5A2010 100%)',
-              borderRadius:'40%',
-              opacity: 0.78 + mouthOpen * 0.15,
-            }}/>
-          )}
-        </>)}
+        {/* ── Face overlays — driven by useAvatarAnimation + avatarFaceConfig ── */}
+        {(() => {
+          const face = getFaceStyles('gideon', imgBounds, blinkProgress, mouthOpen);
+          if (!face) return null;
+          return (<>
+            {face.leftEye && <div style={face.leftEye} />}
+            {face.rightEye && <div style={face.rightEye} />}
+            {face.mouth && <div style={face.mouth} />}
+          </>);
+        })()}
         </div>
       </div>
 

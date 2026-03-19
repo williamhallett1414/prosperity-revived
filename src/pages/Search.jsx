@@ -6,7 +6,6 @@ import { Button } from '@/components/ui/button';
 import { Link, useNavigate } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import { createPageUrl } from '@/utils';
-import { ScrollArea } from '@/components/ui/scroll-area';
 
 export default function Search() {
   const navigate = useNavigate();

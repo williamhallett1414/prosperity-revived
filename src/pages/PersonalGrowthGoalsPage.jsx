@@ -5,8 +5,8 @@ import { createPageUrl } from '@/utils';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   Brain, Heart, Sparkles, Target, ChevronRight,
-  Compass, Lightbulb, Users, Zap, BookOpen, CheckCircle,
-  AlertTriangle, Star, ArrowRight
+  Compass, Zap,
+  AlertTriangle, Star
 } from 'lucide-react';
 
 // ── Label maps ─────────────────────────────────────────────────────────────────

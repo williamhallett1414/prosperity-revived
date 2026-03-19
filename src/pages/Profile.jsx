@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
-import { Settings, Camera, Loader2, ChevronRight, Trophy, TrendingUp, MessageCircle, Target, Salad, BookOpen, Brain } from 'lucide-react';
+import { Settings, Camera, ChevronRight, Trophy, TrendingUp, MessageCircle, Brain } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import {
@@ -16,7 +16,6 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger } from
 '@/components/ui/alert-dialog';
-import { Button } from '@/components/ui/button';
 
 import AboutTab from '@/components/profile/facebook/AboutTab';
 import FriendsTab from '@/components/profile/facebook/FriendsTab';

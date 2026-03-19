@@ -1,6 +1,6 @@
 import React, { useState, useRef, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Shield, Check, ChevronDown, X, AlertTriangle, FileText } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Shield, Check, ChevronDown, AlertTriangle, FileText } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 import { toast } from 'sonner';
 

@@ -11,7 +11,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Switch } from '@/components/ui/switch';
 import GroupCard from '@/components/groups/GroupCard';
 import { toast } from 'sonner';
-import { SEED_GROUPS, SEED_KEY } from '@/components/groups/GroupSeed';
+import { SEED_GROUPS } from '@/components/groups/GroupSeed';
 
 // ─── Category config ─────────────────────────────────────────────────────────
 const CATEGORIES = [

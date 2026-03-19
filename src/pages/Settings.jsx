@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
-import { ArrowLeft, Moon, Sun, Monitor, Bell, Mail, User, Palette, Trash2, Play, Database } from 'lucide-react';
+import { ArrowLeft, Moon, Sun, Monitor, Bell, User, Palette, Trash2, Play, Database } from 'lucide-react';
 import AppTour from '@/components/onboarding/AppTour';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';

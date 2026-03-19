@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import {
   BookOpen, Brain, Heart, Sparkles, Target, CheckCircle2,
   Crown, Calendar, Wind, Star, ArrowRight, Flower2,
-  Flame, Trophy, Lightbulb, ChevronRight, MessageCircle,
-  Zap, Sun, Moon, Sunset
+  Flame, ChevronRight, MessageCircle, Sun, Moon, Sunset
 } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { base44 } from '@/api/base44Client';
-import ChatButton from '@/components/chatbot/ChatButton';
 
 // ── Affirmations rotation ────────────────────────────────────────────────────
 const DAILY_AFFIRMATIONS = [

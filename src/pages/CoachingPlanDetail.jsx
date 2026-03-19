@@ -5,7 +5,7 @@ import { createPageUrl } from '@/utils';
 import {
   ArrowLeft, BookOpen, Dumbbell, Utensils, Brain, ChevronRight, ChevronLeft,
   CheckCircle2, Circle, ExternalLink, Play, ChevronDown, ChevronUp,
-  Calendar, Heart, Sparkles, Star, Trophy, Timer, List, X, Wind
+  Calendar, Sparkles, Star, Trophy, List, X, Wind
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { COACHING_PLANS } from '@/components/coaching/planData';

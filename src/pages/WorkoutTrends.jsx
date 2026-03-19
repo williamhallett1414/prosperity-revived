@@ -4,9 +4,9 @@ import { base44 } from '@/api/base44Client';
 import { motion, AnimatePresence } from 'framer-motion';
 import ShareToFeedButton from '@/components/community/ShareToFeedButton';
 import {
-  Dumbbell, Flame, Calendar, Award, BarChart3,
-  TrendingUp, TrendingDown, Minus, ChevronRight,
-  MessageCircle, Star, Target, Zap, CheckCircle2
+  Dumbbell, Flame, Award, BarChart3,
+  TrendingUp, TrendingDown, Minus,
+  MessageCircle, Target
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
@@ -15,7 +15,6 @@ import {
   XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
 } from 'recharts';
 import { format, subDays, eachDayOfInterval } from 'date-fns';
-import ChatButton from '@/components/chatbot/ChatButton';
 
 // ── Helpers ────────────────────────────────────────────────────────────────
 function todayKey() { return new Date().toISOString().split('T')[0]; }

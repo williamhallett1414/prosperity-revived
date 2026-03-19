@@ -7,7 +7,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Search, ArrowLeft, Plus, MessageCircle, Send, Loader2, Users } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import ReadingPlanCard from '@/components/home/ReadingPlanCard';
 import CreateCustomPlanModal from '@/components/plans/CreateCustomPlanModal';

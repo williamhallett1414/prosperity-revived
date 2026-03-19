@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
 import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { ArrowLeft, Heart, Mic, Target, Sparkles } from 'lucide-react';
+import { ArrowLeft, Heart, Mic, Target } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import PrayerJournal from '@/components/spiritual/PrayerJournal';
 import SermonNotes from '@/components/spiritual/SermonNotes';

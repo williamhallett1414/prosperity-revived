@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { ArrowLeft, Lock, ChevronRight, Star, CheckCircle2, X, Eye } from 'lucide-react';
+import { ArrowLeft, Lock, ChevronRight, X, Eye } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { COACHING_PLANS, PLAN_CATEGORIES } from '@/components/coaching/planData';
 import PreviewPlanModal from '@/components/coaching/PreviewPlanModal';

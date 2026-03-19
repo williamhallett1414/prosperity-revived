@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { base44 } from '@/api/base44Client';
 import {
-  ChevronRight, ChevronLeft, Sparkles, Check, X,
+  ChevronRight, ChevronLeft, Sparkles, Check,
   Heart, Dumbbell, Utensils, BookOpen, Brain, Bell, User, Shield, AlertTriangle
 } from 'lucide-react';
 import LegalDocModal from './LegalDocModal';

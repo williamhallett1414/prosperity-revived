@@ -6,6 +6,8 @@
  */
 import React, { useEffect, useRef, useState } from 'react';
 import paulImg from '@/assets/coach-paul-avatar.png';
+import useAvatarAnimation from './useAvatarAnimation';
+import { getFaceStyles } from './avatarFaceConfig';
 
 const VIOLET      = '#A78BFA';
 const VIOLET_PALE = '#ddd6fe';
@@ -48,35 +50,21 @@ export default function CoachPaulAvatar({
   className   = '',
 }) {
   const state = isSpeaking ? 'speaking' : isListening ? 'listening' : isThinking ? 'thinking' : 'idle';
-  /* ── Mouth open/close (sin wave 0→1) ── */
-  const [mouthOpen, setMouthOpen] = useState(0);
-  const mouthRef = useRef(null);
-  useEffect(() => {
-    if (!isSpeaking) { setMouthOpen(0); return; }
-    let ph = 0;
-    mouthRef.current = setInterval(() => {
-      ph += 0.30;
-      setMouthOpen(Math.max(0, Math.sin(ph)));
-    }, 55);
-    return () => clearInterval(mouthRef.current);
-  }, [isSpeaking]);
+  const { blinkProgress, mouthOpen, idleFloat, idleTilt, idleShift, idleBreathing } = useAvatarAnimation('paul', { isSpeaking, isListening, isThinking });
 
-  /* ── Eye blink ── */
-  const [blink, setBlink] = useState(false);
-  const blinkRef = useRef(null);
-  useEffect(() => {
-    const go = () => {
-      blinkRef.current = setTimeout(() => {
-        setBlink(true);
-        setTimeout(() => { setBlink(false); go(); }, 120);
-      }, 2500 + Math.random() * 3500);
-    };
-    go();
-    return () => clearTimeout(blinkRef.current);
-  }, []);
-
-
-
+  const imgRef = useRef(null);
+  const containerRef = useRef(null);
+  const [imgBounds, setImgBounds] = useState(null);
+  const measureImage = () => {
+    const img = imgRef.current; const con = containerRef.current;
+    if (!img || !con) return;
+    const nat = { w: img.naturalWidth || 319, h: img.naturalHeight || 329 };
+    const conW = con.offsetWidth; const conH = con.offsetHeight;
+    const scale = Math.min(conW / nat.w, conH / nat.h);
+    const rendW = nat.w * scale; const rendH = nat.h * scale;
+    setImgBounds({ left: (conW - rendW) / 2, top: conH - rendH, w: rendW, h: rendH });
+  };
+  useEffect(() => { measureImage(); window.addEventListener('resize', measureImage); return () => window.removeEventListener('resize', measureImage); }, []);
 
   /* Burst particles */
   const [bursts, setBursts] = useState([]);
@@ -296,19 +284,25 @@ export default function CoachPaulAvatar({
       </svg>
 
       {/* Image + face overlays — clipped+zoomed */}
-      <div style={{ position:'absolute', inset:0, overflow:'hidden', zIndex:2, pointerEvents:'none' }}>
+      <div ref={containerRef} style={{ position:'absolute', inset:0, overflow:'hidden', zIndex:2, pointerEvents:'none' }}>
       <div style={{
         position:'relative', width:'100%', height:'100%',
+        transform: state === 'idle'
+          ? `translateY(${idleFloat}px) translateX(${idleShift}px) rotate(${idleTilt}deg) scaleY(${1 + idleBreathing * 0.007})`
+          : undefined,
         animation: state==='speaking'
           ? 'cp-speak 2.6s ease-in-out infinite'
           : state==='listening' ? 'cp-lean 1.6s ease-in-out infinite'
           : state==='thinking'  ? 'cp-sway 3.0s ease-in-out infinite'
-          : 'cp-float 4.0s ease-in-out infinite',
+          : undefined,
+        transition: 'transform 0.4s ease-out',
       }}>
         <img
+          ref={imgRef}
           src={paulImg}
           alt="Coach Paul"
           draggable={false}
+          onLoad={measureImage}
           style={{
             width:'100%', height:'100%',
             objectFit:'contain', objectPosition:'center bottom',
@@ -318,60 +312,32 @@ export default function CoachPaulAvatar({
               : 'cp-glow-idle 4.0s ease-in-out infinite',
           }}
         />
-        {/* ── Eye blink ── */}
-        {blink && (<>
-          <div style={{
-            position:'absolute', pointerEvents:'none',
-            left:`${37.1}%`, top:`${22.8}%`,
-            width:`${13.6}%`, height:`${5.6}%`,
-            background:'linear-gradient(to bottom, #5A2E10 0%, #7A4A28 60%, #5A2E10 100%)', borderRadius:'50%', opacity:.95,
-          }}/>
-          <div style={{
-            position:'absolute', pointerEvents:'none',
-            left:`${52.1}%`, top:`${22.8}%`,
-            width:`${13.6}%`, height:`${5.6}%`,
-            background:'linear-gradient(to bottom, #5A2E10 0%, #7A4A28 60%, #5A2E10 100%)', borderRadius:'50%', opacity:.95,
-          }}/>
-        </>)}
-
-        {/* ── Mouth open/close ── */}
-        {mouthOpen > 0.05 && (
-          <div style={{
-            position:'absolute', pointerEvents:'none', overflow:'hidden',
-            left:`${(51.7 - (8.5 + mouthOpen * 5.0) / 2).toFixed(2)}%`,
-            top:`${27.8}%`,
-            width:`${(8.5 + mouthOpen * 5.0).toFixed(2)}%`,
-            height:`${(0.4 + mouthOpen * 5.0).toFixed(2)}%`,
-            background:'radial-gradient(ellipse at 50% 30%, #0E0300 0%, #220804 60%, #3C1206 100%)',
-            borderRadius:'50%',
-            opacity: 0.85 + mouthOpen * 0.10,
-          }}/>
-        )}
+        {(() => {
+          const face = getFaceStyles('paul', imgBounds, blinkProgress, mouthOpen);
+          if (!face) return null;
+          return (<>
+            {face.leftEye && <div style={face.leftEye} />}
+            {face.rightEye && <div style={face.rightEye} />}
+            {face.mouth && <div style={face.mouth} />}
+          </>);
+        })()}
         </div>
       </div>
-      {/* ── EQ visualizer when speaking ── */}
+
+      {/* EQ visualizer when speaking */}
       {isSpeaking && (
         <div style={{ position:'absolute', bottom:18, left:'50%', transform:'translateX(-50%)', display:'flex', alignItems:'flex-end', gap:3, height:28, pointerEvents:'none', zIndex:20 }}>
           {[0,1,2,3,4,5,6].map(i => (
-            <div key={i} style={{
-              width:4, borderRadius:2,
-              background:'#A78BFA',
-              opacity:0.88,
-              animation:`cp-eq ${0.6 + (i % 3) * 0.12}s ease-in-out infinite`,
-              animationDelay:`${i * 0.09}s`,
-            }}/>
+            <div key={i} style={{ width:4, borderRadius:2, background:'#A78BFA', opacity:0.88, animation:`cp-eq ${0.6 + (i % 3) * 0.12}s ease-in-out infinite`, animationDelay:`${i * 0.09}s` }}/>
           ))}
         </div>
       )}
 
-      {/* ── Thinking dots ── */}
+      {/* Thinking dots */}
       {state === 'thinking' && (
         <div style={{ position:'absolute', bottom:6, display:'flex', gap:12, pointerEvents:'none' }}>
           {[0,1,2].map(i => (
-            <div key={i} style={{
-              width:11, height:11, borderRadius:'50%', background:'#A78BFA',
-              animation:`cp-dot 1.1s ease-in-out infinite`, animationDelay:`${i*0.24}s`,
-            }}/>
+            <div key={i} style={{ width:11, height:11, borderRadius:'50%', background:'#A78BFA', animation:`cp-dot 1.1s ease-in-out infinite`, animationDelay:`${i*0.24}s` }}/>
           ))}
         </div>
       )}

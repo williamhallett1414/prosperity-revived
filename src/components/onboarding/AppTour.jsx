@@ -4,9 +4,8 @@ import { base44 } from '@/api/base44Client';
 import { createPageUrl } from '@/utils';
 import {
   X, ChevronRight, ChevronLeft, Sparkles,
-  Home, Heart, BookOpen, Users, User,
-  Dumbbell, Utensils, Brain, MessageCircle,
-  Zap, Play
+  Home, Heart, BookOpen, Users, User, Brain, MessageCircle,
+  Zap
 } from 'lucide-react';
 
 // ── Feature data ─────────────────────────────────────────────────────────────

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
-import { UtensilsCrossed, CalendarDays, ChefHat, History, Plus, Droplets, Flame, Zap, TrendingUp, Minus, Check, Target, ChevronRight } from 'lucide-react';
+import { UtensilsCrossed, CalendarDays, ChefHat, History, Plus, Droplets, Flame, TrendingUp, Target, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useMutation } from '@tanstack/react-query';
 import { toast } from 'sonner';
 import DetailedFoodLogModal from '@/components/wellness/DetailedFoodLogModal';
