@@ -1,56 +1,54 @@
 /**
- * avatarFaceConfig v5 — Corrected positions accounting for objectFit:contain + objectPosition:center bottom.
- *
- * The image sits at the BOTTOM of the container with whitespace above (~14%).
- * All Y positions account for this offset.
- * All values computed in JavaScript (no CSS calc).
+ * avatarFaceConfig v6 — Larger, more visible overlays.
+ * Positions corrected for objectFit:contain + objectPosition:center bottom.
+ * Overlay sizes increased for visibility. Dark interior mouth color.
  */
 
 const FACE_CONFIG = {
   gideon: {
     leftEyeLeft: 42.5, leftEyeTop: 41.8,
     rightEyeLeft: 52.5, rightEyeTop: 41.8,
-    eyeW: 4.5, eyeH: 2.2,
-    eyeColor: '#8B6040',
-    mouthLeft: 47, mouthTop: 50.4,
-    mouthW: 7, mouthMaxH: 2.5,
-    mouthColor: '#2A0800',
+    eyeW: 5.5, eyeH: 3,
+    eyeColor: '#5C3A20',
+    mouthLeft: 46, mouthTop: 50,
+    mouthW: 8, mouthMaxH: 4,
+    mouthColor: '#1A0500',
   },
   hannah: {
     leftEyeLeft: 41, leftEyeTop: 32.5,
     rightEyeLeft: 51, rightEyeTop: 32.5,
-    eyeW: 4.5, eyeH: 2.2,
-    eyeColor: '#7A4830',
-    mouthLeft: 45.5, mouthTop: 39.4,
-    mouthW: 6, mouthMaxH: 2.5,
-    mouthColor: '#200600',
+    eyeW: 5.5, eyeH: 3,
+    eyeColor: '#5A3520',
+    mouthLeft: 44.5, mouthTop: 39,
+    mouthW: 7.5, mouthMaxH: 3.5,
+    mouthColor: '#150400',
   },
   coach: {
-    leftEyeLeft: 43, leftEyeTop: 25.4,
-    rightEyeLeft: 52, rightEyeTop: 25.4,
-    eyeW: 4, eyeH: 2,
-    eyeColor: '#7A4828',
-    mouthLeft: 46, mouthTop: 31,
-    mouthW: 6, mouthMaxH: 2,
-    mouthColor: '#1A0400',
+    leftEyeLeft: 42.5, leftEyeTop: 25.2,
+    rightEyeLeft: 51.5, rightEyeTop: 25.2,
+    eyeW: 5, eyeH: 2.8,
+    eyeColor: '#4A2810',
+    mouthLeft: 45, mouthTop: 30.8,
+    mouthW: 7.5, mouthMaxH: 3.5,
+    mouthColor: '#0E0200',
   },
   chef: {
-    leftEyeLeft: 43, leftEyeTop: 28.7,
-    rightEyeLeft: 52.5, rightEyeTop: 28.7,
-    eyeW: 4, eyeH: 2,
-    eyeColor: '#6A3218',
-    mouthLeft: 46, mouthTop: 34.7,
-    mouthW: 6, mouthMaxH: 2,
-    mouthColor: '#200600',
+    leftEyeLeft: 42.5, leftEyeTop: 28.5,
+    rightEyeLeft: 52, rightEyeTop: 28.5,
+    eyeW: 5, eyeH: 2.8,
+    eyeColor: '#4A2810',
+    mouthLeft: 45, mouthTop: 34.5,
+    mouthW: 7.5, mouthMaxH: 3.5,
+    mouthColor: '#120300',
   },
   paul: {
-    leftEyeLeft: 39, leftEyeTop: 29.3,
-    rightEyeLeft: 51, rightEyeTop: 29.3,
-    eyeW: 5, eyeH: 2.2,
-    eyeColor: '#5A3014',
-    mouthLeft: 44, mouthTop: 36.4,
-    mouthW: 7, mouthMaxH: 2.5,
-    mouthColor: '#1C0400',
+    leftEyeLeft: 38.5, leftEyeTop: 29,
+    rightEyeLeft: 50.5, rightEyeTop: 29,
+    eyeW: 6, eyeH: 3,
+    eyeColor: '#3E2008',
+    mouthLeft: 43, mouthTop: 36,
+    mouthW: 8, mouthMaxH: 4,
+    mouthColor: '#100300',
   },
 };
 
@@ -66,7 +64,7 @@ export function getFaceStyles(character, _imgBounds, blinkProgress, mouthOpen) {
     height: (C.eyeH * blinkProgress) + '%',
     background: C.eyeColor,
     borderRadius: '50%',
-    opacity: Math.min(0.93, blinkProgress),
+    opacity: 0.95,
     zIndex: 5,
   } : null;
 
@@ -79,11 +77,11 @@ export function getFaceStyles(character, _imgBounds, blinkProgress, mouthOpen) {
     height: (C.eyeH * blinkProgress) + '%',
     background: C.eyeColor,
     borderRadius: '50%',
-    opacity: Math.min(0.93, blinkProgress),
+    opacity: 0.95,
     zIndex: 5,
   } : null;
 
-  const mouth = mouthOpen > 0.06 ? {
+  const mouth = mouthOpen > 0.05 ? {
     position: 'absolute',
     pointerEvents: 'none',
     left: C.mouthLeft + '%',
@@ -92,7 +90,7 @@ export function getFaceStyles(character, _imgBounds, blinkProgress, mouthOpen) {
     height: (C.mouthMaxH * mouthOpen) + '%',
     background: C.mouthColor,
     borderRadius: '45%',
-    opacity: Math.min(0.88, 0.5 + mouthOpen * 0.4),
+    opacity: 0.9,
     zIndex: 5,
   } : null;
 
