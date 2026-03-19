@@ -362,13 +362,16 @@ export default function GideonAvatar({
         position: 'relative',
         width: '100%',
         height: '100%',
-        transform: `scale(1.55) translateY(${floatY}px) translateX(${shiftX}px) rotate(${tiltDeg}deg)`,
+        transform: isSpeaking
+          ? `scale(2.8) translateY(${floatY * 0.5}px) rotate(${tiltDeg * 0.3}deg)`
+          : `scale(1.55) translateY(${floatY}px) translateX(${shiftX}px) rotate(${tiltDeg}deg)`,
+        transformOrigin: isSpeaking ? 'center 28%' : 'center top',
+        transition: 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform-origin 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
         animation: state === 'speaking'
-          ? 'ga-speak 2.4s ease-in-out infinite'
+          ? 'none'
           : state === 'listening' ? 'ga-lean 1.5s ease-in-out infinite'
           : state === 'thinking'  ? 'ga-sway 2.8s ease-in-out infinite'
           : undefined,
-        transition: 'transform 0.4s ease-out',
       }}>
         {/* Gideon image */}
         <img

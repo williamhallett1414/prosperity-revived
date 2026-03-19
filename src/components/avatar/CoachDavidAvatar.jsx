@@ -290,14 +290,16 @@ export default function CoachDavidAvatar({
       <div ref={containerRef} style={{ position:'absolute', inset:0, overflow:'hidden', zIndex:2, pointerEvents:'none' }}>
       <div style={{
         position:'relative', width:'100%', height:'100%',
-        transform: `scale(2.2) translateY(${floatY}px) translateX(${shiftX}px) rotate(${tiltDeg}deg)`,
-        transformOrigin: 'center top',
+        transform: isSpeaking
+          ? `scale(3.8) translateY(${floatY * 0.5}px) rotate(${tiltDeg * 0.3}deg)`
+          : `scale(2.2) translateY(${floatY}px) translateX(${shiftX}px) rotate(${tiltDeg}deg)`,
+        transformOrigin: isSpeaking ? 'center 22%' : 'center top',
+        transition: 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform-origin 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
         animation: state==='speaking'
-          ? 'cvd-speak 2.4s ease-in-out infinite'
+          ? 'none'
           : state==='listening' ? 'cvd-lean 1.5s ease-in-out infinite'
           : state==='thinking'  ? 'cvd-sway 2.8s ease-in-out infinite'
           : undefined,
-        transition: 'transform 0.5s ease-out',
       }}>
         <img
           ref={imgRef}

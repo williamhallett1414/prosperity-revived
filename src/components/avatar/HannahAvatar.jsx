@@ -305,14 +305,16 @@ export default function HannahAvatar({
       >
       <div style={{
         position:'relative', width:'100%', height:'100%',
-        transform: `scale(1.6) translateY(${floatY}px) translateX(${shiftX}px) rotate(${tiltDeg}deg)`,
-        transformOrigin: 'center top',
+        transform: isSpeaking
+          ? `scale(2.9) translateY(${floatY * 0.5}px) rotate(${tiltDeg * 0.3}deg)`
+          : `scale(1.6) translateY(${floatY}px) translateX(${shiftX}px) rotate(${tiltDeg}deg)`,
+        transformOrigin: isSpeaking ? 'center 26%' : 'center top',
+        transition: 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform-origin 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
         animation: state==='speaking'
-          ? 'hn-speak 2.6s ease-in-out infinite'
+          ? 'none'
           : state==='listening' ? 'hn-lean 1.8s ease-in-out infinite'
           : state==='thinking'  ? 'hn-sway 3.2s ease-in-out infinite'
           : undefined,
-        transition: 'transform 0.4s ease-out',
       }}>
         <img
           ref={imgRef}
