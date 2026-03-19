@@ -1,54 +1,56 @@
 /**
- * avatarFaceConfig v6 — Larger, more visible overlays.
- * Positions corrected for objectFit:contain + objectPosition:center bottom.
- * Overlay sizes increased for visibility. Dark interior mouth color.
+ * avatarFaceConfig v7 — Position-corrected after debug video testing.
+ * 
+ * Debug test showed: overlays render correctly but mouth was ~3-4% too low.
+ * Eyes need to move up ~2%. Adjusted all positions accordingly.
+ * Back to realistic colors (dark brown/black).
  */
 
 const FACE_CONFIG = {
   gideon: {
-    leftEyeLeft: 42.5, leftEyeTop: 41.8,
-    rightEyeLeft: 52.5, rightEyeTop: 41.8,
+    leftEyeLeft: 42, leftEyeTop: 39,
+    rightEyeLeft: 52, rightEyeTop: 39,
     eyeW: 5.5, eyeH: 3,
-    eyeColor: 'red',
-    mouthLeft: 46, mouthTop: 50,
+    eyeColor: '#5C3A20',
+    mouthLeft: 45.5, mouthTop: 46.5,
     mouthW: 8, mouthMaxH: 4,
-    mouthColor: 'lime',
+    mouthColor: '#1A0500',
   },
   hannah: {
-    leftEyeLeft: 41, leftEyeTop: 32.5,
-    rightEyeLeft: 51, rightEyeTop: 32.5,
+    leftEyeLeft: 40.5, leftEyeTop: 30,
+    rightEyeLeft: 50.5, rightEyeTop: 30,
     eyeW: 5.5, eyeH: 3,
-    eyeColor: 'red',
-    mouthLeft: 44.5, mouthTop: 39,
+    eyeColor: '#5A3520',
+    mouthLeft: 44, mouthTop: 36,
     mouthW: 7.5, mouthMaxH: 3.5,
-    mouthColor: 'lime',
+    mouthColor: '#150400',
   },
   coach: {
-    leftEyeLeft: 42.5, leftEyeTop: 25.2,
-    rightEyeLeft: 51.5, rightEyeTop: 25.2,
+    leftEyeLeft: 42, leftEyeTop: 22.5,
+    rightEyeLeft: 51, rightEyeTop: 22.5,
     eyeW: 5, eyeH: 2.8,
-    eyeColor: 'red',
-    mouthLeft: 45, mouthTop: 30.8,
+    eyeColor: '#4A2810',
+    mouthLeft: 44.5, mouthTop: 27.5,
     mouthW: 7.5, mouthMaxH: 3.5,
-    mouthColor: 'lime',
+    mouthColor: '#0E0200',
   },
   chef: {
-    leftEyeLeft: 42.5, leftEyeTop: 28.5,
-    rightEyeLeft: 52, rightEyeTop: 28.5,
+    leftEyeLeft: 42.5, leftEyeTop: 26,
+    rightEyeLeft: 52, rightEyeTop: 26,
     eyeW: 5, eyeH: 2.8,
-    eyeColor: 'red',
-    mouthLeft: 45, mouthTop: 34.5,
+    eyeColor: '#4A2810',
+    mouthLeft: 45, mouthTop: 31.5,
     mouthW: 7.5, mouthMaxH: 3.5,
-    mouthColor: 'lime',
+    mouthColor: '#120300',
   },
   paul: {
-    leftEyeLeft: 38.5, leftEyeTop: 29,
-    rightEyeLeft: 50.5, rightEyeTop: 29,
+    leftEyeLeft: 38, leftEyeTop: 26.5,
+    rightEyeLeft: 50, rightEyeTop: 26.5,
     eyeW: 6, eyeH: 3,
-    eyeColor: 'red',
-    mouthLeft: 43, mouthTop: 36,
+    eyeColor: '#3E2008',
+    mouthLeft: 42.5, mouthTop: 33,
     mouthW: 8, mouthMaxH: 4,
-    mouthColor: 'lime',
+    mouthColor: '#100300',
   },
 };
 
