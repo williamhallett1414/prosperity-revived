@@ -292,6 +292,7 @@ export default function ChefDanielAvatar({
 
       {/* ── Image + face overlays ── */}
       <div ref={containerRef} style={{ position:'absolute', inset:0, overflow:'hidden', zIndex:2, pointerEvents:'none' }}>
+        {/* Image wrapper — scales/animates */}
         <div style={{
           position:'absolute', inset:0,
           transform: isSpeaking
@@ -320,7 +321,22 @@ export default function ChefDanielAvatar({
                 : 'cd-glow-idle 3.8s ease-in-out infinite',
             }}
           />
-          {/* Face overlays — inside scaled wrapper so they move with the image */}
+        </div>
+        {/* Face overlays — same transform as image wrapper so they track the face */}
+        <div style={{
+          position:'absolute', inset:0,
+          transform: isSpeaking
+            ? `scale(1.9)`
+            : `scale(1.0) translateY(${floatY}px) translateX(${shiftX}px) rotate(${tiltDeg}deg)`,
+          transformOrigin: isSpeaking ? 'center 30%' : 'center top',
+          transition: 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
+          animation: state==='speaking'
+            ? 'none'
+            : state==='listening' ? 'cd-lean 1.5s ease-in-out infinite'
+            : state==='thinking'  ? 'cd-sway 2.8s ease-in-out infinite'
+            : undefined,
+          pointerEvents: 'none',
+        }}>
           {(() => {
             const face = getFaceStyles('chef', imgBounds, blinkProgress, mouthOpen);
             if (!face) return null;
