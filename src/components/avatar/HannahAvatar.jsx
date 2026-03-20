@@ -69,7 +69,7 @@ export default function HannahAvatar({
     const scale = Math.min(conW / nat.w, conH / nat.h);
     const rendW = nat.w * scale;
     const rendH = nat.h * scale;
-    setImgBounds({ left: (conW - rendW) / 2, top: conH - rendH, w: rendW, h: rendH });
+    setImgBounds({ left: (conW - rendW) / 2, top: conH - rendH, w: rendW, h: rendH, containerW: conW, containerH: conH });
   };
   useEffect(() => {
     measureImage();

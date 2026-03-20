@@ -77,7 +77,7 @@ export default function GideonAvatar({
     // objectPosition: center bottom
     const left = (conW - rendW) / 2;
     const top  = conH - rendH;           // bottom-aligned
-    setImgBounds({ left, top, w: rendW, h: rendH });
+    setImgBounds({ left, top, w: rendW, h: rendH, containerW: conW, containerH: conH });
   }, []);
 
   useEffect(() => {
