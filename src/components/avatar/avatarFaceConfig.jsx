@@ -1,69 +1,77 @@
 /**
- * avatarFaceConfig v7 — Position-corrected after debug video testing.
- * 
- * Debug test showed: overlays render correctly but mouth was ~3-4% too low.
- * Eyes need to move up ~2%. Adjusted all positions accordingly.
- * Back to realistic colors (dark brown/black).
+ * avatarFaceConfig v8 — imgBounds-based pixel positioning.
+ *
+ * All face positions are expressed as fractions of the IMAGE (not container).
+ * getFaceStyles uses the measured imgBounds to convert to absolute px so
+ * overlays stay locked to the face regardless of container size or zoom state.
+ *
+ * imgBounds = { left, top, w, h } in px relative to the container div.
  */
 
+// Positions as fraction of image width/height (0–1)
 const FACE_CONFIG = {
   gideon: {
-    leftEyeLeft: 42, leftEyeTop: 39,
-    rightEyeLeft: 52, rightEyeTop: 39,
-    eyeW: 5.5, eyeH: 3,
+    leftEyeX: 0.38,  leftEyeY: 0.39,
+    rightEyeX: 0.52, rightEyeY: 0.39,
+    eyeW: 0.085, eyeH: 0.030,
     eyeColor: '#5C3A20',
-    mouthLeft: 45.5, mouthTop: 46.5,
-    mouthW: 8, mouthMaxH: 4,
+    mouthX: 0.40, mouthY: 0.47,
+    mouthW: 0.18, mouthMaxH: 0.040,
     mouthColor: '#1A0500',
   },
   hannah: {
-    leftEyeLeft: 40.5, leftEyeTop: 30,
-    rightEyeLeft: 50.5, rightEyeTop: 30,
-    eyeW: 5.5, eyeH: 3,
+    leftEyeX: 0.37,  leftEyeY: 0.30,
+    rightEyeX: 0.51, rightEyeY: 0.30,
+    eyeW: 0.085, eyeH: 0.028,
     eyeColor: '#5A3520',
-    mouthLeft: 44, mouthTop: 36,
-    mouthW: 7.5, mouthMaxH: 3.5,
+    mouthX: 0.40, mouthY: 0.37,
+    mouthW: 0.17, mouthMaxH: 0.036,
     mouthColor: '#150400',
   },
   coach: {
-    leftEyeLeft: 42, leftEyeTop: 22.5,
-    rightEyeLeft: 51, rightEyeTop: 22.5,
-    eyeW: 5, eyeH: 2.8,
+    leftEyeX: 0.38,  leftEyeY: 0.22,
+    rightEyeX: 0.51, rightEyeY: 0.22,
+    eyeW: 0.080, eyeH: 0.026,
     eyeColor: '#4A2810',
-    mouthLeft: 44.5, mouthTop: 27.5,
-    mouthW: 7.5, mouthMaxH: 3.5,
+    mouthX: 0.40, mouthY: 0.28,
+    mouthW: 0.16, mouthMaxH: 0.034,
     mouthColor: '#0E0200',
   },
   chef: {
-    leftEyeLeft: 40, leftEyeTop: 54,
-    rightEyeLeft: 50, rightEyeTop: 54,
-    eyeW: 5.5, eyeH: 3,
+    leftEyeX: 0.37,  leftEyeY: 0.50,
+    rightEyeX: 0.51, rightEyeY: 0.50,
+    eyeW: 0.090, eyeH: 0.030,
     eyeColor: '#4A2810',
-    mouthLeft: 43.5, mouthTop: 62,
-    mouthW: 8, mouthMaxH: 4,
+    mouthX: 0.39, mouthY: 0.59,
+    mouthW: 0.19, mouthMaxH: 0.040,
     mouthColor: '#120300',
   },
   paul: {
-    leftEyeLeft: 38, leftEyeTop: 26.5,
-    rightEyeLeft: 50, rightEyeTop: 26.5,
-    eyeW: 6, eyeH: 3,
+    leftEyeX: 0.35,  leftEyeY: 0.26,
+    rightEyeX: 0.49, rightEyeY: 0.26,
+    eyeW: 0.095, eyeH: 0.030,
     eyeColor: '#3E2008',
-    mouthLeft: 42.5, mouthTop: 33,
-    mouthW: 8, mouthMaxH: 4,
+    mouthX: 0.38, mouthY: 0.33,
+    mouthW: 0.19, mouthMaxH: 0.042,
     mouthColor: '#100300',
   },
 };
 
-export function getFaceStyles(character, _imgBounds, blinkProgress, mouthOpen) {
+export function getFaceStyles(character, imgBounds, blinkProgress, mouthOpen) {
   const C = FACE_CONFIG[character] || FACE_CONFIG.gideon;
+
+  // Without imgBounds we can't position accurately — return nothing
+  if (!imgBounds) return { leftEye: null, rightEye: null, mouth: null };
+
+  const { left: iL, top: iT, w: iW, h: iH } = imgBounds;
 
   const leftEye = blinkProgress > 0.05 ? {
     position: 'absolute',
     pointerEvents: 'none',
-    left: C.leftEyeLeft + '%',
-    top: C.leftEyeTop + '%',
-    width: C.eyeW + '%',
-    height: (C.eyeH * blinkProgress) + '%',
+    left:   (iL + C.leftEyeX * iW) + 'px',
+    top:    (iT + C.leftEyeY * iH) + 'px',
+    width:  (C.eyeW * iW) + 'px',
+    height: (C.eyeH * iH * blinkProgress) + 'px',
     background: C.eyeColor,
     borderRadius: '50%',
     opacity: 0.95,
@@ -73,10 +81,10 @@ export function getFaceStyles(character, _imgBounds, blinkProgress, mouthOpen) {
   const rightEye = blinkProgress > 0.05 ? {
     position: 'absolute',
     pointerEvents: 'none',
-    left: C.rightEyeLeft + '%',
-    top: C.rightEyeTop + '%',
-    width: C.eyeW + '%',
-    height: (C.eyeH * blinkProgress) + '%',
+    left:   (iL + C.rightEyeX * iW) + 'px',
+    top:    (iT + C.rightEyeY * iH) + 'px',
+    width:  (C.eyeW * iW) + 'px',
+    height: (C.eyeH * iH * blinkProgress) + 'px',
     background: C.eyeColor,
     borderRadius: '50%',
     opacity: 0.95,
@@ -86,10 +94,10 @@ export function getFaceStyles(character, _imgBounds, blinkProgress, mouthOpen) {
   const mouth = mouthOpen > 0.05 ? {
     position: 'absolute',
     pointerEvents: 'none',
-    left: C.mouthLeft + '%',
-    top: C.mouthTop + '%',
-    width: C.mouthW + '%',
-    height: (C.mouthMaxH * mouthOpen) + '%',
+    left:   (iL + C.mouthX * iW) + 'px',
+    top:    (iT + C.mouthY * iH) + 'px',
+    width:  (C.mouthW * iW) + 'px',
+    height: (C.mouthMaxH * iH * mouthOpen) + 'px',
     background: C.mouthColor,
     borderRadius: '45%',
     opacity: 0.9,
