@@ -290,16 +290,15 @@ export default function ChefDanielAvatar({
         ))}
       </svg>
 
-      {/* ── Image + face overlays — clipped+zoomed ── */}
+      {/* ── Image + face overlays ── */}
       <div ref={containerRef} style={{ position:'absolute', inset:0, overflow:'hidden', zIndex:2, pointerEvents:'none' }}>
-        {/* Scaled image wrapper — face overlays are NOT inside here so they don't get distorted by scale */}
         <div style={{
           position:'absolute', inset:0,
           transform: isSpeaking
             ? `scale(1.9)`
             : `scale(1.0) translateY(${floatY}px) translateX(${shiftX}px) rotate(${tiltDeg}deg)`,
           transformOrigin: isSpeaking ? 'center 30%' : 'center top',
-          transition: 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform-origin 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
+          transition: 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
           animation: state==='speaking'
             ? 'none'
             : state==='listening' ? 'cd-lean 1.5s ease-in-out infinite'
@@ -321,17 +320,17 @@ export default function ChefDanielAvatar({
                 : 'cd-glow-idle 3.8s ease-in-out infinite',
             }}
           />
+          {/* Face overlays — inside scaled wrapper so they move with the image */}
+          {(() => {
+            const face = getFaceStyles('chef', imgBounds, blinkProgress, mouthOpen);
+            if (!face) return null;
+            return (<>
+              {face.leftEye && <div style={face.leftEye} />}
+              {face.rightEye && <div style={face.rightEye} />}
+              {face.mouth && <div style={face.mouth} />}
+            </>);
+          })()}
         </div>
-        {/* Face overlays — outside the scaled wrapper so % positions stay accurate */}
-        {(() => {
-          const face = getFaceStyles('chef', imgBounds, blinkProgress, mouthOpen);
-          if (!face) return null;
-          return (<>
-            {face.leftEye && <div style={face.leftEye} />}
-            {face.rightEye && <div style={face.rightEye} />}
-            {face.mouth && <div style={face.mouth} />}
-          </>);
-        })()}
       </div>
 
       {/* EQ visualizer when speaking */}
