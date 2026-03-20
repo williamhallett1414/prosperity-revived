@@ -58,28 +58,39 @@ const FACE_CONFIG = {
 };
 
 /**
- * getFaceStyles — returns absolute-pixel styles for face overlays.
+ * getFaceStyles — returns %-based styles for face overlays.
  *
- * The overlays are placed INSIDE the scaled wrapper div, which means their
- * coordinate space matches the unscaled container. We use imgBounds (measured
- * in unscaled container px) to get pixel-accurate positions.
+ * Overlays are placed inside the scaled wrapper div. CSS `%` on
+ * `position:absolute` elements is always relative to the containing block's
+ * layout size (pre-transform), so % values work correctly regardless of scale.
  *
- * imgBounds = { left, top, w, h } in px relative to the unscaled container.
+ * We use imgBounds to convert image-fraction coords → % of container.
+ * imgBounds = { left, top, w, h } in px relative to the container.
+ * containerW / containerH must also be provided (or derived from imgBounds context).
+ *
+ * Since imgBounds.left + imgBounds.w = container right edge (for contain),
+ * we compute: containerW = passed via imgBounds.containerW, containerH similarly.
  */
 export function getFaceStyles(character, imgBounds, blinkProgress, mouthOpen) {
   const C = FACE_CONFIG[character] || FACE_CONFIG.gideon;
 
   if (!imgBounds) return { leftEye: null, rightEye: null, mouth: null };
 
-  const { left: iL, top: iT, w: iW, h: iH } = imgBounds;
+  const { left: iL, top: iT, w: iW, h: iH, containerW, containerH } = imgBounds;
+
+  // Convert image-fraction coords to % of container
+  const toLeftPct  = (xFrac) => ((iL + xFrac * iW) / containerW * 100).toFixed(3) + '%';
+  const toTopPct   = (yFrac) => ((iT + yFrac * iH) / containerH * 100).toFixed(3) + '%';
+  const toWidthPct = (wFrac) => (wFrac * iW / containerW * 100).toFixed(3) + '%';
+  const toHeightPct = (hFrac) => (hFrac * iH / containerH * 100).toFixed(3) + '%';
 
   const leftEye = blinkProgress > 0.05 ? {
     position: 'absolute',
     pointerEvents: 'none',
-    left:   (iL + C.leftEyeX * iW) + 'px',
-    top:    (iT + C.leftEyeY * iH) + 'px',
-    width:  (C.eyeW * iW) + 'px',
-    height: (C.eyeH * iH * blinkProgress) + 'px',
+    left:   toLeftPct(C.leftEyeX),
+    top:    toTopPct(C.leftEyeY),
+    width:  toWidthPct(C.eyeW),
+    height: toHeightPct(C.eyeH * blinkProgress),
     background: C.eyeColor,
     borderRadius: '50%',
     opacity: 0.95,
@@ -89,10 +100,10 @@ export function getFaceStyles(character, imgBounds, blinkProgress, mouthOpen) {
   const rightEye = blinkProgress > 0.05 ? {
     position: 'absolute',
     pointerEvents: 'none',
-    left:   (iL + C.rightEyeX * iW) + 'px',
-    top:    (iT + C.rightEyeY * iH) + 'px',
-    width:  (C.eyeW * iW) + 'px',
-    height: (C.eyeH * iH * blinkProgress) + 'px',
+    left:   toLeftPct(C.rightEyeX),
+    top:    toTopPct(C.rightEyeY),
+    width:  toWidthPct(C.eyeW),
+    height: toHeightPct(C.eyeH * blinkProgress),
     background: C.eyeColor,
     borderRadius: '50%',
     opacity: 0.95,
@@ -102,10 +113,10 @@ export function getFaceStyles(character, imgBounds, blinkProgress, mouthOpen) {
   const mouth = mouthOpen > 0.05 ? {
     position: 'absolute',
     pointerEvents: 'none',
-    left:   (iL + C.mouthX * iW) + 'px',
-    top:    (iT + C.mouthY * iH) + 'px',
-    width:  (C.mouthW * iW) + 'px',
-    height: (C.mouthMaxH * iH * mouthOpen) + 'px',
+    left:   toLeftPct(C.mouthX),
+    top:    toTopPct(C.mouthY),
+    width:  toWidthPct(C.mouthW),
+    height: toHeightPct(C.mouthMaxH * mouthOpen),
     background: C.mouthColor,
     borderRadius: '45%',
     opacity: 0.9,
