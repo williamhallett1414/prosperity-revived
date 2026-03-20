@@ -57,10 +57,18 @@ const FACE_CONFIG = {
   },
 };
 
+/**
+ * getFaceStyles — returns absolute-pixel styles for face overlays.
+ *
+ * The overlays are placed INSIDE the scaled wrapper div, which means their
+ * coordinate space matches the unscaled container. We use imgBounds (measured
+ * in unscaled container px) to get pixel-accurate positions.
+ *
+ * imgBounds = { left, top, w, h } in px relative to the unscaled container.
+ */
 export function getFaceStyles(character, imgBounds, blinkProgress, mouthOpen) {
   const C = FACE_CONFIG[character] || FACE_CONFIG.gideon;
 
-  // Without imgBounds we can't position accurately — return nothing
   if (!imgBounds) return { leftEye: null, rightEye: null, mouth: null };
 
   const { left: iL, top: iT, w: iW, h: iH } = imgBounds;
