@@ -292,8 +292,9 @@ export default function ChefDanielAvatar({
 
       {/* ── Image + face overlays — clipped+zoomed ── */}
       <div ref={containerRef} style={{ position:'absolute', inset:0, overflow:'hidden', zIndex:2, pointerEvents:'none' }}>
+        {/* Scaled image wrapper — face overlays are NOT inside here so they don't get distorted by scale */}
         <div style={{
-          position:'relative', width:'100%', height:'100%',
+          position:'absolute', inset:0,
           transform: isSpeaking
             ? `scale(1.9)`
             : `scale(1.0) translateY(${floatY}px) translateX(${shiftX}px) rotate(${tiltDeg}deg)`,
@@ -320,16 +321,17 @@ export default function ChefDanielAvatar({
                 : 'cd-glow-idle 3.8s ease-in-out infinite',
             }}
           />
-          {(() => {
-            const face = getFaceStyles('chef', imgBounds, blinkProgress, mouthOpen);
-            if (!face) return null;
-            return (<>
-              {face.leftEye && <div style={face.leftEye} />}
-              {face.rightEye && <div style={face.rightEye} />}
-              {face.mouth && <div style={face.mouth} />}
-            </>);
-          })()}
         </div>
+        {/* Face overlays — outside the scaled wrapper so % positions stay accurate */}
+        {(() => {
+          const face = getFaceStyles('chef', imgBounds, blinkProgress, mouthOpen);
+          if (!face) return null;
+          return (<>
+            {face.leftEye && <div style={face.leftEye} />}
+            {face.rightEye && <div style={face.rightEye} />}
+            {face.mouth && <div style={face.mouth} />}
+          </>);
+        })()}
       </div>
 
       {/* EQ visualizer when speaking */}
