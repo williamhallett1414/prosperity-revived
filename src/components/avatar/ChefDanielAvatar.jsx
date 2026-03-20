@@ -321,11 +321,19 @@ export default function ChefDanielAvatar({
                 : 'cd-glow-idle 3.8s ease-in-out infinite',
             }}
           />
-        </div>
+          {(() => {
+          const face = getFaceStyles('chef', imgBounds, blinkProgress, mouthOpen);
+          if (!face) return null;
+          return (<>
+            {face.leftEye && <div style={face.leftEye} />}
+            {face.rightEye && <div style={face.rightEye} />}
+            {face.mouth && <div style={face.mouth} />}
+          </>);
+          })()}
+          </div>
+          </div>
 
-      </div>
-
-      {/* EQ visualizer when speaking */}
+          {/* EQ visualizer when speaking */}
       {isSpeaking && (
         <div style={{ position:'absolute', bottom:18, left:'50%', transform:'translateX(-50%)', display:'flex', alignItems:'flex-end', gap:3, height:28, pointerEvents:'none', zIndex:20 }}>
           {[0,1,2,3,4,5,6].map(i => (
