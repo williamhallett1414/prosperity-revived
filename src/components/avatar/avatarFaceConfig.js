@@ -8,12 +8,12 @@
 
 const FACE_CONFIG = {
   gideon: {
-    leftEyeLeft: 40, leftEyeTop: 35.5,
-    rightEyeLeft: 53, rightEyeTop: 35.5,
-    eyeW: 3.5, eyeH: 1.8,
+    leftEyeLeft: 42, leftEyeTop: 33.5,
+    rightEyeLeft: 51.5, rightEyeTop: 33.5,
+    eyeW: 3.5, eyeH: 2.5,
     eyeColor: '#5C3A20',
-    mouthLeft: 45.5, mouthTop: 42.5,
-    mouthW: 8.5, mouthMaxH: 4,
+    mouthLeft: 46.5, mouthTop: 40,
+    mouthW: 7, mouthMaxH: 3.5,
     mouthColor: '#1A0500',
   },
   hannah: {
