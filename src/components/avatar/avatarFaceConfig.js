@@ -26,12 +26,12 @@ const FACE_CONFIG = {
     mouthColor: '#150400',
   },
   coach: {
-    leftEyeLeft: 43, leftEyeTop: 26.5,
-    rightEyeLeft: 52.5, rightEyeTop: 26.5,
-    eyeW: 4, eyeH: 3.5,
+    leftEyeLeft: 44, leftEyeTop: 22,
+    rightEyeLeft: 52, rightEyeTop: 22,
+    eyeW: 3, eyeH: 2,
     eyeColor: '#4A2810',
-    mouthLeft: 46, mouthTop: 32,
-    mouthW: 7.5, mouthMaxH: 3.5,
+    mouthLeft: 46.5, mouthTop: 27,
+    mouthW: 6, mouthMaxH: 3,
     mouthColor: '#0E0200',
   },
   chef: {
