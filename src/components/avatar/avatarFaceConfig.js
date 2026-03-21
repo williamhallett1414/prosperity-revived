@@ -10,7 +10,7 @@ const FACE_CONFIG = {
   gideon: {
     leftEyeLeft: 43.2, leftEyeTop: 34.145,
     rightEyeLeft: 52.7, rightEyeTop: 34.145,
-    eyeW: 4, eyeH: 4.2,
+    eyeW: 4, eyeH: 5,
     eyeColor: '#5C3A20',
     mouthLeft: 46.5, mouthTop: 40,
     mouthW: 7, mouthMaxH: 3.5,
