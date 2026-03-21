@@ -262,7 +262,7 @@ function QuickNav() {
   );
 }
 
-// ─── Meet Your AI Guides ──────────────────────────────────────────────────────
+// ─── Meet Your Guides ──────────────────────────────────────────────────────
 const AI_GUIDES = [
   { name: 'Gideon',  emoji: '📖', sub: 'Biblical wisdom',   color: 'bg-amber-100',   bot: 'Gideon' },
   { name: 'Hannah',  emoji: '💛', sub: 'Mindset coach',     color: 'bg-sky-100',     bot: 'Hannah' },
@@ -277,7 +277,7 @@ function MeetYourGuidesCard() {
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
           <MessageCircle className="w-4 h-4 text-[#c9a227]" />
-          <p className="text-xs font-bold text-[#0A1A2F]/40 uppercase tracking-widest">Your AI Guides</p>
+          <p className="text-xs font-bold text-[#0A1A2F]/40 uppercase tracking-widest">Your Guides</p>
         </div>
       </div>
       <div className="grid grid-cols-5 gap-2">
@@ -601,7 +601,7 @@ export default function Home() {
         {/* 6. Quick navigation */}
         <QuickNav />
 
-        {/* 7. Meet Your AI Guides */}
+        {/* 7. Meet Your Guides */}
         <MeetYourGuidesCard />
 
         {/* 8. New user Start Here (conditional) */}
