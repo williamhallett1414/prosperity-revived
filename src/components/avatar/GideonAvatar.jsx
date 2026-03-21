@@ -363,9 +363,9 @@ export default function GideonAvatar({
         width: '100%',
         height: '100%',
         transform: isSpeaking
-          ? `scale(2.8)`
-          : `scale(1.55) translateY(${floatY}px) translateX(${shiftX}px) rotate(${tiltDeg}deg)`,
-        transformOrigin: isSpeaking ? 'center 28%' : 'center top',
+          ? `scale(1.9)`
+          : `scale(1.0) translateY(${floatY}px) translateX(${shiftX}px) rotate(${tiltDeg}deg)`,
+        transformOrigin: isSpeaking ? 'center 30%' : 'center top',
         transition: 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform-origin 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
         animation: state === 'speaking'
           ? 'none'
