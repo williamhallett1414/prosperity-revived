@@ -35,12 +35,12 @@ const FACE_CONFIG = {
     mouthColor: '#0E0200',
   },
   chef: {
-    leftEyeLeft: 45.5, leftEyeTop: 30,
-    rightEyeLeft: 54, rightEyeTop: 30,
-    eyeW: 3.8, eyeH: 2,
+    leftEyeLeft: 46, leftEyeTop: 31.5,
+    rightEyeLeft: 54.5, rightEyeTop: 31.5,
+    eyeW: 3.5, eyeH: 1.8,
     eyeColor: '#4A2810',
-    mouthLeft: 47, mouthTop: 35.5,
-    mouthW: 7, mouthMaxH: 3.5,
+    mouthLeft: 46, mouthTop: 33.5,
+    mouthW: 6.5, mouthMaxH: 3,
     mouthColor: '#120300',
   },
   paul: {
