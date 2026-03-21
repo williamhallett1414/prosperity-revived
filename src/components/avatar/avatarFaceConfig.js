@@ -26,9 +26,9 @@ const FACE_CONFIG = {
     mouthColor: '#150400',
   },
   coach: {
-    leftEyeLeft: 44, leftEyeTop: 22,
-    rightEyeLeft: 52, rightEyeTop: 22,
-    eyeW: 3, eyeH: 2,
+    leftEyeLeft: 45, leftEyeTop: 20,
+    rightEyeLeft: 51, rightEyeTop: 20,
+    eyeW: 2.5, eyeH: 1.5,
     eyeColor: '#4A2810',
     mouthLeft: 46.5, mouthTop: 27,
     mouthW: 6, mouthMaxH: 3,
