@@ -9,6 +9,7 @@ import {
 import { Link, useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import StartWorkoutModal from '@/components/wellness/StartWorkoutModal';
+import ChatButton from '@/components/chatbot/ChatButton';
 import PullToRefresh from '@/components/ui/PullToRefresh';
 import { PREMADE_WORKOUTS } from '@/components/wellness/WorkoutLibrary';
 import { awardPoints, checkAndAwardBadges } from '@/components/gamification/ProgressManager';
@@ -584,23 +585,7 @@ export default function Workouts() {
               </motion.div>
             )}
 
-            {/* ── Coach David nudge ── */}
-            <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.52 }}>
-              <button
-                onClick={() => navigate(createPageUrl("ChatScreen?bot=CoachDavid"))}
-                className="w-full flex items-center justify-between px-5 py-4 bg-white rounded-2xl border border-[#38BDF8]/25 shadow-sm hover:border-[#38BDF8]/55 hover:shadow-md transition-all"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full flex items-center justify-center text-white text-sm font-bold flex-shrink-0"
-                    style={{ background: "linear-gradient(135deg,#1e40af,#38BDF8)" }}>D</div>
-                  <div className="text-left">
-                    <p className="text-sm font-bold text-[#0A1A2F]">Need a push?</p>
-                    <p className="text-xs text-[#0A1A2F]/50">Coach David is here to motivate and guide you</p>
-                  </div>
-                </div>
-                <MessageCircle className="w-4 h-4 text-[#0A1A2F]/30 flex-shrink-0" />
-              </button>
-            </motion.div>
+            {/* ── Coach David floating button (same style as Gideon / Chef Daniel) ── */}
 
           </div>
         </PullToRefresh>
@@ -615,6 +600,8 @@ export default function Workouts() {
           user={user}
         />
       )}
+
+      <ChatButton bot="CoachDavid" id="tour-coach-david-btn" />
     </div>
   );
 }
