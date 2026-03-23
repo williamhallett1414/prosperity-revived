@@ -75,7 +75,7 @@ export const bibleBooks = {
 export const dailyVerses = [
   { book: "Philippians", chapter: 4, verse: 13, text: "I can do all things through Christ who strengthens me." },
   { book: "Jeremiah", chapter: 29, verse: 11, text: "For I know the plans I have for you, declares the Lord, plans to prosper you and not to harm you, plans to give you hope and a future." },
-  { book: "Psalm", chapter: 23, verse: 1, text: "The Lord is my shepherd; I shall not want." },
+  { book: "Psalms", chapter: 23, verse: 1, text: "The Lord is my shepherd; I shall not want." },
   { book: "Proverbs", chapter: 3, verse: 5, text: "Trust in the Lord with all your heart and lean not on your own understanding." },
   { book: "Isaiah", chapter: 40, verse: 31, text: "But those who hope in the Lord will renew their strength. They will soar on wings like eagles; they will run and not grow weary, they will walk and not be faint." },
   { book: "Romans", chapter: 8, verse: 28, text: "And we know that in all things God works for the good of those who love him, who have been called according to his purpose." },
