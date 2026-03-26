@@ -63,6 +63,16 @@ const SECTIONS = [
     placeholder: 'What one thing will you do differently or focus on next week?',
     hint: 'One clear intention is more powerful than ten vague goals.',
   },
+  {
+    id: 'grace',
+    icon: Heart,
+    color: '#c9a227',
+    bg: '#FFFBEB',
+    border: '#FAD98D',
+    label: 'Grace & Forgiveness',
+    placeholder: 'Where did you need grace this week? Is there anyone — including yourself — you need to forgive?',
+    hint: "His mercies are new every morning. You don't have to carry last week's weight into the next one.",
+  },
 ];
 
 // ── Weekly scripture ─────────────────────────────────────────────────────────

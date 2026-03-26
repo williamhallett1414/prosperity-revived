@@ -166,6 +166,42 @@ function VerseCard({ onBookmark }) {
   );
 }
 
+// ─── Grace Moment card ───────────────────────────────────────────────────────
+const GRACE_MOMENTS = [
+  { text: "Who do you need to forgive today — including yourself?", verse: "Bear with each other and forgive one another.", ref: "Colossians 3:13", page: "Prayer" },
+  { text: "You are not defined by yesterday's failures. His mercies are new this morning.", verse: "Because of the Lord's great love we are not consumed, for his compassions never fail.", ref: "Lamentations 3:22", page: "ChatScreen?bot=Gideon" },
+  { text: "Grace means you don't have to earn God's love. You already have it.", verse: "For it is by grace you have been saved, through faith — and this is not from yourselves, it is the gift of God.", ref: "Ephesians 2:8", page: "AffirmationsPage" },
+  { text: "What burden are you carrying that was never yours to hold?", verse: "Cast your cares on the Lord and he will sustain you.", ref: "Psalm 55:22", page: "GuidedMeditationsPage" },
+  { text: "Today, choose compassion — for others and for yourself.", verse: "Be kind and compassionate to one another, forgiving each other, just as in Christ God forgave you.", ref: "Ephesians 4:32", page: "Prayer" },
+  { text: "God's grace doesn't run out. Not today, not ever.", verse: "My grace is sufficient for you, for my power is made perfect in weakness.", ref: "2 Corinthians 12:9", page: "IdentityInChristPage" },
+  { text: "Stumbling is part of the journey. Getting back up is where faith lives.", verse: "Though the righteous fall seven times, they rise again.", ref: "Proverbs 24:16", page: "ChatScreen?bot=CoachPaul" },
+];
+function GraceMomentCard() {
+  const idx = Math.floor(new Date().getTime() / (1000 * 60 * 60 * 12)) % GRACE_MOMENTS.length;
+  const gm = GRACE_MOMENTS[idx];
+  return (
+    <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}>
+      <Link to={createPageUrl(gm.page)}>
+        <div className="bg-gradient-to-br from-[#FAD98D]/20 to-[#AFC7E3]/20 rounded-3xl p-5 shadow-sm border border-[#FAD98D]/20 relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-20 h-20 opacity-5">
+            <Heart className="w-full h-full text-[#c9a227]" />
+          </div>
+          <div className="flex items-center gap-2 mb-3">
+            <span className="text-lg">🕊️</span>
+            <span className="text-[11px] font-bold text-[#c9a227] uppercase tracking-widest">Grace Moment</span>
+          </div>
+          <p className="text-[#0A1A2F] text-[15px] leading-relaxed font-semibold mb-2">
+            {gm.text}
+          </p>
+          <p className="text-[#0A1A2F]/60 text-xs leading-relaxed italic" style={{ fontFamily: 'Georgia, serif' }}>
+            "{gm.verse}" — {gm.ref}
+          </p>
+        </div>
+      </Link>
+    </motion.div>
+  );
+}
+
 // ─── Resume card (coaching plan or reading plan) ──────────────────────────────
 function ResumeCard({ coachingPlan, readingPlan, readingProgress, navigate }) {
   // Priority: active coaching plan > active reading plan
@@ -562,6 +598,7 @@ export default function Home() {
 
         {/* 4. Verse of the Day */}
         <VerseCard />
+        <GraceMomentCard />
 
         {/* 4b. Active challenges (only shown if user has joined any) */}
         {user && <ActiveChallengesWidget user={user} />}

@@ -18,6 +18,7 @@ import { GROWTH_SPRINT_PLAN } from './growthSprintPlanData';
 import { MIND_RENEWAL_PLAN } from './mindRenewalPlanData';
 import { SACRED_KITCHEN_PLAN } from './sacredKitchenPlanData';
 import { BREAKTHROUGH_LEADERS_PLAN } from './breakthroughLeadersPlanData';
+import { GRACE_RESTORATION_PLAN } from './graceRestorationPlanData';
 
 export const WEEK_THEMES = [
   { week: 1, theme: 'Foundation',   title: 'Know Your Why',         color: 'from-[#3C4E53] to-[#FD9C2D]', accent: '#22856A', emoji: '🌱' },
@@ -1395,6 +1396,7 @@ export const COACHING_PLANS = [
   { ...MIND_RENEWAL_PLAN, category: 'personal' },
   { ...SACRED_KITCHEN_PLAN, category: 'nutrition' },
   { ...BREAKTHROUGH_LEADERS_PLAN, category: 'personal' },
+  { ...GRACE_RESTORATION_PLAN, category: 'spiritual' },
 ];
 
 export const PLAN_CATEGORIES = [

@@ -61,6 +61,30 @@ export default function EndMyDayModal({ isOpen, onClose, meditations = [] }) {
         </div>
       )
     },
+    {
+      title: 'Release & Receive',
+      emoji: '🕊️',
+      color: 'from-[#FAD98D] to-[#c9a227]',
+      content: (
+        <div className="space-y-4 text-center">
+          <p className="text-[#0A1A2F] font-semibold">
+            Let go and receive God's grace
+          </p>
+          <p className="text-[#0A1A2F]/70 text-sm leading-relaxed">
+            Is there anything from today you need to release? A mistake, a harsh word, an unmet expectation? Lay it down now.
+          </p>
+          <div className="bg-[#FAD98D]/20 rounded-xl p-4">
+            <p className="font-serif italic text-[#0A1A2F] text-sm leading-relaxed">
+              "Because of the Lord's great love we are not consumed, for his compassions never fail. They are new every morning; great is your faithfulness."
+            </p>
+            <p className="text-xs text-[#c9a227] font-semibold mt-2">Lamentations 3:22-23</p>
+          </div>
+          <p className="text-xs text-[#0A1A2F]/50">
+            You are forgiven. You are loved. Tomorrow is a new day.
+          </p>
+        </div>
+      )
+    },
     ...(sleepMeditation ? [{
       title: 'Sleep Meditation',
       emoji: '😴',

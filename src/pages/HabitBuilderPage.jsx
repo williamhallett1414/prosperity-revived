@@ -477,11 +477,15 @@ function HabitCard({ habit, isDone, streak, history, onToggle, index, user }) {
             {/* Streak + description row */}
             <div className="flex items-center justify-between mb-2">
               <p className="text-xs text-[#0A1A2F]/40 truncate">{habit.description}</p>
-              {streak > 0 && (
+              {streak > 0 ? (
                 <span className="text-[10px] font-bold flex items-center gap-0.5 flex-shrink-0 ml-2" style={{ color: habit.color }}>
                   <Flame className="w-3 h-3" />{streak}
                 </span>
-              )}
+              ) : !isDone && Object.values(history).some(arr => arr?.includes(habit.id)) ? (
+                <span className="text-[10px] font-medium text-[#c9a227] flex-shrink-0 ml-2">
+                  🕊️ Grace day
+                </span>
+              ) : null}
             </div>
 
             {/* Week dots */}

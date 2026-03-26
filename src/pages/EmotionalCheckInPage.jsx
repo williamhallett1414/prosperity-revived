@@ -75,6 +75,20 @@ const MOODS = [
     practice: 'Mindset Reset', practiceIcon: '🔄', practicePage: 'MindsetResetPage',
     prompt: 'What feels like too much right now? What can you set down?',
   },
+  {
+    emoji: '😞', label: 'Guilty', value: 'guilty',
+    color: 'from-stone-400 to-zinc-300', bg: 'bg-stone-50', border: 'border-stone-300', dot: '#78716c',
+    scripture: { text: 'If we confess our sins, he is faithful and just and will forgive us our sins and purify us from all unrighteousness.', ref: '1 John 1:9' },
+    practice: 'Talk to Gideon', practiceIcon: '🕊️', practicePage: 'ChatScreen?bot=Gideon',
+    prompt: 'What is weighing on your conscience? God\'s grace is bigger than any mistake.',
+  },
+  {
+    emoji: '🥀', label: 'Struggling', value: 'struggling',
+    color: 'from-amber-600 to-amber-400', bg: 'bg-amber-50', border: 'border-amber-400', dot: '#d97706',
+    scripture: { text: 'My grace is sufficient for you, for my power is made perfect in weakness.', ref: '2 Corinthians 12:9' },
+    practice: 'Forgiveness Meditation', practiceIcon: '🤍', practicePage: 'GuidedMeditationsPage',
+    prompt: 'You don\'t have to carry this alone. What do you need God to hold for you right now?',
+  },
 ];
 
 const INTENSITY_LABELS = ['Barely', 'Slightly', 'Moderately', 'Strongly', 'Intensely'];
