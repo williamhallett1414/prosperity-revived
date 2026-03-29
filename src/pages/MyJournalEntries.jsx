@@ -2,13 +2,14 @@ import React, { useState, useMemo } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Edit, Save, X, Trash2, ChevronDown, ChevronUp, Plus, Filter, Sparkles } from 'lucide-react';
+import { ArrowLeft, Edit, Save, X, Trash2, ChevronDown, ChevronUp, Plus, Filter, Sparkles, Video } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
+import JournalEntryModal from '@/components/home/JournalEntryModal';
 import {
   Dialog,
   DialogContent,
@@ -18,6 +19,7 @@ import {
 
 const CATEGORIES = [
   { value: 'all', label: 'All Entries', emoji: '📝' },
+  { value: 'video_journal', label: 'Video Journals', emoji: '🎥' },
   { value: 'bible_notes', label: 'Bible Notes', emoji: '📖' },
   { value: 'scripture_reflection', label: 'Scripture', emoji: '✝️' },
   { value: 'mindset_reset', label: 'Mindset Reset', emoji: '🧠' },
@@ -555,6 +557,35 @@ export default function MyJournalEntries() {
                             <p className="text-sm text-[#0A1A2F]/70 whitespace-pre-wrap">
                               {entry.content}
                             </p>
+
+                            {/* Video playback for video journal entries */}
+                            {entry.entry_type === 'video_journal' && entry.video_url && (
+                              <div className="mt-3 rounded-2xl overflow-hidden bg-black">
+                                <video
+                                  src={entry.video_url}
+                                  controls
+                                  playsInline
+                                  preload="metadata"
+                                  className="w-full"
+                                  style={{ maxHeight: 280 }}
+                                />
+                                {entry.video_duration > 0 && (
+                                  <div className="flex items-center gap-2 px-3 py-1.5 bg-[#0A1A2F]">
+                                    <span className="text-[10px] text-white/40">🎥 Video Journal</span>
+                                    <span className="text-[10px] text-white/25">·</span>
+                                    <span className="text-[10px] text-white/40">{Math.floor(entry.video_duration / 60)}:{(entry.video_duration % 60).toString().padStart(2, '0')}</span>
+                                  </div>
+                                )}
+                              </div>
+                            )}
+
+                            {/* Video badge for video entries without video_url (transcript only) */}
+                            {entry.entry_type === 'video_journal' && !entry.video_url && (
+                              <div className="mt-2 flex items-center gap-2 bg-[#0A1A2F]/5 rounded-xl px-3 py-2">
+                                <span className="text-base">🎥</span>
+                                <span className="text-xs text-[#0A1A2F]/50">Video journal — transcript saved</span>
+                              </div>
+                            )}
                             <div className="mt-3 flex flex-wrap gap-2">
                               {entry.mood && (
                                 <span className="text-xs bg-[#AFC7E3]/20 text-[#AFC7E3] px-2 py-1 rounded font-medium">
@@ -585,47 +616,7 @@ export default function MyJournalEntries() {
       </div>
 
       {/* New Entry Modal */}
-      <Dialog open={showNewEntryModal} onOpenChange={setShowNewEntryModal}>
-        <DialogContent className="max-w-lg">
-          <DialogHeader>
-            <DialogTitle>Create New Journal Entry</DialogTitle>
-          </DialogHeader>
-          <div className="space-y-4">
-            <Input
-              placeholder="Entry title (optional)"
-              value={newTitle}
-              onChange={(e) => setNewTitle(e.target.value)}
-              className="bg-gray-100 border-[#F2F6FA] text-black"
-            />
-            <Textarea
-              placeholder="What's on your mind?"
-              value={newContent}
-              onChange={(e) => setNewContent(e.target.value)}
-              className="min-h-[200px] bg-gray-100 border-[#F2F6FA] text-black"
-            />
-            <div className="flex gap-2">
-              <Button
-                onClick={handleCreateEntry}
-                className="flex-1 bg-gradient-to-r from-[#FAD98D] to-[#AFC7E3] hover:from-[#FAD98D]/90 hover:to-[#AFC7E3]/90 text-[#0A1A2F]"
-              >
-                <Save className="w-4 h-4 mr-2" />
-                Save Entry
-              </Button>
-              <Button
-                onClick={() => {
-                  setShowNewEntryModal(false);
-                  setNewTitle('');
-                  setNewContent('');
-                }}
-                variant="outline"
-                className="flex-1"
-              >
-                Cancel
-              </Button>
-            </div>
-          </div>
-        </DialogContent>
-      </Dialog>
+      <JournalEntryModal isOpen={showNewEntryModal} onClose={() => setShowNewEntryModal(false)} />
     </div>
   );
 }

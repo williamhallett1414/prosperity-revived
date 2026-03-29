@@ -67,10 +67,33 @@ export default function PrivacyPolicy() {
                   <li>Progress photos (if you upload them)</li>
                 </ul>
                 <p className="text-sm leading-relaxed mt-2 font-semibold">
-                  Journal entries, emotional check-ins, prayer logs, and progress photos are treated as especially sensitive. They are never shared with other users or third parties, and are never used to train AI models.
+                  Journal entries, emotional check-ins, prayer logs, video recordings, and progress photos are treated as especially sensitive. They are never shared with other users or third parties, and are never used to train AI models.
                 </p>
 
-                <h4 className="font-semibold text-base mt-4 mb-2">C. Community Content</h4>
+                <h4 className="font-semibold text-base mt-4 mb-2">C. Video, Camera &amp; Audio Data</h4>
+                <div className="bg-amber-50 border border-amber-200 rounded-xl p-3 mb-2">
+                  <p className="text-xs font-bold text-amber-800 mb-1">⚠ Camera &amp; Microphone Access</p>
+                  <p className="text-xs text-amber-900">The App requests access to your device's camera and microphone only when you choose to use video features. You will be prompted for permission before any recording begins. You may deny or revoke this permission at any time in your device settings.</p>
+                </div>
+                <p className="text-sm leading-relaxed mb-2">If you use the App's video features, we may collect:</p>
+                <ul className="list-disc ml-6 space-y-1 text-sm">
+                  <li><strong>Video journal recordings:</strong> Video and audio recorded through the journal's video mode, stored securely and accessible only to you</li>
+                  <li><strong>Video chat messages:</strong> Video and audio recorded when sending video messages to AI chatbot characters</li>
+                  <li><strong>Speech-to-text transcripts:</strong> Your spoken words are transcribed using your device's built-in speech recognition (processed locally on your device, not sent to external servers for transcription)</li>
+                  <li><strong>Video metadata:</strong> Recording duration and timestamp</li>
+                </ul>
+                <p className="text-sm leading-relaxed mt-2 font-semibold">
+                  Video and audio recordings are treated with the highest sensitivity:
+                </p>
+                <ul className="list-disc ml-6 space-y-1 text-sm">
+                  <li>Video recordings are stored securely and are <strong>never shared</strong> with other users, third parties, or advertisers</li>
+                  <li>Video content is <strong>never used to train AI models</strong></li>
+                  <li>When you send a video message to an AI chatbot, only the <strong>text transcript</strong> of your speech is sent to the AI — the video and audio files themselves are not processed by the AI</li>
+                  <li>All video recordings are <strong>permanently deleted</strong> when you delete the associated journal entry, conversation, or your account</li>
+                  <li>You may delete any individual video recording at any time</li>
+                </ul>
+
+                <h4 className="font-semibold text-base mt-4 mb-2">D. Community Content</h4>
                 <ul className="list-disc ml-6 space-y-1 text-sm">
                   <li>Posts, comments, and group activity</li>
                   <li>Content you choose to share publicly within the App community</li>
@@ -183,7 +206,7 @@ export default function PrivacyPolicy() {
                 <h3 className="text-lg font-bold mb-3">6. Data Retention</h3>
                 <ul className="list-disc ml-6 space-y-1 text-sm">
                   <li>We retain your data for as long as your account is active or as needed to provide the App</li>
-                  <li>When you delete your account: personal profile data, journal entries, health data, workout logs, nutrition logs, mood data, prayer logs, progress photos, and AI conversation history are permanently deleted within 30 days</li>
+                  <li>When you delete your account: personal profile data, journal entries, video recordings, health data, workout logs, nutrition logs, mood data, prayer logs, progress photos, and AI conversation history are permanently deleted within 30 days</li>
                   <li>Anonymized usage data (with no identifying information) may be retained for analytics</li>
                   <li>Community posts you made may be retained in anonymized form or removed — you may request deletion of specific posts by contacting us</li>
                 </ul>
