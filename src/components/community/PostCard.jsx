@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { Heart, MessageCircle, Share2, BookOpen, UserPlus } from 'lucide-react';
+import { Heart, MessageCircle, Share2, BookOpen, UserPlus, Flag } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { format } from 'date-fns';
@@ -201,6 +201,16 @@ export default function PostCard({ post, comments = [], onLike, onComment, index
         )}
         {alreadyFriends && !isMyPost && (
           <span className="text-xs text-[#AFC7E3] font-medium">Friends</span>
+        )}
+        {!isMyPost && user && (
+          <button
+            onClick={() => { if (window.confirm('Report this post for review? Our team will investigate.')) { try { base44.entities.Report?.create({ post_id: post.id, reporter_email: user.email, reason: 'user_flagged' }); } catch(_){} alert('Report submitted. Thank you for helping keep our community safe.'); } }}
+            className="p-1.5 rounded-full hover:bg-gray-100 transition-colors"
+            aria-label="Report post"
+            title="Report post"
+          >
+            <Flag className="w-3.5 h-3.5 text-gray-400 hover:text-red-400" />
+          </button>
         )}
       </div>
 

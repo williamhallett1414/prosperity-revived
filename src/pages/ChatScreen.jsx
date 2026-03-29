@@ -1302,7 +1302,7 @@ export default function ChatScreen() {
 
         {/* Center — Bot identity */}
         <div className="text-center flex-1">
-          <p className="text-white font-bold text-sm leading-tight">{cfg.name}</p>
+          <p className="text-white font-bold text-sm leading-tight">{cfg.name} <span className="text-white/40 font-normal">(AI)</span></p>
           <p className="text-white/40 text-[10px] leading-tight">{cfg.subtitle}</p>
         </div>
 
@@ -1325,6 +1325,27 @@ export default function ChatScreen() {
             <X style={{ width: 18, height: 18 }} />
           </button>
         </div>
+      </div>
+
+      {/* ── AI Disclaimer Bar ── */}
+      <div className="relative z-20 flex-shrink-0 text-center"
+        style={{ background: 'rgba(0,0,0,0.35)', backdropFilter: 'blur(8px)', padding: '4px 16px', borderBottom: `1px solid ${cfg.gradTo}10` }}>
+        <p style={{ fontSize: 9, color: 'rgba(255,255,255,0.45)', letterSpacing: '0.04em' }}>
+          AI-generated content for informational purposes only — not professional medical, financial, or therapeutic advice
+        </p>
+      </div>
+
+      {/* ── Crisis Resources Banner (always visible) ── */}
+      <div className="relative z-20 flex-shrink-0 flex items-center justify-center gap-2"
+        style={{ background: 'rgba(255,255,255,0.06)', padding: '5px 16px', borderBottom: `1px solid ${cfg.gradTo}10` }}>
+        <span style={{ fontSize: 10, color: 'rgba(255,255,255,0.40)' }}>In crisis?</span>
+        <a href="tel:988" style={{ fontSize: 10, fontWeight: 700, color: '#60a5fa', textDecoration: 'none' }}>
+          Call or text 988
+        </a>
+        <span style={{ fontSize: 10, color: 'rgba(255,255,255,0.25)' }}>|</span>
+        <a href="sms:741741&body=HELLO" style={{ fontSize: 10, fontWeight: 600, color: '#60a5fa', textDecoration: 'none' }}>
+          Text HOME to 741741
+        </a>
       </div>
 
       {/* ── Quick Prompt Chip Strip (top, always visible, horizontal scroll) ── */}

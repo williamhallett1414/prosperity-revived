@@ -380,6 +380,19 @@ export default function Nutrition() {
         }}
       />
 
+      {/* Eating Disorder Resources */}
+      <div className="max-w-lg mx-auto px-4 pb-4">
+        <div className="bg-white rounded-xl px-4 py-3 border border-gray-100 flex items-start gap-3">
+          <span className="text-base flex-shrink-0 mt-0.5">💙</span>
+          <div>
+            <p className="text-[10px] text-[#0A1A2F]/50 leading-relaxed">
+              If you or someone you know is struggling with disordered eating, help is available.
+              <a href="tel:18666621235" className="text-[#1e40af] font-semibold ml-1">Alliance for Eating Disorders: 1-866-662-1235</a>
+            </p>
+          </div>
+        </div>
+      </div>
+
       <ChatButton bot="ChefDaniel" id="tour-chef-daniel-btn" />
     </div>
   );

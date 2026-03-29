@@ -319,6 +319,15 @@ export default function Community() {
           </div>
 
           <TabBar active={activeTab} onChange={setActiveTab} />
+
+          {/* Community Guidelines */}
+          <div className="mt-2 flex items-center justify-center gap-2 py-1.5">
+            <Link to={createPageUrl('TermsAndConditions')} className="text-[10px] text-[#0A1A2F]/35 hover:text-[#c9a227] transition-colors font-medium">
+              Community Guidelines
+            </Link>
+            <span className="text-[#0A1A2F]/15">|</span>
+            <span className="text-[10px] text-[#0A1A2F]/35">Be kind, be respectful, be Christ-like</span>
+          </div>
         </div>
       </div>
 

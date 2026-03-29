@@ -740,9 +740,12 @@ export default function StartWorkoutModal({ isOpen, onClose, workout, user, onCo
                     Last completed: {new Date(lastSession.date).toLocaleDateString()}
                   </p>
                 )}
-                <div className="flex items-center gap-2 mt-4 mb-8 px-4 py-2 bg-[#FD9C2D]/10 border border-[#FD9C2D]/20 rounded-full">
+                <div className="flex items-center gap-2 mt-4 mb-4 px-4 py-2 bg-[#FD9C2D]/10 border border-[#FD9C2D]/20 rounded-full">
                   <span className="text-[#FD9C2D] text-xs font-bold uppercase tracking-widest">🔥 Warm up before you begin</span>
                 </div>
+                <p className="text-white/30 text-[10px] mb-4 max-w-xs text-center leading-relaxed">
+                  By starting, I confirm I am healthy enough for exercise. Consult a physician if unsure.
+                </p>
                 <Button
                   onClick={() => doStartWorkout(exerciseStats, 0)}
                   className="bg-gradient-to-r from-[#FD9C2D] to-[#E89020] hover:opacity-90 text-white font-bold px-10 py-3 text-base rounded-xl shadow-lg shadow-[#FD9C2D]/30"

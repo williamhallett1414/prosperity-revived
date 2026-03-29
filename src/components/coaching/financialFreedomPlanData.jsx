@@ -589,6 +589,7 @@ export const FINANCIAL_FREEDOM_PLAN = {
   title: 'Financial Freedom Through Faith',
   subtitle: '8-Week Wealth & Wisdom Journey',
   description: 'A spiritually grounded 8-week journey through biblical principles of money, stewardship, generosity, and breaking poverty mindsets — rooted in Proverbs, Deuteronomy, and Luke. Each day combines Scripture devotion, mindset workouts, financial habit actions, and reflective journaling.',
+  disclaimer: 'This content is for educational and spiritual purposes only. It is not financial, investment, tax, or legal advice. Consult a licensed financial advisor, CPA, or attorney for guidance specific to your personal situation. Past performance of any strategy discussed does not guarantee future results.',
   weeks: 8,
   days_total: 56,
   difficulty: 'beginner',

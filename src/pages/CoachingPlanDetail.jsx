@@ -450,6 +450,13 @@ export default function CoachingPlanDetail() {
 
       <div className="max-w-2xl mx-auto px-4 pt-4">
 
+        {/* Legal disclaimer banner for plans with disclaimers */}
+        {plan.disclaimer && (
+          <div className="mb-3 bg-amber-50 border border-amber-200 rounded-xl px-4 py-2.5">
+            <p className="text-[10px] text-amber-800 leading-relaxed"><strong>Disclaimer:</strong> {plan.disclaimer}</p>
+          </div>
+        )}
+
         {/* Week navigation */}
         <div className="mb-4">
           <WeekNav currentWeek={dayData.week} weeks={8} onSelectWeek={handleWeekSelect} planId={planId} weekThemes={plan.week_themes} />
