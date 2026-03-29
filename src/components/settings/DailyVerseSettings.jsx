@@ -85,7 +85,7 @@ export default function DailyVerseSettings({ isOpen, onClose }) {
                 onChange={(e) => setTime(e.target.value)}
               />
               <p className="text-xs text-gray-500 mt-2">
-                You'll receive a new verse of the day at this time
+                You'll receive a new today's scripture at this time
               </p>
             </div>
           )}

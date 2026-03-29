@@ -254,12 +254,12 @@ export default function Bible() {
                 </motion.div>
               </Link>
 
-              {/* 1. Verse of the Day */}
+              {/* 1. Today's Scripture */}
               <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
                 <div className="bg-gradient-to-br from-[#FAD98D]/25 to-[#FAD98D]/15 rounded-2xl p-4 border border-[#FAD98D]/30">
                   <div className="flex items-center gap-2 mb-2">
                     <div className="w-1 h-4 bg-[#c9a227] rounded-full" />
-                    <span className="text-[10px] font-bold text-[#c9a227] uppercase tracking-widest">Verse of the Day</span>
+                    <span className="text-[10px] font-bold text-[#c9a227] uppercase tracking-widest">Today's Scripture</span>
                   </div>
                   <p className="text-[#0A1A2F] text-sm leading-relaxed font-medium mb-2" style={{ fontFamily: 'Georgia, serif' }}>
                     "{verse.text}"

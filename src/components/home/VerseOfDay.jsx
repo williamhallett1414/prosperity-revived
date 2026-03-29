@@ -41,7 +41,7 @@ export default function VerseOfDay({ onBookmark }) {
         <div className="flex items-center gap-2 mb-4">
           <div className="w-1 h-6 bg-[#FAD98D] rounded-full" />
           <span className="text-[#c9a227] text-sm font-medium tracking-wider uppercase">
-            Verse of the Day
+            Today's Scripture
           </span>
         </div>
         

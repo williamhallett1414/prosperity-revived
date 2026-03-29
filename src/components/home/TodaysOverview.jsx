@@ -30,7 +30,7 @@ export default function TodaysOverview({ meditations = [], workoutPlans = [], ch
 
       <h2 className="text-lg font-bold text-[#0A1A2F] px-4">Today's Overview</h2>
 
-      {/* Verse of the Day */}
+      {/* Today's Scripture */}
       <div className="bg-slate-50 px-4">
         <VerseOfDay onBookmark={onBookmark} />
       </div>

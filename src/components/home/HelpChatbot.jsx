@@ -454,7 +454,7 @@ const SYSTEM_PROMPT = `You are the in-app guide for "Prosperity Revived," a Chri
 Respond in structured JSON only. No markdown, no preamble.
 
 App features:
-- Home: daily ritual (Start/End My Day), verse of the day, progress ring, AI coach nudges
+- Home: daily ritual (Start/End My Day), today's scripture, progress ring, AI coach nudges
 - Bible: 66-book reader, Gideon AI spiritual guide, Read/Study/Devotional tabs, bookmarks, topic search
 - Wellness > Workouts: 33+ workouts in 6 categories, workout trends, quick-start, browse by category, Fitness Goals page (BMI, TDEE/calorie calculator, macro split, goal timeline, weight log, hydration goal, Coach David CTA)
 - Wellness > Nutrition: macro tracking, meal logging, water tracker, meal planner, Chef Daniel AI coach, Nutrition Goals page (calorie target by diet type, macro split, meal schedule by meals/day including intermittent fasting, allergen list, water goal, recipe ideas per diet)

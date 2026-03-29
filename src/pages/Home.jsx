@@ -135,7 +135,7 @@ function RitualButton({ isMorning, onStartDay, onEndDay }) {
   );
 }
 
-// ─── Verse of the Day card ────────────────────────────────────────────────────
+// ─── Today's Scripture card ────────────────────────────────────────────────────
 function VerseCard({ onBookmark }) {
   const verse = getVerseOfDay();
   return (
@@ -147,7 +147,7 @@ function VerseCard({ onBookmark }) {
           </div>
           <div className="flex items-center gap-2 mb-3">
             <div className="w-1 h-5 bg-[#c9a227] rounded-full" />
-            <span className="text-[11px] font-bold text-[#c9a227] uppercase tracking-widest">Verse of the Day</span>
+            <span className="text-[11px] font-bold text-[#c9a227] uppercase tracking-widest">Today's Scripture</span>
           </div>
           <p className="text-[#0A1A2F] text-base leading-relaxed font-medium mb-3" style={{ fontFamily: 'Georgia, serif' }}>
             "{verse.text}"
@@ -596,7 +596,7 @@ export default function Home() {
           onEndDay={() => setShowEndDay(true)}
         />
 
-        {/* 4. Verse of the Day */}
+        {/* 4. Today's Scripture */}
         <VerseCard />
         <GraceMomentCard />
 
