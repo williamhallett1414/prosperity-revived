@@ -10,6 +10,7 @@ import { base44 } from '@/api/base44Client';
 import { useQueryClient, useMutation, useQuery } from '@tanstack/react-query';
 import ContentModeration from '@/components/community/ContentModeration';
 import PostSummary from '@/components/community/PostSummary';
+import { checkInteractionAllowed } from '@/utils/MinorSafety';
 
 export default function PostCard({ post, comments = [], onLike, onComment, index }) {
   const navigate = useNavigate();
@@ -35,6 +36,8 @@ export default function PostCard({ post, comments = [], onLike, onComment, index
 
   const sendFriendRequest = useMutation({
     mutationFn: async () => {
+      const ageCheck = await checkInteractionAllowed(user, post.created_by);
+      if (!ageCheck.allowed) throw new Error(ageCheck.reason);
       return base44.entities.Friend.create({
         user_email: user.email,
         friend_email: post.created_by,
@@ -43,7 +46,8 @@ export default function PostCard({ post, comments = [], onLike, onComment, index
         status: 'pending'
       });
     },
-    onSuccess: () => queryClient.invalidateQueries(['friends'])
+    onSuccess: () => queryClient.invalidateQueries(['friends']),
+    onError: (err) => { if (err.message?.includes('safety') || err.message?.includes('minor')) alert(err.message); }
   });
 
   const likeMutation = useMutation({

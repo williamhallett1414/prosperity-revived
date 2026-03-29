@@ -9,6 +9,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { awardPoints } from '@/components/gamification/ProgressManager';
+import { checkInteractionAllowed } from '@/utils/MinorSafety';
 import { format, isToday, isYesterday } from 'date-fns';
 
 // ─── AI Coach shortcuts ───────────────────────────────────────────────────────
@@ -250,6 +251,11 @@ export default function Messages() {
 
   const sendMessage = useMutation({
     mutationFn: async ({ receiverEmail, content }) => {
+      // Age-tier safety check: minors can only message minors, adults only adults
+      const ageCheck = await checkInteractionAllowed(user, receiverEmail);
+      if (!ageCheck.allowed) {
+        throw new Error(ageCheck.reason);
+      }
       const receiver = users.find(u => u.email === receiverEmail);
       return base44.entities.Message.create({
         sender_email:   user.email,
@@ -263,6 +269,9 @@ export default function Messages() {
     onSuccess: async () => {
       queryClient.invalidateQueries(['messages']);
       if (user) await awardPoints(user.email, 2, 'message_sent', 'messages_sent');
+    },
+    onError: (err) => {
+      if (err.message?.includes('safety')) alert(err.message);
     },
   });
 

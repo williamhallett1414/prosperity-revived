@@ -66,6 +66,24 @@ export default function TermsAndConditions() {
                 <p className="text-sm leading-relaxed mt-2">
                   Parents and guardians are responsible for supervising any minor (ages 13–17) who uses the App and for the minor's compliance with these Terms.
                 </p>
+                <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mt-3">
+                  <p className="text-sm font-bold text-blue-800 mb-2">Minor Account Safety Measures (COPPA &amp; State Law Compliance)</p>
+                  <p className="text-sm text-blue-900 leading-relaxed mb-2">
+                    To comply with the Children's Online Privacy Protection Act (COPPA), state child protection laws, and to protect the safety of minors using the App, Prosperity Revived enforces the following safeguards:
+                  </p>
+                  <ul className="list-disc ml-5 space-y-1 text-sm text-blue-900">
+                    <li><strong>Age-tiered social features:</strong> Minor accounts (ages 13–17) are separated from adult accounts (18+) for all social interactions. Minors can only send direct messages to, request friendships with, comment on posts by, and view profiles of other minor accounts. Adult accounts cannot initiate social contact with minor accounts, and vice versa.</li>
+                    <li><strong>No cross-age direct messaging:</strong> The direct messaging feature enforces age-tier separation. An adult user cannot send a private message to a minor user, and a minor user cannot send a private message to an adult user.</li>
+                    <li><strong>Content moderation:</strong> AI-powered content moderation scans community posts for inappropriate content. Users may report posts, and reported content is reviewed.</li>
+                    <li><strong>Parental consent required:</strong> Users aged 13–17 must confirm they have parental or guardian consent during account creation. The App stores this confirmation.</li>
+                    <li><strong>No targeted advertising:</strong> The App does not serve advertisements and does not sell, share, or use any minor's personal information for advertising purposes.</li>
+                    <li><strong>Data minimization:</strong> We collect only the data necessary to provide App features. Minor account data is treated with additional sensitivity.</li>
+                    <li><strong>Right to deletion:</strong> Parents or guardians may request immediate deletion of a minor's account and all associated data by contacting Prosperityrevived2025@gmail.com.</li>
+                  </ul>
+                  <p className="text-sm text-blue-900 leading-relaxed mt-2">
+                    Prosperity Revived is not liable for misrepresentation of age during account creation. Users who falsely claim to be 18 or older assume all responsibility for their use of adult social features. If we discover that a user misrepresented their age, we reserve the right to immediately restrict the account to minor-tier access or terminate it.
+                  </p>
+                </div>
               </div>
 
               {/* 3 */}
@@ -275,6 +293,12 @@ export default function TermsAndConditions() {
                   <li>Third-party services or integrations</li>
                 </ul>
                 <p className="text-sm leading-relaxed mt-2 font-semibold">Your use of the App is entirely at your own risk.</p>
+                <p className="text-sm leading-relaxed mt-2">
+                  <strong>Aggregate Liability Cap:</strong> In no event shall the total aggregate liability of Prosperity Revived, Anchor &amp; Way, or their officers, employees, or agents exceed the greater of (a) the total amount you have paid to us in the twelve (12) months immediately preceding the event giving rise to the claim, or (b) one hundred dollars ($100.00 USD). This limitation applies regardless of the form of action, whether in contract, tort, strict liability, or otherwise.
+                </p>
+                <p className="text-sm leading-relaxed mt-2">
+                  <strong>No Consequential Damages:</strong> In no event shall we be liable for any indirect, incidental, special, consequential, or punitive damages, including but not limited to loss of profits, data, goodwill, or other intangible losses, even if we have been advised of the possibility of such damages.
+                </p>
               </div>
 
               {/* 16 */}
@@ -302,7 +326,7 @@ export default function TermsAndConditions() {
               <div>
                 <h3 className="text-lg font-bold mb-3">18. Dispute Resolution &amp; Governing Law</h3>
                 <p className="text-sm leading-relaxed mb-2">
-                  These Terms are governed by the laws of the State of [Your State], without regard to conflict-of-law principles. Any dispute arising under these Terms shall first be subject to good-faith negotiation. If unresolved, disputes shall be submitted to binding arbitration under the rules of the American Arbitration Association, on an individual basis. <strong>You waive any right to participate in a class action lawsuit or class-wide arbitration.</strong>
+                  These Terms are governed by the laws of the <strong>Commonwealth of Virginia</strong>, without regard to conflict-of-law principles. Any dispute arising under these Terms shall first be subject to good-faith negotiation. If unresolved, disputes shall be submitted to binding arbitration under the rules of the American Arbitration Association, on an individual basis, with the arbitration taking place in Stafford County, Virginia. <strong>You waive any right to participate in a class action lawsuit or class-wide arbitration.</strong>
                 </p>
                 <p className="text-sm leading-relaxed mt-2 text-gray-500 italic text-xs">
                   Note: Consult a licensed attorney to confirm the governing law, arbitration clause, and class action waiver are appropriate for your jurisdiction before publishing.
@@ -319,15 +343,40 @@ export default function TermsAndConditions() {
 
               {/* 20 */}
               <div>
-                <h3 className="text-lg font-bold mb-3">20. Changes to Terms</h3>
-                <p className="text-sm leading-relaxed">
-                  We may update these Terms at any time. If changes are significant, we will notify you through the App or via email. Continued use of the App after notice constitutes acceptance of the updated Terms.
+                <h3 className="text-lg font-bold mb-3">20. Cookies, Tracking &amp; GDPR Consent</h3>
+                <p className="text-sm leading-relaxed mb-2">
+                  The App may use cookies, local storage, and similar technologies to maintain your session, remember preferences, and improve App performance. By using the App, you consent to the use of these technologies as described below:
+                </p>
+                <ul className="list-disc ml-6 space-y-1 text-sm">
+                  <li><strong>Essential cookies:</strong> Required for the App to function (e.g., session authentication, preferences). These cannot be disabled.</li>
+                  <li><strong>Analytics:</strong> We may collect anonymized usage data to improve the App. This data does not identify you personally.</li>
+                  <li><strong>Third-party services:</strong> Our platform provider (Base44) and AI service provider may set cookies or process data as part of service delivery.</li>
+                </ul>
+                <p className="text-sm leading-relaxed mt-2">
+                  <strong>For EU/UK residents (GDPR):</strong> Under the General Data Protection Regulation, you have the right to: access your personal data, rectify inaccurate data, request erasure ("right to be forgotten"), restrict processing, data portability, and object to processing. We process your data under the legal basis of contractual necessity (to provide the App) and your explicit consent (for sensitive health data). You may withdraw consent at any time by contacting us or deleting your account. We do not transfer data outside the EU/EEA without appropriate safeguards.
+                </p>
+                <p className="text-sm leading-relaxed mt-2">
+                  <strong>For California residents (CCPA/CPRA):</strong> You have the right to know what personal information we collect, request deletion, and opt out of the sale of personal information. We do not sell your personal information. Access "Do Not Sell My Personal Information" in Settings.
+                </p>
+                <p className="text-sm leading-relaxed mt-2">
+                  <strong>For Virginia residents (CDPA):</strong> You have the right to access, correct, delete, and obtain a copy of your personal data, and to opt out of targeted advertising and profiling. We do not engage in targeted advertising or profiling.
                 </p>
               </div>
 
               {/* 21 */}
               <div>
-                <h3 className="text-lg font-bold mb-3">21. Contact Information</h3>
+                <h3 className="text-lg font-bold mb-3">21. Changes to Terms &amp; Re-Acceptance</h3>
+                <p className="text-sm leading-relaxed mb-2">
+                  We may update these Terms at any time. If changes are material, we will notify you through the App and require you to review and re-accept the updated Terms before continuing to use the App. Your acceptance timestamp and the version of Terms you accepted are recorded in our systems.
+                </p>
+                <p className="text-sm leading-relaxed">
+                  If you do not agree to the updated Terms, you may delete your account. Continued use of the App after re-acceptance constitutes your binding agreement to the updated Terms.
+                </p>
+              </div>
+
+              {/* 22 */}
+              <div>
+                <h3 className="text-lg font-bold mb-3">22. Contact Information</h3>
                 <p className="text-sm leading-relaxed mb-2">For questions about these Terms, contact:</p>
                 <div className="bg-[#F2F6FA] rounded-lg p-4 mt-3">
                   <p className="text-sm font-semibold">Prosperity Revived — Anchor &amp; Way</p>

@@ -31,7 +31,7 @@ const SECTIONS = [
       { icon: '🌙', title: 'End My Day',          desc: 'Evening wind-down: gratitude, reflection, tomorrow prep' },
       { icon: '📊', title: 'Live Progress Ring',  desc: "See today's habits, workouts & meals at a glance" },
       { icon: '🤖', title: 'AI Guides Nudge You', desc: 'Hannah, Gideon, Coach David & Chef Daniel check in proactively' },
-      { icon: '📖', title: 'Today's Scripture',    desc: "Personalized scripture based on what you're going through" },
+      { icon: '📖', title: "Today's Scripture",    desc: "Personalized scripture based on what you're going through" },
     ],
   },
   {

@@ -4,6 +4,7 @@ import { Download, Pencil, Trash2, ChevronDown, ChevronUp,
   Check, Mail, ExternalLink, Shield
 } from 'lucide-react';
 import { toast } from 'sonner';
+import { base44 } from '@/api/base44Client';
 
 const SUPPORT_EMAIL = 'Prosperityrevived2025@gmail.com';
 
@@ -115,6 +116,40 @@ function RequestCard({ right, onSend }) {
 
 export default function ManageMyData({ user }) {
   const [showCategories, setShowCategories] = useState(false);
+  const [exporting, setExporting] = useState(false);
+
+  // Real data export — collects all user data and downloads as JSON
+  const handleExportData = async () => {
+    if (!user?.email) return;
+    setExporting(true);
+    try {
+      const data = { exported_at: new Date().toISOString(), email: user.email, profile: {} };
+      // Collect profile
+      data.profile = { full_name: user.full_name, email: user.email, age_group: user.age_group, terms_accepted_at: user.terms_accepted_at, terms_version: user.terms_version };
+      // Collect available entities
+      const tryFetch = async (key, fn) => { try { data[key] = await fn(); } catch(_) { data[key] = []; } };
+      await tryFetch('journal_entries', () => base44.entities.JournalEntry?.filter?.({ created_by: user.email }));
+      await tryFetch('workout_sessions', () => base44.entities.WorkoutSession?.filter?.({ created_by: user.email }));
+      await tryFetch('bookmarks', () => base44.entities.Bookmark?.filter?.({ created_by: user.email }));
+      await tryFetch('posts', () => base44.entities.Post?.filter?.({ created_by: user.email }));
+      await tryFetch('mood_entries', () => base44.entities.MoodEntry?.filter?.({ created_by: user.email }));
+      await tryFetch('reading_plan_progress', () => base44.entities.ReadingPlanProgress?.filter?.({ created_by: user.email }));
+      // Download as JSON file
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `prosperity-revived-data-export-${new Date().toISOString().split('T')[0]}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+      toast.success('Data exported successfully!');
+    } catch (e) {
+      console.error('Export failed:', e);
+      toast.error('Export failed. Please try again or contact support.');
+    } finally {
+      setExporting(false);
+    }
+  };
 
   return (
     <div className="space-y-5">
@@ -162,6 +197,22 @@ export default function ManageMyData({ user }) {
             </motion.div>
           )}
         </AnimatePresence>
+      </div>
+
+      {/* Download My Data (GDPR Article 20 / CCPA / CDPA compliance) */}
+      <div>
+        <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Download My Data</p>
+        <button
+          onClick={handleExportData}
+          disabled={exporting}
+          className="w-full flex items-center justify-center gap-2 py-3 px-4 bg-gradient-to-r from-[#0A1A2F] to-[#38BDF8] text-white rounded-2xl text-sm font-bold hover:opacity-90 transition-opacity disabled:opacity-50"
+        >
+          <Download className="w-4 h-4" />
+          {exporting ? 'Exporting…' : 'Export All My Data (JSON)'}
+        </button>
+        <p className="text-[10px] text-gray-400 mt-1.5 text-center">
+          Downloads a file with your profile, journals, workouts, bookmarks, posts, and mood data.
+        </p>
       </div>
 
       {/* Your rights */}

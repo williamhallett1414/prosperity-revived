@@ -86,7 +86,7 @@ export default function GideonNotificationSettings() {
     },
     {
       id: 'verse_of_day_enabled',
-      title: 'Today's Scripture',
+      title: "Today's Scripture",
       description: 'Daily Scripture inspiration',
       icon: BookOpen,
       color: 'text-green-500'

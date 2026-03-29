@@ -346,6 +346,15 @@ export default function DiscoverRecipes() {
       <CreateRecipeModal isOpen={showCreate} onClose={() => setShowCreate(false)} />
       <GroceryListDrawer isOpen={cartOpen}   onClose={() => setCartOpen(false)} />
 
+      {/* Allergen Safety Warning */}
+      <div className="max-w-lg mx-auto px-4 pb-3">
+        <div className="bg-amber-50 border border-amber-200 rounded-xl px-4 py-2.5">
+          <p className="text-[10px] text-amber-800 leading-relaxed">
+            <strong>⚠ Allergen Warning:</strong> Recipes may contain common allergens including nuts, dairy, gluten, eggs, soy, shellfish, and others. AI-generated recipes may not account for your specific allergies or dietary restrictions. Always verify ingredients before preparing any recipe. If you have food allergies, consult with a healthcare professional before trying new recipes.
+          </p>
+        </div>
+      </div>
+
       <ChatButton bot="ChefDaniel" />
     </div>
   );

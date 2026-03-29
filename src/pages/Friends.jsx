@@ -9,6 +9,7 @@ import {
 import { Link, useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { toast } from 'sonner';
+import { checkInteractionAllowed } from '@/utils/MinorSafety';
 import AIFriendSuggestions from '@/components/friends/AIFriendSuggestions';
 
 // ─── Avatar helper ─────────────────────────────────────────────────────────
@@ -142,6 +143,11 @@ export default function Friends() {
 
   const sendRequest = useMutation({
     mutationFn: async (friendEmail) => {
+      // Age-tier safety check
+      const ageCheck = await checkInteractionAllowed(user, friendEmail);
+      if (!ageCheck.allowed) {
+        throw new Error(ageCheck.reason);
+      }
       const friendUser = users.find(u => u.email === friendEmail);
       return base44.entities.Friend.create({
         user_email: user.email,
@@ -157,7 +163,7 @@ export default function Friends() {
       setSearchEmail('');
       setAddFocused(false);
     },
-    onError: () => toast.error('Could not send request. Check the email and try again.')
+    onError: (err) => toast.error(err.message?.includes('safety') ? err.message : 'Could not send request. Check the email and try again.')
   });
 
   const acceptRequest = useMutation({
