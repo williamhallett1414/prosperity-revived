@@ -24,12 +24,29 @@ export default function JournalEntryModal({ isOpen, onClose }) {
   const createEntry = useMutation({
     mutationFn: async (data) => {
       if (videoBlob) {
+        data.video_duration = videoDuration;
         try {
-          const uploaded = await base44.entities.JournalEntry.uploadFile(videoBlob, `vlog-${Date.now()}.webm`);
-          data.video_url = uploaded?.file_url || '';
-          data.video_duration = videoDuration;
+          // Try platform file upload first
+          if (base44.entities.JournalEntry.uploadFile) {
+            const uploaded = await base44.entities.JournalEntry.uploadFile(videoBlob, `vlog-${Date.now()}.webm`);
+            data.video_url = uploaded?.file_url || '';
+          } else {
+            // Fallback: store as base64 data URL (works offline, limited by entity field size)
+            const reader = new FileReader();
+            const b64 = await new Promise((res, rej) => {
+              reader.onload = () => res(reader.result);
+              reader.onerror = rej;
+              reader.readAsDataURL(videoBlob);
+            });
+            // Only store if under 5MB (base64 is ~33% larger than binary)
+            if (b64.length < 5 * 1024 * 1024) {
+              data.video_url = b64;
+            } else {
+              console.warn('Video too large for inline storage. Saving transcript only.');
+            }
+          }
         } catch (e) {
-          console.warn('Video upload not supported, saving transcript only:', e);
+          console.warn('Video storage failed, saving transcript only:', e);
         }
       }
       return base44.entities.JournalEntry.create(data);

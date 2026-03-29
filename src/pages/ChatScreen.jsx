@@ -976,7 +976,23 @@ function MessageBubble({ message, cfg, onSpeak, isSpeaking }) {
 
       {isUser ? (
         <div className={`max-w-[75%] px-4 py-2.5 rounded-2xl rounded-br-sm bg-gradient-to-br ${cfg.userBubble} shadow-md`}>
+          {/* Video message playback */}
+          {message.videoUrl && (
+            <div className="mb-2 -mx-1.5 -mt-1 rounded-xl overflow-hidden">
+              <video
+                src={message.videoUrl}
+                controls
+                playsInline
+                preload="metadata"
+                className="w-full rounded-xl"
+                style={{ maxHeight: 180 }}
+              />
+            </div>
+          )}
           <p className="text-sm text-white leading-relaxed">{message.content}</p>
+          {message.videoDuration > 0 && (
+            <p className="text-[10px] text-white/30 mt-1 flex items-center gap-1">🎥 {Math.floor(message.videoDuration / 60)}:{(message.videoDuration % 60).toString().padStart(2, '0')}</p>
+          )}
         </div>
       ) : (
         <div className="max-w-[78%]">
@@ -1645,28 +1661,47 @@ export default function ChatScreen() {
               <p className="text-center text-white/60 text-xs mb-3">Record a video message for {cfg.name}</p>
               <VideoRecorder
                 onRecordingComplete={(blob, duration) => {
-                  setShowVideoRecorder(false);
-                  // Create object URL for display in chat
-                  const url = URL.createObjectURL(blob);
-                  // Add video message to chat as user message
-                  setMessages(prev => [...prev, {
-                    role: 'user',
-                    content: '[Video message]',
-                    videoUrl: url,
-                    videoDuration: duration,
-                  }]);
+                  // Store video info temporarily — we'll add it when transcript is ready
+                  window.__prVideoBlob = { url: URL.createObjectURL(blob), duration };
                 }}
                 onTranscript={(text) => {
-                  if (text) {
-                    // Send the transcript as a text message to the AI
-                    setShowVideoRecorder(false);
-                    setInput(text);
-                    setTimeout(() => sendMessage(text), 300);
+                  // This fires with final transcript when recording completes
+                  const videoInfo = window.__prVideoBlob;
+                  setShowVideoRecorder(false);
+                  
+                  if (videoInfo) {
+                    // Add video bubble to chat
+                    setMessages(prev => [...prev, {
+                      role: 'user',
+                      content: text || '[Video message]',
+                      videoUrl: videoInfo.url,
+                      videoDuration: videoInfo.duration,
+                    }]);
                   }
+
+                  // Send transcript to AI if we got one
+                  if (text && text.trim()) {
+                    setTimeout(() => sendMessage(text.trim()), 400);
+                  }
+                  
+                  window.__prVideoBlob = null;
                 }}
                 maxDurationSec={60}
                 compact
-                onClose={() => setShowVideoRecorder(false)}
+                onClose={() => {
+                  setShowVideoRecorder(false);
+                  // If user recorded but no transcript, still show the video
+                  const videoInfo = window.__prVideoBlob;
+                  if (videoInfo) {
+                    setMessages(prev => [...prev, {
+                      role: 'user',
+                      content: '[Video message — no transcript]',
+                      videoUrl: videoInfo.url,
+                      videoDuration: videoInfo.duration,
+                    }]);
+                    window.__prVideoBlob = null;
+                  }
+                }}
               />
             </div>
           </motion.div>

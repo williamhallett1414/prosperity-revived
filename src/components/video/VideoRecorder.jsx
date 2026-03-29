@@ -23,7 +23,12 @@ export default function VideoRecorder({
   onClose,
 }) {
   const [state, setState] = useState('idle'); // idle | previewing | recording | reviewing
-  const [error, setError] = useState(null);
+  const [error, setError] = useState(() => {
+    // Check browser support upfront
+    if (!navigator.mediaDevices?.getUserMedia) return 'Your browser does not support camera access. Please use Chrome, Safari, or Firefox.';
+    if (typeof MediaRecorder === 'undefined') return 'Your browser does not support video recording. Please use Chrome or Firefox.';
+    return null;
+  });
   const [elapsed, setElapsed] = useState(0);
   const [videoUrl, setVideoUrl] = useState(null);
   const [transcript, setTranscript] = useState('');
@@ -68,13 +73,23 @@ export default function VideoRecorder({
     if (!streamRef.current) return;
     chunksRef.current = [];
     setTranscript('');
-    const recorder = new MediaRecorder(streamRef.current, {
-      mimeType: MediaRecorder.isTypeSupported('video/webm;codecs=vp9,opus')
-        ? 'video/webm;codecs=vp9,opus'
-        : MediaRecorder.isTypeSupported('video/webm')
-          ? 'video/webm'
-          : 'video/mp4',
-    });
+
+    // Determine best available video format
+    let mimeType = 'video/mp4'; // fallback
+    if (typeof MediaRecorder.isTypeSupported === 'function') {
+      if (MediaRecorder.isTypeSupported('video/webm;codecs=vp9,opus')) mimeType = 'video/webm;codecs=vp9,opus';
+      else if (MediaRecorder.isTypeSupported('video/webm;codecs=vp8,opus')) mimeType = 'video/webm;codecs=vp8,opus';
+      else if (MediaRecorder.isTypeSupported('video/webm')) mimeType = 'video/webm';
+      else if (MediaRecorder.isTypeSupported('video/mp4')) mimeType = 'video/mp4';
+    }
+
+    const recorderOptions = {};
+    try {
+      // Some browsers throw if you pass an unsupported mimeType
+      recorderOptions.mimeType = mimeType;
+    } catch (_) {}
+
+    const recorder = new MediaRecorder(streamRef.current, recorderOptions);
     recorder.ondataavailable = (e) => {
       if (e.data.size > 0) chunksRef.current.push(e.data);
     };
@@ -148,12 +163,13 @@ export default function VideoRecorder({
     if (blobRef.current && onRecordingComplete) {
       onRecordingComplete(blobRef.current, elapsed);
     }
-    if (transcript && onTranscript) {
-      onTranscript(transcript);
+    // Always fire onTranscript so the parent knows recording is done
+    if (onTranscript) {
+      onTranscript(transcript || '');
     }
     cleanup();
     onClose?.();
-  }, [elapsed, transcript, onRecordingComplete, onTranscript, onClose]);
+  }, [elapsed, transcript, onRecordingComplete, onTranscript, onClose, cleanup]);
 
   // Discard and retake
   const retake = useCallback(() => {
@@ -170,12 +186,17 @@ export default function VideoRecorder({
     clearInterval(timerRef.current);
     stopCamera();
     recognitionRef.current?.stop();
-    if (videoUrl) URL.revokeObjectURL(videoUrl);
-  }, [stopCamera, videoUrl]);
+    // videoUrl cleanup handled by caller or useEffect
+  }, [stopCamera]);
 
   useEffect(() => {
-    return cleanup;
-  }, [cleanup]);
+    return () => {
+      clearInterval(timerRef.current);
+      streamRef.current?.getTracks().forEach(t => t.stop());
+      recognitionRef.current?.stop();
+      if (videoUrl) URL.revokeObjectURL(videoUrl);
+    };
+  }, []);
 
   const formatTime = (s) => `${Math.floor(s / 60)}:${(s % 60).toString().padStart(2, '0')}`;
 
