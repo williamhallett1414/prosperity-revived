@@ -51,6 +51,17 @@ export default function VideoRecorder({
         audio: true,
       });
       streamRef.current = stream;
+
+      // Handle camera being revoked mid-session
+      stream.getVideoTracks().forEach(track => {
+        track.onended = () => {
+          setError('Camera access was interrupted. Please try again.');
+          setState('idle');
+          clearInterval(timerRef.current);
+          recognitionRef.current?.stop();
+        };
+      });
+
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
         videoRef.current.play();
@@ -58,7 +69,15 @@ export default function VideoRecorder({
       setState('previewing');
     } catch (e) {
       console.error('Camera access error:', e);
-      setError('Camera access denied. Please enable camera in your browser settings.');
+      if (e.name === 'NotAllowedError') {
+        setError('Camera access denied. Please enable camera and microphone in your browser settings.');
+      } else if (e.name === 'NotFoundError') {
+        setError('No camera found. Please connect a camera and try again.');
+      } else if (e.name === 'NotReadableError') {
+        setError('Camera is in use by another app. Please close other apps using the camera.');
+      } else {
+        setError('Could not start camera. Please try again.');
+      }
     }
   }, []);
 
@@ -310,18 +329,36 @@ export default function VideoRecorder({
       </div>
 
       {/* Transcript preview during recording */}
-      {state === 'recording' && transcript && (
+      {state === 'recording' && (
         <div className="px-4 pb-3">
-          <p className="text-[10px] text-white/30 uppercase font-bold mb-1">Live Transcript</p>
-          <p className="text-xs text-white/60 leading-relaxed line-clamp-2">{transcript}</p>
+          {transcript ? (
+            <>
+              <p className="text-[10px] text-white/30 uppercase font-bold mb-1">Live Transcript</p>
+              <p className="text-xs text-white/60 leading-relaxed line-clamp-2">{transcript}</p>
+            </>
+          ) : (
+            <p className="text-[10px] text-white/20 text-center">
+              {(window.SpeechRecognition || window.webkitSpeechRecognition)
+                ? 'Listening for speech…'
+                : 'Speech-to-text not available in this browser'}
+            </p>
+          )}
         </div>
       )}
 
       {/* Transcript preview in review */}
-      {state === 'reviewing' && transcript && (
+      {state === 'reviewing' && (
         <div className="px-4 pb-4">
-          <p className="text-[10px] text-white/30 uppercase font-bold mb-1">Transcript</p>
-          <p className="text-xs text-white/60 leading-relaxed">{transcript}</p>
+          {transcript ? (
+            <>
+              <p className="text-[10px] text-white/30 uppercase font-bold mb-1">Transcript</p>
+              <p className="text-xs text-white/60 leading-relaxed">{transcript}</p>
+            </>
+          ) : (
+            <div className="bg-white/5 rounded-xl px-3 py-2">
+              <p className="text-[10px] text-white/30 text-center">No transcript captured. Video will be saved without text.</p>
+            </div>
+          )}
         </div>
       )}
     </motion.div>

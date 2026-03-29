@@ -1085,6 +1085,7 @@ export default function ChatScreen() {
   const finalTranscriptRef = useRef('');
   const stopSpeechRef      = useRef(null);
   const pendingSendRef      = useRef(null);
+  const videoBlobRef        = useRef(null);
 
   const avatarSpeaking  = speakingIdx !== null;
   const avatarListening = isListening;
@@ -1586,14 +1587,15 @@ export default function ChatScreen() {
           <motion.button
             whileTap={{ scale: 0.87 }}
             onClick={() => setShowVideoRecorder(true)}
+            disabled={isLoading || showVideoRecorder}
             aria-label="Record video message"
             className="flex-shrink-0 w-11 h-11 rounded-full flex items-center justify-center transition-all"
             style={{
-              background: 'rgba(255,255,255,0.11)',
-              border: '1px solid rgba(255,255,255,0.18)',
+              background: showVideoRecorder ? `${cfg.gradTo}30` : 'rgba(255,255,255,0.11)',
+              border: `1px solid ${showVideoRecorder ? cfg.gradTo + '55' : 'rgba(255,255,255,0.18)'}`,
             }}
           >
-            <Video className="w-4 h-4 text-white/55" />
+            <Video className={`w-4 h-4 ${showVideoRecorder ? 'text-white' : 'text-white/55'}`} />
           </motion.button>
 
           {/* Text input */}
@@ -1662,15 +1664,14 @@ export default function ChatScreen() {
               <VideoRecorder
                 onRecordingComplete={(blob, duration) => {
                   // Store video info temporarily — we'll add it when transcript is ready
-                  window.__prVideoBlob = { url: URL.createObjectURL(blob), duration };
+                  videoBlobRef.current = { url: URL.createObjectURL(blob), duration };
                 }}
                 onTranscript={(text) => {
-                  // This fires with final transcript when recording completes
-                  const videoInfo = window.__prVideoBlob;
+                  const videoInfo = videoBlobRef.current;
                   setShowVideoRecorder(false);
                   
                   if (videoInfo) {
-                    // Add video bubble to chat
+                    // Add video bubble to chat with transcript as content
                     setMessages(prev => [...prev, {
                       role: 'user',
                       content: text || '[Video message]',
@@ -1679,19 +1680,31 @@ export default function ChatScreen() {
                     }]);
                   }
 
-                  // Send transcript to AI if we got one
+                  // Send transcript to AI without adding another user bubble
                   if (text && text.trim()) {
-                    setTimeout(() => sendMessage(text.trim()), 400);
+                    const trimmed = text.trim();
+                    setIsLoading(true);
+                    const history = messages.slice(-12)
+                      .map(m => `${m.role === 'user' ? 'User' : cfg.name}: ${m.content.substring(0, 400)}`)
+                      .join('\n\n');
+                    base44.integrations.Core.InvokeLLM({
+                      prompt: `${buildPrompt(cfg.systemPrompt)}\n\nCONVERSATION HISTORY:\n${history}\n\nUser: ${trimmed}`,
+                      add_context_from_internet: false,
+                    }).then(response => {
+                      setMessages(prev => [...prev, { role: 'assistant', content: response }]);
+                    }).catch(() => {
+                      setMessages(prev => [...prev, { role: 'assistant', content: "I couldn't process that. Could you try again?" }]);
+                    }).finally(() => setIsLoading(false));
                   }
                   
-                  window.__prVideoBlob = null;
+                  videoBlobRef.current = null;
                 }}
                 maxDurationSec={60}
                 compact
                 onClose={() => {
                   setShowVideoRecorder(false);
                   // If user recorded but no transcript, still show the video
-                  const videoInfo = window.__prVideoBlob;
+                  const videoInfo = videoBlobRef.current;
                   if (videoInfo) {
                     setMessages(prev => [...prev, {
                       role: 'user',
@@ -1699,7 +1712,7 @@ export default function ChatScreen() {
                       videoUrl: videoInfo.url,
                       videoDuration: videoInfo.duration,
                     }]);
-                    window.__prVideoBlob = null;
+                    videoBlobRef.current = null;
                   }
                 }}
               />
