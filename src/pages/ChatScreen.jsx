@@ -6,7 +6,8 @@ import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, Send, Loader2, RotateCcw, Mic, MicOff, Volume2, Square, X, Zap } from 'lucide-react';
+import VideoRecorder from '@/components/video/VideoRecorder';
+import { ArrowLeft, Send, Loader2, RotateCcw, Mic, MicOff, Volume2, Square, X, Zap, Video } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import { base44 } from '@/api/base44Client';
 import CloudAvatar    from '@/components/avatar/CloudAvatar';
@@ -1270,6 +1271,7 @@ export default function ChatScreen() {
   };
 
   const speechSupported = !!(window.SpeechRecognition || window.webkitSpeechRecognition);
+  const [showVideoRecorder, setShowVideoRecorder] = useState(false);
 
   return createPortal(
     <motion.div
@@ -1564,6 +1566,20 @@ export default function ChatScreen() {
             </div>
           )}
 
+          {/* Video message button */}
+          <motion.button
+            whileTap={{ scale: 0.87 }}
+            onClick={() => setShowVideoRecorder(true)}
+            aria-label="Record video message"
+            className="flex-shrink-0 w-11 h-11 rounded-full flex items-center justify-center transition-all"
+            style={{
+              background: 'rgba(255,255,255,0.11)',
+              border: '1px solid rgba(255,255,255,0.18)',
+            }}
+          >
+            <Video className="w-4 h-4 text-white/55" />
+          </motion.button>
+
           {/* Text input */}
           <input
             ref={inputRef}
@@ -1616,6 +1632,46 @@ export default function ChatScreen() {
         )}
       </motion.div>
 
+      {/* Video Recorder Overlay */}
+      <AnimatePresence>
+        {showVideoRecorder && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[200] bg-black/90 flex items-center justify-center p-4"
+          >
+            <div className="w-full max-w-sm">
+              <p className="text-center text-white/60 text-xs mb-3">Record a video message for {cfg.name}</p>
+              <VideoRecorder
+                onRecordingComplete={(blob, duration) => {
+                  setShowVideoRecorder(false);
+                  // Create object URL for display in chat
+                  const url = URL.createObjectURL(blob);
+                  // Add video message to chat as user message
+                  setMessages(prev => [...prev, {
+                    role: 'user',
+                    content: '[Video message]',
+                    videoUrl: url,
+                    videoDuration: duration,
+                  }]);
+                }}
+                onTranscript={(text) => {
+                  if (text) {
+                    // Send the transcript as a text message to the AI
+                    setShowVideoRecorder(false);
+                    setInput(text);
+                    setTimeout(() => sendMessage(text), 300);
+                  }
+                }}
+                maxDurationSec={60}
+                compact
+                onClose={() => setShowVideoRecorder(false)}
+              />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
     </motion.div>,
     document.body
