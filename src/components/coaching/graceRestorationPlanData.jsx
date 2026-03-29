@@ -31,7 +31,7 @@ export const GRACE_RESTORATION_PLAN = {
       day: 1, week: 1,
       title: 'The Gift You Cannot Earn',
       bible: { book: 'Ephesians', chapter: 2, verse_range: '8–9',
-        key_verse: '"For it is by grace you have been saved, through faith — and this is not from yourselves, it is the gift of God." — Ephesians 2:8',
+        key_verse: '"For by grace you have been saved through faith, and that not of yourselves; it is the gift of God." — Ephesians 2:8',
         devotion: 'Grace is not a reward for good behavior. It is the unearned, undeserved, unstoppable love of God poured out on people who could never earn it. Today we begin not by trying harder, but by receiving what has already been given. You don\'t have to clean yourself up before coming to God. He meets you exactly where you are.',
         reflection_q: 'In what area of your life have you been trying to earn God\'s love instead of simply receiving it?',
       },
@@ -64,7 +64,7 @@ export const GRACE_RESTORATION_PLAN = {
       day: 4, week: 1,
       title: 'Grace in the Mess',
       bible: { book: 'Romans', chapter: 5, verse_range: '6–8',
-        key_verse: '"But God demonstrates his own love for us in this: While we were still sinners, Christ died for us." — Romans 5:8',
+        key_verse: '"But God commends his own love toward us, in that while we were yet sinners, Christ died for us." — Romans 5:8',
         devotion: 'God didn\'t wait for you to get it together. He loved you at your worst. Not after you cleaned up, not after you proved yourself — while you were still in the mess. This is what makes grace radical. It doesn\'t require improvement as a prerequisite. It offers love as the starting point.',
         reflection_q: 'Do you believe God loves you right now — not a future, improved version of you, but the you sitting here today?',
       },
@@ -75,7 +75,7 @@ export const GRACE_RESTORATION_PLAN = {
       day: 5, week: 1,
       title: 'The Prodigal\'s Welcome',
       bible: { book: 'Luke', chapter: 15, verse_range: '20–24',
-        key_verse: '"But while he was still a long way off, his father saw him and was filled with compassion for him; he ran to his son." — Luke 15:20',
+        key_verse: '"But while he was still far off, his father saw him and was moved with compassion, and ran and fell on his neck and kissed him." — Luke 15:20',
         devotion: 'The father didn\'t wait at the door with arms crossed. He ran. He didn\'t ask for an explanation. He threw a party. This is how God responds when you come home — not with a lecture, but with a celebration. No matter how far you\'ve wandered, the Father is already running toward you.',
         reflection_q: 'Where have you wandered from God? Can you picture Him running toward you right now — not angry, but overjoyed?',
       },
@@ -145,7 +145,7 @@ export const GRACE_RESTORATION_PLAN = {
       day: 11, week: 2,
       title: 'Forgiveness as Strength',
       bible: { book: 'Ephesians', chapter: 4, verse_range: '31–32',
-        key_verse: '"Be kind and compassionate to one another, forgiving each other, just as in Christ God forgave you." — Ephesians 4:32',
+        key_verse: '"Be kind to one another, tender hearted, forgiving each other, just as God also in Christ forgave you." — Ephesians 4:32',
         devotion: 'Forgiveness is not weakness. It is the most powerful act a human being can perform. It takes more strength to release than to hold on. Bitterness is easy — it runs on autopilot. Forgiveness requires intentional, Christ-like courage.',
         reflection_q: 'Have you ever confused forgiveness with weakness? How does seeing it as strength change your perspective?',
       },
@@ -155,7 +155,7 @@ export const GRACE_RESTORATION_PLAN = {
     {
       day: 12, week: 2, title: 'Breaking the Chain',
       bible: { book: 'Colossians', chapter: 3, verse_range: '12–14',
-        key_verse: '"Bear with each other and forgive one another if any of you has a grievance against someone. Forgive as the Lord forgave you." — Colossians 3:13',
+        key_verse: '"Bearing with one another, and forgiving each other, if any man has a complaint against any; even as Christ forgave you, so you also do." — Colossians 3:13',
         devotion: 'Hurt people hurt people. But forgiven people can break the chain. When you choose forgiveness, you\'re not just healing yourself — you\'re stopping generational pain, relational cycles, and inherited bitterness from passing to the next person.',
         reflection_q: 'Is there a cycle of hurt in your family or relationships that you have the power to break through forgiveness?',
       },
@@ -175,7 +175,7 @@ export const GRACE_RESTORATION_PLAN = {
     {
       day: 14, week: 2, title: 'The Freedom of Letting Go',
       bible: { book: 'Isaiah', chapter: 43, verse_range: '18–19',
-        key_verse: '"Forget the former things; do not dwell on the past. See, I am doing a new thing!" — Isaiah 43:18-19',
+        key_verse: '"Don\'t remember the former things, and don\'t consider the things of old. Behold, I will do a new thing." — Isaiah 43:18-19',
         devotion: 'God is in the business of new things. But you can\'t grab hold of the new if your hands are full of the old. This week asked you to release — people who hurt you, guilt you carried, chains that bound you. As you enter the weekend, open your hands. Let go. Something new is coming.',
         reflection_q: 'What "former thing" is God asking you to stop dwelling on so He can do a new thing in your life?',
       },
@@ -189,7 +189,7 @@ export const GRACE_RESTORATION_PLAN = {
     {
       day: 15, week: 3, title: 'Chosen Before Time',
       bible: { book: 'Ephesians', chapter: 1, verse_range: '3–6',
-        key_verse: '"He chose us in him before the creation of the world to be holy and blameless in his sight." — Ephesians 1:4',
+        key_verse: '"He chose us in him before the foundation of the world, that we should be holy and without defect before him in love." — Ephesians 1:4',
         devotion: 'Before the universe had a single star, God chose you. Not as an afterthought. Not as a backup plan. You were handpicked, set apart, and called blameless — not because of anything you\'ve done, but because of His love.',
         reflection_q: 'How does knowing you were chosen before creation change the way you see yourself today?',
       },
@@ -199,7 +199,7 @@ export const GRACE_RESTORATION_PLAN = {
     {
       day: 16, week: 3, title: 'A New Creation',
       bible: { book: '2 Corinthians', chapter: 5, verse_range: '17',
-        key_verse: '"Therefore, if anyone is in Christ, the new creation has come: The old has gone, the new is here!" — 2 Corinthians 5:17',
+        key_verse: '"Therefore if anyone is in Christ, he is a new creation. The old things have passed away. Behold, all things have become new." — 2 Corinthians 5:17',
         devotion: 'You are not an improved version of the old you. You are a new creation. The old — the shame, the labels, the failures — has gone. Not hidden, not suppressed. Gone. The new is here. Live from your new identity, not your old one.',
         reflection_q: 'What "old label" do you still wear that God has already replaced? What is the new name He has given you?',
       },
@@ -209,7 +209,7 @@ export const GRACE_RESTORATION_PLAN = {
     {
       day: 17, week: 3, title: 'God\'s Masterpiece',
       bible: { book: 'Ephesians', chapter: 2, verse_range: '10',
-        key_verse: '"For we are God\'s handiwork, created in Christ Jesus to do good works, which God prepared in advance for us to do." — Ephesians 2:10',
+        key_verse: '"For we are his workmanship, created in Christ Jesus for good works, which God prepared before that we would walk in them." — Ephesians 2:10',
         devotion: 'The Greek word for "handiwork" is poiema — where we get the word "poem." You are God\'s poem. His art. His creative expression to the world. You are not a rough draft. You are a finished masterpiece with a purpose prepared before you were born.',
         reflection_q: 'If you truly saw yourself as God\'s masterpiece, what would you stop tolerating in your life? What would you start pursuing?',
       },
@@ -219,7 +219,7 @@ export const GRACE_RESTORATION_PLAN = {
     {
       day: 18, week: 3, title: 'Beloved Child',
       bible: { book: '1 John', chapter: 3, verse_range: '1',
-        key_verse: '"See what great love the Father has lavished on us, that we should be called children of God! And that is what we are!" — 1 John 3:1',
+        key_verse: '"See how great a love the Father has given to us, that we should be called children of God! And that is what we are!" — 1 John 3:1',
         devotion: 'John can barely contain himself. "See what great love!" He\'s overwhelmed. You are not just tolerated by God — you are loved with a lavishing, extravagant, over-the-top love. You are His child. Not a servant. Not an employee. A son or daughter. That changes everything.',
         reflection_q: 'Do you relate to God more as a child relates to a loving parent, or as an employee relates to a boss? What needs to shift?',
       },
@@ -239,7 +239,7 @@ export const GRACE_RESTORATION_PLAN = {
     {
       day: 20, week: 3, title: 'Named and Known',
       bible: { book: 'Isaiah', chapter: 43, verse_range: '1',
-        key_verse: '"I have summoned you by name; you are mine." — Isaiah 43:1',
+        key_verse: '"I have called you by your name. You are mine." — Isaiah 43:1',
         devotion: 'God doesn\'t call you by your mistakes. He calls you by name. He knows you — your fears, your dreams, your 3am thoughts. And He says: You are mine. Not "you could be mine if you try harder." You ARE mine. Right now. As you are.',
         reflection_q: 'What name has the world given you that God wants to replace? What does He call you instead?',
       },
@@ -263,7 +263,7 @@ export const GRACE_RESTORATION_PLAN = {
     {
       day: 22, week: 4, title: 'Free Indeed',
       bible: { book: 'John', chapter: 8, verse_range: '36',
-        key_verse: '"So if the Son sets you free, you will be free indeed." — John 8:36',
+        key_verse: '"If therefore the Son makes you free, you will be free indeed." — John 8:36',
         devotion: 'Not partially free. Not free with conditions. Free indeed — completely, fully, unshakably free. The chains of shame, guilt, fear, and performance have been broken. But sometimes we stand in the open cell door and refuse to walk out. Today, walk out.',
         reflection_q: 'What open door of freedom are you standing in front of but afraid to walk through?',
       },
@@ -273,7 +273,7 @@ export const GRACE_RESTORATION_PLAN = {
     {
       day: 23, week: 4, title: 'Freedom from Shame',
       bible: { book: 'Romans', chapter: 10, verse_range: '11',
-        key_verse: '"Anyone who believes in him will never be put to shame." — Romans 10:11',
+        key_verse: '"Everyone who believes in him will not be disappointed." — Romans 10:11',
         devotion: 'Shame says: "You ARE the mistake." Guilt says: "You MADE a mistake." Grace says: "The mistake is covered, and you are loved." Shame is the enemy\'s favorite weapon because it attacks identity. But God has declared you will never be put to shame. Believe it.',
         reflection_q: 'Where has shame been speaking louder than grace in your life? What truth needs to replace it?',
       },
@@ -283,7 +283,7 @@ export const GRACE_RESTORATION_PLAN = {
     {
       day: 24, week: 4, title: 'Freedom from Fear',
       bible: { book: '2 Timothy', chapter: 1, verse_range: '7',
-        key_verse: '"For the Spirit God gave us does not make us timid, but gives us power, love and self-discipline." — 2 Timothy 1:7',
+        key_verse: '"For God didn\'t give us a spirit of fear, but of power, love, and self-control." — 2 Timothy 1:7',
         devotion: 'Fear is not from God. Read that again. The spirit of timidity, of shrinking back, of playing small — that is not the Spirit you were given. You were given power, love, and a sound mind. Fear may knock on your door, but you don\'t have to invite it in.',
         reflection_q: 'What fear has been holding you back from stepping into what God has called you to? What would courage look like today?',
       },
@@ -293,7 +293,7 @@ export const GRACE_RESTORATION_PLAN = {
     {
       day: 25, week: 4, title: 'Freedom to Fail',
       bible: { book: 'Proverbs', chapter: 24, verse_range: '16',
-        key_verse: '"For though the righteous fall seven times, they rise again." — Proverbs 24:16',
+        key_verse: '"For a righteous man falls seven times, and rises up again." — Proverbs 24:16',
         devotion: 'Freedom in Christ includes the freedom to fail. Not permission to sin, but permission to be human. You will stumble. You will have bad days. And every single time, grace catches you and says: "Get up. We\'re not done." The righteous are not defined by their falls. They are defined by their rising.',
         reflection_q: 'How would your approach to growth change if you gave yourself permission to fail and get back up without self-condemnation?',
       },
@@ -303,7 +303,7 @@ export const GRACE_RESTORATION_PLAN = {
     {
       day: 26, week: 4, title: 'Living Generously',
       bible: { book: 'Matthew', chapter: 10, verse_range: '8',
-        key_verse: '"Freely you have received; freely give." — Matthew 10:8',
+        key_verse: '"Freely you received; freely give." — Matthew 10:8',
         devotion: 'Grace was never meant to stop with you. You received it freely — now pour it out freely. Forgive lavishly. Love extravagantly. Give grace to the people who haven\'t earned it, just like it was given to you. This is how the Kingdom spreads — one act of undeserved love at a time.',
         reflection_q: 'Who in your life needs to receive the grace that God has given you? How can you extend it to them today?',
       },

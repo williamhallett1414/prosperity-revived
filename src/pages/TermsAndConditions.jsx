@@ -161,9 +161,12 @@ export default function TermsAndConditions() {
 
               {/* 8 */}
               <div>
-                <h3 className="text-lg font-bold mb-3">8. Scripture &amp; Bible Translation Copyright</h3>
+                <h3 className="text-lg font-bold mb-3">8. Scripture &amp; Bible Translation</h3>
                 <p className="text-sm leading-relaxed mb-2">
-                  The King James Version (KJV) and World English Bible (WEB) are in the public domain. Other translations referenced or displayed in the App (NIV, ESV, NLT, NKJV, The Message) are protected by copyright. Prosperity Revived does not claim license rights to these translations. When AI generates scripture text, it is a paraphrase for reference purposes only — it is not a reproduction of any copyrighted translation. Always refer to a licensed copy of your preferred Bible translation for accurate text.
+                  All scripture quotations in Prosperity Revived are from the <strong>World English Bible (WEB)</strong>, which is in the public domain. The WEB is a modern-language update of the American Standard Version and is not subject to copyright restrictions. No license or permission is required to quote the WEB.
+                </p>
+                <p className="text-sm leading-relaxed mb-2">
+                  When AI chatbot characters reference scripture, they may paraphrase for conversational context. For precise wording, users should refer to the WEB text directly or their preferred Bible translation. Prosperity Revived is not affiliated with any Bible publisher or translation organization.
                 </p>
               </div>
 

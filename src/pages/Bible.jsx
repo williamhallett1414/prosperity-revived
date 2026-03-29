@@ -379,7 +379,7 @@ export default function Bible() {
       {/* Scripture Attribution */}
       <div className="max-w-lg mx-auto px-4 pb-4">
         <p className="text-[9px] text-[#0A1A2F]/30 text-center leading-relaxed">
-          Scripture quotations are for devotional purposes. Verify references with your preferred Bible translation. This app is not affiliated with any Bible publisher.
+          Scripture from the World English Bible (WEB) — Public Domain. No copyright restrictions apply.
         </p>
       </div>
 

@@ -32,7 +32,7 @@ const DECLARATIONS = [
     truth: 'I am lavishly loved by the Father',
     pillar: 'Beloved',
     verse: '1 John 3:1',
-    fullVerse: 'See what great love the Father has lavished on us, that we should be called children of God! And that is what we are!',
+    fullVerse: 'See how great a love the Father has given to us, that we should be called children of God! And that is what we are!',
     explanation: "John uses the word 'lavished' — extravagant, over-the-top, wasteful by human standards. God's love for you is not measured or earned. It is poured out without restraint.",
   },
   {
@@ -65,7 +65,7 @@ const DECLARATIONS = [
     truth: 'I am a new creation',
     pillar: 'Redeemed',
     verse: '2 Corinthians 5:17',
-    fullVerse: 'Therefore, if anyone is in Christ, the new creation has come: The old has gone, the new is here!',
+    fullVerse: 'Therefore if anyone is in Christ, he is a new creation. The old things have passed away. Behold, all things have become new.',
     explanation: "This is not renovation — it's recreation. God didn't patch up the old version of you and call it good. He made you new. Your past does not have a vote on your present identity.",
   },
   {
@@ -73,7 +73,7 @@ const DECLARATIONS = [
     truth: 'I am completely forgiven',
     pillar: 'Redeemed',
     verse: 'Colossians 1:14',
-    fullVerse: 'In whom we have redemption, the forgiveness of sins.',
+    fullVerse: 'In whom we have our redemption, the forgiveness of our sins.',
     explanation: "Forgiven means the debt is gone — not deferred, not on a payment plan, not held over you. The record has been cleared. You don't have to keep paying for what has already been paid.",
   },
   {
@@ -89,7 +89,7 @@ const DECLARATIONS = [
     truth: 'I am free from condemnation',
     pillar: 'Redeemed',
     verse: 'Romans 8:1',
-    fullVerse: 'Therefore, there is now no condemnation for those who are in Christ Jesus.',
+    fullVerse: 'There is therefore now no condemnation to those who are in Christ Jesus.',
     explanation: "Condemnation is the voice that says you are what you've done. Paul says that voice has no legal standing. 'No condemnation' is not qualified. It doesn't say 'usually' or 'mostly.' It says none.",
   },
   {
@@ -130,7 +130,7 @@ const DECLARATIONS = [
     truth: 'I can do all things through Christ',
     pillar: 'Equipped',
     verse: 'Philippians 4:13',
-    fullVerse: 'I can do all this through him who gives me strength.',
+    fullVerse: 'I can do all things through Christ, who strengthens me.',
     explanation: "Paul wrote this from prison — not from a victory lap. Confidence in Christ doesn't depend on your circumstances. The strength is available in the valley, not just on the mountaintop.",
   },
   {

@@ -73,16 +73,16 @@ export const bibleBooks = {
 };
 
 export const dailyVerses = [
-  { book: "Philippians", chapter: 4, verse: 13, text: "I can do all things through Christ who strengthens me." },
-  { book: "Jeremiah", chapter: 29, verse: 11, text: "For I know the plans I have for you, declares the Lord, plans to prosper you and not to harm you, plans to give you hope and a future." },
-  { book: "Psalms", chapter: 23, verse: 1, text: "The Lord is my shepherd; I shall not want." },
-  { book: "Proverbs", chapter: 3, verse: 5, text: "Trust in the Lord with all your heart and lean not on your own understanding." },
-  { book: "Isaiah", chapter: 40, verse: 31, text: "But those who hope in the Lord will renew their strength. They will soar on wings like eagles; they will run and not grow weary, they will walk and not be faint." },
-  { book: "Romans", chapter: 8, verse: 28, text: "And we know that in all things God works for the good of those who love him, who have been called according to his purpose." },
-  { book: "Joshua", chapter: 1, verse: 9, text: "Have I not commanded you? Be strong and courageous. Do not be afraid; do not be discouraged, for the Lord your God will be with you wherever you go." },
-  { book: "Psalm", chapter: 46, verse: 10, text: "Be still, and know that I am God; I will be exalted among the nations, I will be exalted in the earth." },
-  { book: "Matthew", chapter: 11, verse: 28, text: "Come to me, all you who are weary and burdened, and I will give you rest." },
-  { book: "John", chapter: 3, verse: 16, text: "For God so loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life." }
+  { book: "Philippians", chapter: 4, verse: 13, text: "I can do all things through Christ, who strengthens me." },
+  { book: "Jeremiah", chapter: 29, verse: 11, text: "For I know the thoughts that I think toward you, says Yahweh, thoughts of peace, and not of evil, to give you hope and a future." },
+  { book: "Psalms", chapter: 23, verse: 1, text: "Yahweh is my shepherd; I shall lack nothing." },
+  { book: "Proverbs", chapter: 3, verse: 5, text: "Trust in Yahweh with all your heart, and don't lean on your own understanding." },
+  { book: "Isaiah", chapter: 40, verse: 31, text: "But those who wait for Yahweh will renew their strength. They will mount up with wings like eagles. They will run, and not be weary. They will walk, and not faint." },
+  { book: "Romans", chapter: 8, verse: 28, text: "We know that all things work together for good for those who love God, for those who are called according to his purpose." },
+  { book: "Joshua", chapter: 1, verse: 9, text: "Haven't I commanded you? Be strong and courageous. Don't be afraid. Don't be dismayed, for Yahweh your God is with you wherever you go." },
+  { book: "Psalm", chapter: 46, verse: 10, text: "Be still, and know that I am God. I will be exalted among the nations. I will be exalted in the earth." },
+  { book: "Matthew", chapter: 11, verse: 28, text: "Come to me, all you who labor and are heavily burdened, and I will give you rest." },
+  { book: "John", chapter: 3, verse: 16, text: "For God so loved the world, that he gave his only born Son, that whoever believes in him should not perish, but have eternal life." }
 ];
 
 export const readingPlans = [

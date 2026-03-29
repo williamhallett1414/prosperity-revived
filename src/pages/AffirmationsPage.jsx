@@ -12,19 +12,19 @@ const AFFIRMATIONS = [
   {
     text: "I am fearfully and wonderfully made",
     verse: "Psalm 139:14",
-    fullVerse: "I praise you because I am fearfully and wonderfully made; your works are wonderful, I know that full well.",
+    fullVerse: "I will give thanks to you, for I am fearfully and wonderfully made; your works are wonderful, I know that full well.",
     explanation: "You are not an accident or an afterthought. God crafted every detail of who you are with intention and delight. Your uniqueness is not a flaw — it is the signature of your Maker."
   },
   {
     text: "I can do all things through Christ who strengthens me",
     verse: "Philippians 4:13",
-    fullVerse: "I can do all this through him who gives me strength.",
+    fullVerse: "I can do all things through Christ, who strengthens me.",
     explanation: "The strength you need is not your own to manufacture. Christ is the source, and He gives freely. What feels impossible today is possible in Him."
   },
   {
     text: "God has plans to prosper me and give me hope",
     verse: "Jeremiah 29:11",
-    fullVerse: "For I know the plans I have for you, declares the Lord, plans to prosper you and not to harm you, plans to give you hope and a future.",
+    fullVerse: "For I know the thoughts that I think toward you, declares the Lord, thoughts of peace, and not of evil, plans to give you hope and a future.",
     explanation: "Even in uncertainty, God is not improvising. His plans for you are good, purposeful, and forward-looking. Hope is not wishful thinking — it's grounded in His promise."
   },
   {
@@ -102,13 +102,13 @@ const AFFIRMATIONS = [
   {
     text: "I am God's handiwork, created for good works",
     verse: "Ephesians 2:10",
-    fullVerse: "For we are God's handiwork, created in Christ Jesus to do good works, which God prepared in advance for us to do.",
+    fullVerse: "For we are God's handiwork, created in Christ Jesus to do good works, which God prepared before that we would walk in them.",
     explanation: "You are not here by chance. God prepared specific works for you before you were born. Your life has a divine assignment — lean into it."
   },
   {
     text: "I have been redeemed and forgiven",
     verse: "Colossians 1:14",
-    fullVerse: "In whom we have redemption, the forgiveness of sins.",
+    fullVerse: "In whom we have our redemption, the forgiveness of our sins.",
     explanation: "Your failures and shortcomings do not have the final word. You have been bought back, restored, and fully forgiven. Walk in that freedom today."
   },
   {
