@@ -45,7 +45,7 @@ export default function SubscriptionTerms() {
               </div>
 
               <p className="text-sm leading-relaxed">
-                These Subscription Terms govern your purchase and use of any subscription-based features within the Prosperity Revived App. By purchasing or accessing a subscription, you agree to these Terms.
+                These Subscription Terms govern your purchase and use of any subscription-based features within the Prosperity Revived App, operated by <strong>Prosperity Revived LLC</strong>, a Virginia limited liability company. By purchasing or accessing a subscription, you agree to these Terms.
               </p>
 
               {/* 1 */}
@@ -198,14 +198,14 @@ export default function SubscriptionTerms() {
               <div>
                 <h3 className="text-lg font-bold mb-3">12. Contact Us</h3>
                 <div className="bg-[#F2F6FA] rounded-lg p-4 mt-3">
-                  <p className="text-sm font-semibold">Prosperity Revived — Anchor &amp; Way</p>
+                  <p className="text-sm font-semibold">Prosperity Revived LLC</p>
                   <p className="text-sm text-[#FD9C2D]">Prosperityrevived2025@gmail.com</p>
                   <p className="text-sm text-[#FD9C2D]">www.prosperityrevived.com</p>
                 </div>
               </div>
 
               <div className="text-center pt-6 pb-4 border-t border-gray-200">
-                <p className="text-xs text-gray-500">© 2026 Prosperity Revived / Anchor &amp; Way. All rights reserved.</p>
+                <p className="text-xs text-gray-500">© 2026 Prosperity Revived LLC. All rights reserved.</p>
               </div>
             </div>
           </ScrollArea>

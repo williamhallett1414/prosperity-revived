@@ -58,7 +58,7 @@ const DOCS = {
       },
       {
         heading: '11. Limitation of Liability',
-        body: 'To the fullest extent permitted by law, Prosperity Revived and Anchor & Way are not liable for injuries, health issues, allergic reactions, emotional or mental health outcomes, financial decisions based on AI content, scripture inaccuracies, data loss, or service interruptions. Your use of the App is entirely at your own risk.',
+        body: 'To the fullest extent permitted by law, Prosperity Revived LLC is not liable for injuries, health issues, allergic reactions, emotional or mental health outcomes, financial decisions based on AI content, scripture inaccuracies, data loss, or service interruptions. Your use of the App is entirely at your own risk.',
       },
     ],
   },
@@ -151,7 +151,7 @@ const DOCS = {
       },
       {
         heading: 'Limitation of Liability',
-        body: 'To the fullest extent permitted by law, Prosperity Revived and Anchor & Way are not liable for: physical injuries from workouts · adverse or allergic reactions to nutrition/recipe content · emotional or psychological outcomes · financial decisions based on App content · any harm from reliance on AI-generated content. Your use of the App is at your own risk.',
+        body: 'To the fullest extent permitted by law, Prosperity Revived LLC is not liable for: physical injuries from workouts · adverse or allergic reactions to nutrition/recipe content · emotional or psychological outcomes · financial decisions based on App content · any harm from reliance on AI-generated content. Your use of the App is at your own risk.',
         highlight: true,
       },
     ],

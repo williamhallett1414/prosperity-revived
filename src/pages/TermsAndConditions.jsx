@@ -31,7 +31,7 @@ export default function TermsAndConditions() {
               </div>
 
               <p className="text-sm leading-relaxed">
-                Welcome to <strong>Prosperity Revived</strong> ("the App"), operated by Anchor &amp; Way. By accessing or using the App, you agree to these Terms &amp; Conditions ("Terms"). If you do not agree, you may not use the App.
+                Welcome to <strong>Prosperity Revived</strong> ("the App"), operated by <strong>Prosperity Revived LLC</strong>, a Virginia limited liability company ("the Company," "we," "us," or "our"). By accessing or using the App, you agree to these Terms &amp; Conditions ("Terms"). If you do not agree, you may not use the App.
               </p>
               <p className="text-sm leading-relaxed">
                 These Terms apply to all users, including visitors, registered users, and subscribers.
@@ -256,7 +256,7 @@ export default function TermsAndConditions() {
               <div>
                 <h3 className="text-lg font-bold mb-3">13. Intellectual Property</h3>
                 <p className="text-sm leading-relaxed mb-2">
-                  All original content in the App is owned by Anchor &amp; Way, including workouts, nutrition content, spiritual content, audio, images, branding, UI/UX designs, code, logos, and text. The AI characters Gideon, Hannah, Coach David, Chef Daniel, and Coach Paul are original characters created by Anchor &amp; Way.
+                  All original content in the App is owned by Prosperity Revived LLC, including workouts, nutrition content, spiritual content, audio, images, branding, UI/UX designs, code, logos, and text. The AI characters Gideon, Hannah, Coach David, Chef Daniel, and Coach Paul are original characters created by Prosperity Revived LLC.
                 </p>
                 <p className="text-sm leading-relaxed mt-2">
                   You may not copy, distribute, modify, or reproduce any content without written permission.
@@ -279,7 +279,7 @@ export default function TermsAndConditions() {
               {/* 15 */}
               <div>
                 <h3 className="text-lg font-bold mb-3">15. Limitation of Liability</h3>
-                <p className="text-sm leading-relaxed mb-2">To the fullest extent permitted by applicable law, Prosperity Revived and Anchor &amp; Way are not liable for:</p>
+                <p className="text-sm leading-relaxed mb-2">To the fullest extent permitted by applicable law, Prosperity Revived LLC is not liable for:</p>
                 <ul className="list-disc ml-6 space-y-1 text-sm">
                   <li>Injuries or health issues arising from workouts or physical activity</li>
                   <li>Adverse reactions to nutrition suggestions or AI-generated recipes</li>
@@ -294,7 +294,7 @@ export default function TermsAndConditions() {
                 </ul>
                 <p className="text-sm leading-relaxed mt-2 font-semibold">Your use of the App is entirely at your own risk.</p>
                 <p className="text-sm leading-relaxed mt-2">
-                  <strong>Aggregate Liability Cap:</strong> In no event shall the total aggregate liability of Prosperity Revived, Anchor &amp; Way, or their officers, employees, or agents exceed the greater of (a) the total amount you have paid to us in the twelve (12) months immediately preceding the event giving rise to the claim, or (b) one hundred dollars ($100.00 USD). This limitation applies regardless of the form of action, whether in contract, tort, strict liability, or otherwise.
+                  <strong>Aggregate Liability Cap:</strong> In no event shall the total aggregate liability of Prosperity Revived LLC, or its officers, employees, or agents exceed the greater of (a) the total amount you have paid to us in the twelve (12) months immediately preceding the event giving rise to the claim, or (b) one hundred dollars ($100.00 USD). This limitation applies regardless of the form of action, whether in contract, tort, strict liability, or otherwise.
                 </p>
                 <p className="text-sm leading-relaxed mt-2">
                   <strong>No Consequential Damages:</strong> In no event shall we be liable for any indirect, incidental, special, consequential, or punitive damages, including but not limited to loss of profits, data, goodwill, or other intangible losses, even if we have been advised of the possibility of such damages.
@@ -305,7 +305,7 @@ export default function TermsAndConditions() {
               <div>
                 <h3 className="text-lg font-bold mb-3">16. Indemnification</h3>
                 <p className="text-sm leading-relaxed">
-                  You agree to indemnify, defend, and hold harmless Prosperity Revived, Anchor &amp; Way, and their respective officers, employees, and agents from any claim, demand, loss, liability, or expense (including attorney's fees) arising from your use of the App, your content, or your violation of these Terms.
+                  You agree to indemnify, defend, and hold harmless Prosperity Revived LLC, and its officers, employees, and agents from any claim, demand, loss, liability, or expense (including attorney's fees) arising from your use of the App, your content, or your violation of these Terms.
                 </p>
               </div>
 
@@ -379,14 +379,14 @@ export default function TermsAndConditions() {
                 <h3 className="text-lg font-bold mb-3">22. Contact Information</h3>
                 <p className="text-sm leading-relaxed mb-2">For questions about these Terms, contact:</p>
                 <div className="bg-[#F2F6FA] rounded-lg p-4 mt-3">
-                  <p className="text-sm font-semibold">Prosperity Revived — Anchor &amp; Way</p>
+                  <p className="text-sm font-semibold">Prosperity Revived LLC</p>
                   <p className="text-sm text-[#FD9C2D]">Prosperityrevived2025@gmail.com</p>
                   <p className="text-sm text-[#FD9C2D]">www.prosperityrevived.com</p>
                 </div>
               </div>
 
               <div className="text-center pt-6 pb-4 border-t border-gray-200">
-                <p className="text-xs text-gray-500">© 2026 Prosperity Revived / Anchor &amp; Way. All rights reserved.</p>
+                <p className="text-xs text-gray-500">© 2026 Prosperity Revived LLC. All rights reserved.</p>
               </div>
             </div>
           </ScrollArea>

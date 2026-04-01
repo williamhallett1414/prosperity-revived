@@ -32,7 +32,7 @@ export default function HealthWellnessWaiver() {
               </div>
 
               <p className="text-sm leading-relaxed">
-                This Health &amp; Wellness Waiver ("Waiver") applies to all users of the Prosperity Revived mobile application ("the App"). By accessing or using the App, you acknowledge and agree to the terms of this Waiver. If you do not agree, discontinue use immediately.
+                This Health &amp; Wellness Waiver ("Waiver") applies to all users of the Prosperity Revived mobile application ("the App"), operated by <strong>Prosperity Revived LLC</strong>, a Virginia limited liability company. By accessing or using the App, you acknowledge and agree to the terms of this Waiver. If you do not agree, discontinue use immediately.
               </p>
 
               {/* 1 */}
@@ -211,7 +211,7 @@ export default function HealthWellnessWaiver() {
               <div>
                 <h3 className="text-lg font-bold mb-3">11. Limitation of Liability</h3>
                 <p className="text-sm leading-relaxed mb-2">
-                  To the fullest extent permitted by law, Prosperity Revived, Anchor &amp; Way, and their respective owners, employees, and affiliates are not liable for:
+                  To the fullest extent permitted by law, Prosperity Revived LLC, and its owners, employees, and affiliates are not liable for:
                 </p>
                 <ul className="list-disc ml-6 space-y-1 text-sm">
                   <li>Physical injuries from workouts</li>
@@ -229,7 +229,7 @@ export default function HealthWellnessWaiver() {
               <div>
                 <h3 className="text-lg font-bold mb-3">12. Indemnification</h3>
                 <p className="text-sm leading-relaxed">
-                  You agree to indemnify and hold harmless Prosperity Revived and Anchor &amp; Way from any claims, damages, losses, or expenses arising from your use of the App, your participation in any activities suggested by the App, or your violation of any Terms or this Waiver.
+                  You agree to indemnify and hold harmless Prosperity Revived LLC from any claims, damages, losses, or expenses arising from your use of the App, your participation in any activities suggested by the App, or your violation of any Terms or this Waiver.
                 </p>
               </div>
 
@@ -250,14 +250,14 @@ export default function HealthWellnessWaiver() {
               <div>
                 <h3 className="text-lg font-bold mb-3">14. Contact Us</h3>
                 <div className="bg-[#F2F6FA] rounded-lg p-4 mt-3">
-                  <p className="text-sm font-semibold">Prosperity Revived — Anchor &amp; Way</p>
+                  <p className="text-sm font-semibold">Prosperity Revived LLC</p>
                   <p className="text-sm text-[#FD9C2D]">Prosperityrevived2025@gmail.com</p>
                   <p className="text-sm text-[#FD9C2D]">www.prosperityrevived.com</p>
                 </div>
               </div>
 
               <div className="text-center pt-6 pb-4 border-t border-gray-200">
-                <p className="text-xs text-gray-500">© 2026 Prosperity Revived / Anchor &amp; Way. All rights reserved.</p>
+                <p className="text-xs text-gray-500">© 2026 Prosperity Revived LLC. All rights reserved.</p>
               </div>
             </div>
           </ScrollArea>
