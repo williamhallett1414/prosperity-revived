@@ -9,6 +9,7 @@ import NotificationBell from '@/components/notifications/NotificationBell';
 import PullToRefresh from '@/components/ui/PullToRefresh';
 import UniversalHeader from '@/components/navigation/UniversalHeader';
 import OfflineBanner from '@/components/ui/OfflineBanner';
+import { requestNotificationPermission, initDefaultReminders } from '@/utils/notifications';
 import { useQueryClient } from '@tanstack/react-query';
 import GuidedTour from '@/components/onboarding/GuidedTour';
 
@@ -50,6 +51,13 @@ export default function Layout({ children, currentPageName }) {
         }
       });
     } catch {}
+  }, []);
+
+  // Initialize notifications (request permission + schedule defaults)
+  useEffect(() => {
+    requestNotificationPermission().then(perm => {
+      if (perm === 'granted') initDefaultReminders();
+    });
   }, []);
 
   // Expose startGuidedTour globally so Home.jsx (and Settings) can trigger it

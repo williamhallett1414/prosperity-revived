@@ -167,18 +167,12 @@ const JOB_TYPES = [
 
 const STEPS = [
   { id: 'legal',          type: 'card', icon: Shield,   label: 'Legal',       color: '#C9A227', showInDots: true  },
-  { id: 'hook',           type: 'full', icon: Heart,    label: 'Reflect',     color: '#FD9C2D', showInDots: false },
   { id: 'guides',         type: 'full', icon: Sparkles, label: 'Your Team',   color: '#C9A227', showInDots: false },
   { id: 'you',            type: 'card', icon: User,     label: 'You',         color: '#0A1A2F', showInDots: true  },
   { id: 'why',            type: 'card', icon: Sparkles, label: 'Your Why',    color: '#FD9C2D', showInDots: true  },
-  { id: 'fact_fitness',   type: 'full', icon: Dumbbell, label: 'Insight',     color: '#38BDF8', showInDots: false },
   { id: 'fitness',        type: 'card', icon: Dumbbell, label: 'Fitness',     color: '#38BDF8', showInDots: true  },
-  { id: 'fact_nutrition', type: 'full', icon: Utensils, label: 'Insight',     color: '#22C55E', showInDots: false },
   { id: 'nutrition',      type: 'card', icon: Utensils, label: 'Nutrition',   color: '#22C55E', showInDots: true  },
-  { id: 'fact_faith',     type: 'full', icon: BookOpen, label: 'Insight',     color: '#C9A227', showInDots: false },
   { id: 'faith',          type: 'card', icon: BookOpen, label: 'Faith',       color: '#C9A227', showInDots: true  },
-  { id: 'fact_growth',    type: 'full', icon: Brain,    label: 'Insight',     color: '#AFC7E3', showInDots: false },
-  { id: 'growth',         type: 'card', icon: Brain,    label: 'Growth',      color: '#AFC7E3', showInDots: true  },
   { id: 'routine',        type: 'card', icon: Bell,     label: 'Routine',     color: '#8B5CF6', showInDots: true  },
 ];
 

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { base44 } from '@/api/base44Client';
 import {
   Dumbbell, Flame, Wind, Heart, Plus, X,
   Calendar, BarChart2, BookOpen, Search, Clock, CheckCircle2, Trash2, Zap, ChevronRight
@@ -38,12 +39,37 @@ const DIFF_META = {
 };
 
 // ── Storage helpers ──────────────────────────────────────────────────────────
+// ── Storage helpers (dual-write: localStorage + cloud) ───────────────────────
 function loadSchedule() {
   try { return JSON.parse(localStorage.getItem(PLANNER_KEY) || '{}'); }
   catch { return {}; }
 }
 function saveSchedule(s) {
   localStorage.setItem(PLANNER_KEY, JSON.stringify(s));
+  // Async cloud backup — fire and forget
+  try {
+    base44.auth.me().then(user => {
+      if (user?.email) {
+        base44.auth.updateMe({ workout_planner_data: JSON.stringify(s) }).catch(() => {});
+      }
+    }).catch(() => {});
+  } catch {}
+}
+// Load from cloud on first mount if localStorage is empty
+async function loadCloudSchedule() {
+  try {
+    const user = await base44.auth.me();
+    if (user?.workout_planner_data) {
+      const cloud = JSON.parse(user.workout_planner_data);
+      const local = loadSchedule();
+      // Prefer cloud if local is empty
+      if (Object.keys(local).length === 0 && Object.keys(cloud).length > 0) {
+        localStorage.setItem(PLANNER_KEY, JSON.stringify(cloud));
+        return cloud;
+      }
+    }
+  } catch {}
+  return null;
 }
 function uid() { return Math.random().toString(36).slice(2); }
 
