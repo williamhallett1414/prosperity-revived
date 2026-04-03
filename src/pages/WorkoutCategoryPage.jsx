@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { useQuery } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
+import { useSearchParams } from 'react-router-dom';
 import WorkoutCard from '@/components/wellness/WorkoutCard';
 import { PREMADE_WORKOUTS } from '@/components/wellness/WorkoutLibrary';
 
@@ -46,10 +47,10 @@ function getMeta(rawParam) {
 
 export default function WorkoutCategoryPage() {
   const [user, setUser] = useState(null);
+  const [searchParams] = useSearchParams();
 
-  const urlParams = new URLSearchParams(window.location.search);
-  const categoryParam = urlParams.get('category');
-  const filterCategories = getCategories(categoryParam); // null = all, array = filtered
+  const categoryParam = searchParams.get('category');
+  const filterCategories = getCategories(categoryParam);
   const meta = getMeta(categoryParam);
 
   useEffect(() => { base44.auth.me().then(setUser); }, []);

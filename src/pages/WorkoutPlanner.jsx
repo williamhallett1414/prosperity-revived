@@ -47,15 +47,16 @@ function saveSchedule(s) {
 }
 function uid() { return Math.random().toString(36).slice(2); }
 
-// ── getWeek ──────────────────────────────────────────────────────────────────
+// ── getWeek (starts on Monday, consistent with Workouts.jsx) ─────────────────
 function getWeek() {
   const today = new Date();
-  const sun = new Date(today);
-  sun.setDate(today.getDate() - today.getDay());
+  const dow = today.getDay(); // 0=Sun
+  const monday = new Date(today);
+  monday.setDate(today.getDate() - (dow === 0 ? 6 : dow - 1));
   return Array.from({ length: 7 }, (_, i) => {
-    const d = new Date(sun);
-    d.setDate(sun.getDate() + i);
-    return { date: d, dayIdx: i };
+    const d = new Date(monday);
+    d.setDate(monday.getDate() + i);
+    return { date: d, dayIdx: d.getDay() }; // 0=Sun..6=Sat — matches DAYS_SHORT indexing
   });
 }
 

@@ -34,8 +34,9 @@ export default function WorkoutProgress() {
 
   const { data: progressPhotos = [] } = useQuery({
     queryKey: ['progressPhotos'],
-    queryFn: () => base44.entities.ProgressPhoto.list('-date', 100),
-    enabled: !!user
+    queryFn: async () => { try { return await base44.entities.ProgressPhoto.list('-date', 100); } catch { return []; } },
+    enabled: !!user,
+    retry: false,
   });
 
   // Calculate stats

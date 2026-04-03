@@ -36,7 +36,10 @@ const CATEGORIES = [
 ];
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
-function todayKey() { return new Date().toISOString().split("T")[0]; }
+function todayKey() {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+}
 
 function getWeekDays() {
   const days = [];
@@ -44,13 +47,15 @@ function getWeekDays() {
   const dow = today.getDay(); // 0=Sun
   const monday = new Date(today);
   monday.setDate(today.getDate() - (dow === 0 ? 6 : dow - 1));
+  const todayStr = todayKey();
   for (let i = 0; i < 7; i++) {
     const d = new Date(monday);
     d.setDate(monday.getDate() + i);
+    const key = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
     days.push({
-      key: d.toISOString().slice(0, 10),
+      key,
       label: d.toLocaleDateString("en-US", { weekday: "short" }).slice(0, 1),
-      isToday: d.toISOString().slice(0, 10) === todayKey(),
+      isToday: key === todayStr,
       isFuture: d > today,
     });
   }
@@ -63,7 +68,8 @@ function calcStreak(sessions) {
   for (let i = 0; i < 365; i++) {
     const d = new Date();
     d.setDate(d.getDate() - i);
-    if (days.has(d.toISOString().slice(0, 10))) streak++;
+    const key = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+    if (days.has(key)) streak++;
     else if (i > 0) break;
   }
   return streak;
@@ -387,6 +393,25 @@ export default function Workouts() {
               </div>
             </motion.div>
 
+            {/* ── Streak Milestone ── */}
+            {[7, 14, 21, 30, 60, 90, 100, 365].includes(streak) && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ type: 'spring', stiffness: 200 }}
+                className="bg-gradient-to-r from-orange-500 to-amber-400 rounded-2xl p-4 text-center shadow-md"
+              >
+                <p className="text-2xl mb-1">🔥</p>
+                <p className="text-white font-black text-lg">{streak}-Day Streak!</p>
+                <p className="text-white/80 text-xs mt-1">
+                  {streak >= 100 ? "You're a legend. Keep running the race!" :
+                   streak >= 30 ? "A full month of consistency. Incredible discipline!" :
+                   streak >= 14 ? "Two weeks strong! This is becoming a habit." :
+                   "One week down! You're building something powerful."}
+                </p>
+              </motion.div>
+            )}
+
             {/* ── Today's Workout ── */}
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }}>
               <SectionLabel action="Progress" actionTo="WorkoutProgress">
@@ -444,7 +469,7 @@ export default function Workouts() {
             {/* ── Active Challenge ── */}
             {activeChallenge && (
               <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.12 }}>
-                <SectionLabel action="All challenges" actionTo="DailyWeeklyChallenges">
+                <SectionLabel action="All challenges" actionTo="Community">
                   Active Challenge
                 </SectionLabel>
                 <button
@@ -515,10 +540,26 @@ export default function Workouts() {
               </div>
             </motion.div>
 
+            {/* ── Ask Coach David ── */}
+            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.33 }}>
+              <Link to={createPageUrl('ChatScreen?bot=CoachDavid')}>
+                <div className="bg-gradient-to-r from-blue-50 to-sky-50 rounded-2xl p-4 flex items-center gap-3 border border-[#38BDF8]/20">
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#38BDF8] to-[#0EA5E9] flex items-center justify-center flex-shrink-0 shadow-sm">
+                    <MessageCircle className="w-5 h-5 text-white" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="font-bold text-[#0A1A2F] text-sm">Ask Coach David</p>
+                    <p className="text-xs text-[#0A1A2F]/50">Need form tips, a custom plan, or motivation?</p>
+                  </div>
+                  <ChevronRight className="w-4 h-4 text-[#38BDF8] flex-shrink-0" />
+                </div>
+              </Link>
+            </motion.div>
+
             {/* ── Challenges ── */}
             {challenges.length > 0 && (
               <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.38 }}>
-                <SectionLabel action="See all" actionTo="DailyWeeklyChallenges">Challenges</SectionLabel>
+                <SectionLabel action="See all" actionTo="Community">Challenges</SectionLabel>
                 <div className="grid grid-cols-2 gap-3">
                   {challenges.slice(0, 4).map((challenge, i) => {
                     const joined = challengeParticipants.find(p => p.challenge_id === challenge.id);
