@@ -3,8 +3,18 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Heart, Smile, Frown, Meh, Zap, Cloud, Loader2 } from 'lucide-react';
+import { Heart, Smile, Frown, Meh, Zap, Cloud, Loader2, RefreshCw } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
+
+// Fallback verses when AI is unavailable
+const FALLBACK_VERSES = {
+  joyful:     { verses: [{ reference: 'Psalm 16:11', text: 'In your presence is fullness of joy.' }, { reference: 'Nehemiah 8:10', text: 'The joy of Yahweh is your strength.' }, { reference: 'Philippians 4:4', text: 'Rejoice in the Lord always! Again I will say, rejoice!' }], encouragement: 'Your joy is a gift. Let it overflow to those around you today.', practical_step: 'Share your joy with someone — send a message of encouragement.' },
+  peaceful:   { verses: [{ reference: 'Philippians 4:7', text: 'The peace of God, which surpasses all understanding, will guard your hearts and your thoughts in Christ Jesus.' }, { reference: 'Isaiah 26:3', text: 'You will keep whoever\'s mind is steadfast in perfect peace, because he trusts in you.' }, { reference: 'John 14:27', text: 'Peace I leave with you. My peace I give to you.' }], encouragement: 'Peace is evidence of trust. Rest in this moment.', practical_step: 'Take 5 minutes of silence and thank God for this peace.' },
+  struggling: { verses: [{ reference: 'Isaiah 41:10', text: 'Don\'t be afraid, for I am with you. Don\'t be dismayed, for I am your God.' }, { reference: 'Psalm 34:17', text: 'The righteous cry, and Yahweh hears, and delivers them out of all their troubles.' }, { reference: '2 Corinthians 4:8-9', text: 'We are pressed on every side, yet not crushed; perplexed, yet not to despair.' }], encouragement: 'Struggles are not the end of your story. God is working even now.', practical_step: 'Write down one thing you can control today and focus on that.' },
+  anxious:    { verses: [{ reference: 'Philippians 4:6', text: 'Don\'t be anxious for anything, but in everything, by prayer and petition with thanksgiving, let your requests be made known to God.' }, { reference: 'Matthew 6:34', text: 'Don\'t be anxious for tomorrow, for tomorrow will be anxious for itself.' }, { reference: '1 Peter 5:7', text: 'Casting all your worries on him, because he cares for you.' }], encouragement: 'Anxiety is a signal, not a sentence. Bring it to God.', practical_step: 'Name 3 specific worries, then pray over each one and release it.' },
+  sad:        { verses: [{ reference: 'Psalm 34:18', text: 'Yahweh is near to those who have a broken heart, and saves those who have a crushed spirit.' }, { reference: 'Psalm 147:3', text: 'He heals the broken in heart, and binds up their wounds.' }, { reference: 'Romans 8:28', text: 'We know that all things work together for good for those who love God.' }], encouragement: 'God is close to the brokenhearted. You are not alone in this.', practical_step: 'Let yourself feel this fully, then tell God exactly how you feel.' },
+  neutral:    { verses: [{ reference: 'Proverbs 3:5-6', text: 'Trust in Yahweh with all your heart, and don\'t lean on your own understanding. In all your ways acknowledge him, and he will make your paths straight.' }, { reference: 'Psalm 118:24', text: 'This is the day that Yahweh has made. We will rejoice and be glad in it!' }, { reference: 'Colossians 3:23', text: 'Whatever you do, work heartily, as for the Lord and not for men.' }], encouragement: 'Even ordinary days are full of grace. Look for it.', practical_step: 'Do one small act of kindness for someone today — no reason needed.' },
+};
 
 const moods = [
   { id: 'joyful', label: 'Joyful', icon: Smile, color: 'bg-[#FAD98D]/30 text-[#c9a227]', description: 'feeling happy and grateful' },
@@ -21,18 +31,20 @@ export default function MoodTracker() {
   const [aiResponse, setAiResponse] = useState(null);
   const [showResponse, setShowResponse] = useState(false);
   const [customMood, setCustomMood] = useState('');
+  const [error, setError] = useState(false);
 
   const handleMoodSelect = async (mood, customDescription = null) => {
     setSelectedMood(mood);
     setLoading(true);
     setShowResponse(true);
     setAiResponse(null);
+    setError(false);
 
     const moodDescription = customDescription || mood.description;
 
     try {
       const response = await base44.integrations.Core.InvokeLLM({
-        prompt: `The user is ${moodDescription}. Provide a response in this exact JSON format:
+        prompt: `The user is ${moodDescription}. Provide a response in this exact JSON format with NO markdown, NO backticks, ONLY the JSON object:
 {
   "verses": [
     {"reference": "Book Chapter:Verse", "text": "verse text here"},
@@ -44,11 +56,12 @@ export default function MoodTracker() {
 }`
       });
 
-      // Parse the response if it's a string
       let parsed = response;
       if (typeof response === 'string') {
         try {
-          parsed = JSON.parse(response);
+          // Strip markdown fences if present
+          const cleaned = response.replace(/```json\s*/gi, '').replace(/```\s*/g, '').trim();
+          parsed = JSON.parse(cleaned);
         } catch {
           console.error('Failed to parse response:', response);
           parsed = null;
@@ -58,12 +71,16 @@ export default function MoodTracker() {
       if (parsed && parsed.verses && Array.isArray(parsed.verses)) {
         setAiResponse(parsed);
       } else {
-        console.error('Invalid response structure:', parsed);
-        setAiResponse(null);
+        // Use fallback verses for the mood
+        const fallback = FALLBACK_VERSES[mood.id] || FALLBACK_VERSES.neutral;
+        setAiResponse(fallback);
       }
-    } catch (error) {
-      console.error('Error fetching AI response:', error);
-      setAiResponse(null);
+    } catch (err) {
+      console.error('Error fetching AI response:', err);
+      // Use fallback verses instead of showing nothing
+      const fallback = FALLBACK_VERSES[mood.id] || FALLBACK_VERSES.neutral;
+      setAiResponse(fallback);
+      setError(true);
     } finally {
       setLoading(false);
     }
@@ -86,7 +103,10 @@ export default function MoodTracker() {
               <button
                 key={mood.id}
                 onClick={() => handleMoodSelect(mood)}
+                disabled={loading}
+                aria-label={`I'm feeling ${mood.label.toLowerCase()}`}
                 className={`${mood.color} rounded-xl p-3 flex flex-col items-center justify-center gap-2 transition-all ${
+                  loading ? 'opacity-50 cursor-not-allowed' :
                   isSelected ? 'ring-2 ring-offset-2 ring-[#c9a227] scale-105' : 'hover:scale-105'
                 }`}
               >
@@ -103,9 +123,10 @@ export default function MoodTracker() {
             placeholder="Or type how you're feeling..."
             value={customMood}
             onChange={(e) => setCustomMood(e.target.value)}
+            disabled={loading}
             className="flex-1 text-sm bg-[#F2F6FA]"
             onKeyDown={(e) => {
-              if (e.key === 'Enter' && customMood.trim()) {
+              if (e.key === 'Enter' && customMood.trim() && !loading) {
                 handleMoodSelect({ id: 'custom', label: 'Custom' }, customMood.trim());
                 setCustomMood('');
               }
@@ -119,7 +140,7 @@ export default function MoodTracker() {
                 setCustomMood('');
               }
             }}
-            disabled={!customMood.trim()}
+            disabled={!customMood.trim() || loading}
             className="bg-gradient-to-r from-[#c9a227] to-[#FAD98D] hover:opacity-90"
           >
             Go
@@ -143,6 +164,16 @@ export default function MoodTracker() {
 
               {!loading && aiResponse && (
                 <div className="space-y-4 bg-[#F2F6FA] rounded-xl p-4">
+                   {/* Error notice with retry */}
+                   {error && (
+                     <div className="bg-amber-50 border border-amber-200 rounded-lg p-2.5 flex items-center gap-2">
+                       <p className="text-xs text-amber-700 flex-1">Showing saved verses. Tap retry for personalized results.</p>
+                       <button onClick={() => handleMoodSelect(selectedMood)} className="flex items-center gap-1 text-xs font-bold text-amber-700 bg-amber-100 px-2 py-1 rounded-lg">
+                         <RefreshCw className="w-3 h-3" /> Retry
+                       </button>
+                     </div>
+                   )}
+
                    {/* Verses */}
                    <div>
                      <h4 className="font-semibold text-[#0A1A2F] mb-3 text-sm">Scripture for You</h4>

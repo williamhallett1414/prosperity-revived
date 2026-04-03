@@ -24,7 +24,8 @@ const LAST_READ_KEY = 'bible_last_read';
 // ─── Compact active plan card ─────────────────────────────────────────────────
 function ActivePlanCard({ progress, plan, navigate }) {
   if (!plan) return null;
-  const pct = Math.round(((progress.completed_days?.length || 0) / progress.total_days) * 100);
+  const totalDays = progress.total_days || plan.duration || 1;
+  const pct = Math.round(((progress.completed_days?.length || 0) / totalDays) * 100);
   const streak = progress.current_streak || 0;
   return (
     <motion.button
@@ -57,7 +58,7 @@ function ActivePlanCard({ progress, plan, navigate }) {
 }
 
 // ─── Quick tools row ──────────────────────────────────────────────────────────
-function QuickTools({ bookmarkCount, onStatsClick }) {
+function QuickTools({ bookmarkCount }) {
   const tools = [
     { label: 'Saved Verses', icon: Bookmark, value: bookmarkCount > 0 ? bookmarkCount : null, page: 'Bookmarks', color: 'text-[#c9a227]', bg: 'bg-[#FAD98D]/20' },
     { label: 'Spiritual Insights', icon: Sparkles, value: null, page: 'SpiritualInsights', color: 'text-purple-500', bg: 'bg-purple-50' },
@@ -329,7 +330,23 @@ export default function Bible() {
               )}
 
               {/* 5. Quick tools — Saved Verses + Spiritual Insights */}
-              <QuickTools bookmarkCount={bookmarks.length} onStatsClick={(s) => { setSelectedStat(s); setShowStatsModal(true); }} />
+              <QuickTools bookmarkCount={bookmarks.length} />
+
+              {/* 5b. Ask Gideon prompt */}
+              <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
+                <Link to={createPageUrl('ChatScreen?bot=Gideon')}>
+                  <div className="bg-gradient-to-r from-amber-50 to-[#FAD98D]/20 rounded-2xl p-4 flex items-center gap-3 border border-[#FAD98D]/30">
+                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center flex-shrink-0 shadow-sm">
+                      <span className="text-lg">📖</span>
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-bold text-[#0A1A2F] text-sm">Ask Gideon</p>
+                      <p className="text-xs text-[#0A1A2F]/50">Have a question about Scripture? Ask your Bible guide.</p>
+                    </div>
+                    <ChevronRight className="w-4 h-4 text-[#c9a227] flex-shrink-0" />
+                  </div>
+                </Link>
+              </motion.div>
 
               {/* 6. Discover plans (only if no active plan) */}
               {!activePlan && suggestedPlans.length > 0 && (

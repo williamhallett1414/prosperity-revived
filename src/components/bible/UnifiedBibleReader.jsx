@@ -121,6 +121,7 @@ export default function UnifiedBibleReader({
   const [selectedChapter, setSelectedChapter] = useState(initialChapter);
   const [verses, setVerses]                   = useState([]);
   const [loading, setLoading]                 = useState(false);
+  const [fetchError, setFetchError]           = useState(null);
   const [highlightVerse, setHighlightVerse]   = useState(null);
   const [activeVerseMenu, setActiveVerseMenu] = useState(null);
   const [expandedNotes, setExpandedNotes]     = useState({});
@@ -196,11 +197,14 @@ export default function UnifiedBibleReader({
   const fetchVerses = async (bookName, chapterNum) => {
     setLoading(true);
     setVerses([]);
+    setFetchError(null);
     try {
       const { data } = await base44.functions.invoke('fetchBibleVerse', { book: bookName, chapter: chapterNum });
       setVerses(data?.verses || data || []);
-    } catch {
+    } catch (err) {
+      console.error('Failed to fetch verses:', err);
       setVerses([]);
+      setFetchError('Could not load this chapter. Please check your connection and try again.');
     }
     setLoading(false);
   };
@@ -536,10 +540,22 @@ export default function UnifiedBibleReader({
                 </div>
               )}
 
-              {/* Empty */}
+              {/* Empty / Error */}
               {!loading && verses.length === 0 && (
                 <div className="text-center py-20 px-6">
-                  <p className="text-[#0A1A2F]/35 text-sm">Unable to load verses. Please try again.</p>
+                  {fetchError ? (
+                    <div className="space-y-3">
+                      <p className="text-red-400 text-sm">{fetchError}</p>
+                      <button
+                        onClick={() => selectedBook && fetchVerses(selectedBook.name, selectedChapter)}
+                        className="text-xs font-bold text-[#c9a227] bg-[#FAD98D]/20 px-4 py-2 rounded-xl"
+                      >
+                        Try Again
+                      </button>
+                    </div>
+                  ) : (
+                    <p className="text-[#0A1A2F]/35 text-sm">Select a book and chapter to begin reading.</p>
+                  )}
                 </div>
               )}
 
