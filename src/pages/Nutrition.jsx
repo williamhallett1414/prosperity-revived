@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
-import { UtensilsCrossed, CalendarDays, ChefHat, History, Plus, Droplets, Flame, TrendingUp, Target, ChevronRight } from 'lucide-react';
+import { UtensilsCrossed, CalendarDays, ChefHat, History, Plus, Droplets, Flame, TrendingUp, Target, ChevronRight, Trash2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { motion } from 'framer-motion';
@@ -50,8 +50,9 @@ function getMacroConfig(user) {
 const MEAL_EMOJI = { breakfast:'🌅', lunch:'☀️', dinner:'🌙', snack:'🍎' };
 
 function MacroRing({ value, target, label, unit, color }) {
-  const pct = Math.min((value / target) * 100, 100);
-  const over = value > target;
+  const safeTarget = target || 1;
+  const pct = Math.min((value / safeTarget) * 100, 100);
+  const over = value > safeTarget;
   return (
     <div className="text-center">
       <div className="relative w-14 h-14 mx-auto mb-1">
@@ -75,7 +76,6 @@ export default function Nutrition() {
   const [user,        setUser]        = useState(null);
   const [activeTab,   setActiveTab]   = useState('today');
   const [showLogModal,setShowLogModal]= useState(false);
-  const [chefOpen,    setChefOpen]    = useState(false);
   const queryClient = useQueryClient();
   const now = new Date();
   const today = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
@@ -83,11 +83,11 @@ export default function Nutrition() {
   useEffect(() => { base44.auth.me().then(setUser).catch(() => {}); }, []);
 
   // ── Single unified query for all meal data ──
-  const { data: meals = [] } = useQuery({
+  const { data: meals = [], isLoading: mealsLoading } = useQuery({
     queryKey: ['meals'],
     queryFn: async () => {
-      const all = await base44.entities.MealLog.list('-date', 100);
-      return all; // filter client-side to avoid extra queries
+      const all = await base44.entities.MealLog.list('-date', 200);
+      return all;
     },
     enabled: !!user,
   });
@@ -98,7 +98,7 @@ export default function Nutrition() {
     enabled: !!user,
   });
 
-  const todayMeals = meals.filter(m => m.date === today);
+  const todayMeals = meals.filter(m => (m.date || '').startsWith(today));
   const totals = todayMeals.reduce(
     (acc, m) => ({
       calories: acc.calories + (m.calories || 0),
@@ -122,6 +122,15 @@ export default function Nutrition() {
       toast.success('Meal logged!');
     },
     onError: () => toast.error('Failed to log meal'),
+  });
+
+  const deleteMeal = useMutation({
+    mutationFn: (id) => base44.entities.MealLog.delete(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries(['meals']);
+      toast.success('Meal removed');
+    },
+    onError: () => toast.error('Failed to remove meal'),
   });
 
   const updateWater = useMutation({
@@ -260,21 +269,29 @@ export default function Nutrition() {
                 </div>
                 <div className="flex items-center gap-2">
                   <button onClick={() => updateWater.mutate(Math.max(0, glasses - 1))}
-                    className="w-8 h-8 rounded-full bg-[#F2F6FA] font-bold text-[#0A1A2F]/50 flex items-center justify-center hover:bg-[#FAD98D]/20 text-lg">−</button>
+                    className="w-11 h-11 rounded-full bg-[#F2F6FA] font-bold text-[#0A1A2F]/50 flex items-center justify-center hover:bg-[#FAD98D]/20 text-lg">−</button>
                   <span className="font-bold text-[#3C4E53] text-lg w-6 text-center">{glasses}</span>
                   <button onClick={() => updateWater.mutate(Math.min(20, glasses + 1))}
-                    className="w-8 h-8 rounded-full bg-[#AFC7E3]/20 font-bold text-[#3C4E53] flex items-center justify-center hover:bg-[#AFC7E3]/35 text-lg">+</button>
+                    className="w-11 h-11 rounded-full bg-[#AFC7E3]/20 font-bold text-[#3C4E53] flex items-center justify-center hover:bg-[#AFC7E3]/35 text-lg">+</button>
                 </div>
               </div>
-              {/* Water dots */}
+              {/* Water dots — tap to fill up to that point */}
               <div className="flex gap-1.5 mt-3 flex-wrap">
                 {Array.from({ length: waterGoal }).map((_, i) => (
-                  <button key={i} onClick={() => updateWater.mutate(i < glasses ? i : i + 1)}
+                  <button key={i} onClick={() => updateWater.mutate(i + 1)}
                     className={`w-7 h-7 rounded-full transition-all text-sm ${i < glasses ? 'bg-[#AFC7E3] text-white' : 'bg-[#F2F6FA] text-[#0A1A2F]/20'}`}>
                     💧
                   </button>
                 ))}
               </div>
+              {/* Water goal celebration */}
+              {glasses >= waterGoal && (
+                <div className="mt-3 text-center">
+                  <span className="text-xs font-bold text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full">
+                    💧 Hydration goal reached!
+                  </span>
+                </div>
+              )}
             </div>
 
             {/* Today's meals */}
@@ -292,7 +309,7 @@ export default function Nutrition() {
                   {todayMeals.map((m, i) => (
                     <motion.div key={m.id || i} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: i * 0.04 }}
-                      className="bg-white rounded-xl border border-[#FAD98D]/15 p-3 flex items-center gap-3">
+                      className="bg-white rounded-xl border border-[#FAD98D]/15 p-3 flex items-center gap-3 group">
                       <span className="text-xl flex-shrink-0">{MEAL_EMOJI[m.meal_type] || '🍴'}</span>
                       <div className="flex-1 min-w-0">
                         <p className="font-semibold text-[#0A1A2F] text-sm leading-tight truncate">{m.description}</p>
@@ -302,12 +319,11 @@ export default function Nutrition() {
                         <p className="font-bold text-[#c9a227] text-sm">{m.calories || 0}</p>
                         <p className="text-[9px] text-[#0A1A2F]/30">kcal</p>
                       </div>
-                      {(m.protein || m.carbs || m.fats) && (
-                        <div className="text-[9px] text-[#0A1A2F]/30 flex-shrink-0 text-right hidden sm:block">
-                          <p>P {m.protein || 0}g</p>
-                          <p>C {m.carbs || 0}g</p>
-                          <p>F {m.fats || 0}g</p>
-                        </div>
+                      {m.id && (
+                        <button onClick={() => { if (window.confirm('Remove this meal?')) deleteMeal.mutate(m.id); }}
+                          className="opacity-0 group-hover:opacity-100 p-1.5 rounded-lg hover:bg-red-50 text-gray-300 hover:text-red-400 transition-all flex-shrink-0">
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
                       )}
                     </motion.div>
                   ))}
@@ -321,7 +337,9 @@ export default function Nutrition() {
                 Quick Log · {suggestType}
               </p>
               <div className="space-y-2">
-                {suggestions.map((meal, i) => (
+                {suggestions.map((meal, i) => {
+                  const alreadyLogged = todayMeals.some(m => m.description === meal.name);
+                  return (
                   <motion.div key={meal.id} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: i * 0.06 }}
                     className="bg-white rounded-xl border border-[#FAD98D]/15 p-3 flex items-center gap-3">
@@ -335,13 +353,18 @@ export default function Nutrition() {
                         <span>{meal.fats}g F</span>
                       </div>
                     </div>
-                    <button onClick={() => quickLog(meal)}
-                      disabled={logMeal.isPending}
-                      className="px-3 py-1.5 rounded-xl bg-[#FAD98D]/25 text-[#c9a227] text-xs font-bold hover:bg-[#FAD98D]/40 transition-colors flex-shrink-0">
-                      + Log
-                    </button>
+                    {alreadyLogged ? (
+                      <span className="text-xs font-bold text-emerald-500 flex-shrink-0">✓ Logged</span>
+                    ) : (
+                      <button onClick={() => quickLog(meal)}
+                        disabled={logMeal.isPending}
+                        className="px-3 py-1.5 rounded-xl bg-[#FAD98D]/25 text-[#c9a227] text-xs font-bold hover:bg-[#FAD98D]/40 transition-colors flex-shrink-0">
+                        + Log
+                      </button>
+                    )}
                   </motion.div>
-                ))}
+                  );
+                })}
               </div>
             </div>
 
@@ -365,6 +388,32 @@ export default function Nutrition() {
                   <p className="text-xs text-[#0A1A2F]/40 mt-0.5">View trends & history</p>
                 </div>
               </Link>
+            </div>
+
+            {/* Ask Chef Daniel */}
+            <Link to={createPageUrl('ChatScreen?bot=ChefDaniel')}>
+              <div className="bg-gradient-to-r from-orange-50 to-amber-50 rounded-2xl p-4 flex items-center gap-3 border border-[#FAD98D]/30">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#FD9C2D] to-[#E89020] flex items-center justify-center flex-shrink-0 shadow-sm">
+                  <ChefHat className="w-5 h-5 text-white" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="font-bold text-[#0A1A2F] text-sm">Ask Chef Daniel</p>
+                  <p className="text-xs text-[#0A1A2F]/50">Meal ideas, macros, diet questions — ask anything.</p>
+                </div>
+                <ChevronRight className="w-4 h-4 text-[#FD9C2D] flex-shrink-0" />
+              </div>
+            </Link>
+
+            {/* Scripture for nourishment */}
+            <div className="bg-gradient-to-br from-[#FAD98D]/15 to-[#FAD98D]/5 rounded-2xl p-4 border border-[#FAD98D]/20">
+              <div className="flex items-center gap-2 mb-2">
+                <div className="w-1 h-4 bg-[#c9a227] rounded-full" />
+                <span className="text-[10px] font-bold text-[#c9a227] uppercase tracking-widest">Nourish Your Spirit</span>
+              </div>
+              <p className="text-[#0A1A2F] text-sm leading-relaxed italic" style={{ fontFamily: 'Georgia, serif' }}>
+                "Whether you eat or drink, or whatever you do, do it all for the glory of God."
+              </p>
+              <p className="text-xs text-[#0A1A2F]/40 mt-1">1 Corinthians 10:31 (WEB)</p>
             </div>
 
             {/* Articles */}
