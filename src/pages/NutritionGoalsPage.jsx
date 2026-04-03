@@ -152,7 +152,7 @@ export default function NutritionGoalsPage() {
   const verseIdx = new Date().getDay() % FOOD_VERSES.length;
   const verse = FOOD_VERSES[verseIdx];
 
-  useEffect(() => { base44.auth.me().then(setUser); }, []);
+  useEffect(() => { base44.auth.me().then(setUser).catch(() => {}); }, []);
 
   const diet       = user?.diet_type || 'no_restrictions';
   const allergies  = (user?.allergies || []).filter(a => a !== 'none');

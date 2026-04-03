@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { UtensilsCrossed, CalendarDays, ChefHat, History, Plus, Droplets, Flame, TrendingUp, Target, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { motion } from 'framer-motion';
-import { useMutation } from '@tanstack/react-query';
 import { toast } from 'sonner';
 import DetailedFoodLogModal from '@/components/wellness/DetailedFoodLogModal';
 import MealPlannerCard from '@/components/nutrition/MealPlannerCard';
@@ -70,9 +69,10 @@ export default function Nutrition() {
   const [showLogModal,setShowLogModal]= useState(false);
   const [chefOpen,    setChefOpen]    = useState(false);
   const queryClient = useQueryClient();
-  const today = new Date().toISOString().split('T')[0];
+  const now = new Date();
+  const today = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
 
-  useEffect(() => { base44.auth.me().then(setUser); }, []);
+  useEffect(() => { base44.auth.me().then(setUser).catch(() => {}); }, []);
 
   // ── Single unified query for all meal data ──
   const { data: meals = [] } = useQuery({
@@ -122,6 +122,7 @@ export default function Nutrition() {
       return base44.entities.WaterLog.create({ date: today, glasses: n, goal: 8 });
     },
     onSuccess: () => queryClient.invalidateQueries(['water']),
+    onError: () => toast.error('Failed to update water intake'),
   });
 
   const quickLog = (meal) => {

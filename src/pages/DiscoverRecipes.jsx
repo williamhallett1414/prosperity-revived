@@ -80,7 +80,7 @@ export default function DiscoverRecipes() {
 
   const { totalCount } = useGroceryList();
 
-  useEffect(() => { base44.auth.me().then(setUser); }, []);
+  useEffect(() => { base44.auth.me().then(setUser).catch(() => {}); }, []);
 
   const { data: recipes = [], isLoading } = useQuery({
     queryKey: ['recipes'],

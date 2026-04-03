@@ -16,9 +16,9 @@ export default function FoodLogHistory() {
   const { data: allMeals = [] } = useQuery({
     queryKey: ['allMeals'],
     queryFn: async () => {
-      const all = await base44.entities.MealLog.list('-date');
-      return all;
-    }
+      try { return await base44.entities.MealLog.list('-date'); }
+      catch { return []; }
+    },
   });
 
   const deleteMeal = useMutation({
@@ -26,7 +26,8 @@ export default function FoodLogHistory() {
     onSuccess: () => {
       queryClient.invalidateQueries(['allMeals']);
       toast.success('Meal deleted');
-    }
+    },
+    onError: () => toast.error('Failed to delete meal'),
   });
 
   const logMeal = useMutation({
