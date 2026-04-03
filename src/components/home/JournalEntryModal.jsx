@@ -8,7 +8,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { toast } from 'sonner';
 import { AnimatePresence } from 'framer-motion';
-import VideoRecorder from '@/components/video/VideoRecorder';
+import VideoRecorder from '@/components/home/VideoRecorder';
 
 export default function JournalEntryModal({ isOpen, onClose }) {
   const [newTitle, setNewTitle] = useState('');
