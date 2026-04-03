@@ -86,15 +86,15 @@ export default function Nutrition() {
   const { data: meals = [], isLoading: mealsLoading } = useQuery({
     queryKey: ['meals'],
     queryFn: async () => {
-      const all = await base44.entities.MealLog.list('-date', 200);
-      return all;
+      try { return await base44.entities.MealLog.list('-date', 200); }
+      catch { return []; }
     },
     enabled: !!user,
   });
 
   const { data: waterLogs = [] } = useQuery({
     queryKey: ['water'],
-    queryFn: () => base44.entities.WaterLog.list(),
+    queryFn: async () => { try { return await base44.entities.WaterLog.list(); } catch { return []; } },
     enabled: !!user,
   });
 
@@ -110,7 +110,7 @@ export default function Nutrition() {
   );
 
   // water
-  const todayWater   = waterLogs.find(w => w.date === today);
+  const todayWater   = waterLogs.find(w => (w.date || '').startsWith(today));
   const glasses      = todayWater?.glasses || 0;
   const waterGoal    = todayWater?.goal    || 8;
 
@@ -155,7 +155,7 @@ export default function Nutrition() {
   const hour = new Date().getHours();
   const suggestType = hour < 10 ? 'breakfast' : hour < 14 ? 'lunch' : hour < 18 ? 'snack' : 'dinner';
   const suggestions = QUICK_MEALS.filter(m => m.meal === suggestType);
-  const calGoal = user?.calorie_goal || user?.daily_calories || DEFAULT_MACROS.calories;
+  const calGoal = user?.calorie_goal || user?.daily_calories || DEFAULT_MACROS.calories || 2000;
 
   return (
     <div className="min-h-screen bg-[#F2F6FA] pb-28">
@@ -337,7 +337,11 @@ export default function Nutrition() {
                 Quick Log · {suggestType}
               </p>
               <div className="space-y-2">
-                {suggestions.map((meal, i) => {
+                {suggestions.length === 0 ? (
+                  <div className="bg-white rounded-xl border border-[#FAD98D]/15 p-4 text-center">
+                    <p className="text-xs text-[#0A1A2F]/35">No quick suggestions for {suggestType} right now. Use Log Food above.</p>
+                  </div>
+                ) : suggestions.map((meal, i) => {
                   const alreadyLogged = todayMeals.some(m => m.description === meal.name);
                   return (
                   <motion.div key={meal.id} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }}
@@ -434,8 +438,9 @@ export default function Nutrition() {
         isOpen={showLogModal}
         onClose={() => setShowLogModal(false)}
         onSave={(data) => {
-          logMeal.mutate(data);
-          setShowLogModal(false);
+          logMeal.mutate(data, {
+            onSuccess: () => setShowLogModal(false),
+          });
         }}
       />
 
