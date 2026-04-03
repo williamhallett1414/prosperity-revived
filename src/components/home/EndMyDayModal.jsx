@@ -12,6 +12,7 @@ export default function EndMyDayModal({ isOpen, onClose }) {
   const [gratitude, setGratitude] = useState(['', '', '']);
   const [release, setRelease] = useState('');
   const [showJournalModal, setShowJournalModal] = useState(false);
+  const [completing, setCompleting] = useState(false);
 
   // Reset on open
   useEffect(() => {
@@ -27,6 +28,8 @@ export default function EndMyDayModal({ isOpen, onClose }) {
   };
 
   const handleComplete = async () => {
+    if (completing) return;
+    setCompleting(true);
     const today = new Date().toISOString().split('T')[0];
     localStorage.setItem('end_my_day_done', today);
 
@@ -49,6 +52,7 @@ export default function EndMyDayModal({ isOpen, onClose }) {
     }
 
     toast.success('Evening ritual complete. Rest well tonight.');
+    setCompleting(false);
     onClose();
   };
 
@@ -68,6 +72,7 @@ export default function EndMyDayModal({ isOpen, onClose }) {
               <input
                 value={gratitude[i]}
                 onChange={(e) => updateGratitude(i, e.target.value)}
+                maxLength={200}
                 placeholder={['Something that made you smile...', 'Someone you appreciate...', 'A small win today...'][i]}
                 className="flex-1 px-3 py-2.5 rounded-xl border border-gray-200 bg-gray-50 text-sm text-[#0A1A2F] focus:outline-none focus:border-[#AFC7E3] transition-colors"
               />
@@ -112,6 +117,7 @@ export default function EndMyDayModal({ isOpen, onClose }) {
             value={release}
             onChange={(e) => setRelease(e.target.value)}
             placeholder="I'm releasing..."
+            maxLength={500}
             className="w-full p-3 rounded-xl border border-gray-200 bg-gray-50 text-sm text-[#0A1A2F] resize-none focus:outline-none focus:border-[#c9a227] transition-colors"
             rows={2}
           />
@@ -148,7 +154,7 @@ export default function EndMyDayModal({ isOpen, onClose }) {
     },
   ];
 
-  if (!isOpen) return null;
+  if (!isOpen) return <></>;
   const currentStep = steps[Math.min(step, steps.length - 1)];
 
   return (
@@ -219,7 +225,7 @@ export default function EndMyDayModal({ isOpen, onClose }) {
                     handleComplete();
                   }
                 }}
-                className={`${step === 0 ? 'w-full' : 'flex-1'} bg-gradient-to-r ${currentStep.color} text-white font-bold`}
+                className={`${step === 0 ? 'w-full' : 'flex-1'} bg-gradient-to-r from-[#0A1A2F] to-[#AFC7E3] text-white font-bold shadow-sm`}
                 size="sm"
               >
                 {step === steps.length - 1 ? 'Complete My Evening' : 'Next'}

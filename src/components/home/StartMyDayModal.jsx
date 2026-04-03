@@ -26,6 +26,7 @@ export default function StartMyDayModal({ isOpen, onClose, user }) {
   const [breathCount, setBreathCount] = useState(0);
   const [breathPhase, setBreathPhase] = useState('inhale');
   const [breathActive, setBreathActive] = useState(false);
+  const [completing, setCompleting] = useState(false);
   const breathTimerRef = useRef(null);
 
   const verse = getVerseOfDay();
@@ -48,9 +49,13 @@ export default function StartMyDayModal({ isOpen, onClose, user }) {
     return () => { clearInterval(breathTimerRef.current); };
   }, [isOpen]);
 
-  // Breathwork timer
+  // Breathwork timer — only runs when active AND on breathwork step (step 2)
   useEffect(() => {
-    if (!breathActive) { clearInterval(breathTimerRef.current); return; }
+    if (!breathActive || step !== 2) { 
+      clearInterval(breathTimerRef.current); 
+      if (step !== 2) setBreathActive(false); // auto-stop when leaving step
+      return; 
+    }
     let count = 0;
     const phases = ['inhale', 'hold', 'exhale', 'hold'];
     let phaseIdx = 0;
@@ -63,9 +68,11 @@ export default function StartMyDayModal({ isOpen, onClose, user }) {
       }
     }, 1000);
     return () => clearInterval(breathTimerRef.current);
-  }, [breathActive]);
+  }, [breathActive, step]);
 
   const handleComplete = async () => {
+    if (completing) return;
+    setCompleting(true);
     const today = new Date().toISOString().split('T')[0];
     localStorage.setItem('start_my_day_done', today);
 
@@ -81,6 +88,7 @@ export default function StartMyDayModal({ isOpen, onClose, user }) {
     }
 
     toast.success('Morning ritual complete! Have a blessed day.');
+    setCompleting(false);
     onClose();
   };
 
@@ -130,7 +138,7 @@ export default function StartMyDayModal({ isOpen, onClose, user }) {
                 4 seconds in · 4 seconds hold · 4 seconds out · 4 seconds hold
               </p>
               <button
-                onClick={() => setBreathActive(true)}
+                onClick={() => { setBreathCount(0); setBreathPhase('inhale'); setBreathActive(true); }}
                 className="px-6 py-3 bg-gradient-to-r from-[#AFC7E3] to-[#0A1A2F] text-white rounded-full text-sm font-bold shadow-lg"
               >
                 Start Breathing
@@ -174,6 +182,7 @@ export default function StartMyDayModal({ isOpen, onClose, user }) {
             value={intention}
             onChange={(e) => setIntention(e.target.value)}
             placeholder="Today I will..."
+            maxLength={500}
             className="w-full p-3 rounded-xl border border-gray-200 bg-gray-50 text-sm text-[#0A1A2F] resize-none focus:outline-none focus:border-[#c9a227] transition-colors"
             rows={3}
           />
@@ -206,7 +215,7 @@ export default function StartMyDayModal({ isOpen, onClose, user }) {
     },
   ];
 
-  if (!isOpen) return null;
+  if (!isOpen) return <></>;
   const currentStep = steps[Math.min(step, steps.length - 1)];
 
   return (
@@ -276,7 +285,7 @@ export default function StartMyDayModal({ isOpen, onClose, user }) {
                   handleComplete();
                 }
               }}
-              className={`${step === 0 ? 'w-full' : 'flex-1'} bg-gradient-to-r ${currentStep.color} text-[#0A1A2F] font-bold`}
+              className={`${step === 0 ? 'w-full' : 'flex-1'} bg-gradient-to-r from-[#c9a227] to-[#FD9C2D] text-white font-bold shadow-sm`}
               size="sm"
             >
               {step === steps.length - 1 ? 'Complete My Morning' : 'Next'}
