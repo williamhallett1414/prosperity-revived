@@ -32,12 +32,20 @@ const TABS = [
   { id: 'build',   label: 'Build',   icon: ChefHat    },
 ];
 
-const MACRO_CONFIG = [
-  { key:'calories', label:'Calories', unit:'',   target:2000, color:'bg-[#FAD98D]'     },
-  { key:'protein',  label:'Protein',  unit:'g',  target:150,  color:'bg-[#AFC7E3]'     },
-  { key:'carbs',    label:'Carbs',    unit:'g',  target:250,  color:'bg-[#FAD98D]'     },
-  { key:'fats',     label:'Fat',      unit:'g',  target:65,   color:'bg-[#FAD98D]/60'  },
-];
+const DEFAULT_MACROS = { calories: 2000, protein: 150, carbs: 250, fats: 65 };
+
+function getMacroConfig(user) {
+  const cal = user?.calorie_goal || user?.daily_calories || DEFAULT_MACROS.calories;
+  const p = user?.protein_goal || DEFAULT_MACROS.protein;
+  const c = user?.carbs_goal || DEFAULT_MACROS.carbs;
+  const f = user?.fat_goal || DEFAULT_MACROS.fats;
+  return [
+    { key:'calories', label:'Calories', unit:'',  target: cal, color:'bg-[#FAD98D]'    },
+    { key:'protein',  label:'Protein',  unit:'g', target: p,   color:'bg-[#AFC7E3]'    },
+    { key:'carbs',    label:'Carbs',    unit:'g', target: c,   color:'bg-[#FAD98D]'    },
+    { key:'fats',     label:'Fat',      unit:'g', target: f,   color:'bg-[#FAD98D]/60' },
+  ];
+}
 
 const MEAL_EMOJI = { breakfast:'🌅', lunch:'☀️', dinner:'🌙', snack:'🍎' };
 
@@ -138,6 +146,7 @@ export default function Nutrition() {
   const hour = new Date().getHours();
   const suggestType = hour < 10 ? 'breakfast' : hour < 14 ? 'lunch' : hour < 18 ? 'snack' : 'dinner';
   const suggestions = QUICK_MEALS.filter(m => m.meal === suggestType);
+  const calGoal = user?.calorie_goal || user?.daily_calories || DEFAULT_MACROS.calories;
 
   return (
     <div className="min-h-screen bg-[#F2F6FA] pb-28">
@@ -216,7 +225,7 @@ export default function Nutrition() {
             <div id="tour-nutrition-macros" className="bg-white rounded-2xl border border-[#FAD98D]/20 p-4">
               <p className="text-xs font-bold text-[#0A1A2F]/35 uppercase tracking-widest mb-3">Today's Progress</p>
               <div className="grid grid-cols-4 gap-2">
-                {MACRO_CONFIG.map(({ key, label, unit, target }) => (
+                {getMacroConfig(user).map(({ key, label, unit, target }) => (
                   <MacroRing key={key} value={Math.round(totals[key])} target={target} label={label} unit={unit} />
                 ))}
               </div>
@@ -224,14 +233,14 @@ export default function Nutrition() {
               <div className="mt-4 pt-3 border-t border-[#FAD98D]/15">
                 <div className="flex justify-between text-xs mb-1.5">
                   <span className="text-[#0A1A2F]/50 font-semibold">{Math.round(totals.calories)} kcal eaten</span>
-                  <span className="text-[#0A1A2F]/35">{Math.max(0, 2000 - Math.round(totals.calories))} remaining</span>
+                  <span className="text-[#0A1A2F]/35">{Math.max(0, calGoal - Math.round(totals.calories))} remaining</span>
                 </div>
                 <div className="w-full bg-[#F2F6FA] rounded-full h-2 overflow-hidden">
                   <motion.div
                     initial={{ width: 0 }}
-                    animate={{ width: `${Math.min((totals.calories / 2000) * 100, 100)}%` }}
+                    animate={{ width: `${Math.min((totals.calories / calGoal) * 100, 100)}%` }}
                     transition={{ duration: 0.8, delay: 0.2 }}
-                    className={`h-full rounded-full ${totals.calories > 2000 ? 'bg-red-400' : 'bg-gradient-to-r from-[#c9a227] to-[#FAD98D]'}`}
+                    className={`h-full rounded-full ${totals.calories > calGoal ? 'bg-red-400' : 'bg-gradient-to-r from-[#c9a227] to-[#FAD98D]'}`}
                   />
                 </div>
               </div>

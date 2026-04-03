@@ -1021,7 +1021,26 @@ export default function ChatScreen() {
   const bot            = searchParams.get('bot') || 'Hannah';
   const cfg            = BOT_CONFIG[bot] || BOT_CONFIG.Hannah;
 
-  const [messages,         setMessages]         = useState([]);
+  // Chat persistence — save/restore messages per bot
+  const chatKey = `pr_chat_${bot}`;
+
+  const [messages, setMessages] = useState(() => {
+    try {
+      const saved = localStorage.getItem(chatKey);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed) && parsed.length > 0) return parsed.slice(-30); // keep last 30 messages
+      }
+    } catch {}
+    return [];
+  });
+
+  // Persist messages on change
+  useEffect(() => {
+    if (messages.length > 0) {
+      try { localStorage.setItem(chatKey, JSON.stringify(messages.slice(-30))); } catch {}
+    }
+  }, [messages, chatKey]);
   const [input,            setInput]            = useState('');
   const [isLoading,        setIsLoading]        = useState(false);
   const [isListening,      setIsListening]      = useState(false);
@@ -1091,12 +1110,13 @@ export default function ChatScreen() {
   const avatarListening = isListening;
   const avatarThinking  = isLoading;
 
-  // Init welcome message
+  // Init welcome message — only if no saved conversation
   useEffect(() => {
-    setMessages([{ role: 'assistant', content: cfg.welcomeMsg }]);
+    if (messages.length === 0) {
+      setMessages([{ role: 'assistant', content: cfg.welcomeMsg }]);
+    }
     setSpeakingIdx(null);
     setInput('');
-    // Auto-focus input after mount
     setTimeout(() => inputRef.current?.focus(), 600);
   }, [bot]);
 
@@ -1284,6 +1304,7 @@ export default function ChatScreen() {
     window.speechSynthesis?.cancel();
     setMessages([{ role: 'assistant', content: cfg.welcomeMsg }]);
     setInput('');
+    try { localStorage.removeItem(chatKey); } catch {}
     setTimeout(() => inputRef.current?.focus(), 300);
   };
 
