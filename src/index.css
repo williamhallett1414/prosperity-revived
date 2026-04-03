@@ -105,3 +105,128 @@ body.keyboard-open nav[role="navigation"] {
     scroll-behavior: auto !important;
   }
 }
+
+/* ── Global Dark Mode Overrides ────────────────────────────────────────────── */
+/* Applied via Tailwind's class-based dark mode (darkMode: ["class"]) */
+/* These override the hardcoded colors used throughout the app */
+.dark {
+  /* Background overrides */
+  --pr-bg: #0B1120;
+  --pr-bg-card: #131C2E;
+  --pr-bg-input: #1A2540;
+  --pr-border: rgba(255,255,255,0.08);
+  --pr-text: #E8ECF1;
+  --pr-text-muted: rgba(232,236,241,0.5);
+  color-scheme: dark;
+}
+
+/* Override hardcoded backgrounds */
+.dark .bg-\[\#F2F6FA\] { background-color: var(--pr-bg) !important; }
+.dark .bg-white { background-color: var(--pr-bg-card) !important; }
+.dark .bg-\[\#F2F6FA\]\/20,
+.dark .bg-\[\#F2F6FA\]\/15 { background-color: rgba(19,28,46,0.5) !important; }
+.dark .bg-gray-50 { background-color: var(--pr-bg-input) !important; }
+.dark .bg-gray-100 { background-color: rgba(255,255,255,0.06) !important; }
+
+/* Override hardcoded text colors */
+.dark .text-\[\#0A1A2F\] { color: var(--pr-text) !important; }
+.dark .text-\[\#0A1A2F\]\/50,
+.dark .text-\[\#0A1A2F\]\/45,
+.dark .text-\[\#0A1A2F\]\/40,
+.dark .text-\[\#0A1A2F\]\/35,
+.dark .text-\[\#0A1A2F\]\/30,
+.dark .text-\[\#0A1A2F\]\/25 { color: var(--pr-text-muted) !important; }
+.dark .text-\[\#0A1A2F\]\/60,
+.dark .text-\[\#0A1A2F\]\/55,
+.dark .text-\[\#0A1A2F\]\/70,
+.dark .text-\[\#0A1A2F\]\/75 { color: rgba(232,236,241,0.65) !important; }
+.dark .text-\[\#3C4E53\] { color: var(--pr-text) !important; }
+.dark .text-gray-500,
+.dark .text-gray-400,
+.dark .text-gray-300 { color: var(--pr-text-muted) !important; }
+
+/* Override borders */
+.dark .border-\[\#FAD98D\]\/20,
+.dark .border-\[\#FAD98D\]\/25,
+.dark .border-\[\#FAD98D\]\/30,
+.dark .border-\[\#FAD98D\]\/40 { border-color: rgba(201,162,39,0.15) !important; }
+.dark .border-gray-100,
+.dark .border-gray-200 { border-color: var(--pr-border) !important; }
+
+/* Override sticky headers */
+.dark .bg-white\/95 { background-color: rgba(11,17,32,0.95) !important; }
+.dark .bg-white\/90 { background-color: rgba(11,17,32,0.9) !important; }
+.dark .border-b.border-gray-200 { border-color: var(--pr-border) !important; }
+
+/* Cards and containers */
+.dark .shadow-sm { box-shadow: 0 1px 2px rgba(0,0,0,0.3) !important; }
+.dark .shadow-md { box-shadow: 0 2px 8px rgba(0,0,0,0.4) !important; }
+.dark .shadow-lg { box-shadow: 0 4px 12px rgba(0,0,0,0.5) !important; }
+
+/* Inputs */
+.dark input,
+.dark textarea,
+.dark select {
+  background-color: var(--pr-bg-input) !important;
+  color: var(--pr-text) !important;
+  border-color: var(--pr-border) !important;
+}
+.dark input::placeholder,
+.dark textarea::placeholder {
+  color: var(--pr-text-muted) !important;
+}
+
+/* Dialog/Modal overlays */
+.dark [data-radix-portal] [role="dialog"] {
+  background-color: var(--pr-bg-card) !important;
+  border-color: var(--pr-border) !important;
+}
+
+/* Bottom nav */
+.dark nav,
+.dark .fixed.bottom-0 {
+  background-color: var(--pr-bg-card) !important;
+  border-color: var(--pr-border) !important;
+}
+
+/* Tab lists */
+.dark [role="tablist"] {
+  background-color: rgba(255,255,255,0.04) !important;
+}
+
+/* Scrollbar */
+.dark ::-webkit-scrollbar-track { background: var(--pr-bg); }
+.dark ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); }
+
+/* ── Minimum Touch Targets (Apple HIG: 44px) ──────────────────────────────── */
+/* Ensure all interactive elements meet minimum touch target sizes */
+@media (pointer: coarse) {
+  button:not([data-compact]),
+  a:not([data-compact]),
+  [role="button"]:not([data-compact]),
+  [role="tab"],
+  [role="checkbox"],
+  [role="radio"],
+  input[type="checkbox"],
+  input[type="radio"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Compact elements that intentionally need to be smaller */
+  button[data-compact],
+  a[data-compact] {
+    min-height: auto;
+    min-width: auto;
+  }
+
+  /* Increase tap area for small icons/buttons without changing visual size */
+  .touch-target-expand {
+    position: relative;
+  }
+  .touch-target-expand::before {
+    content: '';
+    position: absolute;
+    inset: -8px;
+  }
+}

@@ -1,12 +1,14 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
+import { base44 } from '@/api/base44Client';
 import { Home, User, Heart, BookOpen, Users } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Toaster } from '@/components/ui/sonner.jsx';
 import NotificationBell from '@/components/notifications/NotificationBell';
 import PullToRefresh from '@/components/ui/PullToRefresh';
 import UniversalHeader from '@/components/navigation/UniversalHeader';
+import OfflineBanner from '@/components/ui/OfflineBanner';
 import { useQueryClient } from '@tanstack/react-query';
 import GuidedTour from '@/components/onboarding/GuidedTour';
 
@@ -31,6 +33,24 @@ export default function Layout({ children, currentPageName }) {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [showGuidedTour, setShowGuidedTour] = useState(false);
+
+  // Apply dark mode on app load
+  useEffect(() => {
+    try {
+      base44.auth.me().then(u => {
+        const theme = u?.theme || 'auto';
+        const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const isDark = theme === 'dark' || (theme === 'auto' && systemDark);
+        if (isDark) document.documentElement.classList.add('dark');
+        else document.documentElement.classList.remove('dark');
+      }).catch(() => {
+        // Not logged in — use system preference
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          document.documentElement.classList.add('dark');
+        }
+      });
+    } catch {}
+  }, []);
 
   // Expose startGuidedTour globally so Home.jsx (and Settings) can trigger it
   useEffect(() => {
@@ -182,6 +202,7 @@ export default function Layout({ children, currentPageName }) {
   return (
     <>
       <Toaster position="top-center" richColors />
+      <OfflineBanner />
       <div className="min-h-screen bg-[#FFFFFF] dark:bg-[#3C4E53]" ref={contentRef}>
         <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Imprint+MT+Shadow&display=swap');
