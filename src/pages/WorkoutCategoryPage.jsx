@@ -53,7 +53,7 @@ export default function WorkoutCategoryPage() {
   const filterCategories = getCategories(categoryParam);
   const meta = getMeta(categoryParam);
 
-  useEffect(() => { base44.auth.me().then(setUser); }, []);
+  useEffect(() => { base44.auth.me().then(setUser).catch(() => {}); }, []);
 
   const { data: dbWorkouts = [] } = useQuery({
     queryKey: ['workouts'],

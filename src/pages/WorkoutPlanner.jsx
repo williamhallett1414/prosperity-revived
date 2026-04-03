@@ -10,7 +10,7 @@ import { PREMADE_WORKOUTS } from '@/components/wellness/WorkoutLibrary';
 // ── Constants ────────────────────────────────────────────────────────────────
 const DAYS_SHORT = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 const DAYS_FULL  = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-const PLANNER_KEY = 'pr_workout_planner_v2';
+const PLANNER_KEY = 'pr_workout_planner_v3'; // v3: Monday-start weeks
 
 const VERSES = [
   { text: "I can do all things through Christ who strengthens me.", ref: "Philippians 4:13" },

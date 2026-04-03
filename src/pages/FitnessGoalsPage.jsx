@@ -148,7 +148,7 @@ export default function FitnessGoalsPage() {
   const [liveWeight, setLiveWeight] = useState(null);
   const [showInfo, setShowInfo] = useState(false);
 
-  useEffect(() => { base44.auth.me().then(u => { setUser(u); setLiveWeight(u?.weight_kg || null); }); }, []);
+  useEffect(() => { base44.auth.me().then(u => { setUser(u); setLiveWeight(u?.weight_kg || null); }).catch(() => {}); }, []);
 
   const weight  = liveWeight || user?.weight_kg;
   const height  = user?.height_cm;

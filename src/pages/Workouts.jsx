@@ -157,7 +157,7 @@ export default function Workouts() {
   const [selectedWorkout, setSelectedWorkout]   = useState(null);
 
   useEffect(() => {
-    base44.auth.me().then(setUser);
+    base44.auth.me().then(setUser).catch(() => {});
     base44.functions.invoke("ensureChallengesExist", {}).catch(() => {});
     base44.functions.invoke("ensureCategoryWorkouts", {}).catch(() => {});
     const done = localStorage.getItem("workouts_populated");

@@ -17,7 +17,14 @@ import {
 import { format, subDays, eachDayOfInterval } from 'date-fns';
 
 // ── Helpers ────────────────────────────────────────────────────────────────
-function todayKey() { return new Date().toISOString().split('T')[0]; }
+function todayKey() {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+}
+
+function localDateKey(d) {
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+}
 
 function calcStreak(sessions) {
   const days = new Set(sessions.map(s => (s.date || '').slice(0, 10)).filter(Boolean));
@@ -25,7 +32,8 @@ function calcStreak(sessions) {
   for (let i = 0; i < 365; i++) {
     const d = new Date();
     d.setDate(d.getDate() - i);
-    if (days.has(d.toISOString().slice(0, 10))) streak++;
+    const key = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+    if (days.has(key)) streak++;
     else if (i > 0) break;
   }
   return streak;
@@ -125,7 +133,7 @@ export default function WorkoutTrends() {
   const [range, setRange]   = useState(30);
   const [selExercise, setSelExercise] = useState('');
 
-  useEffect(() => { base44.auth.me().then(setUser); }, []);
+  useEffect(() => { base44.auth.me().then(setUser).catch(() => {}); }, []);
 
   const { data: sessions = [] } = useQuery({
     queryKey: ['workoutSessions'],
@@ -140,12 +148,11 @@ export default function WorkoutTrends() {
   const totalSessions = sessions.length;
 
   const thisWeekCount = useMemo(() => {
-    const mon = (() => {
-      const d = new Date(); const day = d.getDay();
-      d.setDate(d.getDate() - (day === 0 ? 6 : day - 1));
-      return d.toISOString().slice(0, 10);
-    })();
-    return sessions.filter(s => (s.date || '') >= mon).length;
+    const d = new Date(); const day = d.getDay();
+    const mon = new Date(d);
+    mon.setDate(d.getDate() - (day === 0 ? 6 : day - 1));
+    const monKey = localDateKey(mon);
+    return sessions.filter(s => (s.date || '') >= monKey).length;
   }, [sessions]);
 
   const lastWeekCount = useMemo(() => {
@@ -154,8 +161,8 @@ export default function WorkoutTrends() {
     thisMonday.setDate(d.getDate() - (day === 0 ? 6 : day - 1));
     const lastMonday = new Date(thisMonday);
     lastMonday.setDate(thisMonday.getDate() - 7);
-    const lm = lastMonday.toISOString().slice(0, 10);
-    const tm = thisMonday.toISOString().slice(0, 10);
+    const lm = localDateKey(lastMonday);
+    const tm = localDateKey(thisMonday);
     return sessions.filter(s => (s.date || '') >= lm && (s.date || '') < tm).length;
   }, [sessions]);
 
@@ -170,7 +177,7 @@ export default function WorkoutTrends() {
     sessions.forEach(s => { const d = (s.date || '').slice(0, 10); if (d) map[d] = (map[d] || 0) + 1; });
     return Array.from({ length: range }, (_, i) => {
       const d = subDays(new Date(), range - 1 - i);
-      const key = d.toISOString().slice(0, 10);
+      const key = localDateKey(d);
       return { date: format(d, range <= 14 ? 'MMM d' : range <= 31 ? 'd' : 'MMM d'), sessions: map[key] || 0 };
     });
   }, [sessions, range]);
@@ -208,7 +215,7 @@ export default function WorkoutTrends() {
       .map(s => {
         const ex = s.exercises_performed.find(e => e.name === selExercise);
         return {
-          date: format(new Date(s.date), 'MMM d'),
+          date: s.date ? format(new Date(s.date), 'MMM d') : 'Unknown',
           weight: ex?.weight_used || 0,
           reps: ex?.reps_completed || 0,
           sets: ex?.sets_completed || 0,

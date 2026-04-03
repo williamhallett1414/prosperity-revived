@@ -17,7 +17,7 @@ export default function WorkoutProgress() {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    base44.auth.me().then(setUser);
+    base44.auth.me().then(setUser).catch(() => {});
   }, []);
 
   const { data: sessions = [] } = useQuery({
