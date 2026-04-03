@@ -19,6 +19,7 @@ import { MIND_RENEWAL_PLAN } from './mindRenewalPlanData';
 import { SACRED_KITCHEN_PLAN } from './sacredKitchenPlanData';
 import { BREAKTHROUGH_LEADERS_PLAN } from './breakthroughLeadersPlanData';
 import { GRACE_RESTORATION_PLAN } from './graceRestorationPlanData';
+import { FREEDOM_RECOVERY_PLAN } from './freedomRecoveryPlanData';
 
 export const WEEK_THEMES = [
   { week: 1, theme: 'Foundation',   title: 'Know Your Why',         color: 'from-[#3C4E53] to-[#FD9C2D]', accent: '#22856A', emoji: '🌱' },
@@ -1397,6 +1398,7 @@ export const COACHING_PLANS = [
   { ...SACRED_KITCHEN_PLAN, category: 'nutrition' },
   { ...BREAKTHROUGH_LEADERS_PLAN, category: 'personal' },
   { ...GRACE_RESTORATION_PLAN, category: 'spiritual' },
+  { ...FREEDOM_RECOVERY_PLAN, category: 'recovery' },
 ];
 
 export const PLAN_CATEGORIES = [
@@ -1408,4 +1410,5 @@ export const PLAN_CATEGORIES = [
   { id: 'personal', name: 'Personal Development', emoji: '🧠' },
   { id: 'relationships', name: 'Relationships', emoji: '💕' },
   { id: 'financial', name: 'Financial', emoji: '💰' },
+  { id: 'recovery', name: 'Recovery & Freedom', emoji: '⛓️‍💥' },
 ];
