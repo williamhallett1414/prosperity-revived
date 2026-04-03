@@ -6,18 +6,10 @@ import { base44 } from '@/api/base44Client';
 import { createPageUrl } from '@/utils';
 import {
   BookOpen, Heart, Dumbbell, Users, TrendingUp, ChevronRight,
-  Flame, Trophy, Utensils, Play, Sparkles, MessageCircle,
-  CheckCircle2, Circle
+  Flame, Trophy, Utensils, Play, Sparkles, MessageCircle
 } from 'lucide-react';
 import { readingPlans, getVerseOfDay } from '@/components/bible/BibleData';
 import { COACHING_PLANS } from '@/components/coaching/planData';
-
-// Avatar imports for Enhanced Guides
-import gideonAvatar from '@/assets/gideon-avatar.png';
-import hannahAvatar from '@/assets/hannah-avatar.png';
-import coachDavidAvatar from '@/assets/coach-david-avatar.png';
-import chefDanielAvatar from '@/assets/chef-daniel-avatar.png';
-import coachPaulAvatar from '@/assets/coach-paul-avatar.png';
 import OnboardingFlow from '@/components/onboarding/OnboardingFlow';
 import TermsUpdateGate, { needsTermsUpdate } from '@/components/onboarding/TermsUpdateGate';
 import AppTour from '@/components/onboarding/AppTour';
@@ -371,225 +363,6 @@ function StartHereCard() {
 }
 
 
-// ─── Daily Progress Ring — visual today's activity tracker ────────────────────
-function DailyProgressRing({ user }) {
-  const today = new Date().toISOString().split('T')[0];
-
-  const { data: todayWorkouts = [] } = useQuery({
-    queryKey: ['todayWorkouts', user?.email, today],
-    queryFn: async () => {
-      try {
-        const all = await base44.entities.WorkoutSession.filter({ created_by: user?.email });
-        return all.filter(w => w.created_date?.startsWith(today));
-      } catch { return []; }
-    },
-    enabled: !!user?.email,
-  });
-
-  const { data: todayJournals = [] } = useQuery({
-    queryKey: ['todayJournals', user?.email, today],
-    queryFn: async () => {
-      try {
-        const all = await base44.entities.JournalEntry.filter({ created_by: user?.email });
-        return all.filter(j => j.created_date?.startsWith(today));
-      } catch { return []; }
-    },
-    enabled: !!user?.email,
-  });
-
-  const items = [
-    { label: 'Devotion', icon: BookOpen, done: todayJournals.some(j => ['scripture_reflection', 'bible_notes', 'spiritual'].includes(j.entry_type)), page: 'Bible', color: '#c9a227' },
-    { label: 'Workout', icon: Dumbbell, done: todayWorkouts.length > 0, page: 'Workouts', color: '#38BDF8' },
-    { label: 'Journal', icon: Heart, done: todayJournals.length > 0, page: 'MyJournalEntries', color: '#F472B6' },
-    { label: 'Nutrition', icon: Utensils, done: false, page: 'Nutrition', color: '#22C55E' },
-  ];
-
-  const doneCount = items.filter(i => i.done).length;
-  const pct = Math.round((doneCount / items.length) * 100);
-
-  // SVG ring
-  const size = 72, stroke = 5, radius = (size - stroke) / 2;
-  const circumference = 2 * Math.PI * radius;
-  const offset = circumference - (pct / 100) * circumference;
-
-  return (
-    <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.06 }}
-      className="bg-white rounded-3xl p-4 shadow-sm border border-[#FAD98D]/30">
-      <div className="flex items-center gap-4">
-        {/* Ring */}
-        <div className="relative flex-shrink-0" style={{ width: size, height: size }}>
-          <svg width={size} height={size} className="-rotate-90">
-            <circle cx={size/2} cy={size/2} r={radius} fill="none" stroke="#F2F6FA" strokeWidth={stroke} />
-            <motion.circle
-              cx={size/2} cy={size/2} r={radius} fill="none"
-              stroke={doneCount === items.length ? '#22C55E' : '#c9a227'}
-              strokeWidth={stroke} strokeLinecap="round"
-              strokeDasharray={circumference}
-              initial={{ strokeDashoffset: circumference }}
-              animate={{ strokeDashoffset: offset }}
-              transition={{ duration: 0.8, ease: 'easeOut' }}
-            />
-          </svg>
-          <div className="absolute inset-0 flex items-center justify-center">
-            <span className="text-base font-bold text-[#0A1A2F]">{doneCount}/{items.length}</span>
-          </div>
-        </div>
-
-        {/* Checklist */}
-        <div className="flex-1 grid grid-cols-2 gap-x-3 gap-y-1.5">
-          {items.map(({ label, icon: Icon, done, page, color }) => (
-            <Link key={label} to={createPageUrl(page)}>
-              <div className="flex items-center gap-2">
-                {done
-                  ? <CheckCircle2 className="w-4 h-4 flex-shrink-0" style={{ color }} />
-                  : <Circle className="w-4 h-4 text-gray-300 flex-shrink-0" />
-                }
-                <span className={`text-xs font-medium ${done ? 'text-[#0A1A2F] line-through opacity-50' : 'text-[#0A1A2F]/70'}`}>
-                  {label}
-                </span>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </div>
-
-      {doneCount === items.length && (
-        <div className="mt-3 text-center">
-          <span className="text-xs font-bold text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full">
-            ✨ All daily goals complete!
-          </span>
-        </div>
-      )}
-    </motion.div>
-  );
-}
-
-// ─── Personalized AI Nudge Banner ─────────────────────────────────────────────
-const NUDGE_POOL = [
-  { text: "Hannah noticed you haven't journaled today. Even one sentence counts.", bot: 'Hannah', icon: '💛', page: 'ChatScreen?bot=Hannah' },
-  { text: "Coach David has a quick 15-minute workout ready for you.", bot: 'CoachDavid', icon: '💪', page: 'ChatScreen?bot=CoachDavid' },
-  { text: "Chef Daniel wants to help with your next meal. What sounds good?", bot: 'ChefDaniel', icon: '🍽️', page: 'ChatScreen?bot=ChefDaniel' },
-  { text: "Gideon has a verse that speaks to what you're going through.", bot: 'Gideon', icon: '📖', page: 'ChatScreen?bot=Gideon' },
-  { text: "Coach Paul wants to check in on your growth this week.", bot: 'CoachPaul', icon: '👑', page: 'ChatScreen?bot=CoachPaul' },
-  { text: "Your body is a temple. Have you moved it today?", bot: 'CoachDavid', icon: '🏃', page: 'Workouts' },
-  { text: "Take 2 minutes for prayer. Your spirit will thank you.", bot: 'Hannah', icon: '🙏', page: 'Prayer' },
-];
-
-function NudgeBanner() {
-  const idx = Math.floor(new Date().getTime() / (1000 * 60 * 60 * 4)) % NUDGE_POOL.length; // rotates every 4 hours
-  const nudge = NUDGE_POOL[idx];
-
-  return (
-    <motion.div initial={{ opacity: 0, x: -12 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.12 }}>
-      <Link to={createPageUrl(nudge.page)}>
-        <div className="flex items-center gap-3 bg-gradient-to-r from-[#0A1A2F] to-[#1a3a5c] rounded-2xl px-4 py-3 shadow-md">
-          <span className="text-xl flex-shrink-0">{nudge.icon}</span>
-          <p className="text-xs text-white/80 leading-relaxed flex-1">{nudge.text}</p>
-          <ChevronRight className="w-4 h-4 text-white/30 flex-shrink-0" />
-        </div>
-      </Link>
-    </motion.div>
-  );
-}
-
-// ─── Enhanced AI Guides — larger cards with avatar + tagline ──────────────────
-const AI_GUIDES_ENHANCED = [
-  { name: 'Gideon',      role: 'Biblical Wisdom',   tagline: 'Dive deep into Scripture with me', avatar: gideonAvatar,      color: 'from-amber-500 to-amber-600',   bg: 'bg-amber-50',  bot: 'Gideon' },
-  { name: 'Hannah',      role: 'Mindset & Prayer',  tagline: "Let's work on your inner world",   avatar: hannahAvatar,      color: 'from-sky-400 to-sky-500',       bg: 'bg-sky-50',    bot: 'Hannah' },
-  { name: 'Coach David', role: 'Fitness Coach',     tagline: 'Ready to get stronger today?',     avatar: coachDavidAvatar, color: 'from-blue-500 to-blue-600',     bg: 'bg-blue-50',   bot: 'CoachDavid' },
-  { name: 'Chef Daniel', role: 'Nutrition Guide',   tagline: "Let's fuel your body right",       avatar: chefDanielAvatar, color: 'from-orange-400 to-orange-500', bg: 'bg-orange-50', bot: 'ChefDaniel' },
-  { name: 'Coach Paul',  role: 'Discipline Mentor', tagline: 'Discipline is freedom. Let me show you', avatar: coachPaulAvatar, color: 'from-violet-500 to-violet-600', bg: 'bg-violet-50', bot: 'CoachPaul' },
-];
-
-function EnhancedGuidesSection() {
-  const [failedAvatars, setFailedAvatars] = React.useState({});
-
-  return (
-    <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
-      <div className="flex items-center gap-2 mb-3">
-        <MessageCircle className="w-4 h-4 text-[#c9a227]" />
-        <p className="text-xs font-bold text-[#0A1A2F]/40 uppercase tracking-widest">Talk to Your Guides</p>
-      </div>
-      <div className="flex gap-3 overflow-x-auto pb-2 -mx-1 px-1" style={{ scrollbarWidth: 'none' }}>
-        {AI_GUIDES_ENHANCED.map(({ name, role, tagline, avatar, color, bg, bot }) => (
-          <Link key={bot} to={createPageUrl(`ChatScreen?bot=${bot}`)} className="flex-shrink-0" style={{ width: 140 }}>
-            <motion.div whileTap={{ scale: 0.95 }}
-              className={`${bg} rounded-2xl p-3 shadow-sm border border-gray-100/80 h-full`}>
-              <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${color} mx-auto mb-2 overflow-hidden shadow-sm flex items-center justify-center`}>
-                {!failedAvatars[bot] ? (
-                  <img src={avatar} alt={name} className="w-full h-full object-cover"
-                    onError={() => setFailedAvatars(prev => ({ ...prev, [bot]: true }))}
-                  />
-                ) : (
-                  <span className="text-xl text-white font-bold">{name[0]}</span>
-                )}
-              </div>
-              <p className="text-xs font-bold text-[#0A1A2F] text-center leading-tight">{name}</p>
-              <p className="text-[9px] text-[#0A1A2F]/40 text-center font-medium">{role}</p>
-              <p className="text-[9px] text-[#0A1A2F]/50 text-center mt-1 italic leading-snug">"{tagline}"</p>
-            </motion.div>
-          </Link>
-        ))}
-      </div>
-    </motion.div>
-  );
-}
-
-// ─── Combined Scripture + Grace card (alternates) ─────────────────────────────
-function DailyInspirationCard() {
-  const verse = getVerseOfDay();
-  const hour = new Date().getHours();
-  // Show scripture in the morning, grace moment in the afternoon/evening
-  const showScripture = hour < 14;
-
-  const graceIdx = Math.floor(new Date().getTime() / (1000 * 60 * 60 * 12)) % GRACE_MOMENTS.length;
-  const gm = GRACE_MOMENTS[graceIdx];
-
-  return (
-    <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
-      {showScripture ? (
-        <Link to={createPageUrl(`Bible?book=${verse.book}&chapter=${verse.chapter}&verse=${verse.verse}`)}>
-          <div className="bg-white rounded-3xl p-5 shadow-sm border border-[#FAD98D]/30 relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-24 h-24 opacity-5">
-              <BookOpen className="w-full h-full text-[#c9a227]" />
-            </div>
-            <div className="flex items-center gap-2 mb-3">
-              <div className="w-1 h-5 bg-[#c9a227] rounded-full" />
-              <span className="text-[11px] font-bold text-[#c9a227] uppercase tracking-widest">Today's Scripture</span>
-            </div>
-            <p className="text-[#0A1A2F] text-base leading-relaxed font-medium mb-3" style={{ fontFamily: 'Georgia, serif' }}>
-              "{verse.text}"
-            </p>
-            <div className="flex items-center justify-between">
-              <p className="text-sm text-[#0A1A2F]/50 font-medium">{verse.book} {verse.chapter}:{verse.verse}</p>
-              <span className="text-xs text-[#c9a227] font-semibold flex items-center gap-1">
-                Read more <ChevronRight className="w-3.5 h-3.5" />
-              </span>
-            </div>
-          </div>
-        </Link>
-      ) : (
-        <Link to={createPageUrl(gm.page)}>
-          <div className="bg-gradient-to-br from-[#FAD98D]/20 to-[#AFC7E3]/20 rounded-3xl p-5 shadow-sm border border-[#FAD98D]/20 relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-20 h-20 opacity-5">
-              <Heart className="w-full h-full text-[#c9a227]" />
-            </div>
-            <div className="flex items-center gap-2 mb-3">
-              <span className="text-lg">🕊️</span>
-              <span className="text-[11px] font-bold text-[#c9a227] uppercase tracking-widest">Grace Moment</span>
-            </div>
-            <p className="text-[#0A1A2F] text-[15px] leading-relaxed font-semibold mb-2">{gm.text}</p>
-            <p className="text-[#0A1A2F]/60 text-xs leading-relaxed italic" style={{ fontFamily: 'Georgia, serif' }}>
-              "{gm.verse}" — {gm.ref}
-            </p>
-          </div>
-        </Link>
-      )}
-    </motion.div>
-  );
-}
-
-
 // ─── Active Challenges widget ─────────────────────────────────────────────────
 function ActiveChallengesWidget({ user }) {
   const navigate = useNavigate();
@@ -803,28 +576,18 @@ export default function Home() {
       {/* ── Content ──────────────────────────────────────────────────────── */}
       <div className="max-w-lg mx-auto px-4 pt-4 pb-28 space-y-4">
 
-        {/* 1. Greeting + Streak inline */}
+        {/* 1. Greeting */}
         <motion.div initial={{ opacity: 0, y: -12 }} animate={{ opacity: 1, y: 0 }}>
           <p className="text-xs font-medium text-[#0A1A2F]/40 uppercase tracking-widest mb-0.5">
             {getTodayFormatted()}
           </p>
-          <div className="flex items-center justify-between">
-            <h1 className="text-2xl font-bold text-[#0A1A2F]">
-              {greeting.text}, {getFirstName(user)} {greeting.emoji}
-            </h1>
-            {userProgress && (
-              <Link to={createPageUrl('Achievements')}>
-                <div className="flex items-center gap-1.5 bg-white rounded-full px-3 py-1.5 shadow-sm border border-[#FAD98D]/40">
-                  <Flame className="w-3.5 h-3.5 text-orange-500" />
-                  <span className="font-bold text-[#0A1A2F] text-xs">{userProgress.current_streak || 0}</span>
-                </div>
-              </Link>
-            )}
-          </div>
+          <h1 className="text-2xl font-bold text-[#0A1A2F]">
+            {greeting.text}, {getFirstName(user)} {greeting.emoji}
+          </h1>
         </motion.div>
 
-        {/* 2. AI Nudge Banner — personalized prompt to engage */}
-        <NudgeBanner />
+        {/* 2. Streak / Level pill (only if they have progress) */}
+        {userProgress && <StreakPill progress={userProgress} />}
 
         {/* 3. Daily ritual hero button */}
         <RitualButton
@@ -833,13 +596,14 @@ export default function Home() {
           onEndDay={() => setShowEndDay(true)}
         />
 
-        {/* 4. Daily Progress Ring — today's activity tracker */}
-        {user && <DailyProgressRing user={user} />}
+        {/* 4. Today's Scripture */}
+        <VerseCard />
+        <GraceMomentCard />
 
-        {/* 5. Combined Scripture / Grace Moment (alternates by time of day) */}
-        <DailyInspirationCard />
+        {/* 4b. Active challenges (only shown if user has joined any) */}
+        {user && <ActiveChallengesWidget user={user} />}
 
-        {/* 6. Resume card — active plan, if any */}
+        {/* 5. Resume card — active plan, if any */}
         {(activeCoaching || activeReadingPlan) && (
           <ResumeCard
             coachingPlan={activeCoaching}
@@ -849,16 +613,7 @@ export default function Home() {
           />
         )}
 
-        {/* 7. Active challenges (only shown if user has joined any) */}
-        {user && <ActiveChallengesWidget user={user} />}
-
-        {/* 8. Talk to Your Guides — enhanced scrollable cards */}
-        <EnhancedGuidesSection />
-
-        {/* 9. Quick navigation */}
-        <QuickNav />
-
-        {/* 10. Coaching plan discovery — if no active coaching plan */}
+        {/* 5b. Coaching plan discovery — if no active coaching plan */}
         {!activeCoaching && (
           <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}>
             <Link to={createPageUrl('CoachingPlans')}>
@@ -880,7 +635,13 @@ export default function Home() {
           </motion.div>
         )}
 
-        {/* 11. New user Start Here (conditional) */}
+        {/* 6. Quick navigation */}
+        <QuickNav />
+
+        {/* 7. Meet Your Guides */}
+        <MeetYourGuidesCard />
+
+        {/* 8. New user Start Here (conditional) */}
         {isNewUser && <StartHereCard />}
 
       </div>
