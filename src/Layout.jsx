@@ -109,6 +109,20 @@ export default function Layout({ children, currentPageName }) {
     Search: 'Search',
   };
 
+  // Dynamic title for ChatScreen based on bot parameter
+  if (currentPageName === 'ChatScreen') {
+    const params = new URLSearchParams(location.search);
+    const bot = params.get('bot');
+    const botNames = {
+      'Gideon': 'Gideon (AI)',
+      'Hannah': 'Hannah (AI)',
+      'CoachDavid': 'Coach David (AI)',
+      'ChefDaniel': 'Chef Daniel (AI)',
+      'CoachPaul': 'Coach Paul (AI)',
+    };
+    pageTitles['ChatScreen'] = botNames[bot] || 'Chat';
+  }
+
   const currentPageTitle = pageTitles[currentPageName] || currentPageName;
 
   // Back destinations for child pages
