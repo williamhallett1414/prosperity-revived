@@ -6,7 +6,8 @@ import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, Send, Loader2, RotateCcw, Mic, MicOff, Volume2, Square, X, Zap } from 'lucide-react';
+import VideoRecorder from '@/components/home/VideoRecorder';
+import { ArrowLeft, Send, Loader2, RotateCcw, Mic, MicOff, Volume2, Square, X, Zap, Video } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import { base44 } from '@/api/base44Client';
 import CloudAvatar    from '@/components/avatar/CloudAvatar';
@@ -975,7 +976,23 @@ function MessageBubble({ message, cfg, onSpeak, isSpeaking }) {
 
       {isUser ? (
         <div className={`max-w-[75%] px-4 py-2.5 rounded-2xl rounded-br-sm bg-gradient-to-br ${cfg.userBubble} shadow-md`}>
+          {/* Video message playback */}
+          {message.videoUrl && (
+            <div className="mb-2 -mx-1.5 -mt-1 rounded-xl overflow-hidden">
+              <video
+                src={message.videoUrl}
+                controls
+                playsInline
+                preload="metadata"
+                className="w-full rounded-xl"
+                style={{ maxHeight: 180 }}
+              />
+            </div>
+          )}
           <p className="text-sm text-white leading-relaxed">{message.content}</p>
+          {message.videoDuration > 0 && (
+            <p className="text-[10px] text-white/30 mt-1 flex items-center gap-1">🎥 {Math.floor(message.videoDuration / 60)}:{(message.videoDuration % 60).toString().padStart(2, '0')}</p>
+          )}
         </div>
       ) : (
         <div className="max-w-[78%]">
@@ -1068,6 +1085,7 @@ export default function ChatScreen() {
   const finalTranscriptRef = useRef('');
   const stopSpeechRef      = useRef(null);
   const pendingSendRef      = useRef(null);
+  const videoBlobRef        = useRef(null);
 
   const avatarSpeaking  = speakingIdx !== null;
   const avatarListening = isListening;
@@ -1270,6 +1288,7 @@ export default function ChatScreen() {
   };
 
   const speechSupported = !!(window.SpeechRecognition || window.webkitSpeechRecognition);
+  const [showVideoRecorder, setShowVideoRecorder] = useState(false);
 
   return createPortal(
     <motion.div
@@ -1564,6 +1583,21 @@ export default function ChatScreen() {
             </div>
           )}
 
+          {/* Video message button */}
+          <motion.button
+            whileTap={{ scale: 0.87 }}
+            onClick={() => setShowVideoRecorder(true)}
+            disabled={isLoading || showVideoRecorder}
+            aria-label="Record video message"
+            className="flex-shrink-0 w-11 h-11 rounded-full flex items-center justify-center transition-all"
+            style={{
+              background: showVideoRecorder ? `${cfg.gradTo}30` : 'rgba(255,255,255,0.11)',
+              border: `1px solid ${showVideoRecorder ? cfg.gradTo + '55' : 'rgba(255,255,255,0.18)'}`,
+            }}
+          >
+            <Video className={`w-4 h-4 ${showVideoRecorder ? 'text-white' : 'text-white/55'}`} />
+          </motion.button>
+
           {/* Text input */}
           <input
             ref={inputRef}
@@ -1616,6 +1650,76 @@ export default function ChatScreen() {
         )}
       </motion.div>
 
+      {/* Video Recorder Overlay */}
+      <AnimatePresence>
+        {showVideoRecorder && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[200] bg-black/90 flex items-center justify-center p-4"
+          >
+            <div className="w-full max-w-sm">
+              <p className="text-center text-white/60 text-xs mb-3">Record a video message for {cfg.name}</p>
+              <VideoRecorder
+                onRecordingComplete={(blob, duration) => {
+                  // Store video info temporarily — we'll add it when transcript is ready
+                  videoBlobRef.current = { url: URL.createObjectURL(blob), duration };
+                }}
+                onTranscript={(text) => {
+                  const videoInfo = videoBlobRef.current;
+                  setShowVideoRecorder(false);
+                  
+                  if (videoInfo) {
+                    // Add video bubble to chat with transcript as content
+                    setMessages(prev => [...prev, {
+                      role: 'user',
+                      content: text || '[Video message]',
+                      videoUrl: videoInfo.url,
+                      videoDuration: videoInfo.duration,
+                    }]);
+                  }
+
+                  // Send transcript to AI without adding another user bubble
+                  if (text && text.trim()) {
+                    const trimmed = text.trim();
+                    setIsLoading(true);
+                    const history = messages.slice(-12)
+                      .map(m => `${m.role === 'user' ? 'User' : cfg.name}: ${m.content.substring(0, 400)}`)
+                      .join('\n\n');
+                    base44.integrations.Core.InvokeLLM({
+                      prompt: `${buildPrompt(cfg.systemPrompt)}\n\nCONVERSATION HISTORY:\n${history}\n\nUser: ${trimmed}`,
+                      add_context_from_internet: false,
+                    }).then(response => {
+                      setMessages(prev => [...prev, { role: 'assistant', content: response }]);
+                    }).catch(() => {
+                      setMessages(prev => [...prev, { role: 'assistant', content: "I couldn't process that. Could you try again?" }]);
+                    }).finally(() => setIsLoading(false));
+                  }
+                  
+                  videoBlobRef.current = null;
+                }}
+                maxDurationSec={60}
+                compact
+                onClose={() => {
+                  setShowVideoRecorder(false);
+                  // If user recorded but no transcript, still show the video
+                  const videoInfo = videoBlobRef.current;
+                  if (videoInfo) {
+                    setMessages(prev => [...prev, {
+                      role: 'user',
+                      content: '[Video message — no transcript]',
+                      videoUrl: videoInfo.url,
+                      videoDuration: videoInfo.duration,
+                    }]);
+                    videoBlobRef.current = null;
+                  }
+                }}
+              />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
     </motion.div>,
     document.body
