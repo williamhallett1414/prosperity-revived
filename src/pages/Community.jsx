@@ -18,6 +18,7 @@ import CommunityFeed        from '@/components/community/CommunityFeed';
 import GroupChallenges       from '@/components/community/GroupChallenges';
 import ShareMilestoneModal   from '@/components/community/ShareMilestoneModal';
 import AIBlogWriter          from '@/components/community/AIBlogWriter';
+import ModerationPanel       from '@/components/community/ModerationPanel';
 import BlogFeed              from '@/components/community/BlogFeed';
 import GroupCard             from '@/components/groups/GroupCard';
 
@@ -42,10 +43,13 @@ const TABS = [
   { id: 'challenges', label: 'Challenges', icon: TrendingUp},
 ];
 
-function TabBar({ active, onChange }) {
+function TabBar({ active, onChange, isAdmin }) {
+  const tabs = isAdmin
+    ? [...TABS, { id: 'moderation', label: 'Moderate', icon: Users }]
+    : TABS;
   return (
     <div id="tour-community-groups" className="flex gap-1.5">
-      {TABS.map(({ id, label, icon: Icon }) => (
+      {tabs.map(({ id, label, icon: Icon }) => (
         <button key={id} onClick={() => onChange(id)}
           className={`flex-1 flex flex-col items-center gap-1 py-2.5 rounded-xl text-[11px] font-bold transition-all ${
             active === id
@@ -318,7 +322,7 @@ export default function Community() {
             </Link>
           </div>
 
-          <TabBar active={activeTab} onChange={setActiveTab} />
+          <TabBar active={activeTab} onChange={setActiveTab} isAdmin={user?.role === 'admin' || user?.is_admin} />
 
           {/* Community Guidelines */}
           <div className="mt-2 flex items-center justify-center gap-2 py-1.5">
@@ -337,6 +341,7 @@ export default function Community() {
         {activeTab === 'groups'     && <GroupsTab user={user} />}
         {activeTab === 'blog'       && <BlogFeed user={user} onWriteWithAI={() => setShowBlogWriter(true)} />}
         {activeTab === 'challenges' && <GroupChallenges user={user} />}
+        {activeTab === 'moderation' && <ModerationPanel user={user} />}
       </div>
 
       {/* ── Modals ── */}

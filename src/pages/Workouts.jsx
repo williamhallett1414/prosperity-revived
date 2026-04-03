@@ -13,6 +13,7 @@ import ChatButton from '@/components/chatbot/ChatButton';
 import PullToRefresh from '@/components/ui/PullToRefresh';
 import { PREMADE_WORKOUTS } from '@/components/wellness/WorkoutLibrary';
 import { awardPoints, checkAndAwardBadges } from '@/components/gamification/ProgressManager';
+import { toast } from 'sonner';
 
 // ── Motivational verses for training ────────────────────────────────────────
 const TRAINING_VERSES = [
@@ -409,6 +410,16 @@ export default function Workouts() {
                    streak >= 14 ? "Two weeks strong! This is becoming a habit." :
                    "One week down! You're building something powerful."}
                 </p>
+                <button
+                  onClick={async () => {
+                    const { shareStreak } = await import('@/utils/sharing');
+                    const result = await shareStreak(streak);
+                    if (result.method === 'clipboard') toast.success('Copied to clipboard!');
+                  }}
+                  className="mt-2 px-4 py-1.5 bg-white/20 hover:bg-white/30 text-white text-xs font-bold rounded-full transition-all"
+                >
+                  Share 🎉
+                </button>
               </motion.div>
             )}
 

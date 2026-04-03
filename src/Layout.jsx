@@ -135,6 +135,7 @@ export default function Layout({ children, currentPageName }) {
     Messages: 'Messages',
     Friends: 'Friends',
     Search: 'Search',
+    CouplesMode: 'Couples Mode',
   };
 
   // Dynamic title for ChatScreen based on bot parameter

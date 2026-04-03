@@ -56,6 +56,7 @@ const Bookmarks = lazy(() => import('./pages/Bookmarks'));
 const ChallengeDetailPage = lazy(() => import('./pages/ChallengeDetailPage'));
 const CoachingPlanDetail = lazy(() => import('./pages/CoachingPlanDetail'));
 const CoachingPlanPage = lazy(() => import('./pages/CoachingPlanPage'));
+const CouplesMode = lazy(() => import('./pages/CouplesMode'));
 const CoachingPlans = lazy(() => import('./pages/CoachingPlans'));
 const Community = lazy(() => import('./pages/Community'));
 const DiscoverRecipes = lazy(() => import('./pages/DiscoverRecipes'));
@@ -121,6 +122,7 @@ export const PAGES = {
     "ChallengeDetailPage": ChallengeDetailPage,
     "CoachingPlanDetail": CoachingPlanDetail,
     "CoachingPlanPage": CoachingPlanPage,
+    "CouplesMode": CouplesMode,
     "CoachingPlans": CoachingPlans,
     "Community": Community,
     "DiscoverRecipes": DiscoverRecipes,

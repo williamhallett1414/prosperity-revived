@@ -71,7 +71,7 @@ const QUICK_NAV = [
   { label: 'Prayer',     icon: Heart,     page: 'Prayer',          color: 'from-rose-400 to-rose-500',      bg: 'bg-rose-50'  },
   { label: 'Nutrition',  icon: Utensils,  page: 'Nutrition',       color: 'from-emerald-500 to-emerald-600',bg: 'bg-emerald-50'},
   { label: 'Community',  icon: Users,     page: 'Community',       color: 'from-purple-500 to-purple-600',  bg: 'bg-purple-50'},
-  { label: 'Journey',    icon: TrendingUp,page: 'ProgressDashboard',color:'from-[#3C4E53] to-[#AFC7E3]',   bg: 'bg-slate-50' },
+  { label: 'Couples',    icon: Heart,     page: 'CouplesMode',     color: 'from-pink-400 to-rose-500',      bg: 'bg-pink-50'  },
 ];
 
 // ─── Streak pill ──────────────────────────────────────────────────────────────

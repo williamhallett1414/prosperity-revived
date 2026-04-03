@@ -50,6 +50,43 @@ export default function useCapacitorInit() {
       } catch {
         // Not running in Capacitor — ignore
       }
+
+      // ── App Tracking Transparency (iOS 14.5+) ──
+      try {
+        const { AppTrackingTransparency } = await import('@capacitor/app-tracking-transparency');
+        const status = await AppTrackingTransparency.getStatus();
+        if (status.status === 'notDetermined') {
+          await AppTrackingTransparency.requestPermission();
+        }
+      } catch {
+        // Plugin not installed or not on iOS — ignore
+      }
+
+      // ── Local Notifications (native) ──
+      try {
+        const { LocalNotifications } = await import('@capacitor/local-notifications');
+        const perm = await LocalNotifications.checkPermissions();
+        if (perm.display === 'prompt') {
+          await LocalNotifications.requestPermissions();
+        }
+      } catch {
+        // Plugin not installed — web notifications handle this
+      }
+
+      // ── Health Kit / Google Fit (wearable integration) ──
+      try {
+        const { HealthConnect } = await import('@anthropic/capacitor-health-connect');
+        const granted = await HealthConnect.requestPermissions({
+          permissions: ['steps', 'activeCaloriesBurned', 'heartRate'],
+        });
+        if (granted) {
+          // Store flag so workout pages can show synced data
+          localStorage.setItem('pr_health_connected', 'true');
+        }
+      } catch {
+        // Health plugin not installed — ignore
+        // Will be set up when native shell is built
+      }
     };
 
     init();
