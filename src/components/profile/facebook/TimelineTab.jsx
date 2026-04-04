@@ -32,6 +32,7 @@ export default function TimelineTab({ user, posts, comments }) {
             onLike={() => {}}
             onComment={() => {}}
             index={index}
+            user={user}
           />
         </motion.div>
       ))}

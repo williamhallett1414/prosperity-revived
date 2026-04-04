@@ -56,10 +56,12 @@ export default function CommunityFeed({ user }) {
   const { data: shares = [], isLoading } = useQuery({
     queryKey: ['communityShares'],
     queryFn: async () => {
-      const allShares = await base44.entities.CommunityShare.filter({
-        visibility: 'public'
-      }, '-created_date', 50);
-      return allShares;
+      try {
+        const allShares = await base44.entities.CommunityShare.filter({
+          visibility: 'public'
+        }, '-created_date', 50);
+        return allShares;
+      } catch { return []; }
     }
   });
 
@@ -227,7 +229,7 @@ export default function CommunityFeed({ user }) {
                                   <div className="flex-1 space-y-2">
                                     <h4 className="text-sm font-semibold">{share.user_display_name}</h4>
                                     <p className="text-xs text-gray-600">
-                                      Member since {format(new Date(share.created_date), 'MMM yyyy')}
+                                      Member since {share.created_date ? format(new Date(share.created_date), 'MMM yyyy') : ''}
                                     </p>
                                     <div className="flex gap-2 pt-2">
                                       <Badge variant="outline" className="text-xs">
@@ -247,7 +249,7 @@ export default function CommunityFeed({ user }) {
                           </Badge>
                         </div>
                         <p className="text-xs text-gray-500">
-                          {format(new Date(share.created_date), 'MMM d, yyyy \'at\' h:mm a')} • via {share.chatbot_source}
+                          {share.created_date ? format(new Date(share.created_date), 'MMM d, yyyy \'at\' h:mm a') : ''} • via {share.chatbot_source}
                         </p>
                       </div>
                     </div>
@@ -362,7 +364,7 @@ export default function CommunityFeed({ user }) {
                                     <p className="text-sm text-gray-700 mt-1">{enc.message}</p>
                                   )}
                                   <p className="text-xs text-gray-500 mt-1">
-                                    {format(new Date(enc.created_date), 'MMM d \'at\' h:mm a')}
+                                    {enc.created_date ? format(new Date(enc.created_date), 'MMM d \'at\' h:mm a') : ''}
                                   </p>
                                 </div>
                               </div>

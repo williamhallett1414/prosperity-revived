@@ -12,27 +12,12 @@ import ContentModeration from '@/components/community/ContentModeration';
 import PostSummary from '@/components/community/PostSummary';
 import { checkInteractionAllowed } from '@/utils/MinorSafety';
 
-export default function PostCard({ post, comments = [], onLike, onComment, index }) {
+export default function PostCard({ post, comments = [], onLike, onComment, index, user, friends = [] }) {
   const navigate = useNavigate();
   const [showComments, setShowComments] = useState(false);
   const [commentText, setCommentText] = useState('');
   const [isLiked, setIsLiked] = useState(false);
-  const [user, setUser] = useState(null);
   const queryClient = useQueryClient();
-
-  useEffect(() => {
-    base44.auth.me().then(setUser).catch(() => {});
-  }, []);
-
-  const { data: friends = [] } = useQuery({
-    queryKey: ['friends'],
-    queryFn: async () => {
-      const userFriends = await base44.entities.Friend.filter({ user_email: user?.email });
-      const friendOf = await base44.entities.Friend.filter({ friend_email: user?.email });
-      return [...userFriends, ...friendOf];
-    },
-    enabled: !!user
-  });
 
   const sendFriendRequest = useMutation({
     mutationFn: async () => {
@@ -189,7 +174,7 @@ export default function PostCard({ post, comments = [], onLike, onComment, index
           >
             {post.user_name || 'Anonymous'}
           </p>
-          <p className="text-xs text-gray-500">{format(new Date(post.created_date), 'MMM d, yyyy')}</p>
+          <p className="text-xs text-gray-500">{post.created_date ? format(new Date(post.created_date), 'MMM d, yyyy') : ''}</p>
         </div>
         {!isMyPost && user && !alreadyFriends && (
           <Button
@@ -208,7 +193,7 @@ export default function PostCard({ post, comments = [], onLike, onComment, index
         )}
         {!isMyPost && user && (
           <button
-            onClick={() => { if (window.confirm('Report this post for review? Our team will investigate.')) { try { base44.entities.Report?.create({ post_id: post.id, reporter_email: user.email, reason: 'user_flagged' }); } catch(_){} alert('Report submitted. Thank you for helping keep our community safe.'); } }}
+            onClick={async () => { if (window.confirm('Report this post for review? Our team will investigate.')) { try { await base44.entities.Report?.create({ post_id: post.id, reporter_email: user?.email, reason: 'user_flagged' }); alert('Report submitted. Thank you for helping keep our community safe.'); } catch { alert('Failed to submit report. Please try again.'); } } }}
             className="p-1.5 rounded-full hover:bg-gray-100 transition-colors"
             aria-label="Report post"
             title="Report post"

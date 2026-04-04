@@ -465,6 +465,7 @@ export default function GroupDetail() {
                     onLike={handleLike}
                     onComment={handleComment}
                     index={index}
+                    user={user}
                   />
                 ))}
               </div>

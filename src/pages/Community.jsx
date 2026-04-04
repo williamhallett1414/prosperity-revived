@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import { useNavigate, Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
+import { toast } from 'sonner';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Switch } from '@/components/ui/switch';
@@ -89,7 +90,7 @@ function GroupsTab({ user }) {
 
   const { data: groups = [] } = useQuery({
     queryKey: ['groups'],
-    queryFn:  () => base44.entities.StudyGroup.list('-created_date'),
+    queryFn: async () => { try { return await base44.entities.StudyGroup.list('-created_date'); } catch { return []; } },
   });
 
   // Fixed: filter by user_email, not list() all members
@@ -111,6 +112,7 @@ function GroupsTab({ user }) {
       setShowCreate(false);
       setNewGroup({ name: '', description: '', category: 'other', is_private: false });
     },
+    onError: () => toast.error('Failed to create group — please try again'),
   });
 
   const myGroupIds    = memberships.map(m => m.group_id);
@@ -208,6 +210,7 @@ function GroupsTab({ user }) {
                 placeholder="e.g., Daily Bible Study"
                 value={newGroup.name}
                 onChange={e => setNewGroup({ ...newGroup, name: e.target.value })}
+                maxLength={80}
                 className="mt-1.5 w-full px-3 py-2.5 rounded-xl border border-[#FAD98D]/30 bg-[#F2F6FA] text-sm text-[#0A1A2F] focus:outline-none focus:border-[#c9a227]/50"
               />
             </div>
@@ -217,6 +220,7 @@ function GroupsTab({ user }) {
                 placeholder="What is this group about?"
                 value={newGroup.description}
                 onChange={e => setNewGroup({ ...newGroup, description: e.target.value })}
+                maxLength={500}
                 className="mt-1.5 min-h-[70px] border-[#FAD98D]/30 bg-[#F2F6FA] text-sm resize-none"
               />
             </div>
@@ -272,7 +276,7 @@ export default function Community() {
   const [showBlogWriter,  setShowBlogWriter]  = useState(false);
   const queryClient = useQueryClient();
 
-  useEffect(() => { base44.auth.me().then(setUser); }, []);
+  useEffect(() => { base44.auth.me().then(setUser).catch(() => {}); }, []);
 
   return (
     <div className="min-h-screen bg-[#F2F6FA] pb-28">
