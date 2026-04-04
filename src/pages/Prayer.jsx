@@ -48,11 +48,14 @@ function loadStreak() {
   try { return JSON.parse(localStorage.getItem(STREAK_KEY) || '{"lastDate":null,"streak":0}'); }
   catch { return { lastDate: null, streak: 0 }; }
 }
+function localDateKey(d) {
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+}
 function markPrayedToday() {
-  const today = new Date().toISOString().slice(0, 10);
+  const today = localDateKey(new Date());
   const s = loadStreak();
   if (s.lastDate === today) return s;
-  const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+  const yesterday = localDateKey(new Date(Date.now() - 86400000));
   const streak = s.lastDate === yesterday ? s.streak + 1 : 1;
   const updated = { lastDate: today, streak };
   localStorage.setItem(STREAK_KEY, JSON.stringify(updated));
@@ -375,6 +378,7 @@ function NewPrayerModal({ user, onClose, onSubmit }) {
             </div>
             <textarea value={text} onChange={e => setText(e.target.value)}
               placeholder="Share what's on your heart…"
+              maxLength={1000}
               className="w-full rounded-2xl px-4 py-3 min-h-[120px] mb-4 resize-none text-sm text-white placeholder-white/30 outline-none"
               style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.12)', fontFamily: 'Georgia, serif', lineHeight: '1.7' }} />
             <button onClick={() => setAnonymous(p => !p)}
@@ -510,6 +514,7 @@ function ActsGuidedPrayer({ onComplete, user }) {
               value={answers[current.key]}
               onChange={e => setAnswers(a => ({ ...a, [current.key]: e.target.value }))}
               placeholder={current.placeholder}
+              maxLength={1000}
               rows={4} autoFocus
               className="w-full rounded-2xl px-4 py-3 text-sm leading-relaxed resize-none outline-none text-white placeholder-white/20"
               style={{ background: 'rgba(255,255,255,0.06)', border: `1px solid ${current.color}30`, caretColor: current.color }}
@@ -595,6 +600,7 @@ function MyPrayers() {
             className="overflow-hidden px-5 pb-3">
             <textarea value={text} onChange={e => setText(e.target.value)}
               placeholder="Bring your request to God…"
+              maxLength={500}
               rows={3} autoFocus
               className="w-full rounded-2xl px-4 py-3 text-sm resize-none outline-none text-white placeholder-white/20 mb-2"
               style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(201,162,39,0.2)' }}
@@ -650,11 +656,11 @@ export default function Prayer() {
   const [streak, setStreak]               = useState(loadStreak);
   const queryClient = useQueryClient();
 
-  useEffect(() => { base44.auth.me().then(setUser); }, []);
+  useEffect(() => { base44.auth.me().then(setUser).catch(() => {}); }, []);
 
   const refetchInterval = selectedRequest ? 10_000 : 30_000;
 
-  const { data: prayerRequests = [] } = useQuery({
+  const { data: prayerRequests = [], isLoading: prayersLoading } = useQuery({
     queryKey: ['prayerRequests'],
     queryFn: () => base44.entities.PrayerRequest.list('-created_date', 100),
     refetchInterval,
@@ -723,11 +729,13 @@ export default function Prayer() {
   const deleteRequest = useMutation({
     mutationFn: (id) => base44.entities.PrayerRequest.delete(id),
     onSuccess: () => { queryClient.invalidateQueries(['prayerRequests']); setSelectedRequest(null); toast.success('Prayer request removed'); },
+    onError: () => toast.error('Failed to delete prayer request'),
   });
 
   const markAnswered = useMutation({
     mutationFn: (id) => base44.entities.PrayerRequest.update(id, { is_answered: true }),
     onSuccess: () => { queryClient.invalidateQueries(['prayerRequests']); toast.success('🙌 Praise God — marked as answered!'); },
+    onError: () => toast.error('Failed to update — please try again'),
   });
 
   const createRequest = useMutation({
@@ -743,6 +751,7 @@ export default function Prayer() {
       is_answered: false,
     }),
     onSuccess: () => { queryClient.invalidateQueries(['prayerRequests']); toast.success('Your prayer has been shared 🙏'); },
+    onError: () => toast.error('Failed to share prayer — please try again'),
   });
 
   const handlePray = useCallback((request) => {
@@ -822,11 +831,37 @@ export default function Prayer() {
           </div>
         )}
 
+        {/* Scripture for prayer */}
+        <div className="rounded-2xl p-4" style={{ background: 'rgba(201,162,39,0.06)', border: '1px solid rgba(201,162,39,0.15)' }}>
+          <div className="flex items-center gap-2 mb-2">
+            <div className="w-1 h-4 bg-[#c9a227] rounded-full" />
+            <span className="text-[10px] font-bold text-[#c9a227] uppercase tracking-widest">Before You Pray</span>
+          </div>
+          <p className="text-white/70 text-sm leading-relaxed italic" style={{ fontFamily: 'Georgia, serif' }}>
+            "Don't be anxious for anything, but in everything, by prayer and petition with thanksgiving, let your requests be made known to God. And the peace of God, which surpasses all understanding, will guard your hearts and your thoughts in Christ Jesus."
+          </p>
+          <p className="text-xs text-[#c9a227]/60 mt-2">Philippians 4:6-7 (WEB)</p>
+        </div>
+
         {/* ACTS Guided Prayer */}
         <ActsGuidedPrayer onComplete={handleActsComplete} user={user} />
 
         {/* Private prayer list */}
         <MyPrayers />
+
+        {/* Ask Hannah */}
+        <a href={(() => { try { return createPageUrl('ChatScreen?bot=Hannah'); } catch { return '#'; } })()}>
+          <div className="rounded-2xl p-4 flex items-center gap-3" style={{ background: 'rgba(56,189,248,0.06)', border: '1px solid rgba(56,189,248,0.15)' }}>
+            <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 shadow-sm" style={{ background: 'linear-gradient(135deg, #38BDF8, #0EA5E9)' }}>
+              <Heart className="w-5 h-5 text-white" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="font-bold text-white text-sm">Talk to Hannah</p>
+              <p className="text-xs text-white/40">Need to process something? Hannah listens without judgment.</p>
+            </div>
+            <ChevronRight className="w-4 h-4 text-white/20 flex-shrink-0" />
+          </div>
+        </a>
 
         {/* Prayer Wall */}
         <div>
@@ -844,7 +879,12 @@ export default function Prayer() {
             ))}
           </div>
 
-          {filtered.length === 0 ? (
+          {prayersLoading ? (
+            <div className="flex flex-col items-center py-12 gap-3">
+              <Loader2 className="w-6 h-6 animate-spin text-[#c9a227]" />
+              <p className="text-white/30 text-sm">Loading prayers...</p>
+            </div>
+          ) : filtered.length === 0 ? (
             <div className="text-center py-12">
               <div className="text-4xl mb-3">🙏</div>
               <p className="text-white/30 text-sm">No prayer requests yet.</p>
