@@ -32,7 +32,7 @@ export default function PlanDetail() {
   const queryClient = useQueryClient();
 
   useEffect(() => {
-    base44.auth.me().then(setUser);
+    base44.auth.me().then(setUser).catch(() => {});
   }, []);
 
   const { data: progress, isLoading } = useQuery({

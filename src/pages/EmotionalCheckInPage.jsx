@@ -155,7 +155,7 @@ export default function EmotionalCheckInPage() {
   const [streak, setStreak] = useState(0);
   const [weekDays, setWeekDays] = useState([]);
   const [user, setUser] = useState(null);
-  useEffect(() => { base44.auth.me().then(setUser); }, []);
+  useEffect(() => { base44.auth.me().then(setUser).catch(() => {}); }, []);
 
   const { data: recentEntries = [] } = useQuery({
     queryKey: ['journalEntries_checkin'],

@@ -264,7 +264,7 @@ export default function Wellness() {
   const today = new Date().toISOString().split('T')[0];
   const feature = getTimeFeature();
 
-  useEffect(() => { base44.auth.me().then(setUser); }, []);
+  useEffect(() => { base44.auth.me().then(setUser).catch(() => {}); }, []);
 
   // ── 3 queries (deduped — mealLogs no longer double-fetched) ──────────────
   const { data: mealLogs = [] } = useQuery({

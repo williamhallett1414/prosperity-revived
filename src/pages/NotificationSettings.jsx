@@ -70,7 +70,7 @@ export default function NotificationSettings() {
         achievements: true
       });
       setLoading(false);
-    });
+    }).catch(() => { setLoading(false); });
   }, []);
 
   const handleToggle = (key) => {

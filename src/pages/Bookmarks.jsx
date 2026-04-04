@@ -112,7 +112,7 @@ export default function Bookmarks() {
   const queryClient           = useQueryClient();
   const navigate              = useNavigate();
 
-  useEffect(() => { base44.auth.me().then(setUser); }, []);
+  useEffect(() => { base44.auth.me().then(setUser).catch(() => {}); }, []);
 
   // Fixed: filter by user, not list() which returns everyone's bookmarks
   const { data: bookmarks = [], isLoading } = useQuery({

@@ -523,7 +523,7 @@ export default function HabitBuilderPage() {
   const [loaded, setLoaded]         = useState(false);
   const [showPicker, setShowPicker] = useState(false);
   const [user, setUser] = useState(null);
-  useEffect(() => { base44.auth.me().then(setUser); }, []);
+  useEffect(() => { base44.auth.me().then(setUser).catch(() => {}); }, []);
   const [showCelebration, setShowCelebration] = useState(false);
   const [milestone, setMilestone]   = useState(null); // { habitLabel, days }
   const [category, setCategory]     = useState('All');

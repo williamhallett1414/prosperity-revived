@@ -23,7 +23,7 @@ export default function UserProfile() {
   const queryClient = useQueryClient();
 
   useEffect(() => {
-    base44.auth.me().then(setCurrentUser);
+    base44.auth.me().then(setCurrentUser).catch(() => {});
     const params = new URLSearchParams(window.location.search);
     setProfileEmail(params.get('email'));
   }, []);
@@ -499,7 +499,7 @@ export default function UserProfile() {
           currentBanner={profileUser.banner_image_url}
           onSave={() => {
             queryClient.invalidateQueries(['users']);
-            base44.auth.me().then(setCurrentUser);
+            base44.auth.me().then(setCurrentUser).catch(() => {});
           }}
         />
       )}
@@ -511,7 +511,7 @@ export default function UserProfile() {
         currentUser={profileUser}
         onSave={async (data) => {
           await base44.auth.updateMe(data);
-          await base44.auth.me().then(setCurrentUser);
+          await base44.auth.me().then(setCurrentUser).catch(() => {});
           queryClient.invalidateQueries(['users']);
           setShowEditProfile(false);
         }}

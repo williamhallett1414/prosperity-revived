@@ -125,7 +125,7 @@ export default function Friends() {
   const addInputRef = React.useRef(null);
   const queryClient = useQueryClient();
 
-  useEffect(() => { base44.auth.me().then(setUser); }, []);
+  useEffect(() => { base44.auth.me().then(setUser).catch(() => {}); }, []);
 
   const { data: friends = [] } = useQuery({
     queryKey: ['friends'],
@@ -175,12 +175,14 @@ export default function Friends() {
         const { awardPoints } = await import('@/components/gamification/ProgressManager');
         await awardPoints(user.email, 20, 'friend_accepted', 'friends_count');
       }
-    }
+    },
+    onError: () => toast.error('Failed to accept request'),
   });
 
   const declineRequest = useMutation({
     mutationFn: (id) => base44.entities.Friend.delete(id),
-    onSuccess: () => queryClient.invalidateQueries(['friends'])
+    onSuccess: () => queryClient.invalidateQueries(['friends']),
+    onError: () => toast.error('Failed to decline request'),
   });
 
   const cancelRequest = useMutation({
@@ -188,7 +190,8 @@ export default function Friends() {
     onSuccess: () => {
       queryClient.invalidateQueries(['friends']);
       toast.success('Request cancelled');
-    }
+    },
+    onError: () => toast.error('Failed to cancel request'),
   });
 
   const handleSendRequest = () => {

@@ -261,7 +261,7 @@ export default function WeeklyReflectionPage() {
   const [lastSaved, setLastSaved] = useState(null);
   const [user, setUser] = useState(null);
 
-  useEffect(() => { base44.auth.me().then(setUser); }, []);
+  useEffect(() => { base44.auth.me().then(setUser).catch(() => {}); }, []);
 
   const scripture = SCRIPTURES[getWeekNumber() % SCRIPTURES.length];
   const weekLabel = getWeekLabel();

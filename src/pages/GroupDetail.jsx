@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { createPageUrl } from '@/utils';
+import { toast } from 'sonner';
 import {
   ArrowLeft, Lock, Globe, UserPlus, Plus,
   Loader2, Trophy, MessageSquare, ChevronDown, ChevronUp,
@@ -167,42 +168,49 @@ export default function GroupDetail() {
   const { data: group, isLoading: groupLoading } = useQuery({
     queryKey: ['group', groupId],
     queryFn: async () => {
-      const groups = await base44.entities.StudyGroup.list();
-      return groups.find(g => g.id === groupId);
-    }
+      try { const groups = await base44.entities.StudyGroup.list(); return groups.find(g => g.id === groupId); }
+      catch { return null; }
+    },
+    retry: false,
   });
 
   const { data: memberships = [] } = useQuery({
     queryKey: ['groupMemberships', groupId],
     queryFn: async () => {
-      const all = await base44.entities.GroupMember.list();
-      return all.filter(m => m.group_id === groupId);
-    }
+      try { const all = await base44.entities.GroupMember.list(); return all.filter(m => m.group_id === groupId); }
+      catch { return []; }
+    },
   });
 
   const { data: posts = [] } = useQuery({
     queryKey: ['groupPosts', groupId],
-    queryFn: () => base44.entities.Post.filter({ group_id: groupId }, '-created_date')
+    queryFn: async () => {
+      try { return await base44.entities.Post.filter({ group_id: groupId }, '-created_date'); }
+      catch { return []; }
+    },
   });
 
   const { data: comments = [] } = useQuery({
     queryKey: ['comments'],
-    queryFn: () => base44.entities.Comment.list('-created_date', 200)
+    queryFn: async () => {
+      try { return await base44.entities.Comment.list('-created_date', 200); }
+      catch { return []; }
+    },
   });
 
   const { data: challenges = [] } = useQuery({
     queryKey: ['groupChallenges', groupId],
     queryFn: async () => {
-      const all = await base44.entities.Challenge.list('-created_date');
-      return all.filter(c => c.group_id === groupId);
-    }
+      try { const all = await base44.entities.Challenge.list('-created_date'); return all.filter(c => c.group_id === groupId); }
+      catch { return []; }
+    },
   });
 
   const { data: challengeParticipants = [] } = useQuery({
     queryKey: ['challengeParticipants', groupId],
     queryFn: async () => {
-      const all = await base44.entities.ChallengeParticipant.list();
-      return all.filter(p => challenges.some(c => c.id === p.challenge_id));
+      try { const all = await base44.entities.ChallengeParticipant.list(); return all.filter(p => challenges.some(c => c.id === p.challenge_id)); }
+      catch { return []; }
     },
     enabled: challenges.length > 0
   });
@@ -219,7 +227,8 @@ export default function GroupDetail() {
       });
       queryClient.invalidateQueries(['groupMemberships']);
       queryClient.invalidateQueries(['group']);
-    }
+    },
+    onError: () => toast.error('Failed to join group'),
   });
 
   const createPost = useMutation({
@@ -228,12 +237,14 @@ export default function GroupDetail() {
       group_id: groupId,
       user_name: user?.full_name || user?.email || 'Anonymous'
     }),
-    onSuccess: () => queryClient.invalidateQueries(['groupPosts'])
+    onSuccess: () => queryClient.invalidateQueries(['groupPosts']),
+    onError: () => toast.error('Failed to create post'),
   });
 
   const updatePost = useMutation({
     mutationFn: ({ id, likes }) => base44.entities.Post.update(id, { likes }),
-    onSuccess: () => queryClient.invalidateQueries(['groupPosts'])
+    onSuccess: () => queryClient.invalidateQueries(['groupPosts']),
+    onError: () => {},
   });
 
   const createComment = useMutation({
@@ -242,7 +253,8 @@ export default function GroupDetail() {
       content,
       user_name: user?.full_name || user?.email || 'Anonymous'
     }),
-    onSuccess: () => queryClient.invalidateQueries(['comments'])
+    onSuccess: () => queryClient.invalidateQueries(['comments']),
+    onError: () => toast.error('Failed to post comment'),
   });
 
   const createChallenge = useMutation({
@@ -250,7 +262,8 @@ export default function GroupDetail() {
     onSuccess: () => {
       queryClient.invalidateQueries(['groupChallenges']);
       setShowCreateChallenge(false);
-    }
+    },
+    onError: () => toast.error('Failed to create challenge'),
   });
 
   const joinChallenge = useMutation({
@@ -271,7 +284,8 @@ export default function GroupDetail() {
     onSuccess: () => {
       queryClient.invalidateQueries(['groupChallenges']);
       queryClient.invalidateQueries(['challengeParticipants']);
-    }
+    },
+    onError: () => toast.error('Failed to join challenge'),
   });
 
   if (groupLoading) {

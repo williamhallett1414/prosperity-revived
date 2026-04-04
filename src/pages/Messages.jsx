@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
+import { toast } from 'sonner';
 import { awardPoints } from '@/components/gamification/ProgressManager';
 import { checkInteractionAllowed } from '@/utils/MinorSafety';
 import { format, isToday, isYesterday } from 'date-fns';
@@ -231,7 +232,7 @@ export default function Messages() {
         // Seed the conversation stub so it appears even before first message
         if (name) queryClient.setQueryData(['conv-name', email], name);
       }
-    });
+    }).catch(() => {});
   }, []);
 
   const { data: messages = [], isLoading } = useQuery({
@@ -278,6 +279,7 @@ export default function Messages() {
   const markRead = useMutation({
     mutationFn: ids => Promise.all(ids.map(id => base44.entities.Message.update(id, { read: true }))),
     onSuccess: () => queryClient.invalidateQueries(['messages']),
+    onError: () => {},
   });
 
   // Mark unread when opening a thread

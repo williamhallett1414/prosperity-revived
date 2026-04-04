@@ -158,7 +158,7 @@ export default function PersonalGrowthGoalsPage() {
   const [user, setUser] = useState(null);
   const [expandedArea, setExpandedArea] = useState(null);
 
-  useEffect(() => { base44.auth.me().then(setUser); }, []);
+  useEffect(() => { base44.auth.me().then(setUser).catch(() => {}); }, []);
 
   const growthAreas   = user?.growth_areas   || [];
   const coreValues    = user?.core_values    || [];

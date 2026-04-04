@@ -46,7 +46,7 @@ export default function MyJournalEntries() {
   const queryClient = useQueryClient();
 
   React.useEffect(() => {
-    base44.auth.me().then(setUser);
+    base44.auth.me().then(setUser).catch(() => {});
   }, []);
 
   const { data: entries = [] } = useQuery({

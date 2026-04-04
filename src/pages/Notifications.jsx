@@ -27,7 +27,7 @@ export default function Notifications() {
   const queryClient = useQueryClient();
 
   useEffect(() => {
-    base44.auth.me().then(setUser);
+    base44.auth.me().then(setUser).catch(() => {});
   }, []);
 
   const { data: notifications = [], isLoading } = useQuery({

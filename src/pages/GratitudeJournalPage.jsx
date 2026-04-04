@@ -228,7 +228,7 @@ function CompletionScreen({ entry, streak, aiReflection, loadingReflection, onRe
 export default function GratitudeJournalPage() {
   const [content, setContent] = useState('');
   const [user, setUser] = useState(null);
-  useEffect(() => { base44.auth.me().then(setUser); }, []);
+  useEffect(() => { base44.auth.me().then(setUser).catch(() => {}); }, []);
   const [saving, setSaving] = useState(false);
   const [done, setDone] = useState(false);
   const [savedEntry, setSavedEntry] = useState(null);

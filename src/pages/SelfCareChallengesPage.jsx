@@ -567,7 +567,7 @@ export default function SelfCareChallengesPage() {
   const [localData,   setLocalData]   = useState(loadLocal);
   const [selectedId,  setSelectedId]  = useState(null);
   const [user, setUser] = useState(null);
-  useEffect(() => { base44.auth.me().then(setUser); }, []);
+  useEffect(() => { base44.auth.me().then(setUser).catch(() => {}); }, []);
   const [activeCat,   setActiveCat]   = useState("All");
 
   const selected      = selectedId ? CHALLENGES.find(c => c.id === selectedId) : null;

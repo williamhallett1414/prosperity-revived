@@ -154,7 +154,7 @@ export default function BibleGoalsPage() {
   const [user, setUser] = useState(null);
   const [showTranslationInfo, setShowTranslationInfo] = useState(false);
 
-  useEffect(() => { base44.auth.me().then(setUser); }, []);
+  useEffect(() => { base44.auth.me().then(setUser).catch(() => {}); }, []);
 
   const level      = user?.bible_level || 'new';
   const translation= user?.bible_translation || 'any';

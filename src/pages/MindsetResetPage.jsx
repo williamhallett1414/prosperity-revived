@@ -342,7 +342,7 @@ Write a 3-4 sentence personal coaching response. Affirm their insight, add one s
 export default function MindsetResetPage() {
   const [selectedCat, setSelectedCat]   = useState(null);
   const [user, setUser] = useState(null);
-  useEffect(() => { base44.auth.me().then(setUser); }, []);
+  useEffect(() => { base44.auth.me().then(setUser).catch(() => {}); }, []);
   const [selectedPrompt, setSelectedPrompt] = useState(null);
   const [activeSession, setActiveSession] = useState(null);
   const [history, setHistory]           = useState(loadHistory);

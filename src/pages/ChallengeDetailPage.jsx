@@ -32,7 +32,7 @@ export default function ChallengeDetailPage() {
   const challengeId = urlParams.get('id');
 
   useEffect(() => {
-    base44.auth.me().then(setUser);
+    base44.auth.me().then(setUser).catch(() => {});
   }, []);
 
   const { data: challenge, isLoading } = useQuery({

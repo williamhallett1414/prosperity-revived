@@ -62,7 +62,7 @@ export default function Achievements() {
   const [user, setUser] = useState(null);
   const [tab, setTab] = useState('badges');
 
-  useEffect(() => { base44.auth.me().then(setUser); }, []);
+  useEffect(() => { base44.auth.me().then(setUser).catch(() => {}); }, []);
 
   // Fixed: filter by email instead of list() + find()
   const { data: progress } = useQuery({

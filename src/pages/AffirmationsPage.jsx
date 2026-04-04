@@ -188,7 +188,7 @@ export default function AffirmationsPage() {
   const [currentIndex, setCurrentIndex] = useState(todayIndex);
   const [savedIds,      setSavedIds]     = useState(new Set());
   const [user,          setUser]          = useState(null);
-  useEffect(() => { base44.auth.me().then(setUser); }, []);
+  useEffect(() => { base44.auth.me().then(setUser).catch(() => {}); }, []);
   const [saving,        setSaving]       = useState(false);
   const [expanded,      setExpanded]     = useState(false);
   const [showAll,       setShowAll]      = useState(false);
