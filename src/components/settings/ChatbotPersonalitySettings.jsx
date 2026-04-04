@@ -32,17 +32,17 @@ export default function ChatbotPersonalitySettings({ user }) {
     queryKey: ['chatbotPreferences', user?.email],
     queryFn: async () => {
       if (!user?.email) return {};
-      const allPrefs = await base44.entities.ChatbotPreferences.filter({
-        created_by: user.email
-      });
-      
-      const prefsMap = {};
-      allPrefs.forEach(pref => {
-        prefsMap[pref.chatbot_name] = pref;
-      });
-      return prefsMap;
+      try {
+        const allPrefs = await base44.entities.ChatbotPreferences.filter({
+          created_by: user.email
+        });
+        const prefsMap = {};
+        allPrefs.forEach(pref => { prefsMap[pref.chatbot_name] = pref; });
+        return prefsMap;
+      } catch { return {}; }
     },
-    enabled: !!user?.email
+    enabled: !!user?.email,
+    retry: false,
   });
 
   const currentPrefs = preferences[selectedChatbot] || { ...defaultPreferences, chatbot_name: selectedChatbot };

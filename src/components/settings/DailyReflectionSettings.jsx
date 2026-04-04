@@ -15,9 +15,10 @@ export default function DailyReflectionSettings() {
   const { data: settings } = useQuery({
     queryKey: ['reflectionSettings'],
     queryFn: async () => {
-      const list = await base44.entities.DailyReflectionSettings.list();
-      return list[0] || null;
-    }
+      try { const list = await base44.entities.DailyReflectionSettings.list(); return list[0] || null; }
+      catch { return null; }
+    },
+    retry: false,
   });
 
   const updateSettings = useMutation({

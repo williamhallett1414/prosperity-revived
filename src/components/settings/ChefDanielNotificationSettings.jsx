@@ -13,24 +13,19 @@ export default function ChefDanielNotificationSettings({ user }) {
   const { data: settings } = useQuery({
     queryKey: ['chefDanielNotificationSettings', user?.email],
     queryFn: async () => {
-      const results = await base44.entities.ChefDanielNotificationSettings.filter({
-        created_by: user.email
-      });
-      
-      if (results.length === 0) {
-        // Create default settings
-        const newSettings = await base44.entities.ChefDanielNotificationSettings.create({
-          morning_enabled: false,
-          midday_enabled: false,
-          afternoon_enabled: false,
-          evening_enabled: false
-        });
-        return newSettings;
-      }
-      
-      return results[0];
+      try {
+        const results = await base44.entities.ChefDanielNotificationSettings.filter({ created_by: user.email });
+        if (results.length === 0) {
+          return await base44.entities.ChefDanielNotificationSettings.create({
+            morning_enabled: false, midday_enabled: false,
+            afternoon_enabled: false, evening_enabled: false
+          });
+        }
+        return results[0];
+      } catch { return null; }
     },
-    enabled: !!user
+    enabled: !!user,
+    retry: false,
   });
 
   // Update settings mutation

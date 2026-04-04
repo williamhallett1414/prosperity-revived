@@ -12,22 +12,20 @@ export default function GideonNotificationSettings() {
   const { data: settings } = useQuery({
     queryKey: ['gideonNotificationSettings'],
     queryFn: async () => {
-      const results = await base44.entities.GideonNotificationSettings.list();
-      if (results.length === 0) {
-        // Create default settings
-        return await base44.entities.GideonNotificationSettings.create({
-          morning_enabled: false,
-          midday_enabled: false,
-          afternoon_enabled: false,
-          evening_enabled: false,
-          verse_of_day_enabled: false,
-          weekly_checkin_enabled: false,
-          challenge_reminders_enabled: false,
-          growth_prompts_enabled: false
-        });
-      }
-      return results[0];
-    }
+      try {
+        const results = await base44.entities.GideonNotificationSettings.list();
+        if (results.length === 0) {
+          return await base44.entities.GideonNotificationSettings.create({
+            morning_enabled: false, midday_enabled: false,
+            afternoon_enabled: false, evening_enabled: false,
+            verse_of_day_enabled: false, weekly_checkin_enabled: false,
+            challenge_reminders_enabled: false, growth_prompts_enabled: false
+          });
+        }
+        return results[0];
+      } catch { return null; }
+    },
+    retry: false,
   });
 
   const updateSettingsMutation = useMutation({
