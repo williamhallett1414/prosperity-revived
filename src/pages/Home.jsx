@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { motion } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
@@ -18,14 +18,18 @@ import hannahAvatar from '@/assets/hannah-avatar.png';
 import coachDavidAvatar from '@/assets/coach-david-avatar.png';
 import chefDanielAvatar from '@/assets/chef-daniel-avatar.png';
 import coachPaulAvatar from '@/assets/coach-paul-avatar.png';
-import OnboardingFlow from '@/components/onboarding/OnboardingFlow';
+
+// Lazy-load heavy components (only needed conditionally)
+const OnboardingFlow = lazy(() => import('@/components/onboarding/OnboardingFlow'));
+const AppTour = lazy(() => import('@/components/onboarding/AppTour'));
+const CreatePostModal = lazy(() => import('@/components/community/CreatePostModal'));
+const HelpChatbot = lazy(() => import('@/components/home/HelpChatbot'));
+
+// These are always needed
 import TermsUpdateGate, { needsTermsUpdate } from '@/components/onboarding/TermsUpdateGate';
-import AppTour from '@/components/onboarding/AppTour';
 import StartMyDayModal from '@/components/home/StartMyDayModal';
 import EndMyDayModal from '@/components/home/EndMyDayModal';
-import CreatePostModal from '@/components/community/CreatePostModal';
 import { toast } from 'sonner';
-import HelpChatbot from '@/components/home/HelpChatbot';
 
 // ─── Helpers ───────────────────────────────────────────────────────────────────
 function getGreeting() {
@@ -373,7 +377,7 @@ function StartHereCard() {
 
 // ─── Daily Progress Ring — visual today's activity tracker ────────────────────
 function DailyProgressRing({ user }) {
-  const today = new Date().toISOString().split('T')[0];
+  const today = (() => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; })();
 
   const { data: todayWorkouts = [] } = useQuery({
     queryKey: ['todayWorkouts', user?.email, today],
@@ -606,7 +610,7 @@ function ActiveChallengesWidget({ user }) {
     enabled: myParticipations.length > 0,
   });
 
-  const today = new Date().toISOString().split('T')[0];
+  const today = (() => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; })();
 
   // Only show in-progress (not completed) participations
   const active = myParticipations.filter(p => {
@@ -705,7 +709,7 @@ export default function Home() {
       } else if (!u.app_tour_completed) {
         setShowAppTour(true);
       }
-    });
+    }).catch(() => {});
   }, []);
 
   // Apply theme
@@ -769,10 +773,11 @@ export default function Home() {
     <div className="min-h-screen bg-[#F2F6FA]">
 
       {/* ── Onboarding flows ──────────────────────────────────────────────── */}
+      <Suspense fallback={null}>
       {showOnboarding && (
         <OnboardingFlow onComplete={() => {
           setShowOnboarding(false);
-          base44.auth.me().then(setUser);
+          base44.auth.me().then(setUser).catch(() => {});
           setTimeout(() => setShowAppTour(true), 600);
         }} />
       )}
@@ -784,7 +789,7 @@ export default function Home() {
             base44.auth.me().then(u => {
               setUser(u);
               if (!u.app_tour_completed) setTimeout(() => setShowAppTour(true), 400);
-            });
+            }).catch(() => {});
           }}
         />
       )}
@@ -793,7 +798,7 @@ export default function Home() {
           userName={user?.full_name?.split(' ')[0]}
           onComplete={() => {
           setShowAppTour(false);
-          base44.auth.me().then(setUser);
+          base44.auth.me().then(setUser).catch(() => {});
           // Launch interactive guided tour after a short pause
           setTimeout(() => {
             if (window.__startGuidedTour) window.__startGuidedTour();
@@ -922,6 +927,7 @@ export default function Home() {
       )}
 
       <HelpChatbot />
+      </Suspense>
     </div>
   );
 }
