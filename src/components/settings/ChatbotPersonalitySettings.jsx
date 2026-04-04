@@ -55,7 +55,9 @@ export default function ChatbotPersonalitySettings({ user }) {
         return await base44.entities.ChatbotPreferences.create({
           ...prefs,
           chatbot_name: selectedChatbot
-        });
+        ,
+    onError: () => {},
+  });
       }
     },
     onSuccess: () => {
@@ -71,7 +73,9 @@ export default function ChatbotPersonalitySettings({ user }) {
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['chatbotPreferences'] });
+      queryClient.invalidateQueries({ queryKey: ['chatbotPreferences'] ,
+    onError: () => {},
+  });
       toast.success('Reset to default settings');
     }
   });

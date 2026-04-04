@@ -37,7 +37,9 @@ export default function ChefDanielNotificationSettings({ user }) {
   const updateSettingsMutation = useMutation({
     mutationFn: (updates) => base44.entities.ChefDanielNotificationSettings.update(settings.id, updates),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['chefDanielNotificationSettings'] });
+      queryClient.invalidateQueries({ queryKey: ['chefDanielNotificationSettings'] ,
+    onError: () => {},
+  });
       toast.success('Notification settings updated');
     }
   });

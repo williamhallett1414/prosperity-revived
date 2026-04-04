@@ -32,6 +32,8 @@ export default function DailyReflectionSettings() {
       queryClient.invalidateQueries(['reflectionSettings']);
       toast.success('Settings updated');
     }
+  ,
+    onError: () => {},
   });
 
   const handleToggle = (field, value) => {

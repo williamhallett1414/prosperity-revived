@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
-import { ArrowLeft, Moon, Sun, Monitor, Bell, User, Palette, Trash2, Play, Database } from 'lucide-react';
-import AppTour from '@/components/onboarding/AppTour';
+import { ArrowLeft, Moon, Sun, Monitor, Bell, User, Palette, Trash2, Play, Database, ChevronRight } from 'lucide-react';
+import { toast } from 'sonner';
+const AppTour = lazy(() => import('@/components/onboarding/AppTour'));
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import { Link } from 'react-router-dom';
@@ -35,15 +36,16 @@ export default function Settings() {
   const queryClient = useQueryClient();
 
   useEffect(() => {
-    base44.auth.me().then(setUser);
+    base44.auth.me().then(setUser).catch(() => {});
   }, []);
 
   const updateUser = useMutation({
     mutationFn: (data) => base44.auth.updateMe(data),
     onSuccess: () => {
       queryClient.invalidateQueries(['user']);
-      base44.auth.me().then(setUser);
-    }
+      base44.auth.me().then(setUser).catch(() => {});
+    },
+    onError: () => toast.error('Failed to save — please try again'),
   });
 
   const handleThemeChange = (theme) => {
@@ -241,7 +243,7 @@ export default function Settings() {
             <div className="flex items-center justify-between py-2">
               <span className="text-gray-600 dark:text-gray-400">Member Since</span>
               <span className="font-medium text-[#0A1A2F] dark:text-white">
-                {new Date(user.created_date).toLocaleDateString()}
+                {user.created_date ? new Date(user.created_date).toLocaleDateString() : '—'}
               </span>
             </div>
             
@@ -253,7 +255,7 @@ export default function Settings() {
                 <Play className="w-4 h-4 text-[#FD9C2D]" />
                 Replay App Tour
               </span>
-              <ArrowLeft className="w-4 h-4 text-gray-400 rotate-180" />
+              <ChevronRight className="w-4 h-4 text-gray-400" />
             </button>
 
             <button
@@ -264,7 +266,7 @@ export default function Settings() {
                 <Play className="w-4 h-4 text-[#38BDF8]" />
                 Interactive Guided Tour
               </span>
-              <ArrowLeft className="w-4 h-4 text-gray-400 rotate-180" />
+              <ChevronRight className="w-4 h-4 text-gray-400" />
             </button>
 
             <Link
@@ -272,7 +274,7 @@ export default function Settings() {
               className="flex items-center justify-between py-3 px-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors min-h-[44px]"
             >
               <span className="text-gray-600 dark:text-gray-400">Terms & Conditions</span>
-              <ArrowLeft className="w-4 h-4 text-gray-400 rotate-180" />
+              <ChevronRight className="w-4 h-4 text-gray-400" />
             </Link>
             
             <Link
@@ -280,7 +282,7 @@ export default function Settings() {
               className="flex items-center justify-between py-3 px-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors min-h-[44px]"
             >
               <span className="text-gray-600 dark:text-gray-400">Privacy Policy</span>
-              <ArrowLeft className="w-4 h-4 text-gray-400 rotate-180" />
+              <ChevronRight className="w-4 h-4 text-gray-400" />
             </Link>
             
             <Link
@@ -288,7 +290,7 @@ export default function Settings() {
               className="flex items-center justify-between py-3 px-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors min-h-[44px]"
             >
               <span className="text-gray-600 dark:text-gray-400">Health & Wellness Waiver</span>
-              <ArrowLeft className="w-4 h-4 text-gray-400 rotate-180" />
+              <ChevronRight className="w-4 h-4 text-gray-400" />
             </Link>
             
             <Link
@@ -296,7 +298,7 @@ export default function Settings() {
               className="flex items-center justify-between py-3 px-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors min-h-[44px]"
             >
               <span className="text-gray-600 dark:text-gray-400">Subscription Terms</span>
-              <ArrowLeft className="w-4 h-4 text-gray-400 rotate-180" />
+              <ChevronRight className="w-4 h-4 text-gray-400" />
             </Link>
 
             <Link
@@ -304,7 +306,7 @@ export default function Settings() {
               className="flex items-center justify-between py-3 px-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors min-h-[44px]"
             >
               <span className="text-gray-600 dark:text-gray-400">Do Not Sell My Personal Information</span>
-              <ArrowLeft className="w-4 h-4 text-gray-400 rotate-180" />
+              <ChevronRight className="w-4 h-4 text-gray-400" />
             </Link>
           </div>
 
@@ -318,7 +320,7 @@ export default function Settings() {
           <ManageMyData user={user} />
 
           <Button
-            onClick={() => base44.auth.logout()}
+            onClick={() => { base44.auth.logout().catch(() => { toast.error('Failed to sign out'); }); }}
             variant="outline"
             className="w-full mt-4 border-red-200 text-red-600 hover:bg-red-50 dark:border-red-900 dark:hover:bg-red-950 min-h-[44px]"
           >
@@ -359,8 +361,8 @@ export default function Settings() {
                     try {
                       await base44.auth.deleteAccount();
                       window.location.href = '/';
-                    } catch (error) {
-                      console.error('Failed to delete account:', error);
+                    } catch {
+                      toast.error('Failed to delete account — please try again');
                       setIsDeleting(false);
                     }
                   }}
@@ -374,10 +376,12 @@ export default function Settings() {
         </div>
       </div>
       {showTour && (
-        <AppTour
-          userName={user?.full_name?.split(' ')[0]}
-          onComplete={() => setShowTour(false)}
-        />
+        <Suspense fallback={null}>
+          <AppTour
+            userName={user?.full_name?.split(' ')[0]}
+            onComplete={() => setShowTour(false)}
+          />
+        </Suspense>
       )}
     </div>
   );

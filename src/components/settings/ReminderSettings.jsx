@@ -23,7 +23,7 @@ export default function ReminderSettings() {
       if (u.reminder_settings) {
         setReminders(u.reminder_settings);
       }
-    });
+    }).catch(() => {});
   }, []);
 
   const handleSave = async () => {

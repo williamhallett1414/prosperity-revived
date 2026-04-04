@@ -36,6 +36,8 @@ export default function GideonNotificationSettings() {
       queryClient.invalidateQueries(['gideonNotificationSettings']);
       toast.success('Notification settings updated');
     }
+  ,
+    onError: () => {},
   });
 
   const handleToggle = (field, value) => {
