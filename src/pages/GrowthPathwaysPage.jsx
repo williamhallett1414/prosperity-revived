@@ -458,6 +458,7 @@ function StepRow({ step, pathwayId, completedIds, isLocked, onToggle, reflection
                 <div className="space-y-3">
                   <p className="text-xs text-[#0A1A2F]/55 italic leading-relaxed">"{step.prompt}"</p>
                   <textarea
+                    maxLength={1000}
                     value={reflection}
                     onChange={e => onReflectionChange(e.target.value)}
                     placeholder="Write your reflection here…"

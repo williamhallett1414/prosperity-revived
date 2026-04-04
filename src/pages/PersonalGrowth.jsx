@@ -8,6 +8,7 @@ import {
 import { Link, useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { base44 } from '@/api/base44Client';
+import { localDateKey, todayKey } from '@/utils/localDate';
 
 // ── Affirmations rotation ────────────────────────────────────────────────────
 const DAILY_AFFIRMATIONS = [
@@ -40,10 +41,6 @@ function getGreeting(name) {
   if (h < 17) return { text: `Good afternoon${suffix}`, Icon: Sunset, color: "#F97316" };
   if (h < 21) return { text: `Good evening${suffix}`, Icon: Moon,   color: "#8B5CF6" };
   return       { text: `Good night${suffix}`, Icon: Moon, color: "#6366F1" };
-}
-
-function todayKey() {
-  return new Date().toISOString().split("T")[0];
 }
 
 function getDayOfYear() {
@@ -158,7 +155,7 @@ function calcHabitStreak(entries) {
   for (let i = 0; i < 60; i++) {
     const d = new Date();
     d.setDate(d.getDate() - i);
-    if (days.has(d.toISOString().slice(0, 10))) streak++;
+    if (days.has(localDateKey(d))) streak++;
     else if (i > 0) break;
   }
   return streak;
@@ -256,7 +253,7 @@ export default function PersonalGrowth() {
         const mon = (() => {
           const d = new Date(); const day = d.getDay();
           d.setDate(d.getDate() - (day === 0 ? 6 : day - 1));
-          return d.toISOString().slice(0, 10);
+          return localDateKey(d);
         })();
         setWeeklyDone(entries.some(e => e.entry_type === "weekly_reflection" && e.created_date === mon));
 

@@ -10,6 +10,7 @@ import { createPageUrl } from '@/utils';
 import { base44 } from '@/api/base44Client';
 import { toast } from 'sonner';
 import ShareToFeedButton from '@/components/community/ShareToFeedButton';
+import { localDateKey, todayKey } from '@/utils/localDate';
 
 // ── Reflection sections ────────────────────────────────────────────────────
 const SECTIONS = [
@@ -91,7 +92,7 @@ function getWeekStart() {
   const now = new Date();
   const day = now.getDay();
   const diff = now.getDate() - day + (day === 0 ? -6 : 1);
-  return new Date(new Date(now).setDate(diff)).toISOString().split('T')[0];
+  return localDateKey(new Date(new Date(now).setDate(diff)));
 }
 
 function getWeekLabel() {
@@ -297,7 +298,7 @@ export default function WeeklyReflectionPage() {
       for (let i = 0; i < 52; i++) {
         const d = new Date(weekStart);
         d.setDate(d.getDate() - i * 7);
-        const key = d.toISOString().split('T')[0];
+        const key = localDateKey(d);
         if (weekStarts.has(key)) s++;
         else if (i > 0) break;
       }
@@ -437,6 +438,7 @@ export default function WeeklyReflectionPage() {
                     </div>
                     <div className="px-5 py-4">
                       <textarea
+                        maxLength={1000}
                         value={val}
                         onChange={e => setAnswer(section.id, e.target.value)}
                         placeholder={section.placeholder}

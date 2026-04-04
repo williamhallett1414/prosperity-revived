@@ -88,7 +88,8 @@ export default function MyJournalEntries() {
       queryClient.invalidateQueries(['journalEntries']);
       setEditingId(null);
       toast.success('Entry updated!');
-    }
+    },
+    onError: () => toast.error('Failed to update entry'),
   });
 
   const deleteEntry = useMutation({
@@ -96,7 +97,8 @@ export default function MyJournalEntries() {
     onSuccess: () => {
       queryClient.invalidateQueries(['journalEntries']);
       toast.success('Entry deleted');
-    }
+    },
+    onError: () => toast.error('Failed to delete entry'),
   });
 
   const createEntry = useMutation({
@@ -107,7 +109,8 @@ export default function MyJournalEntries() {
       setNewTitle('');
       setNewContent('');
       toast.success('Entry created!');
-    }
+    },
+    onError: () => toast.error('Failed to create entry'),
   });
 
   const generateSummary = useMutation({
@@ -479,6 +482,7 @@ export default function MyJournalEntries() {
                               className="bg-gray-100 border-[#F2F6FA] text-black"
                             />
                             <Textarea
+                              maxLength={1000}
                               placeholder="Entry content"
                               value={editContent}
                               onChange={(e) =>

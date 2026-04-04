@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { base44 } from '@/api/base44Client';
 import ShareToFeedButton from '@/components/community/ShareToFeedButton';
+import { localDateKey, todayKey } from '@/utils/localDate';
 
 // ─── Challenge Catalogue ─────────────────────────────────────────────────────
 const CHALLENGES = [
@@ -105,7 +106,7 @@ const CAT_COLORS = { Faith: "#D9A84A", Mindset: "#0ea5e9", Body: "#22c55e", Rela
 const LOCAL_KEY = "pr_selfcare_v3";
 function loadLocal() { try { return JSON.parse(localStorage.getItem(LOCAL_KEY) || "{}"); } catch { return {}; } }
 function saveLocal(d) { try { localStorage.setItem(LOCAL_KEY, JSON.stringify(d)); } catch {} }
-function todayStr() { return new Date().toISOString().slice(0, 10); }
+function todayStr() { return (() => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; })(); }
 function getDayTs(val) { return typeof val === "number" ? val : (val?.ts ?? 0); }
 function getDayXP(val, fallback) { return typeof val === "number" ? fallback : (val?.xp ?? fallback); }
 
@@ -115,19 +116,19 @@ function getCompletedDays(cData) {
 }
 function completedToday(cData) {
   if (!cData?.days) return false;
-  return Object.values(cData.days).some(val => new Date(getDayTs(val)).toISOString().slice(0, 10) === todayStr());
+  return Object.values(cData.days).some(val => localDateKey(new Date(getDayTs(val))) === todayStr());
 }
 function calcStreak(cData) {
   if (!cData?.days) return 0;
   const byDate = {};
-  Object.values(cData.days).forEach(val => { byDate[new Date(getDayTs(val)).toISOString().slice(0, 10)] = true; });
+  Object.values(cData.days).forEach(val => { byDate[localDateKey(new Date(getDayTs(val)))] = true; });
   const today = todayStr();
   const yd = new Date(); yd.setDate(yd.getDate() - 1);
-  const yesterday = yd.toISOString().slice(0, 10);
+  const yesterday = ylocalDateKey(d);
   const start = byDate[today] ? new Date() : byDate[yesterday] ? yd : null;
   if (!start) return 0;
   let n = 0; const d = new Date(start);
-  while (byDate[d.toISOString().slice(0, 10)]) { n++; d.setDate(d.getDate() - 1); }
+  while (byDate[localDateKey(d)]) { n++; d.setDate(d.getDate() - 1); }
   return n;
 }
 function getTotalXP(localData) {
@@ -391,6 +392,7 @@ function ChallengeDetail({ challenge, localData, onBack, onStart, onComplete, on
                   </div>
                   <div style={{position:"relative"}}>
                     <textarea
+                      maxLength={1000}
                       value={reflection}
                       onChange={e => setReflection(e.target.value)}
                       placeholder="Write freely — what did God show you today?"

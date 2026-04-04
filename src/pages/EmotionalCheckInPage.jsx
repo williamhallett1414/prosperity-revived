@@ -10,6 +10,7 @@ import { base44 } from '@/api/base44Client';
 import { toast } from 'sonner';
 import ShareToFeedButton from '@/components/community/ShareToFeedButton';
 import { useQuery } from '@tanstack/react-query';
+import { localDateKey, todayKey } from '@/utils/localDate';
 
 const MOODS = [
   {
@@ -124,7 +125,7 @@ function buildWeekHistory(entries) {
   for (let i = 6; i >= 0; i--) {
     const d = new Date();
     d.setDate(d.getDate() - i);
-    const key = d.toISOString().slice(0, 10);
+    const key = localDateKey(d);
     const label = i === 0 ? 'Today' : d.toLocaleDateString('en-US', { weekday: 'short' });
     days.push({ key, label, mood: map[key] || null });
   }
@@ -138,7 +139,7 @@ function calcStreak(entries) {
   let streak = 0;
   const d = new Date();
   while (true) {
-    const key = d.toISOString().slice(0, 10);
+    const key = localDateKey(d);
     if (checkinDays.has(key)) { streak++; d.setDate(d.getDate() - 1); }
     else break;
   }
@@ -383,6 +384,7 @@ export default function EmotionalCheckInPage() {
                     <p className="text-xs font-bold text-[#0A1A2F]/35 uppercase tracking-widest mb-1.5">Reflect</p>
                     <p className="text-xs text-[#0A1A2F]/45 italic mb-3">{moodObj.prompt}</p>
                     <textarea value={reflection} onChange={e => setReflection(e.target.value)}
+                      maxLength={1000}
                       placeholder="Write freely — this is just for you…"
                       rows={4}
                       className="w-full resize-none rounded-xl border border-[#F2F6FA] bg-[#F2F6FA] px-3 py-2.5 text-sm text-[#0A1A2F] placeholder-[#0A1A2F]/25 focus:outline-none focus:border-[#FAD98D]/60 transition-colors leading-relaxed" />

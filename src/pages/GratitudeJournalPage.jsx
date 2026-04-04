@@ -13,6 +13,7 @@ import ShareToFeedButton from '@/components/community/ShareToFeedButton';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import GratitudeMoodChart from '@/components/mindspirit/GratitudeMoodChart.jsx';
 import GratitudePatternInsights from '@/components/mindspirit/GratitudePatternInsights.jsx';
+import { localDateKey, todayKey } from '@/utils/localDate';
 
 // ─── Constants ─────────────────────────────────────────────────────────────
 const GRATITUDE_SCRIPTURES = [
@@ -49,7 +50,7 @@ function buildWeekHistory(entries) {
   for (let i = 6; i >= 0; i--) {
     const d = new Date();
     d.setDate(d.getDate() - i);
-    const key = d.toISOString().slice(0, 10);
+    const key = localDateKey(d);
     const label = i === 0 ? 'Today' : d.toLocaleDateString('en-US', { weekday: 'short' });
     days.push({ key, label, mood: map[key] || null });
   }
@@ -61,7 +62,7 @@ function calcStreak(entries) {
   let streak = 0;
   const d = new Date();
   while (true) {
-    const key = d.toISOString().slice(0, 10);
+    const key = localDateKey(d);
     if (days.has(key)) { streak++; d.setDate(d.getDate() - 1); }
     else break;
   }
@@ -417,6 +418,7 @@ export default function GratitudeJournalPage() {
                 <h3 className="text-sm font-bold text-[#0A1A2F]">Today's Gratitude</h3>
               </div>
               <textarea
+                maxLength={1000}
                 value={content}
                 onChange={e => setContent(e.target.value)}
                 placeholder="Write freely about what you're grateful for today…"

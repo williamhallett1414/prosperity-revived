@@ -261,7 +261,7 @@ function CoachingSection({ active }) {
 // ─── Main ─────────────────────────────────────────────────────────────────────
 export default function Wellness() {
   const [user, setUser] = useState(null);
-  const today = new Date().toISOString().split('T')[0];
+  const today = (() => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; })();
   const feature = getTimeFeature();
 
   useEffect(() => { base44.auth.me().then(setUser).catch(() => {}); }, []);

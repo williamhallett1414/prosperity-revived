@@ -8,6 +8,7 @@ import { createPageUrl } from '@/utils';
 import { base44 } from '@/api/base44Client';
 import { toast } from 'sonner';
 import ShareToFeedButton from '@/components/community/ShareToFeedButton';
+import { localDateKey, todayKey } from '@/utils/localDate';
 
 // ─── Habit catalogue ──────────────────────────────────────────────────────────
 const PRESET_HABITS = [
@@ -43,7 +44,7 @@ const HISTORY_KEY = 'habit_history_v1';
 const CUSTOM_KEY  = 'habit_custom_v1';
 const MILESTONE_KEY = 'habit_milestones_seen_v1';
 
-const TODAY = () => new Date().toISOString().split('T')[0];
+const TODAY = () => (() => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; })();
 const STORAGE_TODAY = () => `habits_${TODAY()}`;
 
 function loadActive()    { try { return JSON.parse(localStorage.getItem(ACTIVE_KEY)  || JSON.stringify(DEFAULT_ACTIVE)); } catch { return DEFAULT_ACTIVE; } }
@@ -60,7 +61,7 @@ function computeStreaks(history, habitIds) {
     let streak = 0;
     const d = new Date();
     while (true) {
-      const key = d.toISOString().split('T')[0];
+      const key = localDateKey(d);
       if ((history[key] || []).includes(id)) { streak++; d.setDate(d.getDate() - 1); }
       else break;
     }
@@ -72,7 +73,7 @@ function computeStreaks(history, habitIds) {
 function getWeekData(habitId, history) {
   return Array.from({ length: 7 }, (_, i) => {
     const d = new Date(); d.setDate(d.getDate() - (6 - i));
-    const key = d.toISOString().split('T')[0];
+    const key = localDateKey(d);
     const isToday = key === TODAY();
     return { key, label: isToday ? '·' : ['S','M','T','W','T','F','S'][d.getDay()], done: (history[key] || []).includes(habitId), isToday };
   });
@@ -82,7 +83,7 @@ function getWeekData(habitId, history) {
 function getHeatmapData(activeIds, history) {
   return Array.from({ length: 35 }, (_, i) => {
     const d = new Date(); d.setDate(d.getDate() - (34 - i));
-    const key = d.toISOString().split('T')[0];
+    const key = localDateKey(d);
     const isToday = key === TODAY();
     const isFuture = key > TODAY();
     const done = (history[key] || []).filter(id => activeIds.includes(id)).length;
@@ -609,7 +610,7 @@ export default function HabitBuilderPage() {
   const bestStreak     = Math.max(0, ...activeHabits.map(h => streaks[h.id] || 0));
   const overallStreak  = (() => {
     let s = 0; const d = new Date();
-    while (true) { const key = d.toISOString().split('T')[0]; if ((history[key]||[]).length > 0) { s++; d.setDate(d.getDate()-1); } else break; }
+    while (true) { const key = localDateKey(d); if ((history[key]||[]).length > 0) { s++; d.setDate(d.getDate()-1); } else break; }
     return s;
   })();
 

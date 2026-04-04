@@ -247,6 +247,7 @@ Write a 3-4 sentence personal coaching response. Affirm their insight, add one s
             <h2 className="font-bold text-base text-[#0A1A2F] mb-1">{current.heading}</h2>
             <p className="text-xs text-[#0A1A2F]/50 mb-3 leading-relaxed">{current.sub}</p>
             <textarea
+              maxLength={1000}
               autoFocus
               value={current.value}
               onChange={e => current.set(e.target.value)}

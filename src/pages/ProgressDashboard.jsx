@@ -175,14 +175,14 @@ export default function ProgressDashboard() {
   // ── 3 queries (chatbot context is now lazy — fetched only when that chatbot opens) ──
   const { data: user } = useQuery({
     queryKey: ['currentUser'],
-    queryFn: () => base44.auth.me(),
+    queryFn: async () => { try { return await base44.auth.me(); } catch { return null; } },
   });
 
   const { data: userProgress } = useQuery({
     queryKey: ['userProgress', user?.email],
     queryFn: async () => {
-      const list = await base44.entities.UserProgress.filter({ created_by: user.email });
-      return list[0] || null;
+      try { const list = await base44.entities.UserProgress.filter({ created_by: user.email }); return list[0] || null; }
+      catch { return null; }
     },
     enabled: !!user?.email,
   });
@@ -190,11 +190,13 @@ export default function ProgressDashboard() {
   const { data: allMemories = [], isLoading } = useQuery({
     queryKey: ['allChatbotMemories', user?.email],
     queryFn: async () => {
-      const m = await base44.entities.ChatbotMemory.filter({
-        created_by: user.email,
-        memory_type: ['goal', 'milestone', 'achievement', 'success'],
-      });
-      return m.sort((a, b) => new Date(b.created_date) - new Date(a.created_date));
+      try {
+        const m = await base44.entities.ChatbotMemory.filter({
+          created_by: user.email,
+          memory_type: ['goal', 'milestone', 'achievement', 'success'],
+        });
+        return m.sort((a, b) => new Date(b.created_date) - new Date(a.created_date));
+      } catch { return []; }
     },
     enabled: !!user?.email,
     initialData: [],
