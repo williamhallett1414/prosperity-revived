@@ -42,7 +42,8 @@ export default function FriendsTab({ friends, user }) {
     onSuccess: () => {
       queryClient.invalidateQueries(['sentRequests']);
       toast.success('Friend request sent!');
-    }
+    },
+    onError: () => toast.error('Failed to send friend request'),
   });
 
   const filteredFriends = useMemo(() => {

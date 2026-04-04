@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { Settings, Camera, ChevronRight, Trophy, TrendingUp, MessageCircle, Brain } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
+import { toast } from 'sonner';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -393,14 +394,16 @@ export default function Profile() {
   const [isDeleting, setIsDeleting] = useState(false);
   const [uploading, setUploading] = useState({ cover: false, avatar: false });
 
-  useEffect(() => {base44.auth.me().then(setUser);}, []);
+  useEffect(() => { base44.auth.me().then(setUser).catch(() => {}); }, []);
 
   // ── Eager: userProgress + friends (both needed for header/tab content) ──
   const { data: userProgress = null } = useQuery({
     queryKey: ['userProgress'],
     queryFn: async () => {
-      const list = await base44.entities.UserProgress.filter({ created_by: user.email });
-      return list[0] || null;
+      try {
+        const list = await base44.entities.UserProgress.filter({ created_by: user.email });
+        return list[0] || null;
+      } catch { return null; }
     },
     enabled: !!user,
     retry: false
@@ -409,11 +412,13 @@ export default function Profile() {
   const { data: friends = [] } = useQuery({
     queryKey: ['friends'],
     queryFn: async () => {
-      const [a, b] = await Promise.all([
-      base44.entities.Friend.filter({ user_email: user.email, status: 'accepted' }),
-      base44.entities.Friend.filter({ friend_email: user.email, status: 'accepted' })]
-      );
-      return [...a, ...b];
+      try {
+        const [a, b] = await Promise.all([
+          base44.entities.Friend.filter({ user_email: user.email, status: 'accepted' }),
+          base44.entities.Friend.filter({ friend_email: user.email, status: 'accepted' })
+        ]);
+        return [...a, ...b];
+      } catch { return []; }
     },
     enabled: !!user
   });
@@ -421,7 +426,7 @@ export default function Profile() {
   // ── Lazy: only load when Overview tab is active ──────────────────────────
   const { data: myPosts = [] } = useQuery({
     queryKey: ['myPosts'],
-    queryFn: () => base44.entities.Post.filter({ created_by: user?.email }),
+    queryFn: async () => { try { return await base44.entities.Post.filter({ created_by: user?.email }); } catch { return []; } },
     enabled: !!user && activeTab === 'overview'
   });
   const { data: meditationSessions = [] } = useQuery({
@@ -447,23 +452,29 @@ export default function Profile() {
   const handleCoverUpload = async (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
+    if (file.size > 5 * 1024 * 1024) { toast.error('Image must be under 5MB'); return; }
     setUploading((u) => ({ ...u, cover: true }));
     try {
       const { file_url } = await base44.integrations.Core.UploadFile({ file });
       await base44.auth.updateMe({ cover_image_url: file_url });
-      window.location.reload();
-    } catch {setUploading((u) => ({ ...u, cover: false }));}
+      setUser(prev => ({ ...prev, cover_image_url: file_url }));
+      toast.success('Cover photo updated!');
+    } catch { toast.error('Failed to upload cover photo'); }
+    setUploading((u) => ({ ...u, cover: false }));
   };
 
   const handleAvatarUpload = async (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
+    if (file.size > 5 * 1024 * 1024) { toast.error('Image must be under 5MB'); return; }
     setUploading((u) => ({ ...u, avatar: true }));
     try {
       const { file_url } = await base44.integrations.Core.UploadFile({ file });
       await base44.auth.updateMe({ profile_image_url: file_url });
-      window.location.reload();
-    } catch {setUploading((u) => ({ ...u, avatar: false }));}
+      setUser(prev => ({ ...prev, profile_image_url: file_url }));
+      toast.success('Profile photo updated!');
+    } catch { toast.error('Failed to upload profile photo'); }
+    setUploading((u) => ({ ...u, avatar: false }));
   };
 
   if (!user) {
@@ -504,7 +515,15 @@ export default function Profile() {
             <GoalBento />
             <div>
               <SectionHeading accent="#FAD98D">Recent Posts</SectionHeading>
-              <TimelineTab user={user} posts={myPosts} comments={[]} />
+              {myPosts.length === 0 ? (
+                <div className="bg-white rounded-2xl border border-[#FAD98D]/20 p-6 text-center">
+                  <p className="text-2xl mb-2">✍️</p>
+                  <p className="text-sm font-semibold text-[#0A1A2F]/50">No posts yet</p>
+                  <p className="text-xs text-[#0A1A2F]/30 mt-1">Share your journey with the community!</p>
+                </div>
+              ) : (
+                <TimelineTab user={user} posts={myPosts} comments={[]} />
+              )}
             </div>
           </div>
         }
@@ -549,7 +568,7 @@ export default function Profile() {
                       onClick={async () => {
                         setIsDeleting(true);
                         try {await base44.auth.deleteAccount();window.location.href = '/';}
-                        catch {setIsDeleting(false);}
+                        catch { toast.error('Failed to delete account — please try again'); setIsDeleting(false);}
                       }}
                       disabled={isDeleting}>
 

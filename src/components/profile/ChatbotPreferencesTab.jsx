@@ -205,6 +205,7 @@ function CoachDavidPrefs({ user }) {
       }
     },
     onSuccess: () => { qc.invalidateQueries({ queryKey: ['coachDavidMemory'] }); toast.success('Coach David preferences saved!'); },
+    onError: () => toast.error('Failed to save preferences'),
   });
 
   return (
@@ -319,6 +320,7 @@ function ChefDanielPrefs({ user }) {
       }
     },
     onSuccess: () => { qc.invalidateQueries({ queryKey: ['chefDanielMemory'] }); toast.success('Chef Daniel preferences saved!'); },
+    onError: () => toast.error('Failed to save preferences'),
   });
 
   return (
@@ -440,6 +442,7 @@ function HannahPrefs({ user }) {
       }
     },
     onSuccess: () => { qc.invalidateQueries({ queryKey: ['hannahProfile'] }); toast.success('Hannah preferences saved!'); },
+    onError: () => toast.error('Failed to save preferences'),
   });
 
   return (
@@ -491,6 +494,7 @@ function HannahPrefs({ user }) {
           value={goalText}
           onChange={e => setGoalText(e.target.value)}
           placeholder="What do you most want to change or achieve?"
+          maxLength={500}
           rows={3}
           className="w-full rounded-xl border-2 border-gray-200 focus:border-purple-300 outline-none p-3 text-sm text-gray-700 resize-none transition-colors bg-white"
         />
@@ -585,6 +589,7 @@ function GideonPrefs({ user }) {
       }
     },
     onSuccess: () => { qc.invalidateQueries({ queryKey: ['gideonMemory'] }); toast.success('Gideon preferences saved!'); },
+    onError: () => toast.error('Failed to save preferences'),
   });
 
   return (
@@ -711,6 +716,7 @@ function CoachPaulPrefs({ user }) {
       }
     },
     onSuccess: () => { qc.invalidateQueries({ queryKey: ['coachPaulMemory'] }); toast.success('Coach Paul preferences saved!'); },
+    onError: () => toast.error('Failed to save preferences'),
   });
 
   return (
