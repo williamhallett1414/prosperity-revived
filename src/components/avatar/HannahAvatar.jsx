@@ -306,7 +306,7 @@ export default function HannahAvatar({
       <div style={{
         position:'relative', width:'100%', height:'100%',
         transform: isSpeaking
-          ? `scale(2.9)`
+          ? `scale(1.9)`
           : `scale(1.6) translateY(${floatY}px) translateX(${shiftX}px) rotate(${tiltDeg}deg)`,
         transformOrigin: isSpeaking ? 'center 26%' : 'center top',
         transition: 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform-origin 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
