@@ -8,6 +8,8 @@ import {
   Lock, Flame
 } from 'lucide-react';
 import { toast } from 'sonner';
+import { Link } from 'react-router-dom';
+import { createPageUrl } from '@/utils';
 import ShareToFeedButton from '@/components/community/ShareToFeedButton';
 
 // ─── Constants ────────────────────────────────────────────────────────────────
@@ -299,6 +301,7 @@ function PrayerDrawer({ request, user, onClose, onPray, onComment, onDelete, onM
           <div className="flex gap-2">
             <input value={commentText} onChange={e => setCommentText(e.target.value)}
               onKeyDown={e => e.key === 'Enter' && !e.shiftKey && handleComment()}
+              maxLength={500}
               placeholder="Share a word of encouragement…"
               className="flex-1 rounded-xl px-4 py-2.5 text-sm text-white placeholder-white/30 outline-none border border-white/12"
               style={{ background: 'rgba(255,255,255,0.07)' }} />
@@ -707,6 +710,7 @@ export default function Prayer() {
       });
     },
     onSuccess: () => queryClient.invalidateQueries(['prayerRequests']),
+    onError: () => toast.error('Failed to record prayer'),
   });
 
   const addComment = useMutation({
@@ -850,7 +854,7 @@ export default function Prayer() {
         <MyPrayers />
 
         {/* Ask Hannah */}
-        <a href={(() => { try { return createPageUrl('ChatScreen?bot=Hannah'); } catch { return '#'; } })()}>
+        <Link to={createPageUrl('ChatScreen?bot=Hannah')}>
           <div className="rounded-2xl p-4 flex items-center gap-3" style={{ background: 'rgba(56,189,248,0.06)', border: '1px solid rgba(56,189,248,0.15)' }}>
             <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 shadow-sm" style={{ background: 'linear-gradient(135deg, #38BDF8, #0EA5E9)' }}>
               <Heart className="w-5 h-5 text-white" />
@@ -861,7 +865,7 @@ export default function Prayer() {
             </div>
             <ChevronRight className="w-4 h-4 text-white/20 flex-shrink-0" />
           </div>
-        </a>
+        </Link>
 
         {/* Prayer Wall */}
         <div>
