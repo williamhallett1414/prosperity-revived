@@ -32,7 +32,7 @@ export default function PostCard({ post, comments = [], onLike, onComment, index
       });
     },
     onSuccess: () => queryClient.invalidateQueries(['friends']),
-    onError: (err) => { if (err.message?.includes('safety') || err.message?.includes('minor')) alert(err.message); }
+    onError: (err) => { if (err.message?.includes('safety') || err.message?.includes('minor')) alert(err.message); else alert('Failed to send friend request. Please try again.'); }
   });
 
   const likeMutation = useMutation({
@@ -311,6 +311,7 @@ export default function PostCard({ post, comments = [], onLike, onComment, index
               placeholder="Add a comment..."
               value={commentText}
               onChange={(e) => setCommentText(e.target.value)}
+              maxLength={500}
               className="min-h-[60px] resize-none"
             />
             <Button

@@ -51,6 +51,7 @@ function LikeButton({ post }) {
         likes: (post.likes || 0) + (isLiking ? 1 : -1),
       }),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ['blogPosts'] }),
+    onError: () => { /* like failed — UI already toggled optimistically */ },
   });
 
   const toggle = (e) => {

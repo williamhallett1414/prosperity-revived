@@ -122,7 +122,8 @@ export default function CommunityFeed({ user }) {
       queryClient.invalidateQueries({ queryKey: ['myEncouragements'] });
       queryClient.invalidateQueries({ queryKey: ['shareEncouragements'] });
       setEncouragementMessage('');
-    }
+    },
+    onError: () => { /* silently fail — encouragement is non-critical */ },
   });
 
   const { data: encouragementsForShare } = useQuery({

@@ -96,7 +96,7 @@ function GroupsTab({ user }) {
   // Fixed: filter by user_email, not list() all members
   const { data: memberships = [] } = useQuery({
     queryKey: ['memberships', user?.email],
-    queryFn:  () => base44.entities.GroupMember.filter({ user_email: user.email }),
+    queryFn: async () => { try { return await base44.entities.GroupMember.filter({ user_email: user.email }); } catch { return []; } },
     enabled:  !!user?.email,
   });
 
