@@ -813,6 +813,37 @@ export default function Prayer() {
 
       <div className="px-4 pt-5 space-y-5">
 
+        {/* Crisis Resources Banner */}
+        <div className="rounded-2xl p-4 border" style={{ background: 'rgba(255,255,255,0.03)', borderColor: 'rgba(255,255,255,0.08)' }}>
+          <p className="text-[10px] font-black uppercase tracking-widest mb-2" style={{ color: 'rgba(255,255,255,0.25)' }}>If you or someone you know is in crisis</p>
+          <div className="space-y-2">
+            <a href="tel:988" className="flex items-center gap-3 p-3 rounded-xl transition-colors min-h-[44px]" style={{ background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.15)' }}>
+              <span className="text-lg">📞</span>
+              <div className="flex-1">
+                <p className="text-sm font-bold text-white">988 Suicide & Crisis Lifeline</p>
+                <p className="text-[11px]" style={{ color: 'rgba(255,255,255,0.4)' }}>Call or text 988 — free, confidential, 24/7</p>
+              </div>
+            </a>
+            <a href="tel:18006624357" className="flex items-center gap-3 p-3 rounded-xl transition-colors min-h-[44px]" style={{ background: 'rgba(59,130,246,0.08)', border: '1px solid rgba(59,130,246,0.15)' }}>
+              <span className="text-lg">💙</span>
+              <div className="flex-1">
+                <p className="text-sm font-bold text-white">SAMHSA National Helpline</p>
+                <p className="text-[11px]" style={{ color: 'rgba(255,255,255,0.4)' }}>1-800-662-4357 — free referrals & support, 24/7</p>
+              </div>
+            </a>
+            <a href="sms:741741&body=HELLO" className="flex items-center gap-3 p-3 rounded-xl transition-colors min-h-[44px]" style={{ background: 'rgba(16,185,129,0.08)', border: '1px solid rgba(16,185,129,0.15)' }}>
+              <span className="text-lg">💬</span>
+              <div className="flex-1">
+                <p className="text-sm font-bold text-white">Crisis Text Line</p>
+                <p className="text-[11px]" style={{ color: 'rgba(255,255,255,0.4)' }}>Text HELLO to 741741 — free, confidential, 24/7</p>
+              </div>
+            </a>
+          </div>
+          <p className="text-[10px] mt-3 leading-relaxed" style={{ color: 'rgba(255,255,255,0.2)' }}>
+            You are never alone. God loves you and so does this community. Professional help is always available.
+          </p>
+        </div>
+
         {/* Spotlight */}
         {currentSpotlight && (
           <div>
