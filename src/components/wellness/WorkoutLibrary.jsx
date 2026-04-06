@@ -126,7 +126,7 @@ export const PREMADE_WORKOUTS = [
     difficulty: 'advanced',
     duration_minutes: 30,
     category: 'cardio',
-    image_url: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=400',
+    image_url: 'https://images.unsplash.com/photo-1549576490-b0b4831ef60a?w=400',
     exercises: [
       { name: 'Burpees', sets: 4, reps: 15, duration_seconds: 0 },
       { name: 'Jump Squats', sets: 4, reps: 12, duration_seconds: 0 },
@@ -352,7 +352,7 @@ export const PREMADE_WORKOUTS = [
     difficulty: 'beginner',
     duration_minutes: 15,
     category: 'flexibility',
-    image_url: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=400',
+    image_url: 'https://images.unsplash.com/photo-1545389336-cf090694435e?w=400',
     exercises: [
       { name: 'Neck Side Stretch', sets: 2, reps: 0, duration_seconds: 30 },
       { name: 'Chest Opener', sets: 2, reps: 0, duration_seconds: 40 },
@@ -368,7 +368,7 @@ export const PREMADE_WORKOUTS = [
     difficulty: 'intermediate',
     duration_minutes: 20,
     category: 'flexibility',
-    image_url: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400',
+    image_url: 'https://images.unsplash.com/photo-1588286840104-8957b019727f?w=400',
     exercises: [
       { name: 'Pigeon Pose', sets: 2, reps: 0, duration_seconds: 90 },
       { name: 'Butterfly Stretch', sets: 3, reps: 0, duration_seconds: 60 },
@@ -384,7 +384,7 @@ export const PREMADE_WORKOUTS = [
     difficulty: 'beginner',
     duration_minutes: 25,
     category: 'flexibility',
-    image_url: 'https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?w=400',
+    image_url: 'https://images.unsplash.com/photo-1573384666979-2b1e5e9a4a58?w=400',
     exercises: [
       { name: 'Standing Forward Fold', sets: 2, reps: 0, duration_seconds: 60 },
       { name: 'Seated Hamstring Stretch', sets: 3, reps: 0, duration_seconds: 60 },
@@ -401,7 +401,7 @@ export const PREMADE_WORKOUTS = [
     difficulty: 'beginner',
     duration_minutes: 12,
     category: 'flexibility',
-    image_url: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=400',
+    image_url: 'https://images.unsplash.com/photo-1552196563-55cd4e45efb3?w=400',
     exercises: [
       { name: 'Standing Quad Stretch', sets: 2, reps: 0, duration_seconds: 30 },
       { name: 'Calf Stretch', sets: 2, reps: 0, duration_seconds: 30 },
@@ -417,7 +417,7 @@ export const PREMADE_WORKOUTS = [
     difficulty: 'beginner',
     duration_minutes: 20,
     category: 'flexibility',
-    image_url: 'https://images.unsplash.com/photo-1593642532400-2682810df593?w=400',
+    image_url: 'https://images.unsplash.com/photo-1544033527-b192daee1f5b?w=400',
     exercises: [
       { name: 'Cat-Cow Stretch', sets: 3, reps: 12, duration_seconds: 0 },
       { name: 'Seated Spinal Twist', sets: 3, reps: 0, duration_seconds: 45 },
@@ -433,7 +433,7 @@ export const PREMADE_WORKOUTS = [
     difficulty: 'beginner',
     duration_minutes: 18,
     category: 'flexibility',
-    image_url: 'https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=400',
+    image_url: 'https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=400',
     exercises: [
       { name: 'Standing Hip Flexor Lunge', sets: 2, reps: 0, duration_seconds: 60 },
       { name: 'Seated Hamstring Stretch', sets: 3, reps: 0, duration_seconds: 60 },
@@ -449,7 +449,7 @@ export const PREMADE_WORKOUTS = [
     difficulty: 'beginner',
     duration_minutes: 12,
     category: 'flexibility',
-    image_url: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=400',
+    image_url: 'https://images.unsplash.com/photo-1616699002805-0f1c7d320445?w=400',
     exercises: [
       { name: 'Neck Forward Tilt', sets: 3, reps: 0, duration_seconds: 30 },
       { name: 'Ear-to-Shoulder Stretch', sets: 3, reps: 0, duration_seconds: 30 },
@@ -465,7 +465,7 @@ export const PREMADE_WORKOUTS = [
     difficulty: 'intermediate',
     duration_minutes: 30,
     category: 'flexibility',
-    image_url: 'https://images.unsplash.com/photo-1575052814086-f385e2e2ad1b?w=400',
+    image_url: 'https://images.unsplash.com/photo-1562771379-eafdca7a02f8?w=400',
     exercises: [
       { name: 'Low Lunge Stretch', sets: 3, reps: 0, duration_seconds: 90 },
       { name: 'Half Split Hold', sets: 3, reps: 0, duration_seconds: 90 },
@@ -481,7 +481,7 @@ export const PREMADE_WORKOUTS = [
     difficulty: 'beginner',
     duration_minutes: 20,
     category: 'flexibility',
-    image_url: 'https://images.unsplash.com/photo-1611672585731-fa10603fb9e0?w=400',
+    image_url: 'https://images.unsplash.com/photo-1510894347713-fc3ed6fdf539?w=400',
     exercises: [
       { name: "Child's Pose", sets: 1, reps: 0, duration_seconds: 90 },
       { name: 'Supine Spinal Twist', sets: 2, reps: 0, duration_seconds: 60 },
