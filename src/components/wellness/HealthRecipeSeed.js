@@ -82,7 +82,6 @@ export const SEED_RECIPES = [
   // ── DIABETES ──────────────────────────────────────────────────────────────
   {
     title: 'Cauliflower Fried Rice',
-    image_url: 'https://images.unsplash.com/photo-1512058564366-18510be2db19?w=400&fit=crop',
     description: 'A low-carb twist on classic fried rice using riced cauliflower packed with vegetables and lean protein.',
     category: 'dinner', diet_type: 'any', difficulty: 'easy',
     prep_time_minutes: 10, cook_time_minutes: 15, servings: 4, serving_size: '1.5 cups',
@@ -105,7 +104,6 @@ export const SEED_RECIPES = [
   },
   {
     title: 'Lentil & Spinach Soup',
-    image_url: 'https://images.unsplash.com/photo-1547592166-23ac45744acd?w=400&fit=crop',
     description: 'A fiber-rich, slow-digesting soup that helps stabilize blood sugar throughout the day.',
     category: 'lunch', diet_type: 'vegan', difficulty: 'easy',
     prep_time_minutes: 10, cook_time_minutes: 35, servings: 6, serving_size: '1.5 cups',
@@ -128,7 +126,6 @@ export const SEED_RECIPES = [
   },
   {
     title: 'Baked Salmon with Asparagus',
-    image_url: 'https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=400&fit=crop',
     description: 'Omega-3 rich salmon paired with fiber-filled asparagus — a blood sugar-friendly one-pan dinner.',
     category: 'dinner', diet_type: 'any', difficulty: 'easy',
     prep_time_minutes: 8, cook_time_minutes: 20, servings: 2, serving_size: '1 fillet + 8 spears',
@@ -150,7 +147,6 @@ export const SEED_RECIPES = [
   },
   {
     title: 'Cinnamon Almond Overnight Oats',
-    image_url: 'https://images.unsplash.com/photo-1517673400267-0251440c45dc?w=400&fit=crop',
     description: 'Slow-release oats with blood sugar-stabilizing cinnamon and healthy fats from almonds — a perfect diabetic-friendly breakfast.',
     category: 'breakfast', diet_type: 'vegetarian', difficulty: 'easy',
     prep_time_minutes: 10, cook_time_minutes: 0, servings: 1, serving_size: '1 jar (about 1.5 cups)',
@@ -171,7 +167,6 @@ export const SEED_RECIPES = [
   },
   {
     title: 'Turkey & Vegetable Stuffed Bell Peppers',
-    image_url: 'https://images.unsplash.com/photo-1596560548464-f010549b84d7?w=400&fit=crop',
     description: 'Lean ground turkey and vegetables in a bell pepper shell — high protein, low carb, and visually impressive.',
     category: 'dinner', diet_type: 'any', difficulty: 'medium',
     prep_time_minutes: 15, cook_time_minutes: 35, servings: 4, serving_size: '1 stuffed pepper',
@@ -196,7 +191,6 @@ export const SEED_RECIPES = [
   // ── HIGH BLOOD PRESSURE ───────────────────────────────────────────────────
   {
     title: 'DASH Diet Grain Bowl',
-    image_url: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&fit=crop',
     description: 'A potassium and magnesium-packed grain bowl following DASH diet principles — naturally supports healthy blood pressure.',
     category: 'lunch', diet_type: 'vegetarian', difficulty: 'easy',
     prep_time_minutes: 15, cook_time_minutes: 20, servings: 2, serving_size: '1 bowl',
@@ -217,7 +211,6 @@ export const SEED_RECIPES = [
   },
   {
     title: 'Herb-Crusted Chicken Breast',
-    image_url: 'https://images.unsplash.com/photo-1532550907401-a500c9a57435?w=400&fit=crop',
     description: 'A flavor-packed chicken dish that proves low-sodium cooking does not have to be bland.',
     category: 'dinner', diet_type: 'any', difficulty: 'easy',
     prep_time_minutes: 10, cook_time_minutes: 25, servings: 4, serving_size: '1 breast',
@@ -238,7 +231,6 @@ export const SEED_RECIPES = [
   },
   {
     title: 'Banana Oat Smoothie',
-    image_url: 'https://images.unsplash.com/photo-1553530666-ba11a7da3888?w=400&fit=crop',
     description: 'A potassium-rich breakfast smoothie — banana and spinach deliver blood pressure-supporting nutrients in minutes.',
     category: 'breakfast', diet_type: 'vegan', difficulty: 'easy',
     prep_time_minutes: 5, cook_time_minutes: 0, servings: 1, serving_size: '16 oz glass',
@@ -257,7 +249,6 @@ export const SEED_RECIPES = [
   },
   {
     title: 'Garlic Herb Roasted Vegetables',
-    image_url: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?w=400&fit=crop',
     description: 'A DASH-diet staple — this potassium-rich roasted medley is endlessly customizable and naturally low in sodium.',
     category: 'dinner', diet_type: 'vegan', difficulty: 'easy',
     prep_time_minutes: 12, cook_time_minutes: 30, servings: 4, serving_size: '1.5 cups',
@@ -279,7 +270,6 @@ export const SEED_RECIPES = [
   },
   {
     title: 'Sardine & Tomato Toast',
-    image_url: 'https://images.unsplash.com/photo-1525351484163-7529414344d8?w=400&fit=crop',
     description: 'Sardines are one of the highest dietary sources of omega-3s and calcium — this quick meal punches above its weight nutritionally.',
     category: 'lunch', diet_type: 'any', difficulty: 'easy',
     prep_time_minutes: 5, cook_time_minutes: 0, servings: 1, serving_size: '2 slices',
@@ -302,7 +292,6 @@ export const SEED_RECIPES = [
   // ── HEART HEALTH ──────────────────────────────────────────────────────────
   {
     title: 'Walnut & Berry Overnight Oats',
-    image_url: 'https://images.unsplash.com/photo-1495214783159-3503fd1b572d?w=400&fit=crop',
     description: 'Walnuts provide ALA omega-3s while berries deliver anthocyanins — a powerful heart-protective breakfast.',
     category: 'breakfast', diet_type: 'vegetarian', difficulty: 'easy',
     prep_time_minutes: 8, cook_time_minutes: 0, servings: 1, serving_size: '1 jar',
@@ -323,7 +312,6 @@ export const SEED_RECIPES = [
   },
   {
     title: 'Mediterranean Baked Cod',
-    image_url: 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=400&fit=crop',
     description: 'Lean white fish baked with olive oil, tomatoes, and olives in the Mediterranean tradition — proven heart-healthy.',
     category: 'dinner', diet_type: 'any', difficulty: 'easy',
     prep_time_minutes: 10, cook_time_minutes: 20, servings: 4, serving_size: '1 fillet',
@@ -347,7 +335,6 @@ export const SEED_RECIPES = [
   // ── ANTI-INFLAMMATORY ─────────────────────────────────────────────────────
   {
     title: 'Golden Turmeric Chicken Soup',
-    image_url: 'https://images.unsplash.com/photo-1547592180-85f173990554?w=400&fit=crop',
     description: 'Turmeric and ginger combine for a powerful anti-inflammatory meal that also comforts the soul.',
     category: 'lunch', diet_type: 'any', difficulty: 'easy',
     prep_time_minutes: 15, cook_time_minutes: 30, servings: 6, serving_size: '1.5 cups',
@@ -370,7 +357,6 @@ export const SEED_RECIPES = [
   },
   {
     title: 'Blueberry Chia Pudding',
-    image_url: 'https://images.unsplash.com/photo-1541167760496-1628856ab772?w=400&fit=crop',
     description: 'Chia seeds are loaded with omega-3s and antioxidants; blueberries add anthocyanins that fight cellular inflammation.',
     category: 'snack', diet_type: 'vegan', difficulty: 'easy',
     prep_time_minutes: 8, cook_time_minutes: 0, servings: 2, serving_size: '1 cup',
@@ -391,7 +377,6 @@ export const SEED_RECIPES = [
   },
   {
     title: 'Ginger Salmon Stir-Fry',
-    image_url: 'https://images.unsplash.com/photo-1580476262798-bddd9f4b7369?w=400&fit=crop',
     description: 'A powerhouse of anti-inflammatory ingredients — salmon, broccoli, ginger, and garlic in a light sauce.',
     category: 'dinner', diet_type: 'any', difficulty: 'medium',
     prep_time_minutes: 15, cook_time_minutes: 15, servings: 4, serving_size: '1.5 cups',
@@ -416,7 +401,6 @@ export const SEED_RECIPES = [
   // ── HIGH CHOLESTEROL ──────────────────────────────────────────────────────
   {
     title: 'Steel-Cut Oat Porridge with Flaxseed',
-    image_url: 'https://images.unsplash.com/photo-1517673400267-0251440c45dc?w=400&fit=crop',
     description: 'Beta-glucan in oats is clinically proven to lower LDL cholesterol; flaxseed adds plant-based omega-3s.',
     category: 'breakfast', diet_type: 'vegan', difficulty: 'easy',
     prep_time_minutes: 5, cook_time_minutes: 25, servings: 2, serving_size: '1 cup',
@@ -437,7 +421,6 @@ export const SEED_RECIPES = [
   },
   {
     title: 'Avocado & Black Bean Tacos',
-    image_url: 'https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?w=400&fit=crop',
     description: 'Plant sterols in avocado and soluble fiber in black beans work together to actively reduce LDL cholesterol.',
     category: 'dinner', diet_type: 'vegan', difficulty: 'easy',
     prep_time_minutes: 15, cook_time_minutes: 10, servings: 4, serving_size: '2 tacos',
@@ -460,7 +443,6 @@ export const SEED_RECIPES = [
   // ── GUT HEALTH ────────────────────────────────────────────────────────────
   {
     title: 'Kefir Parfait with Prebiotics',
-    image_url: 'https://images.unsplash.com/photo-1488477181946-6428a0291777?w=400&fit=crop',
     description: 'Kefir contains up to 30 strains of beneficial bacteria; paired with prebiotic fiber from banana and oats for maximum gut benefit.',
     category: 'breakfast', diet_type: 'vegetarian', difficulty: 'easy',
     prep_time_minutes: 8, cook_time_minutes: 0, servings: 1, serving_size: '1 jar',
@@ -481,7 +463,6 @@ export const SEED_RECIPES = [
   },
   {
     title: 'Miso Soup with Tofu & Seaweed',
-    image_url: 'https://images.unsplash.com/photo-1547592166-23ac45744acd?w=400&fit=crop',
     description: 'Miso is a traditional fermented food rich in beneficial bacteria and enzymes that support digestive health.',
     category: 'lunch', diet_type: 'vegan', difficulty: 'easy',
     prep_time_minutes: 8, cook_time_minutes: 10, servings: 2, serving_size: '1.5 cups',
@@ -504,7 +485,6 @@ export const SEED_RECIPES = [
   // ── KIDNEY HEALTH ─────────────────────────────────────────────────────────
   {
     title: 'White Rice Bowl with Egg & Cucumber',
-    image_url: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&fit=crop',
     description: 'For kidney health, this low-phosphorus, low-potassium bowl provides satisfying carbs and protein without overloading the kidneys.',
     category: 'lunch', diet_type: 'vegetarian', difficulty: 'easy',
     prep_time_minutes: 10, cook_time_minutes: 20, servings: 2, serving_size: '1 bowl',
@@ -527,7 +507,6 @@ export const SEED_RECIPES = [
   // ── BONE HEALTH ───────────────────────────────────────────────────────────
   {
     title: 'Sardine & Kale Caesar Salad',
-    image_url: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&fit=crop',
     description: 'Sardines provide calcium and vitamin D; kale is one of the richest plant sources of vitamin K for bone density.',
     category: 'lunch', diet_type: 'any', difficulty: 'easy',
     prep_time_minutes: 15, cook_time_minutes: 0, servings: 2, serving_size: '2 cups',
@@ -548,7 +527,6 @@ export const SEED_RECIPES = [
   },
   {
     title: 'Tofu & Broccoli Sesame Stir-Fry',
-    image_url: 'https://images.unsplash.com/photo-1546069901-d5bfd2cbfb1f?w=400&fit=crop',
     description: 'Tofu and broccoli are both excellent plant-based calcium sources; this stir-fry delivers a full day of bone-supporting nutrients.',
     category: 'dinner', diet_type: 'vegan', difficulty: 'medium',
     prep_time_minutes: 20, cook_time_minutes: 15, servings: 4, serving_size: '1.5 cups',
@@ -573,7 +551,6 @@ export const SEED_RECIPES = [
   // ── THYROID ───────────────────────────────────────────────────────────────
   {
     title: 'Brazil Nut & Salmon Power Bowl',
-    image_url: 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=400&fit=crop',
     description: 'Two Brazil nuts provide the full daily recommended selenium — combined with salmon\'s iodine for complete thyroid support.',
     category: 'lunch', diet_type: 'any', difficulty: 'easy',
     prep_time_minutes: 10, cook_time_minutes: 20, servings: 2, serving_size: '1 bowl',
@@ -596,7 +573,6 @@ export const SEED_RECIPES = [
   // ── DIABETES (additional) ─────────────────────────────────────────────────
   {
     title: 'Chickpea & Vegetable Curry',
-    image_url: 'https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?w=400&fit=crop',
     description: 'A low-glycemic, high-fiber curry where legumes and spices help stabilize post-meal blood sugar spikes.',
     category: 'dinner', diet_type: 'vegan', difficulty: 'medium',
     prep_time_minutes: 12, cook_time_minutes: 30, servings: 4, serving_size: '1.5 cups',
@@ -617,7 +593,6 @@ export const SEED_RECIPES = [
   },
   {
     title: 'Egg & Vegetable Frittata',
-    image_url: 'https://images.unsplash.com/photo-1510693206972-df098062cb71?w=400&fit=crop',
     description: 'A protein-packed, near-zero-carb breakfast that keeps blood sugar flat for the entire morning.',
     category: 'breakfast', diet_type: 'vegetarian', difficulty: 'easy',
     prep_time_minutes: 10, cook_time_minutes: 20, servings: 4, serving_size: '1 wedge',
@@ -639,7 +614,6 @@ export const SEED_RECIPES = [
   },
   {
     title: 'Barley & Mushroom Risotto',
-    image_url: 'https://images.unsplash.com/photo-1476124369491-e7addf5db371?w=400&fit=crop',
     description: 'Barley\'s beta-glucan fiber significantly reduces the glycemic response compared to white rice risotto.',
     category: 'dinner', diet_type: 'vegetarian', difficulty: 'medium',
     prep_time_minutes: 10, cook_time_minutes: 45, servings: 4, serving_size: '1.5 cups',
@@ -661,7 +635,6 @@ export const SEED_RECIPES = [
   },
   {
     title: 'Tuna & White Bean Salad',
-    image_url: 'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=400&fit=crop',
     description: 'A 5-minute high-protein, high-fiber lunch with an extremely low glycemic index that keeps you full for hours.',
     category: 'lunch', diet_type: 'any', difficulty: 'easy',
     prep_time_minutes: 8, cook_time_minutes: 0, servings: 2, serving_size: '1.5 cups',
@@ -681,7 +654,6 @@ export const SEED_RECIPES = [
   },
   {
     title: 'Sweet Potato & Black Bean Burrito Bowl',
-    image_url: 'https://images.unsplash.com/photo-1543352634-a1c51d9f1fa7?w=400&fit=crop',
     description: 'A blood-sugar-smart bowl: sweet potato provides slow-release carbs and black beans add soluble fiber that blunts glucose spikes.',
     category: 'lunch', diet_type: 'vegan', difficulty: 'easy',
     prep_time_minutes: 10, cook_time_minutes: 25, servings: 2, serving_size: '1 bowl',
@@ -704,7 +676,6 @@ export const SEED_RECIPES = [
   // ── HIGH BLOOD PRESSURE (additional) ──────────────────────────────────────
   {
     title: 'Baked Cod with Spinach & Tomatoes',
-    image_url: 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=400&fit=crop',
     description: 'Cod is naturally very low in sodium; paired with potassium-rich tomatoes and spinach for blood pressure support.',
     category: 'dinner', diet_type: 'any', difficulty: 'easy',
     prep_time_minutes: 8, cook_time_minutes: 18, servings: 2, serving_size: '1 fillet + vegetables',
@@ -726,7 +697,6 @@ export const SEED_RECIPES = [
   },
   {
     title: 'Banana & Walnut Smoothie',
-    image_url: 'https://images.unsplash.com/photo-1553530666-ba11a7da3888?w=400&fit=crop',
     description: 'Bananas are one of the richest fruit sources of potassium, the mineral most directly linked to blood pressure reduction.',
     category: 'breakfast', diet_type: 'vegan', difficulty: 'easy',
     prep_time_minutes: 5, cook_time_minutes: 0, servings: 1, serving_size: '16 oz',
@@ -745,7 +715,6 @@ export const SEED_RECIPES = [
   },
   {
     title: 'Beet & Goat Cheese Salad',
-    image_url: 'https://images.unsplash.com/photo-1505253716362-afaea1d3d1af?w=400&fit=crop',
     description: 'Beets contain natural nitrates that convert to nitric oxide in the body, directly relaxing blood vessel walls and lowering blood pressure.',
     category: 'lunch', diet_type: 'vegetarian', difficulty: 'easy',
     prep_time_minutes: 15, cook_time_minutes: 0, servings: 2, serving_size: '2 cups',
@@ -765,7 +734,6 @@ export const SEED_RECIPES = [
   },
   {
     title: 'Oat & Flaxseed Porridge',
-    image_url: 'https://images.unsplash.com/photo-1517673400267-0251440c45dc?w=400&fit=crop',
     description: 'A DASH diet staple: beta-glucan from oats and lignans from flaxseed combine for powerful blood pressure management.',
     category: 'breakfast', diet_type: 'vegan', difficulty: 'easy',
     prep_time_minutes: 5, cook_time_minutes: 12, servings: 1, serving_size: '1 bowl',
@@ -785,7 +753,6 @@ export const SEED_RECIPES = [
   },
   {
     title: 'Garlic & Herb White Bean Soup',
-    image_url: 'https://images.unsplash.com/photo-1547592166-23ac45744acd?w=400&fit=crop',
     description: 'White beans are the highest plant source of potassium; combined with garlic\'s allicin for a powerful blood pressure-lowering meal.',
     category: 'lunch', diet_type: 'vegan', difficulty: 'easy',
     prep_time_minutes: 10, cook_time_minutes: 25, servings: 4, serving_size: '1.5 cups',
@@ -809,7 +776,6 @@ export const SEED_RECIPES = [
   // ── HEART HEALTH (additional) ─────────────────────────────────────────────
   {
     title: 'Wild Salmon with Walnut Crust',
-    image_url: 'https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=400&fit=crop',
     description: 'A double dose of omega-3 fatty acids from wild salmon and walnuts — one of the most evidence-backed meals for heart health.',
     category: 'dinner', diet_type: 'any', difficulty: 'medium',
     prep_time_minutes: 12, cook_time_minutes: 18, servings: 2, serving_size: '1 fillet',
@@ -831,7 +797,6 @@ export const SEED_RECIPES = [
   },
   {
     title: 'Mediterranean Grain Bowl',
-    image_url: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&fit=crop',
     description: 'The Mediterranean diet is the most evidence-backed dietary pattern for heart disease prevention — this bowl captures its core elements.',
     category: 'lunch', diet_type: 'vegetarian', difficulty: 'easy',
     prep_time_minutes: 15, cook_time_minutes: 20, servings: 2, serving_size: '1 bowl',
@@ -852,7 +817,6 @@ export const SEED_RECIPES = [
   },
   {
     title: 'Chia Seed Pudding with Pomegranate',
-    image_url: 'https://images.unsplash.com/photo-1541167760496-1628856ab772?w=400&fit=crop',
     description: 'Chia seeds are among the richest plant sources of omega-3 fatty acids; pomegranate adds powerful antioxidants for arterial health.',
     category: 'breakfast', diet_type: 'vegan', difficulty: 'easy',
     prep_time_minutes: 8, cook_time_minutes: 0, servings: 2, serving_size: '1 jar',
@@ -872,7 +836,6 @@ export const SEED_RECIPES = [
   },
   {
     title: 'Spinach & Lentil Stuffed Sweet Potato',
-    image_url: 'https://images.unsplash.com/photo-1596560548464-f010549b84d7?w=400&fit=crop',
     description: 'A fiber-rich, iron-and-folate-packed meal that supports healthy red blood cells and reduced cardiovascular inflammation.',
     category: 'dinner', diet_type: 'vegan', difficulty: 'medium',
     prep_time_minutes: 10, cook_time_minutes: 50, servings: 2, serving_size: '1 stuffed potato',
@@ -894,7 +857,6 @@ export const SEED_RECIPES = [
   },
   {
     title: 'Flaxseed & Berry Smoothie Bowl',
-    image_url: 'https://images.unsplash.com/photo-1590301157890-4810ed352733?w=400&fit=crop',
     description: 'Ground flaxseed provides plant-based ALA omega-3s; mixed berries deliver anthocyanins that improve arterial flexibility.',
     category: 'breakfast', diet_type: 'vegan', difficulty: 'easy',
     prep_time_minutes: 8, cook_time_minutes: 0, servings: 1, serving_size: '1 bowl',
@@ -916,7 +878,6 @@ export const SEED_RECIPES = [
   // ── ANTI-INFLAMMATORY (additional) ────────────────────────────────────────
   {
     title: 'Golden Turmeric Lentil Soup',
-    image_url: 'https://images.unsplash.com/photo-1547592180-85f173990554?w=400&fit=crop',
     description: 'Turmeric\'s curcumin is among the most potent natural anti-inflammatory compounds studied in clinical research.',
     category: 'lunch', diet_type: 'vegan', difficulty: 'easy',
     prep_time_minutes: 10, cook_time_minutes: 30, servings: 4, serving_size: '1.5 cups',
@@ -937,7 +898,6 @@ export const SEED_RECIPES = [
   },
   {
     title: 'Ginger-Miso Glazed Eggplant',
-    image_url: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?w=400&fit=crop',
     description: 'Eggplant contains nasunin, a potent antioxidant that protects brain cells; combined with ginger and miso for compounding anti-inflammatory effect.',
     category: 'dinner', diet_type: 'vegan', difficulty: 'medium',
     prep_time_minutes: 10, cook_time_minutes: 25, servings: 2, serving_size: '1 eggplant half each',
@@ -958,7 +918,6 @@ export const SEED_RECIPES = [
   },
   {
     title: 'Turmeric Golden Milk Smoothie',
-    image_url: 'https://images.unsplash.com/photo-1553530666-ba11a7da3888?w=400&fit=crop',
     description: 'A drinkable form of the traditional Ayurvedic golden milk — all the anti-inflammatory benefits of turmeric with added fat for absorption.',
     category: 'breakfast', diet_type: 'vegan', difficulty: 'easy',
     prep_time_minutes: 5, cook_time_minutes: 0, servings: 1, serving_size: '12 oz',
@@ -978,7 +937,6 @@ export const SEED_RECIPES = [
   },
   {
     title: 'Roasted Beet & Orange Salad',
-    image_url: 'https://images.unsplash.com/photo-1505253716362-afaea1d3d1af?w=400&fit=crop',
     description: 'Beets contain betalains — rare purple pigments with powerful anti-inflammatory and antioxidant properties studied for pain reduction.',
     category: 'lunch', diet_type: 'vegan', difficulty: 'easy',
     prep_time_minutes: 10, cook_time_minutes: 0, servings: 2, serving_size: '2 cups',
@@ -999,7 +957,6 @@ export const SEED_RECIPES = [
   },
   {
     title: 'Salmon & Avocado Sushi Bowl',
-    image_url: 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=400&fit=crop',
     description: 'Wild salmon and avocado together deliver a powerful combination of omega-3 fatty acids and oleic acid — two of the most studied anti-inflammatory fats.',
     category: 'lunch', diet_type: 'any', difficulty: 'medium',
     prep_time_minutes: 20, cook_time_minutes: 20, servings: 2, serving_size: '1 bowl',
@@ -1022,7 +979,6 @@ export const SEED_RECIPES = [
   // ── HIGH CHOLESTEROL (additional) ─────────────────────────────────────────
   {
     title: 'Oat Bran Blueberry Muffins',
-    image_url: 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=400&fit=crop',
     description: 'Oat bran contains the highest concentration of beta-glucan of any grain — the soluble fiber proven to actively reduce LDL cholesterol.',
     category: 'breakfast', diet_type: 'vegetarian', difficulty: 'medium',
     prep_time_minutes: 15, cook_time_minutes: 22, servings: 12, serving_size: '1 muffin',
@@ -1044,7 +1000,6 @@ export const SEED_RECIPES = [
   },
   {
     title: 'Edamame & Quinoa Salad',
-    image_url: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&fit=crop',
     description: 'Soy protein in edamame has been specifically shown in clinical trials to reduce total cholesterol and LDL levels when consumed regularly.',
     category: 'lunch', diet_type: 'vegan', difficulty: 'easy',
     prep_time_minutes: 15, cook_time_minutes: 15, servings: 3, serving_size: '1.5 cups',
@@ -1064,7 +1019,6 @@ export const SEED_RECIPES = [
   },
   {
     title: 'Almond-Crusted Tilapia',
-    image_url: 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=400&fit=crop',
     description: 'A lean white fish with a heart-healthy almond crust providing vitamin E, monounsaturated fats, and plant sterols — all of which reduce LDL.',
     category: 'dinner', diet_type: 'any', difficulty: 'easy',
     prep_time_minutes: 10, cook_time_minutes: 20, servings: 2, serving_size: '1 fillet',
@@ -1086,7 +1040,6 @@ export const SEED_RECIPES = [
   },
   {
     title: 'Psyllium Husk Berry Smoothie',
-    image_url: 'https://images.unsplash.com/photo-1553530666-ba11a7da3888?w=400&fit=crop',
     description: 'Psyllium husk is the most concentrated source of cholesterol-lowering soluble fiber, used in products like Metamucil for its clinically proven LDL benefits.',
     category: 'breakfast', diet_type: 'vegan', difficulty: 'easy',
     prep_time_minutes: 5, cook_time_minutes: 0, servings: 1, serving_size: '14 oz',
@@ -1105,7 +1058,6 @@ export const SEED_RECIPES = [
   },
   {
     title: 'Walnut & Dark Chocolate Energy Bites',
-    image_url: 'https://images.unsplash.com/photo-1604908177453-7462950a6a3b?w=400&fit=crop',
     description: 'Walnuts lower LDL; dark chocolate (70%+) raises HDL. Together, these no-bake bites are a legitimately heart-healthy snack.',
     category: 'snack', diet_type: 'vegan', difficulty: 'easy',
     prep_time_minutes: 15, cook_time_minutes: 0, servings: 16, serving_size: '2 bites',
@@ -1128,7 +1080,6 @@ export const SEED_RECIPES = [
   // ── GUT HEALTH (additional) ───────────────────────────────────────────────
   {
     title: 'Kimchi Fried Brown Rice',
-    image_url: 'https://images.unsplash.com/photo-1512058564366-18510be2db19?w=400&fit=crop',
     description: 'Kimchi is a lacto-fermented food containing diverse beneficial bacteria and prebiotic fiber — one of the most probiotic-rich foods in the world.',
     category: 'dinner', diet_type: 'vegan', difficulty: 'medium',
     prep_time_minutes: 10, cook_time_minutes: 15, servings: 2, serving_size: '1.5 cups',
@@ -1149,7 +1100,6 @@ export const SEED_RECIPES = [
   },
   {
     title: 'Tempeh & Vegetable Stir-Fry',
-    image_url: 'https://images.unsplash.com/photo-1546069901-d5bfd2cbfb1f?w=400&fit=crop',
     description: 'Tempeh is a fermented soy product with significantly more probiotics and nutrients than regular tofu — a gut-health powerhouse.',
     category: 'dinner', diet_type: 'vegan', difficulty: 'medium',
     prep_time_minutes: 15, cook_time_minutes: 20, servings: 3, serving_size: '1.5 cups',
@@ -1171,7 +1121,6 @@ export const SEED_RECIPES = [
   },
   {
     title: 'Sauerkraut & Avocado Toast',
-    image_url: 'https://images.unsplash.com/photo-1525351484163-7529414344d8?w=400&fit=crop',
     description: 'Unpasteurized sauerkraut delivers billions of Lactobacillus bacteria per serving — combine with prebiotic-rich avocado for a gut-healing breakfast.',
     category: 'breakfast', diet_type: 'vegan', difficulty: 'easy',
     prep_time_minutes: 8, cook_time_minutes: 3, servings: 1, serving_size: '2 toasts',
@@ -1192,7 +1141,6 @@ export const SEED_RECIPES = [
   },
   {
     title: 'Low-FODMAP Chicken & Rice Soup',
-    image_url: 'https://images.unsplash.com/photo-1547592180-85f173990554?w=400&fit=crop',
     description: 'Gentle on even the most sensitive digestive systems — this low-FODMAP soup soothes IBS and promotes gut healing.',
     category: 'lunch', diet_type: 'any', difficulty: 'easy',
     prep_time_minutes: 10, cook_time_minutes: 35, servings: 4, serving_size: '1.5 cups',
@@ -1213,7 +1161,6 @@ export const SEED_RECIPES = [
   },
   {
     title: 'Banana Oat Pancakes with Flaxseed',
-    image_url: 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=400&fit=crop',
     description: 'These pancakes leverage prebiotic fiber from banana and oats to feed beneficial gut bacteria and support regular digestion.',
     category: 'breakfast', diet_type: 'vegetarian', difficulty: 'easy',
     prep_time_minutes: 8, cook_time_minutes: 12, servings: 2, serving_size: '3 pancakes',
@@ -1236,7 +1183,6 @@ export const SEED_RECIPES = [
   // ── KIDNEY HEALTH (additional) ────────────────────────────────────────────
   {
     title: 'Herb-Marinated Grilled Chicken Breast',
-    image_url: 'https://images.unsplash.com/photo-1532550907401-a500c9a57435?w=400&fit=crop',
     description: 'A kidney-friendly lean protein option with controlled portion size and no high-potassium or high-phosphorus ingredients.',
     category: 'dinner', diet_type: 'any', difficulty: 'easy',
     prep_time_minutes: 10, cook_time_minutes: 18, servings: 2, serving_size: '4 oz chicken',
@@ -1255,7 +1201,6 @@ export const SEED_RECIPES = [
   },
   {
     title: 'Cauliflower & Egg White Scramble',
-    image_url: 'https://images.unsplash.com/photo-1510693206972-df098062cb71?w=400&fit=crop',
     description: 'Egg whites provide protein without the phosphorus found in egg yolks — an important kidney-diet distinction. Cauliflower is one of the lowest-potassium vegetables.',
     category: 'breakfast', diet_type: 'vegetarian', difficulty: 'easy',
     prep_time_minutes: 8, cook_time_minutes: 12, servings: 1, serving_size: '1 plate',
@@ -1276,7 +1221,6 @@ export const SEED_RECIPES = [
   },
   {
     title: 'Pasta with Olive Oil & Herbs',
-    image_url: 'https://images.unsplash.com/photo-1563379926898-05f4575a45d8?w=400&fit=crop',
     description: 'A kidney-friendly pasta that controls phosphorus by avoiding cheese; flavored with olive oil, garlic, and low-potassium herbs.',
     category: 'dinner', diet_type: 'vegan', difficulty: 'easy',
     prep_time_minutes: 8, cook_time_minutes: 12, servings: 2, serving_size: '1 cup pasta',
@@ -1298,7 +1242,6 @@ export const SEED_RECIPES = [
   },
   {
     title: 'Apple Cranberry Arugula Salad',
-    image_url: 'https://images.unsplash.com/photo-1505253716362-afaea1d3d1af?w=400&fit=crop',
     description: 'A kidney-safe salad using low-potassium arugula and apples, avoiding high-potassium greens like spinach or kale.',
     category: 'lunch', diet_type: 'vegan', difficulty: 'easy',
     prep_time_minutes: 10, cook_time_minutes: 0, servings: 2, serving_size: '2 cups',
@@ -1318,7 +1261,6 @@ export const SEED_RECIPES = [
   },
   {
     title: 'Rice Congee with Ginger & Scallion',
-    image_url: 'https://images.unsplash.com/photo-1547592166-23ac45744acd?w=400&fit=crop',
     description: 'Congee (rice porridge) is a traditional kidney-supportive food — its high water ratio is gentle on kidney filtration while providing easily absorbed energy.',
     category: 'breakfast', diet_type: 'vegan', difficulty: 'easy',
     prep_time_minutes: 5, cook_time_minutes: 35, servings: 2, serving_size: '1.5 cups',
@@ -1341,7 +1283,6 @@ export const SEED_RECIPES = [
   // ── THYROID SUPPORT (additional) ──────────────────────────────────────────
   {
     title: 'Seaweed & Sesame Cucumber Salad',
-    image_url: 'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=400&fit=crop',
     description: 'Seaweed is the richest dietary source of iodine — the mineral the thyroid requires to produce hormones. A single serving can meet your daily iodine needs.',
     category: 'lunch', diet_type: 'vegan', difficulty: 'easy',
     prep_time_minutes: 15, cook_time_minutes: 0, servings: 2, serving_size: '1.5 cups',
@@ -1362,7 +1303,6 @@ export const SEED_RECIPES = [
   },
   {
     title: 'Selenium-Rich Brazil Nut Granola',
-    image_url: 'https://images.unsplash.com/photo-1517093602195-b40af9688b46?w=400&fit=crop',
     description: 'Just 2 Brazil nuts exceed the daily selenium RDA — this granola incorporates them into a thyroid-supporting breakfast with carefully portioned servings.',
     category: 'breakfast', diet_type: 'vegan', difficulty: 'easy',
     prep_time_minutes: 10, cook_time_minutes: 25, servings: 10, serving_size: '½ cup (contains 2 Brazil nuts)',
@@ -1385,7 +1325,6 @@ export const SEED_RECIPES = [
   },
   {
     title: 'Spinach & Mushroom Thyroid-Friendly Omelette',
-    image_url: 'https://images.unsplash.com/photo-1510693206972-df098062cb71?w=400&fit=crop',
     description: 'Mushrooms provide selenium; spinach provides iodine and magnesium; eggs provide tyrosine — every component directly supports thyroid hormone production.',
     category: 'breakfast', diet_type: 'vegetarian', difficulty: 'easy',
     prep_time_minutes: 8, cook_time_minutes: 10, servings: 1, serving_size: '1 omelette',
@@ -1407,7 +1346,6 @@ export const SEED_RECIPES = [
   },
   {
     title: 'Iodine-Rich Cod & Sweet Potato Fishcakes',
-    image_url: 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=400&fit=crop',
     description: 'Cod is among the highest dietary sources of iodine of any food; combined with selenium-containing sunflower seeds for complete thyroid mineral support.',
     category: 'dinner', diet_type: 'any', difficulty: 'medium',
     prep_time_minutes: 20, cook_time_minutes: 25, servings: 4, serving_size: '2 fishcakes',
@@ -1428,7 +1366,6 @@ export const SEED_RECIPES = [
   },
   {
     title: 'Roasted Turkey & Brown Rice Bowl',
-    image_url: 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=400&fit=crop',
     description: 'Turkey is high in tyrosine and selenium — two nutrients essential for thyroid hormone synthesis. Brown rice provides zinc for T4 to T3 conversion.',
     category: 'dinner', diet_type: 'any', difficulty: 'easy',
     prep_time_minutes: 10, cook_time_minutes: 25, servings: 2, serving_size: '1 bowl',
@@ -1450,7 +1387,6 @@ export const SEED_RECIPES = [
   // ── BONE & JOINT HEALTH (additional) ──────────────────────────────────────
   {
     title: 'Fortified Oat Smoothie with Collard Greens',
-    image_url: 'https://images.unsplash.com/photo-1553530666-ba11a7da3888?w=400&fit=crop',
     description: 'Collard greens have more calcium per cup than whole milk when cooked — blended in a smoothie, they\'re undetectable and incredibly bone-supporting.',
     category: 'breakfast', diet_type: 'vegan', difficulty: 'easy',
     prep_time_minutes: 8, cook_time_minutes: 0, servings: 1, serving_size: '14 oz',
@@ -1469,7 +1405,6 @@ export const SEED_RECIPES = [
   },
   {
     title: 'Bone Broth & Vegetable Soup',
-    image_url: 'https://images.unsplash.com/photo-1547592180-85f173990554?w=400&fit=crop',
     description: 'Bone broth contains collagen peptides, glucosamine, and chondroitin — the raw materials for cartilage repair and joint cushioning.',
     category: 'lunch', diet_type: 'any', difficulty: 'easy',
     prep_time_minutes: 10, cook_time_minutes: 20, servings: 4, serving_size: '1.5 cups',
@@ -1490,7 +1425,6 @@ export const SEED_RECIPES = [
   },
   {
     title: 'Salmon & Bok Choy Stir-Fry',
-    image_url: 'https://images.unsplash.com/photo-1580476262798-bddd9f4b7369?w=400&fit=crop',
     description: 'Bok choy is the highest-calcium vegetable by weight per calorie; combined with salmon\'s vitamin D for optimal calcium absorption.',
     category: 'dinner', diet_type: 'any', difficulty: 'medium',
     prep_time_minutes: 12, cook_time_minutes: 15, servings: 2, serving_size: '1 plate',
@@ -1510,7 +1444,6 @@ export const SEED_RECIPES = [
   },
   {
     title: 'Calcium-Rich Almond & Fig Breakfast Bowl',
-    image_url: 'https://images.unsplash.com/photo-1488477181946-6428a0291777?w=400&fit=crop',
     description: 'Figs are the highest-calcium fruit; almonds are the highest-calcium nut — together in this bowl, they deliver 30% of your daily calcium needs before any fortified milk.',
     category: 'breakfast', diet_type: 'vegan', difficulty: 'easy',
     prep_time_minutes: 8, cook_time_minutes: 5, servings: 1, serving_size: '1 bowl',
@@ -1531,7 +1464,6 @@ export const SEED_RECIPES = [
   },
   {
     title: 'Sesame-Tahini Kale Massaged Salad',
-    image_url: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&fit=crop',
     description: 'Kale and tahini are both exceptional plant-based calcium sources; massaging raw kale with olive oil makes its calcium significantly more bioavailable.',
     category: 'lunch', diet_type: 'vegan', difficulty: 'easy',
     prep_time_minutes: 15, cook_time_minutes: 0, servings: 2, serving_size: '2 cups',
@@ -1553,7 +1485,6 @@ export const SEED_RECIPES = [
   // ── WEIGHT MANAGEMENT ─────────────────────────────────────────────────────
   {
     title: 'High-Protein Greek Yogurt Bowl',
-    image_url: 'https://images.unsplash.com/photo-1488477181946-6428a0291777?w=400&fit=crop',
     description: 'A 30-gram protein breakfast that suppresses hunger for hours — the most effective macronutrient for satiety.',
     category: 'breakfast', diet_type: 'vegetarian', difficulty: 'easy',
     prep_time_minutes: 5, cook_time_minutes: 0, servings: 1, serving_size: '1 bowl',
@@ -1574,7 +1505,6 @@ export const SEED_RECIPES = [
   },
   {
     title: 'Zucchini Noodles with Turkey Bolognese',
-    image_url: 'https://images.unsplash.com/photo-1563379926898-05f4575a45d8?w=400&fit=crop',
     description: 'All the satisfaction of pasta Bolognese at a fraction of the calories — zucchini noodles add volume without carbs.',
     category: 'dinner', diet_type: 'any', difficulty: 'medium',
     prep_time_minutes: 15, cook_time_minutes: 25, servings: 4, serving_size: '2 cups',
@@ -1598,7 +1528,6 @@ export const SEED_RECIPES = [
   // ── KIDNEY HEALTH (extra to reach 10) ─────────────────────────────────────
   {
     title: 'Lemon Herb Angel Hair Pasta',
-    image_url: 'https://images.unsplash.com/photo-1563379926898-05f4575a45d8?w=400&fit=crop',
     description: 'A kidney-safe pasta using white flour pasta (lowest phosphorus option), bright lemon, and fresh herbs — flavorful without any high-potassium or high-phosphorus ingredients.',
     category: 'dinner', diet_type: 'vegan', difficulty: 'easy',
     prep_time_minutes: 8, cook_time_minutes: 12, servings: 2, serving_size: '1 cup pasta',
@@ -1622,7 +1551,6 @@ export const SEED_RECIPES = [
   // ── THYROID SUPPORT (extra to reach 10) ───────────────────────────────────
   {
     title: 'Zinc-Rich Pumpkin Seed Pesto Pasta',
-    image_url: 'https://images.unsplash.com/photo-1563379926898-05f4575a45d8?w=400&fit=crop',
     description: 'Pumpkin seeds are the highest plant source of zinc — the mineral essential for converting inactive T4 thyroid hormone into active T3.',
     category: 'dinner', diet_type: 'vegan', difficulty: 'medium',
     prep_time_minutes: 12, cook_time_minutes: 12, servings: 3, serving_size: '1.5 cups',
@@ -1643,7 +1571,6 @@ export const SEED_RECIPES = [
   },
   {
     title: 'Egg White & Vegetable Omelette',
-    image_url: 'https://images.unsplash.com/photo-1510693206972-df098062cb71?w=400&fit=crop',
     description: 'Egg whites are pure protein with zero fat and minimal calories — this omelette delivers 22g of hunger-killing protein for under 200 calories.',
     category: 'breakfast', diet_type: 'vegetarian', difficulty: 'easy',
     prep_time_minutes: 8, cook_time_minutes: 8, servings: 1, serving_size: '1 omelette',
@@ -1664,7 +1591,6 @@ export const SEED_RECIPES = [
   },
   {
     title: 'Spicy Shrimp Lettuce Wraps',
-    image_url: 'https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?w=400&fit=crop',
     description: 'Shrimp is the leanest high-volume protein available — extremely filling with very few calories. Lettuce wraps eliminate empty carbohydrate calories.',
     category: 'lunch', diet_type: 'any', difficulty: 'easy',
     prep_time_minutes: 10, cook_time_minutes: 8, servings: 2, serving_size: '3 wraps',
@@ -1685,7 +1611,6 @@ export const SEED_RECIPES = [
   },
   {
     title: 'Vegetable & Bean Minestrone',
-    image_url: 'https://images.unsplash.com/photo-1547592166-23ac45744acd?w=400&fit=crop',
     description: 'A classic weight-management soup: high volume from vegetables, high satiety from beans, and very few calories per bowl.',
     category: 'dinner', diet_type: 'vegan', difficulty: 'easy',
     prep_time_minutes: 12, cook_time_minutes: 30, servings: 6, serving_size: '1.5 cups',
@@ -1708,7 +1633,6 @@ export const SEED_RECIPES = [
   },
   {
     title: 'Turkey & Spinach Stuffed Mushrooms',
-    image_url: 'https://images.unsplash.com/photo-1596560548464-f010549b84d7?w=400&fit=crop',
     description: 'Using large portobello mushrooms as a "bun" eliminates 200+ empty calories while maintaining the satisfaction of a filled, substantial meal.',
     category: 'dinner', diet_type: 'any', difficulty: 'medium',
     prep_time_minutes: 12, cook_time_minutes: 25, servings: 2, serving_size: '2 mushroom caps',
@@ -1730,7 +1654,6 @@ export const SEED_RECIPES = [
   },
   {
     title: 'Cottage Cheese & Fruit Parfait',
-    image_url: 'https://images.unsplash.com/photo-1488477181946-6428a0291777?w=400&fit=crop',
     description: 'Cottage cheese has more protein per calorie than Greek yogurt — an underrated weight-management food that keeps you full for 4+ hours.',
     category: 'breakfast', diet_type: 'vegetarian', difficulty: 'easy',
     prep_time_minutes: 5, cook_time_minutes: 0, servings: 1, serving_size: '1 parfait',
