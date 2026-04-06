@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
@@ -83,7 +83,29 @@ export default function HealthRecipesTab({ recipes, user }) {
 
   const hasHealthRecipes = recipes.some(r => getConditions(r).length > 0);
 
-  // ── Seed recipes into the DB ──────────────────────────────────────────────
+  // ── Auto-seed on first visit if no recipes exist ─────────────────────────
+  useEffect(() => {
+    if (!seeded && !seeding && recipes.length === 0 && user?.email) {
+      handleSeedAuto();
+    }
+  }, [seeded, seeding, recipes.length, user?.email]);
+
+  const handleSeedAuto = async () => {
+    setSeeding(true);
+    try {
+      for (const recipe of SEED_RECIPES) {
+        await base44.entities.Recipe.create(prepareForSeed(recipe));
+      }
+      localStorage.setItem(SEED_KEY, '1');
+      setSeeded(true);
+      queryClient.invalidateQueries(['recipes']);
+    } catch (e) {
+      console.error(e);
+    }
+    setSeeding(false);
+  };
+
+  // ── Manual seed (button) ──────────────────────────────────────────────
   const handleSeed = async () => {
     setSeeding(true);
     try {
