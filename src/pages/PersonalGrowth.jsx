@@ -1,14 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { motion } from 'framer-motion';
 import {
   BookOpen, Brain, Heart, Sparkles, Target, CheckCircle2,
   Crown, Calendar, Wind, Star, ArrowRight, Flower2,
-  Flame, ChevronRight, MessageCircle, Sun, Moon, Sunset
+  Flame, ChevronRight, MessageCircle, Sun, Moon, Sunset, TrendingUp
 } from 'lucide-react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { base44 } from '@/api/base44Client';
 import { localDateKey, todayKey } from '@/utils/localDate';
+
+const HabitBuilderTab = lazy(() => import('@/pages/HabitBuilderPage'));
+const GratitudeJournalTab = lazy(() => import('@/pages/GratitudeJournalPage'));
+const MindsetResetTab = lazy(() => import('@/pages/MindsetResetPage'));
+const AffirmationsTab = lazy(() => import('@/pages/AffirmationsPage'));
+const EmotionalCheckInTab = lazy(() => import('@/pages/EmotionalCheckInPage'));
+const IdentityInChristTab = lazy(() => import('@/pages/IdentityInChristPage'));
+const MyJournalTab = lazy(() => import('@/pages/MyJournalEntries'));
+const WeeklyReflectionTab = lazy(() => import('@/pages/WeeklyReflectionPage'));
+const GrowthPathwaysTab = lazy(() => import('@/pages/GrowthPathwaysPage'));
 
 // ── Affirmations rotation ────────────────────────────────────────────────────
 const DAILY_AFFIRMATIONS = [
@@ -171,53 +181,78 @@ function SectionLabel({ children }) {
   );
 }
 
-function ToolRow({ page, icon: Icon, grad, label, sub, done }) {
-  return (
-    <Link to={createPageUrl(page)}>
-      <motion.div
-        whileTap={{ scale: 0.98 }}
-        className="flex items-center gap-3 bg-white rounded-2xl px-4 py-3.5 border shadow-sm hover:shadow-md transition-all mb-2.5"
-        style={{ borderColor: done ? "#BBF7D0" : "#F3F4F6" }}
-      >
-        <div className={`w-10 h-10 bg-gradient-to-br ${grad} rounded-xl flex items-center justify-center flex-shrink-0`}>
-          <Icon className="w-5 h-5 text-white" />
-        </div>
-        <div className="flex-1 min-w-0">
-          <p className="text-sm font-bold text-[#0A1A2F] leading-tight">{label}</p>
-          <p className="text-xs text-[#0A1A2F]/50 mt-0.5">{sub}</p>
-        </div>
-        {done
-          ? <CheckCircle2 className="w-5 h-5 text-emerald-500 flex-shrink-0" />
-          : <ChevronRight className="w-4 h-4 text-[#0A1A2F]/25 flex-shrink-0" />
-        }
-      </motion.div>
-    </Link>
+function ToolRow({ page, icon: Icon, grad, label, sub, done, onTabSwitch }) {
+  const tabMap = {
+    HabitBuilderPage: 'habits',
+    EmotionalCheckInPage: 'habits-emotional',
+    GratitudeJournalPage: 'journal-gratitude',
+    AffirmationsPage: 'mindset-affirm',
+    MindsetResetPage: 'mindset',
+    GuidedMeditationsPage: null, // stays as separate page
+    WeeklyReflectionPage: 'journal-weekly',
+    GrowthPathwaysPage: 'pathways',
+    SelfCareChallengesPage: null, // stays as separate page
+  };
+  const tabId = tabMap[page];
+
+  const content = (
+    <motion.div
+      whileTap={{ scale: 0.98 }}
+      className="flex items-center gap-3 bg-white rounded-2xl px-4 py-3.5 border shadow-sm hover:shadow-md transition-all mb-2.5"
+      style={{ borderColor: done ? "#BBF7D0" : "#F3F4F6" }}
+    >
+      <div className={`w-10 h-10 bg-gradient-to-br ${grad} rounded-xl flex items-center justify-center flex-shrink-0`}>
+        <Icon className="w-5 h-5 text-white" />
+      </div>
+      <div className="flex-1 min-w-0">
+        <p className="text-sm font-bold text-[#0A1A2F] leading-tight">{label}</p>
+        <p className="text-xs text-[#0A1A2F]/50 mt-0.5">{sub}</p>
+      </div>
+      {done
+        ? <CheckCircle2 className="w-5 h-5 text-emerald-500 flex-shrink-0" />
+        : <ChevronRight className="w-4 h-4 text-[#0A1A2F]/25 flex-shrink-0" />
+      }
+    </motion.div>
   );
+
+  if (tabId && onTabSwitch) {
+    return <button className="w-full text-left" onClick={() => onTabSwitch(tabId)}>{content}</button>;
+  }
+  return <Link to={createPageUrl(page)}>{content}</Link>;
 }
 
-function DeepRow({ page, icon: Icon, grad, label, sub }) {
-  return (
-    <Link to={createPageUrl(page)}>
-      <motion.div
-        whileTap={{ scale: 0.98 }}
-        className="flex items-center gap-3 bg-white rounded-2xl px-4 py-3.5 border border-gray-100 shadow-sm hover:shadow-md transition-all mb-2.5"
-      >
-        <div className={`w-10 h-10 bg-gradient-to-br ${grad} rounded-xl flex items-center justify-center flex-shrink-0`}>
-          <Icon className="w-5 h-5 text-white" />
-        </div>
-        <div className="flex-1 min-w-0">
-          <p className="text-sm font-bold text-[#0A1A2F] leading-tight">{label}</p>
-          <p className="text-xs text-[#0A1A2F]/50 mt-0.5">{sub}</p>
-        </div>
-        <ChevronRight className="w-4 h-4 text-[#0A1A2F]/25 flex-shrink-0" />
-      </motion.div>
-    </Link>
+function DeepRow({ page, icon: Icon, grad, label, sub, onTabSwitch }) {
+  const tabMap = { IdentityInChristPage: 'mindset-identity', MyJournalEntries: 'journal' };
+  const tabId = tabMap[page];
+
+  const content = (
+    <motion.div
+      whileTap={{ scale: 0.98 }}
+      className="flex items-center gap-3 bg-white rounded-2xl px-4 py-3.5 border border-gray-100 shadow-sm hover:shadow-md transition-all mb-2.5"
+    >
+      <div className={`w-10 h-10 bg-gradient-to-br ${grad} rounded-xl flex items-center justify-center flex-shrink-0`}>
+        <Icon className="w-5 h-5 text-white" />
+      </div>
+      <div className="flex-1 min-w-0">
+        <p className="text-sm font-bold text-[#0A1A2F] leading-tight">{label}</p>
+        <p className="text-xs text-[#0A1A2F]/50 mt-0.5">{sub}</p>
+      </div>
+      <ChevronRight className="w-4 h-4 text-[#0A1A2F]/25 flex-shrink-0" />
+    </motion.div>
   );
+
+  if (tabId && onTabSwitch) {
+    return <button className="w-full text-left" onClick={() => onTabSwitch(tabId)}>{content}</button>;
+  }
+  return <Link to={createPageUrl(page)}>{content}</Link>;
 }
 
 // ── Main page ─────────────────────────────────────────────────────────────────
 export default function PersonalGrowth() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const initialTab = searchParams.get('tab') || 'dashboard';
+  const [activeTab, setActiveTab] = useState(initialTab);
   const [user, setUser]               = useState(null);
   const [loading, setLoading]         = useState(true);
   const [habitStreak, setHabitStreak] = useState(0);
@@ -311,36 +346,192 @@ export default function PersonalGrowth() {
     );
   }
 
+  const TABS = [
+    { id: 'dashboard', label: 'Dashboard', icon: <Star className="w-3.5 h-3.5" /> },
+    { id: 'journal', label: 'Journal', icon: <BookOpen className="w-3.5 h-3.5" /> },
+    { id: 'mindset', label: 'Mindset', icon: <Brain className="w-3.5 h-3.5" /> },
+    { id: 'habits', label: 'Habits', icon: <CheckCircle2 className="w-3.5 h-3.5" /> },
+    { id: 'pathways', label: 'Pathways', icon: <Target className="w-3.5 h-3.5" /> },
+  ];
+
+  const TabSpinner = () => (
+    <div className="flex items-center justify-center py-20">
+      <div className="animate-spin w-8 h-8 border-4 border-[#AFC7E3] border-t-transparent rounded-full" />
+    </div>
+  );
+
   return (
     <div className="min-h-screen bg-[#F2F6FA] pb-28">
+
+      {/* ── Sticky Header + Tab Bar ── */}
+      <div className="sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b border-[#AFC7E3]/25">
+        <div className="px-4 py-3 max-w-2xl mx-auto flex items-center justify-between">
+          <div>
+            <h1 className="text-base font-bold text-[#0A1A2F] leading-tight">Personal Growth</h1>
+            <p className="text-xs text-[#0A1A2F]/45">Strengthen your mind, emotions, and spirit</p>
+          </div>
+          <div className="flex items-center gap-2">
+            {habitStreak > 0 && (
+              <div className="flex items-center gap-1 bg-orange-50 border border-orange-100 px-2.5 py-1.5 rounded-full">
+                <Flame className="w-3.5 h-3.5 text-orange-500" />
+                <span className="text-xs font-bold text-orange-600">{habitStreak}d</span>
+              </div>
+            )}
+            <Link to={createPageUrl('PersonalGrowthGoalsPage')}>
+              <button className="flex items-center gap-1.5 bg-[#EFF9FF] border border-[#AFC7E3]/40 text-[#3C4E53] text-xs font-bold px-3 py-2 rounded-xl">
+                <Target className="w-3.5 h-3.5" /> Goals
+              </button>
+            </Link>
+          </div>
+        </div>
+
+        <div className="max-w-2xl mx-auto px-4 flex gap-0 overflow-x-auto">
+          {TABS.map(tab => (
+            <button key={tab.id} onClick={() => setActiveTab(tab.id)}
+              className={`flex items-center gap-1.5 px-3.5 py-3 text-xs font-semibold flex-shrink-0 relative transition-colors ${
+                activeTab === tab.id ? 'text-[#3C4E53]' : 'text-[#0A1A2F]/35 hover:text-[#0A1A2F]/55'
+              }`}
+            >
+              {tab.icon} {tab.label}
+              {activeTab === tab.id && (
+                <motion.div layoutId="growthTab"
+                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#AFC7E3] to-[#3C4E53] rounded-full"
+                  transition={{ type: 'spring', stiffness: 500, damping: 30 }} />
+              )}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* ── Journal Tab ── */}
+      {activeTab === 'journal' && (
+        <Suspense fallback={<TabSpinner />}>
+          <div className="px-4 pt-4 max-w-2xl mx-auto space-y-3">
+            <div className="flex gap-2 mb-2">
+              {[
+                { id: 'entries', label: 'My Journal', active: true },
+                { id: 'gratitude', label: 'Gratitude' },
+                { id: 'weekly', label: 'Weekly Reflection' },
+              ].map(sub => (
+                <button key={sub.id}
+                  onClick={() => {
+                    const map = { entries: 'journal-entries', gratitude: 'journal-gratitude', weekly: 'journal-weekly' };
+                    setActiveTab(map[sub.id]);
+                  }}
+                  className="text-xs font-semibold px-3 py-1.5 rounded-full bg-[#AFC7E3]/15 text-[#3C4E53] border border-[#AFC7E3]/25"
+                >
+                  {sub.label}
+                </button>
+              ))}
+            </div>
+            <MyJournalTab />
+          </div>
+        </Suspense>
+      )}
+      {activeTab === 'journal-gratitude' && (
+        <Suspense fallback={<TabSpinner />}><GratitudeJournalTab /></Suspense>
+      )}
+      {activeTab === 'journal-weekly' && (
+        <Suspense fallback={<TabSpinner />}><WeeklyReflectionTab /></Suspense>
+      )}
+      {activeTab === 'journal-entries' && (
+        <Suspense fallback={<TabSpinner />}>
+          <div className="px-4 pt-4 max-w-2xl mx-auto space-y-3">
+            <div className="flex gap-2 mb-2">
+              {[
+                { id: 'journal-entries', label: 'My Journal' },
+                { id: 'journal-gratitude', label: 'Gratitude' },
+                { id: 'journal-weekly', label: 'Weekly Reflection' },
+              ].map(sub => (
+                <button key={sub.id}
+                  onClick={() => setActiveTab(sub.id)}
+                  className={`text-xs font-semibold px-3 py-1.5 rounded-full border ${
+                    activeTab === sub.id ? 'bg-[#3C4E53] text-white border-[#3C4E53]' : 'bg-[#AFC7E3]/15 text-[#3C4E53] border-[#AFC7E3]/25'
+                  }`}
+                >
+                  {sub.label}
+                </button>
+              ))}
+            </div>
+            <MyJournalTab />
+          </div>
+        </Suspense>
+      )}
+
+      {/* ── Mindset Tab ── */}
+      {activeTab === 'mindset' && (
+        <Suspense fallback={<TabSpinner />}>
+          <div className="px-4 pt-4 max-w-2xl mx-auto space-y-3">
+            <div className="flex gap-2 mb-2">
+              {[
+                { id: 'mindset', label: 'Mindset Reset' },
+                { id: 'mindset-affirm', label: 'Affirmations' },
+                { id: 'mindset-identity', label: 'Identity in Christ' },
+              ].map(sub => (
+                <button key={sub.id}
+                  onClick={() => setActiveTab(sub.id)}
+                  className={`text-xs font-semibold px-3 py-1.5 rounded-full border ${
+                    activeTab === sub.id ? 'bg-[#3C4E53] text-white border-[#3C4E53]' : 'bg-[#AFC7E3]/15 text-[#3C4E53] border-[#AFC7E3]/25'
+                  }`}
+                >
+                  {sub.label}
+                </button>
+              ))}
+            </div>
+            <MindsetResetTab />
+          </div>
+        </Suspense>
+      )}
+      {activeTab === 'mindset-affirm' && (
+        <Suspense fallback={<TabSpinner />}><AffirmationsTab /></Suspense>
+      )}
+      {activeTab === 'mindset-identity' && (
+        <Suspense fallback={<TabSpinner />}><IdentityInChristTab /></Suspense>
+      )}
+
+      {/* ── Habits Tab ── */}
+      {activeTab === 'habits' && (
+        <Suspense fallback={<TabSpinner />}>
+          <div className="px-4 pt-4 max-w-2xl mx-auto space-y-3">
+            <div className="flex gap-2 mb-2">
+              {[
+                { id: 'habits', label: 'Habit Builder' },
+                { id: 'habits-emotional', label: 'Emotional Check-In' },
+              ].map(sub => (
+                <button key={sub.id}
+                  onClick={() => setActiveTab(sub.id)}
+                  className={`text-xs font-semibold px-3 py-1.5 rounded-full border ${
+                    activeTab === sub.id ? 'bg-[#3C4E53] text-white border-[#3C4E53]' : 'bg-[#AFC7E3]/15 text-[#3C4E53] border-[#AFC7E3]/25'
+                  }`}
+                >
+                  {sub.label}
+                </button>
+              ))}
+            </div>
+            <HabitBuilderTab />
+          </div>
+        </Suspense>
+      )}
+      {activeTab === 'habits-emotional' && (
+        <Suspense fallback={<TabSpinner />}><EmotionalCheckInTab /></Suspense>
+      )}
+
+      {/* ── Pathways Tab ── */}
+      {activeTab === 'pathways' && (
+        <Suspense fallback={<TabSpinner />}><GrowthPathwaysTab /></Suspense>
+      )}
+
+      {/* ── Dashboard Tab (original content) ── */}
+      {activeTab === 'dashboard' && (
       <div className="px-4 pt-6 pb-4">
         <div className="max-w-2xl mx-auto space-y-4">
 
           {/* ── Greeting ── */}
           <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }}>
-            <div className="flex items-center justify-between mb-1">
-              <div className="flex items-center gap-2">
-                <GreetIcon className="w-5 h-5" style={{ color: greeting.color }} />
-                <h2 className="text-xl font-bold text-[#0A1A2F]">{greeting.text}</h2>
-              </div>
-              <div className="flex items-center gap-2">
-                {habitStreak > 0 && (
-                  <motion.div
-                    initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", delay: 0.3 }}
-                    className="flex items-center gap-1.5 bg-orange-50 border border-orange-100 px-3 py-1.5 rounded-full"
-                  >
-                    <Flame className="w-3.5 h-3.5 text-orange-500" />
-                    <span className="text-xs font-bold text-orange-600">{habitStreak} day streak</span>
-                  </motion.div>
-                )}
-                <Link to={createPageUrl('PersonalGrowthGoalsPage')}>
-                  <button className="flex items-center gap-1.5 bg-[#EFF9FF] border border-[#AFC7E3]/40 text-[#3C4E53] text-xs font-bold px-3 py-2 rounded-xl">
-                    <Target className="w-3.5 h-3.5" /> Goals
-                  </button>
-                </Link>
-              </div>
+            <div className="flex items-center gap-2 mb-1">
+              <GreetIcon className="w-5 h-5" style={{ color: greeting.color }} />
+              <h2 className="text-xl font-bold text-[#0A1A2F]">{greeting.text}</h2>
             </div>
-            <p className="text-sm text-[#0A1A2F]/55 pl-7">Strengthen your mind, emotions, and spirit.</p>
           </motion.div>
 
           {/* ── Growth Goals entry card ── */}
@@ -374,11 +565,11 @@ export default function PersonalGrowth() {
                 <p className="text-base font-bold text-white leading-snug mb-1">"{affirmation.text}"</p>
                 <p className="text-xs text-white/45">{affirmation.verse}</p>
               </div>
-              <Link to={createPageUrl("AffirmationsPage")}>
-                <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0">
+              <button onClick={() => setActiveTab('mindset-affirm')} className="flex-shrink-0">
+                <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center">
                   <ArrowRight className="w-3.5 h-3.5 text-white/60" />
                 </div>
-              </Link>
+              </button>
             </div>
           </motion.div>
 
@@ -389,7 +580,7 @@ export default function PersonalGrowth() {
               className="grid grid-cols-2 gap-3"
             >
               {lastMood && (
-                <Link to={createPageUrl("EmotionalCheckInPage")}>
+                <button onClick={() => setActiveTab('habits-emotional')} className="text-left">
                   <div className="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm h-full hover:shadow-md transition-all">
                     <p className="text-[10px] font-bold text-[#0A1A2F]/40 uppercase tracking-widest mb-2">Last check-in</p>
                     <div className="flex items-center gap-2">
@@ -400,23 +591,26 @@ export default function PersonalGrowth() {
                       </div>
                     </div>
                   </div>
-                </Link>
+                </button>
               )}
               {lastJournal && (
-                <Link to={createPageUrl("MyJournalEntries")}>
+                <button onClick={() => setActiveTab('journal')} className="text-left">
                   <div className="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm h-full hover:shadow-md transition-all">
                     <p className="text-[10px] font-bold text-[#0A1A2F]/40 uppercase tracking-widest mb-2">Last reflection</p>
                     <p className="text-xs text-[#0A1A2F]/70 leading-relaxed line-clamp-3">{lastJournal.preview}</p>
                     {lastJournal.date && <p className="text-[10px] text-[#0A1A2F]/30 mt-1.5">{lastJournal.date}</p>}
                   </div>
-                </Link>
+                </button>
               )}
             </motion.div>
           )}
 
           {/* ── Do This Next ── */}
           <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
-            <Link to={createPageUrl(nextCard.page)}>
+            <button className="w-full text-left" onClick={() => {
+              const tabMap = { HabitBuilderPage: 'habits', EmotionalCheckInPage: 'habits-emotional', GratitudeJournalPage: 'journal-gratitude', AffirmationsPage: 'mindset-affirm', WeeklyReflectionPage: 'journal-weekly' };
+              setActiveTab(tabMap[nextCard.page] || 'dashboard');
+            }}>
               <div
                 className="rounded-2xl p-5 flex items-center gap-4 shadow-sm hover:shadow-md transition-all"
                 style={{ background: "linear-gradient(135deg,#AFC7E3,#3C4E53)" }}
@@ -431,7 +625,7 @@ export default function PersonalGrowth() {
                 </div>
                 <ArrowRight className="w-5 h-5 text-white/70 flex-shrink-0" />
               </div>
-            </Link>
+            </button>
           </motion.div>
 
           {/* ── Daily Practices ── */}
@@ -444,7 +638,7 @@ export default function PersonalGrowth() {
             </SectionLabel>
             {DAILY_TOOLS.map((tool, i) => (
               <motion.div key={tool.page} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.16 + i * 0.04 }}>
-                <ToolRow
+                <ToolRow onTabSwitch={setActiveTab}
                   page={tool.page}
                   icon={tool.icon}
                   grad={tool.grad}
@@ -464,7 +658,7 @@ export default function PersonalGrowth() {
             </SectionLabel>
             {WEEKLY_TOOLS.map((tool, i) => (
               <motion.div key={tool.page} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.32 + i * 0.04 }}>
-                <ToolRow
+                <ToolRow onTabSwitch={setActiveTab}
                   page={tool.page}
                   icon={tool.icon}
                   grad={tool.grad}
@@ -481,7 +675,7 @@ export default function PersonalGrowth() {
             <SectionLabel>Deep Work</SectionLabel>
             {DEEP_TOOLS.map((tool, i) => (
               <motion.div key={tool.page} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.44 + i * 0.04 }}>
-                <DeepRow page={tool.page} icon={tool.icon} grad={tool.grad} label={tool.label} sub={tool.sub} />
+                <DeepRow page={tool.page} icon={tool.icon} grad={tool.grad} label={tool.label} sub={tool.sub} onTabSwitch={setActiveTab} />
               </motion.div>
             ))}
           </motion.div>
@@ -510,6 +704,7 @@ export default function PersonalGrowth() {
 
         </div>
       </div>
+      )}
     </div>
   );
 }
