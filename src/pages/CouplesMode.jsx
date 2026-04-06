@@ -138,31 +138,16 @@ export default function CouplesMode() {
   return (
     <div className="min-h-screen bg-[#F2F6FA] pb-28">
       {/* Header */}
-      <div className="bg-gradient-to-br from-[#0A1A2F] to-[#1a3a5c] px-4 pt-6 pb-5">
+      <div className="sticky top-0 z-40 bg-white border-b border-[#FAD98D]/20 px-4 pt-4 pb-3">
         <div className="max-w-lg mx-auto">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-rose-500 to-pink-400 flex items-center justify-center">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#EC4899] to-[#F472B6] flex items-center justify-center">
               <Heart className="w-5 h-5 text-white" />
             </div>
             <div>
-              <h1 className="text-lg font-bold text-white">Couples Mode</h1>
-              <p className="text-xs text-white/50">
-                {isLinked ? `Connected with ${partnerEmail}` : 'Grow together in faith and love'}
-              </p>
+              <h1 className="text-base font-bold text-[#0A1A2F]">Couples Mode</h1>
+              <p className="text-xs text-[#0A1A2F]/45">Grow closer together</p>
             </div>
-          </div>
-          {/* Tabs */}
-          <div className="flex gap-1.5">
-            {TABS.map(({ id, label, icon: Icon }) => (
-              <button key={id} onClick={() => setActiveTab(id)}
-                className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-xl text-xs font-bold transition-all ${
-                  activeTab === id
-                    ? 'bg-white/15 text-white'
-                    : 'text-white/40 hover:text-white/60'
-                }`}>
-                <Icon className="w-3.5 h-3.5" />{label}
-              </button>
-            ))}
           </div>
         </div>
       </div>

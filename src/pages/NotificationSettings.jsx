@@ -96,6 +96,20 @@ export default function NotificationSettings() {
   if (loading) {
     return (
       <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] flex items-center justify-center">
+
+      {/* ── Standard Header ── */}
+      <div className="sticky top-0 z-40 bg-white border-b border-[#FAD98D]/20 px-4 pt-4 pb-3">
+        <div className="max-w-lg mx-auto flex items-center gap-3">
+          <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#3C4E53] to-[#AFC7E3] flex items-center justify-center">
+            <Bell className="w-5 h-5 text-white" />
+          </div>
+          <div>
+            <h1 className="text-base font-bold text-[#0A1A2F]">Notifications</h1>
+            <p className="text-xs text-[#0A1A2F]/45">Manage your alerts</p>
+          </div>
+        </div>
+      </div>
+
         <Loader2 className="w-8 h-8 text-[#c9a227] animate-spin" />
       </div>
     );

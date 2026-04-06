@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Dumbbell } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 import { useQuery } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
@@ -76,6 +77,20 @@ export default function WorkoutCategoryPage() {
 
   return (
     <div className="min-h-screen bg-[#F2F6FA]">
+
+      {/* ── Standard Header ── */}
+      <div className="sticky top-0 z-40 bg-white border-b border-[#FAD98D]/20 px-4 pt-4 pb-3">
+        <div className="max-w-lg mx-auto flex items-center gap-3">
+          <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#38BDF8] to-[#0EA5E9] flex items-center justify-center">
+            <Dumbbell className="w-5 h-5 text-white" />
+          </div>
+          <div>
+            <h1 className="text-base font-bold text-[#0A1A2F]">Workout Category</h1>
+            <p className="text-xs text-[#0A1A2F]/45">Find your workout</p>
+          </div>
+        </div>
+      </div>
+
       <div className="max-w-2xl mx-auto px-4 pt-6 pb-24">
 
         {/* Category header */}

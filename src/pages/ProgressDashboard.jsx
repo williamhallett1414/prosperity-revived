@@ -222,6 +222,20 @@ export default function ProgressDashboard() {
 
   return (
     <div className="min-h-screen bg-[#F2F6FA] pb-28">
+
+      {/* ── Standard Header ── */}
+      <div className="sticky top-0 z-40 bg-white border-b border-[#FAD98D]/20 px-4 pt-4 pb-3">
+        <div className="max-w-lg mx-auto flex items-center gap-3">
+          <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#AFC7E3] to-[#3C4E53] flex items-center justify-center">
+            <TrendingUp className="w-5 h-5 text-white" />
+          </div>
+          <div>
+            <h1 className="text-base font-bold text-[#0A1A2F]">My Progress</h1>
+            <p className="text-xs text-[#0A1A2F]/45">Your growth journey</p>
+          </div>
+        </div>
+      </div>
+
       <div className="max-w-lg mx-auto px-4 pt-4 pb-6 space-y-5">
 
         {/* 1. Page header */}

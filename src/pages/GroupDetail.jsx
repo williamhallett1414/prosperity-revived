@@ -7,8 +7,7 @@ import { toast } from 'sonner';
 import {
   ArrowLeft, Lock, Globe, UserPlus, Plus,
   Loader2, Trophy, MessageSquare, ChevronDown, ChevronUp,
-  Crown, Clock, Zap
-} from 'lucide-react';
+  Crown, Clock, Zap, Users} from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import PostCard from '@/components/community/PostCard';
 import CreatePostModal from '@/components/community/CreatePostModal';
@@ -291,6 +290,20 @@ export default function GroupDetail() {
   if (groupLoading) {
     return (
       <div className="min-h-screen bg-[#F2F6FA] flex items-center justify-center">
+
+      {/* ── Standard Header ── */}
+      <div className="sticky top-0 z-40 bg-white border-b border-[#FAD98D]/20 px-4 pt-4 pb-3">
+        <div className="max-w-lg mx-auto flex items-center gap-3">
+          <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#7C3AED] to-[#A78BFA] flex items-center justify-center">
+            <Users className="w-5 h-5 text-white" />
+          </div>
+          <div>
+            <h1 className="text-base font-bold text-[#0A1A2F]">Group</h1>
+            <p className="text-xs text-[#0A1A2F]/45">Study & share together</p>
+          </div>
+        </div>
+      </div>
+
         <Loader2 className="w-8 h-8 animate-spin text-[#c9a227]" />
       </div>
     );

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { base44 } from '@/api/base44Client';
+import { Flower2 } from 'lucide-react';
 import ShareToFeedButton from '@/components/community/ShareToFeedButton';
 import { localDateKey, todayKey } from '@/utils/localDate';
 
@@ -624,15 +625,21 @@ export default function SelfCareChallengesPage() {
         .sc-cat::-webkit-scrollbar{display:none}
       `}</style>
 
-      {/* Header */}
-      <div style={{background:"white",borderBottom:"1px solid #F2F6FA",padding:"12px 16px",display:"flex",alignItems:"center",gap:12}}>
-        <div style={{flex:1}}>
-          <h1 style={{fontFamily:"Lora,serif",fontWeight:700,fontSize:18,color:"#0A1A2F",margin:0}}>Self-Care Challenges</h1>
-          <p style={{fontSize:11,color:"#0A1A2F55",margin:0}}>
-            {activeList.length>0 ? `${activeList.length} active challenge${activeList.length>1?"s":""}` : "Build healthy habits one day at a time"}
-            {completedCount>0 ? ` · ${completedCount} completed` : ""}
-          </p>
+      {/* ── Standard Header ── */}
+      <div className="sticky top-0 z-40 bg-white border-b border-[#FAD98D]/20 px-4 pt-4 pb-3">
+        <div className="max-w-lg mx-auto flex items-center gap-3">
+          <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#FAD98D] to-[#c9a227] flex items-center justify-center">
+            <Flower2 className="w-5 h-5 text-white" />
+          </div>
+          <div>
+            <h1 className="text-base font-bold text-[#0A1A2F]">Self-Care Challenges</h1>
+            <p className="text-xs text-[#0A1A2F]/45">Build healthy habits</p>
+          </div>
         </div>
+      </div>
+
+      {/* Stats bar */}
+      <div style={{padding:"8px 16px",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
         <div style={{background:"linear-gradient(135deg,#FAD98D,#c9a227)",borderRadius:20,padding:"6px 14px",display:"flex",alignItems:"center",gap:6,boxShadow:"0 4px 12px rgba(217,184,120,0.3)"}}>
           <span style={{fontSize:14}}>{level.emoji}</span>
           <div>

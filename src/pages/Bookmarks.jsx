@@ -165,6 +165,20 @@ export default function Bookmarks() {
   if (!user) {
     return (
       <div className="min-h-screen bg-[#F2F6FA] flex items-center justify-center">
+
+      {/* ── Standard Header ── */}
+      <div className="sticky top-0 z-40 bg-white border-b border-[#FAD98D]/20 px-4 pt-4 pb-3">
+        <div className="max-w-lg mx-auto flex items-center gap-3">
+          <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center">
+            <Bookmark className="w-5 h-5 text-white" />
+          </div>
+          <div>
+            <h1 className="text-base font-bold text-[#0A1A2F]">Saved Verses</h1>
+            <p className="text-xs text-[#0A1A2F]/45">Your highlights & notes</p>
+          </div>
+        </div>
+      </div>
+
         <div className="w-8 h-8 border-4 border-[#c9a227] border-t-transparent rounded-full animate-spin" />
       </div>
     );

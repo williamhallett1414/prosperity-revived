@@ -83,43 +83,21 @@ export default function Achievements() {
     <div className="min-h-screen bg-[#F2F6FA] pb-28">
 
       {/* ── Hero header ── */}
-      <div className="bg-gradient-to-br from-[#0A1A2F] to-[#0A1A2F] px-4 pt-5 pb-8">
+      <div className="sticky top-0 z-40 bg-white border-b border-[#FAD98D]/20 px-4 pt-4 pb-3">
         <div className="max-w-lg mx-auto">
-          <div className="flex items-center gap-3 mb-5">
-            <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center shadow-md">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center">
               <Trophy className="w-5 h-5 text-white" />
             </div>
             <div>
-              <h1 className="text-xl font-bold text-white">Achievements</h1>
-              <p className="text-white/50 text-xs">Badges · Challenges · Leaderboard</p>
-            </div>
-          </div>
-
-          {/* Level + XP bar */}
-          <div className="bg-white/10 rounded-2xl p-4">
-            <div className="flex items-center justify-between mb-3">
-              <div className="flex items-center gap-2">
-                <Crown className="w-4 h-4 text-[#FAD98D]" />
-                <span className="font-bold text-white text-sm">Level {xp.level}</span>
-              </div>
-              <span className="text-[#FAD98D] text-xs font-semibold">{xp.toNext} pts to next level</span>
-            </div>
-            <div className="h-2 bg-white/10 rounded-full overflow-hidden">
-              <motion.div
-                initial={{ width: 0 }} animate={{ width: `${xpPct}%` }}
-                transition={{ duration: 0.8, ease: 'easeOut' }}
-                className="h-full bg-gradient-to-r from-[#c9a227] to-[#FAD98D] rounded-full"
-              />
-            </div>
-            <div className="flex justify-between mt-1.5">
-              <span className="text-[10px] text-white/35">{xp.inLevel} / {xp.span} XP</span>
-              <span className="text-[10px] text-white/35">{xp.total} total pts</span>
+              <h1 className="text-base font-bold text-[#0A1A2F]">Achievements</h1>
+              <p className="text-xs text-[#0A1A2F]/45">Your badges & milestones</p>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="max-w-lg mx-auto px-4 -mt-4">
+      <div className="max-w-lg mx-auto px-4 pt-4">
         {/* ── Stat grid (overlaps header) ── */}
         <div className="grid grid-cols-2 gap-3 mb-5">
           <StatChip icon={Sparkles}   label="Badges Earned"   value={earned.length}

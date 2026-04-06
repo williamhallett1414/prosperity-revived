@@ -531,6 +531,20 @@ export default function WorkoutPlanner() {
 
   return (
     <div className="min-h-screen bg-[#F2F6FA]">
+
+      {/* ── Standard Header ── */}
+      <div className="sticky top-0 z-40 bg-white border-b border-[#FAD98D]/20 px-4 pt-4 pb-3">
+        <div className="max-w-lg mx-auto flex items-center gap-3">
+          <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#FD9C2D] to-[#E89020] flex items-center justify-center">
+            <Calendar className="w-5 h-5 text-white" />
+          </div>
+          <div>
+            <h1 className="text-base font-bold text-[#0A1A2F]">Workout Planner</h1>
+            <p className="text-xs text-[#0A1A2F]/45">Plan your week</p>
+          </div>
+        </div>
+      </div>
+
       {/* ── Page Header ── */}
       <div className="bg-[#3C4E53] px-5 pt-7 pb-6 relative overflow-hidden">
         <div className="absolute -top-8 -right-8 w-40 h-40 rounded-full bg-[#FD9C2D]/10" />

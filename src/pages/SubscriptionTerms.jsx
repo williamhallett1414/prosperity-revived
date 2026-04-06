@@ -1,12 +1,26 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { ArrowLeft, CreditCard } from 'lucide-react';
+import { ArrowLeft, CreditCard, FileText} from 'lucide-react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 
 export default function SubscriptionTerms() {
   return (
     <div className="min-h-screen bg-[#F2F6FA] pb-24">
+
+      {/* ── Standard Header ── */}
+      <div className="sticky top-0 z-40 bg-white border-b border-[#FAD98D]/20 px-4 pt-4 pb-3">
+        <div className="max-w-lg mx-auto flex items-center gap-3">
+          <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#3C4E53] to-[#AFC7E3] flex items-center justify-center">
+            <FileText className="w-5 h-5 text-white" />
+          </div>
+          <div>
+            <h1 className="text-base font-bold text-[#0A1A2F]">Subscription Terms</h1>
+            <p className="text-xs text-[#0A1A2F]/45">Plan details</p>
+          </div>
+        </div>
+      </div>
+
       <div className="px-4 py-6">
         <div className="mb-6">
           <div className="flex items-center gap-3 mb-2">
