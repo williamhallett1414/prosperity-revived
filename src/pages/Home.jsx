@@ -359,7 +359,7 @@ function StartHereCard() {
           { emoji: '💪', title: 'Log your first workout', sub: 'Track your fitness progress', page: 'Workouts' },
         ].map(({ emoji, title, sub, page }) => (
           <Link key={page} to={createPageUrl(page)}>
-            <div className="bg-white rounded-2xl p-3.5 flex items-center gap-3 shadow-sm">
+            <div className="bg-white rounded-2xl p-3.5 flex items-center gap-3 shadow-sm mb-3">
               <span className="text-2xl">{emoji}</span>
               <div>
                 <p className="font-semibold text-sm text-[#0A1A2F]">{title}</p>
