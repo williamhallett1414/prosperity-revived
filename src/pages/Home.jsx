@@ -14,18 +14,17 @@ import { COACHING_PLANS } from '@/components/coaching/planData';
 
 // Avatar imports removed — using fallback initials for missing assets
 
-// Lazy-load heavy components — temporarily disabled for debugging
-const OnboardingFlow = lazy(() => Promise.resolve({ default: () => null }));
-const AppTour = lazy(() => Promise.resolve({ default: () => null }));
-const CreatePostModal = lazy(() => Promise.resolve({ default: () => null }));
-const HelpChatbot = lazy(() => Promise.resolve({ default: () => null }));
+// Lazy-load heavy components (only needed conditionally)
+const OnboardingFlow = lazy(() => import('@/components/onboarding/OnboardingFlow'));
+const AppTour = lazy(() => import('@/components/onboarding/AppTour'));
+const CreatePostModal = lazy(() => import('@/components/community/CreatePostModal'));
+const HelpChatbot = lazy(() => import('@/components/home/HelpChatbot'));
 
 // These are always needed
-const TermsUpdateGate = () => null;
-const needsTermsUpdate = () => false;
-const StartMyDayModal = () => null;
-const EndMyDayModal = () => null;
 import { toast } from 'sonner';
+import TermsUpdateGate, { needsTermsUpdate } from '@/components/onboarding/TermsUpdateGate';
+import StartMyDayModal from '@/components/home/StartMyDayModal';
+import EndMyDayModal from '@/components/home/EndMyDayModal';
 
 // ─── Helpers ───────────────────────────────────────────────────────────────────
 function getGreeting() {
