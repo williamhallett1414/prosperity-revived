@@ -757,41 +757,40 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-[#F2F6FA]">
-
-      {/* ── Onboarding flows ──────────────────────────────────────────────── */}
       <Suspense fallback={null}>
         {showOnboarding && (
-        <OnboardingFlow onComplete={() => {
-          setShowOnboarding(false);
-          base44.auth.me().then(setUser).catch(() => {});
-          setTimeout(() => setShowAppTour(true), 600);
-        }} />
-      )}
-      {showTermsGate && (
-        <TermsUpdateGate
-          user={user}
-          onAccepted={() => {
-            setShowTermsGate(false);
-            base44.auth.me().then(u => {
-              setUser(u);
-              if (!u.app_tour_completed) setTimeout(() => setShowAppTour(true), 400);
-            }).catch(() => {});
-          }}
-        />
-      )}
-      {showAppTour && (
-        <AppTour
-          userName={user?.full_name?.split(' ')[0]}
-          onComplete={() => {
-            setShowAppTour(false);
+          <OnboardingFlow onComplete={() => {
+            setShowOnboarding(false);
             base44.auth.me().then(setUser).catch(() => {});
-            // Launch interactive guided tour after a short pause
-            setTimeout(() => {
-              window.dispatchEvent(new CustomEvent('launchGuidedTour', { detail: { steps: null } }));
-            }, 800);
-          }}
-        />
-      )}
+            setTimeout(() => setShowAppTour(true), 600);
+          }} />
+        )}
+        {showTermsGate && (
+          <TermsUpdateGate
+            user={user}
+            onAccepted={() => {
+              setShowTermsGate(false);
+              base44.auth.me().then(u => {
+                setUser(u);
+                if (!u.app_tour_completed) setTimeout(() => setShowAppTour(true), 400);
+              }).catch(() => {});
+            }}
+          />
+        )}
+        {showAppTour && (
+          <AppTour
+            userName={user?.full_name?.split(' ')[0]}
+            onComplete={() => {
+              setShowAppTour(false);
+              base44.auth.me().then(setUser).catch(() => {});
+              setTimeout(() => {
+                window.dispatchEvent(new CustomEvent('launchGuidedTour', { detail: { steps: null } }));
+              }, 800);
+            }}
+          />
+        )}
+      </Suspense>
+
       {/* ── Content ──────────────────────────────────────────────────────── */}
       <div className="max-w-lg mx-auto px-4 pt-4 pb-28 space-y-4">
 
@@ -916,7 +915,6 @@ export default function Home() {
       )}
 
       <HelpChatbot />
-      </Suspense>
     </div>
   );
 }
