@@ -149,23 +149,23 @@ export default function WorkoutProgress() {
             <TabsTrigger value="goals" className="text-xs font-semibold data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#38BDF8] data-[state=active]:to-[#1e40af] data-[state=active]:text-white data-[state=active]:shadow-md text-[#0A1A2F]/60">Goals</TabsTrigger>
           </TabsList>
 
-          <TabsContent value="frequency">
+          <TabsContent value="frequency" className="pt-6">
             <WorkoutFrequencyChart sessions={sessions} />
           </TabsContent>
 
-          <TabsContent value="prs">
+          <TabsContent value="prs" className="pt-6">
             <PersonalBestsChart sessions={sessions} />
           </TabsContent>
 
-          <TabsContent value="volume">
+          <TabsContent value="volume" className="pt-6">
             <VolumeProgressChart sessions={sessions} />
           </TabsContent>
 
-          <TabsContent value="weight">
+          <TabsContent value="weight" className="pt-6">
             <WeightProgressChart progressPhotos={progressPhotos} />
           </TabsContent>
 
-          <TabsContent value="goals">
+          <TabsContent value="goals" className="pt-6">
             <GoalCompletionChart workouts={workouts} />
           </TabsContent>
         </Tabs>
