@@ -695,13 +695,12 @@ export default function Home() {
   const [showEndDay, setShowEndDay] = useState(false);
   const [showNotifPrompt, setShowNotifPrompt] = useState(false);
 
+  const greeting = getGreeting();
   const today = (() => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; })();
   const ritualKey = greeting.isMorning ? `ritual_morning_${today}` : `ritual_evening_${today}`;
   const [ritualDone, setRitualDone] = useState(() => !!localStorage.getItem(ritualKey));
   const [showCreatePost, setShowCreatePost] = useState(false);
   const [showTermsGate, setShowTermsGate] = useState(false);
-
-  const greeting = getGreeting();
 
   useEffect(() => {
     base44.auth.me().then((u) => {
