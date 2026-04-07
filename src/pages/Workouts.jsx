@@ -563,7 +563,7 @@ export default function Workouts() {
             {/* ── Browse Categories ── */}
             <motion.div id="tour-categories" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.28 }}>
               <SectionLabel>Browse by Category</SectionLabel>
-              <div className="grid grid-cols-3 gap-2.5">
+              <div className="grid grid-cols-4 gap-2.5">
                 {CATEGORIES.map((cat, i) =>
                 <motion.div
                   key={cat.key}
