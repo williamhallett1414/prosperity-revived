@@ -645,7 +645,7 @@ export default function Workouts() {
               <button
                 onClick={() => setActiveTab('planner')}
                 className="w-full rounded-2xl p-5 flex items-center gap-4 shadow-sm hover:shadow-md transition-all"
-                style={{ background: "linear-gradient(135deg,#0A1A2F,#0A1A2F)" }}>
+                style={{ background: "linear-gradient(135deg,#1e40af,#38BDF8)" }}>
                 
                 <div className="w-12 h-12 bg-[#FD9C2D]/20 rounded-xl flex items-center justify-center flex-shrink-0">
                   <ClipboardList className="w-6 h-6 text-[#FD9C2D]" />
