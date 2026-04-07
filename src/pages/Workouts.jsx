@@ -349,8 +349,8 @@ export default function Workouts() {
             {/* ── Fitness Goals card ── */}
             <motion.div id="tour-fitness-goals-entry" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.03 }}>
               <Link to={createPageUrl('FitnessGoalsPage')}>
-                <div className="rounded-2xl p-4 flex items-center gap-3 shadow-sm"
-                style={{ background: 'linear-gradient(135deg, #0A1A2F 0%, #1A3050 70%, #38BDF8 200%)' }}>
+                <div className="rounded-2xl p-4 flex items-center gap-3 shadow-md"
+                style={{ background: 'linear-gradient(135deg, #1e40af 0%, #38BDF8 100%)' }}>
                   <div className="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center flex-shrink-0">
                     <span className="text-xl">🎯</span>
                   </div>
