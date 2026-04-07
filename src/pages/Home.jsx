@@ -694,6 +694,10 @@ export default function Home() {
   const [showStartDay, setShowStartDay] = useState(false);
   const [showEndDay, setShowEndDay] = useState(false);
   const [showNotifPrompt, setShowNotifPrompt] = useState(false);
+
+  const today = (() => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; })();
+  const ritualKey = greeting.isMorning ? `ritual_morning_${today}` : `ritual_evening_${today}`;
+  const [ritualDone, setRitualDone] = useState(() => !!localStorage.getItem(ritualKey));
   const [showCreatePost, setShowCreatePost] = useState(false);
   const [showTermsGate, setShowTermsGate] = useState(false);
 
@@ -831,12 +835,14 @@ export default function Home() {
         {/* 2. AI Nudge Banner — personalized prompt to engage */}
         <NudgeBanner />
 
-        {/* 3. Daily ritual hero button */}
-        <RitualButton
-          isMorning={greeting.isMorning}
-          onStartDay={() => setShowStartDay(true)}
-          onEndDay={() => setShowEndDay(true)}
-        />
+        {/* 3. Daily ritual hero button — hidden once completed */}
+        {!ritualDone && (
+          <RitualButton
+            isMorning={greeting.isMorning}
+            onStartDay={() => setShowStartDay(true)}
+            onEndDay={() => setShowEndDay(true)}
+          />
+        )}
 
         {/* 4. Daily Progress Ring — today's activity tracker */}
         {user && <DailyProgressRing user={user} />}
@@ -891,8 +897,8 @@ export default function Home() {
       </div>
 
       {/* ── Modals ───────────────────────────────────────────────────────── */}
-      <StartMyDayModal isOpen={showStartDay} onClose={() => setShowStartDay(false)} user={user} />
-      <EndMyDayModal   isOpen={showEndDay}   onClose={() => setShowEndDay(false)} />
+      <StartMyDayModal isOpen={showStartDay} onClose={(completed) => { setShowStartDay(false); if (completed) { localStorage.setItem(ritualKey, '1'); setRitualDone(true); } }} user={user} />
+      <EndMyDayModal   isOpen={showEndDay}   onClose={(completed) => { setShowEndDay(false); if (completed) { localStorage.setItem(ritualKey, '1'); setRitualDone(true); } }} />
       <CreatePostModal
         isOpen={showCreatePost}
         onClose={() => setShowCreatePost(false)}

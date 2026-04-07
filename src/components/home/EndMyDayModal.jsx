@@ -53,7 +53,7 @@ export default function EndMyDayModal({ isOpen, onClose }) {
 
     toast.success('Evening ritual complete. Rest well tonight.');
     setCompleting(false);
-    onClose();
+    onClose(true);
   };
 
   const steps = [

@@ -89,7 +89,7 @@ export default function StartMyDayModal({ isOpen, onClose, user }) {
 
     toast.success('Morning ritual complete! Have a blessed day.');
     setCompleting(false);
-    onClose();
+    onClose(true);
   };
 
   const steps = [
