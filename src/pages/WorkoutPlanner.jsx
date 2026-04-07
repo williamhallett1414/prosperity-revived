@@ -595,21 +595,21 @@ export default function WorkoutPlanner() {
               const hasWork = (schedule[dayIdx] || []).length > 0;
               return (
                 <button key={dayIdx} onClick={() => setSelectedDay(dayIdx)}
-                className={`flex-shrink-0 w-14 py-2.5 rounded-2xl flex flex-col items-center gap-1 transition-all border-2
+                className={`flex-shrink-0 w-12 py-2 rounded-xl flex flex-col items-center gap-0.5 transition-all border
                       ${isSelected ?
-                'bg-[#FD9C2D] border-[#FD9C2D] shadow-md shadow-[#FD9C2D]/30' :
+                'bg-[#FD9C2D] border-[#FD9C2D] shadow-md shadow-[#FD9C2D]/20' :
                 isToday ?
-                'bg-[#FAD98D]/20 border-[#FAD98D]' :
-                'bg-white border-transparent hover:border-gray-200'}`
+                'bg-[#FAD98D]/15 border-[#FAD98D]/40' :
+                'bg-white border-gray-100 hover:border-gray-200'}`
                 }>
                   
-                    <span className={`text-[10px] font-bold uppercase ${isSelected ? 'text-white' : 'text-gray-400'}`}>
+                    <span className={`text-[9px] font-bold uppercase tracking-tight ${isSelected ? 'text-white' : 'text-gray-500'}`}>
                       {DAYS_SHORT[dayIdx]}
                     </span>
-                    <span className={`text-lg font-black ${isSelected ? 'text-white' : 'text-[#3C4E53]'}`}>
+                    <span className={`text-base font-bold ${isSelected ? 'text-white' : 'text-[#3C4E53]'}`}>
                       {date.getDate()}
                     </span>
-                    <div className={`w-1.5 h-1.5 rounded-full ${hasWork ? isSelected ? 'bg-white' : 'bg-[#FD9C2D]' : 'bg-transparent'}`} />
+                    <div className={`w-1 h-1 rounded-full ${hasWork ? isSelected ? 'bg-white' : 'bg-[#FD9C2D]' : 'bg-transparent'}`} />
                   </button>);
 
             })}
