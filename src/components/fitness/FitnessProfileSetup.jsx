@@ -84,7 +84,7 @@ export default function FitnessProfileSetup({ user, onClose, onSave }) {
         initial={{ y: '100%' }}
         animate={{ y: 0 }}
         exit={{ y: '100%' }}
-        className="w-full bg-white rounded-t-3xl max-h-[90vh] overflow-y-auto"
+        className="w-full bg-white rounded-t-3xl max-h-[90vh] flex flex-col"
       >
         {/* Header */}
         <div className="sticky top-0 bg-white border-b border-gray-100 px-4 py-4">
@@ -112,7 +112,7 @@ export default function FitnessProfileSetup({ user, onClose, onSave }) {
           </div>
         </div>
 
-        <div className="px-4 py-6 max-w-lg mx-auto">
+        <div className="flex-1 overflow-y-auto px-4 py-6 max-w-lg mx-auto">
           {/* Unit system toggle - only on step 1 */}
           {step === 1 && (
             <div className="mb-6">
@@ -412,7 +412,8 @@ export default function FitnessProfileSetup({ user, onClose, onSave }) {
           </AnimatePresence>
 
           {/* Navigation buttons */}
-          <div className="flex gap-2 mt-8">
+          <div className="flex-shrink-0 border-t border-gray-100 px-4 py-4 max-w-lg mx-auto w-full">
+          <div className="flex gap-2 mt-0">
             {step > 1 && (
               <button
                 onClick={() => setStep(step - 1)}
@@ -444,9 +445,10 @@ export default function FitnessProfileSetup({ user, onClose, onSave }) {
                 )}
               </button>
             )}
-          </div>
-        </div>
-      </motion.div>
-    </div>
-  );
-}
+            </div>
+            </div>
+            </div>
+            </motion.div>
+            </div>
+            );
+            }
