@@ -158,38 +158,36 @@ function AddWorkoutSheet({ dayIdx, onClose, onAdd }) {
             </div>
             <button onClick={onClose}
             className="w-8 h-8 rounded-xl bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors">
-              
+
               <X className="w-4 h-4" />
             </button>
           </div>
         </div>
 
-        {/* Search */}
-        <div className="px-4 pt-4 pb-2">
+        {/* Search + Filters */}
+        <div className="px-4 pt-4 pb-3 space-y-3 flex-shrink-0 bg-gray-50 border-b border-gray-200">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
             <input
               value={search} onChange={(e) => setSearch(e.target.value)}
               placeholder="Search workouts..."
               className="w-full pl-9 pr-4 py-2.5 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:border-[#FD9C2D] focus:ring-2 focus:ring-[#FD9C2D]/20" />
-            
+
+          </div>
+          <div className="flex gap-2 overflow-x-auto scrollbar-none">
+            {categories.slice(0, 7).map((cat) =>
+            <button key={cat} onClick={() => setCatFilter(cat)}
+            className={`flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-semibold border transition-all
+                  ${catFilter === cat ? 'bg-[#FD9C2D] text-white border-[#FD9C2D]' : 'bg-white text-gray-500 border-gray-200 hover:border-[#FD9C2D]/50'}`}>
+
+                {cat === 'all' ? 'All' : CATEGORY_META[cat]?.label || cat}
+              </button>
+            )}
           </div>
         </div>
 
-        {/* Category Filter */}
-        <div className="px-4 pb-3 flex gap-2 overflow-x-auto scrollbar-none">
-          {categories.slice(0, 7).map((cat) =>
-          <button key={cat} onClick={() => setCatFilter(cat)}
-          className={`flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-semibold border transition-all
-                ${catFilter === cat ? 'bg-[#FD9C2D] text-white border-[#FD9C2D]' : 'bg-white text-gray-500 border-gray-200 hover:border-[#FD9C2D]/50'}`}>
-            
-              {cat === 'all' ? 'All' : CATEGORY_META[cat]?.label || cat}
-            </button>
-          )}
-        </div>
-
         {/* Workout List */}
-        <div className="flex-1 overflow-y-auto px-4 pb-2 space-y-2">
+        <div className="flex-1 overflow-y-auto px-4 py-2 space-y-2">
           {filtered.length === 0 &&
           <div className="text-center py-10 text-gray-400">
               <Dumbbell className="w-8 h-8 mx-auto mb-2 opacity-30" />
