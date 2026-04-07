@@ -429,59 +429,55 @@ export default function PlanDetail() {
                     return (
                       <motion.div 
                         key={day}
-                        whileHover={{ scale: 1.02 }}
+                        whileHover={{ scale: 1.01 }}
                         className={`bg-white rounded-xl p-4 border-2 transition-all ${
                           isCompleted 
                             ? 'border-[#AFC7E3] bg-[#AFC7E3]/5' 
                             : 'border-gray-200 hover:border-[#c9a227]'
                         }`}
                       >
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-3">
-                            <button
-                              onClick={() => handleToggleDay(day)}
-                              className={`w-10 h-10 rounded-lg flex items-center justify-center font-semibold transition-all ${
-                                isCompleted
-                                  ? 'bg-[#AFC7E3] text-white'
-                                  : 'bg-gray-100 text-gray-600'
-                              }`}
-                            >
-                              {isCompleted ? <CheckCircle2 className="w-5 h-5" /> : day}
-                            </button>
-                            
-                            <div>
-                              <h3 className="font-semibold text-[#0A1A2F]">Day {day}</h3>
-                              {reading && (
-                                <p className="text-sm text-gray-600">
-                                  {reading.book} {reading.chapter}
-                                </p>
-                              )}
-                            </div>
+                        {/* Centered title */}
+                        <div className="text-center mb-3">
+                          <div className="flex items-center justify-center gap-2 mb-0.5">
+                            {isCompleted && <CheckCircle2 className="w-4 h-4 text-[#AFC7E3]" />}
+                            <h3 className="font-semibold text-[#0A1A2F]">Day {day}</h3>
+                            {hasNote && <div className="w-2 h-2 bg-[#c9a227] rounded-full" />}
                           </div>
-                          
-                          <div className="flex items-center gap-2">
-                            {hasNote && (
-                              <div className="w-2 h-2 bg-[#c9a227] rounded-full" />
-                            )}
-                            {reading && (
-                              <Button
-                                onClick={() => handleOpenDayReading(day)}
-                                variant="outline"
-                                size="sm"
-                                className="text-xs"
-                              >
-                                <BookOpen className="w-4 h-4 mr-1" />
-                                Read
-                              </Button>
-                            )}
+                          {reading && (
+                            <p className="text-sm text-gray-500">{reading.book} {reading.chapter}</p>
+                          )}
+                        </div>
+                        {/* Action buttons */}
+                        <div className="flex items-center justify-center gap-2 flex-wrap">
+                          {reading && (
                             <Button
-                              onClick={() => handleDayClick(day)}
-                              variant="ghost"
+                              onClick={() => handleOpenDayReading(day)}
+                              variant="outline"
                               size="sm"
+                              className="text-xs"
                             >
-                              <FileText className="w-4 h-4" />
+                              <BookOpen className="w-4 h-4 mr-1" />
+                              Read
                             </Button>
-                          </div>
+                          )}
+                          <Button
+                            onClick={() => handleToggleDay(day)}
+                            variant={isCompleted ? "default" : "outline"}
+                            size="sm"
+                            className={`text-xs ${isCompleted ? 'bg-[#AFC7E3] hover:bg-[#AFC7E3]/80 text-white border-0' : 'text-gray-600 hover:border-[#AFC7E3] hover:text-[#AFC7E3]'}`}
+                          >
+                            <CheckCircle2 className="w-4 h-4 mr-1" />
+                            {isCompleted ? 'Done' : 'Complete'}
+                          </Button>
+                          <Button
+                            onClick={() => handleDayClick(day)}
+                            variant="outline"
+                            size="sm"
+                            className="text-xs"
+                          >
+                            <FileText className="w-4 h-4 mr-1" />
+                            Notes
+                          </Button>
                         </div>
                       </motion.div>
                     );
