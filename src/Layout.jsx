@@ -135,7 +135,7 @@ export default function Layout({ children, currentPageName }) {
     NutritionArticle: 'Article',
     NutritionGuidance: 'Nutrition Guidance',
     DiscoverRecipes: 'Discover Recipes',
-    WorkoutCategoryPage: 'Workout Category',
+    WorkoutCategoryPage: 'Workouts',
     WorkoutProgress: 'Workout Progress',
     WorkoutTrends: 'Workout Trends',
     WorkoutPlanner: 'Workout Planner',
