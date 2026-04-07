@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { useSearchParams, Link, useNavigate, useLocation } from 'react-router-dom';
+import { useSearchParams, Link, useNavigate } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
 import {
@@ -116,7 +116,6 @@ export default function Bible() {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const location = useLocation();
 
   useEffect(() => {
     try {
@@ -144,27 +143,20 @@ export default function Bible() {
     onSuccess: () => queryClient.invalidateQueries(['bookmarks']),
   });
 
-  // Deep-link: ?book=John&chapter=3&verse=16
-  // Use location.search (string) as dependency — more reliable when page stays mounted
+  // Deep-link: ?book=John&chapter=3
   useEffect(() => {
-    const params = new URLSearchParams(location.search);
-    const bookName = params.get('book');
-    const chapter = params.get('chapter');
-    const verseNum = params.get('verse');
+    const bookName = searchParams.get('book');
+    const chapter = searchParams.get('chapter');
     if (bookName && chapter) {
       const book = getBookByName(bookName);
       if (book) {
         setInitialBook(book);
         setInitialChapter(parseInt(chapter));
         const isOld = bibleBooks.oldTestament.some(b => b.name === book.name);
-        setSearchData(verseNum
-          ? { book, chapter: parseInt(chapter), verse: parseInt(verseNum) }
-          : null
-        );
         setView(isOld ? 'oldTestament' : 'newTestament');
       }
     }
-  }, [location.search]);
+  }, [searchParams]);
 
   const handleBackToHome = () => {
     setView('home');
@@ -426,3 +418,4 @@ export default function Bible() {
     </div>
   );
 }
+
