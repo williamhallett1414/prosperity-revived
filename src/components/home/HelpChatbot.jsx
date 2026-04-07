@@ -502,7 +502,7 @@ function AssistantMessage({ msg, onTour, onNavigate }) {
       {msg.tourKey && (
         <motion.button
           initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
-          onPointerDown={() => onTour(msg.tourKey)}
+          onClick={() => onTour(msg.tourKey)}
           className="mx-0 flex items-center gap-2.5 px-3.5 py-2.5 rounded-2xl text-left active:scale-97 transition-transform border-2"
           style={{ borderColor: '#38BDF8', background: '#38BDF8' + '12' }}
         >
@@ -528,7 +528,7 @@ function AssistantMessage({ msg, onTour, onNavigate }) {
               <motion.button
                 key={key}
                 initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.15 }}
-                onPointerDown={() => onNavigate(s.page)}
+                onClick={() => onNavigate(s.page)}
                 className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-xs font-bold active:scale-95 transition-transform"
                 style={{ background: s.color + '18', color: s.color, border: `1.5px solid ${s.color}30` }}
               >
@@ -562,14 +562,22 @@ export default function HelpChatbot() {
   const launchTour = (tourKey) => {
     setIsOpen(false);
     const steps = tourKey ? MINI_TOURS[tourKey] : null;
+    // Delay to let the help panel close animation complete
     setTimeout(() => {
       if (steps) {
         window.__pendingMiniTourSteps = steps;
-        if (window.__startGuidedTour) window.__startGuidedTour();
       } else {
-        if (window.__startGuidedTour) window.__startGuidedTour();
+        window.__pendingMiniTourSteps = null;
       }
-    }, 300);
+      if (window.__startGuidedTour) {
+        window.__startGuidedTour();
+      } else {
+        // Fallback: try again after another delay
+        setTimeout(() => {
+          if (window.__startGuidedTour) window.__startGuidedTour();
+        }, 500);
+      }
+    }, 400);
   };
 
   const navigateTo = (page) => {
@@ -622,17 +630,8 @@ export default function HelpChatbot() {
     if (qa.isTour) {
       launchTour(null);
     } else if (qa.tourKey) {
-      setShowQuickActions(false);
-      setMessages(prev => [...prev, { role: 'user', content: qa.label }]);
-      setTimeout(() => {
-        setMessages(prev => [...prev, {
-          role: 'assistant',
-          answer: `Sure! Let me walk you through that. Tap "Show me how →" below to start the interactive tour.`,
-          tourKey: qa.tourKey,
-          pageShortcuts: [],
-          tips: [],
-        }]);
-      }, 400);
+      // Launch the mini-tour directly — no intermediate message
+      launchTour(qa.tourKey);
     }
   };
 
@@ -643,7 +642,7 @@ export default function HelpChatbot() {
         {!isOpen && (
           <motion.button
             initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }}
-            onPointerDown={() => setIsOpen(true)}
+            onClick={() => setIsOpen(true)}
             className="fixed bottom-24 right-4 z-50 rounded-full shadow-xl flex items-center justify-center"
             style={{ width: 52, height: 52, background: 'linear-gradient(135deg, #FD9C2D, #FAD98D)' }}
             whileTap={{ scale: 0.9 }}
@@ -679,14 +678,14 @@ export default function HelpChatbot() {
               </div>
               <div className="flex items-center gap-1.5">
                 <button
-                  onPointerDown={() => { setMessages([]); setShowQuickActions(true); }}
+                  onClick={() => { setMessages([]); setShowQuickActions(true); }}
                   className="w-7 h-7 rounded-full flex items-center justify-center"
                   style={{ background: 'rgba(255,255,255,0.1)' }}
                   title="Clear chat"
                 >
                   <Trash2 className="w-3.5 h-3.5 text-white/70" />
                 </button>
-                <button onPointerDown={() => setIsOpen(false)}
+                <button onClick={() => setIsOpen(false)}
                   className="w-7 h-7 rounded-full flex items-center justify-center"
                   style={{ background: 'rgba(255,255,255,0.1)' }}>
                   <X className="w-3.5 h-3.5 text-white/70" />
@@ -715,7 +714,7 @@ export default function HelpChatbot() {
                     return (
                       <motion.button key={qa.label}
                         initial={{ opacity: 0, x: 8 }} animate={{ opacity: 1, x: 0 }}
-                        onPointerDown={() => handleQuickAction(qa)}
+                        onClick={() => handleQuickAction(qa)}
                         className="w-full flex items-center gap-3 rounded-2xl px-3 py-2.5 text-left active:scale-97 transition-all border border-gray-100"
                         style={{ background: '#F8FAFB' }}>
                         <div className="w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0"
@@ -781,7 +780,7 @@ export default function HelpChatbot() {
                 className="flex-1 rounded-xl px-3 py-2.5 text-sm text-[#0A1A2F] outline-none border-2 border-gray-100 focus:border-[#FD9C2D] transition-colors placeholder:text-gray-300 bg-[#F8FAFB]"
                 disabled={loading}
               />
-              <button onPointerDown={() => handleSend()}
+              <button onClick={() => handleSend()}
                 disabled={!input.trim() || loading}
                 className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 transition-all disabled:opacity-35 active:scale-90"
                 style={{ background: 'linear-gradient(135deg, #FD9C2D, #FAD98D)' }}>
