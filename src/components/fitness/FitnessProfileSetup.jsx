@@ -87,9 +87,9 @@ export default function FitnessProfileSetup({ user, onClose, onSave }) {
         className="w-full bg-white rounded-t-3xl max-h-[90vh] flex flex-col"
       >
         {/* Header */}
-        <div className="sticky top-0 bg-white border-b border-gray-100 px-4 py-4">
-          <div className="max-w-lg mx-auto flex items-center justify-between mb-4">
-            <h2 className="text-lg font-bold text-[#0A1A2F]">Fitness Profile</h2>
+        <div className="sticky top-0 bg-white border-b border-gray-100 px-4 py-2">
+        <div className="max-w-lg mx-auto flex items-center justify-between mb-2">
+          <h2 className="text-base font-bold text-[#0A1A2F]">Fitness Profile</h2>
             <button
               onClick={onClose}
               className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center"
@@ -99,20 +99,20 @@ export default function FitnessProfileSetup({ user, onClose, onSave }) {
           </div>
 
           {/* Progress bar */}
-          <div className="max-w-lg mx-auto">
-            <div className="h-1 bg-gray-100 rounded-full overflow-hidden">
+          <div className="max-w-lg mx-auto pb-2">
+            <div className="h-0.5 bg-gray-100 rounded-full overflow-hidden">
               <motion.div
                 animate={{ width: `${progress}%` }}
                 className="h-full bg-[#38BDF8]"
               />
             </div>
-            <p className="text-xs text-[#0A1A2F]/40 mt-2">
-              Step {step} of {steps.length}
+            <p className="text-[10px] text-[#0A1A2F]/40 mt-1">
+             Step {step} of {steps.length}
             </p>
           </div>
         </div>
 
-        <div className="flex-1 overflow-y-auto px-4 py-6 max-w-lg mx-auto">
+        <div className="flex-1 overflow-y-auto px-4 py-3 max-w-lg mx-auto">
           {/* Unit system toggle - only on step 1 */}
           {step === 1 && (
             <div className="mb-6">
@@ -145,7 +145,7 @@ export default function FitnessProfileSetup({ user, onClose, onSave }) {
               exit={{ opacity: 0, x: -10 }}
               className="space-y-4"
             >
-              <h3 className="text-base font-bold text-[#0A1A2F] mb-5">
+              <h3 className="text-sm font-bold text-[#0A1A2F] mb-3">
                 {currentStep.title}
               </h3>
 
@@ -412,28 +412,28 @@ export default function FitnessProfileSetup({ user, onClose, onSave }) {
           </AnimatePresence>
 
           {/* Navigation buttons */}
-          <div className="flex-shrink-0 border-t border-gray-100 px-4 py-4 max-w-lg mx-auto w-full">
+          <div className="flex-shrink-0 border-t border-gray-100 px-4 py-2.5 max-w-lg mx-auto w-full">
           <div className="flex gap-2 mt-0">
             {step > 1 && (
               <button
                 onClick={() => setStep(step - 1)}
-                className="flex-1 py-3 rounded-xl bg-gray-100 text-[#0A1A2F] font-bold text-sm"
+                className="flex-1 py-2.5 rounded-lg bg-gray-100 text-[#0A1A2F] font-bold text-xs"
               >
                 Back
               </button>
-            )}
-            {step < steps.length ? (
+              )}
+              {step < steps.length ? (
               <button
                 onClick={() => setStep(step + 1)}
-                className="flex-1 py-3 rounded-xl bg-[#38BDF8] text-white font-bold text-sm active:scale-95 transition-transform"
+                className="flex-1 py-2.5 rounded-lg bg-[#38BDF8] text-white font-bold text-xs active:scale-95 transition-transform"
               >
                 Next
               </button>
-            ) : (
+              ) : (
               <button
                 onClick={handleSave}
                 disabled={saving}
-                className="flex-1 py-3 rounded-xl bg-[#22C55E] text-white font-bold text-sm active:scale-95 transition-transform disabled:opacity-50 flex items-center justify-center gap-2"
+                className="flex-1 py-2.5 rounded-lg bg-[#22C55E] text-white font-bold text-xs active:scale-95 transition-transform disabled:opacity-50 flex items-center justify-center gap-2"
               >
                 {saving ? (
                   <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
