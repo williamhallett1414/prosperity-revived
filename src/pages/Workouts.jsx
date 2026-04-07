@@ -644,8 +644,7 @@ export default function Workouts() {
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.44 }}>
               <button
                 onClick={() => setActiveTab('planner')}
-                className="w-full rounded-2xl p-5 flex items-center gap-4 shadow-sm hover:shadow-md transition-all"
-                style={{ background: "linear-gradient(135deg,#0A1A2F,#0A1A2F)" }}>
+                className="w-full rounded-2xl p-5 flex items-center gap-4 shadow-sm hover:shadow-md transition-all bg-gradient-to-br from-[#38BDF8] to-[#1e40af]">
                 
                 <div className="w-12 h-12 bg-[#FD9C2D]/20 rounded-xl flex items-center justify-center flex-shrink-0">
                   <ClipboardList className="w-6 h-6 text-[#FD9C2D]" />
