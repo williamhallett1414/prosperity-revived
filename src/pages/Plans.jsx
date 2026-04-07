@@ -163,7 +163,7 @@ Provide warm, helpful guidance (2-4 sentences) about reading plans, Bible study 
             
             
           </div>
-          <p className="text-[#0A1A2F]/60 ml-[52px] font-bold text-center">Discover plans to guide your study</p>
+          <p className="text-[#0A1A2F]/60 font-bold text-center w-full mt-1">Discover plans to guide your study</p>
         </motion.div>
 
         {/* Search & Create */}
