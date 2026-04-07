@@ -777,6 +777,7 @@ export default function Home() {
 
       {/* ── Onboarding flows ──────────────────────────────────────────────── */}
       <Suspense fallback={null}>
+      
       {showOnboarding && (
         <OnboardingFlow onComplete={() => {
           setShowOnboarding(false);
