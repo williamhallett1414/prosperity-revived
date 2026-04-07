@@ -466,6 +466,18 @@ export default function GuidedTour({ onComplete, customSteps }) {
   const current = steps[step];
   const total = steps.length;
 
+  // ── Navigate to the current step's page if needed ─────────────────────────
+  useEffect(() => {
+    if (current?.navigateTo) {
+      const targetUrl = createPageUrl(current.navigateTo);
+      const currentPath = window.location.pathname + window.location.search;
+      // Only navigate if we're not already on the right page
+      if (!currentPath.includes(current.navigateTo)) {
+        navigate(targetUrl);
+      }
+    }
+  }, [step, current?.navigateTo, navigate]);
+
   // ── Measure target element (retry until found) ────────────────────────────
   useEffect(() => {
     setTargetRect(null);
@@ -505,32 +517,22 @@ export default function GuidedTour({ onComplete, customSteps }) {
       finish();
       return;
     }
-    const next = steps[step + 1];
-    if (next?.navigateTo) {
-      navigate(createPageUrl(next.navigateTo));
-    }
     setStep(s => s + 1);
-  }, [step, total, navigate]);
+  }, [step, total]);
 
   // ── Handle tap on highlighted element ─────────────────────────────────────
   const handleTap = useCallback(() => {
-    if (current.navigateTo) {
-      navigate(createPageUrl(current.navigateTo));
-    } else if (current.targetId) {
-      // Also fire the underlying element's own click
+    if (current.targetId && !current.navigateTo) {
+      // Fire the underlying element's own click
       const el = document.getElementById(current.targetId);
       if (el) {
         const actualEl = el.tagName === 'A' || el.tagName === 'BUTTON' ? el : el.querySelector('a,button');
         if (actualEl) actualEl.click();
       }
     }
-    const next = steps[step + 1];
-    const delay = current.navigateTo ? 350 : 0;
-    setTimeout(() => {
-      if (next?.navigateTo && !current.navigateTo) navigate(createPageUrl(next.navigateTo));
-      setStep(s => s + 1);
-    }, delay);
-  }, [current, step, navigate]);
+    // Advance to next step (useEffect will handle navigation)
+    setTimeout(() => setStep(s => s + 1), current.navigateTo ? 100 : 0);
+  }, [current, step]);
 
   const finish = async () => {
     // Only save completion flag for the full guided tour, not mini-tours
