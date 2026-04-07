@@ -71,7 +71,7 @@ function getActiveCoachingPlan() {
 // ─── Quick Nav tiles ──────────────────────────────────────────────────────────
 const QUICK_NAV = [
   { label: 'Bible',      icon: BookOpen,  page: 'Bible',           color: 'from-amber-500 to-amber-600',    bg: 'bg-amber-50' },
-  { label: 'Wellness',   icon: Dumbbell,  page: 'Wellness',        color: 'from-sky-500 to-sky-600',        bg: 'bg-sky-50'   },
+  { label: 'Fitness',    icon: Dumbbell,  page: 'Wellness',        color: 'from-sky-500 to-sky-600',        bg: 'bg-sky-50'   },
   { label: 'Prayer',     icon: Heart,     page: 'Prayer',          color: 'from-rose-400 to-rose-500',      bg: 'bg-rose-50'  },
   { label: 'Nutrition',  icon: Utensils,  page: 'Nutrition',       color: 'from-emerald-500 to-emerald-600',bg: 'bg-emerald-50'},
   { label: 'Community',  icon: Users,     page: 'Community',       color: 'from-purple-500 to-purple-600',  bg: 'bg-purple-50'},
