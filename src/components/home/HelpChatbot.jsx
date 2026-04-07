@@ -4,6 +4,7 @@ import {
   HelpCircle, X, Send, Map, BookOpen, Play,
   ChevronRight, Sparkles, Lightbulb, ExternalLink, Target, Salad, Brain, Trash2
 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import { createPageUrl } from '@/utils';
 
@@ -511,8 +512,8 @@ function AssistantMessage({ msg, onTour, onNavigate }) {
             <Map className="w-3.5 h-3.5" style={{ color: '#38BDF8' }} />
           </div>
           <div className="flex-1 min-w-0">
-            <p className="font-bold text-[#0A1A2F] text-xs leading-tight">Take me there →</p>
-            <p className="text-gray-400 text-[10px]">Navigate to this feature</p>
+            <p className="font-bold text-[#0A1A2F] text-xs leading-tight">Show me how →</p>
+            <p className="text-gray-400 text-[10px]">Interactive spotlight tour</p>
           </div>
           <ChevronRight className="w-3.5 h-3.5 text-gray-300" />
         </motion.button>
@@ -552,6 +553,7 @@ export default function HelpChatbot() {
   const [showQuickActions, setShowQuickActions] = useState(true);
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (isOpen) {
@@ -579,13 +581,22 @@ export default function HelpChatbot() {
   };
 
   const launchTour = (tourKey) => {
-    if (tourKey && TOUR_PAGE_MAP[tourKey]) {
-      window.location.href = createPageUrl(TOUR_PAGE_MAP[tourKey]);
+    setIsOpen(false);
+    const steps = tourKey ? MINI_TOURS[tourKey] : null;
+    // First navigate to the correct page (React Router — no full reload)
+    const firstNavPage = steps?.[0]?.navigateTo;
+    if (firstNavPage) {
+      navigate(createPageUrl(firstNavPage));
     }
+    // Then launch the guided tour overlay after a short delay
+    setTimeout(() => {
+      window.dispatchEvent(new CustomEvent('launchGuidedTour', { detail: { steps } }));
+    }, 500);
   };
 
   const navigateTo = (page) => {
-    window.location.href = createPageUrl(page);
+    setIsOpen(false);
+    navigate(createPageUrl(page));
   };
 
   const handleSend = async (overrideText) => {
@@ -631,7 +642,8 @@ export default function HelpChatbot() {
 
   const handleQuickAction = (qa) => {
     if (qa.isTour) {
-      window.location.href = createPageUrl('Wellness');
+      // Full guided tour
+      launchTour(null);
     } else if (qa.tourKey) {
       launchTour(qa.tourKey);
     }
