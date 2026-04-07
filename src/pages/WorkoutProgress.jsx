@@ -15,29 +15,21 @@ import ChatButton from '@/components/chatbot/ChatButton';
 
 export default function WorkoutProgress() {
   const [user, setUser] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    base44.auth.me().then(u => {
-      setUser(u);
-      setIsLoading(false);
-    }).catch(() => {
-      setIsLoading(false);
-    });
+    base44.auth.me().then(setUser).catch(() => {});
   }, []);
 
   const { data: sessions = [] } = useQuery({
     queryKey: ['workout-sessions'],
     queryFn: () => base44.entities.WorkoutSession.list('-date', 100),
-    enabled: !!user,
-    retry: false,
+    enabled: !!user
   });
 
   const { data: workouts = [] } = useQuery({
     queryKey: ['workouts'],
     queryFn: () => base44.entities.WorkoutPlan.list('-created_date'),
-    enabled: !!user,
-    retry: false,
+    enabled: !!user
   });
 
   const { data: progressPhotos = [] } = useQuery({
@@ -58,14 +50,6 @@ export default function WorkoutProgress() {
 
   const totalMinutes = sessions.reduce((sum, s) => sum + (s.duration_minutes || 0), 0);
   const avgDuration = totalWorkouts > 0 ? Math.round(totalMinutes / totalWorkouts) : 0;
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-[#F2F6FA] pb-24 flex items-center justify-center">
-        <div className="w-8 h-8 border-4 border-[#38BDF8]/30 border-t-[#38BDF8] rounded-full animate-spin" />
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-[#F2F6FA] pb-24">
