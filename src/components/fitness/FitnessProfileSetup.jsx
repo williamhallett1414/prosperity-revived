@@ -13,21 +13,32 @@ const WORKOUT_DAYS = [1, 2, 3, 4, 5, 6, 7];
 export default function FitnessProfileSetup({ user, onClose, onSave }) {
   const [step, setStep] = useState(1);
   const [data, setData] = useState({
-    weight_kg: user?.weight_kg || '',
-    height_cm: user?.height_cm || '',
+    weight_lbs: user?.weight_kg ? Math.round(user.weight_kg * 2.20462) : '',
+    height_ft: user?.height_cm ? Math.floor(user.height_cm / 30.48) : '',
+    height_in: user?.height_cm ? Math.round((user.height_cm % 30.48) / 2.54) : '',
     age: user?.age || '',
     sex: user?.sex || 'male',
     fitness_level: user?.fitness_level || 'beginner',
     fitness_goal: user?.fitness_goal || 'general_fitness',
     workout_days_per_week: user?.workout_days_per_week || 3,
-    goal_weight_kg: user?.goal_weight_kg || '',
+    goal_weight_lbs: user?.goal_weight_kg ? Math.round(user.goal_weight_kg * 2.20462) : '',
   });
   const [saving, setSaving] = useState(false);
 
   const handleSave = async () => {
     setSaving(true);
     try {
-      await base44.auth.updateMe(data);
+      const toSave = {
+        ...data,
+        weight_kg: Math.round(data.weight_lbs / 2.20462),
+        height_cm: Math.round(data.height_ft * 30.48 + data.height_in * 2.54),
+        goal_weight_kg: data.goal_weight_lbs ? Math.round(data.goal_weight_lbs / 2.20462) : '',
+      };
+      delete toSave.weight_lbs;
+      delete toSave.height_ft;
+      delete toSave.height_in;
+      delete toSave.goal_weight_lbs;
+      await base44.auth.updateMe(toSave);
       onSave?.();
       onClose?.();
     } catch (err) {
@@ -40,7 +51,7 @@ export default function FitnessProfileSetup({ user, onClose, onSave }) {
   const steps = [
     {
       title: 'Physical Measurements',
-      fields: ['weight_kg', 'height_cm', 'age', 'sex'],
+      fields: ['weight_lbs', 'height_ft', 'height_in', 'age', 'sex'],
     },
     {
       title: 'Fitness Experience',
@@ -48,7 +59,7 @@ export default function FitnessProfileSetup({ user, onClose, onSave }) {
     },
     {
       title: 'Training Schedule',
-      fields: ['workout_days_per_week', 'goal_weight_kg'],
+      fields: ['workout_days_per_week', 'goal_weight_lbs'],
     },
   ];
 
@@ -103,38 +114,60 @@ export default function FitnessProfileSetup({ user, onClose, onSave }) {
               </h3>
 
               {/* Weight */}
-              {currentStep.fields.includes('weight_kg') && (
+              {currentStep.fields.includes('weight_lbs') && (
                 <div>
                   <label className="text-xs font-bold text-[#0A1A2F]/60 block mb-2">
-                    Current Weight (kg)
+                    Current Weight (lbs)
                   </label>
                   <input
                     type="number"
-                    value={data.weight_kg}
+                    value={data.weight_lbs}
                     onChange={(e) =>
-                      setData({ ...data, weight_kg: e.target.value })
+                      setData({ ...data, weight_lbs: e.target.value })
                     }
-                    placeholder="70"
+                    placeholder="154"
                     className="w-full bg-[#F2F6FA] rounded-xl px-3.5 py-2.5 text-sm text-[#0A1A2F] outline-none border-2 border-transparent focus:border-[#38BDF8]"
                   />
                 </div>
               )}
 
               {/* Height */}
-              {currentStep.fields.includes('height_cm') && (
-                <div>
-                  <label className="text-xs font-bold text-[#0A1A2F]/60 block mb-2">
-                    Height (cm)
+              {(currentStep.fields.includes('height_ft') || currentStep.fields.includes('height_in')) && (
+                <div className="space-y-3">
+                  <label className="text-xs font-bold text-[#0A1A2F]/60 block">
+                    Height
                   </label>
-                  <input
-                    type="number"
-                    value={data.height_cm}
-                    onChange={(e) =>
-                      setData({ ...data, height_cm: e.target.value })
-                    }
-                    placeholder="175"
-                    className="w-full bg-[#F2F6FA] rounded-xl px-3.5 py-2.5 text-sm text-[#0A1A2F] outline-none border-2 border-transparent focus:border-[#38BDF8]"
-                  />
+                  <div className="flex gap-3">
+                    {currentStep.fields.includes('height_ft') && (
+                      <div className="flex-1">
+                        <label className="text-xs text-[#0A1A2F]/40 block mb-1">Feet</label>
+                        <input
+                          type="number"
+                          value={data.height_ft}
+                          onChange={(e) =>
+                            setData({ ...data, height_ft: e.target.value })
+                          }
+                          placeholder="5"
+                          className="w-full bg-[#F2F6FA] rounded-xl px-3.5 py-2.5 text-sm text-[#0A1A2F] outline-none border-2 border-transparent focus:border-[#38BDF8]"
+                        />
+                      </div>
+                    )}
+                    {currentStep.fields.includes('height_in') && (
+                      <div className="flex-1">
+                        <label className="text-xs text-[#0A1A2F]/40 block mb-1">Inches</label>
+                        <input
+                          type="number"
+                          value={data.height_in}
+                          onChange={(e) =>
+                            setData({ ...data, height_in: e.target.value })
+                          }
+                          placeholder="9"
+                          max="11"
+                          className="w-full bg-[#F2F6FA] rounded-xl px-3.5 py-2.5 text-sm text-[#0A1A2F] outline-none border-2 border-transparent focus:border-[#38BDF8]"
+                        />
+                      </div>
+                    )}
+                  </div>
                 </div>
               )}
 
@@ -270,21 +303,21 @@ export default function FitnessProfileSetup({ user, onClose, onSave }) {
               )}
 
               {/* Goal Weight */}
-              {currentStep.fields.includes('goal_weight_kg') && (
-                <div>
-                  <label className="text-xs font-bold text-[#0A1A2F]/60 block mb-2">
-                    Goal Weight (kg) (Optional)
-                  </label>
-                  <input
-                    type="number"
-                    value={data.goal_weight_kg}
-                    onChange={(e) =>
-                      setData({ ...data, goal_weight_kg: e.target.value })
-                    }
-                    placeholder="65"
-                    className="w-full bg-[#F2F6FA] rounded-xl px-3.5 py-2.5 text-sm text-[#0A1A2F] outline-none border-2 border-transparent focus:border-[#38BDF8]"
-                  />
-                </div>
+              {currentStep.fields.includes('goal_weight_lbs') && (
+               <div>
+                 <label className="text-xs font-bold text-[#0A1A2F]/60 block mb-2">
+                   Goal Weight (lbs) (Optional)
+                 </label>
+                 <input
+                   type="number"
+                   value={data.goal_weight_lbs}
+                   onChange={(e) =>
+                     setData({ ...data, goal_weight_lbs: e.target.value })
+                   }
+                   placeholder="143"
+                   className="w-full bg-[#F2F6FA] rounded-xl px-3.5 py-2.5 text-sm text-[#0A1A2F] outline-none border-2 border-transparent focus:border-[#38BDF8]"
+                 />
+               </div>
               )}
             </motion.div>
           </AnimatePresence>
