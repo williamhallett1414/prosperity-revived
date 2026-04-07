@@ -64,23 +64,14 @@ export default function FitnessProfileSetup({ user, onClose, onSave }) {
     {
       title: 'Physical Measurements',
       fields: ['weight_lbs', 'height_ft', 'height_in', 'age', 'sex'],
-      getValidation: () => {
-        if (unitSystem === 'imperial') {
-          return data.weight_lbs && data.height_ft && data.age && data.sex;
-        } else {
-          return data.weight_kg && data.height_cm && data.age && data.sex;
-        }
-      },
     },
     {
       title: 'Fitness Experience',
       fields: ['fitness_level', 'fitness_goal'],
-      getValidation: () => data.fitness_level && data.fitness_goal,
     },
     {
       title: 'Training Schedule',
       fields: ['workout_days_per_week', 'goal_weight_lbs'],
-      getValidation: () => data.workout_days_per_week,
     },
   ];
 
@@ -433,8 +424,7 @@ export default function FitnessProfileSetup({ user, onClose, onSave }) {
             {step < steps.length ? (
               <button
                 onClick={() => setStep(step + 1)}
-                disabled={!currentStep.getValidation?.()}
-                className="flex-1 py-3 rounded-xl bg-[#38BDF8] text-white font-bold text-sm active:scale-95 transition-transform disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex-1 py-3 rounded-xl bg-[#38BDF8] text-white font-bold text-sm active:scale-95 transition-transform"
               >
                 Next
               </button>
