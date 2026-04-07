@@ -579,18 +579,13 @@ export default function HelpChatbot() {
   };
 
   const launchTour = (tourKey) => {
-    setIsOpen(false);
     if (tourKey && TOUR_PAGE_MAP[tourKey]) {
-      // Navigate directly to the relevant page
-      setTimeout(() => {
-        window.location.href = createPageUrl(TOUR_PAGE_MAP[tourKey]);
-      }, 200);
+      window.location.href = createPageUrl(TOUR_PAGE_MAP[tourKey]);
     }
   };
 
   const navigateTo = (page) => {
-    setIsOpen(false);
-    setTimeout(() => { window.location.href = createPageUrl(page); }, 200);
+    window.location.href = createPageUrl(page);
   };
 
   const handleSend = async (overrideText) => {
@@ -636,9 +631,7 @@ export default function HelpChatbot() {
 
   const handleQuickAction = (qa) => {
     if (qa.isTour) {
-      // Full guided tour — just navigate to Wellness as a good starting point
-      setIsOpen(false);
-      setTimeout(() => { window.location.href = createPageUrl('Wellness'); }, 200);
+      window.location.href = createPageUrl('Wellness');
     } else if (qa.tourKey) {
       launchTour(qa.tourKey);
     }
