@@ -147,7 +147,7 @@ function AddWorkoutSheet({ dayIdx, onClose, onAdd }) {
     <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/50"
     onClick={(e) => e.target === e.currentTarget && onClose()}>
       
-      <div className="bg-gray-50 rounded-t-3xl w-full max-w-lg max-h-[92vh] flex flex-col overflow-hidden shadow-2xl">
+      <div className="bg-gray-50 rounded-t-3xl w-full max-w-lg max-h-[92vh] flex flex-col overflow-hidden shadow-2xl relative">
         {/* Header */}
         <div className="bg-[#3C4E53] px-5 pt-5 pb-4 relative overflow-hidden">
           <div className="absolute top-0 right-0 w-24 h-24 rounded-bl-full bg-[#FD9C2D]/10" />
@@ -187,7 +187,7 @@ function AddWorkoutSheet({ dayIdx, onClose, onAdd }) {
         </div>
 
         {/* Workout List */}
-        <div className="flex-1 overflow-y-auto px-4 py-2 space-y-2">
+        <div className="flex-1 overflow-y-auto px-4 py-2 space-y-2 pb-24">
           {filtered.length === 0 &&
           <div className="text-center py-10 text-gray-400">
               <Dumbbell className="w-8 h-8 mx-auto mb-2 opacity-30" />
@@ -245,15 +245,15 @@ function AddWorkoutSheet({ dayIdx, onClose, onAdd }) {
           })}
         </div>
 
-        {/* CTA Footer — sticky to bottom */}
-        <div className="sticky bottom-0 p-4 bg-white border-t border-gray-200 shadow-2xl shadow-black/10">
+        {/* CTA Footer — absolute to bottom */}
+        <div className="absolute bottom-0 left-0 right-0 p-4 bg-white border-t border-gray-200 shadow-2xl shadow-black/10 rounded-br-3xl">
           <button onClick={handleAdd} disabled={!selected}
           className={`w-full py-3.5 rounded-2xl font-black text-base transition-all
               ${selected ?
           'bg-[#FD9C2D] text-white shadow-lg shadow-[#FD9C2D]/40 active:scale-95' :
           'bg-gray-200 text-gray-400 cursor-not-allowed'}`
           }>
-            
+
             {selected ? `✨ Add to ${DAYS_SHORT[dayIdx]}` : 'Select a workout'}
           </button>
         </div>
