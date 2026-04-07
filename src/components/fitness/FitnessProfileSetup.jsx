@@ -379,37 +379,23 @@ export default function FitnessProfileSetup({ user, onClose, onSave }) {
                 </div>
               )}
 
-              {/* Goal Weight - Imperial */}
-              {currentStep.fields.includes('goal_weight_lbs') && unitSystem === 'imperial' && (
+              {/* Goal Weight */}
+              {currentStep.fields.includes('goal_weight_lbs') && (
                <div>
                  <label className="text-xs font-bold text-[#0A1A2F]/60 block mb-2">
-                   Goal Weight (lbs) (Optional)
+                   Goal Weight ({unitSystem === 'imperial' ? 'lbs' : 'kg'}) (Optional)
                  </label>
                  <input
                    type="number"
-                   value={data.goal_weight_lbs}
-                   onChange={(e) =>
-                     setData({ ...data, goal_weight_lbs: e.target.value })
-                   }
-                   placeholder="143"
-                   className="w-full bg-[#F2F6FA] rounded-xl px-3.5 py-2.5 text-sm text-[#0A1A2F] outline-none border-2 border-transparent focus:border-[#38BDF8]"
-                 />
-               </div>
-              )}
-
-              {/* Goal Weight - Metric */}
-              {currentStep.fields.includes('goal_weight_lbs') && unitSystem === 'metric' && (
-               <div>
-                 <label className="text-xs font-bold text-[#0A1A2F]/60 block mb-2">
-                   Goal Weight (kg) (Optional)
-                 </label>
-                 <input
-                   type="number"
-                   value={data.goal_weight_kg}
-                   onChange={(e) =>
-                     setData({ ...data, goal_weight_kg: e.target.value })
-                   }
-                   placeholder="65"
+                   value={unitSystem === 'imperial' ? data.goal_weight_lbs : data.goal_weight_kg}
+                   onChange={(e) => {
+                     if (unitSystem === 'imperial') {
+                       setData({ ...data, goal_weight_lbs: e.target.value });
+                     } else {
+                       setData({ ...data, goal_weight_kg: e.target.value });
+                     }
+                   }}
+                   placeholder={unitSystem === 'imperial' ? '143' : '65'}
                    className="w-full bg-[#F2F6FA] rounded-xl px-3.5 py-2.5 text-sm text-[#0A1A2F] outline-none border-2 border-transparent focus:border-[#38BDF8]"
                  />
                </div>
