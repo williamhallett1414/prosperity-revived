@@ -286,27 +286,29 @@ export default function Workouts() {
         </div>
 
         {/* ── Tab Bar ── */}
-        <div className="max-w-2xl mx-auto px-4 flex gap-0">
-          {[
-          { id: 'today', label: 'Today', icon: <Dumbbell className="w-3.5 h-3.5" /> },
-          { id: 'planner', label: 'Planner', icon: <Calendar className="w-3.5 h-3.5" /> },
-          { id: 'trends', label: 'Trends', icon: <TrendingUp className="w-3.5 h-3.5" /> },
-          { id: 'goals', label: 'Goals', icon: <Target className="w-3.5 h-3.5" /> }].
-          map((tab) =>
-          <button key={tab.id} onClick={() => tab.id === 'goals' ? navigate(createPageUrl('FitnessGoalsPage')) : setActiveTab(tab.id)}
-          className={`flex items-center gap-1.5 px-4 py-3 text-xs font-semibold flex-shrink-0 relative transition-colors ${
-          activeTab === tab.id ? 'text-[#38BDF8]' : 'text-[#0A1A2F]/40 hover:text-[#0A1A2F]/60'}`
-          }>
-            
-              {tab.icon} {tab.label}
-              {activeTab === tab.id &&
-            <motion.div layoutId="workoutTab"
-            className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#38BDF8] to-[#0EA5E9] rounded-full"
-            transition={{ type: 'spring', stiffness: 500, damping: 30 }} />
-            }
-            </button>
-          )}
-        </div>
+         <div className="max-w-2xl mx-auto px-4 flex gap-0 overflow-x-auto">
+           <div className="flex gap-0 w-full">
+             {[
+             { id: 'today', label: 'Today', icon: <Dumbbell className="w-3.5 h-3.5" /> },
+             { id: 'planner', label: 'Planner', icon: <Calendar className="w-3.5 h-3.5" /> },
+             { id: 'trends', label: 'Trends', icon: <TrendingUp className="w-3.5 h-3.5" /> },
+             { id: 'goals', label: 'Goals', icon: <Target className="w-3.5 h-3.5" /> }].
+             map((tab) =>
+             <button key={tab.id} onClick={() => tab.id === 'goals' ? navigate(createPageUrl('FitnessGoalsPage')) : setActiveTab(tab.id)}
+             className={`flex items-center gap-1.5 px-4 py-3 text-xs font-semibold flex-shrink-0 relative transition-colors ${
+             activeTab === tab.id ? 'text-[#38BDF8]' : 'text-[#0A1A2F]/40 hover:text-[#0A1A2F]/60'}`
+             }>
+
+                 {tab.icon} {tab.label}
+                 {activeTab === tab.id &&
+               <motion.div layoutId="workoutTab"
+               className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[#38BDF8] to-[#1e40af] rounded-full"
+               transition={{ type: 'spring', stiffness: 500, damping: 30 }} />
+               }
+               </button>
+             )}
+           </div>
+         </div>
       </div>
 
       {/* ── Tab Content ── */}
