@@ -207,7 +207,8 @@ export default function FitnessGoalsPage() {
                 {GOAL_LABELS[goal] || 'Fitness Goals'}
               </h1>
               <p className="text-white/50 text-xs mt-1">
-                {height ? `${height} cm · ` : ''}{weight ? `${weight} kg · ` : ''}
+                {height ? `${Math.floor(height / 30.48)}'${Math.round((height % 30.48) / 2.54)}" · ` : ''}
+                {weight ? `${Math.round(weight * 2.20462)} lbs · ` : ''}
                 {level.charAt(0).toUpperCase() + level.slice(1)} · {days}×/week
               </p>
               {goalWt && (
