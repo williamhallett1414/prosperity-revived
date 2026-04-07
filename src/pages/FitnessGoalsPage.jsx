@@ -44,15 +44,26 @@ function calcMacros(cals, goal) {
   const [p, c, f] = loss ? [0.40, 0.30, 0.30] : gain ? [0.35, 0.40, 0.25] : [0.30, 0.45, 0.25];
   return { protein: Math.round((cals * p) / 4), carbs: Math.round((cals * c) / 4), fat: Math.round((cals * f) / 9) };
 }
-function calcTimeline(cur, goal, rate = 0.45) {
+function calcTimeline(cur, goal, rate = 0.45, goalDate = null) {
   if (!cur || !goal) return null;
   const diff = Math.abs(cur - goal);
   if (diff < 0.5) return { weeks: 0, msg: "You're already at your goal weight!" };
+  
+  let month, year;
+  if (goalDate) {
+    const d = new Date(goalDate);
+    month = d.toLocaleString('default', { month: 'long' });
+    year = d.getFullYear();
+  } else {
+    const d = new Date(); d.setDate(d.getDate() + Math.round(diff / rate) * 7);
+    month = d.toLocaleString('default', { month: 'long' });
+    year = d.getFullYear();
+  }
+  
   const weeks = Math.round(diff / rate);
-  const d = new Date(); d.setDate(d.getDate() + weeks * 7);
   return {
-    weeks, kg: diff.toFixed(1), direction: cur > goal ? 'lose' : 'gain',
-    month: d.toLocaleString('default', { month: 'long' }), year: d.getFullYear()
+    weeks, lbs: Math.round(diff * 2.20462), direction: cur > goal ? 'lose' : 'gain',
+    month, year
   };
 }
 function calcIdeal(h, sex) {
@@ -171,7 +182,7 @@ export default function FitnessGoalsPage() {
   const tdee    = calcTDEE(bmr, days);
   const gCals   = calcGoalCals(tdee, goal);
   const macros  = calcMacros(gCals, goal);
-  const tl      = calcTimeline(weight, goalWt);
+  const tl      = calcTimeline(weight, goalWt, 0.45, user?.goal_date);
   const ideal   = calcIdeal(height, sex);
   const isLoss  = goal === 'lose_weight' || goal === 'lose_weight_fast';
   const isGain  = goal === 'build_muscle' || goal === 'bulk';
@@ -359,14 +370,14 @@ export default function FitnessGoalsPage() {
                   </div>
                   <div className="ml-auto text-right">
                     <p className="text-[10px] text-white/40 uppercase tracking-widest">To {tl.direction}</p>
-                    <p className="text-3xl font-black text-[#38BDF8]">{tl.kg} kg</p>
+                    <p className="text-3xl font-black text-[#38BDF8]">{tl.lbs} lbs</p>
                     <p className="text-xs text-white/35">{tl.weeks} weeks</p>
                   </div>
                 </div>
                 <div className="bg-white/8 rounded-2xl p-3 flex items-start gap-2">
                   <Zap className="w-4 h-4 text-[#FAD98D] flex-shrink-0 mt-0.5" />
                   <p className="text-xs text-white/60 leading-relaxed">
-                    At ~0.45 kg/week ({isLoss ? '500 kcal/day deficit' : '300 kcal/day surplus'}).
+                    At ~1 lb/week ({isLoss ? '500 kcal/day deficit' : '300 kcal/day surplus'}).
                     {days >= 3 ? ` Your ${days}×/week training keeps you on track.` : ''}
                   </p>
                 </div>
