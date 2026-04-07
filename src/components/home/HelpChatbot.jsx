@@ -562,21 +562,9 @@ export default function HelpChatbot() {
   const launchTour = (tourKey) => {
     setIsOpen(false);
     const steps = tourKey ? MINI_TOURS[tourKey] : null;
-    // Delay to let the help panel close animation complete
     setTimeout(() => {
-      if (steps) {
-        window.__pendingMiniTourSteps = steps;
-      } else {
-        window.__pendingMiniTourSteps = null;
-      }
-      if (window.__startGuidedTour) {
-        window.__startGuidedTour();
-      } else {
-        // Fallback: try again after another delay
-        setTimeout(() => {
-          if (window.__startGuidedTour) window.__startGuidedTour();
-        }, 500);
-      }
+      // Use CustomEvent — most reliable across all contexts
+      window.dispatchEvent(new CustomEvent('launchGuidedTour', { detail: { steps } }));
     }, 400);
   };
 

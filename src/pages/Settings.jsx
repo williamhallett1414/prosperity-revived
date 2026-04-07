@@ -260,7 +260,7 @@ export default function Settings() {
             </button>
 
             <button
-              onPointerDown={() => { if (window.__startGuidedTour) window.__startGuidedTour(); }}
+              onClick={() => window.dispatchEvent(new CustomEvent('launchGuidedTour', { detail: { steps: null } }))}
               className="flex items-center justify-between py-3 px-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors min-h-[44px] w-full text-left"
             >
               <span className="flex items-center gap-2 text-gray-600 dark:text-gray-400">

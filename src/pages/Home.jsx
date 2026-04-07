@@ -801,7 +801,7 @@ export default function Home() {
           base44.auth.me().then(setUser).catch(() => {});
           // Launch interactive guided tour after a short pause
           setTimeout(() => {
-            if (window.__startGuidedTour) window.__startGuidedTour();
+            window.dispatchEvent(new CustomEvent('launchGuidedTour', { detail: { steps: null } }));
           }, 800);
         }} />
       )}
