@@ -226,7 +226,7 @@ export default function FitnessGoalsPage() {
                 Add your {!height ? 'height, ' : ''}{!weight ? 'weight, ' : ''}{!age ? 'age' : ''} in Settings for full calculations.
               </p>
             </div>
-            <Link to={createPageUrl('Settings')} className="text-[11px] font-bold text-[#C9A227] flex-shrink-0">Update my Chat Settings →</Link>
+            <Link to={createPageUrl('Settings')} className="text-[11px] font-bold text-[#C9A227] flex-shrink-0">Update →</Link>
           </motion.div>
         )}
 
@@ -444,3 +444,4 @@ export default function FitnessGoalsPage() {
     </div>
   );
 }
+
