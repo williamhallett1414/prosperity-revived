@@ -673,12 +673,12 @@ export default function Workouts() {
             {/* ── Coach David floating button (same style as Gideon / Chef Daniel) ── */}
 
           </div>
-        </PullToRefresh>
-      </div>
-      }
+          </PullToRefresh>
+          </div>
+          }
 
-      {/* Modal */}
-      {selectedWorkout &&
+          {/* Modal */}
+          {selectedWorkout &&
       <StartWorkoutModal
         isOpen={showStartWorkout}
         onClose={() => {setShowStartWorkout(false);setSelectedWorkout(null);}}
