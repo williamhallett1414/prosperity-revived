@@ -221,10 +221,10 @@ export default function Bible() {
         </div>
       </div>
 
-      <div className="px-4 pt-4 pb-6 max-w-lg mx-auto">
-
+      {/* Fixed tab menu */}
+      <div id="tour-bible-tabs" className="sticky top-0 z-40 px-4 pt-4 pb-3 bg-white/95 backdrop-blur-sm border-b border-[#FAD98D]/15 max-w-lg mx-auto">
         <Tabs defaultValue="read" className="w-full">
-          <TabsList id="tour-bible-tabs" className="grid w-full grid-cols-4 mb-5 bg-[#FAD98D]/15 rounded-xl p-1 border border-[#FAD98D]/20">
+          <TabsList className="grid w-full grid-cols-4 bg-[#FAD98D]/15 rounded-xl p-1 border border-[#FAD98D]/20">
             {[
             { value: 'read', icon: BookOpen, label: 'Read' },
             { value: 'study', icon: TrendingUp, label: 'Study' },
@@ -237,6 +237,12 @@ export default function Bible() {
               </TabsTrigger>
             )}
           </TabsList>
+        </Tabs>
+      </div>
+
+      <div className="px-4 pb-6 max-w-lg mx-auto">
+
+        <Tabs defaultValue="read" className="w-full">
 
           {/* ── READ TAB ── */}
           <TabsContent value="read">
