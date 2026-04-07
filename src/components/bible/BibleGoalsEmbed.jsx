@@ -168,7 +168,7 @@ export default function BibleGoalsEmbed() {
             <p className="text-xs font-bold text-[#C9A227]">Bible profile incomplete</p>
             <p className="text-[11px] text-[#0A1A2F]/55">Complete onboarding to get personalised reading plans.</p>
           </div>
-          <Link to={createPageUrl('Settings')} className="text-[11px] font-bold text-[#C9A227] flex-shrink-0">Update →</Link>
+          <Link to={createPageUrl('BibleGoalsPage')} className="text-[11px] font-bold text-[#C9A227] flex-shrink-0">Complete Setup →</Link>
         </div>
       )}
 
