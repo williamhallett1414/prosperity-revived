@@ -870,52 +870,53 @@ export default function StartWorkoutModal({ isOpen, onClose, workout, user, onCo
                   </div>
                 </div>
 
+                {/* Exercise title + cue (fixed, not in scroll) */}
+                <div className="px-5 pb-4 flex-shrink-0 border-b border-white/6">
+                  <div className="flex items-center gap-2 mb-2">
+                    {currentEx.type === 'timed' && (
+                      <span className="text-[10px] font-bold uppercase tracking-widest text-[#38BDF8] bg-[#38BDF8]/12 rounded-full px-2.5 py-1">Timed</span>
+                    )}
+                    {currentEx.type === 'bodyweight' && (
+                      <span className="text-[10px] font-bold uppercase tracking-widest text-[#FD9C2D]/80 bg-[#FD9C2D]/10 rounded-full px-2.5 py-1">Bodyweight</span>
+                    )}
+                    {currentEx.type === 'weighted' && (
+                      <span className="text-[10px] font-bold uppercase tracking-widest text-white/35 bg-white/6 rounded-full px-2.5 py-1">Weighted</span>
+                    )}
+                  </div>
+                  <h2 className="text-[1.6rem] font-bold text-white leading-tight">{currentEx.name}</h2>
+                  <p className="text-white/35 text-sm mt-1">
+                    {currentEx.type === 'timed'
+                      ? `${currentEx.target_sets} sets × ${currentEx.duration_seconds}s`
+                      : `${currentEx.target_sets} sets × ${currentEx.target_reps} reps`}
+                  </p>
+
+                  {/* Form cue */}
+                  {getFormCue(currentEx.name) && (
+                    <div className="mt-3 p-2.5 bg-white/4 border border-white/8 rounded-lg">
+                      <p className="text-white/40 text-xs leading-relaxed">
+                        💡 {getFormCue(currentEx.name)}
+                      </p>
+                    </div>
+                  )}
+
+                  {/* Last time hint */}
+                  {(() => {
+                    const last = getLastPerf(currentEx.name);
+                    if (!last) return null;
+                    return (
+                      <div className="mt-2 flex items-center gap-1.5 text-[#38BDF8]/70 text-xs">
+                        <span className="opacity-60">Last time:</span>
+                        <span className="font-semibold">
+                          {last.sets}×{last.reps} reps
+                          {last.weight > 0 && ` @ ${last.weight} lbs`}
+                        </span>
+                      </div>
+                    );
+                  })()}
+                </div>
+
                 {/* Scrollable body */}
                 <div className="flex-1 overflow-y-auto px-5 pb-4">
-                  {/* Exercise title + cue */}
-                  <div className="mb-5">
-                    <div className="flex items-center gap-2 mb-2">
-                      {currentEx.type === 'timed' && (
-                        <span className="text-[10px] font-bold uppercase tracking-widest text-[#38BDF8] bg-[#38BDF8]/12 rounded-full px-2.5 py-1">Timed</span>
-                      )}
-                      {currentEx.type === 'bodyweight' && (
-                        <span className="text-[10px] font-bold uppercase tracking-widest text-[#FD9C2D]/80 bg-[#FD9C2D]/10 rounded-full px-2.5 py-1">Bodyweight</span>
-                      )}
-                      {currentEx.type === 'weighted' && (
-                        <span className="text-[10px] font-bold uppercase tracking-widest text-white/35 bg-white/6 rounded-full px-2.5 py-1">Weighted</span>
-                      )}
-                    </div>
-                    <h2 className="text-[1.6rem] font-bold text-white leading-tight">{currentEx.name}</h2>
-                    <p className="text-white/35 text-sm mt-1">
-                      {currentEx.type === 'timed'
-                        ? `${currentEx.target_sets} sets × ${currentEx.duration_seconds}s`
-                        : `${currentEx.target_sets} sets × ${currentEx.target_reps} reps`}
-                    </p>
-
-                    {/* Form cue */}
-                    {getFormCue(currentEx.name) && (
-                      <div className="mt-3 p-2.5 bg-white/4 border border-white/8 rounded-lg">
-                        <p className="text-white/40 text-xs leading-relaxed">
-                          💡 {getFormCue(currentEx.name)}
-                        </p>
-                      </div>
-                    )}
-
-                    {/* Last time hint */}
-                    {(() => {
-                      const last = getLastPerf(currentEx.name);
-                      if (!last) return null;
-                      return (
-                        <div className="mt-2 flex items-center gap-1.5 text-[#38BDF8]/70 text-xs">
-                          <span className="opacity-60">Last time:</span>
-                          <span className="font-semibold">
-                            {last.sets}×{last.reps} reps
-                            {last.weight > 0 && ` @ ${last.weight} lbs`}
-                          </span>
-                        </div>
-                      );
-                    })()}
-                  </div>
 
                   {/* TIMED exercise */}
                   {currentEx.type === 'timed' && (
