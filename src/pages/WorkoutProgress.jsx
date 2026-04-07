@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
-import { Award, Calendar, Dumbbell, Activity, TrendingUp} from 'lucide-react';
+import { Award, Calendar, Dumbbell, Activity, TrendingUp } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent } from '@/components/ui/card';
 import WorkoutFrequencyChart from '@/components/wellness/WorkoutFrequencyChart';
@@ -34,18 +34,18 @@ export default function WorkoutProgress() {
 
   const { data: progressPhotos = [] } = useQuery({
     queryKey: ['progressPhotos'],
-    queryFn: async () => { try { return await base44.entities.ProgressPhoto.list('-date', 100); } catch { return []; } },
+    queryFn: async () => {try {return await base44.entities.ProgressPhoto.list('-date', 100);} catch {return [];}},
     enabled: !!user,
-    retry: false,
+    retry: false
   });
 
   // Calculate stats
   const totalWorkouts = sessions.length;
-  const thisMonth = sessions.filter(s => {
+  const thisMonth = sessions.filter((s) => {
     const sessionDate = new Date(s.date);
     const now = new Date();
-    return sessionDate.getMonth() === now.getMonth() && 
-           sessionDate.getFullYear() === now.getFullYear();
+    return sessionDate.getMonth() === now.getMonth() &&
+    sessionDate.getFullYear() === now.getFullYear();
   }).length;
 
   const totalMinutes = sessions.reduce((sum, s) => sum + (s.duration_minutes || 0), 0);
@@ -55,17 +55,17 @@ export default function WorkoutProgress() {
     <div className="min-h-screen bg-[#F2F6FA] pb-24">
 
       {/* ── Standard Header ── */}
-      <div className="sticky top-0 z-40 bg-white border-b border-[#FAD98D]/20 px-4 pt-4 pb-3">
-        <div className="max-w-lg mx-auto flex items-center gap-3">
-          <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#38BDF8] to-[#0EA5E9] flex items-center justify-center">
-            <TrendingUp className="w-5 h-5 text-white" />
-          </div>
-          <div>
-            <h1 className="text-base font-bold text-[#0A1A2F]">Workout Progress</h1>
-            <p className="text-xs text-[#0A1A2F]/45">Track your gains</p>
-          </div>
-        </div>
-      </div>
+      
+
+
+
+
+
+
+
+
+
+      
 
       <div className="max-w-4xl mx-auto px-4 space-y-6 pt-4">
 
@@ -160,6 +160,6 @@ export default function WorkoutProgress() {
 
       {/* Coach David Chatbot */}
       <ChatButton bot="CoachDavid" />
-    </div>
-  );
+    </div>);
+
 }
