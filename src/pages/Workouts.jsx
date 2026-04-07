@@ -603,7 +603,7 @@ export default function Workouts() {
             {/* ── Challenges ── */}
             {challenges.length > 0 &&
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.38 }}>
-                <SectionLabel action="See all" actionTo="Community">Challenges</SectionLabel>
+                <SectionLabel action="See all" actionTo="Community?tab=challenges">Challenges</SectionLabel>
                 <div className="grid grid-cols-2 gap-3">
                   {challenges.slice(0, 4).map((challenge, i) => {
                   const joined = challengeParticipants.find((p) => p.challenge_id === challenge.id);
