@@ -270,6 +270,7 @@ function GroupsTab({ user }) {
 
 // ── Main ──────────────────────────────────────────────────────────────────────
 export default function Community() {
+  const [searchParams] = useSearchParams();
   const [user,            setUser]           = useState(null);
   const [activeTab,       setActiveTab]      = useState('feed');
   const [showShareModal,  setShowShareModal]  = useState(false);
