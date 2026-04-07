@@ -300,3 +300,4 @@ export default function HealthRecipesTab({ recipes, user }) {
     </div>
   );
 }
+

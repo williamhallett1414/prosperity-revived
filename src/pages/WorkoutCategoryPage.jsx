@@ -180,3 +180,4 @@ function DifficultyFiltered({ workouts, user }) {
     </>
   );
 }
+

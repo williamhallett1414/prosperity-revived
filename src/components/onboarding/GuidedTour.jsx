@@ -571,3 +571,4 @@ export default function GuidedTour({ onComplete, customSteps }) {
     </>
   );
 }
+

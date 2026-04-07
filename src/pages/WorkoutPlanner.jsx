@@ -659,3 +659,4 @@ export default function WorkoutPlanner() {
     </div>
   );
 }
+
