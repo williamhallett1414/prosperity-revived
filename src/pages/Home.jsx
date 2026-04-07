@@ -673,6 +673,7 @@ function ActiveChallengesWidget({ user }) {
 }
 
 // ─── Main ─────────────────────────────────────────────────────────────────────
+// Cache bust v2
 export default function Home() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
