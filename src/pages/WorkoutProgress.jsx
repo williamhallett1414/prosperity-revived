@@ -140,7 +140,7 @@ export default function WorkoutProgress() {
         <WorkoutStreakCard sessions={sessions} />
 
         {/* Charts */}
-        <Tabs defaultValue="frequency" className="w-full px-4 pt-16">
+        <Tabs defaultValue="frequency" className="w-full px-4 pt-8">
           <TabsList className="grid w-full grid-cols-3 lg:grid-cols-5 bg-gradient-to-r from-[#38BDF8]/10 to-[#D97706]/10 border border-[#38BDF8]/20 rounded-lg p-1">
             <TabsTrigger value="frequency" className="text-xs font-semibold data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#38BDF8] data-[state=active]:to-[#1e40af] data-[state=active]:text-white data-[state=active]:shadow-md text-[#0A1A2F]/60">Frequency</TabsTrigger>
             <TabsTrigger value="prs" className="text-xs font-semibold data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#38BDF8] data-[state=active]:to-[#1e40af] data-[state=active]:text-white data-[state=active]:shadow-md text-[#0A1A2F]/60">PRs</TabsTrigger>
