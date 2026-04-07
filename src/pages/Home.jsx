@@ -12,12 +12,7 @@ import {
 import { readingPlans, getVerseOfDay } from '@/components/bible/BibleData';
 import { COACHING_PLANS } from '@/components/coaching/planData';
 
-// Avatar imports for Enhanced Guides
-import gideonAvatar from '@/assets/gideon-avatar.png';
-import hannahAvatar from '@/assets/hannah-avatar.png';
-import coachDavidAvatar from '@/assets/coach-david-avatar.png';
-import chefDanielAvatar from '@/assets/chef-daniel-avatar.png';
-import coachPaulAvatar from '@/assets/coach-paul-avatar.png';
+// Avatar imports removed — using fallback initials for missing assets
 
 // Lazy-load heavy components (only needed conditionally)
 const OnboardingFlow = lazy(() => import('@/components/onboarding/OnboardingFlow'));
@@ -498,16 +493,14 @@ function NudgeBanner() {
 
 // ─── Enhanced AI Guides — larger cards with avatar + tagline ──────────────────
 const AI_GUIDES_ENHANCED = [
-  { name: 'Gideon',      role: 'Biblical Wisdom',   tagline: 'Dive deep into Scripture with me', avatar: gideonAvatar,      color: 'from-amber-500 to-amber-600',   bg: 'bg-amber-50',  bot: 'Gideon' },
-  { name: 'Hannah',      role: 'Mindset & Prayer',  tagline: "Let's work on your inner world",   avatar: hannahAvatar,      color: 'from-sky-400 to-sky-500',       bg: 'bg-sky-50',    bot: 'Hannah' },
-  { name: 'Coach David', role: 'Fitness Coach',     tagline: 'Ready to get stronger today?',     avatar: coachDavidAvatar, color: 'from-blue-500 to-blue-600',     bg: 'bg-blue-50',   bot: 'CoachDavid' },
-  { name: 'Chef Daniel', role: 'Nutrition Guide',   tagline: "Let's fuel your body right",       avatar: chefDanielAvatar, color: 'from-orange-400 to-orange-500', bg: 'bg-orange-50', bot: 'ChefDaniel' },
-  { name: 'Coach Paul',  role: 'Discipline Mentor', tagline: 'Discipline is freedom. Let me show you', avatar: coachPaulAvatar, color: 'from-violet-500 to-violet-600', bg: 'bg-violet-50', bot: 'CoachPaul' },
+  { name: 'Gideon',      role: 'Biblical Wisdom',   tagline: 'Dive deep into Scripture with me', color: 'from-amber-500 to-amber-600',   bg: 'bg-amber-50',  bot: 'Gideon' },
+  { name: 'Hannah',      role: 'Mindset & Prayer',  tagline: "Let's work on your inner world",   color: 'from-sky-400 to-sky-500',       bg: 'bg-sky-50',    bot: 'Hannah' },
+  { name: 'Coach David', role: 'Fitness Coach',     tagline: 'Ready to get stronger today?',     color: 'from-blue-500 to-blue-600',     bg: 'bg-blue-50',   bot: 'CoachDavid' },
+  { name: 'Chef Daniel', role: 'Nutrition Guide',   tagline: "Let's fuel your body right",       color: 'from-orange-400 to-orange-500', bg: 'bg-orange-50', bot: 'ChefDaniel' },
+  { name: 'Coach Paul',  role: 'Discipline Mentor', tagline: 'Discipline is freedom. Let me show you', color: 'from-violet-500 to-violet-600', bg: 'bg-violet-50', bot: 'CoachPaul' },
 ];
 
 function EnhancedGuidesSection() {
-  const [failedAvatars, setFailedAvatars] = React.useState({});
-
   return (
     <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
       <div className="flex items-center gap-2 mb-3">
@@ -515,18 +508,12 @@ function EnhancedGuidesSection() {
         <p className="text-xs font-bold text-[#0A1A2F]/40 uppercase tracking-widest">Talk to Your Guides</p>
       </div>
       <div className="flex gap-3 overflow-x-auto pb-2 -mx-1 px-1" style={{ scrollbarWidth: 'none' }}>
-        {AI_GUIDES_ENHANCED.map(({ name, role, tagline, avatar, color, bg, bot }) => (
+        {AI_GUIDES_ENHANCED.map(({ name, role, tagline, color, bg, bot }) => (
           <Link key={bot} to={createPageUrl(`ChatScreen?bot=${bot}`)} className="flex-shrink-0" style={{ width: 140 }}>
             <motion.div whileTap={{ scale: 0.95 }}
               className={`${bg} rounded-2xl p-3 shadow-sm border border-gray-100/80 h-full`}>
               <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${color} mx-auto mb-2 overflow-hidden shadow-sm flex items-center justify-center`}>
-                {!failedAvatars[bot] ? (
-                  <img src={avatar} alt={name} className="w-full h-full object-cover"
-                    onError={() => setFailedAvatars(prev => ({ ...prev, [bot]: true }))}
-                  />
-                ) : (
-                  <span className="text-xl text-white font-bold">{name[0]}</span>
-                )}
+                <span className="text-xl text-white font-bold">{name[0]}</span>
               </div>
               <p className="text-xs font-bold text-[#0A1A2F] text-center leading-tight">{name}</p>
               <p className="text-[9px] text-[#0A1A2F]/40 text-center font-medium">{role}</p>
