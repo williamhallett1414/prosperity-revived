@@ -116,7 +116,7 @@ function EmptyState({ navigate }) {
         Log your first session to start seeing your trends, streaks, and exercise progress.
       </p>
       <button
-        onPointerDown={() => { window.location.href = createPageUrl('Workouts'); }}
+        onPointerDown={() => navigate(createPageUrl('WorkoutCategoryPage'))}
         className="inline-flex items-center gap-2 bg-gradient-to-r from-[#FD9C2D] to-[#E89020] text-white font-bold px-6 py-3 rounded-xl text-sm"
       >
         <Dumbbell className="w-4 h-4" /> Start a Workout
@@ -550,4 +550,3 @@ export default function WorkoutTrends() {
     </div>
   );
 }
-
