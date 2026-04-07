@@ -146,7 +146,7 @@ export default function WorkoutProgress() {
             <TabsTrigger value="prs" className="text-xs font-semibold data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#38BDF8] data-[state=active]:to-[#1e40af] data-[state=active]:text-white data-[state=active]:shadow-md text-[#0A1A2F]/60">PRs</TabsTrigger>
             <TabsTrigger value="volume" className="text-xs font-semibold data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#38BDF8] data-[state=active]:to-[#1e40af] data-[state=active]:text-white data-[state=active]:shadow-md text-[#0A1A2F]/60">Volume</TabsTrigger>
             <TabsTrigger value="weight" className="text-xs font-semibold data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#38BDF8] data-[state=active]:to-[#1e40af] data-[state=active]:text-white data-[state=active]:shadow-md text-[#0A1A2F]/60 mt-3">Weight</TabsTrigger>
-            <TabsTrigger value="goals" className="text-xs font-semibold data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#38BDF8] data-[state=active]:to-[#1e40af] data-[state=active]:text-white data-[state=active]:shadow-md text-[#0A1A2F]/60">Goals</TabsTrigger>
+            <TabsTrigger value="goals" className="text-xs font-semibold data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#38BDF8] data-[state=active]:to-[#1e40af] data-[state=active]:text-white data-[state=active]:shadow-md text-[#0A1A2F]/60 mt-3">Goals</TabsTrigger>
           </TabsList>
 
           <TabsContent value="frequency" className="pt-6">
