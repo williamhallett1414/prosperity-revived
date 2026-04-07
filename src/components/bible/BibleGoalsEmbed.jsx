@@ -85,7 +85,7 @@ const LEVEL_TIPS = {
 function PlanCard({ plan, delay = 0 }) {
   return (
     <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay }}>
-      <Link to={createPageUrl('Plans')}>
+      <Link to={createPageUrl(`PlanDetail?id=${plan.id}`)}>
         <div className="flex items-center gap-3 bg-[#F8FAFB] rounded-xl px-3.5 py-3 hover:bg-[#FAD98D]/10 transition-colors">
           <span className="text-xl flex-shrink-0">{plan.emoji}</span>
           <div className="flex-1 min-w-0">
