@@ -7,71 +7,71 @@ import { useQuery } from '@tanstack/react-query';
 import { COACHING_PLANS } from '@/components/coaching/planData';
 import {
   Dumbbell, Utensils, Brain, Trophy, ChevronRight,
-  Crown, Play, Droplets, Apple, Moon, Wind, Heart
-} from 'lucide-react';
+  Crown, Play, Droplets, Apple, Moon, Wind, Heart } from
+'lucide-react';
 
 // ─── Time-aware featured action ───────────────────────────────────────────────
 function getTimeFeature() {
   const h = new Date().getHours();
-  if (h < 5)  return { emoji: '😴', title: 'Rest is part of the plan', sub: 'Sleep is when your body rebuilds. Protect it.', badge: 'Recovery 🌙', page: 'PersonalGrowth', gradient: 'from-[#0A1A2F] to-[#3C4E53]', icon: Moon };
+  if (h < 5) return { emoji: '😴', title: 'Rest is part of the plan', sub: 'Sleep is when your body rebuilds. Protect it.', badge: 'Recovery 🌙', page: 'PersonalGrowth', gradient: 'from-[#0A1A2F] to-[#3C4E53]', icon: Moon };
   if (h < 10) return { emoji: '⚡', title: 'Morning is the best time to move', sub: "Get your workout in before the day takes over. 15 minutes is enough.", badge: 'Morning Window 🌅', page: 'Workouts', gradient: 'from-[#c9a227] to-[#FD9C2D]', icon: Dumbbell };
   if (h < 13) return { emoji: '🥗', title: "Don't skip a real lunch", sub: "What you eat at noon sets your energy for the afternoon.", badge: 'Fuel Up ☀️', page: 'Nutrition', gradient: 'from-[#059669] to-[#34d399]', icon: Apple };
   if (h < 17) return { emoji: '💧', title: 'Afternoon energy dip?', sub: "Before you reach for coffee — drink a glass of water and take 5 deep breaths.", badge: 'Afternoon Reset 🌤️', page: 'Workouts', gradient: 'from-[#0369a1] to-[#38BDF8]', icon: Droplets };
   if (h < 20) return { emoji: '🧘', title: 'Wind down your body', sub: "An evening walk or stretch does more for tomorrow than you think.", badge: 'Evening Wind-Down 🌇', page: 'PersonalGrowth', gradient: 'from-[#3C4E53] to-[#AFC7E3]', icon: Wind };
-  return       { emoji: '🌙', title: 'Prepare for deep rest', sub: "Cut screens, dim lights, journal for 3 minutes. Your tomorrow starts now.", badge: 'Sleep Prep 🌙', page: 'PersonalGrowth', gradient: 'from-[#0A1A2F] to-[#1a3a4a]', icon: Moon };
+  return { emoji: '🌙', title: 'Prepare for deep rest', sub: "Cut screens, dim lights, journal for 3 minutes. Your tomorrow starts now.", badge: 'Sleep Prep 🌙', page: 'PersonalGrowth', gradient: 'from-[#0A1A2F] to-[#1a3a4a]', icon: Moon };
 }
 
 // ─── Category tiles ───────────────────────────────────────────────────────────
 const CATEGORIES = [
-  {
-    label: 'Workouts',
-    sub: 'Train with purpose',
-    page: 'Workouts',
-    gradient: 'from-[#38BDF8] to-[#0284c7]',
-    icon: Dumbbell,
-    image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=500&h=300&fit=crop',
-  },
-  {
-    label: 'Nutrition',
-    sub: 'Fuel your mission',
-    page: 'Nutrition',
-    gradient: 'from-[#22c55e] to-[#16a34a]',
-    icon: Utensils,
-    image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=500&h=300&fit=crop',
-  },
-  {
-    label: 'Prayer',
-    sub: 'Talk with God',
-    page: 'Prayer',
-    gradient: 'from-[#f472b6] to-[#db2777]',
-    icon: Heart,
-    image: 'https://images.unsplash.com/photo-1507692049790-de58290a4334?w=500&h=300&fit=crop',
-  },
-  {
-    label: 'Personal Growth',
-    sub: 'Mind & spirit',
-    page: 'PersonalGrowth',
-    gradient: 'from-[#AFC7E3] to-[#3C4E53]',
-    icon: Brain,
-    image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=500&h=300&fit=crop',
-  },
-  {
-    label: 'Meditations',
-    sub: 'Guided peace',
-    page: 'GuidedMeditationsPage',
-    gradient: 'from-[#a78bfa] to-[#7c3aed]',
-    icon: Wind,
-    image: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=500&h=300&fit=crop',
-  },
-  {
-    label: 'Challenges',
-    sub: 'Push further',
-    page: 'SelfCareChallengesPage',
-    gradient: 'from-[#FD9C2D] to-[#c9a227]',
-    icon: Trophy,
-    image: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=400',
-  },
-];
+{
+  label: 'Workouts',
+  sub: 'Train with purpose',
+  page: 'Workouts',
+  gradient: 'from-[#38BDF8] to-[#0284c7]',
+  icon: Dumbbell,
+  image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=500&h=300&fit=crop'
+},
+{
+  label: 'Nutrition',
+  sub: 'Fuel your mission',
+  page: 'Nutrition',
+  gradient: 'from-[#22c55e] to-[#16a34a]',
+  icon: Utensils,
+  image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=500&h=300&fit=crop'
+},
+{
+  label: 'Prayer',
+  sub: 'Talk with God',
+  page: 'Prayer',
+  gradient: 'from-[#f472b6] to-[#db2777]',
+  icon: Heart,
+  image: 'https://images.unsplash.com/photo-1507692049790-de58290a4334?w=500&h=300&fit=crop'
+},
+{
+  label: 'Personal Growth',
+  sub: 'Mind & spirit',
+  page: 'PersonalGrowth',
+  gradient: 'from-[#AFC7E3] to-[#3C4E53]',
+  icon: Brain,
+  image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=500&h=300&fit=crop'
+},
+{
+  label: 'Meditations',
+  sub: 'Guided peace',
+  page: 'GuidedMeditationsPage',
+  gradient: 'from-[#a78bfa] to-[#7c3aed]',
+  icon: Wind,
+  image: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=500&h=300&fit=crop'
+},
+{
+  label: 'Challenges',
+  sub: 'Push further',
+  page: 'SelfCareChallengesPage',
+  gradient: 'from-[#FD9C2D] to-[#c9a227]',
+  icon: Trophy,
+  image: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=400'
+}];
+
 
 // ─── Coaching plan helpers ────────────────────────────────────────────────────
 function getActiveCoachingPlan() {
@@ -82,7 +82,7 @@ function getActiveCoachingPlan() {
       const completed = progress?.completed_days || [];
       if (completed.length === 0) continue;
       const planId = key.replace('coaching_progress_', '');
-      const plan = COACHING_PLANS.find(p => p.id === planId);
+      const plan = COACHING_PLANS.find((p) => p.id === planId);
       if (!plan) continue;
       return { plan, completedDays: completed.length };
     }
@@ -116,17 +116,17 @@ function FeaturedCard({ feature }) {
           </div>
         </div>
       </Link>
-    </motion.div>
-  );
+    </motion.div>);
+
 }
 
 // ─── Today's stats (only rendered when non-zero) ──────────────────────────────
 function TodayStats({ meals, workouts, waterMl }) {
   const stats = [
-    meals > 0    && { icon: '🍽️', value: meals,    label: 'meals',    color: 'text-emerald-600', page: 'Nutrition'   },
-    workouts > 0 && { icon: '💪', value: workouts, label: 'workouts', color: 'text-sky-600',     page: 'Workouts'   },
-    waterMl > 0  && { icon: '💧', value: `${Math.round(waterMl / 250)}`, label: 'glasses', color: 'text-blue-500', page: 'Nutrition' },
-  ].filter(Boolean);
+  meals > 0 && { icon: '🍽️', value: meals, label: 'meals', color: 'text-emerald-600', page: 'Nutrition' },
+  workouts > 0 && { icon: '💪', value: workouts, label: 'workouts', color: 'text-sky-600', page: 'Workouts' },
+  waterMl > 0 && { icon: '💧', value: `${Math.round(waterMl / 250)}`, label: 'glasses', color: 'text-blue-500', page: 'Nutrition' }].
+  filter(Boolean);
 
   if (stats.length === 0) return null;
 
@@ -134,19 +134,19 @@ function TodayStats({ meals, workouts, waterMl }) {
     <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }}>
       <p className="text-[10px] font-bold text-[#0A1A2F]/40 uppercase tracking-widest mb-2">Today's activity</p>
       <div className="flex gap-3">
-        {stats.map(({ icon, value, label, color, page }) => (
-          <Link key={label} to={createPageUrl(page)}
-            className="flex-1 bg-white rounded-2xl px-3 py-3 flex items-center gap-2 shadow-sm border border-gray-100">
+        {stats.map(({ icon, value, label, color, page }) =>
+        <Link key={label} to={createPageUrl(page)}
+        className="flex-1 bg-white rounded-2xl px-3 py-3 flex items-center gap-2 shadow-sm border border-gray-100">
             <span className="text-xl">{icon}</span>
             <div>
               <p className={`font-bold text-lg leading-none ${color}`}>{value}</p>
               <p className="text-[10px] text-[#0A1A2F]/45 mt-0.5">{label}</p>
             </div>
           </Link>
-        ))}
+        )}
       </div>
-    </motion.div>
-  );
+    </motion.div>);
+
 }
 
 // ─── Category grid ────────────────────────────────────────────────────────────
@@ -155,8 +155,8 @@ function CategoryGrid() {
     <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.12 }}>
       <p className="text-[10px] font-bold text-[#0A1A2F]/40 uppercase tracking-widest mb-3">Explore</p>
       <div id="tour-wellness-categories" className="grid grid-cols-2 gap-3">
-        {CATEGORIES.map(({ label, sub, page, gradient, icon: Icon, image }, i) => (
-          <motion.div key={page} id={i === 0 ? 'tour-workouts-card' : undefined} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.12 + i * 0.05 }}>
+        {CATEGORIES.map(({ label, sub, page, gradient, icon: Icon, image }, i) =>
+        <motion.div key={page} id={i === 0 ? 'tour-workouts-card' : undefined} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.12 + i * 0.05 }}>
             <Link to={createPageUrl(page)}>
               <div className="relative rounded-2xl overflow-hidden h-36 shadow-md group">
                 {/* Background image */}
@@ -176,23 +176,23 @@ function CategoryGrid() {
               </div>
             </Link>
           </motion.div>
-        ))}
+        )}
       </div>
-    </motion.div>
-  );
+    </motion.div>);
+
 }
 
 // ─── Coaching programs preview ────────────────────────────────────────────────
 function CoachingSection({ active }) {
-  const withProgress = COACHING_PLANS.map(plan => {
+  const withProgress = COACHING_PLANS.map((plan) => {
     let progress = {};
-    try { progress = JSON.parse(localStorage.getItem(`coaching_progress_${plan.id}`)) || {}; } catch {}
+    try {progress = JSON.parse(localStorage.getItem(`coaching_progress_${plan.id}`)) || {};} catch {}
     const completedDays = (progress.completed_days || []).length;
     return { plan, completedDays, isStarted: completedDays > 0 };
   });
-  const started  = withProgress.filter(p => p.isStarted);
-  const featured = withProgress.filter(p => !p.isStarted).slice(0, Math.max(0, 3 - started.length));
-  const toShow   = [...started, ...featured].slice(0, 3);
+  const started = withProgress.filter((p) => p.isStarted);
+  const featured = withProgress.filter((p) => !p.isStarted).slice(0, Math.max(0, 3 - started.length));
+  const toShow = [...started, ...featured].slice(0, 3);
 
   return (
     <motion.div id="tour-coaching-section" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
@@ -207,19 +207,19 @@ function CoachingSection({ active }) {
           </div>
         </div>
         <Link to={createPageUrl('CoachingPlans')}
-          className="flex items-center gap-0.5 text-xs font-semibold text-[#3C4E53] hover:opacity-75">
+        className="flex items-center gap-0.5 text-xs font-semibold text-[#3C4E53] hover:opacity-75">
           Browse All <ChevronRight className="w-3.5 h-3.5" />
         </Link>
       </div>
 
       <div className="space-y-2.5">
         {toShow.map(({ plan, completedDays, isStarted }) => {
-          const pct = Math.round((completedDays / plan.days_total) * 100);
+          const pct = Math.round(completedDays / plan.days_total * 100);
           const nextDay = isStarted ? completedDays + 1 : 1;
           return (
             <Link key={plan.id} to={createPageUrl(`CoachingPlanDetail?id=${plan.id}&day=${nextDay}`)}>
               <motion.div whileHover={{ y: -1 }}
-                className="bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+              className="bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
                 <div className={`bg-gradient-to-r ${plan.gradient} px-4 py-3 flex items-center gap-3`}>
                   <span className="text-2xl">{plan.cover_emoji}</span>
                   <div className="flex-1 min-w-0">
@@ -228,67 +228,67 @@ function CoachingSection({ active }) {
                   </div>
                   <ChevronRight className="w-4 h-4 text-white/50 flex-shrink-0" />
                 </div>
-                {isStarted ? (
-                  <div className="px-4 py-2.5">
+                {isStarted ?
+                <div className="px-4 py-2.5">
                     <div className="flex items-center justify-between text-[10px] text-[#0A1A2F]/45 mb-1.5">
                       <span>Day {completedDays} of {plan.days_total}</span>
                       <span className="font-semibold text-[#3C4E53]">{pct}% complete</span>
                     </div>
                     <div className="h-1.5 bg-[#F2F6FA] rounded-full overflow-hidden">
                       <div className="h-full bg-gradient-to-r from-[#3C4E53] to-[#c9a227] rounded-full transition-all"
-                        style={{ width: `${pct}%` }} />
+                    style={{ width: `${pct}%` }} />
                     </div>
-                  </div>
-                ) : (
-                  <div className="px-4 py-2.5 flex items-center gap-2">
+                  </div> :
+
+                <div className="px-4 py-2.5 flex items-center gap-2">
                     <div className="flex gap-1 flex-wrap">
-                      {plan.tags.slice(0, 3).map(tag => (
-                        <span key={tag} className="text-[10px] px-2 py-0.5 bg-[#F2F6FA] text-[#3C4E53] rounded-full font-medium">{tag}</span>
-                      ))}
+                      {plan.tags.slice(0, 3).map((tag) =>
+                    <span key={tag} className="text-[10px] px-2 py-0.5 bg-[#F2F6FA] text-[#3C4E53] rounded-full font-medium">{tag}</span>
+                    )}
                     </div>
                     <span className="ml-auto text-[10px] font-semibold text-[#3C4E53] whitespace-nowrap">Start →</span>
                   </div>
-                )}
+                }
               </motion.div>
-            </Link>
-          );
+            </Link>);
+
         })}
       </div>
-    </motion.div>
-  );
+    </motion.div>);
+
 }
 
 // ─── Main ─────────────────────────────────────────────────────────────────────
 export default function Wellness() {
   const [user, setUser] = useState(null);
-  const today = (() => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; })();
+  const today = (() => {const d = new Date();return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;})();
   const feature = getTimeFeature();
 
-  useEffect(() => { base44.auth.me().then(setUser).catch(() => {}); }, []);
+  useEffect(() => {base44.auth.me().then(setUser).catch(() => {});}, []);
 
   // ── 3 queries (deduped — mealLogs no longer double-fetched) ──────────────
   const { data: mealLogs = [] } = useQuery({
     queryKey: ['mealLogs'],
     queryFn: () => base44.entities.MealLog.list('-date', 100),
-    enabled: !!user,
+    enabled: !!user
   });
 
   const { data: workoutSessions = [] } = useQuery({
     queryKey: ['workoutSessions'],
     queryFn: () => base44.entities.WorkoutSession.list('-date', 100),
-    enabled: !!user,
+    enabled: !!user
   });
 
   const { data: waterLogs = [] } = useQuery({
     queryKey: ['waterLogs'],
     queryFn: () => base44.entities.WaterLog.list('-date', 100),
-    enabled: !!user,
+    enabled: !!user
   });
 
   // Today's stats
-  const todayMeals    = mealLogs.filter(m => m.date === today).length;
-  const todayWorkouts = workoutSessions.filter(w => w.date === today).length;
-  const todayWaterMl  = waterLogs.filter(w => w.date === today).reduce((s, w) => s + (w.amount_ml || 0), 0);
+  const todayMeals = mealLogs.filter((m) => m.date === today).length;
+  const todayWorkouts = workoutSessions.filter((w) => w.date === today).length;
+  const todayWaterMl = waterLogs.filter((w) => w.date === today).reduce((s, w) => s + (w.amount_ml || 0), 0);
 
   const activeCoaching = getActiveCoachingPlan();
 
@@ -299,7 +299,7 @@ export default function Wellness() {
         {/* 1. Page header */}
         <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}>
           <h1 className="text-2xl font-bold text-[#0A1A2F]">Wellness</h1>
-          <p className="text-sm text-[#0A1A2F]/50 mt-0.5">Body · Mind · Spirit</p>
+          <p className="text-sm text-[#0A1A2F]/50 mt-0.5"> Mind ·Body · Spirit</p>
         </motion.div>
 
         {/* 2. Time-aware featured action */}
@@ -315,6 +315,6 @@ export default function Wellness() {
         <CoachingSection active={activeCoaching} />
 
       </div>
-    </div>
-  );
+    </div>);
+
 }
