@@ -808,8 +808,10 @@ export default function Home() {
           }, 800);
         }} />
       )}
-      {/* ── Content ──────────────────────────────────────────────────────── */}
-      <div className="max-w-lg mx-auto px-4 pt-4 pb-28 space-y-4">
+      </Suspense>
+
+       {/* ── Content ──────────────────────────────────────────────────────── */}
+       <div className="max-w-lg mx-auto px-4 pt-4 pb-28 space-y-4">
 
         {/* 1. Greeting + Streak inline */}
         <motion.div initial={{ opacity: 0, y: -12 }} animate={{ opacity: 1, y: 0 }}>
@@ -896,43 +898,44 @@ export default function Home() {
       </div>
 
       {/* ── Modals ───────────────────────────────────────────────────────── */}
-      <StartMyDayModal isOpen={showStartDay} onClose={(completed) => { setShowStartDay(false); if (completed) { localStorage.setItem(ritualKey, '1'); setRitualDone(true); } }} user={user} />
-      <EndMyDayModal   isOpen={showEndDay}   onClose={(completed) => { setShowEndDay(false); if (completed) { localStorage.setItem(ritualKey, '1'); setRitualDone(true); } }} />
-      <CreatePostModal
-        isOpen={showCreatePost}
-        onClose={() => setShowCreatePost(false)}
-        onSubmit={(data) => createPost.mutate(data)}
-      />
+       <Suspense fallback={null}>
+         <CreatePostModal
+           isOpen={showCreatePost}
+           onClose={() => setShowCreatePost(false)}
+           onSubmit={(data) => createPost.mutate(data)}
+         />
+         <HelpChatbot />
+       </Suspense>
 
-      {/* Notification prompt */}
-      {showNotifPrompt && (
-        <div className="fixed inset-0 bg-black/40 z-50 flex items-end justify-center p-4">
-          <motion.div initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }}
-            className="bg-white rounded-3xl p-6 w-full max-w-md shadow-2xl">
-            <div className="text-center mb-5">
-              <div className="text-4xl mb-3">🔔</div>
-              <h3 className="text-xl font-bold text-[#0A1A2F] mb-2">Stay on track daily</h3>
-              <p className="text-sm text-[#0A1A2F]/60">
-                Get your morning verse, daily guidance, workout reminders, and evening reflections.
-              </p>
-            </div>
-            <div className="space-y-3">
-              <button
-                onClick={async () => { await Notification.requestPermission(); setShowNotifPrompt(false); }}
-                className="w-full bg-gradient-to-r from-[#FD9C2D] to-[#FAD98D] text-[#3C4E53] font-semibold h-12 rounded-xl">
-                Enable Daily Reminders
-              </button>
-              <button onClick={() => setShowNotifPrompt(false)}
-                className="w-full text-[#0A1A2F]/40 text-sm py-2">
-                Maybe later
-              </button>
-            </div>
-          </motion.div>
-        </div>
-      )}
+       <StartMyDayModal isOpen={showStartDay} onClose={(completed) => { setShowStartDay(false); if (completed) { localStorage.setItem(ritualKey, '1'); setRitualDone(true); } }} user={user} />
+       <EndMyDayModal   isOpen={showEndDay}   onClose={(completed) => { setShowEndDay(false); if (completed) { localStorage.setItem(ritualKey, '1'); setRitualDone(true); } }} />
 
-      <HelpChatbot />
-      </Suspense>
+       {/* Notification prompt */}
+       {showNotifPrompt && (
+         <div className="fixed inset-0 bg-black/40 z-50 flex items-end justify-center p-4">
+           <motion.div initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }}
+             className="bg-white rounded-3xl p-6 w-full max-w-md shadow-2xl">
+             <div className="text-center mb-5">
+               <div className="text-4xl mb-3">🔔</div>
+               <h3 className="text-xl font-bold text-[#0A1A2F] mb-2">Stay on track daily</h3>
+               <p className="text-sm text-[#0A1A2F]/60">
+                 Get your morning verse, daily guidance, workout reminders, and evening reflections.
+               </p>
+             </div>
+             <div className="space-y-3">
+               <button
+                 onClick={async () => { await Notification.requestPermission(); setShowNotifPrompt(false); }}
+                 className="w-full bg-gradient-to-r from-[#FD9C2D] to-[#FAD98D] text-[#3C4E53] font-semibold h-12 rounded-xl">
+                 Enable Daily Reminders
+               </button>
+               <button onClick={() => setShowNotifPrompt(false)}
+                 className="w-full text-[#0A1A2F]/40 text-sm py-2">
+                 Maybe later
+               </button>
+             </div>
+           </motion.div>
+         </div>
+       )}
     </div>
   );
 }
