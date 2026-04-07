@@ -800,13 +800,14 @@ export default function Home() {
         <AppTour
           userName={user?.full_name?.split(' ')[0]}
           onComplete={() => {
-          setShowAppTour(false);
-          base44.auth.me().then(setUser).catch(() => {});
-          // Launch interactive guided tour after a short pause
-          setTimeout(() => {
-            window.dispatchEvent(new CustomEvent('launchGuidedTour', { detail: { steps: null } }));
-          }, 800);
-        }} />
+            setShowAppTour(false);
+            base44.auth.me().then(setUser).catch(() => {});
+            // Launch interactive guided tour after a short pause
+            setTimeout(() => {
+              window.dispatchEvent(new CustomEvent('launchGuidedTour', { detail: { steps: null } }));
+            }, 800);
+          }}
+        />
       )}
       {/* ── Content ──────────────────────────────────────────────────────── */}
       <div className="max-w-lg mx-auto px-4 pt-4 pb-28 space-y-4">
