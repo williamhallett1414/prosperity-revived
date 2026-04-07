@@ -845,6 +845,14 @@ export default function StartWorkoutModal({ isOpen, onClose, workout, user, onCo
                     </button>
                   </div>
 
+                  <button onClick={skipExercise}
+                    className="text-white/25 hover:text-[#FD9C2D] transition-colors" title="Skip exercise">
+                    <SkipForward className="w-4 h-4" />
+                  </button>
+                </div>
+
+                {/* Timer bar */}
+                <div className="px-4 py-2 flex justify-center flex-shrink-0">
                   <div className="flex items-center gap-1 bg-white/6 rounded-full px-2.5 py-1">
                     <Timer className="w-3 h-3 text-[#38BDF8]" />
                     <span className="text-white font-bold text-[11px] tabular-nums">{fmt(elapsedTime)}</span>
@@ -852,11 +860,6 @@ export default function StartWorkoutModal({ isOpen, onClose, workout, user, onCo
                       {timerRunning ? <Pause className="w-2.5 h-2.5" /> : <Play className="w-2.5 h-2.5" />}
                     </button>
                   </div>
-
-                  <button onClick={skipExercise}
-                    className="text-white/25 hover:text-[#FD9C2D] transition-colors" title="Skip exercise">
-                    <SkipForward className="w-4 h-4" />
-                  </button>
                 </div>
 
                 {/* Progress track */}
