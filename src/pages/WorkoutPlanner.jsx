@@ -228,7 +228,7 @@ function AddWorkoutSheet({ dayIdx, onClose, onAdd }) {
                 {isExpanded &&
                 <div className="px-4 pb-3 border-t border-gray-50">
                     <p className="text-[10px] text-gray-400 font-semibold uppercase tracking-wide my-2">Exercises</p>
-                    <div className="grid grid-cols-2 gap-1.5">
+                    <div className="grid grid-cols-2 gap-1.5 mb-3">
                       {(w.exercises || []).map((ex, i) =>
                     <div key={i} className="bg-gray-50 rounded-lg px-2 py-1.5">
                           <p className="text-xs font-semibold text-[#3C4E53] leading-tight">{ex.name}</p>
@@ -238,6 +238,9 @@ function AddWorkoutSheet({ dayIdx, onClose, onAdd }) {
                         </div>
                     )}
                     </div>
+                    <button onClick={() => handleAdd(w)} className="w-full py-2 rounded-xl bg-[#FD9C2D] text-white font-bold text-sm hover:bg-[#EA8B1A] transition-colors">
+                      Add to {DAYS_SHORT[dayIdx]}
+                    </button>
                   </div>
                 }
               </div>);
