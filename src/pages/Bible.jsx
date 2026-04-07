@@ -107,6 +107,7 @@ function StudyTabContent() {
 // ─── Main ─────────────────────────────────────────────────────────────────────
 export default function Bible() {
   const [view, setView] = useState('home');
+  const [activeTab, setActiveTab] = useState('read');
   const [showStatsModal, setShowStatsModal] = useState(false);
   const [selectedStat, setSelectedStat] = useState(null);
   const [initialBook, setInitialBook] = useState(null);
@@ -223,7 +224,7 @@ export default function Bible() {
 
       {/* Fixed tab menu */}
       <div id="tour-bible-tabs" className="sticky top-0 z-40 px-4 pt-4 pb-3 bg-white/95 backdrop-blur-sm border-b border-[#FAD98D]/15 max-w-lg mx-auto">
-        <Tabs defaultValue="read" className="w-full">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsList className="grid w-full grid-cols-4 bg-[#FAD98D]/15 rounded-xl p-1 border border-[#FAD98D]/20">
             {[
             { value: 'read', icon: BookOpen, label: 'Read' },
@@ -242,7 +243,7 @@ export default function Bible() {
 
       <div className="px-4 pb-6 max-w-lg mx-auto">
 
-        <Tabs defaultValue="read" className="w-full">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
 
           {/* ── READ TAB ── */}
           <TabsContent value="read">
