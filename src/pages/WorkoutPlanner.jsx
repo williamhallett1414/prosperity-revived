@@ -247,16 +247,16 @@ function AddWorkoutSheet({ dayIdx, onClose, onAdd }) {
           })}
         </div>
 
-        {/* CTA Footer */}
-        <div className="p-4 bg-gray-50 border-t border-gray-100">
+        {/* CTA Footer — sticky to bottom */}
+        <div className="sticky bottom-0 p-4 bg-white border-t border-gray-200 shadow-2xl shadow-black/10">
           <button onClick={handleAdd} disabled={!selected}
-          className={`w-full py-4 rounded-2xl font-black text-base transition-all
+          className={`w-full py-3.5 rounded-2xl font-black text-base transition-all
               ${selected ?
-          'bg-[#FD9C2D] text-white shadow-lg shadow-[#FD9C2D]/30 active:scale-98' :
+          'bg-[#FD9C2D] text-white shadow-lg shadow-[#FD9C2D]/40 active:scale-95' :
           'bg-gray-200 text-gray-400 cursor-not-allowed'}`
           }>
             
-            {selected ? `Add "${selected.title}" to ${DAYS_SHORT[dayIdx]}` : 'Select a workout above'}
+            {selected ? `✨ Add to ${DAYS_SHORT[dayIdx]}` : 'Select a workout'}
           </button>
         </div>
       </div>
