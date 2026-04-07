@@ -335,12 +335,12 @@ export default function Bible() {
                 </Link>
               </motion.div>
 
-              {/* 6. Discover plans (only if no active plan) */}
-              {!activePlan && suggestedPlans.length > 0 &&
+              {/* 6. Discover plans (always visible) */}
+              {suggestedPlans.length > 0 &&
               <div>
                   <div className="flex items-center justify-between mb-3">
                     <p className="text-[10px] font-bold text-[#0A1A2F]/40 uppercase tracking-widest flex items-center gap-1.5">
-                      <Compass className="w-3.5 h-3.5 text-[#c9a227]" /> Reading Plans
+                      <Compass className="w-3.5 h-3.5 text-[#c9a227]" /> More Reading Plans
                     </p>
                     <Link to={createPageUrl('Plans')} className="text-xs text-[#c9a227] font-semibold">View All</Link>
                   </div>
