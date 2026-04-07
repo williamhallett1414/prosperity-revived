@@ -112,7 +112,7 @@ export default function FitnessProfileSetup({ user, onClose, onSave }) {
           </div>
         </div>
 
-        <div className="flex-1 overflow-y-auto px-4 py-3 max-w-lg mx-auto">
+        <div className="flex-1 overflow-y-auto px-4 py-3 max-w-lg mx-auto pb-32">
           {/* Unit system toggle - only on step 1 */}
           {step === 1 && (
             <div className="mb-6">
