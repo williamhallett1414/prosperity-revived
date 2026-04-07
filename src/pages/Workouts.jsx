@@ -333,7 +333,7 @@ export default function Workouts() {
             <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
               <div
                 className="rounded-2xl p-5 border border-[#38BDF8]/20"
-                style={{ background: "linear-gradient(135deg,#0A1A2F,#0F2540)" }}>
+                style={{ background: "linear-gradient(135deg,#0A1A2F,#1e40af)" }}>
                 
                 <p className="text-base font-bold text-white mb-3">{greeting.text}</p>
                 <div className="flex items-start gap-2">
