@@ -5,8 +5,8 @@ import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
 import {
   BookOpen, Sparkles, Heart, ChevronRight, PlayCircle,
-  Bookmark, TrendingUp, Search, Compass, Flame, Target
-} from 'lucide-react';
+  Bookmark, TrendingUp, Search, Compass, Flame, Target } from
+'lucide-react';
 import { createPageUrl } from '@/utils';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { readingPlans, getBookByName, bibleBooks, getVerseOfDay } from '@/components/bible/BibleData';
@@ -25,25 +25,25 @@ const LAST_READ_KEY = 'bible_last_read';
 function ActivePlanCard({ progress, plan, navigate }) {
   if (!plan) return null;
   const totalDays = progress.total_days || plan.duration || 1;
-  const pct = Math.round(((progress.completed_days?.length || 0) / totalDays) * 100);
+  const pct = Math.round((progress.completed_days?.length || 0) / totalDays * 100);
   const streak = progress.current_streak || 0;
   return (
     <motion.button
       initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
       onClick={() => navigate(createPageUrl(`PlanDetail?id=${plan.id}`))}
-      className="w-full text-left bg-white rounded-2xl border border-[#FAD98D]/30 overflow-hidden shadow-sm hover:shadow-md transition-all"
-    >
+      className="w-full text-left bg-white rounded-2xl border border-[#FAD98D]/30 overflow-hidden shadow-sm hover:shadow-md transition-all">
+      
       <div className="relative h-14 overflow-hidden">
         <img src={plan.image} alt={plan.name} className="w-full h-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#0A1A2F]/80 to-transparent" />
         <div className="absolute inset-0 flex items-center px-3 gap-3">
           <p className="text-white font-bold text-sm truncate flex-1">{plan.name}</p>
-          {streak > 0 && (
-            <div className="flex items-center gap-1 bg-[#c9a227]/80 rounded-full px-2 py-0.5">
+          {streak > 0 &&
+          <div className="flex items-center gap-1 bg-[#c9a227]/80 rounded-full px-2 py-0.5">
               <Flame className="w-3 h-3 text-white" />
               <span className="text-white text-[10px] font-bold">{streak}</span>
             </div>
-          )}
+          }
         </div>
       </div>
       <div className="px-3 py-2 flex items-center gap-3">
@@ -53,20 +53,20 @@ function ActivePlanCard({ progress, plan, navigate }) {
         <span className="text-[11px] font-bold text-[#c9a227] flex-shrink-0">{pct}%</span>
         <ChevronRight className="w-4 h-4 text-[#0A1A2F]/30 flex-shrink-0" />
       </div>
-    </motion.button>
-  );
+    </motion.button>);
+
 }
 
 // ─── Quick tools row ──────────────────────────────────────────────────────────
 function QuickTools({ bookmarkCount }) {
   const tools = [
-    { label: 'Saved Verses', icon: Bookmark, value: bookmarkCount > 0 ? bookmarkCount : null, page: 'Bookmarks', color: 'text-[#c9a227]', bg: 'bg-[#FAD98D]/20' },
-    { label: 'Spiritual Insights', icon: Sparkles, value: null, page: 'SpiritualInsights', color: 'text-purple-500', bg: 'bg-purple-50' },
-  ];
+  { label: 'Saved Verses', icon: Bookmark, value: bookmarkCount > 0 ? bookmarkCount : null, page: 'Bookmarks', color: 'text-[#c9a227]', bg: 'bg-[#FAD98D]/20' },
+  { label: 'Spiritual Insights', icon: Sparkles, value: null, page: 'SpiritualInsights', color: 'text-purple-500', bg: 'bg-purple-50' }];
+
   return (
     <div className="flex gap-3">
-      {tools.map(({ label, icon: Icon, value, page, color, bg }) => (
-        <Link key={page} to={createPageUrl(page)} className="flex-1">
+      {tools.map(({ label, icon: Icon, value, page, color, bg }) =>
+      <Link key={page} to={createPageUrl(page)} className="flex-1">
           <div className={`${bg} rounded-2xl p-3.5 flex items-center gap-2.5 border border-transparent hover:border-[#FAD98D]/40 transition-all`}>
             <div className="w-8 h-8 rounded-xl bg-white flex items-center justify-center shadow-sm flex-shrink-0">
               <Icon className={`w-4 h-4 ${color}`} />
@@ -78,9 +78,9 @@ function QuickTools({ bookmarkCount }) {
             <ChevronRight className="w-3.5 h-3.5 text-[#0A1A2F]/25 ml-auto" />
           </div>
         </Link>
-      ))}
-    </div>
-  );
+      )}
+    </div>);
+
 }
 
 // ─── Study Guide with search ──────────────────────────────────────────────────
@@ -93,14 +93,14 @@ function StudyTabContent() {
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#0A1A2F]/35" />
         <input
           value={query}
-          onChange={e => setQuery(e.target.value)}
+          onChange={(e) => setQuery(e.target.value)}
           placeholder="Search study guides…"
-          className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-[#FAD98D]/15 border border-[#FAD98D]/25 text-sm text-[#0A1A2F] placeholder:text-[#0A1A2F]/40 focus:outline-none focus:border-[#c9a227]/50"
-        />
+          className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-[#FAD98D]/15 border border-[#FAD98D]/25 text-sm text-[#0A1A2F] placeholder:text-[#0A1A2F]/40 focus:outline-none focus:border-[#c9a227]/50" />
+        
       </div>
       <BibleStudyGuide filterQuery={query} />
-    </div>
-  );
+    </div>);
+
 }
 
 // ─── Main ─────────────────────────────────────────────────────────────────────
@@ -126,21 +126,21 @@ export default function Bible() {
 
   const { data: bookmarks = [] } = useQuery({
     queryKey: ['bookmarks'],
-    queryFn: () => base44.entities.Bookmark.list(),
+    queryFn: () => base44.entities.Bookmark.list()
   });
 
   const { data: planProgress = [] } = useQuery({
     queryKey: ['planProgress'],
-    queryFn: () => base44.entities.ReadingPlanProgress.list(),
+    queryFn: () => base44.entities.ReadingPlanProgress.list()
   });
 
   const createBookmark = useMutation({
     mutationFn: (data) => base44.entities.Bookmark.create(data),
-    onSuccess: () => queryClient.invalidateQueries(['bookmarks']),
+    onSuccess: () => queryClient.invalidateQueries(['bookmarks'])
   });
   const deleteBookmark = useMutation({
     mutationFn: (id) => base44.entities.Bookmark.delete(id),
-    onSuccess: () => queryClient.invalidateQueries(['bookmarks']),
+    onSuccess: () => queryClient.invalidateQueries(['bookmarks'])
   });
 
   // Deep-link: ?book=John&chapter=3
@@ -152,7 +152,7 @@ export default function Bible() {
       if (book) {
         setInitialBook(book);
         setInitialChapter(parseInt(chapter));
-        const isOld = bibleBooks.oldTestament.some(b => b.name === book.name);
+        const isOld = bibleBooks.oldTestament.some((b) => b.name === book.name);
         setView(isOld ? 'oldTestament' : 'newTestament');
       }
     }
@@ -175,7 +175,7 @@ export default function Bible() {
   };
 
   const handleSearchNavigate = (data) => {
-    const isOld = bibleBooks.oldTestament.some(b => b.name === data.book.name);
+    const isOld = bibleBooks.oldTestament.some((b) => b.name === data.book.name);
     setSearchData(data);
     openReading(data.book, data.chapter || 1, isOld);
   };
@@ -183,15 +183,15 @@ export default function Bible() {
   const handleBookmark = (verse, color, note = '') => {
     const bookName = verse.book || initialBook?.name;
     const chapterNum = verse.chapter || initialChapter;
-    const existing = bookmarks.find(b => b.book === bookName && b.chapter === chapterNum && b.verse === verse.verse);
-    if (existing) { deleteBookmark.mutate(existing.id); return; }
+    const existing = bookmarks.find((b) => b.book === bookName && b.chapter === chapterNum && b.verse === verse.verse);
+    if (existing) {deleteBookmark.mutate(existing.id);return;}
     createBookmark.mutate({ book: bookName, chapter: chapterNum, verse: verse.verse, verse_text: verse.text, highlight_color: color, note });
   };
 
-  const getProgressForPlan = (planId) => planProgress.find(p => p.plan_id === planId);
+  const getProgressForPlan = (planId) => planProgress.find((p) => p.plan_id === planId);
   const activePlanProgress = planProgress[0] || null;
-  const activePlan = activePlanProgress ? readingPlans.find(p => p.id === activePlanProgress.plan_id) : null;
-  const suggestedPlans = readingPlans.filter(p => !getProgressForPlan(p.id)).slice(0, 3);
+  const activePlan = activePlanProgress ? readingPlans.find((p) => p.id === activePlanProgress.plan_id) : null;
+  const suggestedPlans = readingPlans.filter((p) => !getProgressForPlan(p.id)).slice(0, 3);
   const continueBook = lastRead ? getBookByName(lastRead.bookName) : null;
   const verse = getVerseOfDay();
 
@@ -224,10 +224,10 @@ export default function Bible() {
 
         {/* Page header — no back arrow (Bible is a primary tab) */}
         <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="mb-4 flex items-center justify-between">
-          <div>
-            <h1 className="text-2xl font-bold text-[#0A1A2F]">Bible</h1>
-            <p className="text-sm text-[#0A1A2F]/50 mt-0.5">Read · Study · Reflect</p>
-          </div>
+          
+
+
+          
           <Link to={createPageUrl('BibleGoalsPage')}>
             <button className="flex items-center gap-1.5 bg-[#FAD98D]/25 border border-[#FAD98D]/40 text-[#C9A227] text-xs font-bold px-3 py-2 rounded-xl">
               <Target className="w-3.5 h-3.5" /> Goals
@@ -238,15 +238,15 @@ export default function Bible() {
         <Tabs defaultValue="read" className="w-full">
           <TabsList id="tour-bible-tabs" className="grid w-full grid-cols-3 mb-5 bg-[#FAD98D]/15 rounded-xl p-1 border border-[#FAD98D]/20">
             {[
-              { value: 'read',       icon: BookOpen, label: 'Read'       },
-              { value: 'study',      icon: TrendingUp, label: 'Study'    },
-              { value: 'devotional', icon: Heart,    label: 'Devotional' },
-            ].map(({ value, icon: Icon, label }) => (
-              <TabsTrigger key={value} value={value}
-                className="rounded-lg text-xs data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#c9a227] data-[state=active]:to-[#FAD98D] data-[state=active]:text-white data-[state=active]:shadow-sm">
+            { value: 'read', icon: BookOpen, label: 'Read' },
+            { value: 'study', icon: TrendingUp, label: 'Study' },
+            { value: 'devotional', icon: Heart, label: 'Devotional' }].
+            map(({ value, icon: Icon, label }) =>
+            <TabsTrigger key={value} value={value}
+            className="rounded-lg text-xs data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#c9a227] data-[state=active]:to-[#FAD98D] data-[state=active]:text-white data-[state=active]:shadow-sm">
                 <Icon className="w-3.5 h-3.5 mr-1" />{label}
               </TabsTrigger>
-            ))}
+            )}
           </TabsList>
 
           {/* ── READ TAB ── */}
@@ -256,8 +256,8 @@ export default function Bible() {
               {/* Bible Goals entry card */}
               <Link to={createPageUrl('BibleGoalsPage')}>
                 <motion.div id="tour-bible-goals-entry" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
-                  className="rounded-2xl p-4 flex items-center gap-3 shadow-sm"
-                  style={{ background: 'linear-gradient(135deg, #0A1A2F 0%, #1a3050 60%, #C9A227 220%)' }}>
+                className="rounded-2xl p-4 flex items-center gap-3 shadow-sm"
+                style={{ background: 'linear-gradient(135deg, #0A1A2F 0%, #1a3050 60%, #C9A227 220%)' }}>
                   <div className="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center flex-shrink-0">
                     <span className="text-xl">📖</span>
                   </div>
@@ -285,7 +285,7 @@ export default function Bible() {
                       onClick={() => {
                         const book = getBookByName(verse.book);
                         if (book) {
-                          const isOld = bibleBooks.oldTestament.some(b => b.name === book.name);
+                          const isOld = bibleBooks.oldTestament.some((b) => b.name === book.name);
                           openReading(book, verse.chapter, isOld);
                         }
                       }}
@@ -297,12 +297,12 @@ export default function Bible() {
               </motion.div>
 
               {/* 2. Continue Reading (if exists) */}
-              {continueBook && (
-                <motion.button
-                  initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
-                  onClick={() => openReading(continueBook, lastRead.chapter, lastRead.isOld)}
-                  className="w-full bg-gradient-to-br from-[#0A1A2F] to-[#0A1A2F] rounded-2xl p-4 text-left hover:opacity-90 transition-all"
-                >
+              {continueBook &&
+              <motion.button
+                initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
+                onClick={() => openReading(continueBook, lastRead.chapter, lastRead.isOld)}
+                className="w-full bg-gradient-to-br from-[#0A1A2F] to-[#0A1A2F] rounded-2xl p-4 text-left hover:opacity-90 transition-all">
+                
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center flex-shrink-0">
                       <PlayCircle className="w-5 h-5 text-[#FAD98D]" />
@@ -314,20 +314,20 @@ export default function Bible() {
                     <ChevronRight className="w-5 h-5 text-white/40" />
                   </div>
                 </motion.button>
-              )}
+              }
 
               {/* 3. Open the Word */}
               <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }}
-                className="bg-white rounded-2xl border border-[#FAD98D]/25 p-4 shadow-sm">
+              className="bg-white rounded-2xl border border-[#FAD98D]/25 p-4 shadow-sm">
                 <p className="text-xs font-bold text-[#0A1A2F]/40 uppercase tracking-widest mb-3">Open the Bible</p>
                 <div className="flex gap-2 mb-3">
                   <button
-                    onClick={() => { setInitialBook(null); setView('newTestament'); }}
+                    onClick={() => {setInitialBook(null);setView('newTestament');}}
                     className="flex-1 bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white font-semibold text-sm py-2.5 rounded-xl shadow-sm hover:opacity-90 transition-all">
                     New Testament
                   </button>
                   <button
-                    onClick={() => { setInitialBook(null); setView('oldTestament'); }}
+                    onClick={() => {setInitialBook(null);setView('oldTestament');}}
                     className="flex-1 bg-[#0A1A2F]/8 text-[#0A1A2F] font-semibold text-sm py-2.5 rounded-xl border border-[#0A1A2F]/12 hover:bg-[#0A1A2F]/12 transition-all">
                     Old Testament
                   </button>
@@ -336,12 +336,12 @@ export default function Bible() {
               </motion.div>
 
               {/* 4. Active reading plan */}
-              {activePlan && activePlanProgress && (
-                <div>
+              {activePlan && activePlanProgress &&
+              <div>
                   <p className="text-[10px] font-bold text-[#0A1A2F]/40 uppercase tracking-widest mb-2">Your Plan</p>
                   <ActivePlanCard progress={activePlanProgress} plan={activePlan} navigate={navigate} />
                 </div>
-              )}
+              }
 
               {/* 5. Quick tools — Saved Verses + Spiritual Insights */}
               <QuickTools bookmarkCount={bookmarks.length} />
@@ -363,8 +363,8 @@ export default function Bible() {
               </motion.div>
 
               {/* 6. Discover plans (only if no active plan) */}
-              {!activePlan && suggestedPlans.length > 0 && (
-                <div>
+              {!activePlan && suggestedPlans.length > 0 &&
+              <div>
                   <div className="flex items-center justify-between mb-3">
                     <p className="text-[10px] font-bold text-[#0A1A2F]/40 uppercase tracking-widest flex items-center gap-1.5">
                       <Compass className="w-3.5 h-3.5 text-[#c9a227]" /> Reading Plans
@@ -372,13 +372,13 @@ export default function Bible() {
                     <Link to={createPageUrl('Plans')} className="text-xs text-[#c9a227] font-semibold">View All</Link>
                   </div>
                   <div className="space-y-3">
-                    {suggestedPlans.map((plan, index) => (
-                      <ReadingPlanCard key={plan.id} plan={plan} progress={null}
-                        onClick={() => navigate(createPageUrl(`PlanDetail?id=${plan.id}`))} index={index} />
-                    ))}
+                    {suggestedPlans.map((plan, index) =>
+                  <ReadingPlanCard key={plan.id} plan={plan} progress={null}
+                  onClick={() => navigate(createPageUrl(`PlanDetail?id=${plan.id}`))} index={index} />
+                  )}
                   </div>
                 </div>
-              )}
+              }
 
             </div>
           </TabsContent>
@@ -405,8 +405,8 @@ export default function Bible() {
         onClose={() => setShowStatsModal(false)}
         statType={selectedStat}
         progress={planProgress}
-        bookmarks={bookmarks}
-      />
+        bookmarks={bookmarks} />
+      
       {/* Scripture Attribution */}
       <div className="max-w-lg mx-auto px-4 pb-4">
         <p className="text-[9px] text-[#0A1A2F]/30 text-center leading-relaxed">
@@ -415,7 +415,6 @@ export default function Bible() {
       </div>
 
       <ChatButton bot="Gideon" id="tour-gideon-btn" />
-    </div>
-  );
-}
+    </div>);
 
+}
