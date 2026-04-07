@@ -406,7 +406,7 @@ export default function PlanDetail() {
             </div>
             <Button
               onClick={handleStartPlan}
-              className="w-full bg-[#0A1A2F] hover:bg-[#0A1A2F] h-12 text-lg"
+              className="w-full bg-gradient-to-r from-[#c9a227] to-[#FAD98D] hover:opacity-90 text-[#0A1A2F] h-12 text-lg font-semibold"
             >
               <Play className="w-5 h-5 mr-2" />
               Start Plan
