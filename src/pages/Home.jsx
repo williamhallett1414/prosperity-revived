@@ -765,15 +765,15 @@ export default function Home() {
 
       {/* ── Onboarding flows ──────────────────────────────────────────────── */}
       <Suspense fallback={null}>
-      {showOnboarding && (
+        {showOnboarding && (
         <OnboardingFlow onComplete={() => {
           setShowOnboarding(false);
           base44.auth.me().then(setUser).catch(() => {});
           setTimeout(() => setShowAppTour(true), 600);
         }} />
-      )}
-      {showTermsGate && (
-        <TermsUpdateGate
+        )}
+        {showTermsGate && (
+          <TermsUpdateGate
           user={user}
           onAccepted={() => {
             setShowTermsGate(false);
@@ -782,10 +782,10 @@ export default function Home() {
               if (!u.app_tour_completed) setTimeout(() => setShowAppTour(true), 400);
             }).catch(() => {});
           }}
-        />
-      )}
-      {showAppTour && (
-        <AppTour
+          />
+        )}
+        {showAppTour && (
+          <AppTour
           userName={user?.full_name?.split(' ')[0]}
           onComplete={() => {
           setShowAppTour(false);
@@ -795,11 +795,11 @@ export default function Home() {
             window.dispatchEvent(new CustomEvent('launchGuidedTour', { detail: { steps: null } }));
           }, 800);
         }} />
-      )}
+        )}
       </Suspense>
 
-       {/* ── Content ──────────────────────────────────────────────────────── */}
-       <div className="max-w-lg mx-auto px-4 pt-4 pb-28 space-y-4">
+      {/* ── Content ──────────────────────────────────────────────────────── */}
+      <div className="max-w-lg mx-auto px-4 pt-4 pb-28 space-y-4">
 
         {/* 1. Greeting + Streak inline */}
         <motion.div initial={{ opacity: 0, y: -12 }} animate={{ opacity: 1, y: 0 }}>
@@ -831,35 +831,35 @@ export default function Home() {
             onStartDay={() => setShowStartDay(true)}
             onEndDay={() => setShowEndDay(true)}
           />
-        )}
+          )}
 
-        {/* 4. Daily Progress Ring — today's activity tracker */}
-        {user && <DailyProgressRing user={user} />}
+          {/* 4. Daily Progress Ring — today's activity tracker */}
+          {user && <DailyProgressRing user={user} />}
 
-        {/* 5. Combined Scripture / Grace Moment (alternates by time of day) */}
-        <DailyInspirationCard />
+          {/* 5. Combined Scripture / Grace Moment (alternates by time of day) */}
+          <DailyInspirationCard />
 
-        {/* 6. Resume card — active plan, if any */}
-        {(activeCoaching || activeReadingPlan) && (
+          {/* 6. Resume card — active plan, if any */}
+          {(activeCoaching || activeReadingPlan) && (
           <ResumeCard
             coachingPlan={activeCoaching}
             readingPlan={activeReadingPlan?.plan}
             readingProgress={activeReadingPlan?.progress}
             navigate={navigate}
-          />
-        )}
+            />
+            )}
 
-        {/* 7. Active challenges (only shown if user has joined any) */}
-        {user && <ActiveChallengesWidget user={user} />}
+            {/* 7. Active challenges (only shown if user has joined any) */}
+            {user && <ActiveChallengesWidget user={user} />}
 
-        {/* 8. Talk to Your Guides — enhanced scrollable cards */}
-        <EnhancedGuidesSection />
+            {/* 8. Talk to Your Guides — enhanced scrollable cards */}
+            <EnhancedGuidesSection />
 
-        {/* 9. Quick navigation */}
-        <QuickNav />
+            {/* 9. Quick navigation */}
+            <QuickNav />
 
-        {/* 10. Coaching plan discovery — if no active coaching plan */}
-        {!activeCoaching && (
+            {/* 10. Coaching plan discovery — if no active coaching plan */}
+            {!activeCoaching && (
           <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}>
             <Link to={createPageUrl('CoachingPlans')}>
               <div className="bg-gradient-to-br from-[#0D4F3C] to-[#1a8a6a] rounded-3xl p-5 shadow-md relative overflow-hidden">
@@ -876,30 +876,30 @@ export default function Home() {
                   <ChevronRight className="w-5 h-5 text-white/50" />
                 </div>
               </div>
-            </Link>
-          </motion.div>
-        )}
+              </Link>
+              </motion.div>
+              )}
 
         {/* 11. New user Start Here (conditional) */}
         {isNewUser && <StartHereCard />}
 
-      </div>
+        </div>
 
-      {/* ── Modals ───────────────────────────────────────────────────────── */}
-       <Suspense fallback={null}>
-         <CreatePostModal
-           isOpen={showCreatePost}
-           onClose={() => setShowCreatePost(false)}
-           onSubmit={(data) => createPost.mutate(data)}
-         />
-         <HelpChatbot />
-       </Suspense>
+        {/* ── Modals ───────────────────────────────────────────────────────── */}
+        <Suspense fallback={null}>
+        <CreatePostModal
+          isOpen={showCreatePost}
+          onClose={() => setShowCreatePost(false)}
+          onSubmit={(data) => createPost.mutate(data)}
+        />
+        <HelpChatbot />
+        </Suspense>
 
-       <StartMyDayModal isOpen={showStartDay} onClose={(completed) => { setShowStartDay(false); if (completed) { localStorage.setItem(ritualKey, '1'); setRitualDone(true); } }} user={user} />
-       <EndMyDayModal   isOpen={showEndDay}   onClose={(completed) => { setShowEndDay(false); if (completed) { localStorage.setItem(ritualKey, '1'); setRitualDone(true); } }} />
+        <StartMyDayModal isOpen={showStartDay} onClose={(completed) => { setShowStartDay(false); if (completed) { localStorage.setItem(ritualKey, '1'); setRitualDone(true); } }} user={user} />
+        <EndMyDayModal   isOpen={showEndDay}   onClose={(completed) => { setShowEndDay(false); if (completed) { localStorage.setItem(ritualKey, '1'); setRitualDone(true); } }} />
 
-       {/* Notification prompt */}
-       {showNotifPrompt && (
+        {/* Notification prompt */}
+        {showNotifPrompt && (
          <div className="fixed inset-0 bg-black/40 z-50 flex items-end justify-center p-4">
            <motion.div initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }}
              className="bg-white rounded-3xl p-6 w-full max-w-md shadow-2xl">
@@ -923,7 +923,7 @@ export default function Home() {
              </div>
            </motion.div>
          </div>
-       )}
+         )}
     </div>
   );
 }
