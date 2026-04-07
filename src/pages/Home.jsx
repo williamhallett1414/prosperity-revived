@@ -22,9 +22,10 @@ const HelpChatbot = lazy(() => Promise.resolve({ default: () => null }));
 
 // These are always needed
 import { toast } from 'sonner';
-import TermsUpdateGate, { needsTermsUpdate } from '@/components/onboarding/TermsUpdateGate';
-import StartMyDayModal from '@/components/home/StartMyDayModal';
-import EndMyDayModal from '@/components/home/EndMyDayModal';
+const TermsUpdateGate = () => null;
+const needsTermsUpdate = () => false;
+const StartMyDayModal = () => null;
+const EndMyDayModal = () => null;
 
 // ─── Helpers ───────────────────────────────────────────────────────────────────
 function getGreeting() {
