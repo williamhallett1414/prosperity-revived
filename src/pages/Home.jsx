@@ -777,8 +777,7 @@ export default function Home() {
 
       {/* ── Onboarding flows ──────────────────────────────────────────────── */}
       <Suspense fallback={null}>
-      
-      {showOnboarding && (
+        {showOnboarding && (
         <OnboardingFlow onComplete={() => {
           setShowOnboarding(false);
           base44.auth.me().then(setUser).catch(() => {});
