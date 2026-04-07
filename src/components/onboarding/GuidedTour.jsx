@@ -456,9 +456,23 @@ function TooltipCard({ step, current, total, onNext, onSkip, targetRect, isLastS
 }
 
 // ── Main component ─────────────────────────────────────────────────────────────
-export default function GuidedTour({ onComplete, customSteps }) {
+export default function GuidedTour({ onComplete, customSteps, tourKey }) {
   const navigate = useNavigate();
-  const steps = customSteps || TOUR_STEPS;
+  const [resolvedSteps, setResolvedSteps] = useState(customSteps || null);
+
+  // If tourKey is provided, dynamically load MINI_TOURS to get steps
+  useEffect(() => {
+    if (tourKey && !customSteps) {
+      import('@/components/home/HelpChatbot').then(mod => {
+        const tours = mod.MINI_TOURS || {};
+        if (tours[tourKey]) {
+          setResolvedSteps(tours[tourKey]);
+        }
+      }).catch(() => {});
+    }
+  }, [tourKey, customSteps]);
+
+  const steps = resolvedSteps || TOUR_STEPS;
   const [step, setStep] = useState(0);
   const [targetRect, setTargetRect] = useState(null);
   const rafRef = useRef(null);
