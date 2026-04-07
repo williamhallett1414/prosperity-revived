@@ -299,7 +299,7 @@ export default function Wellness() {
         {/* 1. Page header */}
         <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}>
           <h1 className="text-2xl font-bold text-[#0A1A2F]">Wellness</h1>
-          <p className="text-sm text-[#0A1A2F]/50 mt-0.5"> Mind ·Body · Spirit</p>
+          <p className="text-sm text-[#0A1A2F]/50 mt-0.5"> Mind Body Spirit</p>
         </motion.div>
 
         {/* 2. Time-aware featured action */}
