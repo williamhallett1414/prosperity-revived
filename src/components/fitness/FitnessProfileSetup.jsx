@@ -12,16 +12,20 @@ const WORKOUT_DAYS = [1, 2, 3, 4, 5, 6, 7];
 
 export default function FitnessProfileSetup({ user, onClose, onSave }) {
   const [step, setStep] = useState(1);
+  const [unitSystem, setUnitSystem] = useState('imperial');
   const [data, setData] = useState({
     weight_lbs: user?.weight_kg ? Math.round(user.weight_kg * 2.20462) : '',
+    weight_kg: user?.weight_kg || '',
     height_ft: user?.height_cm ? Math.floor(user.height_cm / 30.48) : '',
     height_in: user?.height_cm ? Math.round((user.height_cm % 30.48) / 2.54) : '',
+    height_cm: user?.height_cm || '',
     age: user?.age || '',
     sex: user?.sex || 'male',
     fitness_level: user?.fitness_level || 'beginner',
     fitness_goal: user?.fitness_goal || 'general_fitness',
     workout_days_per_week: user?.workout_days_per_week || 3,
     goal_weight_lbs: user?.goal_weight_kg ? Math.round(user.goal_weight_kg * 2.20462) : '',
+    goal_weight_kg: user?.goal_weight_kg || '',
   });
   const [saving, setSaving] = useState(false);
 
@@ -29,15 +33,23 @@ export default function FitnessProfileSetup({ user, onClose, onSave }) {
     setSaving(true);
     try {
       const toSave = {
-        ...data,
-        weight_kg: Math.round(data.weight_lbs / 2.20462),
-        height_cm: Math.round(data.height_ft * 30.48 + data.height_in * 2.54),
-        goal_weight_kg: data.goal_weight_lbs ? Math.round(data.goal_weight_lbs / 2.20462) : '',
+        age: data.age,
+        sex: data.sex,
+        fitness_level: data.fitness_level,
+        fitness_goal: data.fitness_goal,
+        workout_days_per_week: data.workout_days_per_week,
       };
-      delete toSave.weight_lbs;
-      delete toSave.height_ft;
-      delete toSave.height_in;
-      delete toSave.goal_weight_lbs;
+
+      if (unitSystem === 'imperial') {
+        toSave.weight_kg = data.weight_lbs ? Math.round(data.weight_lbs / 2.20462) : '';
+        toSave.height_cm = data.height_ft || data.height_in ? Math.round(data.height_ft * 30.48 + (data.height_in || 0) * 2.54) : '';
+        toSave.goal_weight_kg = data.goal_weight_lbs ? Math.round(data.goal_weight_lbs / 2.20462) : '';
+      } else {
+        toSave.weight_kg = data.weight_kg;
+        toSave.height_cm = data.height_cm;
+        toSave.goal_weight_kg = data.goal_weight_kg;
+      }
+
       await base44.auth.updateMe(toSave);
       onSave?.();
       onClose?.();
@@ -101,6 +113,30 @@ export default function FitnessProfileSetup({ user, onClose, onSave }) {
         </div>
 
         <div className="px-4 py-6 max-w-lg mx-auto">
+          {/* Unit system toggle - only on step 1 */}
+          {step === 1 && (
+            <div className="mb-6">
+              <label className="text-xs font-bold text-[#0A1A2F]/60 block mb-2">
+                Measurement System
+              </label>
+              <div className="flex gap-2">
+                {['imperial', 'metric'].map((unit) => (
+                  <button
+                    key={unit}
+                    onClick={() => setUnitSystem(unit)}
+                    className={`flex-1 py-2.5 rounded-xl text-sm font-bold transition-all ${
+                      unitSystem === unit
+                        ? 'bg-[#38BDF8] text-white'
+                        : 'bg-[#F2F6FA] text-[#0A1A2F]'
+                    }`}
+                  >
+                    {unit === 'imperial' ? 'lbs & inches' : 'kg & cm'}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
           <AnimatePresence mode="wait">
             <motion.div
               key={step}
@@ -114,7 +150,7 @@ export default function FitnessProfileSetup({ user, onClose, onSave }) {
               </h3>
 
               {/* Weight */}
-              {currentStep.fields.includes('weight_lbs') && (
+              {currentStep.fields.includes('weight_lbs') && unitSystem === 'imperial' && (
                 <div>
                   <label className="text-xs font-bold text-[#0A1A2F]/60 block mb-2">
                     Current Weight (lbs)
@@ -131,8 +167,25 @@ export default function FitnessProfileSetup({ user, onClose, onSave }) {
                 </div>
               )}
 
-              {/* Height */}
-              {(currentStep.fields.includes('height_ft') || currentStep.fields.includes('height_in')) && (
+              {currentStep.fields.includes('weight_lbs') && unitSystem === 'metric' && (
+                <div>
+                  <label className="text-xs font-bold text-[#0A1A2F]/60 block mb-2">
+                    Current Weight (kg)
+                  </label>
+                  <input
+                    type="number"
+                    value={data.weight_kg}
+                    onChange={(e) =>
+                      setData({ ...data, weight_kg: e.target.value })
+                    }
+                    placeholder="70"
+                    className="w-full bg-[#F2F6FA] rounded-xl px-3.5 py-2.5 text-sm text-[#0A1A2F] outline-none border-2 border-transparent focus:border-[#38BDF8]"
+                  />
+                </div>
+              )}
+
+              {/* Height - Imperial */}
+              {(currentStep.fields.includes('height_ft') || currentStep.fields.includes('height_in')) && unitSystem === 'imperial' && (
                 <div className="space-y-3">
                   <label className="text-xs font-bold text-[#0A1A2F]/60 block">
                     Height
@@ -168,6 +221,24 @@ export default function FitnessProfileSetup({ user, onClose, onSave }) {
                       </div>
                     )}
                   </div>
+                </div>
+              )}
+
+              {/* Height - Metric */}
+              {(currentStep.fields.includes('height_ft') || currentStep.fields.includes('height_in')) && unitSystem === 'metric' && (
+                <div>
+                  <label className="text-xs font-bold text-[#0A1A2F]/60 block mb-2">
+                    Height (cm)
+                  </label>
+                  <input
+                    type="number"
+                    value={data.height_cm}
+                    onChange={(e) =>
+                      setData({ ...data, height_cm: e.target.value })
+                    }
+                    placeholder="175"
+                    className="w-full bg-[#F2F6FA] rounded-xl px-3.5 py-2.5 text-sm text-[#0A1A2F] outline-none border-2 border-transparent focus:border-[#38BDF8]"
+                  />
                 </div>
               )}
 
@@ -302,8 +373,8 @@ export default function FitnessProfileSetup({ user, onClose, onSave }) {
                 </div>
               )}
 
-              {/* Goal Weight */}
-              {currentStep.fields.includes('goal_weight_lbs') && (
+              {/* Goal Weight - Imperial */}
+              {currentStep.fields.includes('goal_weight_lbs') && unitSystem === 'imperial' && (
                <div>
                  <label className="text-xs font-bold text-[#0A1A2F]/60 block mb-2">
                    Goal Weight (lbs) (Optional)
@@ -315,6 +386,24 @@ export default function FitnessProfileSetup({ user, onClose, onSave }) {
                      setData({ ...data, goal_weight_lbs: e.target.value })
                    }
                    placeholder="143"
+                   className="w-full bg-[#F2F6FA] rounded-xl px-3.5 py-2.5 text-sm text-[#0A1A2F] outline-none border-2 border-transparent focus:border-[#38BDF8]"
+                 />
+               </div>
+              )}
+
+              {/* Goal Weight - Metric */}
+              {currentStep.fields.includes('goal_weight_lbs') && unitSystem === 'metric' && (
+               <div>
+                 <label className="text-xs font-bold text-[#0A1A2F]/60 block mb-2">
+                   Goal Weight (kg) (Optional)
+                 </label>
+                 <input
+                   type="number"
+                   value={data.goal_weight_kg}
+                   onChange={(e) =>
+                     setData({ ...data, goal_weight_kg: e.target.value })
+                   }
+                   placeholder="65"
                    className="w-full bg-[#F2F6FA] rounded-xl px-3.5 py-2.5 text-sm text-[#0A1A2F] outline-none border-2 border-transparent focus:border-[#38BDF8]"
                  />
                </div>
