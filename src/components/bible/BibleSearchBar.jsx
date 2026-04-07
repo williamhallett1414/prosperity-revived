@@ -214,10 +214,10 @@ export default function BibleSearchBar({ onNavigate }) {
           
           <button
             onClick={() => setShowAdvancedSearch(true)}
-            className="px-4 py-3.5 bg-gradient-to-r from-[#c9a227] to-[#FAD98D] hover:from-[#C9A227] hover:to-[#c9a227] text-white rounded-2xl font-medium flex items-center gap-2 transition-all shadow-sm"
+            className="px-3 py-2 bg-gradient-to-r from-[#c9a227] to-[#FAD98D] hover:from-[#C9A227] hover:to-[#c9a227] text-white rounded-xl font-medium flex items-center gap-1.5 transition-all shadow-sm text-xs"
           >
-            <Sparkles className="w-5 h-5" />
-            <span className="hidden sm:inline">Advanced Search</span>
+            <Sparkles className="w-3.5 h-3.5" />
+            <span className="hidden sm:inline">Advanced</span>
           </button>
         </div>
 
