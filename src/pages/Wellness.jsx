@@ -24,7 +24,7 @@ function getTimeFeature() {
 // ─── Category tiles ───────────────────────────────────────────────────────────
 const CATEGORIES = [
   {
-    label: 'Workouts',
+    label: 'Fitness',
     sub: 'Train with purpose',
     page: 'Workouts',
     gradient: 'from-[#38BDF8] to-[#0284c7]',
