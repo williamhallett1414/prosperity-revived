@@ -7,6 +7,7 @@ import {
   Scale, Target, Flame, Activity, Zap, Droplets,
   ChevronRight, Info, Edit2, Check, BarChart2, Clock
 } from 'lucide-react';
+import FitnessProfileSetup from '@/components/fitness/FitnessProfileSetup';
 
 // ── Calculations ──────────────────────────────────────────────────────────────
 function calcBMI(w, h) { if (!w || !h) return null; return w / ((h / 100) ** 2); }
@@ -147,8 +148,14 @@ export default function FitnessGoalsPage() {
   const [user, setUser] = useState(null);
   const [liveWeight, setLiveWeight] = useState(null);
   const [showInfo, setShowInfo] = useState(false);
+  const [showSetupModal, setShowSetupModal] = useState(false);
 
-  useEffect(() => { base44.auth.me().then(u => { setUser(u); setLiveWeight(u?.weight_kg || null); }).catch(() => {}); }, []);
+  useEffect(() => { 
+    base44.auth.me().then(u => { 
+      setUser(u); 
+      setLiveWeight(u?.weight_kg || null); 
+    }).catch(() => {}); 
+  }, []);
 
   const weight  = liveWeight || user?.weight_kg;
   const height  = user?.height_cm;
@@ -223,10 +230,10 @@ export default function FitnessGoalsPage() {
             <div className="flex-1">
               <p className="text-xs font-bold text-[#C9A227]">Profile incomplete</p>
               <p className="text-[11px] text-[#0A1A2F]/55">
-                Add your {!height ? 'height, ' : ''}{!weight ? 'weight, ' : ''}{!age ? 'age' : ''} in Settings for full calculations.
+                Add your {!height ? 'height, ' : ''}{!weight ? 'weight, ' : ''}{!age ? 'age' : ''} to unlock full calculations.
               </p>
             </div>
-            <Link to={createPageUrl('Settings')} className="text-[11px] font-bold text-[#C9A227] flex-shrink-0">Update →</Link>
+            <button onClick={() => setShowSetupModal(true)} className="text-[11px] font-bold text-[#C9A227] flex-shrink-0">Update →</button>
           </motion.div>
         )}
 
@@ -441,7 +448,22 @@ export default function FitnessGoalsPage() {
         </motion.div>
 
       </div>
+
+      {/* Fitness Profile Setup Modal */}
+      <AnimatePresence>
+        {showSetupModal && (
+          <FitnessProfileSetup
+            user={user}
+            onClose={() => setShowSetupModal(false)}
+            onSave={() => {
+              base44.auth.me().then(u => {
+                setUser(u);
+                setLiveWeight(u?.weight_kg || null);
+              });
+            }}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 }
-
