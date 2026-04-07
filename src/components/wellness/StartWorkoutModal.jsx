@@ -697,7 +697,7 @@ export default function StartWorkoutModal({ isOpen, onClose, workout, user, onCo
         style={{ maxHeight: '95vh' }}
         onInteractOutside={e => e.preventDefault()}
       >
-        <div className="bg-[#0A1A2F] rounded-2xl overflow-hidden flex flex-col relative" style={{ maxHeight: '92vh' }}>
+        <div className="bg-white rounded-2xl overflow-hidden flex flex-col relative" style={{ maxHeight: '92vh' }}>
 
 
 
@@ -724,31 +724,31 @@ export default function StartWorkoutModal({ isOpen, onClose, workout, user, onCo
                 exit={{ opacity: 0, scale: 0.96 }}
                 className="flex flex-col items-center justify-center px-8 py-16 text-center"
               >
-                <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#FD9C2D] to-[#38BDF8] flex items-center justify-center mb-6 shadow-xl shadow-[#FD9C2D]/30">
+                <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#38BDF8] to-[#1e40af] flex items-center justify-center mb-6 shadow-xl shadow-[#38BDF8]/30">
                   <Dumbbell className="w-10 h-10 text-white" />
                 </div>
-                <h2 className="text-2xl font-bold text-white mb-2">{workout?.title}</h2>
-                <p className="text-white/40 text-sm mb-1">
+                <h2 className="text-2xl font-bold text-[#0A1A2F] mb-2">{workout?.title}</h2>
+                <p className="text-[#0A1A2F]/40 text-sm mb-1">
                   {workout?.exercises?.length} exercises · {workout?.duration_minutes} min
                 </p>
                 {lastSession && (
-                  <p className="text-[#38BDF8]/70 text-xs mt-1">
+                  <p className="text-[#0A1A2F]/70 text-xs mt-1">
                     Last completed: {new Date(lastSession.date).toLocaleDateString()}
                   </p>
                 )}
                 <div className="flex items-center gap-2 mt-4 mb-4 px-4 py-2 bg-[#FD9C2D]/10 border border-[#FD9C2D]/20 rounded-full">
                   <span className="text-[#FD9C2D] text-xs font-bold uppercase tracking-widest">🔥 Warm up before you begin</span>
                 </div>
-                <p className="text-white/30 text-[10px] mb-4 max-w-xs text-center leading-relaxed">
+                <p className="text-[#0A1A2F]/30 text-[10px] mb-4 max-w-xs text-center leading-relaxed">
                   By starting, I confirm I am healthy enough for exercise. Consult a physician if unsure.
                 </p>
                 <Button
-                  onClick={() => doStartWorkout(exerciseStats, 0)}
-                  className="bg-gradient-to-r from-[#FD9C2D] to-[#E89020] hover:opacity-90 text-white font-bold px-10 py-3 text-base rounded-xl shadow-lg shadow-[#FD9C2D]/30"
-                >
-                  <Zap className="w-5 h-5 mr-2" /> Start Now
-                </Button>
-                <p className="text-white/20 text-xs mt-4">Auto-starting in 3 seconds…</p>
+                   onClick={() => doStartWorkout(exerciseStats, 0)}
+                   className="bg-gradient-to-r from-[#38BDF8] to-[#1e40af] hover:opacity-90 text-white font-bold px-10 py-3 text-base rounded-xl shadow-lg shadow-[#38BDF8]/30"
+                 >
+                   <Zap className="w-5 h-5 mr-2" /> Start Now
+                 </Button>
+                 <p className="text-[#0A1A2F]/20 text-xs mt-4">Auto-starting in 3 seconds…</p>
               </motion.div>
             )}
 
@@ -760,32 +760,32 @@ export default function StartWorkoutModal({ isOpen, onClose, workout, user, onCo
                 exit={{ opacity: 0, y: -20 }}
                 className="flex flex-col items-center justify-center px-8 py-10 text-center"
               >
-                <p className="text-white/30 text-xs font-bold uppercase tracking-widest mb-4">Rest Time</p>
+                <p className="text-[#0A1A2F]/30 text-xs font-bold uppercase tracking-widest mb-4">Rest Time</p>
 
                 {/* Adjustable duration */}
                 <div className="flex items-center gap-3 mb-4">
                   <button onClick={() => adjustRestDuration(-15)}
-                    className="w-8 h-8 rounded-full bg-white/8 hover:bg-white/15 flex items-center justify-center text-white/50 transition-colors">
+                    className="w-8 h-8 rounded-full bg-[#0A1A2F]/8 hover:bg-[#0A1A2F]/15 flex items-center justify-center text-[#0A1A2F]/50 transition-colors">
                     <Minus className="w-3.5 h-3.5" />
                   </button>
-                  <span className="text-white/40 text-xs w-16 text-center">
+                  <span className="text-[#0A1A2F]/40 text-xs w-16 text-center">
                     {restDuration}s target
                   </span>
                   <button onClick={() => adjustRestDuration(15)}
-                    className="w-8 h-8 rounded-full bg-white/8 hover:bg-white/15 flex items-center justify-center text-white/50 transition-colors">
+                    className="w-8 h-8 rounded-full bg-[#0A1A2F]/8 hover:bg-[#0A1A2F]/15 flex items-center justify-center text-[#0A1A2F]/50 transition-colors">
                     <Plus className="w-3.5 h-3.5" />
                   </button>
-                </div>
+                  </div>
 
-                <div className="relative flex items-center justify-center mb-5">
-                  <CircleTimer seconds={restLeft} total={restDuration} size={160} color="#38BDF8" />
+                  <div className="relative flex items-center justify-center mb-5">
+                  <CircleTimer seconds={restLeft} total={restDuration} size={160} color="#1e40af" />
                   <div className="absolute text-center">
-                    <p className="text-5xl font-bold text-white tabular-nums">{restLeft}</p>
-                    <p className="text-white/30 text-xs mt-1">sec</p>
+                    <p className="text-5xl font-bold text-[#0A1A2F] tabular-nums">{restLeft}</p>
+                    <p className="text-[#0A1A2F]/30 text-xs mt-1">sec</p>
                   </div>
                 </div>
 
-                <p className="text-white/50 text-sm mb-6">
+                <p className="text-[#0A1A2F]/50 text-sm mb-6">
                   {restNextIdx !== null && restNextIdx < exerciseStats.length
                     ? `Up next: ${exerciseStats[restNextIdx]?.name}`
                     : 'Almost there!'}
@@ -793,12 +793,12 @@ export default function StartWorkoutModal({ isOpen, onClose, workout, user, onCo
 
                 <div className="flex gap-3">
                   <Button onClick={() => setRestRunning(p => !p)} variant="outline"
-                    className="border-white/15 text-white/60 hover:bg-white/8 bg-transparent">
+                    className="border-[#0A1A2F]/15 text-[#0A1A2F]/60 hover:bg-[#0A1A2F]/8 bg-transparent">
                     {restRunning ? <Pause className="w-4 h-4 mr-1" /> : <Play className="w-4 h-4 mr-1" />}
                     {restRunning ? 'Pause' : 'Resume'}
                   </Button>
                   <Button onClick={endRest}
-                    className="bg-gradient-to-r from-[#FD9C2D] to-[#E89020] text-white font-bold px-6">
+                    className="bg-gradient-to-r from-[#38BDF8] to-[#1e40af] text-white font-bold px-6">
                     Skip Rest <ChevronRight className="w-4 h-4 ml-1" />
                   </Button>
                 </div>
@@ -827,7 +827,7 @@ export default function StartWorkoutModal({ isOpen, onClose, workout, user, onCo
                 {/* Top bar */}
                 <div className="px-4 pt-2.5 pb-2 flex items-center justify-end flex-shrink-0">
                   <button onClick={skipExercise}
-                    className="text-white/25 hover:text-[#FD9C2D] transition-colors" title="Skip exercise">
+                    className="text-[#0A1A2F]/25 hover:text-[#38BDF8] transition-colors" title="Skip exercise">
                     <SkipForward className="w-4 h-4" />
                   </button>
                 </div>
@@ -835,10 +835,10 @@ export default function StartWorkoutModal({ isOpen, onClose, workout, user, onCo
                 {/* Timer bar */}
                 <div className="px-4 py-2 flex items-center justify-between flex-shrink-0">
                   <div />
-                  <div className="flex items-center gap-1 bg-white/6 rounded-full px-2.5 py-1">
+                  <div className="flex items-center gap-1 bg-[#0A1A2F]/6 rounded-full px-2.5 py-1">
                     <Timer className="w-3 h-3 text-[#38BDF8]" />
-                    <span className="text-white font-bold text-[11px] tabular-nums">{fmt(elapsedTime)}</span>
-                    <button onClick={() => setTimerRunning(p => !p)} className="text-white/30 hover:text-white/60 ml-0.5">
+                    <span className="text-[#0A1A2F] font-bold text-[11px] tabular-nums">{fmt(elapsedTime)}</span>
+                    <button onClick={() => setTimerRunning(p => !p)} className="text-[#0A1A2F]/30 hover:text-[#0A1A2F]/60 ml-0.5">
                       {timerRunning ? <Pause className="w-2.5 h-2.5" /> : <Play className="w-2.5 h-2.5" />}
                     </button>
                   </div>
