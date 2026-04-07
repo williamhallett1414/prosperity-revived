@@ -114,7 +114,7 @@ export default function Layout({ children, currentPageName }) {
     Groups: 'Groups',
     Profile: 'Profile',
     Settings: 'Settings',
-    Workouts: 'Workouts',
+    Workouts: 'Fitness',
     Nutrition: 'Nutrition',
     Prayer: 'Prayer',
     Community: 'Community',
