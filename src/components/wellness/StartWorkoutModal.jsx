@@ -825,22 +825,7 @@ export default function StartWorkoutModal({ isOpen, onClose, workout, user, onCo
                 style={{ maxHeight: '92vh' }}
               >
                 {/* Top bar */}
-                <div className="px-4 pt-2.5 pb-2 flex items-center justify-between flex-shrink-0">
-                  <div className="flex items-center gap-1">
-                    <button onClick={goBack} disabled={currentIdx === 0}
-                      className="text-white/30 hover:text-white/60 disabled:opacity-15 transition-colors">
-                      <ChevronLeft className="w-4 h-4" />
-                    </button>
-                    {/* Tappable counter → overview */}
-                    <button onClick={() => setShowOverview(true)}
-                      className="flex items-center gap-1 text-white/30 hover:text-white/60 transition-colors group">
-                      <span className="text-[10px] font-bold uppercase tracking-wider">
-                        {currentIdx + 1}/{exerciseStats.length}
-                      </span>
-                      <List className="w-3 h-3 group-hover:text-[#FD9C2D] transition-colors" />
-                    </button>
-                  </div>
-
+                <div className="px-4 pt-2.5 pb-2 flex items-center justify-end flex-shrink-0">
                   <button onClick={skipExercise}
                     className="text-white/25 hover:text-[#FD9C2D] transition-colors" title="Skip exercise">
                     <SkipForward className="w-4 h-4" />
@@ -864,13 +849,31 @@ export default function StartWorkoutModal({ isOpen, onClose, workout, user, onCo
                 </div>
 
                 {/* Progress track */}
-                <div className="px-5 mb-4 flex-shrink-0">
+                <div className="px-5 mb-2 flex-shrink-0">
                   <div className="h-1 bg-white/8 rounded-full overflow-hidden">
                     <motion.div
                       className="h-full bg-gradient-to-r from-[#FD9C2D] to-[#38BDF8] rounded-full"
                       animate={{ width: `${(currentIdx / exerciseStats.length) * 100}%` }}
                       transition={{ duration: 0.4 }}
                     />
+                  </div>
+                </div>
+
+                {/* Exercise counter & back nav */}
+                <div className="px-4 py-2 flex items-center justify-center flex-shrink-0">
+                  <div className="flex items-center gap-1">
+                    <button onClick={goBack} disabled={currentIdx === 0}
+                      className="text-white/30 hover:text-white/60 disabled:opacity-15 transition-colors">
+                      <ChevronLeft className="w-4 h-4" />
+                    </button>
+                    {/* Tappable counter → overview */}
+                    <button onClick={() => setShowOverview(true)}
+                      className="flex items-center gap-1 text-white/30 hover:text-white/60 transition-colors group">
+                      <span className="text-[10px] font-bold uppercase tracking-wider">
+                        {currentIdx + 1}/{exerciseStats.length}
+                      </span>
+                      <List className="w-3 h-3 group-hover:text-[#FD9C2D] transition-colors" />
+                    </button>
                   </div>
                 </div>
 
