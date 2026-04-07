@@ -15,8 +15,8 @@ import { PREMADE_WORKOUTS } from '@/components/wellness/WorkoutLibrary';
 import { awardPoints, checkAndAwardBadges } from '@/components/gamification/ProgressManager';
 import { toast } from 'sonner';
 
-const WorkoutPlannerTab = lazy(() => Promise.resolve({ default: () => null }));
-const WorkoutTrendsTab = lazy(() => Promise.resolve({ default: () => null }));
+const WorkoutPlannerTab = lazy(() => import('@/pages/WorkoutPlanner'));
+const WorkoutTrendsTab = lazy(() => import('@/pages/WorkoutTrends'));
 
 // ── Motivational verses for training ────────────────────────────────────────
 const TRAINING_VERSES = [
