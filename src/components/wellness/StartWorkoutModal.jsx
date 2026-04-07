@@ -697,7 +697,7 @@ export default function StartWorkoutModal({ isOpen, onClose, workout, user, onCo
         style={{ maxHeight: '95vh' }}
         onInteractOutside={e => e.preventDefault()}
       >
-        <div className="bg-white rounded-2xl overflow-hidden flex flex-col relative" style={{ maxHeight: '92vh' }}>
+        <div className="bg-gradient-to-br from-[#38BDF8] to-[#1e40af] rounded-2xl overflow-hidden flex flex-col relative" style={{ maxHeight: '92vh' }}>
 
 
 
