@@ -171,7 +171,7 @@ export default function Layout({ children, currentPageName }) {
       'Hannah': 'Hannah (AI)',
       'CoachDavid': 'Coach David (AI)',
       'ChefDaniel': 'Chef Daniel (AI)',
-      'CoachPaul': 'Coach Paul (AI)',
+      'CoachPaul': 'Coach Paul',
     };
     pageTitles['ChatScreen'] = botNames[bot] || 'Chat';
   }
