@@ -71,7 +71,11 @@ export default function FitnessProfileSetup({ user, onClose, onSave }) {
     },
     {
       title: 'Training Schedule',
-      fields: ['workout_days_per_week', 'goal_weight_lbs'],
+      fields: ['workout_days_per_week'],
+    },
+    {
+      title: 'Goal Timeline',
+      fields: ['goal_weight_lbs'],
     },
   ];
 
