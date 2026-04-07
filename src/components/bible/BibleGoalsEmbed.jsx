@@ -346,7 +346,7 @@ export default function BibleGoalsEmbed() {
       {/* Update profile link */}
       <div className="text-center pb-4">
         <Link to={createPageUrl('Settings')} className="text-xs text-[#C9A227] font-semibold">
-          Update my Bible profile in Settings →
+          Update my Chat Settings →
         </Link>
       </div>
 
