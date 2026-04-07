@@ -143,16 +143,20 @@ export default function Bible() {
     onSuccess: () => queryClient.invalidateQueries(['bookmarks']),
   });
 
-  // Deep-link: ?book=John&chapter=3
+  // Deep-link: ?book=John&chapter=3&verse=16
   useEffect(() => {
     const bookName = searchParams.get('book');
     const chapter = searchParams.get('chapter');
+    const verseNum = searchParams.get('verse');
     if (bookName && chapter) {
       const book = getBookByName(bookName);
       if (book) {
         setInitialBook(book);
         setInitialChapter(parseInt(chapter));
         const isOld = bibleBooks.oldTestament.some(b => b.name === book.name);
+        if (verseNum) {
+          setSearchData({ book, chapter: parseInt(chapter), verse: parseInt(verseNum) });
+        }
         setView(isOld ? 'oldTestament' : 'newTestament');
       }
     }
@@ -418,4 +422,3 @@ export default function Bible() {
     </div>
   );
 }
-
