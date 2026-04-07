@@ -374,6 +374,12 @@ export default function FitnessGoalsPage() {
                 </div>
               </div>
             )}
+            <button
+              onClick={() => setShowSetupModal(true)}
+              className="mt-4 w-full py-2.5 rounded-xl bg-white/20 hover:bg-white/30 text-white font-semibold text-sm transition-colors border border-white/30"
+            >
+              Update Timeline
+            </button>
           </motion.div>
         )}
 
