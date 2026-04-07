@@ -278,6 +278,11 @@ export default function Community() {
 
   useEffect(() => { base44.auth.me().then(setUser).catch(() => {}); }, []);
 
+  useEffect(() => {
+    const tab = searchParams.get('tab') || 'feed';
+    setActiveTab(tab);
+  }, [searchParams]);
+
   return (
     <div className="min-h-screen bg-[#F2F6FA] pb-28">
 
@@ -382,4 +387,3 @@ export default function Community() {
     </div>
   );
 }
-
