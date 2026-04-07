@@ -187,7 +187,7 @@ function AddWorkoutSheet({ dayIdx, onClose, onAdd }) {
         </div>
 
         {/* Workout List */}
-        <div className="flex-1 overflow-y-auto px-4 py-2 space-y-2 pb-24">
+        <div className="flex-1 overflow-y-auto px-4 py-2 space-y-2">
           {filtered.length === 0 &&
           <div className="text-center py-10 text-gray-400">
               <Dumbbell className="w-8 h-8 mx-auto mb-2 opacity-30" />
@@ -245,8 +245,8 @@ function AddWorkoutSheet({ dayIdx, onClose, onAdd }) {
           })}
         </div>
 
-        {/* CTA Footer — absolute to bottom */}
-        <div className="absolute bottom-0 left-0 right-0 p-4 bg-white border-t border-gray-200 shadow-2xl shadow-black/10 rounded-br-3xl">
+        {/* CTA Footer — fixed below scroll */}
+        <div className="p-4 bg-white border-t border-gray-200 shadow-2xl shadow-black/10 rounded-br-3xl flex-shrink-0">
           <button onClick={handleAdd} disabled={!selected}
           className={`w-full py-3.5 rounded-2xl font-black text-base transition-all
               ${selected ?
