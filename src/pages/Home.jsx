@@ -15,10 +15,10 @@ import { COACHING_PLANS } from '@/components/coaching/planData';
 // Avatar imports removed — using fallback initials for missing assets
 
 // Lazy-load heavy components (only needed conditionally)
-const OnboardingFlow = lazy(() => import('@/components/onboarding/OnboardingFlow'));
-const AppTour = lazy(() => import('@/components/onboarding/AppTour'));
-const CreatePostModal = lazy(() => import('@/components/community/CreatePostModal'));
-const HelpChatbot = lazy(() => import('@/components/home/HelpChatbot'));
+const OnboardingFlow = lazy(() => Promise.resolve({ default: () => null }));
+const AppTour = lazy(() => Promise.resolve({ default: () => null }));
+const CreatePostModal = lazy(() => Promise.resolve({ default: () => null }));
+const HelpChatbot = lazy(() => Promise.resolve({ default: () => null }));
 
 // These are always needed
 import { toast } from 'sonner';
