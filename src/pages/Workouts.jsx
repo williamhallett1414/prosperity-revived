@@ -573,7 +573,7 @@ export default function Workouts() {
                   
                     <button
                     onClick={() => navigate(createPageUrl(`WorkoutCategoryPage?category=${cat.key}`))}
-                    className={`w-full bg-gradient-to-br ${cat.grad} rounded-2xl p-3.5 shadow-sm hover:shadow-md transition-all text-left`}>
+                    className={`w-full bg-gradient-to-br from-[#38BDF8] to-[#1e40af] rounded-2xl p-3.5 shadow-sm hover:shadow-md transition-all text-left`}>
                     
                       <span className="text-2xl block mb-1.5">{cat.emoji}</span>
                       <p className="text-xs font-bold text-white leading-tight">{cat.label}</p>
