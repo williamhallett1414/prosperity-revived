@@ -26,6 +26,7 @@ export default function FitnessProfileSetup({ user, onClose, onSave }) {
     workout_days_per_week: user?.workout_days_per_week || 3,
     goal_weight_lbs: user?.goal_weight_kg ? Math.round(user.goal_weight_kg * 2.20462) : '',
     goal_weight_kg: user?.goal_weight_kg || '',
+    goal_date: user?.goal_date || '',
   });
   const [saving, setSaving] = useState(false);
 
@@ -38,6 +39,7 @@ export default function FitnessProfileSetup({ user, onClose, onSave }) {
         fitness_level: data.fitness_level,
         fitness_goal: data.fitness_goal,
         workout_days_per_week: data.workout_days_per_week,
+        goal_date: data.goal_date,
       };
 
       if (unitSystem === 'imperial') {
@@ -411,6 +413,23 @@ export default function FitnessProfileSetup({ user, onClose, onSave }) {
                    className="w-full bg-[#F2F6FA] rounded-xl px-3.5 py-2.5 text-sm text-[#0A1A2F] outline-none border-2 border-transparent focus:border-[#38BDF8]"
                  />
                </div>
+              )}
+
+              {/* Goal Date */}
+              {currentStep.fields.includes('goal_weight_lbs') && (
+                <div>
+                  <label className="text-xs font-bold text-[#0A1A2F]/60 block mb-2">
+                    Target Completion Date (Optional)
+                  </label>
+                  <input
+                    type="date"
+                    value={data.goal_date}
+                    onChange={(e) =>
+                      setData({ ...data, goal_date: e.target.value })
+                    }
+                    className="w-full bg-[#F2F6FA] rounded-xl px-3.5 py-2.5 text-sm text-[#0A1A2F] outline-none border-2 border-transparent focus:border-[#38BDF8]"
+                  />
+                </div>
               )}
             </motion.div>
           </AnimatePresence>
