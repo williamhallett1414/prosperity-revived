@@ -82,6 +82,29 @@ export default function Layout({ children, currentPageName }) {
     };
   }, []);
 
+  // Method 3: Check URL for ?tour= parameter on every route change
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const tourKey = params.get('tour');
+    if (tourKey) {
+      // Remove the tour param from URL so it doesn't re-trigger
+      params.delete('tour');
+      const cleanUrl = window.location.pathname + (params.toString() ? '?' + params.toString() : '');
+      window.history.replaceState({}, '', cleanUrl);
+
+      // Import MINI_TOURS dynamically to get the steps
+      import('@/components/home/HelpChatbot').then(mod => {
+        const steps = mod.MINI_TOURS?.[tourKey] || null;
+        window.__pendingMiniTourSteps = steps;
+        setShowGuidedTour(true);
+      }).catch(() => {
+        // Fallback: launch full tour
+        window.__pendingMiniTourSteps = null;
+        setShowGuidedTour(true);
+      });
+    }
+  }, [location.pathname, location.search]);
+
 
   // Primary navigation pages that should be kept mounted
   const primaryPages = ['Home', 'Bible', 'Wellness', 'ProgressDashboard', 'Profile'];

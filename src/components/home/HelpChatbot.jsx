@@ -583,15 +583,10 @@ export default function HelpChatbot() {
   const launchTour = (tourKey) => {
     setIsOpen(false);
     const steps = tourKey ? MINI_TOURS[tourKey] : null;
-    // First navigate to the correct page (React Router — no full reload)
-    const firstNavPage = steps?.[0]?.navigateTo;
-    if (firstNavPage) {
-      navigate(createPageUrl(firstNavPage));
-    }
-    // Then launch the guided tour overlay after a short delay
-    setTimeout(() => {
-      window.dispatchEvent(new CustomEvent('launchGuidedTour', { detail: { steps } }));
-    }, 500);
+    const firstNavPage = steps?.[0]?.navigateTo || 'Home';
+    // Navigate with ?tour= param — Layout picks it up and launches the overlay
+    const url = createPageUrl(firstNavPage) + (tourKey ? '?tour=' + tourKey : '?tour=full');
+    navigate(url);
   };
 
   const navigateTo = (page) => {
