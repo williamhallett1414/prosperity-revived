@@ -188,13 +188,8 @@ function ExerciseOverview({ exercises, currentIdx, exerciseStats, onClose, onJum
       exit={{ opacity: 0, y: 20 }}
       className="absolute inset-0 bg-[#0A1A2F]/98 backdrop-blur-sm z-20 flex flex-col"
     >
-      <div className="flex items-center justify-end px-5 pt-5 pb-3 flex-shrink-0">
-        <button onClick={onClose} className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white/60 hover:bg-white/15">
-          <X className="w-4 h-4" />
-        </button>
-      </div>
       <div className="flex-1 overflow-y-auto px-5 py-3 space-y-2">
-        <h3 className="text-white font-bold text-base mb-3 sticky top-0 bg-[#0A1A2F]/90 backdrop-blur-sm py-2">Workout Overview</h3>
+        <h3 className="text-white font-bold text-base mb-3">Workout Overview</h3>
         {exercises.map((ex, i) => {
           const stat = exerciseStats[i];
           const isDone = stat
@@ -233,11 +228,16 @@ function ExerciseOverview({ exercises, currentIdx, exerciseStats, onClose, onJum
               {isActive && <div className="w-1.5 h-1.5 rounded-full bg-[#FD9C2D] flex-shrink-0" />}
             </button>
           );
-        })}
-      </div>
-    </motion.div>
-  );
-}
+          })}
+          </div>
+          <div className="flex items-center justify-end px-5 pb-3 pt-2 flex-shrink-0 border-t border-white/8">
+          <button onClick={onClose} className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white/60 hover:bg-white/15">
+          <X className="w-4 h-4" />
+          </button>
+          </div>
+          </motion.div>
+          );
+          }
 
 // ─────────────────────────────────────────────────────────────────────────────
 // AUDIO
