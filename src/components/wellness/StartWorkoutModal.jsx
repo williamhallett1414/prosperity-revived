@@ -699,14 +699,9 @@ export default function StartWorkoutModal({ isOpen, onClose, workout, user, onCo
       >
         <div className="bg-[#0A1A2F] rounded-2xl overflow-hidden flex flex-col relative" style={{ maxHeight: '92vh' }}>
 
-          {/* Cancel/Close Button */}
-          <button onClick={() => {
-            setTimerRunning(false);
-            setCountdownRunning(false);
-            onClose();
-          }}
-            className="absolute top-4 right-4 z-50 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
-            title="Cancel workout">
+          {/* Close */}
+          <button onClick={onClose}
+            className="absolute top-4 right-4 z-50 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors">
             <X className="w-4 h-4 text-white/60" />
           </button>
 
