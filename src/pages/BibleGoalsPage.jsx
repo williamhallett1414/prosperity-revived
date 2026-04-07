@@ -3,16 +3,20 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { base44 } from '@/api/base44Client';
 import { createPageUrl } from '@/utils';
 import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
 import {
   BookOpen, Heart, Sparkles, Clock, Users, ChevronRight,
-  BookMarked, Compass, Info, AlertTriangle, CheckCircle, Target} from 'lucide-react';
+  BookMarked, Compass, Info, AlertTriangle, CheckCircle, Target, Pencil, Check, X} from 'lucide-react';
 
 // ── Label maps ─────────────────────────────────────────────────────────────────
 const LEVEL_INFO = {
-  new:     { label: 'New to the Bible',  emoji: '🌱', desc: 'Just starting out',  color: '#22C55E' },
-  some:    { label: 'Some familiarity',  emoji: '📖', desc: 'Know the basics',     color: '#38BDF8' },
-  regular: { label: 'Regular reader',    emoji: '✝️', desc: 'Read often',          color: '#C9A227' },
-  deep:    { label: 'Deep student',      emoji: '🎓', desc: 'In-depth study',      color: '#FD9C2D' },
+  new:          { label: 'New to the Bible',  emoji: '🌱', desc: 'Just starting out',  color: '#22C55E' },
+  familiar:     { label: 'Know the basics',   emoji: '📖', desc: 'Know the basics',     color: '#38BDF8' },
+  some:         { label: 'Know the basics',   emoji: '📖', desc: 'Know the basics',     color: '#38BDF8' },
+  experienced:  { label: 'Regular reader',    emoji: '✝️', desc: 'Read often',          color: '#C9A227' },
+  regular:      { label: 'Regular reader',    emoji: '✝️', desc: 'Read often',          color: '#C9A227' },
+  deep_student: { label: 'Deep student',      emoji: '🏛️', desc: 'In-depth study',      color: '#FD9C2D' },
+  deep:         { label: 'Deep student',      emoji: '🏛️', desc: 'In-depth study',      color: '#FD9C2D' },
 };
 
 const TRANSLATION_INFO = {
@@ -147,13 +151,82 @@ function PlanCard({ plan, delay = 0 }) {
   );
 }
 
+const BIBLE_LEVELS_LIST = [
+  { id: 'new',          label: 'New to the Bible',  emoji: '🌱' },
+  { id: 'familiar',     label: 'Know the basics',   emoji: '📖' },
+  { id: 'experienced',  label: 'Regular reader',    emoji: '✝️' },
+  { id: 'deep_student', label: 'Deep student',      emoji: '🏛️' },
+];
+const TRANSLATIONS_LIST = ['NIV','ESV','KJV','NLT','NKJV','MSG','WEB','any'];
+const TOPICS_LIST = [
+  { id: 'prayer', label: '🙏 Prayer' },
+  { id: 'faith', label: '✝️ Faith & trust' },
+  { id: 'identity', label: '🌟 Identity in Christ' },
+  { id: 'anxiety', label: '🧘 Peace & anxiety' },
+  { id: 'purpose', label: '🎯 Purpose & calling' },
+  { id: 'relationships', label: '💞 Relationships' },
+  { id: 'grief', label: '💔 Grief / Loss' },
+  { id: 'finances', label: '💰 Biblical finances' },
+  { id: 'family', label: '👨‍👩‍👧 Family' },
+  { id: 'marriage', label: '💍 Marriage' },
+];
+const DEPTHS_LIST = [
+  { id: 'short',  label: '⚡ Quick & focused (5 min)' },
+  { id: 'medium', label: '📖 Moderate depth (10–15 min)' },
+  { id: 'deep',   label: '🏛️ Deep dive (20+ min)' },
+];
+const CHURCH_LIST = [
+  { id: 'yes',      label: '✅ Yes, actively' },
+  { id: 'sometimes',label: '🚶 Sometimes' },
+  { id: 'looking',  label: '🔍 Looking for one' },
+  { id: 'no',       label: '🏠 Not currently' },
+];
+
 // ── Main page ──────────────────────────────────────────────────────────────────
 export default function BibleGoalsPage() {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [showTranslationInfo, setShowTranslationInfo] = useState(false);
+  const [editing, setEditing] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [form, setForm] = useState({});
 
-  useEffect(() => { base44.auth.me().then(setUser).catch(() => {}); }, []);
+  useEffect(() => {
+    base44.auth.me().then(u => {
+      setUser(u);
+      setForm({
+        bible_level: u?.bible_level || '',
+        bible_translation: u?.bible_translation || 'any',
+        bible_topics: u?.bible_topics || [],
+        devotional_depth: u?.devotional_depth || '',
+        in_church: u?.in_church || '',
+      });
+    }).catch(() => {});
+  }, []);
+
+  const handleSave = async () => {
+    setSaving(true);
+    try {
+      await base44.auth.updateMe(form);
+      const updated = await base44.auth.me();
+      setUser(updated);
+      setEditing(false);
+      toast.success('Bible profile updated!');
+    } catch {
+      toast.error('Failed to save — please try again');
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const toggleTopic = (id) => {
+    setForm(f => ({
+      ...f,
+      bible_topics: f.bible_topics.includes(id)
+        ? f.bible_topics.filter(t => t !== id)
+        : [...f.bible_topics, id],
+    }));
+  };
 
   const level      = user?.bible_level || 'new';
   const translation= user?.bible_translation || 'any';
@@ -161,12 +234,14 @@ export default function BibleGoalsPage() {
   const depth      = user?.devotional_depth || 'short';
   const church     = user?.in_church || 'no';
 
-  const levelInfo  = LEVEL_INFO[level]  || LEVEL_INFO.new;
+  // Map onboarding keys → display keys
+  const levelKey   = level === 'familiar' ? 'some' : level === 'experienced' ? 'regular' : level === 'deep_student' ? 'deep' : level;
+  const levelInfo  = LEVEL_INFO[level]   || LEVEL_INFO.new;
   const transInfo  = TRANSLATION_INFO[translation] || TRANSLATION_INFO.any;
-  const depthInfo  = DEPTH_INFO[depth]  || DEPTH_INFO.short;
+  const depthInfo  = DEPTH_INFO[depth]   || DEPTH_INFO.short;
   const churchInfo = CHURCH_INFO[church] || CHURCH_INFO.no;
-  const levelPlans = LEVEL_PLANS[level] || LEVEL_PLANS.new;
-  const levelTips  = LEVEL_TIPS[level]  || LEVEL_TIPS.new;
+  const levelPlans = LEVEL_PLANS[levelKey] || LEVEL_PLANS.new;
+  const levelTips  = LEVEL_TIPS[levelKey]  || LEVEL_TIPS.new;
 
   // Deduplicated recommended plans from selected topics
   const topicPlansSeen = new Set();
@@ -191,10 +266,15 @@ export default function BibleGoalsPage() {
           <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center">
             <Target className="w-5 h-5 text-white" />
           </div>
-          <div>
+          <div className="flex-1">
             <h1 className="text-base font-bold text-[#0A1A2F]">Bible Study Goals</h1>
             <p className="text-xs text-[#0A1A2F]/45">Your reading profile</p>
           </div>
+          <button onClick={() => setEditing(v => !v)}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold border border-[#FAD98D]/50 text-[#C9A227] bg-[#FAD98D]/10 transition-all">
+            <Pencil className="w-3.5 h-3.5" />
+            {editing ? 'Cancel' : 'Edit'}
+          </button>
         </div>
       </div>
 
@@ -229,17 +309,106 @@ export default function BibleGoalsPage() {
         </motion.div>
 
         {/* ── Profile incomplete nudge ── */}
-        {profileIncomplete && user && (
+        {profileIncomplete && user && !editing && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.04 }}
             className="flex items-center gap-3 bg-[#FAD98D]/20 border border-[#FAD98D]/30 rounded-2xl px-4 py-3">
             <AlertTriangle className="w-4 h-4 text-[#C9A227] flex-shrink-0" />
             <div className="flex-1">
               <p className="text-xs font-bold text-[#C9A227]">Bible profile incomplete</p>
-              <p className="text-[11px] text-[#0A1A2F]/55">Complete onboarding to get personalised reading plans and devotionals.</p>
+              <p className="text-[11px] text-[#0A1A2F]/55">Set up your profile to get personalised reading plans.</p>
             </div>
-            <Link to={createPageUrl('Settings')} className="text-[11px] font-bold text-[#C9A227] flex-shrink-0">Update →</Link>
+            <button onClick={() => setEditing(true)} className="text-[11px] font-bold text-[#C9A227] flex-shrink-0">Set Up →</button>
           </motion.div>
         )}
+
+        {/* ── Edit Profile Form ── */}
+        <AnimatePresence>
+          {editing && (
+            <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }}
+              className="bg-white rounded-3xl p-5 shadow-sm border-2 border-[#FAD98D]/40 space-y-5">
+              <div className="flex items-center justify-between">
+                <p className="font-bold text-[#0A1A2F] text-sm">Edit Bible Profile</p>
+                <button onClick={() => setEditing(false)} className="w-7 h-7 rounded-full bg-gray-100 flex items-center justify-center">
+                  <X className="w-3.5 h-3.5 text-gray-500" />
+                </button>
+              </div>
+
+              {/* Bible Level */}
+              <div>
+                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Bible Experience</p>
+                <div className="space-y-2">
+                  {BIBLE_LEVELS_LIST.map(o => (
+                    <button key={o.id} onClick={() => setForm(f => ({ ...f, bible_level: o.id }))}
+                      className={`w-full text-left px-4 py-2.5 rounded-2xl border-2 flex items-center gap-3 transition-all ${form.bible_level === o.id ? 'border-[#C9A227] bg-[#FAD98D]/10' : 'border-gray-100 bg-gray-50'}`}>
+                      <span>{o.emoji}</span>
+                      <span className="text-sm font-semibold text-[#0A1A2F]">{o.label}</span>
+                      {form.bible_level === o.id && <Check className="w-4 h-4 text-[#C9A227] ml-auto" />}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Translation */}
+              <div>
+                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Preferred Translation</p>
+                <div className="flex flex-wrap gap-2">
+                  {TRANSLATIONS_LIST.map(t => (
+                    <button key={t} onClick={() => setForm(f => ({ ...f, bible_translation: t }))}
+                      className={`px-3 py-1.5 rounded-xl text-xs font-bold border-2 transition-all ${form.bible_translation === t ? 'border-[#C9A227] bg-[#FAD98D]/20 text-[#C9A227]' : 'border-gray-100 text-gray-600 bg-gray-50'}`}>
+                      {t === 'any' ? 'No preference' : t}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Topics */}
+              <div>
+                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Topics of Interest</p>
+                <div className="flex flex-wrap gap-2">
+                  {TOPICS_LIST.map(o => (
+                    <button key={o.id} onClick={() => toggleTopic(o.id)}
+                      className={`px-3 py-1.5 rounded-xl text-xs font-bold border-2 transition-all ${form.bible_topics.includes(o.id) ? 'border-[#C9A227] bg-[#FAD98D]/20 text-[#C9A227]' : 'border-gray-100 text-gray-600 bg-gray-50'}`}>
+                      {o.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Devotional Depth */}
+              <div>
+                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Devotional Depth</p>
+                <div className="space-y-2">
+                  {DEPTHS_LIST.map(o => (
+                    <button key={o.id} onClick={() => setForm(f => ({ ...f, devotional_depth: o.id }))}
+                      className={`w-full text-left px-4 py-2.5 rounded-2xl border-2 flex items-center gap-3 transition-all ${form.devotional_depth === o.id ? 'border-[#C9A227] bg-[#FAD98D]/10' : 'border-gray-100 bg-gray-50'}`}>
+                      <span className="text-sm font-semibold text-[#0A1A2F] flex-1">{o.label}</span>
+                      {form.devotional_depth === o.id && <Check className="w-4 h-4 text-[#C9A227]" />}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Church */}
+              <div>
+                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Church Community</p>
+                <div className="flex flex-wrap gap-2">
+                  {CHURCH_LIST.map(o => (
+                    <button key={o.id} onClick={() => setForm(f => ({ ...f, in_church: o.id }))}
+                      className={`px-3 py-1.5 rounded-xl text-xs font-bold border-2 transition-all ${form.in_church === o.id ? 'border-[#C9A227] bg-[#FAD98D]/20 text-[#C9A227]' : 'border-gray-100 text-gray-600 bg-gray-50'}`}>
+                      {o.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <button onClick={handleSave} disabled={saving}
+                className="w-full py-3 rounded-2xl font-bold text-sm text-white transition-all"
+                style={{ background: 'linear-gradient(135deg, #C9A227, #FD9C2D)' }}>
+                {saving ? 'Saving…' : 'Save Profile'}
+              </button>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* ── Translation ── */}
         <motion.div id="tour-bible-translation" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.06 }}
@@ -454,4 +623,3 @@ export default function BibleGoalsPage() {
     </div>
   );
 }
-
