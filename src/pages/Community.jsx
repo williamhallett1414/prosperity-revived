@@ -6,7 +6,7 @@ import {
   Sparkles, Users, TrendingUp, Plus, Wand2, PenLine,
   Search, MessageCircle, UserPlus
 } from 'lucide-react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useSearchParams } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { toast } from 'sonner';
 import { Label } from '@/components/ui/label';
