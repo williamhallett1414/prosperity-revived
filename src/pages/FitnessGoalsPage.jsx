@@ -218,6 +218,12 @@ export default function FitnessGoalsPage() {
                   <span className="text-xs font-bold text-white/70 flex-shrink-0">{wDiff} kg to go</span>
                 </div>
               )}
+              <button
+                onClick={() => setShowSetupModal(true)}
+                className="mt-4 w-full py-2.5 rounded-xl bg-white/20 hover:bg-white/30 text-white font-semibold text-sm transition-colors border border-white/30"
+              >
+                Update Goals
+              </button>
             </div>
           </div>
         </motion.div>
