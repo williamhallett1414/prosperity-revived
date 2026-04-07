@@ -437,16 +437,16 @@ const PAGE_SHORTCUTS = {
 
 // ── Quick actions shown before first message ──────────────────────────────────
 const QUICK_ACTIONS = [
-  { icon: Map,      label: 'Take the full guided tour', sub: 'Walk through every feature',        color: '#38BDF8', tourKey: null,           isTour: true },
-  { icon: Sparkles, label: 'Show me the workouts',      sub: 'Fitness & training walkthrough',    color: '#38BDF8', tourKey: 'workouts' },
-  { icon: BookOpen, label: 'How does Bible study work?', sub: 'Bible, Gideon & devotionals',      color: '#C9A227', tourKey: 'bible' },
-  { icon: Play,     label: 'Walk me through nutrition', sub: 'Macros, meals & Chef Daniel',       color: '#22C55E', tourKey: 'nutrition' },
-  { icon: Sparkles, label: 'Show me Personal Growth',   sub: 'Habits, emotions & Hannah',         color: '#AFC7E3', tourKey: 'growth' },
-  { icon: Play,     label: "What's my daily routine?",  sub: 'Morning & evening ritual',          color: '#FD9C2D', tourKey: 'daily_ritual' },
-  { icon: Target,   label: 'Show my fitness goals',      sub: 'BMI · calories · macros · timeline',  color: '#38BDF8', tourKey: 'fitness_goals' },
-  { icon: Salad,    label: 'Walk me through nutrition goals', sub: 'Diet · macros · meal schedule',        color: '#22C55E', tourKey: 'nutrition_goals' },
-  { icon: BookOpen, label: 'Show my Bible study profile',      sub: 'Translation · topics · reading plans',  color: '#C9A227', tourKey: 'bible_goals' },
-  { icon: Brain,    label: 'Show my growth profile',           sub: 'Areas · values · coaching style',       color: '#AFC7E3', tourKey: 'growth_goals' },
+  { icon: Map,      label: 'Explore the Wellness Hub',    sub: 'Workouts, nutrition & more',        color: '#38BDF8', tourKey: null,           isTour: true },
+  { icon: Sparkles, label: 'Show me the workouts',      sub: 'Go to fitness & training',          color: '#38BDF8', tourKey: 'workouts' },
+  { icon: BookOpen, label: 'How does Bible study work?', sub: 'Go to Bible reader & study',       color: '#C9A227', tourKey: 'bible' },
+  { icon: Play,     label: 'Walk me through nutrition', sub: 'Go to macros, meals & tracking',    color: '#22C55E', tourKey: 'nutrition' },
+  { icon: Sparkles, label: 'Show me Personal Growth',   sub: 'Go to habits, emotions & more',     color: '#AFC7E3', tourKey: 'growth' },
+  { icon: Play,     label: "What's my daily routine?",  sub: 'Go to Prayer & devotion',           color: '#FD9C2D', tourKey: 'prayer' },
+  { icon: Target,   label: 'Show my fitness goals',      sub: 'Go to BMI, calories & macros',      color: '#38BDF8', tourKey: 'fitness_goals' },
+  { icon: Salad,    label: 'Walk me through nutrition goals', sub: 'Go to diet, macros & schedule',    color: '#22C55E', tourKey: 'nutrition_goals' },
+  { icon: BookOpen, label: 'Show my Bible study profile',      sub: 'Go to translation & topics',        color: '#C9A227', tourKey: 'bible_goals' },
+  { icon: Brain,    label: 'Show my growth profile',           sub: 'Go to areas, values & tools',       color: '#AFC7E3', tourKey: 'growth_goals' },
 ];
 
 // ── System prompt for LLM ─────────────────────────────────────────────────────
@@ -511,8 +511,8 @@ function AssistantMessage({ msg, onTour, onNavigate }) {
             <Map className="w-3.5 h-3.5" style={{ color: '#38BDF8' }} />
           </div>
           <div className="flex-1 min-w-0">
-            <p className="font-bold text-[#0A1A2F] text-xs leading-tight">Show me how →</p>
-            <p className="text-gray-400 text-[10px]">Interactive spotlight tour</p>
+            <p className="font-bold text-[#0A1A2F] text-xs leading-tight">Take me there →</p>
+            <p className="text-gray-400 text-[10px]">Navigate to this feature</p>
           </div>
           <ChevronRight className="w-3.5 h-3.5 text-gray-300" />
         </motion.button>
@@ -559,13 +559,33 @@ export default function HelpChatbot() {
     }
   }, [messages, isOpen]);
 
+  // Map tour keys to the page they should navigate to
+  const TOUR_PAGE_MAP = {
+    workouts: 'Workouts',
+    nutrition: 'Nutrition',
+    bible: 'Bible',
+    growth: 'PersonalGrowth',
+    daily_ritual: 'Home',
+    community: 'Community',
+    profile: 'Profile',
+    ai_coaches: 'ChatScreen?bot=Gideon',
+    coaching: 'CoachingPlans',
+    habits: 'HabitBuilderPage',
+    prayer: 'Prayer',
+    fitness_goals: 'FitnessGoalsPage',
+    nutrition_goals: 'NutritionGoalsPage',
+    bible_goals: 'BibleGoalsPage',
+    growth_goals: 'PersonalGrowthGoalsPage',
+  };
+
   const launchTour = (tourKey) => {
     setIsOpen(false);
-    const steps = tourKey ? MINI_TOURS[tourKey] : null;
-    setTimeout(() => {
-      // Use CustomEvent — most reliable across all contexts
-      window.dispatchEvent(new CustomEvent('launchGuidedTour', { detail: { steps } }));
-    }, 400);
+    if (tourKey && TOUR_PAGE_MAP[tourKey]) {
+      // Navigate directly to the relevant page
+      setTimeout(() => {
+        window.location.href = createPageUrl(TOUR_PAGE_MAP[tourKey]);
+      }, 200);
+    }
   };
 
   const navigateTo = (page) => {
@@ -616,9 +636,10 @@ export default function HelpChatbot() {
 
   const handleQuickAction = (qa) => {
     if (qa.isTour) {
-      launchTour(null);
+      // Full guided tour — just navigate to Wellness as a good starting point
+      setIsOpen(false);
+      setTimeout(() => { window.location.href = createPageUrl('Wellness'); }, 200);
     } else if (qa.tourKey) {
-      // Launch the mini-tour directly — no intermediate message
       launchTour(qa.tourKey);
     }
   };
