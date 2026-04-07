@@ -226,16 +226,16 @@ export default function ChallengeDetailPage() {
     <div className="min-h-screen bg-[#F2F6FA] pb-24">
       {/* Header */}
       <div className="sticky top-0 z-40 bg-white border-b border-[#F2F6FA] px-4 py-3">
-        <div className="max-w-2xl mx-auto flex items-center justify-between">
-          <button
-            onClick={() => navigate(-1)}
-            className="w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors">
+        
 
-            <ArrowLeft className="w-4 h-4 text-[#0A1A2F]" />
-          </button>
-          <h1 className="text-lg font-bold text-[#0A1A2F]">Challenge</h1>
-          <div className="w-10" />
-        </div>
+
+
+
+
+
+
+
+        
       </div>
 
       <div className="max-w-2xl mx-auto px-4 py-6 space-y-6">
