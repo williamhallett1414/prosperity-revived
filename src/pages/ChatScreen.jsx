@@ -1344,7 +1344,7 @@ export default function ChatScreen() {
 
         {/* Center — Bot identity */}
         <div className="text-center flex-1">
-          <p className="text-white font-bold text-sm leading-tight">{cfg.name} <span className="text-white/40 font-normal">(AI)</span></p>
+          <p className="text-white font-bold text-sm leading-tight">{cfg.name}</p>
           <p className="text-white/40 text-[10px] leading-tight">{cfg.subtitle}</p>
         </div>
 
