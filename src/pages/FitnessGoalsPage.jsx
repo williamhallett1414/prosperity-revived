@@ -5,7 +5,7 @@ import { createPageUrl } from '@/utils';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   Scale, Target, Flame, Activity, Zap, Droplets,
-  ChevronRight, Info, Edit2, Check, BarChart2, Clock
+  ChevronRight, Info, Edit2, Check, BarChart2, Clock, Dumbbell, Calendar, TrendingUp
 } from 'lucide-react';
 import FitnessProfileSetup from '@/components/fitness/FitnessProfileSetup';
 
@@ -160,6 +160,7 @@ export default function FitnessGoalsPage() {
   const [liveWeight, setLiveWeight] = useState(null);
   const [showInfo, setShowInfo] = useState(false);
   const [showSetupModal, setShowSetupModal] = useState(false);
+  const [activeTab, setActiveTab] = useState('goals');
 
   useEffect(() => { 
     base44.auth.me().then(u => { 
@@ -193,8 +194,8 @@ export default function FitnessGoalsPage() {
     <div className="min-h-screen pb-28" style={{ background: '#F2F6FA' }}>
 
       {/* ── Standard Header ── */}
-      <div className="sticky top-0 z-40 bg-white border-b border-[#FAD98D]/20 px-4 pt-4 pb-3">
-        <div className="max-w-lg mx-auto flex items-center gap-3">
+      <div className="sticky top-0 z-40 bg-white border-b border-[#FAD98D]/20 px-4 pt-4 pb-0">
+        <div className="max-w-lg mx-auto flex items-center gap-3 pb-3">
           <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#38BDF8] to-[#0EA5E9] flex items-center justify-center">
             <Target className="w-5 h-5 text-white" />
           </div>
@@ -202,6 +203,33 @@ export default function FitnessGoalsPage() {
             <h1 className="text-base font-bold text-[#0A1A2F]">Fitness Goals</h1>
             <p className="text-xs text-[#0A1A2F]/45">Your fitness profile</p>
           </div>
+        </div>
+
+        {/* ── Tab Bar ── */}
+        <div className="max-w-lg mx-auto px-0 flex gap-0">
+          {[
+            { id: 'today', label: 'Today', icon: <Dumbbell className="w-3.5 h-3.5" /> },
+            { id: 'planner', label: 'Planner', icon: <Calendar className="w-3.5 h-3.5" /> },
+            { id: 'trends', label: 'Trends', icon: <TrendingUp className="w-3.5 h-3.5" /> },
+            { id: 'goals', label: 'Goals', icon: <Target className="w-3.5 h-3.5" /> }
+          ].map((tab) =>
+            <button
+              key={tab.id}
+              onClick={() => tab.id === 'goals' ? null : navigate(createPageUrl('Workouts'))}
+              className={`flex items-center gap-1.5 px-4 py-3 text-xs font-semibold flex-shrink-0 relative transition-colors ${
+                activeTab === tab.id ? 'text-[#38BDF8]' : 'text-[#0A1A2F]/40 hover:text-[#0A1A2F]/60'
+              }`}
+            >
+              {tab.icon} {tab.label}
+              {activeTab === tab.id && (
+                <motion.div
+                  layoutId="fitnessTab"
+                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#38BDF8] to-[#0EA5E9] rounded-full"
+                  transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+                />
+              )}
+            </button>
+          )}
         </div>
       </div>
 
