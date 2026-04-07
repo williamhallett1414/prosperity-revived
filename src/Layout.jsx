@@ -167,10 +167,10 @@ export default function Layout({ children, currentPageName }) {
     const params = new URLSearchParams(location.search);
     const bot = params.get('bot');
     const botNames = {
-      'Gideon': 'Gideon (AI)',
-      'Hannah': 'Hannah (AI)',
-      'CoachDavid': 'Coach David (AI)',
-      'ChefDaniel': 'Chef Daniel (AI)',
+      'Gideon': 'Gideon',
+      'Hannah': 'Hannah',
+      'CoachDavid': 'Coach David',
+      'ChefDaniel': 'Chef Daniel',
       'CoachPaul': 'Coach Paul',
     };
     pageTitles['ChatScreen'] = botNames[bot] || 'Chat';
