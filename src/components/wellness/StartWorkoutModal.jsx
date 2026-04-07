@@ -871,20 +871,20 @@ export default function StartWorkoutModal({ isOpen, onClose, workout, user, onCo
                 </div>
 
                 {/* Exercise title + cue (fixed, not in scroll) */}
-                <div className="px-5 pb-4 flex-shrink-0 border-b border-white/6">
-                  <div className="flex items-center gap-2 mb-2">
+                <div className="px-4 py-2.5 flex-shrink-0 border-b border-white/6">
+                  <div className="flex items-center gap-1.5 mb-1">
                     {currentEx.type === 'timed' && (
-                      <span className="text-[10px] font-bold uppercase tracking-widest text-[#38BDF8] bg-[#38BDF8]/12 rounded-full px-2.5 py-1">Timed</span>
+                      <span className="text-[8px] font-bold uppercase tracking-widest text-[#38BDF8] bg-[#38BDF8]/12 rounded-full px-2 py-0.5">Timed</span>
                     )}
                     {currentEx.type === 'bodyweight' && (
-                      <span className="text-[10px] font-bold uppercase tracking-widest text-[#FD9C2D]/80 bg-[#FD9C2D]/10 rounded-full px-2.5 py-1">Bodyweight</span>
+                      <span className="text-[8px] font-bold uppercase tracking-widest text-[#FD9C2D]/80 bg-[#FD9C2D]/10 rounded-full px-2 py-0.5">Bodyweight</span>
                     )}
                     {currentEx.type === 'weighted' && (
-                      <span className="text-[10px] font-bold uppercase tracking-widest text-white/35 bg-white/6 rounded-full px-2.5 py-1">Weighted</span>
+                      <span className="text-[8px] font-bold uppercase tracking-widest text-white/35 bg-white/6 rounded-full px-2 py-0.5">Weighted</span>
                     )}
                   </div>
-                  <h2 className="text-[1.6rem] font-bold text-white leading-tight">{currentEx.name}</h2>
-                  <p className="text-white/35 text-sm mt-1">
+                  <h2 className="text-base font-bold text-white leading-tight">{currentEx.name}</h2>
+                  <p className="text-white/35 text-[11px] mt-0.5">
                     {currentEx.type === 'timed'
                       ? `${currentEx.target_sets} sets × ${currentEx.duration_seconds}s`
                       : `${currentEx.target_sets} sets × ${currentEx.target_reps} reps`}
@@ -892,8 +892,8 @@ export default function StartWorkoutModal({ isOpen, onClose, workout, user, onCo
 
                   {/* Form cue */}
                   {getFormCue(currentEx.name) && (
-                    <div className="mt-3 p-2.5 bg-white/4 border border-white/8 rounded-lg">
-                      <p className="text-white/40 text-xs leading-relaxed">
+                    <div className="mt-1.5 p-1.5 bg-white/4 border border-white/8 rounded-lg">
+                      <p className="text-white/40 text-[10px] leading-tight">
                         💡 {getFormCue(currentEx.name)}
                       </p>
                     </div>
@@ -904,11 +904,11 @@ export default function StartWorkoutModal({ isOpen, onClose, workout, user, onCo
                     const last = getLastPerf(currentEx.name);
                     if (!last) return null;
                     return (
-                      <div className="mt-2 flex items-center gap-1.5 text-[#38BDF8]/70 text-xs">
-                        <span className="opacity-60">Last time:</span>
+                      <div className="mt-1 flex items-center gap-1 text-[#38BDF8]/70 text-[10px]">
+                        <span className="opacity-60">Last:</span>
                         <span className="font-semibold">
                           {last.sets}×{last.reps} reps
-                          {last.weight > 0 && ` @ ${last.weight} lbs`}
+                          {last.weight > 0 && ` @ ${last.weight}lb`}
                         </span>
                       </div>
                     );
