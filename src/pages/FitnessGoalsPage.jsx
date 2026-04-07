@@ -210,13 +210,10 @@ export default function FitnessGoalsPage() {
                 {height ? `${height} cm · ` : ''}{weight ? `${weight} kg · ` : ''}
                 {level.charAt(0).toUpperCase() + level.slice(1)} · {days}×/week
               </p>
-              {wDiff && goalWt && (
-                <div className="mt-3 flex items-center gap-3">
-                  <div className="flex-1 bg-white/10 rounded-full h-2 overflow-hidden">
-                    <div className="h-full w-[8%] rounded-full bg-[#38BDF8]" />
-                  </div>
-                  <span className="text-xs font-bold text-white/70 flex-shrink-0">{wDiff} kg to go</span>
-                </div>
+              {goalWt && (
+                <p className="text-white/40 text-xs mt-2">
+                  Goal: {goalWt} kg {user?.goal_date && `by ${new Date(user.goal_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}`}
+                </p>
               )}
               <button
                 onClick={() => setShowSetupModal(true)}
