@@ -6,7 +6,7 @@ import {
   Sparkles, Users, TrendingUp, Plus, Wand2, PenLine,
   Search, MessageCircle, UserPlus
 } from 'lucide-react';
-import { useNavigate, Link, useSearchParams } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { toast } from 'sonner';
 import { Label } from '@/components/ui/label';
@@ -270,10 +270,8 @@ function GroupsTab({ user }) {
 
 // ── Main ──────────────────────────────────────────────────────────────────────
 export default function Community() {
-  const [searchParams] = useSearchParams();
-  const initialTab = searchParams.get('tab') || 'feed';
   const [user,            setUser]           = useState(null);
-  const [activeTab,       setActiveTab]      = useState(initialTab);
+  const [activeTab,       setActiveTab]      = useState('feed');
   const [showShareModal,  setShowShareModal]  = useState(false);
   const [showBlogWriter,  setShowBlogWriter]  = useState(false);
   const queryClient = useQueryClient();
@@ -384,3 +382,4 @@ export default function Community() {
     </div>
   );
 }
+
