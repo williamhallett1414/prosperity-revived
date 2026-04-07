@@ -11,20 +11,16 @@ import {
 } from 'lucide-react';
 import { readingPlans, getVerseOfDay } from '@/components/bible/BibleData';
 import { COACHING_PLANS } from '@/components/coaching/planData';
-
-// Avatar imports removed — using fallback initials for missing assets
+import { toast } from 'sonner';
+import TermsUpdateGate, { needsTermsUpdate } from '@/components/onboarding/TermsUpdateGate';
+import StartMyDayModal from '@/components/home/StartMyDayModal';
+import EndMyDayModal from '@/components/home/EndMyDayModal';
 
 // Lazy-load heavy components (only needed conditionally)
 const OnboardingFlow = lazy(() => import('@/components/onboarding/OnboardingFlow'));
 const AppTour = lazy(() => import('@/components/onboarding/AppTour'));
 const CreatePostModal = lazy(() => import('@/components/community/CreatePostModal'));
 const HelpChatbot = lazy(() => import('@/components/home/HelpChatbot'));
-
-// These are always needed
-import { toast } from 'sonner';
-import TermsUpdateGate, { needsTermsUpdate } from '@/components/onboarding/TermsUpdateGate';
-import StartMyDayModal from '@/components/home/StartMyDayModal';
-import EndMyDayModal from '@/components/home/EndMyDayModal';
 
 // ─── Helpers ───────────────────────────────────────────────────────────────────
 function getGreeting() {
