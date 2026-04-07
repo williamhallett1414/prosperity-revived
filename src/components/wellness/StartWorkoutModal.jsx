@@ -188,13 +188,13 @@ function ExerciseOverview({ exercises, currentIdx, exerciseStats, onClose, onJum
       exit={{ opacity: 0, y: 20 }}
       className="absolute inset-0 bg-[#0A1A2F]/98 backdrop-blur-sm z-20 flex flex-col"
     >
-      <div className="flex items-center justify-between px-5 pt-5 pb-3 border-b border-white/8 flex-shrink-0">
-        <h3 className="text-white font-bold text-base">Workout Overview</h3>
+      <div className="flex items-center justify-end px-5 pt-5 pb-3 flex-shrink-0">
         <button onClick={onClose} className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white/60 hover:bg-white/15">
           <X className="w-4 h-4" />
         </button>
       </div>
       <div className="flex-1 overflow-y-auto px-5 py-3 space-y-2">
+        <h3 className="text-white font-bold text-base mb-3 sticky top-0 bg-[#0A1A2F]/90 backdrop-blur-sm py-2">Workout Overview</h3>
         {exercises.map((ex, i) => {
           const stat = exerciseStats[i];
           const isDone = stat
