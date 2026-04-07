@@ -435,12 +435,12 @@ export default function FitnessProfileSetup({ user, onClose, onSave }) {
           </AnimatePresence>
 
           {/* Navigation buttons */}
-          <div className="flex-shrink-0 border-t border-gray-100 px-4 py-2.5 max-w-lg mx-auto w-full">
-          <div className="flex gap-2 mt-0">
+          <div className="flex-shrink-0 border-t border-gray-100 px-4 py-3 max-w-lg mx-auto w-full">
+          <div className="flex gap-2">
             {step > 1 && (
               <button
                 onClick={() => setStep(step - 1)}
-                className="flex-1 py-2.5 rounded-lg bg-gray-100 text-[#0A1A2F] font-bold text-xs"
+                className="px-4 py-2 rounded-lg bg-gray-100 text-[#0A1A2F] font-semibold text-xs hover:bg-gray-200 transition-colors"
               >
                 Back
               </button>
@@ -448,7 +448,7 @@ export default function FitnessProfileSetup({ user, onClose, onSave }) {
               {step < steps.length ? (
               <button
                 onClick={() => setStep(step + 1)}
-                className="flex-1 py-2.5 rounded-lg bg-[#38BDF8] text-white font-bold text-xs active:scale-95 transition-transform"
+                className="flex-1 px-4 py-2 rounded-lg bg-[#38BDF8] text-white font-semibold text-xs hover:bg-[#0EA5E9] active:scale-95 transition-all"
               >
                 Next
               </button>
@@ -456,14 +456,14 @@ export default function FitnessProfileSetup({ user, onClose, onSave }) {
               <button
                 onClick={handleSave}
                 disabled={saving}
-                className="flex-1 py-2.5 rounded-lg bg-[#22C55E] text-white font-bold text-xs active:scale-95 transition-transform disabled:opacity-50 flex items-center justify-center gap-2"
+                className="flex-1 px-4 py-2 rounded-lg bg-[#22C55E] text-white font-semibold text-xs hover:bg-[#16A34A] active:scale-95 transition-all disabled:opacity-50 flex items-center justify-center gap-1.5"
               >
                 {saving ? (
-                  <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  <div className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                 ) : (
                   <>
-                    <Check className="w-4 h-4" />
-                    Complete Setup
+                    <Check className="w-3.5 h-3.5" />
+                    Complete
                   </>
                 )}
               </button>
