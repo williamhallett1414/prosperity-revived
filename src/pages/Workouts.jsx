@@ -463,9 +463,9 @@ export default function Workouts() {
               </SectionLabel>
               {recommendedWorkout ?
               <motion.div
-                whileTap={{ scale: 0.98 }}
-                className="rounded-2xl overflow-hidden shadow-md mb-3"
-                style={{ background: "linear-gradient(135deg,#FD9C2D,#38BDF8)" }}>
+               whileTap={{ scale: 0.98 }}
+               className="rounded-2xl overflow-hidden shadow-md mb-3"
+               style={{ background: "linear-gradient(135deg,#38BDF8,#1e40af)" }}>
                 
                   <div className="p-5">
                     <div className="flex items-start justify-between mb-3">
