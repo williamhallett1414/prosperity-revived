@@ -9,6 +9,7 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { base44 } from '@/api/base44Client';
 import { localDateKey, todayKey } from '@/utils/localDate';
+import MyJournalEntries from '@/pages/MyJournalEntries';
 
 const HabitBuilderTab = lazy(() => import('@/pages/HabitBuilderPage'));
 const GratitudeJournalTab = lazy(() => import('@/pages/GratitudeJournalPage').catch(() => ({ default: () => <div>Unable to load</div> })));
@@ -16,7 +17,6 @@ const MindsetResetTab = lazy(() => import('@/pages/MindsetResetPage'));
 const AffirmationsTab = lazy(() => import('@/pages/AffirmationsPage'));
 const EmotionalCheckInTab = lazy(() => import('@/pages/EmotionalCheckInPage'));
 const IdentityInChristTab = lazy(() => import('@/pages/IdentityInChristPage'));
-const MyJournalEntriesTab = lazy(() => import('@/pages/MyJournalEntries').catch(() => ({ default: () => <div>Unable to load journal entries</div> })));
 const WeeklyReflectionTab = lazy(() => import('@/pages/WeeklyReflectionPage'));
 const GrowthPathwaysTab = lazy(() => import('@/pages/GrowthPathwaysPage'));
 
@@ -424,7 +424,7 @@ export default function PersonalGrowth() {
       )}
       {activeTab === 'journal-entries' && (
         <Suspense fallback={<TabSpinner />}>
-          <MyJournalEntriesTab />
+          <MyJournalEntries />
         </Suspense>
       )}
       {activeTab === 'journal-gratitude' && (
