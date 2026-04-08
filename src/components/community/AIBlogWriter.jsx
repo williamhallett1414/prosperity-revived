@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { X, Sparkles, Wand2, Pencil, Check, Loader2, BookOpen, ArrowLeft } from 'lucide-react';
 import { base44 } from '@/api/base44Client';

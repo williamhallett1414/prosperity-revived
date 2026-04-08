@@ -8,12 +8,20 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, Share2, BookOpen, Trophy } from 'lucide-react';
 import { toast } from 'sonner';
 
-import CommunityFeed from '@/components/community/CommunityFeed';
-import GroupChallenges from '@/components/community/GroupChallenges';
-import ShareMilestoneModal from '@/components/community/ShareMilestoneModal';
-import AIBlogWriter from '@/components/community/AIBlogWriter';
-import ModerationPanel from '@/components/community/ModerationPanel';
-import BlogFeed from '@/components/community/BlogFeed';
+// Commenting out to isolate syntax errors
+// import CommunityFeed from '@/components/community/CommunityFeed';
+// import GroupChallenges from '@/components/community/GroupChallenges';
+// import ShareMilestoneModal from '@/components/community/ShareMilestoneModal';
+// import AIBlogWriter from '@/components/community/AIBlogWriter';
+// import ModerationPanel from '@/components/community/ModerationPanel';
+// import BlogFeed from '@/components/community/BlogFeed';
+
+const CommunityFeed = () => <div>Feed</div>;
+const GroupChallenges = () => <div>Challenges</div>;
+const ShareMilestoneModal = () => null;
+const AIBlogWriter = () => null;
+const ModerationPanel = () => <div>Moderation</div>;
+const BlogFeed = () => <div>Blog</div>;
 
 export default function Community() {
   const [searchParams] = useSearchParams();
