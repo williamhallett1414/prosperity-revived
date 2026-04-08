@@ -183,24 +183,32 @@ export default function Nutrition() {
           </div>
 
           {/* Tab bar */}
-          <div className="flex gap-1.5">
-            {TABS.map(({ id, label, icon: Icon }) =>
-            <button key={id} onClick={() => {
-              if (id === 'goals') navigate(createPageUrl('NutritionGoalsPage'));
-              else if (id === 'log') setShowLogModal(true);
-              else if (id === 'history') navigate(createPageUrl('FoodLogHistory'));
-              else setActiveTab(id);
-            }}
-            className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-xl text-xs font-bold transition-all ${
-            id === 'log' ?
-            'bg-gradient-to-b from-[#c9a227] to-[#FAD98D] text-white shadow-sm' :
-            activeTab === id ?
-            'bg-gradient-to-b from-[#c9a227] to-[#FAD98D] text-white shadow-sm' :
-            'bg-[#F2F6FA] text-[#0A1A2F]/45 hover:text-[#0A1A2F]/65'}`
-            }>
-                <Icon className="w-3.5 h-3.5" />{label}
-              </button>
-            )}
+          <div className="flex gap-1 overflow-x-auto scrollbar-none">
+            {TABS.map(({ id, label, icon: Icon }) => {
+              const isLog = id === 'log';
+              const isActive = activeTab === id;
+              return (
+                <button key={id} onClick={() => {
+                  if (id === 'goals') navigate(createPageUrl('NutritionGoalsPage'));
+                  else if (id === 'log') setShowLogModal(true);
+                  else if (id === 'history') navigate(createPageUrl('FoodLogHistory'));
+                  else setActiveTab(id);
+                }}
+                className={`flex-shrink-0 flex flex-col items-center gap-0.5 px-3 py-2 rounded-xl text-[10px] font-bold transition-all ${
+                  isLog
+                    ? 'bg-gradient-to-b from-[#c9a227] to-[#FAD98D] text-white shadow-md shadow-[#c9a227]/20 scale-105'
+                    : isActive
+                    ? 'bg-[#FAD98D]/25 text-[#c9a227]'
+                    : 'text-[#0A1A2F]/40 hover:text-[#0A1A2F]/65 hover:bg-[#F2F6FA]'
+                }`}>
+                  <Icon className="w-4 h-4" />
+                  <span className="leading-none">{label}</span>
+                  {isActive && !isLog && (
+                    <div className="w-1 h-1 rounded-full bg-[#c9a227]" />
+                  )}
+                </button>
+              );
+            })}
           </div>
         </div>
       </div>
