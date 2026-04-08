@@ -378,19 +378,16 @@ export default function PersonalGrowth() {
           )}
         </div>
 
-        <div className="max-w-2xl mx-auto px-4 flex gap-0 overflow-x-auto items-center">
+        <div className="max-w-2xl mx-auto px-4 flex gap-1.5 overflow-x-auto items-center">
           {TABS.map(tab => (
             <button key={tab.id} onClick={() => setActiveTab(tab.id)}
-              className={`flex items-center gap-1.5 px-3.5 py-3 text-xs font-semibold flex-shrink-0 relative transition-colors ${
-                activeTab === tab.id ? 'text-[#3C4E53]' : 'text-[#0A1A2F]/35 hover:text-[#0A1A2F]/55'
+              className={`flex items-center gap-1.5 px-4 py-2.5 text-xs font-semibold flex-shrink-0 rounded-lg transition-all ${
+                activeTab === tab.id 
+                  ? 'bg-[#3C4E53] text-white shadow-sm' 
+                  : 'text-[#0A1A2F]/50 hover:bg-[#AFC7E3]/15 hover:text-[#3C4E53]'
               }`}
             >
               {tab.icon} {tab.label}
-              {activeTab === tab.id && (
-                <motion.div layoutId="growthTab"
-                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#AFC7E3] to-[#3C4E53] rounded-full"
-                  transition={{ type: 'spring', stiffness: 500, damping: 30 }} />
-              )}
             </button>
           ))}
           <div className="flex-1" />
