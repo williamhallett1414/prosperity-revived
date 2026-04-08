@@ -317,15 +317,20 @@ export default function AffirmationsPage() {
         </AnimatePresence>
 
         {/* ── Action row ── */}
-        <div className="flex gap-3">
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="flex gap-2.5">
+          <button onClick={handleShuffle}
+            className="flex items-center justify-center gap-2 px-4 py-3 rounded-2xl text-sm font-semibold bg-white border border-[#FAD98D]/20 text-[#0A1A2F] hover:bg-[#FAD98D]/10 active:scale-95 transition-all">
+            <RefreshCw className="w-4 h-4" />
+            New
+          </button>
           <button onClick={handleSave} disabled={isSaved || saving}
-            className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-2xl text-sm font-semibold border transition-all ${
+            className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-2xl text-sm font-semibold transition-all ${
               isSaved
-                ? 'bg-[#FAD98D]/20 border-[#FAD98D]/40 text-[#c9a227]'
-                : 'bg-white border-[#FAD98D]/30 text-[#0A1A2F]/70 hover:bg-[#FAD98D]/15'
+                ? 'bg-[#FAD98D]/20 border border-[#FAD98D]/40 text-[#c9a227]'
+                : 'bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white shadow-sm hover:opacity-90'
             }`}>
-            <Heart className={`w-4 h-4 ${isSaved ? 'fill-[#c9a227] text-[#c9a227]' : 'text-[#FAD98D]'}`} />
-            {isSaved ? 'Saved' : saving ? 'Saving…' : 'Save to Favorites'}
+            <Heart className={`w-4 h-4 ${isSaved ? 'fill-[#c9a227]' : ''}`} />
+            {isSaved ? 'Saved ✓' : saving ? 'Saving…' : 'Save'}
           </button>
           <ShareToFeedButton
             type="spiritual_insight"
@@ -336,12 +341,7 @@ export default function AffirmationsPage() {
             color="#C9A227"
             user={user}
           />
-          <button onClick={handleShuffle}
-            className="flex items-center justify-center gap-2 px-5 py-3 rounded-2xl text-sm font-semibold bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white hover:opacity-90 active:scale-95 transition-all shadow-sm">
-            <RefreshCw className="w-4 h-4" />
-            New
-          </button>
-        </div>
+        </motion.div>
 
         {/* ── All affirmations ── */}
         <div>
