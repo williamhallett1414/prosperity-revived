@@ -297,30 +297,32 @@ Requirements:
                   </button>
 
                   {/* Action Buttons */}
-                  <div className="flex gap-2 mt-3">
+                  <div className="flex gap-2 mt-4 pt-3 border-t border-[#FAD98D]/20">
                     <button
                       onClick={() => handleLogToFoodLog(recipe)}
                       disabled={!!loggedRecipes[recipe.name]}
-                      className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-xl text-xs font-bold transition-all ${
+                      className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-2xl text-xs font-bold transition-all shadow-sm ${
                         loggedRecipes[recipe.name]
-                          ? 'bg-emerald-50 text-emerald-600 border border-emerald-200'
-                          : 'bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white active:scale-95'
+                          ? 'bg-emerald-50 text-emerald-600 border border-emerald-200 shadow-none'
+                          : 'bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white shadow-[#c9a227]/25 active:scale-95 hover:opacity-90'
                       }`}
                     >
-                      {loggedRecipes[recipe.name] ? <Check className="w-3.5 h-3.5" /> : <Utensils className="w-3.5 h-3.5" />}
-                      {loggedRecipes[recipe.name] ? 'Logged!' : 'Log to Food Log'}
+                      {loggedRecipes[recipe.name]
+                        ? <><Check className="w-3.5 h-3.5" /> Logged!</>
+                        : <><Utensils className="w-3.5 h-3.5" /> Log to Food Log</>}
                     </button>
                     <button
                       onClick={() => handleSaveRecipe(recipe)}
                       disabled={!!savedRecipes[recipe.name]}
-                      className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-xl text-xs font-bold transition-all ${
+                      className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-2xl text-xs font-bold transition-all shadow-sm ${
                         savedRecipes[recipe.name]
-                          ? 'bg-blue-50 text-blue-600 border border-blue-200'
-                          : 'bg-[#AFC7E3]/30 text-[#3C4E53] border border-[#AFC7E3]/40 active:scale-95'
+                          ? 'bg-[#AFC7E3]/20 text-[#3C4E53] border border-[#AFC7E3]/40 shadow-none'
+                          : 'bg-[#3C4E53] text-white shadow-[#3C4E53]/20 active:scale-95 hover:opacity-90'
                       }`}
                     >
-                      {savedRecipes[recipe.name] ? <Check className="w-3.5 h-3.5" /> : <BookmarkPlus className="w-3.5 h-3.5" />}
-                      {savedRecipes[recipe.name] ? 'Saved!' : 'Save to My Recipes'}
+                      {savedRecipes[recipe.name]
+                        ? <><Check className="w-3.5 h-3.5" /> Saved!</>
+                        : <><BookmarkPlus className="w-3.5 h-3.5" /> Save Recipe</>}
                     </button>
                   </div>
 
