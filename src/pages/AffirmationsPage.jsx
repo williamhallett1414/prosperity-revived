@@ -317,20 +317,20 @@ export default function AffirmationsPage() {
         </AnimatePresence>
 
         {/* ── Action row ── */}
-        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="flex gap-2.5">
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="flex gap-3 pt-2">
           <button onClick={handleShuffle}
-            className="flex items-center justify-center gap-2 px-4 py-3 rounded-2xl text-sm font-semibold bg-white border border-[#FAD98D]/20 text-[#0A1A2F] hover:bg-[#FAD98D]/10 active:scale-95 transition-all">
-            <RefreshCw className="w-4 h-4" />
+            className="flex items-center justify-center gap-2 px-5 py-3.5 rounded-2xl text-sm font-semibold bg-white border-2 border-[#FAD98D]/25 text-[#0A1A2F] hover:bg-[#FAD98D]/15 hover:border-[#FAD98D]/50 active:scale-95 transition-all duration-200 shadow-sm hover:shadow-md">
+            <RefreshCw className="w-4.5 h-4.5" />
             New
           </button>
           <button onClick={handleSave} disabled={isSaved || saving}
-            className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-2xl text-sm font-semibold transition-all ${
+            className={`flex-1 flex items-center justify-center gap-2 py-3.5 rounded-2xl text-sm font-bold transition-all duration-200 ${
               isSaved
-                ? 'bg-[#FAD98D]/20 border border-[#FAD98D]/40 text-[#c9a227]'
-                : 'bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white shadow-sm hover:opacity-90'
+                ? 'bg-[#FAD98D]/20 border-2 border-[#FAD98D]/40 text-[#c9a227] shadow-sm'
+                : 'bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white shadow-md hover:shadow-lg hover:scale-102 active:scale-98'
             }`}>
-            <Heart className={`w-4 h-4 ${isSaved ? 'fill-[#c9a227]' : ''}`} />
-            {isSaved ? 'Saved ✓' : saving ? 'Saving…' : 'Save'}
+            <Heart className={`w-4.5 h-4.5 ${isSaved ? 'fill-[#c9a227]' : ''}`} />
+            {isSaved ? 'Saved' : saving ? 'Saving…' : 'Save'}
           </button>
           <ShareToFeedButton
             type="spiritual_insight"
