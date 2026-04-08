@@ -177,7 +177,7 @@ function UpdateGoalsModal({ user, onClose, onSave }) {
   return (
     <div className="fixed inset-0 z-50 flex items-end justify-center" style={{ background: 'rgba(0,0,0,0.5)' }}>
       <motion.div initial={{ y: 80, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: 80, opacity: 0 }}
-        className="w-full max-w-lg bg-white rounded-t-3xl flex flex-col max-h-[90vh]">
+        className="w-full max-w-lg bg-white rounded-t-3xl flex flex-col" style={{ maxHeight: '85vh' }}>
         {/* Fixed header */}
         <div className="flex items-center justify-between px-5 pt-5 pb-4 flex-shrink-0">
           <h2 className="font-black text-[#0A1A2F] text-lg">Update Nutrition Goals</h2>
@@ -297,7 +297,7 @@ function UpdateGoalsModal({ user, onClose, onSave }) {
         </div>
 
         {/* Fixed footer button */}
-        <div className="px-5 pt-3 pb-5 flex-shrink-0 border-t border-gray-100">
+        <div className="px-5 pt-3 pb-6 flex-shrink-0 border-t border-gray-100" style={{ paddingBottom: 'max(24px, env(safe-area-inset-bottom))' }}>
           <button onClick={save} disabled={saving}
             className="w-full py-3.5 rounded-2xl font-bold text-white text-sm flex items-center justify-center gap-2 transition-all active:scale-98"
             style={{ background: 'linear-gradient(135deg,#166534,#22C55E)' }}>
