@@ -136,10 +136,6 @@ Rules:
         transition={{ delay: Math.min(index * 0.04, 0.4) }}
         className="bg-white rounded-2xl overflow-hidden border border-[#FAD98D]/20 shadow-sm"
       >
-        {recipe.image_url && (
-          <img src={recipe.image_url} alt={recipe.title} className="w-full h-44 object-cover" />
-        )}
-
         <div className="p-4">
           {/* Title */}
           <div className="flex items-start justify-between gap-2 mb-2">
