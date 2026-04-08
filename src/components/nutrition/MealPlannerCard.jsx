@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { CalendarDays, Loader2, ShoppingCart, X, Plus, CheckCircle2, ChevronDown, ChevronUp, Sparkles } from 'lucide-react';
+import { CalendarDays, Loader2, ShoppingCart, X, Plus, CheckCircle2, ChevronDown, ChevronUp, Sparkles, Search } from 'lucide-react';
 
 const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 const MEAL_TYPES = ['Breakfast', 'Lunch', 'Dinner'];
@@ -18,11 +18,26 @@ export default function MealPlannerCard() {
   const [showPlan, setShowPlan] = useState(true);
   const [showList, setShowList] = useState(false);
   const [error, setError] = useState(null);
+  const [search, setSearch] = useState('');
+  const [filterCat, setFilterCat] = useState('all');
 
   const { data: savedRecipes = [] } = useQuery({
     queryKey: ['recipes'],
-    queryFn: () => base44.entities.Recipe.list('-created_date', 30),
+    queryFn: () => base44.entities.Recipe.list('-created_date', 200),
   });
+
+  const filteredRecipes = useMemo(() => {
+    return savedRecipes.filter(r => {
+      const matchesSearch = !search || r.title?.toLowerCase().includes(search.toLowerCase());
+      const matchesCat = filterCat === 'all' || r.category === filterCat;
+      return matchesSearch && matchesCat;
+    });
+  }, [savedRecipes, search, filterCat]);
+
+  const categories = useMemo(() => {
+    const cats = [...new Set(savedRecipes.map(r => r.category).filter(Boolean))];
+    return cats;
+  }, [savedRecipes]);
 
   const toggleRecipe = (recipe) => {
     setSelectedRecipes(prev =>
@@ -183,29 +198,72 @@ Consolidate duplicates, include realistic quantities (e.g. "2 lbs chicken breast
               className="overflow-hidden"
             >
               {savedRecipes.length === 0 ? (
-                <p className="text-sm text-[#0A1A2F]/50 py-3 text-center">No saved recipes yet. Create some in Discover Recipes!</p>
+                <p className="text-sm text-[#0A1A2F]/50 py-3 text-center">No saved recipes yet. Create some in Discover Recipes or the Recipe Builder!</p>
               ) : (
-                <div className="grid gap-2 max-h-60 overflow-y-auto pr-1">
-                  {savedRecipes.map(recipe => {
-                    const isSelected = selectedRecipes.find(r => r.id === recipe.id);
-                    return (
+                <div className="space-y-2 mt-2">
+                  {/* Search */}
+                  <div className="relative">
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#0A1A2F]/30" />
+                    <input
+                      type="text"
+                      placeholder="Search recipes..."
+                      value={search}
+                      onChange={e => setSearch(e.target.value)}
+                      className="w-full pl-8 pr-3 py-2 text-sm rounded-xl border border-[#FAD98D]/25 bg-[#F2F6FA] text-[#0A1A2F] placeholder-[#0A1A2F]/35 focus:outline-none focus:border-[#c9a227]/50"
+                    />
+                  </div>
+                  {/* Category filter */}
+                  {categories.length > 1 && (
+                    <div className="flex gap-1.5 flex-wrap">
                       <button
-                        key={recipe.id}
-                        onClick={() => toggleRecipe(recipe)}
-                        className={`flex items-center justify-between p-3 rounded-xl border text-left transition-all ${
-                          isSelected
-                            ? 'bg-[#FAD98D]/15 border-[#c9a227]/30'
-                            : 'bg-[#F2F6FA] border-[#FAD98D]/20 hover:border-[#AFC7E3]/30'
-                        }`}
-                      >
-                        <div>
-                          <p className="text-sm font-semibold text-[#0A1A2F]">{recipe.title}</p>
-                          <p className="text-xs text-[#0A1A2F]/50 capitalize">{recipe.category} · {recipe.diet_type?.replace('_', ' ')}</p>
-                        </div>
-                        {isSelected && <CheckCircle2 className="w-5 h-5 text-[#c9a227] flex-shrink-0" />}
-                      </button>
-                    );
-                  })}
+                        onClick={() => setFilterCat('all')}
+                        className={`px-2.5 py-1 rounded-full text-xs font-semibold transition-all ${filterCat === 'all' ? 'bg-[#c9a227] text-white' : 'bg-[#F2F6FA] text-[#0A1A2F]/50'}`}
+                      >All</button>
+                      {categories.map(cat => (
+                        <button
+                          key={cat}
+                          onClick={() => setFilterCat(cat)}
+                          className={`px-2.5 py-1 rounded-full text-xs font-semibold capitalize transition-all ${filterCat === cat ? 'bg-[#c9a227] text-white' : 'bg-[#F2F6FA] text-[#0A1A2F]/50'}`}
+                        >{cat}</button>
+                      ))}
+                    </div>
+                  )}
+                  {/* Recipe list */}
+                  <div className="grid gap-2 max-h-64 overflow-y-auto pr-1">
+                    {filteredRecipes.length === 0 ? (
+                      <p className="text-xs text-[#0A1A2F]/40 text-center py-3">No recipes match your search.</p>
+                    ) : filteredRecipes.map(recipe => {
+                      const isSelected = selectedRecipes.find(r => r.id === recipe.id);
+                      return (
+                        <button
+                          key={recipe.id}
+                          onClick={() => toggleRecipe(recipe)}
+                          className={`flex items-center justify-between p-3 rounded-xl border text-left transition-all ${
+                            isSelected
+                              ? 'bg-[#FAD98D]/15 border-[#c9a227]/30'
+                              : 'bg-[#F2F6FA] border-[#FAD98D]/20 hover:border-[#c9a227]/25'
+                          }`}
+                        >
+                          <div className="min-w-0 flex-1">
+                            <p className="text-sm font-semibold text-[#0A1A2F] truncate">{recipe.title}</p>
+                            <div className="flex gap-2 mt-0.5 flex-wrap">
+                              {recipe.category && (
+                                <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-[#FAD98D]/30 text-[#c9a227] capitalize">{recipe.category}</span>
+                              )}
+                              {recipe.diet_type && recipe.diet_type !== 'any' && (
+                                <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-[#22c55e]/15 text-[#16a34a] capitalize">{recipe.diet_type.replace('_', ' ')}</span>
+                              )}
+                              {recipe.calories && (
+                                <span className="text-[10px] text-[#0A1A2F]/35">{recipe.calories} cal</span>
+                              )}
+                            </div>
+                          </div>
+                          {isSelected && <CheckCircle2 className="w-5 h-5 text-[#c9a227] flex-shrink-0 ml-2" />}
+                        </button>
+                      );
+                    })}
+                  </div>
+                  <p className="text-[10px] text-[#0A1A2F]/30 text-center">{filteredRecipes.length} of {savedRecipes.length} recipes shown</p>
                 </div>
               )}
             </motion.div>
