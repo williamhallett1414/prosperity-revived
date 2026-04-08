@@ -451,7 +451,14 @@ function StepRow({ step, pathwayId, completedIds, isLocked, onToggle, reflection
                     </p>
                   </div>
                   <p className="text-xs text-[#0A1A2F]/55 leading-relaxed">{step.context}</p>
-                  <button onClick={() => navigate(createPageUrl(`Bible?verse=${encodeURIComponent(step.verse)}`))}
+                  <button onClick={() => {
+                    const match = step.verse.match(/^(\d*\s*\w+(?:\s+\w+)?)\s+(\d+):(\d+)/);
+                    if (match) {
+                      const book = match[1].trim();
+                      const chapter = match[2];
+                      navigate(createPageUrl(`Bible?book=${encodeURIComponent(book)}&chapter=${chapter}`));
+                    }
+                  }}
                     className="flex items-center gap-2 text-xs font-bold text-[#c9a227] hover:text-[#FAD98D] transition-colors px-3 py-2 rounded-lg hover:bg-[#FAD98D]/10">
                     Read more →
                   </button>
