@@ -284,7 +284,7 @@ export default function Nutrition() {
                 <p className="text-xs font-bold text-[#0A1A2F]/35 uppercase tracking-widest">Meals Logged Today · {todayMeals.length}</p>
               </div>
               {todayMeals.length === 0 ?
-            <div className="bg-white rounded-2xl border border-[#FAD98D]/20 p-6 text-center">
+            <div className="bg-gradient-to-r from-orange-50 to-amber-50 rounded-2xl border border-[#FAD98D]/30 p-6 text-center">
                   <p className="text-sm text-[#0A1A2F]/40 font-semibold">Nothing logged yet</p>
                   <p className="text-xs text-[#0A1A2F]/25 mt-1">Tap a suggestion below or use Log Food</p>
                 </div> :
