@@ -118,14 +118,48 @@ class AmbientSoundscape {
   }
 }
 
+// ─── Preload voices (Chrome loads them async) ────────────────────────────────
+let cachedHannahVoice = null;
+let voicesLoaded = false;
+
+function preloadVoices() {
+  return new Promise(resolve => {
+    if (voicesLoaded && cachedHannahVoice) { resolve(cachedHannahVoice); return; }
+    const voices = window.speechSynthesis?.getVoices() || [];
+    if (voices.length > 0) {
+      cachedHannahVoice = findHannahVoice(voices);
+      voicesLoaded = true;
+      resolve(cachedHannahVoice);
+      return;
+    }
+    // Wait for voiceschanged event (Chrome)
+    const handler = () => {
+      const v = window.speechSynthesis.getVoices();
+      cachedHannahVoice = findHannahVoice(v);
+      voicesLoaded = true;
+      window.speechSynthesis.removeEventListener('voiceschanged', handler);
+      resolve(cachedHannahVoice);
+    };
+    window.speechSynthesis?.addEventListener('voiceschanged', handler);
+    // Fallback timeout — resolve with null after 3s
+    setTimeout(() => {
+      if (!voicesLoaded) {
+        const v = window.speechSynthesis?.getVoices() || [];
+        cachedHannahVoice = findHannahVoice(v);
+        voicesLoaded = true;
+        resolve(cachedHannahVoice);
+      }
+    }, 3000);
+  });
+}
+
 const speakSegment = (text, rate = MEDITATION_VOICE.rate, pitch = MEDITATION_VOICE.pitch) => new Promise(resolve => {
   if (!window.speechSynthesis) { resolve(); return; }
   window.speechSynthesis.cancel();
   const utter = new SpeechSynthesisUtterance(text);
   utter.rate = rate; utter.pitch = pitch; utter.volume = MEDITATION_VOICE.volume;
-  const voices = window.speechSynthesis.getVoices();
-  const preferred = findHannahVoice(voices);
-  if (preferred) utter.voice = preferred;
+  // Use cached voice — already preloaded before meditation starts
+  if (cachedHannahVoice) utter.voice = cachedHannahVoice;
   utter.onend = resolve; utter.onerror = resolve;
   window.speechSynthesis.speak(utter);
 });
@@ -148,6 +182,18 @@ function MeditationPlayer({ meditation, onClose }) {
   const timerRef  = useRef(null);
   const breathRef = useRef(null);
 
+  // Chrome pauses speechSynthesis after ~15s. Keep-alive resumes it.
+  const chromeKeepAlive = useRef(null);
+  useEffect(() => {
+    chromeKeepAlive.current = setInterval(() => {
+      if (window.speechSynthesis?.speaking && !window.speechSynthesis?.paused) {
+        window.speechSynthesis.pause();
+        window.speechSynthesis.resume();
+      }
+    }, 10000);
+    return () => clearInterval(chromeKeepAlive.current);
+  }, []);
+
   useEffect(() => {
     run();
     return () => {
@@ -161,6 +207,8 @@ function MeditationPlayer({ meditation, onClose }) {
 
   const run = async () => {
     stoppedRef.current = false; pausedRef.current = false;
+    // Preload Hannah's voice before starting
+    await preloadVoices();
     let segments = [];
     try {
       const raw = await base44.integrations.Core.InvokeLLM({
