@@ -17,10 +17,10 @@ import StartMyDayModal from '@/components/home/StartMyDayModal';
 import EndMyDayModal from '@/components/home/EndMyDayModal';
 
 // Lazy-load heavy components (only needed conditionally)
-const OnboardingFlow = lazy(() => import('@/components/onboarding/OnboardingFlow'));
-const AppTour = lazy(() => import('@/components/onboarding/AppTour'));
-const CreatePostModal = lazy(() => import('@/components/community/CreatePostModal'));
-const HelpChatbot = lazy(() => import('@/components/home/HelpChatbot'));
+const OnboardingFlow = lazy(() => import('@/components/onboarding/OnboardingFlow').catch(() => ({ default: () => null })));
+const AppTour = lazy(() => import('@/components/onboarding/AppTour').catch(() => ({ default: () => null })));
+const CreatePostModal = lazy(() => import('@/components/community/CreatePostModal').catch(() => ({ default: () => null })));
+const HelpChatbot = lazy(() => import('@/components/home/HelpChatbot').catch(() => ({ default: () => null })));
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 function getGreeting() {
