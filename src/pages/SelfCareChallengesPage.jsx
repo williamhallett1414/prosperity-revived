@@ -195,7 +195,7 @@ function calcStreak(cData) {
   return n;
 }
 function getTotalXP(localData) {
-  return CHALLENGES.reduce((sum, c) => {
+  return ALL_CHALLENGES.reduce((sum, c) => {
     const cData = localData[c.id];
     if (!cData?.days) return sum;
     return sum + Object.values(cData.days).reduce((s, val) => s + getDayXP(val, c.xpPerDay), 0);
