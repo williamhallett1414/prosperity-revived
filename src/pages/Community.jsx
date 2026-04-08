@@ -114,7 +114,7 @@ export default function Community() {
 
             {activeTab === 'blog' && (
               <motion.div key="blog" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                <BlogFeed />
+                <BlogFeed user={user} onWriteWithAI={() => setShowBlogWriter(true)} />
               </motion.div>
             )}
 
