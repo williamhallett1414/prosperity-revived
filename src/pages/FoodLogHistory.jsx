@@ -16,9 +16,9 @@ export default function FoodLogHistory() {
   const { data: allMeals = [] } = useQuery({
     queryKey: ['allMeals'],
     queryFn: async () => {
-      try { return await base44.entities.MealLog.list('-date'); }
-      catch { return []; }
-    },
+      try {return await base44.entities.MealLog.list('-date');}
+      catch {return [];}
+    }
   });
 
   const deleteMeal = useMutation({
@@ -27,7 +27,7 @@ export default function FoodLogHistory() {
       queryClient.invalidateQueries(['allMeals']);
       toast.success('Meal deleted');
     },
-    onError: () => toast.error('Failed to delete meal'),
+    onError: () => toast.error('Failed to delete meal')
   });
 
   const logMeal = useMutation({
@@ -55,12 +55,12 @@ export default function FoodLogHistory() {
       {/* Header */}
       <div className="sticky top-0 z-40 bg-white border-b border-[#F2F6FA] px-4 py-3">
         <div className="max-w-2xl mx-auto flex items-center gap-3">
-          <Link
-            to={createPageUrl('Wellness?tab=nutrition')}
-            className="w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors"
-          >
-            <ArrowLeft className="w-4 h-4 text-[#0A1A2F]" />
-          </Link>
+          
+
+
+
+
+          
           <div>
             <h1 className="text-lg font-bold text-[#0A1A2F]">Food Log History</h1>
             <p className="text-xs text-[#0A1A2F]/60">Track all your meals</p>
@@ -73,54 +73,54 @@ export default function FoodLogHistory() {
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-6"
-        >
+          className="mb-6">
+          
           <Button
             onClick={() => setShowAddFood(true)}
-            className="w-full bg-emerald-600 hover:bg-emerald-700"
-          >
+            className="w-full bg-emerald-600 hover:bg-emerald-700">
+            
             <Plus className="w-4 h-4 mr-2" />
             Log New Food
           </Button>
         </motion.div>
 
         {/* Meals by Date */}
-        {sortedDates.length === 0 ? (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="text-center py-12"
-          >
+        {sortedDates.length === 0 ?
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="text-center py-12">
+          
             <p className="text-[#0A1A2F]/60">No meals logged yet</p>
-          </motion.div>
-        ) : (
-          <div className="space-y-6">
-            {sortedDates.map((date, dateIdx) => {
-              const dateMeals = groupedMeals[date];
-              const dateTotal = dateMeals.reduce((sum, m) => sum + (m.calories || 0), 0);
-              const dateTotalProtein = dateMeals.reduce((sum, m) => sum + (m.protein || 0), 0);
-              const dateTotalCarbs = dateMeals.reduce((sum, m) => sum + (m.carbs || 0), 0);
-              const dateTotalFats = dateMeals.reduce((sum, m) => sum + (m.fats || 0), 0);
+          </motion.div> :
 
-              return (
-                <motion.div
-                  key={date}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: dateIdx * 0.05 }}
-                  className="bg-white rounded-xl overflow-hidden shadow-sm"
-                >
+        <div className="space-y-6">
+            {sortedDates.map((date, dateIdx) => {
+            const dateMeals = groupedMeals[date];
+            const dateTotal = dateMeals.reduce((sum, m) => sum + (m.calories || 0), 0);
+            const dateTotalProtein = dateMeals.reduce((sum, m) => sum + (m.protein || 0), 0);
+            const dateTotalCarbs = dateMeals.reduce((sum, m) => sum + (m.carbs || 0), 0);
+            const dateTotalFats = dateMeals.reduce((sum, m) => sum + (m.fats || 0), 0);
+
+            return (
+              <motion.div
+                key={date}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: dateIdx * 0.05 }}
+                className="bg-white rounded-xl overflow-hidden shadow-sm">
+                
                   {/* Date Header */}
                   <div className="bg-gradient-to-r from-[#F2F6FA] to-[#AFC7E3] p-4">
                     <div className="flex items-center gap-2 mb-3">
                       <Calendar className="w-4 h-4 text-[#0A1A2F]" />
                       <h2 className="font-semibold text-[#0A1A2F]">
                         {new Date(date + 'T00:00:00').toLocaleDateString('en-US', {
-                          weekday: 'short',
-                          month: 'short',
-                          day: 'numeric',
-                          year: 'numeric'
-                        })}
+                        weekday: 'short',
+                        month: 'short',
+                        day: 'numeric',
+                        year: 'numeric'
+                      })}
                       </h2>
                     </div>
                     <div className="grid grid-cols-4 gap-2 text-xs">
@@ -145,12 +145,12 @@ export default function FoodLogHistory() {
 
                   {/* Meals List */}
                   <div className="p-4 space-y-3">
-                    {dateMeals.map((meal) => (
-                      <motion.div
-                        key={meal.id}
-                        initial={{ opacity: 0, x: -10 }}
-                        animate={{ opacity: 1, x: 0 }}
-                      >
+                    {dateMeals.map((meal) =>
+                  <motion.div
+                    key={meal.id}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}>
+                    
                         <Link to={createPageUrl(`MealDetailView?id=${meal.id}`)}>
                           <div className="bg-gray-50 hover:bg-gray-100 rounded-lg p-3 cursor-pointer transition-colors">
                             <div className="flex items-start justify-between mb-2">
@@ -167,32 +167,32 @@ export default function FoodLogHistory() {
                           </div>
                         </Link>
                         <button
-                          onClick={(e) => {
-                            e.preventDefault();
-                            deleteMeal.mutate(meal.id);
-                          }}
-                          disabled={deleteMeal.isPending}
-                          className="mt-2 w-full p-1 hover:bg-red-100 rounded transition-colors flex items-center justify-center gap-2"
-                        >
+                      onClick={(e) => {
+                        e.preventDefault();
+                        deleteMeal.mutate(meal.id);
+                      }}
+                      disabled={deleteMeal.isPending}
+                      className="mt-2 w-full p-1 hover:bg-red-100 rounded transition-colors flex items-center justify-center gap-2">
+                      
                           <Trash2 className="w-4 h-4 text-red-500" />
                           <span className="text-xs text-red-600">Delete</span>
                         </button>
                       </motion.div>
-                    ))}
+                  )}
                   </div>
-                </motion.div>
-              );
-            })}
+                </motion.div>);
+
+          })}
           </div>
-        )}
+        }
       </div>
 
       {/* Add Food Modal */}
       <DetailedFoodLogModal
         isOpen={showAddFood}
         onClose={() => setShowAddFood(false)}
-        onSave={(mealData) => logMeal.mutate(mealData)}
-      />
-    </div>
-  );
+        onSave={(mealData) => logMeal.mutate(mealData)} />
+      
+    </div>);
+
 }
