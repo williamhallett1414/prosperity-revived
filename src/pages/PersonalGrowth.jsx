@@ -433,29 +433,6 @@ export default function PersonalGrowth() {
       {activeTab === 'journal-weekly' && (
         <Suspense fallback={<TabSpinner />}><WeeklyReflectionTab /></Suspense>
       )}
-      {activeTab === 'journal-entries' && (
-        <Suspense fallback={<TabSpinner />}>
-          <div className="px-4 pt-4 max-w-2xl mx-auto space-y-3">
-            <div className="flex gap-2 mb-2">
-              {[
-                { id: 'journal-entries', label: 'My Journal' },
-                { id: 'journal-gratitude', label: 'Gratitude' },
-                { id: 'journal-weekly', label: 'Weekly Reflection' },
-              ].map(sub => (
-                <button key={sub.id}
-                  onClick={() => setActiveTab(sub.id)}
-                  className={`text-xs font-semibold px-3 py-1.5 rounded-full border ${
-                    activeTab === sub.id ? 'bg-[#3C4E53] text-white border-[#3C4E53]' : 'bg-[#AFC7E3]/15 text-[#3C4E53] border-[#AFC7E3]/25'
-                  }`}
-                >
-                  {sub.label}
-                </button>
-              ))}
-            </div>
-            <div className="text-center py-8 text-[#0A1A2F]/60">My Journal entries not available in this view</div>
-          </div>
-        </Suspense>
-      )}
 
       {/* ── Mindset Tab ── */}
       {activeTab === 'mindset' && (
