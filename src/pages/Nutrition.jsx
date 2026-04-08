@@ -215,7 +215,7 @@ export default function Nutrition() {
         <>
 
             {/* Scripture for nourishment */}
-            <div className="bg-gradient-to-br from-[#FAD98D]/15 to-[#FAD98D]/5 rounded-2xl p-4 border border-[#FAD98D]/20">
+            <div className="bg-gradient-to-br from-[#FAD98D]/15 to-[#FAD98D]/5 rounded-2xl p-4 border border-[#FAD98D]/20 mb-2">
               <div className="flex items-center gap-2 mb-2">
                 <div className="w-1 h-4 bg-[#c9a227] rounded-full" />
                 <span className="text-[10px] font-bold text-[#c9a227] uppercase tracking-widest">Nourish Your Spirit</span>
