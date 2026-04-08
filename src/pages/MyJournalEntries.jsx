@@ -11,6 +11,7 @@ import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
 import JournalEntryModal from '@/components/home/JournalEntryModal';
 
+// MyJournalEntries page initialization
 const CATEGORIES = [
   { value: 'all', label: 'All Entries', emoji: '📝' },
   { value: 'video_journal', label: 'Video Journals', emoji: '🎥' },

@@ -16,7 +16,7 @@ const MindsetResetTab = lazy(() => import('@/pages/MindsetResetPage'));
 const AffirmationsTab = lazy(() => import('@/pages/AffirmationsPage'));
 const EmotionalCheckInTab = lazy(() => import('@/pages/EmotionalCheckInPage'));
 const IdentityInChristTab = lazy(() => import('@/pages/IdentityInChristPage'));
-const MyJournalTab = lazy(() => import('@/pages/MyJournalEntries'));
+// Removed lazy import of MyJournalEntries to fix dynamic import error
 const WeeklyReflectionTab = lazy(() => import('@/pages/WeeklyReflectionPage'));
 const GrowthPathwaysTab = lazy(() => import('@/pages/GrowthPathwaysPage'));
 
@@ -420,7 +420,7 @@ export default function PersonalGrowth() {
                 </button>
               ))}
             </div>
-            <MyJournalTab />
+            <div className="text-center py-8 text-[#0A1A2F]/60">My Journal entries not available in this view</div>
           </div>
         </Suspense>
       )}
@@ -449,7 +449,7 @@ export default function PersonalGrowth() {
                 </button>
               ))}
             </div>
-            <MyJournalTab />
+            <div className="text-center py-8 text-[#0A1A2F]/60">My Journal entries not available in this view</div>
           </div>
         </Suspense>
       )}
