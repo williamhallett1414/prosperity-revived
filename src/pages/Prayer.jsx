@@ -934,7 +934,7 @@ export default function Prayer() {
         </div>
 
         {/* ── Private prayer list ── */}
-        <div className="mb-8">
+        <div className="mb-20">
           <div className="flex items-center gap-2 mb-3">
             <div className="w-1 h-4 rounded-full bg-white/20" />
             <p className="text-[11px] font-bold text-white/30 uppercase tracking-widest">My Private Prayers</p>
