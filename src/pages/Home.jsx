@@ -881,11 +881,13 @@ function Home() {
       {/* ── Modals ───────────────────────────────────────────────────────── */}
       <StartMyDayModal isOpen={showStartDay} onClose={(completed) => { setShowStartDay(false); if (completed) { localStorage.setItem(ritualKey, '1'); setRitualDone(true); } }} user={user} />
       <EndMyDayModal   isOpen={showEndDay}   onClose={(completed) => { setShowEndDay(false); if (completed) { localStorage.setItem(ritualKey, '1'); setRitualDone(true); } }} />
-      <CreatePostModal
-        isOpen={showCreatePost}
-        onClose={() => setShowCreatePost(false)}
-        onSubmit={(data) => createPost.mutate(data)}
-      />
+      <Suspense fallback={null}>
+        <CreatePostModal
+          isOpen={showCreatePost}
+          onClose={() => setShowCreatePost(false)}
+          onSubmit={(data) => createPost.mutate(data)}
+        />
+      </Suspense>
 
       {/* Notification prompt */}
       {showNotifPrompt && (
