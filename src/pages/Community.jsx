@@ -268,7 +268,7 @@ function GroupsTab({ user }) {
   );
 }
 
-// ── Main ──────────────────────────────────────────────────────────────────────
+// ── Main Community Component ──────────────────────────────────────────────────
 export default function Community() {
   const [searchParams] = useSearchParams();
   const [user,            setUser]           = useState(null);
