@@ -132,16 +132,18 @@ function Home() {
           </div>
           <div className="flex gap-3 overflow-x-auto pb-2 -mx-1 px-1" style={{ scrollbarWidth: 'none' }}>
             {[
-              { name: 'Gideon', role: 'Biblical Wisdom', bot: 'Gideon', icon: '📖' },
-              { name: 'Hannah', role: 'Mindset Coach', bot: 'Hannah', icon: '💛' },
-              { name: 'Coach David', role: 'Fitness', bot: 'CoachDavid', icon: '💪' },
-              { name: 'Chef Daniel', role: 'Nutrition', bot: 'ChefDaniel', icon: '🍽️' },
-            ].map(({ name, role, bot, icon }) => (
-              <Link key={bot} to={createPageUrl(`ChatScreen?bot=${bot}`)} className="flex-shrink-0" style={{ width: 130 }}>
-                <div className="bg-white rounded-2xl p-3 shadow-sm border border-gray-100/80 h-full text-center">
-                  <div className="text-2xl mb-2">{icon}</div>
-                  <p className="text-xs font-bold text-[#0A1A2F] leading-tight">{name}</p>
-                  <p className="text-[9px] text-[#0A1A2F]/40 font-medium">{role}</p>
+              { name: 'Gideon', role: 'Biblical Wisdom', bot: 'Gideon', color: 'from-amber-500 to-amber-600', bg: 'bg-amber-50', icon: 'G' },
+              { name: 'Hannah', role: 'Mindset Coach', bot: 'Hannah', color: 'from-sky-400 to-sky-500', bg: 'bg-sky-50', icon: 'H' },
+              { name: 'Coach David', role: 'Fitness', bot: 'CoachDavid', color: 'from-blue-500 to-blue-600', bg: 'bg-blue-50', icon: 'D' },
+              { name: 'Chef Daniel', role: 'Nutrition', bot: 'ChefDaniel', color: 'from-orange-400 to-orange-500', bg: 'bg-orange-50', icon: 'C' },
+            ].map(({ name, role, bot, color, bg, icon }) => (
+              <Link key={bot} to={createPageUrl(`ChatScreen?bot=${bot}`)} className="flex-shrink-0" style={{ width: 140 }}>
+                <div className={`${bg} rounded-2xl p-3 shadow-sm border border-gray-100/80 h-full`}>
+                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${color} mx-auto mb-2 flex items-center justify-center shadow-sm`}>
+                    <span className="text-xl text-white font-bold">{icon}</span>
+                  </div>
+                  <p className="text-xs font-bold text-[#0A1A2F] text-center leading-tight">{name}</p>
+                  <p className="text-[9px] text-[#0A1A2F]/40 text-center font-medium">{role}</p>
                 </div>
               </Link>
             ))}
