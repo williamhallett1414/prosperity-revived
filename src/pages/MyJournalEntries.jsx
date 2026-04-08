@@ -209,53 +209,56 @@ export default function MyJournalEntries() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F2F6FA] pb-24">
+    <div className="min-h-screen bg-gradient-to-b from-[#F2F6FA] to-[#FFFFFF] pb-24">
       {/* Header */}
-      <div className="sticky top-0 z-40 bg-white border-b border-[#F2F6FA] px-4 py-3">
-        <div className="max-w-2xl mx-auto flex items-center justify-between">
+      <div className="sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b border-[#AFC7E3]/20 px-4 py-3 shadow-sm">
+        <div className="max-w-3xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Link
               to={createPageUrl('PersonalGrowth')}
-              className="w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors"
+              className="w-10 h-10 rounded-full bg-[#FAD98D]/15 hover:bg-[#FAD98D]/25 flex items-center justify-center transition-all"
             >
-              <ArrowLeft className="w-4 h-4 text-[#0A1A2F]" />
+              <ArrowLeft className="w-4 h-4 text-[#3C4E53]" />
             </Link>
             <div>
-              <h1 className="text-lg font-bold text-[#0A1A2F]">My Journal Entries</h1>
-              <p className="text-xs text-[#0A1A2F]/60">{entries.length} entries saved</p>
+              <h1 className="text-xl font-bold text-[#0A1A2F]">My Journal</h1>
+              <p className="text-xs text-[#0A1A2F]/50">{entries.length} entries • Your personal collection</p>
             </div>
           </div>
           <Button
             onClick={() => setShowNewEntryModal(true)}
-            className="bg-gradient-to-r from-[#FAD98D] to-[#AFC7E3] hover:from-[#FAD98D]/90 hover:to-[#AFC7E3]/90 text-[#0A1A2F]"
+            className="bg-gradient-to-r from-[#FD9C2D] to-[#FAD98D] hover:from-[#FD9C2D]/90 hover:to-[#FAD98D]/90 text-white font-semibold shadow-lg"
             size="sm"
           >
             <Plus className="w-4 h-4 mr-2" />
-            New
+            Write
           </Button>
         </div>
       </div>
 
-      <div className="max-w-2xl mx-auto px-4 py-6">
+      <div className="max-w-3xl mx-auto px-4 py-8">
         {/* AI Summaries Section */}
         {entries.length > 0 && (
-          <div className="mb-6 space-y-4">
-            <h2 className="text-xl font-bold text-[#0A1A2F] flex items-center gap-2">
-              <Sparkles className="w-5 h-5 text-[#FAD98D]" />
-              Your Journey Insights
-            </h2>
+          <div className="mb-8 space-y-4">
+            <div className="flex items-center gap-2 mb-4">
+              <div className="w-1 h-6 bg-gradient-to-b from-[#FAD98D] to-[#FD9C2D] rounded-full" />
+              <h2 className="text-lg font-bold text-[#0A1A2F] flex items-center gap-2">
+                <Sparkles className="w-5 h-5 text-[#FD9C2D]" />
+                Journey Insights
+              </h2>
+            </div>
 
-            <div className="grid gap-4">
+            <div className="grid gap-4 sm:grid-cols-2">
               {/* Weekly Summary */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="bg-gradient-to-br from-[#FAD98D]/10 to-[#F2F6FA] rounded-2xl p-5 border border-[#FAD98D]/40"
+                className="bg-white rounded-2xl p-6 border border-[#AFC7E3]/30 shadow-sm hover:shadow-md transition-all"
               >
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex-1">
-                    <h3 className="font-semibold text-[#0A1A2F] flex items-center gap-2">
-                      <span className="text-lg">📅</span>
+                    <h3 className="font-bold text-[#0A1A2F] text-base flex items-center gap-2">
+                      <span className="text-xl">📅</span>
                       Weekly Summary
                     </h3>
                     {weeklySummary && (
@@ -312,12 +315,12 @@ export default function MyJournalEntries() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
-                className="bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl p-5 border border-amber-200"
+                className="bg-white rounded-2xl p-6 border border-[#AFC7E3]/30 shadow-sm hover:shadow-md transition-all"
               >
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex-1">
-                    <h3 className="font-semibold text-[#0A1A2F] flex items-center gap-2">
-                      <span className="text-lg">📊</span>
+                    <h3 className="font-bold text-[#0A1A2F] text-base flex items-center gap-2">
+                      <span className="text-xl">📊</span>
                       Monthly Summary
                     </h3>
                     {monthlySummary && (
@@ -373,23 +376,23 @@ export default function MyJournalEntries() {
         )}
 
         {/* Category Filter */}
-        <div className="mb-6">
-          <div className="flex items-center gap-2 mb-3">
-            <Filter className="w-4 h-4 text-[#FAD98D]" />
-            <h3 className="text-sm font-semibold text-[#0A1A2F]">Filter by Category</h3>
+        <div className="mb-8">
+          <div className="flex items-center gap-2 mb-4">
+            <div className="w-1 h-5 bg-gradient-to-b from-[#3C4E53] to-[#AFC7E3] rounded-full" />
+            <h3 className="text-sm font-bold text-[#0A1A2F] uppercase tracking-wide">Filter Entries</h3>
           </div>
           <div className="flex overflow-x-auto gap-2 pb-2 scrollbar-hide">
             {CATEGORIES.map(category => (
               <button
                 key={category.value}
                 onClick={() => setSelectedCategory(category.value)}
-                className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all ${
+                className={`px-4 py-2.5 rounded-full text-sm font-semibold whitespace-nowrap transition-all ${
                   selectedCategory === category.value
-                    ? 'bg-[#FAD98D] text-[#0A1A2F]'
-                    : 'bg-white text-[#0A1A2F]/70 border border-gray-200 hover:border-[#FAD98D]'
+                    ? 'bg-gradient-to-r from-[#FD9C2D] to-[#FAD98D] text-white shadow-md'
+                    : 'bg-white text-[#0A1A2F]/70 border border-[#AFC7E3]/30 hover:border-[#FD9C2D]/50 hover:bg-[#FAD98D]/10'
                 }`}
               >
-                <span className="mr-1">{category.emoji}</span>
+                <span className="mr-1.5">{category.emoji}</span>
                 {category.label}
               </button>
             ))}
@@ -400,13 +403,13 @@ export default function MyJournalEntries() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-center py-12 bg-white rounded-2xl"
+            className="text-center py-16 bg-white rounded-2xl border border-[#AFC7E3]/20"
           >
-            <div className="text-5xl mb-3">📝</div>
-            <p className="text-[#0A1A2F]/60">No journal entries yet</p>
-            <p className="text-xs text-[#0A1A2F]/50 mt-2">Start journaling in End My Day or here</p>
+            <div className="text-6xl mb-4">📝</div>
+            <p className="text-lg font-semibold text-[#0A1A2F] mb-2">No journal entries yet</p>
+            <p className="text-sm text-[#0A1A2F]/60 mb-6">Start journaling to capture your thoughts and reflections</p>
             <Button
-              className="mt-4 bg-[#FD9C2D] hover:bg-[#FD9C2D]/90 text-white"
+              className="bg-gradient-to-r from-[#FD9C2D] to-[#FAD98D] hover:from-[#FD9C2D]/90 hover:to-[#FAD98D]/90 text-white font-semibold shadow-lg"
               onClick={() => setShowNewEntryModal(true)}
             >
               ✍️ Write Your First Entry
@@ -416,11 +419,11 @@ export default function MyJournalEntries() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-center py-12 bg-white rounded-2xl"
+            className="text-center py-16 bg-white rounded-2xl border border-[#AFC7E3]/20"
           >
-            <div className="text-5xl mb-3">🔍</div>
-            <p className="text-[#0A1A2F]/60">No entries found for this category</p>
-            <p className="text-xs text-[#0A1A2F]/50 mt-2">Try selecting a different filter</p>
+            <div className="text-6xl mb-4">🔍</div>
+            <p className="text-lg font-semibold text-[#0A1A2F] mb-2">No entries in this category</p>
+            <p className="text-sm text-[#0A1A2F]/60">Try selecting a different filter</p>
           </motion.div>
         ) : (
           <div className="space-y-4">
@@ -436,19 +439,19 @@ export default function MyJournalEntries() {
                   onClick={() =>
                     setExpandedDate(expandedDate === date ? null : date)
                   }
-                  className="w-full flex items-center justify-between px-4 py-3 bg-gray-100 rounded-xl hover:bg-gray-100/80 transition-colors"
+                  className="w-full flex items-center justify-between px-5 py-4 bg-white rounded-xl border border-[#AFC7E3]/20 hover:border-[#FD9C2D]/30 hover:shadow-sm transition-all"
                 >
-                  <span className="font-semibold text-[#0A1A2F] text-sm">
+                  <span className="font-bold text-[#0A1A2F]">
                     {date}
                   </span>
                   <div className="flex items-center gap-2">
-                    <span className="text-xs bg-[#FAD98D] text-[#0A1A2F] rounded-full px-2 py-1">
+                    <span className="text-xs bg-gradient-to-r from-[#FAD98D]/20 to-[#FD9C2D]/20 text-[#3C4E53] rounded-full px-3 py-1 font-semibold">
                       {dateEntries.length}
                     </span>
                     {expandedDate === date ? (
-                      <ChevronUp className="w-4 h-4 text-[#0A1A2F]" />
+                      <ChevronUp className="w-4 h-4 text-[#3C4E53]" />
                     ) : (
-                      <ChevronDown className="w-4 h-4 text-[#0A1A2F]" />
+                      <ChevronDown className="w-4 h-4 text-[#3C4E53]" />
                     )}
                   </div>
                 </button>
@@ -467,18 +470,18 @@ export default function MyJournalEntries() {
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: idx * 0.05 }}
-                        className="bg-white rounded-xl p-4 border border-gray-100 shadow-sm"
+                        className="bg-white rounded-2xl p-5 border border-[#AFC7E3]/20 shadow-sm hover:shadow-md transition-all"
                       >
                         {editingId === entry.id ? (
                           // Edit Mode
-                          <div className="space-y-3">
+                          <div className="space-y-4">
                             <Input
                               placeholder="Entry title"
                               value={editTitle}
                               onChange={(e) =>
                                 setEditTitle(e.target.value)
                               }
-                              className="bg-gray-100 border-[#F2F6FA] text-black"
+                              className="bg-[#F2F6FA] border-[#AFC7E3]/30"
                             />
                             <Textarea
                               maxLength={1000}
@@ -487,12 +490,12 @@ export default function MyJournalEntries() {
                               onChange={(e) =>
                                 setEditContent(e.target.value)
                               }
-                              className="min-h-[150px] bg-gray-100 border-[#F2F6FA] text-black"
+                              className="min-h-[150px] bg-[#F2F6FA] border-[#AFC7E3]/30"
                             />
                             <div className="flex gap-2">
                               <Button
                                 onClick={() => handleSave(entry.id)}
-                                className="flex-1 bg-gradient-to-r from-[#FAD98D] to-[#AFC7E3] hover:from-[#FAD98D]/90 hover:to-[#AFC7E3]/90 text-[#0A1A2F]"
+                                className="flex-1 bg-gradient-to-r from-[#FD9C2D] to-[#FAD98D] hover:from-[#FD9C2D]/90 hover:to-[#FAD98D]/90 text-white font-semibold"
                                 size="sm"
                               >
                                 <Save className="w-4 h-4 mr-2" />
@@ -514,14 +517,14 @@ export default function MyJournalEntries() {
                           <div>
                             <div className="flex items-start justify-between gap-3 mb-3">
                               <div className="flex-1">
-                                <div className="flex items-center gap-2 mb-2">
-                                  <span className="text-lg">{getCategoryInfo(entry.entry_type).emoji}</span>
-                                  <span className="text-xs bg-[#FAD98D]/20 text-[#FAD98D] px-2 py-1 rounded font-medium">
+                                <div className="flex items-center gap-2 mb-3">
+                                  <span className="text-xl">{getCategoryInfo(entry.entry_type).emoji}</span>
+                                  <span className="text-xs bg-gradient-to-r from-[#FD9C2D]/20 to-[#FAD98D]/20 text-[#3C4E53] px-3 py-1 rounded-full font-semibold">
                                     {getCategoryInfo(entry.entry_type).label}
                                   </span>
                                 </div>
                                 {entry.title && (
-                                  <h3 className="font-semibold text-[#0A1A2F] line-clamp-2">
+                                  <h3 className="font-bold text-[#0A1A2F] line-clamp-2 text-base">
                                     {entry.title}
                                   </h3>
                                 )}
@@ -543,17 +546,17 @@ export default function MyJournalEntries() {
                               <div className="flex gap-1">
                                 <button
                                   onClick={() => handleEdit(entry)}
-                                  className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                                  className="p-2 hover:bg-[#FAD98D]/15 rounded-lg transition-colors"
                                 >
-                                  <Edit className="w-4 h-4 text-[#FAD98D]" />
+                                  <Edit className="w-4 h-4 text-[#FD9C2D]" />
                                 </button>
                                 <button
                                   onClick={() =>
                                     deleteEntry.mutate(entry.id)
                                   }
-                                  className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                                  className="p-2 hover:bg-red-100 rounded-lg transition-colors"
                                 >
-                                  <Trash2 className="w-4 h-4 text-red-500" />
+                                  <Trash2 className="w-4 h-4 text-red-400" />
                                 </button>
                               </div>
                             </div>
