@@ -6,7 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import {
   Brain, Heart, Sparkles, Target, ChevronRight,
   Compass, Zap,
-  AlertTriangle, Star
+  AlertTriangle, Star, Briefcase
 } from 'lucide-react';
 
 // ── Label maps ─────────────────────────────────────────────────────────────────
@@ -157,6 +157,7 @@ export default function PersonalGrowthGoalsPage() {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [expandedArea, setExpandedArea] = useState(null);
+  const [activeTab, setActiveTab] = useState('overview');
 
   useEffect(() => { base44.auth.me().then(setUser).catch(() => {}); }, []);
 
@@ -188,9 +189,9 @@ export default function PersonalGrowthGoalsPage() {
   return (
     <div className="min-h-screen pb-28" style={{ background: '#F2F6FA' }}>
 
-      {/* ── Standard Header ── */}
-      <div className="sticky top-0 z-40 bg-white border-b border-[#FAD98D]/20 px-4 pt-4 pb-3">
-        <div className="max-w-lg mx-auto flex items-center gap-3">
+      {/* ── Standard Header with Tabs ── */}
+      <div className="sticky top-0 z-40 bg-white border-b border-[#AFC7E3]/25">
+        <div className="px-4 pt-4 pb-3 max-w-lg mx-auto flex items-center gap-3">
           <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#AFC7E3] to-[#3C4E53] flex items-center justify-center">
             <Target className="w-5 h-5 text-white" />
           </div>
@@ -199,9 +200,32 @@ export default function PersonalGrowthGoalsPage() {
             <p className="text-xs text-[#0A1A2F]/45">Your growth profile</p>
           </div>
         </div>
+
+        <div className="max-w-lg mx-auto px-4 flex gap-1.5 overflow-x-auto items-center pb-3">
+          {[
+            { id: 'overview', label: 'Overview', icon: <Target className="w-3.5 h-3.5" /> },
+            { id: 'areas', label: 'Growth Areas', icon: <Brain className="w-3.5 h-3.5" /> },
+            { id: 'values', label: 'Values', icon: <Star className="w-3.5 h-3.5" /> },
+            { id: 'tools', label: 'Tools', icon: <Zap className="w-3.5 h-3.5" /> },
+          ].map(tab => (
+            <button key={tab.id} onClick={() => setActiveTab(tab.id)}
+              className={`flex items-center gap-1.5 px-4 py-2.5 text-xs font-semibold flex-shrink-0 rounded-lg transition-all ${
+                activeTab === tab.id 
+                  ? 'bg-[#3C4E53] text-white shadow-sm' 
+                  : 'text-[#0A1A2F]/50 hover:bg-[#AFC7E3]/15 hover:text-[#3C4E53]'
+              }`}
+            >
+              {tab.icon} {tab.label}
+            </button>
+          ))}
+        </div>
       </div>
 
       <div className="max-w-lg mx-auto px-4 pt-4 space-y-4">
+
+        {/* ── Overview Tab ── */}
+        {activeTab === 'overview' && (
+        <div>
 
         {/* ── Hero ── */}
         <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}>
@@ -355,8 +379,15 @@ export default function PersonalGrowthGoalsPage() {
                 );
               })}
             </div>
-          </motion.div>
+            </motion.div>
+            )}
+
+        </div>
         )}
+
+        {/* ── Values Tab ── */}
+        {activeTab === 'values' && (
+        <div>
 
         {/* ── Core values ── */}
         {coreValues.length > 0 && (
@@ -387,8 +418,15 @@ export default function PersonalGrowthGoalsPage() {
               <p className="text-[10px] font-bold text-[#AFC7E3] uppercase tracking-widest mb-1">Affirmation rooted in {CORE_VALUE_INFO[primaryValue]?.label || 'your values'}</p>
               <p className="text-xs font-semibold text-[#0A1A2F] leading-relaxed italic">"{affirmation}"</p>
             </div>
-          </motion.div>
+            </motion.div>
+            )}
+
+        </div>
         )}
+
+        {/* ── Coaching style (on Overview tab) ── */}
+        {activeTab === 'overview' && (
+        <div>
 
         {/* ── Coaching style ── */}
         <motion.div id="tour-coaching-style" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.20 }}
@@ -409,6 +447,13 @@ export default function PersonalGrowthGoalsPage() {
             </div>
           </div>
         </motion.div>
+
+        </div>
+        )}
+
+        {/* ── Tools Tab ── */}
+        {activeTab === 'tools' && (
+        <div>
 
         {/* ── Recommended daily tools ── */}
         {recommendedTools.length > 0 && (
@@ -485,8 +530,9 @@ export default function PersonalGrowthGoalsPage() {
           </div>
         </motion.div>
 
+        </div>
+        )}
       </div>
     </div>
   );
 }
-

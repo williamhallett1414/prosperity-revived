@@ -16,7 +16,7 @@ const MindsetResetTab = lazy(() => import('@/pages/MindsetResetPage'));
 const AffirmationsTab = lazy(() => import('@/pages/AffirmationsPage'));
 const EmotionalCheckInTab = lazy(() => import('@/pages/EmotionalCheckInPage'));
 const IdentityInChristTab = lazy(() => import('@/pages/IdentityInChristPage'));
-const MyJournalTab = lazy(() => import('@/pages/MyJournalEntries'));
+const MyJournalTab = lazy(() => import('@/pages/MyJournalEntriesWrapper'));
 const WeeklyReflectionTab = lazy(() => import('@/pages/WeeklyReflectionPage'));
 const GrowthPathwaysTab = lazy(() => import('@/pages/GrowthPathwaysPage'));
 
