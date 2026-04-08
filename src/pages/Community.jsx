@@ -12,8 +12,10 @@ import CommunityFeed from '@/components/community/CommunityFeed';
 import GroupChallenges from '@/components/community/GroupChallenges';
 import ShareMilestoneModal from '@/components/community/ShareMilestoneModal';
 import AIBlogWriter from '@/components/community/AIBlogWriter';
-import ModerationPanel from '@/components/community/ModerationPanel';
 import BlogFeed from '@/components/community/BlogFeed';
+
+// Lazy load ModerationPanel to isolate potential errors
+const ModerationPanel = React.lazy(() => import('@/components/community/ModerationPanel'));
 
 export default function Community() {
   const [searchParams] = useSearchParams();
