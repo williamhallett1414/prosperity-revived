@@ -668,7 +668,7 @@ function ActiveChallengesWidget({ user }) {
 }
 
 // ─── Main ─────────────────────────────────────────────────────────────────────
-export default function Home() {
+function Home() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [user, setUser] = useState(null);
@@ -920,3 +920,5 @@ export default function Home() {
     </div>
   );
 }
+
+export default Home;
