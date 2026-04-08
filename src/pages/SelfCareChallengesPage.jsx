@@ -100,12 +100,6 @@ const CHALLENGES = [
   },
 ];
 
-// Combine self-care and fitness challenges
-const ALL_CHALLENGES = [...CHALLENGES, ...FITNESS_CHALLENGES];
-
-const CATS = ["All", "Faith", "Mindset", "Body", "Relationships"];
-const CAT_COLORS = { Faith: "#D9A84A", Mindset: "#0ea5e9", Body: "#22c55e", Relationships: "#f43f5e" };
-
 // ─── Fitness Challenges (converted from Workouts page) ──────────────────────
 const FITNESS_CHALLENGES = [
   {
@@ -164,6 +158,12 @@ const FITNESS_CHALLENGES = [
     }))
   },
 ];
+
+// Combine self-care and fitness challenges
+const ALL_CHALLENGES = [...CHALLENGES, ...FITNESS_CHALLENGES];
+
+const CATS = ["All", "Faith", "Mindset", "Body", "Relationships"];
+const CAT_COLORS = { Faith: "#D9A84A", Mindset: "#0ea5e9", Body: "#22c55e", Relationships: "#f43f5e" };
 
 // ─── Storage ──────────────────────────────────────────────────────────────────
 const LOCAL_KEY = "pr_selfcare_v3";
