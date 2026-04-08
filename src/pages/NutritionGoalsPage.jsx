@@ -177,14 +177,17 @@ function UpdateGoalsModal({ user, onClose, onSave }) {
   return (
     <div className="fixed inset-0 z-50 flex items-end justify-center" style={{ background: 'rgba(0,0,0,0.5)' }}>
       <motion.div initial={{ y: 80, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: 80, opacity: 0 }}
-        className="w-full max-w-lg bg-white rounded-t-3xl p-5 max-h-[90vh] overflow-y-auto pb-10">
-        <div className="flex items-center justify-between mb-5">
+        className="w-full max-w-lg bg-white rounded-t-3xl flex flex-col max-h-[90vh]">
+        {/* Fixed header */}
+        <div className="flex items-center justify-between px-5 pt-5 pb-4 flex-shrink-0">
           <h2 className="font-black text-[#0A1A2F] text-lg">Update Nutrition Goals</h2>
           <button onClick={onClose} className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center">
             <X className="w-4 h-4 text-[#0A1A2F]/50" />
           </button>
         </div>
 
+        {/* Scrollable content */}
+        <div className="overflow-y-auto flex-1 px-5">
         <div className="space-y-5">
           {/* Diet type */}
           <div>
@@ -291,8 +294,10 @@ function UpdateGoalsModal({ user, onClose, onSave }) {
             </div>
           </div>
         </div>
+        </div>
 
-        <div className="sticky bottom-0 pt-3 pb-1 bg-white mt-3">
+        {/* Fixed footer button */}
+        <div className="px-5 pt-3 pb-5 flex-shrink-0 border-t border-gray-100">
           <button onClick={save} disabled={saving}
             className="w-full py-3.5 rounded-2xl font-bold text-white text-sm flex items-center justify-center gap-2 transition-all active:scale-98"
             style={{ background: 'linear-gradient(135deg,#166534,#22C55E)' }}>
