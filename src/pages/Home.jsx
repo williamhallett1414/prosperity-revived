@@ -22,7 +22,7 @@ const AppTour = lazy(() => import('@/components/onboarding/AppTour'));
 const CreatePostModal = lazy(() => import('@/components/community/CreatePostModal'));
 const HelpChatbot = lazy(() => import('@/components/home/HelpChatbot'));
 
-// ─── Helpers ───────────────────────────────────────────────────────────────────
+// ─── Helpers ──────────────────────────────────────────────────────────────────
 function getGreeting() {
   const h = new Date().getHours();
   if (h < 5)  return { text: 'Good Night',    emoji: '🌙', isMorning: false };
