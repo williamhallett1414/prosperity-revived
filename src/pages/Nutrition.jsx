@@ -215,7 +215,7 @@ export default function Nutrition() {
         <>
 
             {/* Macro summary card */}
-            <div id="tour-nutrition-macros" className="bg-white rounded-2xl border border-[#FAD98D]/20 p-4">
+            <div id="tour-nutrition-macros" className="bg-gradient-to-r from-orange-50 to-amber-50 rounded-2xl border border-[#FAD98D]/30 p-4">
               <p className="text-xs font-bold text-[#0A1A2F]/35 uppercase tracking-widest mb-3">Today's Progress</p>
               <div className="grid grid-cols-4 gap-2">
                 {getMacroConfig(user).map(({ key, label, unit, target }) =>
