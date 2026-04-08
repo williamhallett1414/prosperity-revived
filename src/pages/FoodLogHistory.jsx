@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Plus, Trash2, Calendar } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Link } from 'react-router-dom';
+import { Plus, Trash2, Calendar, Flame, CalendarDays, ChefHat, Target, History } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import DetailedFoodLogModal from '@/components/wellness/DetailedFoodLogModal';
 import { toast } from 'sonner';
@@ -12,12 +11,13 @@ import { toast } from 'sonner';
 export default function FoodLogHistory() {
   const [showAddFood, setShowAddFood] = useState(false);
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
   const { data: allMeals = [] } = useQuery({
     queryKey: ['allMeals'],
     queryFn: async () => {
-      try {return await base44.entities.MealLog.list('-date');}
-      catch {return [];}
+      try { return await base44.entities.MealLog.list('-date'); }
+      catch { return []; }
     }
   });
 
@@ -50,77 +50,80 @@ export default function FoodLogHistory() {
 
   const sortedDates = Object.keys(groupedMeals).sort().reverse();
 
+  const NAV_TABS = [
+    { id: 'today',   label: 'Today',      icon: Flame,        page: 'Nutrition'             },
+    { id: 'planner', label: 'Planner',     icon: CalendarDays, page: 'Nutrition?tab=planner' },
+    { id: 'build',   label: 'Build',       icon: ChefHat,      page: 'Nutrition?tab=build'   },
+    { id: 'goals',   label: 'Goals',       icon: Target,       page: 'NutritionGoalsPage'    },
+    { id: 'history', label: 'Log History', icon: History,      page: null                    },
+  ];
+
   return (
     <div className="min-h-screen bg-[#F2F6FA] pb-24">
       {/* Header */}
-      <div className="sticky top-0 z-40 bg-white border-b border-[#F2F6FA] px-4 py-3">
-        <div className="max-w-2xl mx-auto flex items-center gap-3">
-          
-
-
-
-
-          
-          <div>
-            <h1 className="text-lg font-bold text-[#0A1A2F]">Food Log History</h1>
-            <p className="text-xs text-[#0A1A2F]/60">Track all your meals</p>
+      <div className="sticky top-0 z-40 bg-white border-b border-[#FAD98D]/20 px-4 pt-3 pb-0">
+        <div className="max-w-2xl mx-auto">
+          <div className="flex items-center justify-between mb-3">
+            <div>
+              <h1 className="text-lg font-black text-[#0A1A2F] leading-tight">Nutrition</h1>
+              <p className="text-[11px] text-[#0A1A2F]/40 font-medium">Track · Plan · Nourish</p>
+            </div>
+            <button
+              onClick={() => setShowAddFood(true)}
+              className="flex items-center gap-1.5 px-4 py-2 rounded-full bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white text-xs font-bold shadow-md active:scale-95 transition-transform"
+            >
+              <Plus className="w-3.5 h-3.5" />
+              Log Food
+            </button>
+          </div>
+          <div className="flex gap-0 border-b border-transparent -mb-px overflow-x-auto">
+            {NAV_TABS.map(({ id, label, icon: Icon, page }) => (
+              <button key={id}
+                onClick={() => page && navigate(createPageUrl(page))}
+                className={`flex items-center gap-1 px-3 py-2.5 text-xs font-semibold border-b-2 transition-all whitespace-nowrap ${
+                  id === 'history'
+                    ? 'border-[#c9a227] text-[#c9a227]'
+                    : 'border-transparent text-[#0A1A2F]/40 hover:text-[#0A1A2F]/65'
+                }`}>
+                <Icon className="w-3.5 h-3.5" />
+                {label}
+              </button>
+            ))}
           </div>
         </div>
       </div>
 
       <div className="max-w-2xl mx-auto px-4 py-6">
-        {/* Add Food Button */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-6">
-          
-          <Button
-            onClick={() => setShowAddFood(true)}
-            className="w-full bg-emerald-600 hover:bg-emerald-700">
-            
-            <Plus className="w-4 h-4 mr-2" />
-            Log New Food
-          </Button>
-        </motion.div>
-
         {/* Meals by Date */}
-        {sortedDates.length === 0 ?
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="text-center py-12">
-          
+        {sortedDates.length === 0 ? (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center py-12">
             <p className="text-[#0A1A2F]/60">No meals logged yet</p>
-          </motion.div> :
-
-        <div className="space-y-6">
+          </motion.div>
+        ) : (
+          <div className="space-y-6">
             {sortedDates.map((date, dateIdx) => {
-            const dateMeals = groupedMeals[date];
-            const dateTotal = dateMeals.reduce((sum, m) => sum + (m.calories || 0), 0);
-            const dateTotalProtein = dateMeals.reduce((sum, m) => sum + (m.protein || 0), 0);
-            const dateTotalCarbs = dateMeals.reduce((sum, m) => sum + (m.carbs || 0), 0);
-            const dateTotalFats = dateMeals.reduce((sum, m) => sum + (m.fats || 0), 0);
+              const dateMeals = groupedMeals[date];
+              const dateTotal = dateMeals.reduce((sum, m) => sum + (m.calories || 0), 0);
+              const dateTotalProtein = dateMeals.reduce((sum, m) => sum + (m.protein || 0), 0);
+              const dateTotalCarbs = dateMeals.reduce((sum, m) => sum + (m.carbs || 0), 0);
+              const dateTotalFats = dateMeals.reduce((sum, m) => sum + (m.fats || 0), 0);
 
-            return (
-              <motion.div
-                key={date}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: dateIdx * 0.05 }}
-                className="bg-white rounded-xl overflow-hidden shadow-sm">
-                
+              return (
+                <motion.div
+                  key={date}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: dateIdx * 0.05 }}
+                  className="bg-white rounded-xl overflow-hidden shadow-sm">
+
                   {/* Date Header */}
                   <div className="bg-gradient-to-r from-[#F2F6FA] to-[#AFC7E3] p-4">
                     <div className="flex items-center gap-2 mb-3">
                       <Calendar className="w-4 h-4 text-[#0A1A2F]" />
                       <h2 className="font-semibold text-[#0A1A2F]">
                         {new Date(date + 'T00:00:00').toLocaleDateString('en-US', {
-                        weekday: 'short',
-                        month: 'short',
-                        day: 'numeric',
-                        year: 'numeric'
-                      })}
+                          weekday: 'short', month: 'short', day: 'numeric', year: 'numeric'
+                        })}
                       </h2>
                     </div>
                     <div className="grid grid-cols-4 gap-2 text-xs">
@@ -145,12 +148,8 @@ export default function FoodLogHistory() {
 
                   {/* Meals List */}
                   <div className="p-4 space-y-3">
-                    {dateMeals.map((meal) =>
-                  <motion.div
-                    key={meal.id}
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}>
-                    
+                    {dateMeals.map((meal) => (
+                      <motion.div key={meal.id} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }}>
                         <Link to={createPageUrl(`MealDetailView?id=${meal.id}`)}>
                           <div className="bg-gray-50 hover:bg-gray-100 rounded-lg p-3 cursor-pointer transition-colors">
                             <div className="flex items-start justify-between mb-2">
@@ -167,32 +166,26 @@ export default function FoodLogHistory() {
                           </div>
                         </Link>
                         <button
-                      onClick={(e) => {
-                        e.preventDefault();
-                        deleteMeal.mutate(meal.id);
-                      }}
-                      disabled={deleteMeal.isPending}
-                      className="mt-2 w-full p-1 hover:bg-red-100 rounded transition-colors flex items-center justify-center gap-2">
-                      
+                          onClick={(e) => { e.preventDefault(); deleteMeal.mutate(meal.id); }}
+                          disabled={deleteMeal.isPending}
+                          className="mt-2 w-full p-1 hover:bg-red-100 rounded transition-colors flex items-center justify-center gap-2">
                           <Trash2 className="w-4 h-4 text-red-500" />
                           <span className="text-xs text-red-600">Delete</span>
                         </button>
                       </motion.div>
-                  )}
+                    ))}
                   </div>
-                </motion.div>);
-
-          })}
+                </motion.div>
+              );
+            })}
           </div>
-        }
+        )}
       </div>
 
-      {/* Add Food Modal */}
       <DetailedFoodLogModal
         isOpen={showAddFood}
         onClose={() => setShowAddFood(false)}
         onSave={(mealData) => logMeal.mutate(mealData)} />
-      
-    </div>);
-
+    </div>
+  );
 }
