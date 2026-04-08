@@ -165,47 +165,41 @@ export default function Nutrition() {
     <div className="min-h-screen bg-[#F2F6FA] pb-28">
 
       {/* ── Sticky header ── */}
-      <div className="sticky top-0 z-40 bg-white border-b border-[#FAD98D]/20 px-4 pt-4 pb-3">
-        <div className="max-w-lg mx-auto">
+      <div className="sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b border-gray-100 shadow-sm">
+        <div className="max-w-lg mx-auto px-4 pt-3 pb-0">
+
+          {/* Title row */}
           <div className="flex items-center justify-between mb-3">
-            
-
-
-
-
-
-
-
-
-
-            
-            <div />
+            <div>
+              <h1 className="text-lg font-black text-[#0A1A2F] leading-tight">Nutrition</h1>
+              <p className="text-[11px] text-[#0A1A2F]/40 font-medium">Track · Plan · Nourish</p>
+            </div>
+            <button
+              onClick={() => setShowLogModal(true)}
+              className="flex items-center gap-1.5 px-4 py-2 rounded-full bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white text-xs font-bold shadow-md shadow-[#c9a227]/25 active:scale-95 transition-transform"
+            >
+              <Plus className="w-3.5 h-3.5" />
+              Log Food
+            </button>
           </div>
 
-          {/* Tab bar */}
-          <div className="flex gap-1 overflow-x-auto scrollbar-none">
-            {TABS.map(({ id, label, icon: Icon }) => {
-              const isLog = id === 'log';
-              const isActive = activeTab === id;
+          {/* Nav tabs — only the navigation ones, no Log Food here */}
+          <div className="flex gap-0 border-b border-transparent -mb-px">
+            {TABS.filter(t => t.id !== 'log').map(({ id, label, icon: Icon }) => {
+              const isActive = activeTab === id && id !== 'goals' && id !== 'history';
               return (
                 <button key={id} onClick={() => {
                   if (id === 'goals') navigate(createPageUrl('NutritionGoalsPage'));
-                  else if (id === 'log') setShowLogModal(true);
                   else if (id === 'history') navigate(createPageUrl('FoodLogHistory'));
                   else setActiveTab(id);
                 }}
-                className={`flex-shrink-0 flex flex-col items-center gap-0.5 px-3 py-2 rounded-xl text-[10px] font-bold transition-all ${
-                  isLog
-                    ? 'bg-gradient-to-b from-[#c9a227] to-[#FAD98D] text-white shadow-md shadow-[#c9a227]/20 scale-105'
-                    : isActive
-                    ? 'bg-[#FAD98D]/25 text-[#c9a227]'
-                    : 'text-[#0A1A2F]/40 hover:text-[#0A1A2F]/65 hover:bg-[#F2F6FA]'
+                className={`flex items-center gap-1 px-3 py-2.5 text-xs font-semibold border-b-2 transition-all whitespace-nowrap ${
+                  isActive
+                    ? 'border-[#c9a227] text-[#c9a227]'
+                    : 'border-transparent text-[#0A1A2F]/40 hover:text-[#0A1A2F]/65'
                 }`}>
-                  <Icon className="w-4 h-4" />
-                  <span className="leading-none">{label}</span>
-                  {isActive && !isLog && (
-                    <div className="w-1 h-1 rounded-full bg-[#c9a227]" />
-                  )}
+                  <Icon className="w-3.5 h-3.5" />
+                  {label}
                 </button>
               );
             })}
