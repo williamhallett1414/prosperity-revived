@@ -5,7 +5,7 @@ import { createPageUrl } from '@/utils';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   Salad, Droplets, Flame, Clock, ShieldCheck,
-  ChevronRight, Info, Apple, BarChart2, BookOpen, AlertTriangle, Target} from 'lucide-react';
+  ChevronRight, Info, Apple, BarChart2, BookOpen, AlertTriangle, Target, Pencil, X, Check} from 'lucide-react';
 
 // ── Label maps ────────────────────────────────────────────────────────────────
 const DIET_LABELS = {
@@ -143,11 +143,171 @@ function StatCard({ emoji, label, value, sub, color = '#0A1A2F', bg = '#F2F6FA',
   );
 }
 
+// ── Update Goals Modal ────────────────────────────────────────────────────────
+function UpdateGoalsModal({ user, onClose, onSave }) {
+  const [form, setForm] = useState({
+    diet_type:           user?.diet_type || 'no_restrictions',
+    meals_per_day:       user?.meals_per_day || '3',
+    cooking_time:        user?.cooking_time || 'medium',
+    allergies:           user?.allergies || [],
+    fitness_goal:        user?.fitness_goal || 'general_fitness',
+    weight_kg:           user?.weight_kg || '',
+    height_cm:           user?.height_cm || '',
+    age:                 user?.age || '',
+    sex:                 user?.sex || '',
+    workout_days_per_week: user?.workout_days_per_week || 3,
+  });
+  const [saving, setSaving] = useState(false);
+
+  const toggle = (field, val) => {
+    setForm(f => ({
+      ...f,
+      [field]: f[field].includes(val) ? f[field].filter(x => x !== val) : [...f[field], val]
+    }));
+  };
+
+  const save = async () => {
+    setSaving(true);
+    await base44.auth.updateMe(form);
+    onSave({ ...user, ...form });
+    setSaving(false);
+    onClose();
+  };
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-end justify-center" style={{ background: 'rgba(0,0,0,0.5)' }}>
+      <motion.div initial={{ y: 80, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: 80, opacity: 0 }}
+        className="w-full max-w-lg bg-white rounded-t-3xl p-5 max-h-[90vh] overflow-y-auto pb-10">
+        <div className="flex items-center justify-between mb-5">
+          <h2 className="font-black text-[#0A1A2F] text-lg">Update Nutrition Goals</h2>
+          <button onClick={onClose} className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center">
+            <X className="w-4 h-4 text-[#0A1A2F]/50" />
+          </button>
+        </div>
+
+        <div className="space-y-5">
+          {/* Diet type */}
+          <div>
+            <p className="text-xs font-bold text-[#0A1A2F]/60 uppercase tracking-widest mb-2">Diet Type</p>
+            <div className="grid grid-cols-2 gap-2">
+              {Object.entries(DIET_LABELS).map(([key, { label, emoji }]) => (
+                <button key={key} onClick={() => setForm(f => ({ ...f, diet_type: key }))}
+                  className={`flex items-center gap-2 px-3 py-2.5 rounded-xl border text-sm font-semibold transition-all ${form.diet_type === key ? 'border-[#22C55E] bg-[#F0FDF4] text-[#166534]' : 'border-gray-100 bg-gray-50 text-[#0A1A2F]/60'}`}>
+                  <span>{emoji}</span>{label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Meals per day */}
+          <div>
+            <p className="text-xs font-bold text-[#0A1A2F]/60 uppercase tracking-widest mb-2">Meals Per Day</p>
+            <div className="grid grid-cols-2 gap-2">
+              {Object.entries(MEAL_LABELS).map(([key, label]) => (
+                <button key={key} onClick={() => setForm(f => ({ ...f, meals_per_day: key }))}
+                  className={`px-3 py-2.5 rounded-xl border text-sm font-semibold transition-all ${form.meals_per_day === key ? 'border-[#22C55E] bg-[#F0FDF4] text-[#166534]' : 'border-gray-100 bg-gray-50 text-[#0A1A2F]/60'}`}>
+                  {label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Cooking time */}
+          <div>
+            <p className="text-xs font-bold text-[#0A1A2F]/60 uppercase tracking-widest mb-2">Cooking Preference</p>
+            <div className="grid grid-cols-3 gap-2">
+              {Object.entries(COOK_LABELS).map(([key, { label, emoji }]) => (
+                <button key={key} onClick={() => setForm(f => ({ ...f, cooking_time: key }))}
+                  className={`flex flex-col items-center px-2 py-2.5 rounded-xl border text-xs font-semibold transition-all ${form.cooking_time === key ? 'border-[#22C55E] bg-[#F0FDF4] text-[#166534]' : 'border-gray-100 bg-gray-50 text-[#0A1A2F]/60'}`}>
+                  <span className="text-lg mb-1">{emoji}</span>{label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Fitness goal */}
+          <div>
+            <p className="text-xs font-bold text-[#0A1A2F]/60 uppercase tracking-widest mb-2">Fitness Goal</p>
+            <div className="grid grid-cols-2 gap-2">
+              {[
+                { key: 'lose_weight', label: '⬇️ Lose weight' },
+                { key: 'lose_weight_fast', label: '⚡ Lose weight fast' },
+                { key: 'maintain', label: '⚖️ Maintain weight' },
+                { key: 'build_muscle', label: '💪 Build muscle' },
+                { key: 'bulk', label: '🏋️ Bulk' },
+                { key: 'general_fitness', label: '🏃 General fitness' },
+              ].map(({ key, label }) => (
+                <button key={key} onClick={() => setForm(f => ({ ...f, fitness_goal: key }))}
+                  className={`px-3 py-2.5 rounded-xl border text-sm font-semibold transition-all text-left ${form.fitness_goal === key ? 'border-[#22C55E] bg-[#F0FDF4] text-[#166534]' : 'border-gray-100 bg-gray-50 text-[#0A1A2F]/60'}`}>
+                  {label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Allergies */}
+          <div>
+            <p className="text-xs font-bold text-[#0A1A2F]/60 uppercase tracking-widest mb-2">Allergies / Avoid</p>
+            <div className="flex flex-wrap gap-2">
+              {Object.entries(ALLERGY_LABELS).map(([key, label]) => {
+                const active = form.allergies.includes(key);
+                return (
+                  <button key={key} onClick={() => toggle('allergies', key)}
+                    className={`px-3 py-1.5 rounded-full border text-xs font-semibold transition-all ${active ? 'border-red-300 bg-red-50 text-red-600' : 'border-gray-100 bg-gray-50 text-[#0A1A2F]/55'}`}>
+                    {label}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Physical stats */}
+          <div>
+            <p className="text-xs font-bold text-[#0A1A2F]/60 uppercase tracking-widest mb-2">Physical Stats</p>
+            <div className="grid grid-cols-2 gap-3">
+              {[
+                { key: 'weight_kg', label: 'Weight (kg)', type: 'number' },
+                { key: 'height_cm', label: 'Height (cm)', type: 'number' },
+                { key: 'age', label: 'Age', type: 'number' },
+                { key: 'workout_days_per_week', label: 'Workout days/week', type: 'number' },
+              ].map(({ key, label, type }) => (
+                <div key={key}>
+                  <p className="text-[10px] text-[#0A1A2F]/45 mb-1">{label}</p>
+                  <input type={type} value={form[key]} onChange={e => setForm(f => ({ ...f, [key]: e.target.value }))}
+                    className="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm text-[#0A1A2F] bg-gray-50 focus:outline-none focus:border-[#22C55E]" />
+                </div>
+              ))}
+            </div>
+            <div className="mt-3">
+              <p className="text-[10px] text-[#0A1A2F]/45 mb-1">Sex (for calorie calc)</p>
+              <div className="flex gap-2">
+                {['male', 'female'].map(s => (
+                  <button key={s} onClick={() => setForm(f => ({ ...f, sex: s }))}
+                    className={`flex-1 py-2 rounded-xl border text-sm font-semibold transition-all capitalize ${form.sex === s ? 'border-[#22C55E] bg-[#F0FDF4] text-[#166534]' : 'border-gray-100 bg-gray-50 text-[#0A1A2F]/60'}`}>
+                    {s}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button onClick={save} disabled={saving}
+          className="mt-6 w-full py-3.5 rounded-2xl font-bold text-white text-sm flex items-center justify-center gap-2 transition-all active:scale-98"
+          style={{ background: 'linear-gradient(135deg,#166534,#22C55E)' }}>
+          {saving ? 'Saving…' : <><Check className="w-4 h-4" /> Save Goals</>}
+        </button>
+      </motion.div>
+    </div>
+  );
+}
+
 // ── Main page ─────────────────────────────────────────────────────────────────
 export default function NutritionGoalsPage() {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [showCalcInfo, setShowCalcInfo] = useState(false);
+  const [showUpdateModal, setShowUpdateModal] = useState(false);
   const verseIdx = new Date().getDay() % FOOD_VERSES.length;
   const verse = FOOD_VERSES[verseIdx];
 
@@ -194,10 +354,15 @@ export default function NutritionGoalsPage() {
           <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#22C55E] to-[#16A34A] flex items-center justify-center">
             <Target className="w-5 h-5 text-white" />
           </div>
-          <div>
+          <div className="flex-1">
             <h1 className="text-base font-bold text-[#0A1A2F]">Nutrition Goals</h1>
             <p className="text-xs text-[#0A1A2F]/45">Your nutrition profile</p>
           </div>
+          <button onClick={() => setShowUpdateModal(true)}
+            className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold text-white transition-all active:scale-95"
+            style={{ background: 'linear-gradient(135deg,#166534,#22C55E)' }}>
+            <Pencil className="w-3.5 h-3.5" /> Update Goals
+          </button>
         </div>
       </div>
 
@@ -489,6 +654,15 @@ export default function NutritionGoalsPage() {
 
       </div>
     </div>
+
+    <AnimatePresence>
+      {showUpdateModal && (
+        <UpdateGoalsModal
+          user={user}
+          onClose={() => setShowUpdateModal(false)}
+          onSave={(updated) => setUser(updated)}
+        />
+      )}
+    </AnimatePresence>
   );
 }
-
