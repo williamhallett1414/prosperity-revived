@@ -1,0 +1,46 @@
+{
+  "name": "JournalSummary",
+  "type": "object",
+  "properties": {
+    "summary_type": {
+      "type": "string",
+      "enum": [
+        "weekly",
+        "monthly"
+      ],
+      "description": "Type of summary"
+    },
+    "summary_text": {
+      "type": "string",
+      "description": "AI-generated summary content"
+    },
+    "period_start": {
+      "type": "string",
+      "format": "date",
+      "description": "Start date of the period analyzed"
+    },
+    "period_end": {
+      "type": "string",
+      "format": "date",
+      "description": "End date of the period analyzed"
+    },
+    "entries_analyzed": {
+      "type": "number",
+      "description": "Number of entries analyzed"
+    },
+    "mood_trends": {
+      "type": "object",
+      "description": "Mood pattern analysis"
+    },
+    "category_breakdown": {
+      "type": "object",
+      "description": "Count of entries per category"
+    }
+  },
+  "required": [
+    "summary_type",
+    "summary_text",
+    "period_start",
+    "period_end"
+  ]
+}
