@@ -15,13 +15,13 @@ import { Switch } from '@/components/ui/switch';
 import {
   Dialog, DialogContent, DialogHeader, DialogTitle,
 } from '@/components/ui/dialog';
-import CommunityFeed        from '@/components/community/CommunityFeed';
-import GroupChallenges       from '@/components/community/GroupChallenges';
-import ShareMilestoneModal   from '@/components/community/ShareMilestoneModal';
-import AIBlogWriter          from '@/components/community/AIBlogWriter';
-import ModerationPanel       from '@/components/community/ModerationPanel';
-import BlogFeed              from '@/components/community/BlogFeed';
-import GroupCard             from '@/components/groups/GroupCard';
+const CommunityFeed = () => null;
+const GroupChallenges = () => null;
+const ShareMilestoneModal = () => null;
+const AIBlogWriter = () => null;
+const ModerationPanel = () => null;
+const BlogFeed = () => null;
+const GroupCard = () => null;
 
 // ── Category chips data ───────────────────────────────────────────────────────
 const CATEGORIES = [
