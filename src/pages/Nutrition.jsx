@@ -211,198 +211,209 @@ export default function Nutrition() {
       <div className="max-w-lg mx-auto px-4 py-4 space-y-4">
 
         {/* ══ TODAY TAB ══ */}
-        {activeTab === 'today' &&
-        <>
+        {activeTab === 'today' && (
+          <div className="space-y-5">
 
-            {/* Scripture for nourishment */}
-            <div className="bg-gradient-to-br from-[#22c55e]/10 to-[#c9a227]/5 rounded-2xl p-4 border border-[#22c55e]/20 mb-2">
-              <div className="flex items-center gap-2 mb-2">
-                <div className="w-1 h-4 bg-[#22c55e] rounded-full" />
-                <span className="text-[10px] font-bold text-[#16a34a] uppercase tracking-widest">Nourish Your Spirit</span>
+            {/* ── Scripture banner ── */}
+            <div className="bg-gradient-to-br from-[#14532d] to-[#166534] rounded-2xl p-4 flex items-start gap-3 shadow-sm">
+              <div className="w-8 h-8 rounded-lg bg-white/15 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <span className="text-base">✝️</span>
               </div>
-              <p className="text-[#0A1A2F] text-sm leading-relaxed italic" style={{ fontFamily: 'Georgia, serif' }}>
-                "Whether you eat or drink, or whatever you do, do it all for the glory of God."
-              </p>
-              <p className="text-xs text-[#0A1A2F]/40 mt-1">1 Corinthians 10:31 (WEB)</p>
-            </div>
-
-            {/* Discover Recipes banner */}
-            <Link to={createPageUrl('DiscoverRecipes')}>
-              <div className="bg-gradient-to-r from-[#16a34a] to-[#22c55e] rounded-2xl p-4 flex items-center gap-4 shadow-md shadow-[#22c55e]/25 active:scale-[0.98] transition-transform">
-                <div className="w-11 h-11 rounded-xl bg-white/20 flex items-center justify-center flex-shrink-0">
-                  <UtensilsCrossed className="w-5 h-5 text-white" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="font-bold text-white text-sm leading-tight">Discover Recipes</p>
-                  <p className="text-white/70 text-xs mt-0.5">Browse healthy meals & log them instantly</p>
-                </div>
-                <ChevronRight className="w-5 h-5 text-white/60 flex-shrink-0" />
-              </div>
-            </Link>
-
-            {/* Macro summary card */}
-            <div id="tour-nutrition-macros" className="bg-gradient-to-r from-[#f0fdf4] to-[#fefce8] rounded-2xl border border-[#22c55e]/20 p-4">
-              <p className="text-xs font-bold text-[#0A1A2F]/35 uppercase tracking-widest mb-3">Today's Progress</p>
-              <div className="grid grid-cols-4 gap-2">
-                {getMacroConfig(user).map(({ key, label, unit, target }) =>
-              <MacroRing key={key} value={Math.round(totals[key])} target={target} label={label} unit={unit} />
-              )}
-              </div>
-              {/* Calorie bar */}
-              <div className="mt-4 pt-3 border-t border-[#FAD98D]/15">
-                <div className="flex justify-between text-xs mb-1.5">
-                  <span className="text-[#0A1A2F]/50 font-semibold">{Math.round(totals.calories)} kcal eaten</span>
-                  <span className="text-[#0A1A2F]/35">{Math.max(0, calGoal - Math.round(totals.calories))} remaining</span>
-                </div>
-                <div className="w-full bg-[#F2F6FA] rounded-full h-2 overflow-hidden">
-                  <motion.div
-                  initial={{ width: 0 }}
-                  animate={{ width: `${Math.min(totals.calories / calGoal * 100, 100)}%` }}
-                  transition={{ duration: 0.8, delay: 0.2 }}
-                  className={`h-full rounded-full ${totals.calories > calGoal ? 'bg-red-400' : 'bg-gradient-to-r from-[#16a34a] to-[#22c55e]'}`} />
-                
-                </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-[10px] font-bold text-white/50 uppercase tracking-widest mb-1">Nourish Your Spirit</p>
+                <p className="text-white text-sm leading-relaxed italic" style={{ fontFamily: 'Georgia, serif' }}>
+                  "Whatever you eat or drink, do it all for the glory of God."
+                </p>
+                <p className="text-white/40 text-[10px] mt-1.5 font-semibold">1 Corinthians 10:31</p>
               </div>
             </div>
 
-            {/* Water tracker */}
-            <div id="tour-water-tracker" className="bg-white rounded-2xl border border-[#22c55e]/15 p-4">
-              <div className="flex items-center justify-between">
+            {/* ── Today's Progress ── */}
+            <div id="tour-nutrition-macros" className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+              <div className="px-4 pt-4 pb-3 border-b border-gray-50">
+                <div className="flex items-center justify-between">
+                  <p className="text-sm font-bold text-[#0A1A2F]">Today's Progress</p>
+                  <span className="text-[10px] font-bold text-[#0A1A2F]/30 uppercase tracking-widest">{new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}</span>
+                </div>
+              </div>
+              <div className="p-4">
+                {/* Calorie bar */}
+                <div className="mb-4">
+                  <div className="flex justify-between items-baseline mb-2">
+                    <div>
+                      <span className="text-2xl font-black text-[#0A1A2F]">{Math.round(totals.calories)}</span>
+                      <span className="text-xs text-[#0A1A2F]/40 ml-1">/ {calGoal} kcal</span>
+                    </div>
+                    <span className={`text-xs font-bold ${totals.calories > calGoal ? 'text-red-500' : 'text-[#16a34a]'}`}>
+                      {totals.calories > calGoal ? `${Math.round(totals.calories - calGoal)} over` : `${Math.max(0, calGoal - Math.round(totals.calories))} left`}
+                    </span>
+                  </div>
+                  <div className="w-full bg-gray-100 rounded-full h-2.5 overflow-hidden">
+                    <motion.div
+                      initial={{ width: 0 }}
+                      animate={{ width: `${Math.min(totals.calories / calGoal * 100, 100)}%` }}
+                      transition={{ duration: 0.8, delay: 0.2 }}
+                      className={`h-full rounded-full ${totals.calories > calGoal ? 'bg-red-400' : 'bg-gradient-to-r from-[#16a34a] to-[#22c55e]'}`}
+                    />
+                  </div>
+                </div>
+                {/* Macro rings */}
+                <div className="grid grid-cols-4 gap-2">
+                  {getMacroConfig(user).map(({ key, label, unit, target }) => (
+                    <MacroRing key={key} value={Math.round(totals[key])} target={target} label={label} unit={unit} />
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* ── Water tracker ── */}
+            <div id="tour-water-tracker" className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4">
+              <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-2.5">
-                  <div className="w-9 h-9 rounded-xl bg-[#22c55e]/10 flex items-center justify-center">
-                    <Droplets className="w-4.5 h-4.5 text-[#16a34a]" style={{ width: 18, height: 18 }} />
+                  <div className="w-9 h-9 rounded-xl bg-blue-50 flex items-center justify-center">
+                    <Droplets className="w-5 h-5 text-blue-500" />
                   </div>
                   <div>
                     <p className="font-bold text-[#0A1A2F] text-sm">Water Intake</p>
-                    <p className="text-xs text-[#0A1A2F]/40">{glasses} / {waterGoal} glasses</p>
+                    <p className="text-xs text-[#0A1A2F]/40">{glasses} of {waterGoal} glasses today</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1.5">
                   <button onClick={() => updateWater.mutate(Math.max(0, glasses - 1))}
-                className="w-11 h-11 rounded-full bg-[#F2F6FA] font-bold text-[#0A1A2F]/50 flex items-center justify-center hover:bg-[#22c55e]/10 text-lg">−</button>
-                  <span className="font-bold text-[#16a34a] text-lg w-6 text-center">{glasses}</span>
+                    className="w-8 h-8 rounded-full bg-gray-100 font-bold text-[#0A1A2F]/50 flex items-center justify-center hover:bg-gray-200 transition-colors text-base leading-none">−</button>
+                  <span className="font-bold text-[#16a34a] text-base w-5 text-center">{glasses}</span>
                   <button onClick={() => updateWater.mutate(Math.min(20, glasses + 1))}
-                className="w-11 h-11 rounded-full bg-[#22c55e]/15 font-bold text-[#16a34a] flex items-center justify-center hover:bg-[#22c55e]/25 text-lg">+</button>
+                    className="w-8 h-8 rounded-full bg-blue-100 font-bold text-blue-600 flex items-center justify-center hover:bg-blue-200 transition-colors text-base leading-none">+</button>
                 </div>
               </div>
-              {/* Water dots — tap to fill up to that point */}
-              <div className="flex gap-1.5 mt-3 flex-wrap">
-                {Array.from({ length: waterGoal }).map((_, i) =>
-              <button key={i} onClick={() => updateWater.mutate(i + 1)}
-              className={`w-7 h-7 rounded-full transition-all text-sm ${i < glasses ? 'bg-[#22c55e] text-white' : 'bg-[#F2F6FA] text-[#0A1A2F]/20'}`}>
-                    💧
+              <div className="flex gap-1.5 flex-wrap">
+                {Array.from({ length: waterGoal }).map((_, i) => (
+                  <button key={i} onClick={() => updateWater.mutate(i + 1)}
+                    className={`w-7 h-7 rounded-full text-sm transition-all active:scale-90 ${i < glasses ? 'bg-blue-500 shadow-sm' : 'bg-gray-100'}`}>
+                    {i < glasses ? '💧' : '○'}
                   </button>
-              )}
+                ))}
               </div>
-              {/* Water goal celebration */}
-              {glasses >= waterGoal &&
-            <div className="mt-3 text-center">
-                  <span className="text-xs font-bold text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full">
-                    💧 Hydration goal reached!
-                  </span>
+              {glasses >= waterGoal && (
+                <div className="mt-3 flex items-center gap-2 bg-blue-50 rounded-xl px-3 py-2">
+                  <span className="text-sm">🎉</span>
+                  <p className="text-xs font-bold text-blue-600">Hydration goal reached!</p>
                 </div>
-            }
+              )}
             </div>
 
-            {/* Today's meals */}
-            <div>
-              <div className="flex items-center justify-between mb-2.5">
-                <p className="text-xs font-bold text-[#0A1A2F]/35 uppercase tracking-widest">Meals Logged Today · {todayMeals.length}</p>
+            {/* ── Today's Meals ── */}
+            <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+              <div className="flex items-center justify-between px-4 pt-4 pb-3 border-b border-gray-50">
+                <p className="text-sm font-bold text-[#0A1A2F]">Meals Logged Today</p>
+                <span className="text-xs font-bold text-[#0A1A2F]/30 bg-gray-100 px-2 py-0.5 rounded-full">{todayMeals.length}</span>
               </div>
-              {todayMeals.length === 0 ?
-            <div className="bg-gradient-to-r from-orange-50 to-amber-50 rounded-2xl border border-[#FAD98D]/30 p-6 text-center">
-                  <p className="text-sm text-[#0A1A2F]/40 font-semibold">Nothing logged yet</p>
-                  <p className="text-xs text-[#0A1A2F]/25 mt-1">Tap a suggestion below or use Log Food</p>
-                </div> :
+              <div className="p-3">
+                {todayMeals.length === 0 ? (
+                  <div className="text-center py-6">
+                    <p className="text-2xl mb-2">🍽️</p>
+                    <p className="text-sm font-semibold text-[#0A1A2F]/40">Nothing logged yet</p>
+                    <p className="text-xs text-[#0A1A2F]/25 mt-1">Tap a suggestion below or use Log Food</p>
+                  </div>
+                ) : (
+                  <div className="space-y-1.5">
+                    {todayMeals.map((m, i) => (
+                      <motion.div key={m.id || i} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: i * 0.04 }}
+                        className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-gray-50 group transition-colors">
+                        <div className="w-8 h-8 rounded-lg bg-[#FAD98D]/20 flex items-center justify-center flex-shrink-0 text-base">
+                          {MEAL_EMOJI[m.meal_type] || '🍴'}
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="font-semibold text-[#0A1A2F] text-sm leading-tight truncate">{m.description}</p>
+                          <p className="text-[10px] text-[#0A1A2F]/35 mt-0.5 capitalize">{m.meal_type}</p>
+                        </div>
+                        <div className="text-right flex-shrink-0">
+                          <p className="font-bold text-[#c9a227] text-sm">{m.calories || 0} <span className="text-[10px] font-normal text-[#0A1A2F]/30">kcal</span></p>
+                        </div>
+                        {m.id && (
+                          <button onClick={() => { if (window.confirm('Remove this meal?')) deleteMeal.mutate(m.id); }}
+                            className="opacity-0 group-hover:opacity-100 p-1.5 rounded-lg hover:bg-red-50 text-gray-300 hover:text-red-400 transition-all flex-shrink-0">
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </button>
+                        )}
+                      </motion.div>
+                    ))}
+                  </div>
+                )}
+                <button onClick={() => setShowLogModal(true)}
+                  className="w-full mt-3 py-2.5 rounded-xl border-2 border-dashed border-[#FAD98D]/50 text-xs font-bold text-[#c9a227] hover:border-[#c9a227]/50 hover:bg-[#FAD98D]/5 transition-all flex items-center justify-center gap-1.5">
+                  <Plus className="w-3.5 h-3.5" /> Add Meal
+                </button>
+              </div>
+            </div>
 
-            <div className="space-y-2">
-                  {todayMeals.map((m, i) =>
-              <motion.div key={m.id || i} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: i * 0.04 }}
-              className="bg-white rounded-xl border border-[#FAD98D]/15 p-3 flex items-center gap-3 group">
-                      <span className="text-xl flex-shrink-0">{MEAL_EMOJI[m.meal_type] || '🍴'}</span>
+            {/* ── Quick Log ── */}
+            <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+              <div className="px-4 pt-4 pb-3 border-b border-gray-50">
+                <p className="text-sm font-bold text-[#0A1A2F]">Quick Log <span className="text-[#16a34a] capitalize">· {suggestType}</span></p>
+              </div>
+              <div className="p-3 space-y-1.5">
+                {suggestions.length === 0 ? (
+                  <p className="text-xs text-[#0A1A2F]/35 text-center py-3">No suggestions right now. Use Log Food above.</p>
+                ) : suggestions.map((meal, i) => {
+                  const alreadyLogged = todayMeals.some((m) => m.description === meal.name);
+                  return (
+                    <motion.div key={meal.id} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: i * 0.06 }}
+                      className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-gray-50 transition-colors">
+                      <span className="text-xl flex-shrink-0">{meal.emoji}</span>
                       <div className="flex-1 min-w-0">
-                        <p className="font-semibold text-[#0A1A2F] text-sm leading-tight truncate">{m.description}</p>
-                        <p className="text-[10px] text-[#0A1A2F]/35 mt-0.5 capitalize">{m.meal_type}</p>
+                        <p className="font-semibold text-[#0A1A2F] text-sm leading-tight">{meal.name}</p>
+                        <div className="flex gap-2 mt-0.5">
+                          <span className="text-[10px] font-bold text-[#c9a227] bg-[#FAD98D]/20 px-1.5 py-0.5 rounded">{meal.cal} cal</span>
+                          <span className="text-[10px] text-[#0A1A2F]/35">{meal.protein}g P · {meal.carbs}g C · {meal.fats}g F</span>
+                        </div>
                       </div>
-                      <div className="text-right flex-shrink-0">
-                        <p className="font-bold text-[#c9a227] text-sm">{m.calories || 0}</p>
-                        <p className="text-[9px] text-[#0A1A2F]/30">kcal</p>
-                      </div>
-                      {m.id &&
-                <button onClick={() => {if (window.confirm('Remove this meal?')) deleteMeal.mutate(m.id);}}
-                className="opacity-0 group-hover:opacity-100 p-1.5 rounded-lg hover:bg-red-50 text-gray-300 hover:text-red-400 transition-all flex-shrink-0">
-                          <Trash2 className="w-3.5 h-3.5" />
+                      {alreadyLogged ? (
+                        <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-1 rounded-lg flex-shrink-0">✓ Logged</span>
+                      ) : (
+                        <button onClick={() => quickLog(meal)} disabled={logMeal.isPending}
+                          className="px-3 py-1.5 rounded-xl bg-[#22c55e]/15 text-[#16a34a] text-xs font-bold hover:bg-[#22c55e]/25 transition-colors flex-shrink-0 active:scale-95">
+                          + Log
                         </button>
-                }
+                      )}
                     </motion.div>
-              )}
-                </div>
-            }
-            </div>
-
-            {/* Quick log suggestions */}
-            <div>
-              <p className="text-xs font-bold text-[#16a34a]/60 uppercase tracking-widest mb-2.5 capitalize">
-                Quick Log · {suggestType}
-              </p>
-              <div className="space-y-2">
-                {suggestions.length === 0 ?
-              <div className="bg-white rounded-xl border border-[#FAD98D]/15 p-4 text-center">
-                    <p className="text-xs text-[#0A1A2F]/35">No quick suggestions for {suggestType} right now. Use Log Food above.</p>
-                  </div> :
-              suggestions.map((meal, i) => {
-                const alreadyLogged = todayMeals.some((m) => m.description === meal.name);
-                return (
-                  <motion.div key={meal.id} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.06 }}
-                  className="bg-white rounded-xl border border-[#FAD98D]/15 p-3 flex items-center gap-3">
-                    <span className="text-2xl flex-shrink-0">{meal.emoji}</span>
-                    <div className="flex-1 min-w-0">
-                      <p className="font-semibold text-[#0A1A2F] text-sm leading-tight">{meal.name}</p>
-                      <div className="flex gap-3 mt-0.5 text-[10px] text-[#0A1A2F]/40">
-                        <span>{meal.cal} cal</span>
-                        <span>{meal.protein}g P</span>
-                        <span>{meal.carbs}g C</span>
-                        <span>{meal.fats}g F</span>
-                      </div>
-                    </div>
-                    {alreadyLogged ?
-                    <span className="text-xs font-bold text-emerald-500 flex-shrink-0">✓ Logged</span> :
-
-                    <button onClick={() => quickLog(meal)}
-                    disabled={logMeal.isPending}
-                    className="px-3 py-1.5 rounded-xl bg-[#22c55e]/15 text-[#16a34a] text-xs font-bold hover:bg-[#22c55e]/25 transition-colors flex-shrink-0">
-                        + Log
-                      </button>
-                    }
-                  </motion.div>);
-
-              })}
+                  );
+                })}
               </div>
             </div>
 
-
-
-            {/* Ask Chef Daniel */}
-            <div className="pt-2" />
-            <Link to={createPageUrl('ChatScreen?bot=ChefDaniel')}>
-              <div className="bg-gradient-to-r from-[#f0fdf4] to-[#fefce8] rounded-2xl px-4 py-5 flex items-center gap-4 border border-[#22c55e]/20">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#16a34a] to-[#22c55e] flex items-center justify-center flex-shrink-0 shadow-sm">
-                  <ChefHat className="w-5 h-5 text-white" />
+            {/* ── Discover + Chef Daniel row ── */}
+            <div className="grid grid-cols-2 gap-3">
+              <Link to={createPageUrl('DiscoverRecipes')}>
+                <div className="bg-gradient-to-br from-[#16a34a] to-[#22c55e] rounded-2xl p-4 h-full flex flex-col gap-2 shadow-sm active:scale-[0.97] transition-transform">
+                  <div className="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center">
+                    <UtensilsCrossed className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <p className="font-bold text-white text-sm leading-tight">Discover Recipes</p>
+                    <p className="text-white/65 text-[10px] mt-0.5">Browse & log instantly</p>
+                  </div>
                 </div>
-                <div className="flex-1 min-w-0">
-                  <p className="font-bold text-[#0A1A2F] text-sm">Ask Chef Daniel</p>
-                  <p className="text-xs text-[#0A1A2F]/50">Meal ideas, macros, diet questions — ask anything.</p>
+              </Link>
+              <Link to={createPageUrl('ChatScreen?bot=ChefDaniel')}>
+                <div className="bg-gradient-to-br from-[#c9a227] to-[#FAD98D] rounded-2xl p-4 h-full flex flex-col gap-2 shadow-sm active:scale-[0.97] transition-transform">
+                  <div className="w-9 h-9 rounded-xl bg-white/25 flex items-center justify-center">
+                    <ChefHat className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <p className="font-bold text-white text-sm leading-tight">Ask Chef Daniel</p>
+                    <p className="text-white/70 text-[10px] mt-0.5">Meal ideas & advice</p>
+                  </div>
                 </div>
-                <ChevronRight className="w-4 h-4 text-[#FD9C2D] flex-shrink-0" />
-              </div>
-            </Link>
+              </Link>
+            </div>
 
-            {/* Articles */}
+            {/* ── Articles ── */}
             <TrendingNutritionArticles />
-          </>
-        }
+          </div>
+        )}
 
         {/* ══ PLANNER TAB ══ */}
         {activeTab === 'planner' && <MealPlannerCard />}
