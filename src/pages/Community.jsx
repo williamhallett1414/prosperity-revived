@@ -60,7 +60,7 @@ export default function Community() {
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-6">
       <div className="max-w-4xl mx-auto px-4">
         {/* Header Section */}
-        <div className="sticky top-16 bg-white dark:bg-[#0A1A2F] border-b border-gray-200 dark:border-gray-700 z-30 -mx-4 px-4 py-4">
+         <div className="sticky top-0 bg-white dark:bg-[#0A1A2F] border-b border-gray-200 dark:border-gray-700 z-30 -mx-4 px-4 py-4">
           <div className="flex items-center justify-between mb-4">
             <div>
               <h1 className="text-2xl font-bold text-[#0A1A2F] dark:text-white">Community</h1>
