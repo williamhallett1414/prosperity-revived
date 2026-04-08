@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  ArrowLeft, Play, Pause, X, Volume2, VolumeX, Loader2,
+  ArrowLeft, Play, Pause, X, Loader2,
   Wind, Moon, Sun, Heart, BookOpen, Leaf, Flame, Star as StarIcon,
   Zap, Shield, Feather, Eye, Coffee, Cloud, Music, Sunrise,
   Waves, Anchor, Rainbow
@@ -82,41 +82,6 @@ function getTimeLabel() {
 }
 
 // ─── Audio engine ─────────────────────────────────────────────────────────────
-class AmbientSoundscape {
-  constructor() { this.ctx = null; this.nodes = []; this.masterGain = null; }
-  start() {
-    try {
-      this.ctx = new (window.AudioContext || window.webkitAudioContext)();
-      this.masterGain = this.ctx.createGain();
-      this.masterGain.gain.setValueAtTime(0, this.ctx.currentTime);
-      this.masterGain.gain.linearRampToValueAtTime(0.18, this.ctx.currentTime + 4);
-      this.masterGain.connect(this.ctx.destination);
-      [{ freq: 174, vol: 0.4 }, { freq: 285, vol: 0.3 }, { freq: 396, vol: 0.2 }, { freq: 528, vol: 0.15 }]
-        .forEach(({ freq, vol }) => {
-          const osc = this.ctx.createOscillator(), gain = this.ctx.createGain(), filter = this.ctx.createBiquadFilter();
-          const lfo = this.ctx.createOscillator(), lfoGain = this.ctx.createGain();
-          osc.type = 'sine'; osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
-          lfo.frequency.value = 0.2 + Math.random() * 0.2; lfoGain.gain.value = 1;
-          lfo.connect(lfoGain); lfoGain.connect(osc.frequency); lfo.start();
-          filter.type = 'lowpass'; filter.frequency.value = 600; filter.Q.value = 0.5;
-          gain.gain.value = vol;
-          osc.connect(filter); filter.connect(gain); gain.connect(this.masterGain); osc.start();
-          this.nodes.push({ osc, lfo });
-        });
-    } catch (e) { console.warn('Web Audio unavailable', e); }
-  }
-  setVolume(v) { if (this.masterGain && this.ctx) this.masterGain.gain.linearRampToValueAtTime(v, this.ctx.currentTime + 0.5); }
-  stop() {
-    if (!this.ctx) return;
-    try {
-      this.masterGain?.gain.linearRampToValueAtTime(0, this.ctx.currentTime + 2);
-      setTimeout(() => {
-        this.nodes.forEach(({ osc, lfo }) => { try { osc.stop(); } catch {} try { lfo.stop(); } catch {} });
-        this.nodes = []; try { this.ctx.close(); } catch {} this.ctx = null;
-      }, 2500);
-    } catch {}
-  }
-}
 
 // ─── Preload voices (Chrome loads them async) ────────────────────────────────
 let cachedHannahVoice = null;
@@ -172,11 +137,9 @@ function MeditationPlayer({ meditation, onClose }) {
   const [script, setScript]             = useState([]);
   const [currentSegment, setCurrentSeg] = useState(0);
   const [currentText, setCurrentText]   = useState('');
-  const [musicMuted, setMusicMuted]     = useState(false);
   const [elapsed, setElapsed]           = useState(0);
   const [breathState, setBreathState]   = useState('in');
 
-  const soundRef  = useRef(null);
   const pausedRef = useRef(false);
   const stoppedRef = useRef(false);
   const timerRef  = useRef(null);
@@ -199,7 +162,7 @@ function MeditationPlayer({ meditation, onClose }) {
     return () => {
       stoppedRef.current = true;
       window.speechSynthesis?.cancel();
-      soundRef.current?.stop();
+      
       clearInterval(timerRef.current);
       clearInterval(breathRef.current);
     };
@@ -235,7 +198,7 @@ function MeditationPlayer({ meditation, onClose }) {
     }
 
     setScript(segments); setPhase('playing');
-    soundRef.current = new AmbientSoundscape(); soundRef.current.start();
+    
     timerRef.current = setInterval(() => setElapsed(e => e + 1), 1000);
     breathRef.current = setInterval(() => setBreathState(s => s === 'in' ? 'out' : 'in'), 4000);
 
@@ -257,7 +220,7 @@ function MeditationPlayer({ meditation, onClose }) {
     if (!stoppedRef.current) {
       setPhase('done');
       clearInterval(timerRef.current); clearInterval(breathRef.current);
-      soundRef.current?.stop();
+      
       // Record completion
       const count = loadCount() + 1;
       localStorage.setItem(COUNT_KEY, count);
@@ -269,7 +232,7 @@ function MeditationPlayer({ meditation, onClose }) {
   const handleClose = () => {
     stoppedRef.current = true;
     window.speechSynthesis?.cancel();
-    soundRef.current?.stop();
+    
     clearInterval(timerRef.current); clearInterval(breathRef.current);
     onClose();
   };
@@ -277,10 +240,6 @@ function MeditationPlayer({ meditation, onClose }) {
   const togglePause = () => {
     if (phase === 'playing') { pausedRef.current = true; window.speechSynthesis?.pause(); setPhase('paused'); }
     else if (phase === 'paused') { pausedRef.current = false; window.speechSynthesis?.resume(); setPhase('playing'); }
-  };
-
-  const toggleMusic = () => {
-    const m = !musicMuted; setMusicMuted(m); soundRef.current?.setVolume(m ? 0 : 0.18);
   };
 
   const fmt = s => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
@@ -310,9 +269,6 @@ function MeditationPlayer({ meditation, onClose }) {
           <p className="text-white/40 text-[10px] font-bold uppercase tracking-widest">Guided Meditation</p>
           <p className="text-white font-bold text-sm mt-0.5">{meditation.title}</p>
         </div>
-        <button onClick={toggleMusic} className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
-          {musicMuted ? <VolumeX className="w-5 h-5 text-white/40" /> : <Volume2 className="w-5 h-5 text-white" />}
-        </button>
       </div>
 
       {/* Center */}
