@@ -8,13 +8,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, Share2, BookOpen, Trophy } from 'lucide-react';
 import { toast } from 'sonner';
 
-import CommunityFeed from '@/components/community/CommunityFeed';
-import GroupChallenges from '@/components/community/GroupChallenges';
-import ShareMilestoneModal from '@/components/community/ShareMilestoneModal';
-import AIBlogWriter from '@/components/community/AIBlogWriter';
-import BlogFeed from '@/components/community/BlogFeed';
-
-// Lazy load ModerationPanel to isolate potential errors
+// Lazy load all heavy components
+const CommunityFeed = React.lazy(() => import('@/components/community/CommunityFeed'));
+const GroupChallenges = React.lazy(() => import('@/components/community/GroupChallenges'));
+const ShareMilestoneModal = React.lazy(() => import('@/components/community/ShareMilestoneModal'));
+const AIBlogWriter = React.lazy(() => import('@/components/community/AIBlogWriter'));
+const BlogFeed = React.lazy(() => import('@/components/community/BlogFeed'));
 const ModerationPanel = React.lazy(() => import('@/components/community/ModerationPanel'));
 
 export default function Community() {
@@ -100,57 +99,69 @@ export default function Community() {
         </div>
 
         {/* Content Sections */}
-        <div className="mt-6">
-          <AnimatePresence mode="wait">
-            {activeTab === 'feed' && (
-             <motion.div key="feed" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-               <CommunityFeed user={user} />
-             </motion.div>
-            )}
-
-            {activeTab === 'challenges' && (
-              <motion.div key="challenges" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                <GroupChallenges user={user} />
+         <div className="mt-6">
+           <AnimatePresence mode="wait">
+             {activeTab === 'feed' && (
+              <motion.div key="feed" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <React.Suspense fallback={<div className="text-center py-8">Loading...</div>}>
+                  <CommunityFeed user={user} />
+                </React.Suspense>
               </motion.div>
-            )}
+             )}
 
-            {activeTab === 'blog' && (
-              <motion.div key="blog" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                <BlogFeed user={user} onWriteWithAI={() => setShowBlogWriter(true)} />
-              </motion.div>
-            )}
+             {activeTab === 'challenges' && (
+               <motion.div key="challenges" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                 <React.Suspense fallback={<div className="text-center py-8">Loading...</div>}>
+                   <GroupChallenges user={user} />
+                 </React.Suspense>
+               </motion.div>
+             )}
 
-            {activeTab === 'moderation' && user?.role === 'admin' && (
-              <motion.div key="moderation" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                <ModerationPanel user={user} />
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
+             {activeTab === 'blog' && (
+               <motion.div key="blog" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                 <React.Suspense fallback={<div className="text-center py-8">Loading...</div>}>
+                   <BlogFeed user={user} onWriteWithAI={() => setShowBlogWriter(true)} />
+                 </React.Suspense>
+               </motion.div>
+             )}
+
+             {activeTab === 'moderation' && user?.role === 'admin' && (
+               <motion.div key="moderation" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                 <React.Suspense fallback={<div className="text-center py-8">Loading...</div>}>
+                   <ModerationPanel user={user} />
+                 </React.Suspense>
+               </motion.div>
+             )}
+           </AnimatePresence>
+         </div>
       </div>
 
       {/* Modals */}
       {showShareModal && (
-        <ShareMilestoneModal
-          user={user}
-          onClose={() => setShowShareModal(false)}
-          onSuccess={() => {
-            setShowShareModal(false);
-            queryClient.invalidateQueries({ queryKey: ['communityShares'] });
-          }}
-        />
+        <React.Suspense fallback={null}>
+          <ShareMilestoneModal
+            user={user}
+            onClose={() => setShowShareModal(false)}
+            onSuccess={() => {
+              setShowShareModal(false);
+              queryClient.invalidateQueries({ queryKey: ['communityShares'] });
+            }}
+          />
+        </React.Suspense>
       )}
 
       {showBlogWriter && (
-        <AIBlogWriter
-          user={user}
-          onClose={() => setShowBlogWriter(false)}
-          onPublished={() => {
-            setShowBlogWriter(false);
-            queryClient.invalidateQueries({ queryKey: ['blogPosts'] });
-            setActiveTab('blog');
-          }}
-        />
+        <React.Suspense fallback={null}>
+          <AIBlogWriter
+            user={user}
+            onClose={() => setShowBlogWriter(false)}
+            onPublished={() => {
+              setShowBlogWriter(false);
+              queryClient.invalidateQueries({ queryKey: ['blogPosts'] });
+              setActiveTab('blog');
+            }}
+          />
+        </React.Suspense>
       )}
     </div>
   );
