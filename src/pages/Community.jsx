@@ -143,7 +143,7 @@ export default function Community() {
         <AIBlogWriter
           user={user}
           onClose={() => setShowBlogWriter(false)}
-          onPublish={() => {
+          onPublished={() => {
             setShowBlogWriter(false);
             queryClient.invalidateQueries({ queryKey: ['blogPosts'] });
             setActiveTab('blog');
