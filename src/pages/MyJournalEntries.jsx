@@ -45,7 +45,7 @@ export default function MyJournalEntries() {
   const [expandedMonthlySummary, setExpandedMonthlySummary] = useState(true);
   const queryClient = useQueryClient();
 
-  React.useEffect(() => {
+  useEffect(() => {
     base44.auth.me().then(setUser).catch(() => {});
   }, []);
 
