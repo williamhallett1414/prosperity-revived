@@ -107,7 +107,46 @@ function Home() {
           </div>
         </motion.div>
 
-        <QuickNav />
+        <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.14 }}>
+          <Link to={createPageUrl('Prayer')}>
+            <div className="bg-gradient-to-br from-[#FAD98D]/20 to-[#AFC7E3]/20 rounded-3xl p-5 shadow-sm border border-[#FAD98D]/20 relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-20 h-20 opacity-5">
+                <span className="text-4xl">🕊️</span>
+              </div>
+              <div className="flex items-center gap-2 mb-3">
+                <span className="text-lg">🕊️</span>
+                <span className="text-[11px] font-bold text-[#c9a227] uppercase tracking-widest">Grace Moment</span>
+              </div>
+              <p className="text-[#0A1A2F] text-[15px] leading-relaxed font-semibold mb-2">God's grace doesn't run out. Not today, not ever.</p>
+              <p className="text-[#0A1A2F]/60 text-xs leading-relaxed italic">
+                "My grace is sufficient for you, for my power is made perfect in weakness." — 2 Corinthians 12:9
+              </p>
+            </div>
+          </Link>
+        </motion.div>
+
+        <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.16 }}>
+          <div className="flex items-center gap-2 mb-3">
+            <span className="text-sm">💬</span>
+            <p className="text-xs font-bold text-[#0A1A2F]/40 uppercase tracking-widest">Talk to Your Guides</p>
+          </div>
+          <div className="flex gap-3 overflow-x-auto pb-2 -mx-1 px-1" style={{ scrollbarWidth: 'none' }}>
+            {[
+              { name: 'Gideon', role: 'Biblical Wisdom', bot: 'Gideon', icon: '📖' },
+              { name: 'Hannah', role: 'Mindset Coach', bot: 'Hannah', icon: '💛' },
+              { name: 'Coach David', role: 'Fitness', bot: 'CoachDavid', icon: '💪' },
+              { name: 'Chef Daniel', role: 'Nutrition', bot: 'ChefDaniel', icon: '🍽️' },
+            ].map(({ name, role, bot, icon }) => (
+              <Link key={bot} to={createPageUrl(`ChatScreen?bot=${bot}`)} className="flex-shrink-0" style={{ width: 130 }}>
+                <div className="bg-white rounded-2xl p-3 shadow-sm border border-gray-100/80 h-full text-center">
+                  <div className="text-2xl mb-2">{icon}</div>
+                  <p className="text-xs font-bold text-[#0A1A2F] leading-tight">{name}</p>
+                  <p className="text-[9px] text-[#0A1A2F]/40 font-medium">{role}</p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </motion.div>
 
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}>
           <Link to={createPageUrl('CoachingPlans')}>
