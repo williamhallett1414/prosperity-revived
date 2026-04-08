@@ -5,7 +5,8 @@ import { createPageUrl } from '@/utils';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   Salad, Droplets, Flame, Clock, ShieldCheck,
-  ChevronRight, Info, Apple, BarChart2, BookOpen, AlertTriangle, Target, Pencil, X, Check} from 'lucide-react';
+  ChevronRight, Info, Apple, BarChart2, BookOpen, AlertTriangle, Target, Pencil, X, Check,
+  CalendarDays, ChefHat, History, Plus } from 'lucide-react';
 
 // ── Label maps ────────────────────────────────────────────────────────────────
 const DIET_LABELS = {
@@ -357,20 +358,41 @@ export default function NutritionGoalsPage() {
     <div className="min-h-screen pb-28" style={{ background: '#F2F6FA' }}>
 
       {/* ── Standard Header ── */}
-      <div className="sticky top-0 z-40 bg-white border-b border-[#FAD98D]/20 px-4 pt-4 pb-3">
-        <div className="max-w-lg mx-auto flex items-center gap-3">
-          <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#22C55E] to-[#16A34A] flex items-center justify-center">
-            <Target className="w-5 h-5 text-white" />
+      <div className="sticky top-0 z-40 bg-white border-b border-[#FAD98D]/20 px-4 pt-3 pb-0">
+        <div className="max-w-lg mx-auto">
+          {/* Title row */}
+          <div className="flex items-center justify-between mb-3">
+            <div>
+              <h1 className="text-lg font-black text-[#0A1A2F] leading-tight">Nutrition</h1>
+              <p className="text-[11px] text-[#0A1A2F]/40 font-medium">Track · Plan · Nourish</p>
+            </div>
+            <button onClick={() => setShowUpdateModal(true)}
+              className="flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-bold text-white transition-all active:scale-95"
+              style={{ background: 'linear-gradient(135deg,#166534,#22C55E)' }}>
+              <Pencil className="w-3.5 h-3.5" /> Update Goals
+            </button>
           </div>
-          <div className="flex-1">
-            <h1 className="text-base font-bold text-[#0A1A2F]">Nutrition Goals</h1>
-            <p className="text-xs text-[#0A1A2F]/45">Your nutrition profile</p>
+          {/* Nav tabs */}
+          <div className="flex gap-0 border-b border-transparent -mb-px overflow-x-auto">
+            {[
+              { id: 'today',   label: 'Today',       icon: Flame,       page: 'Nutrition'        },
+              { id: 'planner', label: 'Planner',      icon: CalendarDays, page: 'Nutrition?tab=planner' },
+              { id: 'build',   label: 'Build',        icon: ChefHat,     page: 'Nutrition?tab=build'   },
+              { id: 'goals',   label: 'Goals',        icon: Target,      page: null                },
+              { id: 'history', label: 'Log History',  icon: History,     page: 'FoodLogHistory'   },
+            ].map(({ id, label, icon: Icon, page }) => (
+              <button key={id}
+                onClick={() => page && navigate(createPageUrl(page))}
+                className={`flex items-center gap-1 px-3 py-2.5 text-xs font-semibold border-b-2 transition-all whitespace-nowrap ${
+                  id === 'goals'
+                    ? 'border-[#22C55E] text-[#22C55E]'
+                    : 'border-transparent text-[#0A1A2F]/40 hover:text-[#0A1A2F]/65'
+                }`}>
+                <Icon className="w-3.5 h-3.5" />
+                {label}
+              </button>
+            ))}
           </div>
-          <button onClick={() => setShowUpdateModal(true)}
-            className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold text-white transition-all active:scale-95"
-            style={{ background: 'linear-gradient(135deg,#166534,#22C55E)' }}>
-            <Pencil className="w-3.5 h-3.5" /> Update Goals
-          </button>
         </div>
       </div>
 
