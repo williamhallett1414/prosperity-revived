@@ -292,11 +292,13 @@ function UpdateGoalsModal({ user, onClose, onSave }) {
           </div>
         </div>
 
-        <button onClick={save} disabled={saving}
-          className="mt-6 w-full py-3.5 rounded-2xl font-bold text-white text-sm flex items-center justify-center gap-2 transition-all active:scale-98"
-          style={{ background: 'linear-gradient(135deg,#166534,#22C55E)' }}>
-          {saving ? 'Saving…' : <><Check className="w-4 h-4" /> Save Goals</>}
-        </button>
+        <div className="sticky bottom-0 pt-3 pb-1 bg-white mt-3">
+          <button onClick={save} disabled={saving}
+            className="w-full py-3.5 rounded-2xl font-bold text-white text-sm flex items-center justify-center gap-2 transition-all active:scale-98"
+            style={{ background: 'linear-gradient(135deg,#166534,#22C55E)' }}>
+            {saving ? 'Saving…' : <><Check className="w-4 h-4" /> Save Goals</>}
+          </button>
+        </div>
       </motion.div>
     </div>
   );
