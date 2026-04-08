@@ -101,9 +101,9 @@ export default function Community() {
         <div className="mt-6">
           <AnimatePresence mode="wait">
             {activeTab === 'feed' && (
-              <motion.div key="feed" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                <CommunityFeed />
-              </motion.div>
+             <motion.div key="feed" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+               <CommunityFeed user={user} />
+             </motion.div>
             )}
 
             {activeTab === 'challenges' && (
