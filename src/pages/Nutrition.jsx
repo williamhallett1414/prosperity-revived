@@ -214,6 +214,20 @@ export default function Nutrition() {
         {activeTab === 'today' &&
         <>
 
+            {/* Discover Recipes banner */}
+            <Link to={createPageUrl('DiscoverRecipes')}>
+              <div className="bg-gradient-to-r from-[#c9a227] to-[#FAD98D] rounded-2xl p-4 flex items-center gap-4 shadow-md shadow-[#c9a227]/20 active:scale-[0.98] transition-transform">
+                <div className="w-11 h-11 rounded-xl bg-white/20 flex items-center justify-center flex-shrink-0">
+                  <UtensilsCrossed className="w-5 h-5 text-white" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="font-bold text-white text-sm leading-tight">Discover Recipes</p>
+                  <p className="text-white/70 text-xs mt-0.5">Browse healthy meals & log them instantly</p>
+                </div>
+                <ChevronRight className="w-5 h-5 text-white/60 flex-shrink-0" />
+              </div>
+            </Link>
+
             {/* Macro summary card */}
             <div id="tour-nutrition-macros" className="bg-gradient-to-r from-orange-50 to-amber-50 rounded-2xl border border-[#FAD98D]/30 p-4">
               <p className="text-xs font-bold text-[#0A1A2F]/35 uppercase tracking-widest mb-3">Today's Progress</p>
@@ -356,19 +370,7 @@ export default function Nutrition() {
               </div>
             </div>
 
-            {/* Quick nav cards */}
-            <div className="grid grid-cols-2 gap-3">
-              <Link to={createPageUrl('DiscoverRecipes')}>
-                <div className="bg-white border border-[#FAD98D]/20 rounded-2xl p-4 hover:border-[#c9a227]/30 transition-colors">
-                  <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center mb-2">
-                    <UtensilsCrossed className="w-4.5 h-4.5 text-white" style={{ width: 18, height: 18 }} />
-                  </div>
-                  <p className="font-bold text-[#0A1A2F] text-sm">Discover Recipes</p>
-                  <p className="text-xs text-[#0A1A2F]/40 mt-0.5">Browse & log recipes</p>
-                </div>
-              </Link>
 
-            </div>
 
             {/* Ask Chef Daniel */}
             <Link to={createPageUrl('ChatScreen?bot=ChefDaniel')}>
