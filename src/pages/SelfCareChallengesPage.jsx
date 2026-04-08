@@ -100,8 +100,70 @@ const CHALLENGES = [
   },
 ];
 
+// Combine self-care and fitness challenges
+const ALL_CHALLENGES = [...CHALLENGES, ...FITNESS_CHALLENGES];
+
 const CATS = ["All", "Faith", "Mindset", "Body", "Relationships"];
 const CAT_COLORS = { Faith: "#D9A84A", Mindset: "#0ea5e9", Body: "#22c55e", Relationships: "#f43f5e" };
+
+// ─── Fitness Challenges (converted from Workouts page) ──────────────────────
+const FITNESS_CHALLENGES = [
+  {
+    id: "cardio-30", title: "30-Day Cardio", emoji: "❤️", category: "Body",
+    duration: 30, color: "#ef4444", bg: "linear-gradient(135deg,#f87171,#dc2626)",
+    tagline: "Build cardiovascular strength and endurance", xpPerDay: 35,
+    tasks: Array.from({length: 30}, (_, i) => ({
+      day: i + 1,
+      title: `Cardio Session ${i + 1}`,
+      content: "Complete 30 minutes of cardio (running, cycling, swimming, etc.). Track your pace and distance.",
+      prompt: "How did your cardio session go today?"
+    }))
+  },
+  {
+    id: "strength-28", title: "28-Day Strength", emoji: "💪", category: "Body",
+    duration: 28, color: "#374151", bg: "linear-gradient(135deg,#6b7280,#1f2937)",
+    tagline: "Build lean muscle and increase strength", xpPerDay: 40,
+    tasks: Array.from({length: 28}, (_, i) => ({
+      day: i + 1,
+      title: `Strength Day ${i + 1}`,
+      content: "Complete a strength training session (weights, resistance bands, or bodyweight). Focus on proper form.",
+      prompt: "Which muscle groups did you work today?"
+    }))
+  },
+  {
+    id: "flexibility-14", title: "14-Day Flexibility", emoji: "🧘", category: "Body",
+    duration: 14, color: "#14b8a6", bg: "linear-gradient(135deg,#2dd4bf,#0d9488)",
+    tagline: "Improve flexibility and reduce tension", xpPerDay: 30,
+    tasks: Array.from({length: 14}, (_, i) => ({
+      day: i + 1,
+      title: `Flex Day ${i + 1}`,
+      content: "Spend 20-30 minutes on stretching, yoga, or pilates. Breathe deeply and listen to your body.",
+      prompt: "What areas of tension did you release today?"
+    }))
+  },
+  {
+    id: "hiit-21", title: "21-Day HIIT Blast", emoji: "⚡", category: "Body",
+    duration: 21, color: "#f97316", bg: "linear-gradient(135deg,#fb923c,#ea580c)",
+    tagline: "High-intensity intervals for maximum results", xpPerDay: 45,
+    tasks: Array.from({length: 21}, (_, i) => ({
+      day: i + 1,
+      title: `HIIT Session ${i + 1}`,
+      content: "30-45 minutes of high-intensity interval training. Push hard during work intervals, recover during rest.",
+      prompt: "How did your energy and recovery feel?"
+    }))
+  },
+  {
+    id: "full-body-21", title: "21-Day Full Body", emoji: "🏋️", category: "Body",
+    duration: 21, color: "#a855f7", bg: "linear-gradient(135deg,#d946ef,#7c3aed)",
+    tagline: "Complete workout system for all muscle groups", xpPerDay: 50,
+    tasks: Array.from({length: 21}, (_, i) => ({
+      day: i + 1,
+      title: `Full Body Workout ${i + 1}`,
+      content: "60-minute full-body session combining strength, cardio, and flexibility. Every muscle group matters.",
+      prompt: "What was your overall energy and performance?"
+    }))
+  },
+];
 
 // ─── Storage ──────────────────────────────────────────────────────────────────
 const LOCAL_KEY = "pr_selfcare_v3";
@@ -513,7 +575,7 @@ function ChallengeDetail({ challenge, localData, onBack, onStart, onComplete, on
 }
 
 // ─── Challenge Card (list view) ───────────────────────────────────────────────
-function ChallengeCard({ challenge, localData, onOpen }) {
+function ChallengeCard({ challenge, localData, onOpen, isFitness }) {
   const cData         = localData[challenge.id] || null;
   const completedDays = getCompletedDays(cData);
   const isStarted     = !!cData;
@@ -573,9 +635,9 @@ export default function SelfCareChallengesPage() {
   useEffect(() => { base44.auth.me().then(setUser).catch(() => {}); }, []);
   const [activeCat,   setActiveCat]   = useState("All");
 
-  const selected      = selectedId ? CHALLENGES.find(c => c.id === selectedId) : null;
-  const activeList    = CHALLENGES.filter(c => localData[c.id] && getCompletedDays(localData[c.id]).length < c.duration);
-  const completedCount = CHALLENGES.filter(c => localData[c.id] && getCompletedDays(localData[c.id]).length >= c.duration).length;
+  const selected      = selectedId ? ALL_CHALLENGES.find(c => c.id === selectedId) : null;
+  const activeList    = ALL_CHALLENGES.filter(c => localData[c.id] && getCompletedDays(localData[c.id]).length < c.duration);
+  const completedCount = ALL_CHALLENGES.filter(c => localData[c.id] && getCompletedDays(localData[c.id]).length >= c.duration).length;
   const totalXP       = getTotalXP(localData);
   const level         = getLevel(totalXP);
   const hasAny        = Object.keys(localData).length > 0;
@@ -589,7 +651,7 @@ export default function SelfCareChallengesPage() {
   };
   const handleReset    = id => { const u={...localData}; delete u[id]; setLocalData(u); saveLocal(u); setSelectedId(null); };
 
-  const filtered = [...(activeCat==="All" ? CHALLENGES : CHALLENGES.filter(c=>c.category===activeCat))]
+  const filtered = [...(activeCat==="All" ? ALL_CHALLENGES : ALL_CHALLENGES.filter(c=>c.category===activeCat))]
     .sort((a,b)=>{
       const aA=localData[a.id]&&getCompletedDays(localData[a.id]).length<a.duration;
       const bA=localData[b.id]&&getCompletedDays(localData[b.id]).length<b.duration;
@@ -724,11 +786,11 @@ export default function SelfCareChallengesPage() {
         </div>
 
         {/* Challenge list */}
-        <div style={{display:"flex",flexDirection:"column",gap:12}}>
-          {filtered.map(c=>(
-            <ChallengeCard key={c.id} challenge={c} localData={localData} onOpen={c=>setSelectedId(c.id)}/>
-          ))}
-        </div>
+         <div style={{display:"flex",flexDirection:"column",gap:12}}>
+           {filtered.map(c=>(
+             <ChallengeCard key={c.id} challenge={c} localData={localData} onOpen={c=>setSelectedId(c.id)} isFitness={FITNESS_CHALLENGES.find(f=>f.id===c.id)? true : false}/>
+           ))}
+         </div>
 
         {/* All-done nudge */}
         {hasAny && activeList.length===0 && completedCount>0 && (
