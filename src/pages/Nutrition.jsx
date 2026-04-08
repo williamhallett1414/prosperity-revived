@@ -217,18 +217,18 @@ export default function Nutrition() {
         <>
             {/* Nutrition Goals entry card */}
             <Link to={createPageUrl('NutritionGoalsPage')}>
-              <motion.div id="tour-nutrition-goals-entry" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
-            className="rounded-2xl p-4 flex items-center gap-3 shadow-sm"
-            style={{ background: 'linear-gradient(135deg, #14532d 0%, #166534 60%, #22C55E 180%)' }}>
-                <div className="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center flex-shrink-0">
-                  <span className="text-xl">🥗</span>
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="font-bold text-white text-sm leading-tight">My Nutrition Goals</p>
-                  <p className="text-white/55 text-xs mt-0.5">Diet · Calories · Macros · Meal schedule</p>
-                </div>
-                <ChevronRight className="w-4 h-4 text-white/40 flex-shrink-0" />
-              </motion.div>
+              
+
+
+
+
+
+
+
+
+
+
+            
             </Link>
             {/* Macro summary card */}
             <div id="tour-nutrition-macros" className="bg-white rounded-2xl border border-[#FAD98D]/20 p-4">
