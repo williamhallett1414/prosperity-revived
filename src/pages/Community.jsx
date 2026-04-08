@@ -120,7 +120,7 @@ export default function Community() {
 
             {activeTab === 'moderation' && user?.role === 'admin' && (
               <motion.div key="moderation" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                <ModerationPanel />
+                <ModerationPanel user={user} />
               </motion.div>
             )}
           </AnimatePresence>
