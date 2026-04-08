@@ -1,20 +1,179 @@
 import React, { useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import { useQueryClient } from '@tanstack/react-query';
+import { useSearchParams, Link } from 'react-router-dom';
+import { useQueryClient, useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Button } from '@/components/ui/button';
+import { createPageUrl } from '@/utils';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Plus, Share2, BookOpen, Trophy } from 'lucide-react';
-import { toast } from 'sonner';
+import {
+  Plus, Share2, BookOpen, Trophy, Users, MessageCircle,
+  Flame, ChevronRight, PenLine, UserPlus, Crown
+} from 'lucide-react';
 
-// Lazy load all heavy components
 const CommunityFeed = React.lazy(() => import('@/components/community/CommunityFeed'));
 const GroupChallenges = React.lazy(() => import('@/components/community/GroupChallenges'));
 const ShareMilestoneModal = React.lazy(() => import('@/components/community/ShareMilestoneModal'));
 const AIBlogWriter = React.lazy(() => import('@/components/community/AIBlogWriter'));
 const BlogFeed = React.lazy(() => import('@/components/community/BlogFeed'));
 const ModerationPanel = React.lazy(() => import('@/components/community/ModerationPanel'));
+
+const TABS = [
+  { id: 'feed',       label: 'Feed',       icon: MessageCircle },
+  { id: 'groups',     label: 'Groups',     icon: Users },
+  { id: 'challenges', label: 'Challenges', icon: Trophy },
+  { id: 'blog',       label: 'Blog',       icon: BookOpen },
+];
+
+function StatPill({ icon: Icon, value, label, color }) {
+  return (
+    <div className="flex items-center gap-2 bg-white rounded-xl px-3 py-2.5 border border-gray-100 shadow-sm flex-1 min-w-0">
+      <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
+        style={{ background: color + '15' }}>
+        <Icon className="w-4 h-4" style={{ color }} />
+      </div>
+      <div className="min-w-0">
+        <p className="text-sm font-bold text-[#0A1A2F] leading-tight">{value}</p>
+        <p className="text-[10px] text-[#0A1A2F]/40">{label}</p>
+      </div>
+    </div>
+  );
+}
+
+function GroupsSection({ user }) {
+  const { data: groups = [] } = useQuery({
+    queryKey: ['groups'],
+    queryFn: () => base44.entities.Group.list('-created_date'),
+  });
+
+  const myGroups = groups.filter(g =>
+    g.created_by === user?.email || (g.members || []).includes(user?.email)
+  );
+  const otherGroups = groups.filter(g =>
+    g.created_by !== user?.email && !(g.members || []).includes(user?.email)
+  );
+
+  return (
+    <div className="space-y-4">
+      {myGroups.length > 0 && (
+        <div>
+          <div className="flex items-center justify-between mb-2">
+            <p className="text-xs font-bold text-[#0A1A2F]/40 uppercase tracking-widest">My Groups</p>
+            <span className="text-xs text-[#7C3AED] font-semibold">{myGroups.length} joined</span>
+          </div>
+          <div className="space-y-2">
+            {myGroups.map(group => (
+              <Link key={group.id} to={createPageUrl(`GroupDetail?id=${group.id}`)}>
+                <motion.div whileTap={{ scale: 0.98 }}
+                  className="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm flex items-center gap-3">
+                  <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-[#7C3AED] to-[#A78BFA] flex items-center justify-center flex-shrink-0">
+                    <Users className="w-5 h-5 text-white" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-bold text-[#0A1A2F] truncate">{group.name}</p>
+                    <p className="text-xs text-[#0A1A2F]/45">{(group.members || []).length + 1} members · {group.category || 'General'}</p>
+                  </div>
+                  <ChevronRight className="w-4 h-4 text-[#0A1A2F]/20 flex-shrink-0" />
+                </motion.div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <div>
+        <div className="flex items-center justify-between mb-2">
+          <p className="text-xs font-bold text-[#0A1A2F]/40 uppercase tracking-widest">
+            {myGroups.length > 0 ? 'Discover More' : 'Join a Group'}
+          </p>
+        </div>
+        {otherGroups.length > 0 ? (
+          <div className="space-y-2">
+            {otherGroups.slice(0, 5).map(group => (
+              <Link key={group.id} to={createPageUrl(`GroupDetail?id=${group.id}`)}>
+                <motion.div whileTap={{ scale: 0.98 }}
+                  className="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm flex items-center gap-3">
+                  <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-[#AFC7E3] to-[#3C4E53] flex items-center justify-center flex-shrink-0">
+                    <Users className="w-5 h-5 text-white" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-bold text-[#0A1A2F] truncate">{group.name}</p>
+                    <p className="text-xs text-[#0A1A2F]/45">{(group.members || []).length + 1} members · {group.category || 'General'}</p>
+                  </div>
+                  <span className="px-3 py-1.5 rounded-full text-xs font-bold bg-[#7C3AED]/10 text-[#7C3AED] border border-[#7C3AED]/20 flex-shrink-0">Join</span>
+                </motion.div>
+              </Link>
+            ))}
+          </div>
+        ) : (
+          <div className="bg-white rounded-2xl p-6 border border-gray-100 text-center">
+            <Users className="w-8 h-8 text-[#0A1A2F]/15 mx-auto mb-2" />
+            <p className="text-sm font-semibold text-[#0A1A2F]/60">No groups yet</p>
+            <p className="text-xs text-[#0A1A2F]/35 mt-1">Be the first to create a group!</p>
+          </div>
+        )}
+      </div>
+
+      <Link to={createPageUrl('Groups')}>
+        <motion.div whileTap={{ scale: 0.98 }}
+          className="bg-gradient-to-r from-[#7C3AED] to-[#A78BFA] rounded-2xl p-4 flex items-center gap-3 shadow-md">
+          <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center flex-shrink-0">
+            <Plus className="w-5 h-5 text-white" />
+          </div>
+          <div className="flex-1">
+            <p className="text-sm font-bold text-white">Create or Browse Groups</p>
+            <p className="text-xs text-white/60">Bible study · Workout · Prayer · Accountability</p>
+          </div>
+          <ChevronRight className="w-4 h-4 text-white/50 flex-shrink-0" />
+        </motion.div>
+      </Link>
+    </div>
+  );
+}
+
+function LeaderboardWidget() {
+  const { data: progress = [] } = useQuery({
+    queryKey: ['leaderboard'],
+    queryFn: () => base44.entities.UserProgress.list('-total_points', 10),
+  });
+
+  const top5 = progress.slice(0, 5);
+  if (top5.length === 0) return null;
+
+  const medals = ['🥇', '🥈', '🥉'];
+
+  return (
+    <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+      <div className="px-4 py-3 bg-gradient-to-r from-[#FAD98D]/20 to-[#c9a227]/10 border-b border-[#FAD98D]/20 flex items-center gap-2">
+        <Crown className="w-4 h-4 text-[#c9a227]" />
+        <p className="text-xs font-bold text-[#0A1A2F] uppercase tracking-widest">Top Members</p>
+      </div>
+      <div className="divide-y divide-gray-50">
+        {top5.map((p, i) => (
+          <div key={p.id} className="flex items-center gap-3 px-4 py-2.5">
+            <span className="text-base w-6 text-center">{i < 3 ? medals[i] : <span className="text-xs text-[#0A1A2F]/30 font-bold">{i + 1}</span>}</span>
+            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#AFC7E3] to-[#3C4E53] flex items-center justify-center flex-shrink-0">
+              <span className="text-white text-xs font-bold">{(p.created_by || '?')[0].toUpperCase()}</span>
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-semibold text-[#0A1A2F] truncate">{p.created_by?.split('@')[0] || 'Member'}</p>
+            </div>
+            <div className="flex items-center gap-1">
+              <Flame className="w-3 h-3 text-[#FD9C2D]" />
+              <span className="text-xs font-bold text-[#0A1A2F]/60">{p.total_points || 0}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function TabSpinner() {
+  return (
+    <div className="flex items-center justify-center py-16">
+      <div className="w-8 h-8 border-4 border-[#7C3AED]/30 border-t-[#7C3AED] rounded-full animate-spin" />
+    </div>
+  );
+}
 
 export default function Community() {
   const [searchParams] = useSearchParams();
@@ -24,143 +183,168 @@ export default function Community() {
   const [showBlogWriter, setShowBlogWriter] = useState(false);
   const queryClient = useQueryClient();
 
-  // Get current user
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const currentUser = await base44.auth.me();
-        setUser(currentUser);
-      } catch (error) {
-        console.error('Failed to fetch user:', error);
-      }
-    };
-    fetchUser();
-  }, []);
+  useEffect(() => { base44.auth.me().then(setUser).catch(() => {}); }, []);
 
-  // Set active tab from URL if specified
   useEffect(() => {
     const tab = searchParams.get('tab');
-    if (tab && ['feed', 'challenges', 'blog', 'groups'].includes(tab)) {
-      setActiveTab(tab);
-    }
+    if (tab && ['feed', 'groups', 'challenges', 'blog'].includes(tab)) setActiveTab(tab);
   }, [searchParams]);
+
+  const { data: posts = [] } = useQuery({
+    queryKey: ['communityPosts'],
+    queryFn: () => base44.entities.CommunityShare.list('-created_date', 50),
+    enabled: !!user,
+  });
+  const { data: groups = [] } = useQuery({
+    queryKey: ['groupCount'],
+    queryFn: () => base44.entities.Group.list(),
+    enabled: !!user,
+  });
 
   if (!user) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-center">
-          <div className="w-12 h-12 mx-auto mb-3 border-4 border-[#FD9C2D]/30 border-t-[#FD9C2D] rounded-full animate-spin" />
-          <p className="text-sm text-gray-400">Loading community...</p>
-        </div>
+      <div className="flex items-center justify-center min-h-screen bg-[#F2F6FA]">
+        <div className="w-10 h-10 border-4 border-[#7C3AED]/30 border-t-[#7C3AED] rounded-full animate-spin" />
       </div>
     );
   }
 
+  const myGroupCount = groups.filter(g =>
+    g.created_by === user?.email || (g.members || []).includes(user?.email)
+  ).length;
+
   return (
-    <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-6">
-      <div className="max-w-4xl mx-auto px-4">
-        {/* Header Section */}
-         <div className="sticky top-0 bg-white dark:bg-[#0A1A2F] border-b border-gray-200 dark:border-gray-700 z-30 -mx-4 px-4 py-4">
-          <div className="flex items-center justify-between mb-4">
-            <div>
-              <h1 className="text-2xl font-bold text-[#0A1A2F] dark:text-white">Community</h1>
-              <p className="text-sm text-gray-500 dark:text-gray-400">Connect, share, and grow together</p>
+    <div className="min-h-screen bg-[#F2F6FA] pb-28">
+
+      {/* ── Sticky Header ── */}
+      <div className="sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b border-[#7C3AED]/15">
+        <div className="max-w-2xl mx-auto px-4 pt-4 pb-3">
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#7C3AED] to-[#A78BFA] flex items-center justify-center">
+                <Users className="w-5 h-5 text-white" />
+              </div>
+              <div>
+                <h1 className="text-base font-bold text-[#0A1A2F]">Community</h1>
+                <p className="text-xs text-[#0A1A2F]/45">Grow together in faith</p>
+              </div>
             </div>
             <div className="flex gap-2">
-              <Button
-                onClick={() => setShowBlogWriter(true)}
-                variant="outline"
-                size="sm"
-                className="gap-2"
-              >
-                <BookOpen className="w-4 h-4" />
-                Write
-              </Button>
-              <Button
-                onClick={() => setShowShareModal(true)}
-                size="sm"
-                className="bg-[#FD9C2D] hover:bg-[#e88d1f] text-white gap-2"
-              >
-                <Share2 className="w-4 h-4" />
-                Share
-              </Button>
+              <button onClick={() => setShowBlogWriter(true)}
+                className="w-9 h-9 rounded-xl bg-[#0A1A2F]/5 flex items-center justify-center hover:bg-[#0A1A2F]/10 transition-colors">
+                <PenLine className="w-4 h-4 text-[#0A1A2F]/50" />
+              </button>
+              <button onClick={() => setShowShareModal(true)}
+                className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-gradient-to-r from-[#7C3AED] to-[#A78BFA] text-white text-xs font-bold shadow-sm">
+                <Share2 className="w-3.5 h-3.5" /> Share
+              </button>
             </div>
           </div>
 
-          {/* Tabs */}
-          <Tabs value={activeTab} onValueChange={setActiveTab}>
-            <TabsList className="w-full justify-start">
-              <TabsTrigger value="feed">Feed</TabsTrigger>
-              <TabsTrigger value="challenges">Challenges</TabsTrigger>
-              <TabsTrigger value="blog">Blog</TabsTrigger>
-              {user?.role === 'admin' && <TabsTrigger value="moderation">Moderation</TabsTrigger>}
-            </TabsList>
-          </Tabs>
+          <div className="flex gap-0 overflow-x-auto">
+            {TABS.map(tab => {
+              const Icon = tab.icon;
+              return (
+                <button key={tab.id} onClick={() => setActiveTab(tab.id)}
+                  className={`flex items-center gap-1.5 px-3.5 py-3 text-xs font-semibold flex-shrink-0 relative transition-colors ${
+                    activeTab === tab.id ? 'text-[#7C3AED]' : 'text-[#0A1A2F]/35 hover:text-[#0A1A2F]/55'
+                  }`}>
+                  <Icon className="w-3.5 h-3.5" /> {tab.label}
+                  {activeTab === tab.id && (
+                    <motion.div layoutId="communityTab"
+                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#7C3AED] to-[#A78BFA] rounded-full"
+                      transition={{ type: 'spring', stiffness: 500, damping: 30 }} />
+                  )}
+                </button>
+              );
+            })}
+            {user?.role === 'admin' && (
+              <button onClick={() => setActiveTab('moderation')}
+                className={`flex items-center gap-1.5 px-3.5 py-3 text-xs font-semibold flex-shrink-0 ${
+                  activeTab === 'moderation' ? 'text-red-500' : 'text-[#0A1A2F]/35'
+                }`}>
+                🛡️ Mod
+              </button>
+            )}
+          </div>
         </div>
-
-        {/* Content Sections */}
-         <div className="mt-6">
-           <AnimatePresence mode="wait">
-             {activeTab === 'feed' && (
-              <motion.div key="feed" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                <React.Suspense fallback={<div className="text-center py-8">Loading...</div>}>
-                  <CommunityFeed user={user} />
-                </React.Suspense>
-              </motion.div>
-             )}
-
-             {activeTab === 'challenges' && (
-               <motion.div key="challenges" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                 <React.Suspense fallback={<div className="text-center py-8">Loading...</div>}>
-                   <GroupChallenges user={user} />
-                 </React.Suspense>
-               </motion.div>
-             )}
-
-             {activeTab === 'blog' && (
-               <motion.div key="blog" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                 <React.Suspense fallback={<div className="text-center py-8">Loading...</div>}>
-                   <BlogFeed user={user} onWriteWithAI={() => setShowBlogWriter(true)} />
-                 </React.Suspense>
-               </motion.div>
-             )}
-
-             {activeTab === 'moderation' && user?.role === 'admin' && (
-               <motion.div key="moderation" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                 <React.Suspense fallback={<div className="text-center py-8">Loading...</div>}>
-                   <ModerationPanel user={user} />
-                 </React.Suspense>
-               </motion.div>
-             )}
-           </AnimatePresence>
-         </div>
       </div>
 
-      {/* Modals */}
+      <div className="max-w-2xl mx-auto px-4 pt-4">
+
+        {activeTab === 'feed' && (
+          <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
+            className="grid grid-cols-3 gap-2 mb-4">
+            <StatPill icon={MessageCircle} value={posts.length} label="Posts" color="#7C3AED" />
+            <StatPill icon={Users} value={myGroupCount} label="My Groups" color="#3B82F6" />
+            <StatPill icon={Flame} value={groups.length} label="All Groups" color="#FD9C2D" />
+          </motion.div>
+        )}
+
+        {activeTab === 'feed' && (
+          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }}
+            className="mb-4">
+            <LeaderboardWidget />
+          </motion.div>
+        )}
+
+        {activeTab === 'feed' && (
+          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
+            className="mb-4">
+            <Link to={createPageUrl('Friends')}>
+              <div className="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#EC4899] to-[#F472B6] flex items-center justify-center flex-shrink-0">
+                  <UserPlus className="w-5 h-5 text-white" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-bold text-[#0A1A2F]">Find Friends</p>
+                  <p className="text-xs text-[#0A1A2F]/45">Connect with others on the same journey</p>
+                </div>
+                <ChevronRight className="w-4 h-4 text-[#0A1A2F]/20 flex-shrink-0" />
+              </div>
+            </Link>
+          </motion.div>
+        )}
+
+        <AnimatePresence mode="wait">
+          {activeTab === 'feed' && (
+            <motion.div key="feed" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <React.Suspense fallback={<TabSpinner />}><CommunityFeed user={user} /></React.Suspense>
+            </motion.div>
+          )}
+          {activeTab === 'groups' && (
+            <motion.div id="tour-community-groups" key="groups" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <React.Suspense fallback={<TabSpinner />}><GroupsSection user={user} /></React.Suspense>
+            </motion.div>
+          )}
+          {activeTab === 'challenges' && (
+            <motion.div key="challenges" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <React.Suspense fallback={<TabSpinner />}><GroupChallenges user={user} /></React.Suspense>
+            </motion.div>
+          )}
+          {activeTab === 'blog' && (
+            <motion.div key="blog" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <React.Suspense fallback={<TabSpinner />}><BlogFeed user={user} onWriteWithAI={() => setShowBlogWriter(true)} /></React.Suspense>
+            </motion.div>
+          )}
+          {activeTab === 'moderation' && user?.role === 'admin' && (
+            <motion.div key="mod" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <React.Suspense fallback={<TabSpinner />}><ModerationPanel user={user} /></React.Suspense>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+
       {showShareModal && (
         <React.Suspense fallback={null}>
-          <ShareMilestoneModal
-            user={user}
-            onClose={() => setShowShareModal(false)}
-            onSuccess={() => {
-              setShowShareModal(false);
-              queryClient.invalidateQueries({ queryKey: ['communityShares'] });
-            }}
-          />
+          <ShareMilestoneModal user={user} onClose={() => setShowShareModal(false)}
+            onSuccess={() => { setShowShareModal(false); queryClient.invalidateQueries({ queryKey: ['communityShares'] }); }} />
         </React.Suspense>
       )}
-
       {showBlogWriter && (
         <React.Suspense fallback={null}>
-          <AIBlogWriter
-            user={user}
-            onClose={() => setShowBlogWriter(false)}
-            onPublished={() => {
-              setShowBlogWriter(false);
-              queryClient.invalidateQueries({ queryKey: ['blogPosts'] });
-              setActiveTab('blog');
-            }}
-          />
+          <AIBlogWriter user={user} onClose={() => setShowBlogWriter(false)}
+            onPublished={() => { setShowBlogWriter(false); queryClient.invalidateQueries({ queryKey: ['blogPosts'] }); setActiveTab('blog'); }} />
         </React.Suspense>
       )}
     </div>
