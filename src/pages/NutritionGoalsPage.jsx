@@ -346,6 +346,7 @@ export default function NutritionGoalsPage() {
   }[meals] : null;
 
   return (
+    <>
     <div className="min-h-screen pb-28" style={{ background: '#F2F6FA' }}>
 
       {/* ── Standard Header ── */}
@@ -664,5 +665,6 @@ export default function NutritionGoalsPage() {
         />
       )}
     </AnimatePresence>
+    </>
   );
 }
