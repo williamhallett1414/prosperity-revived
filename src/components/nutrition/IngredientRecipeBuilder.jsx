@@ -3,7 +3,8 @@ import { base44 } from '@/api/base44Client';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Plus, X, ChefHat, Loader2, Clock, ChevronDown, ChevronUp } from 'lucide-react';
+import { Plus, X, ChefHat, Loader2, Clock, ChevronDown, ChevronUp, BookmarkPlus, Utensils, Check } from 'lucide-react';
+import { toast } from 'sonner';
 
 export default function IngredientRecipeBuilder() {
   const [ingredients, setIngredients] = useState([]);
@@ -12,6 +13,48 @@ export default function IngredientRecipeBuilder() {
   const [recipes, setRecipes] = useState([]);
   const [expandedRecipe, setExpandedRecipe] = useState(null);
   const [error, setError] = useState(null);
+  const [savedRecipes, setSavedRecipes] = useState({});
+  const [loggedRecipes, setLoggedRecipes] = useState({});
+
+  const parseNum = (str) => parseFloat((str || '').toString().replace(/[^\d.]/g, '')) || 0;
+
+  const handleLogToFoodLog = async (recipe) => {
+    const today = new Date().toISOString().split('T')[0];
+    const hour = new Date().getHours();
+    const mealType = hour < 10 ? 'breakfast' : hour < 14 ? 'lunch' : hour < 18 ? 'snack' : 'dinner';
+    await base44.entities.MealLog.create({
+      date: today,
+      meal_type: mealType,
+      description: recipe.name,
+      calories: parseNum(recipe.nutrition?.calories),
+      protein: parseNum(recipe.nutrition?.protein),
+      carbs: parseNum(recipe.nutrition?.carbs),
+      fats: parseNum(recipe.nutrition?.fat),
+      fiber: parseNum(recipe.nutrition?.fiber),
+      notes: recipe.description,
+    });
+    setLoggedRecipes(p => ({ ...p, [recipe.name]: true }));
+    toast.success(`"${recipe.name}" logged to Food Log!`);
+  };
+
+  const handleSaveRecipe = async (recipe) => {
+    const allIngredients = [...(recipe.usedIngredients || []), ...(recipe.additionalIngredients || [])];
+    await base44.entities.Recipe.create({
+      title: recipe.name,
+      description: recipe.description,
+      ingredients: allIngredients,
+      instructions: recipe.steps || [],
+      prep_time_minutes: parseNum(recipe.prepTime),
+      cook_time_minutes: parseNum(recipe.cookTime),
+      servings: parseNum(recipe.servings) || 2,
+      calories: parseNum(recipe.nutrition?.calories),
+      category: 'lunch',
+      diet_type: 'any',
+      is_shared: false,
+    });
+    setSavedRecipes(p => ({ ...p, [recipe.name]: true }));
+    toast.success(`"${recipe.name}" saved to My Recipes!`);
+  };
 
   const addIngredient = () => {
     const trimmed = inputValue.trim();
@@ -252,6 +295,34 @@ Requirements:
                       <>View Full Recipe <ChevronDown className="w-4 h-4" /></>
                     )}
                   </button>
+
+                  {/* Action Buttons */}
+                  <div className="flex gap-2 mt-3">
+                    <button
+                      onClick={() => handleLogToFoodLog(recipe)}
+                      disabled={!!loggedRecipes[recipe.name]}
+                      className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-xl text-xs font-bold transition-all ${
+                        loggedRecipes[recipe.name]
+                          ? 'bg-emerald-50 text-emerald-600 border border-emerald-200'
+                          : 'bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white active:scale-95'
+                      }`}
+                    >
+                      {loggedRecipes[recipe.name] ? <Check className="w-3.5 h-3.5" /> : <Utensils className="w-3.5 h-3.5" />}
+                      {loggedRecipes[recipe.name] ? 'Logged!' : 'Log to Food Log'}
+                    </button>
+                    <button
+                      onClick={() => handleSaveRecipe(recipe)}
+                      disabled={!!savedRecipes[recipe.name]}
+                      className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-xl text-xs font-bold transition-all ${
+                        savedRecipes[recipe.name]
+                          ? 'bg-blue-50 text-blue-600 border border-blue-200'
+                          : 'bg-[#AFC7E3]/30 text-[#3C4E53] border border-[#AFC7E3]/40 active:scale-95'
+                      }`}
+                    >
+                      {savedRecipes[recipe.name] ? <Check className="w-3.5 h-3.5" /> : <BookmarkPlus className="w-3.5 h-3.5" />}
+                      {savedRecipes[recipe.name] ? 'Saved!' : 'Save to My Recipes'}
+                    </button>
+                  </div>
 
                   {/* Expanded Full Recipe */}
                   <AnimatePresence>
