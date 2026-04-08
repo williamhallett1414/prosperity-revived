@@ -37,6 +37,7 @@ export default function MyJournalEntries() {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [expandedWeeklySummary, setExpandedWeeklySummary] = useState(true);
   const [expandedMonthlySummary, setExpandedMonthlySummary] = useState(true);
+  const [generatingSummaryType, setGeneratingSummaryType] = useState(null);
   const queryClient = useQueryClient();
 
   useEffect(() => {
@@ -106,8 +107,6 @@ export default function MyJournalEntries() {
     },
     onError: () => toast.error('Failed to create entry'),
   });
-
-  const [generatingSummaryType, setGeneratingSummaryType] = useState(null);
 
   const generateSummary = useMutation({
     mutationFn: async (summaryType) => {
