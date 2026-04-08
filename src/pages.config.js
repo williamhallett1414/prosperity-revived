@@ -71,7 +71,7 @@ const GrowthPathwaysPage = lazy(() => import('./pages/GrowthPathwaysPage'));
 const GuidedMeditationsPage = lazy(() => import('./pages/GuidedMeditationsPage'));
 const HabitBuilderPage = lazy(() => import('./pages/HabitBuilderPage'));
 const HealthWellnessWaiver = lazy(() => import('./pages/HealthWellnessWaiver'));
-const Home = lazy(() => import('./pages/Home'));
+const Home = lazy(() => import('./pages/Home.jsx'));
 const IdentityInChristPage = lazy(() => import('./pages/IdentityInChristPage'));
 const MealDetailView = lazy(() => import('./pages/MealDetailView'));
 const Messages = lazy(() => import('./pages/Messages'));
