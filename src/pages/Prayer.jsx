@@ -841,7 +841,7 @@ export default function Prayer() {
         </div>
       </div>
 
-      <div className="px-4 space-y-10">
+      <div className="px-4 space-y-16">
 
         {/* ── Crisis Resources (collapsible) ── */}
         <div className="rounded-2xl overflow-hidden" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)' }}>
