@@ -10,12 +10,6 @@ import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
 import JournalEntryModal from '@/components/home/JournalEntryModal';
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog';
 
 const CATEGORIES = [
   { value: 'all', label: 'All Entries', emoji: '📝' },
