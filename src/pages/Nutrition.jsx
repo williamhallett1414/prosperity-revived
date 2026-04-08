@@ -367,15 +367,7 @@ export default function Nutrition() {
                   <p className="text-xs text-[#0A1A2F]/40 mt-0.5">Browse & log recipes</p>
                 </div>
               </Link>
-              <Link to={createPageUrl('FoodLogHistory')}>
-                <div className="bg-white border border-[#FAD98D]/20 rounded-2xl p-4 hover:border-[#c9a227]/30 transition-colors">
-                  <div className="w-9 h-9 rounded-xl bg-[#AFC7E3]/20 flex items-center justify-center mb-2">
-                    <TrendingUp className="w-4.5 h-4.5 text-[#3C4E53]" style={{ width: 18, height: 18 }} />
-                  </div>
-                  <p className="font-bold text-[#0A1A2F] text-sm">Food Log History</p>
-                  <p className="text-xs text-[#0A1A2F]/40 mt-0.5">View trends & history</p>
-                </div>
-              </Link>
+
             </div>
 
             {/* Ask Chef Daniel */}
