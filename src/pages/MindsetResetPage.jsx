@@ -98,13 +98,29 @@ const PROMPT_CATEGORIES = [
 }];
 
 
-const QUICK_RESETS = [
+const ALL_QUICK_RESETS = [
 { label: "I am enough", sub: "Say it three times, mean it once", emoji: "💛" },
 { label: "This feeling will pass", sub: "Emotions are weather, not climate", emoji: "☁️" },
 { label: "I choose gratitude", sub: "Name one thing right now", emoji: "✨" },
 { label: "I trust the process", sub: "God's timing is not late", emoji: "🙏" },
 { label: "I am not my thoughts", sub: "You have thoughts; they don't have you", emoji: "🧘" },
-{ label: "One step is enough", sub: "Progress, not perfection", emoji: "👣" }];
+{ label: "One step is enough", sub: "Progress, not perfection", emoji: "👣" },
+{ label: "I am brave", sub: "Courage is not the absence of fear", emoji: "💪" },
+{ label: "I choose peace", sub: "This moment is all I need to handle", emoji: "☮️" },
+{ label: "My struggle has purpose", sub: "Every test is a testimony waiting", emoji: "🌟" },
+{ label: "I deserve grace", sub: "Give yourself what you give others", emoji: "🕊️" },
+{ label: "My best is enough", sub: "Perfect is the enemy of progress", emoji: "✅" },
+{ label: "I am growing", sub: "Healing is not linear, it's forward", emoji: "🌱" }
+];
+
+const getDailyQuickResets = () => {
+  const today = new Date().toDateString();
+  const seed = today.split('').reduce((acc, c) => acc + c.charCodeAt(0), 0);
+  const shuffled = [...ALL_QUICK_RESETS].sort(() => (seed * Math.random()) % 2 - 1);
+  return shuffled.slice(0, 6);
+};
+
+const QUICK_RESETS = getDailyQuickResets();
 
 
 const HISTORY_KEY = 'mindset_sessions_v1';
