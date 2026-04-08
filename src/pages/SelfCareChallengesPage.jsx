@@ -125,7 +125,7 @@ function calcStreak(cData) {
   Object.values(cData.days).forEach(val => { byDate[localDateKey(new Date(getDayTs(val)))] = true; });
   const today = todayStr();
   const yd = new Date(); yd.setDate(yd.getDate() - 1);
-  const yesterday = ylocalDateKey(d);
+  const yesterday = localDateKey(yd);
   const start = byDate[today] ? new Date() : byDate[yesterday] ? yd : null;
   if (!start) return 0;
   let n = 0; const d = new Date(start);
@@ -742,4 +742,3 @@ export default function SelfCareChallengesPage() {
     </div>
   );
 }
-
