@@ -107,17 +107,22 @@ export default function MyJournalEntries() {
     onError: () => toast.error('Failed to create entry'),
   });
 
+  const [generatingSummaryType, setGeneratingSummaryType] = useState(null);
+
   const generateSummary = useMutation({
     mutationFn: async (summaryType) => {
+      setGeneratingSummaryType(summaryType);
       return await base44.functions.invoke('generateJournalSummary', { 
         summary_type: summaryType 
       });
     },
     onSuccess: () => {
       refetchSummaries();
+      setGeneratingSummaryType(null);
       toast.success('Summary generated!');
     },
     onError: () => {
+      setGeneratingSummaryType(null);
       toast.error('Failed to generate summary');
     }
   });
@@ -277,7 +282,7 @@ export default function MyJournalEntries() {
                       variant="outline"
                       className="text-xs"
                     >
-                      {generateSummary.isPending && generateSummary.variables === 'weekly' ? 'Generating...' : 'Regenerate'}
+                      {generateSummary.isPending && generatingSummaryType === 'weekly' ? 'Generating...' : 'Regenerate'}
                     </Button>
                   </div>
                 </div>
@@ -339,7 +344,7 @@ export default function MyJournalEntries() {
                       variant="outline"
                       className="text-xs"
                     >
-                      {generateSummary.isPending && generateSummary.variables === 'monthly' ? 'Generating...' : 'Regenerate'}
+                      {generateSummary.isPending && generatingSummaryType === 'monthly' ? 'Generating...' : 'Regenerate'}
                     </Button>
                   </div>
                 </div>
