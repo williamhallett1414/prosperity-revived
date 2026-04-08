@@ -31,7 +31,8 @@ const TABS = [
 { id: 'planner', label: 'Planner', icon: CalendarDays },
 { id: 'build', label: 'Build', icon: ChefHat },
 { id: 'goals', label: 'Goals', icon: Target },
-{ id: 'log', label: 'Log Food', icon: Plus }];
+{ id: 'log', label: 'Log Food', icon: Plus },
+{ id: 'history', label: 'Log History', icon: History }];
 
 
 const DEFAULT_MACROS = { calories: 2000, protein: 150, carbs: 250, fats: 65 };
@@ -178,13 +179,7 @@ export default function Nutrition() {
 
 
             
-            <div className="flex items-center gap-2">
-              <Link to={createPageUrl('FoodLogHistory')}>
-                <button className="w-9 h-9 rounded-xl bg-[#F2F6FA] flex items-center justify-center text-[#0A1A2F]/45 hover:bg-[#FAD98D]/20 transition-colors">
-                  <History className="w-4 h-4" />
-                </button>
-              </Link>
-            </div>
+            <div />
           </div>
 
           {/* Tab bar */}
@@ -193,6 +188,7 @@ export default function Nutrition() {
             <button key={id} onClick={() => {
               if (id === 'goals') navigate(createPageUrl('NutritionGoalsPage'));
               else if (id === 'log') setShowLogModal(true);
+              else if (id === 'history') navigate(createPageUrl('FoodLogHistory'));
               else setActiveTab(id);
             }}
             className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-xl text-xs font-bold transition-all ${
