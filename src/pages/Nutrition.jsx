@@ -215,10 +215,10 @@ export default function Nutrition() {
         <>
 
             {/* Scripture for nourishment */}
-            <div className="bg-gradient-to-br from-[#FAD98D]/15 to-[#FAD98D]/5 rounded-2xl p-4 border border-[#FAD98D]/20 mb-2">
+            <div className="bg-gradient-to-br from-[#22c55e]/10 to-[#c9a227]/5 rounded-2xl p-4 border border-[#22c55e]/20 mb-2">
               <div className="flex items-center gap-2 mb-2">
-                <div className="w-1 h-4 bg-[#c9a227] rounded-full" />
-                <span className="text-[10px] font-bold text-[#c9a227] uppercase tracking-widest">Nourish Your Spirit</span>
+                <div className="w-1 h-4 bg-[#22c55e] rounded-full" />
+                <span className="text-[10px] font-bold text-[#16a34a] uppercase tracking-widest">Nourish Your Spirit</span>
               </div>
               <p className="text-[#0A1A2F] text-sm leading-relaxed italic" style={{ fontFamily: 'Georgia, serif' }}>
                 "Whether you eat or drink, or whatever you do, do it all for the glory of God."
@@ -228,7 +228,7 @@ export default function Nutrition() {
 
             {/* Discover Recipes banner */}
             <Link to={createPageUrl('DiscoverRecipes')}>
-              <div className="bg-gradient-to-r from-[#c9a227] to-[#FAD98D] rounded-2xl p-4 flex items-center gap-4 shadow-md shadow-[#c9a227]/20 active:scale-[0.98] transition-transform">
+              <div className="bg-gradient-to-r from-[#16a34a] to-[#22c55e] rounded-2xl p-4 flex items-center gap-4 shadow-md shadow-[#22c55e]/25 active:scale-[0.98] transition-transform">
                 <div className="w-11 h-11 rounded-xl bg-white/20 flex items-center justify-center flex-shrink-0">
                   <UtensilsCrossed className="w-5 h-5 text-white" />
                 </div>
@@ -241,7 +241,7 @@ export default function Nutrition() {
             </Link>
 
             {/* Macro summary card */}
-            <div id="tour-nutrition-macros" className="bg-gradient-to-r from-orange-50 to-amber-50 rounded-2xl border border-[#FAD98D]/30 p-4">
+            <div id="tour-nutrition-macros" className="bg-gradient-to-r from-[#f0fdf4] to-[#fefce8] rounded-2xl border border-[#22c55e]/20 p-4">
               <p className="text-xs font-bold text-[#0A1A2F]/35 uppercase tracking-widest mb-3">Today's Progress</p>
               <div className="grid grid-cols-4 gap-2">
                 {getMacroConfig(user).map(({ key, label, unit, target }) =>
@@ -259,18 +259,18 @@ export default function Nutrition() {
                   initial={{ width: 0 }}
                   animate={{ width: `${Math.min(totals.calories / calGoal * 100, 100)}%` }}
                   transition={{ duration: 0.8, delay: 0.2 }}
-                  className={`h-full rounded-full ${totals.calories > calGoal ? 'bg-red-400' : 'bg-gradient-to-r from-[#c9a227] to-[#FAD98D]'}`} />
+                  className={`h-full rounded-full ${totals.calories > calGoal ? 'bg-red-400' : 'bg-gradient-to-r from-[#16a34a] to-[#22c55e]'}`} />
                 
                 </div>
               </div>
             </div>
 
             {/* Water tracker */}
-            <div id="tour-water-tracker" className="bg-white rounded-2xl border border-[#FAD98D]/20 p-4">
+            <div id="tour-water-tracker" className="bg-white rounded-2xl border border-[#22c55e]/15 p-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2.5">
-                  <div className="w-9 h-9 rounded-xl bg-[#AFC7E3]/20 flex items-center justify-center">
-                    <Droplets className="w-4.5 h-4.5 text-[#3C4E53]" style={{ width: 18, height: 18 }} />
+                  <div className="w-9 h-9 rounded-xl bg-[#22c55e]/10 flex items-center justify-center">
+                    <Droplets className="w-4.5 h-4.5 text-[#16a34a]" style={{ width: 18, height: 18 }} />
                   </div>
                   <div>
                     <p className="font-bold text-[#0A1A2F] text-sm">Water Intake</p>
@@ -279,17 +279,17 @@ export default function Nutrition() {
                 </div>
                 <div className="flex items-center gap-2">
                   <button onClick={() => updateWater.mutate(Math.max(0, glasses - 1))}
-                className="w-11 h-11 rounded-full bg-[#F2F6FA] font-bold text-[#0A1A2F]/50 flex items-center justify-center hover:bg-[#FAD98D]/20 text-lg">−</button>
-                  <span className="font-bold text-[#3C4E53] text-lg w-6 text-center">{glasses}</span>
+                className="w-11 h-11 rounded-full bg-[#F2F6FA] font-bold text-[#0A1A2F]/50 flex items-center justify-center hover:bg-[#22c55e]/10 text-lg">−</button>
+                  <span className="font-bold text-[#16a34a] text-lg w-6 text-center">{glasses}</span>
                   <button onClick={() => updateWater.mutate(Math.min(20, glasses + 1))}
-                className="w-11 h-11 rounded-full bg-[#AFC7E3]/20 font-bold text-[#3C4E53] flex items-center justify-center hover:bg-[#AFC7E3]/35 text-lg">+</button>
+                className="w-11 h-11 rounded-full bg-[#22c55e]/15 font-bold text-[#16a34a] flex items-center justify-center hover:bg-[#22c55e]/25 text-lg">+</button>
                 </div>
               </div>
               {/* Water dots — tap to fill up to that point */}
               <div className="flex gap-1.5 mt-3 flex-wrap">
                 {Array.from({ length: waterGoal }).map((_, i) =>
               <button key={i} onClick={() => updateWater.mutate(i + 1)}
-              className={`w-7 h-7 rounded-full transition-all text-sm ${i < glasses ? 'bg-[#AFC7E3] text-white' : 'bg-[#F2F6FA] text-[#0A1A2F]/20'}`}>
+              className={`w-7 h-7 rounded-full transition-all text-sm ${i < glasses ? 'bg-[#22c55e] text-white' : 'bg-[#F2F6FA] text-[#0A1A2F]/20'}`}>
                     💧
                   </button>
               )}
@@ -343,7 +343,7 @@ export default function Nutrition() {
 
             {/* Quick log suggestions */}
             <div>
-              <p className="text-xs font-bold text-[#0A1A2F]/35 uppercase tracking-widest mb-2.5 capitalize">
+              <p className="text-xs font-bold text-[#16a34a]/60 uppercase tracking-widest mb-2.5 capitalize">
                 Quick Log · {suggestType}
               </p>
               <div className="space-y-2">
@@ -372,7 +372,7 @@ export default function Nutrition() {
 
                     <button onClick={() => quickLog(meal)}
                     disabled={logMeal.isPending}
-                    className="px-3 py-1.5 rounded-xl bg-[#FAD98D]/25 text-[#c9a227] text-xs font-bold hover:bg-[#FAD98D]/40 transition-colors flex-shrink-0">
+                    className="px-3 py-1.5 rounded-xl bg-[#22c55e]/15 text-[#16a34a] text-xs font-bold hover:bg-[#22c55e]/25 transition-colors flex-shrink-0">
                         + Log
                       </button>
                     }
@@ -387,8 +387,8 @@ export default function Nutrition() {
             {/* Ask Chef Daniel */}
             <div className="pt-2" />
             <Link to={createPageUrl('ChatScreen?bot=ChefDaniel')}>
-              <div className="bg-gradient-to-r from-orange-50 to-amber-50 rounded-2xl px-4 py-5 flex items-center gap-4 border border-[#FAD98D]/30">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#FD9C2D] to-[#E89020] flex items-center justify-center flex-shrink-0 shadow-sm">
+              <div className="bg-gradient-to-r from-[#f0fdf4] to-[#fefce8] rounded-2xl px-4 py-5 flex items-center gap-4 border border-[#22c55e]/20">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#16a34a] to-[#22c55e] flex items-center justify-center flex-shrink-0 shadow-sm">
                   <ChefHat className="w-5 h-5 text-white" />
                 </div>
                 <div className="flex-1 min-w-0">
