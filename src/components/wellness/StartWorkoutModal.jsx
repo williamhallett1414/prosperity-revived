@@ -280,7 +280,7 @@ function useAudioBeep() {
 // ─────────────────────────────────────────────────────────────────────────────
 
 export default function StartWorkoutModal({ isOpen, onClose, workout, user, onComplete }) {
-  const [phase, setPhase] = useState('warmup'); // warmup | workout | rest | complete
+  const [phase, setPhase] = useState('warmup'); // warmup | countdown | workout | rest | complete
   const [currentIdx, setCurrentIdx] = useState(0);
   const [exerciseStats, setExerciseStats] = useState([]);
   const [elapsedTime, setElapsedTime] = useState(0);
@@ -301,6 +301,9 @@ export default function StartWorkoutModal({ isOpen, onClose, workout, user, onCo
 
   // Per-exercise feel ratings
   const [exerciseFeel, setExerciseFeel] = useState([]); // 'easy'|'ok'|'hard'|null
+
+  // Pre-workout countdown (5..4..3..2..1..GO)
+  const [preCountdown, setPreCountdown] = useState(5);
 
   const queryClient = useQueryClient();
   const warmupTimerRef = useRef(null);
@@ -377,7 +380,8 @@ export default function StartWorkoutModal({ isOpen, onClose, workout, user, onCo
       setPhase('warmup');
       setTimerRunning(false);
       setCountdownRunning(false);
-      warmupTimerRef.current = setTimeout(() => doStartWorkout(stats, 0), 3000);
+      setPreCountdown(5);
+      warmupTimerRef.current = setTimeout(() => { setPreCountdown(5); setPhase('countdown'); }, 3000);
     }
     return () => clearTimeout(warmupTimerRef.current);
   }, [isOpen, workout]);
@@ -395,6 +399,19 @@ export default function StartWorkoutModal({ isOpen, onClose, workout, user, onCo
   function clearDraft() {
     if (draftKey) try { localStorage.removeItem(draftKey); } catch {}
   }
+
+  // ── Pre-workout countdown (5..4..3..2..1..GO!) ─────────────────────────────
+  useEffect(() => {
+    if (phase !== 'countdown') return;
+    if (preCountdown <= 0) {
+      audio.countdownGo();
+      doStartWorkout(exerciseStats, 0);
+      return;
+    }
+    if (preCountdown <= 3) audio.countdown321();
+    const t = setTimeout(() => setPreCountdown(p => p - 1), 1000);
+    return () => clearTimeout(t);
+  }, [phase, preCountdown]);
 
   // ── Global timer ──────────────────────────────────────────────────────────
   useEffect(() => {
@@ -743,12 +760,55 @@ export default function StartWorkoutModal({ isOpen, onClose, workout, user, onCo
                   By starting, I confirm I am healthy enough for exercise. Consult a physician if unsure.
                 </p>
                 <Button
-                   onClick={() => doStartWorkout(exerciseStats, 0)}
+                   onClick={() => { clearTimeout(warmupTimerRef.current); setPreCountdown(5); setPhase('countdown'); }}
                    className="bg-gradient-to-r from-[#38BDF8] to-[#1e40af] hover:opacity-90 text-white font-bold px-10 py-3 text-base rounded-xl shadow-lg shadow-[#38BDF8]/30"
                  >
                    <Zap className="w-5 h-5 mr-2" /> Start Now
                  </Button>
-                 <p className="text-[#0A1A2F]/20 text-xs mt-4">Auto-starting in 3 seconds…</p>
+                 <p className="text-white/20 text-xs mt-4">Auto-starting in 3 seconds…</p>
+              </motion.div>
+            )}
+
+            {/* ── COUNTDOWN (5..4..3..2..1..GO!) ──────────────────── */}
+            {phase === 'countdown' && (
+              <motion.div key="countdown"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="flex flex-col items-center justify-center px-8 text-center"
+                style={{ minHeight: 420 }}
+              >
+                <p className="text-white/30 text-xs font-bold uppercase tracking-[0.3em] mb-8">Get Ready</p>
+
+                <div className="relative flex items-center justify-center mb-8">
+                  <CircleTimer seconds={preCountdown} total={5} size={220} color="#FD9C2D" />
+                  <div className="absolute">
+                    <motion.p
+                      key={preCountdown}
+                      initial={{ scale: 1.8, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      transition={{ type: 'spring', stiffness: 300, damping: 15 }}
+                      className="text-8xl font-black text-white tabular-nums"
+                      style={{ textShadow: '0 0 40px rgba(253,156,45,0.4)' }}
+                    >
+                      {preCountdown > 0 ? preCountdown : ''}
+                    </motion.p>
+                    {preCountdown <= 0 && (
+                      <motion.p
+                        initial={{ scale: 0.5, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        className="text-5xl font-black text-[#FD9C2D]"
+                      >
+                        GO!
+                      </motion.p>
+                    )}
+                  </div>
+                </div>
+
+                <p className="text-white/40 text-sm font-medium">{workout?.title}</p>
+                <p className="text-white/25 text-xs mt-1">
+                  {exerciseStats.length} exercises · First up: {exerciseStats[0]?.name}
+                </p>
               </motion.div>
             )}
 
