@@ -914,7 +914,9 @@ export default function Home() {
         </div>
       )}
 
-      <HelpChatbot />
+      <Suspense fallback={null}>
+        <HelpChatbot />
+      </Suspense>
     </div>
   );
 }
