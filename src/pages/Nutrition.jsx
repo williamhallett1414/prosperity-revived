@@ -373,6 +373,7 @@ export default function Nutrition() {
 
 
             {/* Ask Chef Daniel */}
+            <div className="pt-2" />
             <Link to={createPageUrl('ChatScreen?bot=ChefDaniel')}>
               <div className="bg-gradient-to-r from-orange-50 to-amber-50 rounded-2xl px-4 py-5 flex items-center gap-4 border border-[#FAD98D]/30">
                 <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#FD9C2D] to-[#E89020] flex items-center justify-center flex-shrink-0 shadow-sm">
