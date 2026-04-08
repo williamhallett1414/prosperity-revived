@@ -30,7 +30,8 @@ const TABS = [
 { id: 'today', label: 'Today', icon: Flame },
 { id: 'planner', label: 'Planner', icon: CalendarDays },
 { id: 'build', label: 'Build', icon: ChefHat },
-{ id: 'goals', label: 'Goals', icon: Target }];
+{ id: 'goals', label: 'Goals', icon: Target },
+{ id: 'log', label: 'Log Food', icon: Plus }];
 
 
 const DEFAULT_MACROS = { calories: 2000, protein: 150, carbs: 250, fats: 65 };
@@ -183,18 +184,20 @@ export default function Nutrition() {
                   <History className="w-4 h-4" />
                 </button>
               </Link>
-              <button onClick={() => setShowLogModal(true)}
-              className="flex items-center gap-1.5 bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white text-xs font-bold px-3 py-2 rounded-xl hover:opacity-90 shadow-sm">
-                <Plus className="w-3.5 h-3.5" /> Log Food
-              </button>
             </div>
           </div>
 
           {/* Tab bar */}
           <div className="flex gap-1.5">
             {TABS.map(({ id, label, icon: Icon }) =>
-            <button key={id} onClick={() => id === 'goals' ? navigate(createPageUrl('NutritionGoalsPage')) : setActiveTab(id)}
+            <button key={id} onClick={() => {
+              if (id === 'goals') navigate(createPageUrl('NutritionGoalsPage'));
+              else if (id === 'log') setShowLogModal(true);
+              else setActiveTab(id);
+            }}
             className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-xl text-xs font-bold transition-all ${
+            id === 'log' ?
+            'bg-gradient-to-b from-[#c9a227] to-[#FAD98D] text-white shadow-sm' :
             activeTab === id ?
             'bg-gradient-to-b from-[#c9a227] to-[#FAD98D] text-white shadow-sm' :
             'bg-[#F2F6FA] text-[#0A1A2F]/45 hover:text-[#0A1A2F]/65'}`
