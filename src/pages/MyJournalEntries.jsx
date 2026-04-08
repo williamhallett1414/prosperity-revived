@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
-import JournalEntryModal from '@/components/home/JournalEntryModal';
+import { AnimatePresence } from 'framer-motion';
 
 // MyJournalEntries page initialization
 const CATEGORIES = [
@@ -619,7 +619,60 @@ export default function MyJournalEntries() {
       </div>
 
       {/* New Entry Modal */}
-      <JournalEntryModal isOpen={showNewEntryModal} onClose={() => setShowNewEntryModal(false)} />
+      <AnimatePresence>
+        {showNewEntryModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4"
+            onClick={() => setShowNewEntryModal(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              className="bg-white rounded-2xl max-w-md w-full p-6 shadow-xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-lg font-bold text-[#0A1A2F]">New Journal Entry</h2>
+                <button
+                  onClick={() => setShowNewEntryModal(false)}
+                  className="p-1 hover:bg-gray-100 rounded-lg transition-colors"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+              <div className="space-y-4">
+                <Input
+                  placeholder="Entry title (optional)"
+                  value={newTitle}
+                  onChange={(e) => setNewTitle(e.target.value)}
+                />
+                <Textarea
+                  placeholder="Write your entry..."
+                  value={newContent}
+                  onChange={(e) => setNewContent(e.target.value)}
+                  className="min-h-[200px]"
+                />
+                <div className="flex gap-2 justify-end">
+                  <Button variant="outline" onClick={() => setShowNewEntryModal(false)}>
+                    Cancel
+                  </Button>
+                  <Button 
+                    onClick={handleCreateEntry} 
+                    disabled={createEntry.isPending}
+                    className="bg-[#FAD98D] hover:bg-[#FAD98D]/90 text-[#0A1A2F]"
+                  >
+                    {createEntry.isPending ? 'Creating...' : 'Create Entry'}
+                  </Button>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
