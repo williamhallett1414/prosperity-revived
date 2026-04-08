@@ -76,10 +76,34 @@ function Home() {
           />
         )}
 
-        <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
-          <div className="bg-white rounded-3xl p-5 shadow-sm border border-[#FAD98D]/30">
-            <p className="text-[#0A1A2F] text-base font-medium">Welcome to Prosperity Revived</p>
-            <p className="text-[#0A1A2F]/60 text-sm mt-2">Your journey of faith, wellness, and growth starts here.</p>
+        <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }}>
+          <Link to={createPageUrl('Bible')}>
+            <div className="bg-white rounded-3xl p-5 shadow-sm border border-[#FAD98D]/30 relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-24 h-24 opacity-5">
+                <span className="text-6xl">📖</span>
+              </div>
+              <div className="flex items-center gap-2 mb-3">
+                <div className="w-1 h-5 bg-[#c9a227] rounded-full" />
+                <span className="text-[11px] font-bold text-[#c9a227] uppercase tracking-widest">Today's Scripture</span>
+              </div>
+              <p className="text-[#0A1A2F] text-base leading-relaxed font-medium mb-3">
+                "Trust in the Lord with all your heart, and lean not on your own understanding."
+              </p>
+              <div className="flex items-center justify-between">
+                <p className="text-sm text-[#0A1A2F]/50 font-medium">Proverbs 3:5</p>
+                <span className="text-xs text-[#c9a227] font-semibold flex items-center gap-1">
+                  Read more <ChevronRight className="w-3.5 h-3.5" />
+                </span>
+              </div>
+            </div>
+          </Link>
+        </motion.div>
+
+        <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.12 }}>
+          <div className="flex items-center gap-3 bg-gradient-to-r from-[#0A1A2F] to-[#1a3a5c] rounded-2xl px-4 py-3 shadow-md">
+            <span className="text-xl flex-shrink-0">💛</span>
+            <p className="text-xs text-white/80 leading-relaxed flex-1">What would help you grow today?</p>
+            <ChevronRight className="w-4 h-4 text-white/30 flex-shrink-0" />
           </div>
         </motion.div>
 
