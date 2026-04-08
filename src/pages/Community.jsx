@@ -108,7 +108,7 @@ export default function Community() {
 
             {activeTab === 'challenges' && (
               <motion.div key="challenges" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                <GroupChallenges />
+                <GroupChallenges user={user} />
               </motion.div>
             )}
 
