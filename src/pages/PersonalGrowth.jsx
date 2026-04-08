@@ -657,21 +657,20 @@ export default function PersonalGrowth() {
           <motion.div id="tour-hannah-btn" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}>
             <button
               onClick={() => navigate(createPageUrl("ChatScreen?bot=Hannah"))}
-              className="w-full flex items-center justify-between px-5 py-4 bg-white rounded-2xl border border-[#AFC7E3]/30 shadow-sm hover:border-[#AFC7E3]/60 hover:shadow-md transition-all">
+              className="w-full flex items-center gap-4 px-5 py-4 bg-white rounded-2xl border border-[#AFC7E3]/30 shadow-sm hover:border-[#AFC7E3]/60 hover:shadow-md transition-all">
               
-              <div className="flex items-center gap-3">
-                <div
-                  className="w-10 h-10 rounded-full flex items-center justify-center text-white text-sm font-bold flex-shrink-0"
-                  style={{ background: "linear-gradient(135deg,#AFC7E3,#3C4E53)" }}>
-                  H</div>
-                <div className="text-left">
-                  <p className="text-sm font-bold text-[#0A1A2F]">
-                    {h < 12 ? "Start your morning with Hannah" : h < 17 ? "Process your afternoon with Hannah" : "Wind down with Hannah tonight"}
-                  </p>
-                  <p className="text-xs text-[#0A1A2F]/50">Your personal growth coach — here anytime</p>
-                </div>
+              <div
+                className="w-12 h-12 rounded-full flex items-center justify-center text-white text-lg font-bold flex-shrink-0"
+                style={{ background: "linear-gradient(135deg,#AFC7E3,#3C4E53)" }}>
+                H
               </div>
-              <MessageCircle className="w-4 h-4 text-[#0A1A2F]/30 flex-shrink-0" />
+              <div className="flex-1 text-left">
+                <p className="text-sm font-bold text-[#0A1A2F]">
+                  {h < 12 ? "Start your morning with Hannah" : h < 17 ? "Process your afternoon with Hannah" : "Wind down with Hannah tonight"}
+                </p>
+                <p className="text-xs text-[#0A1A2F]/50">Your personal growth coach — always here for you</p>
+              </div>
+              <MessageCircle className="w-5 h-5 text-[#AFC7E3] flex-shrink-0" />
             </button>
           </motion.div>
 
