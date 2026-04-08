@@ -370,22 +370,15 @@ export default function PersonalGrowth() {
             <h1 className="text-base font-bold text-[#0A1A2F] leading-tight">Personal Growth</h1>
             <p className="text-xs text-[#0A1A2F]/45">Strengthen your mind, emotions, and spirit</p>
           </div>
-          <div className="flex items-center gap-2">
-            {habitStreak > 0 && (
-              <div className="flex items-center gap-1 bg-orange-50 border border-orange-100 px-2.5 py-1.5 rounded-full">
-                <Flame className="w-3.5 h-3.5 text-orange-500" />
-                <span className="text-xs font-bold text-orange-600">{habitStreak}d</span>
-              </div>
-            )}
-            <Link to={createPageUrl('PersonalGrowthGoalsPage')}>
-              <button className="flex items-center gap-1.5 bg-[#EFF9FF] border border-[#AFC7E3]/40 text-[#3C4E53] text-xs font-bold px-3 py-2 rounded-xl">
-                <Target className="w-3.5 h-3.5" /> Goals
-              </button>
-            </Link>
-          </div>
+          {habitStreak > 0 && (
+            <div className="flex items-center gap-1 bg-orange-50 border border-orange-100 px-2.5 py-1.5 rounded-full">
+              <Flame className="w-3.5 h-3.5 text-orange-500" />
+              <span className="text-xs font-bold text-orange-600">{habitStreak}d</span>
+            </div>
+          )}
         </div>
 
-        <div className="max-w-2xl mx-auto px-4 flex gap-0 overflow-x-auto">
+        <div className="max-w-2xl mx-auto px-4 flex gap-0 overflow-x-auto items-center">
           {TABS.map(tab => (
             <button key={tab.id} onClick={() => setActiveTab(tab.id)}
               className={`flex items-center gap-1.5 px-3.5 py-3 text-xs font-semibold flex-shrink-0 relative transition-colors ${
@@ -400,6 +393,12 @@ export default function PersonalGrowth() {
               )}
             </button>
           ))}
+          <div className="flex-1" />
+          <Link to={createPageUrl('PersonalGrowthGoalsPage')} className="flex-shrink-0 px-2">
+            <button className="flex items-center gap-1.5 bg-[#EFF9FF] border border-[#AFC7E3]/40 text-[#3C4E53] text-xs font-bold px-3 py-2 rounded-xl whitespace-nowrap">
+              <Target className="w-3.5 h-3.5" /> Goals
+            </button>
+          </Link>
         </div>
       </div>
 
@@ -708,4 +707,3 @@ export default function PersonalGrowth() {
     </div>
   );
 }
-
