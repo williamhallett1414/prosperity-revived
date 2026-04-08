@@ -6,6 +6,10 @@ import { base44 } from '@/api/base44Client';
 import { createPageUrl } from '@/utils';
 import { Flame, ChevronRight } from 'lucide-react';
 import { RitualButton, QuickNav, ResumeCard, ActiveChallengesWidget, StartHereCard } from '@/components/home/HomeComponents';
+import gideonImg from '@/assets/gideon-avatar.png';
+import hannahImg from '@/assets/hannah-avatar.png';
+import coachDavidImg from '@/assets/coach-david-avatar.png';
+import chefDanielImg from '@/assets/chef-daniel-avatar.png';
 
 function getGreeting() {
   const h = new Date().getHours();
@@ -132,15 +136,15 @@ function Home() {
           </div>
           <div className="flex gap-3 overflow-x-auto pb-2 -mx-1 px-1" style={{ scrollbarWidth: 'none' }}>
             {[
-              { name: 'Gideon', role: 'Biblical Wisdom', bot: 'Gideon', color: 'from-amber-500 to-amber-600', bg: 'bg-amber-50', icon: 'G' },
-              { name: 'Hannah', role: 'Mindset Coach', bot: 'Hannah', color: 'from-sky-400 to-sky-500', bg: 'bg-sky-50', icon: 'H' },
-              { name: 'Coach David', role: 'Fitness', bot: 'CoachDavid', color: 'from-blue-500 to-blue-600', bg: 'bg-blue-50', icon: 'D' },
-              { name: 'Chef Daniel', role: 'Nutrition', bot: 'ChefDaniel', color: 'from-orange-400 to-orange-500', bg: 'bg-orange-50', icon: 'C' },
-            ].map(({ name, role, bot, color, bg, icon }) => (
+              { name: 'Gideon', role: 'Biblical Wisdom', bot: 'Gideon', color: 'from-amber-500 to-amber-600', bg: 'bg-amber-50', img: gideonImg },
+              { name: 'Hannah', role: 'Mindset Coach', bot: 'Hannah', color: 'from-sky-400 to-sky-500', bg: 'bg-sky-50', img: hannahImg },
+              { name: 'Coach David', role: 'Fitness', bot: 'CoachDavid', color: 'from-blue-500 to-blue-600', bg: 'bg-blue-50', img: coachDavidImg },
+              { name: 'Chef Daniel', role: 'Nutrition', bot: 'ChefDaniel', color: 'from-orange-400 to-orange-500', bg: 'bg-orange-50', img: chefDanielImg },
+            ].map(({ name, role, bot, color, bg, img }) => (
               <Link key={bot} to={createPageUrl(`ChatScreen?bot=${bot}`)} className="flex-shrink-0" style={{ width: 140 }}>
                 <div className={`${bg} rounded-2xl p-3 shadow-sm border border-gray-100/80 h-full`}>
-                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${color} mx-auto mb-2 flex items-center justify-center shadow-sm`}>
-                    <span className="text-xl text-white font-bold">{icon}</span>
+                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${color} mx-auto mb-2 flex items-center justify-center shadow-sm overflow-hidden`}>
+                    <img src={img} alt={name} className="w-full h-full object-cover object-top" />
                   </div>
                   <p className="text-xs font-bold text-[#0A1A2F] text-center leading-tight">{name}</p>
                   <p className="text-[9px] text-[#0A1A2F]/40 text-center font-medium">{role}</p>
