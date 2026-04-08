@@ -159,8 +159,67 @@ const FITNESS_CHALLENGES = [
   },
 ];
 
-// Combine self-care and fitness challenges
-const ALL_CHALLENGES = [...CHALLENGES, ...FITNESS_CHALLENGES];
+// ─── Nutrition Challenges ─────────────────────────────────────────────────────
+const NUTRITION_CHALLENGES = [
+  {
+    id: "hydration-7", title: "7-Day Hydration Challenge", emoji: "💧", category: "Body",
+    duration: 7, color: "#06b6d4", bg: "linear-gradient(135deg,#06b6d4,#0891b2)",
+    tagline: "Drink more water and feel the difference", xpPerDay: 30,
+    tasks: Array.from({length: 7}, (_, i) => ({
+      day: i + 1,
+      title: `Hydration Day ${i + 1}`,
+      content: "Drink at least 8 glasses (64 oz) of water today. Track each glass and notice how you feel.",
+      prompt: "How did staying hydrated change your energy and mood?"
+    }))
+  },
+  {
+    id: "meal-prep-7", title: "7-Day Meal Prep", emoji: "🍳", category: "Body",
+    duration: 7, color: "#ec4899", bg: "linear-gradient(135deg,#ec4899,#be185d)",
+    tagline: "Plan and prepare meals for the week ahead", xpPerDay: 45,
+    tasks: Array.from({length: 7}, (_, i) => ({
+      day: i + 1,
+      title: `Meal Prep Day ${i + 1}`,
+      content: "Prepare one healthy meal or snack for the week. Focus on whole foods — grains, proteins, veggies.",
+      prompt: "What did you prepare, and how will it nourish your body?"
+    }))
+  },
+  {
+    id: "veggie-challenge-14", title: "14-Day Veggie Challenge", emoji: "🥗", category: "Body",
+    duration: 14, color: "#22c55e", bg: "linear-gradient(135deg,#84cc16,#65a30d)",
+    tagline: "Eat a rainbow of vegetables every day", xpPerDay: 35,
+    tasks: Array.from({length: 14}, (_, i) => ({
+      day: i + 1,
+      title: `Veggie Day ${i + 1}`,
+      content: "Eat at least 3 different vegetables today. Aim for different colors — they have different nutrients.",
+      prompt: "What vegetables did you eat, and how did they make you feel?"
+    }))
+  },
+  {
+    id: "sugar-detox-7", title: "7-Day Sugar Detox", emoji: "🍎", category: "Body",
+    duration: 7, color: "#f59e0b", bg: "linear-gradient(135deg,#f59e0b,#d97706)",
+    tagline: "Reset your relationship with sugar", xpPerDay: 40,
+    tasks: Array.from({length: 7}, (_, i) => ({
+      day: i + 1,
+      title: `Sugar-Free Day ${i + 1}`,
+      content: "Avoid added sugars today. Read labels, choose whole foods, and satisfy cravings with fruit.",
+      prompt: "What sugar cravings did you notice, and how did you handle them?"
+    }))
+  },
+  {
+    id: "protein-power-7", title: "7-Day Protein Power", emoji: "🥚", category: "Body",
+    duration: 7, color: "#8b5cf6", bg: "linear-gradient(135deg,#a855f7,#6d28d9)",
+    tagline: "Build strength with protein-rich meals", xpPerDay: 38,
+    tasks: Array.from({length: 7}, (_, i) => ({
+      day: i + 1,
+      title: `Protein Day ${i + 1}`,
+      content: "Include a good source of protein at each meal — eggs, fish, beans, yogurt, meat, or nuts.",
+      prompt: "What protein sources did you include, and how did they fuel you?"
+    }))
+  },
+];
+
+// Combine self-care, fitness, and nutrition challenges
+const ALL_CHALLENGES = [...CHALLENGES, ...FITNESS_CHALLENGES, ...NUTRITION_CHALLENGES];
 
 const CATS = ["All", "Faith", "Mindset", "Body", "Relationships"];
 const CAT_COLORS = { Faith: "#D9A84A", Mindset: "#0ea5e9", Body: "#22c55e", Relationships: "#f43f5e" };
