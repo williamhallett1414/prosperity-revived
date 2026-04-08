@@ -15,13 +15,14 @@ import { Switch } from '@/components/ui/switch';
 import {
   Dialog, DialogContent, DialogHeader, DialogTitle,
 } from '@/components/ui/dialog';
-import CommunityFeed        from '@/components/community/CommunityFeed';
-import GroupChallenges       from '@/components/community/GroupChallenges';
-import ShareMilestoneModal   from '@/components/community/ShareMilestoneModal';
-import AIBlogWriter          from '@/components/community/AIBlogWriter';
-import ModerationPanel       from '@/components/community/ModerationPanel';
-import BlogFeed              from '@/components/community/BlogFeed';
-import GroupCard             from '@/components/groups/GroupCard';
+// Lazy imports to isolate bundler issues
+const CommunityFeed = React.lazy(() => import('@/components/community/CommunityFeed'));
+const GroupChallenges = React.lazy(() => import('@/components/community/GroupChallenges'));
+const ShareMilestoneModal = React.lazy(() => import('@/components/community/ShareMilestoneModal'));
+const AIBlogWriter = React.lazy(() => import('@/components/community/AIBlogWriter'));
+const ModerationPanel = React.lazy(() => import('@/components/community/ModerationPanel'));
+const BlogFeed = React.lazy(() => import('@/components/community/BlogFeed'));
+const GroupCard = React.lazy(() => import('@/components/groups/GroupCard'));
 
 // ── Category chips data ───────────────────────────────────────────────────────
 const CATEGORIES = [
