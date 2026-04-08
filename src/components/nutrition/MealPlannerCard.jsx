@@ -3,7 +3,8 @@ import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { CalendarDays, Loader2, ShoppingCart, X, Plus, CheckCircle2, ChevronDown, ChevronUp, Sparkles, Search } from 'lucide-react';
+import { CalendarDays, Loader2, ShoppingCart, X, Plus, CheckCircle2, ChevronDown, ChevronUp, Sparkles, Search, Share2 } from 'lucide-react';
+import { toast } from 'sonner';
 
 const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 const MEAL_TYPES = ['Breakfast', 'Lunch', 'Dinner'];
@@ -342,9 +343,28 @@ Consolidate duplicates, include realistic quantities (e.g. "2 lbs chicken breast
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-3">
             <div className="flex items-center justify-between">
               <p className="text-sm font-bold text-[#0A1A2F] uppercase tracking-wide">🛒 Shopping List</p>
-              <button onClick={() => setShowList(!showList)} className="text-[#0A1A2F]/40 hover:text-[#0A1A2F]">
-                {showList ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-              </button>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => {
+                    const text = shoppingList.map(cat =>
+                      `${cat.name}:\n${cat.items.map(i => `• ${i}`).join('\n')}`
+                    ).join('\n\n');
+                    if (navigator.share) {
+                      navigator.share({ title: 'My Grocery List', text });
+                    } else {
+                      navigator.clipboard.writeText(text);
+                      toast.success('Shopping list copied to clipboard!');
+                    }
+                  }}
+                  className="flex items-center gap-1 text-xs font-semibold text-[#c9a227] hover:text-[#a07d1a] transition-colors"
+                >
+                  <Share2 className="w-3.5 h-3.5" />
+                  Share
+                </button>
+                <button onClick={() => setShowList(!showList)} className="text-[#0A1A2F]/40 hover:text-[#0A1A2F]">
+                  {showList ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                </button>
+              </div>
             </div>
 
             <AnimatePresence>
