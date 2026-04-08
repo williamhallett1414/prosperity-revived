@@ -17,10 +17,10 @@ import StartMyDayModal from '@/components/home/StartMyDayModal';
 import EndMyDayModal from '@/components/home/EndMyDayModal';
 
 // Lazy-load heavy components (only needed conditionally)
-const OnboardingFlow = lazy(() => import('@/components/onboarding/OnboardingFlow').catch(() => ({ default: () => null })));
-const AppTour = lazy(() => import('@/components/onboarding/AppTour').catch(() => ({ default: () => null })));
-const CreatePostModal = lazy(() => import('@/components/community/CreatePostModal').catch(() => ({ default: () => null })));
-const HelpChatbot = lazy(() => import('@/components/home/HelpChatbot').catch(() => ({ default: () => null })));
+const OnboardingFlow = lazy(() => import('@/components/onboarding/OnboardingFlow'));
+const AppTour = lazy(() => import('@/components/onboarding/AppTour'));
+const CreatePostModal = lazy(() => import('@/components/community/CreatePostModal'));
+const HelpChatbot = lazy(() => import('@/components/home/HelpChatbot'));
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 function getGreeting() {
@@ -833,23 +833,31 @@ function Home() {
         <DailyInspirationCard />
 
         {/* 6. Resume card — active plan, if any */}
-        {(activeCoaching || activeReadingPlan) && (
-          <ResumeCard
-            coachingPlan={activeCoaching}
-            readingPlan={activeReadingPlan?.plan}
-            readingProgress={activeReadingPlan?.progress}
-            navigate={navigate}
-          />
-        )}
+          {(activeCoaching || activeReadingPlan) && (
+            <Suspense fallback={null}>
+              <ResumeCard
+                coachingPlan={activeCoaching}
+                readingPlan={activeReadingPlan?.plan}
+                readingProgress={activeReadingPlan?.progress}
+                navigate={navigate}
+              />
+            </Suspense>
+          )}
 
         {/* 7. Active challenges (only shown if user has joined any) */}
-        {user && <ActiveChallengesWidget user={user} />}
+          {user && (
+            <Suspense fallback={null}>
+              <ActiveChallengesWidget user={user} />
+            </Suspense>
+          )}
 
-        {/* 8. Talk to Your Guides — enhanced scrollable cards */}
-        <EnhancedGuidesSection />
+          {/* 8. Talk to Your Guides — enhanced scrollable cards */}
+          <EnhancedGuidesSection />
 
-        {/* 9. Quick navigation */}
-        <QuickNav />
+          {/* 9. Quick navigation */}
+          <Suspense fallback={null}>
+            <QuickNav />
+          </Suspense>
 
         {/* 10. Coaching plan discovery — if no active coaching plan */}
         {!activeCoaching && (
@@ -874,7 +882,11 @@ function Home() {
         )}
 
         {/* 11. New user Start Here (conditional) */}
-        {isNewUser && <StartHereCard />}
+        {isNewUser && (
+          <Suspense fallback={null}>
+            <StartHereCard />
+          </Suspense>
+        )}
 
       </div>
 
