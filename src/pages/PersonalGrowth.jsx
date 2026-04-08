@@ -437,7 +437,7 @@ export default function PersonalGrowth() {
       {activeTab === 'mindset' &&
       <Suspense fallback={<TabSpinner />}>
           <div className="px-4 pt-4 max-w-2xl mx-auto space-y-3">
-            <div className="flex gap-2 mb-2">
+            <div className="flex gap-2 mb-3 overflow-x-auto pb-1">
               {[
             { id: 'mindset', label: 'Mindset Reset' },
             { id: 'mindset-affirm', label: 'Affirmations' },
@@ -445,11 +445,10 @@ export default function PersonalGrowth() {
             map((sub) =>
             <button key={sub.id}
             onClick={() => setActiveTab(sub.id)}
-            className={`text-xs font-semibold px-3 py-1.5 rounded-full border ${
-            activeTab === sub.id ? 'bg-[#3C4E53] text-white border-[#3C4E53]' : 'bg-[#AFC7E3]/15 text-[#3C4E53] border-[#AFC7E3]/25'}`
+            className={`text-xs font-semibold px-3 py-2 rounded-lg border-2 flex-shrink-0 transition-all ${
+            activeTab === sub.id ? 'bg-gradient-to-r from-[#3C4E53] to-[#AFC7E3] text-white border-[#3C4E53] shadow-sm' : 'bg-white text-[#3C4E53] border-[#AFC7E3]/25 hover:border-[#AFC7E3]/50 hover:bg-[#AFC7E3]/10'}`
             }>
-              
-                  {sub.label}
+              {sub.label}
                 </button>
             )}
             </div>
@@ -468,18 +467,17 @@ export default function PersonalGrowth() {
       {activeTab === 'habits' &&
       <Suspense fallback={<TabSpinner />}>
           <div className="px-4 pt-4 max-w-2xl mx-auto space-y-3">
-            <div className="flex gap-2 mb-2">
+            <div className="flex gap-2 mb-3 overflow-x-auto pb-1">
               {[
             { id: 'habits', label: 'Habit Builder' },
             { id: 'habits-emotional', label: 'Emotional Check-In' }].
             map((sub) =>
             <button key={sub.id}
             onClick={() => setActiveTab(sub.id)}
-            className={`text-xs font-semibold px-3 py-1.5 rounded-full border ${
-            activeTab === sub.id ? 'bg-[#3C4E53] text-white border-[#3C4E53]' : 'bg-[#AFC7E3]/15 text-[#3C4E53] border-[#AFC7E3]/25'}`
+            className={`text-xs font-semibold px-3 py-2 rounded-lg border-2 flex-shrink-0 transition-all ${
+            activeTab === sub.id ? 'bg-gradient-to-r from-[#3C4E53] to-[#AFC7E3] text-white border-[#3C4E53] shadow-sm' : 'bg-white text-[#3C4E53] border-[#AFC7E3]/25 hover:border-[#AFC7E3]/50 hover:bg-[#AFC7E3]/10'}`
             }>
-              
-                  {sub.label}
+              {sub.label}
                 </button>
             )}
             </div>
