@@ -214,6 +214,18 @@ export default function Nutrition() {
         {activeTab === 'today' &&
         <>
 
+            {/* Scripture for nourishment */}
+            <div className="bg-gradient-to-br from-[#FAD98D]/15 to-[#FAD98D]/5 rounded-2xl p-4 border border-[#FAD98D]/20">
+              <div className="flex items-center gap-2 mb-2">
+                <div className="w-1 h-4 bg-[#c9a227] rounded-full" />
+                <span className="text-[10px] font-bold text-[#c9a227] uppercase tracking-widest">Nourish Your Spirit</span>
+              </div>
+              <p className="text-[#0A1A2F] text-sm leading-relaxed italic" style={{ fontFamily: 'Georgia, serif' }}>
+                "Whether you eat or drink, or whatever you do, do it all for the glory of God."
+              </p>
+              <p className="text-xs text-[#0A1A2F]/40 mt-1">1 Corinthians 10:31 (WEB)</p>
+            </div>
+
             {/* Discover Recipes banner */}
             <Link to={createPageUrl('DiscoverRecipes')}>
               <div className="bg-gradient-to-r from-[#c9a227] to-[#FAD98D] rounded-2xl p-4 flex items-center gap-4 shadow-md shadow-[#c9a227]/20 active:scale-[0.98] transition-transform">
@@ -386,18 +398,6 @@ export default function Nutrition() {
                 <ChevronRight className="w-4 h-4 text-[#FD9C2D] flex-shrink-0" />
               </div>
             </Link>
-
-            {/* Scripture for nourishment */}
-            <div className="bg-gradient-to-br from-[#FAD98D]/15 to-[#FAD98D]/5 rounded-2xl p-4 border border-[#FAD98D]/20">
-              <div className="flex items-center gap-2 mb-2">
-                <div className="w-1 h-4 bg-[#c9a227] rounded-full" />
-                <span className="text-[10px] font-bold text-[#c9a227] uppercase tracking-widest">Nourish Your Spirit</span>
-              </div>
-              <p className="text-[#0A1A2F] text-sm leading-relaxed italic" style={{ fontFamily: 'Georgia, serif' }}>
-                "Whether you eat or drink, or whatever you do, do it all for the glory of God."
-              </p>
-              <p className="text-xs text-[#0A1A2F]/40 mt-1">1 Corinthians 10:31 (WEB)</p>
-            </div>
 
             {/* Articles */}
             <TrendingNutritionArticles />
