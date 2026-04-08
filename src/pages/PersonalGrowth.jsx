@@ -3,12 +3,13 @@ import { motion } from 'framer-motion';
 import {
   BookOpen, Brain, Heart, Sparkles, Target, CheckCircle2,
   Crown, Calendar, Wind, Star, ArrowRight, Flower2,
-  Flame, ChevronRight, MessageCircle, Sun, Moon, Sunset, TrendingUp } from
+  Flame, ChevronRight, Sun, Moon, Sunset, TrendingUp } from
 'lucide-react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { base44 } from '@/api/base44Client';
 import { localDateKey, todayKey } from '@/utils/localDate';
+import ChatButton from '@/components/chatbot/ChatButton';
 const HabitBuilderTab = lazy(() => import('@/pages/HabitBuilderPage'));
 const GratitudeJournalTab = lazy(() => import('@/pages/GratitudeJournalPage').catch(() => ({ default: () => <div>Unable to load</div> })));
 const MindsetResetTab = lazy(() => import('@/pages/MindsetResetPage'));
@@ -653,30 +654,12 @@ export default function PersonalGrowth() {
             )}
           </motion.div>
 
-          {/* ── Talk to Hannah ── */}
-          <motion.div id="tour-hannah-btn" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}>
-            <button
-              onClick={() => navigate(createPageUrl("ChatScreen?bot=Hannah"))}
-              className="w-full flex items-center gap-3 bg-white rounded-2xl px-4 py-3.5 border shadow-sm hover:shadow-md transition-all">
-              
-              <div
-                className="w-10 h-10 bg-gradient-to-br rounded-xl flex items-center justify-center flex-shrink-0"
-                style={{ background: "linear-gradient(135deg,#AFC7E3,#3C4E53)" }}>
-                <span className="text-white text-sm font-bold">H</span>
-              </div>
-              <div className="flex-1 min-w-0">
-                <p className="text-sm font-bold text-[#0A1A2F] leading-tight">
-                  {h < 12 ? "Start your morning with Hannah" : h < 17 ? "Process your afternoon with Hannah" : "Wind down with Hannah tonight"}
-                </p>
-                <p className="text-xs text-[#0A1A2F]/50 mt-0.5">Your personal growth coach — here anytime</p>
-              </div>
-              <MessageCircle className="w-4 h-4 text-[#0A1A2F]/25 flex-shrink-0" />
-            </button>
-          </motion.div>
-
         </div>
       </div>
       }
+
+      {/* Floating ChatButton — same style as Gideon on Bible page */}
+      <ChatButton bot="Hannah" id="tour-hannah-btn" />
     </div>);
 
 }
