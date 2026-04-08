@@ -60,16 +60,18 @@ Deno.serve(async (req) => {
           status: 'generating'
         });
 
-        // Generate TTS audio with OpenAI
-        console.log('[Worker] Generating TTS with OpenAI (attempt', retries + 1, 'of', maxRetries, ')...');
-        const ttsResponse = await openai.audio.speech.create({
-          model: 'tts-1',
-          voice: 'alloy',
-          input: meditation.script
-        });
+        // Generate TTS audio with Hannah's voice
+         console.log('[Worker] Generating TTS with Hannah voice (attempt', retries + 1, 'of', maxRetries, ')...');
+         const hannahResponse = await base44.functions.invoke('hannahTTS', {
+           text: meditation.script
+         });
 
-        // Get audio as buffer
-        const audioBuffer = await ttsResponse.arrayBuffer();
+         if (!hannahResponse?.audioContent) {
+           throw new Error('Failed to generate audio with Hannah voice');
+         }
+
+         // Convert base64 to buffer
+         const audioBuffer = Buffer.from(hannahResponse.audioContent, 'base64');
         
         // Upload to Base44 storage (public)
         console.log('[Worker] Uploading audio file...');
