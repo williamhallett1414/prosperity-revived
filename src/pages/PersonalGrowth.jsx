@@ -11,7 +11,7 @@ import { base44 } from '@/api/base44Client';
 import { localDateKey, todayKey } from '@/utils/localDate';
 
 const HabitBuilderTab = lazy(() => import('@/pages/HabitBuilderPage'));
-const GratitudeJournalTab = lazy(() => import('@/pages/GratitudeJournalPage'));
+const GratitudeJournalTab = lazy(() => import('@/pages/GratitudeJournalPage').catch(() => ({ default: () => <div>Unable to load</div> })));
 const MindsetResetTab = lazy(() => import('@/pages/MindsetResetPage'));
 const AffirmationsTab = lazy(() => import('@/pages/AffirmationsPage'));
 const EmotionalCheckInTab = lazy(() => import('@/pages/EmotionalCheckInPage'));
