@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { UtensilsCrossed, CalendarDays, ChefHat, History, Plus, Droplets, Flame, TrendingUp, Target, ChevronRight, Trash2 } from 'lucide-react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { motion } from 'framer-motion';
 import { toast } from 'sonner';
@@ -29,10 +29,7 @@ const QUICK_MEALS = [
 const TABS = [
 { id: 'today', label: 'Today', icon: Flame },
 { id: 'planner', label: 'Planner', icon: CalendarDays },
-{ id: 'build', label: 'Build', icon: ChefHat },
-{ id: 'goals', label: 'Goals', icon: Target },
-{ id: 'log', label: 'Log Food', icon: Plus },
-{ id: 'history', label: 'Log History', icon: History }];
+{ id: 'build', label: 'Build', icon: ChefHat }];
 
 
 const DEFAULT_MACROS = { calories: 2000, protein: 150, carbs: 250, fats: 65 };
@@ -78,7 +75,6 @@ function MacroRing({ value, target, label, unit, color }) {
 export default function Nutrition() {
   const [user, setUser] = useState(null);
   const [activeTab, setActiveTab] = useState('today');
-  const navigate = useNavigate();
   const [showLogModal, setShowLogModal] = useState(false);
   const queryClient = useQueryClient();
   const now = new Date();
@@ -179,33 +175,36 @@ export default function Nutrition() {
 
 
             
-            <div />
+            <div className="flex items-center gap-2">
+              <Link to={createPageUrl('NutritionGoalsPage')}>
+                <button className="flex items-center gap-1.5 bg-[#F0FDF4] border border-[#22C55E]/30 text-[#22C55E] text-xs font-bold px-3 py-2 rounded-xl">
+                  <Target className="w-3.5 h-3.5" /> Goals
+                </button>
+              </Link>
+              <Link to={createPageUrl('FoodLogHistory')}>
+                <button className="w-9 h-9 rounded-xl bg-[#F2F6FA] flex items-center justify-center text-[#0A1A2F]/45 hover:bg-[#FAD98D]/20 transition-colors">
+                  <History className="w-4 h-4" />
+                </button>
+              </Link>
+              <button onClick={() => setShowLogModal(true)}
+              className="flex items-center gap-1.5 bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white text-xs font-bold px-3 py-2 rounded-xl hover:opacity-90 shadow-sm">
+                <Plus className="w-3.5 h-3.5" /> Log Food
+              </button>
+            </div>
           </div>
 
           {/* Tab bar */}
-          <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-none pb-0.5">
-            {TABS.map(({ id, label, icon: Icon }) => {
-              const isLog = id === 'log';
-              const isActive = activeTab === id;
-              return (
-                <button key={id} onClick={() => {
-                  if (id === 'goals') navigate(createPageUrl('NutritionGoalsPage'));
-                  else if (id === 'log') setShowLogModal(true);
-                  else if (id === 'history') navigate(createPageUrl('FoodLogHistory'));
-                  else setActiveTab(id);
-                }}
-                className={`flex-shrink-0 flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-semibold transition-all border ${
-                  isLog
-                    ? 'bg-[#c9a227] text-white border-[#c9a227] shadow-sm'
-                    : isActive
-                    ? 'bg-white text-[#c9a227] border-[#FAD98D] shadow-sm font-bold'
-                    : 'bg-transparent text-[#0A1A2F]/40 border-transparent hover:bg-white hover:text-[#0A1A2F]/65'
-                }`}>
-                  <Icon className="w-3.5 h-3.5 flex-shrink-0" />
-                  <span className="whitespace-nowrap">{label}</span>
-                </button>
-              );
-            })}
+          <div className="flex gap-1.5">
+            {TABS.map(({ id, label, icon: Icon }) =>
+            <button key={id} onClick={() => setActiveTab(id)}
+            className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-xl text-xs font-bold transition-all ${
+            activeTab === id ?
+            'bg-gradient-to-b from-[#c9a227] to-[#FAD98D] text-white shadow-sm' :
+            'bg-[#F2F6FA] text-[#0A1A2F]/45 hover:text-[#0A1A2F]/65'}`
+            }>
+                <Icon className="w-3.5 h-3.5" />{label}
+              </button>
+            )}
           </div>
         </div>
       </div>
@@ -431,9 +430,6 @@ export default function Nutrition() {
 
         {/* ══ BUILD TAB ══ */}
         {activeTab === 'build' && <IngredientRecipeBuilder />}
-
-        {/* ══ GOALS TAB ══ */}
-        {activeTab === 'goals' && null}
 
       </div>
 
