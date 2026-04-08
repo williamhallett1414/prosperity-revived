@@ -16,7 +16,7 @@ const MindsetResetTab = lazy(() => import('@/pages/MindsetResetPage'));
 const AffirmationsTab = lazy(() => import('@/pages/AffirmationsPage'));
 const EmotionalCheckInTab = lazy(() => import('@/pages/EmotionalCheckInPage'));
 const IdentityInChristTab = lazy(() => import('@/pages/IdentityInChristPage'));
-// Removed lazy import of MyJournalEntries to fix dynamic import error
+const MyJournalEntriesTab = lazy(() => import('@/pages/MyJournalEntries').catch(() => ({ default: () => <div>Unable to load journal entries</div> })));
 const WeeklyReflectionTab = lazy(() => import('@/pages/WeeklyReflectionPage'));
 const GrowthPathwaysTab = lazy(() => import('@/pages/GrowthPathwaysPage'));
 
@@ -403,25 +403,28 @@ export default function PersonalGrowth() {
       {activeTab === 'journal' && (
         <Suspense fallback={<TabSpinner />}>
           <div className="px-4 pt-4 max-w-2xl mx-auto space-y-3">
-            <div className="flex gap-2 mb-2">
+            <div className="flex gap-2 mb-4 overflow-x-auto">
               {[
-                { id: 'entries', label: 'My Journal', active: true },
-                { id: 'gratitude', label: 'Gratitude' },
-                { id: 'weekly', label: 'Weekly Reflection' },
+                { id: 'journal-entries', label: 'My Journal' },
+                { id: 'journal-gratitude', label: 'Gratitude' },
+                { id: 'journal-weekly', label: 'Weekly Reflection' },
               ].map(sub => (
                 <button key={sub.id}
-                  onClick={() => {
-                    const map = { entries: 'journal-entries', gratitude: 'journal-gratitude', weekly: 'journal-weekly' };
-                    setActiveTab(map[sub.id]);
-                  }}
-                  className="text-xs font-semibold px-3 py-1.5 rounded-full bg-[#AFC7E3]/15 text-[#3C4E53] border border-[#AFC7E3]/25"
+                  onClick={() => setActiveTab(sub.id)}
+                  className={`text-xs font-semibold px-3 py-1.5 rounded-full border flex-shrink-0 transition-all ${
+                    activeTab === sub.id ? 'bg-[#3C4E53] text-white border-[#3C4E53]' : 'bg-[#AFC7E3]/15 text-[#3C4E53] border-[#AFC7E3]/25'
+                  }`}
                 >
                   {sub.label}
                 </button>
               ))}
             </div>
-            <div className="text-center py-8 text-[#0A1A2F]/60">My Journal entries not available in this view</div>
           </div>
+        </Suspense>
+      )}
+      {activeTab === 'journal-entries' && (
+        <Suspense fallback={<TabSpinner />}>
+          <MyJournalEntriesTab />
         </Suspense>
       )}
       {activeTab === 'journal-gratitude' && (
