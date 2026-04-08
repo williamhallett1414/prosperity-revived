@@ -14,7 +14,8 @@ export default function ModerationPanel({ user }) {
     queryKey: ['reports', filter],
     queryFn: async () => {
       try {
-        const all = await base44.entities.Report?.filter(
+        if (!base44.entities.Report) return [];
+        const all = await base44.entities.Report.filter(
           filter === 'all' ? {} : { status: filter }
         );
         return all || [];
@@ -28,7 +29,8 @@ export default function ModerationPanel({ user }) {
     queryKey: ['flaggedPosts'],
     queryFn: async () => {
       try {
-        return await base44.entities.CommunityPost?.filter({ is_flagged: true }) || [];
+        if (!base44.entities.CommunityPost) return [];
+        return await base44.entities.CommunityPost.filter({ is_flagged: true }) || [];
       } catch { return []; }
     },
     enabled: !!isAdmin,
@@ -37,7 +39,8 @@ export default function ModerationPanel({ user }) {
 
   const resolveReport = useMutation({
     mutationFn: async ({ reportId, action }) => {
-      await base44.entities.Report?.update(reportId, {
+      if (!base44.entities.Report) return;
+      await base44.entities.Report.update(reportId, {
         status: action, // 'resolved', 'dismissed'
         reviewed_by: user.email,
         reviewed_at: new Date().toISOString(),
@@ -52,7 +55,8 @@ export default function ModerationPanel({ user }) {
 
   const deletePost = useMutation({
     mutationFn: async (postId) => {
-      await base44.entities.CommunityPost?.delete(postId);
+      if (!base44.entities.CommunityPost) return;
+      await base44.entities.CommunityPost.delete(postId);
     },
     onSuccess: () => {
       queryClient.invalidateQueries(['flaggedPosts']);
