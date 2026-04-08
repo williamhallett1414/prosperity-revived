@@ -183,7 +183,7 @@ export default function Nutrition() {
           </div>
 
           {/* Tab bar */}
-          <div className="flex gap-1 overflow-x-auto scrollbar-none">
+          <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-none pb-0.5">
             {TABS.map(({ id, label, icon: Icon }) => {
               const isLog = id === 'log';
               const isActive = activeTab === id;
@@ -194,18 +194,15 @@ export default function Nutrition() {
                   else if (id === 'history') navigate(createPageUrl('FoodLogHistory'));
                   else setActiveTab(id);
                 }}
-                className={`flex-shrink-0 flex flex-col items-center gap-0.5 px-3 py-2 rounded-xl text-[10px] font-bold transition-all ${
+                className={`flex-shrink-0 flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-semibold transition-all border ${
                   isLog
-                    ? 'bg-gradient-to-b from-[#c9a227] to-[#FAD98D] text-white shadow-md shadow-[#c9a227]/20 scale-105'
+                    ? 'bg-[#c9a227] text-white border-[#c9a227] shadow-sm'
                     : isActive
-                    ? 'bg-[#FAD98D]/25 text-[#c9a227]'
-                    : 'text-[#0A1A2F]/40 hover:text-[#0A1A2F]/65 hover:bg-[#F2F6FA]'
+                    ? 'bg-white text-[#c9a227] border-[#FAD98D] shadow-sm font-bold'
+                    : 'bg-transparent text-[#0A1A2F]/40 border-transparent hover:bg-white hover:text-[#0A1A2F]/65'
                 }`}>
-                  <Icon className="w-4 h-4" />
-                  <span className="leading-none">{label}</span>
-                  {isActive && !isLog && (
-                    <div className="w-1 h-1 rounded-full bg-[#c9a227]" />
-                  )}
+                  <Icon className="w-3.5 h-3.5 flex-shrink-0" />
+                  <span className="whitespace-nowrap">{label}</span>
                 </button>
               );
             })}
