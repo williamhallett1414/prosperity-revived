@@ -79,7 +79,7 @@ export default function MyJournalEntries() {
   const updateEntry = useMutation({
     mutationFn: ({ id, data }) => base44.entities.JournalEntry.update(id, data),
     onSuccess: () => {
-      queryClient.invalidateQueries(['journalEntries']);
+      queryClient.invalidateQueries({ queryKey: ['journalEntries'] });
       setEditingId(null);
       toast.success('Entry updated!');
     },
@@ -89,7 +89,7 @@ export default function MyJournalEntries() {
   const deleteEntry = useMutation({
     mutationFn: (id) => base44.entities.JournalEntry.delete(id),
     onSuccess: () => {
-      queryClient.invalidateQueries(['journalEntries']);
+      queryClient.invalidateQueries({ queryKey: ['journalEntries'] });
       toast.success('Entry deleted');
     },
     onError: () => toast.error('Failed to delete entry'),
@@ -98,7 +98,7 @@ export default function MyJournalEntries() {
   const createEntry = useMutation({
     mutationFn: (data) => base44.entities.JournalEntry.create(data),
     onSuccess: () => {
-      queryClient.invalidateQueries(['journalEntries']);
+      queryClient.invalidateQueries({ queryKey: ['journalEntries'] });
       setShowNewEntryModal(false);
       setNewTitle('');
       setNewContent('');
