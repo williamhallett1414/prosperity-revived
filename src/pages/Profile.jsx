@@ -361,16 +361,15 @@ function GoalBento() {
             <p className="text-[#C9A227] text-[9px] font-semibold mt-1 uppercase tracking-wide">Goals →</p>
           </div>
         </Link>
+        <Link to={createPageUrl('PersonalGrowthGoalsPage')}>
+          <div className="rounded-2xl p-3.5 hover:opacity-95 transition-opacity border border-[#AFC7E3]/20"
+            style={{ background: 'linear-gradient(160deg, #EFF4FF, #e5edff)' }}>
+            <p className="text-xl mb-2">🧠</p>
+            <p className="font-black text-[#0A1A2F] text-xs leading-tight">Personal Growth</p>
+            <p className="text-[#AFC7E3] text-[9px] font-semibold mt-1 uppercase tracking-wide">Goals →</p>
+          </div>
+        </Link>
       </div>
-
-      <Link to={createPageUrl('PersonalGrowthGoalsPage')}>
-        <div className="rounded-2xl p-3.5 hover:opacity-95 transition-opacity border border-[#AFC7E3]/20"
-          style={{ background: 'linear-gradient(160deg, #EFF4FF, #e5edff)' }}>
-          <p className="text-xl mb-2">🧠</p>
-          <p className="font-black text-[#0A1A2F] text-xs leading-tight">Personal Growth</p>
-          <p className="text-[#AFC7E3] text-[9px] font-semibold mt-1 uppercase tracking-wide">Goals →</p>
-        </div>
-      </Link>
     </motion.div>
   );
 }
