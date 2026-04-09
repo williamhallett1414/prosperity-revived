@@ -379,9 +379,9 @@ export default function Layout({ children, currentPageName }) {
             })}
         </div>
       </nav>
-    </div>
+      </div>
 
-    {/* Guided Tour — persists across route changes */}
+      {/* Guided Tour — persists across route changes */}
     {showGuidedTour && (
       <GuidedTour
         customSteps={window.__pendingMiniTourSteps || null}
