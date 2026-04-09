@@ -13,56 +13,56 @@ const CHALLENGES = [
     description: "Modeled after Jesus' 40 days in the wilderness (Matthew 4:1-11), this is the most demanding challenge in Prosperity Revived. You will fast from comfort, strip away distraction, face your deepest temptations, and learn to rely solely on Christ. This is not casual — it is a pilgrimage. You will be pushed to your mental, physical, and emotional limits. But on the other side is a faith that cannot be shaken. Are you ready to walk into the desert?",
     tasks: [
       // WEEK 1: THE DESCENT — Stripping Away
-      { day: 1, title: "Enter the wilderness", content: "Today you begin. Delete one social media app from your phone. Write a letter to God telling Him why you're doing this. Read Matthew 4:1-2. Jesus was LED by the Spirit into the wilderness — this is not punishment, it is preparation.", prompt: "What are you hoping God does in you over the next 40 days?", verse: "Matthew 4:1-2" },
-      { day: 2, title: "The first fast", content: "Skip one meal today. During that meal time, sit in silence with your Bible open to Psalm 63. No music, no podcast — just you and God. Feel the hunger. Let it remind you that you need Him more than food.", prompt: "What did hunger teach you about dependence today?" },
-      { day: 3, title: "Confession", content: "Write down every sin, habit, and compromise you've been carrying. Be brutally honest — no one sees this but God. Read 1 John 1:9. Then pray over each one and physically destroy the paper.", prompt: "What did it feel like to name what you've been hiding?" },
-      { day: 4, title: "Digital wilderness", content: "No social media today. No YouTube. No streaming. No news. Only Scripture, prayer, and necessary communication. Read Psalm 46:10 — 'Be still and know that I am God.'", prompt: "What did you discover in the silence that noise had been covering?" },
-      { day: 5, title: "The long walk", content: "Walk for 45 minutes in solitude. No earbuds. No phone. Just walk and pray. Talk to God like He's walking beside you — because He is. Read Genesis 5:24 — Enoch walked with God.", prompt: "What did God say to you on the walk?" },
-      { day: 6, title: "Sleep on the floor", content: "Tonight, sleep on the floor with only a blanket. Before you lie down, read Philippians 2:5-8 — Christ emptied Himself. Feel the discomfort. Offer it as worship.", prompt: "What did physical discomfort reveal about your attachment to comfort?" },
-      { day: 7, title: "The first Sabbath", content: "Do no work today. No productivity. No hustle. Rest as an act of radical trust that God provides even when you stop performing. Read Exodus 20:8-11 and Hebrews 4:9-10.", prompt: "What was hardest about stopping? What does that reveal?" },
+      { day: 1, title: "Enter the wilderness", verse: "Matthew 4:1-2", extraWritingPrompt: "✉️ Write your letter to God — why are you doing this? What are you leaving behind, and what are you stepping into?", content: "Today you begin. Delete one social media app from your phone. Write a letter to God telling Him why you're doing this. Read Matthew 4:1-2. Jesus was LED by the Spirit into the wilderness — this is not punishment, it is preparation.", prompt: "What are you hoping God does in you over the next 40 days?" },
+      { day: 2, title: "The first fast", verse: "Psalm 63", content: "Skip one meal today. During that meal time, sit in silence with your Bible open to Psalm 63. No music, no podcast — just you and God. Feel the hunger. Let it remind you that you need Him more than food.", prompt: "What did hunger teach you about dependence today?" },
+      { day: 3, title: "Confession", verse: "1 John 1:9", extraWritingPrompt: "📋 Write down every sin, habit, and compromise you've been carrying. Be brutally honest — no one sees this but God.", content: "Write down every sin, habit, and compromise you've been carrying. Be brutally honest — no one sees this but God. Read 1 John 1:9. Then pray over each one and physically destroy the paper.", prompt: "What did it feel like to name what you've been hiding?" },
+      { day: 4, title: "Digital wilderness", verse: "Psalm 46:10", content: "No social media today. No YouTube. No streaming. No news. Only Scripture, prayer, and necessary communication. Read Psalm 46:10 — 'Be still and know that I am God.'", prompt: "What did you discover in the silence that noise had been covering?" },
+      { day: 5, title: "The long walk", verse: "Genesis 5:24", content: "Walk for 45 minutes in solitude. No earbuds. No phone. Just walk and pray. Talk to God like He's walking beside you — because He is. Read Genesis 5:24 — Enoch walked with God.", prompt: "What did God say to you on the walk?" },
+      { day: 6, title: "Sleep on the floor", verse: "Philippians 2:5-8", content: "Tonight, sleep on the floor with only a blanket. Before you lie down, read Philippians 2:5-8 — Christ emptied Himself. Feel the discomfort. Offer it as worship.", prompt: "What did physical discomfort reveal about your attachment to comfort?" },
+      { day: 7, title: "The first Sabbath", verse: "Hebrews 4:9-10", content: "Do no work today. No productivity. No hustle. Rest as an act of radical trust that God provides even when you stop performing. Read Exodus 20:8-11 and Hebrews 4:9-10.", prompt: "What was hardest about stopping? What does that reveal?" },
 
       // WEEK 2: THE TEMPTATION — Facing Your Flesh
-      { day: 8, title: "Name your temptation", content: "Jesus was tempted three times. What are YOUR three greatest temptations? Write them down honestly. Read Matthew 4:3-10 and identify which of Jesus' temptations mirrors yours.", prompt: "What are the three temptations that have the strongest grip on you?" },
+      { day: 8, title: "Name your temptation", verse: "Matthew 4:3-10", extraWritingPrompt: "✍️ Write down your three greatest temptations honestly. Which of Jesus' temptations mirrors yours?", content: "Jesus was tempted three times. What are YOUR three greatest temptations? Write them down honestly. Read Matthew 4:3-10 and identify which of Jesus' temptations mirrors yours.", prompt: "What are the three temptations that have the strongest grip on you?" },
       { day: 9, title: "Fast from your vice", content: "Whatever your greatest comfort vice is — caffeine, sugar, entertainment, spending, complaining — fast from it today. Replace every craving with a sentence prayer.", prompt: "How many times did you reach for your vice? What prayer replaced it?" },
-      { day: 10, title: "Cold water baptism", content: "Take an ice-cold shower this morning. Stay under for 2 full minutes. As the cold hits, declare: 'I am crucified with Christ. It is no longer I who live, but Christ lives in me.' (Galatians 2:20)", prompt: "What broke in you when you chose discomfort on purpose?" },
-      { day: 11, title: "Serve someone invisible", content: "Find someone no one notices — a janitor, a lonely neighbor, a homeless person — and serve them. Spend real time with them. Read Matthew 25:40.", prompt: "Who did you serve, and what did Jesus teach you through them?" },
-      { day: 12, title: "Speak no complaint", content: "Go the entire day without complaining — not once, about anything. Every time you catch yourself, stop and give thanks instead. Read Philippians 2:14-15.", prompt: "How many complaints did you catch? What replaced them?" },
-      { day: 13, title: "Pray for your enemy", content: "Think of the person you resent most. Pray for them by name for 10 minutes. Not that God would change them — pray that God would genuinely bless them. Read Matthew 5:44.", prompt: "What shifted in your heart as you prayed for someone who hurt you?" },
-      { day: 14, title: "Second Sabbath + fast", content: "Full Sabbath rest AND skip one meal. Combine stillness with hunger. Read Isaiah 58:6-9 — God's chosen fast. Journal what God is breaking loose in you.", prompt: "After two weeks, what is God dismantling in you?" },
+      { day: 10, title: "Cold water baptism", verse: "Galatians 2:20", content: "Take an ice-cold shower this morning. Stay under for 2 full minutes. As the cold hits, declare: 'I am crucified with Christ. It is no longer I who live, but Christ lives in me.' (Galatians 2:20)", prompt: "What broke in you when you chose discomfort on purpose?" },
+      { day: 11, title: "Serve someone invisible", verse: "Matthew 25:40", content: "Find someone no one notices — a janitor, a lonely neighbor, a homeless person — and serve them. Spend real time with them. Read Matthew 25:40.", prompt: "Who did you serve, and what did Jesus teach you through them?" },
+      { day: 12, title: "Speak no complaint", verse: "Philippians 2:14-15", content: "Go the entire day without complaining — not once, about anything. Every time you catch yourself, stop and give thanks instead. Read Philippians 2:14-15.", prompt: "How many complaints did you catch? What replaced them?" },
+      { day: 13, title: "Pray for your enemy", verse: "Matthew 5:44", content: "Think of the person you resent most. Pray for them by name for 10 minutes. Not that God would change them — pray that God would genuinely bless them. Read Matthew 5:44.", prompt: "What shifted in your heart as you prayed for someone who hurt you?" },
+      { day: 14, title: "Second Sabbath + fast", verse: "Isaiah 58:6-9", content: "Full Sabbath rest AND skip one meal. Combine stillness with hunger. Read Isaiah 58:6-9 — God's chosen fast. Journal what God is breaking loose in you.", prompt: "After two weeks, what is God dismantling in you?" },
 
       // WEEK 3: THE BREAKING — Dying to Self
-      { day: 15, title: "Give away something you love", content: "Find something you own that you genuinely love and give it away to someone who needs it more. Not junk — something that costs you. Read Luke 12:33-34.", prompt: "What did you give away, and what did it cost you emotionally?" },
-      { day: 16, title: "Ask for forgiveness", content: "Go to someone you've wronged — in person, by phone, or in writing — and ask for their forgiveness. No excuses, no explaining. Just own it. Read Matthew 5:23-24.", prompt: "Who did you approach, and what happened?" },
-      { day: 17, title: "24-hour media fast", content: "No phone, no screens, no media for 24 full hours. Only Bible, journal, and face-to-face conversation. You will feel withdrawal. Stay in it. Read Psalm 119:37.", prompt: "What emotions surfaced during 24 hours without a screen?" },
-      { day: 18, title: "Mourn with someone", content: "Find someone who is grieving or struggling and sit with them. Don't fix. Don't preach. Just be present. Read Romans 12:15 — weep with those who weep.", prompt: "What happened when you chose presence over solutions?" },
-      { day: 19, title: "Pray on your knees for 30 minutes", content: "Physical posture shapes spiritual posture. Get on your knees and pray for 30 minutes without getting up. Read Daniel 6:10 — Daniel prayed on his knees three times a day even facing death.", prompt: "What did your body teach your spirit in that posture?" },
-      { day: 20, title: "Write your eulogy", content: "Write what you want said about you when you die. Then compare it to how you're actually living. Read Psalm 90:12 — teach us to number our days. Let the gap between the two drive you to change.", prompt: "What is the biggest gap between who you want to be and who you are?" },
-      { day: 21, title: "Third Sabbath — halfway", content: "You are halfway through the wilderness. Rest. Read Psalm 23 slowly three times. Journal what has already changed in you. Name what God has done so far.", prompt: "Who were you 21 days ago, and who are you becoming?" },
+      { day: 15, title: "Give away something you love", verse: "Luke 12:33-34", content: "Find something you own that you genuinely love and give it away to someone who needs it more. Not junk — something that costs you. Read Luke 12:33-34.", prompt: "What did you give away, and what did it cost you emotionally?" },
+      { day: 16, title: "Ask for forgiveness", verse: "Matthew 5:23-24", content: "Go to someone you've wronged — in person, by phone, or in writing — and ask for their forgiveness. No excuses, no explaining. Just own it. Read Matthew 5:23-24.", prompt: "Who did you approach, and what happened?" },
+      { day: 17, title: "24-hour media fast", verse: "Psalm 119:37", content: "No phone, no screens, no media for 24 full hours. Only Bible, journal, and face-to-face conversation. You will feel withdrawal. Stay in it. Read Psalm 119:37.", prompt: "What emotions surfaced during 24 hours without a screen?" },
+      { day: 18, title: "Mourn with someone", verse: "Romans 12:15", content: "Find someone who is grieving or struggling and sit with them. Don't fix. Don't preach. Just be present. Read Romans 12:15 — weep with those who weep.", prompt: "What happened when you chose presence over solutions?" },
+      { day: 19, title: "Pray on your knees for 30 minutes", verse: "Daniel 6:10", content: "Physical posture shapes spiritual posture. Get on your knees and pray for 30 minutes without getting up. Read Daniel 6:10 — Daniel prayed on his knees three times a day even facing death.", prompt: "What did your body teach your spirit in that posture?" },
+      { day: 20, title: "Write your eulogy", verse: "Psalm 90:12", extraWritingPrompt: "📜 Write what you want said about you when you die. Be specific about your character, legacy, and impact.", content: "Write what you want said about you when you die. Then compare it to how you're actually living. Read Psalm 90:12 — teach us to number our days. Let the gap between the two drive you to change.", prompt: "What is the biggest gap between who you want to be and who you are?" },
+      { day: 21, title: "Third Sabbath — halfway", verse: "Psalm 23", content: "You are halfway through the wilderness. Rest. Read Psalm 23 slowly three times. Journal what has already changed in you. Name what God has done so far.", prompt: "Who were you 21 days ago, and who are you becoming?" },
 
       // WEEK 4: THE SURRENDER — Letting God Have Everything
-      { day: 22, title: "Financial surrender", content: "Give away money you weren't planning to give — to a church, a person in need, or a cause. Let it be an amount that makes you nervous. Read Malachi 3:10.", prompt: "What did it feel like to give beyond your comfort zone?" },
-      { day: 23, title: "Confess to another person", content: "Find one trusted believer and confess a struggle or sin you've been hiding. Not to social media — to a real person, face to face. Read James 5:16.", prompt: "What happened when you brought darkness into light?" },
-      { day: 24, title: "Sunrise prayer", content: "Wake before dawn. Go outside. Watch the sun rise while in prayer. Read Lamentations 3:22-23 — His mercies are new every morning. Let the sunrise preach to you.", prompt: "What did God say to you in the dawn?" },
-      { day: 25, title: "Carry someone's burden", content: "Ask someone: 'What's heavy for you right now?' and then actually help carry it — with action, not just words. Read Galatians 6:2.", prompt: "Whose burden did you share, and what did you do?" },
-      { day: 26, title: "Worship in the storm", content: "Think of the hardest thing in your life right now. Instead of asking God to remove it, praise Him in the middle of it. Sing, shout, declare His goodness. Read Acts 16:25 — Paul and Silas worshipped in prison.", prompt: "What shifted when you praised God BEFORE the answer came?" },
-      { day: 27, title: "The longest fast", content: "Fast from sunrise to sunset today — no food, only water. Read Isaiah 58:6-9 throughout the day. Break the fast at sunset with bread and prayer.", prompt: "What did a full day of hunger reveal about your dependence on God?" },
-      { day: 28, title: "Fourth Sabbath", content: "Rest completely. Read all of Psalm 91 — He who dwells in the shelter of the Most High. You have made it through four weeks. Let God restore you.", prompt: "What has 28 days in the wilderness taught you about who God is?" },
+      { day: 22, title: "Financial surrender", verse: "Malachi 3:10", content: "Give away money you weren't planning to give — to a church, a person in need, or a cause. Let it be an amount that makes you nervous. Read Malachi 3:10.", prompt: "What did it feel like to give beyond your comfort zone?" },
+      { day: 23, title: "Confess to another person", verse: "James 5:16", content: "Find one trusted believer and confess a struggle or sin you've been hiding. Not to social media — to a real person, face to face. Read James 5:16.", prompt: "What happened when you brought darkness into light?" },
+      { day: 24, title: "Sunrise prayer", verse: "Lamentations 3:22-23", content: "Wake before dawn. Go outside. Watch the sun rise while in prayer. Read Lamentations 3:22-23 — His mercies are new every morning. Let the sunrise preach to you.", prompt: "What did God say to you in the dawn?" },
+      { day: 25, title: "Carry someone's burden", verse: "Galatians 6:2", content: "Ask someone: 'What's heavy for you right now?' and then actually help carry it — with action, not just words. Read Galatians 6:2.", prompt: "Whose burden did you share, and what did you do?" },
+      { day: 26, title: "Worship in the storm", verse: "Acts 16:25", content: "Think of the hardest thing in your life right now. Instead of asking God to remove it, praise Him in the middle of it. Sing, shout, declare His goodness. Read Acts 16:25 — Paul and Silas worshipped in prison.", prompt: "What shifted when you praised God BEFORE the answer came?" },
+      { day: 27, title: "The longest fast", verse: "Isaiah 58:6-9", content: "Fast from sunrise to sunset today — no food, only water. Read Isaiah 58:6-9 throughout the day. Break the fast at sunset with bread and prayer.", prompt: "What did a full day of hunger reveal about your dependence on God?" },
+      { day: 28, title: "Fourth Sabbath", verse: "Psalm 91", content: "Rest completely. Read all of Psalm 91 — He who dwells in the shelter of the Most High. You have made it through four weeks. Let God restore you.", prompt: "What has 28 days in the wilderness taught you about who God is?" },
 
       // WEEK 5: THE MOUNTAIN — Building Unshakable Faith
-      { day: 29, title: "Declare your identity", content: "Write 10 'I am' statements from Scripture about who God says you are. Read them aloud three times — in the morning, at noon, and before bed. Read Ephesians 1:3-14.", prompt: "Which identity statement hit deepest, and why?" },
-      { day: 30, title: "Intercede for 1 hour", content: "Pray for one solid hour for other people — not yourself. Family, friends, enemies, your city, your nation, the church. Read 1 Timothy 2:1-4.", prompt: "What did an hour of intercession do to your own heart?" },
-      { day: 31, title: "Fast and serve", content: "Skip one meal and use that time to serve someone else. Let your hunger fuel compassion. Read Matthew 25:35-40.", prompt: "How did combining fasting with service change both?" },
-      { day: 32, title: "Write a psalm", content: "Write your own psalm to God — raw, honest, your own words. Start with where you are. Move to who God is. End with surrender. Read Psalm 42 as a model.", prompt: "What did your psalm express that ordinary prayer couldn't?" },
-      { day: 33, title: "Memorize Matthew 4:1-11", content: "Memorize the full wilderness temptation passage. Speak it from memory by end of day. These are the words Jesus used to defeat the enemy — they are your weapon too.", prompt: "Which of Jesus' responses to temptation do you need most right now?" },
-      { day: 34, title: "Physical endurance", content: "Push your body beyond where you'd normally quit — a longer run, a harder workout, extra reps, a steep hike. When your body screams stop, pray 'I can do all things through Christ' and keep going. Read Hebrews 12:1-2.", prompt: "What happened when you pushed past your limit with Christ?" },
-      { day: 35, title: "Fifth Sabbath", content: "Rest deeply. You have 5 days left. Read Philippians 3:13-14 — pressing on toward the goal. Journal the transformation you've experienced.", prompt: "What person are you leaving behind in this wilderness?" },
+      { day: 29, title: "Declare your identity", verse: "Ephesians 1:3-14", extraWritingPrompt: "✨ Write your 10 'I am' statements from Scripture. Then read them aloud three times — morning, noon, and night.", content: "Write 10 'I am' statements from Scripture about who God says you are. Read them aloud three times — in the morning, at noon, and before bed. Read Ephesians 1:3-14.", prompt: "Which identity statement hit deepest, and why?" },
+      { day: 30, title: "Intercede for 1 hour", verse: "1 Timothy 2:1-4", content: "Pray for one solid hour for other people — not yourself. Family, friends, enemies, your city, your nation, the church. Read 1 Timothy 2:1-4.", prompt: "What did an hour of intercession do to your own heart?" },
+      { day: 31, title: "Fast and serve", verse: "Matthew 25:35-40", content: "Skip one meal and use that time to serve someone else. Let your hunger fuel compassion. Read Matthew 25:35-40.", prompt: "How did combining fasting with service change both?" },
+      { day: 32, title: "Write a psalm", verse: "Psalm 42", extraWritingPrompt: "🎵 Write your own psalm to God — raw, honest, your own words. Start where you are. Move to who God is. End with surrender.", content: "Write your own psalm to God — raw, honest, your own words. Start with where you are. Move to who God is. End with surrender. Read Psalm 42 as a model.", prompt: "What did your psalm express that ordinary prayer couldn't?" },
+      { day: 33, title: "Memorize Matthew 4:1-11", verse: "Matthew 4:1-11", extraWritingPrompt: "📖 Write out Matthew 4:1-11 from memory. These words are your weapon.", content: "Memorize the full wilderness temptation passage. Speak it from memory by end of day. These are the words Jesus used to defeat the enemy — they are your weapon too.", prompt: "Which of Jesus' responses to temptation do you need most right now?" },
+      { day: 34, title: "Physical endurance", verse: "Hebrews 12:1-2", content: "Push your body beyond where you'd normally quit — a longer run, a harder workout, extra reps, a steep hike. When your body screams stop, pray 'I can do all things through Christ' and keep going. Read Hebrews 12:1-2.", prompt: "What happened when you pushed past your limit with Christ?" },
+      { day: 35, title: "Fifth Sabbath", verse: "Philippians 3:13-14", content: "Rest deeply. You have 5 days left. Read Philippians 3:13-14 — pressing on toward the goal. Journal the transformation you've experienced.", prompt: "What person are you leaving behind in this wilderness?" },
 
       // WEEK 6: THE RESURRECTION — Coming Out of the Desert
-      { day: 36, title: "Forgive completely", content: "Today, fully forgive everyone who has ever wronged you. Write each name. Pray release over each one. This is not for them — it is for your freedom. Read Colossians 3:13.", prompt: "Who did you finally release, and what chains broke?" },
-      { day: 37, title: "Commitment letter", content: "Write a covenant letter to God about who you will be when you leave this wilderness. Be specific — daily practices, boundaries, commitments. Sign it and date it. Read Joshua 24:15.", prompt: "What specific commitments are you making to God going forward?" },
-      { day: 38, title: "Testimony", content: "Write your wilderness testimony — what God did in you over 40 days. Share it with at least one person today. Your story is someone else's hope. Read Revelation 12:11.", prompt: "What is the one sentence that summarizes what God did?" },
+      { day: 36, title: "Forgive completely", verse: "Colossians 3:13", extraWritingPrompt: "📝 Write the names of everyone you are forgiving today. Pray release over each one.", content: "Today, fully forgive everyone who has ever wronged you. Write each name. Pray release over each one. This is not for them — it is for your freedom. Read Colossians 3:13.", prompt: "Who did you finally release, and what chains broke?" },
+      { day: 37, title: "Commitment letter", verse: "Joshua 24:15", extraWritingPrompt: "📜 Write your covenant letter to God. Be specific — daily practices, boundaries, commitments. Sign it and date it.", content: "Write a covenant letter to God about who you will be when you leave this wilderness. Be specific — daily practices, boundaries, commitments. Sign it and date it. Read Joshua 24:15.", prompt: "What specific commitments are you making to God going forward?" },
+      { day: 38, title: "Testimony", verse: "Revelation 12:11", extraWritingPrompt: "🙌 Write your wilderness testimony — what God did in you over 40 days. Share it with at least one person today.", content: "Write your wilderness testimony — what God did in you over 40 days. Share it with at least one person today. Your story is someone else's hope. Read Revelation 12:11.", prompt: "What is the one sentence that summarizes what God did?" },
       { day: 39, title: "The final fast", content: "One last fast from sunrise to sunset. This time, spend the day in worship, gratitude, and reading the book of John. Let the life of Christ wash over you one final time.", prompt: "How is this fast different from your first one on Day 2?" },
-      { day: 40, title: "Exit the wilderness", content: "You made it. Read Matthew 4:11 — 'Then the devil left Him, and angels came and attended Him.' Today, feast. Celebrate. Rest in the knowledge that you walked where Christ walked, and you came out changed. The wilderness was not your end — it was your beginning.", prompt: "Who are you now? And what will you never go back to?" },
+      { day: 40, title: "Exit the wilderness", verse: "Matthew 4:11", content: "You made it. Read Matthew 4:11 — 'Then the devil left Him, and angels came and attended Him.' Today, feast. Celebrate. Rest in the knowledge that you walked where Christ walked, and you came out changed. The wilderness was not your end — it was your beginning.", prompt: "Who are you now? And what will you never go back to?" },
     ],
   },
   {
@@ -397,7 +397,7 @@ function JourneyMap({ challenge, completedDays }) {
 // ─── Challenge Detail View (NOT an overlay — renders as normal page content) ─
 function ChallengeDetail({ challenge, localData, onBack, onStart, onComplete, onReset, onOpenChallenge, user }) {
   const [reflection, setReflection] = useState("");
-  const [letterToGod, setLetterToGod] = useState("");
+  const [extraWriting, setExtraWriting] = useState("");
   const [saving, setSaving] = useState(false);
   const [confirmReset, setConfirmReset] = useState(false);
   const [showAllDays, setShowAllDays] = useState(false);
@@ -425,30 +425,27 @@ function ChallengeDetail({ challenge, localData, onBack, onStart, onComplete, on
     await new Promise(r => setTimeout(r, 400));
     const isLast = nextDayNum >= challenge.duration;
 
-    // Build journal entry content
-    const parts = [];
-    if (nextDayNum === 1 && letterToGod.trim()) {
-      parts.push(`✉️ Letter to God:\n${letterToGod.trim()}`);
+    // Build journal entry combining extra writing + reflection
+    let entryContent = reflection.trim();
+    if (extraWriting.trim()) {
+      entryContent = `${currentTask?.extraWritingPrompt || '✍️ Writing'}\n${extraWriting.trim()}\n\n📝 Reflection:\n${reflection.trim()}`;
     }
-    parts.push(`📝 Day ${nextDayNum} Reflection — ${currentTask?.title || ''}:\n${reflection.trim()}`);
-    const entryContent = parts.join('\n\n');
 
     // Save to JournalEntry
-    let savedEntry = null;
     try {
-      savedEntry = await base44.entities.JournalEntry.create({
+      const saved = await base44.entities.JournalEntry.create({
         title: `${challenge.title} — Day ${nextDayNum}: ${currentTask?.title || ''}`,
         content: entryContent,
-        entry_type: 'reflection',
+        entry_type: 'scripture_reflection',
         tags: ['challenge', challenge.category.toLowerCase(), challenge.id],
       });
-      setLastSavedEntry(savedEntry);
+      setLastSavedEntry(saved);
     } catch {}
 
     onComplete(challenge.id, nextDayNum, xpToday);
     setSaving(false);
     setReflection("");
-    setLetterToGod("");
+    setExtraWriting("");
     setXpEarned(xpToday);
     setShowXP(true); setTimeout(() => setShowXP(false), 2500);
     if (isLast) { setShowConfetti(true); setTimeout(() => setShowConfetti(false), 3500); }
@@ -563,29 +560,23 @@ function ChallengeDetail({ challenge, localData, onBack, onStart, onComplete, on
 
             {alreadyToday ? (
               <div style={{background:"white",borderRadius:20,border:"1px solid #D1FAE5",padding:20}}>
-                <div style={{display:"flex",gap:14,alignItems:"center",marginBottom:lastSavedEntry?12:0}}>
+                <div style={{display:"flex",gap:14,alignItems:"center",marginBottom:12}}>
                   <div style={{width:44,height:44,borderRadius:"50%",background:"#ECFDF5",display:"flex",alignItems:"center",justifyContent:"center",fontSize:20,flexShrink:0}}>✅</div>
                   <div>
                     <div style={{fontWeight:800,fontSize:14,color:"#059669"}}>Day {completedDays[completedDays.length-1]} Complete!</div>
                     <div style={{fontSize:12,color:"#059669aa",marginTop:2}}>Beautifully done. Come back tomorrow for Day {nextDayNum}.</div>
+                    <div style={{fontSize:11,color:"#059669",marginTop:4,fontWeight:700}}>📓 Saved to your Journal</div>
                   </div>
                 </div>
-                {lastSavedEntry && (
-                  <div style={{display:"flex",flexDirection:"column",gap:8}}>
-                    <div style={{background:"#F0FDF4",borderRadius:12,padding:"8px 12px",fontSize:11,color:"#059669",fontWeight:700,display:"flex",alignItems:"center",gap:6}}>
-                      <span>📓</span> Saved to your Journal
-                    </div>
-                    <ShareToFeedButton
-                      type="general_win"
-                      title={`${challenge.title} — Day ${completedDays[completedDays.length-1]} complete`}
-                      content={lastSavedEntry.content?.split('\n\n').slice(-1)[0]?.replace(/^📝[^\n]+\n/, '') || reflection}
-                      source="Hannah"
-                      label="Share reflection"
-                      color={challenge.color}
-                      user={user}
-                    />
-                  </div>
-                )}
+                <ShareToFeedButton
+                  type="scripture_reflection"
+                  title={`${challenge.title} — Day ${completedDays[completedDays.length-1]} ⛰️`}
+                  content={`Completed Day ${completedDays[completedDays.length-1]} of 40 Days in the Wilderness. Walking as Christ walked. 🙏`}
+                  source="Gideon"
+                  label="Share this day"
+                  color={challenge.color}
+                  user={user}
+                />
               </div>
             ) : (
               <div style={{background:"white",borderRadius:24,border:`2px solid ${challenge.color}44`,padding:20,boxShadow:`0 4px 24px ${challenge.color}15`}}>
@@ -627,19 +618,19 @@ function ChallengeDetail({ challenge, localData, onBack, onStart, onComplete, on
                   </a>
                 )}
 
-                {/* Letter to God — Day 1 only */}
-                {nextDayNum === 1 && (
+                {/* Extra writing area — task-specific */}
+                {currentTask?.extraWritingPrompt && (
                   <div style={{marginBottom:16}}>
                     <div style={{fontSize:11,fontWeight:800,color:"#0A1A2F44",textTransform:"uppercase",letterSpacing:1.2,marginBottom:6}}>
-                      ✉️ Your Letter to God
+                      ✍️ Today's Writing Task
                     </div>
-                    <div style={{background:"#F0EBE0",borderRadius:12,padding:"8px 12px",fontSize:11,color:"#7c2d12",fontWeight:700,marginBottom:8,fontStyle:"italic"}}>
-                      💬 Tell God why you're doing this — what are you leaving behind, and what are you stepping into?
+                    <div style={{background:"#F0EBE0",borderRadius:12,padding:"8px 12px",fontSize:11,color:challenge.color,fontWeight:700,marginBottom:8,fontStyle:"italic"}}>
+                      {currentTask.extraWritingPrompt}
                     </div>
                     <textarea
-                      value={letterToGod}
-                      onChange={e => setLetterToGod(e.target.value)}
-                      placeholder="Dear God, I'm deleting this app because…"
+                      value={extraWriting}
+                      onChange={e => setExtraWriting(e.target.value)}
+                      placeholder="Write here…"
                       rows={5}
                       style={{
                         width:"100%",background:"#FFFBF5",borderRadius:14,
@@ -647,7 +638,6 @@ function ChallengeDetail({ challenge, localData, onBack, onStart, onComplete, on
                         border:"1.5px solid #F0EBE0",
                         outline:"none",resize:"none",lineHeight:1.8,
                         fontFamily:"Nunito,sans-serif",boxSizing:"border-box",
-                        fontStyle:"italic",
                       }}
                     />
                   </div>
