@@ -5,6 +5,49 @@ import { motion } from 'framer-motion';
 import { Zap, Calendar, Target, Loader2, CheckCircle2 } from 'lucide-react';
 import { awardPoints, checkAndAwardBadges } from '@/components/gamification/ProgressManager';
 
+// Static pool of daily challenges — rotates by date
+const CHALLENGE_POOL = [
+  { id: 'p1',  title: 'Morning Devotional',      description: 'Spend 5 minutes in prayer or scripture before anything else today.', icon: '🌅', difficulty: 'easy',   bonus_points: 25 },
+  { id: 'p2',  title: 'Drink 8 Glasses of Water', description: 'Stay hydrated throughout the day — log your water intake.',           icon: '💧', difficulty: 'easy',   bonus_points: 20 },
+  { id: 'p3',  title: 'Log a Meal',               description: 'Track at least one full meal in the Nutrition section.',              icon: '🥗', difficulty: 'easy',   bonus_points: 20 },
+  { id: 'p4',  title: 'Complete a Workout',        description: 'Finish any workout session in the Fitness section.',                  icon: '💪', difficulty: 'medium', bonus_points: 40 },
+  { id: 'p5',  title: 'Write a Journal Entry',     description: 'Reflect on your day in at least 3 sentences in your journal.',       icon: '📓', difficulty: 'easy',   bonus_points: 25 },
+  { id: 'p6',  title: '10-Minute Meditation',      description: 'Complete a 10-minute meditation or breathing session.',              icon: '🧘', difficulty: 'easy',   bonus_points: 30 },
+  { id: 'p7',  title: 'Read a Bible Chapter',      description: 'Read at least one chapter of the Bible today.',                     icon: '📖', difficulty: 'easy',   bonus_points: 25 },
+  { id: 'p8',  title: 'Encourage Someone',         description: 'Leave an encouraging comment on a community post.',                  icon: '💬', difficulty: 'easy',   bonus_points: 20 },
+  { id: 'p9',  title: 'Share a Scripture',         description: 'Post a Bible verse that encouraged you today in the Community.',    icon: '✝️', difficulty: 'easy',   bonus_points: 25 },
+  { id: 'p10', title: 'Gratitude List',             description: 'Write down 5 things you are grateful for today.',                   icon: '🙏', difficulty: 'easy',   bonus_points: 20 },
+  { id: 'p11', title: 'Try a New Recipe',           description: 'Cook or log a recipe you have never tried before.',                 icon: '🍽️', difficulty: 'medium', bonus_points: 35 },
+  { id: 'p12', title: 'Send an Encouragement',     description: 'Send a direct message to uplift a friend on the app.',              icon: '💌', difficulty: 'easy',   bonus_points: 20 },
+  { id: 'p13', title: 'Complete a Self-Care Task', description: 'Do one self-care activity — stretching, rest, skincare, etc.',      icon: '🌸', difficulty: 'easy',   bonus_points: 25 },
+  { id: 'p14', title: '30-Minute Walk',             description: 'Get outside or walk indoors for at least 30 minutes.',              icon: '🚶', difficulty: 'medium', bonus_points: 35 },
+  { id: 'p15', title: 'Bookmark a Verse',           description: 'Bookmark a Bible verse that speaks to you today.',                  icon: '🔖', difficulty: 'easy',   bonus_points: 15 },
+  { id: 'p16', title: 'Fast from Social Media',    description: 'Spend one hour without social media and use that time with God.',   icon: '📵', difficulty: 'medium', bonus_points: 40 },
+  { id: 'p17', title: 'Submit a Prayer Request',   description: 'Share something on your heart in the Prayer section.',              icon: '🕊️', difficulty: 'easy',   bonus_points: 20 },
+  { id: 'p18', title: 'Hard Workout',               description: 'Push yourself — complete a hard-difficulty workout today.',          icon: '🔥', difficulty: 'hard',   bonus_points: 60 },
+  { id: 'p19', title: 'Read a Devotional Article', description: 'Read a devotional or blog post in the app today.',                  icon: '📰', difficulty: 'easy',   bonus_points: 20 },
+  { id: 'p20', title: 'Affirmation Practice',       description: 'Read 3 affirmations aloud and believe them today.',                 icon: '✨', difficulty: 'easy',   bonus_points: 20 },
+  { id: 'p21', title: 'No Sugar Challenge',         description: 'Avoid added sugars for the entire day — log your meals.',           icon: '🍎', difficulty: 'hard',   bonus_points: 50 },
+  { id: 'p22', title: 'Invite a Friend',            description: 'Invite someone to join you on your wellness journey.',              icon: '🤝', difficulty: 'medium', bonus_points: 35 },
+  { id: 'p23', title: 'Group Check-In',             description: 'Visit your community group and post or comment.',                   icon: '👥', difficulty: 'easy',   bonus_points: 20 },
+  { id: 'p24', title: 'Evening Reflection',         description: 'Before bed, reflect on 3 ways God showed up for you today.',        icon: '🌙', difficulty: 'easy',   bonus_points: 25 },
+  { id: 'p25', title: 'Memorize a Verse',           description: 'Pick a short verse and commit it to memory today.',                 icon: '🧠', difficulty: 'medium', bonus_points: 40 },
+];
+
+// Deterministically pick N challenges from the pool based on today's date
+function getDailyChallenges(dateStr, count = 3) {
+  const seed = dateStr.replace(/-/g, '');
+  let hash = 0;
+  for (let i = 0; i < seed.length; i++) hash = (hash * 31 + seed.charCodeAt(i)) >>> 0;
+  const indices = new Set();
+  let n = hash;
+  while (indices.size < count) {
+    indices.add(n % CHALLENGE_POOL.length);
+    n = (n * 1664525 + 1013904223) >>> 0;
+  }
+  return [...indices].map(i => ({ ...CHALLENGE_POOL[i], date: dateStr, is_active: true }));
+}
+
 const DIFFICULTY = {
   easy:   { bar: 'from-[#AFC7E3] to-[#3C4E53]',   label: 'Easy',   text: 'text-[#3C4E53]'   },
   medium: { bar: 'from-[#c9a227] to-[#FAD98D]',   label: 'Medium', text: 'text-[#c9a227]'   },
@@ -64,7 +107,10 @@ export default function DailyWeeklyChallenges({ user }) {
     const d = new Date(); d.setDate(d.getDate() - d.getDay()); return d.toISOString().split('T')[0];
   })();
 
-  const { data: dailyChallenges = [] } = useQuery({
+  // Generate static daily challenges from pool — always 3 per day
+  const staticDailyChallenges = React.useMemo(() => getDailyChallenges(today, 3), [today]);
+
+  const { data: dbDailyChallenges = [] } = useQuery({
     queryKey: ['dailyChallenges'],
     queryFn: async () => {
       const all = await base44.entities.DailyChallenge.list('-created_date', 50);
@@ -72,6 +118,15 @@ export default function DailyWeeklyChallenges({ user }) {
     },
     enabled: !!user,
   });
+
+  // Merge: DB challenges first, then static ones not already covered
+  const dailyChallenges = React.useMemo(() => {
+    const combined = [...dbDailyChallenges];
+    staticDailyChallenges.forEach(sc => {
+      if (!combined.some(c => c.id === sc.id)) combined.push(sc);
+    });
+    return combined;
+  }, [dbDailyChallenges, staticDailyChallenges]);
   const { data: weeklyChallenges = [] } = useQuery({
     queryKey: ['weeklyChallenges'],
     queryFn: async () => {
@@ -88,8 +143,11 @@ export default function DailyWeeklyChallenges({ user }) {
 
   const completionMutation = useMutation({
     mutationFn: async (challenge) => {
+      // For static pool challenges, store with static_challenge_id
+      const isStatic = CHALLENGE_POOL.some(p => p.id === challenge.id);
       await base44.entities.ChallengeCompletion.create({
-        challenge_id: challenge.id,
+        challenge_id: isStatic ? 'static' : challenge.id,
+        static_challenge_id: isStatic ? challenge.id : undefined,
         user_email: user?.email,
         completion_date: today,
         bonus_points_earned: challenge.bonus_points,
@@ -103,7 +161,9 @@ export default function DailyWeeklyChallenges({ user }) {
     },
   });
 
-  const isCompleted = (id) => completions.some(c => c.challenge_id === id && c.completion_date === today);
+  const isCompleted = (id) => completions.some(c =>
+    (c.challenge_id === id || c.static_challenge_id === id) && c.completion_date === today
+  );
 
   const [tab, setTab] = React.useState('daily');
 
