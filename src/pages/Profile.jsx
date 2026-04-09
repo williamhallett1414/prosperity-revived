@@ -306,9 +306,9 @@ function GoalBento() {
       <SectionHeading accent="#0A1A2F">Your Goals</SectionHeading>
 
       {/* Row 1 — Journey (wide) + Achievements (narrow) */}
-      <div className="flex gap-2.5 mb-2.5">
+      <div className="flex gap-4 mb-6">
         <Link to={createPageUrl('ProgressDashboard')} className="flex-[2]">
-          <div className="relative overflow-hidden rounded-3xl p-4 h-full min-h-[96px] hover:opacity-95 transition-opacity"
+          <div className="relative overflow-hidden rounded-3xl p-5 h-full min-h-[110px] hover:opacity-95 transition-opacity"
             style={{ background: 'linear-gradient(135deg, #0A1A2F, #162944)' }}>
             <div className="absolute top-0 right-0 w-20 h-20 rounded-full opacity-20"
               style={{ background: 'radial-gradient(circle, #38BDF8, transparent)', transform: 'translate(30%, -30%)' }} />
