@@ -330,10 +330,6 @@ export default function Messages() {
       {/* ── Header ─────────────────────────────────────────────────────────── */}
       <div className="sticky top-0 z-40 bg-white border-b border-[#F2F6FA] px-4 py-3 flex-shrink-0">
         <div className="max-w-2xl mx-auto flex items-center gap-3">
-          <button onClick={() => navigate(-1)}
-            className="w-9 h-9 rounded-full bg-[#F2F6FA] hover:bg-white flex items-center justify-center transition-colors flex-shrink-0">
-            <ArrowLeft className="w-4 h-4 text-[#0A1A2F]" />
-          </button>
           <h1 className="text-base font-bold text-[#0A1A2F] flex items-center gap-2 flex-1">
             Messages
             {totalUnread > 0 && (
@@ -355,7 +351,7 @@ export default function Messages() {
           <div className="flex border-b border-[#F2F6FA] flex-shrink-0">
             {[
               { id: 'dms',     label: 'Messages', icon: Users },
-              { id: 'coaches', label: 'Coaches', icon: Bot },
+              { id: 'coaches', label: 'AI Coaches', icon: Bot },
             ].map(t => (
               <button key={t.id} onClick={() => setTab(t.id)}
                 className={`flex-1 flex items-center justify-center gap-1.5 py-3 text-xs font-bold transition-colors border-b-2 ${

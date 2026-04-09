@@ -5,15 +5,13 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
-import { Heart, Dumbbell, Apple, Brain, Target, X, Plus, ChevronDown } from 'lucide-react';
+import { Heart, Dumbbell, Apple, Brain, Target, X, Plus } from 'lucide-react';
 import { toast } from 'sonner';
 
 export default function InterestsGoalsEditor({ user }) {
   const queryClient = useQueryClient();
   const [editMode, setEditMode] = useState(null);
   const [inputValue, setInputValue] = useState('');
-  const [expandedSections, setExpandedSections] = useState({});
 
   const updateUser = useMutation({
     mutationFn: (data) => base44.auth.updateMe(data),
@@ -88,6 +86,7 @@ export default function InterestsGoalsEditor({ user }) {
   };
 
   const colorClasses = {
+    // Spiritual → Gideon (gold/amber)
     purple: {
       bg: 'bg-[#FAD98D]/15',
       border: 'border-[#FAD98D]/50',
@@ -95,6 +94,7 @@ export default function InterestsGoalsEditor({ user }) {
       badge: 'bg-[#FAD98D]/30 text-[#7a5f10]',
       button: 'bg-[#c9a227] hover:bg-[#C9A227] text-white'
     },
+    // Personal Growth → Hannah (purple/lavender)
     pink: {
       bg: 'bg-purple-50',
       border: 'border-purple-200',
@@ -102,6 +102,7 @@ export default function InterestsGoalsEditor({ user }) {
       badge: 'bg-purple-100 text-purple-700',
       button: 'bg-purple-500 hover:bg-purple-600 text-white'
     },
+    // Fitness → Coach David (blue/navy)
     blue: {
       bg: 'bg-[#AFC7E3]/15',
       border: 'border-[#AFC7E3]/50',
@@ -109,6 +110,7 @@ export default function InterestsGoalsEditor({ user }) {
       badge: 'bg-[#AFC7E3]/30 text-[#2a3a40]',
       button: 'bg-[#3C4E53] hover:bg-[#2a3a40] text-white'
     },
+    // Nutrition → Chef Daniel (green/teal)
     green: {
       bg: 'bg-emerald-50',
       border: 'border-emerald-200',
@@ -118,13 +120,6 @@ export default function InterestsGoalsEditor({ user }) {
     }
   };
 
-  const toggleSection = (key) => {
-    setExpandedSections(prev => ({
-      ...prev,
-      [key]: !prev[key]
-    }));
-  };
-
   return (
     <div className="space-y-4">
       {sections.map((section) => {
@@ -132,129 +127,168 @@ export default function InterestsGoalsEditor({ user }) {
         const colors = colorClasses[section.color];
         const interests = user[section.interestsField] || [];
         const goals = user[section.goalsField] || [];
-        const isExpanded = expandedSections[section.key] !== false;
 
         return (
-          <Card key={section.key} className={`${colors.bg} ${colors.border}`}>
-            <Collapsible open={isExpanded} onOpenChange={() => toggleSection(section.key)}>
-              <CollapsibleTrigger className="w-full">
-                <div className="flex items-center gap-2 p-4 cursor-pointer hover:opacity-80 transition-opacity">
-                  <Icon className={`w-5 h-5 ${colors.icon}`} />
-                  <h3 className="font-semibold text-[#0A1A2F] flex-1 text-left">{section.title}</h3>
-                  <ChevronDown className={`w-5 h-5 text-[#0A1A2F]/50 transition-transform ${isExpanded ? '' : '-rotate-90'}`} />
+          <Card key={section.key} className={`p-4 ${colors.bg} ${colors.border}`}>
+            <div className="flex items-center gap-2 mb-4">
+              <Icon className={`w-5 h-5 ${colors.icon}`} />
+              <h3 className="font-semibold text-[#0A1A2F]">{section.title}</h3>
+            </div>
+
+            {/* Interests */}
+            <div className="mb-4">
+              <div className="flex items-center justify-between mb-2">
+                <label className="text-sm font-medium text-[#0A1A2F]/75">
+                  Interests
+                </label>
+                {editMode !== `${section.key}-interests` && (
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    onClick={() => setEditMode(`${section.key}-interests`)}
+                    className="h-7"
+                  >
+                    <Plus className="w-4 h-4 mr-1" />
+                    Add
+                  </Button>
+                )}
+              </div>
+
+              {editMode === `${section.key}-interests` && (
+                <div className="flex gap-2 mb-2">
+                  <Input
+                    value={inputValue}
+                    onChange={(e) => setInputValue(e.target.value)}
+                    placeholder={section.interestsPlaceholder}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                        handleAddItem(section.interestsField, section);
+                      } else if (e.key === 'Escape') {
+                        setEditMode(null);
+                        setInputValue('');
+                      }
+                    }}
+                    className="flex-1"
+                    autoFocus
+                  />
+                  <Button
+                    size="sm"
+                    onClick={() => handleAddItem(section.interestsField, section)}
+                    className={colors.button}
+                    disabled={!inputValue.trim()}
+                  >
+                    Add
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => {
+                      setEditMode(null);
+                      setInputValue('');
+                    }}
+                  >
+                    Cancel
+                  </Button>
                 </div>
-              </CollapsibleTrigger>
-              <CollapsibleContent className="px-4 pb-4">
-                {/* Interests */}
-                <div className="mb-4">
-                  <div className="flex items-center justify-between mb-2">
-                    <label className="text-sm font-medium text-[#0A1A2F]/75">Interests</label>
-                    {editMode !== `${section.key}-interests` && (
-                      <Button size="sm" variant="ghost" onClick={() => setEditMode(`${section.key}-interests`)} className="h-7">
-                        <Plus className="w-4 h-4 mr-1" />
-                        Add
-                      </Button>
-                    )}
-                  </div>
+              )}
 
-                  {editMode === `${section.key}-interests` && (
-                    <div className="flex gap-2 mb-2">
-                      <Input
-                        value={inputValue}
-                        onChange={(e) => setInputValue(e.target.value)}
-                        placeholder={section.interestsPlaceholder}
-                        onKeyDown={(e) => {
-                          if (e.key === 'Enter') {
-                            handleAddItem(section.interestsField, section);
-                          } else if (e.key === 'Escape') {
-                            setEditMode(null);
-                            setInputValue('');
-                          }
-                        }}
-                        className="flex-1"
-                        autoFocus
-                      />
-                      <Button size="sm" onClick={() => handleAddItem(section.interestsField, section)} className={colors.button} disabled={!inputValue.trim()}>
-                        Add
-                      </Button>
-                      <Button size="sm" variant="outline" onClick={() => { setEditMode(null); setInputValue(''); }}>
-                        Cancel
-                      </Button>
-                    </div>
-                  )}
+              <div className="flex flex-wrap gap-2">
+                {interests.length === 0 && (
+                  <p className="text-sm text-[#0A1A2F]/60 italic">
+                    No interests added yet
+                  </p>
+                )}
+                {interests.map((interest, idx) => (
+                  <Badge key={idx} className={`${colors.badge} flex items-center gap-1`}>
+                    {interest}
+                    <button
+                      onClick={() => handleRemoveItem(section.interestsField, idx)}
+                      className="ml-1 hover:opacity-70"
+                    >
+                      <X className="w-3 h-3" />
+                    </button>
+                  </Badge>
+                ))}
+              </div>
+            </div>
 
-                  <div className="flex flex-wrap gap-2">
-                    {interests.length === 0 && (
-                      <p className="text-sm text-[#0A1A2F]/60 italic">No interests added yet</p>
-                    )}
-                    {interests.map((interest, idx) => (
-                      <Badge key={idx} className={`${colors.badge} flex items-center gap-1`}>
-                        {interest}
-                        <button onClick={() => handleRemoveItem(section.interestsField, idx)} className="ml-1 hover:opacity-70">
-                          <X className="w-3 h-3" />
-                        </button>
-                      </Badge>
-                    ))}
-                  </div>
+            {/* Goals */}
+            <div>
+              <div className="flex items-center justify-between mb-2">
+                <label className="text-sm font-medium text-[#0A1A2F]/75 flex items-center gap-1">
+                  <Target className="w-4 h-4" />
+                  Goals
+                </label>
+                {editMode !== `${section.key}-goals` && (
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    onClick={() => setEditMode(`${section.key}-goals`)}
+                    className="h-7"
+                  >
+                    <Plus className="w-4 h-4 mr-1" />
+                    Add
+                  </Button>
+                )}
+              </div>
+
+              {editMode === `${section.key}-goals` && (
+                <div className="flex gap-2 mb-2">
+                  <Input
+                    value={inputValue}
+                    onChange={(e) => setInputValue(e.target.value)}
+                    placeholder={section.goalsPlaceholder}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                        handleAddItem(section.goalsField, section);
+                      } else if (e.key === 'Escape') {
+                        setEditMode(null);
+                        setInputValue('');
+                      }
+                    }}
+                    className="flex-1"
+                    autoFocus
+                  />
+                  <Button
+                    size="sm"
+                    onClick={() => handleAddItem(section.goalsField, section)}
+                    className={colors.button}
+                    disabled={!inputValue.trim()}
+                  >
+                    Add
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => {
+                      setEditMode(null);
+                      setInputValue('');
+                    }}
+                  >
+                    Cancel
+                  </Button>
                 </div>
+              )}
 
-                {/* Goals */}
-                <div>
-                  <div className="flex items-center justify-between mb-2">
-                    <label className="text-sm font-medium text-[#0A1A2F]/75 flex items-center gap-1">
-                      <Target className="w-4 h-4" />
-                      Goals
-                    </label>
-                    {editMode !== `${section.key}-goals` && (
-                      <Button size="sm" variant="ghost" onClick={() => setEditMode(`${section.key}-goals`)} className="h-7">
-                        <Plus className="w-4 h-4 mr-1" />
-                        Add
-                      </Button>
-                    )}
-                  </div>
-
-                  {editMode === `${section.key}-goals` && (
-                    <div className="flex gap-2 mb-2">
-                      <Input
-                        value={inputValue}
-                        onChange={(e) => setInputValue(e.target.value)}
-                        placeholder={section.goalsPlaceholder}
-                        onKeyDown={(e) => {
-                          if (e.key === 'Enter') {
-                            handleAddItem(section.goalsField, section);
-                          } else if (e.key === 'Escape') {
-                            setEditMode(null);
-                            setInputValue('');
-                          }
-                        }}
-                        className="flex-1"
-                        autoFocus
-                      />
-                      <Button size="sm" onClick={() => handleAddItem(section.goalsField, section)} className={colors.button} disabled={!inputValue.trim()}>
-                        Add
-                      </Button>
-                      <Button size="sm" variant="outline" onClick={() => { setEditMode(null); setInputValue(''); }}>
-                        Cancel
-                      </Button>
-                    </div>
-                  )}
-
-                  <div className="flex flex-wrap gap-2">
-                    {goals.length === 0 && (
-                      <p className="text-sm text-[#0A1A2F]/60 italic">No goals added yet</p>
-                    )}
-                    {goals.map((goal, idx) => (
-                      <Badge key={idx} className={`${colors.badge} flex items-center gap-1`}>
-                        {goal}
-                        <button onClick={() => handleRemoveItem(section.goalsField, idx)} className="ml-1 hover:opacity-70">
-                          <X className="w-3 h-3" />
-                        </button>
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
-              </CollapsibleContent>
-            </Collapsible>
+              <div className="flex flex-wrap gap-2">
+                {goals.length === 0 && (
+                  <p className="text-sm text-[#0A1A2F]/60 italic">
+                    No goals added yet
+                  </p>
+                )}
+                {goals.map((goal, idx) => (
+                  <Badge key={idx} className={`${colors.badge} flex items-center gap-1`}>
+                    {goal}
+                    <button
+                      onClick={() => handleRemoveItem(section.goalsField, idx)}
+                      className="ml-1 hover:opacity-70"
+                    >
+                      <X className="w-3 h-3" />
+                    </button>
+                  </Badge>
+                ))}
+              </div>
+            </div>
           </Card>
         );
       })}

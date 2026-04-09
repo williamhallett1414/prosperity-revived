@@ -76,7 +76,7 @@ export default function HolisticProgressReport({ user }) {
           </div>
         </CardHeader>
 
-        <CardContent className="p-6 space-y-6">
+        <CardContent className="p-6">
           {isLoading ? (
             <div className="flex flex-col items-center justify-center py-12">
               <Loader2 className="w-10 h-10 text-[#c9a227] animate-spin mb-4" />
@@ -84,21 +84,21 @@ export default function HolisticProgressReport({ user }) {
               <p className="text-sm text-gray-500 mt-2">Connecting insights from all your guides</p>
             </div>
           ) : report ? (
-            <div className="space-y-5">
+            <div className="space-y-6">
               {/* Overall Summary */}
-              <div className="bg-gradient-to-br from-white to-[#FFFDF0] rounded-2xl p-5 shadow-sm border border-[#FAD98D]/30">
-                <div className="flex items-start gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center flex-shrink-0 mt-0.5">
+              <div className="bg-white rounded-xl p-5 shadow-sm border border-[#FAD98D]/40">
+                <div className="flex items-start gap-3 mb-3">
+                  <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center flex-shrink-0">
                     <Heart className="w-5 h-5 text-white" />
                   </div>
                   <div className="flex-1">
-                    <h3 className="font-bold text-gray-900 text-sm uppercase tracking-wide text-[#C9A227] mb-2">Overall Wellbeing</h3>
-                    <p className="text-gray-700 leading-relaxed text-sm">{report.overall_summary}</p>
+                    <h3 className="font-semibold text-gray-900 text-lg mb-2">Overall Wellbeing</h3>
+                    <p className="text-gray-700 leading-relaxed">{report.overall_summary}</p>
                   </div>
                 </div>
                 
                 {/* Data Summary Pills */}
-                <div className="flex flex-wrap gap-2 mt-5 pt-4 border-t border-[#FAD98D]/20">
+                <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-gray-100">
                   {report.data_summary && (
                     <>
                       <Badge variant="outline" className="bg-[#FAD98D]/10 border-[#FAD98D]/40">
@@ -123,22 +123,22 @@ export default function HolisticProgressReport({ user }) {
               </div>
 
               {/* Interconnected Insights */}
-              <div className="bg-gradient-to-br from-white to-[#F2F6FA] rounded-2xl p-5 shadow-sm border border-[#AFC7E3]/20">
+              <div className="bg-white rounded-xl p-5 shadow-sm border border-[#FAD98D]/40">
                 <div className="flex items-center gap-2 mb-4">
-                  <TrendingUp className="w-5 h-5 text-[#0A1A2F]" />
-                  <h3 className="font-bold text-gray-900 text-sm uppercase tracking-wide text-[#0A1A2F]">Key Insights</h3>
+                  <TrendingUp className="w-5 h-5 text-[#C9A227]" />
+                  <h3 className="font-semibold text-gray-900 text-lg">Interconnected Insights</h3>
                 </div>
-                <div className="space-y-2">
+                <div className="space-y-3">
                   {report.interconnected_insights?.map((insight, idx) => (
                     <motion.div
                       key={idx}
                       initial={{ opacity: 0, x: -10 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: idx * 0.1 }}
-                      className="flex items-start gap-3 p-3 bg-[#AFC7E3]/10 rounded-lg border border-[#AFC7E3]/20"
+                      className="flex items-start gap-3 p-3 bg-[#FAD98D]/10 rounded-lg"
                     >
-                      <div className="w-6 h-6 rounded-full bg-[#0A1A2F]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <span className="text-xs font-bold text-[#0A1A2F]">{idx + 1}</span>
+                      <div className="w-6 h-6 rounded-full bg-[#FAD98D]/40 flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <span className="text-xs font-semibold text-[#3C4E53]">{idx + 1}</span>
                       </div>
                       <p className="text-gray-700 leading-relaxed text-sm">{insight}</p>
                     </motion.div>
@@ -168,10 +168,10 @@ export default function HolisticProgressReport({ user }) {
                       className="mt-4 space-y-4"
                     >
                       {/* Areas of Strength */}
-                      <div className="bg-gradient-to-br from-white to-green-50/30 rounded-xl p-4 shadow-sm border border-green-200/40">
+                      <div className="bg-white rounded-xl p-5 shadow-sm border border-green-100">
                         <div className="flex items-center gap-2 mb-3">
                           <Target className="w-5 h-5 text-green-600" />
-                          <h3 className="font-bold text-gray-900 text-sm uppercase tracking-wide">Strengths</h3>
+                          <h3 className="font-semibold text-gray-900">Areas of Strength</h3>
                         </div>
                         <ul className="space-y-2">
                           {report.areas_of_strength?.map((strength, idx) => (
@@ -184,10 +184,10 @@ export default function HolisticProgressReport({ user }) {
                       </div>
 
                       {/* Growth Opportunities */}
-                      <div className="bg-gradient-to-br from-white to-[#EFF9FF] rounded-xl p-4 shadow-sm border border-[#AFC7E3]/40">
+                      <div className="bg-white rounded-xl p-5 shadow-sm border border-blue-100">
                         <div className="flex items-center gap-2 mb-3">
-                          <Lightbulb className="w-5 h-5 text-[#38BDF8]" />
-                          <h3 className="font-bold text-gray-900 text-sm uppercase tracking-wide">Growth Areas</h3>
+                          <Lightbulb className="w-5 h-5 text-[#3C4E53]" />
+                          <h3 className="font-semibold text-gray-900">Growth Opportunities</h3>
                         </div>
                         <ul className="space-y-2">
                           {report.growth_opportunities?.map((opportunity, idx) => (
@@ -200,13 +200,13 @@ export default function HolisticProgressReport({ user }) {
                       </div>
 
                       {/* Personalized Recommendation */}
-                      <div className="bg-gradient-to-br from-[#FAD98D]/25 to-[#FFF9EC] rounded-xl p-5 border-2 border-[#FAD98D]/40">
+                      <div className="bg-gradient-to-br from-[#FAD98D]/20 to-[#FFF9EC] rounded-xl p-5 border-2 border-[#FAD98D]/40">
                         <div className="flex items-start gap-3">
-                          <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center flex-shrink-0 mt-0.5">
+                          <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center flex-shrink-0">
                             <Sparkles className="w-5 h-5 text-white" />
                           </div>
-                          <div className="flex-1">
-                            <h3 className="font-bold text-gray-900 text-sm uppercase tracking-wide text-[#C9A227] mb-2">Recommendation</h3>
+                          <div>
+                            <h3 className="font-semibold text-gray-900 mb-2">Next Step Recommendation</h3>
                             <p className="text-gray-700 leading-relaxed">{report.personalized_recommendation}</p>
                           </div>
                         </div>

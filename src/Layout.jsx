@@ -4,9 +4,15 @@ import { createPageUrl } from '@/utils';
 import { base44 } from '@/api/base44Client';
 import { Home, User, Heart, BookOpen, Users } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Toaster } from '@/components/ui/sonner.jsx';
+import NotificationBell from '@/components/notifications/NotificationBell';
 import PullToRefresh from '@/components/ui/PullToRefresh';
+import UniversalHeader from '@/components/navigation/UniversalHeader';
+import OfflineBanner from '@/components/ui/OfflineBanner';
 import { requestNotificationPermission, initDefaultReminders } from '@/utils/notifications';
 import { useQueryClient } from '@tanstack/react-query';
+import GuidedTour from '@/components/onboarding/GuidedTour';
+
 // Scroll position cache per page
 const scrollCache = {};
 
@@ -18,8 +24,8 @@ const navItems = [
 { name: 'Wellness', icon: Heart, page: 'Wellness' },
 { name: 'Bible', icon: BookOpen, page: 'Bible' },
 { name: 'Community', icon: Users, page: 'Community' },
-{ name: 'Profile', icon: User, page: 'Profile' }];
-
+{ name: 'Profile', icon: User, page: 'Profile' },
+];
 
 
 export default function Layout({ children, currentPageName }) {
@@ -32,12 +38,12 @@ export default function Layout({ children, currentPageName }) {
   // Apply dark mode on app load
   useEffect(() => {
     try {
-      base44.auth.me().then((u) => {
+      base44.auth.me().then(u => {
         const theme = u?.theme || 'auto';
         const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        const isDark = theme === 'dark' || theme === 'auto' && systemDark;
-        if (isDark) document.documentElement.classList.add('dark');else
-        document.documentElement.classList.remove('dark');
+        const isDark = theme === 'dark' || (theme === 'auto' && systemDark);
+        if (isDark) document.documentElement.classList.add('dark');
+        else document.documentElement.classList.remove('dark');
       }).catch(() => {
         // Not logged in — use system preference
         if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
@@ -49,7 +55,7 @@ export default function Layout({ children, currentPageName }) {
 
   // Initialize notifications (request permission + schedule defaults)
   useEffect(() => {
-    requestNotificationPermission().then((perm) => {
+    requestNotificationPermission().then(perm => {
       if (perm === 'granted') initDefaultReminders();
     });
   }, []);
@@ -58,7 +64,7 @@ export default function Layout({ children, currentPageName }) {
   useEffect(() => {
     // Method 1: window global (for direct calls)
     window.__startGuidedTour = () => setShowGuidedTour(true);
-    window.__startMiniTour = (steps) => {
+    window.__startMiniTour   = (steps) => {
       window.__pendingMiniTourSteps = steps;
       setShowGuidedTour(true);
     };
@@ -153,7 +159,7 @@ export default function Layout({ children, currentPageName }) {
     Messages: 'Messages',
     Friends: 'Friends',
     Search: 'Search',
-    CouplesMode: 'Couples Mode'
+    CouplesMode: 'Couples Mode',
   };
 
   // Dynamic title for ChatScreen based on bot parameter
@@ -165,7 +171,7 @@ export default function Layout({ children, currentPageName }) {
       'Hannah': 'Hannah',
       'CoachDavid': 'Coach David',
       'ChefDaniel': 'Chef Daniel',
-      'CoachPaul': 'Coach Paul'
+      'CoachPaul': 'Coach Paul',
     };
     pageTitles['ChatScreen'] = botNames[bot] || 'Chat';
   }
@@ -175,31 +181,31 @@ export default function Layout({ children, currentPageName }) {
   // Back destinations for child pages
   const pageBackTo = {
     WorkoutCategoryPage: 'Workouts',
-    WorkoutProgress: 'Workouts',
-    WorkoutTrends: 'Workouts',
-    WorkoutPlanner: 'Workouts',
-    FitnessGoalsPage: 'Workouts',
-    NutritionGoalsPage: 'Nutrition',
-    BibleGoalsPage: 'Bible',
+    WorkoutProgress:     'Workouts',
+    WorkoutTrends:       'Workouts',
+    WorkoutPlanner:      'Workouts',
+    FitnessGoalsPage:    'Workouts',
+    NutritionGoalsPage:  'Nutrition',
+    BibleGoalsPage:      'Bible',
     PersonalGrowthGoalsPage: 'PersonalGrowth',
-    CoachingPlanDetail: 'Workouts',
+    CoachingPlanDetail:  'Workouts',
     ChallengeDetailPage: 'Workouts',
-    PersonalGrowth: 'Home',
-    WeeklyReflectionPage: 'PersonalGrowth',
-    GrowthPathwaysPage: 'PersonalGrowth',
-    HabitBuilderPage: 'PersonalGrowth',
-    EmotionalCheckInPage: 'PersonalGrowth',
-    AffirmationsPage: 'PersonalGrowth',
-    GratitudeJournalPage: 'PersonalGrowth',
-    IdentityInChristPage: 'PersonalGrowth',
-    MindsetResetPage: 'PersonalGrowth',
-    SelfCareChallengesPage: 'PersonalGrowth',
-    MyJournalEntries: 'PersonalGrowth',
-    FoodLogHistory: 'Nutrition',
-    MealDetailView: 'Nutrition',
-    NutritionArticle: 'Nutrition',
-    NutritionGuidance: 'Nutrition',
-    DiscoverRecipes: 'Nutrition'
+    PersonalGrowth:      'Home',
+    WeeklyReflectionPage:'PersonalGrowth',
+    GrowthPathwaysPage:  'PersonalGrowth',
+    HabitBuilderPage:    'PersonalGrowth',
+    EmotionalCheckInPage:'PersonalGrowth',
+    AffirmationsPage:    'PersonalGrowth',
+    GratitudeJournalPage:'PersonalGrowth',
+    IdentityInChristPage:'PersonalGrowth',
+    MindsetResetPage:    'PersonalGrowth',
+    SelfCareChallengesPage:'PersonalGrowth',
+    MyJournalEntries:    'PersonalGrowth',
+    FoodLogHistory:      'Nutrition',
+    MealDetailView:      'Nutrition',
+    NutritionArticle:    'Nutrition',
+    NutritionGuidance:   'Nutrition',
+    DiscoverRecipes:     'Nutrition',
   };
   const currentPageBack = pageBackTo[currentPageName] || null;
 
@@ -228,6 +234,8 @@ export default function Layout({ children, currentPageName }) {
 
   return (
     <>
+      <Toaster position="top-center" richColors />
+      <OfflineBanner />
       <div className="min-h-screen bg-[#FFFFFF] dark:bg-[#3C4E53]" ref={contentRef}>
         <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Imprint+MT+Shadow&display=swap');
@@ -280,17 +288,19 @@ export default function Layout({ children, currentPageName }) {
         }
       `}</style>
       
-      {/* Top Bar removed temporarily */}
-
-
-
-
-
-
-
-
-
-        }
+      {/* Top Bar with Universal Header */}
+      {isChildRoute ? (
+        <UniversalHeader title={currentPageTitle} backTo={currentPageBack} />
+      ) : (
+        <div className="fixed top-0 left-0 right-0 bg-white dark:bg-[#0A1A2F] border-b border-gray-200 dark:border-gray-700 px-4 py-3 z-40 pt-[env(safe-area-inset-top)] select-none">
+          <div className="max-w-lg mx-auto flex items-center justify-between">
+            <h1 className="text-xl font-bold text-[#3C4E53] dark:text-white font-imprint">
+              Prosperity Revived
+            </h1>
+            <NotificationBell />
+          </div>
+        </div>
+      )}
 
       <main className="pt-16 pb-20">
         <PullToRefresh onRefresh={async () => {
@@ -299,11 +309,11 @@ export default function Layout({ children, currentPageName }) {
           {isPrimaryPage ?
             // For primary pages, keep all mounted but show only active
             <>
-              {primaryPages.map((pageName) =>
-              <div key={pageName} style={{ display: pageName === currentPageName ? 'block' : 'none' }}>
+              {primaryPages.map((pageName) => (
+                <div key={pageName} style={{ display: pageName === currentPageName ? 'block' : 'none' }}>
                   {pageName === currentPageName ? children : null}
                 </div>
-              )}
+              ))}
             </> :
 
             // For secondary pages, use animation
@@ -371,7 +381,18 @@ export default function Layout({ children, currentPageName }) {
       </nav>
     </div>
 
-    </>
-  );
+    {/* Guided Tour — persists across route changes */}
+    {showGuidedTour && (
+      <GuidedTour
+        customSteps={window.__pendingMiniTourSteps || null}
+        tourKey={window.__pendingTourKey || null}
+        onComplete={() => {
+          window.__pendingMiniTourSteps = null;
+          window.__pendingTourKey = null;
+          setShowGuidedTour(false);
+        }}
+      />
+    )}
+    </>);
 
 }

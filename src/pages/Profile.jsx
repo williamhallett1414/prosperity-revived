@@ -15,8 +15,8 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger
-} from '@/components/ui/alert-dialog';
+  AlertDialogTrigger } from
+'@/components/ui/alert-dialog';
 
 import AboutTab from '@/components/profile/facebook/AboutTab';
 import FriendsTab from '@/components/profile/facebook/FriendsTab';
@@ -25,26 +25,24 @@ import TimelineTab from '@/components/profile/facebook/TimelineTab';
 import ChatbotPreferencesTab from '@/components/profile/ChatbotPreferencesTab';
 
 // ─── Tabs ──────────────────────────────────────────────────────────────────────
-// Tab definitions for profile sections
 const TABS = [
-  { id: 'overview', label: 'Overview' },
-  { id: 'about', label: 'About' },
-  { id: 'friends', label: 'Friends' },
-  { id: 'photos', label: 'Photos' },
-  { id: 'ai', label: 'Guides' }
-];
+{ id: 'overview', label: 'Overview' },
+{ id: 'about', label: 'About' },
+{ id: 'friends', label: 'Friends' },
+{ id: 'photos', label: 'Photos' },
+{ id: 'ai', label: 'Guides' }];
 
-// ─── Profile header ────────────────────────────────────────────────────────
+
+// ─── Profile header ────────────────────────────────────────────────────────────
 function Header({ user, friendsCount, onCoverUpload, onAvatarUpload, uploading }) {
   return (
     <div className="bg-white shadow-sm">
       {/* Cover */}
       <div className="relative h-40 sm:h-52 bg-gradient-to-br from-[#3C4E53] via-[#FD9C2D] to-[#FAD98D] overflow-hidden">
-        {user?.cover_image_url ? (
-          <img src={user.cover_image_url} alt="Cover" className="w-full h-full object-cover" />
-        ) : (
-          <div className="w-full h-full bg-gradient-to-br from-[#3C4E53] via-[#FD9C2D] to-[#FAD98D]" />
-        )}
+        {user?.cover_image_url ?
+        <img src={user.cover_image_url} alt="Cover" className="w-full h-full object-cover" /> :
+        <div className="w-full h-full bg-gradient-to-br from-[#3C4E53] via-[#FD9C2D] to-[#FAD98D]" />
+        }
         <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
         <label className="absolute bottom-3 right-3 bg-white/90 backdrop-blur rounded-lg px-3 py-1.5 shadow-sm cursor-pointer hover:bg-white transition-all flex items-center gap-1.5 text-xs font-semibold text-gray-700">
           <Camera className="w-3.5 h-3.5" />
@@ -59,13 +57,12 @@ function Header({ user, friendsCount, onCoverUpload, onAvatarUpload, uploading }
           {/* Avatar */}
           <div className="relative flex-shrink-0">
             <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full border-4 border-white shadow-xl overflow-hidden bg-gradient-to-br from-[#3C4E53] to-[#FD9C2D]">
-              {user?.profile_image_url ? (
-                <img src={user.profile_image_url} alt={user?.full_name} className="w-full h-full object-cover" />
-              ) : (
-                <div className="w-full h-full flex items-center justify-center text-white text-3xl font-bold">
-                  {user?.full_name?.charAt(0).toUpperCase() || 'U'}
-                </div>
-              )}
+              {user?.profile_image_url ?
+              <img src={user.profile_image_url} alt={user?.full_name} className="w-full h-full object-cover" /> :
+              <div className="w-full h-full flex items-center justify-center text-white text-3xl font-bold">
+                    {user?.full_name?.charAt(0).toUpperCase() || 'U'}
+                  </div>
+              }
             </div>
             <label className="absolute bottom-0.5 right-0.5 bg-white rounded-full p-1.5 shadow-md cursor-pointer hover:scale-105 transition-transform">
               <Camera className="w-3.5 h-3.5 text-gray-600" />
@@ -80,40 +77,42 @@ function Header({ user, friendsCount, onCoverUpload, onAvatarUpload, uploading }
           </div>
 
           {/* Messages link */}
-          <Link to={createPageUrl('Messages')} className="flex-shrink-0 w-9 h-9 rounded-full bg-[#FAD98D]/20 hover:bg-[#FAD98D]/35 flex items-center justify-center transition-colors">
+          <Link to={createPageUrl('Messages')}
+          className="flex-shrink-0 w-9 h-9 rounded-full bg-[#FAD98D]/20 hover:bg-[#FAD98D]/35 flex items-center justify-center transition-colors">
             <MessageCircle className="w-4 h-4 text-[#0A1A2F]" />
           </Link>
 
           {/* Settings link */}
-          <Link to={createPageUrl('Settings')} className="flex-shrink-0 w-9 h-9 rounded-full bg-[#FAD98D]/20 hover:bg-[#FAD98D]/35 flex items-center justify-center transition-colors">
+          <Link to={createPageUrl('Settings')}
+          className="flex-shrink-0 w-9 h-9 rounded-full bg-[#FAD98D]/20 hover:bg-[#FAD98D]/35 flex items-center justify-center transition-colors">
             <Settings className="w-4 h-4 text-[#0A1A2F]" />
           </Link>
         </div>
 
         {/* 90-day goal / status */}
-        {(user?.status_message || user?.goal_90_day || user?.spiritual_goal) && (
-          <div className="pb-4 space-y-2">
-            {user.status_message && (
-              <p className="text-sm text-[#0A1A2F]/70 italic">"{user.status_message}"</p>
-            )}
-            {(user.goal_90_day || user.spiritual_goal) && (
-              <div className="flex items-start gap-2 bg-[#FAD98D]/15 border border-[#FAD98D]/30 rounded-xl p-3 text-sm">
+        {(user?.status_message || user?.goal_90_day || user?.spiritual_goal) &&
+        <div className="pb-4 space-y-2">
+            {user.status_message &&
+          <p className="text-sm text-[#0A1A2F]/70 italic">"{user.status_message}"</p>
+          }
+            {(user.goal_90_day || user.spiritual_goal) &&
+          <div className="flex items-start gap-2 bg-[#FAD98D]/15 border border-[#FAD98D]/30 rounded-xl p-3 text-sm">
                 <span className="text-base leading-none mt-0.5">🌟</span>
                 <p className="text-[#0A1A2F]/80"><span className="font-semibold text-[#0A1A2F]">90-day goal:</span> {user.goal_90_day || user.spiritual_goal}</p>
               </div>
-            )}
-            {/* Profile pills */}
-            <div className="flex flex-wrap gap-1.5 pt-1">
-              {user.fitness_level && <span className="text-[10px] font-semibold px-2 py-1 rounded-full bg-[#38BDF8]/15 text-[#38BDF8]">💪 {user.fitness_level}</span>}
-              {user.diet_type && user.diet_type !== 'no_restrictions' && <span className="text-[10px] font-semibold px-2 py-1 rounded-full bg-[#22C55E]/15 text-[#22C55E]">🥗 {user.diet_type}</span>}
-              {user.bible_level && <span className="text-[10px] font-semibold px-2 py-1 rounded-full bg-[#FAD98D]/40 text-[#0A1A2F]">📖 {user.bible_level} reader</span>}
-              {user.coaching_style && <span className="text-[10px] font-semibold px-2 py-1 rounded-full bg-[#AFC7E3]/40 text-[#0A1A2F]">🧭 {user.coaching_style}</span>}
-            </div>
+          }
+          {/* Profile pills */}
+          <div className="flex flex-wrap gap-1.5 pt-1">
+            {user.fitness_level && <span className="text-[10px] font-semibold px-2 py-1 rounded-full bg-[#38BDF8]/15 text-[#38BDF8]">💪 {user.fitness_level}</span>}
+            {user.diet_type && user.diet_type !== 'no_restrictions' && <span className="text-[10px] font-semibold px-2 py-1 rounded-full bg-[#22C55E]/15 text-[#22C55E]">🥗 {user.diet_type}</span>}
+            {user.bible_level && <span className="text-[10px] font-semibold px-2 py-1 rounded-full bg-[#FAD98D]/40 text-[#0A1A2F]">📖 {user.bible_level} reader</span>}
+            {user.coaching_style && <span className="text-[10px] font-semibold px-2 py-1 rounded-full bg-[#AFC7E3]/40 text-[#0A1A2F]">🧭 {user.coaching_style}</span>}
           </div>
-        )}
+          </div>
+        }
       </div>
-    </div>
-  );
+    </div>);
+
 }
 
 // ─── Tab bar ───────────────────────────────────────────────────────────────────
@@ -136,7 +135,7 @@ function TabBar({ activeTab, onChange }) {
   );
 }
 
-// ─── Section heading ──────────────────────────────────────────────────────
+// ─── Section heading ──────────────────────────────────────────────────────────
 function SectionHeading({ children, accent }) {
   return (
     <div className="flex items-center gap-2 mb-3">
@@ -306,37 +305,37 @@ function GoalBento() {
       <SectionHeading accent="#0A1A2F">Your Goals</SectionHeading>
 
       {/* Row 1 — Journey (wide) + Achievements (narrow) */}
-      <div className="flex gap-4 mb-6">
-        <Link to={createPageUrl('ProgressDashboard')} className="flex-1">
-          <div className="relative overflow-hidden rounded-3xl p-3.5 h-full min-h-[80px] hover:opacity-95 transition-opacity"
+      <div className="flex gap-2.5 mb-2.5">
+        <Link to={createPageUrl('ProgressDashboard')} className="flex-[2]">
+          <div className="relative overflow-hidden rounded-3xl p-4 h-full min-h-[96px] hover:opacity-95 transition-opacity"
             style={{ background: 'linear-gradient(135deg, #0A1A2F, #162944)' }}>
             <div className="absolute top-0 right-0 w-20 h-20 rounded-full opacity-20"
               style={{ background: 'radial-gradient(circle, #38BDF8, transparent)', transform: 'translate(30%, -30%)' }} />
             <div className="relative z-10">
-              <div className="w-7 h-7 rounded-lg bg-white/10 flex items-center justify-center mb-2">
-                <TrendingUp className="w-3.5 h-3.5 text-white" />
+              <div className="w-8 h-8 rounded-xl bg-white/10 flex items-center justify-center mb-3">
+                <TrendingUp className="w-4 h-4 text-white" />
               </div>
-              <p className="font-black text-white text-xs">My Journey</p>
+              <p className="font-black text-white text-sm">My Journey</p>
               <p className="text-white/40 text-[10px] mt-0.5">Progress & guides</p>
             </div>
           </div>
         </Link>
-        <Link to={createPageUrl('Achievements')} className="flex-1">
-          <div className="relative overflow-hidden rounded-3xl p-3.5 h-full min-h-[80px] flex flex-col justify-between hover:opacity-95 transition-opacity"
+        <Link to={createPageUrl('Achievements')} className="flex-[1]">
+          <div className="relative overflow-hidden rounded-3xl p-4 h-full min-h-[96px] flex flex-col justify-between hover:opacity-95 transition-opacity"
             style={{ background: 'linear-gradient(135deg, #C9A227, #FD9C2D)' }}>
             <div className="absolute bottom-0 right-0 w-16 h-16 rounded-full opacity-20"
               style={{ background: 'radial-gradient(circle, #fff, transparent)', transform: 'translate(30%, 30%)' }} />
             <div className="relative z-10">
-              <Trophy className="w-4 h-4 text-white mb-2" />
-              <p className="font-black text-white text-xs">Achievements</p>
+              <Trophy className="w-5 h-5 text-white mb-3" />
+              <p className="font-black text-white text-sm">Achievements</p>
               <p className="text-white/65 text-[10px] mt-0.5">Badges & level</p>
             </div>
           </div>
         </Link>
       </div>
 
-      {/* Row 2 — 2x2 domain tiles */}
-      <div className="grid grid-cols-2 gap-2.5 mb-2.5 auto-rows-fr">
+      {/* Row 2 — 3 domain tiles */}
+      <div className="grid grid-cols-3 gap-2.5 mb-2.5">
         <Link to={createPageUrl('FitnessGoalsPage')}>
           <div className="rounded-2xl p-3.5 hover:opacity-95 transition-opacity border border-[#38BDF8]/20"
             style={{ background: 'linear-gradient(160deg, #EFF9FF, #dbeeff)' }}>
@@ -361,21 +360,31 @@ function GoalBento() {
             <p className="text-[#C9A227] text-[9px] font-semibold mt-1 uppercase tracking-wide">Goals →</p>
           </div>
         </Link>
-        <Link to={createPageUrl('PersonalGrowthGoalsPage')}>
-          <div className="rounded-2xl p-3.5 hover:opacity-95 transition-opacity border border-[#AFC7E3]/20"
-            style={{ background: 'linear-gradient(160deg, #EFF4FF, #e5edff)' }}>
-            <p className="text-xl mb-2">🧠</p>
-            <p className="font-black text-[#0A1A2F] text-xs leading-tight">Personal Growth</p>
-            <p className="text-[#AFC7E3] text-[9px] font-semibold mt-1 uppercase tracking-wide">Goals →</p>
-          </div>
-        </Link>
       </div>
+
+      {/* Row 3 — Growth (full width, editorial) */}
+      <Link to={createPageUrl('PersonalGrowthGoalsPage')}>
+        <div className="relative overflow-hidden rounded-3xl p-4 hover:opacity-95 transition-opacity"
+          style={{ background: 'linear-gradient(135deg, #3C4E53, #2a3840)' }}>
+          <div className="absolute inset-0 opacity-10"
+            style={{ backgroundImage: 'radial-gradient(circle at 80% 50%, #AFC7E3 0%, transparent 60%)' }} />
+          <div className="relative z-10 flex items-center gap-4">
+            <div className="w-10 h-10 rounded-2xl bg-white/10 flex items-center justify-center flex-shrink-0">
+              <Brain className="w-5 h-5 text-[#AFC7E3]" />
+            </div>
+            <div className="flex-1">
+              <p className="font-black text-white text-sm">Personal Growth Goals</p>
+              <p className="text-white/40 text-[10px] mt-0.5">Mindset · Values · Coaching style · Tools</p>
+            </div>
+            <ChevronRight className="w-4 h-4 text-white/25 flex-shrink-0" />
+          </div>
+        </div>
+      </Link>
     </motion.div>
   );
 }
 
 // ─── Main ──────────────────────────────────────────────────────────────────────
-// Profile page component for user profile display
 export default function Profile() {
   const [user, setUser] = useState(null);
   const [activeTab, setActiveTab] = useState('overview');
@@ -469,8 +478,8 @@ export default function Profile() {
     return (
       <div className="min-h-screen bg-[#F2F6FA] flex items-center justify-center">
         <div className="animate-spin w-8 h-8 border-4 border-[#c9a227] border-t-transparent rounded-full" />
-      </div>
-    );
+      </div>);
+
   }
 
   return (
@@ -482,13 +491,14 @@ export default function Profile() {
         onAvatarUpload={handleAvatarUpload}
         uploading={uploading} />
 
+
       <TabBar activeTab={activeTab} onChange={setActiveTab} />
 
       <div className="max-w-lg mx-auto px-4 py-5 space-y-4">
 
         {/* OVERVIEW */}
-        {activeTab === 'overview' && (
-          <div className="space-y-6">
+        {activeTab === 'overview' &&
+        <div className="space-y-6">
             <NorthStarCard user={user} />
             <ActivityStrip
               meditationSessions={meditationSessions}
@@ -513,22 +523,22 @@ export default function Profile() {
               )}
             </div>
           </div>
-        )}
+        }
 
         {/* ABOUT ── bio editor + account settings */}
-        {activeTab === 'about' && (
-          <>
+        {activeTab === 'about' &&
+        <>
             <AboutTab user={user} />
 
             {/* Account settings — only on About tab */}
             <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
-              className="bg-white rounded-2xl border border-[#FAD98D]/25 shadow-sm overflow-hidden">
+          className="bg-white rounded-2xl border border-[#FAD98D]/25 shadow-sm overflow-hidden">
               <div className="px-4 py-3 border-b border-[#FAD98D]/20">
                 <p className="text-xs font-bold text-[#0A1A2F]/40 uppercase tracking-widest">Account</p>
               </div>
               <div className="p-4 space-y-3">
                 <Link to={createPageUrl('Settings')}
-                  className="flex items-center gap-3 p-3 rounded-xl bg-[#F2F6FA] hover:bg-[#FAD98D]/15 transition-colors">
+              className="flex items-center gap-3 p-3 rounded-xl bg-[#F2F6FA] hover:bg-[#FAD98D]/15 transition-colors">
                   <Settings className="w-4 h-4 text-[#0A1A2F]/60" />
                   <span className="text-sm font-medium text-[#0A1A2F]">App Settings</span>
                   <ChevronRight className="w-4 h-4 text-[#0A1A2F]/30 ml-auto" />
@@ -551,13 +561,14 @@ export default function Profile() {
                     <AlertDialogFooter>
                       <AlertDialogCancel className="min-h-[44px]">Cancel</AlertDialogCancel>
                       <AlertDialogAction
-                        className="bg-[#0A1A2F] hover:bg-[#0A1A2F]/90 min-h-[44px]"
-                        onClick={async () => {
-                          setIsDeleting(true);
-                          try { await base44.auth.deleteAccount(); window.location.href = '/'; }
-                          catch { toast.error('Failed to delete account — please try again'); setIsDeleting(false); }
-                        }}
-                        disabled={isDeleting}>
+                      className="bg-[#0A1A2F] hover:bg-[#0A1A2F]/90 min-h-[44px]"
+                      onClick={async () => {
+                        setIsDeleting(true);
+                        try {await base44.auth.deleteAccount();window.location.href = '/';}
+                        catch { toast.error('Failed to delete account — please try again'); setIsDeleting(false);}
+                      }}
+                      disabled={isDeleting}>
+
                         {isDeleting ? 'Deleting…' : 'Delete Account'}
                       </AlertDialogAction>
                     </AlertDialogFooter>
@@ -566,24 +577,24 @@ export default function Profile() {
               </div>
             </motion.div>
           </>
-        )}
+        }
 
         {/* FRIENDS */}
-        {activeTab === 'friends' && (
-          <FriendsTab friends={friends} user={user} />
-        )}
+        {activeTab === 'friends' &&
+        <FriendsTab friends={friends} user={user} />
+        }
 
         {/* PHOTOS */}
-        {activeTab === 'photos' && (
-          <PhotosTab user={user} />
-        )}
+        {activeTab === 'photos' &&
+        <PhotosTab user={user} />
+        }
 
         {/* AI GUIDES ── chatbot preferences */}
-        {activeTab === 'ai' && (
-          <ChatbotPreferencesTab user={user} />
-        )}
+        {activeTab === 'ai' &&
+        <ChatbotPreferencesTab user={user} />
+        }
 
       </div>
-    </div>
-  );
+    </div>);
+
 }

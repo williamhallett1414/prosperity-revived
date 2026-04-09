@@ -92,31 +92,31 @@ export default function PhotosTab({ user }) {
           </Button>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-          {photos.map((photo, index) => (
-            <motion.div
-              key={photo.id}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: index * 0.03 }}
-              className="relative overflow-hidden rounded-xl bg-gray-200 aspect-square group cursor-pointer shadow-sm hover:shadow-lg transition-all"
-            >
-              {photo.image_url && (
-                <img
-                  src={photo.image_url}
-                  alt="Photo"
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                />
-              )}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-3">
-                <p className="text-white text-xs font-semibold drop-shadow-md">
-                  {photo.created_date ? new Date(photo.created_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'Recent'}
-                </p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </motion.div>
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+        {photos.map((photo, index) => (
+          <motion.div
+            key={photo.id}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: index * 0.03 }}
+            className="relative overflow-hidden rounded-xl bg-gray-200 aspect-square group cursor-pointer shadow-sm hover:shadow-lg transition-all"
+          >
+            {photo.image_url && (
+              <img
+                src={photo.image_url}
+                alt="Photo"
+                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+              />
+            )}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-3">
+              <p className="text-white text-xs font-semibold drop-shadow-md">
+                {photo.created_date ? new Date(photo.created_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'Recent'}
+              </p>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+    </motion.div>
 
     <Dialog open={showUploadModal} onOpenChange={setShowUploadModal}>
       <DialogContent className="sm:max-w-md">
