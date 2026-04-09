@@ -397,6 +397,7 @@ function JourneyMap({ challenge, completedDays }) {
 // ─── Challenge Detail View (NOT an overlay — renders as normal page content) ─
 function ChallengeDetail({ challenge, localData, onBack, onStart, onComplete, onReset, onOpenChallenge, user }) {
   const [reflection, setReflection] = useState("");
+  const [letterToGod, setLetterToGod] = useState("");
   const [saving, setSaving] = useState(false);
   const [confirmReset, setConfirmReset] = useState(false);
   const [showAllDays, setShowAllDays] = useState(false);
@@ -583,6 +584,32 @@ function ChallengeDetail({ challenge, localData, onBack, onStart, onComplete, on
                     </div>
                     <span style={{color:"rgba(255,255,255,0.4)",fontSize:16}}>→</span>
                   </a>
+                )}
+
+                {/* Letter to God — Day 1 only */}
+                {nextDayNum === 1 && (
+                  <div style={{marginBottom:16}}>
+                    <div style={{fontSize:11,fontWeight:800,color:"#0A1A2F44",textTransform:"uppercase",letterSpacing:1.2,marginBottom:6}}>
+                      ✉️ Your Letter to God
+                    </div>
+                    <div style={{background:"#F0EBE0",borderRadius:12,padding:"8px 12px",fontSize:11,color:"#7c2d12",fontWeight:700,marginBottom:8,fontStyle:"italic"}}>
+                      💬 Tell God why you're doing this — what are you leaving behind, and what are you stepping into?
+                    </div>
+                    <textarea
+                      value={letterToGod}
+                      onChange={e => setLetterToGod(e.target.value)}
+                      placeholder="Dear God, I'm deleting this app because…"
+                      rows={5}
+                      style={{
+                        width:"100%",background:"#FFFBF5",borderRadius:14,
+                        padding:"12px 14px",fontSize:13,color:"#0A1A2F",
+                        border:"1.5px solid #F0EBE0",
+                        outline:"none",resize:"none",lineHeight:1.8,
+                        fontFamily:"Nunito,sans-serif",boxSizing:"border-box",
+                        fontStyle:"italic",
+                      }}
+                    />
+                  </div>
                 )}
 
                 {/* Reflection */}
