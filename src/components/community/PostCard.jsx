@@ -193,7 +193,20 @@ export default function PostCard({ post, comments = [], onLike, onComment, index
         )}
         {!isMyPost && user && (
           <button
-            onClick={async () => { if (window.confirm('Report this post for review? Our team will investigate.')) { try { await base44.entities.Report?.create({ post_id: post.id, reporter_email: user?.email, reason: 'user_flagged' }); alert('Report submitted. Thank you for helping keep our community safe.'); } catch { alert('Failed to submit report. Please try again.'); } } }}
+            onClick={async () => {
+              if (window.confirm('Report this post for review? Our team will investigate.')) {
+                try {
+                  await base44.entities.Report.create({
+                    post_id: post.id,
+                    reporter_email: user.email,
+                    reason: 'user_flagged'
+                  });
+                  alert('Report submitted. Thank you for helping keep our community safe.');
+                } catch {
+                  alert('Failed to submit report. Please try again.');
+                }
+              }
+            }}
             className="p-1.5 rounded-full hover:bg-gray-100 transition-colors"
             aria-label="Report post"
             title="Report post"
