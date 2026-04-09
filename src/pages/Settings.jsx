@@ -6,7 +6,7 @@ import { toast } from 'sonner';
 const AppTour = lazy(() => import('@/components/onboarding/AppTour'));
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { Label } from '@/components/ui/label';
 import ReminderSettings from '@/components/settings/ReminderSettings';
@@ -35,6 +35,7 @@ export default function Settings() {
   const [showTour, setShowTour] = useState(false);
   const [activeTab, setActiveTab] = useState('appearance');
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
   useEffect(() => {
     base44.auth.me().then(setUser).catch(() => {});
@@ -91,6 +92,9 @@ export default function Settings() {
       {/* Header */}
       <div className="sticky top-0 z-40 bg-white dark:bg-[#131C2E] border-b border-[#FAD98D]/20 px-4 pt-4 pb-3">
         <div className="max-w-lg mx-auto flex items-center gap-3">
+          <button onClick={() => navigate(-1)} className="flex-shrink-0 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+            <ArrowLeft className="w-5 h-5 text-[#0A1A2F] dark:text-white" />
+          </button>
           <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#3C4E53] to-[#AFC7E3] flex items-center justify-center">
             <Palette className="w-5 h-5 text-white" />
           </div>
