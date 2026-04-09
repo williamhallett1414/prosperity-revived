@@ -1,4 +1,5 @@
 import { base44 } from '@/api/base44Client';
+import { createPageUrl } from '@/utils';
 
 /**
  * Helper functions to create notifications
