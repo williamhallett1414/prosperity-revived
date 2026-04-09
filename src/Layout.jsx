@@ -381,18 +381,18 @@ export default function Layout({ children, currentPageName }) {
       </nav>
     </div>
 
-    {/* Guided Tour — persists across route changes */}
-    {showGuidedTour &&
-      <GuidedTour
-        customSteps={window.__pendingMiniTourSteps || null}
-        tourKey={window.__pendingTourKey || null}
-        onComplete={() => {
-          window.__pendingMiniTourSteps = null;
-          window.__pendingTourKey = null;
-          setShowGuidedTour(false);
-        }} />
-
+      {/* Guided Tour — persists across route changes */}
+      {showGuidedTour &&
+        <GuidedTour
+          customSteps={window.__pendingMiniTourSteps || null}
+          tourKey={window.__pendingTourKey || null}
+          onComplete={() => {
+            window.__pendingMiniTourSteps = null;
+            window.__pendingTourKey = null;
+            setShowGuidedTour(false);
+          }} />
       }
-    </>);
+    </>
+  );
 
 }
