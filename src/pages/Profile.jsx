@@ -478,7 +478,8 @@ export default function Profile() {
     return (
       <div className="min-h-screen bg-[#F2F6FA] flex items-center justify-center">
         <div className="animate-spin w-8 h-8 border-4 border-[#c9a227] border-t-transparent rounded-full" />
-      </div>);
+      </div>
+    );
   }
 
   return (
