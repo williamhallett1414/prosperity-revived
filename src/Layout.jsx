@@ -5,13 +5,15 @@ import { base44 } from '@/api/base44Client';
 import { Home, User, Heart, BookOpen, Users } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Toaster } from '@/components/ui/sonner.jsx';
-import NotificationBell from '@/components/notifications/NotificationBell';
 import PullToRefresh from '@/components/ui/PullToRefresh';
-import UniversalHeader from '@/components/navigation/UniversalHeader';
-import OfflineBanner from '@/components/ui/OfflineBanner';
 import { requestNotificationPermission, initDefaultReminders } from '@/utils/notifications';
 import { useQueryClient } from '@tanstack/react-query';
-import GuidedTour from '@/components/onboarding/GuidedTour';
+
+// Lazy-load optional components to prevent crash if any are broken
+const GuidedTour = React.lazy(() => import('@/components/onboarding/GuidedTour'));
+const NotificationBell = React.lazy(() => import('@/components/notifications/NotificationBell'));
+const UniversalHeader = React.lazy(() => import('@/components/navigation/UniversalHeader'));
+const OfflineBanner = React.lazy(() => import('@/components/ui/OfflineBanner'));
 
 // Scroll position cache per page
 const scrollCache = {};
@@ -235,7 +237,7 @@ export default function Layout({ children, currentPageName }) {
   return (
     <>
       <Toaster position="top-center" richColors />
-      <OfflineBanner />
+      <React.Suspense fallback={null}><OfflineBanner /></React.Suspense>
       <div className="min-h-screen bg-[#FFFFFF] dark:bg-[#3C4E53]" ref={contentRef}>
         <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Imprint+MT+Shadow&display=swap');
@@ -290,14 +292,14 @@ export default function Layout({ children, currentPageName }) {
       
       {/* Top Bar with Universal Header */}
       {isChildRoute ? (
-        <UniversalHeader title={currentPageTitle} backTo={currentPageBack} />
+        <React.Suspense fallback={null}><UniversalHeader title={currentPageTitle} backTo={currentPageBack} /></React.Suspense>
       ) : (
         <div className="fixed top-0 left-0 right-0 bg-white dark:bg-[#0A1A2F] border-b border-gray-200 dark:border-gray-700 px-4 py-3 z-40 pt-[env(safe-area-inset-top)] select-none">
           <div className="max-w-lg mx-auto flex items-center justify-between">
             <h1 className="text-xl font-bold text-[#3C4E53] dark:text-white font-imprint">
               Prosperity Revived
             </h1>
-            <NotificationBell />
+            <React.Suspense fallback={null}><NotificationBell /></React.Suspense>
           </div>
         </div>
       )}
@@ -383,15 +385,17 @@ export default function Layout({ children, currentPageName }) {
 
       {/* Guided Tour — persists across route changes */}
     {showGuidedTour && (
-      <GuidedTour
-        customSteps={window.__pendingMiniTourSteps || null}
-        tourKey={window.__pendingTourKey || null}
-        onComplete={() => {
-          window.__pendingMiniTourSteps = null;
-          window.__pendingTourKey = null;
-          setShowGuidedTour(false);
-        }}
-      />
+      <React.Suspense fallback={null}>
+        <GuidedTour
+          customSteps={window.__pendingMiniTourSteps || null}
+          tourKey={window.__pendingTourKey || null}
+          onComplete={() => {
+            window.__pendingMiniTourSteps = null;
+            window.__pendingTourKey = null;
+            setShowGuidedTour(false);
+          }}
+        />
+      </React.Suspense>
     )}
     </>);
 
