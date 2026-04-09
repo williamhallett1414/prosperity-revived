@@ -100,11 +100,12 @@ export default function Layout({ children, currentPageName }) {
 
 
   // Primary navigation pages that should be kept mounted
-  const primaryPages = ['Home', 'Bible', 'Wellness', 'ProgressDashboard', 'Profile'];
+  const primaryPages = ['Home', 'Bible', 'Wellness', 'Profile'];
   const isPrimaryPage = primaryPages.includes(currentPageName);
-
-  // Determine if current page is a child route (not a primary nav page)
-  const isChildRoute = !isPrimaryPage;
+  
+  // Child pages that should show back button (even if sometimes mounted)
+  const childPages = ['ProgressDashboard', 'Achievements'];
+  const isChildRoute = !isPrimaryPage || childPages.includes(currentPageName);
 
   // Page title mapping
   const pageTitles = {
