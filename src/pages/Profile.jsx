@@ -25,6 +25,7 @@ import TimelineTab from '@/components/profile/facebook/TimelineTab';
 import ChatbotPreferencesTab from '@/components/profile/ChatbotPreferencesTab';
 
 // ─── Tabs ──────────────────────────────────────────────────────────────────────
+// Tab definitions for profile sections
 const TABS = [
   { id: 'overview', label: 'Overview' },
   { id: 'about', label: 'About' },
