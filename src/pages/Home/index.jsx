@@ -55,18 +55,17 @@ function Home() {
       <div className="max-w-lg mx-auto px-4 pb-28 space-y-4">
         {/* Prosperity Revived Header */}
         <motion.div initial={{ opacity: 0, y: -12 }} animate={{ opacity: 1, y: 0 }} className="flex items-center justify-center gap-2 pt-4 pb-2">
-          <svg width="32" height="32" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg" className="flex-shrink-0">
-            <path d="M200 70C200 70 180 100 180 130C180 150 190 160 200 160C210 160 220 150 220 130C220 100 200 70 200 70Z" fill="black"/>
-            <path d="M140 110C140 110 120 135 115 160C110 180 120 195 135 200C150 205 165 190 170 165C175 135 155 110 140 110Z" fill="black"/>
-            <path d="M260 110C260 110 280 135 285 160C290 180 280 195 265 200C250 205 235 190 230 165C225 135 245 110 260 110Z" fill="black"/>
-            <path d="M120 170C120 170 100 200 100 230C100 250 110 265 125 270C140 275 155 260 160 235C165 200 140 170 120 170Z" fill="black"/>
-            <path d="M280 170C280 170 300 200 300 230C300 250 290 265 275 270C260 275 245 260 240 235C235 200 260 170 280 170Z" fill="black"/>
-            <path d="M150 240C150 240 145 265 155 285C165 300 180 305 195 300C210 295 210 280 205 260C200 245 165 240 150 240Z" fill="black"/>
-            <path d="M250 240C250 240 255 265 245 285C235 300 220 305 205 300C190 295 190 280 195 260C200 245 235 240 250 240Z" fill="black"/>
-            <path d="M195 170L200 230L205 170" stroke="black" strokeWidth="2" fill="none"/>
-            <path d="M190 200C190 200 180 210 175 225" stroke="black" strokeWidth="1.5" fill="none"/>
-            <path d="M210 200C210 200 220 210 225 225" stroke="black" strokeWidth="1.5" fill="none"/>
-            <rect x="190" y="310" width="20" height="40" fill="black"/>
+          <svg width="40" height="40" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg" className="flex-shrink-0">
+            <ellipse cx="150" cy="80" rx="12" ry="18" fill="black"/>
+            <ellipse cx="110" cy="105" rx="11" ry="18" transform="rotate(-45 110 105)" fill="black"/>
+            <ellipse cx="190" cy="105" rx="11" ry="18" transform="rotate(45 190 105)" fill="black"/>
+            <ellipse cx="80" cy="150" rx="11" ry="18" transform="rotate(-70 80 150)" fill="black"/>
+            <ellipse cx="220" cy="150" rx="11" ry="18" transform="rotate(70 220 150)" fill="black"/>
+            <ellipse cx="100" cy="200" rx="11" ry="18" transform="rotate(-100 100 200)" fill="black"/>
+            <ellipse cx="200" cy="200" rx="11" ry="18" transform="rotate(100 200 200)" fill="black"/>
+            <ellipse cx="150" cy="230" rx="12" ry="18" fill="black"/>
+            <path d="M150 100 Q145 140 150 180 Q155 140 150 100" fill="black" opacity="0.9"/>
+            <rect x="145" y="180" width="10" height="35" fill="black"/>
           </svg>
           <h1 className="text-2xl font-bold text-[#0A1A2F]">Prosperity Revived</h1>
         </motion.div>
