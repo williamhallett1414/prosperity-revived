@@ -404,6 +404,7 @@ function ChallengeDetail({ challenge, localData, onBack, onStart, onComplete, on
   const [showXP, setShowXP] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
   const [xpEarned, setXpEarned] = useState(0);
+  const [lastSavedEntry, setLastSavedEntry] = useState(null);
 
   const cData        = localData[challenge.id] || null;
   const completedDays = getCompletedDays(cData);
@@ -423,9 +424,31 @@ function ChallengeDetail({ challenge, localData, onBack, onStart, onComplete, on
     setSaving(true);
     await new Promise(r => setTimeout(r, 400));
     const isLast = nextDayNum >= challenge.duration;
+
+    // Build journal entry content
+    const parts = [];
+    if (nextDayNum === 1 && letterToGod.trim()) {
+      parts.push(`✉️ Letter to God:\n${letterToGod.trim()}`);
+    }
+    parts.push(`📝 Day ${nextDayNum} Reflection — ${currentTask?.title || ''}:\n${reflection.trim()}`);
+    const entryContent = parts.join('\n\n');
+
+    // Save to JournalEntry
+    let savedEntry = null;
+    try {
+      savedEntry = await base44.entities.JournalEntry.create({
+        title: `${challenge.title} — Day ${nextDayNum}: ${currentTask?.title || ''}`,
+        content: entryContent,
+        entry_type: 'reflection',
+        tags: ['challenge', challenge.category.toLowerCase(), challenge.id],
+      });
+      setLastSavedEntry(savedEntry);
+    } catch {}
+
     onComplete(challenge.id, nextDayNum, xpToday);
     setSaving(false);
     setReflection("");
+    setLetterToGod("");
     setXpEarned(xpToday);
     setShowXP(true); setTimeout(() => setShowXP(false), 2500);
     if (isLast) { setShowConfetti(true); setTimeout(() => setShowConfetti(false), 3500); }
@@ -539,12 +562,30 @@ function ChallengeDetail({ challenge, localData, onBack, onStart, onComplete, on
             </div>
 
             {alreadyToday ? (
-              <div style={{background:"white",borderRadius:20,border:"1px solid #D1FAE5",padding:20,display:"flex",gap:14,alignItems:"center"}}>
-                <div style={{width:44,height:44,borderRadius:"50%",background:"#ECFDF5",display:"flex",alignItems:"center",justifyContent:"center",fontSize:20}}>✅</div>
-                <div>
-                  <div style={{fontWeight:800,fontSize:14,color:"#059669"}}>Day {completedDays[completedDays.length-1]} Complete!</div>
-                  <div style={{fontSize:12,color:"#059669aa",marginTop:2}}>Beautifully done. Come back tomorrow for Day {nextDayNum}.</div>
+              <div style={{background:"white",borderRadius:20,border:"1px solid #D1FAE5",padding:20}}>
+                <div style={{display:"flex",gap:14,alignItems:"center",marginBottom:lastSavedEntry?12:0}}>
+                  <div style={{width:44,height:44,borderRadius:"50%",background:"#ECFDF5",display:"flex",alignItems:"center",justifyContent:"center",fontSize:20,flexShrink:0}}>✅</div>
+                  <div>
+                    <div style={{fontWeight:800,fontSize:14,color:"#059669"}}>Day {completedDays[completedDays.length-1]} Complete!</div>
+                    <div style={{fontSize:12,color:"#059669aa",marginTop:2}}>Beautifully done. Come back tomorrow for Day {nextDayNum}.</div>
+                  </div>
                 </div>
+                {lastSavedEntry && (
+                  <div style={{display:"flex",flexDirection:"column",gap:8}}>
+                    <div style={{background:"#F0FDF4",borderRadius:12,padding:"8px 12px",fontSize:11,color:"#059669",fontWeight:700,display:"flex",alignItems:"center",gap:6}}>
+                      <span>📓</span> Saved to your Journal
+                    </div>
+                    <ShareToFeedButton
+                      type="general_win"
+                      title={`${challenge.title} — Day ${completedDays[completedDays.length-1]} complete`}
+                      content={lastSavedEntry.content?.split('\n\n').slice(-1)[0]?.replace(/^📝[^\n]+\n/, '') || reflection}
+                      source="Hannah"
+                      label="Share reflection"
+                      color={challenge.color}
+                      user={user}
+                    />
+                  </div>
+                )}
               </div>
             ) : (
               <div style={{background:"white",borderRadius:24,border:`2px solid ${challenge.color}44`,padding:20,boxShadow:`0 4px 24px ${challenge.color}15`}}>
