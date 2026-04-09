@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { createPageUrl } from '@/utils';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -607,6 +609,34 @@ export default function GroupChallenges({ user }) {
 
   return (
     <div className="space-y-4">
+
+      {/* ── Featured Challenge Banner: 40 Days in the Wilderness ── */}
+      <Link to={createPageUrl('SelfCareChallengesPage')}>
+        <div style={{
+          borderRadius: 20, padding: "20px 18px", cursor: "pointer",
+          background: "linear-gradient(135deg,#451a03,#92400e,#78350f)",
+          boxShadow: "0 12px 36px rgba(69,26,3,0.45)",
+          position: "relative", overflow: "hidden",
+          border: "1px solid rgba(255,255,255,0.08)"
+        }}>
+          <div style={{position:"absolute",top:-24,right:-24,fontSize:100,opacity:0.06,pointerEvents:"none"}}>✝</div>
+          <div style={{position:"absolute",bottom:-16,left:-16,fontSize:64,opacity:0.05,pointerEvents:"none"}}>⛰️</div>
+          <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:8}}>
+            <div style={{background:"rgba(255,255,255,0.15)",borderRadius:99,padding:"3px 10px",fontSize:9,color:"rgba(255,255,255,0.9)",fontWeight:900,textTransform:"uppercase",letterSpacing:1.5}}>✦ Featured Challenge</div>
+            <div style={{background:"rgba(255,255,255,0.1)",borderRadius:99,padding:"3px 10px",fontSize:9,color:"rgba(255,255,255,0.7)",fontWeight:800}}>40 Days</div>
+          </div>
+          <div style={{color:"white",fontFamily:"Lora,Georgia,serif",fontWeight:700,fontSize:18,marginBottom:4,lineHeight:1.25}}>40 Days in the Wilderness</div>
+          <div style={{color:"rgba(255,255,255,0.55)",fontSize:11,fontStyle:"italic",marginBottom:10}}>Walk as Christ walked. Die to self. Rise in Him.</div>
+          <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:12}}>
+            <span style={{color:"rgba(255,255,255,0.55)",fontSize:11}}>📖 Matthew 4:1-11</span>
+            <span style={{color:"rgba(255,255,255,0.55)",fontSize:11}}>🔥 75 XP/day</span>
+          </div>
+          <div style={{background:"rgba(255,255,255,0.12)",borderRadius:12,padding:"9px 14px",display:"flex",alignItems:"center",justifyContent:"center",gap:8}}>
+            <span style={{color:"white",fontSize:12,fontWeight:700}}>Begin the Pilgrimage</span>
+            <span style={{color:"rgba(255,255,255,0.5)",fontSize:13}}>→</span>
+          </div>
+        </div>
+      </Link>
 
       {/* Top bar: seed + create */}
       <div className="flex gap-2">
