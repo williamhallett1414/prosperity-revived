@@ -4,15 +4,11 @@ import { createPageUrl } from '@/utils';
 import { base44 } from '@/api/base44Client';
 import { Home, User, Heart, BookOpen, Users } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Toaster } from '@/components/ui/sonner.jsx';
 import NotificationBell from '@/components/notifications/NotificationBell';
 import PullToRefresh from '@/components/ui/PullToRefresh';
 import UniversalHeader from '@/components/navigation/UniversalHeader';
-import OfflineBanner from '@/components/ui/OfflineBanner';
 import { requestNotificationPermission, initDefaultReminders } from '@/utils/notifications';
 import { useQueryClient } from '@tanstack/react-query';
-import GuidedTour from '@/components/onboarding/GuidedTour';
-
 // Scroll position cache per page
 const scrollCache = {};
 
@@ -234,8 +230,6 @@ export default function Layout({ children, currentPageName }) {
 
   return (
     <>
-      <Toaster position="top-center" richColors />
-      <OfflineBanner />
       <div className="min-h-screen bg-[#FFFFFF] dark:bg-[#3C4E53]" ref={contentRef}>
         <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Imprint+MT+Shadow&display=swap');
@@ -381,17 +375,6 @@ export default function Layout({ children, currentPageName }) {
       </nav>
     </div>
 
-      {/* Guided Tour — persists across route changes */}
-      {showGuidedTour &&
-        <GuidedTour
-          customSteps={window.__pendingMiniTourSteps || null}
-          tourKey={window.__pendingTourKey || null}
-          onComplete={() => {
-            window.__pendingMiniTourSteps = null;
-            window.__pendingTourKey = null;
-            setShowGuidedTour(false);
-          }} />
-      }
     </>
   );
 
