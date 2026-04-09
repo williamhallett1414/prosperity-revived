@@ -13,7 +13,7 @@ const useCapacitorInit = () => {};
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
-const MainPage = mainPageKey ? Pages[mainPageKey] : <></>;
+const MainPage = mainPageKey && Pages[mainPageKey] ? Pages[mainPageKey] : null;
 
 // ─── Global Error Boundary ────────────────────────────────────────────────────
 class ErrorBoundary extends React.Component {
@@ -100,9 +100,13 @@ const AuthenticatedApp = () => {
     <Suspense fallback={<PageLoadingFallback />}>
       <Routes>
         <Route path="/" element={
-          <LayoutWrapper currentPageName={mainPageKey}>
-            <MainPage />
-          </LayoutWrapper>
+          MainPage ? (
+            <LayoutWrapper currentPageName={mainPageKey}>
+              <MainPage />
+            </LayoutWrapper>
+          ) : (
+            <PageNotFound />
+          )
         } />
         {Object.entries(Pages).map(([path, Page]) => (
           <Route
