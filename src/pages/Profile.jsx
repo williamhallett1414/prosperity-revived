@@ -90,7 +90,7 @@ function Header({ user, friendsCount, onCoverUpload, onAvatarUpload, uploading }
         </div>
 
         {/* 90-day goal / status */}
-        {(user?.status_message || user?.goal_90_day || user?.spiritual_goal) &&
+        {(user?.status_message || user?.goal_90_day || user?.spiritual_goal) && (
         <div className="pb-4 space-y-2">
             {user.status_message &&
           <p className="text-sm text-[#0A1A2F]/70 italic">"{user.status_message}"</p>
@@ -109,7 +109,7 @@ function Header({ user, friendsCount, onCoverUpload, onAvatarUpload, uploading }
             {user.coaching_style && <span className="text-[10px] font-semibold px-2 py-1 rounded-full bg-[#AFC7E3]/40 text-[#0A1A2F]">🧭 {user.coaching_style}</span>}
           </div>
           </div>
-        }
+        )}
       </div>
     </div>);
 
