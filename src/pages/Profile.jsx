@@ -15,8 +15,8 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger } from
-'@/components/ui/alert-dialog';
+  AlertDialogTrigger
+} from '@/components/ui/alert-dialog';
 
 import AboutTab from '@/components/profile/facebook/AboutTab';
 import FriendsTab from '@/components/profile/facebook/FriendsTab';
