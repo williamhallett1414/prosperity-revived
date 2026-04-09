@@ -25,13 +25,13 @@ const TABS = [
 
 function StatPill({ icon: Icon, value, label, color }) {
   return (
-    <div className="flex flex-col items-center gap-1 bg-white rounded-2xl px-2 py-3 border border-gray-100 shadow-sm flex-1 min-w-0">
-      <div className="w-7 h-7 rounded-xl flex items-center justify-center flex-shrink-0"
+    <div className="flex flex-col items-center gap-0.5 bg-white rounded-xl px-2 py-2 border border-gray-100 shadow-sm flex-1 min-w-0">
+      <div className="w-6 h-6 rounded-lg flex items-center justify-center flex-shrink-0"
         style={{ background: color + '18' }}>
-        <Icon className="w-3.5 h-3.5" style={{ color }} />
+        <Icon className="w-3 h-3" style={{ color }} />
       </div>
-      <p className="text-sm font-bold text-[#0A1A2F] leading-tight">{value}</p>
-      <p className="text-[9px] font-semibold text-[#0A1A2F]/35 uppercase tracking-wide">{label}</p>
+      <p className="text-xs font-bold text-[#0A1A2F] leading-tight">{value}</p>
+      <p className="text-[8px] font-semibold text-[#0A1A2F]/35 uppercase tracking-wide">{label}</p>
     </div>
   );
 }
