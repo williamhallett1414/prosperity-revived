@@ -5,13 +5,15 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
-import { Heart, Dumbbell, Apple, Brain, Target, X, Plus } from 'lucide-react';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+import { Heart, Dumbbell, Apple, Brain, Target, X, Plus, ChevronDown } from 'lucide-react';
 import { toast } from 'sonner';
 
 export default function InterestsGoalsEditor({ user }) {
   const queryClient = useQueryClient();
   const [editMode, setEditMode] = useState(null);
   const [inputValue, setInputValue] = useState('');
+  const [expandedSections, setExpandedSections] = useState({});
 
   const updateUser = useMutation({
     mutationFn: (data) => base44.auth.updateMe(data),
@@ -120,6 +122,13 @@ export default function InterestsGoalsEditor({ user }) {
     }
   };
 
+  const toggleSection = (key) => {
+    setExpandedSections(prev => ({
+      ...prev,
+      [key]: !prev[key]
+    }));
+  };
+
   return (
     <div className="space-y-4">
       {sections.map((section) => {
@@ -127,13 +136,19 @@ export default function InterestsGoalsEditor({ user }) {
         const colors = colorClasses[section.color];
         const interests = user[section.interestsField] || [];
         const goals = user[section.goalsField] || [];
+        const isExpanded = expandedSections[section.key] !== false; // Default to expanded
 
         return (
-          <Card key={section.key} className={`p-4 ${colors.bg} ${colors.border}`}>
-            <div className="flex items-center gap-2 mb-4">
-              <Icon className={`w-5 h-5 ${colors.icon}`} />
-              <h3 className="font-semibold text-[#0A1A2F]">{section.title}</h3>
-            </div>
+          <Card key={section.key} className={`${colors.bg} ${colors.border}`}>
+            <Collapsible open={isExpanded} onOpenChange={() => toggleSection(section.key)}>
+              <CollapsibleTrigger className="w-full">
+                <div className="flex items-center gap-2 p-4 cursor-pointer hover:opacity-80 transition-opacity">
+                  <Icon className={`w-5 h-5 ${colors.icon}`} />
+                  <h3 className="font-semibold text-[#0A1A2F] flex-1 text-left">{section.title}</h3>
+                  <ChevronDown className={`w-5 h-5 text-[#0A1A2F]/50 transition-transform ${isExpanded ? '' : '-rotate-90'}`} />
+                </div>
+              </CollapsibleTrigger>
+              <CollapsibleContent className="px-4 pb-4">
 
             {/* Interests */}
             <div className="mb-4">
@@ -288,10 +303,12 @@ export default function InterestsGoalsEditor({ user }) {
                   </Badge>
                 ))}
               </div>
-            </div>
-          </Card>
-        );
-      })}
-    </div>
-  );
-}
+              </div>
+              </CollapsibleContent>
+              </Collapsible>
+              </Card>
+              );
+              })}
+              </div>
+              );
+              }
