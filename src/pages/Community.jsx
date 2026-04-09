@@ -39,7 +39,7 @@ function StatPill({ icon: Icon, value, label, color }) {
 function GroupsSection({ user }) {
   const { data: groups = [] } = useQuery({
     queryKey: ['groups'],
-    queryFn: () => base44.entities.Group.list('-created_date'),
+    queryFn: () => base44.entities.StudyGroup.list('-created_date'),
   });
 
   const myGroups = groups.filter(g =>
@@ -195,7 +195,7 @@ export default function Community() {
   });
   const { data: groups = [] } = useQuery({
     queryKey: ['groupCount'],
-    queryFn: () => base44.entities.Group.list(),
+    queryFn: () => base44.entities.StudyGroup.list(),
     enabled: !!user,
   });
 
