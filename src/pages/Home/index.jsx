@@ -52,23 +52,7 @@ function Home() {
 
   return (
     <div className="min-h-screen bg-[#F2F6FA]">
-      <div className="max-w-lg mx-auto px-4 pb-28 space-y-4">
-        {/* Prosperity Revived Header */}
-        <motion.div initial={{ opacity: 0, y: -12 }} animate={{ opacity: 1, y: 0 }} className="flex items-center justify-center gap-2 pt-4 pb-2">
-          <svg width="40" height="40" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg" className="flex-shrink-0">
-            <ellipse cx="150" cy="80" rx="12" ry="18" fill="black"/>
-            <ellipse cx="110" cy="105" rx="11" ry="18" transform="rotate(-45 110 105)" fill="black"/>
-            <ellipse cx="190" cy="105" rx="11" ry="18" transform="rotate(45 190 105)" fill="black"/>
-            <ellipse cx="80" cy="150" rx="11" ry="18" transform="rotate(-70 80 150)" fill="black"/>
-            <ellipse cx="220" cy="150" rx="11" ry="18" transform="rotate(70 220 150)" fill="black"/>
-            <ellipse cx="100" cy="200" rx="11" ry="18" transform="rotate(-100 100 200)" fill="black"/>
-            <ellipse cx="200" cy="200" rx="11" ry="18" transform="rotate(100 200 200)" fill="black"/>
-            <ellipse cx="150" cy="230" rx="12" ry="18" fill="black"/>
-            <path d="M150 100 Q145 140 150 180 Q155 140 150 100" fill="black" opacity="0.9"/>
-            <rect x="145" y="180" width="10" height="35" fill="black"/>
-          </svg>
-          <h1 className="text-2xl font-bold text-[#0A1A2F]">Prosperity Revived</h1>
-        </motion.div>
+      <div className="max-w-lg mx-auto px-4 pt-4 pb-28 space-y-4">
         <motion.div initial={{ opacity: 0, y: -12 }} animate={{ opacity: 1, y: 0 }}>
           <p className="text-xs font-medium text-[#0A1A2F]/40 uppercase tracking-widest mb-0.5">
             {getTodayFormatted()}
