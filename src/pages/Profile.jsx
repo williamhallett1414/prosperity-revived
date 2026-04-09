@@ -26,12 +26,12 @@ import ChatbotPreferencesTab from '@/components/profile/ChatbotPreferencesTab';
 
 // ─── Tabs ──────────────────────────────────────────────────────────────────────
 const TABS = [
-{ id: 'overview', label: 'Overview' },
-{ id: 'about', label: 'About' },
-{ id: 'friends', label: 'Friends' },
-{ id: 'photos', label: 'Photos' },
-{ id: 'ai', label: 'Guides' }];
-
+  { id: 'overview', label: 'Overview' },
+  { id: 'about', label: 'About' },
+  { id: 'friends', label: 'Friends' },
+  { id: 'photos', label: 'Photos' },
+  { id: 'ai', label: 'Guides' }
+];
 
 // ─── Profile header ────────────────────────────────────────────────────────
 function Header({ user, friendsCount, onCoverUpload, onAvatarUpload, uploading }) {
@@ -479,7 +479,6 @@ export default function Profile() {
       <div className="min-h-screen bg-[#F2F6FA] flex items-center justify-center">
         <div className="animate-spin w-8 h-8 border-4 border-[#c9a227] border-t-transparent rounded-full" />
       </div>);
-
   }
 
   return (
@@ -491,14 +490,13 @@ export default function Profile() {
         onAvatarUpload={handleAvatarUpload}
         uploading={uploading} />
 
-
       <TabBar activeTab={activeTab} onChange={setActiveTab} />
 
       <div className="max-w-lg mx-auto px-4 py-5 space-y-4">
 
         {/* OVERVIEW */}
         {activeTab === 'overview' && (
-        <div className="space-y-6">
+          <div className="space-y-6">
             <NorthStarCard user={user} />
             <ActivityStrip
               meditationSessions={meditationSessions}
@@ -527,18 +525,18 @@ export default function Profile() {
 
         {/* ABOUT ── bio editor + account settings */}
         {activeTab === 'about' && (
-        <>
+          <>
             <AboutTab user={user} />
 
             {/* Account settings — only on About tab */}
             <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
-          className="bg-white rounded-2xl border border-[#FAD98D]/25 shadow-sm overflow-hidden">
+              className="bg-white rounded-2xl border border-[#FAD98D]/25 shadow-sm overflow-hidden">
               <div className="px-4 py-3 border-b border-[#FAD98D]/20">
                 <p className="text-xs font-bold text-[#0A1A2F]/40 uppercase tracking-widest">Account</p>
               </div>
               <div className="p-4 space-y-3">
                 <Link to={createPageUrl('Settings')}
-              className="flex items-center gap-3 p-3 rounded-xl bg-[#F2F6FA] hover:bg-[#FAD98D]/15 transition-colors">
+                  className="flex items-center gap-3 p-3 rounded-xl bg-[#F2F6FA] hover:bg-[#FAD98D]/15 transition-colors">
                   <Settings className="w-4 h-4 text-[#0A1A2F]/60" />
                   <span className="text-sm font-medium text-[#0A1A2F]">App Settings</span>
                   <ChevronRight className="w-4 h-4 text-[#0A1A2F]/30 ml-auto" />
@@ -561,14 +559,13 @@ export default function Profile() {
                     <AlertDialogFooter>
                       <AlertDialogCancel className="min-h-[44px]">Cancel</AlertDialogCancel>
                       <AlertDialogAction
-                      className="bg-[#0A1A2F] hover:bg-[#0A1A2F]/90 min-h-[44px]"
-                      onClick={async () => {
-                        setIsDeleting(true);
-                        try {await base44.auth.deleteAccount();window.location.href = '/';}
-                        catch { toast.error('Failed to delete account — please try again'); setIsDeleting(false);}
-                      }}
-                      disabled={isDeleting}>
-
+                        className="bg-[#0A1A2F] hover:bg-[#0A1A2F]/90 min-h-[44px]"
+                        onClick={async () => {
+                          setIsDeleting(true);
+                          try { await base44.auth.deleteAccount(); window.location.href = '/'; }
+                          catch { toast.error('Failed to delete account — please try again'); setIsDeleting(false); }
+                        }}
+                        disabled={isDeleting}>
                         {isDeleting ? 'Deleting…' : 'Delete Account'}
                       </AlertDialogAction>
                     </AlertDialogFooter>
@@ -581,20 +578,20 @@ export default function Profile() {
 
         {/* FRIENDS */}
         {activeTab === 'friends' && (
-        <FriendsTab friends={friends} user={user} />
+          <FriendsTab friends={friends} user={user} />
         )}
 
         {/* PHOTOS */}
         {activeTab === 'photos' && (
-        <PhotosTab user={user} />
+          <PhotosTab user={user} />
         )}
 
         {/* AI GUIDES ── chatbot preferences */}
         {activeTab === 'ai' && (
-        <ChatbotPreferencesTab user={user} />
+          <ChatbotPreferencesTab user={user} />
         )}
 
       </div>
-    </div>);
-
+    </div>
+  );
 }
