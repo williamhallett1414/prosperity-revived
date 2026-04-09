@@ -386,6 +386,7 @@ function GoalBento() {
 }
 
 // ─── Main ──────────────────────────────────────────────────────────────────────
+// Profile page component for user profile display
 export default function Profile() {
   const [user, setUser] = useState(null);
   const [activeTab, setActiveTab] = useState('overview');
