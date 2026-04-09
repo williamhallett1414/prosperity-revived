@@ -33,16 +33,17 @@ const TABS = [
 { id: 'ai', label: 'Guides' }];
 
 
-// ─── Profile header ────────────────────────────────────────────────────────────
+// ─── Profile header ────────────────────────────────────────────────────────
 function Header({ user, friendsCount, onCoverUpload, onAvatarUpload, uploading }) {
   return (
     <div className="bg-white shadow-sm">
       {/* Cover */}
       <div className="relative h-40 sm:h-52 bg-gradient-to-br from-[#3C4E53] via-[#FD9C2D] to-[#FAD98D] overflow-hidden">
-        {user?.cover_image_url ?
-        <img src={user.cover_image_url} alt="Cover" className="w-full h-full object-cover" /> :
-        <div className="w-full h-full bg-gradient-to-br from-[#3C4E53] via-[#FD9C2D] to-[#FAD98D]" />
-        }
+        {user?.cover_image_url ? (
+          <img src={user.cover_image_url} alt="Cover" className="w-full h-full object-cover" />
+        ) : (
+          <div className="w-full h-full bg-gradient-to-br from-[#3C4E53] via-[#FD9C2D] to-[#FAD98D]" />
+        )}
         <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
         <label className="absolute bottom-3 right-3 bg-white/90 backdrop-blur rounded-lg px-3 py-1.5 shadow-sm cursor-pointer hover:bg-white transition-all flex items-center gap-1.5 text-xs font-semibold text-gray-700">
           <Camera className="w-3.5 h-3.5" />
@@ -57,12 +58,13 @@ function Header({ user, friendsCount, onCoverUpload, onAvatarUpload, uploading }
           {/* Avatar */}
           <div className="relative flex-shrink-0">
             <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full border-4 border-white shadow-xl overflow-hidden bg-gradient-to-br from-[#3C4E53] to-[#FD9C2D]">
-              {user?.profile_image_url ?
-              <img src={user.profile_image_url} alt={user?.full_name} className="w-full h-full object-cover" /> :
-              <div className="w-full h-full flex items-center justify-center text-white text-3xl font-bold">
-                    {user?.full_name?.charAt(0).toUpperCase() || 'U'}
-                  </div>
-              }
+              {user?.profile_image_url ? (
+                <img src={user.profile_image_url} alt={user?.full_name} className="w-full h-full object-cover" />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center text-white text-3xl font-bold">
+                  {user?.full_name?.charAt(0).toUpperCase() || 'U'}
+                </div>
+              )}
             </div>
             <label className="absolute bottom-0.5 right-0.5 bg-white rounded-full p-1.5 shadow-md cursor-pointer hover:scale-105 transition-transform">
               <Camera className="w-3.5 h-3.5 text-gray-600" />
@@ -77,42 +79,40 @@ function Header({ user, friendsCount, onCoverUpload, onAvatarUpload, uploading }
           </div>
 
           {/* Messages link */}
-          <Link to={createPageUrl('Messages')}
-          className="flex-shrink-0 w-9 h-9 rounded-full bg-[#FAD98D]/20 hover:bg-[#FAD98D]/35 flex items-center justify-center transition-colors">
+          <Link to={createPageUrl('Messages')} className="flex-shrink-0 w-9 h-9 rounded-full bg-[#FAD98D]/20 hover:bg-[#FAD98D]/35 flex items-center justify-center transition-colors">
             <MessageCircle className="w-4 h-4 text-[#0A1A2F]" />
           </Link>
 
           {/* Settings link */}
-          <Link to={createPageUrl('Settings')}
-          className="flex-shrink-0 w-9 h-9 rounded-full bg-[#FAD98D]/20 hover:bg-[#FAD98D]/35 flex items-center justify-center transition-colors">
+          <Link to={createPageUrl('Settings')} className="flex-shrink-0 w-9 h-9 rounded-full bg-[#FAD98D]/20 hover:bg-[#FAD98D]/35 flex items-center justify-center transition-colors">
             <Settings className="w-4 h-4 text-[#0A1A2F]" />
           </Link>
         </div>
 
         {/* 90-day goal / status */}
         {(user?.status_message || user?.goal_90_day || user?.spiritual_goal) && (
-        <div className="pb-4 space-y-2">
-            {user.status_message &&
-          <p className="text-sm text-[#0A1A2F]/70 italic">"{user.status_message}"</p>
-          }
-            {(user.goal_90_day || user.spiritual_goal) &&
-          <div className="flex items-start gap-2 bg-[#FAD98D]/15 border border-[#FAD98D]/30 rounded-xl p-3 text-sm">
+          <div className="pb-4 space-y-2">
+            {user.status_message && (
+              <p className="text-sm text-[#0A1A2F]/70 italic">"{user.status_message}"</p>
+            )}
+            {(user.goal_90_day || user.spiritual_goal) && (
+              <div className="flex items-start gap-2 bg-[#FAD98D]/15 border border-[#FAD98D]/30 rounded-xl p-3 text-sm">
                 <span className="text-base leading-none mt-0.5">🌟</span>
                 <p className="text-[#0A1A2F]/80"><span className="font-semibold text-[#0A1A2F]">90-day goal:</span> {user.goal_90_day || user.spiritual_goal}</p>
               </div>
-          }
-          {/* Profile pills */}
-          <div className="flex flex-wrap gap-1.5 pt-1">
-            {user.fitness_level && <span className="text-[10px] font-semibold px-2 py-1 rounded-full bg-[#38BDF8]/15 text-[#38BDF8]">💪 {user.fitness_level}</span>}
-            {user.diet_type && user.diet_type !== 'no_restrictions' && <span className="text-[10px] font-semibold px-2 py-1 rounded-full bg-[#22C55E]/15 text-[#22C55E]">🥗 {user.diet_type}</span>}
-            {user.bible_level && <span className="text-[10px] font-semibold px-2 py-1 rounded-full bg-[#FAD98D]/40 text-[#0A1A2F]">📖 {user.bible_level} reader</span>}
-            {user.coaching_style && <span className="text-[10px] font-semibold px-2 py-1 rounded-full bg-[#AFC7E3]/40 text-[#0A1A2F]">🧭 {user.coaching_style}</span>}
-          </div>
+            )}
+            {/* Profile pills */}
+            <div className="flex flex-wrap gap-1.5 pt-1">
+              {user.fitness_level && <span className="text-[10px] font-semibold px-2 py-1 rounded-full bg-[#38BDF8]/15 text-[#38BDF8]">💪 {user.fitness_level}</span>}
+              {user.diet_type && user.diet_type !== 'no_restrictions' && <span className="text-[10px] font-semibold px-2 py-1 rounded-full bg-[#22C55E]/15 text-[#22C55E]">🥗 {user.diet_type}</span>}
+              {user.bible_level && <span className="text-[10px] font-semibold px-2 py-1 rounded-full bg-[#FAD98D]/40 text-[#0A1A2F]">📖 {user.bible_level} reader</span>}
+              {user.coaching_style && <span className="text-[10px] font-semibold px-2 py-1 rounded-full bg-[#AFC7E3]/40 text-[#0A1A2F]">🧭 {user.coaching_style}</span>}
+            </div>
           </div>
         )}
       </div>
-    </div>);
-
+    </div>
+  );
 }
 
 // ─── Tab bar ───────────────────────────────────────────────────────────────────
@@ -135,7 +135,7 @@ function TabBar({ activeTab, onChange }) {
   );
 }
 
-// ─── Section heading ──────────────────────────────────────────────────────────
+// ─── Section heading ──────────────────────────────────────────────────────
 function SectionHeading({ children, accent }) {
   return (
     <div className="flex items-center gap-2 mb-3">
@@ -497,7 +497,7 @@ export default function Profile() {
       <div className="max-w-lg mx-auto px-4 py-5 space-y-4">
 
         {/* OVERVIEW */}
-        {activeTab === 'overview' &&
+        {activeTab === 'overview' && (
         <div className="space-y-6">
             <NorthStarCard user={user} />
             <ActivityStrip
@@ -523,10 +523,10 @@ export default function Profile() {
               )}
             </div>
           </div>
-        }
+        )}
 
         {/* ABOUT ── bio editor + account settings */}
-        {activeTab === 'about' &&
+        {activeTab === 'about' && (
         <>
             <AboutTab user={user} />
 
@@ -577,22 +577,22 @@ export default function Profile() {
               </div>
             </motion.div>
           </>
-        }
+        )}
 
         {/* FRIENDS */}
-        {activeTab === 'friends' &&
+        {activeTab === 'friends' && (
         <FriendsTab friends={friends} user={user} />
-        }
+        )}
 
         {/* PHOTOS */}
-        {activeTab === 'photos' &&
+        {activeTab === 'photos' && (
         <PhotosTab user={user} />
-        }
+        )}
 
         {/* AI GUIDES ── chatbot preferences */}
-        {activeTab === 'ai' &&
+        {activeTab === 'ai' && (
         <ChatbotPreferencesTab user={user} />
-        }
+        )}
 
       </div>
     </div>);
