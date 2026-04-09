@@ -25,9 +25,7 @@ class ErrorBoundary extends React.Component {
     return { hasError: true, error };
   }
   componentDidCatch(error, errorInfo) {
-    if (process.env.NODE_ENV !== 'production') {
-      console.error('ErrorBoundary caught:', error, errorInfo);
-    }
+    console.error('ErrorBoundary caught:', error, errorInfo);
   }
   render() {
     if (this.state.hasError) {
@@ -75,8 +73,11 @@ const LayoutWrapper = ({ children, currentPageName }) => Layout ?
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
 
+  console.log('AuthenticatedApp:', { isLoadingAuth, isLoadingPublicSettings, authError, mainPageKey });
+
   // Show loading spinner while checking app public settings or auth
   if (isLoadingPublicSettings || isLoadingAuth) {
+    console.log('Still loading auth/public settings...');
     return (
       <div className="fixed inset-0 flex items-center justify-center">
         <div className="w-8 h-8 border-4 border-slate-200 border-t-slate-800 rounded-full animate-spin"></div>
