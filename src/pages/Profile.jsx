@@ -72,7 +72,7 @@ function Header({ user, friendsCount, onCoverUpload, onAvatarUpload, uploading }
 
           {/* Name + meta */}
           <div className="flex-1 min-w-0 pt-10">
-            <h1 className="text-[#0A1A2F] py-3 text-xl font-bold leading-tight truncate">{user?.full_name || 'Your Profile'}</h1>
+            <h1 className="text-[#0A1A2F] py-3 text-base font-bold leading-tight">{user?.full_name || 'Your Profile'}</h1>
             <p className="text-sm text-[#0A1A2F]/50">{friendsCount} {friendsCount === 1 ? 'friend' : 'friends'}</p>
           </div>
 
