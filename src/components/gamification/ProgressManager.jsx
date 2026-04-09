@@ -46,10 +46,49 @@ export const BADGES = [
   { id: 'mindful_soul', name: 'Mindful Soul', description: 'Complete 20 self-care activities', icon: '🧖', points: 200, requirement: { field: 'self_care_activities_completed', value: 20 } },
   { id: 'wellness_advocate', name: 'Wellness Advocate', description: 'Complete 50 self-care activities', icon: '💆', points: 400, requirement: { field: 'self_care_activities_completed', value: 50 } },
 
+  // Journal Badges
+  { id: 'journal_first', name: 'Dear Diary', description: 'Write your first journal entry', icon: '📝', points: 50, requirement: { field: 'journal_entries_written', value: 1 } },
+  { id: 'journal_10', name: 'Reflective Heart', description: 'Write 10 journal entries', icon: '💭', points: 150, requirement: { field: 'journal_entries_written', value: 10 } },
+  { id: 'journal_50', name: 'Soul Chronicler', description: 'Write 50 journal entries', icon: '📔', points: 350, requirement: { field: 'journal_entries_written', value: 50 } },
+  { id: 'journal_100', name: 'Life Author', description: 'Write 100 journal entries', icon: '🖋️', points: 600, requirement: { field: 'journal_entries_written', value: 100 } },
+
+  // Prayer & Spiritual Badges
+  { id: 'prayer_request_1', name: 'Intercessor', description: 'Submit your first prayer request', icon: '🤲', points: 50, requirement: { field: 'prayer_requests_submitted', value: 1 } },
+  { id: 'prayer_request_10', name: 'Prayer Champion', description: 'Submit 10 prayer requests', icon: '✝️', points: 200, requirement: { field: 'prayer_requests_submitted', value: 10 } },
+  { id: 'spiritual_goals_1', name: 'Goal Setter', description: 'Set your first spiritual goal', icon: '🎯', points: 75, requirement: { field: 'spiritual_goals_set', value: 1 } },
+  { id: 'spiritual_goals_5', name: 'Disciplined Soul', description: 'Set 5 spiritual goals', icon: '🕊️', points: 200, requirement: { field: 'spiritual_goals_set', value: 5 } },
+  { id: 'bible_bookmarks_5', name: 'Scripture Keeper', description: 'Bookmark 5 Bible verses', icon: '🔖', points: 75, requirement: { field: 'bible_bookmarks', value: 5 } },
+  { id: 'bible_bookmarks_25', name: 'Word Hoarder', description: 'Bookmark 25 Bible verses', icon: '📜', points: 200, requirement: { field: 'bible_bookmarks', value: 25 } },
+
+  // Groups & Community Badges
+  { id: 'group_joiner', name: 'Better Together', description: 'Join your first group', icon: '🤝', points: 75, requirement: { field: 'groups_joined', value: 1 } },
+  { id: 'group_creator', name: 'Community Builder', description: 'Create a group', icon: '🏛️', points: 150, requirement: { field: 'groups_created', value: 1 } },
+  { id: 'group_5', name: 'Connector', description: 'Join 5 groups', icon: '🌐', points: 250, requirement: { field: 'groups_joined', value: 5 } },
+
+  // Challenge Badges
+  { id: 'challenge_first', name: 'Challenge Accepted', description: 'Complete your first challenge', icon: '🎖️', points: 100, requirement: { field: 'challenges_completed', value: 1 } },
+  { id: 'challenge_5', name: 'Challenge Seeker', description: 'Complete 5 challenges', icon: '🏅', points: 300, requirement: { field: 'challenges_completed', value: 5 } },
+  { id: 'challenge_10', name: 'Overcomer', description: 'Complete 10 challenges', icon: '💎', points: 600, requirement: { field: 'challenges_completed', value: 10 } },
+
+  // Nutrition & Meal Tracking
+  { id: 'meal_log_1', name: 'Food Logger', description: 'Log your first meal', icon: '🥗', points: 50, requirement: { field: 'meals_logged', value: 1 } },
+  { id: 'meal_log_30', name: 'Nutrition Tracker', description: 'Log 30 meals', icon: '🍽️', points: 200, requirement: { field: 'meals_logged', value: 30 } },
+  { id: 'meal_log_100', name: 'Mindful Eater', description: 'Log 100 meals', icon: '🌿', points: 400, requirement: { field: 'meals_logged', value: 100 } },
+  { id: 'water_7', name: 'Hydration Hero', description: 'Hit your water goal 7 days', icon: '💧', points: 150, requirement: { field: 'water_goal_days', value: 7 } },
+
+  // Progress Photos
+  { id: 'progress_photo_1', name: 'Before & After', description: 'Upload a progress photo', icon: '📷', points: 75, requirement: { external: 'photos_uploaded', value: 1 } },
+
   // Level Badges
   { id: 'level_5', name: 'Rising Star', description: 'Reach level 5', icon: '⭐', points: 250, requirement: { field: 'level', value: 5 } },
   { id: 'level_10', name: 'Community Leader', description: 'Reach level 10', icon: '👑', points: 500, requirement: { field: 'level', value: 10 } },
-  { id: 'level_20', name: 'Legendary', description: 'Reach level 20', icon: '✨', points: 1000, requirement: { field: 'level', value: 20 } }
+  { id: 'level_20', name: 'Legendary', description: 'Reach level 20', icon: '✨', points: 1000, requirement: { field: 'level', value: 20 } },
+  { id: 'level_50', name: 'Ascended', description: 'Reach level 50', icon: '🌠', points: 2000, requirement: { field: 'level', value: 50 } },
+
+  // Milestone Badges
+  { id: 'points_1000', name: 'Point Collector', description: 'Earn 1,000 total points', icon: '💰', points: 0, requirement: { field: 'total_points', value: 1000 } },
+  { id: 'points_5000', name: 'Point Hoarder', description: 'Earn 5,000 total points', icon: '💎', points: 0, requirement: { field: 'total_points', value: 5000 } },
+  { id: 'points_10000', name: 'Point Legend', description: 'Earn 10,000 total points', icon: '🏆', points: 0, requirement: { field: 'total_points', value: 10000 } },
 ];
 
 export async function awardPoints(userEmail, points, additionalFields = {}, queryClient = null) {
