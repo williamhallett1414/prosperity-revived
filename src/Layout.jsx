@@ -4,9 +4,7 @@ import { createPageUrl } from '@/utils';
 import { base44 } from '@/api/base44Client';
 import { Home, User, Heart, BookOpen, Users } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import NotificationBell from '@/components/notifications/NotificationBell';
 import PullToRefresh from '@/components/ui/PullToRefresh';
-import UniversalHeader from '@/components/navigation/UniversalHeader';
 import { requestNotificationPermission, initDefaultReminders } from '@/utils/notifications';
 import { useQueryClient } from '@tanstack/react-query';
 // Scroll position cache per page
@@ -282,9 +280,7 @@ export default function Layout({ children, currentPageName }) {
         }
       `}</style>
       
-      {/* Top Bar with Universal Header */}
-      {isChildRoute ?
-        <UniversalHeader title={currentPageTitle} backTo={currentPageBack} /> : null
+      {/* Top Bar removed temporarily */}
 
 
 
