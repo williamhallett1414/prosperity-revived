@@ -85,7 +85,7 @@ export default function Achievements() {
     <div className="min-h-screen bg-[#F2F6FA] pb-28">
 
       {/* ── Hero header ── */}
-      <div className="sticky top-0 z-40 bg-white border-b border-[#FAD98D]/20 px-4 pt-2 pb-2">
+      <div className="sticky top-0 z-40 bg-white border-b border-[#FAD98D]/20 px-4 pt-0 pb-2">
         <div className="max-w-lg mx-auto">
           <div className="flex items-center gap-3">
             <button onClick={() => navigate(-1)}
