@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
-import { Trophy, Flame, Crown, TrendingUp, Sparkles } from 'lucide-react';
+import { Trophy, Flame, Crown, TrendingUp, Sparkles, ArrowLeft } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import BadgeCard from '@/components/gamification/BadgeCard';
 import MultiActivityLeaderboard from '@/components/gamification/MultiActivityLeaderboard';
 import DailyWeeklyChallenges from '@/components/gamification/DailyWeeklyChallenges';
@@ -61,6 +62,7 @@ function TabBar({ active, onChange }) {
 export default function Achievements() {
   const [user, setUser] = useState(null);
   const [tab, setTab] = useState('badges');
+  const navigate = useNavigate();
 
   useEffect(() => { base44.auth.me().then(setUser).catch(() => {}); }, []);
 
@@ -86,6 +88,10 @@ export default function Achievements() {
       <div className="sticky top-0 z-40 bg-white border-b border-[#FAD98D]/20 px-4 pt-4 pb-3">
         <div className="max-w-lg mx-auto">
           <div className="flex items-center gap-3">
+            <button onClick={() => navigate(-1)}
+              className="w-9 h-9 rounded-xl bg-[#F2F6FA] flex items-center justify-center flex-shrink-0">
+              <ArrowLeft className="w-4 h-4 text-[#0A1A2F]" />
+            </button>
             <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center">
               <Trophy className="w-5 h-5 text-white" />
             </div>
@@ -155,4 +161,3 @@ export default function Achievements() {
     </div>
   );
 }
-
