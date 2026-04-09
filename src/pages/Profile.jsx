@@ -307,28 +307,28 @@ function GoalBento() {
 
       {/* Row 1 — Journey (wide) + Achievements (narrow) */}
       <div className="flex gap-4 mb-6">
-        <Link to={createPageUrl('ProgressDashboard')} className="flex-[2]">
-          <div className="relative overflow-hidden rounded-3xl p-5 h-full min-h-[110px] hover:opacity-95 transition-opacity"
+        <Link to={createPageUrl('ProgressDashboard')} className="flex-1">
+          <div className="relative overflow-hidden rounded-3xl p-3.5 h-full min-h-[80px] hover:opacity-95 transition-opacity"
             style={{ background: 'linear-gradient(135deg, #0A1A2F, #162944)' }}>
             <div className="absolute top-0 right-0 w-20 h-20 rounded-full opacity-20"
               style={{ background: 'radial-gradient(circle, #38BDF8, transparent)', transform: 'translate(30%, -30%)' }} />
             <div className="relative z-10">
-              <div className="w-8 h-8 rounded-xl bg-white/10 flex items-center justify-center mb-3">
-                <TrendingUp className="w-4 h-4 text-white" />
+              <div className="w-7 h-7 rounded-lg bg-white/10 flex items-center justify-center mb-2">
+                <TrendingUp className="w-3.5 h-3.5 text-white" />
               </div>
-              <p className="font-black text-white text-sm">My Journey</p>
+              <p className="font-black text-white text-xs">My Journey</p>
               <p className="text-white/40 text-[10px] mt-0.5">Progress & guides</p>
             </div>
           </div>
         </Link>
-        <Link to={createPageUrl('Achievements')} className="flex-[1]">
-          <div className="relative overflow-hidden rounded-3xl p-4 h-full min-h-[96px] flex flex-col justify-between hover:opacity-95 transition-opacity"
+        <Link to={createPageUrl('Achievements')} className="flex-1">
+          <div className="relative overflow-hidden rounded-3xl p-3.5 h-full min-h-[80px] flex flex-col justify-between hover:opacity-95 transition-opacity"
             style={{ background: 'linear-gradient(135deg, #C9A227, #FD9C2D)' }}>
             <div className="absolute bottom-0 right-0 w-16 h-16 rounded-full opacity-20"
               style={{ background: 'radial-gradient(circle, #fff, transparent)', transform: 'translate(30%, 30%)' }} />
             <div className="relative z-10">
-              <Trophy className="w-5 h-5 text-white mb-3" />
-              <p className="font-black text-white text-sm">Achievements</p>
+              <Trophy className="w-4 h-4 text-white mb-2" />
+              <p className="font-black text-white text-xs">Achievements</p>
               <p className="text-white/65 text-[10px] mt-0.5">Badges & level</p>
             </div>
           </div>
