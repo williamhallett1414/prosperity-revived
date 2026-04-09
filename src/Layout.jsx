@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { base44 } from '@/api/base44Client';
-import { Home, User, Heart, BookOpen, Users } from 'lucide-react';
+import { Home, User, Heart, BookOpen, Users, ArrowLeft } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Toaster } from '@/components/ui/sonner.jsx';
 import NotificationBell from '@/components/notifications/NotificationBell';
@@ -306,6 +306,18 @@ export default function Layout({ children, currentPageName }) {
         }
 
       <main className="pt-16 pb-20">
+        {/* Back button for child routes */}
+        {isChildRoute && currentPageBack && (
+          <div className="px-4 pt-3 pb-2 max-w-lg mx-auto">
+            <button
+              onClick={() => navigate(createPageUrl(currentPageBack))}
+              className="flex items-center gap-2 text-sm font-semibold text-[#0A1A2F] dark:text-white hover:opacity-60 transition-opacity"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Back
+            </button>
+          </div>
+        )}
         <PullToRefresh onRefresh={async () => {
             await queryClient.invalidateQueries();
           }}>
