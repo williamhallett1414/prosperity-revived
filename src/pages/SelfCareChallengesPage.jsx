@@ -13,7 +13,7 @@ const CHALLENGES = [
     description: "Modeled after Jesus' 40 days in the wilderness (Matthew 4:1-11), this is the most demanding challenge in Prosperity Revived. You will fast from comfort, strip away distraction, face your deepest temptations, and learn to rely solely on Christ. This is not casual — it is a pilgrimage. You will be pushed to your mental, physical, and emotional limits. But on the other side is a faith that cannot be shaken. Are you ready to walk into the desert?",
     tasks: [
       // WEEK 1: THE DESCENT — Stripping Away
-      { day: 1, title: "Enter the wilderness", content: "Today you begin. Delete one social media app from your phone. Write a letter to God telling Him why you're doing this. Read Matthew 4:1-2. Jesus was LED by the Spirit into the wilderness — this is not punishment, it is preparation.", prompt: "What are you hoping God does in you over the next 40 days?" },
+      { day: 1, title: "Enter the wilderness", content: "Today you begin. Delete one social media app from your phone. Write a letter to God telling Him why you're doing this. Read Matthew 4:1-2. Jesus was LED by the Spirit into the wilderness — this is not punishment, it is preparation.", prompt: "What are you hoping God does in you over the next 40 days?", verse: "Matthew 4:1-2" },
       { day: 2, title: "The first fast", content: "Skip one meal today. During that meal time, sit in silence with your Bible open to Psalm 63. No music, no podcast — just you and God. Feel the hunger. Let it remind you that you need Him more than food.", prompt: "What did hunger teach you about dependence today?" },
       { day: 3, title: "Confession", content: "Write down every sin, habit, and compromise you've been carrying. Be brutally honest — no one sees this but God. Read 1 John 1:9. Then pray over each one and physically destroy the paper.", prompt: "What did it feel like to name what you've been hiding?" },
       { day: 4, title: "Digital wilderness", content: "No social media today. No YouTube. No streaming. No news. Only Scripture, prayer, and necessary communication. Read Psalm 46:10 — 'Be still and know that I am God.'", prompt: "What did you discover in the silence that noise had been covering?" },
@@ -563,6 +563,28 @@ function ChallengeDetail({ challenge, localData, onBack, onStart, onComplete, on
                   {currentTask.content}
                 </div>
 
+                {/* Recommended verse link */}
+                {currentTask.verse && (
+                  <a
+                    href={`https://www.bible.com/bible/111/${currentTask.verse.replace(/\s/g,'').replace(':','.').replace('-','.')}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      display:"flex",alignItems:"center",gap:10,
+                      background:"linear-gradient(135deg,#451a03,#78350f)",
+                      borderRadius:14,padding:"10px 14px",marginBottom:16,
+                      textDecoration:"none",
+                    }}
+                  >
+                    <span style={{fontSize:18}}>📖</span>
+                    <div style={{flex:1}}>
+                      <div style={{fontSize:11,fontWeight:900,color:"rgba(255,255,255,0.6)",textTransform:"uppercase",letterSpacing:0.8}}>Today's Scripture</div>
+                      <div style={{fontSize:13,fontWeight:800,color:"white"}}>{currentTask.verse}</div>
+                    </div>
+                    <span style={{color:"rgba(255,255,255,0.4)",fontSize:16}}>→</span>
+                  </a>
+                )}
+
                 {/* Reflection */}
                 <div style={{marginBottom:12}}>
                   <div style={{fontSize:11,fontWeight:800,color:"#0A1A2F44",textTransform:"uppercase",letterSpacing:1.2,marginBottom:6}}>
@@ -930,10 +952,16 @@ export default function SelfCareChallengesPage() {
               <div style={{color:"rgba(255,255,255,0.55)",fontSize:12,fontStyle:"italic",marginBottom:10,lineHeight:1.5}}>{featured.tagline}</div>
               <div style={{color:"rgba(255,255,255,0.65)",fontSize:12,lineHeight:1.7,marginBottom:14}}>{featured.description?.substring(0, 180)}...</div>
               <div style={{display:"flex",alignItems:"center",gap:12}}>
-                <div style={{display:"flex",alignItems:"center",gap:6}}>
+                <a
+                  href="https://www.bible.com/bible/111/MAT.4.NIV"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={e => e.stopPropagation()}
+                  style={{display:"flex",alignItems:"center",gap:6,textDecoration:"none"}}
+                >
                   <span style={{fontSize:13}}>📖</span>
-                  <span style={{color:"rgba(255,255,255,0.6)",fontSize:11,fontWeight:600}}>Matthew 4:1-11</span>
-                </div>
+                  <span style={{color:"rgba(255,255,255,0.85)",fontSize:11,fontWeight:700,textDecoration:"underline",textUnderlineOffset:2}}>Matthew 4:1-11</span>
+                </a>
                 <div style={{display:"flex",alignItems:"center",gap:6}}>
                   <span style={{fontSize:13}}>⏳</span>
                   <span style={{color:"rgba(255,255,255,0.6)",fontSize:11,fontWeight:600}}>40 Days</span>
