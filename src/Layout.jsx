@@ -205,7 +205,9 @@ export default function Layout({ children, currentPageName }) {
     MealDetailView: 'Nutrition',
     NutritionArticle: 'Nutrition',
     NutritionGuidance: 'Nutrition',
-    DiscoverRecipes: 'Nutrition'
+    DiscoverRecipes: 'Nutrition',
+    ProgressDashboard: 'Home',
+    Achievements: 'ProgressDashboard'
   };
   const currentPageBack = pageBackTo[currentPageName] || null;
 
