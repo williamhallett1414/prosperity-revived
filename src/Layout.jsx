@@ -303,6 +303,20 @@ export default function Layout({ children, currentPageName }) {
         }
 
       <main className="pt-16 pb-20">
+        {/* Back button for child routes */}
+        {isChildRoute && currentPageBack && (
+          <div className="px-4 pt-4 pb-2 max-w-lg mx-auto">
+            <button
+              onClick={() => navigate(createPageUrl(currentPageBack))}
+              className="flex items-center gap-2 text-sm font-medium text-[#0A1A2F] dark:text-white hover:opacity-70 transition-opacity"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+              Back
+            </button>
+          </div>
+        )}
         <PullToRefresh onRefresh={async () => {
             await queryClient.invalidateQueries();
           }}>
