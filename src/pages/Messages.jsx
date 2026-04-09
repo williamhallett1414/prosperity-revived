@@ -351,7 +351,7 @@ export default function Messages() {
           <div className="flex border-b border-[#F2F6FA] flex-shrink-0">
             {[
               { id: 'dms',     label: 'Messages', icon: Users },
-              { id: 'coaches', label: 'AI Coaches', icon: Bot },
+              { id: 'coaches', label: 'Coaches', icon: Bot },
             ].map(t => (
               <button key={t.id} onClick={() => setTab(t.id)}
                 className={`flex-1 flex items-center justify-center gap-1.5 py-3 text-xs font-bold transition-colors border-b-2 ${
