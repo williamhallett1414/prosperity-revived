@@ -83,50 +83,52 @@ function getTimeLabel() {
 
 // ─── Audio engine ─────────────────────────────────────────────────────────────
 
-// ─── Preload voices (Chrome loads them async) ────────────────────────────────
-let cachedHannahVoice = null;
-let voicesLoaded = false;
+// ─── Speak using Google Cloud TTS (Hannah's voice) ──────────────────────────
+// Falls back to browser speechSynthesis if cloud TTS fails
+const speakSegment = (text) => new Promise(async (resolve) => {
+  const cleaned = text
+    .replace(/\*\*(.+?)\*\*/g, '$1').replace(/\*(.+?)\*/g, '$1')
+    .replace(/#{1,6}\s+/g, '').replace(/`{1,3}[^`]*`{1,3}/g, '')
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1').trim().slice(0, 4500);
 
-function preloadVoices() {
-  return new Promise(resolve => {
-    if (voicesLoaded && cachedHannahVoice) { resolve(cachedHannahVoice); return; }
-    const voices = window.speechSynthesis?.getVoices() || [];
-    if (voices.length > 0) {
-      cachedHannahVoice = findHannahVoice(voices);
-      voicesLoaded = true;
-      resolve(cachedHannahVoice);
+  if (!cleaned) { resolve(); return; }
+
+  // Try Google Cloud TTS first (same as ChatScreen Hannah voice)
+  try {
+    const result = await base44.functions.invoke('hannahTTS', { text: cleaned });
+    const audioContent = result?.audioContent ?? result?.data?.audioContent;
+    if (audioContent) {
+      const binary = atob(audioContent);
+      const bytes = new Uint8Array(binary.length);
+      for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+      const blob = new Blob([bytes], { type: 'audio/mpeg' });
+      const url = URL.createObjectURL(blob);
+      const audio = new Audio(url);
+      audio.onended = () => { URL.revokeObjectURL(url); resolve(); };
+      audio.onerror = () => { URL.revokeObjectURL(url); resolve(); };
+      await audio.play();
       return;
     }
-    // Wait for voiceschanged event (Chrome)
-    const handler = () => {
-      const v = window.speechSynthesis.getVoices();
-      cachedHannahVoice = findHannahVoice(v);
-      voicesLoaded = true;
-      window.speechSynthesis.removeEventListener('voiceschanged', handler);
-      resolve(cachedHannahVoice);
-    };
-    window.speechSynthesis?.addEventListener('voiceschanged', handler);
-    // Fallback timeout — resolve with null after 3s
-    setTimeout(() => {
-      if (!voicesLoaded) {
-        const v = window.speechSynthesis?.getVoices() || [];
-        cachedHannahVoice = findHannahVoice(v);
-        voicesLoaded = true;
-        resolve(cachedHannahVoice);
-      }
-    }, 3000);
-  });
-}
+  } catch (err) {
+    console.warn('[Meditation TTS] Cloud TTS failed, trying browser:', err);
+  }
 
-const speakSegment = (text, rate = MEDITATION_VOICE.rate, pitch = MEDITATION_VOICE.pitch) => new Promise(resolve => {
-  if (!window.speechSynthesis) { resolve(); return; }
-  window.speechSynthesis.cancel();
-  const utter = new SpeechSynthesisUtterance(text);
-  utter.rate = rate; utter.pitch = pitch; utter.volume = MEDITATION_VOICE.volume;
-  // Use cached voice — already preloaded before meditation starts
-  if (cachedHannahVoice) utter.voice = cachedHannahVoice;
-  utter.onend = resolve; utter.onerror = resolve;
-  window.speechSynthesis.speak(utter);
+  // Fallback: browser speechSynthesis
+  if (window.speechSynthesis) {
+    window.speechSynthesis.cancel();
+    const utter = new SpeechSynthesisUtterance(cleaned);
+    utter.rate = MEDITATION_VOICE.rate;
+    utter.pitch = MEDITATION_VOICE.pitch;
+    utter.volume = MEDITATION_VOICE.volume;
+    const voices = window.speechSynthesis.getVoices();
+    const preferred = findHannahVoice(voices);
+    if (preferred) utter.voice = preferred;
+    utter.onend = resolve;
+    utter.onerror = resolve;
+    window.speechSynthesis.speak(utter);
+  } else {
+    resolve();
+  }
 });
 
 const sleep = ms => new Promise(r => setTimeout(r, ms));
@@ -144,25 +146,15 @@ function MeditationPlayer({ meditation, onClose }) {
   const stoppedRef = useRef(false);
   const timerRef  = useRef(null);
   const breathRef = useRef(null);
-
-  // Chrome pauses speechSynthesis after ~15s. Keep-alive resumes it.
-  const chromeKeepAlive = useRef(null);
-  useEffect(() => {
-    chromeKeepAlive.current = setInterval(() => {
-      if (window.speechSynthesis?.speaking && !window.speechSynthesis?.paused) {
-        window.speechSynthesis.pause();
-        window.speechSynthesis.resume();
-      }
-    }, 10000);
-    return () => clearInterval(chromeKeepAlive.current);
-  }, []);
+  const audioRef  = useRef(null);
 
   useEffect(() => {
     run();
     return () => {
       stoppedRef.current = true;
+      // Stop any playing audio
+      if (audioRef.current) { try { audioRef.current.pause(); audioRef.current.src = ''; } catch {} }
       window.speechSynthesis?.cancel();
-      
       clearInterval(timerRef.current);
       clearInterval(breathRef.current);
     };
@@ -170,8 +162,6 @@ function MeditationPlayer({ meditation, onClose }) {
 
   const run = async () => {
     stoppedRef.current = false; pausedRef.current = false;
-    // Preload Hannah's voice before starting
-    await preloadVoices();
     let segments = [];
     try {
       const raw = await base44.integrations.Core.InvokeLLM({
@@ -231,15 +221,24 @@ function MeditationPlayer({ meditation, onClose }) {
 
   const handleClose = () => {
     stoppedRef.current = true;
+    if (audioRef.current) { try { audioRef.current.pause(); audioRef.current.src = ''; } catch {} }
     window.speechSynthesis?.cancel();
-    
     clearInterval(timerRef.current); clearInterval(breathRef.current);
     onClose();
   };
 
   const togglePause = () => {
-    if (phase === 'playing') { pausedRef.current = true; window.speechSynthesis?.pause(); setPhase('paused'); }
-    else if (phase === 'paused') { pausedRef.current = false; window.speechSynthesis?.resume(); setPhase('playing'); }
+    if (phase === 'playing') {
+      pausedRef.current = true;
+      if (audioRef.current && !audioRef.current.paused) audioRef.current.pause();
+      window.speechSynthesis?.pause();
+      setPhase('paused');
+    } else if (phase === 'paused') {
+      pausedRef.current = false;
+      if (audioRef.current && audioRef.current.paused && audioRef.current.src) audioRef.current.play().catch(() => {});
+      window.speechSynthesis?.resume();
+      setPhase('playing');
+    }
   };
 
   const fmt = s => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
