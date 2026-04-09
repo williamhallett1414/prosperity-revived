@@ -118,24 +118,21 @@ function Header({ user, friendsCount, onCoverUpload, onAvatarUpload, uploading }
 // ─── Tab bar ───────────────────────────────────────────────────────────────────
 function TabBar({ activeTab, onChange }) {
   return (
-    <div className="sticky top-0 z-30 bg-white border-b border-[#FAD98D]/25 shadow-sm">
-      <div className="max-w-lg mx-auto px-4 flex gap-0 overflow-x-auto">
-        {TABS.map(({ id, label }) =>
-        <button key={id} onClick={() => onChange(id)}
-        className={`px-4 py-3.5 text-xs font-semibold flex-shrink-0 relative transition-colors ${
-        activeTab === id ? 'text-[#c9a227]' : 'text-[#0A1A2F]/50 hover:text-[#0A1A2F]/70'}`
-        }>
+    <div className="sticky top-0 z-30 bg-white/95 backdrop-blur-sm border-b border-gray-100 shadow-sm">
+      <div className="max-w-lg mx-auto px-3 py-2 flex gap-1 overflow-x-auto scrollbar-none">
+        {TABS.map(({ id, label }) => (
+          <button key={id} onClick={() => onChange(id)}
+            className={`relative px-3.5 py-2 text-xs font-bold flex-shrink-0 rounded-xl transition-all ${
+              activeTab === id
+                ? 'bg-[#0A1A2F] text-white shadow-sm'
+                : 'text-[#0A1A2F]/45 hover:text-[#0A1A2F]/70 hover:bg-[#0A1A2F]/05'
+            }`}>
             {label}
-            {activeTab === id &&
-          <motion.div layoutId="profileTab"
-          className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#c9a227] to-[#FAD98D] rounded-full"
-          transition={{ type: 'spring', stiffness: 500, damping: 30 }} />
-          }
           </button>
-        )}
+        ))}
       </div>
-    </div>);
-
+    </div>
+  );
 }
 
 // ─── Section heading ──────────────────────────────────────────────────────────
