@@ -37,7 +37,7 @@ export default function Layout({ children, currentPageName }) {
   const queryClient = useQueryClient();
   const [showGuidedTour, setShowGuidedTour] = useState(false);
 
-  // Apply dark mode on app load
+  // Apply dark mode on app load 
   useEffect(() => {
     try {
       base44.auth.me().then(u => {
