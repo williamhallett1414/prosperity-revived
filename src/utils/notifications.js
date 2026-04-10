@@ -4,20 +4,36 @@
  * 
  * Web: Uses browser Notification API for reminders
  * Native: Will use @capacitor/local-notifications when installed
+ * 
+ * iOS Safari: Notification API is NOT supported outside PWA context.
+ * All functions check for support before accessing the API.
  */
+
+// Detect if Notification API is available and safe to use
+function isNotificationSupported() {
+  try {
+    return 'Notification' in window && typeof Notification !== 'undefined' && typeof Notification.permission === 'string';
+  } catch {
+    return false;
+  }
+}
 
 // Request permission (call once on app load or settings)
 export async function requestNotificationPermission() {
-  if (!('Notification' in window)) return 'unsupported';
-  if (Notification.permission === 'granted') return 'granted';
-  if (Notification.permission === 'denied') return 'denied';
-  const result = await Notification.requestPermission();
-  return result;
+  if (!isNotificationSupported()) return 'unsupported';
+  try {
+    if (Notification.permission === 'granted') return 'granted';
+    if (Notification.permission === 'denied') return 'denied';
+    const result = await Notification.requestPermission();
+    return result;
+  } catch {
+    return 'unsupported';
+  }
 }
 
 // Schedule a daily reminder (web)
 export function scheduleDailyReminder({ hour = 8, minute = 0, title, body, tag }) {
-  if (!('Notification' in window) || Notification.permission !== 'granted') return null;
+  if (!isNotificationSupported() || Notification.permission !== 'granted') return null;
 
   const now = new Date();
   const target = new Date();
@@ -26,13 +42,14 @@ export function scheduleDailyReminder({ hour = 8, minute = 0, title, body, tag }
 
   const delay = target - now;
   const timerId = setTimeout(() => {
-    new Notification(title, {
-      body,
-      icon: '/favicon.ico',
-      tag, // prevents duplicate notifications
-      badge: '/favicon.ico',
-    });
-    // Reschedule for next day
+    try {
+      new Notification(title, {
+        body,
+        icon: '/favicon.ico',
+        tag,
+        badge: '/favicon.ico',
+      });
+    } catch {}
     scheduleDailyReminder({ hour, minute, title, body, tag });
   }, delay);
 
@@ -41,6 +58,8 @@ export function scheduleDailyReminder({ hour = 8, minute = 0, title, body, tag }
 
 // Pre-configured reminders
 export function initDefaultReminders() {
+  if (!isNotificationSupported()) return;
+  
   const reminders = JSON.parse(localStorage.getItem('pr_reminders') || '{}');
 
   if (reminders.morning !== false) {
