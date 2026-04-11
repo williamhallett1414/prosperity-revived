@@ -1,5 +1,8 @@
-import React from 'react'
+import * as React from 'react'
 import ReactDOM from 'react-dom/client'
+
+// react-quill expects React as a global in bundled builds
+window.React = React;
 import App from '@/App.jsx'
 import '@/index.css'
 
