@@ -15,23 +15,5 @@ export default defineConfig({
       visualEditAgent: true
     }),
     react(),
-  ],
-  build: {
-    // Strip console.log and console.warn in production (keep console.error)
-    minify: 'esbuild',
-    target: 'es2020',
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          'vendor-react': ['react', 'react-dom', 'react-router-dom'],
-          'vendor-ui': ['framer-motion', 'lucide-react', '@radix-ui/react-dialog', '@radix-ui/react-tabs'],
-          'vendor-charts': ['recharts'],
-          'vendor-3d': ['three', '@react-three/fiber', '@react-three/drei'],
-        }
-      }
-    }
-  },
-  esbuild: {
-    drop: process.env.NODE_ENV === 'production' ? ['console', 'debugger'] : [],
-  },
+  ]
 });
