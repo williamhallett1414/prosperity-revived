@@ -1,8 +1,12 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, { createContext, useState, useContext, useEffect, useRef, useCallback } from 'react';
 import { base44 } from '@/api/base44Client';
 import { appParams } from '@/lib/app-params';
 
 const AuthContext = createContext();
+
+// Auto-logout after 30 minutes of inactivity
+const INACTIVITY_TIMEOUT_MS = 30 * 60 * 1000;
+const ACTIVITY_EVENTS = ['mousedown', 'mousemove', 'keydown', 'touchstart', 'scroll', 'click'];
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -11,6 +15,32 @@ export const AuthProvider = ({ children }) => {
   const [isLoadingPublicSettings, setIsLoadingPublicSettings] = useState(true);
   const [authError, setAuthError] = useState(null);
   const [appPublicSettings, setAppPublicSettings] = useState(null); // Contains only { id, public_settings }
+  const inactivityTimerRef = useRef(null);
+
+  // Reset the inactivity countdown on any user activity
+  const resetInactivityTimer = useCallback(() => {
+    if (inactivityTimerRef.current) clearTimeout(inactivityTimerRef.current);
+    inactivityTimerRef.current = setTimeout(() => {
+      // Auto sign-out after inactivity
+      base44.auth.logout(window.location.href);
+    }, INACTIVITY_TIMEOUT_MS);
+  }, []);
+
+  // Start/stop activity listeners based on auth state
+  useEffect(() => {
+    if (!isAuthenticated) {
+      if (inactivityTimerRef.current) clearTimeout(inactivityTimerRef.current);
+      ACTIVITY_EVENTS.forEach(e => window.removeEventListener(e, resetInactivityTimer));
+      return;
+    }
+    // Authenticated — start watching for inactivity
+    resetInactivityTimer();
+    ACTIVITY_EVENTS.forEach(e => window.addEventListener(e, resetInactivityTimer, { passive: true }));
+    return () => {
+      if (inactivityTimerRef.current) clearTimeout(inactivityTimerRef.current);
+      ACTIVITY_EVENTS.forEach(e => window.removeEventListener(e, resetInactivityTimer));
+    };
+  }, [isAuthenticated, resetInactivityTimer]);
 
   useEffect(() => {
     checkAppState();
