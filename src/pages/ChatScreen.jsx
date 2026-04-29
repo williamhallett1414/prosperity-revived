@@ -18,6 +18,7 @@ import CoachPaulAvatar    from '@/components/avatar/CoachPaulAvatar';
 import HannahAvatar        from '@/components/avatar/HannahAvatar';
 import BotBackground from '@/components/avatar/BotBackground';
 import TabernacleLights from '@/components/avatar/backgrounds/TabernacleLights';
+import SacredGarden from '@/components/avatar/backgrounds/SacredGarden';
 import VisemeAvatar, { hasPoseSet } from '@/components/avatar/VisemeAvatar';
 
 // ─── Error boundary — if WebGL/R3F fails, show pulsing circle ────────────────
@@ -1350,6 +1351,11 @@ export default function ChatScreen() {
       {/* Tabernacle oil lamp lights — Gideon only */}
       {cfg.character === 'gideon' && (
         <TabernacleLights speaking={avatarSpeaking} />
+      )}
+
+      {/* Sacred Garden — Hannah only */}
+      {cfg.character === 'hannah' && (
+        <SacredGarden speaking={avatarSpeaking} />
       )}
 
       {/* Header */}
