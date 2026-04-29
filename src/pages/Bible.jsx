@@ -73,7 +73,7 @@ function QuickTools({ bookmarkCount }) {
               <Icon className={`w-4 h-4 ${color}`} />
             </div>
             <div>
-              <p className="text-xs font-semibold text-[#0A1A2F] dark:text-white dark:text-white">{label}</p>
+              <p className="text-xs font-bold text-[#0A1A2F] dark:text-white">{label}</p>
               {value != null && <p className={`text-xs font-bold ${color}`}>{value} saved</p>}
             </div>
             <ChevronRight className="w-3.5 h-3.5 text-[#0A1A2F]/25 dark:text-white/25 ml-auto" />
