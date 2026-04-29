@@ -335,7 +335,7 @@ export default function Bible() {
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">Ask Gideon</p>
-                      <p className="text-xs text-[#0A1A2F]/50 dark:text-white/50">Have a question about Scripture? Ask your Bible guide.</p>
+                      <p className="text-xs text-[#0A1A2F]/70 dark:text-white/70">Have a question about Scripture? Ask your Bible guide.</p>
                     </div>
                     <ChevronRight className="w-4 h-4 text-[#c9a227] flex-shrink-0" />
                   </div>
