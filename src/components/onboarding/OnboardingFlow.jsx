@@ -586,7 +586,7 @@ export default function OnboardingFlow({ onComplete }) {
                   {cfg.id==='legal'     && 'Before you begin 📋'}
                   {cfg.id==='you'       && 'Welcome to Prosperity Revived 🙏'}
                   {cfg.id==='why'       && "What's bringing you here?"}
-                  {cfg.id==='fitness'   && 'Fitness & body'}
+                  {cfg.id==='fitness'   && 'Fitness & Body'}
                   {cfg.id==='nutrition' && 'Nutrition & eating'}
                   {cfg.id==='faith'     && 'Faith & Bible study'}
                   {cfg.id==='growth'    && 'Personal growth'}
