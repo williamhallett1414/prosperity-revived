@@ -286,7 +286,7 @@ function StreakRow({ meditationSessions, workoutSessions, journalEntries }) {
               }}>
               <p className="text-2xl mb-1">{s.emoji}</p>
               <p className="font-black text-2xl leading-none" style={{ color: active ? s.color : '#CBD5E1' }}>{s.count}</p>
-              <p className="text-[9px] text-[#0A1A2F]/40 dark:text-white/40 font-bold uppercase tracking-wide mt-1">{s.label}</p>
+              <p className="text-[9px] text-[#0A1A2F] dark:text-white font-bold uppercase tracking-wide mt-1">{s.label}</p>
               <p className="text-[9px] font-semibold mt-1" style={{ color: active ? s.color : '#CBD5E1' }}>
                 {active ? `${s.count === 1 ? '1 day' : `${s.count} days`}` : 'Start today'}
               </p>
