@@ -268,6 +268,12 @@ export default function Workouts() {
   return (
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
 
+      {/* Health Disclaimer — required for App Store approval */}
+      <div className="mx-3 sm:mx-4 mb-3 bg-amber-50 dark:bg-amber-900/15 rounded-xl px-3 py-2 border border-amber-100 dark:border-amber-800/20">
+        <p className="text-[10px] text-amber-700 dark:text-amber-300 text-center">Not medical advice. Consult a healthcare professional before starting any new exercise or nutrition program.</p>
+      </div>
+
+
       {/* ── Header ── */}
       <div className="sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b border-[#BAE6FD]/40">
         <div className="px-4 py-3 max-w-2xl mx-auto flex items-center justify-between">

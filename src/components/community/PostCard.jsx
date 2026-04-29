@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { Heart, MessageCircle, Share2, BookOpen, UserPlus, Flag } from 'lucide-react';
+import { Heart, MessageCircle, Share2, BookOpen, UserPlus, Flag, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { format } from 'date-fns';
@@ -192,14 +192,34 @@ export default function PostCard({ post, comments = [], onLike, onComment, index
           <span className="text-xs text-[#AFC7E3] font-medium">Friends</span>
         )}
         {!isMyPost && user && (
-          <button
-            onClick={async () => { if (window.confirm('Report this post for review? Our team will investigate.')) { try { await base44.entities.Report?.create({ post_id: post.id, reporter_email: user?.email, reason: 'user_flagged' }); alert('Report submitted. Thank you for helping keep our community safe.'); } catch { alert('Failed to submit report. Please try again.'); } } }}
-            className="p-1.5 rounded-full hover:bg-gray-100 dark:bg-white/5 transition-colors"
-            aria-label="Report post"
-            title="Report post"
-          >
-            <Flag className="w-3.5 h-3.5 text-gray-400 dark:text-gray-300 hover:text-red-400" />
-          </button>
+          <>
+            <button
+              onClick={async () => {
+                if (window.confirm(`Block ${post.author_name || 'this user'}? You won't see their posts anymore.`)) {
+                  try {
+                    const blocked = JSON.parse(localStorage.getItem('pr_blocked_users') || '[]');
+                    if (!blocked.includes(post.created_by)) blocked.push(post.created_by);
+                    localStorage.setItem('pr_blocked_users', JSON.stringify(blocked));
+                    alert('User blocked. Their posts will be hidden.');
+                    window.location.reload();
+                  } catch { alert('Failed to block user.'); }
+                }
+              }}
+              className="p-1.5 rounded-full hover:bg-gray-100 dark:bg-white/5 transition-colors"
+              aria-label="Block user"
+              title="Block user"
+            >
+              <X className="w-3.5 h-3.5 text-gray-400 dark:text-gray-300 hover:text-red-400" />
+            </button>
+            <button
+              onClick={async () => { if (window.confirm('Report this post for review? Our team will investigate.')) { try { await base44.entities.Report?.create({ post_id: post.id, reporter_email: user?.email, reason: 'user_flagged' }); alert('Report submitted. Thank you for helping keep our community safe.'); } catch { alert('Failed to submit report. Please try again.'); } } }}
+              className="p-1.5 rounded-full hover:bg-gray-100 dark:bg-white/5 transition-colors"
+              aria-label="Report post"
+              title="Report post"
+            >
+              <Flag className="w-3.5 h-3.5 text-gray-400 dark:text-gray-300 hover:text-red-400" />
+            </button>
+          </>
         )}
       </div>
 

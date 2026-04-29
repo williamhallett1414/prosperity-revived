@@ -93,6 +93,12 @@ export default function WorkoutCategoryPage() {
 
       <div className="max-w-2xl mx-auto px-3 sm:px-4 pt-6 pb-24">
 
+      {/* Health Disclaimer — required for App Store approval */}
+      <div className="mx-3 sm:mx-4 mb-3 bg-amber-50 dark:bg-amber-900/15 rounded-xl px-3 py-2 border border-amber-100 dark:border-amber-800/20">
+        <p className="text-[10px] text-amber-700 dark:text-amber-300 text-center">Not medical advice. Consult a healthcare professional before starting any new exercise or nutrition program.</p>
+      </div>
+
+
         {/* Category header */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}

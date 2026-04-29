@@ -363,6 +363,15 @@ export default function PersonalGrowth() {
   return (
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
 
+      {/* Crisis Resources — required for App Store approval */}
+      <div className="mx-3 sm:mx-4 mb-3 flex items-center justify-center gap-2 bg-blue-50 dark:bg-blue-900/20 rounded-xl px-3 py-2 border border-blue-100 dark:border-blue-800/30">
+        <span className="text-[10px] text-blue-600 dark:text-blue-300">If you or someone you know is in crisis:</span>
+        <a href="tel:988" className="text-[10px] font-bold text-blue-700 dark:text-blue-200 underline">Call/Text 988</a>
+        <span className="text-[10px] text-blue-400">|</span>
+        <a href="sms:741741&body=HELLO" className="text-[10px] font-bold text-blue-700 dark:text-blue-200 underline">Text 741741</a>
+      </div>
+
+
       {/* ── Sticky Header + Tab Bar ── */}
       <div className="sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b border-[#AFC7E3]/25">
         <div className="px-4 py-3 max-w-2xl mx-auto flex items-center justify-between">
