@@ -51,21 +51,21 @@ function Home() {
   });
 
   return (
-    <div className="min-h-screen bg-[#F2F6FA]">
+    <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F]">
       <div className="max-w-lg mx-auto px-4 pt-4 pb-28 space-y-4">
         <motion.div initial={{ opacity: 0, y: -12 }} animate={{ opacity: 1, y: 0 }}>
-          <p className="text-xs font-medium text-[#0A1A2F]/40 uppercase tracking-widest mb-0.5">
+          <p className="text-xs font-medium text-[#0A1A2F]/40 dark:text-white/40 uppercase tracking-widest mb-0.5">
             {getTodayFormatted()}
           </p>
           <div className="flex items-center justify-between">
-            <h1 className="text-2xl font-bold text-[#0A1A2F]">
+            <h1 className="text-2xl font-bold text-[#0A1A2F] dark:text-white">
               {greeting.text}, {getFirstName(user)} {greeting.emoji}
             </h1>
             {userProgress && (
               <Link to={createPageUrl('Achievements')}>
-                <div className="flex items-center gap-1.5 bg-white rounded-full px-3 py-1.5 shadow-sm border border-[#FAD98D]/40">
+                <div className="flex items-center gap-1.5 bg-white dark:bg-white/10 rounded-full px-3 py-1.5 shadow-sm border border-[#FAD98D]/40 dark:border-white/10">
                   <Flame className="w-3.5 h-3.5 text-orange-500" />
-                  <span className="font-bold text-[#0A1A2F] text-xs">{userProgress.current_streak || 0}</span>
+                  <span className="font-bold text-[#0A1A2F] dark:text-white text-xs">{userProgress.current_streak || 0}</span>
                 </div>
               </Link>
             )}
@@ -82,7 +82,7 @@ function Home() {
 
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }}>
           <Link to={createPageUrl('Bible')}>
-            <div className="bg-white rounded-3xl p-5 shadow-sm border border-[#FAD98D]/30 relative overflow-hidden">
+            <div className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm border border-[#FAD98D]/30 dark:border-white/10 relative overflow-hidden">
               <div className="absolute top-0 right-0 w-24 h-24 opacity-5">
                 <span className="text-6xl">📖</span>
               </div>
@@ -90,11 +90,11 @@ function Home() {
                 <div className="w-1 h-5 bg-[#c9a227] rounded-full" />
                 <span className="text-[11px] font-bold text-[#c9a227] uppercase tracking-widest">Today's Scripture</span>
               </div>
-              <p className="text-[#0A1A2F] text-base leading-relaxed font-medium mb-3">
+              <p className="text-[#0A1A2F] dark:text-white text-base leading-relaxed font-medium mb-3">
                 "Trust in the Lord with all your heart, and lean not on your own understanding."
               </p>
               <div className="flex items-center justify-between">
-                <p className="text-sm text-[#0A1A2F]/50 font-medium">Proverbs 3:5</p>
+                <p className="text-sm text-[#0A1A2F]/50 dark:text-white/50 font-medium">Proverbs 3:5</p>
                 <span className="text-xs text-[#c9a227] font-semibold flex items-center gap-1">
                   Read more <ChevronRight className="w-3.5 h-3.5" />
                 </span>
@@ -113,7 +113,7 @@ function Home() {
 
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.14 }}>
           <Link to={createPageUrl('Prayer')}>
-            <div className="bg-gradient-to-br from-[#FAD98D]/20 to-[#AFC7E3]/20 rounded-3xl p-5 shadow-sm border border-[#FAD98D]/20 relative overflow-hidden">
+            <div className="bg-gradient-to-br from-[#FAD98D]/20 to-[#AFC7E3]/20 dark:from-white/5 dark:to-white/5 rounded-3xl p-5 shadow-sm border border-[#FAD98D]/20 dark:border-white/10 relative overflow-hidden">
               <div className="absolute top-0 right-0 w-20 h-20 opacity-5">
                 <span className="text-4xl">🕊️</span>
               </div>
@@ -121,8 +121,8 @@ function Home() {
                 <span className="text-lg">🕊️</span>
                 <span className="text-[11px] font-bold text-[#c9a227] uppercase tracking-widest">Grace Moment</span>
               </div>
-              <p className="text-[#0A1A2F] text-[15px] leading-relaxed font-semibold mb-2">God's grace doesn't run out. Not today, not ever.</p>
-              <p className="text-[#0A1A2F]/60 text-xs leading-relaxed italic">
+              <p className="text-[#0A1A2F] dark:text-white text-[15px] leading-relaxed font-semibold mb-2">God's grace doesn't run out. Not today, not ever.</p>
+              <p className="text-[#0A1A2F]/60 dark:text-white/60 text-xs leading-relaxed italic">
                 "My grace is sufficient for you, for my power is made perfect in weakness." — 2 Corinthians 12:9
               </p>
             </div>
@@ -132,7 +132,7 @@ function Home() {
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.16 }}>
           <div className="flex items-center gap-2 mb-3">
             <span className="text-sm">💬</span>
-            <p className="text-xs font-bold text-[#0A1A2F]/40 uppercase tracking-widest">Talk to Your Guides</p>
+            <p className="text-xs font-bold text-[#0A1A2F]/40 dark:text-white/40 uppercase tracking-widest">Talk to Your Guides</p>
           </div>
           <div className="flex gap-3 overflow-x-auto pb-2 -mx-1 px-1" style={{ scrollbarWidth: 'none' }}>
             {[
@@ -142,12 +142,12 @@ function Home() {
               { name: 'Chef Daniel', role: 'Nutrition', bot: 'ChefDaniel', color: 'from-orange-400 to-orange-500', bg: 'bg-orange-50', img: chefDanielImg },
             ].map(({ name, role, bot, color, bg, img }) => (
               <Link key={bot} to={createPageUrl(`ChatScreen?bot=${bot}`)} className="flex-shrink-0" style={{ width: 140 }}>
-                <div className={`${bg} rounded-2xl p-3 shadow-sm border border-gray-100/80 h-full`}>
+                <div className={`${bg} dark:bg-white/5 rounded-2xl p-3 shadow-sm border border-gray-100/80 dark:border-white/10 h-full`}>
                   <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${color} mx-auto mb-2 flex items-center justify-center shadow-sm overflow-hidden`}>
                     <img src={img} alt={name} className="w-full h-full object-cover object-top" />
                   </div>
-                  <p className="text-xs font-bold text-[#0A1A2F] text-center leading-tight">{name}</p>
-                  <p className="text-[9px] text-[#0A1A2F]/40 text-center font-medium">{role}</p>
+                  <p className="text-xs font-bold text-[#0A1A2F] dark:text-white text-center leading-tight">{name}</p>
+                  <p className="text-[9px] text-[#0A1A2F]/40 dark:text-white/40 text-center font-medium">{role}</p>
                 </div>
               </Link>
             ))}
