@@ -596,10 +596,10 @@ async function speakWithGoogleTTS({ text, cfg, onStart, onEnd, onError, primedAu
     // Use primed element on iOS, fresh element on desktop
     audioEl = primedAudio || new Audio();
     audioEl.src = url;
-    audioEl.onplay  = () => onStart?.();
     audioEl.onended = () => { URL.revokeObjectURL(url); onEnd?.(); };
     audioEl.onerror = () => { URL.revokeObjectURL(url); onError?.(); };
 
+    onStart?.();
     await audioEl.play();
 
   } catch (err) {
@@ -644,10 +644,10 @@ async function speakWithChefDanielTTS({ text, cfg, onStart, onEnd, onError, prim
 
     audioEl = primedAudio || new Audio();
     audioEl.src = url;
-    audioEl.onplay  = () => onStart?.();
     audioEl.onended = () => { URL.revokeObjectURL(url); onEnd?.(); };
     audioEl.onerror = () => { URL.revokeObjectURL(url); onError?.(); };
 
+    onStart?.();
     await audioEl.play();
 
   } catch (err) {
@@ -692,10 +692,10 @@ async function speakWithCoachDavidTTS({ text, cfg, onStart, onEnd, onError, prim
 
     audioEl = primedAudio || new Audio();
     audioEl.src = url;
-    audioEl.onplay  = () => onStart?.();
     audioEl.onended = () => { URL.revokeObjectURL(url); onEnd?.(); };
     audioEl.onerror = () => { URL.revokeObjectURL(url); onError?.(); };
 
+    onStart?.();
     await audioEl.play();
 
   } catch (err) {
@@ -740,10 +740,10 @@ async function speakWithCoachPaulTTS({ text, cfg, onStart, onEnd, onError, prime
 
     audioEl = primedAudio || new Audio();
     audioEl.src = url;
-    audioEl.onplay  = () => onStart?.();
     audioEl.onended = () => { URL.revokeObjectURL(url); onEnd?.(); };
     audioEl.onerror = () => { URL.revokeObjectURL(url); onError?.(); };
 
+    onStart?.();
     await audioEl.play();
 
   } catch (err) {
@@ -788,10 +788,10 @@ async function speakWithHannahTTS({ text, cfg, onStart, onEnd, onError, primedAu
 
     audioEl = primedAudio || new Audio();
     audioEl.src = url;
-    audioEl.onplay  = () => onStart?.();
     audioEl.onended = () => { URL.revokeObjectURL(url); onEnd?.(); };
     audioEl.onerror = () => { URL.revokeObjectURL(url); onError?.(); };
 
+    onStart?.();
     await audioEl.play();
 
   } catch (err) {
