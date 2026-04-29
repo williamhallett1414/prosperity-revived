@@ -273,9 +273,10 @@ export default function Settings() {
             <button
               onClick={async () => {
                 localStorage.removeItem('age_verified');
+                localStorage.removeItem('onboarding_done');
                 await base44.auth.updateMe({ onboarding_completed: null, age_group: null }).catch(() => {});
-                toast.success('Onboarding reset — reload to start fresh');
-                setTimeout(() => window.location.reload(), 1200);
+                toast.success('Onboarding reset — reloading…');
+                setTimeout(() => window.location.reload(), 1000);
               }}
               className="flex items-center justify-between py-3 px-3 rounded-lg hover:bg-gray-50 dark:bg-white/5 dark:hover:bg-gray-800 transition-colors min-h-[44px] w-full text-left"
             >

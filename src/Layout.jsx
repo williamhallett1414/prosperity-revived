@@ -9,6 +9,7 @@ import PullToRefresh from '@/components/ui/PullToRefresh';
 import { requestNotificationPermission, initDefaultReminders } from '@/utils/notifications';
 import { useQueryClient } from '@tanstack/react-query';
 import AgeVerificationGate from '@/components/onboarding/AgeVerificationGate';
+const OnboardingFlow = React.lazy(() => import('@/components/onboarding/OnboardingFlow'));
 
 // Lazy-load optional components to prevent crash if any are broken
 const GuidedTour = React.lazy(() => import('@/components/onboarding/GuidedTour'));
@@ -38,20 +39,34 @@ export default function Layout({ children, currentPageName }) {
   const queryClient = useQueryClient();
   const [showGuidedTour, setShowGuidedTour] = useState(false);
 
-  // Age verification gate — show once for new/unverified users
+  // Age verification + onboarding gate
   const [ageVerified, setAgeVerified] = useState(() => !!localStorage.getItem('age_verified'));
+  const [onboardingDone, setOnboardingDone] = useState(() => !!localStorage.getItem('onboarding_done'));
   const [userLoaded, setUserLoaded] = useState(false);
   const [needsAgeCheck, setNeedsAgeCheck] = useState(false);
+  const [needsOnboarding, setNeedsOnboarding] = useState(false);
 
   useEffect(() => {
-    if (ageVerified) { setUserLoaded(true); return; }
     base44.auth.me().then(u => {
-      // If user already has age_group saved, skip the gate
-      if (u?.age_group && u.age_group !== 'under13') {
-        localStorage.setItem('age_verified', '1');
-        setAgeVerified(true);
-      } else if (!u?.age_group) {
-        setNeedsAgeCheck(true);
+      // Age check
+      if (!ageVerified) {
+        if (u?.age_group && u.age_group !== 'under13') {
+          localStorage.setItem('age_verified', '1');
+          setAgeVerified(true);
+        } else if (!u?.age_group) {
+          setNeedsAgeCheck(true);
+          setUserLoaded(true);
+          return;
+        }
+      }
+      // Onboarding check
+      if (!onboardingDone) {
+        if (u?.onboarding_completed) {
+          localStorage.setItem('onboarding_done', '1');
+          setOnboardingDone(true);
+        } else {
+          setNeedsOnboarding(true);
+        }
       }
       setUserLoaded(true);
     }).catch(() => setUserLoaded(true));
@@ -61,8 +76,18 @@ export default function Layout({ children, currentPageName }) {
     localStorage.setItem('age_verified', '1');
     setAgeVerified(true);
     setNeedsAgeCheck(false);
-    // Persist to user record
     try { await base44.auth.updateMe({ age_group: ageGroup }); } catch {}
+    // After age verification, check if onboarding is needed
+    try {
+      const u = await base44.auth.me();
+      if (!u?.onboarding_completed) setNeedsOnboarding(true);
+    } catch {}
+  };
+
+  const handleOnboardingComplete = () => {
+    localStorage.setItem('onboarding_done', '1');
+    setOnboardingDone(true);
+    setNeedsOnboarding(false);
   };
 
   // Apply dark mode on app load 
@@ -265,6 +290,15 @@ export default function Layout({ children, currentPageName }) {
   // Show age gate before anything else for new users
   if (userLoaded && needsAgeCheck && !ageVerified) {
     return <AgeVerificationGate onVerified={handleAgeVerified} />;
+  }
+
+  // Show full onboarding flow for users who haven't completed it
+  if (userLoaded && ageVerified && needsOnboarding && !onboardingDone) {
+    return (
+      <React.Suspense fallback={null}>
+        <OnboardingFlow onComplete={handleOnboardingComplete} />
+      </React.Suspense>
+    );
   }
 
   return (
