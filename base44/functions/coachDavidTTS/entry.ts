@@ -1,16 +1,16 @@
 /**
  * coachDavidTTS — Google Cloud Text-to-Speech for Coach David
  *
- * Voice: en-US-Neural2-D
- *   Authoritative, grounded, commanding Neural2 male voice.
- *   Google's own recommended male Neural2 for en-US.
- *   Deeper and more driven than Chef Daniel (Neural2-J).
- *   Distinct from Gideon (Studio-Q: deep/reverent) and
- *   Chef Daniel (Neural2-J: warm/friendly).
+ * Voice: en-US-Studio-M
+ *   Deep, powerful, energetic Studio-grade premium male voice.
+ *   Google's highest-quality male voice with rich bass.
+ *   Distinctly deeper and more commanding than all other avatars.
+ *   Gideon uses Studio-Q (reverent/wise), David uses Studio-M
+ *   (athletic/commanding). Completely different character.
  *
- * Speaking rate: 1.10  — driven pace, punchy coach energy
- * Pitch:         -1.5  — grounded masculine authority (semitones)
- * Volume:        +1.8 dB — fills the room like a real coach
+ * Speaking rate: 1.08  — fast athletic energy without rushing
+ * Pitch:         -3.0  — deep powerful bass (semitones)
+ * Volume:        +2.5 dB — commanding presence, fills the room
  * EQ:            headphone-class-device
  *
  * Returns: { audioContent: <base64 MP3> }
@@ -80,13 +80,13 @@ Deno.serve(async (req) => {
           input: { text: cleaned },
           voice: {
             languageCode: 'en-US',
-            name: 'en-US-Neural2-D',  // Authoritative, grounded — Google's recommended male Neural2
+            name: 'en-US-Studio-M',   // Deep, powerful, energetic — Studio-grade premium voice
           },
           audioConfig: {
             audioEncoding:    'MP3',
-            speakingRate:     1.10,   // Punchy driven coach pace
-            pitch:            -1.5,   // Grounded masculine authority (semitones)
-            volumeGainDb:     1.8,    // Fills the room — coach energy
+            speakingRate:     1.08,   // Fast athletic energy without rushing
+            pitch:            -3.0,   // Deep powerful bass — distinctly Coach David
+            volumeGainDb:     2.5,    // Fills the room — commanding presence
             effectsProfileId: ['headphone-class-device'],
           },
         }),
