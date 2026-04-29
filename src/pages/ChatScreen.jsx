@@ -19,6 +19,7 @@ import HannahAvatar        from '@/components/avatar/HannahAvatar';
 import BotBackground from '@/components/avatar/BotBackground';
 import TabernacleLights from '@/components/avatar/backgrounds/TabernacleLights';
 import SacredGarden from '@/components/avatar/backgrounds/SacredGarden';
+import GardenHarvest from '@/components/avatar/backgrounds/GardenHarvest';
 import VisemeAvatar, { hasPoseSet } from '@/components/avatar/VisemeAvatar';
 
 // ─── Error boundary — if WebGL/R3F fails, show pulsing circle ────────────────
@@ -1356,6 +1357,11 @@ export default function ChatScreen() {
       {/* Sacred Garden — Hannah only */}
       {cfg.character === 'hannah' && (
         <SacredGarden speaking={avatarSpeaking} />
+      )}
+
+      {/* Garden Harvest — Chef Daniel only */}
+      {cfg.character === 'chef' && (
+        <GardenHarvest speaking={avatarSpeaking} />
       )}
 
       {/* Header */}
