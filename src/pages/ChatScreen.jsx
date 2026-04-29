@@ -17,6 +17,7 @@ import CoachDavidAvatar   from '@/components/avatar/CoachDavidAvatar';
 import CoachPaulAvatar    from '@/components/avatar/CoachPaulAvatar';
 import HannahAvatar        from '@/components/avatar/HannahAvatar';
 import BotBackground from '@/components/avatar/BotBackground';
+import VisemeAvatar, { hasPoseSet } from '@/components/avatar/VisemeAvatar';
 
 // ─── Error boundary — if WebGL/R3F fails, show pulsing circle ────────────────
 class CloudAvatarSafe extends React.Component {
@@ -35,7 +36,20 @@ class CloudAvatarSafe extends React.Component {
         </div>
       );
     }
-    // Gideon gets the 3D figure avatar; all other bots keep the cloud avatar
+    // If this character has video assets registered in VisemeAvatar, use those
+    if (hasPoseSet(this.props.character)) {
+      return (
+        <VisemeAvatar
+          character={this.props.character}
+          isSpeaking={this.props.isSpeaking}
+          isListening={this.props.isListening}
+          isThinking={this.props.isThinking}
+          width={360}
+          height={420}
+        />
+      );
+    }
+    // Fallback to legacy SVG overlay avatars
     if (this.props.character === 'gideon') {
       return (
         <GideonAvatar
