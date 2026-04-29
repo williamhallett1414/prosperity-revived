@@ -1,0 +1,220 @@
+{
+  "name": "User",
+  "type": "object",
+  "properties": {
+    "bio": {
+      "type": "string",
+      "description": "User bio"
+    },
+    "profile_image_url": {
+      "type": "string"
+    },
+    "banner_image_url": {
+      "type": "string",
+      "description": "Profile banner image URL"
+    },
+    "status_message": {
+      "type": "string",
+      "description": "Status message"
+    },
+    "spiritual_goal": {
+      "type": "string",
+      "description": "Current spiritual goal"
+    },
+    "favorite_verse_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Array of favorite verse bookmark IDs"
+    },
+    "onboarding_completed": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether user completed onboarding"
+    },
+    "dob": {
+      "type": "string",
+      "format": "date",
+      "description": "Date of birth (YYYY-MM-DD) used for age verification"
+    },
+    "age_group": {
+      "type": "string",
+      "enum": [
+        "18plus",
+        "13to17",
+        "under13"
+      ],
+      "description": "Age group confirmed during onboarding"
+    },
+    "spiritual_interests": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Areas of spiritual interest"
+    },
+    "life_situation": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Current life situations for personalized plans"
+    },
+    "fitness_level": {
+      "type": "string",
+      "enum": [
+        "beginner",
+        "intermediate",
+        "advanced"
+      ],
+      "description": "Fitness level"
+    },
+    "dietary_preferences": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Dietary preferences"
+    },
+    "health_goals": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Health and wellness goals"
+    },
+    "fitness_interests": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Fitness interests and preferences"
+    },
+    "fitness_goals": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Personal fitness goals"
+    },
+    "nutrition_interests": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Nutrition interests and preferences"
+    },
+    "nutrition_goals": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Personal nutrition goals"
+    },
+    "spiritual_goals": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Personal spiritual growth goals"
+    },
+    "personal_growth_interests": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Personal growth and mindset interests"
+    },
+    "personal_growth_goals": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Personal growth and development goals"
+    },
+    "reminder_settings": {
+      "type": "object",
+      "properties": {
+        "daily_verse": {
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "time": {
+              "type": "string"
+            }
+          }
+        },
+        "reading_plan": {
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "time": {
+              "type": "string"
+            }
+          }
+        },
+        "workout": {
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "time": {
+              "type": "string"
+            }
+          }
+        },
+        "meditation": {
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "time": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "notification_settings": {
+      "type": "object",
+      "properties": {
+        "friend_requests": {
+          "type": "boolean",
+          "default": true
+        },
+        "comments": {
+          "type": "boolean",
+          "default": true
+        },
+        "mentions": {
+          "type": "boolean",
+          "default": true
+        },
+        "likes": {
+          "type": "boolean",
+          "default": true
+        },
+        "group_activity": {
+          "type": "boolean",
+          "default": true
+        },
+        "messages": {
+          "type": "boolean",
+          "default": true
+        },
+        "achievements": {
+          "type": "boolean",
+          "default": true
+        }
+      }
+    }
+  },
+  "required": []
+}
