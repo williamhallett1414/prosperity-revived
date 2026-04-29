@@ -66,7 +66,7 @@ export default function PrayForMeFeed({ user }) {
       setMediaFile(null);
       setMediaType(null);
       setMediaPreview(null);
-      setShowCreateModal(false);
+      setShowCreateBox(false);
       toast.success('Prayer request shared!');
     },
     onError: () => toast.error('Failed to share prayer request')

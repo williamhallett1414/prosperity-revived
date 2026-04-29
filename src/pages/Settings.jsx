@@ -321,7 +321,13 @@ export default function Settings() {
           <ManageMyData user={user} />
 
           <Button
-            onClick={() => { base44.auth.logout().catch(() => { toast.error('Failed to sign out'); }); }}
+            onClick={() => {
+              try {
+                base44.auth.logout('/');
+              } catch {
+                window.location.href = '/';
+              }
+            }}
             variant="outline"
             className="w-full mt-4 border-red-200 text-red-600 hover:bg-red-50 dark:border-red-900 dark:hover:bg-red-950 min-h-[44px]"
           >
@@ -362,7 +368,7 @@ export default function Settings() {
                     try {
                       await base44.auth.deleteAccount();
                       window.location.href = '/';
-                    } catch {
+                    } catch (_e) {
                       toast.error('Failed to delete account — please try again');
                       setIsDeleting(false);
                     }
