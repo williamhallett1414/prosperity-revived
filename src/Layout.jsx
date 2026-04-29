@@ -8,6 +8,7 @@ import { Toaster } from '@/components/ui/sonner.jsx';
 import PullToRefresh from '@/components/ui/PullToRefresh';
 import { requestNotificationPermission, initDefaultReminders } from '@/utils/notifications';
 import { useQueryClient } from '@tanstack/react-query';
+import AgeVerificationGate from '@/components/onboarding/AgeVerificationGate';
 
 // Lazy-load optional components to prevent crash if any are broken
 const GuidedTour = React.lazy(() => import('@/components/onboarding/GuidedTour'));
@@ -36,6 +37,33 @@ export default function Layout({ children, currentPageName }) {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [showGuidedTour, setShowGuidedTour] = useState(false);
+
+  // Age verification gate — show once for new/unverified users
+  const [ageVerified, setAgeVerified] = useState(() => !!localStorage.getItem('age_verified'));
+  const [userLoaded, setUserLoaded] = useState(false);
+  const [needsAgeCheck, setNeedsAgeCheck] = useState(false);
+
+  useEffect(() => {
+    if (ageVerified) { setUserLoaded(true); return; }
+    base44.auth.me().then(u => {
+      // If user already has age_group saved, skip the gate
+      if (u?.age_group && u.age_group !== 'under13') {
+        localStorage.setItem('age_verified', '1');
+        setAgeVerified(true);
+      } else if (!u?.age_group) {
+        setNeedsAgeCheck(true);
+      }
+      setUserLoaded(true);
+    }).catch(() => setUserLoaded(true));
+  }, []);
+
+  const handleAgeVerified = async (ageGroup) => {
+    localStorage.setItem('age_verified', '1');
+    setAgeVerified(true);
+    setNeedsAgeCheck(false);
+    // Persist to user record
+    try { await base44.auth.updateMe({ age_group: ageGroup }); } catch {}
+  };
 
   // Apply dark mode on app load 
   useEffect(() => {
@@ -233,6 +261,11 @@ export default function Layout({ children, currentPageName }) {
       window.scrollTo(0, 0);
     }
   }, [currentPageName, isPrimaryPage]);
+
+  // Show age gate before anything else for new users
+  if (userLoaded && needsAgeCheck && !ageVerified) {
+    return <AgeVerificationGate onVerified={handleAgeVerified} />;
+  }
 
   return (
     <>
