@@ -1498,7 +1498,7 @@ export default function ChatScreen() {
         </div>
 
         {/* 3D cloud */}
-        <div className="relative flex items-center justify-center" style={{ width: 360, height: 420 }}>
+        <div className="relative flex items-center justify-center mx-auto" style={{ width: 'min(360px, 100vw)', height: 420 }}>
           <motion.div className="absolute inset-0 rounded-full pointer-events-none"
             style={{ background: `radial-gradient(circle, ${cfg.gradTo}28 0%, transparent 70%)` }}
             animate={{ opacity: avatarSpeaking ? [0.6, 1, 0.6] : 0.35 }}
