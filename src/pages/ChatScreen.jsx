@@ -1188,7 +1188,8 @@ export default function ChatScreen() {
 
     // Cancel any ongoing speech
     stopSpeechRef.current?.();
-    setSpeakingIdx(idx);
+    // Don't set speakingIdx yet — wait until onStart fires (audio actually playing)
+    // This prevents avatar lip-sync during the TTS API fetch delay
 
     // Track whether a cancel was requested before the async fetch resolved
     let hasBeenCancelled = false;
