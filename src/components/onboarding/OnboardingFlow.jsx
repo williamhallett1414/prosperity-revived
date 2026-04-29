@@ -764,10 +764,13 @@ export default function OnboardingFlow({ onComplete }) {
                       <NumberInput label="Height ft" value={d.height_ft} onChange={v=>set('height_ft',v)} min={3} max={8} unit="ft" />
                       <NumberInput label="In" value={d.height_in} onChange={v=>set('height_in',v)} min={0} max={11} unit="in" />
                     </div>
-                    <div>
-                      <SectionLabel>Weight (lbs)</SectionLabel>
-                      <div className="grid grid-cols-2 gap-3">
+                    <div className="grid grid-cols-2 gap-3">
+                      <div>
+                        <SectionLabel>Current Weight</SectionLabel>
                         <NumberInput label="Current" value={d.weight_lbs} onChange={v=>set('weight_lbs',v)} min={80} max={500} unit="lbs" />
+                      </div>
+                      <div>
+                        <SectionLabel>Goal Weight</SectionLabel>
                         <NumberInput label="Goal" value={d.goal_weight_lbs} onChange={v=>set('goal_weight_lbs',v)} min={80} max={500} unit="lbs" />
                       </div>
                     </div>
