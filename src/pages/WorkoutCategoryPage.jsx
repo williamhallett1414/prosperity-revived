@@ -91,7 +91,7 @@ export default function WorkoutCategoryPage() {
 
       
 
-      <div className="max-w-2xl mx-auto px-4 pt-6 pb-24">
+      <div className="max-w-2xl mx-auto px-3 sm:px-4 pt-6 pb-24">
 
         {/* Category header */}
         <motion.div

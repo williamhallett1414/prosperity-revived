@@ -136,7 +136,7 @@ Return ONLY the prayer text, no additional formatting or explanation.`;
               <label className="text-sm font-medium text-gray-700 dark:text-gray-200 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300 mb-3 block">
                 What type of prayer?
               </label>
-              <div className="grid grid-cols-3 gap-2">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                 {prayerTypes.map(type => (
                   <button
                     key={type.value}

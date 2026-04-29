@@ -94,7 +94,7 @@ export default function MoodTracker() {
           How are you feeling today?
         </h3>
         
-        <div className="grid grid-cols-3 gap-2 mb-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 mb-4">
           {moods.map((mood) => {
             const Icon = mood.icon;
             const isSelected = selectedMood?.id === mood.id;

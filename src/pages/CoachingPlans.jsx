@@ -188,7 +188,7 @@ export default function CoachingPlans() {
         </div>
       </div>
 
-      <div className="max-w-2xl mx-auto px-4 pt-5">
+      <div className="max-w-2xl mx-auto px-3 sm:px-4 pt-5">
 
         {/* Hero */}
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}

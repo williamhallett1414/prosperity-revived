@@ -148,7 +148,7 @@ function StartHereCard() {
           <p className="text-xs text-[#0A1A2F]/50 dark:text-white/50">Insights appear as you log activity</p>
         </div>
       </div>
-      <div className="grid grid-cols-3 gap-2">
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
         {[
           { page: 'Bible',    emoji: '📖', label: 'Read Bible'   },
           { page: 'Workouts', emoji: '💪', label: 'Log Workout'  },

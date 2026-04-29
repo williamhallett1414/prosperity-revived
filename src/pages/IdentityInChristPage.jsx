@@ -591,7 +591,7 @@ export default function IdentityInChristPage() {
           </div>
         </div>
 
-        <div className="max-w-2xl mx-auto px-4 py-5 space-y-5">
+        <div className="max-w-2xl mx-auto px-3 sm:px-4 py-5 space-y-5">
 
           {/* ── Today's featured declaration ─────────────────────────────── */}
           <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
@@ -645,7 +645,7 @@ export default function IdentityInChristPage() {
 
           {/* ── Stats ────────────────────────────────────────────────────── */}
           <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }}
-            className="grid grid-cols-3 gap-3">
+            className="grid grid-cols-2 sm:grid-cols-3 gap-3">
             {[
               { value: DECLARATIONS.length, label: 'Total',     sub: 'declarations', color: '#FAD98D' },
               { value: memorizedCount,       label: 'Memorized', sub: 'committed',    color: '#10b981' },

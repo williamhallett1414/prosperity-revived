@@ -56,7 +56,7 @@ export default function EmotionalCheckIn() {
 
       <p className="text-sm text-[#0A1A2F]/70 dark:text-white/70 mb-4">How are you feeling today?</p>
 
-      <div className="grid grid-cols-3 gap-3 mb-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-4">
         {moods.map((mood) => (
           <button
             key={mood.value}

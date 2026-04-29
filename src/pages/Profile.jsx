@@ -273,7 +273,7 @@ function StreakRow({ meditationSessions, workoutSessions, journalEntries }) {
   return (
     <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
       <SectionHeading accent="#FD9C2D">Streaks 🔥</SectionHeading>
-      <div className="grid grid-cols-3 gap-2.5">
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
         {streaks.map((s, i) => {
           const active = s.count > 0;
           return (
@@ -335,7 +335,7 @@ function GoalBento() {
       </div>
 
       {/* Row 2 — 3 domain tiles */}
-      <div className="grid grid-cols-3 gap-2.5 mb-2.5">
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 mb-2.5">
         <Link to={createPageUrl('FitnessGoalsPage')}>
           <div className="rounded-2xl p-3.5 hover:opacity-95 transition-opacity border border-[#38BDF8]/20"
             style={{ background: 'linear-gradient(160deg, #EFF9FF, #dbeeff)' }}>

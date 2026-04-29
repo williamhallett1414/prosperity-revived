@@ -230,7 +230,7 @@ export default function ProgressPhotoGallery({ photos }) {
 
             <div>
               <Label className="mb-2 block">Measurements (inches, optional)</Label>
-              <div className="grid grid-cols-3 gap-3">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                 {Object.keys(formData.measurements).map((key) => (
                   <div key={key}>
                     <Label htmlFor={key} className="text-xs capitalize">{key}</Label>
@@ -306,7 +306,7 @@ export default function ProgressPhotoGallery({ photos }) {
                 {selectedPhoto.measurements && Object.keys(selectedPhoto.measurements).length > 0 && (
                   <div>
                     <p className="font-semibold text-sm mb-2">Measurements</p>
-                    <div className="grid grid-cols-3 gap-2 text-sm text-gray-600 dark:text-gray-300">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-sm text-gray-600 dark:text-gray-300">
                       {Object.entries(selectedPhoto.measurements).map(([key, value]) => (
                         <div key={key}>
                           <span className="capitalize">{key}:</span> {value}"

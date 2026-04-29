@@ -55,7 +55,7 @@ export default function GuidedMeditationPlayer() {
           </span>
         </div>
 
-        <div className="flex gap-2 overflow-x-auto pb-2">
+        <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide flex-nowrap">
           {MEDITATION_CATEGORIES.map((cat) => (
             <button
               key={cat.id}

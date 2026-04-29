@@ -140,7 +140,7 @@ export default function CoachingPlanPage() {
       <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-24">
         {/* Header */}
         <div className="sticky top-0 z-40 bg-[#0A1A2F] border-b border-white/10">
-          <div className="max-w-2xl mx-auto px-4 h-14 flex items-center justify-between">
+          <div className="max-w-2xl mx-auto px-3 sm:px-4 h-14 flex items-center justify-between">
             <button onClick={() => setView('plan')} className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center">
               <ArrowLeft className="w-4 h-4 text-white" />
             </button>
@@ -163,7 +163,7 @@ export default function CoachingPlanPage() {
           </div>
         </div>
 
-        <div className="max-w-2xl mx-auto px-4 py-6 space-y-4">
+        <div className="max-w-2xl mx-auto px-3 sm:px-4 py-6 space-y-4">
 
           {/* Future day lock notice */}
           {isFutureDay && (
@@ -422,7 +422,7 @@ export default function CoachingPlanPage() {
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-24">
       {/* Header */}
       <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#F2F6FA]">
-        <div className="max-w-2xl mx-auto px-4 h-14 flex items-center gap-3">
+        <div className="max-w-2xl mx-auto px-3 sm:px-4 h-14 flex items-center gap-3">
           <button onClick={() => navigate(-1)} className="w-9 h-9 rounded-full bg-gray-100 dark:bg-white/5 hover:bg-gray-200 flex items-center justify-center flex-shrink-0">
             <ArrowLeft className="w-4 h-4 text-[#0A1A2F] dark:text-white dark:text-white" />
           </button>
@@ -437,7 +437,7 @@ export default function CoachingPlanPage() {
         </div>
       </div>
 
-      <div className="max-w-2xl mx-auto px-4">
+      <div className="max-w-2xl mx-auto px-3 sm:px-4">
         {/* Hero Banner */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}

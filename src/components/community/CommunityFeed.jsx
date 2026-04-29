@@ -165,7 +165,7 @@ export default function CommunityFeed({ user }) {
   return (
     <div className="space-y-4">
       {/* Filter Buttons */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-2">
+      <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-hide flex-nowrap">
         <Filter className="w-4 h-4 text-gray-500 dark:text-gray-300 flex-shrink-0" />
         {filterOptions.map((option) => {
           const Icon = option.icon;
@@ -176,6 +176,7 @@ export default function CommunityFeed({ user }) {
               onClick={() => setFilterType(option.value)}
               variant={isActive ? "default" : "outline"}
               size="sm"
+              className={`flex-shrink-0 whitespace-nowrap ${isActive ? "bg-[#c9a227] hover:bg-[#C9A227]" : ""}`}
               className={isActive ? "bg-[#c9a227] hover:bg-[#C9A227]" : ""}
             >
               <Icon className="w-4 h-4 mr-1" />

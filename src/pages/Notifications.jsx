@@ -123,7 +123,7 @@ export default function Notifications() {
         </div>
       </div>
 
-      <div className="max-w-2xl mx-auto px-4 py-6">
+      <div className="max-w-2xl mx-auto px-3 sm:px-4 py-6">
         {/* Filters */}
         <Tabs value={filter} onValueChange={setFilter} className="mb-6">
           <TabsList className="grid w-full grid-cols-4">

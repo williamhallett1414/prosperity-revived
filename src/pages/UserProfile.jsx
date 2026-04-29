@@ -372,7 +372,7 @@ export default function UserProfile() {
             <h3 className="font-semibold text-[#0A1A2F] dark:text-white mb-3">
               {mutualFriends.length} Mutual Friend{mutualFriends.length !== 1 ? 's' : ''}
             </h3>
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
               {mutualFriends.slice(0, 6).map((friend, index) => (
                 <Link
                   key={friend.id}
@@ -430,7 +430,7 @@ export default function UserProfile() {
       {photos.length > 0 && (
         <div className="px-4 mb-6">
           <h2 className="text-xl font-bold text-[#0A1A2F] dark:text-white mb-4">Photos</h2>
-          <div className="grid grid-cols-3 gap-2">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
             {photos.slice(0, 6).map((photo, index) => (
               <motion.div
                 key={photo.id}

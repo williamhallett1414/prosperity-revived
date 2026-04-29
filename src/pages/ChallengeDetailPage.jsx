@@ -238,7 +238,7 @@ export default function ChallengeDetailPage() {
         
       </div>
 
-      <div className="max-w-2xl mx-auto px-4 py-6 space-y-6">
+      <div className="max-w-2xl mx-auto px-3 sm:px-4 py-6 space-y-6">
         {/* Challenge Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -398,7 +398,7 @@ export default function ChallengeDetailPage() {
             <div className="bg-white dark:bg-white/5 rounded-xl p-6 shadow-sm dark:shadow-none border border-gray-200 dark:border-white/10 dark:border-white/10">
               <h3 className="text-lg font-bold text-[#0A1A2F] dark:text-white mb-4">Daily Check-In</h3>
               
-              <div className="grid grid-cols-3 gap-4 mb-4">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-4">
                 <div className="text-center">
                   <div className="text-2xl font-bold text-[#FAD98D]">{currentStreak}</div>
                   <div className="text-xs text-[#0A1A2F]/60 dark:text-white/60">Current Streak</div>

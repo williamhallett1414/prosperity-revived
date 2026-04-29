@@ -153,7 +153,7 @@ export default function MeditationGuide() {
               </LineChart>
             </ResponsiveContainer>
           </div>
-          <div className="grid grid-cols-3 gap-3 mt-3">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-3">
             <div className="text-center p-2 bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5 rounded">
               <p className="text-xs text-gray-500 dark:text-gray-300">Total Sessions</p>
               <p className="font-bold text-[#C9A227]">{chartData.reduce((sum, d) => sum + d.sessions, 0)}</p>

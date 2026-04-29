@@ -160,7 +160,7 @@ Also generate a complete shopping list by combining all unique ingredients from 
             </Select>
           </div>
 
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
             <Input
               type="number"
               placeholder="Calories/day"

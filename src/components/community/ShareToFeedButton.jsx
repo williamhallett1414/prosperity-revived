@@ -188,7 +188,7 @@ export default function ShareToFeedButton({
                 {/* Visibility */}
                 <div>
                   <p className="text-[10px] font-bold text-[#0A1A2F]/40 dark:text-white/40 uppercase tracking-widest mb-2">Visibility</p>
-                  <div className="grid grid-cols-3 gap-2">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                     {VISIBILITY_OPTIONS.map(({ value, icon: Icon, label: vLabel, sub }) => (
                       <button key={value} onClick={() => setVisibility(value)}
                         className={`flex flex-col items-center gap-1 rounded-xl py-2.5 px-2 border-2 transition-all ${

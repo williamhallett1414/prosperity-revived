@@ -230,3 +230,8 @@ body.keyboard-open nav[role="navigation"] {
     inset: -8px;
   }
 }
+
+
+/* Hide scrollbar for horizontal scroll containers */
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }

@@ -44,7 +44,7 @@ export default function SpiritualGrowth() {
         </div>
       </div>
 
-      <div className="max-w-2xl mx-auto px-4 py-6">
+      <div className="max-w-2xl mx-auto px-3 sm:px-4 py-6">
         <AIEncouragement journalEntries={journalEntries} goals={goals} />
 
         {/* Tabs */}

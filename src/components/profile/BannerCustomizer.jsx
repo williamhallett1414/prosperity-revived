@@ -117,7 +117,7 @@ export default function BannerCustomizer({ isOpen, onClose, currentBanner, onSav
           {/* Default Templates */}
           <div>
             <p className="text-sm font-medium mb-2">Choose from Templates</p>
-            <div className="grid grid-cols-3 gap-2">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
               {defaultBanners.map((banner, index) => (
                 <button
                   key={index}

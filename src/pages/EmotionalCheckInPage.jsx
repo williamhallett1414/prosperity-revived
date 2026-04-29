@@ -341,7 +341,7 @@ export default function EmotionalCheckInPage() {
             {/* Mood grid */}
             <div className="bg-white dark:bg-white/5 rounded-2xl border border-[#AFC7E3]/20 p-4">
               <p className="text-xs font-bold text-[#0A1A2F]/35 dark:text-white/35 uppercase tracking-widest mb-3">Select your mood</p>
-              <div className="grid grid-cols-3 gap-2">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                 {MOODS.map(mood => (
                   <motion.button key={mood.value} whileTap={{ scale: 0.95 }}
                     onClick={() => { setSelectedMood(mood); setIntensity(3); setReflection(''); }}

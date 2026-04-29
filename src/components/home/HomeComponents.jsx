@@ -64,7 +64,7 @@ export function QuickNav() {
   return (
     <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
       <p className="text-xs font-bold text-[#0A1A2F]/40 dark:text-white/40 uppercase tracking-widest mb-3">Explore</p>
-      <div className="grid grid-cols-3 gap-3">
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
         {QUICK_NAV.map(({ label, icon: Icon, page, color, bg }) => (
           <Link key={page} to={createPageUrl(page)}>
             <motion.div whileTap={{ scale: 0.95 }}

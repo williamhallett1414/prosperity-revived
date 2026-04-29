@@ -109,7 +109,7 @@ export default function MealDetailView() {
   if (!meal) {
     return (
       <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-24">
-        <div className="max-w-2xl mx-auto px-4 py-6 text-center">
+        <div className="max-w-2xl mx-auto px-3 sm:px-4 py-6 text-center">
           <p className="text-[#0A1A2F]/60 dark:text-white/60">Meal not found</p>
           <Link to={createPageUrl('FoodLogHistory')} className="mt-4">
             <Button>Back to Food Log</Button>
@@ -139,7 +139,7 @@ export default function MealDetailView() {
         </div>
       </div>
 
-      <div className="max-w-2xl mx-auto px-4 py-6">
+      <div className="max-w-2xl mx-auto px-3 sm:px-4 py-6">
         {/* Meal Overview */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
@@ -211,7 +211,7 @@ export default function MealDetailView() {
           className="bg-white dark:bg-white/5 rounded-2xl p-6 mb-6 shadow-sm dark:shadow-none"
         >
           <h3 className="text-lg font-semibold text-[#0A1A2F] dark:text-white mb-4">Macronutrients</h3>
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
             <div className="bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-xl p-4 text-center">
               <p className="text-2xl font-bold text-[#3C4E53]">{meal.protein || 0}g</p>
               <p className="text-xs text-[#3C4E53] mt-1">Protein</p>

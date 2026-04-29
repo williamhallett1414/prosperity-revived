@@ -196,7 +196,7 @@ Rules:
           )}
 
           {/* Action buttons */}
-          <div className="grid grid-cols-3 gap-2">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
             {/* Log meal */}
             <button onClick={() => setShowLogModal(true)}
               className="flex flex-col items-center gap-1 py-2.5 rounded-xl bg-[#AFC7E3]/15 text-[#3C4E53] hover:bg-[#AFC7E3]/25 transition-colors">
@@ -242,7 +242,7 @@ Rules:
                           Nutrition per serving{displayed.serving_size ? ` (${displayed.serving_size})` : ''}
                         </p>
                       </div>
-                      <div className="grid grid-cols-3 gap-2">
+                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                         <NutritionPill label="Calories"  value={displayed.calories} unit=""   color="bg-white dark:bg-white/5" />
                         <NutritionPill label="Protein"   value={displayed.protein}  unit="g"  color="bg-white dark:bg-white/5" />
                         <NutritionPill label="Carbs"     value={displayed.carbs}    unit="g"  color="bg-white dark:bg-white/5" />

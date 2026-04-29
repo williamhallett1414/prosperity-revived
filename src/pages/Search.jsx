@@ -87,7 +87,7 @@ export default function Search() {
         </div>
       </div>
 
-      <div className="max-w-2xl mx-auto px-4 py-6">
+      <div className="max-w-2xl mx-auto px-3 sm:px-4 py-6">
         {/* Search Form */}
         <form onSubmit={handleSearch} className="mb-6">
           <div className="relative">

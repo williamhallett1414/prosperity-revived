@@ -174,7 +174,7 @@ export default function CustomWorkoutBuilder({ exercises, onChange }) {
                           </Button>
                         </div>
 
-                        <div className="grid grid-cols-3 gap-2 ml-6">
+                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 ml-6">
                           <div>
                             <label className="text-xs text-gray-500 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">Sets</label>
                             <Input

@@ -643,10 +643,10 @@ export default function HabitBuilderPage() {
           </div>
         </div>
 
-        <div className="max-w-2xl mx-auto px-4 py-5 space-y-5">
+        <div className="max-w-2xl mx-auto px-3 sm:px-4 py-5 space-y-5">
 
           {/* ── Stats row ──────────────────────────────────────────────────── */}
-          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="grid grid-cols-3 gap-3">
+          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="grid grid-cols-2 sm:grid-cols-3 gap-3">
             {[
               { value: `${completedCount}/${totalCount}`, label: 'Today', sub: pct === 100 ? '🎉 All done!' : `${pct}% complete`, color: '#c9a227', highlight: pct === 100 },
               { value: overallStreak,  label: 'Day Streak', sub: overallStreak > 0 ? '🔥 keep going' : 'Start today',    color: '#f97316', highlight: overallStreak > 0 },

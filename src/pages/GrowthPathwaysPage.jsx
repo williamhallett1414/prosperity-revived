@@ -233,7 +233,7 @@ function AssessmentQuiz({ onComplete, onSkip }) {
         </div>
       </div>
 
-      <div className="max-w-2xl mx-auto px-4 py-8 flex-1 flex flex-col">
+      <div className="max-w-2xl mx-auto px-3 sm:px-4 py-8 flex-1 flex flex-col">
         {/* Progress dots */}
         <div className="flex items-center justify-center gap-2 mb-8">
           {QUESTIONS.map((_, i) => (
@@ -580,7 +580,7 @@ function PathwayDetail({ pathway, onBack }) {
         </div>
       </div>
 
-      <div className="max-w-2xl mx-auto px-4 py-5 space-y-4">
+      <div className="max-w-2xl mx-auto px-3 sm:px-4 py-5 space-y-4">
         {/* Hero */}
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
           className={`bg-gradient-to-br ${pathway.gradient} rounded-3xl p-6 text-white shadow-lg dark:shadow-none`}>
@@ -799,7 +799,7 @@ export default function GrowthPathwaysPage() {
         </div>
       </div>
 
-      <div className="max-w-2xl mx-auto px-4 py-5 space-y-5">
+      <div className="max-w-2xl mx-auto px-3 sm:px-4 py-5 space-y-5">
 
         {/* Active pathway spotlight */}
         {activePathway && (progress[activePathway.id] || []).length < activePathway.steps.length && (

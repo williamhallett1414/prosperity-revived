@@ -16,7 +16,7 @@ export default function NutritionArticle() {
   if (!article) {
     return (
       <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-24">
-        <div className="max-w-2xl mx-auto px-4 py-6 text-center">
+        <div className="max-w-2xl mx-auto px-3 sm:px-4 py-6 text-center">
           <p className="text-[#0A1A2F]/60 dark:text-white/60">Article not found</p>
           <Link to={createPageUrl('NutritionGuidance')} className="mt-4">
             <Button>Back to Guidance</Button>
@@ -48,7 +48,7 @@ export default function NutritionArticle() {
         </div>
       </div>
 
-      <div className="max-w-2xl mx-auto px-4 py-6">
+      <div className="max-w-2xl mx-auto px-3 sm:px-4 py-6">
         {/* Title and Description */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}

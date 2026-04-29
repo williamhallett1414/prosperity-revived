@@ -41,7 +41,7 @@ export default function GroupChallengeComparison({ participants, challenge, curr
   return (
     <div className="space-y-6">
       {/* Stats Overview */}
-      <div className="grid grid-cols-3 gap-3">
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
         <div className="bg-gradient-to-br from-[#FAD98D]/10 to-[#FFF9EC] rounded-xl p-4 text-center">
           <TrendingUp className="w-5 h-5 text-[#C9A227] mx-auto mb-1" />
           <p className="text-lg font-bold text-gray-900 dark:text-white">{averageProgress.toFixed(1)}</p>

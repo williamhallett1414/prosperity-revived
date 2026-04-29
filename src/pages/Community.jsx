@@ -216,7 +216,7 @@ export default function Community() {
 
       {/* ── Sticky Header ── */}
       <div className="sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b border-[#7C3AED]/15">
-        <div className="max-w-2xl mx-auto px-4 pt-4 pb-3">
+        <div className="max-w-2xl mx-auto px-3 sm:px-4 pt-4 pb-3">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#7C3AED] to-[#A78BFA] flex items-center justify-center">
@@ -268,11 +268,11 @@ export default function Community() {
         </div>
       </div>
 
-      <div className="max-w-2xl mx-auto px-4 pt-4">
+      <div className="max-w-2xl mx-auto px-3 sm:px-4 pt-4">
 
         {activeTab === 'feed' && (
           <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
-            className="grid grid-cols-3 gap-2 mb-4">
+            className="grid grid-cols-2 sm:grid-cols-3 gap-2 mb-4">
             <StatPill icon={MessageCircle} value={posts.length} label="Posts" color="#7C3AED" />
             <StatPill icon={Users} value={myGroupCount} label="My Groups" color="#3B82F6" />
             <StatPill icon={Flame} value={groups.length} label="All Groups" color="#FD9C2D" />

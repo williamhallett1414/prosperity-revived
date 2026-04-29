@@ -369,7 +369,7 @@ export default function WeeklyReflectionPage() {
         </div>
       </div>
 
-      <div className="max-w-2xl mx-auto px-4 py-5 space-y-4">
+      <div className="max-w-2xl mx-auto px-3 sm:px-4 py-5 space-y-4">
 
         {/* Scripture banner */}
         <motion.div

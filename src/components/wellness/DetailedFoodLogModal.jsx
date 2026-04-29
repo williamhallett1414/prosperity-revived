@@ -311,7 +311,7 @@ If you can't find the exact product, provide a reasonable estimate based on simi
               <div className="border rounded-lg p-4">
                 <h4 className="font-semibold mb-2">{meal.description}</h4>
                 <p className="text-sm text-gray-500 dark:text-gray-300">{meal.serving_size}</p>
-                <div className="grid grid-cols-3 gap-2 mt-3 text-sm">
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 mt-3 text-sm">
                   <div>
                     <span className="text-gray-500 dark:text-gray-300">Calories:</span>
                     <span className="ml-1 font-medium">{meal.calories}</span>

@@ -95,7 +95,7 @@ export default function ModerationPanel({ user }) {
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-3 gap-3">
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
         <div className="bg-amber-50 rounded-xl p-3 text-center">
           <p className="text-lg font-black text-amber-600">{reports.filter(r => r.status === 'pending').length}</p>
           <p className="text-[10px] text-amber-600/60 font-bold">Pending</p>

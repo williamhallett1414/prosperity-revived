@@ -118,7 +118,7 @@ export default function JournalSentimentAnalyzer({ userEmail }) {
 
       {chartData.length > 0 ? (
         <>
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
             <div className="bg-[#FAD98D]/10 p-4 rounded-lg">
               <p className="text-xs text-gray-600 dark:text-gray-300">Average Sentiment</p>
               <p className="text-2xl font-bold text-[#C9A227]">{avgSentiment}</p>

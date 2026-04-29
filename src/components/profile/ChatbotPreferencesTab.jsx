@@ -234,7 +234,7 @@ function CoachDavidPrefs({ user }) {
       </div>
       <div>
         <p className="text-xs font-semibold text-gray-500 dark:text-gray-300 mb-2">FITNESS TRACKER</p>
-        <div className="grid grid-cols-3 gap-2">
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
           {TRACKERS.map(t => (
             <button key={t.id} onClick={() => setTracker(t.id)}
               className={`rounded-xl border-2 p-2.5 flex flex-col items-center gap-1 transition-all ${tracker === t.id ? 'border-green-400 bg-green-50' : 'border-gray-200 dark:border-white/10 hover:border-gray-300 dark:border-white/15'}`}>

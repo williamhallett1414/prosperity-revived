@@ -558,7 +558,7 @@ export default function WorkoutPlanner() {
       </div>
 
       {/* ── Daily Verse ── */}
-      <div className="max-w-2xl mx-auto px-4 pt-4">
+      <div className="max-w-2xl mx-auto px-3 sm:px-4 pt-4">
         <div className="bg-[#3C4E53]/90 rounded-2xl px-4 py-3 flex items-start gap-3 mb-4">
           <span className="text-[#FAD98D] text-lg mt-0.5">✝</span>
           <div>
@@ -569,7 +569,7 @@ export default function WorkoutPlanner() {
       </div>
 
       {/* ── Nav Tabs ── */}
-      <div className="max-w-2xl mx-auto px-4">
+      <div className="max-w-2xl mx-auto px-3 sm:px-4">
         <div className="bg-white dark:bg-white/5 rounded-2xl p-1 flex gap-1 shadow-sm dark:shadow-none mb-5">
           {NAV.map((n) =>
           <button key={n.key} onClick={() => setView(n.key)}
@@ -583,7 +583,7 @@ export default function WorkoutPlanner() {
       </div>
 
       {/* ── Content ── */}
-      <div className="max-w-2xl mx-auto px-4 pb-24">
+      <div className="max-w-2xl mx-auto px-3 sm:px-4 pb-24">
 
         {/* PLANNER VIEW */}
         {view === 'planner' &&

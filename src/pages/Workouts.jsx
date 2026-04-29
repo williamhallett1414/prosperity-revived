@@ -286,7 +286,7 @@ export default function Workouts() {
         </div>
 
         {/* ── Tab Bar ── */}
-         <div className="max-w-2xl mx-auto px-4 flex gap-0 overflow-x-auto">
+         <div className="max-w-2xl mx-auto px-3 sm:px-4 flex gap-0 overflow-x-auto">
            <div className="flex gap-0 w-full">
              {[
              { id: 'today', label: 'Today', icon: <Dumbbell className="w-3.5 h-3.5" /> },
@@ -563,7 +563,7 @@ export default function Workouts() {
             {/* ── Browse Categories ── */}
             <motion.div id="tour-categories" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.28 }}>
               <SectionLabel>Browse by Category</SectionLabel>
-              <div className="grid grid-cols-3 gap-2.5">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
                 {CATEGORIES.map((cat, i) =>
                 <motion.div
                   key={cat.key}

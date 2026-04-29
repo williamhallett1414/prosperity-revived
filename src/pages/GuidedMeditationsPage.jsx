@@ -473,7 +473,7 @@ export default function GuidedMeditationsPage() {
           </div>
         </div>
 
-        <div className="max-w-2xl mx-auto px-4 py-5 space-y-6">
+        <div className="max-w-2xl mx-auto px-3 sm:px-4 py-5 space-y-6">
 
           {/* ── Time-aware featured ──────────────────────────────────────── */}
           <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
@@ -577,7 +577,7 @@ export default function GuidedMeditationsPage() {
           {/* ── Tips footer ───────────────────────────────────────────────── */}
           <div className="bg-white dark:bg-white/5 rounded-2xl border border-[#F2F6FA] p-4">
             <p className="text-xs font-bold text-[#0A1A2F]/35 dark:text-white/35 uppercase tracking-widest mb-3">Getting the most from each session</p>
-            <div className="grid grid-cols-3 gap-3 text-center">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-center">
               {[
                 { emoji: '🎧', label: 'Headphones', sub: 'Blocks ambient noise' },
                 { emoji: '🪑', label: 'Still posture', sub: 'Sitting or lying down' },

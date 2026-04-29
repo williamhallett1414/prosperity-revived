@@ -130,7 +130,7 @@ export default function WorkoutProgressCharts({ isOpen, onClose }) {
               </div>
 
               {/* Stats */}
-              <div className="grid grid-cols-3 gap-3 mt-4">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-4">
                 <div className="text-center p-2 bg-white dark:bg-white/5 dark:bg-gray-700 rounded">
                   <p className="text-xs text-gray-500 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">Best</p>
                   <p className="font-bold text-emerald-600">

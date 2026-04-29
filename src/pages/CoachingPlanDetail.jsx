@@ -448,7 +448,7 @@ export default function CoachingPlanDetail() {
          </div>
        </div>
 
-      <div className="max-w-2xl mx-auto px-4 pt-4">
+      <div className="max-w-2xl mx-auto px-3 sm:px-4 pt-4">
 
         {/* Legal disclaimer banner for plans with disclaimers */}
         {plan.disclaimer && (
@@ -794,7 +794,7 @@ export default function CoachingPlanDetail() {
         </div>
 
         {/* Overall stats */}
-        <div className="grid grid-cols-3 gap-3 mb-6">
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-6">
           {[
             { label: 'Days Done', value: completedDays, icon: CheckCircle2, color: 'text-[#3C4E53]', bg: 'bg-[#F2F6FA] dark:bg-[#0A1A2F]' },
             { label: 'Streak', value: (() => {

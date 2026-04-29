@@ -378,7 +378,7 @@ export default function PersonalGrowth() {
           }
         </div>
 
-        <div className="max-w-2xl mx-auto px-4 flex gap-1.5 overflow-x-auto items-center">
+        <div className="max-w-2xl mx-auto px-3 sm:px-4 flex gap-1.5 overflow-x-auto items-center">
           {TABS.map((tab) =>
           <button key={tab.id} onClick={() => setActiveTab(tab.id)}
           className={`flex items-center gap-1.5 px-4 py-2.5 text-xs font-semibold flex-shrink-0 rounded-lg transition-all ${

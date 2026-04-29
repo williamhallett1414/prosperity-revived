@@ -205,7 +205,7 @@ export default function CoachDavidOnboarding({ onComplete, user }) {
                   <div>
                     <p className="text-sm text-gray-600 dark:text-gray-300 mb-1">Do you use a fitness tracker?</p>
                     <p className="text-xs text-gray-400 dark:text-gray-300 mb-3">I'll tailor advice based on your data sources.</p>
-                    <div className="grid grid-cols-3 gap-2">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                       {TRACKERS.map(t => (
                         <button
                           key={t.id}

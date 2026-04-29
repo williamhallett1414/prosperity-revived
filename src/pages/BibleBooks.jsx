@@ -130,7 +130,7 @@ export default function BibleBooks() {
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
               className="bg-gradient-to-br from-[#FAD98D]/25 to-[#FAD98D]/15 border border-[#FAD98D]/25 rounded-2xl p-4">
               <p className="text-xs font-bold text-[#0A1A2F]/40 dark:text-white/40 uppercase tracking-widest mb-3">Good places to start</p>
-              <div className="grid grid-cols-3 gap-2">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                 {START_HERE[testament].map(({ book, ch, desc }) => (
                   <button key={book} onClick={() => navigate(createPageUrl(`Bible?book=${book}&chapter=${ch}`))}
                     className="bg-white dark:bg-white/5 rounded-xl p-3 text-left border border-[#FAD98D]/20 hover:border-[#c9a227]/40 hover:shadow-sm dark:shadow-none transition-all">

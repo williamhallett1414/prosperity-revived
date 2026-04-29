@@ -162,7 +162,7 @@ export default function CreateRecipeModal({ isOpen, onClose }) {
           {/* Nutrition facts */}
           <div className="bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-2xl p-4">
             <p className="text-xs font-bold text-[#0A1A2F]/40 dark:text-white/40 uppercase tracking-widest mb-3">Nutrition per Serving (optional)</p>
-            <div className="grid grid-cols-3 gap-2">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
               {[
                 ['calories', 'Calories', ''],
                 ['protein',  'Protein (g)', 'g'],

@@ -136,7 +136,7 @@ export default function NotificationSettings() {
         </div>
       </div>
 
-      <div className="max-w-2xl mx-auto px-4 py-6">
+      <div className="max-w-2xl mx-auto px-3 sm:px-4 py-6">
         <div className="space-y-3 mb-6">
           {notificationTypes.map((type, index) => (
             <motion.div

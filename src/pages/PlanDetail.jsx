@@ -304,7 +304,7 @@ export default function PlanDetail() {
         </div>
       </div>
 
-      <div className="max-w-2xl mx-auto px-4 py-6">
+      <div className="max-w-2xl mx-auto px-3 sm:px-4 py-6">
         {/* Description */}
         <p className="text-gray-600 dark:text-gray-300 mb-6">{plan.description}</p>
 

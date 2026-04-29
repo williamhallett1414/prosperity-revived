@@ -504,7 +504,7 @@ export default function WorkoutTrends() {
                           </ResponsiveContainer>
 
                           {/* Exercise stats */}
-                          <div className="grid grid-cols-3 gap-2 mt-4">
+                          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 mt-4">
                             {[
                               { label: 'Best weight', value: Math.max(...exerciseData.map(d => d.weight)) + ' lbs', color: '#10b981' },
                               { label: 'Best reps',   value: Math.max(...exerciseData.map(d => d.reps)),          color: '#3b82f6' },

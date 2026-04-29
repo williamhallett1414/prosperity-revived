@@ -415,7 +415,7 @@ export default function MindsetResetPage() {
           </div>
         </div>
 
-        <div className="max-w-2xl mx-auto px-4 py-5 space-y-5">
+        <div className="max-w-2xl mx-auto px-3 sm:px-4 py-5 space-y-5">
 
           {/* History panel */}
           <AnimatePresence>

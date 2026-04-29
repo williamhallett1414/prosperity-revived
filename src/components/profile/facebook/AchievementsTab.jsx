@@ -23,7 +23,7 @@ export default function AchievementsTab({ userProgress }) {
     >
       {/* Level & Points Card */}
       <div className="bg-gradient-to-br from-[#FAD98D]/20 via-[#FAD98D]/10 to-[#FFF9EC] rounded-xl shadow-sm dark:shadow-none p-6 sm:p-8 border border-[#FAD98D]/40">
-        <div className="grid grid-cols-3 gap-4 sm:gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-6">
           <div className="text-center">
             <div className="text-3xl sm:text-5xl font-bold text-[#c9a227] mb-2">{userProgress.level || 1}</div>
             <p className="text-xs sm:text-sm font-semibold text-[#0A1A2F]/75 dark:text-white/75">Level</p>

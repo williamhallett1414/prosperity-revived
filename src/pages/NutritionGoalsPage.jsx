@@ -219,7 +219,7 @@ function UpdateGoalsModal({ user, onClose, onSave }) {
           {/* Cooking time */}
           <div>
             <p className="text-xs font-bold text-[#0A1A2F]/60 dark:text-white/60 uppercase tracking-widest mb-2">Cooking Preference</p>
-            <div className="grid grid-cols-3 gap-2">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
               {Object.entries(COOK_LABELS).map(([key, { label, emoji }]) => (
                 <button key={key} onClick={() => setForm(f => ({ ...f, cooking_time: key }))}
                   className={`flex flex-col items-center px-2 py-2.5 rounded-xl border text-xs font-semibold transition-all ${form.cooking_time === key ? 'border-[#22C55E] bg-[#F0FDF4] text-[#166534]' : 'border-gray-100 dark:border-white/10 bg-gray-50 dark:bg-white/5 text-[#0A1A2F]/60 dark:text-white/60'}`}>
@@ -578,7 +578,7 @@ export default function NutritionGoalsPage() {
               </div>
               <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">Daily Water Goal</p>
             </div>
-            <div className="grid grid-cols-3 gap-3 text-center">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-center">
               <div className="bg-[#EFF9FF] rounded-2xl py-3">
                 <p className="text-2xl font-black text-[#38BDF8]">{water.total}L</p>
                 <p className="text-[10px] text-[#38BDF8]/60 mt-0.5">total/day</p>
