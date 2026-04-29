@@ -204,13 +204,17 @@ function SectionLabel({ children }) {
 }
 function NumberInput({ label, value, onChange, min, max, unit }) {
   return (
-    <div className="bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 px-4 py-3 flex items-center justify-between">
-      <span className="text-sm font-medium text-gray-700 dark:text-gray-200">{label}</span>
-      <div className="flex items-center gap-3">
-        <button onPointerDown={() => onChange(Math.max(min, (value||min)-1))} className="w-8 h-8 rounded-full bg-gray-100 dark:bg-white/5 flex items-center justify-center font-bold text-gray-600 dark:text-gray-300">−</button>
-        <span className="text-base font-bold text-[#0A1A2F] dark:text-white w-12 text-center">{value||'—'}</span>
-        <button onPointerDown={() => onChange(Math.min(max, (value||min)+1))} className="w-8 h-8 rounded-full bg-gray-100 dark:bg-white/5 flex items-center justify-center font-bold text-gray-600 dark:text-gray-300">+</button>
-        {unit && <span className="text-xs text-gray-400 dark:text-gray-300 w-6">{unit}</span>}
+    <div className="rounded-2xl border-2 border-gray-100 dark:border-white/10 bg-white dark:bg-white/5 px-4 py-3 flex items-center justify-between gap-3">
+      <span className="text-sm font-semibold text-[#0A1A2F] dark:text-white flex-1 leading-tight">{label}</span>
+      <div className="flex items-center gap-2">
+        <button onPointerDown={() => onChange(Math.max(min, (value||min)-1))}
+          className="w-9 h-9 rounded-xl bg-gray-100 dark:bg-white/10 flex items-center justify-center text-lg font-bold text-gray-500 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-white/20 transition-colors active:scale-95">−</button>
+        <div className="min-w-[52px] text-center">
+          <span className="text-xl font-black text-[#0A1A2F] dark:text-white">{value || min}</span>
+          {unit && <span className="text-xs text-gray-400 dark:text-gray-300 ml-1">{unit}</span>}
+        </div>
+        <button onPointerDown={() => onChange(Math.min(max, (value||min)+1))}
+          className="w-9 h-9 rounded-xl bg-[#FD9C2D]/15 flex items-center justify-center text-lg font-bold text-[#FD9C2D] hover:bg-[#FD9C2D]/25 transition-colors active:scale-95">+</button>
       </div>
     </div>
   );
