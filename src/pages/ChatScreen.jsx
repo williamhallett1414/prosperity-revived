@@ -599,8 +599,8 @@ async function speakWithGoogleTTS({ text, cfg, onStart, onEnd, onError, primedAu
     audioEl.onended = () => { URL.revokeObjectURL(url); onEnd?.(); };
     audioEl.onerror = () => { URL.revokeObjectURL(url); onError?.(); };
 
-    onStart?.();
     await audioEl.play();
+    onStart?.();
 
   } catch (err) {
     console.error('[Gideon TTS]', err);
@@ -647,8 +647,8 @@ async function speakWithChefDanielTTS({ text, cfg, onStart, onEnd, onError, prim
     audioEl.onended = () => { URL.revokeObjectURL(url); onEnd?.(); };
     audioEl.onerror = () => { URL.revokeObjectURL(url); onError?.(); };
 
-    onStart?.();
     await audioEl.play();
+    onStart?.();
 
   } catch (err) {
     console.error('[Chef Daniel TTS]', err);
@@ -695,8 +695,8 @@ async function speakWithCoachDavidTTS({ text, cfg, onStart, onEnd, onError, prim
     audioEl.onended = () => { URL.revokeObjectURL(url); onEnd?.(); };
     audioEl.onerror = () => { URL.revokeObjectURL(url); onError?.(); };
 
-    onStart?.();
     await audioEl.play();
+    onStart?.();
 
   } catch (err) {
     console.error('[Coach David TTS]', err);
@@ -743,8 +743,8 @@ async function speakWithCoachPaulTTS({ text, cfg, onStart, onEnd, onError, prime
     audioEl.onended = () => { URL.revokeObjectURL(url); onEnd?.(); };
     audioEl.onerror = () => { URL.revokeObjectURL(url); onError?.(); };
 
-    onStart?.();
     await audioEl.play();
+    onStart?.();
 
   } catch (err) {
     console.error('[Coach Paul TTS]', err);
@@ -791,8 +791,8 @@ async function speakWithHannahTTS({ text, cfg, onStart, onEnd, onError, primedAu
     audioEl.onended = () => { URL.revokeObjectURL(url); onEnd?.(); };
     audioEl.onerror = () => { URL.revokeObjectURL(url); onError?.(); };
 
-    onStart?.();
     await audioEl.play();
+    onStart?.();
 
   } catch (err) {
     console.error('[Hannah TTS]', err);
