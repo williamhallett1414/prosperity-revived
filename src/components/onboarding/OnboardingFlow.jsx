@@ -204,17 +204,17 @@ function SectionLabel({ children }) {
 }
 function NumberInput({ label, value, onChange, min, max, unit }) {
   return (
-    <div className="rounded-2xl border-2 border-gray-100 dark:border-white/10 bg-white dark:bg-white/5 px-3 py-3 flex flex-col gap-2">
-      <span className="text-xs font-semibold text-gray-500 dark:text-gray-300 uppercase tracking-wide leading-tight">{label}</span>
-      <div className="flex items-center justify-between gap-2">
+    <div className="rounded-xl border border-gray-100 dark:border-white/10 bg-white dark:bg-white/5 px-2.5 py-2 flex items-center justify-between gap-1.5">
+      <span className="text-[11px] font-semibold text-gray-500 dark:text-gray-300 leading-tight truncate flex-1">{label}</span>
+      <div className="flex items-center gap-1 flex-shrink-0">
         <button onPointerDown={() => onChange(Math.max(min, (value||min)-1))}
-          className="w-9 h-9 rounded-xl bg-gray-100 dark:bg-white/10 flex items-center justify-center text-lg font-bold text-gray-500 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-white/20 transition-colors active:scale-95 flex-shrink-0">−</button>
-        <div className="flex-1 text-center">
-          <span className="text-2xl font-black text-[#0A1A2F] dark:text-white">{value || min}</span>
-          {unit && <span className="text-xs text-gray-400 dark:text-gray-300 ml-1">{unit}</span>}
+          className="w-7 h-7 rounded-lg bg-gray-100 dark:bg-white/10 flex items-center justify-center text-sm font-bold text-gray-500 dark:text-gray-300 active:scale-95">−</button>
+        <div className="w-10 text-center">
+          <span className="text-sm font-black text-[#0A1A2F] dark:text-white">{value || min}</span>
+          {unit && <span className="text-[10px] text-gray-400 dark:text-gray-300 ml-0.5">{unit}</span>}
         </div>
         <button onPointerDown={() => onChange(Math.min(max, (value||min)+1))}
-          className="w-9 h-9 rounded-xl bg-[#FD9C2D]/15 flex items-center justify-center text-lg font-bold text-[#FD9C2D] hover:bg-[#FD9C2D]/25 transition-colors active:scale-95 flex-shrink-0">+</button>
+          className="w-7 h-7 rounded-lg bg-[#FD9C2D]/15 flex items-center justify-center text-sm font-bold text-[#FD9C2D] active:scale-95">+</button>
       </div>
     </div>
   );
