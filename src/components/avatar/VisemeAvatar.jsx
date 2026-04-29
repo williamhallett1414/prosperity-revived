@@ -390,6 +390,7 @@ export default function VisemeAvatar({
     userSelect: 'none',
     pointerEvents: 'none',
     display: 'block',
+    mixBlendMode: 'multiply',
   };
 
   if (!entry || !entry.neutral) return null;
