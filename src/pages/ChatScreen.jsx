@@ -20,6 +20,7 @@ import BotBackground from '@/components/avatar/BotBackground';
 import TabernacleLights from '@/components/avatar/backgrounds/TabernacleLights';
 import SacredGarden from '@/components/avatar/backgrounds/SacredGarden';
 import GardenHarvest from '@/components/avatar/backgrounds/GardenHarvest';
+import IronTemple from '@/components/avatar/backgrounds/IronTemple';
 import VisemeAvatar, { hasPoseSet } from '@/components/avatar/VisemeAvatar';
 
 // ─── Error boundary — if WebGL/R3F fails, show pulsing circle ────────────────
@@ -1362,6 +1363,11 @@ export default function ChatScreen() {
       {/* Garden Harvest — Chef Daniel only */}
       {cfg.character === 'chef' && (
         <GardenHarvest speaking={avatarSpeaking} />
+      )}
+
+      {/* Iron Temple — Coach David only */}
+      {cfg.character === 'coach' && (
+        <IronTemple speaking={avatarSpeaking} />
       )}
 
       {/* Header */}
