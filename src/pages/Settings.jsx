@@ -1,7 +1,7 @@
 import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
-import { ArrowLeft, Moon, Sun, Monitor, Bell, User, Palette, Trash2, Play, Database, ChevronRight } from 'lucide-react';
+import { ArrowLeft, Moon, Sun, Monitor, Bell, User, Palette, Trash2, Play, Database, ChevronRight, RotateCcw } from 'lucide-react';
 import { toast } from 'sonner';
 const AppTour = lazy(() => import('@/components/onboarding/AppTour'));
 import { Button } from '@/components/ui/button';
@@ -266,6 +266,22 @@ export default function Settings() {
               <span className="flex items-center gap-2 text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">
                 <Play className="w-4 h-4 text-[#38BDF8]" />
                 Interactive Guided Tour
+              </span>
+              <ChevronRight className="w-4 h-4 text-gray-400 dark:text-gray-300" />
+            </button>
+
+            <button
+              onClick={async () => {
+                localStorage.removeItem('age_verified');
+                await base44.auth.updateMe({ onboarding_completed: null, age_group: null }).catch(() => {});
+                toast.success('Onboarding reset — reload to start fresh');
+                setTimeout(() => window.location.reload(), 1200);
+              }}
+              className="flex items-center justify-between py-3 px-3 rounded-lg hover:bg-gray-50 dark:bg-white/5 dark:hover:bg-gray-800 transition-colors min-h-[44px] w-full text-left"
+            >
+              <span className="flex items-center gap-2 text-amber-600 dark:text-amber-400">
+                <RotateCcw className="w-4 h-4" />
+                Reset Onboarding (Dev)
               </span>
               <ChevronRight className="w-4 h-4 text-gray-400 dark:text-gray-300" />
             </button>
