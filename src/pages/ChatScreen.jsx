@@ -118,7 +118,7 @@ const BOT_CONFIG = {
     gradFrom:    '#AFC7E3',
     gradMid:     '#7ab3d4',
     gradTo:      '#AFC7E3',
-    bgDark:      '#1a2d3d',
+    bgDark:      '#000000',
     userBubble:  'from-[#AFC7E3] to-[#7ab3d4]',
     micActive:   '#AFC7E3',
     icon:        'H',
@@ -171,7 +171,7 @@ SAFETY: If someone expresses thoughts of self-harm, suicide, or a mental health 
     gradFrom:    '#0f172a',
     gradMid:     '#1e40af',
     gradTo:      '#38BDF8',
-    bgDark:      '#0a1628',
+    bgDark:      '#000000',
     userBubble:  'from-[#1e40af] to-[#38BDF8]',
     micActive:   '#38BDF8',
     icon:        'D',
@@ -230,7 +230,7 @@ SAFETY: For any injury, pain, or medical symptom, always recommend the person se
     gradFrom:    '#052e16',
     gradMid:     '#166534',
     gradTo:      '#22c55e',
-    bgDark:      '#051a0d',
+    bgDark:      '#000000',
     userBubble:  'from-[#166534] to-[#22c55e]',
     micActive:   '#22c55e',
     icon:        'C',
@@ -287,7 +287,7 @@ SAFETY: For medical nutrition needs — diabetes, eating disorders, kidney disea
     gradFrom:    '#1a0f00',
     gradMid:     '#7c5a00',
     gradTo:      '#D9B878',
-    bgDark:      '#120a00',
+    bgDark:      '#000000',
     userBubble:  'from-[#7c5a00] to-[#c9a227]',
     micActive:   '#D9B878',
     icon:        'G',
@@ -345,7 +345,7 @@ DENOMINATIONAL NEUTRALITY: Speak to people across all Christian traditions. Avoi
     gradFrom:    '#0F0A1F',
     gradMid:     '#3B0764',
     gradTo:      '#A78BFA',
-    bgDark:      '#0A0718',
+    bgDark:      '#000000',
     userBubble:  'from-[#3B0764] to-[#7C3AED]',
     micActive:   '#A78BFA',
     icon:        'P',
@@ -1334,7 +1334,8 @@ export default function ChatScreen() {
       transition={{ duration: 0.25 }}
       style={{ background: cfg.bgDark }}
     >
-      {/* 2D cartoon background environment */}
+      {/* 2D cartoon background — hidden when video avatar is active */}
+      {!hasPoseSet(cfg.character) && (
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <BotBackground
           character={cfg.character}
@@ -1343,11 +1344,12 @@ export default function ChatScreen() {
           thinking={avatarThinking}
         />
       </div>
+      )}
 
       {/* Header */}
       <div className="relative z-20 flex items-center justify-between px-4"
         style={{ paddingTop: 'max(14px, env(safe-area-inset-top))', paddingBottom: 10,
-          background: 'rgba(0,0,0,0.30)', backdropFilter: 'blur(16px)',
+          background: 'rgba(0,0,0,0.60)', backdropFilter: 'blur(16px)',
           borderBottom: `1px solid ${cfg.gradTo}20` }}>
 
         {/* Left — Back */}
@@ -1386,7 +1388,7 @@ export default function ChatScreen() {
 
       {/* ── AI Disclaimer Bar ── */}
       <div className="relative z-20 flex-shrink-0 text-center"
-        style={{ background: 'rgba(0,0,0,0.35)', backdropFilter: 'blur(8px)', padding: '4px 16px', borderBottom: `1px solid ${cfg.gradTo}10` }}>
+        style={{ background: 'rgba(0,0,0,0.50)', backdropFilter: 'blur(8px)', padding: '4px 16px', borderBottom: `1px solid ${cfg.gradTo}10` }}>
         <p style={{ fontSize: 9, color: 'rgba(255,255,255,0.45)', letterSpacing: '0.04em' }}>
           AI-generated content for informational purposes only — not professional medical, financial, or therapeutic advice
         </p>
@@ -1408,7 +1410,7 @@ export default function ChatScreen() {
       {/* ── Quick Prompt Chip Strip (top, always visible, horizontal scroll) ── */}
       <div
         className="relative z-20 flex-shrink-0"
-        style={{ borderBottom: `1px solid ${cfg.gradTo}18`, background: 'rgba(0,0,0,0.28)', backdropFilter: 'blur(12px)' }}
+        style={{ borderBottom: `1px solid ${cfg.gradTo}10`, background: 'rgba(0,0,0,0.50)', backdropFilter: 'blur(12px)' }}
       >
         {/* Label row */}
         <div className="flex items-center gap-1.5 px-4 pt-2 pb-1">
@@ -1578,7 +1580,7 @@ export default function ChatScreen() {
         className="relative px-3 pt-2"
         style={{ paddingBottom: 'max(14px, env(safe-area-inset-bottom))',
           zIndex: 50,
-          background: 'rgba(8,18,38,0.92)', backdropFilter: 'blur(24px)',
+          background: 'rgba(0,0,0,0.85)', backdropFilter: 'blur(24px)',
           borderTop: `1px solid ${cfg.gradTo}40`,
           boxShadow: '0 -8px 32px rgba(0,0,0,0.55)' }}
         initial={{ y: 50, opacity: 0 }}
