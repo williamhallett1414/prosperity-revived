@@ -149,7 +149,7 @@ Only reference past guidance when directly relevant. This shows you're walking a
       <Button
         onClick={() => setIsExpanded(!isExpanded)}
         variant="outline"
-        className="w-full bg-gradient-to-r from-[#FAD98D]/10 to-[#FFF9EC] border-[#FAD98D]/40 hover:shadow-md transition-all"
+        className="w-full bg-gradient-to-r from-[#FAD98D]/10 to-[#FFF9EC] border-[#FAD98D]/40 hover:shadow-md dark:shadow-none transition-all"
       >
         <MessageCircle className="w-4 h-4 mr-2 text-[#c9a227]" />
         Ask Gideon About This Section
@@ -200,11 +200,11 @@ Only reference past guidance when directly relevant. This shows you're walking a
                 <div className="bg-gradient-to-br from-[#FAD98D]/10 to-[#FFF9EC] p-4 rounded-lg space-y-3">
                   <div>
                     <p className="text-xs font-medium text-[#C9A227] mb-1">Your Question:</p>
-                    <p className="text-sm text-[#0A1A2F]/75">{currentAdvice.question}</p>
+                    <p className="text-sm text-[#0A1A2F]/75 dark:text-white/75">{currentAdvice.question}</p>
                   </div>
                   <div>
                     <p className="text-xs font-medium text-[#c9a227] mb-1">Gideon's Guidance:</p>
-                    <p className="text-sm text-[#0A1A2F]/75 leading-relaxed">{currentAdvice.advice}</p>
+                    <p className="text-sm text-[#0A1A2F]/75 dark:text-white/75 leading-relaxed">{currentAdvice.advice}</p>
                   </div>
                   <Button
                     onClick={handleSaveAdvice}
@@ -221,7 +221,7 @@ Only reference past guidance when directly relevant. This shows you're walking a
               {/* Saved Advice */}
               {savedAdvice.length > 0 && (
                 <div className="space-y-3 border-t border-[#FAD98D]/20 pt-4">
-                  <h4 className="text-sm font-semibold text-[#0A1A2F]/75">Saved Guidance</h4>
+                  <h4 className="text-sm font-semibold text-[#0A1A2F]/75 dark:text-white/75">Saved Guidance</h4>
                   {savedAdvice.map((item) => (
                     <div
                       key={item.id}
@@ -230,7 +230,7 @@ Only reference past guidance when directly relevant. This shows you're walking a
                       <div className="flex items-start justify-between gap-2">
                         <div className="flex-1 space-y-2">
                           <p className="text-xs font-medium text-[#0A1A2F]/60 dark:text-white/60">{item.user_question}</p>
-                          <p className="text-sm text-[#0A1A2F]/75">{item.advice}</p>
+                          <p className="text-sm text-[#0A1A2F]/75 dark:text-white/75">{item.advice}</p>
                         </div>
                         <div className="flex gap-1">
                           <button

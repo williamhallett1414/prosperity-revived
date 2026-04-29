@@ -31,7 +31,7 @@ export default function TodaysOverview({ meditations = [], workoutPlans = [], ch
       <h2 className="text-lg font-bold text-[#0A1A2F] dark:text-white px-4">Today's Overview</h2>
 
       {/* Today's Scripture */}
-      <div className="bg-slate-50 px-4">
+      <div className="bg-slate-50 dark:bg-white/5 px-4">
         <VerseOfDay onBookmark={onBookmark} />
       </div>
 
@@ -39,7 +39,7 @@ export default function TodaysOverview({ meditations = [], workoutPlans = [], ch
       <motion.div
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 0.15 }} className="bg-slate-50 mx-4 p-4 rounded-xl from-[#FAD98D] to-[#FD9C2D]">
+        transition={{ delay: 0.15 }} className="bg-slate-50 dark:bg-white/5 mx-4 p-4 rounded-xl from-[#FAD98D] to-[#FD9C2D]">
 
 
         <div className="flex items-start gap-2">

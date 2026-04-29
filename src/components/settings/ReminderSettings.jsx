@@ -54,7 +54,7 @@ export default function ReminderSettings() {
           key={key}
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-xl p-4 shadow-sm"
+          className="bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-xl p-4 shadow-sm dark:shadow-none"
         >
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-3">
@@ -78,7 +78,7 @@ export default function ReminderSettings() {
 
           {reminders[key].enabled && (
             <div className="flex items-center gap-2">
-              <label className="text-sm text-gray-600 dark:text-gray-400">Time:</label>
+              <label className="text-sm text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">Time:</label>
               <Input
                 type="time"
                 value={reminders[key].time}
@@ -108,7 +108,7 @@ export default function ReminderSettings() {
         )}
       </Button>
 
-      <p className="text-xs text-gray-500 dark:text-gray-400 text-center">
+      <p className="text-xs text-gray-500 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300 text-center">
         Note: Reminders are currently visual only. Push notifications coming soon!
       </p>
     </div>

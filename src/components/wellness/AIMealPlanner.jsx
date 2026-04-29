@@ -236,17 +236,17 @@ Also generate a complete shopping list by combining all unique ingredients from 
                       const recipe = recipes.find(r => r.title === meal.recipe_title);
                       return (
                         <div key={mealIndex} className="flex items-start gap-2 p-2 bg-gray-50 dark:bg-white/5 dark:bg-gray-800/50 rounded">
-                          <UtensilsCrossed className="w-4 h-4 text-gray-400 mt-0.5" />
+                          <UtensilsCrossed className="w-4 h-4 text-gray-400 dark:text-gray-300 mt-0.5" />
                           <div className="flex-1">
                             <div className="flex items-center justify-between">
                               <p className="text-sm font-medium text-[#0A1A2F] dark:text-white dark:text-white">
                                 {meal.recipe_title}
                               </p>
-                              <span className="text-xs text-gray-500 dark:text-gray-400">
+                              <span className="text-xs text-gray-500 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">
                                 {meal.calories} cal
                               </span>
                             </div>
-                            <p className="text-xs text-gray-500 dark:text-gray-400 capitalize">
+                            <p className="text-xs text-gray-500 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300 capitalize">
                               {meal.meal_type}
                             </p>
                             {recipe && (
@@ -276,7 +276,7 @@ Also generate a complete shopping list by combining all unique ingredients from 
                 {shoppingList.produce?.length > 0 && (
                   <div>
                     <h4 className="text-sm font-semibold text-green-600 dark:text-green-400 mb-2">🥬 Produce</h4>
-                    <ul className="text-sm text-gray-600 dark:text-gray-400 space-y-1">
+                    <ul className="text-sm text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300 space-y-1">
                       {shoppingList.produce.map((item, i) => (
                         <li key={i}>• {item}</li>
                       ))}
@@ -287,7 +287,7 @@ Also generate a complete shopping list by combining all unique ingredients from 
                 {shoppingList.proteins?.length > 0 && (
                   <div>
                     <h4 className="text-sm font-semibold text-red-600 dark:text-red-400 mb-2">🍖 Proteins</h4>
-                    <ul className="text-sm text-gray-600 dark:text-gray-400 space-y-1">
+                    <ul className="text-sm text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300 space-y-1">
                       {shoppingList.proteins.map((item, i) => (
                         <li key={i}>• {item}</li>
                       ))}
@@ -298,7 +298,7 @@ Also generate a complete shopping list by combining all unique ingredients from 
                 {shoppingList.dairy?.length > 0 && (
                   <div>
                     <h4 className="text-sm font-semibold text-[#3C4E53] dark:text-blue-400 mb-2">🥛 Dairy</h4>
-                    <ul className="text-sm text-gray-600 dark:text-gray-400 space-y-1">
+                    <ul className="text-sm text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300 space-y-1">
                       {shoppingList.dairy.map((item, i) => (
                         <li key={i}>• {item}</li>
                       ))}
@@ -309,7 +309,7 @@ Also generate a complete shopping list by combining all unique ingredients from 
                 {shoppingList.pantry?.length > 0 && (
                   <div>
                     <h4 className="text-sm font-semibold text-amber-600 dark:text-amber-400 mb-2">🏺 Pantry</h4>
-                    <ul className="text-sm text-gray-600 dark:text-gray-400 space-y-1">
+                    <ul className="text-sm text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300 space-y-1">
                       {shoppingList.pantry.map((item, i) => (
                         <li key={i}>• {item}</li>
                       ))}
@@ -319,8 +319,8 @@ Also generate a complete shopping list by combining all unique ingredients from 
 
                 {shoppingList.other?.length > 0 && (
                   <div>
-                    <h4 className="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-2">🛒 Other</h4>
-                    <ul className="text-sm text-gray-600 dark:text-gray-400 space-y-1">
+                    <h4 className="text-sm font-semibold text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300 mb-2">🛒 Other</h4>
+                    <ul className="text-sm text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300 space-y-1">
                       {shoppingList.other.map((item, i) => (
                         <li key={i}>• {item}</li>
                       ))}

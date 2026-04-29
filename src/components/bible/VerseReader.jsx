@@ -238,7 +238,7 @@ export default function VerseReader({ book, chapter, onBack, onNavigate, bookmar
                             verses.find(v => v.number === selectedVerse),
                             color
                           )}
-                          className={`w-8 h-8 rounded-full ${highlightColors[color]} border-2 border-white shadow-md hover:scale-110 transition-transform`}
+                          className={`w-8 h-8 rounded-full ${highlightColors[color]} border-2 border-white shadow-md dark:shadow-none hover:scale-110 transition-transform`}
                         />
                       ))}
                     </div>

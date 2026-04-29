@@ -110,71 +110,71 @@ export default function NutritionBreakdown({ timeRange = 7 }) {
         <div className="grid grid-cols-4 gap-3 mb-4">
           <div className="text-center p-3 bg-emerald-50 dark:bg-emerald-900/20 rounded-lg">
             <p className="text-2xl font-bold text-emerald-600">{stats.avgDaily.calories}</p>
-            <p className="text-xs text-gray-500 dark:text-gray-400">Calories</p>
+            <p className="text-xs text-gray-500 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">Calories</p>
           </div>
           <div className="text-center p-3 bg-[#F2F6FA] dark:bg-[#0A1A2F]/20 rounded-lg">
             <p className="text-2xl font-bold text-[#3C4E53]">{stats.avgDaily.protein}g</p>
-            <p className="text-xs text-gray-500 dark:text-gray-400">Protein</p>
+            <p className="text-xs text-gray-500 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">Protein</p>
           </div>
           <div className="text-center p-3 bg-amber-50 dark:bg-amber-900/20 rounded-lg">
             <p className="text-2xl font-bold text-amber-600">{stats.avgDaily.carbs}g</p>
-            <p className="text-xs text-gray-500 dark:text-gray-400">Carbs</p>
+            <p className="text-xs text-gray-500 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">Carbs</p>
           </div>
           <div className="text-center p-3 bg-red-50 dark:bg-red-900/20 rounded-lg">
             <p className="text-2xl font-bold text-red-600">{stats.avgDaily.fats}g</p>
-            <p className="text-xs text-gray-500 dark:text-gray-400">Fats</p>
+            <p className="text-xs text-gray-500 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">Fats</p>
           </div>
         </div>
 
         <div className="grid grid-cols-3 gap-2 text-sm mb-3">
           <div className="text-center p-2 bg-gray-50 dark:bg-white/5 dark:bg-gray-800 rounded">
-            <p className="font-medium text-gray-700 dark:text-gray-300">{stats.avgDaily.fiber}g</p>
-            <p className="text-xs text-gray-500">Fiber</p>
+            <p className="font-medium text-gray-700 dark:text-gray-200 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">{stats.avgDaily.fiber}g</p>
+            <p className="text-xs text-gray-500 dark:text-gray-300">Fiber</p>
           </div>
           <div className="text-center p-2 bg-gray-50 dark:bg-white/5 dark:bg-gray-800 rounded">
-            <p className="font-medium text-gray-700 dark:text-gray-300">{stats.avgDaily.sugar}g</p>
-            <p className="text-xs text-gray-500">Sugar</p>
+            <p className="font-medium text-gray-700 dark:text-gray-200 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">{stats.avgDaily.sugar}g</p>
+            <p className="text-xs text-gray-500 dark:text-gray-300">Sugar</p>
           </div>
           <div className="text-center p-2 bg-gray-50 dark:bg-white/5 dark:bg-gray-800 rounded">
-            <p className="font-medium text-gray-700 dark:text-gray-300">{stats.avgDaily.sodium}mg</p>
-            <p className="text-xs text-gray-500">Sodium</p>
+            <p className="font-medium text-gray-700 dark:text-gray-200 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">{stats.avgDaily.sodium}mg</p>
+            <p className="text-xs text-gray-500 dark:text-gray-300">Sodium</p>
           </div>
         </div>
 
         {/* Micronutrients */}
         <div className="border-t pt-3 mt-3">
-          <p className="text-xs font-medium text-gray-500 mb-2">Micronutrients (Daily Avg)</p>
+          <p className="text-xs font-medium text-gray-500 dark:text-gray-300 mb-2">Micronutrients (Daily Avg)</p>
           <div className="grid grid-cols-2 gap-2 text-xs">
             <div className="flex justify-between p-2 bg-[#FD9C2D]/10 dark:bg-[#FD9C2D]/5 rounded">
-              <span className="text-gray-600 dark:text-gray-400">Vitamin A</span>
+              <span className="text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">Vitamin A</span>
               <span className="font-medium text-[#FD9C2D] dark:text-[#FD9C2D]">{stats.avgDaily.vitamin_a}mcg</span>
             </div>
             <div className="flex justify-between p-2 bg-orange-50 dark:bg-orange-900/20 rounded">
-              <span className="text-gray-600 dark:text-gray-400">Vitamin C</span>
+              <span className="text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">Vitamin C</span>
               <span className="font-medium text-orange-700 dark:text-orange-400">{stats.avgDaily.vitamin_c}mg</span>
             </div>
             <div className="flex justify-between p-2 bg-yellow-50 dark:bg-yellow-900/20 rounded">
-              <span className="text-gray-600 dark:text-gray-400">Vitamin D</span>
+              <span className="text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">Vitamin D</span>
               <span className="font-medium text-yellow-700 dark:text-yellow-400">{stats.avgDaily.vitamin_d}mcg</span>
             </div>
             <div className="flex justify-between p-2 bg-[#F2F6FA] dark:bg-[#0A1A2F]/20 rounded">
-              <span className="text-gray-600 dark:text-gray-400">Calcium</span>
+              <span className="text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">Calcium</span>
               <span className="font-medium text-[#3C4E53] dark:text-blue-400">{stats.avgDaily.calcium}mg</span>
             </div>
             <div className="flex justify-between p-2 bg-red-50 dark:bg-red-900/20 rounded">
-              <span className="text-gray-600 dark:text-gray-400">Iron</span>
+              <span className="text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">Iron</span>
               <span className="font-medium text-red-700 dark:text-red-400">{stats.avgDaily.iron}mg</span>
             </div>
             <div className="flex justify-between p-2 bg-green-50 dark:bg-green-900/20 rounded">
-              <span className="text-gray-600 dark:text-gray-400">Potassium</span>
+              <span className="text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">Potassium</span>
               <span className="font-medium text-green-700 dark:text-green-400">{stats.avgDaily.potassium}mg</span>
             </div>
             <div className="flex justify-between p-2 bg-[#F2F6FA] dark:bg-indigo-900/20 rounded">
-              <span className="text-gray-600 dark:text-gray-400">Magnesium</span>
+              <span className="text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">Magnesium</span>
               <span className="font-medium text-indigo-700 dark:text-indigo-400">{stats.avgDaily.magnesium}mg</span>
             </div>
             <div className="flex justify-between p-2 bg-[#FAD98D]/10 dark:bg-[#0A1A2F]/20 rounded">
-              <span className="text-gray-600 dark:text-gray-400">Zinc</span>
+              <span className="text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">Zinc</span>
               <span className="font-medium text-[#C9A227] dark:text-pink-400">{stats.avgDaily.zinc}mg</span>
             </div>
           </div>

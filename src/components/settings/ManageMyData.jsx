@@ -76,11 +76,11 @@ function RequestCard({ right, onSend }) {
         </div>
         <div className="flex-1 min-w-0">
           <p className="text-sm font-semibold text-[#0A1A2F] dark:text-white dark:text-white">{right.title}</p>
-          <p className="text-xs text-gray-500 mt-0.5">{right.desc}</p>
+          <p className="text-xs text-gray-500 dark:text-gray-300 mt-0.5">{right.desc}</p>
         </div>
         {open
-          ? <ChevronUp className="w-4 h-4 text-gray-400 flex-shrink-0" />
-          : <ChevronDown className="w-4 h-4 text-gray-400 flex-shrink-0" />
+          ? <ChevronUp className="w-4 h-4 text-gray-400 dark:text-gray-300 flex-shrink-0" />
+          : <ChevronDown className="w-4 h-4 text-gray-400 dark:text-gray-300 flex-shrink-0" />
         }
       </button>
 
@@ -94,7 +94,7 @@ function RequestCard({ right, onSend }) {
             className="overflow-hidden"
           >
             <div className="px-4 pb-4 pt-1 border-t border-gray-50 dark:border-white/5 space-y-3">
-              <p className="text-xs text-gray-500 leading-relaxed">
+              <p className="text-xs text-gray-500 dark:text-gray-300 leading-relaxed">
                 We'll respond within <strong>30 days</strong> (or 72 hours for breaches). Under GDPR and CCPA you have the right to make this request at no charge.
               </p>
               <button
@@ -160,10 +160,10 @@ export default function ManageMyData({ user }) {
           className="w-full flex items-center justify-between py-2 text-left"
           onClick={() => setShowCategories(v => !v)}
         >
-          <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">What We Store</p>
+          <p className="text-xs font-bold text-gray-400 dark:text-gray-300 uppercase tracking-widest">What We Store</p>
           {showCategories
-            ? <ChevronUp className="w-4 h-4 text-gray-400" />
-            : <ChevronDown className="w-4 h-4 text-gray-400" />
+            ? <ChevronUp className="w-4 h-4 text-gray-400 dark:text-gray-300" />
+            : <ChevronDown className="w-4 h-4 text-gray-400 dark:text-gray-300" />
           }
         </button>
 
@@ -185,8 +185,8 @@ export default function ManageMyData({ user }) {
                     </div>
                     <ul className="space-y-0.5">
                       {cat.items.map(item => (
-                        <li key={item} className="text-xs text-gray-500 flex gap-1.5">
-                          <span className="text-gray-300 mt-px">·</span>
+                        <li key={item} className="text-xs text-gray-500 dark:text-gray-300 flex gap-1.5">
+                          <span className="text-gray-300 dark:text-gray-400 dark:text-gray-300 mt-px">·</span>
                           {item}
                         </li>
                       ))}
@@ -201,7 +201,7 @@ export default function ManageMyData({ user }) {
 
       {/* Download My Data (GDPR Article 20 / CCPA / CDPA compliance) */}
       <div>
-        <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Download My Data</p>
+        <p className="text-xs font-bold text-gray-400 dark:text-gray-300 uppercase tracking-widest mb-2">Download My Data</p>
         <button
           onClick={handleExportData}
           disabled={exporting}
@@ -210,14 +210,14 @@ export default function ManageMyData({ user }) {
           <Download className="w-4 h-4" />
           {exporting ? 'Exporting…' : 'Export All My Data (JSON)'}
         </button>
-        <p className="text-[10px] text-gray-400 mt-1.5 text-center">
+        <p className="text-[10px] text-gray-400 dark:text-gray-300 mt-1.5 text-center">
           Downloads a file with your profile, journals, workouts, bookmarks, posts, and mood data.
         </p>
       </div>
 
       {/* Your rights */}
       <div>
-        <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Your Data Rights</p>
+        <p className="text-xs font-bold text-gray-400 dark:text-gray-300 uppercase tracking-widest mb-2">Your Data Rights</p>
         <div className="space-y-2">
           {RIGHTS.map(r => (
             <RequestCard key={r.title} right={r} />
@@ -230,7 +230,7 @@ export default function ManageMyData({ user }) {
         <Check className="w-4 h-4 text-[#C9A227] flex-shrink-0 mt-0.5" />
         <div>
           <p className="text-xs font-bold text-[#0A1A2F] dark:text-white mb-0.5">Your data is never sold</p>
-          <p className="text-xs text-gray-500 leading-relaxed">
+          <p className="text-xs text-gray-500 dark:text-gray-300 leading-relaxed">
             We never sell your personal information or use your health data, journals, or prayer logs for advertising.
             You can delete your entire account and all data from the button below at any time.
           </p>
@@ -239,7 +239,7 @@ export default function ManageMyData({ user }) {
 
       {/* Terms accepted date */}
       {user?.terms_accepted_at && (
-        <p className="text-[10px] text-center text-gray-400">
+        <p className="text-[10px] text-center text-gray-400 dark:text-gray-300">
           Terms accepted {new Date(user.terms_accepted_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
           {user.terms_version ? ` (v${user.terms_version})` : ''}
         </p>

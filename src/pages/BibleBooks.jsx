@@ -133,7 +133,7 @@ export default function BibleBooks() {
               <div className="grid grid-cols-3 gap-2">
                 {START_HERE[testament].map(({ book, ch, desc }) => (
                   <button key={book} onClick={() => navigate(createPageUrl(`Bible?book=${book}&chapter=${ch}`))}
-                    className="bg-white dark:bg-white/5 rounded-xl p-3 text-left border border-[#FAD98D]/20 hover:border-[#c9a227]/40 hover:shadow-sm transition-all">
+                    className="bg-white dark:bg-white/5 rounded-xl p-3 text-left border border-[#FAD98D]/20 hover:border-[#c9a227]/40 hover:shadow-sm dark:shadow-none transition-all">
                     <p className="font-bold text-[#0A1A2F] dark:text-white text-sm leading-tight">{book}</p>
                     <p className="text-[10px] text-[#0A1A2F]/45 dark:text-white/45 mt-0.5 leading-tight">{desc}</p>
                   </button>

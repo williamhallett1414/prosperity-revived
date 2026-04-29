@@ -90,7 +90,7 @@ function BMIGauge({ bmi }) {
         <motion.div
           initial={{ left: '0%' }} animate={{ left: `calc(${pct}% - 6px)` }}
           transition={{ duration: 0.9, delay: 0.3, type: 'spring' }}
-          className="absolute top-1/2 -translate-y-1/2 w-3 h-5 rounded-sm bg-white dark:bg-white/5 shadow-md border-2 border-gray-200 dark:border-white/10"
+          className="absolute top-1/2 -translate-y-1/2 w-3 h-5 rounded-sm bg-white dark:bg-white/5 shadow-md dark:shadow-none border-2 border-gray-200 dark:border-white/10 dark:border-white/10"
           style={{ zIndex: 2 }} />
       </div>
       <div className="flex justify-between mt-1.5">
@@ -114,7 +114,7 @@ function MacroBar({ label, grams, cals, color, pct }) {
         <span className="text-xs font-bold text-[#0A1A2F] dark:text-white dark:text-white">{label}</span>
         <span className="text-xs text-[#0A1A2F]/50 dark:text-white/50">{grams}g · {cals} kcal</span>
       </div>
-      <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+      <div className="h-2 bg-gray-100 dark:bg-white/5 rounded-full overflow-hidden">
         <motion.div initial={{ width: 0 }} animate={{ width: `${pct}%` }}
           transition={{ duration: 0.7, delay: 0.2 }}
           className="h-full rounded-full" style={{ background: color }} />
@@ -237,7 +237,7 @@ export default function FitnessGoalsPage() {
 
         {/* Hero */}
         <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}>
-          <div className="rounded-3xl p-5 relative overflow-hidden shadow-lg"
+          <div className="rounded-3xl p-5 relative overflow-hidden shadow-lg dark:shadow-none"
             style={{ background: 'linear-gradient(135deg, #0A1A2F 0%, #1A3050 60%, #38BDF8 180%)' }}>
             <div className="absolute -right-8 -top-8 w-40 h-40 rounded-full bg-white/5" />
             <div className="relative">
@@ -282,7 +282,7 @@ export default function FitnessGoalsPage() {
 
         {/* BMI */}
         <motion.div id="tour-bmi-card" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }}
-          className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm">
+          className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm dark:shadow-none">
           <div className="flex items-center justify-between mb-1">
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#EFF9FF]">
@@ -305,7 +305,7 @@ export default function FitnessGoalsPage() {
 
         {/* Calories */}
         <motion.div id="tour-calories-card" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.09 }}
-          className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm">
+          className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm dark:shadow-none">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#FFF7ED]">
@@ -313,7 +313,7 @@ export default function FitnessGoalsPage() {
               </div>
               <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">Daily Calorie Target</p>
             </div>
-            <button onClick={() => setShowInfo(v => !v)} className="w-7 h-7 rounded-full bg-gray-100 flex items-center justify-center">
+            <button onClick={() => setShowInfo(v => !v)} className="w-7 h-7 rounded-full bg-gray-100 dark:bg-white/5 flex items-center justify-center">
               <Info className="w-3.5 h-3.5 text-[#0A1A2F]/40 dark:text-white/40" />
             </button>
           </div>
@@ -353,7 +353,7 @@ export default function FitnessGoalsPage() {
         {/* Macros */}
         {macros && (
           <motion.div id="tour-macros-split" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.13 }}
-            className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm">
+            className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm dark:shadow-none">
             <div className="flex items-center gap-2 mb-4">
               <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#F0FDF4]">
                 <BarChart2 className="w-4 h-4 text-[#22C55E]" />
@@ -377,7 +377,7 @@ export default function FitnessGoalsPage() {
         {/* Timeline */}
         {tl && goalWt && (
           <motion.div id="tour-timeline-card" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.17 }}
-            className="rounded-3xl p-5 shadow-sm relative overflow-hidden"
+            className="rounded-3xl p-5 shadow-sm dark:shadow-none relative overflow-hidden"
             style={{ background: 'linear-gradient(135deg, #0A1A2F, #1A3050)' }}>
             <div className="absolute -right-6 -top-6 w-28 h-28 rounded-full bg-white/5" />
             <div className="flex items-center gap-2 mb-4">
@@ -428,7 +428,7 @@ export default function FitnessGoalsPage() {
               { icon: Target,   color: '#FD9C2D', bg: '#FFF7ED', title: 'Weekly burn',  value: `${(tdee * 7 / 1000).toFixed(1)}k kcal`, sub: `Across ${days} workouts + life` },
             ].map(({ icon: Icon, color, bg, title, value, sub }, i) => (
               <motion.div key={title} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 + i * 0.03 }}
-                className="bg-white dark:bg-white/5 rounded-2xl p-4 shadow-sm">
+                className="bg-white dark:bg-white/5 rounded-2xl p-4 shadow-sm dark:shadow-none">
                 <div className="flex items-center gap-2 mb-2">
                   <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: bg }}>
                     <Icon className="w-3.5 h-3.5" style={{ color }} />
@@ -445,7 +445,7 @@ export default function FitnessGoalsPage() {
         {/* Hydration */}
         {weight && (
           <motion.div id="tour-hydration-tip" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.24 }}
-            className="bg-white dark:bg-white/5 rounded-2xl px-4 py-3.5 flex items-center gap-3 shadow-sm">
+            className="bg-white dark:bg-white/5 rounded-2xl px-4 py-3.5 flex items-center gap-3 shadow-sm dark:shadow-none">
             <div className="w-9 h-9 rounded-xl flex items-center justify-center bg-[#EFF9FF] flex-shrink-0">
               <Droplets style={{ width: 18, height: 18, color: '#38BDF8' }} />
             </div>
@@ -488,7 +488,7 @@ export default function FitnessGoalsPage() {
               { icon: '📅', label: 'Workout Planner',   page: 'WorkoutPlanner'  },
             ].map(({ icon, label, page }) => (
               <Link key={page} to={createPageUrl(page)}
-                className="flex items-center gap-2.5 bg-white dark:bg-white/5 rounded-2xl p-3.5 shadow-sm border border-gray-50 dark:border-white/5 active:scale-97 transition-all">
+                className="flex items-center gap-2.5 bg-white dark:bg-white/5 rounded-2xl p-3.5 shadow-sm dark:shadow-none border border-gray-50 dark:border-white/5 active:scale-97 transition-all">
                 <span className="text-xl">{icon}</span>
                 <span className="text-xs font-bold text-[#0A1A2F] dark:text-white leading-tight">{label}</span>
               </Link>

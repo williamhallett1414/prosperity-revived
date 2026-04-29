@@ -306,7 +306,7 @@ export default function PlanDetail() {
 
       <div className="max-w-2xl mx-auto px-4 py-6">
         {/* Description */}
-        <p className="text-gray-600 mb-6">{plan.description}</p>
+        <p className="text-gray-600 dark:text-gray-300 mb-6">{plan.description}</p>
 
         {/* Tabs for Plan Content and Devotional */}
         <Tabs defaultValue="progress" className="mb-6">
@@ -321,11 +321,11 @@ export default function PlanDetail() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-white dark:bg-white/5 rounded-2xl p-6 shadow-sm mb-6"
+            className="bg-white dark:bg-white/5 rounded-2xl p-6 shadow-sm dark:shadow-none mb-6"
           >
             <div className="flex items-center justify-between mb-4">
               <div>
-                <p className="text-sm text-gray-500">Your Progress</p>
+                <p className="text-sm text-gray-500 dark:text-gray-300">Your Progress</p>
                 <p className="text-2xl font-bold text-[#0A1A2F] dark:text-white dark:text-white">
                   {completedCount} / {plan.duration} days
                 </p>
@@ -392,11 +392,11 @@ export default function PlanDetail() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-white dark:bg-white/5 rounded-2xl p-6 shadow-sm mb-6"
+            className="bg-white dark:bg-white/5 rounded-2xl p-6 shadow-sm dark:shadow-none mb-6"
           >
             <div className="flex items-center gap-3 mb-4">
               <Calendar className="w-5 h-5 text-[#c9a227]" />
-              <span className="text-gray-600">{plan.duration} days</span>
+              <span className="text-gray-600 dark:text-gray-300">{plan.duration} days</span>
             </div>
             <Button
               onClick={handleStartPlan}
@@ -438,7 +438,7 @@ export default function PlanDetail() {
                             {hasNote && <div className="w-2 h-2 bg-[#c9a227] rounded-full" />}
                           </div>
                           {reading && (
-                            <p className="text-sm text-gray-500">{reading.book} {reading.chapter}</p>
+                            <p className="text-sm text-gray-500 dark:text-gray-300">{reading.book} {reading.chapter}</p>
                           )}
                         </div>
                         {/* Action buttons */}
@@ -458,7 +458,7 @@ export default function PlanDetail() {
                             onClick={() => handleToggleDay(day)}
                             variant={isCompleted ? "default" : "outline"}
                             size="sm"
-                            className={`text-xs ${isCompleted ? 'bg-[#AFC7E3] hover:bg-[#AFC7E3]/80 text-white border-0' : 'text-gray-600 hover:border-[#AFC7E3] hover:text-[#AFC7E3]'}`}
+                            className={`text-xs ${isCompleted ? 'bg-[#AFC7E3] hover:bg-[#AFC7E3]/80 text-white border-0' : 'text-gray-600 dark:text-gray-300 hover:border-[#AFC7E3] hover:text-[#AFC7E3]'}`}
                           >
                             <CheckCircle2 className="w-4 h-4 mr-1" />
                             {isCompleted ? 'Done' : 'Complete'}

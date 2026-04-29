@@ -25,10 +25,10 @@ export default function QuickTools() {
        content: (
          <div className="text-center space-y-4">
            <div className="text-6xl mb-4">🌬️</div>
-           <p className="text-gray-700">Inhale deeply for 4 seconds...</p>
-           <p className="text-gray-700">Hold for 4 seconds...</p>
-           <p className="text-gray-700">Exhale slowly for 4 seconds...</p>
-           <p className="text-gray-500 text-sm mt-4">Repeat 4 times</p>
+           <p className="text-gray-700 dark:text-gray-200">Inhale deeply for 4 seconds...</p>
+           <p className="text-gray-700 dark:text-gray-200">Hold for 4 seconds...</p>
+           <p className="text-gray-700 dark:text-gray-200">Exhale slowly for 4 seconds...</p>
+           <p className="text-gray-500 dark:text-gray-300 text-sm mt-4">Repeat 4 times</p>
          </div>
        )
      },
@@ -41,7 +41,7 @@ export default function QuickTools() {
        content: (
          <div className="text-center space-y-4">
            <div className="text-6xl mb-4">🙏</div>
-           <p className="text-gray-700 font-serif italic">
+           <p className="text-gray-700 dark:text-gray-200 font-serif italic">
              "Lord, thank You for this moment. Ground me in Your presence.
              Fill me with Your peace that surpasses understanding.
              Guide my thoughts, my words, and my actions today. Amen."
@@ -59,10 +59,10 @@ export default function QuickTools() {
        content: (
          <div className="text-center space-y-4">
            <div className="text-6xl mb-4">📖</div>
-           <p className="text-gray-700 font-serif italic text-lg">
+           <p className="text-gray-700 dark:text-gray-200 font-serif italic text-lg">
              "The Lord is my strength and my shield; my heart trusts in him."
            </p>
-           <p className="text-gray-500 text-sm">Psalm 28:7</p>
+           <p className="text-gray-500 dark:text-gray-300 text-sm">Psalm 28:7</p>
          </div>
        )
      },
@@ -84,7 +84,7 @@ export default function QuickTools() {
        action: () => navigate(createPageUrl('SelfCare')),
        content: (
          <div className="text-center space-y-4">
-           <p className="text-gray-700 font-semibold">How are you feeling right now?</p>
+           <p className="text-gray-700 dark:text-gray-200 font-semibold">How are you feeling right now?</p>
            <div className="flex justify-center gap-4 text-4xl">
              <button className="hover:scale-125 transition">😔</button>
              <button className="hover:scale-125 transition">😐</button>
@@ -126,7 +126,7 @@ export default function QuickTools() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => tool.isModal ? setActiveModal(tool.id) : tool.action()}
-                className={`bg-gradient-to-br ${tool.gradient} rounded-2xl p-4 text-[#0A1A2F] dark:text-white shadow-lg`}
+                className={`bg-gradient-to-br ${tool.gradient} rounded-2xl p-4 text-[#0A1A2F] dark:text-white shadow-lg dark:shadow-none`}
               >
                 <Icon className="w-8 h-8 mx-auto mb-2" />
                 <p className="text-sm font-semibold">{tool.label}</p>

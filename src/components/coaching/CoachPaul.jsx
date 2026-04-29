@@ -197,7 +197,7 @@ STYLE RULES:
       {/* Floating button */}
       <motion.button
         onClick={handleOpen}
-        className="fixed bottom-24 right-4 w-14 h-14 bg-gradient-to-br from-[#c9a227] to-[#C9A227] hover:opacity-90 text-white rounded-full shadow-lg flex items-center justify-center z-40"
+        className="fixed bottom-24 right-4 w-14 h-14 bg-gradient-to-br from-[#c9a227] to-[#C9A227] hover:opacity-90 text-white rounded-full shadow-lg dark:shadow-none flex items-center justify-center z-40"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
         initial={{ scale: 0 }}
@@ -278,7 +278,7 @@ STYLE RULES:
                           <p className="text-sm">{msg.content}</p>
                         ) : (
                           <>
-                            <ReactMarkdown className="text-sm prose prose-sm max-w-none text-gray-800 [&>*:first-child]:mt-0 [&>*:last-child]:mb-0 [&_p]:mb-1 [&_ul]:mb-1 [&_li]:mb-0">
+                            <ReactMarkdown className="text-sm prose prose-sm max-w-none text-gray-800 dark:text-gray-100 [&>*:first-child]:mt-0 [&>*:last-child]:mb-0 [&_p]:mb-1 [&_ul]:mb-1 [&_li]:mb-0">
                               {msg.content}
                             </ReactMarkdown>
                             {/* Fix #4 — listen/stop toggle per message */}
@@ -372,7 +372,7 @@ STYLE RULES:
                 <button
                   onClick={() => handleSendMessage()}
                   disabled={!input.trim() || loading}
-                  className="w-10 h-10 rounded-xl bg-gradient-to-r from-[#c9a227] to-[#C9A227] text-white flex items-center justify-center disabled:opacity-50 hover:shadow-lg transition-all flex-shrink-0"
+                  className="w-10 h-10 rounded-xl bg-gradient-to-r from-[#c9a227] to-[#C9A227] text-white flex items-center justify-center disabled:opacity-50 hover:shadow-lg dark:shadow-none transition-all flex-shrink-0"
                 >
                   <Send className="w-4 h-4" />
                 </button>
@@ -390,7 +390,7 @@ STYLE RULES:
                   {showMenu && (
                     <button
                       onClick={handleClearChat}
-                      className="absolute bottom-full left-0 mb-2 bg-red-50 border border-red-200 rounded-lg shadow-lg px-2.5 py-1.5 text-[10px] font-bold text-red-600 hover:bg-red-100 whitespace-nowrap flex items-center gap-1.5"
+                      className="absolute bottom-full left-0 mb-2 bg-red-50 border border-red-200 rounded-lg shadow-lg dark:shadow-none px-2.5 py-1.5 text-[10px] font-bold text-red-600 hover:bg-red-100 whitespace-nowrap flex items-center gap-1.5"
                     >
                       <Trash2 className="w-3 h-3" /> Clear Chat
                     </button>

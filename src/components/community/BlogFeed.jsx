@@ -101,7 +101,7 @@ function HeroBlogCard({ post }) {
 
   return (
     <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
-      className="bg-white dark:bg-white/5 rounded-2xl border border-[#FAD98D]/20 overflow-hidden shadow-sm">
+      className="bg-white dark:bg-white/5 rounded-2xl border border-[#FAD98D]/20 overflow-hidden shadow-sm dark:shadow-none">
 
       {/* Coloured header band */}
       <div className="h-2 w-full" style={{ backgroundColor: topic.accent + '40' }} />
@@ -139,7 +139,7 @@ function HeroBlogCard({ post }) {
             </p>
           ) : (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-              className="prose prose-sm max-w-none text-[#0A1A2F]/75 prose-headings:text-[#0A1A2F] dark:text-white prose-headings:font-bold prose-strong:text-[#0A1A2F] dark:text-white prose-p:leading-relaxed">
+              className="prose prose-sm max-w-none text-[#0A1A2F]/75 dark:text-white/75 prose-headings:text-[#0A1A2F] dark:text-white prose-headings:font-bold prose-strong:text-[#0A1A2F] dark:text-white prose-p:leading-relaxed">
               <ReactMarkdown>{post.content}</ReactMarkdown>
             </motion.div>
           )}

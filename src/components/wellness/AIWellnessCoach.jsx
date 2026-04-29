@@ -608,7 +608,7 @@ Format as specific, actionable recommendations with clear benefits explained.`;
             animate={{ scale: 1 }}
             exit={{ scale: 0 }}
             onClick={() => setIsOpen(true)}
-            className="fixed bottom-24 right-4 w-14 h-14 bg-gradient-to-r from-[#AFC7E3] to-[#6B7280] rounded-full shadow-lg flex items-center justify-center text-white z-50 hover:shadow-xl transition-shadow"
+            className="fixed bottom-24 right-4 w-14 h-14 bg-gradient-to-r from-[#AFC7E3] to-[#6B7280] rounded-full shadow-lg dark:shadow-none flex items-center justify-center text-white z-50 hover:shadow-xl transition-shadow"
           >
             <MessageCircle className="w-6 h-6" />
             {activeJourney && userProgress?.last_active_date && (
@@ -677,7 +677,7 @@ Format as specific, actionable recommendations with clear benefits explained.`;
                       className={`max-w-[80%] rounded-2xl px-4 py-2 ${
                         message.role === 'user'
                           ? 'bg-[#c9a227] text-white'
-                          : 'bg-gray-100 text-gray-900'
+                          : 'bg-gray-100 dark:bg-white/5 text-gray-900 dark:text-white'
                       }`}
                     >
                       <p className="text-sm whitespace-pre-wrap">{message.content}</p>
@@ -687,7 +687,7 @@ Format as specific, actionable recommendations with clear benefits explained.`;
 
                 {isTyping && (
                   <div className="flex justify-start">
-                    <div className="bg-gray-100 rounded-2xl px-4 py-3">
+                    <div className="bg-gray-100 dark:bg-white/5 rounded-2xl px-4 py-3">
                       <div className="flex gap-1">
                         <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
                         <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
@@ -705,7 +705,7 @@ Format as specific, actionable recommendations with clear benefits explained.`;
               {messages.length <= 2 && (
                 <div className="px-4 pb-2 space-y-3">
                   <div>
-                    <p className="text-xs text-gray-500 mb-2">Quick questions:</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-300 mb-2">Quick questions:</p>
                     <div className="flex flex-wrap gap-2">
                       {quickPrompts.map((prompt, index) => (
                         <button
@@ -808,14 +808,14 @@ Format as specific, actionable recommendations with clear benefits explained.`;
                       <div>
                         <div className="flex items-center gap-2 mb-2">
                           <Lightbulb className="w-4 h-4 text-amber-600" />
-                          <p className="text-xs font-medium text-gray-700">Suggested Prompts</p>
+                          <p className="text-xs font-medium text-gray-700 dark:text-gray-200">Suggested Prompts</p>
                         </div>
                         <div className="space-y-2">
                           {suggestedPrompts.map((prompt, index) => (
                             <button
                               key={index}
                               onClick={() => setJournalEntry(prev => prev + (prev ? '\n\n' : '') + prompt + '\n')}
-                              className="w-full text-left p-2 bg-amber-50 rounded-lg text-xs text-gray-700 hover:bg-amber-100 transition-colors"
+                              className="w-full text-left p-2 bg-amber-50 rounded-lg text-xs text-gray-700 dark:text-gray-200 hover:bg-amber-100 transition-colors"
                             >
                               {prompt}
                             </button>
@@ -827,7 +827,7 @@ Format as specific, actionable recommendations with clear benefits explained.`;
                     {/* Mood & Energy */}
                     <div className="grid grid-cols-2 gap-3">
                       <div>
-                        <label className="text-xs font-medium text-gray-700 mb-1 block">Mood</label>
+                        <label className="text-xs font-medium text-gray-700 dark:text-gray-200 mb-1 block">Mood</label>
                         <Select value={journalMood} onValueChange={setJournalMood}>
                           <SelectTrigger className="text-xs">
                             <SelectValue />
@@ -842,7 +842,7 @@ Format as specific, actionable recommendations with clear benefits explained.`;
                         </Select>
                       </div>
                       <div>
-                        <label className="text-xs font-medium text-gray-700 mb-1 block">Energy</label>
+                        <label className="text-xs font-medium text-gray-700 dark:text-gray-200 mb-1 block">Energy</label>
                         <Select value={journalEnergy} onValueChange={setJournalEnergy}>
                           <SelectTrigger className="text-xs">
                             <SelectValue />
@@ -860,7 +860,7 @@ Format as specific, actionable recommendations with clear benefits explained.`;
 
                     {/* Journal Entry */}
                     <div>
-                      <label className="text-xs font-medium text-gray-700 mb-1 block">What's on your mind?</label>
+                      <label className="text-xs font-medium text-gray-700 dark:text-gray-200 mb-1 block">What's on your mind?</label>
                       <Textarea
                         value={journalEntry}
                         onChange={(e) => setJournalEntry(e.target.value)}
@@ -877,7 +877,7 @@ Format as specific, actionable recommendations with clear benefits explained.`;
                          className="p-3 bg-[#AFC7E3]/10 rounded-lg space-y-2"
                        >
                          <p className="text-xs font-semibold text-[#3C4E53]">📊 Your Mood Patterns</p>
-                         <div className="text-xs text-gray-700 space-y-1">
+                         <div className="text-xs text-gray-700 dark:text-gray-200 space-y-1">
                            <p><span className="font-medium">Trend:</span> {moodPatternInsights.mood_pattern}</p>
                            <p><span className="font-medium">Energy:</span> {moodPatternInsights.energy_correlation}</p>
                            {moodPatternInsights.triggers?.length > 0 && (
@@ -898,7 +898,7 @@ Format as specific, actionable recommendations with clear benefits explained.`;
                      {journalEntries.length > 0 && (
                        <div>
                          <div className="flex items-center justify-between mb-2">
-                           <p className="text-xs font-medium text-gray-700">Recent Entries</p>
+                           <p className="text-xs font-medium text-gray-700 dark:text-gray-200">Recent Entries</p>
                            {journalEntries.length >= 5 && (
                              <button
                                onClick={() => analyzeJournalEntryDeep(journalEntries)}
@@ -910,12 +910,12 @@ Format as specific, actionable recommendations with clear benefits explained.`;
                          </div>
                          <div className="space-y-2">
                            {journalEntries.slice(0, 3).map((entry) => (
-                             <div key={entry.id} className="p-2 bg-gray-50 dark:bg-white/5 rounded-lg">
+                             <div key={entry.id} className="p-2 bg-gray-50 dark:bg-white/5 dark:text-white rounded-lg">
                                <div className="flex items-center justify-between mb-1">
-                                 <span className="text-xs text-gray-500">{entry.date}</span>
+                                 <span className="text-xs text-gray-500 dark:text-gray-300">{entry.date}</span>
                                  <span className="text-xs">{entry.mood === 'excellent' ? '🤩' : entry.mood === 'good' ? '😊' : entry.mood === 'neutral' ? '😐' : '😞'}</span>
                                </div>
-                               <p className="text-xs text-gray-700 line-clamp-2">{entry.content}</p>
+                               <p className="text-xs text-gray-700 dark:text-gray-200 line-clamp-2">{entry.content}</p>
                                {entry.ai_insights && (
                                  <p className="text-xs text-[#3C4E53] mt-1 italic">💡 {entry.ai_insights.substring(0, 80)}...</p>
                                )}

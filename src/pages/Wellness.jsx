@@ -96,7 +96,7 @@ function FeaturedCard({ feature }) {
   return (
     <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }}>
       <Link to={createPageUrl(feature.page)}>
-        <div className={`rounded-3xl p-5 bg-gradient-to-br ${feature.gradient} shadow-lg relative overflow-hidden`}>
+        <div className={`rounded-3xl p-5 bg-gradient-to-br ${feature.gradient} shadow-lg dark:shadow-none relative overflow-hidden`}>
           {/* Decorative circle */}
           <div className="absolute -right-8 -top-8 w-36 h-36 rounded-full bg-white/10" />
           <div className="absolute -right-2 top-10 w-16 h-16 rounded-full bg-white/8" />
@@ -136,7 +136,7 @@ function TodayStats({ meals, workouts, waterMl }) {
       <div className="flex gap-3">
         {stats.map(({ icon, value, label, color, page }) => (
           <Link key={label} to={createPageUrl(page)}
-            className="flex-1 bg-white dark:bg-white/5 rounded-2xl px-3 py-3 flex items-center gap-2 shadow-sm border border-gray-100 dark:border-white/10">
+            className="flex-1 bg-white dark:bg-white/5 rounded-2xl px-3 py-3 flex items-center gap-2 shadow-sm dark:shadow-none border border-gray-100 dark:border-white/10">
             <span className="text-xl">{icon}</span>
             <div>
               <p className={`font-bold text-lg leading-none ${color}`}>{value}</p>
@@ -158,7 +158,7 @@ function CategoryGrid() {
         {CATEGORIES.map(({ label, sub, page, gradient, icon: Icon, image }, i) => (
           <motion.div key={page} id={i === 0 ? 'tour-workouts-card' : undefined} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.12 + i * 0.05 }}>
             <Link to={createPageUrl(page)}>
-              <div className="relative rounded-2xl overflow-hidden h-36 shadow-md group">
+              <div className="relative rounded-2xl overflow-hidden h-36 shadow-md dark:shadow-none group">
                 {/* Background image */}
                 <img src={image} alt={label} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                 {/* Gradient overlay */}
@@ -198,7 +198,7 @@ function CoachingSection({ active }) {
     <motion.div id="tour-coaching-section" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#3C4E53] to-[#FD9C2D] flex items-center justify-center shadow-sm">
+          <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#3C4E53] to-[#FD9C2D] flex items-center justify-center shadow-sm dark:shadow-none">
             <Crown className="w-4 h-4 text-white" />
           </div>
           <div>
@@ -219,7 +219,7 @@ function CoachingSection({ active }) {
           return (
             <Link key={plan.id} to={createPageUrl(`CoachingPlanDetail?id=${plan.id}&day=${nextDay}`)}>
               <motion.div whileHover={{ y: -1 }}
-                className="bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                className="bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 overflow-hidden shadow-sm dark:shadow-none hover:shadow-md dark:shadow-none transition-shadow">
                 <div className={`bg-gradient-to-r ${plan.gradient} px-4 py-3 flex items-center gap-3`}>
                   <span className="text-2xl">{plan.cover_emoji}</span>
                   <div className="flex-1 min-w-0">

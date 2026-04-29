@@ -129,7 +129,7 @@ export default function CommunityRecipeFeed({ user }) {
               }
               <button
                 onClick={() => setShowCreatePost(true)}
-                className="flex-1 text-left px-4 py-2 rounded-full bg-gray-100 dark:bg-[#3C4E53] text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-[#3C4E53] transition-colors">
+                className="flex-1 text-left px-4 py-2 rounded-full bg-gray-100 dark:bg-white/5 dark:bg-[#3C4E53] text-gray-500 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-[#3C4E53] transition-colors">
 
                 Share a recipe...
               </button>
@@ -156,7 +156,7 @@ export default function CommunityRecipeFeed({ user }) {
 
             {/* File Upload Preview */}
             {filePreview &&
-            <div className="relative rounded-lg overflow-hidden bg-gray-100 dark:bg-[#3C4E53]">
+            <div className="relative rounded-lg overflow-hidden bg-gray-100 dark:bg-white/5 dark:bg-[#3C4E53]">
                 {selectedFile?.type.startsWith('video/') ?
               <video src={filePreview} className="w-full h-64 object-cover" controls /> :
 
@@ -189,9 +189,9 @@ export default function CommunityRecipeFeed({ user }) {
                 htmlFor="file-input"
                 className="flex-1 cursor-pointer">
 
-                  <div className="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-4 text-center hover:border-[#AFC7E3] transition-colors">
-                    <Upload className="w-6 h-6 mx-auto mb-2 text-gray-400" />
-                    <p className="text-sm text-gray-600 dark:text-gray-400">Click to upload image or video</p>
+                  <div className="border-2 border-dashed border-gray-300 dark:border-white/15 dark:border-gray-600 rounded-lg p-4 text-center hover:border-[#AFC7E3] transition-colors">
+                    <Upload className="w-6 h-6 mx-auto mb-2 text-gray-400 dark:text-gray-300" />
+                    <p className="text-sm text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">Click to upload image or video</p>
                   </div>
                 </label>
               </div>
@@ -236,13 +236,13 @@ export default function CommunityRecipeFeed({ user }) {
 
       {/* Feed */}
       <div className="space-y-3">
-        <h3 className="text-slate-900 text-lg font-semibold">Community Recipes</h3>
+        <h3 className="text-slate-900 dark:text-white text-lg font-semibold">Community Recipes</h3>
         {isLoading ?
         <div className="flex justify-center py-8">
             <Loader className="w-6 h-6 animate-spin text-[#3C4E53]" />
           </div> :
         posts.length === 0 ?
-        <div className="text-center py-8 text-gray-400">
+        <div className="text-center py-8 text-gray-400 dark:text-gray-300">
             <p>No recipes shared yet. Be the first!</p>
           </div> :
 
@@ -260,7 +260,7 @@ export default function CommunityRecipeFeed({ user }) {
                     <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#AFC7E3] to-[#6B7280]" />
                     <div>
                       <p className="font-semibold text-sm text-[#0A1A2F] dark:text-white dark:text-white">{post.user_name}</p>
-                      <p className="text-xs text-gray-500 dark:text-gray-400">
+                      <p className="text-xs text-gray-500 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">
                         {new Date(post.created_date).toLocaleDateString()}
                       </p>
                     </div>
@@ -291,16 +291,16 @@ export default function CommunityRecipeFeed({ user }) {
                   <div className="flex gap-4 pt-3 border-t border-gray-200 dark:border-white/10 dark:border-gray-700">
                     <button
                   onClick={() => likePostMutation.mutate({ postId: post.id, currentLikes: post.likes })}
-                  className="flex items-center gap-2 text-gray-500 hover:text-red-500 transition-colors text-sm">
+                  className="flex items-center gap-2 text-gray-500 dark:text-gray-300 hover:text-red-500 transition-colors text-sm">
 
                       <Heart className="w-4 h-4" />
                       {post.likes || 0}
                     </button>
-                    <button className="flex items-center gap-2 text-gray-500 hover:text-[#AFC7E3] transition-colors text-sm">
+                    <button className="flex items-center gap-2 text-gray-500 dark:text-gray-300 hover:text-[#AFC7E3] transition-colors text-sm">
                       <MessageCircle className="w-4 h-4" />
                       Comment
                     </button>
-                    <button className="flex items-center gap-2 text-gray-500 hover:text-green-500 transition-colors text-sm">
+                    <button className="flex items-center gap-2 text-gray-500 dark:text-gray-300 hover:text-green-500 transition-colors text-sm">
                       <Share2 className="w-4 h-4" />
                       Share
                     </button>

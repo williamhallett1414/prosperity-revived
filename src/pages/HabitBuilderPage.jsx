@@ -439,8 +439,8 @@ function HabitCard({ habit, isDone, streak, history, onToggle, index, user }) {
       onClick={() => onToggle(habit.id)}
       className={`w-full text-left rounded-2xl overflow-hidden transition-all group ${
         isDone
-          ? 'shadow-sm'
-          : 'bg-white dark:bg-white/5 border border-[#F2F6FA] hover:border-[#FAD98D]/40 hover:shadow-sm'
+          ? 'shadow-sm dark:shadow-none'
+          : 'bg-white dark:bg-white/5 border border-[#F2F6FA] hover:border-[#FAD98D]/40 hover:shadow-sm dark:shadow-none'
       }`}
       style={isDone ? { background: `linear-gradient(135deg, ${habit.color}22 0%, ${habit.color}0d 100%)`, border: `2px solid ${habit.color}35` } : {}}
     >
@@ -452,7 +452,7 @@ function HabitCard({ habit, isDone, streak, history, onToggle, index, user }) {
         <div className="flex items-center gap-3">
           {/* Emoji icon */}
           <div className={`w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 transition-all ${
-            isDone ? `bg-gradient-to-br ${habit.gradient} shadow-sm` : 'bg-[#F2F6FA] dark:bg-[#0A1A2F] group-hover:bg-white dark:bg-white/5'
+            isDone ? `bg-gradient-to-br ${habit.gradient} shadow-sm dark:shadow-none` : 'bg-[#F2F6FA] dark:bg-[#0A1A2F] group-hover:bg-white dark:bg-white/5'
           }`}>
             <span className="text-xl">{habit.emoji}</span>
           </div>
@@ -655,7 +655,7 @@ export default function HabitBuilderPage() {
               <motion.div key={label}
                 animate={highlight ? { scale: [1, 1.02, 1] } : {}}
                 transition={{ duration: 0.4 }}
-                className={`rounded-2xl border p-3.5 text-center transition-all ${highlight ? 'bg-white dark:bg-white/5 shadow-sm border-[#F2F6FA]' : 'bg-white dark:bg-white/5 border-[#F2F6FA]'}`}>
+                className={`rounded-2xl border p-3.5 text-center transition-all ${highlight ? 'bg-white dark:bg-white/5 shadow-sm dark:shadow-none border-[#F2F6FA]' : 'bg-white dark:bg-white/5 border-[#F2F6FA]'}`}>
                 <p className="font-bold text-xl text-[#0A1A2F] dark:text-white dark:text-white" style={highlight ? { color } : {}}>{value}</p>
                 <p className="text-xs font-bold text-[#0A1A2F] dark:text-white mt-0.5">{label}</p>
                 <p className="text-[10px] text-[#0A1A2F]/35 dark:text-white/35">{sub}</p>

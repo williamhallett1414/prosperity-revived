@@ -127,13 +127,13 @@ Return ONLY the prayer text, no additional formatting or explanation.`;
         {!generatedPrayer ? (
           <div className="space-y-6">
             <div className="bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 rounded-lg p-4">
-              <p className="text-sm text-gray-700 dark:text-gray-300">
+              <p className="text-sm text-gray-700 dark:text-gray-200 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">
                 Share what's on your heart, and I'll help you craft a meaningful prayer. 🙏
               </p>
             </div>
 
             <div>
-              <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3 block">
+              <label className="text-sm font-medium text-gray-700 dark:text-gray-200 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300 mb-3 block">
                 What type of prayer?
               </label>
               <div className="grid grid-cols-3 gap-2">
@@ -144,11 +144,11 @@ Return ONLY the prayer text, no additional formatting or explanation.`;
                     className={`p-3 rounded-lg border-2 transition-all text-center ${
                       prayerType === type.value
                         ? 'border-amber-600 bg-amber-50 dark:bg-amber-900/20'
-                        : 'border-gray-200 dark:border-white/10 hover:border-gray-300'
+                        : 'border-gray-200 dark:border-white/10 hover:border-gray-300 dark:border-white/15'
                     }`}
                   >
                     <div className="text-2xl mb-1">{type.icon}</div>
-                    <span className="text-xs font-medium text-gray-700 dark:text-gray-300">
+                    <span className="text-xs font-medium text-gray-700 dark:text-gray-200 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">
                       {type.label}
                     </span>
                   </button>
@@ -157,7 +157,7 @@ Return ONLY the prayer text, no additional formatting or explanation.`;
             </div>
 
             <div>
-              <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 block">
+              <label className="text-sm font-medium text-gray-700 dark:text-gray-200 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300 mb-2 block">
                 What would you like to pray about?
               </label>
               <Textarea
@@ -169,7 +169,7 @@ Return ONLY the prayer text, no additional formatting or explanation.`;
             </div>
 
             <div>
-              <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 block">
+              <label className="text-sm font-medium text-gray-700 dark:text-gray-200 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300 mb-2 block">
                 Biblical Theme or Verse (optional)
               </label>
               <Textarea
@@ -178,7 +178,7 @@ Return ONLY the prayer text, no additional formatting or explanation.`;
                 placeholder="e.g., 'Philippians 4:6-7', 'God's faithfulness', 'Trust in the Lord'..."
                 rows={2}
               />
-              <p className="text-xs text-gray-500 mt-1">
+              <p className="text-xs text-gray-500 dark:text-gray-300 mt-1">
                 I'll weave this theme or verse into your prayer
               </p>
             </div>
@@ -214,7 +214,7 @@ Return ONLY the prayer text, no additional formatting or explanation.`;
             </div>
 
             <div className="bg-gray-50 dark:bg-white/5 dark:bg-[#0A1A2F] rounded-lg p-6 max-h-96 overflow-y-auto">
-              <p className="text-gray-800 dark:text-gray-200 whitespace-pre-wrap leading-relaxed font-serif">
+              <p className="text-gray-800 dark:text-gray-100 dark:text-gray-200 whitespace-pre-wrap leading-relaxed font-serif">
                 {generatedPrayer}
               </p>
             </div>

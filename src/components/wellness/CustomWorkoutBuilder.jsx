@@ -99,15 +99,15 @@ export default function CustomWorkoutBuilder({ exercises, onChange }) {
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
                           className={`bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-lg p-3 cursor-grab active:cursor-grabbing ${
-                            snapshot.isDragging ? 'shadow-lg opacity-80' : ''
+                            snapshot.isDragging ? 'shadow-lg dark:shadow-none opacity-80' : ''
                           }`}
                         >
                           <div className="flex items-start gap-2">
-                            <GripVertical className="w-4 h-4 text-gray-400 flex-shrink-0 mt-1" />
-                            {Icon && <Icon className="w-4 h-4 text-gray-600 dark:text-gray-400 flex-shrink-0 mt-1" />}
+                            <GripVertical className="w-4 h-4 text-gray-400 dark:text-gray-300 flex-shrink-0 mt-1" />
+                            {Icon && <Icon className="w-4 h-4 text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300 flex-shrink-0 mt-1" />}
                             <div className="flex-1 min-w-0">
                               <p className="font-medium text-sm text-[#0A1A2F] dark:text-white">{exercise.name}</p>
-                              <p className="text-xs text-gray-500 dark:text-gray-400 truncate">{exercise.description}</p>
+                              <p className="text-xs text-gray-500 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300 truncate">{exercise.description}</p>
                             </div>
                           </div>
                         </div>
@@ -134,13 +134,13 @@ export default function CustomWorkoutBuilder({ exercises, onChange }) {
                 {...provided.droppableProps}
                 className={`flex-1 overflow-y-auto space-y-2 ${
                   snapshot.isDraggingOver ? 'bg-[#F2F6FA] dark:bg-[#0A1A2F]/20' : ''
-                } ${exercises.length === 0 ? 'border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg' : ''}`}
+                } ${exercises.length === 0 ? 'border-2 border-dashed border-gray-300 dark:border-white/15 dark:border-gray-600 rounded-lg' : ''}`}
               >
                 {exercises.length === 0 && (
                   <div className="h-full flex items-center justify-center text-center p-8">
                     <div>
-                      <Plus className="w-12 h-12 text-gray-300 dark:text-gray-600 mx-auto mb-2" />
-                      <p className="text-sm text-gray-500 dark:text-gray-400">
+                      <Plus className="w-12 h-12 text-gray-300 dark:text-gray-400 dark:text-gray-300 dark:text-gray-600 dark:text-gray-300 mx-auto mb-2" />
+                      <p className="text-sm text-gray-500 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">
                         Drag exercises here to build your workout
                       </p>
                     </div>
@@ -154,12 +154,12 @@ export default function CustomWorkoutBuilder({ exercises, onChange }) {
                         ref={provided.innerRef}
                         {...provided.draggableProps}
                         className={`bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-lg p-3 ${
-                          snapshot.isDragging ? 'shadow-lg' : ''
+                          snapshot.isDragging ? 'shadow-lg dark:shadow-none' : ''
                         }`}
                       >
                         <div className="flex items-start gap-2 mb-2">
                           <div {...provided.dragHandleProps}>
-                            <GripVertical className="w-4 h-4 text-gray-400 cursor-grab active:cursor-grabbing" />
+                            <GripVertical className="w-4 h-4 text-gray-400 dark:text-gray-300 cursor-grab active:cursor-grabbing" />
                           </div>
                           <div className="flex-1">
                             <p className="font-medium text-sm text-[#0A1A2F] dark:text-white">{exercise.name}</p>
@@ -176,7 +176,7 @@ export default function CustomWorkoutBuilder({ exercises, onChange }) {
 
                         <div className="grid grid-cols-3 gap-2 ml-6">
                           <div>
-                            <label className="text-xs text-gray-500 dark:text-gray-400">Sets</label>
+                            <label className="text-xs text-gray-500 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">Sets</label>
                             <Input
                               type="number"
                               min="1"
@@ -186,7 +186,7 @@ export default function CustomWorkoutBuilder({ exercises, onChange }) {
                             />
                           </div>
                           <div>
-                            <label className="text-xs text-gray-500 dark:text-gray-400">Reps</label>
+                            <label className="text-xs text-gray-500 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">Reps</label>
                             <Input
                               type="number"
                               min="0"
@@ -196,7 +196,7 @@ export default function CustomWorkoutBuilder({ exercises, onChange }) {
                             />
                           </div>
                           <div>
-                            <label className="text-xs text-gray-500 dark:text-gray-400">Sec</label>
+                            <label className="text-xs text-gray-500 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">Sec</label>
                             <Input
                               type="number"
                               min="0"

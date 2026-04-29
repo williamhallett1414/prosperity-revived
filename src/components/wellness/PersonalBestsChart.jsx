@@ -41,7 +41,7 @@ export default function PersonalBestsChart({ sessions }) {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-center py-8 text-gray-500">
+          <div className="text-center py-8 text-gray-500 dark:text-gray-300">
             Start tracking weights to see your personal bests!
           </div>
         </CardContent>
@@ -72,7 +72,7 @@ export default function PersonalBestsChart({ sessions }) {
                   <h4 className="font-semibold text-[#0A1A2F] dark:text-white dark:text-white">
                     {exercise}
                   </h4>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                  <p className="text-sm text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">
                     {new Date(pr.date).toLocaleDateString()}
                   </p>
                 </div>
@@ -81,7 +81,7 @@ export default function PersonalBestsChart({ sessions }) {
                 <div className="font-bold text-lg text-yellow-700 dark:text-yellow-400">
                   {pr.weight} lbs
                 </div>
-                <div className="text-xs text-gray-600 dark:text-gray-400">
+                <div className="text-xs text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">
                   {pr.reps} reps
                 </div>
               </div>

@@ -46,7 +46,7 @@ Return exactly 3 questions that encourage personal reflection and application.`,
         onClick={isExpanded ? () => setIsExpanded(false) : generateQuestions}
         disabled={loading}
         variant="outline"
-        className="w-full bg-gradient-to-r from-[#FAD98D]/10 to-[#FFF9EC] border-[#FAD98D]/40 hover:shadow-md transition-all"
+        className="w-full bg-gradient-to-r from-[#FAD98D]/10 to-[#FFF9EC] border-[#FAD98D]/40 hover:shadow-md dark:shadow-none transition-all"
       >
         {loading ? (
           <>
@@ -77,7 +77,7 @@ Return exactly 3 questions that encourage personal reflection and application.`,
               </div>
               {questions.map((question, index) => (
                 <div key={index} className="bg-[#F2F6FA] dark:bg-[#0A1A2F] p-4 rounded-lg">
-                  <p className="text-sm font-medium text-[#0A1A2F]/75">
+                  <p className="text-sm font-medium text-[#0A1A2F]/75 dark:text-white/75">
                     {index + 1}. {question}
                   </p>
                 </div>

@@ -95,10 +95,10 @@ export default function JournalSentimentAnalyzer({ userEmail }) {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-white dark:bg-white/5 rounded-xl shadow-lg p-6 space-y-6"
+      className="bg-white dark:bg-white/5 rounded-xl shadow-lg dark:shadow-none p-6 space-y-6"
     >
       <div className="flex items-center justify-between">
-        <h3 className="text-lg font-bold text-gray-900 flex items-center gap-2">
+        <h3 className="text-lg font-bold text-gray-900 dark:text-white flex items-center gap-2">
           <TrendingUp className="w-5 h-5 text-[#C9A227]" />
           Emotional Trends
         </h3>
@@ -120,21 +120,21 @@ export default function JournalSentimentAnalyzer({ userEmail }) {
         <>
           <div className="grid grid-cols-3 gap-4">
             <div className="bg-[#FAD98D]/10 p-4 rounded-lg">
-              <p className="text-xs text-gray-600">Average Sentiment</p>
+              <p className="text-xs text-gray-600 dark:text-gray-300">Average Sentiment</p>
               <p className="text-2xl font-bold text-[#C9A227]">{avgSentiment}</p>
-              <p className="text-xs text-gray-500 mt-1">Scale: -1 to 1</p>
+              <p className="text-xs text-gray-500 dark:text-gray-300 mt-1">Scale: -1 to 1</p>
             </div>
             <div className="bg-[#F2F6FA] dark:bg-[#0A1A2F] p-4 rounded-lg">
-              <p className="text-xs text-gray-600">Entries</p>
+              <p className="text-xs text-gray-600 dark:text-gray-300">Entries</p>
               <p className="text-2xl font-bold text-[#3C4E53]">{entries.length}</p>
-              <p className="text-xs text-gray-500 mt-1">Last {timeRange} days</p>
+              <p className="text-xs text-gray-500 dark:text-gray-300 mt-1">Last {timeRange} days</p>
             </div>
             <div className="bg-green-50 p-4 rounded-lg">
-              <p className="text-xs text-gray-600">Trend</p>
-              <p className={`text-2xl font-bold ${trend > 0 ? 'text-green-600' : trend < 0 ? 'text-red-600' : 'text-gray-600'}`}>
+              <p className="text-xs text-gray-600 dark:text-gray-300">Trend</p>
+              <p className={`text-2xl font-bold ${trend > 0 ? 'text-green-600' : trend < 0 ? 'text-red-600' : 'text-gray-600 dark:text-gray-300'}`}>
                 {trend > 0 ? '↑' : trend < 0 ? '↓' : '→'} {Math.abs(trend).toFixed(2)}
               </p>
-              <p className="text-xs text-gray-500 mt-1">{trend > 0 ? 'Improving' : trend < 0 ? 'Declining' : 'Stable'}</p>
+              <p className="text-xs text-gray-500 dark:text-gray-300 mt-1">{trend > 0 ? 'Improving' : trend < 0 ? 'Declining' : 'Stable'}</p>
             </div>
           </div>
 
@@ -157,7 +157,7 @@ export default function JournalSentimentAnalyzer({ userEmail }) {
             </AreaChart>
           </ResponsiveContainer>
 
-          <div className="text-sm text-gray-600">
+          <div className="text-sm text-gray-600 dark:text-gray-300">
             <p className="font-medium mb-2">Sentiment Guide:</p>
             <div className="grid grid-cols-2 gap-2 text-xs">
               <div>Very Negative: -1 to -0.6</div>
@@ -169,7 +169,7 @@ export default function JournalSentimentAnalyzer({ userEmail }) {
           </div>
         </>
       ) : (
-        <div className="text-center py-8 text-gray-500">
+        <div className="text-center py-8 text-gray-500 dark:text-gray-300">
           <Calendar className="w-12 h-12 mx-auto mb-2 opacity-30" />
           <p>No journal entries in this time range. Start journaling to see your emotional trends!</p>
         </div>

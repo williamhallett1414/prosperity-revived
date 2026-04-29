@@ -103,8 +103,8 @@ export default function SpiritualGoals() {
 
       {activeGoals.length === 0 && completedGoals.length === 0 ? (
         <div className="text-center py-16 bg-white dark:bg-white/5 rounded-2xl">
-          <Target className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-          <p className="text-gray-500 mb-4">No spiritual goals set</p>
+          <Target className="w-12 h-12 text-gray-300 dark:text-gray-400 dark:text-gray-300 mx-auto mb-3" />
+          <p className="text-gray-500 dark:text-gray-300 mb-4">No spiritual goals set</p>
           <Button onClick={() => setShowCreate(true)}>
             Set Your First Goal
           </Button>
@@ -121,7 +121,7 @@ export default function SpiritualGoals() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.05 }}
-                  className="bg-white dark:bg-white/5 rounded-2xl p-5 shadow-sm border border-gray-100 dark:border-white/10"
+                  className="bg-white dark:bg-white/5 rounded-2xl p-5 shadow-sm dark:shadow-none border border-gray-100 dark:border-white/10 dark:border-white/10"
                 >
                   <div className="flex items-start justify-between mb-3">
                     <div className="flex-1">
@@ -130,9 +130,9 @@ export default function SpiritualGoals() {
                         <h4 className="font-semibold text-[#0A1A2F] dark:text-white dark:text-white">{goal.title}</h4>
                       </div>
                       {goal.description && (
-                        <p className="text-sm text-gray-600 mb-2">{goal.description}</p>
+                        <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">{goal.description}</p>
                       )}
-                      <div className="flex items-center gap-2 text-xs text-gray-500">
+                      <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-300">
                         <Badge variant="outline">{goal.frequency}</Badge>
                         {goal.target_date && (
                           <span className="flex items-center gap-1">
@@ -146,7 +146,7 @@ export default function SpiritualGoals() {
 
                   <div className="space-y-2">
                     <div className="flex items-center justify-between text-sm">
-                      <span className="text-gray-600">Progress</span>
+                      <span className="text-gray-600 dark:text-gray-300">Progress</span>
                       <span className="font-semibold text-[#c9a227]">{goal.progress || 0}%</span>
                     </div>
                     <Progress value={goal.progress || 0} className="h-2" />
@@ -184,15 +184,15 @@ export default function SpiritualGoals() {
           {/* Completed Goals */}
           {completedGoals.length > 0 && (
             <div className="space-y-3 mt-6">
-              <h3 className="font-semibold text-gray-600">Completed Goals</h3>
+              <h3 className="font-semibold text-gray-600 dark:text-gray-300">Completed Goals</h3>
               {completedGoals.map((goal) => (
                 <div
                   key={goal.id}
-                  className="bg-gray-50 dark:bg-white/5 rounded-2xl p-4 border border-gray-200 dark:border-white/10 opacity-70"
+                  className="bg-gray-50 dark:bg-white/5 dark:text-white rounded-2xl p-4 border border-gray-200 dark:border-white/10 opacity-70"
                 >
                   <div className="flex items-center gap-2">
                     <Check className="w-4 h-4 text-green-600" />
-                    <span className="font-medium text-gray-700">{goal.title}</span>
+                    <span className="font-medium text-gray-700 dark:text-gray-200">{goal.title}</span>
                   </div>
                 </div>
               ))}

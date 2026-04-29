@@ -464,7 +464,7 @@ function DeclarationCard({ decl, isFav, isMemorized, onToggleFav, onToggleMemori
 
         {/* Scripture quote */}
         <div className="rounded-xl px-3 py-2.5 mb-3" style={{ background: `${pillar?.color}0f`, borderLeft: `2px solid ${pillar?.color}40` }}>
-          <p className="text-xs text-[#0A1A2F]/65 italic leading-relaxed" style={{ fontFamily: 'Georgia, serif' }}>
+          <p className="text-xs text-[#0A1A2F]/65 dark:text-white/65 italic leading-relaxed" style={{ fontFamily: 'Georgia, serif' }}>
             "{decl.fullVerse}"
           </p>
         </div>
@@ -486,7 +486,7 @@ function DeclarationCard({ decl, isFav, isMemorized, onToggleFav, onToggleMemori
               transition={{ duration: 0.2 }}
               className="overflow-hidden"
             >
-              <p className="text-xs text-[#0A1A2F]/65 leading-relaxed pb-3">
+              <p className="text-xs text-[#0A1A2F]/65 dark:text-white/65 leading-relaxed pb-3">
                 {decl.explanation}
               </p>
             </motion.div>
@@ -598,7 +598,7 @@ export default function IdentityInChristPage() {
             <div className="flex items-center justify-between mb-2">
               <p className="text-xs font-bold text-[#0A1A2F]/35 dark:text-white/35 uppercase tracking-widest">Today's Declaration</p>
             </div>
-            <div className="bg-gradient-to-br from-[#0A1A2F] to-[#0A1A2F] rounded-3xl p-6 shadow-lg border border-[#FAD98D]/15 relative overflow-hidden">
+            <div className="bg-gradient-to-br from-[#0A1A2F] to-[#0A1A2F] rounded-3xl p-6 shadow-lg dark:shadow-none border border-[#FAD98D]/15 relative overflow-hidden">
               {/* Glow */}
               <div className="absolute top-0 right-0 w-48 h-48 rounded-full pointer-events-none"
                 style={{ background: `radial-gradient(circle at 100% 0%, ${todayPillar?.color || '#FAD98D'}20 0%, transparent 70%)` }} />

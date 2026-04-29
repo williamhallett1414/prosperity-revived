@@ -345,7 +345,7 @@ export default function ChatbotNudgeBanner({ workoutSessions = [], mealLogs = []
           transition={{ duration: 0.35, type: 'spring', stiffness: 300, damping: 25 }}
           className="mb-5"
         >
-          <div className={`bg-gradient-to-r ${nudge.gradient} rounded-2xl p-4 shadow-lg relative overflow-hidden`}>
+          <div className={`bg-gradient-to-r ${nudge.gradient} rounded-2xl p-4 shadow-lg dark:shadow-none relative overflow-hidden`}>
             {/* Decorative circles */}
             <div className="absolute inset-0 opacity-10 pointer-events-none">
               <div className="absolute top-0 right-0 w-28 h-28 rounded-full bg-white dark:bg-white/5 -translate-y-10 translate-x-10" />

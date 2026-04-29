@@ -122,7 +122,7 @@ export default function JournalTagManager({ entry, onUpdate }) {
 
       {suggestedTags.length > 0 && tags.length < 5 && (
         <div>
-          <p className="text-xs text-gray-600 mb-2 font-medium">Suggested tags:</p>
+          <p className="text-xs text-gray-600 dark:text-gray-300 mb-2 font-medium">Suggested tags:</p>
           <div className="flex flex-wrap gap-2">
             {suggestedTags
               .filter(tag => !tags.includes(tag))
@@ -131,7 +131,7 @@ export default function JournalTagManager({ entry, onUpdate }) {
                 <button
                   key={tag}
                   onClick={() => addTag(tag)}
-                  className="text-xs px-2 py-1 rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors"
+                  className="text-xs px-2 py-1 rounded-full bg-gray-100 dark:bg-white/5 text-gray-700 dark:text-gray-200 hover:bg-gray-200 transition-colors"
                 >
                   + {tag}
                 </button>

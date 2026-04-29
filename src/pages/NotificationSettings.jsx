@@ -144,7 +144,7 @@ export default function NotificationSettings() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.05 }}
-              className="bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-xl p-4 shadow-sm"
+              className="bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-xl p-4 shadow-sm dark:shadow-none"
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-start gap-3 flex-1">
@@ -153,7 +153,7 @@ export default function NotificationSettings() {
                     <h3 className="font-semibold text-[#0A1A2F] dark:text-white mb-1">
                       {type.label}
                     </h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                    <p className="text-sm text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">
                       {type.description}
                     </p>
                   </div>

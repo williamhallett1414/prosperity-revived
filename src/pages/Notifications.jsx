@@ -91,7 +91,7 @@ export default function Notifications() {
           <div className="flex items-center gap-3">
             <Link
               to={createPageUrl('Home')}
-              className="w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors"
+              className="w-9 h-9 rounded-full bg-gray-100 dark:bg-white/5 hover:bg-gray-200 flex items-center justify-center transition-colors"
             >
               <ArrowLeft className="w-4 h-4 text-[#0A1A2F] dark:text-white dark:text-white" />
             </Link>
@@ -141,8 +141,8 @@ export default function Notifications() {
           </div>
         ) : filteredNotifications.length === 0 ? (
           <div className="text-center py-12">
-            <Bell className="w-16 h-16 text-gray-300 dark:text-gray-600 mx-auto mb-4" />
-            <p className="text-gray-500 dark:text-gray-400">No notifications yet</p>
+            <Bell className="w-16 h-16 text-gray-300 dark:text-gray-400 dark:text-gray-300 dark:text-gray-600 dark:text-gray-300 mx-auto mb-4" />
+            <p className="text-gray-500 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">No notifications yet</p>
           </div>
         ) : (
           <div className="space-y-2">
@@ -154,7 +154,7 @@ export default function Notifications() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, x: -100 }}
                   transition={{ delay: index * 0.05 }}
-                  className={`bg-white dark:bg-white/5 rounded-xl p-4 shadow-sm transition-all ${
+                  className={`bg-white dark:bg-white/5 rounded-xl p-4 shadow-sm dark:shadow-none transition-all ${
                     !notification.is_read ? 'border-l-4 border-[#FD9C2D]' : ''
                   }`}
                 >
@@ -177,10 +177,10 @@ export default function Notifications() {
                           <div className="w-2 h-2 bg-[#FD9C2D] rounded-full ml-2 flex-shrink-0 mt-1.5" />
                         )}
                       </div>
-                      <p className="text-gray-600 dark:text-gray-400 text-sm mb-2">
+                      <p className="text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300 text-sm mb-2">
                         {notification.message}
                       </p>
-                      <p className="text-xs text-gray-400 dark:text-gray-500">
+                      <p className="text-xs text-gray-400 dark:text-gray-300 dark:text-gray-500 dark:text-gray-300">
                         {new Date(notification.created_date).toLocaleDateString()} at{' '}
                         {new Date(notification.created_date).toLocaleTimeString([], { 
                           hour: '2-digit', 
@@ -196,7 +196,7 @@ export default function Notifications() {
                         e.stopPropagation();
                         deleteNotification.mutate(notification.id);
                       }}
-                      className="text-gray-400 hover:text-red-500 flex-shrink-0"
+                      className="text-gray-400 dark:text-gray-300 hover:text-red-500 flex-shrink-0"
                     >
                       <Trash2 className="w-4 h-4" />
                     </Button>

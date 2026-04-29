@@ -86,8 +86,8 @@ export default function RecipeSourceImport({ user }) {
         <div className="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
           <Check className="w-7 h-7 text-green-600" />
         </div>
-        <h3 className="font-bold text-gray-900 mb-1">Data Imported!</h3>
-        <p className="text-sm text-gray-500 mb-4">Chef Daniel now has your {selectedSource?.name} context for personalized meal planning, grocery suggestions, and recipe ideas.</p>
+        <h3 className="font-bold text-gray-900 dark:text-white mb-1">Data Imported!</h3>
+        <p className="text-sm text-gray-500 dark:text-gray-300 mb-4">Chef Daniel now has your {selectedSource?.name} context for personalized meal planning, grocery suggestions, and recipe ideas.</p>
         <Button variant="outline" size="sm" onClick={() => { setSuccess(false); setSelectedSource(null); setTextInput(''); }}>
           Import More
         </Button>
@@ -104,7 +104,7 @@ export default function RecipeSourceImport({ user }) {
 
       {!selectedSource ? (
         <div className="space-y-2">
-          <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Choose Type</p>
+          <p className="text-xs font-semibold text-gray-500 dark:text-gray-300 uppercase tracking-wider">Choose Type</p>
           {SOURCE_OPTIONS.map(source => (
             <button
               key={source.id}
@@ -113,10 +113,10 @@ export default function RecipeSourceImport({ user }) {
             >
               <span className="text-2xl">{source.icon}</span>
               <div className="flex-1 min-w-0">
-                <p className="font-semibold text-sm text-gray-900">{source.name}</p>
-                <p className="text-xs text-gray-500 truncate">{source.description}</p>
+                <p className="font-semibold text-sm text-gray-900 dark:text-white">{source.name}</p>
+                <p className="text-xs text-gray-500 dark:text-gray-300 truncate">{source.description}</p>
               </div>
-              <ChevronRight className="w-4 h-4 text-gray-400 flex-shrink-0" />
+              <ChevronRight className="w-4 h-4 text-gray-400 dark:text-gray-300 flex-shrink-0" />
             </button>
           ))}
         </div>
@@ -127,8 +127,8 @@ export default function RecipeSourceImport({ user }) {
           <div className="flex items-center gap-2">
             <span className="text-2xl">{selectedSource.icon}</span>
             <div>
-              <p className="font-bold text-gray-900">{selectedSource.name}</p>
-              <p className="text-xs text-gray-500">{selectedSource.description}</p>
+              <p className="font-bold text-gray-900 dark:text-white">{selectedSource.name}</p>
+              <p className="text-xs text-gray-500 dark:text-gray-300">{selectedSource.description}</p>
             </div>
           </div>
 

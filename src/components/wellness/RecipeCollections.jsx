@@ -97,7 +97,7 @@ export default function RecipeCollections({ allRecipes }) {
                 key={collection.id}
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="bg-white dark:bg-white/5 rounded-2xl p-4 cursor-pointer hover:shadow-md transition-shadow"
+                className="bg-white dark:bg-white/5 rounded-2xl p-4 cursor-pointer hover:shadow-md dark:shadow-none transition-shadow"
                 onClick={() => setSelectedCollection(collection)}
               >
                 <div className="flex items-start justify-between mb-3">

@@ -25,7 +25,7 @@ const TABS = [
 
 function StatPill({ icon: Icon, value, label, color }) {
   return (
-    <div className="flex flex-col items-center gap-0.5 bg-white dark:bg-white/5 rounded-xl px-2 py-2 border border-gray-100 dark:border-white/10 shadow-sm flex-1 min-w-0">
+    <div className="flex flex-col items-center gap-0.5 bg-white dark:bg-white/5 rounded-xl px-2 py-2 border border-gray-100 dark:border-white/10 shadow-sm dark:shadow-none flex-1 min-w-0">
       <div className="w-6 h-6 rounded-lg flex items-center justify-center flex-shrink-0"
         style={{ background: color + '18' }}>
         <Icon className="w-3 h-3" style={{ color }} />
@@ -61,7 +61,7 @@ function GroupsSection({ user }) {
             {myGroups.map(group => (
               <Link key={group.id} to={createPageUrl(`GroupDetail?id=${group.id}`)}>
                 <motion.div whileTap={{ scale: 0.98 }}
-                  className="bg-white dark:bg-white/5 rounded-2xl p-4 border border-gray-100 dark:border-white/10 shadow-sm flex items-center gap-3">
+                  className="bg-white dark:bg-white/5 rounded-2xl p-4 border border-gray-100 dark:border-white/10 shadow-sm dark:shadow-none flex items-center gap-3">
                   <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-[#7C3AED] to-[#A78BFA] flex items-center justify-center flex-shrink-0">
                     <Users className="w-5 h-5 text-white" />
                   </div>
@@ -88,7 +88,7 @@ function GroupsSection({ user }) {
             {otherGroups.slice(0, 5).map(group => (
               <Link key={group.id} to={createPageUrl(`GroupDetail?id=${group.id}`)}>
                 <motion.div whileTap={{ scale: 0.98 }}
-                  className="bg-white dark:bg-white/5 rounded-2xl p-4 border border-gray-100 dark:border-white/10 shadow-sm flex items-center gap-3">
+                  className="bg-white dark:bg-white/5 rounded-2xl p-4 border border-gray-100 dark:border-white/10 shadow-sm dark:shadow-none flex items-center gap-3">
                   <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-[#AFC7E3] to-[#3C4E53] flex items-center justify-center flex-shrink-0">
                     <Users className="w-5 h-5 text-white" />
                   </div>
@@ -112,7 +112,7 @@ function GroupsSection({ user }) {
 
       <Link to={createPageUrl('Groups')}>
         <motion.div whileTap={{ scale: 0.98 }}
-          className="bg-gradient-to-r from-[#7C3AED] to-[#A78BFA] rounded-2xl p-4 flex items-center gap-3 shadow-md">
+          className="bg-gradient-to-r from-[#7C3AED] to-[#A78BFA] rounded-2xl p-4 flex items-center gap-3 shadow-md dark:shadow-none">
           <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center flex-shrink-0">
             <Plus className="w-5 h-5 text-white" />
           </div>
@@ -139,7 +139,7 @@ function LeaderboardWidget() {
   const medals = ['🥇', '🥈', '🥉'];
 
   return (
-    <div className="bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 shadow-sm overflow-hidden">
+    <div className="bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 shadow-sm dark:shadow-none overflow-hidden">
       <div className="px-4 py-3 bg-gradient-to-r from-[#FAD98D]/20 to-[#c9a227]/10 border-b border-[#FAD98D]/20 flex items-center gap-2">
         <Crown className="w-4 h-4 text-[#c9a227]" />
         <p className="text-xs font-bold text-[#0A1A2F] dark:text-white uppercase tracking-widest">Top Members</p>
@@ -233,7 +233,7 @@ export default function Community() {
                 <PenLine className="w-4 h-4 text-[#0A1A2F]/50 dark:text-white/50" />
               </button>
               <button onClick={() => setShowShareModal(true)}
-                className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-gradient-to-r from-[#7C3AED] to-[#A78BFA] text-white text-xs font-bold shadow-sm">
+                className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-gradient-to-r from-[#7C3AED] to-[#A78BFA] text-white text-xs font-bold shadow-sm dark:shadow-none">
                 <Share2 className="w-3.5 h-3.5" /> Share
               </button>
             </div>
@@ -290,7 +290,7 @@ export default function Community() {
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
             className="mb-4">
             <Link to={createPageUrl('Friends')}>
-              <div className="bg-white dark:bg-white/5 rounded-2xl p-4 border border-gray-100 dark:border-white/10 shadow-sm flex items-center gap-3">
+              <div className="bg-white dark:bg-white/5 rounded-2xl p-4 border border-gray-100 dark:border-white/10 shadow-sm dark:shadow-none flex items-center gap-3">
                 <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#EC4899] to-[#F472B6] flex items-center justify-center flex-shrink-0">
                   <UserPlus className="w-5 h-5 text-white" />
                 </div>

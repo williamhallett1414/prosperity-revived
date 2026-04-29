@@ -26,7 +26,7 @@ export default function ChallengeCard({ challenge, participation, onJoin, onClic
   };
 
   const getStatusColor = () => {
-    if (challenge.status === 'completed') return 'bg-gray-100 text-gray-600';
+    if (challenge.status === 'completed') return 'bg-gray-100 dark:bg-white/5 text-gray-600 dark:text-gray-300';
     if (daysRemaining <= 3) return 'bg-red-100 text-red-600';
     return 'bg-green-100 text-green-600';
   };
@@ -37,14 +37,14 @@ export default function ChallengeCard({ challenge, participation, onJoin, onClic
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.1 }}
       onClick={onClick}
-      className="bg-white dark:bg-white/5 rounded-2xl p-5 shadow-sm hover:shadow-md transition-all cursor-pointer"
+      className="bg-white dark:bg-white/5 rounded-2xl p-5 shadow-sm dark:shadow-none hover:shadow-md dark:shadow-none transition-all cursor-pointer"
     >
       <div className="flex items-start justify-between mb-3">
         <div className="flex items-center gap-3">
           <div className="text-3xl">{getTypeIcon()}</div>
           <div>
-            <h3 className="font-semibold text-gray-900">{challenge.title}</h3>
-            <p className="text-xs text-gray-500">{challenge.description}</p>
+            <h3 className="font-semibold text-gray-900 dark:text-white">{challenge.title}</h3>
+            <p className="text-xs text-gray-500 dark:text-gray-300">{challenge.description}</p>
           </div>
         </div>
         <Badge className={getStatusColor()}>
@@ -54,11 +54,11 @@ export default function ChallengeCard({ challenge, participation, onJoin, onClic
 
       <div className="space-y-3">
         <div className="flex items-center justify-between text-sm">
-          <div className="flex items-center gap-2 text-gray-600">
+          <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300">
             <Target className="w-4 h-4" />
             <span>Goal: {challenge.goal_value} {challenge.goal_unit}</span>
           </div>
-          <div className="flex items-center gap-2 text-gray-600">
+          <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300">
             <Users className="w-4 h-4" />
             <span>{challenge.participant_count} joined</span>
           </div>
@@ -67,11 +67,11 @@ export default function ChallengeCard({ challenge, participation, onJoin, onClic
         {isParticipating && (
           <div>
             <div className="flex items-center justify-between text-sm mb-2">
-              <span className="text-gray-600">Your Progress</span>
+              <span className="text-gray-600 dark:text-gray-300">Your Progress</span>
               <span className="font-semibold text-[#C9A227]">{progress.toFixed(0)}%</span>
             </div>
             <Progress value={progress} className="h-2" />
-            <p className="text-xs text-gray-500 mt-1">
+            <p className="text-xs text-gray-500 dark:text-gray-300 mt-1">
               {participation.current_progress} / {challenge.goal_value} {challenge.goal_unit}
             </p>
           </div>

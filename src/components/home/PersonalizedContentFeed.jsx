@@ -169,7 +169,7 @@ Return as JSON array with objects containing: type (post/user/plan), title, desc
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.1 }}
           >
-            <Card className="p-4 hover:shadow-lg transition-shadow">
+            <Card className="p-4 hover:shadow-lg dark:shadow-none transition-shadow">
               <div className="flex items-start gap-3 mb-3">
                 <div className="flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center bg-gradient-to-br from-[#FD9C2D] to-[#FAD98D]">
                   {rec.type === 'post' && <Heart className="w-5 h-5 text-white" />}
@@ -185,10 +185,10 @@ Return as JSON array with objects containing: type (post/user/plan), title, desc
                       {rec.engagement_score}% match
                     </span>
                   </div>
-                  <p className="text-xs text-gray-600 dark:text-gray-400 mb-2">
+                  <p className="text-xs text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300 mb-2">
                     {rec.description}
                   </p>
-                  <p className="text-xs text-gray-500 dark:text-gray-500 italic">
+                  <p className="text-xs text-gray-500 dark:text-gray-300 dark:text-gray-500 dark:text-gray-300 italic">
                     💡 {rec.reason}
                   </p>
                 </div>

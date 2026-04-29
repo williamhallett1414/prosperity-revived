@@ -72,7 +72,7 @@ export default function GideonOnboarding({ onComplete, onRevisit }) {
             </div>
 
             {/* Progress Bar */}
-            <div className="h-1 bg-gray-100">
+            <div className="h-1 bg-gray-100 dark:bg-white/5">
               <motion.div
                 initial={{ width: 0 }}
                 animate={{ width: `${((step + 1) / steps.length) * 100}%` }}
@@ -83,7 +83,7 @@ export default function GideonOnboarding({ onComplete, onRevisit }) {
 
             {/* Content */}
             <div className="p-6">
-              <p className="text-gray-700 leading-relaxed mb-4">
+              <p className="text-gray-700 dark:text-gray-200 leading-relaxed mb-4">
                 {currentStep.description}
               </p>
 

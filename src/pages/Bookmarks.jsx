@@ -28,7 +28,7 @@ function BookmarkItem({ bookmark, onDelete, onOpen, index }) {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, x: -20 }}
       transition={{ delay: index * 0.03 }}
-      className="bg-white dark:bg-white/5 rounded-2xl border border-[#FAD98D]/25 overflow-hidden shadow-sm"
+      className="bg-white dark:bg-white/5 rounded-2xl border border-[#FAD98D]/25 overflow-hidden shadow-sm dark:shadow-none"
     >
       {/* Colour accent bar */}
       {col && (

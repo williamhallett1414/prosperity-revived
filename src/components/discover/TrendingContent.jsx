@@ -57,7 +57,7 @@ export default function TrendingContent({ user }) {
               transition={{ delay: index * 0.05 }}
             >
               <Link to={createPageUrl('Community')}>
-                <Card className="p-4 hover:shadow-md transition-shadow cursor-pointer">
+                <Card className="p-4 hover:shadow-md dark:shadow-none transition-shadow cursor-pointer">
                   <div className="flex items-start gap-3">
                     <div className="text-2xl font-bold text-orange-500">
                       #{index + 1}
@@ -66,7 +66,7 @@ export default function TrendingContent({ user }) {
                       <p className="text-sm font-medium text-[#0A1A2F] dark:text-white mb-2 line-clamp-2">
                         {post.content}
                       </p>
-                      <div className="flex items-center gap-4 text-xs text-gray-500">
+                      <div className="flex items-center gap-4 text-xs text-gray-500 dark:text-gray-300">
                         <span className="flex items-center gap-1">
                           <Heart className="w-3 h-3" />
                           {post.likes || 0}
@@ -75,7 +75,7 @@ export default function TrendingContent({ user }) {
                           <MessageCircle className="w-3 h-3" />
                           {post.commentCount}
                         </span>
-                        <span className="text-gray-400">
+                        <span className="text-gray-400 dark:text-gray-300">
                           by {post.user_name || 'Anonymous'}
                         </span>
                       </div>
@@ -103,7 +103,7 @@ export default function TrendingContent({ user }) {
               transition={{ delay: index * 0.05 }}
             >
               <Link to={createPageUrl(`GroupDetail?id=${group.id}`)}>
-                <Card className="p-4 hover:shadow-md transition-shadow cursor-pointer">
+                <Card className="p-4 hover:shadow-md dark:shadow-none transition-shadow cursor-pointer">
                   <div className="flex items-center gap-3">
                     <div className="w-12 h-12 rounded-lg overflow-hidden bg-gray-200">
                       {group.cover_image ? (
@@ -122,7 +122,7 @@ export default function TrendingContent({ user }) {
                       <h3 className="font-semibold text-[#0A1A2F] dark:text-white">
                         {group.name}
                       </h3>
-                      <p className="text-sm text-gray-500">
+                      <p className="text-sm text-gray-500 dark:text-gray-300">
                         {group.member_count || 0} members
                       </p>
                     </div>

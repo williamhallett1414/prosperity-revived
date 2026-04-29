@@ -112,7 +112,7 @@ Format as JSON with keys: meditation, workout, nutrition, selfcare, scripture, j
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: index * 0.05 }}
                 whileHover={{ scale: 1.02 }}
-                className="bg-white dark:bg-white/5 rounded-xl p-4 border border-gray-100 dark:border-white/10 hover:shadow-md transition-shadow cursor-pointer"
+                className="bg-white dark:bg-white/5 rounded-xl p-4 border border-gray-100 dark:border-white/10 hover:shadow-md dark:shadow-none transition-shadow cursor-pointer"
               >
                 <div className="flex items-start gap-3">
                   <div className="bg-[#FAD98D]/20 p-2 rounded-lg">

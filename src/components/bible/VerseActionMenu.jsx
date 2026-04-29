@@ -168,7 +168,7 @@ Keep it warm, accessible, and spiritually enriching - like Dr. Myles Munroe's ki
                 <Sparkles className="w-4 h-4 text-[#C9A227]" />
                 <span className="text-sm font-bold text-[#0A1A2F] dark:text-white dark:text-white">Gideon's Insights</span>
               </div>
-              <div className="prose prose-sm text-[#0A1A2F]/75 text-xs leading-relaxed">
+              <div className="prose prose-sm text-[#0A1A2F]/75 dark:text-white/75 text-xs leading-relaxed">
                 {aiInsights.split('\n').map((line, i) => (
                   <p key={i} className="mb-2">{line}</p>
                 ))}
@@ -180,7 +180,7 @@ Keep it warm, accessible, and spiritually enriching - like Dr. Myles Munroe's ki
           <div>
             <div className="flex items-center gap-2 mb-2">
               <Highlighter className="w-4 h-4 text-[#0A1A2F]/50 dark:text-white/50" />
-              <span className="text-xs font-semibold text-[#0A1A2F]/75">Highlight</span>
+              <span className="text-xs font-semibold text-[#0A1A2F]/75 dark:text-white/75">Highlight</span>
             </div>
             <div className="flex gap-2">
               {HIGHLIGHT_COLORS.map((colorOption) => (
@@ -219,7 +219,7 @@ Keep it warm, accessible, and spiritually enriching - like Dr. Myles Munroe's ki
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-2">
                 <StickyNote className="w-4 h-4 text-[#0A1A2F]/50 dark:text-white/50" />
-                <span className="text-xs font-semibold text-[#0A1A2F]/75">Note</span>
+                <span className="text-xs font-semibold text-[#0A1A2F]/75 dark:text-white/75">Note</span>
               </div>
               {!showNoteInput && existingBookmark?.note && (
                 <button
@@ -276,7 +276,7 @@ Keep it warm, accessible, and spiritually enriching - like Dr. Myles Munroe's ki
               </div>
             ) : existingBookmark?.note ? (
               <div className="bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-lg p-3 space-y-2">
-                <p className="text-sm text-[#0A1A2F]/75">{existingBookmark.note}</p>
+                <p className="text-sm text-[#0A1A2F]/75 dark:text-white/75">{existingBookmark.note}</p>
                 <div className="flex gap-2">
                   <Button
                     onClick={handleSaveToJournal}

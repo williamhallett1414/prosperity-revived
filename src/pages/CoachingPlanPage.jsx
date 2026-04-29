@@ -372,7 +372,7 @@ export default function CoachingPlanPage() {
           {!isFutureDay && !dayProgress.completed && (
             <button
               onClick={() => markDayComplete(selectedDay.day)}
-              className="w-full bg-gradient-to-r from-[#0A1A2F] to-[#0A1A2F] text-white font-bold py-3.5 rounded-2xl flex items-center justify-center gap-2 hover:opacity-90 transition-opacity shadow-lg"
+              className="w-full bg-gradient-to-r from-[#0A1A2F] to-[#0A1A2F] text-white font-bold py-3.5 rounded-2xl flex items-center justify-center gap-2 hover:opacity-90 transition-opacity shadow-lg dark:shadow-none"
             >
               <CheckCircle2 className="w-5 h-5 text-[#c9a227]" />
               Mark Day {selectedDay.day} Complete
@@ -423,7 +423,7 @@ export default function CoachingPlanPage() {
       {/* Header */}
       <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#F2F6FA]">
         <div className="max-w-2xl mx-auto px-4 h-14 flex items-center gap-3">
-          <button onClick={() => navigate(-1)} className="w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center flex-shrink-0">
+          <button onClick={() => navigate(-1)} className="w-9 h-9 rounded-full bg-gray-100 dark:bg-white/5 hover:bg-gray-200 flex items-center justify-center flex-shrink-0">
             <ArrowLeft className="w-4 h-4 text-[#0A1A2F] dark:text-white dark:text-white" />
           </button>
           <div className="flex-1">
@@ -510,7 +510,7 @@ export default function CoachingPlanPage() {
                 <button key={i} onClick={() => setSelectedWeek(i)}
                   className={`rounded-xl p-3 text-left transition-all border ${
                     selectedWeek === i
-                      ? 'bg-[#0A1A2F] border-[#0A1A2F] shadow-md'
+                      ? 'bg-[#0A1A2F] border-[#0A1A2F] shadow-md dark:shadow-none'
                       : 'bg-white dark:bg-white/5 border-[#F2F6FA] hover:border-[#FAD98D]/50'
                   }`}>
                   <p className={`text-[10px] font-bold mb-1 ${selectedWeek === i ? 'text-[#c9a227]' : 'text-[#0A1A2F]/40 dark:text-white/40'}`}>
@@ -572,7 +572,7 @@ export default function CoachingPlanPage() {
                     onClick={() => openDay(d.day)}
                     className={`w-full flex items-center gap-3 p-3.5 rounded-xl text-left transition-all border ${
                       done ? 'bg-[#c9a227]/8 border-[#c9a227]/20' :
-                      isToday ? 'bg-white dark:bg-white/5 border-[#c9a227]/40 shadow-sm' :
+                      isToday ? 'bg-white dark:bg-white/5 border-[#c9a227]/40 shadow-sm dark:shadow-none' :
                       isPast ? 'bg-white/60 border-[#F2F6FA]' :
                       'bg-white dark:bg-white/5 border-[#F2F6FA] opacity-60'
                     }`}
@@ -602,7 +602,7 @@ export default function CoachingPlanPage() {
                       {(isPast || isToday) && (
                         <div className="flex gap-1 mt-1.5">
                           {Object.keys(PILLAR_CONFIG).map(pk => (
-                            <div key={pk} className={`w-2 h-2 rounded-full ${pillars[pk] ? 'bg-[#c9a227]' : 'bg-gray-100'}`} />
+                            <div key={pk} className={`w-2 h-2 rounded-full ${pillars[pk] ? 'bg-[#c9a227]' : 'bg-gray-100 dark:bg-white/5'}`} />
                           ))}
                         </div>
                       )}
@@ -629,7 +629,7 @@ function PillarCard({ pillarKey, data, done, expanded, onToggleExpand, onToggleD
   const Icon = cfg.icon;
 
   return (
-    <div className={`bg-white dark:bg-white/5 rounded-2xl border transition-all shadow-sm overflow-hidden ${
+    <div className={`bg-white dark:bg-white/5 rounded-2xl border transition-all shadow-sm dark:shadow-none overflow-hidden ${
       done ? `border-[${cfg.color}]/30` : 'border-[#F2F6FA]'
     }`}>
       <button

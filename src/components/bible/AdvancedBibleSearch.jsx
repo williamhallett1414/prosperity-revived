@@ -179,7 +179,7 @@ Example format:
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <Filter className="w-4 h-4 text-[#0A1A2F]/60 dark:text-white/60" />
-                <span className="font-semibold text-[#0A1A2F]/75">Filters</span>
+                <span className="font-semibold text-[#0A1A2F]/75 dark:text-white/75">Filters</span>
               </div>
               {(filters.testament !== 'all' || filters.books.length > 0 || filters.searchType !== 'keywords') && (
                 <button
@@ -271,7 +271,7 @@ Example format:
           {!searching && searchResults.length > 0 && (
             <div className="space-y-3">
               <div className="flex items-center justify-between">
-                <h3 className="font-semibold text-[#0A1A2F]/75">
+                <h3 className="font-semibold text-[#0A1A2F]/75 dark:text-white/75">
                   {searchResults.length} Results Found
                 </h3>
                 <span className="text-xs text-[#0A1A2F]/50 dark:text-white/50">
@@ -308,7 +308,7 @@ Example format:
                       </div>
                     </div>
                     
-                    <p className="text-[#0A1A2F]/75 italic mb-2 leading-relaxed">
+                    <p className="text-[#0A1A2F]/75 dark:text-white/75 italic mb-2 leading-relaxed">
                       "{result.text}"
                     </p>
                     

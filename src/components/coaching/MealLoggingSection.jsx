@@ -100,7 +100,7 @@ export default function MealLoggingSection({ nutritionPlan, mealLogs, onMealLogg
                     <span className="text-[10px] text-[#0A1A2F]/40 dark:text-white/40">{meal.time}</span>
                   </div>
                   {suggestion && (
-                    <p className="text-xs text-[#0A1A2F]/65 leading-relaxed">{suggestion}</p>
+                    <p className="text-xs text-[#0A1A2F]/65 dark:text-white/65 leading-relaxed">{suggestion}</p>
                   )}
                 </div>
                 <Button

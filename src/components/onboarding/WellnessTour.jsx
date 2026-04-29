@@ -162,7 +162,7 @@ export default function WellnessTour({ onComplete, onSkip }) {
           </div>
 
           {/* Progress bar */}
-          <div className="h-1.5 bg-gray-100">
+          <div className="h-1.5 bg-gray-100 dark:bg-white/5">
             <motion.div
               className="h-full bg-gradient-to-r from-[#FD9C2D] to-[#FAD98D]"
               animate={{ width: `${progress}%` }}
@@ -184,7 +184,7 @@ export default function WellnessTour({ onComplete, onSkip }) {
 
           {/* Content */}
           <div className="p-6 pt-4">
-            <p className="text-gray-600 text-sm leading-relaxed">
+            <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
               {currentStep.description}
             </p>
           </div>
@@ -195,7 +195,7 @@ export default function WellnessTour({ onComplete, onSkip }) {
               <Button
                 onClick={handleBack}
                 variant="outline"
-                className="flex-1 border-gray-200 dark:border-white/10"
+                className="flex-1 border-gray-200 dark:border-white/10 dark:border-white/10"
               >
                 <ChevronLeft className="w-4 h-4 mr-1" />
                 Back
@@ -222,7 +222,7 @@ export default function WellnessTour({ onComplete, onSkip }) {
           {!isLast && (
             <button
               onClick={handleSkip}
-              className="w-full text-center text-xs text-gray-400 hover:text-gray-600 pb-4 transition-colors"
+              className="w-full text-center text-xs text-gray-400 dark:text-gray-300 hover:text-gray-600 dark:text-gray-300 pb-4 transition-colors"
             >
               Skip tour
             </button>

@@ -64,7 +64,7 @@ export default function DailyVerseSettings({ isOpen, onClose }) {
           <div className="flex items-center justify-between">
             <div>
               <Label htmlFor="enabled" className="text-base font-semibold">Enable Daily Verse</Label>
-              <p className="text-sm text-gray-500 mt-1">
+              <p className="text-sm text-gray-500 dark:text-gray-300 mt-1">
                 Receive a daily Bible verse notification
               </p>
             </div>
@@ -84,14 +84,14 @@ export default function DailyVerseSettings({ isOpen, onClose }) {
                 value={time}
                 onChange={(e) => setTime(e.target.value)}
               />
-              <p className="text-xs text-gray-500 mt-2">
+              <p className="text-xs text-gray-500 dark:text-gray-300 mt-2">
                 You'll receive a new today's scripture at this time
               </p>
             </div>
           )}
 
           <div className="bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-lg p-4">
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-gray-600 dark:text-gray-300">
               📖 Daily verses are curated to provide inspiration, encouragement, and wisdom for your spiritual journey.
             </p>
           </div>

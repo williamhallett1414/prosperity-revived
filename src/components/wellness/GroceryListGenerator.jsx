@@ -141,11 +141,11 @@ export default function GroceryListGenerator({ isOpen, onClose, mealPlanDays }) 
           <div className="bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-900/20 dark:to-teal-900/20 rounded-lg p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600 dark:text-gray-400">Total Items</p>
+                <p className="text-sm text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">Total Items</p>
                 <p className="text-2xl font-bold text-emerald-600">{allIngredients.length}</p>
               </div>
               <div>
-                <p className="text-sm text-gray-600 dark:text-gray-400">Checked Off</p>
+                <p className="text-sm text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">Checked Off</p>
                 <p className="text-2xl font-bold text-teal-600">{checkedCount}</p>
               </div>
               <div className="flex gap-2">
@@ -168,7 +168,7 @@ export default function GroceryListGenerator({ isOpen, onClose, mealPlanDays }) 
                 <h4 className="font-semibold text-[#0A1A2F] dark:text-white mb-3 flex items-center gap-2">
                   <span className="text-2xl">{categoryIcons[category]}</span>
                   {categoryNames[category]}
-                  <span className="text-sm font-normal text-gray-500">({items.length})</span>
+                  <span className="text-sm font-normal text-gray-500 dark:text-gray-300">({items.length})</span>
                 </h4>
                 <div className="space-y-2">
                   {items.map((item, idx) => (
@@ -176,7 +176,7 @@ export default function GroceryListGenerator({ isOpen, onClose, mealPlanDays }) 
                       key={idx}
                       className={`flex items-start gap-3 p-3 rounded-lg transition-colors ${
                         checkedItems[item.name]
-                          ? 'bg-gray-100 dark:bg-[#0A1A2F]'
+                          ? 'bg-gray-100 dark:bg-white/5 dark:bg-[#0A1A2F]'
                           : 'bg-white dark:bg-white/5 dark:bg-[#0A1A2F] hover:bg-gray-50 dark:bg-white/5 dark:hover:bg-[#3C4E53]'
                       }`}
                     >
@@ -188,7 +188,7 @@ export default function GroceryListGenerator({ isOpen, onClose, mealPlanDays }) 
                       <div className="flex-1">
                         <p className={`font-medium ${
                           checkedItems[item.name]
-                            ? 'text-gray-500 line-through'
+                            ? 'text-gray-500 dark:text-gray-300 line-through'
                             : 'text-[#0A1A2F] dark:text-white'
                         }`}>
                           {item.name}
@@ -198,7 +198,7 @@ export default function GroceryListGenerator({ isOpen, onClose, mealPlanDays }) 
                             </span>
                           )}
                         </p>
-                        <p className="text-xs text-gray-500 mt-1">
+                        <p className="text-xs text-gray-500 dark:text-gray-300 mt-1">
                           For: {item.recipes.slice(0, 2).join(', ')}
                           {item.recipes.length > 2 && ` +${item.recipes.length - 2} more`}
                         </p>
@@ -214,7 +214,7 @@ export default function GroceryListGenerator({ isOpen, onClose, mealPlanDays }) 
           ))}
 
           {allIngredients.length === 0 && (
-            <div className="text-center py-8 text-gray-500">
+            <div className="text-center py-8 text-gray-500 dark:text-gray-300">
               <ShoppingCart className="w-12 h-12 mx-auto mb-3 opacity-50" />
               <p>No ingredients found in your meal plan</p>
             </div>

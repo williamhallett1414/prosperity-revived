@@ -21,10 +21,10 @@ export default function ProactiveSuggestionBanner({ suggestion, onAccept, onDism
         </div>
         
         <div className="flex-1 min-w-0">
-          <h4 className="text-sm font-semibold text-gray-900 mb-1">
+          <h4 className="text-sm font-semibold text-gray-900 dark:text-white mb-1">
             {suggestion.title}
           </h4>
-          <p className="text-sm text-gray-700 leading-relaxed whitespace-pre-wrap">
+          <p className="text-sm text-gray-700 dark:text-gray-200 leading-relaxed whitespace-pre-wrap">
             {suggestion.message}
           </p>
           
@@ -41,7 +41,7 @@ export default function ProactiveSuggestionBanner({ suggestion, onAccept, onDism
         
         <button
           onClick={onDismiss}
-          className="flex-shrink-0 text-gray-400 hover:text-gray-600 transition-colors"
+          className="flex-shrink-0 text-gray-400 dark:text-gray-300 hover:text-gray-600 dark:text-gray-300 transition-colors"
           title="Dismiss"
         >
           <X className="w-5 h-5" />

@@ -32,7 +32,7 @@ function ActivePlanCard({ progress, plan, navigate }) {
     <motion.button
       initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
       onClick={() => navigate(createPageUrl(`PlanDetail?id=${plan.id}`))}
-      className="w-full text-left bg-white dark:bg-white/5 rounded-2xl border border-[#FAD98D]/30 overflow-hidden shadow-sm hover:shadow-md transition-all">
+      className="w-full text-left bg-white dark:bg-white/5 rounded-2xl border border-[#FAD98D]/30 overflow-hidden shadow-sm dark:shadow-none hover:shadow-md dark:shadow-none transition-all">
       
       <div className="relative h-14 overflow-hidden">
         <img src={plan.image} alt={plan.name} className="w-full h-full object-cover" />
@@ -69,7 +69,7 @@ function QuickTools({ bookmarkCount }) {
       {tools.map(({ label, icon: Icon, value, page, color, bg }) =>
       <Link key={page} to={createPageUrl(page)} className="flex-1">
           <div className={`${bg} rounded-2xl p-3.5 flex items-center gap-2.5 border border-transparent hover:border-[#FAD98D]/40 transition-all`}>
-            <div className="w-8 h-8 rounded-xl bg-white dark:bg-white/5 flex items-center justify-center shadow-sm flex-shrink-0">
+            <div className="w-8 h-8 rounded-xl bg-white dark:bg-white/5 flex items-center justify-center shadow-sm dark:shadow-none flex-shrink-0">
               <Icon className={`w-4 h-4 ${color}`} />
             </div>
             <div>
@@ -233,7 +233,7 @@ export default function Bible() {
             { value: 'goals', icon: Target, label: 'Goals' }].
             map(({ value, icon: Icon, label }) =>
             <TabsTrigger key={value} value={value}
-            className="rounded-lg text-xs data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#c9a227] data-[state=active]:to-[#FAD98D] data-[state=active]:text-white data-[state=active]:shadow-sm">
+            className="rounded-lg text-xs data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#c9a227] data-[state=active]:to-[#FAD98D] data-[state=active]:text-white data-[state=active]:shadow-sm dark:shadow-none">
                 <Icon className="w-3.5 h-3.5 mr-1" />{label}
               </TabsTrigger>
             )}
@@ -298,12 +298,12 @@ export default function Bible() {
 
               {/* 3. Open the Word */}
               <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }}
-              className="bg-white dark:bg-white/5 rounded-2xl border border-[#FAD98D]/25 p-4 shadow-sm">
+              className="bg-white dark:bg-white/5 rounded-2xl border border-[#FAD98D]/25 p-4 shadow-sm dark:shadow-none">
                 <p className="text-xs font-bold text-[#0A1A2F]/40 dark:text-white/40 uppercase tracking-widest mb-3">Open the Bible</p>
                 <div className="flex gap-2 mb-3">
                   <button
                     onClick={() => {setInitialBook(null);setView('newTestament');}}
-                    className="flex-1 bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white font-semibold text-sm py-2.5 rounded-xl shadow-sm hover:opacity-90 transition-all">
+                    className="flex-1 bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white font-semibold text-sm py-2.5 rounded-xl shadow-sm dark:shadow-none hover:opacity-90 transition-all">
                     New Testament
                   </button>
                   <button
@@ -330,7 +330,7 @@ export default function Bible() {
               <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
                 <Link to={createPageUrl('ChatScreen?bot=Gideon')}>
                   <div className="bg-gradient-to-r from-amber-50 to-[#FAD98D]/20 rounded-2xl p-4 flex items-center gap-3 border border-[#FAD98D]/30">
-                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center flex-shrink-0 shadow-sm">
+                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center flex-shrink-0 shadow-sm dark:shadow-none">
                       <span className="text-lg">📖</span>
                     </div>
                     <div className="flex-1 min-w-0">

@@ -200,7 +200,7 @@ export default function BibleSearchBar({ onNavigate }) {
               onKeyDown={handleKeyDown}
               onFocus={() => searchQuery && setShowSuggestions(true)}
               placeholder="Quick navigation: books, chapters, verses…"
-              className="w-full pl-12 pr-12 py-3.5 bg-white dark:bg-white/5 rounded-2xl border-2 border-[#FAD98D]/20 focus:border-[#FAD98D] focus:outline-none text-[#0A1A2F] dark:text-white placeholder:text-[#0A1A2F]/40 dark:text-white/40 transition-all shadow-sm"
+              className="w-full pl-12 pr-12 py-3.5 bg-white dark:bg-white/5 rounded-2xl border-2 border-[#FAD98D]/20 focus:border-[#FAD98D] focus:outline-none text-[#0A1A2F] dark:text-white placeholder:text-[#0A1A2F]/40 dark:text-white/40 transition-all shadow-sm dark:shadow-none"
             />
             {searchQuery && (
               <button
@@ -214,7 +214,7 @@ export default function BibleSearchBar({ onNavigate }) {
           
           <button
             onClick={() => setShowAdvancedSearch(true)}
-            className="px-3 py-2 bg-gradient-to-r from-[#c9a227] to-[#FAD98D] hover:from-[#C9A227] hover:to-[#c9a227] text-white rounded-xl font-medium flex items-center gap-1.5 transition-all shadow-sm text-xs"
+            className="px-3 py-2 bg-gradient-to-r from-[#c9a227] to-[#FAD98D] hover:from-[#C9A227] hover:to-[#c9a227] text-white rounded-xl font-medium flex items-center gap-1.5 transition-all shadow-sm dark:shadow-none text-xs"
           >
             <Sparkles className="w-3.5 h-3.5" />
             <span className="hidden sm:inline">Advanced</span>

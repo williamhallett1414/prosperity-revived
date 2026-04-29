@@ -158,7 +158,7 @@ export default function HannahOnboarding({ onComplete, onRevisit, user }) {
           </div>
 
           {/* Progress */}
-          <div className="h-1 bg-gray-100">
+          <div className="h-1 bg-gray-100 dark:bg-white/5">
             <motion.div
               animate={{ width: `${((step + 1) / totalSteps) * 100}%` }}
               transition={{ duration: 0.3 }}
@@ -180,10 +180,10 @@ export default function HannahOnboarding({ onComplete, onRevisit, user }) {
                 {step === 0 && (
                   <div className="text-center py-2">
                     <div className="text-5xl mb-4">💛</div>
-                    <p className="text-gray-700 leading-relaxed">
+                    <p className="text-gray-700 dark:text-gray-200 leading-relaxed">
                       I'm your <strong>personal growth guide</strong> — combining therapy-informed coaching, habit science, and emotional intelligence.
                     </p>
-                    <p className="text-sm text-gray-500 mt-3">
+                    <p className="text-sm text-gray-500 dark:text-gray-300 mt-3">
                       Let me learn about you so every conversation feels like it was made just for you.
                     </p>
                   </div>
@@ -192,7 +192,7 @@ export default function HannahOnboarding({ onComplete, onRevisit, user }) {
                 {/* Step 1: Growth focus areas */}
                 {step === 1 && (
                   <div>
-                    <p className="text-sm text-gray-600 mb-3">What areas do you most want to grow in? (Pick up to 4)</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">What areas do you most want to grow in? (Pick up to 4)</p>
                     <div className="grid grid-cols-2 gap-2 max-h-52 overflow-y-auto pr-1">
                       {GROWTH_AREAS.map(area => {
                         const selected = selectedAreas.includes(area.id);
@@ -204,11 +204,11 @@ export default function HannahOnboarding({ onComplete, onRevisit, user }) {
                             className={`rounded-xl border-2 p-2.5 text-left transition-all ${
                               selected ? 'border-[#AFC7E3] bg-[#AFC7E3]/15' :
                               disabled ? 'border-gray-100 dark:border-white/10 opacity-40 cursor-not-allowed' :
-                              'border-gray-200 dark:border-white/10 hover:border-gray-300'
+                              'border-gray-200 dark:border-white/10 hover:border-gray-300 dark:border-white/15'
                             }`}
                           >
-                            <div className="text-xs font-semibold text-gray-800">{area.label}</div>
-                            <div className="text-xs text-gray-500">{area.desc}</div>
+                            <div className="text-xs font-semibold text-gray-800 dark:text-gray-100">{area.label}</div>
+                            <div className="text-xs text-gray-500 dark:text-gray-300">{area.desc}</div>
                             {selected && <CheckCircle2 className="w-3.5 h-3.5 text-[#AFC7E3] mt-1" />}
                           </button>
                         );
@@ -220,8 +220,8 @@ export default function HannahOnboarding({ onComplete, onRevisit, user }) {
                 {/* Step 2: Core values */}
                 {step === 2 && (
                   <div>
-                    <p className="text-sm text-gray-600 mb-1">What are your top core values? (Choose up to 5)</p>
-                    <p className="text-xs text-gray-400 mb-3">I'll use these to make my guidance feel truly yours.</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-300 mb-1">What are your top core values? (Choose up to 5)</p>
+                    <p className="text-xs text-gray-400 dark:text-gray-300 mb-3">I'll use these to make my guidance feel truly yours.</p>
                     <div className="flex flex-wrap gap-2 max-h-52 overflow-y-auto">
                       {CORE_VALUES.map(val => {
                         const selected = selectedValues.includes(val.id);
@@ -232,8 +232,8 @@ export default function HannahOnboarding({ onComplete, onRevisit, user }) {
                             onClick={() => !disabled && toggleValue(val.id)}
                             className={`text-xs px-3 py-2 rounded-full border-2 transition-all font-medium ${
                               selected ? 'border-[#AFC7E3] bg-[#AFC7E3]/20 text-[#3C4E53]' :
-                              disabled ? 'border-gray-100 dark:border-white/10 text-gray-300 cursor-not-allowed' :
-                              'border-gray-200 dark:border-white/10 text-gray-600 hover:border-gray-300'
+                              disabled ? 'border-gray-100 dark:border-white/10 text-gray-300 dark:text-gray-400 dark:text-gray-300 cursor-not-allowed' :
+                              'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-gray-300 dark:border-white/15'
                             }`}
                           >
                             {val.label}
@@ -250,7 +250,7 @@ export default function HannahOnboarding({ onComplete, onRevisit, user }) {
                 {/* Step 3: Coaching style */}
                 {step === 3 && (
                   <div>
-                    <p className="text-sm text-gray-600 mb-3">How do you prefer to be coached?</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">How do you prefer to be coached?</p>
                     <div className="space-y-2">
                       {COACHING_STYLES.map(style => (
                         <button
@@ -259,12 +259,12 @@ export default function HannahOnboarding({ onComplete, onRevisit, user }) {
                           className={`w-full flex items-start gap-3 rounded-xl border-2 p-3.5 text-left transition-all ${
                             coachingStyle === style.id
                               ? 'border-[#AFC7E3] bg-[#AFC7E3]/15'
-                              : 'border-gray-200 dark:border-white/10 hover:border-gray-300'
+                              : 'border-gray-200 dark:border-white/10 hover:border-gray-300 dark:border-white/15'
                           }`}
                         >
                           <div className="flex-1">
-                            <div className="text-sm font-semibold text-gray-800">{style.label}</div>
-                            <div className="text-xs text-gray-500 mt-0.5">{style.desc}</div>
+                            <div className="text-sm font-semibold text-gray-800 dark:text-gray-100">{style.label}</div>
+                            <div className="text-xs text-gray-500 dark:text-gray-300 mt-0.5">{style.desc}</div>
                           </div>
                           {coachingStyle === style.id && <CheckCircle2 className="w-4 h-4 text-[#AFC7E3] flex-shrink-0 mt-0.5" />}
                         </button>
@@ -276,7 +276,7 @@ export default function HannahOnboarding({ onComplete, onRevisit, user }) {
                 {/* Step 4: Life stage */}
                 {step === 4 && (
                   <div>
-                    <p className="text-sm text-gray-600 mb-3">What stage of life are you in right now?</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">What stage of life are you in right now?</p>
                     <div className="grid grid-cols-2 gap-2">
                       {LIFE_STAGES.map(stage => (
                         <button
@@ -285,7 +285,7 @@ export default function HannahOnboarding({ onComplete, onRevisit, user }) {
                           className={`rounded-xl border-2 p-3.5 font-semibold text-sm transition-all flex items-center justify-between ${
                             lifeStage === stage.id
                               ? 'border-[#AFC7E3] bg-[#AFC7E3]/15 text-[#3C4E53]'
-                              : 'border-gray-200 dark:border-white/10 text-gray-700 hover:border-gray-300'
+                              : 'border-gray-200 dark:border-white/10 text-gray-700 dark:text-gray-200 hover:border-gray-300 dark:border-white/15'
                           }`}
                         >
                           {stage.label}
@@ -299,14 +299,14 @@ export default function HannahOnboarding({ onComplete, onRevisit, user }) {
                 {/* Step 5: One big goal */}
                 {step === 5 && (
                   <div>
-                    <p className="text-sm text-gray-600 mb-1">What's one thing you most want to change or achieve?</p>
-                    <p className="text-xs text-gray-400 mb-3">Be as honest as you feel comfortable. This is just for you.</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-300 mb-1">What's one thing you most want to change or achieve?</p>
+                    <p className="text-xs text-gray-400 dark:text-gray-300 mb-3">Be as honest as you feel comfortable. This is just for you.</p>
                     <textarea
                       value={goalText}
                       onChange={e => setGoalText(e.target.value)}
                       placeholder="e.g. I want to stop self-sabotaging and start trusting myself more…"
                       rows={4}
-                      className="w-full rounded-xl border-2 border-gray-200 dark:border-white/10 focus:border-[#AFC7E3] outline-none p-3 text-sm text-gray-700 resize-none transition-colors"
+                      className="w-full rounded-xl border-2 border-gray-200 dark:border-white/10 focus:border-[#AFC7E3] outline-none p-3 text-sm text-gray-700 dark:text-gray-200 resize-none transition-colors"
                     />
                     <div className="mt-3 bg-purple-50 border border-purple-200 rounded-xl p-3 text-xs text-purple-700">
                       💛 This becomes the foundation of our work together. I'll come back to it when you need a reminder of why you started.
@@ -320,7 +320,7 @@ export default function HannahOnboarding({ onComplete, onRevisit, user }) {
           {/* Footer */}
           <div className="p-5 bg-gray-50 dark:bg-white/5 border-t border-gray-100 dark:border-white/10">
             <div className="flex gap-3">
-              <Button onClick={onComplete} variant="outline" className="flex-1 text-gray-600 text-sm">
+              <Button onClick={onComplete} variant="outline" className="flex-1 text-gray-600 dark:text-gray-300 text-sm">
                 Skip
               </Button>
               <Button

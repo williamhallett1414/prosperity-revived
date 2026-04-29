@@ -68,7 +68,7 @@ function markDayComplete(planId, dayNumber) {
 function SectionCard({ title, icon: Icon, color, accentColor, children, defaultOpen = true }) {
   const [open, setOpen] = useState(defaultOpen);
   return (
-    <div className="bg-white dark:bg-white/5 rounded-2xl border border-[#3C4E53]/30/8 shadow-sm overflow-hidden mb-3">
+    <div className="bg-white dark:bg-white/5 rounded-2xl border border-[#3C4E53]/30/8 shadow-sm dark:shadow-none overflow-hidden mb-3">
       <button onClick={() => setOpen(p => !p)}
         className="w-full flex items-center justify-between p-4 text-left">
         <div className="flex items-center gap-3">
@@ -128,7 +128,7 @@ function WeekNav({ currentWeek, weeks, onSelectWeek, planId, weekThemes }) {
             <button key={wt.week} onClick={() => onSelectWeek(wt.week)}
               className={`flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-bold transition-all whitespace-nowrap border ${
                 isActive
-                  ? 'bg-[#3C4E53] text-white border-[#3C4E53]/30 shadow-md'
+                  ? 'bg-[#3C4E53] text-white border-[#3C4E53]/30 shadow-md dark:shadow-none'
                   : weekDaysCompleted === 7
                   ? 'bg-[#F2F6FA] dark:bg-[#0A1A2F] text-[#3C4E53] border-[#3C4E53]/30/20'
                   : 'bg-white dark:bg-white/5 text-[#0A1A2F]/50 dark:text-white/50 border-[#0A1A2F]/10'
@@ -392,7 +392,7 @@ export default function CoachingPlanDetail() {
                             key={dayNum}
                             onClick={() => { setCurrentDay(dayNum); setShowDayPicker(false); }}
                             className={`aspect-square rounded-xl text-sm font-bold flex items-center justify-center transition-all border ${
-                              isActive ? 'bg-[#3C4E53] text-white border-[#3C4E53]/30 shadow-md' :
+                              isActive ? 'bg-[#3C4E53] text-white border-[#3C4E53]/30 shadow-md dark:shadow-none' :
                               isDone ? 'bg-[#F2F6FA] dark:bg-[#0A1A2F] text-[#3C4E53] border-[#3C4E53]/30/20' :
                               isSabbath ? 'bg-[#FFF9EC] text-[#c9a227] border-[#c9a227]/20' :
                               'bg-white dark:bg-white/5 text-[#0A1A2F]/50 dark:text-white/50 border-[#0A1A2F]/8 hover:border-[#3C4E53]/30/30'
@@ -439,7 +439,7 @@ export default function CoachingPlanDetail() {
                    handleAbandonPlan();
                    setShowMenu(false);
                  }}
-                 className="absolute top-full right-0 mt-2 bg-white dark:bg-white/5 border border-red-200 rounded-lg shadow-lg px-3 py-2 text-xs font-bold text-red-600 hover:bg-red-50 whitespace-nowrap"
+                 className="absolute top-full right-0 mt-2 bg-white dark:bg-white/5 border border-red-200 rounded-lg shadow-lg dark:shadow-none px-3 py-2 text-xs font-bold text-red-600 hover:bg-red-50 whitespace-nowrap"
                >
                  ✕ Abandon Plan
                </button>
@@ -524,7 +524,7 @@ export default function CoachingPlanDetail() {
               <p className="text-sm text-[#0A1A2F]/70 dark:text-white/70 leading-relaxed">{dayData.bible.devotion}</p>
               <div className="p-3 bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-xl">
                 <p className="text-[10px] font-bold uppercase tracking-wider text-[#3C4E53] mb-1">Reflection Question</p>
-                <p className="text-sm text-[#0A1A2F]/75 italic">{dayData.bible.reflection_q}</p>
+                <p className="text-sm text-[#0A1A2F]/75 dark:text-white/75 italic">{dayData.bible.reflection_q}</p>
               </div>
               <TaskRow
                 label={`Read ${dayData.bible.book} ${dayData.bible.chapter}`}
@@ -554,7 +554,7 @@ export default function CoachingPlanDetail() {
                     </div>
                     <div className="p-3 bg-[#FD9C2D]/8 rounded-xl border border-[#FD9C2D]/15">
                       <p className="text-[10px] font-bold uppercase tracking-wider text-[#FD9C2D] mb-1">Coach's Motivation</p>
-                      <p className="text-sm text-[#0A1A2F]/75 italic">{dayData.workout.motivational_tip}</p>
+                      <p className="text-sm text-[#0A1A2F]/75 dark:text-white/75 italic">{dayData.workout.motivational_tip}</p>
                     </div>
                     {dayData.workout.coach_note && (
                       <p className="text-xs text-[#0A1A2F]/50 dark:text-white/50 leading-relaxed px-1">💡 {dayData.workout.coach_note}</p>
@@ -654,7 +654,7 @@ export default function CoachingPlanDetail() {
                 <div className="flex gap-2">
                   <button
                     onClick={() => setShowMeditationPlayer(true)}
-                    className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-[#AFC7E3] to-[#AFC7E3] text-white font-bold rounded-xl hover:shadow-md transition-shadow text-sm"
+                    className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-[#AFC7E3] to-[#AFC7E3] text-white font-bold rounded-xl hover:shadow-md dark:shadow-none transition-shadow text-sm"
                   >
                     <Play className="w-4 h-4" /> Start Meditation
                   </button>
@@ -720,7 +720,7 @@ export default function CoachingPlanDetail() {
           {/* 6. Personal Growth */}
           <SectionCard title="Personal Growth" icon={Star} color="bg-[#F2F6FA] dark:bg-[#0A1A2F]" accentColor="#AFC7E3" defaultOpen={false}>
             <div className="space-y-3">
-              <p className="text-sm text-[#0A1A2F]/65 leading-relaxed">
+              <p className="text-sm text-[#0A1A2F]/65 dark:text-white/65 leading-relaxed">
                 Continue your growth work today with a connected exercise from the Personal Growth section.
               </p>
               <TaskRow
@@ -764,14 +764,14 @@ export default function CoachingPlanDetail() {
               <button
                 onClick={() => currentDay < plan.days_total && setCurrentDay(currentDay + 1)}
                 disabled={currentDay >= plan.days_total}
-                className="w-full py-3 rounded-xl bg-gradient-to-r from-[#3C4E53] to-[#FD9C2D] text-white font-bold text-sm disabled:opacity-50 shadow-md"
+                className="w-full py-3 rounded-xl bg-gradient-to-r from-[#3C4E53] to-[#FD9C2D] text-white font-bold text-sm disabled:opacity-50 shadow-md dark:shadow-none"
               >
                 {currentDay < plan.days_total ? `→ Day ${currentDay + 1}` : '🎉 Plan Complete!'}
               </button>
             ) : (
               <button
                 onClick={handleCompleteDay}
-                className={`w-full py-3 rounded-xl font-bold text-sm shadow-md transition-all ${
+                className={`w-full py-3 rounded-xl font-bold text-sm shadow-md dark:shadow-none transition-all ${
                   allTasksDone
                     ? 'bg-gradient-to-r from-[#3C4E53] to-[#c9a227] text-white shadow-[#3C4E53]/30'
                     : 'bg-white dark:bg-white/5 border border-[#3C4E53]/30/20 text-[#3C4E53]'

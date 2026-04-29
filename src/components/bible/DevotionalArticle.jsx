@@ -424,7 +424,7 @@ export default function DevotionalArticle({ devotional, onBack }) {
             <Sparkles className="w-5 h-5 text-[#c9a227]" />
             Introduction
           </h2>
-          <div className="space-y-4 text-[#0A1A2F]/75 leading-relaxed">
+          <div className="space-y-4 text-[#0A1A2F]/75 dark:text-white/75 leading-relaxed">
             {content.introduction.map((paragraph, index) => (
               <p key={index}>{paragraph}</p>
             ))}
@@ -438,7 +438,7 @@ export default function DevotionalArticle({ devotional, onBack }) {
             {content.verses.map((verse, index) => (
               <div key={index}>
                 <h3 className="font-semibold text-[#0A1A2F] dark:text-white mb-2">{index + 1}. {verse.title}</h3>
-                <p className="italic text-[#0A1A2F]/75 mb-2">{verse.verse}</p>
+                <p className="italic text-[#0A1A2F]/75 dark:text-white/75 mb-2">{verse.verse}</p>
                 <p className="text-sm text-[#0A1A2F]/60 dark:text-white/60">{verse.insight}</p>
               </div>
             ))}
@@ -448,7 +448,7 @@ export default function DevotionalArticle({ devotional, onBack }) {
         {/* Reflection */}
         <Card className="p-6 mb-6">
           <h2 className="text-xl font-bold text-[#0A1A2F] dark:text-white mb-4">Reflection</h2>
-          <div className="space-y-4 text-[#0A1A2F]/75 leading-relaxed">
+          <div className="space-y-4 text-[#0A1A2F]/75 dark:text-white/75 leading-relaxed">
             {content.reflection.map((paragraph, index) => (
               <p key={index}>{paragraph}</p>
             ))}
@@ -462,7 +462,7 @@ export default function DevotionalArticle({ devotional, onBack }) {
             {content.reflectionQuestions.map((section, index) => (
               <div key={index}>
                 <h3 className="font-semibold text-[#0A1A2F] dark:text-white mb-2">{section.category}</h3>
-                <ul className="list-disc pl-5 space-y-2 text-[#0A1A2F]/75 text-sm">
+                <ul className="list-disc pl-5 space-y-2 text-[#0A1A2F]/75 dark:text-white/75 text-sm">
                   {section.questions.map((question, qIndex) => (
                     <li key={qIndex}>{question}</li>
                   ))}
@@ -478,7 +478,7 @@ export default function DevotionalArticle({ devotional, onBack }) {
             <Heart className="w-5 h-5 text-[#C9A227]" />
             Call to Christ
           </h2>
-          <div className="space-y-4 text-[#0A1A2F]/75 leading-relaxed">
+          <div className="space-y-4 text-[#0A1A2F]/75 dark:text-white/75 leading-relaxed">
             <p className="font-semibold">{content.callToChrist.title}</p>
             <p>{content.callToChrist.intro}</p>
             
@@ -500,7 +500,7 @@ export default function DevotionalArticle({ devotional, onBack }) {
         {/* Prayer */}
         <Card className="p-6 bg-gradient-to-br from-[#c9a227]/10 to-[#FAD98D]/10 border-l-4 border-[#c9a227] mb-6">
           <h2 className="text-xl font-bold text-[#0A1A2F] dark:text-white mb-4">Prayer</h2>
-          <p className="text-[#0A1A2F]/75 leading-relaxed italic">
+          <p className="text-[#0A1A2F]/75 dark:text-white/75 leading-relaxed italic">
             {content.prayer}
           </p>
         </Card>
@@ -508,7 +508,7 @@ export default function DevotionalArticle({ devotional, onBack }) {
         {/* Conclusion */}
         <Card className="p-6">
           <h2 className="text-xl font-bold text-[#0A1A2F] dark:text-white mb-4">Conclusion</h2>
-          <div className="space-y-4 text-[#0A1A2F]/75 leading-relaxed">
+          <div className="space-y-4 text-[#0A1A2F]/75 dark:text-white/75 leading-relaxed">
             {content.conclusion.map((paragraph, index) => (
               <p key={index} className={paragraph.includes('chosen') || paragraph.includes('masterpiece') ? 'font-semibold text-[#0A1A2F] dark:text-white dark:text-white' : ''}>
                 {paragraph}

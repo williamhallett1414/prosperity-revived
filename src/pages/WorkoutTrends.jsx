@@ -68,9 +68,9 @@ const TABS = [
 // ── Stat card ────────────────────────────────────────────────────────────────
 function StatCard({ value, label, color, trend, trendLabel, icon: Icon }) {
   const TrendIcon = trend === 'up' ? TrendingUp : trend === 'down' ? TrendingDown : Minus;
-  const trendColor = trend === 'up' ? 'text-emerald-500' : trend === 'down' ? 'text-rose-500' : 'text-gray-400';
+  const trendColor = trend === 'up' ? 'text-emerald-500' : trend === 'down' ? 'text-rose-500' : 'text-gray-400 dark:text-gray-300';
   return (
-    <div className="bg-white dark:bg-white/5 rounded-2xl p-4 border border-gray-100 dark:border-white/10 shadow-sm">
+    <div className="bg-white dark:bg-white/5 rounded-2xl p-4 border border-gray-100 dark:border-white/10 shadow-sm dark:shadow-none">
       <div className="flex items-start justify-between mb-1">
         <div className="w-8 h-8 rounded-xl flex items-center justify-center" style={{ background: color + '22' }}>
           <Icon className="w-4 h-4" style={{ color }} />
@@ -81,8 +81,8 @@ function StatCard({ value, label, color, trend, trendLabel, icon: Icon }) {
           </div>
         )}
       </div>
-      <p className="text-2xl font-black text-gray-900 mt-2">{value}</p>
-      <p className="text-xs text-gray-500 mt-0.5">{label}</p>
+      <p className="text-2xl font-black text-gray-900 dark:text-white mt-2">{value}</p>
+      <p className="text-xs text-gray-500 dark:text-gray-300 mt-0.5">{label}</p>
     </div>
   );
 }
@@ -91,8 +91,8 @@ function StatCard({ value, label, color, trend, trendLabel, icon: Icon }) {
 const ChartTooltip = ({ active, payload, label }) => {
   if (!active || !payload?.length) return null;
   return (
-    <div className="bg-white dark:bg-white/5 border border-gray-100 dark:border-white/10 rounded-xl px-3 py-2 shadow-lg text-xs">
-      <p className="font-bold text-gray-700 mb-1">{label}</p>
+    <div className="bg-white dark:bg-white/5 border border-gray-100 dark:border-white/10 rounded-xl px-3 py-2 shadow-lg dark:shadow-none text-xs">
+      <p className="font-bold text-gray-700 dark:text-gray-200 mb-1">{label}</p>
       {payload.map((p, i) => (
         <p key={i} style={{ color: p.color }}>{p.name}: <strong>{p.value}</strong></p>
       ))}
@@ -111,8 +111,8 @@ function EmptyState({ navigate }) {
       <div className="w-16 h-16 bg-[#38BDF8]/10 rounded-full flex items-center justify-center mx-auto mb-4">
         <BarChart3 className="w-8 h-8 text-[#38BDF8]" />
       </div>
-      <h3 className="text-base font-bold text-gray-800 mb-2">No workout data yet</h3>
-      <p className="text-sm text-gray-500 mb-6 leading-relaxed">
+      <h3 className="text-base font-bold text-gray-800 dark:text-gray-100 mb-2">No workout data yet</h3>
+      <p className="text-sm text-gray-500 dark:text-gray-300 mb-6 leading-relaxed">
         Log your first session to start seeing your trends, streaks, and exercise progress.
       </p>
       <button
@@ -296,7 +296,7 @@ export default function WorkoutTrends() {
                     className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all ${
                       range === r
                         ? 'bg-[#38BDF8] text-white'
-                        : 'bg-white dark:bg-white/5 text-gray-500 border border-gray-200 dark:border-white/10'
+                        : 'bg-white dark:bg-white/5 text-gray-500 dark:text-gray-300 border border-gray-200 dark:border-white/10 dark:border-white/10'
                     }`}
                   >
                     {r === 7 ? '7 days' : r === 30 ? '30 days' : '90 days'}
@@ -307,12 +307,12 @@ export default function WorkoutTrends() {
 
             {/* ── Tab bar ── */}
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.08 }}>
-              <div className="bg-white dark:bg-white/5 rounded-2xl p-1 flex gap-1 shadow-sm border border-gray-100 dark:border-white/10">
+              <div className="bg-white dark:bg-white/5 rounded-2xl p-1 flex gap-1 shadow-sm dark:shadow-none border border-gray-100 dark:border-white/10">
                 {TABS.map(t => (
                   <button key={t.key}
                     onPointerDown={() => setTab(t.key)}
                     className={`flex-1 py-2 rounded-xl text-xs font-bold transition-all ${
-                      tab === t.key ? 'bg-[#0A1A2F] text-white' : 'text-gray-400 hover:text-gray-600'
+                      tab === t.key ? 'bg-[#0A1A2F] text-white' : 'text-gray-400 dark:text-gray-300 hover:text-gray-600 dark:text-gray-300'
                     }`}
                   >
                     {t.label}
@@ -330,9 +330,9 @@ export default function WorkoutTrends() {
                   className="space-y-4"
                 >
                   {/* Streak history */}
-                  <div className="bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 shadow-sm p-5">
+                  <div className="bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 shadow-sm dark:shadow-none p-5">
                     <div className="flex items-center justify-between mb-4">
-                      <p className="text-sm font-bold text-gray-800">Streak history</p>
+                      <p className="text-sm font-bold text-gray-800 dark:text-gray-100">Streak history</p>
                       <div className="flex items-center gap-2">
                         {streak > 0 && (
                           <ShareToFeedButton
@@ -357,16 +357,16 @@ export default function WorkoutTrends() {
                         <p className="text-2xl font-black text-orange-500">{streak}</p>
                         <p className="text-[10px] text-orange-400 font-semibold mt-0.5">Current streak</p>
                       </div>
-                      <div className="bg-gray-50 dark:bg-white/5 rounded-xl p-3 text-center">
-                        <p className="text-2xl font-black text-gray-700">{longestStreak}</p>
-                        <p className="text-[10px] text-gray-400 font-semibold mt-0.5">Best streak</p>
+                      <div className="bg-gray-50 dark:bg-white/5 dark:text-white rounded-xl p-3 text-center">
+                        <p className="text-2xl font-black text-gray-700 dark:text-gray-200">{longestStreak}</p>
+                        <p className="text-[10px] text-gray-400 dark:text-gray-300 font-semibold mt-0.5">Best streak</p>
                       </div>
                     </div>
                   </div>
 
                   {/* Weekly volume */}
-                  <div className="bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 shadow-sm p-5">
-                    <p className="text-sm font-bold text-gray-800 mb-4">Weekly sessions (8 weeks)</p>
+                  <div className="bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 shadow-sm dark:shadow-none p-5">
+                    <p className="text-sm font-bold text-gray-800 dark:text-gray-100 mb-4">Weekly sessions (8 weeks)</p>
                     <ResponsiveContainer width="100%" height={180}>
                       <BarChart data={weeklyData} barSize={24}>
                         <CartesianGrid strokeDasharray="3 3" stroke="#f3f4f6" />
@@ -380,8 +380,8 @@ export default function WorkoutTrends() {
 
                   {/* Most performed */}
                   {allExercises.length > 0 && (
-                    <div className="bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 shadow-sm p-5">
-                      <p className="text-sm font-bold text-gray-800 mb-4">Top exercises</p>
+                    <div className="bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 shadow-sm dark:shadow-none p-5">
+                      <p className="text-sm font-bold text-gray-800 dark:text-gray-100 mb-4">Top exercises</p>
                       <div className="space-y-3">
                         {allExercises.slice(0, 5).map((ex, i) => {
                           const pct = Math.round((ex.count / allExercises[0].count) * 100);
@@ -390,11 +390,11 @@ export default function WorkoutTrends() {
                               <div className="flex items-center justify-between mb-1">
                                 <div className="flex items-center gap-2">
                                   <span className="w-5 h-5 rounded-full bg-[#38BDF8]/15 text-[#38BDF8] text-[10px] font-black flex items-center justify-center">{i + 1}</span>
-                                  <span className="text-sm text-gray-700 font-medium">{ex.name}</span>
+                                  <span className="text-sm text-gray-700 dark:text-gray-200 font-medium">{ex.name}</span>
                                 </div>
-                                <span className="text-xs text-gray-400">{ex.count}×</span>
+                                <span className="text-xs text-gray-400 dark:text-gray-300">{ex.count}×</span>
                               </div>
-                              <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                              <div className="h-1.5 bg-gray-100 dark:bg-white/5 rounded-full overflow-hidden">
                                 <motion.div
                                   className="h-full rounded-full bg-gradient-to-r from-[#38BDF8] to-[#0EA5E9]"
                                   initial={{ width: 0 }}
@@ -417,8 +417,8 @@ export default function WorkoutTrends() {
                   initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
                   className="space-y-4"
                 >
-                  <div className="bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 shadow-sm p-5">
-                    <p className="text-sm font-bold text-gray-800 mb-4">Sessions per day</p>
+                  <div className="bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 shadow-sm dark:shadow-none p-5">
+                    <p className="text-sm font-bold text-gray-800 dark:text-gray-100 mb-4">Sessions per day</p>
                     <ResponsiveContainer width="100%" height={200}>
                       <AreaChart data={freqData}>
                         <defs>
@@ -438,8 +438,8 @@ export default function WorkoutTrends() {
                     </ResponsiveContainer>
                   </div>
 
-                  <div className="bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 shadow-sm p-5">
-                    <p className="text-sm font-bold text-gray-800 mb-4">Minutes per week</p>
+                  <div className="bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 shadow-sm dark:shadow-none p-5">
+                    <p className="text-sm font-bold text-gray-800 dark:text-gray-100 mb-4">Minutes per week</p>
                     <ResponsiveContainer width="100%" height={180}>
                       <BarChart data={weeklyData} barSize={24}>
                         <CartesianGrid strokeDasharray="3 3" stroke="#f3f4f6" />
@@ -460,15 +460,15 @@ export default function WorkoutTrends() {
                   className="space-y-4"
                 >
                   {allExercises.length === 0 ? (
-                    <div className="bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 shadow-sm p-8 text-center">
-                      <p className="text-gray-500 text-sm">No exercise data recorded yet.</p>
-                      <p className="text-gray-400 text-xs mt-1">Log sessions with exercises to track progress here.</p>
+                    <div className="bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 shadow-sm dark:shadow-none p-8 text-center">
+                      <p className="text-gray-500 dark:text-gray-300 text-sm">No exercise data recorded yet.</p>
+                      <p className="text-gray-400 dark:text-gray-300 text-xs mt-1">Log sessions with exercises to track progress here.</p>
                     </div>
                   ) : (
                     <>
                       {/* Exercise picker */}
-                      <div className="bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 shadow-sm p-4">
-                        <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-3">Select exercise</p>
+                      <div className="bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 shadow-sm dark:shadow-none p-4">
+                        <p className="text-xs font-bold text-gray-500 dark:text-gray-300 uppercase tracking-widest mb-3">Select exercise</p>
                         <div className="flex flex-wrap gap-2 max-h-40 overflow-y-auto">
                           {allExercises.map(ex => (
                             <button key={ex.name}
@@ -476,7 +476,7 @@ export default function WorkoutTrends() {
                               className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all ${
                                 selExercise === ex.name
                                   ? 'bg-[#38BDF8] text-white'
-                                  : 'bg-gray-100 text-gray-600'
+                                  : 'bg-gray-100 dark:bg-white/5 text-gray-600 dark:text-gray-300'
                               }`}
                             >
                               {ex.name} <span className="opacity-60">({ex.count})</span>
@@ -487,9 +487,9 @@ export default function WorkoutTrends() {
 
                       {/* Progress chart */}
                       {selExercise && exerciseData.length > 0 && (
-                        <div className="bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 shadow-sm p-5">
-                          <p className="text-sm font-bold text-gray-800 mb-1">{selExercise}</p>
-                          <p className="text-xs text-gray-400 mb-4">Weight used over last {exerciseData.length} sessions</p>
+                        <div className="bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 shadow-sm dark:shadow-none p-5">
+                          <p className="text-sm font-bold text-gray-800 dark:text-gray-100 mb-1">{selExercise}</p>
+                          <p className="text-xs text-gray-400 dark:text-gray-300 mb-4">Weight used over last {exerciseData.length} sessions</p>
                           <ResponsiveContainer width="100%" height={200}>
                             <LineChart data={exerciseData}>
                               <CartesianGrid strokeDasharray="3 3" stroke="#f3f4f6" />
@@ -512,7 +512,7 @@ export default function WorkoutTrends() {
                             ].map(s => (
                               <div key={s.label} className="rounded-xl p-3 text-center" style={{ background: s.color + '12' }}>
                                 <p className="text-sm font-black" style={{ color: s.color }}>{s.value}</p>
-                                <p className="text-[10px] text-gray-400 mt-0.5">{s.label}</p>
+                                <p className="text-[10px] text-gray-400 dark:text-gray-300 mt-0.5">{s.label}</p>
                               </div>
                             ))}
                           </div>
@@ -529,17 +529,17 @@ export default function WorkoutTrends() {
             <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
               <button
                 onPointerDown={() => { window.location.href = createPageUrl('ChatScreen?bot=CoachDavid'); }}
-                className="w-full flex items-center justify-between px-5 py-4 bg-white dark:bg-white/5 rounded-2xl border border-[#38BDF8]/25 shadow-sm hover:border-[#38BDF8]/55 transition-all"
+                className="w-full flex items-center justify-between px-5 py-4 bg-white dark:bg-white/5 rounded-2xl border border-[#38BDF8]/25 shadow-sm dark:shadow-none hover:border-[#38BDF8]/55 transition-all"
               >
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full flex items-center justify-center text-white text-sm font-bold flex-shrink-0"
                     style={{ background: 'linear-gradient(135deg,#1e40af,#38BDF8)' }}>D</div>
                   <div className="text-left">
-                    <p className="text-sm font-bold text-gray-800">Talk your progress through</p>
-                    <p className="text-xs text-gray-500">Coach David can help you read these numbers</p>
+                    <p className="text-sm font-bold text-gray-800 dark:text-gray-100">Talk your progress through</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-300">Coach David can help you read these numbers</p>
                   </div>
                 </div>
-                <MessageCircle className="w-4 h-4 text-gray-300 flex-shrink-0" />
+                <MessageCircle className="w-4 h-4 text-gray-300 dark:text-gray-400 dark:text-gray-300 flex-shrink-0" />
               </button>
             </motion.div>
 

@@ -79,7 +79,7 @@ export default function HabitBuilder() {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-white dark:bg-white/5 rounded-2xl p-6 border border-gray-200 dark:border-white/10 shadow-sm mb-6"
+      className="bg-white dark:bg-white/5 rounded-2xl p-6 border border-gray-200 dark:border-white/10 shadow-sm dark:shadow-none mb-6"
     >
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
@@ -96,7 +96,7 @@ export default function HabitBuilder() {
           <span className="text-xs text-[#0A1A2F]/60 dark:text-white/60">Daily Progress</span>
           <span className="text-xs font-semibold text-[#FAD98D]">{completionRate}%</span>
         </div>
-        <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+        <div className="h-2 bg-gray-100 dark:bg-white/5 rounded-full overflow-hidden">
           <motion.div
             initial={{ width: 0 }}
             animate={{ width: `${completionRate}%` }}
@@ -118,7 +118,7 @@ export default function HabitBuilder() {
               className={`w-full flex items-center justify-between p-4 rounded-xl border-2 transition-all ${
                 isCompleted
                   ? 'border-[#FAD98D] bg-[#FAD98D]/10'
-                  : 'border-gray-200 dark:border-white/10 hover:border-gray-300'
+                  : 'border-gray-200 dark:border-white/10 hover:border-gray-300 dark:border-white/15'
               }`}
             >
               <div className="flex items-center gap-3">
@@ -130,7 +130,7 @@ export default function HabitBuilder() {
               {isCompleted ? (
                 <CheckCircle2 className="w-6 h-6 text-[#FAD98D]" />
               ) : (
-                <Circle className="w-6 h-6 text-gray-300" />
+                <Circle className="w-6 h-6 text-gray-300 dark:text-gray-400 dark:text-gray-300" />
               )}
             </motion.button>
           );

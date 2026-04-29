@@ -38,7 +38,7 @@ export default function GratitudePatternInsights({ entries }) {
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-white dark:bg-white/5 rounded-2xl border border-gray-200 dark:border-white/10 shadow-sm p-5"
+      className="bg-white dark:bg-white/5 rounded-2xl border border-gray-200 dark:border-white/10 shadow-sm dark:shadow-none p-5"
     >
       <div className="flex items-center gap-2 mb-4">
         <TrendingUp className="w-5 h-5 text-[#FD9C2D]" />
@@ -46,12 +46,12 @@ export default function GratitudePatternInsights({ entries }) {
       </div>
 
       {entries.length < 3 ? (
-        <p className="text-sm text-gray-400 text-center py-6">
+        <p className="text-sm text-gray-400 dark:text-gray-300 text-center py-6">
           Write at least 3 entries to unlock AI pattern insights
         </p>
       ) : !generated ? (
         <div className="text-center py-4">
-          <p className="text-sm text-gray-500 mb-4">
+          <p className="text-sm text-gray-500 dark:text-gray-300 mb-4">
             Let AI analyze your {entries.length} entries to discover what you're most grateful for and how your gratitude is growing.
           </p>
           <Button
@@ -70,7 +70,7 @@ export default function GratitudePatternInsights({ entries }) {
         <div className="space-y-4">
           {insights.themes?.length > 0 && (
             <div>
-              <p className="text-xs font-medium text-gray-400 uppercase tracking-wide mb-2">Recurring Themes</p>
+              <p className="text-xs font-medium text-gray-400 dark:text-gray-300 uppercase tracking-wide mb-2">Recurring Themes</p>
               <div className="flex flex-wrap gap-2">
                 {insights.themes.map((theme, i) => (
                   <span key={i} className="text-xs bg-[#FD9C2D]/10 text-[#FD9C2D] px-2.5 py-1 rounded-full font-medium">
@@ -83,7 +83,7 @@ export default function GratitudePatternInsights({ entries }) {
 
           {insights.growth_areas?.length > 0 && (
             <div>
-              <p className="text-xs font-medium text-gray-400 uppercase tracking-wide mb-2">Areas of Growth</p>
+              <p className="text-xs font-medium text-gray-400 dark:text-gray-300 uppercase tracking-wide mb-2">Areas of Growth</p>
               <div className="space-y-1.5">
                 {insights.growth_areas.map((area, i) => (
                   <div key={i} className="flex items-start gap-2">
@@ -99,7 +99,7 @@ export default function GratitudePatternInsights({ entries }) {
 
           {insights.reflection && (
             <div className="bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-xl p-4">
-              <p className="text-xs font-medium text-gray-400 mb-1">Personalized Reflection</p>
+              <p className="text-xs font-medium text-gray-400 dark:text-gray-300 mb-1">Personalized Reflection</p>
               <p className="text-sm text-[#0A1A2F]/80 dark:text-white/80 leading-relaxed">{insights.reflection}</p>
             </div>
           )}
@@ -114,7 +114,7 @@ export default function GratitudePatternInsights({ entries }) {
             onClick={generateInsights}
             disabled={loading}
             variant="outline"
-            className="w-full text-sm border-gray-200 dark:border-white/10 text-gray-500"
+            className="w-full text-sm border-gray-200 dark:border-white/10 text-gray-500 dark:text-gray-300"
           >
             {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Refresh Analysis'}
           </Button>

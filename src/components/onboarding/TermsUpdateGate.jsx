@@ -63,7 +63,7 @@ function DisclosureScroll({ onReady }) {
   return (
     <div className="flex flex-col" style={{ maxHeight: '46vh' }}>
       {/* Progress bar */}
-      <div className="h-1 bg-gray-100 rounded-full overflow-hidden mx-5 mb-1">
+      <div className="h-1 bg-gray-100 dark:bg-white/5 rounded-full overflow-hidden mx-5 mb-1">
         <motion.div
           className="h-full rounded-full bg-gradient-to-r from-[#C9A227] to-[#FD9C2D]"
           animate={{ width: `${pct}%` }}
@@ -84,7 +84,7 @@ function DisclosureScroll({ onReady }) {
                 ? 'bg-red-50 border border-red-200'
                 : d.warning
                 ? 'bg-amber-50 border border-amber-200'
-                : 'bg-[#F2F6FA] dark:bg-[#0A1A2F] border border-gray-200 dark:border-white/10'
+                : 'bg-[#F2F6FA] dark:bg-[#0A1A2F] border border-gray-200 dark:border-white/10 dark:border-white/10'
             }`}
           >
             <div className="flex items-start gap-2.5">
@@ -94,7 +94,7 @@ function DisclosureScroll({ onReady }) {
                   d.emergency ? 'text-red-700' : d.warning ? 'text-amber-700' : 'text-[#0A1A2F] dark:text-white dark:text-white'
                 }`}>{d.heading}</p>
                 <p className={`text-xs leading-relaxed ${
-                  d.emergency ? 'text-red-800' : d.warning ? 'text-amber-800' : 'text-gray-600'
+                  d.emergency ? 'text-red-800' : d.warning ? 'text-amber-800' : 'text-gray-600 dark:text-gray-300'
                 }`}>{d.body}</p>
               </div>
             </div>
@@ -104,7 +104,7 @@ function DisclosureScroll({ onReady }) {
       </div>
 
       {pct < 85 && (
-        <div className="flex items-center justify-center gap-1.5 py-2 text-gray-400">
+        <div className="flex items-center justify-center gap-1.5 py-2 text-gray-400 dark:text-gray-300">
           <motion.div animate={{ y: [0, 3, 0] }} transition={{ repeat: Infinity, duration: 1.2 }}>
             <ChevronDown className="w-3.5 h-3.5" />
           </motion.div>
@@ -221,7 +221,7 @@ export default function TermsUpdateGate({ user, onAccepted }) {
                 I agree to the updated Terms & Policies
               </button>
 
-              <p className="text-[10px] text-center text-gray-400 leading-relaxed">
+              <p className="text-[10px] text-center text-gray-400 dark:text-gray-300 leading-relaxed">
                 By accepting, you confirm you are 13+ (or have parental consent if 13–17) and agree to the
                 Terms & Conditions, Privacy Policy, Health & Wellness Waiver, and Subscription Terms.
               </p>

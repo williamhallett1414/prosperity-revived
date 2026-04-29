@@ -259,7 +259,7 @@ For each recommendation:
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
               style={{ background: 'var(--color-background)' }}
-              className="rounded-xl p-4 border border-[#FAD98D]/40 dark:border-[#FAD98D]/20 shadow-sm"
+              className="rounded-xl p-4 border border-[#FAD98D]/40 dark:border-[#FAD98D]/20 shadow-sm dark:shadow-none"
             >
               <div className="flex items-start gap-3">
                 <div className="w-10 h-10 rounded-full bg-[#FAD98D]/20 dark:bg-[#FAD98D]/10 flex items-center justify-center flex-shrink-0">

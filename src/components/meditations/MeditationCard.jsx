@@ -9,7 +9,7 @@ export default function MeditationCard({ meditation, onPlay, onBookmark, isBookm
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.05 }}
-      className="bg-white dark:bg-white/5 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow"
+      className="bg-white dark:bg-white/5 rounded-xl p-4 shadow-sm dark:shadow-none hover:shadow-md dark:shadow-none transition-shadow"
     >
       <div className="flex gap-3">
         {/* Thumbnail */}
@@ -27,7 +27,7 @@ export default function MeditationCard({ meditation, onPlay, onBookmark, isBookm
           <div className="flex items-center gap-2 mb-2">
             <Clock className="w-3 h-3 text-[#FAD98D]" />
             <span className="text-xs text-[#0A1A2F]/60 dark:text-white/60">{meditation.duration_minutes}m</span>
-            <span className="text-xs bg-gray-100 text-[#0A1A2F]/70 dark:text-white/70 px-2 py-0.5 rounded-full">
+            <span className="text-xs bg-gray-100 dark:bg-white/5 text-[#0A1A2F]/70 dark:text-white/70 px-2 py-0.5 rounded-full">
               {meditation.category}
             </span>
           </div>

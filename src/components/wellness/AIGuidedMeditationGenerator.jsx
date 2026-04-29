@@ -135,7 +135,7 @@ Return ONLY the meditation script, no additional formatting or explanation.`;
     { value: 'anxious', label: 'Anxious 😰', color: 'text-red-600' },
     { value: 'stressed', label: 'Stressed 😫', color: 'text-orange-600' },
     { value: 'tired', label: 'Tired 😴', color: 'text-[#3C4E53]' },
-    { value: 'neutral', label: 'Neutral 😐', color: 'text-gray-600' },
+    { value: 'neutral', label: 'Neutral 😐', color: 'text-gray-600 dark:text-gray-300' },
     { value: 'calm', label: 'Calm 😌', color: 'text-green-600' },
     { value: 'energized', label: 'Energized 🤩', color: 'text-yellow-600' },
     { value: 'grateful', label: 'Grateful 🙏', color: 'text-[#C9A227]' }
@@ -165,13 +165,13 @@ Return ONLY the meditation script, no additional formatting or explanation.`;
         {!generatedScript ? (
           <div className="space-y-6">
             <div className="bg-gradient-to-r from-[#FAD98D]/10 to-[#FFF9EC] dark:from-[#0A1A2F]/40 dark:to-[#0A1A2F]/40 rounded-lg p-4">
-              <p className="text-sm text-gray-700 dark:text-gray-300">
+              <p className="text-sm text-gray-700 dark:text-gray-200 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">
                 Share how you're feeling, and I'll create a personalized meditation just for you. ✨
               </p>
             </div>
 
             <div>
-              <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3 block">
+              <label className="text-sm font-medium text-gray-700 dark:text-gray-200 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300 mb-3 block">
                 How are you feeling right now?
               </label>
               <div className="grid grid-cols-2 gap-2">
@@ -182,7 +182,7 @@ Return ONLY the meditation script, no additional formatting or explanation.`;
                     className={`p-3 rounded-lg border-2 transition-all text-left ${
                       mood === m.value
                         ? 'border-[#FAD98D] bg-[#FAD98D]/10 dark:bg-[#0A1A2F]/20'
-                        : 'border-gray-200 dark:border-white/10 hover:border-gray-300'
+                        : 'border-gray-200 dark:border-white/10 hover:border-gray-300 dark:border-white/15'
                     }`}
                   >
                     <span className={`text-sm font-medium ${m.color}`}>{m.label}</span>
@@ -192,7 +192,7 @@ Return ONLY the meditation script, no additional formatting or explanation.`;
             </div>
 
             <div>
-              <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3 block">
+              <label className="text-sm font-medium text-gray-700 dark:text-gray-200 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300 mb-3 block">
                 Stress Level: {stressLevel}/10
               </label>
               <Slider
@@ -203,14 +203,14 @@ Return ONLY the meditation script, no additional formatting or explanation.`;
                 step={1}
                 className="w-full"
               />
-              <div className="flex justify-between text-xs text-gray-500 mt-1">
+              <div className="flex justify-between text-xs text-gray-500 dark:text-gray-300 mt-1">
                 <span>Very Calm</span>
                 <span>Very Stressed</span>
               </div>
             </div>
 
             <div>
-              <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 block">
+              <label className="text-sm font-medium text-gray-700 dark:text-gray-200 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300 mb-2 block">
                 What would you like to focus on?
               </label>
               <Select value={focusArea} onValueChange={setFocusArea}>
@@ -228,7 +228,7 @@ Return ONLY the meditation script, no additional formatting or explanation.`;
             </div>
 
             <div>
-              <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 block">
+              <label className="text-sm font-medium text-gray-700 dark:text-gray-200 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300 mb-2 block">
                 Duration: {duration} minutes
               </label>
               <Slider
@@ -242,7 +242,7 @@ Return ONLY the meditation script, no additional formatting or explanation.`;
             </div>
 
             <div>
-              <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 block">
+              <label className="text-sm font-medium text-gray-700 dark:text-gray-200 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300 mb-2 block">
                 Anything specific on your mind? (optional)
               </label>
               <Textarea
@@ -284,7 +284,7 @@ Return ONLY the meditation script, no additional formatting or explanation.`;
             </div>
 
             <div className="bg-gray-50 dark:bg-white/5 dark:bg-[#0A1A2F] rounded-lg p-6 max-h-96 overflow-y-auto">
-              <p className="text-gray-800 dark:text-gray-200 whitespace-pre-wrap leading-relaxed">
+              <p className="text-gray-800 dark:text-gray-100 dark:text-gray-200 whitespace-pre-wrap leading-relaxed">
                 {generatedScript}
               </p>
             </div>

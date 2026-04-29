@@ -83,13 +83,13 @@ export default function ProactiveSuggestions() {
                     <h3 className="font-bold text-gray-900 dark:text-white mb-1">
                       {suggestion.title}
                     </h3>
-                    <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">
+                    <p className="text-xs text-gray-500 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300 mb-2">
                       {suggestion.based_on_context}
                     </p>
                   </div>
                 </div>
 
-                <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed mb-3">
+                <p className="text-sm text-gray-700 dark:text-gray-200 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300 leading-relaxed mb-3">
                   {suggestion.content}
                 </p>
 

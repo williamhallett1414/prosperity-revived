@@ -88,7 +88,7 @@ export default function MoodTracker() {
 
   return (
     <div className="mb-0">
-      <Card className="p-5 bg-gradient-to-br from-[#FAD98D]/15 to-[#FAD98D]/10 border-none shadow-lg">
+      <Card className="p-5 bg-gradient-to-br from-[#FAD98D]/15 to-[#FAD98D]/10 border-none shadow-lg dark:shadow-none">
         <h3 className="text-sm font-semibold text-[#0A1A2F] dark:text-white mb-3 flex items-center gap-2">
           <Heart className="w-4 h-4 text-[#c9a227]" />
           How are you feeling today?
@@ -181,7 +181,7 @@ export default function MoodTracker() {
                        {aiResponse.verses && Array.isArray(aiResponse.verses) && aiResponse.verses.map((verse, index) => (
                          <div key={index} className="bg-[#FAD98D]/20 p-3 rounded-lg border-l-4 border-[#c9a227]">
                            <p className="font-medium text-xs text-[#0A1A2F] dark:text-white mb-1">{verse.reference}</p>
-                           <p className="text-sm text-[#0A1A2F]/75 italic">{verse.text}</p>
+                           <p className="text-sm text-[#0A1A2F]/75 dark:text-white/75 italic">{verse.text}</p>
                          </div>
                        ))}
                        {(!aiResponse.verses || !Array.isArray(aiResponse.verses)) && (
@@ -193,13 +193,13 @@ export default function MoodTracker() {
                   {/* Encouragement */}
                   <div>
                     <h4 className="font-semibold text-[#0A1A2F] dark:text-white mb-2 text-sm">A Word of Encouragement</h4>
-                    <p className="text-sm text-[#0A1A2F]/75 leading-relaxed">{aiResponse.encouragement}</p>
+                    <p className="text-sm text-[#0A1A2F]/75 dark:text-white/75 leading-relaxed">{aiResponse.encouragement}</p>
                   </div>
 
                   {/* Practical Step */}
                   <div className="bg-[#c9a227]/10 p-3 rounded-lg">
                     <h4 className="font-semibold text-[#0A1A2F] dark:text-white mb-2 text-sm">Try This Today</h4>
-                    <p className="text-sm text-[#0A1A2F]/75">{aiResponse.practical_step}</p>
+                    <p className="text-sm text-[#0A1A2F]/75 dark:text-white/75">{aiResponse.practical_step}</p>
                   </div>
 
                   <Button

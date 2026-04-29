@@ -259,7 +259,7 @@ Be conversational and encouraging in your reasons. Think like a personal chef wh
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
               >
-                <Card className="hover:shadow-lg transition-shadow cursor-pointer h-full">
+                <Card className="hover:shadow-lg dark:shadow-none transition-shadow cursor-pointer h-full">
                   <div className="relative h-48 bg-gradient-to-br from-[#AFC7E3] to-[#FAD98D] rounded-t-xl overflow-hidden">
                     {recipe.image_url ? (
                       <img src={recipe.image_url} alt={recipe.title} className="w-full h-full object-cover" />

@@ -58,7 +58,7 @@ export default function ProgressSnapshot({ meditationSessions = [], challengePar
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.7 + index * 0.05 }}
-              className={`bg-gradient-to-br ${stat.color} rounded-2xl p-4 text-[#0A1A2F] dark:text-white shadow-lg`}
+              className={`bg-gradient-to-br ${stat.color} rounded-2xl p-4 text-[#0A1A2F] dark:text-white shadow-lg dark:shadow-none`}
             >
               <Icon className="w-6 h-6 mb-2 opacity-70" />
               <p className="text-2xl font-bold mb-1">{stat.value}</p>

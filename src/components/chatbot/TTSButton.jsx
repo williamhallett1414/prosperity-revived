@@ -109,7 +109,7 @@ export default function TTSButton({ text, className = '', onSpeakingChange }) {
       className={`flex items-center gap-1 px-2 py-1 rounded-full text-[11px] font-medium transition-colors ${
         isSpeaking
           ? 'bg-orange-50 text-orange-500 hover:bg-orange-100'
-          : 'bg-gray-100 text-gray-400 hover:bg-gray-200 hover:text-gray-600'
+          : 'bg-gray-100 dark:bg-white/5 text-gray-400 dark:text-gray-300 hover:bg-gray-200 hover:text-gray-600 dark:text-gray-300'
       } ${className}`}
     >
       {isSpeaking ? (

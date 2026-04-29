@@ -5,7 +5,7 @@ import { BookOpen, Dumbbell, Heart, Camera, MessageCircle, Users } from 'lucide-
 export default function ActivityTab({ userProgress }) {
   if (!userProgress) {
     return (
-      <div className="bg-white dark:bg-white/5 rounded-xl shadow-sm p-12 sm:p-16 text-center border border-[#FAD98D]/25">
+      <div className="bg-white dark:bg-white/5 rounded-xl shadow-sm dark:shadow-none p-12 sm:p-16 text-center border border-[#FAD98D]/25">
         <div className="w-20 h-20 bg-[#FAD98D]/15 rounded-full flex items-center justify-center mx-auto mb-4">
           <span className="text-4xl">📊</span>
         </div>
@@ -80,7 +80,7 @@ export default function ActivityTab({ userProgress }) {
       animate={{ opacity: 1 }}
       className="space-y-4"
     >
-      <div className="bg-white dark:bg-white/5 rounded-xl shadow-sm p-6 border border-[#FAD98D]/25">
+      <div className="bg-white dark:bg-white/5 rounded-xl shadow-sm dark:shadow-none p-6 border border-[#FAD98D]/25">
         <h2 className="text-2xl font-bold text-[#0A1A2F] dark:text-white mb-6">Activity Overview</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {activities.map((activity, index) => {
@@ -91,7 +91,7 @@ export default function ActivityTab({ userProgress }) {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.05 }}
-                className={`bg-gradient-to-br ${activity.color} rounded-xl p-5 text-white shadow-md hover:shadow-lg transition-all`}
+                className={`bg-gradient-to-br ${activity.color} rounded-xl p-5 text-white shadow-md dark:shadow-none hover:shadow-lg dark:shadow-none transition-all`}
               >
                 <div className="flex items-center justify-between mb-3">
                   <div className="text-3xl">{activity.emoji}</div>
@@ -106,7 +106,7 @@ export default function ActivityTab({ userProgress }) {
       </div>
 
       {/* Recent Activity Timeline */}
-      <div className="bg-white dark:bg-white/5 rounded-xl shadow-sm p-6 border border-[#FAD98D]/25">
+      <div className="bg-white dark:bg-white/5 rounded-xl shadow-sm dark:shadow-none p-6 border border-[#FAD98D]/25">
         <h3 className="text-xl font-bold text-[#0A1A2F] dark:text-white mb-5">Recent Milestones</h3>
         <div className="space-y-4">
           {userProgress.reading_plans_completed > 0 && (

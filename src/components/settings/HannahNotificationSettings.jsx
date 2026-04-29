@@ -57,7 +57,7 @@ export default function HannahNotificationSettings({ user }) {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center p-8">
-        <p className="text-sm text-gray-500">Loading settings...</p>
+        <p className="text-sm text-gray-500 dark:text-gray-300">Loading settings...</p>
       </div>
     );
   }
@@ -132,9 +132,9 @@ export default function HannahNotificationSettings({ user }) {
                     <Icon className="w-5 h-5 text-[#3C4E53]" />
                   </div>
                   <div className="flex-1">
-                    <h3 className="font-semibold text-gray-900">{option.title}</h3>
-                    <p className="text-xs text-gray-600 mt-0.5">{option.description}</p>
-                    <p className="text-xs text-gray-500 mt-1">{option.detail}</p>
+                    <h3 className="font-semibold text-gray-900 dark:text-white">{option.title}</h3>
+                    <p className="text-xs text-gray-600 dark:text-gray-300 mt-0.5">{option.description}</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-300 mt-1">{option.detail}</p>
                   </div>
                 </div>
                 <Switch

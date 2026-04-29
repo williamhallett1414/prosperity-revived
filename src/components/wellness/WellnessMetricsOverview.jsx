@@ -93,7 +93,7 @@ export default function WellnessMetricsOverview({
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: index * 0.05 }}
                 whileHover={{ scale: 1.02 }}
-                className={`bg-gradient-to-br ${metric.color} rounded-xl p-4 text-white cursor-pointer hover:shadow-md transition-shadow`}
+                className={`bg-gradient-to-br ${metric.color} rounded-xl p-4 text-white cursor-pointer hover:shadow-md dark:shadow-none transition-shadow`}
               >
                 <div className="flex items-start justify-between">
                   <div>

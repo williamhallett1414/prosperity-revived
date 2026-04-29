@@ -5,7 +5,7 @@ import { Trophy, TrendingUp } from 'lucide-react';
 export default function AchievementsTab({ userProgress }) {
   if (!userProgress) {
     return (
-      <div className="bg-white dark:bg-white/5 rounded-xl shadow-sm p-12 sm:p-16 text-center border border-[#FAD98D]/25">
+      <div className="bg-white dark:bg-white/5 rounded-xl shadow-sm dark:shadow-none p-12 sm:p-16 text-center border border-[#FAD98D]/25">
         <div className="w-20 h-20 bg-[#FAD98D]/15 rounded-full flex items-center justify-center mx-auto mb-4">
           <span className="text-4xl">🏆</span>
         </div>
@@ -22,25 +22,25 @@ export default function AchievementsTab({ userProgress }) {
       className="space-y-4"
     >
       {/* Level & Points Card */}
-      <div className="bg-gradient-to-br from-[#FAD98D]/20 via-[#FAD98D]/10 to-[#FFF9EC] rounded-xl shadow-sm p-6 sm:p-8 border border-[#FAD98D]/40">
+      <div className="bg-gradient-to-br from-[#FAD98D]/20 via-[#FAD98D]/10 to-[#FFF9EC] rounded-xl shadow-sm dark:shadow-none p-6 sm:p-8 border border-[#FAD98D]/40">
         <div className="grid grid-cols-3 gap-4 sm:gap-6">
           <div className="text-center">
             <div className="text-3xl sm:text-5xl font-bold text-[#c9a227] mb-2">{userProgress.level || 1}</div>
-            <p className="text-xs sm:text-sm font-semibold text-[#0A1A2F]/75">Level</p>
+            <p className="text-xs sm:text-sm font-semibold text-[#0A1A2F]/75 dark:text-white/75">Level</p>
           </div>
           <div className="text-center">
             <div className="text-3xl sm:text-5xl font-bold text-[#FAD98D] mb-2">{userProgress.total_points || 0}</div>
-            <p className="text-xs sm:text-sm font-semibold text-[#0A1A2F]/75">Points</p>
+            <p className="text-xs sm:text-sm font-semibold text-[#0A1A2F]/75 dark:text-white/75">Points</p>
           </div>
           <div className="text-center">
             <div className="text-3xl sm:text-5xl font-bold text-[#0A1A2F] dark:text-white mb-2">{userProgress.current_streak || 0}</div>
-            <p className="text-xs sm:text-sm font-semibold text-[#0A1A2F]/75">Streak</p>
+            <p className="text-xs sm:text-sm font-semibold text-[#0A1A2F]/75 dark:text-white/75">Streak</p>
           </div>
         </div>
       </div>
 
       {/* Progress Bar */}
-      <div className="bg-white dark:bg-white/5 rounded-xl shadow-sm p-6 border border-[#FAD98D]/25">
+      <div className="bg-white dark:bg-white/5 rounded-xl shadow-sm dark:shadow-none p-6 border border-[#FAD98D]/25">
         <div className="flex items-center justify-between mb-4">
           <h3 className="font-bold text-[#0A1A2F] dark:text-white text-lg">Progress to Next Level</h3>
           <TrendingUp className="w-5 h-5 text-[#c9a227]" />
@@ -60,7 +60,7 @@ export default function AchievementsTab({ userProgress }) {
 
       {/* Badges */}
       {userProgress.badges && userProgress.badges.length > 0 && (
-        <div className="bg-white dark:bg-white/5 rounded-xl shadow-sm p-6 border border-[#FAD98D]/25">
+        <div className="bg-white dark:bg-white/5 rounded-xl shadow-sm dark:shadow-none p-6 border border-[#FAD98D]/25">
           <div className="flex items-center gap-2 mb-5">
             <Trophy className="w-6 h-6 text-[#c9a227]" />
             <h3 className="text-xl font-bold text-[#0A1A2F] dark:text-white dark:text-white">{userProgress.badges.length} {userProgress.badges.length === 1 ? 'Badge' : 'Badges'} Earned</h3>
@@ -74,7 +74,7 @@ export default function AchievementsTab({ userProgress }) {
                 transition={{ delay: index * 0.03 }}
                 className="flex flex-col items-center group cursor-pointer"
               >
-                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gradient-to-br from-[#c9a227] via-[#FAD98D] to-[#FAD98D] flex items-center justify-center text-2xl sm:text-3xl shadow-lg group-hover:shadow-xl group-hover:scale-105 transition-all">
+                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gradient-to-br from-[#c9a227] via-[#FAD98D] to-[#FAD98D] flex items-center justify-center text-2xl sm:text-3xl shadow-lg dark:shadow-none group-hover:shadow-xl group-hover:scale-105 transition-all">
                   🏅
                 </div>
                 <p className="text-xs text-[#0A1A2F]/70 dark:text-white/70 text-center mt-2 font-medium">Badge {index + 1}</p>
@@ -85,31 +85,31 @@ export default function AchievementsTab({ userProgress }) {
       )}
 
       {/* Activity Stats */}
-      <div className="bg-white dark:bg-white/5 rounded-xl shadow-sm p-6 border border-[#FAD98D]/25">
+      <div className="bg-white dark:bg-white/5 rounded-xl shadow-sm dark:shadow-none p-6 border border-[#FAD98D]/25">
         <h3 className="text-xl font-bold text-[#0A1A2F] dark:text-white mb-5">Activity Stats</h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="flex items-center justify-between p-4 bg-[#FAD98D]/10 rounded-lg border border-[#FAD98D]/25">
-            <span className="text-[#0A1A2F]/75 font-medium">Community Posts</span>
+            <span className="text-[#0A1A2F]/75 dark:text-white/75 font-medium">Community Posts</span>
             <span className="font-bold text-[#c9a227] text-xl">{userProgress.community_posts || 0}</span>
           </div>
           <div className="flex items-center justify-between p-4 bg-[#FAD98D]/10 rounded-lg border border-[#FAD98D]/25">
-            <span className="text-[#0A1A2F]/75 font-medium">Workouts Completed</span>
+            <span className="text-[#0A1A2F]/75 dark:text-white/75 font-medium">Workouts Completed</span>
             <span className="font-bold text-[#c9a227] text-xl">{userProgress.workouts_completed || 0}</span>
           </div>
           <div className="flex items-center justify-between p-4 bg-[#FAD98D]/10 rounded-lg border border-[#FAD98D]/25">
-            <span className="text-[#0A1A2F]/75 font-medium">Meditations Completed</span>
+            <span className="text-[#0A1A2F]/75 dark:text-white/75 font-medium">Meditations Completed</span>
             <span className="font-bold text-[#c9a227] text-xl">{userProgress.meditations_completed || 0}</span>
           </div>
           <div className="flex items-center justify-between p-4 bg-[#FAD98D]/10 rounded-lg border border-[#FAD98D]/25">
-            <span className="text-[#0A1A2F]/75 font-medium">Comments Made</span>
+            <span className="text-[#0A1A2F]/75 dark:text-white/75 font-medium">Comments Made</span>
             <span className="font-bold text-[#c9a227] text-xl">{userProgress.comments_count || 0}</span>
           </div>
           <div className="flex items-center justify-between p-4 bg-[#FAD98D]/10 rounded-lg border border-[#FAD98D]/25">
-            <span className="text-[#0A1A2F]/75 font-medium">Friends</span>
+            <span className="text-[#0A1A2F]/75 dark:text-white/75 font-medium">Friends</span>
             <span className="font-bold text-[#c9a227] text-xl">{userProgress.friends_count || 0}</span>
           </div>
           <div className="flex items-center justify-between p-4 bg-[#FAD98D]/10 rounded-lg border border-[#FAD98D]/25">
-            <span className="text-[#0A1A2F]/75 font-medium">Photos Uploaded</span>
+            <span className="text-[#0A1A2F]/75 dark:text-white/75 font-medium">Photos Uploaded</span>
             <span className="font-bold text-[#c9a227] text-xl">{userProgress.photos_uploaded || 0}</span>
           </div>
         </div>
@@ -117,7 +117,7 @@ export default function AchievementsTab({ userProgress }) {
 
       {/* Streaks */}
       {(userProgress.current_streak > 0 || userProgress.longest_streak > 0) && (
-        <div className="bg-gradient-to-br from-[#FAD98D]/20 via-[#FAD98D]/10 to-[#FFF9EC] rounded-xl shadow-sm p-6 border border-[#FAD98D]/25">
+        <div className="bg-gradient-to-br from-[#FAD98D]/20 via-[#FAD98D]/10 to-[#FFF9EC] rounded-xl shadow-sm dark:shadow-none p-6 border border-[#FAD98D]/25">
           <h3 className="text-xl font-bold text-[#0A1A2F] dark:text-white mb-5 flex items-center gap-2">
             <span className="text-2xl">🔥</span> Streaks
           </h3>

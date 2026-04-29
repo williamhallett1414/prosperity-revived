@@ -110,7 +110,7 @@ function SectionLabel({ children, action, actionTo }) {
 
 function StatPill({ value, label, color, sub }) {
   return (
-    <div className="bg-white dark:bg-white/5 rounded-2xl p-4 border border-gray-100 dark:border-white/10 shadow-sm flex-1 min-w-0">
+    <div className="bg-white dark:bg-white/5 rounded-2xl p-4 border border-gray-100 dark:border-white/10 shadow-sm dark:shadow-none flex-1 min-w-0">
       <p className="text-2xl font-black" style={{ color }}>{value}</p>
       <p className="text-xs text-[#0A1A2F]/55 dark:text-white/55 mt-0.5 leading-tight">{label}</p>
       {sub && <p className="text-[10px] text-[#0A1A2F]/35 dark:text-white/35 mt-0.5">{sub}</p>}
@@ -123,7 +123,7 @@ function WorkoutPill({ workout, onStart, done }) {
   return (
     <motion.div
       whileTap={{ scale: 0.98 }}
-      className="bg-white dark:bg-white/5 rounded-2xl border shadow-sm overflow-hidden mb-3"
+      className="bg-white dark:bg-white/5 rounded-2xl border shadow-sm dark:shadow-none overflow-hidden mb-3"
       style={{ borderColor: done ? "#BBF7D0" : "#F3F4F6" }}>
       
       <div className="flex items-center gap-3 px-4 py-3.5">
@@ -349,7 +349,7 @@ export default function Workouts() {
             {/* ── Fitness Goals card ── */}
             <motion.div id="tour-fitness-goals-entry" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.03 }}>
               <Link to={createPageUrl('FitnessGoalsPage')}>
-                <div className="rounded-2xl p-4 flex items-center gap-3 shadow-md"
+                <div className="rounded-2xl p-4 flex items-center gap-3 shadow-md dark:shadow-none"
                 style={{ background: 'linear-gradient(135deg, #1e40af 0%, #38BDF8 100%)' }}>
                   <div className="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center flex-shrink-0">
                     <span className="text-xl">🎯</span>
@@ -367,7 +367,7 @@ export default function Workouts() {
 
             {/* ── Week at a Glance ── */}
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }}>
-              <div className="bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 shadow-sm px-5 py-4">
+              <div className="bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 shadow-sm dark:shadow-none px-5 py-4">
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-sm font-bold text-[#0A1A2F] dark:text-white dark:text-white">This Week</span>
                   <button onClick={() => setActiveTab('trends')}
@@ -408,17 +408,17 @@ export default function Workouts() {
                     <p className="text-lg font-black text-[#38BDF8]">{weekSessions.length}</p>
                     <p className="text-[10px] text-[#0A1A2F]/45 dark:text-white/45">sessions</p>
                   </div>
-                  <div className="w-px h-8 bg-gray-100" />
+                  <div className="w-px h-8 bg-gray-100 dark:bg-white/5" />
                   <div className="flex-1 text-center">
                     <p className="text-lg font-black text-[#FD9C2D]">{thisWeekMins}</p>
                     <p className="text-[10px] text-[#0A1A2F]/45 dark:text-white/45">minutes</p>
                   </div>
-                  <div className="w-px h-8 bg-gray-100" />
+                  <div className="w-px h-8 bg-gray-100 dark:bg-white/5" />
                   <div className="flex-1 text-center">
                     <p className="text-lg font-black text-[#0A1A2F] dark:text-white dark:text-white">{totalMins}</p>
                     <p className="text-[10px] text-[#0A1A2F]/45 dark:text-white/45">total mins</p>
                   </div>
-                  <div className="w-px h-8 bg-gray-100" />
+                  <div className="w-px h-8 bg-gray-100 dark:bg-white/5" />
                   <div className="flex-1 text-center">
                     <p className="text-lg font-black text-orange-500">{streak}</p>
                     <p className="text-[10px] text-[#0A1A2F]/45 dark:text-white/45">day streak</p>
@@ -433,7 +433,7 @@ export default function Workouts() {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ type: 'spring', stiffness: 200 }}
-              className="bg-gradient-to-r from-orange-500 to-amber-400 rounded-2xl p-4 text-center shadow-md">
+              className="bg-gradient-to-r from-orange-500 to-amber-400 rounded-2xl p-4 text-center shadow-md dark:shadow-none">
               
                 <p className="text-2xl mb-1">🔥</p>
                 <p className="text-white font-black text-lg">{streak}-Day Streak!</p>
@@ -464,7 +464,7 @@ export default function Workouts() {
               {recommendedWorkout ?
               <motion.div
                whileTap={{ scale: 0.98 }}
-               className="rounded-2xl overflow-hidden shadow-md mb-3"
+               className="rounded-2xl overflow-hidden shadow-md dark:shadow-none mb-3"
                style={{ background: "linear-gradient(135deg,#38BDF8,#1e40af)" }}>
                 
                   <div className="p-5">
@@ -495,7 +495,7 @@ export default function Workouts() {
                 </motion.div> :
               null}
               <Link to={createPageUrl("WorkoutCategoryPage")}>
-                <div className="flex items-center justify-between px-4 py-3.5 bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 shadow-sm hover:shadow-md transition-all">
+                <div className="flex items-center justify-between px-4 py-3.5 bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 shadow-sm dark:shadow-none hover:shadow-md dark:shadow-none transition-all">
                   <div className="flex items-center gap-3">
                     <div className="w-9 h-9 bg-gradient-to-br from-slate-700 to-slate-500 rounded-xl flex items-center justify-center">
                       <Dumbbell className="w-4 h-4 text-white" />
@@ -518,7 +518,7 @@ export default function Workouts() {
                 </SectionLabel>
                 <button
                 onClick={() => navigate(createPageUrl(`ChallengeDetailPage?id=${activeChallenge.id}`))}
-                className="w-full text-left bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 shadow-sm px-4 py-4 hover:shadow-md transition-all">
+                className="w-full text-left bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 shadow-sm dark:shadow-none px-4 py-4 hover:shadow-md dark:shadow-none transition-all">
                 
                   <div className="flex items-center gap-3 mb-3">
                     <div className="w-10 h-10 bg-gradient-to-br from-[#FD9C2D] to-[#E89020] rounded-xl flex items-center justify-center">
@@ -530,7 +530,7 @@ export default function Workouts() {
                     </div>
                     <span className="text-sm font-black text-[#FD9C2D]">{activeChallenge.progress}%</span>
                   </div>
-                  <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+                  <div className="h-2 bg-gray-100 dark:bg-white/5 rounded-full overflow-hidden">
                     <motion.div
                     className="h-full rounded-full bg-gradient-to-r from-[#FD9C2D] to-[#E89020]"
                     initial={{ width: 0 }}
@@ -573,7 +573,7 @@ export default function Workouts() {
                   
                     <button
                     onClick={() => navigate(createPageUrl(`WorkoutCategoryPage?category=${cat.key}`))}
-                    className={`w-full h-[120px] bg-gradient-to-br from-[#38BDF8] to-[#1e40af] rounded-2xl p-3.5 shadow-sm hover:shadow-md transition-all text-left`}>
+                    className={`w-full h-[120px] bg-gradient-to-br from-[#38BDF8] to-[#1e40af] rounded-2xl p-3.5 shadow-sm dark:shadow-none hover:shadow-md dark:shadow-none transition-all text-left`}>
                     
                       <span className="text-2xl block mb-1.5">{cat.emoji}</span>
                       <p className="text-xs font-bold text-white leading-tight">{cat.label}</p>
@@ -588,7 +588,7 @@ export default function Workouts() {
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.33 }}>
               <Link to={createPageUrl('ChatScreen?bot=CoachDavid')}>
                 <div className="bg-gradient-to-r from-blue-50 to-sky-50 rounded-2xl p-4 flex items-center gap-3 border border-[#38BDF8]/20">
-                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#38BDF8] to-[#0EA5E9] flex items-center justify-center flex-shrink-0 shadow-sm">
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#38BDF8] to-[#0EA5E9] flex items-center justify-center flex-shrink-0 shadow-sm dark:shadow-none">
                     <MessageCircle className="w-5 h-5 text-white" />
                   </div>
                   <div className="flex-1 min-w-0">
@@ -615,7 +615,7 @@ export default function Workouts() {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.40 + i * 0.04 }}
                       onClick={() => navigate(createPageUrl(`ChallengeDetailPage?id=${challenge.id}`))}
-                      className="bg-white dark:bg-white/5 rounded-2xl p-4 border border-gray-100 dark:border-white/10 shadow-sm hover:shadow-md transition-all cursor-pointer">
+                      className="bg-white dark:bg-white/5 rounded-2xl p-4 border border-gray-100 dark:border-white/10 shadow-sm dark:shadow-none hover:shadow-md dark:shadow-none transition-all cursor-pointer">
                       
                         <div className="w-9 h-9 bg-gradient-to-br from-[#FD9C2D] to-[#E89020] rounded-xl flex items-center justify-center mb-2.5">
                           <Trophy className="w-4.5 h-4.5 text-white w-[18px] h-[18px]" />
@@ -624,7 +624,7 @@ export default function Workouts() {
                         <p className="text-[10px] text-[#0A1A2F]/45 dark:text-white/45 mb-2">{challenge.duration_days}d</p>
                         {joined ?
                       <>
-                            <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                            <div className="h-1.5 bg-gray-100 dark:bg-white/5 rounded-full overflow-hidden">
                               <div className="h-full bg-gradient-to-r from-[#38BDF8] to-[#0EA5E9] rounded-full"
                           style={{ width: `${prog}%` }} />
                             </div>
@@ -644,7 +644,7 @@ export default function Workouts() {
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.44 }}>
               <button
                 onClick={() => setActiveTab('planner')}
-                className="w-full rounded-2xl p-5 flex items-center gap-4 shadow-sm hover:shadow-md transition-all"
+                className="w-full rounded-2xl p-5 flex items-center gap-4 shadow-sm dark:shadow-none hover:shadow-md dark:shadow-none transition-all"
                 style={{ background: "linear-gradient(135deg,#1e40af,#38BDF8)" }}>
                 
                 <div className="w-12 h-12 bg-[#FD9C2D]/20 rounded-xl flex items-center justify-center flex-shrink-0">

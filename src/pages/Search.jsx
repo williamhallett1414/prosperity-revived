@@ -76,7 +76,7 @@ export default function Search() {
         <div className="max-w-2xl mx-auto flex items-center gap-3">
           <Link
             to={createPageUrl('Home')}
-            className="w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors"
+            className="w-9 h-9 rounded-full bg-gray-100 dark:bg-white/5 hover:bg-gray-200 flex items-center justify-center transition-colors"
           >
             <ArrowLeft className="w-4 h-4 text-[#0A1A2F] dark:text-white dark:text-white" />
           </Link>
@@ -91,7 +91,7 @@ export default function Search() {
         {/* Search Form */}
         <form onSubmit={handleSearch} className="mb-6">
           <div className="relative">
-            <SearchIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+            <SearchIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 dark:text-gray-300" />
             <Input
               placeholder="Enter keywords (e.g., love, faith, hope)..."
               value={query}
@@ -122,7 +122,7 @@ export default function Search() {
               className="flex flex-col items-center justify-center py-20"
             >
               <Loader2 className="w-8 h-8 animate-spin text-[#c9a227] mb-4" />
-              <p className="text-gray-500">Searching the Bible...</p>
+              <p className="text-gray-500 dark:text-gray-300">Searching the Bible...</p>
             </motion.div>
           ) : searched && results.length === 0 ? (
             <motion.div
@@ -131,11 +131,11 @@ export default function Search() {
               exit={{ opacity: 0 }}
               className="text-center py-20"
             >
-              <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gray-100 flex items-center justify-center">
-                <SearchIcon className="w-10 h-10 text-gray-400" />
+              <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gray-100 dark:bg-white/5 flex items-center justify-center">
+                <SearchIcon className="w-10 h-10 text-gray-400 dark:text-gray-300" />
               </div>
               <h3 className="text-lg font-semibold text-[#0A1A2F] dark:text-white mb-2">No results found</h3>
-              <p className="text-gray-500">Try different keywords</p>
+              <p className="text-gray-500 dark:text-gray-300">Try different keywords</p>
             </motion.div>
           ) : results.length > 0 ? (
             <motion.div
@@ -143,7 +143,7 @@ export default function Search() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
             >
-              <p className="text-sm text-gray-500 mb-4">
+              <p className="text-sm text-gray-500 dark:text-gray-300 mb-4">
                 Found {results.length} verse{results.length !== 1 ? 's' : ''}
               </p>
               
@@ -155,7 +155,7 @@ export default function Search() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.05 }}
                     onClick={() => handleResultClick(result)}
-                    className="bg-white dark:bg-white/5 rounded-xl p-4 cursor-pointer hover:shadow-md transition-all border border-gray-100 dark:border-white/10 group"
+                    className="bg-white dark:bg-white/5 rounded-xl p-4 cursor-pointer hover:shadow-md dark:shadow-none transition-all border border-gray-100 dark:border-white/10 group"
                   >
                     <div className="flex items-start gap-3">
                       <div className="w-10 h-10 rounded-lg bg-[#0A1A2F]/5 flex items-center justify-center flex-shrink-0 group-hover:bg-[#c9a227]/10 transition-colors">
@@ -169,7 +169,7 @@ export default function Search() {
                           </span>
                         </div>
                         
-                        <p className="font-serif text-gray-700 leading-relaxed">
+                        <p className="font-serif text-gray-700 dark:text-gray-200 leading-relaxed">
                           {highlightKeywords(result.text)}
                         </p>
                       </div>
@@ -188,7 +188,7 @@ export default function Search() {
                 <SearchIcon className="w-10 h-10 text-[#c9a227]" />
               </div>
               <h3 className="text-lg font-semibold text-[#0A1A2F] dark:text-white mb-2">Search the Bible</h3>
-              <p className="text-gray-500 mb-6">
+              <p className="text-gray-500 dark:text-gray-300 mb-6">
                 Enter keywords to find relevant verses
               </p>
               <div className="flex flex-wrap gap-2 justify-center">
@@ -199,7 +199,7 @@ export default function Search() {
                       setQuery(keyword);
                       setTimeout(() => document.querySelector('form').requestSubmit(), 100);
                     }}
-                    className="px-4 py-2 rounded-full bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 text-sm text-gray-600 hover:border-[#c9a227] hover:text-[#c9a227] transition-colors"
+                    className="px-4 py-2 rounded-full bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 text-sm text-gray-600 dark:text-gray-300 hover:border-[#c9a227] hover:text-[#c9a227] transition-colors"
                   >
                     {keyword}
                   </button>

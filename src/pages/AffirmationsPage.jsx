@@ -307,7 +307,7 @@ export default function AffirmationsPage() {
               {expanded && (
                 <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }}
                   exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
-                  <p className="px-5 pb-5 text-sm text-[#0A1A2F]/75 leading-relaxed">
+                  <p className="px-5 pb-5 text-sm text-[#0A1A2F]/75 dark:text-white/75 leading-relaxed">
                     {current.explanation}
                   </p>
                 </motion.div>
@@ -319,15 +319,15 @@ export default function AffirmationsPage() {
         {/* ── Action row ── */}
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="flex gap-2.5 pt-1">
           <button onClick={handleShuffle}
-            className="flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl text-xs font-semibold bg-white dark:bg-white/5 border border-[#FAD98D]/25 text-[#0A1A2F] dark:text-white hover:bg-[#FAD98D]/15 hover:border-[#FAD98D]/50 active:scale-95 transition-all duration-200 shadow-sm">
+            className="flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl text-xs font-semibold bg-white dark:bg-white/5 border border-[#FAD98D]/25 text-[#0A1A2F] dark:text-white hover:bg-[#FAD98D]/15 hover:border-[#FAD98D]/50 active:scale-95 transition-all duration-200 shadow-sm dark:shadow-none">
             <RefreshCw className="w-3.5 h-3.5" />
             New
           </button>
           <button onClick={handleSave} disabled={isSaved || saving}
             className={`flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl text-xs font-bold transition-all duration-200 ${
               isSaved
-                ? 'bg-[#FAD98D]/20 border border-[#FAD98D]/40 text-[#c9a227] shadow-sm'
-                : 'bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white shadow-md hover:shadow-lg active:scale-98'
+                ? 'bg-[#FAD98D]/20 border border-[#FAD98D]/40 text-[#c9a227] shadow-sm dark:shadow-none'
+                : 'bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white shadow-md dark:shadow-none hover:shadow-lg dark:shadow-none active:scale-98'
             }`}>
             <Heart className={`w-3.5 h-3.5 ${isSaved ? 'fill-[#c9a227]' : ''}`} />
             {isSaved ? 'Saved' : saving ? 'Saving…' : 'Save'}

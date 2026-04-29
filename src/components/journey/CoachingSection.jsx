@@ -114,7 +114,7 @@ export default function CoachingSection() {
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center shadow-sm">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center shadow-sm dark:shadow-none">
             <Star className="w-5 h-5 text-white" />
           </div>
           <div>
@@ -131,7 +131,7 @@ export default function CoachingSection() {
       </div>
 
       {/* Progress card */}
-      <div className="bg-white dark:bg-white/5 rounded-2xl p-4 border border-[#FAD98D]/25 shadow-sm mb-4">
+      <div className="bg-white dark:bg-white/5 rounded-2xl p-4 border border-[#FAD98D]/25 shadow-sm dark:shadow-none mb-4">
         <div className="flex items-center justify-between mb-2">
           <div>
             <p className="text-sm font-bold text-[#0A1A2F] dark:text-white dark:text-white">
@@ -162,7 +162,7 @@ export default function CoachingSection() {
       </div>
 
       {/* Today card */}
-      <div className="bg-gradient-to-br from-[#0A1A2F] to-[#0A1A2F] rounded-2xl p-5 shadow-md mb-4">
+      <div className="bg-gradient-to-br from-[#0A1A2F] to-[#0A1A2F] rounded-2xl p-5 shadow-md dark:shadow-none mb-4">
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
             <span className="text-[10px] font-bold text-[#c9a227] uppercase tracking-widest">Day {currentDay}</span>
@@ -219,7 +219,7 @@ export default function CoachingSection() {
       </div>
 
       {/* This Week grid */}
-      <div className="bg-white dark:bg-white/5 rounded-2xl p-4 border border-[#F2F6FA] shadow-sm">
+      <div className="bg-white dark:bg-white/5 rounded-2xl p-4 border border-[#F2F6FA] shadow-sm dark:shadow-none">
         <p className="text-[10px] font-bold text-[#0A1A2F]/45 dark:text-white/45 uppercase tracking-wider mb-3">
           Week {weekInfo.week} — {weekInfo.theme}
         </p>
@@ -235,7 +235,7 @@ export default function CoachingSection() {
                 key={dayNum}
                 onClick={() => openPlan(dayNum)}
                 className={'aspect-square rounded-lg flex flex-col items-center justify-center transition-all ' + (
-                  done    ? 'bg-[#c9a227] shadow-sm'
+                  done    ? 'bg-[#c9a227] shadow-sm dark:shadow-none'
                   : isToday ? 'bg-[#c9a227]/15 border-2 border-[#c9a227]/60'
                   : isPast  ? 'bg-[#F2F6FA] dark:bg-[#0A1A2F]'
                   :            'bg-[#F2F6FA] dark:bg-[#0A1A2F] opacity-40'

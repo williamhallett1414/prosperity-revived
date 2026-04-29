@@ -61,7 +61,7 @@ export default function ProactiveCoachingPanel({ user, onSelectTopic, onClose })
     >
       <button
         onClick={onClose}
-        className="absolute top-3 right-3 text-gray-400 hover:text-gray-600"
+        className="absolute top-3 right-3 text-gray-400 dark:text-gray-300 hover:text-gray-600 dark:text-gray-300"
       >
         <X className="w-4 h-4" />
       </button>
@@ -69,11 +69,11 @@ export default function ProactiveCoachingPanel({ user, onSelectTopic, onClose })
       <div className="flex items-start gap-3 mb-4">
         <div className="text-2xl">{emotionIcons[intervention.emotion] || '💡'}</div>
         <div className="flex-1">
-          <h3 className="font-bold text-gray-900 flex items-center gap-2">
+          <h3 className="font-bold text-gray-900 dark:text-white flex items-center gap-2">
             <Lightbulb className="w-5 h-5 text-[#3C4E53]" />
             Personalized Coaching Insight
           </h3>
-          <p className="text-xs text-gray-500 mt-1">
+          <p className="text-xs text-gray-500 dark:text-gray-300 mt-1">
             Based on your recent reflections
           </p>
         </div>
@@ -81,20 +81,20 @@ export default function ProactiveCoachingPanel({ user, onSelectTopic, onClose })
 
       <div className="space-y-4">
         <div className="bg-white dark:bg-white/5 rounded-lg p-4 border border-[#FAD98D]/30">
-          <p className="text-sm leading-relaxed text-gray-800">
+          <p className="text-sm leading-relaxed text-gray-800 dark:text-gray-100">
             {intervention.suggestion}
           </p>
         </div>
 
         <div className="grid grid-cols-2 gap-2 text-xs">
           <div className="bg-white dark:bg-white/5 p-3 rounded-lg border border-[#FAD98D]/30">
-            <p className="text-gray-600">Primary emotion</p>
+            <p className="text-gray-600 dark:text-gray-300">Primary emotion</p>
             <p className="font-semibold text-[#3C4E53] mt-1 capitalize">
               {intervention.emotion}
             </p>
           </div>
           <div className="bg-white dark:bg-white/5 p-3 rounded-lg border border-[#FAD98D]/30">
-            <p className="text-gray-600">Trend</p>
+            <p className="text-gray-600 dark:text-gray-300">Trend</p>
             <p className={`font-semibold mt-1 ${
               intervention.trendDirection === 'improving' ? 'text-green-700' :
               intervention.trendDirection === 'declining' ? 'text-red-700' :
@@ -109,7 +109,7 @@ export default function ProactiveCoachingPanel({ user, onSelectTopic, onClose })
 
         {intervention.themes.length > 0 && (
           <div>
-            <p className="text-xs text-gray-600 font-medium mb-2">Key themes in your reflections:</p>
+            <p className="text-xs text-gray-600 dark:text-gray-300 font-medium mb-2">Key themes in your reflections:</p>
             <div className="flex flex-wrap gap-2">
               {intervention.themes.map(theme => (
                 <span

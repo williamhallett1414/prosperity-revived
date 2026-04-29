@@ -40,7 +40,7 @@ Generate only the reflection question, no additional text.`,
             {prompt ? (
               <>
                 <p className="text-sm font-semibold text-[#0A1A2F] dark:text-white mb-3">Reflection Question:</p>
-                <p className="text-sm text-[#0A1A2F]/75 mb-3 italic">"{prompt}"</p>
+                <p className="text-sm text-[#0A1A2F]/75 dark:text-white/75 mb-3 italic">"{prompt}"</p>
                 <Button
                   variant="outline"
                   size="sm"

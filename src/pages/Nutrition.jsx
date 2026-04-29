@@ -165,7 +165,7 @@ export default function Nutrition() {
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
 
       {/* ── Sticky header ── */}
-      <div className="sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b border-gray-100 dark:border-white/10 shadow-sm">
+      <div className="sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b border-gray-100 dark:border-white/10 shadow-sm dark:shadow-none">
         <div className="max-w-lg mx-auto px-4 pt-3 pb-0">
 
           {/* Title row */}
@@ -176,7 +176,7 @@ export default function Nutrition() {
             </div>
             <button
               onClick={() => setShowLogModal(true)}
-              className="flex items-center gap-1.5 px-4 py-2 rounded-full bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white text-xs font-bold shadow-md shadow-[#c9a227]/25 active:scale-95 transition-transform"
+              className="flex items-center gap-1.5 px-4 py-2 rounded-full bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white text-xs font-bold shadow-md dark:shadow-none shadow-[#c9a227]/25 active:scale-95 transition-transform"
             >
               <Plus className="w-3.5 h-3.5" />
               Log Food
@@ -196,7 +196,7 @@ export default function Nutrition() {
                 className={`flex items-center gap-1 px-3 py-2.5 text-xs font-semibold border-b-2 transition-all whitespace-nowrap ${
                   isActive
                     ? 'border-[#c9a227] text-[#c9a227]'
-                    : 'border-transparent text-[#0A1A2F]/40 dark:text-white/40 hover:text-[#0A1A2F]/65'
+                    : 'border-transparent text-[#0A1A2F]/40 dark:text-white/40 hover:text-[#0A1A2F]/65 dark:text-white/65'
                 }`}>
                   <Icon className="w-3.5 h-3.5" />
                   {label}
@@ -215,7 +215,7 @@ export default function Nutrition() {
           <div className="space-y-5">
 
             {/* ── Scripture banner ── */}
-            <div className="bg-gradient-to-br from-[#14532d] to-[#166534] rounded-2xl p-4 flex items-start gap-3 shadow-sm">
+            <div className="bg-gradient-to-br from-[#14532d] to-[#166534] rounded-2xl p-4 flex items-start gap-3 shadow-sm dark:shadow-none">
               <div className="w-8 h-8 rounded-lg bg-white/15 flex items-center justify-center flex-shrink-0 mt-0.5">
                 <span className="text-base">✝️</span>
               </div>
@@ -229,7 +229,7 @@ export default function Nutrition() {
             </div>
 
             {/* ── Today's Progress ── */}
-            <div id="tour-nutrition-macros" className="bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 shadow-sm overflow-hidden">
+            <div id="tour-nutrition-macros" className="bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 shadow-sm dark:shadow-none overflow-hidden">
               <div className="px-4 pt-4 pb-3 border-b border-gray-50 dark:border-white/5">
                 <div className="flex items-center justify-between">
                   <p className="text-sm font-bold text-[#0A1A2F] dark:text-white dark:text-white">Today's Progress</p>
@@ -248,7 +248,7 @@ export default function Nutrition() {
                       {totals.calories > calGoal ? `${Math.round(totals.calories - calGoal)} over` : `${Math.max(0, calGoal - Math.round(totals.calories))} left`}
                     </span>
                   </div>
-                  <div className="w-full bg-gray-100 rounded-full h-2.5 overflow-hidden">
+                  <div className="w-full bg-gray-100 dark:bg-white/5 rounded-full h-2.5 overflow-hidden">
                     <motion.div
                       initial={{ width: 0 }}
                       animate={{ width: `${Math.min(totals.calories / calGoal * 100, 100)}%` }}
@@ -267,7 +267,7 @@ export default function Nutrition() {
             </div>
 
             {/* ── Water tracker ── */}
-            <div id="tour-water-tracker" className="bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 shadow-sm p-4">
+            <div id="tour-water-tracker" className="bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 shadow-sm dark:shadow-none p-4">
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-2.5">
                   <div className="w-9 h-9 rounded-xl bg-blue-50 flex items-center justify-center">
@@ -280,7 +280,7 @@ export default function Nutrition() {
                 </div>
                 <div className="flex items-center gap-1.5">
                   <button onClick={() => updateWater.mutate(Math.max(0, glasses - 1))}
-                    className="w-8 h-8 rounded-full bg-gray-100 font-bold text-[#0A1A2F]/50 dark:text-white/50 flex items-center justify-center hover:bg-gray-200 transition-colors text-base leading-none">−</button>
+                    className="w-8 h-8 rounded-full bg-gray-100 dark:bg-white/5 font-bold text-[#0A1A2F]/50 dark:text-white/50 flex items-center justify-center hover:bg-gray-200 transition-colors text-base leading-none">−</button>
                   <span className="font-bold text-[#16a34a] text-base w-5 text-center">{glasses}</span>
                   <button onClick={() => updateWater.mutate(Math.min(20, glasses + 1))}
                     className="w-8 h-8 rounded-full bg-blue-100 font-bold text-blue-600 flex items-center justify-center hover:bg-blue-200 transition-colors text-base leading-none">+</button>
@@ -289,7 +289,7 @@ export default function Nutrition() {
               <div className="flex gap-1.5 flex-wrap">
                 {Array.from({ length: waterGoal }).map((_, i) => (
                   <button key={i} onClick={() => updateWater.mutate(i + 1)}
-                    className={`w-7 h-7 rounded-full text-sm transition-all active:scale-90 ${i < glasses ? 'bg-blue-500 shadow-sm' : 'bg-gray-100'}`}>
+                    className={`w-7 h-7 rounded-full text-sm transition-all active:scale-90 ${i < glasses ? 'bg-blue-500 shadow-sm dark:shadow-none' : 'bg-gray-100 dark:bg-white/5'}`}>
                     {i < glasses ? '💧' : '○'}
                   </button>
                 ))}
@@ -303,10 +303,10 @@ export default function Nutrition() {
             </div>
 
             {/* ── Today's Meals ── */}
-            <div className="bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 shadow-sm overflow-hidden">
+            <div className="bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 shadow-sm dark:shadow-none overflow-hidden">
               <div className="flex items-center justify-between px-4 pt-4 pb-3 border-b border-gray-50 dark:border-white/5">
                 <p className="text-sm font-bold text-[#0A1A2F] dark:text-white dark:text-white">Meals Logged Today</p>
-                <span className="text-xs font-bold text-[#0A1A2F]/30 dark:text-white/30 bg-gray-100 px-2 py-0.5 rounded-full">{todayMeals.length}</span>
+                <span className="text-xs font-bold text-[#0A1A2F]/30 dark:text-white/30 bg-gray-100 dark:bg-white/5 px-2 py-0.5 rounded-full">{todayMeals.length}</span>
               </div>
               <div className="p-3">
                 {todayMeals.length === 0 ? (
@@ -333,7 +333,7 @@ export default function Nutrition() {
                         </div>
                         {m.id && (
                           <button onClick={() => { if (window.confirm('Remove this meal?')) deleteMeal.mutate(m.id); }}
-                            className="opacity-0 group-hover:opacity-100 p-1.5 rounded-lg hover:bg-red-50 text-gray-300 hover:text-red-400 transition-all flex-shrink-0">
+                            className="opacity-0 group-hover:opacity-100 p-1.5 rounded-lg hover:bg-red-50 text-gray-300 dark:text-gray-400 dark:text-gray-300 hover:text-red-400 transition-all flex-shrink-0">
                             <Trash2 className="w-3.5 h-3.5" />
                           </button>
                         )}
@@ -349,7 +349,7 @@ export default function Nutrition() {
             </div>
 
             {/* ── Quick Log ── */}
-            <div className="bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 shadow-sm overflow-hidden">
+            <div className="bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 shadow-sm dark:shadow-none overflow-hidden">
               <div className="px-4 pt-4 pb-3 border-b border-gray-50 dark:border-white/5">
                 <p className="text-sm font-bold text-[#0A1A2F] dark:text-white dark:text-white">Quick Log <span className="text-[#16a34a] capitalize">· {suggestType}</span></p>
               </div>
@@ -387,7 +387,7 @@ export default function Nutrition() {
             {/* ── Discover + Chef Daniel row ── */}
             <div className="grid grid-cols-2 gap-3">
               <Link to={createPageUrl('DiscoverRecipes')}>
-                <div className="bg-gradient-to-br from-[#16a34a] to-[#22c55e] rounded-2xl p-4 h-full flex flex-col gap-2 shadow-sm active:scale-[0.97] transition-transform">
+                <div className="bg-gradient-to-br from-[#16a34a] to-[#22c55e] rounded-2xl p-4 h-full flex flex-col gap-2 shadow-sm dark:shadow-none active:scale-[0.97] transition-transform">
                   <div className="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center">
                     <UtensilsCrossed className="w-5 h-5 text-white" />
                   </div>
@@ -398,7 +398,7 @@ export default function Nutrition() {
                 </div>
               </Link>
               <Link to={createPageUrl('ChatScreen?bot=ChefDaniel')}>
-                <div className="bg-gradient-to-br from-[#c9a227] to-[#FAD98D] rounded-2xl p-4 h-full flex flex-col gap-2 shadow-sm active:scale-[0.97] transition-transform">
+                <div className="bg-gradient-to-br from-[#c9a227] to-[#FAD98D] rounded-2xl p-4 h-full flex flex-col gap-2 shadow-sm dark:shadow-none active:scale-[0.97] transition-transform">
                   <div className="w-9 h-9 rounded-xl bg-white/25 flex items-center justify-center">
                     <ChefHat className="w-5 h-5 text-white" />
                   </div>

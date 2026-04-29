@@ -62,7 +62,7 @@ export default function ChatInterface({
         <div className="flex items-center gap-3">
           <button
             onClick={onBack}
-            className="lg:hidden w-10 h-10 rounded-full hover:bg-gray-100 dark:hover:bg-[#0A1A2F] flex items-center justify-center transition-colors"
+            className="lg:hidden w-10 h-10 rounded-full hover:bg-gray-100 dark:bg-white/5 dark:hover:bg-[#0A1A2F] flex items-center justify-center transition-colors"
           >
             <ArrowLeft className="w-5 h-5" />
           </button>
@@ -75,7 +75,7 @@ export default function ChatInterface({
             </div>
             <div className="text-left">
               <p className="font-semibold text-[#0A1A2F] dark:text-white dark:text-white">{otherUser}</p>
-              <p className="text-xs text-gray-500 dark:text-gray-400">{selectedEmail}</p>
+              <p className="text-xs text-gray-500 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">{selectedEmail}</p>
             </div>
           </button>
         </div>
@@ -93,7 +93,7 @@ export default function ChatInterface({
             <div key={msg.id}>
               {showDate && (
                 <div className="text-center mb-4">
-                  <span className="text-xs text-gray-500 dark:text-gray-400 bg-white dark:bg-white/5 dark:bg-[#0A1A2F] px-3 py-1 rounded-full">
+                  <span className="text-xs text-gray-500 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300 bg-white dark:bg-white/5 dark:bg-[#0A1A2F] px-3 py-1 rounded-full">
                     {format(new Date(msg.created_date), 'MMM d, yyyy')}
                   </span>
                 </div>
@@ -107,13 +107,13 @@ export default function ChatInterface({
                   className={`max-w-[70%] rounded-2xl px-4 py-2 ${
                     isOwn
                       ? 'bg-[#0A1A2F] text-white rounded-br-md'
-                      : 'bg-white dark:bg-white/5 dark:bg-[#0A1A2F] text-gray-800 dark:text-white rounded-bl-md'
+                      : 'bg-white dark:bg-white/5 dark:bg-[#0A1A2F] text-gray-800 dark:text-gray-100 dark:text-white rounded-bl-md'
                   }`}
                 >
                   <p className="whitespace-pre-wrap break-words">{msg.content}</p>
                   <p
                     className={`text-xs mt-1 ${
-                      isOwn ? 'text-white/60' : 'text-gray-500 dark:text-gray-400'
+                      isOwn ? 'text-white/60' : 'text-gray-500 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300'
                     }`}
                   >
                     {format(new Date(msg.created_date), 'HH:mm')}

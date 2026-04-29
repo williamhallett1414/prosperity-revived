@@ -292,7 +292,7 @@ export default function VideoRecorder({
           <motion.button
             whileTap={{ scale: 0.9 }}
             onClick={startRecording}
-            className="w-16 h-16 rounded-full bg-red-500 flex items-center justify-center shadow-lg shadow-red-500/30 border-4 border-white/20"
+            className="w-16 h-16 rounded-full bg-red-500 flex items-center justify-center shadow-lg dark:shadow-none shadow-red-500/30 border-4 border-white/20"
           >
             <div className="w-6 h-6 rounded-full bg-white dark:bg-white/5" />
           </motion.button>
@@ -302,7 +302,7 @@ export default function VideoRecorder({
           <motion.button
             whileTap={{ scale: 0.9 }}
             onClick={stopRecording}
-            className="w-16 h-16 rounded-full bg-red-500 flex items-center justify-center shadow-lg shadow-red-500/30 border-4 border-white/20"
+            className="w-16 h-16 rounded-full bg-red-500 flex items-center justify-center shadow-lg dark:shadow-none shadow-red-500/30 border-4 border-white/20"
           >
             <Square className="w-6 h-6 text-white fill-white" />
           </motion.button>
@@ -320,7 +320,7 @@ export default function VideoRecorder({
             <motion.button
               whileTap={{ scale: 0.9 }}
               onClick={confirmRecording}
-              className="flex items-center gap-2 px-6 py-2.5 rounded-full bg-gradient-to-r from-[#FD9C2D] to-[#c9a227] text-white text-sm font-bold shadow-lg shadow-[#FD9C2D]/30"
+              className="flex items-center gap-2 px-6 py-2.5 rounded-full bg-gradient-to-r from-[#FD9C2D] to-[#c9a227] text-white text-sm font-bold shadow-lg dark:shadow-none shadow-[#FD9C2D]/30"
             >
               <Check className="w-4 h-4" /> Use Video
             </motion.button>

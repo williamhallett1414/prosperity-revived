@@ -31,7 +31,7 @@ export default function GratitudeAIPrompt({ prompt, loading, onRefresh }) {
           <div className="h-3 bg-[#FAD98D]/20 rounded-full w-3/4 animate-pulse" />
         </div>
       ) : (
-        <p className="text-sm text-[#0A1A2F]/75 leading-relaxed italic mt-1">
+        <p className="text-sm text-[#0A1A2F]/75 dark:text-white/75 leading-relaxed italic mt-1">
           "{prompt}"
         </p>
       )}

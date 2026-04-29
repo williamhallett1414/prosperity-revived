@@ -47,7 +47,7 @@ export default function EmotionalCheckIn() {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-white dark:bg-white/5 rounded-2xl p-6 border border-gray-200 dark:border-white/10 shadow-sm mb-6"
+      className="bg-white dark:bg-white/5 rounded-2xl p-6 border border-gray-200 dark:border-white/10 shadow-sm dark:shadow-none mb-6"
     >
       <div className="flex items-center gap-2 mb-4">
         <Heart className="w-6 h-6 text-[#FAD98D]" />

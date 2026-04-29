@@ -522,7 +522,7 @@ Example: [VERSE]Romans 8:28 - "And we know that all things work together for goo
                       onClick={() => {
                         handleAsk(true, "Activate Deep Study Mode for Romans 8");
                       }}
-                      className="px-4 py-2 bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white rounded-full text-sm font-semibold hover:from-[#C9A227] hover:to-[#c9a227] transition-all shadow-md"
+                      className="px-4 py-2 bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white rounded-full text-sm font-semibold hover:from-[#C9A227] hover:to-[#c9a227] transition-all shadow-md dark:shadow-none"
                     >
                       🎓 Deep Study Mode
                     </button>
@@ -562,7 +562,7 @@ Example: [VERSE]Romans 8:28 - "And we know that all things work together for goo
                         <p className="text-sm">{message.content}</p>
                       </div> :
 
-                <div className="bg-[#FFF9EC] border border-[#FAD98D]/40 rounded-2xl px-4 py-3 max-w-[85%] shadow-sm">
+                <div className="bg-[#FFF9EC] border border-[#FAD98D]/40 rounded-2xl px-4 py-3 max-w-[85%] shadow-sm dark:shadow-none">
                         <div className="flex justify-end mb-1"><TTSButton text={message.content} /></div>
                         {(() => {
                           // Parse content for verse markers

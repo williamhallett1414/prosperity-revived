@@ -32,8 +32,8 @@ export default function WorkoutCategoryFilter({ onFilterChange }) {
             onClick={() => handleClick(cat.id)}
             className={`flex items-center gap-2 px-4 py-2 rounded-lg min-w-fit snap-start transition-all ${
               activeCategory === cat.id
-                ? `bg-gradient-to-r ${cat.color} text-[#0A1A2F] dark:text-white font-semibold shadow-md`
-                : 'bg-gray-100 text-[#0A1A2F]/70 dark:text-white/70 hover:bg-gray-100/80'
+                ? `bg-gradient-to-r ${cat.color} text-[#0A1A2F] dark:text-white font-semibold shadow-md dark:shadow-none`
+                : 'bg-gray-100 dark:bg-white/5 text-[#0A1A2F]/70 dark:text-white/70 hover:bg-gray-100/80'
             }`}
           >
             <Icon className="w-4 h-4" />

@@ -48,7 +48,7 @@ export default function ReadingPlanProgressTracker({ planProgress, plans }) {
 
       {/* Most recent plan card */}
       {recentPlan && (
-        <div className="bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-2xl border border-[#FAD98D]/25 p-4 shadow-sm">
+        <div className="bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-2xl border border-[#FAD98D]/25 p-4 shadow-sm dark:shadow-none">
           <div className="flex items-start justify-between mb-3">
             <div className="flex-1 min-w-0">
               <h3 className="font-bold text-[#0A1A2F] dark:text-white text-sm truncate">
@@ -96,7 +96,7 @@ export default function ReadingPlanProgressTracker({ planProgress, plans }) {
                   className={`aspect-square flex items-center justify-center rounded-lg text-[11px] font-medium
                     ${!info.day ? 'invisible' : ''}
                     ${info.isCompleted
-                      ? 'bg-gradient-to-br from-[#c9a227] to-[#FAD98D] text-white shadow-sm'
+                      ? 'bg-gradient-to-br from-[#c9a227] to-[#FAD98D] text-white shadow-sm dark:shadow-none'
                       : info.isToday
                       ? 'border-2 border-[#c9a227] text-[#c9a227] font-bold'
                       : info.isPast

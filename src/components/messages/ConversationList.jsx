@@ -57,7 +57,7 @@ export default function ConversationList({ messages, user, onSelectConversation,
     <div className="flex flex-col h-full">
       <div className="p-4 border-b border-gray-200 dark:border-white/10 dark:border-gray-700">
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 dark:text-gray-300" />
           <Input
             placeholder="Search conversations..."
             value={searchQuery}
@@ -70,8 +70,8 @@ export default function ConversationList({ messages, user, onSelectConversation,
       <div className="flex-1 overflow-y-auto">
         {conversations.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-full text-center p-8">
-            <MessageCircle className="w-12 h-12 text-gray-300 dark:text-gray-600 mb-3" />
-            <p className="text-gray-500 dark:text-gray-400">
+            <MessageCircle className="w-12 h-12 text-gray-300 dark:text-gray-400 dark:text-gray-300 dark:text-gray-600 dark:text-gray-300 mb-3" />
+            <p className="text-gray-500 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">
               {searchQuery ? 'No conversations found' : 'No messages yet'}
             </p>
           </div>
@@ -85,7 +85,7 @@ export default function ConversationList({ messages, user, onSelectConversation,
                 transition={{ delay: index * 0.05 }}
                 onClick={() => onSelectConversation(conv.email)}
                 className={`w-full p-4 text-left hover:bg-gray-50 dark:bg-white/5 dark:hover:bg-[#0A1A2F] transition-colors ${
-                  selectedEmail === conv.email ? 'bg-gray-100 dark:bg-[#0A1A2F]' : ''
+                  selectedEmail === conv.email ? 'bg-gray-100 dark:bg-white/5 dark:bg-[#0A1A2F]' : ''
                 }`}
               >
                 <div className="flex items-start gap-3">
@@ -97,12 +97,12 @@ export default function ConversationList({ messages, user, onSelectConversation,
                       <p className="font-semibold text-[#0A1A2F] dark:text-white truncate">
                         {conv.name}
                       </p>
-                      <span className="text-xs text-gray-500 dark:text-gray-400 ml-2 flex-shrink-0">
+                      <span className="text-xs text-gray-500 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300 ml-2 flex-shrink-0">
                         {format(new Date(conv.lastMessage.created_date), 'MMM d')}
                       </span>
                     </div>
                     <div className="flex items-center justify-between">
-                      <p className="text-sm text-gray-600 dark:text-gray-400 truncate">
+                      <p className="text-sm text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300 truncate">
                         {conv.lastMessage.sender_email === user.email && 'You: '}
                         {conv.lastMessage.content}
                       </p>

@@ -12,7 +12,7 @@ export default function WellnessHubCard({ icon: Icon, title, description, color,
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: index * 0.05 }}
         whileHover={{ scale: 1.02 }}
-        className={`bg-gradient-to-br ${color} rounded-2xl p-4 cursor-pointer hover:shadow-lg transition-shadow h-full`}
+        className={`bg-gradient-to-br ${color} rounded-2xl p-4 cursor-pointer hover:shadow-lg dark:shadow-none transition-shadow h-full`}
       >
         <div className="flex flex-col justify-between h-full">
           <div className="flex items-start justify-between">

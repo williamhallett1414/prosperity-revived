@@ -136,7 +136,7 @@ export default function ChefDanielOnboarding({ onComplete, user }) {
           </div>
 
           {/* Progress */}
-          <div className="h-1 bg-gray-100">
+          <div className="h-1 bg-gray-100 dark:bg-white/5">
             <motion.div
               animate={{ width: `${((step + 1) / totalSteps) * 100}%` }}
               transition={{ duration: 0.3 }}
@@ -158,17 +158,17 @@ export default function ChefDanielOnboarding({ onComplete, user }) {
                 {step === 0 && (
                   <div className="text-center py-2">
                     <div className="text-5xl mb-4">👨‍🍳</div>
-                    <p className="text-gray-700 leading-relaxed">
+                    <p className="text-gray-700 dark:text-gray-200 leading-relaxed">
                       I'm <strong>Chef Daniel</strong> — your nutrition expert. Let me learn your preferences so every recipe, meal plan, and tip I give you is perfectly tailored.
                     </p>
-                    <p className="text-sm text-gray-500 mt-3">4 quick questions. Let's cook up something great.</p>
+                    <p className="text-sm text-gray-500 dark:text-gray-300 mt-3">4 quick questions. Let's cook up something great.</p>
                   </div>
                 )}
 
                 {/* Step 1: Diet type */}
                 {step === 1 && (
                   <div>
-                    <p className="text-sm text-gray-600 mb-3">Which best describes your eating style?</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">Which best describes your eating style?</p>
                     <div className="grid grid-cols-2 gap-2">
                       {DIET_TYPES.map(diet => (
                         <button
@@ -177,11 +177,11 @@ export default function ChefDanielOnboarding({ onComplete, user }) {
                           className={`rounded-xl border-2 p-3 text-left transition-all ${
                             selectedDiet === diet.id
                               ? 'border-[#FD9C2D] bg-[#FD9C2D]/10'
-                              : 'border-gray-200 dark:border-white/10 hover:border-gray-300'
+                              : 'border-gray-200 dark:border-white/10 hover:border-gray-300 dark:border-white/15'
                           }`}
                         >
-                          <div className="text-xs font-semibold text-gray-800">{diet.label}</div>
-                          <div className="text-xs text-gray-500">{diet.desc}</div>
+                          <div className="text-xs font-semibold text-gray-800 dark:text-gray-100">{diet.label}</div>
+                          <div className="text-xs text-gray-500 dark:text-gray-300">{diet.desc}</div>
                           {selectedDiet === diet.id && <CheckCircle2 className="w-3.5 h-3.5 text-[#FD9C2D] mt-1" />}
                         </button>
                       ))}
@@ -192,7 +192,7 @@ export default function ChefDanielOnboarding({ onComplete, user }) {
                 {/* Step 2: Nutrition goal */}
                 {step === 2 && (
                   <div>
-                    <p className="text-sm text-gray-600 mb-3">What's your primary nutrition goal right now?</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">What's your primary nutrition goal right now?</p>
                     <div className="grid grid-cols-2 gap-2">
                       {NUTRITION_GOALS.map(goal => (
                         <button
@@ -201,11 +201,11 @@ export default function ChefDanielOnboarding({ onComplete, user }) {
                           className={`rounded-xl border-2 p-3.5 text-left transition-all ${
                             selectedGoal === goal.id
                               ? 'border-[#FD9C2D] bg-[#FD9C2D]/10'
-                              : 'border-gray-200 dark:border-white/10 hover:border-gray-300'
+                              : 'border-gray-200 dark:border-white/10 hover:border-gray-300 dark:border-white/15'
                           }`}
                         >
                           <div className="text-lg mb-1">{goal.emoji}</div>
-                          <div className="text-xs font-semibold text-gray-800">{goal.label}</div>
+                          <div className="text-xs font-semibold text-gray-800 dark:text-gray-100">{goal.label}</div>
                           {selectedGoal === goal.id && <CheckCircle2 className="w-3.5 h-3.5 text-[#FD9C2D] mt-1" />}
                         </button>
                       ))}
@@ -216,7 +216,7 @@ export default function ChefDanielOnboarding({ onComplete, user }) {
                 {/* Step 3: Allergies */}
                 {step === 3 && (
                   <div>
-                    <p className="text-sm text-gray-600 mb-3">Any food allergies or intolerances? (Select all that apply)</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">Any food allergies or intolerances? (Select all that apply)</p>
                     <div className="grid grid-cols-2 gap-2">
                       {ALLERGIES.map(a => (
                         <button
@@ -225,7 +225,7 @@ export default function ChefDanielOnboarding({ onComplete, user }) {
                           className={`rounded-xl border-2 p-3 text-xs font-semibold transition-all flex items-center gap-2 ${
                             selectedAllergies.includes(a.id)
                               ? 'border-[#FD9C2D] bg-[#FD9C2D]/10 text-[#FD9C2D]'
-                              : 'border-gray-200 dark:border-white/10 text-gray-700 hover:border-gray-300'
+                              : 'border-gray-200 dark:border-white/10 text-gray-700 dark:text-gray-200 hover:border-gray-300 dark:border-white/15'
                           }`}
                         >
                           {a.label}
@@ -239,8 +239,8 @@ export default function ChefDanielOnboarding({ onComplete, user }) {
                 {/* Step 4: Pantry staples */}
                 {step === 4 && (
                   <div>
-                    <p className="text-sm text-gray-600 mb-1">What do you usually have at home?</p>
-                    <p className="text-xs text-gray-400 mb-3">I'll suggest recipes using what you already have.</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-300 mb-1">What do you usually have at home?</p>
+                    <p className="text-xs text-gray-400 dark:text-gray-300 mb-3">I'll suggest recipes using what you already have.</p>
                     <div className="flex flex-wrap gap-2 max-h-44 overflow-y-auto">
                       {PANTRY_STAPLES.map(item => (
                         <button
@@ -249,7 +249,7 @@ export default function ChefDanielOnboarding({ onComplete, user }) {
                           className={`text-xs px-3 py-1.5 rounded-full border transition-all ${
                             selectedPantry.includes(item)
                               ? 'border-[#FD9C2D] bg-[#FD9C2D]/10 text-[#FD9C2D] font-semibold'
-                              : 'border-gray-200 dark:border-white/10 text-gray-600 hover:border-gray-300'
+                              : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-gray-300 dark:border-white/15'
                           }`}
                         >
                           {selectedPantry.includes(item) ? '✓ ' : ''}{item}
@@ -272,9 +272,9 @@ export default function ChefDanielOnboarding({ onComplete, user }) {
           </div>
 
           {/* Footer */}
-          <div className="p-5 bg-gray-50 dark:bg-white/5 border-t border-gray-100 dark:border-white/10">
+          <div className="p-5 bg-gray-50 dark:bg-white/5 border-t border-gray-100 dark:border-white/10 dark:border-white/10">
             <div className="flex gap-3">
-              <Button onClick={() => onComplete({})} variant="outline" className="flex-1 text-gray-600 text-sm">
+              <Button onClick={() => onComplete({})} variant="outline" className="flex-1 text-gray-600 dark:text-gray-300 text-sm">
                 Skip
               </Button>
               <Button

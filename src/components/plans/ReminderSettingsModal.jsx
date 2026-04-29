@@ -37,7 +37,7 @@ export default function ReminderSettingsModal({ isOpen, onClose, progress, onSav
           <div className="flex items-center justify-between">
             <div>
               <Label className="text-base">Enable Reminders</Label>
-              <p className="text-sm text-gray-500">Get daily notifications to read</p>
+              <p className="text-sm text-gray-500 dark:text-gray-300">Get daily notifications to read</p>
             </div>
             <Switch
               checked={reminderEnabled}
@@ -54,7 +54,7 @@ export default function ReminderSettingsModal({ isOpen, onClose, progress, onSav
                 onChange={(e) => setReminderTime(e.target.value)}
                 className="mt-2"
               />
-              <p className="text-xs text-gray-500 mt-1">
+              <p className="text-xs text-gray-500 dark:text-gray-300 mt-1">
                 You'll receive a notification at this time every day
               </p>
             </div>

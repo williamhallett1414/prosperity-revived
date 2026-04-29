@@ -2,7 +2,7 @@ import React from "react";
 import { Play, Clock } from "lucide-react";
 
 const statusColors = {
-  pending: "bg-gray-50 dark:bg-white/50",
+  pending: "bg-gray-50 dark:bg-white/5 dark:bg-white/50",
   generating: "bg-yellow-500",
   ready: "bg-green-500",
   error: "bg-red-500"
@@ -20,7 +20,7 @@ export default function MeditationSessionCard({ session, onBegin }) {
 
   return (
     <div
-      className="bg-white/5 rounded-2xl overflow-hidden shadow hover:shadow-lg transition cursor-pointer"
+      className="bg-white/5 rounded-2xl overflow-hidden shadow hover:shadow-lg dark:shadow-none transition cursor-pointer"
       onClick={() => onBegin(session)}
     >
       {session.image_url && (
@@ -43,11 +43,11 @@ export default function MeditationSessionCard({ session, onBegin }) {
           {session.title}
         </h3>
 
-        <p className="text-sm text-gray-300 mb-3 line-clamp-2">
+        <p className="text-sm text-gray-300 dark:text-gray-400 dark:text-gray-300 mb-3 line-clamp-2">
           {session.description}
         </p>
 
-        <div className="flex items-center gap-2 text-xs text-gray-400 mb-3">
+        <div className="flex items-center gap-2 text-xs text-gray-400 dark:text-gray-300 mb-3">
           <Clock className="w-4 h-4" />
           <span className="capitalize">{session.category}</span>
         </div>
@@ -60,7 +60,7 @@ export default function MeditationSessionCard({ session, onBegin }) {
           className={`w-full font-semibold py-2 rounded-lg flex items-center justify-center gap-2 transition ${
             session.status === "ready"
               ? "bg-[#c9a227] hover:bg-[#C9A227] text-white"
-              : "bg-gray-700 text-gray-300 cursor-not-allowed"
+              : "bg-gray-700 text-gray-300 dark:text-gray-400 dark:text-gray-300 cursor-not-allowed"
           }`}
           disabled={session.status !== "ready"}
         >

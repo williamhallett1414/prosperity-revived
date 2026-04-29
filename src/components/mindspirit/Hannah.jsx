@@ -1118,7 +1118,7 @@ Return ONLY valid JSON array:
       {/* Floating Chat Button */}
       <motion.button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-24 right-4 w-14 h-14 bg-gradient-to-br from-[#AFC7E3] to-[#3C4E53] hover:opacity-90 text-white rounded-full shadow-lg flex items-center justify-center z-50"
+        className="fixed bottom-24 right-4 w-14 h-14 bg-gradient-to-br from-[#AFC7E3] to-[#3C4E53] hover:opacity-90 text-white rounded-full shadow-lg dark:shadow-none flex items-center justify-center z-50"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
         initial={{ scale: 0 }}
@@ -1263,55 +1263,55 @@ Return ONLY valid JSON array:
                 <div className="grid grid-cols-2 gap-2">
                   <button
                     onClick={() => sendWithText("Help me understand why I keep repeating the same patterns")}
-                    className="text-xs bg-white dark:bg-white/5 hover:bg-[#AFC7E3]/25 text-[#0A1A2F] dark:text-white px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#AFC7E3]/60"
+                    className="text-xs bg-white dark:bg-white/5 hover:bg-[#AFC7E3]/25 text-[#0A1A2F] dark:text-white px-3 py-2 rounded-lg transition-colors text-left shadow-sm dark:shadow-none border border-[#AFC7E3]/60"
                   >
                     🔄 Breaking Patterns
                   </button>
                   <button
                     onClick={() => sendWithText("I want to build better habits. Where do I start?")}
-                    className="text-xs bg-white dark:bg-white/5 hover:bg-[#AFC7E3]/25 text-[#0A1A2F] dark:text-white px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#AFC7E3]/60"
+                    className="text-xs bg-white dark:bg-white/5 hover:bg-[#AFC7E3]/25 text-[#0A1A2F] dark:text-white px-3 py-2 rounded-lg transition-colors text-left shadow-sm dark:shadow-none border border-[#AFC7E3]/60"
                   >
                     ✅ Habit Building
                   </button>
                   <button
                     onClick={() => sendWithText("How do I set healthy boundaries?")}
-                    className="text-xs bg-white dark:bg-white/5 hover:bg-[#AFC7E3]/25 text-[#0A1A2F] dark:text-white px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#AFC7E3]/60"
+                    className="text-xs bg-white dark:bg-white/5 hover:bg-[#AFC7E3]/25 text-[#0A1A2F] dark:text-white px-3 py-2 rounded-lg transition-colors text-left shadow-sm dark:shadow-none border border-[#AFC7E3]/60"
                   >
                     🛡️ Boundaries
                   </button>
                   <button
                     onClick={() => sendWithText("Help me understand my attachment style")}
-                    className="text-xs bg-white dark:bg-white/5 hover:bg-[#AFC7E3]/25 text-[#0A1A2F] dark:text-white px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#AFC7E3]/60"
+                    className="text-xs bg-white dark:bg-white/5 hover:bg-[#AFC7E3]/25 text-[#0A1A2F] dark:text-white px-3 py-2 rounded-lg transition-colors text-left shadow-sm dark:shadow-none border border-[#AFC7E3]/60"
                   >
                     💕 Attachment Styles
                   </button>
                   <button
                     onClick={() => sendWithText("I struggle with emotional regulation. What can I do?")}
-                    className="text-xs bg-white dark:bg-white/5 hover:bg-[#AFC7E3]/25 text-[#0A1A2F] dark:text-white px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#AFC7E3]/60"
+                    className="text-xs bg-white dark:bg-white/5 hover:bg-[#AFC7E3]/25 text-[#0A1A2F] dark:text-white px-3 py-2 rounded-lg transition-colors text-left shadow-sm dark:shadow-none border border-[#AFC7E3]/60"
                   >
                     🧘 Emotional Intelligence
                   </button>
                   <button
                     onClick={() => sendWithText("I'm dealing with burnout. How do I recover?")}
-                    className="text-xs bg-white dark:bg-white/5 hover:bg-[#AFC7E3]/25 text-[#0A1A2F] dark:text-white px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#AFC7E3]/60"
+                    className="text-xs bg-white dark:bg-white/5 hover:bg-[#AFC7E3]/25 text-[#0A1A2F] dark:text-white px-3 py-2 rounded-lg transition-colors text-left shadow-sm dark:shadow-none border border-[#AFC7E3]/60"
                   >
                     🔥 Burnout Recovery
                   </button>
                   <button
                     onClick={() => sendWithText("Help me shift my financial mindset")}
-                    className="text-xs bg-white dark:bg-white/5 hover:bg-[#AFC7E3]/25 text-[#0A1A2F] dark:text-white px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#AFC7E3]/60"
+                    className="text-xs bg-white dark:bg-white/5 hover:bg-[#AFC7E3]/25 text-[#0A1A2F] dark:text-white px-3 py-2 rounded-lg transition-colors text-left shadow-sm dark:shadow-none border border-[#AFC7E3]/60"
                   >
                     💰 Money Mindset
                   </button>
                   <button
                     onClick={() => sendWithText("I want to find my purpose and clarify my values")}
-                    className="text-xs bg-white dark:bg-white/5 hover:bg-[#AFC7E3]/25 text-[#0A1A2F] dark:text-white px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#AFC7E3]/60"
+                    className="text-xs bg-white dark:bg-white/5 hover:bg-[#AFC7E3]/25 text-[#0A1A2F] dark:text-white px-3 py-2 rounded-lg transition-colors text-left shadow-sm dark:shadow-none border border-[#AFC7E3]/60"
                   >
                     🎯 Purpose & Values
                   </button>
                   <button
                     onClick={() => sendWithText("Give me guided journaling prompts tailored to my growth areas and values")}
-                    className="text-xs bg-white dark:bg-white/5 hover:bg-[#AFC7E3]/25 text-[#0A1A2F] dark:text-white px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#AFC7E3]/60 col-span-2"
+                    className="text-xs bg-white dark:bg-white/5 hover:bg-[#AFC7E3]/25 text-[#0A1A2F] dark:text-white px-3 py-2 rounded-lg transition-colors text-left shadow-sm dark:shadow-none border border-[#AFC7E3]/60 col-span-2"
                   >
                     📓 Guided journaling prompts
                   </button>
@@ -1385,11 +1385,11 @@ Return ONLY valid JSON array:
                     className={`max-w-[80%] rounded-2xl px-4 py-3 ${
                       message.role === 'user'
                         ? 'bg-gradient-to-r from-[#AFC7E3] to-[#3C4E53] text-white'
-                        : 'bg-white dark:bg-white/5 text-gray-800 border border-[#AFC7E3]/40'
+                        : 'bg-white dark:bg-white/5 text-gray-800 dark:text-gray-100 border border-[#AFC7E3]/40'
                     }`}
                   >
                     {message.role === 'assistant' ? (
-                      <ReactMarkdown className="prose prose-sm max-w-none prose-p:my-1.5 prose-li:my-0.5 prose-headings:font-semibold text-gray-800 text-sm leading-relaxed">
+                      <ReactMarkdown className="prose prose-sm max-w-none prose-p:my-1.5 prose-li:my-0.5 prose-headings:font-semibold text-gray-800 dark:text-gray-100 text-sm leading-relaxed">
                         {message.content}
                       </ReactMarkdown>
                     ) : (

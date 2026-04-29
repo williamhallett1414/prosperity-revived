@@ -132,29 +132,29 @@ export default function WorkoutProgressCharts({ isOpen, onClose }) {
               {/* Stats */}
               <div className="grid grid-cols-3 gap-3 mt-4">
                 <div className="text-center p-2 bg-white dark:bg-white/5 dark:bg-gray-700 rounded">
-                  <p className="text-xs text-gray-500 dark:text-gray-400">Best</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">Best</p>
                   <p className="font-bold text-emerald-600">
                     {Math.max(...chartData.map(d => d[currentMetric.key]))}
                   </p>
                 </div>
                 <div className="text-center p-2 bg-white dark:bg-white/5 dark:bg-gray-700 rounded">
-                  <p className="text-xs text-gray-500 dark:text-gray-400">Average</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">Average</p>
                   <p className="font-bold text-[#3C4E53]">
                     {(chartData.reduce((sum, d) => sum + d[currentMetric.key], 0) / chartData.length).toFixed(1)}
                   </p>
                 </div>
                 <div className="text-center p-2 bg-white dark:bg-white/5 dark:bg-gray-700 rounded">
-                  <p className="text-xs text-gray-500 dark:text-gray-400">Sessions</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">Sessions</p>
                   <p className="font-bold text-[#C9A227]">{chartData.length}</p>
                 </div>
               </div>
             </div>
           ) : selectedExercise ? (
-            <div className="text-center py-12 text-gray-500">
+            <div className="text-center py-12 text-gray-500 dark:text-gray-300">
               No data recorded for this exercise yet
             </div>
           ) : (
-            <div className="text-center py-12 text-gray-500">
+            <div className="text-center py-12 text-gray-500 dark:text-gray-300">
               Select an exercise to view progress
             </div>
           )}
@@ -171,7 +171,7 @@ export default function WorkoutProgressCharts({ isOpen, onClose }) {
                     const exercise = session.exercises_performed.find(e => e.name === selectedExercise);
                     return (
                       <div key={session.id} className="flex justify-between items-center p-2 bg-gray-50 dark:bg-white/5 dark:bg-gray-800 rounded text-sm">
-                        <span className="text-gray-600 dark:text-gray-400">
+                        <span className="text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">
                           {new Date(session.date).toLocaleDateString()}
                         </span>
                         <div className="flex gap-3 text-xs">

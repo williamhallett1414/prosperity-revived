@@ -90,7 +90,7 @@ export default function GideonQuickAskMenu({ onSelectPrompt, isLoading, isCollap
                         key={prompt}
                         onClick={() => onSelectPrompt(prompt)}
                         disabled={isLoading}
-                        className="block w-full text-left text-xs px-3 py-2 rounded-lg bg-white dark:bg-white/5 hover:bg-[#FAD98D]/20 text-[#0A1A2F]/75 transition-colors border border-[#FAD98D]/20 disabled:opacity-50"
+                        className="block w-full text-left text-xs px-3 py-2 rounded-lg bg-white dark:bg-white/5 hover:bg-[#FAD98D]/20 text-[#0A1A2F]/75 dark:text-white/75 transition-colors border border-[#FAD98D]/20 disabled:opacity-50"
                       >
                         {prompt}
                       </button>

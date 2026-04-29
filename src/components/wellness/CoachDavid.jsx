@@ -393,7 +393,7 @@ Return ONLY valid JSON array:
       {/* Floating Chat Button */}
       <motion.button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-24 right-4 w-14 h-14 bg-gradient-to-br from-[#0A1A2F] to-[#38BDF8] hover:opacity-90 text-white rounded-full shadow-lg flex items-center justify-center z-50"
+        className="fixed bottom-24 right-4 w-14 h-14 bg-gradient-to-br from-[#0A1A2F] to-[#38BDF8] hover:opacity-90 text-white rounded-full shadow-lg dark:shadow-none flex items-center justify-center z-50"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
         initial={{ scale: 0 }}
@@ -529,7 +529,7 @@ Return ONLY valid JSON array:
                     className={`max-w-[80%] rounded-2xl px-4 py-3 ${
                       message.role === 'user'
                         ? 'bg-gradient-to-r from-[#38BDF8] to-[#0EA5E9] text-white'
-                        : 'bg-white dark:bg-white/5 border border-[#CBD5E1] text-[#0A1A2F] dark:text-white shadow-sm'
+                        : 'bg-white dark:bg-white/5 border border-[#CBD5E1] text-[#0A1A2F] dark:text-white shadow-sm dark:shadow-none'
                     }`}
                   >
                     {message.role === 'assistant' ? (
@@ -550,7 +550,7 @@ Return ONLY valid JSON array:
               ))}
               {isLoading && (
                 <div className="flex justify-start">
-                  <div className="bg-white dark:bg-white/5 border border-[#F2F6FA] rounded-2xl px-4 py-3 shadow-sm">
+                  <div className="bg-white dark:bg-white/5 border border-[#F2F6FA] rounded-2xl px-4 py-3 shadow-sm dark:shadow-none">
                     <Loader2 className="w-5 h-5 animate-spin text-[#38BDF8]" />
                   </div>
                 </div>
@@ -565,7 +565,7 @@ Return ONLY valid JSON array:
                       <button
                         key={idx}
                         onClick={() => sendWithText(action.prompt)}
-                        className="text-xs px-3 py-2 rounded-full bg-white dark:bg-white/5 hover:bg-gray-100 text-[#0A1A2F] dark:text-white transition-colors shadow-sm border border-[#CBD5E1]"
+                        className="text-xs px-3 py-2 rounded-full bg-white dark:bg-white/5 hover:bg-gray-100 dark:bg-white/5 text-[#0A1A2F] dark:text-white transition-colors shadow-sm dark:shadow-none border border-[#CBD5E1]"
                       >
                         {action.label}
                       </button>

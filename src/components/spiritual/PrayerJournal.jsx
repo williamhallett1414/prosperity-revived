@@ -113,8 +113,8 @@ export default function PrayerJournal() {
       {/* Journal Entries */}
       {entries.length === 0 ? (
         <div className="text-center py-16 bg-white dark:bg-white/5 dark:bg-slate-800 rounded-2xl">
-          <BookHeart className="w-12 h-12 text-gray-300 dark:text-gray-600 mx-auto mb-3" />
-          <p className="text-gray-500 dark:text-gray-400 mb-4">Start your prayer journal</p>
+          <BookHeart className="w-12 h-12 text-gray-300 dark:text-gray-400 dark:text-gray-300 dark:text-gray-600 dark:text-gray-300 mx-auto mb-3" />
+          <p className="text-gray-500 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300 mb-4">Start your prayer journal</p>
           <Button onClick={() => setShowCreate(true)}>
             Write First Entry
           </Button>
@@ -131,7 +131,7 @@ export default function PrayerJournal() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.05 }}
-                className="bg-white dark:bg-white/5 dark:bg-slate-800 rounded-2xl p-4 shadow-sm border border-gray-100 dark:border-white/10 dark:border-gray-700"
+                className="bg-white dark:bg-white/5 dark:bg-slate-800 rounded-2xl p-4 shadow-sm dark:shadow-none border border-gray-100 dark:border-white/10 dark:border-gray-700"
               >
                 <div className="flex items-start justify-between mb-2">
                   <div className="flex-1">
@@ -149,7 +149,7 @@ export default function PrayerJournal() {
                     {entry.title && (
                       <h3 className="font-semibold text-gray-900 dark:text-white">{entry.title}</h3>
                     )}
-                    <p className="text-xs text-gray-400 dark:text-gray-500">
+                    <p className="text-xs text-gray-400 dark:text-gray-300 dark:text-gray-500 dark:text-gray-300">
                       {format(new Date(entry.created_date), 'MMM d, yyyy')}
                     </p>
                   </div>
@@ -162,7 +162,7 @@ export default function PrayerJournal() {
                   </Button>
                 </div>
 
-                <p className={`text-gray-700 dark:text-gray-300 ${isExpanded ? '' : 'line-clamp-2'}`}>
+                <p className={`text-gray-700 dark:text-gray-200 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300 ${isExpanded ? '' : 'line-clamp-2'}`}>
                   {entry.content}
                 </p>
 
@@ -243,7 +243,7 @@ export default function PrayerJournal() {
 
             {showAIPrompt && aiPrompt && (
               <div className="bg-yellow-50 dark:bg-slate-700 border-l-4 border-[#c9a227] p-3 rounded">
-                <p className="text-sm text-gray-700 dark:text-gray-300">
+                <p className="text-sm text-gray-700 dark:text-gray-200 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">
                   <Sparkles className="w-3 h-3 inline mr-1 text-[#c9a227]" />
                   {aiPrompt}
                 </p>

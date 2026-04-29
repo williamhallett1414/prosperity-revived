@@ -32,7 +32,7 @@ export default function Leaderboard() {
 
   const rankIcons = {
     0: <Crown className="w-5 h-5 text-yellow-500" />,
-    1: <Medal className="w-5 h-5 text-gray-400" />,
+    1: <Medal className="w-5 h-5 text-gray-400 dark:text-gray-300" />,
     2: <Medal className="w-5 h-5 text-amber-700" />
   };
 
@@ -40,8 +40,8 @@ export default function Leaderboard() {
     <div className="space-y-2">
       {leaderboard.length === 0 ? (
         <div className="text-center py-12 bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-2xl">
-          <Trophy className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-          <p className="text-gray-500 dark:text-gray-400">No rankings yet</p>
+          <Trophy className="w-12 h-12 text-gray-300 dark:text-gray-400 dark:text-gray-300 mx-auto mb-3" />
+          <p className="text-gray-500 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">No rankings yet</p>
         </div>
       ) : (
         leaderboard.map((entry, index) => {
@@ -58,7 +58,7 @@ export default function Leaderboard() {
                   : 'bg-white dark:bg-white/5 dark:bg-[#0A1A2F]'
               }`}
             >
-              <div className="w-8 text-center font-bold text-gray-600 dark:text-gray-400">
+              <div className="w-8 text-center font-bold text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">
                 {rankIcons[index] || `#${index + 1}`}
               </div>
               
@@ -74,12 +74,12 @@ export default function Leaderboard() {
                 <p className={`font-semibold ${isCurrentUser ? 'text-amber-900 dark:text-amber-100' : 'text-[#0A1A2F] dark:text-white dark:text-white'}`}>
                   {entry.user.full_name || 'User'} {isCurrentUser && '(You)'}
                 </p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">Level {entry.level || 1}</p>
+                <p className="text-xs text-gray-500 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">Level {entry.level || 1}</p>
               </div>
               
               <div className="text-right">
                 <p className="font-bold text-amber-600 dark:text-amber-400">{entry.total_points || 0}</p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">points</p>
+                <p className="text-xs text-gray-500 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">points</p>
               </div>
             </motion.div>
           );

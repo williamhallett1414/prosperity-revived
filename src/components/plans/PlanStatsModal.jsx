@@ -67,9 +67,9 @@ export default function PlanStatsModal({ isOpen, onClose, progress }) {
 
           {/* Dates */}
           {progress.started_date && (
-            <div className="bg-gray-50 dark:bg-white/5 rounded-lg p-3">
-              <div className="text-xs text-gray-600 mb-1">Started</div>
-              <div className="font-medium text-gray-900">
+            <div className="bg-gray-50 dark:bg-white/5 dark:text-white rounded-lg p-3">
+              <div className="text-xs text-gray-600 dark:text-gray-300 mb-1">Started</div>
+              <div className="font-medium text-gray-900 dark:text-white">
                 {format(new Date(progress.started_date), 'MMMM d, yyyy')}
               </div>
             </div>

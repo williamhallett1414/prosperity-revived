@@ -122,8 +122,8 @@ export default function ProgressPhotoGallery({ photos }) {
         </CardHeader>
         <CardContent>
           {sortedPhotos.length === 0 ? (
-            <div className="text-center py-8 text-gray-500">
-              <Camera className="w-12 h-12 mx-auto mb-2 text-gray-300" />
+            <div className="text-center py-8 text-gray-500 dark:text-gray-300">
+              <Camera className="w-12 h-12 mx-auto mb-2 text-gray-300 dark:text-gray-400 dark:text-gray-300" />
               <p>No progress photos yet. Start tracking your transformation!</p>
             </div>
           ) : (
@@ -183,9 +183,9 @@ export default function ProgressPhotoGallery({ photos }) {
                 </div>
               ) : (
                 <label htmlFor="photo-upload">
-                  <div className="mt-2 border-2 border-dashed border-gray-300 rounded-lg p-8 text-center cursor-pointer hover:border-[#FD9C2D] transition-colors">
+                  <div className="mt-2 border-2 border-dashed border-gray-300 dark:border-white/15 rounded-lg p-8 text-center cursor-pointer hover:border-[#FD9C2D] transition-colors">
                     <Camera className="w-12 h-12 mx-auto mb-2 text-[#FD9C2D]" />
-                    <p className="text-sm text-gray-600">
+                    <p className="text-sm text-gray-600 dark:text-gray-300">
                       {uploading ? 'Uploading...' : 'Click to upload photo'}
                     </p>
                   </div>
@@ -306,7 +306,7 @@ export default function ProgressPhotoGallery({ photos }) {
                 {selectedPhoto.measurements && Object.keys(selectedPhoto.measurements).length > 0 && (
                   <div>
                     <p className="font-semibold text-sm mb-2">Measurements</p>
-                    <div className="grid grid-cols-3 gap-2 text-sm text-gray-600">
+                    <div className="grid grid-cols-3 gap-2 text-sm text-gray-600 dark:text-gray-300">
                       {Object.entries(selectedPhoto.measurements).map(([key, value]) => (
                         <div key={key}>
                           <span className="capitalize">{key}:</span> {value}"
@@ -318,7 +318,7 @@ export default function ProgressPhotoGallery({ photos }) {
                 {selectedPhoto.notes && (
                   <div>
                     <p className="font-semibold text-sm mb-1">Notes</p>
-                    <p className="text-sm text-gray-600">{selectedPhoto.notes}</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-300">{selectedPhoto.notes}</p>
                   </div>
                 )}
               </div>

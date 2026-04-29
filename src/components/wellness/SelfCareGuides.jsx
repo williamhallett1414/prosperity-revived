@@ -272,19 +272,19 @@ export default function SelfCareGuides({ user }) {
               >
                 <div className="p-3 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg">
                   <p className="font-semibold text-yellow-800 dark:text-yellow-300 mb-1">🌅 Morning Ritual</p>
-                  <p className="text-gray-700 dark:text-gray-300">{aiInsight.morning_ritual}</p>
+                  <p className="text-gray-700 dark:text-gray-200 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">{aiInsight.morning_ritual}</p>
                 </div>
                 <div className="p-3 bg-[#FAD98D]/10 dark:bg-[#0A1A2F]/20 rounded-lg">
                   <p className="font-semibold text-pink-800 dark:text-[#FAD98D] mb-1">💗 Emotional Practice</p>
-                  <p className="text-gray-700 dark:text-gray-300">{aiInsight.emotional_practice}</p>
+                  <p className="text-gray-700 dark:text-gray-200 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">{aiInsight.emotional_practice}</p>
                 </div>
                 <div className="p-3 bg-[#AFC7E3]/15 dark:bg-[#AFC7E3]/5 rounded-lg">
                   <p className="font-semibold text-[#3C4E53] dark:text-[#AFC7E3] mb-1">🎨 Creative Activity</p>
-                  <p className="text-gray-700 dark:text-gray-300">{aiInsight.creative_activity}</p>
+                  <p className="text-gray-700 dark:text-gray-200 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">{aiInsight.creative_activity}</p>
                 </div>
                 <div className="p-3 bg-[#F2F6FA] dark:bg-[#0A1A2F] dark:bg-indigo-900/20 rounded-lg">
                   <p className="font-semibold text-indigo-800 dark:text-indigo-300 mb-1">🌙 Evening Practice</p>
-                  <p className="text-gray-700 dark:text-gray-300">{aiInsight.evening_practice}</p>
+                  <p className="text-gray-700 dark:text-gray-200 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">{aiInsight.evening_practice}</p>
                 </div>
                 <div className="p-3 bg-emerald-50 dark:bg-emerald-900/20 rounded-lg border-2 border-emerald-200 dark:border-emerald-700">
                   <p className="text-emerald-800 dark:text-emerald-300 italic">{aiInsight.encouragement}</p>
@@ -301,7 +301,7 @@ export default function SelfCareGuides({ user }) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
       >
-        <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">
+        <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-200 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300 mb-3">
           Quick Mood Boosters (5 min or less)
         </h3>
         <div className="grid grid-cols-2 gap-3">
@@ -313,10 +313,10 @@ export default function SelfCareGuides({ user }) {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.3 + index * 0.05 }}
-                className="bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow"
+                className="bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-xl p-4 shadow-sm dark:shadow-none hover:shadow-md dark:shadow-none transition-shadow"
               >
                 <Icon className={`w-6 h-6 ${booster.color} mb-2`} />
-                <p className="text-xs text-gray-700 dark:text-gray-300">{booster.text}</p>
+                <p className="text-xs text-gray-700 dark:text-gray-200 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">{booster.text}</p>
               </motion.div>
             );
           })}
@@ -344,7 +344,7 @@ export default function SelfCareGuides({ user }) {
                 transition={{ delay: index * 0.05 }}
               >
                 <Card 
-                  className="cursor-pointer hover:shadow-lg transition-shadow overflow-hidden"
+                  className="cursor-pointer hover:shadow-lg dark:shadow-none transition-shadow overflow-hidden"
                   onClick={() => setExpandedTip(isExpanded ? null : tip.id)}
                 >
                   <div className={`h-2 bg-gradient-to-r ${tip.color}`} />
@@ -355,7 +355,7 @@ export default function SelfCareGuides({ user }) {
                           <Icon className="w-6 h-6 text-white" />
                         </div>
                         <div>
-                          <p className="text-xs text-gray-500 dark:text-gray-400">{tip.category}</p>
+                          <p className="text-xs text-gray-500 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">{tip.category}</p>
                           <CardTitle className="text-base">{tip.title}</CardTitle>
                         </div>
                       </div>
@@ -368,7 +368,7 @@ export default function SelfCareGuides({ user }) {
                         <Plus className="w-4 h-4" />
                       </Button>
                     </div>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">{tip.description}</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300 mt-2">{tip.description}</p>
                   </CardHeader>
                   
                   {isExpanded && (
@@ -378,12 +378,12 @@ export default function SelfCareGuides({ user }) {
                         animate={{ opacity: 1, height: 'auto' }}
                         exit={{ opacity: 0, height: 0 }}
                       >
-                        <p className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                        <p className="text-sm font-semibold text-gray-700 dark:text-gray-200 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300 mb-2">
                           Practices to try:
                         </p>
                         <ul className="space-y-2">
                           {tip.tips.map((practice, idx) => (
-                            <li key={idx} className="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-400">
+                            <li key={idx} className="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">
                               <span className="text-[#AFC7E3] mt-1">•</span>
                               <span>{practice}</span>
                             </li>
@@ -424,7 +424,7 @@ export default function SelfCareGuides({ user }) {
                       <Plus className="w-4 h-4" />
                     </Button>
                     </div>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">{guide.description}</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">{guide.description}</p>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-2">
@@ -438,7 +438,7 @@ export default function SelfCareGuides({ user }) {
                               {idx + 1}
                             </span>
                           </div>
-                          <p className="text-sm text-gray-700 dark:text-gray-300">{activity}</p>
+                          <p className="text-sm text-gray-700 dark:text-gray-200 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">{activity}</p>
                         </div>
                       ))}
                     </div>

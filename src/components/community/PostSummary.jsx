@@ -41,7 +41,7 @@ export default function PostSummary({ content, comments }) {
   if (!shouldShowSummary) return null;
 
   return (
-    <div className="mt-3 pt-3 border-t border-gray-100 dark:border-white/10">
+    <div className="mt-3 pt-3 border-t border-gray-100 dark:border-white/10 dark:border-white/10">
       {!summary && !loading && (
         <Button
           variant="ghost"
@@ -55,7 +55,7 @@ export default function PostSummary({ content, comments }) {
       )}
 
       {loading && (
-        <div className="flex items-center gap-2 text-gray-500 text-xs">
+        <div className="flex items-center gap-2 text-gray-500 dark:text-gray-300 text-xs">
           <Loader2 className="w-3 h-3 animate-spin" />
           <span>Generating summary...</span>
         </div>
@@ -84,11 +84,11 @@ export default function PostSummary({ content, comments }) {
           
           {expanded && (
             <>
-              <p className="text-sm text-gray-700 mb-2">{summary.summary}</p>
+              <p className="text-sm text-gray-700 dark:text-gray-200 mb-2">{summary.summary}</p>
               {summary.key_points && summary.key_points.length > 0 && (
                 <div className="space-y-1">
-                  <p className="text-xs font-medium text-gray-600">Key Points:</p>
-                  <ul className="list-disc list-inside text-xs text-gray-600 space-y-0.5">
+                  <p className="text-xs font-medium text-gray-600 dark:text-gray-300">Key Points:</p>
+                  <ul className="list-disc list-inside text-xs text-gray-600 dark:text-gray-300 space-y-0.5">
                     {summary.key_points.map((point, i) => (
                       <li key={i}>{point}</li>
                     ))}

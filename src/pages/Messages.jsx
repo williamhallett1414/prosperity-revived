@@ -393,7 +393,7 @@ export default function Messages() {
                   </div>
                 ) : filtered.length === 0 ? (
                   <div className="flex flex-col items-center justify-center py-16 px-6 text-center">
-                    <MessageCircle className="w-10 h-10 text-[#0A1A2F]/10 mb-3" />
+                    <MessageCircle className="w-10 h-10 text-[#0A1A2F]/10 dark:text-white/10 mb-3" />
                     <p className="text-sm font-semibold text-[#0A1A2F]/40 dark:text-white/40">
                       {search ? 'No conversations found' : 'No messages yet'}
                     </p>
@@ -437,7 +437,7 @@ export default function Messages() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.06 }}
                   onClick={() => navigate(createPageUrl(`ChatScreen?bot=${coach.key}`))}
-                  className="w-full flex items-center gap-3 bg-white dark:bg-white/5 rounded-2xl border border-[#F2F6FA] hover:border-[#FAD98D]/40 hover:shadow-sm p-4 transition-all text-left"
+                  className="w-full flex items-center gap-3 bg-white dark:bg-white/5 rounded-2xl border border-[#F2F6FA] hover:border-[#FAD98D]/40 hover:shadow-sm dark:shadow-none p-4 transition-all text-left"
                 >
                   <div className={`w-11 h-11 rounded-xl bg-gradient-to-br ${coach.bg} flex items-center justify-center flex-shrink-0`}>
                     <span style={{ fontSize: 14, fontWeight: 700, color: '#fff', letterSpacing: 0 }}>{coach.icon}</span>

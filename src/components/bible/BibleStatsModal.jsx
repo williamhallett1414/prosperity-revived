@@ -197,7 +197,7 @@ export default function BibleStatsModal({ isOpen, onClose, statType, progress, b
                       </div>
                       {bookmark.highlight_color && (
                         <div
-                          className="w-4 h-4 rounded-full border-2 border-white shadow-sm flex-shrink-0"
+                          className="w-4 h-4 rounded-full border-2 border-white shadow-sm dark:shadow-none flex-shrink-0"
                           style={{
                             backgroundColor: bookmark.highlight_color === 'yellow' ? '#FCD34D'
                               : bookmark.highlight_color === 'blue' ? '#60A5FA'

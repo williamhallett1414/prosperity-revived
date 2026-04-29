@@ -139,7 +139,7 @@ export default function StartMyDayModal({ isOpen, onClose, user }) {
               </p>
               <button
                 onClick={() => { setBreathCount(0); setBreathPhase('inhale'); setBreathActive(true); }}
-                className="px-6 py-3 bg-gradient-to-r from-[#AFC7E3] to-[#0A1A2F] text-white rounded-full text-sm font-bold shadow-lg"
+                className="px-6 py-3 bg-gradient-to-r from-[#AFC7E3] to-[#0A1A2F] text-white rounded-full text-sm font-bold shadow-lg dark:shadow-none"
               >
                 Start Breathing
               </button>
@@ -259,7 +259,7 @@ export default function StartMyDayModal({ isOpen, onClose, user }) {
                 <p className="text-[10px] text-[#0A1A2F]/30 dark:text-white/30 mt-1">Step {step + 1} of {steps.length}</p>
               </div>
 
-              <div className="bg-white dark:bg-white/5 rounded-2xl p-5 min-h-[180px] flex items-center justify-center shadow-sm">
+              <div className="bg-white dark:bg-white/5 rounded-2xl p-5 min-h-[180px] flex items-center justify-center shadow-sm dark:shadow-none">
                 <div className="w-full">{currentStep.content}</div>
               </div>
             </motion.div>
@@ -285,7 +285,7 @@ export default function StartMyDayModal({ isOpen, onClose, user }) {
                   handleComplete();
                 }
               }}
-              className={`${step === 0 ? 'w-full' : 'flex-1'} bg-gradient-to-r from-[#c9a227] to-[#FD9C2D] text-white font-bold shadow-sm`}
+              className={`${step === 0 ? 'w-full' : 'flex-1'} bg-gradient-to-r from-[#c9a227] to-[#FD9C2D] text-white font-bold shadow-sm dark:shadow-none`}
               size="sm"
             >
               {step === steps.length - 1 ? 'Complete My Morning' : 'Next'}

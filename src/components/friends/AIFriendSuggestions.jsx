@@ -155,10 +155,10 @@ Return ONLY a JSON array with top ${limit} email addresses in order of compatibi
 
   if (isAnalyzing) {
     return (
-      <div className="bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-xl p-6 shadow-sm">
+      <div className="bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-xl p-6 shadow-sm dark:shadow-none">
         <div className="flex items-center justify-center gap-3">
           <Loader2 className="w-5 h-5 text-[#c9a227] animate-spin" />
-          <p className="text-gray-600 dark:text-gray-400">Finding friends for you...</p>
+          <p className="text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">Finding friends for you...</p>
         </div>
       </div>
     );
@@ -169,7 +169,7 @@ Return ONLY a JSON array with top ${limit} email addresses in order of compatibi
   }
 
   return (
-    <div className="bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-xl p-4 shadow-sm">
+    <div className="bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-xl p-4 shadow-sm dark:shadow-none">
       {showHeader && (
         <div className="flex items-center gap-2 mb-4">
           <Sparkles className="w-5 h-5 text-[#c9a227]" />
@@ -206,7 +206,7 @@ Return ONLY a JSON array with top ${limit} email addresses in order of compatibi
                   <p className="font-semibold text-[#0A1A2F] dark:text-white truncate">
                     {suggestedUser.full_name || 'User'}
                   </p>
-                  <p className="text-sm text-gray-500 dark:text-gray-400 truncate">
+                  <p className="text-sm text-gray-500 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300 truncate">
                     {suggestedUser.bio?.slice(0, 40) || suggestedUser.email}
                   </p>
                 </div>

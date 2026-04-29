@@ -63,7 +63,7 @@ export default function MealSuggestions() {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: idx * 0.05 }}
-            className="bg-white dark:bg-white/5 rounded-lg p-4 flex gap-3 shadow-sm hover:shadow-md transition-shadow"
+            className="bg-white dark:bg-white/5 rounded-lg p-4 flex gap-3 shadow-sm dark:shadow-none hover:shadow-md dark:shadow-none transition-shadow"
           >
             <div className="text-3xl">{meal.image}</div>
             <div className="flex-1 min-w-0">

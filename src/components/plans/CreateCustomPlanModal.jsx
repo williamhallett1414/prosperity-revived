@@ -100,7 +100,7 @@ export default function CreateCustomPlanModal({ isOpen, onClose, onSubmit }) {
             <div className="space-y-2 max-h-64 overflow-y-auto">
               {readings.map((reading, index) => (
                 <div key={index} className="flex gap-2 items-center">
-                  <span className="text-sm text-gray-500 w-12">Day {index + 1}</span>
+                  <span className="text-sm text-gray-500 dark:text-gray-300 w-12">Day {index + 1}</span>
                   <Select
                     value={reading.book}
                     onValueChange={(value) => updateReading(index, 'book', value)}

@@ -92,7 +92,7 @@ export default function ProgressCharts() {
                 </BarChart>
               </ResponsiveContainer>
             ) : (
-              <div className="h-full flex items-center justify-center text-gray-500 dark:text-gray-400">
+              <div className="h-full flex items-center justify-center text-gray-500 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">
                 No water intake data yet
               </div>
             )}
@@ -138,7 +138,7 @@ export default function ProgressCharts() {
                 </AreaChart>
               </ResponsiveContainer>
             ) : (
-              <div className="h-full flex items-center justify-center text-gray-500 dark:text-gray-400">
+              <div className="h-full flex items-center justify-center text-gray-500 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">
                 No meditation sessions yet
               </div>
             )}

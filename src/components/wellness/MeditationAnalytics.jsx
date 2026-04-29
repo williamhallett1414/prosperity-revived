@@ -127,7 +127,7 @@ export default function MeditationAnalytics({ user }) {
         <div className="flex items-end justify-between gap-2 h-32">
           {last7Days.map((day, i) => (
             <div key={i} className="flex flex-col items-center gap-1 flex-1">
-              <div className="text-xs text-gray-500">{day.count}</div>
+              <div className="text-xs text-gray-500 dark:text-gray-300">{day.count}</div>
               <motion.div
                 initial={{ height: 0 }}
                 animate={{ height: `${(day.minutes / maxMinutes) * 100}%` }}
@@ -135,7 +135,7 @@ export default function MeditationAnalytics({ user }) {
                 className="w-full bg-gradient-to-t from-[#c9a227] to-[#FAD98D] rounded-t-lg min-h-[4px]"
                 title={`${day.minutes} minutes`}
               />
-              <div className="text-xs text-gray-500 mt-1">{day.day}</div>
+              <div className="text-xs text-gray-500 dark:text-gray-300 mt-1">{day.day}</div>
             </div>
           ))}
         </div>
@@ -158,7 +158,7 @@ export default function MeditationAnalytics({ user }) {
             className="h-full bg-gradient-to-r from-green-400 to-green-600"
           />
         </div>
-        <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">
+        <p className="text-sm text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300 mt-2">
           {consistencyScore >= 80 ? '🎉 Amazing consistency!' : 
            consistencyScore >= 50 ? '💪 Good progress!' : 
            '🌱 Keep building your practice'}
@@ -172,7 +172,7 @@ export default function MeditationAnalytics({ user }) {
           <div className="space-y-2">
             {topTypes.map(([type, count], i) => (
               <div key={type} className="flex items-center justify-between">
-                <span className="text-sm text-gray-700 dark:text-gray-300 capitalize">
+                <span className="text-sm text-gray-700 dark:text-gray-200 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300 capitalize">
                   {type.replace('_', ' ')}
                 </span>
                 <div className="flex items-center gap-2">
@@ -197,7 +197,7 @@ export default function MeditationAnalytics({ user }) {
       {/* Feedback Message */}
       <Card className="p-4 bg-gradient-to-br from-[#FAD98D]/10 to-[#FAD98D]/10 dark:from-[#FAD98D]/5 dark:to-[#FAD98D]/5 border-[#FAD98D]/40 dark:border-[#FAD98D]/20">
         <h3 className="font-semibold text-gray-900 dark:text-white mb-2">💡 Insight</h3>
-        <p className="text-sm text-gray-700 dark:text-gray-300">
+        <p className="text-sm text-gray-700 dark:text-gray-200 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">
           {totalSessions === 0 ? 
             "Start your meditation journey today! Even 5 minutes can make a difference." :
            currentStreak >= 7 ?

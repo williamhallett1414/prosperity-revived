@@ -138,7 +138,7 @@ export default function InterestsGoalsEditor({ user }) {
             {/* Interests */}
             <div className="mb-4">
               <div className="flex items-center justify-between mb-2">
-                <label className="text-sm font-medium text-[#0A1A2F]/75">
+                <label className="text-sm font-medium text-[#0A1A2F]/75 dark:text-white/75">
                   Interests
                 </label>
                 {editMode !== `${section.key}-interests` && (
@@ -215,7 +215,7 @@ export default function InterestsGoalsEditor({ user }) {
             {/* Goals */}
             <div>
               <div className="flex items-center justify-between mb-2">
-                <label className="text-sm font-medium text-[#0A1A2F]/75 flex items-center gap-1">
+                <label className="text-sm font-medium text-[#0A1A2F]/75 dark:text-white/75 flex items-center gap-1">
                   <Target className="w-4 h-4" />
                   Goals
                 </label>

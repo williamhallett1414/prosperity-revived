@@ -100,8 +100,8 @@ export default function ChatbotPersonalitySettings({ user }) {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Chatbot Personalities</h2>
-        <p className="text-gray-600">Customize how your AI guides communicate with you</p>
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Chatbot Personalities</h2>
+        <p className="text-gray-600 dark:text-gray-300">Customize how your AI guides communicate with you</p>
       </div>
 
       <Tabs value={selectedChatbot} onValueChange={setSelectedChatbot}>

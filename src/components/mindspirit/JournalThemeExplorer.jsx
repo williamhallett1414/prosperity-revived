@@ -90,10 +90,10 @@ Format each exercise with clear separators. Make them actionable and emotionally
       >
         <div className="flex items-center gap-3">
           <Sparkles className="w-5 h-5 text-amber-600" />
-          <span className="font-semibold text-gray-900">Explore Your Themes & Emotions</span>
+          <span className="font-semibold text-gray-900 dark:text-white">Explore Your Themes & Emotions</span>
         </div>
         <motion.div animate={{ rotate: isExpanded ? 180 : 0 }}>
-          <ChevronDown className="w-5 h-5 text-gray-600" />
+          <ChevronDown className="w-5 h-5 text-gray-600 dark:text-gray-300" />
         </motion.div>
       </button>
 
@@ -109,7 +109,7 @@ Format each exercise with clear separators. Make them actionable and emotionally
               {/* Emotions Selection */}
               {patterns.emotionalPatterns.length > 0 && (
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  <label className="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2">
                     <Heart className="w-4 h-4 inline mr-1" />
                     Emotions from Your Reflections
                   </label>
@@ -121,7 +121,7 @@ Format each exercise with clear separators. Make them actionable and emotionally
                         className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
                           selectedEmotions.includes(emotion)
                             ? 'bg-red-500 text-white ring-2 ring-red-300'
-                            : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                            : 'bg-gray-100 dark:bg-white/5 text-gray-700 dark:text-gray-200 hover:bg-gray-200'
                         }`}
                       >
                         {emotion}
@@ -134,7 +134,7 @@ Format each exercise with clear separators. Make them actionable and emotionally
               {/* Themes Selection */}
               {patterns.keyThemes.length > 0 && (
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  <label className="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2">
                     <BookOpen className="w-4 h-4 inline mr-1" />
                     Life Themes in Your Entries
                   </label>
@@ -146,7 +146,7 @@ Format each exercise with clear separators. Make them actionable and emotionally
                         className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
                           selectedThemes.includes(theme)
                             ? 'bg-[#F2F6FA] dark:bg-[#0A1A2F]0 text-white ring-2 ring-blue-300'
-                            : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                            : 'bg-gray-100 dark:bg-white/5 text-gray-700 dark:text-gray-200 hover:bg-gray-200'
                         }`}
                       >
                         {theme}
@@ -158,7 +158,7 @@ Format each exercise with clear separators. Make them actionable and emotionally
 
               {/* Selected Count */}
               {(selectedThemes.length > 0 || selectedEmotions.length > 0) && (
-                <div className="text-sm text-gray-600">
+                <div className="text-sm text-gray-600 dark:text-gray-300">
                   {selectedThemes.length + selectedEmotions.length} selected
                 </div>
               )}
@@ -200,10 +200,10 @@ Format each exercise with clear separators. Make them actionable and emotionally
           >
             <div className="flex items-center gap-2 mb-4">
               <BookOpen className="w-5 h-5 text-[#C9A227]" />
-              <h3 className="font-bold text-gray-900">Your Personalized Exercises</h3>
+              <h3 className="font-bold text-gray-900 dark:text-white">Your Personalized Exercises</h3>
             </div>
 
-            <div className="prose prose-sm max-w-none text-gray-800 whitespace-pre-wrap text-sm leading-relaxed">
+            <div className="prose prose-sm max-w-none text-gray-800 dark:text-gray-100 whitespace-pre-wrap text-sm leading-relaxed">
               {exercises}
             </div>
 
@@ -220,7 +220,7 @@ Format each exercise with clear separators. Make them actionable and emotionally
 
             <button
               onClick={() => setShowExercises(false)}
-              className="w-full mt-2 text-sm text-gray-500 hover:text-gray-700"
+              className="w-full mt-2 text-sm text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:text-gray-200"
             >
               Close
             </button>

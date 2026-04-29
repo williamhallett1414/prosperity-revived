@@ -71,7 +71,7 @@ Respond with compassion and biblical wisdom:`,
             animate={{ scale: 1 }}
             exit={{ scale: 0 }}
             onClick={() => setIsOpen(true)}
-            className="fixed bottom-24 right-4 z-40 w-14 h-14 bg-gradient-to-br from-[#c9a227] to-[#FAD98D] rounded-full shadow-lg flex items-center justify-center text-white hover:shadow-xl transition-shadow"
+            className="fixed bottom-24 right-4 z-40 w-14 h-14 bg-gradient-to-br from-[#c9a227] to-[#FAD98D] rounded-full shadow-lg dark:shadow-none flex items-center justify-center text-white hover:shadow-xl transition-shadow"
           >
             <MessageCircle className="w-6 h-6" />
           </motion.button>

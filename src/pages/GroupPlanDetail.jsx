@@ -157,12 +157,12 @@ export default function GroupPlanDetail() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-white dark:bg-white/5 rounded-xl p-4 mb-6 shadow-sm"
+            className="bg-white dark:bg-white/5 rounded-xl p-4 mb-6 shadow-sm dark:shadow-none"
           >
             <div className="flex items-center justify-between">
               <div>
                 <Label className="font-medium">Share my progress with group</Label>
-                <p className="text-xs text-gray-500">Let others see your completion status</p>
+                <p className="text-xs text-gray-500 dark:text-gray-300">Let others see your completion status</p>
               </div>
               <Switch
                 checked={membership.share_progress}
@@ -190,7 +190,7 @@ export default function GroupPlanDetail() {
           {/* Daily Readings Tab */}
           <TabsContent value="daily">
             <div className="space-y-3">
-              <h3 className="font-semibold text-gray-900">Daily Readings</h3>
+              <h3 className="font-semibold text-gray-900 dark:text-white">Daily Readings</h3>
               {days.map(day => {
                 const isCompleted = completedDays.includes(day);
                 return (
@@ -207,12 +207,12 @@ export default function GroupPlanDetail() {
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
                         <div className={`w-10 h-10 rounded-lg flex items-center justify-center font-semibold ${
-                          isCompleted ? 'bg-green-500 text-white' : 'bg-gray-100 text-gray-600'
+                          isCompleted ? 'bg-green-500 text-white' : 'bg-gray-100 dark:bg-white/5 text-gray-600 dark:text-gray-300'
                         }`}>
                           {isCompleted ? <CheckCircle2 className="w-5 h-5" /> : day}
                         </div>
                         <div>
-                          <h4 className="font-semibold text-gray-900">Day {day}</h4>
+                          <h4 className="font-semibold text-gray-900 dark:text-white">Day {day}</h4>
                         </div>
                       </div>
                       <Button

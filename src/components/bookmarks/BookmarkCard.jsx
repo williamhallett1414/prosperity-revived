@@ -17,14 +17,14 @@ export default function BookmarkCard({ bookmark, onDelete, onOpen, index }) {
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ delay: index * 0.05 }}
-      className={`rounded-xl border-l-4 p-4 ${highlightColors[bookmark.highlight_color] || 'border-l-gray-300 bg-gray-50 dark:bg-white/5'}`}
+      className={`rounded-xl border-l-4 p-4 ${highlightColors[bookmark.highlight_color] || 'border-l-gray-300 bg-gray-50 dark:bg-white/5 dark:bg-white/5'}`}
     >
-      <p className="font-serif text-gray-800 mb-3 leading-relaxed">
+      <p className="font-serif text-gray-800 dark:text-gray-100 mb-3 leading-relaxed">
         "{bookmark.verse_text}"
       </p>
       
       <div className="flex items-center justify-between">
-        <span className="text-sm font-medium text-gray-600">
+        <span className="text-sm font-medium text-gray-600 dark:text-gray-300">
           {bookmark.book} {bookmark.chapter}:{bookmark.verse}
         </span>
         
@@ -33,7 +33,7 @@ export default function BookmarkCard({ bookmark, onDelete, onOpen, index }) {
             variant="ghost"
             size="sm"
             onClick={() => onOpen(bookmark)}
-            className="text-gray-500 hover:text-[#0A1A2F] dark:text-white dark:text-white"
+            className="text-gray-500 dark:text-gray-300 hover:text-[#0A1A2F] dark:text-white dark:text-white"
           >
             <BookOpen className="w-4 h-4" />
           </Button>
@@ -41,7 +41,7 @@ export default function BookmarkCard({ bookmark, onDelete, onOpen, index }) {
             variant="ghost"
             size="sm"
             onClick={() => onDelete(bookmark.id)}
-            className="text-gray-500 hover:text-red-500"
+            className="text-gray-500 dark:text-gray-300 hover:text-red-500"
           >
             <Trash2 className="w-4 h-4" />
           </Button>
@@ -49,7 +49,7 @@ export default function BookmarkCard({ bookmark, onDelete, onOpen, index }) {
       </div>
       
       {bookmark.note && (
-        <p className="mt-3 pt-3 border-t text-sm text-gray-500 italic">
+        <p className="mt-3 pt-3 border-t text-sm text-gray-500 dark:text-gray-300 italic">
           {bookmark.note}
         </p>
       )}

@@ -25,7 +25,7 @@ export default function PreviewPlanModal({ plan, open, onOpenChange }) {
           <div className="flex items-start justify-between w-full gap-4">
             <div>
               <DialogTitle className="text-2xl">{plan.title}</DialogTitle>
-              <p className="text-sm text-gray-600 mt-1">{plan.subtitle}</p>
+              <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">{plan.subtitle}</p>
             </div>
           </div>
         </DialogHeader>
@@ -64,8 +64,8 @@ export default function PreviewPlanModal({ plan, open, onOpenChange }) {
               <TabsContent value="scripture" className="space-y-4">
                 <div className="space-y-3">
                   <div>
-                    <p className="text-sm font-semibold text-gray-600">Reading</p>
-                    <p className="text-lg font-bold text-gray-900">
+                    <p className="text-sm font-semibold text-gray-600 dark:text-gray-300">Reading</p>
+                    <p className="text-lg font-bold text-gray-900 dark:text-white">
                       {day1.bible.book} {day1.bible.chapter}:{day1.bible.verse_range}
                     </p>
                   </div>
@@ -78,8 +78,8 @@ export default function PreviewPlanModal({ plan, open, onOpenChange }) {
 
                   {day1.bible.devotion && (
                     <div>
-                      <p className="text-sm font-semibold text-gray-600 mb-2">Devotion</p>
-                      <p className="text-sm text-gray-700 leading-relaxed">{day1.bible.devotion}</p>
+                      <p className="text-sm font-semibold text-gray-600 dark:text-gray-300 mb-2">Devotion</p>
+                      <p className="text-sm text-gray-700 dark:text-gray-200 leading-relaxed">{day1.bible.devotion}</p>
                     </div>
                   )}
 
@@ -98,8 +98,8 @@ export default function PreviewPlanModal({ plan, open, onOpenChange }) {
               <TabsContent value="workout" className="space-y-4">
                 <div className="space-y-3">
                   <div>
-                    <p className="text-sm font-semibold text-gray-600">Type</p>
-                    <p className="text-lg font-bold text-gray-900">
+                    <p className="text-sm font-semibold text-gray-600 dark:text-gray-300">Type</p>
+                    <p className="text-lg font-bold text-gray-900 dark:text-white">
                       {PREMADE_WORKOUTS.find(w => w.id === day1.workout.premade_id)?.title || day1.workout.workout_title || day1.workout.premade_id}
                     </p>
                   </div>
@@ -126,13 +126,13 @@ export default function PreviewPlanModal({ plan, open, onOpenChange }) {
               <TabsContent value="nutrition" className="space-y-4">
                 <div className="space-y-3">
                   <div>
-                    <p className="text-sm font-semibold text-gray-600">Focus</p>
-                    <p className="text-lg font-bold text-gray-900">{day1.nutrition.focus}</p>
+                    <p className="text-sm font-semibold text-gray-600 dark:text-gray-300">Focus</p>
+                    <p className="text-lg font-bold text-gray-900 dark:text-white">{day1.nutrition.focus}</p>
                   </div>
 
                   <div>
-                    <p className="text-sm font-semibold text-gray-600">Theme</p>
-                    <p className="text-gray-900">{day1.nutrition.meal_theme}</p>
+                    <p className="text-sm font-semibold text-gray-600 dark:text-gray-300">Theme</p>
+                    <p className="text-gray-900 dark:text-white">{day1.nutrition.meal_theme}</p>
                   </div>
 
                   {day1.nutrition.plan && (

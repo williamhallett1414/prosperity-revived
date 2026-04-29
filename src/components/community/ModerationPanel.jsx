@@ -69,8 +69,8 @@ export default function ModerationPanel({ user }) {
   if (!isAdmin) {
     return (
       <div className="text-center py-12">
-        <Shield className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-        <p className="text-sm text-gray-500 font-semibold">Admin access required</p>
+        <Shield className="w-12 h-12 text-gray-300 dark:text-gray-400 dark:text-gray-300 mx-auto mb-3" />
+        <p className="text-sm text-gray-500 dark:text-gray-300 font-semibold">Admin access required</p>
       </div>
     );
   }
@@ -87,7 +87,7 @@ export default function ModerationPanel({ user }) {
         {['pending', 'resolved', 'dismissed', 'all'].map(f => (
           <button key={f} onClick={() => setFilter(f)}
             className={`px-3 py-1.5 rounded-full text-xs font-bold capitalize transition-all ${
-              filter === f ? 'bg-[#0A1A2F] text-white' : 'bg-gray-100 text-gray-500'
+              filter === f ? 'bg-[#0A1A2F] text-white' : 'bg-gray-100 dark:bg-white/5 text-gray-500 dark:text-gray-300'
             }`}>
             {f}
           </button>
@@ -112,29 +112,29 @@ export default function ModerationPanel({ user }) {
 
       {/* Reports list */}
       {isLoading ? (
-        <div className="text-center py-8 text-sm text-gray-400">Loading reports...</div>
+        <div className="text-center py-8 text-sm text-gray-400 dark:text-gray-300">Loading reports...</div>
       ) : reports.length === 0 ? (
         <div className="text-center py-8">
           <CheckCircle className="w-8 h-8 text-green-400 mx-auto mb-2" />
-          <p className="text-sm text-gray-500">No {filter} reports</p>
+          <p className="text-sm text-gray-500 dark:text-gray-300">No {filter} reports</p>
         </div>
       ) : (
         <div className="space-y-3">
           {reports.map(report => (
             <motion.div key={report.id}
               initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
-              className="bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 p-4 shadow-sm">
+              className="bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 p-4 shadow-sm dark:shadow-none">
               <div className="flex items-start gap-3">
                 <AlertTriangle className="w-4 h-4 text-amber-500 mt-0.5 flex-shrink-0" />
                 <div className="flex-1 min-w-0">
                   <p className="text-xs font-bold text-[#0A1A2F] dark:text-white dark:text-white">
                     Report #{report.id?.slice(-6)} · <span className="capitalize text-amber-600">{report.status || 'pending'}</span>
                   </p>
-                  <p className="text-xs text-gray-500 mt-0.5">
+                  <p className="text-xs text-gray-500 dark:text-gray-300 mt-0.5">
                     Reason: {report.reason || 'User flagged'} · By: {report.reporter_email || 'Anonymous'}
                   </p>
                   {report.post_id && (
-                    <p className="text-[10px] text-gray-400 mt-0.5">Post: {report.post_id}</p>
+                    <p className="text-[10px] text-gray-400 dark:text-gray-300 mt-0.5">Post: {report.post_id}</p>
                   )}
                 </div>
               </div>
@@ -147,7 +147,7 @@ export default function ModerationPanel({ user }) {
                   </button>
                   <button
                     onClick={() => resolveReport.mutate({ reportId: report.id, action: 'dismissed' })}
-                    className="flex-1 flex items-center justify-center gap-1 py-2 rounded-xl bg-gray-50 dark:bg-white/5 text-gray-500 text-xs font-bold">
+                    className="flex-1 flex items-center justify-center gap-1 py-2 rounded-xl bg-gray-50 dark:bg-white/5 text-gray-500 dark:text-gray-300 text-xs font-bold">
                     <Eye className="w-3 h-3" /> Dismiss
                   </button>
                   {report.post_id && (

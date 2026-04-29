@@ -174,12 +174,12 @@ Provide warm, helpful guidance (2-4 sentences) about reading plans, Bible study 
               placeholder="Search plans..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="pl-10 bg-gray-100 border-[#F2F6FA] rounded-xl h-12" />
+              className="pl-10 bg-gray-100 dark:bg-white/5 border-[#F2F6FA] rounded-xl h-12" />
             
           </div>
           <Button
             onClick={() => setShowCreateCustom(true)}
-            className="bg-gradient-to-r from-[#FAD98D] to-[#AFC7E3] hover:from-[#FAD98D]/90 hover:to-[#AFC7E3]/90 text-[#0A1A2F] dark:text-white h-12 px-4 shadow-md">
+            className="bg-gradient-to-r from-[#FAD98D] to-[#AFC7E3] hover:from-[#FAD98D]/90 hover:to-[#AFC7E3]/90 text-[#0A1A2F] dark:text-white h-12 px-4 shadow-md dark:shadow-none">
             
             <Plus className="w-5 h-5 sm:mr-2" />
             <span className="hidden sm:inline">Custom</span>
@@ -210,10 +210,10 @@ Provide warm, helpful guidance (2-4 sentences) about reading plans, Bible study 
                     <div>
                       <div className="flex items-center gap-2 mb-1">
                         <Users className="w-4 h-4 text-green-600" />
-                        <h3 className="font-semibold text-gray-900">{group.group_name}</h3>
+                        <h3 className="font-semibold text-gray-900 dark:text-white">{group.group_name}</h3>
                       </div>
-                      <p className="text-sm text-gray-600">{group.plan_name}</p>
-                      <p className="text-xs text-gray-500 mt-1">
+                      <p className="text-sm text-gray-600 dark:text-gray-300">{group.plan_name}</p>
+                      <p className="text-xs text-gray-500 dark:text-gray-300 mt-1">
                         {group.member_count} members • {group.total_days} days
                       </p>
                     </div>
@@ -233,7 +233,7 @@ Provide warm, helpful guidance (2-4 sentences) about reading plans, Bible study 
 
         {/* Categories */}
         <Tabs value={category} onValueChange={setCategory} className="mb-8">
-          <TabsList className="bg-gray-100 p-1 h-auto flex-wrap gap-1 rounded-xl">
+          <TabsList className="bg-gray-100 dark:bg-white/5 p-1 h-auto flex-wrap gap-1 rounded-xl">
             {categories.map((cat) =>
             <TabsTrigger
               key={cat}
@@ -254,7 +254,7 @@ Provide warm, helpful guidance (2-4 sentences) about reading plans, Bible study 
           
           <Button
             onClick={() => setShowGideon(!showGideon)}
-            className="w-14 h-14 rounded-full bg-[#AFC7E3] hover:bg-[#AFC7E3]/90 text-[#0A1A2F] dark:text-white shadow-lg">
+            className="w-14 h-14 rounded-full bg-[#AFC7E3] hover:bg-[#AFC7E3]/90 text-[#0A1A2F] dark:text-white shadow-lg dark:shadow-none">
             
             <MessageCircle className="w-6 h-6" />
           </Button>
@@ -281,7 +281,7 @@ Provide warm, helpful guidance (2-4 sentences) about reading plans, Bible study 
                 <div className="p-5 max-h-96 overflow-y-auto space-y-4 bg-[#F2F6FA] dark:bg-[#0A1A2F]">
                   {gideonResponse &&
                 <div className="space-y-3">
-                      <div className="bg-gray-100 p-4 rounded-xl">
+                      <div className="bg-gray-100 dark:bg-white/5 p-4 rounded-xl">
                         <p className="text-xs font-medium text-[#0A1A2F]/60 dark:text-white/60 mb-1">You asked:</p>
                         <p className="text-sm text-[#0A1A2F] dark:text-white dark:text-white">{gideonResponse.question}</p>
                       </div>

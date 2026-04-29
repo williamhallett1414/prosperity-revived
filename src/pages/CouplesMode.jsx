@@ -160,7 +160,7 @@ export default function CouplesMode() {
             {/* Partner linking */}
             {!isLinked && (
               <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
-                className="bg-white dark:bg-white/5 rounded-2xl p-5 border border-rose-100 shadow-sm">
+                className="bg-white dark:bg-white/5 rounded-2xl p-5 border border-rose-100 shadow-sm dark:shadow-none">
                 <div className="flex items-center gap-2 mb-3">
                   <Users className="w-4 h-4 text-rose-500" />
                   <h3 className="font-bold text-[#0A1A2F] dark:text-white text-sm">Link Your Partner</h3>
@@ -184,7 +184,7 @@ export default function CouplesMode() {
                   ) : (
                     <button onClick={() => generateCode.mutate()}
                       disabled={generateCode.isPending}
-                      className="w-full py-3 bg-gradient-to-r from-rose-500 to-pink-400 text-white font-bold text-sm rounded-xl shadow-sm">
+                      className="w-full py-3 bg-gradient-to-r from-rose-500 to-pink-400 text-white font-bold text-sm rounded-xl shadow-sm dark:shadow-none">
                       {generateCode.isPending ? 'Generating...' : 'Generate Invite Code'}
                     </button>
                   )}
@@ -230,7 +230,7 @@ export default function CouplesMode() {
 
             {/* Date night suggestion */}
             <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
-              <div className="bg-white dark:bg-white/5 rounded-2xl p-5 border border-gray-100 dark:border-white/10 shadow-sm">
+              <div className="bg-white dark:bg-white/5 rounded-2xl p-5 border border-gray-100 dark:border-white/10 shadow-sm dark:shadow-none">
                 <p className="text-[10px] font-bold text-[#0A1A2F]/35 dark:text-white/35 uppercase tracking-widest mb-3">Date Night Idea</p>
                 <div className="flex items-start gap-3">
                   <span className="text-3xl">{todayDate.emoji}</span>
@@ -257,13 +257,13 @@ export default function CouplesMode() {
             {/* Quick links */}
             <div className="grid grid-cols-2 gap-3">
               <button onClick={() => setActiveTab('devotional')}
-                className="bg-white dark:bg-white/5 rounded-2xl p-4 border border-gray-100 dark:border-white/10 shadow-sm text-left">
+                className="bg-white dark:bg-white/5 rounded-2xl p-4 border border-gray-100 dark:border-white/10 shadow-sm dark:shadow-none text-left">
                 <BookOpen className="w-5 h-5 text-rose-400 mb-2" />
                 <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">Devotional</p>
                 <p className="text-xs text-[#0A1A2F]/40 dark:text-white/40">Day {todayDevotional.day}</p>
               </button>
               <button onClick={() => setActiveTab('prayer')}
-                className="bg-white dark:bg-white/5 rounded-2xl p-4 border border-gray-100 dark:border-white/10 shadow-sm text-left">
+                className="bg-white dark:bg-white/5 rounded-2xl p-4 border border-gray-100 dark:border-white/10 shadow-sm dark:shadow-none text-left">
                 <MessageCircle className="w-5 h-5 text-rose-400 mb-2" />
                 <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">Prayer Wall</p>
                 <p className="text-xs text-[#0A1A2F]/40 dark:text-white/40">{sharedPrayers.length} prayers</p>
@@ -276,13 +276,13 @@ export default function CouplesMode() {
         {activeTab === 'devotional' && (
           <>
             <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
-              className="bg-gradient-to-br from-rose-500 to-pink-400 rounded-2xl p-6 text-white shadow-md">
+              className="bg-gradient-to-br from-rose-500 to-pink-400 rounded-2xl p-6 text-white shadow-md dark:shadow-none">
               <p className="text-xs font-bold text-white/60 uppercase tracking-widest mb-2">Day {todayDevotional.day} of 14</p>
               <h2 className="text-xl font-black mb-1">{todayDevotional.title}</h2>
               <p className="text-white/70 text-sm">{todayDevotional.verse}</p>
             </motion.div>
 
-            <div className="bg-white dark:bg-white/5 rounded-2xl p-5 border border-gray-100 dark:border-white/10 shadow-sm space-y-4">
+            <div className="bg-white dark:bg-white/5 rounded-2xl p-5 border border-gray-100 dark:border-white/10 shadow-sm dark:shadow-none space-y-4">
               <div>
                 <p className="text-xs font-bold text-[#0A1A2F]/35 dark:text-white/35 uppercase tracking-widest mb-2">Discussion Prompt</p>
                 <p className="text-[#0A1A2F] dark:text-white text-sm leading-relaxed">{todayDevotional.prompt}</p>
@@ -311,7 +311,7 @@ export default function CouplesMode() {
                       <div className={`w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 text-xs font-bold ${
                         isPast ? 'bg-green-100 text-green-600' :
                         isCurrent ? 'bg-rose-500 text-white' :
-                        'bg-gray-100 text-gray-400'
+                        'bg-gray-100 dark:bg-white/5 text-gray-400 dark:text-gray-300'
                       }`}>
                         {isPast ? <CheckCircle className="w-3.5 h-3.5" /> : d.day}
                       </div>
@@ -331,7 +331,7 @@ export default function CouplesMode() {
         {/* ══ PRAYER WALL TAB ══ */}
         {activeTab === 'prayer' && (
           <>
-            <div className="bg-white dark:bg-white/5 rounded-2xl p-4 border border-gray-100 dark:border-white/10 shadow-sm">
+            <div className="bg-white dark:bg-white/5 rounded-2xl p-4 border border-gray-100 dark:border-white/10 shadow-sm dark:shadow-none">
               <p className="text-xs font-bold text-[#0A1A2F]/35 dark:text-white/35 uppercase tracking-widest mb-3">
                 <Lock className="w-3 h-3 inline mr-1" />
                 Private Prayer Wall
@@ -353,9 +353,9 @@ export default function CouplesMode() {
 
             {sharedPrayers.length === 0 ? (
               <div className="text-center py-8">
-                <MessageCircle className="w-8 h-8 text-gray-300 mx-auto mb-2" />
-                <p className="text-sm text-gray-400 font-semibold">No prayers yet</p>
-                <p className="text-xs text-gray-300 mt-1">Start by sharing what's on your heart.</p>
+                <MessageCircle className="w-8 h-8 text-gray-300 dark:text-gray-400 dark:text-gray-300 mx-auto mb-2" />
+                <p className="text-sm text-gray-400 dark:text-gray-300 font-semibold">No prayers yet</p>
+                <p className="text-xs text-gray-300 dark:text-gray-400 dark:text-gray-300 mt-1">Start by sharing what's on your heart.</p>
               </div>
             ) : (
               <div className="space-y-3">
@@ -363,7 +363,7 @@ export default function CouplesMode() {
                   <motion.div key={prayer.id || i}
                     initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: i * 0.04 }}
-                    className="bg-white dark:bg-white/5 rounded-2xl p-4 border border-gray-100 dark:border-white/10 shadow-sm">
+                    className="bg-white dark:bg-white/5 rounded-2xl p-4 border border-gray-100 dark:border-white/10 shadow-sm dark:shadow-none">
                     <p className="text-sm text-[#0A1A2F] dark:text-white leading-relaxed">{prayer.content}</p>
                     <p className="text-[10px] text-[#0A1A2F]/30 dark:text-white/30 mt-2">
                       {new Date(prayer.created_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' })}
@@ -379,7 +379,7 @@ export default function CouplesMode() {
         {activeTab === 'goals' && (
           <>
             <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
-              className="bg-white dark:bg-white/5 rounded-2xl p-5 border border-gray-100 dark:border-white/10 shadow-sm">
+              className="bg-white dark:bg-white/5 rounded-2xl p-5 border border-gray-100 dark:border-white/10 shadow-sm dark:shadow-none">
               <div className="flex items-center gap-2 mb-4">
                 <Target className="w-4 h-4 text-rose-500" />
                 <h3 className="font-bold text-[#0A1A2F] dark:text-white dark:text-white">Joint Goals</h3>
@@ -412,7 +412,7 @@ export default function CouplesMode() {
                   <motion.div key={i}
                     initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: i * 0.04 }}
-                    className="bg-white dark:bg-white/5 rounded-2xl p-4 border border-gray-100 dark:border-white/10 shadow-sm">
+                    className="bg-white dark:bg-white/5 rounded-2xl p-4 border border-gray-100 dark:border-white/10 shadow-sm dark:shadow-none">
                     <span className="text-2xl block mb-2">{idea.emoji}</span>
                     <p className="text-xs font-bold text-[#0A1A2F] dark:text-white mb-0.5">{idea.title}</p>
                     <p className="text-[10px] text-[#0A1A2F]/40 dark:text-white/40 leading-relaxed">{idea.desc}</p>

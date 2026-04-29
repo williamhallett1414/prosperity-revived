@@ -64,7 +64,7 @@ export default function MultiActivityLeaderboard() {
           <button key={id} onClick={() => setSelected(id)}
             className={`rounded-xl py-2.5 flex flex-col items-center gap-1 text-[11px] font-bold transition-all ${
               selected === id
-                ? `bg-gradient-to-br ${gradient} text-white shadow-sm`
+                ? `bg-gradient-to-br ${gradient} text-white shadow-sm dark:shadow-none`
                 : 'bg-white dark:bg-white/5 text-[#0A1A2F]/50 dark:text-white/50 border border-[#FAD98D]/25'
             }`}>
             <Icon className="w-3.5 h-3.5" />

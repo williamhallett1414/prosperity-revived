@@ -198,7 +198,7 @@ function ToolRow({ page, icon: Icon, grad, label, sub, done, onTabSwitch }) {
   const content =
   <motion.div
     whileTap={{ scale: 0.98 }}
-    className="flex items-center gap-3 bg-white dark:bg-white/5 rounded-2xl px-4 py-3.5 border shadow-sm hover:shadow-md transition-all mb-2.5"
+    className="flex items-center gap-3 bg-white dark:bg-white/5 rounded-2xl px-4 py-3.5 border shadow-sm dark:shadow-none hover:shadow-md dark:shadow-none transition-all mb-2.5"
     style={{ borderColor: done ? "#BBF7D0" : "#F3F4F6" }}>
     
       <div className={`w-10 h-10 bg-gradient-to-br ${grad} rounded-xl flex items-center justify-center flex-shrink-0`}>
@@ -228,7 +228,7 @@ function DeepRow({ page, icon: Icon, grad, label, sub, onTabSwitch }) {
   const content =
   <motion.div
     whileTap={{ scale: 0.98 }}
-    className="flex items-center gap-3 bg-white dark:bg-white/5 rounded-2xl px-4 py-3.5 border border-gray-100 dark:border-white/10 shadow-sm hover:shadow-md transition-all mb-2.5">
+    className="flex items-center gap-3 bg-white dark:bg-white/5 rounded-2xl px-4 py-3.5 border border-gray-100 dark:border-white/10 shadow-sm dark:shadow-none hover:shadow-md dark:shadow-none transition-all mb-2.5">
     
       <div className={`w-10 h-10 bg-gradient-to-br ${grad} rounded-xl flex items-center justify-center flex-shrink-0`}>
         <Icon className="w-5 h-5 text-white" />
@@ -383,7 +383,7 @@ export default function PersonalGrowth() {
           <button key={tab.id} onClick={() => setActiveTab(tab.id)}
           className={`flex items-center gap-1.5 px-4 py-2.5 text-xs font-semibold flex-shrink-0 rounded-lg transition-all ${
           activeTab === tab.id ?
-          'bg-[#3C4E53] text-white shadow-sm' :
+          'bg-[#3C4E53] text-white shadow-sm dark:shadow-none' :
           'text-[#0A1A2F]/50 dark:text-white/50 hover:bg-[#AFC7E3]/15 hover:text-[#3C4E53]'}`
           }>
             
@@ -447,7 +447,7 @@ export default function PersonalGrowth() {
             <button key={sub.id}
             onClick={() => setActiveTab(sub.id)}
             className={`text-xs font-semibold px-3 py-2 rounded-lg border-2 flex-shrink-0 transition-all ${
-            activeTab === sub.id ? 'bg-gradient-to-r from-[#3C4E53] to-[#AFC7E3] text-white border-[#3C4E53] shadow-sm' : 'bg-white dark:bg-white/5 text-[#3C4E53] border-[#AFC7E3]/25 hover:border-[#AFC7E3]/50 hover:bg-[#AFC7E3]/10'}`
+            activeTab === sub.id ? 'bg-gradient-to-r from-[#3C4E53] to-[#AFC7E3] text-white border-[#3C4E53] shadow-sm dark:shadow-none' : 'bg-white dark:bg-white/5 text-[#3C4E53] border-[#AFC7E3]/25 hover:border-[#AFC7E3]/50 hover:bg-[#AFC7E3]/10'}`
             }>
               {sub.label}
                 </button>
@@ -476,7 +476,7 @@ export default function PersonalGrowth() {
             <button key={sub.id}
             onClick={() => setActiveTab(sub.id)}
             className={`text-xs font-semibold px-3 py-2 rounded-lg border-2 flex-shrink-0 transition-all ${
-            activeTab === sub.id ? 'bg-gradient-to-r from-[#3C4E53] to-[#AFC7E3] text-white border-[#3C4E53] shadow-sm' : 'bg-white dark:bg-white/5 text-[#3C4E53] border-[#AFC7E3]/25 hover:border-[#AFC7E3]/50 hover:bg-[#AFC7E3]/10'}`
+            activeTab === sub.id ? 'bg-gradient-to-r from-[#3C4E53] to-[#AFC7E3] text-white border-[#3C4E53] shadow-sm dark:shadow-none' : 'bg-white dark:bg-white/5 text-[#3C4E53] border-[#AFC7E3]/25 hover:border-[#AFC7E3]/50 hover:bg-[#AFC7E3]/10'}`
             }>
               {sub.label}
                 </button>
@@ -555,7 +555,7 @@ export default function PersonalGrowth() {
             
               {lastMood &&
             <button onClick={() => setActiveTab('habits-emotional')} className="text-left">
-                  <div className="bg-white dark:bg-white/5 rounded-2xl p-4 border border-gray-100 dark:border-white/10 shadow-sm h-full hover:shadow-md transition-all">
+                  <div className="bg-white dark:bg-white/5 rounded-2xl p-4 border border-gray-100 dark:border-white/10 shadow-sm dark:shadow-none h-full hover:shadow-md dark:shadow-none transition-all">
                     <p className="text-[10px] font-bold text-[#0A1A2F]/40 dark:text-white/40 uppercase tracking-widest mb-2">Last check-in</p>
                     <div className="flex items-center gap-2">
                       <span className="text-2xl">{lastMood.emoji}</span>
@@ -569,7 +569,7 @@ export default function PersonalGrowth() {
             }
               {lastJournal &&
             <button onClick={() => setActiveTab('journal')} className="text-left">
-                  <div className="bg-white dark:bg-white/5 rounded-2xl p-4 border border-gray-100 dark:border-white/10 shadow-sm h-full hover:shadow-md transition-all">
+                  <div className="bg-white dark:bg-white/5 rounded-2xl p-4 border border-gray-100 dark:border-white/10 shadow-sm dark:shadow-none h-full hover:shadow-md dark:shadow-none transition-all">
                     <p className="text-[10px] font-bold text-[#0A1A2F]/40 dark:text-white/40 uppercase tracking-widest mb-2">Last reflection</p>
                     <p className="text-xs text-[#0A1A2F]/70 dark:text-white/70 leading-relaxed line-clamp-3">{lastJournal.preview}</p>
                     {lastJournal.date && <p className="text-[10px] text-[#0A1A2F]/30 dark:text-white/30 mt-1.5">{lastJournal.date}</p>}
@@ -586,7 +586,7 @@ export default function PersonalGrowth() {
               setActiveTab(tabMap[nextCard.page] || 'dashboard');
             }}>
               <div
-                className="rounded-2xl p-5 flex items-center gap-4 shadow-sm hover:shadow-md transition-all"
+                className="rounded-2xl p-5 flex items-center gap-4 shadow-sm dark:shadow-none hover:shadow-md dark:shadow-none transition-all"
                 style={{ background: "linear-gradient(135deg,#AFC7E3,#3C4E53)" }}>
                 
                 <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center flex-shrink-0">

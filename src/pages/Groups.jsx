@@ -155,7 +155,7 @@ function MyGroupRow({ group, onClick, index }) {
     <motion.button
       initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: index * 0.05 }}
       onClick={onClick}
-      className="w-full flex items-center gap-3 bg-white dark:bg-white/5 rounded-2xl border border-[#AFC7E3]/20 p-3.5 hover:border-[#FAD98D]/40 hover:shadow-sm transition-all text-left"
+      className="w-full flex items-center gap-3 bg-white dark:bg-white/5 rounded-2xl border border-[#AFC7E3]/20 p-3.5 hover:border-[#FAD98D]/40 hover:shadow-sm dark:shadow-none transition-all text-left"
     >
       <div className={`w-11 h-11 rounded-xl bg-gradient-to-br ${gradient} flex items-center justify-center flex-shrink-0`}>
         <span className="text-xl">{cat.emoji}</span>
@@ -186,7 +186,7 @@ function FeaturedCard({ group, onClick }) {
     <motion.button
       whileTap={{ scale: 0.98 }}
       onClick={onClick}
-      className="relative flex-shrink-0 w-56 bg-white dark:bg-white/5 rounded-2xl overflow-hidden border border-[#FAD98D]/20 hover:shadow-md transition-all text-left"
+      className="relative flex-shrink-0 w-56 bg-white dark:bg-white/5 rounded-2xl overflow-hidden border border-[#FAD98D]/20 hover:shadow-md dark:shadow-none transition-all text-left"
     >
       <div className={`h-20 bg-gradient-to-br ${gradient} flex items-center justify-center`}>
         <span className="text-3xl opacity-60">{cat?.emoji || '💬'}</span>
@@ -242,7 +242,7 @@ function SortDropdown({ value, onChange }) {
           <>
             <div className="fixed inset-0 z-10" onClick={() => setOpen(false)} />
             <motion.div initial={{ opacity: 0, scale: 0.95, y: -4 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95 }}
-              className="absolute right-0 top-6 z-20 bg-white dark:bg-white/5 rounded-xl shadow-lg border border-[#F2F6FA] overflow-hidden min-w-[140px]">
+              className="absolute right-0 top-6 z-20 bg-white dark:bg-white/5 rounded-xl shadow-lg dark:shadow-none border border-[#F2F6FA] overflow-hidden min-w-[140px]">
               {SORT_OPTIONS.map(opt => (
                 <button key={opt.value}
                   onClick={() => { onChange(opt.value); setOpen(false); }}
@@ -375,7 +375,7 @@ export default function Groups() {
             )}
           </div>
           <button onClick={() => setShowCreate(true)}
-            className="w-9 h-9 rounded-full bg-gradient-to-br from-[#FAD98D] to-[#c9a227] flex items-center justify-center shadow-sm hover:opacity-90 transition-opacity flex-shrink-0">
+            className="w-9 h-9 rounded-full bg-gradient-to-br from-[#FAD98D] to-[#c9a227] flex items-center justify-center shadow-sm dark:shadow-none hover:opacity-90 transition-opacity flex-shrink-0">
             <Plus className="w-4 h-4 text-white" />
           </button>
         </div>

@@ -167,7 +167,7 @@ export default function DiscoverRecipes() {
                     {activeSort?.label}
                   </button>
                   {showSort && (
-                    <div className="absolute right-0 top-full mt-1 bg-white dark:bg-white/5 rounded-2xl border border-[#FAD98D]/20 shadow-lg py-1.5 z-50 min-w-[110px]">
+                    <div className="absolute right-0 top-full mt-1 bg-white dark:bg-white/5 rounded-2xl border border-[#FAD98D]/20 shadow-lg dark:shadow-none py-1.5 z-50 min-w-[110px]">
                       {SORT_OPTIONS.map(opt => (
                         <button key={opt.value}
                           onClick={() => { setSort(opt.value); setShowSort(false); }}
@@ -198,7 +198,7 @@ export default function DiscoverRecipes() {
 
               {/* Add */}
               <button onClick={() => setShowCreate(true)}
-                className="flex items-center gap-1.5 bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white text-xs font-bold px-3 py-2 rounded-xl hover:opacity-90 shadow-sm">
+                className="flex items-center gap-1.5 bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white text-xs font-bold px-3 py-2 rounded-xl hover:opacity-90 shadow-sm dark:shadow-none">
                 <Plus className="w-3.5 h-3.5" /> Add
               </button>
             </div>
@@ -216,9 +216,9 @@ export default function DiscoverRecipes() {
                 className={`flex-shrink-0 flex flex-col items-center gap-0.5 py-2 px-3 rounded-xl text-[11px] font-bold transition-all relative ${
                   activeTab === id
                     ? id === 'health'
-                      ? 'bg-gradient-to-b from-red-400 to-pink-400 text-white shadow-sm'
-                      : 'bg-gradient-to-b from-[#c9a227] to-[#FAD98D] text-white shadow-sm'
-                    : 'bg-[#F2F6FA] dark:bg-[#0A1A2F] text-[#0A1A2F]/45 dark:text-white/45 hover:text-[#0A1A2F]/65'
+                      ? 'bg-gradient-to-b from-red-400 to-pink-400 text-white shadow-sm dark:shadow-none'
+                      : 'bg-gradient-to-b from-[#c9a227] to-[#FAD98D] text-white shadow-sm dark:shadow-none'
+                    : 'bg-[#F2F6FA] dark:bg-[#0A1A2F] text-[#0A1A2F]/45 dark:text-white/45 hover:text-[#0A1A2F]/65 dark:text-white/65'
                 }`}>
                 <Icon className="w-3.5 h-3.5" />
                 {label}

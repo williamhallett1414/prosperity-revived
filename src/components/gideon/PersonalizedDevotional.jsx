@@ -45,7 +45,7 @@ export default function PersonalizedDevotional() {
       <Card className="p-6 bg-gradient-to-br from-[#F2F6FA] to-[#FAD98D]/10 dark:from-indigo-900/20 dark:to-[#0A1A2F]/20 border-[#AFC7E3]/40 dark:border-indigo-700">
         <div className="flex items-center gap-3">
           <RefreshCw className="w-5 h-5 animate-spin text-[#3C4E53]" />
-          <p className="text-sm text-gray-600 dark:text-gray-400">Loading your personalized devotional...</p>
+          <p className="text-sm text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">Loading your personalized devotional...</p>
         </div>
       </Card>);
 

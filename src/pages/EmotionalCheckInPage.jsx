@@ -262,7 +262,7 @@ export default function EmotionalCheckInPage() {
             <motion.div key="done" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="space-y-4">
 
               {/* Celebration */}
-              <div className={`rounded-2xl p-6 text-center bg-gradient-to-br ${moodObj.color} shadow-md`}>
+              <div className={`rounded-2xl p-6 text-center bg-gradient-to-br ${moodObj.color} shadow-md dark:shadow-none`}>
                 <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }}
                   transition={{ type: 'spring', stiffness: 300, damping: 20, delay: 0.1 }}
                   className="text-5xl mb-3">{moodObj.emoji}</motion.div>
@@ -347,7 +347,7 @@ export default function EmotionalCheckInPage() {
                     onClick={() => { setSelectedMood(mood); setIntensity(3); setReflection(''); }}
                     className={`py-3.5 px-2 rounded-xl border-2 transition-all flex flex-col items-center gap-1.5 ${
                       selectedMood?.value === mood.value
-                        ? `${mood.border} ${mood.bg} shadow-sm`
+                        ? `${mood.border} ${mood.bg} shadow-sm dark:shadow-none`
                         : 'border-[#F2F6FA] bg-[#F2F6FA] dark:bg-[#0A1A2F] hover:border-[#AFC7E3]/50'
                     }`}>
                     <span className="text-2xl leading-none">{mood.emoji}</span>
@@ -396,13 +396,13 @@ export default function EmotionalCheckInPage() {
                       <BookOpen className="w-4 h-4 text-[#0A1A2F]/40 dark:text-white/40" />
                       <span className="text-[10px] font-bold text-[#0A1A2F]/35 dark:text-white/35 uppercase tracking-widest">Scripture for you</span>
                     </div>
-                    <p className="text-sm text-[#0A1A2F]/75 leading-relaxed italic mb-1.5">"{moodObj.scripture.text}"</p>
+                    <p className="text-sm text-[#0A1A2F]/75 dark:text-white/75 leading-relaxed italic mb-1.5">"{moodObj.scripture.text}"</p>
                     <p className="text-xs font-bold" style={{ color: moodObj.dot }}>{moodObj.scripture.ref}</p>
                   </div>
 
                   {/* Practice link */}
                   <button onClick={() => navigate(createPageUrl(moodObj.practicePage))}
-                    className="w-full bg-white dark:bg-white/5 rounded-2xl border border-[#AFC7E3]/20 p-4 flex items-center justify-between hover:border-[#FAD98D]/40 hover:shadow-sm transition-all">
+                    className="w-full bg-white dark:bg-white/5 rounded-2xl border border-[#AFC7E3]/20 p-4 flex items-center justify-between hover:border-[#FAD98D]/40 hover:shadow-sm dark:shadow-none transition-all">
                     <div className="flex items-center gap-3">
                       <span className="text-xl">{moodObj.practiceIcon}</span>
                       <div className="text-left">
@@ -415,7 +415,7 @@ export default function EmotionalCheckInPage() {
 
                   {/* Save */}
                   <motion.button whileTap={{ scale: 0.98 }} onClick={handleSave} disabled={saving}
-                    className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-[#FAD98D] to-[#c9a227] text-[#0A1A2F] dark:text-white font-bold text-sm shadow-sm hover:opacity-90 disabled:opacity-50 transition-opacity flex items-center justify-center gap-2">
+                    className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-[#FAD98D] to-[#c9a227] text-[#0A1A2F] dark:text-white font-bold text-sm shadow-sm dark:shadow-none hover:opacity-90 disabled:opacity-50 transition-opacity flex items-center justify-center gap-2">
                     {saving
                       ? <><Sparkles className="w-4 h-4 animate-spin" /> Saving…</>
                       : <><CheckCircle2 className="w-4 h-4" /> Save Check-In</>}

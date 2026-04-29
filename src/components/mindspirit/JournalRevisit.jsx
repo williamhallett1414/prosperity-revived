@@ -93,7 +93,7 @@ QUESTIONS:
             {isLoading ? (
               <div className="flex items-center justify-center py-8">
                 <Loader2 className="w-5 h-5 animate-spin text-[#AFC7E3]" />
-                <span className="ml-2 text-sm text-gray-600">Generating reflection...</span>
+                <span className="ml-2 text-sm text-gray-600 dark:text-gray-300">Generating reflection...</span>
               </div>
             ) : hasLoaded ? (
               <>
@@ -109,7 +109,7 @@ QUESTIONS:
 
                 {questions.length > 0 && (
                   <div className="space-y-3">
-                    <h4 className="font-medium text-gray-900 flex items-center gap-2">
+                    <h4 className="font-medium text-gray-900 dark:text-white flex items-center gap-2">
                       <BookOpen className="w-4 h-4 text-[#3C4E53]" />
                       Reflection Questions
                     </h4>

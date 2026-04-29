@@ -76,7 +76,7 @@ export default function WorkoutCard({
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.05 }}
-      className="bg-white dark:bg-white/5 rounded-2xl overflow-hidden border border-[#BAE6FD]/30 shadow-sm"
+      className="bg-white dark:bg-white/5 rounded-2xl overflow-hidden border border-[#BAE6FD]/30 shadow-sm dark:shadow-none"
     >
       {workout.image_url && (
         <div className="relative h-36 overflow-hidden">

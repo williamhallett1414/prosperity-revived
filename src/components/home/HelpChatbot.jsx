@@ -551,7 +551,7 @@ function AssistantMessage({ msg, onTour, onNavigate }) {
           {msg.tips.map((tip, i) => (
             <div key={i} className="flex items-start gap-2 bg-[#FAD98D]/15 rounded-xl px-3 py-2">
               <Lightbulb className="w-3 h-3 text-[#C9A227] flex-shrink-0 mt-0.5" />
-              <p className="text-[10px] text-[#0A1A2F]/65 leading-relaxed">{tip}</p>
+              <p className="text-[10px] text-[#0A1A2F]/65 dark:text-white/65 leading-relaxed">{tip}</p>
             </div>
           ))}
         </div>
@@ -571,9 +571,9 @@ function AssistantMessage({ msg, onTour, onNavigate }) {
           </div>
           <div className="flex-1 min-w-0">
             <p className="font-bold text-[#0A1A2F] dark:text-white text-xs leading-tight">Show me how →</p>
-            <p className="text-gray-400 text-[10px]">Interactive spotlight tour</p>
+            <p className="text-gray-400 dark:text-gray-300 text-[10px]">Interactive spotlight tour</p>
           </div>
-          <ChevronRight className="w-3.5 h-3.5 text-gray-300" />
+          <ChevronRight className="w-3.5 h-3.5 text-gray-300 dark:text-gray-400 dark:text-gray-300" />
         </motion.button>
       )}
 
@@ -790,9 +790,9 @@ export default function HelpChatbot() {
                         </div>
                         <div className="flex-1 min-w-0">
                           <p className="font-bold text-[#0A1A2F] dark:text-white text-xs leading-tight">{qa.label}</p>
-                          <p className="text-gray-400 text-[10px]">{qa.sub}</p>
+                          <p className="text-gray-400 dark:text-gray-300 text-[10px]">{qa.sub}</p>
                         </div>
-                        <ChevronRight className="w-3.5 h-3.5 text-gray-300 flex-shrink-0" />
+                        <ChevronRight className="w-3.5 h-3.5 text-gray-300 dark:text-gray-400 dark:text-gray-300 flex-shrink-0" />
                       </motion.button>
                     );
                   })}
@@ -844,7 +844,7 @@ export default function HelpChatbot() {
                 onChange={e => setInput(e.target.value)}
                 onKeyDown={e => e.key === 'Enter' && handleSend()}
                 placeholder="Ask about any feature…"
-                className="flex-1 rounded-xl px-3 py-2.5 text-sm text-[#0A1A2F] dark:text-white outline-none border-2 border-gray-100 dark:border-white/10 focus:border-[#FD9C2D] transition-colors placeholder:text-gray-300 bg-[#F8FAFB]"
+                className="flex-1 rounded-xl px-3 py-2.5 text-sm text-[#0A1A2F] dark:text-white outline-none border-2 border-gray-100 dark:border-white/10 focus:border-[#FD9C2D] transition-colors placeholder:text-gray-300 dark:text-gray-400 dark:text-gray-300 bg-[#F8FAFB]"
                 disabled={loading}
               />
               <button onClick={() => handleSend()}

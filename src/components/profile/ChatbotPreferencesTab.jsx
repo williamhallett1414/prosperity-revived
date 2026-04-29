@@ -105,8 +105,8 @@ function Toggle({ items, selected, onToggle, max, color }) {
             onClick={() => !disabled && onToggle(item.id)}
             className={`text-xs px-3 py-1.5 rounded-full border-2 font-medium transition-all ${
               isSelected ? `border-${color}-400 bg-${color}-50 text-${color}-700` :
-              disabled ? 'border-gray-100 dark:border-white/10 text-gray-300 cursor-not-allowed' :
-              'border-gray-200 dark:border-white/10 text-gray-600 hover:border-gray-300'
+              disabled ? 'border-gray-100 dark:border-white/10 text-gray-300 dark:text-gray-400 dark:text-gray-300 cursor-not-allowed' :
+              'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-gray-300 dark:border-white/15'
             }`}
             style={isSelected ? { borderColor: 'currentColor' } : {}}
           >
@@ -128,9 +128,9 @@ function Section({ title, emoji, color, children, defaultOpen = false }) {
       >
         <div className="flex items-center gap-2">
           <span className="text-xl">{emoji}</span>
-          <span className="font-semibold text-gray-800">{title}</span>
+          <span className="font-semibold text-gray-800 dark:text-gray-100">{title}</span>
         </div>
-        {open ? <ChevronUp className="w-4 h-4 text-gray-400" /> : <ChevronDown className="w-4 h-4 text-gray-400" />}
+        {open ? <ChevronUp className="w-4 h-4 text-gray-400 dark:text-gray-300" /> : <ChevronDown className="w-4 h-4 text-gray-400 dark:text-gray-300" />}
       </button>
       <AnimatePresence initial={false}>
         {open && (
@@ -211,45 +211,45 @@ function CoachDavidPrefs({ user }) {
   return (
     <Section title="Coach David" emoji="💪" color="green" defaultOpen>
       <div>
-        <p className="text-xs font-semibold text-gray-500 mb-2">FITNESS GOALS</p>
+        <p className="text-xs font-semibold text-gray-500 dark:text-gray-300 mb-2">FITNESS GOALS</p>
         <div className="flex flex-wrap gap-2">
           {FITNESS_GOALS.map(g => (
             <button key={g.id} onClick={() => setGoals(prev => prev.includes(g.id) ? prev.filter(x => x !== g.id) : [...prev, g.id])}
-              className={`text-xs px-3 py-1.5 rounded-full border-2 font-medium transition-all ${goals.includes(g.id) ? 'border-green-400 bg-green-50 text-green-700' : 'border-gray-200 dark:border-white/10 text-gray-600 hover:border-gray-300'}`}>
+              className={`text-xs px-3 py-1.5 rounded-full border-2 font-medium transition-all ${goals.includes(g.id) ? 'border-green-400 bg-green-50 text-green-700' : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-gray-300 dark:border-white/15'}`}>
               {g.label}
             </button>
           ))}
         </div>
       </div>
       <div>
-        <p className="text-xs font-semibold text-gray-500 mb-2">FITNESS LEVEL</p>
+        <p className="text-xs font-semibold text-gray-500 dark:text-gray-300 mb-2">FITNESS LEVEL</p>
         <div className="flex gap-2">
           {FITNESS_LEVELS.map(l => (
             <button key={l.id} onClick={() => setLevel(l.id)}
-              className={`flex-1 text-xs px-2 py-2 rounded-xl border-2 font-medium transition-all text-center ${level === l.id ? 'border-green-400 bg-green-50 text-green-700' : 'border-gray-200 dark:border-white/10 text-gray-600'}`}>
-              {l.label}<br /><span className="text-gray-400">{l.desc}</span>
+              className={`flex-1 text-xs px-2 py-2 rounded-xl border-2 font-medium transition-all text-center ${level === l.id ? 'border-green-400 bg-green-50 text-green-700' : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300'}`}>
+              {l.label}<br /><span className="text-gray-400 dark:text-gray-300">{l.desc}</span>
             </button>
           ))}
         </div>
       </div>
       <div>
-        <p className="text-xs font-semibold text-gray-500 mb-2">FITNESS TRACKER</p>
+        <p className="text-xs font-semibold text-gray-500 dark:text-gray-300 mb-2">FITNESS TRACKER</p>
         <div className="grid grid-cols-3 gap-2">
           {TRACKERS.map(t => (
             <button key={t.id} onClick={() => setTracker(t.id)}
-              className={`rounded-xl border-2 p-2.5 flex flex-col items-center gap-1 transition-all ${tracker === t.id ? 'border-green-400 bg-green-50' : 'border-gray-200 dark:border-white/10 hover:border-gray-300'}`}>
+              className={`rounded-xl border-2 p-2.5 flex flex-col items-center gap-1 transition-all ${tracker === t.id ? 'border-green-400 bg-green-50' : 'border-gray-200 dark:border-white/10 hover:border-gray-300 dark:border-white/15'}`}>
               <span className="text-lg">{t.icon}</span>
-              <span className="text-xs font-medium text-gray-700 text-center leading-tight">{t.label}</span>
+              <span className="text-xs font-medium text-gray-700 dark:text-gray-200 text-center leading-tight">{t.label}</span>
             </button>
           ))}
         </div>
       </div>
       <div>
-        <p className="text-xs font-semibold text-gray-500 mb-2">WEEKLY TRAINING DAYS: <span className="text-green-600">{workoutDays}x</span></p>
+        <p className="text-xs font-semibold text-gray-500 dark:text-gray-300 mb-2">WEEKLY TRAINING DAYS: <span className="text-green-600">{workoutDays}x</span></p>
         <div className="flex gap-2">
           {[1,2,3,4,5,6,7].map(d => (
             <button key={d} onClick={() => setWorkoutDays(d)}
-              className={`w-9 h-9 rounded-full border-2 font-bold text-xs transition-all ${workoutDays === d ? 'border-green-400 bg-green-500 text-white' : 'border-gray-200 dark:border-white/10 text-gray-600'}`}>
+              className={`w-9 h-9 rounded-full border-2 font-bold text-xs transition-all ${workoutDays === d ? 'border-green-400 bg-green-500 text-white' : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300'}`}>
               {d}
             </button>
           ))}
@@ -326,44 +326,44 @@ function ChefDanielPrefs({ user }) {
   return (
     <Section title="Chef Daniel" emoji="👨‍🍳" color="orange" defaultOpen>
       <div>
-        <p className="text-xs font-semibold text-gray-500 mb-2">DIET STYLE</p>
+        <p className="text-xs font-semibold text-gray-500 dark:text-gray-300 mb-2">DIET STYLE</p>
         <div className="flex flex-wrap gap-2">
           {DIET_TYPES.map(d => (
             <button key={d.id} onClick={() => setDiet(d.id)}
-              className={`text-xs px-3 py-1.5 rounded-full border-2 font-medium transition-all ${diet === d.id ? 'border-orange-400 bg-orange-50 text-orange-700' : 'border-gray-200 dark:border-white/10 text-gray-600 hover:border-gray-300'}`}>
+              className={`text-xs px-3 py-1.5 rounded-full border-2 font-medium transition-all ${diet === d.id ? 'border-orange-400 bg-orange-50 text-orange-700' : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-gray-300 dark:border-white/15'}`}>
               {d.label}
             </button>
           ))}
         </div>
       </div>
       <div>
-        <p className="text-xs font-semibold text-gray-500 mb-2">NUTRITION GOAL</p>
+        <p className="text-xs font-semibold text-gray-500 dark:text-gray-300 mb-2">NUTRITION GOAL</p>
         <div className="flex flex-wrap gap-2">
           {NUTRITION_GOALS.map(g => (
             <button key={g.id} onClick={() => setNutritionGoal(g.id)}
-              className={`text-xs px-3 py-1.5 rounded-full border-2 font-medium transition-all ${nutritionGoal === g.id ? 'border-orange-400 bg-orange-50 text-orange-700' : 'border-gray-200 dark:border-white/10 text-gray-600 hover:border-gray-300'}`}>
+              className={`text-xs px-3 py-1.5 rounded-full border-2 font-medium transition-all ${nutritionGoal === g.id ? 'border-orange-400 bg-orange-50 text-orange-700' : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-gray-300 dark:border-white/15'}`}>
               {g.label}
             </button>
           ))}
         </div>
       </div>
       <div>
-        <p className="text-xs font-semibold text-gray-500 mb-2">ALLERGIES & INTOLERANCES</p>
+        <p className="text-xs font-semibold text-gray-500 dark:text-gray-300 mb-2">ALLERGIES & INTOLERANCES</p>
         <div className="flex flex-wrap gap-2">
           {ALLERGIES.map(a => (
             <button key={a.id} onClick={() => toggleAllergy(a.id)}
-              className={`text-xs px-3 py-1.5 rounded-full border-2 font-medium transition-all ${allergies.includes(a.id) ? 'border-orange-400 bg-orange-50 text-orange-700' : 'border-gray-200 dark:border-white/10 text-gray-600 hover:border-gray-300'}`}>
+              className={`text-xs px-3 py-1.5 rounded-full border-2 font-medium transition-all ${allergies.includes(a.id) ? 'border-orange-400 bg-orange-50 text-orange-700' : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-gray-300 dark:border-white/15'}`}>
               {a.label}
             </button>
           ))}
         </div>
       </div>
       <div>
-        <p className="text-xs font-semibold text-gray-500 mb-2">PANTRY STAPLES <span className="text-gray-400">({pantry.length} selected)</span></p>
+        <p className="text-xs font-semibold text-gray-500 dark:text-gray-300 mb-2">PANTRY STAPLES <span className="text-gray-400 dark:text-gray-300">({pantry.length} selected)</span></p>
         <div className="flex flex-wrap gap-2">
           {PANTRY_STAPLES.map(item => (
             <button key={item} onClick={() => setPantry(prev => prev.includes(item) ? prev.filter(p => p !== item) : [...prev, item])}
-              className={`text-xs px-3 py-1.5 rounded-full border-2 font-medium transition-all ${pantry.includes(item) ? 'border-orange-400 bg-orange-50 text-orange-700' : 'border-gray-200 dark:border-white/10 text-gray-600 hover:border-gray-300'}`}>
+              className={`text-xs px-3 py-1.5 rounded-full border-2 font-medium transition-all ${pantry.includes(item) ? 'border-orange-400 bg-orange-50 text-orange-700' : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-gray-300 dark:border-white/15'}`}>
               {item}
             </button>
           ))}
@@ -448,14 +448,14 @@ function HannahPrefs({ user }) {
   return (
     <Section title="Hannah" emoji="💛" color="purple" defaultOpen>
       <div>
-        <p className="text-xs font-semibold text-gray-500 mb-2">GROWTH FOCUS AREAS <span className="text-gray-400">(up to 4)</span></p>
+        <p className="text-xs font-semibold text-gray-500 dark:text-gray-300 mb-2">GROWTH FOCUS AREAS <span className="text-gray-400 dark:text-gray-300">(up to 4)</span></p>
         <div className="flex flex-wrap gap-2">
           {GROWTH_AREAS.map(a => {
             const sel = growthAreas.includes(a.id);
             const disabled = !sel && growthAreas.length >= 4;
             return (
               <button key={a.id} onClick={() => !disabled && toggleArea(a.id)}
-                className={`text-xs px-3 py-1.5 rounded-full border-2 font-medium transition-all ${sel ? 'border-purple-400 bg-purple-50 text-purple-700' : disabled ? 'border-gray-100 dark:border-white/10 text-gray-300 cursor-not-allowed' : 'border-gray-200 dark:border-white/10 text-gray-600 hover:border-gray-300'}`}>
+                className={`text-xs px-3 py-1.5 rounded-full border-2 font-medium transition-all ${sel ? 'border-purple-400 bg-purple-50 text-purple-700' : disabled ? 'border-gray-100 dark:border-white/10 text-gray-300 dark:text-gray-400 dark:text-gray-300 cursor-not-allowed' : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-gray-300 dark:border-white/15'}`}>
                 {a.label}
               </button>
             );
@@ -463,14 +463,14 @@ function HannahPrefs({ user }) {
         </div>
       </div>
       <div>
-        <p className="text-xs font-semibold text-gray-500 mb-2">CORE VALUES <span className="text-gray-400">(up to 5)</span></p>
+        <p className="text-xs font-semibold text-gray-500 dark:text-gray-300 mb-2">CORE VALUES <span className="text-gray-400 dark:text-gray-300">(up to 5)</span></p>
         <div className="flex flex-wrap gap-2">
           {CORE_VALUES.map(v => {
             const sel = coreValues.includes(v.id);
             const disabled = !sel && coreValues.length >= 5;
             return (
               <button key={v.id} onClick={() => !disabled && toggleValue(v.id)}
-                className={`text-xs px-3 py-1.5 rounded-full border-2 font-medium transition-all ${sel ? 'border-purple-400 bg-purple-50 text-purple-700' : disabled ? 'border-gray-100 dark:border-white/10 text-gray-300 cursor-not-allowed' : 'border-gray-200 dark:border-white/10 text-gray-600 hover:border-gray-300'}`}>
+                className={`text-xs px-3 py-1.5 rounded-full border-2 font-medium transition-all ${sel ? 'border-purple-400 bg-purple-50 text-purple-700' : disabled ? 'border-gray-100 dark:border-white/10 text-gray-300 dark:text-gray-400 dark:text-gray-300 cursor-not-allowed' : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-gray-300 dark:border-white/15'}`}>
                 {v.label}
               </button>
             );
@@ -478,25 +478,25 @@ function HannahPrefs({ user }) {
         </div>
       </div>
       <div>
-        <p className="text-xs font-semibold text-gray-500 mb-2">COACHING STYLE</p>
+        <p className="text-xs font-semibold text-gray-500 dark:text-gray-300 mb-2">COACHING STYLE</p>
         <div className="grid grid-cols-2 gap-2">
           {COACHING_STYLES.map(s => (
             <button key={s.id} onClick={() => setCoachingStyle(s.id)}
-              className={`text-xs px-3 py-2.5 rounded-xl border-2 font-medium text-left transition-all ${coachingStyle === s.id ? 'border-purple-400 bg-purple-50 text-purple-700' : 'border-gray-200 dark:border-white/10 text-gray-600 hover:border-gray-300'}`}>
+              className={`text-xs px-3 py-2.5 rounded-xl border-2 font-medium text-left transition-all ${coachingStyle === s.id ? 'border-purple-400 bg-purple-50 text-purple-700' : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-gray-300 dark:border-white/15'}`}>
               {coachingStyle === s.id && <CheckCircle2 className="w-3 h-3 inline mr-1" />}{s.label}
             </button>
           ))}
         </div>
       </div>
       <div>
-        <p className="text-xs font-semibold text-gray-500 mb-2">MY MAIN GROWTH GOAL</p>
+        <p className="text-xs font-semibold text-gray-500 dark:text-gray-300 mb-2">MY MAIN GROWTH GOAL</p>
         <textarea
           value={goalText}
           onChange={e => setGoalText(e.target.value)}
           placeholder="What do you most want to change or achieve?"
           maxLength={500}
           rows={3}
-          className="w-full rounded-xl border-2 border-gray-200 dark:border-white/10 focus:border-purple-300 outline-none p-3 text-sm text-gray-700 resize-none transition-colors bg-white dark:bg-white/5"
+          className="w-full rounded-xl border-2 border-gray-200 dark:border-white/10 focus:border-purple-300 outline-none p-3 text-sm text-gray-700 dark:text-gray-200 resize-none transition-colors bg-white dark:bg-white/5"
         />
       </div>
       <Button onClick={() => mutation.mutate()} disabled={mutation.isPending}
@@ -595,14 +595,14 @@ function GideonPrefs({ user }) {
   return (
     <Section title="Gideon" emoji="📖" color="amber" defaultOpen>
       <div>
-        <p className="text-xs font-semibold text-gray-500 mb-2">SPIRITUAL TOPICS <span className="text-gray-400">(up to 5)</span></p>
+        <p className="text-xs font-semibold text-gray-500 dark:text-gray-300 mb-2">SPIRITUAL TOPICS <span className="text-gray-400 dark:text-gray-300">(up to 5)</span></p>
         <div className="flex flex-wrap gap-2">
           {SPIRITUAL_TOPICS.map(t => {
             const sel = topics.includes(t.id);
             const disabled = !sel && topics.length >= 5;
             return (
               <button key={t.id} onClick={() => !disabled && toggleTopic(t.id)}
-                className={`text-xs px-3 py-1.5 rounded-full border-2 font-medium transition-all ${sel ? 'border-amber-400 bg-amber-50 text-amber-700' : disabled ? 'border-gray-100 dark:border-white/10 text-gray-300 cursor-not-allowed' : 'border-gray-200 dark:border-white/10 text-gray-600 hover:border-gray-300'}`}>
+                className={`text-xs px-3 py-1.5 rounded-full border-2 font-medium transition-all ${sel ? 'border-amber-400 bg-amber-50 text-amber-700' : disabled ? 'border-gray-100 dark:border-white/10 text-gray-300 dark:text-gray-400 dark:text-gray-300 cursor-not-allowed' : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-gray-300 dark:border-white/15'}`}>
                 {t.label}
               </button>
             );
@@ -610,22 +610,22 @@ function GideonPrefs({ user }) {
         </div>
       </div>
       <div>
-        <p className="text-xs font-semibold text-gray-500 mb-2">TEACHING STYLE</p>
+        <p className="text-xs font-semibold text-gray-500 dark:text-gray-300 mb-2">TEACHING STYLE</p>
         <div className="grid grid-cols-2 gap-2">
           {TEACHING_STYLES.map(s => (
             <button key={s.id} onClick={() => setStyle(s.id)}
-              className={`text-xs px-3 py-2.5 rounded-xl border-2 font-medium text-left transition-all ${style === s.id ? 'border-amber-400 bg-amber-50 text-amber-700' : 'border-gray-200 dark:border-white/10 text-gray-600 hover:border-gray-300'}`}>
+              className={`text-xs px-3 py-2.5 rounded-xl border-2 font-medium text-left transition-all ${style === s.id ? 'border-amber-400 bg-amber-50 text-amber-700' : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-gray-300 dark:border-white/15'}`}>
               {style === s.id && <CheckCircle2 className="w-3 h-3 inline mr-1" />}{s.label}
             </button>
           ))}
         </div>
       </div>
       <div>
-        <p className="text-xs font-semibold text-gray-500 mb-2">SPIRITUAL SEASON</p>
+        <p className="text-xs font-semibold text-gray-500 dark:text-gray-300 mb-2">SPIRITUAL SEASON</p>
         <div className="flex flex-wrap gap-2">
           {SPIRITUAL_SEASONS.map(s => (
             <button key={s.id} onClick={() => setSeason(s.id)}
-              className={`text-xs px-3 py-1.5 rounded-full border-2 font-medium transition-all ${season === s.id ? 'border-amber-400 bg-amber-50 text-amber-700' : 'border-gray-200 dark:border-white/10 text-gray-600 hover:border-gray-300'}`}>
+              className={`text-xs px-3 py-1.5 rounded-full border-2 font-medium transition-all ${season === s.id ? 'border-amber-400 bg-amber-50 text-amber-700' : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-gray-300 dark:border-white/15'}`}>
               {s.label}
             </button>
           ))}
@@ -722,14 +722,14 @@ function CoachPaulPrefs({ user }) {
   return (
     <Section title="Coach Paul" emoji="🏛️" color="violet">
       <div>
-        <p className="text-xs font-semibold text-gray-500 mb-2">TRANSFORMATION AREAS <span className="text-gray-400">(up to 4)</span></p>
+        <p className="text-xs font-semibold text-gray-500 dark:text-gray-300 mb-2">TRANSFORMATION AREAS <span className="text-gray-400 dark:text-gray-300">(up to 4)</span></p>
         <div className="flex flex-wrap gap-2">
           {TRANSFORMATION_AREAS.map(a => {
             const sel = areas.includes(a.id);
             const disabled = !sel && areas.length >= 4;
             return (
               <button key={a.id} onClick={() => !disabled && toggleArea(a.id)}
-                className={`text-xs px-3 py-1.5 rounded-full border-2 font-medium transition-all ${sel ? 'border-violet-400 bg-violet-50 text-violet-700' : disabled ? 'border-gray-100 dark:border-white/10 text-gray-300 cursor-not-allowed' : 'border-gray-200 dark:border-white/10 text-gray-600 hover:border-gray-300'}`}>
+                className={`text-xs px-3 py-1.5 rounded-full border-2 font-medium transition-all ${sel ? 'border-violet-400 bg-violet-50 text-violet-700' : disabled ? 'border-gray-100 dark:border-white/10 text-gray-300 dark:text-gray-400 dark:text-gray-300 cursor-not-allowed' : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-gray-300 dark:border-white/15'}`}>
                 {a.label}
               </button>
             );
@@ -737,22 +737,22 @@ function CoachPaulPrefs({ user }) {
         </div>
       </div>
       <div>
-        <p className="text-xs font-semibold text-gray-500 mb-2">CHALLENGE LEVEL</p>
+        <p className="text-xs font-semibold text-gray-500 dark:text-gray-300 mb-2">CHALLENGE LEVEL</p>
         <div className="flex gap-2">
           {CHALLENGE_LEVELS.map(l => (
             <button key={l.id} onClick={() => setChallenge(l.id)}
-              className={`flex-1 text-xs px-3 py-2.5 rounded-xl border-2 font-medium text-center transition-all ${challenge === l.id ? 'border-violet-400 bg-violet-50 text-violet-700' : 'border-gray-200 dark:border-white/10 text-gray-600 hover:border-gray-300'}`}>
+              className={`flex-1 text-xs px-3 py-2.5 rounded-xl border-2 font-medium text-center transition-all ${challenge === l.id ? 'border-violet-400 bg-violet-50 text-violet-700' : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-gray-300 dark:border-white/15'}`}>
               {challenge === l.id && <CheckCircle2 className="w-3 h-3 inline mr-1" />}{l.label}
             </button>
           ))}
         </div>
       </div>
       <div>
-        <p className="text-xs font-semibold text-gray-500 mb-2">ACCOUNTABILITY STYLE</p>
+        <p className="text-xs font-semibold text-gray-500 dark:text-gray-300 mb-2">ACCOUNTABILITY STYLE</p>
         <div className="grid grid-cols-2 gap-2">
           {ACCOUNTABILITY_STYLES.map(s => (
             <button key={s.id} onClick={() => setAccountability(s.id)}
-              className={`text-xs px-3 py-2.5 rounded-xl border-2 font-medium text-left transition-all ${accountability === s.id ? 'border-violet-400 bg-violet-50 text-violet-700' : 'border-gray-200 dark:border-white/10 text-gray-600 hover:border-gray-300'}`}>
+              className={`text-xs px-3 py-2.5 rounded-xl border-2 font-medium text-left transition-all ${accountability === s.id ? 'border-violet-400 bg-violet-50 text-violet-700' : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-gray-300 dark:border-white/15'}`}>
               {accountability === s.id && <CheckCircle2 className="w-3 h-3 inline mr-1" />}{s.label}
             </button>
           ))}
@@ -771,7 +771,7 @@ function CoachPaulPrefs({ user }) {
 export default function ChatbotPreferencesTab({ user }) {
   return (
     <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-1 pt-2">
-      <p className="text-sm text-gray-500 mb-4">
+      <p className="text-sm text-gray-500 dark:text-gray-300 mb-4">
         Update your preferences anytime — changes are reflected immediately in each guide's conversations.
       </p>
       <GideonPrefs user={user} />

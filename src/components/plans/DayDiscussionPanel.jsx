@@ -97,7 +97,7 @@ export default function DayDiscussionPanel({ groupId, dayNumber, currentUser }) 
   if (isLoading) {
     return (
       <Card className="p-8 flex items-center justify-center">
-        <Loader2 className="w-6 h-6 animate-spin text-gray-400" />
+        <Loader2 className="w-6 h-6 animate-spin text-gray-400 dark:text-gray-300" />
       </Card>
     );
   }
@@ -134,9 +134,9 @@ export default function DayDiscussionPanel({ groupId, dayNumber, currentUser }) 
       <div className="space-y-3">
         {discussions.length === 0 && (
           <Card className="p-8 text-center">
-            <MessageCircle className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-            <p className="text-gray-500">No discussions yet for this day</p>
-            <p className="text-sm text-gray-400">Be the first to share your thoughts!</p>
+            <MessageCircle className="w-12 h-12 text-gray-300 dark:text-gray-400 dark:text-gray-300 mx-auto mb-3" />
+            <p className="text-gray-500 dark:text-gray-300">No discussions yet for this day</p>
+            <p className="text-sm text-gray-400 dark:text-gray-300">Be the first to share your thoughts!</p>
           </Card>
         )}
 
@@ -157,12 +157,12 @@ export default function DayDiscussionPanel({ groupId, dayNumber, currentUser }) 
                   </div>
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-1">
-                      <p className="font-medium text-sm text-gray-900">{discussion.user_name}</p>
-                      <span className="text-xs text-gray-500">
+                      <p className="font-medium text-sm text-gray-900 dark:text-white">{discussion.user_name}</p>
+                      <span className="text-xs text-gray-500 dark:text-gray-300">
                         {moment(discussion.created_date).fromNow()}
                       </span>
                     </div>
-                    <p className="text-sm text-gray-700 leading-relaxed whitespace-pre-wrap">
+                    <p className="text-sm text-gray-700 dark:text-gray-200 leading-relaxed whitespace-pre-wrap">
                       {discussion.content}
                     </p>
                   </div>
@@ -172,14 +172,14 @@ export default function DayDiscussionPanel({ groupId, dayNumber, currentUser }) 
                 <div className="flex items-center gap-4 pl-11">
                   <button
                     onClick={() => likeDiscussion.mutate(discussion.id)}
-                    className="flex items-center gap-1 text-gray-500 hover:text-red-500 transition-colors"
+                    className="flex items-center gap-1 text-gray-500 dark:text-gray-300 hover:text-red-500 transition-colors"
                   >
                     <Heart className="w-4 h-4" />
                     <span className="text-xs">{discussion.likes || 0}</span>
                   </button>
                   <button
                     onClick={() => setReplyingTo(isReplying ? null : discussion.id)}
-                    className="flex items-center gap-1 text-gray-500 hover:text-[#AFC7E3] transition-colors"
+                    className="flex items-center gap-1 text-gray-500 dark:text-gray-300 hover:text-[#AFC7E3] transition-colors"
                   >
                     <MessageSquare className="w-4 h-4" />
                     <span className="text-xs">{discussion.reply_count || 0}</span>
@@ -229,12 +229,12 @@ export default function DayDiscussionPanel({ groupId, dayNumber, currentUser }) 
                           </div>
                           <div className="flex-1">
                             <div className="flex items-center gap-2 mb-1">
-                              <p className="font-medium text-xs text-gray-900">{reply.user_name}</p>
-                              <span className="text-xs text-gray-400">
+                              <p className="font-medium text-xs text-gray-900 dark:text-white">{reply.user_name}</p>
+                              <span className="text-xs text-gray-400 dark:text-gray-300">
                                 {moment(reply.created_date).fromNow()}
                               </span>
                             </div>
-                            <p className="text-xs text-gray-700 leading-relaxed">
+                            <p className="text-xs text-gray-700 dark:text-gray-200 leading-relaxed">
                               {reply.content}
                             </p>
                           </div>

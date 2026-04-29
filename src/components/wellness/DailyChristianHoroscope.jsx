@@ -94,7 +94,7 @@ export default function DailyChristianHoroscope({ user }) {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-gradient-to-br from-[#C9A227] to-[#3C4E53] rounded-2xl p-6 text-white shadow-lg"
+        className="bg-gradient-to-br from-[#C9A227] to-[#3C4E53] rounded-2xl p-6 text-white shadow-lg dark:shadow-none"
       >
         <div className="flex items-center gap-3 mb-4">
           <Sparkles className="w-6 h-6" />
@@ -145,7 +145,7 @@ export default function DailyChristianHoroscope({ user }) {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-gradient-to-br from-amber-600 to-orange-600 rounded-2xl p-6 text-white shadow-lg"
+      className="bg-gradient-to-br from-amber-600 to-orange-600 rounded-2xl p-6 text-white shadow-lg dark:shadow-none"
     >
       <div className="flex items-center gap-3 mb-4">
         <div className="text-2xl">{zodiacEmoji}</div>

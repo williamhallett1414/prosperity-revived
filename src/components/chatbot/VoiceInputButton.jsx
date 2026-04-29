@@ -194,12 +194,12 @@ export default function VoiceInputButton({
         }
         className={`
           relative z-10 flex items-center justify-center
-          w-11 h-11 rounded-full transition-all duration-200 shadow-sm
+          w-11 h-11 rounded-full transition-all duration-200 shadow-sm dark:shadow-none
           ${isListening
-            ? `${activeColor} text-white shadow-md`
+            ? `${activeColor} text-white shadow-md dark:shadow-none`
             : permissionDenied
-            ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
-            : 'bg-gray-100 hover:bg-gray-200 text-gray-500 hover:text-gray-700'
+            ? 'bg-gray-200 text-gray-400 dark:text-gray-300 cursor-not-allowed'
+            : 'bg-gray-100 dark:bg-white/5 hover:bg-gray-200 text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:text-gray-200'
           }
           ${disabled && !isListening ? 'opacity-50 cursor-not-allowed' : ''}
         `}

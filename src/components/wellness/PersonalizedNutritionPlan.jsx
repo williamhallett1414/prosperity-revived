@@ -144,7 +144,7 @@ export default function PersonalizedNutritionPlan() {
           <h3 className="text-xl font-bold text-[#0A1A2F] dark:text-white mb-2">
             Create Your Nutrition Plan
           </h3>
-          <p className="text-gray-600 dark:text-gray-400 mb-6">
+          <p className="text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300 mb-6">
             Get personalized meal plans based on your goals
           </p>
           <Button
@@ -205,28 +205,28 @@ export default function PersonalizedNutritionPlan() {
             <div className="space-y-3">
               <div>
                 <div className="flex justify-between text-sm mb-1">
-                  <span className="text-gray-600 dark:text-gray-400">Protein</span>
+                  <span className="text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">Protein</span>
                   <span className="font-medium">{todayProtein}g / {activePlan.protein_grams}g</span>
                 </div>
                 <Progress value={(todayProtein / activePlan.protein_grams) * 100} className="h-2" />
               </div>
               <div>
                 <div className="flex justify-between text-sm mb-1">
-                  <span className="text-gray-600 dark:text-gray-400">Carbs</span>
+                  <span className="text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">Carbs</span>
                   <span className="font-medium">{todayCarbs}g / {activePlan.carbs_grams}g</span>
                 </div>
                 <Progress value={(todayCarbs / activePlan.carbs_grams) * 100} className="h-2" />
               </div>
               <div>
                 <div className="flex justify-between text-sm mb-1">
-                  <span className="text-gray-600 dark:text-gray-400">Fats</span>
+                  <span className="text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">Fats</span>
                   <span className="font-medium">{todayFats}g / {activePlan.fats_grams}g</span>
                 </div>
                 <Progress value={(todayFats / activePlan.fats_grams) * 100} className="h-2" />
               </div>
               <div>
                 <div className="flex justify-between text-sm mb-1">
-                  <span className="text-gray-600 dark:text-gray-400">Calories</span>
+                  <span className="text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">Calories</span>
                   <span className="font-medium">{todayCalories} / {activePlan.daily_calories}</span>
                 </div>
                 <Progress value={(todayCalories / activePlan.daily_calories) * 100} className="h-2" />
@@ -240,7 +240,7 @@ export default function PersonalizedNutritionPlan() {
           ) : (
             <div className="text-center py-8 bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-2xl">
               <Sparkles className="w-12 h-12 text-[#3C4E53] mx-auto mb-3" />
-              <p className="text-gray-600 dark:text-gray-400 mb-4">
+              <p className="text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300 mb-4">
                 Generate your weekly meal plan
               </p>
               <Button

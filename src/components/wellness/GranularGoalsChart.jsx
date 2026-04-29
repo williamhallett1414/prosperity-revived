@@ -28,9 +28,9 @@ export default function GranularGoalsChart({ goals = [] }) {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Target className="w-5 h-5 text-[#C9A227]" />
-            <span className="font-semibold text-gray-900">Goal Progress</span>
+            <span className="font-semibold text-gray-900 dark:text-white">Goal Progress</span>
           </div>
-          <span className="text-sm text-gray-600">
+          <span className="text-sm text-gray-600 dark:text-gray-300">
             {completedGoals} / {goals.length} completed
           </span>
         </div>
@@ -52,8 +52,8 @@ export default function GranularGoalsChart({ goals = [] }) {
                 <div className="flex items-start gap-3 flex-1">
                   <span className="text-2xl">{getGoalIcon(goal.type)}</span>
                   <div className="flex-1">
-                    <p className="font-semibold text-gray-900">{goal.description}</p>
-                    <p className="text-sm text-gray-600 mt-1">
+                    <p className="font-semibold text-gray-900 dark:text-white">{goal.description}</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
                       {goal.current_value} / {goal.target_value} {goal.unit}
                     </p>
                   </div>
@@ -64,11 +64,11 @@ export default function GranularGoalsChart({ goals = [] }) {
               </div>
 
               <div className="space-y-2">
-                <div className="flex items-center justify-between text-xs text-gray-600">
+                <div className="flex items-center justify-between text-xs text-gray-600 dark:text-gray-300">
                   <span>Progress</span>
                   <span className="font-semibold">{percentage.toFixed(0)}%</span>
                 </div>
-                <div className="relative w-full bg-gray-100 rounded-full h-3 overflow-hidden">
+                <div className="relative w-full bg-gray-100 dark:bg-white/5 rounded-full h-3 overflow-hidden">
                   <div
                     className={`h-full bg-gradient-to-r ${getProgressColor(percentage)} transition-all duration-500 rounded-full`}
                     style={{ width: `${Math.min(percentage, 100)}%` }}
@@ -81,8 +81,8 @@ export default function GranularGoalsChart({ goals = [] }) {
       </div>
 
       {goals.length === 0 && (
-        <div className="text-center py-8 text-gray-400">
-          <Target className="w-12 h-12 mx-auto mb-2 text-gray-300" />
+        <div className="text-center py-8 text-gray-400 dark:text-gray-300">
+          <Target className="w-12 h-12 mx-auto mb-2 text-gray-300 dark:text-gray-400 dark:text-gray-300" />
           <p>No granular goals set yet</p>
         </div>
       )}

@@ -166,7 +166,7 @@ export default function CommunityFeed({ user }) {
     <div className="space-y-4">
       {/* Filter Buttons */}
       <div className="flex items-center gap-2 overflow-x-auto pb-2">
-        <Filter className="w-4 h-4 text-gray-500 flex-shrink-0" />
+        <Filter className="w-4 h-4 text-gray-500 dark:text-gray-300 flex-shrink-0" />
         {filterOptions.map((option) => {
           const Icon = option.icon;
           const isActive = filterType === option.value;
@@ -188,9 +188,9 @@ export default function CommunityFeed({ user }) {
       {filteredShares.length === 0 ? (
         <Card>
           <CardContent className="py-12 text-center">
-            <Sparkles className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">No milestones yet</h3>
-            <p className="text-gray-600">Be the first to share your progress with the community!</p>
+            <Sparkles className="w-12 h-12 text-gray-400 dark:text-gray-300 mx-auto mb-4" />
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">No milestones yet</h3>
+            <p className="text-gray-600 dark:text-gray-300">Be the first to share your progress with the community!</p>
           </CardContent>
         </Card>
       ) : (
@@ -204,7 +204,7 @@ export default function CommunityFeed({ user }) {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
             >
-              <Card className="overflow-hidden hover:shadow-lg transition-shadow">
+              <Card className="overflow-hidden hover:shadow-lg dark:shadow-none transition-shadow">
                 <CardHeader className="pb-3">
                   <div className="flex items-start justify-between">
                     <div className="flex items-start gap-3 flex-1">
@@ -216,7 +216,7 @@ export default function CommunityFeed({ user }) {
                           {!share.is_anonymous ? (
                             <HoverCard>
                               <HoverCardTrigger asChild>
-                                <button className="font-semibold text-gray-900 hover:text-[#C9A227] transition-colors">
+                                <button className="font-semibold text-gray-900 dark:text-white hover:text-[#C9A227] transition-colors">
                                   {share.user_display_name}
                                 </button>
                               </HoverCardTrigger>
@@ -229,7 +229,7 @@ export default function CommunityFeed({ user }) {
                                   </Avatar>
                                   <div className="flex-1 space-y-2">
                                     <h4 className="text-sm font-semibold">{share.user_display_name}</h4>
-                                    <p className="text-xs text-gray-600">
+                                    <p className="text-xs text-gray-600 dark:text-gray-300">
                                       Member since {share.created_date ? format(new Date(share.created_date), 'MMM yyyy') : ''}
                                     </p>
                                     <div className="flex gap-2 pt-2">
@@ -243,13 +243,13 @@ export default function CommunityFeed({ user }) {
                               </HoverCardContent>
                             </HoverCard>
                           ) : (
-                            <p className="font-semibold text-gray-900">Anonymous</p>
+                            <p className="font-semibold text-gray-900 dark:text-white">Anonymous</p>
                           )}
                           <Badge variant="outline" className="text-xs capitalize">
                             {share.share_type.replace('_', ' ')}
                           </Badge>
                         </div>
-                        <p className="text-xs text-gray-500">
+                        <p className="text-xs text-gray-500 dark:text-gray-300">
                           {share.created_date ? format(new Date(share.created_date), 'MMM d, yyyy \'at\' h:mm a') : ''} • via {share.chatbot_source}
                         </p>
                       </div>
@@ -259,8 +259,8 @@ export default function CommunityFeed({ user }) {
 
                 <CardContent className="space-y-4">
                   <div>
-                    <h3 className="font-semibold text-gray-900 mb-2">{share.title}</h3>
-                    <p className="text-gray-700 leading-relaxed">{share.content}</p>
+                    <h3 className="font-semibold text-gray-900 dark:text-white mb-2">{share.title}</h3>
+                    <p className="text-gray-700 dark:text-gray-200 leading-relaxed">{share.content}</p>
                   </div>
 
                   {/* Encouragement Buttons */}
@@ -330,7 +330,7 @@ export default function CommunityFeed({ user }) {
                           {encouragementsForShare?.map((enc) => (
                             <div
                               key={enc.id}
-                              className="bg-gray-50 dark:bg-white/5 rounded-lg p-3"
+                              className="bg-gray-50 dark:bg-white/5 dark:text-white rounded-lg p-3"
                             >
                               <div className="flex items-start gap-2">
                                 <span className="text-lg">
@@ -340,7 +340,7 @@ export default function CommunityFeed({ user }) {
                                   {!enc.is_anonymous ? (
                                     <HoverCard>
                                       <HoverCardTrigger asChild>
-                                        <button className="font-semibold text-sm text-gray-900 hover:text-[#C9A227] transition-colors">
+                                        <button className="font-semibold text-sm text-gray-900 dark:text-white hover:text-[#C9A227] transition-colors">
                                           {enc.user_display_name}
                                         </button>
                                       </HoverCardTrigger>
@@ -353,18 +353,18 @@ export default function CommunityFeed({ user }) {
                                           </Avatar>
                                           <div className="flex-1">
                                             <h4 className="text-sm font-semibold">{enc.user_display_name}</h4>
-                                            <p className="text-xs text-gray-600 mt-1">Community supporter</p>
+                                            <p className="text-xs text-gray-600 dark:text-gray-300 mt-1">Community supporter</p>
                                           </div>
                                         </div>
                                       </HoverCardContent>
                                     </HoverCard>
                                   ) : (
-                                    <p className="font-semibold text-sm text-gray-900">Anonymous</p>
+                                    <p className="font-semibold text-sm text-gray-900 dark:text-white">Anonymous</p>
                                   )}
                                   {enc.message && (
-                                    <p className="text-sm text-gray-700 mt-1">{enc.message}</p>
+                                    <p className="text-sm text-gray-700 dark:text-gray-200 mt-1">{enc.message}</p>
                                   )}
-                                  <p className="text-xs text-gray-500 mt-1">
+                                  <p className="text-xs text-gray-500 dark:text-gray-300 mt-1">
                                     {enc.created_date ? format(new Date(enc.created_date), 'MMM d \'at\' h:mm a') : ''}
                                   </p>
                                 </div>

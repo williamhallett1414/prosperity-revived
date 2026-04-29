@@ -33,17 +33,17 @@ export default function ExternalDataSources({ user, onClose }) {
         className="bg-white dark:bg-white/5 rounded-2xl w-full max-w-lg max-h-[90vh] flex flex-col overflow-hidden shadow-2xl"
       >
         {/* Header */}
-        <div className="flex items-center justify-between p-5 border-b border-gray-100 dark:border-white/10">
+        <div className="flex items-center justify-between p-5 border-b border-gray-100 dark:border-white/10 dark:border-white/10">
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#3C4E53] to-[#c9a227] flex items-center justify-center">
               <Link2 className="w-4 h-4 text-white" />
             </div>
             <div>
-              <h2 className="font-bold text-gray-900 text-base">External Data Sources</h2>
-              <p className="text-xs text-gray-500">Enrich your chatbot experience with real data</p>
+              <h2 className="font-bold text-gray-900 dark:text-white text-base">External Data Sources</h2>
+              <p className="text-xs text-gray-500 dark:text-gray-300">Enrich your chatbot experience with real data</p>
             </div>
           </div>
-          <Button variant="ghost" size="icon" onClick={onClose} className="text-gray-400">
+          <Button variant="ghost" size="icon" onClick={onClose} className="text-gray-400 dark:text-gray-300">
             <X className="w-5 h-5" />
           </Button>
         </div>

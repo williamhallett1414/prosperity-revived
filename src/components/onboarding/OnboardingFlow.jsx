@@ -180,7 +180,7 @@ const STEPS = [
 function PillButton({ selected, onClick, children, color = '#FD9C2D' }) {
   return (
     <button onPointerDown={onClick}
-      className={`px-3 py-2 rounded-2xl text-sm font-semibold border-2 transition-all ${selected ? 'text-white border-transparent shadow-sm' : 'bg-white dark:bg-white/5 text-gray-600 border-gray-100 dark:border-white/10 hover:border-gray-200 dark:border-white/10'}`}
+      className={`px-3 py-2 rounded-2xl text-sm font-semibold border-2 transition-all ${selected ? 'text-white border-transparent shadow-sm dark:shadow-none' : 'bg-white dark:bg-white/5 text-gray-600 dark:text-gray-300 border-gray-100 dark:border-white/10 hover:border-gray-200 dark:border-white/10'}`}
       style={selected ? { background: color, borderColor: color } : {}}>
       {children}
     </button>
@@ -192,25 +192,25 @@ function RadioCard({ selected, onClick, label, desc, emoji }) {
       className={`w-full text-left px-4 py-3 rounded-2xl border-2 transition-all flex items-center gap-3 ${selected ? 'border-[#FD9C2D] bg-[#FD9C2D]/8' : 'border-gray-100 dark:border-white/10 bg-white dark:bg-white/5 hover:border-gray-200 dark:border-white/10'}`}>
       {emoji && <span className="text-xl flex-shrink-0">{emoji}</span>}
       <div className="flex-1">
-        <p className={`text-sm font-semibold ${selected ? 'text-[#0A1A2F] dark:text-white dark:text-white' : 'text-gray-700'}`}>{label}</p>
-        {desc && <p className="text-xs text-gray-400 mt-0.5">{desc}</p>}
+        <p className={`text-sm font-semibold ${selected ? 'text-[#0A1A2F] dark:text-white dark:text-white' : 'text-gray-700 dark:text-gray-200'}`}>{label}</p>
+        {desc && <p className="text-xs text-gray-400 dark:text-gray-300 mt-0.5">{desc}</p>}
       </div>
       {selected && <div className="w-5 h-5 rounded-full bg-[#FD9C2D] flex items-center justify-center flex-shrink-0"><Check className="w-3 h-3 text-white" /></div>}
     </button>
   );
 }
 function SectionLabel({ children }) {
-  return <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">{children}</p>;
+  return <p className="text-[10px] font-bold text-gray-400 dark:text-gray-300 uppercase tracking-widest mb-2">{children}</p>;
 }
 function NumberInput({ label, value, onChange, min, max, unit }) {
   return (
     <div className="bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 px-4 py-3 flex items-center justify-between">
-      <span className="text-sm font-medium text-gray-700">{label}</span>
+      <span className="text-sm font-medium text-gray-700 dark:text-gray-200">{label}</span>
       <div className="flex items-center gap-3">
-        <button onPointerDown={() => onChange(Math.max(min, (value||min)-1))} className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center font-bold text-gray-600">−</button>
+        <button onPointerDown={() => onChange(Math.max(min, (value||min)-1))} className="w-8 h-8 rounded-full bg-gray-100 dark:bg-white/5 flex items-center justify-center font-bold text-gray-600 dark:text-gray-300">−</button>
         <span className="text-base font-bold text-[#0A1A2F] dark:text-white w-12 text-center">{value||'—'}</span>
-        <button onPointerDown={() => onChange(Math.min(max, (value||min)+1))} className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center font-bold text-gray-600">+</button>
-        {unit && <span className="text-xs text-gray-400 w-6">{unit}</span>}
+        <button onPointerDown={() => onChange(Math.min(max, (value||min)+1))} className="w-8 h-8 rounded-full bg-gray-100 dark:bg-white/5 flex items-center justify-center font-bold text-gray-600 dark:text-gray-300">+</button>
+        {unit && <span className="text-xs text-gray-400 dark:text-gray-300 w-6">{unit}</span>}
       </div>
     </div>
   );
@@ -588,7 +588,7 @@ export default function OnboardingFlow({ onComplete }) {
                   {cfg.id==='growth'    && 'Personal growth'}
                   {cfg.id==='routine'   && 'Your daily routine'}
                 </h2>
-                <p className="text-gray-500 text-xs mt-1">
+                <p className="text-gray-500 dark:text-gray-300 text-xs mt-1">
                   {cfg.id==='legal'     && 'Please review and accept our legal documents to continue.'}
                   {cfg.id==='you'       && 'A few quick questions so everything feels personal from day one.'}
                   {cfg.id==='why'       && 'Pick everything that resonates — no right answers.'}
@@ -614,7 +614,7 @@ export default function OnboardingFlow({ onComplete }) {
                   return (
                     <div className="space-y-4">
                       <div>
-                        <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Age Confirmation *</p>
+                        <p className="text-[10px] font-bold text-gray-400 dark:text-gray-300 uppercase tracking-widest mb-2">Age Confirmation *</p>
                         <div className="space-y-2">
                           {[
                             { id:'18plus',  label:'I am 18 years of age or older' },
@@ -623,10 +623,10 @@ export default function OnboardingFlow({ onComplete }) {
                           ].map(opt => (
                             <button key={opt.id} onPointerDown={() => setAgeGroup(opt.id)}
                               className={`w-full text-left px-4 py-3 rounded-2xl border-2 transition-all flex items-center gap-3 ${ageGroup===opt.id ? (opt.red?'border-red-400 bg-red-50':'border-[#FD9C2D] bg-[#FD9C2D]/8') : 'border-gray-100 dark:border-white/10 bg-white dark:bg-white/5 hover:border-gray-200 dark:border-white/10'}`}>
-                              <div className={`w-4 h-4 rounded-full border-2 flex-shrink-0 flex items-center justify-center ${ageGroup===opt.id ? (opt.red?'border-red-400 bg-red-400':'border-[#FD9C2D] bg-[#FD9C2D]') : 'border-gray-300'}`}>
+                              <div className={`w-4 h-4 rounded-full border-2 flex-shrink-0 flex items-center justify-center ${ageGroup===opt.id ? (opt.red?'border-red-400 bg-red-400':'border-[#FD9C2D] bg-[#FD9C2D]') : 'border-gray-300 dark:border-white/15'}`}>
                                 {ageGroup===opt.id && <div className="w-1.5 h-1.5 rounded-full bg-white dark:bg-white/5" />}
                               </div>
-                              <span className={`text-sm font-semibold ${ageGroup===opt.id ? (opt.red?'text-red-600':'text-[#0A1A2F] dark:text-white dark:text-white') : 'text-gray-700'}`}>{opt.label}</span>
+                              <span className={`text-sm font-semibold ${ageGroup===opt.id ? (opt.red?'text-red-600':'text-[#0A1A2F] dark:text-white dark:text-white') : 'text-gray-700 dark:text-gray-200'}`}>{opt.label}</span>
                             </button>
                           ))}
                         </div>
@@ -647,13 +647,13 @@ export default function OnboardingFlow({ onComplete }) {
                       </div>
                       {(ageGroup==='18plus'||ageGroup==='13to17') && (
                         <motion.div initial={{ opacity:0, y:8 }} animate={{ opacity:1, y:0 }} className="space-y-2">
-                          <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Review & Accept Documents *</p>
+                          <p className="text-[10px] font-bold text-gray-400 dark:text-gray-300 uppercase tracking-widest mb-2">Review & Accept Documents *</p>
                           {DOCS_LIST.map(({ key, icon, label, sub }) => (
                             <div key={key} className={`flex items-center gap-3 px-4 py-3 rounded-2xl border-2 transition-all ${acceptedDocs[key]?'border-green-300 bg-green-50':'border-gray-100 dark:border-white/10 bg-white dark:bg-white/5'}`}>
                               <span className="text-xl flex-shrink-0">{icon}</span>
                               <div className="flex-1 min-w-0">
                                 <p className="text-sm font-semibold text-[#0A1A2F] dark:text-white leading-tight">{label}</p>
-                                <p className="text-[10px] text-gray-400 mt-0.5">{sub}</p>
+                                <p className="text-[10px] text-gray-400 dark:text-gray-300 mt-0.5">{sub}</p>
                               </div>
                               {acceptedDocs[key] ? (
                                 <div className="w-7 h-7 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0"><Check className="w-4 h-4 text-white" /></div>
@@ -662,17 +662,17 @@ export default function OnboardingFlow({ onComplete }) {
                               )}
                             </div>
                           ))}
-                          <p className="text-xs text-center text-gray-400 pt-1">{Object.values(acceptedDocs).filter(Boolean).length} of 4 reviewed</p>
+                          <p className="text-xs text-center text-gray-400 dark:text-gray-300 pt-1">{Object.values(acceptedDocs).filter(Boolean).length} of 4 reviewed</p>
                         </motion.div>
                       )}
                       {allDocsAccepted && (
                         <motion.div initial={{ opacity:0, y:8 }} animate={{ opacity:1, y:0 }}>
                           <button onPointerDown={() => setMasterChecked(v=>!v)}
-                            className={`w-full flex items-start gap-3 px-4 py-4 rounded-2xl border-2 text-left transition-all ${masterChecked?'border-[#0A1A2F] bg-[#0A1A2F]':'border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-white/5 hover:border-gray-300'}`}>
+                            className={`w-full flex items-start gap-3 px-4 py-4 rounded-2xl border-2 text-left transition-all ${masterChecked?'border-[#0A1A2F] bg-[#0A1A2F]':'border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-white/5 hover:border-gray-300 dark:border-white/15'}`}>
                             <div className={`w-5 h-5 rounded-md border-2 flex-shrink-0 mt-0.5 flex items-center justify-center ${masterChecked?'bg-[#FD9C2D] border-[#FD9C2D]':'border-gray-400 bg-white dark:bg-white/5'}`}>
                               {masterChecked && <Check className="w-3 h-3 text-white" strokeWidth={3} />}
                             </div>
-                            <p className={`text-sm leading-relaxed font-medium ${masterChecked?'text-white':'text-gray-700'}`}>
+                            <p className={`text-sm leading-relaxed font-medium ${masterChecked?'text-white':'text-gray-700 dark:text-gray-200'}`}>
                               I have read and agree to all of the documents above. I understand the AI Disclosure, Health & Wellness Waiver, Privacy Policy, and Subscription Terms.
                             </p>
                           </button>
@@ -695,14 +695,14 @@ export default function OnboardingFlow({ onComplete }) {
                       <div>
                         <SectionLabel>Date of birth</SectionLabel>
                         <input type="date" value={d.dob} onChange={e=>set('dob',e.target.value)}
-                          className="w-full px-3 py-3 rounded-2xl border-2 border-gray-100 dark:border-white/10 bg-white dark:bg-white/5 text-sm text-gray-700 focus:outline-none focus:border-[#FD9C2D]" />
+                          className="w-full px-3 py-3 rounded-2xl border-2 border-gray-100 dark:border-white/10 bg-white dark:bg-white/5 text-sm text-gray-700 dark:text-gray-200 focus:outline-none focus:border-[#FD9C2D]" />
                       </div>
                       <div>
                         <SectionLabel>Biological sex</SectionLabel>
                         <div className="flex gap-2">
                           {['Male','Female'].map(s => (
                             <button key={s} onPointerDown={() => set('biological_sex',s)}
-                              className={`flex-1 py-3 rounded-2xl text-sm font-semibold border-2 transition-all ${d.biological_sex===s?'bg-[#0A1A2F] border-[#0A1A2F] text-white':'bg-white dark:bg-white/5 border-gray-100 dark:border-white/10 text-gray-700'}`}>{s}</button>
+                              className={`flex-1 py-3 rounded-2xl text-sm font-semibold border-2 transition-all ${d.biological_sex===s?'bg-[#0A1A2F] border-[#0A1A2F] text-white':'bg-white dark:bg-white/5 border-gray-100 dark:border-white/10 text-gray-700 dark:text-gray-200'}`}>{s}</button>
                           ))}
                         </div>
                       </div>
@@ -712,13 +712,13 @@ export default function OnboardingFlow({ onComplete }) {
                         <span className="text-lg">🎯</span>
                         <div>
                           <p className="text-xs font-bold text-[#0A1A2F] dark:text-white mb-0.5">Your north star</p>
-                          <p className="text-xs text-gray-600 italic leading-relaxed">"{hookAnswer.trim()}"</p>
+                          <p className="text-xs text-gray-600 dark:text-gray-300 italic leading-relaxed">"{hookAnswer.trim()}"</p>
                         </div>
                       </div>
                     )}
                     <div className="bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-2xl p-3 flex gap-2">
                       <span className="text-lg">🔒</span>
-                      <p className="text-xs text-gray-600 leading-relaxed">Your information is private and only used to personalise your experience.</p>
+                      <p className="text-xs text-gray-600 dark:text-gray-300 leading-relaxed">Your information is private and only used to personalise your experience.</p>
                     </div>
                   </div>
                 )}
@@ -780,7 +780,7 @@ export default function OnboardingFlow({ onComplete }) {
                     <div>
                       <SectionLabel>Injuries or limitations (optional)</SectionLabel>
                       <textarea value={d.injuries} onChange={e=>set('injuries',e.target.value)} placeholder="e.g. bad knees, lower back pain…" rows={2}
-                        className="w-full px-4 py-3 rounded-2xl border-2 border-gray-100 dark:border-white/10 bg-white dark:bg-white/5 text-sm text-gray-700 focus:outline-none focus:border-[#38BDF8] resize-none" />
+                        className="w-full px-4 py-3 rounded-2xl border-2 border-gray-100 dark:border-white/10 bg-white dark:bg-white/5 text-sm text-gray-700 dark:text-gray-200 focus:outline-none focus:border-[#38BDF8] resize-none" />
                     </div>
                   </div>
                 )}
@@ -881,7 +881,7 @@ export default function OnboardingFlow({ onComplete }) {
                       <SectionLabel>What do you want to achieve in 90 days? (optional)</SectionLabel>
                       <textarea value={d.goal_90_day} onChange={e=>set('goal_90_day',e.target.value)}
                         placeholder="e.g. Feel more confident in my faith and drop 10 lbs."
-                        rows={3} className="w-full px-4 py-3 rounded-2xl border-2 border-gray-100 dark:border-white/10 bg-white dark:bg-white/5 text-sm text-gray-700 focus:outline-none focus:border-[#AFC7E3] resize-none" />
+                        rows={3} className="w-full px-4 py-3 rounded-2xl border-2 border-gray-100 dark:border-white/10 bg-white dark:bg-white/5 text-sm text-gray-700 dark:text-gray-200 focus:outline-none focus:border-[#AFC7E3] resize-none" />
                     </div>
                   </div>
                 )}
@@ -893,12 +893,12 @@ export default function OnboardingFlow({ onComplete }) {
                       <div>
                         <SectionLabel>Wake time</SectionLabel>
                         <input type="time" value={d.wake_time} onChange={e=>set('wake_time',e.target.value)}
-                          className="w-full px-3 py-3 rounded-2xl border-2 border-gray-100 dark:border-white/10 bg-white dark:bg-white/5 text-sm text-gray-700 focus:outline-none focus:border-[#8B5CF6]" />
+                          className="w-full px-3 py-3 rounded-2xl border-2 border-gray-100 dark:border-white/10 bg-white dark:bg-white/5 text-sm text-gray-700 dark:text-gray-200 focus:outline-none focus:border-[#8B5CF6]" />
                       </div>
                       <div>
                         <SectionLabel>Sleep time</SectionLabel>
                         <input type="time" value={d.sleep_time} onChange={e=>set('sleep_time',e.target.value)}
-                          className="w-full px-3 py-3 rounded-2xl border-2 border-gray-100 dark:border-white/10 bg-white dark:bg-white/5 text-sm text-gray-700 focus:outline-none focus:border-[#8B5CF6]" />
+                          className="w-full px-3 py-3 rounded-2xl border-2 border-gray-100 dark:border-white/10 bg-white dark:bg-white/5 text-sm text-gray-700 dark:text-gray-200 focus:outline-none focus:border-[#8B5CF6]" />
                       </div>
                     </div>
                     <div>
@@ -919,7 +919,7 @@ export default function OnboardingFlow({ onComplete }) {
                           <div key={key} className="flex items-center justify-between bg-white dark:bg-white/5 border border-gray-100 dark:border-white/10 rounded-2xl px-4 py-3">
                             <div>
                               <p className="text-sm font-semibold text-[#0A1A2F] dark:text-white dark:text-white">{label}</p>
-                              <p className="text-xs text-gray-400">{time}</p>
+                              <p className="text-xs text-gray-400 dark:text-gray-300">{time}</p>
                             </div>
                             <button onPointerDown={() => set(key,!d[key])}
                               className={`w-11 h-6 rounded-full transition-all relative flex-shrink-0 ${d[key]?'bg-[#8B5CF6]':'bg-gray-200'}`}>
@@ -937,20 +937,20 @@ export default function OnboardingFlow({ onComplete }) {
               {/* Nav */}
               <div className="px-5 py-4 border-t border-gray-50 dark:border-white/5 flex gap-3">
                 {step > 0 && (
-                  <button onPointerDown={back} className="flex items-center gap-1.5 px-4 py-3 rounded-2xl bg-gray-100 text-gray-600 font-semibold text-sm">
+                  <button onPointerDown={back} className="flex items-center gap-1.5 px-4 py-3 rounded-2xl bg-gray-100 dark:bg-white/5 text-gray-600 dark:text-gray-300 font-semibold text-sm">
                     <ChevronLeft className="w-4 h-4" /> Back
                   </button>
                 )}
                 <button onPointerDown={() => { if (!canAdvance()) return; next(); }}
                   disabled={!canAdvance()||saving}
-                  className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-2xl font-bold text-sm transition-all ${canAdvance()&&!saving?'text-white shadow-lg':'bg-gray-100 text-gray-400 cursor-not-allowed'}`}
+                  className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-2xl font-bold text-sm transition-all ${canAdvance()&&!saving?'text-white shadow-lg dark:shadow-none':'bg-gray-100 dark:bg-white/5 text-gray-400 dark:text-gray-300 cursor-not-allowed'}`}
                   style={canAdvance()&&!saving?{background:`linear-gradient(135deg, ${cfg.color}, #FD9C2D)`}:{}}>
                   {saving ? <>⏳ Saving…</> : step===STEPS.length-1 ? <><Sparkles className="w-4 h-4" /> Start My Journey</> : <>Continue <ChevronRight className="w-4 h-4" /></>}
                 </button>
               </div>
 
               {step > 0 && step < STEPS.length-1 && cfg.id !== 'legal' && (
-                <button onPointerDown={handleComplete} className="w-full text-center text-xs text-gray-400 hover:text-gray-600 pb-4 transition-colors">
+                <button onPointerDown={handleComplete} className="w-full text-center text-xs text-gray-400 dark:text-gray-300 hover:text-gray-600 dark:text-gray-300 pb-4 transition-colors">
                   Skip for now — I'll fill this in later
                 </button>
               )}

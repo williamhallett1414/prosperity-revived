@@ -66,7 +66,7 @@ function FriendCard({ friend, currentUserEmail, navigate }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
-      className="bg-white dark:bg-white/5 rounded-2xl border border-[#AFC7E3]/20 p-4 flex items-center gap-3 hover:border-[#FAD98D]/30 hover:shadow-sm transition-all"
+      className="bg-white dark:bg-white/5 rounded-2xl border border-[#AFC7E3]/20 p-4 flex items-center gap-3 hover:border-[#FAD98D]/30 hover:shadow-sm dark:shadow-none transition-all"
     >
       <Link to={createPageUrl(`UserProfile?email=${friendEmail}`)}>
         <Avatar name={friendName} email={friendEmail} size="md" />
@@ -241,7 +241,7 @@ export default function Friends() {
             )}
             <button
               onClick={focusAdd}
-              className="w-9 h-9 rounded-full bg-gradient-to-br from-[#FAD98D] to-[#c9a227] flex items-center justify-center shadow-sm hover:opacity-90 transition-opacity"
+              className="w-9 h-9 rounded-full bg-gradient-to-br from-[#FAD98D] to-[#c9a227] flex items-center justify-center shadow-sm dark:shadow-none hover:opacity-90 transition-opacity"
             >
               <UserPlus className="w-4 h-4 text-white" />
             </button>

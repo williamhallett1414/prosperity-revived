@@ -10,7 +10,7 @@ export default function VerseDisplay({ reference, text }) {
           <p className="text-sm font-semibold text-[#0A1A2F] dark:text-white mb-2">
             {reference}
           </p>
-          <p className="text-sm text-[#0A1A2F]/75 italic leading-relaxed">
+          <p className="text-sm text-[#0A1A2F]/75 dark:text-white/75 italic leading-relaxed">
             "{text}"
           </p>
         </div>

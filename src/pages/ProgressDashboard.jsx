@@ -42,7 +42,7 @@ function ProgressBanner({ progress }) {
     <Link to={createPageUrl('Achievements')}>
       <motion.div
         initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }}
-        className="bg-gradient-to-r from-[#0A1A2F] to-[#AFC7E3] rounded-2xl p-4 flex items-center gap-4 shadow-md hover:opacity-90 transition-opacity"
+        className="bg-gradient-to-r from-[#0A1A2F] to-[#AFC7E3] rounded-2xl p-4 flex items-center gap-4 shadow-md dark:shadow-none hover:opacity-90 transition-opacity"
       >
         <div className="w-12 h-12 rounded-full bg-white/15 flex items-center justify-center flex-shrink-0">
           <Crown className="w-6 h-6 text-white" />
@@ -83,7 +83,7 @@ function GuidesGrid({ onOpen }) {
       <div className="grid grid-cols-2 gap-3">
         {CHATBOTS.map(({ key, name, icon, label, gradient }) => (
           <button key={key} onClick={() => onOpen(key)}
-            className={`bg-gradient-to-br ${gradient} rounded-2xl p-4 flex flex-col items-start gap-2 text-left hover:opacity-90 active:scale-95 transition-all shadow-sm`}>
+            className={`bg-gradient-to-br ${gradient} rounded-2xl p-4 flex flex-col items-start gap-2 text-left hover:opacity-90 active:scale-95 transition-all shadow-sm dark:shadow-none`}>
             <span className="text-2xl leading-none">{icon}</span>
             <div>
               <p className="font-bold text-white text-sm leading-tight">{name}</p>
@@ -113,7 +113,7 @@ function RecentMilestones({ memories }) {
           const Icon = cfg.icon;
           return (
             <div key={memory.id}
-              className="bg-white dark:bg-white/5 rounded-2xl p-3.5 flex items-start gap-3 border border-gray-100 dark:border-white/10 shadow-sm">
+              className="bg-white dark:bg-white/5 rounded-2xl p-3.5 flex items-start gap-3 border border-gray-100 dark:border-white/10 shadow-sm dark:shadow-none">
               <div className={`w-8 h-8 rounded-xl ${cfg.bg} flex items-center justify-center flex-shrink-0`}>
                 <Icon className={`w-4 h-4 ${cfg.color}`} />
               </div>
@@ -155,7 +155,7 @@ function StartHereCard() {
           { page: 'Prayer',   emoji: '🙏', label: 'Pray'         },
         ].map(({ page, emoji, label }) => (
           <Link key={page} to={createPageUrl(page)}>
-            <div className="bg-white dark:bg-white/5 rounded-xl p-3 text-center hover:shadow-sm transition-shadow min-h-[64px] flex flex-col items-center justify-center gap-1">
+            <div className="bg-white dark:bg-white/5 rounded-xl p-3 text-center hover:shadow-sm dark:shadow-none transition-shadow min-h-[64px] flex flex-col items-center justify-center gap-1">
               <p className="text-xl">{emoji}</p>
               <p className="text-xs font-medium text-[#0A1A2F]/70 dark:text-white/70 leading-tight">{label}</p>
             </div>

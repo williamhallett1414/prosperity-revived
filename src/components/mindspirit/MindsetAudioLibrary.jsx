@@ -85,7 +85,7 @@ export default function MindsetAudioLibrary() {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: index * 0.05 }}
-            className={`bg-gradient-to-r ${track.gradient} rounded-xl p-4 border border-gray-200 dark:border-white/10`}
+            className={`bg-gradient-to-r ${track.gradient} rounded-xl p-4 border border-gray-200 dark:border-white/10 dark:border-white/10`}
           >
             <div className="flex items-center justify-between">
               <div className="flex-1">

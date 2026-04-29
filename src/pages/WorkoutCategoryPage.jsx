@@ -97,7 +97,7 @@ export default function WorkoutCategoryPage() {
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          className={`bg-gradient-to-br ${meta.grad} rounded-2xl p-6 text-white shadow-md mb-6`}>
+          className={`bg-gradient-to-br ${meta.grad} rounded-2xl p-6 text-white shadow-md dark:shadow-none mb-6`}>
           
           <div className="flex items-center gap-4">
             <span className="text-5xl">{meta.emoji}</span>
@@ -117,7 +117,7 @@ export default function WorkoutCategoryPage() {
 
         {/* Empty state */}
         {sorted.length === 0 &&
-        <div className="text-center py-16 bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10">
+        <div className="text-center py-16 bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 dark:border-white/10">
             <span className="text-4xl mb-3 block">{meta.emoji}</span>
             <p className="text-[#0A1A2F]/60 dark:text-white/60 font-medium">No workouts found in this category yet.</p>
             <p className="text-[#0A1A2F]/40 dark:text-white/40 text-sm mt-1">More coming soon!</p>
@@ -141,7 +141,7 @@ function DifficultyFiltered({ workouts, user }) {
     intermediate: 'bg-amber-500 text-white',
     advanced: 'bg-rose-500 text-white'
   };
-  const LEVEL_INACTIVE = 'bg-white dark:bg-white/5 text-[#0A1A2F]/55 dark:text-white/55 border border-gray-200 dark:border-white/10';
+  const LEVEL_INACTIVE = 'bg-white dark:bg-white/5 text-[#0A1A2F]/55 dark:text-white/55 border border-gray-200 dark:border-white/10 dark:border-white/10';
 
   return (
     <>

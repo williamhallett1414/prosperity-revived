@@ -74,7 +74,7 @@ export default function CoachDavidFormAnalysis({ onAnalysisComplete }) {
                   setIsOpen(false);
                   setAnalysis(null);
                 }}
-                className="text-gray-400 hover:text-gray-600"
+                className="text-gray-400 dark:text-gray-300 hover:text-gray-600 dark:text-gray-300"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -108,7 +108,7 @@ export default function CoachDavidFormAnalysis({ onAnalysisComplete }) {
                   <label htmlFor="video-upload" className="cursor-pointer">
                     <Upload className="w-6 h-6 mx-auto mb-2 text-[#3C4E53]" />
                     <p className="text-xs font-medium text-[#0A1A2F] dark:text-white dark:text-white">Click to upload video</p>
-                    <p className="text-xs text-gray-600 mt-1">or drag and drop</p>
+                    <p className="text-xs text-gray-600 dark:text-gray-300 mt-1">or drag and drop</p>
                   </label>
                   {video && (
                     <p className="text-xs text-green-600 mt-2">✓ Video uploaded</p>
@@ -136,7 +136,7 @@ export default function CoachDavidFormAnalysis({ onAnalysisComplete }) {
                   <div className="text-3xl font-bold text-[#3C4E53]">{analysis.overall_form_score}</div>
                   <div className="flex-1">
                     <p className="font-semibold text-[#0A1A2F] dark:text-white dark:text-white">Form Score</p>
-                    <p className="text-xs text-gray-600">Out of 10</p>
+                    <p className="text-xs text-gray-600 dark:text-gray-300">Out of 10</p>
                   </div>
                 </div>
 
@@ -176,8 +176,8 @@ export default function CoachDavidFormAnalysis({ onAnalysisComplete }) {
                     {analysis.detailed_corrections.map((c, i) => (
                       <div key={i} className="text-xs space-y-1">
                         <p className="font-medium text-[#0A1A2F] dark:text-white dark:text-white">{c.issue}</p>
-                        <p className="text-gray-700">Fix: {c.correction}</p>
-                        <p className="text-gray-600 italic">Why: {c.why_it_matters}</p>
+                        <p className="text-gray-700 dark:text-gray-200">Fix: {c.correction}</p>
+                        <p className="text-gray-600 dark:text-gray-300 italic">Why: {c.why_it_matters}</p>
                       </div>
                     ))}
                   </div>

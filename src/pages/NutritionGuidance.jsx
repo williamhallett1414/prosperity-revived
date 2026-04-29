@@ -23,7 +23,7 @@ export default function NutritionGuidance() {
         <div className="max-w-2xl mx-auto flex items-center gap-3">
           <Link
             to={createPageUrl('Wellness?tab=nutrition')}
-            className="w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors">
+            className="w-9 h-9 rounded-full bg-gray-100 dark:bg-white/5 hover:bg-gray-200 flex items-center justify-center transition-colors">
 
             <ArrowLeft className="w-4 h-4 text-[#0A1A2F] dark:text-white dark:text-white" />
           </Link>
@@ -49,7 +49,7 @@ export default function NutritionGuidance() {
           animate={{ opacity: 1, y: 0 }}
           className="mb-6 relative">
 
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 dark:text-gray-300" />
           <Input
             type="text"
             placeholder="Search articles..."
@@ -78,7 +78,7 @@ export default function NutritionGuidance() {
             transition={{ delay: idx * 0.02 }}>
 
                 <Link to={createPageUrl(`NutritionArticle?id=${article.id}`)}>
-                  <div className="bg-white dark:bg-white/5 rounded-lg shadow-sm hover:shadow-md transition-shadow p-4 cursor-pointer">
+                  <div className="bg-white dark:bg-white/5 rounded-lg shadow-sm dark:shadow-none hover:shadow-md dark:shadow-none transition-shadow p-4 cursor-pointer">
                     <h3 className="font-semibold text-[#0A1A2F] dark:text-white mb-2">{article.title}</h3>
                     <p className="text-sm text-[#0A1A2F]/60 dark:text-white/60">{article.description}</p>
                   </div>

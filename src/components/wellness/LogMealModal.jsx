@@ -102,7 +102,7 @@ export default function LogMealModal({ recipe, isOpen, onClose }) {
                     <button key={value} onClick={() => setMealType(value)}
                       className={`py-2.5 rounded-xl text-xs font-bold transition-all ${
                         mealType === value
-                          ? 'bg-gradient-to-b from-[#c9a227] to-[#FAD98D] text-white shadow-sm'
+                          ? 'bg-gradient-to-b from-[#c9a227] to-[#FAD98D] text-white shadow-sm dark:shadow-none'
                           : 'bg-[#F2F6FA] dark:bg-[#0A1A2F] text-[#0A1A2F]/50 dark:text-white/50 hover:bg-[#FAD98D]/15'
                       }`}>
                       {label}

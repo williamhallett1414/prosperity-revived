@@ -61,7 +61,7 @@ function ListBuilder({ items, setItems, placeholder, multiline }) {
           <span className="text-[#c9a227] font-bold text-xs mt-0.5 flex-shrink-0">
             {items.length > 1 ? `${i + 1}.` : '·'}
           </span>
-          <p className="flex-1 text-sm text-[#0A1A2F]/75 leading-relaxed">{item}</p>
+          <p className="flex-1 text-sm text-[#0A1A2F]/75 dark:text-white/75 leading-relaxed">{item}</p>
           <button onClick={() => setItems(items.filter((_, idx) => idx !== i))}
             className="text-[#0A1A2F]/25 dark:text-white/25 hover:text-red-400 flex-shrink-0">
             <X className="w-3.5 h-3.5" />

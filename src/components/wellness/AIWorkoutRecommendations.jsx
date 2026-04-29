@@ -232,7 +232,7 @@ Be specific, actionable, and encouraging.`;
               <TrendingUp className="w-5 h-5 text-[#3C4E53]" />
               Performance Assessment
             </h3>
-            <p className="text-sm text-gray-700 dark:text-gray-300">{recommendations.assessment}</p>
+            <p className="text-sm text-gray-700 dark:text-gray-200 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">{recommendations.assessment}</p>
           </div>
 
           {/* Recommended Workouts */}
@@ -247,8 +247,8 @@ Be specific, actionable, and encouraging.`;
                       {workout.difficulty}
                     </span>
                   </div>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">{workout.description}</p>
-                  <div className="flex items-center gap-3 text-xs text-gray-500 dark:text-gray-400 mb-2">
+                  <p className="text-sm text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300 mb-2">{workout.description}</p>
+                  <div className="flex items-center gap-3 text-xs text-gray-500 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300 mb-2">
                     <span>{workout.duration_minutes} min</span>
                     <span>•</span>
                     <span>{workout.focus}</span>
@@ -273,7 +273,7 @@ Be specific, actionable, and encouraging.`;
                     <Target className="w-4 h-4 text-orange-600 mt-0.5 flex-shrink-0" />
                     <div>
                       <span className="font-medium text-[#0A1A2F] dark:text-white">{mod.workout_name}:</span>
-                      <span className="text-gray-600 dark:text-gray-400"> {mod.suggestion}</span>
+                      <span className="text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300"> {mod.suggestion}</span>
                     </div>
                   </div>
                 ))}
@@ -286,7 +286,7 @@ Be specific, actionable, and encouraging.`;
             <h3 className="font-semibold text-[#0A1A2F] dark:text-white mb-3">Plateau Prevention Tips</h3>
             <ul className="space-y-2">
               {recommendations.plateau_prevention_tips?.map((tip, index) => (
-                <li key={index} className="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300">
+                <li key={index} className="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-200 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">
                   <span className="text-emerald-600 font-bold">•</span>
                   {tip}
                 </li>
@@ -297,7 +297,7 @@ Be specific, actionable, and encouraging.`;
           {/* Recovery */}
           <div className="bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-900/20 dark:to-teal-900/20 rounded-2xl p-4">
             <h3 className="font-semibold text-[#0A1A2F] dark:text-white mb-2">Recovery Advice</h3>
-            <p className="text-sm text-gray-700 dark:text-gray-300">{recommendations.recovery_advice}</p>
+            <p className="text-sm text-gray-700 dark:text-gray-200 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">{recommendations.recovery_advice}</p>
           </div>
         </motion.div>
       )}

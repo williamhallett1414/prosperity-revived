@@ -135,7 +135,7 @@ export default function BibleGoalsEmbed() {
 
       {/* Hero */}
       <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}>
-        <div className="rounded-3xl p-5 relative overflow-hidden shadow-lg"
+        <div className="rounded-3xl p-5 relative overflow-hidden shadow-lg dark:shadow-none"
           style={{ background: 'linear-gradient(135deg, #0A1A2F 0%, #1a3050 60%, #C9A227 220%)' }}>
           <div className="absolute -right-8 -top-8 w-44 h-44 rounded-full bg-white/5" />
           <div className="relative">
@@ -173,7 +173,7 @@ export default function BibleGoalsEmbed() {
       )}
 
       {/* Translation */}
-      <div className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm">
+      <div className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm dark:shadow-none">
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#FAD98D]/20">
@@ -182,7 +182,7 @@ export default function BibleGoalsEmbed() {
             <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">Preferred Translation</p>
           </div>
           <button onClick={() => setShowTranslationInfo(v => !v)}
-            className="w-7 h-7 rounded-full bg-gray-100 flex items-center justify-center">
+            className="w-7 h-7 rounded-full bg-gray-100 dark:bg-white/5 flex items-center justify-center">
             <Info className="w-3.5 h-3.5 text-[#0A1A2F]/40 dark:text-white/40" />
           </button>
         </div>
@@ -209,7 +209,7 @@ export default function BibleGoalsEmbed() {
 
       {/* Topics */}
       {topics.length > 0 && (
-        <div className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm">
+        <div className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm dark:shadow-none">
           <div className="flex items-center gap-2 mb-4">
             <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#FAD98D]/20">
               <Heart className="w-4 h-4 text-[#C9A227]" />
@@ -245,7 +245,7 @@ export default function BibleGoalsEmbed() {
       </div>
 
       {/* Devotional depth */}
-      <div className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm">
+      <div className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm dark:shadow-none">
         <div className="flex items-center gap-2 mb-3">
           <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#FAD98D]/20">
             <Clock className="w-4 h-4 text-[#C9A227]" />
@@ -264,7 +264,7 @@ export default function BibleGoalsEmbed() {
 
       {/* Plans by topic */}
       {recommendedPlans.length > 0 && (
-        <div className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm">
+        <div className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm dark:shadow-none">
           <div className="flex items-center gap-2 mb-4">
             <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#FAD98D]/20">
               <BookMarked className="w-4 h-4 text-[#C9A227]" />
@@ -278,7 +278,7 @@ export default function BibleGoalsEmbed() {
       )}
 
       {/* Where to start */}
-      <div className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm">
+      <div className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm dark:shadow-none">
         <div className="flex items-center gap-2 mb-4">
           <div className="w-8 h-8 rounded-xl flex items-center justify-center" style={{ background: `${levelInfo.color}20` }}>
             <Compass className="w-4 h-4" style={{ color: levelInfo.color }} />
@@ -294,7 +294,7 @@ export default function BibleGoalsEmbed() {
       </div>
 
       {/* Study tips */}
-      <div className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm">
+      <div className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm dark:shadow-none">
         <div className="flex items-center gap-2 mb-4">
           <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#FAD98D]/20">
             <Sparkles className="w-4 h-4 text-[#C9A227]" />
@@ -313,7 +313,7 @@ export default function BibleGoalsEmbed() {
       </div>
 
       {/* Church */}
-      <div className="bg-white dark:bg-white/5 rounded-3xl px-5 py-4 shadow-sm">
+      <div className="bg-white dark:bg-white/5 rounded-3xl px-5 py-4 shadow-sm dark:shadow-none">
         <div className="flex items-center gap-2 mb-3">
           <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#FAD98D]/20">
             <Users className="w-4 h-4 text-[#C9A227]" />

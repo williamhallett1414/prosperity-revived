@@ -42,7 +42,7 @@ function RichStep({ text, stepNum }) {
 
   return (
     <li className="flex gap-3">
-      <span className="w-7 h-7 rounded-full bg-gradient-to-br from-[#c9a227] to-[#FAD98D] text-white text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5 shadow-sm">
+      <span className="w-7 h-7 rounded-full bg-gradient-to-br from-[#c9a227] to-[#FAD98D] text-white text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5 shadow-sm dark:shadow-none">
         {stepNum}
       </span>
       <p className="text-sm text-[#0A1A2F]/80 dark:text-white/80 leading-relaxed flex-1 pt-0.5">
@@ -134,7 +134,7 @@ Rules:
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: Math.min(index * 0.04, 0.4) }}
-        className="bg-white dark:bg-white/5 rounded-2xl overflow-hidden border border-[#FAD98D]/20 shadow-sm"
+        className="bg-white dark:bg-white/5 rounded-2xl overflow-hidden border border-[#FAD98D]/20 shadow-sm dark:shadow-none"
       >
         <div className="p-4">
           {/* Title */}
@@ -207,7 +207,7 @@ Rules:
             {/* Grocery list */}
             <button onClick={handleCart}
               className={`flex flex-col items-center gap-1 py-2.5 rounded-xl transition-all ${
-                inCart ? 'bg-[#c9a227] text-white shadow-sm' : 'bg-[#FAD98D]/20 text-[#c9a227] hover:bg-[#FAD98D]/35'
+                inCart ? 'bg-[#c9a227] text-white shadow-sm dark:shadow-none' : 'bg-[#FAD98D]/20 text-[#c9a227] hover:bg-[#FAD98D]/35'
               }`}>
               {inCart ? <Check className="w-4 h-4" /> : <ShoppingCart className="w-4 h-4" />}
               <span className="text-[10px] font-bold">{inCart ? 'In List' : 'Add List'}</span>
@@ -261,7 +261,7 @@ Rules:
                       </p>
                       <ul className="space-y-2">
                         {ingredients.map((ing, i) => (
-                          <li key={i} className="flex items-start gap-2.5 text-sm text-[#0A1A2F]/75">
+                          <li key={i} className="flex items-start gap-2.5 text-sm text-[#0A1A2F]/75 dark:text-white/75">
                             <span className="w-1.5 h-1.5 rounded-full bg-[#c9a227] flex-shrink-0 mt-2" />
                             {ing}
                           </li>

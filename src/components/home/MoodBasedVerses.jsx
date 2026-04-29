@@ -65,7 +65,7 @@ export default function MoodBasedVerses() {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-white dark:bg-white/5 rounded-2xl p-5 shadow-sm border border-gray-100 dark:border-white/10 mb-6"
+      className="bg-white dark:bg-white/5 rounded-2xl p-5 shadow-sm dark:shadow-none border border-gray-100 dark:border-white/10 mb-6"
     >
       <div className="flex items-center gap-2 mb-4">
         <Sparkles className="w-5 h-5 text-[#c9a227]" />
@@ -84,7 +84,7 @@ export default function MoodBasedVerses() {
                     className={`py-3 px-4 rounded-xl text-sm font-medium transition-all ${
                       selectedMood === mood.value
                         ? 'bg-[#0A1A2F] text-white'
-                        : 'bg-gray-50 dark:bg-white/5 text-gray-700 hover:bg-gray-100'
+                        : 'bg-gray-50 dark:bg-white/5 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:bg-white/5'
                     }`}
                   >
                     {mood.label}
@@ -159,7 +159,7 @@ export default function MoodBasedVerses() {
             className="space-y-4"
           >
             <div className="bg-gradient-to-r from-[#F2F6FA] to-[#F2F6FA] rounded-xl p-4 border-l-4 border-[#c9a227]">
-              <p className="text-sm text-gray-700 leading-relaxed">
+              <p className="text-sm text-gray-700 dark:text-gray-200 leading-relaxed">
                 {suggestions.overall_message}
               </p>
             </div>
@@ -172,13 +172,13 @@ export default function MoodBasedVerses() {
                 transition={{ delay: index * 0.1 }}
                 className="bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-4"
               >
-                <p className="font-serif text-gray-800 leading-relaxed mb-2">
+                <p className="font-serif text-gray-800 dark:text-gray-100 leading-relaxed mb-2">
                   "{verse.text}"
                 </p>
                 <p className="text-sm font-semibold text-[#c9a227] mb-2">
                   — {verse.reference}
                 </p>
-                <p className="text-sm text-gray-600 italic">
+                <p className="text-sm text-gray-600 dark:text-gray-300 italic">
                   {verse.encouragement}
                 </p>
               </motion.div>

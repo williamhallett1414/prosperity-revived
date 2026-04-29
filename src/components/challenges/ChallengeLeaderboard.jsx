@@ -8,9 +8,9 @@ export default function ChallengeLeaderboard({ participants, challenge }) {
   
   const getRankIcon = (index) => {
     if (index === 0) return <Trophy className="w-5 h-5 text-yellow-500" />;
-    if (index === 1) return <Medal className="w-5 h-5 text-gray-400" />;
+    if (index === 1) return <Medal className="w-5 h-5 text-gray-400 dark:text-gray-300" />;
     if (index === 2) return <Award className="w-5 h-5 text-amber-600" />;
-    return <span className="text-sm font-semibold text-gray-400">#{index + 1}</span>;
+    return <span className="text-sm font-semibold text-gray-400 dark:text-gray-300">#{index + 1}</span>;
   };
 
   const getProgressBar = (participant) => {
@@ -27,7 +27,7 @@ export default function ChallengeLeaderboard({ participants, challenge }) {
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: index * 0.05 }}
           className={`flex items-center gap-3 p-3 rounded-xl ${
-            index < 3 ? 'bg-gradient-to-r from-yellow-50 to-orange-50' : 'bg-gray-50 dark:bg-white/5'
+            index < 3 ? 'bg-gradient-to-r from-yellow-50 to-orange-50' : 'bg-gray-50 dark:bg-white/5 dark:bg-white/5'
           }`}
         >
           <div className="flex items-center justify-center w-10">
@@ -39,7 +39,7 @@ export default function ChallengeLeaderboard({ participants, challenge }) {
           </Avatar>
 
           <div className="flex-1 min-w-0">
-            <p className="font-medium text-gray-900 truncate">{participant.user_name}</p>
+            <p className="font-medium text-gray-900 dark:text-white truncate">{participant.user_name}</p>
             <div className="flex items-center gap-2">
               <div className="flex-1 bg-gray-200 rounded-full h-2">
                 <div
@@ -47,7 +47,7 @@ export default function ChallengeLeaderboard({ participants, challenge }) {
                   style={{ width: `${getProgressBar(participant)}%` }}
                 />
               </div>
-              <span className="text-xs text-gray-600 whitespace-nowrap">
+              <span className="text-xs text-gray-600 dark:text-gray-300 whitespace-nowrap">
                 {participant.current_progress} / {challenge.goal_value}
               </span>
             </div>
@@ -62,8 +62,8 @@ export default function ChallengeLeaderboard({ participants, challenge }) {
       ))}
 
       {sortedParticipants.length === 0 && (
-        <div className="text-center py-8 text-gray-500">
-          <Trophy className="w-12 h-12 mx-auto mb-2 text-gray-300" />
+        <div className="text-center py-8 text-gray-500 dark:text-gray-300">
+          <Trophy className="w-12 h-12 mx-auto mb-2 text-gray-300 dark:text-gray-400 dark:text-gray-300" />
           <p>No participants yet. Be the first to join!</p>
         </div>
       )}

@@ -100,8 +100,8 @@ export default function SelfCareActivityLogger({ isOpen, onClose, activityType, 
               >
                 <Check className="w-8 h-8 text-emerald-600" />
               </motion.div>
-              <p className="text-lg font-bold text-gray-900 mb-2">Activity Logged!</p>
-              <p className="text-sm text-gray-600 mb-4">You earned {pointsEarned} points 🎉</p>
+              <p className="text-lg font-bold text-gray-900 dark:text-white mb-2">Activity Logged!</p>
+              <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">You earned {pointsEarned} points 🎉</p>
               {moodImproved && (
                 <p className="text-xs text-emerald-600">Your mood improved! Keep it up!</p>
               )}
@@ -116,14 +116,14 @@ export default function SelfCareActivityLogger({ isOpen, onClose, activityType, 
             >
               <DialogHeader>
                 <DialogTitle className="text-base">{activityName}</DialogTitle>
-                <p className="text-xs text-gray-500 mt-2">
+                <p className="text-xs text-gray-500 dark:text-gray-300 mt-2">
                   You'll earn <span className="font-bold text-emerald-600">{pointsEarned} points</span>
                 </p>
               </DialogHeader>
 
               {/* Duration */}
               <div>
-                <label className="text-xs font-medium text-gray-700 mb-2 block">
+                <label className="text-xs font-medium text-gray-700 dark:text-gray-200 mb-2 block">
                   Duration (minutes)
                 </label>
                 <input
@@ -139,7 +139,7 @@ export default function SelfCareActivityLogger({ isOpen, onClose, activityType, 
               {/* Before/After Mood */}
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="text-xs font-medium text-gray-700 mb-1 block">Mood Before</label>
+                  <label className="text-xs font-medium text-gray-700 dark:text-gray-200 mb-1 block">Mood Before</label>
                   <Select value={moodBefore} onValueChange={setMoodBefore}>
                     <SelectTrigger className="text-xs">
                       <SelectValue />
@@ -154,7 +154,7 @@ export default function SelfCareActivityLogger({ isOpen, onClose, activityType, 
                   </Select>
                 </div>
                 <div>
-                  <label className="text-xs font-medium text-gray-700 mb-1 block">Mood After</label>
+                  <label className="text-xs font-medium text-gray-700 dark:text-gray-200 mb-1 block">Mood After</label>
                   <Select value={moodAfter} onValueChange={setMoodAfter}>
                     <SelectTrigger className="text-xs">
                       <SelectValue />
@@ -173,7 +173,7 @@ export default function SelfCareActivityLogger({ isOpen, onClose, activityType, 
               {/* Before/After Energy */}
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="text-xs font-medium text-gray-700 mb-1 block">Energy Before</label>
+                  <label className="text-xs font-medium text-gray-700 dark:text-gray-200 mb-1 block">Energy Before</label>
                   <Select value={energyBefore} onValueChange={setEnergyBefore}>
                     <SelectTrigger className="text-xs">
                       <SelectValue />
@@ -188,7 +188,7 @@ export default function SelfCareActivityLogger({ isOpen, onClose, activityType, 
                   </Select>
                 </div>
                 <div>
-                  <label className="text-xs font-medium text-gray-700 mb-1 block">Energy After</label>
+                  <label className="text-xs font-medium text-gray-700 dark:text-gray-200 mb-1 block">Energy After</label>
                   <Select value={energyAfter} onValueChange={setEnergyAfter}>
                     <SelectTrigger className="text-xs">
                       <SelectValue />
@@ -206,7 +206,7 @@ export default function SelfCareActivityLogger({ isOpen, onClose, activityType, 
 
               {/* Reflection */}
               <div>
-                <label className="text-xs font-medium text-gray-700 mb-1 block">
+                <label className="text-xs font-medium text-gray-700 dark:text-gray-200 mb-1 block">
                   How did it feel? (optional)
                 </label>
                 <Textarea

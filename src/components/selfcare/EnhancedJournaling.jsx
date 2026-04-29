@@ -127,7 +127,7 @@ export default function EnhancedJournaling() {
                 className={`px-3 py-1 rounded-full text-xs font-semibold transition-all ${
                   selectedTags.includes(tag)
                     ? 'bg-[#FAD98D] text-white'
-                    : 'bg-gray-100 text-[#0A1A2F]/70 dark:text-white/70'
+                    : 'bg-gray-100 dark:bg-white/5 text-[#0A1A2F]/70 dark:text-white/70'
                 }`}
               >
                 {tag}
@@ -178,7 +178,7 @@ export default function EnhancedJournaling() {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: idx * 0.05 }}
-              className="bg-gray-100 rounded-lg p-3 text-sm"
+              className="bg-gray-100 dark:bg-white/5 rounded-lg p-3 text-sm"
             >
               <p className="font-semibold text-[#0A1A2F] dark:text-white truncate">{entry.title}</p>
               <p className="text-[#0A1A2F]/60 dark:text-white/60 text-xs line-clamp-1 mt-1">{entry.content}</p>

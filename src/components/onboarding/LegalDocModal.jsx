@@ -255,7 +255,7 @@ export default function LegalDocModal({ doc, onAccept, onClose }) {
           </div>
 
           {/* Scroll progress bar */}
-          <div className="h-1 bg-gray-100">
+          <div className="h-1 bg-gray-100 dark:bg-white/5">
             <motion.div
               className="h-full bg-gradient-to-r from-[#C9A227] to-[#FD9C2D]"
               animate={{ width: `${scrollPct}%` }}
@@ -279,7 +279,7 @@ export default function LegalDocModal({ doc, onAccept, onClose }) {
                     : s.warning
                     ? 'bg-amber-50 border border-amber-200'
                     : s.highlight
-                    ? 'bg-[#F2F6FA] dark:bg-[#0A1A2F] border border-gray-200 dark:border-white/10'
+                    ? 'bg-[#F2F6FA] dark:bg-[#0A1A2F] border border-gray-200 dark:border-white/10 dark:border-white/10'
                     : 'bg-white dark:bg-white/5 border border-gray-100 dark:border-white/10'
                 }`}
               >
@@ -289,7 +289,7 @@ export default function LegalDocModal({ doc, onAccept, onClose }) {
                   {s.heading}
                 </p>
                 <p className={`text-xs leading-relaxed ${
-                  s.emergency ? 'text-red-800' : s.warning ? 'text-amber-800' : 'text-gray-600'
+                  s.emergency ? 'text-red-800' : s.warning ? 'text-amber-800' : 'text-gray-600 dark:text-gray-300'
                 }`}>
                   {s.body}
                 </p>
@@ -303,7 +303,7 @@ export default function LegalDocModal({ doc, onAccept, onClose }) {
           {/* Scroll hint or accept button */}
           <div className="px-5 pb-6 pt-3 border-t border-gray-100 dark:border-white/10 bg-white dark:bg-white/5">
             {!canAccept ? (
-              <div className="flex items-center justify-center gap-2 py-3 text-gray-400">
+              <div className="flex items-center justify-center gap-2 py-3 text-gray-400 dark:text-gray-300">
                 <motion.div
                   animate={{ y: [0, 3, 0] }}
                   transition={{ repeat: Infinity, duration: 1.2 }}

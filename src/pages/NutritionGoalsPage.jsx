@@ -122,7 +122,7 @@ function Bar({ label, grams, cals, color, pct, delay = 0 }) {
         <span className="text-xs font-bold text-[#0A1A2F] dark:text-white dark:text-white">{label}</span>
         <span className="text-xs text-[#0A1A2F]/50 dark:text-white/50">{grams}g · {cals} kcal</span>
       </div>
-      <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+      <div className="h-2 bg-gray-100 dark:bg-white/5 rounded-full overflow-hidden">
         <motion.div initial={{ width: 0 }} animate={{ width: `${pct}%` }}
           transition={{ duration: 0.7, delay }}
           className="h-full rounded-full" style={{ background: color }} />
@@ -135,7 +135,7 @@ function Bar({ label, grams, cals, color, pct, delay = 0 }) {
 function StatCard({ emoji, label, value, sub, color = '#0A1A2F', bg = '#F2F6FA', delay = 0 }) {
   return (
     <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay }}
-      className="bg-white dark:bg-white/5 rounded-2xl p-4 shadow-sm">
+      className="bg-white dark:bg-white/5 rounded-2xl p-4 shadow-sm dark:shadow-none">
       <p className="text-lg mb-1">{emoji}</p>
       <p className="text-[10px] font-bold uppercase tracking-widest mb-1" style={{ color: `${color}80` }}>{label}</p>
       <p className="text-base font-black leading-tight" style={{ color }}>{value}</p>
@@ -182,7 +182,7 @@ function UpdateGoalsModal({ user, onClose, onSave }) {
         {/* Fixed header */}
         <div className="flex items-center justify-between px-5 pt-5 pb-4 flex-shrink-0">
           <h2 className="font-black text-[#0A1A2F] dark:text-white text-lg">Update Nutrition Goals</h2>
-          <button onClick={onClose} className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center">
+          <button onClick={onClose} className="w-8 h-8 rounded-full bg-gray-100 dark:bg-white/5 flex items-center justify-center">
             <X className="w-4 h-4 text-[#0A1A2F]/50 dark:text-white/50" />
           </button>
         </div>
@@ -386,7 +386,7 @@ export default function NutritionGoalsPage() {
                 className={`flex items-center gap-1 px-3 py-2.5 text-xs font-semibold border-b-2 transition-all whitespace-nowrap ${
                   id === 'goals'
                     ? 'border-[#22C55E] text-[#22C55E]'
-                    : 'border-transparent text-[#0A1A2F]/40 dark:text-white/40 hover:text-[#0A1A2F]/65'
+                    : 'border-transparent text-[#0A1A2F]/40 dark:text-white/40 hover:text-[#0A1A2F]/65 dark:text-white/65'
                 }`}>
                 <Icon className="w-3.5 h-3.5" />
                 {label}
@@ -400,7 +400,7 @@ export default function NutritionGoalsPage() {
 
         {/* Hero */}
         <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}>
-          <div className="rounded-3xl p-5 relative overflow-hidden shadow-lg"
+          <div className="rounded-3xl p-5 relative overflow-hidden shadow-lg dark:shadow-none"
             style={{ background: 'linear-gradient(135deg, #14532d 0%, #166534 60%, #22C55E 200%)' }}>
             <div className="absolute -right-8 -top-8 w-44 h-44 rounded-full bg-white/5" />
             <div className="absolute right-4 bottom-2 w-20 h-20 rounded-full bg-white/5" />
@@ -443,7 +443,7 @@ export default function NutritionGoalsPage() {
 
         {/* Daily calories */}
         <motion.div id="tour-nutrition-calories" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.06 }}
-          className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm">
+          className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm dark:shadow-none">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#FFF7ED]">
@@ -452,7 +452,7 @@ export default function NutritionGoalsPage() {
               <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">Daily Calorie Target</p>
             </div>
             <button onClick={() => setShowCalcInfo(v => !v)}
-              className="w-7 h-7 rounded-full bg-gray-100 flex items-center justify-center">
+              className="w-7 h-7 rounded-full bg-gray-100 dark:bg-white/5 flex items-center justify-center">
               <Info className="w-3.5 h-3.5 text-[#0A1A2F]/40 dark:text-white/40" />
             </button>
           </div>
@@ -485,7 +485,7 @@ export default function NutritionGoalsPage() {
         {/* Macro split */}
         {macros && (
           <motion.div id="tour-nutrition-macros-goals" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.10 }}
-            className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm">
+            className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm dark:shadow-none">
             <div className="flex items-center gap-2 mb-4">
               <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#EFF9FF]">
                 <BarChart2 className="w-4 h-4 text-[#38BDF8]" />
@@ -508,7 +508,7 @@ export default function NutritionGoalsPage() {
 
         {/* Meal timing */}
         <motion.div id="tour-meal-timing" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.14 }}
-          className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm">
+          className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm dark:shadow-none">
           <div className="flex items-center gap-2 mb-4">
             <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#F0FDF4]">
               <Clock className="w-4 h-4 text-[#22C55E]" />
@@ -545,7 +545,7 @@ export default function NutritionGoalsPage() {
 
         {/* Allergies / avoid card */}
         <motion.div id="tour-allergens" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.18 }}
-          className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm">
+          className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm dark:shadow-none">
           <div className="flex items-center gap-2 mb-3">
             <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-red-50">
               <ShieldCheck className="w-4 h-4 text-red-400" />
@@ -571,7 +571,7 @@ export default function NutritionGoalsPage() {
         {/* Water goal */}
         {water && (
           <motion.div id="tour-nutrition-water" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.22 }}
-            className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm">
+            className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm dark:shadow-none">
             <div className="flex items-center gap-2 mb-3">
               <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#EFF9FF]">
                 <Droplets className="w-4 h-4 text-[#38BDF8]" />
@@ -605,7 +605,7 @@ export default function NutritionGoalsPage() {
 
         {/* Recipe ideas */}
         <motion.div id="tour-recipe-ideas" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.26 }}
-          className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm">
+          className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm dark:shadow-none">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#F0FDF4]">
@@ -629,7 +629,7 @@ export default function NutritionGoalsPage() {
 
         {/* Cooking time card */}
         <motion.div id="tour-cooking-style" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.30 }}
-          className="flex items-center gap-4 bg-white dark:bg-white/5 rounded-2xl px-5 py-4 shadow-sm">
+          className="flex items-center gap-4 bg-white dark:bg-white/5 rounded-2xl px-5 py-4 shadow-sm dark:shadow-none">
           <span className="text-3xl">{cookInfo.emoji}</span>
           <div className="flex-1">
             <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">{cookInfo.label}</p>
@@ -674,7 +674,7 @@ export default function NutritionGoalsPage() {
               { icon: '💬', label: 'Chat w/ Chef Daniel', page: 'ChatScreen?bot=ChefDaniel' },
             ].map(({ icon, label, page }) => (
               <Link key={page} to={createPageUrl(page)}
-                className="flex items-center gap-2.5 bg-white dark:bg-white/5 rounded-2xl p-3.5 shadow-sm border border-gray-50 dark:border-white/5 active:scale-97 transition-all">
+                className="flex items-center gap-2.5 bg-white dark:bg-white/5 rounded-2xl p-3.5 shadow-sm dark:shadow-none border border-gray-50 dark:border-white/5 active:scale-97 transition-all">
                 <span className="text-xl">{icon}</span>
                 <span className="text-xs font-bold text-[#0A1A2F] dark:text-white leading-tight">{label}</span>
               </Link>

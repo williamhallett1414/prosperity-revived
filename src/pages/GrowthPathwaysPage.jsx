@@ -297,7 +297,7 @@ function RecommendationScreen({ pathway, onStart, onBrowse }) {
           initial={{ scale: 0.7, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ delay: 0.1, type: 'spring', stiffness: 300, damping: 20 }}
-          className={`w-24 h-24 rounded-3xl bg-gradient-to-br ${pathway.gradient} flex items-center justify-center text-5xl mx-auto mb-6 shadow-lg`}
+          className={`w-24 h-24 rounded-3xl bg-gradient-to-br ${pathway.gradient} flex items-center justify-center text-5xl mx-auto mb-6 shadow-lg dark:shadow-none`}
         >
           {pathway.emoji}
         </motion.div>
@@ -311,7 +311,7 @@ function RecommendationScreen({ pathway, onStart, onBrowse }) {
 
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="space-y-3">
           <button onClick={onStart}
-            className={`w-full py-4 rounded-2xl bg-gradient-to-r ${pathway.gradient} text-white font-bold text-sm hover:opacity-90 transition-opacity shadow-md`}>
+            className={`w-full py-4 rounded-2xl bg-gradient-to-r ${pathway.gradient} text-white font-bold text-sm hover:opacity-90 transition-opacity shadow-md dark:shadow-none`}>
             Start This Pathway →
           </button>
           <button onClick={onBrowse}
@@ -583,7 +583,7 @@ function PathwayDetail({ pathway, onBack }) {
       <div className="max-w-2xl mx-auto px-4 py-5 space-y-4">
         {/* Hero */}
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
-          className={`bg-gradient-to-br ${pathway.gradient} rounded-3xl p-6 text-white shadow-lg`}>
+          className={`bg-gradient-to-br ${pathway.gradient} rounded-3xl p-6 text-white shadow-lg dark:shadow-none`}>
           <div className="flex items-start justify-between mb-3">
             <span className="text-5xl">{pathway.emoji}</span>
             <span className={`text-[10px] font-bold px-3 py-1.5 rounded-full ${isActive ? 'bg-white/30' : 'bg-white/15'}`}>
@@ -676,8 +676,8 @@ function PathwayCard({ pathway, progress, activeId, index, onClick }) {
     <motion.button
       initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.05 }}
       onClick={onClick}
-      className={`w-full text-left bg-white dark:bg-white/5 rounded-2xl border overflow-hidden hover:shadow-md transition-all group ${
-        isActive ? 'border-[#c9a227] shadow-sm' : isDone ? 'border-emerald-200' : 'border-[#F2F6FA] hover:border-[#FAD98D]/50'
+      className={`w-full text-left bg-white dark:bg-white/5 rounded-2xl border overflow-hidden hover:shadow-md dark:shadow-none transition-all group ${
+        isActive ? 'border-[#c9a227] shadow-sm dark:shadow-none' : isDone ? 'border-emerald-200' : 'border-[#F2F6FA] hover:border-[#FAD98D]/50'
       }`}
     >
       <div className={`h-1 bg-gradient-to-r ${pathway.gradient}`} />
@@ -806,7 +806,7 @@ export default function GrowthPathwaysPage() {
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
             <p className="text-xs font-bold text-[#0A1A2F]/35 dark:text-white/35 uppercase tracking-widest mb-2">Your Current Focus</p>
             <button onClick={() => { setSelected(activePathway); setView('detail'); }}
-              className={`w-full text-left bg-gradient-to-br ${activePathway.gradient} rounded-2xl p-5 text-white hover:opacity-95 transition-opacity shadow-md`}>
+              className={`w-full text-left bg-gradient-to-br ${activePathway.gradient} rounded-2xl p-5 text-white hover:opacity-95 transition-opacity shadow-md dark:shadow-none`}>
               <div className="flex items-center gap-3 mb-3">
                 <span className="text-3xl">{activePathway.emoji}</span>
                 <div className="flex-1 min-w-0">

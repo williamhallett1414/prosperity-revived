@@ -38,7 +38,7 @@ class ErrorBoundary extends React.Component {
               <span className="text-3xl">🙏</span>
             </div>
             <h2 className="text-xl font-bold text-[#0A1A2F] dark:text-white mb-2">Something went wrong</h2>
-            <p className="text-sm text-gray-600 mb-6">
+            <p className="text-sm text-gray-600 dark:text-gray-300 mb-6">
               We hit an unexpected issue. Please try again.
             </p>
             <button
@@ -46,7 +46,7 @@ class ErrorBoundary extends React.Component {
                 this.setState({ hasError: false, error: null });
                 window.location.href = '/';
               }}
-              className="px-6 py-3 bg-[#FD9C2D] text-white font-semibold rounded-xl shadow-md hover:bg-[#e88d1f] transition-colors min-h-[44px]"
+              className="px-6 py-3 bg-[#FD9C2D] text-white font-semibold rounded-xl shadow-md dark:shadow-none hover:bg-[#e88d1f] transition-colors min-h-[44px]"
             >
               Return Home
             </button>
@@ -63,7 +63,7 @@ const PageLoadingFallback = () => (
   <div className="flex items-center justify-center min-h-[60vh]">
     <div className="text-center">
       <div className="w-10 h-10 mx-auto mb-3 border-4 border-[#FD9C2D]/30 border-t-[#FD9C2D] rounded-full animate-spin" />
-      <p className="text-sm text-gray-400">Loading...</p>
+      <p className="text-sm text-gray-400 dark:text-gray-300">Loading...</p>
     </div>
   </div>
 );

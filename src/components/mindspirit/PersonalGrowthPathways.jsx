@@ -78,7 +78,7 @@ export default function PersonalGrowthPathways() {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: index * 0.05 }}
                 onClick={() => setSelectedPathway(pathway)}
-                className="bg-white dark:bg-white/5 rounded-xl p-4 border border-gray-200 dark:border-white/10 hover:border-[#FAD98D] hover:shadow-md transition-all text-left"
+                className="bg-white dark:bg-white/5 rounded-xl p-4 border border-gray-200 dark:border-white/10 hover:border-[#FAD98D] hover:shadow-md dark:shadow-none transition-all text-left"
               >
                 <Icon className="w-6 h-6 mb-2" style={{ color: pathway.color }} />
                 <h4 className="text-sm font-semibold text-[#0A1A2F] dark:text-white mb-1">{pathway.title}</h4>

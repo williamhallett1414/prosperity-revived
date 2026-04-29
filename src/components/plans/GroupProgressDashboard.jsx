@@ -50,14 +50,14 @@ export default function GroupProgressDashboard({ groupId, totalDays }) {
             <TrendingUp className="w-5 h-5 text-green-600" />
           </div>
           <div>
-            <h3 className="font-semibold text-gray-900">Group Progress</h3>
-            <p className="text-xs text-gray-600">{members.length} members</p>
+            <h3 className="font-semibold text-gray-900 dark:text-white">Group Progress</h3>
+            <p className="text-xs text-gray-600 dark:text-gray-300">{members.length} members</p>
           </div>
         </div>
 
         <div className="mb-2">
           <div className="flex items-center justify-between mb-1">
-            <span className="text-sm text-gray-600">Average Completion</span>
+            <span className="text-sm text-gray-600 dark:text-gray-300">Average Completion</span>
             <span className="text-lg font-bold text-green-600">{averageCompletion}%</span>
           </div>
           <Progress value={averageCompletion} className="h-2" />
@@ -66,13 +66,13 @@ export default function GroupProgressDashboard({ groupId, totalDays }) {
 
       {/* Member List */}
       <div className="space-y-3">
-        <h4 className="font-semibold text-gray-900 flex items-center gap-2">
+        <h4 className="font-semibold text-gray-900 dark:text-white flex items-center gap-2">
           <Users className="w-4 h-4" />
           Member Progress
         </h4>
         
         {members.length === 0 && (
-          <p className="text-sm text-gray-500 text-center py-8">No members yet</p>
+          <p className="text-sm text-gray-500 dark:text-gray-300 text-center py-8">No members yet</p>
         )}
 
         {members.map((member, idx) => {
@@ -94,7 +94,7 @@ export default function GroupProgressDashboard({ groupId, totalDays }) {
                       {member.user_name?.charAt(0).toUpperCase() || '?'}
                     </div>
                     <div>
-                      <p className="font-medium text-sm text-gray-900">{member.user_name}</p>
+                      <p className="font-medium text-sm text-gray-900 dark:text-white">{member.user_name}</p>
                       {member.role === 'admin' && (
                         <span className="text-xs text-green-600">Admin</span>
                       )}
@@ -105,12 +105,12 @@ export default function GroupProgressDashboard({ groupId, totalDays }) {
                     {member.share_progress ? (
                       <>
                         <CheckCircle2 className="w-4 h-4 text-green-500" />
-                        <span className="text-sm font-semibold text-gray-900">
+                        <span className="text-sm font-semibold text-gray-900 dark:text-white">
                           {completedCount}/{totalDays}
                         </span>
                       </>
                     ) : (
-                      <div className="flex items-center gap-1 text-gray-400">
+                      <div className="flex items-center gap-1 text-gray-400 dark:text-gray-300">
                         <EyeOff className="w-4 h-4" />
                         <span className="text-xs">Private</span>
                       </div>
@@ -121,7 +121,7 @@ export default function GroupProgressDashboard({ groupId, totalDays }) {
                 {member.share_progress && progress && (
                   <div>
                     <Progress value={progressPercent} className="h-1.5" />
-                    <p className="text-xs text-gray-500 mt-1">
+                    <p className="text-xs text-gray-500 dark:text-gray-300 mt-1">
                       {progressPercent}% complete • {progress.current_streak || 0} day streak
                     </p>
                   </div>

@@ -99,7 +99,7 @@ export default function DailyStartSection({
                 transition={{ delay: index * 0.05 }}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className={`bg-gradient-to-br ${action.gradient} rounded-2xl p-4 shadow-md hover:shadow-lg transition-all`}
+                className={`bg-gradient-to-br ${action.gradient} rounded-2xl p-4 shadow-md dark:shadow-none hover:shadow-lg dark:shadow-none transition-all`}
               >
                 <Icon className="w-6 h-6 text-[#0A1A2F] dark:text-white mb-2" />
                 <h3 className="font-semibold text-[#0A1A2F] dark:text-white text-sm mb-1">{action.label}</h3>

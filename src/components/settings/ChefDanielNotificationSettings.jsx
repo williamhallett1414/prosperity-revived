@@ -87,7 +87,7 @@ export default function ChefDanielNotificationSettings({ user }) {
         {notificationOptions.map((option) => {
           const Icon = option.icon;
           return (
-            <div key={option.id} className="flex items-start gap-4 p-4 rounded-lg bg-[#F2F6FA] dark:bg-[#0A1A2F] hover:bg-gray-100 transition-colors">
+            <div key={option.id} className="flex items-start gap-4 p-4 rounded-lg bg-[#F2F6FA] dark:bg-[#0A1A2F] hover:bg-gray-100 dark:bg-white/5 transition-colors">
               <div className={`mt-1 ${option.color}`}>
                 <Icon className="w-5 h-5" />
               </div>

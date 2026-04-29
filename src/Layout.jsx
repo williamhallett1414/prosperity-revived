@@ -366,12 +366,12 @@ export default function Layout({ children, currentPageName }) {
                   }
                 <Icon
                     className={`w-6 h-6 transition-colors ${
-                    isActive ? 'text-[#FD9C2D]' : 'text-gray-400'}`
+                    isActive ? 'text-[#FD9C2D]' : 'text-gray-400 dark:text-gray-300'}`
                     } />
 
                 <span
                     className={`text-xs mt-1 transition-colors ${
-                    isActive ? 'text-[#3C4E53] font-medium' : 'text-gray-400'}`
+                    isActive ? 'text-[#3C4E53] font-medium' : 'text-gray-400 dark:text-gray-300'}`
                     }>
 
                   {item.name}

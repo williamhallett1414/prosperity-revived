@@ -204,7 +204,7 @@ export default function UserPostsFeed({ userEmail, isOwnProfile }) {
                         <p className="font-semibold text-sm text-[#0A1A2F] dark:text-white mb-1">
                           {post.verse_book} {post.verse_chapter}:{post.verse_number}
                         </p>
-                        <p className="text-sm text-[#0A1A2F]/75 italic">
+                        <p className="text-sm text-[#0A1A2F]/75 dark:text-white/75 italic">
                           "{post.verse_text}"
                         </p>
                       </div>
@@ -244,7 +244,7 @@ export default function UserPostsFeed({ userEmail, isOwnProfile }) {
                           <p className="font-semibold text-sm text-[#0A1A2F] dark:text-white dark:text-white">
                             {comment.user_name}
                           </p>
-                          <p className="text-sm text-[#0A1A2F]/75">
+                          <p className="text-sm text-[#0A1A2F]/75 dark:text-white/75">
                             {comment.content}
                           </p>
                         </div>

@@ -147,7 +147,7 @@ Requirements:
   };
 
   return (
-    <div className="bg-white dark:bg-white/5 rounded-2xl shadow-sm p-5">
+    <div className="bg-white dark:bg-white/5 rounded-2xl shadow-sm dark:shadow-none p-5">
       {/* Header */}
       <div className="flex items-center gap-3 mb-1">
         <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#AFC7E3] to-[#6B7280] flex items-center justify-center flex-shrink-0">
@@ -301,7 +301,7 @@ Requirements:
                     <button
                       onClick={() => handleLogToFoodLog(recipe)}
                       disabled={!!loggedRecipes[recipe.name]}
-                      className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-2xl text-xs font-bold transition-all shadow-sm ${
+                      className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-2xl text-xs font-bold transition-all shadow-sm dark:shadow-none ${
                         loggedRecipes[recipe.name]
                           ? 'bg-emerald-50 text-emerald-600 border border-emerald-200 shadow-none'
                           : 'bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white shadow-[#c9a227]/25 active:scale-95 hover:opacity-90'
@@ -314,7 +314,7 @@ Requirements:
                     <button
                       onClick={() => handleSaveRecipe(recipe)}
                       disabled={!!savedRecipes[recipe.name]}
-                      className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-2xl text-xs font-bold transition-all shadow-sm ${
+                      className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-2xl text-xs font-bold transition-all shadow-sm dark:shadow-none ${
                         savedRecipes[recipe.name]
                           ? 'bg-[#AFC7E3]/20 text-[#3C4E53] border border-[#AFC7E3]/40 shadow-none'
                           : 'bg-[#3C4E53] text-white shadow-[#3C4E53]/20 active:scale-95 hover:opacity-90'
@@ -382,7 +382,7 @@ Requirements:
                             <p className="text-xs font-bold text-[#0A1A2F] dark:text-white uppercase tracking-wide mb-2">Health Benefits</p>
                             <ul className="space-y-1">
                               {recipe.healthBenefits.map((benefit, i) => (
-                                <li key={i} className="flex gap-2 text-sm text-[#0A1A2F]/75">
+                                <li key={i} className="flex gap-2 text-sm text-[#0A1A2F]/75 dark:text-white/75">
                                   <span className="text-[#AFC7E3] flex-shrink-0">✓</span>
                                   {benefit}
                                 </li>
@@ -397,7 +397,7 @@ Requirements:
                             <p className="text-xs font-bold text-[#C9A227] uppercase tracking-wide mb-2">👨‍🍳 Chef Daniel's Tips</p>
                             <ul className="space-y-1">
                               {recipe.chefTips.map((tip, i) => (
-                                <li key={i} className="text-sm text-[#0A1A2F]/75 flex gap-2">
+                                <li key={i} className="text-sm text-[#0A1A2F]/75 dark:text-white/75 flex gap-2">
                                   <span className="text-[#3C4E53] flex-shrink-0">•</span>
                                   {tip}
                                 </li>

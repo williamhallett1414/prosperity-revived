@@ -35,7 +35,7 @@ function PlanCard({ plan, idx, onPreview }) {
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: idx * 0.05 }}
-      className="bg-white dark:bg-white/5 rounded-2xl overflow-hidden border border-gray-100 dark:border-white/10 shadow-sm">
+      className="bg-white dark:bg-white/5 rounded-2xl overflow-hidden border border-gray-100 dark:border-white/10 shadow-sm dark:shadow-none">
 
       {/* Header gradient */}
       <div className={`bg-gradient-to-r ${plan.gradient} p-4 relative overflow-hidden`}>
@@ -197,7 +197,7 @@ export default function CoachingPlans() {
           <div className="absolute bottom-0 left-0 w-20 h-20 bg-white/5 rounded-full translate-y-4 -translate-x-4" />
           <div className="relative">
             <div className="flex items-center gap-3 mb-3">
-              <div className="w-11 h-11 rounded-xl bg-[#c9a227] flex items-center justify-center text-xl shadow-lg">👑</div>
+              <div className="w-11 h-11 rounded-xl bg-[#c9a227] flex items-center justify-center text-xl shadow-lg dark:shadow-none">👑</div>
               <div>
                 <h2 className="text-lg font-bold">Prosperity Coaching</h2>
                 <p className="text-white/60 text-xs">8-week whole-life transformation programs</p>
@@ -231,7 +231,7 @@ export default function CoachingPlans() {
             onClick={() => setActiveCategory(cat.id)}
             className={`flex-shrink-0 flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-bold transition-all border ${
             activeCategory === cat.id ?
-            'bg-[#3C4E53] text-white border-[#3C4E53]/30 shadow-md' :
+            'bg-[#3C4E53] text-white border-[#3C4E53]/30 shadow-md dark:shadow-none' :
             'bg-white dark:bg-white/5 text-[#0A1A2F]/60 dark:text-white/60 border-[#3C4E53]/30/15 hover:border-[#3C4E53]/30/40'}`
             }>
 
@@ -277,7 +277,7 @@ export default function CoachingPlans() {
                 transition={{ delay: catIdx * 0.08 }}
                 className="flex items-center gap-2.5 mb-3">
 
-                    <div className="w-8 h-8 rounded-xl bg-[#3C4E53] flex items-center justify-center text-base shadow-sm">
+                    <div className="w-8 h-8 rounded-xl bg-[#3C4E53] flex items-center justify-center text-base shadow-sm dark:shadow-none">
                       {cat.emoji}
                     </div>
                     <div className="flex-1">

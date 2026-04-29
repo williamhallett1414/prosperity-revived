@@ -104,7 +104,7 @@ export default function MeditationGuide() {
   return (
     <div className="space-y-4">
       {/* Header */}
-      <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300">Meditation & Prayer</h3>
+      <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-200 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">Meditation & Prayer</h3>
 
       {/* AI Generation Cards */}
       <div className="grid grid-cols-2 gap-3">
@@ -112,7 +112,7 @@ export default function MeditationGuide() {
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           onClick={() => setShowAIMeditation(true)}
-          className="bg-gradient-to-br from-[#c9a227] to-[#FAD98D] rounded-xl p-4 text-white text-left shadow-lg"
+          className="bg-gradient-to-br from-[#c9a227] to-[#FAD98D] rounded-xl p-4 text-white text-left shadow-lg dark:shadow-none"
         >
           <Sparkles className="w-6 h-6 mb-2" />
           <p className="font-semibold text-sm">Help Me Meditate</p>
@@ -123,7 +123,7 @@ export default function MeditationGuide() {
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           onClick={() => setShowAIPrayer(true)}
-          className="bg-gradient-to-br from-amber-500 to-orange-500 rounded-xl p-4 text-white text-left shadow-lg"
+          className="bg-gradient-to-br from-amber-500 to-orange-500 rounded-xl p-4 text-white text-left shadow-lg dark:shadow-none"
         >
           <Sparkles className="w-6 h-6 mb-2" />
           <p className="font-semibold text-sm">Help Me Pray</p>
@@ -155,15 +155,15 @@ export default function MeditationGuide() {
           </div>
           <div className="grid grid-cols-3 gap-3 mt-3">
             <div className="text-center p-2 bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5 rounded">
-              <p className="text-xs text-gray-500">Total Sessions</p>
+              <p className="text-xs text-gray-500 dark:text-gray-300">Total Sessions</p>
               <p className="font-bold text-[#C9A227]">{chartData.reduce((sum, d) => sum + d.sessions, 0)}</p>
             </div>
             <div className="text-center p-2 bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5 rounded">
-              <p className="text-xs text-gray-500">This Week</p>
+              <p className="text-xs text-gray-500 dark:text-gray-300">This Week</p>
               <p className="font-bold text-[#C9A227]">{chartData.slice(-7).reduce((sum, d) => sum + d.sessions, 0)}</p>
             </div>
             <div className="text-center p-2 bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5 rounded">
-              <p className="text-xs text-gray-500">Favorites</p>
+              <p className="text-xs text-gray-500 dark:text-gray-300">Favorites</p>
               <p className="font-bold text-[#C9A227]">{favorites.length}</p>
             </div>
           </div>

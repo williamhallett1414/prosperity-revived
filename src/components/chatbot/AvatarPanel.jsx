@@ -212,7 +212,7 @@ export default function AvatarPanel({
                   <p className="text-sm font-bold leading-tight" style={{ color: gradientTo }}>
                     {name}
                   </p>
-                  <p className="text-[11px] text-gray-400 mt-0.5">{subtitle}</p>
+                  <p className="text-[11px] text-gray-400 dark:text-gray-300 mt-0.5">{subtitle}</p>
                 </div>
                 <StateBadge state={state} color={gradientTo} />
               </div>

@@ -64,7 +64,7 @@ export default function PullToRefresh({ onRefresh, children }) {
             animate={{ rotate: isRefreshing ? 360 : rotation }}
             transition={isRefreshing ? { repeat: Infinity, duration: 1, ease: 'linear' } : { duration: 0 }}
           >
-            <RefreshCw className={`w-5 h-5 ${isRefreshing ? 'text-emerald-600' : 'text-gray-400'}`} />
+            <RefreshCw className={`w-5 h-5 ${isRefreshing ? 'text-emerald-600' : 'text-gray-400 dark:text-gray-300'}`} />
           </motion.div>
         </motion.div>
       )}

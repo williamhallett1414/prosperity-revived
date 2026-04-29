@@ -62,7 +62,7 @@ export default function ChallengeDetailModal({ challenge, user, participation, o
 
         <div className="p-6 space-y-6">
           <div>
-            <p className="text-gray-700 leading-relaxed">{challenge.description}</p>
+            <p className="text-gray-700 dark:text-gray-200 leading-relaxed">{challenge.description}</p>
             <div className="flex flex-wrap gap-2 mt-3">
               <Badge variant="outline">
                 <Calendar className="w-3 h-3 mr-1" />
@@ -78,7 +78,7 @@ export default function ChallengeDetailModal({ challenge, user, participation, o
             <>
               <div className="bg-[#FAD98D]/10 rounded-lg p-4 border border-[#FAD98D]/40">
                 <div className="flex items-center justify-between mb-2">
-                  <h3 className="font-semibold text-gray-900">Your Progress</h3>
+                  <h3 className="font-semibold text-gray-900 dark:text-white">Your Progress</h3>
                   <Badge className="bg-[#c9a227]">
                     Day {currentDay} of {challenge.duration_days}
                   </Badge>
@@ -92,7 +92,7 @@ export default function ChallengeDetailModal({ challenge, user, participation, o
                           ? 'bg-green-500 text-white'
                           : day === currentDay
                           ? 'bg-[#FAD98D]/100 text-white'
-                          : 'bg-gray-200 text-gray-600'
+                          : 'bg-gray-200 text-gray-600 dark:text-gray-300'
                       }`}
                     >
                       {completedDays.includes(day) ? <CheckCircle2 className="w-5 h-5" /> : day}
@@ -103,8 +103,8 @@ export default function ChallengeDetailModal({ challenge, user, participation, o
 
               {dailyPrompt && !completedDays.includes(currentDay) && (
                 <div className="bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-lg p-4 border border-[#AFC7E3]/40">
-                  <h3 className="font-semibold text-gray-900 mb-2">Today's Prompt</h3>
-                  <p className="text-gray-700 mb-4">{dailyPrompt.prompt}</p>
+                  <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Today's Prompt</h3>
+                  <p className="text-gray-700 dark:text-gray-200 mb-4">{dailyPrompt.prompt}</p>
                   
                   <Textarea
                     value={reflection}
@@ -129,17 +129,17 @@ export default function ChallengeDetailModal({ challenge, user, participation, o
 
               {participation.reflection_entries && participation.reflection_entries.length > 0 && (
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-3">Your Reflections</h3>
+                  <h3 className="font-semibold text-gray-900 dark:text-white mb-3">Your Reflections</h3>
                   <div className="space-y-3">
                     {participation.reflection_entries.slice().reverse().map((entry, idx) => (
-                      <div key={idx} className="bg-gray-50 dark:bg-white/5 rounded-lg p-3 border">
+                      <div key={idx} className="bg-gray-50 dark:bg-white/5 dark:text-white rounded-lg p-3 border">
                         <div className="flex items-center justify-between mb-2">
                           <Badge variant="outline">Day {entry.day}</Badge>
-                          <span className="text-xs text-gray-500">
+                          <span className="text-xs text-gray-500 dark:text-gray-300">
                             {new Date(entry.date).toLocaleDateString()}
                           </span>
                         </div>
-                        <p className="text-sm text-gray-700">{entry.reflection}</p>
+                        <p className="text-sm text-gray-700 dark:text-gray-200">{entry.reflection}</p>
                       </div>
                     ))}
                   </div>

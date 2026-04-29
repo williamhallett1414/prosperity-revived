@@ -44,9 +44,9 @@ export default function AboutTab({ user }) {
       className="space-y-4"
     >
       {/* Bio Section */}
-      <div className="bg-white dark:bg-white/5 rounded-lg shadow-sm p-6">
+      <div className="bg-white dark:bg-white/5 rounded-lg shadow-sm dark:shadow-none p-6">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-bold text-gray-900">Bio</h2>
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white">Bio</h2>
           {!editingBio && (
             <Button variant="ghost" size="sm" onClick={() => setEditingBio(true)}>
               <Edit2 className="w-4 h-4" />
@@ -77,7 +77,7 @@ export default function AboutTab({ user }) {
             </div>
           </div>
         ) : (
-          <p className="text-gray-600 whitespace-pre-wrap">
+          <p className="text-gray-600 dark:text-gray-300 whitespace-pre-wrap">
             {bio || 'No bio yet'}
           </p>
         )}
@@ -85,34 +85,34 @@ export default function AboutTab({ user }) {
 
       {/* Interests & Goals */}
       <div>
-        <h2 className="text-xl font-bold text-gray-900 mb-4 px-2">Interests & Goals</h2>
+        <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4 px-2">Interests & Goals</h2>
         <InterestsGoalsEditor user={user} />
       </div>
 
       {/* Contact Info */}
-      <div className="bg-white dark:bg-white/5 rounded-lg shadow-sm p-6">
-        <h2 className="text-xl font-bold text-gray-900 mb-4">Contact Information</h2>
+      <div className="bg-white dark:bg-white/5 rounded-lg shadow-sm dark:shadow-none p-6">
+        <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Contact Information</h2>
         <div className="space-y-3">
           <div>
-            <p className="text-sm text-gray-600">Email</p>
-            <p className="text-gray-900 font-medium">{user?.email}</p>
+            <p className="text-sm text-gray-600 dark:text-gray-300">Email</p>
+            <p className="text-gray-900 dark:text-white font-medium">{user?.email}</p>
           </div>
         </div>
       </div>
 
       {/* Account Info */}
-      <div className="bg-white dark:bg-white/5 rounded-lg shadow-sm p-6">
-        <h2 className="text-xl font-bold text-gray-900 mb-4">Account Information</h2>
+      <div className="bg-white dark:bg-white/5 rounded-lg shadow-sm dark:shadow-none p-6">
+        <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Account Information</h2>
         <div className="space-y-3">
           <div>
-            <p className="text-sm text-gray-600">Member Since</p>
-            <p className="text-gray-900 font-medium">
+            <p className="text-sm text-gray-600 dark:text-gray-300">Member Since</p>
+            <p className="text-gray-900 dark:text-white font-medium">
               {user?.created_date ? new Date(user.created_date).toLocaleDateString() : 'Recently'}
             </p>
           </div>
           <div>
-            <p className="text-sm text-gray-600">Account Role</p>
-            <p className="text-gray-900 font-medium capitalize">{user?.role || 'User'}</p>
+            <p className="text-sm text-gray-600 dark:text-gray-300">Account Role</p>
+            <p className="text-gray-900 dark:text-white font-medium capitalize">{user?.role || 'User'}</p>
           </div>
         </div>
       </div>

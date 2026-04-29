@@ -129,7 +129,7 @@ export default function PrayForMeFeed({ user }) {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-white dark:bg-white/5 rounded-xl p-4 shadow-sm border border-gray-200 dark:border-white/10"
+          className="bg-white dark:bg-white/5 rounded-xl p-4 shadow-sm dark:shadow-none border border-gray-200 dark:border-white/10"
         >
           {/* Input Area */}
           <div className="flex items-center gap-3">
@@ -139,7 +139,7 @@ export default function PrayForMeFeed({ user }) {
             <div className="flex-1">
               <button
                 onClick={() => setShowCreateBox(!showCreateBox)}
-                className="w-full bg-gray-100 hover:bg-gray-200 transition rounded-full px-4 py-2.5 text-left text-gray-600 text-sm"
+                className="w-full bg-gray-100 dark:bg-white/5 hover:bg-gray-200 transition rounded-full px-4 py-2.5 text-left text-gray-600 dark:text-gray-300 text-sm"
               >
                 What's on your heart, {user?.full_name?.split(' ')[0]}?
               </button>
@@ -159,7 +159,7 @@ export default function PrayForMeFeed({ user }) {
                 placeholder="Share your prayer request..."
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
-                className="w-full p-3 bg-white dark:bg-white/5 border-none rounded-lg text-gray-900 resize-none focus:outline-none placeholder-gray-500 text-base"
+                className="w-full p-3 bg-white dark:bg-white/5 border-none rounded-lg text-gray-900 dark:text-white resize-none focus:outline-none placeholder-gray-500 text-base"
                 rows={4}
               />
 
@@ -194,7 +194,7 @@ export default function PrayForMeFeed({ user }) {
                       onChange={(e) => handleMediaSelect(e, 'image')}
                       className="hidden"
                     />
-                    <div className="flex items-center justify-center gap-2 py-2 px-3 rounded-lg cursor-pointer hover:bg-gray-100 transition text-gray-600 hover:text-gray-900 text-sm font-medium">
+                    <div className="flex items-center justify-center gap-2 py-2 px-3 rounded-lg cursor-pointer hover:bg-gray-100 dark:bg-white/5 transition text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:text-white text-sm font-medium">
                       <ImageIcon className="w-5 h-5 text-green-500" />
                       <span>Photo</span>
                     </div>
@@ -207,7 +207,7 @@ export default function PrayForMeFeed({ user }) {
                       onChange={(e) => handleMediaSelect(e, 'video')}
                       className="hidden"
                     />
-                    <div className="flex items-center justify-center gap-2 py-2 px-3 rounded-lg cursor-pointer hover:bg-gray-100 transition text-gray-600 hover:text-gray-900 text-sm font-medium">
+                    <div className="flex items-center justify-center gap-2 py-2 px-3 rounded-lg cursor-pointer hover:bg-gray-100 dark:bg-white/5 transition text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:text-white text-sm font-medium">
                       <VideoIcon className="w-5 h-5 text-red-500" />
                       <span>Video</span>
                     </div>
@@ -225,7 +225,7 @@ export default function PrayForMeFeed({ user }) {
                     setMediaType(null);
                     setMediaPreview(null);
                   }}
-                  className="text-gray-600 hover:bg-gray-100"
+                  className="text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:bg-white/5"
                   size="sm"
                 >
                   Cancel
@@ -233,7 +233,7 @@ export default function PrayForMeFeed({ user }) {
                 <Button
                   onClick={() => createPost.mutate()}
                   disabled={createPost.isPending || !content.trim()}
-                  className="bg-blue-600 hover:bg-blue-700 text-white disabled:bg-gray-300 disabled:text-gray-500"
+                  className="bg-blue-600 hover:bg-blue-700 text-white disabled:bg-gray-300 disabled:text-gray-500 dark:text-gray-300"
                   size="sm"
                 >
                   {createPost.isPending ? 'Posting...' : 'Post'}
@@ -248,7 +248,7 @@ export default function PrayForMeFeed({ user }) {
       <div className="space-y-4">
         {posts.length === 0 ? (
           <div className="text-center py-12">
-            <p className="text-gray-400">No prayer requests yet. Be the first to share!</p>
+            <p className="text-gray-400 dark:text-gray-300">No prayer requests yet. Be the first to share!</p>
           </div>
         ) : (
           posts.map((post) => (
@@ -261,7 +261,7 @@ export default function PrayForMeFeed({ user }) {
               {/* Post Header */}
               <div>
                <p className="font-semibold text-white text-sm">{post.user_name}</p>
-               <p className="text-xs text-gray-500">{new Date(post.created_date).toLocaleDateString()}</p>
+               <p className="text-xs text-gray-500 dark:text-gray-300">{new Date(post.created_date).toLocaleDateString()}</p>
               </div>
 
               {/* Post Content */}
@@ -279,7 +279,7 @@ export default function PrayForMeFeed({ user }) {
               <div className="flex items-center gap-4 pt-3 border-t border-gray-700">
                 <button
                   onClick={() => likePost.mutate(post)}
-                  className="flex items-center gap-2 text-gray-400 hover:text-red-400 transition"
+                  className="flex items-center gap-2 text-gray-400 dark:text-gray-300 hover:text-red-400 transition"
                 >
                   <Heart className="w-4 h-4" fill="currentColor" />
                   <span className="text-xs">{post.likes || 0}</span>
@@ -287,7 +287,7 @@ export default function PrayForMeFeed({ user }) {
 
                 <button
                   onClick={() => setExpandedComments({ ...expandedComments, [post.id]: !expandedComments[post.id] })}
-                  className="flex items-center gap-2 text-gray-400 hover:text-blue-400 transition"
+                  className="flex items-center gap-2 text-gray-400 dark:text-gray-300 hover:text-blue-400 transition"
                 >
                   <MessageCircle className="w-4 h-4" />
                   <span className="text-xs">{postComments(post.id).length}</span>
@@ -297,7 +297,7 @@ export default function PrayForMeFeed({ user }) {
                   onClick={() => {
                     navigator.share?.({ text: post.content }) || toast.success('Share link copied');
                   }}
-                  className="flex items-center gap-2 text-gray-400 hover:text-[#FAD98D] transition"
+                  className="flex items-center gap-2 text-gray-400 dark:text-gray-300 hover:text-[#FAD98D] transition"
                 >
                   <Share2 className="w-4 h-4" />
                   <span className="text-xs">Share</span>

@@ -80,25 +80,25 @@ export default function HolisticProgressReport({ user }) {
           {isLoading ? (
             <div className="flex flex-col items-center justify-center py-12">
               <Loader2 className="w-10 h-10 text-[#c9a227] animate-spin mb-4" />
-              <p className="text-gray-600">Analyzing your wellness journey...</p>
-              <p className="text-sm text-gray-500 mt-2">Connecting insights from all your guides</p>
+              <p className="text-gray-600 dark:text-gray-300">Analyzing your wellness journey...</p>
+              <p className="text-sm text-gray-500 dark:text-gray-300 mt-2">Connecting insights from all your guides</p>
             </div>
           ) : report ? (
             <div className="space-y-6">
               {/* Overall Summary */}
-              <div className="bg-white dark:bg-white/5 rounded-xl p-5 shadow-sm border border-[#FAD98D]/40">
+              <div className="bg-white dark:bg-white/5 rounded-xl p-5 shadow-sm dark:shadow-none border border-[#FAD98D]/40">
                 <div className="flex items-start gap-3 mb-3">
                   <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center flex-shrink-0">
                     <Heart className="w-5 h-5 text-white" />
                   </div>
                   <div className="flex-1">
-                    <h3 className="font-semibold text-gray-900 text-lg mb-2">Overall Wellbeing</h3>
-                    <p className="text-gray-700 leading-relaxed">{report.overall_summary}</p>
+                    <h3 className="font-semibold text-gray-900 dark:text-white text-lg mb-2">Overall Wellbeing</h3>
+                    <p className="text-gray-700 dark:text-gray-200 leading-relaxed">{report.overall_summary}</p>
                   </div>
                 </div>
                 
                 {/* Data Summary Pills */}
-                <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-gray-100 dark:border-white/10">
+                <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-gray-100 dark:border-white/10 dark:border-white/10">
                   {report.data_summary && (
                     <>
                       <Badge variant="outline" className="bg-[#FAD98D]/10 border-[#FAD98D]/40">
@@ -123,10 +123,10 @@ export default function HolisticProgressReport({ user }) {
               </div>
 
               {/* Interconnected Insights */}
-              <div className="bg-white dark:bg-white/5 rounded-xl p-5 shadow-sm border border-[#FAD98D]/40">
+              <div className="bg-white dark:bg-white/5 rounded-xl p-5 shadow-sm dark:shadow-none border border-[#FAD98D]/40">
                 <div className="flex items-center gap-2 mb-4">
                   <TrendingUp className="w-5 h-5 text-[#C9A227]" />
-                  <h3 className="font-semibold text-gray-900 text-lg">Interconnected Insights</h3>
+                  <h3 className="font-semibold text-gray-900 dark:text-white text-lg">Interconnected Insights</h3>
                 </div>
                 <div className="space-y-3">
                   {report.interconnected_insights?.map((insight, idx) => (
@@ -140,7 +140,7 @@ export default function HolisticProgressReport({ user }) {
                       <div className="w-6 h-6 rounded-full bg-[#FAD98D]/40 flex items-center justify-center flex-shrink-0 mt-0.5">
                         <span className="text-xs font-semibold text-[#3C4E53]">{idx + 1}</span>
                       </div>
-                      <p className="text-gray-700 leading-relaxed text-sm">{insight}</p>
+                      <p className="text-gray-700 dark:text-gray-200 leading-relaxed text-sm">{insight}</p>
                     </motion.div>
                   ))}
                 </div>
@@ -168,14 +168,14 @@ export default function HolisticProgressReport({ user }) {
                       className="mt-4 space-y-4"
                     >
                       {/* Areas of Strength */}
-                      <div className="bg-white dark:bg-white/5 rounded-xl p-5 shadow-sm border border-green-100">
+                      <div className="bg-white dark:bg-white/5 rounded-xl p-5 shadow-sm dark:shadow-none border border-green-100">
                         <div className="flex items-center gap-2 mb-3">
                           <Target className="w-5 h-5 text-green-600" />
-                          <h3 className="font-semibold text-gray-900">Areas of Strength</h3>
+                          <h3 className="font-semibold text-gray-900 dark:text-white">Areas of Strength</h3>
                         </div>
                         <ul className="space-y-2">
                           {report.areas_of_strength?.map((strength, idx) => (
-                            <li key={idx} className="flex items-start gap-2 text-gray-700 text-sm">
+                            <li key={idx} className="flex items-start gap-2 text-gray-700 dark:text-gray-200 text-sm">
                               <span className="text-green-500 mt-1">✓</span>
                               <span>{strength}</span>
                             </li>
@@ -184,14 +184,14 @@ export default function HolisticProgressReport({ user }) {
                       </div>
 
                       {/* Growth Opportunities */}
-                      <div className="bg-white dark:bg-white/5 rounded-xl p-5 shadow-sm border border-blue-100">
+                      <div className="bg-white dark:bg-white/5 rounded-xl p-5 shadow-sm dark:shadow-none border border-blue-100">
                         <div className="flex items-center gap-2 mb-3">
                           <Lightbulb className="w-5 h-5 text-[#3C4E53]" />
-                          <h3 className="font-semibold text-gray-900">Growth Opportunities</h3>
+                          <h3 className="font-semibold text-gray-900 dark:text-white">Growth Opportunities</h3>
                         </div>
                         <ul className="space-y-2">
                           {report.growth_opportunities?.map((opportunity, idx) => (
-                            <li key={idx} className="flex items-start gap-2 text-gray-700 text-sm">
+                            <li key={idx} className="flex items-start gap-2 text-gray-700 dark:text-gray-200 text-sm">
                               <span className="text-[#AFC7E3] mt-1">→</span>
                               <span>{opportunity}</span>
                             </li>
@@ -206,8 +206,8 @@ export default function HolisticProgressReport({ user }) {
                             <Sparkles className="w-5 h-5 text-white" />
                           </div>
                           <div>
-                            <h3 className="font-semibold text-gray-900 mb-2">Next Step Recommendation</h3>
-                            <p className="text-gray-700 leading-relaxed">{report.personalized_recommendation}</p>
+                            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Next Step Recommendation</h3>
+                            <p className="text-gray-700 dark:text-gray-200 leading-relaxed">{report.personalized_recommendation}</p>
                           </div>
                         </div>
                       </div>
@@ -217,7 +217,7 @@ export default function HolisticProgressReport({ user }) {
               </div>
 
               {/* Footer */}
-              <div className="flex items-center justify-between text-xs text-gray-500 pt-2">
+              <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-300 pt-2">
                 <div className="flex items-center gap-1">
                   <Calendar className="w-3 h-3" />
                   <span>Generated {format(new Date(report.generated_date), 'MMM d, yyyy \'at\' h:mm a')}</span>
@@ -229,8 +229,8 @@ export default function HolisticProgressReport({ user }) {
             </div>
           ) : (
             <div className="text-center py-8">
-              <p className="text-gray-600 mb-4">Start your journey to see your holistic progress report</p>
-              <p className="text-sm text-gray-500">
+              <p className="text-gray-600 dark:text-gray-300 mb-4">Start your journey to see your holistic progress report</p>
+              <p className="text-sm text-gray-500 dark:text-gray-300">
                 Engage with Hannah, Coach David, Chef Daniel, and Gideon to build your personalized insights.
               </p>
             </div>

@@ -5,9 +5,9 @@ import PostCard from '@/components/community/PostCard';
 export default function TimelineTab({ user, posts, comments }) {
   if (posts.length === 0) {
     return (
-      <div className="bg-white dark:bg-white/5 rounded-lg shadow-sm p-12 text-center">
-        <p className="text-gray-500 text-lg">No posts yet</p>
-        <p className="text-gray-400 text-sm mt-2">Posts will appear here when you share them</p>
+      <div className="bg-white dark:bg-white/5 rounded-lg shadow-sm dark:shadow-none p-12 text-center">
+        <p className="text-gray-500 dark:text-gray-300 text-lg">No posts yet</p>
+        <p className="text-gray-400 dark:text-gray-300 text-sm mt-2">Posts will appear here when you share them</p>
       </div>
     );
   }

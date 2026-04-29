@@ -32,8 +32,8 @@ export default function MoodEnergyChart({ moodEnergyData }) {
   const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
       return (
-        <div className="bg-white dark:bg-white/5 p-3 rounded-lg shadow-lg border border-gray-100 dark:border-white/10">
-          <p className="font-semibold text-gray-900 mb-2">{payload[0].payload.date}</p>
+        <div className="bg-white dark:bg-white/5 p-3 rounded-lg shadow-lg dark:shadow-none border border-gray-100 dark:border-white/10 dark:border-white/10">
+          <p className="font-semibold text-gray-900 dark:text-white mb-2">{payload[0].payload.date}</p>
           <div className="space-y-1">
             <div className="flex items-center gap-2">
               <Smile className="w-4 h-4 text-[#3C4E53]" />
@@ -45,7 +45,7 @@ export default function MoodEnergyChart({ moodEnergyData }) {
             </div>
           </div>
           {payload[0].payload.notes && (
-            <p className="text-xs text-gray-600 mt-2 italic">"{payload[0].payload.notes}"</p>
+            <p className="text-xs text-gray-600 dark:text-gray-300 mt-2 italic">"{payload[0].payload.notes}"</p>
           )}
         </div>
       );
@@ -55,7 +55,7 @@ export default function MoodEnergyChart({ moodEnergyData }) {
 
   if (!chartData.length) {
     return (
-      <div className="text-center py-8 text-gray-400">
+      <div className="text-center py-8 text-gray-400 dark:text-gray-300">
         <p>No mood/energy data yet. Start tracking to see trends!</p>
       </div>
     );
@@ -69,13 +69,13 @@ export default function MoodEnergyChart({ moodEnergyData }) {
       <div className="grid grid-cols-2 gap-3">
         <div className="bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-xl p-3 text-center">
           <Smile className="w-5 h-5 text-[#3C4E53] mx-auto mb-1" />
-          <p className="text-lg font-bold text-gray-900">{avgMood.toFixed(1)}/5</p>
-          <p className="text-xs text-gray-600">Avg Mood</p>
+          <p className="text-lg font-bold text-gray-900 dark:text-white">{avgMood.toFixed(1)}/5</p>
+          <p className="text-xs text-gray-600 dark:text-gray-300">Avg Mood</p>
         </div>
         <div className="bg-green-50 rounded-xl p-3 text-center">
           <Battery className="w-5 h-5 text-green-600 mx-auto mb-1" />
-          <p className="text-lg font-bold text-gray-900">{avgEnergy.toFixed(1)}/5</p>
-          <p className="text-xs text-gray-600">Avg Energy</p>
+          <p className="text-lg font-bold text-gray-900 dark:text-white">{avgEnergy.toFixed(1)}/5</p>
+          <p className="text-xs text-gray-600 dark:text-gray-300">Avg Energy</p>
         </div>
       </div>
 

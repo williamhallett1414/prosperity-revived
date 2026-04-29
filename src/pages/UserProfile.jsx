@@ -261,7 +261,7 @@ export default function UserProfile() {
             </div>
             
             <div className="flex-1 pb-2">
-              <h1 className="text-2xl font-bold drop-shadow-lg">{profileUser.full_name || 'User'}</h1>
+              <h1 className="text-2xl font-bold drop-shadow-lg dark:shadow-none">{profileUser.full_name || 'User'}</h1>
               <p className="text-white/90 text-sm drop-shadow">{profileUser.email}</p>
             </div>
 
@@ -303,7 +303,7 @@ export default function UserProfile() {
         <div className="px-4 pt-3 pb-1 flex gap-3">
           <Link
             to={createPageUrl(`Messages?recipient=${profileEmail}&name=${profileUser.full_name || profileEmail}`)}
-            className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-2xl bg-gradient-to-r from-[#FAD98D] to-[#c9a227] text-[#0A1A2F] dark:text-white font-bold text-sm hover:opacity-90 transition-opacity shadow-sm"
+            className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-2xl bg-gradient-to-r from-[#FAD98D] to-[#c9a227] text-[#0A1A2F] dark:text-white font-bold text-sm hover:opacity-90 transition-opacity shadow-sm dark:shadow-none"
           >
             <MessageCircle className="w-4 h-4" />
             Message
@@ -324,7 +324,7 @@ export default function UserProfile() {
       {/* Spiritual Goal */}
       {profileUser.spiritual_goal && (
         <div className="px-4 mb-6">
-          <div className="bg-gradient-to-br from-[#0A1A2F] to-[#0A1A2F] rounded-2xl p-4 shadow-lg text-white">
+          <div className="bg-gradient-to-br from-[#0A1A2F] to-[#0A1A2F] rounded-2xl p-4 shadow-lg dark:shadow-none text-white">
             <h3 className="font-semibold mb-2 flex items-center gap-2">
               <Target className="w-5 h-5" />
               Spiritual Goal
@@ -337,7 +337,7 @@ export default function UserProfile() {
       {/* Favorite Verses */}
       {profileUser.favorite_verse_ids && profileUser.favorite_verse_ids.length > 0 && (
         <div className="px-4 mb-6">
-          <div className="bg-white dark:bg-white/5 border border-[#FAD98D]/20 rounded-2xl p-4 shadow-sm">
+          <div className="bg-white dark:bg-white/5 border border-[#FAD98D]/20 rounded-2xl p-4 shadow-sm dark:shadow-none">
             <h3 className="font-semibold text-[#0A1A2F] dark:text-white mb-3 flex items-center gap-2">
               <span className="text-xl">✨</span>
               Favorite Verses
@@ -353,7 +353,7 @@ export default function UserProfile() {
                   <p className="font-semibold text-sm text-[#0A1A2F] dark:text-white mb-2">
                     {bookmark.book_name} {bookmark.chapter_number}:{bookmark.verse_number}
                   </p>
-                  <p className="text-[#0A1A2F]/75 text-sm italic">
+                  <p className="text-[#0A1A2F]/75 dark:text-white/75 text-sm italic">
                     "{bookmark.verse_text}"
                   </p>
                 </motion.div>
@@ -368,7 +368,7 @@ export default function UserProfile() {
       {/* Mutual Friends */}
       {!isOwnProfile && mutualFriends.length > 0 && (
         <div className="px-4 mb-6">
-          <div className="bg-white dark:bg-white/5 border border-[#FAD98D]/20 rounded-2xl p-4 shadow-sm">
+          <div className="bg-white dark:bg-white/5 border border-[#FAD98D]/20 rounded-2xl p-4 shadow-sm dark:shadow-none">
             <h3 className="font-semibold text-[#0A1A2F] dark:text-white mb-3">
               {mutualFriends.length} Mutual Friend{mutualFriends.length !== 1 ? 's' : ''}
             </h3>
@@ -383,7 +383,7 @@ export default function UserProfile() {
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: index * 0.05 }}
-                    className="w-16 h-16 rounded-full overflow-hidden bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center text-white font-semibold shadow-md"
+                    className="w-16 h-16 rounded-full overflow-hidden bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center text-white font-semibold shadow-md dark:shadow-none"
                   >
                     {friend.profile_image_url ? (
                       <img src={friend.profile_image_url} alt={friend.full_name} className="w-full h-full object-cover" />
@@ -391,7 +391,7 @@ export default function UserProfile() {
                       friend.full_name?.charAt(0) || friend.email.charAt(0)
                     )}
                   </motion.div>
-                  <p className="text-xs text-center text-[#0A1A2F]/75 line-clamp-2 w-full">
+                  <p className="text-xs text-center text-[#0A1A2F]/75 dark:text-white/75 line-clamp-2 w-full">
                     {friend.full_name?.split(' ')[0] || 'User'}
                   </p>
                 </Link>
@@ -409,7 +409,7 @@ export default function UserProfile() {
       {/* Bio */}
       {profileUser.bio ? (
         <div className="px-4 mb-6">
-          <div className="bg-white dark:bg-white/5 rounded-2xl p-4 shadow-sm border border-[#FAD98D]/20">
+          <div className="bg-white dark:bg-white/5 rounded-2xl p-4 shadow-sm dark:shadow-none border border-[#FAD98D]/20">
             <h3 className="font-semibold text-[#0A1A2F] dark:text-white mb-2">Bio</h3>
             <p className="text-[#0A1A2F]/70 dark:text-white/70">{profileUser.bio}</p>
           </div>
@@ -418,7 +418,7 @@ export default function UserProfile() {
         <div className="px-4 mb-6">
           <button
             onClick={() => setShowEditProfile(true)}
-            className="w-full bg-white dark:bg-white/5 rounded-2xl p-4 shadow-sm border border-dashed border-[#FAD98D]/50 text-[#0A1A2F]/50 dark:text-white/50 text-sm flex items-center justify-center gap-2 hover:border-[#c9a227] hover:text-[#c9a227] transition-colors"
+            className="w-full bg-white dark:bg-white/5 rounded-2xl p-4 shadow-sm dark:shadow-none border border-dashed border-[#FAD98D]/50 text-[#0A1A2F]/50 dark:text-white/50 text-sm flex items-center justify-center gap-2 hover:border-[#c9a227] hover:text-[#c9a227] transition-colors"
           >
             <Plus className="w-4 h-4" />
             Add a bio to tell people about yourself

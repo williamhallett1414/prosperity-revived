@@ -50,7 +50,7 @@ export default function DailyPrayer() {
         <DialogTrigger asChild>
           <motion.button
             whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }} className="bg-slate-50 text-[#3C4E53] p-6 text-left rounded-2xl w-full from-[#FD9C2D] to-[#FAD98D] shadow-lg">
+            whileTap={{ scale: 0.98 }} className="bg-slate-50 dark:bg-white/5 text-[#3C4E53] p-6 text-left rounded-2xl w-full from-[#FD9C2D] to-[#FAD98D] shadow-lg dark:shadow-none">
 
 
             <div className="flex items-center gap-3 mb-2">
@@ -91,7 +91,7 @@ export default function DailyPrayer() {
             </div>
 
             <div className="text-center">
-              <p className="text-sm text-gray-500">Take a moment in silence</p>
+              <p className="text-sm text-gray-500 dark:text-gray-300">Take a moment in silence</p>
             </div>
           </div>
         </DialogContent>

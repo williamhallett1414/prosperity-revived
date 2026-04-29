@@ -104,7 +104,7 @@ export default function DailyRoutineCards({ meditations = [] }) {
         <div className="space-y-6">
           <div className="text-center">
             <div className="text-6xl mb-4">🌅</div>
-            <h3 className="text-xl font-bold text-gray-800 mb-2">Breath Prayer</h3>
+            <h3 className="text-xl font-bold text-gray-800 dark:text-gray-100 mb-2">Breath Prayer</h3>
             <div className="bg-gradient-to-br from-[#FAD98D] to-[#AFC7E3] rounded-xl p-5 mb-4">
               <p className="text-[#0A1A2F] dark:text-white font-serif italic leading-relaxed">
                 Breathe in: "Lord Jesus"<br />
@@ -114,7 +114,7 @@ export default function DailyRoutineCards({ meditations = [] }) {
             </div>
             </div>
 
-            <div className="bg-gray-100 rounded-xl p-5">
+            <div className="bg-gray-100 dark:bg-white/5 rounded-xl p-5">
             <p className="text-sm font-semibold text-[#0A1A2F] dark:text-white mb-2">Today's Scripture</p>
             <p className="font-serif italic text-[#0A1A2F] dark:text-white dark:text-white">"{verse.text}"</p>
             <p className="text-xs text-[#0A1A2F]/60 dark:text-white/60 mt-1">{verse.book} {verse.chapter}:{verse.verse}</p>
@@ -185,7 +185,7 @@ export default function DailyRoutineCards({ meditations = [] }) {
               placeholder="What are you grateful for right now?"
               value={gratitude}
               onChange={(e) => setGratitude(e.target.value)}
-              className="min-h-[80px] bg-gray-100 border-[#F2F6FA]"
+              className="min-h-[80px] bg-gray-100 dark:bg-white/5 border-[#F2F6FA]"
             />
             <Button
               onClick={() => saveGratitude.mutate({
@@ -237,7 +237,7 @@ export default function DailyRoutineCards({ meditations = [] }) {
             </Button>
           </div>
 
-          <div className="bg-gray-100 rounded-xl p-5">
+          <div className="bg-gray-100 dark:bg-white/5 rounded-xl p-5">
             <p className="text-sm font-semibold text-[#0A1A2F] dark:text-white mb-3">Light Stretching</p>
             <ul className="text-sm text-[#0A1A2F]/80 dark:text-white/80 space-y-2">
               <li>• Neck rolls (30 seconds)</li>
@@ -274,8 +274,8 @@ export default function DailyRoutineCards({ meditations = [] }) {
         <div className="space-y-4">
           <div className="text-center">
             <div className="text-6xl mb-4">💝</div>
-            <h3 className="text-xl font-bold text-gray-800 mb-2">Gratitude Journal</h3>
-            <p className="text-sm text-gray-600 mb-4">Count your blessings today</p>
+            <h3 className="text-xl font-bold text-gray-800 dark:text-gray-100 mb-2">Gratitude Journal</h3>
+            <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">Count your blessings today</p>
           </div>
 
           <div className="space-y-3">
@@ -285,7 +285,7 @@ export default function DailyRoutineCards({ meditations = [] }) {
                 placeholder="1. &#10;2. &#10;3. "
                 value={gratitude}
                 onChange={(e) => setGratitude(e.target.value)}
-                className="min-h-[120px] bg-gray-100 border-[#F2F6FA]"
+                className="min-h-[120px] bg-gray-100 dark:bg-white/5 border-[#F2F6FA]"
               />
             </div>
 
@@ -323,10 +323,10 @@ export default function DailyRoutineCards({ meditations = [] }) {
         <div className="space-y-4">
           <div className="text-center">
             <div className="text-6xl mb-4">📖</div>
-            <h3 className="text-xl font-bold text-gray-800 mb-4">Today's Scripture</h3>
+            <h3 className="text-xl font-bold text-gray-800 dark:text-gray-100 mb-4">Today's Scripture</h3>
           </div>
 
-          <div className="bg-gray-100 rounded-xl p-5">
+          <div className="bg-gray-100 dark:bg-white/5 rounded-xl p-5">
             <p className="font-serif italic text-[#0A1A2F] dark:text-white text-lg mb-3 leading-relaxed">
               "{verse.text}"
             </p>
@@ -368,11 +368,11 @@ export default function DailyRoutineCards({ meditations = [] }) {
         <div className="space-y-6">
           <div className="text-center">
             <div className="text-6xl mb-4">🌬️</div>
-            <h3 className="text-xl font-bold text-gray-800 mb-2">5-Minute Movement</h3>
-            <p className="text-sm text-gray-600">Gentle stretches and breathwork</p>
+            <h3 className="text-xl font-bold text-gray-800 dark:text-gray-100 mb-2">5-Minute Movement</h3>
+            <p className="text-sm text-gray-600 dark:text-gray-300">Gentle stretches and breathwork</p>
           </div>
 
-          <div className="bg-gray-100 rounded-xl p-5 space-y-3">
+          <div className="bg-gray-100 dark:bg-white/5 rounded-xl p-5 space-y-3">
             <div>
               <p className="font-semibold text-[#0A1A2F] dark:text-white text-sm mb-1">🧘 Neck Rolls</p>
               <p className="text-xs text-[#0A1A2F]/70 dark:text-white/70">Slowly roll your head in circles - 30 seconds each direction</p>
@@ -421,7 +421,7 @@ export default function DailyRoutineCards({ meditations = [] }) {
                 transition={{ delay: 0.2 + index * 0.05 }}
                 whileHover={{ scale: 1.02 }}
                 onClick={() => setActiveModal(card.id)}
-                className={`min-w-[280px] rounded-2xl p-5 bg-gradient-to-br ${card.gradient} text-[#0A1A2F] dark:text-white shadow-lg snap-start`}
+                className={`min-w-[280px] rounded-2xl p-5 bg-gradient-to-br ${card.gradient} text-[#0A1A2F] dark:text-white shadow-lg dark:shadow-none snap-start`}
               >
                 <div className="flex items-center gap-2 mb-3">
                   <Icon className="w-5 h-5" />

@@ -70,7 +70,7 @@ export default function FoodLogHistory() {
             </div>
             <button
               onClick={() => setShowAddFood(true)}
-              className="flex items-center gap-1.5 px-4 py-2 rounded-full bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white text-xs font-bold shadow-md active:scale-95 transition-transform"
+              className="flex items-center gap-1.5 px-4 py-2 rounded-full bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white text-xs font-bold shadow-md dark:shadow-none active:scale-95 transition-transform"
             >
               <Plus className="w-3.5 h-3.5" />
               Log Food
@@ -83,7 +83,7 @@ export default function FoodLogHistory() {
                 className={`flex items-center gap-1 px-3 py-2.5 text-xs font-semibold border-b-2 transition-all whitespace-nowrap ${
                   id === 'history'
                     ? 'border-[#c9a227] text-[#c9a227]'
-                    : 'border-transparent text-[#0A1A2F]/40 dark:text-white/40 hover:text-[#0A1A2F]/65'
+                    : 'border-transparent text-[#0A1A2F]/40 dark:text-white/40 hover:text-[#0A1A2F]/65 dark:text-white/65'
                 }`}>
                 <Icon className="w-3.5 h-3.5" />
                 {label}
@@ -114,7 +114,7 @@ export default function FoodLogHistory() {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: dateIdx * 0.05 }}
-                  className="bg-white dark:bg-white/5 rounded-xl overflow-hidden shadow-sm">
+                  className="bg-white dark:bg-white/5 rounded-xl overflow-hidden shadow-sm dark:shadow-none">
 
                   {/* Date Header */}
                   <div className="bg-gradient-to-r from-[#F2F6FA] to-[#AFC7E3] p-4">
@@ -151,7 +151,7 @@ export default function FoodLogHistory() {
                     {dateMeals.map((meal) => (
                       <motion.div key={meal.id} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }}>
                         <Link to={createPageUrl(`MealDetailView?id=${meal.id}`)}>
-                          <div className="bg-gray-50 dark:bg-white/5 hover:bg-gray-100 rounded-lg p-3 cursor-pointer transition-colors">
+                          <div className="bg-gray-50 dark:bg-white/5 hover:bg-gray-100 dark:bg-white/5 rounded-lg p-3 cursor-pointer transition-colors">
                             <div className="flex items-start justify-between mb-2">
                               <div className="flex-1 min-w-0">
                                 <p className="font-medium text-sm text-[#0A1A2F] dark:text-white dark:text-white">

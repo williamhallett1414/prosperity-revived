@@ -280,7 +280,7 @@ export default function DailyGuidedPrayer() {
       animate={{ opacity: 1, y: 0 }}
       className="mb-6">
 
-      <div className="bg-gradient-to-br from-[#FAD98D]/20 to-[#FD9C2D]/20 rounded-2xl p-6 border border-[#FD9C2D]/30 shadow-sm">
+      <div className="bg-gradient-to-br from-[#FAD98D]/20 to-[#FD9C2D]/20 rounded-2xl p-6 border border-[#FD9C2D]/30 shadow-sm dark:shadow-none">
         <div className="flex items-center gap-2 mb-2">
           <BookOpen className="w-5 h-5 text-[#FD9C2D]" />
           <h3 className="text-lg font-bold text-[#0A1A2F] dark:text-white dark:text-white">Daily Guided Prayer</h3>
@@ -307,7 +307,7 @@ export default function DailyGuidedPrayer() {
             </Button>
           </div>
 
-          <div className="pt-4 border-t border-gray-100 dark:border-white/10">
+          <div className="pt-4 border-t border-gray-100 dark:border-white/10 dark:border-white/10">
             <div className="mb-4">
               <p className="text-xs text-[#0A1A2F]/60 dark:text-white/60 mb-1">Today's Scripture</p>
               <p className="text-sm font-semibold text-[#FD9C2D]">{todaysPrayer.scripture}</p>

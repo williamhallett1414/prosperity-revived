@@ -211,7 +211,7 @@ export default function MyJournalEntries() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#F2F6FA] to-[#FFFFFF] pb-24">
       {/* Header */}
-      <div className="sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b border-[#AFC7E3]/20 px-4 py-3 shadow-sm">
+      <div className="sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b border-[#AFC7E3]/20 px-4 py-3 shadow-sm dark:shadow-none">
         <div className="max-w-3xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Link
@@ -227,7 +227,7 @@ export default function MyJournalEntries() {
           </div>
           <Button
             onClick={() => setShowNewEntryModal(true)}
-            className="bg-gradient-to-r from-[#FD9C2D] to-[#FAD98D] hover:from-[#FD9C2D]/90 hover:to-[#FAD98D]/90 text-white font-semibold shadow-lg"
+            className="bg-gradient-to-r from-[#FD9C2D] to-[#FAD98D] hover:from-[#FD9C2D]/90 hover:to-[#FAD98D]/90 text-white font-semibold shadow-lg dark:shadow-none"
             size="sm"
           >
             <Plus className="w-4 h-4 mr-2" />
@@ -253,7 +253,7 @@ export default function MyJournalEntries() {
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="bg-white dark:bg-white/5 rounded-2xl p-6 border border-[#AFC7E3]/30 shadow-sm hover:shadow-md transition-all"
+                className="bg-white dark:bg-white/5 rounded-2xl p-6 border border-[#AFC7E3]/30 shadow-sm dark:shadow-none hover:shadow-md dark:shadow-none transition-all"
               >
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex-1">
@@ -315,7 +315,7 @@ export default function MyJournalEntries() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
-                className="bg-white dark:bg-white/5 rounded-2xl p-6 border border-[#AFC7E3]/30 shadow-sm hover:shadow-md transition-all"
+                className="bg-white dark:bg-white/5 rounded-2xl p-6 border border-[#AFC7E3]/30 shadow-sm dark:shadow-none hover:shadow-md dark:shadow-none transition-all"
               >
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex-1">
@@ -388,7 +388,7 @@ export default function MyJournalEntries() {
                 onClick={() => setSelectedCategory(category.value)}
                 className={`px-4 py-2.5 rounded-full text-sm font-semibold whitespace-nowrap transition-all ${
                   selectedCategory === category.value
-                    ? 'bg-gradient-to-r from-[#FD9C2D] to-[#FAD98D] text-white shadow-md'
+                    ? 'bg-gradient-to-r from-[#FD9C2D] to-[#FAD98D] text-white shadow-md dark:shadow-none'
                     : 'bg-white dark:bg-white/5 text-[#0A1A2F]/70 dark:text-white/70 border border-[#AFC7E3]/30 hover:border-[#FD9C2D]/50 hover:bg-[#FAD98D]/10'
                 }`}
               >
@@ -409,7 +409,7 @@ export default function MyJournalEntries() {
             <p className="text-lg font-semibold text-[#0A1A2F] dark:text-white mb-2">No journal entries yet</p>
             <p className="text-sm text-[#0A1A2F]/60 dark:text-white/60 mb-6">Start journaling to capture your thoughts and reflections</p>
             <Button
-              className="bg-gradient-to-r from-[#FD9C2D] to-[#FAD98D] hover:from-[#FD9C2D]/90 hover:to-[#FAD98D]/90 text-white font-semibold shadow-lg"
+              className="bg-gradient-to-r from-[#FD9C2D] to-[#FAD98D] hover:from-[#FD9C2D]/90 hover:to-[#FAD98D]/90 text-white font-semibold shadow-lg dark:shadow-none"
               onClick={() => setShowNewEntryModal(true)}
             >
               ✍️ Write Your First Entry
@@ -439,7 +439,7 @@ export default function MyJournalEntries() {
                   onClick={() =>
                     setExpandedDate(expandedDate === date ? null : date)
                   }
-                  className="w-full flex items-center justify-between px-5 py-4 bg-white dark:bg-white/5 rounded-xl border border-[#AFC7E3]/20 hover:border-[#FD9C2D]/30 hover:shadow-sm transition-all"
+                  className="w-full flex items-center justify-between px-5 py-4 bg-white dark:bg-white/5 rounded-xl border border-[#AFC7E3]/20 hover:border-[#FD9C2D]/30 hover:shadow-sm dark:shadow-none transition-all"
                 >
                   <span className="font-bold text-[#0A1A2F] dark:text-white dark:text-white">
                     {date}
@@ -470,7 +470,7 @@ export default function MyJournalEntries() {
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: idx * 0.05 }}
-                        className="bg-white dark:bg-white/5 rounded-2xl p-5 border border-[#AFC7E3]/20 shadow-sm hover:shadow-md transition-all"
+                        className="bg-white dark:bg-white/5 rounded-2xl p-5 border border-[#AFC7E3]/20 shadow-sm dark:shadow-none hover:shadow-md dark:shadow-none transition-all"
                       >
                         {editingId === entry.id ? (
                           // Edit Mode

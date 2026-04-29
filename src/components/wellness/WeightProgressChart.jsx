@@ -17,8 +17,8 @@ export default function WeightProgressChart({ progressPhotos }) {
   if (weightData.length === 0) {
     return (
       <Card>
-        <CardContent className="pt-6 text-center text-gray-500">
-          <Scale className="w-12 h-12 mx-auto mb-2 text-gray-300" />
+        <CardContent className="pt-6 text-center text-gray-500 dark:text-gray-300">
+          <Scale className="w-12 h-12 mx-auto mb-2 text-gray-300 dark:text-gray-400 dark:text-gray-300" />
           <p>No weight data yet. Add progress photos with weight to track your journey.</p>
         </CardContent>
       </Card>
@@ -38,8 +38,8 @@ export default function WeightProgressChart({ progressPhotos }) {
             Weight Progress
           </span>
           <div className="text-right text-sm">
-            <div className="font-normal text-gray-600">Change</div>
-            <div className={`font-bold ${change < 0 ? 'text-green-600' : change > 0 ? 'text-orange-600' : 'text-gray-600'}`}>
+            <div className="font-normal text-gray-600 dark:text-gray-300">Change</div>
+            <div className={`font-bold ${change < 0 ? 'text-green-600' : change > 0 ? 'text-orange-600' : 'text-gray-600 dark:text-gray-300'}`}>
               {change > 0 ? '+' : ''}{change.toFixed(1)} lbs
             </div>
           </div>

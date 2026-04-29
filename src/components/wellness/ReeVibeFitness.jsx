@@ -131,7 +131,7 @@ export default function ReeVibeFitness({ user }) {
   return (
     <div className="space-y-4">
       {/* Facebook-style Post Box */}
-      <div className="bg-white dark:bg-white/5 rounded-2xl p-4 shadow-sm mb-4">
+      <div className="bg-white dark:bg-white/5 rounded-2xl p-4 shadow-sm dark:shadow-none mb-4">
         <div className="flex items-center gap-3 mb-3">
           <Avatar className="w-10 h-10">
             <AvatarFallback className="bg-[#FD9C2D]/20 text-[#FD9C2D]">
@@ -213,7 +213,7 @@ export default function ReeVibeFitness({ user }) {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.05 }}
-                className="bg-white dark:bg-white/5 rounded-2xl p-4 shadow-sm"
+                className="bg-white dark:bg-white/5 rounded-2xl p-4 shadow-sm dark:shadow-none"
               >
                 {/* Post Header */}
                 <div className="flex items-center gap-3 mb-3">

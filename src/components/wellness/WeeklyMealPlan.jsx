@@ -54,7 +54,7 @@ export default function WeeklyMealPlan({ mealPlanDays, activePlan }) {
             variant="outline"
             size="sm"
             onClick={() => setIsCollapsed(!isCollapsed)}
-            className="text-gray-600 border-gray-300 hover:bg-gray-50 dark:bg-white/5"
+            className="text-gray-600 dark:text-gray-300 border-gray-300 dark:border-white/15 hover:bg-gray-50 dark:bg-white/5 dark:bg-white/5"
           >
             {isCollapsed ? <ChevronDown className="w-4 h-4" /> : <ChevronUp className="w-4 h-4" />}
           </Button>
@@ -67,7 +67,7 @@ export default function WeeklyMealPlan({ mealPlanDays, activePlan }) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: index * 0.05 }}
-          className="bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-xl p-4 cursor-pointer hover:shadow-md transition-shadow"
+          className="bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-xl p-4 cursor-pointer hover:shadow-md dark:shadow-none transition-shadow"
           onClick={() => setSelectedDay(day)}
         >
           <div className="flex items-center justify-between">
@@ -75,7 +75,7 @@ export default function WeeklyMealPlan({ mealPlanDays, activePlan }) {
               <h5 className="font-semibold text-[#0A1A2F] dark:text-white mb-1">
                 {getDayName(day.date)}
               </h5>
-              <div className="flex items-center gap-4 text-sm text-gray-600 dark:text-gray-400">
+              <div className="flex items-center gap-4 text-sm text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">
                 <div className="flex items-center gap-1">
                   <Flame className="w-4 h-4" />
                   <span>{day.total_calories} cal</span>
@@ -84,11 +84,11 @@ export default function WeeklyMealPlan({ mealPlanDays, activePlan }) {
                 <span>C: {day.total_carbs}g</span>
                 <span>F: {day.total_fats}g</span>
               </div>
-              <div className="mt-2 text-xs text-gray-500">
+              <div className="mt-2 text-xs text-gray-500 dark:text-gray-300">
                 {day.meals?.length || 0} meals planned
               </div>
             </div>
-            <ChevronRight className="w-5 h-5 text-gray-400" />
+            <ChevronRight className="w-5 h-5 text-gray-400 dark:text-gray-300" />
           </div>
         </motion.div>
       ))}
@@ -106,19 +106,19 @@ export default function WeeklyMealPlan({ mealPlanDays, activePlan }) {
               <div className="bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-900/20 dark:to-teal-900/20 rounded-lg p-4">
                 <div className="grid grid-cols-4 gap-3 text-center">
                   <div>
-                    <p className="text-xs text-gray-600 dark:text-gray-400 mb-1">Calories</p>
+                    <p className="text-xs text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300 mb-1">Calories</p>
                     <p className="font-bold text-emerald-600">{selectedDay.total_calories}</p>
                   </div>
                   <div>
-                    <p className="text-xs text-gray-600 dark:text-gray-400 mb-1">Protein</p>
+                    <p className="text-xs text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300 mb-1">Protein</p>
                     <p className="font-bold text-[#3C4E53]">{selectedDay.total_protein}g</p>
                   </div>
                   <div>
-                    <p className="text-xs text-gray-600 dark:text-gray-400 mb-1">Carbs</p>
+                    <p className="text-xs text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300 mb-1">Carbs</p>
                     <p className="font-bold text-orange-600">{selectedDay.total_carbs}g</p>
                   </div>
                   <div>
-                    <p className="text-xs text-gray-600 dark:text-gray-400 mb-1">Fats</p>
+                    <p className="text-xs text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300 mb-1">Fats</p>
                     <p className="font-bold text-[#C9A227]">{selectedDay.total_fats}g</p>
                   </div>
                 </div>
@@ -135,14 +135,14 @@ export default function WeeklyMealPlan({ mealPlanDays, activePlan }) {
                         <span className="text-sm font-medium text-emerald-600 uppercase">
                           {meal.meal_type}
                         </span>
-                        <span className="text-xs text-gray-500">
+                        <span className="text-xs text-gray-500 dark:text-gray-300">
                           {meal.calories} cal
                         </span>
                       </div>
                       <h6 className="font-semibold text-[#0A1A2F] dark:text-white mb-2">
                         {meal.recipe_title}
                       </h6>
-                      <div className="flex gap-4 text-xs text-gray-600 dark:text-gray-400">
+                      <div className="flex gap-4 text-xs text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">
                         <span>P: {meal.protein}g</span>
                         <span>C: {meal.carbs}g</span>
                         <span>F: {meal.fats}g</span>

@@ -18,12 +18,12 @@ export default function GroupChallengeComparison({ participants, challenge, curr
     if (active && payload && payload.length) {
       const data = payload[0].payload;
       return (
-        <div className="bg-white dark:bg-white/5 p-3 rounded-lg shadow-lg border border-gray-100 dark:border-white/10">
-          <p className="font-semibold text-gray-900">{data.name}</p>
+        <div className="bg-white dark:bg-white/5 p-3 rounded-lg shadow-lg dark:shadow-none border border-gray-100 dark:border-white/10 dark:border-white/10">
+          <p className="font-semibold text-gray-900 dark:text-white">{data.name}</p>
           <p className="text-[#C9A227]">
             {data.progress} {challenge.goal_unit}
           </p>
-          <p className="text-sm text-gray-500">Rank #{data.rank}</p>
+          <p className="text-sm text-gray-500 dark:text-gray-300">Rank #{data.rank}</p>
         </div>
       );
     }
@@ -44,24 +44,24 @@ export default function GroupChallengeComparison({ participants, challenge, curr
       <div className="grid grid-cols-3 gap-3">
         <div className="bg-gradient-to-br from-[#FAD98D]/10 to-[#FFF9EC] rounded-xl p-4 text-center">
           <TrendingUp className="w-5 h-5 text-[#C9A227] mx-auto mb-1" />
-          <p className="text-lg font-bold text-gray-900">{averageProgress.toFixed(1)}</p>
-          <p className="text-xs text-gray-600">Avg Progress</p>
+          <p className="text-lg font-bold text-gray-900 dark:text-white">{averageProgress.toFixed(1)}</p>
+          <p className="text-xs text-gray-600 dark:text-gray-300">Avg Progress</p>
         </div>
         <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-4 text-center">
           <Award className="w-5 h-5 text-green-600 mx-auto mb-1" />
-          <p className="text-lg font-bold text-gray-900">{completionRate.toFixed(0)}%</p>
-          <p className="text-xs text-gray-600">Completion</p>
+          <p className="text-lg font-bold text-gray-900 dark:text-white">{completionRate.toFixed(0)}%</p>
+          <p className="text-xs text-gray-600 dark:text-gray-300">Completion</p>
         </div>
         <div className="bg-gradient-to-br from-amber-50 to-orange-50 rounded-xl p-4 text-center">
           <Trophy className="w-5 h-5 text-amber-600 mx-auto mb-1" />
-          <p className="text-lg font-bold text-gray-900">{participants.length}</p>
-          <p className="text-xs text-gray-600">Participants</p>
+          <p className="text-lg font-bold text-gray-900 dark:text-white">{participants.length}</p>
+          <p className="text-xs text-gray-600 dark:text-gray-300">Participants</p>
         </div>
       </div>
 
       {/* Comparison Chart */}
       <div className="bg-white dark:bg-white/5 rounded-xl p-4">
-        <h3 className="font-semibold mb-4 text-gray-900">Top 10 Participants</h3>
+        <h3 className="font-semibold mb-4 text-gray-900 dark:text-white">Top 10 Participants</h3>
         <ResponsiveContainer width="100%" height={300}>
           <BarChart data={chartData} layout="vertical">
             <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />

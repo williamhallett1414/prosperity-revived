@@ -37,7 +37,7 @@ export default function SpiritualInsightsDashboard() {
           <CardContent className="pt-6 text-center">
             <Sparkles className="w-12 h-12 mx-auto mb-3 text-[#c9a227]" />
             <h3 className="font-semibold text-lg mb-2">Start Your Journey</h3>
-            <p className="text-sm text-gray-600 dark:text-gray-400">
+            <p className="text-sm text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">
               Have conversations with Gideon to unlock your spiritual insights dashboard
             </p>
           </CardContent>
@@ -52,8 +52,8 @@ export default function SpiritualInsightsDashboard() {
       <div className="flex items-center gap-3 pt-4">
         <Sparkles className="w-6 h-6 text-[#c9a227]" />
         <div>
-          <h2 className="text-xl font-bold text-gray-800 dark:text-white">Your Spiritual Insights</h2>
-          <p className="text-sm text-gray-500">Gideon's analysis of your journey</p>
+          <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100 dark:text-white">Your Spiritual Insights</h2>
+          <p className="text-sm text-gray-500 dark:text-gray-300">Gideon's analysis of your journey</p>
         </div>
       </div>
 
@@ -74,13 +74,13 @@ export default function SpiritualInsightsDashboard() {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: idx * 0.1 }}
-                className="bg-white dark:bg-white/5 dark:bg-gray-800 rounded-lg p-4 shadow-sm"
+                className="bg-white dark:bg-white/5 dark:bg-gray-800 rounded-lg p-4 shadow-sm dark:shadow-none"
               >
                 <div className="flex items-start justify-between mb-2">
                   <div className="flex items-center gap-2">
                     <span className="text-2xl">{config.icon}</span>
                     <div>
-                      <h4 className="font-semibold capitalize text-gray-800 dark:text-white">
+                      <h4 className="font-semibold capitalize text-gray-800 dark:text-gray-100 dark:text-white">
                         {theme.theme_name}
                       </h4>
                       <p className={`text-xs ${config.color} font-medium`}>
@@ -90,7 +90,7 @@ export default function SpiritualInsightsDashboard() {
                   </div>
                   <div className="text-right">
                     <div className="text-sm font-bold text-[#C9A227]">{theme.frequency_count}x</div>
-                    <div className="text-xs text-gray-500">explored</div>
+                    <div className="text-xs text-gray-500 dark:text-gray-300">explored</div>
                   </div>
                 </div>
                 
@@ -108,7 +108,7 @@ export default function SpiritualInsightsDashboard() {
                 )}
                 
                 {theme.key_scriptures && theme.key_scriptures.length > 0 && (
-                  <div className="mt-2 flex items-center gap-1 text-xs text-gray-600 dark:text-gray-400">
+                  <div className="mt-2 flex items-center gap-1 text-xs text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">
                     <BookOpen className="w-3 h-3" />
                     <span>{theme.key_scriptures.length} scriptures connected</span>
                   </div>
@@ -134,20 +134,20 @@ export default function SpiritualInsightsDashboard() {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: idx * 0.1 }}
-              className="bg-white dark:bg-white/5 dark:bg-gray-800 rounded-lg p-4 shadow-sm"
+              className="bg-white dark:bg-white/5 dark:bg-gray-800 rounded-lg p-4 shadow-sm dark:shadow-none"
             >
               <div className="flex items-start justify-between mb-2">
                 <div>
-                  <h4 className="font-semibold capitalize text-gray-800 dark:text-white">
+                  <h4 className="font-semibold capitalize text-gray-800 dark:text-gray-100 dark:text-white">
                     {emotion.emotional_tone}
                   </h4>
-                  <p className="text-xs text-gray-500">
+                  <p className="text-xs text-gray-500 dark:text-gray-300">
                     Intensity: <span className="font-medium">{emotion.intensity_level}</span>
                   </p>
                 </div>
                 <div className="text-right">
                   <div className="text-sm font-bold text-[#c9a227]">{emotion.occurrence_count}x</div>
-                  <div className="text-xs text-gray-500">detected</div>
+                  <div className="text-xs text-gray-500 dark:text-gray-300">detected</div>
                 </div>
               </div>
               
@@ -180,23 +180,23 @@ export default function SpiritualInsightsDashboard() {
           <div className="grid grid-cols-2 gap-4">
             <div className="bg-white dark:bg-white/5 dark:bg-gray-800 rounded-lg p-4 text-center">
               <div className="text-2xl font-bold text-[#C9A227]">{themes.length}</div>
-              <div className="text-xs text-gray-600 dark:text-gray-400">Themes Explored</div>
+              <div className="text-xs text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">Themes Explored</div>
             </div>
             <div className="bg-white dark:bg-white/5 dark:bg-gray-800 rounded-lg p-4 text-center">
               <div className="text-2xl font-bold text-[#c9a227]">{emotions.length}</div>
-              <div className="text-xs text-gray-600 dark:text-gray-400">Emotional States</div>
+              <div className="text-xs text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">Emotional States</div>
             </div>
             <div className="bg-white dark:bg-white/5 dark:bg-gray-800 rounded-lg p-4 text-center col-span-2">
               <div className="text-2xl font-bold text-green-600">
                 {themes.filter(t => t.growth_progression === 'breakthrough' || t.growth_progression === 'maturing').length}
               </div>
-              <div className="text-xs text-gray-600 dark:text-gray-400">Areas of Breakthrough</div>
+              <div className="text-xs text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">Areas of Breakthrough</div>
             </div>
           </div>
         </CardContent>
       </Card>
 
-      <div className="bg-[#FAD98D]/10 dark:bg-[#0A1A2F]/20 rounded-lg p-4 text-sm text-gray-700 dark:text-gray-300">
+      <div className="bg-[#FAD98D]/10 dark:bg-[#0A1A2F]/20 rounded-lg p-4 text-sm text-gray-700 dark:text-gray-200 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">
         <p className="font-medium mb-1">💡 How Gideon Uses This</p>
         <p className="text-xs">
           Gideon analyzes these patterns to offer more personalized guidance, proactive suggestions, 

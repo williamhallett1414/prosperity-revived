@@ -136,7 +136,7 @@ function EntryCard({ entry, index }) {
           {new Date(entry.created_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
         </span>
       </div>
-      <p className={`text-sm text-[#0A1A2F]/75 leading-relaxed ${!expanded && isLong ? 'line-clamp-3' : ''}`}>
+      <p className={`text-sm text-[#0A1A2F]/75 dark:text-white/75 leading-relaxed ${!expanded && isLong ? 'line-clamp-3' : ''}`}>
         {entry.content}
       </p>
       {isLong && (
@@ -158,7 +158,7 @@ function CompletionScreen({ entry, streak, aiReflection, loadingReflection, onRe
     <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-4">
 
       {/* Celebration */}
-      <div className={`rounded-2xl p-6 text-center bg-gradient-to-br from-[#FD9C2D] to-[#FAD98D] shadow-md`}>
+      <div className={`rounded-2xl p-6 text-center bg-gradient-to-br from-[#FD9C2D] to-[#FAD98D] shadow-md dark:shadow-none`}>
         <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }}
           transition={{ type: 'spring', stiffness: 300, damping: 20, delay: 0.1 }}
           className="text-5xl mb-3">🙏</motion.div>
@@ -191,7 +191,7 @@ function CompletionScreen({ entry, streak, aiReflection, loadingReflection, onRe
             <div className="h-3 bg-[#FAD98D]/15 rounded-full w-3/4 animate-pulse" />
           </div>
         ) : (
-          <p className="text-sm text-[#0A1A2F]/75 leading-relaxed italic">"{aiReflection}"</p>
+          <p className="text-sm text-[#0A1A2F]/75 dark:text-white/75 leading-relaxed italic">"{aiReflection}"</p>
         )}
       </motion.div>
 
@@ -202,7 +202,7 @@ function CompletionScreen({ entry, streak, aiReflection, loadingReflection, onRe
           <BookOpen className="w-4 h-4 text-[#FAD98D]" />
           <span className="text-xs font-bold text-[#0A1A2F]/35 dark:text-white/35 uppercase tracking-widest">Today's Word</span>
         </div>
-        <p className="text-sm text-[#0A1A2F]/75 leading-relaxed italic mb-1.5">"{scripture.text}"</p>
+        <p className="text-sm text-[#0A1A2F]/75 dark:text-white/75 leading-relaxed italic mb-1.5">"{scripture.text}"</p>
         <p className="text-xs font-bold text-[#FAD98D]">{scripture.ref}</p>
       </motion.div>
 
@@ -346,7 +346,7 @@ export default function GratitudeJournalPage() {
               {new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
             </p>
           </div>
-          <div className="w-9 h-9 bg-gradient-to-br from-[#FD9C2D] to-[#FAD98D] rounded-full flex items-center justify-center shadow-sm">
+          <div className="w-9 h-9 bg-gradient-to-br from-[#FD9C2D] to-[#FAD98D] rounded-full flex items-center justify-center shadow-sm dark:shadow-none">
             <Sparkles className="w-4 h-4 text-white" />
           </div>
         </div>

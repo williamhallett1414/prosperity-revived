@@ -269,7 +269,7 @@ export default function WelcomeOnboarding({ onComplete }) {
               {/* Features */}
               {step.features && (
                 <div>
-                  <h3 className="font-semibold text-lg mb-3 text-gray-900 dark:text-gray-100">
+                  <h3 className="font-semibold text-lg mb-3 text-gray-900 dark:text-white dark:text-gray-100">
                     {step.id === 'welcome' ? 'What You Get' : 'What I Can Help With'}
                   </h3>
                   <div className="space-y-2">
@@ -282,7 +282,7 @@ export default function WelcomeOnboarding({ onComplete }) {
                         className="flex items-start gap-3 p-3 bg-gray-50 dark:bg-white/5 dark:bg-gray-700 rounded-lg"
                       >
                         <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-                        <span className="text-gray-700 dark:text-gray-300">{feature}</span>
+                        <span className="text-gray-700 dark:text-gray-200 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">{feature}</span>
                       </motion.div>
                     ))}
                   </div>
@@ -292,12 +292,12 @@ export default function WelcomeOnboarding({ onComplete }) {
               {/* How to Use */}
               {step.howToUse && (
                 <div>
-                  <h3 className="font-semibold text-lg mb-3 text-gray-900 dark:text-gray-100">
+                  <h3 className="font-semibold text-lg mb-3 text-gray-900 dark:text-white dark:text-gray-100">
                     How to Get Started
                   </h3>
                   <ul className="space-y-2">
                     {step.howToUse.map((tip, idx) => (
-                      <li key={idx} className="flex items-start gap-2 text-gray-700 dark:text-gray-300">
+                      <li key={idx} className="flex items-start gap-2 text-gray-700 dark:text-gray-200 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">
                         <span className="text-[#AFC7E3] font-bold mt-1">•</span>
                         <span>{tip}</span>
                       </li>
@@ -309,7 +309,7 @@ export default function WelcomeOnboarding({ onComplete }) {
               {/* Example Prompts */}
               {step.examplePrompts && (
                 <div>
-                  <h3 className="font-semibold text-lg mb-3 text-gray-900 dark:text-gray-100">
+                  <h3 className="font-semibold text-lg mb-3 text-gray-900 dark:text-white dark:text-gray-100">
                     Example Conversations
                   </h3>
                   <div className="space-y-2">
@@ -318,7 +318,7 @@ export default function WelcomeOnboarding({ onComplete }) {
                         key={idx}
                         className="p-3 bg-[#F2F6FA] dark:bg-[#0A1A2F]/20 rounded-lg border-l-4 border-blue-500"
                       >
-                        <p className="text-sm text-gray-700 dark:text-gray-300 italic">{prompt}</p>
+                        <p className="text-sm text-gray-700 dark:text-gray-200 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300 italic">{prompt}</p>
                       </div>
                     ))}
                   </div>
@@ -328,7 +328,7 @@ export default function WelcomeOnboarding({ onComplete }) {
               {/* Connections */}
               {step.connections && (
                 <div>
-                  <h3 className="font-semibold text-lg mb-3 text-gray-900 dark:text-gray-100">
+                  <h3 className="font-semibold text-lg mb-3 text-gray-900 dark:text-white dark:text-gray-100">
                     How Your Guides Connect
                   </h3>
                   <div className="space-y-3">
@@ -339,12 +339,12 @@ export default function WelcomeOnboarding({ onComplete }) {
                             <Badge className="bg-[#FAD98D]/20 text-[#3C4E53] text-xs">
                               {conn.from}
                             </Badge>
-                            <ArrowRight className="w-4 h-4 text-gray-400" />
+                            <ArrowRight className="w-4 h-4 text-gray-400 dark:text-gray-300" />
                             <Badge className="bg-[#AFC7E3]/20 text-[#3C4E53] text-xs">
                               {conn.to}
                             </Badge>
                           </div>
-                          <p className="text-sm text-gray-600">{conn.insight}</p>
+                          <p className="text-sm text-gray-600 dark:text-gray-300">{conn.insight}</p>
                         </CardContent>
                       </Card>
                     ))}
@@ -365,10 +365,10 @@ export default function WelcomeOnboarding({ onComplete }) {
                               <TipIcon className="w-5 h-5 text-white" />
                             </div>
                             <div>
-                              <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-1">
+                              <h4 className="font-semibold text-gray-900 dark:text-white dark:text-gray-100 mb-1">
                                 {tip.title}
                               </h4>
-                              <p className="text-sm text-gray-600 dark:text-gray-400">
+                              <p className="text-sm text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">
                                 {tip.description}
                               </p>
                             </div>
@@ -402,7 +402,7 @@ export default function WelcomeOnboarding({ onComplete }) {
 
         {/* Footer */}
         <div className="px-6 py-4 bg-gray-50 dark:bg-white/5 dark:bg-gray-900 flex items-center justify-between border-t">
-          <div className="text-sm text-gray-600 dark:text-gray-400">
+          <div className="text-sm text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">
             Step {currentStep + 1} of {chatbotSteps.length}
           </div>
           <div className="flex gap-3">

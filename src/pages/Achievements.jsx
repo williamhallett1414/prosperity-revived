@@ -48,7 +48,7 @@ function TabBar({ active, onChange }) {
         <button key={id} onClick={() => onChange(id)}
           className={`flex-1 py-2.5 rounded-xl text-xs font-bold transition-all ${
             active === id
-              ? 'bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white shadow-sm'
+              ? 'bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white shadow-sm dark:shadow-none'
               : 'bg-white dark:bg-white/5 text-[#0A1A2F]/50 dark:text-white/50 border border-[#FAD98D]/25'
           }`}>
           {label}

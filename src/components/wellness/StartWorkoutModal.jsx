@@ -761,7 +761,7 @@ export default function StartWorkoutModal({ isOpen, onClose, workout, user, onCo
                 </p>
                 <Button
                    onClick={() => { clearTimeout(warmupTimerRef.current); setPreCountdown(5); setPhase('countdown'); }}
-                   className="bg-gradient-to-r from-[#38BDF8] to-[#1e40af] hover:opacity-90 text-white font-bold px-10 py-3 text-base rounded-xl shadow-lg shadow-[#38BDF8]/30"
+                   className="bg-gradient-to-r from-[#38BDF8] to-[#1e40af] hover:opacity-90 text-white font-bold px-10 py-3 text-base rounded-xl shadow-lg dark:shadow-none shadow-[#38BDF8]/30"
                  >
                    <Zap className="w-5 h-5 mr-2" /> Start Now
                  </Button>
@@ -1013,7 +1013,7 @@ export default function StartWorkoutModal({ isOpen, onClose, workout, user, onCo
                       <div className="flex gap-3">
                         {!countdownRunning && countdownLeft === currentEx.duration_seconds ? (
                           <Button onClick={startTimedSet}
-                            className="bg-gradient-to-r from-[#FD9C2D] to-[#E89020] text-white font-bold px-8 py-2.5 rounded-xl shadow-lg shadow-[#FD9C2D]/25">
+                            className="bg-gradient-to-r from-[#FD9C2D] to-[#E89020] text-white font-bold px-8 py-2.5 rounded-xl shadow-lg dark:shadow-none shadow-[#FD9C2D]/25">
                             <Play className="w-4 h-4 mr-2" /> Start Set
                           </Button>
                         ) : (
@@ -1217,7 +1217,7 @@ export default function StartWorkoutModal({ isOpen, onClose, workout, user, onCo
                 <Button
                   onClick={() => { completeWorkout.mutate(); onClose(); }}
                   disabled={completeWorkout.isPending}
-                  className="w-full bg-gradient-to-r from-[#FD9C2D] to-[#E89020] text-white font-bold py-3 text-base rounded-xl shadow-lg shadow-[#FD9C2D]/30 relative z-10"
+                  className="w-full bg-gradient-to-r from-[#FD9C2D] to-[#E89020] text-white font-bold py-3 text-base rounded-xl shadow-lg dark:shadow-none shadow-[#FD9C2D]/30 relative z-10"
                 >
                   {completeWorkout.isPending ? 'Saving…' : 'Save & Close'}
                 </Button>

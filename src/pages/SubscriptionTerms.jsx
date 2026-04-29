@@ -26,7 +26,7 @@ export default function SubscriptionTerms() {
           <div className="flex items-center gap-3 mb-2">
             <Link
               to={createPageUrl('Settings')}
-              className="w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors">
+              className="w-9 h-9 rounded-full bg-gray-100 dark:bg-white/5 hover:bg-gray-200 flex items-center justify-center transition-colors">
               <ArrowLeft className="w-4 h-4 text-[#0A1A2F] dark:text-white dark:text-white" />
             </Link>
             <h1 className="text-2xl font-bold text-[#0A1A2F] dark:text-white flex items-center gap-2">
@@ -36,13 +36,13 @@ export default function SubscriptionTerms() {
           </div>
         </div>
 
-        <div className="bg-white dark:bg-white/5 rounded-2xl p-6 shadow-sm">
+        <div className="bg-white dark:bg-white/5 rounded-2xl p-6 shadow-sm dark:shadow-none">
           <ScrollArea className="h-[calc(100vh-200px)]">
             <div className="space-y-6 text-[#0A1A2F] dark:text-white pr-4">
               <div className="text-center mb-6">
                 <h2 className="text-2xl font-bold mb-2">Subscription Terms</h2>
                 <h3 className="text-lg font-semibold mb-1">Prosperity Revived</h3>
-                <p className="text-sm text-gray-500">Last Updated: 12 March 2026</p>
+                <p className="text-sm text-gray-500 dark:text-gray-300">Last Updated: 12 March 2026</p>
               </div>
 
               {/* FTC-required auto-renewal disclosure — must appear before purchase */}
@@ -128,7 +128,7 @@ export default function SubscriptionTerms() {
                   <li><strong>iOS:</strong> Settings → [Your Name] → Subscriptions → Prosperity Revived → Cancel</li>
                   <li><strong>Android:</strong> Google Play Store → Profile → Payments &amp; subscriptions → Subscriptions → Prosperity Revived → Cancel</li>
                 </ul>
-                <div className="bg-gray-100 rounded-xl p-3 mt-3">
+                <div className="bg-gray-100 dark:bg-white/5 rounded-xl p-3 mt-3">
                   <p className="text-sm font-semibold mb-1">Important cancellation notes:</p>
                   <ul className="list-disc ml-5 space-y-1 text-sm">
                     <li><strong>Deleting the App does NOT cancel your subscription</strong></li>
@@ -218,8 +218,8 @@ export default function SubscriptionTerms() {
                 </div>
               </div>
 
-              <div className="text-center pt-6 pb-4 border-t border-gray-200 dark:border-white/10">
-                <p className="text-xs text-gray-500">© 2026 Prosperity Revived LLC. All rights reserved.</p>
+              <div className="text-center pt-6 pb-4 border-t border-gray-200 dark:border-white/10 dark:border-white/10">
+                <p className="text-xs text-gray-500 dark:text-gray-300">© 2026 Prosperity Revived LLC. All rights reserved.</p>
               </div>
             </div>
           </ScrollArea>

@@ -99,7 +99,7 @@ export default function ShareToFeedButton({
     </button>
   ) : variant === 'banner' ? (
     <button onClick={openSheet}
-      className="w-full flex items-center justify-center gap-2 rounded-2xl py-3 px-4 text-white text-sm font-bold shadow-sm active:scale-98 transition-transform"
+      className="w-full flex items-center justify-center gap-2 rounded-2xl py-3 px-4 text-white text-sm font-bold shadow-sm dark:shadow-none active:scale-98 transition-transform"
       style={{ background: `linear-gradient(135deg, ${accentColor}cc, ${accentColor})` }}>
       <Share2 className="w-4 h-4" /> {label}
     </button>
@@ -151,7 +151,7 @@ export default function ShareToFeedButton({
                     <p className="text-[10px] font-semibold" style={{ color: accentColor }}>{meta.label}</p>
                   </div>
                 </div>
-                <button onClick={() => setOpen(false)} className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center">
+                <button onClick={() => setOpen(false)} className="w-8 h-8 rounded-full bg-gray-100 dark:bg-white/5 flex items-center justify-center">
                   <X className="w-4 h-4 text-[#0A1A2F]/50 dark:text-white/50" />
                 </button>
               </div>
@@ -194,7 +194,7 @@ export default function ShareToFeedButton({
                         className={`flex flex-col items-center gap-1 rounded-xl py-2.5 px-2 border-2 transition-all ${
                           visibility === value
                             ? 'border-[#C9A227] bg-[#FAD98D]/15'
-                            : 'border-gray-100 dark:border-white/10 bg-gray-50 dark:bg-white/5'
+                            : 'border-gray-100 dark:border-white/10 bg-gray-50 dark:bg-white/5 dark:bg-white/5'
                         }`}>
                         <Icon className={`w-4 h-4 ${visibility === value ? 'text-[#C9A227]' : 'text-[#0A1A2F]/35 dark:text-white/35'}`} />
                         <p className={`text-[10px] font-bold leading-tight ${visibility === value ? 'text-[#C9A227]' : 'text-[#0A1A2F]/50 dark:text-white/50'}`}>{vLabel}</p>
@@ -208,7 +208,7 @@ export default function ShareToFeedButton({
                   className="flex items-center gap-3 w-full">
                   <div className={`w-10 h-6 rounded-full transition-colors flex items-center ${anonymous ? 'bg-[#C9A227]' : 'bg-gray-200'}`}>
                     <motion.div animate={{ x: anonymous ? 18 : 2 }} transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-                      className="w-5 h-5 bg-white dark:bg-white/5 rounded-full shadow-sm" />
+                      className="w-5 h-5 bg-white dark:bg-white/5 rounded-full shadow-sm dark:shadow-none" />
                   </div>
                   <div className="text-left">
                     <p className="text-xs font-bold text-[#0A1A2F] dark:text-white dark:text-white">Post anonymously</p>
@@ -218,7 +218,7 @@ export default function ShareToFeedButton({
 
                 {/* Submit */}
                 <button onClick={handleShare} disabled={saving}
-                  className="w-full flex items-center justify-center gap-2 rounded-2xl py-3.5 text-white text-sm font-bold shadow-md active:scale-98 transition-all disabled:opacity-60"
+                  className="w-full flex items-center justify-center gap-2 rounded-2xl py-3.5 text-white text-sm font-bold shadow-md dark:shadow-none active:scale-98 transition-all disabled:opacity-60"
                   style={{ background: `linear-gradient(135deg, ${accentColor}dd, ${accentColor})` }}>
                   {saving
                     ? <><Loader2 className="w-4 h-4 animate-spin" /> Sharing...</>

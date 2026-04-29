@@ -109,7 +109,7 @@ export default function DiscoverWorkouts({ user, myWorkouts, completeWorkout, on
       </Button>
 
       <div className="relative">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 dark:text-gray-300" />
         <Input
           placeholder="Search workouts..."
           value={searchQuery}
@@ -129,7 +129,7 @@ export default function DiscoverWorkouts({ user, myWorkouts, completeWorkout, on
 
           {/* Pre-Made Workouts */}
           <div>
-            <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Pre-Made Workouts</h3>
+            <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-200 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300 mb-2">Pre-Made Workouts</h3>
             <div className="space-y-3">
               {PREMADE_WORKOUTS.slice(0, 5).map((workout, index) => (
                 <WorkoutCard
@@ -148,7 +148,7 @@ export default function DiscoverWorkouts({ user, myWorkouts, completeWorkout, on
 
       {searchQuery && filteredPremade.length > 0 && (
         <div>
-          <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+          <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-200 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300 mb-2">
             Pre-Made Workouts ({filteredPremade.length})
           </h3>
           <div className="space-y-3 mb-6">
@@ -168,14 +168,14 @@ export default function DiscoverWorkouts({ user, myWorkouts, completeWorkout, on
 
       {searchQuery && filteredWorkouts.length === 0 && filteredPremade.length === 0 ? (
         <div className="text-center py-12 bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-2xl">
-          <TrendingUp className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-          <p className="text-gray-500 dark:text-gray-400">
+          <TrendingUp className="w-12 h-12 text-gray-300 dark:text-gray-400 dark:text-gray-300 mx-auto mb-3" />
+          <p className="text-gray-500 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">
             No workouts match your search
           </p>
         </div>
       ) : searchQuery && filteredWorkouts.length > 0 ? (
         <div>
-          <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+          <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-200 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300 mb-2">
             Community Workouts ({filteredWorkouts.length})
           </h3>
           <div className="space-y-3">
@@ -185,7 +185,7 @@ export default function DiscoverWorkouts({ user, myWorkouts, completeWorkout, on
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.05 }}
-              className="bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-2xl p-4 shadow-sm"
+              className="bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-2xl p-4 shadow-sm dark:shadow-none"
             >
               <div className="flex items-start justify-between mb-3">
                 <div className="flex-1">
@@ -195,10 +195,10 @@ export default function DiscoverWorkouts({ user, myWorkouts, completeWorkout, on
                       {workout.title}
                     </h3>
                   </div>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                  <p className="text-sm text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300 mb-2">
                     {workout.description}
                   </p>
-                  <p className="text-xs text-gray-500 dark:text-gray-500">
+                  <p className="text-xs text-gray-500 dark:text-gray-300 dark:text-gray-500 dark:text-gray-300">
                     by {workout.creator_name || 'Anonymous'}
                   </p>
                 </div>
@@ -207,7 +207,7 @@ export default function DiscoverWorkouts({ user, myWorkouts, completeWorkout, on
                 </Badge>
               </div>
 
-              <div className="flex items-center gap-4 mb-3 text-sm text-gray-600 dark:text-gray-400">
+              <div className="flex items-center gap-4 mb-3 text-sm text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">
                 <span>{workout.duration_minutes} min</span>
                 <span>•</span>
                 <span>{workout.exercises?.length || 0} exercises</span>
@@ -221,15 +221,15 @@ export default function DiscoverWorkouts({ user, myWorkouts, completeWorkout, on
 
               {workout.exercises && workout.exercises.length > 0 && (
                 <div className="mb-3 text-sm">
-                  <p className="text-gray-500 dark:text-gray-400 mb-1 font-medium">Preview:</p>
+                  <p className="text-gray-500 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300 mb-1 font-medium">Preview:</p>
                   <div className="space-y-1">
                     {workout.exercises.slice(0, 3).map((ex, i) => (
-                      <div key={i} className="text-gray-700 dark:text-gray-300">
+                      <div key={i} className="text-gray-700 dark:text-gray-200 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">
                         • {ex.name} {ex.sets && ex.reps && `- ${ex.sets}x${ex.reps}`}
                       </div>
                     ))}
                     {workout.exercises.length > 3 && (
-                      <p className="text-gray-500 dark:text-gray-400">
+                      <p className="text-gray-500 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">
                         +{workout.exercises.length - 3} more exercises
                       </p>
                     )}
@@ -264,7 +264,7 @@ export default function DiscoverWorkouts({ user, myWorkouts, completeWorkout, on
         </div>
       ) : !searchQuery && filteredWorkouts.length > 0 ? (
         <div>
-          <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Community Workouts</h3>
+          <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-200 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300 mb-2">Community Workouts</h3>
           <div className="space-y-3">
             {filteredWorkouts.slice(0, 5).map((workout, index) => (
               <motion.div
@@ -273,7 +273,7 @@ export default function DiscoverWorkouts({ user, myWorkouts, completeWorkout, on
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.05 }}
                 onClick={() => setSelectedWorkout(workout)}
-                className="bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-2xl p-4 shadow-sm cursor-pointer hover:shadow-md transition-shadow"
+                className="bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-2xl p-4 shadow-sm dark:shadow-none cursor-pointer hover:shadow-md dark:shadow-none transition-shadow"
               >
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex-1">
@@ -283,10 +283,10 @@ export default function DiscoverWorkouts({ user, myWorkouts, completeWorkout, on
                         {workout.title}
                       </h3>
                     </div>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                    <p className="text-sm text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300 mb-2">
                       {workout.description}
                     </p>
-                    <p className="text-xs text-gray-500 dark:text-gray-500">
+                    <p className="text-xs text-gray-500 dark:text-gray-300 dark:text-gray-500 dark:text-gray-300">
                       by {workout.creator_name || 'Anonymous'}
                     </p>
                   </div>
@@ -295,7 +295,7 @@ export default function DiscoverWorkouts({ user, myWorkouts, completeWorkout, on
                   </Badge>
                 </div>
 
-                <div className="flex items-center gap-4 mb-3 text-sm text-gray-600 dark:text-gray-400">
+                <div className="flex items-center gap-4 mb-3 text-sm text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">
                   <span>{workout.duration_minutes} min</span>
                   <span>•</span>
                   <span>{workout.exercises?.length || 0} exercises</span>
@@ -309,15 +309,15 @@ export default function DiscoverWorkouts({ user, myWorkouts, completeWorkout, on
 
                 {workout.exercises && workout.exercises.length > 0 && (
                   <div className="mb-3 text-sm">
-                    <p className="text-gray-500 dark:text-gray-400 mb-1 font-medium">Preview:</p>
+                    <p className="text-gray-500 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300 mb-1 font-medium">Preview:</p>
                     <div className="space-y-1">
                       {workout.exercises.slice(0, 3).map((ex, i) => (
-                        <div key={i} className="text-gray-700 dark:text-gray-300">
+                        <div key={i} className="text-gray-700 dark:text-gray-200 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">
                           • {ex.name} {ex.sets && ex.reps && `- ${ex.sets}x${ex.reps}`}
                         </div>
                       ))}
                       {workout.exercises.length > 3 && (
-                        <p className="text-gray-500 dark:text-gray-400">
+                        <p className="text-gray-500 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">
                           +{workout.exercises.length - 3} more exercises
                         </p>
                       )}

@@ -88,7 +88,7 @@ export default function FitnessProfileSetup({ user, onClose, onSave }) {
           <h2 className="text-base font-bold text-[#0A1A2F] dark:text-white dark:text-white">Fitness Profile</h2>
             <button
               onClick={onClose}
-              className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center"
+              className="w-8 h-8 rounded-full bg-gray-100 dark:bg-white/5 flex items-center justify-center"
             >
               <X className="w-4 h-4" />
             </button>
@@ -96,7 +96,7 @@ export default function FitnessProfileSetup({ user, onClose, onSave }) {
 
           {/* Progress bar */}
           <div className="max-w-lg mx-auto pb-2">
-            <div className="h-0.5 bg-gray-100 rounded-full overflow-hidden">
+            <div className="h-0.5 bg-gray-100 dark:bg-white/5 rounded-full overflow-hidden">
               <motion.div
                 animate={{ width: `${progress}%` }}
                 className="h-full bg-[#38BDF8]"
@@ -352,7 +352,7 @@ export default function FitnessProfileSetup({ user, onClose, onSave }) {
             {step > 1 && (
               <button
                 onClick={() => setStep(step - 1)}
-                className="px-4 py-2 rounded-lg bg-gray-100 text-[#0A1A2F] dark:text-white font-semibold text-xs hover:bg-gray-200 transition-colors"
+                className="px-4 py-2 rounded-lg bg-gray-100 dark:bg-white/5 text-[#0A1A2F] dark:text-white font-semibold text-xs hover:bg-gray-200 transition-colors"
               >
                 Back
               </button>

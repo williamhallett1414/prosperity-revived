@@ -30,7 +30,7 @@ export default function ProactiveInsightCard({ insight, onAccept, onDismiss }) {
       animate={{ opacity: 1, y: 0, scale: 1 }}
       exit={{ opacity: 0, y: -10, scale: 0.97 }}
       transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-      className={`mx-4 mt-3 rounded-2xl border bg-gradient-to-br ${colors.bg} ${colors.border} p-4 shadow-sm`}
+      className={`mx-4 mt-3 rounded-2xl border bg-gradient-to-br ${colors.bg} ${colors.border} p-4 shadow-sm dark:shadow-none`}
     >
       <div className="flex items-start gap-3">
         <div className={`w-8 h-8 rounded-xl bg-gradient-to-br ${colors.icon} flex items-center justify-center flex-shrink-0 mt-0.5`}>
@@ -38,13 +38,13 @@ export default function ProactiveInsightCard({ insight, onAccept, onDismiss }) {
         </div>
 
         <div className="flex-1 min-w-0">
-          <p className="text-xs font-bold text-gray-800 mb-1">{insight.title}</p>
-          <p className="text-xs text-gray-600 leading-relaxed">{insight.message}</p>
+          <p className="text-xs font-bold text-gray-800 dark:text-gray-100 mb-1">{insight.title}</p>
+          <p className="text-xs text-gray-600 dark:text-gray-300 leading-relaxed">{insight.message}</p>
 
           {insight.prompt_action && (
             <button
               onClick={() => onAccept(insight.prompt_action)}
-              className="mt-2.5 flex items-center gap-1 text-xs font-semibold text-gray-700 hover:text-gray-900 transition-colors group"
+              className="mt-2.5 flex items-center gap-1 text-xs font-semibold text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:text-white transition-colors group"
             >
               {insight.prompt_action.length > 40
                 ? insight.prompt_action.slice(0, 40) + '…'
@@ -56,7 +56,7 @@ export default function ProactiveInsightCard({ insight, onAccept, onDismiss }) {
 
         <button
           onClick={onDismiss}
-          className="flex-shrink-0 text-gray-400 hover:text-gray-600 transition-colors"
+          className="flex-shrink-0 text-gray-400 dark:text-gray-300 hover:text-gray-600 dark:text-gray-300 transition-colors"
           title="Dismiss"
         >
           <X className="w-4 h-4" />

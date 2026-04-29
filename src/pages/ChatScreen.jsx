@@ -989,7 +989,7 @@ function MessageBubble({ message, cfg, onSpeak, isSpeaking }) {
       )}
 
       {isUser ? (
-        <div className={`max-w-[75%] px-4 py-2.5 rounded-2xl rounded-br-sm bg-gradient-to-br ${cfg.userBubble} shadow-md`}>
+        <div className={`max-w-[75%] px-4 py-2.5 rounded-2xl rounded-br-sm bg-gradient-to-br ${cfg.userBubble} shadow-md dark:shadow-none`}>
           {/* Video message playback */}
           {message.videoUrl && (
             <div className="mb-2 -mx-1.5 -mt-1 rounded-xl overflow-hidden">
@@ -1010,7 +1010,7 @@ function MessageBubble({ message, cfg, onSpeak, isSpeaking }) {
         </div>
       ) : (
         <div className="max-w-[78%]">
-          <div className="px-4 py-3 rounded-2xl rounded-bl-sm bg-white/10 backdrop-blur-sm border border-white/12 shadow-md">
+          <div className="px-4 py-3 rounded-2xl rounded-bl-sm bg-white/10 backdrop-blur-sm border border-white/12 shadow-md dark:shadow-none">
             {renderContent(message.content)}
             <button
               onClick={onSpeak}

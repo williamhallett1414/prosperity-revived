@@ -16,7 +16,7 @@ export function RitualButton({ isMorning, onStartDay, onEndDay }) {
       initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }}
       id="tour-ritual-btn"
       onClick={isMorning ? onStartDay : onEndDay}
-      className="w-full rounded-3xl p-5 text-left shadow-lg overflow-hidden relative"
+      className="w-full rounded-3xl p-5 text-left shadow-lg dark:shadow-none overflow-hidden relative"
       style={{
         background: isMorning
           ? 'linear-gradient(135deg, #c9a227 0%, #FD9C2D 60%, #FAD98D 100%)'
@@ -68,8 +68,8 @@ export function QuickNav() {
         {QUICK_NAV.map(({ label, icon: Icon, page, color, bg }) => (
           <Link key={page} to={createPageUrl(page)}>
             <motion.div whileTap={{ scale: 0.95 }}
-              className={`${bg} rounded-2xl p-3.5 flex flex-col items-center gap-2 shadow-sm border border-gray-100 dark:border-white/10/80`}>
-              <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${color} flex items-center justify-center shadow-sm`}>
+              className={`${bg} rounded-2xl p-3.5 flex flex-col items-center gap-2 shadow-sm dark:shadow-none border border-gray-100 dark:border-white/10 dark:border-white/10/80`}>
+              <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${color} flex items-center justify-center shadow-sm dark:shadow-none`}>
                 <Icon className="w-5 h-5 text-white" />
               </div>
               <span className="text-xs font-semibold text-[#0A1A2F]/70 dark:text-white/70">{label}</span>
@@ -89,7 +89,7 @@ export function ResumeCard({ coachingPlan, readingPlan, readingProgress, navigat
       <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}>
         <button
           onClick={() => navigate(createPageUrl(`CoachingPlanDetail?id=${plan.id}&day=${nextDay}`))}
-          className="w-full text-left rounded-3xl overflow-hidden shadow-md"
+          className="w-full text-left rounded-3xl overflow-hidden shadow-md dark:shadow-none"
         >
           <div className={`bg-gradient-to-br ${plan.gradient || 'from-[#3C4E53] to-[#c9a227]'} p-5`}>
             <div className="flex items-center justify-between mb-3">
@@ -124,7 +124,7 @@ export function ResumeCard({ coachingPlan, readingPlan, readingProgress, navigat
       <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}>
         <button
           onClick={() => navigate(createPageUrl(`PlanDetail?id=${readingPlan.id}`))}
-          className="w-full text-left bg-white dark:bg-white/5 rounded-3xl shadow-sm border border-[#FAD98D]/30 overflow-hidden"
+          className="w-full text-left bg-white dark:bg-white/5 rounded-3xl shadow-sm dark:shadow-none border border-[#FAD98D]/30 overflow-hidden"
         >
           <div className="relative h-20 overflow-hidden">
             <img src={readingPlan.image} alt={readingPlan.name} className="w-full h-full object-cover" />
@@ -208,7 +208,7 @@ export function ActiveChallengesWidget({ user }) {
           return (
             <button key={p.id}
               onClick={() => navigate(createPageUrl('Community'))}
-              className="w-full text-left bg-white dark:bg-white/5 rounded-2xl p-3.5 border border-[#FAD98D]/15 hover:border-[#c9a227]/30 transition-all shadow-sm flex items-center gap-3">
+              className="w-full text-left bg-white dark:bg-white/5 rounded-2xl p-3.5 border border-[#FAD98D]/15 hover:border-[#c9a227]/30 transition-all shadow-sm dark:shadow-none flex items-center gap-3">
               <div className={`w-10 h-10 rounded-xl ${vis.color} flex items-center justify-center flex-shrink-0`}>
                 <span className="text-lg">{vis.emoji}</span>
               </div>
@@ -257,7 +257,7 @@ export function StartHereCard() {
           { emoji: '💪', title: 'Log your first workout', sub: 'Track your fitness progress', page: 'Workouts' },
         ].map(({ emoji, title, sub, page }) => (
           <Link key={page} to={createPageUrl(page)}>
-            <div className="bg-white dark:bg-white/5 rounded-2xl p-3.5 flex items-center gap-3 shadow-sm mb-3">
+            <div className="bg-white dark:bg-white/5 rounded-2xl p-3.5 flex items-center gap-3 shadow-sm dark:shadow-none mb-3">
               <span className="text-2xl">{emoji}</span>
               <div>
                 <p className="font-semibold text-sm text-[#0A1A2F] dark:text-white dark:text-white">{title}</p>

@@ -80,8 +80,8 @@ export default function SermonNotes() {
 
       {notes.length === 0 ? (
         <div className="text-center py-16 bg-white dark:bg-white/5 rounded-2xl">
-          <Mic className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-          <p className="text-gray-500 mb-4">No sermon notes yet</p>
+          <Mic className="w-12 h-12 text-gray-300 dark:text-gray-400 dark:text-gray-300 mx-auto mb-3" />
+          <p className="text-gray-500 dark:text-gray-300 mb-4">No sermon notes yet</p>
           <Button onClick={() => setShowCreate(true)}>
             Add Your First Note
           </Button>
@@ -94,12 +94,12 @@ export default function SermonNotes() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.05 }}
-              className="bg-white dark:bg-white/5 rounded-2xl p-5 shadow-sm border border-gray-100 dark:border-white/10"
+              className="bg-white dark:bg-white/5 rounded-2xl p-5 shadow-sm dark:shadow-none border border-gray-100 dark:border-white/10 dark:border-white/10"
             >
               <div className="flex items-start justify-between mb-3">
                 <div>
                   <h3 className="font-semibold text-[#0A1A2F] dark:text-white text-lg">{note.title}</h3>
-                  <div className="flex items-center gap-3 mt-1 text-sm text-gray-500">
+                  <div className="flex items-center gap-3 mt-1 text-sm text-gray-500 dark:text-gray-300">
                     {note.speaker && (
                       <span className="flex items-center gap-1">
                         <Mic className="w-3 h-3" />
@@ -134,13 +134,13 @@ export default function SermonNotes() {
               )}
 
               {note.notes && (
-                <p className="text-gray-700 mb-3 whitespace-pre-wrap">{note.notes}</p>
+                <p className="text-gray-700 dark:text-gray-200 mb-3 whitespace-pre-wrap">{note.notes}</p>
               )}
 
               {note.key_points && note.key_points.length > 0 && (
                 <div className="mb-3">
-                  <p className="text-sm font-semibold text-gray-600 mb-2">Key Points:</p>
-                  <ul className="list-disc list-inside space-y-1 text-sm text-gray-700">
+                  <p className="text-sm font-semibold text-gray-600 dark:text-gray-300 mb-2">Key Points:</p>
+                  <ul className="list-disc list-inside space-y-1 text-sm text-gray-700 dark:text-gray-200">
                     {note.key_points.map((point, i) => (
                       <li key={i}>{point}</li>
                     ))}
@@ -154,7 +154,7 @@ export default function SermonNotes() {
                     <ListChecks className="w-4 h-4" />
                     Action Items:
                   </p>
-                  <ul className="space-y-1 text-sm text-gray-700">
+                  <ul className="space-y-1 text-sm text-gray-700 dark:text-gray-200">
                     {note.action_items.map((item, i) => (
                       <li key={i} className="flex items-start gap-2">
                         <span className="text-[#c9a227]">→</span>

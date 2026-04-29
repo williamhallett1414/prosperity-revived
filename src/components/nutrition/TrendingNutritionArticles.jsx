@@ -22,7 +22,7 @@ export default function TrendingNutritionArticles() {
             transition={{ delay: idx * 0.05 }}
           >
             <Link to={createPageUrl(`NutritionArticle?id=${article.id}`)}>
-              <div className="bg-white dark:bg-white/5 rounded-lg shadow-sm hover:shadow-md transition-shadow p-3">
+              <div className="bg-white dark:bg-white/5 rounded-lg shadow-sm dark:shadow-none hover:shadow-md dark:shadow-none transition-shadow p-3">
                 <h3 className="font-semibold text-sm text-[#0A1A2F] dark:text-white mb-1">{article.title}</h3>
                 <p className="text-xs text-[#0A1A2F]/60 dark:text-white/60">{article.description}</p>
               </div>

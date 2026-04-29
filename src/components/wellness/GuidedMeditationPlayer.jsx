@@ -50,7 +50,7 @@ export default function GuidedMeditationPlayer() {
             <Sparkles className="w-6 h-6 text-[#c9a227]" />
             Guided Sessions
           </h3>
-          <span className="text-sm text-gray-400">
+          <span className="text-sm text-gray-400 dark:text-gray-300">
             {readyCount} / {meditations.length} ready
           </span>
         </div>
@@ -63,7 +63,7 @@ export default function GuidedMeditationPlayer() {
               className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors ${
                 selectedCategory === cat.id
                   ? "bg-[#c9a227] text-white"
-                  : "bg-white/5 text-gray-300 hover:bg-white/10"
+                  : "bg-white/5 text-gray-300 dark:text-gray-400 dark:text-gray-300 hover:bg-white/10"
               }`}
             >
               {cat.label}
@@ -73,7 +73,7 @@ export default function GuidedMeditationPlayer() {
 
         {isLoading ? (
           <div className="text-center py-12">
-            <p className="text-gray-400">Loading meditations...</p>
+            <p className="text-gray-400 dark:text-gray-300">Loading meditations...</p>
           </div>
         ) : filtered.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -87,7 +87,7 @@ export default function GuidedMeditationPlayer() {
           </div>
         ) : (
           <div className="text-center py-12">
-            <p className="text-gray-400">No meditations in this category yet.</p>
+            <p className="text-gray-400 dark:text-gray-300">No meditations in this category yet.</p>
           </div>
         )}
       </div>

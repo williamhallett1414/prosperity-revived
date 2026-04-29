@@ -147,7 +147,7 @@ Consolidate duplicates, include realistic quantities (e.g. "2 lbs chicken breast
   };
 
   return (
-    <div className="bg-white dark:bg-white/5 rounded-2xl shadow-sm p-5 space-y-5">
+    <div className="bg-white dark:bg-white/5 rounded-2xl shadow-sm dark:shadow-none p-5 space-y-5">
       {/* Header */}
       <div className="flex items-center gap-3">
         <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center flex-shrink-0">

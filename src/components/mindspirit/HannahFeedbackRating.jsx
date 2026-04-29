@@ -62,7 +62,7 @@ export default function HannahFeedbackRating({ messageContent, userEmail, sessio
                 className="w-5 h-5 flex items-center justify-center hover:scale-125 transition-transform"
               >
                 <Star
-                  className={`w-4 h-4 ${rating >= r ? 'fill-[#FD9C2D] text-[#FD9C2D]' : 'text-gray-300'}`}
+                  className={`w-4 h-4 ${rating >= r ? 'fill-[#FD9C2D] text-[#FD9C2D]' : 'text-gray-300 dark:text-gray-400 dark:text-gray-300'}`}
                 />
               </button>
             ))}

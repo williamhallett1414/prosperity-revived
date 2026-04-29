@@ -108,12 +108,12 @@ Make it meaningful and easy to follow.`;
         </Button>
 
         <div className="border-t pt-3">
-          <p className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Prayer Elements</p>
+          <p className="text-sm font-medium text-gray-700 dark:text-gray-200 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300 mb-2">Prayer Elements</p>
           
           <div className="space-y-2 mb-3 max-h-[200px] overflow-y-auto">
             {prayer.elements.map((element, index) => (
               <div key={index} className="flex gap-2 items-start p-2 bg-gray-50 dark:bg-white/5 dark:bg-gray-800 rounded">
-                <p className="flex-1 text-sm text-gray-700 dark:text-gray-300 line-clamp-2">{element.text}</p>
+                <p className="flex-1 text-sm text-gray-700 dark:text-gray-200 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300 line-clamp-2">{element.text}</p>
                 <Button variant="ghost" size="icon" onClick={() => removeElement(index)} className="h-6 w-6">
                   <X className="w-4 h-4" />
                 </Button>

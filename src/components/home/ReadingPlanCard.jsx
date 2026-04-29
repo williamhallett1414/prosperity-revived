@@ -13,7 +13,7 @@ export default function ReadingPlanCard({ plan, progress, onClick, index }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.08 }}
       onClick={(e) => { e.preventDefault(); e.stopPropagation(); onClick?.(); }}
-      className="group w-full text-left bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-2xl overflow-hidden border border-[#FAD98D]/25 hover:border-[#c9a227]/50 hover:shadow-md transition-all duration-300"
+      className="group w-full text-left bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-2xl overflow-hidden border border-[#FAD98D]/25 hover:border-[#c9a227]/50 hover:shadow-md dark:shadow-none transition-all duration-300"
     >
       {/* Image */}
       <div className="relative h-28 overflow-hidden">

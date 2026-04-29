@@ -70,12 +70,12 @@ export default function FriendsTab({ friends, user }) {
   if (friends.length === 0) {
     return (
       <>
-        <div className="bg-white dark:bg-white/5 rounded-xl shadow-sm p-12 sm:p-16 text-center border border-gray-100 dark:border-white/10">
-          <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+        <div className="bg-white dark:bg-white/5 rounded-xl shadow-sm dark:shadow-none p-12 sm:p-16 text-center border border-gray-100 dark:border-white/10 dark:border-white/10">
+          <div className="w-20 h-20 bg-gray-100 dark:bg-white/5 rounded-full flex items-center justify-center mx-auto mb-4">
             <span className="text-4xl">👥</span>
           </div>
-          <p className="text-gray-600 text-lg font-semibold">No friends yet</p>
-          <p className="text-gray-400 text-sm mt-2 mb-4">Start connecting with others</p>
+          <p className="text-gray-600 dark:text-gray-300 text-lg font-semibold">No friends yet</p>
+          <p className="text-gray-400 dark:text-gray-300 text-sm mt-2 mb-4">Start connecting with others</p>
           <Button
             onClick={() => setShowSearchModal(true)}
             className="bg-gradient-to-br from-[#c9a227] to-[#FAD98D] hover:opacity-90 text-white"
@@ -97,7 +97,7 @@ export default function FriendsTab({ friends, user }) {
         </DialogHeader>
         <div className="space-y-4 py-4">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 dark:text-gray-300" />
             <Input
               placeholder="Search by name or email..."
               value={userSearchTerm}
@@ -110,15 +110,15 @@ export default function FriendsTab({ friends, user }) {
               {searchResults.map((searchUser) => (
                 <div
                   key={searchUser.id}
-                  className="flex items-center justify-between p-3 bg-gray-50 dark:bg-white/5 rounded-lg hover:bg-gray-100 transition-colors"
+                  className="flex items-center justify-between p-3 bg-gray-50 dark:bg-white/5 dark:text-white rounded-lg hover:bg-gray-100 dark:bg-white/5 transition-colors"
                 >
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#AFC7E3] to-[#FAD98D] flex items-center justify-center text-white font-bold">
                       {searchUser.full_name?.charAt(0).toUpperCase() || 'U'}
                     </div>
                     <div>
-                      <p className="font-semibold text-gray-900">{searchUser.full_name}</p>
-                      <p className="text-xs text-gray-500">{searchUser.email}</p>
+                      <p className="font-semibold text-gray-900 dark:text-white">{searchUser.full_name}</p>
+                      <p className="text-xs text-gray-500 dark:text-gray-300">{searchUser.email}</p>
                     </div>
                   </div>
                   <Button
@@ -134,9 +134,9 @@ export default function FriendsTab({ friends, user }) {
               ))}
             </div>
           ) : userSearchTerm ? (
-            <p className="text-center text-gray-500 py-8">No users found</p>
+            <p className="text-center text-gray-500 dark:text-gray-300 py-8">No users found</p>
           ) : (
-            <p className="text-center text-gray-400 py-8">Search for users to add as friends</p>
+            <p className="text-center text-gray-400 dark:text-gray-300 py-8">Search for users to add as friends</p>
           )}
         </div>
       </DialogContent>
@@ -148,10 +148,10 @@ export default function FriendsTab({ friends, user }) {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="bg-white dark:bg-white/5 rounded-xl shadow-sm p-6 border border-gray-100 dark:border-white/10"
+        className="bg-white dark:bg-white/5 rounded-xl shadow-sm dark:shadow-none p-6 border border-gray-100 dark:border-white/10 dark:border-white/10"
       >
         <div className="mb-6 flex items-center justify-between gap-4">
-          <h2 className="text-2xl font-bold text-gray-900">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
             {friends.length} {friends.length === 1 ? 'Friend' : 'Friends'}
           </h2>
           <Button
@@ -164,7 +164,7 @@ export default function FriendsTab({ friends, user }) {
         </div>
 
         <div className="mb-4 relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 dark:text-gray-300" />
           <Input
             placeholder="Search your friends..."
             value={searchTerm}
@@ -174,7 +174,7 @@ export default function FriendsTab({ friends, user }) {
         </div>
 
       {filteredFriends.length === 0 ? (
-        <p className="text-center text-gray-500 py-8">No friends found</p>
+        <p className="text-center text-gray-500 dark:text-gray-300 py-8">No friends found</p>
       ) : (
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
           {filteredFriends.map((friend, index) => {
@@ -187,15 +187,15 @@ export default function FriendsTab({ friends, user }) {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: index * 0.03 }}
-              className="flex flex-col items-center p-4 hover:bg-gray-50 dark:bg-white/5 rounded-xl transition-all cursor-pointer group"
+              className="flex flex-col items-center p-4 hover:bg-gray-50 dark:bg-white/5 dark:text-white rounded-xl transition-all cursor-pointer group"
             >
-              <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-br from-[#AFC7E3] to-[#FAD98D] flex items-center justify-center text-white text-2xl font-bold mb-3 shadow-md group-hover:shadow-lg transition-shadow">
+              <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-br from-[#AFC7E3] to-[#FAD98D] flex items-center justify-center text-white text-2xl font-bold mb-3 shadow-md dark:shadow-none group-hover:shadow-lg dark:shadow-none transition-shadow">
                 {friendName?.charAt(0).toUpperCase() || 'F'}
               </div>
-              <p className="font-semibold text-gray-900 text-center text-sm line-clamp-2 mb-1">
+              <p className="font-semibold text-gray-900 dark:text-white text-center text-sm line-clamp-2 mb-1">
                 {friendName || friendEmail}
               </p>
-              <p className="text-xs text-gray-500 text-center truncate w-full px-1">{friendEmail}</p>
+              <p className="text-xs text-gray-500 dark:text-gray-300 text-center truncate w-full px-1">{friendEmail}</p>
             </motion.div>
           );
         })}

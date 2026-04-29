@@ -112,7 +112,7 @@ export default function AffirmationsCarousel() {
               className={`w-6 h-6 ${
                 favorites.includes(currentIndex)
                   ? 'fill-[#c9a227] text-[#c9a227]'
-                  : 'text-gray-400'
+                  : 'text-gray-400 dark:text-gray-300'
               }`}
             />
           </button>

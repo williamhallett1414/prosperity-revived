@@ -55,7 +55,7 @@ export default function HannahBookmarksSection({ userEmail }) {
             </div>
             <div>
               <CardTitle className="text-lg">Hannah's Saved Modules</CardTitle>
-              <p className="text-sm text-gray-500">Bookmarked exercises & insights from your coaching modules</p>
+              <p className="text-sm text-gray-500 dark:text-gray-300">Bookmarked exercises & insights from your coaching modules</p>
             </div>
             <Badge variant="secondary" className="ml-auto text-base px-3 py-1">{bookmarks.length}</Badge>
           </div>
@@ -65,26 +65,26 @@ export default function HannahBookmarksSection({ userEmail }) {
             {bookmarks.map((bookmark) => (
               <div
                 key={bookmark.id}
-                className="flex items-start gap-3 p-4 bg-gray-50 dark:bg-white/5 rounded-xl border border-gray-100 dark:border-white/10 hover:bg-gray-100 transition-colors"
+                className="flex items-start gap-3 p-4 bg-gray-50 dark:bg-white/5 dark:text-white rounded-xl border border-gray-100 dark:border-white/10 hover:bg-gray-100 dark:bg-white/5 transition-colors"
               >
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-1 flex-wrap">
                     <Badge className={`text-xs border-0 ${typeColors[bookmark.item_type]}`}>
                       {typeLabels[bookmark.item_type]}
                     </Badge>
-                    <span className="text-xs text-gray-400 font-medium">{bookmark.module_name}</span>
-                    <span className="text-xs text-gray-400 flex items-center gap-1 ml-auto">
+                    <span className="text-xs text-gray-400 dark:text-gray-300 font-medium">{bookmark.module_name}</span>
+                    <span className="text-xs text-gray-400 dark:text-gray-300 flex items-center gap-1 ml-auto">
                       <Calendar className="w-3 h-3" />
                       {format(new Date(bookmark.created_date), 'MMM d')}
                     </span>
                   </div>
-                  <p className="text-sm font-semibold text-gray-900 mb-1">{bookmark.item_title}</p>
-                  <p className="text-xs text-gray-600 leading-relaxed line-clamp-3">{bookmark.item_content}</p>
+                  <p className="text-sm font-semibold text-gray-900 dark:text-white mb-1">{bookmark.item_title}</p>
+                  <p className="text-xs text-gray-600 dark:text-gray-300 leading-relaxed line-clamp-3">{bookmark.item_content}</p>
                 </div>
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="flex-shrink-0 text-gray-300 hover:text-red-400 h-7 w-7"
+                  className="flex-shrink-0 text-gray-300 dark:text-gray-400 dark:text-gray-300 hover:text-red-400 h-7 w-7"
                   onClick={() => deleteMutation.mutate(bookmark.id)}
                 >
                   <Trash2 className="w-4 h-4" />

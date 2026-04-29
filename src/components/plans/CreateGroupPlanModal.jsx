@@ -39,7 +39,7 @@ export default function CreateGroupPlanModal({ isOpen, onClose, onSubmit, basePl
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <Label className="text-sm font-medium">Based on: {basePlan?.name}</Label>
-            <p className="text-xs text-gray-500 mt-1">{basePlan?.duration} days</p>
+            <p className="text-xs text-gray-500 dark:text-gray-300 mt-1">{basePlan?.duration} days</p>
           </div>
 
           <div>
@@ -78,12 +78,12 @@ export default function CreateGroupPlanModal({ isOpen, onClose, onSubmit, basePl
             />
           </div>
 
-          <div className="flex items-center justify-between p-4 rounded-lg bg-gray-50 dark:bg-white/5">
+          <div className="flex items-center justify-between p-4 rounded-lg bg-gray-50 dark:bg-white/5 dark:bg-white/5">
             <div className="flex items-center gap-2">
-              <Lock className="w-4 h-4 text-gray-600" />
+              <Lock className="w-4 h-4 text-gray-600 dark:text-gray-300" />
               <div>
                 <Label htmlFor="is_private" className="text-sm font-medium">Private Group</Label>
-                <p className="text-xs text-gray-500">Requires invite code to join</p>
+                <p className="text-xs text-gray-500 dark:text-gray-300">Requires invite code to join</p>
               </div>
             </div>
             <Switch

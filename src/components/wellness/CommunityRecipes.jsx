@@ -50,7 +50,7 @@ export default function CommunityRecipes() {
       {/* Search and Filters */}
       <div className="flex gap-3 mb-4">
         <div className="flex-1 relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400 dark:text-gray-300" />
           <Input
             placeholder="Search community recipes..."
             value={searchTerm}
@@ -88,7 +88,7 @@ export default function CommunityRecipes() {
       {/* Recipe Grid */}
       {filteredRecipes.length === 0 ? (
         <div className="text-center py-12 bg-white dark:bg-white/5 rounded-2xl">
-          <Users className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+          <Users className="w-16 h-16 text-gray-300 dark:text-gray-400 dark:text-gray-300 mx-auto mb-4" />
           <p className="mb-2">
             {searchTerm ? 'No recipes found' : 'No community recipes yet'}
           </p>

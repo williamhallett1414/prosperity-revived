@@ -65,7 +65,7 @@ export default function DailyReflectionSettings() {
               <Clock className="w-5 h-5 text-[#C9A227]" />
               <div>
                 <Label className="font-semibold">Daily Reflection Prompts</Label>
-                <p className="text-xs text-gray-500">ICF-aligned questions based on your journey</p>
+                <p className="text-xs text-gray-500 dark:text-gray-300">ICF-aligned questions based on your journey</p>
               </div>
             </div>
             <Switch
@@ -83,7 +83,7 @@ export default function DailyReflectionSettings() {
                 onChange={(e) => handleTimeChange(e.target.value)}
                 className="w-full"
               />
-              <p className="text-xs text-gray-500">
+              <p className="text-xs text-gray-500 dark:text-gray-300">
                 Gideon will send a personalized reflection question at this time
               </p>
             </div>
@@ -97,7 +97,7 @@ export default function DailyReflectionSettings() {
               <Bell className="w-5 h-5 text-[#C9A227]" />
               <div>
                 <Label className="font-semibold">AI-Driven Suggestions</Label>
-                <p className="text-xs text-gray-500">Scripture & insights based on your patterns</p>
+                <p className="text-xs text-gray-500 dark:text-gray-300">Scripture & insights based on your patterns</p>
               </div>
             </div>
             <Switch
@@ -122,7 +122,7 @@ export default function DailyReflectionSettings() {
                   <SelectItem value="weekly">Weekly</SelectItem>
                 </SelectContent>
               </Select>
-              <p className="text-xs text-gray-500">
+              <p className="text-xs text-gray-500 dark:text-gray-300">
                 Gideon analyzes your conversations and suggests relevant scriptures
               </p>
             </div>
@@ -142,7 +142,7 @@ export default function DailyReflectionSettings() {
               <Sparkles className="w-5 h-5 text-green-600" />
               <div>
                 <Label className="font-semibold">Weekly Growth Summary</Label>
-                <p className="text-xs text-gray-500">Celebrating your spiritual progress each week</p>
+                <p className="text-xs text-gray-500 dark:text-gray-300">Celebrating your spiritual progress each week</p>
               </div>
             </div>
             <Switch
@@ -166,7 +166,7 @@ export default function DailyReflectionSettings() {
                   <SelectItem value="monday_morning">Monday Morning</SelectItem>
                 </SelectContent>
               </Select>
-              <p className="text-xs text-gray-500">
+              <p className="text-xs text-gray-500 dark:text-gray-300">
                 Gideon will send a warm summary of your weekly spiritual themes, growth areas, and coaching questions
               </p>
             </div>
@@ -180,7 +180,7 @@ export default function DailyReflectionSettings() {
               <Sparkles className="w-5 h-5 text-[#3C4E53]" />
               <div>
                 <Label className="font-semibold">Monthly Progress Report</Label>
-                <p className="text-xs text-gray-500">Deep reflection on your spiritual journey</p>
+                <p className="text-xs text-gray-500 dark:text-gray-300">Deep reflection on your spiritual journey</p>
               </div>
             </div>
             <Switch
@@ -191,7 +191,7 @@ export default function DailyReflectionSettings() {
 
           {settings?.monthly_report_enabled && (
             <div className="ml-7 space-y-2">
-              <p className="text-xs text-gray-500">
+              <p className="text-xs text-gray-500 dark:text-gray-300">
                 Sent on the 1st of each month. Gideon will provide a comprehensive spiritual progress report with kingdom insights, grace perspective, and powerful coaching questions for the month ahead.
               </p>
             </div>

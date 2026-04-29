@@ -117,7 +117,7 @@ function ProgressBar({ filled, total }) {
   const pct = Math.round((filled / total) * 100);
   return (
     <div className="flex items-center gap-2">
-      <div className="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden">
+      <div className="flex-1 h-2 bg-gray-100 dark:bg-white/5 rounded-full overflow-hidden">
         <motion.div
           className="h-full rounded-full"
           style={{ background: 'linear-gradient(90deg,#AFC7E3,#3C4E53)' }}
@@ -143,7 +143,7 @@ function PreviousWeekCard({ entry }) {
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.15 }}
-      className="bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 shadow-sm overflow-hidden"
+      className="bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 shadow-sm dark:shadow-none overflow-hidden"
     >
       <button onClick={() => setOpen(o => !o)} className="w-full flex items-center justify-between px-5 py-4">
         <div className="flex items-center gap-2">
@@ -191,7 +191,7 @@ function CompletedState({ weekLabel, onEdit, navigate, user }) {
     <motion.div
       initial={{ opacity: 0, scale: 0.96 }}
       animate={{ opacity: 1, scale: 1 }}
-      className="bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 shadow-sm p-8 text-center"
+      className="bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 shadow-sm dark:shadow-none p-8 text-center"
     >
       <motion.div
         initial={{ scale: 0 }}
@@ -203,7 +203,7 @@ function CompletedState({ weekLabel, onEdit, navigate, user }) {
       </motion.div>
       <h3 className="text-xl font-bold text-[#0A1A2F] dark:text-white mb-1">Reflection Complete</h3>
       <p className="text-sm text-[#0A1A2F]/50 dark:text-white/50 mb-2">{weekLabel}</p>
-      <p className="text-sm text-[#0A1A2F]/65 leading-relaxed mb-5 max-w-xs mx-auto">
+      <p className="text-sm text-[#0A1A2F]/65 dark:text-white/65 leading-relaxed mb-5 max-w-xs mx-auto">
         Taking time to reflect is one of the most powerful habits of people who keep growing. Well done.
       </p>
       <div className="flex justify-center mb-5">
@@ -220,7 +220,7 @@ function CompletedState({ weekLabel, onEdit, navigate, user }) {
       <div className="space-y-3">
         <button
           onClick={() => navigate(createPageUrl('ChatScreen?bot=Hannah'))}
-          className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl text-white text-sm font-semibold shadow-sm"
+          className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl text-white text-sm font-semibold shadow-sm dark:shadow-none"
           style={{ background: 'linear-gradient(135deg,#AFC7E3,#3C4E53)' }}
         >
           <MessageCircle className="w-4 h-4" />
@@ -398,7 +398,7 @@ export default function WeeklyReflectionPage() {
             <motion.div key="editor" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="space-y-4">
 
               {/* Progress tracker */}
-              <div className="bg-white dark:bg-white/5 rounded-2xl px-5 py-4 border border-gray-100 dark:border-white/10 shadow-sm">
+              <div className="bg-white dark:bg-white/5 rounded-2xl px-5 py-4 border border-gray-100 dark:border-white/10 shadow-sm dark:shadow-none">
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-sm font-semibold text-[#0A1A2F] dark:text-white dark:text-white">Your reflection</span>
                   <span className="text-xs text-[#0A1A2F]/45 dark:text-white/45">
@@ -419,7 +419,7 @@ export default function WeeklyReflectionPage() {
                     initial={{ opacity: 0, y: 16 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: i * 0.07 }}
-                    className="bg-white dark:bg-white/5 rounded-2xl shadow-sm overflow-hidden border"
+                    className="bg-white dark:bg-white/5 rounded-2xl shadow-sm dark:shadow-none overflow-hidden border"
                     style={{ borderColor: hasContent ? section.border : '#F3F4F6' }}
                   >
                     <div
@@ -458,7 +458,7 @@ export default function WeeklyReflectionPage() {
                 <button
                   onClick={handleSave}
                   disabled={saving || filled === 0}
-                  className="w-full py-4 rounded-2xl text-white text-base font-bold shadow-md transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+                  className="w-full py-4 rounded-2xl text-white text-base font-bold shadow-md dark:shadow-none transition-all disabled:opacity-40 disabled:cursor-not-allowed"
                   style={{ background: filled > 0 ? 'linear-gradient(135deg,#AFC7E3,#3C4E53)' : '#D1D5DB' }}
                 >
                   {saving ? (
@@ -487,7 +487,7 @@ export default function WeeklyReflectionPage() {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.5 }}
                 onClick={() => navigate(createPageUrl('ChatScreen?bot=Hannah'))}
-                className="w-full flex items-center justify-between px-5 py-4 bg-white dark:bg-white/5 rounded-2xl border border-[#AFC7E3]/25 shadow-sm hover:border-[#AFC7E3]/55 transition-colors"
+                className="w-full flex items-center justify-between px-5 py-4 bg-white dark:bg-white/5 rounded-2xl border border-[#AFC7E3]/25 shadow-sm dark:shadow-none hover:border-[#AFC7E3]/55 transition-colors"
               >
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold"

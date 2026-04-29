@@ -79,7 +79,7 @@ Provide a clear, encouraging answer that:
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-2xl p-6 shadow-lg"
+        className="bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-2xl p-6 shadow-lg dark:shadow-none"
       >
         <Textarea
           value={question}
@@ -128,11 +128,11 @@ Provide a clear, encouraging answer that:
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.3 + i * 0.1 }}
               onClick={() => handleSuggestedQuestion(q)}
-              className="w-full text-left bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-xl p-4 hover:shadow-md transition-all border border-[#FAD98D]/15 group"
+              className="w-full text-left bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-xl p-4 hover:shadow-md dark:shadow-none transition-all border border-[#FAD98D]/15 group"
             >
               <div className="flex items-start gap-3">
                 <BookOpen className="w-5 h-5 text-[#c9a227] mt-0.5 group-hover:scale-110 transition-transform" />
-                <span className="text-sm text-[#0A1A2F]/75">{q}</span>
+                <span className="text-sm text-[#0A1A2F]/75 dark:text-white/75">{q}</span>
               </div>
             </motion.button>
           ))}
@@ -144,14 +144,14 @@ Provide a clear, encouraging answer that:
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-2xl p-6 shadow-lg border-2 border-[#c9a227]/20"
+          className="bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-2xl p-6 shadow-lg dark:shadow-none border-2 border-[#c9a227]/20"
         >
           <div className="flex items-center gap-2 mb-4">
             <Sparkles className="w-5 h-5 text-[#c9a227]" />
             <h3 className="font-semibold text-[#0A1A2F] dark:text-white dark:text-white">Biblical Answer</h3>
           </div>
           <div className="prose prose-sm max-w-none">
-            <p className="text-[#0A1A2F]/75 whitespace-pre-wrap leading-relaxed">
+            <p className="text-[#0A1A2F]/75 dark:text-white/75 whitespace-pre-wrap leading-relaxed">
               {answer}
             </p>
           </div>
@@ -167,7 +167,7 @@ Provide a clear, encouraging answer that:
               key={i}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-xl p-5 shadow-sm border border-[#FAD98D]/15"
+              className="bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-xl p-5 shadow-sm dark:shadow-none border border-[#FAD98D]/15"
             >
               <div className="flex items-start gap-2 mb-3">
                 <BookOpen className="w-4 h-4 text-[#c9a227] mt-1 flex-shrink-0" />

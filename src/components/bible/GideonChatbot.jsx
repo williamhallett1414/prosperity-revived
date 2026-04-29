@@ -282,7 +282,7 @@ Assistant: ${response}`,
       {/* Floating Button */}
       <motion.button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-24 right-4 w-14 h-14 bg-gradient-to-r from-[#c9a227] to-[#FAD98D] hover:opacity-90 text-white rounded-full shadow-lg flex items-center justify-center z-50"
+        className="fixed bottom-24 right-4 w-14 h-14 bg-gradient-to-r from-[#c9a227] to-[#FAD98D] hover:opacity-90 text-white rounded-full shadow-lg dark:shadow-none flex items-center justify-center z-50"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
         initial={{ scale: 0 }}
@@ -425,7 +425,7 @@ Assistant: ${response}`,
                 <button
                   key={idx}
                   onClick={() => sendWithText(action)}
-                  className="block w-full text-left text-sm px-4 py-3 rounded-xl bg-white dark:bg-white/5 hover:bg-[#F2F6FA] dark:bg-[#0A1A2F] text-[#0A1A2F] dark:text-white transition-colors shadow-sm border border-[#FAD98D]/20"
+                  className="block w-full text-left text-sm px-4 py-3 rounded-xl bg-white dark:bg-white/5 hover:bg-[#F2F6FA] dark:bg-[#0A1A2F] text-[#0A1A2F] dark:text-white transition-colors shadow-sm dark:shadow-none border border-[#FAD98D]/20"
                 >
                   {action}
                 </button>

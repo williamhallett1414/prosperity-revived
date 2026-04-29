@@ -116,7 +116,7 @@ export default function CoachDavidOnboarding({ onComplete, user }) {
           </div>
 
           {/* Progress */}
-          <div className="h-1 bg-gray-100">
+          <div className="h-1 bg-gray-100 dark:bg-white/5">
             <motion.div
               animate={{ width: `${((step + 1) / totalSteps) * 100}%` }}
               transition={{ duration: 0.3 }}
@@ -138,17 +138,17 @@ export default function CoachDavidOnboarding({ onComplete, user }) {
                 {step === 0 && (
                   <div className="text-center py-2">
                     <div className="text-5xl mb-4">💪</div>
-                    <p className="text-gray-700 leading-relaxed">
+                    <p className="text-gray-700 dark:text-gray-200 leading-relaxed">
                       I'm <strong>Coach David</strong> — your elite fitness coach. In the next 4 quick steps, I'll set up a personalized training experience just for you.
                     </p>
-                    <p className="text-sm text-gray-500 mt-3">Takes less than 2 minutes.</p>
+                    <p className="text-sm text-gray-500 dark:text-gray-300 mt-3">Takes less than 2 minutes.</p>
                   </div>
                 )}
 
                 {/* Step 1: Goals */}
                 {step === 1 && (
                   <div>
-                    <p className="text-sm text-gray-600 mb-3">Select all that apply:</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">Select all that apply:</p>
                     <div className="grid grid-cols-2 gap-2">
                       {FITNESS_GOALS.map(goal => (
                         <button
@@ -157,11 +157,11 @@ export default function CoachDavidOnboarding({ onComplete, user }) {
                           className={`rounded-xl border-2 p-3 text-left transition-all ${
                             selectedGoals.includes(goal.id)
                               ? 'border-[#AFC7E3] bg-[#AFC7E3]/10'
-                              : 'border-gray-200 dark:border-white/10 hover:border-gray-300'
+                              : 'border-gray-200 dark:border-white/10 hover:border-gray-300 dark:border-white/15'
                           }`}
                         >
-                          <div className="font-semibold text-xs text-gray-800">{goal.label}</div>
-                          <div className="text-xs text-gray-500">{goal.desc}</div>
+                          <div className="font-semibold text-xs text-gray-800 dark:text-gray-100">{goal.label}</div>
+                          <div className="text-xs text-gray-500 dark:text-gray-300">{goal.desc}</div>
                           {selectedGoals.includes(goal.id) && (
                             <CheckCircle2 className="w-3.5 h-3.5 text-[#AFC7E3] mt-1" />
                           )}
@@ -174,7 +174,7 @@ export default function CoachDavidOnboarding({ onComplete, user }) {
                 {/* Step 2: Fitness level */}
                 {step === 2 && (
                   <div>
-                    <p className="text-sm text-gray-600 mb-3">How long have you been training consistently?</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">How long have you been training consistently?</p>
                     <div className="space-y-2">
                       {FITNESS_LEVELS.map(lvl => (
                         <button
@@ -183,13 +183,13 @@ export default function CoachDavidOnboarding({ onComplete, user }) {
                           className={`w-full flex items-center gap-3 rounded-xl border-2 p-3.5 text-left transition-all ${
                             fitnessLevel === lvl.id
                               ? 'border-[#AFC7E3] bg-[#AFC7E3]/10'
-                              : 'border-gray-200 dark:border-white/10 hover:border-gray-300'
+                              : 'border-gray-200 dark:border-white/10 hover:border-gray-300 dark:border-white/15'
                           }`}
                         >
                           <span className="text-2xl">{lvl.emoji}</span>
                           <div>
-                            <div className="font-semibold text-sm text-gray-800">{lvl.label}</div>
-                            <div className="text-xs text-gray-500">{lvl.desc}</div>
+                            <div className="font-semibold text-sm text-gray-800 dark:text-gray-100">{lvl.label}</div>
+                            <div className="text-xs text-gray-500 dark:text-gray-300">{lvl.desc}</div>
                           </div>
                           {fitnessLevel === lvl.id && (
                             <CheckCircle2 className="w-4 h-4 text-[#AFC7E3] ml-auto" />
@@ -203,8 +203,8 @@ export default function CoachDavidOnboarding({ onComplete, user }) {
                 {/* Step 3: Fitness tracker */}
                 {step === 3 && (
                   <div>
-                    <p className="text-sm text-gray-600 mb-1">Do you use a fitness tracker?</p>
-                    <p className="text-xs text-gray-400 mb-3">I'll tailor advice based on your data sources.</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-300 mb-1">Do you use a fitness tracker?</p>
+                    <p className="text-xs text-gray-400 dark:text-gray-300 mb-3">I'll tailor advice based on your data sources.</p>
                     <div className="grid grid-cols-3 gap-2">
                       {TRACKERS.map(t => (
                         <button
@@ -213,11 +213,11 @@ export default function CoachDavidOnboarding({ onComplete, user }) {
                           className={`rounded-xl border-2 p-3 flex flex-col items-center gap-1 transition-all ${
                             selectedTracker === t.id
                               ? 'border-[#AFC7E3] bg-[#AFC7E3]/10'
-                              : 'border-gray-200 dark:border-white/10 hover:border-gray-300'
+                              : 'border-gray-200 dark:border-white/10 hover:border-gray-300 dark:border-white/15'
                           }`}
                         >
                           <span className="text-xl">{t.icon}</span>
-                          <span className="text-xs font-medium text-gray-700 text-center leading-tight">{t.label}</span>
+                          <span className="text-xs font-medium text-gray-700 dark:text-gray-200 text-center leading-tight">{t.label}</span>
                         </button>
                       ))}
                     </div>
@@ -236,7 +236,7 @@ export default function CoachDavidOnboarding({ onComplete, user }) {
                 {/* Step 4: Workout frequency */}
                 {step === 4 && (
                   <div>
-                    <p className="text-sm text-gray-600 mb-4">How many days per week can you train?</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">How many days per week can you train?</p>
                     <div className="flex justify-center gap-2 flex-wrap mb-4">
                       {WEEKLY_DAYS.map(d => (
                         <button
@@ -245,14 +245,14 @@ export default function CoachDavidOnboarding({ onComplete, user }) {
                           className={`w-10 h-10 rounded-full border-2 font-bold text-sm transition-all ${
                             workoutDays === d
                               ? 'border-[#AFC7E3] bg-[#AFC7E3] text-white'
-                              : 'border-gray-200 dark:border-white/10 text-gray-600 hover:border-[#AFC7E3]'
+                              : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-[#AFC7E3]'
                           }`}
                         >
                           {d}
                         </button>
                       ))}
                     </div>
-                    <p className="text-center text-sm text-gray-500">
+                    <p className="text-center text-sm text-gray-500 dark:text-gray-300">
                       {workoutDays <= 2 && '2 days is enough to make real progress!'}
                       {workoutDays === 3 && '3 days — the sweet spot for most goals 🎯'}
                       {workoutDays === 4 && '4 days — solid commitment, great results 💪'}
@@ -268,9 +268,9 @@ export default function CoachDavidOnboarding({ onComplete, user }) {
           </div>
 
           {/* Footer */}
-          <div className="p-5 bg-gray-50 dark:bg-white/5 border-t border-gray-100 dark:border-white/10">
+          <div className="p-5 bg-gray-50 dark:bg-white/5 border-t border-gray-100 dark:border-white/10 dark:border-white/10">
             <div className="flex gap-3">
-              <Button onClick={() => onComplete({})} variant="outline" className="flex-1 text-gray-600 text-sm">
+              <Button onClick={() => onComplete({})} variant="outline" className="flex-1 text-gray-600 dark:text-gray-300 text-sm">
                 Skip
               </Button>
               <Button

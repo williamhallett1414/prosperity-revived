@@ -90,7 +90,7 @@ export default function GuidedMeditationSession({ session, onClose }) {
       </div>
 
       <div className="flex-1 flex flex-col items-center justify-center text-center px-6">
-        <p className="text-gray-300 mb-6 max-w-md">{session?.description}</p>
+        <p className="text-gray-300 dark:text-gray-400 dark:text-gray-300 mb-6 max-w-md">{session?.description}</p>
 
         {!audioUrl && (
           <p className="text-red-400 text-sm mb-4">
@@ -117,7 +117,7 @@ export default function GuidedMeditationSession({ session, onClose }) {
                   transition={{ duration: 0.1 }}
                 />
               </div>
-              <div className="flex justify-between text-xs text-gray-400 mt-2">
+              <div className="flex justify-between text-xs text-gray-400 dark:text-gray-300 mt-2">
                 <span>{formatTime(currentTime)}</span>
                 <span>{formatTime(duration)}</span>
               </div>

@@ -390,7 +390,7 @@ export default function GroupDetail() {
         {/* ── Group info strip ── */}
         <div className="bg-white dark:bg-white/5 rounded-2xl border border-[#AFC7E3]/20 p-4 space-y-3">
           {group.description && (
-            <p className="text-sm text-[#0A1A2F]/65 leading-relaxed">{group.description}</p>
+            <p className="text-sm text-[#0A1A2F]/65 dark:text-white/65 leading-relaxed">{group.description}</p>
           )}
           <div className="flex items-center justify-between flex-wrap gap-3">
             <MemberAvatarStrip memberships={memberships} totalCount={group.member_count || memberships.length} />

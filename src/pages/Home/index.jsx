@@ -63,7 +63,7 @@ function Home() {
             </h1>
             {userProgress && (
               <Link to={createPageUrl('Achievements')}>
-                <div className="flex items-center gap-1.5 bg-white dark:bg-white/10 rounded-full px-3 py-1.5 shadow-sm border border-[#FAD98D]/40 dark:border-white/10">
+                <div className="flex items-center gap-1.5 bg-white dark:bg-white/10 rounded-full px-3 py-1.5 shadow-sm dark:shadow-none border border-[#FAD98D]/40 dark:border-white/10">
                   <Flame className="w-3.5 h-3.5 text-orange-500" />
                   <span className="font-bold text-[#0A1A2F] dark:text-white text-xs">{userProgress.current_streak || 0}</span>
                 </div>
@@ -82,7 +82,7 @@ function Home() {
 
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }}>
           <Link to={createPageUrl('Bible')}>
-            <div className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm border border-[#FAD98D]/30 dark:border-white/10 relative overflow-hidden">
+            <div className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm dark:shadow-none border border-[#FAD98D]/30 dark:border-white/10 relative overflow-hidden">
               <div className="absolute top-0 right-0 w-24 h-24 opacity-5">
                 <span className="text-6xl">📖</span>
               </div>
@@ -104,7 +104,7 @@ function Home() {
         </motion.div>
 
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.12 }}>
-          <div className="flex items-center gap-3 bg-gradient-to-r from-[#0A1A2F] to-[#1a3a5c] rounded-2xl px-4 py-3 shadow-md">
+          <div className="flex items-center gap-3 bg-gradient-to-r from-[#0A1A2F] to-[#1a3a5c] rounded-2xl px-4 py-3 shadow-md dark:shadow-none">
             <span className="text-xl flex-shrink-0">💛</span>
             <p className="text-xs text-white/80 leading-relaxed flex-1">What would help you grow today?</p>
             <ChevronRight className="w-4 h-4 text-white/30 flex-shrink-0" />
@@ -113,7 +113,7 @@ function Home() {
 
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.14 }}>
           <Link to={createPageUrl('Prayer')}>
-            <div className="bg-gradient-to-br from-[#FAD98D]/20 to-[#AFC7E3]/20 dark:from-white/5 dark:to-white/5 rounded-3xl p-5 shadow-sm border border-[#FAD98D]/20 dark:border-white/10 relative overflow-hidden">
+            <div className="bg-gradient-to-br from-[#FAD98D]/20 to-[#AFC7E3]/20 dark:from-white/5 dark:to-white/5 rounded-3xl p-5 shadow-sm dark:shadow-none border border-[#FAD98D]/20 dark:border-white/10 relative overflow-hidden">
               <div className="absolute top-0 right-0 w-20 h-20 opacity-5">
                 <span className="text-4xl">🕊️</span>
               </div>
@@ -142,8 +142,8 @@ function Home() {
               { name: 'Chef Daniel', role: 'Nutrition', bot: 'ChefDaniel', color: 'from-orange-400 to-orange-500', bg: 'bg-orange-50', img: chefDanielImg },
             ].map(({ name, role, bot, color, bg, img }) => (
               <Link key={bot} to={createPageUrl(`ChatScreen?bot=${bot}`)} className="flex-shrink-0" style={{ width: 140 }}>
-                <div className={`${bg} dark:bg-white/5 rounded-2xl p-3 shadow-sm border border-gray-100 dark:border-white/10/80 dark:border-white/10 h-full`}>
-                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${color} mx-auto mb-2 flex items-center justify-center shadow-sm overflow-hidden`}>
+                <div className={`${bg} dark:bg-white/5 rounded-2xl p-3 shadow-sm dark:shadow-none border border-gray-100 dark:border-white/10 dark:border-white/10/80 dark:border-white/10 h-full`}>
+                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${color} mx-auto mb-2 flex items-center justify-center shadow-sm dark:shadow-none overflow-hidden`}>
                     <img src={img} alt={name} className="w-full h-full object-cover object-top" />
                   </div>
                   <p className="text-xs font-bold text-[#0A1A2F] dark:text-white text-center leading-tight">{name}</p>
@@ -156,7 +156,7 @@ function Home() {
 
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}>
           <Link to={createPageUrl('CoachingPlans')}>
-            <div className="bg-gradient-to-br from-[#0D4F3C] to-[#1a8a6a] rounded-3xl p-5 shadow-md relative overflow-hidden">
+            <div className="bg-gradient-to-br from-[#0D4F3C] to-[#1a8a6a] rounded-3xl p-5 shadow-md dark:shadow-none relative overflow-hidden">
               <div className="absolute -right-4 -top-4 w-28 h-28 rounded-full bg-white/10" />
               <div className="relative flex items-center gap-4">
                 <div className="w-12 h-12 rounded-2xl bg-white/20 flex items-center justify-center flex-shrink-0">

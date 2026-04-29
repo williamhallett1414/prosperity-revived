@@ -69,7 +69,7 @@ export default function DailyDevotional() {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="rounded-3xl bg-gradient-to-br from-amber-50 to-orange-50 p-6 md:p-8 mb-6 shadow-sm"
+      className="rounded-3xl bg-gradient-to-br from-amber-50 to-orange-50 p-6 md:p-8 mb-6 shadow-sm dark:shadow-none"
     >
       <h2 className="text-2xl font-bold text-[#0A1A2F] dark:text-white mb-6">Daily Devotional</h2>
 
@@ -81,7 +81,7 @@ export default function DailyDevotional() {
           </div>
           <h3 className="text-lg font-semibold text-[#0A1A2F] dark:text-white dark:text-white">Reflection</h3>
         </div>
-        <p className="text-gray-700 leading-relaxed ml-13">
+        <p className="text-gray-700 dark:text-gray-200 leading-relaxed ml-13">
           {devotional.reflection}
         </p>
       </div>
@@ -94,7 +94,7 @@ export default function DailyDevotional() {
           </div>
           <h3 className="text-lg font-semibold text-[#0A1A2F] dark:text-white dark:text-white">Prayer</h3>
         </div>
-        <p className="text-gray-700 leading-relaxed italic ml-13">
+        <p className="text-gray-700 dark:text-gray-200 leading-relaxed italic ml-13">
           "{devotional.prayer}"
         </p>
       </div>
@@ -107,7 +107,7 @@ export default function DailyDevotional() {
           </div>
           <h3 className="text-lg font-semibold text-[#0A1A2F] dark:text-white dark:text-white">Today's Action</h3>
         </div>
-        <p className="text-gray-700 leading-relaxed ml-13">
+        <p className="text-gray-700 dark:text-gray-200 leading-relaxed ml-13">
           {devotional.action}
         </p>
       </div>

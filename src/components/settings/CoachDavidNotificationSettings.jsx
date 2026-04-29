@@ -62,7 +62,7 @@ export default function CoachDavidNotificationSettings({ user }) {
   };
 
   if (isLoading) {
-    return <div className="text-center text-gray-500">Loading...</div>;
+    return <div className="text-center text-gray-500 dark:text-gray-300">Loading...</div>;
   }
 
   return (
@@ -82,7 +82,7 @@ export default function CoachDavidNotificationSettings({ user }) {
           <div className="flex items-center justify-between mb-3">
             <div>
               <h4 className="font-semibold text-[#0A1A2F] dark:text-white dark:text-white">🔥 Morning Discipline</h4>
-              <p className="text-sm text-gray-600">Start your day with discipline & planning</p>
+              <p className="text-sm text-gray-600 dark:text-gray-300">Start your day with discipline & planning</p>
             </div>
             <Switch
               checked={settings.morning_enabled}
@@ -96,7 +96,7 @@ export default function CoachDavidNotificationSettings({ user }) {
               type="time"
               value={settings.morning_time}
               onChange={(e) => updateSettings({ morning_time: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-white/15 rounded-lg text-sm"
             />
           )}
         </div>
@@ -106,7 +106,7 @@ export default function CoachDavidNotificationSettings({ user }) {
           <div className="flex items-center justify-between mb-3">
             <div>
               <h4 className="font-semibold text-[#0A1A2F] dark:text-white dark:text-white">⚡ Midday Movement</h4>
-              <p className="text-sm text-gray-600">Hydration & movement check-in</p>
+              <p className="text-sm text-gray-600 dark:text-gray-300">Hydration & movement check-in</p>
             </div>
             <Switch
               checked={settings.midday_enabled}
@@ -120,7 +120,7 @@ export default function CoachDavidNotificationSettings({ user }) {
               type="time"
               value={settings.midday_time}
               onChange={(e) => updateSettings({ midday_time: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-white/15 rounded-lg text-sm"
             />
           )}
         </div>
@@ -130,7 +130,7 @@ export default function CoachDavidNotificationSettings({ user }) {
           <div className="flex items-center justify-between mb-3">
             <div>
               <h4 className="font-semibold text-[#0A1A2F] dark:text-white dark:text-white">💪 Afternoon Accountability</h4>
-              <p className="text-sm text-gray-600">Motivation & performance push</p>
+              <p className="text-sm text-gray-600 dark:text-gray-300">Motivation & performance push</p>
             </div>
             <Switch
               checked={settings.afternoon_enabled}
@@ -144,7 +144,7 @@ export default function CoachDavidNotificationSettings({ user }) {
               type="time"
               value={settings.afternoon_time}
               onChange={(e) => updateSettings({ afternoon_time: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-white/15 rounded-lg text-sm"
             />
           )}
         </div>
@@ -154,7 +154,7 @@ export default function CoachDavidNotificationSettings({ user }) {
           <div className="flex items-center justify-between mb-3">
             <div>
               <h4 className="font-semibold text-[#0A1A2F] dark:text-white dark:text-white">😴 Evening Recovery</h4>
-              <p className="text-sm text-gray-600">Rest & reflection</p>
+              <p className="text-sm text-gray-600 dark:text-gray-300">Rest & reflection</p>
             </div>
             <Switch
               checked={settings.evening_enabled}
@@ -168,7 +168,7 @@ export default function CoachDavidNotificationSettings({ user }) {
               type="time"
               value={settings.evening_time}
               onChange={(e) => updateSettings({ evening_time: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-white/15 rounded-lg text-sm"
             />
           )}
         </div>

@@ -110,7 +110,7 @@ export default function WellnessCommunityFeed({
       </div>
 
       {trendingContent.length === 0 ? (
-        <div className="text-center py-8 bg-gray-100 rounded-xl">
+        <div className="text-center py-8 bg-gray-100 dark:bg-white/5 rounded-xl">
           <p className="text-[#0A1A2F]/60 dark:text-white/60">No trending content yet</p>
         </div>
       ) : (
@@ -123,7 +123,7 @@ export default function WellnessCommunityFeed({
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.05 }}
-                  className="bg-white dark:bg-white/5 rounded-xl p-4 border border-gray-100 dark:border-white/10 hover:shadow-md transition-shadow cursor-pointer"
+                  className="bg-white dark:bg-white/5 rounded-xl p-4 border border-gray-100 dark:border-white/10 hover:shadow-md dark:shadow-none transition-shadow cursor-pointer"
                 >
                   <div className="flex items-start gap-3">
                     <div className={`bg-gradient-to-br ${typeInfo.bg} w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0 text-lg`}>
@@ -135,7 +135,7 @@ export default function WellnessCommunityFeed({
                           <h3 className="font-semibold text-[#0A1A2F] dark:text-white line-clamp-1">{item.title}</h3>
                           <p className="text-xs text-[#0A1A2F]/60 dark:text-white/60 mt-1">by {item.author}</p>
                         </div>
-                        <span className="text-xs bg-gray-100 text-[#0A1A2F] dark:text-white px-2 py-1 rounded-full whitespace-nowrap">
+                        <span className="text-xs bg-gray-100 dark:bg-white/5 text-[#0A1A2F] dark:text-white px-2 py-1 rounded-full whitespace-nowrap">
                           {item.type}
                         </span>
                       </div>

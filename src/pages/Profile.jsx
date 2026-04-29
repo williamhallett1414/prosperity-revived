@@ -36,7 +36,7 @@ const TABS = [
 // ─── Profile header ────────────────────────────────────────────────────────────
 function Header({ user, friendsCount, onCoverUpload, onAvatarUpload, uploading }) {
   return (
-    <div className="bg-white dark:bg-white/5 shadow-sm">
+    <div className="bg-white dark:bg-white/5 shadow-sm dark:shadow-none">
       {/* Cover */}
       <div className="relative h-40 sm:h-52 bg-gradient-to-br from-[#3C4E53] via-[#FD9C2D] to-[#FAD98D] overflow-hidden">
         {user?.cover_image_url ?
@@ -44,7 +44,7 @@ function Header({ user, friendsCount, onCoverUpload, onAvatarUpload, uploading }
         <div className="w-full h-full bg-gradient-to-br from-[#3C4E53] via-[#FD9C2D] to-[#FAD98D]" />
         }
         <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
-        <label className="absolute bottom-3 right-3 bg-white/90 backdrop-blur rounded-lg px-3 py-1.5 shadow-sm cursor-pointer hover:bg-white dark:bg-white/5 transition-all flex items-center gap-1.5 text-xs font-semibold text-gray-700">
+        <label className="absolute bottom-3 right-3 bg-white/90 backdrop-blur rounded-lg px-3 py-1.5 shadow-sm dark:shadow-none cursor-pointer hover:bg-white dark:bg-white/5 transition-all flex items-center gap-1.5 text-xs font-semibold text-gray-700 dark:text-gray-200">
           <Camera className="w-3.5 h-3.5" />
           {uploading.cover ? 'Uploading…' : 'Edit Cover'}
           <input type="file" accept="image/*" onChange={onCoverUpload} className="hidden" disabled={uploading.cover} />
@@ -64,8 +64,8 @@ function Header({ user, friendsCount, onCoverUpload, onAvatarUpload, uploading }
                   </div>
               }
             </div>
-            <label className="absolute bottom-0.5 right-0.5 bg-white dark:bg-white/5 rounded-full p-1.5 shadow-md cursor-pointer hover:scale-105 transition-transform">
-              <Camera className="w-3.5 h-3.5 text-gray-600" />
+            <label className="absolute bottom-0.5 right-0.5 bg-white dark:bg-white/5 rounded-full p-1.5 shadow-md dark:shadow-none cursor-pointer hover:scale-105 transition-transform">
+              <Camera className="w-3.5 h-3.5 text-gray-600 dark:text-gray-300" />
               <input type="file" accept="image/*" onChange={onAvatarUpload} className="hidden" disabled={uploading.avatar} />
             </label>
           </div>
@@ -118,13 +118,13 @@ function Header({ user, friendsCount, onCoverUpload, onAvatarUpload, uploading }
 // ─── Tab bar ───────────────────────────────────────────────────────────────────
 function TabBar({ activeTab, onChange }) {
   return (
-    <div className="sticky top-0 z-30 bg-white/95 backdrop-blur-sm border-b border-gray-100 dark:border-white/10 shadow-sm">
+    <div className="sticky top-0 z-30 bg-white/95 backdrop-blur-sm border-b border-gray-100 dark:border-white/10 shadow-sm dark:shadow-none">
       <div className="max-w-lg mx-auto px-3 py-2 flex gap-1 overflow-x-auto scrollbar-none">
         {TABS.map(({ id, label }) => (
           <button key={id} onClick={() => onChange(id)}
             className={`relative px-3.5 py-2 text-xs font-bold flex-shrink-0 rounded-xl transition-all ${
               activeTab === id
-                ? 'bg-[#0A1A2F] text-white shadow-sm'
+                ? 'bg-[#0A1A2F] text-white shadow-sm dark:shadow-none'
                 : 'text-[#0A1A2F]/45 dark:text-white/45 hover:text-[#0A1A2F]/70 dark:text-white/70 hover:bg-[#0A1A2F]/05'
             }`}>
             {label}
@@ -532,7 +532,7 @@ export default function Profile() {
 
             {/* Account settings — only on About tab */}
             <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
-          className="bg-white dark:bg-white/5 rounded-2xl border border-[#FAD98D]/25 shadow-sm overflow-hidden">
+          className="bg-white dark:bg-white/5 rounded-2xl border border-[#FAD98D]/25 shadow-sm dark:shadow-none overflow-hidden">
               <div className="px-4 py-3 border-b border-[#FAD98D]/20">
                 <p className="text-xs font-bold text-[#0A1A2F]/40 dark:text-white/40 uppercase tracking-widest">Account</p>
               </div>

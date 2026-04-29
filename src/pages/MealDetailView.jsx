@@ -126,7 +126,7 @@ export default function MealDetailView() {
         <div className="max-w-2xl mx-auto flex items-center gap-3">
           <Link
             to={createPageUrl('FoodLogHistory')}
-            className="w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors"
+            className="w-9 h-9 rounded-full bg-gray-100 dark:bg-white/5 hover:bg-gray-200 flex items-center justify-center transition-colors"
           >
             <ArrowLeft className="w-4 h-4 text-[#0A1A2F] dark:text-white dark:text-white" />
           </Link>
@@ -144,7 +144,7 @@ export default function MealDetailView() {
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-white dark:bg-white/5 rounded-2xl p-6 mb-6 shadow-sm"
+          className="bg-white dark:bg-white/5 rounded-2xl p-6 mb-6 shadow-sm dark:shadow-none"
         >
           <div className="flex items-start justify-between mb-4">
             <div>
@@ -176,7 +176,7 @@ export default function MealDetailView() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="bg-white dark:bg-white/5 rounded-2xl p-6 mb-6 shadow-sm"
+            className="bg-white dark:bg-white/5 rounded-2xl p-6 mb-6 shadow-sm dark:shadow-none"
           >
             <h3 className="text-lg font-semibold text-[#0A1A2F] dark:text-white mb-4">Nutrition Grade</h3>
             <div className="flex items-center justify-center gap-6">
@@ -208,7 +208,7 @@ export default function MealDetailView() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="bg-white dark:bg-white/5 rounded-2xl p-6 mb-6 shadow-sm"
+          className="bg-white dark:bg-white/5 rounded-2xl p-6 mb-6 shadow-sm dark:shadow-none"
         >
           <h3 className="text-lg font-semibold text-[#0A1A2F] dark:text-white mb-4">Macronutrients</h3>
           <div className="grid grid-cols-3 gap-3">
@@ -251,104 +251,104 @@ export default function MealDetailView() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="bg-white dark:bg-white/5 rounded-2xl p-6 mb-6 shadow-sm"
+            className="bg-white dark:bg-white/5 rounded-2xl p-6 mb-6 shadow-sm dark:shadow-none"
           >
             <h3 className="text-lg font-semibold text-[#0A1A2F] dark:text-white mb-4">Micronutrients</h3>
             <div className="grid grid-cols-2 gap-3">
               {meal.sodium && (
-                <div className="bg-gray-50 dark:bg-white/5 rounded-lg p-3">
+                <div className="bg-gray-50 dark:bg-white/5 dark:text-white rounded-lg p-3">
                   <p className="text-sm font-medium text-[#0A1A2F] dark:text-white dark:text-white">Sodium</p>
-                  <p className="text-lg font-bold text-gray-600 mt-1">{meal.sodium}mg</p>
+                  <p className="text-lg font-bold text-gray-600 dark:text-gray-300 mt-1">{meal.sodium}mg</p>
                 </div>
               )}
               {meal.potassium && (
-                <div className="bg-gray-50 dark:bg-white/5 rounded-lg p-3">
+                <div className="bg-gray-50 dark:bg-white/5 dark:text-white rounded-lg p-3">
                   <p className="text-sm font-medium text-[#0A1A2F] dark:text-white dark:text-white">Potassium</p>
-                  <p className="text-lg font-bold text-gray-600 mt-1">{meal.potassium}mg</p>
+                  <p className="text-lg font-bold text-gray-600 dark:text-gray-300 mt-1">{meal.potassium}mg</p>
                 </div>
               )}
               {meal.calcium && (
-                <div className="bg-gray-50 dark:bg-white/5 rounded-lg p-3">
+                <div className="bg-gray-50 dark:bg-white/5 dark:text-white rounded-lg p-3">
                   <p className="text-sm font-medium text-[#0A1A2F] dark:text-white dark:text-white">Calcium</p>
-                  <p className="text-lg font-bold text-gray-600 mt-1">{meal.calcium}mg</p>
+                  <p className="text-lg font-bold text-gray-600 dark:text-gray-300 mt-1">{meal.calcium}mg</p>
                 </div>
               )}
               {meal.iron && (
-                <div className="bg-gray-50 dark:bg-white/5 rounded-lg p-3">
+                <div className="bg-gray-50 dark:bg-white/5 dark:text-white rounded-lg p-3">
                   <p className="text-sm font-medium text-[#0A1A2F] dark:text-white dark:text-white">Iron</p>
-                  <p className="text-lg font-bold text-gray-600 mt-1">{meal.iron}mg</p>
+                  <p className="text-lg font-bold text-gray-600 dark:text-gray-300 mt-1">{meal.iron}mg</p>
                 </div>
               )}
               {meal.magnesium && (
-                <div className="bg-gray-50 dark:bg-white/5 rounded-lg p-3">
+                <div className="bg-gray-50 dark:bg-white/5 dark:text-white rounded-lg p-3">
                   <p className="text-sm font-medium text-[#0A1A2F] dark:text-white dark:text-white">Magnesium</p>
-                  <p className="text-lg font-bold text-gray-600 mt-1">{meal.magnesium}mg</p>
+                  <p className="text-lg font-bold text-gray-600 dark:text-gray-300 mt-1">{meal.magnesium}mg</p>
                 </div>
               )}
               {meal.zinc && (
-                <div className="bg-gray-50 dark:bg-white/5 rounded-lg p-3">
+                <div className="bg-gray-50 dark:bg-white/5 dark:text-white rounded-lg p-3">
                   <p className="text-sm font-medium text-[#0A1A2F] dark:text-white dark:text-white">Zinc</p>
-                  <p className="text-lg font-bold text-gray-600 mt-1">{meal.zinc}mg</p>
+                  <p className="text-lg font-bold text-gray-600 dark:text-gray-300 mt-1">{meal.zinc}mg</p>
                 </div>
               )}
               {meal.vitamin_a && (
-                <div className="bg-gray-50 dark:bg-white/5 rounded-lg p-3">
+                <div className="bg-gray-50 dark:bg-white/5 dark:text-white rounded-lg p-3">
                   <p className="text-sm font-medium text-[#0A1A2F] dark:text-white dark:text-white">Vitamin A</p>
-                  <p className="text-lg font-bold text-gray-600 mt-1">{meal.vitamin_a}mcg</p>
+                  <p className="text-lg font-bold text-gray-600 dark:text-gray-300 mt-1">{meal.vitamin_a}mcg</p>
                 </div>
               )}
               {meal.vitamin_c && (
-                <div className="bg-gray-50 dark:bg-white/5 rounded-lg p-3">
+                <div className="bg-gray-50 dark:bg-white/5 dark:text-white rounded-lg p-3">
                   <p className="text-sm font-medium text-[#0A1A2F] dark:text-white dark:text-white">Vitamin C</p>
-                  <p className="text-lg font-bold text-gray-600 mt-1">{meal.vitamin_c}mg</p>
+                  <p className="text-lg font-bold text-gray-600 dark:text-gray-300 mt-1">{meal.vitamin_c}mg</p>
                 </div>
               )}
               {meal.vitamin_d && (
-                <div className="bg-gray-50 dark:bg-white/5 rounded-lg p-3">
+                <div className="bg-gray-50 dark:bg-white/5 dark:text-white rounded-lg p-3">
                   <p className="text-sm font-medium text-[#0A1A2F] dark:text-white dark:text-white">Vitamin D</p>
-                  <p className="text-lg font-bold text-gray-600 mt-1">{meal.vitamin_d}mcg</p>
+                  <p className="text-lg font-bold text-gray-600 dark:text-gray-300 mt-1">{meal.vitamin_d}mcg</p>
                 </div>
               )}
               {meal.vitamin_k && (
-                <div className="bg-gray-50 dark:bg-white/5 rounded-lg p-3">
+                <div className="bg-gray-50 dark:bg-white/5 dark:text-white rounded-lg p-3">
                   <p className="text-sm font-medium text-[#0A1A2F] dark:text-white dark:text-white">Vitamin K</p>
-                  <p className="text-lg font-bold text-gray-600 mt-1">{meal.vitamin_k}mcg</p>
+                  <p className="text-lg font-bold text-gray-600 dark:text-gray-300 mt-1">{meal.vitamin_k}mcg</p>
                 </div>
               )}
               {meal.folate && (
-                <div className="bg-gray-50 dark:bg-white/5 rounded-lg p-3">
+                <div className="bg-gray-50 dark:bg-white/5 dark:text-white rounded-lg p-3">
                   <p className="text-sm font-medium text-[#0A1A2F] dark:text-white dark:text-white">Folate</p>
-                  <p className="text-lg font-bold text-gray-600 mt-1">{meal.folate}mcg</p>
+                  <p className="text-lg font-bold text-gray-600 dark:text-gray-300 mt-1">{meal.folate}mcg</p>
                 </div>
               )}
               {meal.thiamin && (
-                <div className="bg-gray-50 dark:bg-white/5 rounded-lg p-3">
+                <div className="bg-gray-50 dark:bg-white/5 dark:text-white rounded-lg p-3">
                   <p className="text-sm font-medium text-[#0A1A2F] dark:text-white dark:text-white">Thiamin (B1)</p>
-                  <p className="text-lg font-bold text-gray-600 mt-1">{meal.thiamin}mg</p>
+                  <p className="text-lg font-bold text-gray-600 dark:text-gray-300 mt-1">{meal.thiamin}mg</p>
                 </div>
               )}
               {meal.riboflavin && (
-                <div className="bg-gray-50 dark:bg-white/5 rounded-lg p-3">
+                <div className="bg-gray-50 dark:bg-white/5 dark:text-white rounded-lg p-3">
                   <p className="text-sm font-medium text-[#0A1A2F] dark:text-white dark:text-white">Riboflavin (B2)</p>
-                  <p className="text-lg font-bold text-gray-600 mt-1">{meal.riboflavin}mg</p>
+                  <p className="text-lg font-bold text-gray-600 dark:text-gray-300 mt-1">{meal.riboflavin}mg</p>
                 </div>
               )}
               {meal.niacin && (
-                <div className="bg-gray-50 dark:bg-white/5 rounded-lg p-3">
+                <div className="bg-gray-50 dark:bg-white/5 dark:text-white rounded-lg p-3">
                   <p className="text-sm font-medium text-[#0A1A2F] dark:text-white dark:text-white">Niacin (B3)</p>
-                  <p className="text-lg font-bold text-gray-600 mt-1">{meal.niacin}mg</p>
+                  <p className="text-lg font-bold text-gray-600 dark:text-gray-300 mt-1">{meal.niacin}mg</p>
                 </div>
               )}
               {meal.vitamin_b6 && (
-                <div className="bg-gray-50 dark:bg-white/5 rounded-lg p-3">
+                <div className="bg-gray-50 dark:bg-white/5 dark:text-white rounded-lg p-3">
                   <p className="text-sm font-medium text-[#0A1A2F] dark:text-white dark:text-white">Vitamin B6</p>
-                  <p className="text-lg font-bold text-gray-600 mt-1">{meal.vitamin_b6}mg</p>
+                  <p className="text-lg font-bold text-gray-600 dark:text-gray-300 mt-1">{meal.vitamin_b6}mg</p>
                 </div>
               )}
               {meal.vitamin_b12 && (
-                <div className="bg-gray-50 dark:bg-white/5 rounded-lg p-3">
+                <div className="bg-gray-50 dark:bg-white/5 dark:text-white rounded-lg p-3">
                   <p className="text-sm font-medium text-[#0A1A2F] dark:text-white dark:text-white">Vitamin B12</p>
-                  <p className="text-lg font-bold text-gray-600 mt-1">{meal.vitamin_b12}mcg</p>
+                  <p className="text-lg font-bold text-gray-600 dark:text-gray-300 mt-1">{meal.vitamin_b12}mcg</p>
                 </div>
               )}
             </div>
@@ -361,7 +361,7 @@ export default function MealDetailView() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.35 }}
-            className="bg-white dark:bg-white/5 rounded-2xl p-6 mb-6 shadow-sm"
+            className="bg-white dark:bg-white/5 rounded-2xl p-6 mb-6 shadow-sm dark:shadow-none"
           >
             <h3 className="text-lg font-semibold text-[#0A1A2F] dark:text-white mb-4">Other Nutrition Facts</h3>
             <div className="grid grid-cols-2 gap-3">
@@ -402,9 +402,9 @@ export default function MealDetailView() {
                 </div>
               )}
               {meal.cholesterol && (
-                <div className="bg-gray-50 dark:bg-white/5 rounded-lg p-3">
+                <div className="bg-gray-50 dark:bg-white/5 dark:text-white rounded-lg p-3">
                   <p className="text-sm font-medium text-[#0A1A2F] dark:text-white dark:text-white">Cholesterol</p>
-                  <p className="text-lg font-bold text-gray-600 mt-1">{meal.cholesterol}mg</p>
+                  <p className="text-lg font-bold text-gray-600 dark:text-gray-300 mt-1">{meal.cholesterol}mg</p>
                 </div>
               )}
             </div>
@@ -417,7 +417,7 @@ export default function MealDetailView() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
-            className="bg-white dark:bg-white/5 rounded-2xl p-6 mb-6 shadow-sm border-l-4 border-amber-500"
+            className="bg-white dark:bg-white/5 rounded-2xl p-6 mb-6 shadow-sm dark:shadow-none border-l-4 border-amber-500"
           >
             <h3 className="text-lg font-semibold text-[#0A1A2F] dark:text-white mb-4 flex items-center gap-2">
               <TrendingUp className="w-5 h-5 text-amber-500" />

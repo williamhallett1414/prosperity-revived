@@ -52,7 +52,7 @@ function ConditionPill({ condition, selected, count, onClick }) {
       onClick={onClick}
       className={`flex-shrink-0 flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold transition-all ${
         selected
-          ? 'bg-gradient-to-b from-[#c9a227] to-[#FAD98D] text-white shadow-sm'
+          ? 'bg-gradient-to-b from-[#c9a227] to-[#FAD98D] text-white shadow-sm dark:shadow-none'
           : 'bg-white dark:bg-white/5 border border-[#FAD98D]/25 text-[#0A1A2F]/60 dark:text-white/60 hover:border-[#c9a227]/40'
       }`}
     >
@@ -139,7 +139,7 @@ export default function HealthRecipesTab({ recipes, user }) {
           onClick={() => setSelected(null)}
           className={`flex-shrink-0 flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold transition-all ${
             selected === null
-              ? 'bg-gradient-to-b from-[#c9a227] to-[#FAD98D] text-white shadow-sm'
+              ? 'bg-gradient-to-b from-[#c9a227] to-[#FAD98D] text-white shadow-sm dark:shadow-none'
               : 'bg-white dark:bg-white/5 border border-[#FAD98D]/25 text-[#0A1A2F]/60 dark:text-white/60 hover:border-[#c9a227]/40'
           }`}
         >

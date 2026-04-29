@@ -803,7 +803,7 @@ export default function Prayer() {
             <RefreshCw className={`w-4 h-4 text-white/50 ${isRefreshing ? 'animate-spin' : ''}`} />
           </button>
           <button onClick={() => { if (requireAuth(user, 'share a prayer request')) setShowNewPrayer(true); }}
-            className="flex items-center gap-1.5 px-4 py-2 rounded-full font-bold text-white text-xs shadow-lg transition-all active:scale-95"
+            className="flex items-center gap-1.5 px-4 py-2 rounded-full font-bold text-white text-xs shadow-lg dark:shadow-none transition-all active:scale-95"
             style={{ background: 'linear-gradient(135deg, #c9a227, #e8ba2e)' }}>
             <Plus className="w-3.5 h-3.5" strokeWidth={2.5} />
             Share Prayer
@@ -946,7 +946,7 @@ export default function Prayer() {
         <Link to={createPageUrl('ChatScreen?bot=Hannah')}>
           <div className="rounded-2xl p-4 flex items-center gap-4 transition-all active:scale-[0.98]"
             style={{ background: 'linear-gradient(135deg, rgba(56,189,248,0.12), rgba(14,165,233,0.06))', border: '1px solid rgba(56,189,248,0.18)' }}>
-            <div className="w-11 h-11 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg"
+            <div className="w-11 h-11 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg dark:shadow-none"
               style={{ background: 'linear-gradient(135deg, #38BDF8, #0EA5E9)', boxShadow: '0 4px 12px rgba(56,189,248,0.25)' }}>
               <Heart className="w-5 h-5 text-white" />
             </div>

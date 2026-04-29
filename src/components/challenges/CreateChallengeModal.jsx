@@ -83,7 +83,7 @@ const TYPE_STYLES = {
   prayer:      { emoji: '🙏', gradient: 'from-violet-500 to-purple-400',  bg: 'bg-violet-50 text-violet-700'  },
   reading:     { emoji: '📝', gradient: 'from-amber-500 to-yellow-400',   bg: 'bg-amber-50 text-amber-700'    },
   workouts:    { emoji: '💪', gradient: 'from-blue-600 to-sky-400',       bg: 'bg-blue-50 text-blue-700'      },
-  meditation:  { emoji: '📵', gradient: 'from-slate-600 to-slate-400',    bg: 'bg-slate-50 text-slate-700'    },
+  meditation:  { emoji: '📵', gradient: 'from-slate-600 to-slate-400',    bg: 'bg-slate-50 dark:bg-white/5 text-slate-700 dark:text-slate-200'    },
   water_intake:{ emoji: '🥗', gradient: 'from-green-600 to-lime-400',     bg: 'bg-green-50 text-green-700'    },
   custom:      { emoji: '🤝', gradient: 'from-emerald-600 to-teal-400',   bg: 'bg-emerald-50 text-emerald-700'},
 };
@@ -146,7 +146,7 @@ export default function CreateChallengeModal({ isOpen, onClose, onSubmit, groupI
                 initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.04 }}
                 className={`w-full text-left rounded-2xl border p-4 transition-all ${
                   isChosen
-                    ? 'border-[#c9a227] bg-white dark:bg-white/5 shadow-sm'
+                    ? 'border-[#c9a227] bg-white dark:bg-white/5 shadow-sm dark:shadow-none'
                     : 'border-[#F2F6FA] bg-white dark:bg-white/5 hover:border-[#FAD98D]/50'
                 }`}
               >

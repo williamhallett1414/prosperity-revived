@@ -169,7 +169,7 @@ Return ONLY a JSON array with this exact structure:
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: index * 0.05 }}
         >
-          <Card className="overflow-hidden hover:shadow-lg transition-shadow">
+          <Card className="overflow-hidden hover:shadow-lg dark:shadow-none transition-shadow">
             <div className={`h-2 bg-gradient-to-r ${getTypeColor(rec.type)}`} />
             <div className="p-4">
               <div className="flex items-start gap-3">
@@ -178,11 +178,11 @@ Return ONLY a JSON array with this exact structure:
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">
+                    <span className="text-xs font-semibold text-gray-500 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300 uppercase">
                       {rec.type}
                     </span>
                     {rec.difficulty && (
-                      <span className="text-xs bg-gray-100 dark:bg-gray-800 px-2 py-0.5 rounded">
+                      <span className="text-xs bg-gray-100 dark:bg-white/5 dark:bg-gray-800 px-2 py-0.5 rounded">
                         {rec.difficulty}
                       </span>
                     )}
@@ -190,7 +190,7 @@ Return ONLY a JSON array with this exact structure:
                   <h3 className="font-semibold text-[#0A1A2F] dark:text-white mb-1">
                     {rec.title}
                   </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                  <p className="text-sm text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300 mb-2">
                     {rec.description}
                   </p>
                   <div className="flex items-center gap-2 mb-3">

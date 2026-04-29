@@ -142,7 +142,7 @@ export default function ShareMilestoneModal({ user, onClose, onSuccess }) {
                 id="anonymous"
                 checked={formData.is_anonymous}
                 onChange={(e) => setFormData({ ...formData, is_anonymous: e.target.checked })}
-                className="w-4 h-4 rounded border-gray-300"
+                className="w-4 h-4 rounded border-gray-300 dark:border-white/15"
               />
               <Label htmlFor="anonymous" className="font-normal cursor-pointer">
                 Share anonymously (your name won't be shown)

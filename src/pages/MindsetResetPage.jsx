@@ -520,7 +520,7 @@ export default function MindsetResetPage() {
                         style={{ background: cat.color }}>
                                 {j + 1}
                               </div>
-                              <p className="text-sm text-[#0A1A2F]/75 leading-relaxed flex-1">{prompt}</p>
+                              <p className="text-sm text-[#0A1A2F]/75 dark:text-white/75 leading-relaxed flex-1">{prompt}</p>
                               <ChevronRight className="w-4 h-4 text-[#0A1A2F]/20 dark:text-white/20 group-hover:text-[#0A1A2F]/40 dark:text-white/40 transition-colors flex-shrink-0 mt-0.5" />
                             </button>
                       )}

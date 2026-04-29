@@ -39,7 +39,7 @@ export default function VolumeProgressChart({ sessions }) {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-center py-8 text-gray-500">
+          <div className="text-center py-8 text-gray-500 dark:text-gray-300">
             Complete workouts with weights to see your volume trends!
           </div>
         </CardContent>

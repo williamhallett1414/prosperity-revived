@@ -19,10 +19,10 @@ export default function ChallengeProgressChart({ progressLogs, goalValue, goalUn
   const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
       return (
-        <div className="bg-white dark:bg-white/5 p-3 rounded-lg shadow-lg border border-gray-100 dark:border-white/10">
-          <p className="font-semibold text-gray-900">{payload[0].payload.date}</p>
+        <div className="bg-white dark:bg-white/5 p-3 rounded-lg shadow-lg dark:shadow-none border border-gray-100 dark:border-white/10 dark:border-white/10">
+          <p className="font-semibold text-gray-900 dark:text-white">{payload[0].payload.date}</p>
           <p className="text-[#C9A227]">Total: {payload[0].value} {goalUnit}</p>
-          <p className="text-gray-600">Daily: +{payload[0].payload.daily} {goalUnit}</p>
+          <p className="text-gray-600 dark:text-gray-300">Daily: +{payload[0].payload.daily} {goalUnit}</p>
         </div>
       );
     }
@@ -31,7 +31,7 @@ export default function ChallengeProgressChart({ progressLogs, goalValue, goalUn
 
   if (!chartData.length) {
     return (
-      <div className="text-center py-8 text-gray-400">
+      <div className="text-center py-8 text-gray-400 dark:text-gray-300">
         <p>No progress data yet. Start logging your progress!</p>
       </div>
     );

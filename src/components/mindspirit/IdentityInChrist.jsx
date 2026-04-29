@@ -103,7 +103,7 @@ export default function IdentityInChrist() {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="mt-4 pt-4 border-t border-gray-200 dark:border-white/10"
+              className="mt-4 pt-4 border-t border-gray-200 dark:border-white/10 dark:border-white/10"
             >
               <p className="text-sm text-[#0A1A2F] dark:text-white leading-relaxed">
                 {todaysTruth.explanation}

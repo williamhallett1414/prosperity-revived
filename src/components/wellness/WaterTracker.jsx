@@ -40,13 +40,13 @@ export default function WaterTracker() {
         <Droplets className="w-6 h-6 text-[#AFC7E3]" />
         <div className="flex-1">
           <h3 className="font-semibold text-[#0A1A2F] dark:text-white dark:text-white">Water Intake</h3>
-          <p className="text-xs text-gray-500 dark:text-gray-400">Goal: {goal} glasses</p>
+          <p className="text-xs text-gray-500 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">Goal: {goal} glasses</p>
         </div>
       </div>
 
       <div className="mb-4">
         <div className="flex items-center justify-between mb-2">
-          <span className="text-sm text-gray-600 dark:text-gray-400">{glasses} / {goal} glasses</span>
+          <span className="text-sm text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">{glasses} / {goal} glasses</span>
           <span className="text-sm font-medium text-[#AFC7E3]">{Math.round(percentage)}%</span>
         </div>
         <Progress value={percentage} className="h-3" />
@@ -65,7 +65,7 @@ export default function WaterTracker() {
         
         <div className="text-center">
           <div className="text-4xl font-bold text-[#AFC7E3]">{glasses}</div>
-          <div className="text-xs text-gray-500 dark:text-gray-400">glasses</div>
+          <div className="text-xs text-gray-500 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">glasses</div>
         </div>
 
         <Button

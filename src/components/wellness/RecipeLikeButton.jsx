@@ -63,10 +63,10 @@ export default function RecipeLikeButton({ recipe }) {
         className="gap-1"
       >
         <Heart
-          className={`w-4 h-4 ${userHasLiked ? 'fill-red-500 text-red-500' : 'text-gray-500'}`}
+          className={`w-4 h-4 ${userHasLiked ? 'fill-red-500 text-red-500' : 'text-gray-500 dark:text-gray-300'}`}
         />
         {likeCount > 0 && (
-          <span className={`text-xs ${userHasLiked ? 'text-red-500' : 'text-gray-500'}`}>
+          <span className={`text-xs ${userHasLiked ? 'text-red-500' : 'text-gray-500 dark:text-gray-300'}`}>
             {likeCount}
           </span>
         )}

@@ -39,7 +39,7 @@ export default function ProfileHeader({ user, friendsCount, userProgress }) {
   };
 
   return (
-    <div className="bg-white dark:bg-white/5 shadow-sm">
+    <div className="bg-white dark:bg-white/5 shadow-sm dark:shadow-none">
       {/* Cover Photo */}
       <div className="relative h-64 sm:h-80 lg:h-96 bg-gradient-to-br from-[#3C4E53] via-[#FD9C2D] to-[#FAD98D] overflow-hidden">
         {user?.cover_image_url ?
@@ -53,9 +53,9 @@ export default function ProfileHeader({ user, friendsCount, userProgress }) {
         }
         <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
         
-        <label className="absolute bottom-4 right-4 bg-white dark:bg-white/5 rounded-lg px-4 py-2.5 shadow-lg cursor-pointer hover:bg-gray-50 dark:bg-white/5 transition-all flex items-center gap-2 hover:shadow-xl">
-          <Camera className="w-4 h-4 text-gray-700" />
-          <span className="text-sm font-semibold text-gray-800">
+        <label className="absolute bottom-4 right-4 bg-white dark:bg-white/5 rounded-lg px-4 py-2.5 shadow-lg dark:shadow-none cursor-pointer hover:bg-gray-50 dark:bg-white/5 transition-all flex items-center gap-2 hover:shadow-xl">
+          <Camera className="w-4 h-4 text-gray-700 dark:text-gray-200" />
+          <span className="text-sm font-semibold text-gray-800 dark:text-gray-100">
             {uploadingCover ? 'Uploading...' : 'Edit Cover'}
           </span>
           <input
@@ -88,8 +88,8 @@ export default function ProfileHeader({ user, friendsCount, userProgress }) {
                 }
               </div>
               
-              <label className="absolute bottom-1 right-1 bg-white dark:bg-white/5 rounded-full p-2.5 shadow-lg cursor-pointer hover:bg-gray-50 dark:bg-white/5 transition-all hover:scale-105">
-                <Camera className="w-4 h-4 sm:w-5 sm:h-5 text-gray-700" />
+              <label className="absolute bottom-1 right-1 bg-white dark:bg-white/5 rounded-full p-2.5 shadow-lg dark:shadow-none cursor-pointer hover:bg-gray-50 dark:bg-white/5 transition-all hover:scale-105">
+                <Camera className="w-4 h-4 sm:w-5 sm:h-5 text-gray-700 dark:text-gray-200" />
                 <input
                   type="file"
                   accept="image/*"
@@ -101,12 +101,12 @@ export default function ProfileHeader({ user, friendsCount, userProgress }) {
             </div>
 
             <div className="text-center sm:text-left pb-2">
-              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-1">
+              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-1">
                 {user?.full_name || 'User'}
               </h1>
-              <p className="text-gray-600 font-medium text-sm sm:text-base">{friendsCount} {friendsCount === 1 ? 'friend' : 'friends'}</p>
+              <p className="text-gray-600 dark:text-gray-300 font-medium text-sm sm:text-base">{friendsCount} {friendsCount === 1 ? 'friend' : 'friends'}</p>
               {user?.bio &&
-              <p className="text-gray-600 text-sm mt-2 max-w-md leading-relaxed">{user.bio}</p>
+              <p className="text-gray-600 dark:text-gray-300 text-sm mt-2 max-w-md leading-relaxed">{user.bio}</p>
               }
             </div>
           </div>
@@ -114,12 +114,12 @@ export default function ProfileHeader({ user, friendsCount, userProgress }) {
           {/* Action Buttons */}
           <div className="flex gap-2 justify-center sm:justify-end flex-wrap">
             <Link to={createPageUrl('Messages')}>
-              <Button className="bg-gradient-to-br from-[#c9a227] to-[#FAD98D] hover:opacity-90 text-white px-5 py-2.5 shadow-sm hover:shadow-md transition-all">
+              <Button className="bg-gradient-to-br from-[#c9a227] to-[#FAD98D] hover:opacity-90 text-white px-5 py-2.5 shadow-sm dark:shadow-none hover:shadow-md dark:shadow-none transition-all">
                 <MessageCircle className="w-4 h-4 mr-2" />
                 Message
               </Button>
             </Link>
-            <Button className="px-5 py-2.5 bg-gradient-to-br from-[#3C4E53] to-[#AFC7E3] hover:opacity-90 text-white font-medium shadow-sm hover:shadow-md transition-all">
+            <Button className="px-5 py-2.5 bg-gradient-to-br from-[#3C4E53] to-[#AFC7E3] hover:opacity-90 text-white font-medium shadow-sm dark:shadow-none hover:shadow-md dark:shadow-none transition-all">
               <UserPlus className="w-4 h-4 mr-2" />
               Add Friend
             </Button>
@@ -135,15 +135,15 @@ export default function ProfileHeader({ user, friendsCount, userProgress }) {
 
             <div className="max-w-3xl mx-auto sm:mx-0">
               {user?.status_message &&
-            <p className="text-gray-700 text-center sm:text-left mb-3 italic text-sm sm:text-base">
+            <p className="text-gray-700 dark:text-gray-200 text-center sm:text-left mb-3 italic text-sm sm:text-base">
                   "{user.status_message}"
                 </p>
             }
               {user?.spiritual_goal &&
             <div className="flex items-start gap-2.5 text-sm bg-gradient-to-br from-[#FAD98D]/20 to-[#AFC7E3]/20 border border-[#FAD98D]/40 rounded-lg p-3">
                  <Sparkles className="w-5 h-5 text-[#FD9C2D] mt-0.5 flex-shrink-0" />
-                  <p className="text-gray-700">
-                    <span className="font-bold text-gray-900">Spiritual Goal:</span> {user.spiritual_goal}
+                  <p className="text-gray-700 dark:text-gray-200">
+                    <span className="font-bold text-gray-900 dark:text-white">Spiritual Goal:</span> {user.spiritual_goal}
                   </p>
                 </div>
             }

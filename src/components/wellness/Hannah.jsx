@@ -147,7 +147,7 @@ When the user mentions stress, anxiety, or specific goals, proactively recommend
       {/* Floating Chat Button */}
       <motion.button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-24 right-4 w-14 h-14 bg-[#AFC7E3] hover:bg-[#AFC7E3]/90 text-[#0A1A2F] dark:text-white rounded-full shadow-lg flex items-center justify-center z-50"
+        className="fixed bottom-24 right-4 w-14 h-14 bg-[#AFC7E3] hover:bg-[#AFC7E3]/90 text-[#0A1A2F] dark:text-white rounded-full shadow-lg dark:shadow-none flex items-center justify-center z-50"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
         initial={{ scale: 0 }}
@@ -199,7 +199,7 @@ When the user mentions stress, anxiety, or specific goals, proactively recommend
                     className={`max-w-[80%] rounded-2xl px-4 py-3 ${
                       message.role === 'user'
                         ? 'bg-gradient-to-r from-[#AFC7E3] to-[#FAD98D] text-[#0A1A2F] dark:text-white dark:text-white'
-                        : 'bg-gray-100 text-[#0A1A2F] dark:text-white dark:text-white'
+                        : 'bg-gray-100 dark:bg-white/5 text-[#0A1A2F] dark:text-white dark:text-white'
                     }`}
                   >
                     <p className="text-sm whitespace-pre-wrap leading-relaxed">{message.content}</p>
@@ -208,7 +208,7 @@ When the user mentions stress, anxiety, or specific goals, proactively recommend
               ))}
               {isLoading && (
                 <div className="flex justify-start">
-                  <div className="bg-gray-100 rounded-2xl px-4 py-3">
+                  <div className="bg-gray-100 dark:bg-white/5 rounded-2xl px-4 py-3">
                     <Loader2 className="w-5 h-5 animate-spin text-[#AFC7E3]" />
                   </div>
                 </div>
@@ -224,7 +224,7 @@ When the user mentions stress, anxiety, or specific goals, proactively recommend
                       onClick={() => {
                         setInput(action);
                       }}
-                      className="block w-full text-left text-sm px-4 py-3 rounded-xl bg-white dark:bg-white/5 hover:bg-gray-100 text-[#0A1A2F] dark:text-white transition-colors shadow-sm"
+                      className="block w-full text-left text-sm px-4 py-3 rounded-xl bg-white dark:bg-white/5 hover:bg-gray-100 dark:bg-white/5 text-[#0A1A2F] dark:text-white transition-colors shadow-sm dark:shadow-none"
                     >
                       {action}
                     </button>

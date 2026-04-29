@@ -211,7 +211,7 @@ export default function PersonalGrowthGoalsPage() {
             <button key={tab.id} onClick={() => setActiveTab(tab.id)}
               className={`flex items-center gap-1.5 px-4 py-2.5 text-xs font-semibold flex-shrink-0 rounded-lg transition-all ${
                 activeTab === tab.id 
-                  ? 'bg-[#3C4E53] text-white shadow-sm' 
+                  ? 'bg-[#3C4E53] text-white shadow-sm dark:shadow-none' 
                   : 'text-[#0A1A2F]/50 dark:text-white/50 hover:bg-[#AFC7E3]/15 hover:text-[#3C4E53]'
               }`}
             >
@@ -229,7 +229,7 @@ export default function PersonalGrowthGoalsPage() {
 
         {/* ── Hero ── */}
         <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}>
-          <div className="rounded-3xl p-5 relative overflow-hidden shadow-lg"
+          <div className="rounded-3xl p-5 relative overflow-hidden shadow-lg dark:shadow-none"
             style={{ background: 'linear-gradient(135deg, #3C4E53 0%, #2a3840 60%, #AFC7E3 260%)' }}>
             <div className="absolute -right-8 -top-8 w-44 h-44 rounded-full bg-white/5" />
             <div className="absolute right-4 bottom-2 w-20 h-20 rounded-full bg-[#AFC7E3]/8" />
@@ -279,7 +279,7 @@ export default function PersonalGrowthGoalsPage() {
         {/* ── 90-day goal ── */}
         {goalText && (
           <motion.div id="tour-growth-goal-text" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.06 }}
-            className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm">
+            className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm dark:shadow-none">
             <div className="flex items-center gap-2 mb-3">
               <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#EFF9FF]">
                 <Target className="w-4 h-4 text-[#AFC7E3]" />
@@ -296,7 +296,7 @@ export default function PersonalGrowthGoalsPage() {
         {/* ── Your Why / Motivations ── */}
         {motivations.length > 0 && (
           <motion.div id="tour-growth-motivations" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }}
-            className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm">
+            className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm dark:shadow-none">
             <div className="flex items-center gap-2 mb-3">
               <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#EFF9FF]">
                 <Heart className="w-4 h-4 text-[#AFC7E3]" />
@@ -321,7 +321,7 @@ export default function PersonalGrowthGoalsPage() {
         {/* ── Life stage ── */}
         {stageInfo && (
           <motion.div id="tour-life-stage" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.10 }}
-            className="flex items-center gap-4 bg-white dark:bg-white/5 rounded-2xl px-5 py-4 shadow-sm">
+            className="flex items-center gap-4 bg-white dark:bg-white/5 rounded-2xl px-5 py-4 shadow-sm dark:shadow-none">
             <span className="text-3xl">{stageInfo.emoji}</span>
             <div>
               <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">{stageInfo.label}</p>
@@ -333,7 +333,7 @@ export default function PersonalGrowthGoalsPage() {
         {/* ── Growth areas (expandable) ── */}
         {growthAreas.length > 0 && (
           <motion.div id="tour-growth-areas" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.12 }}
-            className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm">
+            className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm dark:shadow-none">
             <div className="flex items-center gap-2 mb-4">
               <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#EFF9FF]">
                 <Brain className="w-4 h-4 text-[#AFC7E3]" />
@@ -392,7 +392,7 @@ export default function PersonalGrowthGoalsPage() {
         {/* ── Core values ── */}
         {coreValues.length > 0 && (
           <motion.div id="tour-core-values" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.16 }}
-            className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm">
+            className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm dark:shadow-none">
             <div className="flex items-center gap-2 mb-4">
               <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#EFF9FF]">
                 <Star className="w-4 h-4 text-[#AFC7E3]" />
@@ -430,7 +430,7 @@ export default function PersonalGrowthGoalsPage() {
 
         {/* ── Coaching style ── */}
         <motion.div id="tour-coaching-style" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.20 }}
-          className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm">
+          className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm dark:shadow-none">
           <div className="flex items-center gap-2 mb-3">
             <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#EFF9FF]">
               <Compass className="w-4 h-4 text-[#AFC7E3]" />
@@ -458,7 +458,7 @@ export default function PersonalGrowthGoalsPage() {
         {/* ── Recommended daily tools ── */}
         {recommendedTools.length > 0 && (
           <motion.div id="tour-growth-tools" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.24 }}
-            className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm">
+            className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm dark:shadow-none">
             <div className="flex items-center gap-2 mb-4">
               <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#EFF9FF]">
                 <Zap className="w-4 h-4 text-[#AFC7E3]" />
@@ -476,7 +476,7 @@ export default function PersonalGrowthGoalsPage() {
 
         {/* ── All daily tools shortcut ── */}
         <motion.div id="tour-all-tools" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.28 }}
-          className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm">
+          className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm dark:shadow-none">
           <div className="flex items-center gap-2 mb-3">
             <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#EFF9FF]">
               <Sparkles className="w-4 h-4 text-[#AFC7E3]" />
@@ -522,7 +522,7 @@ export default function PersonalGrowthGoalsPage() {
               { icon: '💬', label: 'Chat w/ Hannah',     page: 'ChatScreen?bot=Hannah'     },
             ].map(({ icon, label, page }) => (
               <Link key={page} to={createPageUrl(page)}
-                className="flex items-center gap-2.5 bg-white dark:bg-white/5 rounded-2xl p-3.5 shadow-sm border border-gray-50 dark:border-white/5 active:scale-97 transition-all">
+                className="flex items-center gap-2.5 bg-white dark:bg-white/5 rounded-2xl p-3.5 shadow-sm dark:shadow-none border border-gray-50 dark:border-white/5 active:scale-97 transition-all">
                 <span className="text-xl">{icon}</span>
                 <span className="text-xs font-bold text-[#0A1A2F] dark:text-white leading-tight">{label}</span>
               </Link>

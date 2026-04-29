@@ -51,7 +51,7 @@ export default function MeditationAdmin() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-gray-600 mb-4">{med.description}</p>
+              <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">{med.description}</p>
               <Button
                 onClick={() => generateAudio.mutate(med)}
                 disabled={generateAudio.isPending}

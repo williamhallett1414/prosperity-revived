@@ -61,7 +61,7 @@ export default function JournalEntryModal({ isOpen, onClose }) {
               <h2 className="text-lg font-bold text-[#0A1A2F] dark:text-white dark:text-white">New Journal Entry</h2>
               <button
                 onClick={onClose}
-                className="p-1 hover:bg-gray-100 rounded-lg transition-colors"
+                className="p-1 hover:bg-gray-100 dark:bg-white/5 rounded-lg transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>

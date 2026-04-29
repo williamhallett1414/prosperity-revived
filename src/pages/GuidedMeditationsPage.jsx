@@ -376,7 +376,7 @@ function MeditationCard({ med, isFav, isRecent, onPlay, onToggleFav, index }) {
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.04 }}
-      className="bg-white dark:bg-white/5 rounded-2xl border border-[#F2F6FA] overflow-hidden group hover:shadow-md hover:border-[#FAD98D]/40 transition-all cursor-pointer"
+      className="bg-white dark:bg-white/5 rounded-2xl border border-[#F2F6FA] overflow-hidden group hover:shadow-md dark:shadow-none hover:border-[#FAD98D]/40 transition-all cursor-pointer"
       onClick={() => onPlay(med)}
     >
       {/* Gradient accent bar */}
@@ -486,7 +486,7 @@ export default function GuidedMeditationsPage() {
             <motion.button
               whileTap={{ scale: 0.98 }}
               onClick={() => setPlaying(recommended)}
-              className={`w-full text-left bg-gradient-to-br ${recommended.gradient} rounded-3xl p-5 shadow-lg hover:opacity-95 transition-opacity`}
+              className={`w-full text-left bg-gradient-to-br ${recommended.gradient} rounded-3xl p-5 shadow-lg dark:shadow-none hover:opacity-95 transition-opacity`}
             >
               <div className="flex items-start gap-4">
                 <motion.span
@@ -521,7 +521,7 @@ export default function GuidedMeditationsPage() {
                     key={med.id}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => setPlaying(med)}
-                    className={`flex-shrink-0 bg-gradient-to-br ${med.gradient} rounded-2xl p-3.5 w-36 text-left shadow-sm hover:shadow-md transition-shadow`}
+                    className={`flex-shrink-0 bg-gradient-to-br ${med.gradient} rounded-2xl p-3.5 w-36 text-left shadow-sm dark:shadow-none hover:shadow-md dark:shadow-none transition-shadow`}
                   >
                     <span className="text-2xl block mb-2">{med.theme}</span>
                     <p className="text-white font-bold text-xs leading-snug truncate">{med.title}</p>

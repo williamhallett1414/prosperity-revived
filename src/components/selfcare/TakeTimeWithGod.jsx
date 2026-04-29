@@ -26,7 +26,7 @@ export default function TakeTimeWithGod() {
 
             🌬️
           </motion.div>
-          <p className="text-gray-600 text-lg">
+          <p className="text-gray-600 dark:text-gray-300 text-lg">
             Breathe deeply and slowly. Let peace wash over you.
           </p>
         </div>
@@ -38,7 +38,7 @@ export default function TakeTimeWithGod() {
     content:
     <div className="text-center">
           <div className="text-6xl mb-4">📖</div>
-          <p className="text-gray-800 font-serif italic text-xl mb-4">
+          <p className="text-gray-800 dark:text-gray-100 font-serif italic text-xl mb-4">
             "Come to me, all who are weary and burdened, and I will give you rest."
           </p>
           <p className="text-[#FD9C2D] font-semibold">Matthew 11:28</p>
@@ -51,7 +51,7 @@ export default function TakeTimeWithGod() {
     content:
     <div className="text-center">
           <div className="text-6xl mb-4">🙏</div>
-          <p className="text-gray-800 font-serif text-lg leading-relaxed">
+          <p className="text-gray-800 dark:text-gray-100 font-serif text-lg leading-relaxed">
             Lord, thank You for this sacred pause.
             <br />
             Fill me with Your presence.
@@ -70,14 +70,14 @@ export default function TakeTimeWithGod() {
     content:
     <div className="text-center">
           <div className="text-6xl mb-4">✨</div>
-          <p className="text-gray-800 text-lg leading-relaxed mb-4">
+          <p className="text-gray-800 dark:text-gray-100 text-lg leading-relaxed mb-4">
             You are <span className="font-bold text-[#FD9C2D]">chosen</span>.
             <br />
             You are <span className="font-bold text-[#FD9C2D]">loved</span>.
             <br />
             You are <span className="font-bold text-[#FD9C2D]">strengthened</span> by Him.
           </p>
-          <p className="text-gray-600 text-sm italic">
+          <p className="text-gray-600 dark:text-gray-300 text-sm italic">
             Go forth in peace and confidence.
           </p>
         </div>
@@ -108,7 +108,7 @@ export default function TakeTimeWithGod() {
         className="mb-8">
 
         <Button
-          onClick={() => setShowModal(true)} className="bg-slate-50 text-[#3C4E53] px-4 py-2 text-xl font-bold rounded-2xl inline-flex items-center justify-center gap-2 whitespace-nowrap transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover:bg-primary/90 w-full h-24 from-[#FD9C2D] to-[#FAD98D] hover:from-[#FD9C2D]/90 hover:to-[#FAD98D]/90 shadow-xl">
+          onClick={() => setShowModal(true)} className="bg-slate-50 dark:bg-white/5 text-[#3C4E53] px-4 py-2 text-xl font-bold rounded-2xl inline-flex items-center justify-center gap-2 whitespace-nowrap transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover:bg-primary/90 w-full h-24 from-[#FD9C2D] to-[#FAD98D] hover:from-[#FD9C2D]/90 hover:to-[#FAD98D]/90 shadow-xl">
 
 
           <div className="flex flex-col items-center">
@@ -135,7 +135,7 @@ export default function TakeTimeWithGod() {
 
             <button
             onClick={handleClose}
-            className="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
+            className="absolute top-4 right-4 text-gray-400 dark:text-gray-300 hover:text-gray-600 dark:text-gray-300">
 
               <X className="w-6 h-6" />
             </button>
@@ -151,7 +151,7 @@ export default function TakeTimeWithGod() {
                 <h2 className="text-2xl font-bold text-[#0A1A2F] dark:text-white mb-2 text-center">
                   {steps[step].title}
                 </h2>
-                <p className="text-gray-500 text-sm mb-6 text-center">
+                <p className="text-gray-500 dark:text-gray-300 text-sm mb-6 text-center">
                   {steps[step].subtitle}
                 </p>
                 <div className="mb-8">

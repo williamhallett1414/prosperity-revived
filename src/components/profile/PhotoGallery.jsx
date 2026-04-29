@@ -125,8 +125,8 @@ export default function PhotoGallery() {
 
       {photos.length === 0 ? (
         <div className="bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-2xl p-8 text-center">
-          <ImageIcon className="w-12 h-12 text-gray-300 dark:text-gray-600 mx-auto mb-3" />
-          <p className="text-gray-500 dark:text-gray-400 mb-4">No photos yet</p>
+          <ImageIcon className="w-12 h-12 text-gray-300 dark:text-gray-400 dark:text-gray-300 dark:text-gray-600 dark:text-gray-300 mx-auto mb-3" />
+          <p className="text-gray-500 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300 mb-4">No photos yet</p>
           <Button
             onClick={() => setShowAddPhoto(true)}
             variant="outline"
@@ -249,12 +249,12 @@ export default function PhotoGallery() {
               </div>
               {(selectedPhoto.caption || selectedPhoto.title) && (
                 <div className="p-4">
-                  <p className="text-gray-700 dark:text-gray-300">{selectedPhoto.caption || selectedPhoto.title}</p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-2 capitalize">From {selectedPhoto.source}</p>
+                  <p className="text-gray-700 dark:text-gray-200 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">{selectedPhoto.caption || selectedPhoto.title}</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300 mt-2 capitalize">From {selectedPhoto.source}</p>
                 </div>
               )}
               <div className="p-4 border-t border-gray-200 dark:border-white/10 dark:border-gray-700 flex justify-between items-center">
-                <p className="text-sm text-gray-500 dark:text-gray-400">
+                <p className="text-sm text-gray-500 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">
                   {new Date(selectedPhoto.created_date).toLocaleDateString()}
                 </p>
                 <Button

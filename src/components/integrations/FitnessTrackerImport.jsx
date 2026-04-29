@@ -132,8 +132,8 @@ ${dataToProcess}`,
         <div className="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
           <Check className="w-7 h-7 text-green-600" />
         </div>
-        <h3 className="font-bold text-gray-900 mb-1">Data Imported!</h3>
-        <p className="text-sm text-gray-500 mb-4">Coach David now has context from your {selectedTracker?.name} data to give you more accurate recovery and performance advice.</p>
+        <h3 className="font-bold text-gray-900 dark:text-white mb-1">Data Imported!</h3>
+        <p className="text-sm text-gray-500 dark:text-gray-300 mb-4">Coach David now has context from your {selectedTracker?.name} data to give you more accurate recovery and performance advice.</p>
         <Button variant="outline" size="sm" onClick={() => { setSuccess(false); setSelectedTracker(null); setFile(null); setManualText(''); }}>
           Import More
         </Button>
@@ -150,7 +150,7 @@ ${dataToProcess}`,
 
       {!selectedTracker ? (
         <div className="space-y-2">
-          <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Choose Source</p>
+          <p className="text-xs font-semibold text-gray-500 dark:text-gray-300 uppercase tracking-wider">Choose Source</p>
           {TRACKER_OPTIONS.map(tracker => (
             <button
               key={tracker.id}
@@ -159,10 +159,10 @@ ${dataToProcess}`,
             >
               <span className="text-2xl">{tracker.icon}</span>
               <div className="flex-1 min-w-0">
-                <p className="font-semibold text-sm text-gray-900">{tracker.name}</p>
-                <p className="text-xs text-gray-500 truncate">{tracker.description}</p>
+                <p className="font-semibold text-sm text-gray-900 dark:text-white">{tracker.name}</p>
+                <p className="text-xs text-gray-500 dark:text-gray-300 truncate">{tracker.description}</p>
               </div>
-              <ChevronRight className="w-4 h-4 text-gray-400 flex-shrink-0" />
+              <ChevronRight className="w-4 h-4 text-gray-400 dark:text-gray-300 flex-shrink-0" />
             </button>
           ))}
         </div>
@@ -173,16 +173,16 @@ ${dataToProcess}`,
           <div className="flex items-center gap-2">
             <span className="text-2xl">{selectedTracker.icon}</span>
             <div>
-              <p className="font-bold text-gray-900">{selectedTracker.name}</p>
-              <p className="text-xs text-gray-500">{selectedTracker.format}</p>
+              <p className="font-bold text-gray-900 dark:text-white">{selectedTracker.name}</p>
+              <p className="text-xs text-gray-500 dark:text-gray-300">{selectedTracker.format}</p>
             </div>
           </div>
 
-          <div className="bg-gray-50 dark:bg-white/5 rounded-xl p-3">
-            <p className="text-xs font-semibold text-gray-600 mb-2">How to export:</p>
+          <div className="bg-gray-50 dark:bg-white/5 dark:text-white rounded-xl p-3">
+            <p className="text-xs font-semibold text-gray-600 dark:text-gray-300 mb-2">How to export:</p>
             <ol className="space-y-1">
               {selectedTracker.instructions.map((step, i) => (
-                <li key={i} className="text-xs text-gray-600 flex gap-2">
+                <li key={i} className="text-xs text-gray-600 dark:text-gray-300 flex gap-2">
                   <span className="font-bold text-sky-500 flex-shrink-0">{i + 1}.</span>
                   {step}
                 </li>
@@ -199,9 +199,9 @@ ${dataToProcess}`,
             />
           ) : (
             <label className="flex flex-col items-center justify-center gap-2 border-2 border-dashed border-gray-200 dark:border-white/10 rounded-xl p-6 cursor-pointer hover:border-sky-300 hover:bg-sky-50 transition-all">
-              <Upload className="w-6 h-6 text-gray-400" />
-              <span className="text-sm text-gray-600">{file ? file.name : 'Click to upload your export file'}</span>
-              <span className="text-xs text-gray-400">{selectedTracker.format}</span>
+              <Upload className="w-6 h-6 text-gray-400 dark:text-gray-300" />
+              <span className="text-sm text-gray-600 dark:text-gray-300">{file ? file.name : 'Click to upload your export file'}</span>
+              <span className="text-xs text-gray-400 dark:text-gray-300">{selectedTracker.format}</span>
               <input type="file" className="hidden" accept=".csv,.xml,.txt,.json" onChange={handleFileChange} />
             </label>
           )}

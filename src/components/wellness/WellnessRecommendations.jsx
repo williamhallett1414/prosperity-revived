@@ -80,7 +80,7 @@ export default function WellnessRecommendations({ user }) {
         transition={{ delay: 0.2 }}
       >
         <Link to={createPageUrl('DiscoverRecipes')}>
-          <div className="bg-gradient-to-br from-[#FAD98D] to-[#AFC7E3] rounded-2xl p-5 text-[#0A1A2F] dark:text-white cursor-pointer hover:shadow-lg transition-shadow">
+          <div className="bg-gradient-to-br from-[#FAD98D] to-[#AFC7E3] rounded-2xl p-5 text-[#0A1A2F] dark:text-white cursor-pointer hover:shadow-lg dark:shadow-none transition-shadow">
             <div className="flex items-center gap-3 mb-2">
               <UtensilsCrossed className="w-6 h-6" />
               <h3 className="text-lg font-semibold">Discover Recipes</h3>
@@ -139,7 +139,7 @@ export default function WellnessRecommendations({ user }) {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.05 }}
-                className="bg-white dark:bg-white/5 rounded-xl p-3 border border-gray-200 dark:border-white/10 shadow-sm hover:shadow-md transition-all cursor-pointer"
+                className="bg-white dark:bg-white/5 rounded-xl p-3 border border-gray-200 dark:border-white/10 shadow-sm dark:shadow-none hover:shadow-md dark:shadow-none transition-all cursor-pointer"
                 onClick={() => navigate(createPageUrl(`ChallengeDetailPage?id=${challenge.id}`))}
               >
                 <div className="flex flex-col items-center text-center gap-2">

@@ -55,12 +55,12 @@ export default function PhotosTab({ user }) {
 
   if (photos.length === 0) {
     return (
-      <div className="bg-white dark:bg-white/5 rounded-xl shadow-sm p-12 sm:p-16 text-center border border-gray-100 dark:border-white/10">
-        <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+      <div className="bg-white dark:bg-white/5 rounded-xl shadow-sm dark:shadow-none p-12 sm:p-16 text-center border border-gray-100 dark:border-white/10 dark:border-white/10">
+        <div className="w-20 h-20 bg-gray-100 dark:bg-white/5 rounded-full flex items-center justify-center mx-auto mb-4">
           <span className="text-4xl">📸</span>
         </div>
-        <p className="text-gray-600 text-lg font-semibold">No photos yet</p>
-        <p className="text-gray-400 text-sm mt-2 mb-4">Photos you upload will appear here</p>
+        <p className="text-gray-600 dark:text-gray-300 text-lg font-semibold">No photos yet</p>
+        <p className="text-gray-400 dark:text-gray-300 text-sm mt-2 mb-4">Photos you upload will appear here</p>
         <Button
           onClick={() => setShowUploadModal(true)}
           className="bg-gradient-to-br from-[#c9a227] to-[#FAD98D] hover:opacity-90 text-white"
@@ -77,10 +77,10 @@ export default function PhotosTab({ user }) {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="bg-white dark:bg-white/5 rounded-xl shadow-sm p-6 border border-gray-100 dark:border-white/10"
+        className="bg-white dark:bg-white/5 rounded-xl shadow-sm dark:shadow-none p-6 border border-gray-100 dark:border-white/10 dark:border-white/10"
       >
         <div className="mb-6 flex items-center justify-between">
-          <h2 className="text-2xl font-bold text-gray-900">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
             {photos.length} {photos.length === 1 ? 'Photo' : 'Photos'}
           </h2>
           <Button
@@ -99,7 +99,7 @@ export default function PhotosTab({ user }) {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: index * 0.03 }}
-            className="relative overflow-hidden rounded-xl bg-gray-200 aspect-square group cursor-pointer shadow-sm hover:shadow-lg transition-all"
+            className="relative overflow-hidden rounded-xl bg-gray-200 aspect-square group cursor-pointer shadow-sm dark:shadow-none hover:shadow-lg dark:shadow-none transition-all"
           >
             {photo.image_url && (
               <img
@@ -109,7 +109,7 @@ export default function PhotosTab({ user }) {
               />
             )}
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-3">
-              <p className="text-white text-xs font-semibold drop-shadow-md">
+              <p className="text-white text-xs font-semibold drop-shadow-md dark:shadow-none">
                 {photo.created_date ? new Date(photo.created_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'Recent'}
               </p>
             </div>
@@ -126,14 +126,14 @@ export default function PhotosTab({ user }) {
         <div className="space-y-4 py-4">
           <label
             htmlFor="photo-upload"
-            className="flex flex-col items-center justify-center w-full h-64 border-2 border-dashed border-gray-300 rounded-xl cursor-pointer bg-gray-50 dark:bg-white/5 hover:bg-gray-100 transition-colors"
+            className="flex flex-col items-center justify-center w-full h-64 border-2 border-dashed border-gray-300 dark:border-white/15 rounded-xl cursor-pointer bg-gray-50 dark:bg-white/5 hover:bg-gray-100 dark:bg-white/5 transition-colors"
           >
             <div className="flex flex-col items-center justify-center pt-5 pb-6">
-              <Upload className="w-10 h-10 text-gray-400 mb-3" />
-              <p className="mb-2 text-sm text-gray-500">
+              <Upload className="w-10 h-10 text-gray-400 dark:text-gray-300 mb-3" />
+              <p className="mb-2 text-sm text-gray-500 dark:text-gray-300">
                 <span className="font-semibold">Click to upload</span>
               </p>
-              <p className="text-xs text-gray-400">PNG, JPG, GIF up to 10MB</p>
+              <p className="text-xs text-gray-400 dark:text-gray-300">PNG, JPG, GIF up to 10MB</p>
             </div>
             <input
               id="photo-upload"
@@ -147,7 +147,7 @@ export default function PhotosTab({ user }) {
           {uploading && (
             <div className="text-center">
               <div className="animate-spin w-6 h-6 border-4 border-[#FAD98D] border-t-transparent rounded-full mx-auto" />
-              <p className="text-sm text-gray-500 mt-2">Uploading...</p>
+              <p className="text-sm text-gray-500 dark:text-gray-300 mt-2">Uploading...</p>
             </div>
           )}
         </div>

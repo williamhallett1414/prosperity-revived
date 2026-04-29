@@ -3173,7 +3173,7 @@ export default function StudyGuideArticle({ guide, onBack }) {
   const SectionHeader = ({ title, section, isExpanded }) => (
     <button
       onClick={() => toggleSection(section)}
-      className="w-full flex items-center justify-between p-4 bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white rounded-lg hover:shadow-lg transition-all duration-300"
+      className="w-full flex items-center justify-between p-4 bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white rounded-lg hover:shadow-lg dark:shadow-none transition-all duration-300"
     >
       <h2 className="text-lg font-semibold flex items-center gap-3">
         <BookOpen className="w-5 h-5" />
@@ -3219,7 +3219,7 @@ export default function StudyGuideArticle({ guide, onBack }) {
           <SectionHeader title="Introduction" section="introduction" isExpanded={expandedSections.introduction} />
           {expandedSections.introduction && (
             <>
-              <Card className="p-6 mt-2 space-y-4 text-[#0A1A2F]/75 leading-relaxed">
+              <Card className="p-6 mt-2 space-y-4 text-[#0A1A2F]/75 dark:text-white/75 leading-relaxed">
                 {content.introduction.map((paragraph, index) => (
                   <p key={index}>{paragraph}</p>
                 ))}
@@ -3235,7 +3235,7 @@ export default function StudyGuideArticle({ guide, onBack }) {
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="mt-4">
           <SectionHeader title="Historical Context" section="historicalContext" isExpanded={expandedSections.historicalContext} />
           {expandedSections.historicalContext && (
-            <Card className="p-6 mt-2 space-y-4 text-[#0A1A2F]/75 leading-relaxed">
+            <Card className="p-6 mt-2 space-y-4 text-[#0A1A2F]/75 dark:text-white/75 leading-relaxed">
               <div>
                 <h3 className="font-semibold text-[#0A1A2F] dark:text-white mb-2">Time Period</h3>
                 <p>{content.historicalContext.timePeriod}</p>
@@ -3261,7 +3261,7 @@ export default function StudyGuideArticle({ guide, onBack }) {
           <SectionHeader title="Key Characters" section="keyCharacters" isExpanded={expandedSections.keyCharacters} />
           {expandedSections.keyCharacters && (
             <>
-              <Card className="p-6 mt-2 space-y-4 text-[#0A1A2F]/75">
+              <Card className="p-6 mt-2 space-y-4 text-[#0A1A2F]/75 dark:text-white/75">
                 {content.keyCharacters.map((character, index) => (
                   <div key={index} className="border-l-4 border-[#c9a227] pl-4">
                     <h3 className="font-semibold text-[#0A1A2F] dark:text-white mb-1">{character.name}</h3>
@@ -3281,7 +3281,7 @@ export default function StudyGuideArticle({ guide, onBack }) {
           <SectionHeader title="Key Events" section="keyEvents" isExpanded={expandedSections.keyEvents} />
           {expandedSections.keyEvents && (
             <>
-              <Card className="p-6 mt-2 space-y-4 text-[#0A1A2F]/75">
+              <Card className="p-6 mt-2 space-y-4 text-[#0A1A2F]/75 dark:text-white/75">
                 {content.keyEvents.map((item, index) => (
                   <div key={index} className="border-l-4 border-[#FAD98D] pl-4">
                     <h3 className="font-semibold text-[#0A1A2F] dark:text-white mb-1">{item.event}</h3>
@@ -3301,7 +3301,7 @@ export default function StudyGuideArticle({ guide, onBack }) {
           <SectionHeader title="Key Scriptures" section="keyScriptures" isExpanded={expandedSections.keyScriptures} />
           {expandedSections.keyScriptures && (
             <>
-              <Card className="p-6 mt-2 space-y-6 text-[#0A1A2F]/75 bg-gradient-to-br from-[#FAD98D]/15 to-[#FAD98D]/10">
+              <Card className="p-6 mt-2 space-y-6 text-[#0A1A2F]/75 dark:text-white/75 bg-gradient-to-br from-[#FAD98D]/15 to-[#FAD98D]/10">
                 {content.keyScriptures.map((item, index) => (
                   <div key={index}>
                     <p className="font-semibold text-[#0A1A2F] dark:text-white mb-1">{item.verse}</p>
@@ -3322,7 +3322,7 @@ export default function StudyGuideArticle({ guide, onBack }) {
           <SectionHeader title="Key Locations" section="keyLocations" isExpanded={expandedSections.keyLocations} />
           {expandedSections.keyLocations && (
             <>
-              <Card className="p-6 mt-2 space-y-4 text-[#0A1A2F]/75">
+              <Card className="p-6 mt-2 space-y-4 text-[#0A1A2F]/75 dark:text-white/75">
                 {content.keyLocations.map((item, index) => (
                   <div key={index} className="border-l-4 border-[#c9a227] pl-4">
                     <h3 className="font-semibold text-[#0A1A2F] dark:text-white mb-1">{item.location}</h3>
@@ -3342,7 +3342,7 @@ export default function StudyGuideArticle({ guide, onBack }) {
           <SectionHeader title="Key Lessons" section="keyLessons" isExpanded={expandedSections.keyLessons} />
           {expandedSections.keyLessons && (
             <>
-              <Card className="p-6 mt-2 space-y-4 text-[#0A1A2F]/75">
+              <Card className="p-6 mt-2 space-y-4 text-[#0A1A2F]/75 dark:text-white/75">
                 {content.keyLessons.map((lesson, index) => (
                   <div key={index}>
                     <h3 className="font-semibold text-[#0A1A2F] dark:text-white mb-2">{index + 1}. {lesson.title}</h3>
@@ -3361,7 +3361,7 @@ export default function StudyGuideArticle({ guide, onBack }) {
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7 }} className="mt-6">
           <Card className="p-6 bg-gradient-to-br from-[#FAD98D]/10 to-[#FFF9EC]">
             <h2 className="text-lg font-bold text-[#0A1A2F] dark:text-white mb-4">Study Takeaway</h2>
-            <p className="text-[#0A1A2F]/75 leading-relaxed">
+            <p className="text-[#0A1A2F]/75 dark:text-white/75 leading-relaxed">
               The Book of Genesis serves as the foundation upon which the entire Bible stands. Its narratives about faith, obedience, and redemption remain profoundly relevant today. Genesis invites us to reflect on our place in God's redemptive plan and to embrace the timeless values of faith, obedience, and trust in the sovereign God who created and sustains the universe.
             </p>
           </Card>

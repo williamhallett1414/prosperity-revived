@@ -87,7 +87,7 @@ export default function ContinueJourneyCard({
         transition={{ delay: 0.2 }}
         whileHover={{ scale: 1.01 }}
         whileTap={{ scale: 0.99 }}
-        className={`bg-gradient-to-r ${nextActivity.gradient} rounded-2xl p-6 shadow-lg mb-8`}
+        className={`bg-gradient-to-r ${nextActivity.gradient} rounded-2xl p-6 shadow-lg dark:shadow-none mb-8`}
       >
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">

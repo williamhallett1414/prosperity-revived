@@ -30,8 +30,8 @@ export default function ProgressTrendsChart({
   const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
       return (
-        <div className="bg-white dark:bg-white/5 p-3 rounded-lg shadow-lg border border-gray-100 dark:border-white/10">
-          <p className="font-semibold text-gray-900 mb-2">{payload[0].payload.date}</p>
+        <div className="bg-white dark:bg-white/5 p-3 rounded-lg shadow-lg dark:shadow-none border border-gray-100 dark:border-white/10 dark:border-white/10">
+          <p className="font-semibold text-gray-900 dark:text-white mb-2">{payload[0].payload.date}</p>
           <div className="space-y-1">
             <p className="text-sm text-[#C9A227]">Workouts: {payload[0].payload.workouts}</p>
             <p className="text-sm text-green-600">Meals: {payload[0].payload.meals}</p>
@@ -52,15 +52,15 @@ export default function ProgressTrendsChart({
       <div className="grid grid-cols-3 gap-3">
         <div className="bg-[#FAD98D]/10 rounded-xl p-3 text-center">
           <p className="text-lg font-bold text-[#C9A227]">{avgWorkouts.toFixed(1)}</p>
-          <p className="text-xs text-gray-600">Avg Workouts/Day</p>
+          <p className="text-xs text-gray-600 dark:text-gray-300">Avg Workouts/Day</p>
         </div>
         <div className="bg-green-50 rounded-xl p-3 text-center">
           <p className="text-lg font-bold text-green-600">{avgMeals.toFixed(1)}</p>
-          <p className="text-xs text-gray-600">Avg Meals/Day</p>
+          <p className="text-xs text-gray-600 dark:text-gray-300">Avg Meals/Day</p>
         </div>
         <div className="bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-xl p-3 text-center">
           <p className="text-lg font-bold text-[#3C4E53]">{avgWater.toFixed(1)}</p>
-          <p className="text-xs text-gray-600">Avg Water/Day</p>
+          <p className="text-xs text-gray-600 dark:text-gray-300">Avg Water/Day</p>
         </div>
       </div>
 

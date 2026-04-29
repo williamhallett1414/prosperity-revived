@@ -88,7 +88,7 @@ export default function Settings() {
             <Palette className="w-5 h-5 text-white" />
           </div>
           <div>
-            <h1 className="text-base font-bold text-[#0A1A2F]">Settings</h1>
+            <h1 className="text-base font-bold text-[#0A1A2F] dark:text-white">Settings</h1>
             <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45">Customize your experience</p>
           </div>
         </div>
@@ -96,12 +96,12 @@ export default function Settings() {
 
       <div className="px-4 pt-4">
         {/* Chatbot Personalities */}
-        <div className="bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-2xl p-4 shadow-sm mb-4">
+        <div className="bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-2xl p-4 shadow-sm dark:shadow-none mb-4">
           <ChatbotPersonalitySettings user={user} />
         </div>
 
         {/* Theme Settings */}
-        <div className="bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-2xl p-4 shadow-sm mb-4">
+        <div className="bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-2xl p-4 shadow-sm dark:shadow-none mb-4">
           <div className="flex items-center gap-3 mb-4">
             <Palette className="w-5 h-5 text-[#c9a227]" />
             <h2 className="font-semibold text-[#0A1A2F] dark:text-white dark:text-white">Appearance</h2>
@@ -155,7 +155,7 @@ export default function Settings() {
               }`}
             >
               <div className="flex items-center gap-3">
-                <Monitor className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+                <Monitor className="w-5 h-5 text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300" />
                 <span className="font-medium text-[#0A1A2F] dark:text-white dark:text-white">Auto (System)</span>
               </div>
               {user.theme === 'auto' && (
@@ -193,12 +193,12 @@ export default function Settings() {
         </div>
 
         {/* Reminders */}
-        <div className="bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-2xl p-4 shadow-sm mb-4">
+        <div className="bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-2xl p-4 shadow-sm dark:shadow-none mb-4">
           <ReminderSettings />
         </div>
 
         {/* Notifications */}
-        <div className="bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-2xl p-4 shadow-sm mb-4">
+        <div className="bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-2xl p-4 shadow-sm dark:shadow-none mb-4">
           <div className="flex items-center gap-3 mb-4">
             <Bell className="w-5 h-5 text-[#c9a227]" />
             <h2 className="font-semibold text-[#0A1A2F] dark:text-white dark:text-white">Notifications</h2>
@@ -208,7 +208,7 @@ export default function Settings() {
             <div className="flex items-center justify-between">
               <div className="flex-1">
                 <Label className="font-medium text-[#0A1A2F] dark:text-white dark:text-white">Push Notifications</Label>
-                <p className="text-sm text-gray-500 dark:text-gray-400">Get notified about updates</p>
+                <p className="text-sm text-gray-500 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">Get notified about updates</p>
               </div>
               <Switch
                 checked={user.notifications_enabled ?? true}
@@ -219,7 +219,7 @@ export default function Settings() {
             <div className="flex items-center justify-between">
               <div className="flex-1">
                 <Label className="font-medium text-[#0A1A2F] dark:text-white dark:text-white">Email Notifications</Label>
-                <p className="text-sm text-gray-500 dark:text-gray-400">Receive updates via email</p>
+                <p className="text-sm text-gray-500 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">Receive updates via email</p>
               </div>
               <Switch
                 checked={user.email_notifications ?? true}
@@ -230,7 +230,7 @@ export default function Settings() {
         </div>
 
         {/* Account */}
-        <div className="bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-2xl p-4 shadow-sm">
+        <div className="bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-2xl p-4 shadow-sm dark:shadow-none">
           <div className="flex items-center gap-3 mb-4">
             <User className="w-5 h-5 text-[#c9a227]" />
             <h2 className="font-semibold text-[#0A1A2F] dark:text-white dark:text-white">Account</h2>
@@ -238,11 +238,11 @@ export default function Settings() {
           
           <div className="space-y-3">
             <div className="flex items-center justify-between py-2">
-              <span className="text-gray-600 dark:text-gray-400">Email</span>
+              <span className="text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">Email</span>
               <span className="font-medium text-[#0A1A2F] dark:text-white dark:text-white">{user.email}</span>
             </div>
             <div className="flex items-center justify-between py-2">
-              <span className="text-gray-600 dark:text-gray-400">Member Since</span>
+              <span className="text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">Member Since</span>
               <span className="font-medium text-[#0A1A2F] dark:text-white dark:text-white">
                 {user.created_date ? new Date(user.created_date).toLocaleDateString() : '—'}
               </span>
@@ -252,62 +252,62 @@ export default function Settings() {
               onPointerDown={() => setShowTour(true)}
               className="flex items-center justify-between py-3 px-3 rounded-lg hover:bg-gray-50 dark:bg-white/5 dark:hover:bg-gray-800 transition-colors min-h-[44px] w-full text-left"
             >
-              <span className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
+              <span className="flex items-center gap-2 text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">
                 <Play className="w-4 h-4 text-[#FD9C2D]" />
                 Replay App Tour
               </span>
-              <ChevronRight className="w-4 h-4 text-gray-400" />
+              <ChevronRight className="w-4 h-4 text-gray-400 dark:text-gray-300" />
             </button>
 
             <button
               onClick={() => window.dispatchEvent(new CustomEvent('launchGuidedTour', { detail: { steps: null } }))}
               className="flex items-center justify-between py-3 px-3 rounded-lg hover:bg-gray-50 dark:bg-white/5 dark:hover:bg-gray-800 transition-colors min-h-[44px] w-full text-left"
             >
-              <span className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
+              <span className="flex items-center gap-2 text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">
                 <Play className="w-4 h-4 text-[#38BDF8]" />
                 Interactive Guided Tour
               </span>
-              <ChevronRight className="w-4 h-4 text-gray-400" />
+              <ChevronRight className="w-4 h-4 text-gray-400 dark:text-gray-300" />
             </button>
 
             <Link
               to={createPageUrl('TermsAndConditions')}
               className="flex items-center justify-between py-3 px-3 rounded-lg hover:bg-gray-50 dark:bg-white/5 dark:hover:bg-gray-800 transition-colors min-h-[44px]"
             >
-              <span className="text-gray-600 dark:text-gray-400">Terms & Conditions</span>
-              <ChevronRight className="w-4 h-4 text-gray-400" />
+              <span className="text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">Terms & Conditions</span>
+              <ChevronRight className="w-4 h-4 text-gray-400 dark:text-gray-300" />
             </Link>
             
             <Link
               to={createPageUrl('PrivacyPolicy')}
               className="flex items-center justify-between py-3 px-3 rounded-lg hover:bg-gray-50 dark:bg-white/5 dark:hover:bg-gray-800 transition-colors min-h-[44px]"
             >
-              <span className="text-gray-600 dark:text-gray-400">Privacy Policy</span>
-              <ChevronRight className="w-4 h-4 text-gray-400" />
+              <span className="text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">Privacy Policy</span>
+              <ChevronRight className="w-4 h-4 text-gray-400 dark:text-gray-300" />
             </Link>
             
             <Link
               to={createPageUrl('HealthWellnessWaiver')}
               className="flex items-center justify-between py-3 px-3 rounded-lg hover:bg-gray-50 dark:bg-white/5 dark:hover:bg-gray-800 transition-colors min-h-[44px]"
             >
-              <span className="text-gray-600 dark:text-gray-400">Health & Wellness Waiver</span>
-              <ChevronRight className="w-4 h-4 text-gray-400" />
+              <span className="text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">Health & Wellness Waiver</span>
+              <ChevronRight className="w-4 h-4 text-gray-400 dark:text-gray-300" />
             </Link>
             
             <Link
               to={createPageUrl('SubscriptionTerms')}
               className="flex items-center justify-between py-3 px-3 rounded-lg hover:bg-gray-50 dark:bg-white/5 dark:hover:bg-gray-800 transition-colors min-h-[44px]"
             >
-              <span className="text-gray-600 dark:text-gray-400">Subscription Terms</span>
-              <ChevronRight className="w-4 h-4 text-gray-400" />
+              <span className="text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">Subscription Terms</span>
+              <ChevronRight className="w-4 h-4 text-gray-400 dark:text-gray-300" />
             </Link>
 
             <Link
               to={createPageUrl('PrivacyPolicy')}
               className="flex items-center justify-between py-3 px-3 rounded-lg hover:bg-gray-50 dark:bg-white/5 dark:hover:bg-gray-800 transition-colors min-h-[44px]"
             >
-              <span className="text-gray-600 dark:text-gray-400">Do Not Sell My Personal Information</span>
-              <ChevronRight className="w-4 h-4 text-gray-400" />
+              <span className="text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">Do Not Sell My Personal Information</span>
+              <ChevronRight className="w-4 h-4 text-gray-400 dark:text-gray-300" />
             </Link>
           </div>
 
@@ -347,7 +347,7 @@ export default function Settings() {
             <AlertDialogContent className="dark:bg-[#0A1A2F]">
               <AlertDialogHeader>
                 <AlertDialogTitle className="dark:text-white">Are you absolutely sure?</AlertDialogTitle>
-                <AlertDialogDescription className="dark:text-gray-400">
+                <AlertDialogDescription className="dark:text-gray-400 dark:text-gray-300">
                   This action cannot be undone. This will permanently delete your account
                   and remove all of your data from our servers, including:
                   <ul className="list-disc list-inside mt-2 space-y-1">

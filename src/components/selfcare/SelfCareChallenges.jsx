@@ -148,7 +148,7 @@ export default function SelfCareChallenges({ challenges = [], participations = [
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.6 + index * 0.1 }}
                 onClick={() => setSelectedChallenge(challenge)}
-                className={`w-full bg-gradient-to-r ${challenge.gradient} rounded-2xl p-5 text-[#0A1A2F] dark:text-white shadow-lg text-left`}
+                className={`w-full bg-gradient-to-r ${challenge.gradient} rounded-2xl p-5 text-[#0A1A2F] dark:text-white shadow-lg dark:shadow-none text-left`}
               >
                 <div className="flex items-start gap-3 mb-3">
                   <div className="bg-[#0A1A2F]/10 rounded-full p-2">
@@ -195,7 +195,7 @@ export default function SelfCareChallenges({ challenges = [], participations = [
               </DialogHeader>
 
               <div className="space-y-4">
-                <p className="text-gray-600">{selectedChallenge.description}</p>
+                <p className="text-gray-600 dark:text-gray-300">{selectedChallenge.description}</p>
 
                 <div className="space-y-2">
                   {selectedChallenge.tasks?.map((task, index) => {
@@ -207,7 +207,7 @@ export default function SelfCareChallenges({ challenges = [], participations = [
                       <div
                         key={task.day}
                         className={`border rounded-lg p-4 ${
-                          isCompleted ? 'bg-green-50 border-green-200' : 'bg-gray-50 dark:bg-white/5 border-gray-200 dark:border-white/10'
+                          isCompleted ? 'bg-green-50 border-green-200' : 'bg-gray-50 dark:bg-white/5 border-gray-200 dark:border-white/10 dark:border-white/10'
                         }`}
                       >
                         <div className="flex items-start gap-3">
@@ -221,10 +221,10 @@ export default function SelfCareChallenges({ challenges = [], participations = [
                             )}
                           </div>
                           <div className="flex-1">
-                            <p className={`font-semibold ${isCompleted ? 'text-green-800' : 'text-gray-800'}`}>
+                            <p className={`font-semibold ${isCompleted ? 'text-green-800' : 'text-gray-800 dark:text-gray-100'}`}>
                               {task.title}
                             </p>
-                            <p className="text-sm text-gray-600 mt-1">{task.content}</p>
+                            <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">{task.content}</p>
                             {isParticipating && !isCompleted && (
                               <Button
                                 size="sm"

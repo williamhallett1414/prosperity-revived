@@ -111,7 +111,7 @@ export default function MemberManagement({ groupId, isAdmin }) {
                 key={member.id}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="flex items-center justify-between p-3 bg-gray-50 dark:bg-white/5 rounded-lg"
+                className="flex items-center justify-between p-3 bg-gray-50 dark:bg-white/5 dark:text-white rounded-lg"
               >
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#0A1A2F] to-[#c9a227] flex items-center justify-center text-white font-semibold">

@@ -154,7 +154,7 @@ export default function PostCard({ post, comments = [], onLike, onComment, index
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.05 }}
-      className="bg-white dark:bg-white/5 dark:bg-slate-800 rounded-2xl p-4 shadow-sm border border-gray-100 dark:border-white/10 dark:border-gray-700"
+      className="bg-white dark:bg-white/5 dark:bg-slate-800 rounded-2xl p-4 shadow-sm dark:shadow-none border border-gray-100 dark:border-white/10 dark:border-gray-700"
     >
       {/* Content Moderation */}
       <ContentModeration content={post.content} />
@@ -174,7 +174,7 @@ export default function PostCard({ post, comments = [], onLike, onComment, index
           >
             {post.user_name || 'Anonymous'}
           </p>
-          <p className="text-xs text-gray-500">{post.created_date ? format(new Date(post.created_date), 'MMM d, yyyy') : ''}</p>
+          <p className="text-xs text-gray-500 dark:text-gray-300">{post.created_date ? format(new Date(post.created_date), 'MMM d, yyyy') : ''}</p>
         </div>
         {!isMyPost && user && !alreadyFriends && (
           <Button
@@ -194,11 +194,11 @@ export default function PostCard({ post, comments = [], onLike, onComment, index
         {!isMyPost && user && (
           <button
             onClick={async () => { if (window.confirm('Report this post for review? Our team will investigate.')) { try { await base44.entities.Report?.create({ post_id: post.id, reporter_email: user?.email, reason: 'user_flagged' }); alert('Report submitted. Thank you for helping keep our community safe.'); } catch { alert('Failed to submit report. Please try again.'); } } }}
-            className="p-1.5 rounded-full hover:bg-gray-100 transition-colors"
+            className="p-1.5 rounded-full hover:bg-gray-100 dark:bg-white/5 transition-colors"
             aria-label="Report post"
             title="Report post"
           >
-            <Flag className="w-3.5 h-3.5 text-gray-400 hover:text-red-400" />
+            <Flag className="w-3.5 h-3.5 text-gray-400 dark:text-gray-300 hover:text-red-400" />
           </button>
         )}
       </div>
@@ -209,10 +209,10 @@ export default function PostCard({ post, comments = [], onLike, onComment, index
          onClick={handleVerseClick}
          className="bg-yellow-50 dark:bg-slate-700 rounded-xl p-4 mb-3 border-l-4 border-[#c9a227] cursor-pointer hover:bg-yellow-100 dark:hover:bg-slate-600 transition-colors"
        >
-         <p className="font-serif text-gray-800 dark:text-gray-200 leading-relaxed mb-2">
+         <p className="font-serif text-gray-800 dark:text-gray-100 dark:text-gray-200 leading-relaxed mb-2">
            "{post.verse_text}"
          </p>
-         <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+         <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 dark:text-gray-300">
            <BookOpen className="w-4 h-4" />
            <span className="font-medium">
              {post.verse_book} {post.verse_chapter}:{post.verse_number}
@@ -222,7 +222,7 @@ export default function PostCard({ post, comments = [], onLike, onComment, index
       )}
 
       {/* Content */}
-      <p className="text-gray-700 dark:text-gray-300 mb-4 leading-relaxed whitespace-pre-wrap">{post.content}</p>
+      <p className="text-gray-700 dark:text-gray-200 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300 mb-4 leading-relaxed whitespace-pre-wrap">{post.content}</p>
 
       {/* Media */}
       {post.image_url && (
@@ -262,7 +262,7 @@ export default function PostCard({ post, comments = [], onLike, onComment, index
           variant="ghost"
           size="sm"
           onClick={handleLike}
-          className={`flex items-center gap-2 ${isLiked ? 'text-red-500' : 'text-gray-500'}`}
+          className={`flex items-center gap-2 ${isLiked ? 'text-red-500' : 'text-gray-500 dark:text-gray-300'}`}
         >
           <Heart className={`w-4 h-4 ${isLiked ? 'fill-current' : ''}`} />
           <span>{(post.likes || 0) + (isLiked ? 1 : 0)}</span>
@@ -272,7 +272,7 @@ export default function PostCard({ post, comments = [], onLike, onComment, index
           variant="ghost"
           size="sm"
           onClick={() => setShowComments(!showComments)}
-          className="flex items-center gap-2 text-gray-500"
+          className="flex items-center gap-2 text-gray-500 dark:text-gray-300"
         >
           <MessageCircle className="w-4 h-4" />
           <span>{postComments.length}</span>
@@ -282,7 +282,7 @@ export default function PostCard({ post, comments = [], onLike, onComment, index
           variant="ghost"
           size="sm"
           onClick={handleShare}
-          className="flex items-center gap-2 text-gray-500"
+          className="flex items-center gap-2 text-gray-500 dark:text-gray-300"
         >
           <Share2 className="w-4 h-4" />
           Share
@@ -295,12 +295,12 @@ export default function PostCard({ post, comments = [], onLike, onComment, index
           {/* Comment List */}
           {postComments.map(comment => (
             <div key={comment.id} className="flex gap-2">
-              <div className="w-8 h-8 rounded-full bg-gray-200 dark:bg-slate-600 flex items-center justify-center text-xs font-semibold text-gray-600 dark:text-gray-300 flex-shrink-0">
+              <div className="w-8 h-8 rounded-full bg-gray-200 dark:bg-slate-600 flex items-center justify-center text-xs font-semibold text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300 flex-shrink-0">
                 {comment.user_name?.[0]?.toUpperCase() || 'U'}
               </div>
               <div className="flex-1 bg-gray-50 dark:bg-white/5 dark:bg-slate-700 rounded-lg p-2">
-                <p className="text-sm font-medium text-gray-900 dark:text-gray-200">{comment.user_name || 'Anonymous'}</p>
-                <p className="text-sm text-gray-700 dark:text-gray-400">{comment.content}</p>
+                <p className="text-sm font-medium text-gray-900 dark:text-white dark:text-gray-200">{comment.user_name || 'Anonymous'}</p>
+                <p className="text-sm text-gray-700 dark:text-gray-200 dark:text-gray-400 dark:text-gray-300">{comment.content}</p>
               </div>
             </div>
           ))}

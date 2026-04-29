@@ -36,7 +36,7 @@ export default function PlanDevotionalView({ planId }) {
           <Sparkles className="w-5 h-5 text-[#c9a227]" />
           Introduction
         </h2>
-        <p className="text-[#0A1A2F]/75 leading-relaxed">
+        <p className="text-[#0A1A2F]/75 dark:text-white/75 leading-relaxed">
           {devotional.introduction}
         </p>
       </Card>
@@ -48,7 +48,7 @@ export default function PlanDevotionalView({ planId }) {
           {devotional.keyVerses.map((verse, index) => (
             <div key={index}>
               <h3 className="font-semibold text-[#0A1A2F] dark:text-white mb-2">{verse.reference}</h3>
-              <p className="italic text-[#0A1A2F]/75 mb-2">"{verse.text}"</p>
+              <p className="italic text-[#0A1A2F]/75 dark:text-white/75 mb-2">"{verse.text}"</p>
               <p className="text-sm text-[#0A1A2F]/60 dark:text-white/60">{verse.insight}</p>
             </div>
           ))}
@@ -58,7 +58,7 @@ export default function PlanDevotionalView({ planId }) {
       {/* Reflection */}
       <Card className="p-6">
         <h2 className="text-xl font-bold text-[#0A1A2F] dark:text-white mb-4">Reflection</h2>
-        <p className="text-[#0A1A2F]/75 leading-relaxed">
+        <p className="text-[#0A1A2F]/75 dark:text-white/75 leading-relaxed">
           {devotional.reflection}
         </p>
       </Card>
@@ -71,7 +71,7 @@ export default function PlanDevotionalView({ planId }) {
         </h2>
         <ul className="space-y-3">
           {devotional.reflectionQuestions.map((question, index) => (
-            <li key={index} className="text-[#0A1A2F]/75 leading-relaxed pl-4 border-l-2 border-[#AFC7E3]/60">
+            <li key={index} className="text-[#0A1A2F]/75 dark:text-white/75 leading-relaxed pl-4 border-l-2 border-[#AFC7E3]/60">
               {question}
             </li>
           ))}
@@ -84,7 +84,7 @@ export default function PlanDevotionalView({ planId }) {
           <Target className="w-5 h-5 text-[#C9A227]" />
           {devotional.actionPlan.title}
         </h2>
-        <ol className="list-decimal pl-5 space-y-3 text-[#0A1A2F]/75">
+        <ol className="list-decimal pl-5 space-y-3 text-[#0A1A2F]/75 dark:text-white/75">
           {devotional.actionPlan.steps.map((step, index) => (
             <li key={index} className="leading-relaxed">{step}</li>
           ))}
@@ -97,7 +97,7 @@ export default function PlanDevotionalView({ planId }) {
           <Heart className="w-5 h-5 text-[#c9a227]" />
           Prayer
         </h2>
-        <p className="text-[#0A1A2F]/75 leading-relaxed italic">
+        <p className="text-[#0A1A2F]/75 dark:text-white/75 leading-relaxed italic">
           {devotional.prayer}
         </p>
       </Card>
