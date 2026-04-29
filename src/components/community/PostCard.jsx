@@ -154,7 +154,7 @@ export default function PostCard({ post, comments = [], onLike, onComment, index
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.05 }}
-      className="bg-white dark:bg-slate-800 rounded-2xl p-4 shadow-sm border border-gray-100 dark:border-gray-700"
+      className="bg-white dark:bg-white/5 dark:bg-slate-800 rounded-2xl p-4 shadow-sm border border-gray-100 dark:border-white/10 dark:border-gray-700"
     >
       {/* Content Moderation */}
       <ContentModeration content={post.content} />
@@ -169,7 +169,7 @@ export default function PostCard({ post, comments = [], onLike, onComment, index
         </div>
         <div className="flex-1">
           <p 
-            className="font-semibold text-[#0A1A2F] cursor-pointer hover:text-[#c9a227]"
+            className="font-semibold text-[#0A1A2F] dark:text-white cursor-pointer hover:text-[#c9a227]"
             onClick={() => post.created_by && navigate(createPageUrl(`UserProfile?email=${post.created_by}`))}
           >
             {post.user_name || 'Anonymous'}
@@ -257,7 +257,7 @@ export default function PostCard({ post, comments = [], onLike, onComment, index
       <PostSummary content={post.content} comments={postComments} />
 
       {/* Actions */}
-      <div className="flex items-center gap-4 pt-3 border-t border-gray-100 dark:border-gray-700">
+      <div className="flex items-center gap-4 pt-3 border-t border-gray-100 dark:border-white/10 dark:border-gray-700">
         <Button
           variant="ghost"
           size="sm"
@@ -291,14 +291,14 @@ export default function PostCard({ post, comments = [], onLike, onComment, index
 
       {/* Comments Section */}
       {showComments && (
-        <div className="mt-4 pt-4 border-t border-gray-100 dark:border-gray-700 space-y-3">
+        <div className="mt-4 pt-4 border-t border-gray-100 dark:border-white/10 dark:border-gray-700 space-y-3">
           {/* Comment List */}
           {postComments.map(comment => (
             <div key={comment.id} className="flex gap-2">
               <div className="w-8 h-8 rounded-full bg-gray-200 dark:bg-slate-600 flex items-center justify-center text-xs font-semibold text-gray-600 dark:text-gray-300 flex-shrink-0">
                 {comment.user_name?.[0]?.toUpperCase() || 'U'}
               </div>
-              <div className="flex-1 bg-gray-50 dark:bg-slate-700 rounded-lg p-2">
+              <div className="flex-1 bg-gray-50 dark:bg-white/5 dark:bg-slate-700 rounded-lg p-2">
                 <p className="text-sm font-medium text-gray-900 dark:text-gray-200">{comment.user_name || 'Anonymous'}</p>
                 <p className="text-sm text-gray-700 dark:text-gray-400">{comment.content}</p>
               </div>

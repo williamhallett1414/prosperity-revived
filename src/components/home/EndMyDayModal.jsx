@@ -63,7 +63,7 @@ export default function EndMyDayModal({ isOpen, onClose }) {
       color: 'from-[#0A1A2F] to-[#AFC7E3]',
       content: (
         <div className="space-y-3">
-          <p className="text-sm text-[#0A1A2F]/70 text-center mb-3">
+          <p className="text-sm text-[#0A1A2F]/70 dark:text-white/70 text-center mb-3">
             Name three things you're grateful for today — big or small.
           </p>
           {[0, 1, 2].map(i => (
@@ -74,7 +74,7 @@ export default function EndMyDayModal({ isOpen, onClose }) {
                 onChange={(e) => updateGratitude(i, e.target.value)}
                 maxLength={200}
                 placeholder={['Something that made you smile...', 'Someone you appreciate...', 'A small win today...'][i]}
-                className="flex-1 px-3 py-2.5 rounded-xl border border-gray-200 bg-gray-50 text-sm text-[#0A1A2F] focus:outline-none focus:border-[#AFC7E3] transition-colors"
+                className="flex-1 px-3 py-2.5 rounded-xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-white/5 text-sm text-[#0A1A2F] dark:text-white focus:outline-none focus:border-[#AFC7E3] transition-colors"
               />
             </div>
           ))}
@@ -87,7 +87,7 @@ export default function EndMyDayModal({ isOpen, onClose }) {
       color: 'from-[#AFC7E3] to-[#FAD98D]',
       content: (
         <div className="space-y-3 text-center">
-          <p className="text-sm text-[#0A1A2F]/70">
+          <p className="text-sm text-[#0A1A2F]/70 dark:text-white/70">
             How did you live out your values today? What would you do differently?
           </p>
           <Button
@@ -98,7 +98,7 @@ export default function EndMyDayModal({ isOpen, onClose }) {
           >
             Write in Journal
           </Button>
-          <p className="text-[10px] text-[#0A1A2F]/30">
+          <p className="text-[10px] text-[#0A1A2F]/30 dark:text-white/30">
             Or simply reflect in your heart and continue.
           </p>
         </div>
@@ -110,7 +110,7 @@ export default function EndMyDayModal({ isOpen, onClose }) {
       color: 'from-[#FAD98D] to-[#c9a227]',
       content: (
         <div className="space-y-3">
-          <p className="text-sm text-[#0A1A2F]/70 text-center">
+          <p className="text-sm text-[#0A1A2F]/70 dark:text-white/70 text-center">
             Is there anything you need to let go of from today?
           </p>
           <textarea
@@ -118,11 +118,11 @@ export default function EndMyDayModal({ isOpen, onClose }) {
             onChange={(e) => setRelease(e.target.value)}
             placeholder="I'm releasing..."
             maxLength={500}
-            className="w-full p-3 rounded-xl border border-gray-200 bg-gray-50 text-sm text-[#0A1A2F] resize-none focus:outline-none focus:border-[#c9a227] transition-colors"
+            className="w-full p-3 rounded-xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-white/5 text-sm text-[#0A1A2F] dark:text-white resize-none focus:outline-none focus:border-[#c9a227] transition-colors"
             rows={2}
           />
           <div className="bg-[#FAD98D]/20 rounded-xl p-3">
-            <p className="font-serif italic text-[#0A1A2F] text-xs leading-relaxed text-center">
+            <p className="font-serif italic text-[#0A1A2F] dark:text-white text-xs leading-relaxed text-center">
               "Because of the Lord's great love we are not consumed, for his compassions never fail. They are new every morning."
             </p>
             <p className="text-[10px] text-[#c9a227] font-semibold mt-1 text-center">Lamentations 3:22-23</p>
@@ -136,7 +136,7 @@ export default function EndMyDayModal({ isOpen, onClose }) {
       color: 'from-[#0A1A2F] to-[#3C4E53]',
       content: (
         <div className="space-y-4 text-center">
-          <p className="text-[#0A1A2F] text-sm leading-relaxed">
+          <p className="text-[#0A1A2F] dark:text-white text-sm leading-relaxed">
             Lord, thank You for this day — every moment of it. I lay down my worries, my unfinished tasks, and my tomorrow.
             Watch over me as I sleep. Restore my body, renew my mind, and prepare my spirit for a new day. Amen.
           </p>
@@ -147,7 +147,7 @@ export default function EndMyDayModal({ isOpen, onClose }) {
             className="pt-2"
           >
             <Moon className="w-8 h-8 text-[#AFC7E3] mx-auto" />
-            <p className="text-xs text-[#0A1A2F]/40 mt-2">You are loved. You are forgiven. Rest now.</p>
+            <p className="text-xs text-[#0A1A2F]/40 dark:text-white/40 mt-2">You are loved. You are forgiven. Rest now.</p>
           </motion.div>
         </div>
       )
@@ -160,9 +160,9 @@ export default function EndMyDayModal({ isOpen, onClose }) {
   return (
     <>
       <Dialog open={isOpen} onOpenChange={onClose}>
-        <DialogContent className="max-w-md max-h-[85vh] overflow-y-auto bg-[#F2F6FA] border-0">
+        <DialogContent className="max-w-md max-h-[85vh] overflow-y-auto bg-[#F2F6FA] dark:bg-[#0A1A2F] border-0">
           <DialogHeader>
-            <DialogTitle className="text-center text-xs text-[#0A1A2F]/40 uppercase tracking-widest">
+            <DialogTitle className="text-center text-xs text-[#0A1A2F]/40 dark:text-white/40 uppercase tracking-widest">
               End My Day
             </DialogTitle>
           </DialogHeader>
@@ -195,11 +195,11 @@ export default function EndMyDayModal({ isOpen, onClose }) {
               >
                 <div className="text-center">
                   <div className="text-5xl mb-2">{currentStep.emoji}</div>
-                  <h2 className="text-xl font-bold text-[#0A1A2F]">{currentStep.title}</h2>
-                  <p className="text-[10px] text-[#0A1A2F]/30 mt-1">Step {step + 1} of {steps.length}</p>
+                  <h2 className="text-xl font-bold text-[#0A1A2F] dark:text-white dark:text-white">{currentStep.title}</h2>
+                  <p className="text-[10px] text-[#0A1A2F]/30 dark:text-white/30 mt-1">Step {step + 1} of {steps.length}</p>
                 </div>
 
-                <div className="bg-white rounded-2xl p-5 min-h-[180px] flex items-center justify-center shadow-sm">
+                <div className="bg-white dark:bg-white/5 rounded-2xl p-5 min-h-[180px] flex items-center justify-center shadow-sm">
                   <div className="w-full">{currentStep.content}</div>
                 </div>
               </motion.div>

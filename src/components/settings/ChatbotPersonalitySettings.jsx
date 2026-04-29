@@ -256,7 +256,7 @@ export default function ChatbotPersonalitySettings({ user }) {
         })}
       </Tabs>
 
-      <Card className="bg-[#F2F6FA] border-[#AFC7E3]/40">
+      <Card className="bg-[#F2F6FA] dark:bg-[#0A1A2F] border-[#AFC7E3]/40">
         <CardContent className="pt-6">
           <p className="text-sm text-blue-900">
             <strong>Tip:</strong> Your chatbot will adapt its communication style immediately after you save changes. 

@@ -44,7 +44,7 @@ export default function GranularGoalsChart({ goals = [] }) {
           return (
             <div
               key={index}
-              className={`bg-white rounded-xl p-4 border-2 transition-all ${
+              className={`bg-white dark:bg-white/5 rounded-xl p-4 border-2 transition-all ${
                 isCompleted ? 'border-green-200 bg-green-50/50' : 'border-transparent'
               }`}
             >

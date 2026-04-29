@@ -37,7 +37,7 @@ export default function ChallengeCard({ challenge, participation, onJoin, onClic
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.1 }}
       onClick={onClick}
-      className="bg-white rounded-2xl p-5 shadow-sm hover:shadow-md transition-all cursor-pointer"
+      className="bg-white dark:bg-white/5 rounded-2xl p-5 shadow-sm hover:shadow-md transition-all cursor-pointer"
     >
       <div className="flex items-start justify-between mb-3">
         <div className="flex items-center gap-3">

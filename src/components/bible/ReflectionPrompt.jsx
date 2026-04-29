@@ -39,7 +39,7 @@ Generate only the reflection question, no additional text.`,
           <div className="flex-1 min-w-0">
             {prompt ? (
               <>
-                <p className="text-sm font-semibold text-[#0A1A2F] mb-3">Reflection Question:</p>
+                <p className="text-sm font-semibold text-[#0A1A2F] dark:text-white mb-3">Reflection Question:</p>
                 <p className="text-sm text-[#0A1A2F]/75 mb-3 italic">"{prompt}"</p>
                 <Button
                   variant="outline"
@@ -58,7 +58,7 @@ Generate only the reflection question, no additional text.`,
                 size="sm"
                 onClick={generatePrompt}
                 disabled={isLoading}
-                className="gap-2 text-[#C9A227] hover:text-[#0A1A2F]"
+                className="gap-2 text-[#C9A227] hover:text-[#0A1A2F] dark:text-white dark:text-white"
               >
                 <Sparkles className="w-4 h-4" />
                 {isLoading ? 'Generating...' : 'AI Reflection Prompt'}

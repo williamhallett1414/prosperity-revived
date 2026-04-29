@@ -76,7 +76,7 @@ export default function WorkoutCategoryPage() {
   );
 
   return (
-    <div className="min-h-screen bg-[#F2F6FA]">
+    <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F]">
 
       {/* ── Standard Header ── */}
       
@@ -117,10 +117,10 @@ export default function WorkoutCategoryPage() {
 
         {/* Empty state */}
         {sorted.length === 0 &&
-        <div className="text-center py-16 bg-white rounded-2xl border border-gray-100">
+        <div className="text-center py-16 bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10">
             <span className="text-4xl mb-3 block">{meta.emoji}</span>
-            <p className="text-[#0A1A2F]/60 font-medium">No workouts found in this category yet.</p>
-            <p className="text-[#0A1A2F]/40 text-sm mt-1">More coming soon!</p>
+            <p className="text-[#0A1A2F]/60 dark:text-white/60 font-medium">No workouts found in this category yet.</p>
+            <p className="text-[#0A1A2F]/40 dark:text-white/40 text-sm mt-1">More coming soon!</p>
           </div>
         }
       </div>
@@ -141,7 +141,7 @@ function DifficultyFiltered({ workouts, user }) {
     intermediate: 'bg-amber-500 text-white',
     advanced: 'bg-rose-500 text-white'
   };
-  const LEVEL_INACTIVE = 'bg-white text-[#0A1A2F]/55 border border-gray-200';
+  const LEVEL_INACTIVE = 'bg-white dark:bg-white/5 text-[#0A1A2F]/55 dark:text-white/55 border border-gray-200 dark:border-white/10';
 
   return (
     <>

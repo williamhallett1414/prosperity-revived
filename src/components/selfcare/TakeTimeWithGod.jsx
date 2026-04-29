@@ -131,7 +131,7 @@ export default function TakeTimeWithGod() {
           animate={{ scale: 1, opacity: 1 }}
           exit={{ scale: 0.9, opacity: 0 }}
           onClick={(e) => e.stopPropagation()}
-          className="bg-white rounded-3xl p-8 max-w-lg w-full shadow-2xl relative">
+          className="bg-white dark:bg-white/5 rounded-3xl p-8 max-w-lg w-full shadow-2xl relative">
 
             <button
             onClick={handleClose}
@@ -148,7 +148,7 @@ export default function TakeTimeWithGod() {
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.5 }}>
 
-                <h2 className="text-2xl font-bold text-[#0A1A2F] mb-2 text-center">
+                <h2 className="text-2xl font-bold text-[#0A1A2F] dark:text-white mb-2 text-center">
                   {steps[step].title}
                 </h2>
                 <p className="text-gray-500 text-sm mb-6 text-center">

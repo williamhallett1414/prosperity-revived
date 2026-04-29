@@ -30,7 +30,7 @@ export default function ProgressTrendsChart({
   const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
       return (
-        <div className="bg-white p-3 rounded-lg shadow-lg border border-gray-100">
+        <div className="bg-white dark:bg-white/5 p-3 rounded-lg shadow-lg border border-gray-100 dark:border-white/10">
           <p className="font-semibold text-gray-900 mb-2">{payload[0].payload.date}</p>
           <div className="space-y-1">
             <p className="text-sm text-[#C9A227]">Workouts: {payload[0].payload.workouts}</p>
@@ -58,7 +58,7 @@ export default function ProgressTrendsChart({
           <p className="text-lg font-bold text-green-600">{avgMeals.toFixed(1)}</p>
           <p className="text-xs text-gray-600">Avg Meals/Day</p>
         </div>
-        <div className="bg-[#F2F6FA] rounded-xl p-3 text-center">
+        <div className="bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-xl p-3 text-center">
           <p className="text-lg font-bold text-[#3C4E53]">{avgWater.toFixed(1)}</p>
           <p className="text-xs text-gray-600">Avg Water/Day</p>
         </div>

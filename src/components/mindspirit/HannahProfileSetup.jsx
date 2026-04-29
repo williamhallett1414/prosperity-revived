@@ -113,7 +113,7 @@ export default function HannahProfileSetup({ user, onComplete, onClose }) {
         animate={{ y: 0 }}
         exit={{ y: '100%' }}
         transition={{ type: 'spring', damping: 25 }}
-        className="w-full max-w-lg bg-white rounded-t-3xl shadow-2xl max-h-[85vh] flex flex-col"
+        className="w-full max-w-lg bg-white dark:bg-white/5 rounded-t-3xl shadow-2xl max-h-[85vh] flex flex-col"
       >
         {/* Header */}
         <div className="bg-gradient-to-r from-[#AFC7E3] to-[#3C4E53] p-5 rounded-t-3xl">
@@ -134,7 +134,7 @@ export default function HannahProfileSetup({ user, onComplete, onClose }) {
           </div>
           {/* Progress bar */}
           <div className="mt-3 h-1.5 bg-white/20 rounded-full overflow-hidden">
-            <div className="h-full bg-white rounded-full transition-all" style={{ width: `${((step + 1) / STEPS.length) * 100}%` }} />
+            <div className="h-full bg-white dark:bg-white/5 rounded-full transition-all" style={{ width: `${((step + 1) / STEPS.length) * 100}%` }} />
           </div>
         </div>
 
@@ -151,7 +151,7 @@ export default function HannahProfileSetup({ user, onComplete, onClose }) {
                     className={`px-4 py-2.5 rounded-full text-sm font-medium transition-all border ${
                       selected
                         ? 'bg-[#3C4E53] text-white border-[#3C4E53]'
-                        : 'bg-white text-[#3C4E53] border-[#AFC7E3]/50 hover:border-[#3C4E53]'
+                        : 'bg-white dark:bg-white/5 text-[#3C4E53] border-[#AFC7E3]/50 hover:border-[#3C4E53]'
                     }`}
                   >
                     {opt}
@@ -170,11 +170,11 @@ export default function HannahProfileSetup({ user, onComplete, onClose }) {
                     className={`w-full text-left p-4 rounded-xl border-2 transition-all ${
                       selected
                         ? 'border-[#3C4E53] bg-[#3C4E53]/5'
-                        : 'border-[#AFC7E3]/40 bg-white hover:border-[#3C4E53]/40'
+                        : 'border-[#AFC7E3]/40 bg-white dark:bg-white/5 hover:border-[#3C4E53]/40'
                     }`}
                   >
-                    <div className="font-semibold text-[#0A1A2F] text-sm">{opt.label}</div>
-                    <div className="text-xs text-[#0A1A2F]/60 mt-0.5">{opt.desc}</div>
+                    <div className="font-semibold text-[#0A1A2F] dark:text-white text-sm">{opt.label}</div>
+                    <div className="text-xs text-[#0A1A2F]/60 dark:text-white/60 mt-0.5">{opt.desc}</div>
                   </button>
                 );
               })}

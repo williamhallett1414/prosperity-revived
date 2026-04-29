@@ -52,8 +52,8 @@ export default function ProfileStats({ userProgress, meditationSessions, workout
               <div className={`w-9 h-9 rounded-lg bg-gradient-to-br ${stat.color} flex items-center justify-center mb-2`}>
                 <Icon className="w-4 h-4 text-white" />
               </div>
-              <p className="text-xl font-bold text-[#0A1A2F]">{stat.value}<span className="text-sm font-normal text-[#0A1A2F]/60 ml-1">{stat.unit}</span></p>
-              <p className="text-xs text-[#0A1A2F]/60 mt-0.5">{stat.label}</p>
+              <p className="text-xl font-bold text-[#0A1A2F] dark:text-white dark:text-white">{stat.value}<span className="text-sm font-normal text-[#0A1A2F]/60 dark:text-white/60 ml-1">{stat.unit}</span></p>
+              <p className="text-xs text-[#0A1A2F]/60 dark:text-white/60 mt-0.5">{stat.label}</p>
             </motion.div>
           );
         })}

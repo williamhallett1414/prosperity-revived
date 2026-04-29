@@ -219,15 +219,15 @@ function AssessmentQuiz({ onComplete, onSkip }) {
   };
 
   return (
-    <div className="min-h-screen bg-[#F2F6FA] flex flex-col pb-24">
+    <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] flex flex-col pb-24">
       {/* Header */}
-      <div className="bg-white border-b border-[#F2F6FA] px-4 py-3 sticky top-0 z-40">
+      <div className="bg-white dark:bg-white/5 border-b border-[#F2F6FA] px-4 py-3 sticky top-0 z-40">
         <div className="max-w-2xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Sparkles className="w-5 h-5 text-[#c9a227]" />
-            <span className="font-bold text-[#0A1A2F] text-sm">Find Your Pathway</span>
+            <span className="font-bold text-[#0A1A2F] dark:text-white text-sm">Find Your Pathway</span>
           </div>
-          <button onClick={onSkip} className="text-xs text-[#0A1A2F]/40 hover:text-[#0A1A2F]/60 transition-colors">
+          <button onClick={onSkip} className="text-xs text-[#0A1A2F]/40 dark:text-white/40 hover:text-[#0A1A2F]/60 dark:text-white/60 transition-colors">
             Skip →
           </button>
         </div>
@@ -238,7 +238,7 @@ function AssessmentQuiz({ onComplete, onSkip }) {
         <div className="flex items-center justify-center gap-2 mb-8">
           {QUESTIONS.map((_, i) => (
             <div key={i} className={`rounded-full transition-all duration-300 ${
-              i === step ? 'w-6 h-2 bg-[#c9a227]' : i < step ? 'w-2 h-2 bg-[#FAD98D]' : 'w-2 h-2 bg-[#F2F6FA]'
+              i === step ? 'w-6 h-2 bg-[#c9a227]' : i < step ? 'w-2 h-2 bg-[#FAD98D]' : 'w-2 h-2 bg-[#F2F6FA] dark:bg-[#0A1A2F]'
             }`} />
           ))}
         </div>
@@ -246,10 +246,10 @@ function AssessmentQuiz({ onComplete, onSkip }) {
         {/* Question */}
         <AnimatePresence mode="wait">
           <motion.div key={step} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.2 }}>
-            <p className="text-xs font-bold text-[#0A1A2F]/35 uppercase tracking-widest mb-3">
+            <p className="text-xs font-bold text-[#0A1A2F]/35 dark:text-white/35 uppercase tracking-widest mb-3">
               Question {step + 1} of {QUESTIONS.length}
             </p>
-            <h2 className="text-xl font-bold text-[#0A1A2F] mb-6 leading-snug">{question.q}</h2>
+            <h2 className="text-xl font-bold text-[#0A1A2F] dark:text-white mb-6 leading-snug">{question.q}</h2>
 
             <div className="space-y-3">
               {question.options.map((opt, i) => (
@@ -259,15 +259,15 @@ function AssessmentQuiz({ onComplete, onSkip }) {
                   onClick={() => setChosen(i)}
                   className={`w-full text-left px-4 py-4 rounded-2xl border-2 text-sm font-medium transition-all leading-snug ${
                     chosen === i
-                      ? 'border-[#c9a227] bg-white text-[#0A1A2F]'
-                      : 'border-[#F2F6FA] bg-white text-[#0A1A2F]/70 hover:border-[#FAD98D]/50'
+                      ? 'border-[#c9a227] bg-white dark:bg-white/5 text-[#0A1A2F] dark:text-white dark:text-white'
+                      : 'border-[#F2F6FA] bg-white dark:bg-white/5 text-[#0A1A2F]/70 dark:text-white/70 hover:border-[#FAD98D]/50'
                   }`}
                 >
                   <div className="flex items-start gap-3">
                     <div className={`w-5 h-5 rounded-full border-2 flex-shrink-0 mt-0.5 flex items-center justify-center transition-all ${
                       chosen === i ? 'border-[#c9a227] bg-[#c9a227]' : 'border-[#F2F6FA]'
                     }`}>
-                      {chosen === i && <div className="w-2 h-2 bg-white rounded-full" />}
+                      {chosen === i && <div className="w-2 h-2 bg-white dark:bg-white/5 rounded-full" />}
                     </div>
                     {opt.label}
                   </div>
@@ -279,7 +279,7 @@ function AssessmentQuiz({ onComplete, onSkip }) {
 
         <div className="mt-auto pt-8">
           <button onClick={handleNext} disabled={chosen === null}
-            className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-[#FAD98D] to-[#c9a227] text-[#0A1A2F] font-bold text-sm disabled:opacity-30 hover:opacity-90 transition-opacity">
+            className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-[#FAD98D] to-[#c9a227] text-[#0A1A2F] dark:text-white font-bold text-sm disabled:opacity-30 hover:opacity-90 transition-opacity">
             {isLast ? 'Find My Pathway →' : 'Next →'}
           </button>
         </div>
@@ -291,7 +291,7 @@ function AssessmentQuiz({ onComplete, onSkip }) {
 // ─── Recommendation screen ────────────────────────────────────────────────────
 function RecommendationScreen({ pathway, onStart, onBrowse }) {
   return (
-    <div className="min-h-screen bg-[#F2F6FA] flex flex-col items-center justify-center px-4 pb-24">
+    <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] flex flex-col items-center justify-center px-4 pb-24">
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-sm text-center">
         <motion.div
           initial={{ scale: 0.7, opacity: 0 }}
@@ -303,10 +303,10 @@ function RecommendationScreen({ pathway, onStart, onBrowse }) {
         </motion.div>
 
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }}>
-          <p className="text-xs font-bold text-[#0A1A2F]/40 uppercase tracking-widest mb-2">Recommended for You</p>
-          <h2 className="text-2xl font-bold text-[#0A1A2F] mb-2">{pathway.title}</h2>
-          <p className="text-[#0A1A2F]/55 text-sm mb-1 leading-relaxed">{pathway.subtitle}</p>
-          <p className="text-xs text-[#0A1A2F]/35 mb-8">{pathway.steps.length} steps · {pathway.category}</p>
+          <p className="text-xs font-bold text-[#0A1A2F]/40 dark:text-white/40 uppercase tracking-widest mb-2">Recommended for You</p>
+          <h2 className="text-2xl font-bold text-[#0A1A2F] dark:text-white mb-2">{pathway.title}</h2>
+          <p className="text-[#0A1A2F]/55 dark:text-white/55 text-sm mb-1 leading-relaxed">{pathway.subtitle}</p>
+          <p className="text-xs text-[#0A1A2F]/35 dark:text-white/35 mb-8">{pathway.steps.length} steps · {pathway.category}</p>
         </motion.div>
 
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="space-y-3">
@@ -315,7 +315,7 @@ function RecommendationScreen({ pathway, onStart, onBrowse }) {
             Start This Pathway →
           </button>
           <button onClick={onBrowse}
-            className="w-full py-3 rounded-2xl border border-[#F2F6FA] bg-white text-[#0A1A2F]/50 font-semibold text-sm hover:bg-[#F2F6FA] transition-colors">
+            className="w-full py-3 rounded-2xl border border-[#F2F6FA] bg-white dark:bg-white/5 text-[#0A1A2F]/50 dark:text-white/50 font-semibold text-sm hover:bg-[#F2F6FA] dark:bg-[#0A1A2F] transition-colors">
             Browse All Pathways
           </button>
         </motion.div>
@@ -396,16 +396,16 @@ function StepRow({ step, pathwayId, completedIds, isLocked, onToggle, reflection
     <motion.div
       initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: step.id * 0.06 }}
       className={`rounded-2xl border overflow-hidden transition-all ${
-        isLocked ? 'border-[#F2F6FA] bg-[#F2F6FA] opacity-60' :
-        isDone   ? 'border-emerald-200 bg-emerald-50/40' : 'border-[#F2F6FA] bg-white'
+        isLocked ? 'border-[#F2F6FA] bg-[#F2F6FA] dark:bg-[#0A1A2F] opacity-60' :
+        isDone   ? 'border-emerald-200 bg-emerald-50/40' : 'border-[#F2F6FA] bg-white dark:bg-white/5'
       }`}
     >
       <button className="w-full flex items-center gap-3 p-4 text-left" onClick={handleOpen}>
         <div className={`w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0 ${
-          isLocked ? 'bg-[#F2F6FA]' : isDone ? 'bg-emerald-500' : conf.bg
+          isLocked ? 'bg-[#F2F6FA] dark:bg-[#0A1A2F]' : isDone ? 'bg-emerald-500' : conf.bg
         }`}>
           {isLocked
-            ? <Lock className="w-3.5 h-3.5 text-[#0A1A2F]/25" />
+            ? <Lock className="w-3.5 h-3.5 text-[#0A1A2F]/25 dark:text-white/25" />
             : isDone
             ? <CheckCircle2 className="w-4 h-4 text-white" />
             : <Icon className={`w-4 h-4 ${conf.color}`} />
@@ -413,19 +413,19 @@ function StepRow({ step, pathwayId, completedIds, isLocked, onToggle, reflection
         </div>
         <div className="flex-1 min-w-0">
           <p className={`text-[10px] font-bold uppercase tracking-widest mb-0.5 ${
-            isLocked ? 'text-[#0A1A2F]/20' : isDone ? 'text-emerald-500' : 'text-[#0A1A2F]/35'
+            isLocked ? 'text-[#0A1A2F]/20 dark:text-white/20' : isDone ? 'text-emerald-500' : 'text-[#0A1A2F]/35 dark:text-white/35'
           }`}>
             Step {step.id} · {conf.label}
           </p>
           <p className={`text-sm font-bold leading-snug ${
-            isLocked ? 'text-[#0A1A2F]/30' : isDone ? 'text-[#0A1A2F]/50 line-through' : 'text-[#0A1A2F]'
+            isLocked ? 'text-[#0A1A2F]/30 dark:text-white/30' : isDone ? 'text-[#0A1A2F]/50 dark:text-white/50 line-through' : 'text-[#0A1A2F] dark:text-white dark:text-white'
           }`}>
             {step.label}
           </p>
         </div>
         {!isLocked && (
           <motion.div animate={{ rotate: open ? 90 : 0 }} transition={{ duration: 0.2 }}>
-            <ChevronRight className="w-4 h-4 text-[#0A1A2F]/20 flex-shrink-0" />
+            <ChevronRight className="w-4 h-4 text-[#0A1A2F]/20 dark:text-white/20 flex-shrink-0" />
           </motion.div>
         )}
       </button>
@@ -439,18 +439,18 @@ function StepRow({ step, pathwayId, completedIds, isLocked, onToggle, reflection
             <div className="px-4 pb-4 pt-3 space-y-3 border-t border-[#F2F6FA]">
 
               {step.type === 'teaching' && (
-                <p className="text-sm text-[#0A1A2F]/70 leading-relaxed">{step.content}</p>
+                <p className="text-sm text-[#0A1A2F]/70 dark:text-white/70 leading-relaxed">{step.content}</p>
               )}
 
               {step.type === 'scripture' && (
                 <div className="space-y-3">
-                  <div className="bg-white rounded-xl p-4 border border-[#FAD98D]/20">
+                  <div className="bg-white dark:bg-white/5 rounded-xl p-4 border border-[#FAD98D]/20">
                     <p className="text-xs font-bold text-[#c9a227] mb-1.5">{step.verse}</p>
-                    <p className="text-sm text-[#0A1A2F] italic leading-relaxed font-medium" style={{ fontFamily: 'Georgia, serif' }}>
+                    <p className="text-sm text-[#0A1A2F] dark:text-white italic leading-relaxed font-medium" style={{ fontFamily: 'Georgia, serif' }}>
                       "{step.text}"
                     </p>
                   </div>
-                  <p className="text-xs text-[#0A1A2F]/55 leading-relaxed">{step.context}</p>
+                  <p className="text-xs text-[#0A1A2F]/55 dark:text-white/55 leading-relaxed">{step.context}</p>
                   <button onClick={() => {
                     const match = step.verse.match(/^(\d*\s*\w+(?:\s+\w+)?)\s+(\d+):(\d+)/);
                     if (match) {
@@ -467,14 +467,14 @@ function StepRow({ step, pathwayId, completedIds, isLocked, onToggle, reflection
 
               {step.type === 'reflection' && (
                 <div className="space-y-3">
-                  <p className="text-xs text-[#0A1A2F]/55 italic leading-relaxed">"{step.prompt}"</p>
+                  <p className="text-xs text-[#0A1A2F]/55 dark:text-white/55 italic leading-relaxed">"{step.prompt}"</p>
                   <textarea
                     maxLength={1000}
                     value={reflection}
                     onChange={e => onReflectionChange(e.target.value)}
                     placeholder="Write your reflection here…"
                     rows={4}
-                    className="w-full resize-none text-sm px-3 py-3 rounded-xl border border-[#F2F6FA] bg-white text-[#0A1A2F] placeholder-[#0A1A2F]/25 focus:outline-none focus:border-[#FAD98D]/60 leading-relaxed"
+                    className="w-full resize-none text-sm px-3 py-3 rounded-xl border border-[#F2F6FA] bg-white dark:bg-white/5 text-[#0A1A2F] dark:text-white placeholder-[#0A1A2F]/25 focus:outline-none focus:border-[#FAD98D]/60 leading-relaxed"
                   />
                   {reflection?.trim() && (
                     <button onClick={onSaveReflection} className="text-xs font-bold text-[#c9a227] hover:text-[#C9A227] transition-colors">
@@ -486,10 +486,10 @@ function StepRow({ step, pathwayId, completedIds, isLocked, onToggle, reflection
 
               {(step.type === 'action' || step.type === 'integration') && (
                 <div className="space-y-3">
-                  <p className="text-sm text-[#0A1A2F]/70 leading-relaxed">{step.content}</p>
+                  <p className="text-sm text-[#0A1A2F]/70 dark:text-white/70 leading-relaxed">{step.content}</p>
                   {step.linkPage && (
                     <button onClick={() => navigate(createPageUrl(step.linkPage))}
-                      className="flex items-center gap-2 text-xs font-bold text-[#0A1A2F] bg-[#F2F6FA] hover:bg-white transition-colors px-3 py-2.5 rounded-xl w-full">
+                      className="flex items-center gap-2 text-xs font-bold text-[#0A1A2F] dark:text-white bg-[#F2F6FA] dark:bg-[#0A1A2F] hover:bg-white dark:bg-white/5 transition-colors px-3 py-2.5 rounded-xl w-full">
                       <ExternalLink className="w-3.5 h-3.5 text-[#c9a227] flex-shrink-0" />
                       {step.linkLabel}
                     </button>
@@ -500,8 +500,8 @@ function StepRow({ step, pathwayId, completedIds, isLocked, onToggle, reflection
               <button onClick={() => onToggle(step.id)}
                 className={`w-full py-2.5 rounded-xl font-bold text-xs transition-all ${
                   isDone
-                    ? 'bg-[#F2F6FA] text-[#0A1A2F]/40 hover:bg-red-50 hover:text-red-400'
-                    : 'bg-gradient-to-r from-[#FAD98D] to-[#c9a227] text-[#0A1A2F] hover:opacity-90'
+                    ? 'bg-[#F2F6FA] dark:bg-[#0A1A2F] text-[#0A1A2F]/40 dark:text-white/40 hover:bg-red-50 hover:text-red-400'
+                    : 'bg-gradient-to-r from-[#FAD98D] to-[#c9a227] text-[#0A1A2F] dark:text-white hover:opacity-90'
                 }`}>
                 {isDone ? 'Mark incomplete' : 'Mark complete ✓'}
               </button>
@@ -557,21 +557,21 @@ function PathwayDetail({ pathway, onBack }) {
   };
 
   return (
-    <div className="min-h-screen bg-[#F2F6FA] pb-28">
+    <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
       {/* Sticky header */}
-      <div className="sticky top-0 z-40 bg-white border-b border-[#F2F6FA] px-4 py-3">
+      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#F2F6FA] px-4 py-3">
         <div className="max-w-2xl mx-auto flex items-center gap-3">
           <button onClick={onBack}
-            className="w-9 h-9 rounded-full bg-[#F2F6FA] hover:bg-white flex items-center justify-center transition-colors">
-            <ArrowLeft className="w-4 h-4 text-[#0A1A2F]" />
+            className="w-9 h-9 rounded-full bg-[#F2F6FA] dark:bg-[#0A1A2F] hover:bg-white dark:bg-white/5 flex items-center justify-center transition-colors">
+            <ArrowLeft className="w-4 h-4 text-[#0A1A2F] dark:text-white dark:text-white" />
           </button>
           <div className="flex-1 min-w-0">
-            <h1 className="text-base font-bold text-[#0A1A2F] leading-tight">{pathway.title}</h1>
-            <p className="text-xs text-[#0A1A2F]/45">{completedIds.length}/{totalSteps} steps complete</p>
+            <h1 className="text-base font-bold text-[#0A1A2F] dark:text-white leading-tight">{pathway.title}</h1>
+            <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45">{completedIds.length}/{totalSteps} steps complete</p>
           </div>
           {pct > 0 && (
             <div className="flex items-center gap-2 flex-shrink-0">
-              <div className="w-16 h-1.5 bg-[#F2F6FA] rounded-full overflow-hidden">
+              <div className="w-16 h-1.5 bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-full overflow-hidden">
                 <div className={`h-full bg-gradient-to-r ${pathway.gradient} rounded-full transition-all`} style={{ width: `${pct}%` }} />
               </div>
               <span className="text-[10px] font-bold text-[#c9a227]">{pct}%</span>
@@ -614,21 +614,21 @@ function PathwayDetail({ pathway, onBack }) {
         {!isActive && !isComplete && (
           <motion.button initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
             onClick={setAsActive}
-            className="w-full flex items-center gap-3 bg-white border border-[#FAD98D]/30 rounded-2xl p-4 hover:border-[#c9a227] hover:bg-white transition-all text-left">
-            <div className="w-9 h-9 bg-white rounded-xl flex items-center justify-center flex-shrink-0">
+            className="w-full flex items-center gap-3 bg-white dark:bg-white/5 border border-[#FAD98D]/30 rounded-2xl p-4 hover:border-[#c9a227] hover:bg-white dark:bg-white/5 transition-all text-left">
+            <div className="w-9 h-9 bg-white dark:bg-white/5 rounded-xl flex items-center justify-center flex-shrink-0">
               <Flame className="w-4 h-4 text-[#c9a227]" />
             </div>
             <div className="flex-1">
-              <p className="font-bold text-sm text-[#0A1A2F]">Make this my focus</p>
-              <p className="text-xs text-[#0A1A2F]/40">Pin this pathway as your current area of growth</p>
+              <p className="font-bold text-sm text-[#0A1A2F] dark:text-white dark:text-white">Make this my focus</p>
+              <p className="text-xs text-[#0A1A2F]/40 dark:text-white/40">Pin this pathway as your current area of growth</p>
             </div>
-            <ChevronRight className="w-4 h-4 text-[#0A1A2F]/25" />
+            <ChevronRight className="w-4 h-4 text-[#0A1A2F]/25 dark:text-white/25" />
           </motion.button>
         )}
 
         {/* Steps — sequential unlock */}
         <div>
-          <p className="text-xs font-bold text-[#0A1A2F]/35 uppercase tracking-widest mb-3">Your Steps</p>
+          <p className="text-xs font-bold text-[#0A1A2F]/35 dark:text-white/35 uppercase tracking-widest mb-3">Your Steps</p>
           <div className="space-y-2">
             {pathway.steps.map((step) => {
               const isLocked = step.id > 1 && !completedIds.includes(step.id - 1);
@@ -676,7 +676,7 @@ function PathwayCard({ pathway, progress, activeId, index, onClick }) {
     <motion.button
       initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.05 }}
       onClick={onClick}
-      className={`w-full text-left bg-white rounded-2xl border overflow-hidden hover:shadow-md transition-all group ${
+      className={`w-full text-left bg-white dark:bg-white/5 rounded-2xl border overflow-hidden hover:shadow-md transition-all group ${
         isActive ? 'border-[#c9a227] shadow-sm' : isDone ? 'border-emerald-200' : 'border-[#F2F6FA] hover:border-[#FAD98D]/50'
       }`}
     >
@@ -687,19 +687,19 @@ function PathwayCard({ pathway, progress, activeId, index, onClick }) {
         </div>
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-0.5">
-            <h3 className="font-bold text-sm text-[#0A1A2F] truncate">{pathway.title}</h3>
-            {isActive && <span className="text-[9px] font-bold bg-white text-[#c9a227] border border-[#FAD98D]/30 px-1.5 py-0.5 rounded-full flex-shrink-0">Focus</span>}
+            <h3 className="font-bold text-sm text-[#0A1A2F] dark:text-white truncate">{pathway.title}</h3>
+            {isActive && <span className="text-[9px] font-bold bg-white dark:bg-white/5 text-[#c9a227] border border-[#FAD98D]/30 px-1.5 py-0.5 rounded-full flex-shrink-0">Focus</span>}
             {isDone  && <span className="text-[9px] font-bold bg-emerald-50 text-emerald-600 border border-emerald-200 px-1.5 py-0.5 rounded-full flex-shrink-0">Done ✓</span>}
           </div>
-          <p className="text-xs text-[#0A1A2F]/45 truncate mb-2">{pathway.subtitle}</p>
+          <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45 truncate mb-2">{pathway.subtitle}</p>
 
           {completed > 0 && !isDone ? (
             <div className="space-y-1.5">
               <div className="flex items-center gap-2">
-                <div className="flex-1 h-1 bg-[#F2F6FA] rounded-full overflow-hidden">
+                <div className="flex-1 h-1 bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-full overflow-hidden">
                   <div className={`h-full rounded-full bg-gradient-to-r ${pathway.gradient}`} style={{ width: `${pct}%` }} />
                 </div>
-                <span className="text-[10px] font-bold text-[#0A1A2F]/35">{completed}/{total}</span>
+                <span className="text-[10px] font-bold text-[#0A1A2F]/35 dark:text-white/35">{completed}/{total}</span>
               </div>
               {nextStep && nextStepConf && (
                 <p className="text-[10px] text-[#c9a227] font-semibold">
@@ -708,10 +708,10 @@ function PathwayCard({ pathway, progress, activeId, index, onClick }) {
               )}
             </div>
           ) : (
-            <span className="text-[10px] text-[#0A1A2F]/30">{total} steps · {pathway.category}</span>
+            <span className="text-[10px] text-[#0A1A2F]/30 dark:text-white/30">{total} steps · {pathway.category}</span>
           )}
         </div>
-        <ChevronRight className="w-4 h-4 text-[#0A1A2F]/20 flex-shrink-0 group-hover:text-[#0A1A2F]/40 transition-colors" />
+        <ChevronRight className="w-4 h-4 text-[#0A1A2F]/20 dark:text-white/20 flex-shrink-0 group-hover:text-[#0A1A2F]/40 dark:text-white/40 transition-colors" />
       </div>
     </motion.button>
   );
@@ -780,20 +780,20 @@ export default function GrowthPathwaysPage() {
   const totalSteps    = PATHWAYS.reduce((acc, p) => acc + (progress[p.id] || []).length, 0);
 
   return (
-    <div className="min-h-screen bg-[#F2F6FA] pb-28">
-      <div className="sticky top-0 z-40 bg-white border-b border-[#F2F6FA] px-4 py-3">
+    <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
+      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#F2F6FA] px-4 py-3">
         <div className="max-w-2xl mx-auto flex items-center gap-3">
           <Link to={createPageUrl('PersonalGrowth')}
-            className="w-9 h-9 rounded-full bg-[#F2F6FA] hover:bg-white flex items-center justify-center transition-colors">
-            <ArrowLeft className="w-4 h-4 text-[#0A1A2F]" />
+            className="w-9 h-9 rounded-full bg-[#F2F6FA] dark:bg-[#0A1A2F] hover:bg-white dark:bg-white/5 flex items-center justify-center transition-colors">
+            <ArrowLeft className="w-4 h-4 text-[#0A1A2F] dark:text-white dark:text-white" />
           </Link>
           <div className="flex-1">
-            <h1 className="text-base font-bold text-[#0A1A2F]">Growth Pathways</h1>
-            <p className="text-xs text-[#0A1A2F]/45">{totalSteps} steps completed · {totalDone} pathways done</p>
+            <h1 className="text-base font-bold text-[#0A1A2F] dark:text-white dark:text-white">Growth Pathways</h1>
+            <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45">{totalSteps} steps completed · {totalDone} pathways done</p>
           </div>
           {/* Retake quiz */}
           <button onClick={() => { localStorage.removeItem(QUIZ_KEY); setView('quiz'); }}
-            className="text-xs text-[#0A1A2F]/35 hover:text-[#c9a227] transition-colors font-medium">
+            className="text-xs text-[#0A1A2F]/35 dark:text-white/35 hover:text-[#c9a227] transition-colors font-medium">
             Retake quiz
           </button>
         </div>
@@ -804,7 +804,7 @@ export default function GrowthPathwaysPage() {
         {/* Active pathway spotlight */}
         {activePathway && (progress[activePathway.id] || []).length < activePathway.steps.length && (
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
-            <p className="text-xs font-bold text-[#0A1A2F]/35 uppercase tracking-widest mb-2">Your Current Focus</p>
+            <p className="text-xs font-bold text-[#0A1A2F]/35 dark:text-white/35 uppercase tracking-widest mb-2">Your Current Focus</p>
             <button onClick={() => { setSelected(activePathway); setView('detail'); }}
               className={`w-full text-left bg-gradient-to-br ${activePathway.gradient} rounded-2xl p-5 text-white hover:opacity-95 transition-opacity shadow-md`}>
               <div className="flex items-center gap-3 mb-3">
@@ -843,7 +843,7 @@ export default function GrowthPathwaysPage() {
               className={`flex-shrink-0 px-3 py-1.5 rounded-full border text-xs font-semibold whitespace-nowrap transition-all ${
                 category === cat
                   ? 'bg-[#0A1A2F] text-white border-[#0A1A2F]'
-                  : 'bg-white text-[#0A1A2F]/50 border-[#F2F6FA] hover:border-[#FAD98D]/40'
+                  : 'bg-white dark:bg-white/5 text-[#0A1A2F]/50 dark:text-white/50 border-[#F2F6FA] hover:border-[#FAD98D]/40'
               }`}>
               {cat}
             </button>

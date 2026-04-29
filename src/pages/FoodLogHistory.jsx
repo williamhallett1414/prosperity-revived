@@ -59,14 +59,14 @@ export default function FoodLogHistory() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#F2F6FA] pb-24">
+    <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-24">
       {/* Header */}
-      <div className="sticky top-0 z-40 bg-white border-b border-[#FAD98D]/20 px-4 pt-3 pb-0">
+      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 px-4 pt-3 pb-0">
         <div className="max-w-2xl mx-auto">
           <div className="flex items-center justify-between mb-3">
             <div>
-              <h1 className="text-lg font-black text-[#0A1A2F] leading-tight">Nutrition</h1>
-              <p className="text-[11px] text-[#0A1A2F]/40 font-medium">Track · Plan · Nourish</p>
+              <h1 className="text-lg font-black text-[#0A1A2F] dark:text-white leading-tight">Nutrition</h1>
+              <p className="text-[11px] text-[#0A1A2F]/40 dark:text-white/40 font-medium">Track · Plan · Nourish</p>
             </div>
             <button
               onClick={() => setShowAddFood(true)}
@@ -83,7 +83,7 @@ export default function FoodLogHistory() {
                 className={`flex items-center gap-1 px-3 py-2.5 text-xs font-semibold border-b-2 transition-all whitespace-nowrap ${
                   id === 'history'
                     ? 'border-[#c9a227] text-[#c9a227]'
-                    : 'border-transparent text-[#0A1A2F]/40 hover:text-[#0A1A2F]/65'
+                    : 'border-transparent text-[#0A1A2F]/40 dark:text-white/40 hover:text-[#0A1A2F]/65'
                 }`}>
                 <Icon className="w-3.5 h-3.5" />
                 {label}
@@ -97,7 +97,7 @@ export default function FoodLogHistory() {
         {/* Meals by Date */}
         {sortedDates.length === 0 ? (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center py-12">
-            <p className="text-[#0A1A2F]/60">No meals logged yet</p>
+            <p className="text-[#0A1A2F]/60 dark:text-white/60">No meals logged yet</p>
           </motion.div>
         ) : (
           <div className="space-y-6">
@@ -114,13 +114,13 @@ export default function FoodLogHistory() {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: dateIdx * 0.05 }}
-                  className="bg-white rounded-xl overflow-hidden shadow-sm">
+                  className="bg-white dark:bg-white/5 rounded-xl overflow-hidden shadow-sm">
 
                   {/* Date Header */}
                   <div className="bg-gradient-to-r from-[#F2F6FA] to-[#AFC7E3] p-4">
                     <div className="flex items-center gap-2 mb-3">
-                      <Calendar className="w-4 h-4 text-[#0A1A2F]" />
-                      <h2 className="font-semibold text-[#0A1A2F]">
+                      <Calendar className="w-4 h-4 text-[#0A1A2F] dark:text-white dark:text-white" />
+                      <h2 className="font-semibold text-[#0A1A2F] dark:text-white dark:text-white">
                         {new Date(date + 'T00:00:00').toLocaleDateString('en-US', {
                           weekday: 'short', month: 'short', day: 'numeric', year: 'numeric'
                         })}
@@ -129,19 +129,19 @@ export default function FoodLogHistory() {
                     <div className="grid grid-cols-4 gap-2 text-xs">
                       <div className="text-center">
                         <p className="font-bold text-emerald-600">{dateTotal}</p>
-                        <p className="text-[#0A1A2F]/60">Calories</p>
+                        <p className="text-[#0A1A2F]/60 dark:text-white/60">Calories</p>
                       </div>
                       <div className="text-center">
                         <p className="font-bold text-[#3C4E53]">{Math.round(dateTotalProtein)}g</p>
-                        <p className="text-[#0A1A2F]/60">Protein</p>
+                        <p className="text-[#0A1A2F]/60 dark:text-white/60">Protein</p>
                       </div>
                       <div className="text-center">
                         <p className="font-bold text-amber-600">{Math.round(dateTotalCarbs)}g</p>
-                        <p className="text-[#0A1A2F]/60">Carbs</p>
+                        <p className="text-[#0A1A2F]/60 dark:text-white/60">Carbs</p>
                       </div>
                       <div className="text-center">
                         <p className="font-bold text-red-600">{Math.round(dateTotalFats)}g</p>
-                        <p className="text-[#0A1A2F]/60">Fats</p>
+                        <p className="text-[#0A1A2F]/60 dark:text-white/60">Fats</p>
                       </div>
                     </div>
                   </div>
@@ -151,13 +151,13 @@ export default function FoodLogHistory() {
                     {dateMeals.map((meal) => (
                       <motion.div key={meal.id} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }}>
                         <Link to={createPageUrl(`MealDetailView?id=${meal.id}`)}>
-                          <div className="bg-gray-50 hover:bg-gray-100 rounded-lg p-3 cursor-pointer transition-colors">
+                          <div className="bg-gray-50 dark:bg-white/5 hover:bg-gray-100 rounded-lg p-3 cursor-pointer transition-colors">
                             <div className="flex items-start justify-between mb-2">
                               <div className="flex-1 min-w-0">
-                                <p className="font-medium text-sm text-[#0A1A2F]">
+                                <p className="font-medium text-sm text-[#0A1A2F] dark:text-white dark:text-white">
                                   {mealEmoji[meal.meal_type]} {meal.description}
                                 </p>
-                                <p className="text-xs text-[#0A1A2F]/60 mt-1">
+                                <p className="text-xs text-[#0A1A2F]/60 dark:text-white/60 mt-1">
                                   P: {meal.protein || 0}g | C: {meal.carbs || 0}g | F: {meal.fats || 0}g
                                 </p>
                               </div>

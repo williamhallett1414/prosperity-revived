@@ -175,7 +175,7 @@ function calcHabitStreak(entries) {
 function SectionLabel({ children }) {
   return (
     <div className="flex items-center gap-2 mb-3 px-1">
-      <span className="text-xs font-bold text-[#0A1A2F]/40 uppercase tracking-widest">{children}</span>
+      <span className="text-xs font-bold text-[#0A1A2F]/40 dark:text-white/40 uppercase tracking-widest">{children}</span>
       <div className="flex-1 h-px bg-[#0A1A2F]/8" />
     </div>);
 
@@ -198,19 +198,19 @@ function ToolRow({ page, icon: Icon, grad, label, sub, done, onTabSwitch }) {
   const content =
   <motion.div
     whileTap={{ scale: 0.98 }}
-    className="flex items-center gap-3 bg-white rounded-2xl px-4 py-3.5 border shadow-sm hover:shadow-md transition-all mb-2.5"
+    className="flex items-center gap-3 bg-white dark:bg-white/5 rounded-2xl px-4 py-3.5 border shadow-sm hover:shadow-md transition-all mb-2.5"
     style={{ borderColor: done ? "#BBF7D0" : "#F3F4F6" }}>
     
       <div className={`w-10 h-10 bg-gradient-to-br ${grad} rounded-xl flex items-center justify-center flex-shrink-0`}>
         <Icon className="w-5 h-5 text-white" />
       </div>
       <div className="flex-1 min-w-0">
-        <p className="text-sm font-bold text-[#0A1A2F] leading-tight">{label}</p>
-        <p className="text-xs text-[#0A1A2F]/50 mt-0.5">{sub}</p>
+        <p className="text-sm font-bold text-[#0A1A2F] dark:text-white leading-tight">{label}</p>
+        <p className="text-xs text-[#0A1A2F]/50 dark:text-white/50 mt-0.5">{sub}</p>
       </div>
       {done ?
     <CheckCircle2 className="w-5 h-5 text-emerald-500 flex-shrink-0" /> :
-    <ChevronRight className="w-4 h-4 text-[#0A1A2F]/25 flex-shrink-0" />
+    <ChevronRight className="w-4 h-4 text-[#0A1A2F]/25 dark:text-white/25 flex-shrink-0" />
     }
     </motion.div>;
 
@@ -228,16 +228,16 @@ function DeepRow({ page, icon: Icon, grad, label, sub, onTabSwitch }) {
   const content =
   <motion.div
     whileTap={{ scale: 0.98 }}
-    className="flex items-center gap-3 bg-white rounded-2xl px-4 py-3.5 border border-gray-100 shadow-sm hover:shadow-md transition-all mb-2.5">
+    className="flex items-center gap-3 bg-white dark:bg-white/5 rounded-2xl px-4 py-3.5 border border-gray-100 dark:border-white/10 shadow-sm hover:shadow-md transition-all mb-2.5">
     
       <div className={`w-10 h-10 bg-gradient-to-br ${grad} rounded-xl flex items-center justify-center flex-shrink-0`}>
         <Icon className="w-5 h-5 text-white" />
       </div>
       <div className="flex-1 min-w-0">
-        <p className="text-sm font-bold text-[#0A1A2F] leading-tight">{label}</p>
-        <p className="text-xs text-[#0A1A2F]/50 mt-0.5">{sub}</p>
+        <p className="text-sm font-bold text-[#0A1A2F] dark:text-white leading-tight">{label}</p>
+        <p className="text-xs text-[#0A1A2F]/50 dark:text-white/50 mt-0.5">{sub}</p>
       </div>
-      <ChevronRight className="w-4 h-4 text-[#0A1A2F]/25 flex-shrink-0" />
+      <ChevronRight className="w-4 h-4 text-[#0A1A2F]/25 dark:text-white/25 flex-shrink-0" />
     </motion.div>;
 
 
@@ -340,7 +340,7 @@ export default function PersonalGrowth() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#F2F6FA] flex items-center justify-center">
+      <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] flex items-center justify-center">
         <div className="w-8 h-8 rounded-full border-2 border-[#AFC7E3] border-t-transparent animate-spin" />
       </div>);
 
@@ -361,14 +361,14 @@ export default function PersonalGrowth() {
 
 
   return (
-    <div className="min-h-screen bg-[#F2F6FA] pb-28">
+    <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
 
       {/* ── Sticky Header + Tab Bar ── */}
       <div className="sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b border-[#AFC7E3]/25">
         <div className="px-4 py-3 max-w-2xl mx-auto flex items-center justify-between">
           <div>
-            <h1 className="text-base font-bold text-[#0A1A2F] leading-tight">Personal Growth</h1>
-            <p className="text-xs text-[#0A1A2F]/45">Strengthen your mind, emotions, and spirit</p>
+            <h1 className="text-base font-bold text-[#0A1A2F] dark:text-white leading-tight">Personal Growth</h1>
+            <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45">Strengthen your mind, emotions, and spirit</p>
           </div>
           {habitStreak > 0 &&
           <div className="flex items-center gap-1 bg-orange-50 border border-orange-100 px-2.5 py-1.5 rounded-full">
@@ -384,7 +384,7 @@ export default function PersonalGrowth() {
           className={`flex items-center gap-1.5 px-4 py-2.5 text-xs font-semibold flex-shrink-0 rounded-lg transition-all ${
           activeTab === tab.id ?
           'bg-[#3C4E53] text-white shadow-sm' :
-          'text-[#0A1A2F]/50 hover:bg-[#AFC7E3]/15 hover:text-[#3C4E53]'}`
+          'text-[#0A1A2F]/50 dark:text-white/50 hover:bg-[#AFC7E3]/15 hover:text-[#3C4E53]'}`
           }>
             
               {tab.icon} {tab.label}
@@ -447,7 +447,7 @@ export default function PersonalGrowth() {
             <button key={sub.id}
             onClick={() => setActiveTab(sub.id)}
             className={`text-xs font-semibold px-3 py-2 rounded-lg border-2 flex-shrink-0 transition-all ${
-            activeTab === sub.id ? 'bg-gradient-to-r from-[#3C4E53] to-[#AFC7E3] text-white border-[#3C4E53] shadow-sm' : 'bg-white text-[#3C4E53] border-[#AFC7E3]/25 hover:border-[#AFC7E3]/50 hover:bg-[#AFC7E3]/10'}`
+            activeTab === sub.id ? 'bg-gradient-to-r from-[#3C4E53] to-[#AFC7E3] text-white border-[#3C4E53] shadow-sm' : 'bg-white dark:bg-white/5 text-[#3C4E53] border-[#AFC7E3]/25 hover:border-[#AFC7E3]/50 hover:bg-[#AFC7E3]/10'}`
             }>
               {sub.label}
                 </button>
@@ -476,7 +476,7 @@ export default function PersonalGrowth() {
             <button key={sub.id}
             onClick={() => setActiveTab(sub.id)}
             className={`text-xs font-semibold px-3 py-2 rounded-lg border-2 flex-shrink-0 transition-all ${
-            activeTab === sub.id ? 'bg-gradient-to-r from-[#3C4E53] to-[#AFC7E3] text-white border-[#3C4E53] shadow-sm' : 'bg-white text-[#3C4E53] border-[#AFC7E3]/25 hover:border-[#AFC7E3]/50 hover:bg-[#AFC7E3]/10'}`
+            activeTab === sub.id ? 'bg-gradient-to-r from-[#3C4E53] to-[#AFC7E3] text-white border-[#3C4E53] shadow-sm' : 'bg-white dark:bg-white/5 text-[#3C4E53] border-[#AFC7E3]/25 hover:border-[#AFC7E3]/50 hover:bg-[#AFC7E3]/10'}`
             }>
               {sub.label}
                 </button>
@@ -504,7 +504,7 @@ export default function PersonalGrowth() {
           <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }}>
             <div className="flex items-center gap-2 mb-1">
               <GreetIcon className="w-5 h-5" style={{ color: greeting.color }} />
-              <h2 className="text-xl font-bold text-[#0A1A2F]">{greeting.text}</h2>
+              <h2 className="text-xl font-bold text-[#0A1A2F] dark:text-white dark:text-white">{greeting.text}</h2>
             </div>
           </motion.div>
 
@@ -555,13 +555,13 @@ export default function PersonalGrowth() {
             
               {lastMood &&
             <button onClick={() => setActiveTab('habits-emotional')} className="text-left">
-                  <div className="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm h-full hover:shadow-md transition-all">
-                    <p className="text-[10px] font-bold text-[#0A1A2F]/40 uppercase tracking-widest mb-2">Last check-in</p>
+                  <div className="bg-white dark:bg-white/5 rounded-2xl p-4 border border-gray-100 dark:border-white/10 shadow-sm h-full hover:shadow-md transition-all">
+                    <p className="text-[10px] font-bold text-[#0A1A2F]/40 dark:text-white/40 uppercase tracking-widest mb-2">Last check-in</p>
                     <div className="flex items-center gap-2">
                       <span className="text-2xl">{lastMood.emoji}</span>
                       <div>
-                        <p className="text-sm font-bold text-[#0A1A2F] capitalize">{lastMood.value}</p>
-                        <p className="text-xs text-[#0A1A2F]/45">Tap to check in today</p>
+                        <p className="text-sm font-bold text-[#0A1A2F] dark:text-white capitalize">{lastMood.value}</p>
+                        <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45">Tap to check in today</p>
                       </div>
                     </div>
                   </div>
@@ -569,10 +569,10 @@ export default function PersonalGrowth() {
             }
               {lastJournal &&
             <button onClick={() => setActiveTab('journal')} className="text-left">
-                  <div className="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm h-full hover:shadow-md transition-all">
-                    <p className="text-[10px] font-bold text-[#0A1A2F]/40 uppercase tracking-widest mb-2">Last reflection</p>
-                    <p className="text-xs text-[#0A1A2F]/70 leading-relaxed line-clamp-3">{lastJournal.preview}</p>
-                    {lastJournal.date && <p className="text-[10px] text-[#0A1A2F]/30 mt-1.5">{lastJournal.date}</p>}
+                  <div className="bg-white dark:bg-white/5 rounded-2xl p-4 border border-gray-100 dark:border-white/10 shadow-sm h-full hover:shadow-md transition-all">
+                    <p className="text-[10px] font-bold text-[#0A1A2F]/40 dark:text-white/40 uppercase tracking-widest mb-2">Last reflection</p>
+                    <p className="text-xs text-[#0A1A2F]/70 dark:text-white/70 leading-relaxed line-clamp-3">{lastJournal.preview}</p>
+                    {lastJournal.date && <p className="text-[10px] text-[#0A1A2F]/30 dark:text-white/30 mt-1.5">{lastJournal.date}</p>}
                   </div>
                 </button>
             }

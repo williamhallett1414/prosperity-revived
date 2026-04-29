@@ -39,7 +39,7 @@ export default function ProfileHeader({ user, friendsCount, userProgress }) {
   };
 
   return (
-    <div className="bg-white shadow-sm">
+    <div className="bg-white dark:bg-white/5 shadow-sm">
       {/* Cover Photo */}
       <div className="relative h-64 sm:h-80 lg:h-96 bg-gradient-to-br from-[#3C4E53] via-[#FD9C2D] to-[#FAD98D] overflow-hidden">
         {user?.cover_image_url ?
@@ -53,7 +53,7 @@ export default function ProfileHeader({ user, friendsCount, userProgress }) {
         }
         <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
         
-        <label className="absolute bottom-4 right-4 bg-white rounded-lg px-4 py-2.5 shadow-lg cursor-pointer hover:bg-gray-50 transition-all flex items-center gap-2 hover:shadow-xl">
+        <label className="absolute bottom-4 right-4 bg-white dark:bg-white/5 rounded-lg px-4 py-2.5 shadow-lg cursor-pointer hover:bg-gray-50 dark:bg-white/5 transition-all flex items-center gap-2 hover:shadow-xl">
           <Camera className="w-4 h-4 text-gray-700" />
           <span className="text-sm font-semibold text-gray-800">
             {uploadingCover ? 'Uploading...' : 'Edit Cover'}
@@ -88,7 +88,7 @@ export default function ProfileHeader({ user, friendsCount, userProgress }) {
                 }
               </div>
               
-              <label className="absolute bottom-1 right-1 bg-white rounded-full p-2.5 shadow-lg cursor-pointer hover:bg-gray-50 transition-all hover:scale-105">
+              <label className="absolute bottom-1 right-1 bg-white dark:bg-white/5 rounded-full p-2.5 shadow-lg cursor-pointer hover:bg-gray-50 dark:bg-white/5 transition-all hover:scale-105">
                 <Camera className="w-4 h-4 sm:w-5 sm:h-5 text-gray-700" />
                 <input
                   type="file"
@@ -131,7 +131,7 @@ export default function ProfileHeader({ user, friendsCount, userProgress }) {
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="border-t border-gray-200 pt-4 pb-3">
+          className="border-t border-gray-200 dark:border-white/10 pt-4 pb-3">
 
             <div className="max-w-3xl mx-auto sm:mx-0">
               {user?.status_message &&

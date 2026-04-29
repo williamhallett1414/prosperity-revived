@@ -50,11 +50,11 @@ function applySort(list, sort) {
 function EmptyState({ icon, title, sub, action, onAction }) {
   return (
     <div className="text-center py-12">
-      <div className="w-16 h-16 rounded-2xl bg-[#F2F6FA] flex items-center justify-center mx-auto mb-3">
+      <div className="w-16 h-16 rounded-2xl bg-[#F2F6FA] dark:bg-[#0A1A2F] flex items-center justify-center mx-auto mb-3">
         {icon}
       </div>
-      <p className="font-bold text-[#0A1A2F]/60 text-sm">{title}</p>
-      {sub    && <p className="text-xs text-[#0A1A2F]/35 mt-1 mb-4">{sub}</p>}
+      <p className="font-bold text-[#0A1A2F]/60 dark:text-white/60 text-sm">{title}</p>
+      {sub    && <p className="text-xs text-[#0A1A2F]/35 dark:text-white/35 mt-1 mb-4">{sub}</p>}
       {action && (
         <button onClick={onAction}
           className="text-xs font-bold text-[#c9a227] hover:opacity-70 transition-opacity">
@@ -137,10 +137,10 @@ export default function DiscoverRecipes() {
   const showFilters = activeTab !== 'health' && activeTab !== 'collections';
 
   return (
-    <div className="min-h-screen bg-[#F2F6FA] pb-28">
+    <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
 
       {/* ── Sticky header ── */}
-      <div className="sticky top-0 z-40 bg-white border-b border-[#FAD98D]/20 px-4 pt-4 pb-3">
+      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 px-4 pt-4 pb-3">
         <div className="max-w-lg mx-auto space-y-3">
 
           {/* Title row */}
@@ -150,8 +150,8 @@ export default function DiscoverRecipes() {
                 <UtensilsCrossed className="w-5 h-5 text-white" />
               </div>
               <div>
-                <h1 className="text-base font-bold text-[#0A1A2F]">Discover Recipes</h1>
-                <p className="text-xs text-[#0A1A2F]/45">
+                <h1 className="text-base font-bold text-[#0A1A2F] dark:text-white dark:text-white">Discover Recipes</h1>
+                <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45">
                   {isLoading ? 'Loading…' : `${recipes.length} recipe${recipes.length !== 1 ? 's' : ''} in the library`}
                 </p>
               </div>
@@ -162,19 +162,19 @@ export default function DiscoverRecipes() {
               {showFilters && (
                 <div className="relative">
                   <button onClick={() => setShowSort(s => !s)}
-                    className="flex items-center gap-1 px-2.5 py-2 rounded-xl bg-[#F2F6FA] text-xs font-bold text-[#0A1A2F]/55 hover:bg-[#FAD98D]/15 transition-colors">
+                    className="flex items-center gap-1 px-2.5 py-2 rounded-xl bg-[#F2F6FA] dark:bg-[#0A1A2F] text-xs font-bold text-[#0A1A2F]/55 dark:text-white/55 hover:bg-[#FAD98D]/15 transition-colors">
                     <ArrowUpDown className="w-3.5 h-3.5" />
                     {activeSort?.label}
                   </button>
                   {showSort && (
-                    <div className="absolute right-0 top-full mt-1 bg-white rounded-2xl border border-[#FAD98D]/20 shadow-lg py-1.5 z-50 min-w-[110px]">
+                    <div className="absolute right-0 top-full mt-1 bg-white dark:bg-white/5 rounded-2xl border border-[#FAD98D]/20 shadow-lg py-1.5 z-50 min-w-[110px]">
                       {SORT_OPTIONS.map(opt => (
                         <button key={opt.value}
                           onClick={() => { setSort(opt.value); setShowSort(false); }}
                           className={`w-full text-left px-4 py-2 text-xs font-semibold transition-colors ${
                             sort === opt.value
                               ? 'text-[#c9a227] bg-[#FAD98D]/15'
-                              : 'text-[#0A1A2F]/60 hover:bg-[#F2F6FA]'
+                              : 'text-[#0A1A2F]/60 dark:text-white/60 hover:bg-[#F2F6FA] dark:bg-[#0A1A2F]'
                           }`}>
                           {opt.label}
                         </button>
@@ -218,12 +218,12 @@ export default function DiscoverRecipes() {
                     ? id === 'health'
                       ? 'bg-gradient-to-b from-red-400 to-pink-400 text-white shadow-sm'
                       : 'bg-gradient-to-b from-[#c9a227] to-[#FAD98D] text-white shadow-sm'
-                    : 'bg-[#F2F6FA] text-[#0A1A2F]/45 hover:text-[#0A1A2F]/65'
+                    : 'bg-[#F2F6FA] dark:bg-[#0A1A2F] text-[#0A1A2F]/45 dark:text-white/45 hover:text-[#0A1A2F]/65'
                 }`}>
                 <Icon className="w-3.5 h-3.5" />
                 {label}
                 {id !== 'collections' && counts[id] > 0 && activeTab !== id && (
-                  <span className="absolute -top-1 -right-1 bg-[#0A1A2F]/15 text-[#0A1A2F] text-[8px] font-bold rounded-full px-1 leading-4">
+                  <span className="absolute -top-1 -right-1 bg-[#0A1A2F]/15 text-[#0A1A2F] dark:text-white text-[8px] font-bold rounded-full px-1 leading-4">
                     {counts[id]}
                   </span>
                 )}
@@ -241,12 +241,12 @@ export default function DiscoverRecipes() {
         {activeTab === 'all' && (() => {
           if (isLoading) return (
             <div className="space-y-3">
-              {[1,2,3].map(i => <div key={i} className="bg-white rounded-2xl border border-[#FAD98D]/20 h-36 animate-pulse" />)}
+              {[1,2,3].map(i => <div key={i} className="bg-white dark:bg-white/5 rounded-2xl border border-[#FAD98D]/20 h-36 animate-pulse" />)}
             </div>
           );
           if (allSrc.length === 0) return (
             <EmptyState
-              icon={<UtensilsCrossed className="w-8 h-8 text-[#0A1A2F]/15" />}
+              icon={<UtensilsCrossed className="w-8 h-8 text-[#0A1A2F]/15 dark:text-white/15" />}
               title={isFiltered(filters) ? 'No recipes match' : 'No recipes yet'}
               sub={isFiltered(filters) ? 'Try adjusting your filters' : 'Add the first recipe to the library'}
               action={isFiltered(filters) ? 'Clear filters' : 'Add Recipe'}
@@ -256,7 +256,7 @@ export default function DiscoverRecipes() {
           return (
             <>
               {!isFiltered(filters) && <PersonalizedRecipes user={user} allRecipes={recipes} />}
-              <p className="text-[10px] font-bold text-[#0A1A2F]/35 uppercase tracking-widest pt-1">
+              <p className="text-[10px] font-bold text-[#0A1A2F]/35 dark:text-white/35 uppercase tracking-widest pt-1">
                 {isFiltered(filters) ? `${allSrc.length} result${allSrc.length !== 1 ? 's' : ''}` : `All · ${allSrc.length} recipes`}
               </p>
               <div className="space-y-3">
@@ -275,7 +275,7 @@ export default function DiscoverRecipes() {
         {activeTab === 'mine' && (() => {
           if (myRecipes.length === 0) return (
             <EmptyState
-              icon={<BookOpen className="w-8 h-8 text-[#0A1A2F]/15" />}
+              icon={<BookOpen className="w-8 h-8 text-[#0A1A2F]/15 dark:text-white/15" />}
               title="No recipes yet"
               sub="Add your first recipe to build your personal cookbook"
               action="Add Recipe"
@@ -284,7 +284,7 @@ export default function DiscoverRecipes() {
           );
           if (mineSrc.length === 0) return (
             <EmptyState
-              icon={<UtensilsCrossed className="w-8 h-8 text-[#0A1A2F]/15" />}
+              icon={<UtensilsCrossed className="w-8 h-8 text-[#0A1A2F]/15 dark:text-white/15" />}
               title="No matches"
               sub="None of your recipes match this filter"
               action="Clear filters"
@@ -293,7 +293,7 @@ export default function DiscoverRecipes() {
           );
           return (
             <>
-              <p className="text-[10px] font-bold text-[#0A1A2F]/35 uppercase tracking-widest pt-1">
+              <p className="text-[10px] font-bold text-[#0A1A2F]/35 dark:text-white/35 uppercase tracking-widest pt-1">
                 Your recipes · {mineSrc.length}
               </p>
               <div className="space-y-3">
@@ -307,7 +307,7 @@ export default function DiscoverRecipes() {
         {activeTab === 'community' && (() => {
           if (communityRecipes.length === 0) return (
             <EmptyState
-              icon={<Users className="w-8 h-8 text-[#0A1A2F]/15" />}
+              icon={<Users className="w-8 h-8 text-[#0A1A2F]/15 dark:text-white/15" />}
               title="No shared recipes yet"
               sub="Share your recipes so others can discover them"
               action="Add Recipe"
@@ -316,7 +316,7 @@ export default function DiscoverRecipes() {
           );
           if (communitySrc.length === 0) return (
             <EmptyState
-              icon={<UtensilsCrossed className="w-8 h-8 text-[#0A1A2F]/15" />}
+              icon={<UtensilsCrossed className="w-8 h-8 text-[#0A1A2F]/15 dark:text-white/15" />}
               title="No matches"
               sub="Try adjusting your filters"
               action="Clear filters"
@@ -325,7 +325,7 @@ export default function DiscoverRecipes() {
           );
           return (
             <>
-              <p className="text-[10px] font-bold text-[#0A1A2F]/35 uppercase tracking-widest pt-1">
+              <p className="text-[10px] font-bold text-[#0A1A2F]/35 dark:text-white/35 uppercase tracking-widest pt-1">
                 Shared by the community · {communitySrc.length}
               </p>
               <div className="space-y-3">

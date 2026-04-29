@@ -46,10 +46,10 @@ export default function GratitudeJournal() {
     >
       <div className="flex items-center gap-2 mb-4">
         <Heart className="w-6 h-6 text-[#FAD98D]" />
-        <h3 className="text-lg font-bold text-[#0A1A2F]">Gratitude Journal</h3>
+        <h3 className="text-lg font-bold text-[#0A1A2F] dark:text-white dark:text-white">Gratitude Journal</h3>
       </div>
 
-      <p className="text-sm text-[#0A1A2F]/70 mb-4">What are you grateful for today?</p>
+      <p className="text-sm text-[#0A1A2F]/70 dark:text-white/70 mb-4">What are you grateful for today?</p>
 
       <div className="space-y-3 mb-4">
         {gratitudeItems.map((item, index) => (
@@ -59,7 +59,7 @@ export default function GratitudeJournal() {
               value={item}
               onChange={(e) => updateItem(index, e.target.value)}
               placeholder="I'm grateful for..."
-              className="bg-white border-[#FAD98D]/40 focus:border-pink-400 text-black"
+              className="bg-white dark:bg-white/5 border-[#FAD98D]/40 focus:border-pink-400 text-black"
             />
           </div>
         ))}

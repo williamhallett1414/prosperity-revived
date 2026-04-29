@@ -16,7 +16,7 @@ export function Skeleton({ className = '', lines = 1, circle = false }) {
 
 export function CardSkeleton({ className = '' }) {
   return (
-    <div className={`animate-pulse rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 p-4 ${className}`}>
+    <div className={`animate-pulse rounded-2xl bg-white dark:bg-white/5 dark:bg-gray-800 border border-gray-100 dark:border-white/10 dark:border-gray-700 p-4 ${className}`}>
       <div className="flex items-center gap-3 mb-3">
         <div className="w-10 h-10 rounded-xl bg-gray-200 dark:bg-gray-700" />
         <div className="flex-1 space-y-2">

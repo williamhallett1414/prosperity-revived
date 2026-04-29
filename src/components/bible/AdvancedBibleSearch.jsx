@@ -134,7 +134,7 @@ Example format:
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold text-[#0A1A2F] flex items-center gap-2">
+          <DialogTitle className="text-2xl font-bold text-[#0A1A2F] dark:text-white flex items-center gap-2">
             <Search className="w-6 h-6 text-[#FAD98D]" />
             Advanced Bible Search
           </DialogTitle>
@@ -144,21 +144,21 @@ Example format:
           {/* Search Input */}
           <div className="space-y-2">
             <div className="relative">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#0A1A2F]/40" />
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#0A1A2F]/40 dark:text-white/40" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onKeyDown={handleKeyDown}
                 placeholder="Search for keywords, phrases, or themes..."
-                className="w-full pl-12 pr-4 py-3 bg-[#F2F6FA] rounded-xl border-2 border-[#FAD98D]/20 focus:border-[#FAD98D] focus:outline-none text-[#0A1A2F]"
+                className="w-full pl-12 pr-4 py-3 bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-xl border-2 border-[#FAD98D]/20 focus:border-[#FAD98D] focus:outline-none text-[#0A1A2F] dark:text-white dark:text-white"
                 autoFocus
               />
             </div>
             <Button 
               onClick={handleSearch} 
               disabled={searching || !searchQuery.trim()}
-              className="w-full bg-[#FAD98D] hover:bg-[#FAD98D]/90 text-[#0A1A2F]"
+              className="w-full bg-[#FAD98D] hover:bg-[#FAD98D]/90 text-[#0A1A2F] dark:text-white dark:text-white"
             >
               {searching ? (
                 <>
@@ -175,10 +175,10 @@ Example format:
           </div>
 
           {/* Filters */}
-          <div className="bg-[#F2F6FA] rounded-xl p-4 space-y-4">
+          <div className="bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-xl p-4 space-y-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <Filter className="w-4 h-4 text-[#0A1A2F]/60" />
+                <Filter className="w-4 h-4 text-[#0A1A2F]/60 dark:text-white/60" />
                 <span className="font-semibold text-[#0A1A2F]/75">Filters</span>
               </div>
               {(filters.testament !== 'all' || filters.books.length > 0 || filters.searchType !== 'keywords') && (
@@ -193,7 +193,7 @@ Example format:
 
             {/* Search Type */}
             <div>
-              <label className="text-xs font-semibold text-[#0A1A2F]/60 mb-2 block">Search Type</label>
+              <label className="text-xs font-semibold text-[#0A1A2F]/60 dark:text-white/60 mb-2 block">Search Type</label>
               <div className="flex gap-2">
                 {['keywords', 'phrase', 'thematic'].map((type) => (
                   <button
@@ -201,8 +201,8 @@ Example format:
                     onClick={() => setFilters(prev => ({ ...prev, searchType: type }))}
                     className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                       filters.searchType === type
-                        ? 'bg-[#FAD98D] text-[#0A1A2F]'
-                        : 'bg-white text-[#0A1A2F]/60 hover:bg-[#FAD98D]/12'
+                        ? 'bg-[#FAD98D] text-[#0A1A2F] dark:text-white dark:text-white'
+                        : 'bg-white dark:bg-white/5 text-[#0A1A2F]/60 dark:text-white/60 hover:bg-[#FAD98D]/12'
                     }`}
                   >
                     {type === 'keywords' && '🔤 Keywords'}
@@ -215,7 +215,7 @@ Example format:
 
             {/* Testament Filter */}
             <div>
-              <label className="text-xs font-semibold text-[#0A1A2F]/60 mb-2 block">Testament</label>
+              <label className="text-xs font-semibold text-[#0A1A2F]/60 dark:text-white/60 mb-2 block">Testament</label>
               <div className="flex gap-2">
                 {['all', 'old', 'new'].map((testament) => (
                   <button
@@ -223,8 +223,8 @@ Example format:
                     onClick={() => setFilters(prev => ({ ...prev, testament, books: [] }))}
                     className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                       filters.testament === testament
-                        ? 'bg-[#FAD98D] text-[#0A1A2F]'
-                        : 'bg-white text-[#0A1A2F]/60 hover:bg-[#FAD98D]/12'
+                        ? 'bg-[#FAD98D] text-[#0A1A2F] dark:text-white dark:text-white'
+                        : 'bg-white dark:bg-white/5 text-[#0A1A2F]/60 dark:text-white/60 hover:bg-[#FAD98D]/12'
                     }`}
                   >
                     {testament === 'all' && 'All'}
@@ -238,7 +238,7 @@ Example format:
             {/* Specific Books (Optional) */}
             {filters.testament !== 'all' && (
               <div>
-                <label className="text-xs font-semibold text-[#0A1A2F]/60 mb-2 block">
+                <label className="text-xs font-semibold text-[#0A1A2F]/60 dark:text-white/60 mb-2 block">
                   Specific Books (Optional)
                 </label>
                 <div className="flex flex-wrap gap-2 max-h-32 overflow-y-auto">
@@ -248,8 +248,8 @@ Example format:
                       onClick={() => toggleBookFilter(book)}
                       className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
                         filters.books.includes(book)
-                          ? 'bg-[#FAD98D] text-[#0A1A2F]'
-                          : 'bg-white text-[#0A1A2F]/60 hover:bg-[#FAD98D]/12'
+                          ? 'bg-[#FAD98D] text-[#0A1A2F] dark:text-white dark:text-white'
+                          : 'bg-white dark:bg-white/5 text-[#0A1A2F]/60 dark:text-white/60 hover:bg-[#FAD98D]/12'
                       }`}
                     >
                       {book}
@@ -264,7 +264,7 @@ Example format:
           {searching && (
             <div className="text-center py-12">
               <Loader2 className="w-12 h-12 animate-spin mx-auto text-[#FAD98D]" />
-              <p className="text-[#0A1A2F]/50 mt-4">Searching the Bible for "{searchQuery}"...</p>
+              <p className="text-[#0A1A2F]/50 dark:text-white/50 mt-4">Searching the Bible for "{searchQuery}"...</p>
             </div>
           )}
 
@@ -274,7 +274,7 @@ Example format:
                 <h3 className="font-semibold text-[#0A1A2F]/75">
                   {searchResults.length} Results Found
                 </h3>
-                <span className="text-xs text-[#0A1A2F]/50">
+                <span className="text-xs text-[#0A1A2F]/50 dark:text-white/50">
                   Searching for: "{searchQuery}"
                 </span>
               </div>
@@ -286,7 +286,7 @@ Example format:
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.05 }}
-                    className="bg-white rounded-xl p-4 border-2 border-[#FAD98D]/20 hover:border-[#FAD98D] transition-colors cursor-pointer"
+                    className="bg-white dark:bg-white/5 rounded-xl p-4 border-2 border-[#FAD98D]/20 hover:border-[#FAD98D] transition-colors cursor-pointer"
                     onClick={() => {
                       onNavigateToVerse({
                         type: 'verse',
@@ -302,7 +302,7 @@ Example format:
                         <div className="w-8 h-8 rounded-lg bg-[#FAD98D]/20 flex items-center justify-center">
                           <span className="text-xs font-bold text-[#3C4E53]">V</span>
                         </div>
-                        <span className="font-bold text-[#0A1A2F]">
+                        <span className="font-bold text-[#0A1A2F] dark:text-white dark:text-white">
                           {result.book} {result.chapter}:{result.verse}
                         </span>
                       </div>
@@ -326,8 +326,8 @@ Example format:
           {!searching && searchResults.length === 0 && searchQuery && (
             <div className="text-center py-12">
               <Search className="w-16 h-16 mx-auto text-[#FAD98D]/50 mb-4" />
-              <p className="text-[#0A1A2F]/50">No results found for "{searchQuery}"</p>
-              <p className="text-sm text-[#0A1A2F]/40 mt-2">Try different keywords or adjust your filters</p>
+              <p className="text-[#0A1A2F]/50 dark:text-white/50">No results found for "{searchQuery}"</p>
+              <p className="text-sm text-[#0A1A2F]/40 dark:text-white/40 mt-2">Try different keywords or adjust your filters</p>
             </div>
           )}
         </div>

@@ -2,7 +2,7 @@ import React from "react";
 import { Play, Clock } from "lucide-react";
 
 const statusColors = {
-  pending: "bg-gray-500",
+  pending: "bg-gray-50 dark:bg-white/50",
   generating: "bg-yellow-500",
   ready: "bg-green-500",
   error: "bg-red-500"

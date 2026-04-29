@@ -97,7 +97,7 @@ function getTimeGreeting(name) {
 function SectionLabel({ children, action, actionTo }) {
   return (
     <div className="flex items-center justify-between mb-3 px-0.5">
-      <span className="text-sm font-bold text-[#0A1A2F]">{children}</span>
+      <span className="text-sm font-bold text-[#0A1A2F] dark:text-white dark:text-white">{children}</span>
       {action && actionTo &&
       <Link to={createPageUrl(actionTo)}
       className="flex items-center gap-1 text-xs font-semibold text-[#38BDF8] hover:text-[#0EA5E9]">
@@ -110,10 +110,10 @@ function SectionLabel({ children, action, actionTo }) {
 
 function StatPill({ value, label, color, sub }) {
   return (
-    <div className="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm flex-1 min-w-0">
+    <div className="bg-white dark:bg-white/5 rounded-2xl p-4 border border-gray-100 dark:border-white/10 shadow-sm flex-1 min-w-0">
       <p className="text-2xl font-black" style={{ color }}>{value}</p>
-      <p className="text-xs text-[#0A1A2F]/55 mt-0.5 leading-tight">{label}</p>
-      {sub && <p className="text-[10px] text-[#0A1A2F]/35 mt-0.5">{sub}</p>}
+      <p className="text-xs text-[#0A1A2F]/55 dark:text-white/55 mt-0.5 leading-tight">{label}</p>
+      {sub && <p className="text-[10px] text-[#0A1A2F]/35 dark:text-white/35 mt-0.5">{sub}</p>}
     </div>);
 
 }
@@ -123,7 +123,7 @@ function WorkoutPill({ workout, onStart, done }) {
   return (
     <motion.div
       whileTap={{ scale: 0.98 }}
-      className="bg-white rounded-2xl border shadow-sm overflow-hidden mb-3"
+      className="bg-white dark:bg-white/5 rounded-2xl border shadow-sm overflow-hidden mb-3"
       style={{ borderColor: done ? "#BBF7D0" : "#F3F4F6" }}>
       
       <div className="flex items-center gap-3 px-4 py-3.5">
@@ -131,8 +131,8 @@ function WorkoutPill({ workout, onStart, done }) {
           <Dumbbell className="w-5 h-5 text-white" />
         </div>
         <div className="flex-1 min-w-0">
-          <p className="text-sm font-bold text-[#0A1A2F] truncate">{workout.title}</p>
-          <p className="text-xs text-[#0A1A2F]/50">
+          <p className="text-sm font-bold text-[#0A1A2F] dark:text-white truncate">{workout.title}</p>
+          <p className="text-xs text-[#0A1A2F]/50 dark:text-white/50">
             {workout.duration_minutes} min · {workout.difficulty || "All levels"}
           </p>
         </div>
@@ -266,7 +266,7 @@ export default function Workouts() {
   }, [challenges, challengeParticipants]);
 
   return (
-    <div className="min-h-screen bg-[#F2F6FA] pb-28">
+    <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
 
       {/* ── Header ── */}
       <div className="sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b border-[#BAE6FD]/40">
@@ -296,7 +296,7 @@ export default function Workouts() {
              map((tab) =>
              <button key={tab.id} onClick={() => tab.id === 'goals' ? navigate(createPageUrl('FitnessGoalsPage')) : setActiveTab(tab.id)}
              className={`flex items-center gap-1.5 px-4 py-3 text-xs font-semibold flex-shrink-0 relative transition-colors ${
-             activeTab === tab.id ? 'text-[#38BDF8]' : 'text-[#0A1A2F]/40 hover:text-[#0A1A2F]/60'}`
+             activeTab === tab.id ? 'text-[#38BDF8]' : 'text-[#0A1A2F]/40 dark:text-white/40 hover:text-[#0A1A2F]/60 dark:text-white/60'}`
              }>
 
                  {tab.icon} {tab.label}
@@ -367,9 +367,9 @@ export default function Workouts() {
 
             {/* ── Week at a Glance ── */}
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }}>
-              <div className="bg-white rounded-2xl border border-gray-100 shadow-sm px-5 py-4">
+              <div className="bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 shadow-sm px-5 py-4">
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-sm font-bold text-[#0A1A2F]">This Week</span>
+                  <span className="text-sm font-bold text-[#0A1A2F] dark:text-white dark:text-white">This Week</span>
                   <button onClick={() => setActiveTab('trends')}
                   className="text-xs font-semibold text-[#38BDF8] flex items-center gap-0.5">
                     Trends <ChevronRight className="w-3 h-3" />
@@ -381,7 +381,7 @@ export default function Workouts() {
                     const done = workedOutDays.has(day.key);
                     return (
                       <div key={day.key} className="flex flex-col items-center gap-1.5">
-                        <span className="text-[10px] font-bold text-[#0A1A2F]/40">{day.label}</span>
+                        <span className="text-[10px] font-bold text-[#0A1A2F]/40 dark:text-white/40">{day.label}</span>
                         <div
                           className="w-7 h-7 rounded-full flex items-center justify-center border-2 transition-all"
                           style={{
@@ -403,25 +403,25 @@ export default function Workouts() {
                   })}
                 </div>
                 {/* Stat row */}
-                <div className="flex items-center gap-4 pt-3 border-t border-gray-50">
+                <div className="flex items-center gap-4 pt-3 border-t border-gray-50 dark:border-white/5">
                   <div className="flex-1 text-center">
                     <p className="text-lg font-black text-[#38BDF8]">{weekSessions.length}</p>
-                    <p className="text-[10px] text-[#0A1A2F]/45">sessions</p>
+                    <p className="text-[10px] text-[#0A1A2F]/45 dark:text-white/45">sessions</p>
                   </div>
                   <div className="w-px h-8 bg-gray-100" />
                   <div className="flex-1 text-center">
                     <p className="text-lg font-black text-[#FD9C2D]">{thisWeekMins}</p>
-                    <p className="text-[10px] text-[#0A1A2F]/45">minutes</p>
+                    <p className="text-[10px] text-[#0A1A2F]/45 dark:text-white/45">minutes</p>
                   </div>
                   <div className="w-px h-8 bg-gray-100" />
                   <div className="flex-1 text-center">
-                    <p className="text-lg font-black text-[#0A1A2F]">{totalMins}</p>
-                    <p className="text-[10px] text-[#0A1A2F]/45">total mins</p>
+                    <p className="text-lg font-black text-[#0A1A2F] dark:text-white dark:text-white">{totalMins}</p>
+                    <p className="text-[10px] text-[#0A1A2F]/45 dark:text-white/45">total mins</p>
                   </div>
                   <div className="w-px h-8 bg-gray-100" />
                   <div className="flex-1 text-center">
                     <p className="text-lg font-black text-orange-500">{streak}</p>
-                    <p className="text-[10px] text-[#0A1A2F]/45">day streak</p>
+                    <p className="text-[10px] text-[#0A1A2F]/45 dark:text-white/45">day streak</p>
                   </div>
                 </div>
               </div>
@@ -495,17 +495,17 @@ export default function Workouts() {
                 </motion.div> :
               null}
               <Link to={createPageUrl("WorkoutCategoryPage")}>
-                <div className="flex items-center justify-between px-4 py-3.5 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all">
+                <div className="flex items-center justify-between px-4 py-3.5 bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 shadow-sm hover:shadow-md transition-all">
                   <div className="flex items-center gap-3">
                     <div className="w-9 h-9 bg-gradient-to-br from-slate-700 to-slate-500 rounded-xl flex items-center justify-center">
                       <Dumbbell className="w-4 h-4 text-white" />
                     </div>
                     <div>
-                      <p className="text-sm font-bold text-[#0A1A2F]">Browse All Workouts</p>
-                      <p className="text-xs text-[#0A1A2F]/50">Cardio, strength, HIIT, home & more</p>
+                      <p className="text-sm font-bold text-[#0A1A2F] dark:text-white dark:text-white">Browse All Workouts</p>
+                      <p className="text-xs text-[#0A1A2F]/50 dark:text-white/50">Cardio, strength, HIIT, home & more</p>
                     </div>
                   </div>
-                  <ChevronRight className="w-4 h-4 text-[#0A1A2F]/30" />
+                  <ChevronRight className="w-4 h-4 text-[#0A1A2F]/30 dark:text-white/30" />
                 </div>
               </Link>
             </motion.div>
@@ -518,15 +518,15 @@ export default function Workouts() {
                 </SectionLabel>
                 <button
                 onClick={() => navigate(createPageUrl(`ChallengeDetailPage?id=${activeChallenge.id}`))}
-                className="w-full text-left bg-white rounded-2xl border border-gray-100 shadow-sm px-4 py-4 hover:shadow-md transition-all">
+                className="w-full text-left bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 shadow-sm px-4 py-4 hover:shadow-md transition-all">
                 
                   <div className="flex items-center gap-3 mb-3">
                     <div className="w-10 h-10 bg-gradient-to-br from-[#FD9C2D] to-[#E89020] rounded-xl flex items-center justify-center">
                       <Trophy className="w-5 h-5 text-white" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-bold text-[#0A1A2F] truncate">{activeChallenge.title}</p>
-                      <p className="text-xs text-[#0A1A2F]/50">{activeChallenge.duration_days} day challenge</p>
+                      <p className="text-sm font-bold text-[#0A1A2F] dark:text-white truncate">{activeChallenge.title}</p>
+                      <p className="text-xs text-[#0A1A2F]/50 dark:text-white/50">{activeChallenge.duration_days} day challenge</p>
                     </div>
                     <span className="text-sm font-black text-[#FD9C2D]">{activeChallenge.progress}%</span>
                   </div>
@@ -592,8 +592,8 @@ export default function Workouts() {
                     <MessageCircle className="w-5 h-5 text-white" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="font-bold text-[#0A1A2F] text-sm">Ask Coach David</p>
-                    <p className="text-xs text-[#0A1A2F]/50">Need form tips, a custom plan, or motivation?</p>
+                    <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">Ask Coach David</p>
+                    <p className="text-xs text-[#0A1A2F]/50 dark:text-white/50">Need form tips, a custom plan, or motivation?</p>
                   </div>
                   <ChevronRight className="w-4 h-4 text-[#38BDF8] flex-shrink-0" />
                 </div>
@@ -615,20 +615,20 @@ export default function Workouts() {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.40 + i * 0.04 }}
                       onClick={() => navigate(createPageUrl(`ChallengeDetailPage?id=${challenge.id}`))}
-                      className="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm hover:shadow-md transition-all cursor-pointer">
+                      className="bg-white dark:bg-white/5 rounded-2xl p-4 border border-gray-100 dark:border-white/10 shadow-sm hover:shadow-md transition-all cursor-pointer">
                       
                         <div className="w-9 h-9 bg-gradient-to-br from-[#FD9C2D] to-[#E89020] rounded-xl flex items-center justify-center mb-2.5">
                           <Trophy className="w-4.5 h-4.5 text-white w-[18px] h-[18px]" />
                         </div>
-                        <p className="text-xs font-bold text-[#0A1A2F] leading-tight mb-1 line-clamp-2">{challenge.title}</p>
-                        <p className="text-[10px] text-[#0A1A2F]/45 mb-2">{challenge.duration_days}d</p>
+                        <p className="text-xs font-bold text-[#0A1A2F] dark:text-white leading-tight mb-1 line-clamp-2">{challenge.title}</p>
+                        <p className="text-[10px] text-[#0A1A2F]/45 dark:text-white/45 mb-2">{challenge.duration_days}d</p>
                         {joined ?
                       <>
                             <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
                               <div className="h-full bg-gradient-to-r from-[#38BDF8] to-[#0EA5E9] rounded-full"
                           style={{ width: `${prog}%` }} />
                             </div>
-                            <p className="text-[10px] text-[#0A1A2F]/40 mt-1">{prog}%</p>
+                            <p className="text-[10px] text-[#0A1A2F]/40 dark:text-white/40 mt-1">{prog}%</p>
                           </> :
 
                       <p className="text-[10px] font-bold text-[#38BDF8]">Join →</p>

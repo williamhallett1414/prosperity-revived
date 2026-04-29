@@ -140,7 +140,7 @@ export default function WellnessTour({ onComplete, onSkip }) {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 20 }}
           transition={{ duration: 0.25 }}
-          className="bg-white rounded-3xl shadow-2xl w-full max-w-sm overflow-hidden"
+          className="bg-white dark:bg-white/5 rounded-3xl shadow-2xl w-full max-w-sm overflow-hidden"
         >
           {/* Header */}
           <div className="bg-gradient-to-r from-[#3C4E53] to-[#FD9C2D] p-5 relative">
@@ -195,7 +195,7 @@ export default function WellnessTour({ onComplete, onSkip }) {
               <Button
                 onClick={handleBack}
                 variant="outline"
-                className="flex-1 border-gray-200"
+                className="flex-1 border-gray-200 dark:border-white/10"
               >
                 <ChevronLeft className="w-4 h-4 mr-1" />
                 Back

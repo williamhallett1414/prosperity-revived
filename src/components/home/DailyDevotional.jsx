@@ -71,7 +71,7 @@ export default function DailyDevotional() {
       animate={{ opacity: 1, y: 0 }}
       className="rounded-3xl bg-gradient-to-br from-amber-50 to-orange-50 p-6 md:p-8 mb-6 shadow-sm"
     >
-      <h2 className="text-2xl font-bold text-[#0A1A2F] mb-6">Daily Devotional</h2>
+      <h2 className="text-2xl font-bold text-[#0A1A2F] dark:text-white mb-6">Daily Devotional</h2>
 
       {/* Reflection */}
       <div className="mb-6">
@@ -79,7 +79,7 @@ export default function DailyDevotional() {
           <div className="w-10 h-10 rounded-full bg-amber-200 flex items-center justify-center">
             <Lightbulb className="w-5 h-5 text-amber-700" />
           </div>
-          <h3 className="text-lg font-semibold text-[#0A1A2F]">Reflection</h3>
+          <h3 className="text-lg font-semibold text-[#0A1A2F] dark:text-white dark:text-white">Reflection</h3>
         </div>
         <p className="text-gray-700 leading-relaxed ml-13">
           {devotional.reflection}
@@ -92,7 +92,7 @@ export default function DailyDevotional() {
           <div className="w-10 h-10 rounded-full bg-rose-200 flex items-center justify-center">
             <Heart className="w-5 h-5 text-rose-700" />
           </div>
-          <h3 className="text-lg font-semibold text-[#0A1A2F]">Prayer</h3>
+          <h3 className="text-lg font-semibold text-[#0A1A2F] dark:text-white dark:text-white">Prayer</h3>
         </div>
         <p className="text-gray-700 leading-relaxed italic ml-13">
           "{devotional.prayer}"
@@ -105,7 +105,7 @@ export default function DailyDevotional() {
           <div className="w-10 h-10 rounded-full bg-emerald-200 flex items-center justify-center">
             <Zap className="w-5 h-5 text-emerald-700" />
           </div>
-          <h3 className="text-lg font-semibold text-[#0A1A2F]">Today's Action</h3>
+          <h3 className="text-lg font-semibold text-[#0A1A2F] dark:text-white dark:text-white">Today's Action</h3>
         </div>
         <p className="text-gray-700 leading-relaxed ml-13">
           {devotional.action}

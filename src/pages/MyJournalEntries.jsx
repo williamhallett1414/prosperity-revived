@@ -202,7 +202,7 @@ export default function MyJournalEntries() {
 
   if (!user) {
     return (
-      <div className="min-h-screen bg-[#F2F6FA] flex items-center justify-center">
+      <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] flex items-center justify-center">
         <div className="text-center">Loading...</div>
       </div>
     );
@@ -221,8 +221,8 @@ export default function MyJournalEntries() {
               <ArrowLeft className="w-4 h-4 text-[#3C4E53]" />
             </Link>
             <div>
-              <h1 className="text-xl font-bold text-[#0A1A2F]">My Journal</h1>
-              <p className="text-xs text-[#0A1A2F]/50">{entries.length} entries • Your personal collection</p>
+              <h1 className="text-xl font-bold text-[#0A1A2F] dark:text-white dark:text-white">My Journal</h1>
+              <p className="text-xs text-[#0A1A2F]/50 dark:text-white/50">{entries.length} entries • Your personal collection</p>
             </div>
           </div>
           <Button
@@ -242,7 +242,7 @@ export default function MyJournalEntries() {
           <div className="mb-8 space-y-4">
             <div className="flex items-center gap-2 mb-4">
               <div className="w-1 h-6 bg-gradient-to-b from-[#FAD98D] to-[#FD9C2D] rounded-full" />
-              <h2 className="text-lg font-bold text-[#0A1A2F] flex items-center gap-2">
+              <h2 className="text-lg font-bold text-[#0A1A2F] dark:text-white flex items-center gap-2">
                 <Sparkles className="w-5 h-5 text-[#FD9C2D]" />
                 Journey Insights
               </h2>
@@ -253,16 +253,16 @@ export default function MyJournalEntries() {
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="bg-white rounded-2xl p-6 border border-[#AFC7E3]/30 shadow-sm hover:shadow-md transition-all"
+                className="bg-white dark:bg-white/5 rounded-2xl p-6 border border-[#AFC7E3]/30 shadow-sm hover:shadow-md transition-all"
               >
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex-1">
-                    <h3 className="font-bold text-[#0A1A2F] text-base flex items-center gap-2">
+                    <h3 className="font-bold text-[#0A1A2F] dark:text-white text-base flex items-center gap-2">
                       <span className="text-xl">📅</span>
                       Weekly Summary
                     </h3>
                     {weeklySummary && (
-                      <p className="text-xs text-[#0A1A2F]/50 mt-1">
+                      <p className="text-xs text-[#0A1A2F]/50 dark:text-white/50 mt-1">
                         {new Date(weeklySummary.created_date).toLocaleDateString()} • {weeklySummary.entries_analyzed} entries
                       </p>
                     )}
@@ -291,18 +291,18 @@ export default function MyJournalEntries() {
                 </div>
                 {weeklySummary ? (
                   expandedWeeklySummary && (
-                    <p className="text-sm text-[#0A1A2F]/80 leading-relaxed whitespace-pre-wrap">
+                    <p className="text-sm text-[#0A1A2F]/80 dark:text-white/80 leading-relaxed whitespace-pre-wrap">
                       {weeklySummary.summary_text}
                     </p>
                   )
                 ) : (
                   <div className="text-center py-8">
-                    <p className="text-sm text-[#0A1A2F]/60 mb-3">No weekly summary yet</p>
+                    <p className="text-sm text-[#0A1A2F]/60 dark:text-white/60 mb-3">No weekly summary yet</p>
                     <Button
                       onClick={() => generateSummary.mutate('weekly')}
                       disabled={generateSummary.isPending}
                       size="sm"
-                      className="bg-[#FAD98D] hover:bg-[#FAD98D]/90 text-[#0A1A2F]"
+                      className="bg-[#FAD98D] hover:bg-[#FAD98D]/90 text-[#0A1A2F] dark:text-white dark:text-white"
                     >
                       Generate Weekly Summary
                     </Button>
@@ -315,16 +315,16 @@ export default function MyJournalEntries() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
-                className="bg-white rounded-2xl p-6 border border-[#AFC7E3]/30 shadow-sm hover:shadow-md transition-all"
+                className="bg-white dark:bg-white/5 rounded-2xl p-6 border border-[#AFC7E3]/30 shadow-sm hover:shadow-md transition-all"
               >
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex-1">
-                    <h3 className="font-bold text-[#0A1A2F] text-base flex items-center gap-2">
+                    <h3 className="font-bold text-[#0A1A2F] dark:text-white text-base flex items-center gap-2">
                       <span className="text-xl">📊</span>
                       Monthly Summary
                     </h3>
                     {monthlySummary && (
-                      <p className="text-xs text-[#0A1A2F]/50 mt-1">
+                      <p className="text-xs text-[#0A1A2F]/50 dark:text-white/50 mt-1">
                         {new Date(monthlySummary.created_date).toLocaleDateString()} • {monthlySummary.entries_analyzed} entries
                       </p>
                     )}
@@ -353,18 +353,18 @@ export default function MyJournalEntries() {
                 </div>
                 {monthlySummary ? (
                   expandedMonthlySummary && (
-                    <p className="text-sm text-[#0A1A2F]/80 leading-relaxed whitespace-pre-wrap">
+                    <p className="text-sm text-[#0A1A2F]/80 dark:text-white/80 leading-relaxed whitespace-pre-wrap">
                       {monthlySummary.summary_text}
                     </p>
                   )
                 ) : (
                   <div className="text-center py-8">
-                    <p className="text-sm text-[#0A1A2F]/60 mb-3">No monthly summary yet</p>
+                    <p className="text-sm text-[#0A1A2F]/60 dark:text-white/60 mb-3">No monthly summary yet</p>
                     <Button
                       onClick={() => generateSummary.mutate('monthly')}
                       disabled={generateSummary.isPending}
                       size="sm"
-                      className="bg-[#FAD98D] hover:bg-[#FAD98D]/90 text-[#0A1A2F]"
+                      className="bg-[#FAD98D] hover:bg-[#FAD98D]/90 text-[#0A1A2F] dark:text-white dark:text-white"
                     >
                       Generate Monthly Summary
                     </Button>
@@ -379,7 +379,7 @@ export default function MyJournalEntries() {
         <div className="mb-8">
           <div className="flex items-center gap-2 mb-4">
             <div className="w-1 h-5 bg-gradient-to-b from-[#3C4E53] to-[#AFC7E3] rounded-full" />
-            <h3 className="text-sm font-bold text-[#0A1A2F] uppercase tracking-wide">Filter Entries</h3>
+            <h3 className="text-sm font-bold text-[#0A1A2F] dark:text-white uppercase tracking-wide">Filter Entries</h3>
           </div>
           <div className="flex overflow-x-auto gap-2 pb-2 scrollbar-hide">
             {CATEGORIES.map(category => (
@@ -389,7 +389,7 @@ export default function MyJournalEntries() {
                 className={`px-4 py-2.5 rounded-full text-sm font-semibold whitespace-nowrap transition-all ${
                   selectedCategory === category.value
                     ? 'bg-gradient-to-r from-[#FD9C2D] to-[#FAD98D] text-white shadow-md'
-                    : 'bg-white text-[#0A1A2F]/70 border border-[#AFC7E3]/30 hover:border-[#FD9C2D]/50 hover:bg-[#FAD98D]/10'
+                    : 'bg-white dark:bg-white/5 text-[#0A1A2F]/70 dark:text-white/70 border border-[#AFC7E3]/30 hover:border-[#FD9C2D]/50 hover:bg-[#FAD98D]/10'
                 }`}
               >
                 <span className="mr-1.5">{category.emoji}</span>
@@ -403,11 +403,11 @@ export default function MyJournalEntries() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-center py-16 bg-white rounded-2xl border border-[#AFC7E3]/20"
+            className="text-center py-16 bg-white dark:bg-white/5 rounded-2xl border border-[#AFC7E3]/20"
           >
             <div className="text-6xl mb-4">📝</div>
-            <p className="text-lg font-semibold text-[#0A1A2F] mb-2">No journal entries yet</p>
-            <p className="text-sm text-[#0A1A2F]/60 mb-6">Start journaling to capture your thoughts and reflections</p>
+            <p className="text-lg font-semibold text-[#0A1A2F] dark:text-white mb-2">No journal entries yet</p>
+            <p className="text-sm text-[#0A1A2F]/60 dark:text-white/60 mb-6">Start journaling to capture your thoughts and reflections</p>
             <Button
               className="bg-gradient-to-r from-[#FD9C2D] to-[#FAD98D] hover:from-[#FD9C2D]/90 hover:to-[#FAD98D]/90 text-white font-semibold shadow-lg"
               onClick={() => setShowNewEntryModal(true)}
@@ -419,11 +419,11 @@ export default function MyJournalEntries() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-center py-16 bg-white rounded-2xl border border-[#AFC7E3]/20"
+            className="text-center py-16 bg-white dark:bg-white/5 rounded-2xl border border-[#AFC7E3]/20"
           >
             <div className="text-6xl mb-4">🔍</div>
-            <p className="text-lg font-semibold text-[#0A1A2F] mb-2">No entries in this category</p>
-            <p className="text-sm text-[#0A1A2F]/60">Try selecting a different filter</p>
+            <p className="text-lg font-semibold text-[#0A1A2F] dark:text-white mb-2">No entries in this category</p>
+            <p className="text-sm text-[#0A1A2F]/60 dark:text-white/60">Try selecting a different filter</p>
           </motion.div>
         ) : (
           <div className="space-y-4">
@@ -439,9 +439,9 @@ export default function MyJournalEntries() {
                   onClick={() =>
                     setExpandedDate(expandedDate === date ? null : date)
                   }
-                  className="w-full flex items-center justify-between px-5 py-4 bg-white rounded-xl border border-[#AFC7E3]/20 hover:border-[#FD9C2D]/30 hover:shadow-sm transition-all"
+                  className="w-full flex items-center justify-between px-5 py-4 bg-white dark:bg-white/5 rounded-xl border border-[#AFC7E3]/20 hover:border-[#FD9C2D]/30 hover:shadow-sm transition-all"
                 >
-                  <span className="font-bold text-[#0A1A2F]">
+                  <span className="font-bold text-[#0A1A2F] dark:text-white dark:text-white">
                     {date}
                   </span>
                   <div className="flex items-center gap-2">
@@ -470,7 +470,7 @@ export default function MyJournalEntries() {
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: idx * 0.05 }}
-                        className="bg-white rounded-2xl p-5 border border-[#AFC7E3]/20 shadow-sm hover:shadow-md transition-all"
+                        className="bg-white dark:bg-white/5 rounded-2xl p-5 border border-[#AFC7E3]/20 shadow-sm hover:shadow-md transition-all"
                       >
                         {editingId === entry.id ? (
                           // Edit Mode
@@ -481,7 +481,7 @@ export default function MyJournalEntries() {
                               onChange={(e) =>
                                 setEditTitle(e.target.value)
                               }
-                              className="bg-[#F2F6FA] border-[#AFC7E3]/30"
+                              className="bg-[#F2F6FA] dark:bg-[#0A1A2F] border-[#AFC7E3]/30"
                             />
                             <Textarea
                               maxLength={1000}
@@ -490,7 +490,7 @@ export default function MyJournalEntries() {
                               onChange={(e) =>
                                 setEditContent(e.target.value)
                               }
-                              className="min-h-[150px] bg-[#F2F6FA] border-[#AFC7E3]/30"
+                              className="min-h-[150px] bg-[#F2F6FA] dark:bg-[#0A1A2F] border-[#AFC7E3]/30"
                             />
                             <div className="flex gap-2">
                               <Button
@@ -524,16 +524,16 @@ export default function MyJournalEntries() {
                                   </span>
                                 </div>
                                 {entry.title && (
-                                  <h3 className="font-bold text-[#0A1A2F] line-clamp-2 text-base">
+                                  <h3 className="font-bold text-[#0A1A2F] dark:text-white line-clamp-2 text-base">
                                     {entry.title}
                                   </h3>
                                 )}
                                 {entry.prompt && (
-                                  <p className="text-xs text-[#0A1A2F]/60 italic mt-1">
+                                  <p className="text-xs text-[#0A1A2F]/60 dark:text-white/60 italic mt-1">
                                     "{entry.prompt}"
                                   </p>
                                 )}
-                                <p className="text-xs text-[#0A1A2F]/50 mt-1">
+                                <p className="text-xs text-[#0A1A2F]/50 dark:text-white/50 mt-1">
                                   {new Date(
                                     entry.created_date
                                   ).toLocaleTimeString('en-US', {
@@ -560,7 +560,7 @@ export default function MyJournalEntries() {
                                 </button>
                               </div>
                             </div>
-                            <p className="text-sm text-[#0A1A2F]/70 whitespace-pre-wrap">
+                            <p className="text-sm text-[#0A1A2F]/70 dark:text-white/70 whitespace-pre-wrap">
                               {entry.content}
                             </p>
 
@@ -589,7 +589,7 @@ export default function MyJournalEntries() {
                             {entry.entry_type === 'video_journal' && !entry.video_url && (
                               <div className="mt-2 flex items-center gap-2 bg-[#0A1A2F]/5 rounded-xl px-3 py-2">
                                 <span className="text-base">🎥</span>
-                                <span className="text-xs text-[#0A1A2F]/50">Video journal — transcript saved</span>
+                                <span className="text-xs text-[#0A1A2F]/50 dark:text-white/50">Video journal — transcript saved</span>
                               </div>
                             )}
                             <div className="mt-3 flex flex-wrap gap-2">

@@ -48,7 +48,7 @@ export default function GideonOnboarding({ onComplete, onRevisit }) {
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.9, opacity: 0 }}
-            className="bg-white rounded-2xl shadow-2xl max-w-sm w-full overflow-hidden"
+            className="bg-white dark:bg-white/5 rounded-2xl shadow-2xl max-w-sm w-full overflow-hidden"
           >
             {/* Header */}
             <div className="bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white p-6 relative">
@@ -101,7 +101,7 @@ export default function GideonOnboarding({ onComplete, onRevisit }) {
             </div>
 
             {/* Actions */}
-            <div className="p-6 bg-gray-50 border-t border-gray-100 space-y-3">
+            <div className="p-6 bg-gray-50 dark:bg-white/5 border-t border-gray-100 dark:border-white/10 space-y-3">
               <div className="flex gap-3">
                 <Button
                   onClick={handleNext}

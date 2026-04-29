@@ -27,9 +27,9 @@ function StatChip({ icon: Icon, label, value, sub, bg, accent }) {
     <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
       className={`${bg} rounded-2xl p-4 border border-[#FAD98D]/25`}>
       <Icon className={`w-4 h-4 ${accent} mb-2`} />
-      <p className="text-2xl font-bold text-[#0A1A2F]">{value}</p>
-      <p className="text-xs font-semibold text-[#0A1A2F]/60 leading-tight">{label}</p>
-      {sub && <p className="text-[10px] text-[#0A1A2F]/35 mt-0.5">{sub}</p>}
+      <p className="text-2xl font-bold text-[#0A1A2F] dark:text-white dark:text-white">{value}</p>
+      <p className="text-xs font-semibold text-[#0A1A2F]/60 dark:text-white/60 leading-tight">{label}</p>
+      {sub && <p className="text-[10px] text-[#0A1A2F]/35 dark:text-white/35 mt-0.5">{sub}</p>}
     </motion.div>
   );
 }
@@ -49,7 +49,7 @@ function TabBar({ active, onChange }) {
           className={`flex-1 py-2.5 rounded-xl text-xs font-bold transition-all ${
             active === id
               ? 'bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white shadow-sm'
-              : 'bg-white text-[#0A1A2F]/50 border border-[#FAD98D]/25'
+              : 'bg-white dark:bg-white/5 text-[#0A1A2F]/50 dark:text-white/50 border border-[#FAD98D]/25'
           }`}>
           {label}
         </button>
@@ -82,22 +82,22 @@ export default function Achievements() {
   const xpPct     = Math.round((xp.inLevel / xp.span) * 100);
 
   return (
-    <div className="min-h-screen bg-[#F2F6FA] pb-28">
+    <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
 
       {/* ── Hero header ── */}
-      <div className="sticky top-0 z-40 bg-white border-b border-[#FAD98D]/20 px-4 pt-0 pb-2">
+      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 px-4 pt-0 pb-2">
         <div className="max-w-lg mx-auto">
           <div className="flex items-center gap-3">
             <button onClick={() => navigate(-1)}
-              className="w-9 h-9 rounded-xl bg-[#F2F6FA] flex items-center justify-center flex-shrink-0">
-              <ArrowLeft className="w-4 h-4 text-[#0A1A2F]" />
+              className="w-9 h-9 rounded-xl bg-[#F2F6FA] dark:bg-[#0A1A2F] flex items-center justify-center flex-shrink-0">
+              <ArrowLeft className="w-4 h-4 text-[#0A1A2F] dark:text-white dark:text-white" />
             </button>
             <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center">
               <Trophy className="w-5 h-5 text-white" />
             </div>
             <div>
-              <h1 className="text-base font-bold text-[#0A1A2F]">Achievements</h1>
-              <p className="text-xs text-[#0A1A2F]/45">Your badges & milestones</p>
+              <h1 className="text-base font-bold text-[#0A1A2F] dark:text-white dark:text-white">Achievements</h1>
+              <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45">Your badges & milestones</p>
             </div>
           </div>
         </div>
@@ -111,13 +111,13 @@ export default function Achievements() {
             bg="bg-gradient-to-br from-[#FAD98D]/30 to-[#FAD98D]/15" accent="text-[#c9a227]" />
           <StatChip icon={TrendingUp} label="Total Points"    value={xp.total}
             sub={`Level ${xp.level}`}
-            bg="bg-white" accent="text-[#c9a227]" />
+            bg="bg-white dark:bg-white/5" accent="text-[#c9a227]" />
           <StatChip icon={Flame}      label="Current Streak"  value={progress?.current_streak || 0}
             sub="days"
-            bg="bg-gradient-to-br from-[#0A1A2F]/8 to-[#0A1A2F]/4" accent="text-[#0A1A2F]" />
+            bg="bg-gradient-to-br from-[#0A1A2F]/8 to-[#0A1A2F]/4" accent="text-[#0A1A2F] dark:text-white dark:text-white" />
           <StatChip icon={Trophy}     label="Best Streak"     value={progress?.longest_streak || 0}
             sub="days"
-            bg="bg-white" accent="text-[#c9a227]" />
+            bg="bg-white dark:bg-white/5" accent="text-[#c9a227]" />
         </div>
 
         {/* ── Tabs ── */}
@@ -128,7 +128,7 @@ export default function Achievements() {
           <div className="space-y-5">
             {earned.length > 0 && (
               <div>
-                <p className="text-[10px] font-bold text-[#0A1A2F]/40 uppercase tracking-widest mb-3">
+                <p className="text-[10px] font-bold text-[#0A1A2F]/40 dark:text-white/40 uppercase tracking-widest mb-3">
                   Earned ({earned.length})
                 </p>
                 <div className="grid grid-cols-2 gap-3">
@@ -137,7 +137,7 @@ export default function Achievements() {
               </div>
             )}
             <div>
-              <p className="text-[10px] font-bold text-[#0A1A2F]/40 uppercase tracking-widest mb-3">
+              <p className="text-[10px] font-bold text-[#0A1A2F]/40 dark:text-white/40 uppercase tracking-widest mb-3">
                 Available ({available.length})
               </p>
               <div className="grid grid-cols-2 gap-3">

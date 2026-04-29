@@ -155,7 +155,7 @@ Return ONLY a JSON array with top ${limit} email addresses in order of compatibi
 
   if (isAnalyzing) {
     return (
-      <div className="bg-white dark:bg-[#0A1A2F] rounded-xl p-6 shadow-sm">
+      <div className="bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-xl p-6 shadow-sm">
         <div className="flex items-center justify-center gap-3">
           <Loader2 className="w-5 h-5 text-[#c9a227] animate-spin" />
           <p className="text-gray-600 dark:text-gray-400">Finding friends for you...</p>
@@ -169,7 +169,7 @@ Return ONLY a JSON array with top ${limit} email addresses in order of compatibi
   }
 
   return (
-    <div className="bg-white dark:bg-[#0A1A2F] rounded-xl p-4 shadow-sm">
+    <div className="bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-xl p-4 shadow-sm">
       {showHeader && (
         <div className="flex items-center gap-2 mb-4">
           <Sparkles className="w-5 h-5 text-[#c9a227]" />
@@ -189,7 +189,7 @@ Return ONLY a JSON array with top ${limit} email addresses in order of compatibi
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: index * 0.1 }}
-              className="flex items-center justify-between p-3 bg-gray-50 dark:bg-[#0A1A2F] rounded-lg"
+              className="flex items-center justify-between p-3 bg-gray-50 dark:bg-white/5 dark:bg-[#0A1A2F] rounded-lg"
             >
               <Link 
                 to={createPageUrl(`UserProfile?email=${suggestedUser.email}`)}

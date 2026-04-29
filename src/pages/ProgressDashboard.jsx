@@ -79,7 +79,7 @@ function ProgressBanner({ progress }) {
 function GuidesGrid({ onOpen }) {
   return (
     <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
-      <p className="text-[10px] font-bold text-[#0A1A2F]/40 uppercase tracking-widest mb-3">Chat with Your Guides</p>
+      <p className="text-[10px] font-bold text-[#0A1A2F]/40 dark:text-white/40 uppercase tracking-widest mb-3">Chat with Your Guides</p>
       <div className="grid grid-cols-2 gap-3">
         {CHATBOTS.map(({ key, name, icon, label, gradient }) => (
           <button key={key} onClick={() => onOpen(key)}
@@ -104,8 +104,8 @@ function RecentMilestones({ memories }) {
   return (
     <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}>
       <div className="flex items-center justify-between mb-3">
-        <p className="text-[10px] font-bold text-[#0A1A2F]/40 uppercase tracking-widest">Recent Milestones</p>
-        <span className="text-[10px] text-[#0A1A2F]/30">{memories.length} total</span>
+        <p className="text-[10px] font-bold text-[#0A1A2F]/40 dark:text-white/40 uppercase tracking-widest">Recent Milestones</p>
+        <span className="text-[10px] text-[#0A1A2F]/30 dark:text-white/30">{memories.length} total</span>
       </div>
       <div className="space-y-2">
         {recent.map((memory) => {
@@ -113,18 +113,18 @@ function RecentMilestones({ memories }) {
           const Icon = cfg.icon;
           return (
             <div key={memory.id}
-              className="bg-white rounded-2xl p-3.5 flex items-start gap-3 border border-gray-100 shadow-sm">
+              className="bg-white dark:bg-white/5 rounded-2xl p-3.5 flex items-start gap-3 border border-gray-100 dark:border-white/10 shadow-sm">
               <div className={`w-8 h-8 rounded-xl ${cfg.bg} flex items-center justify-center flex-shrink-0`}>
                 <Icon className={`w-4 h-4 ${cfg.color}`} />
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-0.5">
-                  <span className="text-[10px] font-bold text-[#0A1A2F]/40 uppercase tracking-wide capitalize">{memory.memory_type}</span>
-                  <span className="text-[10px] text-[#0A1A2F]/25 flex items-center gap-0.5">
+                  <span className="text-[10px] font-bold text-[#0A1A2F]/40 dark:text-white/40 uppercase tracking-wide capitalize">{memory.memory_type}</span>
+                  <span className="text-[10px] text-[#0A1A2F]/25 dark:text-white/25 flex items-center gap-0.5">
                     <Calendar className="w-2.5 h-2.5" />{format(new Date(memory.created_date), 'MMM d')}
                   </span>
                 </div>
-                <p className="text-sm text-[#0A1A2F] leading-snug line-clamp-2">{memory.content}</p>
+                <p className="text-sm text-[#0A1A2F] dark:text-white leading-snug line-clamp-2">{memory.content}</p>
               </div>
             </div>
           );
@@ -144,8 +144,8 @@ function StartHereCard() {
           <Sparkles className="w-5 h-5 text-white" />
         </div>
         <div>
-          <p className="font-bold text-[#0A1A2F] text-sm">Your journey starts here</p>
-          <p className="text-xs text-[#0A1A2F]/50">Insights appear as you log activity</p>
+          <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">Your journey starts here</p>
+          <p className="text-xs text-[#0A1A2F]/50 dark:text-white/50">Insights appear as you log activity</p>
         </div>
       </div>
       <div className="grid grid-cols-3 gap-2">
@@ -155,9 +155,9 @@ function StartHereCard() {
           { page: 'Prayer',   emoji: '🙏', label: 'Pray'         },
         ].map(({ page, emoji, label }) => (
           <Link key={page} to={createPageUrl(page)}>
-            <div className="bg-white rounded-xl p-3 text-center hover:shadow-sm transition-shadow min-h-[64px] flex flex-col items-center justify-center gap-1">
+            <div className="bg-white dark:bg-white/5 rounded-xl p-3 text-center hover:shadow-sm transition-shadow min-h-[64px] flex flex-col items-center justify-center gap-1">
               <p className="text-xl">{emoji}</p>
-              <p className="text-xs font-medium text-[#0A1A2F]/70 leading-tight">{label}</p>
+              <p className="text-xs font-medium text-[#0A1A2F]/70 dark:text-white/70 leading-tight">{label}</p>
             </div>
           </Link>
         ))}
@@ -214,24 +214,24 @@ export default function ProgressDashboard() {
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="text-center">
           <div className="w-10 h-10 border-4 border-[#c9a227] border-t-transparent rounded-full animate-spin mx-auto mb-3" />
-          <p className="text-[#0A1A2F]/50 text-sm">Loading your journey…</p>
+          <p className="text-[#0A1A2F]/50 dark:text-white/50 text-sm">Loading your journey…</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#F2F6FA] pb-28">
+    <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
 
       {/* ── Standard Header ── */}
-      <div className="sticky top-0 z-40 bg-white border-b border-[#FAD98D]/20 px-4 pt-4 pb-3">
+      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 px-4 pt-4 pb-3">
         <div className="max-w-lg mx-auto flex items-center gap-3">
           <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#AFC7E3] to-[#3C4E53] flex items-center justify-center">
             <TrendingUp className="w-5 h-5 text-white" />
           </div>
           <div>
-            <h1 className="text-base font-bold text-[#0A1A2F]">My Progress</h1>
-            <p className="text-xs text-[#0A1A2F]/45">Your growth journey</p>
+            <h1 className="text-base font-bold text-[#0A1A2F] dark:text-white dark:text-white">My Progress</h1>
+            <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45">Your growth journey</p>
           </div>
         </div>
       </div>
@@ -240,8 +240,8 @@ export default function ProgressDashboard() {
 
         {/* 1. Page header */}
         <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}>
-          <h1 className="text-2xl font-bold text-[#0A1A2F]">Your Journey</h1>
-          <p className="text-sm text-[#0A1A2F]/50 mt-0.5">Progress across all areas of growth</p>
+          <h1 className="text-2xl font-bold text-[#0A1A2F] dark:text-white dark:text-white">Your Journey</h1>
+          <p className="text-sm text-[#0A1A2F]/50 dark:text-white/50 mt-0.5">Progress across all areas of growth</p>
         </motion.div>
 
         {/* 2. Streak / level banner (taps to Achievements) */}

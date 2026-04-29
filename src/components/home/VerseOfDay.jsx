@@ -45,11 +45,11 @@ export default function VerseOfDay({ onBookmark }) {
           </span>
         </div>
         
-        <p className="text-[#0A1A2F] text-xl md:text-2xl font-serif leading-relaxed mb-4">
+        <p className="text-[#0A1A2F] dark:text-white text-xl md:text-2xl font-serif leading-relaxed mb-4">
           "{verse.text}"
         </p>
         
-        <p className="text-[#0A1A2F]/60 font-medium mb-6">
+        <p className="text-[#0A1A2F]/60 dark:text-white/60 font-medium mb-6">
           {verse.book} {verse.chapter}:{verse.verse}
         </p>
         
@@ -61,7 +61,7 @@ export default function VerseOfDay({ onBookmark }) {
             <Button
               variant="ghost"
               size="sm"
-              className="text-[#0A1A2F]/60 hover:text-[#0A1A2F] hover:bg-[#FAD98D]/20"
+              className="text-[#0A1A2F]/60 dark:text-white/60 hover:text-[#0A1A2F] dark:text-white hover:bg-[#FAD98D]/20"
             >
               <ChevronDown className="w-4 h-4 mr-2" />
               Read More
@@ -71,7 +71,7 @@ export default function VerseOfDay({ onBookmark }) {
             variant="ghost"
             size="sm"
             onClick={handleShare}
-            className="text-[#0A1A2F]/60 hover:text-[#0A1A2F] hover:bg-[#FAD98D]/20"
+            className="text-[#0A1A2F]/60 dark:text-white/60 hover:text-[#0A1A2F] dark:text-white hover:bg-[#FAD98D]/20"
           >
             <Share2 className="w-4 h-4 mr-2" />
             Share
@@ -80,7 +80,7 @@ export default function VerseOfDay({ onBookmark }) {
             variant="ghost"
             size="sm"
             onClick={handleBookmark}
-            className="text-[#0A1A2F]/60 hover:text-[#0A1A2F] hover:bg-[#FAD98D]/20"
+            className="text-[#0A1A2F]/60 dark:text-white/60 hover:text-[#0A1A2F] dark:text-white hover:bg-[#FAD98D]/20"
           >
             <Bookmark className="w-4 h-4 mr-2" />
             Save

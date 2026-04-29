@@ -15,7 +15,7 @@ const RANK_STYLES = [
   'bg-gradient-to-r from-[#FAD98D]/40 to-[#FAD98D]/20 border border-[#c9a227]/30',
   'bg-gradient-to-r from-[#F2F6FA] to-[#E8EEF4]',
   'bg-gradient-to-r from-[#FAD98D]/15 to-[#F2F6FA]',
-  'bg-white',
+  'bg-white dark:bg-white/5',
 ];
 
 function getMedal(rank) {
@@ -65,7 +65,7 @@ export default function MultiActivityLeaderboard() {
             className={`rounded-xl py-2.5 flex flex-col items-center gap-1 text-[11px] font-bold transition-all ${
               selected === id
                 ? `bg-gradient-to-br ${gradient} text-white shadow-sm`
-                : 'bg-white text-[#0A1A2F]/50 border border-[#FAD98D]/25'
+                : 'bg-white dark:bg-white/5 text-[#0A1A2F]/50 dark:text-white/50 border border-[#FAD98D]/25'
             }`}>
             <Icon className="w-3.5 h-3.5" />
             {label}
@@ -88,13 +88,13 @@ export default function MultiActivityLeaderboard() {
               <div className="relative flex items-center gap-3">
                 <span className="text-lg font-bold w-8 text-center flex-shrink-0">{getMedal(i)}</span>
                 <div className="flex-1 min-w-0">
-                  <p className="font-semibold text-[#0A1A2F] text-sm truncate">{user.userName}</p>
-                  <p className="text-[10px] text-[#0A1A2F]/40">Level {user.level || 1}</p>
+                  <p className="font-semibold text-[#0A1A2F] dark:text-white text-sm truncate">{user.userName}</p>
+                  <p className="text-[10px] text-[#0A1A2F]/40 dark:text-white/40">Level {user.level || 1}</p>
                 </div>
                 <div className="text-right flex-shrink-0">
-                  <p className="font-bold text-[#0A1A2F]">{val}</p>
+                  <p className="font-bold text-[#0A1A2F] dark:text-white dark:text-white">{val}</p>
                   {selected === 'points' && (
-                    <p className="text-[10px] text-[#0A1A2F]/40">{user.badges?.length || 0} badges</p>
+                    <p className="text-[10px] text-[#0A1A2F]/40 dark:text-white/40">{user.badges?.length || 0} badges</p>
                   )}
                 </div>
               </div>
@@ -102,13 +102,13 @@ export default function MultiActivityLeaderboard() {
           );
         })}
         {ranked.length === 0 && (
-          <p className="text-center text-[#0A1A2F]/40 text-sm py-8">No data yet — be the first!</p>
+          <p className="text-center text-[#0A1A2F]/40 dark:text-white/40 text-sm py-8">No data yet — be the first!</p>
         )}
       </div>
 
       {/* Tips */}
-      <div className="bg-[#FAD98D]/15 border border-[#FAD98D]/25 rounded-2xl p-4 text-sm text-[#0A1A2F]/70 space-y-1">
-        <p className="font-semibold text-[#0A1A2F] text-xs uppercase tracking-wide mb-2">How to climb the ranks</p>
+      <div className="bg-[#FAD98D]/15 border border-[#FAD98D]/25 rounded-2xl p-4 text-sm text-[#0A1A2F]/70 dark:text-white/70 space-y-1">
+        <p className="font-semibold text-[#0A1A2F] dark:text-white text-xs uppercase tracking-wide mb-2">How to climb the ranks</p>
         <p>🏆 Complete activities and challenges to earn points</p>
         <p>🔥 Maintain your daily streak for consistent gains</p>
         <p>💪 Log workouts and meditation sessions regularly</p>

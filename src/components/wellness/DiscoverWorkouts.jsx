@@ -167,7 +167,7 @@ export default function DiscoverWorkouts({ user, myWorkouts, completeWorkout, on
       )}
 
       {searchQuery && filteredWorkouts.length === 0 && filteredPremade.length === 0 ? (
-        <div className="text-center py-12 bg-white dark:bg-[#0A1A2F] rounded-2xl">
+        <div className="text-center py-12 bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-2xl">
           <TrendingUp className="w-12 h-12 text-gray-300 mx-auto mb-3" />
           <p className="text-gray-500 dark:text-gray-400">
             No workouts match your search
@@ -185,13 +185,13 @@ export default function DiscoverWorkouts({ user, myWorkouts, completeWorkout, on
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.05 }}
-              className="bg-white dark:bg-[#0A1A2F] rounded-2xl p-4 shadow-sm"
+              className="bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-2xl p-4 shadow-sm"
             >
               <div className="flex items-start justify-between mb-3">
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-1">
                     <span className="text-xl">{categoryEmojis[workout.category]}</span>
-                    <h3 className="font-semibold text-[#0A1A2F] dark:text-white">
+                    <h3 className="font-semibold text-[#0A1A2F] dark:text-white dark:text-white">
                       {workout.title}
                     </h3>
                   </div>
@@ -273,13 +273,13 @@ export default function DiscoverWorkouts({ user, myWorkouts, completeWorkout, on
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.05 }}
                 onClick={() => setSelectedWorkout(workout)}
-                className="bg-white dark:bg-[#0A1A2F] rounded-2xl p-4 shadow-sm cursor-pointer hover:shadow-md transition-shadow"
+                className="bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-2xl p-4 shadow-sm cursor-pointer hover:shadow-md transition-shadow"
               >
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-1">
                       <span className="text-xl">{categoryEmojis[workout.category]}</span>
-                      <h3 className="font-semibold text-[#0A1A2F] dark:text-white">
+                      <h3 className="font-semibold text-[#0A1A2F] dark:text-white dark:text-white">
                         {workout.title}
                       </h3>
                     </div>

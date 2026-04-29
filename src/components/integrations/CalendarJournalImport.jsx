@@ -121,7 +121,7 @@ ${textInput}`,
             <button
               key={source.id}
               onClick={() => setSelectedSource(source)}
-              className="w-full flex items-center gap-3 p-3 rounded-xl border border-gray-100 hover:border-purple-200 hover:bg-purple-50 transition-all text-left"
+              className="w-full flex items-center gap-3 p-3 rounded-xl border border-gray-100 dark:border-white/10 hover:border-purple-200 hover:bg-purple-50 transition-all text-left"
             >
               <span className="text-2xl">{source.icon}</span>
               <div className="flex-1 min-w-0">
@@ -148,7 +148,7 @@ ${textInput}`,
             value={textInput}
             onChange={(e) => setTextInput(e.target.value)}
             placeholder={selectedSource.placeholder}
-            className="w-full text-sm border border-gray-200 rounded-xl p-3 h-36 resize-none focus:outline-none focus:ring-2 focus:ring-purple-300"
+            className="w-full text-sm border border-gray-200 dark:border-white/10 rounded-xl p-3 h-36 resize-none focus:outline-none focus:ring-2 focus:ring-purple-300"
           />
 
           <Button

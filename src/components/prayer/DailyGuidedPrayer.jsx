@@ -283,13 +283,13 @@ export default function DailyGuidedPrayer() {
       <div className="bg-gradient-to-br from-[#FAD98D]/20 to-[#FD9C2D]/20 rounded-2xl p-6 border border-[#FD9C2D]/30 shadow-sm">
         <div className="flex items-center gap-2 mb-2">
           <BookOpen className="w-5 h-5 text-[#FD9C2D]" />
-          <h3 className="text-lg font-bold text-[#0A1A2F]">Daily Guided Prayer</h3>
+          <h3 className="text-lg font-bold text-[#0A1A2F] dark:text-white dark:text-white">Daily Guided Prayer</h3>
         </div>
-        <p className="text-sm text-[#0A1A2F]/70 mb-4">A fresh prayer to center your heart today</p>
+        <p className="text-sm text-[#0A1A2F]/70 dark:text-white/70 mb-4">A fresh prayer to center your heart today</p>
 
-        <div className="bg-white rounded-xl p-5 mb-4">
+        <div className="bg-white dark:bg-white/5 rounded-xl p-5 mb-4">
           <div className="flex items-start gap-3 mb-4">
-            <p className="text-[#0A1A2F] font-serif leading-relaxed flex-1">
+            <p className="text-[#0A1A2F] dark:text-white font-serif leading-relaxed flex-1">
               {todaysPrayer.text}
             </p>
             <Button
@@ -307,11 +307,11 @@ export default function DailyGuidedPrayer() {
             </Button>
           </div>
 
-          <div className="pt-4 border-t border-gray-100">
+          <div className="pt-4 border-t border-gray-100 dark:border-white/10">
             <div className="mb-4">
-              <p className="text-xs text-[#0A1A2F]/60 mb-1">Today's Scripture</p>
+              <p className="text-xs text-[#0A1A2F]/60 dark:text-white/60 mb-1">Today's Scripture</p>
               <p className="text-sm font-semibold text-[#FD9C2D]">{todaysPrayer.scripture}</p>
-              <p className="text-xs text-[#0A1A2F]/70 italic mt-1">"{todaysPrayer.scriptureText}"</p>
+              <p className="text-xs text-[#0A1A2F]/70 dark:text-white/70 italic mt-1">"{todaysPrayer.scriptureText}"</p>
             </div>
 
             {/* Audio Player Controls */}

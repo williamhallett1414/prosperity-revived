@@ -139,7 +139,7 @@ export default function GideonNotificationSettings() {
             return (
               <div
                 key={option.id}
-                className="flex items-center justify-between p-4 bg-white dark:bg-[#0A1A2F] rounded-lg border border-gray-200 dark:border-gray-700"
+                className="flex items-center justify-between p-4 bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-lg border border-gray-200 dark:border-white/10 dark:border-gray-700"
               >
                 <div className="flex items-center gap-3 flex-1">
                   <Icon className={`w-5 h-5 ${option.color}`} />
@@ -168,7 +168,7 @@ export default function GideonNotificationSettings() {
             return (
               <div
                 key={option.id}
-                className="flex items-center justify-between p-4 bg-white dark:bg-[#0A1A2F] rounded-lg border border-gray-200 dark:border-gray-700"
+                className="flex items-center justify-between p-4 bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-lg border border-gray-200 dark:border-white/10 dark:border-gray-700"
               >
                 <div className="flex items-center gap-3 flex-1">
                   <Icon className={`w-5 h-5 ${option.color}`} />
@@ -193,7 +193,7 @@ export default function GideonNotificationSettings() {
           })}
         </div>
 
-        <p className="text-xs text-gray-500 dark:text-gray-400 text-center pt-4 border-t border-gray-200 dark:border-gray-700">
+        <p className="text-xs text-gray-500 dark:text-gray-400 text-center pt-4 border-t border-gray-200 dark:border-white/10 dark:border-gray-700">
           Notifications use Gideon's conversational tone and emotional intelligence to encourage your spiritual growth
         </p>
       </CardContent>

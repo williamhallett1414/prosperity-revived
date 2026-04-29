@@ -197,7 +197,7 @@ Be specific, actionable, and encouraging.`;
           <Button
             onClick={generateRecommendations}
             disabled={loading || sessions.length === 0}
-            className="w-full bg-white text-[#C9A227] hover:bg-white/90"
+            className="w-full bg-white dark:bg-white/5 text-[#C9A227] hover:bg-white/90"
           >
             {loading ? (
               <>
@@ -227,7 +227,7 @@ Be specific, actionable, and encouraging.`;
           className="space-y-4"
         >
           {/* Assessment */}
-          <div className="bg-white dark:bg-[#0A1A2F] rounded-2xl p-4">
+          <div className="bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-2xl p-4">
             <h3 className="font-semibold text-[#0A1A2F] dark:text-white mb-2 flex items-center gap-2">
               <TrendingUp className="w-5 h-5 text-[#3C4E53]" />
               Performance Assessment
@@ -236,11 +236,11 @@ Be specific, actionable, and encouraging.`;
           </div>
 
           {/* Recommended Workouts */}
-          <div className="bg-white dark:bg-[#0A1A2F] rounded-2xl p-4">
+          <div className="bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-2xl p-4">
             <h3 className="font-semibold text-[#0A1A2F] dark:text-white mb-3">Recommended Workouts</h3>
             <div className="space-y-3">
               {recommendations.recommended_workouts?.map((workout, index) => (
-                <div key={index} className="border border-gray-200 dark:border-gray-700 rounded-lg p-3">
+                <div key={index} className="border border-gray-200 dark:border-white/10 dark:border-gray-700 rounded-lg p-3">
                   <div className="flex items-start justify-between mb-2">
                     <h4 className="font-semibold text-[#0A1A2F] dark:text-white">{workout.title}</h4>
                     <span className="text-xs px-2 py-1 bg-[#FAD98D]/20 dark:bg-[#0A1A2F] text-[#3C4E53] dark:text-[#FAD98D] rounded">
@@ -265,7 +265,7 @@ Be specific, actionable, and encouraging.`;
 
           {/* Modifications */}
           {recommendations.modifications?.length > 0 && (
-            <div className="bg-white dark:bg-[#0A1A2F] rounded-2xl p-4">
+            <div className="bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-2xl p-4">
               <h3 className="font-semibold text-[#0A1A2F] dark:text-white mb-3">Workout Modifications</h3>
               <div className="space-y-2">
                 {recommendations.modifications.map((mod, index) => (
@@ -282,7 +282,7 @@ Be specific, actionable, and encouraging.`;
           )}
 
           {/* Tips */}
-          <div className="bg-white dark:bg-[#0A1A2F] rounded-2xl p-4">
+          <div className="bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-2xl p-4">
             <h3 className="font-semibold text-[#0A1A2F] dark:text-white mb-3">Plateau Prevention Tips</h3>
             <ul className="space-y-2">
               {recommendations.plateau_prevention_tips?.map((tip, index) => (

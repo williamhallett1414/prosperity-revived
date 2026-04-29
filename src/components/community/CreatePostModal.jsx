@@ -67,7 +67,7 @@ export default function CreatePostModal({ isOpen, onClose, onSubmit, initialVers
 
         <div className="space-y-4">
           {verse && (
-            <div className="bg-[#F2F6FA] rounded-xl p-3 border-l-4 border-[#c9a227]">
+            <div className="bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-xl p-3 border-l-4 border-[#c9a227]">
               <p className="font-serif text-sm text-gray-800 mb-1">"{verse.text}"</p>
               <p className="text-xs text-gray-600">
                 {verse.book} {verse.chapter}:{verse.verse}

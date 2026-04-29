@@ -56,25 +56,25 @@ export default function DailyMindsetReset() {
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
           <Brain className="w-6 h-6 text-[#FAD98D]" />
-          <h3 className="text-lg font-bold text-[#0A1A2F]">Daily Mindset Reset</h3>
+          <h3 className="text-lg font-bold text-[#0A1A2F] dark:text-white dark:text-white">Daily Mindset Reset</h3>
         </div>
-        <RefreshCw className="w-4 h-4 text-[#0A1A2F]/40" />
+        <RefreshCw className="w-4 h-4 text-[#0A1A2F]/40 dark:text-white/40" />
       </div>
 
-      <div className="bg-white rounded-xl p-5 mb-4">
-        <p className="text-[#0A1A2F] font-medium mb-4 italic">"{todaysPrompt}"</p>
+      <div className="bg-white dark:bg-white/5 rounded-xl p-5 mb-4">
+        <p className="text-[#0A1A2F] dark:text-white font-medium mb-4 italic">"{todaysPrompt}"</p>
         <Textarea
           value={reflection}
           onChange={(e) => setReflection(e.target.value)}
           placeholder="Write your thoughts here..."
-          className="min-h-[120px] border-gray-200 focus:border-[#FAD98D] resize-none"
+          className="min-h-[120px] border-gray-200 dark:border-white/10 focus:border-[#FAD98D] resize-none"
         />
       </div>
 
       <Button
         onClick={handleSave}
         disabled={saving || !reflection.trim()}
-        className="w-full bg-[#FAD98D] hover:bg-[#FAD98D]/90 text-[#0A1A2F]"
+        className="w-full bg-[#FAD98D] hover:bg-[#FAD98D]/90 text-[#0A1A2F] dark:text-white dark:text-white"
       >
         {saving ? 'Saving...' : 'Save Reflection'}
       </Button>

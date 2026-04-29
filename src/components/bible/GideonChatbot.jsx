@@ -298,7 +298,7 @@ Assistant: ${response}`,
             initial={{ opacity: 0, y: 100, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 100, scale: 0.9 }}
-            className="fixed bottom-24 right-4 w-[calc(100vw-2rem)] sm:w-96 h-[min(500px,calc(100dvh-7rem))] bg-white rounded-2xl shadow-2xl flex flex-col z-50 border border-[#FAD98D]/20 overflow-hidden"
+            className="fixed bottom-24 right-4 w-[calc(100vw-2rem)] sm:w-96 h-[min(500px,calc(100dvh-7rem))] bg-white dark:bg-white/5 rounded-2xl shadow-2xl flex flex-col z-50 border border-[#FAD98D]/20 overflow-hidden"
             style={{ paddingTop: 'env(safe-area-inset-top)' }}
           >
             {/* Header */}
@@ -390,7 +390,7 @@ Assistant: ${response}`,
                 className={`max-w-[80%] rounded-2xl px-4 py-3 ${
                   message.role === 'user'
                     ? 'bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white'
-                    : 'bg-[#FAD98D]/12 text-[#0A1A2F]'
+                    : 'bg-[#FAD98D]/12 text-[#0A1A2F] dark:text-white dark:text-white'
                 }`}
               >
                 {message.role === 'assistant' ? (
@@ -420,12 +420,12 @@ Assistant: ${response}`,
           {/* Quick Actions */}
           {messages.length === 1 && !isLoading && (
             <div className="space-y-2 pt-2">
-              <p className="text-xs text-[#0A1A2F]/60 font-medium">Quick questions:</p>
+              <p className="text-xs text-[#0A1A2F]/60 dark:text-white/60 font-medium">Quick questions:</p>
               {quickActions.map((action, idx) => (
                 <button
                   key={idx}
                   onClick={() => sendWithText(action)}
-                  className="block w-full text-left text-sm px-4 py-3 rounded-xl bg-white hover:bg-[#F2F6FA] text-[#0A1A2F] transition-colors shadow-sm border border-[#FAD98D]/20"
+                  className="block w-full text-left text-sm px-4 py-3 rounded-xl bg-white dark:bg-white/5 hover:bg-[#F2F6FA] dark:bg-[#0A1A2F] text-[#0A1A2F] dark:text-white transition-colors shadow-sm border border-[#FAD98D]/20"
                 >
                   {action}
                 </button>
@@ -437,14 +437,14 @@ Assistant: ${response}`,
         </div>
 
         {/* Input */}
-        <div className="p-5 border-t border-[#FAD98D]/20 bg-white">
+        <div className="p-5 border-t border-[#FAD98D]/20 bg-white dark:bg-white/5">
           <div className="flex gap-2 items-center">
             <Input
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyPress={(e) => e.key === 'Enter' && handleSend()}
               placeholder="Ask Gideon about faith, Scripture, or spiritual growth..."
-              className="flex-1 bg-[#F2F6FA] border-[#FAD98D]/20 h-11"
+              className="flex-1 bg-[#F2F6FA] dark:bg-[#0A1A2F] border-[#FAD98D]/20 h-11"
               disabled={isLoading}
             />
             <VoiceInputButton

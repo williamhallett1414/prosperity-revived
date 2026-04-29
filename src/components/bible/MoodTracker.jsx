@@ -19,9 +19,9 @@ const FALLBACK_VERSES = {
 const moods = [
   { id: 'joyful', label: 'Joyful', icon: Smile, color: 'bg-[#FAD98D]/30 text-[#c9a227]', description: 'feeling happy and grateful' },
   { id: 'peaceful', label: 'Peaceful', icon: Heart, color: 'bg-[#AFC7E3]/30 text-[#3C4E53]', description: 'feeling calm and content' },
-  { id: 'struggling', label: 'Struggling', icon: Cloud, color: 'bg-[#0A1A2F]/8 text-[#0A1A2F]/60', description: 'facing challenges' },
+  { id: 'struggling', label: 'Struggling', icon: Cloud, color: 'bg-[#0A1A2F]/8 text-[#0A1A2F]/60 dark:text-white/60', description: 'facing challenges' },
   { id: 'anxious', label: 'Anxious', icon: Zap, color: 'bg-[#FAD98D]/30 text-[#c9a227]', description: 'feeling worried or stressed' },
-  { id: 'sad', label: 'Sad', icon: Frown, color: 'bg-[#AFC7E3]/20 text-[#0A1A2F]', description: 'feeling down or discouraged' },
+  { id: 'sad', label: 'Sad', icon: Frown, color: 'bg-[#AFC7E3]/20 text-[#0A1A2F] dark:text-white dark:text-white', description: 'feeling down or discouraged' },
   { id: 'neutral', label: 'Okay', icon: Meh, color: 'bg-[#FAD98D]/20 text-[#C9A227]', description: 'feeling neutral' },
 ];
 
@@ -89,7 +89,7 @@ export default function MoodTracker() {
   return (
     <div className="mb-0">
       <Card className="p-5 bg-gradient-to-br from-[#FAD98D]/15 to-[#FAD98D]/10 border-none shadow-lg">
-        <h3 className="text-sm font-semibold text-[#0A1A2F] mb-3 flex items-center gap-2">
+        <h3 className="text-sm font-semibold text-[#0A1A2F] dark:text-white mb-3 flex items-center gap-2">
           <Heart className="w-4 h-4 text-[#c9a227]" />
           How are you feeling today?
         </h3>
@@ -124,7 +124,7 @@ export default function MoodTracker() {
             value={customMood}
             onChange={(e) => setCustomMood(e.target.value)}
             disabled={loading}
-            className="flex-1 text-sm bg-[#F2F6FA]"
+            className="flex-1 text-sm bg-[#F2F6FA] dark:bg-[#0A1A2F]"
             onKeyDown={(e) => {
               if (e.key === 'Enter' && customMood.trim() && !loading) {
                 handleMoodSelect({ id: 'custom', label: 'Custom' }, customMood.trim());
@@ -158,12 +158,12 @@ export default function MoodTracker() {
               {loading && (
                 <div className="flex items-center justify-center py-8">
                   <Loader2 className="w-6 h-6 animate-spin text-[#c9a227]" />
-                  <span className="ml-2 text-sm text-[#0A1A2F]/60">Finding verses for you...</span>
+                  <span className="ml-2 text-sm text-[#0A1A2F]/60 dark:text-white/60">Finding verses for you...</span>
                 </div>
               )}
 
               {!loading && aiResponse && (
-                <div className="space-y-4 bg-[#F2F6FA] rounded-xl p-4">
+                <div className="space-y-4 bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-xl p-4">
                    {/* Error notice with retry */}
                    {error && (
                      <div className="bg-amber-50 border border-amber-200 rounded-lg p-2.5 flex items-center gap-2">
@@ -176,29 +176,29 @@ export default function MoodTracker() {
 
                    {/* Verses */}
                    <div>
-                     <h4 className="font-semibold text-[#0A1A2F] mb-3 text-sm">Scripture for You</h4>
+                     <h4 className="font-semibold text-[#0A1A2F] dark:text-white mb-3 text-sm">Scripture for You</h4>
                      <div className="space-y-3">
                        {aiResponse.verses && Array.isArray(aiResponse.verses) && aiResponse.verses.map((verse, index) => (
                          <div key={index} className="bg-[#FAD98D]/20 p-3 rounded-lg border-l-4 border-[#c9a227]">
-                           <p className="font-medium text-xs text-[#0A1A2F] mb-1">{verse.reference}</p>
+                           <p className="font-medium text-xs text-[#0A1A2F] dark:text-white mb-1">{verse.reference}</p>
                            <p className="text-sm text-[#0A1A2F]/75 italic">{verse.text}</p>
                          </div>
                        ))}
                        {(!aiResponse.verses || !Array.isArray(aiResponse.verses)) && (
-                         <p className="text-sm text-[#0A1A2F]/50">Unable to load verses. Please try again.</p>
+                         <p className="text-sm text-[#0A1A2F]/50 dark:text-white/50">Unable to load verses. Please try again.</p>
                        )}
                      </div>
                    </div>
 
                   {/* Encouragement */}
                   <div>
-                    <h4 className="font-semibold text-[#0A1A2F] mb-2 text-sm">A Word of Encouragement</h4>
+                    <h4 className="font-semibold text-[#0A1A2F] dark:text-white mb-2 text-sm">A Word of Encouragement</h4>
                     <p className="text-sm text-[#0A1A2F]/75 leading-relaxed">{aiResponse.encouragement}</p>
                   </div>
 
                   {/* Practical Step */}
                   <div className="bg-[#c9a227]/10 p-3 rounded-lg">
-                    <h4 className="font-semibold text-[#0A1A2F] mb-2 text-sm">Try This Today</h4>
+                    <h4 className="font-semibold text-[#0A1A2F] dark:text-white mb-2 text-sm">Try This Today</h4>
                     <p className="text-sm text-[#0A1A2F]/75">{aiResponse.practical_step}</p>
                   </div>
 

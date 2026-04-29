@@ -137,7 +137,7 @@ export default function VerseReader({ book, chapter, onBack, onNavigate, bookmar
   const canGoPrev = chapter > 1;
 
   return (
-    <div className="h-full flex flex-col bg-[#F2F6FA]">
+    <div className="h-full flex flex-col bg-[#F2F6FA] dark:bg-[#0A1A2F]">
       {/* Plan Badge */}
       {planDay && planId && (
         <div className="bg-[#c9a227] text-white px-4 py-2 text-sm text-center">
@@ -146,14 +146,14 @@ export default function VerseReader({ book, chapter, onBack, onNavigate, bookmar
       )}
       
       {/* Header */}
-      <div className="flex items-center justify-between px-4 py-3 bg-[#F2F6FA] border-b border-[#FAD98D]/20">
+      <div className="flex items-center justify-between px-4 py-3 bg-[#F2F6FA] dark:bg-[#0A1A2F] border-b border-[#FAD98D]/20">
         <div className="flex items-center gap-2">
           <Button variant="ghost" size="icon" onClick={onBack}>
             <ArrowLeft className="w-5 h-5" />
           </Button>
           <div>
-            <h2 className="font-semibold text-[#0A1A2F]">{book.name}</h2>
-            <p className="text-sm text-[#0A1A2F]/50">Chapter {chapter}</p>
+            <h2 className="font-semibold text-[#0A1A2F] dark:text-white dark:text-white">{book.name}</h2>
+            <p className="text-sm text-[#0A1A2F]/50 dark:text-white/50">Chapter {chapter}</p>
           </div>
         </div>
         
@@ -207,7 +207,7 @@ export default function VerseReader({ book, chapter, onBack, onNavigate, bookmar
                           <FileText className="w-2 h-2 text-[#c9a227] absolute -top-1 -right-2" />
                         )}
                       </sup>
-                      <span className={`font-serif ${fontSize} text-[#0A1A2F] leading-relaxed`}>
+                      <span className={`font-serif ${fontSize} text-[#0A1A2F] dark:text-white leading-relaxed`}>
                         {verse.text}{' '}
                       </span>
                     </motion.span>
@@ -224,12 +224,12 @@ export default function VerseReader({ book, chapter, onBack, onNavigate, bookmar
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 20 }}
-                className="fixed bottom-24 left-1/2 -translate-x-1/2 bg-[#F2F6FA] rounded-2xl shadow-xl p-4 z-50 min-w-[300px]"
+                className="fixed bottom-24 left-1/2 -translate-x-1/2 bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-2xl shadow-xl p-4 z-50 min-w-[300px]"
               >
-                <p className="text-sm text-[#0A1A2F]/50 mb-3">Actions:</p>
+                <p className="text-sm text-[#0A1A2F]/50 dark:text-white/50 mb-3">Actions:</p>
                 <div className="space-y-3">
                   <div>
-                    <p className="text-xs text-[#0A1A2F]/40 mb-2">Highlight:</p>
+                    <p className="text-xs text-[#0A1A2F]/40 dark:text-white/40 mb-2">Highlight:</p>
                     <div className="flex gap-2">
                       {Object.keys(highlightColors).map(color => (
                         <button
@@ -245,7 +245,7 @@ export default function VerseReader({ book, chapter, onBack, onNavigate, bookmar
                   </div>
                   <button
                     onClick={() => handleAnnotate(verses.find(v => v.number === selectedVerse))}
-                    className="w-full flex items-center justify-center gap-2 py-2 px-4 bg-[#F2F6FA] border-2 border-[#c9a227] text-[#0A1A2F] rounded-lg hover:bg-[#F2F6FA] transition-colors"
+                    className="w-full flex items-center justify-center gap-2 py-2 px-4 bg-[#F2F6FA] dark:bg-[#0A1A2F] border-2 border-[#c9a227] text-[#0A1A2F] dark:text-white rounded-lg hover:bg-[#F2F6FA] dark:bg-[#0A1A2F] transition-colors"
                   >
                     <FileText className="w-4 h-4" />
                     Add Note & Highlight
@@ -274,7 +274,7 @@ export default function VerseReader({ book, chapter, onBack, onNavigate, bookmar
       </ScrollArea>
 
       {/* Navigation */}
-      <div className="flex items-center justify-between px-4 py-3 bg-[#F2F6FA] border-t border-[#FAD98D]/20">
+      <div className="flex items-center justify-between px-4 py-3 bg-[#F2F6FA] dark:bg-[#0A1A2F] border-t border-[#FAD98D]/20">
         <Button
           variant="ghost"
           disabled={!canGoPrev}
@@ -285,7 +285,7 @@ export default function VerseReader({ book, chapter, onBack, onNavigate, bookmar
           Previous
         </Button>
         
-        <span className="text-sm text-[#0A1A2F]/50">
+        <span className="text-sm text-[#0A1A2F]/50 dark:text-white/50">
           {chapter} of {book.chapters}
         </span>
         

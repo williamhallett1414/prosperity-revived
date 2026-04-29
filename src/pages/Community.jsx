@@ -25,13 +25,13 @@ const TABS = [
 
 function StatPill({ icon: Icon, value, label, color }) {
   return (
-    <div className="flex flex-col items-center gap-0.5 bg-white rounded-xl px-2 py-2 border border-gray-100 shadow-sm flex-1 min-w-0">
+    <div className="flex flex-col items-center gap-0.5 bg-white dark:bg-white/5 rounded-xl px-2 py-2 border border-gray-100 dark:border-white/10 shadow-sm flex-1 min-w-0">
       <div className="w-6 h-6 rounded-lg flex items-center justify-center flex-shrink-0"
         style={{ background: color + '18' }}>
         <Icon className="w-3 h-3" style={{ color }} />
       </div>
-      <p className="text-xs font-bold text-[#0A1A2F] leading-tight">{value}</p>
-      <p className="text-[8px] font-semibold text-[#0A1A2F]/35 uppercase tracking-wide">{label}</p>
+      <p className="text-xs font-bold text-[#0A1A2F] dark:text-white leading-tight">{value}</p>
+      <p className="text-[8px] font-semibold text-[#0A1A2F]/35 dark:text-white/35 uppercase tracking-wide">{label}</p>
     </div>
   );
 }
@@ -54,22 +54,22 @@ function GroupsSection({ user }) {
       {myGroups.length > 0 && (
         <div>
           <div className="flex items-center justify-between mb-2">
-            <p className="text-xs font-bold text-[#0A1A2F]/40 uppercase tracking-widest">My Groups</p>
+            <p className="text-xs font-bold text-[#0A1A2F]/40 dark:text-white/40 uppercase tracking-widest">My Groups</p>
             <span className="text-xs text-[#7C3AED] font-semibold">{myGroups.length} joined</span>
           </div>
           <div className="space-y-2">
             {myGroups.map(group => (
               <Link key={group.id} to={createPageUrl(`GroupDetail?id=${group.id}`)}>
                 <motion.div whileTap={{ scale: 0.98 }}
-                  className="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm flex items-center gap-3">
+                  className="bg-white dark:bg-white/5 rounded-2xl p-4 border border-gray-100 dark:border-white/10 shadow-sm flex items-center gap-3">
                   <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-[#7C3AED] to-[#A78BFA] flex items-center justify-center flex-shrink-0">
                     <Users className="w-5 h-5 text-white" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-bold text-[#0A1A2F] truncate">{group.name}</p>
-                    <p className="text-xs text-[#0A1A2F]/45">{(group.members || []).length + 1} members · {group.category || 'General'}</p>
+                    <p className="text-sm font-bold text-[#0A1A2F] dark:text-white truncate">{group.name}</p>
+                    <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45">{(group.members || []).length + 1} members · {group.category || 'General'}</p>
                   </div>
-                  <ChevronRight className="w-4 h-4 text-[#0A1A2F]/20 flex-shrink-0" />
+                  <ChevronRight className="w-4 h-4 text-[#0A1A2F]/20 dark:text-white/20 flex-shrink-0" />
                 </motion.div>
               </Link>
             ))}
@@ -79,7 +79,7 @@ function GroupsSection({ user }) {
 
       <div>
         <div className="flex items-center justify-between mb-2">
-          <p className="text-xs font-bold text-[#0A1A2F]/40 uppercase tracking-widest">
+          <p className="text-xs font-bold text-[#0A1A2F]/40 dark:text-white/40 uppercase tracking-widest">
             {myGroups.length > 0 ? 'Discover More' : 'Join a Group'}
           </p>
         </div>
@@ -88,13 +88,13 @@ function GroupsSection({ user }) {
             {otherGroups.slice(0, 5).map(group => (
               <Link key={group.id} to={createPageUrl(`GroupDetail?id=${group.id}`)}>
                 <motion.div whileTap={{ scale: 0.98 }}
-                  className="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm flex items-center gap-3">
+                  className="bg-white dark:bg-white/5 rounded-2xl p-4 border border-gray-100 dark:border-white/10 shadow-sm flex items-center gap-3">
                   <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-[#AFC7E3] to-[#3C4E53] flex items-center justify-center flex-shrink-0">
                     <Users className="w-5 h-5 text-white" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-bold text-[#0A1A2F] truncate">{group.name}</p>
-                    <p className="text-xs text-[#0A1A2F]/45">{(group.members || []).length + 1} members · {group.category || 'General'}</p>
+                    <p className="text-sm font-bold text-[#0A1A2F] dark:text-white truncate">{group.name}</p>
+                    <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45">{(group.members || []).length + 1} members · {group.category || 'General'}</p>
                   </div>
                   <span className="px-3 py-1.5 rounded-full text-xs font-bold bg-[#7C3AED]/10 text-[#7C3AED] border border-[#7C3AED]/20 flex-shrink-0">Join</span>
                 </motion.div>
@@ -102,10 +102,10 @@ function GroupsSection({ user }) {
             ))}
           </div>
         ) : (
-          <div className="bg-white rounded-2xl p-6 border border-gray-100 text-center">
-            <Users className="w-8 h-8 text-[#0A1A2F]/15 mx-auto mb-2" />
-            <p className="text-sm font-semibold text-[#0A1A2F]/60">No groups yet</p>
-            <p className="text-xs text-[#0A1A2F]/35 mt-1">Be the first to create a group!</p>
+          <div className="bg-white dark:bg-white/5 rounded-2xl p-6 border border-gray-100 dark:border-white/10 text-center">
+            <Users className="w-8 h-8 text-[#0A1A2F]/15 dark:text-white/15 mx-auto mb-2" />
+            <p className="text-sm font-semibold text-[#0A1A2F]/60 dark:text-white/60">No groups yet</p>
+            <p className="text-xs text-[#0A1A2F]/35 dark:text-white/35 mt-1">Be the first to create a group!</p>
           </div>
         )}
       </div>
@@ -139,24 +139,24 @@ function LeaderboardWidget() {
   const medals = ['🥇', '🥈', '🥉'];
 
   return (
-    <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+    <div className="bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 shadow-sm overflow-hidden">
       <div className="px-4 py-3 bg-gradient-to-r from-[#FAD98D]/20 to-[#c9a227]/10 border-b border-[#FAD98D]/20 flex items-center gap-2">
         <Crown className="w-4 h-4 text-[#c9a227]" />
-        <p className="text-xs font-bold text-[#0A1A2F] uppercase tracking-widest">Top Members</p>
+        <p className="text-xs font-bold text-[#0A1A2F] dark:text-white uppercase tracking-widest">Top Members</p>
       </div>
-      <div className="divide-y divide-gray-50">
+      <div className="divide-y divide-gray-50 dark:divide-white/5">
         {top5.map((p, i) => (
           <div key={p.id} className="flex items-center gap-3 px-4 py-2.5">
-            <span className="text-base w-6 text-center">{i < 3 ? medals[i] : <span className="text-xs text-[#0A1A2F]/30 font-bold">{i + 1}</span>}</span>
+            <span className="text-base w-6 text-center">{i < 3 ? medals[i] : <span className="text-xs text-[#0A1A2F]/30 dark:text-white/30 font-bold">{i + 1}</span>}</span>
             <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#AFC7E3] to-[#3C4E53] flex items-center justify-center flex-shrink-0">
               <span className="text-white text-xs font-bold">{(p.created_by || '?')[0].toUpperCase()}</span>
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-semibold text-[#0A1A2F] truncate">{p.created_by?.split('@')[0] || 'Member'}</p>
+              <p className="text-sm font-semibold text-[#0A1A2F] dark:text-white truncate">{p.created_by?.split('@')[0] || 'Member'}</p>
             </div>
             <div className="flex items-center gap-1">
               <Flame className="w-3 h-3 text-[#FD9C2D]" />
-              <span className="text-xs font-bold text-[#0A1A2F]/60">{p.total_points || 0}</span>
+              <span className="text-xs font-bold text-[#0A1A2F]/60 dark:text-white/60">{p.total_points || 0}</span>
             </div>
           </div>
         ))}
@@ -201,7 +201,7 @@ export default function Community() {
 
   if (!user) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-[#F2F6FA]">
+      <div className="flex items-center justify-center min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F]">
         <div className="w-10 h-10 border-4 border-[#7C3AED]/30 border-t-[#7C3AED] rounded-full animate-spin" />
       </div>
     );
@@ -212,7 +212,7 @@ export default function Community() {
   ).length;
 
   return (
-    <div className="min-h-screen bg-[#F2F6FA] pb-28">
+    <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
 
       {/* ── Sticky Header ── */}
       <div className="sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b border-[#7C3AED]/15">
@@ -223,14 +223,14 @@ export default function Community() {
                 <Users className="w-5 h-5 text-white" />
               </div>
               <div>
-                <h1 className="text-base font-bold text-[#0A1A2F]">Community</h1>
-                <p className="text-xs text-[#0A1A2F]/45">Grow together in faith</p>
+                <h1 className="text-base font-bold text-[#0A1A2F] dark:text-white dark:text-white">Community</h1>
+                <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45">Grow together in faith</p>
               </div>
             </div>
             <div className="flex gap-2">
               <button onClick={() => setShowBlogWriter(true)}
                 className="w-9 h-9 rounded-xl bg-[#0A1A2F]/5 flex items-center justify-center hover:bg-[#0A1A2F]/10 transition-colors">
-                <PenLine className="w-4 h-4 text-[#0A1A2F]/50" />
+                <PenLine className="w-4 h-4 text-[#0A1A2F]/50 dark:text-white/50" />
               </button>
               <button onClick={() => setShowShareModal(true)}
                 className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-gradient-to-r from-[#7C3AED] to-[#A78BFA] text-white text-xs font-bold shadow-sm">
@@ -245,7 +245,7 @@ export default function Community() {
               return (
                 <button key={tab.id} onClick={() => setActiveTab(tab.id)}
                   className={`flex items-center gap-1.5 px-3.5 py-3 text-xs font-semibold flex-shrink-0 relative transition-colors ${
-                    activeTab === tab.id ? 'text-[#7C3AED]' : 'text-[#0A1A2F]/35 hover:text-[#0A1A2F]/55'
+                    activeTab === tab.id ? 'text-[#7C3AED]' : 'text-[#0A1A2F]/35 dark:text-white/35 hover:text-[#0A1A2F]/55 dark:text-white/55'
                   }`}>
                   <Icon className="w-3.5 h-3.5" /> {tab.label}
                   {activeTab === tab.id && (
@@ -259,7 +259,7 @@ export default function Community() {
             {user?.role === 'admin' && (
               <button onClick={() => setActiveTab('moderation')}
                 className={`flex items-center gap-1.5 px-3.5 py-3 text-xs font-semibold flex-shrink-0 ${
-                  activeTab === 'moderation' ? 'text-red-500' : 'text-[#0A1A2F]/35'
+                  activeTab === 'moderation' ? 'text-red-500' : 'text-[#0A1A2F]/35 dark:text-white/35'
                 }`}>
                 🛡️ Mod
               </button>
@@ -290,15 +290,15 @@ export default function Community() {
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
             className="mb-4">
             <Link to={createPageUrl('Friends')}>
-              <div className="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm flex items-center gap-3">
+              <div className="bg-white dark:bg-white/5 rounded-2xl p-4 border border-gray-100 dark:border-white/10 shadow-sm flex items-center gap-3">
                 <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#EC4899] to-[#F472B6] flex items-center justify-center flex-shrink-0">
                   <UserPlus className="w-5 h-5 text-white" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-bold text-[#0A1A2F]">Find Friends</p>
-                  <p className="text-xs text-[#0A1A2F]/45">Connect with others on the same journey</p>
+                  <p className="text-sm font-bold text-[#0A1A2F] dark:text-white dark:text-white">Find Friends</p>
+                  <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45">Connect with others on the same journey</p>
                 </div>
-                <ChevronRight className="w-4 h-4 text-[#0A1A2F]/20 flex-shrink-0" />
+                <ChevronRight className="w-4 h-4 text-[#0A1A2F]/20 dark:text-white/20 flex-shrink-0" />
               </div>
             </Link>
           </motion.div>

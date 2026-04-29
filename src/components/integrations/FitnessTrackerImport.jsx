@@ -155,7 +155,7 @@ ${dataToProcess}`,
             <button
               key={tracker.id}
               onClick={() => setSelectedTracker(tracker)}
-              className="w-full flex items-center gap-3 p-3 rounded-xl border border-gray-100 hover:border-sky-200 hover:bg-sky-50 transition-all text-left"
+              className="w-full flex items-center gap-3 p-3 rounded-xl border border-gray-100 dark:border-white/10 hover:border-sky-200 hover:bg-sky-50 transition-all text-left"
             >
               <span className="text-2xl">{tracker.icon}</span>
               <div className="flex-1 min-w-0">
@@ -178,7 +178,7 @@ ${dataToProcess}`,
             </div>
           </div>
 
-          <div className="bg-gray-50 rounded-xl p-3">
+          <div className="bg-gray-50 dark:bg-white/5 rounded-xl p-3">
             <p className="text-xs font-semibold text-gray-600 mb-2">How to export:</p>
             <ol className="space-y-1">
               {selectedTracker.instructions.map((step, i) => (
@@ -195,10 +195,10 @@ ${dataToProcess}`,
               value={manualText}
               onChange={(e) => setManualText(e.target.value)}
               placeholder="e.g. Monday: 45min run, 5km, moderate intensity. Tuesday: Rest. Wednesday: Strength training, chest/back, 60min, high intensity..."
-              className="w-full text-sm border border-gray-200 rounded-xl p-3 h-28 resize-none focus:outline-none focus:ring-2 focus:ring-sky-300"
+              className="w-full text-sm border border-gray-200 dark:border-white/10 rounded-xl p-3 h-28 resize-none focus:outline-none focus:ring-2 focus:ring-sky-300"
             />
           ) : (
-            <label className="flex flex-col items-center justify-center gap-2 border-2 border-dashed border-gray-200 rounded-xl p-6 cursor-pointer hover:border-sky-300 hover:bg-sky-50 transition-all">
+            <label className="flex flex-col items-center justify-center gap-2 border-2 border-dashed border-gray-200 dark:border-white/10 rounded-xl p-6 cursor-pointer hover:border-sky-300 hover:bg-sky-50 transition-all">
               <Upload className="w-6 h-6 text-gray-400" />
               <span className="text-sm text-gray-600">{file ? file.name : 'Click to upload your export file'}</span>
               <span className="text-xs text-gray-400">{selectedTracker.format}</span>

@@ -83,8 +83,8 @@ export default function DailyStartSection({
     >
       {/* Header */}
       <div className="mb-4">
-        <h2 className="text-2xl font-bold text-[#0A1A2F] mb-1">Today's Journey</h2>
-        <p className="text-[#0A1A2F]/60 text-sm">Your daily path to spiritual and physical wellness</p>
+        <h2 className="text-2xl font-bold text-[#0A1A2F] dark:text-white mb-1">Today's Journey</h2>
+        <p className="text-[#0A1A2F]/60 dark:text-white/60 text-sm">Your daily path to spiritual and physical wellness</p>
       </div>
 
       {/* Quick Actions Grid */}
@@ -101,9 +101,9 @@ export default function DailyStartSection({
                 whileTap={{ scale: 0.98 }}
                 className={`bg-gradient-to-br ${action.gradient} rounded-2xl p-4 shadow-md hover:shadow-lg transition-all`}
               >
-                <Icon className="w-6 h-6 text-[#0A1A2F] mb-2" />
-                <h3 className="font-semibold text-[#0A1A2F] text-sm mb-1">{action.label}</h3>
-                <p className="text-xs text-[#0A1A2F]/70 line-clamp-1">{action.subtitle}</p>
+                <Icon className="w-6 h-6 text-[#0A1A2F] dark:text-white mb-2" />
+                <h3 className="font-semibold text-[#0A1A2F] dark:text-white text-sm mb-1">{action.label}</h3>
+                <p className="text-xs text-[#0A1A2F]/70 dark:text-white/70 line-clamp-1">{action.subtitle}</p>
               </motion.div>
             </Link>
           );

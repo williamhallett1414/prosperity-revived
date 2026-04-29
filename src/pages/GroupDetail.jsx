@@ -63,12 +63,12 @@ function MemberAvatarStrip({ memberships, totalCount }) {
           </div>
         ))}
         {overflow > 0 && (
-          <div className="w-8 h-8 rounded-full bg-[#F2F6FA] border-2 border-white flex items-center justify-center text-[#0A1A2F]/50 text-[10px] font-bold">
+          <div className="w-8 h-8 rounded-full bg-[#F2F6FA] dark:bg-[#0A1A2F] border-2 border-white flex items-center justify-center text-[#0A1A2F]/50 dark:text-white/50 text-[10px] font-bold">
             +{overflow}
           </div>
         )}
       </div>
-      <span className="text-xs text-[#0A1A2F]/50 font-medium">
+      <span className="text-xs text-[#0A1A2F]/50 dark:text-white/50 font-medium">
         {totalCount} {totalCount === 1 ? 'member' : 'members'}
       </span>
     </div>
@@ -78,7 +78,7 @@ function MemberAvatarStrip({ memberships, totalCount }) {
 // ─── Join CTA card ───────────────────────────────────────────────────────────
 function JoinCard({ group, onJoin, joining, cat }) {
   return (
-    <div className="bg-white rounded-2xl border border-[#FAD98D]/20 overflow-hidden">
+    <div className="bg-white dark:bg-white/5 rounded-2xl border border-[#FAD98D]/20 overflow-hidden">
       <div className={`bg-gradient-to-r ${cat.gradient} p-4 flex items-center gap-3`}>
         <span className="text-3xl">{cat.emoji}</span>
         <div>
@@ -93,14 +93,14 @@ function JoinCard({ group, onJoin, joining, cat }) {
               <div className="w-4 h-4 rounded-full bg-[#FAD98D]/20 flex items-center justify-center flex-shrink-0">
                 <div className="w-1.5 h-1.5 rounded-full bg-[#c9a227]" />
               </div>
-              <p className="text-xs text-[#0A1A2F]/60">{b}</p>
+              <p className="text-xs text-[#0A1A2F]/60 dark:text-white/60">{b}</p>
             </div>
           ))}
         </div>
         <button
           onClick={onJoin}
           disabled={joining}
-          className="w-full py-3 rounded-xl bg-gradient-to-r from-[#FAD98D] to-[#c9a227] text-[#0A1A2F] font-bold text-sm flex items-center justify-center gap-2 disabled:opacity-50 hover:opacity-90 transition-opacity"
+          className="w-full py-3 rounded-xl bg-gradient-to-r from-[#FAD98D] to-[#c9a227] text-[#0A1A2F] dark:text-white font-bold text-sm flex items-center justify-center gap-2 disabled:opacity-50 hover:opacity-90 transition-opacity"
         >
           {joining ? <Loader2 className="w-4 h-4 animate-spin" /> : <UserPlus className="w-4 h-4" />}
           {joining ? 'Joining…' : 'Join Group'}
@@ -113,12 +113,12 @@ function JoinCard({ group, onJoin, joining, cat }) {
 // ─── Empty states ─────────────────────────────────────────────────────────────
 function EmptyFeed({ isMember, onPost }) {
   return (
-    <div className="bg-white rounded-2xl border border-[#AFC7E3]/20 p-8 text-center">
-      <div className="w-14 h-14 bg-[#F2F6FA] rounded-2xl flex items-center justify-center mx-auto mb-4">
+    <div className="bg-white dark:bg-white/5 rounded-2xl border border-[#AFC7E3]/20 p-8 text-center">
+      <div className="w-14 h-14 bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-2xl flex items-center justify-center mx-auto mb-4">
         <MessageSquare className="w-7 h-7 text-[#AFC7E3]" />
       </div>
-      <h3 className="font-bold text-[#0A1A2F] mb-1">No posts yet</h3>
-      <p className="text-sm text-[#0A1A2F]/40 leading-relaxed mb-4">
+      <h3 className="font-bold text-[#0A1A2F] dark:text-white mb-1">No posts yet</h3>
+      <p className="text-sm text-[#0A1A2F]/40 dark:text-white/40 leading-relaxed mb-4">
         {isMember ? 'Be the first to share something with the group.' : 'Join the group to see posts and share your own.'}
       </p>
       {isMember && (
@@ -133,17 +133,17 @@ function EmptyFeed({ isMember, onPost }) {
 
 function EmptyChallenges({ isMember, onCreate }) {
   return (
-    <div className="bg-white rounded-2xl border border-[#FAD98D]/20 p-8 text-center">
-      <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center mx-auto mb-4">
+    <div className="bg-white dark:bg-white/5 rounded-2xl border border-[#FAD98D]/20 p-8 text-center">
+      <div className="w-14 h-14 bg-white dark:bg-white/5 rounded-2xl flex items-center justify-center mx-auto mb-4">
         <Trophy className="w-7 h-7 text-[#FAD98D]" />
       </div>
-      <h3 className="font-bold text-[#0A1A2F] mb-1">No challenges yet</h3>
-      <p className="text-sm text-[#0A1A2F]/40 leading-relaxed mb-4">
+      <h3 className="font-bold text-[#0A1A2F] dark:text-white mb-1">No challenges yet</h3>
+      <p className="text-sm text-[#0A1A2F]/40 dark:text-white/40 leading-relaxed mb-4">
         {isMember ? 'Create a group challenge to build momentum together.' : 'Join to participate in challenges.'}
       </p>
       {isMember && (
         <button onClick={onCreate}
-          className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#FAD98D] to-[#c9a227] text-[#0A1A2F] font-bold text-sm hover:opacity-90 transition-opacity">
+          className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#FAD98D] to-[#c9a227] text-[#0A1A2F] dark:text-white font-bold text-sm hover:opacity-90 transition-opacity">
           Create First Challenge
         </button>
       )}
@@ -289,17 +289,17 @@ export default function GroupDetail() {
 
   if (groupLoading) {
     return (
-      <div className="min-h-screen bg-[#F2F6FA] flex items-center justify-center">
+      <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] flex items-center justify-center">
 
       {/* ── Standard Header ── */}
-      <div className="sticky top-0 z-40 bg-white border-b border-[#FAD98D]/20 px-4 pt-4 pb-3">
+      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 px-4 pt-4 pb-3">
         <div className="max-w-lg mx-auto flex items-center gap-3">
           <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#7C3AED] to-[#A78BFA] flex items-center justify-center">
             <Users className="w-5 h-5 text-white" />
           </div>
           <div>
-            <h1 className="text-base font-bold text-[#0A1A2F]">Group</h1>
-            <p className="text-xs text-[#0A1A2F]/45">Study & share together</p>
+            <h1 className="text-base font-bold text-[#0A1A2F] dark:text-white dark:text-white">Group</h1>
+            <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45">Study & share together</p>
           </div>
         </div>
       </div>
@@ -311,8 +311,8 @@ export default function GroupDetail() {
 
   if (!group) {
     return (
-      <div className="min-h-screen bg-[#F2F6FA] flex flex-col items-center justify-center gap-4">
-        <p className="text-[#0A1A2F]/50 font-medium">Group not found</p>
+      <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] flex flex-col items-center justify-center gap-4">
+        <p className="text-[#0A1A2F]/50 dark:text-white/50 font-medium">Group not found</p>
         <button onClick={() => navigate(-1)} className="text-sm text-[#c9a227] font-bold">← Go back</button>
       </div>
     );
@@ -332,7 +332,7 @@ export default function GroupDetail() {
   const handleComment = (postId, content) => createComment.mutate({ postId, content });
 
   return (
-    <div className="min-h-screen bg-[#F2F6FA] pb-28">
+    <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
 
       {/* ── Hero ── */}
       <div className="relative h-52 overflow-hidden">
@@ -388,13 +388,13 @@ export default function GroupDetail() {
       <div className="max-w-lg mx-auto px-4 py-5 space-y-5">
 
         {/* ── Group info strip ── */}
-        <div className="bg-white rounded-2xl border border-[#AFC7E3]/20 p-4 space-y-3">
+        <div className="bg-white dark:bg-white/5 rounded-2xl border border-[#AFC7E3]/20 p-4 space-y-3">
           {group.description && (
             <p className="text-sm text-[#0A1A2F]/65 leading-relaxed">{group.description}</p>
           )}
           <div className="flex items-center justify-between flex-wrap gap-3">
             <MemberAvatarStrip memberships={memberships} totalCount={group.member_count || memberships.length} />
-            <div className="flex items-center gap-3 text-[10px] text-[#0A1A2F]/35 font-semibold">
+            <div className="flex items-center gap-3 text-[10px] text-[#0A1A2F]/35 dark:text-white/35 font-semibold">
               {lastPost && (
                 <span className="flex items-center gap-1">
                   <Clock className="w-3 h-3" /> {timeAgo(lastPost)}
@@ -423,18 +423,18 @@ export default function GroupDetail() {
             <button onClick={() => setShowChallenges(s => !s)}
               className="w-full flex items-center gap-2 mb-2">
               <Trophy className="w-4 h-4 text-[#FAD98D]" />
-              <span className="text-sm font-bold text-[#0A1A2F]">
+              <span className="text-sm font-bold text-[#0A1A2F] dark:text-white dark:text-white">
                 Challenges
-                {challenges.length > 0 && <span className="text-[#0A1A2F]/30 font-normal ml-1">({challenges.length})</span>}
+                {challenges.length > 0 && <span className="text-[#0A1A2F]/30 dark:text-white/30 font-normal ml-1">({challenges.length})</span>}
               </span>
               {activeChallenges.length > 0 && (
-                <span className="text-[10px] font-bold text-[#c9a227] bg-white border border-[#FAD98D]/30 px-2 py-0.5 rounded-full">
+                <span className="text-[10px] font-bold text-[#c9a227] bg-white dark:bg-white/5 border border-[#FAD98D]/30 px-2 py-0.5 rounded-full">
                   {activeChallenges.length} active
                 </span>
               )}
               {showChallenges
-                ? <ChevronUp className="w-4 h-4 text-[#0A1A2F]/25 ml-auto" />
-                : <ChevronDown className="w-4 h-4 text-[#0A1A2F]/25 ml-auto" />}
+                ? <ChevronUp className="w-4 h-4 text-[#0A1A2F]/25 dark:text-white/25 ml-auto" />
+                : <ChevronDown className="w-4 h-4 text-[#0A1A2F]/25 dark:text-white/25 ml-auto" />}
             </button>
 
             <AnimatePresence>
@@ -468,13 +468,13 @@ export default function GroupDetail() {
         <div>
           <div className="flex items-center gap-2 mb-3">
             <MessageSquare className="w-4 h-4 text-[#AFC7E3]" />
-            <h2 className="text-sm font-bold text-[#0A1A2F]">
+            <h2 className="text-sm font-bold text-[#0A1A2F] dark:text-white dark:text-white">
               Group Feed
-              {posts.length > 0 && <span className="text-[#0A1A2F]/30 font-normal ml-1">({posts.length})</span>}
+              {posts.length > 0 && <span className="text-[#0A1A2F]/30 dark:text-white/30 font-normal ml-1">({posts.length})</span>}
             </h2>
             {isMember && (
               <button onClick={() => setShowCreatePost(true)}
-                className="ml-auto flex items-center gap-1 text-xs font-bold text-[#AFC7E3] hover:text-[#0A1A2F]/60 transition-colors">
+                className="ml-auto flex items-center gap-1 text-xs font-bold text-[#AFC7E3] hover:text-[#0A1A2F]/60 dark:text-white/60 transition-colors">
                 <Plus className="w-3.5 h-3.5" /> Post
               </button>
             )}

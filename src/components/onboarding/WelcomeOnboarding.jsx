@@ -216,7 +216,7 @@ export default function WelcomeOnboarding({ onComplete }) {
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto"
+        className="bg-white dark:bg-white/5 dark:bg-gray-800 rounded-2xl shadow-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto"
       >
         {/* Header */}
         <div className={`bg-gradient-to-r ${step.color} px-6 py-8 text-white relative`}>
@@ -246,7 +246,7 @@ export default function WelcomeOnboarding({ onComplete }) {
                 key={idx}
                 className={`h-1.5 rounded-full flex-1 transition-all ${
                   idx === currentStep
-                    ? 'bg-white'
+                    ? 'bg-white dark:bg-white/5'
                     : idx < currentStep
                     ? 'bg-white/80'
                     : 'bg-white/30'
@@ -279,7 +279,7 @@ export default function WelcomeOnboarding({ onComplete }) {
                         initial={{ opacity: 0, x: -10 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: idx * 0.1 }}
-                        className="flex items-start gap-3 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg"
+                        className="flex items-start gap-3 p-3 bg-gray-50 dark:bg-white/5 dark:bg-gray-700 rounded-lg"
                       >
                         <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
                         <span className="text-gray-700 dark:text-gray-300">{feature}</span>
@@ -401,7 +401,7 @@ export default function WelcomeOnboarding({ onComplete }) {
         </div>
 
         {/* Footer */}
-        <div className="px-6 py-4 bg-gray-50 dark:bg-gray-900 flex items-center justify-between border-t">
+        <div className="px-6 py-4 bg-gray-50 dark:bg-white/5 dark:bg-gray-900 flex items-center justify-between border-t">
           <div className="text-sm text-gray-600 dark:text-gray-400">
             Step {currentStep + 1} of {chatbotSteps.length}
           </div>

@@ -89,7 +89,7 @@ export default function UserPostsFeed({ userEmail, isOwnProfile }) {
   if (posts.length === 0) {
     return (
       <div className="px-4 py-12 text-center">
-        <p className="text-[#0A1A2F]/60">No posts yet</p>
+        <p className="text-[#0A1A2F]/60 dark:text-white/60">No posts yet</p>
       </div>
     );
   }
@@ -116,10 +116,10 @@ export default function UserPostsFeed({ userEmail, isOwnProfile }) {
                       {post.user_name?.charAt(0) || 'U'}
                     </div>
                     <div>
-                      <p className="font-semibold text-[#0A1A2F]">
+                      <p className="font-semibold text-[#0A1A2F] dark:text-white dark:text-white">
                         {post.user_name || 'Anonymous'}
                       </p>
-                      <p className="text-xs text-[#0A1A2F]/60">
+                      <p className="text-xs text-[#0A1A2F]/60 dark:text-white/60">
                         {new Date(post.created_date).toLocaleDateString()}
                       </p>
                     </div>
@@ -131,7 +131,7 @@ export default function UserPostsFeed({ userEmail, isOwnProfile }) {
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                       <button className="p-2 hover:bg-[#FAD98D]/10 rounded-full">
-                        <MoreVertical className="w-5 h-5 text-[#0A1A2F]/50" />
+                        <MoreVertical className="w-5 h-5 text-[#0A1A2F]/50 dark:text-white/50" />
                       </button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
@@ -185,11 +185,11 @@ export default function UserPostsFeed({ userEmail, isOwnProfile }) {
                   </div>
                 ) : (
                   <>
-                    <p className="text-[#0A1A2F]/80 mb-3">{post.content}</p>
+                    <p className="text-[#0A1A2F]/80 dark:text-white/80 mb-3">{post.content}</p>
 
                     {/* Post Image */}
                     {post.image_url && (
-                      <div className="mb-3 rounded-lg overflow-hidden bg-[#F2F6FA] max-h-96">
+                      <div className="mb-3 rounded-lg overflow-hidden bg-[#F2F6FA] dark:bg-[#0A1A2F] max-h-96">
                         <img
                           src={post.image_url}
                           alt="Post"
@@ -201,7 +201,7 @@ export default function UserPostsFeed({ userEmail, isOwnProfile }) {
                     {/* Verse if included */}
                     {post.verse_text && (
                       <div className="mb-3 p-3 bg-gradient-to-br from-[#c9a227]/10 to-[#FAD98D]/10 rounded-lg border-l-4 border-[#c9a227]">
-                        <p className="font-semibold text-sm text-[#0A1A2F] mb-1">
+                        <p className="font-semibold text-sm text-[#0A1A2F] dark:text-white mb-1">
                           {post.verse_book} {post.verse_chapter}:{post.verse_number}
                         </p>
                         <p className="text-sm text-[#0A1A2F]/75 italic">
@@ -216,7 +216,7 @@ export default function UserPostsFeed({ userEmail, isOwnProfile }) {
               {/* Post Stats & Actions */}
               {!isEditing && (
                 <>
-                  <div className="px-4 py-2 border-t border-[#FAD98D]/25 flex items-center justify-between text-sm text-[#0A1A2F]/60">
+                  <div className="px-4 py-2 border-t border-[#FAD98D]/25 flex items-center justify-between text-sm text-[#0A1A2F]/60 dark:text-white/60">
                     <span>{post.likes || 0} likes</span>
                     <span>{postComments.length} comments</span>
                   </div>
@@ -229,7 +229,7 @@ export default function UserPostsFeed({ userEmail, isOwnProfile }) {
                           currentLikes: post.likes || 0
                         })
                       }
-                      className="flex-1 flex items-center justify-center gap-2 py-2 text-[#0A1A2F]/60 hover:text-[#c9a227] transition-colors"
+                      className="flex-1 flex items-center justify-center gap-2 py-2 text-[#0A1A2F]/60 dark:text-white/60 hover:text-[#c9a227] transition-colors"
                     >
                       <Heart className="w-5 h-5" />
                       Like
@@ -241,7 +241,7 @@ export default function UserPostsFeed({ userEmail, isOwnProfile }) {
                     <div className="px-4 pb-4 space-y-2">
                       {postComments.slice(0, 2).map(comment => (
                         <div key={comment.id} className="bg-[#FAD98D]/10 rounded-lg p-3">
-                          <p className="font-semibold text-sm text-[#0A1A2F]">
+                          <p className="font-semibold text-sm text-[#0A1A2F] dark:text-white dark:text-white">
                             {comment.user_name}
                           </p>
                           <p className="text-sm text-[#0A1A2F]/75">
@@ -250,7 +250,7 @@ export default function UserPostsFeed({ userEmail, isOwnProfile }) {
                         </div>
                       ))}
                       {postComments.length > 2 && (
-                        <p className="text-xs text-[#0A1A2F]/50">
+                        <p className="text-xs text-[#0A1A2F]/50 dark:text-white/50">
                           +{postComments.length - 2} more comments
                         </p>
                       )}

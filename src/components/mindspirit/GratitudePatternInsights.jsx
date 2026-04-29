@@ -38,11 +38,11 @@ export default function GratitudePatternInsights({ entries }) {
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-white rounded-2xl border border-gray-200 shadow-sm p-5"
+      className="bg-white dark:bg-white/5 rounded-2xl border border-gray-200 dark:border-white/10 shadow-sm p-5"
     >
       <div className="flex items-center gap-2 mb-4">
         <TrendingUp className="w-5 h-5 text-[#FD9C2D]" />
-        <h3 className="font-semibold text-[#0A1A2F]">AI Pattern Insights</h3>
+        <h3 className="font-semibold text-[#0A1A2F] dark:text-white dark:text-white">AI Pattern Insights</h3>
       </div>
 
       {entries.length < 3 ? (
@@ -90,7 +90,7 @@ export default function GratitudePatternInsights({ entries }) {
                     <div className="w-4 h-4 bg-green-100 rounded-full flex items-center justify-center mt-0.5 flex-shrink-0">
                       <div className="w-1.5 h-1.5 bg-green-500 rounded-full" />
                     </div>
-                    <p className="text-sm text-[#0A1A2F]/80">{area}</p>
+                    <p className="text-sm text-[#0A1A2F]/80 dark:text-white/80">{area}</p>
                   </div>
                 ))}
               </div>
@@ -98,15 +98,15 @@ export default function GratitudePatternInsights({ entries }) {
           )}
 
           {insights.reflection && (
-            <div className="bg-[#F2F6FA] rounded-xl p-4">
+            <div className="bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-xl p-4">
               <p className="text-xs font-medium text-gray-400 mb-1">Personalized Reflection</p>
-              <p className="text-sm text-[#0A1A2F]/80 leading-relaxed">{insights.reflection}</p>
+              <p className="text-sm text-[#0A1A2F]/80 dark:text-white/80 leading-relaxed">{insights.reflection}</p>
             </div>
           )}
 
           {insights.encouragement && (
             <div className="bg-gradient-to-r from-[#FD9C2D]/10 to-[#FAD98D]/10 rounded-xl p-4 border border-[#FAD98D]/20">
-              <p className="text-sm text-[#0A1A2F] font-medium italic">✨ {insights.encouragement}</p>
+              <p className="text-sm text-[#0A1A2F] dark:text-white font-medium italic">✨ {insights.encouragement}</p>
             </div>
           )}
 
@@ -114,7 +114,7 @@ export default function GratitudePatternInsights({ entries }) {
             onClick={generateInsights}
             disabled={loading}
             variant="outline"
-            className="w-full text-sm border-gray-200 text-gray-500"
+            className="w-full text-sm border-gray-200 dark:border-white/10 text-gray-500"
           >
             {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Refresh Analysis'}
           </Button>

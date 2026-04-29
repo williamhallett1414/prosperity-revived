@@ -377,24 +377,24 @@ export default function DevotionalArticle({ devotional, onBack }) {
 
   if (!content) {
     return (
-      <div className="min-h-screen bg-[#F2F6FA] p-6">
+      <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] p-6">
         <Button variant="ghost" onClick={onBack}>
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back
         </Button>
-        <p className="text-center text-[#0A1A2F]/50 mt-20">Devotional content not found.</p>
+        <p className="text-center text-[#0A1A2F]/50 dark:text-white/50 mt-20">Devotional content not found.</p>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#F2F6FA]">
+    <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F]">
       <div className="max-w-3xl mx-auto px-4 py-6">
         {/* Back Button */}
         <Button
           variant="ghost"
           onClick={onBack}
-          className="mb-4 text-[#0A1A2F]/60 hover:text-[#0A1A2F]"
+          className="mb-4 text-[#0A1A2F]/60 dark:text-white/60 hover:text-[#0A1A2F] dark:text-white dark:text-white"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back
@@ -420,7 +420,7 @@ export default function DevotionalArticle({ devotional, onBack }) {
 
         {/* Introduction */}
         <Card className="p-6 mb-6">
-          <h2 className="text-xl font-bold text-[#0A1A2F] mb-4 flex items-center gap-2">
+          <h2 className="text-xl font-bold text-[#0A1A2F] dark:text-white mb-4 flex items-center gap-2">
             <Sparkles className="w-5 h-5 text-[#c9a227]" />
             Introduction
           </h2>
@@ -433,13 +433,13 @@ export default function DevotionalArticle({ devotional, onBack }) {
 
         {/* Key Bible Verses */}
         <Card className="p-6 bg-gradient-to-br from-[#FAD98D]/15 to-[#FAD98D]/10 border-l-4 border-[#c9a227] mb-6">
-          <h2 className="text-xl font-bold text-[#0A1A2F] mb-4">Key Bible Verses</h2>
+          <h2 className="text-xl font-bold text-[#0A1A2F] dark:text-white mb-4">Key Bible Verses</h2>
           <div className="space-y-4">
             {content.verses.map((verse, index) => (
               <div key={index}>
-                <h3 className="font-semibold text-[#0A1A2F] mb-2">{index + 1}. {verse.title}</h3>
+                <h3 className="font-semibold text-[#0A1A2F] dark:text-white mb-2">{index + 1}. {verse.title}</h3>
                 <p className="italic text-[#0A1A2F]/75 mb-2">{verse.verse}</p>
-                <p className="text-sm text-[#0A1A2F]/60">{verse.insight}</p>
+                <p className="text-sm text-[#0A1A2F]/60 dark:text-white/60">{verse.insight}</p>
               </div>
             ))}
           </div>
@@ -447,7 +447,7 @@ export default function DevotionalArticle({ devotional, onBack }) {
 
         {/* Reflection */}
         <Card className="p-6 mb-6">
-          <h2 className="text-xl font-bold text-[#0A1A2F] mb-4">Reflection</h2>
+          <h2 className="text-xl font-bold text-[#0A1A2F] dark:text-white mb-4">Reflection</h2>
           <div className="space-y-4 text-[#0A1A2F]/75 leading-relaxed">
             {content.reflection.map((paragraph, index) => (
               <p key={index}>{paragraph}</p>
@@ -457,11 +457,11 @@ export default function DevotionalArticle({ devotional, onBack }) {
 
         {/* Reflection Questions */}
         <Card className="p-6 bg-gradient-to-br from-[#FAD98D]/10 to-[#FAD98D]/8 mb-6">
-          <h2 className="text-xl font-bold text-[#0A1A2F] mb-4">Reflection Questions</h2>
+          <h2 className="text-xl font-bold text-[#0A1A2F] dark:text-white mb-4">Reflection Questions</h2>
           <div className="space-y-4">
             {content.reflectionQuestions.map((section, index) => (
               <div key={index}>
-                <h3 className="font-semibold text-[#0A1A2F] mb-2">{section.category}</h3>
+                <h3 className="font-semibold text-[#0A1A2F] dark:text-white mb-2">{section.category}</h3>
                 <ul className="list-disc pl-5 space-y-2 text-[#0A1A2F]/75 text-sm">
                   {section.questions.map((question, qIndex) => (
                     <li key={qIndex}>{question}</li>
@@ -474,7 +474,7 @@ export default function DevotionalArticle({ devotional, onBack }) {
 
         {/* Call to Christ */}
         <Card className="p-6 bg-gradient-to-br from-[#FAD98D]/10 to-[#FFF9EC] mb-6">
-          <h2 className="text-xl font-bold text-[#0A1A2F] mb-4 flex items-center gap-2">
+          <h2 className="text-xl font-bold text-[#0A1A2F] dark:text-white mb-4 flex items-center gap-2">
             <Heart className="w-5 h-5 text-[#C9A227]" />
             Call to Christ
           </h2>
@@ -483,7 +483,7 @@ export default function DevotionalArticle({ devotional, onBack }) {
             <p>{content.callToChrist.intro}</p>
             
             <div className="mt-6 space-y-3">
-              <h3 className="font-semibold text-[#0A1A2F]">
+              <h3 className="font-semibold text-[#0A1A2F] dark:text-white dark:text-white">
                 {devotional.id === 'identity-christ' ? 'How to Grow in Christ Through Identity' : 'Practical Steps'}
               </h3>
               <ol className="list-decimal pl-5 space-y-3 text-sm">
@@ -499,7 +499,7 @@ export default function DevotionalArticle({ devotional, onBack }) {
 
         {/* Prayer */}
         <Card className="p-6 bg-gradient-to-br from-[#c9a227]/10 to-[#FAD98D]/10 border-l-4 border-[#c9a227] mb-6">
-          <h2 className="text-xl font-bold text-[#0A1A2F] mb-4">Prayer</h2>
+          <h2 className="text-xl font-bold text-[#0A1A2F] dark:text-white mb-4">Prayer</h2>
           <p className="text-[#0A1A2F]/75 leading-relaxed italic">
             {content.prayer}
           </p>
@@ -507,10 +507,10 @@ export default function DevotionalArticle({ devotional, onBack }) {
 
         {/* Conclusion */}
         <Card className="p-6">
-          <h2 className="text-xl font-bold text-[#0A1A2F] mb-4">Conclusion</h2>
+          <h2 className="text-xl font-bold text-[#0A1A2F] dark:text-white mb-4">Conclusion</h2>
           <div className="space-y-4 text-[#0A1A2F]/75 leading-relaxed">
             {content.conclusion.map((paragraph, index) => (
-              <p key={index} className={paragraph.includes('chosen') || paragraph.includes('masterpiece') ? 'font-semibold text-[#0A1A2F]' : ''}>
+              <p key={index} className={paragraph.includes('chosen') || paragraph.includes('masterpiece') ? 'font-semibold text-[#0A1A2F] dark:text-white dark:text-white' : ''}>
                 {paragraph}
               </p>
             ))}

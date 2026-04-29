@@ -93,7 +93,7 @@ export default function PersonalizedRecommendations({
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: index * 0.1 }}
-                className="bg-gradient-to-r from-white to-[#F2F6FA] dark:from-[#0A1A2F] dark:to-[#0A1A2F] rounded-2xl p-4 shadow-sm hover:shadow-md transition-shadow border border-gray-100 dark:border-gray-800"
+                className="bg-gradient-to-r from-white to-[#F2F6FA] dark:from-[#0A1A2F] dark:to-[#0A1A2F] rounded-2xl p-4 shadow-sm hover:shadow-md transition-shadow border border-gray-100 dark:border-white/10 dark:border-gray-800"
               >
                 <div className="flex items-start gap-3">
                   <div className={`w-10 h-10 rounded-full bg-[#F2F6FA] dark:bg-[#0A1A2F] flex items-center justify-center ${rec.color}`}>

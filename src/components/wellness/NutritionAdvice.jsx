@@ -57,7 +57,7 @@ export default function NutritionAdvice() {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: index * 0.1 }}
-                className="bg-white dark:bg-[#0A1A2F] rounded-2xl p-4 text-center hover:shadow-lg transition-all cursor-pointer h-full flex flex-col"
+                className="bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-2xl p-4 text-center hover:shadow-lg transition-all cursor-pointer h-full flex flex-col"
               >
                 <Icon className="w-8 h-8 text-emerald-600 mx-auto mb-2" />
                 <h3 className="font-semibold text-sm text-[#0A1A2F] dark:text-white mb-1">{article.title}</h3>

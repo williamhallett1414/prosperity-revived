@@ -139,7 +139,7 @@ export default function MeditationGuide() {
         <motion.div
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: 1, height: 'auto' }}
-          className="bg-white dark:bg-[#0A1A2F] rounded-2xl p-4"
+          className="bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-2xl p-4"
         >
           <h3 className="font-semibold text-[#0A1A2F] dark:text-white mb-3">30-Day Meditation History</h3>
           <div className="h-48">

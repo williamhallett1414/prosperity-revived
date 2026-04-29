@@ -75,7 +75,7 @@ export default function EnhancedJournaling() {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <BookOpen className="w-5 h-5 text-[#FAD98D]" />
-          <h2 className="text-lg font-bold text-[#0A1A2F]">Journaling</h2>
+          <h2 className="text-lg font-bold text-[#0A1A2F] dark:text-white dark:text-white">Journaling</h2>
         </div>
         <motion.div className="flex items-center gap-1 px-3 py-1 bg-gradient-to-r from-[#FD9C2D] to-[#FAD98D] text-white rounded-full text-xs font-semibold">
           <Flame className="w-3 h-3" />
@@ -87,7 +87,7 @@ export default function EnhancedJournaling() {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-gradient-to-br from-[#AFC7E3] to-[#FAD98D] rounded-xl p-4 text-[#0A1A2F]"
+        className="bg-gradient-to-br from-[#AFC7E3] to-[#FAD98D] rounded-xl p-4 text-[#0A1A2F] dark:text-white dark:text-white"
       >
         <p className="text-sm font-semibold mb-1">Today's Prompt:</p>
         <p className="text-base font-serif italic">{prompt}</p>
@@ -96,7 +96,7 @@ export default function EnhancedJournaling() {
       {/* New Entry Button */}
       <Button
         onClick={() => setShowEntry(!showEntry)}
-        className="w-full bg-gradient-to-r from-[#FAD98D] to-[#AFC7E3] hover:from-[#FAD98D]/90 hover:to-[#AFC7E3]/90 text-[#0A1A2F] font-semibold"
+        className="w-full bg-gradient-to-r from-[#FAD98D] to-[#AFC7E3] hover:from-[#FAD98D]/90 hover:to-[#AFC7E3]/90 text-[#0A1A2F] dark:text-white font-semibold"
       >
         <Plus className="w-4 h-4 mr-2" />
         New Entry
@@ -107,13 +107,13 @@ export default function EnhancedJournaling() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-white rounded-xl p-4 space-y-3 border border-[#F2F6FA]"
+          className="bg-white dark:bg-white/5 rounded-xl p-4 space-y-3 border border-[#F2F6FA]"
         >
           <Textarea
             placeholder="Write your thoughts..."
             value={content}
             onChange={(e) => setContent(e.target.value)}
-            className="min-h-[150px] bg-[#F2F6FA] border-[#F2F6FA]"
+            className="min-h-[150px] bg-[#F2F6FA] dark:bg-[#0A1A2F] border-[#F2F6FA]"
           />
 
           <div className="flex flex-wrap gap-2">
@@ -127,7 +127,7 @@ export default function EnhancedJournaling() {
                 className={`px-3 py-1 rounded-full text-xs font-semibold transition-all ${
                   selectedTags.includes(tag)
                     ? 'bg-[#FAD98D] text-white'
-                    : 'bg-gray-100 text-[#0A1A2F]/70'
+                    : 'bg-gray-100 text-[#0A1A2F]/70 dark:text-white/70'
                 }`}
               >
                 {tag}
@@ -156,7 +156,7 @@ export default function EnhancedJournaling() {
                 mood: 'peaceful'
               })}
               disabled={!content.trim() || saveEntry.isPending}
-              className="flex-1 bg-gradient-to-r from-[#FAD98D] to-[#AFC7E3] hover:from-[#FAD98D]/90 hover:to-[#AFC7E3]/90 text-[#0A1A2F]"
+              className="flex-1 bg-gradient-to-r from-[#FAD98D] to-[#AFC7E3] hover:from-[#FAD98D]/90 hover:to-[#AFC7E3]/90 text-[#0A1A2F] dark:text-white dark:text-white"
             >
               Save Entry
             </Button>
@@ -171,7 +171,7 @@ export default function EnhancedJournaling() {
           animate={{ opacity: 1, y: 0 }}
           className="space-y-2"
         >
-          <h3 className="text-sm font-semibold text-[#0A1A2F]">Recent Entries</h3>
+          <h3 className="text-sm font-semibold text-[#0A1A2F] dark:text-white dark:text-white">Recent Entries</h3>
           {entries.slice(0, 3).map((entry, idx) => (
             <motion.div
               key={entry.id}
@@ -180,9 +180,9 @@ export default function EnhancedJournaling() {
               transition={{ delay: idx * 0.05 }}
               className="bg-gray-100 rounded-lg p-3 text-sm"
             >
-              <p className="font-semibold text-[#0A1A2F] truncate">{entry.title}</p>
-              <p className="text-[#0A1A2F]/60 text-xs line-clamp-1 mt-1">{entry.content}</p>
-              <p className="text-[#0A1A2F]/40 text-xs mt-1">
+              <p className="font-semibold text-[#0A1A2F] dark:text-white truncate">{entry.title}</p>
+              <p className="text-[#0A1A2F]/60 dark:text-white/60 text-xs line-clamp-1 mt-1">{entry.content}</p>
+              <p className="text-[#0A1A2F]/40 dark:text-white/40 text-xs mt-1">
                 {new Date(entry.created_date).toLocaleDateString()}
               </p>
             </motion.div>

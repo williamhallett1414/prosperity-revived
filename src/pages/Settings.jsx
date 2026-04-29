@@ -82,29 +82,29 @@ export default function Settings() {
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-24">
       {/* Header */}
       {/* ── Standard Header ── */}
-      <div className="sticky top-0 z-40 bg-white border-b border-[#FAD98D]/20 px-4 pt-4 pb-3">
+      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 px-4 pt-4 pb-3">
         <div className="max-w-lg mx-auto flex items-center gap-3">
           <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#3C4E53] to-[#AFC7E3] flex items-center justify-center">
             <Palette className="w-5 h-5 text-white" />
           </div>
           <div>
             <h1 className="text-base font-bold text-[#0A1A2F]">Settings</h1>
-            <p className="text-xs text-[#0A1A2F]/45">Customize your experience</p>
+            <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45">Customize your experience</p>
           </div>
         </div>
       </div>
 
       <div className="px-4 pt-4">
         {/* Chatbot Personalities */}
-        <div className="bg-white dark:bg-[#0A1A2F] rounded-2xl p-4 shadow-sm mb-4">
+        <div className="bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-2xl p-4 shadow-sm mb-4">
           <ChatbotPersonalitySettings user={user} />
         </div>
 
         {/* Theme Settings */}
-        <div className="bg-white dark:bg-[#0A1A2F] rounded-2xl p-4 shadow-sm mb-4">
+        <div className="bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-2xl p-4 shadow-sm mb-4">
           <div className="flex items-center gap-3 mb-4">
             <Palette className="w-5 h-5 text-[#c9a227]" />
-            <h2 className="font-semibold text-[#0A1A2F] dark:text-white">Appearance</h2>
+            <h2 className="font-semibold text-[#0A1A2F] dark:text-white dark:text-white">Appearance</h2>
           </div>
           
           <div className="space-y-3">
@@ -113,16 +113,16 @@ export default function Settings() {
               className={`w-full flex items-center justify-between p-3 rounded-lg border-2 transition-colors min-h-[44px] ${
                 user.theme === 'light' 
                   ? 'border-[#c9a227] bg-[#c9a227]/10' 
-                  : 'border-gray-200 dark:border-gray-700 hover:border-[#c9a227]/50'
+                  : 'border-gray-200 dark:border-white/10 dark:border-gray-700 hover:border-[#c9a227]/50'
               }`}
             >
               <div className="flex items-center gap-3">
                 <Sun className="w-5 h-5 text-[#c9a227]" />
-                <span className="font-medium text-[#0A1A2F] dark:text-white">Light Mode</span>
+                <span className="font-medium text-[#0A1A2F] dark:text-white dark:text-white">Light Mode</span>
               </div>
               {user.theme === 'light' && (
                 <div className="w-5 h-5 rounded-full bg-[#c9a227] flex items-center justify-center">
-                  <div className="w-2 h-2 bg-white rounded-full" />
+                  <div className="w-2 h-2 bg-white dark:bg-white/5 rounded-full" />
                 </div>
               )}
             </button>
@@ -132,16 +132,16 @@ export default function Settings() {
               className={`w-full flex items-center justify-between p-3 rounded-lg border-2 transition-colors min-h-[44px] ${
                 user.theme === 'dark' 
                   ? 'border-[#c9a227] bg-[#c9a227]/10' 
-                  : 'border-gray-200 dark:border-gray-700 hover:border-[#c9a227]/50'
+                  : 'border-gray-200 dark:border-white/10 dark:border-gray-700 hover:border-[#c9a227]/50'
               }`}
             >
               <div className="flex items-center gap-3">
                 <Moon className="w-5 h-5 text-[#AFC7E3]" />
-                <span className="font-medium text-[#0A1A2F] dark:text-white">Dark Mode</span>
+                <span className="font-medium text-[#0A1A2F] dark:text-white dark:text-white">Dark Mode</span>
               </div>
               {user.theme === 'dark' && (
                 <div className="w-5 h-5 rounded-full bg-[#c9a227] flex items-center justify-center">
-                  <div className="w-2 h-2 bg-white rounded-full" />
+                  <div className="w-2 h-2 bg-white dark:bg-white/5 rounded-full" />
                 </div>
               )}
             </button>
@@ -151,16 +151,16 @@ export default function Settings() {
               className={`w-full flex items-center justify-between p-3 rounded-lg border-2 transition-colors min-h-[44px] ${
                 user.theme === 'auto' 
                   ? 'border-[#c9a227] bg-[#c9a227]/10' 
-                  : 'border-gray-200 dark:border-gray-700 hover:border-[#c9a227]/50'
+                  : 'border-gray-200 dark:border-white/10 dark:border-gray-700 hover:border-[#c9a227]/50'
               }`}
             >
               <div className="flex items-center gap-3">
                 <Monitor className="w-5 h-5 text-gray-600 dark:text-gray-400" />
-                <span className="font-medium text-[#0A1A2F] dark:text-white">Auto (System)</span>
+                <span className="font-medium text-[#0A1A2F] dark:text-white dark:text-white">Auto (System)</span>
               </div>
               {user.theme === 'auto' && (
                 <div className="w-5 h-5 rounded-full bg-[#c9a227] flex items-center justify-center">
-                  <div className="w-2 h-2 bg-white rounded-full" />
+                  <div className="w-2 h-2 bg-white dark:bg-white/5 rounded-full" />
                 </div>
               )}
             </button>
@@ -193,21 +193,21 @@ export default function Settings() {
         </div>
 
         {/* Reminders */}
-        <div className="bg-white dark:bg-[#0A1A2F] rounded-2xl p-4 shadow-sm mb-4">
+        <div className="bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-2xl p-4 shadow-sm mb-4">
           <ReminderSettings />
         </div>
 
         {/* Notifications */}
-        <div className="bg-white dark:bg-[#0A1A2F] rounded-2xl p-4 shadow-sm mb-4">
+        <div className="bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-2xl p-4 shadow-sm mb-4">
           <div className="flex items-center gap-3 mb-4">
             <Bell className="w-5 h-5 text-[#c9a227]" />
-            <h2 className="font-semibold text-[#0A1A2F] dark:text-white">Notifications</h2>
+            <h2 className="font-semibold text-[#0A1A2F] dark:text-white dark:text-white">Notifications</h2>
           </div>
           
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <div className="flex-1">
-                <Label className="font-medium text-[#0A1A2F] dark:text-white">Push Notifications</Label>
+                <Label className="font-medium text-[#0A1A2F] dark:text-white dark:text-white">Push Notifications</Label>
                 <p className="text-sm text-gray-500 dark:text-gray-400">Get notified about updates</p>
               </div>
               <Switch
@@ -218,7 +218,7 @@ export default function Settings() {
 
             <div className="flex items-center justify-between">
               <div className="flex-1">
-                <Label className="font-medium text-[#0A1A2F] dark:text-white">Email Notifications</Label>
+                <Label className="font-medium text-[#0A1A2F] dark:text-white dark:text-white">Email Notifications</Label>
                 <p className="text-sm text-gray-500 dark:text-gray-400">Receive updates via email</p>
               </div>
               <Switch
@@ -230,27 +230,27 @@ export default function Settings() {
         </div>
 
         {/* Account */}
-        <div className="bg-white dark:bg-[#0A1A2F] rounded-2xl p-4 shadow-sm">
+        <div className="bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-2xl p-4 shadow-sm">
           <div className="flex items-center gap-3 mb-4">
             <User className="w-5 h-5 text-[#c9a227]" />
-            <h2 className="font-semibold text-[#0A1A2F] dark:text-white">Account</h2>
+            <h2 className="font-semibold text-[#0A1A2F] dark:text-white dark:text-white">Account</h2>
           </div>
           
           <div className="space-y-3">
             <div className="flex items-center justify-between py-2">
               <span className="text-gray-600 dark:text-gray-400">Email</span>
-              <span className="font-medium text-[#0A1A2F] dark:text-white">{user.email}</span>
+              <span className="font-medium text-[#0A1A2F] dark:text-white dark:text-white">{user.email}</span>
             </div>
             <div className="flex items-center justify-between py-2">
               <span className="text-gray-600 dark:text-gray-400">Member Since</span>
-              <span className="font-medium text-[#0A1A2F] dark:text-white">
+              <span className="font-medium text-[#0A1A2F] dark:text-white dark:text-white">
                 {user.created_date ? new Date(user.created_date).toLocaleDateString() : '—'}
               </span>
             </div>
             
             <button
               onPointerDown={() => setShowTour(true)}
-              className="flex items-center justify-between py-3 px-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors min-h-[44px] w-full text-left"
+              className="flex items-center justify-between py-3 px-3 rounded-lg hover:bg-gray-50 dark:bg-white/5 dark:hover:bg-gray-800 transition-colors min-h-[44px] w-full text-left"
             >
               <span className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
                 <Play className="w-4 h-4 text-[#FD9C2D]" />
@@ -261,7 +261,7 @@ export default function Settings() {
 
             <button
               onClick={() => window.dispatchEvent(new CustomEvent('launchGuidedTour', { detail: { steps: null } }))}
-              className="flex items-center justify-between py-3 px-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors min-h-[44px] w-full text-left"
+              className="flex items-center justify-between py-3 px-3 rounded-lg hover:bg-gray-50 dark:bg-white/5 dark:hover:bg-gray-800 transition-colors min-h-[44px] w-full text-left"
             >
               <span className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
                 <Play className="w-4 h-4 text-[#38BDF8]" />
@@ -272,7 +272,7 @@ export default function Settings() {
 
             <Link
               to={createPageUrl('TermsAndConditions')}
-              className="flex items-center justify-between py-3 px-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors min-h-[44px]"
+              className="flex items-center justify-between py-3 px-3 rounded-lg hover:bg-gray-50 dark:bg-white/5 dark:hover:bg-gray-800 transition-colors min-h-[44px]"
             >
               <span className="text-gray-600 dark:text-gray-400">Terms & Conditions</span>
               <ChevronRight className="w-4 h-4 text-gray-400" />
@@ -280,7 +280,7 @@ export default function Settings() {
             
             <Link
               to={createPageUrl('PrivacyPolicy')}
-              className="flex items-center justify-between py-3 px-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors min-h-[44px]"
+              className="flex items-center justify-between py-3 px-3 rounded-lg hover:bg-gray-50 dark:bg-white/5 dark:hover:bg-gray-800 transition-colors min-h-[44px]"
             >
               <span className="text-gray-600 dark:text-gray-400">Privacy Policy</span>
               <ChevronRight className="w-4 h-4 text-gray-400" />
@@ -288,7 +288,7 @@ export default function Settings() {
             
             <Link
               to={createPageUrl('HealthWellnessWaiver')}
-              className="flex items-center justify-between py-3 px-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors min-h-[44px]"
+              className="flex items-center justify-between py-3 px-3 rounded-lg hover:bg-gray-50 dark:bg-white/5 dark:hover:bg-gray-800 transition-colors min-h-[44px]"
             >
               <span className="text-gray-600 dark:text-gray-400">Health & Wellness Waiver</span>
               <ChevronRight className="w-4 h-4 text-gray-400" />
@@ -296,7 +296,7 @@ export default function Settings() {
             
             <Link
               to={createPageUrl('SubscriptionTerms')}
-              className="flex items-center justify-between py-3 px-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors min-h-[44px]"
+              className="flex items-center justify-between py-3 px-3 rounded-lg hover:bg-gray-50 dark:bg-white/5 dark:hover:bg-gray-800 transition-colors min-h-[44px]"
             >
               <span className="text-gray-600 dark:text-gray-400">Subscription Terms</span>
               <ChevronRight className="w-4 h-4 text-gray-400" />
@@ -304,7 +304,7 @@ export default function Settings() {
 
             <Link
               to={createPageUrl('PrivacyPolicy')}
-              className="flex items-center justify-between py-3 px-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors min-h-[44px]"
+              className="flex items-center justify-between py-3 px-3 rounded-lg hover:bg-gray-50 dark:bg-white/5 dark:hover:bg-gray-800 transition-colors min-h-[44px]"
             >
               <span className="text-gray-600 dark:text-gray-400">Do Not Sell My Personal Information</span>
               <ChevronRight className="w-4 h-4 text-gray-400" />
@@ -315,7 +315,7 @@ export default function Settings() {
           <div className="mt-6 mb-1">
             <div className="flex items-center gap-2">
               <Database className="w-4 h-4 text-[#C9A227]" />
-              <h2 className="font-semibold text-[#0A1A2F] dark:text-white">Manage My Data</h2>
+              <h2 className="font-semibold text-[#0A1A2F] dark:text-white dark:text-white">Manage My Data</h2>
             </div>
           </div>
           <ManageMyData user={user} />

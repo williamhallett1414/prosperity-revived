@@ -91,7 +91,7 @@ export default function CoachDavidOnboarding({ onComplete, user }) {
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           exit={{ scale: 0.9, opacity: 0 }}
-          className="bg-white rounded-2xl shadow-2xl max-w-sm w-full overflow-hidden"
+          className="bg-white dark:bg-white/5 rounded-2xl shadow-2xl max-w-sm w-full overflow-hidden"
         >
           {/* Header */}
           <div className={`bg-gradient-to-r ${gradientFrom} ${gradientTo} text-white p-5 relative`}>
@@ -157,7 +157,7 @@ export default function CoachDavidOnboarding({ onComplete, user }) {
                           className={`rounded-xl border-2 p-3 text-left transition-all ${
                             selectedGoals.includes(goal.id)
                               ? 'border-[#AFC7E3] bg-[#AFC7E3]/10'
-                              : 'border-gray-200 hover:border-gray-300'
+                              : 'border-gray-200 dark:border-white/10 hover:border-gray-300'
                           }`}
                         >
                           <div className="font-semibold text-xs text-gray-800">{goal.label}</div>
@@ -183,7 +183,7 @@ export default function CoachDavidOnboarding({ onComplete, user }) {
                           className={`w-full flex items-center gap-3 rounded-xl border-2 p-3.5 text-left transition-all ${
                             fitnessLevel === lvl.id
                               ? 'border-[#AFC7E3] bg-[#AFC7E3]/10'
-                              : 'border-gray-200 hover:border-gray-300'
+                              : 'border-gray-200 dark:border-white/10 hover:border-gray-300'
                           }`}
                         >
                           <span className="text-2xl">{lvl.emoji}</span>
@@ -213,7 +213,7 @@ export default function CoachDavidOnboarding({ onComplete, user }) {
                           className={`rounded-xl border-2 p-3 flex flex-col items-center gap-1 transition-all ${
                             selectedTracker === t.id
                               ? 'border-[#AFC7E3] bg-[#AFC7E3]/10'
-                              : 'border-gray-200 hover:border-gray-300'
+                              : 'border-gray-200 dark:border-white/10 hover:border-gray-300'
                           }`}
                         >
                           <span className="text-xl">{t.icon}</span>
@@ -245,7 +245,7 @@ export default function CoachDavidOnboarding({ onComplete, user }) {
                           className={`w-10 h-10 rounded-full border-2 font-bold text-sm transition-all ${
                             workoutDays === d
                               ? 'border-[#AFC7E3] bg-[#AFC7E3] text-white'
-                              : 'border-gray-200 text-gray-600 hover:border-[#AFC7E3]'
+                              : 'border-gray-200 dark:border-white/10 text-gray-600 hover:border-[#AFC7E3]'
                           }`}
                         >
                           {d}
@@ -268,7 +268,7 @@ export default function CoachDavidOnboarding({ onComplete, user }) {
           </div>
 
           {/* Footer */}
-          <div className="p-5 bg-gray-50 border-t border-gray-100">
+          <div className="p-5 bg-gray-50 dark:bg-white/5 border-t border-gray-100 dark:border-white/10">
             <div className="flex gap-3">
               <Button onClick={() => onComplete({})} variant="outline" className="flex-1 text-gray-600 text-sm">
                 Skip

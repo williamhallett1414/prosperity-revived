@@ -563,12 +563,12 @@ export default function BibleStudyGuide({ filterQuery = '' }) {
           animate={{ opacity: 1, y: 0 }}
           className="mb-4"
         >
-          <h2 className="text-xl font-bold mb-1 text-[#0A1A2F]">Bible Study Guides</h2>
-          <p className="text-sm opacity-60 text-[#0A1A2F]">In-depth explorations of Scripture</p>
+          <h2 className="text-xl font-bold mb-1 text-[#0A1A2F] dark:text-white dark:text-white">Bible Study Guides</h2>
+          <p className="text-sm opacity-60 text-[#0A1A2F] dark:text-white dark:text-white">In-depth explorations of Scripture</p>
         </motion.div>
       )}
       {visible.length === 0 && (
-        <p className="text-center text-[#0A1A2F]/40 text-sm py-8">No guides match "{filterQuery}"</p>
+        <p className="text-center text-[#0A1A2F]/40 dark:text-white/40 text-sm py-8">No guides match "{filterQuery}"</p>
       )}
 
       <div className="grid grid-cols-1 gap-4">

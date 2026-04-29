@@ -123,7 +123,7 @@ export default function HannahNotificationSettings({ user }) {
               className={`p-4 rounded-xl border border-[#AFC7E3]/40 transition-all ${
                 isEnabled
                   ? `bg-gradient-to-r ${option.color}`
-                  : 'bg-gray-50 opacity-60'
+                  : 'bg-gray-50 dark:bg-white/5 opacity-60'
               }`}
             >
               <div className="flex items-start justify-between gap-3">

@@ -92,14 +92,14 @@ export default function ContinueJourneyCard({
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
             <div className="bg-[#0A1A2F]/10 rounded-full p-3">
-              <Icon className="w-6 h-6 text-[#0A1A2F]" />
+              <Icon className="w-6 h-6 text-[#0A1A2F] dark:text-white dark:text-white" />
             </div>
             <div>
-              <h3 className="font-bold text-[#0A1A2F] text-lg mb-1">{nextActivity.title}</h3>
-              <p className="text-[#0A1A2F]/70 text-sm">{nextActivity.subtitle}</p>
+              <h3 className="font-bold text-[#0A1A2F] dark:text-white text-lg mb-1">{nextActivity.title}</h3>
+              <p className="text-[#0A1A2F]/70 dark:text-white/70 text-sm">{nextActivity.subtitle}</p>
             </div>
           </div>
-          <ChevronRight className="w-6 h-6 text-[#0A1A2F]/50" />
+          <ChevronRight className="w-6 h-6 text-[#0A1A2F]/50 dark:text-white/50" />
         </div>
       </motion.div>
     </Link>

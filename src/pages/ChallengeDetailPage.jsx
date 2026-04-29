@@ -172,7 +172,7 @@ export default function ChallengeDetailPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-[#F2F6FA] flex items-center justify-center">
+      <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] flex items-center justify-center">
         <div className="w-8 h-8 border-4 border-[#FAD98D] border-t-transparent rounded-full animate-spin" />
       </div>);
 
@@ -180,9 +180,9 @@ export default function ChallengeDetailPage() {
 
   if (!challenge) {
     return (
-      <div className="min-h-screen bg-[#F2F6FA] flex items-center justify-center">
+      <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] flex items-center justify-center">
         <div className="text-center">
-          <p className="text-[#0A1A2F]/60 mb-4">Challenge not found</p>
+          <p className="text-[#0A1A2F]/60 dark:text-white/60 mb-4">Challenge not found</p>
           <Button onClick={() => navigate(createPageUrl('Wellness'))}>
             Back to Wellness
           </Button>
@@ -223,9 +223,9 @@ export default function ChallengeDetailPage() {
   "Amazing! You completed the challenge!";
 
   return (
-    <div className="min-h-screen bg-[#F2F6FA] pb-24">
+    <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-24">
       {/* Header */}
-      <div className="sticky top-0 z-40 bg-white border-b border-[#F2F6FA] px-4 py-3">
+      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#F2F6FA] px-4 py-3">
         
 
 
@@ -274,7 +274,7 @@ export default function ChallengeDetailPage() {
               </div>
               <div className="h-2 bg-white/30 rounded-full overflow-hidden">
                 <div
-                className="h-full bg-white transition-all duration-500"
+                className="h-full bg-white dark:bg-white/5 transition-all duration-500"
                 style={{ width: `${userProgress}%` }} />
 
               </div>
@@ -300,7 +300,7 @@ export default function ChallengeDetailPage() {
         {isParticipating &&
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}>
             <div className="bg-gradient-to-r from-[#FAD98D]/10 to-[#F2F6FA] border border-[#FAD98D]/40 rounded-xl p-4">
-              <p className="text-[#0A1A2F] font-semibold text-center">{encouragementMessage}</p>
+              <p className="text-[#0A1A2F] dark:text-white font-semibold text-center">{encouragementMessage}</p>
             </div>
           </motion.div>
         }
@@ -308,8 +308,8 @@ export default function ChallengeDetailPage() {
         {/* Day Selector */}
         {isParticipating &&
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
-            <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-200">
-              <h3 className="text-sm font-semibold text-[#0A1A2F] mb-3">Select Day</h3>
+            <div className="bg-white dark:bg-white/5 rounded-xl p-4 shadow-sm border border-gray-200 dark:border-white/10">
+              <h3 className="text-sm font-semibold text-[#0A1A2F] dark:text-white mb-3">Select Day</h3>
               <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
                 {Array.from({ length: challenge.duration_days }).map((_, idx) => {
                 const day = idx + 1;
@@ -325,7 +325,7 @@ export default function ChallengeDetailPage() {
                     'bg-[#FAD98D] text-white shadow-md' :
                     isCompleted ?
                     'bg-emerald-500 text-white' :
-                    'bg-gray-100 text-[#0A1A2F]/60 hover:bg-gray-200'}`
+                    'bg-gray-100 text-[#0A1A2F]/60 dark:text-white/60 hover:bg-gray-200'}`
                     }>
 
                       {isCompleted && !isSelected ?
@@ -347,14 +347,14 @@ export default function ChallengeDetailPage() {
         {/* Daily Recommended Workout */}
         {isParticipating &&
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
-            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
-              <h3 className="text-lg font-bold text-[#0A1A2F] mb-4">Day {selectedDay} Workout</h3>
+            <div className="bg-white dark:bg-white/5 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-white/10">
+              <h3 className="text-lg font-bold text-[#0A1A2F] dark:text-white mb-4">Day {selectedDay} Workout</h3>
               
               {recommendedWorkout ?
             <div>
                   <div className="bg-gradient-to-r from-emerald-50 to-[#F2F6FA] rounded-xl p-4 mb-4">
-                    <h4 className="font-bold text-[#0A1A2F] mb-2">{recommendedWorkout.title}</h4>
-                    <div className="flex items-center gap-4 text-sm text-[#0A1A2F]/70">
+                    <h4 className="font-bold text-[#0A1A2F] dark:text-white mb-2">{recommendedWorkout.title}</h4>
+                    <div className="flex items-center gap-4 text-sm text-[#0A1A2F]/70 dark:text-white/70">
                       <div className="flex items-center gap-1">
                         <Clock className="w-4 h-4" />
                         <span>{recommendedWorkout.duration_minutes} min</span>
@@ -371,7 +371,7 @@ export default function ChallengeDetailPage() {
                   }
                     </div>
                     {selectedDayTask &&
-                <p className="text-sm text-[#0A1A2F]/60 mt-2">{selectedDayTask.description}</p>
+                <p className="text-sm text-[#0A1A2F]/60 dark:text-white/60 mt-2">{selectedDayTask.description}</p>
                 }
                   </div>
                   <Button
@@ -386,7 +386,7 @@ export default function ChallengeDetailPage() {
                   </Button>
                 </div> :
 
-            <p className="text-[#0A1A2F]/60 text-sm">No workout assigned for this day.</p>
+            <p className="text-[#0A1A2F]/60 dark:text-white/60 text-sm">No workout assigned for this day.</p>
             }
             </div>
           </motion.div>
@@ -395,21 +395,21 @@ export default function ChallengeDetailPage() {
         {/* Daily Check-In */}
         {isParticipating &&
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }}>
-            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
-              <h3 className="text-lg font-bold text-[#0A1A2F] mb-4">Daily Check-In</h3>
+            <div className="bg-white dark:bg-white/5 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-white/10">
+              <h3 className="text-lg font-bold text-[#0A1A2F] dark:text-white mb-4">Daily Check-In</h3>
               
               <div className="grid grid-cols-3 gap-4 mb-4">
                 <div className="text-center">
                   <div className="text-2xl font-bold text-[#FAD98D]">{currentStreak}</div>
-                  <div className="text-xs text-[#0A1A2F]/60">Current Streak</div>
+                  <div className="text-xs text-[#0A1A2F]/60 dark:text-white/60">Current Streak</div>
                 </div>
                 <div className="text-center">
                   <div className="text-2xl font-bold text-emerald-600">{totalCheckIns}</div>
-                  <div className="text-xs text-[#0A1A2F]/60">Total Check-ins</div>
+                  <div className="text-xs text-[#0A1A2F]/60 dark:text-white/60">Total Check-ins</div>
                 </div>
                 <div className="text-center">
                   <div className="text-2xl font-bold text-[#C9A227]">{longestStreak}</div>
-                  <div className="text-xs text-[#0A1A2F]/60">Longest Streak</div>
+                  <div className="text-xs text-[#0A1A2F]/60 dark:text-white/60">Longest Streak</div>
                 </div>
               </div>
 
@@ -450,40 +450,40 @@ export default function ChallengeDetailPage() {
         {/* Progress Stats */}
         {isParticipating &&
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.45 }}>
-            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
-              <h3 className="text-lg font-bold text-[#0A1A2F] mb-4">Your Stats</h3>
+            <div className="bg-white dark:bg-white/5 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-white/10">
+              <h3 className="text-lg font-bold text-[#0A1A2F] dark:text-white mb-4">Your Stats</h3>
               
               <div className="grid grid-cols-2 gap-4">
-                <div className="bg-gray-50 rounded-xl p-4">
+                <div className="bg-gray-50 dark:bg-white/5 rounded-xl p-4">
                   <div className="flex items-center gap-2 mb-2">
                     <CheckCircle2 className="w-5 h-5 text-emerald-600" />
-                    <span className="text-sm text-[#0A1A2F]/60">Days Completed</span>
+                    <span className="text-sm text-[#0A1A2F]/60 dark:text-white/60">Days Completed</span>
                   </div>
-                  <div className="text-2xl font-bold text-[#0A1A2F]">{completedDays.length}</div>
+                  <div className="text-2xl font-bold text-[#0A1A2F] dark:text-white dark:text-white">{completedDays.length}</div>
                 </div>
 
-                <div className="bg-gray-50 rounded-xl p-4">
+                <div className="bg-gray-50 dark:bg-white/5 rounded-xl p-4">
                   <div className="flex items-center gap-2 mb-2">
                     <TrendingUp className="w-5 h-5 text-[#FAD98D]" />
-                    <span className="text-sm text-[#0A1A2F]/60">Completion %</span>
+                    <span className="text-sm text-[#0A1A2F]/60 dark:text-white/60">Completion %</span>
                   </div>
-                  <div className="text-2xl font-bold text-[#0A1A2F]">{userProgress}%</div>
+                  <div className="text-2xl font-bold text-[#0A1A2F] dark:text-white dark:text-white">{userProgress}%</div>
                 </div>
 
-                <div className="bg-gray-50 rounded-xl p-4">
+                <div className="bg-gray-50 dark:bg-white/5 rounded-xl p-4">
                   <div className="flex items-center gap-2 mb-2">
                     <Clock className="w-5 h-5 text-[#3C4E53]" />
-                    <span className="text-sm text-[#0A1A2F]/60">Total Minutes</span>
+                    <span className="text-sm text-[#0A1A2F]/60 dark:text-white/60">Total Minutes</span>
                   </div>
-                  <div className="text-2xl font-bold text-[#0A1A2F]">{userParticipation?.total_minutes_trained || 0}</div>
+                  <div className="text-2xl font-bold text-[#0A1A2F] dark:text-white dark:text-white">{userParticipation?.total_minutes_trained || 0}</div>
                 </div>
 
-                <div className="bg-gray-50 rounded-xl p-4">
+                <div className="bg-gray-50 dark:bg-white/5 rounded-xl p-4">
                   <div className="flex items-center gap-2 mb-2">
                     <Flame className="w-5 h-5 text-orange-600" />
-                    <span className="text-sm text-[#0A1A2F]/60">Calories Burned</span>
+                    <span className="text-sm text-[#0A1A2F]/60 dark:text-white/60">Calories Burned</span>
                   </div>
-                  <div className="text-2xl font-bold text-[#0A1A2F]">{userParticipation?.calories_burned || 0}</div>
+                  <div className="text-2xl font-bold text-[#0A1A2F] dark:text-white dark:text-white">{userParticipation?.calories_burned || 0}</div>
                 </div>
               </div>
             </div>
@@ -493,8 +493,8 @@ export default function ChallengeDetailPage() {
         {/* Leaderboard */}
         {isParticipating &&
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}>
-            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
-              <h3 className="text-lg font-bold text-[#0A1A2F] mb-4">Leaderboard</h3>
+            <div className="bg-white dark:bg-white/5 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-white/10">
+              <h3 className="text-lg font-bold text-[#0A1A2F] dark:text-white mb-4">Leaderboard</h3>
               
               <div className="space-y-3">
                 {leaderboard.slice(0, 10).map((participant, idx) =>
@@ -504,7 +504,7 @@ export default function ChallengeDetailPage() {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: idx * 0.05 }}
                 className={`flex items-center gap-3 p-3 rounded-lg ${
-                participant.user_email === user?.email ? 'bg-[#FAD98D]/10 border border-[#FAD98D]' : 'bg-gray-50'}`
+                participant.user_email === user?.email ? 'bg-[#FAD98D]/10 border border-[#FAD98D]' : 'bg-gray-50 dark:bg-white/5'}`
                 }>
 
                     <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold shrink-0 ${
@@ -519,11 +519,11 @@ export default function ChallengeDetailPage() {
                       {participant.user_name?.charAt(0).toUpperCase() || 'U'}
                     </div>
                     <div className="flex-1">
-                      <h4 className="font-semibold text-[#0A1A2F] text-sm">
+                      <h4 className="font-semibold text-[#0A1A2F] dark:text-white text-sm">
                         {participant.user_name || 'Anonymous'}
                         {participant.user_email === user?.email && <span className="text-[#FAD98D] ml-1">(You)</span>}
                       </h4>
-                      <div className="flex items-center gap-3 text-xs text-[#0A1A2F]/60">
+                      <div className="flex items-center gap-3 text-xs text-[#0A1A2F]/60 dark:text-white/60">
                         <span>🔥 {participant.current_streak || 0} streak</span>
                         <span>✓ {participant.total_check_ins || 0} check-ins</span>
                         <span>{participant.progress || 0}%</span>
@@ -542,7 +542,7 @@ export default function ChallengeDetailPage() {
             <div className={`rounded-xl p-6 shadow-sm border ${
           userParticipation?.is_completed ?
           'bg-gradient-to-br from-yellow-400 to-orange-500 border-yellow-600' :
-          'bg-white border-gray-200'}`
+          'bg-white dark:bg-white/5 border-gray-200 dark:border-white/10'}`
           }>
               <div className="flex items-center gap-4">
                 <div className={`w-20 h-20 rounded-full flex items-center justify-center shrink-0 ${
@@ -554,12 +554,12 @@ export default function ChallengeDetailPage() {
                 </div>
                 <div className="flex-1">
                   <h4 className={`font-bold mb-1 ${
-                userParticipation?.is_completed ? 'text-white' : 'text-[#0A1A2F]'}`
+                userParticipation?.is_completed ? 'text-white' : 'text-[#0A1A2F] dark:text-white dark:text-white'}`
                 }>
                     {challenge.title} Badge
                   </h4>
                   <p className={`text-sm ${
-                userParticipation?.is_completed ? 'text-white/90' : 'text-[#0A1A2F]/60'}`
+                userParticipation?.is_completed ? 'text-white/90' : 'text-[#0A1A2F]/60 dark:text-white/60'}`
                 }>
                     {userParticipation?.is_completed ?
                   "🎉 You earned this badge!" :
@@ -573,10 +573,10 @@ export default function ChallengeDetailPage() {
 
         {/* Participants */}
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }}>
-          <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+          <div className="bg-white dark:bg-white/5 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-white/10">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-bold text-[#0A1A2F]">All Participants</h3>
-              <div className="flex items-center gap-2 text-sm text-[#0A1A2F]/60">
+              <h3 className="text-lg font-bold text-[#0A1A2F] dark:text-white dark:text-white">All Participants</h3>
+              <div className="flex items-center gap-2 text-sm text-[#0A1A2F]/60 dark:text-white/60">
                 <Users className="w-4 h-4" />
                 <span>{participants.length}</span>
               </div>
@@ -584,8 +584,8 @@ export default function ChallengeDetailPage() {
 
             {participants.length === 0 ?
             <div className="text-center py-8">
-                <Users className="w-12 h-12 text-[#0A1A2F]/30 mx-auto mb-3" />
-                <p className="text-[#0A1A2F]/60 text-sm">No participants yet. Be the first to join!</p>
+                <Users className="w-12 h-12 text-[#0A1A2F]/30 dark:text-white/30 mx-auto mb-3" />
+                <p className="text-[#0A1A2F]/60 dark:text-white/60 text-sm">No participants yet. Be the first to join!</p>
               </div> :
 
             <div className="space-y-3">
@@ -595,13 +595,13 @@ export default function ChallengeDetailPage() {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: idx * 0.03 }}
-                className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors">
+                className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-white/5 hover:bg-gray-100 transition-colors">
 
                     <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#FAD98D] to-[#AFC7E3] flex items-center justify-center text-white font-bold shrink-0">
                       {participant.user_name?.charAt(0).toUpperCase() || 'U'}
                     </div>
                     <div className="flex-1">
-                      <h4 className="font-semibold text-[#0A1A2F] text-sm">
+                      <h4 className="font-semibold text-[#0A1A2F] dark:text-white text-sm">
                         {participant.user_name || 'Anonymous'}
                       </h4>
                       <div className="flex items-center gap-2 mt-1">
@@ -611,7 +611,7 @@ export default function ChallengeDetailPage() {
                         style={{ width: `${participant.progress || 0}%` }} />
 
                         </div>
-                        <span className="text-xs text-[#0A1A2F]/60">{participant.progress || 0}%</span>
+                        <span className="text-xs text-[#0A1A2F]/60 dark:text-white/60">{participant.progress || 0}%</span>
                       </div>
                     </div>
                   </motion.div>

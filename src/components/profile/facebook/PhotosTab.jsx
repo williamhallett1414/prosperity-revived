@@ -55,7 +55,7 @@ export default function PhotosTab({ user }) {
 
   if (photos.length === 0) {
     return (
-      <div className="bg-white rounded-xl shadow-sm p-12 sm:p-16 text-center border border-gray-100">
+      <div className="bg-white dark:bg-white/5 rounded-xl shadow-sm p-12 sm:p-16 text-center border border-gray-100 dark:border-white/10">
         <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
           <span className="text-4xl">📸</span>
         </div>
@@ -77,7 +77,7 @@ export default function PhotosTab({ user }) {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="bg-white rounded-xl shadow-sm p-6 border border-gray-100"
+        className="bg-white dark:bg-white/5 rounded-xl shadow-sm p-6 border border-gray-100 dark:border-white/10"
       >
         <div className="mb-6 flex items-center justify-between">
           <h2 className="text-2xl font-bold text-gray-900">
@@ -126,7 +126,7 @@ export default function PhotosTab({ user }) {
         <div className="space-y-4 py-4">
           <label
             htmlFor="photo-upload"
-            className="flex flex-col items-center justify-center w-full h-64 border-2 border-dashed border-gray-300 rounded-xl cursor-pointer bg-gray-50 hover:bg-gray-100 transition-colors"
+            className="flex flex-col items-center justify-center w-full h-64 border-2 border-dashed border-gray-300 rounded-xl cursor-pointer bg-gray-50 dark:bg-white/5 hover:bg-gray-100 transition-colors"
           >
             <div className="flex flex-col items-center justify-center pt-5 pb-6">
               <Upload className="w-10 h-10 text-gray-400 mb-3" />

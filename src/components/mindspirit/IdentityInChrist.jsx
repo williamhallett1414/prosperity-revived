@@ -67,17 +67,17 @@ export default function IdentityInChrist() {
     >
       <div className="flex items-center gap-2 mb-4">
         <Crown className="w-6 h-6 text-[#FAD98D]" />
-        <h3 className="text-lg font-bold text-[#0A1A2F]">Identity in Christ</h3>
+        <h3 className="text-lg font-bold text-[#0A1A2F] dark:text-white dark:text-white">Identity in Christ</h3>
       </div>
 
-      <div className="bg-white rounded-xl p-5">
-        <p className="text-xl font-bold text-[#0A1A2F] mb-3 text-center">
+      <div className="bg-white dark:bg-white/5 rounded-xl p-5">
+        <p className="text-xl font-bold text-[#0A1A2F] dark:text-white mb-3 text-center">
           {todaysTruth.truth}
         </p>
         <p className="text-sm font-semibold text-[#FAD98D] text-center mb-3">
           {todaysTruth.verse}
         </p>
-        <p className="text-xs text-[#0A1A2F]/70 italic text-center mb-4">
+        <p className="text-xs text-[#0A1A2F]/70 dark:text-white/70 italic text-center mb-4">
           "{todaysTruth.fullVerse}"
         </p>
 
@@ -103,9 +103,9 @@ export default function IdentityInChrist() {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="mt-4 pt-4 border-t border-gray-200"
+              className="mt-4 pt-4 border-t border-gray-200 dark:border-white/10"
             >
-              <p className="text-sm text-[#0A1A2F] leading-relaxed">
+              <p className="text-sm text-[#0A1A2F] dark:text-white leading-relaxed">
                 {todaysTruth.explanation}
               </p>
             </motion.div>

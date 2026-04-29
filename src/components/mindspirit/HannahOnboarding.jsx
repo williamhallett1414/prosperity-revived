@@ -132,7 +132,7 @@ export default function HannahOnboarding({ onComplete, onRevisit, user }) {
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           exit={{ scale: 0.9, opacity: 0 }}
-          className="bg-white rounded-2xl shadow-2xl max-w-sm w-full overflow-hidden"
+          className="bg-white dark:bg-white/5 rounded-2xl shadow-2xl max-w-sm w-full overflow-hidden"
         >
           {/* Header */}
           <div className="bg-gradient-to-r from-[#AFC7E3] to-[#3C4E53] text-white p-5 relative">
@@ -203,8 +203,8 @@ export default function HannahOnboarding({ onComplete, onRevisit, user }) {
                             onClick={() => !disabled && toggleArea(area.id)}
                             className={`rounded-xl border-2 p-2.5 text-left transition-all ${
                               selected ? 'border-[#AFC7E3] bg-[#AFC7E3]/15' :
-                              disabled ? 'border-gray-100 opacity-40 cursor-not-allowed' :
-                              'border-gray-200 hover:border-gray-300'
+                              disabled ? 'border-gray-100 dark:border-white/10 opacity-40 cursor-not-allowed' :
+                              'border-gray-200 dark:border-white/10 hover:border-gray-300'
                             }`}
                           >
                             <div className="text-xs font-semibold text-gray-800">{area.label}</div>
@@ -232,8 +232,8 @@ export default function HannahOnboarding({ onComplete, onRevisit, user }) {
                             onClick={() => !disabled && toggleValue(val.id)}
                             className={`text-xs px-3 py-2 rounded-full border-2 transition-all font-medium ${
                               selected ? 'border-[#AFC7E3] bg-[#AFC7E3]/20 text-[#3C4E53]' :
-                              disabled ? 'border-gray-100 text-gray-300 cursor-not-allowed' :
-                              'border-gray-200 text-gray-600 hover:border-gray-300'
+                              disabled ? 'border-gray-100 dark:border-white/10 text-gray-300 cursor-not-allowed' :
+                              'border-gray-200 dark:border-white/10 text-gray-600 hover:border-gray-300'
                             }`}
                           >
                             {val.label}
@@ -259,7 +259,7 @@ export default function HannahOnboarding({ onComplete, onRevisit, user }) {
                           className={`w-full flex items-start gap-3 rounded-xl border-2 p-3.5 text-left transition-all ${
                             coachingStyle === style.id
                               ? 'border-[#AFC7E3] bg-[#AFC7E3]/15'
-                              : 'border-gray-200 hover:border-gray-300'
+                              : 'border-gray-200 dark:border-white/10 hover:border-gray-300'
                           }`}
                         >
                           <div className="flex-1">
@@ -285,7 +285,7 @@ export default function HannahOnboarding({ onComplete, onRevisit, user }) {
                           className={`rounded-xl border-2 p-3.5 font-semibold text-sm transition-all flex items-center justify-between ${
                             lifeStage === stage.id
                               ? 'border-[#AFC7E3] bg-[#AFC7E3]/15 text-[#3C4E53]'
-                              : 'border-gray-200 text-gray-700 hover:border-gray-300'
+                              : 'border-gray-200 dark:border-white/10 text-gray-700 hover:border-gray-300'
                           }`}
                         >
                           {stage.label}
@@ -306,7 +306,7 @@ export default function HannahOnboarding({ onComplete, onRevisit, user }) {
                       onChange={e => setGoalText(e.target.value)}
                       placeholder="e.g. I want to stop self-sabotaging and start trusting myself more…"
                       rows={4}
-                      className="w-full rounded-xl border-2 border-gray-200 focus:border-[#AFC7E3] outline-none p-3 text-sm text-gray-700 resize-none transition-colors"
+                      className="w-full rounded-xl border-2 border-gray-200 dark:border-white/10 focus:border-[#AFC7E3] outline-none p-3 text-sm text-gray-700 resize-none transition-colors"
                     />
                     <div className="mt-3 bg-purple-50 border border-purple-200 rounded-xl p-3 text-xs text-purple-700">
                       💛 This becomes the foundation of our work together. I'll come back to it when you need a reminder of why you started.
@@ -318,7 +318,7 @@ export default function HannahOnboarding({ onComplete, onRevisit, user }) {
           </div>
 
           {/* Footer */}
-          <div className="p-5 bg-gray-50 border-t border-gray-100">
+          <div className="p-5 bg-gray-50 dark:bg-white/5 border-t border-gray-100 dark:border-white/10">
             <div className="flex gap-3">
               <Button onClick={onComplete} variant="outline" className="flex-1 text-gray-600 text-sm">
                 Skip

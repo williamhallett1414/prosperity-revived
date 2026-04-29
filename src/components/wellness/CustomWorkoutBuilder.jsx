@@ -63,7 +63,7 @@ export default function CustomWorkoutBuilder({ exercises, onChange }) {
     <DragDropContext onDragEnd={handleDragEnd}>
       <div className="grid md:grid-cols-2 gap-4 h-[500px]">
         {/* Exercise Library */}
-        <div className="flex flex-col bg-gray-50 dark:bg-gray-800 rounded-xl p-4">
+        <div className="flex flex-col bg-gray-50 dark:bg-white/5 dark:bg-gray-800 rounded-xl p-4">
           <h3 className="font-semibold text-[#0A1A2F] dark:text-white mb-3">Exercise Library</h3>
           
           <Input
@@ -98,7 +98,7 @@ export default function CustomWorkoutBuilder({ exercises, onChange }) {
                           ref={provided.innerRef}
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
-                          className={`bg-white dark:bg-[#0A1A2F] rounded-lg p-3 cursor-grab active:cursor-grabbing ${
+                          className={`bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-lg p-3 cursor-grab active:cursor-grabbing ${
                             snapshot.isDragging ? 'shadow-lg opacity-80' : ''
                           }`}
                         >
@@ -122,7 +122,7 @@ export default function CustomWorkoutBuilder({ exercises, onChange }) {
         </div>
 
         {/* Workout Plan */}
-        <div className="flex flex-col bg-gray-50 dark:bg-gray-800 rounded-xl p-4">
+        <div className="flex flex-col bg-gray-50 dark:bg-white/5 dark:bg-gray-800 rounded-xl p-4">
           <h3 className="font-semibold text-[#0A1A2F] dark:text-white mb-3">
             Your Workout ({exercises.length} exercises)
           </h3>
@@ -153,7 +153,7 @@ export default function CustomWorkoutBuilder({ exercises, onChange }) {
                       <div
                         ref={provided.innerRef}
                         {...provided.draggableProps}
-                        className={`bg-white dark:bg-[#0A1A2F] rounded-lg p-3 ${
+                        className={`bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-lg p-3 ${
                           snapshot.isDragging ? 'shadow-lg' : ''
                         }`}
                       >

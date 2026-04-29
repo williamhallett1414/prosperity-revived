@@ -32,11 +32,11 @@ export default function VerseAnnotationModal({ isOpen, onClose, verse, bookmark,
         
         <div className="space-y-4">
           {/* Verse Display */}
-          <div className="bg-[#F2F6FA] rounded-lg p-4 border-l-4 border-[#c9a227]">
-            <p className="font-serif text-[#0A1A2F] leading-relaxed mb-2">
+          <div className="bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-lg p-4 border-l-4 border-[#c9a227]">
+            <p className="font-serif text-[#0A1A2F] dark:text-white leading-relaxed mb-2">
               {verse.text}
             </p>
-            <p className="text-sm text-[#0A1A2F]/60">
+            <p className="text-sm text-[#0A1A2F]/60 dark:text-white/60">
               {verse.book} {verse.chapter}:{verse.verse}
             </p>
           </div>

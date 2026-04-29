@@ -85,7 +85,7 @@ Respond with compassion and biblical wisdom:`,
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            className="fixed bottom-24 right-4 z-40 w-[90vw] max-w-md h-[500px] bg-[#F2F6FA] rounded-2xl shadow-2xl flex flex-col overflow-hidden"
+            className="fixed bottom-24 right-4 z-40 w-[90vw] max-w-md h-[500px] bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-2xl shadow-2xl flex flex-col overflow-hidden"
           >
             {/* Header */}
             <div className="bg-gradient-to-r from-[#c9a227] to-[#FAD98D] p-4 flex items-center justify-between">
@@ -112,7 +112,7 @@ Respond with compassion and biblical wisdom:`,
                     className={`max-w-[80%] rounded-2xl px-4 py-2 ${
                       message.role === 'user'
                         ? 'bg-[#c9a227] text-white'
-                        : 'bg-[#FAD98D]/15 text-[#0A1A2F]'
+                        : 'bg-[#FAD98D]/15 text-[#0A1A2F] dark:text-white dark:text-white'
                     }`}
                   >
                     <p className="text-sm leading-relaxed">{message.content}</p>

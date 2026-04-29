@@ -10,7 +10,7 @@ export default function TrendingNutritionArticles() {
   return (
     <div className="px-4 mb-8">
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-lg font-bold text-[#0A1A2F]">Trending Nutrition Articles</h2>
+        <h2 className="text-lg font-bold text-[#0A1A2F] dark:text-white dark:text-white">Trending Nutrition Articles</h2>
       </div>
       
       <div className="space-y-3 mb-4">
@@ -22,9 +22,9 @@ export default function TrendingNutritionArticles() {
             transition={{ delay: idx * 0.05 }}
           >
             <Link to={createPageUrl(`NutritionArticle?id=${article.id}`)}>
-              <div className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow p-3">
-                <h3 className="font-semibold text-sm text-[#0A1A2F] mb-1">{article.title}</h3>
-                <p className="text-xs text-[#0A1A2F]/60">{article.description}</p>
+              <div className="bg-white dark:bg-white/5 rounded-lg shadow-sm hover:shadow-md transition-shadow p-3">
+                <h3 className="font-semibold text-sm text-[#0A1A2F] dark:text-white mb-1">{article.title}</h3>
+                <p className="text-xs text-[#0A1A2F]/60 dark:text-white/60">{article.description}</p>
               </div>
             </Link>
           </motion.div>

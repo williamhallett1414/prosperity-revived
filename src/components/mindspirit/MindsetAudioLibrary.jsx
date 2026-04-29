@@ -75,7 +75,7 @@ export default function MindsetAudioLibrary() {
     >
       <div className="flex items-center gap-2 mb-3">
         <Volume2 className="w-6 h-6 text-[#FAD98D]" />
-        <h3 className="text-lg font-bold text-[#0A1A2F]">Mindset Audio Library</h3>
+        <h3 className="text-lg font-bold text-[#0A1A2F] dark:text-white dark:text-white">Mindset Audio Library</h3>
       </div>
 
       <div className="space-y-3">
@@ -85,13 +85,13 @@ export default function MindsetAudioLibrary() {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: index * 0.05 }}
-            className={`bg-gradient-to-r ${track.gradient} rounded-xl p-4 border border-gray-200`}
+            className={`bg-gradient-to-r ${track.gradient} rounded-xl p-4 border border-gray-200 dark:border-white/10`}
           >
             <div className="flex items-center justify-between">
               <div className="flex-1">
-                <h4 className="font-semibold text-[#0A1A2F] mb-1">{track.title}</h4>
-                <p className="text-xs text-[#0A1A2F]/70 mb-1">{track.description}</p>
-                <p className="text-xs text-[#0A1A2F]/50">{track.duration}</p>
+                <h4 className="font-semibold text-[#0A1A2F] dark:text-white mb-1">{track.title}</h4>
+                <p className="text-xs text-[#0A1A2F]/70 dark:text-white/70 mb-1">{track.description}</p>
+                <p className="text-xs text-[#0A1A2F]/50 dark:text-white/50">{track.duration}</p>
               </div>
               <div className="flex items-center gap-2">
                 {currentTrack?.id === track.id && (
@@ -109,7 +109,7 @@ export default function MindsetAudioLibrary() {
                 <Button
                   size="sm"
                   onClick={() => handlePlayPause(track)}
-                  className="h-10 w-10 rounded-full bg-[#FAD98D] hover:bg-[#FAD98D]/90 text-[#0A1A2F] p-0"
+                  className="h-10 w-10 rounded-full bg-[#FAD98D] hover:bg-[#FAD98D]/90 text-[#0A1A2F] dark:text-white p-0"
                 >
                   {currentTrack?.id === track.id && isPlaying ? (
                     <Pause className="w-5 h-5" />

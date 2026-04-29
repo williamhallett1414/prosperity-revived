@@ -80,12 +80,12 @@ export default function FitnessProfileSetup({ user, onClose, onSave }) {
         initial={{ y: '100%' }}
         animate={{ y: 0 }}
         exit={{ y: '100%' }}
-        className="w-full bg-white rounded-t-3xl max-h-[90vh] flex flex-col"
+        className="w-full bg-white dark:bg-white/5 rounded-t-3xl max-h-[90vh] flex flex-col"
       >
         {/* Header */}
-        <div className="sticky top-0 bg-white border-b border-gray-100 px-4 py-2">
+        <div className="sticky top-0 bg-white dark:bg-white/5 border-b border-gray-100 dark:border-white/10 px-4 py-2">
         <div className="max-w-lg mx-auto flex items-center justify-between mb-2">
-          <h2 className="text-base font-bold text-[#0A1A2F]">Fitness Profile</h2>
+          <h2 className="text-base font-bold text-[#0A1A2F] dark:text-white dark:text-white">Fitness Profile</h2>
             <button
               onClick={onClose}
               className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center"
@@ -102,7 +102,7 @@ export default function FitnessProfileSetup({ user, onClose, onSave }) {
                 className="h-full bg-[#38BDF8]"
               />
             </div>
-            <p className="text-[10px] text-[#0A1A2F]/40 mt-1">
+            <p className="text-[10px] text-[#0A1A2F]/40 dark:text-white/40 mt-1">
              Step {step} of {steps.length}
             </p>
           </div>
@@ -118,14 +118,14 @@ export default function FitnessProfileSetup({ user, onClose, onSave }) {
               exit={{ opacity: 0, x: -10 }}
               className="space-y-4"
             >
-              <h3 className="text-sm font-bold text-[#0A1A2F] mb-3">
+              <h3 className="text-sm font-bold text-[#0A1A2F] dark:text-white mb-3">
                 {currentStep.title}
               </h3>
 
               {/* Weight */}
               {currentStep.fields.includes('weight_lbs') && (
                 <div>
-                  <label className="text-xs font-bold text-[#0A1A2F]/60 block mb-2">
+                  <label className="text-xs font-bold text-[#0A1A2F]/60 dark:text-white/60 block mb-2">
                     Current Weight (lbs)
                   </label>
                   <input
@@ -135,7 +135,7 @@ export default function FitnessProfileSetup({ user, onClose, onSave }) {
                       setData({ ...data, weight_lbs: e.target.value })
                     }
                     placeholder="154"
-                    className="w-full bg-[#F2F6FA] rounded-xl px-3.5 py-2.5 text-sm text-[#0A1A2F] outline-none border-2 border-transparent focus:border-[#38BDF8]"
+                    className="w-full bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-xl px-3.5 py-2.5 text-sm text-[#0A1A2F] dark:text-white outline-none border-2 border-transparent focus:border-[#38BDF8]"
                   />
                 </div>
               )}
@@ -143,13 +143,13 @@ export default function FitnessProfileSetup({ user, onClose, onSave }) {
               {/* Height */}
               {(currentStep.fields.includes('height_ft') || currentStep.fields.includes('height_in')) && (
                 <div className="space-y-3">
-                  <label className="text-xs font-bold text-[#0A1A2F]/60 block">
+                  <label className="text-xs font-bold text-[#0A1A2F]/60 dark:text-white/60 block">
                     Height
                   </label>
                   <div className="flex gap-3">
                     {currentStep.fields.includes('height_ft') && (
                       <div className="flex-1">
-                        <label className="text-xs text-[#0A1A2F]/40 block mb-1">Feet</label>
+                        <label className="text-xs text-[#0A1A2F]/40 dark:text-white/40 block mb-1">Feet</label>
                         <input
                           type="number"
                           value={data.height_ft}
@@ -157,13 +157,13 @@ export default function FitnessProfileSetup({ user, onClose, onSave }) {
                             setData({ ...data, height_ft: e.target.value })
                           }
                           placeholder="5"
-                          className="w-full bg-[#F2F6FA] rounded-xl px-3.5 py-2.5 text-sm text-[#0A1A2F] outline-none border-2 border-transparent focus:border-[#38BDF8]"
+                          className="w-full bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-xl px-3.5 py-2.5 text-sm text-[#0A1A2F] dark:text-white outline-none border-2 border-transparent focus:border-[#38BDF8]"
                         />
                       </div>
                     )}
                     {currentStep.fields.includes('height_in') && (
                       <div className="flex-1">
-                        <label className="text-xs text-[#0A1A2F]/40 block mb-1">Inches</label>
+                        <label className="text-xs text-[#0A1A2F]/40 dark:text-white/40 block mb-1">Inches</label>
                         <input
                           type="number"
                           value={data.height_in}
@@ -172,7 +172,7 @@ export default function FitnessProfileSetup({ user, onClose, onSave }) {
                           }
                           placeholder="9"
                           max="11"
-                          className="w-full bg-[#F2F6FA] rounded-xl px-3.5 py-2.5 text-sm text-[#0A1A2F] outline-none border-2 border-transparent focus:border-[#38BDF8]"
+                          className="w-full bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-xl px-3.5 py-2.5 text-sm text-[#0A1A2F] dark:text-white outline-none border-2 border-transparent focus:border-[#38BDF8]"
                         />
                       </div>
                     )}
@@ -183,7 +183,7 @@ export default function FitnessProfileSetup({ user, onClose, onSave }) {
               {/* Age */}
               {currentStep.fields.includes('age') && (
                 <div>
-                  <label className="text-xs font-bold text-[#0A1A2F]/60 block mb-2">
+                  <label className="text-xs font-bold text-[#0A1A2F]/60 dark:text-white/60 block mb-2">
                     Age
                   </label>
                   <input
@@ -191,7 +191,7 @@ export default function FitnessProfileSetup({ user, onClose, onSave }) {
                     value={data.age}
                     onChange={(e) => setData({ ...data, age: e.target.value })}
                     placeholder="30"
-                    className="w-full bg-[#F2F6FA] rounded-xl px-3.5 py-2.5 text-sm text-[#0A1A2F] outline-none border-2 border-transparent focus:border-[#38BDF8]"
+                    className="w-full bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-xl px-3.5 py-2.5 text-sm text-[#0A1A2F] dark:text-white outline-none border-2 border-transparent focus:border-[#38BDF8]"
                   />
                 </div>
               )}
@@ -199,7 +199,7 @@ export default function FitnessProfileSetup({ user, onClose, onSave }) {
               {/* Sex */}
               {currentStep.fields.includes('sex') && (
                 <div>
-                  <label className="text-xs font-bold text-[#0A1A2F]/60 block mb-2">
+                  <label className="text-xs font-bold text-[#0A1A2F]/60 dark:text-white/60 block mb-2">
                     Sex
                   </label>
                   <div className="flex gap-2">
@@ -210,7 +210,7 @@ export default function FitnessProfileSetup({ user, onClose, onSave }) {
                         className={`flex-1 py-2.5 rounded-xl text-sm font-bold transition-all ${
                           data.sex === option
                             ? 'bg-[#38BDF8] text-white'
-                            : 'bg-[#F2F6FA] text-[#0A1A2F]'
+                            : 'bg-[#F2F6FA] dark:bg-[#0A1A2F] text-[#0A1A2F] dark:text-white dark:text-white'
                         }`}
                       >
                         {option.charAt(0).toUpperCase() + option.slice(1)}
@@ -223,7 +223,7 @@ export default function FitnessProfileSetup({ user, onClose, onSave }) {
               {/* Fitness Level */}
               {currentStep.fields.includes('fitness_level') && (
                 <div>
-                  <label className="text-xs font-bold text-[#0A1A2F]/60 block mb-2">
+                  <label className="text-xs font-bold text-[#0A1A2F]/60 dark:text-white/60 block mb-2">
                     Fitness Level
                   </label>
                   <div className="space-y-2">
@@ -239,10 +239,10 @@ export default function FitnessProfileSetup({ user, onClose, onSave }) {
                         className={`w-full text-left py-3 px-4 rounded-xl border-2 transition-all ${
                           data.fitness_level === level.toLowerCase()
                             ? 'border-[#38BDF8] bg-[#EFF9FF]'
-                            : 'border-gray-100 bg-white'
+                            : 'border-gray-100 dark:border-white/10 bg-white dark:bg-white/5'
                         }`}
                       >
-                        <span className="text-sm font-bold text-[#0A1A2F]">
+                        <span className="text-sm font-bold text-[#0A1A2F] dark:text-white dark:text-white">
                           {level}
                         </span>
                       </button>
@@ -254,7 +254,7 @@ export default function FitnessProfileSetup({ user, onClose, onSave }) {
               {/* Fitness Goal */}
               {currentStep.fields.includes('fitness_goal') && (
                 <div>
-                  <label className="text-xs font-bold text-[#0A1A2F]/60 block mb-2">
+                  <label className="text-xs font-bold text-[#0A1A2F]/60 dark:text-white/60 block mb-2">
                     Fitness Goal
                   </label>
                   <div className="space-y-2">
@@ -273,10 +273,10 @@ export default function FitnessProfileSetup({ user, onClose, onSave }) {
                           data.fitness_goal ===
                           goal.toLowerCase().replace(/\s+/g, '_')
                             ? 'border-[#38BDF8] bg-[#EFF9FF]'
-                            : 'border-gray-100 bg-white'
+                            : 'border-gray-100 dark:border-white/10 bg-white dark:bg-white/5'
                         }`}
                       >
-                        <span className="text-sm font-bold text-[#0A1A2F]">
+                        <span className="text-sm font-bold text-[#0A1A2F] dark:text-white dark:text-white">
                           {goal}
                         </span>
                       </button>
@@ -288,7 +288,7 @@ export default function FitnessProfileSetup({ user, onClose, onSave }) {
               {/* Workout Days */}
               {currentStep.fields.includes('workout_days_per_week') && (
                 <div>
-                  <label className="text-xs font-bold text-[#0A1A2F]/60 block mb-2">
+                  <label className="text-xs font-bold text-[#0A1A2F]/60 dark:text-white/60 block mb-2">
                     Workouts per Week
                   </label>
                   <div className="grid grid-cols-7 gap-2">
@@ -301,7 +301,7 @@ export default function FitnessProfileSetup({ user, onClose, onSave }) {
                         className={`py-2 rounded-lg text-sm font-bold transition-all ${
                           data.workout_days_per_week === day
                             ? 'bg-[#38BDF8] text-white'
-                            : 'bg-[#F2F6FA] text-[#0A1A2F]'
+                            : 'bg-[#F2F6FA] dark:bg-[#0A1A2F] text-[#0A1A2F] dark:text-white dark:text-white'
                         }`}
                       >
                         {day}
@@ -314,7 +314,7 @@ export default function FitnessProfileSetup({ user, onClose, onSave }) {
               {/* Goal Weight */}
               {currentStep.fields.includes('goal_weight_lbs') && (
                <div>
-                 <label className="text-xs font-bold text-[#0A1A2F]/60 block mb-2">
+                 <label className="text-xs font-bold text-[#0A1A2F]/60 dark:text-white/60 block mb-2">
                    Goal Weight (lbs) (Optional)
                  </label>
                  <input
@@ -322,7 +322,7 @@ export default function FitnessProfileSetup({ user, onClose, onSave }) {
                    value={data.goal_weight_lbs}
                    onChange={(e) => setData({ ...data, goal_weight_lbs: e.target.value })}
                    placeholder="143"
-                   className="w-full bg-[#F2F6FA] rounded-xl px-3.5 py-2.5 text-sm text-[#0A1A2F] outline-none border-2 border-transparent focus:border-[#38BDF8]"
+                   className="w-full bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-xl px-3.5 py-2.5 text-sm text-[#0A1A2F] dark:text-white outline-none border-2 border-transparent focus:border-[#38BDF8]"
                  />
                </div>
               )}
@@ -330,7 +330,7 @@ export default function FitnessProfileSetup({ user, onClose, onSave }) {
               {/* Goal Date */}
               {currentStep.fields.includes('goal_weight_lbs') && (
                 <div>
-                  <label className="text-xs font-bold text-[#0A1A2F]/60 block mb-2">
+                  <label className="text-xs font-bold text-[#0A1A2F]/60 dark:text-white/60 block mb-2">
                     Target Completion Date (Optional)
                   </label>
                   <input
@@ -339,7 +339,7 @@ export default function FitnessProfileSetup({ user, onClose, onSave }) {
                     onChange={(e) =>
                       setData({ ...data, goal_date: e.target.value })
                     }
-                    className="w-full bg-[#F2F6FA] rounded-xl px-3.5 py-2.5 text-sm text-[#0A1A2F] outline-none border-2 border-transparent focus:border-[#38BDF8]"
+                    className="w-full bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-xl px-3.5 py-2.5 text-sm text-[#0A1A2F] dark:text-white outline-none border-2 border-transparent focus:border-[#38BDF8]"
                   />
                 </div>
               )}
@@ -347,12 +347,12 @@ export default function FitnessProfileSetup({ user, onClose, onSave }) {
           </AnimatePresence>
 
           {/* Navigation buttons */}
-          <div className="flex-shrink-0 border-t border-gray-100 px-4 py-3 max-w-lg mx-auto w-full">
+          <div className="flex-shrink-0 border-t border-gray-100 dark:border-white/10 px-4 py-3 max-w-lg mx-auto w-full">
           <div className="flex gap-2">
             {step > 1 && (
               <button
                 onClick={() => setStep(step - 1)}
-                className="px-4 py-2 rounded-lg bg-gray-100 text-[#0A1A2F] font-semibold text-xs hover:bg-gray-200 transition-colors"
+                className="px-4 py-2 rounded-lg bg-gray-100 text-[#0A1A2F] dark:text-white font-semibold text-xs hover:bg-gray-200 transition-colors"
               >
                 Back
               </button>

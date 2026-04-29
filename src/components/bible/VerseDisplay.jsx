@@ -7,7 +7,7 @@ export default function VerseDisplay({ reference, text }) {
       <div className="flex items-start gap-3">
         <BookOpen className="w-5 h-5 text-[#C9A227] mt-0.5 flex-shrink-0" />
         <div className="flex-1">
-          <p className="text-sm font-semibold text-[#0A1A2F] mb-2">
+          <p className="text-sm font-semibold text-[#0A1A2F] dark:text-white mb-2">
             {reference}
           </p>
           <p className="text-sm text-[#0A1A2F]/75 italic leading-relaxed">

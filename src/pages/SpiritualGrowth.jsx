@@ -28,18 +28,18 @@ export default function SpiritualGrowth() {
   });
 
   return (
-    <div className="min-h-screen bg-[#F2F6FA] pb-24">
-      <div className="sticky top-0 z-40 bg-white border-b border-[#F2F6FA] px-4 py-3">
+    <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-24">
+      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#F2F6FA] px-4 py-3">
         <div className="max-w-2xl mx-auto flex items-center gap-3">
           <Link
             to={createPageUrl('Home')}
             className="w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors"
           >
-            <ArrowLeft className="w-4 h-4 text-[#0A1A2F]" />
+            <ArrowLeft className="w-4 h-4 text-[#0A1A2F] dark:text-white dark:text-white" />
           </Link>
           <div>
-            <h1 className="text-lg font-bold text-[#0A1A2F]">Spiritual Growth</h1>
-            <p className="text-xs text-[#0A1A2F]/60">Grow deeper in your faith journey</p>
+            <h1 className="text-lg font-bold text-[#0A1A2F] dark:text-white dark:text-white">Spiritual Growth</h1>
+            <p className="text-xs text-[#0A1A2F]/60 dark:text-white/60">Grow deeper in your faith journey</p>
           </div>
         </div>
       </div>
@@ -49,7 +49,7 @@ export default function SpiritualGrowth() {
 
         {/* Tabs */}
         <Tabs defaultValue="journal" className="mt-6">
-          <TabsList className="grid grid-cols-3 bg-white p-1 w-full">
+          <TabsList className="grid grid-cols-3 bg-white dark:bg-white/5 p-1 w-full">
             <TabsTrigger value="journal" className="flex items-center gap-1.5">
               <Heart className="w-4 h-4" />
               <span className="hidden sm:inline">Journal</span>

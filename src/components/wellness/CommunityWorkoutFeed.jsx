@@ -62,7 +62,7 @@ export default function CommunityWorkoutFeed({ user, onComplete }) {
 
         <TabsContent value={filter} className="space-y-3 mt-4">
           {communityWorkouts.length === 0 ? (
-            <div className="text-center py-12 bg-white dark:bg-[#0A1A2F] rounded-2xl">
+            <div className="text-center py-12 bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-2xl">
               <Users className="w-12 h-12 text-gray-300 mx-auto mb-3" />
               <p className="text-gray-500 dark:text-gray-400">
                 No community workouts yet. Be the first to share!

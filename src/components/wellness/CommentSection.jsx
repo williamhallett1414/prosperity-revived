@@ -99,7 +99,7 @@ export default function CommentSection({ contentId, contentType }) {
       <Button
         variant="ghost"
         onClick={() => setShowComments(!showComments)}
-        className="w-full justify-start text-[#0A1A2F]/50 hover:text-[#0A1A2F] mb-4"
+        className="w-full justify-start text-[#0A1A2F]/50 dark:text-white/50 hover:text-[#0A1A2F] dark:text-white mb-4"
       >
         <MessageSquare className="w-4 h-4 mr-2" />
         {comments.length} {comments.length === 1 ? 'Comment' : 'Comments'}
@@ -114,12 +114,12 @@ export default function CommentSection({ contentId, contentType }) {
             className="space-y-4"
           >
             {/* Comment Input */}
-            <div className="bg-[#F2F6FA] rounded-xl p-4">
+            <div className="bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-xl p-4">
               <Textarea
                 placeholder="Share your thoughts..."
                 value={newComment}
                 onChange={(e) => setNewComment(e.target.value)}
-                className="mb-3 bg-white border border-[#BAE6FD]/30"
+                className="mb-3 bg-white dark:bg-white/5 border border-[#BAE6FD]/30"
                 rows={3}
               />
               
@@ -216,7 +216,7 @@ export default function CommentSection({ contentId, contentType }) {
                   key={comment.id}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="bg-white rounded-xl p-4"
+                  className="bg-white dark:bg-white/5 rounded-xl p-4"
                 >
                   <div className="flex items-start gap-3">
                     <Avatar className="w-8 h-8">
@@ -227,16 +227,16 @@ export default function CommentSection({ contentId, contentType }) {
                     
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-1">
-                        <span className="font-medium text-sm text-[#0A1A2F]">
+                        <span className="font-medium text-sm text-[#0A1A2F] dark:text-white dark:text-white">
                           {comment.user_name}
                         </span>
-                        <span className="text-xs text-[#0A1A2F]/45">
+                        <span className="text-xs text-[#0A1A2F]/45 dark:text-white/45">
                           {format(new Date(comment.created_date), 'MMM d, yyyy')}
                         </span>
                       </div>
                       
                       {comment.content && (
-                        <p className="text-sm text-[#0A1A2F]/70 mb-2">
+                        <p className="text-sm text-[#0A1A2F]/70 dark:text-white/70 mb-2">
                           {comment.content}
                         </p>
                       )}
@@ -264,7 +264,7 @@ export default function CommentSection({ contentId, contentType }) {
                           commentId: comment.id,
                           currentLikes: comment.likes || 0
                         })}
-                        className="text-[#0A1A2F]/45 hover:text-[#FD9C2D] p-0 h-auto"
+                        className="text-[#0A1A2F]/45 dark:text-white/45 hover:text-[#FD9C2D] p-0 h-auto"
                       >
                         <Heart className={`w-4 h-4 mr-1 ${comment.likes > 0 ? 'fill-[#FD9C2D] text-[#FD9C2D]' : ''}`} />
                         <span className="text-xs">{comment.likes || 0}</span>

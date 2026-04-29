@@ -409,7 +409,7 @@ Return ONLY valid JSON array:
             initial={{ opacity: 0, y: 100, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 100, scale: 0.9 }}
-            className="fixed bottom-24 right-4 w-[calc(100vw-2rem)] sm:w-96 h-[min(500px,calc(100dvh-7rem))] bg-white rounded-2xl shadow-2xl flex flex-col z-50 border border-[#F2F6FA] overflow-hidden"
+            className="fixed bottom-24 right-4 w-[calc(100vw-2rem)] sm:w-96 h-[min(500px,calc(100dvh-7rem))] bg-white dark:bg-white/5 rounded-2xl shadow-2xl flex flex-col z-50 border border-[#F2F6FA] overflow-hidden"
           >
             {/* Header */}
             <div className="bg-gradient-to-r from-[#0A1A2F] to-[#38BDF8] text-white p-5 rounded-t-2xl flex items-center justify-between">
@@ -480,7 +480,7 @@ Return ONLY valid JSON array:
               </AnimatePresence>
               <button
                 onClick={() => setAvatarCollapsed(!avatarCollapsed)}
-                className="w-full flex items-center justify-center py-1 text-[10px] text-[#0A1A2F]/40 hover:text-[#0A1A2F]/70 transition-colors bg-white border-b border-[#F2F6FA]"
+                className="w-full flex items-center justify-center py-1 text-[10px] text-[#0A1A2F]/40 dark:text-white/40 hover:text-[#0A1A2F]/70 dark:text-white/70 transition-colors bg-white dark:bg-white/5 border-b border-[#F2F6FA]"
               >
                 {avatarCollapsed ? '▼ Show coach' : '▲ Hide'}
               </button>
@@ -517,7 +517,7 @@ Return ONLY valid JSON array:
             )}
 
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-5 space-y-4 bg-[#F2F6FA]">
+            <div className="flex-1 overflow-y-auto p-5 space-y-4 bg-[#F2F6FA] dark:bg-[#0A1A2F]">
               {messages.map((message, index) => (
                 <motion.div
                   key={index}
@@ -529,11 +529,11 @@ Return ONLY valid JSON array:
                     className={`max-w-[80%] rounded-2xl px-4 py-3 ${
                       message.role === 'user'
                         ? 'bg-gradient-to-r from-[#38BDF8] to-[#0EA5E9] text-white'
-                        : 'bg-white border border-[#CBD5E1] text-[#0A1A2F] shadow-sm'
+                        : 'bg-white dark:bg-white/5 border border-[#CBD5E1] text-[#0A1A2F] dark:text-white shadow-sm'
                     }`}
                   >
                     {message.role === 'assistant' ? (
-                      <ReactMarkdown className="prose prose-sm max-w-none prose-p:my-1.5 prose-li:my-0.5 prose-headings:font-semibold text-[#0A1A2F] text-sm leading-relaxed">
+                      <ReactMarkdown className="prose prose-sm max-w-none prose-p:my-1.5 prose-li:my-0.5 prose-headings:font-semibold text-[#0A1A2F] dark:text-white text-sm leading-relaxed">
                         {message.content}
                       </ReactMarkdown>
                     ) : (
@@ -550,7 +550,7 @@ Return ONLY valid JSON array:
               ))}
               {isLoading && (
                 <div className="flex justify-start">
-                  <div className="bg-white border border-[#F2F6FA] rounded-2xl px-4 py-3 shadow-sm">
+                  <div className="bg-white dark:bg-white/5 border border-[#F2F6FA] rounded-2xl px-4 py-3 shadow-sm">
                     <Loader2 className="w-5 h-5 animate-spin text-[#38BDF8]" />
                   </div>
                 </div>
@@ -559,13 +559,13 @@ Return ONLY valid JSON array:
               {/* Quick Actions */}
               {messages.length === 1 && !isLoading && (
                 <div className="pt-2">
-                  <p className="text-xs text-[#0A1A2F]/60 font-medium mb-2">Quick questions:</p>
+                  <p className="text-xs text-[#0A1A2F]/60 dark:text-white/60 font-medium mb-2">Quick questions:</p>
                   <div className="flex flex-wrap gap-2">
                     {quickActions.map((action, idx) => (
                       <button
                         key={idx}
                         onClick={() => sendWithText(action.prompt)}
-                        className="text-xs px-3 py-2 rounded-full bg-white hover:bg-gray-100 text-[#0A1A2F] transition-colors shadow-sm border border-[#CBD5E1]"
+                        className="text-xs px-3 py-2 rounded-full bg-white dark:bg-white/5 hover:bg-gray-100 text-[#0A1A2F] dark:text-white transition-colors shadow-sm border border-[#CBD5E1]"
                       >
                         {action.label}
                       </button>
@@ -577,14 +577,14 @@ Return ONLY valid JSON array:
             </div>
 
             {/* Input */}
-            <div className="p-5 border-t border-[#F2F6FA] bg-white">
+            <div className="p-5 border-t border-[#F2F6FA] bg-white dark:bg-white/5">
               <div className="flex gap-2 items-center">
                 <Input
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
                   placeholder="Ask Coach David..."
-                  className="flex-1 bg-[#F2F6FA] border-[#F2F6FA] h-11"
+                  className="flex-1 bg-[#F2F6FA] dark:bg-[#0A1A2F] border-[#F2F6FA] h-11"
                   disabled={isLoading}
                 />
                 <VoiceInputButton

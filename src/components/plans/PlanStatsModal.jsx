@@ -37,7 +37,7 @@ export default function PlanStatsModal({ isOpen, onClose, progress }) {
               <div className="text-xs text-green-600">days</div>
             </div>
 
-            <div className="bg-[#F2F6FA] rounded-lg p-3">
+            <div className="bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-lg p-3">
               <div className="flex items-center gap-2 mb-1">
                 <Calendar className="w-4 h-4 text-[#3C4E53]" />
                 <span className="text-xs text-[#3C4E53] font-medium">Remaining</span>
@@ -60,14 +60,14 @@ export default function PlanStatsModal({ isOpen, onClose, progress }) {
                 <Award className="w-4 h-4 text-[#C9A227]" />
                 <span className="text-xs text-[#C9A227] font-medium">Best Streak</span>
               </div>
-              <div className="text-2xl font-bold text-[#0A1A2F]">{progress.longest_streak || 0}</div>
+              <div className="text-2xl font-bold text-[#0A1A2F] dark:text-white dark:text-white">{progress.longest_streak || 0}</div>
               <div className="text-xs text-[#C9A227]">days</div>
             </div>
           </div>
 
           {/* Dates */}
           {progress.started_date && (
-            <div className="bg-gray-50 rounded-lg p-3">
+            <div className="bg-gray-50 dark:bg-white/5 rounded-lg p-3">
               <div className="text-xs text-gray-600 mb-1">Started</div>
               <div className="font-medium text-gray-900">
                 {format(new Date(progress.started_date), 'MMMM d, yyyy')}

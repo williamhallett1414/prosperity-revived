@@ -35,11 +35,11 @@ export default function WaterTracker() {
   const percentage = Math.min((glasses / goal) * 100, 100);
 
   return (
-    <div className="bg-white dark:bg-[#0A1A2F] rounded-2xl p-4">
+    <div className="bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-2xl p-4">
       <div className="flex items-center gap-3 mb-4">
         <Droplets className="w-6 h-6 text-[#AFC7E3]" />
         <div className="flex-1">
-          <h3 className="font-semibold text-[#0A1A2F] dark:text-white">Water Intake</h3>
+          <h3 className="font-semibold text-[#0A1A2F] dark:text-white dark:text-white">Water Intake</h3>
           <p className="text-xs text-gray-500 dark:text-gray-400">Goal: {goal} glasses</p>
         </div>
       </div>
@@ -71,7 +71,7 @@ export default function WaterTracker() {
         <Button
           size="icon"
           onClick={addGlass}
-          className="h-12 w-12 rounded-full bg-[#F2F6FA]0 hover:bg-blue-600"
+          className="h-12 w-12 rounded-full bg-[#F2F6FA] dark:bg-[#0A1A2F]0 hover:bg-blue-600"
         >
           <Plus className="w-5 h-5" />
         </Button>

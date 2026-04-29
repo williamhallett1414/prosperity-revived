@@ -158,7 +158,7 @@ export default function TodaysRecommendations({ user, mealLogs, workoutSessions,
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.1 }}
             onClick={rec.action}
-            className={`w-full text-left bg-gradient-to-r ${rec.color} rounded-2xl p-4 shadow-sm hover:shadow-md transition-shadow border border-gray-100/50`}
+            className={`w-full text-left bg-gradient-to-r ${rec.color} rounded-2xl p-4 shadow-sm hover:shadow-md transition-shadow border border-gray-100 dark:border-white/10/50`}
           >
             <div className="flex items-start gap-3">
               <span className="text-2xl mt-1">{rec.icon}</span>

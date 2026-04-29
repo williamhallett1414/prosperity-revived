@@ -49,10 +49,10 @@ export default function CoachDavidQuickAskMenu({ onSelectPrompt, isLoading, isCo
   return (
     <div className="border-b border-[#F2F6FA] bg-gradient-to-b from-white to-[#F2F6FA]">
       <div className="flex items-center justify-between px-4 py-3">
-        <p className="text-xs font-semibold text-[#0A1A2F]/70">Quick Fitness Needs:</p>
+        <p className="text-xs font-semibold text-[#0A1A2F]/70 dark:text-white/70">Quick Fitness Needs:</p>
         <button
           onClick={onToggleCollapse}
-          className="text-[#0A1A2F]/60 hover:text-[#0A1A2F] transition-colors p-1"
+          className="text-[#0A1A2F]/60 dark:text-white/60 hover:text-[#0A1A2F] dark:text-white transition-colors p-1"
           title={isCollapsed ? "Show quick actions" : "Hide quick actions"}
         >
           {isCollapsed ? <ChevronDown className="w-4 h-4" /> : <ChevronUp className="w-4 h-4" />}
@@ -68,7 +68,7 @@ export default function CoachDavidQuickAskMenu({ onSelectPrompt, isLoading, isCo
             transition={{ delay: idx * 0.05 }}
             onClick={() => onSelectPrompt(item.prompt)}
             disabled={isLoading}
-            className="text-xs px-3 py-2 rounded-lg bg-white hover:bg-gray-100 text-[#0A1A2F] border border-[#F2F6FA] transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-left font-medium"
+            className="text-xs px-3 py-2 rounded-lg bg-white dark:bg-white/5 hover:bg-gray-100 text-[#0A1A2F] dark:text-white border border-[#F2F6FA] transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-left font-medium"
           >
             {item.label}
           </motion.button>

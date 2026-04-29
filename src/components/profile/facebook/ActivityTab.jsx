@@ -5,12 +5,12 @@ import { BookOpen, Dumbbell, Heart, Camera, MessageCircle, Users } from 'lucide-
 export default function ActivityTab({ userProgress }) {
   if (!userProgress) {
     return (
-      <div className="bg-white rounded-xl shadow-sm p-12 sm:p-16 text-center border border-[#FAD98D]/25">
+      <div className="bg-white dark:bg-white/5 rounded-xl shadow-sm p-12 sm:p-16 text-center border border-[#FAD98D]/25">
         <div className="w-20 h-20 bg-[#FAD98D]/15 rounded-full flex items-center justify-center mx-auto mb-4">
           <span className="text-4xl">📊</span>
         </div>
-        <p className="text-[#0A1A2F]/70 text-lg font-semibold">No activity yet</p>
-        <p className="text-[#0A1A2F]/50 text-sm mt-2">Start engaging to see your activity</p>
+        <p className="text-[#0A1A2F]/70 dark:text-white/70 text-lg font-semibold">No activity yet</p>
+        <p className="text-[#0A1A2F]/50 dark:text-white/50 text-sm mt-2">Start engaging to see your activity</p>
       </div>
     );
   }
@@ -80,8 +80,8 @@ export default function ActivityTab({ userProgress }) {
       animate={{ opacity: 1 }}
       className="space-y-4"
     >
-      <div className="bg-white rounded-xl shadow-sm p-6 border border-[#FAD98D]/25">
-        <h2 className="text-2xl font-bold text-[#0A1A2F] mb-6">Activity Overview</h2>
+      <div className="bg-white dark:bg-white/5 rounded-xl shadow-sm p-6 border border-[#FAD98D]/25">
+        <h2 className="text-2xl font-bold text-[#0A1A2F] dark:text-white mb-6">Activity Overview</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {activities.map((activity, index) => {
             const Icon = activity.icon;
@@ -106,8 +106,8 @@ export default function ActivityTab({ userProgress }) {
       </div>
 
       {/* Recent Activity Timeline */}
-      <div className="bg-white rounded-xl shadow-sm p-6 border border-[#FAD98D]/25">
-        <h3 className="text-xl font-bold text-[#0A1A2F] mb-5">Recent Milestones</h3>
+      <div className="bg-white dark:bg-white/5 rounded-xl shadow-sm p-6 border border-[#FAD98D]/25">
+        <h3 className="text-xl font-bold text-[#0A1A2F] dark:text-white mb-5">Recent Milestones</h3>
         <div className="space-y-4">
           {userProgress.reading_plans_completed > 0 && (
             <div className="flex items-start gap-3 p-3 bg-[#FAD98D]/10 rounded-lg border border-[#FAD98D]/25">
@@ -115,8 +115,8 @@ export default function ActivityTab({ userProgress }) {
                 📖
               </div>
               <div>
-                <p className="font-semibold text-[#0A1A2F]">Completed Reading Plans</p>
-                <p className="text-sm text-[#0A1A2F]/70">{userProgress.reading_plans_completed} plan{userProgress.reading_plans_completed !== 1 ? 's' : ''} completed</p>
+                <p className="font-semibold text-[#0A1A2F] dark:text-white dark:text-white">Completed Reading Plans</p>
+                <p className="text-sm text-[#0A1A2F]/70 dark:text-white/70">{userProgress.reading_plans_completed} plan{userProgress.reading_plans_completed !== 1 ? 's' : ''} completed</p>
               </div>
             </div>
           )}
@@ -126,8 +126,8 @@ export default function ActivityTab({ userProgress }) {
                 💪
               </div>
               <div>
-                <p className="font-semibold text-[#0A1A2F]">Fitness Journey</p>
-                <p className="text-sm text-[#0A1A2F]/70">{userProgress.workouts_completed} workout{userProgress.workouts_completed !== 1 ? 's' : ''} completed</p>
+                <p className="font-semibold text-[#0A1A2F] dark:text-white dark:text-white">Fitness Journey</p>
+                <p className="text-sm text-[#0A1A2F]/70 dark:text-white/70">{userProgress.workouts_completed} workout{userProgress.workouts_completed !== 1 ? 's' : ''} completed</p>
               </div>
             </div>
           )}
@@ -137,8 +137,8 @@ export default function ActivityTab({ userProgress }) {
                 🧘
               </div>
               <div>
-                <p className="font-semibold text-[#0A1A2F]">Mindfulness Practice</p>
-                <p className="text-sm text-[#0A1A2F]/70">{userProgress.meditations_completed} meditation{userProgress.meditations_completed !== 1 ? 's' : ''} completed</p>
+                <p className="font-semibold text-[#0A1A2F] dark:text-white dark:text-white">Mindfulness Practice</p>
+                <p className="text-sm text-[#0A1A2F]/70 dark:text-white/70">{userProgress.meditations_completed} meditation{userProgress.meditations_completed !== 1 ? 's' : ''} completed</p>
               </div>
             </div>
           )}
@@ -148,8 +148,8 @@ export default function ActivityTab({ userProgress }) {
                 👥
               </div>
               <div>
-                <p className="font-semibold text-[#0A1A2F]">Building Community</p>
-                <p className="text-sm text-[#0A1A2F]/70">{userProgress.friends_count} friend{userProgress.friends_count !== 1 ? 's' : ''} connected</p>
+                <p className="font-semibold text-[#0A1A2F] dark:text-white dark:text-white">Building Community</p>
+                <p className="text-sm text-[#0A1A2F]/70 dark:text-white/70">{userProgress.friends_count} friend{userProgress.friends_count !== 1 ? 's' : ''} connected</p>
               </div>
             </div>
           )}

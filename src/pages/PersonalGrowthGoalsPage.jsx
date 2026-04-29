@@ -144,7 +144,7 @@ function ToolRow({ tool, delay = 0 }) {
       <Link to={createPageUrl(tool.page)}>
         <div className="flex items-center gap-3 bg-[#F8FAFB] rounded-xl px-3.5 py-2.5 hover:bg-[#AFC7E3]/10 transition-colors">
           <span className="text-base flex-shrink-0">{tool.emoji}</span>
-          <span className="text-xs font-bold text-[#0A1A2F] flex-1">{tool.label}</span>
+          <span className="text-xs font-bold text-[#0A1A2F] dark:text-white flex-1">{tool.label}</span>
           <ChevronRight className="w-3.5 h-3.5 text-[#AFC7E3]" />
         </div>
       </Link>
@@ -190,14 +190,14 @@ export default function PersonalGrowthGoalsPage() {
     <div className="min-h-screen pb-28" style={{ background: '#F2F6FA' }}>
 
       {/* ── Standard Header with Tabs ── */}
-      <div className="sticky top-0 z-40 bg-white border-b border-[#AFC7E3]/25">
+      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#AFC7E3]/25">
         <div className="px-4 pt-4 pb-3 max-w-lg mx-auto flex items-center gap-3">
           <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#AFC7E3] to-[#3C4E53] flex items-center justify-center">
             <Target className="w-5 h-5 text-white" />
           </div>
           <div>
-            <h1 className="text-base font-bold text-[#0A1A2F]">Growth Goals</h1>
-            <p className="text-xs text-[#0A1A2F]/45">Your growth profile</p>
+            <h1 className="text-base font-bold text-[#0A1A2F] dark:text-white dark:text-white">Growth Goals</h1>
+            <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45">Your growth profile</p>
           </div>
         </div>
 
@@ -212,7 +212,7 @@ export default function PersonalGrowthGoalsPage() {
               className={`flex items-center gap-1.5 px-4 py-2.5 text-xs font-semibold flex-shrink-0 rounded-lg transition-all ${
                 activeTab === tab.id 
                   ? 'bg-[#3C4E53] text-white shadow-sm' 
-                  : 'text-[#0A1A2F]/50 hover:bg-[#AFC7E3]/15 hover:text-[#3C4E53]'
+                  : 'text-[#0A1A2F]/50 dark:text-white/50 hover:bg-[#AFC7E3]/15 hover:text-[#3C4E53]'
               }`}
             >
               {tab.icon} {tab.label}
@@ -270,7 +270,7 @@ export default function PersonalGrowthGoalsPage() {
             <AlertTriangle className="w-4 h-4 text-[#3C4E53] flex-shrink-0" />
             <div className="flex-1">
               <p className="text-xs font-bold text-[#3C4E53]">Growth profile incomplete</p>
-              <p className="text-[11px] text-[#0A1A2F]/55">Complete onboarding to get personalised tools, affirmations, and coaching.</p>
+              <p className="text-[11px] text-[#0A1A2F]/55 dark:text-white/55">Complete onboarding to get personalised tools, affirmations, and coaching.</p>
             </div>
             <Link to={createPageUrl('Settings')} className="text-[11px] font-bold text-[#3C4E53] flex-shrink-0">Update →</Link>
           </motion.div>
@@ -279,29 +279,29 @@ export default function PersonalGrowthGoalsPage() {
         {/* ── 90-day goal ── */}
         {goalText && (
           <motion.div id="tour-growth-goal-text" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.06 }}
-            className="bg-white rounded-3xl p-5 shadow-sm">
+            className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm">
             <div className="flex items-center gap-2 mb-3">
               <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#EFF9FF]">
                 <Target className="w-4 h-4 text-[#AFC7E3]" />
               </div>
-              <p className="font-bold text-[#0A1A2F] text-sm">Your 90-Day Goal</p>
+              <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">Your 90-Day Goal</p>
             </div>
             <div className="bg-[#EFF9FF] rounded-2xl px-4 py-3 border border-[#AFC7E3]/20">
-              <p className="text-sm font-semibold text-[#0A1A2F] leading-relaxed italic">"{goalText}"</p>
+              <p className="text-sm font-semibold text-[#0A1A2F] dark:text-white leading-relaxed italic">"{goalText}"</p>
             </div>
-            <p className="text-[11px] text-[#0A1A2F]/35 mt-2">Hannah keeps this in mind in every coaching session.</p>
+            <p className="text-[11px] text-[#0A1A2F]/35 dark:text-white/35 mt-2">Hannah keeps this in mind in every coaching session.</p>
           </motion.div>
         )}
 
         {/* ── Your Why / Motivations ── */}
         {motivations.length > 0 && (
           <motion.div id="tour-growth-motivations" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }}
-            className="bg-white rounded-3xl p-5 shadow-sm">
+            className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm">
             <div className="flex items-center gap-2 mb-3">
               <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#EFF9FF]">
                 <Heart className="w-4 h-4 text-[#AFC7E3]" />
               </div>
-              <p className="font-bold text-[#0A1A2F] text-sm">Why You're Here</p>
+              <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">Why You're Here</p>
             </div>
             <div className="flex flex-wrap gap-2">
               {motivations.map(m => {
@@ -314,18 +314,18 @@ export default function PersonalGrowthGoalsPage() {
                 );
               })}
             </div>
-            <p className="text-[11px] text-[#0A1A2F]/35 mt-3">Your motivations shape how Hannah frames her advice — always bringing it back to your why.</p>
+            <p className="text-[11px] text-[#0A1A2F]/35 dark:text-white/35 mt-3">Your motivations shape how Hannah frames her advice — always bringing it back to your why.</p>
           </motion.div>
         )}
 
         {/* ── Life stage ── */}
         {stageInfo && (
           <motion.div id="tour-life-stage" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.10 }}
-            className="flex items-center gap-4 bg-white rounded-2xl px-5 py-4 shadow-sm">
+            className="flex items-center gap-4 bg-white dark:bg-white/5 rounded-2xl px-5 py-4 shadow-sm">
             <span className="text-3xl">{stageInfo.emoji}</span>
             <div>
-              <p className="font-bold text-[#0A1A2F] text-sm">{stageInfo.label}</p>
-              <p className="text-xs text-[#0A1A2F]/45 mt-0.5">{stageInfo.focus}</p>
+              <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">{stageInfo.label}</p>
+              <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45 mt-0.5">{stageInfo.focus}</p>
             </div>
           </motion.div>
         )}
@@ -333,13 +333,13 @@ export default function PersonalGrowthGoalsPage() {
         {/* ── Growth areas (expandable) ── */}
         {growthAreas.length > 0 && (
           <motion.div id="tour-growth-areas" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.12 }}
-            className="bg-white rounded-3xl p-5 shadow-sm">
+            className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm">
             <div className="flex items-center gap-2 mb-4">
               <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#EFF9FF]">
                 <Brain className="w-4 h-4 text-[#AFC7E3]" />
               </div>
-              <p className="font-bold text-[#0A1A2F] text-sm">Areas You're Working On</p>
-              <span className="ml-auto text-[10px] text-[#0A1A2F]/35 font-semibold">Tap to expand</span>
+              <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">Areas You're Working On</p>
+              <span className="ml-auto text-[10px] text-[#0A1A2F]/35 dark:text-white/35 font-semibold">Tap to expand</span>
             </div>
             <div className="space-y-2">
               {growthAreas.map((a, i) => {
@@ -353,8 +353,8 @@ export default function PersonalGrowthGoalsPage() {
                         <div className="flex items-center gap-3">
                           <span className="text-lg">{info.emoji}</span>
                           <div className="flex-1 min-w-0">
-                            <p className="text-xs font-bold text-[#0A1A2F]">{info.label}</p>
-                            {!isOpen && <p className="text-[10px] text-[#0A1A2F]/40 mt-0.5 line-clamp-1">{info.desc}</p>}
+                            <p className="text-xs font-bold text-[#0A1A2F] dark:text-white dark:text-white">{info.label}</p>
+                            {!isOpen && <p className="text-[10px] text-[#0A1A2F]/40 dark:text-white/40 mt-0.5 line-clamp-1">{info.desc}</p>}
                           </div>
                           <motion.div animate={{ rotate: isOpen ? 90 : 0 }} transition={{ duration: 0.2 }}>
                             <ChevronRight className="w-4 h-4 text-[#AFC7E3]" />
@@ -364,7 +364,7 @@ export default function PersonalGrowthGoalsPage() {
                           {isOpen && (
                             <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }}
                               className="overflow-hidden">
-                              <p className="text-[11px] text-[#0A1A2F]/55 mt-2 mb-3 leading-relaxed">{info.desc}</p>
+                              <p className="text-[11px] text-[#0A1A2F]/55 dark:text-white/55 mt-2 mb-3 leading-relaxed">{info.desc}</p>
                               <div className="flex flex-wrap gap-1.5">
                                 {info.tools.map(t => (
                                   <span key={t} className="text-[10px] font-semibold px-2 py-1 rounded-full bg-[#AFC7E3]/20 text-[#3C4E53]">{t}</span>
@@ -392,13 +392,13 @@ export default function PersonalGrowthGoalsPage() {
         {/* ── Core values ── */}
         {coreValues.length > 0 && (
           <motion.div id="tour-core-values" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.16 }}
-            className="bg-white rounded-3xl p-5 shadow-sm">
+            className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm">
             <div className="flex items-center gap-2 mb-4">
               <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#EFF9FF]">
                 <Star className="w-4 h-4 text-[#AFC7E3]" />
               </div>
-              <p className="font-bold text-[#0A1A2F] text-sm">Your Core Values</p>
-              <span className="ml-auto text-[10px] text-[#0A1A2F]/35 font-semibold">{coreValues.length} of 5</span>
+              <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">Your Core Values</p>
+              <span className="ml-auto text-[10px] text-[#0A1A2F]/35 dark:text-white/35 font-semibold">{coreValues.length} of 5</span>
             </div>
             <div className="grid grid-cols-2 gap-2 mb-3">
               {coreValues.map((v, i) => {
@@ -408,7 +408,7 @@ export default function PersonalGrowthGoalsPage() {
                   <motion.div key={v} initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.18 + i * 0.04 }}
                     className="flex items-center gap-2.5 bg-[#EFF9FF] border border-[#AFC7E3]/25 rounded-xl px-3 py-2.5">
                     <span className="text-base">{info.emoji}</span>
-                    <span className="text-xs font-bold text-[#0A1A2F]">{info.label}</span>
+                    <span className="text-xs font-bold text-[#0A1A2F] dark:text-white dark:text-white">{info.label}</span>
                   </motion.div>
                 );
               })}
@@ -416,7 +416,7 @@ export default function PersonalGrowthGoalsPage() {
             {/* Value-based affirmation */}
             <div className="bg-[#F8FAFB] rounded-xl px-3.5 py-3 border-l-4 border-[#AFC7E3]">
               <p className="text-[10px] font-bold text-[#AFC7E3] uppercase tracking-widest mb-1">Affirmation rooted in {CORE_VALUE_INFO[primaryValue]?.label || 'your values'}</p>
-              <p className="text-xs font-semibold text-[#0A1A2F] leading-relaxed italic">"{affirmation}"</p>
+              <p className="text-xs font-semibold text-[#0A1A2F] dark:text-white leading-relaxed italic">"{affirmation}"</p>
             </div>
             </motion.div>
             )}
@@ -430,19 +430,19 @@ export default function PersonalGrowthGoalsPage() {
 
         {/* ── Coaching style ── */}
         <motion.div id="tour-coaching-style" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.20 }}
-          className="bg-white rounded-3xl p-5 shadow-sm">
+          className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm">
           <div className="flex items-center gap-2 mb-3">
             <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#EFF9FF]">
               <Compass className="w-4 h-4 text-[#AFC7E3]" />
             </div>
-            <p className="font-bold text-[#0A1A2F] text-sm">Hannah's Coaching Style</p>
+            <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">Hannah's Coaching Style</p>
           </div>
           <div className="flex items-start gap-4 bg-[#EFF9FF] rounded-2xl px-4 py-3.5">
             <span className="text-3xl flex-shrink-0">{styleInfo.emoji}</span>
             <div>
-              <p className="font-bold text-[#0A1A2F] text-sm">{styleInfo.label}</p>
+              <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">{styleInfo.label}</p>
               <p className="text-[#3C4E53] text-xs font-semibold mt-0.5">{styleInfo.time}</p>
-              <p className="text-[11px] text-[#0A1A2F]/55 mt-2 leading-snug">{styleInfo.desc}</p>
+              <p className="text-[11px] text-[#0A1A2F]/55 dark:text-white/55 mt-2 leading-snug">{styleInfo.desc}</p>
               <p className="text-[11px] font-semibold text-[#AFC7E3] mt-2">💡 {styleInfo.tip}</p>
             </div>
           </div>
@@ -458,14 +458,14 @@ export default function PersonalGrowthGoalsPage() {
         {/* ── Recommended daily tools ── */}
         {recommendedTools.length > 0 && (
           <motion.div id="tour-growth-tools" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.24 }}
-            className="bg-white rounded-3xl p-5 shadow-sm">
+            className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm">
             <div className="flex items-center gap-2 mb-4">
               <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#EFF9FF]">
                 <Zap className="w-4 h-4 text-[#AFC7E3]" />
               </div>
               <div>
-                <p className="font-bold text-[#0A1A2F] text-sm">Tools for Your Growth</p>
-                <p className="text-[10px] text-[#0A1A2F]/40">Matched to your areas</p>
+                <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">Tools for Your Growth</p>
+                <p className="text-[10px] text-[#0A1A2F]/40 dark:text-white/40">Matched to your areas</p>
               </div>
             </div>
             <div className="space-y-2">
@@ -476,12 +476,12 @@ export default function PersonalGrowthGoalsPage() {
 
         {/* ── All daily tools shortcut ── */}
         <motion.div id="tour-all-tools" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.28 }}
-          className="bg-white rounded-3xl p-5 shadow-sm">
+          className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm">
           <div className="flex items-center gap-2 mb-3">
             <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#EFF9FF]">
               <Sparkles className="w-4 h-4 text-[#AFC7E3]" />
             </div>
-            <p className="font-bold text-[#0A1A2F] text-sm">All Daily Tools</p>
+            <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">All Daily Tools</p>
           </div>
           <div className="grid grid-cols-2 gap-2">
             {DAILY_TOOLS.filter(t => !recommendedTools.find(r => r.id === t.id)).slice(0, 4).map((t, i) => (
@@ -489,7 +489,7 @@ export default function PersonalGrowthGoalsPage() {
                 <Link to={createPageUrl(t.page)}
                   className="flex items-center gap-2 bg-[#F8FAFB] rounded-xl px-3 py-2.5 hover:bg-[#EFF9FF] transition-colors">
                   <span className="text-base">{t.emoji}</span>
-                  <span className="text-[11px] font-bold text-[#0A1A2F] leading-tight">{t.label}</span>
+                  <span className="text-[11px] font-bold text-[#0A1A2F] dark:text-white leading-tight">{t.label}</span>
                 </Link>
               </motion.div>
             ))}
@@ -513,7 +513,7 @@ export default function PersonalGrowthGoalsPage() {
 
         {/* ── Quick links ── */}
         <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.38 }}>
-          <p className="text-[10px] font-bold text-[#0A1A2F]/35 uppercase tracking-widest mb-2.5">Related Tools</p>
+          <p className="text-[10px] font-bold text-[#0A1A2F]/35 dark:text-white/35 uppercase tracking-widest mb-2.5">Related Tools</p>
           <div className="grid grid-cols-2 gap-2.5">
             {[
               { icon: '🌱', label: 'Personal Growth',    page: 'PersonalGrowth'           },
@@ -522,9 +522,9 @@ export default function PersonalGrowthGoalsPage() {
               { icon: '💬', label: 'Chat w/ Hannah',     page: 'ChatScreen?bot=Hannah'     },
             ].map(({ icon, label, page }) => (
               <Link key={page} to={createPageUrl(page)}
-                className="flex items-center gap-2.5 bg-white rounded-2xl p-3.5 shadow-sm border border-gray-50 active:scale-97 transition-all">
+                className="flex items-center gap-2.5 bg-white dark:bg-white/5 rounded-2xl p-3.5 shadow-sm border border-gray-50 dark:border-white/5 active:scale-97 transition-all">
                 <span className="text-xl">{icon}</span>
-                <span className="text-xs font-bold text-[#0A1A2F] leading-tight">{label}</span>
+                <span className="text-xs font-bold text-[#0A1A2F] dark:text-white leading-tight">{label}</span>
               </Link>
             ))}
           </div>

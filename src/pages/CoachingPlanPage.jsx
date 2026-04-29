@@ -137,7 +137,7 @@ export default function CoachingPlanPage() {
     const isFutureDay = selectedDay.day > currentDay;
 
     return (
-      <div className="min-h-screen bg-[#F2F6FA] pb-24">
+      <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-24">
         {/* Header */}
         <div className="sticky top-0 z-40 bg-[#0A1A2F] border-b border-white/10">
           <div className="max-w-2xl mx-auto px-4 h-14 flex items-center justify-between">
@@ -169,7 +169,7 @@ export default function CoachingPlanPage() {
           {isFutureDay && (
             <div className="bg-white/50 border border-[#FAD98D]/30 rounded-2xl p-4 text-center">
               <Lock className="w-6 h-6 text-[#c9a227]/50 mx-auto mb-1" />
-              <p className="text-[#0A1A2F]/50 text-sm">This day unlocks when you reach it — complete Day {selectedDay.day - 1} first</p>
+              <p className="text-[#0A1A2F]/50 dark:text-white/50 text-sm">This day unlocks when you reach it — complete Day {selectedDay.day - 1} first</p>
             </div>
           )}
 
@@ -210,10 +210,10 @@ export default function CoachingPlanPage() {
             locked={isFutureDay}
           >
             <div className="space-y-3">
-              <p className="text-[#0A1A2F]/80 text-sm leading-relaxed">{selectedDay.devotion.body}</p>
+              <p className="text-[#0A1A2F]/80 dark:text-white/80 text-sm leading-relaxed">{selectedDay.devotion.body}</p>
               <div className="bg-[#c9a227]/8 border border-[#c9a227]/15 rounded-xl p-3">
                 <p className="text-[10px] font-bold text-[#c9a227] uppercase tracking-wider mb-1.5">Prayer</p>
-                <p className="text-[#0A1A2F]/70 text-sm italic leading-relaxed">{selectedDay.devotion.prayer}</p>
+                <p className="text-[#0A1A2F]/70 dark:text-white/70 text-sm italic leading-relaxed">{selectedDay.devotion.prayer}</p>
               </div>
               <Link to={createPageUrl('Bible') + `?book=${encodeURIComponent(selectedDay.devotion.book)}&chapter=${selectedDay.devotion.ch}`}>
                 <Button size="sm" className="w-full bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white">
@@ -246,13 +246,13 @@ export default function CoachingPlanPage() {
                   <Dumbbell className="w-5 h-5 text-white" />
                 </div>
                 <div>
-                  <p className="text-sm font-bold text-[#0A1A2F]">{selectedDay.workout.title}</p>
-                  <p className="text-xs text-[#0A1A2F]/50">{selectedDay.workout.duration} min · {selectedDay.workout.category}</p>
+                  <p className="text-sm font-bold text-[#0A1A2F] dark:text-white dark:text-white">{selectedDay.workout.title}</p>
+                  <p className="text-xs text-[#0A1A2F]/50 dark:text-white/50">{selectedDay.workout.duration} min · {selectedDay.workout.category}</p>
                 </div>
               </div>
               <div className="bg-[#38BDF8]/5 rounded-xl p-3 border border-[#38BDF8]/10">
                 <p className="text-[10px] font-bold text-[#38BDF8] uppercase tracking-wider mb-1">Coach's Tip</p>
-                <p className="text-[#0A1A2F]/70 text-sm leading-relaxed">{selectedDay.workout.tip}</p>
+                <p className="text-[#0A1A2F]/70 dark:text-white/70 text-sm leading-relaxed">{selectedDay.workout.tip}</p>
               </div>
               <Link to={createPageUrl('Workouts')}>
                 <Button size="sm" className="w-full bg-gradient-to-r from-[#38BDF8] to-[#0EA5E9] text-white">
@@ -289,19 +289,19 @@ export default function CoachingPlanPage() {
             <div className="space-y-3">
               <div className="p-3 bg-[#22C55E]/8 border border-[#22C55E]/15 rounded-xl">
                 <p className="text-[10px] font-bold text-[#22c55e] uppercase tracking-wider mb-1">Today's Focus</p>
-                <p className="text-[#0A1A2F] font-semibold text-sm">{selectedDay.nutrition.focus}</p>
+                <p className="text-[#0A1A2F] dark:text-white font-semibold text-sm">{selectedDay.nutrition.focus}</p>
               </div>
-              <div className="p-3 bg-[#F2F6FA] rounded-xl">
-                <p className="text-[10px] font-bold text-[#0A1A2F]/40 uppercase tracking-wider mb-1">Recommended Meal</p>
-                <p className="text-[#0A1A2F]/80 text-sm leading-relaxed">{selectedDay.nutrition.meal}</p>
+              <div className="p-3 bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-xl">
+                <p className="text-[10px] font-bold text-[#0A1A2F]/40 dark:text-white/40 uppercase tracking-wider mb-1">Recommended Meal</p>
+                <p className="text-[#0A1A2F]/80 dark:text-white/80 text-sm leading-relaxed">{selectedDay.nutrition.meal}</p>
               </div>
               <div className="p-3 bg-[#22C55E]/5 rounded-xl border border-[#22C55E]/10">
                 <p className="text-[10px] font-bold text-[#22c55e] uppercase tracking-wider mb-1">Food Log Tip</p>
-                <p className="text-[#0A1A2F]/70 text-sm leading-relaxed">{selectedDay.nutrition.logTip}</p>
+                <p className="text-[#0A1A2F]/70 dark:text-white/70 text-sm leading-relaxed">{selectedDay.nutrition.logTip}</p>
               </div>
-              <div className="p-3 bg-white border border-[#22C55E]/15 rounded-xl">
+              <div className="p-3 bg-white dark:bg-white/5 border border-[#22C55E]/15 rounded-xl">
                 <p className="text-[10px] font-bold text-[#22c55e] uppercase tracking-wider mb-1">Nutrition Insight</p>
-                <p className="text-[#0A1A2F]/70 text-sm leading-relaxed">{selectedDay.nutrition.tip}</p>
+                <p className="text-[#0A1A2F]/70 dark:text-white/70 text-sm leading-relaxed">{selectedDay.nutrition.tip}</p>
               </div>
               <div className="flex gap-2">
                 <Link to={createPageUrl('Nutrition')} className="flex-1">
@@ -336,15 +336,15 @@ export default function CoachingPlanPage() {
             <div className="space-y-3">
               <div className="p-4 bg-gradient-to-br from-[#a78bfa]/10 to-[#8B5CF6]/5 border border-[#a78bfa]/20 rounded-xl">
                 <p className="text-[10px] font-bold text-[#a78bfa] uppercase tracking-wider mb-2">Journal Prompt</p>
-                <p className="text-[#0A1A2F]/80 text-sm leading-relaxed font-medium italic">"{selectedDay.growth.journalPrompt}"</p>
+                <p className="text-[#0A1A2F]/80 dark:text-white/80 text-sm leading-relaxed font-medium italic">"{selectedDay.growth.journalPrompt}"</p>
               </div>
-              <div className="p-3 bg-[#F2F6FA] rounded-xl">
-                <p className="text-[10px] font-bold text-[#0A1A2F]/40 uppercase tracking-wider mb-1">Today's Reflection</p>
-                <p className="text-[#0A1A2F]/70 text-sm leading-relaxed">{selectedDay.growth.reflection}</p>
+              <div className="p-3 bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-xl">
+                <p className="text-[10px] font-bold text-[#0A1A2F]/40 dark:text-white/40 uppercase tracking-wider mb-1">Today's Reflection</p>
+                <p className="text-[#0A1A2F]/70 dark:text-white/70 text-sm leading-relaxed">{selectedDay.growth.reflection}</p>
               </div>
               <div className="p-3 bg-[#a78bfa]/5 border border-[#a78bfa]/10 rounded-xl">
                 <p className="text-[10px] font-bold text-[#a78bfa] uppercase tracking-wider mb-1">Habit Action</p>
-                <p className="text-[#0A1A2F]/70 text-sm leading-relaxed">{selectedDay.growth.habit}</p>
+                <p className="text-[#0A1A2F]/70 dark:text-white/70 text-sm leading-relaxed">{selectedDay.growth.habit}</p>
               </div>
               <Link to={createPageUrl(selectedDay.growth.appLink)}>
                 <Button size="sm" className="w-full bg-gradient-to-r from-[#a78bfa] to-[#8B5CF6] text-white">
@@ -382,8 +382,8 @@ export default function CoachingPlanPage() {
           {dayProgress.completed && (
             <div className="bg-gradient-to-r from-[#c9a227]/15 to-[#FAD98D]/10 border border-[#c9a227]/30 rounded-2xl p-4 text-center">
               <CheckCircle2 className="w-8 h-8 text-[#c9a227] mx-auto mb-2" />
-              <p className="text-[#0A1A2F] font-bold">Day {selectedDay.day} Complete!</p>
-              <p className="text-[#0A1A2F]/50 text-sm mt-0.5">Well done, faithful servant. 🏆</p>
+              <p className="text-[#0A1A2F] dark:text-white font-bold">Day {selectedDay.day} Complete!</p>
+              <p className="text-[#0A1A2F]/50 dark:text-white/50 text-sm mt-0.5">Well done, faithful servant. 🏆</p>
               {selectedDay.day < plan.totalDays && (
                 <button
                   onClick={() => openDay(selectedDay.day + 1)}
@@ -399,13 +399,13 @@ export default function CoachingPlanPage() {
           <div className="flex gap-2 pt-2">
             {selectedDay.day > 1 && (
               <button onClick={() => openDay(selectedDay.day - 1)}
-                className="flex-1 flex items-center justify-center gap-2 py-3 bg-white border border-[#F2F6FA] rounded-xl text-sm text-[#0A1A2F]/60 hover:bg-[#F2F6FA]">
+                className="flex-1 flex items-center justify-center gap-2 py-3 bg-white dark:bg-white/5 border border-[#F2F6FA] rounded-xl text-sm text-[#0A1A2F]/60 dark:text-white/60 hover:bg-[#F2F6FA] dark:bg-[#0A1A2F]">
                 <ChevronLeft className="w-4 h-4" /> Day {selectedDay.day - 1}
               </button>
             )}
             {selectedDay.day < plan.totalDays && (
               <button onClick={() => openDay(selectedDay.day + 1)}
-                className="flex-1 flex items-center justify-center gap-2 py-3 bg-white border border-[#F2F6FA] rounded-xl text-sm text-[#0A1A2F]/60 hover:bg-[#F2F6FA]">
+                className="flex-1 flex items-center justify-center gap-2 py-3 bg-white dark:bg-white/5 border border-[#F2F6FA] rounded-xl text-sm text-[#0A1A2F]/60 dark:text-white/60 hover:bg-[#F2F6FA] dark:bg-[#0A1A2F]">
                 Day {selectedDay.day + 1} <ChevronRight className="w-4 h-4" />
               </button>
             )}
@@ -419,20 +419,20 @@ export default function CoachingPlanPage() {
   const activeWeek = plan.weeks[selectedWeek];
 
   return (
-    <div className="min-h-screen bg-[#F2F6FA] pb-24">
+    <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-24">
       {/* Header */}
-      <div className="sticky top-0 z-40 bg-white border-b border-[#F2F6FA]">
+      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#F2F6FA]">
         <div className="max-w-2xl mx-auto px-4 h-14 flex items-center gap-3">
           <button onClick={() => navigate(-1)} className="w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center flex-shrink-0">
-            <ArrowLeft className="w-4 h-4 text-[#0A1A2F]" />
+            <ArrowLeft className="w-4 h-4 text-[#0A1A2F] dark:text-white dark:text-white" />
           </button>
           <div className="flex-1">
-            <p className="font-bold text-[#0A1A2F] text-sm leading-tight">Prosperity Revived</p>
-            <p className="text-[10px] text-[#0A1A2F]/40">8-Week Coaching Plan</p>
+            <p className="font-bold text-[#0A1A2F] dark:text-white text-sm leading-tight">Prosperity Revived</p>
+            <p className="text-[10px] text-[#0A1A2F]/40 dark:text-white/40">8-Week Coaching Plan</p>
           </div>
           <div className="text-right">
             <p className="text-[#c9a227] font-bold text-sm">{overallPct}%</p>
-            <p className="text-[10px] text-[#0A1A2F]/40">complete</p>
+            <p className="text-[10px] text-[#0A1A2F]/40 dark:text-white/40">complete</p>
           </div>
         </div>
       </div>
@@ -446,7 +446,7 @@ export default function CoachingPlanPage() {
         >
           <div className="absolute inset-0 opacity-5">
             <div className="absolute top-4 right-4 w-32 h-32 rounded-full bg-[#c9a227] blur-3xl" />
-            <div className="absolute bottom-0 left-0 w-24 h-24 rounded-full bg-white blur-2xl" />
+            <div className="absolute bottom-0 left-0 w-24 h-24 rounded-full bg-white dark:bg-white/5 blur-2xl" />
           </div>
           <div className="relative">
             <div className="flex items-center gap-2 mb-3">
@@ -491,8 +491,8 @@ export default function CoachingPlanPage() {
                 <span className="text-lg">{cfg.emoji}</span>
               </div>
               <div>
-                <p className="text-xs font-bold text-[#0A1A2F]">{cfg.label}</p>
-                <p className="text-[10px] text-[#0A1A2F]/50">Daily · All 56 days</p>
+                <p className="text-xs font-bold text-[#0A1A2F] dark:text-white dark:text-white">{cfg.label}</p>
+                <p className="text-[10px] text-[#0A1A2F]/50 dark:text-white/50">Daily · All 56 days</p>
               </div>
             </div>
           ))}
@@ -500,7 +500,7 @@ export default function CoachingPlanPage() {
 
         {/* Week Selector */}
         <div className="mb-4">
-          <p className="text-xs font-bold text-[#0A1A2F]/50 uppercase tracking-wider mb-3">Weeks</p>
+          <p className="text-xs font-bold text-[#0A1A2F]/50 dark:text-white/50 uppercase tracking-wider mb-3">Weeks</p>
           <div className="grid grid-cols-4 gap-2">
             {plan.weeks.map((week, i) => {
               const weekDays = week.days;
@@ -511,12 +511,12 @@ export default function CoachingPlanPage() {
                   className={`rounded-xl p-3 text-left transition-all border ${
                     selectedWeek === i
                       ? 'bg-[#0A1A2F] border-[#0A1A2F] shadow-md'
-                      : 'bg-white border-[#F2F6FA] hover:border-[#FAD98D]/50'
+                      : 'bg-white dark:bg-white/5 border-[#F2F6FA] hover:border-[#FAD98D]/50'
                   }`}>
-                  <p className={`text-[10px] font-bold mb-1 ${selectedWeek === i ? 'text-[#c9a227]' : 'text-[#0A1A2F]/40'}`}>
+                  <p className={`text-[10px] font-bold mb-1 ${selectedWeek === i ? 'text-[#c9a227]' : 'text-[#0A1A2F]/40 dark:text-white/40'}`}>
                     Week {i + 1}
                   </p>
-                  <p className={`text-xs font-bold leading-tight ${selectedWeek === i ? 'text-white' : 'text-[#0A1A2F]'}`}>
+                  <p className={`text-xs font-bold leading-tight ${selectedWeek === i ? 'text-white' : 'text-[#0A1A2F] dark:text-white dark:text-white'}`}>
                     {week.theme}
                   </p>
                   <div className="mt-2 h-1 rounded-full overflow-hidden bg-white/10">
@@ -525,7 +525,7 @@ export default function CoachingPlanPage() {
                       style={{ width: `${(completedInWeek / weekDays.length) * 100}%` }}
                     />
                   </div>
-                  <p className={`text-[9px] mt-1 ${selectedWeek === i ? 'text-white/40' : 'text-[#0A1A2F]/30'}`}>
+                  <p className={`text-[9px] mt-1 ${selectedWeek === i ? 'text-white/40' : 'text-[#0A1A2F]/30 dark:text-white/30'}`}>
                     {completedInWeek}/{weekDays.length}
                   </p>
                 </button>
@@ -572,20 +572,20 @@ export default function CoachingPlanPage() {
                     onClick={() => openDay(d.day)}
                     className={`w-full flex items-center gap-3 p-3.5 rounded-xl text-left transition-all border ${
                       done ? 'bg-[#c9a227]/8 border-[#c9a227]/20' :
-                      isToday ? 'bg-white border-[#c9a227]/40 shadow-sm' :
+                      isToday ? 'bg-white dark:bg-white/5 border-[#c9a227]/40 shadow-sm' :
                       isPast ? 'bg-white/60 border-[#F2F6FA]' :
-                      'bg-white border-[#F2F6FA] opacity-60'
+                      'bg-white dark:bg-white/5 border-[#F2F6FA] opacity-60'
                     }`}
                   >
                     {/* Day number */}
                     <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${
                       done ? 'bg-[#c9a227]' :
                       isToday ? 'bg-[#c9a227]/15 border-2 border-[#c9a227]' :
-                      'bg-[#F2F6FA]'
+                      'bg-[#F2F6FA] dark:bg-[#0A1A2F]'
                     }`}>
                       {done
                         ? <CheckCircle2 className="w-5 h-5 text-white" />
-                        : <span className={`text-sm font-bold ${isToday ? 'text-[#c9a227]' : 'text-[#0A1A2F]/50'}`}>{d.day}</span>
+                        : <span className={`text-sm font-bold ${isToday ? 'text-[#c9a227]' : 'text-[#0A1A2F]/50 dark:text-white/50'}`}>{d.day}</span>
                       }
                     </div>
 
@@ -593,11 +593,11 @@ export default function CoachingPlanPage() {
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-1.5 mb-0.5">
                         {isToday && <span className="text-[9px] font-bold text-[#c9a227] bg-[#c9a227]/15 px-1.5 py-0.5 rounded-full uppercase tracking-wider">Today</span>}
-                        <p className={`text-xs font-bold truncate ${done ? 'text-[#0A1A2F]/60 line-through' : 'text-[#0A1A2F]'}`}>
+                        <p className={`text-xs font-bold truncate ${done ? 'text-[#0A1A2F]/60 dark:text-white/60 line-through' : 'text-[#0A1A2F] dark:text-white dark:text-white'}`}>
                           {d.devotion.title}
                         </p>
                       </div>
-                      <p className="text-[10px] text-[#0A1A2F]/40 truncate">{d.devotion.ref} · {d.workout.duration}min {d.workout.category}</p>
+                      <p className="text-[10px] text-[#0A1A2F]/40 dark:text-white/40 truncate">{d.devotion.ref} · {d.workout.duration}min {d.workout.category}</p>
                       {/* Pillar progress dots */}
                       {(isPast || isToday) && (
                         <div className="flex gap-1 mt-1.5">
@@ -609,8 +609,8 @@ export default function CoachingPlanPage() {
                     </div>
 
                     {isFuture && !isPast
-                      ? <Lock className="w-4 h-4 text-[#0A1A2F]/20 flex-shrink-0" />
-                      : <ChevronRight className="w-4 h-4 text-[#0A1A2F]/25 flex-shrink-0" />
+                      ? <Lock className="w-4 h-4 text-[#0A1A2F]/20 dark:text-white/20 flex-shrink-0" />
+                      : <ChevronRight className="w-4 h-4 text-[#0A1A2F]/25 dark:text-white/25 flex-shrink-0" />
                     }
                   </motion.button>
                 );
@@ -629,7 +629,7 @@ function PillarCard({ pillarKey, data, done, expanded, onToggleExpand, onToggleD
   const Icon = cfg.icon;
 
   return (
-    <div className={`bg-white rounded-2xl border transition-all shadow-sm overflow-hidden ${
+    <div className={`bg-white dark:bg-white/5 rounded-2xl border transition-all shadow-sm overflow-hidden ${
       done ? `border-[${cfg.color}]/30` : 'border-[#F2F6FA]'
     }`}>
       <button
@@ -646,8 +646,8 @@ function PillarCard({ pillarKey, data, done, expanded, onToggleExpand, onToggleD
           }
         </div>
         <div className="flex-1 min-w-0">
-          <p className="text-sm font-bold text-[#0A1A2F]">{cfg.label}</p>
-          <p className="text-xs text-[#0A1A2F]/45 mt-0.5 truncate">
+          <p className="text-sm font-bold text-[#0A1A2F] dark:text-white dark:text-white">{cfg.label}</p>
+          <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45 mt-0.5 truncate">
             {pillarKey === 'devotion' && data.ref}
             {pillarKey === 'workout' && `${data.duration} min · ${data.category}`}
             {pillarKey === 'nutrition' && data.focus}
@@ -668,8 +668,8 @@ function PillarCard({ pillarKey, data, done, expanded, onToggleExpand, onToggleD
             </button>
           )}
           {expanded
-            ? <ChevronUp className="w-4 h-4 text-[#0A1A2F]/30" />
-            : <ChevronDown className="w-4 h-4 text-[#0A1A2F]/30" />
+            ? <ChevronUp className="w-4 h-4 text-[#0A1A2F]/30 dark:text-white/30" />
+            : <ChevronDown className="w-4 h-4 text-[#0A1A2F]/30 dark:text-white/30" />
           }
         </div>
       </button>

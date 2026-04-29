@@ -63,9 +63,9 @@ function RequestCard({ right, onSend }) {
   };
 
   return (
-    <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden">
+    <div className="bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 overflow-hidden">
       <button
-        className="w-full flex items-center gap-3 px-4 py-3.5 text-left hover:bg-gray-50 transition-colors"
+        className="w-full flex items-center gap-3 px-4 py-3.5 text-left hover:bg-gray-50 dark:bg-white/5 transition-colors"
         onClick={() => setOpen(v => !v)}
       >
         <div
@@ -75,7 +75,7 @@ function RequestCard({ right, onSend }) {
           <Icon className="w-4 h-4" style={{ color: right.color }} />
         </div>
         <div className="flex-1 min-w-0">
-          <p className="text-sm font-semibold text-[#0A1A2F]">{right.title}</p>
+          <p className="text-sm font-semibold text-[#0A1A2F] dark:text-white dark:text-white">{right.title}</p>
           <p className="text-xs text-gray-500 mt-0.5">{right.desc}</p>
         </div>
         {open
@@ -93,7 +93,7 @@ function RequestCard({ right, onSend }) {
             transition={{ duration: 0.2 }}
             className="overflow-hidden"
           >
-            <div className="px-4 pb-4 pt-1 border-t border-gray-50 space-y-3">
+            <div className="px-4 pb-4 pt-1 border-t border-gray-50 dark:border-white/5 space-y-3">
               <p className="text-xs text-gray-500 leading-relaxed">
                 We'll respond within <strong>30 days</strong> (or 72 hours for breaches). Under GDPR and CCPA you have the right to make this request at no charge.
               </p>
@@ -178,10 +178,10 @@ export default function ManageMyData({ user }) {
             >
               <div className="space-y-2 pt-2">
                 {DATA_CATEGORIES.map(cat => (
-                  <div key={cat.label} className="bg-[#F2F6FA] rounded-2xl px-4 py-3">
+                  <div key={cat.label} className="bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-2xl px-4 py-3">
                     <div className="flex items-center gap-2 mb-1.5">
                       <span className="text-base">{cat.icon}</span>
-                      <p className="text-xs font-bold text-[#0A1A2F]">{cat.label}</p>
+                      <p className="text-xs font-bold text-[#0A1A2F] dark:text-white dark:text-white">{cat.label}</p>
                     </div>
                     <ul className="space-y-0.5">
                       {cat.items.map(item => (
@@ -226,10 +226,10 @@ export default function ManageMyData({ user }) {
       </div>
 
       {/* Quick note */}
-      <div className="bg-[#F2F6FA] rounded-2xl p-4 flex gap-3">
+      <div className="bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-2xl p-4 flex gap-3">
         <Check className="w-4 h-4 text-[#C9A227] flex-shrink-0 mt-0.5" />
         <div>
-          <p className="text-xs font-bold text-[#0A1A2F] mb-0.5">Your data is never sold</p>
+          <p className="text-xs font-bold text-[#0A1A2F] dark:text-white mb-0.5">Your data is never sold</p>
           <p className="text-xs text-gray-500 leading-relaxed">
             We never sell your personal information or use your health data, journals, or prayer logs for advertising.
             You can delete your entire account and all data from the button below at any time.

@@ -50,11 +50,11 @@ export default function GratitudeMoodChart({ entries }) {
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-white rounded-2xl border border-gray-200 shadow-sm p-5"
+      className="bg-white dark:bg-white/5 rounded-2xl border border-gray-200 dark:border-white/10 shadow-sm p-5"
     >
       <div className="flex items-center gap-2 mb-4">
         <BarChart2 className="w-5 h-5 text-[#FD9C2D]" />
-        <h3 className="font-semibold text-[#0A1A2F]">Mood Over Time</h3>
+        <h3 className="font-semibold text-[#0A1A2F] dark:text-white dark:text-white">Mood Over Time</h3>
         {avgScore && (
           <span className="ml-auto text-xs text-gray-400">Avg: <span className="text-[#FD9C2D] font-semibold">{avgScore}/10</span></span>
         )}
@@ -87,7 +87,7 @@ export default function GratitudeMoodChart({ entries }) {
       )}
 
       {topMoods.length > 0 && (
-        <div className="mt-4 pt-4 border-t border-gray-100">
+        <div className="mt-4 pt-4 border-t border-gray-100 dark:border-white/10">
           <p className="text-xs text-gray-400 mb-2">Most frequent moods</p>
           <div className="flex flex-wrap gap-2">
             {topMoods.map(([mood, count]) => (

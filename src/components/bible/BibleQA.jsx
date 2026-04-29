@@ -71,21 +71,21 @@ Provide a clear, encouraging answer that:
         <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center">
           <Sparkles className="w-8 h-8 text-white" />
         </div>
-        <h2 className="text-2xl font-bold text-[#0A1A2F] mb-2">Ask a Bible Question</h2>
-        <p className="text-[#0A1A2F]/50">Get biblical guidance and wisdom</p>
+        <h2 className="text-2xl font-bold text-[#0A1A2F] dark:text-white mb-2">Ask a Bible Question</h2>
+        <p className="text-[#0A1A2F]/50 dark:text-white/50">Get biblical guidance and wisdom</p>
       </motion.div>
 
       {/* Question Input */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-[#F2F6FA] rounded-2xl p-6 shadow-lg"
+        className="bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-2xl p-6 shadow-lg"
       >
         <Textarea
           value={question}
           onChange={(e) => setQuestion(e.target.value)}
           placeholder="What would you like to know from Scripture?"
-          className="min-h-[100px] mb-4 resize-none bg-[#F2F6FA] border-[#FAD98D]/20"
+          className="min-h-[100px] mb-4 resize-none bg-[#F2F6FA] dark:bg-[#0A1A2F] border-[#FAD98D]/20"
           onKeyDown={(e) => {
             if (e.key === 'Enter' && !e.shiftKey) {
               e.preventDefault();
@@ -120,7 +120,7 @@ Provide a clear, encouraging answer that:
           transition={{ delay: 0.2 }}
           className="space-y-3"
         >
-          <p className="text-sm font-medium text-[#0A1A2F]/50">Suggested Questions:</p>
+          <p className="text-sm font-medium text-[#0A1A2F]/50 dark:text-white/50">Suggested Questions:</p>
           {suggestedQuestions.map((q, i) => (
             <motion.button
               key={i}
@@ -128,7 +128,7 @@ Provide a clear, encouraging answer that:
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.3 + i * 0.1 }}
               onClick={() => handleSuggestedQuestion(q)}
-              className="w-full text-left bg-[#F2F6FA] rounded-xl p-4 hover:shadow-md transition-all border border-[#FAD98D]/15 group"
+              className="w-full text-left bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-xl p-4 hover:shadow-md transition-all border border-[#FAD98D]/15 group"
             >
               <div className="flex items-start gap-3">
                 <BookOpen className="w-5 h-5 text-[#c9a227] mt-0.5 group-hover:scale-110 transition-transform" />
@@ -144,11 +144,11 @@ Provide a clear, encouraging answer that:
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-[#F2F6FA] rounded-2xl p-6 shadow-lg border-2 border-[#c9a227]/20"
+          className="bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-2xl p-6 shadow-lg border-2 border-[#c9a227]/20"
         >
           <div className="flex items-center gap-2 mb-4">
             <Sparkles className="w-5 h-5 text-[#c9a227]" />
-            <h3 className="font-semibold text-[#0A1A2F]">Biblical Answer</h3>
+            <h3 className="font-semibold text-[#0A1A2F] dark:text-white dark:text-white">Biblical Answer</h3>
           </div>
           <div className="prose prose-sm max-w-none">
             <p className="text-[#0A1A2F]/75 whitespace-pre-wrap leading-relaxed">
@@ -161,19 +161,19 @@ Provide a clear, encouraging answer that:
       {/* History */}
       {history.length > 0 && (
         <div className="space-y-4">
-          <h3 className="text-lg font-semibold text-[#0A1A2F]">Previous Questions</h3>
+          <h3 className="text-lg font-semibold text-[#0A1A2F] dark:text-white dark:text-white">Previous Questions</h3>
           {history.slice(1).map((entry, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="bg-[#F2F6FA] rounded-xl p-5 shadow-sm border border-[#FAD98D]/15"
+              className="bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-xl p-5 shadow-sm border border-[#FAD98D]/15"
             >
               <div className="flex items-start gap-2 mb-3">
                 <BookOpen className="w-4 h-4 text-[#c9a227] mt-1 flex-shrink-0" />
-                <p className="font-medium text-[#0A1A2F] text-sm">{entry.question}</p>
+                <p className="font-medium text-[#0A1A2F] dark:text-white text-sm">{entry.question}</p>
               </div>
-              <p className="text-sm text-[#0A1A2F]/60 whitespace-pre-wrap leading-relaxed">
+              <p className="text-sm text-[#0A1A2F]/60 dark:text-white/60 whitespace-pre-wrap leading-relaxed">
                 {entry.answer}
               </p>
             </motion.div>

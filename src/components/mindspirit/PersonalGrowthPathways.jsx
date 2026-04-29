@@ -67,7 +67,7 @@ export default function PersonalGrowthPathways() {
         animate={{ opacity: 1, y: 0 }}
         className="mb-6"
       >
-        <h3 className="text-lg font-bold text-[#0A1A2F] mb-3">Personal Growth Pathways</h3>
+        <h3 className="text-lg font-bold text-[#0A1A2F] dark:text-white mb-3">Personal Growth Pathways</h3>
         <div className="grid grid-cols-2 gap-3">
           {pathways.map((pathway, index) => {
             const Icon = pathway.icon;
@@ -78,11 +78,11 @@ export default function PersonalGrowthPathways() {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: index * 0.05 }}
                 onClick={() => setSelectedPathway(pathway)}
-                className="bg-white rounded-xl p-4 border border-gray-200 hover:border-[#FAD98D] hover:shadow-md transition-all text-left"
+                className="bg-white dark:bg-white/5 rounded-xl p-4 border border-gray-200 dark:border-white/10 hover:border-[#FAD98D] hover:shadow-md transition-all text-left"
               >
                 <Icon className="w-6 h-6 mb-2" style={{ color: pathway.color }} />
-                <h4 className="text-sm font-semibold text-[#0A1A2F] mb-1">{pathway.title}</h4>
-                <ChevronRight className="w-4 h-4 text-[#0A1A2F]/40" />
+                <h4 className="text-sm font-semibold text-[#0A1A2F] dark:text-white mb-1">{pathway.title}</h4>
+                <ChevronRight className="w-4 h-4 text-[#0A1A2F]/40 dark:text-white/40" />
               </motion.button>
             );
           })}
@@ -98,34 +98,34 @@ export default function PersonalGrowthPathways() {
                   className: "w-8 h-8",
                   style: { color: selectedPathway.color }
                 })}
-                <h2 className="text-2xl font-bold text-[#0A1A2F]">{selectedPathway.title}</h2>
+                <h2 className="text-2xl font-bold text-[#0A1A2F] dark:text-white dark:text-white">{selectedPathway.title}</h2>
               </div>
 
               <div className="space-y-6">
                 <div>
-                  <h3 className="text-sm font-semibold text-[#0A1A2F]/60 mb-2">Teaching</h3>
-                  <p className="text-[#0A1A2F]">{selectedPathway.teaching}</p>
+                  <h3 className="text-sm font-semibold text-[#0A1A2F]/60 dark:text-white/60 mb-2">Teaching</h3>
+                  <p className="text-[#0A1A2F] dark:text-white dark:text-white">{selectedPathway.teaching}</p>
                 </div>
 
                 <div className="bg-[#FAD98D]/10 rounded-xl p-4">
                   <p className="text-sm font-semibold text-[#FAD98D] mb-1">Scripture</p>
-                  <p className="text-sm text-[#0A1A2F] italic">{selectedPathway.scripture}</p>
+                  <p className="text-sm text-[#0A1A2F] dark:text-white italic">{selectedPathway.scripture}</p>
                 </div>
 
                 <div>
-                  <h3 className="text-sm font-semibold text-[#0A1A2F]/60 mb-2">Reflection</h3>
-                  <p className="text-[#0A1A2F] italic">{selectedPathway.reflection}</p>
+                  <h3 className="text-sm font-semibold text-[#0A1A2F]/60 dark:text-white/60 mb-2">Reflection</h3>
+                  <p className="text-[#0A1A2F] dark:text-white italic">{selectedPathway.reflection}</p>
                 </div>
 
                 <div className="bg-[#AFC7E3]/10 rounded-xl p-4">
                   <h3 className="text-sm font-semibold text-[#AFC7E3] mb-2">Action Step</h3>
-                  <p className="text-sm text-[#0A1A2F]">{selectedPathway.action}</p>
+                  <p className="text-sm text-[#0A1A2F] dark:text-white dark:text-white">{selectedPathway.action}</p>
                 </div>
               </div>
 
               <Button
                 onClick={() => setSelectedPathway(null)}
-                className="w-full mt-6 bg-[#FAD98D] hover:bg-[#FAD98D]/90 text-[#0A1A2F]"
+                className="w-full mt-6 bg-[#FAD98D] hover:bg-[#FAD98D]/90 text-[#0A1A2F] dark:text-white dark:text-white"
               >
                 Close
               </Button>

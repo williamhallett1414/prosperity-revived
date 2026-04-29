@@ -79,7 +79,7 @@ export default function SermonNotes() {
       </Button>
 
       {notes.length === 0 ? (
-        <div className="text-center py-16 bg-white rounded-2xl">
+        <div className="text-center py-16 bg-white dark:bg-white/5 rounded-2xl">
           <Mic className="w-12 h-12 text-gray-300 mx-auto mb-3" />
           <p className="text-gray-500 mb-4">No sermon notes yet</p>
           <Button onClick={() => setShowCreate(true)}>
@@ -94,11 +94,11 @@ export default function SermonNotes() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.05 }}
-              className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100"
+              className="bg-white dark:bg-white/5 rounded-2xl p-5 shadow-sm border border-gray-100 dark:border-white/10"
             >
               <div className="flex items-start justify-between mb-3">
                 <div>
-                  <h3 className="font-semibold text-[#0A1A2F] text-lg">{note.title}</h3>
+                  <h3 className="font-semibold text-[#0A1A2F] dark:text-white text-lg">{note.title}</h3>
                   <div className="flex items-center gap-3 mt-1 text-sm text-gray-500">
                     {note.speaker && (
                       <span className="flex items-center gap-1">
@@ -149,8 +149,8 @@ export default function SermonNotes() {
               )}
 
               {note.action_items && note.action_items.length > 0 && (
-                <div className="bg-[#F2F6FA] rounded-lg p-3">
-                  <p className="text-sm font-semibold text-[#0A1A2F] mb-2 flex items-center gap-2">
+                <div className="bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-lg p-3">
+                  <p className="text-sm font-semibold text-[#0A1A2F] dark:text-white mb-2 flex items-center gap-2">
                     <ListChecks className="w-4 h-4" />
                     Action Items:
                   </p>

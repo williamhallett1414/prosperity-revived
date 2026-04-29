@@ -29,7 +29,7 @@ const CATEGORY_META = {
   flexibility: { label: 'Flexibility', icon: <Heart className="w-3.5 h-3.5" />, color: 'bg-green-100 text-green-700 border-green-200', bar: 'bg-green-500' },
   hiit: { label: 'HIIT', icon: <Flame className="w-3.5 h-3.5" />, color: 'bg-red-100 text-red-700 border-red-200', bar: 'bg-red-500' },
   full_body: { label: 'Full Body', icon: <Dumbbell className="w-3.5 h-3.5" />, color: 'bg-[#FAD98D]/30 text-[#3C4E53] border-[#FAD98D]', bar: 'bg-[#FAD98D]' },
-  rest: { label: 'Rest', icon: <Heart className="w-3.5 h-3.5" />, color: 'bg-gray-100 text-gray-500 border-gray-200', bar: 'bg-gray-400' }
+  rest: { label: 'Rest', icon: <Heart className="w-3.5 h-3.5" />, color: 'bg-gray-100 text-gray-500 border-gray-200 dark:border-white/10', bar: 'bg-gray-400' }
 };
 
 const DIFF_META = {
@@ -100,7 +100,7 @@ function CategoryBadge({ category }) {
 function WorkoutMiniCard({ workout, onRemove }) {
   const meta = CATEGORY_META[workout.category] || CATEGORY_META.full_body;
   return (
-    <div className={`flex items-center gap-2.5 p-2.5 rounded-xl bg-white border-l-4 shadow-sm group`}
+    <div className={`flex items-center gap-2.5 p-2.5 rounded-xl bg-white dark:bg-white/5 border-l-4 shadow-sm group`}
     style={{ borderLeftColor: meta.bar.replace('bg-', '').startsWith('#') ? meta.bar.replace('bg-', '') : undefined }}>
       
       <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${meta.color}`}>
@@ -147,7 +147,7 @@ function AddWorkoutSheet({ dayIdx, onClose, onAdd }) {
     <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/50"
     onClick={(e) => e.target === e.currentTarget && onClose()}>
       
-      <div className="bg-gray-50 rounded-t-3xl w-full max-w-lg max-h-[92vh] flex flex-col overflow-hidden shadow-2xl relative">
+      <div className="bg-gray-50 dark:bg-white/5 rounded-t-3xl w-full max-w-lg max-h-[92vh] flex flex-col overflow-hidden shadow-2xl relative">
         {/* Header */}
         <div className="bg-[#3C4E53] px-5 pt-5 pb-4 relative overflow-hidden">
           <div className="absolute top-0 right-0 w-24 h-24 rounded-bl-full bg-[#FD9C2D]/10" />
@@ -165,20 +165,20 @@ function AddWorkoutSheet({ dayIdx, onClose, onAdd }) {
         </div>
 
         {/* Search + Filters */}
-        <div className="px-4 pt-4 pb-3 space-y-3 flex-shrink-0 bg-gray-50 border-b border-gray-200">
+        <div className="px-4 pt-4 pb-3 space-y-3 flex-shrink-0 bg-gray-50 dark:bg-white/5 border-b border-gray-200 dark:border-white/10">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
             <input
               value={search} onChange={(e) => setSearch(e.target.value)}
               placeholder="Search workouts..."
-              className="w-full pl-9 pr-4 py-2.5 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:border-[#FD9C2D] focus:ring-2 focus:ring-[#FD9C2D]/20" />
+              className="w-full pl-9 pr-4 py-2.5 rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 text-sm focus:outline-none focus:border-[#FD9C2D] focus:ring-2 focus:ring-[#FD9C2D]/20" />
 
           </div>
           <div className="flex gap-2 overflow-x-auto scrollbar-none">
             {categories.slice(0, 7).map((cat) =>
             <button key={cat} onClick={() => setCatFilter(cat)}
             className={`flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-semibold border transition-all
-                  ${catFilter === cat ? 'bg-[#FD9C2D] text-white border-[#FD9C2D]' : 'bg-white text-gray-500 border-gray-200 hover:border-[#FD9C2D]/50'}`}>
+                  ${catFilter === cat ? 'bg-[#FD9C2D] text-white border-[#FD9C2D]' : 'bg-white dark:bg-white/5 text-gray-500 border-gray-200 dark:border-white/10 hover:border-[#FD9C2D]/50'}`}>
 
                 {cat === 'all' ? 'All' : CATEGORY_META[cat]?.label || cat}
               </button>
@@ -201,8 +201,8 @@ function AddWorkoutSheet({ dayIdx, onClose, onAdd }) {
             const isExpanded = expanded === w.id;
             return (
               <div key={w.id}
-              className={`bg-white rounded-2xl border-2 overflow-hidden transition-all cursor-pointer
-                  ${isSelected ? 'border-[#FD9C2D] shadow-md shadow-[#FD9C2D]/10' : 'border-transparent hover:border-gray-200'}`}
+              className={`bg-white dark:bg-white/5 rounded-2xl border-2 overflow-hidden transition-all cursor-pointer
+                  ${isSelected ? 'border-[#FD9C2D] shadow-md shadow-[#FD9C2D]/10' : 'border-transparent hover:border-gray-200 dark:border-white/10'}`}
               onClick={() => {setSelected(isSelected ? null : w);setExpanded(isExpanded ? null : w.id);}}>
                 
                 <div className="flex items-center gap-3 p-3.5">
@@ -226,11 +226,11 @@ function AddWorkoutSheet({ dayIdx, onClose, onAdd }) {
 
                 {/* Expanded exercise list */}
                 {isExpanded &&
-                <div className="px-4 pb-3 border-t border-gray-50">
+                <div className="px-4 pb-3 border-t border-gray-50 dark:border-white/5">
                     <p className="text-[10px] text-gray-400 font-semibold uppercase tracking-wide my-2">Exercises</p>
                     <div className="grid grid-cols-2 gap-1.5 mb-3">
                       {(w.exercises || []).map((ex, i) =>
-                    <div key={i} className="bg-gray-50 rounded-lg px-2 py-1.5">
+                    <div key={i} className="bg-gray-50 dark:bg-white/5 rounded-lg px-2 py-1.5">
                           <p className="text-xs font-semibold text-[#3C4E53] leading-tight">{ex.name}</p>
                           <p className="text-[10px] text-gray-400">
                             {ex.duration_seconds ? `${ex.duration_seconds}s` : `${ex.sets}×${ex.reps}`}
@@ -249,7 +249,7 @@ function AddWorkoutSheet({ dayIdx, onClose, onAdd }) {
         </div>
 
         {/* CTA Footer — fixed below scroll */}
-        <div className="p-4 bg-white border-t border-gray-200 shadow-2xl shadow-black/10 rounded-br-3xl flex-shrink-0">
+        <div className="p-4 bg-white dark:bg-white/5 border-t border-gray-200 dark:border-white/10 shadow-2xl shadow-black/10 rounded-br-3xl flex-shrink-0">
           <button onClick={handleAdd} disabled={!selected}
           className={`w-full py-3.5 rounded-2xl font-black text-base transition-all
               ${selected ?
@@ -307,7 +307,7 @@ function DayView({ dayIdx, week, schedule, setSchedule, onAddWorkout }) {
       {/* Workouts */}
       {dayWorkouts.length === 0 ?
       <button onClick={onAddWorkout}
-      className="w-full py-10 rounded-2xl border-2 border-dashed border-gray-200 text-gray-300 hover:border-[#FD9C2D]/40 hover:text-[#FD9C2D]/50 transition-all flex flex-col items-center gap-2">
+      className="w-full py-10 rounded-2xl border-2 border-dashed border-gray-200 dark:border-white/10 text-gray-300 hover:border-[#FD9C2D]/40 hover:text-[#FD9C2D]/50 transition-all flex flex-col items-center gap-2">
         
           <Dumbbell className="w-6 h-6" />
           <span className="text-sm font-semibold">No workouts yet — tap to add</span>
@@ -318,7 +318,7 @@ function DayView({ dayIdx, week, schedule, setSchedule, onAddWorkout }) {
         <WorkoutMiniCard key={w.wid} workout={w} onRemove={() => removeWorkout(w.wid)} />
         )}
           <button onClick={onAddWorkout}
-        className="w-full py-2.5 rounded-xl border-2 border-dashed border-gray-200 text-gray-400 text-xs font-semibold hover:border-[#FD9C2D]/40 hover:text-[#FD9C2D]/60 transition-all">
+        className="w-full py-2.5 rounded-xl border-2 border-dashed border-gray-200 dark:border-white/10 text-gray-400 text-xs font-semibold hover:border-[#FD9C2D]/40 hover:text-[#FD9C2D]/60 transition-all">
           
             + Add another workout
           </button>
@@ -347,7 +347,7 @@ function WeeklyOverview({ schedule, week, setSelectedDay, setView }) {
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         {stats.map((s) =>
-        <div key={s.label} className="bg-white rounded-2xl p-4 text-center shadow-sm">
+        <div key={s.label} className="bg-white dark:bg-white/5 rounded-2xl p-4 text-center shadow-sm">
             <div className={`flex justify-center mb-1 ${s.color}`}>{s.icon}</div>
             <div className="text-2xl font-black text-[#3C4E53]">{s.value}</div>
             <div className="text-[11px] text-gray-400 font-semibold uppercase tracking-wide">{s.label}</div>
@@ -356,7 +356,7 @@ function WeeklyOverview({ schedule, week, setSelectedDay, setView }) {
       </div>
 
       {/* Mini calendar */}
-      <div className="bg-white rounded-2xl p-4 shadow-sm">
+      <div className="bg-white dark:bg-white/5 rounded-2xl p-4 shadow-sm">
         <p className="font-black text-[#3C4E53] mb-4 text-base">📅 Week at a Glance</p>
         <div className="grid grid-cols-7 gap-1.5">
           {week.map(({ dayIdx }) => {
@@ -365,7 +365,7 @@ function WeeklyOverview({ schedule, week, setSelectedDay, setView }) {
             return (
               <button key={dayIdx}
               onClick={() => {setSelectedDay(dayIdx);setView('planner');}}
-              className={`rounded-xl p-2 text-center transition-colors hover:bg-gray-50 ${isToday ? 'ring-2 ring-[#FD9C2D]' : ''}`}>
+              className={`rounded-xl p-2 text-center transition-colors hover:bg-gray-50 dark:bg-white/5 ${isToday ? 'ring-2 ring-[#FD9C2D]' : ''}`}>
                 
                 <p className="text-[9px] text-gray-400 font-bold uppercase mb-1.5">{DAYS_SHORT[dayIdx]}</p>
                 {dayWorkouts.length === 0 ?
@@ -401,7 +401,7 @@ function WeeklyOverview({ schedule, week, setSelectedDay, setView }) {
 
       {/* All scheduled workouts */}
       {allWorkouts.length > 0 &&
-      <div className="bg-white rounded-2xl p-4 shadow-sm">
+      <div className="bg-white dark:bg-white/5 rounded-2xl p-4 shadow-sm">
           <p className="font-black text-[#3C4E53] mb-3 text-base">Scheduled This Week</p>
           <div className="space-y-1.5">
             {DAYS_FULL.map((day, idx) => {
@@ -439,7 +439,7 @@ function ExerciseLibraryView() {
         <input
           value={search} onChange={(e) => setSearch(e.target.value)}
           placeholder="Search workouts..."
-          className="w-full pl-9 pr-4 py-2.5 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:border-[#FD9C2D]" />
+          className="w-full pl-9 pr-4 py-2.5 rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 text-sm focus:outline-none focus:border-[#FD9C2D]" />
         
       </div>
 
@@ -447,7 +447,7 @@ function ExerciseLibraryView() {
         {['all', ...Object.keys(CATEGORY_META)].slice(0, 7).map((cat) =>
         <button key={cat} onClick={() => setCatFilter(cat)}
         className={`flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-semibold border transition-all
-              ${catFilter === cat ? 'bg-[#FD9C2D] text-white border-[#FD9C2D]' : 'bg-white text-gray-500 border-gray-200'}`}>
+              ${catFilter === cat ? 'bg-[#FD9C2D] text-white border-[#FD9C2D]' : 'bg-white dark:bg-white/5 text-gray-500 border-gray-200 dark:border-white/10'}`}>
           
             {cat === 'all' ? 'All' : CATEGORY_META[cat]?.label || cat}
           </button>
@@ -459,7 +459,7 @@ function ExerciseLibraryView() {
           const meta = CATEGORY_META[w.category] || CATEGORY_META.full_body;
           const diff = DIFF_META[w.difficulty] || DIFF_META.beginner;
           return (
-            <div key={w.id} className="bg-white rounded-2xl p-4 shadow-sm">
+            <div key={w.id} className="bg-white dark:bg-white/5 rounded-2xl p-4 shadow-sm">
               <div className="flex items-center gap-3 mb-3">
                 <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${meta.color}`}>
                   {meta.icon}
@@ -475,7 +475,7 @@ function ExerciseLibraryView() {
               {w.description && <p className="text-xs text-gray-500 mb-3 leading-relaxed">{w.description}</p>}
               <div className="grid grid-cols-2 gap-1.5">
                 {(w.exercises || []).map((ex, i) =>
-                <div key={i} className="bg-gray-50 rounded-lg px-2.5 py-2">
+                <div key={i} className="bg-gray-50 dark:bg-white/5 rounded-lg px-2.5 py-2">
                     <p className="text-xs font-semibold text-[#3C4E53] leading-tight">{ex.name}</p>
                     <p className="text-[10px] text-gray-400 mt-0.5">
                       {ex.duration_seconds ? `${ex.sets} × ${ex.duration_seconds}s` : `${ex.sets} × ${ex.reps} reps`}
@@ -531,7 +531,7 @@ export default function WorkoutPlanner() {
   const weekTotalWorkouts = Object.values(schedule).flat().length;
 
   return (
-    <div className="min-h-screen bg-[#F2F6FA]">
+    <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F]">
 
       {/* ── Standard Header ── */}
       
@@ -570,7 +570,7 @@ export default function WorkoutPlanner() {
 
       {/* ── Nav Tabs ── */}
       <div className="max-w-2xl mx-auto px-4">
-        <div className="bg-white rounded-2xl p-1 flex gap-1 shadow-sm mb-5">
+        <div className="bg-white dark:bg-white/5 rounded-2xl p-1 flex gap-1 shadow-sm mb-5">
           {NAV.map((n) =>
           <button key={n.key} onClick={() => setView(n.key)}
           className={`flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl text-sm font-bold transition-all
@@ -601,7 +601,7 @@ export default function WorkoutPlanner() {
                 'bg-[#FD9C2D] border-[#FD9C2D] shadow-md shadow-[#FD9C2D]/20' :
                 isToday ?
                 'bg-[#FAD98D]/15 border-[#FAD98D]/40' :
-                'bg-white border-gray-100 hover:border-gray-200'}`
+                'bg-white dark:bg-white/5 border-gray-100 dark:border-white/10 hover:border-gray-200 dark:border-white/10'}`
                 }>
                   
                     <span className={`text-[9px] font-bold uppercase tracking-tight ${isSelected ? 'text-white' : 'text-gray-500'}`}>
@@ -610,7 +610,7 @@ export default function WorkoutPlanner() {
                     <span className={`text-base font-bold ${isSelected ? 'text-white' : 'text-[#3C4E53]'}`}>
                       {date.getDate()}
                     </span>
-                    <div className={`w-1 h-1 rounded-full ${hasWork ? isSelected ? 'bg-white' : 'bg-[#FD9C2D]' : 'bg-transparent'}`} />
+                    <div className={`w-1 h-1 rounded-full ${hasWork ? isSelected ? 'bg-white dark:bg-white/5' : 'bg-[#FD9C2D]' : 'bg-transparent'}`} />
                   </button>);
 
             })}

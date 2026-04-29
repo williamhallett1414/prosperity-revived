@@ -63,16 +63,16 @@ const QUICK_NAV = [
 export function QuickNav() {
   return (
     <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
-      <p className="text-xs font-bold text-[#0A1A2F]/40 uppercase tracking-widest mb-3">Explore</p>
+      <p className="text-xs font-bold text-[#0A1A2F]/40 dark:text-white/40 uppercase tracking-widest mb-3">Explore</p>
       <div className="grid grid-cols-3 gap-3">
         {QUICK_NAV.map(({ label, icon: Icon, page, color, bg }) => (
           <Link key={page} to={createPageUrl(page)}>
             <motion.div whileTap={{ scale: 0.95 }}
-              className={`${bg} rounded-2xl p-3.5 flex flex-col items-center gap-2 shadow-sm border border-gray-100/80`}>
+              className={`${bg} rounded-2xl p-3.5 flex flex-col items-center gap-2 shadow-sm border border-gray-100 dark:border-white/10/80`}>
               <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${color} flex items-center justify-center shadow-sm`}>
                 <Icon className="w-5 h-5 text-white" />
               </div>
-              <span className="text-xs font-semibold text-[#0A1A2F]/70">{label}</span>
+              <span className="text-xs font-semibold text-[#0A1A2F]/70 dark:text-white/70">{label}</span>
             </motion.div>
           </Link>
         ))}
@@ -124,7 +124,7 @@ export function ResumeCard({ coachingPlan, readingPlan, readingProgress, navigat
       <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}>
         <button
           onClick={() => navigate(createPageUrl(`PlanDetail?id=${readingPlan.id}`))}
-          className="w-full text-left bg-white rounded-3xl shadow-sm border border-[#FAD98D]/30 overflow-hidden"
+          className="w-full text-left bg-white dark:bg-white/5 rounded-3xl shadow-sm border border-[#FAD98D]/30 overflow-hidden"
         >
           <div className="relative h-20 overflow-hidden">
             <img src={readingPlan.image} alt={readingPlan.name} className="w-full h-full object-cover" />
@@ -143,7 +143,7 @@ export function ResumeCard({ coachingPlan, readingPlan, readingProgress, navigat
               </div>
             </div>
             <span className="text-xs font-bold text-[#c9a227]">{pct}%</span>
-            <ChevronRight className="w-4 h-4 text-[#0A1A2F]/30 ml-2" />
+            <ChevronRight className="w-4 h-4 text-[#0A1A2F]/30 dark:text-white/30 ml-2" />
           </div>
         </button>
       </motion.div>
@@ -182,7 +182,7 @@ export function ActiveChallengesWidget({ user }) {
   return (
     <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.18 }}>
       <div className="flex items-center justify-between mb-2">
-        <p className="text-xs font-bold text-[#0A1A2F]/40 uppercase tracking-widest">Active Challenges</p>
+        <p className="text-xs font-bold text-[#0A1A2F]/40 dark:text-white/40 uppercase tracking-widest">Active Challenges</p>
         <button onClick={() => navigate(createPageUrl('Community'))}
           className="text-xs font-bold text-[#c9a227]">See all →</button>
       </div>
@@ -208,13 +208,13 @@ export function ActiveChallengesWidget({ user }) {
           return (
             <button key={p.id}
               onClick={() => navigate(createPageUrl('Community'))}
-              className="w-full text-left bg-white rounded-2xl p-3.5 border border-[#FAD98D]/15 hover:border-[#c9a227]/30 transition-all shadow-sm flex items-center gap-3">
+              className="w-full text-left bg-white dark:bg-white/5 rounded-2xl p-3.5 border border-[#FAD98D]/15 hover:border-[#c9a227]/30 transition-all shadow-sm flex items-center gap-3">
               <div className={`w-10 h-10 rounded-xl ${vis.color} flex items-center justify-center flex-shrink-0`}>
                 <span className="text-lg">{vis.emoji}</span>
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center justify-between mb-1">
-                  <p className="font-bold text-xs text-[#0A1A2F] truncate">{challenge.title}</p>
+                  <p className="font-bold text-xs text-[#0A1A2F] dark:text-white truncate">{challenge.title}</p>
                   <div className="flex items-center gap-1.5 flex-shrink-0 ml-2">
                     {streak > 0 && (
                       <span className="text-[10px] font-bold text-orange-500 flex items-center gap-0.5">
@@ -223,15 +223,15 @@ export function ActiveChallengesWidget({ user }) {
                     )}
                     {checkedToday
                       ? <span className="text-[9px] font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded-full">✓ Done</span>
-                      : <span className="text-[9px] font-bold text-[#c9a227] bg-white px-1.5 py-0.5 rounded-full">Check in</span>
+                      : <span className="text-[9px] font-bold text-[#c9a227] bg-white dark:bg-white/5 px-1.5 py-0.5 rounded-full">Check in</span>
                     }
                   </div>
                 </div>
-                <div className="h-1.5 bg-[#F2F6FA] rounded-full overflow-hidden">
+                <div className="h-1.5 bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-full overflow-hidden">
                   <div className={`h-full rounded-full ${vis.color} transition-all`}
                     style={{ width: `${progress}%`, opacity: 0.7 }} />
                 </div>
-                <p className="text-[10px] text-[#0A1A2F]/35 mt-0.5">Day {completedDays} of {challenge.duration_days}</p>
+                <p className="text-[10px] text-[#0A1A2F]/35 dark:text-white/35 mt-0.5">Day {completedDays} of {challenge.duration_days}</p>
               </div>
             </button>
           );
@@ -248,7 +248,7 @@ export function StartHereCard() {
       className="bg-gradient-to-br from-[#FD9C2D]/10 to-[#FAD98D]/20 border border-[#FD9C2D]/30 rounded-3xl p-5">
       <div className="flex items-center gap-2 mb-4">
         <Sparkles className="w-4 h-4 text-[#FD9C2D]" />
-        <h2 className="font-bold text-[#0A1A2F]">Here's where to start</h2>
+        <h2 className="font-bold text-[#0A1A2F] dark:text-white dark:text-white">Here's where to start</h2>
       </div>
       <div className="space-y-2">
         {[
@@ -257,13 +257,13 @@ export function StartHereCard() {
           { emoji: '💪', title: 'Log your first workout', sub: 'Track your fitness progress', page: 'Workouts' },
         ].map(({ emoji, title, sub, page }) => (
           <Link key={page} to={createPageUrl(page)}>
-            <div className="bg-white rounded-2xl p-3.5 flex items-center gap-3 shadow-sm mb-3">
+            <div className="bg-white dark:bg-white/5 rounded-2xl p-3.5 flex items-center gap-3 shadow-sm mb-3">
               <span className="text-2xl">{emoji}</span>
               <div>
-                <p className="font-semibold text-sm text-[#0A1A2F]">{title}</p>
-                <p className="text-xs text-[#0A1A2F]/50">{sub}</p>
+                <p className="font-semibold text-sm text-[#0A1A2F] dark:text-white dark:text-white">{title}</p>
+                <p className="text-xs text-[#0A1A2F]/50 dark:text-white/50">{sub}</p>
               </div>
-              <ChevronRight className="w-4 h-4 text-[#0A1A2F]/25 ml-auto" />
+              <ChevronRight className="w-4 h-4 text-[#0A1A2F]/25 dark:text-white/25 ml-auto" />
             </div>
           </Link>
         ))}

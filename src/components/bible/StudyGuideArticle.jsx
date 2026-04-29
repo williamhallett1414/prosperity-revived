@@ -3144,12 +3144,12 @@ export default function StudyGuideArticle({ guide, onBack }) {
 
   if (!content) {
     return (
-      <div className="min-h-screen bg-[#F2F6FA] p-6">
+      <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] p-6">
         <Button variant="ghost" onClick={onBack}>
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back
         </Button>
-        <p className="text-center text-[#0A1A2F]/50 mt-20">Study guide content not found.</p>
+        <p className="text-center text-[#0A1A2F]/50 dark:text-white/50 mt-20">Study guide content not found.</p>
       </div>
     );
   }
@@ -3184,13 +3184,13 @@ export default function StudyGuideArticle({ guide, onBack }) {
   );
 
   return (
-    <div className="min-h-screen bg-[#F2F6FA]">
+    <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F]">
       <div className="max-w-3xl mx-auto px-4 py-6">
         {/* Back Button */}
         <Button
           variant="ghost"
           onClick={onBack}
-          className="mb-4 text-[#0A1A2F]/60 hover:text-[#0A1A2F]"
+          className="mb-4 text-[#0A1A2F]/60 dark:text-white/60 hover:text-[#0A1A2F] dark:text-white dark:text-white"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back
@@ -3237,19 +3237,19 @@ export default function StudyGuideArticle({ guide, onBack }) {
           {expandedSections.historicalContext && (
             <Card className="p-6 mt-2 space-y-4 text-[#0A1A2F]/75 leading-relaxed">
               <div>
-                <h3 className="font-semibold text-[#0A1A2F] mb-2">Time Period</h3>
+                <h3 className="font-semibold text-[#0A1A2F] dark:text-white mb-2">Time Period</h3>
                 <p>{content.historicalContext.timePeriod}</p>
               </div>
               <div>
-                <h3 className="font-semibold text-[#0A1A2F] mb-2">Authorship and Sources</h3>
+                <h3 className="font-semibold text-[#0A1A2F] dark:text-white mb-2">Authorship and Sources</h3>
                 <p>{content.historicalContext.authorship}</p>
               </div>
               <div>
-                <h3 className="font-semibold text-[#0A1A2F] mb-2">Geographical Settings</h3>
+                <h3 className="font-semibold text-[#0A1A2F] dark:text-white mb-2">Geographical Settings</h3>
                 <p>{content.historicalContext.geography}</p>
               </div>
               <div>
-                <h3 className="font-semibold text-[#0A1A2F] mb-2">Oral Transmission</h3>
+                <h3 className="font-semibold text-[#0A1A2F] dark:text-white mb-2">Oral Transmission</h3>
                 <p>{content.historicalContext.transmission}</p>
               </div>
             </Card>
@@ -3264,7 +3264,7 @@ export default function StudyGuideArticle({ guide, onBack }) {
               <Card className="p-6 mt-2 space-y-4 text-[#0A1A2F]/75">
                 {content.keyCharacters.map((character, index) => (
                   <div key={index} className="border-l-4 border-[#c9a227] pl-4">
-                    <h3 className="font-semibold text-[#0A1A2F] mb-1">{character.name}</h3>
+                    <h3 className="font-semibold text-[#0A1A2F] dark:text-white mb-1">{character.name}</h3>
                     <p className="text-sm">{character.desc}</p>
                   </div>
                 ))}
@@ -3284,7 +3284,7 @@ export default function StudyGuideArticle({ guide, onBack }) {
               <Card className="p-6 mt-2 space-y-4 text-[#0A1A2F]/75">
                 {content.keyEvents.map((item, index) => (
                   <div key={index} className="border-l-4 border-[#FAD98D] pl-4">
-                    <h3 className="font-semibold text-[#0A1A2F] mb-1">{item.event}</h3>
+                    <h3 className="font-semibold text-[#0A1A2F] dark:text-white mb-1">{item.event}</h3>
                     <p className="text-sm">{item.desc}</p>
                   </div>
                 ))}
@@ -3304,9 +3304,9 @@ export default function StudyGuideArticle({ guide, onBack }) {
               <Card className="p-6 mt-2 space-y-6 text-[#0A1A2F]/75 bg-gradient-to-br from-[#FAD98D]/15 to-[#FAD98D]/10">
                 {content.keyScriptures.map((item, index) => (
                   <div key={index}>
-                    <p className="font-semibold text-[#0A1A2F] mb-1">{item.verse}</p>
+                    <p className="font-semibold text-[#0A1A2F] dark:text-white mb-1">{item.verse}</p>
                     <p className="italic mb-2">{item.text}</p>
-                    <p className="text-sm text-[#0A1A2F]/60">{item.insight}</p>
+                    <p className="text-sm text-[#0A1A2F]/60 dark:text-white/60">{item.insight}</p>
                   </div>
                 ))}
               </Card>
@@ -3325,7 +3325,7 @@ export default function StudyGuideArticle({ guide, onBack }) {
               <Card className="p-6 mt-2 space-y-4 text-[#0A1A2F]/75">
                 {content.keyLocations.map((item, index) => (
                   <div key={index} className="border-l-4 border-[#c9a227] pl-4">
-                    <h3 className="font-semibold text-[#0A1A2F] mb-1">{item.location}</h3>
+                    <h3 className="font-semibold text-[#0A1A2F] dark:text-white mb-1">{item.location}</h3>
                     <p className="text-sm">{item.desc}</p>
                   </div>
                 ))}
@@ -3345,7 +3345,7 @@ export default function StudyGuideArticle({ guide, onBack }) {
               <Card className="p-6 mt-2 space-y-4 text-[#0A1A2F]/75">
                 {content.keyLessons.map((lesson, index) => (
                   <div key={index}>
-                    <h3 className="font-semibold text-[#0A1A2F] mb-2">{index + 1}. {lesson.title}</h3>
+                    <h3 className="font-semibold text-[#0A1A2F] dark:text-white mb-2">{index + 1}. {lesson.title}</h3>
                     <p className="text-sm">{lesson.desc}</p>
                   </div>
                 ))}
@@ -3360,7 +3360,7 @@ export default function StudyGuideArticle({ guide, onBack }) {
         {/* Conclusion */}
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7 }} className="mt-6">
           <Card className="p-6 bg-gradient-to-br from-[#FAD98D]/10 to-[#FFF9EC]">
-            <h2 className="text-lg font-bold text-[#0A1A2F] mb-4">Study Takeaway</h2>
+            <h2 className="text-lg font-bold text-[#0A1A2F] dark:text-white mb-4">Study Takeaway</h2>
             <p className="text-[#0A1A2F]/75 leading-relaxed">
               The Book of Genesis serves as the foundation upon which the entire Bible stands. Its narratives about faith, obedience, and redemption remain profoundly relevant today. Genesis invites us to reflect on our place in God's redemptive plan and to embrace the timeless values of faith, obedience, and trust in the sovereign God who created and sustains the universe.
             </p>

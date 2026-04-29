@@ -54,7 +54,7 @@ export default function PersonalizedReadingPlans({ user, userProgress = [] }) {
     <div className="mb-6">
       <div className="flex items-center gap-2 mb-4">
         <Sparkles className="w-5 h-5 text-[#c9a227]" />
-        <h3 className="text-lg font-semibold text-[#0A1A2F] dark:text-white">
+        <h3 className="text-lg font-semibold text-[#0A1A2F] dark:text-white dark:text-white">
           Recommended Plan
         </h3>
       </div>

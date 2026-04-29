@@ -282,7 +282,7 @@ export default function SelfCareGuides({ user }) {
                   <p className="font-semibold text-[#3C4E53] dark:text-[#AFC7E3] mb-1">🎨 Creative Activity</p>
                   <p className="text-gray-700 dark:text-gray-300">{aiInsight.creative_activity}</p>
                 </div>
-                <div className="p-3 bg-[#F2F6FA] dark:bg-indigo-900/20 rounded-lg">
+                <div className="p-3 bg-[#F2F6FA] dark:bg-[#0A1A2F] dark:bg-indigo-900/20 rounded-lg">
                   <p className="font-semibold text-indigo-800 dark:text-indigo-300 mb-1">🌙 Evening Practice</p>
                   <p className="text-gray-700 dark:text-gray-300">{aiInsight.evening_practice}</p>
                 </div>
@@ -313,7 +313,7 @@ export default function SelfCareGuides({ user }) {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.3 + index * 0.05 }}
-                className="bg-white dark:bg-[#0A1A2F] rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow"
+                className="bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow"
               >
                 <Icon className={`w-6 h-6 ${booster.color} mb-2`} />
                 <p className="text-xs text-gray-700 dark:text-gray-300">{booster.text}</p>
@@ -431,7 +431,7 @@ export default function SelfCareGuides({ user }) {
                       {guide.activities.map((activity, idx) => (
                         <div
                           key={idx}
-                          className="flex items-start gap-3 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg"
+                          className="flex items-start gap-3 p-3 bg-gray-50 dark:bg-white/5 dark:bg-gray-800 rounded-lg"
                         >
                           <div className="w-6 h-6 rounded-full bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center flex-shrink-0 mt-0.5">
                             <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400">

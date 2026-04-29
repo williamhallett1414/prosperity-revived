@@ -54,7 +54,7 @@ export default function HannahFeedbackRating({ messageContent, userEmail, sessio
       >
         {step === 'rating' && (
           <div className="flex items-center gap-1">
-            <span className="text-[10px] text-[#0A1A2F]/40 mr-1">Rate this:</span>
+            <span className="text-[10px] text-[#0A1A2F]/40 dark:text-white/40 mr-1">Rate this:</span>
             {[1, 2, 3, 4, 5].map(r => (
               <button
                 key={r}
@@ -71,7 +71,7 @@ export default function HannahFeedbackRating({ messageContent, userEmail, sessio
 
         {step === 'type' && (
           <div className="space-y-1 mt-1">
-            <p className="text-[10px] text-[#0A1A2F]/50 mb-1">What could be better?</p>
+            <p className="text-[10px] text-[#0A1A2F]/50 dark:text-white/50 mb-1">What could be better?</p>
             <div className="flex flex-wrap gap-1.5">
               {FEEDBACK_OPTIONS.filter(f => f.value !== 'helpful' && f.value !== 'perfect').map(opt => (
                 <button

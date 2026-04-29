@@ -199,18 +199,18 @@ export default function EmotionalCheckInPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F2F6FA] pb-28">
+    <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
 
       {/* ── Header ── */}
-      <div className="sticky top-0 z-40 bg-white border-b border-[#AFC7E3]/20 px-4 py-3">
+      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#AFC7E3]/20 px-4 py-3">
         <div className="max-w-lg mx-auto flex items-center gap-3">
           <button onClick={() => navigate(-1)}
             className="w-9 h-9 rounded-full bg-[#AFC7E3]/20 hover:bg-[#AFC7E3]/30 flex items-center justify-center transition-colors">
-            <ArrowLeft className="w-4 h-4 text-[#0A1A2F]" />
+            <ArrowLeft className="w-4 h-4 text-[#0A1A2F] dark:text-white dark:text-white" />
           </button>
           <div className="flex-1">
-            <h1 className="text-base font-bold text-[#0A1A2F]">Emotional Check-In</h1>
-            <p className="text-xs text-[#0A1A2F]/50">
+            <h1 className="text-base font-bold text-[#0A1A2F] dark:text-white dark:text-white">Emotional Check-In</h1>
+            <p className="text-xs text-[#0A1A2F]/50 dark:text-white/50">
               {getGreeting()} · {new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}
             </p>
           </div>
@@ -227,15 +227,15 @@ export default function EmotionalCheckInPage() {
 
         {/* ── 7-day strip ── */}
         {weekDays.length > 0 && (
-          <div className="bg-white rounded-2xl border border-[#AFC7E3]/20 p-4">
+          <div className="bg-white dark:bg-white/5 rounded-2xl border border-[#AFC7E3]/20 p-4">
             <div className="flex items-center justify-between mb-3">
               <div className="flex items-center gap-1.5">
                 <Flame className="w-4 h-4 text-orange-400" />
-                <span className="text-sm font-bold text-[#0A1A2F]">
+                <span className="text-sm font-bold text-[#0A1A2F] dark:text-white dark:text-white">
                   {streak > 0 ? `${streak}-day streak` : 'Start your streak'}
                 </span>
               </div>
-              <span className="text-[10px] text-[#0A1A2F]/35 uppercase tracking-widest font-semibold">Last 7 days</span>
+              <span className="text-[10px] text-[#0A1A2F]/35 dark:text-white/35 uppercase tracking-widest font-semibold">Last 7 days</span>
             </div>
             <div className="flex justify-between">
               {weekDays.map(d => (
@@ -246,9 +246,9 @@ export default function EmotionalCheckInPage() {
                       : { backgroundColor: '#F2F6FA', borderColor: '#F2F6FA' }}>
                     {d.mood
                       ? <span className="text-sm">{MOODS.find(m => m.value === d.mood)?.emoji}</span>
-                      : <span className="text-[9px] text-[#0A1A2F]/20">–</span>}
+                      : <span className="text-[9px] text-[#0A1A2F]/20 dark:text-white/20">–</span>}
                   </div>
-                  <span className="text-[9px] font-semibold text-[#0A1A2F]/40">{d.label}</span>
+                  <span className="text-[9px] font-semibold text-[#0A1A2F]/40 dark:text-white/40">{d.label}</span>
                 </div>
               ))}
             </div>
@@ -282,12 +282,12 @@ export default function EmotionalCheckInPage() {
 
               {/* Scripture */}
               <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
-                className="bg-white rounded-2xl border border-[#FAD98D]/20 p-5">
+                className="bg-white dark:bg-white/5 rounded-2xl border border-[#FAD98D]/20 p-5">
                 <div className="flex items-center gap-2 mb-3">
                   <BookOpen className="w-4 h-4 text-[#FAD98D]" />
-                  <span className="text-xs font-bold text-[#0A1A2F]/40 uppercase tracking-widest">A word for you</span>
+                  <span className="text-xs font-bold text-[#0A1A2F]/40 dark:text-white/40 uppercase tracking-widest">A word for you</span>
                 </div>
-                <p className="text-sm text-[#0A1A2F]/80 leading-relaxed italic mb-2">"{moodObj.scripture.text}"</p>
+                <p className="text-sm text-[#0A1A2F]/80 dark:text-white/80 leading-relaxed italic mb-2">"{moodObj.scripture.text}"</p>
                 <p className="text-xs font-bold text-[#FAD98D]">{moodObj.scripture.ref}</p>
               </motion.div>
 
@@ -306,7 +306,7 @@ export default function EmotionalCheckInPage() {
               </motion.button>
 
               <button onClick={handleReset}
-                className="w-full text-xs text-[#0A1A2F]/30 hover:text-[#0A1A2F]/60 transition-colors py-2">
+                className="w-full text-xs text-[#0A1A2F]/30 dark:text-white/30 hover:text-[#0A1A2F]/60 dark:text-white/60 transition-colors py-2">
                 Check in again
               </button>
 
@@ -339,8 +339,8 @@ export default function EmotionalCheckInPage() {
             </div>
 
             {/* Mood grid */}
-            <div className="bg-white rounded-2xl border border-[#AFC7E3]/20 p-4">
-              <p className="text-xs font-bold text-[#0A1A2F]/35 uppercase tracking-widest mb-3">Select your mood</p>
+            <div className="bg-white dark:bg-white/5 rounded-2xl border border-[#AFC7E3]/20 p-4">
+              <p className="text-xs font-bold text-[#0A1A2F]/35 dark:text-white/35 uppercase tracking-widest mb-3">Select your mood</p>
               <div className="grid grid-cols-3 gap-2">
                 {MOODS.map(mood => (
                   <motion.button key={mood.value} whileTap={{ scale: 0.95 }}
@@ -348,10 +348,10 @@ export default function EmotionalCheckInPage() {
                     className={`py-3.5 px-2 rounded-xl border-2 transition-all flex flex-col items-center gap-1.5 ${
                       selectedMood?.value === mood.value
                         ? `${mood.border} ${mood.bg} shadow-sm`
-                        : 'border-[#F2F6FA] bg-[#F2F6FA] hover:border-[#AFC7E3]/50'
+                        : 'border-[#F2F6FA] bg-[#F2F6FA] dark:bg-[#0A1A2F] hover:border-[#AFC7E3]/50'
                     }`}>
                     <span className="text-2xl leading-none">{mood.emoji}</span>
-                    <span className={`text-[11px] font-semibold ${selectedMood?.value === mood.value ? 'text-[#0A1A2F]' : 'text-[#0A1A2F]/45'}`}>
+                    <span className={`text-[11px] font-semibold ${selectedMood?.value === mood.value ? 'text-[#0A1A2F] dark:text-white dark:text-white' : 'text-[#0A1A2F]/45 dark:text-white/45'}`}>
                       {mood.label}
                     </span>
                   </motion.button>
@@ -365,10 +365,10 @@ export default function EmotionalCheckInPage() {
                 <motion.div key="expanded" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="space-y-4">
 
                   {/* Intensity */}
-                  <div className="bg-white rounded-2xl border border-[#AFC7E3]/20 p-4 space-y-2">
+                  <div className="bg-white dark:bg-white/5 rounded-2xl border border-[#AFC7E3]/20 p-4 space-y-2">
                     <div className="flex justify-between items-center">
-                      <p className="text-xs font-bold text-[#0A1A2F]/35 uppercase tracking-widest">How intense?</p>
-                      <span className="text-xs font-semibold text-[#0A1A2F]/55">{INTENSITY_LABELS[intensity - 1]}</span>
+                      <p className="text-xs font-bold text-[#0A1A2F]/35 dark:text-white/35 uppercase tracking-widest">How intense?</p>
+                      <span className="text-xs font-semibold text-[#0A1A2F]/55 dark:text-white/55">{INTENSITY_LABELS[intensity - 1]}</span>
                     </div>
                     <div className="flex gap-1.5">
                       {[1, 2, 3, 4, 5].map(n => (
@@ -380,21 +380,21 @@ export default function EmotionalCheckInPage() {
                   </div>
 
                   {/* Reflection */}
-                  <div className="bg-white rounded-2xl border border-[#AFC7E3]/20 p-4">
-                    <p className="text-xs font-bold text-[#0A1A2F]/35 uppercase tracking-widest mb-1.5">Reflect</p>
-                    <p className="text-xs text-[#0A1A2F]/45 italic mb-3">{moodObj.prompt}</p>
+                  <div className="bg-white dark:bg-white/5 rounded-2xl border border-[#AFC7E3]/20 p-4">
+                    <p className="text-xs font-bold text-[#0A1A2F]/35 dark:text-white/35 uppercase tracking-widest mb-1.5">Reflect</p>
+                    <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45 italic mb-3">{moodObj.prompt}</p>
                     <textarea value={reflection} onChange={e => setReflection(e.target.value)}
                       maxLength={1000}
                       placeholder="Write freely — this is just for you…"
                       rows={4}
-                      className="w-full resize-none rounded-xl border border-[#F2F6FA] bg-[#F2F6FA] px-3 py-2.5 text-sm text-[#0A1A2F] placeholder-[#0A1A2F]/25 focus:outline-none focus:border-[#FAD98D]/60 transition-colors leading-relaxed" />
+                      className="w-full resize-none rounded-xl border border-[#F2F6FA] bg-[#F2F6FA] dark:bg-[#0A1A2F] px-3 py-2.5 text-sm text-[#0A1A2F] dark:text-white placeholder-[#0A1A2F]/25 focus:outline-none focus:border-[#FAD98D]/60 transition-colors leading-relaxed" />
                   </div>
 
                   {/* Scripture */}
                   <div className={`rounded-2xl border p-4 ${moodObj.bg} ${moodObj.border}`}>
                     <div className="flex items-center gap-2 mb-2">
-                      <BookOpen className="w-4 h-4 text-[#0A1A2F]/40" />
-                      <span className="text-[10px] font-bold text-[#0A1A2F]/35 uppercase tracking-widest">Scripture for you</span>
+                      <BookOpen className="w-4 h-4 text-[#0A1A2F]/40 dark:text-white/40" />
+                      <span className="text-[10px] font-bold text-[#0A1A2F]/35 dark:text-white/35 uppercase tracking-widest">Scripture for you</span>
                     </div>
                     <p className="text-sm text-[#0A1A2F]/75 leading-relaxed italic mb-1.5">"{moodObj.scripture.text}"</p>
                     <p className="text-xs font-bold" style={{ color: moodObj.dot }}>{moodObj.scripture.ref}</p>
@@ -402,20 +402,20 @@ export default function EmotionalCheckInPage() {
 
                   {/* Practice link */}
                   <button onClick={() => navigate(createPageUrl(moodObj.practicePage))}
-                    className="w-full bg-white rounded-2xl border border-[#AFC7E3]/20 p-4 flex items-center justify-between hover:border-[#FAD98D]/40 hover:shadow-sm transition-all">
+                    className="w-full bg-white dark:bg-white/5 rounded-2xl border border-[#AFC7E3]/20 p-4 flex items-center justify-between hover:border-[#FAD98D]/40 hover:shadow-sm transition-all">
                     <div className="flex items-center gap-3">
                       <span className="text-xl">{moodObj.practiceIcon}</span>
                       <div className="text-left">
-                        <p className="text-[10px] font-bold text-[#0A1A2F]/30 uppercase tracking-widest">Suggested Practice</p>
-                        <p className="text-sm font-bold text-[#0A1A2F]">{moodObj.practice}</p>
+                        <p className="text-[10px] font-bold text-[#0A1A2F]/30 dark:text-white/30 uppercase tracking-widest">Suggested Practice</p>
+                        <p className="text-sm font-bold text-[#0A1A2F] dark:text-white dark:text-white">{moodObj.practice}</p>
                       </div>
                     </div>
-                    <ChevronRight className="w-4 h-4 text-[#0A1A2F]/25" />
+                    <ChevronRight className="w-4 h-4 text-[#0A1A2F]/25 dark:text-white/25" />
                   </button>
 
                   {/* Save */}
                   <motion.button whileTap={{ scale: 0.98 }} onClick={handleSave} disabled={saving}
-                    className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-[#FAD98D] to-[#c9a227] text-[#0A1A2F] font-bold text-sm shadow-sm hover:opacity-90 disabled:opacity-50 transition-opacity flex items-center justify-center gap-2">
+                    className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-[#FAD98D] to-[#c9a227] text-[#0A1A2F] dark:text-white font-bold text-sm shadow-sm hover:opacity-90 disabled:opacity-50 transition-opacity flex items-center justify-center gap-2">
                     {saving
                       ? <><Sparkles className="w-4 h-4 animate-spin" /> Saving…</>
                       : <><CheckCircle2 className="w-4 h-4" /> Save Check-In</>}

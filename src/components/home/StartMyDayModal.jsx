@@ -99,13 +99,13 @@ export default function StartMyDayModal({ isOpen, onClose, user }) {
       color: 'from-[#c9a227] to-[#FAD98D]',
       content: (
         <div className="space-y-3">
-          <p className="font-serif italic text-[#0A1A2F] text-lg leading-relaxed text-center">
+          <p className="font-serif italic text-[#0A1A2F] dark:text-white text-lg leading-relaxed text-center">
             "{verse.text}"
           </p>
-          <p className="text-sm text-[#0A1A2F]/50 font-semibold text-center">
+          <p className="text-sm text-[#0A1A2F]/50 dark:text-white/50 font-semibold text-center">
             {verse.book} {verse.chapter}:{verse.verse}
           </p>
-          <p className="text-xs text-[#0A1A2F]/40 text-center mt-2">
+          <p className="text-xs text-[#0A1A2F]/40 dark:text-white/40 text-center mt-2">
             Sit with this verse for a moment. Let it speak to you.
           </p>
         </div>
@@ -117,12 +117,12 @@ export default function StartMyDayModal({ isOpen, onClose, user }) {
       color: 'from-[#FAD98D] to-[#AFC7E3]',
       content: (
         <div className="space-y-4 text-center">
-          <p className="text-[#0A1A2F] leading-relaxed text-sm">
+          <p className="text-[#0A1A2F] dark:text-white leading-relaxed text-sm">
             Lord, thank You for this new day. I surrender my plans, my worries, and my desires to You.
             Fill me with Your Spirit. Give me wisdom for every decision, patience in every trial,
             and courage to live boldly for You. Let my words bring life and my actions bring glory to Your name. Amen.
           </p>
-          <p className="text-xs text-[#0A1A2F]/40">Close your eyes and pray from your heart.</p>
+          <p className="text-xs text-[#0A1A2F]/40 dark:text-white/40">Close your eyes and pray from your heart.</p>
         </div>
       )
     },
@@ -134,7 +134,7 @@ export default function StartMyDayModal({ isOpen, onClose, user }) {
         <div className="space-y-4 text-center">
           {!breathActive ? (
             <div>
-              <p className="text-sm text-[#0A1A2F]/70 mb-4">
+              <p className="text-sm text-[#0A1A2F]/70 dark:text-white/70 mb-4">
                 4 seconds in · 4 seconds hold · 4 seconds out · 4 seconds hold
               </p>
               <button
@@ -158,7 +158,7 @@ export default function StartMyDayModal({ isOpen, onClose, user }) {
               >
                 <span className="text-white text-sm font-bold capitalize">{breathPhase}</span>
               </motion.div>
-              <p className="text-xs text-[#0A1A2F]/50">
+              <p className="text-xs text-[#0A1A2F]/50 dark:text-white/50">
                 {breathCount < 48 ? `${Math.ceil((48 - breathCount) / 4)} cycles remaining` : 'Well done!'}
               </p>
               {breathCount >= 48 && (
@@ -175,7 +175,7 @@ export default function StartMyDayModal({ isOpen, onClose, user }) {
       color: 'from-[#FD9C2D] to-[#FAD98D]',
       content: (
         <div className="space-y-3">
-          <p className="text-sm text-[#0A1A2F]/70 text-center">
+          <p className="text-sm text-[#0A1A2F]/70 dark:text-white/70 text-center">
             What is the ONE thing you want to focus on today?
           </p>
           <textarea
@@ -183,10 +183,10 @@ export default function StartMyDayModal({ isOpen, onClose, user }) {
             onChange={(e) => setIntention(e.target.value)}
             placeholder="Today I will..."
             maxLength={500}
-            className="w-full p-3 rounded-xl border border-gray-200 bg-gray-50 text-sm text-[#0A1A2F] resize-none focus:outline-none focus:border-[#c9a227] transition-colors"
+            className="w-full p-3 rounded-xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-white/5 text-sm text-[#0A1A2F] dark:text-white resize-none focus:outline-none focus:border-[#c9a227] transition-colors"
             rows={3}
           />
-          <p className="text-[10px] text-[#0A1A2F]/30 text-center">
+          <p className="text-[10px] text-[#0A1A2F]/30 dark:text-white/30 text-center">
             This will be saved to your journal.
           </p>
         </div>
@@ -202,11 +202,11 @@ export default function StartMyDayModal({ isOpen, onClose, user }) {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
-            className="text-[#0A1A2F] text-xl font-bold leading-relaxed"
+            className="text-[#0A1A2F] dark:text-white text-xl font-bold leading-relaxed"
           >
             "{affirmation}"
           </motion.p>
-          <p className="text-xs text-[#0A1A2F]/50">Say this out loud. Repeat it 3 times.</p>
+          <p className="text-xs text-[#0A1A2F]/50 dark:text-white/50">Say this out loud. Repeat it 3 times.</p>
           <div className="pt-2">
             <Sparkles className="w-6 h-6 text-[#c9a227] mx-auto" />
           </div>
@@ -220,9 +220,9 @@ export default function StartMyDayModal({ isOpen, onClose, user }) {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-md max-h-[85vh] overflow-y-auto bg-[#F2F6FA] border-0">
+      <DialogContent className="max-w-md max-h-[85vh] overflow-y-auto bg-[#F2F6FA] dark:bg-[#0A1A2F] border-0">
         <DialogHeader>
-          <DialogTitle className="text-center text-xs text-[#0A1A2F]/40 uppercase tracking-widest">
+          <DialogTitle className="text-center text-xs text-[#0A1A2F]/40 dark:text-white/40 uppercase tracking-widest">
             Start My Day
           </DialogTitle>
         </DialogHeader>
@@ -255,11 +255,11 @@ export default function StartMyDayModal({ isOpen, onClose, user }) {
             >
               <div className="text-center">
                 <div className="text-5xl mb-2">{currentStep.emoji}</div>
-                <h2 className="text-xl font-bold text-[#0A1A2F]">{currentStep.title}</h2>
-                <p className="text-[10px] text-[#0A1A2F]/30 mt-1">Step {step + 1} of {steps.length}</p>
+                <h2 className="text-xl font-bold text-[#0A1A2F] dark:text-white dark:text-white">{currentStep.title}</h2>
+                <p className="text-[10px] text-[#0A1A2F]/30 dark:text-white/30 mt-1">Step {step + 1} of {steps.length}</p>
               </div>
 
-              <div className="bg-white rounded-2xl p-5 min-h-[180px] flex items-center justify-center shadow-sm">
+              <div className="bg-white dark:bg-white/5 rounded-2xl p-5 min-h-[180px] flex items-center justify-center shadow-sm">
                 <div className="w-full">{currentStep.content}</div>
               </div>
             </motion.div>

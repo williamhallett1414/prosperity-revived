@@ -18,12 +18,12 @@ export default function WellnessHubCard({ icon: Icon, title, description, color,
           <div className="flex items-start justify-between">
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-2">
-                <Icon className="w-5 h-5 text-[#0A1A2F]" />
+                <Icon className="w-5 h-5 text-[#0A1A2F] dark:text-white dark:text-white" />
               </div>
-              <h3 className="font-semibold text-[#0A1A2F] text-sm mb-1">{title}</h3>
-              <p className="text-xs text-[#0A1A2F]/70 leading-snug">{description}</p>
+              <h3 className="font-semibold text-[#0A1A2F] dark:text-white text-sm mb-1">{title}</h3>
+              <p className="text-xs text-[#0A1A2F]/70 dark:text-white/70 leading-snug">{description}</p>
             </div>
-            <ChevronRight className="w-4 h-4 text-[#0A1A2F] flex-shrink-0 ml-1 mt-0" />
+            <ChevronRight className="w-4 h-4 text-[#0A1A2F] dark:text-white flex-shrink-0 ml-1 mt-0" />
           </div>
         </div>
       </motion.div>

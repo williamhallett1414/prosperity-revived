@@ -111,7 +111,7 @@ export default function ChefDanielOnboarding({ onComplete, user }) {
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           exit={{ scale: 0.9, opacity: 0 }}
-          className="bg-white rounded-2xl shadow-2xl max-w-sm w-full overflow-hidden"
+          className="bg-white dark:bg-white/5 rounded-2xl shadow-2xl max-w-sm w-full overflow-hidden"
         >
           {/* Header */}
           <div className="bg-gradient-to-r from-[#FD9C2D] to-[#E89020] text-white p-5 relative">
@@ -177,7 +177,7 @@ export default function ChefDanielOnboarding({ onComplete, user }) {
                           className={`rounded-xl border-2 p-3 text-left transition-all ${
                             selectedDiet === diet.id
                               ? 'border-[#FD9C2D] bg-[#FD9C2D]/10'
-                              : 'border-gray-200 hover:border-gray-300'
+                              : 'border-gray-200 dark:border-white/10 hover:border-gray-300'
                           }`}
                         >
                           <div className="text-xs font-semibold text-gray-800">{diet.label}</div>
@@ -201,7 +201,7 @@ export default function ChefDanielOnboarding({ onComplete, user }) {
                           className={`rounded-xl border-2 p-3.5 text-left transition-all ${
                             selectedGoal === goal.id
                               ? 'border-[#FD9C2D] bg-[#FD9C2D]/10'
-                              : 'border-gray-200 hover:border-gray-300'
+                              : 'border-gray-200 dark:border-white/10 hover:border-gray-300'
                           }`}
                         >
                           <div className="text-lg mb-1">{goal.emoji}</div>
@@ -225,7 +225,7 @@ export default function ChefDanielOnboarding({ onComplete, user }) {
                           className={`rounded-xl border-2 p-3 text-xs font-semibold transition-all flex items-center gap-2 ${
                             selectedAllergies.includes(a.id)
                               ? 'border-[#FD9C2D] bg-[#FD9C2D]/10 text-[#FD9C2D]'
-                              : 'border-gray-200 text-gray-700 hover:border-gray-300'
+                              : 'border-gray-200 dark:border-white/10 text-gray-700 hover:border-gray-300'
                           }`}
                         >
                           {a.label}
@@ -249,7 +249,7 @@ export default function ChefDanielOnboarding({ onComplete, user }) {
                           className={`text-xs px-3 py-1.5 rounded-full border transition-all ${
                             selectedPantry.includes(item)
                               ? 'border-[#FD9C2D] bg-[#FD9C2D]/10 text-[#FD9C2D] font-semibold'
-                              : 'border-gray-200 text-gray-600 hover:border-gray-300'
+                              : 'border-gray-200 dark:border-white/10 text-gray-600 hover:border-gray-300'
                           }`}
                         >
                           {selectedPantry.includes(item) ? '✓ ' : ''}{item}
@@ -272,7 +272,7 @@ export default function ChefDanielOnboarding({ onComplete, user }) {
           </div>
 
           {/* Footer */}
-          <div className="p-5 bg-gray-50 border-t border-gray-100">
+          <div className="p-5 bg-gray-50 dark:bg-white/5 border-t border-gray-100 dark:border-white/10">
             <div className="flex gap-3">
               <Button onClick={() => onComplete({})} variant="outline" className="flex-1 text-gray-600 text-sm">
                 Skip

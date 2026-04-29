@@ -47,7 +47,7 @@ export function MobileSelect({ value, onValueChange, options, placeholder, trigg
                 setOpen(false);
               }}
               className={`w-full text-left px-4 py-3 rounded-lg flex items-center justify-between min-h-[44px] ${
-                value === option.value ? 'bg-emerald-50 text-emerald-600' : 'hover:bg-gray-50'
+                value === option.value ? 'bg-emerald-50 text-emerald-600' : 'hover:bg-gray-50 dark:bg-white/5'
               }`}
             >
               <span>{option.label}</span>

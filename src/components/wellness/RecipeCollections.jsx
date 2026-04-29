@@ -69,7 +69,7 @@ export default function RecipeCollections({ allRecipes }) {
     <div className="space-y-4">
       {/* Collections Grid */}
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-lg font-semibold text-[#0A1A2F]">My Collections</h3>
+        <h3 className="text-lg font-semibold text-[#0A1A2F] dark:text-white dark:text-white">My Collections</h3>
         <Button
           onClick={() => setShowCreateModal(true)}
           className="bg-[#c9a227] hover:bg-[#C9A227]"
@@ -81,9 +81,9 @@ export default function RecipeCollections({ allRecipes }) {
       </div>
 
       {collections.length === 0 ? (
-        <div className="text-center py-12 bg-white rounded-2xl">
-          <BookOpen className="w-16 h-16 text-[#0A1A2F]/15 mx-auto mb-4" />
-          <p className="text-[#0A1A2F]/50 mb-4">No collections yet</p>
+        <div className="text-center py-12 bg-white dark:bg-white/5 rounded-2xl">
+          <BookOpen className="w-16 h-16 text-[#0A1A2F]/15 dark:text-white/15 mx-auto mb-4" />
+          <p className="text-[#0A1A2F]/50 dark:text-white/50 mb-4">No collections yet</p>
           <Button onClick={() => setShowCreateModal(true)} variant="outline">
             Create Your First Collection
           </Button>
@@ -97,16 +97,16 @@ export default function RecipeCollections({ allRecipes }) {
                 key={collection.id}
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="bg-white rounded-2xl p-4 cursor-pointer hover:shadow-md transition-shadow"
+                className="bg-white dark:bg-white/5 rounded-2xl p-4 cursor-pointer hover:shadow-md transition-shadow"
                 onClick={() => setSelectedCollection(collection)}
               >
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex-1">
-                    <h4 className="font-semibold text-[#0A1A2F]">
+                    <h4 className="font-semibold text-[#0A1A2F] dark:text-white dark:text-white">
                       {collection.name}
                     </h4>
                     {collection.description && (
-                      <p className="text-sm text-[#0A1A2F]/55 mt-1">
+                      <p className="text-sm text-[#0A1A2F]/55 dark:text-white/55 mt-1">
                         {collection.description}
                       </p>
                     )}
@@ -115,7 +115,7 @@ export default function RecipeCollections({ allRecipes }) {
                     <Share2 className="w-4 h-4 text-[#AFC7E3]" />
                   )}
                 </div>
-                <div className="flex items-center gap-2 text-sm text-[#0A1A2F]/50">
+                <div className="flex items-center gap-2 text-sm text-[#0A1A2F]/50 dark:text-white/50">
                   <BookOpen className="w-4 h-4" />
                   <span>{recipeCount} {recipeCount === 1 ? 'recipe' : 'recipes'}</span>
                 </div>
@@ -167,7 +167,7 @@ export default function RecipeCollections({ allRecipes }) {
               <div>
                 <DialogTitle>{selectedCollection?.name}</DialogTitle>
                 {selectedCollection?.description && (
-                  <p className="text-sm text-[#0A1A2F]/50 mt-1">{selectedCollection.description}</p>
+                  <p className="text-sm text-[#0A1A2F]/50 dark:text-white/50 mt-1">{selectedCollection.description}</p>
                 )}
               </div>
               <Button
@@ -186,7 +186,7 @@ export default function RecipeCollections({ allRecipes }) {
 
           <div className="space-y-4 mt-4">
             {selectedCollection && getCollectionRecipes(selectedCollection).length === 0 ? (
-              <p className="text-center text-[#0A1A2F]/50 py-8">
+              <p className="text-center text-[#0A1A2F]/50 dark:text-white/50 py-8">
                 No recipes in this collection yet. Add recipes from the Recipes tab!
               </p>
             ) : (
@@ -197,7 +197,7 @@ export default function RecipeCollections({ allRecipes }) {
                     <Button
                       variant="ghost"
                       size="sm"
-                      className="absolute top-2 right-2 bg-white/90 hover:bg-white"
+                      className="absolute top-2 right-2 bg-white/90 hover:bg-white dark:bg-white/5"
                       onClick={() => removeRecipeFromCollection(selectedCollection.id, recipe.id)}
                     >
                       <Trash2 className="w-4 h-4 text-red-500" />

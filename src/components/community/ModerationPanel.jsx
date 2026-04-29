@@ -79,7 +79,7 @@ export default function ModerationPanel({ user }) {
     <div className="space-y-4">
       <div className="flex items-center gap-2 mb-4">
         <Shield className="w-5 h-5 text-[#c9a227]" />
-        <h2 className="font-bold text-[#0A1A2F] text-lg">Moderation Dashboard</h2>
+        <h2 className="font-bold text-[#0A1A2F] dark:text-white text-lg">Moderation Dashboard</h2>
       </div>
 
       {/* Filter tabs */}
@@ -123,11 +123,11 @@ export default function ModerationPanel({ user }) {
           {reports.map(report => (
             <motion.div key={report.id}
               initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
-              className="bg-white rounded-2xl border border-gray-100 p-4 shadow-sm">
+              className="bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 p-4 shadow-sm">
               <div className="flex items-start gap-3">
                 <AlertTriangle className="w-4 h-4 text-amber-500 mt-0.5 flex-shrink-0" />
                 <div className="flex-1 min-w-0">
-                  <p className="text-xs font-bold text-[#0A1A2F]">
+                  <p className="text-xs font-bold text-[#0A1A2F] dark:text-white dark:text-white">
                     Report #{report.id?.slice(-6)} · <span className="capitalize text-amber-600">{report.status || 'pending'}</span>
                   </p>
                   <p className="text-xs text-gray-500 mt-0.5">
@@ -147,7 +147,7 @@ export default function ModerationPanel({ user }) {
                   </button>
                   <button
                     onClick={() => resolveReport.mutate({ reportId: report.id, action: 'dismissed' })}
-                    className="flex-1 flex items-center justify-center gap-1 py-2 rounded-xl bg-gray-50 text-gray-500 text-xs font-bold">
+                    className="flex-1 flex items-center justify-center gap-1 py-2 rounded-xl bg-gray-50 dark:bg-white/5 text-gray-500 text-xs font-bold">
                     <Eye className="w-3 h-3" /> Dismiss
                   </button>
                   {report.post_id && (

@@ -58,7 +58,7 @@ export default function ChatInterface({
   return (
     <div className="flex flex-col h-full">
       {/* Header */}
-      <div className="p-4 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-[#0A1A2F]">
+      <div className="p-4 border-b border-gray-200 dark:border-white/10 dark:border-gray-700 bg-white dark:bg-white/5 dark:bg-[#0A1A2F]">
         <div className="flex items-center gap-3">
           <button
             onClick={onBack}
@@ -74,7 +74,7 @@ export default function ChatInterface({
               {otherUser.charAt(0).toUpperCase()}
             </div>
             <div className="text-left">
-              <p className="font-semibold text-[#0A1A2F] dark:text-white">{otherUser}</p>
+              <p className="font-semibold text-[#0A1A2F] dark:text-white dark:text-white">{otherUser}</p>
               <p className="text-xs text-gray-500 dark:text-gray-400">{selectedEmail}</p>
             </div>
           </button>
@@ -82,7 +82,7 @@ export default function ChatInterface({
       </div>
 
       {/* Messages */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-gray-50 dark:bg-[#0A1A2F]">
+      <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-gray-50 dark:bg-white/5 dark:bg-[#0A1A2F]">
         {conversationMessages.map((msg, index) => {
           const isOwn = msg.sender_email === user.email;
           const showDate = index === 0 || 
@@ -93,7 +93,7 @@ export default function ChatInterface({
             <div key={msg.id}>
               {showDate && (
                 <div className="text-center mb-4">
-                  <span className="text-xs text-gray-500 dark:text-gray-400 bg-white dark:bg-[#0A1A2F] px-3 py-1 rounded-full">
+                  <span className="text-xs text-gray-500 dark:text-gray-400 bg-white dark:bg-white/5 dark:bg-[#0A1A2F] px-3 py-1 rounded-full">
                     {format(new Date(msg.created_date), 'MMM d, yyyy')}
                   </span>
                 </div>
@@ -107,7 +107,7 @@ export default function ChatInterface({
                   className={`max-w-[70%] rounded-2xl px-4 py-2 ${
                     isOwn
                       ? 'bg-[#0A1A2F] text-white rounded-br-md'
-                      : 'bg-white dark:bg-[#0A1A2F] text-gray-800 dark:text-white rounded-bl-md'
+                      : 'bg-white dark:bg-white/5 dark:bg-[#0A1A2F] text-gray-800 dark:text-white rounded-bl-md'
                   }`}
                 >
                   <p className="whitespace-pre-wrap break-words">{msg.content}</p>
@@ -127,7 +127,7 @@ export default function ChatInterface({
       </div>
 
       {/* Input */}
-      <div className="p-4 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-[#0A1A2F]">
+      <div className="p-4 border-t border-gray-200 dark:border-white/10 dark:border-gray-700 bg-white dark:bg-white/5 dark:bg-[#0A1A2F]">
         <div className="flex gap-2">
           <Textarea
             ref={textareaRef}

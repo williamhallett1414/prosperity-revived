@@ -55,7 +55,7 @@ export default function ConversationList({ messages, user, onSelectConversation,
 
   return (
     <div className="flex flex-col h-full">
-      <div className="p-4 border-b border-gray-200 dark:border-gray-700">
+      <div className="p-4 border-b border-gray-200 dark:border-white/10 dark:border-gray-700">
         <div className="relative">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
           <Input
@@ -84,7 +84,7 @@ export default function ConversationList({ messages, user, onSelectConversation,
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: index * 0.05 }}
                 onClick={() => onSelectConversation(conv.email)}
-                className={`w-full p-4 text-left hover:bg-gray-50 dark:hover:bg-[#0A1A2F] transition-colors ${
+                className={`w-full p-4 text-left hover:bg-gray-50 dark:bg-white/5 dark:hover:bg-[#0A1A2F] transition-colors ${
                   selectedEmail === conv.email ? 'bg-gray-100 dark:bg-[#0A1A2F]' : ''
                 }`}
               >

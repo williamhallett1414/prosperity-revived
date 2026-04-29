@@ -30,7 +30,7 @@ export default function QuickActionsRow() {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.2 + index * 0.05 }}
                 whileHover={{ scale: 1.05 }}
-                className={`flex flex-col items-center gap-1 px-4 py-3 rounded-lg bg-gradient-to-br ${action.color} text-[#0A1A2F] min-w-[70px] snap-start flex-shrink-0 shadow-sm`}
+                className={`flex flex-col items-center gap-1 px-4 py-3 rounded-lg bg-gradient-to-br ${action.color} text-[#0A1A2F] dark:text-white min-w-[70px] snap-start flex-shrink-0 shadow-sm`}
               >
                 <Icon className="w-5 h-5" />
                 <span className="text-xs font-semibold text-center">{action.label}</span>

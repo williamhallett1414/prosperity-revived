@@ -95,7 +95,7 @@ export default function JournalSentimentAnalyzer({ userEmail }) {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-white rounded-xl shadow-lg p-6 space-y-6"
+      className="bg-white dark:bg-white/5 rounded-xl shadow-lg p-6 space-y-6"
     >
       <div className="flex items-center justify-between">
         <h3 className="text-lg font-bold text-gray-900 flex items-center gap-2">
@@ -124,7 +124,7 @@ export default function JournalSentimentAnalyzer({ userEmail }) {
               <p className="text-2xl font-bold text-[#C9A227]">{avgSentiment}</p>
               <p className="text-xs text-gray-500 mt-1">Scale: -1 to 1</p>
             </div>
-            <div className="bg-[#F2F6FA] p-4 rounded-lg">
+            <div className="bg-[#F2F6FA] dark:bg-[#0A1A2F] p-4 rounded-lg">
               <p className="text-xs text-gray-600">Entries</p>
               <p className="text-2xl font-bold text-[#3C4E53]">{entries.length}</p>
               <p className="text-xs text-gray-500 mt-1">Last {timeRange} days</p>

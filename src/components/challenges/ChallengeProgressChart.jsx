@@ -19,7 +19,7 @@ export default function ChallengeProgressChart({ progressLogs, goalValue, goalUn
   const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
       return (
-        <div className="bg-white p-3 rounded-lg shadow-lg border border-gray-100">
+        <div className="bg-white dark:bg-white/5 p-3 rounded-lg shadow-lg border border-gray-100 dark:border-white/10">
           <p className="font-semibold text-gray-900">{payload[0].payload.date}</p>
           <p className="text-[#C9A227]">Total: {payload[0].value} {goalUnit}</p>
           <p className="text-gray-600">Daily: +{payload[0].payload.daily} {goalUnit}</p>

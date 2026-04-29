@@ -177,7 +177,7 @@ export default function GroceryListGenerator({ isOpen, onClose, mealPlanDays }) 
                       className={`flex items-start gap-3 p-3 rounded-lg transition-colors ${
                         checkedItems[item.name]
                           ? 'bg-gray-100 dark:bg-[#0A1A2F]'
-                          : 'bg-white dark:bg-[#0A1A2F] hover:bg-gray-50 dark:hover:bg-[#3C4E53]'
+                          : 'bg-white dark:bg-white/5 dark:bg-[#0A1A2F] hover:bg-gray-50 dark:bg-white/5 dark:hover:bg-[#3C4E53]'
                       }`}
                     >
                       <Checkbox

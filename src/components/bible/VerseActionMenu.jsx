@@ -130,14 +130,14 @@ Keep it warm, accessible, and spiritually enriching - like Dr. Myles Munroe's ki
         initial={{ opacity: 0, scale: 0.95, y: -10 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.95, y: -10 }}
-        className="absolute z-50 mt-2 bg-white rounded-xl shadow-2xl border-2 border-[#FAD98D]/20 overflow-hidden"
+        className="absolute z-50 mt-2 bg-white dark:bg-white/5 rounded-xl shadow-2xl border-2 border-[#FAD98D]/20 overflow-hidden"
         style={{ minWidth: '280px' }}
       >
         {/* Header */}
         <div className="bg-gradient-to-r from-[#FAD98D] to-[#AFC7E3] px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <BookOpen className="w-4 h-4 text-[#0A1A2F]" />
-            <span className="text-sm font-semibold text-[#0A1A2F]">
+            <BookOpen className="w-4 h-4 text-[#0A1A2F] dark:text-white dark:text-white" />
+            <span className="text-sm font-semibold text-[#0A1A2F] dark:text-white dark:text-white">
               {bookName} {chapter}:{verse.verse}
             </span>
           </div>
@@ -145,7 +145,7 @@ Keep it warm, accessible, and spiritually enriching - like Dr. Myles Munroe's ki
             onClick={onClose}
             className="w-6 h-6 rounded-full hover:bg-white/20 flex items-center justify-center transition-colors"
           >
-            <X className="w-4 h-4 text-[#0A1A2F]" />
+            <X className="w-4 h-4 text-[#0A1A2F] dark:text-white dark:text-white" />
           </button>
         </div>
 
@@ -166,7 +166,7 @@ Keep it warm, accessible, and spiritually enriching - like Dr. Myles Munroe's ki
             <div className="bg-gradient-to-br from-[#FAD98D]/10 to-[#FFF9EC] rounded-lg p-4 space-y-3 max-h-96 overflow-y-auto">
               <div className="flex items-center gap-2 mb-2">
                 <Sparkles className="w-4 h-4 text-[#C9A227]" />
-                <span className="text-sm font-bold text-[#0A1A2F]">Gideon's Insights</span>
+                <span className="text-sm font-bold text-[#0A1A2F] dark:text-white dark:text-white">Gideon's Insights</span>
               </div>
               <div className="prose prose-sm text-[#0A1A2F]/75 text-xs leading-relaxed">
                 {aiInsights.split('\n').map((line, i) => (
@@ -179,7 +179,7 @@ Keep it warm, accessible, and spiritually enriching - like Dr. Myles Munroe's ki
           {/* Highlight Colors */}
           <div>
             <div className="flex items-center gap-2 mb-2">
-              <Highlighter className="w-4 h-4 text-[#0A1A2F]/50" />
+              <Highlighter className="w-4 h-4 text-[#0A1A2F]/50 dark:text-white/50" />
               <span className="text-xs font-semibold text-[#0A1A2F]/75">Highlight</span>
             </div>
             <div className="flex gap-2">
@@ -196,7 +196,7 @@ Keep it warm, accessible, and spiritually enriching - like Dr. Myles Munroe's ki
                   title={colorOption.label}
                 >
                   {existingBookmark?.highlight_color === colorOption.name && (
-                    <span className="text-[#0A1A2F] font-bold">✓</span>
+                    <span className="text-[#0A1A2F] dark:text-white font-bold">✓</span>
                   )}
                 </button>
               ))}
@@ -207,7 +207,7 @@ Keep it warm, accessible, and spiritually enriching - like Dr. Myles Munroe's ki
                   onRemoveHighlight();
                   onClose();
                 }}
-                className="mt-2 w-full text-xs text-[#0A1A2F]/40 hover:text-[#0A1A2F]/70 font-medium"
+                className="mt-2 w-full text-xs text-[#0A1A2F]/40 dark:text-white/40 hover:text-[#0A1A2F]/70 dark:text-white/70 font-medium"
               >
                 Remove Highlight
               </button>
@@ -218,7 +218,7 @@ Keep it warm, accessible, and spiritually enriching - like Dr. Myles Munroe's ki
           <div>
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-2">
-                <StickyNote className="w-4 h-4 text-[#0A1A2F]/50" />
+                <StickyNote className="w-4 h-4 text-[#0A1A2F]/50 dark:text-white/50" />
                 <span className="text-xs font-semibold text-[#0A1A2F]/75">Note</span>
               </div>
               {!showNoteInput && existingBookmark?.note && (
@@ -237,7 +237,7 @@ Keep it warm, accessible, and spiritually enriching - like Dr. Myles Munroe's ki
                   value={noteText}
                   onChange={(e) => setNoteText(e.target.value)}
                   placeholder="Write your reflection..."
-                  className="min-h-[100px] text-sm bg-[#F2F6FA] border-[#FAD98D]/20"
+                  className="min-h-[100px] text-sm bg-[#F2F6FA] dark:bg-[#0A1A2F] border-[#FAD98D]/20"
                   autoFocus
                 />
                 <div className="space-y-2">
@@ -245,7 +245,7 @@ Keep it warm, accessible, and spiritually enriching - like Dr. Myles Munroe's ki
                     <Button
                       onClick={handleSaveNote}
                       size="sm"
-                      className="flex-1 bg-[#FAD98D] hover:bg-[#FAD98D]/90 text-[#0A1A2F]"
+                      className="flex-1 bg-[#FAD98D] hover:bg-[#FAD98D]/90 text-[#0A1A2F] dark:text-white dark:text-white"
                     >
                       <Save className="w-3 h-3 mr-1" />
                       Save Note
@@ -275,7 +275,7 @@ Keep it warm, accessible, and spiritually enriching - like Dr. Myles Munroe's ki
                 </div>
               </div>
             ) : existingBookmark?.note ? (
-              <div className="bg-[#F2F6FA] rounded-lg p-3 space-y-2">
+              <div className="bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-lg p-3 space-y-2">
                 <p className="text-sm text-[#0A1A2F]/75">{existingBookmark.note}</p>
                 <div className="flex gap-2">
                   <Button
@@ -293,7 +293,7 @@ Keep it warm, accessible, and spiritually enriching - like Dr. Myles Munroe's ki
                       setNoteText('');
                       toast.success('Note deleted');
                     }}
-                    className="px-3 py-1 text-xs text-[#0A1A2F]/40 hover:bg-[#0A1A2F]/5 rounded transition-colors"
+                    className="px-3 py-1 text-xs text-[#0A1A2F]/40 dark:text-white/40 hover:bg-[#0A1A2F]/5 rounded transition-colors"
                   >
                     <Trash2 className="w-3 h-3" />
                   </button>

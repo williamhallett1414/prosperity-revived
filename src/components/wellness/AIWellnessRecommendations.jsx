@@ -96,7 +96,7 @@ Format as JSON with keys: meditation, workout, nutrition, selfcare, scripture, j
       animate={{ opacity: 1, y: 0 }}
       className="space-y-4"
     >
-      <h2 className="text-xl font-bold text-[#0A1A2F]">Today's AI Recommendations</h2>
+      <h2 className="text-xl font-bold text-[#0A1A2F] dark:text-white dark:text-white">Today's AI Recommendations</h2>
       
       <div className="grid grid-cols-2 gap-3">
         {recommendationItems.map((item, index) => {
@@ -112,15 +112,15 @@ Format as JSON with keys: meditation, workout, nutrition, selfcare, scripture, j
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: index * 0.05 }}
                 whileHover={{ scale: 1.02 }}
-                className="bg-white rounded-xl p-4 border border-gray-100 hover:shadow-md transition-shadow cursor-pointer"
+                className="bg-white dark:bg-white/5 rounded-xl p-4 border border-gray-100 dark:border-white/10 hover:shadow-md transition-shadow cursor-pointer"
               >
                 <div className="flex items-start gap-3">
                   <div className="bg-[#FAD98D]/20 p-2 rounded-lg">
                     <Icon className="w-5 h-5 text-[#FAD98D]" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h3 className="font-semibold text-[#0A1A2F] text-sm">{item.title}</h3>
-                    <p className="text-xs text-[#0A1A2F]/70 line-clamp-2 mt-1">{rec.recommendation}</p>
+                    <h3 className="font-semibold text-[#0A1A2F] dark:text-white text-sm">{item.title}</h3>
+                    <p className="text-xs text-[#0A1A2F]/70 dark:text-white/70 line-clamp-2 mt-1">{rec.recommendation}</p>
                     <p className="text-xs text-[#FAD98D] mt-1 font-medium">{rec.time}</p>
                   </div>
                 </div>

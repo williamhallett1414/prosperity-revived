@@ -144,17 +144,17 @@ export default function PlanDetail() {
 
   if (!plan) {
     return (
-      <div className="min-h-screen bg-[#F2F6FA] flex items-center justify-center">
+      <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] flex items-center justify-center">
 
       {/* ── Standard Header ── */}
-      <div className="sticky top-0 z-40 bg-white border-b border-[#FAD98D]/20 px-4 pt-4 pb-3">
+      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 px-4 pt-4 pb-3">
         <div className="max-w-lg mx-auto flex items-center gap-3">
           <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center">
             <BookOpen className="w-5 h-5 text-white" />
           </div>
           <div>
-            <h1 className="text-base font-bold text-[#0A1A2F]">Reading Plan</h1>
-            <p className="text-xs text-[#0A1A2F]/45">Daily devotional</p>
+            <h1 className="text-base font-bold text-[#0A1A2F] dark:text-white dark:text-white">Reading Plan</h1>
+            <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45">Daily devotional</p>
           </div>
         </div>
       </div>
@@ -285,7 +285,7 @@ export default function PlanDetail() {
   return (
     <>
       <Toaster position="top-center" richColors />
-      <div className="min-h-screen bg-[#F2F6FA] pb-24">
+      <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-24">
       {/* Hero Image */}
       <div className="relative h-64">
         <img
@@ -321,12 +321,12 @@ export default function PlanDetail() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-white rounded-2xl p-6 shadow-sm mb-6"
+            className="bg-white dark:bg-white/5 rounded-2xl p-6 shadow-sm mb-6"
           >
             <div className="flex items-center justify-between mb-4">
               <div>
                 <p className="text-sm text-gray-500">Your Progress</p>
-                <p className="text-2xl font-bold text-[#0A1A2F]">
+                <p className="text-2xl font-bold text-[#0A1A2F] dark:text-white dark:text-white">
                   {completedCount} / {plan.duration} days
                 </p>
               </div>
@@ -392,7 +392,7 @@ export default function PlanDetail() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-white rounded-2xl p-6 shadow-sm mb-6"
+            className="bg-white dark:bg-white/5 rounded-2xl p-6 shadow-sm mb-6"
           >
             <div className="flex items-center gap-3 mb-4">
               <Calendar className="w-5 h-5 text-[#c9a227]" />
@@ -400,7 +400,7 @@ export default function PlanDetail() {
             </div>
             <Button
               onClick={handleStartPlan}
-              className="w-full bg-gradient-to-r from-[#c9a227] to-[#FAD98D] hover:opacity-90 text-[#0A1A2F] h-12 text-lg font-semibold"
+              className="w-full bg-gradient-to-r from-[#c9a227] to-[#FAD98D] hover:opacity-90 text-[#0A1A2F] dark:text-white h-12 text-lg font-semibold"
             >
               <Play className="w-5 h-5 mr-2" />
               Start Plan
@@ -411,7 +411,7 @@ export default function PlanDetail() {
             {/* Days Grid */}
             {progress && (
               <div>
-                <h2 className="text-lg font-semibold text-[#0A1A2F] mb-4">Daily Readings</h2>
+                <h2 className="text-lg font-semibold text-[#0A1A2F] dark:text-white mb-4">Daily Readings</h2>
                 <div className="grid grid-cols-1 gap-3">
                   {days.map(day => {
                     const isCompleted = progress.completed_days?.includes(day);
@@ -424,17 +424,17 @@ export default function PlanDetail() {
                       <motion.div 
                         key={day}
                         whileHover={{ scale: 1.01 }}
-                        className={`bg-white rounded-xl p-4 border-2 transition-all ${
+                        className={`bg-white dark:bg-white/5 rounded-xl p-4 border-2 transition-all ${
                           isCompleted 
                             ? 'border-[#AFC7E3] bg-[#AFC7E3]/5' 
-                            : 'border-gray-200 hover:border-[#c9a227]'
+                            : 'border-gray-200 dark:border-white/10 hover:border-[#c9a227]'
                         }`}
                       >
                         {/* Centered title */}
                         <div className="text-center mb-3">
                           <div className="flex items-center justify-center gap-2 mb-0.5">
                             {isCompleted && <CheckCircle2 className="w-4 h-4 text-[#AFC7E3]" />}
-                            <h3 className="font-semibold text-[#0A1A2F]">Day {day}</h3>
+                            <h3 className="font-semibold text-[#0A1A2F] dark:text-white dark:text-white">Day {day}</h3>
                             {hasNote && <div className="w-2 h-2 bg-[#c9a227] rounded-full" />}
                           </div>
                           {reading && (

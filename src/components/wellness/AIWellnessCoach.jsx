@@ -629,7 +629,7 @@ Format as specific, actionable recommendations with clear benefits explained.`;
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            className="fixed bottom-24 right-4 w-96 h-[600px] bg-white rounded-2xl shadow-2xl flex flex-col z-50 overflow-hidden"
+            className="fixed bottom-24 right-4 w-96 h-[600px] bg-white dark:bg-white/5 rounded-2xl shadow-2xl flex flex-col z-50 overflow-hidden"
           >
             {/* Header */}
             <div className="bg-gradient-to-r from-[#AFC7E3] to-[#6B7280] p-4 flex items-center justify-between text-white">
@@ -651,7 +651,7 @@ Format as specific, actionable recommendations with clear benefits explained.`;
             </div>
 
             {/* Tabs */}
-            <div className="border-b bg-white px-4">
+            <div className="border-b bg-white dark:bg-white/5 px-4">
               <Tabs value={activeTab} onValueChange={setActiveTab}>
                 <TabsList className="w-full grid grid-cols-2">
                   <TabsTrigger value="chat">Chat</TabsTrigger>
@@ -910,7 +910,7 @@ Format as specific, actionable recommendations with clear benefits explained.`;
                          </div>
                          <div className="space-y-2">
                            {journalEntries.slice(0, 3).map((entry) => (
-                             <div key={entry.id} className="p-2 bg-gray-50 rounded-lg">
+                             <div key={entry.id} className="p-2 bg-gray-50 dark:bg-white/5 rounded-lg">
                                <div className="flex items-center justify-between mb-1">
                                  <span className="text-xs text-gray-500">{entry.date}</span>
                                  <span className="text-xs">{entry.mood === 'excellent' ? '🤩' : entry.mood === 'good' ? '😊' : entry.mood === 'neutral' ? '😐' : '😞'}</span>

@@ -81,8 +81,8 @@ export default function ProfileJourneyTab({ user, userProgress, workoutSessions,
               <div className={`w-9 h-9 rounded-xl bg-gradient-to-br ${stat.color} flex items-center justify-center mb-3`}>
                 <Icon className="w-5 h-5 text-white" />
               </div>
-              <p className="text-2xl font-bold text-[#0A1A2F]">{stat.value}</p>
-              <p className="text-xs text-[#0A1A2F]/60 mt-0.5">{stat.label}</p>
+              <p className="text-2xl font-bold text-[#0A1A2F] dark:text-white dark:text-white">{stat.value}</p>
+              <p className="text-xs text-[#0A1A2F]/60 dark:text-white/60 mt-0.5">{stat.label}</p>
             </motion.div>
           );
         })}
@@ -94,8 +94,8 @@ export default function ProfileJourneyTab({ user, userProgress, workoutSessions,
           animate={{ opacity: 1 }}
           className="bg-[#FAD98D]/10 rounded-2xl p-5 text-center"
         >
-          <p className="text-sm text-[#0A1A2F]/70 mb-1 font-medium">Your journey is just beginning!</p>
-          <p className="text-xs text-[#0A1A2F]/50 mb-3">Log workouts, read the Bible, and journal to see your progress here.</p>
+          <p className="text-sm text-[#0A1A2F]/70 dark:text-white/70 mb-1 font-medium">Your journey is just beginning!</p>
+          <p className="text-xs text-[#0A1A2F]/50 dark:text-white/50 mb-3">Log workouts, read the Bible, and journal to see your progress here.</p>
         </motion.div>
       )}
 

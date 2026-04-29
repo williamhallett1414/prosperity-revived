@@ -593,8 +593,8 @@ Requirements:
           <Wind className="w-4 h-4 text-white" />
         </div>
         <div>
-          <h3 className="font-bold text-[#0A1A2F] text-base">Guided Meditations</h3>
-          <p className="text-xs text-[#0A1A2F]/60">AI voice + ambient music</p>
+          <h3 className="font-bold text-[#0A1A2F] dark:text-white text-base">Guided Meditations</h3>
+          <p className="text-xs text-[#0A1A2F]/60 dark:text-white/60">AI voice + ambient music</p>
         </div>
       </div>
       )}
@@ -614,11 +614,11 @@ Requirements:
             >
               <div className="flex items-start justify-between mb-2">
                 <span className="text-2xl">{med.theme}</span>
-                <span className="text-xs font-semibold text-[#0A1A2F]/50 bg-white/60 rounded-full px-2 py-0.5">
+                <span className="text-xs font-semibold text-[#0A1A2F]/50 dark:text-white/50 bg-white/60 rounded-full px-2 py-0.5">
                   {med.duration}
                 </span>
               </div>
-              <h4 className="font-bold text-[#0A1A2F] text-sm mb-1 leading-tight">{med.title}</h4>
+              <h4 className="font-bold text-[#0A1A2F] dark:text-white text-sm mb-1 leading-tight">{med.title}</h4>
               <p className="text-xs text-[#0A1A2F]/65 leading-relaxed mb-3">{med.description}</p>
               <div className="flex items-center gap-1.5 bg-white/70 rounded-full px-3 py-1.5 w-fit">
                 <Play className="w-3 h-3 text-[#3C4E53] fill-[#3C4E53]" />
@@ -777,7 +777,7 @@ Requirements:
                       key={i}
                       className={`w-1.5 h-1.5 rounded-full transition-all ${
                         i < currentSegment ? 'bg-[#AFC7E3]' :
-                        i === currentSegment ? 'bg-white scale-125' :
+                        i === currentSegment ? 'bg-white dark:bg-white/5 scale-125' :
                         'bg-white/20'
                       }`}
                     />

@@ -17,7 +17,7 @@ import StartWorkoutModal from './StartWorkoutModal';
 const DIFFICULTY_STYLES = {
   beginner:     'bg-[#38BDF8]/12 text-[#0EA5E9]',
   intermediate: 'bg-[#FD9C2D]/12 text-[#E89020]',
-  advanced:     'bg-[#0A1A2F]/8 text-[#0A1A2F]',
+  advanced:     'bg-[#0A1A2F]/8 text-[#0A1A2F] dark:text-white dark:text-white',
 };
 
 export default function WorkoutCard({
@@ -76,7 +76,7 @@ export default function WorkoutCard({
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.05 }}
-      className="bg-white rounded-2xl overflow-hidden border border-[#BAE6FD]/30 shadow-sm"
+      className="bg-white dark:bg-white/5 rounded-2xl overflow-hidden border border-[#BAE6FD]/30 shadow-sm"
     >
       {workout.image_url && (
         <div className="relative h-36 overflow-hidden">
@@ -94,15 +94,15 @@ export default function WorkoutCard({
         <div className="flex items-start justify-between mb-2">
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 flex-wrap mb-1">
-              <h3 className="font-bold text-[#0A1A2F] text-base truncate">{workout.title}</h3>
+              <h3 className="font-bold text-[#0A1A2F] dark:text-white text-base truncate">{workout.title}</h3>
               {!workout.image_url && workout.difficulty && (
-                <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full capitalize flex-shrink-0 ${DIFFICULTY_STYLES[workout.difficulty] || 'bg-[#BAE6FD]/15 text-[#0A1A2F]/60'}`}>
+                <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full capitalize flex-shrink-0 ${DIFFICULTY_STYLES[workout.difficulty] || 'bg-[#BAE6FD]/15 text-[#0A1A2F]/60 dark:text-white/60'}`}>
                   {workout.difficulty}
                 </span>
               )}
             </div>
             {showCommunityStats && workout.creator_name && (
-              <p className="text-xs text-[#0A1A2F]/40 mb-1">by {workout.creator_name}</p>
+              <p className="text-xs text-[#0A1A2F]/40 dark:text-white/40 mb-1">by {workout.creator_name}</p>
             )}
           </div>
           <div className="flex gap-1 flex-shrink-0 ml-2">
@@ -113,15 +113,15 @@ export default function WorkoutCard({
               </button>
             )}
             <button onClick={() => setShowDetailModal(true)}
-              className="w-8 h-8 rounded-full hover:bg-[#BAE6FD]/20 flex items-center justify-center text-[#0A1A2F]/40 transition-colors">
+              className="w-8 h-8 rounded-full hover:bg-[#BAE6FD]/20 flex items-center justify-center text-[#0A1A2F]/40 dark:text-white/40 transition-colors">
               <Eye className="w-4 h-4" />
             </button>
           </div>
         </div>
 
-        <p className="text-sm text-[#0A1A2F]/50 mb-3 line-clamp-2 leading-relaxed">{workout.description}</p>
+        <p className="text-sm text-[#0A1A2F]/50 dark:text-white/50 mb-3 line-clamp-2 leading-relaxed">{workout.description}</p>
 
-        <div className="flex items-center gap-4 mb-3 text-xs text-[#0A1A2F]/45">
+        <div className="flex items-center gap-4 mb-3 text-xs text-[#0A1A2F]/45 dark:text-white/45">
           <div className="flex items-center gap-1">
             <Clock className="w-3.5 h-3.5" />
             <span>{workout.duration_minutes} min</span>
@@ -142,12 +142,12 @@ export default function WorkoutCard({
           <div className="mb-3">
             <div className="space-y-0.5">
               {workout.exercises.slice(0, 3).map((ex, i) => (
-                <p key={i} className="text-xs text-[#0A1A2F]/45">
+                <p key={i} className="text-xs text-[#0A1A2F]/45 dark:text-white/45">
                   · {ex.name}{ex.sets && ex.reps ? ` — ${ex.sets}×${ex.reps}` : ex.duration_seconds ? ` — ${ex.sets}×${ex.duration_seconds}s` : ''}
                 </p>
               ))}
               {workout.exercises.length > 3 && (
-                <p className="text-xs text-[#0A1A2F]/30">+{workout.exercises.length - 3} more</p>
+                <p className="text-xs text-[#0A1A2F]/30 dark:text-white/30">+{workout.exercises.length - 3} more</p>
               )}
             </div>
           </div>
@@ -166,13 +166,13 @@ export default function WorkoutCard({
                 className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm transition-all border ${
                   hasLiked
                     ? 'bg-[#38BDF8]/10 text-[#0EA5E9] border-[#38BDF8]/25'
-                    : 'border-[#BAE6FD]/30 text-[#0A1A2F]/40 hover:bg-[#F2F6FA]'
+                    : 'border-[#BAE6FD]/30 text-[#0A1A2F]/40 dark:text-white/40 hover:bg-[#F2F6FA] dark:bg-[#0A1A2F]'
                 }`}>
                 <ThumbsUp className={`w-4 h-4 ${hasLiked ? 'fill-current' : ''}`} />
                 {workout.likes || 0}
               </button>
               <button onClick={() => setShowComments(!showComments)}
-                className="px-3 py-2 rounded-lg border border-[#BAE6FD]/30 text-[#0A1A2F]/40 hover:bg-[#F2F6FA] transition-colors">
+                className="px-3 py-2 rounded-lg border border-[#BAE6FD]/30 text-[#0A1A2F]/40 dark:text-white/40 hover:bg-[#F2F6FA] dark:bg-[#0A1A2F] transition-colors">
                 <MessageCircle className="w-4 h-4" />
               </button>
             </>
@@ -184,16 +184,16 @@ export default function WorkoutCard({
               </Button>
               {showCommunityStats && (
                 <div className="flex gap-1.5">
-                  <div className="flex items-center gap-1 text-xs text-[#0A1A2F]/40 px-2.5 py-2 bg-[#F2F6FA] rounded-lg border border-[#BAE6FD]/20">
+                  <div className="flex items-center gap-1 text-xs text-[#0A1A2F]/40 dark:text-white/40 px-2.5 py-2 bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-lg border border-[#BAE6FD]/20">
                     <ThumbsUp className="w-3.5 h-3.5" />{workout.likes || 0}
                   </div>
-                  <div className="flex items-center gap-1 text-xs text-[#0A1A2F]/40 px-2.5 py-2 bg-[#F2F6FA] rounded-lg border border-[#BAE6FD]/20">
+                  <div className="flex items-center gap-1 text-xs text-[#0A1A2F]/40 dark:text-white/40 px-2.5 py-2 bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-lg border border-[#BAE6FD]/20">
                     <Copy className="w-3.5 h-3.5" />{workout.times_copied || 0}
                   </div>
                 </div>
               )}
               <button onClick={() => setShowComments(!showComments)}
-                className="flex items-center gap-1.5 px-3 py-2 rounded-lg border border-[#BAE6FD]/30 text-[#0A1A2F]/40 hover:bg-[#F2F6FA] text-xs transition-colors">
+                className="flex items-center gap-1.5 px-3 py-2 rounded-lg border border-[#BAE6FD]/30 text-[#0A1A2F]/40 dark:text-white/40 hover:bg-[#F2F6FA] dark:bg-[#0A1A2F] text-xs transition-colors">
                 {showComments ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
               </button>
             </>

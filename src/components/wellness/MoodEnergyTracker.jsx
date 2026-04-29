@@ -62,7 +62,7 @@ export default function MoodEnergyTracker({ isOpen, onClose, onSubmit }) {
                     className={`p-3 rounded-lg border-2 flex flex-col items-center gap-1 transition-all ${
                       mood === m.value
                         ? 'border-[#FAD98D] bg-[#FAD98D]/10'
-                        : 'border-gray-200 hover:border-[#FAD98D]/50'
+                        : 'border-gray-200 dark:border-white/10 hover:border-[#FAD98D]/50'
                     }`}
                   >
                     <Icon className={`w-6 h-6 ${m.color}`} />
@@ -86,7 +86,7 @@ export default function MoodEnergyTracker({ isOpen, onClose, onSubmit }) {
                     className={`p-3 rounded-lg border-2 flex flex-col items-center gap-1 transition-all ${
                       energy === e.value
                         ? 'border-[#FAD98D] bg-[#FAD98D]/10'
-                        : 'border-gray-200 hover:border-[#FAD98D]/50'
+                        : 'border-gray-200 dark:border-white/10 hover:border-[#FAD98D]/50'
                     }`}
                   >
                     <Icon className={`w-6 h-6 ${e.color}`} />

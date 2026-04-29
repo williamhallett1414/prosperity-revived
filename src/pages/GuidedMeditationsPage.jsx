@@ -376,7 +376,7 @@ function MeditationCard({ med, isFav, isRecent, onPlay, onToggleFav, index }) {
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.04 }}
-      className="bg-white rounded-2xl border border-[#F2F6FA] overflow-hidden group hover:shadow-md hover:border-[#FAD98D]/40 transition-all cursor-pointer"
+      className="bg-white dark:bg-white/5 rounded-2xl border border-[#F2F6FA] overflow-hidden group hover:shadow-md hover:border-[#FAD98D]/40 transition-all cursor-pointer"
       onClick={() => onPlay(med)}
     >
       {/* Gradient accent bar */}
@@ -394,18 +394,18 @@ function MeditationCard({ med, isFav, isRecent, onPlay, onToggleFav, index }) {
           <div className="flex items-center gap-1.5">
             <button
               onClick={e => { e.stopPropagation(); onToggleFav(med.id); }}
-              className={`p-1 rounded-full transition-colors ${isFav ? 'text-amber-500' : 'text-[#0A1A2F]/20 hover:text-amber-400'}`}
+              className={`p-1 rounded-full transition-colors ${isFav ? 'text-amber-500' : 'text-[#0A1A2F]/20 dark:text-white/20 hover:text-amber-400'}`}
             >
               <StarIcon className={`w-3.5 h-3.5 ${isFav ? 'fill-amber-500' : ''}`} />
             </button>
-            <span className="text-[10px] font-bold text-[#0A1A2F]/40 bg-[#F2F6FA] rounded-full px-2 py-0.5">
+            <span className="text-[10px] font-bold text-[#0A1A2F]/40 dark:text-white/40 bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-full px-2 py-0.5">
               {med.duration}
             </span>
           </div>
         </div>
 
-        <h4 className="font-bold text-[#0A1A2F] text-sm leading-snug mb-1">{med.title}</h4>
-        <p className="text-xs text-[#0A1A2F]/50 leading-relaxed line-clamp-2 mb-3">{med.description}</p>
+        <h4 className="font-bold text-[#0A1A2F] dark:text-white text-sm leading-snug mb-1">{med.title}</h4>
+        <p className="text-xs text-[#0A1A2F]/50 dark:text-white/50 leading-relaxed line-clamp-2 mb-3">{med.description}</p>
 
         {/* Play button */}
         <div className={`flex items-center gap-1.5 bg-gradient-to-r ${med.gradient} rounded-xl px-3 py-1.5 w-fit opacity-90 group-hover:opacity-100 transition-opacity`}>
@@ -451,22 +451,22 @@ export default function GuidedMeditationsPage() {
 
   return (
     <>
-      <div className="min-h-screen bg-[#F2F6FA] pb-28">
+      <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
 
         {/* ── Sticky header ─────────────────────────────────────────────── */}
-        <div className="sticky top-0 z-40 bg-white border-b border-[#F2F6FA] px-4 py-3">
+        <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#F2F6FA] px-4 py-3">
           <div className="max-w-2xl mx-auto flex items-center gap-3">
             <button onClick={() => navigate(-1)}
-              className="w-9 h-9 rounded-full bg-[#F2F6FA] hover:bg-white flex items-center justify-center transition-colors">
-              <ArrowLeft className="w-4 h-4 text-[#0A1A2F]" />
+              className="w-9 h-9 rounded-full bg-[#F2F6FA] dark:bg-[#0A1A2F] hover:bg-white dark:bg-white/5 flex items-center justify-center transition-colors">
+              <ArrowLeft className="w-4 h-4 text-[#0A1A2F] dark:text-white dark:text-white" />
             </button>
             <div className="flex-1">
-              <h1 className="text-base font-bold text-[#0A1A2F]">Guided Meditations</h1>
-              <p className="text-xs text-[#0A1A2F]/45">
+              <h1 className="text-base font-bold text-[#0A1A2F] dark:text-white dark:text-white">Guided Meditations</h1>
+              <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45">
                 {count > 0 ? `${count} session${count !== 1 ? 's' : ''} completed · ` : ''}{MEDITATIONS.length} sessions available
               </p>
             </div>
-            <div className="flex items-center gap-1.5 bg-white border border-[#FAD98D]/30 rounded-full px-2.5 py-1">
+            <div className="flex items-center gap-1.5 bg-white dark:bg-white/5 border border-[#FAD98D]/30 rounded-full px-2.5 py-1">
               <span className="text-[10px]">🎧</span>
               <span className="text-[10px] font-bold text-[#c9a227]">Use headphones</span>
             </div>
@@ -478,10 +478,10 @@ export default function GuidedMeditationsPage() {
           {/* ── Time-aware featured ──────────────────────────────────────── */}
           <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
             <div className="flex items-center justify-between mb-2">
-              <p className="text-xs font-bold text-[#0A1A2F]/35 uppercase tracking-widest">
+              <p className="text-xs font-bold text-[#0A1A2F]/35 dark:text-white/35 uppercase tracking-widest">
                 {timeLabel.label}
               </p>
-              <p className="text-xs text-[#0A1A2F]/35">{timeLabel.sub}</p>
+              <p className="text-xs text-[#0A1A2F]/35 dark:text-white/35">{timeLabel.sub}</p>
             </div>
             <motion.button
               whileTap={{ scale: 0.98 }}
@@ -512,7 +512,7 @@ export default function GuidedMeditationsPage() {
           {/* ── Favorites row ────────────────────────────────────────────── */}
           {favMeds.length > 0 && (
             <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
-              <p className="text-xs font-bold text-[#0A1A2F]/35 uppercase tracking-widest mb-3">
+              <p className="text-xs font-bold text-[#0A1A2F]/35 dark:text-white/35 uppercase tracking-widest mb-3">
                 ⭐ Favorites
               </p>
               <div className="flex gap-3 overflow-x-auto -mx-4 px-4 pb-1 scrollbar-none">
@@ -540,12 +540,12 @@ export default function GuidedMeditationsPage() {
                   className={`flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-semibold whitespace-nowrap transition-all ${
                     category === cat.id
                       ? 'bg-[#0A1A2F] text-white border-[#0A1A2F]'
-                      : 'bg-white text-[#0A1A2F]/50 border-[#F2F6FA] hover:border-[#FAD98D]/40'
+                      : 'bg-white dark:bg-white/5 text-[#0A1A2F]/50 dark:text-white/50 border-[#F2F6FA] hover:border-[#FAD98D]/40'
                   }`}>
                   <span>{cat.emoji}</span>
                   {cat.label}
                   <span className={`text-[9px] font-bold rounded-full px-1.5 py-0.5 ${
-                    category === cat.id ? 'bg-white/20' : 'bg-[#F2F6FA]'
+                    category === cat.id ? 'bg-white/20' : 'bg-[#F2F6FA] dark:bg-[#0A1A2F]'
                   }`}>
                     {cat.id === 'all' ? MEDITATIONS.length : MEDITATIONS.filter(m => m.category === cat.id).length}
                   </span>
@@ -553,7 +553,7 @@ export default function GuidedMeditationsPage() {
               ))}
             </div>
             {category !== 'all' && (
-              <p className="text-xs text-[#0A1A2F]/35 mt-2 px-1">
+              <p className="text-xs text-[#0A1A2F]/35 dark:text-white/35 mt-2 px-1">
                 {CATEGORIES.find(c => c.id === category)?.desc}
               </p>
             )}
@@ -575,8 +575,8 @@ export default function GuidedMeditationsPage() {
           </div>
 
           {/* ── Tips footer ───────────────────────────────────────────────── */}
-          <div className="bg-white rounded-2xl border border-[#F2F6FA] p-4">
-            <p className="text-xs font-bold text-[#0A1A2F]/35 uppercase tracking-widest mb-3">Getting the most from each session</p>
+          <div className="bg-white dark:bg-white/5 rounded-2xl border border-[#F2F6FA] p-4">
+            <p className="text-xs font-bold text-[#0A1A2F]/35 dark:text-white/35 uppercase tracking-widest mb-3">Getting the most from each session</p>
             <div className="grid grid-cols-3 gap-3 text-center">
               {[
                 { emoji: '🎧', label: 'Headphones', sub: 'Blocks ambient noise' },
@@ -585,8 +585,8 @@ export default function GuidedMeditationsPage() {
               ].map(t => (
                 <div key={t.label}>
                   <p className="text-xl mb-1">{t.emoji}</p>
-                  <p className="text-[11px] font-bold text-[#0A1A2F]">{t.label}</p>
-                  <p className="text-[10px] text-[#0A1A2F]/40">{t.sub}</p>
+                  <p className="text-[11px] font-bold text-[#0A1A2F] dark:text-white dark:text-white">{t.label}</p>
+                  <p className="text-[10px] text-[#0A1A2F]/40 dark:text-white/40">{t.sub}</p>
                 </div>
               ))}
             </div>

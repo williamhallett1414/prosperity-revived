@@ -28,7 +28,7 @@ export default function TodaysOverview({ meditations = [], workoutPlans = [], ch
       transition={{ delay: 0.1 }}
       className="mb-8 space-y-3">
 
-      <h2 className="text-lg font-bold text-[#0A1A2F] px-4">Today's Overview</h2>
+      <h2 className="text-lg font-bold text-[#0A1A2F] dark:text-white px-4">Today's Overview</h2>
 
       {/* Today's Scripture */}
       <div className="bg-slate-50 px-4">
@@ -43,9 +43,9 @@ export default function TodaysOverview({ meditations = [], workoutPlans = [], ch
 
 
         <div className="flex items-start gap-2">
-          <Sparkles className="w-4 h-4 text-[#0A1A2F] flex-shrink-0 mt-1" />
+          <Sparkles className="w-4 h-4 text-[#0A1A2F] dark:text-white flex-shrink-0 mt-1" />
           <div>
-            <p className="text-[#0A1A2F] font-semibold text-sm">{affirmation}</p>
+            <p className="text-[#0A1A2F] dark:text-white font-semibold text-sm">{affirmation}</p>
           </div>
         </div>
       </motion.div>

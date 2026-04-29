@@ -67,7 +67,7 @@ Make it meaningful and easy to follow.`;
   };
 
   return (
-    <div className="bg-white dark:bg-[#0A1A2F] rounded-2xl p-4">
+    <div className="bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-2xl p-4">
       <h3 className="font-semibold text-[#0A1A2F] dark:text-white mb-4">Create Custom Prayer/Meditation</h3>
 
       <div className="space-y-3">
@@ -112,7 +112,7 @@ Make it meaningful and easy to follow.`;
           
           <div className="space-y-2 mb-3 max-h-[200px] overflow-y-auto">
             {prayer.elements.map((element, index) => (
-              <div key={index} className="flex gap-2 items-start p-2 bg-gray-50 dark:bg-gray-800 rounded">
+              <div key={index} className="flex gap-2 items-start p-2 bg-gray-50 dark:bg-white/5 dark:bg-gray-800 rounded">
                 <p className="flex-1 text-sm text-gray-700 dark:text-gray-300 line-clamp-2">{element.text}</p>
                 <Button variant="ghost" size="icon" onClick={() => removeElement(index)} className="h-6 w-6">
                   <X className="w-4 h-4" />

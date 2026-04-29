@@ -134,7 +134,7 @@ export default function SelfCareChallenges({ challenges = [], participations = [
         transition={{ delay: 0.6 }}
         className="mb-8"
       >
-        <h2 className="text-xl font-bold text-[#0A1A2F] mb-4">Self-Care Challenges</h2>
+        <h2 className="text-xl font-bold text-[#0A1A2F] dark:text-white mb-4">Self-Care Challenges</h2>
         <div className="space-y-3">
           {displayChallenges.map((challenge, index) => {
             const Icon = challenge.icon || Trophy;
@@ -148,7 +148,7 @@ export default function SelfCareChallenges({ challenges = [], participations = [
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.6 + index * 0.1 }}
                 onClick={() => setSelectedChallenge(challenge)}
-                className={`w-full bg-gradient-to-r ${challenge.gradient} rounded-2xl p-5 text-[#0A1A2F] shadow-lg text-left`}
+                className={`w-full bg-gradient-to-r ${challenge.gradient} rounded-2xl p-5 text-[#0A1A2F] dark:text-white shadow-lg text-left`}
               >
                 <div className="flex items-start gap-3 mb-3">
                   <div className="bg-[#0A1A2F]/10 rounded-full p-2">
@@ -207,7 +207,7 @@ export default function SelfCareChallenges({ challenges = [], participations = [
                       <div
                         key={task.day}
                         className={`border rounded-lg p-4 ${
-                          isCompleted ? 'bg-green-50 border-green-200' : 'bg-gray-50 border-gray-200'
+                          isCompleted ? 'bg-green-50 border-green-200' : 'bg-gray-50 dark:bg-white/5 border-gray-200 dark:border-white/10'
                         }`}
                       >
                         <div className="flex items-start gap-3">

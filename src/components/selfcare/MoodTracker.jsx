@@ -61,11 +61,11 @@ export default function MoodTracker() {
       className="mb-8"
     >
       <div className="bg-gray-100 rounded-2xl p-6 border border-[#FAD98D]/20 shadow-lg">
-        <h2 className="text-xl font-bold text-[#0A1A2F] mb-4">Check-In</h2>
+        <h2 className="text-xl font-bold text-[#0A1A2F] dark:text-white mb-4">Check-In</h2>
 
         {/* Mood */}
         <div className="mb-4">
-          <label className="text-sm text-[#0A1A2F]/70 mb-2 block">How's your mood?</label>
+          <label className="text-sm text-[#0A1A2F]/70 dark:text-white/70 mb-2 block">How's your mood?</label>
           <div className="flex gap-3 justify-between">
             {moods.map(m => (
               <button
@@ -74,11 +74,11 @@ export default function MoodTracker() {
                 className={`flex-1 p-3 rounded-xl transition ${
                   mood === m.value 
                     ? 'bg-[#FAD98D] scale-110' 
-                    : 'bg-white hover:bg-[#F2F6FA]'
+                    : 'bg-white dark:bg-white/5 hover:bg-[#F2F6FA] dark:bg-[#0A1A2F]'
                 }`}
               >
                 <div className="text-3xl mb-1">{m.emoji}</div>
-                <div className="text-xs text-[#0A1A2F]">{m.label}</div>
+                <div className="text-xs text-[#0A1A2F] dark:text-white dark:text-white">{m.label}</div>
               </button>
             ))}
           </div>
@@ -86,7 +86,7 @@ export default function MoodTracker() {
 
         {/* Energy */}
         <div className="mb-4">
-          <label className="text-sm text-[#0A1A2F]/70 mb-2 block">Energy Level</label>
+          <label className="text-sm text-[#0A1A2F]/70 dark:text-white/70 mb-2 block">Energy Level</label>
           <div className="flex gap-2">
             {levels.map(level => (
               <button
@@ -94,8 +94,8 @@ export default function MoodTracker() {
                 onClick={() => setEnergy(level.label)}
                 className={`flex-1 py-2 rounded-lg text-sm font-semibold transition ${
                   energy === level.label
-                    ? `bg-gradient-to-r ${level.color} text-[#0A1A2F] scale-105`
-                    : 'bg-white text-[#0A1A2F]/70 hover:bg-[#F2F6FA]'
+                    ? `bg-gradient-to-r ${level.color} text-[#0A1A2F] dark:text-white scale-105`
+                    : 'bg-white dark:bg-white/5 text-[#0A1A2F]/70 dark:text-white/70 hover:bg-[#F2F6FA] dark:bg-[#0A1A2F]'
                 }`}
               >
                 {level.label}
@@ -106,7 +106,7 @@ export default function MoodTracker() {
 
         {/* Stress */}
         <div className="mb-4">
-          <label className="text-sm text-[#0A1A2F]/70 mb-2 block">Stress Level</label>
+          <label className="text-sm text-[#0A1A2F]/70 dark:text-white/70 mb-2 block">Stress Level</label>
           <div className="flex gap-2">
             {levels.map(level => (
               <button
@@ -114,8 +114,8 @@ export default function MoodTracker() {
                 onClick={() => setStress(level.label)}
                 className={`flex-1 py-2 rounded-lg text-sm font-semibold transition ${
                   stress === level.label
-                    ? `bg-gradient-to-r ${level.color} text-[#0A1A2F] scale-105`
-                    : 'bg-white text-[#0A1A2F]/70 hover:bg-[#F2F6FA]'
+                    ? `bg-gradient-to-r ${level.color} text-[#0A1A2F] dark:text-white scale-105`
+                    : 'bg-white dark:bg-white/5 text-[#0A1A2F]/70 dark:text-white/70 hover:bg-[#F2F6FA] dark:bg-[#0A1A2F]'
                 }`}
               >
                 {level.label}
@@ -127,7 +127,7 @@ export default function MoodTracker() {
         <Button
           onClick={handleSave}
           disabled={!mood || !energy || !stress}
-          className="w-full bg-gradient-to-r from-[#FAD98D] to-[#AFC7E3] hover:from-[#FAD98D]/90 hover:to-[#AFC7E3]/90 text-[#0A1A2F]"
+          className="w-full bg-gradient-to-r from-[#FAD98D] to-[#AFC7E3] hover:from-[#FAD98D]/90 hover:to-[#AFC7E3]/90 text-[#0A1A2F] dark:text-white dark:text-white"
         >
           Save Check-In
         </Button>

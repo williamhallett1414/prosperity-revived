@@ -105,7 +105,7 @@ Format each exercise with clear separators. Make them actionable and emotionally
             exit={{ opacity: 0, height: 0 }}
             className="overflow-hidden"
           >
-            <div className="p-4 bg-white border border-t-0 border-amber-200 rounded-b-lg space-y-4">
+            <div className="p-4 bg-white dark:bg-white/5 border border-t-0 border-amber-200 rounded-b-lg space-y-4">
               {/* Emotions Selection */}
               {patterns.emotionalPatterns.length > 0 && (
                 <div>
@@ -145,7 +145,7 @@ Format each exercise with clear separators. Make them actionable and emotionally
                         onClick={() => toggleTheme(theme)}
                         className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
                           selectedThemes.includes(theme)
-                            ? 'bg-[#F2F6FA]0 text-white ring-2 ring-blue-300'
+                            ? 'bg-[#F2F6FA] dark:bg-[#0A1A2F]0 text-white ring-2 ring-blue-300'
                             : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                         }`}
                       >

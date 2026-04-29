@@ -47,14 +47,14 @@ export default function EmotionalCheckIn() {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm mb-6"
+      className="bg-white dark:bg-white/5 rounded-2xl p-6 border border-gray-200 dark:border-white/10 shadow-sm mb-6"
     >
       <div className="flex items-center gap-2 mb-4">
         <Heart className="w-6 h-6 text-[#FAD98D]" />
-        <h3 className="text-lg font-bold text-[#0A1A2F]">Emotional Check-In</h3>
+        <h3 className="text-lg font-bold text-[#0A1A2F] dark:text-white dark:text-white">Emotional Check-In</h3>
       </div>
 
-      <p className="text-sm text-[#0A1A2F]/70 mb-4">How are you feeling today?</p>
+      <p className="text-sm text-[#0A1A2F]/70 dark:text-white/70 mb-4">How are you feeling today?</p>
 
       <div className="grid grid-cols-3 gap-3 mb-4">
         {moods.map((mood) => (
@@ -64,11 +64,11 @@ export default function EmotionalCheckIn() {
             className={`p-4 rounded-xl border-2 transition-all ${
               selectedMood?.value === mood.value
                 ? 'border-[#FAD98D] bg-[#FAD98D]/10'
-                : 'border-gray-200 hover:border-[#FAD98D]/50'
+                : 'border-gray-200 dark:border-white/10 hover:border-[#FAD98D]/50'
             }`}
           >
             <div className="text-3xl mb-1">{mood.emoji}</div>
-            <div className="text-xs text-[#0A1A2F]/70">{mood.label}</div>
+            <div className="text-xs text-[#0A1A2F]/70 dark:text-white/70">{mood.label}</div>
           </button>
         ))}
       </div>
@@ -83,21 +83,21 @@ export default function EmotionalCheckIn() {
             value={influence}
             onChange={(e) => setInfluence(e.target.value)}
             placeholder="What influenced your mood today? (optional)"
-            className="border-gray-200 focus:border-[#FAD98D]"
+            className="border-gray-200 dark:border-white/10 focus:border-[#FAD98D]"
           />
 
           <div className="bg-[#AFC7E3]/10 rounded-xl p-4">
             <div className="flex items-center gap-2 mb-2">
               <Lightbulb className="w-4 h-4 text-[#AFC7E3]" />
-              <p className="text-sm font-semibold text-[#0A1A2F]">Suggested Practice</p>
+              <p className="text-sm font-semibold text-[#0A1A2F] dark:text-white dark:text-white">Suggested Practice</p>
             </div>
-            <p className="text-sm text-[#0A1A2F]/70">{selectedMood.practice}</p>
+            <p className="text-sm text-[#0A1A2F]/70 dark:text-white/70">{selectedMood.practice}</p>
           </div>
 
           <Button
             onClick={handleSave}
             disabled={saving}
-            className="w-full bg-[#FAD98D] hover:bg-[#FAD98D]/90 text-[#0A1A2F]"
+            className="w-full bg-[#FAD98D] hover:bg-[#FAD98D]/90 text-[#0A1A2F] dark:text-white dark:text-white"
           >
             {saving ? 'Saving...' : 'Save Check-In'}
           </Button>

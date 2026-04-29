@@ -294,7 +294,7 @@ export default function VideoRecorder({
             onClick={startRecording}
             className="w-16 h-16 rounded-full bg-red-500 flex items-center justify-center shadow-lg shadow-red-500/30 border-4 border-white/20"
           >
-            <div className="w-6 h-6 rounded-full bg-white" />
+            <div className="w-6 h-6 rounded-full bg-white dark:bg-white/5" />
           </motion.button>
         )}
 

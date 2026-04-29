@@ -90,7 +90,7 @@ export default function DailyVerseSettings({ isOpen, onClose }) {
             </div>
           )}
 
-          <div className="bg-[#F2F6FA] rounded-lg p-4">
+          <div className="bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-lg p-4">
             <p className="text-sm text-gray-600">
               📖 Daily verses are curated to provide inspiration, encouragement, and wisdom for your spiritual journey.
             </p>

@@ -180,7 +180,7 @@ const STEPS = [
 function PillButton({ selected, onClick, children, color = '#FD9C2D' }) {
   return (
     <button onPointerDown={onClick}
-      className={`px-3 py-2 rounded-2xl text-sm font-semibold border-2 transition-all ${selected ? 'text-white border-transparent shadow-sm' : 'bg-white text-gray-600 border-gray-100 hover:border-gray-200'}`}
+      className={`px-3 py-2 rounded-2xl text-sm font-semibold border-2 transition-all ${selected ? 'text-white border-transparent shadow-sm' : 'bg-white dark:bg-white/5 text-gray-600 border-gray-100 dark:border-white/10 hover:border-gray-200 dark:border-white/10'}`}
       style={selected ? { background: color, borderColor: color } : {}}>
       {children}
     </button>
@@ -189,10 +189,10 @@ function PillButton({ selected, onClick, children, color = '#FD9C2D' }) {
 function RadioCard({ selected, onClick, label, desc, emoji }) {
   return (
     <button onPointerDown={onClick}
-      className={`w-full text-left px-4 py-3 rounded-2xl border-2 transition-all flex items-center gap-3 ${selected ? 'border-[#FD9C2D] bg-[#FD9C2D]/8' : 'border-gray-100 bg-white hover:border-gray-200'}`}>
+      className={`w-full text-left px-4 py-3 rounded-2xl border-2 transition-all flex items-center gap-3 ${selected ? 'border-[#FD9C2D] bg-[#FD9C2D]/8' : 'border-gray-100 dark:border-white/10 bg-white dark:bg-white/5 hover:border-gray-200 dark:border-white/10'}`}>
       {emoji && <span className="text-xl flex-shrink-0">{emoji}</span>}
       <div className="flex-1">
-        <p className={`text-sm font-semibold ${selected ? 'text-[#0A1A2F]' : 'text-gray-700'}`}>{label}</p>
+        <p className={`text-sm font-semibold ${selected ? 'text-[#0A1A2F] dark:text-white dark:text-white' : 'text-gray-700'}`}>{label}</p>
         {desc && <p className="text-xs text-gray-400 mt-0.5">{desc}</p>}
       </div>
       {selected && <div className="w-5 h-5 rounded-full bg-[#FD9C2D] flex items-center justify-center flex-shrink-0"><Check className="w-3 h-3 text-white" /></div>}
@@ -204,11 +204,11 @@ function SectionLabel({ children }) {
 }
 function NumberInput({ label, value, onChange, min, max, unit }) {
   return (
-    <div className="bg-white rounded-2xl border border-gray-100 px-4 py-3 flex items-center justify-between">
+    <div className="bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 px-4 py-3 flex items-center justify-between">
       <span className="text-sm font-medium text-gray-700">{label}</span>
       <div className="flex items-center gap-3">
         <button onPointerDown={() => onChange(Math.max(min, (value||min)-1))} className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center font-bold text-gray-600">−</button>
-        <span className="text-base font-bold text-[#0A1A2F] w-12 text-center">{value||'—'}</span>
+        <span className="text-base font-bold text-[#0A1A2F] dark:text-white w-12 text-center">{value||'—'}</span>
         <button onPointerDown={() => onChange(Math.min(max, (value||min)+1))} className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center font-bold text-gray-600">+</button>
         {unit && <span className="text-xs text-gray-400 w-6">{unit}</span>}
       </div>
@@ -228,7 +228,7 @@ function HookScreen({ value, onChange, onNext, onBack }) {
         <div className="absolute -top-32 -right-32 w-96 h-96 rounded-full opacity-10" style={{ background: 'radial-gradient(circle, #FD9C2D, transparent)' }} />
         <div className="absolute -bottom-32 -left-32 w-80 h-80 rounded-full opacity-8" style={{ background: 'radial-gradient(circle, #C9A227, transparent)' }} />
         {[...Array(22)].map((_,i) => (
-          <motion.div key={i} className="absolute w-1 h-1 rounded-full bg-white"
+          <motion.div key={i} className="absolute w-1 h-1 rounded-full bg-white dark:bg-white/5"
             style={{ left:`${5+(i*17)%90}%`, top:`${3+(i*23)%85}%`, opacity: 0.1+(i%5)*0.08 }}
             animate={{ opacity:[0.08,0.35,0.08] }}
             transition={{ duration:2+(i%4), repeat:Infinity, delay:i*0.25 }} />
@@ -303,7 +303,7 @@ function GuidesScreen({ onNext, onBack }) {
           style={{ top:-80, left:'50%', transform:'translateX(-50%)', background:`radial-gradient(circle, ${GUIDES[activeIdx].color}22, transparent 70%)` }}
           animate={{ opacity:[0.5,1,0.5] }} transition={{ duration:3, repeat:Infinity }} />
         {[...Array(18)].map((_,i) => (
-          <div key={i} className="absolute rounded-full bg-white"
+          <div key={i} className="absolute rounded-full bg-white dark:bg-white/5"
             style={{ width:2, height:2, left:`${6+(i*13)%86}%`, top:`${4+(i*19)%82}%`, opacity:0.06+(i%5)*0.05 }} />
         ))}
       </div>
@@ -428,7 +428,7 @@ function FactScreen({ factId, onNext, onBack }) {
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-64 rounded-full opacity-15" style={{ background:`radial-gradient(ellipse, ${f.color}, transparent 70%)` }} />
         {[...Array(14)].map((_,i) => (
-          <div key={i} className="absolute rounded-full bg-white" style={{ width:2, height:2, left:`${6+(i*15)%88}%`, top:`${4+(i*21)%82}%`, opacity:0.05+(i%5)*0.05 }} />
+          <div key={i} className="absolute rounded-full bg-white dark:bg-white/5" style={{ width:2, height:2, left:`${6+(i*15)%88}%`, top:`${4+(i*21)%82}%`, opacity:0.05+(i%5)*0.05 }} />
         ))}
       </div>
       <div className="flex-1 flex flex-col justify-center px-7 py-8 relative z-10 max-w-md mx-auto w-full">
@@ -574,11 +574,11 @@ export default function OnboardingFlow({ onComplete }) {
 
           <AnimatePresence mode="wait">
             <motion.div key={step} initial={{ opacity:0, y:16 }} animate={{ opacity:1, y:0 }} exit={{ opacity:0, y:-16 }} transition={{ duration:0.22 }}
-              className="bg-white rounded-3xl shadow-2xl overflow-hidden">
+              className="bg-white dark:bg-white/5 rounded-3xl shadow-2xl overflow-hidden">
 
               {/* Card header */}
               <div className="px-6 pt-6 pb-4" style={{ background:`linear-gradient(135deg, ${cfg.color}18, ${cfg.color}05)` }}>
-                <h2 className="text-xl font-black text-[#0A1A2F] leading-tight">
+                <h2 className="text-xl font-black text-[#0A1A2F] dark:text-white leading-tight">
                   {cfg.id==='legal'     && 'Before you begin 📋'}
                   {cfg.id==='you'       && 'Welcome to Prosperity Revived 🙏'}
                   {cfg.id==='why'       && "What's bringing you here?"}
@@ -622,11 +622,11 @@ export default function OnboardingFlow({ onComplete }) {
                             { id:'under13', label:'I am under 13', red:true },
                           ].map(opt => (
                             <button key={opt.id} onPointerDown={() => setAgeGroup(opt.id)}
-                              className={`w-full text-left px-4 py-3 rounded-2xl border-2 transition-all flex items-center gap-3 ${ageGroup===opt.id ? (opt.red?'border-red-400 bg-red-50':'border-[#FD9C2D] bg-[#FD9C2D]/8') : 'border-gray-100 bg-white hover:border-gray-200'}`}>
+                              className={`w-full text-left px-4 py-3 rounded-2xl border-2 transition-all flex items-center gap-3 ${ageGroup===opt.id ? (opt.red?'border-red-400 bg-red-50':'border-[#FD9C2D] bg-[#FD9C2D]/8') : 'border-gray-100 dark:border-white/10 bg-white dark:bg-white/5 hover:border-gray-200 dark:border-white/10'}`}>
                               <div className={`w-4 h-4 rounded-full border-2 flex-shrink-0 flex items-center justify-center ${ageGroup===opt.id ? (opt.red?'border-red-400 bg-red-400':'border-[#FD9C2D] bg-[#FD9C2D]') : 'border-gray-300'}`}>
-                                {ageGroup===opt.id && <div className="w-1.5 h-1.5 rounded-full bg-white" />}
+                                {ageGroup===opt.id && <div className="w-1.5 h-1.5 rounded-full bg-white dark:bg-white/5" />}
                               </div>
-                              <span className={`text-sm font-semibold ${ageGroup===opt.id ? (opt.red?'text-red-600':'text-[#0A1A2F]') : 'text-gray-700'}`}>{opt.label}</span>
+                              <span className={`text-sm font-semibold ${ageGroup===opt.id ? (opt.red?'text-red-600':'text-[#0A1A2F] dark:text-white dark:text-white') : 'text-gray-700'}`}>{opt.label}</span>
                             </button>
                           ))}
                         </div>
@@ -649,10 +649,10 @@ export default function OnboardingFlow({ onComplete }) {
                         <motion.div initial={{ opacity:0, y:8 }} animate={{ opacity:1, y:0 }} className="space-y-2">
                           <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Review & Accept Documents *</p>
                           {DOCS_LIST.map(({ key, icon, label, sub }) => (
-                            <div key={key} className={`flex items-center gap-3 px-4 py-3 rounded-2xl border-2 transition-all ${acceptedDocs[key]?'border-green-300 bg-green-50':'border-gray-100 bg-white'}`}>
+                            <div key={key} className={`flex items-center gap-3 px-4 py-3 rounded-2xl border-2 transition-all ${acceptedDocs[key]?'border-green-300 bg-green-50':'border-gray-100 dark:border-white/10 bg-white dark:bg-white/5'}`}>
                               <span className="text-xl flex-shrink-0">{icon}</span>
                               <div className="flex-1 min-w-0">
-                                <p className="text-sm font-semibold text-[#0A1A2F] leading-tight">{label}</p>
+                                <p className="text-sm font-semibold text-[#0A1A2F] dark:text-white leading-tight">{label}</p>
                                 <p className="text-[10px] text-gray-400 mt-0.5">{sub}</p>
                               </div>
                               {acceptedDocs[key] ? (
@@ -668,8 +668,8 @@ export default function OnboardingFlow({ onComplete }) {
                       {allDocsAccepted && (
                         <motion.div initial={{ opacity:0, y:8 }} animate={{ opacity:1, y:0 }}>
                           <button onPointerDown={() => setMasterChecked(v=>!v)}
-                            className={`w-full flex items-start gap-3 px-4 py-4 rounded-2xl border-2 text-left transition-all ${masterChecked?'border-[#0A1A2F] bg-[#0A1A2F]':'border-gray-200 bg-gray-50 hover:border-gray-300'}`}>
-                            <div className={`w-5 h-5 rounded-md border-2 flex-shrink-0 mt-0.5 flex items-center justify-center ${masterChecked?'bg-[#FD9C2D] border-[#FD9C2D]':'border-gray-400 bg-white'}`}>
+                            className={`w-full flex items-start gap-3 px-4 py-4 rounded-2xl border-2 text-left transition-all ${masterChecked?'border-[#0A1A2F] bg-[#0A1A2F]':'border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-white/5 hover:border-gray-300'}`}>
+                            <div className={`w-5 h-5 rounded-md border-2 flex-shrink-0 mt-0.5 flex items-center justify-center ${masterChecked?'bg-[#FD9C2D] border-[#FD9C2D]':'border-gray-400 bg-white dark:bg-white/5'}`}>
                               {masterChecked && <Check className="w-3 h-3 text-white" strokeWidth={3} />}
                             </div>
                             <p className={`text-sm leading-relaxed font-medium ${masterChecked?'text-white':'text-gray-700'}`}>
@@ -689,20 +689,20 @@ export default function OnboardingFlow({ onComplete }) {
                       <SectionLabel>First name *</SectionLabel>
                       <input autoFocus type="text" value={d.full_name} onChange={e=>set('full_name',e.target.value)}
                         placeholder="What should we call you?"
-                        className="w-full px-4 py-3 rounded-2xl border-2 border-gray-100 bg-white text-[#0A1A2F] font-semibold text-sm focus:outline-none focus:border-[#FD9C2D] transition-colors" />
+                        className="w-full px-4 py-3 rounded-2xl border-2 border-gray-100 dark:border-white/10 bg-white dark:bg-white/5 text-[#0A1A2F] dark:text-white font-semibold text-sm focus:outline-none focus:border-[#FD9C2D] transition-colors" />
                     </div>
                     <div className="grid grid-cols-2 gap-3">
                       <div>
                         <SectionLabel>Date of birth</SectionLabel>
                         <input type="date" value={d.dob} onChange={e=>set('dob',e.target.value)}
-                          className="w-full px-3 py-3 rounded-2xl border-2 border-gray-100 bg-white text-sm text-gray-700 focus:outline-none focus:border-[#FD9C2D]" />
+                          className="w-full px-3 py-3 rounded-2xl border-2 border-gray-100 dark:border-white/10 bg-white dark:bg-white/5 text-sm text-gray-700 focus:outline-none focus:border-[#FD9C2D]" />
                       </div>
                       <div>
                         <SectionLabel>Biological sex</SectionLabel>
                         <div className="flex gap-2">
                           {['Male','Female'].map(s => (
                             <button key={s} onPointerDown={() => set('biological_sex',s)}
-                              className={`flex-1 py-3 rounded-2xl text-sm font-semibold border-2 transition-all ${d.biological_sex===s?'bg-[#0A1A2F] border-[#0A1A2F] text-white':'bg-white border-gray-100 text-gray-700'}`}>{s}</button>
+                              className={`flex-1 py-3 rounded-2xl text-sm font-semibold border-2 transition-all ${d.biological_sex===s?'bg-[#0A1A2F] border-[#0A1A2F] text-white':'bg-white dark:bg-white/5 border-gray-100 dark:border-white/10 text-gray-700'}`}>{s}</button>
                           ))}
                         </div>
                       </div>
@@ -711,12 +711,12 @@ export default function OnboardingFlow({ onComplete }) {
                       <div className="bg-[#FFF9EC] rounded-2xl p-3 flex gap-2 border border-[#FAD98D]/40">
                         <span className="text-lg">🎯</span>
                         <div>
-                          <p className="text-xs font-bold text-[#0A1A2F] mb-0.5">Your north star</p>
+                          <p className="text-xs font-bold text-[#0A1A2F] dark:text-white mb-0.5">Your north star</p>
                           <p className="text-xs text-gray-600 italic leading-relaxed">"{hookAnswer.trim()}"</p>
                         </div>
                       </div>
                     )}
-                    <div className="bg-[#F2F6FA] rounded-2xl p-3 flex gap-2">
+                    <div className="bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-2xl p-3 flex gap-2">
                       <span className="text-lg">🔒</span>
                       <p className="text-xs text-gray-600 leading-relaxed">Your information is private and only used to personalise your experience.</p>
                     </div>
@@ -780,7 +780,7 @@ export default function OnboardingFlow({ onComplete }) {
                     <div>
                       <SectionLabel>Injuries or limitations (optional)</SectionLabel>
                       <textarea value={d.injuries} onChange={e=>set('injuries',e.target.value)} placeholder="e.g. bad knees, lower back pain…" rows={2}
-                        className="w-full px-4 py-3 rounded-2xl border-2 border-gray-100 bg-white text-sm text-gray-700 focus:outline-none focus:border-[#38BDF8] resize-none" />
+                        className="w-full px-4 py-3 rounded-2xl border-2 border-gray-100 dark:border-white/10 bg-white dark:bg-white/5 text-sm text-gray-700 focus:outline-none focus:border-[#38BDF8] resize-none" />
                     </div>
                   </div>
                 )}
@@ -881,7 +881,7 @@ export default function OnboardingFlow({ onComplete }) {
                       <SectionLabel>What do you want to achieve in 90 days? (optional)</SectionLabel>
                       <textarea value={d.goal_90_day} onChange={e=>set('goal_90_day',e.target.value)}
                         placeholder="e.g. Feel more confident in my faith and drop 10 lbs."
-                        rows={3} className="w-full px-4 py-3 rounded-2xl border-2 border-gray-100 bg-white text-sm text-gray-700 focus:outline-none focus:border-[#AFC7E3] resize-none" />
+                        rows={3} className="w-full px-4 py-3 rounded-2xl border-2 border-gray-100 dark:border-white/10 bg-white dark:bg-white/5 text-sm text-gray-700 focus:outline-none focus:border-[#AFC7E3] resize-none" />
                     </div>
                   </div>
                 )}
@@ -893,12 +893,12 @@ export default function OnboardingFlow({ onComplete }) {
                       <div>
                         <SectionLabel>Wake time</SectionLabel>
                         <input type="time" value={d.wake_time} onChange={e=>set('wake_time',e.target.value)}
-                          className="w-full px-3 py-3 rounded-2xl border-2 border-gray-100 bg-white text-sm text-gray-700 focus:outline-none focus:border-[#8B5CF6]" />
+                          className="w-full px-3 py-3 rounded-2xl border-2 border-gray-100 dark:border-white/10 bg-white dark:bg-white/5 text-sm text-gray-700 focus:outline-none focus:border-[#8B5CF6]" />
                       </div>
                       <div>
                         <SectionLabel>Sleep time</SectionLabel>
                         <input type="time" value={d.sleep_time} onChange={e=>set('sleep_time',e.target.value)}
-                          className="w-full px-3 py-3 rounded-2xl border-2 border-gray-100 bg-white text-sm text-gray-700 focus:outline-none focus:border-[#8B5CF6]" />
+                          className="w-full px-3 py-3 rounded-2xl border-2 border-gray-100 dark:border-white/10 bg-white dark:bg-white/5 text-sm text-gray-700 focus:outline-none focus:border-[#8B5CF6]" />
                       </div>
                     </div>
                     <div>
@@ -916,14 +916,14 @@ export default function OnboardingFlow({ onComplete }) {
                           { key:'notif_meals',      label:'🍽️ Meal logging',       time:'12:00 PM' },
                           { key:'notif_reflection', label:'🌙 Evening reflection', time:'9:00 PM' },
                         ].map(({ key, label, time }) => (
-                          <div key={key} className="flex items-center justify-between bg-white border border-gray-100 rounded-2xl px-4 py-3">
+                          <div key={key} className="flex items-center justify-between bg-white dark:bg-white/5 border border-gray-100 dark:border-white/10 rounded-2xl px-4 py-3">
                             <div>
-                              <p className="text-sm font-semibold text-[#0A1A2F]">{label}</p>
+                              <p className="text-sm font-semibold text-[#0A1A2F] dark:text-white dark:text-white">{label}</p>
                               <p className="text-xs text-gray-400">{time}</p>
                             </div>
                             <button onPointerDown={() => set(key,!d[key])}
                               className={`w-11 h-6 rounded-full transition-all relative flex-shrink-0 ${d[key]?'bg-[#8B5CF6]':'bg-gray-200'}`}>
-                              <div className={`absolute top-0.5 w-5 h-5 bg-white rounded-full shadow transition-all ${d[key]?'left-[22px]':'left-0.5'}`} />
+                              <div className={`absolute top-0.5 w-5 h-5 bg-white dark:bg-white/5 rounded-full shadow transition-all ${d[key]?'left-[22px]':'left-0.5'}`} />
                             </button>
                           </div>
                         ))}
@@ -935,7 +935,7 @@ export default function OnboardingFlow({ onComplete }) {
               </div>
 
               {/* Nav */}
-              <div className="px-5 py-4 border-t border-gray-50 flex gap-3">
+              <div className="px-5 py-4 border-t border-gray-50 dark:border-white/5 flex gap-3">
                 {step > 0 && (
                   <button onPointerDown={back} className="flex items-center gap-1.5 px-4 py-3 rounded-2xl bg-gray-100 text-gray-600 font-semibold text-sm">
                     <ChevronLeft className="w-4 h-4" /> Back

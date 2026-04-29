@@ -70,7 +70,7 @@ function StatCard({ value, label, color, trend, trendLabel, icon: Icon }) {
   const TrendIcon = trend === 'up' ? TrendingUp : trend === 'down' ? TrendingDown : Minus;
   const trendColor = trend === 'up' ? 'text-emerald-500' : trend === 'down' ? 'text-rose-500' : 'text-gray-400';
   return (
-    <div className="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm">
+    <div className="bg-white dark:bg-white/5 rounded-2xl p-4 border border-gray-100 dark:border-white/10 shadow-sm">
       <div className="flex items-start justify-between mb-1">
         <div className="w-8 h-8 rounded-xl flex items-center justify-center" style={{ background: color + '22' }}>
           <Icon className="w-4 h-4" style={{ color }} />
@@ -91,7 +91,7 @@ function StatCard({ value, label, color, trend, trendLabel, icon: Icon }) {
 const ChartTooltip = ({ active, payload, label }) => {
   if (!active || !payload?.length) return null;
   return (
-    <div className="bg-white border border-gray-100 rounded-xl px-3 py-2 shadow-lg text-xs">
+    <div className="bg-white dark:bg-white/5 border border-gray-100 dark:border-white/10 rounded-xl px-3 py-2 shadow-lg text-xs">
       <p className="font-bold text-gray-700 mb-1">{label}</p>
       {payload.map((p, i) => (
         <p key={i} style={{ color: p.color }}>{p.name}: <strong>{p.value}</strong></p>
@@ -228,17 +228,17 @@ export default function WorkoutTrends() {
   const hasData = sessions.length > 0;
 
   return (
-    <div className="min-h-screen bg-[#F2F6FA] pb-28">
+    <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
 
       {/* ── Standard Header ── */}
-      <div className="sticky top-0 z-40 bg-white border-b border-[#FAD98D]/20 px-4 pt-4 pb-3">
+      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 px-4 pt-4 pb-3">
         <div className="max-w-lg mx-auto flex items-center gap-3">
           <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#38BDF8] to-[#0EA5E9] flex items-center justify-center">
             <BarChart3 className="w-5 h-5 text-white" />
           </div>
           <div>
-            <h1 className="text-base font-bold text-[#0A1A2F]">Workout Trends</h1>
-            <p className="text-xs text-[#0A1A2F]/45">Your fitness data</p>
+            <h1 className="text-base font-bold text-[#0A1A2F] dark:text-white dark:text-white">Workout Trends</h1>
+            <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45">Your fitness data</p>
           </div>
         </div>
       </div>
@@ -296,7 +296,7 @@ export default function WorkoutTrends() {
                     className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all ${
                       range === r
                         ? 'bg-[#38BDF8] text-white'
-                        : 'bg-white text-gray-500 border border-gray-200'
+                        : 'bg-white dark:bg-white/5 text-gray-500 border border-gray-200 dark:border-white/10'
                     }`}
                   >
                     {r === 7 ? '7 days' : r === 30 ? '30 days' : '90 days'}
@@ -307,7 +307,7 @@ export default function WorkoutTrends() {
 
             {/* ── Tab bar ── */}
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.08 }}>
-              <div className="bg-white rounded-2xl p-1 flex gap-1 shadow-sm border border-gray-100">
+              <div className="bg-white dark:bg-white/5 rounded-2xl p-1 flex gap-1 shadow-sm border border-gray-100 dark:border-white/10">
                 {TABS.map(t => (
                   <button key={t.key}
                     onPointerDown={() => setTab(t.key)}
@@ -330,7 +330,7 @@ export default function WorkoutTrends() {
                   className="space-y-4"
                 >
                   {/* Streak history */}
-                  <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
+                  <div className="bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 shadow-sm p-5">
                     <div className="flex items-center justify-between mb-4">
                       <p className="text-sm font-bold text-gray-800">Streak history</p>
                       <div className="flex items-center gap-2">
@@ -357,7 +357,7 @@ export default function WorkoutTrends() {
                         <p className="text-2xl font-black text-orange-500">{streak}</p>
                         <p className="text-[10px] text-orange-400 font-semibold mt-0.5">Current streak</p>
                       </div>
-                      <div className="bg-gray-50 rounded-xl p-3 text-center">
+                      <div className="bg-gray-50 dark:bg-white/5 rounded-xl p-3 text-center">
                         <p className="text-2xl font-black text-gray-700">{longestStreak}</p>
                         <p className="text-[10px] text-gray-400 font-semibold mt-0.5">Best streak</p>
                       </div>
@@ -365,7 +365,7 @@ export default function WorkoutTrends() {
                   </div>
 
                   {/* Weekly volume */}
-                  <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
+                  <div className="bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 shadow-sm p-5">
                     <p className="text-sm font-bold text-gray-800 mb-4">Weekly sessions (8 weeks)</p>
                     <ResponsiveContainer width="100%" height={180}>
                       <BarChart data={weeklyData} barSize={24}>
@@ -380,7 +380,7 @@ export default function WorkoutTrends() {
 
                   {/* Most performed */}
                   {allExercises.length > 0 && (
-                    <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
+                    <div className="bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 shadow-sm p-5">
                       <p className="text-sm font-bold text-gray-800 mb-4">Top exercises</p>
                       <div className="space-y-3">
                         {allExercises.slice(0, 5).map((ex, i) => {
@@ -417,7 +417,7 @@ export default function WorkoutTrends() {
                   initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
                   className="space-y-4"
                 >
-                  <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
+                  <div className="bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 shadow-sm p-5">
                     <p className="text-sm font-bold text-gray-800 mb-4">Sessions per day</p>
                     <ResponsiveContainer width="100%" height={200}>
                       <AreaChart data={freqData}>
@@ -438,7 +438,7 @@ export default function WorkoutTrends() {
                     </ResponsiveContainer>
                   </div>
 
-                  <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
+                  <div className="bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 shadow-sm p-5">
                     <p className="text-sm font-bold text-gray-800 mb-4">Minutes per week</p>
                     <ResponsiveContainer width="100%" height={180}>
                       <BarChart data={weeklyData} barSize={24}>
@@ -460,14 +460,14 @@ export default function WorkoutTrends() {
                   className="space-y-4"
                 >
                   {allExercises.length === 0 ? (
-                    <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-8 text-center">
+                    <div className="bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 shadow-sm p-8 text-center">
                       <p className="text-gray-500 text-sm">No exercise data recorded yet.</p>
                       <p className="text-gray-400 text-xs mt-1">Log sessions with exercises to track progress here.</p>
                     </div>
                   ) : (
                     <>
                       {/* Exercise picker */}
-                      <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4">
+                      <div className="bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 shadow-sm p-4">
                         <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-3">Select exercise</p>
                         <div className="flex flex-wrap gap-2 max-h-40 overflow-y-auto">
                           {allExercises.map(ex => (
@@ -487,7 +487,7 @@ export default function WorkoutTrends() {
 
                       {/* Progress chart */}
                       {selExercise && exerciseData.length > 0 && (
-                        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
+                        <div className="bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 shadow-sm p-5">
                           <p className="text-sm font-bold text-gray-800 mb-1">{selExercise}</p>
                           <p className="text-xs text-gray-400 mb-4">Weight used over last {exerciseData.length} sessions</p>
                           <ResponsiveContainer width="100%" height={200}>
@@ -529,7 +529,7 @@ export default function WorkoutTrends() {
             <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
               <button
                 onPointerDown={() => { window.location.href = createPageUrl('ChatScreen?bot=CoachDavid'); }}
-                className="w-full flex items-center justify-between px-5 py-4 bg-white rounded-2xl border border-[#38BDF8]/25 shadow-sm hover:border-[#38BDF8]/55 transition-all"
+                className="w-full flex items-center justify-between px-5 py-4 bg-white dark:bg-white/5 rounded-2xl border border-[#38BDF8]/25 shadow-sm hover:border-[#38BDF8]/55 transition-all"
               >
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full flex items-center justify-center text-white text-sm font-bold flex-shrink-0"

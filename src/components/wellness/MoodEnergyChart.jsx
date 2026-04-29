@@ -32,7 +32,7 @@ export default function MoodEnergyChart({ moodEnergyData }) {
   const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
       return (
-        <div className="bg-white p-3 rounded-lg shadow-lg border border-gray-100">
+        <div className="bg-white dark:bg-white/5 p-3 rounded-lg shadow-lg border border-gray-100 dark:border-white/10">
           <p className="font-semibold text-gray-900 mb-2">{payload[0].payload.date}</p>
           <div className="space-y-1">
             <div className="flex items-center gap-2">
@@ -67,7 +67,7 @@ export default function MoodEnergyChart({ moodEnergyData }) {
   return (
     <div className="space-y-4">
       <div className="grid grid-cols-2 gap-3">
-        <div className="bg-[#F2F6FA] rounded-xl p-3 text-center">
+        <div className="bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-xl p-3 text-center">
           <Smile className="w-5 h-5 text-[#3C4E53] mx-auto mb-1" />
           <p className="text-lg font-bold text-gray-900">{avgMood.toFixed(1)}/5</p>
           <p className="text-xs text-gray-600">Avg Mood</p>

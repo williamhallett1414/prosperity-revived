@@ -106,12 +106,12 @@ export default function WellnessCommunityFeed({
     >
       <div className="flex items-center gap-2">
         <TrendingUp className="w-5 h-5 text-[#FAD98D]" />
-        <h2 className="text-xl font-bold text-[#0A1A2F]">Trending from Community</h2>
+        <h2 className="text-xl font-bold text-[#0A1A2F] dark:text-white dark:text-white">Trending from Community</h2>
       </div>
 
       {trendingContent.length === 0 ? (
         <div className="text-center py-8 bg-gray-100 rounded-xl">
-          <p className="text-[#0A1A2F]/60">No trending content yet</p>
+          <p className="text-[#0A1A2F]/60 dark:text-white/60">No trending content yet</p>
         </div>
       ) : (
         <div className="space-y-3">
@@ -123,7 +123,7 @@ export default function WellnessCommunityFeed({
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.05 }}
-                  className="bg-white rounded-xl p-4 border border-gray-100 hover:shadow-md transition-shadow cursor-pointer"
+                  className="bg-white dark:bg-white/5 rounded-xl p-4 border border-gray-100 dark:border-white/10 hover:shadow-md transition-shadow cursor-pointer"
                 >
                   <div className="flex items-start gap-3">
                     <div className={`bg-gradient-to-br ${typeInfo.bg} w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0 text-lg`}>
@@ -132,19 +132,19 @@ export default function WellnessCommunityFeed({
                     <div className="flex-1 min-w-0">
                       <div className="flex items-start justify-between gap-2">
                         <div className="flex-1 min-w-0">
-                          <h3 className="font-semibold text-[#0A1A2F] line-clamp-1">{item.title}</h3>
-                          <p className="text-xs text-[#0A1A2F]/60 mt-1">by {item.author}</p>
+                          <h3 className="font-semibold text-[#0A1A2F] dark:text-white line-clamp-1">{item.title}</h3>
+                          <p className="text-xs text-[#0A1A2F]/60 dark:text-white/60 mt-1">by {item.author}</p>
                         </div>
-                        <span className="text-xs bg-gray-100 text-[#0A1A2F] px-2 py-1 rounded-full whitespace-nowrap">
+                        <span className="text-xs bg-gray-100 text-[#0A1A2F] dark:text-white px-2 py-1 rounded-full whitespace-nowrap">
                           {item.type}
                         </span>
                       </div>
                       
                       {item.content && (
-                        <p className="text-xs text-[#0A1A2F]/70 line-clamp-1 mt-2">{item.content}</p>
+                        <p className="text-xs text-[#0A1A2F]/70 dark:text-white/70 line-clamp-1 mt-2">{item.content}</p>
                       )}
                       
-                      <div className="flex items-center gap-4 mt-3 text-xs text-[#0A1A2F]/60">
+                      <div className="flex items-center gap-4 mt-3 text-xs text-[#0A1A2F]/60 dark:text-white/60">
                         <div className="flex items-center gap-1">
                           <Heart className="w-3 h-3" />
                           {item.likes}

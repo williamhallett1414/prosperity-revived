@@ -1134,7 +1134,7 @@ Return ONLY valid JSON array:
             initial={{ opacity: 0, y: 100, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 100, scale: 0.9 }}
-            className="fixed bottom-24 right-4 w-[calc(100vw-2rem)] sm:w-96 h-[min(500px,calc(100dvh-7rem))] bg-white rounded-2xl shadow-2xl flex flex-col z-50 border border-[#AFC7E3]/40 overflow-hidden"
+            className="fixed bottom-24 right-4 w-[calc(100vw-2rem)] sm:w-96 h-[min(500px,calc(100dvh-7rem))] bg-white dark:bg-white/5 rounded-2xl shadow-2xl flex flex-col z-50 border border-[#AFC7E3]/40 overflow-hidden"
             style={{ paddingTop: 'env(safe-area-inset-top)' }}
           >
             {/* Header */}
@@ -1210,7 +1210,7 @@ Return ONLY valid JSON array:
               </AnimatePresence>
               <button
                 onClick={() => setAvatarCollapsed(!avatarCollapsed)}
-                className="w-full flex items-center justify-center py-1 text-[10px] text-[#3C4E53]/40 hover:text-[#3C4E53]/70 transition-colors bg-white border-b border-[#AFC7E3]/30"
+                className="w-full flex items-center justify-center py-1 text-[10px] text-[#3C4E53]/40 hover:text-[#3C4E53]/70 transition-colors bg-white dark:bg-white/5 border-b border-[#AFC7E3]/30"
               >
                 {avatarCollapsed ? '▼ Show Hannah' : '▲ Hide'}
               </button>
@@ -1240,19 +1240,19 @@ Return ONLY valid JSON array:
             {messages.length <= 1 && <div className="border-b border-[#AFC7E3]/40 bg-[#AFC7E3]/15 px-5 py-3 overflow-x-auto">
               <div className="flex items-center justify-between mb-2">
                 <HannahTooltip text="Jump straight into conversations about topics that matter to you. These are personalized quick-starts." position="bottom" showIcon={true}>
-                  <p className="text-xs font-semibold text-[#0A1A2F]/70">Quick Topics:</p>
+                  <p className="text-xs font-semibold text-[#0A1A2F]/70 dark:text-white/70">Quick Topics:</p>
                 </HannahTooltip>
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => setShowOnboarding(true)}
-                    className="text-xs text-[#3C4E53] hover:text-[#0A1A2F] transition-colors underline"
+                    className="text-xs text-[#3C4E53] hover:text-[#0A1A2F] dark:text-white transition-colors underline"
                     title="Revisit the tour"
                   >
                     ? Help
                   </button>
                   <button
                     onClick={() => setShowQuickActions(!showQuickActions)}
-                    className="text-xs text-[#0A1A2F]/60 hover:text-[#0A1A2F] transition-colors"
+                    className="text-xs text-[#0A1A2F]/60 dark:text-white/60 hover:text-[#0A1A2F] dark:text-white transition-colors"
                   >
                     {showQuickActions ? '▼ Hide' : '▶ Show'}
                   </button>
@@ -1263,55 +1263,55 @@ Return ONLY valid JSON array:
                 <div className="grid grid-cols-2 gap-2">
                   <button
                     onClick={() => sendWithText("Help me understand why I keep repeating the same patterns")}
-                    className="text-xs bg-white hover:bg-[#AFC7E3]/25 text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#AFC7E3]/60"
+                    className="text-xs bg-white dark:bg-white/5 hover:bg-[#AFC7E3]/25 text-[#0A1A2F] dark:text-white px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#AFC7E3]/60"
                   >
                     🔄 Breaking Patterns
                   </button>
                   <button
                     onClick={() => sendWithText("I want to build better habits. Where do I start?")}
-                    className="text-xs bg-white hover:bg-[#AFC7E3]/25 text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#AFC7E3]/60"
+                    className="text-xs bg-white dark:bg-white/5 hover:bg-[#AFC7E3]/25 text-[#0A1A2F] dark:text-white px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#AFC7E3]/60"
                   >
                     ✅ Habit Building
                   </button>
                   <button
                     onClick={() => sendWithText("How do I set healthy boundaries?")}
-                    className="text-xs bg-white hover:bg-[#AFC7E3]/25 text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#AFC7E3]/60"
+                    className="text-xs bg-white dark:bg-white/5 hover:bg-[#AFC7E3]/25 text-[#0A1A2F] dark:text-white px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#AFC7E3]/60"
                   >
                     🛡️ Boundaries
                   </button>
                   <button
                     onClick={() => sendWithText("Help me understand my attachment style")}
-                    className="text-xs bg-white hover:bg-[#AFC7E3]/25 text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#AFC7E3]/60"
+                    className="text-xs bg-white dark:bg-white/5 hover:bg-[#AFC7E3]/25 text-[#0A1A2F] dark:text-white px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#AFC7E3]/60"
                   >
                     💕 Attachment Styles
                   </button>
                   <button
                     onClick={() => sendWithText("I struggle with emotional regulation. What can I do?")}
-                    className="text-xs bg-white hover:bg-[#AFC7E3]/25 text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#AFC7E3]/60"
+                    className="text-xs bg-white dark:bg-white/5 hover:bg-[#AFC7E3]/25 text-[#0A1A2F] dark:text-white px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#AFC7E3]/60"
                   >
                     🧘 Emotional Intelligence
                   </button>
                   <button
                     onClick={() => sendWithText("I'm dealing with burnout. How do I recover?")}
-                    className="text-xs bg-white hover:bg-[#AFC7E3]/25 text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#AFC7E3]/60"
+                    className="text-xs bg-white dark:bg-white/5 hover:bg-[#AFC7E3]/25 text-[#0A1A2F] dark:text-white px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#AFC7E3]/60"
                   >
                     🔥 Burnout Recovery
                   </button>
                   <button
                     onClick={() => sendWithText("Help me shift my financial mindset")}
-                    className="text-xs bg-white hover:bg-[#AFC7E3]/25 text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#AFC7E3]/60"
+                    className="text-xs bg-white dark:bg-white/5 hover:bg-[#AFC7E3]/25 text-[#0A1A2F] dark:text-white px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#AFC7E3]/60"
                   >
                     💰 Money Mindset
                   </button>
                   <button
                     onClick={() => sendWithText("I want to find my purpose and clarify my values")}
-                    className="text-xs bg-white hover:bg-[#AFC7E3]/25 text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#AFC7E3]/60"
+                    className="text-xs bg-white dark:bg-white/5 hover:bg-[#AFC7E3]/25 text-[#0A1A2F] dark:text-white px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#AFC7E3]/60"
                   >
                     🎯 Purpose & Values
                   </button>
                   <button
                     onClick={() => sendWithText("Give me guided journaling prompts tailored to my growth areas and values")}
-                    className="text-xs bg-white hover:bg-[#AFC7E3]/25 text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#AFC7E3]/60 col-span-2"
+                    className="text-xs bg-white dark:bg-white/5 hover:bg-[#AFC7E3]/25 text-[#0A1A2F] dark:text-white px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#AFC7E3]/60 col-span-2"
                   >
                     📓 Guided journaling prompts
                   </button>
@@ -1335,11 +1335,11 @@ Return ONLY valid JSON array:
             </AnimatePresence>
 
             {/* Mood Tracker Button */}
-            <div className="border-b border-[#AFC7E3]/40 px-5 py-2 bg-white flex items-center justify-between">
+            <div className="border-b border-[#AFC7E3]/40 px-5 py-2 bg-white dark:bg-white/5 flex items-center justify-between">
               <HannahTooltip text="Track your mood to help me understand your emotional state and provide better support" position="bottom">
                 <button
                   onClick={() => setShowMoodTracker(!showMoodTracker)}
-                  className="flex items-center gap-2 text-xs text-[#3C4E53] hover:text-[#0A1A2F] transition-colors"
+                  className="flex items-center gap-2 text-xs text-[#3C4E53] hover:text-[#0A1A2F] dark:text-white transition-colors"
                 >
                   <Smile className="w-4 h-4" />
                   {currentMood}/10 Mood
@@ -1385,7 +1385,7 @@ Return ONLY valid JSON array:
                     className={`max-w-[80%] rounded-2xl px-4 py-3 ${
                       message.role === 'user'
                         ? 'bg-gradient-to-r from-[#AFC7E3] to-[#3C4E53] text-white'
-                        : 'bg-white text-gray-800 border border-[#AFC7E3]/40'
+                        : 'bg-white dark:bg-white/5 text-gray-800 border border-[#AFC7E3]/40'
                     }`}
                   >
                     {message.role === 'assistant' ? (
@@ -1406,7 +1406,7 @@ Return ONLY valid JSON array:
               ))}
               {isLoading && (
                 <div className="flex justify-start">
-                  <div className="bg-white border border-[#AFC7E3]/40 rounded-2xl px-4 py-3">
+                  <div className="bg-white dark:bg-white/5 border border-[#AFC7E3]/40 rounded-2xl px-4 py-3">
                     <Loader2 className="w-5 h-5 animate-spin text-[#AFC7E3]" />
                   </div>
                 </div>
@@ -1417,7 +1417,7 @@ Return ONLY valid JSON array:
             </div>
 
             {/* Input */}
-            <div className="p-5 border-t border-[#AFC7E3]/40 bg-white">
+            <div className="p-5 border-t border-[#AFC7E3]/40 bg-white dark:bg-white/5">
               <div className="flex gap-2 items-center">
                 <button
                   onClick={() => setShowJournalMode(!showJournalMode)}

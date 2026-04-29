@@ -56,7 +56,7 @@ export default function ProfileGroupsTab({ user }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: index * 0.05 }}
           onClick={() => navigate(createPageUrl(`GroupDetail?id=${group.id}`))}
-          className="flex items-center gap-4 bg-white rounded-2xl p-4 shadow-sm cursor-pointer hover:shadow-md transition-shadow"
+          className="flex items-center gap-4 bg-white dark:bg-white/5 rounded-2xl p-4 shadow-sm cursor-pointer hover:shadow-md transition-shadow"
         >
           <img
             src={group.cover_image || 'https://images.unsplash.com/photo-1504052434569-70ad5836ab65?w=100'}

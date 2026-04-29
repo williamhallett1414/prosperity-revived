@@ -540,8 +540,8 @@ function AssistantMessage({ msg, onTour, onNavigate }) {
     <div className="flex flex-col gap-2">
       {/* Text bubble */}
       <div className="flex justify-start">
-        <div className="max-w-[88%] bg-[#F2F6FA] rounded-2xl rounded-tl-sm px-3.5 py-2.5">
-          <p className="text-[#0A1A2F] text-sm leading-relaxed">{msg.answer}</p>
+        <div className="max-w-[88%] bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-2xl rounded-tl-sm px-3.5 py-2.5">
+          <p className="text-[#0A1A2F] dark:text-white text-sm leading-relaxed">{msg.answer}</p>
         </div>
       </div>
 
@@ -570,7 +570,7 @@ function AssistantMessage({ msg, onTour, onNavigate }) {
             <Map className="w-3.5 h-3.5" style={{ color: '#38BDF8' }} />
           </div>
           <div className="flex-1 min-w-0">
-            <p className="font-bold text-[#0A1A2F] text-xs leading-tight">Show me how →</p>
+            <p className="font-bold text-[#0A1A2F] dark:text-white text-xs leading-tight">Show me how →</p>
             <p className="text-gray-400 text-[10px]">Interactive spotlight tour</p>
           </div>
           <ChevronRight className="w-3.5 h-3.5 text-gray-300" />
@@ -765,8 +765,8 @@ export default function HelpChatbot() {
               {/* Welcome */}
               {messages.length === 0 && (
                 <div className="flex justify-start">
-                  <div className="max-w-[88%] bg-[#F2F6FA] rounded-2xl rounded-tl-sm px-3.5 py-2.5">
-                    <p className="text-[#0A1A2F] text-sm leading-relaxed">
+                  <div className="max-w-[88%] bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-2xl rounded-tl-sm px-3.5 py-2.5">
+                    <p className="text-[#0A1A2F] dark:text-white text-sm leading-relaxed">
                       Hi! Ask me about any feature, or tap a quick action to explore.
                     </p>
                   </div>
@@ -782,14 +782,14 @@ export default function HelpChatbot() {
                       <motion.button key={qa.label}
                         initial={{ opacity: 0, x: 8 }} animate={{ opacity: 1, x: 0 }}
                         onClick={() => handleQuickAction(qa)}
-                        className="w-full flex items-center gap-3 rounded-2xl px-3 py-2.5 text-left active:scale-97 transition-all border border-gray-100"
+                        className="w-full flex items-center gap-3 rounded-2xl px-3 py-2.5 text-left active:scale-97 transition-all border border-gray-100 dark:border-white/10"
                         style={{ background: '#F8FAFB' }}>
                         <div className="w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0"
                           style={{ background: qa.color + '20' }}>
                           <Icon className="w-4 h-4" style={{ color: qa.color }} />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <p className="font-bold text-[#0A1A2F] text-xs leading-tight">{qa.label}</p>
+                          <p className="font-bold text-[#0A1A2F] dark:text-white text-xs leading-tight">{qa.label}</p>
                           <p className="text-gray-400 text-[10px]">{qa.sub}</p>
                         </div>
                         <ChevronRight className="w-3.5 h-3.5 text-gray-300 flex-shrink-0" />
@@ -822,7 +822,7 @@ export default function HelpChatbot() {
               {/* Loading */}
               {loading && (
                 <div className="flex justify-start">
-                  <div className="bg-[#F2F6FA] rounded-2xl rounded-tl-sm px-4 py-3">
+                  <div className="bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-2xl rounded-tl-sm px-4 py-3">
                     <div className="flex gap-1">
                       {[0, 1, 2].map(i => (
                         <motion.div key={i} className="w-1.5 h-1.5 rounded-full bg-[#FD9C2D]"
@@ -837,14 +837,14 @@ export default function HelpChatbot() {
             </div>
 
             {/* Input */}
-            <div className="px-3 py-3 border-t border-gray-100 flex gap-2 flex-shrink-0">
+            <div className="px-3 py-3 border-t border-gray-100 dark:border-white/10 flex gap-2 flex-shrink-0">
               <input
                 ref={inputRef}
                 value={input}
                 onChange={e => setInput(e.target.value)}
                 onKeyDown={e => e.key === 'Enter' && handleSend()}
                 placeholder="Ask about any feature…"
-                className="flex-1 rounded-xl px-3 py-2.5 text-sm text-[#0A1A2F] outline-none border-2 border-gray-100 focus:border-[#FD9C2D] transition-colors placeholder:text-gray-300 bg-[#F8FAFB]"
+                className="flex-1 rounded-xl px-3 py-2.5 text-sm text-[#0A1A2F] dark:text-white outline-none border-2 border-gray-100 dark:border-white/10 focus:border-[#FD9C2D] transition-colors placeholder:text-gray-300 bg-[#F8FAFB]"
                 disabled={loading}
               />
               <button onClick={() => handleSend()}

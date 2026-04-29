@@ -147,22 +147,22 @@ Consolidate duplicates, include realistic quantities (e.g. "2 lbs chicken breast
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow-sm p-5 space-y-5">
+    <div className="bg-white dark:bg-white/5 rounded-2xl shadow-sm p-5 space-y-5">
       {/* Header */}
       <div className="flex items-center gap-3">
         <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center flex-shrink-0">
           <CalendarDays className="w-5 h-5 text-white" />
         </div>
         <div>
-          <h3 className="font-bold text-[#0A1A2F] text-lg">Weekly Meal Planner</h3>
-          <p className="text-sm text-[#0A1A2F]/60">Select recipes and generate your week's plan.</p>
+          <h3 className="font-bold text-[#0A1A2F] dark:text-white text-lg">Weekly Meal Planner</h3>
+          <p className="text-sm text-[#0A1A2F]/60 dark:text-white/60">Select recipes and generate your week's plan.</p>
         </div>
       </div>
 
       {/* Recipe Selection */}
       <div>
         <div className="flex items-center justify-between mb-2">
-          <p className="text-sm font-semibold text-[#0A1A2F]">Selected Recipes ({selectedRecipes.length})</p>
+          <p className="text-sm font-semibold text-[#0A1A2F] dark:text-white dark:text-white">Selected Recipes ({selectedRecipes.length})</p>
           <button
             onClick={() => setShowRecipePicker(!showRecipePicker)}
             className="flex items-center gap-1 text-[#c9a227] text-sm font-semibold"
@@ -178,10 +178,10 @@ Consolidate duplicates, include realistic quantities (e.g. "2 lbs chicken breast
             {selectedRecipes.map(r => (
               <span
                 key={r.id}
-                className="flex items-center gap-1.5 bg-[#FAD98D]/30 text-[#0A1A2F] border border-[#FAD98D]/40 rounded-full px-3 py-1 text-sm"
+                className="flex items-center gap-1.5 bg-[#FAD98D]/30 text-[#0A1A2F] dark:text-white border border-[#FAD98D]/40 rounded-full px-3 py-1 text-sm"
               >
                 {r.title}
-                <button onClick={() => toggleRecipe(r)} className="text-[#0A1A2F]/50 hover:text-[#0A1A2F]">
+                <button onClick={() => toggleRecipe(r)} className="text-[#0A1A2F]/50 dark:text-white/50 hover:text-[#0A1A2F] dark:text-white dark:text-white">
                   <X className="w-3 h-3" />
                 </button>
               </span>
@@ -199,18 +199,18 @@ Consolidate duplicates, include realistic quantities (e.g. "2 lbs chicken breast
               className="overflow-hidden"
             >
               {savedRecipes.length === 0 ? (
-                <p className="text-sm text-[#0A1A2F]/50 py-3 text-center">No saved recipes yet. Create some in Discover Recipes or the Recipe Builder!</p>
+                <p className="text-sm text-[#0A1A2F]/50 dark:text-white/50 py-3 text-center">No saved recipes yet. Create some in Discover Recipes or the Recipe Builder!</p>
               ) : (
                 <div className="space-y-2 mt-2">
                   {/* Search */}
                   <div className="relative">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#0A1A2F]/30" />
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#0A1A2F]/30 dark:text-white/30" />
                     <input
                       type="text"
                       placeholder="Search recipes..."
                       value={search}
                       onChange={e => setSearch(e.target.value)}
-                      className="w-full pl-8 pr-3 py-2 text-sm rounded-xl border border-[#FAD98D]/25 bg-[#F2F6FA] text-[#0A1A2F] placeholder-[#0A1A2F]/35 focus:outline-none focus:border-[#c9a227]/50"
+                      className="w-full pl-8 pr-3 py-2 text-sm rounded-xl border border-[#FAD98D]/25 bg-[#F2F6FA] dark:bg-[#0A1A2F] text-[#0A1A2F] dark:text-white placeholder-[#0A1A2F]/35 focus:outline-none focus:border-[#c9a227]/50"
                     />
                   </div>
                   {/* Category filter */}
@@ -218,13 +218,13 @@ Consolidate duplicates, include realistic quantities (e.g. "2 lbs chicken breast
                     <div className="flex gap-1.5 flex-wrap">
                       <button
                         onClick={() => setFilterCat('all')}
-                        className={`px-2.5 py-1 rounded-full text-xs font-semibold transition-all ${filterCat === 'all' ? 'bg-[#c9a227] text-white' : 'bg-[#F2F6FA] text-[#0A1A2F]/50'}`}
+                        className={`px-2.5 py-1 rounded-full text-xs font-semibold transition-all ${filterCat === 'all' ? 'bg-[#c9a227] text-white' : 'bg-[#F2F6FA] dark:bg-[#0A1A2F] text-[#0A1A2F]/50 dark:text-white/50'}`}
                       >All</button>
                       {categories.map(cat => (
                         <button
                           key={cat}
                           onClick={() => setFilterCat(cat)}
-                          className={`px-2.5 py-1 rounded-full text-xs font-semibold capitalize transition-all ${filterCat === cat ? 'bg-[#c9a227] text-white' : 'bg-[#F2F6FA] text-[#0A1A2F]/50'}`}
+                          className={`px-2.5 py-1 rounded-full text-xs font-semibold capitalize transition-all ${filterCat === cat ? 'bg-[#c9a227] text-white' : 'bg-[#F2F6FA] dark:bg-[#0A1A2F] text-[#0A1A2F]/50 dark:text-white/50'}`}
                         >{cat}</button>
                       ))}
                     </div>
@@ -232,7 +232,7 @@ Consolidate duplicates, include realistic quantities (e.g. "2 lbs chicken breast
                   {/* Recipe list */}
                   <div className="grid gap-2 max-h-64 overflow-y-auto pr-1">
                     {filteredRecipes.length === 0 ? (
-                      <p className="text-xs text-[#0A1A2F]/40 text-center py-3">No recipes match your search.</p>
+                      <p className="text-xs text-[#0A1A2F]/40 dark:text-white/40 text-center py-3">No recipes match your search.</p>
                     ) : filteredRecipes.map(recipe => {
                       const isSelected = selectedRecipes.find(r => r.id === recipe.id);
                       return (
@@ -242,11 +242,11 @@ Consolidate duplicates, include realistic quantities (e.g. "2 lbs chicken breast
                           className={`flex items-center justify-between p-3 rounded-xl border text-left transition-all ${
                             isSelected
                               ? 'bg-[#FAD98D]/15 border-[#c9a227]/30'
-                              : 'bg-[#F2F6FA] border-[#FAD98D]/20 hover:border-[#c9a227]/25'
+                              : 'bg-[#F2F6FA] dark:bg-[#0A1A2F] border-[#FAD98D]/20 hover:border-[#c9a227]/25'
                           }`}
                         >
                           <div className="min-w-0 flex-1">
-                            <p className="text-sm font-semibold text-[#0A1A2F] truncate">{recipe.title}</p>
+                            <p className="text-sm font-semibold text-[#0A1A2F] dark:text-white truncate">{recipe.title}</p>
                             <div className="flex gap-2 mt-0.5 flex-wrap">
                               {recipe.category && (
                                 <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-[#FAD98D]/30 text-[#c9a227] capitalize">{recipe.category}</span>
@@ -255,7 +255,7 @@ Consolidate duplicates, include realistic quantities (e.g. "2 lbs chicken breast
                                 <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-[#22c55e]/15 text-[#16a34a] capitalize">{recipe.diet_type.replace('_', ' ')}</span>
                               )}
                               {recipe.calories && (
-                                <span className="text-[10px] text-[#0A1A2F]/35">{recipe.calories} cal</span>
+                                <span className="text-[10px] text-[#0A1A2F]/35 dark:text-white/35">{recipe.calories} cal</span>
                               )}
                             </div>
                           </div>
@@ -264,7 +264,7 @@ Consolidate duplicates, include realistic quantities (e.g. "2 lbs chicken breast
                       );
                     })}
                   </div>
-                  <p className="text-[10px] text-[#0A1A2F]/30 text-center">{filteredRecipes.length} of {savedRecipes.length} recipes shown</p>
+                  <p className="text-[10px] text-[#0A1A2F]/30 dark:text-white/30 text-center">{filteredRecipes.length} of {savedRecipes.length} recipes shown</p>
                 </div>
               )}
             </motion.div>
@@ -294,8 +294,8 @@ Consolidate duplicates, include realistic quantities (e.g. "2 lbs chicken breast
         {weekPlan && (
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-3">
             <div className="flex items-center justify-between">
-              <p className="text-sm font-bold text-[#0A1A2F] uppercase tracking-wide">Your Week</p>
-              <button onClick={() => setShowPlan(!showPlan)} className="text-[#0A1A2F]/40 hover:text-[#0A1A2F]">
+              <p className="text-sm font-bold text-[#0A1A2F] dark:text-white uppercase tracking-wide">Your Week</p>
+              <button onClick={() => setShowPlan(!showPlan)} className="text-[#0A1A2F]/40 dark:text-white/40 hover:text-[#0A1A2F] dark:text-white dark:text-white">
                 {showPlan ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
               </button>
             </div>
@@ -304,13 +304,13 @@ Consolidate duplicates, include realistic quantities (e.g. "2 lbs chicken breast
               {showPlan && (
                 <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="space-y-2 overflow-hidden">
                   {weekPlan.map((day, i) => (
-                    <div key={i} className="bg-[#F2F6FA] rounded-xl p-4 border border-[#FAD98D]/20">
+                    <div key={i} className="bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-xl p-4 border border-[#FAD98D]/20">
                       <p className="text-xs font-bold text-[#c9a227] uppercase tracking-wide mb-2">{day.day}</p>
                       <div className="space-y-1.5">
                         {MEAL_TYPES.map(type => (
                           <div key={type} className="flex gap-2 text-sm">
-                            <span className="text-xs text-[#0A1A2F]/40 w-16 flex-shrink-0 pt-0.5 font-medium">{type}</span>
-                            <span className="text-[#0A1A2F]/80">{day[type.toLowerCase()]}</span>
+                            <span className="text-xs text-[#0A1A2F]/40 dark:text-white/40 w-16 flex-shrink-0 pt-0.5 font-medium">{type}</span>
+                            <span className="text-[#0A1A2F]/80 dark:text-white/80">{day[type.toLowerCase()]}</span>
                           </div>
                         ))}
                       </div>
@@ -325,7 +325,7 @@ Consolidate duplicates, include realistic quantities (e.g. "2 lbs chicken breast
               onClick={generateShoppingList}
               disabled={isGeneratingList}
               variant="outline"
-              className="w-full border-[#FAD98D]/50 text-[#0A1A2F] hover:bg-[#FAD98D]/10"
+              className="w-full border-[#FAD98D]/50 text-[#0A1A2F] dark:text-white hover:bg-[#FAD98D]/10"
             >
               {isGeneratingList ? (
                 <><Loader2 className="w-4 h-4 mr-2 animate-spin" />Building list...</>
@@ -342,7 +342,7 @@ Consolidate duplicates, include realistic quantities (e.g. "2 lbs chicken breast
         {shoppingList && (
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-3">
             <div className="flex items-center justify-between">
-              <p className="text-sm font-bold text-[#0A1A2F] uppercase tracking-wide">🛒 Shopping List</p>
+              <p className="text-sm font-bold text-[#0A1A2F] dark:text-white uppercase tracking-wide">🛒 Shopping List</p>
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => {
@@ -361,7 +361,7 @@ Consolidate duplicates, include realistic quantities (e.g. "2 lbs chicken breast
                   <Share2 className="w-3.5 h-3.5" />
                   Share
                 </button>
-                <button onClick={() => setShowList(!showList)} className="text-[#0A1A2F]/40 hover:text-[#0A1A2F]">
+                <button onClick={() => setShowList(!showList)} className="text-[#0A1A2F]/40 dark:text-white/40 hover:text-[#0A1A2F] dark:text-white dark:text-white">
                   {showList ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
                 </button>
               </div>
@@ -371,11 +371,11 @@ Consolidate duplicates, include realistic quantities (e.g. "2 lbs chicken breast
               {showList && (
                 <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="space-y-3 overflow-hidden">
                   {shoppingList.map((cat, i) => (
-                    <div key={i} className="bg-[#F2F6FA] rounded-xl p-4 border border-[#FAD98D]/20">
+                    <div key={i} className="bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-xl p-4 border border-[#FAD98D]/20">
                       <p className="text-xs font-bold text-[#C9A227] uppercase tracking-wide mb-2">{cat.name}</p>
                       <ul className="space-y-1">
                         {cat.items.map((item, j) => (
-                          <li key={j} className="flex gap-2 text-sm text-[#0A1A2F]/80">
+                          <li key={j} className="flex gap-2 text-sm text-[#0A1A2F]/80 dark:text-white/80">
                             <span className="text-[#c9a227] flex-shrink-0">•</span>
                             {item}
                           </li>

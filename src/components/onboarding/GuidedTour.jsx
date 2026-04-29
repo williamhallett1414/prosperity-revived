@@ -431,7 +431,7 @@ function TooltipCard({ step, current, total, onNext, onSkip, targetRect, isLastS
           ) : isLastStep ? (
             <button
               onPointerDown={onSkip}
-              className="w-full h-11 rounded-2xl text-[#0A1A2F] font-bold text-sm flex items-center justify-center gap-2 active:scale-95 transition-transform"
+              className="w-full h-11 rounded-2xl text-[#0A1A2F] dark:text-white font-bold text-sm flex items-center justify-center gap-2 active:scale-95 transition-transform"
               style={{ background: 'linear-gradient(135deg, #FAD98D, #FD9C2D)' }}
             >
               ✓ Done
@@ -443,7 +443,7 @@ function TooltipCard({ step, current, total, onNext, onSkip, targetRect, isLastS
           ) : (
             <button
               onPointerDown={onNext}
-              className="w-full h-11 rounded-2xl text-[#0A1A2F] font-bold text-sm flex items-center justify-center gap-2 active:scale-95 transition-transform"
+              className="w-full h-11 rounded-2xl text-[#0A1A2F] dark:text-white font-bold text-sm flex items-center justify-center gap-2 active:scale-95 transition-transform"
               style={{ background: 'linear-gradient(135deg, #FAD98D, #FD9C2D)' }}
             >
               Next <ChevronRight className="w-4 h-4" />

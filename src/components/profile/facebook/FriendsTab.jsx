@@ -70,7 +70,7 @@ export default function FriendsTab({ friends, user }) {
   if (friends.length === 0) {
     return (
       <>
-        <div className="bg-white rounded-xl shadow-sm p-12 sm:p-16 text-center border border-gray-100">
+        <div className="bg-white dark:bg-white/5 rounded-xl shadow-sm p-12 sm:p-16 text-center border border-gray-100 dark:border-white/10">
           <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
             <span className="text-4xl">👥</span>
           </div>
@@ -110,7 +110,7 @@ export default function FriendsTab({ friends, user }) {
               {searchResults.map((searchUser) => (
                 <div
                   key={searchUser.id}
-                  className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+                  className="flex items-center justify-between p-3 bg-gray-50 dark:bg-white/5 rounded-lg hover:bg-gray-100 transition-colors"
                 >
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#AFC7E3] to-[#FAD98D] flex items-center justify-center text-white font-bold">
@@ -124,7 +124,7 @@ export default function FriendsTab({ friends, user }) {
                   <Button
                     onClick={() => sendFriendRequest.mutate(searchUser.email)}
                     size="sm"
-                    className="bg-[#FAD98D] hover:bg-[#FAD98D]/90 text-[#0A1A2F]"
+                    className="bg-[#FAD98D] hover:bg-[#FAD98D]/90 text-[#0A1A2F] dark:text-white dark:text-white"
                     disabled={sendFriendRequest.isPending}
                   >
                     <UserPlus className="w-4 h-4 mr-1" />
@@ -148,7 +148,7 @@ export default function FriendsTab({ friends, user }) {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="bg-white rounded-xl shadow-sm p-6 border border-gray-100"
+        className="bg-white dark:bg-white/5 rounded-xl shadow-sm p-6 border border-gray-100 dark:border-white/10"
       >
         <div className="mb-6 flex items-center justify-between gap-4">
           <h2 className="text-2xl font-bold text-gray-900">
@@ -187,7 +187,7 @@ export default function FriendsTab({ friends, user }) {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: index * 0.03 }}
-              className="flex flex-col items-center p-4 hover:bg-gray-50 rounded-xl transition-all cursor-pointer group"
+              className="flex flex-col items-center p-4 hover:bg-gray-50 dark:bg-white/5 rounded-xl transition-all cursor-pointer group"
             >
               <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-br from-[#AFC7E3] to-[#FAD98D] flex items-center justify-center text-white text-2xl font-bold mb-3 shadow-md group-hover:shadow-lg transition-shadow">
                 {friendName?.charAt(0).toUpperCase() || 'F'}

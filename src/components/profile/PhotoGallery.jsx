@@ -124,7 +124,7 @@ export default function PhotoGallery() {
       </div>
 
       {photos.length === 0 ? (
-        <div className="bg-white dark:bg-[#0A1A2F] rounded-2xl p-8 text-center">
+        <div className="bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-2xl p-8 text-center">
           <ImageIcon className="w-12 h-12 text-gray-300 dark:text-gray-600 mx-auto mb-3" />
           <p className="text-gray-500 dark:text-gray-400 mb-4">No photos yet</p>
           <Button
@@ -224,7 +224,7 @@ export default function PhotoGallery() {
               animate={{ scale: 1 }}
               exit={{ scale: 0.8 }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-white dark:bg-[#0A1A2F] rounded-2xl max-w-2xl w-full overflow-hidden"
+              className="bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-2xl max-w-2xl w-full overflow-hidden"
             >
               <div className="relative">
                 {selectedPhoto.type === 'video' ? (
@@ -253,7 +253,7 @@ export default function PhotoGallery() {
                   <p className="text-xs text-gray-500 dark:text-gray-400 mt-2 capitalize">From {selectedPhoto.source}</p>
                 </div>
               )}
-              <div className="p-4 border-t border-gray-200 dark:border-gray-700 flex justify-between items-center">
+              <div className="p-4 border-t border-gray-200 dark:border-white/10 dark:border-gray-700 flex justify-between items-center">
                 <p className="text-sm text-gray-500 dark:text-gray-400">
                   {new Date(selectedPhoto.created_date).toLocaleDateString()}
                 </p>

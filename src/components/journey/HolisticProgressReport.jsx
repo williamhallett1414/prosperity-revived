@@ -86,7 +86,7 @@ export default function HolisticProgressReport({ user }) {
           ) : report ? (
             <div className="space-y-6">
               {/* Overall Summary */}
-              <div className="bg-white rounded-xl p-5 shadow-sm border border-[#FAD98D]/40">
+              <div className="bg-white dark:bg-white/5 rounded-xl p-5 shadow-sm border border-[#FAD98D]/40">
                 <div className="flex items-start gap-3 mb-3">
                   <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center flex-shrink-0">
                     <Heart className="w-5 h-5 text-white" />
@@ -98,14 +98,14 @@ export default function HolisticProgressReport({ user }) {
                 </div>
                 
                 {/* Data Summary Pills */}
-                <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-gray-100">
+                <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-gray-100 dark:border-white/10">
                   {report.data_summary && (
                     <>
                       <Badge variant="outline" className="bg-[#FAD98D]/10 border-[#FAD98D]/40">
                         <Heart className="w-3 h-3 mr-1" />
                         {report.data_summary.total_journals} journals
                       </Badge>
-                      <Badge variant="outline" className="bg-[#F2F6FA] border-[#AFC7E3]/40">
+                      <Badge variant="outline" className="bg-[#F2F6FA] dark:bg-[#0A1A2F] border-[#AFC7E3]/40">
                         <Dumbbell className="w-3 h-3 mr-1" />
                         {report.data_summary.total_workouts} workouts
                       </Badge>
@@ -123,7 +123,7 @@ export default function HolisticProgressReport({ user }) {
               </div>
 
               {/* Interconnected Insights */}
-              <div className="bg-white rounded-xl p-5 shadow-sm border border-[#FAD98D]/40">
+              <div className="bg-white dark:bg-white/5 rounded-xl p-5 shadow-sm border border-[#FAD98D]/40">
                 <div className="flex items-center gap-2 mb-4">
                   <TrendingUp className="w-5 h-5 text-[#C9A227]" />
                   <h3 className="font-semibold text-gray-900 text-lg">Interconnected Insights</h3>
@@ -168,7 +168,7 @@ export default function HolisticProgressReport({ user }) {
                       className="mt-4 space-y-4"
                     >
                       {/* Areas of Strength */}
-                      <div className="bg-white rounded-xl p-5 shadow-sm border border-green-100">
+                      <div className="bg-white dark:bg-white/5 rounded-xl p-5 shadow-sm border border-green-100">
                         <div className="flex items-center gap-2 mb-3">
                           <Target className="w-5 h-5 text-green-600" />
                           <h3 className="font-semibold text-gray-900">Areas of Strength</h3>
@@ -184,7 +184,7 @@ export default function HolisticProgressReport({ user }) {
                       </div>
 
                       {/* Growth Opportunities */}
-                      <div className="bg-white rounded-xl p-5 shadow-sm border border-blue-100">
+                      <div className="bg-white dark:bg-white/5 rounded-xl p-5 shadow-sm border border-blue-100">
                         <div className="flex items-center gap-2 mb-3">
                           <Lightbulb className="w-5 h-5 text-[#3C4E53]" />
                           <h3 className="font-semibold text-gray-900">Growth Opportunities</h3>

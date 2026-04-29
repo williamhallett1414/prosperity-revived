@@ -126,7 +126,7 @@ function ProgressBar({ filled, total }) {
           transition={{ duration: 0.5, ease: 'easeOut' }}
         />
       </div>
-      <span className="text-xs font-semibold text-[#0A1A2F]/50 w-10 text-right">{filled}/{total}</span>
+      <span className="text-xs font-semibold text-[#0A1A2F]/50 dark:text-white/50 w-10 text-right">{filled}/{total}</span>
     </div>
   );
 }
@@ -143,15 +143,15 @@ function PreviousWeekCard({ entry }) {
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.15 }}
-      className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden"
+      className="bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 shadow-sm overflow-hidden"
     >
       <button onClick={() => setOpen(o => !o)} className="w-full flex items-center justify-between px-5 py-4">
         <div className="flex items-center gap-2">
           <BookOpen className="w-4 h-4 text-[#AFC7E3]" />
-          <span className="text-sm font-semibold text-[#0A1A2F]">Last Week's Reflection</span>
-          <span className="text-xs text-[#0A1A2F]/40 bg-gray-50 px-2 py-0.5 rounded-full">{entry.created_date}</span>
+          <span className="text-sm font-semibold text-[#0A1A2F] dark:text-white dark:text-white">Last Week's Reflection</span>
+          <span className="text-xs text-[#0A1A2F]/40 dark:text-white/40 bg-gray-50 dark:bg-white/5 px-2 py-0.5 rounded-full">{entry.created_date}</span>
         </div>
-        {open ? <ChevronUp className="w-4 h-4 text-[#0A1A2F]/40" /> : <ChevronDown className="w-4 h-4 text-[#0A1A2F]/40" />}
+        {open ? <ChevronUp className="w-4 h-4 text-[#0A1A2F]/40 dark:text-white/40" /> : <ChevronDown className="w-4 h-4 text-[#0A1A2F]/40 dark:text-white/40" />}
       </button>
       <AnimatePresence>
         {open && (
@@ -162,7 +162,7 @@ function PreviousWeekCard({ entry }) {
             transition={{ duration: 0.25 }}
             className="overflow-hidden"
           >
-            <div className="px-5 pb-5 space-y-3 border-t border-gray-50 pt-4">
+            <div className="px-5 pb-5 space-y-3 border-t border-gray-50 dark:border-white/5 pt-4">
               {SECTIONS.map(s => {
                 const val = parsed[s.id];
                 if (!val) return null;
@@ -171,9 +171,9 @@ function PreviousWeekCard({ entry }) {
                   <div key={s.id}>
                     <div className="flex items-center gap-1.5 mb-1">
                       <Icon className="w-3 h-3" style={{ color: s.color }} />
-                      <span className="text-xs font-semibold text-[#0A1A2F]/60">{s.label}</span>
+                      <span className="text-xs font-semibold text-[#0A1A2F]/60 dark:text-white/60">{s.label}</span>
                     </div>
-                    <p className="text-sm text-[#0A1A2F]/80 leading-relaxed pl-5">{val}</p>
+                    <p className="text-sm text-[#0A1A2F]/80 dark:text-white/80 leading-relaxed pl-5">{val}</p>
                   </div>
                 );
               })}
@@ -191,7 +191,7 @@ function CompletedState({ weekLabel, onEdit, navigate, user }) {
     <motion.div
       initial={{ opacity: 0, scale: 0.96 }}
       animate={{ opacity: 1, scale: 1 }}
-      className="bg-white rounded-2xl border border-gray-100 shadow-sm p-8 text-center"
+      className="bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 shadow-sm p-8 text-center"
     >
       <motion.div
         initial={{ scale: 0 }}
@@ -201,8 +201,8 @@ function CompletedState({ weekLabel, onEdit, navigate, user }) {
       >
         <CheckCircle2 className="w-8 h-8 text-green-500" />
       </motion.div>
-      <h3 className="text-xl font-bold text-[#0A1A2F] mb-1">Reflection Complete</h3>
-      <p className="text-sm text-[#0A1A2F]/50 mb-2">{weekLabel}</p>
+      <h3 className="text-xl font-bold text-[#0A1A2F] dark:text-white mb-1">Reflection Complete</h3>
+      <p className="text-sm text-[#0A1A2F]/50 dark:text-white/50 mb-2">{weekLabel}</p>
       <p className="text-sm text-[#0A1A2F]/65 leading-relaxed mb-5 max-w-xs mx-auto">
         Taking time to reflect is one of the most powerful habits of people who keep growing. Well done.
       </p>
@@ -229,20 +229,20 @@ function CompletedState({ weekLabel, onEdit, navigate, user }) {
         </button>
         <button
           onClick={() => navigate(createPageUrl('AffirmationsPage'))}
-          className="w-full flex items-center justify-center gap-2 py-3 rounded-xl text-[#0A1A2F] text-sm font-semibold bg-[#AFC7E3]/10 border border-[#AFC7E3]/25"
+          className="w-full flex items-center justify-center gap-2 py-3 rounded-xl text-[#0A1A2F] dark:text-white text-sm font-semibold bg-[#AFC7E3]/10 border border-[#AFC7E3]/25"
         >
           <Sparkles className="w-4 h-4 text-[#AFC7E3]" />
           Speak an affirmation over your week
         </button>
         <button
           onClick={() => navigate(createPageUrl('GrowthPathwaysPage'))}
-          className="w-full flex items-center justify-center gap-2 py-3 rounded-xl text-[#0A1A2F] text-sm font-semibold bg-gray-50 border border-gray-100"
+          className="w-full flex items-center justify-center gap-2 py-3 rounded-xl text-[#0A1A2F] dark:text-white text-sm font-semibold bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/10"
         >
-          <Target className="w-4 h-4 text-[#0A1A2F]/45" />
+          <Target className="w-4 h-4 text-[#0A1A2F]/45 dark:text-white/45" />
           Review my growth pathway
         </button>
       </div>
-      <button onClick={onEdit} className="mt-5 text-xs text-[#0A1A2F]/35 hover:text-[#0A1A2F]/55 transition-colors">
+      <button onClick={onEdit} className="mt-5 text-xs text-[#0A1A2F]/35 dark:text-white/35 hover:text-[#0A1A2F]/55 dark:text-white/55 transition-colors">
         Edit this reflection
       </button>
     </motion.div>
@@ -338,14 +338,14 @@ export default function WeeklyReflectionPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#F2F6FA] flex items-center justify-center">
+      <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] flex items-center justify-center">
         <div className="w-8 h-8 rounded-full border-2 border-[#AFC7E3] border-t-transparent animate-spin" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#F2F6FA] pb-28">
+    <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
 
       {/* Header */}
       <div className="sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b border-[#AFC7E3]/20 px-4 py-3">
@@ -354,11 +354,11 @@ export default function WeeklyReflectionPage() {
             to={createPageUrl('PersonalGrowth')}
             className="w-9 h-9 rounded-full bg-[#AFC7E3]/15 hover:bg-[#AFC7E3]/25 flex items-center justify-center transition-colors"
           >
-            <ArrowLeft className="w-4 h-4 text-[#0A1A2F]" />
+            <ArrowLeft className="w-4 h-4 text-[#0A1A2F] dark:text-white dark:text-white" />
           </Link>
           <div className="flex-1 min-w-0">
-            <h1 className="text-base font-bold text-[#0A1A2F] leading-tight">Weekly Reflection</h1>
-            <p className="text-xs text-[#0A1A2F]/50 truncate">{weekLabel}</p>
+            <h1 className="text-base font-bold text-[#0A1A2F] dark:text-white leading-tight">Weekly Reflection</h1>
+            <p className="text-xs text-[#0A1A2F]/50 dark:text-white/50 truncate">{weekLabel}</p>
           </div>
           {streak > 0 && (
             <div className="flex items-center gap-1 bg-orange-50 border border-orange-100 px-2.5 py-1.5 rounded-full">
@@ -398,10 +398,10 @@ export default function WeeklyReflectionPage() {
             <motion.div key="editor" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="space-y-4">
 
               {/* Progress tracker */}
-              <div className="bg-white rounded-2xl px-5 py-4 border border-gray-100 shadow-sm">
+              <div className="bg-white dark:bg-white/5 rounded-2xl px-5 py-4 border border-gray-100 dark:border-white/10 shadow-sm">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm font-semibold text-[#0A1A2F]">Your reflection</span>
-                  <span className="text-xs text-[#0A1A2F]/45">
+                  <span className="text-sm font-semibold text-[#0A1A2F] dark:text-white dark:text-white">Your reflection</span>
+                  <span className="text-xs text-[#0A1A2F]/45 dark:text-white/45">
                     {filled === 0 ? 'Get started below' : filled === total ? 'All complete ✓' : `${total - filled} section${total - filled > 1 ? 's' : ''} left`}
                   </span>
                 </div>
@@ -419,7 +419,7 @@ export default function WeeklyReflectionPage() {
                     initial={{ opacity: 0, y: 16 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: i * 0.07 }}
-                    className="bg-white rounded-2xl shadow-sm overflow-hidden border"
+                    className="bg-white dark:bg-white/5 rounded-2xl shadow-sm overflow-hidden border"
                     style={{ borderColor: hasContent ? section.border : '#F3F4F6' }}
                   >
                     <div
@@ -431,8 +431,8 @@ export default function WeeklyReflectionPage() {
                         <Icon className="w-4 h-4" style={{ color: section.color }} />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-sm font-bold text-[#0A1A2F]">{section.label}</p>
-                        <p className="text-xs text-[#0A1A2F]/45">{section.hint}</p>
+                        <p className="text-sm font-bold text-[#0A1A2F] dark:text-white dark:text-white">{section.label}</p>
+                        <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45">{section.hint}</p>
                       </div>
                       {hasContent && <CheckCircle2 className="w-4 h-4 flex-shrink-0" style={{ color: section.color }} />}
                     </div>
@@ -443,10 +443,10 @@ export default function WeeklyReflectionPage() {
                         onChange={e => setAnswer(section.id, e.target.value)}
                         placeholder={section.placeholder}
                         rows={3}
-                        className="w-full text-sm text-[#0A1A2F] placeholder-[#0A1A2F]/30 bg-transparent border-none outline-none resize-none leading-relaxed"
+                        className="w-full text-sm text-[#0A1A2F] dark:text-white placeholder-[#0A1A2F]/30 bg-transparent border-none outline-none resize-none leading-relaxed"
                       />
                       {val.length > 0 && (
-                        <p className="text-right text-xs text-[#0A1A2F]/25 mt-1">{val.length} chars</p>
+                        <p className="text-right text-xs text-[#0A1A2F]/25 dark:text-white/25 mt-1">{val.length} chars</p>
                       )}
                     </div>
                   </motion.div>
@@ -475,7 +475,7 @@ export default function WeeklyReflectionPage() {
                   )}
                 </button>
                 {lastSaved && (
-                  <p className="text-center text-xs text-[#0A1A2F]/30 mt-2">
+                  <p className="text-center text-xs text-[#0A1A2F]/30 dark:text-white/30 mt-2">
                     Last saved {new Date(lastSaved).toLocaleDateString()} at {new Date(lastSaved).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                   </p>
                 )}
@@ -487,17 +487,17 @@ export default function WeeklyReflectionPage() {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.5 }}
                 onClick={() => navigate(createPageUrl('ChatScreen?bot=Hannah'))}
-                className="w-full flex items-center justify-between px-5 py-4 bg-white rounded-2xl border border-[#AFC7E3]/25 shadow-sm hover:border-[#AFC7E3]/55 transition-colors"
+                className="w-full flex items-center justify-between px-5 py-4 bg-white dark:bg-white/5 rounded-2xl border border-[#AFC7E3]/25 shadow-sm hover:border-[#AFC7E3]/55 transition-colors"
               >
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold"
                     style={{ background: 'linear-gradient(135deg,#AFC7E3,#3C4E53)' }}>H</div>
                   <div className="text-left">
-                    <p className="text-sm font-semibold text-[#0A1A2F]">Need to talk it through?</p>
-                    <p className="text-xs text-[#0A1A2F]/50">Hannah can help you process your week</p>
+                    <p className="text-sm font-semibold text-[#0A1A2F] dark:text-white dark:text-white">Need to talk it through?</p>
+                    <p className="text-xs text-[#0A1A2F]/50 dark:text-white/50">Hannah can help you process your week</p>
                   </div>
                 </div>
-                <ArrowRight className="w-4 h-4 text-[#0A1A2F]/30" />
+                <ArrowRight className="w-4 h-4 text-[#0A1A2F]/30 dark:text-white/30" />
               </motion.button>
 
             </motion.div>

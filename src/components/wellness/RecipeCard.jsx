@@ -15,13 +15,13 @@ const CATEGORY_EMOJI  = { breakfast:'🍳', lunch:'🥗', dinner:'🍽️', snac
 const DIFFICULTY_STYLE = {
   easy:   'bg-[#AFC7E3]/25 text-[#3C4E53]',
   medium: 'bg-[#FAD98D]/30 text-[#c9a227]',
-  hard:   'bg-[#0A1A2F]/10 text-[#0A1A2F]/70',
+  hard:   'bg-[#0A1A2F]/10 text-[#0A1A2F]/70 dark:text-white/70',
 };
 const DIET_STYLE = {
   keto:        'bg-[#FAD98D]/30 text-[#c9a227]',
   vegan:       'bg-[#AFC7E3]/25 text-[#3C4E53]',
   vegetarian:  'bg-[#AFC7E3]/20 text-[#3C4E53]',
-  paleo:       'bg-[#FAD98D]/25 text-[#0A1A2F]/70',
+  paleo:       'bg-[#FAD98D]/25 text-[#0A1A2F]/70 dark:text-white/70',
   gluten_free: 'bg-[#FAD98D]/20 text-[#c9a227]',
 };
 
@@ -45,7 +45,7 @@ function RichStep({ text, stepNum }) {
       <span className="w-7 h-7 rounded-full bg-gradient-to-br from-[#c9a227] to-[#FAD98D] text-white text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5 shadow-sm">
         {stepNum}
       </span>
-      <p className="text-sm text-[#0A1A2F]/80 leading-relaxed flex-1 pt-0.5">
+      <p className="text-sm text-[#0A1A2F]/80 dark:text-white/80 leading-relaxed flex-1 pt-0.5">
         {parts.map((p, i) => {
           if (p.type === 'temp') return (
             <span key={i} className="inline-flex items-center gap-0.5 bg-red-50 text-red-600 font-semibold px-1.5 py-0.5 rounded-md text-xs mx-0.5">
@@ -68,8 +68,8 @@ function NutritionPill({ label, value, unit, color }) {
   if (!value) return null;
   return (
     <div className={`flex flex-col items-center px-2.5 py-2 rounded-xl ${color}`}>
-      <p className="text-sm font-bold text-[#0A1A2F] leading-none">{value}<span className="text-[10px] font-normal">{unit}</span></p>
-      <p className="text-[9px] font-bold text-[#0A1A2F]/40 uppercase tracking-wide mt-0.5">{label}</p>
+      <p className="text-sm font-bold text-[#0A1A2F] dark:text-white leading-none">{value}<span className="text-[10px] font-normal">{unit}</span></p>
+      <p className="text-[9px] font-bold text-[#0A1A2F]/40 dark:text-white/40 uppercase tracking-wide mt-0.5">{label}</p>
     </div>
   );
 }
@@ -134,12 +134,12 @@ Rules:
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: Math.min(index * 0.04, 0.4) }}
-        className="bg-white rounded-2xl overflow-hidden border border-[#FAD98D]/20 shadow-sm"
+        className="bg-white dark:bg-white/5 rounded-2xl overflow-hidden border border-[#FAD98D]/20 shadow-sm"
       >
         <div className="p-4">
           {/* Title */}
           <div className="flex items-start justify-between gap-2 mb-2">
-            <h3 className="font-bold text-[#0A1A2F] text-base leading-snug flex-1">
+            <h3 className="font-bold text-[#0A1A2F] dark:text-white text-base leading-snug flex-1">
               {emoji} {recipe.title}
             </h3>
             {recipe.id && (
@@ -165,11 +165,11 @@ Rules:
           </div>
 
           {recipe.description && (
-            <p className="text-sm text-[#0A1A2F]/55 mb-3 leading-relaxed">{recipe.description}</p>
+            <p className="text-sm text-[#0A1A2F]/55 dark:text-white/55 mb-3 leading-relaxed">{recipe.description}</p>
           )}
 
           {/* Stats row */}
-          <div className="flex items-center gap-3 text-xs text-[#0A1A2F]/40 mb-3 flex-wrap">
+          <div className="flex items-center gap-3 text-xs text-[#0A1A2F]/40 dark:text-white/40 mb-3 flex-wrap">
             {recipe.prep_time_minutes > 0 && (
               <span className="flex items-center gap-1"><Clock className="w-3.5 h-3.5" />{recipe.prep_time_minutes}m prep</span>
             )}
@@ -215,7 +215,7 @@ Rules:
 
             {/* Expand / enrich */}
             <button onClick={() => { setExpanded(e => !e); if (!expanded && !enriched) handleEnrich(); }}
-              className="flex flex-col items-center gap-1 py-2.5 rounded-xl bg-[#F2F6FA] text-[#0A1A2F]/55 hover:bg-[#FAD98D]/15 transition-colors">
+              className="flex flex-col items-center gap-1 py-2.5 rounded-xl bg-[#F2F6FA] dark:bg-[#0A1A2F] text-[#0A1A2F]/55 dark:text-white/55 hover:bg-[#FAD98D]/15 transition-colors">
               {enriching
                 ? <Loader2 className="w-4 h-4 animate-spin text-[#c9a227]" />
                 : expanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
@@ -235,20 +235,20 @@ Rules:
 
                   {/* Nutrition facts */}
                   {hasNutrition && (
-                    <div className="bg-[#F2F6FA] rounded-2xl p-4">
+                    <div className="bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-2xl p-4">
                       <div className="flex items-center gap-2 mb-3">
                         <BarChart3 className="w-4 h-4 text-[#c9a227]" />
-                        <p className="text-xs font-bold text-[#0A1A2F]/50 uppercase tracking-widest">
+                        <p className="text-xs font-bold text-[#0A1A2F]/50 dark:text-white/50 uppercase tracking-widest">
                           Nutrition per serving{displayed.serving_size ? ` (${displayed.serving_size})` : ''}
                         </p>
                       </div>
                       <div className="grid grid-cols-3 gap-2">
-                        <NutritionPill label="Calories"  value={displayed.calories} unit=""   color="bg-white" />
-                        <NutritionPill label="Protein"   value={displayed.protein}  unit="g"  color="bg-white" />
-                        <NutritionPill label="Carbs"     value={displayed.carbs}    unit="g"  color="bg-white" />
-                        <NutritionPill label="Fat"       value={displayed.fat}      unit="g"  color="bg-white" />
-                        <NutritionPill label="Fiber"     value={displayed.fiber}    unit="g"  color="bg-white" />
-                        <NutritionPill label="Sodium"    value={displayed.sodium}   unit="mg" color="bg-white" />
+                        <NutritionPill label="Calories"  value={displayed.calories} unit=""   color="bg-white dark:bg-white/5" />
+                        <NutritionPill label="Protein"   value={displayed.protein}  unit="g"  color="bg-white dark:bg-white/5" />
+                        <NutritionPill label="Carbs"     value={displayed.carbs}    unit="g"  color="bg-white dark:bg-white/5" />
+                        <NutritionPill label="Fat"       value={displayed.fat}      unit="g"  color="bg-white dark:bg-white/5" />
+                        <NutritionPill label="Fiber"     value={displayed.fiber}    unit="g"  color="bg-white dark:bg-white/5" />
+                        <NutritionPill label="Sodium"    value={displayed.sodium}   unit="mg" color="bg-white dark:bg-white/5" />
                       </div>
                     </div>
                   )}
@@ -256,7 +256,7 @@ Rules:
                   {/* Ingredients */}
                   {ingredients.length > 0 && (
                     <div>
-                      <p className="text-xs font-bold text-[#0A1A2F]/40 uppercase tracking-widest mb-3">
+                      <p className="text-xs font-bold text-[#0A1A2F]/40 dark:text-white/40 uppercase tracking-widest mb-3">
                         Ingredients — {recipe.servings || 1} serving{(recipe.servings || 1) !== 1 ? 's' : ''}
                       </p>
                       <ul className="space-y-2">
@@ -274,7 +274,7 @@ Rules:
                   {instructions.length > 0 && (
                     <div>
                       <div className="flex items-center gap-2 mb-3">
-                        <p className="text-xs font-bold text-[#0A1A2F]/40 uppercase tracking-widest flex-1">
+                        <p className="text-xs font-bold text-[#0A1A2F]/40 dark:text-white/40 uppercase tracking-widest flex-1">
                           Instructions
                         </p>
                         {enriching && (
@@ -302,11 +302,11 @@ Rules:
                     <div className="bg-[#FAD98D]/15 rounded-2xl p-4">
                       <div className="flex items-center gap-2 mb-2.5">
                         <Lightbulb className="w-4 h-4 text-[#c9a227]" />
-                        <p className="text-xs font-bold text-[#0A1A2F]/50 uppercase tracking-widest">Chef's Tips</p>
+                        <p className="text-xs font-bold text-[#0A1A2F]/50 dark:text-white/50 uppercase tracking-widest">Chef's Tips</p>
                       </div>
                       <ul className="space-y-2">
                         {visibleTips.map((tip, i) => (
-                          <li key={i} className="text-sm text-[#0A1A2F]/70 leading-relaxed flex gap-2">
+                          <li key={i} className="text-sm text-[#0A1A2F]/70 dark:text-white/70 leading-relaxed flex gap-2">
                             <span className="flex-shrink-0">💡</span>{tip}
                           </li>
                         ))}
@@ -319,9 +319,9 @@ Rules:
                     <div className="bg-[#AFC7E3]/15 rounded-2xl p-4">
                       <div className="flex items-center gap-2 mb-2">
                         <Utensils className="w-4 h-4 text-[#3C4E53]" />
-                        <p className="text-xs font-bold text-[#0A1A2F]/50 uppercase tracking-widest">Serving Suggestions</p>
+                        <p className="text-xs font-bold text-[#0A1A2F]/50 dark:text-white/50 uppercase tracking-widest">Serving Suggestions</p>
                       </div>
-                      <p className="text-sm text-[#0A1A2F]/70 leading-relaxed">{displayed.serving_suggestions}</p>
+                      <p className="text-sm text-[#0A1A2F]/70 dark:text-white/70 leading-relaxed">{displayed.serving_suggestions}</p>
                     </div>
                   )}
 

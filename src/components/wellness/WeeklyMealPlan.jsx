@@ -54,7 +54,7 @@ export default function WeeklyMealPlan({ mealPlanDays, activePlan }) {
             variant="outline"
             size="sm"
             onClick={() => setIsCollapsed(!isCollapsed)}
-            className="text-gray-600 border-gray-300 hover:bg-gray-50"
+            className="text-gray-600 border-gray-300 hover:bg-gray-50 dark:bg-white/5"
           >
             {isCollapsed ? <ChevronDown className="w-4 h-4" /> : <ChevronUp className="w-4 h-4" />}
           </Button>
@@ -67,7 +67,7 @@ export default function WeeklyMealPlan({ mealPlanDays, activePlan }) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: index * 0.05 }}
-          className="bg-white dark:bg-[#0A1A2F] rounded-xl p-4 cursor-pointer hover:shadow-md transition-shadow"
+          className="bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-xl p-4 cursor-pointer hover:shadow-md transition-shadow"
           onClick={() => setSelectedDay(day)}
         >
           <div className="flex items-center justify-between">
@@ -130,7 +130,7 @@ export default function WeeklyMealPlan({ mealPlanDays, activePlan }) {
                   const recipe = recipes.find(r => r.id === meal.recipe_id);
                   
                   return (
-                    <div key={idx} className="border border-gray-200 dark:border-gray-700 rounded-lg p-3">
+                    <div key={idx} className="border border-gray-200 dark:border-white/10 dark:border-gray-700 rounded-lg p-3">
                       <div className="flex items-center justify-between mb-2">
                         <span className="text-sm font-medium text-emerald-600 uppercase">
                           {meal.meal_type}

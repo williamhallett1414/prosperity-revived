@@ -113,7 +113,7 @@ export default function QuickTools() {
         transition={{ delay: 0.3 }}
         className="mb-8"
       >
-        <h2 className="text-xl font-bold text-[#0A1A2F] mb-4">Quick Tools</h2>
+        <h2 className="text-xl font-bold text-[#0A1A2F] dark:text-white mb-4">Quick Tools</h2>
         <div className="grid grid-cols-2 gap-3">
           {tools.map((tool, index) => {
             const Icon = tool.icon;
@@ -126,7 +126,7 @@ export default function QuickTools() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => tool.isModal ? setActiveModal(tool.id) : tool.action()}
-                className={`bg-gradient-to-br ${tool.gradient} rounded-2xl p-4 text-[#0A1A2F] shadow-lg`}
+                className={`bg-gradient-to-br ${tool.gradient} rounded-2xl p-4 text-[#0A1A2F] dark:text-white shadow-lg`}
               >
                 <Icon className="w-8 h-8 mx-auto mb-2" />
                 <p className="text-sm font-semibold">{tool.label}</p>

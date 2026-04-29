@@ -30,13 +30,13 @@ function RequestCard({ request, onAccept, onDecline, accepting, declining }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, x: -20 }}
-      className="bg-white rounded-2xl border border-[#AFC7E3]/20 p-4 flex items-center gap-3"
+      className="bg-white dark:bg-white/5 rounded-2xl border border-[#AFC7E3]/20 p-4 flex items-center gap-3"
     >
       <Avatar name={request.user_name} email={request.user_email} size="md" />
       <div className="flex-1 min-w-0">
-        <p className="font-bold text-[#0A1A2F] text-sm truncate">{request.user_name || request.user_email}</p>
-        <p className="text-xs text-[#0A1A2F]/40 truncate">{request.user_email}</p>
-        <p className="text-[10px] text-[#0A1A2F]/30 mt-0.5">wants to connect</p>
+        <p className="font-bold text-[#0A1A2F] dark:text-white text-sm truncate">{request.user_name || request.user_email}</p>
+        <p className="text-xs text-[#0A1A2F]/40 dark:text-white/40 truncate">{request.user_email}</p>
+        <p className="text-[10px] text-[#0A1A2F]/30 dark:text-white/30 mt-0.5">wants to connect</p>
       </div>
       <div className="flex gap-2 flex-shrink-0">
         <button
@@ -49,9 +49,9 @@ function RequestCard({ request, onAccept, onDecline, accepting, declining }) {
         <button
           onClick={() => onDecline(request.id)}
           disabled={declining}
-          className="w-9 h-9 rounded-xl bg-[#F2F6FA] hover:bg-red-50 border border-[#F2F6FA] hover:border-red-200 flex items-center justify-center transition-colors"
+          className="w-9 h-9 rounded-xl bg-[#F2F6FA] dark:bg-[#0A1A2F] hover:bg-red-50 border border-[#F2F6FA] hover:border-red-200 flex items-center justify-center transition-colors"
         >
-          <X className="w-4 h-4 text-[#0A1A2F]/40" />
+          <X className="w-4 h-4 text-[#0A1A2F]/40 dark:text-white/40" />
         </button>
       </div>
     </motion.div>
@@ -66,20 +66,20 @@ function FriendCard({ friend, currentUserEmail, navigate }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
-      className="bg-white rounded-2xl border border-[#AFC7E3]/20 p-4 flex items-center gap-3 hover:border-[#FAD98D]/30 hover:shadow-sm transition-all"
+      className="bg-white dark:bg-white/5 rounded-2xl border border-[#AFC7E3]/20 p-4 flex items-center gap-3 hover:border-[#FAD98D]/30 hover:shadow-sm transition-all"
     >
       <Link to={createPageUrl(`UserProfile?email=${friendEmail}`)}>
         <Avatar name={friendName} email={friendEmail} size="md" />
       </Link>
       <div className="flex-1 min-w-0">
         <Link to={createPageUrl(`UserProfile?email=${friendEmail}`)}>
-          <p className="font-bold text-[#0A1A2F] text-sm truncate hover:text-[#c9a227] transition-colors">{friendName || friendEmail}</p>
+          <p className="font-bold text-[#0A1A2F] dark:text-white text-sm truncate hover:text-[#c9a227] transition-colors">{friendName || friendEmail}</p>
         </Link>
-        <p className="text-xs text-[#0A1A2F]/35 truncate">{friendEmail}</p>
+        <p className="text-xs text-[#0A1A2F]/35 dark:text-white/35 truncate">{friendEmail}</p>
       </div>
       <button
         onClick={() => navigate(createPageUrl(`Messages?friend=${friendEmail}&name=${friendName}`))}
-        className="w-10 h-10 rounded-xl bg-[#F2F6FA] hover:bg-[#FAD98D]/15 border border-[#F2F6FA] hover:border-[#FAD98D]/30 flex items-center justify-center transition-all"
+        className="w-10 h-10 rounded-xl bg-[#F2F6FA] dark:bg-[#0A1A2F] hover:bg-[#FAD98D]/15 border border-[#F2F6FA] hover:border-[#FAD98D]/30 flex items-center justify-center transition-all"
       >
         <MessageCircle className="w-4 h-4 text-[#c9a227]" />
       </button>
@@ -90,23 +90,23 @@ function FriendCard({ friend, currentUserEmail, navigate }) {
 // ─── Empty friends state ───────────────────────────────────────────────────
 function EmptyFriends({ onFocusAdd }) {
   return (
-    <div className="bg-white rounded-2xl border border-[#AFC7E3]/20 p-8 text-center">
+    <div className="bg-white dark:bg-white/5 rounded-2xl border border-[#AFC7E3]/20 p-8 text-center">
       <div className="w-16 h-16 bg-gradient-to-br from-[#FAD98D]/20 to-[#AFC7E3]/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
         <Users className="w-8 h-8 text-[#c9a227]" />
       </div>
-      <h3 className="font-bold text-[#0A1A2F] mb-2">No connections yet</h3>
-      <p className="text-sm text-[#0A1A2F]/45 leading-relaxed mb-5">
+      <h3 className="font-bold text-[#0A1A2F] dark:text-white mb-2">No connections yet</h3>
+      <p className="text-sm text-[#0A1A2F]/45 dark:text-white/45 leading-relaxed mb-5">
         Add friends to message, encourage each other, and share your wellness journey.
       </p>
       <div className="flex flex-col gap-2">
         <button
           onClick={onFocusAdd}
-          className="w-full py-2.5 rounded-xl bg-gradient-to-r from-[#FAD98D] to-[#c9a227] text-[#0A1A2F] font-bold text-sm"
+          className="w-full py-2.5 rounded-xl bg-gradient-to-r from-[#FAD98D] to-[#c9a227] text-[#0A1A2F] dark:text-white font-bold text-sm"
         >
           Add a Friend
         </button>
         <Link to={createPageUrl('Community')}>
-          <button className="w-full py-2.5 rounded-xl bg-[#F2F6FA] text-[#0A1A2F]/60 font-semibold text-sm hover:bg-white transition-colors">
+          <button className="w-full py-2.5 rounded-xl bg-[#F2F6FA] dark:bg-[#0A1A2F] text-[#0A1A2F]/60 dark:text-white/60 font-semibold text-sm hover:bg-white dark:bg-white/5 transition-colors">
             Browse Community
           </button>
         </Link>
@@ -217,18 +217,18 @@ export default function Friends() {
   if (!user) return null;
 
   return (
-    <div className="min-h-screen bg-[#F2F6FA] pb-28">
+    <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
 
       {/* ── Header ── */}
-      <div className="sticky top-0 z-40 bg-white border-b border-[#F2F6FA]/60 px-4 py-3">
+      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#F2F6FA]/60 px-4 py-3">
         <div className="max-w-lg mx-auto flex items-center gap-3">
           <Link to={createPageUrl('Profile')}
-            className="w-9 h-9 rounded-full bg-[#F2F6FA] hover:bg-white flex items-center justify-center transition-colors">
-            <ArrowLeft className="w-4 h-4 text-[#0A1A2F]" />
+            className="w-9 h-9 rounded-full bg-[#F2F6FA] dark:bg-[#0A1A2F] hover:bg-white dark:bg-white/5 flex items-center justify-center transition-colors">
+            <ArrowLeft className="w-4 h-4 text-[#0A1A2F] dark:text-white dark:text-white" />
           </Link>
           <div className="flex-1">
-            <h1 className="text-base font-bold text-[#0A1A2F]">Friends</h1>
-            <p className="text-xs text-[#0A1A2F]/40">
+            <h1 className="text-base font-bold text-[#0A1A2F] dark:text-white dark:text-white">Friends</h1>
+            <p className="text-xs text-[#0A1A2F]/40 dark:text-white/40">
               {myFriends.length > 0 ? `${myFriends.length} connection${myFriends.length !== 1 ? 's' : ''}` : 'Connect with others'}
             </p>
           </div>
@@ -281,7 +281,7 @@ export default function Friends() {
                   <button
                     onClick={handleSendRequest}
                     disabled={!searchEmail.trim() || sendRequest.isPending}
-                    className="px-4 py-2.5 rounded-xl bg-[#FAD98D] text-[#0A1A2F] font-bold text-sm disabled:opacity-40 hover:bg-[#c9a227] transition-colors flex items-center gap-1.5"
+                    className="px-4 py-2.5 rounded-xl bg-[#FAD98D] text-[#0A1A2F] dark:text-white font-bold text-sm disabled:opacity-40 hover:bg-[#c9a227] transition-colors flex items-center gap-1.5"
                   >
                     <Send className="w-3.5 h-3.5" />
                     Send
@@ -299,10 +299,10 @@ export default function Friends() {
             <motion.div key="requests" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
               <div className="flex items-center gap-2 mb-2">
                 <Bell className="w-4 h-4 text-red-400" />
-                <h2 className="text-sm font-bold text-[#0A1A2F]">
+                <h2 className="text-sm font-bold text-[#0A1A2F] dark:text-white dark:text-white">
                   Connection Requests
                 </h2>
-                <span className="ml-auto text-[10px] text-[#0A1A2F]/35 font-semibold uppercase tracking-widest">
+                <span className="ml-auto text-[10px] text-[#0A1A2F]/35 dark:text-white/35 font-semibold uppercase tracking-widest">
                   {pendingRequests.length} pending
                 </span>
               </div>
@@ -328,7 +328,7 @@ export default function Friends() {
         <div>
           <div className="flex items-center gap-2 mb-2">
             <Sparkles className="w-4 h-4 text-[#c9a227]" />
-            <h2 className="text-sm font-bold text-[#0A1A2F]">People You May Know</h2>
+            <h2 className="text-sm font-bold text-[#0A1A2F] dark:text-white dark:text-white">People You May Know</h2>
           </div>
           <AIFriendSuggestions user={user} limit={5} showHeader={false} />
         </div>
@@ -337,8 +337,8 @@ export default function Friends() {
         <div>
           <div className="flex items-center gap-2 mb-2">
             <Users className="w-4 h-4 text-[#AFC7E3]" />
-            <h2 className="text-sm font-bold text-[#0A1A2F]">
-              My Friends {myFriends.length > 0 && <span className="text-[#0A1A2F]/35 font-normal">({myFriends.length})</span>}
+            <h2 className="text-sm font-bold text-[#0A1A2F] dark:text-white dark:text-white">
+              My Friends {myFriends.length > 0 && <span className="text-[#0A1A2F]/35 dark:text-white/35 font-normal">({myFriends.length})</span>}
             </h2>
           </div>
 
@@ -360,13 +360,13 @@ export default function Friends() {
               onClick={() => setShowSent(s => !s)}
               className="flex items-center gap-2 w-full py-2 text-left"
             >
-              <Clock className="w-4 h-4 text-[#0A1A2F]/30" />
-              <span className="text-sm font-semibold text-[#0A1A2F]/50">
+              <Clock className="w-4 h-4 text-[#0A1A2F]/30 dark:text-white/30" />
+              <span className="text-sm font-semibold text-[#0A1A2F]/50 dark:text-white/50">
                 Sent Requests ({sentRequests.length})
               </span>
               {showSent
-                ? <ChevronUp className="w-4 h-4 text-[#0A1A2F]/30 ml-auto" />
-                : <ChevronDown className="w-4 h-4 text-[#0A1A2F]/30 ml-auto" />}
+                ? <ChevronUp className="w-4 h-4 text-[#0A1A2F]/30 dark:text-white/30 ml-auto" />
+                : <ChevronDown className="w-4 h-4 text-[#0A1A2F]/30 dark:text-white/30 ml-auto" />}
             </button>
 
             <AnimatePresence>
@@ -378,17 +378,17 @@ export default function Friends() {
                   {sentRequests.map(f => (
                     <motion.div key={f.id}
                       initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                      className="bg-white rounded-2xl border border-[#AFC7E3]/20 p-3.5 flex items-center gap-3"
+                      className="bg-white dark:bg-white/5 rounded-2xl border border-[#AFC7E3]/20 p-3.5 flex items-center gap-3"
                     >
                       <Avatar name={f.friend_name} email={f.friend_email} size="sm" />
                       <div className="flex-1 min-w-0">
-                        <p className="text-sm font-semibold text-[#0A1A2F] truncate">{f.friend_name || f.friend_email}</p>
-                        <p className="text-xs text-[#0A1A2F]/35">Awaiting response…</p>
+                        <p className="text-sm font-semibold text-[#0A1A2F] dark:text-white truncate">{f.friend_name || f.friend_email}</p>
+                        <p className="text-xs text-[#0A1A2F]/35 dark:text-white/35">Awaiting response…</p>
                       </div>
                       <button
                         onClick={() => cancelRequest.mutate(f.id)}
                         disabled={cancelRequest.isPending}
-                        className="text-xs text-[#0A1A2F]/30 hover:text-red-400 font-semibold transition-colors px-2 py-1 rounded-lg hover:bg-red-50"
+                        className="text-xs text-[#0A1A2F]/30 dark:text-white/30 hover:text-red-400 font-semibold transition-colors px-2 py-1 rounded-lg hover:bg-red-50"
                       >
                         Cancel
                       </button>

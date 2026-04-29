@@ -132,15 +132,15 @@ function TodayStats({ meals, workouts, waterMl }) {
 
   return (
     <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }}>
-      <p className="text-[10px] font-bold text-[#0A1A2F]/40 uppercase tracking-widest mb-2">Today's activity</p>
+      <p className="text-[10px] font-bold text-[#0A1A2F]/40 dark:text-white/40 uppercase tracking-widest mb-2">Today's activity</p>
       <div className="flex gap-3">
         {stats.map(({ icon, value, label, color, page }) => (
           <Link key={label} to={createPageUrl(page)}
-            className="flex-1 bg-white rounded-2xl px-3 py-3 flex items-center gap-2 shadow-sm border border-gray-100">
+            className="flex-1 bg-white dark:bg-white/5 rounded-2xl px-3 py-3 flex items-center gap-2 shadow-sm border border-gray-100 dark:border-white/10">
             <span className="text-xl">{icon}</span>
             <div>
               <p className={`font-bold text-lg leading-none ${color}`}>{value}</p>
-              <p className="text-[10px] text-[#0A1A2F]/45 mt-0.5">{label}</p>
+              <p className="text-[10px] text-[#0A1A2F]/45 dark:text-white/45 mt-0.5">{label}</p>
             </div>
           </Link>
         ))}
@@ -153,7 +153,7 @@ function TodayStats({ meals, workouts, waterMl }) {
 function CategoryGrid() {
   return (
     <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.12 }}>
-      <p className="text-[10px] font-bold text-[#0A1A2F]/40 uppercase tracking-widest mb-3">Explore</p>
+      <p className="text-[10px] font-bold text-[#0A1A2F]/40 dark:text-white/40 uppercase tracking-widest mb-3">Explore</p>
       <div id="tour-wellness-categories" className="grid grid-cols-2 gap-3">
         {CATEGORIES.map(({ label, sub, page, gradient, icon: Icon, image }, i) => (
           <motion.div key={page} id={i === 0 ? 'tour-workouts-card' : undefined} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.12 + i * 0.05 }}>
@@ -202,8 +202,8 @@ function CoachingSection({ active }) {
             <Crown className="w-4 h-4 text-white" />
           </div>
           <div>
-            <p className="font-bold text-[#0A1A2F] text-sm">Coaching Programs</p>
-            <p className="text-[10px] text-[#0A1A2F]/45">8-week transformation plans</p>
+            <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">Coaching Programs</p>
+            <p className="text-[10px] text-[#0A1A2F]/45 dark:text-white/45">8-week transformation plans</p>
           </div>
         </div>
         <Link to={createPageUrl('CoachingPlans')}
@@ -219,7 +219,7 @@ function CoachingSection({ active }) {
           return (
             <Link key={plan.id} to={createPageUrl(`CoachingPlanDetail?id=${plan.id}&day=${nextDay}`)}>
               <motion.div whileHover={{ y: -1 }}
-                className="bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                className="bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
                 <div className={`bg-gradient-to-r ${plan.gradient} px-4 py-3 flex items-center gap-3`}>
                   <span className="text-2xl">{plan.cover_emoji}</span>
                   <div className="flex-1 min-w-0">
@@ -230,11 +230,11 @@ function CoachingSection({ active }) {
                 </div>
                 {isStarted ? (
                   <div className="px-4 py-2.5">
-                    <div className="flex items-center justify-between text-[10px] text-[#0A1A2F]/45 mb-1.5">
+                    <div className="flex items-center justify-between text-[10px] text-[#0A1A2F]/45 dark:text-white/45 mb-1.5">
                       <span>Day {completedDays} of {plan.days_total}</span>
                       <span className="font-semibold text-[#3C4E53]">{pct}% complete</span>
                     </div>
-                    <div className="h-1.5 bg-[#F2F6FA] rounded-full overflow-hidden">
+                    <div className="h-1.5 bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-full overflow-hidden">
                       <div className="h-full bg-gradient-to-r from-[#3C4E53] to-[#c9a227] rounded-full transition-all"
                         style={{ width: `${pct}%` }} />
                     </div>
@@ -243,7 +243,7 @@ function CoachingSection({ active }) {
                   <div className="px-4 py-2.5 flex items-center gap-2">
                     <div className="flex gap-1 flex-wrap">
                       {plan.tags.slice(0, 3).map(tag => (
-                        <span key={tag} className="text-[10px] px-2 py-0.5 bg-[#F2F6FA] text-[#3C4E53] rounded-full font-medium">{tag}</span>
+                        <span key={tag} className="text-[10px] px-2 py-0.5 bg-[#F2F6FA] dark:bg-[#0A1A2F] text-[#3C4E53] rounded-full font-medium">{tag}</span>
                       ))}
                     </div>
                     <span className="ml-auto text-[10px] font-semibold text-[#3C4E53] whitespace-nowrap">Start →</span>
@@ -293,13 +293,13 @@ export default function Wellness() {
   const activeCoaching = getActiveCoachingPlan();
 
   return (
-    <div className="min-h-screen bg-[#F2F6FA] pb-28">
+    <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
       <div className="max-w-lg mx-auto px-4 pt-4 pb-6 space-y-5">
 
         {/* 1. Page header */}
         <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}>
-          <h1 className="text-2xl font-bold text-[#0A1A2F]">Wellness</h1>
-          <p className="text-sm text-[#0A1A2F]/50 mt-0.5">Body · Mind · Spirit</p>
+          <h1 className="text-2xl font-bold text-[#0A1A2F] dark:text-white dark:text-white">Wellness</h1>
+          <p className="text-sm text-[#0A1A2F]/50 dark:text-white/50 mt-0.5">Body · Mind · Spirit</p>
         </motion.div>
 
         {/* 2. Time-aware featured action */}

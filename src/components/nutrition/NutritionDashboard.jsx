@@ -21,7 +21,7 @@ export default function NutritionDashboard({ mealLogs = [] }) {
 
   return (
     <div className="space-y-4 px-4 mb-6">
-      <h2 className="text-lg font-bold text-[#0A1A2F]">Today's Nutrition</h2>
+      <h2 className="text-lg font-bold text-[#0A1A2F] dark:text-white dark:text-white">Today's Nutrition</h2>
 
       {/* Stats Grid */}
       <div className="grid grid-cols-2 gap-3">
@@ -34,18 +34,18 @@ export default function NutritionDashboard({ mealLogs = [] }) {
               key={stat.label}
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: idx * 0.05 }} className="bg-white border border-[#AFC7E3]/20 p-4 rounded-xl">
+              transition={{ delay: idx * 0.05 }} className="bg-white dark:bg-white/5 border border-[#AFC7E3]/20 p-4 rounded-xl">
 
 
               <div className="flex items-center gap-2 mb-2">
-                <Icon className="w-4 h-4 text-[#0A1A2F]" />
-                <span className="text-xs font-semibold text-[#0A1A2F]">{stat.label}</span>
+                <Icon className="w-4 h-4 text-[#0A1A2F] dark:text-white dark:text-white" />
+                <span className="text-xs font-semibold text-[#0A1A2F] dark:text-white dark:text-white">{stat.label}</span>
               </div>
               <div className="mb-2">
-                <p className="text-2xl font-bold text-[#0A1A2F]">
-                  {stat.value}<span className="text-sm text-[#0A1A2F]/70 ml-1">{stat.unit}</span>
+                <p className="text-2xl font-bold text-[#0A1A2F] dark:text-white dark:text-white">
+                  {stat.value}<span className="text-sm text-[#0A1A2F]/70 dark:text-white/70 ml-1">{stat.unit}</span>
                 </p>
-                <p className="text-xs text-[#0A1A2F]/60">Goal: {stat.target}{stat.unit}</p>
+                <p className="text-xs text-[#0A1A2F]/60 dark:text-white/60">Goal: {stat.target}{stat.unit}</p>
               </div>
               <div className="w-full bg-[#FAD98D]/20 rounded-full h-1.5 overflow-hidden">
                 <motion.div

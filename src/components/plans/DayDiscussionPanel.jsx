@@ -220,7 +220,7 @@ export default function DayDiscussionPanel({ groupId, dayNumber, currentUser }) 
 
                 {/* Replies */}
                 {discussionReplies.length > 0 && (
-                  <div className="mt-3 pl-11 space-y-2 border-l-2 border-gray-200 ml-4">
+                  <div className="mt-3 pl-11 space-y-2 border-l-2 border-gray-200 dark:border-white/10 ml-4">
                     {discussionReplies.map((reply) => (
                       <div key={reply.id} className="pl-3">
                         <div className="flex items-start gap-2">

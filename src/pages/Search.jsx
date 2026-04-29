@@ -71,18 +71,18 @@ export default function Search() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F2F6FA] pb-24">
-      <div className="sticky top-0 z-40 bg-white border-b border-[#F2F6FA] px-4 py-3">
+    <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-24">
+      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#F2F6FA] px-4 py-3">
         <div className="max-w-2xl mx-auto flex items-center gap-3">
           <Link
             to={createPageUrl('Home')}
             className="w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors"
           >
-            <ArrowLeft className="w-4 h-4 text-[#0A1A2F]" />
+            <ArrowLeft className="w-4 h-4 text-[#0A1A2F] dark:text-white dark:text-white" />
           </Link>
           <div>
-            <h1 className="text-lg font-bold text-[#0A1A2F]">Search Bible</h1>
-            <p className="text-xs text-[#0A1A2F]/60">Find verses by keywords</p>
+            <h1 className="text-lg font-bold text-[#0A1A2F] dark:text-white dark:text-white">Search Bible</h1>
+            <p className="text-xs text-[#0A1A2F]/60 dark:text-white/60">Find verses by keywords</p>
           </div>
         </div>
       </div>
@@ -96,7 +96,7 @@ export default function Search() {
               placeholder="Enter keywords (e.g., love, faith, hope)..."
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              className="pl-12 pr-24 bg-white border-gray-200 rounded-xl h-14 text-base"
+              className="pl-12 pr-24 bg-white dark:bg-white/5 border-gray-200 dark:border-white/10 rounded-xl h-14 text-base"
             />
             <Button
               type="submit"
@@ -134,7 +134,7 @@ export default function Search() {
               <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gray-100 flex items-center justify-center">
                 <SearchIcon className="w-10 h-10 text-gray-400" />
               </div>
-              <h3 className="text-lg font-semibold text-[#0A1A2F] mb-2">No results found</h3>
+              <h3 className="text-lg font-semibold text-[#0A1A2F] dark:text-white mb-2">No results found</h3>
               <p className="text-gray-500">Try different keywords</p>
             </motion.div>
           ) : results.length > 0 ? (
@@ -155,16 +155,16 @@ export default function Search() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.05 }}
                     onClick={() => handleResultClick(result)}
-                    className="bg-white rounded-xl p-4 cursor-pointer hover:shadow-md transition-all border border-gray-100 group"
+                    className="bg-white dark:bg-white/5 rounded-xl p-4 cursor-pointer hover:shadow-md transition-all border border-gray-100 dark:border-white/10 group"
                   >
                     <div className="flex items-start gap-3">
                       <div className="w-10 h-10 rounded-lg bg-[#0A1A2F]/5 flex items-center justify-center flex-shrink-0 group-hover:bg-[#c9a227]/10 transition-colors">
-                        <BookOpen className="w-5 h-5 text-[#0A1A2F] group-hover:text-[#c9a227] transition-colors" />
+                        <BookOpen className="w-5 h-5 text-[#0A1A2F] dark:text-white group-hover:text-[#c9a227] transition-colors" />
                       </div>
                       
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 mb-2">
-                          <span className="font-semibold text-[#0A1A2F] group-hover:text-[#c9a227] transition-colors">
+                          <span className="font-semibold text-[#0A1A2F] dark:text-white group-hover:text-[#c9a227] transition-colors">
                             {result.book} {result.chapter}:{result.verse}
                           </span>
                         </div>
@@ -187,7 +187,7 @@ export default function Search() {
               <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-[#c9a227]/10 flex items-center justify-center">
                 <SearchIcon className="w-10 h-10 text-[#c9a227]" />
               </div>
-              <h3 className="text-lg font-semibold text-[#0A1A2F] mb-2">Search the Bible</h3>
+              <h3 className="text-lg font-semibold text-[#0A1A2F] dark:text-white mb-2">Search the Bible</h3>
               <p className="text-gray-500 mb-6">
                 Enter keywords to find relevant verses
               </p>
@@ -199,7 +199,7 @@ export default function Search() {
                       setQuery(keyword);
                       setTimeout(() => document.querySelector('form').requestSubmit(), 100);
                     }}
-                    className="px-4 py-2 rounded-full bg-white border border-gray-200 text-sm text-gray-600 hover:border-[#c9a227] hover:text-[#c9a227] transition-colors"
+                    className="px-4 py-2 rounded-full bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 text-sm text-gray-600 hover:border-[#c9a227] hover:text-[#c9a227] transition-colors"
                   >
                     {keyword}
                   </button>

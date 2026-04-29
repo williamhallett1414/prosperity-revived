@@ -28,7 +28,7 @@ function BookmarkItem({ bookmark, onDelete, onOpen, index }) {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, x: -20 }}
       transition={{ delay: index * 0.03 }}
-      className="bg-white rounded-2xl border border-[#FAD98D]/25 overflow-hidden shadow-sm"
+      className="bg-white dark:bg-white/5 rounded-2xl border border-[#FAD98D]/25 overflow-hidden shadow-sm"
     >
       {/* Colour accent bar */}
       {col && (
@@ -38,7 +38,7 @@ function BookmarkItem({ bookmark, onDelete, onOpen, index }) {
       <div className="p-4">
         {/* Verse / affirmation text */}
         <p
-          className="font-serif text-[#0A1A2F] leading-relaxed mb-3 text-sm"
+          className="font-serif text-[#0A1A2F] dark:text-white leading-relaxed mb-3 text-sm"
           style={col ? { backgroundColor: col.bg, borderRadius: '6px', padding: '8px 10px' } : undefined}
         >
           "{bookmark.verse_text}"
@@ -52,21 +52,21 @@ function BookmarkItem({ bookmark, onDelete, onOpen, index }) {
                 <Heart className="w-3 h-3 fill-[#c9a227]" /> Affirmation
               </span>
             ) : (
-              <span className="text-xs font-semibold text-[#0A1A2F]/60">{ref}</span>
+              <span className="text-xs font-semibold text-[#0A1A2F]/60 dark:text-white/60">{ref}</span>
             )}
           </div>
 
           <div className="flex gap-1">
             <button
               onClick={() => onOpen(bookmark)}
-              className="w-8 h-8 rounded-lg flex items-center justify-center text-[#0A1A2F]/40 hover:text-[#0A1A2F] hover:bg-[#F2F6FA] transition-colors"
+              className="w-8 h-8 rounded-lg flex items-center justify-center text-[#0A1A2F]/40 dark:text-white/40 hover:text-[#0A1A2F] dark:text-white hover:bg-[#F2F6FA] dark:bg-[#0A1A2F] transition-colors"
               title={isAffirmation ? 'Open affirmations' : 'Open in Bible'}
             >
               <BookOpen className="w-3.5 h-3.5" />
             </button>
             <button
               onClick={() => onDelete(bookmark.id)}
-              className="w-8 h-8 rounded-lg flex items-center justify-center text-[#0A1A2F]/40 hover:text-red-400 hover:bg-red-50 transition-colors"
+              className="w-8 h-8 rounded-lg flex items-center justify-center text-[#0A1A2F]/40 dark:text-white/40 hover:text-red-400 hover:bg-red-50 transition-colors"
               title="Delete"
             >
               <Trash2 className="w-3.5 h-3.5" />
@@ -76,7 +76,7 @@ function BookmarkItem({ bookmark, onDelete, onOpen, index }) {
 
         {/* Note */}
         {bookmark.note && bookmark.book !== 'Affirmation' && (
-          <p className="mt-3 pt-3 border-t border-[#FAD98D]/20 text-xs text-[#0A1A2F]/55 italic leading-relaxed">
+          <p className="mt-3 pt-3 border-t border-[#FAD98D]/20 text-xs text-[#0A1A2F]/55 dark:text-white/55 italic leading-relaxed">
             {bookmark.note}
           </p>
         )}
@@ -93,7 +93,7 @@ function Chip({ active, onClick, children, dot }) {
       className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold border transition-all flex-shrink-0 ${
         active
           ? 'bg-[#0A1A2F] text-white border-[#0A1A2F]'
-          : 'bg-white text-[#0A1A2F]/60 border-[#FAD98D]/30 hover:border-[#c9a227]/50'
+          : 'bg-white dark:bg-white/5 text-[#0A1A2F]/60 dark:text-white/60 border-[#FAD98D]/30 hover:border-[#c9a227]/50'
       }`}
     >
       {dot && (
@@ -164,17 +164,17 @@ export default function Bookmarks() {
 
   if (!user) {
     return (
-      <div className="min-h-screen bg-[#F2F6FA] flex items-center justify-center">
+      <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] flex items-center justify-center">
 
       {/* ── Standard Header ── */}
-      <div className="sticky top-0 z-40 bg-white border-b border-[#FAD98D]/20 px-4 pt-4 pb-3">
+      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 px-4 pt-4 pb-3">
         <div className="max-w-lg mx-auto flex items-center gap-3">
           <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center">
             <Bookmark className="w-5 h-5 text-white" />
           </div>
           <div>
-            <h1 className="text-base font-bold text-[#0A1A2F]">Saved Verses</h1>
-            <p className="text-xs text-[#0A1A2F]/45">Your highlights & notes</p>
+            <h1 className="text-base font-bold text-[#0A1A2F] dark:text-white dark:text-white">Saved Verses</h1>
+            <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45">Your highlights & notes</p>
           </div>
         </div>
       </div>
@@ -185,18 +185,18 @@ export default function Bookmarks() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F2F6FA] pb-28">
+    <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
 
       {/* ── Header ── */}
-      <div className="bg-white border-b border-[#FAD98D]/20 px-4 pt-5 pb-4">
+      <div className="bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 px-4 pt-5 pb-4">
         <div className="max-w-lg mx-auto">
           <div className="flex items-center gap-3 mb-4">
             <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center flex-shrink-0">
               <Bookmark className="w-5 h-5 text-white" />
             </div>
             <div>
-              <h1 className="text-xl font-bold text-[#0A1A2F]">Saved Verses</h1>
-              <p className="text-xs text-[#0A1A2F]/45">
+              <h1 className="text-xl font-bold text-[#0A1A2F] dark:text-white dark:text-white">Saved Verses</h1>
+              <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45">
                 {bookmarks.length === 0
                   ? 'No bookmarks yet'
                   : `${bibleCount} Bible · ${affirmationCount} Affirmation`}
@@ -206,16 +206,16 @@ export default function Bookmarks() {
 
           {/* Search */}
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#0A1A2F]/30" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#0A1A2F]/30 dark:text-white/30" />
             <input
               value={search}
               onChange={e => setSearch(e.target.value)}
               placeholder="Search verses, books, notes…"
-              className="w-full pl-9 pr-9 py-2.5 rounded-xl bg-[#F2F6FA] text-sm text-[#0A1A2F] placeholder-[#0A1A2F]/35 border border-[#FAD98D]/20 focus:outline-none focus:border-[#c9a227]/50"
+              className="w-full pl-9 pr-9 py-2.5 rounded-xl bg-[#F2F6FA] dark:bg-[#0A1A2F] text-sm text-[#0A1A2F] dark:text-white placeholder-[#0A1A2F]/35 border border-[#FAD98D]/20 focus:outline-none focus:border-[#c9a227]/50"
             />
             {search && (
               <button onClick={() => setSearch('')}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-[#0A1A2F]/30 hover:text-[#0A1A2F]/60">
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-[#0A1A2F]/30 dark:text-white/30 hover:text-[#0A1A2F]/60 dark:text-white/60">
                 <X className="w-3.5 h-3.5" />
               </button>
             )}
@@ -225,7 +225,7 @@ export default function Bookmarks() {
 
       {/* ── Filter chips ── */}
       {bookmarks.length > 0 && (
-        <div className="border-b border-[#FAD98D]/15 bg-white">
+        <div className="border-b border-[#FAD98D]/15 bg-white dark:bg-white/5">
           <div className="max-w-lg mx-auto px-4 py-2.5 flex gap-2 overflow-x-auto">
             {FILTERS.map(({ id, label, dot }) => (
               <Chip key={id} active={filter === id} onClick={() => setFilter(id)} dot={dot}>
@@ -241,7 +241,7 @@ export default function Bookmarks() {
         {isLoading ? (
           <div className="space-y-3">
             {[1, 2, 3].map(i => (
-              <div key={i} className="bg-white rounded-2xl p-4 animate-pulse border border-[#FAD98D]/20">
+              <div key={i} className="bg-white dark:bg-white/5 rounded-2xl p-4 animate-pulse border border-[#FAD98D]/20">
                 <div className="h-3 bg-[#FAD98D]/30 rounded w-3/4 mb-3" />
                 <div className="h-3 bg-[#FAD98D]/20 rounded w-1/2" />
               </div>
@@ -254,8 +254,8 @@ export default function Bookmarks() {
             <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-[#FAD98D]/20 flex items-center justify-center">
               <Bookmark className="w-8 h-8 text-[#c9a227]" />
             </div>
-            <h3 className="text-base font-bold text-[#0A1A2F] mb-1">No saved verses yet</h3>
-            <p className="text-sm text-[#0A1A2F]/50 mb-5 max-w-xs mx-auto">
+            <h3 className="text-base font-bold text-[#0A1A2F] dark:text-white mb-1">No saved verses yet</h3>
+            <p className="text-sm text-[#0A1A2F]/50 dark:text-white/50 mb-5 max-w-xs mx-auto">
               Tap any verse while reading to highlight and save it here
             </p>
             <button
@@ -269,7 +269,7 @@ export default function Bookmarks() {
           /* No results for filter/search */
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}
             className="text-center py-12">
-            <p className="text-[#0A1A2F]/40 text-sm">No verses match this filter</p>
+            <p className="text-[#0A1A2F]/40 dark:text-white/40 text-sm">No verses match this filter</p>
             <button onClick={() => { setFilter('all'); setSearch(''); }}
               className="mt-3 text-xs font-semibold text-[#c9a227] hover:opacity-75">
               Clear filters

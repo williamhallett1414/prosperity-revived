@@ -132,10 +132,10 @@ Provide warm, helpful guidance (2-4 sentences) about reading plans, Bible study 
   });
 
   return (
-    <div className="min-h-screen bg-[#F2F6FA] pb-24">
+    <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-24">
 
       {/* ── Standard Header ── */}
-      <div className="sticky top-0 z-40 bg-white border-b border-[#FAD98D]/20 px-4 pt-4 pb-3">
+      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 px-4 pt-4 pb-3">
         
 
 
@@ -163,13 +163,13 @@ Provide warm, helpful guidance (2-4 sentences) about reading plans, Bible study 
             
             
           </div>
-          <p className="text-[#0A1A2F]/60 font-bold text-center w-full mt-1">Discover plans to guide your study</p>
+          <p className="text-[#0A1A2F]/60 dark:text-white/60 font-bold text-center w-full mt-1">Discover plans to guide your study</p>
         </motion.div>
 
         {/* Search & Create */}
         <div className="flex gap-3 mb-8">
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[#0A1A2F]/40" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[#0A1A2F]/40 dark:text-white/40" />
             <Input
               placeholder="Search plans..."
               value={search}
@@ -179,7 +179,7 @@ Provide warm, helpful guidance (2-4 sentences) about reading plans, Bible study 
           </div>
           <Button
             onClick={() => setShowCreateCustom(true)}
-            className="bg-gradient-to-r from-[#FAD98D] to-[#AFC7E3] hover:from-[#FAD98D]/90 hover:to-[#AFC7E3]/90 text-[#0A1A2F] h-12 px-4 shadow-md">
+            className="bg-gradient-to-r from-[#FAD98D] to-[#AFC7E3] hover:from-[#FAD98D]/90 hover:to-[#AFC7E3]/90 text-[#0A1A2F] dark:text-white h-12 px-4 shadow-md">
             
             <Plus className="w-5 h-5 sm:mr-2" />
             <span className="hidden sm:inline">Custom</span>
@@ -195,7 +195,7 @@ Provide warm, helpful guidance (2-4 sentences) about reading plans, Bible study 
           
             <div className="flex items-center gap-2 mb-4">
               <Users className="w-5 h-5 text-[#AFC7E3]" />
-              <h2 className="text-lg font-semibold text-[#0A1A2F]">My Group Plans</h2>
+              <h2 className="text-lg font-semibold text-[#0A1A2F] dark:text-white dark:text-white">My Group Plans</h2>
               <Badge variant="secondary">{myGroupPlans.length}</Badge>
             </div>
             <div className="grid gap-3">
@@ -238,7 +238,7 @@ Provide warm, helpful guidance (2-4 sentences) about reading plans, Bible study 
             <TabsTrigger
               key={cat}
               value={cat}
-              className="rounded-lg capitalize text-xs sm:text-sm data-[state=active]:bg-[#FAD98D] data-[state=active]:text-[#0A1A2F]">
+              className="rounded-lg capitalize text-xs sm:text-sm data-[state=active]:bg-[#FAD98D] data-[state=active]:text-[#0A1A2F] dark:text-white dark:text-white">
               
                 {cat}
               </TabsTrigger>
@@ -254,7 +254,7 @@ Provide warm, helpful guidance (2-4 sentences) about reading plans, Bible study 
           
           <Button
             onClick={() => setShowGideon(!showGideon)}
-            className="w-14 h-14 rounded-full bg-[#AFC7E3] hover:bg-[#AFC7E3]/90 text-[#0A1A2F] shadow-lg">
+            className="w-14 h-14 rounded-full bg-[#AFC7E3] hover:bg-[#AFC7E3]/90 text-[#0A1A2F] dark:text-white shadow-lg">
             
             <MessageCircle className="w-6 h-6" />
           </Button>
@@ -269,31 +269,31 @@ Provide warm, helpful guidance (2-4 sentences) about reading plans, Bible study 
             exit={{ opacity: 0, y: 20, scale: 0.9 }}
             className="fixed bottom-44 right-6 w-80 max-w-[calc(100vw-3rem)] z-30">
             
-              <div className="bg-white rounded-2xl shadow-2xl border border-[#F2F6FA] overflow-hidden">
-                <div className="bg-gradient-to-r from-[#AFC7E3] to-[#FAD98D] p-5 text-[#0A1A2F]">
+              <div className="bg-white dark:bg-white/5 rounded-2xl shadow-2xl border border-[#F2F6FA] overflow-hidden">
+                <div className="bg-gradient-to-r from-[#AFC7E3] to-[#FAD98D] p-5 text-[#0A1A2F] dark:text-white dark:text-white">
                   <h3 className="font-semibold flex items-center gap-2">
                     <MessageCircle className="w-5 h-5" />
                     Chat with Gideon 🐱
                   </h3>
-                  <p className="text-xs text-[#0A1A2F]/70 mt-1">Your pastoral cat assistant</p>
+                  <p className="text-xs text-[#0A1A2F]/70 dark:text-white/70 mt-1">Your pastoral cat assistant</p>
                 </div>
 
-                <div className="p-5 max-h-96 overflow-y-auto space-y-4 bg-[#F2F6FA]">
+                <div className="p-5 max-h-96 overflow-y-auto space-y-4 bg-[#F2F6FA] dark:bg-[#0A1A2F]">
                   {gideonResponse &&
                 <div className="space-y-3">
                       <div className="bg-gray-100 p-4 rounded-xl">
-                        <p className="text-xs font-medium text-[#0A1A2F]/60 mb-1">You asked:</p>
-                        <p className="text-sm text-[#0A1A2F]">{gideonResponse.question}</p>
+                        <p className="text-xs font-medium text-[#0A1A2F]/60 dark:text-white/60 mb-1">You asked:</p>
+                        <p className="text-sm text-[#0A1A2F] dark:text-white dark:text-white">{gideonResponse.question}</p>
                       </div>
                       <div className="bg-gradient-to-br from-[#AFC7E3] to-[#FAD98D] p-4 rounded-xl">
-                        <p className="text-xs font-medium text-[#0A1A2F]/80 mb-1">Gideon says:</p>
-                        <p className="text-sm text-[#0A1A2F] leading-relaxed">{gideonResponse.advice}</p>
+                        <p className="text-xs font-medium text-[#0A1A2F]/80 dark:text-white/80 mb-1">Gideon says:</p>
+                        <p className="text-sm text-[#0A1A2F] dark:text-white leading-relaxed">{gideonResponse.advice}</p>
                       </div>
                     </div>
                 }
 
                   {!gideonResponse && !gideonLoading &&
-                <p className="text-sm text-[#0A1A2F]/60 text-center py-8">
+                <p className="text-sm text-[#0A1A2F]/60 dark:text-white/60 text-center py-8">
                       Ask me anything about reading plans! 🐱
                     </p>
                 }
@@ -305,7 +305,7 @@ Provide warm, helpful guidance (2-4 sentences) about reading plans, Bible study 
                 }
                 </div>
 
-                <div className="p-5 border-t border-[#F2F6FA] bg-white">
+                <div className="p-5 border-t border-[#F2F6FA] bg-white dark:bg-white/5">
                   <div className="flex gap-3">
                     <Input
                     placeholder="Ask Gideon..."
@@ -317,13 +317,13 @@ Provide warm, helpful guidance (2-4 sentences) about reading plans, Bible study 
                         handleGideonAsk();
                       }
                     }}
-                    className="flex-1 text-sm bg-[#F2F6FA] border-[#F2F6FA] h-11"
+                    className="flex-1 text-sm bg-[#F2F6FA] dark:bg-[#0A1A2F] border-[#F2F6FA] h-11"
                     disabled={gideonLoading} />
                   
                     <Button
                     onClick={handleGideonAsk}
                     disabled={!gideonInput.trim() || gideonLoading}
-                    className="bg-gradient-to-r from-[#AFC7E3] to-[#FAD98D] hover:from-[#AFC7E3]/90 hover:to-[#FAD98D]/90 text-[#0A1A2F] h-11 px-5"
+                    className="bg-gradient-to-r from-[#AFC7E3] to-[#FAD98D] hover:from-[#AFC7E3]/90 hover:to-[#FAD98D]/90 text-[#0A1A2F] dark:text-white h-11 px-5"
                     size="icon">
                     
                       <Send className="w-4 h-4" />
@@ -350,7 +350,7 @@ Provide warm, helpful guidance (2-4 sentences) about reading plans, Bible study 
 
         {filteredPlans.length === 0 &&
         <div className="text-center py-12">
-            <p className="text-[#0A1A2F]/60">No plans found matching your search</p>
+            <p className="text-[#0A1A2F]/60 dark:text-white/60">No plans found matching your search</p>
           </div>
         }
       </div>

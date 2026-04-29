@@ -92,7 +92,7 @@ function CreateChallengeModal({ user, onClose, onCreated }) {
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-end sm:items-center justify-center p-0 sm:p-4">
       <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 40 }}
-        className="bg-white w-full sm:max-w-lg sm:rounded-2xl rounded-t-3xl max-h-[90dvh] flex flex-col overflow-hidden shadow-2xl">
+        className="bg-white dark:bg-white/5 w-full sm:max-w-lg sm:rounded-2xl rounded-t-3xl max-h-[90dvh] flex flex-col overflow-hidden shadow-2xl">
 
         <div className="bg-gradient-to-r from-[#0A1A2F] to-[#0A1A2F] text-white px-5 py-4 flex items-center gap-3 flex-shrink-0">
           {step === 'custom' && (
@@ -113,19 +113,19 @@ function CreateChallengeModal({ user, onClose, onCreated }) {
         <div className="flex-1 overflow-y-auto p-5 space-y-3">
           {step === 'templates' ? (
             <>
-              <p className="text-xs text-[#0A1A2F]/45 pb-1">Choose a template or build your own</p>
+              <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45 pb-1">Choose a template or build your own</p>
               {TEMPLATES.map((tpl) => (
                 <button key={tpl.title} onClick={() => pickTemplate(tpl)}
-                  className="w-full flex items-center gap-3 bg-[#F2F6FA] hover:bg-[#F2F6FA] rounded-xl p-3.5 transition-colors border border-[#F2F6FA] hover:border-[#FAD98D]/40 text-left">
+                  className="w-full flex items-center gap-3 bg-[#F2F6FA] dark:bg-[#0A1A2F] hover:bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-xl p-3.5 transition-colors border border-[#F2F6FA] hover:border-[#FAD98D]/40 text-left">
                   <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${tpl.gradient} flex items-center justify-center flex-shrink-0`}>
                     <span className="text-lg">{tpl.emoji}</span>
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-bold text-[#0A1A2F] leading-snug">{tpl.title}</p>
-                    <p className="text-xs text-[#0A1A2F]/45 truncate">{tpl.description}</p>
+                    <p className="text-sm font-bold text-[#0A1A2F] dark:text-white leading-snug">{tpl.title}</p>
+                    <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45 truncate">{tpl.description}</p>
                   </div>
-                  <span className="text-[10px] font-bold text-[#0A1A2F]/30 flex-shrink-0">{tpl.duration}d</span>
-                  <ChevronRight className="w-4 h-4 text-[#0A1A2F]/25 flex-shrink-0" />
+                  <span className="text-[10px] font-bold text-[#0A1A2F]/30 dark:text-white/30 flex-shrink-0">{tpl.duration}d</span>
+                  <ChevronRight className="w-4 h-4 text-[#0A1A2F]/25 dark:text-white/25 flex-shrink-0" />
                 </button>
               ))}
             </>
@@ -138,26 +138,26 @@ function CreateChallengeModal({ user, onClose, onCreated }) {
                 </div>
               )}
               <div>
-                <p className="text-xs font-bold text-[#0A1A2F]/40 uppercase tracking-widest mb-1.5">Title</p>
+                <p className="text-xs font-bold text-[#0A1A2F]/40 dark:text-white/40 uppercase tracking-widest mb-1.5">Title</p>
                 <input value={title} onChange={e => setTitle(e.target.value)}
-                  className="w-full px-3 py-2.5 rounded-xl border border-[#F2F6FA] bg-[#F2F6FA] text-sm font-semibold text-[#0A1A2F] focus:outline-none focus:border-[#FAD98D]/60"
+                  className="w-full px-3 py-2.5 rounded-xl border border-[#F2F6FA] bg-[#F2F6FA] dark:bg-[#0A1A2F] text-sm font-semibold text-[#0A1A2F] dark:text-white focus:outline-none focus:border-[#FAD98D]/60"
                 />
               </div>
               <div>
-                <p className="text-xs font-bold text-[#0A1A2F]/40 uppercase tracking-widest mb-1.5">Description</p>
+                <p className="text-xs font-bold text-[#0A1A2F]/40 dark:text-white/40 uppercase tracking-widest mb-1.5">Description</p>
                 <textarea value={description} onChange={e => setDescription(e.target.value)} rows={3}
-                  className="w-full px-3 py-2.5 rounded-xl border border-[#F2F6FA] bg-[#F2F6FA] text-sm text-[#0A1A2F] focus:outline-none focus:border-[#FAD98D]/60 resize-none leading-relaxed"
+                  className="w-full px-3 py-2.5 rounded-xl border border-[#F2F6FA] bg-[#F2F6FA] dark:bg-[#0A1A2F] text-sm text-[#0A1A2F] dark:text-white focus:outline-none focus:border-[#FAD98D]/60 resize-none leading-relaxed"
                 />
               </div>
               <div>
-                <p className="text-xs font-bold text-[#0A1A2F]/40 uppercase tracking-widest mb-2">Duration</p>
+                <p className="text-xs font-bold text-[#0A1A2F]/40 dark:text-white/40 uppercase tracking-widest mb-2">Duration</p>
                 <div className="flex gap-2">
                   {[7, 14, 21, 30, 90].map(d => (
                     <button key={d} onClick={() => setDuration(d)}
                       className={`flex-1 py-2 rounded-xl text-xs font-bold transition-all border ${
                         duration === d
                           ? 'bg-[#0A1A2F] text-white border-[#0A1A2F]'
-                          : 'bg-white text-[#0A1A2F]/50 border-[#F2F6FA] hover:border-[#FAD98D]/40'
+                          : 'bg-white dark:bg-white/5 text-[#0A1A2F]/50 dark:text-white/50 border-[#F2F6FA] hover:border-[#FAD98D]/40'
                       }`}>{d}d</button>
                   ))}
                 </div>
@@ -169,7 +169,7 @@ function CreateChallengeModal({ user, onClose, onCreated }) {
         {step === 'custom' && (
           <div className="border-t border-[#F2F6FA] px-5 py-4 flex-shrink-0">
             <button onClick={handleCreate} disabled={!title.trim() || creating}
-              className="w-full py-3 rounded-xl bg-gradient-to-r from-[#FAD98D] to-[#c9a227] text-[#0A1A2F] font-bold text-sm disabled:opacity-40 hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
+              className="w-full py-3 rounded-xl bg-gradient-to-r from-[#FAD98D] to-[#c9a227] text-[#0A1A2F] dark:text-white font-bold text-sm disabled:opacity-40 hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
               {creating ? <Loader2 className="w-4 h-4 animate-spin" /> : <Trophy className="w-4 h-4" />}
               {creating ? 'Creating…' : `Launch ${duration}-Day Challenge`}
             </button>
@@ -188,7 +188,7 @@ function ParticipantStrip({ participations }) {
 
   return (
     <div className="mt-3 pt-3 border-t border-[#F2F6FA]">
-      <p className="text-[10px] font-bold text-[#0A1A2F]/30 uppercase tracking-widest mb-1.5">
+      <p className="text-[10px] font-bold text-[#0A1A2F]/30 dark:text-white/30 uppercase tracking-widest mb-1.5">
         {checkedIn}/{participations.length} checked in today
       </p>
       <div className="flex items-center gap-1 flex-wrap">
@@ -198,12 +198,12 @@ function ParticipantStrip({ participations }) {
           return (
             <div key={i} title={p.user_name || 'Member'}
               className={`w-6 h-6 rounded-full text-[9px] font-bold flex items-center justify-center border-2 transition-all ${
-                done ? 'bg-emerald-500 text-white border-emerald-300' : 'bg-[#F2F6FA] text-[#0A1A2F]/30 border-white'
+                done ? 'bg-emerald-500 text-white border-emerald-300' : 'bg-[#F2F6FA] dark:bg-[#0A1A2F] text-[#0A1A2F]/30 dark:text-white/30 border-white'
               }`}>{initials}</div>
           );
         })}
         {participations.length > 14 && (
-          <span className="text-[10px] text-[#0A1A2F]/25 ml-0.5">+{participations.length - 14}</span>
+          <span className="text-[10px] text-[#0A1A2F]/25 dark:text-white/25 ml-0.5">+{participations.length - 14}</span>
         )}
       </div>
     </div>
@@ -275,21 +275,21 @@ function CheckInPanel({ challenge, participation, onCheckedIn, onCompleted }) {
 
   return (
     <motion.div initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }}
-      className="mt-3 bg-white rounded-xl p-3.5 border border-[#FAD98D]/25 space-y-2.5">
+      className="mt-3 bg-white dark:bg-white/5 rounded-xl p-3.5 border border-[#FAD98D]/25 space-y-2.5">
       <div className="flex items-center gap-1.5">
         <Flame className="w-3.5 h-3.5 text-[#c9a227]" />
-        <p className="text-xs font-bold text-[#0A1A2F]">Day {currentDay} Check-in</p>
+        <p className="text-xs font-bold text-[#0A1A2F] dark:text-white dark:text-white">Day {currentDay} Check-in</p>
         {(participation?.current_streak || 0) > 1 && (
           <span className="ml-auto text-[10px] font-bold text-orange-500">{participation.current_streak}🔥 streak</span>
         )}
       </div>
-      {prompt && <p className="text-xs text-[#0A1A2F]/55 italic leading-relaxed">"{prompt.prompt}"</p>}
+      {prompt && <p className="text-xs text-[#0A1A2F]/55 dark:text-white/55 italic leading-relaxed">"{prompt.prompt}"</p>}
       <textarea value={reflection} onChange={e => setReflection(e.target.value)} rows={2}
         placeholder="Share a reflection with your group (optional)…"
-        className="w-full resize-none text-xs px-3 py-2 rounded-lg border border-[#F2F6FA] bg-white text-[#0A1A2F] placeholder-[#0A1A2F]/25 focus:outline-none focus:border-[#FAD98D]/60 leading-relaxed"
+        className="w-full resize-none text-xs px-3 py-2 rounded-lg border border-[#F2F6FA] bg-white dark:bg-white/5 text-[#0A1A2F] dark:text-white placeholder-[#0A1A2F]/25 focus:outline-none focus:border-[#FAD98D]/60 leading-relaxed"
       />
       <button onClick={handleCheckIn} disabled={submitting}
-        className="w-full py-2.5 rounded-xl bg-gradient-to-r from-[#FAD98D] to-[#c9a227] text-[#0A1A2F] font-bold text-xs hover:opacity-90 transition-opacity disabled:opacity-50 flex items-center justify-center gap-2">
+        className="w-full py-2.5 rounded-xl bg-gradient-to-r from-[#FAD98D] to-[#c9a227] text-[#0A1A2F] dark:text-white font-bold text-xs hover:opacity-90 transition-opacity disabled:opacity-50 flex items-center justify-center gap-2">
         {submitting ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <CheckCircle2 className="w-3.5 h-3.5" />}
         {submitting ? 'Logging…' : `Check In — Day ${currentDay}`}
       </button>
@@ -314,7 +314,7 @@ function ChallengeCard({ challenge, myParticipation, allParticipations, user, in
 
   return (
     <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.04 }}
-      className="bg-white rounded-2xl border border-[#FAD98D]/15 overflow-hidden">
+      className="bg-white dark:bg-white/5 rounded-2xl border border-[#FAD98D]/15 overflow-hidden">
 
       {/* Colour band */}
       <div className={`h-1.5 bg-gradient-to-r ${gradient}`} />
@@ -326,13 +326,13 @@ function ChallengeCard({ challenge, myParticipation, allParticipations, user, in
             <span className="text-xl">{emoji}</span>
           </div>
           <div className="flex-1 min-w-0">
-            <h3 className="font-bold text-[#0A1A2F] text-sm leading-snug">{challenge.title}</h3>
+            <h3 className="font-bold text-[#0A1A2F] dark:text-white text-sm leading-snug">{challenge.title}</h3>
             <div className="flex items-center gap-2 mt-0.5 flex-wrap">
               <span className={`text-[9px] font-bold px-2 py-0.5 rounded-full ${typeConf.bg}`}>{typeConf.label}</span>
-              <span className="text-[10px] text-[#0A1A2F]/30 flex items-center gap-0.5">
+              <span className="text-[10px] text-[#0A1A2F]/30 dark:text-white/30 flex items-center gap-0.5">
                 <Calendar className="w-2.5 h-2.5" />{challenge.duration_days}d
               </span>
-              <span className="text-[10px] text-[#0A1A2F]/30 flex items-center gap-0.5">
+              <span className="text-[10px] text-[#0A1A2F]/30 dark:text-white/30 flex items-center gap-0.5">
                 <Users className="w-2.5 h-2.5" />{challenge.participant_count || 0}
               </span>
               {daysLeft > 0 && daysLeft <= 5 && (
@@ -344,16 +344,16 @@ function ChallengeCard({ challenge, myParticipation, allParticipations, user, in
         </div>
 
         {/* Description */}
-        <p className="text-xs text-[#0A1A2F]/50 leading-relaxed mb-3 line-clamp-2">{challenge.description}</p>
+        <p className="text-xs text-[#0A1A2F]/50 dark:text-white/50 leading-relaxed mb-3 line-clamp-2">{challenge.description}</p>
 
         {/* Progress bar */}
         {isMember && (
           <div className="mb-3">
             <div className="flex justify-between mb-1">
-              <span className="text-[10px] font-bold text-[#0A1A2F]/35">Progress</span>
+              <span className="text-[10px] font-bold text-[#0A1A2F]/35 dark:text-white/35">Progress</span>
               <span className="text-[10px] font-bold text-[#c9a227]">Day {completed}/{challenge.duration_days}</span>
             </div>
-            <div className="h-1.5 bg-[#F2F6FA] rounded-full overflow-hidden">
+            <div className="h-1.5 bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-full overflow-hidden">
               <motion.div initial={{ width: 0 }} animate={{ width: `${progress}%` }}
                 className={`h-full rounded-full bg-gradient-to-r ${gradient}`} />
             </div>
@@ -370,7 +370,7 @@ function ChallengeCard({ challenge, myParticipation, allParticipations, user, in
             </button>
           ) : (
             <button onClick={() => setExpanded(e => !e)}
-              className="flex-1 py-2 rounded-xl bg-[#F2F6FA] text-[#0A1A2F] font-bold text-xs hover:bg-white transition-colors flex items-center justify-center gap-1.5">
+              className="flex-1 py-2 rounded-xl bg-[#F2F6FA] dark:bg-[#0A1A2F] text-[#0A1A2F] dark:text-white font-bold text-xs hover:bg-white dark:bg-white/5 transition-colors flex items-center justify-center gap-1.5">
               <Flame className="w-3 h-3 text-orange-400" />
               {expanded ? 'Hide' : 'Log Today'}
               {expanded ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
@@ -378,8 +378,8 @@ function ChallengeCard({ challenge, myParticipation, allParticipations, user, in
           )}
           {/* Details expand for non-members too */}
           <button onClick={() => setExpanded(e => !e)}
-            className="w-8 h-8 rounded-xl bg-[#F2F6FA] flex items-center justify-center hover:bg-white transition-colors">
-            {expanded ? <ChevronUp className="w-3.5 h-3.5 text-[#0A1A2F]/40" /> : <ChevronRight className="w-3.5 h-3.5 text-[#0A1A2F]/40" />}
+            className="w-8 h-8 rounded-xl bg-[#F2F6FA] dark:bg-[#0A1A2F] flex items-center justify-center hover:bg-white dark:bg-white/5 transition-colors">
+            {expanded ? <ChevronUp className="w-3.5 h-3.5 text-[#0A1A2F]/40 dark:text-white/40" /> : <ChevronRight className="w-3.5 h-3.5 text-[#0A1A2F]/40 dark:text-white/40" />}
           </button>
         </div>
 
@@ -396,13 +396,13 @@ function ChallengeCard({ challenge, myParticipation, allParticipations, user, in
                 />
               ) : (
                 /* Non-member: show day 1 preview + join CTA */
-                <div className="mt-3 bg-[#F2F6FA] rounded-xl p-3.5 border border-[#F2F6FA] space-y-2">
-                  <p className="text-[10px] font-bold text-[#0A1A2F]/35 uppercase tracking-widest">Day 1 Prompt</p>
-                  <p className="text-xs text-[#0A1A2F]/60 italic leading-relaxed">
+                <div className="mt-3 bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-xl p-3.5 border border-[#F2F6FA] space-y-2">
+                  <p className="text-[10px] font-bold text-[#0A1A2F]/35 dark:text-white/35 uppercase tracking-widest">Day 1 Prompt</p>
+                  <p className="text-xs text-[#0A1A2F]/60 dark:text-white/60 italic leading-relaxed">
                     "{challenge.daily_prompts?.[0]?.prompt || 'Show up. That\'s enough for today.'}"
                   </p>
                   <button onClick={() => onJoin(challenge.id)} disabled={joining}
-                    className="w-full py-2 rounded-xl bg-gradient-to-r from-[#FAD98D] to-[#c9a227] text-[#0A1A2F] font-bold text-xs hover:opacity-90 transition-opacity">
+                    className="w-full py-2 rounded-xl bg-gradient-to-r from-[#FAD98D] to-[#c9a227] text-[#0A1A2F] dark:text-white font-bold text-xs hover:opacity-90 transition-opacity">
                     Join & Start Today
                   </button>
                 </div>
@@ -652,7 +652,7 @@ export default function GroupChallenges({ user }) {
           </button>
         )}
         <button onClick={() => setShowCreate(true)}
-          className={`${seeded ? 'flex-1' : ''} flex items-center gap-2 bg-gradient-to-r from-[#FAD98D] to-[#c9a227] text-[#0A1A2F] rounded-2xl px-4 py-3 font-bold hover:opacity-90 transition-opacity`}>
+          className={`${seeded ? 'flex-1' : ''} flex items-center gap-2 bg-gradient-to-r from-[#FAD98D] to-[#c9a227] text-[#0A1A2F] dark:text-white rounded-2xl px-4 py-3 font-bold hover:opacity-90 transition-opacity`}>
           <Plus className="w-4 h-4 flex-shrink-0" />
           <span className="text-xs font-bold whitespace-nowrap">New Challenge</span>
         </button>
@@ -663,32 +663,32 @@ export default function GroupChallenges({ user }) {
         {FILTERS.map(f => (
           <button key={f.value} onClick={() => setFilter(f.value)}
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-semibold whitespace-nowrap flex-shrink-0 transition-all ${
-              filter === f.value ? 'bg-[#0A1A2F] text-white border-[#0A1A2F]' : 'bg-white text-[#0A1A2F]/50 border-[#F2F6FA] hover:border-[#FAD98D]/40'
+              filter === f.value ? 'bg-[#0A1A2F] text-white border-[#0A1A2F]' : 'bg-white dark:bg-white/5 text-[#0A1A2F]/50 dark:text-white/50 border-[#F2F6FA] hover:border-[#FAD98D]/40'
             }`}>
             {f.label}
-            {f.count > 0 && <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded-full ${filter === f.value ? 'bg-white/20' : 'bg-[#F2F6FA]'}`}>{f.count}</span>}
+            {f.count > 0 && <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded-full ${filter === f.value ? 'bg-white/20' : 'bg-[#F2F6FA] dark:bg-[#0A1A2F]'}`}>{f.count}</span>}
           </button>
         ))}
       </div>
 
       {/* Loading skeletons */}
-      {isLoading && [1,2,3].map(i => <div key={i} className="bg-white rounded-2xl border border-[#FAD98D]/15 h-28 animate-pulse" />)}
+      {isLoading && [1,2,3].map(i => <div key={i} className="bg-white dark:bg-white/5 rounded-2xl border border-[#FAD98D]/15 h-28 animate-pulse" />)}
 
       {/* Empty state */}
       {!isLoading && list.length === 0 && (
-        <div className="bg-white rounded-2xl border border-[#FAD98D]/15 p-10 text-center">
-          <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center mx-auto mb-4">
+        <div className="bg-white dark:bg-white/5 rounded-2xl border border-[#FAD98D]/15 p-10 text-center">
+          <div className="w-14 h-14 bg-white dark:bg-white/5 rounded-2xl flex items-center justify-center mx-auto mb-4">
             <Trophy className="w-7 h-7 text-[#FAD98D]" />
           </div>
-          <h3 className="font-bold text-[#0A1A2F] mb-1">
+          <h3 className="font-bold text-[#0A1A2F] dark:text-white mb-1">
             {filter === 'mine' ? 'No active challenges' : filter === 'done' ? 'Nothing completed yet' : 'No challenges yet'}
           </h3>
-          <p className="text-sm text-[#0A1A2F]/40 mb-4">
+          <p className="text-sm text-[#0A1A2F]/40 dark:text-white/40 mb-4">
             {filter === 'mine' ? 'Join a challenge to start building your streak.' : filter === 'done' ? 'Finish a challenge to see it here.' : 'Load the starters or create your own.'}
           </p>
           {filter !== 'done' && (
             <button onClick={() => setShowCreate(true)}
-              className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#FAD98D] to-[#c9a227] text-[#0A1A2F] font-bold text-sm hover:opacity-90 transition-opacity">
+              className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#FAD98D] to-[#c9a227] text-[#0A1A2F] dark:text-white font-bold text-sm hover:opacity-90 transition-opacity">
               Create a Challenge
             </button>
           )}

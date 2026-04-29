@@ -142,7 +142,7 @@ function Home() {
               { name: 'Chef Daniel', role: 'Nutrition', bot: 'ChefDaniel', color: 'from-orange-400 to-orange-500', bg: 'bg-orange-50', img: chefDanielImg },
             ].map(({ name, role, bot, color, bg, img }) => (
               <Link key={bot} to={createPageUrl(`ChatScreen?bot=${bot}`)} className="flex-shrink-0" style={{ width: 140 }}>
-                <div className={`${bg} dark:bg-white/5 rounded-2xl p-3 shadow-sm border border-gray-100/80 dark:border-white/10 h-full`}>
+                <div className={`${bg} dark:bg-white/5 rounded-2xl p-3 shadow-sm border border-gray-100 dark:border-white/10/80 dark:border-white/10 h-full`}>
                   <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${color} mx-auto mb-2 flex items-center justify-center shadow-sm overflow-hidden`}>
                     <img src={img} alt={name} className="w-full h-full object-cover object-top" />
                   </div>

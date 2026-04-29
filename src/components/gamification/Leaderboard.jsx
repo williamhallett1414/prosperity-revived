@@ -39,7 +39,7 @@ export default function Leaderboard() {
   return (
     <div className="space-y-2">
       {leaderboard.length === 0 ? (
-        <div className="text-center py-12 bg-white dark:bg-[#0A1A2F] rounded-2xl">
+        <div className="text-center py-12 bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-2xl">
           <Trophy className="w-12 h-12 text-gray-300 mx-auto mb-3" />
           <p className="text-gray-500 dark:text-gray-400">No rankings yet</p>
         </div>
@@ -55,7 +55,7 @@ export default function Leaderboard() {
               className={`flex items-center gap-3 p-3 rounded-xl ${
                 isCurrentUser 
                   ? 'bg-amber-100 dark:bg-amber-900 border-2 border-amber-500' 
-                  : 'bg-white dark:bg-[#0A1A2F]'
+                  : 'bg-white dark:bg-white/5 dark:bg-[#0A1A2F]'
               }`}
             >
               <div className="w-8 text-center font-bold text-gray-600 dark:text-gray-400">
@@ -71,7 +71,7 @@ export default function Leaderboard() {
               </div>
               
               <div className="flex-1">
-                <p className={`font-semibold ${isCurrentUser ? 'text-amber-900 dark:text-amber-100' : 'text-[#0A1A2F] dark:text-white'}`}>
+                <p className={`font-semibold ${isCurrentUser ? 'text-amber-900 dark:text-amber-100' : 'text-[#0A1A2F] dark:text-white dark:text-white'}`}>
                   {entry.user.full_name || 'User'} {isCurrentUser && '(You)'}
                 </p>
                 <p className="text-xs text-gray-500 dark:text-gray-400">Level {entry.level || 1}</p>

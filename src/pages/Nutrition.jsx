@@ -66,11 +66,11 @@ function MacroRing({ value, target, label, unit, color }) {
           strokeDasharray={`${pct} ${100 - pct}`} strokeLinecap="round" />
         </svg>
         <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-[10px] font-bold text-[#0A1A2F]">{value}</span>
+          <span className="text-[10px] font-bold text-[#0A1A2F] dark:text-white dark:text-white">{value}</span>
         </div>
       </div>
-      <p className="text-[9px] font-bold text-[#0A1A2F]/40 uppercase tracking-wide">{label}</p>
-      <p className="text-[9px] text-[#0A1A2F]/30">{target}{unit}</p>
+      <p className="text-[9px] font-bold text-[#0A1A2F]/40 dark:text-white/40 uppercase tracking-wide">{label}</p>
+      <p className="text-[9px] text-[#0A1A2F]/30 dark:text-white/30">{target}{unit}</p>
     </div>);
 
 }
@@ -162,17 +162,17 @@ export default function Nutrition() {
   const calGoal = user?.calorie_goal || user?.daily_calories || DEFAULT_MACROS.calories || 2000;
 
   return (
-    <div className="min-h-screen bg-[#F2F6FA] pb-28">
+    <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
 
       {/* ── Sticky header ── */}
-      <div className="sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b border-gray-100 shadow-sm">
+      <div className="sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b border-gray-100 dark:border-white/10 shadow-sm">
         <div className="max-w-lg mx-auto px-4 pt-3 pb-0">
 
           {/* Title row */}
           <div className="flex items-center justify-between mb-3">
             <div>
-              <h1 className="text-lg font-black text-[#0A1A2F] leading-tight">Nutrition</h1>
-              <p className="text-[11px] text-[#0A1A2F]/40 font-medium">Track · Plan · Nourish</p>
+              <h1 className="text-lg font-black text-[#0A1A2F] dark:text-white leading-tight">Nutrition</h1>
+              <p className="text-[11px] text-[#0A1A2F]/40 dark:text-white/40 font-medium">Track · Plan · Nourish</p>
             </div>
             <button
               onClick={() => setShowLogModal(true)}
@@ -196,7 +196,7 @@ export default function Nutrition() {
                 className={`flex items-center gap-1 px-3 py-2.5 text-xs font-semibold border-b-2 transition-all whitespace-nowrap ${
                   isActive
                     ? 'border-[#c9a227] text-[#c9a227]'
-                    : 'border-transparent text-[#0A1A2F]/40 hover:text-[#0A1A2F]/65'
+                    : 'border-transparent text-[#0A1A2F]/40 dark:text-white/40 hover:text-[#0A1A2F]/65'
                 }`}>
                   <Icon className="w-3.5 h-3.5" />
                   {label}
@@ -229,11 +229,11 @@ export default function Nutrition() {
             </div>
 
             {/* ── Today's Progress ── */}
-            <div id="tour-nutrition-macros" className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-              <div className="px-4 pt-4 pb-3 border-b border-gray-50">
+            <div id="tour-nutrition-macros" className="bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 shadow-sm overflow-hidden">
+              <div className="px-4 pt-4 pb-3 border-b border-gray-50 dark:border-white/5">
                 <div className="flex items-center justify-between">
-                  <p className="text-sm font-bold text-[#0A1A2F]">Today's Progress</p>
-                  <span className="text-[10px] font-bold text-[#0A1A2F]/30 uppercase tracking-widest">{new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}</span>
+                  <p className="text-sm font-bold text-[#0A1A2F] dark:text-white dark:text-white">Today's Progress</p>
+                  <span className="text-[10px] font-bold text-[#0A1A2F]/30 dark:text-white/30 uppercase tracking-widest">{new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}</span>
                 </div>
               </div>
               <div className="p-4">
@@ -241,8 +241,8 @@ export default function Nutrition() {
                 <div className="mb-4">
                   <div className="flex justify-between items-baseline mb-2">
                     <div>
-                      <span className="text-2xl font-black text-[#0A1A2F]">{Math.round(totals.calories)}</span>
-                      <span className="text-xs text-[#0A1A2F]/40 ml-1">/ {calGoal} kcal</span>
+                      <span className="text-2xl font-black text-[#0A1A2F] dark:text-white dark:text-white">{Math.round(totals.calories)}</span>
+                      <span className="text-xs text-[#0A1A2F]/40 dark:text-white/40 ml-1">/ {calGoal} kcal</span>
                     </div>
                     <span className={`text-xs font-bold ${totals.calories > calGoal ? 'text-red-500' : 'text-[#16a34a]'}`}>
                       {totals.calories > calGoal ? `${Math.round(totals.calories - calGoal)} over` : `${Math.max(0, calGoal - Math.round(totals.calories))} left`}
@@ -267,20 +267,20 @@ export default function Nutrition() {
             </div>
 
             {/* ── Water tracker ── */}
-            <div id="tour-water-tracker" className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4">
+            <div id="tour-water-tracker" className="bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 shadow-sm p-4">
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-2.5">
                   <div className="w-9 h-9 rounded-xl bg-blue-50 flex items-center justify-center">
                     <Droplets className="w-5 h-5 text-blue-500" />
                   </div>
                   <div>
-                    <p className="font-bold text-[#0A1A2F] text-sm">Water Intake</p>
-                    <p className="text-xs text-[#0A1A2F]/40">{glasses} of {waterGoal} glasses today</p>
+                    <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">Water Intake</p>
+                    <p className="text-xs text-[#0A1A2F]/40 dark:text-white/40">{glasses} of {waterGoal} glasses today</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-1.5">
                   <button onClick={() => updateWater.mutate(Math.max(0, glasses - 1))}
-                    className="w-8 h-8 rounded-full bg-gray-100 font-bold text-[#0A1A2F]/50 flex items-center justify-center hover:bg-gray-200 transition-colors text-base leading-none">−</button>
+                    className="w-8 h-8 rounded-full bg-gray-100 font-bold text-[#0A1A2F]/50 dark:text-white/50 flex items-center justify-center hover:bg-gray-200 transition-colors text-base leading-none">−</button>
                   <span className="font-bold text-[#16a34a] text-base w-5 text-center">{glasses}</span>
                   <button onClick={() => updateWater.mutate(Math.min(20, glasses + 1))}
                     className="w-8 h-8 rounded-full bg-blue-100 font-bold text-blue-600 flex items-center justify-center hover:bg-blue-200 transition-colors text-base leading-none">+</button>
@@ -303,33 +303,33 @@ export default function Nutrition() {
             </div>
 
             {/* ── Today's Meals ── */}
-            <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-              <div className="flex items-center justify-between px-4 pt-4 pb-3 border-b border-gray-50">
-                <p className="text-sm font-bold text-[#0A1A2F]">Meals Logged Today</p>
-                <span className="text-xs font-bold text-[#0A1A2F]/30 bg-gray-100 px-2 py-0.5 rounded-full">{todayMeals.length}</span>
+            <div className="bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 shadow-sm overflow-hidden">
+              <div className="flex items-center justify-between px-4 pt-4 pb-3 border-b border-gray-50 dark:border-white/5">
+                <p className="text-sm font-bold text-[#0A1A2F] dark:text-white dark:text-white">Meals Logged Today</p>
+                <span className="text-xs font-bold text-[#0A1A2F]/30 dark:text-white/30 bg-gray-100 px-2 py-0.5 rounded-full">{todayMeals.length}</span>
               </div>
               <div className="p-3">
                 {todayMeals.length === 0 ? (
                   <div className="text-center py-6">
                     <p className="text-2xl mb-2">🍽️</p>
-                    <p className="text-sm font-semibold text-[#0A1A2F]/40">Nothing logged yet</p>
-                    <p className="text-xs text-[#0A1A2F]/25 mt-1">Tap a suggestion below or use Log Food</p>
+                    <p className="text-sm font-semibold text-[#0A1A2F]/40 dark:text-white/40">Nothing logged yet</p>
+                    <p className="text-xs text-[#0A1A2F]/25 dark:text-white/25 mt-1">Tap a suggestion below or use Log Food</p>
                   </div>
                 ) : (
                   <div className="space-y-1.5">
                     {todayMeals.map((m, i) => (
                       <motion.div key={m.id || i} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: i * 0.04 }}
-                        className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-gray-50 group transition-colors">
+                        className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-gray-50 dark:bg-white/5 group transition-colors">
                         <div className="w-8 h-8 rounded-lg bg-[#FAD98D]/20 flex items-center justify-center flex-shrink-0 text-base">
                           {MEAL_EMOJI[m.meal_type] || '🍴'}
                         </div>
                         <div className="flex-1 min-w-0">
-                          <p className="font-semibold text-[#0A1A2F] text-sm leading-tight truncate">{m.description}</p>
-                          <p className="text-[10px] text-[#0A1A2F]/35 mt-0.5 capitalize">{m.meal_type}</p>
+                          <p className="font-semibold text-[#0A1A2F] dark:text-white text-sm leading-tight truncate">{m.description}</p>
+                          <p className="text-[10px] text-[#0A1A2F]/35 dark:text-white/35 mt-0.5 capitalize">{m.meal_type}</p>
                         </div>
                         <div className="text-right flex-shrink-0">
-                          <p className="font-bold text-[#c9a227] text-sm">{m.calories || 0} <span className="text-[10px] font-normal text-[#0A1A2F]/30">kcal</span></p>
+                          <p className="font-bold text-[#c9a227] text-sm">{m.calories || 0} <span className="text-[10px] font-normal text-[#0A1A2F]/30 dark:text-white/30">kcal</span></p>
                         </div>
                         {m.id && (
                           <button onClick={() => { if (window.confirm('Remove this meal?')) deleteMeal.mutate(m.id); }}
@@ -349,25 +349,25 @@ export default function Nutrition() {
             </div>
 
             {/* ── Quick Log ── */}
-            <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-              <div className="px-4 pt-4 pb-3 border-b border-gray-50">
-                <p className="text-sm font-bold text-[#0A1A2F]">Quick Log <span className="text-[#16a34a] capitalize">· {suggestType}</span></p>
+            <div className="bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 shadow-sm overflow-hidden">
+              <div className="px-4 pt-4 pb-3 border-b border-gray-50 dark:border-white/5">
+                <p className="text-sm font-bold text-[#0A1A2F] dark:text-white dark:text-white">Quick Log <span className="text-[#16a34a] capitalize">· {suggestType}</span></p>
               </div>
               <div className="p-3 space-y-1.5">
                 {suggestions.length === 0 ? (
-                  <p className="text-xs text-[#0A1A2F]/35 text-center py-3">No suggestions right now. Use Log Food above.</p>
+                  <p className="text-xs text-[#0A1A2F]/35 dark:text-white/35 text-center py-3">No suggestions right now. Use Log Food above.</p>
                 ) : suggestions.map((meal, i) => {
                   const alreadyLogged = todayMeals.some((m) => m.description === meal.name);
                   return (
                     <motion.div key={meal.id} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: i * 0.06 }}
-                      className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-gray-50 transition-colors">
+                      className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-gray-50 dark:bg-white/5 transition-colors">
                       <span className="text-xl flex-shrink-0">{meal.emoji}</span>
                       <div className="flex-1 min-w-0">
-                        <p className="font-semibold text-[#0A1A2F] text-sm leading-tight">{meal.name}</p>
+                        <p className="font-semibold text-[#0A1A2F] dark:text-white text-sm leading-tight">{meal.name}</p>
                         <div className="flex gap-2 mt-0.5">
                           <span className="text-[10px] font-bold text-[#c9a227] bg-[#FAD98D]/20 px-1.5 py-0.5 rounded">{meal.cal} cal</span>
-                          <span className="text-[10px] text-[#0A1A2F]/35">{meal.protein}g P · {meal.carbs}g C · {meal.fats}g F</span>
+                          <span className="text-[10px] text-[#0A1A2F]/35 dark:text-white/35">{meal.protein}g P · {meal.carbs}g C · {meal.fats}g F</span>
                         </div>
                       </div>
                       {alreadyLogged ? (
@@ -439,10 +439,10 @@ export default function Nutrition() {
 
       {/* Eating Disorder Resources */}
       <div className="max-w-lg mx-auto px-4 pb-4">
-        <div className="bg-white rounded-xl px-4 py-3 border border-gray-100 flex items-start gap-3">
+        <div className="bg-white dark:bg-white/5 rounded-xl px-4 py-3 border border-gray-100 dark:border-white/10 flex items-start gap-3">
           <span className="text-base flex-shrink-0 mt-0.5">💙</span>
           <div>
-            <p className="text-[10px] text-[#0A1A2F]/50 leading-relaxed">
+            <p className="text-[10px] text-[#0A1A2F]/50 dark:text-white/50 leading-relaxed">
               If you or someone you know is struggling with disordered eating, help is available.
               <a href="tel:18666621235" className="text-[#1e40af] font-semibold ml-1">Alliance for Eating Disorders: 1-866-662-1235</a>
             </p>

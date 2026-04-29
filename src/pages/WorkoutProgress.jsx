@@ -61,24 +61,24 @@ export default function WorkoutProgress() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-white pb-24 flex items-center justify-center">
+      <div className="min-h-screen bg-white dark:bg-white/5 pb-24 flex items-center justify-center">
         <div className="w-8 h-8 border-4 border-[#38BDF8]/30 border-t-[#38BDF8] rounded-full animate-spin" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-white pb-24">
+    <div className="min-h-screen bg-white dark:bg-white/5 pb-24">
 
       {/* ── Standard Header ── */}
-      <div className="sticky top-0 z-40 bg-white border-b border-[#38BDF8]/20 px-4 pt-4 pb-3">
+      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#38BDF8]/20 px-4 pt-4 pb-3">
         <div className="max-w-lg mx-auto flex items-center gap-3">
           <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#38BDF8] to-[#1e40af] flex items-center justify-center">
             <TrendingUp className="w-5 h-5 text-white" />
           </div>
           <div>
-            <h1 className="text-base font-bold text-[#0A1A2F]">Workout Progress</h1>
-            <p className="text-xs text-[#0A1A2F]/45">Track your gains</p>
+            <h1 className="text-base font-bold text-[#0A1A2F] dark:text-white dark:text-white">Workout Progress</h1>
+            <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45">Track your gains</p>
           </div>
         </div>
       </div>
@@ -142,11 +142,11 @@ export default function WorkoutProgress() {
         {/* Charts */}
         <Tabs defaultValue="frequency" className="w-full px-4">
           <TabsList className="grid w-full grid-cols-3 lg:grid-cols-5 bg-gradient-to-r from-[#38BDF8]/10 to-[#D97706]/10 border border-[#38BDF8]/20 rounded-lg p-1">
-            <TabsTrigger value="frequency" className="text-xs font-semibold data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#38BDF8] data-[state=active]:to-[#1e40af] data-[state=active]:text-white data-[state=active]:shadow-md text-[#0A1A2F]/60">Frequency</TabsTrigger>
-            <TabsTrigger value="prs" className="text-xs font-semibold data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#38BDF8] data-[state=active]:to-[#1e40af] data-[state=active]:text-white data-[state=active]:shadow-md text-[#0A1A2F]/60">PRs</TabsTrigger>
-            <TabsTrigger value="volume" className="text-xs font-semibold data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#38BDF8] data-[state=active]:to-[#1e40af] data-[state=active]:text-white data-[state=active]:shadow-md text-[#0A1A2F]/60">Volume</TabsTrigger>
-            <TabsTrigger value="weight" className="text-xs font-semibold data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#38BDF8] data-[state=active]:to-[#1e40af] data-[state=active]:text-white data-[state=active]:shadow-md text-[#0A1A2F]/60 mt-3">Weight</TabsTrigger>
-            <TabsTrigger value="goals" className="text-xs font-semibold data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#38BDF8] data-[state=active]:to-[#1e40af] data-[state=active]:text-white data-[state=active]:shadow-md text-[#0A1A2F]/60 mt-3">Goals</TabsTrigger>
+            <TabsTrigger value="frequency" className="text-xs font-semibold data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#38BDF8] data-[state=active]:to-[#1e40af] data-[state=active]:text-white data-[state=active]:shadow-md text-[#0A1A2F]/60 dark:text-white/60">Frequency</TabsTrigger>
+            <TabsTrigger value="prs" className="text-xs font-semibold data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#38BDF8] data-[state=active]:to-[#1e40af] data-[state=active]:text-white data-[state=active]:shadow-md text-[#0A1A2F]/60 dark:text-white/60">PRs</TabsTrigger>
+            <TabsTrigger value="volume" className="text-xs font-semibold data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#38BDF8] data-[state=active]:to-[#1e40af] data-[state=active]:text-white data-[state=active]:shadow-md text-[#0A1A2F]/60 dark:text-white/60">Volume</TabsTrigger>
+            <TabsTrigger value="weight" className="text-xs font-semibold data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#38BDF8] data-[state=active]:to-[#1e40af] data-[state=active]:text-white data-[state=active]:shadow-md text-[#0A1A2F]/60 dark:text-white/60 mt-3">Weight</TabsTrigger>
+            <TabsTrigger value="goals" className="text-xs font-semibold data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#38BDF8] data-[state=active]:to-[#1e40af] data-[state=active]:text-white data-[state=active]:shadow-md text-[#0A1A2F]/60 dark:text-white/60 mt-3">Goals</TabsTrigger>
           </TabsList>
 
           <TabsContent value="frequency" className="pt-6">

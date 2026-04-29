@@ -41,7 +41,7 @@ export default function PostSummary({ content, comments }) {
   if (!shouldShowSummary) return null;
 
   return (
-    <div className="mt-3 pt-3 border-t border-gray-100">
+    <div className="mt-3 pt-3 border-t border-gray-100 dark:border-white/10">
       {!summary && !loading && (
         <Button
           variant="ghost"
@@ -70,7 +70,7 @@ export default function PostSummary({ content, comments }) {
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-2">
               <Sparkles className="w-4 h-4 text-[#c9a227]" />
-              <span className="text-xs font-semibold text-[#0A1A2F]">AI Summary</span>
+              <span className="text-xs font-semibold text-[#0A1A2F] dark:text-white dark:text-white">AI Summary</span>
             </div>
             <Button
               variant="ghost"

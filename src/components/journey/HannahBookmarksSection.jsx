@@ -65,7 +65,7 @@ export default function HannahBookmarksSection({ userEmail }) {
             {bookmarks.map((bookmark) => (
               <div
                 key={bookmark.id}
-                className="flex items-start gap-3 p-4 bg-gray-50 rounded-xl border border-gray-100 hover:bg-gray-100 transition-colors"
+                className="flex items-start gap-3 p-4 bg-gray-50 dark:bg-white/5 rounded-xl border border-gray-100 dark:border-white/10 hover:bg-gray-100 transition-colors"
               >
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-1 flex-wrap">

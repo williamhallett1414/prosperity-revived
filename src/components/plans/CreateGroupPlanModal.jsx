@@ -78,7 +78,7 @@ export default function CreateGroupPlanModal({ isOpen, onClose, onSubmit, basePl
             />
           </div>
 
-          <div className="flex items-center justify-between p-4 rounded-lg bg-gray-50">
+          <div className="flex items-center justify-between p-4 rounded-lg bg-gray-50 dark:bg-white/5">
             <div className="flex items-center gap-2">
               <Lock className="w-4 h-4 text-gray-600" />
               <div>

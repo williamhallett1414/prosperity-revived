@@ -141,8 +141,8 @@ function PlanCard({ plan, delay = 0 }) {
         <div className="flex items-center gap-3 bg-[#F8FAFB] rounded-xl px-3.5 py-3 hover:bg-[#FAD98D]/10 transition-colors">
           <span className="text-xl flex-shrink-0">{plan.emoji}</span>
           <div className="flex-1 min-w-0">
-            <p className="text-xs font-bold text-[#0A1A2F] leading-tight">{plan.name}</p>
-            <p className="text-[10px] text-[#0A1A2F]/40 mt-0.5">{plan.duration}-day plan</p>
+            <p className="text-xs font-bold text-[#0A1A2F] dark:text-white leading-tight">{plan.name}</p>
+            <p className="text-[10px] text-[#0A1A2F]/40 dark:text-white/40 mt-0.5">{plan.duration}-day plan</p>
           </div>
           <ChevronRight className="w-3.5 h-3.5 text-[#C9A227]/60 flex-shrink-0" />
         </div>
@@ -261,14 +261,14 @@ export default function BibleGoalsPage() {
     <div className="min-h-screen pb-28" style={{ background: '#F2F6FA' }}>
 
       {/* ── Standard Header ── */}
-      <div className="sticky top-0 z-40 bg-white border-b border-[#FAD98D]/20 px-4 pt-4 pb-3">
+      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 px-4 pt-4 pb-3">
         <div className="max-w-lg mx-auto flex items-center gap-3">
           <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center">
             <Target className="w-5 h-5 text-white" />
           </div>
           <div className="flex-1">
-            <h1 className="text-base font-bold text-[#0A1A2F]">Bible Study Goals</h1>
-            <p className="text-xs text-[#0A1A2F]/45">Your reading profile</p>
+            <h1 className="text-base font-bold text-[#0A1A2F] dark:text-white dark:text-white">Bible Study Goals</h1>
+            <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45">Your reading profile</p>
           </div>
           <button onClick={() => setEditing(v => !v)}
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold border border-[#FAD98D]/50 text-[#C9A227] bg-[#FAD98D]/10 transition-all">
@@ -315,7 +315,7 @@ export default function BibleGoalsPage() {
             <AlertTriangle className="w-4 h-4 text-[#C9A227] flex-shrink-0" />
             <div className="flex-1">
               <p className="text-xs font-bold text-[#C9A227]">Bible profile incomplete</p>
-              <p className="text-[11px] text-[#0A1A2F]/55">Set up your profile to get personalised reading plans.</p>
+              <p className="text-[11px] text-[#0A1A2F]/55 dark:text-white/55">Set up your profile to get personalised reading plans.</p>
             </div>
             <button onClick={() => setEditing(true)} className="text-[11px] font-bold text-[#C9A227] flex-shrink-0">Set Up →</button>
           </motion.div>
@@ -325,9 +325,9 @@ export default function BibleGoalsPage() {
         <AnimatePresence>
           {editing && (
             <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }}
-              className="bg-white rounded-3xl p-5 shadow-sm border-2 border-[#FAD98D]/40 space-y-5">
+              className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm border-2 border-[#FAD98D]/40 space-y-5">
               <div className="flex items-center justify-between">
-                <p className="font-bold text-[#0A1A2F] text-sm">Edit Bible Profile</p>
+                <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">Edit Bible Profile</p>
                 <button onClick={() => setEditing(false)} className="w-7 h-7 rounded-full bg-gray-100 flex items-center justify-center">
                   <X className="w-3.5 h-3.5 text-gray-500" />
                 </button>
@@ -339,9 +339,9 @@ export default function BibleGoalsPage() {
                 <div className="space-y-2">
                   {BIBLE_LEVELS_LIST.map(o => (
                     <button key={o.id} onClick={() => setForm(f => ({ ...f, bible_level: o.id }))}
-                      className={`w-full text-left px-4 py-2.5 rounded-2xl border-2 flex items-center gap-3 transition-all ${form.bible_level === o.id ? 'border-[#C9A227] bg-[#FAD98D]/10' : 'border-gray-100 bg-gray-50'}`}>
+                      className={`w-full text-left px-4 py-2.5 rounded-2xl border-2 flex items-center gap-3 transition-all ${form.bible_level === o.id ? 'border-[#C9A227] bg-[#FAD98D]/10' : 'border-gray-100 dark:border-white/10 bg-gray-50 dark:bg-white/5'}`}>
                       <span>{o.emoji}</span>
-                      <span className="text-sm font-semibold text-[#0A1A2F]">{o.label}</span>
+                      <span className="text-sm font-semibold text-[#0A1A2F] dark:text-white dark:text-white">{o.label}</span>
                       {form.bible_level === o.id && <Check className="w-4 h-4 text-[#C9A227] ml-auto" />}
                     </button>
                   ))}
@@ -354,7 +354,7 @@ export default function BibleGoalsPage() {
                 <div className="flex flex-wrap gap-2">
                   {TRANSLATIONS_LIST.map(t => (
                     <button key={t} onClick={() => setForm(f => ({ ...f, bible_translation: t }))}
-                      className={`px-3 py-1.5 rounded-xl text-xs font-bold border-2 transition-all ${form.bible_translation === t ? 'border-[#C9A227] bg-[#FAD98D]/20 text-[#C9A227]' : 'border-gray-100 text-gray-600 bg-gray-50'}`}>
+                      className={`px-3 py-1.5 rounded-xl text-xs font-bold border-2 transition-all ${form.bible_translation === t ? 'border-[#C9A227] bg-[#FAD98D]/20 text-[#C9A227]' : 'border-gray-100 dark:border-white/10 text-gray-600 bg-gray-50 dark:bg-white/5'}`}>
                       {t === 'any' ? 'No preference' : t}
                     </button>
                   ))}
@@ -367,7 +367,7 @@ export default function BibleGoalsPage() {
                 <div className="flex flex-wrap gap-2">
                   {TOPICS_LIST.map(o => (
                     <button key={o.id} onClick={() => toggleTopic(o.id)}
-                      className={`px-3 py-1.5 rounded-xl text-xs font-bold border-2 transition-all ${form.bible_topics.includes(o.id) ? 'border-[#C9A227] bg-[#FAD98D]/20 text-[#C9A227]' : 'border-gray-100 text-gray-600 bg-gray-50'}`}>
+                      className={`px-3 py-1.5 rounded-xl text-xs font-bold border-2 transition-all ${form.bible_topics.includes(o.id) ? 'border-[#C9A227] bg-[#FAD98D]/20 text-[#C9A227]' : 'border-gray-100 dark:border-white/10 text-gray-600 bg-gray-50 dark:bg-white/5'}`}>
                       {o.label}
                     </button>
                   ))}
@@ -380,8 +380,8 @@ export default function BibleGoalsPage() {
                 <div className="space-y-2">
                   {DEPTHS_LIST.map(o => (
                     <button key={o.id} onClick={() => setForm(f => ({ ...f, devotional_depth: o.id }))}
-                      className={`w-full text-left px-4 py-2.5 rounded-2xl border-2 flex items-center gap-3 transition-all ${form.devotional_depth === o.id ? 'border-[#C9A227] bg-[#FAD98D]/10' : 'border-gray-100 bg-gray-50'}`}>
-                      <span className="text-sm font-semibold text-[#0A1A2F] flex-1">{o.label}</span>
+                      className={`w-full text-left px-4 py-2.5 rounded-2xl border-2 flex items-center gap-3 transition-all ${form.devotional_depth === o.id ? 'border-[#C9A227] bg-[#FAD98D]/10' : 'border-gray-100 dark:border-white/10 bg-gray-50 dark:bg-white/5'}`}>
+                      <span className="text-sm font-semibold text-[#0A1A2F] dark:text-white flex-1">{o.label}</span>
                       {form.devotional_depth === o.id && <Check className="w-4 h-4 text-[#C9A227]" />}
                     </button>
                   ))}
@@ -394,7 +394,7 @@ export default function BibleGoalsPage() {
                 <div className="flex flex-wrap gap-2">
                   {CHURCH_LIST.map(o => (
                     <button key={o.id} onClick={() => setForm(f => ({ ...f, in_church: o.id }))}
-                      className={`px-3 py-1.5 rounded-xl text-xs font-bold border-2 transition-all ${form.in_church === o.id ? 'border-[#C9A227] bg-[#FAD98D]/20 text-[#C9A227]' : 'border-gray-100 text-gray-600 bg-gray-50'}`}>
+                      className={`px-3 py-1.5 rounded-xl text-xs font-bold border-2 transition-all ${form.in_church === o.id ? 'border-[#C9A227] bg-[#FAD98D]/20 text-[#C9A227]' : 'border-gray-100 dark:border-white/10 text-gray-600 bg-gray-50 dark:bg-white/5'}`}>
                       {o.label}
                     </button>
                   ))}
@@ -412,17 +412,17 @@ export default function BibleGoalsPage() {
 
         {/* ── Translation ── */}
         <motion.div id="tour-bible-translation" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.06 }}
-          className="bg-white rounded-3xl p-5 shadow-sm">
+          className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#FAD98D]/20">
                 <BookOpen className="w-4 h-4 text-[#C9A227]" />
               </div>
-              <p className="font-bold text-[#0A1A2F] text-sm">Preferred Translation</p>
+              <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">Preferred Translation</p>
             </div>
             <button onClick={() => setShowTranslationInfo(v => !v)}
               className="w-7 h-7 rounded-full bg-gray-100 flex items-center justify-center">
-              <Info className="w-3.5 h-3.5 text-[#0A1A2F]/40" />
+              <Info className="w-3.5 h-3.5 text-[#0A1A2F]/40 dark:text-white/40" />
             </button>
           </div>
           <div className="flex items-center gap-3">
@@ -430,17 +430,17 @@ export default function BibleGoalsPage() {
               <p className="text-2xl font-black text-[#C9A227]">{translation === 'any' ? '✦' : translation}</p>
             </div>
             <div>
-              <p className="font-bold text-[#0A1A2F] text-sm">{transInfo.name}</p>
+              <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">{transInfo.name}</p>
               <AnimatePresence>
                 {showTranslationInfo && (
                   <motion.p initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }}
-                    className="text-[11px] text-[#0A1A2F]/50 mt-1 leading-relaxed overflow-hidden">
+                    className="text-[11px] text-[#0A1A2F]/50 dark:text-white/50 mt-1 leading-relaxed overflow-hidden">
                     {transInfo.style}
                   </motion.p>
                 )}
               </AnimatePresence>
               {!showTranslationInfo && (
-                <p className="text-[11px] text-[#0A1A2F]/40 mt-0.5 line-clamp-1">{transInfo.style}</p>
+                <p className="text-[11px] text-[#0A1A2F]/40 dark:text-white/40 mt-0.5 line-clamp-1">{transInfo.style}</p>
               )}
             </div>
           </div>
@@ -449,12 +449,12 @@ export default function BibleGoalsPage() {
         {/* ── Topics of interest ── */}
         {topics.length > 0 && (
           <motion.div id="tour-bible-topics" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.10 }}
-            className="bg-white rounded-3xl p-5 shadow-sm">
+            className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm">
             <div className="flex items-center gap-2 mb-4">
               <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#FAD98D]/20">
                 <Heart className="w-4 h-4 text-[#C9A227]" />
               </div>
-              <p className="font-bold text-[#0A1A2F] text-sm">Topics That Matter to You</p>
+              <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">Topics That Matter to You</p>
             </div>
             <div className="grid grid-cols-2 gap-2">
               {topics.map((t, i) => {
@@ -464,7 +464,7 @@ export default function BibleGoalsPage() {
                   <motion.div key={t} initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.12 + i * 0.04 }}
                     className="flex items-center gap-2.5 bg-[#FAD98D]/10 border border-[#FAD98D]/25 rounded-xl px-3 py-2.5">
                     <span className="text-base">{info.emoji}</span>
-                    <span className="text-xs font-bold text-[#0A1A2F]">{info.label}</span>
+                    <span className="text-xs font-bold text-[#0A1A2F] dark:text-white dark:text-white">{info.label}</span>
                   </motion.div>
                 );
               })}
@@ -488,22 +488,22 @@ export default function BibleGoalsPage() {
 
         {/* ── Devotional depth ── */}
         <motion.div id="tour-devotional-depth" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.18 }}
-          className="bg-white rounded-3xl p-5 shadow-sm">
+          className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm">
           <div className="flex items-center gap-2 mb-3">
             <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#FAD98D]/20">
               <Clock className="w-4 h-4 text-[#C9A227]" />
             </div>
-            <p className="font-bold text-[#0A1A2F] text-sm">Devotional Depth</p>
+            <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">Devotional Depth</p>
           </div>
           <div className="flex items-center gap-4 bg-[#FAD98D]/10 rounded-2xl px-4 py-3">
             <span className="text-3xl">{depthInfo.emoji}</span>
             <div>
-              <p className="font-bold text-[#0A1A2F] text-sm">{depthInfo.label}</p>
+              <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">{depthInfo.label}</p>
               <p className="text-[#C9A227] text-xs font-semibold mt-0.5">{depthInfo.time}</p>
-              <p className="text-[11px] text-[#0A1A2F]/50 mt-1 leading-snug">{depthInfo.desc}</p>
+              <p className="text-[11px] text-[#0A1A2F]/50 dark:text-white/50 mt-1 leading-snug">{depthInfo.desc}</p>
             </div>
           </div>
-          <p className="text-[11px] text-[#0A1A2F]/35 mt-3">
+          <p className="text-[11px] text-[#0A1A2F]/35 dark:text-white/35 mt-3">
             Gideon tailors devotional responses and scripture explanations to this depth level.
           </p>
         </motion.div>
@@ -511,12 +511,12 @@ export default function BibleGoalsPage() {
         {/* ── Reading plans recommended by topics ── */}
         {recommendedPlans.length > 0 && (
           <motion.div id="tour-topic-plans" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.22 }}
-            className="bg-white rounded-3xl p-5 shadow-sm">
+            className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm">
             <div className="flex items-center gap-2 mb-4">
               <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#FAD98D]/20">
                 <BookMarked className="w-4 h-4 text-[#C9A227]" />
               </div>
-              <p className="font-bold text-[#0A1A2F] text-sm">Plans for Your Topics</p>
+              <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">Plans for Your Topics</p>
             </div>
             <div className="space-y-2">
               {recommendedPlans.map((p, i) => <PlanCard key={p.id} plan={p} delay={0.24 + i * 0.04} />)}
@@ -526,14 +526,14 @@ export default function BibleGoalsPage() {
 
         {/* ── Where to start based on experience ── */}
         <motion.div id="tour-level-plans" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.28 }}
-          className="bg-white rounded-3xl p-5 shadow-sm">
+          className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm">
           <div className="flex items-center gap-2 mb-4">
             <div className="w-8 h-8 rounded-xl flex items-center justify-center" style={{ background: `${levelInfo.color}20` }}>
               <Compass className="w-4 h-4" style={{ color: levelInfo.color }} />
             </div>
             <div>
-              <p className="font-bold text-[#0A1A2F] text-sm">Where to Start</p>
-              <p className="text-[10px] text-[#0A1A2F]/40">Matched to your {levelInfo.label} level</p>
+              <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">Where to Start</p>
+              <p className="text-[10px] text-[#0A1A2F]/40 dark:text-white/40">Matched to your {levelInfo.label} level</p>
             </div>
           </div>
           <div className="space-y-2">
@@ -543,20 +543,20 @@ export default function BibleGoalsPage() {
 
         {/* ── Study tips ── */}
         <motion.div id="tour-bible-tips" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.32 }}
-          className="bg-white rounded-3xl p-5 shadow-sm">
+          className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm">
           <div className="flex items-center gap-2 mb-4">
             <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#FAD98D]/20">
               <Sparkles className="w-4 h-4 text-[#C9A227]" />
             </div>
-            <p className="font-bold text-[#0A1A2F] text-sm">Study Tips for You</p>
-            <span className="ml-auto text-[10px] text-[#0A1A2F]/35 font-semibold">{levelInfo.label}</span>
+            <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">Study Tips for You</p>
+            <span className="ml-auto text-[10px] text-[#0A1A2F]/35 dark:text-white/35 font-semibold">{levelInfo.label}</span>
           </div>
           <div className="space-y-2.5">
             {levelTips.map((tip, i) => (
               <motion.div key={i} initial={{ opacity: 0, x: -6 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.34 + i * 0.05 }}
                 className="flex items-start gap-3 bg-[#FAD98D]/08 rounded-xl px-3.5 py-2.5">
                 <CheckCircle className="w-4 h-4 text-[#C9A227] flex-shrink-0 mt-0.5" />
-                <p className="text-xs text-[#0A1A2F]/70 leading-relaxed">{tip}</p>
+                <p className="text-xs text-[#0A1A2F]/70 dark:text-white/70 leading-relaxed">{tip}</p>
               </motion.div>
             ))}
           </div>
@@ -564,18 +564,18 @@ export default function BibleGoalsPage() {
 
         {/* ── Church community ── */}
         <motion.div id="tour-church-community" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.36 }}
-          className="bg-white rounded-3xl px-5 py-4 shadow-sm">
+          className="bg-white dark:bg-white/5 rounded-3xl px-5 py-4 shadow-sm">
           <div className="flex items-center gap-2 mb-3">
             <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#FAD98D]/20">
               <Users className="w-4 h-4 text-[#C9A227]" />
             </div>
-            <p className="font-bold text-[#0A1A2F] text-sm">Church Community</p>
+            <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">Church Community</p>
           </div>
           <div className="flex items-center gap-4 bg-[#F8FAFB] rounded-2xl px-4 py-3">
             <span className="text-2xl">{churchInfo.emoji}</span>
             <div>
-              <p className="font-bold text-[#0A1A2F] text-sm">{churchInfo.label}</p>
-              <p className="text-[11px] text-[#0A1A2F]/45 mt-0.5">{churchInfo.desc}</p>
+              <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">{churchInfo.label}</p>
+              <p className="text-[11px] text-[#0A1A2F]/45 dark:text-white/45 mt-0.5">{churchInfo.desc}</p>
             </div>
           </div>
           {church === 'looking' && (
@@ -602,7 +602,7 @@ export default function BibleGoalsPage() {
 
         {/* ── Quick links ── */}
         <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.44 }}>
-          <p className="text-[10px] font-bold text-[#0A1A2F]/35 uppercase tracking-widest mb-2.5">Related Tools</p>
+          <p className="text-[10px] font-bold text-[#0A1A2F]/35 dark:text-white/35 uppercase tracking-widest mb-2.5">Related Tools</p>
           <div className="grid grid-cols-2 gap-2.5">
             {[
               { icon: '📖', label: 'Bible Reader',      page: 'Bible'                      },
@@ -611,9 +611,9 @@ export default function BibleGoalsPage() {
               { icon: '💬', label: 'Chat w/ Gideon',   page: 'ChatScreen?bot=Gideon'      },
             ].map(({ icon, label, page }) => (
               <Link key={label} to={createPageUrl(page)}
-                className="flex items-center gap-2.5 bg-white rounded-2xl p-3.5 shadow-sm border border-gray-50 active:scale-97 transition-all">
+                className="flex items-center gap-2.5 bg-white dark:bg-white/5 rounded-2xl p-3.5 shadow-sm border border-gray-50 dark:border-white/5 active:scale-97 transition-all">
                 <span className="text-xl">{icon}</span>
-                <span className="text-xs font-bold text-[#0A1A2F] leading-tight">{label}</span>
+                <span className="text-xs font-bold text-[#0A1A2F] dark:text-white leading-tight">{label}</span>
               </Link>
             ))}
           </div>

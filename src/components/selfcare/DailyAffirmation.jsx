@@ -40,7 +40,7 @@ export default function DailyAffirmation() {
       className="mb-8"
     >
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-xl font-bold text-[#0A1A2F] flex items-center gap-2">
+        <h2 className="text-xl font-bold text-[#0A1A2F] dark:text-white flex items-center gap-2">
           <Sparkles className="w-5 h-5 text-[#FAD98D]" />
           Daily Affirmation
         </h2>
@@ -52,7 +52,7 @@ export default function DailyAffirmation() {
           animate={{ opacity: 1 }}
           className="text-center"
         >
-          <p className="text-[#0A1A2F] text-lg font-serif italic mb-3">
+          <p className="text-[#0A1A2F] dark:text-white text-lg font-serif italic mb-3">
             "{todaysAffirmation.text}"
           </p>
           <p className="text-[#FAD98D] text-sm font-semibold mb-4">
@@ -63,19 +63,19 @@ export default function DailyAffirmation() {
             variant="ghost"
             size="sm"
             onClick={toggleFavorite}
-            className="text-[#0A1A2F] hover:bg-[#F2F6FA]"
+            className="text-[#0A1A2F] dark:text-white hover:bg-[#F2F6FA] dark:bg-[#0A1A2F]"
           >
             <Heart
               className={`w-5 h-5 ${
                 favorites.includes(affirmationIndex)
                   ? 'fill-[#FAD98D] text-[#FAD98D]'
-                  : 'text-[#0A1A2F]/40'
+                  : 'text-[#0A1A2F]/40 dark:text-white/40'
               }`}
             />
           </Button>
         </motion.div>
 
-        <p className="text-center text-xs text-[#0A1A2F]/50 mt-4">
+        <p className="text-center text-xs text-[#0A1A2F]/50 dark:text-white/50 mt-4">
           New affirmation daily
         </p>
       </div>

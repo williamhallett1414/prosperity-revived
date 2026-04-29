@@ -456,7 +456,7 @@ Example: [VERSE]Romans 8:28 - "And we know that all things work together for goo
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.9, opacity: 0 }}
             onClick={(e) => e.stopPropagation()}
-            className="bg-white rounded-2xl shadow-2xl w-[95%] max-w-2xl h-[85vh] flex flex-col overflow-hidden">
+            className="bg-white dark:bg-white/5 rounded-2xl shadow-2xl w-[95%] max-w-2xl h-[85vh] flex flex-col overflow-hidden">
 
               {/* Header */}
               <div className="bg-gradient-to-r from-[#0A1A2F] to-[#c9a227] p-5">
@@ -503,7 +503,7 @@ Example: [VERSE]Romans 8:28 - "And we know that all things work together for goo
               {conversation.length === 0 &&
             <div className="p-6 text-center space-y-4">
                   <div className="text-6xl">📖</div>
-                  <h3 className="text-2xl font-bold text-[#0A1A2F]">
+                  <h3 className="text-2xl font-bold text-[#0A1A2F] dark:text-white dark:text-white">
                     Ask Me Anything About Scripture
                   </h3>
                   {memoryContext && memoryContext.total_conversation_count > 0 && (
@@ -612,7 +612,7 @@ Example: [VERSE]Romans 8:28 - "And we know that all things work together for goo
                                 ) : (
                                   <ReactMarkdown 
                                     key={idx}
-                                    className="prose prose-sm max-w-none prose-p:my-1.5 prose-li:my-0.5 prose-headings:font-semibold text-[#0A1A2F] text-sm leading-relaxed"
+                                    className="prose prose-sm max-w-none prose-p:my-1.5 prose-li:my-0.5 prose-headings:font-semibold text-[#0A1A2F] dark:text-white text-sm leading-relaxed"
                                     components={{
                                       h1: ({node, ...props}) => <h1 className="font-bold mt-6 mb-3" {...props} />,
                                       h2: ({node, ...props}) => <h2 className="font-bold mt-5 mb-3" {...props} />,
@@ -643,7 +643,7 @@ Example: [VERSE]Romans 8:28 - "And we know that all things work together for goo
                     <div className="bg-[#FAD98D]/12 rounded-2xl px-4 py-3">
                       <div className="flex items-center gap-2">
                         <Loader2 className="w-4 h-4 animate-spin text-[#c9a227]" />
-                        <span className="text-sm text-[#0A1A2F]/50">Gideon is thinking...</span>
+                        <span className="text-sm text-[#0A1A2F]/50 dark:text-white/50">Gideon is thinking...</span>
                       </div>
                     </div>
                   </motion.div>
@@ -652,7 +652,7 @@ Example: [VERSE]Romans 8:28 - "And we know that all things work together for goo
               </div>
 
               {/* Input */}
-              <div className="p-4 border-t border-[#FAD98D]/20 bg-white">
+              <div className="p-4 border-t border-[#FAD98D]/20 bg-white dark:bg-white/5">
                 <div className="flex gap-2 items-center">
                   <Input
                   placeholder="Ask about any scripture, verse, or topic..."
@@ -681,7 +681,7 @@ Example: [VERSE]Romans 8:28 - "And we know that all things work together for goo
                     {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
                   </Button>
                 </div>
-                <p className="text-xs text-[#0A1A2F]/50 mt-2 text-center">
+                <p className="text-xs text-[#0A1A2F]/50 dark:text-white/50 mt-2 text-center">
                   Press Enter to send • Type "Deep Study Mode" for comprehensive chapter/passage studies
                 </p>
               </div>

@@ -9,7 +9,7 @@ export default function MeditationCard({ meditation, onPlay, onBookmark, isBookm
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.05 }}
-      className="bg-white rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow"
+      className="bg-white dark:bg-white/5 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow"
     >
       <div className="flex gap-3">
         {/* Thumbnail */}
@@ -21,13 +21,13 @@ export default function MeditationCard({ meditation, onPlay, onBookmark, isBookm
 
         {/* Content */}
         <div className="flex-1 min-w-0">
-          <h3 className="font-semibold text-[#0A1A2F] truncate">{meditation.title}</h3>
-          <p className="text-xs text-[#0A1A2F]/60 line-clamp-2 mb-2">{meditation.description}</p>
+          <h3 className="font-semibold text-[#0A1A2F] dark:text-white truncate">{meditation.title}</h3>
+          <p className="text-xs text-[#0A1A2F]/60 dark:text-white/60 line-clamp-2 mb-2">{meditation.description}</p>
           
           <div className="flex items-center gap-2 mb-2">
             <Clock className="w-3 h-3 text-[#FAD98D]" />
-            <span className="text-xs text-[#0A1A2F]/60">{meditation.duration_minutes}m</span>
-            <span className="text-xs bg-gray-100 text-[#0A1A2F]/70 px-2 py-0.5 rounded-full">
+            <span className="text-xs text-[#0A1A2F]/60 dark:text-white/60">{meditation.duration_minutes}m</span>
+            <span className="text-xs bg-gray-100 text-[#0A1A2F]/70 dark:text-white/70 px-2 py-0.5 rounded-full">
               {meditation.category}
             </span>
           </div>
@@ -39,7 +39,7 @@ export default function MeditationCard({ meditation, onPlay, onBookmark, isBookm
             size="sm"
             onClick={() => onPlay(meditation)}
             disabled={!meditation.tts_audio_url}
-            className="bg-gradient-to-r from-[#FAD98D] to-[#AFC7E3] hover:from-[#FAD98D]/90 hover:to-[#AFC7E3]/90 text-[#0A1A2F] h-8 w-8 p-0"
+            className="bg-gradient-to-r from-[#FAD98D] to-[#AFC7E3] hover:from-[#FAD98D]/90 hover:to-[#AFC7E3]/90 text-[#0A1A2F] dark:text-white h-8 w-8 p-0"
           >
             <Play className="w-4 h-4" />
           </Button>
@@ -47,7 +47,7 @@ export default function MeditationCard({ meditation, onPlay, onBookmark, isBookm
             size="sm"
             variant="ghost"
             onClick={() => onBookmark(meditation)}
-            className={`h-8 w-8 p-0 ${isBookmarked ? 'text-[#FAD98D]' : 'text-[#0A1A2F]/40'}`}
+            className={`h-8 w-8 p-0 ${isBookmarked ? 'text-[#FAD98D]' : 'text-[#0A1A2F]/40 dark:text-white/40'}`}
           >
             <Bookmark className="w-4 h-4" fill={isBookmarked ? 'currentColor' : 'none'} />
           </Button>

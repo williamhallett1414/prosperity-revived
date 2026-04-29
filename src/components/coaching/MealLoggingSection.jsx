@@ -88,7 +88,7 @@ export default function MealLoggingSection({ nutritionPlan, mealLogs, onMealLogg
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: idx * 0.05 }}
-              className="bg-white rounded-xl border border-[#3C4E53]/30/12 p-3 hover:border-[#3C4E53]/30/25 transition-colors"
+              className="bg-white dark:bg-white/5 rounded-xl border border-[#3C4E53]/30/12 p-3 hover:border-[#3C4E53]/30/25 transition-colors"
             >
               <div className="flex items-start gap-3">
                 <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-[#FD9C2D] to-[#E89020] flex items-center justify-center text-lg flex-shrink-0">
@@ -96,8 +96,8 @@ export default function MealLoggingSection({ nutritionPlan, mealLogs, onMealLogg
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-1">
-                    <p className="font-bold text-[#0A1A2F] text-sm">{meal.label}</p>
-                    <span className="text-[10px] text-[#0A1A2F]/40">{meal.time}</span>
+                    <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">{meal.label}</p>
+                    <span className="text-[10px] text-[#0A1A2F]/40 dark:text-white/40">{meal.time}</span>
                   </div>
                   {suggestion && (
                     <p className="text-xs text-[#0A1A2F]/65 leading-relaxed">{suggestion}</p>
@@ -140,7 +140,7 @@ export default function MealLoggingSection({ nutritionPlan, mealLogs, onMealLogg
 
           <form onSubmit={handleLogMeal} className="space-y-4">
             <div>
-              <label className="text-xs font-bold text-[#0A1A2F] block mb-2">
+              <label className="text-xs font-bold text-[#0A1A2F] dark:text-white block mb-2">
                 What did you eat?
               </label>
               <Textarea
@@ -153,7 +153,7 @@ export default function MealLoggingSection({ nutritionPlan, mealLogs, onMealLogg
 
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="text-xs font-bold text-[#0A1A2F] block mb-2">
+                <label className="text-xs font-bold text-[#0A1A2F] dark:text-white block mb-2">
                   Calories (optional)
                 </label>
                 <Input
@@ -166,7 +166,7 @@ export default function MealLoggingSection({ nutritionPlan, mealLogs, onMealLogg
             </div>
 
             <div>
-              <label className="text-xs font-bold text-[#0A1A2F] block mb-2">
+              <label className="text-xs font-bold text-[#0A1A2F] dark:text-white block mb-2">
                 Notes (optional)
               </label>
               <Textarea

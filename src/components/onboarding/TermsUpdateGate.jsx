@@ -84,14 +84,14 @@ function DisclosureScroll({ onReady }) {
                 ? 'bg-red-50 border border-red-200'
                 : d.warning
                 ? 'bg-amber-50 border border-amber-200'
-                : 'bg-[#F2F6FA] border border-gray-200'
+                : 'bg-[#F2F6FA] dark:bg-[#0A1A2F] border border-gray-200 dark:border-white/10'
             }`}
           >
             <div className="flex items-start gap-2.5">
               <span className="text-lg flex-shrink-0 mt-0.5">{d.icon}</span>
               <div>
                 <p className={`text-xs font-bold mb-1 ${
-                  d.emergency ? 'text-red-700' : d.warning ? 'text-amber-700' : 'text-[#0A1A2F]'
+                  d.emergency ? 'text-red-700' : d.warning ? 'text-amber-700' : 'text-[#0A1A2F] dark:text-white dark:text-white'
                 }`}>{d.heading}</p>
                 <p className={`text-xs leading-relaxed ${
                   d.emergency ? 'text-red-800' : d.warning ? 'text-amber-800' : 'text-gray-600'
@@ -146,7 +146,7 @@ export default function TermsUpdateGate({ user, onAccepted }) {
         initial={{ y: 60, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ type: 'spring', damping: 28, stiffness: 260, delay: 0.05 }}
-        className="w-full max-w-lg bg-white rounded-t-3xl sm:rounded-3xl overflow-hidden shadow-2xl"
+        className="w-full max-w-lg bg-white dark:bg-white/5 rounded-t-3xl sm:rounded-3xl overflow-hidden shadow-2xl"
         style={{ maxHeight: '94vh' }}
       >
         {/* Header */}
@@ -175,7 +175,7 @@ export default function TermsUpdateGate({ user, onAccepted }) {
         <DisclosureScroll onReady={() => setScrollReady(true)} />
 
         {/* Accept area */}
-        <div className="px-5 pb-6 pt-3 border-t border-gray-100 space-y-3">
+        <div className="px-5 pb-6 pt-3 border-t border-gray-100 dark:border-white/10 space-y-3">
           {scrollReady && !accepted && (
             <motion.div
               initial={{ opacity: 0, y: 6 }}

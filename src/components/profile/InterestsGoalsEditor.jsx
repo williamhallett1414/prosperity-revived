@@ -132,7 +132,7 @@ export default function InterestsGoalsEditor({ user }) {
           <Card key={section.key} className={`p-4 ${colors.bg} ${colors.border}`}>
             <div className="flex items-center gap-2 mb-4">
               <Icon className={`w-5 h-5 ${colors.icon}`} />
-              <h3 className="font-semibold text-[#0A1A2F]">{section.title}</h3>
+              <h3 className="font-semibold text-[#0A1A2F] dark:text-white dark:text-white">{section.title}</h3>
             </div>
 
             {/* Interests */}
@@ -194,7 +194,7 @@ export default function InterestsGoalsEditor({ user }) {
 
               <div className="flex flex-wrap gap-2">
                 {interests.length === 0 && (
-                  <p className="text-sm text-[#0A1A2F]/60 italic">
+                  <p className="text-sm text-[#0A1A2F]/60 dark:text-white/60 italic">
                     No interests added yet
                   </p>
                 )}
@@ -272,7 +272,7 @@ export default function InterestsGoalsEditor({ user }) {
 
               <div className="flex flex-wrap gap-2">
                 {goals.length === 0 && (
-                  <p className="text-sm text-[#0A1A2F]/60 italic">
+                  <p className="text-sm text-[#0A1A2F]/60 dark:text-white/60 italic">
                     No goals added yet
                   </p>
                 )}

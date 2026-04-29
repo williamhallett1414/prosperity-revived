@@ -14,7 +14,7 @@ export default function GratitudeAIPrompt({ prompt, loading, onRefresh }) {
           <div className="w-7 h-7 bg-gradient-to-br from-[#FD9C2D] to-[#FAD98D] rounded-full flex items-center justify-center">
             <Sparkles className="w-3.5 h-3.5 text-white" />
           </div>
-          <span className="text-sm font-semibold text-[#0A1A2F]">AI Reflection Prompt</span>
+          <span className="text-sm font-semibold text-[#0A1A2F] dark:text-white dark:text-white">AI Reflection Prompt</span>
         </div>
         <button
           onClick={onRefresh}

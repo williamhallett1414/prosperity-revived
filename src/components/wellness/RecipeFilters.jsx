@@ -34,7 +34,7 @@ function ChipRow({ options, value, onChange }) {
           className={`px-3 py-1.5 rounded-full text-xs font-semibold border flex-shrink-0 transition-colors ${
             value === opt.value
               ? 'bg-[#0A1A2F] text-white border-[#0A1A2F]'
-              : 'bg-white text-[#0A1A2F]/50 border-[#FAD98D]/30 hover:border-[#c9a227]/40'
+              : 'bg-white dark:bg-white/5 text-[#0A1A2F]/50 dark:text-white/50 border-[#FAD98D]/30 hover:border-[#c9a227]/40'
           }`}>
           {opt.label}
         </button>
@@ -51,16 +51,16 @@ export default function RecipeFilters({ filters, onFilterChange }) {
     <div className="space-y-3">
       {/* Search */}
       <div className="relative">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#0A1A2F]/30" />
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#0A1A2F]/30 dark:text-white/30" />
         <input
           placeholder="Search recipes or ingredients…"
           value={filters.search}
           onChange={e => onFilterChange({ ...filters, search: e.target.value })}
-          className="w-full pl-9 pr-9 py-2.5 rounded-xl bg-white border border-[#FAD98D]/25 text-sm text-[#0A1A2F] placeholder-[#0A1A2F]/35 focus:outline-none focus:border-[#c9a227]/50"
+          className="w-full pl-9 pr-9 py-2.5 rounded-xl bg-white dark:bg-white/5 border border-[#FAD98D]/25 text-sm text-[#0A1A2F] dark:text-white placeholder-[#0A1A2F]/35 focus:outline-none focus:border-[#c9a227]/50"
         />
         {filters.search && (
           <button onClick={() => onFilterChange({ ...filters, search: '' })}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-[#0A1A2F]/30 hover:text-[#0A1A2F]/60">
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-[#0A1A2F]/30 dark:text-white/30 hover:text-[#0A1A2F]/60 dark:text-white/60">
             <X className="w-3.5 h-3.5" />
           </button>
         )}

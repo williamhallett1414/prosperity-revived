@@ -118,8 +118,8 @@ export default function CoachingSection() {
             <Star className="w-5 h-5 text-white" />
           </div>
           <div>
-            <h2 className="text-lg font-bold text-[#0A1A2F]">Coaching Plan</h2>
-            <p className="text-xs text-[#0A1A2F]/50">Prosperity Revived · 8 Weeks</p>
+            <h2 className="text-lg font-bold text-[#0A1A2F] dark:text-white dark:text-white">Coaching Plan</h2>
+            <p className="text-xs text-[#0A1A2F]/50 dark:text-white/50">Prosperity Revived · 8 Weeks</p>
           </div>
         </div>
         <button
@@ -131,23 +131,23 @@ export default function CoachingSection() {
       </div>
 
       {/* Progress card */}
-      <div className="bg-white rounded-2xl p-4 border border-[#FAD98D]/25 shadow-sm mb-4">
+      <div className="bg-white dark:bg-white/5 rounded-2xl p-4 border border-[#FAD98D]/25 shadow-sm mb-4">
         <div className="flex items-center justify-between mb-2">
           <div>
-            <p className="text-sm font-bold text-[#0A1A2F]">
+            <p className="text-sm font-bold text-[#0A1A2F] dark:text-white dark:text-white">
               Week {weekInfo.week}:{' '}
               <span className="text-[#c9a227]">{weekInfo.theme}</span>
             </p>
-            <p className="text-xs text-[#0A1A2F]/50 mt-0.5">{weekInfo.subtitle}</p>
+            <p className="text-xs text-[#0A1A2F]/50 dark:text-white/50 mt-0.5">{weekInfo.subtitle}</p>
           </div>
           <div className="text-right">
-            <p className="text-2xl font-bold text-[#0A1A2F]">
-              {overallPct}<span className="text-sm font-normal text-[#0A1A2F]/40">%</span>
+            <p className="text-2xl font-bold text-[#0A1A2F] dark:text-white dark:text-white">
+              {overallPct}<span className="text-sm font-normal text-[#0A1A2F]/40 dark:text-white/40">%</span>
             </p>
-            <p className="text-[10px] text-[#0A1A2F]/40">complete</p>
+            <p className="text-[10px] text-[#0A1A2F]/40 dark:text-white/40">complete</p>
           </div>
         </div>
-        <div className="h-2 bg-[#F2F6FA] rounded-full overflow-hidden">
+        <div className="h-2 bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-full overflow-hidden">
           <motion.div
             className="h-full rounded-full bg-gradient-to-r from-[#c9a227] to-[#FAD98D]"
             initial={{ width: 0 }}
@@ -156,8 +156,8 @@ export default function CoachingSection() {
           />
         </div>
         <div className="flex justify-between mt-1.5">
-          <span className="text-[10px] text-[#0A1A2F]/35">Day {completedDays}/56</span>
-          <span className="text-[10px] text-[#0A1A2F]/35">{56 - completedDays} days remaining</span>
+          <span className="text-[10px] text-[#0A1A2F]/35 dark:text-white/35">Day {completedDays}/56</span>
+          <span className="text-[10px] text-[#0A1A2F]/35 dark:text-white/35">{56 - completedDays} days remaining</span>
         </div>
       </div>
 
@@ -219,8 +219,8 @@ export default function CoachingSection() {
       </div>
 
       {/* This Week grid */}
-      <div className="bg-white rounded-2xl p-4 border border-[#F2F6FA] shadow-sm">
-        <p className="text-[10px] font-bold text-[#0A1A2F]/45 uppercase tracking-wider mb-3">
+      <div className="bg-white dark:bg-white/5 rounded-2xl p-4 border border-[#F2F6FA] shadow-sm">
+        <p className="text-[10px] font-bold text-[#0A1A2F]/45 dark:text-white/45 uppercase tracking-wider mb-3">
           Week {weekInfo.week} — {weekInfo.theme}
         </p>
         <div className="grid grid-cols-7 gap-1.5">
@@ -237,11 +237,11 @@ export default function CoachingSection() {
                 className={'aspect-square rounded-lg flex flex-col items-center justify-center transition-all ' + (
                   done    ? 'bg-[#c9a227] shadow-sm'
                   : isToday ? 'bg-[#c9a227]/15 border-2 border-[#c9a227]/60'
-                  : isPast  ? 'bg-[#F2F6FA]'
-                  :            'bg-[#F2F6FA] opacity-40'
+                  : isPast  ? 'bg-[#F2F6FA] dark:bg-[#0A1A2F]'
+                  :            'bg-[#F2F6FA] dark:bg-[#0A1A2F] opacity-40'
                 )}
               >
-                <span className={'text-[10px] font-bold ' + (done ? 'text-white' : isToday ? 'text-[#c9a227]' : 'text-[#0A1A2F]/40')}>
+                <span className={'text-[10px] font-bold ' + (done ? 'text-white' : isToday ? 'text-[#c9a227]' : 'text-[#0A1A2F]/40 dark:text-white/40')}>
                   {dayNum}
                 </span>
                 {done && <CheckCircle2 className="w-2.5 h-2.5 text-white mt-0.5" />}

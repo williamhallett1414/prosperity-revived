@@ -136,17 +136,17 @@ export default function CouplesMode() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#F2F6FA] pb-28">
+    <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
       {/* Header */}
-      <div className="sticky top-0 z-40 bg-white border-b border-[#FAD98D]/20 px-4 pt-4 pb-3">
+      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 px-4 pt-4 pb-3">
         <div className="max-w-lg mx-auto">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#EC4899] to-[#F472B6] flex items-center justify-center">
               <Heart className="w-5 h-5 text-white" />
             </div>
             <div>
-              <h1 className="text-base font-bold text-[#0A1A2F]">Couples Mode</h1>
-              <p className="text-xs text-[#0A1A2F]/45">Grow closer together</p>
+              <h1 className="text-base font-bold text-[#0A1A2F] dark:text-white dark:text-white">Couples Mode</h1>
+              <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45">Grow closer together</p>
             </div>
           </div>
         </div>
@@ -160,18 +160,18 @@ export default function CouplesMode() {
             {/* Partner linking */}
             {!isLinked && (
               <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
-                className="bg-white rounded-2xl p-5 border border-rose-100 shadow-sm">
+                className="bg-white dark:bg-white/5 rounded-2xl p-5 border border-rose-100 shadow-sm">
                 <div className="flex items-center gap-2 mb-3">
                   <Users className="w-4 h-4 text-rose-500" />
-                  <h3 className="font-bold text-[#0A1A2F] text-sm">Link Your Partner</h3>
+                  <h3 className="font-bold text-[#0A1A2F] dark:text-white text-sm">Link Your Partner</h3>
                 </div>
 
                 {/* Generate code */}
                 <div className="mb-4">
-                  <p className="text-xs text-[#0A1A2F]/50 mb-2">Share your invite code:</p>
+                  <p className="text-xs text-[#0A1A2F]/50 dark:text-white/50 mb-2">Share your invite code:</p>
                   {myCode || inviteCode ? (
                     <div className="flex items-center gap-2">
-                      <div className="flex-1 bg-[#F2F6FA] rounded-xl px-4 py-3 font-mono font-bold text-[#0A1A2F] text-center tracking-widest">
+                      <div className="flex-1 bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-xl px-4 py-3 font-mono font-bold text-[#0A1A2F] dark:text-white text-center tracking-widest">
                         {myCode || inviteCode}
                       </div>
                       <button onClick={() => {
@@ -192,14 +192,14 @@ export default function CouplesMode() {
 
                 {/* Enter partner's code */}
                 <div>
-                  <p className="text-xs text-[#0A1A2F]/50 mb-2">Or enter your partner's code:</p>
+                  <p className="text-xs text-[#0A1A2F]/50 dark:text-white/50 mb-2">Or enter your partner's code:</p>
                   <div className="flex gap-2">
                     <input
                       value={partnerCode}
                       onChange={(e) => setPartnerCode(e.target.value.toUpperCase())}
                       placeholder="PR-XXXXXX"
                       maxLength={9}
-                      className="flex-1 px-4 py-2.5 rounded-xl bg-[#F2F6FA] border border-gray-200 text-sm font-mono tracking-wider text-center focus:outline-none focus:border-rose-300"
+                      className="flex-1 px-4 py-2.5 rounded-xl bg-[#F2F6FA] dark:bg-[#0A1A2F] border border-gray-200 dark:border-white/10 text-sm font-mono tracking-wider text-center focus:outline-none focus:border-rose-300"
                     />
                     <button onClick={() => linkPartner.mutate(partnerCode)}
                       disabled={!partnerCode.trim() || linkPartner.isPending}
@@ -218,10 +218,10 @@ export default function CouplesMode() {
                   <div className="w-1 h-5 bg-rose-400 rounded-full" />
                   <span className="text-[10px] font-bold text-rose-500 uppercase tracking-widest">Today's Verse Together</span>
                 </div>
-                <p className="text-[#0A1A2F] text-sm leading-relaxed italic mb-2" style={{ fontFamily: 'Georgia, serif' }}>
+                <p className="text-[#0A1A2F] dark:text-white text-sm leading-relaxed italic mb-2" style={{ fontFamily: 'Georgia, serif' }}>
                   "{verse.text}"
                 </p>
-                <p className="text-xs text-[#0A1A2F]/50">{verse.book} {verse.chapter}:{verse.verse}</p>
+                <p className="text-xs text-[#0A1A2F]/50 dark:text-white/50">{verse.book} {verse.chapter}:{verse.verse}</p>
                 <p className="text-xs text-rose-400 mt-3 font-semibold">
                   Read this together. Discuss what it means for your relationship.
                 </p>
@@ -230,13 +230,13 @@ export default function CouplesMode() {
 
             {/* Date night suggestion */}
             <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
-              <div className="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm">
-                <p className="text-[10px] font-bold text-[#0A1A2F]/35 uppercase tracking-widest mb-3">Date Night Idea</p>
+              <div className="bg-white dark:bg-white/5 rounded-2xl p-5 border border-gray-100 dark:border-white/10 shadow-sm">
+                <p className="text-[10px] font-bold text-[#0A1A2F]/35 dark:text-white/35 uppercase tracking-widest mb-3">Date Night Idea</p>
                 <div className="flex items-start gap-3">
                   <span className="text-3xl">{todayDate.emoji}</span>
                   <div>
-                    <p className="font-bold text-[#0A1A2F] text-sm">{todayDate.title}</p>
-                    <p className="text-xs text-[#0A1A2F]/55 mt-0.5 leading-relaxed">{todayDate.desc}</p>
+                    <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">{todayDate.title}</p>
+                    <p className="text-xs text-[#0A1A2F]/55 dark:text-white/55 mt-0.5 leading-relaxed">{todayDate.desc}</p>
                   </div>
                 </div>
                 <button
@@ -257,16 +257,16 @@ export default function CouplesMode() {
             {/* Quick links */}
             <div className="grid grid-cols-2 gap-3">
               <button onClick={() => setActiveTab('devotional')}
-                className="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm text-left">
+                className="bg-white dark:bg-white/5 rounded-2xl p-4 border border-gray-100 dark:border-white/10 shadow-sm text-left">
                 <BookOpen className="w-5 h-5 text-rose-400 mb-2" />
-                <p className="font-bold text-[#0A1A2F] text-sm">Devotional</p>
-                <p className="text-xs text-[#0A1A2F]/40">Day {todayDevotional.day}</p>
+                <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">Devotional</p>
+                <p className="text-xs text-[#0A1A2F]/40 dark:text-white/40">Day {todayDevotional.day}</p>
               </button>
               <button onClick={() => setActiveTab('prayer')}
-                className="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm text-left">
+                className="bg-white dark:bg-white/5 rounded-2xl p-4 border border-gray-100 dark:border-white/10 shadow-sm text-left">
                 <MessageCircle className="w-5 h-5 text-rose-400 mb-2" />
-                <p className="font-bold text-[#0A1A2F] text-sm">Prayer Wall</p>
-                <p className="text-xs text-[#0A1A2F]/40">{sharedPrayers.length} prayers</p>
+                <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">Prayer Wall</p>
+                <p className="text-xs text-[#0A1A2F]/40 dark:text-white/40">{sharedPrayers.length} prayers</p>
               </button>
             </div>
           </>
@@ -282,14 +282,14 @@ export default function CouplesMode() {
               <p className="text-white/70 text-sm">{todayDevotional.verse}</p>
             </motion.div>
 
-            <div className="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm space-y-4">
+            <div className="bg-white dark:bg-white/5 rounded-2xl p-5 border border-gray-100 dark:border-white/10 shadow-sm space-y-4">
               <div>
-                <p className="text-xs font-bold text-[#0A1A2F]/35 uppercase tracking-widest mb-2">Discussion Prompt</p>
-                <p className="text-[#0A1A2F] text-sm leading-relaxed">{todayDevotional.prompt}</p>
+                <p className="text-xs font-bold text-[#0A1A2F]/35 dark:text-white/35 uppercase tracking-widest mb-2">Discussion Prompt</p>
+                <p className="text-[#0A1A2F] dark:text-white text-sm leading-relaxed">{todayDevotional.prompt}</p>
               </div>
-              <div className="bg-[#F2F6FA] rounded-xl p-4">
-                <p className="text-xs text-[#0A1A2F]/50 mb-1 font-semibold">How to use this:</p>
-                <p className="text-xs text-[#0A1A2F]/40 leading-relaxed">
+              <div className="bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-xl p-4">
+                <p className="text-xs text-[#0A1A2F]/50 dark:text-white/50 mb-1 font-semibold">How to use this:</p>
+                <p className="text-xs text-[#0A1A2F]/40 dark:text-white/40 leading-relaxed">
                   Read the scripture together. Take turns answering the prompt honestly.
                   Listen without interrupting. End with prayer for each other.
                 </p>
@@ -298,7 +298,7 @@ export default function CouplesMode() {
 
             {/* All 14 days overview */}
             <div>
-              <p className="text-xs font-bold text-[#0A1A2F]/35 uppercase tracking-widest mb-3">14-Day Journey</p>
+              <p className="text-xs font-bold text-[#0A1A2F]/35 dark:text-white/35 uppercase tracking-widest mb-3">14-Day Journey</p>
               <div className="space-y-2">
                 {COUPLES_DEVOTIONALS.map((d, i) => {
                   const isCurrent = d.day === todayDevotional.day;
@@ -306,7 +306,7 @@ export default function CouplesMode() {
                   return (
                     <div key={d.day}
                       className={`flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all ${
-                        isCurrent ? 'bg-rose-50 border border-rose-200' : 'bg-white border border-gray-100'
+                        isCurrent ? 'bg-rose-50 border border-rose-200' : 'bg-white dark:bg-white/5 border border-gray-100 dark:border-white/10'
                       }`}>
                       <div className={`w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 text-xs font-bold ${
                         isPast ? 'bg-green-100 text-green-600' :
@@ -316,8 +316,8 @@ export default function CouplesMode() {
                         {isPast ? <CheckCircle className="w-3.5 h-3.5" /> : d.day}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className={`text-xs font-bold ${isCurrent ? 'text-rose-600' : 'text-[#0A1A2F]'} truncate`}>{d.title}</p>
-                        <p className="text-[10px] text-[#0A1A2F]/35">{d.verse}</p>
+                        <p className={`text-xs font-bold ${isCurrent ? 'text-rose-600' : 'text-[#0A1A2F] dark:text-white dark:text-white'} truncate`}>{d.title}</p>
+                        <p className="text-[10px] text-[#0A1A2F]/35 dark:text-white/35">{d.verse}</p>
                       </div>
                       {isCurrent && <Sparkles className="w-3.5 h-3.5 text-rose-400 flex-shrink-0" />}
                     </div>
@@ -331,8 +331,8 @@ export default function CouplesMode() {
         {/* ══ PRAYER WALL TAB ══ */}
         {activeTab === 'prayer' && (
           <>
-            <div className="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm">
-              <p className="text-xs font-bold text-[#0A1A2F]/35 uppercase tracking-widest mb-3">
+            <div className="bg-white dark:bg-white/5 rounded-2xl p-4 border border-gray-100 dark:border-white/10 shadow-sm">
+              <p className="text-xs font-bold text-[#0A1A2F]/35 dark:text-white/35 uppercase tracking-widest mb-3">
                 <Lock className="w-3 h-3 inline mr-1" />
                 Private Prayer Wall
               </p>
@@ -341,7 +341,7 @@ export default function CouplesMode() {
                 onChange={(e) => setPrayerText(e.target.value)}
                 placeholder="Share a prayer request or praise..."
                 maxLength={500}
-                className="w-full p-3 rounded-xl bg-[#F2F6FA] border border-gray-200 text-sm resize-none focus:outline-none focus:border-rose-300"
+                className="w-full p-3 rounded-xl bg-[#F2F6FA] dark:bg-[#0A1A2F] border border-gray-200 dark:border-white/10 text-sm resize-none focus:outline-none focus:border-rose-300"
                 rows={3}
               />
               <button onClick={() => { if (prayerText.trim()) addPrayer.mutate(prayerText.trim()); }}
@@ -363,9 +363,9 @@ export default function CouplesMode() {
                   <motion.div key={prayer.id || i}
                     initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: i * 0.04 }}
-                    className="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm">
-                    <p className="text-sm text-[#0A1A2F] leading-relaxed">{prayer.content}</p>
-                    <p className="text-[10px] text-[#0A1A2F]/30 mt-2">
+                    className="bg-white dark:bg-white/5 rounded-2xl p-4 border border-gray-100 dark:border-white/10 shadow-sm">
+                    <p className="text-sm text-[#0A1A2F] dark:text-white leading-relaxed">{prayer.content}</p>
+                    <p className="text-[10px] text-[#0A1A2F]/30 dark:text-white/30 mt-2">
                       {new Date(prayer.created_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' })}
                     </p>
                   </motion.div>
@@ -379,12 +379,12 @@ export default function CouplesMode() {
         {activeTab === 'goals' && (
           <>
             <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
-              className="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm">
+              className="bg-white dark:bg-white/5 rounded-2xl p-5 border border-gray-100 dark:border-white/10 shadow-sm">
               <div className="flex items-center gap-2 mb-4">
                 <Target className="w-4 h-4 text-rose-500" />
-                <h3 className="font-bold text-[#0A1A2F]">Joint Goals</h3>
+                <h3 className="font-bold text-[#0A1A2F] dark:text-white dark:text-white">Joint Goals</h3>
               </div>
-              <p className="text-xs text-[#0A1A2F]/50 mb-4">Set goals you'll pursue together as a couple.</p>
+              <p className="text-xs text-[#0A1A2F]/50 dark:text-white/50 mb-4">Set goals you'll pursue together as a couple.</p>
 
               {[
                 { emoji: '📖', label: 'Read through a book of the Bible together', category: 'spiritual' },
@@ -394,9 +394,9 @@ export default function CouplesMode() {
                 { emoji: '📅', label: 'Weekly date night (no phones)', category: 'relationship' },
                 { emoji: '💰', label: 'Save for a shared financial goal', category: 'stewardship' },
               ].map((goal, i) => (
-                <div key={i} className="flex items-center gap-3 py-3 border-b border-gray-50 last:border-0">
+                <div key={i} className="flex items-center gap-3 py-3 border-b border-gray-50 dark:border-white/5 last:border-0">
                   <span className="text-lg">{goal.emoji}</span>
-                  <p className="text-sm text-[#0A1A2F] flex-1">{goal.label}</p>
+                  <p className="text-sm text-[#0A1A2F] dark:text-white flex-1">{goal.label}</p>
                   <button className="px-3 py-1.5 bg-rose-50 text-rose-500 text-[10px] font-bold rounded-full">
                     Start
                   </button>
@@ -406,16 +406,16 @@ export default function CouplesMode() {
 
             {/* Date ideas library */}
             <div>
-              <p className="text-xs font-bold text-[#0A1A2F]/35 uppercase tracking-widest mb-3">Date Night Ideas</p>
+              <p className="text-xs font-bold text-[#0A1A2F]/35 dark:text-white/35 uppercase tracking-widest mb-3">Date Night Ideas</p>
               <div className="grid grid-cols-2 gap-3">
                 {DATE_IDEAS.map((idea, i) => (
                   <motion.div key={i}
                     initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: i * 0.04 }}
-                    className="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm">
+                    className="bg-white dark:bg-white/5 rounded-2xl p-4 border border-gray-100 dark:border-white/10 shadow-sm">
                     <span className="text-2xl block mb-2">{idea.emoji}</span>
-                    <p className="text-xs font-bold text-[#0A1A2F] mb-0.5">{idea.title}</p>
-                    <p className="text-[10px] text-[#0A1A2F]/40 leading-relaxed">{idea.desc}</p>
+                    <p className="text-xs font-bold text-[#0A1A2F] dark:text-white mb-0.5">{idea.title}</p>
+                    <p className="text-[10px] text-[#0A1A2F]/40 dark:text-white/40 leading-relaxed">{idea.desc}</p>
                   </motion.div>
                 ))}
               </div>

@@ -80,20 +80,20 @@ export default function ProactiveCoachingPanel({ user, onSelectTopic, onClose })
       </div>
 
       <div className="space-y-4">
-        <div className="bg-white rounded-lg p-4 border border-[#FAD98D]/30">
+        <div className="bg-white dark:bg-white/5 rounded-lg p-4 border border-[#FAD98D]/30">
           <p className="text-sm leading-relaxed text-gray-800">
             {intervention.suggestion}
           </p>
         </div>
 
         <div className="grid grid-cols-2 gap-2 text-xs">
-          <div className="bg-white p-3 rounded-lg border border-[#FAD98D]/30">
+          <div className="bg-white dark:bg-white/5 p-3 rounded-lg border border-[#FAD98D]/30">
             <p className="text-gray-600">Primary emotion</p>
             <p className="font-semibold text-[#3C4E53] mt-1 capitalize">
               {intervention.emotion}
             </p>
           </div>
-          <div className="bg-white p-3 rounded-lg border border-[#FAD98D]/30">
+          <div className="bg-white dark:bg-white/5 p-3 rounded-lg border border-[#FAD98D]/30">
             <p className="text-gray-600">Trend</p>
             <p className={`font-semibold mt-1 ${
               intervention.trendDirection === 'improving' ? 'text-green-700' :

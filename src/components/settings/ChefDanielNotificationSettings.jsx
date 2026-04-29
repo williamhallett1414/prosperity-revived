@@ -87,13 +87,13 @@ export default function ChefDanielNotificationSettings({ user }) {
         {notificationOptions.map((option) => {
           const Icon = option.icon;
           return (
-            <div key={option.id} className="flex items-start gap-4 p-4 rounded-lg bg-[#F2F6FA] hover:bg-gray-100 transition-colors">
+            <div key={option.id} className="flex items-start gap-4 p-4 rounded-lg bg-[#F2F6FA] dark:bg-[#0A1A2F] hover:bg-gray-100 transition-colors">
               <div className={`mt-1 ${option.color}`}>
                 <Icon className="w-5 h-5" />
               </div>
               <div className="flex-1">
                 <div className="flex items-center justify-between mb-1">
-                  <h4 className="font-semibold text-[#0A1A2F]">{option.title}</h4>
+                  <h4 className="font-semibold text-[#0A1A2F] dark:text-white dark:text-white">{option.title}</h4>
                   <Switch
                     checked={settings[option.id]}
                     onCheckedChange={(checked) => {
@@ -101,14 +101,14 @@ export default function ChefDanielNotificationSettings({ user }) {
                     }}
                   />
                 </div>
-                <p className="text-sm text-[#0A1A2F]/60">{option.description}</p>
+                <p className="text-sm text-[#0A1A2F]/60 dark:text-white/60">{option.description}</p>
               </div>
             </div>
           );
         })}
 
         <div className="pt-4 border-t border-[#F2F6FA]">
-          <p className="text-xs text-[#0A1A2F]/60">
+          <p className="text-xs text-[#0A1A2F]/60 dark:text-white/60">
             💡 Each notification includes a warm greeting, practical cooking tip, and a coaching question to inspire your culinary journey.
           </p>
         </div>

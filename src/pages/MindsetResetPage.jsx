@@ -218,22 +218,22 @@ Write a 3-4 sentence personal coaching response. Affirm their insight, add one s
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-    className="fixed inset-0 z-50 bg-[#F2F6FA] flex flex-col overflow-y-auto">
+    className="fixed inset-0 z-50 bg-[#F2F6FA] dark:bg-[#0A1A2F] flex flex-col overflow-y-auto">
 
       {/* Header */}
-      <div className="flex items-center justify-between px-4 py-3 bg-white border-b border-[#F2F6FA] flex-shrink-0 sticky top-0 z-10">
-        <button onClick={onClose} className="w-9 h-9 rounded-full bg-[#F2F6FA] flex items-center justify-center">
-          <ArrowLeft className="w-4 h-4 text-[#0A1A2F]" />
+      <div className="flex items-center justify-between px-4 py-3 bg-white dark:bg-white/5 border-b border-[#F2F6FA] flex-shrink-0 sticky top-0 z-10">
+        <button onClick={onClose} className="w-9 h-9 rounded-full bg-[#F2F6FA] dark:bg-[#0A1A2F] flex items-center justify-center">
+          <ArrowLeft className="w-4 h-4 text-[#0A1A2F] dark:text-white dark:text-white" />
         </button>
         <div className="text-center">
-          <p className="text-[10px] font-bold uppercase tracking-widest text-[#0A1A2F]/40">Mindset Reset</p>
-          <p className="text-sm font-bold text-[#0A1A2F]">3-Step Reframe</p>
+          <p className="text-[10px] font-bold uppercase tracking-widest text-[#0A1A2F]/40 dark:text-white/40">Mindset Reset</p>
+          <p className="text-sm font-bold text-[#0A1A2F] dark:text-white dark:text-white">3-Step Reframe</p>
         </div>
         {/* Step pills */}
         <div className="flex items-center gap-1">
           {[1, 2, 3].map((n) =>
           <div key={n} className={`w-6 h-1.5 rounded-full transition-all ${
-          step >= n - 1 ? `bg-gradient-to-r ${cat.gradient}` : 'bg-[#F2F6FA]'}`
+          step >= n - 1 ? `bg-gradient-to-r ${cat.gradient}` : 'bg-[#F2F6FA] dark:bg-[#0A1A2F]'}`
           } />
           )}
         </div>
@@ -252,16 +252,16 @@ Write a 3-4 sentence personal coaching response. Affirm their insight, add one s
         {/* Steps 1–3 */}
         {step <= 2 && current &&
         <motion.div key={step} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
-        className="bg-white rounded-2xl border border-[#F2F6FA] p-5">
+        className="bg-white dark:bg-white/5 rounded-2xl border border-[#F2F6FA] p-5">
             <div className="flex items-center gap-2 mb-1">
               <div className="w-6 h-6 rounded-full flex items-center justify-center text-white text-xs font-bold"
             style={{ background: cat.color }}>
                 {current.num}
               </div>
-              <p className="text-[10px] font-bold uppercase tracking-widest text-[#0A1A2F]/40">{current.label}</p>
+              <p className="text-[10px] font-bold uppercase tracking-widest text-[#0A1A2F]/40 dark:text-white/40">{current.label}</p>
             </div>
-            <h2 className="font-bold text-base text-[#0A1A2F] mb-1">{current.heading}</h2>
-            <p className="text-xs text-[#0A1A2F]/50 mb-3 leading-relaxed">{current.sub}</p>
+            <h2 className="font-bold text-base text-[#0A1A2F] dark:text-white mb-1">{current.heading}</h2>
+            <p className="text-xs text-[#0A1A2F]/50 dark:text-white/50 mb-3 leading-relaxed">{current.sub}</p>
             <textarea
             maxLength={1000}
             autoFocus
@@ -269,7 +269,7 @@ Write a 3-4 sentence personal coaching response. Affirm their insight, add one s
             onChange={(e) => current.set(e.target.value)}
             placeholder={current.placeholder}
             rows={5}
-            className="w-full bg-[#F2F6FA] rounded-xl px-4 py-3 text-sm text-[#0A1A2F] placeholder-[#0A1A2F]/25 outline-none border border-transparent focus:border-[#FAD98D]/50 resize-none transition-colors leading-relaxed" />
+            className="w-full bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-xl px-4 py-3 text-sm text-[#0A1A2F] dark:text-white placeholder-[#0A1A2F]/25 outline-none border border-transparent focus:border-[#FAD98D]/50 resize-none transition-colors leading-relaxed" />
           
           </motion.div>
         }
@@ -277,10 +277,10 @@ Write a 3-4 sentence personal coaching response. Affirm their insight, add one s
         {/* AI loading */}
         {step === 3 &&
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-        className="bg-white rounded-2xl border border-[#F2F6FA] p-8 flex flex-col items-center text-center">
+        className="bg-white dark:bg-white/5 rounded-2xl border border-[#F2F6FA] p-8 flex flex-col items-center text-center">
             <Loader2 className="w-7 h-7 animate-spin mb-3" style={{ color: cat.color }} />
-            <p className="text-sm font-semibold text-[#0A1A2F]">Getting your coaching response…</p>
-            <p className="text-xs text-[#0A1A2F]/40 mt-1">Personalised to what you just wrote</p>
+            <p className="text-sm font-semibold text-[#0A1A2F] dark:text-white dark:text-white">Getting your coaching response…</p>
+            <p className="text-xs text-[#0A1A2F]/40 dark:text-white/40 mt-1">Personalised to what you just wrote</p>
           </motion.div>
         }
 
@@ -293,13 +293,13 @@ Write a 3-4 sentence personal coaching response. Affirm their insight, add one s
           { label: 'The challenge', value: challenge, num: 2 },
           { label: 'The truth', value: truth, num: 3 }].
           map(({ label, value, num }) =>
-          <div key={num} className="bg-white rounded-2xl border border-[#F2F6FA] p-4">
+          <div key={num} className="bg-white dark:bg-white/5 rounded-2xl border border-[#F2F6FA] p-4">
                 <div className="flex items-center gap-2 mb-2">
                   <div className="w-5 h-5 rounded-full flex items-center justify-center text-white text-[10px] font-bold"
               style={{ background: cat.color }}>{num}</div>
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-[#0A1A2F]/40">{label}</p>
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-[#0A1A2F]/40 dark:text-white/40">{label}</p>
                 </div>
-                <p className="text-sm text-[#0A1A2F] leading-relaxed">{value}</p>
+                <p className="text-sm text-[#0A1A2F] dark:text-white leading-relaxed">{value}</p>
               </div>
           )}
 
@@ -309,7 +309,7 @@ Write a 3-4 sentence personal coaching response. Affirm their insight, add one s
                 <Sparkles className="w-4 h-4" style={{ color: cat.color }} />
                 <p className="text-xs font-bold uppercase tracking-widest" style={{ color: cat.color }}>Your coaching response</p>
               </div>
-              <p className="text-sm text-[#0A1A2F] leading-relaxed">{aiCoach}</p>
+              <p className="text-sm text-[#0A1A2F] dark:text-white leading-relaxed">{aiCoach}</p>
             </div>
 
             {/* Save */}
@@ -327,7 +327,7 @@ Write a 3-4 sentence personal coaching response. Affirm their insight, add one s
           </div>
           }
         <button onClick={handleSave} disabled={saving}
-          className="w-full py-3.5 rounded-2xl text-[#0A1A2F] font-bold text-sm flex items-center justify-center gap-2 hover:opacity-90 transition-opacity"
+          className="w-full py-3.5 rounded-2xl text-[#0A1A2F] dark:text-white font-bold text-sm flex items-center justify-center gap-2 hover:opacity-90 transition-opacity"
           style={{ background: `linear-gradient(135deg, #FAD98D, #c9a227)` }}>
               {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Check className="w-4 h-4" />}
               {saving ? 'Saving…' : 'Save to Journal & Finish'}
@@ -391,23 +391,23 @@ export default function MindsetResetPage() {
 
   return (
     <>
-      <div className="min-h-screen bg-[#F2F6FA] pb-28">
+      <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
         {/* Header */}
-        <div className="sticky top-0 z-40 bg-white border-b border-[#F2F6FA] px-4 py-3">
+        <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#F2F6FA] px-4 py-3">
           <div className="max-w-2xl mx-auto flex items-center gap-3">
             
 
 
             
             <div className="flex-1">
-              <h1 className="text-base font-bold text-[#0A1A2F]">Mindset Reset</h1>
-              <p className="text-xs text-[#0A1A2F]/45">
+              <h1 className="text-base font-bold text-[#0A1A2F] dark:text-white dark:text-white">Mindset Reset</h1>
+              <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45">
                 {todayCount > 0 ? `${todayCount} reset${todayCount > 1 ? 's' : ''} today` : 'Rewire how you think'}
               </p>
             </div>
             <button onClick={() => setShowHistory((h) => !h)}
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-bold transition-all ${
-            showHistory ? 'bg-[#0A1A2F] text-white border-[#0A1A2F]' : 'bg-white text-[#0A1A2F]/50 border-[#F2F6FA]'}`
+            showHistory ? 'bg-[#0A1A2F] text-white border-[#0A1A2F]' : 'bg-white dark:bg-white/5 text-[#0A1A2F]/50 dark:text-white/50 border-[#F2F6FA]'}`
             }>
               <Clock className="w-3.5 h-3.5" />
               History
@@ -422,14 +422,14 @@ export default function MindsetResetPage() {
             {showHistory &&
             <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }} className="overflow-hidden">
-                <div className="bg-white rounded-2xl border border-[#F2F6FA] divide-y divide-[#F2F6FA]">
+                <div className="bg-white dark:bg-white/5 rounded-2xl border border-[#F2F6FA] divide-y divide-[#F2F6FA]">
                   <div className="px-4 py-3 flex items-center justify-between">
-                    <p className="text-xs font-bold text-[#0A1A2F]/40 uppercase tracking-widest">Recent Sessions</p>
-                    <span className="text-xs text-[#0A1A2F]/35">{history.length} total</span>
+                    <p className="text-xs font-bold text-[#0A1A2F]/40 dark:text-white/40 uppercase tracking-widest">Recent Sessions</p>
+                    <span className="text-xs text-[#0A1A2F]/35 dark:text-white/35">{history.length} total</span>
                   </div>
                   {history.length === 0 ?
                 <div className="px-4 py-8 text-center">
-                      <p className="text-sm text-[#0A1A2F]/30">No sessions yet — complete your first reset below</p>
+                      <p className="text-sm text-[#0A1A2F]/30 dark:text-white/30">No sessions yet — complete your first reset below</p>
                     </div> :
 
                 history.slice(0, 5).map((s, i) => {
@@ -438,13 +438,13 @@ export default function MindsetResetPage() {
                     <div key={i} className="px-4 py-3">
                           <div className="flex items-center gap-2 mb-1">
                             <span className="text-sm">{cat?.emoji || '🧠'}</span>
-                            <p className="text-[10px] font-bold text-[#0A1A2F]/35 uppercase tracking-widest">{cat?.label || 'Mindset Reset'}</p>
-                            <span className="ml-auto text-[10px] text-[#0A1A2F]/25">
+                            <p className="text-[10px] font-bold text-[#0A1A2F]/35 dark:text-white/35 uppercase tracking-widest">{cat?.label || 'Mindset Reset'}</p>
+                            <span className="ml-auto text-[10px] text-[#0A1A2F]/25 dark:text-white/25">
                               {new Date(s.ts).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
                             </span>
                           </div>
-                          <p className="text-xs text-[#0A1A2F]/50 italic mb-1">"{s.prompt}"</p>
-                          <p className="text-xs text-[#0A1A2F] leading-relaxed line-clamp-2">{s.truth}</p>
+                          <p className="text-xs text-[#0A1A2F]/50 dark:text-white/50 italic mb-1">"{s.prompt}"</p>
+                          <p className="text-xs text-[#0A1A2F] dark:text-white leading-relaxed line-clamp-2">{s.truth}</p>
                         </div>);
 
                 })
@@ -456,17 +456,17 @@ export default function MindsetResetPage() {
 
           {/* Quick resets */}
           <div>
-            <p className="text-xs font-bold text-[#0A1A2F]/35 uppercase tracking-widest mb-3">
+            <p className="text-xs font-bold text-[#0A1A2F]/35 dark:text-white/35 uppercase tracking-widest mb-3">
               60-Second Reset — Say It Out Loud
             </p>
             <div className="grid grid-cols-2 gap-2">
               {QUICK_RESETS.map((r, i) =>
               <motion.div key={i}
               initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.04 }}
-              className="bg-white rounded-xl border border-[#F2F6FA] p-3">
+              className="bg-white dark:bg-white/5 rounded-xl border border-[#F2F6FA] p-3">
                   <p className="text-lg mb-1">{r.emoji}</p>
-                  <p className="text-xs font-bold text-[#0A1A2F] leading-snug">{r.label}</p>
-                  <p className="text-[10px] text-[#0A1A2F]/40 leading-tight mt-0.5">{r.sub}</p>
+                  <p className="text-xs font-bold text-[#0A1A2F] dark:text-white leading-snug">{r.label}</p>
+                  <p className="text-[10px] text-[#0A1A2F]/40 dark:text-white/40 leading-tight mt-0.5">{r.sub}</p>
                 </motion.div>
               )}
             </div>
@@ -474,34 +474,34 @@ export default function MindsetResetPage() {
 
           {/* Category prompts */}
           <div>
-            <p className="text-xs font-bold text-[#0A1A2F]/35 uppercase tracking-widest mb-3">
+            <p className="text-xs font-bold text-[#0A1A2F]/35 dark:text-white/35 uppercase tracking-widest mb-3">
               Deep Reset — 3-Step Reframe
             </p>
             <div className="space-y-2">
               {PROMPT_CATEGORIES.map((cat, i) =>
               <motion.div key={cat.id}
               initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}
-              className="bg-white rounded-2xl border border-[#F2F6FA] overflow-hidden">
+              className="bg-white dark:bg-white/5 rounded-2xl border border-[#F2F6FA] overflow-hidden">
 
                   {/* Category header */}
                   <button
                   onClick={() => setExpandedCat(expandedCat === cat.id ? null : cat.id)}
-                  className="w-full flex items-center gap-3 p-4 text-left hover:bg-[#F2F6FA] transition-colors">
+                  className="w-full flex items-center gap-3 p-4 text-left hover:bg-[#F2F6FA] dark:bg-[#0A1A2F] transition-colors">
                     <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${cat.gradient} flex items-center justify-center flex-shrink-0 text-xl`}>
                       {cat.emoji}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="font-bold text-sm text-[#0A1A2F]">{cat.label}</p>
-                      <p className="text-xs text-[#0A1A2F]/40">{cat.prompts.length} prompts</p>
+                      <p className="font-bold text-sm text-[#0A1A2F] dark:text-white dark:text-white">{cat.label}</p>
+                      <p className="text-xs text-[#0A1A2F]/40 dark:text-white/40">{cat.prompts.length} prompts</p>
                     </div>
                     {/* Shuffle button */}
                     <button
                     onClick={(e) => {e.stopPropagation();shuffle(cat);}}
                     className="w-8 h-8 rounded-full border border-[#F2F6FA] flex items-center justify-center hover:border-[#FAD98D]/50 transition-colors flex-shrink-0"
                     title="Random prompt">
-                      <RefreshCw className="w-3.5 h-3.5 text-[#0A1A2F]/40" />
+                      <RefreshCw className="w-3.5 h-3.5 text-[#0A1A2F]/40 dark:text-white/40" />
                     </button>
-                    <ChevronDown className={`w-4 h-4 text-[#0A1A2F]/30 transition-transform flex-shrink-0 ${expandedCat === cat.id ? 'rotate-180' : ''}`} />
+                    <ChevronDown className={`w-4 h-4 text-[#0A1A2F]/30 dark:text-white/30 transition-transform flex-shrink-0 ${expandedCat === cat.id ? 'rotate-180' : ''}`} />
                   </button>
 
                   {/* Prompts list */}
@@ -515,13 +515,13 @@ export default function MindsetResetPage() {
                           {cat.prompts.map((prompt, j) =>
                       <button key={j}
                       onClick={() => startSession(prompt, cat)}
-                      className="w-full text-left flex items-start gap-3 py-2.5 px-3 rounded-xl hover:bg-[#F2F6FA] transition-colors group">
+                      className="w-full text-left flex items-start gap-3 py-2.5 px-3 rounded-xl hover:bg-[#F2F6FA] dark:bg-[#0A1A2F] transition-colors group">
                               <div className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 text-white text-[10px] font-bold"
                         style={{ background: cat.color }}>
                                 {j + 1}
                               </div>
                               <p className="text-sm text-[#0A1A2F]/75 leading-relaxed flex-1">{prompt}</p>
-                              <ChevronRight className="w-4 h-4 text-[#0A1A2F]/20 group-hover:text-[#0A1A2F]/40 transition-colors flex-shrink-0 mt-0.5" />
+                              <ChevronRight className="w-4 h-4 text-[#0A1A2F]/20 dark:text-white/20 group-hover:text-[#0A1A2F]/40 dark:text-white/40 transition-colors flex-shrink-0 mt-0.5" />
                             </button>
                       )}
                         </div>
@@ -542,15 +542,15 @@ export default function MindsetResetPage() {
 
           {/* Link to Growth Pathways */}
           <Link to={createPageUrl('GrowthPathwaysPage')}
-          className="flex items-center gap-3 bg-white rounded-2xl border border-[#F2F6FA] hover:border-[#FAD98D]/40 p-4 transition-all group">
+          className="flex items-center gap-3 bg-white dark:bg-white/5 rounded-2xl border border-[#F2F6FA] hover:border-[#FAD98D]/40 p-4 transition-all group">
             <div className="w-10 h-10 bg-gradient-to-br from-violet-500 to-purple-400 rounded-xl flex items-center justify-center flex-shrink-0">
               <Brain className="w-5 h-5 text-white" />
             </div>
             <div className="flex-1">
-              <p className="font-bold text-sm text-[#0A1A2F]">Confidence Pathway</p>
-              <p className="text-xs text-[#0A1A2F]/45">5-step guided journey to rewire self-belief</p>
+              <p className="font-bold text-sm text-[#0A1A2F] dark:text-white dark:text-white">Confidence Pathway</p>
+              <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45">5-step guided journey to rewire self-belief</p>
             </div>
-            <ChevronRight className="w-4 h-4 text-[#0A1A2F]/20 group-hover:text-[#0A1A2F]/40 transition-colors" />
+            <ChevronRight className="w-4 h-4 text-[#0A1A2F]/20 dark:text-white/20 group-hover:text-[#0A1A2F]/40 dark:text-white/40 transition-colors" />
           </Link>
         </div>
       </div>

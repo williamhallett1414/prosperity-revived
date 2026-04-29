@@ -27,7 +27,7 @@ export default function ChallengeLeaderboard({ participants, challenge }) {
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: index * 0.05 }}
           className={`flex items-center gap-3 p-3 rounded-xl ${
-            index < 3 ? 'bg-gradient-to-r from-yellow-50 to-orange-50' : 'bg-gray-50'
+            index < 3 ? 'bg-gradient-to-r from-yellow-50 to-orange-50' : 'bg-gray-50 dark:bg-white/5'
           }`}
         >
           <div className="flex items-center justify-center w-10">

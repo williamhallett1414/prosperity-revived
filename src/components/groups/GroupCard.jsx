@@ -29,7 +29,7 @@ const CATEGORY_LABEL = {
 function getMemberColour(count) {
   if (count >= 150) return { bar: 'bg-[#c9a227]', text: 'text-[#c9a227]' };
   if (count >= 75)  return { bar: 'bg-[#AFC7E3]', text: 'text-[#3C4E53]' };
-  return { bar: 'bg-[#F2F6FA]', text: 'text-[#0A1A2F]/30' };
+  return { bar: 'bg-[#F2F6FA] dark:bg-[#0A1A2F]', text: 'text-[#0A1A2F]/30 dark:text-white/30' };
 }
 
 export default function GroupCard({ group, onClick, index, isMember }) {
@@ -47,7 +47,7 @@ export default function GroupCard({ group, onClick, index, isMember }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.04 }}
       onClick={onClick}
-      className="cursor-pointer bg-white rounded-2xl overflow-hidden border border-[#FAD98D]/20 hover:border-[#c9a227]/40 hover:shadow-md transition-all active:scale-[0.98]"
+      className="cursor-pointer bg-white dark:bg-white/5 rounded-2xl overflow-hidden border border-[#FAD98D]/20 hover:border-[#c9a227]/40 hover:shadow-md transition-all active:scale-[0.98]"
     >
       {/* Cover */}
       <div className="relative h-28 overflow-hidden">
@@ -91,19 +91,19 @@ export default function GroupCard({ group, onClick, index, isMember }) {
 
       {/* Body */}
       <div className="p-3">
-        <p className="font-bold text-[#0A1A2F] text-sm leading-snug mb-1 line-clamp-2">{group.name}</p>
+        <p className="font-bold text-[#0A1A2F] dark:text-white text-sm leading-snug mb-1 line-clamp-2">{group.name}</p>
         {group.description && (
-          <p className="text-[11px] text-[#0A1A2F]/45 line-clamp-2 mb-2.5 leading-relaxed">{group.description}</p>
+          <p className="text-[11px] text-[#0A1A2F]/45 dark:text-white/45 line-clamp-2 mb-2.5 leading-relaxed">{group.description}</p>
         )}
 
         {/* Member count + bar */}
         <div className="space-y-1">
           <div className="flex items-center gap-1">
-            <Users className="w-3 h-3 text-[#0A1A2F]/30" />
+            <Users className="w-3 h-3 text-[#0A1A2F]/30 dark:text-white/30" />
             <span className={`text-[10px] font-bold ${mc.text}`}>{count.toLocaleString()}</span>
-            <span className="text-[10px] text-[#0A1A2F]/25">{count === 1 ? 'member' : 'members'}</span>
+            <span className="text-[10px] text-[#0A1A2F]/25 dark:text-white/25">{count === 1 ? 'member' : 'members'}</span>
           </div>
-          <div className="h-1 bg-[#F2F6FA] rounded-full overflow-hidden">
+          <div className="h-1 bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-full overflow-hidden">
             <div className={`h-full rounded-full transition-all ${mc.bar}`} style={{ width: `${barPct}%` }} />
           </div>
         </div>

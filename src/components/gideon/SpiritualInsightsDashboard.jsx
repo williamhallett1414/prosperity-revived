@@ -74,7 +74,7 @@ export default function SpiritualInsightsDashboard() {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: idx * 0.1 }}
-                className="bg-white dark:bg-gray-800 rounded-lg p-4 shadow-sm"
+                className="bg-white dark:bg-white/5 dark:bg-gray-800 rounded-lg p-4 shadow-sm"
               >
                 <div className="flex items-start justify-between mb-2">
                   <div className="flex items-center gap-2">
@@ -134,7 +134,7 @@ export default function SpiritualInsightsDashboard() {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: idx * 0.1 }}
-              className="bg-white dark:bg-gray-800 rounded-lg p-4 shadow-sm"
+              className="bg-white dark:bg-white/5 dark:bg-gray-800 rounded-lg p-4 shadow-sm"
             >
               <div className="flex items-start justify-between mb-2">
                 <div>
@@ -178,15 +178,15 @@ export default function SpiritualInsightsDashboard() {
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 gap-4">
-            <div className="bg-white dark:bg-gray-800 rounded-lg p-4 text-center">
+            <div className="bg-white dark:bg-white/5 dark:bg-gray-800 rounded-lg p-4 text-center">
               <div className="text-2xl font-bold text-[#C9A227]">{themes.length}</div>
               <div className="text-xs text-gray-600 dark:text-gray-400">Themes Explored</div>
             </div>
-            <div className="bg-white dark:bg-gray-800 rounded-lg p-4 text-center">
+            <div className="bg-white dark:bg-white/5 dark:bg-gray-800 rounded-lg p-4 text-center">
               <div className="text-2xl font-bold text-[#c9a227]">{emotions.length}</div>
               <div className="text-xs text-gray-600 dark:text-gray-400">Emotional States</div>
             </div>
-            <div className="bg-white dark:bg-gray-800 rounded-lg p-4 text-center col-span-2">
+            <div className="bg-white dark:bg-white/5 dark:bg-gray-800 rounded-lg p-4 text-center col-span-2">
               <div className="text-2xl font-bold text-green-600">
                 {themes.filter(t => t.growth_progression === 'breakthrough' || t.growth_progression === 'maturing').length}
               </div>

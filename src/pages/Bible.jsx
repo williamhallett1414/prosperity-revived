@@ -32,7 +32,7 @@ function ActivePlanCard({ progress, plan, navigate }) {
     <motion.button
       initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
       onClick={() => navigate(createPageUrl(`PlanDetail?id=${plan.id}`))}
-      className="w-full text-left bg-white rounded-2xl border border-[#FAD98D]/30 overflow-hidden shadow-sm hover:shadow-md transition-all">
+      className="w-full text-left bg-white dark:bg-white/5 rounded-2xl border border-[#FAD98D]/30 overflow-hidden shadow-sm hover:shadow-md transition-all">
       
       <div className="relative h-14 overflow-hidden">
         <img src={plan.image} alt={plan.name} className="w-full h-full object-cover" />
@@ -52,7 +52,7 @@ function ActivePlanCard({ progress, plan, navigate }) {
           <div className="h-full bg-gradient-to-r from-[#c9a227] to-[#FAD98D] rounded-full" style={{ width: `${pct}%` }} />
         </div>
         <span className="text-[11px] font-bold text-[#c9a227] flex-shrink-0">{pct}%</span>
-        <ChevronRight className="w-4 h-4 text-[#0A1A2F]/30 flex-shrink-0" />
+        <ChevronRight className="w-4 h-4 text-[#0A1A2F]/30 dark:text-white/30 flex-shrink-0" />
       </div>
     </motion.button>);
 
@@ -69,14 +69,14 @@ function QuickTools({ bookmarkCount }) {
       {tools.map(({ label, icon: Icon, value, page, color, bg }) =>
       <Link key={page} to={createPageUrl(page)} className="flex-1">
           <div className={`${bg} rounded-2xl p-3.5 flex items-center gap-2.5 border border-transparent hover:border-[#FAD98D]/40 transition-all`}>
-            <div className="w-8 h-8 rounded-xl bg-white flex items-center justify-center shadow-sm flex-shrink-0">
+            <div className="w-8 h-8 rounded-xl bg-white dark:bg-white/5 flex items-center justify-center shadow-sm flex-shrink-0">
               <Icon className={`w-4 h-4 ${color}`} />
             </div>
             <div>
-              <p className="text-xs font-semibold text-[#0A1A2F]">{label}</p>
+              <p className="text-xs font-semibold text-[#0A1A2F] dark:text-white dark:text-white">{label}</p>
               {value != null && <p className={`text-xs font-bold ${color}`}>{value} saved</p>}
             </div>
-            <ChevronRight className="w-3.5 h-3.5 text-[#0A1A2F]/25 ml-auto" />
+            <ChevronRight className="w-3.5 h-3.5 text-[#0A1A2F]/25 dark:text-white/25 ml-auto" />
           </div>
         </Link>
       )}
@@ -91,12 +91,12 @@ function StudyTabContent() {
     <div>
       {/* Search bar */}
       <div className="relative mb-4">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#0A1A2F]/35" />
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#0A1A2F]/35 dark:text-white/35" />
         <input
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search study guides…"
-          className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-[#FAD98D]/15 border border-[#FAD98D]/25 text-sm text-[#0A1A2F] placeholder:text-[#0A1A2F]/40 focus:outline-none focus:border-[#c9a227]/50" />
+          className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-[#FAD98D]/15 border border-[#FAD98D]/25 text-sm text-[#0A1A2F] dark:text-white placeholder:text-[#0A1A2F]/40 dark:text-white/40 focus:outline-none focus:border-[#c9a227]/50" />
         
       </div>
       <BibleStudyGuide filterQuery={query} />
@@ -207,17 +207,17 @@ export default function Bible() {
 
   // ── Hub ───────────────────────────────────────────────────────────────────
   return (
-    <div className="min-h-screen bg-[#F2F6FA] pb-28">
+    <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
 
       {/* ── Standard Header ── */}
-      <div className="sticky top-0 z-40 bg-white border-b border-[#FAD98D]/20 px-4 pt-4 pb-3">
+      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 px-4 pt-4 pb-3">
         <div className="max-w-lg mx-auto flex items-center gap-3">
           <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center">
             <BookOpen className="w-5 h-5 text-white" />
           </div>
           <div>
-            <h1 className="text-base font-bold text-[#0A1A2F]">Bible</h1>
-            <p className="text-xs text-[#0A1A2F]/45">Read, study & grow</p>
+            <h1 className="text-base font-bold text-[#0A1A2F] dark:text-white dark:text-white">Bible</h1>
+            <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45">Read, study & grow</p>
           </div>
         </div>
       </div>
@@ -256,11 +256,11 @@ export default function Bible() {
                     <div className="w-1 h-4 bg-[#c9a227] rounded-full" />
                     <span className="text-[10px] font-bold text-[#c9a227] uppercase tracking-widest">Today's Scripture</span>
                   </div>
-                  <p className="text-[#0A1A2F] text-sm leading-relaxed font-medium mb-2" style={{ fontFamily: 'Georgia, serif' }}>
+                  <p className="text-[#0A1A2F] dark:text-white text-sm leading-relaxed font-medium mb-2" style={{ fontFamily: 'Georgia, serif' }}>
                     "{verse.text}"
                   </p>
                   <div className="flex items-center justify-between">
-                    <p className="text-xs text-[#0A1A2F]/50">{verse.book} {verse.chapter}:{verse.verse}</p>
+                    <p className="text-xs text-[#0A1A2F]/50 dark:text-white/50">{verse.book} {verse.chapter}:{verse.verse}</p>
                     <button
                       onClick={() => {
                         const book = getBookByName(verse.book);
@@ -298,8 +298,8 @@ export default function Bible() {
 
               {/* 3. Open the Word */}
               <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }}
-              className="bg-white rounded-2xl border border-[#FAD98D]/25 p-4 shadow-sm">
-                <p className="text-xs font-bold text-[#0A1A2F]/40 uppercase tracking-widest mb-3">Open the Bible</p>
+              className="bg-white dark:bg-white/5 rounded-2xl border border-[#FAD98D]/25 p-4 shadow-sm">
+                <p className="text-xs font-bold text-[#0A1A2F]/40 dark:text-white/40 uppercase tracking-widest mb-3">Open the Bible</p>
                 <div className="flex gap-2 mb-3">
                   <button
                     onClick={() => {setInitialBook(null);setView('newTestament');}}
@@ -308,7 +308,7 @@ export default function Bible() {
                   </button>
                   <button
                     onClick={() => {setInitialBook(null);setView('oldTestament');}}
-                    className="flex-1 bg-[#0A1A2F]/8 text-[#0A1A2F] font-semibold text-sm py-2.5 rounded-xl border border-[#0A1A2F]/12 hover:bg-[#0A1A2F]/12 transition-all">
+                    className="flex-1 bg-[#0A1A2F]/8 text-[#0A1A2F] dark:text-white font-semibold text-sm py-2.5 rounded-xl border border-[#0A1A2F]/12 hover:bg-[#0A1A2F]/12 transition-all">
                     Old Testament
                   </button>
                 </div>
@@ -318,7 +318,7 @@ export default function Bible() {
               {/* 4. Active reading plan */}
               {activePlan && activePlanProgress &&
               <div>
-                  <p className="text-[10px] font-bold text-[#0A1A2F]/40 uppercase tracking-widest mb-2">Your Plan</p>
+                  <p className="text-[10px] font-bold text-[#0A1A2F]/40 dark:text-white/40 uppercase tracking-widest mb-2">Your Plan</p>
                   <ActivePlanCard progress={activePlanProgress} plan={activePlan} navigate={navigate} />
                 </div>
               }
@@ -334,8 +334,8 @@ export default function Bible() {
                       <span className="text-lg">📖</span>
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="font-bold text-[#0A1A2F] text-sm">Ask Gideon</p>
-                      <p className="text-xs text-[#0A1A2F]/50">Have a question about Scripture? Ask your Bible guide.</p>
+                      <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">Ask Gideon</p>
+                      <p className="text-xs text-[#0A1A2F]/50 dark:text-white/50">Have a question about Scripture? Ask your Bible guide.</p>
                     </div>
                     <ChevronRight className="w-4 h-4 text-[#c9a227] flex-shrink-0" />
                   </div>
@@ -346,7 +346,7 @@ export default function Bible() {
               {suggestedPlans.length > 0 &&
               <div>
                   <div className="flex items-center justify-between mb-3">
-                    <p className="text-[10px] font-bold text-[#0A1A2F]/40 uppercase tracking-widest flex items-center gap-1.5">
+                    <p className="text-[10px] font-bold text-[#0A1A2F]/40 dark:text-white/40 uppercase tracking-widest flex items-center gap-1.5">
                       <Compass className="w-3.5 h-3.5 text-[#c9a227]" /> More Reading Plans
                     </p>
                     <Link to={createPageUrl('Plans')} className="text-xs text-[#c9a227] font-semibold">View All</Link>
@@ -394,7 +394,7 @@ export default function Bible() {
       
       {/* Scripture Attribution */}
       <div className="max-w-lg mx-auto px-4 pb-4">
-        <p className="text-[9px] text-[#0A1A2F]/30 text-center leading-relaxed">
+        <p className="text-[9px] text-[#0A1A2F]/30 dark:text-white/30 text-center leading-relaxed">
           Scripture from the World English Bible (WEB) — Public Domain. No copyright restrictions apply.
         </p>
       </div>

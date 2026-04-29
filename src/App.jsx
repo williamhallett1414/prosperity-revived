@@ -32,12 +32,12 @@ class ErrorBoundary extends React.Component {
   render() {
     if (this.state.hasError) {
       return (
-        <div className="fixed inset-0 flex items-center justify-center bg-[#F2F6FA] px-6">
+        <div className="fixed inset-0 flex items-center justify-center bg-[#F2F6FA] dark:bg-[#0A1A2F] px-6">
           <div className="text-center max-w-sm">
             <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-[#FD9C2D]/20 flex items-center justify-center">
               <span className="text-3xl">🙏</span>
             </div>
-            <h2 className="text-xl font-bold text-[#0A1A2F] mb-2">Something went wrong</h2>
+            <h2 className="text-xl font-bold text-[#0A1A2F] dark:text-white mb-2">Something went wrong</h2>
             <p className="text-sm text-gray-600 mb-6">
               We hit an unexpected issue. Please try again.
             </p>

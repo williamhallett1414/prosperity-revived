@@ -213,7 +213,7 @@ STYLE RULES:
             initial={{ opacity: 0, y: 100, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 100, scale: 0.9 }}
-            className="fixed bottom-24 right-4 w-[calc(100vw-2rem)] sm:w-96 h-[min(500px,calc(100dvh-7rem))] bg-white rounded-2xl shadow-2xl flex flex-col z-50 border border-[#c9a227]/30 overflow-hidden"
+            className="fixed bottom-24 right-4 w-[calc(100vw-2rem)] sm:w-96 h-[min(500px,calc(100dvh-7rem))] bg-white dark:bg-white/5 rounded-2xl shadow-2xl flex flex-col z-50 border border-[#c9a227]/30 overflow-hidden"
           >
             {/* Header */}
             <div className="bg-gradient-to-r from-[#c9a227] to-[#C9A227] text-white p-5 rounded-t-2xl flex items-center justify-between flex-shrink-0">
@@ -239,8 +239,8 @@ STYLE RULES:
               {messages.length === 0 && !loading && (
                 <div className="h-full flex flex-col items-center justify-center text-center px-4">
                   <div className="text-4xl mb-3">🏆</div>
-                  <p className="text-sm font-bold text-[#0A1A2F] mb-1">Coach Paul is ready</p>
-                  <p className="text-[11px] text-[#0A1A2F]/60 leading-relaxed">
+                  <p className="text-sm font-bold text-[#0A1A2F] dark:text-white mb-1">Coach Paul is ready</p>
+                  <p className="text-[11px] text-[#0A1A2F]/60 dark:text-white/60 leading-relaxed">
                     Ask anything about today's plan or tap a quick ask below.
                   </p>
                 </div>
@@ -272,7 +272,7 @@ STYLE RULES:
                       <div className={`max-w-[80%] rounded-2xl px-4 py-3 ${
                         msg.role === 'user'
                           ? 'bg-gradient-to-r from-[#c9a227] to-[#C9A227] text-white'
-                          : 'bg-white border border-[#c9a227]/30 text-[#0A1A2F]'
+                          : 'bg-white dark:bg-white/5 border border-[#c9a227]/30 text-[#0A1A2F] dark:text-white dark:text-white'
                       }`}>
                         {msg.role === 'user' ? (
                           <p className="text-sm">{msg.content}</p>
@@ -315,7 +315,7 @@ STYLE RULES:
                     <div className="w-2 h-2 bg-[#c9a227] rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
                     <div className="w-2 h-2 bg-[#c9a227] rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
                   </div>
-                  <span className="text-[10px] text-[#0A1A2F]/40 font-medium">Coach Paul is typing…</span>
+                  <span className="text-[10px] text-[#0A1A2F]/40 dark:text-white/40 font-medium">Coach Paul is typing…</span>
                 </motion.div>
               )}
 
@@ -343,7 +343,7 @@ STYLE RULES:
                           key={qa.label}
                           onClick={() => handleQuickAsk(qa)}
                           disabled={loading}
-                          className="text-xs font-semibold text-[#C9A227] bg-white border border-[#c9a227]/30 rounded-lg px-2.5 py-2 hover:border-[#c9a227]/60 transition-all flex items-center gap-1.5 disabled:opacity-50"
+                          className="text-xs font-semibold text-[#C9A227] bg-white dark:bg-white/5 border border-[#c9a227]/30 rounded-lg px-2.5 py-2 hover:border-[#c9a227]/60 transition-all flex items-center gap-1.5 disabled:opacity-50"
                         >
                           <span>{qa.emoji}</span>
                           <span className="truncate">{qa.label}</span>
@@ -383,7 +383,7 @@ STYLE RULES:
                 <div className="relative" ref={menuRef}>
                   <button
                     onClick={() => setShowMenu(p => !p)}
-                    className="text-[#0A1A2F]/40 hover:text-[#0A1A2F] transition-colors"
+                    className="text-[#0A1A2F]/40 dark:text-white/40 hover:text-[#0A1A2F] dark:text-white transition-colors"
                   >
                     <MoreVertical className="w-4 h-4" />
                   </button>

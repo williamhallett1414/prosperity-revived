@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 const highlightColors = {
   yellow: 'border-l-yellow-400 bg-yellow-50',
   green: 'border-l-green-400 bg-green-50',
-  blue: 'border-l-blue-400 bg-[#F2F6FA]',
+  blue: 'border-l-blue-400 bg-[#F2F6FA] dark:bg-[#0A1A2F]',
   pink: 'border-l-pink-400 bg-[#FAD98D]/10',
   purple: 'border-l-purple-400 bg-[#FAD98D]/10'
 };
@@ -17,7 +17,7 @@ export default function BookmarkCard({ bookmark, onDelete, onOpen, index }) {
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ delay: index * 0.05 }}
-      className={`rounded-xl border-l-4 p-4 ${highlightColors[bookmark.highlight_color] || 'border-l-gray-300 bg-gray-50'}`}
+      className={`rounded-xl border-l-4 p-4 ${highlightColors[bookmark.highlight_color] || 'border-l-gray-300 bg-gray-50 dark:bg-white/5'}`}
     >
       <p className="font-serif text-gray-800 mb-3 leading-relaxed">
         "{bookmark.verse_text}"
@@ -33,7 +33,7 @@ export default function BookmarkCard({ bookmark, onDelete, onOpen, index }) {
             variant="ghost"
             size="sm"
             onClick={() => onOpen(bookmark)}
-            className="text-gray-500 hover:text-[#0A1A2F]"
+            className="text-gray-500 hover:text-[#0A1A2F] dark:text-white dark:text-white"
           >
             <BookOpen className="w-4 h-4" />
           </Button>

@@ -120,7 +120,7 @@ export default function CommunityRecipeFeed({ user }) {
       {/* Create Post Dialog */}
       <Dialog open={showCreatePost} onOpenChange={setShowCreatePost}>
         <DialogTrigger asChild>
-          <div className="bg-white dark:bg-[#0A1A2F] rounded-2xl p-4 border border-gray-200 dark:border-gray-700">
+          <div className="bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-2xl p-4 border border-gray-200 dark:border-white/10 dark:border-gray-700">
             <div className="flex items-center gap-3 mb-3">
               {user?.profile_image ?
               <img src={user.profile_image} alt={user.full_name} className="w-10 h-10 rounded-full object-cover" /> :
@@ -254,12 +254,12 @@ export default function CommunityRecipeFeed({ user }) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.05 }}>
 
-                <div className="bg-white dark:bg-[#0A1A2F] rounded-2xl p-4 border border-gray-200 dark:border-gray-700">
+                <div className="bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-2xl p-4 border border-gray-200 dark:border-white/10 dark:border-gray-700">
                   {/* User Info */}
                   <div className="flex items-center gap-3 mb-3">
                     <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#AFC7E3] to-[#6B7280]" />
                     <div>
-                      <p className="font-semibold text-sm text-[#0A1A2F] dark:text-white">{post.user_name}</p>
+                      <p className="font-semibold text-sm text-[#0A1A2F] dark:text-white dark:text-white">{post.user_name}</p>
                       <p className="text-xs text-gray-500 dark:text-gray-400">
                         {new Date(post.created_date).toLocaleDateString()}
                       </p>
@@ -268,7 +268,7 @@ export default function CommunityRecipeFeed({ user }) {
 
                   {/* Content */}
                   {post.content &&
-              <p className="text-sm text-[#0A1A2F] dark:text-gray-200 mb-3">{post.content}</p>
+              <p className="text-sm text-[#0A1A2F] dark:text-white dark:text-gray-200 mb-3">{post.content}</p>
               }
 
                   {/* Media */}
@@ -288,7 +288,7 @@ export default function CommunityRecipeFeed({ user }) {
               }
 
                   {/* Interactions */}
-                  <div className="flex gap-4 pt-3 border-t border-gray-200 dark:border-gray-700">
+                  <div className="flex gap-4 pt-3 border-t border-gray-200 dark:border-white/10 dark:border-gray-700">
                     <button
                   onClick={() => likePostMutation.mutate({ postId: post.id, currentLikes: post.likes })}
                   className="flex items-center gap-2 text-gray-500 hover:text-red-500 transition-colors text-sm">

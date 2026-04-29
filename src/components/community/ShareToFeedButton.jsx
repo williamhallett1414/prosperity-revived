@@ -140,19 +140,19 @@ export default function ShareToFeedButton({
               </div>
 
               {/* Header */}
-              <div className="flex items-center justify-between px-5 py-3 border-b border-gray-100">
+              <div className="flex items-center justify-between px-5 py-3 border-b border-gray-100 dark:border-white/10">
                 <div className="flex items-center gap-2.5">
                   <div className="w-8 h-8 rounded-xl flex items-center justify-center"
                     style={{ background: `${accentColor}20` }}>
                     <Share2 className="w-4 h-4" style={{ color: accentColor }} />
                   </div>
                   <div>
-                    <p className="text-sm font-bold text-[#0A1A2F]">Share to Community</p>
+                    <p className="text-sm font-bold text-[#0A1A2F] dark:text-white dark:text-white">Share to Community</p>
                     <p className="text-[10px] font-semibold" style={{ color: accentColor }}>{meta.label}</p>
                   </div>
                 </div>
                 <button onClick={() => setOpen(false)} className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center">
-                  <X className="w-4 h-4 text-[#0A1A2F]/50" />
+                  <X className="w-4 h-4 text-[#0A1A2F]/50 dark:text-white/50" />
                 </button>
               </div>
 
@@ -161,43 +161,43 @@ export default function ShareToFeedButton({
 
                 {/* Title */}
                 <div>
-                  <p className="text-[10px] font-bold text-[#0A1A2F]/40 uppercase tracking-widest mb-1.5">Title</p>
+                  <p className="text-[10px] font-bold text-[#0A1A2F]/40 dark:text-white/40 uppercase tracking-widest mb-1.5">Title</p>
                   <input
                     value={title}
                     onChange={e => setTitle(e.target.value)}
                     placeholder="e.g., Hit my 7-day streak! 🔥"
                     maxLength={80}
-                    className="w-full rounded-xl border border-gray-200 px-3.5 py-2.5 text-sm font-semibold text-[#0A1A2F] placeholder:text-[#0A1A2F]/30 focus:outline-none focus:border-[#C9A227] transition-colors"
+                    className="w-full rounded-xl border border-gray-200 dark:border-white/10 px-3.5 py-2.5 text-sm font-semibold text-[#0A1A2F] dark:text-white placeholder:text-[#0A1A2F]/30 dark:text-white/30 focus:outline-none focus:border-[#C9A227] transition-colors"
                   />
                 </div>
 
                 {/* Message */}
                 <div>
-                  <p className="text-[10px] font-bold text-[#0A1A2F]/40 uppercase tracking-widest mb-1.5">Your message</p>
+                  <p className="text-[10px] font-bold text-[#0A1A2F]/40 dark:text-white/40 uppercase tracking-widest mb-1.5">Your message</p>
                   <textarea
                     value={content}
                     onChange={e => setContent(e.target.value)}
                     placeholder="Share what you achieved and how it felt..."
                     rows={4}
                     maxLength={500}
-                    className="w-full rounded-xl border border-gray-200 px-3.5 py-2.5 text-sm text-[#0A1A2F] placeholder:text-[#0A1A2F]/30 focus:outline-none focus:border-[#C9A227] transition-colors resize-none"
+                    className="w-full rounded-xl border border-gray-200 dark:border-white/10 px-3.5 py-2.5 text-sm text-[#0A1A2F] dark:text-white placeholder:text-[#0A1A2F]/30 dark:text-white/30 focus:outline-none focus:border-[#C9A227] transition-colors resize-none"
                   />
-                  <p className="text-right text-[10px] text-[#0A1A2F]/25 mt-0.5">{content.length}/500</p>
+                  <p className="text-right text-[10px] text-[#0A1A2F]/25 dark:text-white/25 mt-0.5">{content.length}/500</p>
                 </div>
 
                 {/* Visibility */}
                 <div>
-                  <p className="text-[10px] font-bold text-[#0A1A2F]/40 uppercase tracking-widest mb-2">Visibility</p>
+                  <p className="text-[10px] font-bold text-[#0A1A2F]/40 dark:text-white/40 uppercase tracking-widest mb-2">Visibility</p>
                   <div className="grid grid-cols-3 gap-2">
                     {VISIBILITY_OPTIONS.map(({ value, icon: Icon, label: vLabel, sub }) => (
                       <button key={value} onClick={() => setVisibility(value)}
                         className={`flex flex-col items-center gap-1 rounded-xl py-2.5 px-2 border-2 transition-all ${
                           visibility === value
                             ? 'border-[#C9A227] bg-[#FAD98D]/15'
-                            : 'border-gray-100 bg-gray-50'
+                            : 'border-gray-100 dark:border-white/10 bg-gray-50 dark:bg-white/5'
                         }`}>
-                        <Icon className={`w-4 h-4 ${visibility === value ? 'text-[#C9A227]' : 'text-[#0A1A2F]/35'}`} />
-                        <p className={`text-[10px] font-bold leading-tight ${visibility === value ? 'text-[#C9A227]' : 'text-[#0A1A2F]/50'}`}>{vLabel}</p>
+                        <Icon className={`w-4 h-4 ${visibility === value ? 'text-[#C9A227]' : 'text-[#0A1A2F]/35 dark:text-white/35'}`} />
+                        <p className={`text-[10px] font-bold leading-tight ${visibility === value ? 'text-[#C9A227]' : 'text-[#0A1A2F]/50 dark:text-white/50'}`}>{vLabel}</p>
                       </button>
                     ))}
                   </div>
@@ -208,11 +208,11 @@ export default function ShareToFeedButton({
                   className="flex items-center gap-3 w-full">
                   <div className={`w-10 h-6 rounded-full transition-colors flex items-center ${anonymous ? 'bg-[#C9A227]' : 'bg-gray-200'}`}>
                     <motion.div animate={{ x: anonymous ? 18 : 2 }} transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-                      className="w-5 h-5 bg-white rounded-full shadow-sm" />
+                      className="w-5 h-5 bg-white dark:bg-white/5 rounded-full shadow-sm" />
                   </div>
                   <div className="text-left">
-                    <p className="text-xs font-bold text-[#0A1A2F]">Post anonymously</p>
-                    <p className="text-[10px] text-[#0A1A2F]/40">Your name won't be shown</p>
+                    <p className="text-xs font-bold text-[#0A1A2F] dark:text-white dark:text-white">Post anonymously</p>
+                    <p className="text-[10px] text-[#0A1A2F]/40 dark:text-white/40">Your name won't be shown</p>
                   </div>
                 </button>
 

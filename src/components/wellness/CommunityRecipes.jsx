@@ -87,7 +87,7 @@ export default function CommunityRecipes() {
 
       {/* Recipe Grid */}
       {filteredRecipes.length === 0 ? (
-        <div className="text-center py-12 bg-white rounded-2xl">
+        <div className="text-center py-12 bg-white dark:bg-white/5 rounded-2xl">
           <Users className="w-16 h-16 text-gray-300 mx-auto mb-4" />
           <p className="mb-2">
             {searchTerm ? 'No recipes found' : 'No community recipes yet'}

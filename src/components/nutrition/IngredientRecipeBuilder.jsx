@@ -147,15 +147,15 @@ Requirements:
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow-sm p-5">
+    <div className="bg-white dark:bg-white/5 rounded-2xl shadow-sm p-5">
       {/* Header */}
       <div className="flex items-center gap-3 mb-1">
         <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#AFC7E3] to-[#6B7280] flex items-center justify-center flex-shrink-0">
           <ChefHat className="w-5 h-5 text-white" />
         </div>
         <div>
-          <h3 className="font-bold text-[#0A1A2F] text-lg">What's in your kitchen?</h3>
-          <p className="text-sm text-[#0A1A2F]/60">Add ingredients you have and we'll suggest recipes you can make right now.</p>
+          <h3 className="font-bold text-[#0A1A2F] dark:text-white text-lg">What's in your kitchen?</h3>
+          <p className="text-sm text-[#0A1A2F]/60 dark:text-white/60">Add ingredients you have and we'll suggest recipes you can make right now.</p>
         </div>
       </div>
 
@@ -188,12 +188,12 @@ Requirements:
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.8 }}
-                className="flex items-center gap-1.5 bg-[#FAD98D]/30 text-[#0A1A2F] border border-[#FAD98D]/40 rounded-full px-3 py-1 text-sm"
+                className="flex items-center gap-1.5 bg-[#FAD98D]/30 text-[#0A1A2F] dark:text-white border border-[#FAD98D]/40 rounded-full px-3 py-1 text-sm"
               >
                 {ing}
                 <button
                   onClick={() => removeIngredient(ing)}
-                  className="text-[#0A1A2F]/50 hover:text-[#0A1A2F] leading-none"
+                  className="text-[#0A1A2F]/50 dark:text-white/50 hover:text-[#0A1A2F] dark:text-white leading-none"
                 >
                   <X className="w-3 h-3" />
                 </button>
@@ -249,20 +249,20 @@ Requirements:
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: idx * 0.08 }}
-                  className="bg-[#F2F6FA] rounded-xl p-4 border border-[#FAD98D]/20"
+                  className="bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-xl p-4 border border-[#FAD98D]/20"
                 >
                   {/* Recipe Header */}
                   <div className="flex items-start justify-between gap-2 mb-1">
-                    <h4 className="font-bold text-[#0A1A2F] text-base leading-tight">{recipe.name}</h4>
+                    <h4 className="font-bold text-[#0A1A2F] dark:text-white text-base leading-tight">{recipe.name}</h4>
                     <span className={`text-xs px-2 py-0.5 rounded-full flex-shrink-0 font-medium ${difficultyClass}`}>
                       {recipe.difficulty}
                     </span>
                   </div>
 
-                  <p className="text-sm text-[#0A1A2F]/70 mb-3">{recipe.description}</p>
+                  <p className="text-sm text-[#0A1A2F]/70 dark:text-white/70 mb-3">{recipe.description}</p>
 
                   {/* Time & Ingredients */}
-                  <div className="flex items-center gap-4 text-xs text-[#0A1A2F]/60 mb-2">
+                  <div className="flex items-center gap-4 text-xs text-[#0A1A2F]/60 dark:text-white/60 mb-2">
                     <span className="flex items-center gap-1">
                       <Clock className="w-3 h-3" />
                       Prep: {recipe.prepTime}
@@ -274,10 +274,10 @@ Requirements:
                   </div>
 
                   <div className="mb-3">
-                    <p className="text-xs font-semibold text-[#0A1A2F]/60 mb-1">Ingredients needed:</p>
+                    <p className="text-xs font-semibold text-[#0A1A2F]/60 dark:text-white/60 mb-1">Ingredients needed:</p>
                     <div className="flex flex-wrap gap-1">
                       {[...(recipe.usedIngredients || []), ...(recipe.additionalIngredients || [])].map((ing) => (
-                        <span key={ing} className="text-xs bg-white border border-[#FAD98D]/30 rounded-full px-2 py-0.5 text-[#0A1A2F]/80">
+                        <span key={ing} className="text-xs bg-white dark:bg-white/5 border border-[#FAD98D]/30 rounded-full px-2 py-0.5 text-[#0A1A2F]/80 dark:text-white/80">
                           {ing}
                         </span>
                       ))}
@@ -337,15 +337,15 @@ Requirements:
                       >
                         {/* Servings */}
                         {recipe.servings && (
-                          <p className="text-xs text-[#0A1A2F]/50 font-medium">🍽️ {recipe.servings}</p>
+                          <p className="text-xs text-[#0A1A2F]/50 dark:text-white/50 font-medium">🍽️ {recipe.servings}</p>
                         )}
 
                         {/* Step-by-step instructions */}
                         <div>
-                          <p className="text-xs font-bold text-[#0A1A2F] uppercase tracking-wide mb-2">Instructions</p>
+                          <p className="text-xs font-bold text-[#0A1A2F] dark:text-white uppercase tracking-wide mb-2">Instructions</p>
                           <ol className="space-y-2">
                             {(recipe.steps || []).map((step, i) => (
-                              <li key={i} className="flex gap-2 text-sm text-[#0A1A2F]/80 leading-relaxed">
+                              <li key={i} className="flex gap-2 text-sm text-[#0A1A2F]/80 dark:text-white/80 leading-relaxed">
                                 <span className="flex-shrink-0 w-5 h-5 rounded-full bg-gradient-to-br from-[#AFC7E3] to-[#6B7280] text-white text-xs flex items-center justify-center font-bold mt-0.5">
                                   {i + 1}
                                 </span>
@@ -357,8 +357,8 @@ Requirements:
 
                         {/* Nutrition Facts */}
                         {recipe.nutrition && (
-                          <div className="bg-white rounded-xl p-4 border border-[#FAD98D]/20">
-                            <p className="text-xs font-bold text-[#0A1A2F] uppercase tracking-wide mb-3">Nutrition Facts <span className="font-normal normal-case text-[#0A1A2F]/50">(per serving)</span></p>
+                          <div className="bg-white dark:bg-white/5 rounded-xl p-4 border border-[#FAD98D]/20">
+                            <p className="text-xs font-bold text-[#0A1A2F] dark:text-white uppercase tracking-wide mb-3">Nutrition Facts <span className="font-normal normal-case text-[#0A1A2F]/50 dark:text-white/50">(per serving)</span></p>
                             <div className="grid grid-cols-5 gap-2 text-center">
                               {[
                                 { label: 'Calories', value: recipe.nutrition.calories },
@@ -369,7 +369,7 @@ Requirements:
                               ].map(({ label, value }) => (
                                 <div key={label} className="flex flex-col items-center">
                                   <p className="text-sm font-bold text-[#3C4E53]">{value || '—'}</p>
-                                  <p className="text-xs text-[#0A1A2F]/50 mt-0.5">{label}</p>
+                                  <p className="text-xs text-[#0A1A2F]/50 dark:text-white/50 mt-0.5">{label}</p>
                                 </div>
                               ))}
                             </div>
@@ -379,7 +379,7 @@ Requirements:
                         {/* Health Benefits */}
                         {recipe.healthBenefits?.length > 0 && (
                           <div>
-                            <p className="text-xs font-bold text-[#0A1A2F] uppercase tracking-wide mb-2">Health Benefits</p>
+                            <p className="text-xs font-bold text-[#0A1A2F] dark:text-white uppercase tracking-wide mb-2">Health Benefits</p>
                             <ul className="space-y-1">
                               {recipe.healthBenefits.map((benefit, i) => (
                                 <li key={i} className="flex gap-2 text-sm text-[#0A1A2F]/75">

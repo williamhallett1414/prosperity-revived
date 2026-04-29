@@ -46,7 +46,7 @@ export default function ChallengeDetailModal({ challenge, user, participation, o
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+        className="bg-white dark:bg-white/5 dark:bg-gray-800 rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
       >
         <div className="bg-gradient-to-r from-[#c9a227] to-[#FAD98D] px-6 py-4 flex items-center justify-between">
           <h2 className="text-xl font-bold text-white">{challenge.title}</h2>
@@ -102,7 +102,7 @@ export default function ChallengeDetailModal({ challenge, user, participation, o
               </div>
 
               {dailyPrompt && !completedDays.includes(currentDay) && (
-                <div className="bg-[#F2F6FA] rounded-lg p-4 border border-[#AFC7E3]/40">
+                <div className="bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-lg p-4 border border-[#AFC7E3]/40">
                   <h3 className="font-semibold text-gray-900 mb-2">Today's Prompt</h3>
                   <p className="text-gray-700 mb-4">{dailyPrompt.prompt}</p>
                   
@@ -132,7 +132,7 @@ export default function ChallengeDetailModal({ challenge, user, participation, o
                   <h3 className="font-semibold text-gray-900 mb-3">Your Reflections</h3>
                   <div className="space-y-3">
                     {participation.reflection_entries.slice().reverse().map((entry, idx) => (
-                      <div key={idx} className="bg-gray-50 rounded-lg p-3 border">
+                      <div key={idx} className="bg-gray-50 dark:bg-white/5 rounded-lg p-3 border">
                         <div className="flex items-center justify-between mb-2">
                           <Badge variant="outline">Day {entry.day}</Badge>
                           <span className="text-xs text-gray-500">

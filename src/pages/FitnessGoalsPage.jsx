@@ -90,12 +90,12 @@ function BMIGauge({ bmi }) {
         <motion.div
           initial={{ left: '0%' }} animate={{ left: `calc(${pct}% - 6px)` }}
           transition={{ duration: 0.9, delay: 0.3, type: 'spring' }}
-          className="absolute top-1/2 -translate-y-1/2 w-3 h-5 rounded-sm bg-white shadow-md border-2 border-gray-200"
+          className="absolute top-1/2 -translate-y-1/2 w-3 h-5 rounded-sm bg-white dark:bg-white/5 shadow-md border-2 border-gray-200 dark:border-white/10"
           style={{ zIndex: 2 }} />
       </div>
       <div className="flex justify-between mt-1.5">
         {['Under', 'Healthy', 'Over', 'Obese'].map(l => (
-          <span key={l} className="text-[9px] text-[#0A1A2F]/35 font-semibold">{l}</span>
+          <span key={l} className="text-[9px] text-[#0A1A2F]/35 dark:text-white/35 font-semibold">{l}</span>
         ))}
       </div>
       <div className="flex items-center gap-2 mt-2">
@@ -111,8 +111,8 @@ function MacroBar({ label, grams, cals, color, pct }) {
   return (
     <div>
       <div className="flex justify-between items-center mb-1">
-        <span className="text-xs font-bold text-[#0A1A2F]">{label}</span>
-        <span className="text-xs text-[#0A1A2F]/50">{grams}g · {cals} kcal</span>
+        <span className="text-xs font-bold text-[#0A1A2F] dark:text-white dark:text-white">{label}</span>
+        <span className="text-xs text-[#0A1A2F]/50 dark:text-white/50">{grams}g · {cals} kcal</span>
       </div>
       <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
         <motion.div initial={{ width: 0 }} animate={{ width: `${pct}%` }}
@@ -143,7 +143,7 @@ function WeightLog({ onLog, latest }) {
       <input type="number" value={val} onChange={e => setVal(e.target.value)}
         onKeyDown={e => e.key === 'Enter' && save()}
         placeholder={latest ? `Current: ${latest} kg — update` : "Log today's weight (kg)"}
-        className="flex-1 bg-[#F2F6FA] rounded-xl px-3.5 py-2.5 text-sm text-[#0A1A2F] outline-none border-2 border-transparent focus:border-[#38BDF8] transition-colors placeholder:text-[#0A1A2F]/30" />
+        className="flex-1 bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-xl px-3.5 py-2.5 text-sm text-[#0A1A2F] dark:text-white outline-none border-2 border-transparent focus:border-[#38BDF8] transition-colors placeholder:text-[#0A1A2F]/30 dark:text-white/30" />
       <button onClick={save} disabled={!val || saving}
         className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 disabled:opacity-40 active:scale-90 transition-all"
         style={{ background: done ? '#22C55E' : 'linear-gradient(135deg,#38BDF8,#0284c7)' }}>
@@ -194,14 +194,14 @@ export default function FitnessGoalsPage() {
     <div className="min-h-screen pb-28" style={{ background: '#F2F6FA' }}>
 
       {/* ── Standard Header ── */}
-      <div className="sticky top-0 z-40 bg-white border-b border-[#FAD98D]/20 px-4 pt-4 pb-0">
+      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 px-4 pt-4 pb-0">
         <div className="max-w-lg mx-auto flex items-center gap-3 pb-3">
           <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#38BDF8] to-[#0EA5E9] flex items-center justify-center">
             <Target className="w-5 h-5 text-white" />
           </div>
           <div>
-            <h1 className="text-base font-bold text-[#0A1A2F]">Fitness Goals</h1>
-            <p className="text-xs text-[#0A1A2F]/45">Your fitness profile</p>
+            <h1 className="text-base font-bold text-[#0A1A2F] dark:text-white dark:text-white">Fitness Goals</h1>
+            <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45">Your fitness profile</p>
           </div>
         </div>
 
@@ -217,7 +217,7 @@ export default function FitnessGoalsPage() {
               key={tab.id}
               onClick={() => tab.id === 'goals' ? null : navigate(createPageUrl('Workouts'))}
               className={`flex items-center gap-1.5 px-4 py-3 text-xs font-semibold flex-shrink-0 relative transition-colors ${
-                activeTab === tab.id ? 'text-[#38BDF8]' : 'text-[#0A1A2F]/40 hover:text-[#0A1A2F]/60'
+                activeTab === tab.id ? 'text-[#38BDF8]' : 'text-[#0A1A2F]/40 dark:text-white/40 hover:text-[#0A1A2F]/60 dark:text-white/60'
               }`}
             >
               {tab.icon} {tab.label}
@@ -272,7 +272,7 @@ export default function FitnessGoalsPage() {
             <span className="text-lg flex-shrink-0">⚠️</span>
             <div className="flex-1">
               <p className="text-xs font-bold text-[#C9A227]">Profile incomplete</p>
-              <p className="text-[11px] text-[#0A1A2F]/55">
+              <p className="text-[11px] text-[#0A1A2F]/55 dark:text-white/55">
                 Add your {!height ? 'height, ' : ''}{!weight ? 'weight, ' : ''}{!age ? 'age' : ''} to unlock full calculations.
               </p>
             </div>
@@ -282,22 +282,22 @@ export default function FitnessGoalsPage() {
 
         {/* BMI */}
         <motion.div id="tour-bmi-card" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }}
-          className="bg-white rounded-3xl p-5 shadow-sm">
+          className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm">
           <div className="flex items-center justify-between mb-1">
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#EFF9FF]">
                 <Scale className="w-4 h-4 text-[#38BDF8]" />
               </div>
-              <p className="font-bold text-[#0A1A2F] text-sm">Body Mass Index</p>
+              <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">Body Mass Index</p>
             </div>
             {cat && <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: cat.bg, color: cat.color }}>{cat.label}</span>}
           </div>
           {bmi ? <BMIGauge bmi={bmi} /> : (
-            <p className="text-sm text-[#0A1A2F]/40 mt-2">Add height and weight in your profile to see BMI.</p>
+            <p className="text-sm text-[#0A1A2F]/40 dark:text-white/40 mt-2">Add height and weight in your profile to see BMI.</p>
           )}
           {ideal && (
-            <p className="text-[10px] text-[#0A1A2F]/40 mt-3 border-t border-gray-50 pt-3">
-              Ideal weight for your height: <strong className="text-[#0A1A2F]/60">{(ideal - 5).toFixed(0)}–{(ideal + 5).toFixed(0)} kg</strong>
+            <p className="text-[10px] text-[#0A1A2F]/40 dark:text-white/40 mt-3 border-t border-gray-50 dark:border-white/5 pt-3">
+              Ideal weight for your height: <strong className="text-[#0A1A2F]/60 dark:text-white/60">{(ideal - 5).toFixed(0)}–{(ideal + 5).toFixed(0)} kg</strong>
             </p>
           )}
           <WeightLog onLog={setLiveWeight} latest={weight} />
@@ -305,22 +305,22 @@ export default function FitnessGoalsPage() {
 
         {/* Calories */}
         <motion.div id="tour-calories-card" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.09 }}
-          className="bg-white rounded-3xl p-5 shadow-sm">
+          className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#FFF7ED]">
                 <Flame className="w-4 h-4 text-[#FD9C2D]" />
               </div>
-              <p className="font-bold text-[#0A1A2F] text-sm">Daily Calorie Target</p>
+              <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">Daily Calorie Target</p>
             </div>
             <button onClick={() => setShowInfo(v => !v)} className="w-7 h-7 rounded-full bg-gray-100 flex items-center justify-center">
-              <Info className="w-3.5 h-3.5 text-[#0A1A2F]/40" />
+              <Info className="w-3.5 h-3.5 text-[#0A1A2F]/40 dark:text-white/40" />
             </button>
           </div>
           <AnimatePresence>
             {showInfo && (
               <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }}
-                className="text-[11px] text-[#0A1A2F]/50 bg-[#F8FAFB] rounded-xl px-3 py-2 mb-3 leading-relaxed overflow-hidden">
+                className="text-[11px] text-[#0A1A2F]/50 dark:text-white/50 bg-[#F8FAFB] rounded-xl px-3 py-2 mb-3 leading-relaxed overflow-hidden">
                 Uses the <strong>Mifflin-St Jeor</strong> BMR equation × an activity factor for {days}×/week workouts.
                 {goal !== 'maintain' && ` Goal adjustment: ${isLoss ? '-500 kcal deficit' : '+300 kcal surplus'}/day.`}
               </motion.div>
@@ -343,29 +343,29 @@ export default function FitnessGoalsPage() {
                   <p className="text-[10px] opacity-55" style={{ color: isLoss ? '#22C55E' : '#38BDF8' }}>kcal/day</p>
                 </div>
               </div>
-              {isLoss && <p className="text-[11px] text-[#0A1A2F]/40 text-center">~500 kcal deficit → ~0.5 kg/week loss</p>}
+              {isLoss && <p className="text-[11px] text-[#0A1A2F]/40 dark:text-white/40 text-center">~500 kcal deficit → ~0.5 kg/week loss</p>}
             </div>
           ) : (
-            <p className="text-sm text-[#0A1A2F]/40">Complete your profile to see calorie targets.</p>
+            <p className="text-sm text-[#0A1A2F]/40 dark:text-white/40">Complete your profile to see calorie targets.</p>
           )}
         </motion.div>
 
         {/* Macros */}
         {macros && (
           <motion.div id="tour-macros-split" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.13 }}
-            className="bg-white rounded-3xl p-5 shadow-sm">
+            className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm">
             <div className="flex items-center gap-2 mb-4">
               <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#F0FDF4]">
                 <BarChart2 className="w-4 h-4 text-[#22C55E]" />
               </div>
-              <p className="font-bold text-[#0A1A2F] text-sm">Macro Split</p>
+              <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">Macro Split</p>
             </div>
             <div className="space-y-3">
               <MacroBar label="Protein" grams={macros.protein} cals={macros.protein * 4} color="#38BDF8" pct={isLoss ? 40 : isGain ? 35 : 30} />
               <MacroBar label="Carbohydrates" grams={macros.carbs} cals={macros.carbs * 4} color="#FD9C2D" pct={isLoss ? 30 : isGain ? 40 : 45} />
               <MacroBar label="Fat" grams={macros.fat} cals={macros.fat * 9} color="#C9A227" pct={isLoss ? 30 : 25} />
             </div>
-            <p className="text-[10px] text-[#0A1A2F]/35 mt-3 pt-3 border-t border-gray-50">
+            <p className="text-[10px] text-[#0A1A2F]/35 dark:text-white/35 mt-3 pt-3 border-t border-gray-50 dark:border-white/5">
               Optimised for {GOAL_LABELS[goal]}. Log meals in Nutrition to track against these.
             </p>
             <Link to={createPageUrl('Nutrition')} className="flex items-center gap-1 mt-2 text-xs font-semibold text-[#22C55E]">
@@ -428,15 +428,15 @@ export default function FitnessGoalsPage() {
               { icon: Target,   color: '#FD9C2D', bg: '#FFF7ED', title: 'Weekly burn',  value: `${(tdee * 7 / 1000).toFixed(1)}k kcal`, sub: `Across ${days} workouts + life` },
             ].map(({ icon: Icon, color, bg, title, value, sub }, i) => (
               <motion.div key={title} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 + i * 0.03 }}
-                className="bg-white rounded-2xl p-4 shadow-sm">
+                className="bg-white dark:bg-white/5 rounded-2xl p-4 shadow-sm">
                 <div className="flex items-center gap-2 mb-2">
                   <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: bg }}>
                     <Icon className="w-3.5 h-3.5" style={{ color }} />
                   </div>
-                  <p className="text-[10px] font-bold text-[#0A1A2F]/40 uppercase tracking-widest">{title}</p>
+                  <p className="text-[10px] font-bold text-[#0A1A2F]/40 dark:text-white/40 uppercase tracking-widest">{title}</p>
                 </div>
-                <p className="text-xl font-black text-[#0A1A2F]">{value}</p>
-                <p className="text-[10px] text-[#0A1A2F]/40 mt-0.5">{sub}</p>
+                <p className="text-xl font-black text-[#0A1A2F] dark:text-white dark:text-white">{value}</p>
+                <p className="text-[10px] text-[#0A1A2F]/40 dark:text-white/40 mt-0.5">{sub}</p>
               </motion.div>
             ))}
           </div>
@@ -445,13 +445,13 @@ export default function FitnessGoalsPage() {
         {/* Hydration */}
         {weight && (
           <motion.div id="tour-hydration-tip" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.24 }}
-            className="bg-white rounded-2xl px-4 py-3.5 flex items-center gap-3 shadow-sm">
+            className="bg-white dark:bg-white/5 rounded-2xl px-4 py-3.5 flex items-center gap-3 shadow-sm">
             <div className="w-9 h-9 rounded-xl flex items-center justify-center bg-[#EFF9FF] flex-shrink-0">
               <Droplets style={{ width: 18, height: 18, color: '#38BDF8' }} />
             </div>
             <div className="flex-1">
-              <p className="font-bold text-[#0A1A2F] text-sm">Daily Water Goal</p>
-              <p className="text-xs text-[#0A1A2F]/45">
+              <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">Daily Water Goal</p>
+              <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45">
                 {(weight * 0.033).toFixed(1)}L · {Math.ceil(weight * 0.033 / 0.25)} glasses
                 {days >= 4 ? ' (+0.5L on training days)' : ''}
               </p>
@@ -479,7 +479,7 @@ export default function FitnessGoalsPage() {
 
         {/* Quick links */}
         <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.32 }}>
-          <p className="text-[10px] font-bold text-[#0A1A2F]/35 uppercase tracking-widest mb-2.5">Related Tools</p>
+          <p className="text-[10px] font-bold text-[#0A1A2F]/35 dark:text-white/35 uppercase tracking-widest mb-2.5">Related Tools</p>
           <div className="grid grid-cols-2 gap-2.5">
             {[
               { icon: '📊', label: 'Workout Trends',   page: 'WorkoutTrends'   },
@@ -488,9 +488,9 @@ export default function FitnessGoalsPage() {
               { icon: '📅', label: 'Workout Planner',   page: 'WorkoutPlanner'  },
             ].map(({ icon, label, page }) => (
               <Link key={page} to={createPageUrl(page)}
-                className="flex items-center gap-2.5 bg-white rounded-2xl p-3.5 shadow-sm border border-gray-50 active:scale-97 transition-all">
+                className="flex items-center gap-2.5 bg-white dark:bg-white/5 rounded-2xl p-3.5 shadow-sm border border-gray-50 dark:border-white/5 active:scale-97 transition-all">
                 <span className="text-xl">{icon}</span>
-                <span className="text-xs font-bold text-[#0A1A2F] leading-tight">{label}</span>
+                <span className="text-xs font-bold text-[#0A1A2F] dark:text-white leading-tight">{label}</span>
               </Link>
             ))}
           </div>

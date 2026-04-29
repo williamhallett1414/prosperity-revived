@@ -80,18 +80,18 @@ export default function ScriptureAffirmations() {
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
           <Sparkles className="w-6 h-6 text-[#AFC7E3]" />
-          <h3 className="text-lg font-bold text-[#0A1A2F]">Scripture-Based Affirmation</h3>
+          <h3 className="text-lg font-bold text-[#0A1A2F] dark:text-white dark:text-white">Scripture-Based Affirmation</h3>
         </div>
-        <RefreshCw className="w-4 h-4 text-[#0A1A2F]/40" />
+        <RefreshCw className="w-4 h-4 text-[#0A1A2F]/40 dark:text-white/40" />
       </div>
 
-      <div className="bg-white rounded-xl p-6 mb-4">
-        <p className="text-xl font-semibold text-[#0A1A2F] mb-4 text-center italic">
+      <div className="bg-white dark:bg-white/5 rounded-xl p-6 mb-4">
+        <p className="text-xl font-semibold text-[#0A1A2F] dark:text-white mb-4 text-center italic">
           "{todaysAffirmation.text}"
         </p>
         <div className="text-center mb-4">
           <p className="text-sm font-semibold text-[#FAD98D]">{todaysAffirmation.verse}</p>
-          <p className="text-xs text-[#0A1A2F]/60 mt-2 italic">{todaysAffirmation.fullVerse}</p>
+          <p className="text-xs text-[#0A1A2F]/60 dark:text-white/60 mt-2 italic">{todaysAffirmation.fullVerse}</p>
         </div>
       </div>
 

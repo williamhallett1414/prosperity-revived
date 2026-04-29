@@ -174,7 +174,7 @@ export default function UserProfile() {
 
   if (!profileUser || !currentUser) {
     return (
-      <div className="min-h-screen bg-[#F2F6FA] flex items-center justify-center">
+      <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] flex items-center justify-center">
         <Loader2 className="w-8 h-8 text-[#c9a227] animate-spin" />
       </div>
     );
@@ -187,7 +187,7 @@ export default function UserProfile() {
   const receivedRequest = isPending && existingFriendship?.friend_email === currentUser.email;
 
   return (
-    <div className="min-h-screen bg-[#F2F6FA] pb-24">
+    <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-24">
       {/* Header with Banner */}
       <div className="relative text-white">
         {/* Banner Image */}
@@ -303,7 +303,7 @@ export default function UserProfile() {
         <div className="px-4 pt-3 pb-1 flex gap-3">
           <Link
             to={createPageUrl(`Messages?recipient=${profileEmail}&name=${profileUser.full_name || profileEmail}`)}
-            className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-2xl bg-gradient-to-r from-[#FAD98D] to-[#c9a227] text-[#0A1A2F] font-bold text-sm hover:opacity-90 transition-opacity shadow-sm"
+            className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-2xl bg-gradient-to-r from-[#FAD98D] to-[#c9a227] text-[#0A1A2F] dark:text-white font-bold text-sm hover:opacity-90 transition-opacity shadow-sm"
           >
             <MessageCircle className="w-4 h-4" />
             Message
@@ -337,8 +337,8 @@ export default function UserProfile() {
       {/* Favorite Verses */}
       {profileUser.favorite_verse_ids && profileUser.favorite_verse_ids.length > 0 && (
         <div className="px-4 mb-6">
-          <div className="bg-white border border-[#FAD98D]/20 rounded-2xl p-4 shadow-sm">
-            <h3 className="font-semibold text-[#0A1A2F] mb-3 flex items-center gap-2">
+          <div className="bg-white dark:bg-white/5 border border-[#FAD98D]/20 rounded-2xl p-4 shadow-sm">
+            <h3 className="font-semibold text-[#0A1A2F] dark:text-white mb-3 flex items-center gap-2">
               <span className="text-xl">✨</span>
               Favorite Verses
             </h3>
@@ -350,7 +350,7 @@ export default function UserProfile() {
                   animate={{ opacity: 1 }}
                   className="bg-gradient-to-br from-[#c9a227]/10 to-[#AFC7E3]/10 rounded-xl p-3 border-l-4 border-[#c9a227]"
                 >
-                  <p className="font-semibold text-sm text-[#0A1A2F] mb-2">
+                  <p className="font-semibold text-sm text-[#0A1A2F] dark:text-white mb-2">
                     {bookmark.book_name} {bookmark.chapter_number}:{bookmark.verse_number}
                   </p>
                   <p className="text-[#0A1A2F]/75 text-sm italic">
@@ -368,8 +368,8 @@ export default function UserProfile() {
       {/* Mutual Friends */}
       {!isOwnProfile && mutualFriends.length > 0 && (
         <div className="px-4 mb-6">
-          <div className="bg-white border border-[#FAD98D]/20 rounded-2xl p-4 shadow-sm">
-            <h3 className="font-semibold text-[#0A1A2F] mb-3">
+          <div className="bg-white dark:bg-white/5 border border-[#FAD98D]/20 rounded-2xl p-4 shadow-sm">
+            <h3 className="font-semibold text-[#0A1A2F] dark:text-white mb-3">
               {mutualFriends.length} Mutual Friend{mutualFriends.length !== 1 ? 's' : ''}
             </h3>
             <div className="grid grid-cols-3 gap-3">
@@ -398,7 +398,7 @@ export default function UserProfile() {
               ))}
             </div>
             {mutualFriends.length > 6 && (
-              <p className="text-sm text-[#0A1A2F]/50 mt-3 text-center">
+              <p className="text-sm text-[#0A1A2F]/50 dark:text-white/50 mt-3 text-center">
                 and {mutualFriends.length - 6} more
               </p>
             )}
@@ -409,16 +409,16 @@ export default function UserProfile() {
       {/* Bio */}
       {profileUser.bio ? (
         <div className="px-4 mb-6">
-          <div className="bg-white rounded-2xl p-4 shadow-sm border border-[#FAD98D]/20">
-            <h3 className="font-semibold text-[#0A1A2F] mb-2">Bio</h3>
-            <p className="text-[#0A1A2F]/70">{profileUser.bio}</p>
+          <div className="bg-white dark:bg-white/5 rounded-2xl p-4 shadow-sm border border-[#FAD98D]/20">
+            <h3 className="font-semibold text-[#0A1A2F] dark:text-white mb-2">Bio</h3>
+            <p className="text-[#0A1A2F]/70 dark:text-white/70">{profileUser.bio}</p>
           </div>
         </div>
       ) : isOwnProfile ? (
         <div className="px-4 mb-6">
           <button
             onClick={() => setShowEditProfile(true)}
-            className="w-full bg-white rounded-2xl p-4 shadow-sm border border-dashed border-[#FAD98D]/50 text-[#0A1A2F]/50 text-sm flex items-center justify-center gap-2 hover:border-[#c9a227] hover:text-[#c9a227] transition-colors"
+            className="w-full bg-white dark:bg-white/5 rounded-2xl p-4 shadow-sm border border-dashed border-[#FAD98D]/50 text-[#0A1A2F]/50 dark:text-white/50 text-sm flex items-center justify-center gap-2 hover:border-[#c9a227] hover:text-[#c9a227] transition-colors"
           >
             <Plus className="w-4 h-4" />
             Add a bio to tell people about yourself
@@ -429,7 +429,7 @@ export default function UserProfile() {
       {/* Photo Gallery */}
       {photos.length > 0 && (
         <div className="px-4 mb-6">
-          <h2 className="text-xl font-bold text-[#0A1A2F] mb-4">Photos</h2>
+          <h2 className="text-xl font-bold text-[#0A1A2F] dark:text-white mb-4">Photos</h2>
           <div className="grid grid-cols-3 gap-2">
             {photos.slice(0, 6).map((photo, index) => (
               <motion.div
@@ -437,7 +437,7 @@ export default function UserProfile() {
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: index * 0.05 }}
-                className="aspect-square rounded-xl overflow-hidden bg-[#F2F6FA]"
+                className="aspect-square rounded-xl overflow-hidden bg-[#F2F6FA] dark:bg-[#0A1A2F]"
               >
                 <img
                   src={photo.image_url}
@@ -452,7 +452,7 @@ export default function UserProfile() {
 
       {/* Posts Feed */}
       <div className="px-4 mb-6">
-        <h2 className="text-xl font-bold text-[#0A1A2F] mb-4">
+        <h2 className="text-xl font-bold text-[#0A1A2F] dark:text-white mb-4">
           {isOwnProfile ? 'My Posts' : 'Posts'}
         </h2>
         <UserPostsFeed userEmail={profileEmail} isOwnProfile={isOwnProfile} />
@@ -461,7 +461,7 @@ export default function UserProfile() {
       {/* Current Plans */}
       {activePlans.length > 0 && (
         <div className="px-4 mb-6">
-          <h2 className="text-xl font-bold text-[#0A1A2F] mb-4">Current Plans</h2>
+          <h2 className="text-xl font-bold text-[#0A1A2F] dark:text-white mb-4">Current Plans</h2>
           <div className="space-y-3">
             {activePlans.slice(0, 3).map(p => {
               const plan = p.is_custom 
@@ -476,7 +476,7 @@ export default function UserProfile() {
       {/* Completed Plans */}
       {completedPlans.length > 0 && (
         <div className="px-4 mb-6">
-          <h2 className="text-xl font-bold text-[#0A1A2F] mb-4 flex items-center gap-2">
+          <h2 className="text-xl font-bold text-[#0A1A2F] dark:text-white mb-4 flex items-center gap-2">
             <CheckCircle className="w-6 h-6 text-[#c9a227]" />
             Completed Plans ({completedPlans.length})
           </h2>
@@ -553,9 +553,9 @@ function EditProfileSheet({ open, onOpenChange, currentUser, onSave }) {
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent side="bottom" className="rounded-t-2xl max-h-[85vh] overflow-y-auto bg-[#F2F6FA] border-t border-[#FAD98D]/30">
+      <SheetContent side="bottom" className="rounded-t-2xl max-h-[85vh] overflow-y-auto bg-[#F2F6FA] dark:bg-[#0A1A2F] border-t border-[#FAD98D]/30">
         <SheetHeader className="mb-6">
-          <SheetTitle className="text-[#0A1A2F] text-lg font-bold">Edit Profile</SheetTitle>
+          <SheetTitle className="text-[#0A1A2F] dark:text-white text-lg font-bold">Edit Profile</SheetTitle>
         </SheetHeader>
 
         <div className="space-y-5 pb-6">
@@ -568,7 +568,7 @@ function EditProfileSheet({ open, onOpenChange, currentUser, onSave }) {
                 currentUser?.full_name?.charAt(0) || '?'
               )}
             </div>
-            <label className="flex items-center gap-2 px-4 py-2 rounded-full border border-[#FAD98D]/50 text-[#0A1A2F]/70 text-sm cursor-pointer hover:border-[#c9a227] hover:text-[#c9a227] transition-colors bg-white">
+            <label className="flex items-center gap-2 px-4 py-2 rounded-full border border-[#FAD98D]/50 text-[#0A1A2F]/70 dark:text-white/70 text-sm cursor-pointer hover:border-[#c9a227] hover:text-[#c9a227] transition-colors bg-white dark:bg-white/5">
               {uploading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />}
               {uploading ? 'Uploading...' : 'Change Photo'}
               <input type="file" accept="image/*" className="hidden" onChange={handleImageUpload} disabled={uploading} />
@@ -577,25 +577,25 @@ function EditProfileSheet({ open, onOpenChange, currentUser, onSave }) {
 
           {/* Full Name */}
           <div>
-            <label className="block text-sm font-medium text-[#0A1A2F] mb-1.5">Full Name</label>
+            <label className="block text-sm font-medium text-[#0A1A2F] dark:text-white mb-1.5">Full Name</label>
             <input
               type="text"
               value={fullName}
               onChange={e => setFullName(e.target.value)}
               placeholder="Your name"
-              className="w-full px-4 py-3 rounded-xl border border-[#FAD98D]/30 bg-white text-[#0A1A2F] placeholder-[#0A1A2F]/40 focus:outline-none focus:border-[#c9a227] transition-colors"
+              className="w-full px-4 py-3 rounded-xl border border-[#FAD98D]/30 bg-white dark:bg-white/5 text-[#0A1A2F] dark:text-white placeholder-[#0A1A2F]/40 focus:outline-none focus:border-[#c9a227] transition-colors"
             />
           </div>
 
           {/* Bio */}
           <div>
-            <label className="block text-sm font-medium text-[#0A1A2F] mb-1.5">Bio</label>
+            <label className="block text-sm font-medium text-[#0A1A2F] dark:text-white mb-1.5">Bio</label>
             <textarea
               value={bio}
               onChange={e => setBio(e.target.value)}
               placeholder="Tell people about yourself..."
               rows={4}
-              className="w-full px-4 py-3 rounded-xl border border-[#FAD98D]/30 bg-white text-[#0A1A2F] placeholder-[#0A1A2F]/40 focus:outline-none focus:border-[#c9a227] transition-colors resize-none"
+              className="w-full px-4 py-3 rounded-xl border border-[#FAD98D]/30 bg-white dark:bg-white/5 text-[#0A1A2F] dark:text-white placeholder-[#0A1A2F]/40 focus:outline-none focus:border-[#c9a227] transition-colors resize-none"
             />
           </div>
 

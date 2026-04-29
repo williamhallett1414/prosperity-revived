@@ -182,7 +182,7 @@ Return ONLY the meditation script, no additional formatting or explanation.`;
                     className={`p-3 rounded-lg border-2 transition-all text-left ${
                       mood === m.value
                         ? 'border-[#FAD98D] bg-[#FAD98D]/10 dark:bg-[#0A1A2F]/20'
-                        : 'border-gray-200 hover:border-gray-300'
+                        : 'border-gray-200 dark:border-white/10 hover:border-gray-300'
                     }`}
                   >
                     <span className={`text-sm font-medium ${m.color}`}>{m.label}</span>
@@ -283,7 +283,7 @@ Return ONLY the meditation script, no additional formatting or explanation.`;
               <p className="text-white/80 text-sm">{duration} minute guided meditation</p>
             </div>
 
-            <div className="bg-gray-50 dark:bg-[#0A1A2F] rounded-lg p-6 max-h-96 overflow-y-auto">
+            <div className="bg-gray-50 dark:bg-white/5 dark:bg-[#0A1A2F] rounded-lg p-6 max-h-96 overflow-y-auto">
               <p className="text-gray-800 dark:text-gray-200 whitespace-pre-wrap leading-relaxed">
                 {generatedScript}
               </p>

@@ -57,9 +57,9 @@ export default function WorkoutLogModal({ isOpen, onClose, workout, user }) {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-h-[90vh] overflow-y-auto bg-white border-[#BAE6FD]/30">
+      <DialogContent className="max-h-[90vh] overflow-y-auto bg-white dark:bg-white/5 border-[#BAE6FD]/30">
         <DialogHeader>
-          <DialogTitle className="text-[#0A1A2F]">Log Workout: {workout?.title}</DialogTitle>
+          <DialogTitle className="text-[#0A1A2F] dark:text-white dark:text-white">Log Workout: {workout?.title}</DialogTitle>
         </DialogHeader>
 
         <div className="space-y-4">
@@ -74,10 +74,10 @@ export default function WorkoutLogModal({ isOpen, onClose, workout, user }) {
           </div>
 
           <div className="space-y-2.5">
-            <h3 className="font-semibold text-sm text-[#0A1A2F]">Exercises Performed</h3>
+            <h3 className="font-semibold text-sm text-[#0A1A2F] dark:text-white dark:text-white">Exercises Performed</h3>
             {session.exercises_performed.map((exercise, index) => (
-              <div key={index} className="border border-[#BAE6FD]/30 rounded-xl p-3 space-y-2 bg-[#F2F6FA]/60">
-                <p className="font-semibold text-sm text-[#0A1A2F]">{exercise.name}</p>
+              <div key={index} className="border border-[#BAE6FD]/30 rounded-xl p-3 space-y-2 bg-[#F2F6FA] dark:bg-[#0A1A2F]/60">
+                <p className="font-semibold text-sm text-[#0A1A2F] dark:text-white dark:text-white">{exercise.name}</p>
                 <div className="grid grid-cols-2 gap-2">
                   <Input type="number" placeholder="Sets"
                     value={exercise.sets_completed}
@@ -103,7 +103,7 @@ export default function WorkoutLogModal({ isOpen, onClose, workout, user }) {
           </div>
 
           <div>
-            <label className="text-sm font-semibold text-[#0A1A2F] mb-2 block">How did it feel?</label>
+            <label className="text-sm font-semibold text-[#0A1A2F] dark:text-white mb-2 block">How did it feel?</label>
             <Select value={session.overall_feeling} onValueChange={v => setSession({ ...session, overall_feeling: v })}>
               <SelectTrigger className="border-[#BAE6FD]/40">
                 <SelectValue />

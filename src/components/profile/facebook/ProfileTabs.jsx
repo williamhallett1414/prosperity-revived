@@ -18,7 +18,7 @@ const tabs = [
 export default function ProfileTabs({ activeTab, onTabChange }) {
   return (
     <div className="max-w-6xl mx-auto px-4">
-      <div className="border-b border-gray-200 bg-white rounded-t-lg">
+      <div className="border-b border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 rounded-t-lg">
         <div className="flex gap-0 overflow-x-auto">
           {tabs.map((tab) => {
             const Icon = tab.icon;

@@ -35,7 +35,7 @@ function PlanCard({ plan, idx, onPreview }) {
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: idx * 0.05 }}
-      className="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm">
+      className="bg-white dark:bg-white/5 rounded-2xl overflow-hidden border border-gray-100 dark:border-white/10 shadow-sm">
 
       {/* Header gradient */}
       <div className={`bg-gradient-to-r ${plan.gradient} p-4 relative overflow-hidden`}>
@@ -71,12 +71,12 @@ function PlanCard({ plan, idx, onPreview }) {
 
       {/* Body */}
       <div className="p-4">
-        <p className="text-[#0A1A2F]/60 text-xs leading-relaxed mb-3">{plan.description}</p>
+        <p className="text-[#0A1A2F]/60 dark:text-white/60 text-xs leading-relaxed mb-3">{plan.description}</p>
 
         {/* Tags */}
         <div className="flex flex-wrap gap-1 mb-3">
           {plan.tags.slice(0, 4).map((tag) =>
-          <span key={tag} className="text-[10px] px-2 py-0.5 rounded-full bg-[#F2F6FA] text-[#3C4E53] font-medium border border-[#3C4E53]/30/12">
+          <span key={tag} className="text-[10px] px-2 py-0.5 rounded-full bg-[#F2F6FA] dark:bg-[#0A1A2F] text-[#3C4E53] font-medium border border-[#3C4E53]/30/12">
               {tag}
             </span>
           )}
@@ -96,7 +96,7 @@ function PlanCard({ plan, idx, onPreview }) {
 
         {/* Progress bar if started */}
         {isStarted && !plan.comingSoon &&
-        <div className="mb-3 p-2.5 bg-[#F2F6FA] rounded-xl">
+        <div className="mb-3 p-2.5 bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-xl">
             <div className="flex justify-between mb-1.5">
               <span className="text-[10px] font-bold text-[#3C4E53]">Your Progress</span>
               <span className="text-[10px] font-bold text-[#3C4E53]">Day {completedDays}/{plan.days_total}</span>
@@ -128,7 +128,7 @@ function PlanCard({ plan, idx, onPreview }) {
               onPreview(plan);
             }}
             variant="outline"
-            className="w-full border border-[#3C4E53]/30/20 text-[#3C4E53] hover:bg-[#F2F6FA] font-semibold py-2 rounded-xl text-xs">
+            className="w-full border border-[#3C4E53]/30/20 text-[#3C4E53] hover:bg-[#F2F6FA] dark:bg-[#0A1A2F] font-semibold py-2 rounded-xl text-xs">
 
                 <Eye className="w-3.5 h-3.5 mr-1.5" />
                 Preview Day 1
@@ -172,18 +172,18 @@ export default function CoachingPlans() {
   const totalPlans = COACHING_PLANS.length;
 
   return (
-    <div className="min-h-screen bg-[#F2F6FA] pb-28">
+    <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
 
       {/* Header */}
-      <div className="sticky top-0 z-40 bg-white border-b border-gray-100 px-4 py-3">
+      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-gray-100 dark:border-white/10 px-4 py-3">
         <div className="max-w-2xl mx-auto flex items-center gap-3">
           <Link to={createPageUrl('ProgressDashboard')}
-          className="w-9 h-9 rounded-full bg-white hover:bg-white flex items-center justify-center transition-colors">
+          className="w-9 h-9 rounded-full bg-white dark:bg-white/5 hover:bg-white dark:bg-white/5 flex items-center justify-center transition-colors">
             <ArrowLeft className="w-4 h-4 text-[#3C4E53]" />
           </Link>
           <div>
-            <h1 className="text-lg font-bold text-[#0A1A2F]">Coaching Plans</h1>
-            <p className="text-xs text-[#0A1A2F]/50">{activePlans} active · {totalPlans - activePlans} coming soon</p>
+            <h1 className="text-lg font-bold text-[#0A1A2F] dark:text-white dark:text-white">Coaching Plans</h1>
+            <p className="text-xs text-[#0A1A2F]/50 dark:text-white/50">{activePlans} active · {totalPlans - activePlans} coming soon</p>
           </div>
         </div>
       </div>
@@ -232,13 +232,13 @@ export default function CoachingPlans() {
             className={`flex-shrink-0 flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-bold transition-all border ${
             activeCategory === cat.id ?
             'bg-[#3C4E53] text-white border-[#3C4E53]/30 shadow-md' :
-            'bg-white text-[#0A1A2F]/60 border-[#3C4E53]/30/15 hover:border-[#3C4E53]/30/40'}`
+            'bg-white dark:bg-white/5 text-[#0A1A2F]/60 dark:text-white/60 border-[#3C4E53]/30/15 hover:border-[#3C4E53]/30/40'}`
             }>
 
               <span>{cat.emoji}</span>
               <span>{cat.name}</span>
               <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded-full ${
-            activeCategory === cat.id ? 'bg-white/20 text-white' : 'bg-[#F2F6FA] text-[#0A1A2F]/40'}`
+            activeCategory === cat.id ? 'bg-white/20 text-white' : 'bg-[#F2F6FA] dark:bg-[#0A1A2F] text-[#0A1A2F]/40 dark:text-white/40'}`
             }>
                 {cat.id === 'all' ? COACHING_PLANS.length : COACHING_PLANS.filter((p) => p.category === cat.id).length}
               </span>
@@ -281,15 +281,15 @@ export default function CoachingPlans() {
                       {cat.emoji}
                     </div>
                     <div className="flex-1">
-                      <h2 className="text-sm font-bold text-[#0A1A2F]">{cat.name}</h2>
-                      <p className="text-[10px] text-[#0A1A2F]/40">
+                      <h2 className="text-sm font-bold text-[#0A1A2F] dark:text-white dark:text-white">{cat.name}</h2>
+                      <p className="text-[10px] text-[#0A1A2F]/40 dark:text-white/40">
                         {cat.plans.filter((p) => !p.comingSoon).length} active
                         {cat.plans.filter((p) => p.comingSoon).length > 0 && ` · ${cat.plans.filter((p) => p.comingSoon).length} coming soon`}
                       </p>
                     </div>
                     <button
                   onClick={() => setActiveCategory(cat.id)}
-                  className="text-[10px] font-semibold text-[#3C4E53] bg-white px-2.5 py-1 rounded-full hover:bg-white transition-colors">
+                  className="text-[10px] font-semibold text-[#3C4E53] bg-white dark:bg-white/5 px-2.5 py-1 rounded-full hover:bg-white dark:bg-white/5 transition-colors">
 
                       View all
                     </button>
@@ -312,8 +312,8 @@ export default function CoachingPlans() {
           className="mt-6 border-2 border-dashed border-[#3C4E53]/30/15 rounded-2xl p-5 text-center">
 
           <div className="text-2xl mb-2">🚀</div>
-          <h3 className="font-bold text-[#0A1A2F]/60 text-sm mb-1">New Plans in Development</h3>
-          <p className="text-xs text-[#0A1A2F]/40 leading-relaxed">
+          <h3 className="font-bold text-[#0A1A2F]/60 dark:text-white/60 text-sm mb-1">New Plans in Development</h3>
+          <p className="text-xs text-[#0A1A2F]/40 dark:text-white/40 leading-relaxed">
             More plans are being built — covering grief & healing, anxiety, athletic performance, and more. Check back regularly.
           </p>
         </motion.div>

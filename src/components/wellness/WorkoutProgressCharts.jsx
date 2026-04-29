@@ -94,7 +94,7 @@ export default function WorkoutProgressCharts({ isOpen, onClose }) {
           </div>
 
           {selectedExercise && chartData.length > 0 ? (
-            <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
+            <div className="bg-gray-50 dark:bg-white/5 dark:bg-gray-800 rounded-lg p-4">
               <h3 className="font-semibold mb-4">{selectedExercise} - {currentMetric.label}</h3>
               <div className="h-64">
                 <ResponsiveContainer width="100%" height="100%">
@@ -131,19 +131,19 @@ export default function WorkoutProgressCharts({ isOpen, onClose }) {
 
               {/* Stats */}
               <div className="grid grid-cols-3 gap-3 mt-4">
-                <div className="text-center p-2 bg-white dark:bg-gray-700 rounded">
+                <div className="text-center p-2 bg-white dark:bg-white/5 dark:bg-gray-700 rounded">
                   <p className="text-xs text-gray-500 dark:text-gray-400">Best</p>
                   <p className="font-bold text-emerald-600">
                     {Math.max(...chartData.map(d => d[currentMetric.key]))}
                   </p>
                 </div>
-                <div className="text-center p-2 bg-white dark:bg-gray-700 rounded">
+                <div className="text-center p-2 bg-white dark:bg-white/5 dark:bg-gray-700 rounded">
                   <p className="text-xs text-gray-500 dark:text-gray-400">Average</p>
                   <p className="font-bold text-[#3C4E53]">
                     {(chartData.reduce((sum, d) => sum + d[currentMetric.key], 0) / chartData.length).toFixed(1)}
                   </p>
                 </div>
-                <div className="text-center p-2 bg-white dark:bg-gray-700 rounded">
+                <div className="text-center p-2 bg-white dark:bg-white/5 dark:bg-gray-700 rounded">
                   <p className="text-xs text-gray-500 dark:text-gray-400">Sessions</p>
                   <p className="font-bold text-[#C9A227]">{chartData.length}</p>
                 </div>
@@ -170,7 +170,7 @@ export default function WorkoutProgressCharts({ isOpen, onClose }) {
                   .map(session => {
                     const exercise = session.exercises_performed.find(e => e.name === selectedExercise);
                     return (
-                      <div key={session.id} className="flex justify-between items-center p-2 bg-gray-50 dark:bg-gray-800 rounded text-sm">
+                      <div key={session.id} className="flex justify-between items-center p-2 bg-gray-50 dark:bg-white/5 dark:bg-gray-800 rounded text-sm">
                         <span className="text-gray-600 dark:text-gray-400">
                           {new Date(session.date).toLocaleDateString()}
                         </span>

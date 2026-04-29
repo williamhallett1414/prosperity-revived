@@ -73,10 +73,10 @@ Return exactly 3 questions that encourage personal reflection and application.`,
             <Card className="p-6 mt-3 bg-gradient-to-br from-[#FAD98D]/10 to-[#FFF9EC] space-y-4">
               <div className="flex items-center gap-2 mb-4">
                 <Sparkles className="w-5 h-5 text-[#c9a227]" />
-                <h3 className="font-semibold text-[#0A1A2F]">Personal Reflection Questions</h3>
+                <h3 className="font-semibold text-[#0A1A2F] dark:text-white dark:text-white">Personal Reflection Questions</h3>
               </div>
               {questions.map((question, index) => (
-                <div key={index} className="bg-[#F2F6FA] p-4 rounded-lg">
+                <div key={index} className="bg-[#F2F6FA] dark:bg-[#0A1A2F] p-4 rounded-lg">
                   <p className="text-sm font-medium text-[#0A1A2F]/75">
                     {index + 1}. {question}
                   </p>

@@ -18,7 +18,7 @@ export default function GroupChallengeComparison({ participants, challenge, curr
     if (active && payload && payload.length) {
       const data = payload[0].payload;
       return (
-        <div className="bg-white p-3 rounded-lg shadow-lg border border-gray-100">
+        <div className="bg-white dark:bg-white/5 p-3 rounded-lg shadow-lg border border-gray-100 dark:border-white/10">
           <p className="font-semibold text-gray-900">{data.name}</p>
           <p className="text-[#C9A227]">
             {data.progress} {challenge.goal_unit}
@@ -60,7 +60,7 @@ export default function GroupChallengeComparison({ participants, challenge, curr
       </div>
 
       {/* Comparison Chart */}
-      <div className="bg-white rounded-xl p-4">
+      <div className="bg-white dark:bg-white/5 rounded-xl p-4">
         <h3 className="font-semibold mb-4 text-gray-900">Top 10 Participants</h3>
         <ResponsiveContainer width="100%" height={300}>
           <BarChart data={chartData} layout="vertical">

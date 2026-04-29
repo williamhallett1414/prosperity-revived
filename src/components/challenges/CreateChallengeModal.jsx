@@ -119,7 +119,7 @@ export default function CreateChallengeModal({ isOpen, onClose, onSubmit, groupI
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-end sm:items-center justify-center p-0 sm:p-4">
       <motion.div
         initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 40 }}
-        className="bg-white w-full sm:max-w-md sm:rounded-2xl rounded-t-3xl max-h-[90dvh] flex flex-col overflow-hidden shadow-2xl"
+        className="bg-white dark:bg-white/5 w-full sm:max-w-md sm:rounded-2xl rounded-t-3xl max-h-[90dvh] flex flex-col overflow-hidden shadow-2xl"
       >
         {/* Header */}
         <div className="bg-gradient-to-r from-[#0A1A2F] to-[#0A1A2F] px-5 py-4 flex items-center justify-between flex-shrink-0">
@@ -132,7 +132,7 @@ export default function CreateChallengeModal({ isOpen, onClose, onSubmit, groupI
           </button>
         </div>
 
-        <p className="text-xs text-[#0A1A2F]/45 px-5 pt-4 pb-2 font-medium">Choose a template to get started:</p>
+        <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45 px-5 pt-4 pb-2 font-medium">Choose a template to get started:</p>
 
         {/* Template list */}
         <div className="flex-1 overflow-y-auto px-5 pb-4 space-y-2">
@@ -146,8 +146,8 @@ export default function CreateChallengeModal({ isOpen, onClose, onSubmit, groupI
                 initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.04 }}
                 className={`w-full text-left rounded-2xl border p-4 transition-all ${
                   isChosen
-                    ? 'border-[#c9a227] bg-white shadow-sm'
-                    : 'border-[#F2F6FA] bg-white hover:border-[#FAD98D]/50'
+                    ? 'border-[#c9a227] bg-white dark:bg-white/5 shadow-sm'
+                    : 'border-[#F2F6FA] bg-white dark:bg-white/5 hover:border-[#FAD98D]/50'
                 }`}
               >
                 <div className="flex items-start gap-3">
@@ -156,15 +156,15 @@ export default function CreateChallengeModal({ isOpen, onClose, onSubmit, groupI
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
-                      <p className="font-bold text-sm text-[#0A1A2F] leading-snug">{t.title}</p>
+                      <p className="font-bold text-sm text-[#0A1A2F] dark:text-white leading-snug">{t.title}</p>
                       {isChosen && <Check className="w-4 h-4 text-[#c9a227] flex-shrink-0" />}
                     </div>
-                    <p className="text-xs text-[#0A1A2F]/45 leading-relaxed mt-0.5">{t.description}</p>
+                    <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45 leading-relaxed mt-0.5">{t.description}</p>
                     <div className="flex items-center gap-3 mt-1.5">
                       <span className={`text-[9px] font-bold px-2 py-0.5 rounded-full ${style.bg}`}>
                         {t.duration_days} days
                       </span>
-                      <span className="text-[9px] text-[#0A1A2F]/30">{t.reward_points} pts</span>
+                      <span className="text-[9px] text-[#0A1A2F]/30 dark:text-white/30">{t.reward_points} pts</span>
                     </div>
                   </div>
                 </div>
@@ -174,13 +174,13 @@ export default function CreateChallengeModal({ isOpen, onClose, onSubmit, groupI
         </div>
 
         {/* Footer */}
-        <div className="border-t border-[#F2F6FA] px-5 py-4 flex gap-3 bg-white flex-shrink-0">
+        <div className="border-t border-[#F2F6FA] px-5 py-4 flex gap-3 bg-white dark:bg-white/5 flex-shrink-0">
           <button onClick={onClose}
-            className="flex-1 py-3 rounded-xl border border-[#F2F6FA] text-[#0A1A2F]/50 font-semibold text-sm">
+            className="flex-1 py-3 rounded-xl border border-[#F2F6FA] text-[#0A1A2F]/50 dark:text-white/50 font-semibold text-sm">
             Cancel
           </button>
           <button onClick={handleCreate} disabled={!selected || loading}
-            className="flex-1 py-3 rounded-xl bg-gradient-to-r from-[#FAD98D] to-[#c9a227] text-[#0A1A2F] font-bold text-sm disabled:opacity-40 hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
+            className="flex-1 py-3 rounded-xl bg-gradient-to-r from-[#FAD98D] to-[#c9a227] text-[#0A1A2F] dark:text-white font-bold text-sm disabled:opacity-40 hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
             {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Sparkles className="w-4 h-4" />}
             {loading ? 'Creating…' : 'Launch Challenge'}
           </button>

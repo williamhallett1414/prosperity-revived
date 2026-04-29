@@ -200,7 +200,7 @@ export default function PersonalizedNutritionPlan() {
           </div>
 
           {/* Daily Macros */}
-          <div className="bg-white dark:bg-[#0A1A2F] rounded-2xl p-4">
+          <div className="bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-2xl p-4">
             <h4 className="font-semibold text-[#0A1A2F] dark:text-white mb-4">Daily Targets</h4>
             <div className="space-y-3">
               <div>
@@ -238,7 +238,7 @@ export default function PersonalizedNutritionPlan() {
           {mealPlanDays.length > 0 ? (
             <WeeklyMealPlan mealPlanDays={mealPlanDays} activePlan={activePlan} />
           ) : (
-            <div className="text-center py-8 bg-white dark:bg-[#0A1A2F] rounded-2xl">
+            <div className="text-center py-8 bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-2xl">
               <Sparkles className="w-12 h-12 text-[#3C4E53] mx-auto mb-3" />
               <p className="text-gray-600 dark:text-gray-400 mb-4">
                 Generate your weekly meal plan

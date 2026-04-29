@@ -169,7 +169,7 @@ Only reference past guidance when directly relevant. This shows you're walking a
             exit={{ opacity: 0, height: 0 }}
             className="mt-3"
           >
-            <Card className="p-4 bg-[#F2F6FA] space-y-4">
+            <Card className="p-4 bg-[#F2F6FA] dark:bg-[#0A1A2F] space-y-4">
               {/* Input */}
               <div className="flex gap-2">
                 <Input
@@ -225,25 +225,25 @@ Only reference past guidance when directly relevant. This shows you're walking a
                   {savedAdvice.map((item) => (
                     <div
                       key={item.id}
-                      className="bg-[#F2F6FA] p-3 rounded-lg space-y-2"
+                      className="bg-[#F2F6FA] dark:bg-[#0A1A2F] p-3 rounded-lg space-y-2"
                     >
                       <div className="flex items-start justify-between gap-2">
                         <div className="flex-1 space-y-2">
-                          <p className="text-xs font-medium text-[#0A1A2F]/60">{item.user_question}</p>
+                          <p className="text-xs font-medium text-[#0A1A2F]/60 dark:text-white/60">{item.user_question}</p>
                           <p className="text-sm text-[#0A1A2F]/75">{item.advice}</p>
                         </div>
                         <div className="flex gap-1">
                           <button
                             onClick={() => toggleFavoriteMutation.mutate({ id: item.id, isFavorite: item.is_favorite })}
                             className={`p-1 rounded transition-colors ${
-                              item.is_favorite ? 'text-[#FAD98D]' : 'text-[#0A1A2F]/40 hover:text-[#FAD98D]'
+                              item.is_favorite ? 'text-[#FAD98D]' : 'text-[#0A1A2F]/40 dark:text-white/40 hover:text-[#FAD98D]'
                             }`}
                           >
                             <Heart className={`w-4 h-4 ${item.is_favorite ? 'fill-current' : ''}`} />
                           </button>
                           <button
                             onClick={() => deleteAdviceMutation.mutate(item.id)}
-                            className="p-1 rounded text-[#0A1A2F]/40 hover:text-red-500 transition-colors"
+                            className="p-1 rounded text-[#0A1A2F]/40 dark:text-white/40 hover:text-red-500 transition-colors"
                           >
                             <Trash2 className="w-4 h-4" />
                           </button>

@@ -129,7 +129,7 @@ export default function PrayForMeFeed({ user }) {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-white rounded-xl p-4 shadow-sm border border-gray-200"
+          className="bg-white dark:bg-white/5 rounded-xl p-4 shadow-sm border border-gray-200 dark:border-white/10"
         >
           {/* Input Area */}
           <div className="flex items-center gap-3">
@@ -152,14 +152,14 @@ export default function PrayForMeFeed({ user }) {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="space-y-3 border-t border-gray-200 pt-3 mt-3"
+              className="space-y-3 border-t border-gray-200 dark:border-white/10 pt-3 mt-3"
             >
               <textarea
                 autoFocus
                 placeholder="Share your prayer request..."
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
-                className="w-full p-3 bg-white border-none rounded-lg text-gray-900 resize-none focus:outline-none placeholder-gray-500 text-base"
+                className="w-full p-3 bg-white dark:bg-white/5 border-none rounded-lg text-gray-900 resize-none focus:outline-none placeholder-gray-500 text-base"
                 rows={4}
               />
 
@@ -186,7 +186,7 @@ export default function PrayForMeFeed({ user }) {
               )}
 
               {/* Media Buttons */}
-              <div className="flex items-center gap-2 border-t border-gray-200 pt-3">
+              <div className="flex items-center gap-2 border-t border-gray-200 dark:border-white/10 pt-3">
                 <label className="flex-1">
                     <input
                       type="file"

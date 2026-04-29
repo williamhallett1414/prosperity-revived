@@ -119,8 +119,8 @@ function Bar({ label, grams, cals, color, pct, delay = 0 }) {
   return (
     <div>
       <div className="flex justify-between items-center mb-1">
-        <span className="text-xs font-bold text-[#0A1A2F]">{label}</span>
-        <span className="text-xs text-[#0A1A2F]/50">{grams}g · {cals} kcal</span>
+        <span className="text-xs font-bold text-[#0A1A2F] dark:text-white dark:text-white">{label}</span>
+        <span className="text-xs text-[#0A1A2F]/50 dark:text-white/50">{grams}g · {cals} kcal</span>
       </div>
       <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
         <motion.div initial={{ width: 0 }} animate={{ width: `${pct}%` }}
@@ -135,7 +135,7 @@ function Bar({ label, grams, cals, color, pct, delay = 0 }) {
 function StatCard({ emoji, label, value, sub, color = '#0A1A2F', bg = '#F2F6FA', delay = 0 }) {
   return (
     <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay }}
-      className="bg-white rounded-2xl p-4 shadow-sm">
+      className="bg-white dark:bg-white/5 rounded-2xl p-4 shadow-sm">
       <p className="text-lg mb-1">{emoji}</p>
       <p className="text-[10px] font-bold uppercase tracking-widest mb-1" style={{ color: `${color}80` }}>{label}</p>
       <p className="text-base font-black leading-tight" style={{ color }}>{value}</p>
@@ -178,12 +178,12 @@ function UpdateGoalsModal({ user, onClose, onSave }) {
   return (
     <div className="fixed inset-0 z-50 flex justify-center" style={{ background: 'rgba(0,0,0,0.5)', alignItems: 'flex-end', paddingBottom: '64px' }}>
       <motion.div initial={{ y: 80, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: 80, opacity: 0 }}
-        className="w-full max-w-lg bg-white rounded-t-3xl flex flex-col" style={{ maxHeight: 'calc(100vh - 140px)' }}>
+        className="w-full max-w-lg bg-white dark:bg-white/5 rounded-t-3xl flex flex-col" style={{ maxHeight: 'calc(100vh - 140px)' }}>
         {/* Fixed header */}
         <div className="flex items-center justify-between px-5 pt-5 pb-4 flex-shrink-0">
-          <h2 className="font-black text-[#0A1A2F] text-lg">Update Nutrition Goals</h2>
+          <h2 className="font-black text-[#0A1A2F] dark:text-white text-lg">Update Nutrition Goals</h2>
           <button onClick={onClose} className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center">
-            <X className="w-4 h-4 text-[#0A1A2F]/50" />
+            <X className="w-4 h-4 text-[#0A1A2F]/50 dark:text-white/50" />
           </button>
         </div>
 
@@ -192,11 +192,11 @@ function UpdateGoalsModal({ user, onClose, onSave }) {
         <div className="space-y-5">
           {/* Diet type */}
           <div>
-            <p className="text-xs font-bold text-[#0A1A2F]/60 uppercase tracking-widest mb-2">Diet Type</p>
+            <p className="text-xs font-bold text-[#0A1A2F]/60 dark:text-white/60 uppercase tracking-widest mb-2">Diet Type</p>
             <div className="grid grid-cols-2 gap-2">
               {Object.entries(DIET_LABELS).map(([key, { label, emoji }]) => (
                 <button key={key} onClick={() => setForm(f => ({ ...f, diet_type: key }))}
-                  className={`flex items-center gap-2 px-3 py-2.5 rounded-xl border text-sm font-semibold transition-all ${form.diet_type === key ? 'border-[#22C55E] bg-[#F0FDF4] text-[#166534]' : 'border-gray-100 bg-gray-50 text-[#0A1A2F]/60'}`}>
+                  className={`flex items-center gap-2 px-3 py-2.5 rounded-xl border text-sm font-semibold transition-all ${form.diet_type === key ? 'border-[#22C55E] bg-[#F0FDF4] text-[#166534]' : 'border-gray-100 dark:border-white/10 bg-gray-50 dark:bg-white/5 text-[#0A1A2F]/60 dark:text-white/60'}`}>
                   <span>{emoji}</span>{label}
                 </button>
               ))}
@@ -205,11 +205,11 @@ function UpdateGoalsModal({ user, onClose, onSave }) {
 
           {/* Meals per day */}
           <div>
-            <p className="text-xs font-bold text-[#0A1A2F]/60 uppercase tracking-widest mb-2">Meals Per Day</p>
+            <p className="text-xs font-bold text-[#0A1A2F]/60 dark:text-white/60 uppercase tracking-widest mb-2">Meals Per Day</p>
             <div className="grid grid-cols-2 gap-2">
               {Object.entries(MEAL_LABELS).map(([key, label]) => (
                 <button key={key} onClick={() => setForm(f => ({ ...f, meals_per_day: key }))}
-                  className={`px-3 py-2.5 rounded-xl border text-sm font-semibold transition-all ${form.meals_per_day === key ? 'border-[#22C55E] bg-[#F0FDF4] text-[#166534]' : 'border-gray-100 bg-gray-50 text-[#0A1A2F]/60'}`}>
+                  className={`px-3 py-2.5 rounded-xl border text-sm font-semibold transition-all ${form.meals_per_day === key ? 'border-[#22C55E] bg-[#F0FDF4] text-[#166534]' : 'border-gray-100 dark:border-white/10 bg-gray-50 dark:bg-white/5 text-[#0A1A2F]/60 dark:text-white/60'}`}>
                   {label}
                 </button>
               ))}
@@ -218,11 +218,11 @@ function UpdateGoalsModal({ user, onClose, onSave }) {
 
           {/* Cooking time */}
           <div>
-            <p className="text-xs font-bold text-[#0A1A2F]/60 uppercase tracking-widest mb-2">Cooking Preference</p>
+            <p className="text-xs font-bold text-[#0A1A2F]/60 dark:text-white/60 uppercase tracking-widest mb-2">Cooking Preference</p>
             <div className="grid grid-cols-3 gap-2">
               {Object.entries(COOK_LABELS).map(([key, { label, emoji }]) => (
                 <button key={key} onClick={() => setForm(f => ({ ...f, cooking_time: key }))}
-                  className={`flex flex-col items-center px-2 py-2.5 rounded-xl border text-xs font-semibold transition-all ${form.cooking_time === key ? 'border-[#22C55E] bg-[#F0FDF4] text-[#166534]' : 'border-gray-100 bg-gray-50 text-[#0A1A2F]/60'}`}>
+                  className={`flex flex-col items-center px-2 py-2.5 rounded-xl border text-xs font-semibold transition-all ${form.cooking_time === key ? 'border-[#22C55E] bg-[#F0FDF4] text-[#166534]' : 'border-gray-100 dark:border-white/10 bg-gray-50 dark:bg-white/5 text-[#0A1A2F]/60 dark:text-white/60'}`}>
                   <span className="text-lg mb-1">{emoji}</span>{label}
                 </button>
               ))}
@@ -231,7 +231,7 @@ function UpdateGoalsModal({ user, onClose, onSave }) {
 
           {/* Fitness goal */}
           <div>
-            <p className="text-xs font-bold text-[#0A1A2F]/60 uppercase tracking-widest mb-2">Fitness Goal</p>
+            <p className="text-xs font-bold text-[#0A1A2F]/60 dark:text-white/60 uppercase tracking-widest mb-2">Fitness Goal</p>
             <div className="grid grid-cols-2 gap-2">
               {[
                 { key: 'lose_weight', label: '⬇️ Lose weight' },
@@ -242,7 +242,7 @@ function UpdateGoalsModal({ user, onClose, onSave }) {
                 { key: 'general_fitness', label: '🏃 General fitness' },
               ].map(({ key, label }) => (
                 <button key={key} onClick={() => setForm(f => ({ ...f, fitness_goal: key }))}
-                  className={`px-3 py-2.5 rounded-xl border text-sm font-semibold transition-all text-left ${form.fitness_goal === key ? 'border-[#22C55E] bg-[#F0FDF4] text-[#166534]' : 'border-gray-100 bg-gray-50 text-[#0A1A2F]/60'}`}>
+                  className={`px-3 py-2.5 rounded-xl border text-sm font-semibold transition-all text-left ${form.fitness_goal === key ? 'border-[#22C55E] bg-[#F0FDF4] text-[#166534]' : 'border-gray-100 dark:border-white/10 bg-gray-50 dark:bg-white/5 text-[#0A1A2F]/60 dark:text-white/60'}`}>
                   {label}
                 </button>
               ))}
@@ -251,13 +251,13 @@ function UpdateGoalsModal({ user, onClose, onSave }) {
 
           {/* Allergies */}
           <div>
-            <p className="text-xs font-bold text-[#0A1A2F]/60 uppercase tracking-widest mb-2">Allergies / Avoid</p>
+            <p className="text-xs font-bold text-[#0A1A2F]/60 dark:text-white/60 uppercase tracking-widest mb-2">Allergies / Avoid</p>
             <div className="flex flex-wrap gap-2">
               {Object.entries(ALLERGY_LABELS).map(([key, label]) => {
                 const active = form.allergies.includes(key);
                 return (
                   <button key={key} onClick={() => toggle('allergies', key)}
-                    className={`px-3 py-1.5 rounded-full border text-xs font-semibold transition-all ${active ? 'border-red-300 bg-red-50 text-red-600' : 'border-gray-100 bg-gray-50 text-[#0A1A2F]/55'}`}>
+                    className={`px-3 py-1.5 rounded-full border text-xs font-semibold transition-all ${active ? 'border-red-300 bg-red-50 text-red-600' : 'border-gray-100 dark:border-white/10 bg-gray-50 dark:bg-white/5 text-[#0A1A2F]/55 dark:text-white/55'}`}>
                     {label}
                   </button>
                 );
@@ -267,7 +267,7 @@ function UpdateGoalsModal({ user, onClose, onSave }) {
 
           {/* Physical stats */}
           <div>
-            <p className="text-xs font-bold text-[#0A1A2F]/60 uppercase tracking-widest mb-2">Physical Stats</p>
+            <p className="text-xs font-bold text-[#0A1A2F]/60 dark:text-white/60 uppercase tracking-widest mb-2">Physical Stats</p>
             <div className="grid grid-cols-2 gap-3">
               {[
                 { key: 'weight_kg', label: 'Weight (kg)', type: 'number' },
@@ -276,18 +276,18 @@ function UpdateGoalsModal({ user, onClose, onSave }) {
                 { key: 'workout_days_per_week', label: 'Workout days/week', type: 'number' },
               ].map(({ key, label, type }) => (
                 <div key={key}>
-                  <p className="text-[10px] text-[#0A1A2F]/45 mb-1">{label}</p>
+                  <p className="text-[10px] text-[#0A1A2F]/45 dark:text-white/45 mb-1">{label}</p>
                   <input type={type} value={form[key]} onChange={e => setForm(f => ({ ...f, [key]: e.target.value }))}
-                    className="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm text-[#0A1A2F] bg-gray-50 focus:outline-none focus:border-[#22C55E]" />
+                    className="w-full border border-gray-200 dark:border-white/10 rounded-xl px-3 py-2 text-sm text-[#0A1A2F] dark:text-white bg-gray-50 dark:bg-white/5 focus:outline-none focus:border-[#22C55E]" />
                 </div>
               ))}
             </div>
             <div className="mt-3">
-              <p className="text-[10px] text-[#0A1A2F]/45 mb-1">Sex (for calorie calc)</p>
+              <p className="text-[10px] text-[#0A1A2F]/45 dark:text-white/45 mb-1">Sex (for calorie calc)</p>
               <div className="flex gap-2">
                 {['male', 'female'].map(s => (
                   <button key={s} onClick={() => setForm(f => ({ ...f, sex: s }))}
-                    className={`flex-1 py-2 rounded-xl border text-sm font-semibold transition-all capitalize ${form.sex === s ? 'border-[#22C55E] bg-[#F0FDF4] text-[#166534]' : 'border-gray-100 bg-gray-50 text-[#0A1A2F]/60'}`}>
+                    className={`flex-1 py-2 rounded-xl border text-sm font-semibold transition-all capitalize ${form.sex === s ? 'border-[#22C55E] bg-[#F0FDF4] text-[#166534]' : 'border-gray-100 dark:border-white/10 bg-gray-50 dark:bg-white/5 text-[#0A1A2F]/60 dark:text-white/60'}`}>
                     {s}
                   </button>
                 ))}
@@ -298,7 +298,7 @@ function UpdateGoalsModal({ user, onClose, onSave }) {
         </div>
 
         {/* Fixed footer button */}
-        <div className="px-5 pt-3 pb-6 flex-shrink-0 border-t border-gray-100" style={{ paddingBottom: 'max(24px, env(safe-area-inset-bottom))' }}>
+        <div className="px-5 pt-3 pb-6 flex-shrink-0 border-t border-gray-100 dark:border-white/10" style={{ paddingBottom: 'max(24px, env(safe-area-inset-bottom))' }}>
           <button onClick={save} disabled={saving}
             className="w-full py-3.5 rounded-2xl font-bold text-white text-sm flex items-center justify-center gap-2 transition-all active:scale-98"
             style={{ background: 'linear-gradient(135deg,#166534,#22C55E)' }}>
@@ -358,13 +358,13 @@ export default function NutritionGoalsPage() {
     <div className="min-h-screen pb-28" style={{ background: '#F2F6FA' }}>
 
       {/* ── Standard Header ── */}
-      <div className="sticky top-0 z-40 bg-white border-b border-[#FAD98D]/20 px-4 pt-3 pb-0">
+      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 px-4 pt-3 pb-0">
         <div className="max-w-lg mx-auto">
           {/* Title row */}
           <div className="flex items-center justify-between mb-3">
             <div>
-              <h1 className="text-lg font-black text-[#0A1A2F] leading-tight">Nutrition</h1>
-              <p className="text-[11px] text-[#0A1A2F]/40 font-medium">Track · Plan · Nourish</p>
+              <h1 className="text-lg font-black text-[#0A1A2F] dark:text-white leading-tight">Nutrition</h1>
+              <p className="text-[11px] text-[#0A1A2F]/40 dark:text-white/40 font-medium">Track · Plan · Nourish</p>
             </div>
             <button onClick={() => setShowUpdateModal(true)}
               className="flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-bold text-white transition-all active:scale-95"
@@ -386,7 +386,7 @@ export default function NutritionGoalsPage() {
                 className={`flex items-center gap-1 px-3 py-2.5 text-xs font-semibold border-b-2 transition-all whitespace-nowrap ${
                   id === 'goals'
                     ? 'border-[#22C55E] text-[#22C55E]'
-                    : 'border-transparent text-[#0A1A2F]/40 hover:text-[#0A1A2F]/65'
+                    : 'border-transparent text-[#0A1A2F]/40 dark:text-white/40 hover:text-[#0A1A2F]/65'
                 }`}>
                 <Icon className="w-3.5 h-3.5" />
                 {label}
@@ -433,7 +433,7 @@ export default function NutritionGoalsPage() {
             <AlertTriangle className="w-4 h-4 text-[#C9A227] flex-shrink-0" />
             <div className="flex-1">
               <p className="text-xs font-bold text-[#C9A227]">Profile incomplete</p>
-              <p className="text-[11px] text-[#0A1A2F]/55">
+              <p className="text-[11px] text-[#0A1A2F]/55 dark:text-white/55">
                 Add {!weight ? 'weight, ' : ''}{!height ? 'height, ' : ''}{!age ? 'age ' : ''}for personalised calorie targets.
               </p>
             </div>
@@ -443,23 +443,23 @@ export default function NutritionGoalsPage() {
 
         {/* Daily calories */}
         <motion.div id="tour-nutrition-calories" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.06 }}
-          className="bg-white rounded-3xl p-5 shadow-sm">
+          className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#FFF7ED]">
                 <Flame className="w-4 h-4 text-[#FD9C2D]" />
               </div>
-              <p className="font-bold text-[#0A1A2F] text-sm">Daily Calorie Target</p>
+              <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">Daily Calorie Target</p>
             </div>
             <button onClick={() => setShowCalcInfo(v => !v)}
               className="w-7 h-7 rounded-full bg-gray-100 flex items-center justify-center">
-              <Info className="w-3.5 h-3.5 text-[#0A1A2F]/40" />
+              <Info className="w-3.5 h-3.5 text-[#0A1A2F]/40 dark:text-white/40" />
             </button>
           </div>
           <AnimatePresence>
             {showCalcInfo && (
               <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }}
-                className="text-[11px] text-[#0A1A2F]/50 bg-[#F8FAFB] rounded-xl px-3 py-2 mb-3 leading-relaxed overflow-hidden">
+                className="text-[11px] text-[#0A1A2F]/50 dark:text-white/50 bg-[#F8FAFB] rounded-xl px-3 py-2 mb-3 leading-relaxed overflow-hidden">
                 Mifflin-St Jeor BMR × activity factor ({days}×/week workouts) = TDEE of {tdee?.toLocaleString()} kcal.
                 {fitnessGoal !== 'maintain' && ` Your ${fitnessGoal.replace('_', ' ')} goal applies a ${daily && tdee ? (daily - tdee > 0 ? '+' : '') + (daily - tdee) : ''} kcal/day adjustment.`}
                 {diet === 'keto' && ' Keto macro split applied: 5% carbs, 65% fat, 30% protein.'}
@@ -469,10 +469,10 @@ export default function NutritionGoalsPage() {
           {daily ? (
             <div className="text-center py-2">
               <p className="text-5xl font-black text-[#22C55E]">{daily.toLocaleString()}</p>
-              <p className="text-sm text-[#0A1A2F]/45 mt-1">kcal per day</p>
+              <p className="text-sm text-[#0A1A2F]/45 dark:text-white/45 mt-1">kcal per day</p>
             </div>
           ) : (
-            <p className="text-sm text-[#0A1A2F]/40 py-2">Complete your profile to see calorie targets.</p>
+            <p className="text-sm text-[#0A1A2F]/40 dark:text-white/40 py-2">Complete your profile to see calorie targets.</p>
           )}
           {dietNote && (
             <div className="flex items-start gap-2 bg-[#F0FDF4] rounded-xl px-3 py-2.5 mt-2">
@@ -485,12 +485,12 @@ export default function NutritionGoalsPage() {
         {/* Macro split */}
         {macros && (
           <motion.div id="tour-nutrition-macros-goals" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.10 }}
-            className="bg-white rounded-3xl p-5 shadow-sm">
+            className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm">
             <div className="flex items-center gap-2 mb-4">
               <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#EFF9FF]">
                 <BarChart2 className="w-4 h-4 text-[#38BDF8]" />
               </div>
-              <p className="font-bold text-[#0A1A2F] text-sm">Macro Targets</p>
+              <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">Macro Targets</p>
               {diet === 'keto' && (
                 <span className="ml-auto text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-50 text-amber-600">Keto adjusted</span>
               )}
@@ -508,13 +508,13 @@ export default function NutritionGoalsPage() {
 
         {/* Meal timing */}
         <motion.div id="tour-meal-timing" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.14 }}
-          className="bg-white rounded-3xl p-5 shadow-sm">
+          className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm">
           <div className="flex items-center gap-2 mb-4">
             <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#F0FDF4]">
               <Clock className="w-4 h-4 text-[#22C55E]" />
             </div>
-            <p className="font-bold text-[#0A1A2F] text-sm">Meal Schedule</p>
-            <span className="ml-auto text-[10px] text-[#0A1A2F]/40 font-semibold">{MEAL_LABELS[meals]}</span>
+            <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">Meal Schedule</p>
+            <span className="ml-auto text-[10px] text-[#0A1A2F]/40 dark:text-white/40 font-semibold">{MEAL_LABELS[meals]}</span>
           </div>
           <div className="space-y-2">
             {schedule.map((item, i) => {
@@ -527,7 +527,7 @@ export default function NutritionGoalsPage() {
                     {item.startsWith('⏱️') ? '⏱' : i + 1}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-xs font-semibold text-[#0A1A2F] leading-snug">{item}</p>
+                    <p className="text-xs font-semibold text-[#0A1A2F] dark:text-white leading-snug">{item}</p>
                   </div>
                   {calsForMeal && (
                     <span className="text-[10px] font-bold text-[#22C55E] flex-shrink-0">{calsForMeal} kcal</span>
@@ -537,7 +537,7 @@ export default function NutritionGoalsPage() {
             })}
           </div>
           {meals === 'if' && (
-            <p className="text-[11px] text-[#0A1A2F]/40 mt-3 leading-relaxed">
+            <p className="text-[11px] text-[#0A1A2F]/40 dark:text-white/40 mt-3 leading-relaxed">
               Intermittent fasting: eat all meals within an 8-hour window. Stay hydrated with water, black coffee, or tea during the fasting window.
             </p>
           )}
@@ -545,12 +545,12 @@ export default function NutritionGoalsPage() {
 
         {/* Allergies / avoid card */}
         <motion.div id="tour-allergens" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.18 }}
-          className="bg-white rounded-3xl p-5 shadow-sm">
+          className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm">
           <div className="flex items-center gap-2 mb-3">
             <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-red-50">
               <ShieldCheck className="w-4 h-4 text-red-400" />
             </div>
-            <p className="font-bold text-[#0A1A2F] text-sm">Foods to Avoid</p>
+            <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">Foods to Avoid</p>
           </div>
           {allergies.length > 0 ? (
             <div className="flex flex-wrap gap-2">
@@ -561,9 +561,9 @@ export default function NutritionGoalsPage() {
               ))}
             </div>
           ) : (
-            <p className="text-sm text-[#0A1A2F]/40">No allergens or restrictions set.</p>
+            <p className="text-sm text-[#0A1A2F]/40 dark:text-white/40">No allergens or restrictions set.</p>
           )}
-          <p className="text-[11px] text-[#0A1A2F]/35 mt-3">
+          <p className="text-[11px] text-[#0A1A2F]/35 dark:text-white/35 mt-3">
             Chef Daniel always checks these when suggesting meals. Update them in Settings if they change.
           </p>
         </motion.div>
@@ -571,12 +571,12 @@ export default function NutritionGoalsPage() {
         {/* Water goal */}
         {water && (
           <motion.div id="tour-nutrition-water" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.22 }}
-            className="bg-white rounded-3xl p-5 shadow-sm">
+            className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm">
             <div className="flex items-center gap-2 mb-3">
               <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#EFF9FF]">
                 <Droplets className="w-4 h-4 text-[#38BDF8]" />
               </div>
-              <p className="font-bold text-[#0A1A2F] text-sm">Daily Water Goal</p>
+              <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">Daily Water Goal</p>
             </div>
             <div className="grid grid-cols-3 gap-3 text-center">
               <div className="bg-[#EFF9FF] rounded-2xl py-3">
@@ -588,8 +588,8 @@ export default function NutritionGoalsPage() {
                 <p className="text-[10px] text-[#22C55E]/60 mt-0.5">glasses</p>
               </div>
               <div className="bg-[#F8FAFB] rounded-2xl py-3">
-                <p className="text-2xl font-black text-[#0A1A2F]/50">{Math.round(water.total * 34)}</p>
-                <p className="text-[10px] text-[#0A1A2F]/30 mt-0.5">fl oz</p>
+                <p className="text-2xl font-black text-[#0A1A2F]/50 dark:text-white/50">{Math.round(water.total * 34)}</p>
+                <p className="text-[10px] text-[#0A1A2F]/30 dark:text-white/30 mt-0.5">fl oz</p>
               </div>
             </div>
             {days >= 4 && (
@@ -605,35 +605,35 @@ export default function NutritionGoalsPage() {
 
         {/* Recipe ideas */}
         <motion.div id="tour-recipe-ideas" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.26 }}
-          className="bg-white rounded-3xl p-5 shadow-sm">
+          className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#F0FDF4]">
                 <Apple className="w-4 h-4 text-[#22C55E]" />
               </div>
-              <p className="font-bold text-[#0A1A2F] text-sm">Meal Ideas for You</p>
+              <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">Meal Ideas for You</p>
             </div>
-            <span className="text-[10px] text-[#0A1A2F]/35 font-semibold">{dietInfo.label}</span>
+            <span className="text-[10px] text-[#0A1A2F]/35 dark:text-white/35 font-semibold">{dietInfo.label}</span>
           </div>
           <div className="space-y-2">
             {recipes.map((r, i) => (
               <motion.div key={i} initial={{ opacity: 0, x: -6 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.28 + i * 0.05 }}
                 className="flex items-center gap-3 bg-[#F8FAFB] rounded-xl px-3.5 py-2.5">
                 <span className="text-base flex-shrink-0">🍴</span>
-                <p className="text-xs font-semibold text-[#0A1A2F]">{r}</p>
+                <p className="text-xs font-semibold text-[#0A1A2F] dark:text-white dark:text-white">{r}</p>
               </motion.div>
             ))}
           </div>
-          <p className="text-[11px] text-[#0A1A2F]/35 mt-3">Ask Chef Daniel to build any of these into your meal plan.</p>
+          <p className="text-[11px] text-[#0A1A2F]/35 dark:text-white/35 mt-3">Ask Chef Daniel to build any of these into your meal plan.</p>
         </motion.div>
 
         {/* Cooking time card */}
         <motion.div id="tour-cooking-style" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.30 }}
-          className="flex items-center gap-4 bg-white rounded-2xl px-5 py-4 shadow-sm">
+          className="flex items-center gap-4 bg-white dark:bg-white/5 rounded-2xl px-5 py-4 shadow-sm">
           <span className="text-3xl">{cookInfo.emoji}</span>
           <div className="flex-1">
-            <p className="font-bold text-[#0A1A2F] text-sm">{cookInfo.label}</p>
-            <p className="text-xs text-[#0A1A2F]/45">{cookInfo.sub} · Chef Daniel tailors recipes to this</p>
+            <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">{cookInfo.label}</p>
+            <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45">{cookInfo.sub} · Chef Daniel tailors recipes to this</p>
           </div>
         </motion.div>
 
@@ -665,7 +665,7 @@ export default function NutritionGoalsPage() {
 
         {/* Quick links */}
         <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.42 }}>
-          <p className="text-[10px] font-bold text-[#0A1A2F]/35 uppercase tracking-widest mb-2.5">Related Tools</p>
+          <p className="text-[10px] font-bold text-[#0A1A2F]/35 dark:text-white/35 uppercase tracking-widest mb-2.5">Related Tools</p>
           <div className="grid grid-cols-2 gap-2.5">
             {[
               { icon: '📋', label: 'Meal Planner',     page: 'Nutrition'         },
@@ -674,9 +674,9 @@ export default function NutritionGoalsPage() {
               { icon: '💬', label: 'Chat w/ Chef Daniel', page: 'ChatScreen?bot=ChefDaniel' },
             ].map(({ icon, label, page }) => (
               <Link key={page} to={createPageUrl(page)}
-                className="flex items-center gap-2.5 bg-white rounded-2xl p-3.5 shadow-sm border border-gray-50 active:scale-97 transition-all">
+                className="flex items-center gap-2.5 bg-white dark:bg-white/5 rounded-2xl p-3.5 shadow-sm border border-gray-50 dark:border-white/5 active:scale-97 transition-all">
                 <span className="text-xl">{icon}</span>
-                <span className="text-xs font-bold text-[#0A1A2F] leading-tight">{label}</span>
+                <span className="text-xs font-bold text-[#0A1A2F] dark:text-white leading-tight">{label}</span>
               </Link>
             ))}
           </div>

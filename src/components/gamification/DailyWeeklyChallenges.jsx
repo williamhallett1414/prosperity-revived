@@ -51,22 +51,22 @@ function getDailyChallenges(dateStr, count = 3) {
 const DIFFICULTY = {
   easy:   { bar: 'from-[#AFC7E3] to-[#3C4E53]',   label: 'Easy',   text: 'text-[#3C4E53]'   },
   medium: { bar: 'from-[#c9a227] to-[#FAD98D]',   label: 'Medium', text: 'text-[#c9a227]'   },
-  hard:   { bar: 'from-[#0A1A2F] to-[#0A1A2F]',   label: 'Hard',   text: 'text-[#0A1A2F]'   },
+  hard:   { bar: 'from-[#0A1A2F] to-[#0A1A2F]',   label: 'Hard',   text: 'text-[#0A1A2F] dark:text-white dark:text-white'   },
 };
 
 function ChallengeCard({ challenge, isCompleted, onComplete, loading }) {
   const diff = DIFFICULTY[challenge.difficulty] || DIFFICULTY.medium;
   return (
     <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
-      className="bg-white rounded-2xl border border-[#FAD98D]/25 overflow-hidden shadow-sm">
+      className="bg-white dark:bg-white/5 rounded-2xl border border-[#FAD98D]/25 overflow-hidden shadow-sm">
       {/* Difficulty bar */}
       <div className={`h-1 bg-gradient-to-r ${diff.bar}`} />
       <div className="p-4 space-y-3">
         <div className="flex items-start gap-3">
           <span className="text-2xl leading-none flex-shrink-0">{challenge.icon || '⚡'}</span>
           <div className="flex-1 min-w-0">
-            <p className="font-bold text-[#0A1A2F] text-sm leading-snug">{challenge.title}</p>
-            <p className="text-xs text-[#0A1A2F]/50 mt-0.5">{challenge.description}</p>
+            <p className="font-bold text-[#0A1A2F] dark:text-white text-sm leading-snug">{challenge.title}</p>
+            <p className="text-xs text-[#0A1A2F]/50 dark:text-white/50 mt-0.5">{challenge.description}</p>
           </div>
         </div>
         <div className="flex items-center justify-between">
@@ -92,9 +92,9 @@ function ChallengeCard({ challenge, isCompleted, onComplete, loading }) {
 
 function EmptyState({ icon, label }) {
   return (
-    <div className="bg-white rounded-2xl border border-[#FAD98D]/20 p-8 text-center">
+    <div className="bg-white dark:bg-white/5 rounded-2xl border border-[#FAD98D]/20 p-8 text-center">
       <p className="text-2xl mb-2">{icon}</p>
-      <p className="text-sm text-[#0A1A2F]/45">{label}</p>
+      <p className="text-sm text-[#0A1A2F]/45 dark:text-white/45">{label}</p>
     </div>
   );
 }
@@ -176,7 +176,7 @@ export default function DailyWeeklyChallenges({ user }) {
             className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-semibold transition-all ${
               tab === id
                 ? 'bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white shadow-sm'
-                : 'bg-white text-[#0A1A2F]/50 border border-[#FAD98D]/25'
+                : 'bg-white dark:bg-white/5 text-[#0A1A2F]/50 dark:text-white/50 border border-[#FAD98D]/25'
             }`}>
             <Icon className="w-4 h-4" />{label}
           </button>
@@ -207,7 +207,7 @@ export default function DailyWeeklyChallenges({ user }) {
 
       {/* Tip */}
       <div className="bg-[#FAD98D]/15 border border-[#FAD98D]/25 rounded-2xl p-4 text-sm text-[#0A1A2F]/65 space-y-1">
-        <p className="font-semibold text-[#0A1A2F] text-xs uppercase tracking-wide mb-1.5">How challenges work</p>
+        <p className="font-semibold text-[#0A1A2F] dark:text-white text-xs uppercase tracking-wide mb-1.5">How challenges work</p>
         <p>📅 Daily challenges reset every 24 hours</p>
         <p>📆 Weekly challenges span the full week</p>
         <p>⭐ Complete all to earn bonus points and badges</p>

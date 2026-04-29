@@ -795,7 +795,7 @@ Return ONLY valid JSON array:
             initial={{ opacity: 0, y: 100, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 100, scale: 0.9 }}
-            className="fixed bottom-24 right-4 w-[calc(100vw-2rem)] sm:w-96 h-[min(500px,calc(100dvh-7rem))] bg-white rounded-2xl shadow-2xl flex flex-col z-50 border border-[#bbf7d0] overflow-hidden"
+            className="fixed bottom-24 right-4 w-[calc(100vw-2rem)] sm:w-96 h-[min(500px,calc(100dvh-7rem))] bg-white dark:bg-white/5 rounded-2xl shadow-2xl flex flex-col z-50 border border-[#bbf7d0] overflow-hidden"
           >
             {/* Header */}
             <div className="bg-gradient-to-r from-[#22c55e] to-[#16a34a] text-white p-5 rounded-t-2xl flex items-center justify-between">
@@ -874,10 +874,10 @@ Return ONLY valid JSON array:
             {/* Quick-Ask Menu */}
             {messages.length <= 1 && <div className="border-b border-[#bbf7d0] bg-[#f0fdf4] px-5 py-3 overflow-x-auto">
               <div className="flex items-center justify-between mb-2">
-                <p className="text-xs font-semibold text-[#0A1A2F]/70">Quick Actions:</p>
+                <p className="text-xs font-semibold text-[#0A1A2F]/70 dark:text-white/70">Quick Actions:</p>
                 <button
                   onClick={() => setShowQuickActions(!showQuickActions)}
-                  className="text-xs text-[#0A1A2F]/60 hover:text-[#0A1A2F] transition-colors"
+                  className="text-xs text-[#0A1A2F]/60 dark:text-white/60 hover:text-[#0A1A2F] dark:text-white transition-colors"
                 >
                   {showQuickActions ? '▼ Hide' : '▶ Show'}
                 </button>
@@ -886,59 +886,59 @@ Return ONLY valid JSON array:
               {/* Flavor Profile Selector */}
               {messages.length <= 1 && showQuickActions && (
                 <div className="mb-3 pb-3 border-b border-[#bbf7d0]">
-                  <p className="text-xs font-semibold text-[#0A1A2F]/70 mb-2">🎨 Flavor Profiles:</p>
+                  <p className="text-xs font-semibold text-[#0A1A2F]/70 dark:text-white/70 mb-2">🎨 Flavor Profiles:</p>
                   <div className="grid grid-cols-2 gap-2">
                     <button
                       onClick={() => setInput("Use the Bright & Fresh flavor profile for this dish: ")}
-                      className="text-xs bg-white hover:bg-[#dcfce7] text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#bbf7d0]"
+                      className="text-xs bg-white dark:bg-white/5 hover:bg-[#dcfce7] text-[#0A1A2F] dark:text-white px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#bbf7d0]"
                     >
                       🌿 Bright & Fresh
                     </button>
                     <button
                       onClick={() => setInput("Use the Bold & Spicy flavor profile for this dish: ")}
-                      className="text-xs bg-white hover:bg-[#dcfce7] text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#bbf7d0]"
+                      className="text-xs bg-white dark:bg-white/5 hover:bg-[#dcfce7] text-[#0A1A2F] dark:text-white px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#bbf7d0]"
                     >
                       🌶️ Bold & Spicy
                     </button>
                     <button
                       onClick={() => setInput("Use the Rich & Comforting flavor profile for this dish: ")}
-                      className="text-xs bg-white hover:bg-[#dcfce7] text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#bbf7d0]"
+                      className="text-xs bg-white dark:bg-white/5 hover:bg-[#dcfce7] text-[#0A1A2F] dark:text-white px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#bbf7d0]"
                     >
                       🧈 Rich & Comforting
                     </button>
                     <button
                       onClick={() => setInput("Use the Savory & Umami flavor profile for this dish: ")}
-                      className="text-xs bg-white hover:bg-[#dcfce7] text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#bbf7d0]"
+                      className="text-xs bg-white dark:bg-white/5 hover:bg-[#dcfce7] text-[#0A1A2F] dark:text-white px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#bbf7d0]"
                     >
                       🍄 Savory & Umami
                     </button>
                     <button
                       onClick={() => setInput("Use the Sweet & Balanced flavor profile for this dish: ")}
-                      className="text-xs bg-white hover:bg-[#dcfce7] text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#bbf7d0]"
+                      className="text-xs bg-white dark:bg-white/5 hover:bg-[#dcfce7] text-[#0A1A2F] dark:text-white px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#bbf7d0]"
                     >
                       🍯 Sweet & Balanced
                     </button>
                     <button
                       onClick={() => setInput("Use the Earthy & Rustic flavor profile for this dish: ")}
-                      className="text-xs bg-white hover:bg-[#dcfce7] text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#bbf7d0]"
+                      className="text-xs bg-white dark:bg-white/5 hover:bg-[#dcfce7] text-[#0A1A2F] dark:text-white px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#bbf7d0]"
                     >
                       🌾 Earthy & Rustic
                     </button>
                     <button
                       onClick={() => setInput("Use the Clean & Healthy flavor profile for this dish: ")}
-                      className="text-xs bg-white hover:bg-[#dcfce7] text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#bbf7d0]"
+                      className="text-xs bg-white dark:bg-white/5 hover:bg-[#dcfce7] text-[#0A1A2F] dark:text-white px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#bbf7d0]"
                     >
                       💚 Clean & Healthy
                     </button>
                     <button
                       onClick={() => setInput("Use the Light & Quick flavor profile for this dish: ")}
-                      className="text-xs bg-white hover:bg-[#dcfce7] text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#bbf7d0]"
+                      className="text-xs bg-white dark:bg-white/5 hover:bg-[#dcfce7] text-[#0A1A2F] dark:text-white px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#bbf7d0]"
                     >
                       ⚡ Light & Quick
                     </button>
                     <button
                       onClick={() => setInput("Use the Global Adventure flavor profile for this dish (choose a cuisine): ")}
-                      className="text-xs bg-white hover:bg-[#dcfce7] text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#bbf7d0] col-span-2"
+                      className="text-xs bg-white dark:bg-white/5 hover:bg-[#dcfce7] text-[#0A1A2F] dark:text-white px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#bbf7d0] col-span-2"
                     >
                       🌍 Global Adventure
                     </button>
@@ -949,67 +949,67 @@ Return ONLY valid JSON array:
               {showQuickActions && <div className="grid grid-cols-2 gap-2">
                 <button
                   onClick={() => sendWithText("Generate a unique recipe for me. Ingredients I have: [list them], Dietary restrictions: [any?], Cuisine type: [preference?]")}
-                  className="text-xs bg-white hover:bg-[#dcfce7] text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#bbf7d0]"
+                  className="text-xs bg-white dark:bg-white/5 hover:bg-[#dcfce7] text-[#0A1A2F] dark:text-white px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#bbf7d0]"
                 >
                   🍳 Generate unique recipe
                 </button>
                 <button
                   onClick={() => setInput("Help me improve this dish. Here's what I made: ")}
-                  className="text-xs bg-white hover:bg-[#dcfce7] text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#bbf7d0]"
+                  className="text-xs bg-white dark:bg-white/5 hover:bg-[#dcfce7] text-[#0A1A2F] dark:text-white px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#bbf7d0]"
                 >
                   ✨ Improve this dish
                 </button>
                 <button
                   onClick={() => setInput("Give me a healthier version of this meal: ")}
-                  className="text-xs bg-white hover:bg-[#dcfce7] text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#bbf7d0]"
+                  className="text-xs bg-white dark:bg-white/5 hover:bg-[#dcfce7] text-[#0A1A2F] dark:text-white px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#bbf7d0]"
                 >
                   🥗 Make it healthier
                 </button>
                 <button
                   onClick={() => setInput("What should I cook today? Here's what I'm in the mood for: ")}
-                  className="text-xs bg-white hover:bg-[#dcfce7] text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#bbf7d0]"
+                  className="text-xs bg-white dark:bg-white/5 hover:bg-[#dcfce7] text-[#0A1A2F] dark:text-white px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#bbf7d0]"
                 >
                   🤔 What to cook today
                 </button>
                 <button
                   onClick={() => setInput("Teach me how to master this cooking technique: ")}
-                  className="text-xs bg-white hover:bg-[#dcfce7] text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#bbf7d0]"
+                  className="text-xs bg-white dark:bg-white/5 hover:bg-[#dcfce7] text-[#0A1A2F] dark:text-white px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#bbf7d0]"
                 >
                   📚 Teach me a technique
                 </button>
                 <button
                   onClick={() => setInput("Break down the nutrition for this meal: ")}
-                  className="text-xs bg-white hover:bg-[#dcfce7] text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#bbf7d0]"
+                  className="text-xs bg-white dark:bg-white/5 hover:bg-[#dcfce7] text-[#0A1A2F] dark:text-white px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#bbf7d0]"
                 >
                   📊 Nutrition breakdown
                 </button>
                 <button
                   onClick={() => setInput("Give me ingredient substitutions for: ")}
-                  className="text-xs bg-white hover:bg-[#dcfce7] text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#bbf7d0]"
+                  className="text-xs bg-white dark:bg-white/5 hover:bg-[#dcfce7] text-[#0A1A2F] dark:text-white px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#bbf7d0]"
                 >
                   🔄 Substitutions
                 </button>
                 <button
                    onClick={() => setInput("Help me meal-prep for the week. Here are my goals: ")}
-                  className="text-xs bg-white hover:bg-[#dcfce7] text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#bbf7d0]"
+                  className="text-xs bg-white dark:bg-white/5 hover:bg-[#dcfce7] text-[#0A1A2F] dark:text-white px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#bbf7d0]"
                 >
                   📅 Weekly meal prep
                 </button>
                 <button
                   onClick={() => sendWithText("Create a full weekly meal plan with a complete grocery list based on my preferences and pantry items.")}
-                  className="text-xs bg-white hover:bg-[#dcfce7] text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#bbf7d0] col-span-2"
+                  className="text-xs bg-white dark:bg-white/5 hover:bg-[#dcfce7] text-[#0A1A2F] dark:text-white px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#bbf7d0] col-span-2"
                 >
                   🗓️ Full week meal plan + grocery list
                 </button>
                 <button
                   onClick={() => setInput("Make this recipe kid-friendly: ")}
-                  className="text-xs bg-white hover:bg-[#dcfce7] text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#bbf7d0]"
+                  className="text-xs bg-white dark:bg-white/5 hover:bg-[#dcfce7] text-[#0A1A2F] dark:text-white px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#bbf7d0]"
                 >
                   👶 Kid-friendly version
                 </button>
                 <button
                   onClick={() => setInput("Make this recipe budget-friendly: ")}
-                  className="text-xs bg-white hover:bg-[#dcfce7] text-[#0A1A2F] px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#bbf7d0]"
+                  className="text-xs bg-white dark:bg-white/5 hover:bg-[#dcfce7] text-[#0A1A2F] dark:text-white px-3 py-2 rounded-lg transition-colors text-left shadow-sm border border-[#bbf7d0]"
                 >
                   💰 Budget-friendly version
                 </button>
@@ -1030,11 +1030,11 @@ Return ONLY valid JSON array:
                     className={`max-w-[80%] rounded-2xl px-4 py-3 ${
                       message.role === 'user'
                         ? 'bg-gradient-to-r from-[#22c55e] to-[#16a34a] text-white'
-                        : 'bg-white border border-[#bbf7d0] text-[#0A1A2F] shadow-sm'
+                        : 'bg-white dark:bg-white/5 border border-[#bbf7d0] text-[#0A1A2F] dark:text-white shadow-sm'
                     }`}
                   >
                     {message.role === 'assistant' ? (
-                      <ReactMarkdown className="prose prose-sm max-w-none prose-p:my-1.5 prose-li:my-0.5 prose-headings:font-semibold text-[#0A1A2F] text-sm leading-relaxed">
+                      <ReactMarkdown className="prose prose-sm max-w-none prose-p:my-1.5 prose-li:my-0.5 prose-headings:font-semibold text-[#0A1A2F] dark:text-white text-sm leading-relaxed">
                         {message.content}
                       </ReactMarkdown>
                     ) : (
@@ -1060,12 +1060,12 @@ Return ONLY valid JSON array:
               {/* Quick Actions */}
               {messages.length === 1 && !isLoading && (
                 <div className="space-y-2 pt-2">
-                  <p className="text-xs text-[#0A1A2F]/60 font-medium">Quick questions:</p>
+                  <p className="text-xs text-[#0A1A2F]/60 dark:text-white/60 font-medium">Quick questions:</p>
                   {quickActions.map((action, idx) => (
                     <button
                       key={idx}
                       onClick={() => sendWithText(action)}
-                      className="block w-full text-left text-sm px-4 py-3 rounded-xl bg-white hover:bg-[#dcfce7] text-[#0A1A2F] transition-colors shadow-sm"
+                      className="block w-full text-left text-sm px-4 py-3 rounded-xl bg-white dark:bg-white/5 hover:bg-[#dcfce7] text-[#0A1A2F] dark:text-white transition-colors shadow-sm"
                     >
                       {action}
                     </button>
@@ -1076,7 +1076,7 @@ Return ONLY valid JSON array:
             </div>
 
             {/* Input */}
-            <div className="p-5 border-t border-[#bbf7d0] bg-white">
+            <div className="p-5 border-t border-[#bbf7d0] bg-white dark:bg-white/5">
               <div className="flex gap-2 items-center">
                 <Input
                   value={input}

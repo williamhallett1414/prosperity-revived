@@ -140,9 +140,9 @@ Be conversational and encouraging in your reasons. Think like a personal chef wh
       <div className="text-center space-y-2">
         <div className="flex items-center justify-center gap-2">
           <ChefHat className="w-8 h-8 text-[#AFC7E3]" />
-          <h1 className="text-3xl font-bold text-[#0A1A2F]">Recipe Recommendations</h1>
+          <h1 className="text-3xl font-bold text-[#0A1A2F] dark:text-white dark:text-white">Recipe Recommendations</h1>
         </div>
-        <p className="text-[#0A1A2F]/60">Personalized suggestions based on your tastes and goals</p>
+        <p className="text-[#0A1A2F]/60 dark:text-white/60">Personalized suggestions based on your tastes and goals</p>
       </div>
 
       {/* Filters */}
@@ -156,7 +156,7 @@ Be conversational and encouraging in your reasons. Think like a personal chef wh
         <CardContent className="space-y-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <div>
-              <label className="text-sm font-medium text-[#0A1A2F]/70 mb-2 block">Cuisine</label>
+              <label className="text-sm font-medium text-[#0A1A2F]/70 dark:text-white/70 mb-2 block">Cuisine</label>
               <Select value={cuisine} onValueChange={setCuisine}>
                 <SelectTrigger>
                   <SelectValue placeholder="Any cuisine" />
@@ -174,7 +174,7 @@ Be conversational and encouraging in your reasons. Think like a personal chef wh
             </div>
 
             <div>
-              <label className="text-sm font-medium text-[#0A1A2F]/70 mb-2 block">Diet Type</label>
+              <label className="text-sm font-medium text-[#0A1A2F]/70 dark:text-white/70 mb-2 block">Diet Type</label>
               <Select value={dietType} onValueChange={setDietType}>
                 <SelectTrigger>
                   <SelectValue placeholder="Any diet" />
@@ -192,7 +192,7 @@ Be conversational and encouraging in your reasons. Think like a personal chef wh
             </div>
 
             <div>
-              <label className="text-sm font-medium text-[#0A1A2F]/70 mb-2 block">Max Cook Time</label>
+              <label className="text-sm font-medium text-[#0A1A2F]/70 dark:text-white/70 mb-2 block">Max Cook Time</label>
               <Select value={maxCookTime} onValueChange={setMaxCookTime}>
                 <SelectTrigger>
                   <SelectValue placeholder="Any time" />
@@ -209,7 +209,7 @@ Be conversational and encouraging in your reasons. Think like a personal chef wh
             </div>
 
             <div>
-              <label className="text-sm font-medium text-[#0A1A2F]/70 mb-2 block">Difficulty</label>
+              <label className="text-sm font-medium text-[#0A1A2F]/70 dark:text-white/70 mb-2 block">Difficulty</label>
               <Select value={difficulty} onValueChange={setDifficulty}>
                 <SelectTrigger>
                   <SelectValue placeholder="Any level" />
@@ -227,7 +227,7 @@ Be conversational and encouraging in your reasons. Think like a personal chef wh
           <Button
             onClick={generateRecommendations}
             disabled={isGenerating}
-            className="w-full bg-gradient-to-r from-[#AFC7E3] to-[#FAD98D] hover:from-[#AFC7E3]/90 hover:to-[#FAD98D]/90 text-[#0A1A2F] font-semibold"
+            className="w-full bg-gradient-to-r from-[#AFC7E3] to-[#FAD98D] hover:from-[#AFC7E3]/90 hover:to-[#FAD98D]/90 text-[#0A1A2F] dark:text-white font-semibold"
           >
             {isGenerating ? (
               <>
@@ -247,7 +247,7 @@ Be conversational and encouraging in your reasons. Think like a personal chef wh
       {/* Recommendations */}
       {recommendations.length > 0 && (
         <div className="space-y-4">
-          <h2 className="text-xl font-bold text-[#0A1A2F] flex items-center gap-2">
+          <h2 className="text-xl font-bold text-[#0A1A2F] dark:text-white flex items-center gap-2">
             <Sparkles className="w-5 h-5 text-[#FD9C2D]" />
             Recommended for You
           </h2>
@@ -273,10 +273,10 @@ Be conversational and encouraging in your reasons. Think like a personal chef wh
                     </div>
                   </div>
                   <CardContent className="p-4 space-y-3">
-                    <h3 className="font-bold text-lg text-[#0A1A2F]">{recipe.title}</h3>
-                    <p className="text-sm text-[#0A1A2F]/70 italic">"{recipe.reason}"</p>
+                    <h3 className="font-bold text-lg text-[#0A1A2F] dark:text-white dark:text-white">{recipe.title}</h3>
+                    <p className="text-sm text-[#0A1A2F]/70 dark:text-white/70 italic">"{recipe.reason}"</p>
                     
-                    <div className="flex items-center gap-4 text-sm text-[#0A1A2F]/60">
+                    <div className="flex items-center gap-4 text-sm text-[#0A1A2F]/60 dark:text-white/60">
                       <div className="flex items-center gap-1">
                         <Clock className="w-4 h-4" />
                         <span>{totalTime(recipe)} min</span>
@@ -305,8 +305,8 @@ Be conversational and encouraging in your reasons. Think like a personal chef wh
       {recommendations.length === 0 && !isGenerating && (
         <Card className="text-center py-12">
           <ChefHat className="w-16 h-16 text-[#AFC7E3] mx-auto mb-4" />
-          <h3 className="text-xl font-semibold text-[#0A1A2F] mb-2">Ready to Discover Amazing Recipes?</h3>
-          <p className="text-[#0A1A2F]/60 mb-4">Set your preferences and let Chef Daniel find the perfect recipes for you</p>
+          <h3 className="text-xl font-semibold text-[#0A1A2F] dark:text-white mb-2">Ready to Discover Amazing Recipes?</h3>
+          <p className="text-[#0A1A2F]/60 dark:text-white/60 mb-4">Set your preferences and let Chef Daniel find the perfect recipes for you</p>
         </Card>
       )}
     </div>

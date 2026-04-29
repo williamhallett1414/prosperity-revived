@@ -36,7 +36,7 @@ const TABS = [
 // ─── Profile header ────────────────────────────────────────────────────────────
 function Header({ user, friendsCount, onCoverUpload, onAvatarUpload, uploading }) {
   return (
-    <div className="bg-white shadow-sm">
+    <div className="bg-white dark:bg-white/5 shadow-sm">
       {/* Cover */}
       <div className="relative h-40 sm:h-52 bg-gradient-to-br from-[#3C4E53] via-[#FD9C2D] to-[#FAD98D] overflow-hidden">
         {user?.cover_image_url ?
@@ -44,7 +44,7 @@ function Header({ user, friendsCount, onCoverUpload, onAvatarUpload, uploading }
         <div className="w-full h-full bg-gradient-to-br from-[#3C4E53] via-[#FD9C2D] to-[#FAD98D]" />
         }
         <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
-        <label className="absolute bottom-3 right-3 bg-white/90 backdrop-blur rounded-lg px-3 py-1.5 shadow-sm cursor-pointer hover:bg-white transition-all flex items-center gap-1.5 text-xs font-semibold text-gray-700">
+        <label className="absolute bottom-3 right-3 bg-white/90 backdrop-blur rounded-lg px-3 py-1.5 shadow-sm cursor-pointer hover:bg-white dark:bg-white/5 transition-all flex items-center gap-1.5 text-xs font-semibold text-gray-700">
           <Camera className="w-3.5 h-3.5" />
           {uploading.cover ? 'Uploading…' : 'Edit Cover'}
           <input type="file" accept="image/*" onChange={onCoverUpload} className="hidden" disabled={uploading.cover} />
@@ -64,7 +64,7 @@ function Header({ user, friendsCount, onCoverUpload, onAvatarUpload, uploading }
                   </div>
               }
             </div>
-            <label className="absolute bottom-0.5 right-0.5 bg-white rounded-full p-1.5 shadow-md cursor-pointer hover:scale-105 transition-transform">
+            <label className="absolute bottom-0.5 right-0.5 bg-white dark:bg-white/5 rounded-full p-1.5 shadow-md cursor-pointer hover:scale-105 transition-transform">
               <Camera className="w-3.5 h-3.5 text-gray-600" />
               <input type="file" accept="image/*" onChange={onAvatarUpload} className="hidden" disabled={uploading.avatar} />
             </label>
@@ -72,20 +72,20 @@ function Header({ user, friendsCount, onCoverUpload, onAvatarUpload, uploading }
 
           {/* Name + meta */}
           <div className="flex-1 min-w-0 pt-10">
-            <h1 className="text-[#0A1A2F] py-3 text-base font-bold leading-tight">{user?.full_name || 'Your Profile'}</h1>
-            <p className="text-sm text-[#0A1A2F]/50">{friendsCount} {friendsCount === 1 ? 'friend' : 'friends'}</p>
+            <h1 className="text-[#0A1A2F] dark:text-white py-3 text-base font-bold leading-tight">{user?.full_name || 'Your Profile'}</h1>
+            <p className="text-sm text-[#0A1A2F]/50 dark:text-white/50">{friendsCount} {friendsCount === 1 ? 'friend' : 'friends'}</p>
           </div>
 
           {/* Messages link */}
           <Link to={createPageUrl('Messages')}
           className="flex-shrink-0 w-9 h-9 rounded-full bg-[#FAD98D]/20 hover:bg-[#FAD98D]/35 flex items-center justify-center transition-colors">
-            <MessageCircle className="w-4 h-4 text-[#0A1A2F]" />
+            <MessageCircle className="w-4 h-4 text-[#0A1A2F] dark:text-white dark:text-white" />
           </Link>
 
           {/* Settings link */}
           <Link to={createPageUrl('Settings')}
           className="flex-shrink-0 w-9 h-9 rounded-full bg-[#FAD98D]/20 hover:bg-[#FAD98D]/35 flex items-center justify-center transition-colors">
-            <Settings className="w-4 h-4 text-[#0A1A2F]" />
+            <Settings className="w-4 h-4 text-[#0A1A2F] dark:text-white dark:text-white" />
           </Link>
         </div>
 
@@ -93,20 +93,20 @@ function Header({ user, friendsCount, onCoverUpload, onAvatarUpload, uploading }
         {(user?.status_message || user?.goal_90_day || user?.spiritual_goal) &&
         <div className="pb-4 space-y-2">
             {user.status_message &&
-          <p className="text-sm text-[#0A1A2F]/70 italic">"{user.status_message}"</p>
+          <p className="text-sm text-[#0A1A2F]/70 dark:text-white/70 italic">"{user.status_message}"</p>
           }
             {(user.goal_90_day || user.spiritual_goal) &&
           <div className="flex items-start gap-2 bg-[#FAD98D]/15 border border-[#FAD98D]/30 rounded-xl p-3 text-sm">
                 <span className="text-base leading-none mt-0.5">🌟</span>
-                <p className="text-[#0A1A2F]/80"><span className="font-semibold text-[#0A1A2F]">90-day goal:</span> {user.goal_90_day || user.spiritual_goal}</p>
+                <p className="text-[#0A1A2F]/80 dark:text-white/80"><span className="font-semibold text-[#0A1A2F] dark:text-white dark:text-white">90-day goal:</span> {user.goal_90_day || user.spiritual_goal}</p>
               </div>
           }
           {/* Profile pills */}
           <div className="flex flex-wrap gap-1.5 pt-1">
             {user.fitness_level && <span className="text-[10px] font-semibold px-2 py-1 rounded-full bg-[#38BDF8]/15 text-[#38BDF8]">💪 {user.fitness_level}</span>}
             {user.diet_type && user.diet_type !== 'no_restrictions' && <span className="text-[10px] font-semibold px-2 py-1 rounded-full bg-[#22C55E]/15 text-[#22C55E]">🥗 {user.diet_type}</span>}
-            {user.bible_level && <span className="text-[10px] font-semibold px-2 py-1 rounded-full bg-[#FAD98D]/40 text-[#0A1A2F]">📖 {user.bible_level} reader</span>}
-            {user.coaching_style && <span className="text-[10px] font-semibold px-2 py-1 rounded-full bg-[#AFC7E3]/40 text-[#0A1A2F]">🧭 {user.coaching_style}</span>}
+            {user.bible_level && <span className="text-[10px] font-semibold px-2 py-1 rounded-full bg-[#FAD98D]/40 text-[#0A1A2F] dark:text-white dark:text-white">📖 {user.bible_level} reader</span>}
+            {user.coaching_style && <span className="text-[10px] font-semibold px-2 py-1 rounded-full bg-[#AFC7E3]/40 text-[#0A1A2F] dark:text-white dark:text-white">🧭 {user.coaching_style}</span>}
           </div>
           </div>
         }
@@ -118,14 +118,14 @@ function Header({ user, friendsCount, onCoverUpload, onAvatarUpload, uploading }
 // ─── Tab bar ───────────────────────────────────────────────────────────────────
 function TabBar({ activeTab, onChange }) {
   return (
-    <div className="sticky top-0 z-30 bg-white/95 backdrop-blur-sm border-b border-gray-100 shadow-sm">
+    <div className="sticky top-0 z-30 bg-white/95 backdrop-blur-sm border-b border-gray-100 dark:border-white/10 shadow-sm">
       <div className="max-w-lg mx-auto px-3 py-2 flex gap-1 overflow-x-auto scrollbar-none">
         {TABS.map(({ id, label }) => (
           <button key={id} onClick={() => onChange(id)}
             className={`relative px-3.5 py-2 text-xs font-bold flex-shrink-0 rounded-xl transition-all ${
               activeTab === id
                 ? 'bg-[#0A1A2F] text-white shadow-sm'
-                : 'text-[#0A1A2F]/45 hover:text-[#0A1A2F]/70 hover:bg-[#0A1A2F]/05'
+                : 'text-[#0A1A2F]/45 dark:text-white/45 hover:text-[#0A1A2F]/70 dark:text-white/70 hover:bg-[#0A1A2F]/05'
             }`}>
             {label}
           </button>
@@ -140,7 +140,7 @@ function SectionHeading({ children, accent }) {
   return (
     <div className="flex items-center gap-2 mb-3">
       {accent && <div className="w-1 h-4 rounded-full" style={{ background: accent }} />}
-      <p className="text-[11px] font-black text-[#0A1A2F]/40 uppercase tracking-widest">{children}</p>
+      <p className="text-[11px] font-black text-[#0A1A2F]/40 dark:text-white/40 uppercase tracking-widest">{children}</p>
     </div>
   );
 }
@@ -239,7 +239,7 @@ function ActivityStrip({ meditationSessions, workoutSessions, journalEntries, us
             style={{ background: s.bg, borderColor: s.border }}>
             <p className="text-xl mb-1">{s.emoji}</p>
             <p className="font-black text-lg leading-none" style={{ color: s.color }}>{s.value}</p>
-            <p className="text-[9px] font-semibold text-[#0A1A2F]/40 mt-1 leading-tight">{s.label}</p>
+            <p className="text-[9px] font-semibold text-[#0A1A2F]/40 dark:text-white/40 mt-1 leading-tight">{s.label}</p>
           </motion.div>
         ))}
       </div>
@@ -286,7 +286,7 @@ function StreakRow({ meditationSessions, workoutSessions, journalEntries }) {
               }}>
               <p className="text-2xl mb-1">{s.emoji}</p>
               <p className="font-black text-2xl leading-none" style={{ color: active ? s.color : '#CBD5E1' }}>{s.count}</p>
-              <p className="text-[9px] text-[#0A1A2F]/40 font-bold uppercase tracking-wide mt-1">{s.label}</p>
+              <p className="text-[9px] text-[#0A1A2F]/40 dark:text-white/40 font-bold uppercase tracking-wide mt-1">{s.label}</p>
               <p className="text-[9px] font-semibold mt-1" style={{ color: active ? s.color : '#CBD5E1' }}>
                 {active ? `${s.count === 1 ? '1 day' : `${s.count} days`}` : 'Start today'}
               </p>
@@ -340,7 +340,7 @@ function GoalBento() {
           <div className="rounded-2xl p-3.5 hover:opacity-95 transition-opacity border border-[#38BDF8]/20"
             style={{ background: 'linear-gradient(160deg, #EFF9FF, #dbeeff)' }}>
             <p className="text-xl mb-2">💪</p>
-            <p className="font-black text-[#0A1A2F] text-xs leading-tight">Fitness</p>
+            <p className="font-black text-[#0A1A2F] dark:text-white text-xs leading-tight">Fitness</p>
             <p className="text-[#38BDF8] text-[9px] font-semibold mt-1 uppercase tracking-wide">Goals →</p>
           </div>
         </Link>
@@ -348,7 +348,7 @@ function GoalBento() {
           <div className="rounded-2xl p-3.5 hover:opacity-95 transition-opacity border border-[#22C55E]/20"
             style={{ background: 'linear-gradient(160deg, #F0FFF4, #dcfce7)' }}>
             <p className="text-xl mb-2">🥗</p>
-            <p className="font-black text-[#0A1A2F] text-xs leading-tight">Nutrition</p>
+            <p className="font-black text-[#0A1A2F] dark:text-white text-xs leading-tight">Nutrition</p>
             <p className="text-[#22C55E] text-[9px] font-semibold mt-1 uppercase tracking-wide">Goals →</p>
           </div>
         </Link>
@@ -356,7 +356,7 @@ function GoalBento() {
           <div className="rounded-2xl p-3.5 hover:opacity-95 transition-opacity border border-[#C9A227]/20"
             style={{ background: 'linear-gradient(160deg, #FFFDF0, #fef9c3)' }}>
             <p className="text-xl mb-2">📖</p>
-            <p className="font-black text-[#0A1A2F] text-xs leading-tight">Bible Study</p>
+            <p className="font-black text-[#0A1A2F] dark:text-white text-xs leading-tight">Bible Study</p>
             <p className="text-[#C9A227] text-[9px] font-semibold mt-1 uppercase tracking-wide">Goals →</p>
           </div>
         </Link>
@@ -476,14 +476,14 @@ export default function Profile() {
 
   if (!user) {
     return (
-      <div className="min-h-screen bg-[#F2F6FA] flex items-center justify-center">
+      <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] flex items-center justify-center">
         <div className="animate-spin w-8 h-8 border-4 border-[#c9a227] border-t-transparent rounded-full" />
       </div>);
 
   }
 
   return (
-    <div className="min-h-screen bg-[#F2F6FA] pb-28">
+    <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
       <Header
         user={user}
         friendsCount={friends.length}
@@ -513,10 +513,10 @@ export default function Profile() {
             <div>
               <SectionHeading accent="#FAD98D">Recent Posts</SectionHeading>
               {myPosts.length === 0 ? (
-                <div className="bg-white rounded-2xl border border-[#FAD98D]/20 p-6 text-center">
+                <div className="bg-white dark:bg-white/5 rounded-2xl border border-[#FAD98D]/20 p-6 text-center">
                   <p className="text-2xl mb-2">✍️</p>
-                  <p className="text-sm font-semibold text-[#0A1A2F]/50">No posts yet</p>
-                  <p className="text-xs text-[#0A1A2F]/30 mt-1">Share your journey with the community!</p>
+                  <p className="text-sm font-semibold text-[#0A1A2F]/50 dark:text-white/50">No posts yet</p>
+                  <p className="text-xs text-[#0A1A2F]/30 dark:text-white/30 mt-1">Share your journey with the community!</p>
                 </div>
               ) : (
                 <TimelineTab user={user} posts={myPosts} comments={[]} />
@@ -532,16 +532,16 @@ export default function Profile() {
 
             {/* Account settings — only on About tab */}
             <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
-          className="bg-white rounded-2xl border border-[#FAD98D]/25 shadow-sm overflow-hidden">
+          className="bg-white dark:bg-white/5 rounded-2xl border border-[#FAD98D]/25 shadow-sm overflow-hidden">
               <div className="px-4 py-3 border-b border-[#FAD98D]/20">
-                <p className="text-xs font-bold text-[#0A1A2F]/40 uppercase tracking-widest">Account</p>
+                <p className="text-xs font-bold text-[#0A1A2F]/40 dark:text-white/40 uppercase tracking-widest">Account</p>
               </div>
               <div className="p-4 space-y-3">
                 <Link to={createPageUrl('Settings')}
-              className="flex items-center gap-3 p-3 rounded-xl bg-[#F2F6FA] hover:bg-[#FAD98D]/15 transition-colors">
-                  <Settings className="w-4 h-4 text-[#0A1A2F]/60" />
-                  <span className="text-sm font-medium text-[#0A1A2F]">App Settings</span>
-                  <ChevronRight className="w-4 h-4 text-[#0A1A2F]/30 ml-auto" />
+              className="flex items-center gap-3 p-3 rounded-xl bg-[#F2F6FA] dark:bg-[#0A1A2F] hover:bg-[#FAD98D]/15 transition-colors">
+                  <Settings className="w-4 h-4 text-[#0A1A2F]/60 dark:text-white/60" />
+                  <span className="text-sm font-medium text-[#0A1A2F] dark:text-white dark:text-white">App Settings</span>
+                  <ChevronRight className="w-4 h-4 text-[#0A1A2F]/30 dark:text-white/30 ml-auto" />
                 </Link>
 
                 <AlertDialog>
@@ -551,10 +551,10 @@ export default function Profile() {
                       <span className="text-sm font-medium text-red-500">Delete My Account</span>
                     </button>
                   </AlertDialogTrigger>
-                  <AlertDialogContent className="bg-[#F2F6FA] border border-[#FAD98D]/30">
+                  <AlertDialogContent className="bg-[#F2F6FA] dark:bg-[#0A1A2F] border border-[#FAD98D]/30">
                     <AlertDialogHeader>
-                      <AlertDialogTitle className="text-[#0A1A2F]">Are you absolutely sure?</AlertDialogTitle>
-                      <AlertDialogDescription className="text-[#0A1A2F]/60">
+                      <AlertDialogTitle className="text-[#0A1A2F] dark:text-white dark:text-white">Are you absolutely sure?</AlertDialogTitle>
+                      <AlertDialogDescription className="text-[#0A1A2F]/60 dark:text-white/60">
                         This permanently deletes your account and all data — posts, reading plans, workout logs, journal entries, achievements, and points. This cannot be undone.
                       </AlertDialogDescription>
                     </AlertDialogHeader>

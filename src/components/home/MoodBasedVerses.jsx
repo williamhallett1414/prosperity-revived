@@ -65,11 +65,11 @@ export default function MoodBasedVerses() {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 mb-6"
+      className="bg-white dark:bg-white/5 rounded-2xl p-5 shadow-sm border border-gray-100 dark:border-white/10 mb-6"
     >
       <div className="flex items-center gap-2 mb-4">
         <Sparkles className="w-5 h-5 text-[#c9a227]" />
-        <h3 className="font-semibold text-[#0A1A2F]">How are you feeling today?</h3>
+        <h3 className="font-semibold text-[#0A1A2F] dark:text-white dark:text-white">How are you feeling today?</h3>
       </div>
 
       {!suggestions ? (
@@ -84,7 +84,7 @@ export default function MoodBasedVerses() {
                     className={`py-3 px-4 rounded-xl text-sm font-medium transition-all ${
                       selectedMood === mood.value
                         ? 'bg-[#0A1A2F] text-white'
-                        : 'bg-gray-50 text-gray-700 hover:bg-gray-100'
+                        : 'bg-gray-50 dark:bg-white/5 text-gray-700 hover:bg-gray-100'
                     }`}
                   >
                     {mood.label}
@@ -170,7 +170,7 @@ export default function MoodBasedVerses() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
-                className="bg-white border border-gray-200 rounded-xl p-4"
+                className="bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-4"
               >
                 <p className="font-serif text-gray-800 leading-relaxed mb-2">
                   "{verse.text}"

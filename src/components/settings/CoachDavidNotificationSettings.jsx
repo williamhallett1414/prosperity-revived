@@ -69,19 +69,19 @@ export default function CoachDavidNotificationSettings({ user }) {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-white rounded-2xl border border-gray-200 p-6 space-y-6"
+      className="bg-white dark:bg-white/5 rounded-2xl border border-gray-200 dark:border-white/10 p-6 space-y-6"
     >
       <div className="flex items-center gap-3 mb-6">
         <Dumbbell className="w-6 h-6 text-[#FAD98D]" />
-        <h3 className="text-xl font-bold text-[#0A1A2F]">Coach David Notifications</h3>
+        <h3 className="text-xl font-bold text-[#0A1A2F] dark:text-white dark:text-white">Coach David Notifications</h3>
       </div>
 
       <div className="space-y-6">
         {/* Morning */}
-        <div className="border-b border-gray-100 pb-6">
+        <div className="border-b border-gray-100 dark:border-white/10 pb-6">
           <div className="flex items-center justify-between mb-3">
             <div>
-              <h4 className="font-semibold text-[#0A1A2F]">🔥 Morning Discipline</h4>
+              <h4 className="font-semibold text-[#0A1A2F] dark:text-white dark:text-white">🔥 Morning Discipline</h4>
               <p className="text-sm text-gray-600">Start your day with discipline & planning</p>
             </div>
             <Switch
@@ -102,10 +102,10 @@ export default function CoachDavidNotificationSettings({ user }) {
         </div>
 
         {/* Midday */}
-        <div className="border-b border-gray-100 pb-6">
+        <div className="border-b border-gray-100 dark:border-white/10 pb-6">
           <div className="flex items-center justify-between mb-3">
             <div>
-              <h4 className="font-semibold text-[#0A1A2F]">⚡ Midday Movement</h4>
+              <h4 className="font-semibold text-[#0A1A2F] dark:text-white dark:text-white">⚡ Midday Movement</h4>
               <p className="text-sm text-gray-600">Hydration & movement check-in</p>
             </div>
             <Switch
@@ -126,10 +126,10 @@ export default function CoachDavidNotificationSettings({ user }) {
         </div>
 
         {/* Afternoon */}
-        <div className="border-b border-gray-100 pb-6">
+        <div className="border-b border-gray-100 dark:border-white/10 pb-6">
           <div className="flex items-center justify-between mb-3">
             <div>
-              <h4 className="font-semibold text-[#0A1A2F]">💪 Afternoon Accountability</h4>
+              <h4 className="font-semibold text-[#0A1A2F] dark:text-white dark:text-white">💪 Afternoon Accountability</h4>
               <p className="text-sm text-gray-600">Motivation & performance push</p>
             </div>
             <Switch
@@ -153,7 +153,7 @@ export default function CoachDavidNotificationSettings({ user }) {
         <div>
           <div className="flex items-center justify-between mb-3">
             <div>
-              <h4 className="font-semibold text-[#0A1A2F]">😴 Evening Recovery</h4>
+              <h4 className="font-semibold text-[#0A1A2F] dark:text-white dark:text-white">😴 Evening Recovery</h4>
               <p className="text-sm text-gray-600">Rest & reflection</p>
             </div>
             <Switch

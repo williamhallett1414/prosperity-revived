@@ -89,8 +89,8 @@ function PlanCard({ plan, delay = 0 }) {
         <div className="flex items-center gap-3 bg-[#F8FAFB] rounded-xl px-3.5 py-3 hover:bg-[#FAD98D]/10 transition-colors">
           <span className="text-xl flex-shrink-0">{plan.emoji}</span>
           <div className="flex-1 min-w-0">
-            <p className="text-xs font-bold text-[#0A1A2F] leading-tight">{plan.name}</p>
-            <p className="text-[10px] text-[#0A1A2F]/40 mt-0.5">{plan.duration}-day plan</p>
+            <p className="text-xs font-bold text-[#0A1A2F] dark:text-white leading-tight">{plan.name}</p>
+            <p className="text-[10px] text-[#0A1A2F]/40 dark:text-white/40 mt-0.5">{plan.duration}-day plan</p>
           </div>
           <ChevronRight className="w-3.5 h-3.5 text-[#C9A227]/60 flex-shrink-0" />
         </div>
@@ -166,24 +166,24 @@ export default function BibleGoalsEmbed() {
           <AlertTriangle className="w-4 h-4 text-[#C9A227] flex-shrink-0" />
           <div className="flex-1">
             <p className="text-xs font-bold text-[#C9A227]">Bible profile incomplete</p>
-            <p className="text-[11px] text-[#0A1A2F]/55">Complete onboarding to get personalised reading plans.</p>
+            <p className="text-[11px] text-[#0A1A2F]/55 dark:text-white/55">Complete onboarding to get personalised reading plans.</p>
           </div>
           <Link to={createPageUrl('BibleGoalsPage')} className="text-[11px] font-bold text-[#C9A227] flex-shrink-0">Complete Setup →</Link>
         </div>
       )}
 
       {/* Translation */}
-      <div className="bg-white rounded-3xl p-5 shadow-sm">
+      <div className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm">
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#FAD98D]/20">
               <BookOpen className="w-4 h-4 text-[#C9A227]" />
             </div>
-            <p className="font-bold text-[#0A1A2F] text-sm">Preferred Translation</p>
+            <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">Preferred Translation</p>
           </div>
           <button onClick={() => setShowTranslationInfo(v => !v)}
             className="w-7 h-7 rounded-full bg-gray-100 flex items-center justify-center">
-            <Info className="w-3.5 h-3.5 text-[#0A1A2F]/40" />
+            <Info className="w-3.5 h-3.5 text-[#0A1A2F]/40 dark:text-white/40" />
           </button>
         </div>
         <div className="flex items-center gap-3">
@@ -191,17 +191,17 @@ export default function BibleGoalsEmbed() {
             <p className="text-2xl font-black text-[#C9A227]">{translation === 'any' ? '✦' : translation}</p>
           </div>
           <div>
-            <p className="font-bold text-[#0A1A2F] text-sm">{transInfo.name}</p>
+            <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">{transInfo.name}</p>
             <AnimatePresence>
               {showTranslationInfo && (
                 <motion.p initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }}
-                  className="text-[11px] text-[#0A1A2F]/50 mt-1 leading-relaxed overflow-hidden">
+                  className="text-[11px] text-[#0A1A2F]/50 dark:text-white/50 mt-1 leading-relaxed overflow-hidden">
                   {transInfo.style}
                 </motion.p>
               )}
             </AnimatePresence>
             {!showTranslationInfo && (
-              <p className="text-[11px] text-[#0A1A2F]/40 mt-0.5 line-clamp-1">{transInfo.style}</p>
+              <p className="text-[11px] text-[#0A1A2F]/40 dark:text-white/40 mt-0.5 line-clamp-1">{transInfo.style}</p>
             )}
           </div>
         </div>
@@ -209,12 +209,12 @@ export default function BibleGoalsEmbed() {
 
       {/* Topics */}
       {topics.length > 0 && (
-        <div className="bg-white rounded-3xl p-5 shadow-sm">
+        <div className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm">
           <div className="flex items-center gap-2 mb-4">
             <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#FAD98D]/20">
               <Heart className="w-4 h-4 text-[#C9A227]" />
             </div>
-            <p className="font-bold text-[#0A1A2F] text-sm">Topics That Matter to You</p>
+            <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">Topics That Matter to You</p>
           </div>
           <div className="grid grid-cols-2 gap-2">
             {topics.map((t) => {
@@ -223,7 +223,7 @@ export default function BibleGoalsEmbed() {
               return (
                 <div key={t} className="flex items-center gap-2.5 bg-[#FAD98D]/10 border border-[#FAD98D]/25 rounded-xl px-3 py-2.5">
                   <span className="text-base">{info.emoji}</span>
-                  <span className="text-xs font-bold text-[#0A1A2F]">{info.label}</span>
+                  <span className="text-xs font-bold text-[#0A1A2F] dark:text-white dark:text-white">{info.label}</span>
                 </div>
               );
             })}
@@ -245,31 +245,31 @@ export default function BibleGoalsEmbed() {
       </div>
 
       {/* Devotional depth */}
-      <div className="bg-white rounded-3xl p-5 shadow-sm">
+      <div className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm">
         <div className="flex items-center gap-2 mb-3">
           <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#FAD98D]/20">
             <Clock className="w-4 h-4 text-[#C9A227]" />
           </div>
-          <p className="font-bold text-[#0A1A2F] text-sm">Devotional Depth</p>
+          <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">Devotional Depth</p>
         </div>
         <div className="flex items-center gap-4 bg-[#FAD98D]/10 rounded-2xl px-4 py-3">
           <span className="text-3xl">{depthInfo.emoji}</span>
           <div>
-            <p className="font-bold text-[#0A1A2F] text-sm">{depthInfo.label}</p>
+            <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">{depthInfo.label}</p>
             <p className="text-[#C9A227] text-xs font-semibold mt-0.5">{depthInfo.time}</p>
-            <p className="text-[11px] text-[#0A1A2F]/50 mt-1 leading-snug">{depthInfo.desc}</p>
+            <p className="text-[11px] text-[#0A1A2F]/50 dark:text-white/50 mt-1 leading-snug">{depthInfo.desc}</p>
           </div>
         </div>
       </div>
 
       {/* Plans by topic */}
       {recommendedPlans.length > 0 && (
-        <div className="bg-white rounded-3xl p-5 shadow-sm">
+        <div className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm">
           <div className="flex items-center gap-2 mb-4">
             <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#FAD98D]/20">
               <BookMarked className="w-4 h-4 text-[#C9A227]" />
             </div>
-            <p className="font-bold text-[#0A1A2F] text-sm">Plans for Your Topics</p>
+            <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">Plans for Your Topics</p>
           </div>
           <div className="space-y-2">
             {recommendedPlans.map((p, i) => <PlanCard key={p.id} plan={p} delay={0.04 + i * 0.04} />)}
@@ -278,14 +278,14 @@ export default function BibleGoalsEmbed() {
       )}
 
       {/* Where to start */}
-      <div className="bg-white rounded-3xl p-5 shadow-sm">
+      <div className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm">
         <div className="flex items-center gap-2 mb-4">
           <div className="w-8 h-8 rounded-xl flex items-center justify-center" style={{ background: `${levelInfo.color}20` }}>
             <Compass className="w-4 h-4" style={{ color: levelInfo.color }} />
           </div>
           <div>
-            <p className="font-bold text-[#0A1A2F] text-sm">Where to Start</p>
-            <p className="text-[10px] text-[#0A1A2F]/40">Matched to your {levelInfo.label} level</p>
+            <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">Where to Start</p>
+            <p className="text-[10px] text-[#0A1A2F]/40 dark:text-white/40">Matched to your {levelInfo.label} level</p>
           </div>
         </div>
         <div className="space-y-2">
@@ -294,37 +294,37 @@ export default function BibleGoalsEmbed() {
       </div>
 
       {/* Study tips */}
-      <div className="bg-white rounded-3xl p-5 shadow-sm">
+      <div className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm">
         <div className="flex items-center gap-2 mb-4">
           <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#FAD98D]/20">
             <Sparkles className="w-4 h-4 text-[#C9A227]" />
           </div>
-          <p className="font-bold text-[#0A1A2F] text-sm">Study Tips for You</p>
-          <span className="ml-auto text-[10px] text-[#0A1A2F]/35 font-semibold">{levelInfo.label}</span>
+          <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">Study Tips for You</p>
+          <span className="ml-auto text-[10px] text-[#0A1A2F]/35 dark:text-white/35 font-semibold">{levelInfo.label}</span>
         </div>
         <div className="space-y-2.5">
           {levelTips.map((tip, i) => (
             <div key={i} className="flex items-start gap-3 bg-[#FAD98D]/08 rounded-xl px-3.5 py-2.5">
               <CheckCircle className="w-4 h-4 text-[#C9A227] flex-shrink-0 mt-0.5" />
-              <p className="text-xs text-[#0A1A2F]/70 leading-relaxed">{tip}</p>
+              <p className="text-xs text-[#0A1A2F]/70 dark:text-white/70 leading-relaxed">{tip}</p>
             </div>
           ))}
         </div>
       </div>
 
       {/* Church */}
-      <div className="bg-white rounded-3xl px-5 py-4 shadow-sm">
+      <div className="bg-white dark:bg-white/5 rounded-3xl px-5 py-4 shadow-sm">
         <div className="flex items-center gap-2 mb-3">
           <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#FAD98D]/20">
             <Users className="w-4 h-4 text-[#C9A227]" />
           </div>
-          <p className="font-bold text-[#0A1A2F] text-sm">Church Community</p>
+          <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">Church Community</p>
         </div>
         <div className="flex items-center gap-4 bg-[#F8FAFB] rounded-2xl px-4 py-3">
           <span className="text-2xl">{churchInfo.emoji}</span>
           <div>
-            <p className="font-bold text-[#0A1A2F] text-sm">{churchInfo.label}</p>
-            <p className="text-[11px] text-[#0A1A2F]/45 mt-0.5">{churchInfo.desc}</p>
+            <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">{churchInfo.label}</p>
+            <p className="text-[11px] text-[#0A1A2F]/45 dark:text-white/45 mt-0.5">{churchInfo.desc}</p>
           </div>
         </div>
       </div>

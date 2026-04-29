@@ -91,35 +91,35 @@ export default function ReflectionOfTheWeek() {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm mb-6"
+      className="bg-white dark:bg-white/5 rounded-2xl p-6 border border-gray-200 dark:border-white/10 shadow-sm mb-6"
     >
       <div className="flex items-center gap-2 mb-4">
         <Calendar className="w-6 h-6 text-[#AFC7E3]" />
-        <h3 className="text-lg font-bold text-[#0A1A2F]">Reflection of the Week</h3>
+        <h3 className="text-lg font-bold text-[#0A1A2F] dark:text-white dark:text-white">Reflection of the Week</h3>
       </div>
 
       <div className="bg-[#AFC7E3]/10 rounded-xl p-4 mb-4">
-        <p className="text-[#0A1A2F] font-medium italic">"{weeklyPrompt}"</p>
+        <p className="text-[#0A1A2F] dark:text-white font-medium italic">"{weeklyPrompt}"</p>
       </div>
 
       <Textarea
         value={reflection}
         onChange={(e) => setReflection(e.target.value)}
         placeholder="Write your weekly reflection here..."
-        className="min-h-[150px] border-gray-200 focus:border-[#AFC7E3] resize-none mb-4"
+        className="min-h-[150px] border-gray-200 dark:border-white/10 focus:border-[#AFC7E3] resize-none mb-4"
       />
 
       <div className="flex items-center justify-between">
         <Button
           onClick={handleSave}
           disabled={saving || !reflection.trim()}
-          className="bg-[#AFC7E3] hover:bg-[#AFC7E3]/90 text-[#0A1A2F]"
+          className="bg-[#AFC7E3] hover:bg-[#AFC7E3]/90 text-[#0A1A2F] dark:text-white dark:text-white"
         >
           <Save className="w-4 h-4 mr-2" />
           {saving ? 'Saving...' : 'Save Reflection'}
         </Button>
         {lastSaved && (
-          <p className="text-xs text-[#0A1A2F]/50">
+          <p className="text-xs text-[#0A1A2F]/50 dark:text-white/50">
             Last saved: {new Date(lastSaved).toLocaleDateString()}
           </p>
         )}

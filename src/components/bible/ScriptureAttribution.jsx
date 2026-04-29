@@ -22,7 +22,7 @@ export const BIBLE_ATTRIBUTION = 'Scripture quotations are from the World Englis
  */
 export function ScriptureAttribution({ className = '' }) {
   return (
-    <p className={`text-[9px] text-[#0A1A2F]/25 text-center leading-relaxed ${className}`}>
+    <p className={`text-[9px] text-[#0A1A2F]/25 dark:text-white/25 text-center leading-relaxed ${className}`}>
       Scripture from the World English Bible (WEB) — Public Domain
     </p>
   );

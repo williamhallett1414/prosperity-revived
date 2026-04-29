@@ -79,7 +79,7 @@ export default function MemberManagement({ groupId, isAdmin }) {
     <>
       <Button
         onClick={() => setShowModal(true)}
-        className="w-full bg-white border border-gray-200 text-[#0A1A2F] hover:bg-gray-50"
+        className="w-full bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 text-[#0A1A2F] dark:text-white hover:bg-gray-50 dark:bg-white/5"
       >
         <Users className="w-4 h-4 mr-2" />
         Manage Members ({members.length})
@@ -111,14 +111,14 @@ export default function MemberManagement({ groupId, isAdmin }) {
                 key={member.id}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
+                className="flex items-center justify-between p-3 bg-gray-50 dark:bg-white/5 rounded-lg"
               >
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#0A1A2F] to-[#c9a227] flex items-center justify-center text-white font-semibold">
                     {member.user_email?.[0]?.toUpperCase()}
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-[#0A1A2F]">
+                    <p className="text-sm font-medium text-[#0A1A2F] dark:text-white dark:text-white">
                       {member.user_email}
                     </p>
                     {member.role === 'admin' && (

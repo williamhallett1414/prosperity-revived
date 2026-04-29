@@ -100,7 +100,7 @@ export default function NutritionBreakdown({ timeRange = 7 }) {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-white dark:bg-[#0A1A2F] rounded-2xl p-4"
+        className="bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-2xl p-4"
       >
         <div className="flex items-center gap-2 mb-4">
           <TrendingUp className="w-5 h-5 text-emerald-500" />
@@ -127,15 +127,15 @@ export default function NutritionBreakdown({ timeRange = 7 }) {
         </div>
 
         <div className="grid grid-cols-3 gap-2 text-sm mb-3">
-          <div className="text-center p-2 bg-gray-50 dark:bg-gray-800 rounded">
+          <div className="text-center p-2 bg-gray-50 dark:bg-white/5 dark:bg-gray-800 rounded">
             <p className="font-medium text-gray-700 dark:text-gray-300">{stats.avgDaily.fiber}g</p>
             <p className="text-xs text-gray-500">Fiber</p>
           </div>
-          <div className="text-center p-2 bg-gray-50 dark:bg-gray-800 rounded">
+          <div className="text-center p-2 bg-gray-50 dark:bg-white/5 dark:bg-gray-800 rounded">
             <p className="font-medium text-gray-700 dark:text-gray-300">{stats.avgDaily.sugar}g</p>
             <p className="text-xs text-gray-500">Sugar</p>
           </div>
-          <div className="text-center p-2 bg-gray-50 dark:bg-gray-800 rounded">
+          <div className="text-center p-2 bg-gray-50 dark:bg-white/5 dark:bg-gray-800 rounded">
             <p className="font-medium text-gray-700 dark:text-gray-300">{stats.avgDaily.sodium}mg</p>
             <p className="text-xs text-gray-500">Sodium</p>
           </div>
@@ -187,7 +187,7 @@ export default function NutritionBreakdown({ timeRange = 7 }) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="bg-white dark:bg-[#0A1A2F] rounded-2xl p-4"
+          className="bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-2xl p-4"
         >
           <div className="flex items-center gap-2 mb-4">
             <Calendar className="w-5 h-5 text-[#AFC7E3]" />
@@ -210,7 +210,7 @@ export default function NutritionBreakdown({ timeRange = 7 }) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="bg-white dark:bg-[#0A1A2F] rounded-2xl p-4"
+          className="bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-2xl p-4"
         >
           <h3 className="font-semibold text-[#0A1A2F] dark:text-white mb-4">Macro Distribution (Calories)</h3>
           <ResponsiveContainer width="100%" height={200}>

@@ -53,14 +53,14 @@ function ConditionPill({ condition, selected, count, onClick }) {
       className={`flex-shrink-0 flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold transition-all ${
         selected
           ? 'bg-gradient-to-b from-[#c9a227] to-[#FAD98D] text-white shadow-sm'
-          : 'bg-white border border-[#FAD98D]/25 text-[#0A1A2F]/60 hover:border-[#c9a227]/40'
+          : 'bg-white dark:bg-white/5 border border-[#FAD98D]/25 text-[#0A1A2F]/60 dark:text-white/60 hover:border-[#c9a227]/40'
       }`}
     >
       <span>{condition.emoji}</span>
       <span>{condition.label}</span>
       {count > 0 && (
         <span className={`text-[9px] rounded-full px-1.5 py-0.5 ${
-          selected ? 'bg-white/25 text-white' : 'bg-[#F2F6FA] text-[#0A1A2F]/40'
+          selected ? 'bg-white/25 text-white' : 'bg-[#F2F6FA] dark:bg-[#0A1A2F] text-[#0A1A2F]/40 dark:text-white/40'
         }`}>{count}</span>
       )}
     </button>
@@ -140,14 +140,14 @@ export default function HealthRecipesTab({ recipes, user }) {
           className={`flex-shrink-0 flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold transition-all ${
             selected === null
               ? 'bg-gradient-to-b from-[#c9a227] to-[#FAD98D] text-white shadow-sm'
-              : 'bg-white border border-[#FAD98D]/25 text-[#0A1A2F]/60 hover:border-[#c9a227]/40'
+              : 'bg-white dark:bg-white/5 border border-[#FAD98D]/25 text-[#0A1A2F]/60 dark:text-white/60 hover:border-[#c9a227]/40'
           }`}
         >
           <Heart className="w-3.5 h-3.5" />
           All Conditions
           {displayList.length > 0 && (
             <span className={`text-[9px] rounded-full px-1.5 py-0.5 ${
-              selected === null ? 'bg-white/25 text-white' : 'bg-[#F2F6FA] text-[#0A1A2F]/40'
+              selected === null ? 'bg-white/25 text-white' : 'bg-[#F2F6FA] dark:bg-[#0A1A2F] text-[#0A1A2F]/40 dark:text-white/40'
             }`}>{recipes.filter(r => getConditions(r).length > 0).length}</span>
           )}
         </button>
@@ -174,10 +174,10 @@ export default function HealthRecipesTab({ recipes, user }) {
             >
               <span className="text-2xl flex-shrink-0">{cond.emoji}</span>
               <div className="flex-1">
-                <p className="font-bold text-[#0A1A2F] text-sm">{cond.label}</p>
-                <p className="text-xs text-[#0A1A2F]/55 mt-0.5">{cond.description}</p>
+                <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">{cond.label}</p>
+                <p className="text-xs text-[#0A1A2F]/55 dark:text-white/55 mt-0.5">{cond.description}</p>
               </div>
-              <button onClick={() => setSelected(null)} className="text-[#0A1A2F]/30 hover:text-[#0A1A2F]/60">
+              <button onClick={() => setSelected(null)} className="text-[#0A1A2F]/30 dark:text-white/30 hover:text-[#0A1A2F]/60 dark:text-white/60">
                 <X className="w-4 h-4" />
               </button>
             </motion.div>
@@ -187,13 +187,13 @@ export default function HealthRecipesTab({ recipes, user }) {
 
       {/* ── Empty / seed state ── */}
       {!hasHealthRecipes && (
-        <div className="bg-white rounded-2xl border border-[#FAD98D]/20 p-6 text-center space-y-4">
+        <div className="bg-white dark:bg-white/5 rounded-2xl border border-[#FAD98D]/20 p-6 text-center space-y-4">
           <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center mx-auto">
             <Heart className="w-7 h-7 text-white" />
           </div>
           <div>
-            <p className="font-bold text-[#0A1A2F] text-sm">No health recipes yet</p>
-            <p className="text-xs text-[#0A1A2F]/45 mt-1 leading-relaxed">
+            <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">No health recipes yet</p>
+            <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45 mt-1 leading-relaxed">
               Add {SEED_RECIPES.length} expert-curated recipes covering{' '}
               {HEALTH_CONDITIONS.length} health conditions — diabetes, hypertension,
               heart health, anti-inflammatory, gut health, and more.
@@ -209,7 +209,7 @@ export default function HealthRecipesTab({ recipes, user }) {
               </div>
             ))}
           </div>
-          <p className="text-[10px] text-[#0A1A2F]/30">
+          <p className="text-[10px] text-[#0A1A2F]/30 dark:text-white/30">
             + {HEALTH_CONDITIONS.slice(6).map(c => c.label).join(', ')}
           </p>
 
@@ -223,15 +223,15 @@ export default function HealthRecipesTab({ recipes, user }) {
               : <><Heart className="w-4 h-4" /> Add Health Recipe Library</>
             }
           </button>
-          <p className="text-[10px] text-[#0A1A2F]/25">Recipes are added once and shared with the whole app</p>
+          <p className="text-[10px] text-[#0A1A2F]/25 dark:text-white/25">Recipes are added once and shared with the whole app</p>
         </div>
       )}
 
       {/* ── Recipe list ── */}
       {hasHealthRecipes && displayList.length === 0 && (
         <div className="text-center py-10">
-          <p className="font-bold text-[#0A1A2F]/50 text-sm">No recipes for this condition yet</p>
-          <p className="text-xs text-[#0A1A2F]/30 mt-1">More will be added over time</p>
+          <p className="font-bold text-[#0A1A2F]/50 dark:text-white/50 text-sm">No recipes for this condition yet</p>
+          <p className="text-xs text-[#0A1A2F]/30 dark:text-white/30 mt-1">More will be added over time</p>
         </div>
       )}
 
@@ -249,8 +249,8 @@ export default function HealthRecipesTab({ recipes, user }) {
                         <div className="flex items-center gap-2">
                           <span className="text-lg">{cond.emoji}</span>
                           <div>
-                            <p className="font-bold text-[#0A1A2F] text-sm">{cond.label}</p>
-                            <p className="text-[10px] text-[#0A1A2F]/40">{cond.description}</p>
+                            <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">{cond.label}</p>
+                            <p className="text-[10px] text-[#0A1A2F]/40 dark:text-white/40">{cond.description}</p>
                           </div>
                         </div>
                         <button
@@ -279,7 +279,7 @@ export default function HealthRecipesTab({ recipes, user }) {
                 })
             : (
               <div className="space-y-3">
-                <p className="text-[10px] font-bold text-[#0A1A2F]/35 uppercase tracking-widest">
+                <p className="text-[10px] font-bold text-[#0A1A2F]/35 dark:text-white/35 uppercase tracking-widest">
                   {HEALTH_CONDITIONS.find(c => c.id === selected)?.label} · {displayList.length} recipes
                 </p>
                 {displayList.map((r, i) => (
@@ -291,7 +291,7 @@ export default function HealthRecipesTab({ recipes, user }) {
 
           {/* Re-seed link (dev utility) */}
           {seeded && !hasHealthRecipes && (
-            <button onClick={resetSeed} className="text-[10px] text-[#0A1A2F]/20 text-center w-full mt-2">
+            <button onClick={resetSeed} className="text-[10px] text-[#0A1A2F]/20 dark:text-white/20 text-center w-full mt-2">
               Reset seed state
             </button>
           )}

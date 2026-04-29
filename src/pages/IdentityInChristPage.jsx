@@ -430,7 +430,7 @@ function DeclarationCard({ decl, isFav, isMemorized, onToggleFav, onToggleMemori
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.035 }}
-      className={`bg-white rounded-2xl border overflow-hidden transition-all ${
+      className={`bg-white dark:bg-white/5 rounded-2xl border overflow-hidden transition-all ${
         isMemorized ? 'border-emerald-200' : 'border-[#F2F6FA]'
       }`}
     >
@@ -448,14 +448,14 @@ function DeclarationCard({ decl, isFav, isMemorized, onToggleFav, onToggleMemori
             <p className="text-[10px] font-bold uppercase tracking-widest mb-0.5" style={{ color: pillar?.color }}>
               {decl.pillar}
             </p>
-            <h3 className="font-bold text-sm text-[#0A1A2F] leading-snug">{decl.truth}</h3>
-            <p className="text-[11px] text-[#0A1A2F]/40 mt-0.5">{decl.verse}</p>
+            <h3 className="font-bold text-sm text-[#0A1A2F] dark:text-white leading-snug">{decl.truth}</h3>
+            <p className="text-[11px] text-[#0A1A2F]/40 dark:text-white/40 mt-0.5">{decl.verse}</p>
           </div>
           {/* Action icons */}
           <div className="flex items-center gap-1 flex-shrink-0">
             <button onClick={() => onToggleFav(decl.id)}
               className={`w-7 h-7 rounded-full flex items-center justify-center transition-colors ${
-                isFav ? 'text-amber-400' : 'text-[#0A1A2F]/20 hover:text-amber-300'
+                isFav ? 'text-amber-400' : 'text-[#0A1A2F]/20 dark:text-white/20 hover:text-amber-300'
               }`}>
               <Star className={`w-3.5 h-3.5 ${isFav ? 'fill-amber-400' : ''}`} />
             </button>
@@ -471,7 +471,7 @@ function DeclarationCard({ decl, isFav, isMemorized, onToggleFav, onToggleMemori
 
         {/* Explanation expand */}
         <button onClick={() => setExpanded(e => !e)}
-          className="w-full text-left text-xs font-semibold text-[#0A1A2F]/40 hover:text-[#0A1A2F]/60 transition-colors flex items-center gap-1 mb-3">
+          className="w-full text-left text-xs font-semibold text-[#0A1A2F]/40 dark:text-white/40 hover:text-[#0A1A2F]/60 dark:text-white/60 transition-colors flex items-center gap-1 mb-3">
           <BookOpen className="w-3 h-3" />
           {expanded ? 'Hide explanation' : 'What this means'}
           <span className="ml-auto">{expanded ? '−' : '+'}</span>
@@ -508,7 +508,7 @@ function DeclarationCard({ decl, isFav, isMemorized, onToggleFav, onToggleMemori
             className={`flex items-center justify-center gap-1 px-3 py-2 rounded-xl text-xs font-bold border transition-all ${
               isMemorized
                 ? 'bg-emerald-50 border-emerald-200 text-emerald-600'
-                : 'bg-[#F2F6FA] border-[#F2F6FA] text-[#0A1A2F]/40 hover:border-emerald-200'
+                : 'bg-[#F2F6FA] dark:bg-[#0A1A2F] border-[#F2F6FA] text-[#0A1A2F]/40 dark:text-white/40 hover:border-emerald-200'
             }`}
           >
             <Check className="w-3 h-3" />
@@ -568,23 +568,23 @@ export default function IdentityInChristPage() {
 
   return (
     <>
-      <div className="min-h-screen bg-[#F2F6FA] pb-28">
+      <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
 
         {/* ── Header ─────────────────────────────────────────────────────── */}
-        <div className="sticky top-0 z-40 bg-white border-b border-[#F2F6FA] px-4 py-3">
+        <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#F2F6FA] px-4 py-3">
           <div className="max-w-2xl mx-auto flex items-center gap-3">
             <Link to={createPageUrl('PersonalGrowth')}
-              className="w-9 h-9 rounded-full bg-[#F2F6FA] hover:bg-white flex items-center justify-center transition-colors">
-              <ArrowLeft className="w-4 h-4 text-[#0A1A2F]" />
+              className="w-9 h-9 rounded-full bg-[#F2F6FA] dark:bg-[#0A1A2F] hover:bg-white dark:bg-white/5 flex items-center justify-center transition-colors">
+              <ArrowLeft className="w-4 h-4 text-[#0A1A2F] dark:text-white dark:text-white" />
             </Link>
             <div className="flex-1">
-              <h1 className="text-base font-bold text-[#0A1A2F]">Identity in Christ</h1>
-              <p className="text-xs text-[#0A1A2F]/45">
+              <h1 className="text-base font-bold text-[#0A1A2F] dark:text-white dark:text-white">Identity in Christ</h1>
+              <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45">
                 {memorizedCount > 0 ? `${memorizedCount} memorized · ` : ''}{DECLARATIONS.length} declarations
               </p>
             </div>
             <button onClick={startDeclareAll}
-              className="flex items-center gap-1.5 bg-gradient-to-r from-[#FAD98D] to-[#c9a227] text-[#0A1A2F] rounded-xl px-3 py-1.5 hover:opacity-90 transition-opacity">
+              className="flex items-center gap-1.5 bg-gradient-to-r from-[#FAD98D] to-[#c9a227] text-[#0A1A2F] dark:text-white rounded-xl px-3 py-1.5 hover:opacity-90 transition-opacity">
               <Mic className="w-3.5 h-3.5" />
               <span className="text-xs font-bold">Declare All</span>
             </button>
@@ -596,7 +596,7 @@ export default function IdentityInChristPage() {
           {/* ── Today's featured declaration ─────────────────────────────── */}
           <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
             <div className="flex items-center justify-between mb-2">
-              <p className="text-xs font-bold text-[#0A1A2F]/35 uppercase tracking-widest">Today's Declaration</p>
+              <p className="text-xs font-bold text-[#0A1A2F]/35 dark:text-white/35 uppercase tracking-widest">Today's Declaration</p>
             </div>
             <div className="bg-gradient-to-br from-[#0A1A2F] to-[#0A1A2F] rounded-3xl p-6 shadow-lg border border-[#FAD98D]/15 relative overflow-hidden">
               {/* Glow */}
@@ -624,7 +624,7 @@ export default function IdentityInChristPage() {
 
                 <div className="flex gap-2">
                   <button onClick={() => startDeclareSingle(today)}
-                    className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-[#0A1A2F] text-xs font-bold hover:opacity-90 transition-opacity"
+                    className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-[#0A1A2F] dark:text-white text-xs font-bold hover:opacity-90 transition-opacity"
                     style={{ background: todayPillar?.color || '#FAD98D' }}>
                     <Mic className="w-3.5 h-3.5" />
                     Declare now
@@ -651,10 +651,10 @@ export default function IdentityInChristPage() {
               { value: memorizedCount,       label: 'Memorized', sub: 'committed',    color: '#10b981' },
               { value: favCount,             label: 'Saved',     sub: 'favorites',    color: '#f59e0b' },
             ].map(({ value, label, sub, color }) => (
-              <div key={label} className="bg-white rounded-2xl border border-[#F2F6FA] p-3.5 text-center">
-                <p className="font-bold text-xl text-[#0A1A2F]" style={value > 0 ? { color } : {}}>{value}</p>
-                <p className="text-xs font-bold text-[#0A1A2F] mt-0.5">{label}</p>
-                <p className="text-[10px] text-[#0A1A2F]/35">{sub}</p>
+              <div key={label} className="bg-white dark:bg-white/5 rounded-2xl border border-[#F2F6FA] p-3.5 text-center">
+                <p className="font-bold text-xl text-[#0A1A2F] dark:text-white dark:text-white" style={value > 0 ? { color } : {}}>{value}</p>
+                <p className="text-xs font-bold text-[#0A1A2F] dark:text-white mt-0.5">{label}</p>
+                <p className="text-[10px] text-[#0A1A2F]/35 dark:text-white/35">{sub}</p>
               </div>
             ))}
           </motion.div>
@@ -667,12 +667,12 @@ export default function IdentityInChristPage() {
                   className={`flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-semibold whitespace-nowrap transition-all ${
                     pillarFilter === p.id && !showFavOnly
                       ? 'bg-[#0A1A2F] text-white border-[#0A1A2F]'
-                      : 'bg-white text-[#0A1A2F]/50 border-[#F2F6FA] hover:border-[#FAD98D]/40'
+                      : 'bg-white dark:bg-white/5 text-[#0A1A2F]/50 dark:text-white/50 border-[#F2F6FA] hover:border-[#FAD98D]/40'
                   }`}>
                   <span>{p.emoji}</span>
                   {p.label}
                   <span className={`text-[9px] font-bold rounded-full px-1.5 py-0.5 ${
-                    pillarFilter === p.id && !showFavOnly ? 'bg-white/20' : 'bg-[#F2F6FA]'
+                    pillarFilter === p.id && !showFavOnly ? 'bg-white/20' : 'bg-[#F2F6FA] dark:bg-[#0A1A2F]'
                   }`}>
                     {p.id === 'all' ? DECLARATIONS.length : DECLARATIONS.filter(d => d.pillar === p.id).length}
                   </span>
@@ -683,7 +683,7 @@ export default function IdentityInChristPage() {
                 className={`flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-semibold whitespace-nowrap transition-all ${
                   showFavOnly
                     ? 'bg-amber-500 text-white border-amber-500'
-                    : 'bg-white text-[#0A1A2F]/50 border-[#F2F6FA] hover:border-amber-300'
+                    : 'bg-white dark:bg-white/5 text-[#0A1A2F]/50 dark:text-white/50 border-[#F2F6FA] hover:border-amber-300'
                 }`}>
                 <Star className={`w-3 h-3 ${showFavOnly ? 'fill-white' : ''}`} />
                 Saved
@@ -714,9 +714,9 @@ export default function IdentityInChristPage() {
           {/* ── Declaration cards ─────────────────────────────────────────── */}
           {filtered.length === 0 ? (
             <div className="text-center py-12">
-              <Star className="w-8 h-8 text-[#0A1A2F]/15 mx-auto mb-3" />
-              <p className="text-sm text-[#0A1A2F]/40">No saved declarations yet</p>
-              <p className="text-xs text-[#0A1A2F]/25 mt-1">Tap the ⭐ on any card to save it here</p>
+              <Star className="w-8 h-8 text-[#0A1A2F]/15 dark:text-white/15 mx-auto mb-3" />
+              <p className="text-sm text-[#0A1A2F]/40 dark:text-white/40">No saved declarations yet</p>
+              <p className="text-xs text-[#0A1A2F]/25 dark:text-white/25 mt-1">Tap the ⭐ on any card to save it here</p>
             </div>
           ) : (
             <div className="space-y-3">
@@ -738,15 +738,15 @@ export default function IdentityInChristPage() {
           {/* ── Cross-link to Growth Pathways ─────────────────────────────── */}
           <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
             <Link to={createPageUrl('GrowthPathwaysPage')}
-              className="flex items-center gap-3 bg-white rounded-2xl border border-[#F2F6FA] hover:border-[#FAD98D]/40 p-4 transition-all group">
+              className="flex items-center gap-3 bg-white dark:bg-white/5 rounded-2xl border border-[#F2F6FA] hover:border-[#FAD98D]/40 p-4 transition-all group">
               <div className="w-10 h-10 bg-gradient-to-br from-rose-500 to-pink-400 rounded-xl flex items-center justify-center flex-shrink-0">
                 <Crown className="w-5 h-5 text-white" />
               </div>
               <div className="flex-1">
-                <p className="font-bold text-sm text-[#0A1A2F]">Identity in Christ Pathway</p>
-                <p className="text-xs text-[#0A1A2F]/45">5-step guided journey into your true identity</p>
+                <p className="font-bold text-sm text-[#0A1A2F] dark:text-white dark:text-white">Identity in Christ Pathway</p>
+                <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45">5-step guided journey into your true identity</p>
               </div>
-              <ChevronRight className="w-4 h-4 text-[#0A1A2F]/20 group-hover:text-[#0A1A2F]/40 transition-colors" />
+              <ChevronRight className="w-4 h-4 text-[#0A1A2F]/20 dark:text-white/20 group-hover:text-[#0A1A2F]/40 dark:text-white/40 transition-colors" />
             </Link>
           </motion.div>
 

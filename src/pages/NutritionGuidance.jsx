@@ -17,19 +17,19 @@ export default function NutritionGuidance() {
   }, [searchTerm]);
 
   return (
-    <div className="min-h-screen bg-[#F2F6FA] pb-24">
+    <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-24">
       {/* Header */}
-      <div className="sticky top-0 z-40 bg-white border-b border-[#F2F6FA] px-4 py-3">
+      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#F2F6FA] px-4 py-3">
         <div className="max-w-2xl mx-auto flex items-center gap-3">
           <Link
             to={createPageUrl('Wellness?tab=nutrition')}
             className="w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors">
 
-            <ArrowLeft className="w-4 h-4 text-[#0A1A2F]" />
+            <ArrowLeft className="w-4 h-4 text-[#0A1A2F] dark:text-white dark:text-white" />
           </Link>
           <div>
-            <h1 className="text-lg font-bold text-[#0A1A2F]">Nutrition Guidance</h1>
-            <p className="text-xs text-[#0A1A2F]/60">Healthy eating made simple</p>
+            <h1 className="text-lg font-bold text-[#0A1A2F] dark:text-white dark:text-white">Nutrition Guidance</h1>
+            <p className="text-xs text-[#0A1A2F]/60 dark:text-white/60">Healthy eating made simple</p>
           </div>
         </div>
       </div>
@@ -66,7 +66,7 @@ export default function NutritionGuidance() {
           animate={{ opacity: 1 }}
           className="text-center py-12">
 
-            <p className="text-[#0A1A2F]/60">No articles found</p>
+            <p className="text-[#0A1A2F]/60 dark:text-white/60">No articles found</p>
           </motion.div> :
 
         <div className="grid grid-cols-1 gap-4">
@@ -78,9 +78,9 @@ export default function NutritionGuidance() {
             transition={{ delay: idx * 0.02 }}>
 
                 <Link to={createPageUrl(`NutritionArticle?id=${article.id}`)}>
-                  <div className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow p-4 cursor-pointer">
-                    <h3 className="font-semibold text-[#0A1A2F] mb-2">{article.title}</h3>
-                    <p className="text-sm text-[#0A1A2F]/60">{article.description}</p>
+                  <div className="bg-white dark:bg-white/5 rounded-lg shadow-sm hover:shadow-md transition-shadow p-4 cursor-pointer">
+                    <h3 className="font-semibold text-[#0A1A2F] dark:text-white mb-2">{article.title}</h3>
+                    <p className="text-sm text-[#0A1A2F]/60 dark:text-white/60">{article.description}</p>
                   </div>
                 </Link>
               </motion.div>

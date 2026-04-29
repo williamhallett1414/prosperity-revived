@@ -174,13 +174,13 @@ function FeatureCard({ icon, title, desc, index, accent }) {
   return (
     <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.05, duration: 0.2 }}
-      className="flex items-start gap-3 bg-white rounded-2xl p-3 border border-gray-100 shadow-sm">
+      className="flex items-start gap-3 bg-white dark:bg-white/5 rounded-2xl p-3 border border-gray-100 dark:border-white/10 shadow-sm">
       <div className="w-9 h-9 rounded-xl flex items-center justify-center text-lg flex-shrink-0"
         style={{ background: accent + '20' }}>
         {icon}
       </div>
       <div className="flex-1 min-w-0">
-        <p className="font-bold text-[#0A1A2F] text-sm leading-tight">{title}</p>
+        <p className="font-bold text-[#0A1A2F] dark:text-white text-sm leading-tight">{title}</p>
         <p className="text-xs text-gray-500 mt-0.5 leading-relaxed">{desc}</p>
       </div>
     </motion.div>
@@ -242,7 +242,7 @@ export default function AppTour({ onComplete, userName }) {
         <motion.div key={step}
           initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
           transition={{ duration: 0.25 }}
-          className="bg-[#F2F6FA] rounded-3xl overflow-hidden shadow-2xl max-w-lg mx-auto flex flex-col"
+          className="bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-3xl overflow-hidden shadow-2xl max-w-lg mx-auto flex flex-col"
           style={{ maxHeight: '80vh' }}>
 
           {/* Header */}
@@ -274,7 +274,7 @@ export default function AppTour({ onComplete, userName }) {
                     <Icon className="w-5 h-5" style={{ color: sec.accent === '#FAD98D' ? '#C9A227' : sec.accent }} />
                   </div>
                   <div>
-                    <h2 className="font-black text-[#0A1A2F] text-base leading-tight">{displayTitle}</h2>
+                    <h2 className="font-black text-[#0A1A2F] dark:text-white text-base leading-tight">{displayTitle}</h2>
                     <p className="text-gray-500 text-xs mt-1 leading-relaxed">{sec.subtitle}</p>
                   </div>
                 </div>
@@ -293,9 +293,9 @@ export default function AppTour({ onComplete, userName }) {
                       <motion.div key={item.label}
                         initial={{ opacity: 0, scale: 0.85 }} animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: i * 0.06 }}
-                        className="bg-white rounded-2xl p-3 flex items-center gap-2.5 border border-gray-100 shadow-sm">
+                        className="bg-white dark:bg-white/5 rounded-2xl p-3 flex items-center gap-2.5 border border-gray-100 dark:border-white/10 shadow-sm">
                         <span className="text-xl">{item.icon}</span>
-                        <span className="text-sm font-bold text-[#0A1A2F]">{item.label}</span>
+                        <span className="text-sm font-bold text-[#0A1A2F] dark:text-white dark:text-white">{item.label}</span>
                       </motion.div>
                     ))}
                   </div>
@@ -331,9 +331,9 @@ export default function AppTour({ onComplete, userName }) {
                         initial={{ opacity: 0, x: 12 }} animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: i * 0.07 }}
                         onPointerDown={() => { finish(); setTimeout(() => { window.location.href = createPageUrl(a.page); }, 200); }}
-                        className="w-full flex items-center gap-3 bg-white rounded-2xl px-4 py-3.5 border-2 border-gray-100 text-left active:scale-95 transition-transform shadow-sm">
+                        className="w-full flex items-center gap-3 bg-white dark:bg-white/5 rounded-2xl px-4 py-3.5 border-2 border-gray-100 dark:border-white/10 text-left active:scale-95 transition-transform shadow-sm">
                         <span className="text-xl">{a.icon}</span>
-                        <p className="font-semibold text-[#0A1A2F] text-sm flex-1">{a.text}</p>
+                        <p className="font-semibold text-[#0A1A2F] dark:text-white text-sm flex-1">{a.text}</p>
                         <ChevronRight className="w-4 h-4 text-gray-400 flex-shrink-0" />
                       </motion.button>
                     ))}
@@ -351,10 +351,10 @@ export default function AppTour({ onComplete, userName }) {
 
           {/* Footer nav */}
           {!sec.isDone && (
-            <div className="px-5 pb-4 pt-3 border-t border-gray-100 flex gap-3 flex-shrink-0">
+            <div className="px-5 pb-4 pt-3 border-t border-gray-100 dark:border-white/10 flex gap-3 flex-shrink-0">
               {step > 0 && (
                 <button onPointerDown={goPrev}
-                  className="w-11 h-11 rounded-2xl border-2 border-gray-200 flex items-center justify-center text-gray-400 flex-shrink-0">
+                  className="w-11 h-11 rounded-2xl border-2 border-gray-200 dark:border-white/10 flex items-center justify-center text-gray-400 flex-shrink-0">
                   <ChevronLeft className="w-4 h-4" />
                 </button>
               )}

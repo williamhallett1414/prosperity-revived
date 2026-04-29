@@ -16,7 +16,7 @@ const TOPICS = {
   mental_health:   { label: 'Mental Health',   emoji: '🧘', bg: 'bg-purple-50 text-purple-700',        accent: '#8B5CF6' },
   personal_growth: { label: 'Personal Growth', emoji: '🌱', bg: 'bg-[#FAD98D]/20 text-[#c9a227]',      accent: '#FD9C2D' },
   relationships:   { label: 'Relationships',   emoji: '💕', bg: 'bg-pink-50 text-pink-700',            accent: '#db2777' },
-  general:         { label: 'General',         emoji: '✨', bg: 'bg-[#F2F6FA] text-[#0A1A2F]/50',     accent: '#AFC7E3' },
+  general:         { label: 'General',         emoji: '✨', bg: 'bg-[#F2F6FA] dark:bg-[#0A1A2F] text-[#0A1A2F]/50 dark:text-white/50',     accent: '#AFC7E3' },
 };
 
 // Deterministic avatar colour from author name
@@ -65,7 +65,7 @@ function LikeButton({ post }) {
 
   return (
     <button onClick={toggle}
-      className={`flex items-center gap-1.5 text-xs font-semibold transition-all ${liked ? 'text-red-400' : 'text-[#0A1A2F]/35 hover:text-red-300'}`}>
+      className={`flex items-center gap-1.5 text-xs font-semibold transition-all ${liked ? 'text-red-400' : 'text-[#0A1A2F]/35 dark:text-white/35 hover:text-red-300'}`}>
       <Heart className={`w-3.5 h-3.5 transition-all ${liked ? 'fill-red-400 scale-110' : ''}`} />
       <span>{post.likes || 0}</span>
     </button>
@@ -85,7 +85,7 @@ function ShareButton({ title }) {
   };
   return (
     <button onClick={share}
-      className="flex items-center gap-1.5 text-xs font-semibold text-[#0A1A2F]/35 hover:text-[#c9a227] transition-colors">
+      className="flex items-center gap-1.5 text-xs font-semibold text-[#0A1A2F]/35 dark:text-white/35 hover:text-[#c9a227] transition-colors">
       <Share2 className="w-3.5 h-3.5" />
       Share
     </button>
@@ -101,7 +101,7 @@ function HeroBlogCard({ post }) {
 
   return (
     <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
-      className="bg-white rounded-2xl border border-[#FAD98D]/20 overflow-hidden shadow-sm">
+      className="bg-white dark:bg-white/5 rounded-2xl border border-[#FAD98D]/20 overflow-hidden shadow-sm">
 
       {/* Coloured header band */}
       <div className="h-2 w-full" style={{ backgroundColor: topic.accent + '40' }} />
@@ -112,13 +112,13 @@ function HeroBlogCard({ post }) {
           <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full ${topic.bg}`}>
             {topic.emoji} {topic.label}
           </span>
-          <span className="text-[10px] text-[#0A1A2F]/30 flex items-center gap-1">
+          <span className="text-[10px] text-[#0A1A2F]/30 dark:text-white/30 flex items-center gap-1">
             <Clock className="w-3 h-3" /> {mins} min read
           </span>
         </div>
 
         {/* Title — large */}
-        <h2 className="font-bold text-[#0A1A2F] text-base leading-snug mb-3">{post.title}</h2>
+        <h2 className="font-bold text-[#0A1A2F] dark:text-white text-base leading-snug mb-3">{post.title}</h2>
 
         {/* Author */}
         <div className="flex items-center gap-2 mb-3">
@@ -126,20 +126,20 @@ function HeroBlogCard({ post }) {
             {(post.author_name || 'U')[0].toUpperCase()}
           </div>
           <div>
-            <p className="text-xs font-semibold text-[#0A1A2F]">{post.author_name || 'Community Member'}</p>
-            <p className="text-[10px] text-[#0A1A2F]/30">{formatDistanceToNow(new Date(post.created_date), { addSuffix: true })}</p>
+            <p className="text-xs font-semibold text-[#0A1A2F] dark:text-white dark:text-white">{post.author_name || 'Community Member'}</p>
+            <p className="text-[10px] text-[#0A1A2F]/30 dark:text-white/30">{formatDistanceToNow(new Date(post.created_date), { addSuffix: true })}</p>
           </div>
         </div>
 
         {/* Content */}
         <AnimatePresence initial={false}>
           {!expanded ? (
-            <p className="text-sm text-[#0A1A2F]/60 leading-relaxed">
+            <p className="text-sm text-[#0A1A2F]/60 dark:text-white/60 leading-relaxed">
               {post.excerpt || post.content?.substring(0, 180) + '…'}
             </p>
           ) : (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-              className="prose prose-sm max-w-none text-[#0A1A2F]/75 prose-headings:text-[#0A1A2F] prose-headings:font-bold prose-strong:text-[#0A1A2F] prose-p:leading-relaxed">
+              className="prose prose-sm max-w-none text-[#0A1A2F]/75 prose-headings:text-[#0A1A2F] dark:text-white prose-headings:font-bold prose-strong:text-[#0A1A2F] dark:text-white prose-p:leading-relaxed">
               <ReactMarkdown>{post.content}</ReactMarkdown>
             </motion.div>
           )}
@@ -170,7 +170,7 @@ function BlogCard({ post, index }) {
 
   return (
     <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.04 }}
-      className="bg-white rounded-2xl border border-[#FAD98D]/15 overflow-hidden">
+      className="bg-white dark:bg-white/5 rounded-2xl border border-[#FAD98D]/15 overflow-hidden">
       <div className="p-4">
 
         {/* Author row */}
@@ -179,31 +179,31 @@ function BlogCard({ post, index }) {
             {(post.author_name || 'U')[0].toUpperCase()}
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-xs font-semibold text-[#0A1A2F] truncate">{post.author_name || 'Community Member'}</p>
-            <p className="text-[10px] text-[#0A1A2F]/30">{formatDistanceToNow(new Date(post.created_date), { addSuffix: true })}</p>
+            <p className="text-xs font-semibold text-[#0A1A2F] dark:text-white truncate">{post.author_name || 'Community Member'}</p>
+            <p className="text-[10px] text-[#0A1A2F]/30 dark:text-white/30">{formatDistanceToNow(new Date(post.created_date), { addSuffix: true })}</p>
           </div>
           <div className="flex items-center gap-2 flex-shrink-0">
             <span className={`text-[9px] font-bold px-2 py-0.5 rounded-full ${topic.bg}`}>
               {topic.emoji} {topic.label}
             </span>
-            <span className="text-[9px] text-[#0A1A2F]/25 flex items-center gap-0.5">
+            <span className="text-[9px] text-[#0A1A2F]/25 dark:text-white/25 flex items-center gap-0.5">
               <Clock className="w-2.5 h-2.5" /> {mins}m
             </span>
           </div>
         </div>
 
         {/* Title */}
-        <h3 className="font-bold text-[#0A1A2F] text-sm leading-snug mb-1.5">{post.title}</h3>
+        <h3 className="font-bold text-[#0A1A2F] dark:text-white text-sm leading-snug mb-1.5">{post.title}</h3>
 
         {/* Excerpt / expanded content */}
         <AnimatePresence initial={false}>
           {!expanded ? (
-            <p className="text-xs text-[#0A1A2F]/55 leading-relaxed line-clamp-2">
+            <p className="text-xs text-[#0A1A2F]/55 dark:text-white/55 leading-relaxed line-clamp-2">
               {post.excerpt || post.content?.substring(0, 120) + '…'}
             </p>
           ) : (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-              className="prose prose-sm max-w-none text-[#0A1A2F]/70 prose-headings:text-[#0A1A2F] prose-headings:font-bold prose-p:leading-relaxed text-xs">
+              className="prose prose-sm max-w-none text-[#0A1A2F]/70 dark:text-white/70 prose-headings:text-[#0A1A2F] dark:text-white prose-headings:font-bold prose-p:leading-relaxed text-xs">
               <ReactMarkdown>{post.content}</ReactMarkdown>
             </motion.div>
           )}
@@ -238,7 +238,7 @@ function SeedBanner({ onSeed, seeding }) {
         <p className="text-xs text-white/45">Add 8 starter community posts</p>
       </div>
       <button onClick={onSeed} disabled={seeding}
-        className="flex-shrink-0 px-3.5 py-2 rounded-xl bg-[#FAD98D] text-[#0A1A2F] text-xs font-bold disabled:opacity-50 hover:bg-[#c9a227] transition-colors flex items-center gap-1.5">
+        className="flex-shrink-0 px-3.5 py-2 rounded-xl bg-[#FAD98D] text-[#0A1A2F] dark:text-white text-xs font-bold disabled:opacity-50 hover:bg-[#c9a227] transition-colors flex items-center gap-1.5">
         {seeding ? <><Loader2 className="w-3.5 h-3.5 animate-spin" /> Adding…</> : 'Add Posts'}
       </button>
     </motion.div>
@@ -252,7 +252,7 @@ function FilterChip({ active, onClick, children }) {
       className={`text-xs px-3 py-1.5 rounded-full border flex-shrink-0 font-semibold transition-all ${
         active
           ? 'bg-[#0A1A2F] text-white border-[#0A1A2F]'
-          : 'bg-white text-[#0A1A2F]/50 border-[#FAD98D]/25 hover:border-[#c9a227]/40'
+          : 'bg-white dark:bg-white/5 text-[#0A1A2F]/50 dark:text-white/50 border-[#FAD98D]/25 hover:border-[#c9a227]/40'
       }`}>
       {children}
     </button>
@@ -338,28 +338,28 @@ export default function BlogFeed({ user, onWriteWithAI }) {
       {/* ── Loading skeletons ── */}
       {isLoading && (
         <div className="space-y-3">
-          <div className="bg-white rounded-2xl p-5 animate-pulse border border-[#FAD98D]/15 h-40" />
-          {[1, 2].map(i => <div key={i} className="bg-white rounded-2xl p-4 animate-pulse border border-[#FAD98D]/15 h-24" />)}
+          <div className="bg-white dark:bg-white/5 rounded-2xl p-5 animate-pulse border border-[#FAD98D]/15 h-40" />
+          {[1, 2].map(i => <div key={i} className="bg-white dark:bg-white/5 rounded-2xl p-4 animate-pulse border border-[#FAD98D]/15 h-24" />)}
         </div>
       )}
 
       {/* ── Empty state ── */}
       {!isLoading && filtered.length === 0 && (
-        <div className="bg-white rounded-2xl border border-[#FAD98D]/15 p-10 text-center">
-          <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center mx-auto mb-4">
+        <div className="bg-white dark:bg-white/5 rounded-2xl border border-[#FAD98D]/15 p-10 text-center">
+          <div className="w-14 h-14 bg-white dark:bg-white/5 rounded-2xl flex items-center justify-center mx-auto mb-4">
             <BookOpen className="w-7 h-7 text-[#FAD98D]" />
           </div>
-          <h3 className="font-bold text-[#0A1A2F] mb-1">
+          <h3 className="font-bold text-[#0A1A2F] dark:text-white mb-1">
             {filterTopic === 'all' ? 'No posts yet' : `No ${TOPICS[filterTopic]?.label} posts yet`}
           </h3>
-          <p className="text-sm text-[#0A1A2F]/40 leading-relaxed mb-4">
+          <p className="text-sm text-[#0A1A2F]/40 dark:text-white/40 leading-relaxed mb-4">
             {filterTopic === 'all'
               ? 'Be the first to share something with the community.'
               : 'Try a different topic or be the first to write one.'}
           </p>
           {onWriteWithAI && (
             <button onClick={onWriteWithAI}
-              className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#FAD98D] to-[#c9a227] text-[#0A1A2F] font-bold text-sm hover:opacity-90 transition-opacity">
+              className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#FAD98D] to-[#c9a227] text-[#0A1A2F] dark:text-white font-bold text-sm hover:opacity-90 transition-opacity">
               Write the First Post
             </button>
           )}

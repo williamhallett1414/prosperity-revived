@@ -73,17 +73,17 @@ export default function GroupPlanDetail() {
 
   if (isLoading || !group) {
     return (
-      <div className="min-h-screen bg-[#F2F6FA] flex items-center justify-center">
+      <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] flex items-center justify-center">
 
       {/* ── Standard Header ── */}
-      <div className="sticky top-0 z-40 bg-white border-b border-[#FAD98D]/20 px-4 pt-4 pb-3">
+      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 px-4 pt-4 pb-3">
         <div className="max-w-lg mx-auto flex items-center gap-3">
           <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#22C55E] to-[#16A34A] flex items-center justify-center">
             <BookOpen className="w-5 h-5 text-white" />
           </div>
           <div>
-            <h1 className="text-base font-bold text-[#0A1A2F]">Reading Group</h1>
-            <p className="text-xs text-[#0A1A2F]/45">Read together</p>
+            <h1 className="text-base font-bold text-[#0A1A2F] dark:text-white dark:text-white">Reading Group</h1>
+            <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45">Read together</p>
           </div>
         </div>
       </div>
@@ -97,7 +97,7 @@ export default function GroupPlanDetail() {
   const completedDays = myProgress?.completed_days || [];
 
   return (
-    <div className="min-h-screen bg-[#F2F6FA] pb-24">
+    <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-24">
       {/* Header */}
       <div className="bg-gradient-to-br from-green-500 to-emerald-600 text-white p-6">
         <button
@@ -157,7 +157,7 @@ export default function GroupPlanDetail() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-white rounded-xl p-4 mb-6 shadow-sm"
+            className="bg-white dark:bg-white/5 rounded-xl p-4 mb-6 shadow-sm"
           >
             <div className="flex items-center justify-between">
               <div>
@@ -197,10 +197,10 @@ export default function GroupPlanDetail() {
                   <motion.div
                     key={day}
                     whileHover={{ scale: 1.02 }}
-                    className={`bg-white rounded-xl p-4 border-2 cursor-pointer transition-all ${
+                    className={`bg-white dark:bg-white/5 rounded-xl p-4 border-2 cursor-pointer transition-all ${
                       isCompleted 
                         ? 'border-green-500 bg-green-50' 
-                        : 'border-gray-200 hover:border-green-300'
+                        : 'border-gray-200 dark:border-white/10 hover:border-green-300'
                     }`}
                     onClick={() => setSelectedDay(day)}
                   >
@@ -239,7 +239,7 @@ export default function GroupPlanDetail() {
               <select
                 value={selectedDay}
                 onChange={(e) => setSelectedDay(parseInt(e.target.value))}
-                className="w-full px-4 py-2 rounded-lg border border-gray-200 bg-white"
+                className="w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5"
               >
                 {days.map(day => (
                   <option key={day} value={day}>

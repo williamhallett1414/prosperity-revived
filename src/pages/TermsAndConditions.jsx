@@ -6,17 +6,17 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 
 export default function TermsAndConditions() {
   return (
-    <div className="min-h-screen bg-[#F2F6FA] pb-24">
+    <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-24">
 
       {/* ── Standard Header ── */}
-      <div className="sticky top-0 z-40 bg-white border-b border-[#FAD98D]/20 px-4 pt-4 pb-3">
+      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 px-4 pt-4 pb-3">
         <div className="max-w-lg mx-auto flex items-center gap-3">
           <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#3C4E53] to-[#AFC7E3] flex items-center justify-center">
             <FileText className="w-5 h-5 text-white" />
           </div>
           <div>
-            <h1 className="text-base font-bold text-[#0A1A2F]">Terms & Conditions</h1>
-            <p className="text-xs text-[#0A1A2F]/45">Legal information</p>
+            <h1 className="text-base font-bold text-[#0A1A2F] dark:text-white dark:text-white">Terms & Conditions</h1>
+            <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45">Legal information</p>
           </div>
         </div>
       </div>
@@ -27,18 +27,18 @@ export default function TermsAndConditions() {
             <Link
               to={createPageUrl('Settings')}
               className="w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors">
-              <ArrowLeft className="w-4 h-4 text-[#0A1A2F]" />
+              <ArrowLeft className="w-4 h-4 text-[#0A1A2F] dark:text-white dark:text-white" />
             </Link>
-            <h1 className="text-2xl font-bold text-[#0A1A2F] flex items-center gap-2">
+            <h1 className="text-2xl font-bold text-[#0A1A2F] dark:text-white flex items-center gap-2">
               <FileText className="w-6 h-6 text-[#FD9C2D]" />
               Terms &amp; Conditions
             </h1>
           </div>
         </div>
 
-        <div className="bg-white rounded-2xl p-6 shadow-sm">
+        <div className="bg-white dark:bg-white/5 rounded-2xl p-6 shadow-sm">
           <ScrollArea className="h-[calc(100vh-200px)]">
-            <div className="space-y-6 text-[#0A1A2F] pr-4">
+            <div className="space-y-6 text-[#0A1A2F] dark:text-white pr-4">
               <div className="text-center mb-6">
                 <h2 className="text-2xl font-bold mb-2">Terms &amp; Conditions</h2>
                 <p className="text-sm text-gray-500">Last Updated: 12 March 2026</p>
@@ -241,7 +241,7 @@ export default function TermsAndConditions() {
                 <p className="text-sm leading-relaxed mb-2">
                   Prosperity Revived respects intellectual property rights and expects users to do the same. If you believe that content in the App or posted by a user infringes your copyright, you may submit a DMCA takedown notice to our designated agent:
                 </p>
-                <div className="bg-[#F2F6FA] rounded-lg p-4 mt-2">
+                <div className="bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-lg p-4 mt-2">
                   <p className="text-sm font-semibold">DMCA Agent — Prosperity Revived</p>
                   <p className="text-sm mt-1">Email: <span className="text-[#FD9C2D]">Prosperityrevived2025@gmail.com</span></p>
                   <p className="text-sm">Subject line: <em>DMCA Takedown Notice</em></p>
@@ -392,14 +392,14 @@ export default function TermsAndConditions() {
               <div>
                 <h3 className="text-lg font-bold mb-3">22. Contact Information</h3>
                 <p className="text-sm leading-relaxed mb-2">For questions about these Terms, contact:</p>
-                <div className="bg-[#F2F6FA] rounded-lg p-4 mt-3">
+                <div className="bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-lg p-4 mt-3">
                   <p className="text-sm font-semibold">Prosperity Revived LLC</p>
                   <p className="text-sm text-[#FD9C2D]">Prosperityrevived2025@gmail.com</p>
                   <p className="text-sm text-[#FD9C2D]">www.prosperityrevived.com</p>
                 </div>
               </div>
 
-              <div className="text-center pt-6 pb-4 border-t border-gray-200">
+              <div className="text-center pt-6 pb-4 border-t border-gray-200 dark:border-white/10">
                 <p className="text-xs text-gray-500">© 2026 Prosperity Revived LLC. All rights reserved.</p>
               </div>
             </div>

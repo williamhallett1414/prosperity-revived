@@ -74,16 +74,16 @@ export default function ShareWorkoutModal({ isOpen, onClose, workout, user }) {
         </DialogHeader>
 
         <div className="space-y-4">
-          <div className="bg-[#F2F6FA] border border-[#BAE6FD]/30 rounded-lg p-4">
-            <h3 className="font-semibold text-[#0A1A2F] mb-1">{workout?.title}</h3>
-            <p className="text-sm text-[#0A1A2F]/60">
+          <div className="bg-[#F2F6FA] dark:bg-[#0A1A2F] border border-[#BAE6FD]/30 rounded-lg p-4">
+            <h3 className="font-semibold text-[#0A1A2F] dark:text-white mb-1">{workout?.title}</h3>
+            <p className="text-sm text-[#0A1A2F]/60 dark:text-white/60">
               {workout?.exercises?.length || 0} exercises • {workout?.duration_minutes} min
             </p>
           </div>
 
           {!workout?.is_shared ? (
             <div className="space-y-3">
-              <p className="text-sm text-[#0A1A2F]/55">
+              <p className="text-sm text-[#0A1A2F]/55 dark:text-white/55">
                 Share this workout with others so they can add it to their routine!
               </p>
               <Button
@@ -98,7 +98,7 @@ export default function ShareWorkoutModal({ isOpen, onClose, workout, user }) {
           ) : (
             <div className="space-y-3">
               <div>
-                <p className="text-sm font-medium text-[#0A1A2F]/60 mb-2">Share this link:</p>
+                <p className="text-sm font-medium text-[#0A1A2F]/60 dark:text-white/60 mb-2">Share this link:</p>
                 <div className="flex gap-2">
                   <Input
                     value={shareLink}
@@ -115,7 +115,7 @@ export default function ShareWorkoutModal({ isOpen, onClose, workout, user }) {
                 </div>
               </div>
 
-              <div className="bg-[#F2F6FA] border border-[#AFC7E3]/40 rounded-lg p-3">
+              <div className="bg-[#F2F6FA] dark:bg-[#0A1A2F] border border-[#AFC7E3]/40 rounded-lg p-3">
                 <p className="text-xs text-blue-800">
                   <span className="font-semibold">Public:</span> Anyone with this link can view and copy your workout.
                 </p>
@@ -124,7 +124,7 @@ export default function ShareWorkoutModal({ isOpen, onClose, workout, user }) {
               <Button
                 onClick={() => unshareWorkout.mutate()}
                 variant="outline"
-                className="w-full border-[#BAE6FD]/40 text-[#0A1A2F]/60 hover:bg-[#F2F6FA]"
+                className="w-full border-[#BAE6FD]/40 text-[#0A1A2F]/60 dark:text-white/60 hover:bg-[#F2F6FA] dark:bg-[#0A1A2F]"
                 disabled={unshareWorkout.isPending}
               >
                 {unshareWorkout.isPending ? 'Removing...' : 'Make Private'}

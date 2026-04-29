@@ -81,7 +81,7 @@ export default function WellnessMetricsOverview({
       animate={{ opacity: 1, y: 0 }}
       className="space-y-4"
     >
-      <h2 className="text-xl font-bold text-[#0A1A2F]">Your Progress & Metrics</h2>
+      <h2 className="text-xl font-bold text-[#0A1A2F] dark:text-white dark:text-white">Your Progress & Metrics</h2>
       
       <div className="grid grid-cols-2 gap-3">
         {metrics.map((metric, index) => {

@@ -233,12 +233,12 @@ export default function LegalDocModal({ doc, onAccept, onClose }) {
           animate={{ y: 0 }}
           exit={{ y: '100%' }}
           transition={{ type: 'spring', damping: 30, stiffness: 280 }}
-          className="w-full max-w-lg bg-white rounded-t-3xl overflow-hidden shadow-2xl"
+          className="w-full max-w-lg bg-white dark:bg-white/5 rounded-t-3xl overflow-hidden shadow-2xl"
           style={{ maxHeight: '92vh' }}
           onClick={e => e.stopPropagation()}
         >
           {/* Header */}
-          <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100 bg-[#0A1A2F]">
+          <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100 dark:border-white/10 bg-[#0A1A2F]">
             <div className="flex items-center gap-3">
               <span className="text-2xl">{data.icon}</span>
               <div>
@@ -279,12 +279,12 @@ export default function LegalDocModal({ doc, onAccept, onClose }) {
                     : s.warning
                     ? 'bg-amber-50 border border-amber-200'
                     : s.highlight
-                    ? 'bg-[#F2F6FA] border border-gray-200'
-                    : 'bg-white border border-gray-100'
+                    ? 'bg-[#F2F6FA] dark:bg-[#0A1A2F] border border-gray-200 dark:border-white/10'
+                    : 'bg-white dark:bg-white/5 border border-gray-100 dark:border-white/10'
                 }`}
               >
                 <p className={`text-xs font-bold mb-1.5 ${
-                  s.emergency ? 'text-red-700' : s.warning ? 'text-amber-700' : 'text-[#0A1A2F]'
+                  s.emergency ? 'text-red-700' : s.warning ? 'text-amber-700' : 'text-[#0A1A2F] dark:text-white dark:text-white'
                 }`}>
                   {s.heading}
                 </p>
@@ -301,7 +301,7 @@ export default function LegalDocModal({ doc, onAccept, onClose }) {
           </div>
 
           {/* Scroll hint or accept button */}
-          <div className="px-5 pb-6 pt-3 border-t border-gray-100 bg-white">
+          <div className="px-5 pb-6 pt-3 border-t border-gray-100 dark:border-white/10 bg-white dark:bg-white/5">
             {!canAccept ? (
               <div className="flex items-center justify-center gap-2 py-3 text-gray-400">
                 <motion.div

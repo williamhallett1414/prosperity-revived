@@ -44,7 +44,7 @@ export default function AboutTab({ user }) {
       className="space-y-4"
     >
       {/* Bio Section */}
-      <div className="bg-white rounded-lg shadow-sm p-6">
+      <div className="bg-white dark:bg-white/5 rounded-lg shadow-sm p-6">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-xl font-bold text-gray-900">Bio</h2>
           {!editingBio && (
@@ -90,7 +90,7 @@ export default function AboutTab({ user }) {
       </div>
 
       {/* Contact Info */}
-      <div className="bg-white rounded-lg shadow-sm p-6">
+      <div className="bg-white dark:bg-white/5 rounded-lg shadow-sm p-6">
         <h2 className="text-xl font-bold text-gray-900 mb-4">Contact Information</h2>
         <div className="space-y-3">
           <div>
@@ -101,7 +101,7 @@ export default function AboutTab({ user }) {
       </div>
 
       {/* Account Info */}
-      <div className="bg-white rounded-lg shadow-sm p-6">
+      <div className="bg-white dark:bg-white/5 rounded-lg shadow-sm p-6">
         <h2 className="text-xl font-bold text-gray-900 mb-4">Account Information</h2>
         <div className="space-y-3">
           <div>

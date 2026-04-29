@@ -330,7 +330,7 @@ export default function CommunityFeed({ user }) {
                           {encouragementsForShare?.map((enc) => (
                             <div
                               key={enc.id}
-                              className="bg-gray-50 rounded-lg p-3"
+                              className="bg-gray-50 dark:bg-white/5 rounded-lg p-3"
                             >
                               <div className="flex items-start gap-2">
                                 <span className="text-lg">
@@ -384,7 +384,7 @@ export default function CommunityFeed({ user }) {
 
       {/* Community safety notice */}
       <div className="text-center py-4">
-        <p className="text-[9px] text-[#0A1A2F]/25 leading-relaxed">
+        <p className="text-[9px] text-[#0A1A2F]/25 dark:text-white/25 leading-relaxed">
           Posts are monitored by AI moderation. Spam, harassment, and inappropriate content will be removed.
           Minor and adult accounts are separated for safety. Report concerns via the flag icon on any post.
         </p>
