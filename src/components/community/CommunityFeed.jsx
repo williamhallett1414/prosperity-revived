@@ -176,8 +176,7 @@ export default function CommunityFeed({ user }) {
               onClick={() => setFilterType(option.value)}
               variant={isActive ? "default" : "outline"}
               size="sm"
-              className={`flex-shrink-0 whitespace-nowrap ${isActive ? "bg-[#c9a227] hover:bg-[#C9A227]" : ""}`}
-              className={isActive ? "bg-[#c9a227] hover:bg-[#C9A227]" : ""}
+              className={`flex-shrink-0 whitespace-nowrap ${isActive ? "bg-[#c9a227] hover:bg-[#C9A227] text-white" : ""}`}
             >
               <Icon className="w-4 h-4 mr-1" />
               {option.label}
