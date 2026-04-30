@@ -400,21 +400,20 @@ export default function DevotionalArticle({ devotional, onBack }) {
           Back
         </Button>
 
-        {/* Header Image */}
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="relative h-64 rounded-2xl overflow-hidden mb-6"
+          className="rounded-2xl overflow-hidden mb-8 bg-gradient-to-br from-[#1a0f00] via-[#7c5a00] to-[#c9a227] p-8 shadow-md dark:shadow-none"
         >
-          <img
-            src={devotional.image}
-            alt={devotional.title}
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-          <div className="absolute bottom-6 left-6 right-6">
-            <h1 className="text-3xl font-bold text-white mb-2">{devotional.title}</h1>
-            <p className="text-white/90">{devotional.subtitle}</p>
+          <div className="flex items-start gap-4">
+            <div className="w-14 h-14 rounded-xl bg-white/15 flex items-center justify-center flex-shrink-0">
+              <Sparkles className="w-7 h-7 text-[#FAD98D]" />
+            </div>
+            <div>
+              <h1 className="text-3xl font-bold text-white mb-2 leading-tight">{devotional.title}</h1>
+              <p className="text-white/75 text-base">{devotional.subtitle}</p>
+            </div>
           </div>
         </motion.div>
 
