@@ -29,14 +29,22 @@ const TRAINING_VERSES = [
 { text: "Let us not become weary in doing good, for at the proper time we will reap a harvest.", ref: "Galatians 6:9" }];
 
 
-// ── Category config ──────────────────────────────────────────────────────────
+// ── Category config (muscle_group based) ─────────────────────────────────────
 const CATEGORIES = [
-{ key: "all", label: "All", emoji: "🏋️", grad: "from-[#FD9C2D] to-[#38BDF8]", desc: "Every workout" },
-{ key: "cardio", label: "Cardio", emoji: "❤️", grad: "from-rose-500 to-pink-400", desc: "Get your heart pumping" },
-{ key: "strength", label: "Strength", emoji: "💪", grad: "from-slate-700 to-slate-500", desc: "Build muscle & power" },
-{ key: "flexibility", label: "Flex", emoji: "🧘", grad: "from-teal-500 to-emerald-400", desc: "Stretch & recover" },
-{ key: "full_body", label: "Full Body", emoji: "🏋️", grad: "from-violet-500 to-purple-400", desc: "Total body training" },
-{ key: "hiit", label: "HIIT", emoji: "⚡", grad: "from-orange-500 to-amber-400", desc: "High intensity" }];
+{ key: "chest",       label: "Chest",       emoji: "💪", grad: "from-slate-700 to-slate-500",    desc: "Bench, press & fly" },
+{ key: "back",        label: "Back",         emoji: "🔙", grad: "from-indigo-600 to-blue-500",    desc: "Rows, pulldowns & deadlifts" },
+{ key: "legs",        label: "Legs",         emoji: "🦵", grad: "from-violet-600 to-purple-500",  desc: "Squats, lunges & quads" },
+{ key: "shoulders",   label: "Shoulders",    emoji: "🏋️", grad: "from-cyan-600 to-sky-400",      desc: "Overhead press & raises" },
+{ key: "arms",        label: "Arms",         emoji: "💪", grad: "from-orange-600 to-amber-500",   desc: "Biceps & triceps" },
+{ key: "push",        label: "Push",         emoji: "⬆️", grad: "from-slate-600 to-slate-400",   desc: "Chest, shoulders & tris" },
+{ key: "pull",        label: "Pull",         emoji: "⬇️", grad: "from-blue-700 to-blue-500",     desc: "Back & biceps" },
+{ key: "glutes",      label: "Glutes",       emoji: "🍑", grad: "from-pink-600 to-rose-400",     desc: "Glutes & hamstrings" },
+{ key: "core",        label: "Core",         emoji: "🎯", grad: "from-teal-600 to-emerald-500",   desc: "Abs & core strength" },
+{ key: "cardio",      label: "Cardio",       emoji: "❤️", grad: "from-rose-500 to-pink-400",     desc: "Get your heart pumping" },
+{ key: "hiit",        label: "HIIT",         emoji: "⚡", grad: "from-orange-500 to-amber-400",   desc: "High intensity intervals" },
+{ key: "full_body",   label: "Full Body",    emoji: "🏋️", grad: "from-violet-500 to-purple-400", desc: "Total body training" },
+{ key: "flexibility", label: "Flex & Yoga",  emoji: "🧘", grad: "from-teal-500 to-emerald-400",  desc: "Stretch & recover" },
+];
 
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
