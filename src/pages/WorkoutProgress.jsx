@@ -1,17 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { Award, Calendar, Dumbbell, Activity, TrendingUp} from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent } from '@/components/ui/card';
-import WorkoutFrequencyChart from '@/components/wellness/WorkoutFrequencyChart';
-import PersonalBestsChart from '@/components/wellness/PersonalBestsChart';
-import VolumeProgressChart from '@/components/wellness/VolumeProgressChart';
-import WorkoutStreakCard from '@/components/wellness/WorkoutStreakCard';
-import WeightProgressChart from '@/components/wellness/WeightProgressChart';
-import GoalCompletionChart from '@/components/wellness/GoalCompletionChart';
-import ProgressPhotoGallery from '@/components/wellness/ProgressPhotoGallery';
 import ChatButton from '@/components/chatbot/ChatButton';
+
+const WorkoutFrequencyChart = lazy(() => import('@/components/wellness/WorkoutFrequencyChart'));
+const PersonalBestsChart = lazy(() => import('@/components/wellness/PersonalBestsChart'));
+const VolumeProgressChart = lazy(() => import('@/components/wellness/VolumeProgressChart'));
+const WorkoutStreakCard = lazy(() => import('@/components/wellness/WorkoutStreakCard'));
+const WeightProgressChart = lazy(() => import('@/components/wellness/WeightProgressChart'));
+const GoalCompletionChart = lazy(() => import('@/components/wellness/GoalCompletionChart'));
+const ProgressPhotoGallery = lazy(() => import('@/components/wellness/ProgressPhotoGallery'));
+
+function ChartFallback() {
+  return <div className="flex justify-center py-8"><div className="w-6 h-6 border-2 border-[#38BDF8]/30 border-t-[#38BDF8] rounded-full animate-spin" /></div>;
+}
 
 export default function WorkoutProgress() {
   const [user, setUser] = useState(null);
@@ -137,7 +142,7 @@ export default function WorkoutProgress() {
         </div>
 
         {/* Streak Card */}
-        <WorkoutStreakCard sessions={sessions} />
+        <Suspense fallback={<ChartFallback />}><WorkoutStreakCard sessions={sessions} /></Suspense>
 
         {/* Charts */}
         <Tabs defaultValue="frequency" className="w-full px-4">
@@ -150,28 +155,28 @@ export default function WorkoutProgress() {
           </TabsList>
 
           <TabsContent value="frequency" className="pt-6">
-            <WorkoutFrequencyChart sessions={sessions} />
+            <Suspense fallback={<ChartFallback />}><WorkoutFrequencyChart sessions={sessions} /></Suspense>
           </TabsContent>
 
           <TabsContent value="prs" className="pt-6">
-            <PersonalBestsChart sessions={sessions} />
+            <Suspense fallback={<ChartFallback />}><PersonalBestsChart sessions={sessions} /></Suspense>
           </TabsContent>
 
           <TabsContent value="volume" className="pt-6">
-            <VolumeProgressChart sessions={sessions} />
+            <Suspense fallback={<ChartFallback />}><VolumeProgressChart sessions={sessions} /></Suspense>
           </TabsContent>
 
           <TabsContent value="weight" className="pt-6">
-            <WeightProgressChart progressPhotos={progressPhotos} />
+            <Suspense fallback={<ChartFallback />}><WeightProgressChart progressPhotos={progressPhotos} /></Suspense>
           </TabsContent>
 
           <TabsContent value="goals" className="pt-6">
-            <GoalCompletionChart workouts={workouts} />
+            <Suspense fallback={<ChartFallback />}><GoalCompletionChart workouts={workouts} /></Suspense>
           </TabsContent>
         </Tabs>
 
         {/* Progress Photos */}
-        <ProgressPhotoGallery photos={progressPhotos} />
+        <Suspense fallback={<ChartFallback />}><ProgressPhotoGallery photos={progressPhotos} /></Suspense>
       </div>
 
       {/* Coach David Chatbot */}
