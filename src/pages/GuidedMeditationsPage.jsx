@@ -85,7 +85,8 @@ function getTimeLabel() {
 
 // ─── Speak using Google Cloud TTS (Hannah's voice) ──────────────────────────
 // Falls back to browser speechSynthesis if cloud TTS fails
-const speakSegment = (text) => new Promise(async (resolve) => {
+// NOTE: audioRef is passed as closure so pause can stop playback
+const speakSegment = (text, audioRef) => new Promise(async (resolve) => {
   const cleaned = text
     .replace(/\*\*(.+?)\*\*/g, '$1').replace(/\*(.+?)\*/g, '$1')
     .replace(/#{1,6}\s+/g, '').replace(/`{1,3}[^`]*`{1,3}/g, '')
@@ -104,8 +105,9 @@ const speakSegment = (text) => new Promise(async (resolve) => {
       const blob = new Blob([bytes], { type: 'audio/mpeg' });
       const url = URL.createObjectURL(blob);
       const audio = new Audio(url);
-      audio.onended = () => { URL.revokeObjectURL(url); resolve(); };
-      audio.onerror = () => { URL.revokeObjectURL(url); resolve(); };
+      audioRef.current = audio;
+      audio.onended = () => { URL.revokeObjectURL(url); audioRef.current = null; resolve(); };
+      audio.onerror = () => { URL.revokeObjectURL(url); audioRef.current = null; resolve(); };
       await audio.play();
       return;
     }
@@ -201,7 +203,7 @@ function MeditationPlayer({ meditation, onClose }) {
       while (pausedRef.current && !stoppedRef.current) await sleep(200);
       if (stoppedRef.current) break;
       setCurrentSeg(i); setCurrentText(segments[i].text);
-      await speakSegment(segments[i].text);
+      await speakSegment(segments[i].text, audioRef);
       if (stoppedRef.current) break;
       const pauseMs = (segments[i].pause || 3) * 1000;
       const t0 = Date.now();
