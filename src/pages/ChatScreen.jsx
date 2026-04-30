@@ -1175,10 +1175,14 @@ export default function ChatScreen() {
 
       setMessages(prev => {
         const updated = [...prev, { role: 'assistant', content: response }];
-        // Extract insights in background every 3rd exchange (non-blocking)
+        // Extract insights in background (non-blocking)
+        // Fire after 2nd user message, then every 3rd message after
         const userMsgCount = updated.filter(m => m.role === 'user').length;
-        if (userMsgCount >= 2 && userMsgCount % 3 === 0) {
-          extractAndSaveInsights(updated, cfg.name).catch(() => {});
+        if (userMsgCount === 2 || (userMsgCount > 2 && userMsgCount % 3 === 0)) {
+          extractAndSaveInsights(updated, cfg.name).then(result => {
+            // Refresh memory cache so next response uses updated context
+            getUserMemory().then(m => setAiMemory(m)).catch(() => {});
+          }).catch(() => {});
         }
         return updated;
       });

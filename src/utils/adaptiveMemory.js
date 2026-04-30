@@ -27,6 +27,7 @@ export async function getUserMemory() {
     if (memories.length > 0) {
       memoryCache = memories[0];
       memoryCacheTime = now;
+      console.log('[Memory] ✅ Loaded existing memory, interaction_count:', memoryCache.interaction_count || 0);
       return memoryCache;
     }
     // Create first memory record
@@ -36,9 +37,10 @@ export async function getUserMemory() {
     });
     memoryCache = newMem;
     memoryCacheTime = now;
+    console.log('[Memory] ✅ Created new memory record');
     return newMem;
   } catch (e) {
-    console.warn('[Memory] Failed to load:', e);
+    console.warn('[Memory] ❌ Failed to load:', e);
     return null;
   }
 }
@@ -119,7 +121,7 @@ export async function extractAndSaveInsights(messages, avatarName) {
       const cleaned = result.replace(/```json|```/g, '').trim();
       insights = JSON.parse(cleaned);
     } catch {
-      console.warn('[Memory] Failed to parse insights:', result);
+      console.warn('[Memory] ❌ Failed to parse insights:', result?.substring?.(0, 200));
       return;
     }
 
@@ -160,9 +162,9 @@ export async function extractAndSaveInsights(messages, avatarName) {
       await base44.entities.UserMemory.update(memory.id, updates);
       memoryCache = { ...memory, ...updates };
       memoryCacheTime = Date.now();
-      console.log('[Memory] Updated with', Object.keys(updates).length, 'fields');
+      console.log('[Memory] ✅ Updated with', Object.keys(updates).length, 'fields:', Object.keys(updates).filter(k => k !== 'last_updated' && k !== 'interaction_count' && k !== 'raw_insights').join(', '));
     }
   } catch (e) {
-    console.warn('[Memory] Extraction failed:', e);
+    console.warn('[Memory] ❌ Extraction failed:', e);
   }
 }
