@@ -541,28 +541,44 @@ export default function GuidedMeditationsPage() {
           {/* ── Category filter ───────────────────────────────────────────── */}
           <div>
             <div className="flex gap-2 overflow-x-auto -mx-4 px-4 pb-1 scrollbar-none">
-              {CATEGORIES.map((cat) =>
-              <button key={cat.id} onClick={() => setCategory(cat.id)}
-              className={`flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-semibold whitespace-nowrap transition-all ${
+              {CATEGORIES.map((cat, i) =>
+              <motion.button 
+               key={cat.id} 
+               onClick={() => setCategory(cat.id)}
+               whileHover={{ scale: 1.05, y: -2 }}
+               whileTap={{ scale: 0.98 }}
+               initial={{ opacity: 0, y: 8 }}
+               animate={{ opacity: 1, y: 0 }}
+               transition={{ delay: i * 0.05, duration: 0.3 }}
+              className={`flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-semibold whitespace-nowrap transition-all duration-300 ${
               category === cat.id ?
-              'bg-[#0A1A2F] text-white border-[#0A1A2F]' :
-              'bg-white dark:bg-white/5 text-[#0A1A2F]/50 dark:text-white/50 border-[#F2F6FA] hover:border-[#FAD98D]/40 dark:border-[#FAD98D]/15 dark:border-[#FAD98D]/8'}`
+              'bg-[#0A1A2F] text-white border-[#0A1A2F] shadow-md dark:shadow-lg dark:shadow-[#FAD98D]/20' :
+              'bg-white dark:bg-white/5 text-[#0A1A2F]/50 dark:text-white/50 border-[#F2F6FA] dark:border-white/10 hover:bg-white/80 dark:hover:bg-white/10 hover:border-[#FAD98D]/40 dark:hover:border-[#FAD98D]/30 hover:shadow-sm'}`
               }>
-                  <span>{cat.emoji}</span>
-                  {cat.label}
-                  <span className={`text-[9px] font-bold rounded-full px-1.5 py-0.5 ${
-                category === cat.id ? 'bg-white/20' : 'bg-[#F2F6FA] dark:bg-[#0A1A2F]'}`
-                }>
-                    {cat.id === 'all' ? MEDITATIONS.length : MEDITATIONS.filter((m) => m.category === cat.id).length}
-                  </span>
-                </button>
+                 <span className="transition-transform duration-300">{cat.emoji}</span>
+                 {cat.label}
+                 <motion.span 
+                   initial={false}
+                   animate={{ scale: category === cat.id ? 1.1 : 1 }}
+                   className={`text-[9px] font-bold rounded-full px-1.5 py-0.5 transition-all duration-300 ${
+                   category === cat.id ? 'bg-white/20' : 'bg-[#F2F6FA] dark:bg-[#0A1A2F]'}`
+                   }>
+                   {cat.id === 'all' ? MEDITATIONS.length : MEDITATIONS.filter((m) => m.category === cat.id).length}
+                 </motion.span>
+               </motion.button>
               )}
             </div>
-            {category !== 'all' &&
-            <p className="text-xs text-[#0A1A2F]/35 dark:text-white/35 mt-2 px-1">
-                {CATEGORIES.find((c) => c.id === category)?.desc}
-              </p>
-            }
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={category !== 'all' ? { opacity: 1, height: 'auto' } : { opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+              className="overflow-hidden">
+              {category !== 'all' && (
+                <p className="text-xs text-[#0A1A2F]/35 dark:text-white/35 mt-2 px-1">
+                  {CATEGORIES.find((c) => c.id === category)?.desc}
+                </p>
+              )}
+            </motion.div>
           </div>
 
           {/* ── Meditation grid ───────────────────────────────────────────── */}
