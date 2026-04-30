@@ -97,6 +97,13 @@ export default function Layout({ children, currentPageName }) {
     localStorage.setItem('onboarding_done', '1');
     setOnboardingDone(true);
     setNeedsOnboarding(false);
+    // Auto-launch the full guided tour after onboarding
+    if (!localStorage.getItem('full_tour_shown')) {
+      setTimeout(() => {
+        setShowGuidedTour(true);
+        localStorage.setItem('full_tour_shown', '1');
+      }, 800); // Short delay to let Home page render
+    }
   };
 
   // Apply dark mode on app load 
