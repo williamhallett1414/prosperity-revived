@@ -236,22 +236,30 @@ export default function DiscoverRecipes() {
           )}
 
           {/* Tab bar */}
-          <div className="flex gap-1.5 overflow-x-auto pb-0.5 scrollbar-hide">
+          <div className="flex gap-0 overflow-x-auto scrollbar-hide border-b border-[#FAD98D]/20 dark:border-white/10 -mx-4 px-4">
             {TABS.map(({ id, label, icon: Icon }) => (
-              <button key={id} onClick={() => setActiveTab(id)}
-                className={`flex-shrink-0 flex flex-col items-center gap-0.5 py-2 px-3 rounded-xl text-[11px] font-bold transition-all relative ${
+              <button
+                key={id}
+                onClick={() => setActiveTab(id)}
+                className={`flex-shrink-0 flex flex-col items-center gap-1 py-3 px-4 text-xs font-semibold relative transition-colors ${
                   activeTab === id
                     ? id === 'health'
-                      ? 'bg-gradient-to-b from-red-400 to-pink-400 text-white shadow-sm dark:shadow-none'
-                      : 'bg-gradient-to-b from-[#c9a227] to-[#FAD98D] text-white shadow-sm dark:shadow-none'
-                    : 'bg-[#F2F6FA] dark:bg-[#0A1A2F] text-[#0A1A2F]/45 dark:text-white/45 hover:text-[#0A1A2F]/65 dark:text-white/65'
-                }`}>
-                <Icon className="w-3.5 h-3.5" />
+                      ? 'text-red-500 dark:text-red-400'
+                      : 'text-[#c9a227] dark:text-[#FAD98D]'
+                    : 'text-[#0A1A2F]/50 dark:text-white/50 hover:text-[#0A1A2F]/70 dark:hover:text-white/70'
+                }`}
+              >
+                <Icon className="w-4 h-4" />
                 {label}
                 {id !== 'collections' && counts[id] > 0 && activeTab !== id && (
-                  <span className="absolute -top-1 -right-1 bg-[#0A1A2F]/15 text-[#0A1A2F] dark:text-white text-[8px] font-bold rounded-full px-1 leading-4">
+                  <span className="absolute top-2 right-2 bg-[#c9a227] text-white text-[7px] font-bold rounded-full w-4 h-4 flex items-center justify-center">
                     {counts[id]}
                   </span>
+                )}
+                {activeTab === id && (
+                  <div className={`absolute bottom-0 left-0 right-0 h-0.5 ${
+                    id === 'health' ? 'bg-red-500 dark:bg-red-400' : 'bg-[#c9a227] dark:bg-[#FAD98D]'
+                  }`} />
                 )}
               </button>
             ))}
