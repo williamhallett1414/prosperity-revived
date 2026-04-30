@@ -4,16 +4,16 @@ import { base44 } from '@/api/base44Client';
 import { ArrowLeft, Moon, Sun, Monitor, Bell, User, Palette, Trash2, Play, Database, ChevronRight, RotateCcw } from 'lucide-react';
 import { toast } from 'sonner';
 const AppTour = lazy(() => import('@/components/onboarding/AppTour'));
+const ReminderSettings = lazy(() => import('@/components/settings/ReminderSettings'));
+const ManageMyData = lazy(() => import('@/components/settings/ManageMyData'));
+const GideonNotificationSettings = lazy(() => import('@/components/settings/GideonNotificationSettings'));
+const DailyReflectionSettings = lazy(() => import('@/components/settings/DailyReflectionSettings'));
+const HannahNotificationSettings = lazy(() => import('@/components/settings/HannahNotificationSettings'));
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { Label } from '@/components/ui/label';
-import ReminderSettings from '@/components/settings/ReminderSettings';
-import ManageMyData from '@/components/settings/ManageMyData';
-import GideonNotificationSettings from '@/components/settings/GideonNotificationSettings';
-import DailyReflectionSettings from '@/components/settings/DailyReflectionSettings';
-import HannahNotificationSettings from '@/components/settings/HannahNotificationSettings';
 import CoachDavidNotificationSettings from '@/components/settings/CoachDavidNotificationSettings';
 import ChefDanielNotificationSettings from '@/components/settings/ChefDanielNotificationSettings';
 import ChatbotPersonalitySettings from '@/components/settings/ChatbotPersonalitySettings';
@@ -29,7 +29,24 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 
-export default function Settings() {
+class SettingsErrorBoundary extends React.Component {
+  constructor(props) { super(props); this.state = { error: null }; }
+  static getDerivedStateFromError(error) { return { error }; }
+  render() {
+    if (this.state.error) {
+      return (
+        <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] flex flex-col items-center justify-center p-6 text-center">
+          <p className="text-lg font-bold text-[#0A1A2F] dark:text-white mb-2">Something went wrong</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">Settings encountered an error.</p>
+          <button onClick={() => { this.setState({ error: null }); }} className="px-4 py-2 bg-[#c9a227] text-white rounded-xl text-sm font-bold">Try Again</button>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
+function SettingsInner() {
   const [user, setUser] = useState(null);
   const [isDeleting, setIsDeleting] = useState(false);
   const [showTour, setShowTour] = useState(false);
@@ -169,17 +186,17 @@ export default function Settings() {
 
         {/* Hannah Notifications */}
         <div className="mb-4">
-          <HannahNotificationSettings user={user} />
+          <Suspense fallback={<div className="flex justify-center py-4"><div className="w-5 h-5 border-2 border-[#c9a227] border-t-transparent rounded-full animate-spin"/></div>}><HannahNotificationSettings user={user} /></Suspense>
         </div>
 
         {/* Gideon Daily Greetings */}
         <div className="mb-4">
-          <GideonNotificationSettings />
+          <Suspense fallback={<div className="flex justify-center py-4"><div className="w-5 h-5 border-2 border-[#c9a227] border-t-transparent rounded-full animate-spin"/></div>}><GideonNotificationSettings /></Suspense>
         </div>
 
         {/* Gideon Proactive Engagement */}
         <div className="mb-4">
-          <DailyReflectionSettings />
+          <Suspense fallback={<div className="flex justify-center py-4"><div className="w-5 h-5 border-2 border-[#c9a227] border-t-transparent rounded-full animate-spin"/></div>}><DailyReflectionSettings /></Suspense>
         </div>
 
         {/* Coach David Notifications */}
@@ -194,7 +211,7 @@ export default function Settings() {
 
         {/* Reminders */}
         <div className="bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-2xl p-4 shadow-sm dark:shadow-none mb-4">
-          <ReminderSettings />
+          <Suspense fallback={<div className="flex justify-center py-4"><div className="w-5 h-5 border-2 border-[#c9a227] border-t-transparent rounded-full animate-spin"/></div>}><ReminderSettings /></Suspense>
         </div>
 
         {/* Notifications */}
@@ -335,7 +352,7 @@ export default function Settings() {
               <h2 className="font-semibold text-[#0A1A2F] dark:text-white dark:text-white">Manage My Data</h2>
             </div>
           </div>
-          <ManageMyData user={user} />
+          <Suspense fallback={<div className="flex justify-center py-4"><div className="w-5 h-5 border-2 border-[#c9a227] border-t-transparent rounded-full animate-spin"/></div>}><ManageMyData user={user} /></Suspense>
 
           <Button
             onClick={() => {
@@ -409,4 +426,8 @@ export default function Settings() {
       )}
     </div>
   );
+}
+
+export default function Settings() {
+  return <SettingsErrorBoundary><SettingsInner /></SettingsErrorBoundary>;
 }
