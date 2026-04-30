@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Trash2, BookOpen } from 'lucide-react';
+import { Trash2, BookOpen, Share2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const highlightColors = {
@@ -36,6 +36,24 @@ export default function BookmarkCard({ bookmark, onDelete, onOpen, index }) {
             className="text-gray-500 dark:text-gray-300 hover:text-[#0A1A2F] dark:text-white dark:text-white"
           >
             <BookOpen className="w-4 h-4" />
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => {
+              const text = `"${bookmark.verse_text}" — ${bookmark.book} ${bookmark.chapter}:${bookmark.verse}`;
+              if (navigator.share) {
+                navigator.share({ text });
+              } else {
+                // Fallback: open mailto + sms links via a small share sheet
+                const encoded = encodeURIComponent(text);
+                const url = `sms:?body=${encoded}`;
+                window.open(url, '_blank');
+              }
+            }}
+            className="text-gray-500 dark:text-gray-300 hover:text-[#c9a227]"
+          >
+            <Share2 className="w-4 h-4" />
           </Button>
           <Button
             variant="ghost"
