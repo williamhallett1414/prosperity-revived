@@ -78,24 +78,14 @@ export default function WorkoutCard({
       transition={{ delay: index * 0.05 }}
       className="bg-white dark:bg-white/5 rounded-2xl overflow-hidden border border-[#BAE6FD]/30 shadow-sm dark:shadow-none"
     >
-      {workout.image_url && (
-        <div className="relative h-36 overflow-hidden">
-          <img src={workout.image_url} alt={workout.title} className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0A1A2F]/50 to-transparent" />
-          {workout.difficulty && (
-            <span className={`absolute bottom-2.5 left-3 text-[10px] font-bold px-2 py-0.5 rounded-full capitalize ${DIFFICULTY_STYLES[workout.difficulty] || 'bg-white/20 text-white'} backdrop-blur-sm`}>
-              {workout.difficulty}
-            </span>
-          )}
-        </div>
-      )}
+
 
       <div className="p-4">
         <div className="flex items-start justify-between mb-2">
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 flex-wrap mb-1">
               <h3 className="font-bold text-[#0A1A2F] dark:text-white text-base truncate">{workout.title}</h3>
-              {!workout.image_url && workout.difficulty && (
+              {workout.difficulty && (
                 <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full capitalize flex-shrink-0 ${DIFFICULTY_STYLES[workout.difficulty] || 'bg-[#BAE6FD]/15 text-[#0A1A2F]/60 dark:text-white/60'}`}>
                   {workout.difficulty}
                 </span>
