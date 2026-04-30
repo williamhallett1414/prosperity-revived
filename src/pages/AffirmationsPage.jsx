@@ -6,6 +6,7 @@ import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { toast } from 'sonner';
 import ShareToFeedButton from '@/components/community/ShareToFeedButton';
+import GideonReadAloud from '@/components/bible/GideonReadAloud';
 
 // ─── 28 affirmations — full 4-week rotation ────────────────────────────────
 const AFFIRMATIONS = [
@@ -318,6 +319,7 @@ export default function AffirmationsPage() {
 
         {/* ── Action row ── */}
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="flex gap-2.5 pt-1">
+          <GideonReadAloud text={`${current.text}. ${current.fullVerse}`} label="Listen" />
           <button onClick={handleShuffle}
             className="flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl text-xs font-semibold bg-white dark:bg-white/5 border border-[#FAD98D]/25 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 text-[#0A1A2F] dark:text-white hover:bg-[#FAD98D]/15 dark:bg-[#FAD98D]/8 hover:border-[#FAD98D]/50 dark:border-[#FAD98D]/20 active:scale-95 transition-all duration-200 shadow-sm dark:shadow-none">
             <RefreshCw className="w-3.5 h-3.5" />

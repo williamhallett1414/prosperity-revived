@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Heart, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import GideonReadAloud from '@/components/bible/GideonReadAloud';
 
 export default function DailyAffirmation() {
   const [favorites, setFavorites] = useState([]);
@@ -59,20 +60,23 @@ export default function DailyAffirmation() {
             {todaysAffirmation.reference}
           </p>
 
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={toggleFavorite}
-            className="text-[#0A1A2F] dark:text-white hover:bg-[#F2F6FA] dark:bg-[#0A1A2F]"
-          >
-            <Heart
-              className={`w-5 h-5 ${
-                favorites.includes(affirmationIndex)
-                  ? 'fill-[#FAD98D] text-[#FAD98D]'
-                  : 'text-[#0A1A2F]/40 dark:text-white/40'
-              }`}
-            />
-          </Button>
+          <div className="flex gap-2 justify-center mb-3">
+            <GideonReadAloud text={todaysAffirmation.text} label="Listen" />
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={toggleFavorite}
+              className="text-[#0A1A2F] dark:text-white hover:bg-[#F2F6FA] dark:bg-[#0A1A2F]"
+            >
+              <Heart
+                className={`w-5 h-5 ${
+                  favorites.includes(affirmationIndex)
+                    ? 'fill-[#FAD98D] text-[#FAD98D]'
+                    : 'text-[#0A1A2F]/40 dark:text-white/40'
+                }`}
+              />
+            </Button>
+          </div>
         </motion.div>
 
         <p className="text-center text-xs text-[#0A1A2F]/50 dark:text-white/50 mt-4">
