@@ -232,16 +232,8 @@ function MeditationPlayer({ meditation, onClose }) {
   };
 
   const togglePause = () => {
-    if (phase === 'playing') {
-      pausedRef.current = true;
-      if (audioRef.current && !audioRef.current.paused) audioRef.current.pause();
-      window.speechSynthesis?.cancel();
-      setPhase('paused');
-    } else if (phase === 'paused') {
-      pausedRef.current = false;
-      if (audioRef.current && audioRef.current.paused && audioRef.current.src) audioRef.current.play().catch(() => {});
-      setPhase('playing');
-    }
+    pausedRef.current = !pausedRef.current;
+    setPhase(pausedRef.current ? 'paused' : 'playing');
   };
 
   const fmt = s => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
