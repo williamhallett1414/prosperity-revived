@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -8,7 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Loader2, Scan, Sparkles, Camera } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 
-export default function DetailedFoodLogModal({ isOpen, onClose, onSave }) {
+export default function DetailedFoodLogModal({ isOpen, onClose, onSave, photoFile }) {
   const [activeTab, setActiveTab] = useState('manual');
   const [loading, setLoading] = useState(false);
   const fileInputRef = useRef(null);
@@ -113,6 +113,13 @@ Provide accurate estimates for a typical serving size.`,
       setLoading(false);
     }
   };
+
+  // Auto-analyze photo when modal opens with photoFile
+  useEffect(() => {
+    if (isOpen && photoFile) {
+      handlePhotoCapture(photoFile);
+    }
+  }, [isOpen, photoFile]);
 
   const handleBarcodeInput = async (barcode) => {
     if (!barcode) return;
