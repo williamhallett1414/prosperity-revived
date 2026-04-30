@@ -254,7 +254,7 @@ function Home() {
             const dayIndex = Math.floor(Date.now() / 86400000) % DAILY_VERSES.length;
             const verse = DAILY_VERSES[dayIndex];
             return (
-              <Link to={createPageUrl(`BibleReader?book=${encodeURIComponent(verse.book)}&chapter=${verse.chapter}`)}>
+              <Link to={createPageUrl(`Bible?book=${encodeURIComponent(verse.book)}&chapter=${verse.chapter}`)}>
                 <div id="tour-verse-card" className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm dark:shadow-none border border-[#FAD98D]/30 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 dark:border-white/10 relative overflow-hidden">
                   <div className="absolute top-0 right-0 w-24 h-24 opacity-5">
                     <span className="text-6xl">📖</span>
