@@ -11,17 +11,9 @@ export default function DevotionalCard({ devotional, onClick, index }) {
       onClick={onClick}
       className="group w-full text-left bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-2xl overflow-hidden shadow-sm dark:shadow-none hover:shadow-lg dark:shadow-none transition-all duration-300 border border-[#FAD98D]/15 dark:border-[#FAD98D]/8"
     >
-      <div className="relative h-40 overflow-hidden">
-        <img
-          src={devotional.image}
-          alt={devotional.title}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-        <div className="absolute bottom-3 left-3 right-3">
-          <h3 className="font-bold text-white text-lg mb-1">{devotional.title}</h3>
-          <p className="text-white/90 text-xs">{devotional.subtitle}</p>
-        </div>
+      <div className="bg-gradient-to-br from-[#7c5a00] to-[#c9a227] p-4">
+        <h3 className="font-bold text-white text-lg mb-1">{devotional.title}</h3>
+        <p className="text-white/90 text-xs">{devotional.subtitle}</p>
       </div>
       
       <div className="p-4">
