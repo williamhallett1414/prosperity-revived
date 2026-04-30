@@ -237,8 +237,8 @@ function MeditationPlayer({ meditation, onClose }) {
     if (phase === 'playing') {
       pausedRef.current = true;
       // Pause active Cloud TTS audio
-      if (_activeAudio && !_activeAudio.paused) {
-        try { _activeAudio.pause(); } catch {}
+      if (audioRef.current && !audioRef.current.paused) {
+        try { audioRef.current.pause(); } catch {}
       }
       // Pause browser speechSynthesis
       try { window.speechSynthesis?.pause(); } catch {}
@@ -249,8 +249,8 @@ function MeditationPlayer({ meditation, onClose }) {
     } else if (phase === 'paused') {
       pausedRef.current = false;
       // Resume Cloud TTS audio
-      if (_activeAudio && _activeAudio.paused) {
-        _activeAudio.play().catch(() => {});
+      if (audioRef.current && audioRef.current.paused) {
+        audioRef.current.play().catch(() => {});
       }
       // Resume browser speechSynthesis
       try { window.speechSynthesis?.resume(); } catch {}
