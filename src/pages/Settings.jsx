@@ -14,20 +14,9 @@ import { Switch } from '@/components/ui/switch';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { Label } from '@/components/ui/label';
-import CoachDavidNotificationSettings from '@/components/settings/CoachDavidNotificationSettings';
-import ChefDanielNotificationSettings from '@/components/settings/ChefDanielNotificationSettings';
-import ChatbotPersonalitySettings from '@/components/settings/ChatbotPersonalitySettings';
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
+const CoachDavidNotificationSettings = lazy(() => import('@/components/settings/CoachDavidNotificationSettings'));
+const ChefDanielNotificationSettings = lazy(() => import('@/components/settings/ChefDanielNotificationSettings'));
+const ChatbotPersonalitySettings = lazy(() => import('@/components/settings/ChatbotPersonalitySettings'));
 
 class SettingsErrorBoundary extends React.Component {
   constructor(props) { super(props); this.state = { error: null }; }
@@ -114,7 +103,7 @@ function SettingsInner() {
       <div className="px-4 pt-4">
         {/* Chatbot Personalities */}
         <div className="bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-2xl p-4 shadow-sm dark:shadow-none mb-4">
-          <ChatbotPersonalitySettings user={user} />
+          <Suspense fallback={<div className="flex justify-center py-4"><div className="w-5 h-5 border-2 border-[#c9a227] border-t-transparent rounded-full animate-spin"/></div>}><ChatbotPersonalitySettings user={user} /></Suspense>
         </div>
 
         {/* Theme Settings */}
@@ -201,12 +190,12 @@ function SettingsInner() {
 
         {/* Coach David Notifications */}
         <div className="mb-4">
-          <CoachDavidNotificationSettings user={user} />
+          <Suspense fallback={<div className="flex justify-center py-4"><div className="w-5 h-5 border-2 border-[#c9a227] border-t-transparent rounded-full animate-spin"/></div>}><CoachDavidNotificationSettings user={user} /></Suspense>
         </div>
 
         {/* Chef Daniel Notifications */}
         <div className="mb-4">
-          <ChefDanielNotificationSettings user={user} />
+          <Suspense fallback={<div className="flex justify-center py-4"><div className="w-5 h-5 border-2 border-[#c9a227] border-t-transparent rounded-full animate-spin"/></div>}><ChefDanielNotificationSettings user={user} /></Suspense>
         </div>
 
         {/* Reminders */}
@@ -368,52 +357,26 @@ function SettingsInner() {
             Sign Out
           </Button>
 
-          <AlertDialog>
-            <AlertDialogTrigger asChild>
-              <Button
+          <Button
                 variant="outline"
                 className="w-full mt-3 border-red-300 text-red-700 hover:bg-red-50 dark:bg-red-900/20 dark:border-red-800 dark:hover:bg-red-950 min-h-[44px]"
+                onClick={async () => {
+                  if (!window.confirm('Are you absolutely sure?\n\nThis will permanently delete your account and ALL your data including posts, progress, journals, achievements, and workout logs.\n\nThis action cannot be undone.')) return;
+                  if (!window.confirm('Last chance — type DELETE to confirm.\n\n(Press OK to delete your account)')) return;
+                  setIsDeleting(true);
+                  try {
+                    await base44.auth.deleteAccount();
+                    window.location.href = '/';
+                  } catch (_e) {
+                    toast.error('Failed to delete account — please try again');
+                    setIsDeleting(false);
+                  }
+                }}
+                disabled={isDeleting}
               >
                 <Trash2 className="w-4 h-4 mr-2" />
-                Delete Account
+                {isDeleting ? 'Deleting...' : 'Delete Account'}
               </Button>
-            </AlertDialogTrigger>
-            <AlertDialogContent className="dark:bg-[#0A1A2F]">
-              <AlertDialogHeader>
-                <AlertDialogTitle className="dark:text-white">Are you absolutely sure?</AlertDialogTitle>
-                <AlertDialogDescription className="dark:text-gray-400 dark:text-gray-300">
-                  This action cannot be undone. This will permanently delete your account
-                  and remove all of your data from our servers, including:
-                  <ul className="list-disc list-inside mt-2 space-y-1">
-                    <li>All your posts and comments</li>
-                    <li>Reading plans and progress</li>
-                    <li>Workout and meditation logs</li>
-                    <li>Journal entries and bookmarks</li>
-                    <li>Achievements and points</li>
-                  </ul>
-                </AlertDialogDescription>
-              </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogCancel className="min-h-[44px] dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600">Cancel</AlertDialogCancel>
-                <AlertDialogAction
-                  className="bg-red-600 hover:bg-red-700 min-h-[44px]"
-                  onClick={async () => {
-                    setIsDeleting(true);
-                    try {
-                      await base44.auth.deleteAccount();
-                      window.location.href = '/';
-                    } catch (_e) {
-                      toast.error('Failed to delete account — please try again');
-                      setIsDeleting(false);
-                    }
-                  }}
-                  disabled={isDeleting}
-                >
-                  {isDeleting ? 'Deleting...' : 'Delete Account'}
-                </AlertDialogAction>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialog>
         </div>
       </div>
       {showTour && (
