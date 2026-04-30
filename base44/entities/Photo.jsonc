@@ -1,0 +1,21 @@
+{
+  "name": "Photo",
+  "type": "object",
+  "description": "User-uploaded photos for their profile gallery.",
+  "properties": {
+    "image_url": {
+      "type": "string",
+      "description": "URL of the uploaded image file"
+    },
+    "caption": {
+      "type": "string",
+      "description": "Optional caption for the photo"
+    },
+    "category": {
+      "type": "string",
+      "enum": ["progress", "community", "faith", "general"],
+      "description": "Category of the photo"
+    }
+  },
+  "required": ["image_url"]
+}
