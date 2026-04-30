@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
@@ -1248,12 +1249,13 @@ export default function StartWorkoutModal({ isOpen, onClose, workout, user, onCo
         </div>
       </DialogContent>
     </Dialog>
-
-    {/* Coach David motivational popup — outside Dialog to avoid stacking context clip */}
-    <CoachDavidBubble
-      trigger={coachTrigger?.split('_')[0]}
-      onDismiss={() => {}}
-    />
+    {createPortal(
+      <CoachDavidBubble
+        trigger={coachTrigger?.split('_')[0]}
+        onDismiss={() => {}}
+      />,
+      document.body
+    )}
     </>
   );
 }
