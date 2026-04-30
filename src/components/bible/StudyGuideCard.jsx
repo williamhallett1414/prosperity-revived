@@ -9,7 +9,7 @@ export default function StudyGuideCard({ guide, onClick, index }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.1 }}
       onClick={onClick}
-      className="group w-full text-left bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-2xl overflow-hidden shadow-sm dark:shadow-none hover:shadow-lg dark:shadow-none transition-all duration-300 border border-[#FAD98D]/15 dark:border-[#FAD98D]/8"
+      className="group w-full text-left bg-white dark:bg-white/5 rounded-2xl overflow-hidden shadow-sm dark:shadow-none hover:shadow-lg dark:shadow-none transition-all duration-300 border border-[#FAD98D]/15 dark:border-[#FAD98D]/8"
     >
       <div className="px-4 pt-4 pb-2">
         <h3 className="font-bold text-[#0A1A2F] dark:text-white text-base mb-0.5">{guide.title}</h3>
