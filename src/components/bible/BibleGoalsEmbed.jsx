@@ -131,7 +131,7 @@ export default function BibleGoalsEmbed() {
   const profileIncomplete = !user?.bible_level;
 
   return (
-    <div className="space-y-4">
+    <div id="tour-bible-goals-entry" className="space-y-4">
 
       {/* Hero */}
       <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}>

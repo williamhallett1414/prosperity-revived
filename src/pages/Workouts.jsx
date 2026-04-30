@@ -501,7 +501,7 @@ export default function Workouts() {
                 </motion.div> :
               null}
               <Link to={createPageUrl("WorkoutCategoryPage")}>
-                <div className="flex items-center justify-between px-4 py-3.5 bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 shadow-sm dark:shadow-none hover:shadow-md dark:shadow-none transition-all">
+                <div id="tour-workouts-card" className="flex items-center justify-between px-4 py-3.5 bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 shadow-sm dark:shadow-none hover:shadow-md dark:shadow-none transition-all">
                   <div className="flex items-center gap-3">
                     <div className="w-9 h-9 bg-gradient-to-br from-slate-700 to-slate-500 rounded-xl flex items-center justify-center">
                       <Dumbbell className="w-4 h-4 text-white" />

@@ -190,7 +190,7 @@ export default function Nutrition() {
           </div>
 
           {/* Nav tabs — only the navigation ones, no Log Food here */}
-          <div className="flex gap-0 border-b border-transparent -mb-px">
+          <div id="tour-nutrition-goals-entry" className="flex gap-0 border-b border-transparent -mb-px">
             {TABS.filter(t => t.id !== 'log').map(({ id, label, icon: Icon }) => {
               const isActive = activeTab === id && id !== 'goals' && id !== 'history';
               return (
