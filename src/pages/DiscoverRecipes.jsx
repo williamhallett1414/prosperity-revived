@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import {
   UtensilsCrossed, Plus, Sparkles, TrendingUp, Users, BookOpen,
@@ -82,10 +82,28 @@ export default function DiscoverRecipes() {
 
   useEffect(() => { base44.auth.me().then(setUser).catch(() => {}); }, []);
 
+  const queryClient = useQueryClient();
   const { data: recipes = [], isLoading } = useQuery({
     queryKey: ['recipes'],
     queryFn:  () => base44.entities.Recipe.list('-created_date'),
   });
+
+  // Auto-seed recipes on first visit if none exist
+  const [recipesSeeded] = useState(() => !!localStorage.getItem('health_recipes_seeded_v3'));
+  useEffect(() => {
+    if (recipesSeeded || isLoading || recipes.length > 0 || !user?.email) return;
+    const seed = async () => {
+      try {
+        const { SEED_RECIPES } = await import('@/components/wellness/HealthRecipeSeed');
+        for (const recipe of SEED_RECIPES) {
+          await base44.entities.Recipe.create({ ...recipe });
+        }
+        localStorage.setItem('health_recipes_seeded_v3', '1');
+        queryClient.invalidateQueries({ queryKey: ['recipes'] });
+      } catch (e) { console.warn('Recipe seed failed:', e); }
+    };
+    seed();
+  }, [recipesSeeded, isLoading, recipes.length, user?.email]);
 
   const { data: mealLogs = [] } = useQuery({
     queryKey: ['mealLogs'],
