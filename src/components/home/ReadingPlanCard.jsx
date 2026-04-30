@@ -15,17 +15,6 @@ export default function ReadingPlanCard({ plan, progress, onClick, index }) {
       onClick={(e) => { e.preventDefault(); e.stopPropagation(); onClick?.(); }}
       className="group w-full text-left bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-2xl overflow-hidden border border-[#FAD98D]/25 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 hover:border-[#c9a227]/50 hover:shadow-md dark:shadow-none transition-all duration-300"
     >
-      {/* Image */}
-      <div className="relative h-28 overflow-hidden">
-        <img src={plan.image} alt={plan.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0A1A2F]/70 to-transparent" />
-        <div className="absolute bottom-3 left-3">
-          <span className="px-2.5 py-1 bg-[#c9a227]/90 backdrop-blur-sm rounded-full text-white text-[10px] font-semibold tracking-wide uppercase">
-            {plan.category}
-          </span>
-        </div>
-      </div>
-
       {/* Content */}
       <div className="p-4">
         <h3 className="font-bold text-[#0A1A2F] dark:text-white mb-1 group-hover:text-[#c9a227] transition-colors text-sm">
