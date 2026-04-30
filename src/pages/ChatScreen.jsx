@@ -7,7 +7,9 @@ import { createPortal } from 'react-dom';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import VideoRecorder from '@/components/home/VideoRecorder';
-import { ArrowLeft, Send, Loader2, RotateCcw, Mic, MicOff, Volume2, Square, X, Zap, Video } from 'lucide-react';
+import VideoCallMode from '@/components/chatbot/VideoCallMode';
+import ChatInputMenu from '@/components/chatbot/ChatInputMenu';
+import { ArrowLeft, Send, Loader2, RotateCcw, Mic, MicOff, Volume2, Square, X, Zap, Video, PhoneCall } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import { base44 } from '@/api/base44Client';
 import { getChatbotMemories, buildMemoryContext, getCrossContext, saveMemories } from '@/utils/adaptiveMemory';
@@ -1352,6 +1354,9 @@ export default function ChatScreen() {
 
   const speechSupported = !!(window.SpeechRecognition || window.webkitSpeechRecognition);
   const [showVideoRecorder, setShowVideoRecorder] = useState(false);
+  const [videoCallOpen, setVideoCallOpen] = useState(false);
+  const [showInputMenu, setShowInputMenu] = useState(false);
+  const callAudioUnlockRef = useRef(null);
 
   return createPortal(
     <motion.div
@@ -1683,6 +1688,38 @@ export default function ChatScreen() {
             <Video className={`w-4 h-4 ${showVideoRecorder ? 'text-white' : 'text-white/55'}`} />
           </motion.button>
 
+          {/* Video Call button (FaceTime-style) */}
+          <motion.button
+            whileTap={{ scale: 0.87 }}
+            onClick={() => {
+              // iOS Safari audio unlock — prime an audio element inside user gesture
+              try {
+                const a = new Audio();
+                a.preload = 'auto';
+                a.src = 'data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAVFYAAFRWAAABAAgAZGF0YQAAAAA=';
+                a.load();
+                const p = a.play();
+                if (p && typeof p.then === 'function') {
+                  p.then(() => { try { a.pause(); } catch (_) {} }).catch(() => {});
+                }
+                callAudioUnlockRef.current = a;
+              } catch (_) {}
+              stopListening();
+              stopSpeechRef.current?.();
+              setSpeakingIdx(null);
+              setVideoCallOpen(true);
+            }}
+            disabled={isLoading}
+            aria-label="Start video call"
+            className="flex-shrink-0 w-11 h-11 rounded-full flex items-center justify-center transition-all"
+            style={{
+              background: videoCallOpen ? `${cfg.gradTo}30` : 'rgba(255,255,255,0.11)',
+              border: `1px solid ${videoCallOpen ? cfg.gradTo + '55' : 'rgba(255,255,255,0.18)'}`,
+            }}
+          >
+            <PhoneCall className={`w-4 h-4 ${videoCallOpen ? 'text-white' : 'text-white/55'}`} />
+          </motion.button>
+
           {/* Text input */}
           <input
             ref={inputRef}
@@ -1805,6 +1842,57 @@ export default function ChatScreen() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Video Call Overlay (FaceTime-style turn-based call) */}
+      <VideoCallMode
+        isOpen={videoCallOpen}
+        cfg={cfg}
+        avatarNode={
+          <CloudAvatarSafe
+            character={cfg.character}
+            isSpeaking={avatarSpeaking}
+            isListening={avatarListening}
+            isThinking={avatarThinking}
+            color={cfg.gradTo}
+          />
+        }
+        isSpeaking={avatarSpeaking}
+        isListening={avatarListening}
+        isThinking={avatarThinking}
+        messages={messages}
+        botLatestResponseIdx={(() => {
+          for (let i = messages.length - 1; i >= 0; i--) {
+            if (messages[i].role === 'assistant') return i;
+          }
+          return -1;
+        })()}
+        currentInput={input}
+        onClose={() => {
+          setVideoCallOpen(false);
+          stopListening();
+          stopSpeechRef.current?.();
+          setSpeakingIdx(null);
+        }}
+        onStartListening={() => {
+          if (isListening || isLoading) return;
+          startListening();
+        }}
+        onStopListening={() => {
+          stopListening();
+        }}
+        onInterruptSpeech={() => {
+          stopSpeechRef.current?.();
+          setSpeakingIdx(null);
+        }}
+        onSpeakLatestReply={() => {
+          for (let i = messages.length - 1; i >= 0; i--) {
+            if (messages[i].role === 'assistant') {
+              handleSpeak(messages[i].content, i);
+              return;
+            }
+          }
+        }}
+      />
 
     </motion.div>,
     document.body
