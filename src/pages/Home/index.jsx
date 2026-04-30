@@ -115,26 +115,65 @@ function Home() {
         )}
 
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }}>
-          <Link to={createPageUrl('Bible')}>
-            <div className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm dark:shadow-none border border-[#FAD98D]/30 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 dark:border-white/10 relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-24 h-24 opacity-5">
-                <span className="text-6xl">📖</span>
-              </div>
-              <div className="flex items-center gap-2 mb-3">
-                <div className="w-1 h-5 bg-[#c9a227] rounded-full" />
-                <span className="text-[11px] font-bold text-[#c9a227] uppercase tracking-widest">Today's Scripture</span>
-              </div>
-              <p className="text-[#0A1A2F] dark:text-white text-base leading-relaxed font-medium mb-3">
-                "Trust in the Lord with all your heart, and lean not on your own understanding."
-              </p>
-              <div className="flex items-center justify-between">
-                <p className="text-sm text-[#0A1A2F]/50 dark:text-white/50 font-medium">Proverbs 3:5</p>
-                <span className="text-xs text-[#c9a227] font-semibold flex items-center gap-1">
-                  Read more <ChevronRight className="w-3.5 h-3.5" />
-                </span>
-              </div>
-            </div>
-          </Link>
+          {(() => {
+            const DAILY_VERSES = [
+              { text: "Trust in the Lord with all your heart, and lean not on your own understanding.", ref: "Proverbs 3:5", book: "Proverbs", chapter: 3 },
+              { text: "I can do all things through Christ who strengthens me.", ref: "Philippians 4:13", book: "Philippians", chapter: 4 },
+              { text: "For God so loved the world, that he gave his only born Son, that whoever believes in him should not perish, but have eternal life.", ref: "John 3:16", book: "John", chapter: 3 },
+              { text: "The Lord is my shepherd; I shall not want.", ref: "Psalm 23:1", book: "Psalms", chapter: 23 },
+              { text: "Be strong and courageous. Do not be afraid; do not be discouraged, for the Lord your God will be with you wherever you go.", ref: "Joshua 1:9", book: "Joshua", chapter: 1 },
+              { text: "For I know the plans I have for you, declares the Lord, plans to prosper you and not to harm you, plans to give you hope and a future.", ref: "Jeremiah 29:11", book: "Jeremiah", chapter: 29 },
+              { text: "Come to me, all who are weary and burdened, and I will give you rest.", ref: "Matthew 11:28", book: "Matthew", chapter: 11 },
+              { text: "The Lord is my light and my salvation — whom shall I fear?", ref: "Psalm 27:1", book: "Psalms", chapter: 27 },
+              { text: "And we know that in all things God works for the good of those who love him.", ref: "Romans 8:28", book: "Romans", chapter: 8 },
+              { text: "Have I not commanded you? Be strong and courageous. Do not be afraid; do not be discouraged.", ref: "Joshua 1:9", book: "Joshua", chapter: 1 },
+              { text: "But those who hope in the Lord will renew their strength. They will soar on wings like eagles.", ref: "Isaiah 40:31", book: "Isaiah", chapter: 40 },
+              { text: "Delight yourself in the Lord, and he will give you the desires of your heart.", ref: "Psalm 37:4", book: "Psalms", chapter: 37 },
+              { text: "My grace is sufficient for you, for my power is made perfect in weakness.", ref: "2 Corinthians 12:9", book: "2 Corinthians", chapter: 12 },
+              { text: "Do not be anxious about anything, but in every situation, by prayer and petition, with thanksgiving, present your requests to God.", ref: "Philippians 4:6", book: "Philippians", chapter: 4 },
+              { text: "The name of the Lord is a fortified tower; the righteous run to it and are safe.", ref: "Proverbs 18:10", book: "Proverbs", chapter: 18 },
+              { text: "No weapon formed against you shall prosper.", ref: "Isaiah 54:17", book: "Isaiah", chapter: 54 },
+              { text: "He heals the brokenhearted and binds up their wounds.", ref: "Psalm 147:3", book: "Psalms", chapter: 147 },
+              { text: "If God is for us, who can be against us?", ref: "Romans 8:31", book: "Romans", chapter: 8 },
+              { text: "Cast all your anxiety on him because he cares for you.", ref: "1 Peter 5:7", book: "1 Peter", chapter: 5 },
+              { text: "The joy of the Lord is your strength.", ref: "Nehemiah 8:10", book: "Nehemiah", chapter: 8 },
+              { text: "He who began a good work in you will carry it on to completion.", ref: "Philippians 1:6", book: "Philippians", chapter: 1 },
+              { text: "You are the light of the world. A town built on a hill cannot be hidden.", ref: "Matthew 5:14", book: "Matthew", chapter: 5 },
+              { text: "God is our refuge and strength, an ever-present help in trouble.", ref: "Psalm 46:1", book: "Psalms", chapter: 46 },
+              { text: "In all your ways acknowledge him, and he shall direct your paths.", ref: "Proverbs 3:6", book: "Proverbs", chapter: 3 },
+              { text: "Wait on the Lord; be of good courage, and he shall strengthen your heart.", ref: "Psalm 27:14", book: "Psalms", chapter: 27 },
+              { text: "The Lord will fight for you; you need only to be still.", ref: "Exodus 14:14", book: "Exodus", chapter: 14 },
+              { text: "Create in me a clean heart, O God, and renew a right spirit within me.", ref: "Psalm 51:10", book: "Psalms", chapter: 51 },
+              { text: "Greater is he that is in you, than he that is in the world.", ref: "1 John 4:4", book: "1 John", chapter: 4 },
+              { text: "Let us not become weary in doing good, for at the proper time we will reap a harvest if we do not give up.", ref: "Galatians 6:9", book: "Galatians", chapter: 6 },
+              { text: "Seek first the kingdom of God and his righteousness, and all these things will be added to you.", ref: "Matthew 6:33", book: "Matthew", chapter: 6 },
+              { text: "I have told you these things, so that in me you may have peace.", ref: "John 16:33", book: "John", chapter: 16 },
+            ];
+            const dayIndex = Math.floor(Date.now() / 86400000) % DAILY_VERSES.length;
+            const verse = DAILY_VERSES[dayIndex];
+            return (
+              <Link to={createPageUrl(`BibleReader?book=${encodeURIComponent(verse.book)}&chapter=${verse.chapter}`)}>
+                <div className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm dark:shadow-none border border-[#FAD98D]/30 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 dark:border-white/10 relative overflow-hidden">
+                  <div className="absolute top-0 right-0 w-24 h-24 opacity-5">
+                    <span className="text-6xl">📖</span>
+                  </div>
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className="w-1 h-5 bg-[#c9a227] rounded-full" />
+                    <span className="text-[11px] font-bold text-[#c9a227] uppercase tracking-widest">Today's Scripture</span>
+                  </div>
+                  <p className="text-[#0A1A2F] dark:text-white text-base leading-relaxed font-medium mb-3">
+                    "{verse.text}"
+                  </p>
+                  <div className="flex items-center justify-between">
+                    <p className="text-sm text-[#0A1A2F]/50 dark:text-white/50 font-medium">{verse.ref}</p>
+                    <span className="text-xs text-[#c9a227] font-semibold flex items-center gap-1">
+                      Read <ChevronRight className="w-3.5 h-3.5" />
+                    </span>
+                  </div>
+                </div>
+              </Link>
+            );
+          })()}
         </motion.div>
 
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.12 }}>
