@@ -53,23 +53,32 @@ export default function Layout({ children, currentPageName }) {
         if (u?.age_group && u.age_group !== 'under13') {
           localStorage.setItem('age_verified', '1');
           setAgeVerified(true);
-        } else if (!u?.age_group) {
+        } else {
           setNeedsAgeCheck(true);
           setUserLoaded(true);
           return;
         }
       }
-      // Onboarding check
+      // Onboarding check — if user has NOT completed onboarding, show it
+      // This checks the DB field first, then falls back to requiring onboarding
       if (!onboardingDone) {
-        if (u?.onboarding_completed) {
+        if (u?.onboarding_completed === true) {
+          // User already completed onboarding (maybe on another device)
           localStorage.setItem('onboarding_done', '1');
           setOnboardingDone(true);
         } else {
+          // New user OR user who never finished — show onboarding
           setNeedsOnboarding(true);
         }
       }
       setUserLoaded(true);
-    }).catch(() => setUserLoaded(true));
+    }).catch(() => {
+      // Auth failed — still check if onboarding is needed
+      if (!onboardingDone) {
+        setNeedsOnboarding(true);
+      }
+      setUserLoaded(true);
+    });
   }, []);
 
   const handleAgeVerified = async (ageGroup) => {
