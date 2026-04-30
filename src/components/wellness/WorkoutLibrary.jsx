@@ -6,11 +6,12 @@ export const PREMADE_WORKOUTS = [
     difficulty: 'beginner',
     duration_minutes: 20,
     category: 'full_body',
+    muscle_group: 'full_body',
     exercises: [
-      { name: 'Jumping Jacks', sets: 3, reps: 15, duration_seconds: 0 },
-      { name: 'Wall Push-ups', sets: 3, reps: 10, duration_seconds: 0 },
-      { name: 'Bodyweight Squats', sets: 3, reps: 12, duration_seconds: 0 },
-      { name: 'Plank', sets: 2, reps: 0, duration_seconds: 30 }
+      { name: 'Jumping Jacks', sets: 3, reps: 15 },
+      { name: 'Wall Push-ups', sets: 3, reps: 10 },
+      { name: 'Bodyweight Squats', sets: 3, reps: 12 },
+      { name: 'Plank', sets: 2, duration_seconds: 30 }
     ]
   },
   {
@@ -20,11 +21,12 @@ export const PREMADE_WORKOUTS = [
     difficulty: 'beginner',
     duration_minutes: 15,
     category: 'full_body',
+    muscle_group: 'full_body',
     exercises: [
-      { name: 'Arm Circles', sets: 2, reps: 20, duration_seconds: 0 },
-      { name: 'High Knees', sets: 3, reps: 0, duration_seconds: 30 },
-      { name: 'Lunges', sets: 3, reps: 10, duration_seconds: 0 },
-      { name: 'Cat-Cow Stretch', sets: 2, reps: 10, duration_seconds: 0 }
+      { name: 'Arm Circles', sets: 2, reps: 20 },
+      { name: 'High Knees', sets: 3, duration_seconds: 30 },
+      { name: 'Lunges', sets: 3, reps: 10 },
+      { name: 'Cat-Cow Stretch', sets: 2, reps: 10 }
     ]
   },
   {
@@ -34,11 +36,12 @@ export const PREMADE_WORKOUTS = [
     difficulty: 'intermediate',
     duration_minutes: 25,
     category: 'cardio',
+    muscle_group: 'cardio',
     exercises: [
-      { name: 'Jumping Jacks', sets: 3, reps: 30, duration_seconds: 0 },
-      { name: 'Burpees', sets: 3, reps: 10, duration_seconds: 0 },
-      { name: 'Mountain Climbers', sets: 3, reps: 0, duration_seconds: 45 },
-      { name: 'High Knees', sets: 3, reps: 0, duration_seconds: 45 }
+      { name: 'Jumping Jacks', sets: 3, reps: 30 },
+      { name: 'Burpees', sets: 3, reps: 10 },
+      { name: 'Mountain Climbers', sets: 3, duration_seconds: 45 },
+      { name: 'High Knees', sets: 3, duration_seconds: 45 }
     ]
   },
   {
@@ -48,11 +51,12 @@ export const PREMADE_WORKOUTS = [
     difficulty: 'intermediate',
     duration_minutes: 30,
     category: 'strength',
+    muscle_group: 'upper_body',
     exercises: [
-      { name: 'Push-ups', sets: 4, reps: 12, duration_seconds: 0 },
-      { name: 'Dumbbell Rows', sets: 4, reps: 12, duration_seconds: 0 },
-      { name: 'Shoulder Press', sets: 3, reps: 10, duration_seconds: 0 },
-      { name: 'Tricep Dips', sets: 3, reps: 12, duration_seconds: 0 }
+      { name: 'Push-ups', sets: 4, reps: 12 },
+      { name: 'Dumbbell Rows', sets: 4, reps: 12 },
+      { name: 'Shoulder Press', sets: 3, reps: 10 },
+      { name: 'Tricep Dips', sets: 3, reps: 12 }
     ]
   },
   {
@@ -62,11 +66,12 @@ export const PREMADE_WORKOUTS = [
     difficulty: 'intermediate',
     duration_minutes: 30,
     category: 'strength',
+    muscle_group: 'legs',
     exercises: [
-      { name: 'Squats', sets: 4, reps: 15, duration_seconds: 0 },
-      { name: 'Lunges', sets: 3, reps: 12, duration_seconds: 0 },
-      { name: 'Glute Bridge', sets: 3, reps: 15, duration_seconds: 0 },
-      { name: 'Leg Raises', sets: 3, reps: 12, duration_seconds: 0 }
+      { name: 'Squats', sets: 4, reps: 15 },
+      { name: 'Lunges', sets: 3, reps: 12 },
+      { name: 'Glute Bridge', sets: 3, reps: 15 },
+      { name: 'Leg Raises', sets: 3, reps: 12 }
     ]
   },
   {
@@ -76,11 +81,12 @@ export const PREMADE_WORKOUTS = [
     difficulty: 'intermediate',
     duration_minutes: 20,
     category: 'strength',
+    muscle_group: 'core',
     exercises: [
-      { name: 'Plank', sets: 3, reps: 0, duration_seconds: 60 },
-      { name: 'Bicycle Crunches', sets: 3, reps: 20, duration_seconds: 0 },
-      { name: 'Leg Raises', sets: 3, reps: 15, duration_seconds: 0 },
-      { name: 'Side Plank', sets: 2, reps: 0, duration_seconds: 30 }
+      { name: 'Plank', sets: 3, duration_seconds: 60 },
+      { name: 'Bicycle Crunches', sets: 3, reps: 20 },
+      { name: 'Leg Raises', sets: 3, reps: 15 },
+      { name: 'Side Plank', sets: 2, duration_seconds: 30 }
     ]
   },
   {
@@ -90,11 +96,12 @@ export const PREMADE_WORKOUTS = [
     difficulty: 'beginner',
     duration_minutes: 25,
     category: 'yoga',
+    muscle_group: 'flexibility',
     exercises: [
-      { name: 'Child\'s Pose', sets: 1, reps: 0, duration_seconds: 60 },
-      { name: 'Downward Dog', sets: 3, reps: 0, duration_seconds: 45 },
-      { name: 'Cat-Cow Stretch', sets: 3, reps: 10, duration_seconds: 0 },
-      { name: 'Warrior Pose', sets: 2, reps: 0, duration_seconds: 60 }
+      { name: "Child's Pose", sets: 1, duration_seconds: 60 },
+      { name: 'Downward Dog', sets: 3, duration_seconds: 45 },
+      { name: 'Cat-Cow Stretch', sets: 3, reps: 10 },
+      { name: 'Warrior Pose', sets: 2, duration_seconds: 60 }
     ]
   },
   {
@@ -104,11 +111,12 @@ export const PREMADE_WORKOUTS = [
     difficulty: 'intermediate',
     duration_minutes: 20,
     category: 'cardio',
+    muscle_group: 'cardio',
     exercises: [
-      { name: 'Burpees', sets: 3, reps: 12, duration_seconds: 0 },
-      { name: 'Jump Squats', sets: 3, reps: 15, duration_seconds: 0 },
-      { name: 'Mountain Climbers', sets: 3, reps: 0, duration_seconds: 45 },
-      { name: 'High Knees', sets: 3, reps: 0, duration_seconds: 40 }
+      { name: 'Burpees', sets: 3, reps: 12 },
+      { name: 'Jump Squats', sets: 3, reps: 15 },
+      { name: 'Mountain Climbers', sets: 3, duration_seconds: 45 },
+      { name: 'High Knees', sets: 3, duration_seconds: 40 }
     ]
   },
   {
@@ -117,12 +125,13 @@ export const PREMADE_WORKOUTS = [
     description: 'Maximum calorie burn in 30 minutes',
     difficulty: 'advanced',
     duration_minutes: 30,
-    category: 'cardio',
+    category: 'hiit',
+    muscle_group: 'cardio',
     exercises: [
-      { name: 'Burpees', sets: 4, reps: 15, duration_seconds: 0 },
-      { name: 'Jump Squats', sets: 4, reps: 12, duration_seconds: 0 },
-      { name: 'Mountain Climbers', sets: 4, reps: 0, duration_seconds: 60 },
-      { name: 'High Knees', sets: 4, reps: 0, duration_seconds: 45 }
+      { name: 'Burpees', sets: 4, reps: 15 },
+      { name: 'Jump Squats', sets: 4, reps: 12 },
+      { name: 'Mountain Climbers', sets: 4, duration_seconds: 60 },
+      { name: 'High Knees', sets: 4, duration_seconds: 45 }
     ]
   },
   {
@@ -132,11 +141,12 @@ export const PREMADE_WORKOUTS = [
     difficulty: 'beginner',
     duration_minutes: 10,
     category: 'flexibility',
+    muscle_group: 'flexibility',
     exercises: [
-      { name: 'Neck Rolls', sets: 2, reps: 10, duration_seconds: 0 },
-      { name: 'Shoulder Shrugs', sets: 2, reps: 15, duration_seconds: 0 },
-      { name: 'Seated Spinal Twist', sets: 2, reps: 0, duration_seconds: 30 },
-      { name: 'Wrist Circles', sets: 2, reps: 15, duration_seconds: 0 }
+      { name: 'Neck Rolls', sets: 2, reps: 10 },
+      { name: 'Shoulder Shrugs', sets: 2, reps: 15 },
+      { name: 'Seated Spinal Twist', sets: 2, duration_seconds: 30 },
+      { name: 'Wrist Circles', sets: 2, reps: 15 }
     ]
   },
   {
@@ -146,12 +156,13 @@ export const PREMADE_WORKOUTS = [
     difficulty: 'advanced',
     duration_minutes: 45,
     category: 'strength',
+    muscle_group: 'full_body',
     exercises: [
-      { name: 'Push-ups', sets: 5, reps: 15, duration_seconds: 0 },
-      { name: 'Squats', sets: 5, reps: 20, duration_seconds: 0 },
-      { name: 'Dumbbell Rows', sets: 4, reps: 15, duration_seconds: 0 },
-      { name: 'Plank', sets: 3, reps: 0, duration_seconds: 90 },
-      { name: 'Lunges', sets: 4, reps: 12, duration_seconds: 0 }
+      { name: 'Push-ups', sets: 5, reps: 15 },
+      { name: 'Squats', sets: 5, reps: 20 },
+      { name: 'Dumbbell Rows', sets: 4, reps: 15 },
+      { name: 'Plank', sets: 3, duration_seconds: 90 },
+      { name: 'Lunges', sets: 4, reps: 12 }
     ]
   },
   {
@@ -161,11 +172,12 @@ export const PREMADE_WORKOUTS = [
     difficulty: 'beginner',
     duration_minutes: 20,
     category: 'flexibility',
+    muscle_group: 'flexibility',
     exercises: [
-      { name: 'Hip Circles', sets: 2, reps: 15, duration_seconds: 0 },
-      { name: 'Leg Swings', sets: 2, reps: 20, duration_seconds: 0 },
-      { name: 'Arm Circles', sets: 2, reps: 20, duration_seconds: 0 },
-      { name: 'Spinal Twists', sets: 2, reps: 10, duration_seconds: 0 }
+      { name: 'Hip Circles', sets: 2, reps: 15 },
+      { name: 'Leg Swings', sets: 2, reps: 20 },
+      { name: 'Arm Circles', sets: 2, reps: 20 },
+      { name: 'Spinal Twists', sets: 2, reps: 10 }
     ]
   },
   {
@@ -175,11 +187,12 @@ export const PREMADE_WORKOUTS = [
     difficulty: 'intermediate',
     duration_minutes: 25,
     category: 'strength',
+    muscle_group: 'core',
     exercises: [
-      { name: 'Crunches', sets: 4, reps: 20, duration_seconds: 0 },
-      { name: 'Bicycle Crunches', sets: 3, reps: 25, duration_seconds: 0 },
-      { name: 'Plank', sets: 3, reps: 0, duration_seconds: 60 },
-      { name: 'Russian Twists', sets: 3, reps: 30, duration_seconds: 0 }
+      { name: 'Crunches', sets: 4, reps: 20 },
+      { name: 'Bicycle Crunches', sets: 3, reps: 25 },
+      { name: 'Plank', sets: 3, duration_seconds: 60 },
+      { name: 'Russian Twists', sets: 3, reps: 30 }
     ]
   },
   {
@@ -189,11 +202,12 @@ export const PREMADE_WORKOUTS = [
     difficulty: 'intermediate',
     duration_minutes: 40,
     category: 'yoga',
+    muscle_group: 'flexibility',
     exercises: [
-      { name: 'Sun Salutations', sets: 5, reps: 1, duration_seconds: 0 },
-      { name: 'Warrior Series', sets: 3, reps: 0, duration_seconds: 90 },
-      { name: 'Tree Pose', sets: 2, reps: 0, duration_seconds: 60 },
-      { name: 'Pigeon Pose', sets: 2, reps: 0, duration_seconds: 60 }
+      { name: 'Sun Salutations', sets: 5, reps: 1 },
+      { name: 'Warrior Series', sets: 3, duration_seconds: 90 },
+      { name: 'Tree Pose', sets: 2, duration_seconds: 60 },
+      { name: 'Pigeon Pose', sets: 2, duration_seconds: 60 }
     ]
   },
   {
@@ -202,12 +216,13 @@ export const PREMADE_WORKOUTS = [
     description: 'High-performance training for athletes',
     difficulty: 'advanced',
     duration_minutes: 50,
-    category: 'full_body',
+    category: 'hiit',
+    muscle_group: 'full_body',
     exercises: [
-      { name: 'Box Jumps', sets: 4, reps: 12, duration_seconds: 0 },
-      { name: 'Burpees', sets: 5, reps: 15, duration_seconds: 0 },
-      { name: 'Sprint Intervals', sets: 6, reps: 0, duration_seconds: 30 },
-      { name: 'Medicine Ball Slams', sets: 4, reps: 15, duration_seconds: 0 }
+      { name: 'Box Jumps', sets: 4, reps: 12 },
+      { name: 'Burpees', sets: 5, reps: 15 },
+      { name: 'Sprint Intervals', sets: 6, duration_seconds: 30 },
+      { name: 'Medicine Ball Slams', sets: 4, reps: 15 }
     ]
   },
   {
@@ -217,11 +232,12 @@ export const PREMADE_WORKOUTS = [
     difficulty: 'beginner',
     duration_minutes: 15,
     category: 'flexibility',
+    muscle_group: 'flexibility',
     exercises: [
-      { name: 'Child\'s Pose', sets: 1, reps: 0, duration_seconds: 90 },
-      { name: 'Seated Forward Fold', sets: 2, reps: 0, duration_seconds: 60 },
-      { name: 'Spinal Twist', sets: 2, reps: 0, duration_seconds: 45 },
-      { name: 'Legs Up Wall', sets: 1, reps: 0, duration_seconds: 120 }
+      { name: "Child's Pose", sets: 1, duration_seconds: 90 },
+      { name: 'Seated Forward Fold', sets: 2, duration_seconds: 60 },
+      { name: 'Spinal Twist', sets: 2, duration_seconds: 45 },
+      { name: 'Legs Up Wall', sets: 1, duration_seconds: 120 }
     ]
   },
   {
@@ -231,11 +247,12 @@ export const PREMADE_WORKOUTS = [
     difficulty: 'intermediate',
     duration_minutes: 30,
     category: 'strength',
+    muscle_group: 'full_body',
     exercises: [
-      { name: 'Kettlebell Swings', sets: 4, reps: 15, duration_seconds: 0 },
-      { name: 'Goblet Squats', sets: 4, reps: 12, duration_seconds: 0 },
-      { name: 'Kettlebell Rows', sets: 3, reps: 12, duration_seconds: 0 },
-      { name: 'Turkish Get-Ups', sets: 3, reps: 5, duration_seconds: 0 }
+      { name: 'Kettlebell Swings', sets: 4, reps: 15 },
+      { name: 'Goblet Squats', sets: 4, reps: 12 },
+      { name: 'Kettlebell Rows', sets: 3, reps: 12 },
+      { name: 'Turkish Get-Ups', sets: 3, reps: 5 }
     ]
   },
   {
@@ -244,12 +261,13 @@ export const PREMADE_WORKOUTS = [
     description: '4-minute intervals of maximum intensity',
     difficulty: 'advanced',
     duration_minutes: 20,
-    category: 'cardio',
+    category: 'hiit',
+    muscle_group: 'cardio',
     exercises: [
-      { name: 'Burpees', sets: 8, reps: 0, duration_seconds: 20 },
-      { name: 'Mountain Climbers', sets: 8, reps: 0, duration_seconds: 20 },
-      { name: 'Jump Squats', sets: 8, reps: 0, duration_seconds: 20 },
-      { name: 'High Knees', sets: 8, reps: 0, duration_seconds: 20 }
+      { name: 'Burpees', sets: 8, duration_seconds: 20 },
+      { name: 'Mountain Climbers', sets: 8, duration_seconds: 20 },
+      { name: 'Jump Squats', sets: 8, duration_seconds: 20 },
+      { name: 'High Knees', sets: 8, duration_seconds: 20 }
     ]
   },
   {
@@ -259,11 +277,12 @@ export const PREMADE_WORKOUTS = [
     difficulty: 'intermediate',
     duration_minutes: 30,
     category: 'strength',
+    muscle_group: 'full_body',
     exercises: [
-      { name: 'Band Chest Press', sets: 3, reps: 15, duration_seconds: 0 },
-      { name: 'Band Rows', sets: 3, reps: 15, duration_seconds: 0 },
-      { name: 'Band Squats', sets: 4, reps: 15, duration_seconds: 0 },
-      { name: 'Band Shoulder Press', sets: 3, reps: 12, duration_seconds: 0 }
+      { name: 'Band Chest Press', sets: 3, reps: 15 },
+      { name: 'Band Rows', sets: 3, reps: 15 },
+      { name: 'Band Squats', sets: 4, reps: 15 },
+      { name: 'Band Shoulder Press', sets: 3, reps: 12 }
     ]
   },
   {
@@ -273,11 +292,12 @@ export const PREMADE_WORKOUTS = [
     difficulty: 'advanced',
     duration_minutes: 35,
     category: 'strength',
+    muscle_group: 'full_body',
     exercises: [
-      { name: 'One-Arm Push-ups', sets: 3, reps: 8, duration_seconds: 0 },
-      { name: 'Pistol Squats', sets: 3, reps: 10, duration_seconds: 0 },
-      { name: 'L-Sit Hold', sets: 3, reps: 0, duration_seconds: 30 },
-      { name: 'Handstand Hold', sets: 3, reps: 0, duration_seconds: 30 }
+      { name: 'One-Arm Push-ups', sets: 3, reps: 8 },
+      { name: 'Pistol Squats', sets: 3, reps: 10 },
+      { name: 'L-Sit Hold', sets: 3, duration_seconds: 30 },
+      { name: 'Handstand Hold', sets: 3, duration_seconds: 30 }
     ]
   },
   {
@@ -287,11 +307,12 @@ export const PREMADE_WORKOUTS = [
     difficulty: 'beginner',
     duration_minutes: 20,
     category: 'full_body',
+    muscle_group: 'full_body',
     exercises: [
-      { name: 'Pelvic Tilts', sets: 3, reps: 15, duration_seconds: 0 },
-      { name: 'Wall Push-ups', sets: 2, reps: 10, duration_seconds: 0 },
-      { name: 'Seated Leg Lifts', sets: 3, reps: 12, duration_seconds: 0 },
-      { name: 'Cat-Cow Stretch', sets: 2, reps: 10, duration_seconds: 0 }
+      { name: 'Pelvic Tilts', sets: 3, reps: 15 },
+      { name: 'Wall Push-ups', sets: 2, reps: 10 },
+      { name: 'Seated Leg Lifts', sets: 3, reps: 12 },
+      { name: 'Cat-Cow Stretch', sets: 2, reps: 10 }
     ]
   },
   {
@@ -301,11 +322,12 @@ export const PREMADE_WORKOUTS = [
     difficulty: 'beginner',
     duration_minutes: 25,
     category: 'full_body',
+    muscle_group: 'full_body',
     exercises: [
-      { name: 'Chair Squats', sets: 3, reps: 10, duration_seconds: 0 },
-      { name: 'Wall Push-ups', sets: 2, reps: 8, duration_seconds: 0 },
-      { name: 'Seated Marches', sets: 3, reps: 20, duration_seconds: 0 },
-      { name: 'Arm Raises', sets: 2, reps: 15, duration_seconds: 0 }
+      { name: 'Chair Squats', sets: 3, reps: 10 },
+      { name: 'Wall Push-ups', sets: 2, reps: 8 },
+      { name: 'Seated Marches', sets: 3, reps: 20 },
+      { name: 'Arm Raises', sets: 2, reps: 15 }
     ]
   },
   {
@@ -315,11 +337,12 @@ export const PREMADE_WORKOUTS = [
     difficulty: 'beginner',
     duration_minutes: 20,
     category: 'flexibility',
+    muscle_group: 'flexibility',
     exercises: [
-      { name: 'Walking', sets: 1, reps: 0, duration_seconds: 600 },
-      { name: 'Gentle Stretching', sets: 3, reps: 0, duration_seconds: 120 },
-      { name: 'Foam Rolling', sets: 1, reps: 0, duration_seconds: 300 },
-      { name: 'Deep Breathing', sets: 3, reps: 10, duration_seconds: 0 }
+      { name: 'Walking', sets: 1, duration_seconds: 600 },
+      { name: 'Gentle Stretching', sets: 3, duration_seconds: 120 },
+      { name: 'Foam Rolling', sets: 1, duration_seconds: 300 },
+      { name: 'Deep Breathing', sets: 3, reps: 10 }
     ]
   },
   {
@@ -329,12 +352,13 @@ export const PREMADE_WORKOUTS = [
     difficulty: 'beginner',
     duration_minutes: 15,
     category: 'flexibility',
+    muscle_group: 'flexibility',
     exercises: [
-      { name: 'Neck Side Stretch', sets: 2, reps: 0, duration_seconds: 30 },
-      { name: 'Chest Opener', sets: 2, reps: 0, duration_seconds: 40 },
-      { name: 'Standing Quad Stretch', sets: 2, reps: 0, duration_seconds: 30 },
-      { name: 'Standing Forward Fold', sets: 3, reps: 0, duration_seconds: 45 },
-      { name: 'Hip Flexor Lunge Stretch', sets: 2, reps: 0, duration_seconds: 45 }
+      { name: 'Neck Side Stretch', sets: 2, duration_seconds: 30 },
+      { name: 'Chest Opener', sets: 2, duration_seconds: 40 },
+      { name: 'Standing Quad Stretch', sets: 2, duration_seconds: 30 },
+      { name: 'Standing Forward Fold', sets: 3, duration_seconds: 45 },
+      { name: 'Hip Flexor Lunge Stretch', sets: 2, duration_seconds: 45 }
     ]
   },
   {
@@ -344,12 +368,13 @@ export const PREMADE_WORKOUTS = [
     difficulty: 'intermediate',
     duration_minutes: 20,
     category: 'flexibility',
+    muscle_group: 'flexibility',
     exercises: [
-      { name: 'Pigeon Pose', sets: 2, reps: 0, duration_seconds: 90 },
-      { name: 'Butterfly Stretch', sets: 3, reps: 0, duration_seconds: 60 },
-      { name: 'Figure-4 Stretch', sets: 2, reps: 0, duration_seconds: 60 },
-      { name: 'Deep Squat Hold', sets: 3, reps: 0, duration_seconds: 45 },
-      { name: 'Lizard Pose', sets: 2, reps: 0, duration_seconds: 60 }
+      { name: 'Pigeon Pose', sets: 2, duration_seconds: 90 },
+      { name: 'Butterfly Stretch', sets: 3, duration_seconds: 60 },
+      { name: 'Figure-4 Stretch', sets: 2, duration_seconds: 60 },
+      { name: 'Deep Squat Hold', sets: 3, duration_seconds: 45 },
+      { name: 'Lizard Pose', sets: 2, duration_seconds: 60 }
     ]
   },
   {
@@ -359,13 +384,14 @@ export const PREMADE_WORKOUTS = [
     difficulty: 'beginner',
     duration_minutes: 25,
     category: 'flexibility',
+    muscle_group: 'flexibility',
     exercises: [
-      { name: 'Standing Forward Fold', sets: 2, reps: 0, duration_seconds: 60 },
-      { name: 'Seated Hamstring Stretch', sets: 3, reps: 0, duration_seconds: 60 },
-      { name: 'Seated Spinal Twist', sets: 2, reps: 0, duration_seconds: 45 },
-      { name: 'Shoulder Cross-Body Stretch', sets: 2, reps: 0, duration_seconds: 30 },
-      { name: 'Lying Glute Stretch', sets: 2, reps: 0, duration_seconds: 60 },
-      { name: "Child's Pose", sets: 1, reps: 0, duration_seconds: 90 }
+      { name: 'Standing Forward Fold', sets: 2, duration_seconds: 60 },
+      { name: 'Seated Hamstring Stretch', sets: 3, duration_seconds: 60 },
+      { name: 'Seated Spinal Twist', sets: 2, duration_seconds: 45 },
+      { name: 'Shoulder Cross-Body Stretch', sets: 2, duration_seconds: 30 },
+      { name: 'Lying Glute Stretch', sets: 2, duration_seconds: 60 },
+      { name: "Child's Pose", sets: 1, duration_seconds: 90 }
     ]
   },
   {
@@ -375,12 +401,13 @@ export const PREMADE_WORKOUTS = [
     difficulty: 'beginner',
     duration_minutes: 12,
     category: 'flexibility',
+    muscle_group: 'flexibility',
     exercises: [
-      { name: 'Standing Quad Stretch', sets: 2, reps: 0, duration_seconds: 30 },
-      { name: 'Calf Stretch', sets: 2, reps: 0, duration_seconds: 30 },
-      { name: 'Chest Opener', sets: 2, reps: 0, duration_seconds: 30 },
-      { name: 'Seated Hamstring Stretch', sets: 2, reps: 0, duration_seconds: 45 },
-      { name: 'Neck Side Stretch', sets: 2, reps: 0, duration_seconds: 30 }
+      { name: 'Standing Quad Stretch', sets: 2, duration_seconds: 30 },
+      { name: 'Calf Stretch', sets: 2, duration_seconds: 30 },
+      { name: 'Chest Opener', sets: 2, duration_seconds: 30 },
+      { name: 'Seated Hamstring Stretch', sets: 2, duration_seconds: 45 },
+      { name: 'Neck Side Stretch', sets: 2, duration_seconds: 30 }
     ]
   },
   {
@@ -390,12 +417,13 @@ export const PREMADE_WORKOUTS = [
     difficulty: 'beginner',
     duration_minutes: 20,
     category: 'flexibility',
+    muscle_group: 'flexibility',
     exercises: [
-      { name: 'Cat-Cow Stretch', sets: 3, reps: 12, duration_seconds: 0 },
-      { name: 'Seated Spinal Twist', sets: 3, reps: 0, duration_seconds: 45 },
-      { name: "Thread the Needle", sets: 2, reps: 0, duration_seconds: 40 },
-      { name: 'Knee-to-Chest Stretch', sets: 3, reps: 0, duration_seconds: 45 },
-      { name: 'Sphinx Pose', sets: 2, reps: 0, duration_seconds: 60 }
+      { name: 'Cat-Cow Stretch', sets: 3, reps: 12 },
+      { name: 'Seated Spinal Twist', sets: 3, duration_seconds: 45 },
+      { name: 'Thread the Needle', sets: 2, duration_seconds: 40 },
+      { name: 'Knee-to-Chest Stretch', sets: 3, duration_seconds: 45 },
+      { name: 'Sphinx Pose', sets: 2, duration_seconds: 60 }
     ]
   },
   {
@@ -405,12 +433,13 @@ export const PREMADE_WORKOUTS = [
     difficulty: 'beginner',
     duration_minutes: 18,
     category: 'flexibility',
+    muscle_group: 'flexibility',
     exercises: [
-      { name: 'Standing Hip Flexor Lunge', sets: 2, reps: 0, duration_seconds: 60 },
-      { name: 'Seated Hamstring Stretch', sets: 3, reps: 0, duration_seconds: 60 },
-      { name: 'Calf Stretch (Wall)', sets: 3, reps: 0, duration_seconds: 45 },
-      { name: 'IT Band Stretch', sets: 2, reps: 0, duration_seconds: 45 },
-      { name: 'Quad Stretch', sets: 2, reps: 0, duration_seconds: 40 }
+      { name: 'Standing Hip Flexor Lunge', sets: 2, duration_seconds: 60 },
+      { name: 'Seated Hamstring Stretch', sets: 3, duration_seconds: 60 },
+      { name: 'Calf Stretch (Wall)', sets: 3, duration_seconds: 45 },
+      { name: 'IT Band Stretch', sets: 2, duration_seconds: 45 },
+      { name: 'Quad Stretch', sets: 2, duration_seconds: 40 }
     ]
   },
   {
@@ -420,12 +449,13 @@ export const PREMADE_WORKOUTS = [
     difficulty: 'beginner',
     duration_minutes: 12,
     category: 'flexibility',
+    muscle_group: 'flexibility',
     exercises: [
-      { name: 'Neck Forward Tilt', sets: 3, reps: 0, duration_seconds: 30 },
-      { name: 'Ear-to-Shoulder Stretch', sets: 3, reps: 0, duration_seconds: 30 },
-      { name: 'Cross-Body Shoulder Stretch', sets: 3, reps: 0, duration_seconds: 35 },
-      { name: 'Chest Doorway Stretch', sets: 2, reps: 0, duration_seconds: 45 },
-      { name: 'Overhead Tricep Stretch', sets: 2, reps: 0, duration_seconds: 30 }
+      { name: 'Neck Forward Tilt', sets: 3, duration_seconds: 30 },
+      { name: 'Ear-to-Shoulder Stretch', sets: 3, duration_seconds: 30 },
+      { name: 'Cross-Body Shoulder Stretch', sets: 3, duration_seconds: 35 },
+      { name: 'Chest Doorway Stretch', sets: 2, duration_seconds: 45 },
+      { name: 'Overhead Tricep Stretch', sets: 2, duration_seconds: 30 }
     ]
   },
   {
@@ -435,12 +465,13 @@ export const PREMADE_WORKOUTS = [
     difficulty: 'intermediate',
     duration_minutes: 30,
     category: 'flexibility',
+    muscle_group: 'flexibility',
     exercises: [
-      { name: 'Low Lunge Stretch', sets: 3, reps: 0, duration_seconds: 90 },
-      { name: 'Half Split Hold', sets: 3, reps: 0, duration_seconds: 90 },
-      { name: 'Hamstring Stretch Strap', sets: 3, reps: 0, duration_seconds: 60 },
-      { name: 'Hip Flexor Stretch', sets: 3, reps: 0, duration_seconds: 60 },
-      { name: 'Butterfly Inner Thigh', sets: 2, reps: 0, duration_seconds: 60 }
+      { name: 'Low Lunge Stretch', sets: 3, duration_seconds: 90 },
+      { name: 'Half Split Hold', sets: 3, duration_seconds: 90 },
+      { name: 'Hamstring Stretch Strap', sets: 3, duration_seconds: 60 },
+      { name: 'Hip Flexor Stretch', sets: 3, duration_seconds: 60 },
+      { name: 'Butterfly Inner Thigh', sets: 2, duration_seconds: 60 }
     ]
   },
   {
@@ -450,12 +481,13 @@ export const PREMADE_WORKOUTS = [
     difficulty: 'beginner',
     duration_minutes: 20,
     category: 'flexibility',
+    muscle_group: 'flexibility',
     exercises: [
-      { name: "Child's Pose", sets: 1, reps: 0, duration_seconds: 90 },
-      { name: 'Supine Spinal Twist', sets: 2, reps: 0, duration_seconds: 60 },
-      { name: 'Legs Up Wall', sets: 1, reps: 0, duration_seconds: 120 },
-      { name: 'Reclined Butterfly', sets: 1, reps: 0, duration_seconds: 90 },
-      { name: 'Shavasana Breathing', sets: 1, reps: 0, duration_seconds: 120 }
+      { name: "Child's Pose", sets: 1, duration_seconds: 90 },
+      { name: 'Supine Spinal Twist', sets: 2, duration_seconds: 60 },
+      { name: 'Legs Up Wall', sets: 1, duration_seconds: 120 },
+      { name: 'Reclined Butterfly', sets: 1, duration_seconds: 90 },
+      { name: 'Shavasana Breathing', sets: 1, duration_seconds: 120 }
     ]
   },
   {
@@ -465,12 +497,13 @@ export const PREMADE_WORKOUTS = [
     difficulty: 'beginner',
     duration_minutes: 10,
     category: 'flexibility',
+    muscle_group: 'flexibility',
     exercises: [
-      { name: 'Seated Figure-4 Stretch', sets: 2, reps: 0, duration_seconds: 40 },
-      { name: 'Chest Opener (hands clasped)', sets: 2, reps: 0, duration_seconds: 30 },
-      { name: 'Seated Neck Stretch', sets: 3, reps: 0, duration_seconds: 25 },
-      { name: 'Standing Hip Circles', sets: 2, reps: 15, duration_seconds: 0 },
-      { name: 'Wrist & Forearm Stretch', sets: 2, reps: 0, duration_seconds: 30 }
+      { name: 'Seated Figure-4 Stretch', sets: 2, duration_seconds: 40 },
+      { name: 'Chest Opener (hands clasped)', sets: 2, duration_seconds: 30 },
+      { name: 'Seated Neck Stretch', sets: 3, duration_seconds: 25 },
+      { name: 'Standing Hip Circles', sets: 2, reps: 15 },
+      { name: 'Wrist & Forearm Stretch', sets: 2, duration_seconds: 30 }
     ]
   },
 ];

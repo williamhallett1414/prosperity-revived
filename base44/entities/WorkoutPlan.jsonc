@@ -1,0 +1,118 @@
+{
+  "name": "WorkoutPlan",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Workout plan title"
+    },
+    "description": {
+      "type": "string"
+    },
+    "difficulty": {
+      "type": "string",
+      "enum": [
+        "beginner",
+        "intermediate",
+        "advanced"
+      ],
+      "default": "beginner"
+    },
+    "duration_minutes": {
+      "type": "number",
+      "description": "Duration in minutes"
+    },
+    "exercises": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "sets": {
+            "type": "number"
+          },
+          "reps": {
+            "type": "number"
+          },
+          "duration_seconds": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "cardio",
+        "strength",
+        "hypertrophy",
+        "powerlifting",
+        "flexibility",
+        "full_body",
+        "yoga",
+        "hiit"
+      ],
+      "default": "full_body"
+    },
+    "muscle_group": {
+      "type": "string",
+      "enum": [
+        "chest",
+        "back",
+        "legs",
+        "shoulders",
+        "arms",
+        "core",
+        "glutes",
+        "full_body",
+        "push",
+        "pull",
+        "upper_body",
+        "lower_body",
+        "cardio",
+        "flexibility"
+      ],
+      "description": "Primary muscle group or body focus"
+    },
+    "completed_dates": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Dates when workout was completed"
+    },
+    "image_url": {
+      "type": "string",
+      "description": "Workout plan image"
+    },
+    "is_shared": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether this workout is shared publicly"
+    },
+    "share_code": {
+      "type": "string",
+      "description": "Unique code for sharing this workout"
+    },
+    "creator_name": {
+      "type": "string",
+      "description": "Name of the workout creator"
+    },
+    "likes": {
+      "type": "number",
+      "default": 0,
+      "description": "Number of likes from community"
+    },
+    "times_copied": {
+      "type": "number",
+      "default": 0,
+      "description": "Number of times this workout was copied by others"
+    }
+  },
+  "required": [
+    "title",
+    "duration_minutes"
+  ]
+}
