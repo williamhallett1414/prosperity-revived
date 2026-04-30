@@ -70,7 +70,7 @@ const SacredGarden = memo(function SacredGarden({ speaking = false }) {
       `}</style>
 
       <svg
-        viewBox="0 0 400 900"
+        viewBox="0 -100 400 1000"
         preserveAspectRatio="xMidYMin slice"
         className="absolute inset-0 w-full h-full"
         xmlns="http://www.w3.org/2000/svg"
@@ -116,33 +116,33 @@ const SacredGarden = memo(function SacredGarden({ speaking = false }) {
         {/* ── Crescent Moon ── */}
         <g>
           {/* Moon glow halo */}
-          <circle cx="340" cy="60" r="60" fill="url(#hMoonGlow)"
+          <circle cx="340" cy="260" r="60" fill="url(#hMoonGlow)"
             style={{ animation: 'moonGlow 6s ease-in-out infinite' }} />
           {/* Moon body */}
-          <circle cx="340" cy="60" r="16" fill="#E0E7FF" opacity="0.12" />
+          <circle cx="340" cy="260" r="16" fill="#E0E7FF" opacity="0.12" />
           {/* Moon crescent cutout */}
-          <circle cx="347" cy="55" r="13" fill="#000000" opacity="1" />
+          <circle cx="347" cy="255" r="13" fill="#000000" opacity="1" />
           {/* Moon highlights */}
-          <circle cx="335" cy="55" r="2" fill="#E0E7FF" opacity="0.08" />
-          <circle cx="338" cy="65" r="1" fill="#E0E7FF" opacity="0.06" />
+          <circle cx="335" cy="255" r="2" fill="#E0E7FF" opacity="0.08" />
+          <circle cx="338" cy="265" r="1" fill="#E0E7FF" opacity="0.06" />
         </g>
 
         {/* ── Wisteria branches — left cluster ── */}
-        <g style={{ animation: 'branchSway 10s ease-in-out infinite', transformOrigin: '0px 0px' }}>
+        <g style={{ animation: 'branchSway 10s ease-in-out infinite', transformOrigin: '0px 240px' }}>
           {/* Main branch */}
-          <path d="M-10 20 Q30 35 60 25 Q90 15 110 30" fill="none" stroke="#4A3728" strokeWidth="2.5" opacity="0.5" />
+          <path d="M-10 240 Q30 255 60 245 Q90 235 110 250" fill="none" stroke="#4A3728" strokeWidth="2.5" opacity="0.5" />
           {/* Sub branch */}
-          <path d="M40 30 Q45 55 42 80" fill="none" stroke="#4A3728" strokeWidth="1.5" opacity="0.4" />
-          <path d="M75 22 Q78 50 74 75" fill="none" stroke="#4A3728" strokeWidth="1.5" opacity="0.4" />
+          <path d="M40 250 Q45 275 42 300" fill="none" stroke="#4A3728" strokeWidth="1.5" opacity="0.4" />
+          <path d="M75 242 Q78 270 74 295" fill="none" stroke="#4A3728" strokeWidth="1.5" opacity="0.4" />
           
           {/* Blossom clusters hanging down */}
           {[
-            { x: 42, y: 50, count: 5 },
-            { x: 42, y: 65, count: 4 },
-            { x: 42, y: 78, count: 3 },
-            { x: 75, y: 45, count: 5 },
-            { x: 75, y: 60, count: 4 },
-            { x: 75, y: 73, count: 3 },
+            { x: 42, y: 270, count: 5 },
+            { x: 42, y: 285, count: 4 },
+            { x: 42, y: 298, count: 3 },
+            { x: 75, y: 265, count: 5 },
+            { x: 75, y: 280, count: 4 },
+            { x: 75, y: 293, count: 3 },
           ].map((cluster, ci) => (
             <g key={`lc${ci}`}>
               {Array.from({ length: cluster.count }).map((_, i) => (
@@ -159,18 +159,18 @@ const SacredGarden = memo(function SacredGarden({ speaking = false }) {
         </g>
 
         {/* ── Wisteria branches — right cluster ── */}
-        <g style={{ animation: 'branchSway 12s ease-in-out infinite 2s', transformOrigin: '400px 0px' }}>
-          <path d="M410 15 Q370 30 340 22 Q310 14 290 28" fill="none" stroke="#4A3728" strokeWidth="2.5" opacity="0.5" />
-          <path d="M355 26 Q358 55 354 82" fill="none" stroke="#4A3728" strokeWidth="1.5" opacity="0.4" />
-          <path d="M320 20 Q323 48 318 72" fill="none" stroke="#4A3728" strokeWidth="1.5" opacity="0.4" />
+        <g style={{ animation: 'branchSway 12s ease-in-out infinite 2s', transformOrigin: '400px 235px' }}>
+          <path d="M410 235 Q370 250 340 242 Q310 234 290 248" fill="none" stroke="#4A3728" strokeWidth="2.5" opacity="0.5" />
+          <path d="M355 246 Q358 275 354 302" fill="none" stroke="#4A3728" strokeWidth="1.5" opacity="0.4" />
+          <path d="M320 240 Q323 268 318 292" fill="none" stroke="#4A3728" strokeWidth="1.5" opacity="0.4" />
           
           {[
-            { x: 355, y: 48, count: 5 },
-            { x: 355, y: 63, count: 4 },
-            { x: 355, y: 76, count: 3 },
-            { x: 320, y: 42, count: 5 },
-            { x: 320, y: 57, count: 4 },
-            { x: 320, y: 70, count: 3 },
+            { x: 355, y: 268, count: 5 },
+            { x: 355, y: 283, count: 4 },
+            { x: 355, y: 296, count: 3 },
+            { x: 320, y: 262, count: 5 },
+            { x: 320, y: 277, count: 4 },
+            { x: 320, y: 290, count: 3 },
           ].map((cluster, ci) => (
             <g key={`rc${ci}`}>
               {Array.from({ length: cluster.count }).map((_, i) => (
@@ -189,16 +189,16 @@ const SacredGarden = memo(function SacredGarden({ speaking = false }) {
         {/* ── Floating orbs (fireflies) ── */}
         <g filter="url(#hSoftGlow)">
           {[
-            { cx: 70, cy: 200, r: 6, anim: 'floatOrb1', dur: '7s', delay: '0s' },
-            { cx: 320, cy: 250, r: 5, anim: 'floatOrb2', dur: '8s', delay: '1s' },
-            { cx: 180, cy: 170, r: 7, anim: 'floatOrb3', dur: '6s', delay: '2s' },
-            { cx: 50, cy: 350, r: 4, anim: 'floatOrb1', dur: '9s', delay: '3s' },
-            { cx: 350, cy: 380, r: 5, anim: 'floatOrb2', dur: '7.5s', delay: '1.5s' },
-            { cx: 130, cy: 300, r: 4.5, anim: 'floatOrb3', dur: '8.5s', delay: '0.5s' },
-            { cx: 250, cy: 150, r: 3.5, anim: 'floatOrb1', dur: '6.5s', delay: '4s' },
-            { cx: 90, cy: 420, r: 5.5, anim: 'floatOrb2', dur: '7s', delay: '2.5s' },
-            { cx: 290, cy: 320, r: 4, anim: 'floatOrb3', dur: '9s', delay: '3.5s' },
-            { cx: 200, cy: 400, r: 6, anim: 'floatOrb1', dur: '8s', delay: '1s' },
+            { cx: 70, cy: 350, r: 6, anim: 'floatOrb1', dur: '7s', delay: '0s' },
+            { cx: 320, cy: 400, r: 5, anim: 'floatOrb2', dur: '8s', delay: '1s' },
+            { cx: 180, cy: 320, r: 7, anim: 'floatOrb3', dur: '6s', delay: '2s' },
+            { cx: 50, cy: 500, r: 4, anim: 'floatOrb1', dur: '9s', delay: '3s' },
+            { cx: 350, cy: 530, r: 5, anim: 'floatOrb2', dur: '7.5s', delay: '1.5s' },
+            { cx: 130, cy: 450, r: 4.5, anim: 'floatOrb3', dur: '8.5s', delay: '0.5s' },
+            { cx: 250, cy: 300, r: 3.5, anim: 'floatOrb1', dur: '6.5s', delay: '4s' },
+            { cx: 90, cy: 570, r: 5.5, anim: 'floatOrb2', dur: '7s', delay: '2.5s' },
+            { cx: 290, cy: 470, r: 4, anim: 'floatOrb3', dur: '9s', delay: '3.5s' },
+            { cx: 200, cy: 550, r: 6, anim: 'floatOrb1', dur: '8s', delay: '1s' },
           ].map((orb, i) => (
             <circle key={i} cx={orb.cx} cy={orb.cy} r={orb.r}
               fill="url(#hOrbGlow)"
@@ -252,8 +252,8 @@ const SacredGarden = memo(function SacredGarden({ speaking = false }) {
         ))}
 
         {/* ── Ambient glow from top branches ── */}
-        <ellipse cx="60" cy="40" rx="80" ry="60" fill="#C4B5FD" opacity={0.04 * glow} />
-        <ellipse cx="340" cy="35" rx="80" ry="60" fill="#DDD6FE" opacity={0.03 * glow} />
+        <ellipse cx="60" cy="260" rx="80" ry="60" fill="#C4B5FD" opacity={0.04 * glow} />
+        <ellipse cx="340" cy="255" rx="80" ry="60" fill="#DDD6FE" opacity={0.03 * glow} />
       </svg>
     </div>
   );

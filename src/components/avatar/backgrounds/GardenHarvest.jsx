@@ -79,7 +79,7 @@ const GardenHarvest = memo(function GardenHarvest({ speaking = false }) {
       `}</style>
 
       <svg
-        viewBox="0 0 400 900"
+        viewBox="0 -100 400 1000"
         preserveAspectRatio="xMidYMin slice"
         className="absolute inset-0 w-full h-full"
         xmlns="http://www.w3.org/2000/svg"
@@ -125,44 +125,44 @@ const GardenHarvest = memo(function GardenHarvest({ speaking = false }) {
 
         {/* ── Wooden beam across top ── */}
         <g>
-          <rect x="-10" y="42" width="420" height="6" rx="3" fill="#5C3A1E" opacity="0.55" />
-          <rect x="-10" y="43" width="420" height="2" rx="1" fill="#8B6C42" opacity="0.2" />
+          <rect x="-10" y="272" width="420" height="6" rx="3" fill="#5C3A1E" opacity="0.55" />
+          <rect x="-10" y="273" width="420" height="2" rx="1" fill="#8B6C42" opacity="0.2" />
         </g>
 
         {/* ── Lantern (center) ── */}
         <g>
           {/* Chain */}
-          <line x1="200" y1="48" x2="200" y2="70" stroke="#8B6C42" strokeWidth="1" opacity="0.5" />
+          <line x1="200" y1="278" x2="200" y2="300" stroke="#8B6C42" strokeWidth="1" opacity="0.5" />
           {/* Lantern frame */}
-          <rect x="190" y="70" width="20" height="28" rx="3" fill="none" stroke="#92400E" strokeWidth="1.5" opacity="0.6" />
-          <line x1="190" y1="70" x2="210" y2="70" stroke="#B45309" strokeWidth="2" opacity="0.5" />
-          <line x1="190" y1="98" x2="210" y2="98" stroke="#B45309" strokeWidth="2" opacity="0.5" />
+          <rect x="190" y="300" width="20" height="28" rx="3" fill="none" stroke="#92400E" strokeWidth="1.5" opacity="0.6" />
+          <line x1="190" y1="300" x2="210" y2="300" stroke="#B45309" strokeWidth="2" opacity="0.5" />
+          <line x1="190" y1="328" x2="210" y2="328" stroke="#B45309" strokeWidth="2" opacity="0.5" />
           {/* Lantern top cap */}
-          <path d="M195 70 L200 64 L205 70" fill="none" stroke="#92400E" strokeWidth="1.2" opacity="0.5" />
+          <path d="M195 300 L200 294 L205 300" fill="none" stroke="#92400E" strokeWidth="1.2" opacity="0.5" />
           {/* Flame inside */}
-          <g style={{ animation: 'lanternFlicker 2s ease-in-out infinite', transformOrigin: '200px 85px' }}>
-            <ellipse cx="200" cy="85" rx="4" ry="7" fill="#FBBF24" opacity="0.8" />
-            <ellipse cx="200" cy="83" rx="2.5" ry="4.5" fill="#FEF3C7" opacity="0.9" />
-            <ellipse cx="200" cy="81" rx="1" ry="2.5" fill="white" opacity="0.6" />
+          <g style={{ animation: 'lanternFlicker 2s ease-in-out infinite', transformOrigin: '200px 315px' }}>
+            <ellipse cx="200" cy="315" rx="4" ry="7" fill="#FBBF24" opacity="0.8" />
+            <ellipse cx="200" cy="313" rx="2.5" ry="4.5" fill="#FEF3C7" opacity="0.9" />
+            <ellipse cx="200" cy="311" rx="1" ry="2.5" fill="white" opacity="0.6" />
           </g>
           {/* Lantern glow pool */}
-          <ellipse cx="200" cy="180" rx="120" ry="160" fill="url(#dLanternGlow)"
+          <ellipse cx="200" cy="410" rx="120" ry="160" fill="url(#dLanternGlow)"
             style={{ animation: 'lanternPulse 4s ease-in-out infinite' }} />
         </g>
 
         {/* ── Hanging herb bundle — LEFT (rosemary) ── */}
-        <g style={{ animation: 'herbSway1 7s ease-in-out infinite', transformOrigin: '80px 48px' }}>
+        <g style={{ animation: 'herbSway1 7s ease-in-out infinite', transformOrigin: '80px 278px' }}>
           {/* Twine binding */}
-          <line x1="80" y1="48" x2="80" y2="58" stroke="#8B6C42" strokeWidth="1.2" opacity="0.5" />
-          <ellipse cx="80" cy="60" rx="6" ry="3" fill="#8B6C42" opacity="0.3" />
+          <line x1="80" y1="278" x2="80" y2="288" stroke="#8B6C42" strokeWidth="1.2" opacity="0.5" />
+          <ellipse cx="80" cy="290" rx="6" ry="3" fill="#8B6C42" opacity="0.3" />
           {/* Rosemary sprigs */}
           {[-1, 0, 1].map(i => (
             <g key={`rm${i}`}>
-              <line x1={80 + i * 4} y1="60" x2={80 + i * 6} y2="110" stroke="#4D7C0F" strokeWidth="1" opacity="0.5" />
+              <line x1={80 + i * 4} y1="290" x2={80 + i * 6} y2="340" stroke="#4D7C0F" strokeWidth="1" opacity="0.5" />
               {[0, 1, 2, 3, 4, 5, 6].map(j => (
                 <g key={j}>
-                  <ellipse cx={80 + i * 5 - 2.5} cy={65 + j * 7} rx="1.2" ry="3" fill="#4D7C0F" opacity={0.45 - j * 0.03} transform={`rotate(-25, ${80 + i * 5 - 2.5}, ${65 + j * 7})`} />
-                  <ellipse cx={80 + i * 5 + 2.5} cy={65 + j * 7} rx="1.2" ry="3" fill="#4D7C0F" opacity={0.45 - j * 0.03} transform={`rotate(25, ${80 + i * 5 + 2.5}, ${65 + j * 7})`} />
+                  <ellipse cx={80 + i * 5 - 2.5} cy={295 + j * 7} rx="1.2" ry="3" fill="#4D7C0F" opacity={0.45 - j * 0.03} transform={`rotate(-25, ${80 + i * 5 - 2.5}, ${65 + j * 7})`} />
+                  <ellipse cx={80 + i * 5 + 2.5} cy={295 + j * 7} rx="1.2" ry="3" fill="#4D7C0F" opacity={0.45 - j * 0.03} transform={`rotate(25, ${80 + i * 5 + 2.5}, ${65 + j * 7})`} />
                 </g>
               ))}
             </g>
@@ -170,17 +170,17 @@ const GardenHarvest = memo(function GardenHarvest({ speaking = false }) {
         </g>
 
         {/* ── Hanging herb bundle — RIGHT (basil) ── */}
-        <g style={{ animation: 'herbSway2 8s ease-in-out infinite 1s', transformOrigin: '320px 48px' }}>
-          <line x1="320" y1="48" x2="320" y2="58" stroke="#8B6C42" strokeWidth="1.2" opacity="0.5" />
-          <ellipse cx="320" cy="60" rx="6" ry="3" fill="#8B6C42" opacity="0.3" />
+        <g style={{ animation: 'herbSway2 8s ease-in-out infinite 1s', transformOrigin: '320px 278px' }}>
+          <line x1="320" y1="278" x2="320" y2="288" stroke="#8B6C42" strokeWidth="1.2" opacity="0.5" />
+          <ellipse cx="320" cy="290" rx="6" ry="3" fill="#8B6C42" opacity="0.3" />
           {/* Basil leaves — larger, rounder */}
           {[-1, 0, 1].map(i => (
             <g key={`bs${i}`}>
-              <line x1={320 + i * 5} y1="60" x2={320 + i * 4} y2="105" stroke="#166534" strokeWidth="0.8" opacity="0.4" />
+              <line x1={320 + i * 5} y1="290" x2={320 + i * 4} y2="335" stroke="#166534" strokeWidth="0.8" opacity="0.4" />
               {[0, 1, 2, 3, 4].map(j => (
                 <g key={j}>
-                  <ellipse cx={320 + i * 4 - 4} cy={68 + j * 9} rx="4" ry="3" fill="#15803D" opacity={0.4 - j * 0.05} transform={`rotate(-15, ${320 + i * 4 - 4}, ${68 + j * 9})`} />
-                  <ellipse cx={320 + i * 4 + 4} cy={68 + j * 9} rx="4" ry="3" fill="#15803D" opacity={0.4 - j * 0.05} transform={`rotate(15, ${320 + i * 4 + 4}, ${68 + j * 9})`} />
+                  <ellipse cx={320 + i * 4 - 4} cy={298 + j * 9} rx="4" ry="3" fill="#15803D" opacity={0.4 - j * 0.05} transform={`rotate(-15, ${320 + i * 4 - 4}, ${68 + j * 9})`} />
+                  <ellipse cx={320 + i * 4 + 4} cy={298 + j * 9} rx="4" ry="3" fill="#15803D" opacity={0.4 - j * 0.05} transform={`rotate(15, ${320 + i * 4 + 4}, ${68 + j * 9})`} />
                 </g>
               ))}
             </g>
@@ -188,16 +188,16 @@ const GardenHarvest = memo(function GardenHarvest({ speaking = false }) {
         </g>
 
         {/* ── Hanging herb — CENTER-LEFT (thyme) ── */}
-        <g style={{ animation: 'herbSway1 9s ease-in-out infinite 2s', transformOrigin: '140px 48px' }}>
-          <line x1="140" y1="48" x2="140" y2="56" stroke="#8B6C42" strokeWidth="1" opacity="0.4" />
-          <ellipse cx="140" cy="57" rx="4" ry="2.5" fill="#8B6C42" opacity="0.25" />
+        <g style={{ animation: 'herbSway1 9s ease-in-out infinite 2s', transformOrigin: '140px 278px' }}>
+          <line x1="140" y1="278" x2="140" y2="56" stroke="#8B6C42" strokeWidth="1" opacity="0.4" />
+          <ellipse cx="140" cy="287" rx="4" ry="2.5" fill="#8B6C42" opacity="0.25" />
           {[0, 1].map(i => (
             <g key={`th${i}`}>
-              <line x1={140 + i * 3 - 1.5} y1="57" x2={140 + i * 2 - 1} y2="95" stroke="#4D7C0F" strokeWidth="0.7" opacity="0.4" />
+              <line x1={140 + i * 3 - 1.5} y1="57" x2={140 + i * 2 - 1} y2="325" stroke="#4D7C0F" strokeWidth="0.7" opacity="0.4" />
               {[0, 1, 2, 3, 4, 5, 6, 7].map(j => (
                 <g key={j}>
-                  <circle cx={140 + i * 2 - 3} cy={60 + j * 5} r="1" fill="#65A30D" opacity={0.4 - j * 0.03} />
-                  <circle cx={140 + i * 2 + 1} cy={60 + j * 5} r="1" fill="#65A30D" opacity={0.4 - j * 0.03} />
+                  <circle cx={140 + i * 2 - 3} cy={290 + j * 5} r="1" fill="#65A30D" opacity={0.4 - j * 0.03} />
+                  <circle cx={140 + i * 2 + 1} cy={290 + j * 5} r="1" fill="#65A30D" opacity={0.4 - j * 0.03} />
                 </g>
               ))}
             </g>
@@ -207,7 +207,7 @@ const GardenHarvest = memo(function GardenHarvest({ speaking = false }) {
         {/* ── Trailing vines on edges ── */}
         <g style={{ animation: 'vineGrow 12s ease-in-out infinite' }}>
           {/* Left vine */}
-          <path d="M0 120 Q8 160 4 210 Q0 260 6 310 Q10 350 3 400"
+          <path d="M0 270 Q8 310 4 360 Q0 410 6 460 Q10 500 3 550"
             fill="none" stroke="#365314" strokeWidth="1.5" opacity="0.25" />
           {[140, 180, 230, 280, 330, 380].map((y, i) => (
             <ellipse key={`lv${i}`} cx={4 + (i % 2) * 3} cy={y} rx="3.5" ry="2.5"
@@ -216,7 +216,7 @@ const GardenHarvest = memo(function GardenHarvest({ speaking = false }) {
           ))}
 
           {/* Right vine */}
-          <path d="M400 100 Q392 145 396 200 Q400 250 394 300 Q390 340 397 390"
+          <path d="M400 250 Q392 295 396 350 Q400 400 394 450 Q390 490 397 540"
             fill="none" stroke="#365314" strokeWidth="1.5" opacity="0.25" />
           {[130, 175, 220, 270, 320, 370].map((y, i) => (
             <ellipse key={`rv${i}`} cx={396 - (i % 2) * 3} cy={y} rx="3.5" ry="2.5"
@@ -228,15 +228,15 @@ const GardenHarvest = memo(function GardenHarvest({ speaking = false }) {
         {/* ── Fireflies ── */}
         <g filter="url(#dSoftGlow)">
           {[
-            { cx: 60, cy: 200, r: 5, fill: 'url(#dFireflyGlow)', anim: 'fireflyFloat1', dur: '6s', delay: '0s' },
-            { cx: 340, cy: 250, r: 4.5, fill: 'url(#dWarmFirefly)', anim: 'fireflyFloat2', dur: '7s', delay: '1s' },
-            { cx: 160, cy: 180, r: 5.5, fill: 'url(#dFireflyGlow)', anim: 'fireflyFloat3', dur: '8s', delay: '2s' },
-            { cx: 280, cy: 300, r: 4, fill: 'url(#dWarmFirefly)', anim: 'fireflyFloat1', dur: '7.5s', delay: '3s' },
-            { cx: 40, cy: 350, r: 5, fill: 'url(#dFireflyGlow)', anim: 'fireflyFloat2', dur: '6.5s', delay: '0.5s' },
-            { cx: 370, cy: 380, r: 4.5, fill: 'url(#dWarmFirefly)', anim: 'fireflyFloat3', dur: '9s', delay: '1.5s' },
-            { cx: 120, cy: 320, r: 3.5, fill: 'url(#dFireflyGlow)', anim: 'fireflyFloat1', dur: '8s', delay: '4s' },
-            { cx: 240, cy: 160, r: 4, fill: 'url(#dWarmFirefly)', anim: 'fireflyFloat2', dur: '7s', delay: '2.5s' },
-            { cx: 90, cy: 420, r: 5, fill: 'url(#dFireflyGlow)', anim: 'fireflyFloat3', dur: '6s', delay: '3.5s' },
+            { cx: 60, cy: 350, r: 5, fill: 'url(#dFireflyGlow)', anim: 'fireflyFloat1', dur: '6s', delay: '0s' },
+            { cx: 340, cy: 400, r: 4.5, fill: 'url(#dWarmFirefly)', anim: 'fireflyFloat2', dur: '7s', delay: '1s' },
+            { cx: 160, cy: 330, r: 5.5, fill: 'url(#dFireflyGlow)', anim: 'fireflyFloat3', dur: '8s', delay: '2s' },
+            { cx: 280, cy: 450, r: 4, fill: 'url(#dWarmFirefly)', anim: 'fireflyFloat1', dur: '7.5s', delay: '3s' },
+            { cx: 40, cy: 500, r: 5, fill: 'url(#dFireflyGlow)', anim: 'fireflyFloat2', dur: '6.5s', delay: '0.5s' },
+            { cx: 370, cy: 530, r: 4.5, fill: 'url(#dWarmFirefly)', anim: 'fireflyFloat3', dur: '9s', delay: '1.5s' },
+            { cx: 120, cy: 470, r: 3.5, fill: 'url(#dFireflyGlow)', anim: 'fireflyFloat1', dur: '8s', delay: '4s' },
+            { cx: 240, cy: 310, r: 4, fill: 'url(#dWarmFirefly)', anim: 'fireflyFloat2', dur: '7s', delay: '2.5s' },
+            { cx: 90, cy: 570, r: 5, fill: 'url(#dFireflyGlow)', anim: 'fireflyFloat3', dur: '6s', delay: '3.5s' },
           ].map((f, i) => (
             <circle key={i} cx={f.cx} cy={f.cy} r={f.r} fill={f.fill}
               style={{ animation: `${f.anim} ${f.dur} ease-in-out infinite ${f.delay}` }} />
@@ -264,7 +264,7 @@ const GardenHarvest = memo(function GardenHarvest({ speaking = false }) {
         ))}
 
         {/* ── Ambient ground glow ── */}
-        <ellipse cx="200" cy="850" rx="200" ry="80" fill="#365314" opacity={0.05 * glow} />
+        <ellipse cx="200" cy="900" rx="200" ry="80" fill="#365314" opacity={0.05 * glow} />
       </svg>
     </div>
   );

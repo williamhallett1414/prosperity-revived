@@ -84,7 +84,7 @@ const IronTemple = memo(function IronTemple({ speaking = false }) {
       `}</style>
 
       <svg
-        viewBox="0 0 400 900"
+        viewBox="0 -100 400 1000"
         preserveAspectRatio="xMidYMin slice"
         className="absolute inset-0 w-full h-full"
         xmlns="http://www.w3.org/2000/svg"
@@ -130,20 +130,20 @@ const IronTemple = memo(function IronTemple({ speaking = false }) {
         </defs>
 
         {/* ── Power Core — behind avatar center ── */}
-        <circle cx="200" cy="500" r="180" fill="url(#dvCore)"
+        <circle cx="200" cy="550" r="180" fill="url(#dvCore)"
           style={{ animation: `corePulse ${speaking ? '1.5s' : '4s'} ease-in-out infinite` }} />
 
         {/* ── Sacred Geometry — outer ring (slow rotate) ── */}
-        <g style={{ animation: 'geoRotate 60s linear infinite', transformOrigin: '200px 200px' }}>
+        <g style={{ animation: 'geoRotate 60s linear infinite', transformOrigin: '200px 380px' }}>
           {/* Outer hexagon */}
           <polygon
-            points="200,80 304,140 304,260 200,320 96,260 96,140"
+            points="200,260 304,320 304,440 200,500 96,440 96,320"
             fill="none" stroke="#3B82F6" strokeWidth="0.6"
             style={{ animation: `geoPulse1 ${speaking ? '2s' : '5s'} ease-in-out infinite` }}
           />
           {/* Mid hexagon */}
           <polygon
-            points="200,110 278,155 278,245 200,290 122,245 122,155"
+            points="200,290 278,335 278,425 200,470 122,425 122,335"
             fill="none" stroke="#60A5FA" strokeWidth="0.4"
             style={{ animation: 'geoPulse2 6s ease-in-out infinite 1s' }}
           />
@@ -151,9 +151,9 @@ const IronTemple = memo(function IronTemple({ speaking = false }) {
           {[0, 60, 120, 180, 240, 300].map(angle => {
             const rad = (angle * Math.PI) / 180;
             const x1 = 200 + 120 * Math.cos(rad);
-            const y1 = 200 + 120 * Math.sin(rad);
+            const y1 = 380 + 120 * Math.sin(rad);
             const x2 = 200 + 80 * Math.cos(rad);
-            const y2 = 200 + 80 * Math.sin(rad);
+            const y2 = 380 + 80 * Math.sin(rad);
             return (
               <line key={angle} x1={x1} y1={y1} x2={x2} y2={y2}
                 stroke="#3B82F6" strokeWidth="0.3" opacity="0.12" />
@@ -162,19 +162,19 @@ const IronTemple = memo(function IronTemple({ speaking = false }) {
         </g>
 
         {/* ── Sacred Geometry — inner ring (reverse rotate) ── */}
-        <g style={{ animation: 'geoRotateReverse 45s linear infinite', transformOrigin: '200px 200px' }}>
+        <g style={{ animation: 'geoRotateReverse 45s linear infinite', transformOrigin: '200px 380px' }}>
           {/* Inner circle */}
-          <circle cx="200" cy="200" r="55" fill="none" stroke="#60A5FA" strokeWidth="0.4"
+          <circle cx="200" cy="380" r="55" fill="none" stroke="#60A5FA" strokeWidth="0.4"
             style={{ animation: 'geoPulse1 4s ease-in-out infinite 0.5s' }} />
           {/* Inner triangle */}
           <polygon
-            points="200,150 243,225 157,225"
+            points="200,330 243,405 157,405"
             fill="none" stroke="#93C5FD" strokeWidth="0.3"
             style={{ animation: 'geoPulse2 5s ease-in-out infinite' }}
           />
           {/* Inverted triangle */}
           <polygon
-            points="200,250 157,175 243,175"
+            points="200,430 157,355 243,355"
             fill="none" stroke="#93C5FD" strokeWidth="0.3"
             style={{ animation: 'geoPulse1 5s ease-in-out infinite 2s' }}
           />
@@ -182,7 +182,7 @@ const IronTemple = memo(function IronTemple({ speaking = false }) {
 
         {/* ── Energy circuit lines — left edge ── */}
         <g>
-          <path d="M0 150 L15 150 L25 180 L15 210 L25 240 L15 270 L25 300 L15 330 L0 330"
+          <path d="M0 300 L15 300 L25 330 L15 360 L25 390 L15 420 L25 450 L15 480 L0 480"
             fill="none" stroke="#3B82F6" strokeWidth="1"
             strokeDasharray="8 6"
             style={{ animation: 'circuitFlow 3s linear infinite' }} />
@@ -194,7 +194,7 @@ const IronTemple = memo(function IronTemple({ speaking = false }) {
 
         {/* ── Energy circuit lines — right edge ── */}
         <g>
-          <path d="M400 180 L385 180 L375 210 L385 240 L375 270 L385 300 L375 330 L385 360 L400 360"
+          <path d="M400 330 L385 330 L375 360 L385 390 L375 420 L385 450 L375 480 L385 510 L400 510"
             fill="none" stroke="#3B82F6" strokeWidth="1"
             strokeDasharray="8 6"
             style={{ animation: 'circuitFlow2 3.5s linear infinite 0.5s' }} />
@@ -205,12 +205,12 @@ const IronTemple = memo(function IronTemple({ speaking = false }) {
 
         {/* ── Top circuit bar ── */}
         <g>
-          <line x1="50" y1="40" x2="350" y2="40" stroke="#1E3A8A" strokeWidth="0.5" opacity="0.15" />
-          <line x1="80" y1="50" x2="320" y2="50" stroke="#3B82F6" strokeWidth="0.3" opacity="0.1"
+          <line x1="50" y1="240" x2="350" y2="240" stroke="#1E3A8A" strokeWidth="0.5" opacity="0.15" />
+          <line x1="80" y1="250" x2="320" y2="250" stroke="#3B82F6" strokeWidth="0.3" opacity="0.1"
             strokeDasharray="4 8"
             style={{ animation: 'circuitFlow 4s linear infinite' }} />
           {[80, 140, 200, 260, 320].map(x => (
-            <rect key={x} x={x - 1.5} y={38} width="3" height="3" rx="0.5"
+            <rect key={x} x={x - 1.5} y={238} width="3" height="3" rx="0.5"
               fill="#60A5FA" opacity={0.15 * power} />
           ))}
         </g>
@@ -218,14 +218,14 @@ const IronTemple = memo(function IronTemple({ speaking = false }) {
         {/* ── Floating energy orbs ── */}
         <g filter="url(#dvGlow)">
           {[
-            { cx: 55, cy: 280, r: 6, fill: 'url(#dvOrbGlow)', anim: 'energyOrb1', dur: '5s', delay: '0s' },
-            { cx: 345, cy: 320, r: 5, fill: 'url(#dvHotOrb)', anim: 'energyOrb2', dur: '6s', delay: '1s' },
-            { cx: 150, cy: 250, r: 7, fill: 'url(#dvOrbGlow)', anim: 'energyOrb3', dur: '7s', delay: '2s' },
-            { cx: 300, cy: 200, r: 4.5, fill: 'url(#dvHotOrb)', anim: 'energyOrb1', dur: '6.5s', delay: '3s' },
-            { cx: 80, cy: 400, r: 5.5, fill: 'url(#dvOrbGlow)', anim: 'energyOrb2', dur: '5.5s', delay: '0.5s' },
-            { cx: 350, cy: 450, r: 5, fill: 'url(#dvHotOrb)', anim: 'energyOrb3', dur: '8s', delay: '1.5s' },
-            { cx: 200, cy: 350, r: 6, fill: 'url(#dvOrbGlow)', anim: 'energyOrb1', dur: '7s', delay: '4s' },
-            { cx: 120, cy: 450, r: 4, fill: 'url(#dvHotOrb)', anim: 'energyOrb2', dur: '6s', delay: '2.5s' },
+            { cx: 55, cy: 380, r: 6, fill: 'url(#dvOrbGlow)', anim: 'energyOrb1', dur: '5s', delay: '0s' },
+            { cx: 345, cy: 420, r: 5, fill: 'url(#dvHotOrb)', anim: 'energyOrb2', dur: '6s', delay: '1s' },
+            { cx: 150, cy: 350, r: 7, fill: 'url(#dvOrbGlow)', anim: 'energyOrb3', dur: '7s', delay: '2s' },
+            { cx: 300, cy: 300, r: 4.5, fill: 'url(#dvHotOrb)', anim: 'energyOrb1', dur: '6.5s', delay: '3s' },
+            { cx: 80, cy: 500, r: 5.5, fill: 'url(#dvOrbGlow)', anim: 'energyOrb2', dur: '5.5s', delay: '0.5s' },
+            { cx: 350, cy: 550, r: 5, fill: 'url(#dvHotOrb)', anim: 'energyOrb3', dur: '8s', delay: '1.5s' },
+            { cx: 200, cy: 450, r: 6, fill: 'url(#dvOrbGlow)', anim: 'energyOrb1', dur: '7s', delay: '4s' },
+            { cx: 120, cy: 550, r: 4, fill: 'url(#dvHotOrb)', anim: 'energyOrb2', dur: '6s', delay: '2.5s' },
           ].map((orb, i) => (
             <circle key={i} cx={orb.cx} cy={orb.cy} r={orb.r} fill={orb.fill}
               style={{ animation: `${orb.anim} ${orb.dur} ease-in-out infinite ${orb.delay}` }} />
@@ -249,13 +249,13 @@ const IronTemple = memo(function IronTemple({ speaking = false }) {
         {/* ── Lightning flickers (speaking only) ── */}
         {speaking && (
           <g>
-            <line x1="130" y1="60" x2="145" y2="120" stroke="#93C5FD" strokeWidth="1.5"
+            <line x1="130" y1="260" x2="145" y2="320" stroke="#93C5FD" strokeWidth="1.5"
               style={{ animation: 'lightningFlash 3s linear infinite' }} />
-            <line x1="145" y1="120" x2="135" y2="130" stroke="#93C5FD" strokeWidth="1"
+            <line x1="145" y1="320" x2="135" y2="330" stroke="#93C5FD" strokeWidth="1"
               style={{ animation: 'lightningFlash 3s linear infinite' }} />
-            <line x1="270" y1="50" x2="258" y2="105" stroke="#BFDBFE" strokeWidth="1.2"
+            <line x1="270" y1="250" x2="258" y2="305" stroke="#BFDBFE" strokeWidth="1.2"
               style={{ animation: 'lightningFlash 4s linear infinite 1.5s' }} />
-            <line x1="258" y1="105" x2="265" y2="115" stroke="#BFDBFE" strokeWidth="0.8"
+            <line x1="258" y1="305" x2="265" y2="315" stroke="#BFDBFE" strokeWidth="0.8"
               style={{ animation: 'lightningFlash 4s linear infinite 1.5s' }} />
           </g>
         )}
