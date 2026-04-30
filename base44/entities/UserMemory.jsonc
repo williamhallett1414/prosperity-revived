@@ -1,65 +1,63 @@
 {
   "name": "UserMemory",
   "type": "object",
-  "description": "AI coaching memory — stores learned insights about the user across all chatbot conversations. Updated automatically after each chat session.",
   "properties": {
     "communication_style": {
       "type": "string",
-      "description": "How the user prefers to communicate: direct, gentle, humorous, detailed, brief, etc."
+      "description": "How the user prefers to communicate"
     },
     "emotional_patterns": {
       "type": "string",
-      "description": "Observed emotional tendencies: stress triggers, joy sources, coping mechanisms, recurring concerns"
+      "description": "Observed emotional patterns and triggers"
     },
     "spiritual_maturity": {
       "type": "string",
-      "description": "Observed faith level: new believer, growing, mature, questioning, on fire. Bible comfort level."
+      "description": "Assessment of the user's spiritual maturity and growth"
     },
     "fitness_observations": {
       "type": "string",
-      "description": "Workout preferences, physical limitations mentioned, progress notes, motivation patterns"
+      "description": "Observations about the user's fitness habits and progress"
     },
     "nutrition_observations": {
       "type": "string",
-      "description": "Food preferences, cooking skill, meal struggles, favorite recipes discussed, dietary changes"
+      "description": "Observations about the user's nutrition habits and preferences"
     },
     "life_events": {
       "type": "string",
-      "description": "Key life events shared: relationships, job changes, losses, celebrations, milestones"
+      "description": "Significant life events mentioned by the user"
     },
     "goals_mentioned": {
       "type": "string",
-      "description": "Specific goals the user has mentioned across conversations"
+      "description": "Goals the user has expressed across conversations"
     },
     "struggles_mentioned": {
       "type": "string",
-      "description": "Recurring struggles, challenges, or areas where they seek help"
+      "description": "Struggles and challenges the user has shared"
     },
     "wins_celebrated": {
       "type": "string",
-      "description": "Achievements, breakthroughs, and victories the user has shared"
+      "description": "Wins and achievements celebrated with the user"
     },
     "favorite_topics": {
       "type": "string",
-      "description": "Topics the user frequently returns to or shows enthusiasm about"
+      "description": "Topics the user engages with most frequently or enthusiastically"
     },
     "conversation_preferences": {
       "type": "string",
-      "description": "Prefers Scripture references, prefers practical advice, likes stories, wants accountability, etc."
+      "description": "Preferred conversation styles, depth, and formats"
+    },
+    "raw_insights": {
+      "type": "string",
+      "description": "Raw AI-generated insights about the user"
     },
     "last_updated": {
       "type": "string",
-      "format": "date-time",
-      "description": "When the memory was last updated"
+      "description": "Timestamp of the last memory update"
     },
     "interaction_count": {
       "type": "integer",
       "default": 0,
-      "description": "Total number of chat sessions across all avatars"
-    },
-    "raw_insights": {
-      "type": "string",
-      "description": "Rolling log of AI-extracted insights from recent conversations (last 10)"
+      "description": "Total number of interactions with the user"
     }
   },
   "required": []
