@@ -345,12 +345,19 @@ Consolidate duplicates, include realistic quantities (e.g. "2 lbs chicken breast
               <p className="text-sm font-bold text-[#0A1A2F] dark:text-white uppercase tracking-wide">🛒 Shopping List</p>
               <div className="flex items-center gap-2">
                 <button
-                  onClick={() => {
+                  onClick={async () => {
                     const text = shoppingList.map(cat =>
                       `${cat.name}:\n${cat.items.map(i => `• ${i}`).join('\n')}`
                     ).join('\n\n');
                     if (navigator.share) {
-                      navigator.share({ title: 'My Grocery List', text });
+                      try {
+                        await navigator.share({ title: 'My Grocery List', text });
+                      } catch (err) {
+                        if (err.name !== 'AbortError') {
+                          navigator.clipboard.writeText(text);
+                          toast.success('Shopping list copied to clipboard!');
+                        }
+                      }
                     } else {
                       navigator.clipboard.writeText(text);
                       toast.success('Shopping list copied to clipboard!');
