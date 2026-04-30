@@ -10,47 +10,7 @@ const studyGuides = [
     subtitle: 'The Book of Origins and Redemption',
     description: 'Explore the foundational book of the Bible with an in-depth study of creation, key characters like Abraham and Joseph, and God\'s redemptive plan for humanity.',
     chapters: 50,
-    image: 'https://images.unsplash.com/photo-1507842572673-a9d00c7a8c63?w=600'
-  },
-  {
-    id: 'psalms',
-    title: 'Psalms: Prayers and Praise',
-    subtitle: 'The Songbook of Israel',
-    description: 'Discover the beauty and depth of the Psalms, exploring prayers of joy, sorrow, faith, and worship that resonate across generations.',
-    chapters: 150,
-    image: 'https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=600'
-  },
-  {
-    id: 'matthew',
-    title: 'Matthew: The Gospel Account',
-    subtitle: 'Jesus as the Messiah King',
-    description: 'Study the life and teachings of Jesus Christ as revealed through Matthew\'s gospel, emphasizing His role as the promised Messiah.',
-    chapters: 28,
-    image: 'https://images.unsplash.com/photo-1507927391077-f47267a0b55e?w=600'
-  },
-  {
-    id: 'proverbs',
-    title: 'Proverbs: Wisdom Literature',
-    subtitle: 'Practical Wisdom for Living',
-    description: 'Explore the timeless wisdom of Proverbs, learning practical guidance for relationships, finances, character, and spiritual living.',
-    chapters: 31,
-    image: 'https://images.unsplash.com/photo-1505148968435-52f47ae32147?w=600'
-  },
-  {
-    id: 'romans',
-    title: 'Romans: The Gospel of Grace',
-    subtitle: 'Faith, Justification, and Redemption',
-    description: 'Understand Paul\'s theological masterpiece explaining salvation through faith in Christ and the transforming power of God\'s grace.',
-    chapters: 16,
-    image: 'https://images.unsplash.com/photo-1516541196182-e1c5926573e5?w=600'
-  },
-  {
-    id: 'john',
-    title: 'John: The Gospel of Belief',
-    subtitle: 'Encounters with the Word Made Flesh',
-    description: 'Examine the unique perspective of John\'s gospel, featuring profound signs and teachings about believing in Jesus Christ.',
-    chapters: 21,
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600'
+    image: 'https://images.unsplash.com/photo-1507843572673-a9d00c7a8c63?w=600'
   },
   {
     id: 'exodus',
@@ -187,6 +147,22 @@ const studyGuides = [
     description: 'Grapple with the problem of suffering through Job\'s story and God\'s response to his questions.',
     chapters: 42,
     image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600'
+  },
+  {
+    id: 'psalms',
+    title: 'Psalms: Prayers and Praise',
+    subtitle: 'The Songbook of Israel',
+    description: 'Discover the beauty and depth of the Psalms, exploring prayers of joy, sorrow, faith, and worship that resonate across generations.',
+    chapters: 150,
+    image: 'https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=600'
+  },
+  {
+    id: 'proverbs',
+    title: 'Proverbs: Wisdom Literature',
+    subtitle: 'Practical Wisdom for Living',
+    description: 'Explore the timeless wisdom of Proverbs, learning practical guidance for relationships, finances, character, and spiritual living.',
+    chapters: 31,
+    image: 'https://images.unsplash.com/photo-1505148968435-52f47ae32147?w=600'
   },
   {
     id: 'ecclesiastes',
@@ -341,6 +317,14 @@ const studyGuides = [
     image: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=600'
   },
   {
+    id: 'matthew',
+    title: 'Matthew: The Gospel Account',
+    subtitle: 'Jesus as the Messiah King',
+    description: 'Study the life and teachings of Jesus Christ as revealed through Matthew\'s gospel, emphasizing His role as the promised Messiah.',
+    chapters: 28,
+    image: 'https://images.unsplash.com/photo-1507927391077-f47267a0b55e?w=600'
+  },
+  {
     id: 'mark',
     title: 'Mark: The Suffering Servant',
     subtitle: 'Action and Service',
@@ -357,12 +341,28 @@ const studyGuides = [
     image: 'https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=600'
   },
   {
+    id: 'john',
+    title: 'John: The Gospel of Belief',
+    subtitle: 'Encounters with the Word Made Flesh',
+    description: 'Examine the unique perspective of John\'s gospel, featuring profound signs and teachings about believing in Jesus Christ.',
+    chapters: 21,
+    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600'
+  },
+  {
     id: 'acts',
     title: 'Acts: The Church Begins',
     subtitle: 'Spirit-Empowered Mission',
     description: 'Follow the early Church\'s growth from Jerusalem to Rome through the Spirit\'s power.',
     chapters: 28,
     image: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=600'
+  },
+  {
+    id: 'romans',
+    title: 'Romans: The Gospel of Grace',
+    subtitle: 'Faith, Justification, and Redemption',
+    description: 'Understand Paul\'s theological masterpiece explaining salvation through faith in Christ and the transforming power of God\'s grace.',
+    chapters: 16,
+    image: 'https://images.unsplash.com/photo-1516541196182-e1c5926573e5?w=600'
   },
   {
     id: '1corinthians',
