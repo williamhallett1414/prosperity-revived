@@ -235,12 +235,11 @@ function MeditationPlayer({ meditation, onClose }) {
     if (phase === 'playing') {
       pausedRef.current = true;
       if (audioRef.current && !audioRef.current.paused) audioRef.current.pause();
-      window.speechSynthesis?.pause();
+      window.speechSynthesis?.cancel();
       setPhase('paused');
     } else if (phase === 'paused') {
       pausedRef.current = false;
       if (audioRef.current && audioRef.current.paused && audioRef.current.src) audioRef.current.play().catch(() => {});
-      window.speechSynthesis?.resume();
       setPhase('playing');
     }
   };
