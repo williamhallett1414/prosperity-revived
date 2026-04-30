@@ -779,16 +779,16 @@ export default function Prayer() {
   const [crisisExpanded, setCrisisExpanded] = useState(false);
 
   return (
-    <div className="min-h-screen pb-28" style={{ background: 'linear-gradient(180deg, #020b14 0%, #071422 50%, #0a1a2f 100%)' }}>
+    <div className="min-h-screen pb-28" style={{ background: 'linear-gradient(180deg, #FEF7EE 0%, #FDF3E6 50%, #FCE8D6 100%)' }}>
 
       {/* ── Sticky top bar ── */}
       <div className="sticky top-0 z-30 flex items-center justify-between px-5 py-3"
-        style={{ background: 'rgba(2,11,20,0.92)', backdropFilter: 'blur(20px)', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+        style={{ background: 'rgba(255,247,238,0.95)', backdropFilter: 'blur(20px)', borderBottom: '1px solid rgba(201,162,39,0.15)' }}>
         <div className="flex items-center gap-3">
-          <h1 className="text-lg font-bold text-white" style={{ fontFamily: 'Georgia, serif' }}>Prayer</h1>
+          <h1 className="text-lg font-bold text-[#3C4E53]" style={{ fontFamily: 'Georgia, serif' }}>Prayer</h1>
           <div className="flex items-center gap-1.5">
             <div className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse" />
-            <span className="text-[11px] text-white/35 font-medium">{prayerRequests.length} requests</span>
+            <span className="text-[11px] text-[#3C4E53]/50 font-medium">{prayerRequests.length} requests</span>
           </div>
           {streak.streak > 0 && (
             <span className="flex items-center gap-1 text-[11px] font-bold px-2 py-0.5 rounded-full" style={{ color: '#c9a227', background: 'rgba(201,162,39,0.12)', border: '1px solid rgba(201,162,39,0.2)' }}>
@@ -798,13 +798,13 @@ export default function Prayer() {
         </div>
         <div className="flex items-center gap-2">
           <button onClick={handleRefresh}
-            className={`w-9 h-9 rounded-full flex items-center justify-center transition-all ${isRefreshing ? 'opacity-40' : 'hover:bg-white/10'}`}
-            style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.08)' }}>
-            <RefreshCw className={`w-4 h-4 text-white/50 ${isRefreshing ? 'animate-spin' : ''}`} />
+            className={`w-9 h-9 rounded-full flex items-center justify-center transition-all ${isRefreshing ? 'opacity-40' : 'hover:bg-[#FAD98D]/20'}`}
+            style={{ background: 'rgba(201,162,39,0.08)', border: '1px solid rgba(201,162,39,0.15)' }}>
+            <RefreshCw className={`w-4 h-4 text-[#c9a227]/60 ${isRefreshing ? 'animate-spin' : ''}`} />
           </button>
           <button onClick={() => { if (requireAuth(user, 'share a prayer request')) setShowNewPrayer(true); }}
             className="flex items-center gap-1.5 px-4 py-2 rounded-full font-bold text-white text-xs shadow-lg dark:shadow-none transition-all active:scale-95"
-            style={{ background: 'linear-gradient(135deg, #c9a227, #e8ba2e)' }}>
+            style={{ background: 'linear-gradient(135deg, #E8701F, #F5985D)' }}>
             <Plus className="w-3.5 h-3.5" strokeWidth={2.5} />
             Share Prayer
           </button>
@@ -813,27 +813,27 @@ export default function Prayer() {
 
       {/* ── Hero banner ── */}
       <div className="relative overflow-hidden px-4 pt-6 pb-5">
-        <div className="absolute inset-0 opacity-20" style={{ background: 'radial-gradient(ellipse at 50% 0%, rgba(201,162,39,0.6) 0%, transparent 70%)' }} />
+        <div className="absolute inset-0 opacity-30" style={{ background: 'radial-gradient(ellipse at 50% 0%, rgba(232,112,31,0.4) 0%, transparent 70%)' }} />
         <div className="relative text-center">
           <div className="text-5xl mb-3">🙏</div>
-          <h2 className="text-2xl font-black text-white mb-1" style={{ fontFamily: 'Georgia, serif' }}>Prayer Wall</h2>
-          <p className="text-white/40 text-sm">Lift each other up in prayer</p>
+          <h2 className="text-2xl font-black text-[#3C4E53] mb-1" style={{ fontFamily: 'Georgia, serif' }}>Prayer Wall</h2>
+          <p className="text-[#3C4E53]/60 text-sm">Lift each other up in prayer</p>
           <div className="flex items-center justify-center gap-4 mt-4">
             <div className="text-center">
-              <p className="text-lg font-black text-[#c9a227]">{prayerRequests.length}</p>
-              <p className="text-[10px] text-white/30 uppercase tracking-wide">Requests</p>
+              <p className="text-lg font-black text-[#E8701F]">{prayerRequests.length}</p>
+              <p className="text-[10px] text-[#3C4E53]/40 uppercase tracking-wide">Requests</p>
             </div>
             <div className="w-px h-8 bg-white/10" />
             <div className="text-center">
-              <p className="text-lg font-black text-[#c9a227]">{totalPraying.toLocaleString()}</p>
-              <p className="text-[10px] text-white/30 uppercase tracking-wide">Prayers Sent</p>
+              <p className="text-lg font-black text-[#E8701F]">{totalPraying.toLocaleString()}</p>
+              <p className="text-[10px] text-[#3C4E53]/40 uppercase tracking-wide">Prayers Sent</p>
             </div>
             {streak.streak > 0 && (
               <>
                 <div className="w-px h-8 bg-white/10" />
                 <div className="text-center">
-                  <p className="text-lg font-black text-[#c9a227]">{streak.streak}</p>
-                  <p className="text-[10px] text-white/30 uppercase tracking-wide">Day Streak 🔥</p>
+                  <p className="text-lg font-black text-[#E8701F]">{streak.streak}</p>
+                  <p className="text-[10px] text-[#3C4E53]/40 uppercase tracking-wide">Day Streak 🔥</p>
                 </div>
               </>
             )}
@@ -844,14 +844,14 @@ export default function Prayer() {
       <div className="px-4 space-y-16">
 
         {/* ── Crisis Resources (collapsible) ── */}
-        <div className="rounded-2xl overflow-hidden" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)' }}>
+        <div className="rounded-2xl overflow-hidden" style={{ background: 'rgba(255,255,255,0.6)', border: '1px solid rgba(201,162,39,0.2)' }}>
           <button onClick={() => setCrisisExpanded(v => !v)}
             className="w-full flex items-center justify-between px-4 py-3 min-h-[44px]">
             <div className="flex items-center gap-2">
               <span className="text-sm">🆘</span>
-              <span className="text-xs font-bold text-white/40 uppercase tracking-widest">Crisis Resources</span>
+              <span className="text-xs font-bold text-[#3C4E53]/50 uppercase tracking-widest">Crisis Resources</span>
             </div>
-            <span className="text-white/25 text-xs">{crisisExpanded ? '▲' : '▼'}</span>
+            <span className="text-[#3C4E53]/30 text-xs">{crisisExpanded ? '▲' : '▼'}</span>
           </button>
           <AnimatePresence>
             {crisisExpanded && (
@@ -861,25 +861,25 @@ export default function Prayer() {
                   <a href="tel:988" className="flex items-center gap-3 p-3 rounded-xl min-h-[44px]" style={{ background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.15)' }}>
                     <span className="text-lg">📞</span>
                     <div className="flex-1">
-                      <p className="text-sm font-bold text-white">988 Suicide & Crisis Lifeline</p>
-                      <p className="text-[11px] text-white/40">Call or text 988 — free, confidential, 24/7</p>
-                    </div>
+                       <p className="text-sm font-bold text-[#3C4E53]">988 Suicide & Crisis Lifeline</p>
+                       <p className="text-[11px] text-[#3C4E53]/60">Call or text 988 — free, confidential, 24/7</p>
+                     </div>
                   </a>
                   <a href="tel:18006624357" className="flex items-center gap-3 p-3 rounded-xl min-h-[44px]" style={{ background: 'rgba(59,130,246,0.08)', border: '1px solid rgba(59,130,246,0.15)' }}>
                     <span className="text-lg">💙</span>
                     <div className="flex-1">
-                      <p className="text-sm font-bold text-white">SAMHSA National Helpline</p>
-                      <p className="text-[11px] text-white/40">1-800-662-4357 — free referrals & support, 24/7</p>
-                    </div>
+                       <p className="text-sm font-bold text-[#3C4E53]">SAMHSA National Helpline</p>
+                       <p className="text-[11px] text-[#3C4E53]/60">1-800-662-4357 — free referrals & support, 24/7</p>
+                     </div>
                   </a>
                   <a href="sms:741741&body=HELLO" className="flex items-center gap-3 p-3 rounded-xl min-h-[44px]" style={{ background: 'rgba(16,185,129,0.08)', border: '1px solid rgba(16,185,129,0.15)' }}>
                     <span className="text-lg">💬</span>
                     <div className="flex-1">
-                      <p className="text-sm font-bold text-white">Crisis Text Line</p>
-                      <p className="text-[11px] text-white/40">Text HELLO to 741741 — free, confidential, 24/7</p>
-                    </div>
+                       <p className="text-sm font-bold text-[#3C4E53]">Crisis Text Line</p>
+                       <p className="text-[11px] text-[#3C4E53]/60">Text HELLO to 741741 — free, confidential, 24/7</p>
+                     </div>
                   </a>
-                  <p className="text-[10px] text-white/20 leading-relaxed pt-1">You are never alone. God loves you and so does this community.</p>
+                  <p className="text-[10px] text-[#3C4E53]/50 leading-relaxed pt-1">You are never alone. God loves you and so does this community.</p>
                 </div>
               </motion.div>
             )}
@@ -890,8 +890,8 @@ export default function Prayer() {
         {currentSpotlight && (
           <div>
             <div className="flex items-center gap-2 mb-3">
-              <div className="w-1 h-4 rounded-full bg-[#c9a227]" />
-              <p className="text-[11px] font-bold text-[#c9a227]/70 uppercase tracking-widest">Spotlight Prayer</p>
+              <div className="w-1 h-4 rounded-full bg-[#E8701F]" />
+              <p className="text-[11px] font-bold text-[#E8701F]/70 uppercase tracking-widest">Spotlight Prayer</p>
             </div>
             <SpotlightCard
               request={currentSpotlight}
@@ -905,7 +905,7 @@ export default function Prayer() {
             <div className="flex justify-center gap-1.5 mt-3">
               {spotlightRequests.map((_, i) => (
                 <button key={i} onClick={() => { setSpotlightIdx(i); setCountdown(SPOTLIGHT_DURATION); }}>
-                  <div className={`rounded-full transition-all duration-300 ${i === spotlightIdx ? 'w-5 h-1.5 bg-[#c9a227]' : 'w-1.5 h-1.5 bg-white/15'}`} />
+                  <div className={`rounded-full transition-all duration-300 ${i === spotlightIdx ? 'w-5 h-1.5 bg-[#E8701F]' : 'w-1.5 h-1.5 bg-[#3C4E53]/15'}`} />
                 </button>
               ))}
             </div>
@@ -913,22 +913,22 @@ export default function Prayer() {
         )}
 
         {/* ── Scripture card ── */}
-        <div className="rounded-2xl p-5 relative overflow-hidden" style={{ background: 'linear-gradient(135deg, rgba(201,162,39,0.10), rgba(201,162,39,0.04))', border: '1px solid rgba(201,162,39,0.18)' }}>
-          <div className="absolute top-2 left-4 text-[80px] leading-none font-serif text-[#c9a227]/8 select-none pointer-events-none">"</div>
+        <div className="rounded-2xl p-5 relative overflow-hidden" style={{ background: 'linear-gradient(135deg, rgba(232,112,31,0.08), rgba(245,152,93,0.04))', border: '1px solid rgba(232,112,31,0.2)' }}>
+          <div className="absolute top-2 left-4 text-[80px] leading-none font-serif text-[#E8701F]/8 select-none pointer-events-none">"</div>
           <div className="relative">
-            <p className="text-[10px] font-bold text-[#c9a227]/60 uppercase tracking-widest mb-3">Before You Pray</p>
-            <p className="text-white/80 text-sm leading-relaxed italic" style={{ fontFamily: 'Georgia, serif' }}>
+            <p className="text-[10px] font-bold text-[#E8701F]/60 uppercase tracking-widest mb-3">Before You Pray</p>
+            <p className="text-[#3C4E53]/80 text-sm leading-relaxed italic" style={{ fontFamily: 'Georgia, serif' }}>
               Don't be anxious for anything, but in everything, by prayer and petition with thanksgiving, let your requests be made known to God. And the peace of God, which surpasses all understanding, will guard your hearts.
             </p>
-            <p className="text-[#c9a227]/50 text-xs font-semibold mt-3">Philippians 4:6–7</p>
+            <p className="text-[#E8701F]/50 text-xs font-semibold mt-3">Philippians 4:6–7</p>
           </div>
         </div>
 
         {/* ── ACTS Guided Prayer ── */}
         <div>
           <div className="flex items-center gap-2 mb-3">
-            <div className="w-1 h-4 rounded-full bg-white/20" />
-            <p className="text-[11px] font-bold text-white/30 uppercase tracking-widest">Guided Prayer</p>
+            <div className="w-1 h-4 rounded-full bg-[#E8701F]/30" />
+            <p className="text-[11px] font-bold text-[#3C4E53]/40 uppercase tracking-widest">Guided Prayer</p>
           </div>
           <ActsGuidedPrayer onComplete={handleActsComplete} user={user} />
         </div>
@@ -936,8 +936,8 @@ export default function Prayer() {
         {/* ── Private prayer list ── */}
         <div className="mb-20">
           <div className="flex items-center gap-2 mb-3">
-            <div className="w-1 h-4 rounded-full bg-white/20" />
-            <p className="text-[11px] font-bold text-white/30 uppercase tracking-widest">My Private Prayers</p>
+            <div className="w-1 h-4 rounded-full bg-[#E8701F]/30" />
+            <p className="text-[11px] font-bold text-[#3C4E53]/40 uppercase tracking-widest">My Private Prayers</p>
           </div>
           <MyPrayers />
         </div>
@@ -945,16 +945,16 @@ export default function Prayer() {
         {/* ── Talk to Hannah ── */}
         <Link to={createPageUrl('ChatScreen?bot=Hannah')}>
           <div className="rounded-2xl p-4 flex items-center gap-4 transition-all active:scale-[0.98]"
-            style={{ background: 'linear-gradient(135deg, rgba(56,189,248,0.12), rgba(14,165,233,0.06))', border: '1px solid rgba(56,189,248,0.18)' }}>
+            style={{ background: 'linear-gradient(135deg, rgba(56,189,248,0.15), rgba(14,165,233,0.08))', border: '1px solid rgba(56,189,248,0.25)' }}>
             <div className="w-11 h-11 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg dark:shadow-none"
               style={{ background: 'linear-gradient(135deg, #38BDF8, #0EA5E9)', boxShadow: '0 4px 12px rgba(56,189,248,0.25)' }}>
               <Heart className="w-5 h-5 text-white" />
             </div>
             <div className="flex-1 min-w-0">
-              <p className="font-bold text-white text-sm">Talk to Hannah</p>
-              <p className="text-xs text-white/40 mt-0.5">Need to process something? She listens without judgment.</p>
-            </div>
-            <ChevronRight className="w-4 h-4 text-sky-400/40 flex-shrink-0" />
+               <p className="font-bold text-[#3C4E53] text-sm">Talk to Hannah</p>
+               <p className="text-xs text-[#3C4E53]/60 mt-0.5">Need to process something? She listens without judgment.</p>
+             </div>
+             <ChevronRight className="w-4 h-4 text-sky-400/60 flex-shrink-0" />
           </div>
         </Link>
 
@@ -962,17 +962,17 @@ export default function Prayer() {
         <div>
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
-              <div className="w-1 h-4 rounded-full bg-[#c9a227]" />
-              <p className="text-[11px] font-bold text-[#c9a227]/70 uppercase tracking-widest">Prayer Wall</p>
+              <div className="w-1 h-4 rounded-full bg-[#E8701F]" />
+              <p className="text-[11px] font-bold text-[#E8701F]/70 uppercase tracking-widest">Prayer Wall</p>
             </div>
-            <span className="text-[10px] font-bold text-white/25 bg-white/5 px-2 py-0.5 rounded-full">{filtered.length} requests</span>
+            <span className="text-[10px] font-bold text-[#3C4E53]/30 bg-[#3C4E53]/5 px-2 py-0.5 rounded-full">{filtered.length} requests</span>
           </div>
 
           <div className="flex gap-2 overflow-x-auto pb-2 mb-4 -mx-1 px-1" style={{ scrollbarWidth: 'none' }}>
             {CATEGORIES.map(cat => (
               <button key={cat} onClick={() => setActiveCategory(cat)}
-                className={`flex-shrink-0 text-xs px-3 py-1.5 rounded-full border font-semibold transition-all ${activeCategory === cat ? 'border-[#c9a227] text-[#c9a227]' : 'bg-white/5 border-white/8 text-white/35 hover:border-white/25'}`}
-                style={activeCategory === cat ? { background: 'rgba(201,162,39,0.15)' } : {}}>
+                className={`flex-shrink-0 text-xs px-3 py-1.5 rounded-full border font-semibold transition-all ${activeCategory === cat ? 'border-[#E8701F] text-[#E8701F]' : 'bg-[#3C4E53]/5 border-[#3C4E53]/10 text-[#3C4E53]/40 hover:border-[#3C4E53]/25'}`}
+                style={activeCategory === cat ? { background: 'rgba(232,112,31,0.12)' } : {}}>
                 {cat}
               </button>
             ))}
@@ -980,16 +980,16 @@ export default function Prayer() {
 
           {prayersLoading ? (
             <div className="flex flex-col items-center py-12 gap-3">
-              <Loader2 className="w-6 h-6 animate-spin text-[#c9a227]" />
-              <p className="text-white/30 text-sm">Loading prayers...</p>
+              <Loader2 className="w-6 h-6 animate-spin text-[#E8701F]" />
+              <p className="text-[#3C4E53]/50 text-sm">Loading prayers...</p>
             </div>
           ) : filtered.length === 0 ? (
             <div className="text-center py-12">
               <div className="text-4xl mb-3">🙏</div>
-              <p className="text-white/30 text-sm">No prayer requests yet.</p>
+              <p className="text-[#3C4E53]/50 text-sm">No prayer requests yet.</p>
               <button onClick={() => setShowNewPrayer(true)}
                 className="mt-4 px-5 py-2.5 rounded-full text-sm font-bold text-white"
-                style={{ background: 'linear-gradient(135deg, #c9a227, #e8ba2e)' }}>
+                style={{ background: 'linear-gradient(135deg, #E8701F, #F5985D)' }}>
                 Be the first to share
               </button>
             </div>
