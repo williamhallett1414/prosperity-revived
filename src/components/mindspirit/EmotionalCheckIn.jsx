@@ -63,8 +63,8 @@ export default function EmotionalCheckIn() {
             onClick={() => setSelectedMood(mood)}
             className={`p-4 rounded-xl border-2 transition-all ${
               selectedMood?.value === mood.value
-                ? 'border-[#FAD98D] bg-[#FAD98D]/10'
-                : 'border-gray-200 dark:border-white/10 hover:border-[#FAD98D]/50'
+                ? 'border-[#FAD98D] dark:border-[#FAD98D]/30 bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5'
+                : 'border-gray-200 dark:border-white/10 hover:border-[#FAD98D]/50 dark:border-[#FAD98D]/20'
             }`}
           >
             <div className="text-3xl mb-1">{mood.emoji}</div>
@@ -83,7 +83,7 @@ export default function EmotionalCheckIn() {
             value={influence}
             onChange={(e) => setInfluence(e.target.value)}
             placeholder="What influenced your mood today? (optional)"
-            className="border-gray-200 dark:border-white/10 focus:border-[#FAD98D]"
+            className="border-gray-200 dark:border-white/10 focus:border-[#FAD98D] dark:border-[#FAD98D]/30 dark:border-[#FAD98D]/30"
           />
 
           <div className="bg-[#AFC7E3]/10 rounded-xl p-4">

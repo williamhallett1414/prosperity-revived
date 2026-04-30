@@ -83,7 +83,7 @@ export default function RecipeSourceImport({ user }) {
   if (success) {
     return (
       <div className="text-center py-8">
-        <div className="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+        <div className="w-14 h-14 bg-green-100 dark:bg-green-900/25 rounded-full flex items-center justify-center mx-auto mb-4">
           <Check className="w-7 h-7 text-green-600" />
         </div>
         <h3 className="font-bold text-gray-900 dark:text-white mb-1">Data Imported!</h3>
@@ -97,7 +97,7 @@ export default function RecipeSourceImport({ user }) {
 
   return (
     <div className="space-y-4">
-      <div className="flex items-start gap-2 bg-green-50 rounded-xl p-3 text-xs text-green-700">
+      <div className="flex items-start gap-2 bg-green-50 dark:bg-green-900/20 rounded-xl p-3 text-xs text-green-700">
         <Info className="w-3.5 h-3.5 mt-0.5 flex-shrink-0" />
         <p>Give Chef Daniel your grocery list, pantry contents, or dietary preferences to get meal suggestions that match exactly what you have and need.</p>
       </div>
@@ -109,7 +109,7 @@ export default function RecipeSourceImport({ user }) {
             <button
               key={source.id}
               onClick={() => setSelectedSource(source)}
-              className="w-full flex items-center gap-3 p-3 rounded-xl border border-gray-100 dark:border-white/10 hover:border-green-200 hover:bg-green-50 transition-all text-left"
+              className="w-full flex items-center gap-3 p-3 rounded-xl border border-gray-100 dark:border-white/10 hover:border-green-200 dark:border-green-800/30 hover:bg-green-50 dark:bg-green-900/20 transition-all text-left"
             >
               <span className="text-2xl">{source.icon}</span>
               <div className="flex-1 min-w-0">

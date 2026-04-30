@@ -25,7 +25,7 @@ function getXp(progress) {
 function StatChip({ icon: Icon, label, value, sub, bg, accent }) {
   return (
     <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
-      className={`${bg} rounded-2xl p-4 border border-[#FAD98D]/25`}>
+      className={`${bg} rounded-2xl p-4 border border-[#FAD98D]/25 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5`}>
       <Icon className={`w-4 h-4 ${accent} mb-2`} />
       <p className="text-2xl font-bold text-[#0A1A2F] dark:text-white dark:text-white">{value}</p>
       <p className="text-xs font-semibold text-[#0A1A2F]/60 dark:text-white/60 leading-tight">{label}</p>
@@ -49,7 +49,7 @@ function TabBar({ active, onChange }) {
           className={`flex-1 py-2.5 rounded-xl text-xs font-bold transition-all ${
             active === id
               ? 'bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white shadow-sm dark:shadow-none'
-              : 'bg-white dark:bg-white/5 text-[#0A1A2F]/50 dark:text-white/50 border border-[#FAD98D]/25'
+              : 'bg-white dark:bg-white/5 text-[#0A1A2F]/50 dark:text-white/50 border border-[#FAD98D]/25 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5'
           }`}>
           {label}
         </button>
@@ -85,7 +85,7 @@ export default function Achievements() {
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
 
       {/* ── Hero header ── */}
-      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 px-4 pt-0 pb-2">
+      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 px-4 pt-0 pb-2">
         <div className="max-w-lg mx-auto">
           <div className="flex items-center gap-3">
             <button onClick={() => navigate(-1)}

@@ -71,7 +71,7 @@ export default function PreviewPlanModal({ plan, open, onOpenChange }) {
                   </div>
 
                   {day1.bible.key_verse && (
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                    <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800/30 rounded-lg p-4">
                       <p className="text-sm text-blue-600 italic">"{day1.bible.key_verse}"</p>
                     </div>
                   )}
@@ -84,7 +84,7 @@ export default function PreviewPlanModal({ plan, open, onOpenChange }) {
                   )}
 
                   {day1.bible.reflection_q && (
-                    <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
+                    <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800/30 rounded-lg p-4">
                       <p className="text-sm font-semibold text-amber-900 mb-2">Reflection Question</p>
                       <p className="text-sm text-amber-800">{day1.bible.reflection_q}</p>
                     </div>
@@ -105,14 +105,14 @@ export default function PreviewPlanModal({ plan, open, onOpenChange }) {
                   </div>
 
                   {day1.workout.motivational_tip && (
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                    <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800/30 rounded-lg p-4">
                       <p className="text-sm font-semibold text-blue-900 mb-1">Motivation</p>
                       <p className="text-sm text-blue-800">"{day1.workout.motivational_tip}"</p>
                     </div>
                   )}
 
                   {day1.workout.coach_note && (
-                    <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                    <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800/30 rounded-lg p-4">
                       <p className="text-sm font-semibold text-green-900 mb-1">Coach's Note</p>
                       <p className="text-sm text-green-800">{day1.workout.coach_note}</p>
                     </div>
@@ -136,14 +136,14 @@ export default function PreviewPlanModal({ plan, open, onOpenChange }) {
                   </div>
 
                   {day1.nutrition.plan && (
-                    <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                    <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800/30 rounded-lg p-4">
                       <p className="text-sm font-semibold text-green-900 mb-2">Sample Meals</p>
                       <p className="text-sm text-green-800 whitespace-pre-wrap">{day1.nutrition.plan}</p>
                     </div>
                   )}
 
                   {day1.nutrition.tip && (
-                    <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
+                    <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800/30 rounded-lg p-4">
                       <p className="text-sm font-semibold text-amber-900 mb-1">Tip</p>
                       <p className="text-sm text-amber-800">{day1.nutrition.tip}</p>
                     </div>
@@ -157,14 +157,14 @@ export default function PreviewPlanModal({ plan, open, onOpenChange }) {
               <TabsContent value="journal" className="space-y-4">
                 <div className="space-y-3">
                   {day1.journal.prompt && (
-                    <div className="bg-purple-50 border border-purple-200 rounded-lg p-4">
+                    <div className="bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800/30 rounded-lg p-4">
                       <p className="text-sm font-semibold text-purple-900 mb-2">Journal Prompt</p>
                       <p className="text-sm text-purple-800">{day1.journal.prompt}</p>
                     </div>
                   )}
 
                   {day1.affirmation && (
-                    <div className="bg-pink-50 border border-pink-200 rounded-lg p-4">
+                    <div className="bg-pink-50 dark:bg-pink-900/20 border border-pink-200 rounded-lg p-4">
                       <p className="text-sm font-semibold text-pink-900 mb-2">Daily Affirmation</p>
                       <p className="text-sm text-pink-800 italic">"{day1.affirmation}"</p>
                     </div>

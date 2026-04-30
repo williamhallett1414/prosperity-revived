@@ -94,7 +94,7 @@ export default function WorkoutCategoryPage() {
       <div className="max-w-2xl mx-auto px-3 sm:px-4 pt-6 pb-24">
 
       {/* Health Disclaimer — required for App Store approval */}
-      <div className="mx-3 sm:mx-4 mb-3 bg-amber-50 dark:bg-amber-900/15 rounded-xl px-3 py-2 border border-amber-100 dark:border-amber-800/20">
+      <div className="mx-3 sm:mx-4 mb-3 bg-amber-50 dark:bg-amber-900/20 dark:bg-amber-900/15 rounded-xl px-3 py-2 border border-amber-100 dark:border-amber-800/30 dark:border-amber-800/20">
         <p className="text-[10px] text-amber-700 dark:text-amber-300 text-center">Not medical advice. Consult a healthcare professional before starting any new exercise or nutrition program.</p>
       </div>
 
@@ -143,9 +143,9 @@ function DifficultyFiltered({ workouts, user }) {
 
   const LEVEL_COLORS = {
     all: 'bg-[#38BDF8] text-white',
-    beginner: 'bg-emerald-500 text-white',
-    intermediate: 'bg-amber-500 text-white',
-    advanced: 'bg-rose-500 text-white'
+    beginner: 'bg-emerald-50 dark:bg-emerald-900/200 text-white',
+    intermediate: 'bg-amber-50 dark:bg-amber-900/200 text-white',
+    advanced: 'bg-rose-50 dark:bg-rose-900/200 text-white'
   };
   const LEVEL_INACTIVE = 'bg-white dark:bg-white/5 text-[#0A1A2F]/55 dark:text-white/55 border border-gray-200 dark:border-white/10 dark:border-white/10';
 

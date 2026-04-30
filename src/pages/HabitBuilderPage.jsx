@@ -105,7 +105,7 @@ function MilestoneModal({ habitLabel, days, onClose, user }) {
         transition={{ type: 'spring', stiffness: 300, damping: 22 }}
         className="w-full max-w-xs" onClick={e => e.stopPropagation()}
       >
-        <div className="bg-gradient-to-br from-[#0A1A2F] to-[#0A1A2F] rounded-3xl p-8 text-white text-center border border-[#FAD98D]/25 shadow-2xl">
+        <div className="bg-gradient-to-br from-[#0A1A2F] to-[#0A1A2F] rounded-3xl p-8 text-white text-center border border-[#FAD98D]/25 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 shadow-2xl">
           <motion.div initial={{ scale: 0 }} animate={{ scale: [0, 1.4, 1] }} transition={{ delay: 0.15, duration: 0.7, times: [0, 0.6, 1] }}
             className="text-6xl mb-4">🔥</motion.div>
           <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
@@ -150,7 +150,7 @@ function AllDoneOverlay({ habits, onClose, user }) {
         transition={{ type: 'spring', stiffness: 320, damping: 24 }}
         className="w-full max-w-xs" onClick={e => e.stopPropagation()}
       >
-        <div className="bg-gradient-to-br from-[#0A1A2F] to-[#0A1A2F] rounded-3xl p-8 text-white text-center border border-[#FAD98D]/20 shadow-2xl">
+        <div className="bg-gradient-to-br from-[#0A1A2F] to-[#0A1A2F] rounded-3xl p-8 text-white text-center border border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 shadow-2xl">
           <motion.div initial={{ scale: 0 }} animate={{ scale: [0, 1.3, 1] }} transition={{ delay: 0.15, duration: 0.6, times: [0, 0.65, 1] }}
             className="text-6xl mb-4">🏅</motion.div>
           <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
@@ -206,7 +206,7 @@ function CustomHabitForm({ onAdd }) {
 
   if (!open) return (
     <button onClick={() => setOpen(true)}
-      className="w-full flex items-center gap-2 p-3 rounded-xl border-2 border-dashed border-[#F2F6FA] hover:border-[#FAD98D]/50 text-[#0A1A2F]/40 dark:text-white/40 hover:text-[#c9a227] transition-all">
+      className="w-full flex items-center gap-2 p-3 rounded-xl border-2 border-dashed border-[#F2F6FA] hover:border-[#FAD98D]/50 dark:border-[#FAD98D]/20 text-[#0A1A2F]/40 dark:text-white/40 hover:text-[#c9a227] transition-all">
       <Plus className="w-4 h-4" />
       <span className="text-sm font-semibold">Create custom habit</span>
     </button>
@@ -214,7 +214,7 @@ function CustomHabitForm({ onAdd }) {
 
   return (
     <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
-      className="border-2 border-[#FAD98D]/40 rounded-xl p-4 bg-white dark:bg-white/5 space-y-3">
+      className="border-2 border-[#FAD98D]/40 dark:border-[#FAD98D]/15 dark:border-[#FAD98D]/8 rounded-xl p-4 bg-white dark:bg-white/5 space-y-3">
       <p className="text-xs font-bold text-[#c9a227] uppercase tracking-widest">New Custom Habit</p>
 
       {/* Emoji picker */}
@@ -316,7 +316,7 @@ function HabitPickerModal({ activeIds, onSave, onClose }) {
                     return (
                       <div key={habit.id} className="relative">
                         <button onClick={() => toggle(habit.id)}
-                          className={`w-full flex items-center gap-3 p-3 rounded-xl border-2 transition-all text-left ${on ? 'border-[#c9a227] bg-white dark:bg-white/5' : 'border-[#F2F6FA] bg-white dark:bg-white/5 hover:border-[#FAD98D]/40'}`}>
+                          className={`w-full flex items-center gap-3 p-3 rounded-xl border-2 transition-all text-left ${on ? 'border-[#c9a227] bg-white dark:bg-white/5' : 'border-[#F2F6FA] bg-white dark:bg-white/5 hover:border-[#FAD98D]/40 dark:border-[#FAD98D]/15 dark:border-[#FAD98D]/8'}`}>
                           <div className={`w-9 h-9 rounded-xl bg-gradient-to-br ${habit.gradient} flex items-center justify-center flex-shrink-0`}>
                             <span className="text-lg">{habit.emoji}</span>
                           </div>
@@ -330,7 +330,7 @@ function HabitPickerModal({ activeIds, onSave, onClose }) {
                         </button>
                         {habit.custom && (
                           <button onClick={() => removeCustom(habit.id)}
-                            className="absolute right-10 top-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-red-100 flex items-center justify-center text-red-400 hover:bg-red-200 transition-colors">
+                            className="absolute right-10 top-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-red-100 dark:bg-red-900/25 flex items-center justify-center text-red-400 hover:bg-red-200 transition-colors">
                             <X className="w-3 h-3" />
                           </button>
                         )}
@@ -440,7 +440,7 @@ function HabitCard({ habit, isDone, streak, history, onToggle, index, user }) {
       className={`w-full text-left rounded-2xl overflow-hidden transition-all group ${
         isDone
           ? 'shadow-sm dark:shadow-none'
-          : 'bg-white dark:bg-white/5 border border-[#F2F6FA] hover:border-[#FAD98D]/40 hover:shadow-sm dark:shadow-none'
+          : 'bg-white dark:bg-white/5 border border-[#F2F6FA] hover:border-[#FAD98D]/40 dark:border-[#FAD98D]/15 dark:border-[#FAD98D]/8 hover:shadow-sm dark:shadow-none'
       }`}
       style={isDone ? { background: `linear-gradient(135deg, ${habit.color}22 0%, ${habit.color}0d 100%)`, border: `2px solid ${habit.color}35` } : {}}
     >
@@ -698,10 +698,10 @@ export default function HabitBuilderPage() {
                     className={`flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-semibold whitespace-nowrap transition-all ${
                       category === cat
                         ? 'bg-[#0A1A2F] text-white border-[#0A1A2F]'
-                        : 'bg-white dark:bg-white/5 text-[#0A1A2F]/50 dark:text-white/50 border-[#F2F6FA] hover:border-[#FAD98D]/40'
+                        : 'bg-white dark:bg-white/5 text-[#0A1A2F]/50 dark:text-white/50 border-[#F2F6FA] hover:border-[#FAD98D]/40 dark:border-[#FAD98D]/15 dark:border-[#FAD98D]/8'
                     }`}>
                     {cat}
-                    <span className={`text-[9px] font-bold rounded-full px-1.5 py-0.5 ${category === cat ? 'bg-white/20' : catDone === catHabits.length && catHabits.length > 0 ? 'bg-emerald-100 text-emerald-600' : 'bg-[#F2F6FA] dark:bg-[#0A1A2F]'}`}>
+                    <span className={`text-[9px] font-bold rounded-full px-1.5 py-0.5 ${category === cat ? 'bg-white/20' : catDone === catHabits.length && catHabits.length > 0 ? 'bg-emerald-100 dark:bg-emerald-900/25 text-emerald-600' : 'bg-[#F2F6FA] dark:bg-[#0A1A2F]'}`}>
                       {catDone}/{catHabits.length}
                     </span>
                   </button>
@@ -753,7 +753,7 @@ export default function HabitBuilderPage() {
           {/* ── Growth pathway link ─────────────────────────────────────────── */}
           <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
             <Link to={createPageUrl('GrowthPathwaysPage')}
-              className="flex items-center gap-3 bg-white dark:bg-white/5 rounded-2xl border border-[#F2F6FA] hover:border-[#FAD98D]/40 p-4 transition-all group">
+              className="flex items-center gap-3 bg-white dark:bg-white/5 rounded-2xl border border-[#F2F6FA] hover:border-[#FAD98D]/40 dark:border-[#FAD98D]/15 dark:border-[#FAD98D]/8 p-4 transition-all group">
               <div className="w-10 h-10 bg-gradient-to-br from-[#FAD98D] to-[#c9a227] rounded-xl flex items-center justify-center flex-shrink-0">
                 <Sparkles className="w-5 h-5 text-[#0A1A2F] dark:text-white dark:text-white" />
               </div>

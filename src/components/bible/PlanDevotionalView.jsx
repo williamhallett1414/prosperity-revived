@@ -79,7 +79,7 @@ export default function PlanDevotionalView({ planId }) {
       </Card>
 
       {/* Action Plan */}
-      <Card className="p-6 bg-gradient-to-br from-[#FAD98D]/10 to-[#FFF9EC]">
+      <Card className="p-6 bg-gradient-to-br from-[#FAD98D]/10 to-[#FFF9EC] dark:to-[#FAD98D]/5">
         <h2 className="text-xl font-bold text-[#0A1A2F] dark:text-white mb-4 flex items-center gap-2">
           <Target className="w-5 h-5 text-[#C9A227]" />
           {devotional.actionPlan.title}

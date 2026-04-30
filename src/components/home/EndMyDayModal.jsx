@@ -121,7 +121,7 @@ export default function EndMyDayModal({ isOpen, onClose }) {
             className="w-full p-3 rounded-xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-white/5 text-sm text-[#0A1A2F] dark:text-white resize-none focus:outline-none focus:border-[#c9a227] transition-colors"
             rows={2}
           />
-          <div className="bg-[#FAD98D]/20 rounded-xl p-3">
+          <div className="bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8 rounded-xl p-3">
             <p className="font-serif italic text-[#0A1A2F] dark:text-white text-xs leading-relaxed text-center">
               "Because of the Lord's great love we are not consumed, for his compassions never fail. They are new every morning."
             </p>

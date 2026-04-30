@@ -42,7 +42,7 @@ export default function ContentModeration({ content, onFlag }) {
   if (!isFlagged) return null;
 
   return (
-    <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 mb-3">
+    <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800/30 rounded-lg p-3 mb-3">
       <div className="flex items-start gap-2">
         <AlertTriangle className="w-4 h-4 text-amber-600 mt-0.5 flex-shrink-0" />
         <div>

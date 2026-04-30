@@ -125,10 +125,10 @@ export default function WellnessRecommendations({ user }) {
             const progress = userParticipation?.progress || 0;
 
             const iconColors = [
-              { bg: 'bg-yellow-100', icon: 'text-yellow-600', Icon: Trophy },
-              { bg: 'bg-red-100', icon: 'text-red-600', Icon: Dumbbell },
+              { bg: 'bg-yellow-100 dark:bg-yellow-900/25', icon: 'text-yellow-600', Icon: Trophy },
+              { bg: 'bg-red-100 dark:bg-red-900/25', icon: 'text-red-600', Icon: Dumbbell },
               { bg: 'bg-[#AFC7E3]/20', icon: 'text-[#3C4E53]', Icon: Heart },
-              { bg: 'bg-[#FAD98D]/20', icon: 'text-[#C9A227]', Icon: Target }
+              { bg: 'bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8', icon: 'text-[#C9A227]', Icon: Target }
             ];
             const colorSet = iconColors[index % iconColors.length];
             const Icon = colorSet.Icon;

@@ -15,28 +15,28 @@ import { localDateKey, todayKey } from '@/utils/localDate';
 const MOODS = [
   {
     emoji: '😊', label: 'Joyful', value: 'joyful',
-    color: 'from-amber-400 to-yellow-300', bg: 'bg-amber-50', border: 'border-amber-300', dot: '#f59e0b',
+    color: 'from-amber-400 to-yellow-300', bg: 'bg-amber-50 dark:bg-amber-900/20', border: 'border-amber-300', dot: '#f59e0b',
     scripture: { text: 'Rejoice in the Lord always! Again I will say, rejoice!', ref: 'Philippians 4:4' },
     practice: 'Gratitude Prayer', practiceIcon: '🙏', practicePage: 'Prayer',
     prompt: 'What are you grateful for right now?',
   },
   {
     emoji: '🙏', label: 'Grateful', value: 'grateful',
-    color: 'from-green-400 to-emerald-300', bg: 'bg-green-50', border: 'border-green-300', dot: '#22c55e',
+    color: 'from-green-400 to-emerald-300', bg: 'bg-green-50 dark:bg-green-900/20', border: 'border-green-300', dot: '#22c55e',
     scripture: { text: 'In everything give thanks, for this is the will of God in Christ Jesus toward you.', ref: '1 Thessalonians 5:18' },
     practice: 'Scripture Meditation', practiceIcon: '📖', practicePage: 'Bible',
     prompt: 'Name three specific blessings from today.',
   },
   {
     emoji: '🌟', label: 'Hopeful', value: 'hopeful',
-    color: 'from-sky-400 to-blue-300', bg: 'bg-sky-50', border: 'border-sky-300', dot: '#3b82f6',
+    color: 'from-sky-400 to-blue-300', bg: 'bg-sky-50 dark:bg-sky-900/20', border: 'border-sky-300', dot: '#3b82f6',
     scripture: { text: 'For I know the thoughts that I think toward you, thoughts of peace and not of evil, to give you hope and a future.', ref: 'Jeremiah 29:11' },
     practice: 'Affirmations', practiceIcon: '✨', practicePage: 'AffirmationsPage',
     prompt: 'What are you looking forward to?',
   },
   {
     emoji: '😌', label: 'Peaceful', value: 'peaceful',
-    color: 'from-teal-400 to-cyan-300', bg: 'bg-teal-50', border: 'border-teal-300', dot: '#14b8a6',
+    color: 'from-teal-400 to-cyan-300', bg: 'bg-teal-50 dark:bg-teal-900/20', border: 'border-teal-300', dot: '#14b8a6',
     scripture: { text: 'And the peace of God, which surpasses all understanding, will guard your hearts and your thoughts in Christ Jesus.', ref: 'Philippians 4:7' },
     practice: 'Guided Meditation', practiceIcon: '🧘', practicePage: 'GuidedMeditationsPage',
     prompt: 'What is bringing you peace right now?',
@@ -50,14 +50,14 @@ const MOODS = [
   },
   {
     emoji: '😰', label: 'Anxious', value: 'anxious',
-    color: 'from-purple-400 to-violet-300', bg: 'bg-purple-50', border: 'border-purple-300', dot: '#a855f7',
+    color: 'from-purple-400 to-violet-300', bg: 'bg-purple-50 dark:bg-purple-900/20', border: 'border-purple-300', dot: '#a855f7',
     scripture: { text: 'Casting all your worries on him, because he cares for you.', ref: '1 Peter 5:7' },
     practice: 'Breathing Exercise', practiceIcon: '🌬️', practicePage: 'GuidedMeditationsPage',
     prompt: 'What is making you feel anxious? Try to name it.',
   },
   {
     emoji: '😤', label: 'Frustrated', value: 'frustrated',
-    color: 'from-orange-400 to-red-300', bg: 'bg-orange-50', border: 'border-orange-300', dot: '#f97316',
+    color: 'from-orange-400 to-red-300', bg: 'bg-orange-50 dark:bg-orange-900/20', border: 'border-orange-300', dot: '#f97316',
     scripture: { text: 'A gentle answer turns away wrath, but a harsh word stirs up anger.', ref: 'Proverbs 15:1' },
     practice: 'Grounding Practice', practiceIcon: '🌿', practicePage: 'MindsetResetPage',
     prompt: 'What triggered this feeling? What do you need right now?',
@@ -71,7 +71,7 @@ const MOODS = [
   },
   {
     emoji: '😩', label: 'Overwhelmed', value: 'overwhelmed',
-    color: 'from-rose-400 to-pink-300', bg: 'bg-rose-50', border: 'border-rose-300', dot: '#f43f5e',
+    color: 'from-rose-400 to-pink-300', bg: 'bg-rose-50 dark:bg-rose-900/20', border: 'border-rose-300', dot: '#f43f5e',
     scripture: { text: 'Come to me, all you who labor and are heavily burdened, and I will give you rest.', ref: 'Matthew 11:28' },
     practice: 'Mindset Reset', practiceIcon: '🔄', practicePage: 'MindsetResetPage',
     prompt: 'What feels like too much right now? What can you set down?',
@@ -85,7 +85,7 @@ const MOODS = [
   },
   {
     emoji: '🥀', label: 'Struggling', value: 'struggling',
-    color: 'from-amber-600 to-amber-400', bg: 'bg-amber-50', border: 'border-amber-400', dot: '#d97706',
+    color: 'from-amber-600 to-amber-400', bg: 'bg-amber-50 dark:bg-amber-900/20', border: 'border-amber-400', dot: '#d97706',
     scripture: { text: 'My grace is sufficient for you, for my power is made perfect in weakness.', ref: '2 Corinthians 12:9' },
     practice: 'Forgiveness Meditation', practiceIcon: '🤍', practicePage: 'GuidedMeditationsPage',
     prompt: 'You don\'t have to carry this alone. What do you need God to hold for you right now?',
@@ -224,7 +224,7 @@ export default function EmotionalCheckInPage() {
             </p>
           </div>
           {streak > 0 && (
-            <div className="flex items-center gap-1 bg-orange-50 border border-orange-200 rounded-full px-2.5 py-1">
+            <div className="flex items-center gap-1 bg-orange-50 dark:bg-orange-900/20 border border-orange-200 rounded-full px-2.5 py-1">
               <Flame className="w-3.5 h-3.5 text-orange-400" />
               <span className="text-xs font-bold text-orange-500">{streak}</span>
             </div>
@@ -291,7 +291,7 @@ export default function EmotionalCheckInPage() {
 
               {/* Scripture */}
               <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
-                className="bg-white dark:bg-white/5 rounded-2xl border border-[#FAD98D]/20 p-5">
+                className="bg-white dark:bg-white/5 rounded-2xl border border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 p-5">
                 <div className="flex items-center gap-2 mb-3">
                   <BookOpen className="w-4 h-4 text-[#FAD98D]" />
                   <span className="text-xs font-bold text-[#0A1A2F]/40 dark:text-white/40 uppercase tracking-widest">A word for you</span>
@@ -411,7 +411,7 @@ export default function EmotionalCheckInPage() {
 
                   {/* Practice link */}
                   <button onClick={() => navigate(createPageUrl(moodObj.practicePage))}
-                    className="w-full bg-white dark:bg-white/5 rounded-2xl border border-[#AFC7E3]/20 p-4 flex items-center justify-between hover:border-[#FAD98D]/40 hover:shadow-sm dark:shadow-none transition-all">
+                    className="w-full bg-white dark:bg-white/5 rounded-2xl border border-[#AFC7E3]/20 p-4 flex items-center justify-between hover:border-[#FAD98D]/40 dark:border-[#FAD98D]/15 dark:border-[#FAD98D]/8 hover:shadow-sm dark:shadow-none transition-all">
                     <div className="flex items-center gap-3">
                       <span className="text-xl">{moodObj.practiceIcon}</span>
                       <div className="text-left">

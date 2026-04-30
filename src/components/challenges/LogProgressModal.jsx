@@ -30,7 +30,7 @@ export default function LogProgressModal({ isOpen, onClose, onSubmit, challenge,
         </DialogHeader>
 
         <form onSubmit={handleSubmit} className="space-y-4 py-4">
-          <div className="bg-[#FAD98D]/10 rounded-xl p-4 mb-4">
+          <div className="bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5 rounded-xl p-4 mb-4">
             <div className="flex items-center justify-between mb-2">
               <span className="text-sm text-gray-600 dark:text-gray-300">Current Progress</span>
               <span className="font-semibold text-[#C9A227]">

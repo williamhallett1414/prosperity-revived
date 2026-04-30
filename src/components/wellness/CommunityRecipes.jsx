@@ -75,7 +75,7 @@ export default function CommunityRecipes() {
       </div>
 
       {/* Stats */}
-      <div className="bg-gradient-to-r from-[#FAD98D]/10 to-[#FFF9EC] dark:from-[#0A1A2F]/40 dark:to-[#0A1A2F]/40 rounded-2xl p-4 mb-4">
+      <div className="bg-gradient-to-r from-[#FAD98D]/10 to-[#FFF9EC] dark:to-[#FAD98D]/5 dark:from-[#0A1A2F]/40 dark:to-[#0A1A2F]/40 rounded-2xl p-4 mb-4">
         <div className="flex items-center justify-between">
           <div>
             <p className="text-sm">Community Contributions</p>

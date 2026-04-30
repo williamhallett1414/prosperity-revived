@@ -138,7 +138,7 @@ function PlanCard({ plan, idx, onPreview }) {
           <Button
             onClick={handleAbandonPlan}
             variant="outline"
-            className="w-full border border-red-200 text-red-600 hover:bg-red-50 font-semibold py-2 rounded-xl text-xs">
+            className="w-full border border-red-200 text-red-600 hover:bg-red-50 dark:bg-red-900/20 font-semibold py-2 rounded-xl text-xs">
 
                 <X className="w-3.5 h-3.5 mr-1.5" />
                 Abandon Plan

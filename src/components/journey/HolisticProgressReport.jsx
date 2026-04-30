@@ -46,7 +46,7 @@ export default function HolisticProgressReport({ user }) {
       animate={{ opacity: 1, y: 0 }}
       className="mb-8"
     >
-      <Card className="overflow-hidden border-2 border-[#FAD98D]/40 bg-gradient-to-br from-[#FAD98D]/10 to-[#FFF9EC]">
+      <Card className="overflow-hidden border-2 border-[#FAD98D]/40 dark:border-[#FAD98D]/15 dark:border-[#FAD98D]/8 bg-gradient-to-br from-[#FAD98D]/10 to-[#FFF9EC] dark:to-[#FAD98D]/5">
         <CardHeader className="bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white pb-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -86,7 +86,7 @@ export default function HolisticProgressReport({ user }) {
           ) : report ? (
             <div className="space-y-6">
               {/* Overall Summary */}
-              <div className="bg-white dark:bg-white/5 rounded-xl p-5 shadow-sm dark:shadow-none border border-[#FAD98D]/40">
+              <div className="bg-white dark:bg-white/5 rounded-xl p-5 shadow-sm dark:shadow-none border border-[#FAD98D]/40 dark:border-[#FAD98D]/15 dark:border-[#FAD98D]/8">
                 <div className="flex items-start gap-3 mb-3">
                   <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center flex-shrink-0">
                     <Heart className="w-5 h-5 text-white" />
@@ -101,7 +101,7 @@ export default function HolisticProgressReport({ user }) {
                 <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-gray-100 dark:border-white/10 dark:border-white/10">
                   {report.data_summary && (
                     <>
-                      <Badge variant="outline" className="bg-[#FAD98D]/10 border-[#FAD98D]/40">
+                      <Badge variant="outline" className="bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5 border-[#FAD98D]/40 dark:border-[#FAD98D]/15 dark:border-[#FAD98D]/8">
                         <Heart className="w-3 h-3 mr-1" />
                         {report.data_summary.total_journals} journals
                       </Badge>
@@ -109,11 +109,11 @@ export default function HolisticProgressReport({ user }) {
                         <Dumbbell className="w-3 h-3 mr-1" />
                         {report.data_summary.total_workouts} workouts
                       </Badge>
-                      <Badge variant="outline" className="bg-orange-50 border-orange-200">
+                      <Badge variant="outline" className="bg-orange-50 dark:bg-orange-900/20 border-orange-200">
                         <ChefHat className="w-3 h-3 mr-1" />
                         {report.data_summary.total_meals} meals
                       </Badge>
-                      <Badge variant="outline" className="bg-green-50 border-green-200">
+                      <Badge variant="outline" className="bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800/30">
                         <BookOpen className="w-3 h-3 mr-1" />
                         {report.data_summary.total_prayers} prayers
                       </Badge>
@@ -123,7 +123,7 @@ export default function HolisticProgressReport({ user }) {
               </div>
 
               {/* Interconnected Insights */}
-              <div className="bg-white dark:bg-white/5 rounded-xl p-5 shadow-sm dark:shadow-none border border-[#FAD98D]/40">
+              <div className="bg-white dark:bg-white/5 rounded-xl p-5 shadow-sm dark:shadow-none border border-[#FAD98D]/40 dark:border-[#FAD98D]/15 dark:border-[#FAD98D]/8">
                 <div className="flex items-center gap-2 mb-4">
                   <TrendingUp className="w-5 h-5 text-[#C9A227]" />
                   <h3 className="font-semibold text-gray-900 dark:text-white text-lg">Interconnected Insights</h3>
@@ -135,7 +135,7 @@ export default function HolisticProgressReport({ user }) {
                       initial={{ opacity: 0, x: -10 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: idx * 0.1 }}
-                      className="flex items-start gap-3 p-3 bg-[#FAD98D]/10 rounded-lg"
+                      className="flex items-start gap-3 p-3 bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5 rounded-lg"
                     >
                       <div className="w-6 h-6 rounded-full bg-[#FAD98D]/40 flex items-center justify-center flex-shrink-0 mt-0.5">
                         <span className="text-xs font-semibold text-[#3C4E53]">{idx + 1}</span>
@@ -151,7 +151,7 @@ export default function HolisticProgressReport({ user }) {
                 <Button
                   onClick={() => setIsExpanded(!isExpanded)}
                   variant="outline"
-                  className="w-full justify-between hover:bg-[#FAD98D]/10"
+                  className="w-full justify-between hover:bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5"
                 >
                   <span className="font-semibold">
                     {isExpanded ? 'Hide' : 'Show'} Detailed Insights
@@ -168,7 +168,7 @@ export default function HolisticProgressReport({ user }) {
                       className="mt-4 space-y-4"
                     >
                       {/* Areas of Strength */}
-                      <div className="bg-white dark:bg-white/5 rounded-xl p-5 shadow-sm dark:shadow-none border border-green-100">
+                      <div className="bg-white dark:bg-white/5 rounded-xl p-5 shadow-sm dark:shadow-none border border-green-100 dark:border-green-800/30">
                         <div className="flex items-center gap-2 mb-3">
                           <Target className="w-5 h-5 text-green-600" />
                           <h3 className="font-semibold text-gray-900 dark:text-white">Areas of Strength</h3>
@@ -184,7 +184,7 @@ export default function HolisticProgressReport({ user }) {
                       </div>
 
                       {/* Growth Opportunities */}
-                      <div className="bg-white dark:bg-white/5 rounded-xl p-5 shadow-sm dark:shadow-none border border-blue-100">
+                      <div className="bg-white dark:bg-white/5 rounded-xl p-5 shadow-sm dark:shadow-none border border-blue-100 dark:border-blue-800/30">
                         <div className="flex items-center gap-2 mb-3">
                           <Lightbulb className="w-5 h-5 text-[#3C4E53]" />
                           <h3 className="font-semibold text-gray-900 dark:text-white">Growth Opportunities</h3>
@@ -200,7 +200,7 @@ export default function HolisticProgressReport({ user }) {
                       </div>
 
                       {/* Personalized Recommendation */}
-                      <div className="bg-gradient-to-br from-[#FAD98D]/20 to-[#FFF9EC] rounded-xl p-5 border-2 border-[#FAD98D]/40">
+                      <div className="bg-gradient-to-br from-[#FAD98D]/20 to-[#FFF9EC] dark:to-[#FAD98D]/5 rounded-xl p-5 border-2 border-[#FAD98D]/40 dark:border-[#FAD98D]/15 dark:border-[#FAD98D]/8">
                         <div className="flex items-start gap-3">
                           <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center flex-shrink-0">
                             <Sparkles className="w-5 h-5 text-white" />

@@ -44,9 +44,9 @@ export default function GroupProgressDashboard({ groupId, totalDays }) {
   return (
     <div className="space-y-4">
       {/* Overall Stats */}
-      <Card className="p-5 bg-gradient-to-br from-green-50 to-emerald-50 border-green-200">
+      <Card className="p-5 bg-gradient-to-br from-green-50 dark:from-green-900/15 to-emerald-50 border-green-200 dark:border-green-800/30">
         <div className="flex items-center gap-3 mb-4">
-          <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center">
+          <div className="w-10 h-10 rounded-full bg-green-100 dark:bg-green-900/25 flex items-center justify-center">
             <TrendingUp className="w-5 h-5 text-green-600" />
           </div>
           <div>

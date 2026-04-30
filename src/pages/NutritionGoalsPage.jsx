@@ -257,7 +257,7 @@ function UpdateGoalsModal({ user, onClose, onSave }) {
                 const active = form.allergies.includes(key);
                 return (
                   <button key={key} onClick={() => toggle('allergies', key)}
-                    className={`px-3 py-1.5 rounded-full border text-xs font-semibold transition-all ${active ? 'border-red-300 bg-red-50 text-red-600' : 'border-gray-100 dark:border-white/10 bg-gray-50 dark:bg-white/5 text-[#0A1A2F]/55 dark:text-white/55'}`}>
+                    className={`px-3 py-1.5 rounded-full border text-xs font-semibold transition-all ${active ? 'border-red-300 bg-red-50 dark:bg-red-900/20 text-red-600' : 'border-gray-100 dark:border-white/10 bg-gray-50 dark:bg-white/5 text-[#0A1A2F]/55 dark:text-white/55'}`}>
                     {label}
                   </button>
                 );
@@ -358,7 +358,7 @@ export default function NutritionGoalsPage() {
     <div className="min-h-screen pb-28" style={{ background: '#F2F6FA' }}>
 
       {/* ── Standard Header ── */}
-      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 px-4 pt-3 pb-0">
+      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 px-4 pt-3 pb-0">
         <div className="max-w-lg mx-auto">
           {/* Title row */}
           <div className="flex items-center justify-between mb-3">
@@ -429,7 +429,7 @@ export default function NutritionGoalsPage() {
         {/* Incomplete nudge */}
         {incomplete && user && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.04 }}
-            className="flex items-center gap-3 bg-[#FAD98D]/20 border border-[#FAD98D]/30 rounded-2xl px-4 py-3">
+            className="flex items-center gap-3 bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8 border border-[#FAD98D]/30 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 rounded-2xl px-4 py-3">
             <AlertTriangle className="w-4 h-4 text-[#C9A227] flex-shrink-0" />
             <div className="flex-1">
               <p className="text-xs font-bold text-[#C9A227]">Profile incomplete</p>
@@ -492,7 +492,7 @@ export default function NutritionGoalsPage() {
               </div>
               <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">Macro Targets</p>
               {diet === 'keto' && (
-                <span className="ml-auto text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-50 text-amber-600">Keto adjusted</span>
+                <span className="ml-auto text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-50 dark:bg-amber-900/20 text-amber-600">Keto adjusted</span>
               )}
             </div>
             <div className="space-y-3">
@@ -547,7 +547,7 @@ export default function NutritionGoalsPage() {
         <motion.div id="tour-allergens" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.18 }}
           className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm dark:shadow-none">
           <div className="flex items-center gap-2 mb-3">
-            <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-red-50">
+            <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-red-50 dark:bg-red-900/20">
               <ShieldCheck className="w-4 h-4 text-red-400" />
             </div>
             <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">Foods to Avoid</p>
@@ -555,7 +555,7 @@ export default function NutritionGoalsPage() {
           {allergies.length > 0 ? (
             <div className="flex flex-wrap gap-2">
               {allergies.map(a => (
-                <span key={a} className="flex items-center gap-1.5 bg-red-50 border border-red-100 text-red-600 text-xs font-bold px-3 py-1.5 rounded-full">
+                <span key={a} className="flex items-center gap-1.5 bg-red-50 dark:bg-red-900/20 border border-red-100 dark:border-red-800/30 text-red-600 text-xs font-bold px-3 py-1.5 rounded-full">
                   <AlertTriangle className="w-3 h-3" />{ALLERGY_LABELS[a]}
                 </span>
               ))}

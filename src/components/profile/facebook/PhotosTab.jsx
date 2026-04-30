@@ -146,7 +146,7 @@ export default function PhotosTab({ user }) {
           </label>
           {uploading && (
             <div className="text-center">
-              <div className="animate-spin w-6 h-6 border-4 border-[#FAD98D] border-t-transparent rounded-full mx-auto" />
+              <div className="animate-spin w-6 h-6 border-4 border-[#FAD98D] dark:border-[#FAD98D]/30 border-t-transparent rounded-full mx-auto" />
               <p className="text-sm text-gray-500 dark:text-gray-300 mt-2">Uploading...</p>
             </div>
           )}

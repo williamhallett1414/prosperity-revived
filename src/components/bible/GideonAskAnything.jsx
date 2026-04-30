@@ -507,7 +507,7 @@ Example: [VERSE]Romans 8:28 - "And we know that all things work together for goo
                     Ask Me Anything About Scripture
                   </h3>
                   {memoryContext && memoryContext.total_conversation_count > 0 && (
-                    <div className="bg-[#FAD98D]/20 rounded-lg p-3 text-sm">
+                    <div className="bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8 rounded-lg p-3 text-sm">
                       <p className="text-[#C9A227]">
                         💭 I remember our previous {memoryContext.total_conversation_count} conversations and I'm ready to continue your journey.
                       </p>
@@ -534,7 +534,7 @@ Example: [VERSE]Romans 8:28 - "And we know that all things work together for goo
                     </button>
                     <button
                       onClick={() => handleAsk(false, "How do I discover my purpose?")}
-                      className="px-4 py-2 bg-[#FAD98D]/20 text-[#C9A227] rounded-full text-sm hover:bg-[#FAD98D]/50 transition-colors"
+                      className="px-4 py-2 bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8 text-[#C9A227] rounded-full text-sm hover:bg-[#FAD98D]/50 transition-colors"
                     >
                       Finding Purpose
                     </button>
@@ -562,7 +562,7 @@ Example: [VERSE]Romans 8:28 - "And we know that all things work together for goo
                         <p className="text-sm">{message.content}</p>
                       </div> :
 
-                <div className="bg-[#FFF9EC] border border-[#FAD98D]/40 rounded-2xl px-4 py-3 max-w-[85%] shadow-sm dark:shadow-none">
+                <div className="bg-[#FFF9EC] border border-[#FAD98D]/40 dark:border-[#FAD98D]/15 dark:border-[#FAD98D]/8 rounded-2xl px-4 py-3 max-w-[85%] shadow-sm dark:shadow-none">
                         <div className="flex justify-end mb-1"><TTSButton text={message.content} /></div>
                         {(() => {
                           // Parse content for verse markers
@@ -652,7 +652,7 @@ Example: [VERSE]Romans 8:28 - "And we know that all things work together for goo
               </div>
 
               {/* Input */}
-              <div className="p-4 border-t border-[#FAD98D]/20 bg-white dark:bg-white/5">
+              <div className="p-4 border-t border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 bg-white dark:bg-white/5">
                 <div className="flex gap-2 items-center">
                   <Input
                   placeholder="Ask about any scripture, verse, or topic..."

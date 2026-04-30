@@ -108,7 +108,7 @@ export default function TTSButton({ text, className = '', onSpeakingChange }) {
       title={isSpeaking ? 'Stop reading' : 'Read aloud'}
       className={`flex items-center gap-1 px-2 py-1 rounded-full text-[11px] font-medium transition-colors ${
         isSpeaking
-          ? 'bg-orange-50 text-orange-500 hover:bg-orange-100'
+          ? 'bg-orange-50 dark:bg-orange-900/20 text-orange-500 hover:bg-orange-100 dark:bg-orange-900/25'
           : 'bg-gray-100 dark:bg-white/5 text-gray-400 dark:text-gray-300 hover:bg-gray-200 hover:text-gray-600 dark:text-gray-300'
       } ${className}`}
     >

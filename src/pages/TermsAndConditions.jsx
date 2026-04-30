@@ -9,7 +9,7 @@ export default function TermsAndConditions() {
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-24">
 
       {/* ── Standard Header ── */}
-      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 px-4 pt-4 pb-3">
+      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 px-4 pt-4 pb-3">
         <div className="max-w-lg mx-auto flex items-center gap-3">
           <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#3C4E53] to-[#AFC7E3] flex items-center justify-center">
             <FileText className="w-5 h-5 text-white" />
@@ -80,7 +80,7 @@ export default function TermsAndConditions() {
                 <p className="text-sm leading-relaxed mt-2">
                   Parents and guardians are responsible for supervising any minor (ages 13–17) who uses the App and for the minor's compliance with these Terms.
                 </p>
-                <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mt-3">
+                <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800/30 rounded-xl p-4 mt-3">
                   <p className="text-sm font-bold text-blue-800 mb-2">Minor Account Safety Measures (COPPA &amp; State Law Compliance)</p>
                   <p className="text-sm text-blue-900 leading-relaxed mb-2">
                     To comply with the Children's Online Privacy Protection Act (COPPA), state child protection laws, and to protect the safety of minors using the App, Prosperity Revived enforces the following safeguards:
@@ -127,7 +127,7 @@ export default function TermsAndConditions() {
               {/* 4 */}
               <div>
                 <h3 className="text-lg font-bold mb-3">4. Artificial Intelligence (AI) Disclosure</h3>
-                <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-3">
+                <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800/30 rounded-xl p-4 mb-3">
                   <p className="text-sm font-bold text-amber-800 mb-1">⚠ Important — Please Read</p>
                   <p className="text-sm text-amber-900 leading-relaxed">
                     The App uses artificial intelligence (AI) to generate responses, coaching content, devotionals, scripture references, recipes, workout suggestions, and personalized guidance. AI-generated content is produced by automated systems and is <strong>not authored or reviewed in real time by a licensed professional</strong>.
@@ -170,7 +170,7 @@ export default function TermsAndConditions() {
               {/* 6 */}
               <div>
                 <h3 className="text-lg font-bold mb-3">6. Financial Content Disclaimer</h3>
-                <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-3">
+                <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800/30 rounded-xl p-4 mb-3">
                   <p className="text-sm leading-relaxed text-blue-900">
                     Financial content in the App, including the "Financial Freedom Through Faith" coaching plan and any AI-generated financial guidance, is for <strong>educational and motivational purposes only</strong>. It does not constitute financial advice, investment advice, tax advice, or legal advice, and should not be relied upon as such. Always consult a licensed financial advisor, accountant, or attorney before making financial decisions.
                   </p>

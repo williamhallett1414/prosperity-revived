@@ -167,7 +167,7 @@ export default function CoachingPlanPage() {
 
           {/* Future day lock notice */}
           {isFutureDay && (
-            <div className="bg-white/50 border border-[#FAD98D]/30 rounded-2xl p-4 text-center">
+            <div className="bg-white/50 border border-[#FAD98D]/30 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 rounded-2xl p-4 text-center">
               <Lock className="w-6 h-6 text-[#c9a227]/50 mx-auto mb-1" />
               <p className="text-[#0A1A2F]/50 dark:text-white/50 text-sm">This day unlocks when you reach it — complete Day {selectedDay.day - 1} first</p>
             </div>
@@ -511,7 +511,7 @@ export default function CoachingPlanPage() {
                   className={`rounded-xl p-3 text-left transition-all border ${
                     selectedWeek === i
                       ? 'bg-[#0A1A2F] border-[#0A1A2F] shadow-md dark:shadow-none'
-                      : 'bg-white dark:bg-white/5 border-[#F2F6FA] hover:border-[#FAD98D]/50'
+                      : 'bg-white dark:bg-white/5 border-[#F2F6FA] hover:border-[#FAD98D]/50 dark:border-[#FAD98D]/20'
                   }`}>
                   <p className={`text-[10px] font-bold mb-1 ${selectedWeek === i ? 'text-[#c9a227]' : 'text-[#0A1A2F]/40 dark:text-white/40'}`}>
                     Week {i + 1}

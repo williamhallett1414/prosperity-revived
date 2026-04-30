@@ -66,19 +66,19 @@ export default function BibleBooks() {
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
 
       {/* ── Sticky header ── */}
-      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#FAD98D]/25 px-4 py-3">
+      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#FAD98D]/25 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 px-4 py-3">
         <div className="max-w-lg mx-auto space-y-3">
 
           {/* Back + title + testament toggle */}
           <div className="flex items-center gap-3">
             <button onClick={() => window.history.back()}
-              className="w-9 h-9 rounded-full bg-[#FAD98D]/20 hover:bg-[#FAD98D]/35 flex items-center justify-center transition-colors flex-shrink-0">
+              className="w-9 h-9 rounded-full bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8 hover:bg-[#FAD98D]/35 flex items-center justify-center transition-colors flex-shrink-0">
               <ArrowLeft className="w-4 h-4 text-[#0A1A2F] dark:text-white dark:text-white" />
             </button>
             <h1 className="flex-1 text-base font-bold text-[#0A1A2F] dark:text-white dark:text-white">Choose a Book</h1>
 
             {/* OT / NT toggle */}
-            <div className="flex rounded-xl overflow-hidden border border-[#FAD98D]/30 bg-[#F2F6FA] dark:bg-[#0A1A2F]">
+            <div className="flex rounded-xl overflow-hidden border border-[#FAD98D]/30 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 bg-[#F2F6FA] dark:bg-[#0A1A2F]">
               {[['old','OT'],['new','NT']].map(([val, label]) => (
                 <button key={val} onClick={() => { setTestament(val); setSearch(''); }}
                   className={`px-4 py-1.5 text-xs font-bold transition-colors ${
@@ -99,7 +99,7 @@ export default function BibleBooks() {
               value={search}
               onChange={e => setSearch(e.target.value)}
               placeholder={`Search ${testament === 'old' ? 'Old' : 'New'} Testament books…`}
-              className="w-full pl-9 pr-9 py-2 rounded-xl bg-[#F2F6FA] dark:bg-[#0A1A2F] text-sm text-[#0A1A2F] dark:text-white placeholder-[#0A1A2F]/35 border border-[#FAD98D]/20 focus:outline-none focus:border-[#c9a227]/50"
+              className="w-full pl-9 pr-9 py-2 rounded-xl bg-[#F2F6FA] dark:bg-[#0A1A2F] text-sm text-[#0A1A2F] dark:text-white placeholder-[#0A1A2F]/35 border border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 focus:outline-none focus:border-[#c9a227]/50"
             />
             {search && (
               <button onClick={() => setSearch('')}
@@ -128,12 +128,12 @@ export default function BibleBooks() {
           <>
             {/* ── Start here card ── */}
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
-              className="bg-gradient-to-br from-[#FAD98D]/25 to-[#FAD98D]/15 border border-[#FAD98D]/25 rounded-2xl p-4">
+              className="bg-gradient-to-br from-[#FAD98D]/25 to-[#FAD98D]/15 border border-[#FAD98D]/25 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 rounded-2xl p-4">
               <p className="text-xs font-bold text-[#0A1A2F]/40 dark:text-white/40 uppercase tracking-widest mb-3">Good places to start</p>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                 {START_HERE[testament].map(({ book, ch, desc }) => (
                   <button key={book} onClick={() => navigate(createPageUrl(`Bible?book=${book}&chapter=${ch}`))}
-                    className="bg-white dark:bg-white/5 rounded-xl p-3 text-left border border-[#FAD98D]/20 hover:border-[#c9a227]/40 hover:shadow-sm dark:shadow-none transition-all">
+                    className="bg-white dark:bg-white/5 rounded-xl p-3 text-left border border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 hover:border-[#c9a227]/40 hover:shadow-sm dark:shadow-none transition-all">
                     <p className="font-bold text-[#0A1A2F] dark:text-white text-sm leading-tight">{book}</p>
                     <p className="text-[10px] text-[#0A1A2F]/45 dark:text-white/45 mt-0.5 leading-tight">{desc}</p>
                   </button>
@@ -178,7 +178,7 @@ function BookRow({ book, index, onOpen }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.015 }}
       onClick={() => onOpen(book.name)}
-      className="w-full text-left flex items-center justify-between px-4 py-3 rounded-2xl bg-white dark:bg-white/5 border border-[#FAD98D]/20 hover:border-[#c9a227]/40 hover:bg-[#FAD98D]/8 active:bg-[#FAD98D]/15 transition-colors"
+      className="w-full text-left flex items-center justify-between px-4 py-3 rounded-2xl bg-white dark:bg-white/5 border border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 hover:border-[#c9a227]/40 hover:bg-[#FAD98D]/8 active:bg-[#FAD98D]/15 dark:bg-[#FAD98D]/8 transition-colors"
     >
       <div>
         <span className="font-semibold text-[#0A1A2F] dark:text-white text-sm">{book.name}</span>

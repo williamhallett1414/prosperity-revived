@@ -308,7 +308,7 @@ export default function HannahOnboarding({ onComplete, onRevisit, user }) {
                       rows={4}
                       className="w-full rounded-xl border-2 border-gray-200 dark:border-white/10 focus:border-[#AFC7E3] outline-none p-3 text-sm text-gray-700 dark:text-gray-200 resize-none transition-colors"
                     />
-                    <div className="mt-3 bg-purple-50 border border-purple-200 rounded-xl p-3 text-xs text-purple-700">
+                    <div className="mt-3 bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800/30 rounded-xl p-3 text-xs text-purple-700">
                       💛 This becomes the foundation of our work together. I'll come back to it when you need a reminder of why you started.
                     </div>
                   </div>

@@ -193,7 +193,7 @@ export default function ShareToFeedButton({
                       <button key={value} onClick={() => setVisibility(value)}
                         className={`flex flex-col items-center gap-1 rounded-xl py-2.5 px-2 border-2 transition-all ${
                           visibility === value
-                            ? 'border-[#C9A227] bg-[#FAD98D]/15'
+                            ? 'border-[#C9A227] bg-[#FAD98D]/15 dark:bg-[#FAD98D]/8'
                             : 'border-gray-100 dark:border-white/10 bg-gray-50 dark:bg-white/5 dark:bg-white/5'
                         }`}>
                         <Icon className={`w-4 h-4 ${visibility === value ? 'text-[#C9A227]' : 'text-[#0A1A2F]/35 dark:text-white/35'}`} />

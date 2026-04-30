@@ -12,11 +12,11 @@ import { Badge } from '@/components/ui/badge';
 import { format } from 'date-fns';
 
 const prayerTypes = [
-  { value: 'praise', label: '🙌 Praise', color: 'bg-yellow-100 text-yellow-800' },
-  { value: 'thanksgiving', label: '🙏 Thanksgiving', color: 'bg-green-100 text-green-800' },
-  { value: 'confession', label: '💭 Confession', color: 'bg-[#FAD98D]/20 text-[#0A1A2F] dark:text-white dark:text-white' },
+  { value: 'praise', label: '🙌 Praise', color: 'bg-yellow-100 dark:bg-yellow-900/25 text-yellow-800' },
+  { value: 'thanksgiving', label: '🙏 Thanksgiving', color: 'bg-green-100 dark:bg-green-900/25 text-green-800' },
+  { value: 'confession', label: '💭 Confession', color: 'bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8 text-[#0A1A2F] dark:text-white dark:text-white' },
   { value: 'petition', label: '🤲 Petition', color: 'bg-[#AFC7E3]/20 text-blue-800' },
-  { value: 'intercession', label: '❤️ Intercession', color: 'bg-red-100 text-red-800' }
+  { value: 'intercession', label: '❤️ Intercession', color: 'bg-red-100 dark:bg-red-900/25 text-red-800' }
 ];
 
 export default function PrayerJournal() {
@@ -140,7 +140,7 @@ export default function PrayerJournal() {
                         {prayerStyle.label}
                       </Badge>
                       {entry.answered && (
-                        <Badge className="bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200">
+                        <Badge className="bg-green-100 dark:bg-green-900/25 dark:bg-green-900 text-green-800 dark:text-green-200">
                           <Check className="w-3 h-3 mr-1" />
                           Answered
                         </Badge>
@@ -242,7 +242,7 @@ export default function PrayerJournal() {
             </div>
 
             {showAIPrompt && aiPrompt && (
-              <div className="bg-yellow-50 dark:bg-slate-700 border-l-4 border-[#c9a227] p-3 rounded">
+              <div className="bg-yellow-50 dark:bg-yellow-900/20 dark:bg-slate-700 border-l-4 border-[#c9a227] p-3 rounded">
                 <p className="text-sm text-gray-700 dark:text-gray-200 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">
                   <Sparkles className="w-3 h-3 inline mr-1 text-[#c9a227]" />
                   {aiPrompt}

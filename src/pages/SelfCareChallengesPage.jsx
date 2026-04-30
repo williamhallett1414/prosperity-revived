@@ -886,7 +886,7 @@ export default function SelfCareChallengesPage() {
       `}</style>
 
       {/* ── Standard Header ── */}
-      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 px-4 pt-4 pb-3">
+      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 px-4 pt-4 pb-3">
         <div className="max-w-lg mx-auto flex items-center gap-3">
           <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#FAD98D] to-[#c9a227] flex items-center justify-center">
             <Flower2 className="w-5 h-5 text-white" />

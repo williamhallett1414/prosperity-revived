@@ -84,7 +84,7 @@ export default function DailyPrayer() {
               <div className="text-6xl mb-4">🙏</div>
             </div>
 
-            <div className="bg-[#FAD98D]/20 rounded-lg p-6 border border-[#FD9C2D]/30">
+            <div className="bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8 rounded-lg p-6 border border-[#FD9C2D]/30">
               <p className="text-[#3C4E53] font-serif leading-relaxed text-lg">
                 {todaysPrayer.content}
               </p>

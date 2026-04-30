@@ -51,7 +51,7 @@ export default function DailyMindsetReset() {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-gradient-to-br from-[#FAD98D]/10 to-[#AFC7E3]/10 rounded-2xl p-6 border border-[#FAD98D]/20 mb-6"
+      className="bg-gradient-to-br from-[#FAD98D]/10 to-[#AFC7E3]/10 rounded-2xl p-6 border border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 mb-6"
     >
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
@@ -67,7 +67,7 @@ export default function DailyMindsetReset() {
           value={reflection}
           onChange={(e) => setReflection(e.target.value)}
           placeholder="Write your thoughts here..."
-          className="min-h-[120px] border-gray-200 dark:border-white/10 focus:border-[#FAD98D] resize-none"
+          className="min-h-[120px] border-gray-200 dark:border-white/10 focus:border-[#FAD98D] dark:border-[#FAD98D]/30 resize-none"
         />
       </div>
 

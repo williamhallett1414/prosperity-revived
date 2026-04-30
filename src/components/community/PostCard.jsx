@@ -227,7 +227,7 @@ export default function PostCard({ post, comments = [], onLike, onComment, index
       {post.verse_text && (
        <div 
          onClick={handleVerseClick}
-         className="bg-yellow-50 dark:bg-slate-700 rounded-xl p-4 mb-3 border-l-4 border-[#c9a227] cursor-pointer hover:bg-yellow-100 dark:hover:bg-slate-600 transition-colors"
+         className="bg-yellow-50 dark:bg-yellow-900/20 dark:bg-slate-700 rounded-xl p-4 mb-3 border-l-4 border-[#c9a227] cursor-pointer hover:bg-yellow-100 dark:bg-yellow-900/25 dark:hover:bg-slate-600 transition-colors"
        >
          <p className="font-serif text-gray-800 dark:text-gray-100 dark:text-gray-200 leading-relaxed mb-2">
            "{post.verse_text}"
@@ -263,7 +263,7 @@ export default function PostCard({ post, comments = [], onLike, onComment, index
       {/* Topic Badge */}
       {post.topic && post.topic !== 'general' && (
         <div className="mb-3">
-          <span className="inline-block px-3 py-1 bg-amber-100 dark:bg-amber-900 text-amber-800 dark:text-amber-200 text-xs font-medium rounded-full">
+          <span className="inline-block px-3 py-1 bg-amber-100 dark:bg-amber-900/25 dark:bg-amber-900 text-amber-800 dark:text-amber-200 text-xs font-medium rounded-full">
             {post.topic === 'prayer' && '🙏 Prayer'}
             {post.topic === 'bible_study' && '📖 Bible Study'}
             {post.topic === 'testimony' && '✨ Testimony'}

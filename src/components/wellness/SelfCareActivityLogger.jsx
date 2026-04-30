@@ -96,7 +96,7 @@ export default function SelfCareActivityLogger({ isOpen, onClose, activityType, 
               <motion.div
                 animate={{ scale: [1, 1.2, 1] }}
                 transition={{ duration: 0.6 }}
-                className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mb-4"
+                className="w-16 h-16 bg-emerald-100 dark:bg-emerald-900/25 rounded-full flex items-center justify-center mb-4"
               >
                 <Check className="w-8 h-8 text-emerald-600" />
               </motion.div>

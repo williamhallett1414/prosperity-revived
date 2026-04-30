@@ -60,7 +60,7 @@ export default function MoodTracker() {
       transition={{ delay: 0.4 }}
       className="mb-8"
     >
-      <div className="bg-gray-100 dark:bg-white/5 rounded-2xl p-6 border border-[#FAD98D]/20 shadow-lg dark:shadow-none">
+      <div className="bg-gray-100 dark:bg-white/5 rounded-2xl p-6 border border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 shadow-lg dark:shadow-none">
         <h2 className="text-xl font-bold text-[#0A1A2F] dark:text-white mb-4">Check-In</h2>
 
         {/* Mood */}

@@ -173,7 +173,7 @@ export default function ChallengeDetailPage() {
   if (isLoading) {
     return (
       <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] flex items-center justify-center">
-        <div className="w-8 h-8 border-4 border-[#FAD98D] border-t-transparent rounded-full animate-spin" />
+        <div className="w-8 h-8 border-4 border-[#FAD98D] dark:border-[#FAD98D]/30 border-t-transparent rounded-full animate-spin" />
       </div>);
 
   }
@@ -299,7 +299,7 @@ export default function ChallengeDetailPage() {
         {/* Encouragement Message */}
         {isParticipating &&
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}>
-            <div className="bg-gradient-to-r from-[#FAD98D]/10 to-[#F2F6FA] border border-[#FAD98D]/40 rounded-xl p-4">
+            <div className="bg-gradient-to-r from-[#FAD98D]/10 to-[#F2F6FA] border border-[#FAD98D]/40 dark:border-[#FAD98D]/15 dark:border-[#FAD98D]/8 rounded-xl p-4">
               <p className="text-[#0A1A2F] dark:text-white font-semibold text-center">{encouragementMessage}</p>
             </div>
           </motion.div>
@@ -324,7 +324,7 @@ export default function ChallengeDetailPage() {
                     isSelected ?
                     'bg-[#FAD98D] text-white shadow-md dark:shadow-none' :
                     isCompleted ?
-                    'bg-emerald-500 text-white' :
+                    'bg-emerald-50 dark:bg-emerald-900/200 text-white' :
                     'bg-gray-100 dark:bg-white/5 text-[#0A1A2F]/60 dark:text-white/60 hover:bg-gray-200'}`
                     }>
 
@@ -414,7 +414,7 @@ export default function ChallengeDetailPage() {
               </div>
 
               {hasCheckedInToday ?
-            <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-4 text-center">
+            <div className="bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 rounded-xl p-4 text-center">
                   <CheckCircle2 className="w-8 h-8 text-emerald-600 mx-auto mb-2" />
                   <p className="text-emerald-900 font-semibold">Checked in today!</p>
                 </div> :
@@ -504,7 +504,7 @@ export default function ChallengeDetailPage() {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: idx * 0.05 }}
                 className={`flex items-center gap-3 p-3 rounded-lg ${
-                participant.user_email === user?.email ? 'bg-[#FAD98D]/10 border border-[#FAD98D]' : 'bg-gray-50 dark:bg-white/5'}`
+                participant.user_email === user?.email ? 'bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5 border border-[#FAD98D] dark:border-[#FAD98D]/30 dark:border-[#FAD98D]/30' : 'bg-gray-50 dark:bg-white/5'}`
                 }>
 
                     <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold shrink-0 ${

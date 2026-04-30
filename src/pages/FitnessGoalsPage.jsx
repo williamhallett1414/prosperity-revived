@@ -194,7 +194,7 @@ export default function FitnessGoalsPage() {
     <div className="min-h-screen pb-28" style={{ background: '#F2F6FA' }}>
 
       {/* ── Standard Header ── */}
-      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 px-4 pt-4 pb-0">
+      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 px-4 pt-4 pb-0">
         <div className="max-w-lg mx-auto flex items-center gap-3 pb-3">
           <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#38BDF8] to-[#0EA5E9] flex items-center justify-center">
             <Target className="w-5 h-5 text-white" />
@@ -268,7 +268,7 @@ export default function FitnessGoalsPage() {
         {/* Profile incomplete nudge */}
         {user && (!height || !weight || !age) && (
           <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.04 }}
-            className="flex items-center gap-3 bg-[#FAD98D]/20 border border-[#FAD98D]/30 rounded-2xl px-4 py-3">
+            className="flex items-center gap-3 bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8 border border-[#FAD98D]/30 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 rounded-2xl px-4 py-3">
             <span className="text-lg flex-shrink-0">⚠️</span>
             <div className="flex-1">
               <p className="text-xs font-bold text-[#C9A227]">Profile incomplete</p>

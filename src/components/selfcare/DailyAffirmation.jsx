@@ -46,7 +46,7 @@ export default function DailyAffirmation() {
         </h2>
       </div>
 
-      <div className="bg-gradient-to-br from-[#F2F6FA] to-[#AFC7E3]/30 rounded-2xl p-6 border border-[#FAD98D]/30 shadow-lg dark:shadow-none relative">
+      <div className="bg-gradient-to-br from-[#F2F6FA] to-[#AFC7E3]/30 rounded-2xl p-6 border border-[#FAD98D]/30 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 shadow-lg dark:shadow-none relative">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}

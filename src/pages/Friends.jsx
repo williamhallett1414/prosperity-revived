@@ -49,7 +49,7 @@ function RequestCard({ request, onAccept, onDecline, accepting, declining }) {
         <button
           onClick={() => onDecline(request.id)}
           disabled={declining}
-          className="w-9 h-9 rounded-xl bg-[#F2F6FA] dark:bg-[#0A1A2F] hover:bg-red-50 border border-[#F2F6FA] hover:border-red-200 flex items-center justify-center transition-colors"
+          className="w-9 h-9 rounded-xl bg-[#F2F6FA] dark:bg-[#0A1A2F] hover:bg-red-50 dark:bg-red-900/20 border border-[#F2F6FA] hover:border-red-200 flex items-center justify-center transition-colors"
         >
           <X className="w-4 h-4 text-[#0A1A2F]/40 dark:text-white/40" />
         </button>
@@ -66,7 +66,7 @@ function FriendCard({ friend, currentUserEmail, navigate }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
-      className="bg-white dark:bg-white/5 rounded-2xl border border-[#AFC7E3]/20 p-4 flex items-center gap-3 hover:border-[#FAD98D]/30 hover:shadow-sm dark:shadow-none transition-all"
+      className="bg-white dark:bg-white/5 rounded-2xl border border-[#AFC7E3]/20 p-4 flex items-center gap-3 hover:border-[#FAD98D]/30 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 hover:shadow-sm dark:shadow-none transition-all"
     >
       <Link to={createPageUrl(`UserProfile?email=${friendEmail}`)}>
         <Avatar name={friendName} email={friendEmail} size="md" />
@@ -79,7 +79,7 @@ function FriendCard({ friend, currentUserEmail, navigate }) {
       </div>
       <button
         onClick={() => navigate(createPageUrl(`Messages?friend=${friendEmail}&name=${friendName}`))}
-        className="w-10 h-10 rounded-xl bg-[#F2F6FA] dark:bg-[#0A1A2F] hover:bg-[#FAD98D]/15 border border-[#F2F6FA] hover:border-[#FAD98D]/30 flex items-center justify-center transition-all"
+        className="w-10 h-10 rounded-xl bg-[#F2F6FA] dark:bg-[#0A1A2F] hover:bg-[#FAD98D]/15 dark:bg-[#FAD98D]/8 border border-[#F2F6FA] hover:border-[#FAD98D]/30 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 flex items-center justify-center transition-all"
       >
         <MessageCircle className="w-4 h-4 text-[#c9a227]" />
       </button>
@@ -234,7 +234,7 @@ export default function Friends() {
           </div>
           <div className="flex items-center gap-2">
             {pendingRequests.length > 0 && (
-              <div className="flex items-center gap-1 bg-red-50 border border-red-200 rounded-full px-2.5 py-1">
+              <div className="flex items-center gap-1 bg-red-50 dark:bg-red-900/20 border border-red-200 rounded-full px-2.5 py-1">
                 <Bell className="w-3 h-3 text-red-400" />
                 <span className="text-xs font-bold text-red-500">{pendingRequests.length}</span>
               </div>
@@ -276,7 +276,7 @@ export default function Friends() {
                     value={searchEmail}
                     onChange={e => setSearchEmail(e.target.value)}
                     onKeyDown={e => e.key === 'Enter' && handleSendRequest()}
-                    className="flex-1 px-3 py-2.5 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/30 text-sm focus:outline-none focus:border-[#FAD98D]/50 transition-colors"
+                    className="flex-1 px-3 py-2.5 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/30 text-sm focus:outline-none focus:border-[#FAD98D]/50 dark:border-[#FAD98D]/20 transition-colors"
                   />
                   <button
                     onClick={handleSendRequest}
@@ -388,7 +388,7 @@ export default function Friends() {
                       <button
                         onClick={() => cancelRequest.mutate(f.id)}
                         disabled={cancelRequest.isPending}
-                        className="text-xs text-[#0A1A2F]/30 dark:text-white/30 hover:text-red-400 font-semibold transition-colors px-2 py-1 rounded-lg hover:bg-red-50"
+                        className="text-xs text-[#0A1A2F]/30 dark:text-white/30 hover:text-red-400 font-semibold transition-colors px-2 py-1 rounded-lg hover:bg-red-50 dark:bg-red-900/20"
                       >
                         Cancel
                       </button>

@@ -103,7 +103,7 @@ function CreateGroupPanel({ isOpen, onClose, onSubmit, creating }) {
                       className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-semibold transition-all ${
                         form.category === cat.value
                           ? 'bg-[#0A1A2F] text-white border-[#0A1A2F]'
-                          : 'bg-white dark:bg-white/5 text-[#0A1A2F]/50 dark:text-white/50 border-[#F2F6FA] hover:border-[#FAD98D]/40'
+                          : 'bg-white dark:bg-white/5 text-[#0A1A2F]/50 dark:text-white/50 border-[#F2F6FA] hover:border-[#FAD98D]/40 dark:border-[#FAD98D]/15 dark:border-[#FAD98D]/8'
                       }`}>
                       <span>{cat.emoji}</span> {cat.label}
                     </button>
@@ -155,7 +155,7 @@ function MyGroupRow({ group, onClick, index }) {
     <motion.button
       initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: index * 0.05 }}
       onClick={onClick}
-      className="w-full flex items-center gap-3 bg-white dark:bg-white/5 rounded-2xl border border-[#AFC7E3]/20 p-3.5 hover:border-[#FAD98D]/40 hover:shadow-sm dark:shadow-none transition-all text-left"
+      className="w-full flex items-center gap-3 bg-white dark:bg-white/5 rounded-2xl border border-[#AFC7E3]/20 p-3.5 hover:border-[#FAD98D]/40 dark:border-[#FAD98D]/15 dark:border-[#FAD98D]/8 hover:shadow-sm dark:shadow-none transition-all text-left"
     >
       <div className={`w-11 h-11 rounded-xl bg-gradient-to-br ${gradient} flex items-center justify-center flex-shrink-0`}>
         <span className="text-xl">{cat.emoji}</span>
@@ -186,7 +186,7 @@ function FeaturedCard({ group, onClick }) {
     <motion.button
       whileTap={{ scale: 0.98 }}
       onClick={onClick}
-      className="relative flex-shrink-0 w-56 bg-white dark:bg-white/5 rounded-2xl overflow-hidden border border-[#FAD98D]/20 hover:shadow-md dark:shadow-none transition-all text-left"
+      className="relative flex-shrink-0 w-56 bg-white dark:bg-white/5 rounded-2xl overflow-hidden border border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 hover:shadow-md dark:shadow-none transition-all text-left"
     >
       <div className={`h-20 bg-gradient-to-br ${gradient} flex items-center justify-center`}>
         <span className="text-3xl opacity-60">{cat?.emoji || '💬'}</span>
@@ -211,7 +211,7 @@ function SeedBanner({ onSeed, seeding }) {
   return (
     <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }}
       className="bg-gradient-to-r from-[#0A1A2F] to-[#0A1A2F] rounded-2xl p-4 flex items-center gap-3">
-      <div className="w-10 h-10 bg-[#FAD98D]/20 rounded-xl flex items-center justify-center flex-shrink-0">
+      <div className="w-10 h-10 bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8 rounded-xl flex items-center justify-center flex-shrink-0">
         <Users className="w-5 h-5 text-[#FAD98D]" />
       </div>
       <div className="flex-1 min-w-0">
@@ -367,7 +367,7 @@ export default function Groups() {
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#0A1A2F]/30 dark:text-white/30" />
             <input ref={searchRef} type="text" placeholder="Search groups…"
               value={search} onChange={e => setSearch(e.target.value)}
-              className="w-full pl-9 pr-8 py-2 rounded-xl bg-[#F2F6FA] dark:bg-[#0A1A2F] border border-[#F2F6FA] text-sm text-[#0A1A2F] dark:text-white placeholder-[#0A1A2F]/30 focus:outline-none focus:border-[#FAD98D]/50 transition-colors" />
+              className="w-full pl-9 pr-8 py-2 rounded-xl bg-[#F2F6FA] dark:bg-[#0A1A2F] border border-[#F2F6FA] text-sm text-[#0A1A2F] dark:text-white placeholder-[#0A1A2F]/30 focus:outline-none focus:border-[#FAD98D]/50 dark:border-[#FAD98D]/20 transition-colors" />
             {search && (
               <button onClick={() => setSearch('')} className="absolute right-2.5 top-1/2 -translate-y-1/2">
                 <X className="w-3.5 h-3.5 text-[#0A1A2F]/30 dark:text-white/30" />
@@ -390,7 +390,7 @@ export default function Groups() {
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-semibold whitespace-nowrap transition-all ${
                   categoryFilter === cat.value
                     ? 'bg-[#0A1A2F] text-white border-[#0A1A2F]'
-                    : 'bg-white dark:bg-white/5 text-[#0A1A2F]/50 dark:text-white/50 border-[#F2F6FA] hover:border-[#FAD98D]/40'
+                    : 'bg-white dark:bg-white/5 text-[#0A1A2F]/50 dark:text-white/50 border-[#F2F6FA] hover:border-[#FAD98D]/40 dark:border-[#FAD98D]/15 dark:border-[#FAD98D]/8'
                 }`}>
                 <span>{cat.emoji}</span> {cat.label}
               </button>

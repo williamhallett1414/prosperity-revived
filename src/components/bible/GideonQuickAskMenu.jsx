@@ -51,14 +51,14 @@ export default function GideonQuickAskMenu({ onSelectPrompt, isLoading, isCollap
         height: isCollapsed ? 'auto' : 'auto',
         maxHeight: isCollapsed ? '48px' : '320px'
       }}
-      className="border-b border-[#FAD98D]/20 bg-gradient-to-r from-[#FAD98D]/15 to-[#FAD98D]/10"
+      className="border-b border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 bg-gradient-to-r from-[#FAD98D]/15 to-[#FAD98D]/10"
     >
       <div className="p-3">
         <Button
           onClick={onToggleCollapse}
           variant="ghost"
           size="sm"
-          className="w-full flex items-center justify-between text-[#c9a227] hover:bg-[#FAD98D]/20"
+          className="w-full flex items-center justify-between text-[#c9a227] hover:bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8"
           disabled={isLoading}
         >
           <div className="flex items-center gap-2">
@@ -90,7 +90,7 @@ export default function GideonQuickAskMenu({ onSelectPrompt, isLoading, isCollap
                         key={prompt}
                         onClick={() => onSelectPrompt(prompt)}
                         disabled={isLoading}
-                        className="block w-full text-left text-xs px-3 py-2 rounded-lg bg-white dark:bg-white/5 hover:bg-[#FAD98D]/20 text-[#0A1A2F]/75 dark:text-white/75 transition-colors border border-[#FAD98D]/20 disabled:opacity-50"
+                        className="block w-full text-left text-xs px-3 py-2 rounded-lg bg-white dark:bg-white/5 hover:bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8 text-[#0A1A2F]/75 dark:text-white/75 transition-colors border border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 disabled:opacity-50"
                       >
                         {prompt}
                       </button>

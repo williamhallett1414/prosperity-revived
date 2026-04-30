@@ -200,12 +200,12 @@ export default function BibleSearchBar({ onNavigate }) {
               onKeyDown={handleKeyDown}
               onFocus={() => searchQuery && setShowSuggestions(true)}
               placeholder="Quick navigation: books, chapters, verses…"
-              className="w-full pl-12 pr-12 py-3.5 bg-white dark:bg-white/5 rounded-2xl border-2 border-[#FAD98D]/20 focus:border-[#FAD98D] focus:outline-none text-[#0A1A2F] dark:text-white placeholder:text-[#0A1A2F]/40 dark:text-white/40 transition-all shadow-sm dark:shadow-none"
+              className="w-full pl-12 pr-12 py-3.5 bg-white dark:bg-white/5 rounded-2xl border-2 border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 focus:border-[#FAD98D] dark:border-[#FAD98D]/30 focus:outline-none text-[#0A1A2F] dark:text-white placeholder:text-[#0A1A2F]/40 dark:text-white/40 transition-all shadow-sm dark:shadow-none"
             />
             {searchQuery && (
               <button
                 onClick={clearSearch}
-                className="absolute right-4 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-[#FAD98D]/20 hover:bg-[#FAD98D]/35 flex items-center justify-center transition-colors"
+                className="absolute right-4 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8 hover:bg-[#FAD98D]/35 flex items-center justify-center transition-colors"
               >
                 <X className="w-4 h-4 text-[#0A1A2F]/60 dark:text-white/60" />
               </button>
@@ -228,7 +228,7 @@ export default function BibleSearchBar({ onNavigate }) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.15 }}
-            className="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-white/5 rounded-2xl border-2 border-[#FAD98D]/20 shadow-xl overflow-hidden z-50"
+            className="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-white/5 rounded-2xl border-2 border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 shadow-xl overflow-hidden z-50"
           >
             <div className="py-2 max-h-80 overflow-y-auto">
               {suggestions.map((suggestion, index) => (
@@ -249,7 +249,7 @@ export default function BibleSearchBar({ onNavigate }) {
                       </div>
                     )}
                     {suggestion.type === 'verse' && (
-                      <div className="w-8 h-8 rounded-lg bg-[#FAD98D]/20 flex items-center justify-center">
+                      <div className="w-8 h-8 rounded-lg bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8 flex items-center justify-center">
                         <span className="text-xs font-bold text-[#3C4E53]">V</span>
                       </div>
                     )}

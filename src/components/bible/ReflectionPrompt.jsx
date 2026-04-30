@@ -33,7 +33,7 @@ Generate only the reflection question, no additional text.`,
       animate={{ opacity: 1, y: 0 }}
       className="mt-3"
     >
-      <Card className="p-4 bg-gradient-to-br from-[#FAD98D]/10 to-[#FFF9EC] border-l-4 border-[#FAD98D]">
+      <Card className="p-4 bg-gradient-to-br from-[#FAD98D]/10 to-[#FFF9EC] dark:to-[#FAD98D]/5 border-l-4 border-[#FAD98D] dark:border-[#FAD98D]/30 dark:border-[#FAD98D]/30">
         <div className="flex items-start gap-3">
           <Sparkles className="w-5 h-5 text-[#C9A227] flex-shrink-0 mt-0.5" />
           <div className="flex-1 min-w-0">

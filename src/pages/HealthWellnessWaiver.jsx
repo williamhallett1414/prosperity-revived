@@ -9,7 +9,7 @@ export default function HealthWellnessWaiver() {
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-24">
 
       {/* ── Standard Header ── */}
-      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 px-4 pt-4 pb-3">
+      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 px-4 pt-4 pb-3">
         <div className="max-w-lg mx-auto flex items-center gap-3">
           <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#3C4E53] to-[#AFC7E3] flex items-center justify-center">
             <Shield className="w-5 h-5 text-white" />
@@ -76,7 +76,7 @@ export default function HealthWellnessWaiver() {
               {/* 2 */}
               <div>
                 <h3 className="text-lg font-bold mb-3">2. AI Chatbot Disclaimer</h3>
-                <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-3">
+                <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800/30 rounded-xl p-4 mb-3">
                   <p className="text-sm font-bold text-amber-800 mb-2">⚠ Read Before Using AI Features</p>
                   <p className="text-sm text-amber-900 leading-relaxed mb-2">
                     The App's chatbot characters — <strong>Gideon</strong> (spiritual mentor), <strong>Hannah</strong> (mindset &amp; emotional growth), <strong>Coach David</strong> (fitness), <strong>Chef Daniel</strong> (nutrition), and <strong>Coach Paul</strong> (personal development) — are <strong>AI-generated characters powered by artificial intelligence</strong>. They are not real people.
@@ -94,7 +94,7 @@ export default function HealthWellnessWaiver() {
               {/* 3 */}
               <div>
                 <h3 className="text-lg font-bold mb-3">3. Crisis Resources &amp; Emergency Services</h3>
-                <div className="bg-red-50 border border-red-300 rounded-xl p-4 mb-3">
+                <div className="bg-red-50 dark:bg-red-900/20 border border-red-300 rounded-xl p-4 mb-3">
                   <p className="text-sm font-bold text-red-800 mb-2">🆘 If You Are in Crisis</p>
                   <p className="text-sm text-red-900 leading-relaxed mb-2">
                     The App is <strong>not an emergency service and cannot contact help on your behalf</strong>. If you are experiencing a mental health crisis, thoughts of self-harm or suicide, or a medical emergency, please use the following resources immediately:
@@ -140,7 +140,7 @@ export default function HealthWellnessWaiver() {
                   <li>Personalized dietary prescriptions from a licensed dietitian</li>
                   <li>A substitute for professional guidance from a physician or registered dietitian</li>
                 </ul>
-                <div className="bg-orange-50 border border-orange-200 rounded-xl p-3 mt-3 mb-3">
+                <div className="bg-orange-50 dark:bg-orange-900/20 border border-orange-200 rounded-xl p-3 mt-3 mb-3">
                   <p className="text-sm font-bold text-orange-800 mb-1">⚠ Allergen Warning</p>
                   <p className="text-sm text-orange-900 leading-relaxed">
                     AI-generated recipes and ingredient lists <strong>may be incomplete or inaccurate</strong> regarding allergens and nutritional content. <strong>Always verify allergen information independently</strong> by checking food packaging and consulting your healthcare provider before consuming any food if you have allergies, food sensitivities, or medical dietary restrictions. Do not rely on AI-generated allergen information for severe or life-threatening allergies.

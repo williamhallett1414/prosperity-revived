@@ -80,12 +80,12 @@ const TEMPLATES = [
 ];
 
 const TYPE_STYLES = {
-  prayer:      { emoji: '🙏', gradient: 'from-violet-500 to-purple-400',  bg: 'bg-violet-50 text-violet-700'  },
-  reading:     { emoji: '📝', gradient: 'from-amber-500 to-yellow-400',   bg: 'bg-amber-50 text-amber-700'    },
-  workouts:    { emoji: '💪', gradient: 'from-blue-600 to-sky-400',       bg: 'bg-blue-50 text-blue-700'      },
+  prayer:      { emoji: '🙏', gradient: 'from-violet-500 to-purple-400',  bg: 'bg-violet-50 dark:bg-violet-900/20 text-violet-700'  },
+  reading:     { emoji: '📝', gradient: 'from-amber-500 to-yellow-400',   bg: 'bg-amber-50 dark:bg-amber-900/20 text-amber-700'    },
+  workouts:    { emoji: '💪', gradient: 'from-blue-600 to-sky-400',       bg: 'bg-blue-50 dark:bg-blue-900/20 text-blue-700'      },
   meditation:  { emoji: '📵', gradient: 'from-slate-600 to-slate-400',    bg: 'bg-slate-50 dark:bg-white/5 text-slate-700 dark:text-slate-200'    },
-  water_intake:{ emoji: '🥗', gradient: 'from-green-600 to-lime-400',     bg: 'bg-green-50 text-green-700'    },
-  custom:      { emoji: '🤝', gradient: 'from-emerald-600 to-teal-400',   bg: 'bg-emerald-50 text-emerald-700'},
+  water_intake:{ emoji: '🥗', gradient: 'from-green-600 to-lime-400',     bg: 'bg-green-50 dark:bg-green-900/20 text-green-700'    },
+  custom:      { emoji: '🤝', gradient: 'from-emerald-600 to-teal-400',   bg: 'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700'},
 };
 
 export default function CreateChallengeModal({ isOpen, onClose, onSubmit, groupId = null }) {
@@ -147,7 +147,7 @@ export default function CreateChallengeModal({ isOpen, onClose, onSubmit, groupI
                 className={`w-full text-left rounded-2xl border p-4 transition-all ${
                   isChosen
                     ? 'border-[#c9a227] bg-white dark:bg-white/5 shadow-sm dark:shadow-none'
-                    : 'border-[#F2F6FA] bg-white dark:bg-white/5 hover:border-[#FAD98D]/50'
+                    : 'border-[#F2F6FA] bg-white dark:bg-white/5 hover:border-[#FAD98D]/50 dark:border-[#FAD98D]/20'
                 }`}
               >
                 <div className="flex items-start gap-3">

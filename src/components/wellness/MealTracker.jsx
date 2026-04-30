@@ -117,7 +117,7 @@ export default function MealTracker() {
         </div>
 
         <div className="grid grid-cols-4 gap-2 mb-4">
-          <div className="text-center p-2 bg-[#FAD98D]/15  rounded">
+          <div className="text-center p-2 bg-[#FAD98D]/15 dark:bg-[#FAD98D]/8  rounded">
             <p className="text-lg font-bold text-[#c9a227]">{totalCalories}</p>
             <p className="text-xs text-[#0A1A2F]/50 dark:text-white/50 ">Calories</p>
           </div>
@@ -125,11 +125,11 @@ export default function MealTracker() {
             <p className="text-lg font-bold text-[#3C4E53]">{Math.round(totalProtein)}g</p>
             <p className="text-xs text-[#0A1A2F]/50 dark:text-white/50 ">Protein</p>
           </div>
-          <div className="text-center p-2 bg-[#FAD98D]/20  rounded">
+          <div className="text-center p-2 bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8  rounded">
             <p className="text-lg font-bold text-[#FAD98D]">{Math.round(totalCarbs)}g</p>
             <p className="text-xs text-[#0A1A2F]/50 dark:text-white/50 ">Carbs</p>
           </div>
-          <div className="text-center p-2 bg-[#FAD98D]/15 rounded">
+          <div className="text-center p-2 bg-[#FAD98D]/15 dark:bg-[#FAD98D]/8 rounded">
             <p className="text-lg font-bold text-[#6B7280]">{Math.round(totalFats)}g</p>
             <p className="text-xs text-[#0A1A2F]/50 dark:text-white/50 ">Fats</p>
           </div>
@@ -163,7 +163,7 @@ export default function MealTracker() {
         </Button>
 
         {/* Water Intake Section */}
-        <div className="mt-6 pt-4 border-t border-[#FAD98D]/20 ">
+        <div className="mt-6 pt-4 border-t border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 ">
           <div className="flex items-center gap-3 mb-4">
             <Droplets className="w-6 h-6 text-[#AFC7E3]" />
             <div className="flex-1">

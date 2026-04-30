@@ -178,7 +178,7 @@ Consolidate duplicates, include realistic quantities (e.g. "2 lbs chicken breast
             {selectedRecipes.map(r => (
               <span
                 key={r.id}
-                className="flex items-center gap-1.5 bg-[#FAD98D]/30 text-[#0A1A2F] dark:text-white border border-[#FAD98D]/40 rounded-full px-3 py-1 text-sm"
+                className="flex items-center gap-1.5 bg-[#FAD98D]/30 text-[#0A1A2F] dark:text-white border border-[#FAD98D]/40 dark:border-[#FAD98D]/15 dark:border-[#FAD98D]/8 rounded-full px-3 py-1 text-sm"
               >
                 {r.title}
                 <button onClick={() => toggleRecipe(r)} className="text-[#0A1A2F]/50 dark:text-white/50 hover:text-[#0A1A2F] dark:text-white dark:text-white">
@@ -210,7 +210,7 @@ Consolidate duplicates, include realistic quantities (e.g. "2 lbs chicken breast
                       placeholder="Search recipes..."
                       value={search}
                       onChange={e => setSearch(e.target.value)}
-                      className="w-full pl-8 pr-3 py-2 text-sm rounded-xl border border-[#FAD98D]/25 bg-[#F2F6FA] dark:bg-[#0A1A2F] text-[#0A1A2F] dark:text-white placeholder-[#0A1A2F]/35 focus:outline-none focus:border-[#c9a227]/50"
+                      className="w-full pl-8 pr-3 py-2 text-sm rounded-xl border border-[#FAD98D]/25 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 bg-[#F2F6FA] dark:bg-[#0A1A2F] text-[#0A1A2F] dark:text-white placeholder-[#0A1A2F]/35 focus:outline-none focus:border-[#c9a227]/50"
                     />
                   </div>
                   {/* Category filter */}
@@ -241,8 +241,8 @@ Consolidate duplicates, include realistic quantities (e.g. "2 lbs chicken breast
                           onClick={() => toggleRecipe(recipe)}
                           className={`flex items-center justify-between p-3 rounded-xl border text-left transition-all ${
                             isSelected
-                              ? 'bg-[#FAD98D]/15 border-[#c9a227]/30'
-                              : 'bg-[#F2F6FA] dark:bg-[#0A1A2F] border-[#FAD98D]/20 hover:border-[#c9a227]/25'
+                              ? 'bg-[#FAD98D]/15 dark:bg-[#FAD98D]/8 border-[#c9a227]/30'
+                              : 'bg-[#F2F6FA] dark:bg-[#0A1A2F] border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 hover:border-[#c9a227]/25'
                           }`}
                         >
                           <div className="min-w-0 flex-1">
@@ -304,7 +304,7 @@ Consolidate duplicates, include realistic quantities (e.g. "2 lbs chicken breast
               {showPlan && (
                 <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="space-y-2 overflow-hidden">
                   {weekPlan.map((day, i) => (
-                    <div key={i} className="bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-xl p-4 border border-[#FAD98D]/20">
+                    <div key={i} className="bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-xl p-4 border border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5">
                       <p className="text-xs font-bold text-[#c9a227] uppercase tracking-wide mb-2">{day.day}</p>
                       <div className="space-y-1.5">
                         {MEAL_TYPES.map(type => (
@@ -325,7 +325,7 @@ Consolidate duplicates, include realistic quantities (e.g. "2 lbs chicken breast
               onClick={generateShoppingList}
               disabled={isGeneratingList}
               variant="outline"
-              className="w-full border-[#FAD98D]/50 text-[#0A1A2F] dark:text-white hover:bg-[#FAD98D]/10"
+              className="w-full border-[#FAD98D]/50 dark:border-[#FAD98D]/20 text-[#0A1A2F] dark:text-white hover:bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5"
             >
               {isGeneratingList ? (
                 <><Loader2 className="w-4 h-4 mr-2 animate-spin" />Building list...</>
@@ -371,7 +371,7 @@ Consolidate duplicates, include realistic quantities (e.g. "2 lbs chicken breast
               {showList && (
                 <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="space-y-3 overflow-hidden">
                   {shoppingList.map((cat, i) => (
-                    <div key={i} className="bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-xl p-4 border border-[#FAD98D]/20">
+                    <div key={i} className="bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-xl p-4 border border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5">
                       <p className="text-xs font-bold text-[#C9A227] uppercase tracking-wide mb-2">{cat.name}</p>
                       <ul className="space-y-1">
                         {cat.items.map((item, j) => (

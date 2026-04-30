@@ -61,7 +61,7 @@ export default function FoodLogHistory() {
   return (
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-24">
       {/* Header */}
-      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 px-4 pt-3 pb-0">
+      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 px-4 pt-3 pb-0">
         <div className="max-w-2xl mx-auto">
           <div className="flex items-center justify-between mb-3">
             <div>
@@ -168,7 +168,7 @@ export default function FoodLogHistory() {
                         <button
                           onClick={(e) => { e.preventDefault(); deleteMeal.mutate(meal.id); }}
                           disabled={deleteMeal.isPending}
-                          className="mt-2 w-full p-1 hover:bg-red-100 rounded transition-colors flex items-center justify-center gap-2">
+                          className="mt-2 w-full p-1 hover:bg-red-100 dark:bg-red-900/25 rounded transition-colors flex items-center justify-center gap-2">
                           <Trash2 className="w-4 h-4 text-red-500" />
                           <span className="text-xs text-red-600">Delete</span>
                         </button>

@@ -34,7 +34,7 @@ export default function ChallengeLeaderboard({ participants, challenge }) {
             {getRankIcon(index)}
           </div>
 
-          <Avatar className="w-10 h-10 bg-[#FAD98D]/20 text-[#C9A227] flex items-center justify-center font-semibold">
+          <Avatar className="w-10 h-10 bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8 text-[#C9A227] flex items-center justify-center font-semibold">
             {participant.user_name?.charAt(0)?.toUpperCase() || '?'}
           </Avatar>
 

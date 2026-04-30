@@ -66,12 +66,12 @@ export default function JournalTagManager({ entry, onUpdate }) {
   };
 
   const tagColors = [
-    'bg-[#FAD98D]/20 text-[#0A1A2F] dark:text-white dark:text-white',
-    'bg-[#FAD98D]/20 text-pink-800',
+    'bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8 text-[#0A1A2F] dark:text-white dark:text-white',
+    'bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8 text-pink-800',
     'bg-[#AFC7E3]/20 text-blue-800',
-    'bg-green-100 text-green-800',
-    'bg-yellow-100 text-yellow-800',
-    'bg-red-100 text-red-800'
+    'bg-green-100 dark:bg-green-900/25 text-green-800',
+    'bg-yellow-100 dark:bg-yellow-900/25 text-yellow-800',
+    'bg-red-100 dark:bg-red-900/25 text-red-800'
   ];
 
   return (

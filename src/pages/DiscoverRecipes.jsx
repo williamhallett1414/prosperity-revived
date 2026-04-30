@@ -159,7 +159,7 @@ export default function DiscoverRecipes() {
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
 
       {/* ── Sticky header ── */}
-      <div className="sticky top-0 z-40 bg-white/95 dark:bg-[#0A1A2F]/95 backdrop-blur-md border-b border-[#FAD98D]/15 px-4 pt-3 pb-3 shadow-sm">
+      <div className="sticky top-0 z-40 bg-white/95 dark:bg-[#0A1A2F]/95 backdrop-blur-md border-b border-[#FAD98D]/15 dark:border-[#FAD98D]/8 px-4 pt-3 pb-3 shadow-sm">
         <div className="max-w-lg mx-auto space-y-3">
 
           {/* Title row */}
@@ -179,7 +179,7 @@ export default function DiscoverRecipes() {
             {/* Hamburger menu */}
             <div className="relative">
               <button onClick={() => setShowMenu(v => !v)}
-                className="relative w-9 h-9 rounded-xl bg-[#FAD98D]/10 border border-[#FAD98D]/25 flex items-center justify-center text-[#c9a227] hover:bg-[#FAD98D]/25 transition-colors">
+                className="relative w-9 h-9 rounded-xl bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5 border border-[#FAD98D]/25 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 flex items-center justify-center text-[#c9a227] hover:bg-[#FAD98D]/25 dark:bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5 transition-colors">
                 {showMenu ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
                 {totalCount > 0 && !showMenu && (
                   <span className="absolute -top-1.5 -right-1.5 bg-[#c9a227] text-white text-[9px] font-bold rounded-full flex items-center justify-center shadow-sm"
@@ -190,15 +190,15 @@ export default function DiscoverRecipes() {
               </button>
 
               {showMenu && (
-                <div className="absolute right-0 top-full mt-2 bg-white dark:bg-[#0A1A2F] rounded-2xl border border-[#FAD98D]/20 shadow-xl dark:shadow-none py-2 z-50 min-w-[160px]">
+                <div className="absolute right-0 top-full mt-2 bg-white dark:bg-[#0A1A2F] rounded-2xl border border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 shadow-xl dark:shadow-none py-2 z-50 min-w-[160px]">
                   {/* Add Recipe */}
                   <button onClick={() => { setShowCreate(true); setShowMenu(false); }}
-                    className="w-full text-left px-4 py-2.5 text-xs font-semibold text-[#0A1A2F]/70 dark:text-white/70 hover:bg-[#FAD98D]/10 flex items-center gap-2.5">
+                    className="w-full text-left px-4 py-2.5 text-xs font-semibold text-[#0A1A2F]/70 dark:text-white/70 hover:bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5 flex items-center gap-2.5">
                     <Plus className="w-3.5 h-3.5 text-[#c9a227]" /> Add Recipe
                   </button>
                   {/* Grocery list */}
                   <button onClick={() => { setCartOpen(true); setShowMenu(false); }}
-                    className="w-full text-left px-4 py-2.5 text-xs font-semibold text-[#0A1A2F]/70 dark:text-white/70 hover:bg-[#FAD98D]/10 flex items-center gap-2.5">
+                    className="w-full text-left px-4 py-2.5 text-xs font-semibold text-[#0A1A2F]/70 dark:text-white/70 hover:bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5 flex items-center gap-2.5">
                     <ShoppingCart className="w-3.5 h-3.5 text-[#c9a227]" />
                     Grocery List
                     {totalCount > 0 && (
@@ -208,15 +208,15 @@ export default function DiscoverRecipes() {
                   {/* Sort — hidden on health / collections tabs */}
                   {showFilters && (
                     <>
-                      <div className="border-t border-[#FAD98D]/15 my-1" />
+                      <div className="border-t border-[#FAD98D]/15 dark:border-[#FAD98D]/8 my-1" />
                       <p className="px-4 pt-1 pb-0.5 text-[9px] font-bold text-[#0A1A2F]/30 dark:text-white/30 uppercase tracking-widest">Sort by</p>
                       {SORT_OPTIONS.map(opt => (
                         <button key={opt.value}
                           onClick={() => { setSort(opt.value); setShowMenu(false); }}
                           className={`w-full text-left px-4 py-2 text-xs font-semibold flex items-center gap-2 transition-colors ${
                             sort === opt.value
-                              ? 'text-[#c9a227] bg-[#FAD98D]/15'
-                              : 'text-[#0A1A2F]/60 dark:text-white/60 hover:bg-[#FAD98D]/10'
+                              ? 'text-[#c9a227] bg-[#FAD98D]/15 dark:bg-[#FAD98D]/8'
+                              : 'text-[#0A1A2F]/60 dark:text-white/60 hover:bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5'
                           }`}>
                           <ArrowUpDown className="w-3 h-3 opacity-50" />
                           {opt.label}
@@ -267,7 +267,7 @@ export default function DiscoverRecipes() {
         {activeTab === 'all' && (() => {
           if (isLoading) return (
             <div className="space-y-3">
-              {[1,2,3].map(i => <div key={i} className="bg-white dark:bg-white/5 rounded-2xl border border-[#FAD98D]/20 h-36 animate-pulse" />)}
+              {[1,2,3].map(i => <div key={i} className="bg-white dark:bg-white/5 rounded-2xl border border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 h-36 animate-pulse" />)}
             </div>
           );
           if (allSrc.length === 0) return (
@@ -374,7 +374,7 @@ export default function DiscoverRecipes() {
 
       {/* Allergen Safety Warning */}
       <div className="max-w-lg mx-auto px-4 pb-3">
-        <div className="bg-amber-50 border border-amber-200 rounded-xl px-4 py-2.5">
+        <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800/30 rounded-xl px-4 py-2.5">
           <p className="text-[10px] text-amber-800 leading-relaxed">
             <strong>⚠ Allergen Warning:</strong> Recipes may contain common allergens including nuts, dairy, gluten, eggs, soy, shellfish, and others. AI-generated recipes may not account for your specific allergies or dietary restrictions. Always verify ingredients before preparing any recipe. If you have food allergies, consult with a healthcare professional before trying new recipes.
           </p>

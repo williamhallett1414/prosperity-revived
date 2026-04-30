@@ -188,7 +188,7 @@ Requirements:
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.8 }}
-                className="flex items-center gap-1.5 bg-[#FAD98D]/30 text-[#0A1A2F] dark:text-white border border-[#FAD98D]/40 rounded-full px-3 py-1 text-sm"
+                className="flex items-center gap-1.5 bg-[#FAD98D]/30 text-[#0A1A2F] dark:text-white border border-[#FAD98D]/40 dark:border-[#FAD98D]/15 dark:border-[#FAD98D]/8 rounded-full px-3 py-1 text-sm"
               >
                 {ing}
                 <button
@@ -249,7 +249,7 @@ Requirements:
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: idx * 0.08 }}
-                  className="bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-xl p-4 border border-[#FAD98D]/20"
+                  className="bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-xl p-4 border border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5"
                 >
                   {/* Recipe Header */}
                   <div className="flex items-start justify-between gap-2 mb-1">
@@ -277,7 +277,7 @@ Requirements:
                     <p className="text-xs font-semibold text-[#0A1A2F]/60 dark:text-white/60 mb-1">Ingredients needed:</p>
                     <div className="flex flex-wrap gap-1">
                       {[...(recipe.usedIngredients || []), ...(recipe.additionalIngredients || [])].map((ing) => (
-                        <span key={ing} className="text-xs bg-white dark:bg-white/5 border border-[#FAD98D]/30 rounded-full px-2 py-0.5 text-[#0A1A2F]/80 dark:text-white/80">
+                        <span key={ing} className="text-xs bg-white dark:bg-white/5 border border-[#FAD98D]/30 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 rounded-full px-2 py-0.5 text-[#0A1A2F]/80 dark:text-white/80">
                           {ing}
                         </span>
                       ))}
@@ -297,13 +297,13 @@ Requirements:
                   </button>
 
                   {/* Action Buttons */}
-                  <div className="flex gap-2 mt-4 pt-3 border-t border-[#FAD98D]/20">
+                  <div className="flex gap-2 mt-4 pt-3 border-t border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5">
                     <button
                       onClick={() => handleLogToFoodLog(recipe)}
                       disabled={!!loggedRecipes[recipe.name]}
                       className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-2xl text-xs font-bold transition-all shadow-sm dark:shadow-none ${
                         loggedRecipes[recipe.name]
-                          ? 'bg-emerald-50 text-emerald-600 border border-emerald-200 shadow-none'
+                          ? 'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 border border-emerald-200 shadow-none'
                           : 'bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white shadow-[#c9a227]/25 active:scale-95 hover:opacity-90'
                       }`}
                     >
@@ -357,7 +357,7 @@ Requirements:
 
                         {/* Nutrition Facts */}
                         {recipe.nutrition && (
-                          <div className="bg-white dark:bg-white/5 rounded-xl p-4 border border-[#FAD98D]/20">
+                          <div className="bg-white dark:bg-white/5 rounded-xl p-4 border border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5">
                             <p className="text-xs font-bold text-[#0A1A2F] dark:text-white uppercase tracking-wide mb-3">Nutrition Facts <span className="font-normal normal-case text-[#0A1A2F]/50 dark:text-white/50">(per serving)</span></p>
                             <div className="grid grid-cols-5 gap-2 text-center">
                               {[
@@ -393,7 +393,7 @@ Requirements:
 
                         {/* Chef Tips */}
                         {recipe.chefTips?.length > 0 && (
-                          <div className="bg-[#FAD98D]/15 rounded-xl p-4 border border-[#FAD98D]/30">
+                          <div className="bg-[#FAD98D]/15 dark:bg-[#FAD98D]/8 rounded-xl p-4 border border-[#FAD98D]/30 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5">
                             <p className="text-xs font-bold text-[#C9A227] uppercase tracking-wide mb-2">👨‍🍳 Chef Daniel's Tips</p>
                             <ul className="space-y-1">
                               {recipe.chefTips.map((tip, i) => (

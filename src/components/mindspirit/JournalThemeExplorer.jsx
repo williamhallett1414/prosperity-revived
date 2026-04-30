@@ -86,7 +86,7 @@ Format each exercise with clear separators. Make them actionable and emotionally
     >
       <button
         onClick={() => setIsExpanded(!isExpanded)}
-        className="w-full flex items-center justify-between px-4 py-3 rounded-lg bg-gradient-to-r from-amber-50 to-orange-50 hover:from-amber-100 hover:to-orange-100 transition-colors border border-amber-200"
+        className="w-full flex items-center justify-between px-4 py-3 rounded-lg bg-gradient-to-r from-amber-50 dark:from-amber-900/15 to-orange-50 hover:from-amber-100 hover:to-orange-100 transition-colors border border-amber-200 dark:border-amber-800/30"
       >
         <div className="flex items-center gap-3">
           <Sparkles className="w-5 h-5 text-amber-600" />
@@ -105,7 +105,7 @@ Format each exercise with clear separators. Make them actionable and emotionally
             exit={{ opacity: 0, height: 0 }}
             className="overflow-hidden"
           >
-            <div className="p-4 bg-white dark:bg-white/5 border border-t-0 border-amber-200 rounded-b-lg space-y-4">
+            <div className="p-4 bg-white dark:bg-white/5 border border-t-0 border-amber-200 dark:border-amber-800/30 rounded-b-lg space-y-4">
               {/* Emotions Selection */}
               {patterns.emotionalPatterns.length > 0 && (
                 <div>
@@ -120,7 +120,7 @@ Format each exercise with clear separators. Make them actionable and emotionally
                         onClick={() => toggleEmotion(emotion)}
                         className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
                           selectedEmotions.includes(emotion)
-                            ? 'bg-red-500 text-white ring-2 ring-red-300'
+                            ? 'bg-red-50 dark:bg-red-900/200 text-white ring-2 ring-red-300'
                             : 'bg-gray-100 dark:bg-white/5 text-gray-700 dark:text-gray-200 hover:bg-gray-200'
                         }`}
                       >
@@ -196,7 +196,7 @@ Format each exercise with clear separators. Make them actionable and emotionally
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="mt-4 bg-gradient-to-br from-[#FAD98D]/10 to-[#F2F6FA] rounded-lg p-5 border border-[#FAD98D]/40"
+            className="mt-4 bg-gradient-to-br from-[#FAD98D]/10 to-[#F2F6FA] rounded-lg p-5 border border-[#FAD98D]/40 dark:border-[#FAD98D]/15 dark:border-[#FAD98D]/8"
           >
             <div className="flex items-center gap-2 mb-4">
               <BookOpen className="w-5 h-5 text-[#C9A227]" />

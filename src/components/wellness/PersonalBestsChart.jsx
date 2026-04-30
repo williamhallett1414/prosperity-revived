@@ -65,7 +65,7 @@ export default function PersonalBestsChart({ sessions }) {
               className="flex items-center justify-between p-4 bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 rounded-lg border border-yellow-200 dark:border-yellow-800"
             >
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full bg-yellow-500 text-white flex items-center justify-center font-bold text-sm">
+                <div className="w-8 h-8 rounded-full bg-yellow-50 dark:bg-yellow-900/200 text-white flex items-center justify-center font-bold text-sm">
                   {index + 1}
                 </div>
                 <div>

@@ -99,7 +99,7 @@ export default function SpiritualInsightsDashboard() {
                     {theme.associated_emotions.slice(0, 4).map((emotion, i) => (
                       <span
                         key={i}
-                        className="text-xs bg-[#FAD98D]/20 dark:bg-[#0A1A2F]/30 text-[#3C4E53] dark:text-[#FAD98D] px-2 py-1 rounded-full"
+                        className="text-xs bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8 dark:bg-[#0A1A2F]/30 text-[#3C4E53] dark:text-[#FAD98D] px-2 py-1 rounded-full"
                       >
                         {emotion}
                       </span>
@@ -156,7 +156,7 @@ export default function SpiritualInsightsDashboard() {
                   {emotion.related_spiritual_themes.slice(0, 4).map((theme, i) => (
                     <span
                       key={i}
-                      className="text-xs bg-[#FAD98D]/20 dark:bg-[#0A1A2F]/30 text-[#C9A227] dark:text-[#FAD98D] px-2 py-1 rounded-full capitalize"
+                      className="text-xs bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8 dark:bg-[#0A1A2F]/30 text-[#C9A227] dark:text-[#FAD98D] px-2 py-1 rounded-full capitalize"
                     >
                       {theme}
                     </span>
@@ -169,7 +169,7 @@ export default function SpiritualInsightsDashboard() {
       </Card>
 
       {/* Growth Stats */}
-      <Card className="bg-gradient-to-br from-yellow-50 to-amber-50 dark:from-yellow-900/20 dark:to-amber-900/20">
+      <Card className="bg-gradient-to-br from-yellow-50 to-amber-50 dark:to-amber-900/10 dark:from-yellow-900/20 dark:to-amber-900/20">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-lg">
             <Award className="w-5 h-5 text-yellow-600" />
@@ -196,7 +196,7 @@ export default function SpiritualInsightsDashboard() {
         </CardContent>
       </Card>
 
-      <div className="bg-[#FAD98D]/10 dark:bg-[#0A1A2F]/20 rounded-lg p-4 text-sm text-gray-700 dark:text-gray-200 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">
+      <div className="bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5 dark:bg-[#0A1A2F]/20 rounded-lg p-4 text-sm text-gray-700 dark:text-gray-200 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">
         <p className="font-medium mb-1">💡 How Gideon Uses This</p>
         <p className="text-xs">
           Gideon analyzes these patterns to offer more personalized guidance, proactive suggestions, 

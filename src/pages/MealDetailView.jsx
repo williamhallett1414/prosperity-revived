@@ -157,7 +157,7 @@ export default function MealDetailView() {
             <button
               onClick={() => deleteMeal.mutate(meal.id)}
               disabled={deleteMeal.isPending}
-              className="p-2 hover:bg-red-100 rounded-lg transition-colors"
+              className="p-2 hover:bg-red-100 dark:bg-red-900/25 rounded-lg transition-colors"
             >
               <Trash2 className="w-5 h-5 text-red-500" />
             </button>
@@ -216,11 +216,11 @@ export default function MealDetailView() {
               <p className="text-2xl font-bold text-[#3C4E53]">{meal.protein || 0}g</p>
               <p className="text-xs text-[#3C4E53] mt-1">Protein</p>
             </div>
-            <div className="bg-amber-50 rounded-xl p-4 text-center">
+            <div className="bg-amber-50 dark:bg-amber-900/20 rounded-xl p-4 text-center">
               <p className="text-2xl font-bold text-amber-600">{meal.carbs || 0}g</p>
               <p className="text-xs text-amber-700 mt-1">Carbs</p>
             </div>
-            <div className="bg-red-50 rounded-xl p-4 text-center">
+            <div className="bg-red-50 dark:bg-red-900/20 rounded-xl p-4 text-center">
               <p className="text-2xl font-bold text-red-600">{meal.fats || 0}g</p>
               <p className="text-xs text-red-700 mt-1">Fats</p>
             </div>
@@ -230,13 +230,13 @@ export default function MealDetailView() {
           {(meal.fiber || meal.sugar) && (
             <div className="grid grid-cols-2 gap-3 mt-4">
               {meal.fiber && (
-                <div className="bg-green-50 rounded-xl p-4 text-center">
+                <div className="bg-green-50 dark:bg-green-900/20 rounded-xl p-4 text-center">
                   <p className="text-xl font-bold text-green-600">{meal.fiber}g</p>
                   <p className="text-xs text-green-700 mt-1">Fiber</p>
                 </div>
               )}
               {meal.sugar && (
-                <div className="bg-[#FAD98D]/10 rounded-xl p-4 text-center">
+                <div className="bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5 rounded-xl p-4 text-center">
                   <p className="text-xl font-bold text-[#c9a227]">{meal.sugar}g</p>
                   <p className="text-xs text-[#C9A227] mt-1">Sugar</p>
                 </div>
@@ -366,25 +366,25 @@ export default function MealDetailView() {
             <h3 className="text-lg font-semibold text-[#0A1A2F] dark:text-white mb-4">Other Nutrition Facts</h3>
             <div className="grid grid-cols-2 gap-3">
               {meal.fiber && (
-                <div className="bg-green-50 rounded-lg p-3">
+                <div className="bg-green-50 dark:bg-green-900/20 rounded-lg p-3">
                   <p className="text-sm font-medium text-[#0A1A2F] dark:text-white dark:text-white">Fiber</p>
                   <p className="text-lg font-bold text-green-600 mt-1">{meal.fiber}g</p>
                 </div>
               )}
               {meal.sugar && (
-                <div className="bg-[#FAD98D]/10 rounded-lg p-3">
+                <div className="bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5 rounded-lg p-3">
                   <p className="text-sm font-medium text-[#0A1A2F] dark:text-white dark:text-white">Sugar</p>
                   <p className="text-lg font-bold text-[#c9a227] mt-1">{meal.sugar}g</p>
                 </div>
               )}
               {meal.saturated_fat && (
-                <div className="bg-orange-50 rounded-lg p-3">
+                <div className="bg-orange-50 dark:bg-orange-900/20 rounded-lg p-3">
                   <p className="text-sm font-medium text-[#0A1A2F] dark:text-white dark:text-white">Saturated Fat</p>
                   <p className="text-lg font-bold text-orange-600 mt-1">{meal.saturated_fat}g</p>
                 </div>
               )}
               {meal.trans_fat && (
-                <div className="bg-red-50 rounded-lg p-3">
+                <div className="bg-red-50 dark:bg-red-900/20 rounded-lg p-3">
                   <p className="text-sm font-medium text-[#0A1A2F] dark:text-white dark:text-white">Trans Fat</p>
                   <p className="text-lg font-bold text-red-600 mt-1">{meal.trans_fat}g</p>
                 </div>
@@ -396,7 +396,7 @@ export default function MealDetailView() {
                 </div>
               )}
               {meal.monounsaturated_fat && (
-                <div className="bg-yellow-50 rounded-lg p-3">
+                <div className="bg-yellow-50 dark:bg-yellow-900/20 rounded-lg p-3">
                   <p className="text-sm font-medium text-[#0A1A2F] dark:text-white dark:text-white">Monounsaturated Fat</p>
                   <p className="text-lg font-bold text-yellow-600 mt-1">{meal.monounsaturated_fat}g</p>
                 </div>
@@ -450,7 +450,7 @@ export default function MealDetailView() {
             onClick={() => deleteMeal.mutate(meal.id)}
             disabled={deleteMeal.isPending}
             variant="outline"
-            className="w-full text-red-600 border-red-200 hover:bg-red-50"
+            className="w-full text-red-600 border-red-200 hover:bg-red-50 dark:bg-red-900/20"
           >
             <Trash2 className="w-4 h-4 mr-2" />
             Delete Meal

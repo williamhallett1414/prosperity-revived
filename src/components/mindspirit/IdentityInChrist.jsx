@@ -63,7 +63,7 @@ export default function IdentityInChrist() {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-gradient-to-br from-[#FAD98D]/20 to-[#AFC7E3]/20 rounded-2xl p-6 border border-[#FAD98D]/30 mb-6"
+      className="bg-gradient-to-br from-[#FAD98D]/20 to-[#AFC7E3]/20 rounded-2xl p-6 border border-[#FAD98D]/30 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 mb-6"
     >
       <div className="flex items-center gap-2 mb-4">
         <Crown className="w-6 h-6 text-[#FAD98D]" />
@@ -84,7 +84,7 @@ export default function IdentityInChrist() {
         <Button
           onClick={() => setExpanded(!expanded)}
           variant="outline"
-          className="w-full border-[#FAD98D] hover:bg-[#FAD98D]/10"
+          className="w-full border-[#FAD98D] dark:border-[#FAD98D]/30 hover:bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5"
         >
           {expanded ? (
             <>

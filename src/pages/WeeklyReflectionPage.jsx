@@ -197,7 +197,7 @@ function CompletedState({ weekLabel, onEdit, navigate, user }) {
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         transition={{ type: 'spring', stiffness: 200, delay: 0.1 }}
-        className="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center mx-auto mb-4"
+        className="w-16 h-16 rounded-full bg-green-50 dark:bg-green-900/20 flex items-center justify-center mx-auto mb-4"
       >
         <CheckCircle2 className="w-8 h-8 text-green-500" />
       </motion.div>
@@ -348,7 +348,7 @@ export default function WeeklyReflectionPage() {
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
 
       {/* Header */}
-      <div className="sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b border-[#AFC7E3]/20 px-4 py-3">
+      <div className="sticky top-0 z-40 bg-white/95 dark:bg-[#0A1A2F]/95 backdrop-blur-sm border-b border-[#AFC7E3]/20 px-4 py-3">
         <div className="max-w-2xl mx-auto flex items-center gap-3">
           <Link
             to={createPageUrl('PersonalGrowth')}
@@ -361,7 +361,7 @@ export default function WeeklyReflectionPage() {
             <p className="text-xs text-[#0A1A2F]/50 dark:text-white/50 truncate">{weekLabel}</p>
           </div>
           {streak > 0 && (
-            <div className="flex items-center gap-1 bg-orange-50 border border-orange-100 px-2.5 py-1.5 rounded-full">
+            <div className="flex items-center gap-1 bg-orange-50 dark:bg-orange-900/20 border border-orange-100 dark:border-orange-800/30 px-2.5 py-1.5 rounded-full">
               <Flame className="w-3.5 h-3.5 text-orange-500" />
               <span className="text-xs font-bold text-orange-600">{streak}w streak</span>
             </div>

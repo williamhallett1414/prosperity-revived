@@ -87,8 +87,8 @@ export default function GratitudePatternInsights({ entries }) {
               <div className="space-y-1.5">
                 {insights.growth_areas.map((area, i) => (
                   <div key={i} className="flex items-start gap-2">
-                    <div className="w-4 h-4 bg-green-100 rounded-full flex items-center justify-center mt-0.5 flex-shrink-0">
-                      <div className="w-1.5 h-1.5 bg-green-500 rounded-full" />
+                    <div className="w-4 h-4 bg-green-100 dark:bg-green-900/25 rounded-full flex items-center justify-center mt-0.5 flex-shrink-0">
+                      <div className="w-1.5 h-1.5 bg-green-50 dark:bg-green-900/200 rounded-full" />
                     </div>
                     <p className="text-sm text-[#0A1A2F]/80 dark:text-white/80">{area}</p>
                   </div>
@@ -105,7 +105,7 @@ export default function GratitudePatternInsights({ entries }) {
           )}
 
           {insights.encouragement && (
-            <div className="bg-gradient-to-r from-[#FD9C2D]/10 to-[#FAD98D]/10 rounded-xl p-4 border border-[#FAD98D]/20">
+            <div className="bg-gradient-to-r from-[#FD9C2D]/10 to-[#FAD98D]/10 rounded-xl p-4 border border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5">
               <p className="text-sm text-[#0A1A2F] dark:text-white font-medium italic">✨ {insights.encouragement}</p>
             </div>
           )}

@@ -3283,7 +3283,7 @@ export default function StudyGuideArticle({ guide, onBack }) {
             <>
               <Card className="p-6 mt-2 space-y-4 text-[#0A1A2F]/75 dark:text-white/75">
                 {content.keyEvents.map((item, index) => (
-                  <div key={index} className="border-l-4 border-[#FAD98D] pl-4">
+                  <div key={index} className="border-l-4 border-[#FAD98D] dark:border-[#FAD98D]/30 pl-4">
                     <h3 className="font-semibold text-[#0A1A2F] dark:text-white mb-1">{item.event}</h3>
                     <p className="text-sm">{item.desc}</p>
                   </div>
@@ -3359,7 +3359,7 @@ export default function StudyGuideArticle({ guide, onBack }) {
 
         {/* Conclusion */}
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7 }} className="mt-6">
-          <Card className="p-6 bg-gradient-to-br from-[#FAD98D]/10 to-[#FFF9EC]">
+          <Card className="p-6 bg-gradient-to-br from-[#FAD98D]/10 to-[#FFF9EC] dark:to-[#FAD98D]/5">
             <h2 className="text-lg font-bold text-[#0A1A2F] dark:text-white mb-4">Study Takeaway</h2>
             <p className="text-[#0A1A2F]/75 dark:text-white/75 leading-relaxed">
               The Book of Genesis serves as the foundation upon which the entire Bible stands. Its narratives about faith, obedience, and redemption remain profoundly relevant today. Genesis invites us to reflect on our place in God's redemptive plan and to embrace the timeless values of faith, obedience, and trust in the sovereign God who created and sustains the universe.

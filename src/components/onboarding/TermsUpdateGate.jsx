@@ -81,9 +81,9 @@ function DisclosureScroll({ onReady }) {
             key={i}
             className={`rounded-2xl p-3.5 ${
               d.emergency
-                ? 'bg-red-50 border border-red-200'
+                ? 'bg-red-50 dark:bg-red-900/20 border border-red-200'
                 : d.warning
-                ? 'bg-amber-50 border border-amber-200'
+                ? 'bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800/30'
                 : 'bg-[#F2F6FA] dark:bg-[#0A1A2F] border border-gray-200 dark:border-white/10 dark:border-white/10'
             }`}
           >
@@ -164,7 +164,7 @@ export default function TermsUpdateGate({ user, onAccepted }) {
         </div>
 
         {/* Update badge */}
-        <div className="flex items-center gap-2 px-5 py-2.5 bg-amber-50 border-b border-amber-100">
+        <div className="flex items-center gap-2 px-5 py-2.5 bg-amber-50 dark:bg-amber-900/20 border-b border-amber-100 dark:border-amber-800/30">
           <AlertTriangle className="w-3.5 h-3.5 text-amber-600 flex-shrink-0" />
           <p className="text-xs text-amber-800 font-semibold">
             Effective 12 March 2026 — acceptance required to continue using Prosperity Revived
@@ -234,7 +234,7 @@ export default function TermsUpdateGate({ user, onAccepted }) {
               animate={{ scale: 1, opacity: 1 }}
               className="flex items-center justify-center gap-2 py-4"
             >
-              <div className="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center">
+              <div className="w-8 h-8 rounded-full bg-green-50 dark:bg-green-900/200 flex items-center justify-center">
                 <Check className="w-4 h-4 text-white" strokeWidth={3} />
               </div>
               <span className="text-sm font-bold text-green-700">Thank you — all set!</span>

@@ -127,14 +127,14 @@ export default function BibleStatsModal({ isOpen, onClose, statType, progress, b
             <div>
               <h3 className="font-semibold text-[#0A1A2F] dark:text-white mb-3">Consistency Tips</h3>
               <div className="space-y-2">
-                <div className="flex items-start gap-3 bg-[#FAD98D]/20 rounded-lg p-3">
+                <div className="flex items-start gap-3 bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8 rounded-lg p-3">
                   <Calendar className="w-5 h-5 text-[#c9a227] mt-0.5" />
                   <div>
                     <p className="font-medium text-sm text-[#0A1A2F] dark:text-white dark:text-white">Set a Daily Time</p>
                     <p className="text-xs text-[#0A1A2F]/60 dark:text-white/60">Pick the same time each day for reading</p>
                   </div>
                 </div>
-                <div className="flex items-start gap-3 bg-[#FAD98D]/20 rounded-lg p-3">
+                <div className="flex items-start gap-3 bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8 rounded-lg p-3">
                   <CheckCircle className="w-5 h-5 text-[#c9a227] mt-0.5" />
                   <div>
                     <p className="font-medium text-sm text-[#0A1A2F] dark:text-white dark:text-white">Start Small</p>

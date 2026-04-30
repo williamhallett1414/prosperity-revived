@@ -149,12 +149,12 @@ Only reference past guidance when directly relevant. This shows you're walking a
       <Button
         onClick={() => setIsExpanded(!isExpanded)}
         variant="outline"
-        className="w-full bg-gradient-to-r from-[#FAD98D]/10 to-[#FFF9EC] border-[#FAD98D]/40 hover:shadow-md dark:shadow-none transition-all"
+        className="w-full bg-gradient-to-r from-[#FAD98D]/10 to-[#FFF9EC] dark:to-[#FAD98D]/5 border-[#FAD98D]/40 dark:border-[#FAD98D]/15 dark:border-[#FAD98D]/8 hover:shadow-md dark:shadow-none transition-all"
       >
         <MessageCircle className="w-4 h-4 mr-2 text-[#c9a227]" />
         Ask Gideon About This Section
         {savedAdvice.length > 0 && (
-          <span className="ml-2 text-xs bg-[#FAD98D]/100 text-white px-2 py-1 rounded-full">
+          <span className="ml-2 text-xs bg-[#FAD98D]/10 dark:bg-[#FAD98D]/50 text-white px-2 py-1 rounded-full">
             {savedAdvice.length}
           </span>
         )}
@@ -197,7 +197,7 @@ Only reference past guidance when directly relevant. This shows you're walking a
 
               {/* Current Response */}
               {currentAdvice && (
-                <div className="bg-gradient-to-br from-[#FAD98D]/10 to-[#FFF9EC] p-4 rounded-lg space-y-3">
+                <div className="bg-gradient-to-br from-[#FAD98D]/10 to-[#FFF9EC] dark:to-[#FAD98D]/5 p-4 rounded-lg space-y-3">
                   <div>
                     <p className="text-xs font-medium text-[#C9A227] mb-1">Your Question:</p>
                     <p className="text-sm text-[#0A1A2F]/75 dark:text-white/75">{currentAdvice.question}</p>
@@ -220,7 +220,7 @@ Only reference past guidance when directly relevant. This shows you're walking a
 
               {/* Saved Advice */}
               {savedAdvice.length > 0 && (
-                <div className="space-y-3 border-t border-[#FAD98D]/20 pt-4">
+                <div className="space-y-3 border-t border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 pt-4">
                   <h4 className="text-sm font-semibold text-[#0A1A2F]/75 dark:text-white/75">Saved Guidance</h4>
                   {savedAdvice.map((item) => (
                     <div

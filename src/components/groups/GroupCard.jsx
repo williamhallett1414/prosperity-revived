@@ -47,7 +47,7 @@ export default function GroupCard({ group, onClick, index, isMember }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.04 }}
       onClick={onClick}
-      className="cursor-pointer bg-white dark:bg-white/5 rounded-2xl overflow-hidden border border-[#FAD98D]/20 hover:border-[#c9a227]/40 hover:shadow-md dark:shadow-none transition-all active:scale-[0.98]"
+      className="cursor-pointer bg-white dark:bg-white/5 rounded-2xl overflow-hidden border border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 hover:border-[#c9a227]/40 hover:shadow-md dark:shadow-none transition-all active:scale-[0.98]"
     >
       {/* Cover */}
       <div className="relative h-28 overflow-hidden">

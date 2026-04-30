@@ -16,12 +16,12 @@ import ShareToFeedButton from '@/components/community/ShareToFeedButton';
 const SPOTLIGHT_DURATION = 30;
 const CATEGORIES = ['All', 'Healing', 'Family', 'Finances', 'Guidance', 'Praise', 'Relationships', 'Other'];
 const CATEGORY_COLORS = {
-  Healing:       'bg-rose-500/20 text-rose-300 border-rose-500/30',
-  Family:        'bg-amber-500/20 text-amber-300 border-amber-500/30',
-  Finances:      'bg-emerald-500/20 text-emerald-300 border-emerald-500/30',
-  Guidance:      'bg-sky-500/20 text-sky-300 border-sky-500/30',
+  Healing:       'bg-rose-50 dark:bg-rose-900/200/20 text-rose-300 border-rose-500/30',
+  Family:        'bg-amber-50 dark:bg-amber-900/200/20 text-amber-300 border-amber-500/30',
+  Finances:      'bg-emerald-50 dark:bg-emerald-900/200/20 text-emerald-300 border-emerald-500/30',
+  Guidance:      'bg-sky-50 dark:bg-sky-900/200/20 text-sky-300 border-sky-500/30',
   Praise:        'bg-yellow-400/20 text-yellow-300 border-yellow-400/30',
-  Relationships: 'bg-pink-500/20 text-pink-300 border-pink-500/30',
+  Relationships: 'bg-pink-50 dark:bg-pink-900/200/20 text-pink-300 border-pink-500/30',
   Other:         'bg-slate-500/20 text-slate-300 border-slate-500/30',
 };
 
@@ -91,7 +91,7 @@ function SpotlightCard({ request, countdown, total, onPray, onNext, onClick, has
       onClick={onClick}>
       <div className="absolute inset-0 opacity-30" style={{ background: 'radial-gradient(ellipse at 30% 50%, rgba(201,162,39,0.3) 0%, transparent 70%)' }} />
       {request?.is_answered && (
-        <div className="absolute top-3 right-3 flex items-center gap-1 bg-emerald-500/25 border border-emerald-400/40 rounded-full px-2 py-0.5 z-10">
+        <div className="absolute top-3 right-3 flex items-center gap-1 bg-emerald-50 dark:bg-emerald-900/200/25 border border-emerald-400/40 rounded-full px-2 py-0.5 z-10">
           <CheckCircle2 className="w-3 h-3 text-emerald-400" />
           <span className="text-[9px] font-bold text-emerald-300 uppercase tracking-wide">Answered</span>
         </div>
@@ -159,7 +159,7 @@ function PrayerRow({ request, index, onOpen, user }) {
             <div className="flex items-center gap-1.5">
               <span className="font-semibold text-white text-sm">{request.user_name}</span>
               {request.is_answered && (
-                <span className="flex items-center gap-0.5 text-[9px] font-bold text-emerald-400 bg-emerald-500/15 border border-emerald-500/25 rounded-full px-1.5 py-0.5 uppercase tracking-wide">
+                <span className="flex items-center gap-0.5 text-[9px] font-bold text-emerald-400 bg-emerald-50 dark:bg-emerald-900/200/15 border border-emerald-500/25 rounded-full px-1.5 py-0.5 uppercase tracking-wide">
                   <CheckCircle2 className="w-2.5 h-2.5" /> Answered
                 </span>
               )}
@@ -217,7 +217,7 @@ function PrayerDrawer({ request, user, onClose, onPray, onComment, onDelete, onM
         </button>
         <div className="w-10 h-1 rounded-full bg-white/20" />
         {isOwner ? (
-          <button onClick={() => setConfirmDelete(true)} className="w-9 h-9 rounded-full bg-red-500/15 border border-red-500/25 flex items-center justify-center">
+          <button onClick={() => setConfirmDelete(true)} className="w-9 h-9 rounded-full bg-red-50 dark:bg-red-900/200/15 border border-red-500/25 flex items-center justify-center">
             <Trash2 className="w-4 h-4 text-red-400" />
           </button>
         ) : <div className="w-9" />}
@@ -235,7 +235,7 @@ function PrayerDrawer({ request, user, onClose, onPray, onComment, onDelete, onM
           </div>
           <div className="ml-auto flex items-center gap-2">
             {request?.is_answered && (
-              <span className="flex items-center gap-1 text-[10px] font-bold text-emerald-300 bg-emerald-500/15 border border-emerald-500/30 rounded-full px-2 py-1 uppercase tracking-wide">
+              <span className="flex items-center gap-1 text-[10px] font-bold text-emerald-300 bg-emerald-50 dark:bg-emerald-900/200/15 border border-emerald-500/30 rounded-full px-2 py-1 uppercase tracking-wide">
                 <CheckCircle2 className="w-3 h-3" /> Answered
               </span>
             )}
@@ -261,7 +261,7 @@ function PrayerDrawer({ request, user, onClose, onPray, onComment, onDelete, onM
 
         {isOwner && !request?.is_answered && (
           <button onClick={onMarkAnswered}
-            className="w-full flex items-center justify-center gap-2 py-2.5 rounded-2xl font-bold text-sm mb-5 transition-all bg-emerald-500/12 border border-emerald-500/25 text-emerald-400 hover:bg-emerald-500/20">
+            className="w-full flex items-center justify-center gap-2 py-2.5 rounded-2xl font-bold text-sm mb-5 transition-all bg-emerald-50 dark:bg-emerald-900/200/12 border border-emerald-500/25 text-emerald-400 hover:bg-emerald-50 dark:bg-emerald-900/200/20">
             <CheckCircle2 className="w-4 h-4" /> Mark as Answered 🙌
           </button>
         )}
@@ -326,7 +326,7 @@ function PrayerDrawer({ request, user, onClose, onPray, onComment, onDelete, onM
                 <button onClick={() => setConfirmDelete(false)}
                   className="flex-1 py-3 rounded-2xl border border-white/15 text-white/60 font-semibold text-sm">Cancel</button>
                 <button onClick={() => { onDelete(); setConfirmDelete(false); }}
-                  className="flex-1 py-3 rounded-2xl bg-red-500/80 text-white font-bold text-sm">Delete</button>
+                  className="flex-1 py-3 rounded-2xl bg-red-50 dark:bg-red-900/200/80 text-white font-bold text-sm">Delete</button>
               </div>
             </div>
           </motion.div>

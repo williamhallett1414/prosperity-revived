@@ -85,7 +85,7 @@ Provide a clear, encouraging answer that:
           value={question}
           onChange={(e) => setQuestion(e.target.value)}
           placeholder="What would you like to know from Scripture?"
-          className="min-h-[100px] mb-4 resize-none bg-[#F2F6FA] dark:bg-[#0A1A2F] border-[#FAD98D]/20"
+          className="min-h-[100px] mb-4 resize-none bg-[#F2F6FA] dark:bg-[#0A1A2F] border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5"
           onKeyDown={(e) => {
             if (e.key === 'Enter' && !e.shiftKey) {
               e.preventDefault();
@@ -128,7 +128,7 @@ Provide a clear, encouraging answer that:
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.3 + i * 0.1 }}
               onClick={() => handleSuggestedQuestion(q)}
-              className="w-full text-left bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-xl p-4 hover:shadow-md dark:shadow-none transition-all border border-[#FAD98D]/15 group"
+              className="w-full text-left bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-xl p-4 hover:shadow-md dark:shadow-none transition-all border border-[#FAD98D]/15 dark:border-[#FAD98D]/8 group"
             >
               <div className="flex items-start gap-3">
                 <BookOpen className="w-5 h-5 text-[#c9a227] mt-0.5 group-hover:scale-110 transition-transform" />
@@ -167,7 +167,7 @@ Provide a clear, encouraging answer that:
               key={i}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-xl p-5 shadow-sm dark:shadow-none border border-[#FAD98D]/15"
+              className="bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-xl p-5 shadow-sm dark:shadow-none border border-[#FAD98D]/15 dark:border-[#FAD98D]/8"
             >
               <div className="flex items-start gap-2 mb-3">
                 <BookOpen className="w-4 h-4 text-[#c9a227] mt-1 flex-shrink-0" />

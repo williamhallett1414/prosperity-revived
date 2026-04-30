@@ -54,8 +54,8 @@ export default function ProactiveSuggestions() {
     switch (type) {
       case 'scripture': return 'from-[#F2F6FA] to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20';
       case 'reflection': return 'from-[#FAD98D]/10 to-[#FAD98D]/10 dark:from-[#FAD98D]/5 dark:to-[#FAD98D]/5';
-      case 'encouragement': return 'from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20';
-      case 'prayer_prompt': return 'from-orange-50 to-yellow-50 dark:from-orange-900/20 dark:to-yellow-900/20';
+      case 'encouragement': return 'from-green-50 dark:from-green-900/15 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20';
+      case 'prayer_prompt': return 'from-orange-50 dark:from-orange-900/15 to-yellow-50 dark:from-orange-900/20 dark:to-yellow-900/20';
       default: return 'from-[#FAD98D]/10 to-[#FAD98D]/10 dark:from-[#FAD98D]/5 dark:to-[#FAD98D]/5';
     }
   };
@@ -73,7 +73,7 @@ export default function ProactiveSuggestions() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.1 }}
           >
-            <Card className={`bg-gradient-to-br ${gradient} border-[#FAD98D]/40 dark:border-[#FAD98D]/20`}>
+            <Card className={`bg-gradient-to-br ${gradient} border-[#FAD98D]/40 dark:border-[#FAD98D]/15 dark:border-[#FAD98D]/8 dark:border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5`}>
               <div className="p-5">
                 <div className="flex items-start gap-3 mb-3">
                   <div className="w-10 h-10 bg-white/50 dark:bg-black/20 rounded-full flex items-center justify-center flex-shrink-0">

@@ -51,11 +51,11 @@ export default function GoalCompletionChart({ workouts }) {
             <p className="text-sm text-gray-600 dark:text-gray-300">Completion Rate</p>
             <div className="flex gap-4 mt-3 text-sm">
               <div>
-                <span className="inline-block w-3 h-3 bg-green-500 rounded-full mr-1" />
+                <span className="inline-block w-3 h-3 bg-green-50 dark:bg-green-900/200 rounded-full mr-1" />
                 <span className="text-gray-600 dark:text-gray-300">{completedGoals} Completed</span>
               </div>
               <div>
-                <span className="inline-block w-3 h-3 bg-orange-500 rounded-full mr-1" />
+                <span className="inline-block w-3 h-3 bg-orange-50 dark:bg-orange-900/200 rounded-full mr-1" />
                 <span className="text-gray-600 dark:text-gray-300">{inProgress} In Progress</span>
               </div>
             </div>

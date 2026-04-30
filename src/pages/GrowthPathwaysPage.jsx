@@ -135,11 +135,11 @@ const PATHWAYS = [
 const CATEGORIES = ['All', 'Faith', 'Mind', 'Emotions', 'Habits', 'Purpose', 'Relationships'];
 
 const STEP_CONFIG = {
-  teaching:    { icon: Brain,        color: 'text-purple-500',  bg: 'bg-purple-50',   label: 'Teaching'    },
-  scripture:   { icon: BookOpen,     color: 'text-amber-600',   bg: 'bg-amber-50',    label: 'Scripture'   },
-  reflection:  { icon: Pencil,       color: 'text-sky-500',     bg: 'bg-sky-50',      label: 'Reflection'  },
-  action:      { icon: Zap,          color: 'text-orange-500',  bg: 'bg-orange-50',   label: 'Action Step' },
-  integration: { icon: CheckCircle2, color: 'text-emerald-500', bg: 'bg-emerald-50',  label: 'Make It Stick'},
+  teaching:    { icon: Brain,        color: 'text-purple-500',  bg: 'bg-purple-50 dark:bg-purple-900/20',   label: 'Teaching'    },
+  scripture:   { icon: BookOpen,     color: 'text-amber-600',   bg: 'bg-amber-50 dark:bg-amber-900/20',    label: 'Scripture'   },
+  reflection:  { icon: Pencil,       color: 'text-sky-500',     bg: 'bg-sky-50 dark:bg-sky-900/20',      label: 'Reflection'  },
+  action:      { icon: Zap,          color: 'text-orange-500',  bg: 'bg-orange-50 dark:bg-orange-900/20',   label: 'Action Step' },
+  integration: { icon: CheckCircle2, color: 'text-emerald-500', bg: 'bg-emerald-50 dark:bg-emerald-900/20',  label: 'Make It Stick'},
 };
 
 const STORAGE_KEY = 'growth_pathway_progress_v2';
@@ -260,7 +260,7 @@ function AssessmentQuiz({ onComplete, onSkip }) {
                   className={`w-full text-left px-4 py-4 rounded-2xl border-2 text-sm font-medium transition-all leading-snug ${
                     chosen === i
                       ? 'border-[#c9a227] bg-white dark:bg-white/5 text-[#0A1A2F] dark:text-white dark:text-white'
-                      : 'border-[#F2F6FA] bg-white dark:bg-white/5 text-[#0A1A2F]/70 dark:text-white/70 hover:border-[#FAD98D]/50'
+                      : 'border-[#F2F6FA] bg-white dark:bg-white/5 text-[#0A1A2F]/70 dark:text-white/70 hover:border-[#FAD98D]/50 dark:border-[#FAD98D]/20'
                   }`}
                 >
                   <div className="flex items-start gap-3">
@@ -397,12 +397,12 @@ function StepRow({ step, pathwayId, completedIds, isLocked, onToggle, reflection
       initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: step.id * 0.06 }}
       className={`rounded-2xl border overflow-hidden transition-all ${
         isLocked ? 'border-[#F2F6FA] bg-[#F2F6FA] dark:bg-[#0A1A2F] opacity-60' :
-        isDone   ? 'border-emerald-200 bg-emerald-50/40' : 'border-[#F2F6FA] bg-white dark:bg-white/5'
+        isDone   ? 'border-emerald-200 bg-emerald-50 dark:bg-emerald-900/20/40' : 'border-[#F2F6FA] bg-white dark:bg-white/5'
       }`}
     >
       <button className="w-full flex items-center gap-3 p-4 text-left" onClick={handleOpen}>
         <div className={`w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0 ${
-          isLocked ? 'bg-[#F2F6FA] dark:bg-[#0A1A2F]' : isDone ? 'bg-emerald-500' : conf.bg
+          isLocked ? 'bg-[#F2F6FA] dark:bg-[#0A1A2F]' : isDone ? 'bg-emerald-50 dark:bg-emerald-900/200' : conf.bg
         }`}>
           {isLocked
             ? <Lock className="w-3.5 h-3.5 text-[#0A1A2F]/25 dark:text-white/25" />
@@ -444,7 +444,7 @@ function StepRow({ step, pathwayId, completedIds, isLocked, onToggle, reflection
 
               {step.type === 'scripture' && (
                 <div className="space-y-3">
-                  <div className="bg-white dark:bg-white/5 rounded-xl p-4 border border-[#FAD98D]/20">
+                  <div className="bg-white dark:bg-white/5 rounded-xl p-4 border border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5">
                     <p className="text-xs font-bold text-[#c9a227] mb-1.5">{step.verse}</p>
                     <p className="text-sm text-[#0A1A2F] dark:text-white italic leading-relaxed font-medium" style={{ fontFamily: 'Georgia, serif' }}>
                       "{step.text}"
@@ -459,7 +459,7 @@ function StepRow({ step, pathwayId, completedIds, isLocked, onToggle, reflection
                       navigate(createPageUrl(`Bible?book=${encodeURIComponent(book)}&chapter=${chapter}`));
                     }
                   }}
-                    className="flex items-center gap-2 text-xs font-bold text-[#c9a227] hover:text-[#FAD98D] transition-colors px-3 py-2 rounded-lg hover:bg-[#FAD98D]/10">
+                    className="flex items-center gap-2 text-xs font-bold text-[#c9a227] hover:text-[#FAD98D] transition-colors px-3 py-2 rounded-lg hover:bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5">
                     Read more →
                   </button>
                 </div>
@@ -500,7 +500,7 @@ function StepRow({ step, pathwayId, completedIds, isLocked, onToggle, reflection
               <button onClick={() => onToggle(step.id)}
                 className={`w-full py-2.5 rounded-xl font-bold text-xs transition-all ${
                   isDone
-                    ? 'bg-[#F2F6FA] dark:bg-[#0A1A2F] text-[#0A1A2F]/40 dark:text-white/40 hover:bg-red-50 hover:text-red-400'
+                    ? 'bg-[#F2F6FA] dark:bg-[#0A1A2F] text-[#0A1A2F]/40 dark:text-white/40 hover:bg-red-50 dark:bg-red-900/20 hover:text-red-400'
                     : 'bg-gradient-to-r from-[#FAD98D] to-[#c9a227] text-[#0A1A2F] dark:text-white hover:opacity-90'
                 }`}>
                 {isDone ? 'Mark incomplete' : 'Mark complete ✓'}
@@ -614,7 +614,7 @@ function PathwayDetail({ pathway, onBack }) {
         {!isActive && !isComplete && (
           <motion.button initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
             onClick={setAsActive}
-            className="w-full flex items-center gap-3 bg-white dark:bg-white/5 border border-[#FAD98D]/30 rounded-2xl p-4 hover:border-[#c9a227] hover:bg-white dark:bg-white/5 transition-all text-left">
+            className="w-full flex items-center gap-3 bg-white dark:bg-white/5 border border-[#FAD98D]/30 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 rounded-2xl p-4 hover:border-[#c9a227] hover:bg-white dark:bg-white/5 transition-all text-left">
             <div className="w-9 h-9 bg-white dark:bg-white/5 rounded-xl flex items-center justify-center flex-shrink-0">
               <Flame className="w-4 h-4 text-[#c9a227]" />
             </div>
@@ -677,7 +677,7 @@ function PathwayCard({ pathway, progress, activeId, index, onClick }) {
       initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.05 }}
       onClick={onClick}
       className={`w-full text-left bg-white dark:bg-white/5 rounded-2xl border overflow-hidden hover:shadow-md dark:shadow-none transition-all group ${
-        isActive ? 'border-[#c9a227] shadow-sm dark:shadow-none' : isDone ? 'border-emerald-200' : 'border-[#F2F6FA] hover:border-[#FAD98D]/50'
+        isActive ? 'border-[#c9a227] shadow-sm dark:shadow-none' : isDone ? 'border-emerald-200' : 'border-[#F2F6FA] hover:border-[#FAD98D]/50 dark:border-[#FAD98D]/20'
       }`}
     >
       <div className={`h-1 bg-gradient-to-r ${pathway.gradient}`} />
@@ -688,8 +688,8 @@ function PathwayCard({ pathway, progress, activeId, index, onClick }) {
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-0.5">
             <h3 className="font-bold text-sm text-[#0A1A2F] dark:text-white truncate">{pathway.title}</h3>
-            {isActive && <span className="text-[9px] font-bold bg-white dark:bg-white/5 text-[#c9a227] border border-[#FAD98D]/30 px-1.5 py-0.5 rounded-full flex-shrink-0">Focus</span>}
-            {isDone  && <span className="text-[9px] font-bold bg-emerald-50 text-emerald-600 border border-emerald-200 px-1.5 py-0.5 rounded-full flex-shrink-0">Done ✓</span>}
+            {isActive && <span className="text-[9px] font-bold bg-white dark:bg-white/5 text-[#c9a227] border border-[#FAD98D]/30 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 px-1.5 py-0.5 rounded-full flex-shrink-0">Focus</span>}
+            {isDone  && <span className="text-[9px] font-bold bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 border border-emerald-200 px-1.5 py-0.5 rounded-full flex-shrink-0">Done ✓</span>}
           </div>
           <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45 truncate mb-2">{pathway.subtitle}</p>
 
@@ -843,7 +843,7 @@ export default function GrowthPathwaysPage() {
               className={`flex-shrink-0 px-3 py-1.5 rounded-full border text-xs font-semibold whitespace-nowrap transition-all ${
                 category === cat
                   ? 'bg-[#0A1A2F] text-white border-[#0A1A2F]'
-                  : 'bg-white dark:bg-white/5 text-[#0A1A2F]/50 dark:text-white/50 border-[#F2F6FA] hover:border-[#FAD98D]/40'
+                  : 'bg-white dark:bg-white/5 text-[#0A1A2F]/50 dark:text-white/50 border-[#F2F6FA] hover:border-[#FAD98D]/40 dark:border-[#FAD98D]/15 dark:border-[#FAD98D]/8'
               }`}>
               {cat}
             </button>

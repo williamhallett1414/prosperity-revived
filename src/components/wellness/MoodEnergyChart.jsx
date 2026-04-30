@@ -72,7 +72,7 @@ export default function MoodEnergyChart({ moodEnergyData }) {
           <p className="text-lg font-bold text-gray-900 dark:text-white">{avgMood.toFixed(1)}/5</p>
           <p className="text-xs text-gray-600 dark:text-gray-300">Avg Mood</p>
         </div>
-        <div className="bg-green-50 rounded-xl p-3 text-center">
+        <div className="bg-green-50 dark:bg-green-900/20 rounded-xl p-3 text-center">
           <Battery className="w-5 h-5 text-green-600 mx-auto mb-1" />
           <p className="text-lg font-bold text-gray-900 dark:text-white">{avgEnergy.toFixed(1)}/5</p>
           <p className="text-xs text-gray-600 dark:text-gray-300">Avg Energy</p>

@@ -373,14 +373,14 @@ export default function PersonalGrowth() {
 
 
       {/* ── Sticky Header + Tab Bar ── */}
-      <div className="sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b border-[#AFC7E3]/25">
+      <div className="sticky top-0 z-40 bg-white/95 dark:bg-[#0A1A2F]/95 backdrop-blur-sm border-b border-[#AFC7E3]/25">
         <div className="px-4 py-3 max-w-2xl mx-auto flex items-center justify-between">
           <div>
             <h1 className="text-base font-bold text-[#0A1A2F] dark:text-white leading-tight">Personal Growth</h1>
             <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45">Strengthen your mind, emotions, and spirit</p>
           </div>
           {habitStreak > 0 &&
-          <div className="flex items-center gap-1 bg-orange-50 border border-orange-100 px-2.5 py-1.5 rounded-full">
+          <div className="flex items-center gap-1 bg-orange-50 dark:bg-orange-900/20 border border-orange-100 dark:border-orange-800/30 px-2.5 py-1.5 rounded-full">
               <Flame className="w-3.5 h-3.5 text-orange-500" />
               <span className="text-xs font-bold text-orange-600">{habitStreak}d</span>
             </div>
@@ -540,7 +540,7 @@ export default function PersonalGrowth() {
             style={{ background: "linear-gradient(135deg,#0A1A2F,#1E3050)" }}>
             
             <div className="flex items-start gap-3">
-              <div className="w-8 h-8 rounded-full bg-[#FAD98D]/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+              <div className="w-8 h-8 rounded-full bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8 flex items-center justify-center flex-shrink-0 mt-0.5">
                 <Star className="w-4 h-4 text-[#FAD98D]" />
               </div>
               <div className="flex-1 min-w-0">

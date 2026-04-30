@@ -42,17 +42,17 @@ export default function GroupChallengeComparison({ participants, challenge, curr
     <div className="space-y-6">
       {/* Stats Overview */}
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-        <div className="bg-gradient-to-br from-[#FAD98D]/10 to-[#FFF9EC] rounded-xl p-4 text-center">
+        <div className="bg-gradient-to-br from-[#FAD98D]/10 to-[#FFF9EC] dark:to-[#FAD98D]/5 rounded-xl p-4 text-center">
           <TrendingUp className="w-5 h-5 text-[#C9A227] mx-auto mb-1" />
           <p className="text-lg font-bold text-gray-900 dark:text-white">{averageProgress.toFixed(1)}</p>
           <p className="text-xs text-gray-600 dark:text-gray-300">Avg Progress</p>
         </div>
-        <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-4 text-center">
+        <div className="bg-gradient-to-br from-green-50 dark:from-green-900/15 to-emerald-50 rounded-xl p-4 text-center">
           <Award className="w-5 h-5 text-green-600 mx-auto mb-1" />
           <p className="text-lg font-bold text-gray-900 dark:text-white">{completionRate.toFixed(0)}%</p>
           <p className="text-xs text-gray-600 dark:text-gray-300">Completion</p>
         </div>
-        <div className="bg-gradient-to-br from-amber-50 to-orange-50 rounded-xl p-4 text-center">
+        <div className="bg-gradient-to-br from-amber-50 dark:from-amber-900/15 to-orange-50 rounded-xl p-4 text-center">
           <Trophy className="w-5 h-5 text-amber-600 mx-auto mb-1" />
           <p className="text-lg font-bold text-gray-900 dark:text-white">{participants.length}</p>
           <p className="text-xs text-gray-600 dark:text-gray-300">Participants</p>

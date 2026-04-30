@@ -135,7 +135,7 @@ Provide warm, helpful guidance (2-4 sentences) about reading plans, Bible study 
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-24">
 
       {/* ── Standard Header ── */}
-      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 px-4 pt-4 pb-3">
+      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 px-4 pt-4 pb-3">
         
 
 
@@ -204,7 +204,7 @@ Provide warm, helpful guidance (2-4 sentences) about reading plans, Bible study 
               key={group.id}
               whileHover={{ scale: 1.02 }}
               onClick={() => navigate(createPageUrl(`GroupPlanDetail?id=${group.id}`))}
-              className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-4 border border-green-200 cursor-pointer">
+              className="bg-gradient-to-br from-green-50 dark:from-green-900/15 to-emerald-50 rounded-xl p-4 border border-green-200 dark:border-green-800/30 cursor-pointer">
               
                   <div className="flex items-center justify-between">
                     <div>
@@ -220,7 +220,7 @@ Provide warm, helpful guidance (2-4 sentences) about reading plans, Bible study 
                     <Button
                   size="sm"
                   variant="outline"
-                  className="border-green-300 text-green-700 hover:bg-green-100">
+                  className="border-green-300 text-green-700 hover:bg-green-100 dark:bg-green-900/25">
                   
                       View
                     </Button>

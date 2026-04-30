@@ -243,7 +243,7 @@ Be specific, actionable, and encouraging.`;
                 <div key={index} className="border border-gray-200 dark:border-white/10 dark:border-gray-700 rounded-lg p-3">
                   <div className="flex items-start justify-between mb-2">
                     <h4 className="font-semibold text-[#0A1A2F] dark:text-white">{workout.title}</h4>
-                    <span className="text-xs px-2 py-1 bg-[#FAD98D]/20 dark:bg-[#0A1A2F] text-[#3C4E53] dark:text-[#FAD98D] rounded">
+                    <span className="text-xs px-2 py-1 bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8 dark:bg-[#0A1A2F] text-[#3C4E53] dark:text-[#FAD98D] rounded">
                       {workout.difficulty}
                     </span>
                   </div>
@@ -253,7 +253,7 @@ Be specific, actionable, and encouraging.`;
                     <span>•</span>
                     <span>{workout.focus}</span>
                   </div>
-                  <div className="bg-[#FAD98D]/10 dark:bg-[#0A1A2F]/20 p-2 rounded">
+                  <div className="bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5 dark:bg-[#0A1A2F]/20 p-2 rounded">
                     <p className="text-xs text-[#3C4E53] dark:text-[#FAD98D]">
                       <strong>Why:</strong> {workout.why_recommended}
                     </p>

@@ -22,7 +22,7 @@ const moods = [
   { id: 'struggling', label: 'Struggling', icon: Cloud, color: 'bg-[#0A1A2F]/8 text-[#0A1A2F]/60 dark:text-white/60', description: 'facing challenges' },
   { id: 'anxious', label: 'Anxious', icon: Zap, color: 'bg-[#FAD98D]/30 text-[#c9a227]', description: 'feeling worried or stressed' },
   { id: 'sad', label: 'Sad', icon: Frown, color: 'bg-[#AFC7E3]/20 text-[#0A1A2F] dark:text-white dark:text-white', description: 'feeling down or discouraged' },
-  { id: 'neutral', label: 'Okay', icon: Meh, color: 'bg-[#FAD98D]/20 text-[#C9A227]', description: 'feeling neutral' },
+  { id: 'neutral', label: 'Okay', icon: Meh, color: 'bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8 text-[#C9A227]', description: 'feeling neutral' },
 ];
 
 export default function MoodTracker() {
@@ -166,9 +166,9 @@ export default function MoodTracker() {
                 <div className="space-y-4 bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-xl p-4">
                    {/* Error notice with retry */}
                    {error && (
-                     <div className="bg-amber-50 border border-amber-200 rounded-lg p-2.5 flex items-center gap-2">
+                     <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800/30 rounded-lg p-2.5 flex items-center gap-2">
                        <p className="text-xs text-amber-700 flex-1">Showing saved verses. Tap retry for personalized results.</p>
-                       <button onClick={() => handleMoodSelect(selectedMood)} className="flex items-center gap-1 text-xs font-bold text-amber-700 bg-amber-100 px-2 py-1 rounded-lg">
+                       <button onClick={() => handleMoodSelect(selectedMood)} className="flex items-center gap-1 text-xs font-bold text-amber-700 bg-amber-100 dark:bg-amber-900/25 px-2 py-1 rounded-lg">
                          <RefreshCw className="w-3 h-3" /> Retry
                        </button>
                      </div>
@@ -179,7 +179,7 @@ export default function MoodTracker() {
                      <h4 className="font-semibold text-[#0A1A2F] dark:text-white mb-3 text-sm">Scripture for You</h4>
                      <div className="space-y-3">
                        {aiResponse.verses && Array.isArray(aiResponse.verses) && aiResponse.verses.map((verse, index) => (
-                         <div key={index} className="bg-[#FAD98D]/20 p-3 rounded-lg border-l-4 border-[#c9a227]">
+                         <div key={index} className="bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8 p-3 rounded-lg border-l-4 border-[#c9a227]">
                            <p className="font-medium text-xs text-[#0A1A2F] dark:text-white mb-1">{verse.reference}</p>
                            <p className="text-sm text-[#0A1A2F]/75 dark:text-white/75 italic">{verse.text}</p>
                          </div>

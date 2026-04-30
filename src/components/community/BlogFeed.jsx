@@ -12,10 +12,10 @@ import { SEED_POSTS, BLOG_SEED_KEY } from '@/components/community/BlogSeed';
 const TOPICS = {
   faith:           { label: 'Faith',          emoji: '✝️', bg: 'bg-[#FAD98D]/30 text-[#c9a227]',      accent: '#c9a227' },
   fitness:         { label: 'Fitness',         emoji: '💪', bg: 'bg-[#AFC7E3]/30 text-[#3C4E53]',      accent: '#3C4E53' },
-  nutrition:       { label: 'Nutrition',       emoji: '🥗', bg: 'bg-green-50 text-green-700',          accent: '#16a34a' },
-  mental_health:   { label: 'Mental Health',   emoji: '🧘', bg: 'bg-purple-50 text-purple-700',        accent: '#8B5CF6' },
-  personal_growth: { label: 'Personal Growth', emoji: '🌱', bg: 'bg-[#FAD98D]/20 text-[#c9a227]',      accent: '#FD9C2D' },
-  relationships:   { label: 'Relationships',   emoji: '💕', bg: 'bg-pink-50 text-pink-700',            accent: '#db2777' },
+  nutrition:       { label: 'Nutrition',       emoji: '🥗', bg: 'bg-green-50 dark:bg-green-900/20 text-green-700',          accent: '#16a34a' },
+  mental_health:   { label: 'Mental Health',   emoji: '🧘', bg: 'bg-purple-50 dark:bg-purple-900/20 text-purple-700',        accent: '#8B5CF6' },
+  personal_growth: { label: 'Personal Growth', emoji: '🌱', bg: 'bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8 text-[#c9a227]',      accent: '#FD9C2D' },
+  relationships:   { label: 'Relationships',   emoji: '💕', bg: 'bg-pink-50 dark:bg-pink-900/20 text-pink-700',            accent: '#db2777' },
   general:         { label: 'General',         emoji: '✨', bg: 'bg-[#F2F6FA] dark:bg-[#0A1A2F] text-[#0A1A2F]/50 dark:text-white/50',     accent: '#AFC7E3' },
 };
 
@@ -101,7 +101,7 @@ function HeroBlogCard({ post }) {
 
   return (
     <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
-      className="bg-white dark:bg-white/5 rounded-2xl border border-[#FAD98D]/20 overflow-hidden shadow-sm dark:shadow-none">
+      className="bg-white dark:bg-white/5 rounded-2xl border border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 overflow-hidden shadow-sm dark:shadow-none">
 
       {/* Coloured header band */}
       <div className="h-2 w-full" style={{ backgroundColor: topic.accent + '40' }} />
@@ -146,7 +146,7 @@ function HeroBlogCard({ post }) {
         </AnimatePresence>
 
         {/* Actions */}
-        <div className="flex items-center gap-4 mt-4 pt-3 border-t border-[#FAD98D]/10">
+        <div className="flex items-center gap-4 mt-4 pt-3 border-t border-[#FAD98D]/10 dark:border-[#FAD98D]/5">
           <LikeButton post={post} />
           <ShareButton title={post.title} />
           <button onClick={() => setExpanded(e => !e)}
@@ -170,7 +170,7 @@ function BlogCard({ post, index }) {
 
   return (
     <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.04 }}
-      className="bg-white dark:bg-white/5 rounded-2xl border border-[#FAD98D]/15 overflow-hidden">
+      className="bg-white dark:bg-white/5 rounded-2xl border border-[#FAD98D]/15 dark:border-[#FAD98D]/8 overflow-hidden">
       <div className="p-4">
 
         {/* Author row */}
@@ -210,7 +210,7 @@ function BlogCard({ post, index }) {
         </AnimatePresence>
 
         {/* Actions */}
-        <div className="flex items-center gap-3 mt-3 pt-2.5 border-t border-[#FAD98D]/10">
+        <div className="flex items-center gap-3 mt-3 pt-2.5 border-t border-[#FAD98D]/10 dark:border-[#FAD98D]/5">
           <LikeButton post={post} />
           <ShareButton title={post.title} />
           <button onClick={() => setExpanded(e => !e)}
@@ -230,7 +230,7 @@ function SeedBanner({ onSeed, seeding }) {
   return (
     <motion.div initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }}
       className="bg-gradient-to-r from-[#0A1A2F] to-[#0A1A2F] rounded-2xl p-4 flex items-center gap-3">
-      <div className="w-10 h-10 bg-[#FAD98D]/20 rounded-xl flex items-center justify-center flex-shrink-0">
+      <div className="w-10 h-10 bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8 rounded-xl flex items-center justify-center flex-shrink-0">
         <BookOpen className="w-5 h-5 text-[#FAD98D]" />
       </div>
       <div className="flex-1 min-w-0">
@@ -252,7 +252,7 @@ function FilterChip({ active, onClick, children }) {
       className={`text-xs px-3 py-1.5 rounded-full border flex-shrink-0 font-semibold transition-all ${
         active
           ? 'bg-[#0A1A2F] text-white border-[#0A1A2F]'
-          : 'bg-white dark:bg-white/5 text-[#0A1A2F]/50 dark:text-white/50 border-[#FAD98D]/25 hover:border-[#c9a227]/40'
+          : 'bg-white dark:bg-white/5 text-[#0A1A2F]/50 dark:text-white/50 border-[#FAD98D]/25 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 hover:border-[#c9a227]/40'
       }`}>
       {children}
     </button>
@@ -303,7 +303,7 @@ export default function BlogFeed({ user, onWriteWithAI }) {
       {onWriteWithAI && (
         <button onClick={onWriteWithAI}
           className="w-full flex items-center gap-3 bg-gradient-to-r from-[#0A1A2F] to-[#0A1A2F] text-white rounded-2xl p-4 hover:opacity-90 transition-opacity group">
-          <div className="w-9 h-9 rounded-xl bg-[#FAD98D]/25 flex items-center justify-center group-hover:bg-[#FAD98D]/35 transition-colors flex-shrink-0">
+          <div className="w-9 h-9 rounded-xl bg-[#FAD98D]/25 dark:bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5 flex items-center justify-center group-hover:bg-[#FAD98D]/35 transition-colors flex-shrink-0">
             <Wand2 className="w-5 h-5 text-[#FAD98D]" />
           </div>
           <div className="text-left">
@@ -338,14 +338,14 @@ export default function BlogFeed({ user, onWriteWithAI }) {
       {/* ── Loading skeletons ── */}
       {isLoading && (
         <div className="space-y-3">
-          <div className="bg-white dark:bg-white/5 rounded-2xl p-5 animate-pulse border border-[#FAD98D]/15 h-40" />
-          {[1, 2].map(i => <div key={i} className="bg-white dark:bg-white/5 rounded-2xl p-4 animate-pulse border border-[#FAD98D]/15 h-24" />)}
+          <div className="bg-white dark:bg-white/5 rounded-2xl p-5 animate-pulse border border-[#FAD98D]/15 dark:border-[#FAD98D]/8 h-40" />
+          {[1, 2].map(i => <div key={i} className="bg-white dark:bg-white/5 rounded-2xl p-4 animate-pulse border border-[#FAD98D]/15 dark:border-[#FAD98D]/8 h-24" />)}
         </div>
       )}
 
       {/* ── Empty state ── */}
       {!isLoading && filtered.length === 0 && (
-        <div className="bg-white dark:bg-white/5 rounded-2xl border border-[#FAD98D]/15 p-10 text-center">
+        <div className="bg-white dark:bg-white/5 rounded-2xl border border-[#FAD98D]/15 dark:border-[#FAD98D]/8 p-10 text-center">
           <div className="w-14 h-14 bg-white dark:bg-white/5 rounded-2xl flex items-center justify-center mx-auto mb-4">
             <BookOpen className="w-7 h-7 text-[#FAD98D]" />
           </div>

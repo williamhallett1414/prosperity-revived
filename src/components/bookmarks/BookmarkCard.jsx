@@ -4,11 +4,11 @@ import { Trash2, BookOpen } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const highlightColors = {
-  yellow: 'border-l-yellow-400 bg-yellow-50',
-  green: 'border-l-green-400 bg-green-50',
+  yellow: 'border-l-yellow-400 bg-yellow-50 dark:bg-yellow-900/20',
+  green: 'border-l-green-400 bg-green-50 dark:bg-green-900/20',
   blue: 'border-l-blue-400 bg-[#F2F6FA] dark:bg-[#0A1A2F]',
-  pink: 'border-l-pink-400 bg-[#FAD98D]/10',
-  purple: 'border-l-purple-400 bg-[#FAD98D]/10'
+  pink: 'border-l-pink-400 bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5',
+  purple: 'border-l-purple-400 bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5'
 };
 
 export default function BookmarkCard({ bookmark, onDelete, onOpen, index }) {

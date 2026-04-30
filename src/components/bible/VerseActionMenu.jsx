@@ -130,7 +130,7 @@ Keep it warm, accessible, and spiritually enriching - like Dr. Myles Munroe's ki
         initial={{ opacity: 0, scale: 0.95, y: -10 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.95, y: -10 }}
-        className="absolute z-50 mt-2 bg-white dark:bg-white/5 rounded-xl shadow-2xl border-2 border-[#FAD98D]/20 overflow-hidden"
+        className="absolute z-50 mt-2 bg-white dark:bg-white/5 rounded-xl shadow-2xl border-2 border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 overflow-hidden"
         style={{ minWidth: '280px' }}
       >
         {/* Header */}
@@ -163,7 +163,7 @@ Keep it warm, accessible, and spiritually enriching - like Dr. Myles Munroe's ki
 
           {/* AI Insights Display */}
           {showAIInsights && aiInsights && (
-            <div className="bg-gradient-to-br from-[#FAD98D]/10 to-[#FFF9EC] rounded-lg p-4 space-y-3 max-h-96 overflow-y-auto">
+            <div className="bg-gradient-to-br from-[#FAD98D]/10 to-[#FFF9EC] dark:to-[#FAD98D]/5 rounded-lg p-4 space-y-3 max-h-96 overflow-y-auto">
               <div className="flex items-center gap-2 mb-2">
                 <Sparkles className="w-4 h-4 text-[#C9A227]" />
                 <span className="text-sm font-bold text-[#0A1A2F] dark:text-white dark:text-white">Gideon's Insights</span>
@@ -190,7 +190,7 @@ Keep it warm, accessible, and spiritually enriching - like Dr. Myles Munroe's ki
                   className={`flex-1 h-10 rounded-lg border-2 transition-all hover:scale-105 ${
                     existingBookmark?.highlight_color === colorOption.name
                       ? 'border-[#0A1A2F] ring-2 ring-[#0A1A2F]/20'
-                      : 'border-[#FAD98D]/20'
+                      : 'border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5'
                   }`}
                   style={{ backgroundColor: colorOption.color }}
                   title={colorOption.label}
@@ -237,7 +237,7 @@ Keep it warm, accessible, and spiritually enriching - like Dr. Myles Munroe's ki
                   value={noteText}
                   onChange={(e) => setNoteText(e.target.value)}
                   placeholder="Write your reflection..."
-                  className="min-h-[100px] text-sm bg-[#F2F6FA] dark:bg-[#0A1A2F] border-[#FAD98D]/20"
+                  className="min-h-[100px] text-sm bg-[#F2F6FA] dark:bg-[#0A1A2F] border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5"
                   autoFocus
                 />
                 <div className="space-y-2">

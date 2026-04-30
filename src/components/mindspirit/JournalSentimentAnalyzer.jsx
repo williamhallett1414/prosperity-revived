@@ -119,7 +119,7 @@ export default function JournalSentimentAnalyzer({ userEmail }) {
       {chartData.length > 0 ? (
         <>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-            <div className="bg-[#FAD98D]/10 p-4 rounded-lg">
+            <div className="bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5 p-4 rounded-lg">
               <p className="text-xs text-gray-600 dark:text-gray-300">Average Sentiment</p>
               <p className="text-2xl font-bold text-[#C9A227]">{avgSentiment}</p>
               <p className="text-xs text-gray-500 dark:text-gray-300 mt-1">Scale: -1 to 1</p>
@@ -129,7 +129,7 @@ export default function JournalSentimentAnalyzer({ userEmail }) {
               <p className="text-2xl font-bold text-[#3C4E53]">{entries.length}</p>
               <p className="text-xs text-gray-500 dark:text-gray-300 mt-1">Last {timeRange} days</p>
             </div>
-            <div className="bg-green-50 p-4 rounded-lg">
+            <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg">
               <p className="text-xs text-gray-600 dark:text-gray-300">Trend</p>
               <p className={`text-2xl font-bold ${trend > 0 ? 'text-green-600' : trend < 0 ? 'text-red-600' : 'text-gray-600 dark:text-gray-300'}`}>
                 {trend > 0 ? '↑' : trend < 0 ? '↓' : '→'} {Math.abs(trend).toFixed(2)}

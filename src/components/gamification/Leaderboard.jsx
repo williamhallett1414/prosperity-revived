@@ -54,7 +54,7 @@ export default function Leaderboard() {
               transition={{ delay: index * 0.03 }}
               className={`flex items-center gap-3 p-3 rounded-xl ${
                 isCurrentUser 
-                  ? 'bg-amber-100 dark:bg-amber-900 border-2 border-amber-500' 
+                  ? 'bg-amber-100 dark:bg-amber-900/25 dark:bg-amber-900 border-2 border-amber-500' 
                   : 'bg-white dark:bg-white/5 dark:bg-[#0A1A2F]'
               }`}
             >

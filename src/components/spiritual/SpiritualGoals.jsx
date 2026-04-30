@@ -159,7 +159,7 @@ export default function SpiritualGoals() {
                       disabled={isCompletedToday(goal)}
                       className={`flex-1 ${
                         isCompletedToday(goal)
-                          ? 'bg-green-100 text-green-800'
+                          ? 'bg-green-100 dark:bg-green-900/25 text-green-800'
                           : 'bg-[#c9a227] hover:bg-[#C9A227] text-white'
                       }`}
                     >

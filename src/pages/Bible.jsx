@@ -48,7 +48,7 @@ function ActivePlanCard({ progress, plan, navigate }) {
         </div>
       </div>
       <div className="px-3 py-2 flex items-center gap-3">
-        <div className="flex-1 h-1.5 bg-[#FAD98D]/20 rounded-full overflow-hidden">
+        <div className="flex-1 h-1.5 bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8 rounded-full overflow-hidden">
           <div className="h-full bg-gradient-to-r from-[#c9a227] to-[#FAD98D] rounded-full" style={{ width: `${pct}%` }} />
         </div>
         <span className="text-[11px] font-bold text-[#c9a227] flex-shrink-0">{pct}%</span>
@@ -61,14 +61,14 @@ function ActivePlanCard({ progress, plan, navigate }) {
 // ─── Quick tools row ──────────────────────────────────────────────────────────
 function QuickTools({ bookmarkCount }) {
   const tools = [
-  { label: 'Saved Verses', icon: Bookmark, value: bookmarkCount > 0 ? bookmarkCount : null, page: 'Bookmarks', color: 'text-[#c9a227]', bg: 'bg-[#FAD98D]/20' },
+  { label: 'Saved Verses', icon: Bookmark, value: bookmarkCount > 0 ? bookmarkCount : null, page: 'Bookmarks', color: 'text-[#c9a227]', bg: 'bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8' },
   { label: 'Spiritual Insights', icon: Sparkles, value: null, page: 'SpiritualInsights', color: 'text-purple-500', bg: 'bg-purple-50 dark:bg-purple-900/20' }];
 
   return (
     <div className="flex gap-3">
       {tools.map(({ label, icon: Icon, value, page, color, bg }) =>
       <Link key={page} to={createPageUrl(page)} className="flex-1">
-          <div className={`${bg} rounded-2xl p-3.5 flex items-center gap-2.5 border border-transparent hover:border-[#FAD98D]/40 dark:hover:border-[#FAD98D]/20 transition-all`}>
+          <div className={`${bg} rounded-2xl p-3.5 flex items-center gap-2.5 border border-transparent hover:border-[#FAD98D]/40 dark:border-[#FAD98D]/15 dark:border-[#FAD98D]/8 dark:hover:border-[#FAD98D]/20 transition-all`}>
             <div className="w-8 h-8 rounded-xl bg-white dark:bg-white/5 flex items-center justify-center shadow-sm dark:shadow-none flex-shrink-0">
               <Icon className={`w-4 h-4 ${color}`} />
             </div>
@@ -96,7 +96,7 @@ function StudyTabContent() {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search study guides…"
-          className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-[#FAD98D]/15 dark:bg-[#FAD98D]/8 border border-[#FAD98D]/25 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/10 text-sm text-[#0A1A2F] dark:text-white placeholder:text-[#0A1A2F]/40 dark:placeholder:text-white/30 focus:outline-none focus:border-[#c9a227]/50" />
+          className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-[#FAD98D]/15 dark:bg-[#FAD98D]/8 border border-[#FAD98D]/25 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 text-sm text-[#0A1A2F] dark:text-white placeholder:text-[#0A1A2F]/40 dark:placeholder:text-white/30 focus:outline-none focus:border-[#c9a227]/50" />
         
       </div>
       <BibleStudyGuide filterQuery={query} />
@@ -223,9 +223,9 @@ export default function Bible() {
       </div>
 
       {/* Fixed tab menu */}
-      <div id="tour-bible-tabs" className="sticky top-0 z-40 px-4 pt-4 pb-3 bg-white/95 dark:bg-[#0A1A2F]/95 backdrop-blur-sm border-b border-[#FAD98D]/15 dark:border-[#FAD98D]/10 max-w-lg mx-auto">
+      <div id="tour-bible-tabs" className="sticky top-0 z-40 px-4 pt-4 pb-3 bg-white/95 dark:bg-[#0A1A2F]/95 backdrop-blur-sm border-b border-[#FAD98D]/15 dark:border-[#FAD98D]/8 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 max-w-lg mx-auto">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-4 bg-[#FAD98D]/15 dark:bg-[#FAD98D]/8 rounded-xl p-1 border border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/10">
+          <TabsList className="grid w-full grid-cols-4 bg-[#FAD98D]/15 dark:bg-[#FAD98D]/8 rounded-xl p-1 border border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5">
             {[
             { value: 'read', icon: BookOpen, label: 'Read' },
             { value: 'study', icon: TrendingUp, label: 'Study' },
@@ -251,7 +251,7 @@ export default function Bible() {
 
               {/* 1. Today's Scripture */}
               <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
-                <div className="bg-gradient-to-br from-[#FAD98D]/25 to-[#FAD98D]/15 dark:from-[#FAD98D]/10 dark:to-[#FAD98D]/5 rounded-2xl p-4 border border-[#FAD98D]/30 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/10">
+                <div className="bg-gradient-to-br from-[#FAD98D]/25 to-[#FAD98D]/15 dark:from-[#FAD98D]/10 dark:to-[#FAD98D]/5 rounded-2xl p-4 border border-[#FAD98D]/30 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5">
                   <div className="flex items-center gap-2 mb-2">
                     <div className="w-1 h-4 bg-[#c9a227] rounded-full" />
                     <span className="text-[10px] font-bold text-[#c9a227] uppercase tracking-widest">Today's Scripture</span>
@@ -298,7 +298,7 @@ export default function Bible() {
 
               {/* 3. Open the Word */}
               <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }}
-              className="bg-white dark:bg-white/5 rounded-2xl border border-[#FAD98D]/25 dark:border-[#FAD98D]/10 p-4 shadow-sm dark:shadow-none">
+              className="bg-white dark:bg-white/5 rounded-2xl border border-[#FAD98D]/25 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 p-4 shadow-sm dark:shadow-none">
                 <p className="text-xs font-bold text-[#0A1A2F]/40 dark:text-white/40 uppercase tracking-widest mb-3">Open the Bible</p>
                 <div className="flex gap-2 mb-3">
                   <button
@@ -329,7 +329,7 @@ export default function Bible() {
               {/* 5b. Ask Gideon prompt */}
               <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
                 <Link to={createPageUrl('ChatScreen?bot=Gideon')}>
-                  <div className="bg-gradient-to-r from-amber-50 to-[#FAD98D]/20 dark:from-[#FAD98D]/10 dark:to-[#FAD98D]/5 rounded-2xl p-4 flex items-center gap-3 border border-[#FAD98D]/30 dark:border-[#FAD98D]/10">
+                  <div className="bg-gradient-to-r from-amber-50 dark:from-amber-900/15 to-[#FAD98D]/20 dark:from-[#FAD98D]/10 dark:to-[#FAD98D]/5 rounded-2xl p-4 flex items-center gap-3 border border-[#FAD98D]/30 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5">
                     <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center flex-shrink-0 shadow-sm dark:shadow-none">
                       <span className="text-lg">📖</span>
                     </div>

@@ -66,9 +66,9 @@ export default function DiscoverWorkouts({ user, myWorkouts, completeWorkout, on
   });
 
   const difficultyColors = {
-    beginner: 'bg-green-100 text-green-800',
-    intermediate: 'bg-yellow-100 text-yellow-800',
-    advanced: 'bg-red-100 text-red-800'
+    beginner: 'bg-green-100 dark:bg-green-900/25 text-green-800',
+    intermediate: 'bg-yellow-100 dark:bg-yellow-900/25 text-yellow-800',
+    advanced: 'bg-red-100 dark:bg-red-900/25 text-red-800'
   };
 
   const categoryEmojis = {

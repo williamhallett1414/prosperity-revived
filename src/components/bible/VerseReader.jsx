@@ -146,7 +146,7 @@ export default function VerseReader({ book, chapter, onBack, onNavigate, bookmar
       )}
       
       {/* Header */}
-      <div className="flex items-center justify-between px-4 py-3 bg-[#F2F6FA] dark:bg-[#0A1A2F] border-b border-[#FAD98D]/20">
+      <div className="flex items-center justify-between px-4 py-3 bg-[#F2F6FA] dark:bg-[#0A1A2F] border-b border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5">
         <div className="flex items-center gap-2">
           <Button variant="ghost" size="icon" onClick={onBack}>
             <ArrowLeft className="w-5 h-5" />
@@ -274,7 +274,7 @@ export default function VerseReader({ book, chapter, onBack, onNavigate, bookmar
       </ScrollArea>
 
       {/* Navigation */}
-      <div className="flex items-center justify-between px-4 py-3 bg-[#F2F6FA] dark:bg-[#0A1A2F] border-t border-[#FAD98D]/20">
+      <div className="flex items-center justify-between px-4 py-3 bg-[#F2F6FA] dark:bg-[#0A1A2F] border-t border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5">
         <Button
           variant="ghost"
           disabled={!canGoPrev}

@@ -59,7 +59,7 @@ export default function AgeVerificationGate({ onVerified }) {
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-72 rounded-full opacity-15"
           style={{ background: 'radial-gradient(ellipse, #C9A227, transparent 70%)' }} />
         {[...Array(16)].map((_, i) => (
-          <div key={i} className="absolute rounded-full bg-white"
+          <div key={i} className="absolute rounded-full bg-white dark:bg-white/5"
             style={{ width: 2, height: 2, left: `${5 + (i * 14) % 88}%`, top: `${4 + (i * 19) % 82}%`, opacity: 0.04 + (i % 5) * 0.04 }} />
         ))}
       </div>
@@ -105,7 +105,7 @@ export default function AgeVerificationGate({ onVerified }) {
               className={`w-full text-left px-4 py-4 rounded-2xl border-2 transition-all flex items-center gap-3 ${
                 selected === opt.id
                   ? opt.red
-                    ? 'border-red-400 bg-red-500/10'
+                    ? 'border-red-400 bg-red-50 dark:bg-red-900/200/10'
                     : 'border-[#C9A227] bg-[#C9A227]/10'
                   : 'border-white/10 bg-white/5 hover:border-white/20'
               }`}>
@@ -127,7 +127,7 @@ export default function AgeVerificationGate({ onVerified }) {
                   ? opt.red ? 'border-red-400 bg-red-400' : 'border-[#C9A227] bg-[#C9A227]'
                   : 'border-white/20'
               }`}>
-                {selected === opt.id && <div className="w-2 h-2 rounded-full bg-white" />}
+                {selected === opt.id && <div className="w-2 h-2 rounded-full bg-white dark:bg-white/5" />}
               </div>
             </button>
           ))}
@@ -155,7 +155,7 @@ export default function AgeVerificationGate({ onVerified }) {
             selected && selected !== 'under13'
               ? 'text-white shadow-lg'
               : selected === 'under13'
-              ? 'bg-red-500/20 text-red-400 cursor-not-allowed'
+              ? 'bg-red-50 dark:bg-red-900/200/20 text-red-400 cursor-not-allowed'
               : 'bg-white/10 text-white/30 cursor-not-allowed'
           }`}
           style={selected && selected !== 'under13' ? { background: 'linear-gradient(135deg, #C9A227, #FD9C2D)' } : {}}>

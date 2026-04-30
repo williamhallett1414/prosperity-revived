@@ -53,7 +53,7 @@ function ConditionPill({ condition, selected, count, onClick }) {
       className={`flex-shrink-0 flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold transition-all ${
         selected
           ? 'bg-gradient-to-b from-[#c9a227] to-[#FAD98D] text-white shadow-sm dark:shadow-none'
-          : 'bg-white dark:bg-white/5 border border-[#FAD98D]/25 text-[#0A1A2F]/60 dark:text-white/60 hover:border-[#c9a227]/40'
+          : 'bg-white dark:bg-white/5 border border-[#FAD98D]/25 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 text-[#0A1A2F]/60 dark:text-white/60 hover:border-[#c9a227]/40'
       }`}
     >
       <span>{condition.emoji}</span>
@@ -140,7 +140,7 @@ export default function HealthRecipesTab({ recipes, user }) {
           className={`flex-shrink-0 flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold transition-all ${
             selected === null
               ? 'bg-gradient-to-b from-[#c9a227] to-[#FAD98D] text-white shadow-sm dark:shadow-none'
-              : 'bg-white dark:bg-white/5 border border-[#FAD98D]/25 text-[#0A1A2F]/60 dark:text-white/60 hover:border-[#c9a227]/40'
+              : 'bg-white dark:bg-white/5 border border-[#FAD98D]/25 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 text-[#0A1A2F]/60 dark:text-white/60 hover:border-[#c9a227]/40'
           }`}
         >
           <Heart className="w-3.5 h-3.5" />
@@ -187,7 +187,7 @@ export default function HealthRecipesTab({ recipes, user }) {
 
       {/* ── Empty / seed state ── */}
       {!hasHealthRecipes && (
-        <div className="bg-white dark:bg-white/5 rounded-2xl border border-[#FAD98D]/20 p-6 text-center space-y-4">
+        <div className="bg-white dark:bg-white/5 rounded-2xl border border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 p-6 text-center space-y-4">
           <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center mx-auto">
             <Heart className="w-7 h-7 text-white" />
           </div>
@@ -269,7 +269,7 @@ export default function HealthRecipesTab({ recipes, user }) {
                       {condRecipes.length > 2 && (
                         <button
                           onClick={() => setSelected(cond.id)}
-                          className="w-full py-2.5 rounded-xl border border-[#FAD98D]/25 text-xs font-bold text-[#c9a227] hover:bg-[#FAD98D]/10 transition-colors"
+                          className="w-full py-2.5 rounded-xl border border-[#FAD98D]/25 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 text-xs font-bold text-[#c9a227] hover:bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5 transition-colors"
                         >
                           + {condRecipes.length - 2} more {cond.label} recipes
                         </button>

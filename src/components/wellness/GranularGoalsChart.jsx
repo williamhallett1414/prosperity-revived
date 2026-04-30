@@ -24,7 +24,7 @@ export default function GranularGoalsChart({ goals = [] }) {
 
   return (
     <div className="space-y-4">
-      <div className="bg-gradient-to-r from-[#FAD98D]/10 to-[#FFF9EC] rounded-xl p-4">
+      <div className="bg-gradient-to-r from-[#FAD98D]/10 to-[#FFF9EC] dark:to-[#FAD98D]/5 rounded-xl p-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Target className="w-5 h-5 text-[#C9A227]" />
@@ -45,7 +45,7 @@ export default function GranularGoalsChart({ goals = [] }) {
             <div
               key={index}
               className={`bg-white dark:bg-white/5 rounded-xl p-4 border-2 transition-all ${
-                isCompleted ? 'border-green-200 bg-green-50/50' : 'border-transparent'
+                isCompleted ? 'border-green-200 dark:border-green-800/30 bg-green-50 dark:bg-green-900/20/50' : 'border-transparent'
               }`}
             >
               <div className="flex items-start justify-between mb-3">

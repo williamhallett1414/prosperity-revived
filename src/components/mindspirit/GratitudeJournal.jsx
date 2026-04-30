@@ -42,7 +42,7 @@ export default function GratitudeJournal() {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-gradient-to-br from-[#FAD98D]/10 to-[#FAD98D]/10 rounded-2xl p-6 border border-[#FAD98D]/40 mb-6"
+      className="bg-gradient-to-br from-[#FAD98D]/10 to-[#FAD98D]/10 rounded-2xl p-6 border border-[#FAD98D]/40 dark:border-[#FAD98D]/15 dark:border-[#FAD98D]/8 mb-6"
     >
       <div className="flex items-center gap-2 mb-4">
         <Heart className="w-6 h-6 text-[#FAD98D]" />
@@ -59,7 +59,7 @@ export default function GratitudeJournal() {
               value={item}
               onChange={(e) => updateItem(index, e.target.value)}
               placeholder="I'm grateful for..."
-              className="bg-white dark:bg-white/5 border-[#FAD98D]/40 focus:border-pink-400 text-black"
+              className="bg-white dark:bg-white/5 border-[#FAD98D]/40 dark:border-[#FAD98D]/15 dark:border-[#FAD98D]/8 focus:border-pink-400 text-black"
             />
           </div>
         ))}
@@ -68,7 +68,7 @@ export default function GratitudeJournal() {
       <Button
         onClick={handleSave}
         disabled={saving}
-        className="w-full bg-[#FAD98D]/100 hover:bg-pink-600 text-white"
+        className="w-full bg-[#FAD98D]/10 dark:bg-[#FAD98D]/50 hover:bg-pink-600 text-white"
       >
         <Plus className="w-4 h-4 mr-2" />
         {saving ? 'Saving...' : 'Save Gratitude'}

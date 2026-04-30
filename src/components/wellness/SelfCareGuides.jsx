@@ -274,7 +274,7 @@ export default function SelfCareGuides({ user }) {
                   <p className="font-semibold text-yellow-800 dark:text-yellow-300 mb-1">🌅 Morning Ritual</p>
                   <p className="text-gray-700 dark:text-gray-200 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">{aiInsight.morning_ritual}</p>
                 </div>
-                <div className="p-3 bg-[#FAD98D]/10 dark:bg-[#0A1A2F]/20 rounded-lg">
+                <div className="p-3 bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5 dark:bg-[#0A1A2F]/20 rounded-lg">
                   <p className="font-semibold text-pink-800 dark:text-[#FAD98D] mb-1">💗 Emotional Practice</p>
                   <p className="text-gray-700 dark:text-gray-200 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">{aiInsight.emotional_practice}</p>
                 </div>
@@ -433,7 +433,7 @@ export default function SelfCareGuides({ user }) {
                           key={idx}
                           className="flex items-start gap-3 p-3 bg-gray-50 dark:bg-white/5 dark:bg-gray-800 rounded-lg"
                         >
-                          <div className="w-6 h-6 rounded-full bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center flex-shrink-0 mt-0.5">
+                          <div className="w-6 h-6 rounded-full bg-emerald-100 dark:bg-emerald-900/25 dark:bg-emerald-900/30 flex items-center justify-center flex-shrink-0 mt-0.5">
                             <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400">
                               {idx + 1}
                             </span>

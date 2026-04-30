@@ -129,7 +129,7 @@ export default function DailyReflectionSettings() {
           )}
         </div>
 
-        <div className="bg-[#FAD98D]/10 dark:bg-[#0A1A2F]/20 rounded-lg p-4 mt-4">
+        <div className="bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5 dark:bg-[#0A1A2F]/20 rounded-lg p-4 mt-4">
           <p className="text-sm text-[#3C4E53] dark:text-[#FAD98D]">
             <strong>How it works:</strong> Gideon uses AI to understand your spiritual journey, emotional patterns, and recurring themes—then proactively offers timely guidance, scripture, and reflection prompts tailored to what you need most.
           </p>

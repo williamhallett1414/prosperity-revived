@@ -164,7 +164,7 @@ Return ONLY the meditation script, no additional formatting or explanation.`;
 
         {!generatedScript ? (
           <div className="space-y-6">
-            <div className="bg-gradient-to-r from-[#FAD98D]/10 to-[#FFF9EC] dark:from-[#0A1A2F]/40 dark:to-[#0A1A2F]/40 rounded-lg p-4">
+            <div className="bg-gradient-to-r from-[#FAD98D]/10 to-[#FFF9EC] dark:to-[#FAD98D]/5 dark:from-[#0A1A2F]/40 dark:to-[#0A1A2F]/40 rounded-lg p-4">
               <p className="text-sm text-gray-700 dark:text-gray-200 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">
                 Share how you're feeling, and I'll create a personalized meditation just for you. ✨
               </p>
@@ -181,7 +181,7 @@ Return ONLY the meditation script, no additional formatting or explanation.`;
                     onClick={() => setMood(m.value)}
                     className={`p-3 rounded-lg border-2 transition-all text-left ${
                       mood === m.value
-                        ? 'border-[#FAD98D] bg-[#FAD98D]/10 dark:bg-[#0A1A2F]/20'
+                        ? 'border-[#FAD98D] dark:border-[#FAD98D]/30 bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5 dark:bg-[#0A1A2F]/20'
                         : 'border-gray-200 dark:border-white/10 hover:border-gray-300 dark:border-white/15'
                     }`}
                   >

@@ -207,12 +207,12 @@ export default function SelfCareChallenges({ challenges = [], participations = [
                       <div
                         key={task.day}
                         className={`border rounded-lg p-4 ${
-                          isCompleted ? 'bg-green-50 border-green-200' : 'bg-gray-50 dark:bg-white/5 border-gray-200 dark:border-white/10 dark:border-white/10'
+                          isCompleted ? 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800/30' : 'bg-gray-50 dark:bg-white/5 border-gray-200 dark:border-white/10 dark:border-white/10'
                         }`}
                       >
                         <div className="flex items-start gap-3">
                           <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center ${
-                            isCompleted ? 'bg-green-500' : 'bg-gray-300'
+                            isCompleted ? 'bg-green-50 dark:bg-green-900/200' : 'bg-gray-300'
                           }`}>
                             {isCompleted ? (
                               <Check className="w-5 h-5 text-white" />

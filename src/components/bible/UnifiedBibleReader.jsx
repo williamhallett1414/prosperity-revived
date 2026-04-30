@@ -47,7 +47,7 @@ function BookRow({ book, isActive, onSelect }) {
       className={`w-full text-left px-3 py-2.5 rounded-lg mb-0.5 transition-all flex items-center justify-between group ${
         isActive
           ? 'bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white shadow-sm dark:shadow-none'
-          : 'hover:bg-[#FAD98D]/20 text-[#0A1A2F]/65 dark:text-white/65 hover:text-[#0A1A2F] dark:text-white dark:text-white'
+          : 'hover:bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8 text-[#0A1A2F]/65 dark:text-white/65 hover:text-[#0A1A2F] dark:text-white dark:text-white'
       }`}
     >
       <span className="text-sm font-medium">{book.name}</span>
@@ -282,7 +282,7 @@ export default function UnifiedBibleReader({
   const sidebarContent = (
     <div className="flex flex-col h-full overflow-hidden">
       {/* Header */}
-      <div className="flex-shrink-0 px-4 pt-5 pb-4 border-b border-[#FAD98D]/20">
+      <div className="flex-shrink-0 px-4 pt-5 pb-4 border-b border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5">
         <button
           onClick={onBack}
           className="flex items-center gap-1.5 text-[#0A1A2F]/40 dark:text-white/40 hover:text-[#c9a227] mb-4 transition-colors text-xs font-semibold"
@@ -298,7 +298,7 @@ export default function UnifiedBibleReader({
             value={bookSearch}
             onChange={e => setBookSearch(e.target.value)}
             placeholder="Search books…"
-            className="w-full pl-8 pr-3 py-2 text-xs rounded-lg bg-[#FAD98D]/15 border border-[#FAD98D]/25 focus:outline-none focus:border-[#c9a227]/60 text-[#0A1A2F] dark:text-white placeholder:text-[#0A1A2F]/30 dark:text-white/30"
+            className="w-full pl-8 pr-3 py-2 text-xs rounded-lg bg-[#FAD98D]/15 dark:bg-[#FAD98D]/8 border border-[#FAD98D]/25 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 focus:outline-none focus:border-[#c9a227]/60 text-[#0A1A2F] dark:text-white placeholder:text-[#0A1A2F]/30 dark:text-white/30"
           />
         </div>
       </div>
@@ -346,7 +346,7 @@ export default function UnifiedBibleReader({
       style={{ height: 'calc(100vh - 9rem)' }}
     >
       {/* ── Desktop sidebar ── */}
-      <div className="hidden md:flex flex-col w-56 flex-shrink-0 border-r border-[#FAD98D]/20 bg-[#F2F6FA] dark:bg-[#0A1A2F]">
+      <div className="hidden md:flex flex-col w-56 flex-shrink-0 border-r border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 bg-[#F2F6FA] dark:bg-[#0A1A2F]">
         {sidebarContent}
       </div>
 
@@ -364,12 +364,12 @@ export default function UnifiedBibleReader({
               transition={{ type: 'spring', damping: 26, stiffness: 280 }}
               className="fixed left-0 top-0 bottom-0 w-72 bg-[#F2F6FA] dark:bg-[#0A1A2F] z-50 shadow-2xl flex flex-col md:hidden"
             >
-              <div className="flex items-center justify-between px-4 py-3.5 border-b border-[#FAD98D]/20 flex-shrink-0">
+              <div className="flex items-center justify-between px-4 py-3.5 border-b border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 flex-shrink-0">
                 <span className="text-sm font-bold text-[#0A1A2F] dark:text-white dark:text-white">{testName}</span>
                 <button
                   type="button"
                   onClick={(e) => { e.stopPropagation(); setSidebarOpen(false); }}
-                  className="w-8 h-8 rounded-full bg-[#FAD98D]/20 hover:bg-[#FAD98D]/35 flex items-center justify-center transition-colors"
+                  className="w-8 h-8 rounded-full bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8 hover:bg-[#FAD98D]/35 flex items-center justify-center transition-colors"
                 >
                   <X className="w-4 h-4 text-[#0A1A2F] dark:text-white dark:text-white" />
                 </button>
@@ -386,18 +386,18 @@ export default function UnifiedBibleReader({
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
 
         {/* Top bar */}
-        <div className="flex-shrink-0 flex items-center justify-between gap-3 px-4 py-3 border-b border-[#FAD98D]/20 bg-[#F2F6FA] dark:bg-[#0A1A2F]">
+        <div className="flex-shrink-0 flex items-center justify-between gap-3 px-4 py-3 border-b border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 bg-[#F2F6FA] dark:bg-[#0A1A2F]">
           {/* Left: hamburger + breadcrumb */}
           <div className="flex items-center gap-2 min-w-0 overflow-hidden">
             <button
               onClick={() => setSidebarOpen(true)}
-              className="md:hidden flex-shrink-0 w-8 h-8 rounded-full bg-[#FAD98D]/20 hover:bg-[#FAD98D]/35 flex items-center justify-center transition-colors"
+              className="md:hidden flex-shrink-0 w-8 h-8 rounded-full bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8 hover:bg-[#FAD98D]/35 flex items-center justify-center transition-colors"
             >
               <Menu className="w-4 h-4 text-[#0A1A2F] dark:text-white dark:text-white" />
             </button>
             <button
               onClick={onBack}
-              className="hidden md:flex items-center justify-center w-7 h-7 rounded-full hover:bg-[#FAD98D]/20 flex-shrink-0 transition-colors"
+              className="hidden md:flex items-center justify-center w-7 h-7 rounded-full hover:bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8 flex-shrink-0 transition-colors"
             >
               <ArrowLeft className="w-3.5 h-3.5 text-[#0A1A2F]/50 dark:text-white/50" />
             </button>
@@ -419,7 +419,7 @@ export default function UnifiedBibleReader({
           {/* Right: testament toggle + font size */}
           <div className="flex items-center gap-2 flex-shrink-0">
             {/* Fix #9: OT / NT switcher */}
-            <div className="flex items-center gap-0.5 bg-[#FAD98D]/15 rounded-lg p-1">
+            <div className="flex items-center gap-0.5 bg-[#FAD98D]/15 dark:bg-[#FAD98D]/8 rounded-lg p-1">
               <button
                 onClick={() => handleSwitchTestament('old')}
                 className={`px-2 h-6 rounded text-[10px] font-bold transition-all ${
@@ -435,7 +435,7 @@ export default function UnifiedBibleReader({
             </div>
             {/* Font size (only when reading, hidden on mobile to avoid crowding) */}
             {selectedBook && selectedChapter && (
-              <div className="hidden sm:flex items-center gap-0.5 bg-[#FAD98D]/15 rounded-lg p-1">
+              <div className="hidden sm:flex items-center gap-0.5 bg-[#FAD98D]/15 dark:bg-[#FAD98D]/8 rounded-lg p-1">
                 {FONT_SIZES.map((fs, i) => (
                   <button
                     key={i}
@@ -489,7 +489,7 @@ export default function UnifiedBibleReader({
                     className={`aspect-square rounded-xl border-2 flex items-center justify-center font-semibold text-sm transition-all relative ${
                       lastReadChapterMap[selectedBook?.name] === n
                         ? 'border-[#c9a227] bg-[#FAD98D]/30 text-[#c9a227]'
-                        : 'border-[#FAD98D]/25 bg-[#FAD98D]/10 text-[#0A1A2F]/60 dark:text-white/60 hover:border-[#c9a227] hover:bg-gradient-to-br hover:from-[#c9a227] hover:to-[#FAD98D] hover:text-white hover:shadow-md dark:shadow-none'
+                        : 'border-[#FAD98D]/25 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5 text-[#0A1A2F]/60 dark:text-white/60 hover:border-[#c9a227] hover:bg-gradient-to-br hover:from-[#c9a227] hover:to-[#FAD98D] hover:text-white hover:shadow-md dark:shadow-none'
                     }`}
                   >
                     {n}
@@ -507,7 +507,7 @@ export default function UnifiedBibleReader({
           {selectedBook && selectedChapter && (
             <div className="pb-28">
               {/* Chapter heading + inline prev/next */}
-              <div className="px-5 pt-6 pb-4 flex items-center justify-between border-b border-[#FAD98D]/15">
+              <div className="px-5 pt-6 pb-4 flex items-center justify-between border-b border-[#FAD98D]/15 dark:border-[#FAD98D]/8">
                 <div>
                   <h2 className="text-xl font-bold text-[#0A1A2F] dark:text-white leading-tight">{selectedBook.name}</h2>
                   <p className="text-xs text-[#0A1A2F]/40 dark:text-white/40 mt-0.5 font-medium">
@@ -518,7 +518,7 @@ export default function UnifiedBibleReader({
                   <button
                     onClick={() => selectedChapter > 1 && handleChapterSelect(selectedChapter - 1)}
                     disabled={selectedChapter <= 1}
-                    className="w-9 h-9 rounded-full bg-[#FAD98D]/20 hover:bg-[#FAD98D]/40 disabled:opacity-25 flex items-center justify-center transition-all"
+                    className="w-9 h-9 rounded-full bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8 hover:bg-[#FAD98D]/40 disabled:opacity-25 flex items-center justify-center transition-all"
                   >
                     <ChevronLeft className="w-4 h-4 text-[#0A1A2F] dark:text-white dark:text-white" />
                   </button>
@@ -535,7 +535,7 @@ export default function UnifiedBibleReader({
               {/* Loading */}
               {loading && (
                 <div className="flex flex-col items-center justify-center py-24 gap-4">
-                  <div className="w-10 h-10 rounded-full border-2 border-[#FAD98D]/30 border-t-[#c9a227] animate-spin" />
+                  <div className="w-10 h-10 rounded-full border-2 border-[#FAD98D]/30 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 border-t-[#c9a227] animate-spin" />
                   <p className="text-sm text-[#0A1A2F]/35 dark:text-white/35">Loading scripture…</p>
                 </div>
               )}
@@ -548,7 +548,7 @@ export default function UnifiedBibleReader({
                       <p className="text-red-400 text-sm">{fetchError}</p>
                       <button
                         onClick={() => selectedBook && fetchVerses(selectedBook.name, selectedChapter)}
-                        className="text-xs font-bold text-[#c9a227] bg-[#FAD98D]/20 px-4 py-2 rounded-xl"
+                        className="text-xs font-bold text-[#c9a227] bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8 px-4 py-2 rounded-xl"
                       >
                         Try Again
                       </button>
@@ -678,11 +678,11 @@ export default function UnifiedBibleReader({
                   })}
 
                   {/* Footer navigation */}
-                  <div className="mt-10 pt-6 border-t border-[#FAD98D]/20 flex items-center justify-between gap-4">
+                  <div className="mt-10 pt-6 border-t border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 flex items-center justify-between gap-4">
                     <button
                       onClick={() => selectedChapter > 1 && handleChapterSelect(selectedChapter - 1)}
                       disabled={selectedChapter <= 1}
-                      className="flex items-center gap-2 px-5 py-3 rounded-xl border border-[#FAD98D]/30 text-sm font-medium text-[#0A1A2F]/55 dark:text-white/55 hover:text-[#0A1A2F] dark:text-white hover:border-[#c9a227]/40 disabled:opacity-25 transition-all"
+                      className="flex items-center gap-2 px-5 py-3 rounded-xl border border-[#FAD98D]/30 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 text-sm font-medium text-[#0A1A2F]/55 dark:text-white/55 hover:text-[#0A1A2F] dark:text-white hover:border-[#c9a227]/40 disabled:opacity-25 transition-all"
                     >
                       <ChevronLeft className="w-4 h-4" />
                       Previous

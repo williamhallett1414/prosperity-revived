@@ -256,7 +256,7 @@ STYLE RULES:
                   >
                     {/* Fix #5 — failed message with retry */}
                     {msg.failed ? (
-                      <div className="max-w-[80%] rounded-2xl px-4 py-3 bg-red-50 border border-red-200">
+                      <div className="max-w-[80%] rounded-2xl px-4 py-3 bg-red-50 dark:bg-red-900/20 border border-red-200">
                         <p className="text-xs text-red-600 mb-1.5">Couldn't reach Coach Paul.</p>
                         <button
                           onClick={() => {
@@ -390,7 +390,7 @@ STYLE RULES:
                   {showMenu && (
                     <button
                       onClick={handleClearChat}
-                      className="absolute bottom-full left-0 mb-2 bg-red-50 border border-red-200 rounded-lg shadow-lg dark:shadow-none px-2.5 py-1.5 text-[10px] font-bold text-red-600 hover:bg-red-100 whitespace-nowrap flex items-center gap-1.5"
+                      className="absolute bottom-full left-0 mb-2 bg-red-50 dark:bg-red-900/20 border border-red-200 rounded-lg shadow-lg dark:shadow-none px-2.5 py-1.5 text-[10px] font-bold text-red-600 hover:bg-red-100 dark:bg-red-900/25 whitespace-nowrap flex items-center gap-1.5"
                     >
                       <Trash2 className="w-3 h-3" /> Clear Chat
                     </button>

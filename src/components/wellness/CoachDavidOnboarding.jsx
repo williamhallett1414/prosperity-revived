@@ -258,7 +258,7 @@ export default function CoachDavidOnboarding({ onComplete, user }) {
                       {workoutDays === 4 && '4 days — solid commitment, great results 💪'}
                       {workoutDays >= 5 && `${workoutDays} days — beast mode! Recovery matters too 🏆`}
                     </p>
-                    <div className="mt-4 bg-amber-50 border border-amber-200 rounded-xl p-3 text-xs text-amber-800">
+                    <div className="mt-4 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800/30 rounded-xl p-3 text-xs text-amber-800">
                       🔥 You're all set! I'll build your personalized plan around <strong>{workoutDays}x/week</strong> training with your goals in mind.
                     </div>
                   </div>

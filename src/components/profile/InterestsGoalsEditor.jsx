@@ -88,19 +88,19 @@ export default function InterestsGoalsEditor({ user }) {
   const colorClasses = {
     // Spiritual → Gideon (gold/amber)
     purple: {
-      bg: 'bg-[#FAD98D]/15',
-      border: 'border-[#FAD98D]/50',
+      bg: 'bg-[#FAD98D]/15 dark:bg-[#FAD98D]/8',
+      border: 'border-[#FAD98D]/50 dark:border-[#FAD98D]/20',
       icon: 'text-[#c9a227]',
       badge: 'bg-[#FAD98D]/30 text-[#7a5f10]',
       button: 'bg-[#c9a227] hover:bg-[#C9A227] text-white'
     },
     // Personal Growth → Hannah (purple/lavender)
     pink: {
-      bg: 'bg-purple-50',
-      border: 'border-purple-200',
+      bg: 'bg-purple-50 dark:bg-purple-900/20',
+      border: 'border-purple-200 dark:border-purple-800/30',
       icon: 'text-purple-500',
-      badge: 'bg-purple-100 text-purple-700',
-      button: 'bg-purple-500 hover:bg-purple-600 text-white'
+      badge: 'bg-purple-100 dark:bg-purple-900/25 text-purple-700',
+      button: 'bg-purple-50 dark:bg-purple-900/200 hover:bg-purple-600 text-white'
     },
     // Fitness → Coach David (blue/navy)
     blue: {
@@ -112,10 +112,10 @@ export default function InterestsGoalsEditor({ user }) {
     },
     // Nutrition → Chef Daniel (green/teal)
     green: {
-      bg: 'bg-emerald-50',
+      bg: 'bg-emerald-50 dark:bg-emerald-900/20',
       border: 'border-emerald-200',
       icon: 'text-emerald-600',
-      badge: 'bg-emerald-100 text-emerald-700',
+      badge: 'bg-emerald-100 dark:bg-emerald-900/25 text-emerald-700',
       button: 'bg-emerald-600 hover:bg-emerald-700 text-white'
     }
   };

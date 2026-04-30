@@ -9,7 +9,7 @@ export default function SubscriptionTerms() {
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-24">
 
       {/* ── Standard Header ── */}
-      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 px-4 pt-4 pb-3">
+      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 px-4 pt-4 pb-3">
         <div className="max-w-lg mx-auto flex items-center gap-3">
           <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#3C4E53] to-[#AFC7E3] flex items-center justify-center">
             <FileText className="w-5 h-5 text-white" />
@@ -98,7 +98,7 @@ export default function SubscriptionTerms() {
                 </ul>
 
                 <h4 className="font-semibold text-base mt-4 mb-2">C. Automatic Renewal</h4>
-                <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-3 mb-2">
+                <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 rounded-xl p-3 mb-2">
                   <p className="text-sm text-yellow-900">
                     <strong>Your subscription will automatically renew</strong> at the end of each billing period. Your payment method on file with your app store will be charged automatically unless you cancel at least 24 hours before the end of the current period. You authorize your app store to charge your payment method for each renewal.
                   </p>
@@ -108,7 +108,7 @@ export default function SubscriptionTerms() {
               {/* 3 */}
               <div>
                 <h3 className="text-lg font-bold mb-3">3. Free Trials</h3>
-                <div className="bg-blue-50 border border-blue-200 rounded-xl p-3 mb-3">
+                <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800/30 rounded-xl p-3 mb-3">
                   <p className="text-sm text-blue-900">
                     <strong>Important:</strong> If a free trial is offered, it converts automatically to a paid subscription at the end of the trial period unless you cancel before the trial ends. You will be charged the applicable subscription rate on the day your trial expires. Cancel through your app store at any time before the trial ends to avoid charges.
                   </p>

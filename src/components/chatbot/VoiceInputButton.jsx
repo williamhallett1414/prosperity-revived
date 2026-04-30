@@ -20,7 +20,7 @@ export default function VoiceInputButton({
   onListeningChange,
   disabled = false,
   accentColor = 'bg-blue-400',
-  activeColor = 'bg-red-500',
+  activeColor = 'bg-red-50 dark:bg-red-900/200',
   className = '',
 }) {
   const [isListening, setIsListening] = useState(false);

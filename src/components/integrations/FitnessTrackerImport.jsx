@@ -129,7 +129,7 @@ ${dataToProcess}`,
   if (success) {
     return (
       <div className="text-center py-8">
-        <div className="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+        <div className="w-14 h-14 bg-green-100 dark:bg-green-900/25 rounded-full flex items-center justify-center mx-auto mb-4">
           <Check className="w-7 h-7 text-green-600" />
         </div>
         <h3 className="font-bold text-gray-900 dark:text-white mb-1">Data Imported!</h3>
@@ -143,7 +143,7 @@ ${dataToProcess}`,
 
   return (
     <div className="space-y-4">
-      <div className="flex items-start gap-2 bg-sky-50 rounded-xl p-3 text-xs text-sky-700">
+      <div className="flex items-start gap-2 bg-sky-50 dark:bg-sky-900/20 rounded-xl p-3 text-xs text-sky-700">
         <Info className="w-3.5 h-3.5 mt-0.5 flex-shrink-0" />
         <p>Import your fitness data so Coach David can give you personalized recovery timing, performance trends, and training advice based on your actual activity.</p>
       </div>
@@ -155,7 +155,7 @@ ${dataToProcess}`,
             <button
               key={tracker.id}
               onClick={() => setSelectedTracker(tracker)}
-              className="w-full flex items-center gap-3 p-3 rounded-xl border border-gray-100 dark:border-white/10 hover:border-sky-200 hover:bg-sky-50 transition-all text-left"
+              className="w-full flex items-center gap-3 p-3 rounded-xl border border-gray-100 dark:border-white/10 hover:border-sky-200 hover:bg-sky-50 dark:bg-sky-900/20 transition-all text-left"
             >
               <span className="text-2xl">{tracker.icon}</span>
               <div className="flex-1 min-w-0">
@@ -198,7 +198,7 @@ ${dataToProcess}`,
               className="w-full text-sm border border-gray-200 dark:border-white/10 rounded-xl p-3 h-28 resize-none focus:outline-none focus:ring-2 focus:ring-sky-300"
             />
           ) : (
-            <label className="flex flex-col items-center justify-center gap-2 border-2 border-dashed border-gray-200 dark:border-white/10 rounded-xl p-6 cursor-pointer hover:border-sky-300 hover:bg-sky-50 transition-all">
+            <label className="flex flex-col items-center justify-center gap-2 border-2 border-dashed border-gray-200 dark:border-white/10 rounded-xl p-6 cursor-pointer hover:border-sky-300 hover:bg-sky-50 dark:bg-sky-900/20 transition-all">
               <Upload className="w-6 h-6 text-gray-400 dark:text-gray-300" />
               <span className="text-sm text-gray-600 dark:text-gray-300">{file ? file.name : 'Click to upload your export file'}</span>
               <span className="text-xs text-gray-400 dark:text-gray-300">{selectedTracker.format}</span>

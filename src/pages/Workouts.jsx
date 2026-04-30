@@ -269,13 +269,13 @@ export default function Workouts() {
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
 
       {/* Health Disclaimer — required for App Store approval */}
-      <div className="mx-3 sm:mx-4 mb-3 bg-amber-50 dark:bg-amber-900/15 rounded-xl px-3 py-2 border border-amber-100 dark:border-amber-800/20">
+      <div className="mx-3 sm:mx-4 mb-3 bg-amber-50 dark:bg-amber-900/20 dark:bg-amber-900/15 rounded-xl px-3 py-2 border border-amber-100 dark:border-amber-800/30 dark:border-amber-800/20">
         <p className="text-[10px] text-amber-700 dark:text-amber-300 text-center">Not medical advice. Consult a healthcare professional before starting any new exercise or nutrition program.</p>
       </div>
 
 
       {/* ── Header ── */}
-      <div className="sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b border-[#BAE6FD]/40">
+      <div className="sticky top-0 z-40 bg-white/95 dark:bg-[#0A1A2F]/95 backdrop-blur-sm border-b border-[#BAE6FD]/40">
         <div className="px-4 py-3 max-w-2xl mx-auto flex items-center justify-between">
           <div>
             
@@ -283,7 +283,7 @@ export default function Workouts() {
           </div>
           <div className="flex items-center gap-2">
             {streak > 0 &&
-            <div className="flex items-center gap-1 bg-orange-50 border border-orange-100 px-2.5 py-1.5 rounded-full">
+            <div className="flex items-center gap-1 bg-orange-50 dark:bg-orange-900/20 border border-orange-100 dark:border-orange-800/30 px-2.5 py-1.5 rounded-full">
                 <Flame className="w-3.5 h-3.5 text-orange-500" />
                 <span className="text-xs font-bold text-orange-600">{streak}d</span>
               </div>
@@ -593,7 +593,7 @@ export default function Workouts() {
             {/* ── Ask Coach David ── */}
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.33 }}>
               <Link to={createPageUrl('ChatScreen?bot=CoachDavid')}>
-                <div className="bg-gradient-to-r from-blue-50 to-sky-50 rounded-2xl p-4 flex items-center gap-3 border border-[#38BDF8]/20">
+                <div className="bg-gradient-to-r from-blue-50 dark:from-blue-900/15 to-sky-50 rounded-2xl p-4 flex items-center gap-3 border border-[#38BDF8]/20">
                   <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#38BDF8] to-[#0EA5E9] flex items-center justify-center flex-shrink-0 shadow-sm dark:shadow-none">
                     <MessageCircle className="w-5 h-5 text-white" />
                   </div>

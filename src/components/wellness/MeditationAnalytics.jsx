@@ -195,7 +195,7 @@ export default function MeditationAnalytics({ user }) {
       )}
 
       {/* Feedback Message */}
-      <Card className="p-4 bg-gradient-to-br from-[#FAD98D]/10 to-[#FAD98D]/10 dark:from-[#FAD98D]/5 dark:to-[#FAD98D]/5 border-[#FAD98D]/40 dark:border-[#FAD98D]/20">
+      <Card className="p-4 bg-gradient-to-br from-[#FAD98D]/10 to-[#FAD98D]/10 dark:from-[#FAD98D]/5 dark:to-[#FAD98D]/5 border-[#FAD98D]/40 dark:border-[#FAD98D]/15 dark:border-[#FAD98D]/8 dark:border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5">
         <h3 className="font-semibold text-gray-900 dark:text-white mb-2">💡 Insight</h3>
         <p className="text-sm text-gray-700 dark:text-gray-200 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">
           {totalSessions === 0 ? 

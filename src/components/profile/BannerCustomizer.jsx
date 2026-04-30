@@ -89,7 +89,7 @@ export default function BannerCustomizer({ isOpen, onClose, currentBanner, onSav
           <div>
             <p className="text-sm font-medium mb-2">Upload Custom Image</p>
             <label className="cursor-pointer">
-              <div className="border-2 border-dashed border-[#FAD98D]/40 rounded-xl p-4 hover:border-[#c9a227] transition-colors">
+              <div className="border-2 border-dashed border-[#FAD98D]/40 dark:border-[#FAD98D]/15 dark:border-[#FAD98D]/8 rounded-xl p-4 hover:border-[#c9a227] transition-colors">
                 <div className="flex items-center justify-center gap-2 text-[#0A1A2F]/60 dark:text-white/60">
                   {uploading ? (
                     <>
@@ -125,7 +125,7 @@ export default function BannerCustomizer({ isOpen, onClose, currentBanner, onSav
                   className={`aspect-video rounded-lg overflow-hidden border-2 transition-all ${
                     selectedBanner === banner
                       ? 'border-[#c9a227] ring-2 ring-[#c9a227]/20'
-                      : 'border-[#FAD98D]/25 hover:border-[#c9a227]/50'
+                      : 'border-[#FAD98D]/25 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 hover:border-[#c9a227]/50'
                   }`}
                 >
                   <img

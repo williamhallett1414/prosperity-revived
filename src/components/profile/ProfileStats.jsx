@@ -47,7 +47,7 @@ export default function ProfileStats({ userProgress, meditationSessions, workout
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: idx * 0.05 }}
-              className="bg-[#FAD98D]/10 rounded-xl p-4 border border-[#FAD98D]/25 shadow-sm dark:shadow-none"
+              className="bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5 rounded-xl p-4 border border-[#FAD98D]/25 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 shadow-sm dark:shadow-none"
             >
               <div className={`w-9 h-9 rounded-lg bg-gradient-to-br ${stat.color} flex items-center justify-center mb-2`}>
                 <Icon className="w-4 h-4 text-white" />

@@ -275,9 +275,9 @@ export default function LegalDocModal({ doc, onAccept, onClose }) {
                 key={i}
                 className={`rounded-2xl p-4 ${
                   s.emergency
-                    ? 'bg-red-50 border border-red-200'
+                    ? 'bg-red-50 dark:bg-red-900/20 border border-red-200'
                     : s.warning
-                    ? 'bg-amber-50 border border-amber-200'
+                    ? 'bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800/30'
                     : s.highlight
                     ? 'bg-[#F2F6FA] dark:bg-[#0A1A2F] border border-gray-200 dark:border-white/10 dark:border-white/10'
                     : 'bg-white dark:bg-white/5 border border-gray-100 dark:border-white/10'

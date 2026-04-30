@@ -269,7 +269,7 @@ Write a 3-4 sentence personal coaching response. Affirm their insight, add one s
             onChange={(e) => current.set(e.target.value)}
             placeholder={current.placeholder}
             rows={5}
-            className="w-full bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-xl px-4 py-3 text-sm text-[#0A1A2F] dark:text-white placeholder-[#0A1A2F]/25 outline-none border border-transparent focus:border-[#FAD98D]/50 resize-none transition-colors leading-relaxed" />
+            className="w-full bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-xl px-4 py-3 text-sm text-[#0A1A2F] dark:text-white placeholder-[#0A1A2F]/25 outline-none border border-transparent focus:border-[#FAD98D]/50 dark:border-[#FAD98D]/20 resize-none transition-colors leading-relaxed" />
           
           </motion.div>
         }
@@ -304,7 +304,7 @@ Write a 3-4 sentence personal coaching response. Affirm their insight, add one s
           )}
 
             {/* AI coach card */}
-            <div className="rounded-2xl p-5 border border-[#FAD98D]/30" style={{ background: `${cat.color}0f` }}>
+            <div className="rounded-2xl p-5 border border-[#FAD98D]/30 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5" style={{ background: `${cat.color}0f` }}>
               <div className="flex items-center gap-2 mb-3">
                 <Sparkles className="w-4 h-4" style={{ color: cat.color }} />
                 <p className="text-xs font-bold uppercase tracking-widest" style={{ color: cat.color }}>Your coaching response</p>
@@ -506,7 +506,7 @@ export default function MindsetResetPage() {
                     {/* Shuffle button */}
                     <button
                     onClick={(e) => {e.stopPropagation();shuffle(cat);}}
-                    className="w-8 h-8 rounded-full border border-[#F2F6FA] flex items-center justify-center hover:border-[#FAD98D]/50 transition-colors flex-shrink-0"
+                    className="w-8 h-8 rounded-full border border-[#F2F6FA] flex items-center justify-center hover:border-[#FAD98D]/50 dark:border-[#FAD98D]/20 transition-colors flex-shrink-0"
                     title="Random prompt">
                       <RefreshCw className="w-3.5 h-3.5 text-[#0A1A2F]/40 dark:text-white/40" />
                     </button>
@@ -551,7 +551,7 @@ export default function MindsetResetPage() {
 
           {/* Link to Growth Pathways */}
           <Link to={createPageUrl('GrowthPathwaysPage')}
-          className="flex items-center gap-3 bg-white dark:bg-white/5 rounded-2xl border border-[#F2F6FA] hover:border-[#FAD98D]/40 p-4 transition-all group">
+          className="flex items-center gap-3 bg-white dark:bg-white/5 rounded-2xl border border-[#F2F6FA] hover:border-[#FAD98D]/40 dark:border-[#FAD98D]/15 dark:border-[#FAD98D]/8 p-4 transition-all group">
             <div className="w-10 h-10 bg-gradient-to-br from-violet-500 to-purple-400 rounded-xl flex items-center justify-center flex-shrink-0">
               <Brain className="w-5 h-5 text-white" />
             </div>

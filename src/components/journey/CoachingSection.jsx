@@ -131,7 +131,7 @@ export default function CoachingSection() {
       </div>
 
       {/* Progress card */}
-      <div className="bg-white dark:bg-white/5 rounded-2xl p-4 border border-[#FAD98D]/25 shadow-sm dark:shadow-none mb-4">
+      <div className="bg-white dark:bg-white/5 rounded-2xl p-4 border border-[#FAD98D]/25 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 shadow-sm dark:shadow-none mb-4">
         <div className="flex items-center justify-between mb-2">
           <div>
             <p className="text-sm font-bold text-[#0A1A2F] dark:text-white dark:text-white">

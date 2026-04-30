@@ -138,7 +138,7 @@ export default function CouplesMode() {
   return (
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
       {/* Header */}
-      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 px-4 pt-4 pb-3">
+      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 px-4 pt-4 pb-3">
         <div className="max-w-lg mx-auto">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#EC4899] to-[#F472B6] flex items-center justify-center">
@@ -177,7 +177,7 @@ export default function CouplesMode() {
                       <button onClick={() => {
                         navigator.clipboard.writeText(myCode || inviteCode);
                         toast.success('Code copied!');
-                      }} className="p-3 rounded-xl bg-rose-50 text-rose-500">
+                      }} className="p-3 rounded-xl bg-rose-50 dark:bg-rose-900/20 text-rose-500">
                         <Copy className="w-4 h-4" />
                       </button>
                     </div>
@@ -213,7 +213,7 @@ export default function CouplesMode() {
 
             {/* Today's Scripture (shared) */}
             <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }}>
-              <div className="bg-gradient-to-br from-rose-50 to-pink-50 rounded-2xl p-5 border border-rose-100/50">
+              <div className="bg-gradient-to-br from-rose-50 to-pink-50 dark:to-pink-900/10 rounded-2xl p-5 border border-rose-100/50">
                 <div className="flex items-center gap-2 mb-3">
                   <div className="w-1 h-5 bg-rose-400 rounded-full" />
                   <span className="text-[10px] font-bold text-rose-500 uppercase tracking-widest">Today's Verse Together</span>
@@ -248,7 +248,7 @@ export default function CouplesMode() {
                     });
                     if (result.method === 'clipboard') toast.success('Copied!');
                   }}
-                  className="mt-3 w-full py-2 bg-rose-50 text-rose-500 text-xs font-bold rounded-xl">
+                  className="mt-3 w-full py-2 bg-rose-50 dark:bg-rose-900/20 text-rose-500 text-xs font-bold rounded-xl">
                   Share with Partner 💕
                 </button>
               </div>
@@ -306,11 +306,11 @@ export default function CouplesMode() {
                   return (
                     <div key={d.day}
                       className={`flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all ${
-                        isCurrent ? 'bg-rose-50 border border-rose-200' : 'bg-white dark:bg-white/5 border border-gray-100 dark:border-white/10'
+                        isCurrent ? 'bg-rose-50 dark:bg-rose-900/20 border border-rose-200' : 'bg-white dark:bg-white/5 border border-gray-100 dark:border-white/10'
                       }`}>
                       <div className={`w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 text-xs font-bold ${
-                        isPast ? 'bg-green-100 text-green-600' :
-                        isCurrent ? 'bg-rose-500 text-white' :
+                        isPast ? 'bg-green-100 dark:bg-green-900/25 text-green-600' :
+                        isCurrent ? 'bg-rose-50 dark:bg-rose-900/200 text-white' :
                         'bg-gray-100 dark:bg-white/5 text-gray-400 dark:text-gray-300'
                       }`}>
                         {isPast ? <CheckCircle className="w-3.5 h-3.5" /> : d.day}
@@ -397,7 +397,7 @@ export default function CouplesMode() {
                 <div key={i} className="flex items-center gap-3 py-3 border-b border-gray-50 dark:border-white/5 last:border-0">
                   <span className="text-lg">{goal.emoji}</span>
                   <p className="text-sm text-[#0A1A2F] dark:text-white flex-1">{goal.label}</p>
-                  <button className="px-3 py-1.5 bg-rose-50 text-rose-500 text-[10px] font-bold rounded-full">
+                  <button className="px-3 py-1.5 bg-rose-50 dark:bg-rose-900/20 text-rose-500 text-[10px] font-bold rounded-full">
                     Start
                   </button>
                 </div>

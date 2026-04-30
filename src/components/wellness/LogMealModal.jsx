@@ -89,7 +89,7 @@ export default function LogMealModal({ recipe, isOpen, onClose }) {
                   <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45 mt-0.5 line-clamp-1">{recipe.title}</p>
                 </div>
                 <button onClick={onClose}
-                  className="w-8 h-8 rounded-full bg-[#F2F6FA] dark:bg-[#0A1A2F] flex items-center justify-center text-[#0A1A2F]/40 dark:text-white/40 hover:bg-[#FAD98D]/20">
+                  className="w-8 h-8 rounded-full bg-[#F2F6FA] dark:bg-[#0A1A2F] flex items-center justify-center text-[#0A1A2F]/40 dark:text-white/40 hover:bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8">
                   <X className="w-3.5 h-3.5" />
                 </button>
               </div>
@@ -103,7 +103,7 @@ export default function LogMealModal({ recipe, isOpen, onClose }) {
                       className={`py-2.5 rounded-xl text-xs font-bold transition-all ${
                         mealType === value
                           ? 'bg-gradient-to-b from-[#c9a227] to-[#FAD98D] text-white shadow-sm dark:shadow-none'
-                          : 'bg-[#F2F6FA] dark:bg-[#0A1A2F] text-[#0A1A2F]/50 dark:text-white/50 hover:bg-[#FAD98D]/15'
+                          : 'bg-[#F2F6FA] dark:bg-[#0A1A2F] text-[#0A1A2F]/50 dark:text-white/50 hover:bg-[#FAD98D]/15 dark:bg-[#FAD98D]/8'
                       }`}>
                       {label}
                     </button>
@@ -116,12 +116,12 @@ export default function LogMealModal({ recipe, isOpen, onClose }) {
                 <p className="text-xs font-bold text-[#0A1A2F]/40 dark:text-white/40 uppercase tracking-widest mb-2">Servings</p>
                 <div className="flex items-center gap-4">
                   <button onClick={() => setServings(s => Math.max(0.5, s - 0.5))}
-                    className="w-9 h-9 rounded-full bg-[#F2F6FA] dark:bg-[#0A1A2F] font-bold text-[#0A1A2F]/60 dark:text-white/60 hover:bg-[#FAD98D]/20 text-lg flex items-center justify-center">−</button>
+                    className="w-9 h-9 rounded-full bg-[#F2F6FA] dark:bg-[#0A1A2F] font-bold text-[#0A1A2F]/60 dark:text-white/60 hover:bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8 text-lg flex items-center justify-center">−</button>
                   <span className="flex-1 text-center font-bold text-[#0A1A2F] dark:text-white text-lg">
                     {servings}{recipe.serving_size ? ` × ${recipe.serving_size}` : ` serving${servings !== 1 ? 's' : ''}`}
                   </span>
                   <button onClick={() => setServings(s => s + 0.5)}
-                    className="w-9 h-9 rounded-full bg-[#F2F6FA] dark:bg-[#0A1A2F] font-bold text-[#0A1A2F]/60 dark:text-white/60 hover:bg-[#FAD98D]/20 text-lg flex items-center justify-center">+</button>
+                    className="w-9 h-9 rounded-full bg-[#F2F6FA] dark:bg-[#0A1A2F] font-bold text-[#0A1A2F]/60 dark:text-white/60 hover:bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8 text-lg flex items-center justify-center">+</button>
                 </div>
               </div>
 
@@ -142,7 +142,7 @@ export default function LogMealModal({ recipe, isOpen, onClose }) {
                 <p className="text-xs font-bold text-[#0A1A2F]/40 dark:text-white/40 uppercase tracking-widest mb-1.5">Notes (optional)</p>
                 <input value={notes} onChange={e => setNotes(e.target.value)}
                   placeholder="How did it taste?"
-                  className="w-full px-3 py-2.5 rounded-xl border border-[#FAD98D]/25 bg-[#F2F6FA] dark:bg-[#0A1A2F] text-sm text-[#0A1A2F] dark:text-white placeholder-[#0A1A2F]/30 focus:outline-none focus:border-[#c9a227]/50" />
+                  className="w-full px-3 py-2.5 rounded-xl border border-[#FAD98D]/25 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 bg-[#F2F6FA] dark:bg-[#0A1A2F] text-sm text-[#0A1A2F] dark:text-white placeholder-[#0A1A2F]/30 focus:outline-none focus:border-[#c9a227]/50" />
               </div>
 
               {/* Submit */}

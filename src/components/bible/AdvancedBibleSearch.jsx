@@ -151,7 +151,7 @@ Example format:
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onKeyDown={handleKeyDown}
                 placeholder="Search for keywords, phrases, or themes..."
-                className="w-full pl-12 pr-4 py-3 bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-xl border-2 border-[#FAD98D]/20 focus:border-[#FAD98D] focus:outline-none text-[#0A1A2F] dark:text-white dark:text-white"
+                className="w-full pl-12 pr-4 py-3 bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-xl border-2 border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 focus:border-[#FAD98D] dark:border-[#FAD98D]/30 focus:outline-none text-[#0A1A2F] dark:text-white dark:text-white"
                 autoFocus
               />
             </div>
@@ -286,7 +286,7 @@ Example format:
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.05 }}
-                    className="bg-white dark:bg-white/5 rounded-xl p-4 border-2 border-[#FAD98D]/20 hover:border-[#FAD98D] transition-colors cursor-pointer"
+                    className="bg-white dark:bg-white/5 rounded-xl p-4 border-2 border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 hover:border-[#FAD98D] dark:border-[#FAD98D]/30 transition-colors cursor-pointer"
                     onClick={() => {
                       onNavigateToVerse({
                         type: 'verse',
@@ -299,7 +299,7 @@ Example format:
                   >
                     <div className="flex items-start justify-between mb-2">
                       <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 rounded-lg bg-[#FAD98D]/20 flex items-center justify-center">
+                        <div className="w-8 h-8 rounded-lg bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8 flex items-center justify-center">
                           <span className="text-xs font-bold text-[#3C4E53]">V</span>
                         </div>
                         <span className="font-bold text-[#0A1A2F] dark:text-white dark:text-white">
@@ -312,7 +312,7 @@ Example format:
                       "{result.text}"
                     </p>
                     
-                    <div className="bg-[#FAD98D]/15 rounded-lg p-2">
+                    <div className="bg-[#FAD98D]/15 dark:bg-[#FAD98D]/8 rounded-lg p-2">
                       <p className="text-xs text-[#C9A227]">
                         <span className="font-semibold">Why this matches:</span> {result.relevance}
                       </p>

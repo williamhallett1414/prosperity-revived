@@ -99,7 +99,7 @@ export default function ScriptureAffirmations() {
         onClick={handleSaveToFavorites}
         disabled={isFavorited}
         variant="outline"
-        className="w-full border-[#FAD98D] hover:bg-[#FAD98D]/10"
+        className="w-full border-[#FAD98D] dark:border-[#FAD98D]/30 hover:bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5"
       >
         <Heart className={`w-4 h-4 mr-2 ${isFavorited ? 'fill-[#FAD98D] text-[#FAD98D]' : 'text-[#FAD98D]'}`} />
         {isFavorited ? 'Saved to Favorites' : 'Save to Favorites'}

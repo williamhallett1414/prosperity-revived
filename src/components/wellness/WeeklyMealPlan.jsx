@@ -45,7 +45,7 @@ export default function WeeklyMealPlan({ mealPlanDays, activePlan }) {
             variant="outline"
             size="sm"
             onClick={() => setShowGroceryList(true)}
-            className="text-emerald-600 border-emerald-600 hover:bg-emerald-50"
+            className="text-emerald-600 border-emerald-600 hover:bg-emerald-50 dark:bg-emerald-900/20"
           >
             <ShoppingCart className="w-4 h-4 mr-2" />
             Grocery List

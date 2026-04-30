@@ -65,7 +65,7 @@ export default function MultiActivityLeaderboard() {
             className={`rounded-xl py-2.5 flex flex-col items-center gap-1 text-[11px] font-bold transition-all ${
               selected === id
                 ? `bg-gradient-to-br ${gradient} text-white shadow-sm dark:shadow-none`
-                : 'bg-white dark:bg-white/5 text-[#0A1A2F]/50 dark:text-white/50 border border-[#FAD98D]/25'
+                : 'bg-white dark:bg-white/5 text-[#0A1A2F]/50 dark:text-white/50 border border-[#FAD98D]/25 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5'
             }`}>
             <Icon className="w-3.5 h-3.5" />
             {label}
@@ -107,7 +107,7 @@ export default function MultiActivityLeaderboard() {
       </div>
 
       {/* Tips */}
-      <div className="bg-[#FAD98D]/15 border border-[#FAD98D]/25 rounded-2xl p-4 text-sm text-[#0A1A2F]/70 dark:text-white/70 space-y-1">
+      <div className="bg-[#FAD98D]/15 dark:bg-[#FAD98D]/8 border border-[#FAD98D]/25 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 rounded-2xl p-4 text-sm text-[#0A1A2F]/70 dark:text-white/70 space-y-1">
         <p className="font-semibold text-[#0A1A2F] dark:text-white text-xs uppercase tracking-wide mb-2">How to climb the ranks</p>
         <p>🏆 Complete activities and challenges to earn points</p>
         <p>🔥 Maintain your daily streak for consistent gains</p>

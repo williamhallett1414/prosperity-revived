@@ -47,7 +47,7 @@ export default function NutritionDashboard({ mealLogs = [] }) {
                 </p>
                 <p className="text-xs text-[#0A1A2F]/60 dark:text-white/60">Goal: {stat.target}{stat.unit}</p>
               </div>
-              <div className="w-full bg-[#FAD98D]/20 rounded-full h-1.5 overflow-hidden">
+              <div className="w-full bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8 rounded-full h-1.5 overflow-hidden">
                 <motion.div
                   initial={{ width: 0 }}
                   animate={{ width: `${percentage}%` }}

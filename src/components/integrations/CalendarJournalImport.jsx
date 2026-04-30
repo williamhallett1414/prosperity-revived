@@ -95,7 +95,7 @@ ${textInput}`,
   if (success) {
     return (
       <div className="text-center py-8">
-        <div className="w-14 h-14 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+        <div className="w-14 h-14 bg-purple-100 dark:bg-purple-900/25 rounded-full flex items-center justify-center mx-auto mb-4">
           <Check className="w-7 h-7 text-purple-600" />
         </div>
         <h3 className="font-bold text-gray-900 dark:text-white mb-1">Context Added!</h3>
@@ -109,7 +109,7 @@ ${textInput}`,
 
   return (
     <div className="space-y-4">
-      <div className="flex items-start gap-2 bg-purple-50 rounded-xl p-3 text-xs text-purple-700">
+      <div className="flex items-start gap-2 bg-purple-50 dark:bg-purple-900/20 rounded-xl p-3 text-xs text-purple-700">
         <Info className="w-3.5 h-3.5 mt-0.5 flex-shrink-0" />
         <p>Help Hannah understand your life context — your schedule, journal reflections, and goals — so she can connect your spiritual and personal growth to your real daily life.</p>
       </div>
@@ -121,7 +121,7 @@ ${textInput}`,
             <button
               key={source.id}
               onClick={() => setSelectedSource(source)}
-              className="w-full flex items-center gap-3 p-3 rounded-xl border border-gray-100 dark:border-white/10 hover:border-purple-200 hover:bg-purple-50 transition-all text-left"
+              className="w-full flex items-center gap-3 p-3 rounded-xl border border-gray-100 dark:border-white/10 hover:border-purple-200 dark:border-purple-800/30 hover:bg-purple-50 dark:bg-purple-900/20 transition-all text-left"
             >
               <span className="text-2xl">{source.icon}</span>
               <div className="flex-1 min-w-0">

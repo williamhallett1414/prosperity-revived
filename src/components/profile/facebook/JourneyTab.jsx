@@ -19,14 +19,14 @@ export default function ProfileJourneyTab({ user, userProgress, workoutSessions,
       label: 'Bible Readings',
       value: userProgress?.bible_readings_completed || 0,
       color: 'from-[#c9a227] to-[#FAD98D]',
-      bg: 'bg-[#FAD98D]/15'
+      bg: 'bg-[#FAD98D]/15 dark:bg-[#FAD98D]/8'
     },
     {
       icon: Brain,
       label: 'Meditations',
       value: userProgress?.meditations_completed || meditationSessions.length || 0,
       color: 'from-[#FAD98D] to-[#FAD98D]',
-      bg: 'bg-[#FAD98D]/10'
+      bg: 'bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5'
 
     },
     {
@@ -34,7 +34,7 @@ export default function ProfileJourneyTab({ user, userProgress, workoutSessions,
       label: 'Journal Entries',
       value: journalEntries.length || 0,
       color: 'from-[#c9a227] to-[#0A1A2F]',
-      bg: 'bg-[#FAD98D]/10'
+      bg: 'bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5'
     },
   ];
 
@@ -92,7 +92,7 @@ export default function ProfileJourneyTab({ user, userProgress, workoutSessions,
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="bg-[#FAD98D]/10 rounded-2xl p-5 text-center"
+          className="bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5 rounded-2xl p-5 text-center"
         >
           <p className="text-sm text-[#0A1A2F]/70 dark:text-white/70 mb-1 font-medium">Your journey is just beginning!</p>
           <p className="text-xs text-[#0A1A2F]/50 dark:text-white/50 mb-3">Log workouts, read the Bible, and journal to see your progress here.</p>

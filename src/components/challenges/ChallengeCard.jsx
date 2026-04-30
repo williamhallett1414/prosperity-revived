@@ -27,8 +27,8 @@ export default function ChallengeCard({ challenge, participation, onJoin, onClic
 
   const getStatusColor = () => {
     if (challenge.status === 'completed') return 'bg-gray-100 dark:bg-white/5 text-gray-600 dark:text-gray-300';
-    if (daysRemaining <= 3) return 'bg-red-100 text-red-600';
-    return 'bg-green-100 text-green-600';
+    if (daysRemaining <= 3) return 'bg-red-100 dark:bg-red-900/25 text-red-600';
+    return 'bg-green-100 dark:bg-green-900/25 text-green-600';
   };
 
   return (
@@ -78,7 +78,7 @@ export default function ChallengeCard({ challenge, participation, onJoin, onClic
         )}
 
         {challenge.reward_points > 0 && (
-          <div className="flex items-center gap-2 text-sm text-amber-600 bg-amber-50 rounded-lg px-3 py-2">
+          <div className="flex items-center gap-2 text-sm text-amber-600 bg-amber-50 dark:bg-amber-900/20 rounded-lg px-3 py-2">
             <Trophy className="w-4 h-4" />
             <span>{challenge.reward_points} points reward</span>
           </div>

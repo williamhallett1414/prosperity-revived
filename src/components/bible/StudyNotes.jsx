@@ -38,7 +38,7 @@ export default function StudyNotes({ section, subsection, notes, onSave }) {
             exit={{ opacity: 0, height: 0 }}
             className="mt-3"
           >
-            <Card className="p-4 bg-[#FAD98D]/15 border-l-4 border-[#c9a227]">
+            <Card className="p-4 bg-[#FAD98D]/15 dark:bg-[#FAD98D]/8 border-l-4 border-[#c9a227]">
               <div className="space-y-3">
                 <Textarea
                   placeholder="Take notes on this section..."

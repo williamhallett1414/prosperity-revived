@@ -626,7 +626,7 @@ export default function OnboardingFlow({ onComplete }) {
                             { id:'under13', label:'I am under 13', red:true },
                           ].map(opt => (
                             <button key={opt.id} onPointerDown={() => setAgeGroup(opt.id)}
-                              className={`w-full text-left px-4 py-3 rounded-2xl border-2 transition-all flex items-center gap-3 ${ageGroup===opt.id ? (opt.red?'border-red-400 bg-red-50':'border-[#FD9C2D] bg-[#FD9C2D]/8') : 'border-gray-100 dark:border-white/10 bg-white dark:bg-white/5 hover:border-gray-200 dark:border-white/10'}`}>
+                              className={`w-full text-left px-4 py-3 rounded-2xl border-2 transition-all flex items-center gap-3 ${ageGroup===opt.id ? (opt.red?'border-red-400 bg-red-50 dark:bg-red-900/20':'border-[#FD9C2D] bg-[#FD9C2D]/8') : 'border-gray-100 dark:border-white/10 bg-white dark:bg-white/5 hover:border-gray-200 dark:border-white/10'}`}>
                               <div className={`w-4 h-4 rounded-full border-2 flex-shrink-0 flex items-center justify-center ${ageGroup===opt.id ? (opt.red?'border-red-400 bg-red-400':'border-[#FD9C2D] bg-[#FD9C2D]') : 'border-gray-300 dark:border-white/15'}`}>
                                 {ageGroup===opt.id && <div className="w-1.5 h-1.5 rounded-full bg-white dark:bg-white/5" />}
                               </div>
@@ -635,7 +635,7 @@ export default function OnboardingFlow({ onComplete }) {
                           ))}
                         </div>
                         {ageGroup==='under13' && (
-                          <motion.div initial={{ opacity:0, y:-4 }} animate={{ opacity:1, y:0 }} className="mt-3 bg-red-50 border border-red-200 rounded-2xl p-4 flex gap-3">
+                          <motion.div initial={{ opacity:0, y:-4 }} animate={{ opacity:1, y:0 }} className="mt-3 bg-red-50 dark:bg-red-900/20 border border-red-200 rounded-2xl p-4 flex gap-3">
                             <AlertTriangle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
                             <div>
                               <p className="text-sm font-bold text-red-700">Sorry — you must be at least 13 to use this app</p>
@@ -644,7 +644,7 @@ export default function OnboardingFlow({ onComplete }) {
                           </motion.div>
                         )}
                         {ageGroup==='13to17' && (
-                          <motion.div initial={{ opacity:0, y:-4 }} animate={{ opacity:1, y:0 }} className="mt-3 bg-amber-50 border border-amber-200 rounded-2xl p-3">
+                          <motion.div initial={{ opacity:0, y:-4 }} animate={{ opacity:1, y:0 }} className="mt-3 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800/30 rounded-2xl p-3">
                             <p className="text-xs text-amber-800 leading-relaxed"><strong>Parental consent required.</strong> A parent or guardian must review and approve your use of this app.</p>
                           </motion.div>
                         )}
@@ -653,14 +653,14 @@ export default function OnboardingFlow({ onComplete }) {
                         <motion.div initial={{ opacity:0, y:8 }} animate={{ opacity:1, y:0 }} className="space-y-2">
                           <p className="text-[10px] font-bold text-gray-400 dark:text-gray-300 uppercase tracking-widest mb-2">Review & Accept Documents *</p>
                           {DOCS_LIST.map(({ key, icon, label, sub }) => (
-                            <div key={key} className={`flex items-center gap-3 px-4 py-3 rounded-2xl border-2 transition-all ${acceptedDocs[key]?'border-green-300 bg-green-50':'border-gray-100 dark:border-white/10 bg-white dark:bg-white/5'}`}>
+                            <div key={key} className={`flex items-center gap-3 px-4 py-3 rounded-2xl border-2 transition-all ${acceptedDocs[key]?'border-green-300 bg-green-50 dark:bg-green-900/20':'border-gray-100 dark:border-white/10 bg-white dark:bg-white/5'}`}>
                               <span className="text-xl flex-shrink-0">{icon}</span>
                               <div className="flex-1 min-w-0">
                                 <p className="text-sm font-semibold text-[#0A1A2F] dark:text-white leading-tight">{label}</p>
                                 <p className="text-[10px] text-gray-400 dark:text-gray-300 mt-0.5">{sub}</p>
                               </div>
                               {acceptedDocs[key] ? (
-                                <div className="w-7 h-7 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0"><Check className="w-4 h-4 text-white" /></div>
+                                <div className="w-7 h-7 rounded-full bg-green-50 dark:bg-green-900/200 flex items-center justify-center flex-shrink-0"><Check className="w-4 h-4 text-white" /></div>
                               ) : (
                                 <button onPointerDown={() => setOpenDoc(key)} className="px-3 py-1.5 rounded-xl text-xs font-bold border-2 border-[#C9A227] text-[#C9A227] hover:bg-[#C9A227] hover:text-white transition-all flex-shrink-0">Review</button>
                               )}
@@ -712,7 +712,7 @@ export default function OnboardingFlow({ onComplete }) {
                       </div>
                     </div>
                     {hookAnswer.trim() && (
-                      <div className="bg-[#FFF9EC] rounded-2xl p-3 flex gap-2 border border-[#FAD98D]/40">
+                      <div className="bg-[#FFF9EC] rounded-2xl p-3 flex gap-2 border border-[#FAD98D]/40 dark:border-[#FAD98D]/15 dark:border-[#FAD98D]/8">
                         <span className="text-lg">🎯</span>
                         <div>
                           <p className="text-xs font-bold text-[#0A1A2F] dark:text-white mb-0.5">Your north star</p>

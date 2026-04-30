@@ -336,7 +336,7 @@ export default function WelcomeOnboarding({ onComplete }) {
                       <Card key={idx}>
                         <CardContent className="p-4">
                           <div className="flex items-center gap-2 mb-2">
-                            <Badge className="bg-[#FAD98D]/20 text-[#3C4E53] text-xs">
+                            <Badge className="bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8 text-[#3C4E53] text-xs">
                               {conn.from}
                             </Badge>
                             <ArrowRight className="w-4 h-4 text-gray-400 dark:text-gray-300" />

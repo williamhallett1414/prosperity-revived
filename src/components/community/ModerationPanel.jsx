@@ -96,15 +96,15 @@ export default function ModerationPanel({ user }) {
 
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-        <div className="bg-amber-50 rounded-xl p-3 text-center">
+        <div className="bg-amber-50 dark:bg-amber-900/20 rounded-xl p-3 text-center">
           <p className="text-lg font-black text-amber-600">{reports.filter(r => r.status === 'pending').length}</p>
           <p className="text-[10px] text-amber-600/60 font-bold">Pending</p>
         </div>
-        <div className="bg-red-50 rounded-xl p-3 text-center">
+        <div className="bg-red-50 dark:bg-red-900/20 rounded-xl p-3 text-center">
           <p className="text-lg font-black text-red-500">{flaggedPosts.length}</p>
           <p className="text-[10px] text-red-500/60 font-bold">Flagged Posts</p>
         </div>
-        <div className="bg-green-50 rounded-xl p-3 text-center">
+        <div className="bg-green-50 dark:bg-green-900/20 rounded-xl p-3 text-center">
           <p className="text-lg font-black text-green-600">{reports.filter(r => r.status === 'resolved').length}</p>
           <p className="text-[10px] text-green-600/60 font-bold">Resolved</p>
         </div>
@@ -142,7 +142,7 @@ export default function ModerationPanel({ user }) {
                 <div className="flex gap-2 mt-3">
                   <button
                     onClick={() => resolveReport.mutate({ reportId: report.id, action: 'resolved' })}
-                    className="flex-1 flex items-center justify-center gap-1 py-2 rounded-xl bg-green-50 text-green-600 text-xs font-bold">
+                    className="flex-1 flex items-center justify-center gap-1 py-2 rounded-xl bg-green-50 dark:bg-green-900/20 text-green-600 text-xs font-bold">
                     <CheckCircle className="w-3 h-3" /> Resolve
                   </button>
                   <button
@@ -158,7 +158,7 @@ export default function ModerationPanel({ user }) {
                           resolveReport.mutate({ reportId: report.id, action: 'resolved' });
                         }
                       }}
-                      className="flex items-center justify-center gap-1 py-2 px-3 rounded-xl bg-red-50 text-red-500 text-xs font-bold">
+                      className="flex items-center justify-center gap-1 py-2 px-3 rounded-xl bg-red-50 dark:bg-red-900/20 text-red-500 text-xs font-bold">
                       <Trash2 className="w-3 h-3" /> Delete Post
                     </button>
                   )}

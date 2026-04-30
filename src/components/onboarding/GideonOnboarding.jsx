@@ -92,7 +92,7 @@ export default function GideonOnboarding({ onComplete, onRevisit }) {
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="bg-[#FAD98D]/30 border border-[#FAD98D]/50 rounded-lg p-3 text-sm text-[#C9A227] flex gap-2"
+                  className="bg-[#FAD98D]/30 border border-[#FAD98D]/50 dark:border-[#FAD98D]/20 rounded-lg p-3 text-sm text-[#C9A227] flex gap-2"
                 >
                   <HelpCircle className="w-4 h-4 flex-shrink-0 mt-0.5" />
                   <p>{currentStep.tip}</p>

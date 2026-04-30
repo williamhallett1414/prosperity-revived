@@ -76,7 +76,7 @@ export default function ChallengeDetailModal({ challenge, user, participation, o
 
           {participation && (
             <>
-              <div className="bg-[#FAD98D]/10 rounded-lg p-4 border border-[#FAD98D]/40">
+              <div className="bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5 rounded-lg p-4 border border-[#FAD98D]/40 dark:border-[#FAD98D]/15 dark:border-[#FAD98D]/8">
                 <div className="flex items-center justify-between mb-2">
                   <h3 className="font-semibold text-gray-900 dark:text-white">Your Progress</h3>
                   <Badge className="bg-[#c9a227]">
@@ -89,9 +89,9 @@ export default function ChallengeDetailModal({ challenge, user, participation, o
                       key={day}
                       className={`w-10 h-10 rounded-lg flex items-center justify-center font-semibold ${
                         completedDays.includes(day)
-                          ? 'bg-green-500 text-white'
+                          ? 'bg-green-50 dark:bg-green-900/200 text-white'
                           : day === currentDay
-                          ? 'bg-[#FAD98D]/100 text-white'
+                          ? 'bg-[#FAD98D]/10 dark:bg-[#FAD98D]/50 text-white'
                           : 'bg-gray-200 text-gray-600 dark:text-gray-300'
                       }`}
                     >

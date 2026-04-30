@@ -173,7 +173,7 @@ export default function NutritionBreakdown({ timeRange = 7 }) {
               <span className="text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">Magnesium</span>
               <span className="font-medium text-indigo-700 dark:text-indigo-400">{stats.avgDaily.magnesium}mg</span>
             </div>
-            <div className="flex justify-between p-2 bg-[#FAD98D]/10 dark:bg-[#0A1A2F]/20 rounded">
+            <div className="flex justify-between p-2 bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5 dark:bg-[#0A1A2F]/20 rounded">
               <span className="text-gray-600 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">Zinc</span>
               <span className="font-medium text-[#C9A227] dark:text-pink-400">{stats.avgDaily.zinc}mg</span>
             </div>

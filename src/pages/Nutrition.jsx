@@ -165,13 +165,13 @@ export default function Nutrition() {
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
 
       {/* Health Disclaimer — required for App Store approval */}
-      <div className="mx-3 sm:mx-4 mb-3 bg-amber-50 dark:bg-amber-900/15 rounded-xl px-3 py-2 border border-amber-100 dark:border-amber-800/20">
+      <div className="mx-3 sm:mx-4 mb-3 bg-amber-50 dark:bg-amber-900/20 dark:bg-amber-900/15 rounded-xl px-3 py-2 border border-amber-100 dark:border-amber-800/30 dark:border-amber-800/20">
         <p className="text-[10px] text-amber-700 dark:text-amber-300 text-center">Not medical advice. Consult a healthcare professional before starting any new exercise or nutrition program.</p>
       </div>
 
 
       {/* ── Sticky header ── */}
-      <div className="sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b border-gray-100 dark:border-white/10 shadow-sm dark:shadow-none">
+      <div className="sticky top-0 z-40 bg-white/95 dark:bg-[#0A1A2F]/95 backdrop-blur-sm border-b border-gray-100 dark:border-white/10 shadow-sm dark:shadow-none">
         <div className="max-w-lg mx-auto px-4 pt-3 pb-0">
 
           {/* Title row */}
@@ -276,7 +276,7 @@ export default function Nutrition() {
             <div id="tour-water-tracker" className="bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 shadow-sm dark:shadow-none p-4">
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-2.5">
-                  <div className="w-9 h-9 rounded-xl bg-blue-50 flex items-center justify-center">
+                  <div className="w-9 h-9 rounded-xl bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center">
                     <Droplets className="w-5 h-5 text-blue-500" />
                   </div>
                   <div>
@@ -289,19 +289,19 @@ export default function Nutrition() {
                     className="w-8 h-8 rounded-full bg-gray-100 dark:bg-white/5 font-bold text-[#0A1A2F]/50 dark:text-white/50 flex items-center justify-center hover:bg-gray-200 transition-colors text-base leading-none">−</button>
                   <span className="font-bold text-[#16a34a] text-base w-5 text-center">{glasses}</span>
                   <button onClick={() => updateWater.mutate(Math.min(20, glasses + 1))}
-                    className="w-8 h-8 rounded-full bg-blue-100 font-bold text-blue-600 flex items-center justify-center hover:bg-blue-200 transition-colors text-base leading-none">+</button>
+                    className="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900/25 font-bold text-blue-600 flex items-center justify-center hover:bg-blue-200 transition-colors text-base leading-none">+</button>
                 </div>
               </div>
               <div className="flex gap-1.5 flex-wrap">
                 {Array.from({ length: waterGoal }).map((_, i) => (
                   <button key={i} onClick={() => updateWater.mutate(i + 1)}
-                    className={`w-7 h-7 rounded-full text-sm transition-all active:scale-90 ${i < glasses ? 'bg-blue-500 shadow-sm dark:shadow-none' : 'bg-gray-100 dark:bg-white/5'}`}>
+                    className={`w-7 h-7 rounded-full text-sm transition-all active:scale-90 ${i < glasses ? 'bg-blue-50 dark:bg-blue-900/200 shadow-sm dark:shadow-none' : 'bg-gray-100 dark:bg-white/5'}`}>
                     {i < glasses ? '💧' : '○'}
                   </button>
                 ))}
               </div>
               {glasses >= waterGoal && (
-                <div className="mt-3 flex items-center gap-2 bg-blue-50 rounded-xl px-3 py-2">
+                <div className="mt-3 flex items-center gap-2 bg-blue-50 dark:bg-blue-900/20 rounded-xl px-3 py-2">
                   <span className="text-sm">🎉</span>
                   <p className="text-xs font-bold text-blue-600">Hydration goal reached!</p>
                 </div>
@@ -327,7 +327,7 @@ export default function Nutrition() {
                       <motion.div key={m.id || i} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: i * 0.04 }}
                         className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-gray-50 dark:bg-white/5 group transition-colors">
-                        <div className="w-8 h-8 rounded-lg bg-[#FAD98D]/20 flex items-center justify-center flex-shrink-0 text-base">
+                        <div className="w-8 h-8 rounded-lg bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8 flex items-center justify-center flex-shrink-0 text-base">
                           {MEAL_EMOJI[m.meal_type] || '🍴'}
                         </div>
                         <div className="flex-1 min-w-0">
@@ -339,7 +339,7 @@ export default function Nutrition() {
                         </div>
                         {m.id && (
                           <button onClick={() => { if (window.confirm('Remove this meal?')) deleteMeal.mutate(m.id); }}
-                            className="opacity-0 group-hover:opacity-100 p-1.5 rounded-lg hover:bg-red-50 text-gray-300 dark:text-gray-400 dark:text-gray-300 hover:text-red-400 transition-all flex-shrink-0">
+                            className="opacity-0 group-hover:opacity-100 p-1.5 rounded-lg hover:bg-red-50 dark:bg-red-900/20 text-gray-300 dark:text-gray-400 dark:text-gray-300 hover:text-red-400 transition-all flex-shrink-0">
                             <Trash2 className="w-3.5 h-3.5" />
                           </button>
                         )}
@@ -348,7 +348,7 @@ export default function Nutrition() {
                   </div>
                 )}
                 <button onClick={() => setShowLogModal(true)}
-                  className="w-full mt-3 py-2.5 rounded-xl border-2 border-dashed border-[#FAD98D]/50 text-xs font-bold text-[#c9a227] hover:border-[#c9a227]/50 hover:bg-[#FAD98D]/5 transition-all flex items-center justify-center gap-1.5">
+                  className="w-full mt-3 py-2.5 rounded-xl border-2 border-dashed border-[#FAD98D]/50 dark:border-[#FAD98D]/20 text-xs font-bold text-[#c9a227] hover:border-[#c9a227]/50 hover:bg-[#FAD98D]/5 transition-all flex items-center justify-center gap-1.5">
                   <Plus className="w-3.5 h-3.5" /> Add Meal
                 </button>
               </div>
@@ -372,12 +372,12 @@ export default function Nutrition() {
                       <div className="flex-1 min-w-0">
                         <p className="font-semibold text-[#0A1A2F] dark:text-white text-sm leading-tight">{meal.name}</p>
                         <div className="flex gap-2 mt-0.5">
-                          <span className="text-[10px] font-bold text-[#c9a227] bg-[#FAD98D]/20 px-1.5 py-0.5 rounded">{meal.cal} cal</span>
+                          <span className="text-[10px] font-bold text-[#c9a227] bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8 px-1.5 py-0.5 rounded">{meal.cal} cal</span>
                           <span className="text-[10px] text-[#0A1A2F]/35 dark:text-white/35">{meal.protein}g P · {meal.carbs}g C · {meal.fats}g F</span>
                         </div>
                       </div>
                       {alreadyLogged ? (
-                        <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-1 rounded-lg flex-shrink-0">✓ Logged</span>
+                        <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 dark:bg-emerald-900/20 px-2 py-1 rounded-lg flex-shrink-0">✓ Logged</span>
                       ) : (
                         <button onClick={() => quickLog(meal)} disabled={logMeal.isPending}
                           className="px-3 py-1.5 rounded-xl bg-[#22c55e]/15 text-[#16a34a] text-xs font-bold hover:bg-[#22c55e]/25 transition-colors flex-shrink-0 active:scale-95">

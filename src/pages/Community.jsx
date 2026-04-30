@@ -140,7 +140,7 @@ function LeaderboardWidget() {
 
   return (
     <div className="bg-white dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10 shadow-sm dark:shadow-none overflow-hidden">
-      <div className="px-4 py-3 bg-gradient-to-r from-[#FAD98D]/20 to-[#c9a227]/10 border-b border-[#FAD98D]/20 flex items-center gap-2">
+      <div className="px-4 py-3 bg-gradient-to-r from-[#FAD98D]/20 to-[#c9a227]/10 border-b border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 flex items-center gap-2">
         <Crown className="w-4 h-4 text-[#c9a227]" />
         <p className="text-xs font-bold text-[#0A1A2F] dark:text-white uppercase tracking-widest">Top Members</p>
       </div>
@@ -215,7 +215,7 @@ export default function Community() {
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
 
       {/* ── Sticky Header ── */}
-      <div className="sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b border-[#7C3AED]/15">
+      <div className="sticky top-0 z-40 bg-white/95 dark:bg-[#0A1A2F]/95 backdrop-blur-sm border-b border-[#7C3AED]/15">
         <div className="max-w-2xl mx-auto px-3 sm:px-4 pt-4 pb-3">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-3">

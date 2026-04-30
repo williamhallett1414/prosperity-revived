@@ -76,7 +76,7 @@ export default function GroupPlanDetail() {
       <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] flex items-center justify-center">
 
       {/* ── Standard Header ── */}
-      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 px-4 pt-4 pb-3">
+      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 px-4 pt-4 pb-3">
         <div className="max-w-lg mx-auto flex items-center gap-3">
           <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#22C55E] to-[#16A34A] flex items-center justify-center">
             <BookOpen className="w-5 h-5 text-white" />
@@ -199,7 +199,7 @@ export default function GroupPlanDetail() {
                     whileHover={{ scale: 1.02 }}
                     className={`bg-white dark:bg-white/5 rounded-xl p-4 border-2 cursor-pointer transition-all ${
                       isCompleted 
-                        ? 'border-green-500 bg-green-50' 
+                        ? 'border-green-500 bg-green-50 dark:bg-green-900/20' 
                         : 'border-gray-200 dark:border-white/10 hover:border-green-300'
                     }`}
                     onClick={() => setSelectedDay(day)}
@@ -207,7 +207,7 @@ export default function GroupPlanDetail() {
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
                         <div className={`w-10 h-10 rounded-lg flex items-center justify-center font-semibold ${
-                          isCompleted ? 'bg-green-500 text-white' : 'bg-gray-100 dark:bg-white/5 text-gray-600 dark:text-gray-300'
+                          isCompleted ? 'bg-green-50 dark:bg-green-900/200 text-white' : 'bg-gray-100 dark:bg-white/5 text-gray-600 dark:text-gray-300'
                         }`}>
                           {isCompleted ? <CheckCircle2 className="w-5 h-5" /> : day}
                         </div>

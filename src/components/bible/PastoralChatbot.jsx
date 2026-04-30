@@ -112,7 +112,7 @@ Respond with compassion and biblical wisdom:`,
                     className={`max-w-[80%] rounded-2xl px-4 py-2 ${
                       message.role === 'user'
                         ? 'bg-[#c9a227] text-white'
-                        : 'bg-[#FAD98D]/15 text-[#0A1A2F] dark:text-white dark:text-white'
+                        : 'bg-[#FAD98D]/15 dark:bg-[#FAD98D]/8 text-[#0A1A2F] dark:text-white dark:text-white'
                     }`}
                   >
                     <p className="text-sm leading-relaxed">{message.content}</p>
@@ -122,7 +122,7 @@ Respond with compassion and biblical wisdom:`,
               
               {loading && (
                 <div className="flex justify-start">
-                  <div className="bg-[#FAD98D]/15 rounded-2xl px-4 py-2">
+                  <div className="bg-[#FAD98D]/15 dark:bg-[#FAD98D]/8 rounded-2xl px-4 py-2">
                     <Loader2 className="w-4 h-4 animate-spin text-[#c9a227]" />
                   </div>
                 </div>
@@ -132,7 +132,7 @@ Respond with compassion and biblical wisdom:`,
             </div>
 
             {/* Input */}
-            <div className="p-4 border-t border-[#FAD98D]/20">
+            <div className="p-4 border-t border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5">
               <div className="flex gap-2">
                 <Input
                   placeholder="Share what's on your heart..."

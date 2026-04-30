@@ -21,8 +21,8 @@ const DIET_STYLE = {
   keto:        'bg-[#FAD98D]/30 text-[#c9a227]',
   vegan:       'bg-[#AFC7E3]/25 text-[#3C4E53]',
   vegetarian:  'bg-[#AFC7E3]/20 text-[#3C4E53]',
-  paleo:       'bg-[#FAD98D]/25 text-[#0A1A2F]/70 dark:text-white/70',
-  gluten_free: 'bg-[#FAD98D]/20 text-[#c9a227]',
+  paleo:       'bg-[#FAD98D]/25 dark:bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5 text-[#0A1A2F]/70 dark:text-white/70',
+  gluten_free: 'bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8 text-[#c9a227]',
 };
 
 // Parse inline cues from an instruction string for rich display
@@ -48,7 +48,7 @@ function RichStep({ text, stepNum }) {
       <p className="text-sm text-[#0A1A2F]/80 dark:text-white/80 leading-relaxed flex-1 pt-0.5">
         {parts.map((p, i) => {
           if (p.type === 'temp') return (
-            <span key={i} className="inline-flex items-center gap-0.5 bg-red-50 text-red-600 font-semibold px-1.5 py-0.5 rounded-md text-xs mx-0.5">
+            <span key={i} className="inline-flex items-center gap-0.5 bg-red-50 dark:bg-red-900/20 text-red-600 font-semibold px-1.5 py-0.5 rounded-md text-xs mx-0.5">
               <ThermometerSun className="w-3 h-3" />{p.val}
             </span>
           );
@@ -134,7 +134,7 @@ Rules:
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: Math.min(index * 0.04, 0.4) }}
-        className="bg-white dark:bg-white/5 rounded-2xl overflow-hidden border border-[#FAD98D]/20 shadow-sm dark:shadow-none"
+        className="bg-white dark:bg-white/5 rounded-2xl overflow-hidden border border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 shadow-sm dark:shadow-none"
       >
         <div className="p-4">
           {/* Title */}
@@ -187,10 +187,10 @@ Rules:
           {/* Collapsed nutrition preview */}
           {hasNutrition && !expanded && (
             <div className="flex gap-2 mb-3 overflow-x-auto pb-0.5">
-              <NutritionPill label="Cal"     value={displayed.calories} unit=""   color="bg-[#FAD98D]/20" />
+              <NutritionPill label="Cal"     value={displayed.calories} unit=""   color="bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8" />
               <NutritionPill label="Protein" value={displayed.protein}  unit="g"  color="bg-[#AFC7E3]/20" />
-              <NutritionPill label="Carbs"   value={displayed.carbs}    unit="g"  color="bg-[#FAD98D]/15" />
-              <NutritionPill label="Fat"     value={displayed.fat}      unit="g"  color="bg-[#FAD98D]/15" />
+              <NutritionPill label="Carbs"   value={displayed.carbs}    unit="g"  color="bg-[#FAD98D]/15 dark:bg-[#FAD98D]/8" />
+              <NutritionPill label="Fat"     value={displayed.fat}      unit="g"  color="bg-[#FAD98D]/15 dark:bg-[#FAD98D]/8" />
               {displayed.fiber && <NutritionPill label="Fiber" value={displayed.fiber} unit="g" color="bg-[#AFC7E3]/15" />}
             </div>
           )}
@@ -207,7 +207,7 @@ Rules:
             {/* Grocery list */}
             <button onClick={handleCart}
               className={`flex flex-col items-center gap-1 py-2.5 rounded-xl transition-all ${
-                inCart ? 'bg-[#c9a227] text-white shadow-sm dark:shadow-none' : 'bg-[#FAD98D]/20 text-[#c9a227] hover:bg-[#FAD98D]/35'
+                inCart ? 'bg-[#c9a227] text-white shadow-sm dark:shadow-none' : 'bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8 text-[#c9a227] hover:bg-[#FAD98D]/35'
               }`}>
               {inCart ? <Check className="w-4 h-4" /> : <ShoppingCart className="w-4 h-4" />}
               <span className="text-[10px] font-bold">{inCart ? 'In List' : 'Add List'}</span>
@@ -215,7 +215,7 @@ Rules:
 
             {/* Expand / enrich */}
             <button onClick={() => { setExpanded(e => !e); if (!expanded && !enriched) handleEnrich(); }}
-              className="flex flex-col items-center gap-1 py-2.5 rounded-xl bg-[#F2F6FA] dark:bg-[#0A1A2F] text-[#0A1A2F]/55 dark:text-white/55 hover:bg-[#FAD98D]/15 transition-colors">
+              className="flex flex-col items-center gap-1 py-2.5 rounded-xl bg-[#F2F6FA] dark:bg-[#0A1A2F] text-[#0A1A2F]/55 dark:text-white/55 hover:bg-[#FAD98D]/15 dark:bg-[#FAD98D]/8 transition-colors">
               {enriching
                 ? <Loader2 className="w-4 h-4 animate-spin text-[#c9a227]" />
                 : expanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
@@ -299,7 +299,7 @@ Rules:
 
                   {/* Chef's Tips */}
                   {hasTips && (
-                    <div className="bg-[#FAD98D]/15 rounded-2xl p-4">
+                    <div className="bg-[#FAD98D]/15 dark:bg-[#FAD98D]/8 rounded-2xl p-4">
                       <div className="flex items-center gap-2 mb-2.5">
                         <Lightbulb className="w-4 h-4 text-[#c9a227]" />
                         <p className="text-xs font-bold text-[#0A1A2F]/50 dark:text-white/50 uppercase tracking-widest">Chef's Tips</p>

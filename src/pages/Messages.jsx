@@ -191,7 +191,7 @@ function ChatThread({ conv, messages, userEmail, onSend, isSending, onBack }) {
             onChange={e => setText(e.target.value)}
             onKeyDown={e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleSend(); } }}
             placeholder="Message…"
-            className="flex-1 bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-2xl px-4 py-2.5 text-sm text-[#0A1A2F] dark:text-white placeholder-[#0A1A2F]/30 outline-none border border-transparent focus:border-[#FAD98D]/50 transition-colors"
+            className="flex-1 bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-2xl px-4 py-2.5 text-sm text-[#0A1A2F] dark:text-white placeholder-[#0A1A2F]/30 outline-none border border-transparent focus:border-[#FAD98D]/50 dark:border-[#FAD98D]/20 transition-colors"
           />
           <button
             onClick={handleSend}
@@ -437,7 +437,7 @@ export default function Messages() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.06 }}
                   onClick={() => navigate(createPageUrl(`ChatScreen?bot=${coach.key}`))}
-                  className="w-full flex items-center gap-3 bg-white dark:bg-white/5 rounded-2xl border border-[#F2F6FA] hover:border-[#FAD98D]/40 hover:shadow-sm dark:shadow-none p-4 transition-all text-left"
+                  className="w-full flex items-center gap-3 bg-white dark:bg-white/5 rounded-2xl border border-[#F2F6FA] hover:border-[#FAD98D]/40 dark:border-[#FAD98D]/15 dark:border-[#FAD98D]/8 hover:shadow-sm dark:shadow-none p-4 transition-all text-left"
                 >
                   <div className={`w-11 h-11 rounded-xl bg-gradient-to-br ${coach.bg} flex items-center justify-center flex-shrink-0`}>
                     <span style={{ fontSize: 14, fontWeight: 700, color: '#fff', letterSpacing: 0 }}>{coach.icon}</span>

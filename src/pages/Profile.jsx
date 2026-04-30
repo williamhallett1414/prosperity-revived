@@ -78,13 +78,13 @@ function Header({ user, friendsCount, onCoverUpload, onAvatarUpload, uploading }
 
           {/* Messages link */}
           <Link to={createPageUrl('Messages')}
-          className="flex-shrink-0 w-9 h-9 rounded-full bg-[#FAD98D]/20 hover:bg-[#FAD98D]/35 flex items-center justify-center transition-colors">
+          className="flex-shrink-0 w-9 h-9 rounded-full bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8 hover:bg-[#FAD98D]/35 flex items-center justify-center transition-colors">
             <MessageCircle className="w-4 h-4 text-[#0A1A2F] dark:text-white dark:text-white" />
           </Link>
 
           {/* Settings link */}
           <Link to={createPageUrl('Settings')}
-          className="flex-shrink-0 w-9 h-9 rounded-full bg-[#FAD98D]/20 hover:bg-[#FAD98D]/35 flex items-center justify-center transition-colors">
+          className="flex-shrink-0 w-9 h-9 rounded-full bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8 hover:bg-[#FAD98D]/35 flex items-center justify-center transition-colors">
             <Settings className="w-4 h-4 text-[#0A1A2F] dark:text-white dark:text-white" />
           </Link>
         </div>
@@ -96,7 +96,7 @@ function Header({ user, friendsCount, onCoverUpload, onAvatarUpload, uploading }
           <p className="text-sm text-[#0A1A2F]/70 dark:text-white/70 italic">"{user.status_message}"</p>
           }
             {(user.goal_90_day || user.spiritual_goal) &&
-          <div className="flex items-start gap-2 bg-[#FAD98D]/15 border border-[#FAD98D]/30 rounded-xl p-3 text-sm">
+          <div className="flex items-start gap-2 bg-[#FAD98D]/15 dark:bg-[#FAD98D]/8 border border-[#FAD98D]/30 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 rounded-xl p-3 text-sm">
                 <span className="text-base leading-none mt-0.5">🌟</span>
                 <p className="text-[#0A1A2F]/80 dark:text-white/80"><span className="font-semibold text-[#0A1A2F] dark:text-white dark:text-white">90-day goal:</span> {user.goal_90_day || user.spiritual_goal}</p>
               </div>
@@ -118,7 +118,7 @@ function Header({ user, friendsCount, onCoverUpload, onAvatarUpload, uploading }
 // ─── Tab bar ───────────────────────────────────────────────────────────────────
 function TabBar({ activeTab, onChange }) {
   return (
-    <div className="sticky top-0 z-30 bg-white/95 backdrop-blur-sm border-b border-gray-100 dark:border-white/10 shadow-sm dark:shadow-none">
+    <div className="sticky top-0 z-30 bg-white/95 dark:bg-[#0A1A2F]/95 backdrop-blur-sm border-b border-gray-100 dark:border-white/10 shadow-sm dark:shadow-none">
       <div className="max-w-lg mx-auto px-3 py-2 flex gap-1 overflow-x-auto scrollbar-none">
         {TABS.map(({ id, label }) => (
           <button key={id} onClick={() => onChange(id)}
@@ -513,7 +513,7 @@ export default function Profile() {
             <div>
               <SectionHeading accent="#FAD98D">Recent Posts</SectionHeading>
               {myPosts.length === 0 ? (
-                <div className="bg-white dark:bg-white/5 rounded-2xl border border-[#FAD98D]/20 p-6 text-center">
+                <div className="bg-white dark:bg-white/5 rounded-2xl border border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 p-6 text-center">
                   <p className="text-2xl mb-2">✍️</p>
                   <p className="text-sm font-semibold text-[#0A1A2F]/50 dark:text-white/50">No posts yet</p>
                   <p className="text-xs text-[#0A1A2F]/30 dark:text-white/30 mt-1">Share your journey with the community!</p>
@@ -532,13 +532,13 @@ export default function Profile() {
 
             {/* Account settings — only on About tab */}
             <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
-          className="bg-white dark:bg-white/5 rounded-2xl border border-[#FAD98D]/25 shadow-sm dark:shadow-none overflow-hidden">
-              <div className="px-4 py-3 border-b border-[#FAD98D]/20">
+          className="bg-white dark:bg-white/5 rounded-2xl border border-[#FAD98D]/25 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 shadow-sm dark:shadow-none overflow-hidden">
+              <div className="px-4 py-3 border-b border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5">
                 <p className="text-xs font-bold text-[#0A1A2F]/40 dark:text-white/40 uppercase tracking-widest">Account</p>
               </div>
               <div className="p-4 space-y-3">
                 <Link to={createPageUrl('Settings')}
-              className="flex items-center gap-3 p-3 rounded-xl bg-[#F2F6FA] dark:bg-[#0A1A2F] hover:bg-[#FAD98D]/15 transition-colors">
+              className="flex items-center gap-3 p-3 rounded-xl bg-[#F2F6FA] dark:bg-[#0A1A2F] hover:bg-[#FAD98D]/15 dark:bg-[#FAD98D]/8 transition-colors">
                   <Settings className="w-4 h-4 text-[#0A1A2F]/60 dark:text-white/60" />
                   <span className="text-sm font-medium text-[#0A1A2F] dark:text-white dark:text-white">App Settings</span>
                   <ChevronRight className="w-4 h-4 text-[#0A1A2F]/30 dark:text-white/30 ml-auto" />
@@ -546,12 +546,12 @@ export default function Profile() {
 
                 <AlertDialog>
                   <AlertDialogTrigger asChild>
-                    <button className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-red-50 transition-colors text-left">
+                    <button className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-red-50 dark:bg-red-900/20 transition-colors text-left">
                       <span className="text-base">🗑️</span>
                       <span className="text-sm font-medium text-red-500">Delete My Account</span>
                     </button>
                   </AlertDialogTrigger>
-                  <AlertDialogContent className="bg-[#F2F6FA] dark:bg-[#0A1A2F] border border-[#FAD98D]/30">
+                  <AlertDialogContent className="bg-[#F2F6FA] dark:bg-[#0A1A2F] border border-[#FAD98D]/30 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5">
                     <AlertDialogHeader>
                       <AlertDialogTitle className="text-[#0A1A2F] dark:text-white dark:text-white">Are you absolutely sure?</AlertDialogTitle>
                       <AlertDialogDescription className="text-[#0A1A2F]/60 dark:text-white/60">

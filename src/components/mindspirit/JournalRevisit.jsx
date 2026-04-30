@@ -119,7 +119,7 @@ QUESTIONS:
                         initial={{ opacity: 0, x: -10 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: idx * 0.1 }}
-                        className="bg-[#F2F6FA] dark:bg-[#0A1A2F] border border-blue-100 rounded-lg p-3"
+                        className="bg-[#F2F6FA] dark:bg-[#0A1A2F] border border-blue-100 dark:border-blue-800/30 rounded-lg p-3"
                       >
                         <p className="text-sm text-blue-900">{question}</p>
                       </motion.div>

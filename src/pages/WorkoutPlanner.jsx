@@ -23,19 +23,19 @@ const VERSES = [
 
 
 const CATEGORY_META = {
-  cardio: { label: 'Cardio', icon: <Wind className="w-3.5 h-3.5" />, color: 'bg-sky-100 text-sky-700 border-sky-200', bar: 'bg-sky-500' },
+  cardio: { label: 'Cardio', icon: <Wind className="w-3.5 h-3.5" />, color: 'bg-sky-100 dark:bg-sky-900/25 text-sky-700 border-sky-200', bar: 'bg-sky-50 dark:bg-sky-900/200' },
   strength: { label: 'Strength', icon: <Dumbbell className="w-3.5 h-3.5" />, color: 'bg-[#FD9C2D]/10 text-[#FD9C2D] border-[#FD9C2D]/30', bar: 'bg-[#FD9C2D]' },
-  core: { label: 'Core', icon: <Zap className="w-3.5 h-3.5" />, color: 'bg-purple-100 text-purple-700 border-purple-200', bar: 'bg-purple-500' },
-  flexibility: { label: 'Flexibility', icon: <Heart className="w-3.5 h-3.5" />, color: 'bg-green-100 text-green-700 border-green-200', bar: 'bg-green-500' },
-  hiit: { label: 'HIIT', icon: <Flame className="w-3.5 h-3.5" />, color: 'bg-red-100 text-red-700 border-red-200', bar: 'bg-red-500' },
-  full_body: { label: 'Full Body', icon: <Dumbbell className="w-3.5 h-3.5" />, color: 'bg-[#FAD98D]/30 text-[#3C4E53] border-[#FAD98D]', bar: 'bg-[#FAD98D]' },
+  core: { label: 'Core', icon: <Zap className="w-3.5 h-3.5" />, color: 'bg-purple-100 dark:bg-purple-900/25 text-purple-700 border-purple-200 dark:border-purple-800/30', bar: 'bg-purple-50 dark:bg-purple-900/200' },
+  flexibility: { label: 'Flexibility', icon: <Heart className="w-3.5 h-3.5" />, color: 'bg-green-100 dark:bg-green-900/25 text-green-700 border-green-200 dark:border-green-800/30', bar: 'bg-green-50 dark:bg-green-900/200' },
+  hiit: { label: 'HIIT', icon: <Flame className="w-3.5 h-3.5" />, color: 'bg-red-100 dark:bg-red-900/25 text-red-700 border-red-200', bar: 'bg-red-50 dark:bg-red-900/200' },
+  full_body: { label: 'Full Body', icon: <Dumbbell className="w-3.5 h-3.5" />, color: 'bg-[#FAD98D]/30 text-[#3C4E53] border-[#FAD98D] dark:border-[#FAD98D]/30 dark:border-[#FAD98D]/30', bar: 'bg-[#FAD98D]' },
   rest: { label: 'Rest', icon: <Heart className="w-3.5 h-3.5" />, color: 'bg-gray-100 dark:bg-white/5 text-gray-500 dark:text-gray-300 border-gray-200 dark:border-white/10', bar: 'bg-gray-400' }
 };
 
 const DIFF_META = {
-  beginner: { label: 'Beginner', color: 'text-green-600 bg-green-50' },
-  intermediate: { label: 'Intermediate', color: 'text-[#FD9C2D] bg-orange-50' },
-  advanced: { label: 'Advanced', color: 'text-red-600 bg-red-50' }
+  beginner: { label: 'Beginner', color: 'text-green-600 bg-green-50 dark:bg-green-900/20' },
+  intermediate: { label: 'Intermediate', color: 'text-[#FD9C2D] bg-orange-50 dark:bg-orange-900/20' },
+  advanced: { label: 'Advanced', color: 'text-red-600 bg-red-50 dark:bg-red-900/20' }
 };
 
 // ── Storage helpers ──────────────────────────────────────────────────────────
@@ -112,7 +112,7 @@ function WorkoutMiniCard({ workout, onRemove }) {
       </div>
       {onRemove &&
       <button onClick={onRemove}
-      className="opacity-0 group-hover:opacity-100 p-1 rounded-lg hover:bg-red-50 text-gray-300 dark:text-gray-400 dark:text-gray-300 hover:text-red-400 transition-all">
+      className="opacity-0 group-hover:opacity-100 p-1 rounded-lg hover:bg-red-50 dark:bg-red-900/20 text-gray-300 dark:text-gray-400 dark:text-gray-300 hover:text-red-400 transition-all">
         
           <X className="w-3.5 h-3.5" />
         </button>
@@ -600,7 +600,7 @@ export default function WorkoutPlanner() {
                       ${isSelected ?
                 'bg-[#FD9C2D] border-[#FD9C2D] shadow-md dark:shadow-none shadow-[#FD9C2D]/20' :
                 isToday ?
-                'bg-[#FAD98D]/15 border-[#FAD98D]/40' :
+                'bg-[#FAD98D]/15 dark:bg-[#FAD98D]/8 border-[#FAD98D]/40 dark:border-[#FAD98D]/15 dark:border-[#FAD98D]/8' :
                 'bg-white dark:bg-white/5 border-gray-100 dark:border-white/10 hover:border-gray-200 dark:border-white/10'}`
                 }>
                   

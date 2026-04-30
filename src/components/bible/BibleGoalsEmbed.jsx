@@ -86,7 +86,7 @@ function PlanCard({ plan, delay = 0 }) {
   return (
     <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay }}>
       <Link to={createPageUrl(`PlanDetail?id=${plan.id}`)}>
-        <div className="flex items-center gap-3 bg-[#F8FAFB] rounded-xl px-3.5 py-3 hover:bg-[#FAD98D]/10 transition-colors">
+        <div className="flex items-center gap-3 bg-[#F8FAFB] rounded-xl px-3.5 py-3 hover:bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5 transition-colors">
           <span className="text-xl flex-shrink-0">{plan.emoji}</span>
           <div className="flex-1 min-w-0">
             <p className="text-xs font-bold text-[#0A1A2F] dark:text-white leading-tight">{plan.name}</p>
@@ -162,7 +162,7 @@ export default function BibleGoalsEmbed() {
 
       {/* Profile incomplete nudge */}
       {profileIncomplete && user && (
-        <div className="flex items-center gap-3 bg-[#FAD98D]/20 border border-[#FAD98D]/30 rounded-2xl px-4 py-3">
+        <div className="flex items-center gap-3 bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8 border border-[#FAD98D]/30 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 rounded-2xl px-4 py-3">
           <AlertTriangle className="w-4 h-4 text-[#C9A227] flex-shrink-0" />
           <div className="flex-1">
             <p className="text-xs font-bold text-[#C9A227]">Bible profile incomplete</p>
@@ -176,7 +176,7 @@ export default function BibleGoalsEmbed() {
       <div className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm dark:shadow-none">
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#FAD98D]/20">
+            <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8">
               <BookOpen className="w-4 h-4 text-[#C9A227]" />
             </div>
             <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">Preferred Translation</p>
@@ -187,7 +187,7 @@ export default function BibleGoalsEmbed() {
           </button>
         </div>
         <div className="flex items-center gap-3">
-          <div className="bg-[#FAD98D]/20 rounded-2xl px-4 py-3 text-center flex-shrink-0 min-w-[64px]">
+          <div className="bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8 rounded-2xl px-4 py-3 text-center flex-shrink-0 min-w-[64px]">
             <p className="text-2xl font-black text-[#C9A227]">{translation === 'any' ? '✦' : translation}</p>
           </div>
           <div>
@@ -211,7 +211,7 @@ export default function BibleGoalsEmbed() {
       {topics.length > 0 && (
         <div className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm dark:shadow-none">
           <div className="flex items-center gap-2 mb-4">
-            <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#FAD98D]/20">
+            <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8">
               <Heart className="w-4 h-4 text-[#C9A227]" />
             </div>
             <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">Topics That Matter to You</p>
@@ -221,7 +221,7 @@ export default function BibleGoalsEmbed() {
               const info = TOPIC_INFO[t];
               if (!info) return null;
               return (
-                <div key={t} className="flex items-center gap-2.5 bg-[#FAD98D]/10 border border-[#FAD98D]/25 rounded-xl px-3 py-2.5">
+                <div key={t} className="flex items-center gap-2.5 bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5 border border-[#FAD98D]/25 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 rounded-xl px-3 py-2.5">
                   <span className="text-base">{info.emoji}</span>
                   <span className="text-xs font-bold text-[#0A1A2F] dark:text-white dark:text-white">{info.label}</span>
                 </div>
@@ -247,12 +247,12 @@ export default function BibleGoalsEmbed() {
       {/* Devotional depth */}
       <div className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm dark:shadow-none">
         <div className="flex items-center gap-2 mb-3">
-          <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#FAD98D]/20">
+          <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8">
             <Clock className="w-4 h-4 text-[#C9A227]" />
           </div>
           <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">Devotional Depth</p>
         </div>
-        <div className="flex items-center gap-4 bg-[#FAD98D]/10 rounded-2xl px-4 py-3">
+        <div className="flex items-center gap-4 bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5 rounded-2xl px-4 py-3">
           <span className="text-3xl">{depthInfo.emoji}</span>
           <div>
             <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">{depthInfo.label}</p>
@@ -266,7 +266,7 @@ export default function BibleGoalsEmbed() {
       {recommendedPlans.length > 0 && (
         <div className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm dark:shadow-none">
           <div className="flex items-center gap-2 mb-4">
-            <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#FAD98D]/20">
+            <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8">
               <BookMarked className="w-4 h-4 text-[#C9A227]" />
             </div>
             <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">Plans for Your Topics</p>
@@ -296,7 +296,7 @@ export default function BibleGoalsEmbed() {
       {/* Study tips */}
       <div className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm dark:shadow-none">
         <div className="flex items-center gap-2 mb-4">
-          <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#FAD98D]/20">
+          <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8">
             <Sparkles className="w-4 h-4 text-[#C9A227]" />
           </div>
           <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">Study Tips for You</p>
@@ -315,7 +315,7 @@ export default function BibleGoalsEmbed() {
       {/* Church */}
       <div className="bg-white dark:bg-white/5 rounded-3xl px-5 py-4 shadow-sm dark:shadow-none">
         <div className="flex items-center gap-2 mb-3">
-          <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#FAD98D]/20">
+          <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8">
             <Users className="w-4 h-4 text-[#C9A227]" />
           </div>
           <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">Church Community</p>

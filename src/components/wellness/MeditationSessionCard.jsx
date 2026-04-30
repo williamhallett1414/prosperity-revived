@@ -3,9 +3,9 @@ import { Play, Clock } from "lucide-react";
 
 const statusColors = {
   pending: "bg-gray-50 dark:bg-white/5 dark:bg-white/50",
-  generating: "bg-yellow-500",
-  ready: "bg-green-500",
-  error: "bg-red-500"
+  generating: "bg-yellow-50 dark:bg-yellow-900/200",
+  ready: "bg-green-50 dark:bg-green-900/200",
+  error: "bg-red-50 dark:bg-red-900/200"
 };
 
 export default function MeditationSessionCard({ session, onBegin }) {

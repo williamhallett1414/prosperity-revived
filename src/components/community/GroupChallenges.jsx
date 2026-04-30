@@ -16,12 +16,12 @@ import { SEED_CHALLENGES } from '@/components/challenges/ChallengeSeed';
 
 // ─── Type config (gradient is the fallback when API strips custom fields) ─────
 const TYPE_CONFIG = {
-  prayer:       { label: 'Prayer',      emoji: '🙏', gradient: 'from-violet-600 to-purple-400',  bg: 'bg-violet-50 text-violet-700'  },
-  reading:      { label: 'Reading',     emoji: '📖', gradient: 'from-amber-500 to-yellow-300',   bg: 'bg-amber-50 text-amber-700'    },
-  workouts:     { label: 'Fitness',     emoji: '💪', gradient: 'from-blue-700 to-sky-500',       bg: 'bg-blue-50 text-blue-700'      },
-  meditation:   { label: 'Mindfulness', emoji: '📵', gradient: 'from-slate-700 to-slate-500',    bg: 'bg-teal-50 text-teal-700'      },
-  water_intake: { label: 'Nutrition',   emoji: '🥗', gradient: 'from-lime-600 to-green-300',     bg: 'bg-green-50 text-green-700'    },
-  custom:       { label: 'Service',     emoji: '🤝', gradient: 'from-emerald-600 to-green-400',  bg: 'bg-rose-50 text-rose-700'      },
+  prayer:       { label: 'Prayer',      emoji: '🙏', gradient: 'from-violet-600 to-purple-400',  bg: 'bg-violet-50 dark:bg-violet-900/20 text-violet-700'  },
+  reading:      { label: 'Reading',     emoji: '📖', gradient: 'from-amber-500 to-yellow-300',   bg: 'bg-amber-50 dark:bg-amber-900/20 text-amber-700'    },
+  workouts:     { label: 'Fitness',     emoji: '💪', gradient: 'from-blue-700 to-sky-500',       bg: 'bg-blue-50 dark:bg-blue-900/20 text-blue-700'      },
+  meditation:   { label: 'Mindfulness', emoji: '📵', gradient: 'from-slate-700 to-slate-500',    bg: 'bg-teal-50 dark:bg-teal-900/20 text-teal-700'      },
+  water_intake: { label: 'Nutrition',   emoji: '🥗', gradient: 'from-lime-600 to-green-300',     bg: 'bg-green-50 dark:bg-green-900/20 text-green-700'    },
+  custom:       { label: 'Service',     emoji: '🤝', gradient: 'from-emerald-600 to-green-400',  bg: 'bg-rose-50 dark:bg-rose-900/20 text-rose-700'      },
 };
 
 const SEED_DONE_KEY = 'challenges_seeded_v1';
@@ -116,7 +116,7 @@ function CreateChallengeModal({ user, onClose, onCreated }) {
               <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45 pb-1">Choose a template or build your own</p>
               {TEMPLATES.map((tpl) => (
                 <button key={tpl.title} onClick={() => pickTemplate(tpl)}
-                  className="w-full flex items-center gap-3 bg-[#F2F6FA] dark:bg-[#0A1A2F] hover:bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-xl p-3.5 transition-colors border border-[#F2F6FA] hover:border-[#FAD98D]/40 text-left">
+                  className="w-full flex items-center gap-3 bg-[#F2F6FA] dark:bg-[#0A1A2F] hover:bg-[#F2F6FA] dark:bg-[#0A1A2F] rounded-xl p-3.5 transition-colors border border-[#F2F6FA] hover:border-[#FAD98D]/40 dark:border-[#FAD98D]/15 dark:border-[#FAD98D]/8 text-left">
                   <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${tpl.gradient} flex items-center justify-center flex-shrink-0`}>
                     <span className="text-lg">{tpl.emoji}</span>
                   </div>
@@ -157,7 +157,7 @@ function CreateChallengeModal({ user, onClose, onCreated }) {
                       className={`flex-1 py-2 rounded-xl text-xs font-bold transition-all border ${
                         duration === d
                           ? 'bg-[#0A1A2F] text-white border-[#0A1A2F]'
-                          : 'bg-white dark:bg-white/5 text-[#0A1A2F]/50 dark:text-white/50 border-[#F2F6FA] hover:border-[#FAD98D]/40'
+                          : 'bg-white dark:bg-white/5 text-[#0A1A2F]/50 dark:text-white/50 border-[#F2F6FA] hover:border-[#FAD98D]/40 dark:border-[#FAD98D]/15 dark:border-[#FAD98D]/8'
                       }`}>{d}d</button>
                   ))}
                 </div>
@@ -198,7 +198,7 @@ function ParticipantStrip({ participations }) {
           return (
             <div key={i} title={p.user_name || 'Member'}
               className={`w-6 h-6 rounded-full text-[9px] font-bold flex items-center justify-center border-2 transition-all ${
-                done ? 'bg-emerald-500 text-white border-emerald-300' : 'bg-[#F2F6FA] dark:bg-[#0A1A2F] text-[#0A1A2F]/30 dark:text-white/30 border-white'
+                done ? 'bg-emerald-50 dark:bg-emerald-900/200 text-white border-emerald-300' : 'bg-[#F2F6FA] dark:bg-[#0A1A2F] text-[#0A1A2F]/30 dark:text-white/30 border-white'
               }`}>{initials}</div>
           );
         })}
@@ -263,7 +263,7 @@ function CheckInPanel({ challenge, participation, onCheckedIn, onCompleted }) {
 
   if (alreadyToday) {
     return (
-      <div className="mt-3 bg-emerald-50 border border-emerald-100 rounded-xl p-3 flex items-center gap-2.5">
+      <div className="mt-3 bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-100 rounded-xl p-3 flex items-center gap-2.5">
         <CheckCircle2 className="w-5 h-5 text-emerald-500 flex-shrink-0" />
         <div>
           <p className="text-xs font-bold text-emerald-700">Checked in today ✓</p>
@@ -275,7 +275,7 @@ function CheckInPanel({ challenge, participation, onCheckedIn, onCompleted }) {
 
   return (
     <motion.div initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }}
-      className="mt-3 bg-white dark:bg-white/5 rounded-xl p-3.5 border border-[#FAD98D]/25 space-y-2.5">
+      className="mt-3 bg-white dark:bg-white/5 rounded-xl p-3.5 border border-[#FAD98D]/25 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 space-y-2.5">
       <div className="flex items-center gap-1.5">
         <Flame className="w-3.5 h-3.5 text-[#c9a227]" />
         <p className="text-xs font-bold text-[#0A1A2F] dark:text-white dark:text-white">Day {currentDay} Check-in</p>
@@ -314,7 +314,7 @@ function ChallengeCard({ challenge, myParticipation, allParticipations, user, in
 
   return (
     <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.04 }}
-      className="bg-white dark:bg-white/5 rounded-2xl border border-[#FAD98D]/15 overflow-hidden">
+      className="bg-white dark:bg-white/5 rounded-2xl border border-[#FAD98D]/15 dark:border-[#FAD98D]/8 overflow-hidden">
 
       {/* Colour band */}
       <div className={`h-1.5 bg-gradient-to-r ${gradient}`} />
@@ -663,7 +663,7 @@ export default function GroupChallenges({ user }) {
         {FILTERS.map(f => (
           <button key={f.value} onClick={() => setFilter(f.value)}
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-semibold whitespace-nowrap flex-shrink-0 transition-all ${
-              filter === f.value ? 'bg-[#0A1A2F] text-white border-[#0A1A2F]' : 'bg-white dark:bg-white/5 text-[#0A1A2F]/50 dark:text-white/50 border-[#F2F6FA] hover:border-[#FAD98D]/40'
+              filter === f.value ? 'bg-[#0A1A2F] text-white border-[#0A1A2F]' : 'bg-white dark:bg-white/5 text-[#0A1A2F]/50 dark:text-white/50 border-[#F2F6FA] hover:border-[#FAD98D]/40 dark:border-[#FAD98D]/15 dark:border-[#FAD98D]/8'
             }`}>
             {f.label}
             {f.count > 0 && <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded-full ${filter === f.value ? 'bg-white/20' : 'bg-[#F2F6FA] dark:bg-[#0A1A2F]'}`}>{f.count}</span>}
@@ -672,11 +672,11 @@ export default function GroupChallenges({ user }) {
       </div>
 
       {/* Loading skeletons */}
-      {isLoading && [1,2,3].map(i => <div key={i} className="bg-white dark:bg-white/5 rounded-2xl border border-[#FAD98D]/15 h-28 animate-pulse" />)}
+      {isLoading && [1,2,3].map(i => <div key={i} className="bg-white dark:bg-white/5 rounded-2xl border border-[#FAD98D]/15 dark:border-[#FAD98D]/8 h-28 animate-pulse" />)}
 
       {/* Empty state */}
       {!isLoading && list.length === 0 && (
-        <div className="bg-white dark:bg-white/5 rounded-2xl border border-[#FAD98D]/15 p-10 text-center">
+        <div className="bg-white dark:bg-white/5 rounded-2xl border border-[#FAD98D]/15 dark:border-[#FAD98D]/8 p-10 text-center">
           <div className="w-14 h-14 bg-white dark:bg-white/5 rounded-2xl flex items-center justify-center mx-auto mb-4">
             <Trophy className="w-7 h-7 text-[#FAD98D]" />
           </div>

@@ -52,12 +52,12 @@ export function RitualButton({ isMorning, onStartDay, onEndDay }) {
 
 // ─── Quick Nav ──────────────────────────────────────────────────────
 const QUICK_NAV = [
-  { label: 'Bible', icon: BookOpen, page: 'Bible', color: 'from-amber-500 to-amber-600', bg: 'bg-amber-50' },
-  { label: 'Fitness', icon: Dumbbell, page: 'Wellness', color: 'from-sky-500 to-sky-600', bg: 'bg-sky-50' },
-  { label: 'Prayer', icon: Heart, page: 'Prayer', color: 'from-rose-400 to-rose-500', bg: 'bg-rose-50' },
-  { label: 'Nutrition', icon: Utensils, page: 'Nutrition', color: 'from-emerald-500 to-emerald-600', bg: 'bg-emerald-50' },
-  { label: 'Community', icon: Users, page: 'Community', color: 'from-purple-500 to-purple-600', bg: 'bg-purple-50' },
-  { label: 'Couples', icon: Heart, page: 'CouplesMode', color: 'from-pink-400 to-rose-500', bg: 'bg-pink-50' },
+  { label: 'Bible', icon: BookOpen, page: 'Bible', color: 'from-amber-500 to-amber-600', bg: 'bg-amber-50 dark:bg-amber-900/20' },
+  { label: 'Fitness', icon: Dumbbell, page: 'Wellness', color: 'from-sky-500 to-sky-600', bg: 'bg-sky-50 dark:bg-sky-900/20' },
+  { label: 'Prayer', icon: Heart, page: 'Prayer', color: 'from-rose-400 to-rose-500', bg: 'bg-rose-50 dark:bg-rose-900/20' },
+  { label: 'Nutrition', icon: Utensils, page: 'Nutrition', color: 'from-emerald-500 to-emerald-600', bg: 'bg-emerald-50 dark:bg-emerald-900/20' },
+  { label: 'Community', icon: Users, page: 'Community', color: 'from-purple-500 to-purple-600', bg: 'bg-purple-50 dark:bg-purple-900/20' },
+  { label: 'Couples', icon: Heart, page: 'CouplesMode', color: 'from-pink-400 to-rose-500', bg: 'bg-pink-50 dark:bg-pink-900/20' },
 ];
 
 export function QuickNav() {
@@ -124,7 +124,7 @@ export function ResumeCard({ coachingPlan, readingPlan, readingProgress, navigat
       <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}>
         <button
           onClick={() => navigate(createPageUrl(`PlanDetail?id=${readingPlan.id}`))}
-          className="w-full text-left bg-white dark:bg-white/5 rounded-3xl shadow-sm dark:shadow-none border border-[#FAD98D]/30 overflow-hidden"
+          className="w-full text-left bg-white dark:bg-white/5 rounded-3xl shadow-sm dark:shadow-none border border-[#FAD98D]/30 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 overflow-hidden"
         >
           <div className="relative h-20 overflow-hidden">
             <img src={readingPlan.image} alt={readingPlan.name} className="w-full h-full object-cover" />
@@ -138,7 +138,7 @@ export function ResumeCard({ coachingPlan, readingPlan, readingProgress, navigat
           </div>
           <div className="px-4 py-3 flex items-center justify-between">
             <div className="flex-1 mr-4">
-              <div className="h-1.5 bg-[#FAD98D]/20 rounded-full overflow-hidden">
+              <div className="h-1.5 bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8 rounded-full overflow-hidden">
                 <div className="h-full bg-gradient-to-r from-[#c9a227] to-[#FAD98D] rounded-full" style={{ width: `${pct}%` }} />
               </div>
             </div>
@@ -196,8 +196,8 @@ export function ActiveChallengesWidget({ user }) {
           const streak = p.current_streak || 0;
 
           const TYPE_VIS = {
-            prayer: { emoji: '🙏', color: 'bg-violet-500' },
-            reading: { emoji: '📖', color: 'bg-amber-500' },
+            prayer: { emoji: '🙏', color: 'bg-violet-50 dark:bg-violet-900/200' },
+            reading: { emoji: '📖', color: 'bg-amber-50 dark:bg-amber-900/200' },
             workouts: { emoji: '💪', color: 'bg-blue-600' },
             meditation: { emoji: '📵', color: 'bg-slate-600' },
             water_intake: { emoji: '🥗', color: 'bg-green-600' },
@@ -208,7 +208,7 @@ export function ActiveChallengesWidget({ user }) {
           return (
             <button key={p.id}
               onClick={() => navigate(createPageUrl('Community'))}
-              className="w-full text-left bg-white dark:bg-white/5 rounded-2xl p-3.5 border border-[#FAD98D]/15 hover:border-[#c9a227]/30 transition-all shadow-sm dark:shadow-none flex items-center gap-3">
+              className="w-full text-left bg-white dark:bg-white/5 rounded-2xl p-3.5 border border-[#FAD98D]/15 dark:border-[#FAD98D]/8 hover:border-[#c9a227]/30 transition-all shadow-sm dark:shadow-none flex items-center gap-3">
               <div className={`w-10 h-10 rounded-xl ${vis.color} flex items-center justify-center flex-shrink-0`}>
                 <span className="text-lg">{vis.emoji}</span>
               </div>
@@ -222,7 +222,7 @@ export function ActiveChallengesWidget({ user }) {
                       </span>
                     )}
                     {checkedToday
-                      ? <span className="text-[9px] font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded-full">✓ Done</span>
+                      ? <span className="text-[9px] font-bold text-emerald-600 bg-emerald-50 dark:bg-emerald-900/20 px-1.5 py-0.5 rounded-full">✓ Done</span>
                       : <span className="text-[9px] font-bold text-[#c9a227] bg-white dark:bg-white/5 px-1.5 py-0.5 rounded-full">Check in</span>
                     }
                   </div>

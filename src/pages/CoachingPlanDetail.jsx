@@ -439,7 +439,7 @@ export default function CoachingPlanDetail() {
                    handleAbandonPlan();
                    setShowMenu(false);
                  }}
-                 className="absolute top-full right-0 mt-2 bg-white dark:bg-white/5 border border-red-200 rounded-lg shadow-lg dark:shadow-none px-3 py-2 text-xs font-bold text-red-600 hover:bg-red-50 whitespace-nowrap"
+                 className="absolute top-full right-0 mt-2 bg-white dark:bg-white/5 border border-red-200 rounded-lg shadow-lg dark:shadow-none px-3 py-2 text-xs font-bold text-red-600 hover:bg-red-50 dark:bg-red-900/20 whitespace-nowrap"
                >
                  ✕ Abandon Plan
                </button>
@@ -452,7 +452,7 @@ export default function CoachingPlanDetail() {
 
         {/* Legal disclaimer banner for plans with disclaimers */}
         {plan.disclaimer && (
-          <div className="mb-3 bg-amber-50 border border-amber-200 rounded-xl px-4 py-2.5">
+          <div className="mb-3 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800/30 rounded-xl px-4 py-2.5">
             <p className="text-[10px] text-amber-800 leading-relaxed"><strong>Disclaimer:</strong> {plan.disclaimer}</p>
           </div>
         )}

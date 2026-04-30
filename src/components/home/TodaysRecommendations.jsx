@@ -49,7 +49,7 @@ export default function TodaysRecommendations({ user, mealLogs, workoutSessions,
         title: 'Sleep Optimization',
         description: 'Getting 7-9 hours of quality sleep improves recovery and mood.',
         action: () => navigate(createPageUrl('Wellness?tab=mind')),
-        color: 'from-[#FAD98D]/10 to-[#FFF9EC]'
+        color: 'from-[#FAD98D]/10 to-[#FFF9EC] dark:to-[#FAD98D]/5'
       });
     }
 
@@ -60,7 +60,7 @@ export default function TodaysRecommendations({ user, mealLogs, workoutSessions,
         title: 'Stress Relief Session',
         description: 'Try a 5-10 minute meditation to reduce stress and improve focus.',
         action: () => navigate(createPageUrl('Wellness?tab=mind')),
-        color: 'from-green-50 to-emerald-50'
+        color: 'from-green-50 dark:from-green-900/15 to-emerald-50'
       });
     }
 
@@ -75,7 +75,7 @@ export default function TodaysRecommendations({ user, mealLogs, workoutSessions,
         title: 'Today\'s Workout',
         description: `${workoutSuggestion} to keep your momentum going.`,
         action: () => navigate(createPageUrl('Wellness?tab=workouts')),
-        color: 'from-orange-50 to-red-50'
+        color: 'from-orange-50 dark:from-orange-900/15 to-red-50'
       });
     }
 
@@ -109,7 +109,7 @@ export default function TodaysRecommendations({ user, mealLogs, workoutSessions,
         title: 'Breakfast Suggestion',
         description: 'Start your day with a protein-rich breakfast to boost energy and metabolism.',
         action: () => navigate(createPageUrl('Wellness?tab=nutrition')),
-        color: 'from-amber-50 to-orange-50'
+        color: 'from-amber-50 dark:from-amber-900/15 to-orange-50'
       });
     }
 
@@ -123,7 +123,7 @@ export default function TodaysRecommendations({ user, mealLogs, workoutSessions,
         title: 'Lunch Recommendation',
         description: `Try a ${mealGoal} focused on your health goals.`,
         action: () => navigate(createPageUrl('DiscoverRecipes')),
-        color: 'from-green-50 to-lime-50'
+        color: 'from-green-50 dark:from-green-900/15 to-lime-50'
       });
     }
 

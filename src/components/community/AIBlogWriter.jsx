@@ -51,7 +51,7 @@ function Chip({ selected, onClick, children }) {
       className={`text-xs px-3 py-1.5 rounded-full border font-semibold transition-all ${
         selected
           ? 'bg-[#0A1A2F] text-white border-[#0A1A2F]'
-          : 'bg-white dark:bg-white/5 text-[#0A1A2F]/50 dark:text-white/50 border-[#F2F6FA] hover:border-[#FAD98D]/50'
+          : 'bg-white dark:bg-white/5 text-[#0A1A2F]/50 dark:text-white/50 border-[#F2F6FA] hover:border-[#FAD98D]/50 dark:border-[#FAD98D]/20'
       }`}>
       {children}
     </button>
@@ -218,7 +218,7 @@ EXCERPT: [one compelling sentence that makes someone want to read, max 25 words]
                       className={`text-xs px-3 py-1.5 rounded-full border font-medium transition-all ${
                         title === s
                           ? 'bg-[#0A1A2F] text-white border-[#0A1A2F]'
-                          : 'bg-[#F2F6FA] dark:bg-[#0A1A2F] text-[#0A1A2F]/55 dark:text-white/55 border-[#F2F6FA] hover:border-[#FAD98D]/40'
+                          : 'bg-[#F2F6FA] dark:bg-[#0A1A2F] text-[#0A1A2F]/55 dark:text-white/55 border-[#F2F6FA] hover:border-[#FAD98D]/40 dark:border-[#FAD98D]/15 dark:border-[#FAD98D]/8'
                       }`}>
                       {s}
                     </button>
@@ -256,8 +256,8 @@ EXCERPT: [one compelling sentence that makes someone want to read, max 25 words]
                     <button key={t.value} onClick={() => setTone(t.value)}
                       className={`text-xs px-3 py-1.5 rounded-full border font-semibold transition-all ${
                         tone === t.value
-                          ? 'bg-[#FAD98D] text-[#0A1A2F] dark:text-white border-[#FAD98D]'
-                          : 'bg-white dark:bg-white/5 text-[#0A1A2F]/50 dark:text-white/50 border-[#F2F6FA] hover:border-[#FAD98D]/40'
+                          ? 'bg-[#FAD98D] text-[#0A1A2F] dark:text-white border-[#FAD98D] dark:border-[#FAD98D]/30 dark:border-[#FAD98D]/30'
+                          : 'bg-white dark:bg-white/5 text-[#0A1A2F]/50 dark:text-white/50 border-[#F2F6FA] hover:border-[#FAD98D]/40 dark:border-[#FAD98D]/15 dark:border-[#FAD98D]/8'
                       }`}>
                       {t.label}
                     </button>
@@ -333,7 +333,7 @@ EXCERPT: [one compelling sentence that makes someone want to read, max 25 words]
               </div>
 
               {/* Refine with AI */}
-              <div className="bg-white dark:bg-white/5 rounded-xl p-4 border border-[#FAD98D]/25">
+              <div className="bg-white dark:bg-white/5 rounded-xl p-4 border border-[#FAD98D]/25 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5">
                 <p className="text-xs font-bold text-[#0A1A2F]/50 dark:text-white/50 uppercase tracking-widest mb-2.5">🪄 Refine with AI</p>
                 <div className="flex gap-2 mb-2">
                   <input type="text"
@@ -350,7 +350,7 @@ EXCERPT: [one compelling sentence that makes someone want to read, max 25 words]
                 <div className="flex flex-wrap gap-1.5">
                   {REFINE_SHORTCUTS.map(s => (
                     <button key={s} onClick={() => setRefineInstruction(s)}
-                      className="text-[11px] bg-white dark:bg-white/5 text-[#0A1A2F]/55 dark:text-white/55 px-2.5 py-1 rounded-lg border border-[#F2F6FA] hover:border-[#FAD98D]/40 transition-colors font-medium">
+                      className="text-[11px] bg-white dark:bg-white/5 text-[#0A1A2F]/55 dark:text-white/55 px-2.5 py-1 rounded-lg border border-[#F2F6FA] hover:border-[#FAD98D]/40 dark:border-[#FAD98D]/15 dark:border-[#FAD98D]/8 transition-colors font-medium">
                       {s}
                     </button>
                   ))}

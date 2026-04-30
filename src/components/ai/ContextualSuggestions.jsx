@@ -71,7 +71,7 @@ Return as array of strings (just the suggestion text).
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-xl p-4 mb-4"
+      className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800/30 dark:border-amber-800 rounded-xl p-4 mb-4"
     >
       <div className="flex items-center gap-2 mb-3">
         <Lightbulb className="w-4 h-4 text-amber-600" />
@@ -82,7 +82,7 @@ Return as array of strings (just the suggestion text).
           <button
             key={index}
             onClick={() => onSuggestionClick?.(suggestion)}
-            className="w-full text-left text-sm text-amber-800 dark:text-amber-200 hover:bg-amber-100 dark:hover:bg-amber-900/30 rounded-lg p-2 transition-colors"
+            className="w-full text-left text-sm text-amber-800 dark:text-amber-200 hover:bg-amber-100 dark:bg-amber-900/25 dark:hover:bg-amber-900/30 rounded-lg p-2 transition-colors"
           >
             • {suggestion}
           </button>

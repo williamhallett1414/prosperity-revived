@@ -215,7 +215,7 @@ function CoachDavidPrefs({ user }) {
         <div className="flex flex-wrap gap-2">
           {FITNESS_GOALS.map(g => (
             <button key={g.id} onClick={() => setGoals(prev => prev.includes(g.id) ? prev.filter(x => x !== g.id) : [...prev, g.id])}
-              className={`text-xs px-3 py-1.5 rounded-full border-2 font-medium transition-all ${goals.includes(g.id) ? 'border-green-400 bg-green-50 text-green-700' : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-gray-300 dark:border-white/15'}`}>
+              className={`text-xs px-3 py-1.5 rounded-full border-2 font-medium transition-all ${goals.includes(g.id) ? 'border-green-400 bg-green-50 dark:bg-green-900/20 text-green-700' : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-gray-300 dark:border-white/15'}`}>
               {g.label}
             </button>
           ))}
@@ -226,7 +226,7 @@ function CoachDavidPrefs({ user }) {
         <div className="flex gap-2">
           {FITNESS_LEVELS.map(l => (
             <button key={l.id} onClick={() => setLevel(l.id)}
-              className={`flex-1 text-xs px-2 py-2 rounded-xl border-2 font-medium transition-all text-center ${level === l.id ? 'border-green-400 bg-green-50 text-green-700' : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300'}`}>
+              className={`flex-1 text-xs px-2 py-2 rounded-xl border-2 font-medium transition-all text-center ${level === l.id ? 'border-green-400 bg-green-50 dark:bg-green-900/20 text-green-700' : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300'}`}>
               {l.label}<br /><span className="text-gray-400 dark:text-gray-300">{l.desc}</span>
             </button>
           ))}
@@ -237,7 +237,7 @@ function CoachDavidPrefs({ user }) {
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
           {TRACKERS.map(t => (
             <button key={t.id} onClick={() => setTracker(t.id)}
-              className={`rounded-xl border-2 p-2.5 flex flex-col items-center gap-1 transition-all ${tracker === t.id ? 'border-green-400 bg-green-50' : 'border-gray-200 dark:border-white/10 hover:border-gray-300 dark:border-white/15'}`}>
+              className={`rounded-xl border-2 p-2.5 flex flex-col items-center gap-1 transition-all ${tracker === t.id ? 'border-green-400 bg-green-50 dark:bg-green-900/20' : 'border-gray-200 dark:border-white/10 hover:border-gray-300 dark:border-white/15'}`}>
               <span className="text-lg">{t.icon}</span>
               <span className="text-xs font-medium text-gray-700 dark:text-gray-200 text-center leading-tight">{t.label}</span>
             </button>
@@ -249,7 +249,7 @@ function CoachDavidPrefs({ user }) {
         <div className="flex gap-2">
           {[1,2,3,4,5,6,7].map(d => (
             <button key={d} onClick={() => setWorkoutDays(d)}
-              className={`w-9 h-9 rounded-full border-2 font-bold text-xs transition-all ${workoutDays === d ? 'border-green-400 bg-green-500 text-white' : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300'}`}>
+              className={`w-9 h-9 rounded-full border-2 font-bold text-xs transition-all ${workoutDays === d ? 'border-green-400 bg-green-50 dark:bg-green-900/200 text-white' : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300'}`}>
               {d}
             </button>
           ))}
@@ -330,7 +330,7 @@ function ChefDanielPrefs({ user }) {
         <div className="flex flex-wrap gap-2">
           {DIET_TYPES.map(d => (
             <button key={d.id} onClick={() => setDiet(d.id)}
-              className={`text-xs px-3 py-1.5 rounded-full border-2 font-medium transition-all ${diet === d.id ? 'border-orange-400 bg-orange-50 text-orange-700' : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-gray-300 dark:border-white/15'}`}>
+              className={`text-xs px-3 py-1.5 rounded-full border-2 font-medium transition-all ${diet === d.id ? 'border-orange-400 bg-orange-50 dark:bg-orange-900/20 text-orange-700' : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-gray-300 dark:border-white/15'}`}>
               {d.label}
             </button>
           ))}
@@ -341,7 +341,7 @@ function ChefDanielPrefs({ user }) {
         <div className="flex flex-wrap gap-2">
           {NUTRITION_GOALS.map(g => (
             <button key={g.id} onClick={() => setNutritionGoal(g.id)}
-              className={`text-xs px-3 py-1.5 rounded-full border-2 font-medium transition-all ${nutritionGoal === g.id ? 'border-orange-400 bg-orange-50 text-orange-700' : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-gray-300 dark:border-white/15'}`}>
+              className={`text-xs px-3 py-1.5 rounded-full border-2 font-medium transition-all ${nutritionGoal === g.id ? 'border-orange-400 bg-orange-50 dark:bg-orange-900/20 text-orange-700' : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-gray-300 dark:border-white/15'}`}>
               {g.label}
             </button>
           ))}
@@ -352,7 +352,7 @@ function ChefDanielPrefs({ user }) {
         <div className="flex flex-wrap gap-2">
           {ALLERGIES.map(a => (
             <button key={a.id} onClick={() => toggleAllergy(a.id)}
-              className={`text-xs px-3 py-1.5 rounded-full border-2 font-medium transition-all ${allergies.includes(a.id) ? 'border-orange-400 bg-orange-50 text-orange-700' : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-gray-300 dark:border-white/15'}`}>
+              className={`text-xs px-3 py-1.5 rounded-full border-2 font-medium transition-all ${allergies.includes(a.id) ? 'border-orange-400 bg-orange-50 dark:bg-orange-900/20 text-orange-700' : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-gray-300 dark:border-white/15'}`}>
               {a.label}
             </button>
           ))}
@@ -363,7 +363,7 @@ function ChefDanielPrefs({ user }) {
         <div className="flex flex-wrap gap-2">
           {PANTRY_STAPLES.map(item => (
             <button key={item} onClick={() => setPantry(prev => prev.includes(item) ? prev.filter(p => p !== item) : [...prev, item])}
-              className={`text-xs px-3 py-1.5 rounded-full border-2 font-medium transition-all ${pantry.includes(item) ? 'border-orange-400 bg-orange-50 text-orange-700' : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-gray-300 dark:border-white/15'}`}>
+              className={`text-xs px-3 py-1.5 rounded-full border-2 font-medium transition-all ${pantry.includes(item) ? 'border-orange-400 bg-orange-50 dark:bg-orange-900/20 text-orange-700' : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-gray-300 dark:border-white/15'}`}>
               {item}
             </button>
           ))}
@@ -455,7 +455,7 @@ function HannahPrefs({ user }) {
             const disabled = !sel && growthAreas.length >= 4;
             return (
               <button key={a.id} onClick={() => !disabled && toggleArea(a.id)}
-                className={`text-xs px-3 py-1.5 rounded-full border-2 font-medium transition-all ${sel ? 'border-purple-400 bg-purple-50 text-purple-700' : disabled ? 'border-gray-100 dark:border-white/10 text-gray-300 dark:text-gray-400 dark:text-gray-300 cursor-not-allowed' : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-gray-300 dark:border-white/15'}`}>
+                className={`text-xs px-3 py-1.5 rounded-full border-2 font-medium transition-all ${sel ? 'border-purple-400 bg-purple-50 dark:bg-purple-900/20 text-purple-700' : disabled ? 'border-gray-100 dark:border-white/10 text-gray-300 dark:text-gray-400 dark:text-gray-300 cursor-not-allowed' : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-gray-300 dark:border-white/15'}`}>
                 {a.label}
               </button>
             );
@@ -470,7 +470,7 @@ function HannahPrefs({ user }) {
             const disabled = !sel && coreValues.length >= 5;
             return (
               <button key={v.id} onClick={() => !disabled && toggleValue(v.id)}
-                className={`text-xs px-3 py-1.5 rounded-full border-2 font-medium transition-all ${sel ? 'border-purple-400 bg-purple-50 text-purple-700' : disabled ? 'border-gray-100 dark:border-white/10 text-gray-300 dark:text-gray-400 dark:text-gray-300 cursor-not-allowed' : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-gray-300 dark:border-white/15'}`}>
+                className={`text-xs px-3 py-1.5 rounded-full border-2 font-medium transition-all ${sel ? 'border-purple-400 bg-purple-50 dark:bg-purple-900/20 text-purple-700' : disabled ? 'border-gray-100 dark:border-white/10 text-gray-300 dark:text-gray-400 dark:text-gray-300 cursor-not-allowed' : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-gray-300 dark:border-white/15'}`}>
                 {v.label}
               </button>
             );
@@ -482,7 +482,7 @@ function HannahPrefs({ user }) {
         <div className="grid grid-cols-2 gap-2">
           {COACHING_STYLES.map(s => (
             <button key={s.id} onClick={() => setCoachingStyle(s.id)}
-              className={`text-xs px-3 py-2.5 rounded-xl border-2 font-medium text-left transition-all ${coachingStyle === s.id ? 'border-purple-400 bg-purple-50 text-purple-700' : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-gray-300 dark:border-white/15'}`}>
+              className={`text-xs px-3 py-2.5 rounded-xl border-2 font-medium text-left transition-all ${coachingStyle === s.id ? 'border-purple-400 bg-purple-50 dark:bg-purple-900/20 text-purple-700' : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-gray-300 dark:border-white/15'}`}>
               {coachingStyle === s.id && <CheckCircle2 className="w-3 h-3 inline mr-1" />}{s.label}
             </button>
           ))}
@@ -602,7 +602,7 @@ function GideonPrefs({ user }) {
             const disabled = !sel && topics.length >= 5;
             return (
               <button key={t.id} onClick={() => !disabled && toggleTopic(t.id)}
-                className={`text-xs px-3 py-1.5 rounded-full border-2 font-medium transition-all ${sel ? 'border-amber-400 bg-amber-50 text-amber-700' : disabled ? 'border-gray-100 dark:border-white/10 text-gray-300 dark:text-gray-400 dark:text-gray-300 cursor-not-allowed' : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-gray-300 dark:border-white/15'}`}>
+                className={`text-xs px-3 py-1.5 rounded-full border-2 font-medium transition-all ${sel ? 'border-amber-400 bg-amber-50 dark:bg-amber-900/20 text-amber-700' : disabled ? 'border-gray-100 dark:border-white/10 text-gray-300 dark:text-gray-400 dark:text-gray-300 cursor-not-allowed' : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-gray-300 dark:border-white/15'}`}>
                 {t.label}
               </button>
             );
@@ -614,7 +614,7 @@ function GideonPrefs({ user }) {
         <div className="grid grid-cols-2 gap-2">
           {TEACHING_STYLES.map(s => (
             <button key={s.id} onClick={() => setStyle(s.id)}
-              className={`text-xs px-3 py-2.5 rounded-xl border-2 font-medium text-left transition-all ${style === s.id ? 'border-amber-400 bg-amber-50 text-amber-700' : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-gray-300 dark:border-white/15'}`}>
+              className={`text-xs px-3 py-2.5 rounded-xl border-2 font-medium text-left transition-all ${style === s.id ? 'border-amber-400 bg-amber-50 dark:bg-amber-900/20 text-amber-700' : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-gray-300 dark:border-white/15'}`}>
               {style === s.id && <CheckCircle2 className="w-3 h-3 inline mr-1" />}{s.label}
             </button>
           ))}
@@ -625,7 +625,7 @@ function GideonPrefs({ user }) {
         <div className="flex flex-wrap gap-2">
           {SPIRITUAL_SEASONS.map(s => (
             <button key={s.id} onClick={() => setSeason(s.id)}
-              className={`text-xs px-3 py-1.5 rounded-full border-2 font-medium transition-all ${season === s.id ? 'border-amber-400 bg-amber-50 text-amber-700' : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-gray-300 dark:border-white/15'}`}>
+              className={`text-xs px-3 py-1.5 rounded-full border-2 font-medium transition-all ${season === s.id ? 'border-amber-400 bg-amber-50 dark:bg-amber-900/20 text-amber-700' : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-gray-300 dark:border-white/15'}`}>
               {s.label}
             </button>
           ))}
@@ -729,7 +729,7 @@ function CoachPaulPrefs({ user }) {
             const disabled = !sel && areas.length >= 4;
             return (
               <button key={a.id} onClick={() => !disabled && toggleArea(a.id)}
-                className={`text-xs px-3 py-1.5 rounded-full border-2 font-medium transition-all ${sel ? 'border-violet-400 bg-violet-50 text-violet-700' : disabled ? 'border-gray-100 dark:border-white/10 text-gray-300 dark:text-gray-400 dark:text-gray-300 cursor-not-allowed' : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-gray-300 dark:border-white/15'}`}>
+                className={`text-xs px-3 py-1.5 rounded-full border-2 font-medium transition-all ${sel ? 'border-violet-400 bg-violet-50 dark:bg-violet-900/20 text-violet-700' : disabled ? 'border-gray-100 dark:border-white/10 text-gray-300 dark:text-gray-400 dark:text-gray-300 cursor-not-allowed' : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-gray-300 dark:border-white/15'}`}>
                 {a.label}
               </button>
             );
@@ -741,7 +741,7 @@ function CoachPaulPrefs({ user }) {
         <div className="flex gap-2">
           {CHALLENGE_LEVELS.map(l => (
             <button key={l.id} onClick={() => setChallenge(l.id)}
-              className={`flex-1 text-xs px-3 py-2.5 rounded-xl border-2 font-medium text-center transition-all ${challenge === l.id ? 'border-violet-400 bg-violet-50 text-violet-700' : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-gray-300 dark:border-white/15'}`}>
+              className={`flex-1 text-xs px-3 py-2.5 rounded-xl border-2 font-medium text-center transition-all ${challenge === l.id ? 'border-violet-400 bg-violet-50 dark:bg-violet-900/20 text-violet-700' : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-gray-300 dark:border-white/15'}`}>
               {challenge === l.id && <CheckCircle2 className="w-3 h-3 inline mr-1" />}{l.label}
             </button>
           ))}
@@ -752,7 +752,7 @@ function CoachPaulPrefs({ user }) {
         <div className="grid grid-cols-2 gap-2">
           {ACCOUNTABILITY_STYLES.map(s => (
             <button key={s.id} onClick={() => setAccountability(s.id)}
-              className={`text-xs px-3 py-2.5 rounded-xl border-2 font-medium text-left transition-all ${accountability === s.id ? 'border-violet-400 bg-violet-50 text-violet-700' : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-gray-300 dark:border-white/15'}`}>
+              className={`text-xs px-3 py-2.5 rounded-xl border-2 font-medium text-left transition-all ${accountability === s.id ? 'border-violet-400 bg-violet-50 dark:bg-violet-900/20 text-violet-700' : 'border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 hover:border-gray-300 dark:border-white/15'}`}>
               {accountability === s.id && <CheckCircle2 className="w-3 h-3 inline mr-1" />}{s.label}
             </button>
           ))}

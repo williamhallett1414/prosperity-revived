@@ -211,12 +211,12 @@ export default function MyJournalEntries() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#F2F6FA] to-[#FFFFFF] pb-24">
       {/* Header */}
-      <div className="sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b border-[#AFC7E3]/20 px-4 py-3 shadow-sm dark:shadow-none">
+      <div className="sticky top-0 z-40 bg-white/95 dark:bg-[#0A1A2F]/95 backdrop-blur-sm border-b border-[#AFC7E3]/20 px-4 py-3 shadow-sm dark:shadow-none">
         <div className="max-w-3xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Link
               to={createPageUrl('PersonalGrowth')}
-              className="w-10 h-10 rounded-full bg-[#FAD98D]/15 hover:bg-[#FAD98D]/25 flex items-center justify-center transition-all"
+              className="w-10 h-10 rounded-full bg-[#FAD98D]/15 dark:bg-[#FAD98D]/8 hover:bg-[#FAD98D]/25 dark:bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5 flex items-center justify-center transition-all"
             >
               <ArrowLeft className="w-4 h-4 text-[#3C4E53]" />
             </Link>
@@ -389,7 +389,7 @@ export default function MyJournalEntries() {
                 className={`px-4 py-2.5 rounded-full text-sm font-semibold whitespace-nowrap transition-all ${
                   selectedCategory === category.value
                     ? 'bg-gradient-to-r from-[#FD9C2D] to-[#FAD98D] text-white shadow-md dark:shadow-none'
-                    : 'bg-white dark:bg-white/5 text-[#0A1A2F]/70 dark:text-white/70 border border-[#AFC7E3]/30 hover:border-[#FD9C2D]/50 hover:bg-[#FAD98D]/10'
+                    : 'bg-white dark:bg-white/5 text-[#0A1A2F]/70 dark:text-white/70 border border-[#AFC7E3]/30 hover:border-[#FD9C2D]/50 hover:bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5'
                 }`}
               >
                 <span className="mr-1.5">{category.emoji}</span>
@@ -546,7 +546,7 @@ export default function MyJournalEntries() {
                               <div className="flex gap-1">
                                 <button
                                   onClick={() => handleEdit(entry)}
-                                  className="p-2 hover:bg-[#FAD98D]/15 rounded-lg transition-colors"
+                                  className="p-2 hover:bg-[#FAD98D]/15 dark:bg-[#FAD98D]/8 rounded-lg transition-colors"
                                 >
                                   <Edit className="w-4 h-4 text-[#FD9C2D]" />
                                 </button>
@@ -554,7 +554,7 @@ export default function MyJournalEntries() {
                                   onClick={() =>
                                     deleteEntry.mutate(entry.id)
                                   }
-                                  className="p-2 hover:bg-red-100 rounded-lg transition-colors"
+                                  className="p-2 hover:bg-red-100 dark:bg-red-900/25 rounded-lg transition-colors"
                                 >
                                   <Trash2 className="w-4 h-4 text-red-400" />
                                 </button>
@@ -599,12 +599,12 @@ export default function MyJournalEntries() {
                                 </span>
                               )}
                               {entry.suggested_practice && (
-                                <span className="text-xs bg-[#FAD98D]/20 text-[#3C4E53] px-2 py-1 rounded font-medium">
+                                <span className="text-xs bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8 text-[#3C4E53] px-2 py-1 rounded font-medium">
                                   {entry.suggested_practice}
                                 </span>
                               )}
                               {entry.habits && entry.habits.length > 0 && (
-                                <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded font-medium">
+                                <span className="text-xs bg-green-100 dark:bg-green-900/25 text-green-700 px-2 py-1 rounded font-medium">
                                   {entry.habits.length} habits tracked
                                 </span>
                               )}

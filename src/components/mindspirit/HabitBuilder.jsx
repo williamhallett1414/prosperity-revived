@@ -117,7 +117,7 @@ export default function HabitBuilder() {
               onClick={() => toggleHabit(habit.id)}
               className={`w-full flex items-center justify-between p-4 rounded-xl border-2 transition-all ${
                 isCompleted
-                  ? 'border-[#FAD98D] bg-[#FAD98D]/10'
+                  ? 'border-[#FAD98D] dark:border-[#FAD98D]/30 bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5'
                   : 'border-gray-200 dark:border-white/10 hover:border-gray-300 dark:border-white/15'
               }`}
             >

@@ -78,7 +78,7 @@ function MemberAvatarStrip({ memberships, totalCount }) {
 // ─── Join CTA card ───────────────────────────────────────────────────────────
 function JoinCard({ group, onJoin, joining, cat }) {
   return (
-    <div className="bg-white dark:bg-white/5 rounded-2xl border border-[#FAD98D]/20 overflow-hidden">
+    <div className="bg-white dark:bg-white/5 rounded-2xl border border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 overflow-hidden">
       <div className={`bg-gradient-to-r ${cat.gradient} p-4 flex items-center gap-3`}>
         <span className="text-3xl">{cat.emoji}</span>
         <div>
@@ -90,7 +90,7 @@ function JoinCard({ group, onJoin, joining, cat }) {
         <div className="space-y-2">
           {['Post updates and encourage others', 'Join group challenges', 'See all member activity'].map((b, i) => (
             <div key={i} className="flex items-center gap-2">
-              <div className="w-4 h-4 rounded-full bg-[#FAD98D]/20 flex items-center justify-center flex-shrink-0">
+              <div className="w-4 h-4 rounded-full bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8 flex items-center justify-center flex-shrink-0">
                 <div className="w-1.5 h-1.5 rounded-full bg-[#c9a227]" />
               </div>
               <p className="text-xs text-[#0A1A2F]/60 dark:text-white/60">{b}</p>
@@ -133,7 +133,7 @@ function EmptyFeed({ isMember, onPost }) {
 
 function EmptyChallenges({ isMember, onCreate }) {
   return (
-    <div className="bg-white dark:bg-white/5 rounded-2xl border border-[#FAD98D]/20 p-8 text-center">
+    <div className="bg-white dark:bg-white/5 rounded-2xl border border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 p-8 text-center">
       <div className="w-14 h-14 bg-white dark:bg-white/5 rounded-2xl flex items-center justify-center mx-auto mb-4">
         <Trophy className="w-7 h-7 text-[#FAD98D]" />
       </div>
@@ -292,7 +292,7 @@ export default function GroupDetail() {
       <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] flex items-center justify-center">
 
       {/* ── Standard Header ── */}
-      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 px-4 pt-4 pb-3">
+      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 px-4 pt-4 pb-3">
         <div className="max-w-lg mx-auto flex items-center gap-3">
           <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#7C3AED] to-[#A78BFA] flex items-center justify-center">
             <Users className="w-5 h-5 text-white" />
@@ -428,7 +428,7 @@ export default function GroupDetail() {
                 {challenges.length > 0 && <span className="text-[#0A1A2F]/30 dark:text-white/30 font-normal ml-1">({challenges.length})</span>}
               </span>
               {activeChallenges.length > 0 && (
-                <span className="text-[10px] font-bold text-[#c9a227] bg-white dark:bg-white/5 border border-[#FAD98D]/30 px-2 py-0.5 rounded-full">
+                <span className="text-[10px] font-bold text-[#c9a227] bg-white dark:bg-white/5 border border-[#FAD98D]/30 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 px-2 py-0.5 rounded-full">
                   {activeChallenges.length} active
                 </span>
               )}

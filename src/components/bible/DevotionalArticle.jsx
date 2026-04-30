@@ -473,7 +473,7 @@ export default function DevotionalArticle({ devotional, onBack }) {
         </Card>
 
         {/* Call to Christ */}
-        <Card className="p-6 bg-gradient-to-br from-[#FAD98D]/10 to-[#FFF9EC] mb-6">
+        <Card className="p-6 bg-gradient-to-br from-[#FAD98D]/10 to-[#FFF9EC] dark:to-[#FAD98D]/5 mb-6">
           <h2 className="text-xl font-bold text-[#0A1A2F] dark:text-white mb-4 flex items-center gap-2">
             <Heart className="w-5 h-5 text-[#C9A227]" />
             Call to Christ

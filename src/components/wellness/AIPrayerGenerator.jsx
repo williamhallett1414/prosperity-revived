@@ -126,7 +126,7 @@ Return ONLY the prayer text, no additional formatting or explanation.`;
 
         {!generatedPrayer ? (
           <div className="space-y-6">
-            <div className="bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 rounded-lg p-4">
+            <div className="bg-gradient-to-r from-amber-50 dark:from-amber-900/15 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 rounded-lg p-4">
               <p className="text-sm text-gray-700 dark:text-gray-200 dark:text-gray-300 dark:text-gray-400 dark:text-gray-300">
                 Share what's on your heart, and I'll help you craft a meaningful prayer. 🙏
               </p>

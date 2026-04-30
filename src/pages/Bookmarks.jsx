@@ -28,7 +28,7 @@ function BookmarkItem({ bookmark, onDelete, onOpen, index }) {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, x: -20 }}
       transition={{ delay: index * 0.03 }}
-      className="bg-white dark:bg-white/5 rounded-2xl border border-[#FAD98D]/25 overflow-hidden shadow-sm dark:shadow-none"
+      className="bg-white dark:bg-white/5 rounded-2xl border border-[#FAD98D]/25 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 overflow-hidden shadow-sm dark:shadow-none"
     >
       {/* Colour accent bar */}
       {col && (
@@ -66,7 +66,7 @@ function BookmarkItem({ bookmark, onDelete, onOpen, index }) {
             </button>
             <button
               onClick={() => onDelete(bookmark.id)}
-              className="w-8 h-8 rounded-lg flex items-center justify-center text-[#0A1A2F]/40 dark:text-white/40 hover:text-red-400 hover:bg-red-50 transition-colors"
+              className="w-8 h-8 rounded-lg flex items-center justify-center text-[#0A1A2F]/40 dark:text-white/40 hover:text-red-400 hover:bg-red-50 dark:bg-red-900/20 transition-colors"
               title="Delete"
             >
               <Trash2 className="w-3.5 h-3.5" />
@@ -76,7 +76,7 @@ function BookmarkItem({ bookmark, onDelete, onOpen, index }) {
 
         {/* Note */}
         {bookmark.note && bookmark.book !== 'Affirmation' && (
-          <p className="mt-3 pt-3 border-t border-[#FAD98D]/20 text-xs text-[#0A1A2F]/55 dark:text-white/55 italic leading-relaxed">
+          <p className="mt-3 pt-3 border-t border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 text-xs text-[#0A1A2F]/55 dark:text-white/55 italic leading-relaxed">
             {bookmark.note}
           </p>
         )}
@@ -93,7 +93,7 @@ function Chip({ active, onClick, children, dot }) {
       className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold border transition-all flex-shrink-0 ${
         active
           ? 'bg-[#0A1A2F] text-white border-[#0A1A2F]'
-          : 'bg-white dark:bg-white/5 text-[#0A1A2F]/60 dark:text-white/60 border-[#FAD98D]/30 hover:border-[#c9a227]/50'
+          : 'bg-white dark:bg-white/5 text-[#0A1A2F]/60 dark:text-white/60 border-[#FAD98D]/30 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 hover:border-[#c9a227]/50'
       }`}
     >
       {dot && (
@@ -167,7 +167,7 @@ export default function Bookmarks() {
       <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] flex items-center justify-center">
 
       {/* ── Standard Header ── */}
-      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 px-4 pt-4 pb-3">
+      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 px-4 pt-4 pb-3">
         <div className="max-w-lg mx-auto flex items-center gap-3">
           <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center">
             <Bookmark className="w-5 h-5 text-white" />
@@ -188,7 +188,7 @@ export default function Bookmarks() {
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
 
       {/* ── Header ── */}
-      <div className="bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 px-4 pt-5 pb-4">
+      <div className="bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 px-4 pt-5 pb-4">
         <div className="max-w-lg mx-auto">
           <div className="flex items-center gap-3 mb-4">
             <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center flex-shrink-0">
@@ -211,7 +211,7 @@ export default function Bookmarks() {
               value={search}
               onChange={e => setSearch(e.target.value)}
               placeholder="Search verses, books, notes…"
-              className="w-full pl-9 pr-9 py-2.5 rounded-xl bg-[#F2F6FA] dark:bg-[#0A1A2F] text-sm text-[#0A1A2F] dark:text-white placeholder-[#0A1A2F]/35 border border-[#FAD98D]/20 focus:outline-none focus:border-[#c9a227]/50"
+              className="w-full pl-9 pr-9 py-2.5 rounded-xl bg-[#F2F6FA] dark:bg-[#0A1A2F] text-sm text-[#0A1A2F] dark:text-white placeholder-[#0A1A2F]/35 border border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 focus:outline-none focus:border-[#c9a227]/50"
             />
             {search && (
               <button onClick={() => setSearch('')}
@@ -225,7 +225,7 @@ export default function Bookmarks() {
 
       {/* ── Filter chips ── */}
       {bookmarks.length > 0 && (
-        <div className="border-b border-[#FAD98D]/15 bg-white dark:bg-white/5">
+        <div className="border-b border-[#FAD98D]/15 dark:border-[#FAD98D]/8 bg-white dark:bg-white/5">
           <div className="max-w-lg mx-auto px-4 py-2.5 flex gap-2 overflow-x-auto">
             {FILTERS.map(({ id, label, dot }) => (
               <Chip key={id} active={filter === id} onClick={() => setFilter(id)} dot={dot}>
@@ -241,9 +241,9 @@ export default function Bookmarks() {
         {isLoading ? (
           <div className="space-y-3">
             {[1, 2, 3].map(i => (
-              <div key={i} className="bg-white dark:bg-white/5 rounded-2xl p-4 animate-pulse border border-[#FAD98D]/20">
+              <div key={i} className="bg-white dark:bg-white/5 rounded-2xl p-4 animate-pulse border border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5">
                 <div className="h-3 bg-[#FAD98D]/30 rounded w-3/4 mb-3" />
-                <div className="h-3 bg-[#FAD98D]/20 rounded w-1/2" />
+                <div className="h-3 bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8 rounded w-1/2" />
               </div>
             ))}
           </div>
@@ -251,7 +251,7 @@ export default function Bookmarks() {
           /* Empty state */
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}
             className="text-center py-16">
-            <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-[#FAD98D]/20 flex items-center justify-center">
+            <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8 flex items-center justify-center">
               <Bookmark className="w-8 h-8 text-[#c9a227]" />
             </div>
             <h3 className="text-base font-bold text-[#0A1A2F] dark:text-white mb-1">No saved verses yet</h3>

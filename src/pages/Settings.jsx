@@ -82,7 +82,7 @@ export default function Settings() {
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-24">
       {/* Header */}
       {/* ── Standard Header ── */}
-      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 px-4 pt-4 pb-3">
+      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 px-4 pt-4 pb-3">
         <div className="max-w-lg mx-auto flex items-center gap-3">
           <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#3C4E53] to-[#AFC7E3] flex items-center justify-center">
             <Palette className="w-5 h-5 text-white" />
@@ -346,7 +346,7 @@ export default function Settings() {
               }
             }}
             variant="outline"
-            className="w-full mt-4 border-red-200 text-red-600 hover:bg-red-50 dark:border-red-900 dark:hover:bg-red-950 min-h-[44px]"
+            className="w-full mt-4 border-red-200 text-red-600 hover:bg-red-50 dark:bg-red-900/20 dark:border-red-900 dark:hover:bg-red-950 min-h-[44px]"
           >
             Sign Out
           </Button>
@@ -355,7 +355,7 @@ export default function Settings() {
             <AlertDialogTrigger asChild>
               <Button
                 variant="outline"
-                className="w-full mt-3 border-red-300 text-red-700 hover:bg-red-50 dark:border-red-800 dark:hover:bg-red-950 min-h-[44px]"
+                className="w-full mt-3 border-red-300 text-red-700 hover:bg-red-50 dark:bg-red-900/20 dark:border-red-800 dark:hover:bg-red-950 min-h-[44px]"
               >
                 <Trash2 className="w-4 h-4 mr-2" />
                 Delete Account

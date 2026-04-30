@@ -174,7 +174,7 @@ export default function CoachDavidNotificationSettings({ user }) {
         </div>
       </div>
 
-      <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 text-sm text-amber-800">
+      <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800/30 rounded-lg p-3 text-sm text-amber-800">
         💡 Coach David will send you personalized motivational messages, fitness insights, and coaching questions at these times to keep you accountable and inspired.
       </div>
     </motion.div>

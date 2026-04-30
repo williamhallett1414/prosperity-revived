@@ -138,7 +138,7 @@ function PlanCard({ plan, delay = 0 }) {
   return (
     <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay }}>
       <Link to={createPageUrl('Bible')}>
-        <div className="flex items-center gap-3 bg-[#F8FAFB] rounded-xl px-3.5 py-3 hover:bg-[#FAD98D]/10 transition-colors">
+        <div className="flex items-center gap-3 bg-[#F8FAFB] rounded-xl px-3.5 py-3 hover:bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5 transition-colors">
           <span className="text-xl flex-shrink-0">{plan.emoji}</span>
           <div className="flex-1 min-w-0">
             <p className="text-xs font-bold text-[#0A1A2F] dark:text-white leading-tight">{plan.name}</p>
@@ -261,7 +261,7 @@ export default function BibleGoalsPage() {
     <div className="min-h-screen pb-28" style={{ background: '#F2F6FA' }}>
 
       {/* ── Standard Header ── */}
-      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 px-4 pt-4 pb-3">
+      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 px-4 pt-4 pb-3">
         <div className="max-w-lg mx-auto flex items-center gap-3">
           <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center">
             <Target className="w-5 h-5 text-white" />
@@ -271,7 +271,7 @@ export default function BibleGoalsPage() {
             <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45">Your reading profile</p>
           </div>
           <button onClick={() => setEditing(v => !v)}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold border border-[#FAD98D]/50 text-[#C9A227] bg-[#FAD98D]/10 transition-all">
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold border border-[#FAD98D]/50 dark:border-[#FAD98D]/20 text-[#C9A227] bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5 transition-all">
             <Pencil className="w-3.5 h-3.5" />
             {editing ? 'Cancel' : 'Edit'}
           </button>
@@ -311,7 +311,7 @@ export default function BibleGoalsPage() {
         {/* ── Profile incomplete nudge ── */}
         {profileIncomplete && user && !editing && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.04 }}
-            className="flex items-center gap-3 bg-[#FAD98D]/20 border border-[#FAD98D]/30 rounded-2xl px-4 py-3">
+            className="flex items-center gap-3 bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8 border border-[#FAD98D]/30 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 rounded-2xl px-4 py-3">
             <AlertTriangle className="w-4 h-4 text-[#C9A227] flex-shrink-0" />
             <div className="flex-1">
               <p className="text-xs font-bold text-[#C9A227]">Bible profile incomplete</p>
@@ -325,7 +325,7 @@ export default function BibleGoalsPage() {
         <AnimatePresence>
           {editing && (
             <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }}
-              className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm dark:shadow-none border-2 border-[#FAD98D]/40 space-y-5">
+              className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm dark:shadow-none border-2 border-[#FAD98D]/40 dark:border-[#FAD98D]/15 dark:border-[#FAD98D]/8 space-y-5">
               <div className="flex items-center justify-between">
                 <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">Edit Bible Profile</p>
                 <button onClick={() => setEditing(false)} className="w-7 h-7 rounded-full bg-gray-100 dark:bg-white/5 flex items-center justify-center">
@@ -339,7 +339,7 @@ export default function BibleGoalsPage() {
                 <div className="space-y-2">
                   {BIBLE_LEVELS_LIST.map(o => (
                     <button key={o.id} onClick={() => setForm(f => ({ ...f, bible_level: o.id }))}
-                      className={`w-full text-left px-4 py-2.5 rounded-2xl border-2 flex items-center gap-3 transition-all ${form.bible_level === o.id ? 'border-[#C9A227] bg-[#FAD98D]/10' : 'border-gray-100 dark:border-white/10 bg-gray-50 dark:bg-white/5 dark:bg-white/5'}`}>
+                      className={`w-full text-left px-4 py-2.5 rounded-2xl border-2 flex items-center gap-3 transition-all ${form.bible_level === o.id ? 'border-[#C9A227] bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5' : 'border-gray-100 dark:border-white/10 bg-gray-50 dark:bg-white/5 dark:bg-white/5'}`}>
                       <span>{o.emoji}</span>
                       <span className="text-sm font-semibold text-[#0A1A2F] dark:text-white dark:text-white">{o.label}</span>
                       {form.bible_level === o.id && <Check className="w-4 h-4 text-[#C9A227] ml-auto" />}
@@ -354,7 +354,7 @@ export default function BibleGoalsPage() {
                 <div className="flex flex-wrap gap-2">
                   {TRANSLATIONS_LIST.map(t => (
                     <button key={t} onClick={() => setForm(f => ({ ...f, bible_translation: t }))}
-                      className={`px-3 py-1.5 rounded-xl text-xs font-bold border-2 transition-all ${form.bible_translation === t ? 'border-[#C9A227] bg-[#FAD98D]/20 text-[#C9A227]' : 'border-gray-100 dark:border-white/10 text-gray-600 dark:text-gray-300 bg-gray-50 dark:bg-white/5 dark:bg-white/5'}`}>
+                      className={`px-3 py-1.5 rounded-xl text-xs font-bold border-2 transition-all ${form.bible_translation === t ? 'border-[#C9A227] bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8 text-[#C9A227]' : 'border-gray-100 dark:border-white/10 text-gray-600 dark:text-gray-300 bg-gray-50 dark:bg-white/5 dark:bg-white/5'}`}>
                       {t === 'any' ? 'No preference' : t}
                     </button>
                   ))}
@@ -367,7 +367,7 @@ export default function BibleGoalsPage() {
                 <div className="flex flex-wrap gap-2">
                   {TOPICS_LIST.map(o => (
                     <button key={o.id} onClick={() => toggleTopic(o.id)}
-                      className={`px-3 py-1.5 rounded-xl text-xs font-bold border-2 transition-all ${form.bible_topics.includes(o.id) ? 'border-[#C9A227] bg-[#FAD98D]/20 text-[#C9A227]' : 'border-gray-100 dark:border-white/10 text-gray-600 dark:text-gray-300 bg-gray-50 dark:bg-white/5 dark:bg-white/5'}`}>
+                      className={`px-3 py-1.5 rounded-xl text-xs font-bold border-2 transition-all ${form.bible_topics.includes(o.id) ? 'border-[#C9A227] bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8 text-[#C9A227]' : 'border-gray-100 dark:border-white/10 text-gray-600 dark:text-gray-300 bg-gray-50 dark:bg-white/5 dark:bg-white/5'}`}>
                       {o.label}
                     </button>
                   ))}
@@ -380,7 +380,7 @@ export default function BibleGoalsPage() {
                 <div className="space-y-2">
                   {DEPTHS_LIST.map(o => (
                     <button key={o.id} onClick={() => setForm(f => ({ ...f, devotional_depth: o.id }))}
-                      className={`w-full text-left px-4 py-2.5 rounded-2xl border-2 flex items-center gap-3 transition-all ${form.devotional_depth === o.id ? 'border-[#C9A227] bg-[#FAD98D]/10' : 'border-gray-100 dark:border-white/10 bg-gray-50 dark:bg-white/5 dark:bg-white/5'}`}>
+                      className={`w-full text-left px-4 py-2.5 rounded-2xl border-2 flex items-center gap-3 transition-all ${form.devotional_depth === o.id ? 'border-[#C9A227] bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5' : 'border-gray-100 dark:border-white/10 bg-gray-50 dark:bg-white/5 dark:bg-white/5'}`}>
                       <span className="text-sm font-semibold text-[#0A1A2F] dark:text-white flex-1">{o.label}</span>
                       {form.devotional_depth === o.id && <Check className="w-4 h-4 text-[#C9A227]" />}
                     </button>
@@ -394,7 +394,7 @@ export default function BibleGoalsPage() {
                 <div className="flex flex-wrap gap-2">
                   {CHURCH_LIST.map(o => (
                     <button key={o.id} onClick={() => setForm(f => ({ ...f, in_church: o.id }))}
-                      className={`px-3 py-1.5 rounded-xl text-xs font-bold border-2 transition-all ${form.in_church === o.id ? 'border-[#C9A227] bg-[#FAD98D]/20 text-[#C9A227]' : 'border-gray-100 dark:border-white/10 text-gray-600 dark:text-gray-300 bg-gray-50 dark:bg-white/5 dark:bg-white/5'}`}>
+                      className={`px-3 py-1.5 rounded-xl text-xs font-bold border-2 transition-all ${form.in_church === o.id ? 'border-[#C9A227] bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8 text-[#C9A227]' : 'border-gray-100 dark:border-white/10 text-gray-600 dark:text-gray-300 bg-gray-50 dark:bg-white/5 dark:bg-white/5'}`}>
                       {o.label}
                     </button>
                   ))}
@@ -415,7 +415,7 @@ export default function BibleGoalsPage() {
           className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm dark:shadow-none">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#FAD98D]/20">
+              <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8">
                 <BookOpen className="w-4 h-4 text-[#C9A227]" />
               </div>
               <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">Preferred Translation</p>
@@ -426,7 +426,7 @@ export default function BibleGoalsPage() {
             </button>
           </div>
           <div className="flex items-center gap-3">
-            <div className="bg-[#FAD98D]/20 rounded-2xl px-4 py-3 text-center flex-shrink-0 min-w-[64px]">
+            <div className="bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8 rounded-2xl px-4 py-3 text-center flex-shrink-0 min-w-[64px]">
               <p className="text-2xl font-black text-[#C9A227]">{translation === 'any' ? '✦' : translation}</p>
             </div>
             <div>
@@ -451,7 +451,7 @@ export default function BibleGoalsPage() {
           <motion.div id="tour-bible-topics" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.10 }}
             className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm dark:shadow-none">
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#FAD98D]/20">
+              <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8">
                 <Heart className="w-4 h-4 text-[#C9A227]" />
               </div>
               <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">Topics That Matter to You</p>
@@ -462,7 +462,7 @@ export default function BibleGoalsPage() {
                 if (!info) return null;
                 return (
                   <motion.div key={t} initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.12 + i * 0.04 }}
-                    className="flex items-center gap-2.5 bg-[#FAD98D]/10 border border-[#FAD98D]/25 rounded-xl px-3 py-2.5">
+                    className="flex items-center gap-2.5 bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5 border border-[#FAD98D]/25 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 rounded-xl px-3 py-2.5">
                     <span className="text-base">{info.emoji}</span>
                     <span className="text-xs font-bold text-[#0A1A2F] dark:text-white dark:text-white">{info.label}</span>
                   </motion.div>
@@ -490,12 +490,12 @@ export default function BibleGoalsPage() {
         <motion.div id="tour-devotional-depth" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.18 }}
           className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm dark:shadow-none">
           <div className="flex items-center gap-2 mb-3">
-            <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#FAD98D]/20">
+            <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8">
               <Clock className="w-4 h-4 text-[#C9A227]" />
             </div>
             <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">Devotional Depth</p>
           </div>
-          <div className="flex items-center gap-4 bg-[#FAD98D]/10 rounded-2xl px-4 py-3">
+          <div className="flex items-center gap-4 bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5 rounded-2xl px-4 py-3">
             <span className="text-3xl">{depthInfo.emoji}</span>
             <div>
               <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">{depthInfo.label}</p>
@@ -513,7 +513,7 @@ export default function BibleGoalsPage() {
           <motion.div id="tour-topic-plans" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.22 }}
             className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm dark:shadow-none">
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#FAD98D]/20">
+              <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8">
                 <BookMarked className="w-4 h-4 text-[#C9A227]" />
               </div>
               <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">Plans for Your Topics</p>
@@ -545,7 +545,7 @@ export default function BibleGoalsPage() {
         <motion.div id="tour-bible-tips" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.32 }}
           className="bg-white dark:bg-white/5 rounded-3xl p-5 shadow-sm dark:shadow-none">
           <div className="flex items-center gap-2 mb-4">
-            <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#FAD98D]/20">
+            <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8">
               <Sparkles className="w-4 h-4 text-[#C9A227]" />
             </div>
             <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">Study Tips for You</p>
@@ -566,7 +566,7 @@ export default function BibleGoalsPage() {
         <motion.div id="tour-church-community" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.36 }}
           className="bg-white dark:bg-white/5 rounded-3xl px-5 py-4 shadow-sm dark:shadow-none">
           <div className="flex items-center gap-2 mb-3">
-            <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#FAD98D]/20">
+            <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8">
               <Users className="w-4 h-4 text-[#C9A227]" />
             </div>
             <p className="font-bold text-[#0A1A2F] dark:text-white text-sm">Church Community</p>

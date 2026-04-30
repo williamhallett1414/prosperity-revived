@@ -5,8 +5,8 @@ import { Trophy, TrendingUp } from 'lucide-react';
 export default function AchievementsTab({ userProgress }) {
   if (!userProgress) {
     return (
-      <div className="bg-white dark:bg-white/5 rounded-xl shadow-sm dark:shadow-none p-12 sm:p-16 text-center border border-[#FAD98D]/25">
-        <div className="w-20 h-20 bg-[#FAD98D]/15 rounded-full flex items-center justify-center mx-auto mb-4">
+      <div className="bg-white dark:bg-white/5 rounded-xl shadow-sm dark:shadow-none p-12 sm:p-16 text-center border border-[#FAD98D]/25 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5">
+        <div className="w-20 h-20 bg-[#FAD98D]/15 dark:bg-[#FAD98D]/8 rounded-full flex items-center justify-center mx-auto mb-4">
           <span className="text-4xl">🏆</span>
         </div>
         <p className="text-[#0A1A2F]/70 dark:text-white/70 text-lg font-semibold">No achievements yet</p>
@@ -22,7 +22,7 @@ export default function AchievementsTab({ userProgress }) {
       className="space-y-4"
     >
       {/* Level & Points Card */}
-      <div className="bg-gradient-to-br from-[#FAD98D]/20 via-[#FAD98D]/10 to-[#FFF9EC] rounded-xl shadow-sm dark:shadow-none p-6 sm:p-8 border border-[#FAD98D]/40">
+      <div className="bg-gradient-to-br from-[#FAD98D]/20 via-[#FAD98D]/10 to-[#FFF9EC] dark:to-[#FAD98D]/5 rounded-xl shadow-sm dark:shadow-none p-6 sm:p-8 border border-[#FAD98D]/40 dark:border-[#FAD98D]/15 dark:border-[#FAD98D]/8">
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-6">
           <div className="text-center">
             <div className="text-3xl sm:text-5xl font-bold text-[#c9a227] mb-2">{userProgress.level || 1}</div>
@@ -40,12 +40,12 @@ export default function AchievementsTab({ userProgress }) {
       </div>
 
       {/* Progress Bar */}
-      <div className="bg-white dark:bg-white/5 rounded-xl shadow-sm dark:shadow-none p-6 border border-[#FAD98D]/25">
+      <div className="bg-white dark:bg-white/5 rounded-xl shadow-sm dark:shadow-none p-6 border border-[#FAD98D]/25 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5">
         <div className="flex items-center justify-between mb-4">
           <h3 className="font-bold text-[#0A1A2F] dark:text-white text-lg">Progress to Next Level</h3>
           <TrendingUp className="w-5 h-5 text-[#c9a227]" />
         </div>
-        <div className="w-full bg-[#FAD98D]/20 rounded-full h-4 overflow-hidden">
+        <div className="w-full bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8 rounded-full h-4 overflow-hidden">
           <motion.div
             initial={{ width: 0 }}
             animate={{ width: `${Math.min((userProgress.total_points % 1000) / 10, 100)}%` }}
@@ -60,7 +60,7 @@ export default function AchievementsTab({ userProgress }) {
 
       {/* Badges */}
       {userProgress.badges && userProgress.badges.length > 0 && (
-        <div className="bg-white dark:bg-white/5 rounded-xl shadow-sm dark:shadow-none p-6 border border-[#FAD98D]/25">
+        <div className="bg-white dark:bg-white/5 rounded-xl shadow-sm dark:shadow-none p-6 border border-[#FAD98D]/25 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5">
           <div className="flex items-center gap-2 mb-5">
             <Trophy className="w-6 h-6 text-[#c9a227]" />
             <h3 className="text-xl font-bold text-[#0A1A2F] dark:text-white dark:text-white">{userProgress.badges.length} {userProgress.badges.length === 1 ? 'Badge' : 'Badges'} Earned</h3>
@@ -85,30 +85,30 @@ export default function AchievementsTab({ userProgress }) {
       )}
 
       {/* Activity Stats */}
-      <div className="bg-white dark:bg-white/5 rounded-xl shadow-sm dark:shadow-none p-6 border border-[#FAD98D]/25">
+      <div className="bg-white dark:bg-white/5 rounded-xl shadow-sm dark:shadow-none p-6 border border-[#FAD98D]/25 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5">
         <h3 className="text-xl font-bold text-[#0A1A2F] dark:text-white mb-5">Activity Stats</h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div className="flex items-center justify-between p-4 bg-[#FAD98D]/10 rounded-lg border border-[#FAD98D]/25">
+          <div className="flex items-center justify-between p-4 bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5 rounded-lg border border-[#FAD98D]/25 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5">
             <span className="text-[#0A1A2F]/75 dark:text-white/75 font-medium">Community Posts</span>
             <span className="font-bold text-[#c9a227] text-xl">{userProgress.community_posts || 0}</span>
           </div>
-          <div className="flex items-center justify-between p-4 bg-[#FAD98D]/10 rounded-lg border border-[#FAD98D]/25">
+          <div className="flex items-center justify-between p-4 bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5 rounded-lg border border-[#FAD98D]/25 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5">
             <span className="text-[#0A1A2F]/75 dark:text-white/75 font-medium">Workouts Completed</span>
             <span className="font-bold text-[#c9a227] text-xl">{userProgress.workouts_completed || 0}</span>
           </div>
-          <div className="flex items-center justify-between p-4 bg-[#FAD98D]/10 rounded-lg border border-[#FAD98D]/25">
+          <div className="flex items-center justify-between p-4 bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5 rounded-lg border border-[#FAD98D]/25 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5">
             <span className="text-[#0A1A2F]/75 dark:text-white/75 font-medium">Meditations Completed</span>
             <span className="font-bold text-[#c9a227] text-xl">{userProgress.meditations_completed || 0}</span>
           </div>
-          <div className="flex items-center justify-between p-4 bg-[#FAD98D]/10 rounded-lg border border-[#FAD98D]/25">
+          <div className="flex items-center justify-between p-4 bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5 rounded-lg border border-[#FAD98D]/25 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5">
             <span className="text-[#0A1A2F]/75 dark:text-white/75 font-medium">Comments Made</span>
             <span className="font-bold text-[#c9a227] text-xl">{userProgress.comments_count || 0}</span>
           </div>
-          <div className="flex items-center justify-between p-4 bg-[#FAD98D]/10 rounded-lg border border-[#FAD98D]/25">
+          <div className="flex items-center justify-between p-4 bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5 rounded-lg border border-[#FAD98D]/25 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5">
             <span className="text-[#0A1A2F]/75 dark:text-white/75 font-medium">Friends</span>
             <span className="font-bold text-[#c9a227] text-xl">{userProgress.friends_count || 0}</span>
           </div>
-          <div className="flex items-center justify-between p-4 bg-[#FAD98D]/10 rounded-lg border border-[#FAD98D]/25">
+          <div className="flex items-center justify-between p-4 bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5 rounded-lg border border-[#FAD98D]/25 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5">
             <span className="text-[#0A1A2F]/75 dark:text-white/75 font-medium">Photos Uploaded</span>
             <span className="font-bold text-[#c9a227] text-xl">{userProgress.photos_uploaded || 0}</span>
           </div>
@@ -117,17 +117,17 @@ export default function AchievementsTab({ userProgress }) {
 
       {/* Streaks */}
       {(userProgress.current_streak > 0 || userProgress.longest_streak > 0) && (
-        <div className="bg-gradient-to-br from-[#FAD98D]/20 via-[#FAD98D]/10 to-[#FFF9EC] rounded-xl shadow-sm dark:shadow-none p-6 border border-[#FAD98D]/25">
+        <div className="bg-gradient-to-br from-[#FAD98D]/20 via-[#FAD98D]/10 to-[#FFF9EC] dark:to-[#FAD98D]/5 rounded-xl shadow-sm dark:shadow-none p-6 border border-[#FAD98D]/25 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5">
           <h3 className="text-xl font-bold text-[#0A1A2F] dark:text-white mb-5 flex items-center gap-2">
             <span className="text-2xl">🔥</span> Streaks
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="flex flex-col items-center p-5 bg-white dark:bg-white/5 rounded-lg border border-[#FAD98D]/40">
+            <div className="flex flex-col items-center p-5 bg-white dark:bg-white/5 rounded-lg border border-[#FAD98D]/40 dark:border-[#FAD98D]/15 dark:border-[#FAD98D]/8">
               <span className="text-sm text-[#0A1A2F]/70 dark:text-white/70 font-medium mb-2">Current Streak</span>
               <span className="text-4xl font-bold text-[#c9a227]">{userProgress.current_streak || 0}</span>
               <span className="text-xs text-[#0A1A2F]/50 dark:text-white/50 mt-1">days</span>
             </div>
-            <div className="flex flex-col items-center p-5 bg-white dark:bg-white/5 rounded-lg border border-[#FAD98D]/25">
+            <div className="flex flex-col items-center p-5 bg-white dark:bg-white/5 rounded-lg border border-[#FAD98D]/25 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5">
               <span className="text-sm text-[#0A1A2F]/70 dark:text-white/70 font-medium mb-2">Longest Streak</span>
               <span className="text-4xl font-bold text-[#c9a227]">{userProgress.longest_streak || 0}</span>
               <span className="text-xs text-[#0A1A2F]/50 dark:text-white/50 mt-1">days</span>

@@ -3,7 +3,7 @@ import { BookOpen } from 'lucide-react';
 
 export default function VerseDisplay({ reference, text }) {
   return (
-    <div className="my-4 p-4 bg-gradient-to-r from-[#FAD98D]/10 to-[#FFF9EC] rounded-lg border-l-4 border-[#FAD98D]">
+    <div className="my-4 p-4 bg-gradient-to-r from-[#FAD98D]/10 to-[#FFF9EC] dark:to-[#FAD98D]/5 rounded-lg border-l-4 border-[#FAD98D] dark:border-[#FAD98D]/30 dark:border-[#FAD98D]/30">
       <div className="flex items-start gap-3">
         <BookOpen className="w-5 h-5 text-[#C9A227] mt-0.5 flex-shrink-0" />
         <div className="flex-1">

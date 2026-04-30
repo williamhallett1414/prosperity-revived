@@ -615,7 +615,7 @@ Format as specific, actionable recommendations with clear benefits explained.`;
               <motion.div
                 animate={{ scale: [1, 1.2, 1] }}
                 transition={{ repeat: Infinity, duration: 2 }}
-                className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full border-2 border-white"
+                className="absolute -top-1 -right-1 w-4 h-4 bg-red-50 dark:bg-red-900/200 rounded-full border-2 border-white"
               />
             )}
           </motion.button>
@@ -711,7 +711,7 @@ Format as specific, actionable recommendations with clear benefits explained.`;
                         <button
                           key={index}
                           onClick={() => handleQuickPrompt(prompt)}
-                          className="text-xs px-3 py-1.5 bg-[#AFC7E3]/10 text-[#3C4E53] rounded-full hover:bg-[#FAD98D]/20 transition-colors"
+                          className="text-xs px-3 py-1.5 bg-[#AFC7E3]/10 text-[#3C4E53] rounded-full hover:bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8 transition-colors"
                         >
                           {prompt}
                         </button>
@@ -723,7 +723,7 @@ Format as specific, actionable recommendations with clear benefits explained.`;
                     onClick={generateSelfCareRecommendations}
                     disabled={isGeneratingRecommendations}
                     size="sm"
-                    className="w-full bg-emerald-500 hover:bg-emerald-600 text-xs"
+                    className="w-full bg-emerald-50 dark:bg-emerald-900/200 hover:bg-emerald-600 text-xs"
                   >
                     {isGeneratingRecommendations ? (
                       <>
@@ -815,7 +815,7 @@ Format as specific, actionable recommendations with clear benefits explained.`;
                             <button
                               key={index}
                               onClick={() => setJournalEntry(prev => prev + (prev ? '\n\n' : '') + prompt + '\n')}
-                              className="w-full text-left p-2 bg-amber-50 rounded-lg text-xs text-gray-700 dark:text-gray-200 hover:bg-amber-100 transition-colors"
+                              className="w-full text-left p-2 bg-amber-50 dark:bg-amber-900/20 rounded-lg text-xs text-gray-700 dark:text-gray-200 hover:bg-amber-100 dark:bg-amber-900/25 transition-colors"
                             >
                               {prompt}
                             </button>

@@ -51,7 +51,7 @@ export default function DailyDevotional() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="rounded-3xl bg-gradient-to-br from-amber-50 to-orange-50 p-8 mb-6"
+        className="rounded-3xl bg-gradient-to-br from-amber-50 dark:from-amber-900/15 to-orange-50 p-8 mb-6"
       >
         <div className="flex items-center justify-center gap-3 text-amber-700">
           <Loader className="w-5 h-5 animate-spin" />
@@ -69,7 +69,7 @@ export default function DailyDevotional() {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="rounded-3xl bg-gradient-to-br from-amber-50 to-orange-50 p-6 md:p-8 mb-6 shadow-sm dark:shadow-none"
+      className="rounded-3xl bg-gradient-to-br from-amber-50 dark:from-amber-900/15 to-orange-50 p-6 md:p-8 mb-6 shadow-sm dark:shadow-none"
     >
       <h2 className="text-2xl font-bold text-[#0A1A2F] dark:text-white mb-6">Daily Devotional</h2>
 

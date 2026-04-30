@@ -180,7 +180,7 @@ export default function DailyChristianHoroscope({ user }) {
         </div>
 
         {/* Daily Affirmation */}
-        <div className="bg-white/10 rounded-xl p-4 backdrop-blur-sm border-l-4 border-amber-200">
+        <div className="bg-white/10 rounded-xl p-4 backdrop-blur-sm border-l-4 border-amber-200 dark:border-amber-800/30">
           <p className="text-amber-100 text-sm font-semibold mb-1">Today's Affirmation</p>
           <p className="text-white font-medium">{horoscope.daily_affirmation}</p>
         </div>

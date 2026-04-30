@@ -28,7 +28,7 @@ export default function PlanStatsModal({ isOpen, onClose, progress }) {
 
           {/* Stats Grid */}
           <div className="grid grid-cols-2 gap-3">
-            <div className="bg-green-50 rounded-lg p-3">
+            <div className="bg-green-50 dark:bg-green-900/20 rounded-lg p-3">
               <div className="flex items-center gap-2 mb-1">
                 <CheckCircle2 className="w-4 h-4 text-green-600" />
                 <span className="text-xs text-green-600 font-medium">Completed</span>
@@ -46,7 +46,7 @@ export default function PlanStatsModal({ isOpen, onClose, progress }) {
               <div className="text-xs text-[#3C4E53]">days</div>
             </div>
 
-            <div className="bg-orange-50 rounded-lg p-3">
+            <div className="bg-orange-50 dark:bg-orange-900/20 rounded-lg p-3">
               <div className="flex items-center gap-2 mb-1">
                 <TrendingUp className="w-4 h-4 text-orange-600" />
                 <span className="text-xs text-orange-600 font-medium">Current Streak</span>
@@ -55,7 +55,7 @@ export default function PlanStatsModal({ isOpen, onClose, progress }) {
               <div className="text-xs text-orange-600">days</div>
             </div>
 
-            <div className="bg-[#FAD98D]/10 rounded-lg p-3">
+            <div className="bg-[#FAD98D]/10 dark:bg-[#FAD98D]/5 rounded-lg p-3">
               <div className="flex items-center gap-2 mb-1">
                 <Award className="w-4 h-4 text-[#C9A227]" />
                 <span className="text-xs text-[#C9A227] font-medium">Best Streak</span>
@@ -76,7 +76,7 @@ export default function PlanStatsModal({ isOpen, onClose, progress }) {
           )}
 
           {progress.completed_date && (
-            <div className="bg-green-50 rounded-lg p-3">
+            <div className="bg-green-50 dark:bg-green-900/20 rounded-lg p-3">
               <div className="text-xs text-green-600 mb-1">Completed</div>
               <div className="font-medium text-green-900">
                 {format(new Date(progress.completed_date), 'MMMM d, yyyy')}

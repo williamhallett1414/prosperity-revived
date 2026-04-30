@@ -115,7 +115,7 @@ Format as JSON with keys: meditation, workout, nutrition, selfcare, scripture, j
                 className="bg-white dark:bg-white/5 rounded-xl p-4 border border-gray-100 dark:border-white/10 hover:shadow-md dark:shadow-none transition-shadow cursor-pointer"
               >
                 <div className="flex items-start gap-3">
-                  <div className="bg-[#FAD98D]/20 p-2 rounded-lg">
+                  <div className="bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8 p-2 rounded-lg">
                     <Icon className="w-5 h-5 text-[#FAD98D]" />
                   </div>
                   <div className="flex-1 min-w-0">

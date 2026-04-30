@@ -41,11 +41,11 @@ export default function HannahTooltip({ text, children, position = 'top', showIc
             transition={{ duration: 0.15 }}
             className={`absolute ${positionClasses[position]} z-50 pointer-events-none`}
           >
-            <div className="bg-[#FAD98D]/20 text-[#0A1A2F] dark:text-white text-xs rounded-lg px-3 py-2 max-w-xs whitespace-normal shadow-lg dark:shadow-none border border-[#FAD98D]/40">
+            <div className="bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8 text-[#0A1A2F] dark:text-white text-xs rounded-lg px-3 py-2 max-w-xs whitespace-normal shadow-lg dark:shadow-none border border-[#FAD98D]/40 dark:border-[#FAD98D]/15 dark:border-[#FAD98D]/8">
               {text}
             </div>
             <div
-              className={`absolute w-2 h-2 bg-[#FAD98D]/20 border border-[#FAD98D]/40 ${arrowClasses[position]}`}
+              className={`absolute w-2 h-2 bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8 border border-[#FAD98D]/40 dark:border-[#FAD98D]/15 dark:border-[#FAD98D]/8 ${arrowClasses[position]}`}
             />
           </motion.div>
         )}
