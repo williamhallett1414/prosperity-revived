@@ -74,7 +74,7 @@ function CountdownRing({ seconds, total }) {
   const progress = (seconds / total) * circ;
   return (
     <svg width="44" height="44" className="rotate-[-90deg]">
-      <circle cx="22" cy="22" r={r} fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="2.5" />
+      <circle cx="22" cy="22" r={r} fill="none" stroke="rgba(60,78,83,0.15)" strokeWidth="2.5" />
       <circle cx="22" cy="22" r={r} fill="none" stroke="#c9a227" strokeWidth="2.5"
         strokeDasharray={circ} strokeDashoffset={circ - progress} strokeLinecap="round"
         style={{ transition: 'stroke-dashoffset 1s linear' }} />
@@ -112,15 +112,15 @@ function SpotlightCard({ request, countdown, total, onPray, onNext, onClick, has
             </div>
           </div>
         </div>
-        <p className="text-white font-semibold text-[15px] leading-relaxed mb-5 line-clamp-4" style={{ fontFamily: 'Georgia, serif' }}>
-          {request?.prayer_text || 'Loading prayers...'}
-        </p>
+        <p className="text-[#3C4E53] font-semibold text-[15px] leading-relaxed mb-5 line-clamp-4" style={{ fontFamily: 'Georgia, serif' }}>
+            {request?.prayer_text || 'Loading prayers...'}
+          </p>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1.5">
             <span className="text-base">🙏</span>
-            <span className="text-xs font-semibold text-white/70">
-              <span className="text-white font-bold">{prayerCount.toLocaleString()}</span> praying
-            </span>
+            <span className="text-xs font-semibold text-[#3C4E53]/70">
+                <span className="text-[#3C4E53] font-bold">{prayerCount.toLocaleString()}</span> praying
+              </span>
           </div>
           <div className="flex items-center gap-2">
             <button onClick={e => { e.stopPropagation(); onPray(); }}
@@ -150,14 +150,14 @@ function PrayerRow({ request, index, onOpen, user }) {
       onClick={() => onOpen(request)} className="group cursor-pointer"
       style={{ background: request.is_answered ? 'linear-gradient(135deg, rgba(52,211,153,0.08), rgba(52,211,153,0.03))' : 'linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%)', border: request.is_answered ? '1px solid rgba(52,211,153,0.2)' : '1px solid rgba(255,255,255,0.08)', borderRadius: '20px', padding: '16px', backdropFilter: 'blur(10px)' }}>
       <div className="flex items-start gap-3">
-        <div className="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm text-white"
+        <div className="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm text-[#F5F5F5]"
           style={{ background: request.is_answered ? 'linear-gradient(135deg, #065f46, #059669)' : 'linear-gradient(135deg, #1a3a4a, #2d5a70)' }}>
           {initials(request.user_name)}
         </div>
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between mb-1">
             <div className="flex items-center gap-1.5">
-              <span className="font-semibold text-white text-sm">{request.user_name}</span>
+              <span className="font-semibold text-[#3C4E53] text-sm">{request.user_name}</span>
               {request.is_answered && (
                 <span className="flex items-center gap-0.5 text-[9px] font-bold text-emerald-400 bg-emerald-50 dark:bg-emerald-900/200/15 border border-emerald-500/25 rounded-full px-1.5 py-0.5 uppercase tracking-wide">
                   <CheckCircle2 className="w-2.5 h-2.5" /> Answered
@@ -168,17 +168,17 @@ function PrayerRow({ request, index, onOpen, user }) {
               {request.category && request.category !== 'All' && (
                 <span className={`text-[9px] px-1.5 py-0.5 rounded-full border font-bold uppercase tracking-wide ${catColor}`}>{request.category}</span>
               )}
-              <span className="text-[10px] text-white/30">{timeAgo(request.created_date)}</span>
+              <span className="text-[10px] text-[#3C4E53]/40">{timeAgo(request.created_date)}</span>
             </div>
           </div>
-          <p className="text-white/60 text-xs leading-relaxed line-clamp-2">{request.prayer_text}</p>
+          <p className="text-[#3C4E53]/60 text-xs leading-relaxed line-clamp-2">{request.prayer_text}</p>
           <div className="flex items-center gap-3 mt-2">
-            <span className="flex items-center gap-1 text-[11px] text-white/35"><span>🙏</span> {request.prayer_count || 0}</span>
-            <span className="flex items-center gap-1 text-[11px] text-white/35"><MessageCircle className="w-3 h-3" /> {(request.comments || []).length}</span>
+            <span className="flex items-center gap-1 text-[11px] text-[#3C4E53]/40"><span>🙏</span> {request.prayer_count || 0}</span>
+             <span className="flex items-center gap-1 text-[11px] text-[#3C4E53]/40"><MessageCircle className="w-3 h-3" /> {(request.comments || []).length}</span>
             {hasPrayed && <span className="text-[11px] text-[#c9a227] font-semibold">✓ You prayed</span>}
           </div>
         </div>
-        <ChevronRight className="w-4 h-4 text-white/20 flex-shrink-0 mt-1 group-hover:text-white/50 transition-colors" />
+        <ChevronRight className="w-4 h-4 text-[#3C4E53]/20 flex-shrink-0 mt-1 group-hover:text-[#3C4E53]/50 transition-colors" />
       </div>
     </motion.div>
   );
@@ -212,10 +212,10 @@ function PrayerDrawer({ request, user, onClose, onPray, onComment, onDelete, onM
       className="fixed inset-0 z-50 flex flex-col"
       style={{ background: 'rgba(5,15,25,0.97)', backdropFilter: 'blur(20px)' }}>
       <div className="flex-shrink-0 flex items-center justify-between px-5 pt-5 pb-3">
-        <button onClick={onClose} className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center">
-          <ArrowLeft className="w-4 h-4 text-white" />
+        <button onClick={onClose} className="w-9 h-9 rounded-full bg-[#3C4E53]/10 flex items-center justify-center">
+          <ArrowLeft className="w-4 h-4 text-[#3C4E53]" />
         </button>
-        <div className="w-10 h-1 rounded-full bg-white/20" />
+        <div className="w-10 h-1 rounded-full bg-[#3C4E53]/20" />
         {isOwner ? (
           <button onClick={() => setConfirmDelete(true)} className="w-9 h-9 rounded-full bg-red-50 dark:bg-red-900/200/15 border border-red-500/25 flex items-center justify-center">
             <Trash2 className="w-4 h-4 text-red-400" />
@@ -225,13 +225,13 @@ function PrayerDrawer({ request, user, onClose, onPray, onComment, onDelete, onM
 
       <div className="flex-1 overflow-y-auto px-5 pb-4">
         <div className="flex items-center gap-3 mb-5">
-          <div className="w-12 h-12 rounded-full flex items-center justify-center font-bold text-white"
+          <div className="w-12 h-12 rounded-full flex items-center justify-center font-bold text-[#F5F5F5]"
             style={{ background: request?.is_answered ? 'linear-gradient(135deg, #065f46, #059669)' : 'linear-gradient(135deg, #1a3a4a, #2d5a70)' }}>
             {initials(request?.user_name)}
           </div>
           <div>
-            <p className="font-bold text-white">{request?.user_name}</p>
-            <p className="text-xs text-white/40">{timeAgo(request?.created_date)}</p>
+            <p className="font-bold text-[#3C4E53]">{request?.user_name}</p>
+             <p className="text-xs text-[#3C4E53]/50">{timeAgo(request?.created_date)}</p>
           </div>
           <div className="ml-auto flex items-center gap-2">
             {request?.is_answered && (
@@ -246,14 +246,14 @@ function PrayerDrawer({ request, user, onClose, onPray, onComment, onDelete, onM
         </div>
 
         <div className="rounded-2xl p-5 mb-5" style={{ background: 'linear-gradient(135deg, rgba(201,162,39,0.08), rgba(201,162,39,0.03))', border: '1px solid rgba(201,162,39,0.2)' }}>
-          <p className="text-white leading-relaxed text-[15px]" style={{ fontFamily: 'Georgia, serif' }}>{request?.prayer_text}</p>
+          <p className="text-[#3C4E53] leading-relaxed text-[15px]" style={{ fontFamily: 'Georgia, serif' }}>{request?.prayer_text}</p>
         </div>
 
         <div className="flex gap-3 mb-3">
           <button onClick={() => { if (requireAuth(user, 'record a prayer')) onPray(); }}
             disabled={hasPrayed}
             className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-2xl font-bold text-sm transition-all ${hasPrayed ? 'opacity-60 cursor-default' : 'hover:opacity-90'}`}
-            style={{ background: 'linear-gradient(135deg, #c9a227, #C9A227)', color: 'white' }}>
+            style={{ background: 'linear-gradient(135deg, #c9a227, #C9A227)', color: '#3C4E53' }}>
             <span>🙏</span>
             {hasPrayed ? `Prayed (${request?.prayer_count || 0}) ✓` : `I Prayed (${request?.prayer_count || 0})`}
           </button>
@@ -267,23 +267,23 @@ function PrayerDrawer({ request, user, onClose, onPray, onComment, onDelete, onM
         )}
 
         <div>
-          <p className="text-[11px] font-bold text-white/40 uppercase tracking-widest mb-4">
+          <p className="text-[11px] font-bold text-[#3C4E53]/50 uppercase tracking-widest mb-4">
             {comments.length} {comments.length === 1 ? 'Comment' : 'Comments'}
           </p>
           {comments.length === 0 && (
             <div className="text-center py-6">
-              <p className="text-white/30 text-sm">Be the first to leave a word of encouragement</p>
+              <p className="text-[#3C4E53]/50 text-sm">Be the first to leave a word of encouragement</p>
             </div>
           )}
           <div className="space-y-3 mb-6">
             {[...comments].sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp)).map(comment => (
               <div key={comment.comment_id} className="rounded-xl p-4"
-                style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.06)' }}>
-                <div className="flex items-center justify-between mb-1.5">
-                  <span className="text-sm font-semibold text-white">{comment.user_name}</span>
-                  <span className="text-[10px] text-white/30">{timeAgo(comment.timestamp)}</span>
+              style={{ background: 'rgba(60,78,83,0.04)', border: '1px solid rgba(60,78,83,0.08)' }}>
+              <div className="flex items-center justify-between mb-1.5">
+                <span className="text-sm font-semibold text-[#3C4E53]">{comment.user_name}</span>
+                <span className="text-[10px] text-[#3C4E53]/40">{timeAgo(comment.timestamp)}</span>
                 </div>
-                <p className="text-sm text-white/65 leading-relaxed">{comment.comment_text}</p>
+                <p className="text-sm text-[#3C4E53]/65 leading-relaxed">{comment.comment_text}</p>
               </div>
             ))}
           </div>
@@ -291,24 +291,24 @@ function PrayerDrawer({ request, user, onClose, onPray, onComment, onDelete, onM
       </div>
 
       {!user ? (
-        <div className="flex-shrink-0 px-5 py-4 border-t border-white/8 text-center"
-          style={{ background: 'rgba(10,20,30,0.98)' }}>
-          <p className="text-white/40 text-sm">Sign in to leave encouragement</p>
+        <div className="flex-shrink-0 px-5 py-4 border-t border-[#3C4E53]/10 text-center"
+          style={{ background: 'rgba(255,247,238,0.95)' }}>
+          <p className="text-[#3C4E53]/50 text-sm">Sign in to leave encouragement</p>
         </div>
       ) : (
-        <div className="flex-shrink-0 px-5 py-4 border-t border-white/8"
-          style={{ background: 'rgba(10,20,30,0.98)', backdropFilter: 'blur(20px)' }}>
+        <div className="flex-shrink-0 px-5 py-4 border-t border-[#3C4E53]/10"
+          style={{ background: 'rgba(255,247,238,0.95)', backdropFilter: 'blur(20px)' }}>
           <div className="flex gap-2">
             <input value={commentText} onChange={e => setCommentText(e.target.value)}
               onKeyDown={e => e.key === 'Enter' && !e.shiftKey && handleComment()}
               maxLength={500}
               placeholder="Share a word of encouragement…"
-              className="flex-1 rounded-xl px-4 py-2.5 text-sm text-white placeholder-white/30 outline-none border border-white/12"
-              style={{ background: 'rgba(255,255,255,0.07)' }} />
+              className="flex-1 rounded-xl px-4 py-2.5 text-sm text-[#3C4E53] placeholder-[#3C4E53]/40 outline-none border border-[#3C4E53]/15"
+              style={{ background: 'rgba(60,78,83,0.06)' }} />
             <button onClick={handleComment} disabled={!commentText.trim() || submitting}
               className="w-10 h-10 rounded-xl flex items-center justify-center disabled:opacity-40 transition-all flex-shrink-0"
               style={{ background: 'linear-gradient(135deg, #c9a227, #C9A227)' }}>
-              {submitting ? <Loader2 className="w-4 h-4 text-white animate-spin" /> : <Send className="w-4 h-4 text-white" />}
+              {submitting ? <Loader2 className="w-4 h-4 text-[#3C4E53] animate-spin" /> : <Send className="w-4 h-4 text-[#3C4E53]" />}
             </button>
           </div>
         </div>
@@ -318,15 +318,15 @@ function PrayerDrawer({ request, user, onClose, onPray, onComment, onDelete, onM
         {confirmDelete && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
             className="absolute inset-0 flex items-end justify-center pb-8 px-5 z-60"
-            style={{ background: 'rgba(0,0,0,0.7)', backdropFilter: 'blur(8px)' }}>
-            <div className="rounded-3xl p-6 w-full max-w-sm" style={{ background: '#0f1f2f', border: '1px solid rgba(255,255,255,0.1)' }}>
-              <p className="font-bold text-white text-center mb-1">Delete prayer request?</p>
-              <p className="text-white/40 text-sm text-center mb-5">This cannot be undone.</p>
+            style={{ background: 'rgba(0,0,0,0.4)', backdropFilter: 'blur(8px)' }}>
+            <div className="rounded-3xl p-6 w-full max-w-sm" style={{ background: '#FEF7EE', border: '1px solid rgba(201,162,39,0.2)' }}>
+              <p className="font-bold text-[#3C4E53] text-center mb-1">Delete prayer request?</p>
+              <p className="text-[#3C4E53]/60 text-sm text-center mb-5">This cannot be undone.</p>
               <div className="flex gap-3">
                 <button onClick={() => setConfirmDelete(false)}
-                  className="flex-1 py-3 rounded-2xl border border-white/15 text-white/60 font-semibold text-sm">Cancel</button>
+                  className="flex-1 py-3 rounded-2xl border border-[#3C4E53]/20 text-[#3C4E53]/60 font-semibold text-sm">Cancel</button>
                 <button onClick={() => { onDelete(); setConfirmDelete(false); }}
-                  className="flex-1 py-3 rounded-2xl bg-red-50 dark:bg-red-900/200/80 text-white font-bold text-sm">Delete</button>
+                  className="flex-1 py-3 rounded-2xl bg-red-50 dark:bg-red-900/200/80 text-[#3C4E53] font-bold text-sm">Delete</button>
               </div>
             </div>
           </motion.div>
@@ -354,27 +354,27 @@ function NewPrayerModal({ user, onClose, onSubmit }) {
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-      className="fixed inset-0 z-50 flex flex-col justify-end"
-      style={{ background: 'rgba(5,15,25,0.85)', backdropFilter: 'blur(16px)' }}
+       className="fixed inset-0 z-50 flex flex-col justify-end"
+       style={{ background: 'rgba(60,78,83,0.3)', backdropFilter: 'blur(16px)' }}
       onClick={e => e.target === e.currentTarget && onClose()}>
       <motion.div initial={{ y: '100%' }} animate={{ y: 0 }} exit={{ y: '100%' }}
         transition={{ type: 'spring', damping: 28, stiffness: 320 }}
         className="rounded-t-3xl px-5 pt-5 pb-8"
-        style={{ background: 'linear-gradient(180deg, #0f2027 0%, #0a1520 100%)', border: '1px solid rgba(255,255,255,0.08)', borderBottom: 'none' }}>
-        <div className="w-10 h-1 rounded-full bg-white/20 mx-auto mb-5" />
+        style={{ background: 'linear-gradient(180deg, #FEF7EE 0%, #FDF3E6 100%)', border: '1px solid rgba(201,162,39,0.2)', borderBottom: 'none' }}>
+        <div className="w-10 h-1 rounded-full bg-[#3C4E53]/20 mx-auto mb-5" />
 
         {!reviewing ? (
           <>
             <div className="flex items-center justify-between mb-5">
-              <h2 className="text-lg font-bold text-white" style={{ fontFamily: 'Georgia, serif' }}>Share Prayer Request</h2>
-              <button onClick={onClose} className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center">
-                <X className="w-4 h-4 text-white" />
+              <h2 className="text-lg font-bold text-[#3C4E53]" style={{ fontFamily: 'Georgia, serif' }}>Share Prayer Request</h2>
+              <button onClick={onClose} className="w-8 h-8 rounded-full bg-[#3C4E53]/10 flex items-center justify-center">
+                <X className="w-4 h-4 text-[#3C4E53]" />
               </button>
             </div>
             <div className="flex gap-2 flex-wrap mb-4">
               {CATEGORIES.filter(c => c !== 'All').map(cat => (
-                <button key={cat} onClick={() => setCategory(cat)}
-                  className={`text-xs px-3 py-1.5 rounded-full border font-semibold transition-all ${category === cat ? 'bg-[#c9a227] border-[#c9a227] text-white' : 'bg-white/5 border-white/10 text-white/50 hover:border-white/30'}`}>
+                 <button key={cat} onClick={() => setCategory(cat)}
+                   className={`text-xs px-3 py-1.5 rounded-full border font-semibold transition-all ${category === cat ? 'bg-[#c9a227] border-[#c9a227] text-[#3C4E53]' : 'bg-[#3C4E53]/5 border-[#3C4E53]/10 text-[#3C4E53]/50 hover:border-[#3C4E53]/30'}`}>
                   {cat}
                 </button>
               ))}
@@ -382,17 +382,17 @@ function NewPrayerModal({ user, onClose, onSubmit }) {
             <textarea value={text} onChange={e => setText(e.target.value)}
               placeholder="Share what's on your heart…"
               maxLength={1000}
-              className="w-full rounded-2xl px-4 py-3 min-h-[120px] mb-4 resize-none text-sm text-white placeholder-white/30 outline-none"
-              style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.12)', fontFamily: 'Georgia, serif', lineHeight: '1.7' }} />
+              className="w-full rounded-2xl px-4 py-3 min-h-[120px] mb-4 resize-none text-sm text-[#3C4E53] placeholder-[#3C4E53]/40 outline-none"
+              style={{ background: 'rgba(60,78,83,0.06)', border: '1px solid rgba(60,78,83,0.15)', fontFamily: 'Georgia, serif', lineHeight: '1.7' }} />
             <button onClick={() => setAnonymous(p => !p)}
-              className={`flex items-center gap-2 text-sm mb-5 transition-colors ${anonymous ? 'text-[#c9a227]' : 'text-white/40'}`}>
-              <div className={`w-4 h-4 rounded flex items-center justify-center border transition-all ${anonymous ? 'bg-[#c9a227] border-[#c9a227]' : 'border-white/25'}`}>
+              className={`flex items-center gap-2 text-sm mb-5 transition-colors ${anonymous ? 'text-[#c9a227]' : 'text-[#3C4E53]/50'}`}>
+              <div className={`w-4 h-4 rounded flex items-center justify-center border transition-all ${anonymous ? 'bg-[#c9a227] border-[#c9a227]' : 'border-[#3C4E53]/25'}`}>
                 {anonymous && <Shield className="w-2.5 h-2.5 text-white" />}
               </div>
               Post anonymously
             </button>
             <button onClick={() => text.trim() && setReviewing(true)} disabled={!text.trim()}
-              className="w-full py-4 rounded-2xl font-bold text-white text-sm disabled:opacity-40 transition-all"
+              className="w-full py-4 rounded-2xl font-bold text-[#3C4E53] text-sm disabled:opacity-40 transition-all"
               style={{ background: 'linear-gradient(135deg, #c9a227, #C9A227)' }}>
               Review Before Posting →
             </button>
@@ -400,28 +400,28 @@ function NewPrayerModal({ user, onClose, onSubmit }) {
         ) : (
           <>
             <div className="flex items-center justify-between mb-5">
-              <button onClick={() => setReviewing(false)} className="flex items-center gap-1.5 text-white/60 text-sm font-semibold">
+              <button onClick={() => setReviewing(false)} className="flex items-center gap-1.5 text-[#3C4E53]/60 text-sm font-semibold">
                 <ArrowLeft className="w-4 h-4" /> Edit
               </button>
-              <h2 className="text-sm font-bold text-white/60 uppercase tracking-wide">Review</h2>
+              <h2 className="text-sm font-bold text-[#3C4E53]/60 uppercase tracking-wide">Review</h2>
               <div className="w-14" />
             </div>
             <div className="rounded-2xl p-4 mb-3" style={{ background: 'rgba(201,162,39,0.08)', border: '1px solid rgba(201,162,39,0.2)' }}>
               <div className="flex items-center gap-2 mb-3">
-                <div className="w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs text-white" style={{ background: 'linear-gradient(135deg, #1a3a4a, #2d5a70)' }}>
-                  {initials(anonymous ? 'Anonymous' : user?.full_name)}
-                </div>
-                <div>
-                  <p className="text-white text-sm font-semibold">{anonymous ? 'Anonymous' : user?.full_name}</p>
+                <div className="w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs text-[#F5F5F5]" style={{ background: 'linear-gradient(135deg, #1a3a4a, #2d5a70)' }}>
+                    {initials(anonymous ? 'Anonymous' : user?.full_name)}
+                  </div>
+                  <div>
+                    <p className="text-[#3C4E53] text-sm font-semibold">{anonymous ? 'Anonymous' : user?.full_name}</p>
                   <span className={`text-[9px] px-1.5 py-0.5 rounded-full border font-bold uppercase tracking-wide ${CATEGORY_COLORS[category] || CATEGORY_COLORS.Other}`}>{category}</span>
                 </div>
               </div>
-              <p className="text-white/80 text-sm leading-relaxed" style={{ fontFamily: 'Georgia, serif' }}>{text}</p>
+              <p className="text-[#3C4E53]/80 text-sm leading-relaxed" style={{ fontFamily: 'Georgia, serif' }}>{text}</p>
             </div>
-            <p className="text-white/35 text-xs text-center mb-5">This will be visible to everyone on the prayer wall.</p>
+            <p className="text-[#3C4E53]/50 text-xs text-center mb-5">This will be visible to everyone on the prayer wall.</p>
             <button onClick={handleSubmit} disabled={submitting}
-              className="w-full py-4 rounded-2xl font-bold text-white text-sm disabled:opacity-40 transition-all flex items-center justify-center gap-2"
-              style={{ background: submitting ? '#555' : 'linear-gradient(135deg, #c9a227, #C9A227)' }}>
+              className="w-full py-4 rounded-2xl font-bold text-[#3C4E53] text-sm disabled:opacity-40 transition-all flex items-center justify-center gap-2"
+              style={{ background: submitting ? '#d9d9d9' : 'linear-gradient(135deg, #c9a227, #C9A227)' }}>
               {submitting ? <><Loader2 className="w-4 h-4 animate-spin" /> Submitting…</> : <>🙏 Submit Prayer Request</>}
             </button>
           </>
@@ -469,8 +469,8 @@ function ActsGuidedPrayer({ onComplete, user }) {
     <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}
       className="rounded-3xl p-6 text-center" style={{ background: 'rgba(201,162,39,0.08)', border: '1px solid rgba(201,162,39,0.2)' }}>
       <div className="text-4xl mb-3">🙏</div>
-      <p className="font-bold text-white text-lg mb-1" style={{ fontFamily: 'Georgia, serif' }}>Prayer complete</p>
-      <p className="text-white/45 text-sm mb-4">He heard every word.</p>
+      <p className="font-bold text-[#3C4E53] text-lg mb-1" style={{ fontFamily: 'Georgia, serif' }}>Prayer complete</p>
+      <p className="text-[#3C4E53]/60 text-sm mb-4">He heard every word.</p>
       <div className="flex justify-center my-3">
         <ShareToFeedButton
           type="spiritual_insight"
@@ -483,23 +483,23 @@ function ActsGuidedPrayer({ onComplete, user }) {
         />
       </div>
       <button onClick={() => { setStep(0); setAnswers({ adoration: '', confession: '', thanksgiving: '', supplication: '' }); setDone(false); }}
-        className="text-xs font-bold text-white/40 hover:text-white/70 transition-colors">Pray again →</button>
+        className="text-xs font-bold text-[#3C4E53]/50 hover:text-[#3C4E53]/70 transition-colors">Pray again →</button>
     </motion.div>
   );
 
   return (
-    <div className="rounded-3xl overflow-hidden" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)' }}>
+    <div className="rounded-3xl overflow-hidden" style={{ background: 'rgba(232,112,31,0.06)', border: '1px solid rgba(232,112,31,0.15)' }}>
       <div className="px-5 pt-5 pb-0">
         <div className="flex items-center justify-between mb-4">
           <div>
-            <p className="text-[10px] font-bold text-white/30 uppercase tracking-widest">Guided Prayer</p>
-            <p className="text-white font-bold mt-0.5" style={{ fontFamily: 'Georgia, serif' }}>ACTS Model</p>
+            <p className="text-[10px] font-bold text-[#3C4E53]/50 uppercase tracking-widest">Guided Prayer</p>
+            <p className="text-[#3C4E53] font-bold mt-0.5" style={{ fontFamily: 'Georgia, serif' }}>ACTS Model</p>
           </div>
           <div className="flex gap-2">
             {ACTS_STEPS.map((s, i) => (
               <div key={s.key} className="flex flex-col items-center gap-1">
-                <div className="w-7 h-1 rounded-full transition-all duration-300" style={{ background: i <= step ? s.color : 'rgba(255,255,255,0.1)' }} />
-                <span className="text-[8px] text-white/25 font-bold uppercase">{s.label.slice(0, 1)}</span>
+                <div className="w-7 h-1 rounded-full transition-all duration-300" style={{ background: i <= step ? s.color : 'rgba(60,78,83,0.1)' }} />
+                <span className="text-[8px] text-[#3C4E53]/40 font-bold uppercase">{s.label.slice(0, 1)}</span>
               </div>
             ))}
           </div>
@@ -512,15 +512,15 @@ function ActsGuidedPrayer({ onComplete, user }) {
               <span className="text-xl">{current.emoji}</span>
               <span className="text-sm font-bold" style={{ color: current.color }}>{current.label}</span>
             </div>
-            <p className="text-white/45 text-xs leading-relaxed mb-3">{current.prompt}</p>
+            <p className="text-[#3C4E53]/60 text-xs leading-relaxed mb-3">{current.prompt}</p>
             <textarea
               value={answers[current.key]}
               onChange={e => setAnswers(a => ({ ...a, [current.key]: e.target.value }))}
               placeholder={current.placeholder}
               maxLength={1000}
               rows={4} autoFocus
-              className="w-full rounded-2xl px-4 py-3 text-sm leading-relaxed resize-none outline-none text-white placeholder-white/20"
-              style={{ background: 'rgba(255,255,255,0.06)', border: `1px solid ${current.color}30`, caretColor: current.color }}
+              className="w-full rounded-2xl px-4 py-3 text-sm leading-relaxed resize-none outline-none text-[#3C4E53] placeholder-[#3C4E53]/30"
+              style={{ background: 'rgba(60,78,83,0.05)', border: `1px solid ${current.color}30`, caretColor: current.color }}
             />
           </motion.div>
         </AnimatePresence>
@@ -529,20 +529,20 @@ function ActsGuidedPrayer({ onComplete, user }) {
       <div className="flex items-center gap-2 px-5 py-4">
         {step > 0 && (
           <button onClick={() => setStep(s => s - 1)}
-            className="px-4 py-2.5 rounded-2xl text-xs font-bold text-white/40 border border-white/10 hover:border-white/25 transition-colors">
+            className="px-4 py-2.5 rounded-2xl text-xs font-bold text-[#3C4E53]/50 border border-[#3C4E53]/15 hover:border-[#3C4E53]/30 transition-colors">
             ← Back
           </button>
         )}
         {step < 3 ? (
           <button onClick={() => answers[current.key].trim() && setStep(s => s + 1)}
             disabled={!answers[current.key].trim()}
-            className="flex-1 py-2.5 rounded-2xl text-xs font-bold text-white transition-all disabled:opacity-30"
-            style={{ background: answers[current.key].trim() ? `linear-gradient(135deg, ${current.color}, ${current.color}99)` : 'rgba(255,255,255,0.08)' }}>
+            className="flex-1 py-2.5 rounded-2xl text-xs font-bold text-[#3C4E53] transition-all disabled:opacity-30"
+            style={{ background: answers[current.key].trim() ? `linear-gradient(135deg, ${current.color}, ${current.color}99)` : 'rgba(60,78,83,0.08)' }}>
             Next: {ACTS_STEPS[step + 1].label} →
           </button>
         ) : (
           <button onClick={finish} disabled={!answers.supplication.trim() || saving}
-            className="flex-1 py-2.5 rounded-2xl text-xs font-bold text-white transition-all disabled:opacity-30"
+            className="flex-1 py-2.5 rounded-2xl text-xs font-bold text-[#3C4E53] transition-all disabled:opacity-30"
             style={{ background: 'linear-gradient(135deg, #c9a227, #C9A227)' }}>
             {saving ? 'Saving…' : '🙏 Complete Prayer'}
           </button>
@@ -581,19 +581,19 @@ function MyPrayers() {
   };
 
   return (
-    <div className="rounded-3xl overflow-hidden" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)' }}>
+    <div className="rounded-3xl overflow-hidden" style={{ background: 'rgba(232,112,31,0.06)', border: '1px solid rgba(232,112,31,0.15)' }}>
       <div className="flex items-center justify-between px-5 pt-5 pb-3">
         <div className="flex items-center gap-2.5">
-          <Lock className="w-3.5 h-3.5 text-white/30" />
+          <Lock className="w-3.5 h-3.5 text-[#3C4E53]/50" />
           <div>
-            <p className="text-[10px] font-bold text-white/30 uppercase tracking-widest">My Prayers</p>
-            <p className="text-white font-bold mt-0.5 text-sm" style={{ fontFamily: 'Georgia, serif' }}>Private — just you and God</p>
+            <p className="text-[10px] font-bold text-[#3C4E53]/50 uppercase tracking-widest">My Prayers</p>
+            <p className="text-[#3C4E53] font-bold mt-0.5 text-sm" style={{ fontFamily: 'Georgia, serif' }}>Private — just you and God</p>
           </div>
         </div>
         <button onClick={() => setAdding(a => !a)}
           className="w-8 h-8 rounded-full flex items-center justify-center transition-all"
-          style={{ background: adding ? 'rgba(201,162,39,0.3)' : 'rgba(255,255,255,0.08)' }}>
-          <Plus className="w-4 h-4 text-white" />
+          style={{ background: adding ? 'rgba(201,162,39,0.3)' : 'rgba(60,78,83,0.08)' }}>
+          <Plus className="w-4 h-4 text-[#3C4E53]" />
         </button>
       </div>
 
@@ -605,13 +605,13 @@ function MyPrayers() {
               placeholder="Bring your request to God…"
               maxLength={500}
               rows={3} autoFocus
-              className="w-full rounded-2xl px-4 py-3 text-sm resize-none outline-none text-white placeholder-white/20 mb-2"
-              style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(201,162,39,0.2)' }}
+              className="w-full rounded-2xl px-4 py-3 text-sm resize-none outline-none text-[#3C4E53] placeholder-[#3C4E53]/40 mb-2"
+              style={{ background: 'rgba(60,78,83,0.06)', border: '1px solid rgba(201,162,39,0.2)' }}
               onKeyDown={e => { if (e.key === 'Enter' && e.metaKey) add(); }} />
             <div className="flex gap-2">
-              <button onClick={() => setAdding(false)} className="flex-1 py-2 rounded-xl text-xs font-bold text-white/40 border border-white/10">Cancel</button>
+              <button onClick={() => setAdding(false)} className="flex-1 py-2 rounded-xl text-xs font-bold text-[#3C4E53]/50 border border-[#3C4E53]/15">Cancel</button>
               <button onClick={add} disabled={!text.trim()}
-                className="flex-1 py-2 rounded-xl text-xs font-bold text-white disabled:opacity-30"
+                className="flex-1 py-2 rounded-xl text-xs font-bold text-[#3C4E53] disabled:opacity-30"
                 style={{ background: 'linear-gradient(135deg, #c9a227, #C9A227)' }}>Add Prayer</button>
             </div>
           </motion.div>
@@ -621,8 +621,8 @@ function MyPrayers() {
       <div className="px-5 pb-5 space-y-2">
         {prayers.length === 0 && !adding && (
           <div className="text-center py-5">
-            <p className="text-white/25 text-xs">Your private prayers live here — only you can see them</p>
-            <button onClick={() => setAdding(true)} className="mt-3 text-xs font-bold text-[#c9a227]/60 hover:text-[#c9a227] transition-colors">
+            <p className="text-[#3C4E53]/50 text-xs">Your private prayers live here — only you can see them</p>
+            <button onClick={() => setAdding(true)} className="mt-3 text-xs font-bold text-[#c9a227]/70 hover:text-[#c9a227] transition-colors">
               + Add your first prayer
             </button>
           </div>
@@ -633,11 +633,11 @@ function MyPrayers() {
             <button onClick={() => toggleAnswered(p.id)} className="mt-0.5 flex-shrink-0">
               {p.answered
                 ? <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                : <div className="w-4 h-4 rounded-full border border-white/20 hover:border-white/40 transition-colors" />}
+                : <div className="w-4 h-4 rounded-full border border-[#3C4E53]/30 hover:border-[#3C4E53]/50 transition-colors" />}
             </button>
-            <p className={`text-sm flex-1 leading-relaxed ${p.answered ? 'text-white/35 line-through' : 'text-white/75'}`}
+            <p className={`text-sm flex-1 leading-relaxed ${p.answered ? 'text-[#3C4E53]/50 line-through' : 'text-[#3C4E53]/75'}`}
               style={{ fontFamily: 'Georgia, serif' }}>{p.text}</p>
-            <button onClick={() => remove(p.id)} className="flex-shrink-0 text-white/0 group-hover:text-white/25 hover:!text-red-400 transition-all">
+            <button onClick={() => remove(p.id)} className="flex-shrink-0 text-[#3C4E53]/0 group-hover:text-[#3C4E53]/30 hover:!text-red-500 transition-all">
               <X className="w-3.5 h-3.5" />
             </button>
           </div>
