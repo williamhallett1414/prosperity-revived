@@ -3,7 +3,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import {
   UtensilsCrossed, Plus, Sparkles, TrendingUp, Users, BookOpen,
-  ShoppingCart, ArrowUpDown, Heart
+  ShoppingCart, ArrowUpDown, Heart, Menu, X
 } from 'lucide-react';
 import RecipeCard          from '@/components/wellness/RecipeCard';
 import RecipeFilters       from '@/components/wellness/RecipeFilters';
@@ -73,6 +73,7 @@ export default function DiscoverRecipes() {
   const [cartOpen,   setCartOpen]   = useState(false);
   const [chefOpen,   setChefOpen]   = useState(false);
   const [showSort,   setShowSort]   = useState(false);
+  const [showMenu,   setShowMenu]   = useState(false);
   const [sort,       setSort]       = useState('newest');
   const [filters,    setFilters]    = useState({
     search: '', dietType: 'all', category: 'all', prepTime: 'all',
@@ -175,38 +176,12 @@ export default function DiscoverRecipes() {
               </div>
             </div>
 
-            <div className="flex items-center gap-1.5">
-              {/* Sort — hidden on health / collections tabs */}
-              {showFilters && (
-                <div className="relative">
-                  <button onClick={() => setShowSort(s => !s)}
-                    className="flex items-center gap-1 px-2.5 py-2 rounded-xl border border-[#FAD98D]/30 bg-[#FAD98D]/10 text-[11px] font-bold text-[#c9a227] hover:bg-[#FAD98D]/20 transition-colors">
-                    <ArrowUpDown className="w-3 h-3" />
-                    {activeSort?.label}
-                  </button>
-                  {showSort && (
-                    <div className="absolute right-0 top-full mt-2 bg-white dark:bg-[#0A1A2F] rounded-2xl border border-[#FAD98D]/20 shadow-xl dark:shadow-none py-2 z-50 min-w-[130px]">
-                      {SORT_OPTIONS.map(opt => (
-                        <button key={opt.value}
-                          onClick={() => { setSort(opt.value); setShowSort(false); }}
-                          className={`w-full text-left px-4 py-2.5 text-xs font-semibold transition-colors ${
-                            sort === opt.value
-                              ? 'text-[#c9a227] bg-[#FAD98D]/15'
-                              : 'text-[#0A1A2F]/60 dark:text-white/60 hover:bg-[#FAD98D]/10'
-                          }`}>
-                          {opt.label}
-                        </button>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              )}
-
-              {/* Cart */}
-              <button onClick={() => setCartOpen(true)}
+            {/* Hamburger menu */}
+            <div className="relative">
+              <button onClick={() => setShowMenu(v => !v)}
                 className="relative w-9 h-9 rounded-xl bg-[#FAD98D]/10 border border-[#FAD98D]/25 flex items-center justify-center text-[#c9a227] hover:bg-[#FAD98D]/25 transition-colors">
-                <ShoppingCart className="w-4 h-4" />
-                {totalCount > 0 && (
+                {showMenu ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+                {totalCount > 0 && !showMenu && (
                   <span className="absolute -top-1.5 -right-1.5 bg-[#c9a227] text-white text-[9px] font-bold rounded-full flex items-center justify-center shadow-sm"
                     style={{ width: 17, height: 17 }}>
                     {totalCount > 99 ? '99' : totalCount}
@@ -214,11 +189,44 @@ export default function DiscoverRecipes() {
                 )}
               </button>
 
-              {/* Add */}
-              <button onClick={() => setShowCreate(true)}
-                className="flex items-center gap-1.5 bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white text-[11px] font-bold px-3 py-2 rounded-xl hover:opacity-90 shadow-md shadow-[#c9a227]/20 transition-opacity">
-                <Plus className="w-3.5 h-3.5" /> Add
-              </button>
+              {showMenu && (
+                <div className="absolute right-0 top-full mt-2 bg-white dark:bg-[#0A1A2F] rounded-2xl border border-[#FAD98D]/20 shadow-xl dark:shadow-none py-2 z-50 min-w-[160px]">
+                  {/* Add Recipe */}
+                  <button onClick={() => { setShowCreate(true); setShowMenu(false); }}
+                    className="w-full text-left px-4 py-2.5 text-xs font-semibold text-[#0A1A2F]/70 dark:text-white/70 hover:bg-[#FAD98D]/10 flex items-center gap-2.5">
+                    <Plus className="w-3.5 h-3.5 text-[#c9a227]" /> Add Recipe
+                  </button>
+                  {/* Grocery list */}
+                  <button onClick={() => { setCartOpen(true); setShowMenu(false); }}
+                    className="w-full text-left px-4 py-2.5 text-xs font-semibold text-[#0A1A2F]/70 dark:text-white/70 hover:bg-[#FAD98D]/10 flex items-center gap-2.5">
+                    <ShoppingCart className="w-3.5 h-3.5 text-[#c9a227]" />
+                    Grocery List
+                    {totalCount > 0 && (
+                      <span className="ml-auto bg-[#c9a227] text-white text-[9px] font-bold rounded-full px-1.5 py-0.5">{totalCount}</span>
+                    )}
+                  </button>
+                  {/* Sort — hidden on health / collections tabs */}
+                  {showFilters && (
+                    <>
+                      <div className="border-t border-[#FAD98D]/15 my-1" />
+                      <p className="px-4 pt-1 pb-0.5 text-[9px] font-bold text-[#0A1A2F]/30 dark:text-white/30 uppercase tracking-widest">Sort by</p>
+                      {SORT_OPTIONS.map(opt => (
+                        <button key={opt.value}
+                          onClick={() => { setSort(opt.value); setShowMenu(false); }}
+                          className={`w-full text-left px-4 py-2 text-xs font-semibold flex items-center gap-2 transition-colors ${
+                            sort === opt.value
+                              ? 'text-[#c9a227] bg-[#FAD98D]/15'
+                              : 'text-[#0A1A2F]/60 dark:text-white/60 hover:bg-[#FAD98D]/10'
+                          }`}>
+                          <ArrowUpDown className="w-3 h-3 opacity-50" />
+                          {opt.label}
+                          {sort === opt.value && <span className="ml-auto text-[#c9a227]">✓</span>}
+                        </button>
+                      ))}
+                    </>
+                  )}
+                </div>
+              )}
             </div>
           </div>
 
