@@ -40,42 +40,48 @@ export default function Layout({ children, currentPageName }) {
   const [showGuidedTour, setShowGuidedTour] = useState(false);
 
   // Age verification + onboarding gate
-  const [ageVerified, setAgeVerified] = useState(() => !!localStorage.getItem('age_verified'));
-  const [onboardingDone, setOnboardingDone] = useState(() => !!localStorage.getItem('onboarding_done'));
+  // IMPORTANT: Don't trust localStorage alone — iOS WebView persists it after uninstall.
+  // Always verify against the database when the user object loads.
+  const [ageVerified, setAgeVerified] = useState(false);
+  const [onboardingDone, setOnboardingDone] = useState(false);
   const [userLoaded, setUserLoaded] = useState(false);
   const [needsAgeCheck, setNeedsAgeCheck] = useState(false);
   const [needsOnboarding, setNeedsOnboarding] = useState(false);
 
   useEffect(() => {
     base44.auth.me().then(u => {
-      // Age check
-      if (!ageVerified) {
-        if (u?.age_group && u.age_group !== 'under13') {
-          localStorage.setItem('age_verified', '1');
-          setAgeVerified(true);
-        } else {
-          setNeedsAgeCheck(true);
-          setUserLoaded(true);
-          return;
-        }
+      // Age check — verify from DB, not localStorage
+      if (u?.age_group && u.age_group !== 'under13') {
+        localStorage.setItem('age_verified', '1');
+        setAgeVerified(true);
+      } else {
+        // Clear stale localStorage if DB says not verified
+        localStorage.removeItem('age_verified');
+        setNeedsAgeCheck(true);
+        setUserLoaded(true);
+        return;
       }
-      // Onboarding check — if user has NOT completed onboarding, show it
-      // This checks the DB field first, then falls back to requiring onboarding
-      if (!onboardingDone) {
-        if (u?.onboarding_completed === true) {
-          // User already completed onboarding (maybe on another device)
-          localStorage.setItem('onboarding_done', '1');
-          setOnboardingDone(true);
-        } else {
-          // New user OR user who never finished — show onboarding
-          setNeedsOnboarding(true);
-        }
+
+      // Onboarding check — DB is the source of truth
+      if (u?.onboarding_completed === true) {
+        localStorage.setItem('onboarding_done', '1');
+        setOnboardingDone(true);
+      } else {
+        // Clear stale localStorage — DB says not completed
+        localStorage.removeItem('onboarding_done');
+        localStorage.removeItem('full_tour_shown');
+        setNeedsOnboarding(true);
       }
       setUserLoaded(true);
     }).catch(() => {
-      // Auth failed — still check if onboarding is needed
-      if (!onboardingDone) {
+      // Auth failed — check localStorage as fallback
+      if (localStorage.getItem('onboarding_done')) {
+        setOnboardingDone(true);
+      } else {
         setNeedsOnboarding(true);
+      }
+      if (localStorage.getItem('age_verified')) {
+        setAgeVerified(true);
       }
       setUserLoaded(true);
     });

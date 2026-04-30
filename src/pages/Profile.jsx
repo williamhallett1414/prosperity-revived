@@ -18,10 +18,10 @@ import {
   AlertDialogTrigger } from
 '@/components/ui/alert-dialog';
 
-import AboutTab from '@/components/profile/facebook/AboutTab';
-import FriendsTab from '@/components/profile/facebook/FriendsTab';
-import PhotosTab from '@/components/profile/facebook/PhotosTab';
-import TimelineTab from '@/components/profile/facebook/TimelineTab';
+const AboutTab = React.lazy(() => import('@/components/profile/facebook/AboutTab'));
+const FriendsTab = React.lazy(() => import('@/components/profile/facebook/FriendsTab'));
+const PhotosTab = React.lazy(() => import('@/components/profile/facebook/PhotosTab'));
+const TimelineTab = React.lazy(() => import('@/components/profile/facebook/TimelineTab'));
 import ChatbotPreferencesTab from '@/components/profile/ChatbotPreferencesTab';
 
 // ─── Tabs ──────────────────────────────────────────────────────────────────────
@@ -519,7 +519,7 @@ export default function Profile() {
                   <p className="text-xs text-[#0A1A2F]/30 dark:text-white/30 mt-1">Share your journey with the community!</p>
                 </div>
               ) : (
-                <TimelineTab user={user} posts={myPosts} comments={[]} />
+                <React.Suspense fallback={<div className="flex justify-center py-8"><div className="w-6 h-6 border-2 border-[#FAD98D] dark:border-[#FAD98D]/30 border-t-transparent rounded-full animate-spin"/></div>}><TimelineTab user={user} posts={myPosts} comments={[]} /></React.Suspense>
               )}
             </div>
           </div>
@@ -528,7 +528,7 @@ export default function Profile() {
         {/* ABOUT ── bio editor + account settings */}
         {activeTab === 'about' &&
         <>
-            <AboutTab user={user} />
+            <React.Suspense fallback={<div className="flex justify-center py-8"><div className="w-6 h-6 border-2 border-[#FAD98D] dark:border-[#FAD98D]/30 border-t-transparent rounded-full animate-spin"/></div>}><AboutTab user={user} /></React.Suspense>
 
             {/* Account settings — only on About tab */}
             <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
@@ -581,12 +581,12 @@ export default function Profile() {
 
         {/* FRIENDS */}
         {activeTab === 'friends' &&
-        <FriendsTab friends={friends} user={user} />
+        <React.Suspense fallback={<div className="flex justify-center py-8"><div className="w-6 h-6 border-2 border-[#FAD98D] dark:border-[#FAD98D]/30 border-t-transparent rounded-full animate-spin"/></div>}><FriendsTab friends={friends} user={user} /></React.Suspense>
         }
 
         {/* PHOTOS */}
         {activeTab === 'photos' &&
-        <PhotosTab user={user} />
+        <React.Suspense fallback={<div className="flex justify-center py-8"><div className="w-6 h-6 border-2 border-[#FAD98D] dark:border-[#FAD98D]/30 border-t-transparent rounded-full animate-spin"/></div>}><PhotosTab user={user} /></React.Suspense>
         }
 
         {/* AI GUIDES ── chatbot preferences */}
