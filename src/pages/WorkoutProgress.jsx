@@ -61,6 +61,19 @@ export default function WorkoutProgress() {
   return (
     <div className="min-h-screen bg-white dark:bg-white/5 pb-24">
 
+      {/* Header */}
+      <div className="px-4 pt-5 pb-2 max-w-4xl mx-auto">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#38BDF8] to-[#1e40af] flex items-center justify-center">
+            <Activity className="w-5 h-5 text-white" />
+          </div>
+          <div>
+            <h1 className="text-xl font-bold text-[#0A1A2F] dark:text-white">Workout Progress</h1>
+            <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45">Track your gains over time</p>
+          </div>
+        </div>
+      </div>
+
       <div className="max-w-4xl mx-auto px-4 space-y-6 pt-4">
 
         {/* Stats Grid */}
