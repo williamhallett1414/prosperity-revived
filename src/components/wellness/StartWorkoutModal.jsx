@@ -1250,12 +1250,12 @@ export default function StartWorkoutModal({ isOpen, onClose, workout, user, onCo
       </DialogContent>
     </Dialog>
     {createPortal(
-      <CoachDavidBubble
-        trigger={coachTrigger?.split('_')[0]}
-        onDismiss={() => {}}
-      />,
-      document.body
+     <CoachDavidBubble
+       trigger={coachTrigger?.split('_')[0]}
+       onDismiss={() => {}}
+     />,
+     document.body
     )}
     </>
-  );
-}
+    );
+    }
