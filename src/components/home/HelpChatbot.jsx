@@ -506,6 +506,9 @@ const QUICK_ACTIONS = [
   { icon: Salad,    label: 'Show my nutrition goals',   sub: '6-step diet, macros & recipes tour',       color: '#22C55E', tourKey: 'nutrition_goals' },
   { icon: BookOpen, label: 'Show my Bible study profile',sub: '6-step translation & topics tour',        color: '#C9A227', tourKey: 'bible_goals' },
   { icon: Brain,    label: 'Show my growth profile',    sub: '6-step areas, values & tools tour',        color: '#AFC7E3', tourKey: 'growth_goals' },
+  { icon: Target,   label: 'What is the 40-Day Wilderness?', sub: 'Our toughest spiritual challenge',       color: '#92400E', tourKey: null,   pageShortcuts: ['challenges'] },
+  { icon: Play,     label: 'How do AI video avatars work?',  sub: 'Meet your animated coaching guides',     color: '#FD9C2D', tourKey: 'ai_coaches' },
+  { icon: Sparkles, label: 'How does the app remember me?',  sub: 'Adaptive AI memory explained',           color: '#EC4899', tourKey: null },
 ];
 
 // ── System prompt for LLM ─────────────────────────────────────────────────────
@@ -513,16 +516,20 @@ const SYSTEM_PROMPT = `You are the in-app guide for "Prosperity Revived," a Chri
 Respond in structured JSON only. No markdown, no preamble.
 
 App features:
-- Home: daily ritual (Start/End My Day), today's scripture, progress ring, AI coach nudges
-- Bible: 66-book reader, Gideon AI spiritual guide, Read/Study/Devotional tabs, bookmarks, topic search
-- Wellness > Workouts: 33+ workouts in 6 categories, workout trends, quick-start, browse by category, Fitness Goals page (BMI, TDEE/calorie calculator, macro split, goal timeline, weight log, hydration goal, Coach David CTA)
-- Wellness > Nutrition: macro tracking, meal logging, water tracker, meal planner, Chef Daniel AI coach, Nutrition Goals page (calorie target by diet type, macro split, meal schedule by meals/day including intermittent fasting, allergen list, water goal, recipe ideas per diet)
-- Personal Growth: habit builder, emotional check-in, gratitude journal, affirmations, guided meditations, identity in Christ, Hannah AI growth coach
-- Community: feed, groups (Bible study/workout/prayer), blog, challenges, leaderboards, friends
-- Profile: progress dashboard (Journey), achievements/badges, journal entries, settings
-- 4 AI coaches: Hannah (personal growth/emotions), Gideon (spiritual/Bible), Coach David (fitness), Chef Daniel (nutrition)
+- Home: daily ritual (Start/End My Day), today's scripture, Grace Moment, Talk to Your Guides (video avatars), coaching plans
+- Bible: 66-book reader, Gideon AI spiritual guide with video avatar & tabernacle background, sermon recorder, reading plans, bookmarks
+- Wellness > Workouts: 33+ workouts in 6 categories, workout countdown timer, trends, Coach David AI with video avatar & iron temple background, Fitness Goals page
+- Wellness > Nutrition: macro tracking, meal logging, water tracker, 77 auto-seeded recipes, meal planner, Chef Daniel AI with video avatar & herb garden background, Nutrition Goals page
+- Personal Growth: habit builder, emotional check-in, gratitude journal, affirmations, guided meditations with Hannah Cloud TTS voice, identity in Christ, Hannah AI with video avatar & sacred garden background
+- Community: feed with reporting & blocking, groups (Bible study/workout/prayer), blog, challenges including 40 Days in the Wilderness flagship challenge, leaderboards, find friends
+- Profile: progress dashboard, achievements/badges, journal entries, settings, manage my data (account deletion)
+- 5 AI coaches with VIDEO AVATARS (idle + speaking animations): Gideon (spiritual/Bible), Hannah (personal growth/emotions), Coach David (fitness), Chef Daniel (nutrition), Coach Paul (life wisdom)
+- Adaptive AI Memory: all chatbots learn from your conversations — your communication style, goals, struggles, and preferences are remembered across sessions
+- Dark mode support across the entire app
+- Crisis resources (988 Lifeline) on emotional/mental health pages
+- Health disclaimers on fitness/nutrition pages
 
-Available tour keys: daily_ritual, workouts, nutrition, bible, growth, community, profile, ai_coaches, coaching, habits, prayer, fitness_goals, nutrition_goals, bible_goals, growth_goals
+Available tour keys: daily_ritual, workouts, nutrition, bible, growth, community, profile, ai_coaches, coaching, habits, prayer, fitness_goals, nutrition_goals, bible_goals, growth_goals, wilderness_challenge, meditation, dark_mode
 
 Available page shortcuts: workouts, nutrition, bible, growth, community, profile, habits, gratitude, meditation, affirmations, checkin, challenges, journal, plans, gideon, hannah, david, daniel
 

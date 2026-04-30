@@ -6,6 +6,7 @@ import { base44 } from '@/api/base44Client';
 import { createPageUrl } from '@/utils';
 import { Flame, ChevronRight } from 'lucide-react';
 import { RitualButton, QuickNav, ResumeCard, ActiveChallengesWidget, StartHereCard } from '@/components/home/HomeComponents';
+import HelpChatbot from '@/components/home/HelpChatbot';
 import gideonImg from '@/assets/gideon-avatar.png';
 import hannahImg from '@/assets/hannah-avatar.png';
 import coachDavidImg from '@/assets/coach-david-avatar.png';
@@ -172,6 +173,9 @@ function Home() {
           </Link>
         </motion.div>
       </div>
+
+      {/* Help Chatbot — floating guide button */}
+      <HelpChatbot />
     </div>
   );
 }
