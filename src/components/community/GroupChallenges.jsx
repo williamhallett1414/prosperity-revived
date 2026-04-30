@@ -530,6 +530,24 @@ function CompletionCard({ challenge, participation }) {
 export default function GroupChallenges({ user }) {
   const [seeded,      setSeeded]      = useState(() => !!localStorage.getItem(SEED_DONE_KEY));
   const [seeding,     setSeeding]     = useState(false);
+
+  // Auto-seed challenges on first visit
+  useEffect(() => {
+    if (seeded || seeding) return;
+    const autoSeed = async () => {
+      setSeeding(true);
+      let n = 0;
+      for (const c of SEED_CHALLENGES) {
+        try { await base44.entities.GroupChallenge.create(c); n++; } catch {}
+      }
+      setSeeding(false);
+      localStorage.setItem(SEED_DONE_KEY, '1');
+      setSeeded(true);
+      queryClient.invalidateQueries({ queryKey: ['activeChallenges'] });
+      if (n > 0) toast.success(`${n} challenges loaded!`);
+    };
+    autoSeed();
+  }, [seeded, seeding]);
   const [filter,      setFilter]      = useState('all');
   const [showCreate,  setShowCreate]  = useState(false);
   const queryClient                   = useQueryClient();
@@ -572,19 +590,6 @@ export default function GroupChallenges({ user }) {
     },
     onError: () => toast.error('Failed to join'),
   });
-
-  const handleSeed = async () => {
-    setSeeding(true);
-    let n = 0;
-    for (const c of SEED_CHALLENGES) {
-      try { await base44.entities.GroupChallenge.create(c); n++; } catch {}
-    }
-    setSeeding(false);
-    localStorage.setItem(SEED_DONE_KEY, '1');
-    setSeeded(true);
-    queryClient.invalidateQueries({ queryKey: ['activeChallenges'] });
-    toast.success(n > 0 ? `${n} challenges added!` : 'Already up to date');
-  };
 
   const getMyParticipation   = (id) => myParticipations.find(p => p.challenge_id === id);
   const getChallengeMembers  = (id) => allParticipations.filter(p => p.challenge_id === id);
@@ -638,18 +643,13 @@ export default function GroupChallenges({ user }) {
         </div>
       </Link>
 
-      {/* Top bar: seed + create */}
+      {/* Top bar: create */}
       <div className="flex gap-2">
-        {!seeded && (
-          <button onClick={handleSeed} disabled={seeding}
-            className="flex-1 flex items-center gap-2 bg-gradient-to-r from-[#0A1A2F] to-[#0A1A2F] text-white rounded-2xl px-4 py-3 hover:opacity-90 transition-opacity disabled:opacity-60">
-            <Trophy className="w-4 h-4 text-[#FAD98D] flex-shrink-0" />
-            <div className="text-left flex-1 min-w-0">
-              <p className="text-xs font-bold truncate">{seeding ? 'Adding challenges…' : 'Load starter challenges'}</p>
-              <p className="text-[10px] text-white/40">8 faith & wellness challenges</p>
-            </div>
-            {seeding ? <Loader2 className="w-3.5 h-3.5 animate-spin flex-shrink-0" /> : <Sparkles className="w-3.5 h-3.5 text-[#FAD98D] flex-shrink-0" />}
-          </button>
+        {seeding && (
+          <div className="flex-1 flex items-center gap-2 bg-[#0A1A2F] dark:bg-white/5 text-white rounded-2xl px-4 py-3">
+            <Loader2 className="w-4 h-4 animate-spin text-[#FAD98D]" />
+            <p className="text-xs font-bold">Loading challenges…</p>
+          </div>
         )}
         <button onClick={() => setShowCreate(true)}
           className={`${seeded ? 'flex-1' : ''} flex items-center gap-2 bg-gradient-to-r from-[#FAD98D] to-[#c9a227] text-[#0A1A2F] dark:text-white rounded-2xl px-4 py-3 font-bold hover:opacity-90 transition-opacity`}>
@@ -684,7 +684,7 @@ export default function GroupChallenges({ user }) {
             {filter === 'mine' ? 'No active challenges' : filter === 'done' ? 'Nothing completed yet' : 'No challenges yet'}
           </h3>
           <p className="text-sm text-[#0A1A2F]/40 dark:text-white/40 mb-4">
-            {filter === 'mine' ? 'Join a challenge to start building your streak.' : filter === 'done' ? 'Finish a challenge to see it here.' : 'Load the starters or create your own.'}
+            {filter === 'mine' ? 'Join a challenge to start building your streak.' : filter === 'done' ? 'Finish a challenge to see it here.' : 'Browse challenges below or create your own.'}
           </p>
           {filter !== 'done' && (
             <button onClick={() => setShowCreate(true)}
