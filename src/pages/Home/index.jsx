@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { createPageUrl } from '@/utils';
@@ -31,6 +31,7 @@ function getTodayFormatted() {
 
 function Home() {
   const [user, setUser] = useState(null);
+  const navigate = useNavigate();
   const greeting = getGreeting();
   const today = (() => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; })();
   const ritualKey = greeting.isMorning ? `ritual_morning_${today}` : `ritual_evening_${today}`;
@@ -53,7 +54,7 @@ function Home() {
 
   return (
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F]">
-      <div className="max-w-lg mx-auto px-4 pt-4 pb-28 space-y-4">
+      <div className="max-w-lg mx-auto px-4 pt-16 pb-28 space-y-4">
         <motion.div initial={{ opacity: 0, y: -12 }} animate={{ opacity: 1, y: 0 }}>
           <p className="text-xs font-medium text-[#0A1A2F]/40 dark:text-white/40 uppercase tracking-widest mb-0.5">
             {getTodayFormatted()}
@@ -76,8 +77,40 @@ function Home() {
         {!ritualDone && (
           <RitualButton
             isMorning={greeting.isMorning}
-            onStartDay={() => {}}
-            onEndDay={() => {}}
+            onStartDay={async () => {
+              // Mark ritual as done
+              localStorage.setItem(ritualKey, '1');
+              setRitualDone(true);
+              // Award XP
+              try {
+                if (userProgress?.id) {
+                  const pts = (userProgress.total_points || 0) + 15;
+                  const streak = (userProgress.current_streak || 0) + 1;
+                  await base44.entities.UserProgress.update(userProgress.id, {
+                    total_points: pts,
+                    current_streak: streak,
+                    last_activity_date: today,
+                  });
+                }
+              } catch {}
+              // Navigate to a morning flow: Scripture → Affirmation → Intention
+              navigate(createPageUrl('Bible'));
+            }}
+            onEndDay={async () => {
+              localStorage.setItem(ritualKey, '1');
+              setRitualDone(true);
+              try {
+                if (userProgress?.id) {
+                  const pts = (userProgress.total_points || 0) + 15;
+                  await base44.entities.UserProgress.update(userProgress.id, {
+                    total_points: pts,
+                    last_activity_date: today,
+                  });
+                }
+              } catch {}
+              // Navigate to evening flow: Gratitude → Reflection
+              navigate(createPageUrl('GratitudeJournalPage'));
+            }}
           />
         )}
 
