@@ -288,16 +288,16 @@ export default function Community() {
         {activeTab === 'feed' && (
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
             className="mb-4">
-            <Link to={createPageUrl('Friends')}>
-              <div className="bg-white dark:bg-white/5 rounded-2xl p-4 border border-gray-100 dark:border-white/10 shadow-sm dark:shadow-none flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#EC4899] to-[#F472B6] flex items-center justify-center flex-shrink-0">
+            <Link to={createPageUrl('Friends')} className="block">
+              <div className="bg-white dark:bg-white/5 rounded-2xl p-4 border border-gray-100 dark:border-white/10 shadow-sm dark:shadow-none hover:shadow-md dark:hover:shadow-none hover:border-[#EC4899]/30 dark:hover:border-[#EC4899]/20 transition-all flex items-center gap-3 cursor-pointer">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#EC4899] to-[#F472B6] flex items-center justify-center flex-shrink-0 shadow-sm">
                   <UserPlus className="w-5 h-5 text-white" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-bold text-[#0A1A2F] dark:text-white dark:text-white">Find Friends</p>
-                  <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45">Connect with others on the same journey</p>
+                  <p className="text-sm font-bold text-[#0A1A2F] dark:text-white">Find Friends</p>
+                  <p className="text-xs text-[#0A1A2F]/50 dark:text-white/50">Connect with others on the same journey</p>
                 </div>
-                <ChevronRight className="w-4 h-4 text-[#0A1A2F]/20 dark:text-white/20 flex-shrink-0" />
+                <ChevronRight className="w-5 h-5 text-[#EC4899]/50 dark:text-[#F472B6]/50 flex-shrink-0" />
               </div>
             </Link>
           </motion.div>
