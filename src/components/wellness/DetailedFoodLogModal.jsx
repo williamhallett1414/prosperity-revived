@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -8,11 +8,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Loader2, Scan, Sparkles, Camera } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 
-export default function DetailedFoodLogModal({ isOpen, onClose, onSave }) {
+export default function DetailedFoodLogModal({ isOpen, onClose, onSave, initialData }) {
   const [activeTab, setActiveTab] = useState('manual');
   const [loading, setLoading] = useState(false);
   const fileInputRef = useRef(null);
-  const [meal, setMeal] = useState({
+  const defaultMeal = {
     date: new Date().toISOString().split('T')[0],
     meal_type: 'lunch',
     description: '',
@@ -38,7 +38,16 @@ export default function DetailedFoodLogModal({ isOpen, onClose, onSave }) {
     zinc: 0,
     serving_size: '',
     notes: ''
-  });
+  };
+  const [meal, setMeal] = useState(initialData || defaultMeal);
+
+  useEffect(() => {
+    if (initialData) {
+      setMeal(initialData);
+    } else {
+      setMeal(defaultMeal);
+    }
+  }, [initialData, isOpen]);
 
   const handleAIAnalysis = async () => {
     if (!meal.description) return;
@@ -154,20 +163,7 @@ If you can't find the exact product, provide a reasonable estimate based on simi
 
   const handleSave = () => {
     onSave(meal);
-    setMeal({
-      date: new Date().toISOString().split('T')[0],
-      meal_type: 'lunch',
-      description: '',
-      calories: 0,
-      protein: 0,
-      carbs: 0,
-      fats: 0,
-      fiber: 0,
-      sugar: 0,
-      sodium: 0,
-      serving_size: '',
-      notes: ''
-    });
+    setMeal(defaultMeal);
     onClose();
   };
 

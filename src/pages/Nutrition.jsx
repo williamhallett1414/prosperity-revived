@@ -80,6 +80,7 @@ export default function Nutrition() {
   const [activeTab, setActiveTab] = useState('today');
   const navigate = useNavigate();
   const [showLogModal, setShowLogModal] = useState(false);
+  const [editingMeal, setEditingMeal] = useState(null);
   const queryClient = useQueryClient();
   const now = new Date();
   const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
@@ -119,13 +120,17 @@ export default function Nutrition() {
   const waterGoal = todayWater?.goal || 8;
 
   const logMeal = useMutation({
-    mutationFn: (data) => base44.entities.MealLog.create(data),
+    mutationFn: (data) => {
+      if (editingMeal?.id) return base44.entities.MealLog.update(editingMeal.id, data);
+      return base44.entities.MealLog.create(data);
+    },
     onSuccess: () => {
       queryClient.invalidateQueries(['meals']);
       queryClient.invalidateQueries(['mealLogs']);
-      toast.success('Meal logged!');
+      toast.success(editingMeal?.id ? 'Meal updated!' : 'Meal logged!');
+      setEditingMeal(null);
     },
-    onError: () => toast.error('Failed to log meal')
+    onError: () => toast.error('Failed to save meal')
   });
 
   const deleteMeal = useMutation({
@@ -326,7 +331,7 @@ export default function Nutrition() {
                     {todayMeals.map((m, i) => (
                       <motion.button key={m.id || i} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: i * 0.04 }}
-                        onClick={() => m.id && setShowLogModal(true)}
+                        onClick={() => { if (m.id) { setEditingMeal(m); setShowLogModal(true); } }}
                         className="w-full flex items-center gap-3 p-2.5 rounded-xl hover:bg-gray-50 dark:bg-white/5 group transition-colors text-left">
                         <div className="w-8 h-8 rounded-lg bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8 flex items-center justify-center flex-shrink-0 text-base">
                           {MEAL_EMOJI[m.meal_type] || '🍴'}
@@ -436,7 +441,8 @@ export default function Nutrition() {
       {/* Log Food Modal */}
       <DetailedFoodLogModal
         isOpen={showLogModal}
-        onClose={() => setShowLogModal(false)}
+        initialData={editingMeal}
+        onClose={() => { setShowLogModal(false); setEditingMeal(null); }}
         onSave={(data) => {
           logMeal.mutate(data, {
             onSuccess: () => setShowLogModal(false)
