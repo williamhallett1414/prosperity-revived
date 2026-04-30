@@ -146,12 +146,12 @@ export default function DiscoverRecipes() {
           {/* Title row */}
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center">
+              <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center shadow-md dark:shadow-none">
                 <UtensilsCrossed className="w-5 h-5 text-white" />
               </div>
               <div>
-                <h1 className="text-base font-bold text-[#0A1A2F] dark:text-white dark:text-white">Discover Recipes</h1>
-                <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45">
+                <h1 className="text-lg font-extrabold text-[#0A1A2F] dark:text-white leading-tight">Discover Recipes</h1>
+                <p className="text-xs text-[#0A1A2F]/40 dark:text-white/40">
                   {isLoading ? 'Loading…' : `${recipes.length} recipe${recipes.length !== 1 ? 's' : ''} in the library`}
                 </p>
               </div>
@@ -162,19 +162,19 @@ export default function DiscoverRecipes() {
               {showFilters && (
                 <div className="relative">
                   <button onClick={() => setShowSort(s => !s)}
-                    className="flex items-center gap-1 px-2.5 py-2 rounded-xl bg-[#F2F6FA] dark:bg-[#0A1A2F] text-xs font-bold text-[#0A1A2F]/55 dark:text-white/55 hover:bg-[#FAD98D]/15 transition-colors">
+                    className="flex items-center gap-1.5 px-3 py-2 rounded-xl border border-[#FAD98D]/30 bg-[#FAD98D]/10 text-xs font-bold text-[#c9a227] hover:bg-[#FAD98D]/20 transition-colors">
                     <ArrowUpDown className="w-3.5 h-3.5" />
                     {activeSort?.label}
                   </button>
                   {showSort && (
-                    <div className="absolute right-0 top-full mt-1 bg-white dark:bg-white/5 rounded-2xl border border-[#FAD98D]/20 shadow-lg dark:shadow-none py-1.5 z-50 min-w-[110px]">
+                    <div className="absolute right-0 top-full mt-2 bg-white dark:bg-[#0A1A2F] rounded-2xl border border-[#FAD98D]/20 shadow-xl dark:shadow-none py-2 z-50 min-w-[130px]">
                       {SORT_OPTIONS.map(opt => (
                         <button key={opt.value}
                           onClick={() => { setSort(opt.value); setShowSort(false); }}
-                          className={`w-full text-left px-4 py-2 text-xs font-semibold transition-colors ${
+                          className={`w-full text-left px-4 py-2.5 text-xs font-semibold transition-colors ${
                             sort === opt.value
                               ? 'text-[#c9a227] bg-[#FAD98D]/15'
-                              : 'text-[#0A1A2F]/60 dark:text-white/60 hover:bg-[#F2F6FA] dark:bg-[#0A1A2F]'
+                              : 'text-[#0A1A2F]/60 dark:text-white/60 hover:bg-[#FAD98D]/10'
                           }`}>
                           {opt.label}
                         </button>
@@ -186,10 +186,10 @@ export default function DiscoverRecipes() {
 
               {/* Cart */}
               <button onClick={() => setCartOpen(true)}
-                className="relative w-10 h-10 rounded-xl bg-[#FAD98D]/20 flex items-center justify-center text-[#c9a227] hover:bg-[#FAD98D]/35 transition-colors">
-                <ShoppingCart className="w-5 h-5" />
+                className="relative w-10 h-10 rounded-xl bg-[#FAD98D]/15 border border-[#FAD98D]/30 flex items-center justify-center text-[#c9a227] hover:bg-[#FAD98D]/30 transition-colors">
+                <ShoppingCart className="w-4.5 h-4.5" />
                 {totalCount > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-[#c9a227] text-white text-[9px] font-bold rounded-full flex items-center justify-center"
+                  <span className="absolute -top-1.5 -right-1.5 bg-[#c9a227] text-white text-[9px] font-bold rounded-full flex items-center justify-center shadow-sm"
                     style={{ width: 18, height: 18 }}>
                     {totalCount > 99 ? '99' : totalCount}
                   </span>
@@ -198,7 +198,7 @@ export default function DiscoverRecipes() {
 
               {/* Add */}
               <button onClick={() => setShowCreate(true)}
-                className="flex items-center gap-1.5 bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white text-xs font-bold px-3 py-2 rounded-xl hover:opacity-90 shadow-sm dark:shadow-none">
+                className="flex items-center gap-1.5 bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white text-xs font-bold px-3.5 py-2.5 rounded-xl hover:opacity-90 shadow-md dark:shadow-none transition-opacity">
                 <Plus className="w-3.5 h-3.5" /> Add
               </button>
             </div>
