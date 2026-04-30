@@ -1,16 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Loader2, Scan, Sparkles } from 'lucide-react';
+import { Loader2, Scan, Sparkles, Camera } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 
 export default function DetailedFoodLogModal({ isOpen, onClose, onSave }) {
   const [activeTab, setActiveTab] = useState('manual');
   const [loading, setLoading] = useState(false);
+  const fileInputRef = useRef(null);
   const [meal, setMeal] = useState({
     date: new Date().toISOString().split('T')[0],
     meal_type: 'lunch',
@@ -69,6 +70,45 @@ Provide accurate estimates for a typical serving size.`,
       }));
     } catch (error) {
       console.error('AI analysis failed', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handlePhotoCapture = async (file) => {
+    if (!file) return;
+    
+    setLoading(true);
+    try {
+      const response = await base44.integrations.Core.UploadFile({ file });
+      const imageUrl = response.file_url;
+
+      const analysisResponse = await base44.integrations.Core.InvokeLLM({
+        prompt: `Analyze this photo of food and provide detailed nutritional information. Describe what foods are visible and estimate the amounts.`,
+        file_urls: [imageUrl],
+        response_json_schema: {
+          type: 'object',
+          properties: {
+            description: { type: 'string' },
+            calories: { type: 'number' },
+            protein: { type: 'number' },
+            carbs: { type: 'number' },
+            fats: { type: 'number' },
+            fiber: { type: 'number' },
+            sugar: { type: 'number' },
+            sodium: { type: 'number' },
+            serving_size: { type: 'string' }
+          }
+        }
+      });
+
+      setMeal(prev => ({
+        ...prev,
+        ...analysisResponse
+      }));
+      setActiveTab('manual');
+    } catch (error) {
+      console.error('Photo analysis failed', error);
     } finally {
       setLoading(false);
     }
@@ -296,15 +336,45 @@ If you can't find the exact product, provide a reasonable estimate based on simi
           <TabsContent value="barcode" className="space-y-4 mt-4">
             <div className="text-center py-8">
               <Scan className="w-16 h-16 text-gray-300 dark:text-gray-400 dark:text-gray-300 mx-auto mb-4" />
-              <p className="text-sm text-gray-500 dark:text-gray-300 mb-4">Enter barcode number manually</p>
-              <Input
-                placeholder="Enter barcode (e.g., 012345678905)"
-                onChange={(e) => {
-                  if (e.target.value.length >= 8) {
-                    handleBarcodeInput(e.target.value);
-                  }
-                }}
-              />
+              <p className="text-sm text-gray-500 dark:text-gray-300 mb-4">Scan barcode or take a photo</p>
+              <div className="space-y-3">
+                <Input
+                  placeholder="Enter barcode (e.g., 012345678905)"
+                  onChange={(e) => {
+                    if (e.target.value.length >= 8) {
+                      handleBarcodeInput(e.target.value);
+                    }
+                  }}
+                />
+                <div className="flex gap-2">
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    onChange={(e) => e.target.files?.[0] && handlePhotoCapture(e.target.files[0])}
+                  />
+                  <Button
+                    onClick={() => fileInputRef.current?.click()}
+                    disabled={loading}
+                    variant="outline"
+                    className="w-full"
+                    size="sm"
+                  >
+                    {loading ? (
+                      <>
+                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                        Analyzing...
+                      </>
+                    ) : (
+                      <>
+                        <Camera className="w-4 h-4 mr-2" />
+                        Take Photo
+                      </>
+                    )}
+                  </Button>
+                </div>
+              </div>
             </div>
 
             {meal.description && (
