@@ -158,30 +158,30 @@ export default function DiscoverRecipes() {
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
 
       {/* ── Sticky header ── */}
-      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 px-4 pt-4 pb-3">
+      <div className="sticky top-0 z-40 bg-white/95 dark:bg-[#0A1A2F]/95 backdrop-blur-md border-b border-[#FAD98D]/15 px-4 pt-3 pb-3 shadow-sm">
         <div className="max-w-lg mx-auto space-y-3">
 
           {/* Title row */}
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center shadow-md dark:shadow-none">
-                <UtensilsCrossed className="w-5 h-5 text-white" />
+              <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#c9a227] to-[#FAD98D] flex items-center justify-center shadow-lg shadow-[#c9a227]/25">
+                <UtensilsCrossed className="w-4.5 h-4.5 text-white" />
               </div>
               <div>
-                <h1 className="text-lg font-extrabold text-[#0A1A2F] dark:text-white leading-tight">Discover Recipes</h1>
-                <p className="text-xs text-[#0A1A2F]/40 dark:text-white/40">
-                  {isLoading ? 'Loading…' : `${recipes.length} recipe${recipes.length !== 1 ? 's' : ''} in the library`}
+                <h1 className="text-base font-black text-[#0A1A2F] dark:text-white leading-tight tracking-tight">Discover Recipes</h1>
+                <p className="text-[11px] text-[#0A1A2F]/40 dark:text-white/40 font-medium">
+                  {isLoading ? 'Loading…' : `${recipes.length} recipes in library`}
                 </p>
               </div>
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5">
               {/* Sort — hidden on health / collections tabs */}
               {showFilters && (
                 <div className="relative">
                   <button onClick={() => setShowSort(s => !s)}
-                    className="flex items-center gap-1.5 px-3 py-2 rounded-xl border border-[#FAD98D]/30 bg-[#FAD98D]/10 text-xs font-bold text-[#c9a227] hover:bg-[#FAD98D]/20 transition-colors">
-                    <ArrowUpDown className="w-3.5 h-3.5" />
+                    className="flex items-center gap-1 px-2.5 py-2 rounded-xl border border-[#FAD98D]/30 bg-[#FAD98D]/10 text-[11px] font-bold text-[#c9a227] hover:bg-[#FAD98D]/20 transition-colors">
+                    <ArrowUpDown className="w-3 h-3" />
                     {activeSort?.label}
                   </button>
                   {showSort && (
@@ -204,11 +204,11 @@ export default function DiscoverRecipes() {
 
               {/* Cart */}
               <button onClick={() => setCartOpen(true)}
-                className="relative w-10 h-10 rounded-xl bg-[#FAD98D]/15 border border-[#FAD98D]/30 flex items-center justify-center text-[#c9a227] hover:bg-[#FAD98D]/30 transition-colors">
-                <ShoppingCart className="w-4.5 h-4.5" />
+                className="relative w-9 h-9 rounded-xl bg-[#FAD98D]/10 border border-[#FAD98D]/25 flex items-center justify-center text-[#c9a227] hover:bg-[#FAD98D]/25 transition-colors">
+                <ShoppingCart className="w-4 h-4" />
                 {totalCount > 0 && (
                   <span className="absolute -top-1.5 -right-1.5 bg-[#c9a227] text-white text-[9px] font-bold rounded-full flex items-center justify-center shadow-sm"
-                    style={{ width: 18, height: 18 }}>
+                    style={{ width: 17, height: 17 }}>
                     {totalCount > 99 ? '99' : totalCount}
                   </span>
                 )}
@@ -216,7 +216,7 @@ export default function DiscoverRecipes() {
 
               {/* Add */}
               <button onClick={() => setShowCreate(true)}
-                className="flex items-center gap-1.5 bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white text-xs font-bold px-3.5 py-2.5 rounded-xl hover:opacity-90 shadow-md dark:shadow-none transition-opacity">
+                className="flex items-center gap-1.5 bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white text-[11px] font-bold px-3 py-2 rounded-xl hover:opacity-90 shadow-md shadow-[#c9a227]/20 transition-opacity">
                 <Plus className="w-3.5 h-3.5" /> Add
               </button>
             </div>
