@@ -67,28 +67,6 @@ export default function FriendsTab({ friends, user }) {
     ).slice(0, 20);
   }, [allUsers, userSearchTerm, user, friendEmails, sentRequests]);
 
-  if (friends.length === 0) {
-    return (
-      <>
-        <div className="bg-white dark:bg-white/5 rounded-xl shadow-sm dark:shadow-none p-12 sm:p-16 text-center border border-gray-100 dark:border-white/10 dark:border-white/10">
-          <div className="w-20 h-20 bg-gray-100 dark:bg-white/5 rounded-full flex items-center justify-center mx-auto mb-4">
-            <span className="text-4xl">👥</span>
-          </div>
-          <p className="text-gray-600 dark:text-gray-300 text-lg font-semibold">No friends yet</p>
-          <p className="text-gray-400 dark:text-gray-300 text-sm mt-2 mb-4">Start connecting with others</p>
-          <Button
-            onClick={() => setShowSearchModal(true)}
-            className="bg-gradient-to-br from-[#c9a227] to-[#FAD98D] hover:opacity-90 text-white"
-          >
-            <UserPlus className="w-4 h-4 mr-2" />
-            Find Friends
-          </Button>
-        </div>
-        {showSearchModal && renderSearchModal()}
-      </>
-    );
-  }
-
   const renderSearchModal = () => (
     <Dialog open={showSearchModal} onOpenChange={setShowSearchModal}>
       <DialogContent className="sm:max-w-2xl max-h-[80vh] overflow-y-auto">
@@ -142,6 +120,28 @@ export default function FriendsTab({ friends, user }) {
       </DialogContent>
     </Dialog>
   );
+
+  if (friends.length === 0) {
+    return (
+      <>
+        <div className="bg-white dark:bg-white/5 rounded-xl shadow-sm dark:shadow-none p-12 sm:p-16 text-center border border-gray-100 dark:border-white/10 dark:border-white/10">
+          <div className="w-20 h-20 bg-gray-100 dark:bg-white/5 rounded-full flex items-center justify-center mx-auto mb-4">
+            <span className="text-4xl">👥</span>
+          </div>
+          <p className="text-gray-600 dark:text-gray-300 text-lg font-semibold">No friends yet</p>
+          <p className="text-gray-400 dark:text-gray-300 text-sm mt-2 mb-4">Start connecting with others</p>
+          <Button
+            onClick={() => setShowSearchModal(true)}
+            className="bg-gradient-to-br from-[#c9a227] to-[#FAD98D] hover:opacity-90 text-white"
+          >
+            <UserPlus className="w-4 h-4 mr-2" />
+            Find Friends
+          </Button>
+        </div>
+        {showSearchModal && renderSearchModal()}
+      </>
+    );
+  }
 
   return (
     <>
