@@ -10,6 +10,7 @@ import VideoRecorder from '@/components/home/VideoRecorder';
 import { ArrowLeft, Send, Loader2, RotateCcw, Mic, MicOff, Volume2, Square, X, Zap, Video } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import { base44 } from '@/api/base44Client';
+import { getUserMemory, buildMemoryContext, extractAndSaveInsights } from '@/utils/adaptiveMemory';
 import CloudAvatar    from '@/components/avatar/CloudAvatar';
 import GideonAvatar       from '@/components/avatar/GideonAvatar';
 import ChefDanielAvatar   from '@/components/avatar/ChefDanielAvatar';
@@ -1065,10 +1066,12 @@ export default function ChatScreen() {
   const [speakingIdx,      setSpeakingIdx]      = useState(null);
   const [permissionDenied, setPermissionDenied] = useState(false);
   const [userProfile,      setUserProfile]      = useState(null);
+  const [aiMemory,         setAiMemory]         = useState(null);
 
   // Load user profile once — injected into every bot prompt
   useEffect(() => {
     base44.auth.me().then(u => setUserProfile(u)).catch(() => {});
+    getUserMemory().then(m => setAiMemory(m)).catch(() => {});
   }, []);
 
   // Build personalised system prompt with user context
@@ -1112,8 +1115,8 @@ export default function ChatScreen() {
       u.motivations?.length    && `- Motivations for joining: ${u.motivations.join(', ')}`,
     ].filter(Boolean).join('\n');
 
-    return `${basePrompt}\n\n${lines}\n\nUse this profile to personalise your responses. Address them by first name occasionally. Reference their specific goals, stage, and preferences naturally — don't recite the profile back to them.`;
-  }, [userProfile]);
+    return `${basePrompt}\n\n${lines}\n\nUse this profile to personalise your responses. Address them by first name occasionally. Reference their specific goals, stage, and preferences naturally — don't recite the profile back to them.${buildMemoryContext(aiMemory)}`;
+  }, [userProfile, aiMemory]);
 
   const inputRef           = useRef(null);
   const messagesEndRef     = useRef(null);
@@ -1170,7 +1173,15 @@ export default function ChatScreen() {
         add_context_from_internet: false,
       });
 
-      setMessages(prev => [...prev, { role: 'assistant', content: response }]);
+      setMessages(prev => {
+        const updated = [...prev, { role: 'assistant', content: response }];
+        // Extract insights in background every 3rd exchange (non-blocking)
+        const userMsgCount = updated.filter(m => m.role === 'user').length;
+        if (userMsgCount >= 2 && userMsgCount % 3 === 0) {
+          extractAndSaveInsights(updated, cfg.name).catch(() => {});
+        }
+        return updated;
+      });
     } catch {
       setMessages(prev => [...prev, {
         role: 'assistant',

@@ -1,0 +1,66 @@
+{
+  "name": "UserMemory",
+  "type": "object",
+  "description": "AI coaching memory — stores learned insights about the user across all chatbot conversations. Updated automatically after each chat session.",
+  "properties": {
+    "communication_style": {
+      "type": "string",
+      "description": "How the user prefers to communicate: direct, gentle, humorous, detailed, brief, etc."
+    },
+    "emotional_patterns": {
+      "type": "string",
+      "description": "Observed emotional tendencies: stress triggers, joy sources, coping mechanisms, recurring concerns"
+    },
+    "spiritual_maturity": {
+      "type": "string",
+      "description": "Observed faith level: new believer, growing, mature, questioning, on fire. Bible comfort level."
+    },
+    "fitness_observations": {
+      "type": "string",
+      "description": "Workout preferences, physical limitations mentioned, progress notes, motivation patterns"
+    },
+    "nutrition_observations": {
+      "type": "string",
+      "description": "Food preferences, cooking skill, meal struggles, favorite recipes discussed, dietary changes"
+    },
+    "life_events": {
+      "type": "string",
+      "description": "Key life events shared: relationships, job changes, losses, celebrations, milestones"
+    },
+    "goals_mentioned": {
+      "type": "string",
+      "description": "Specific goals the user has mentioned across conversations"
+    },
+    "struggles_mentioned": {
+      "type": "string",
+      "description": "Recurring struggles, challenges, or areas where they seek help"
+    },
+    "wins_celebrated": {
+      "type": "string",
+      "description": "Achievements, breakthroughs, and victories the user has shared"
+    },
+    "favorite_topics": {
+      "type": "string",
+      "description": "Topics the user frequently returns to or shows enthusiasm about"
+    },
+    "conversation_preferences": {
+      "type": "string",
+      "description": "Prefers Scripture references, prefers practical advice, likes stories, wants accountability, etc."
+    },
+    "last_updated": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the memory was last updated"
+    },
+    "interaction_count": {
+      "type": "integer",
+      "default": 0,
+      "description": "Total number of chat sessions across all avatars"
+    },
+    "raw_insights": {
+      "type": "string",
+      "description": "Rolling log of AI-extracted insights from recent conversations (last 10)"
+    }
+  },
+  "required": []
+}
