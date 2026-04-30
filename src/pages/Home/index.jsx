@@ -279,11 +279,13 @@ function Home() {
         </motion.div>
 
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.12 }}>
-          <div className="flex items-center gap-3 bg-gradient-to-r from-[#0A1A2F] to-[#1a3a5c] rounded-2xl px-4 py-3 shadow-md dark:shadow-none">
-            <span className="text-xl flex-shrink-0">💛</span>
-            <p className="text-xs text-white/80 leading-relaxed flex-1">What would help you grow today?</p>
-            <ChevronRight className="w-4 h-4 text-white/30 flex-shrink-0" />
-          </div>
+          <Link to={createPageUrl('PersonalGrowth')}>
+            <div className="flex items-center gap-3 bg-gradient-to-r from-[#0A1A2F] to-[#1a3a5c] rounded-2xl px-4 py-3 shadow-md dark:shadow-none">
+              <span className="text-xl flex-shrink-0">💛</span>
+              <p className="text-xs text-white/80 leading-relaxed flex-1">What would help you grow today?</p>
+              <ChevronRight className="w-4 h-4 text-white/30 flex-shrink-0" />
+            </div>
+          </Link>
         </motion.div>
 
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.14 }}>
