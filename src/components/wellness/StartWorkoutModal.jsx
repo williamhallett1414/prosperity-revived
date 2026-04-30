@@ -727,6 +727,7 @@ export default function StartWorkoutModal({ isOpen, onClose, workout, user, onCo
   // RENDER
   // ─────────────────────────────────────────────────────────────────────────────
   return (
+    <>
     <Dialog open={isOpen} onOpenChange={() => {}}>
       <DialogContent
         className="max-w-lg p-0 overflow-hidden border-0 bg-transparent shadow-none [&>button]:hidden"
@@ -1245,13 +1246,14 @@ export default function StartWorkoutModal({ isOpen, onClose, workout, user, onCo
 
           </AnimatePresence>
         </div>
-      {/* Coach David motivational popup */}
-      <CoachDavidBubble
-        trigger={coachTrigger?.split('_')[0]}
-        onDismiss={() => {}}
-      />
-
       </DialogContent>
     </Dialog>
+
+    {/* Coach David motivational popup — outside Dialog to avoid stacking context clip */}
+    <CoachDavidBubble
+      trigger={coachTrigger?.split('_')[0]}
+      onDismiss={() => {}}
+    />
+    </>
   );
 }
