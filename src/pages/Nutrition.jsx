@@ -324,9 +324,10 @@ export default function Nutrition() {
                 ) : (
                   <div className="space-y-1.5">
                     {todayMeals.map((m, i) => (
-                      <motion.div key={m.id || i} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }}
+                      <motion.button key={m.id || i} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: i * 0.04 }}
-                        className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-gray-50 dark:bg-white/5 group transition-colors">
+                        onClick={() => m.id && setShowLogModal(true)}
+                        className="w-full flex items-center gap-3 p-2.5 rounded-xl hover:bg-gray-50 dark:bg-white/5 group transition-colors text-left">
                         <div className="w-8 h-8 rounded-lg bg-[#FAD98D]/20 dark:bg-[#FAD98D]/8 flex items-center justify-center flex-shrink-0 text-base">
                           {MEAL_EMOJI[m.meal_type] || '🍴'}
                         </div>
@@ -338,12 +339,12 @@ export default function Nutrition() {
                           <p className="font-bold text-[#c9a227] text-sm">{m.calories || 0} <span className="text-[10px] font-normal text-[#0A1A2F]/30 dark:text-white/30">kcal</span></p>
                         </div>
                         {m.id && (
-                          <button onClick={() => { if (window.confirm('Remove this meal?')) deleteMeal.mutate(m.id); }}
+                          <button onClick={(e) => { e.stopPropagation(); if (window.confirm('Remove this meal?')) deleteMeal.mutate(m.id); }}
                             className="opacity-0 group-hover:opacity-100 p-1.5 rounded-lg hover:bg-red-50 dark:bg-red-900/20 text-gray-300 dark:text-gray-400 dark:text-gray-300 hover:text-red-400 transition-all flex-shrink-0">
                             <Trash2 className="w-3.5 h-3.5" />
                           </button>
                         )}
-                      </motion.div>
+                      </motion.button>
                     ))}
                   </div>
                 )}
