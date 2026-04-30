@@ -266,7 +266,7 @@ export default function Workouts() {
   }, [challenges, challengeParticipants]);
 
   return (
-    <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
+    <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28 -mt-4">
 
       {/* Health Disclaimer — required for App Store approval */}
       <div className="mx-3 sm:mx-4 mb-3 bg-amber-50 dark:bg-amber-900/20 dark:bg-amber-900/15 rounded-xl px-3 py-2 border border-amber-100 dark:border-amber-800/30 dark:border-amber-800/20">
