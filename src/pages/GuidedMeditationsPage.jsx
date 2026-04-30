@@ -260,12 +260,12 @@ function MeditationPlayer({ meditation, onClose }) {
       <div className="relative z-10 flex items-center justify-between px-5 pt-12 pb-4">
 
       {/* Crisis Resources — required for App Store approval */}
-      <div className="mx-3 sm:mx-4 mb-3 flex items-center justify-center gap-2 bg-blue-50 dark:bg-blue-900/20 rounded-xl px-3 py-2 border border-blue-100 dark:border-blue-800/30 hidden">
-        <span className="text-[10px] text-blue-600 dark:text-blue-300">If you or someone you know is in crisis:</span>
-        <a href="tel:988" className="text-[10px] font-bold text-blue-700 dark:text-blue-200 underline">Call/Text 988</a>
-        <span className="text-[10px] text-blue-400">|</span>
-        <a href="sms:741741&body=HELLO" className="text-[10px] font-bold text-blue-700 dark:text-blue-200 underline">Text 741741</a>
-      </div>
+      
+
+
+
+
+        
 
         <button onClick={handleClose} className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
           <X className="w-5 h-5 text-white" />
