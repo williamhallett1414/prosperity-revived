@@ -11,6 +11,9 @@ import { base44 } from '@/api/base44Client';
 export default function DetailedFoodLogModal({ isOpen, onClose, onSave, initialData }) {
   const [activeTab, setActiveTab] = useState('manual');
   const [loading, setLoading] = useState(false);
+  const [suggestions, setSuggestions] = useState([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [previousMeals, setPreviousMeals] = useState([]);
   const fileInputRef = useRef(null);
   const defaultMeal = {
     date: new Date().toISOString().split('T')[0],
@@ -48,6 +51,59 @@ export default function DetailedFoodLogModal({ isOpen, onClose, onSave, initialD
       setMeal(defaultMeal);
     }
   }, [initialData, isOpen]);
+
+  // Load previous meals on mount
+  useEffect(() => {
+    const loadPreviousMeals = async () => {
+      try {
+        const meals = await base44.entities.MealLog.list('-created_date', 50);
+        setPreviousMeals(meals || []);
+      } catch (error) {
+        console.error('Failed to load previous meals', error);
+      }
+    };
+    if (isOpen) loadPreviousMeals();
+  }, [isOpen]);
+
+  const handleDescriptionChange = (e) => {
+    const value = e.target.value;
+    setMeal({ ...meal, description: value });
+    
+    if (value.length > 1) {
+      const filtered = previousMeals
+        .filter(m => m.description?.toLowerCase().includes(value.toLowerCase()))
+        .map(m => m.description)
+        .filter((v, i, a) => a.indexOf(v) === i) // unique only
+        .slice(0, 5);
+      setSuggestions(filtered);
+      setShowSuggestions(filtered.length > 0);
+    } else {
+      setSuggestions([]);
+      setShowSuggestions(false);
+    }
+  };
+
+  const selectSuggestion = (suggestion) => {
+    const previousMeal = previousMeals.find(m => m.description === suggestion);
+    if (previousMeal) {
+      setMeal(prev => ({
+        ...prev,
+        description: suggestion,
+        calories: previousMeal.calories || 0,
+        protein: previousMeal.protein || 0,
+        carbs: previousMeal.carbs || 0,
+        fats: previousMeal.fats || 0,
+        fiber: previousMeal.fiber || 0,
+        sugar: previousMeal.sugar || 0,
+        sodium: previousMeal.sodium || 0,
+        cholesterol: previousMeal.cholesterol || 0,
+        saturated_fat: previousMeal.saturated_fat || 0,
+        trans_fat: previousMeal.trans_fat || 0,
+        serving_size: previousMeal.serving_size || ''
+      }));
+    }
+    setShowSuggestions(false);
+  };
 
   const handleAIAnalysis = async () => {
     if (!meal.description) return;
@@ -194,11 +250,27 @@ If you can't find the exact product, provide a reasonable estimate based on simi
             </Select>
 
             <div className="space-y-2">
-              <Input
-                placeholder="Food description (e.g., Grilled chicken breast)"
-                value={meal.description}
-                onChange={(e) => setMeal({ ...meal, description: e.target.value })}
-              />
+              <div className="relative">
+                <Input
+                  placeholder="Food description (e.g., Grilled chicken breast)"
+                  value={meal.description}
+                  onChange={handleDescriptionChange}
+                  onFocus={() => suggestions.length > 0 && setShowSuggestions(true)}
+                />
+                {showSuggestions && suggestions.length > 0 && (
+                  <div className="absolute top-full left-0 right-0 mt-1 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg z-10">
+                    {suggestions.map((suggestion, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => selectSuggestion(suggestion)}
+                        className="w-full text-left px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors first:rounded-t-lg last:rounded-b-lg"
+                      >
+                        {suggestion}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
               <Button
                 onClick={handleAIAnalysis}
                 disabled={loading || !meal.description}
