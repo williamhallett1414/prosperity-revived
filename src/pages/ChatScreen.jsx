@@ -9,7 +9,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import VideoRecorder from '@/components/home/VideoRecorder';
 import VideoCallMode from '@/components/chatbot/VideoCallMode';
 import ChatInputMenu from '@/components/chatbot/ChatInputMenu';
-import { ArrowLeft, Send, Loader2, RotateCcw, Mic, MicOff, Volume2, Square, X, Zap, Video, PhoneCall } from 'lucide-react';
+import { ArrowLeft, Send, Loader2, RotateCcw, Mic, MicOff, Volume2, Square, X, Zap, Video, PhoneCall, Menu } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import { base44 } from '@/api/base44Client';
 import { getChatbotMemories, buildMemoryContext, getCrossContext, saveMemories } from '@/utils/adaptiveMemory';
@@ -1356,6 +1356,7 @@ export default function ChatScreen() {
   const [showVideoRecorder, setShowVideoRecorder] = useState(false);
   const [videoCallOpen, setVideoCallOpen] = useState(false);
   const [showInputMenu, setShowInputMenu] = useState(false);
+  const [showMediaMenu, setShowMediaMenu] = useState(false);
   const callAudioUnlockRef = useRef(null);
 
   return createPortal(
@@ -1641,84 +1642,85 @@ export default function ChatScreen() {
       >
         <div className="flex items-center gap-2 max-w-lg mx-auto">
 
-          {/* Mic button */}
-          {speechSupported && (
-            <div className="relative flex-shrink-0">
-              <AnimatePresence>
-                {isListening && [0, 1].map(i => (
-                  <motion.div key={i} className="absolute inset-0 rounded-full pointer-events-none"
-                    style={{ border: `1.5px solid ${cfg.micActive}` }}
-                    initial={{ scale: 1, opacity: 0.7 }}
-                    animate={{ scale: 2.0 + i * 0.35, opacity: 0 }}
-                    transition={{ duration: 1.1, repeat: Infinity, delay: i * 0.4, ease: 'easeOut' }}
-                  />
-                ))}
-              </AnimatePresence>
-              <motion.button
-                onClick={toggleMic}
-                whileTap={{ scale: 0.87 }}
-                disabled={permissionDenied}
-                aria-label={isListening ? 'Stop listening' : 'Voice input'}
-                className="relative z-10 w-11 h-11 rounded-full flex items-center justify-center transition-all"
-                style={{
-                  background: isListening ? cfg.micActive : 'rgba(255,255,255,0.11)',
-                  border: `1px solid ${isListening ? cfg.micActive : 'rgba(255,255,255,0.18)'}`,
-                  boxShadow: isListening ? `0 0 16px ${cfg.micActive}60` : 'none',
-                }}
-              >
-                {permissionDenied
-                  ? <MicOff className="w-4 h-4 text-white/35" />
-                  : <Mic className={`w-4 h-4 ${isListening ? 'text-white' : 'text-white/55'}`} />}
-              </motion.button>
-            </div>
-          )}
+          {/* Hamburger menu — mic, video message, video call */}
+          <div className="relative flex-shrink-0">
+            <motion.button
+              whileTap={{ scale: 0.87 }}
+              onClick={() => setShowMediaMenu(v => !v)}
+              aria-label="More options"
+              className="w-11 h-11 rounded-full flex items-center justify-center transition-all"
+              style={{
+                background: showMediaMenu ? `${cfg.gradTo}30` : 'rgba(255,255,255,0.11)',
+                border: `1px solid ${showMediaMenu ? cfg.gradTo + '55' : 'rgba(255,255,255,0.18)'}`,
+              }}
+            >
+              <Menu className={`w-4 h-4 ${showMediaMenu ? 'text-white' : 'text-white/55'}`} />
+            </motion.button>
 
-          {/* Video message button */}
-          <motion.button
-            whileTap={{ scale: 0.87 }}
-            onClick={() => setShowVideoRecorder(true)}
-            disabled={isLoading || showVideoRecorder}
-            aria-label="Record video message"
-            className="flex-shrink-0 w-11 h-11 rounded-full flex items-center justify-center transition-all"
-            style={{
-              background: showVideoRecorder ? `${cfg.gradTo}30` : 'rgba(255,255,255,0.11)',
-              border: `1px solid ${showVideoRecorder ? cfg.gradTo + '55' : 'rgba(255,255,255,0.18)'}`,
-            }}
-          >
-            <Video className={`w-4 h-4 ${showVideoRecorder ? 'text-white' : 'text-white/55'}`} />
-          </motion.button>
-
-          {/* Video Call button (FaceTime-style) */}
-          <motion.button
-            whileTap={{ scale: 0.87 }}
-            onClick={() => {
-              // iOS Safari audio unlock — prime an audio element inside user gesture
-              try {
-                const a = new Audio();
-                a.preload = 'auto';
-                a.src = 'data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAVFYAAFRWAAABAAgAZGF0YQAAAAA=';
-                a.load();
-                const p = a.play();
-                if (p && typeof p.then === 'function') {
-                  p.then(() => { try { a.pause(); } catch (_) {} }).catch(() => {});
-                }
-                callAudioUnlockRef.current = a;
-              } catch (_) {}
-              stopListening();
-              stopSpeechRef.current?.();
-              setSpeakingIdx(null);
-              setVideoCallOpen(true);
-            }}
-            disabled={isLoading}
-            aria-label="Start video call"
-            className="flex-shrink-0 w-11 h-11 rounded-full flex items-center justify-center transition-all"
-            style={{
-              background: videoCallOpen ? `${cfg.gradTo}30` : 'rgba(255,255,255,0.11)',
-              border: `1px solid ${videoCallOpen ? cfg.gradTo + '55' : 'rgba(255,255,255,0.18)'}`,
-            }}
-          >
-            <PhoneCall className={`w-4 h-4 ${videoCallOpen ? 'text-white' : 'text-white/55'}`} />
-          </motion.button>
+            {/* Popup menu */}
+            <AnimatePresence>
+              {showMediaMenu && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.85, y: 8 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.85, y: 8 }}
+                  transition={{ duration: 0.15 }}
+                  className="absolute bottom-14 left-0 flex flex-col gap-2 p-2 rounded-2xl"
+                  style={{ background: 'rgba(10,12,20,0.95)', border: '1px solid rgba(255,255,255,0.14)', backdropFilter: 'blur(20px)', minWidth: 160, zIndex: 60 }}
+                >
+                  {/* Mic */}
+                  {speechSupported && (
+                    <button
+                      onClick={() => { setShowMediaMenu(false); toggleMic(); }}
+                      disabled={permissionDenied}
+                      className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all"
+                      style={{ background: isListening ? `${cfg.micActive}22` : 'transparent', color: isListening ? cfg.micActive : 'rgba(255,255,255,0.7)' }}
+                    >
+                      {permissionDenied ? <MicOff className="w-4 h-4 opacity-35" /> : <Mic className="w-4 h-4" />}
+                      {isListening ? 'Stop listening' : 'Voice input'}
+                    </button>
+                  )}
+                  {/* Video message */}
+                  <button
+                    onClick={() => { setShowMediaMenu(false); setShowVideoRecorder(true); }}
+                    disabled={isLoading}
+                    className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-white/70 transition-all hover:text-white"
+                    style={{ background: 'transparent' }}
+                  >
+                    <Video className="w-4 h-4" />
+                    Video message
+                  </button>
+                  {/* Video call */}
+                  <button
+                    onClick={() => {
+                      setShowMediaMenu(false);
+                      try {
+                        const a = new Audio();
+                        a.preload = 'auto';
+                        a.src = 'data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAVFYAAFRWAAABAAgAZGF0YQAAAAA=';
+                        a.load();
+                        const p = a.play();
+                        if (p && typeof p.then === 'function') {
+                          p.then(() => { try { a.pause(); } catch (_) {} }).catch(() => {});
+                        }
+                        callAudioUnlockRef.current = a;
+                      } catch (_) {}
+                      stopListening();
+                      stopSpeechRef.current?.();
+                      setSpeakingIdx(null);
+                      setVideoCallOpen(true);
+                    }}
+                    disabled={isLoading}
+                    className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-white/70 transition-all hover:text-white"
+                    style={{ background: 'transparent' }}
+                  >
+                    <PhoneCall className="w-4 h-4" />
+                    Video call
+                  </button>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
 
           {/* Text input */}
           <input
