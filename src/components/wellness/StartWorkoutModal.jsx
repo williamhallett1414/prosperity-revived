@@ -897,7 +897,7 @@ export default function StartWorkoutModal({ isOpen, onClose, workout, user, onCo
                   <div />
                   <div className="flex items-center gap-1 bg-[#0A1A2F]/6 rounded-full px-2.5 py-1">
                     <Timer className="w-3 h-3 text-[#38BDF8]" />
-                    <span className="text-[#0A1A2F] dark:text-white font-bold text-[11px] tabular-nums">{fmt(elapsedTime)}</span>
+                    <span className="text-[#0A1A2F] dark:text-white font-bold text-sm tabular-nums">{fmt(elapsedTime)}</span>
                     <button onClick={() => setTimerRunning(p => !p)} className="text-[#0A1A2F]/30 dark:text-white/30 hover:text-[#0A1A2F]/60 dark:text-white/60 ml-0.5">
                       {timerRunning ? <Pause className="w-2.5 h-2.5" /> : <Play className="w-2.5 h-2.5" />}
                     </button>
@@ -910,7 +910,7 @@ export default function StartWorkoutModal({ isOpen, onClose, workout, user, onCo
 
                 {/* Progress track */}
                 <div className="px-5 mb-2 flex-shrink-0">
-                  <div className="h-1 bg-white/8 rounded-full overflow-hidden">
+                  <div className="h-1.5 bg-white/10 rounded-full overflow-hidden">
                     <motion.div
                       className="h-full bg-gradient-to-r from-[#FD9C2D] to-[#38BDF8] rounded-full"
                       animate={{ width: `${(currentIdx / exerciseStats.length) * 100}%` }}
@@ -929,7 +929,7 @@ export default function StartWorkoutModal({ isOpen, onClose, workout, user, onCo
                     {/* Tappable counter → overview */}
                     <button onClick={() => setShowOverview(true)}
                       className="flex items-center gap-1 text-white/30 hover:text-white/60 transition-colors group">
-                      <span className="text-[10px] font-bold uppercase tracking-wider">
+                      <span className="text-xs font-bold uppercase tracking-wider">
                         {currentIdx + 1}/{exerciseStats.length}
                       </span>
                       <List className="w-3 h-3 group-hover:text-[#FD9C2D] transition-colors" />
@@ -941,17 +941,17 @@ export default function StartWorkoutModal({ isOpen, onClose, workout, user, onCo
                 <div className="px-4 py-2.5 flex-shrink-0 border-b border-white/6">
                   <div className="flex items-center gap-1.5 mb-1">
                     {currentEx.type === 'timed' && (
-                      <span className="text-[8px] font-bold uppercase tracking-widest text-[#38BDF8] bg-[#38BDF8]/12 rounded-full px-2 py-0.5">Timed</span>
+                      <span className="text-[10px] font-bold uppercase tracking-widest text-[#38BDF8] bg-[#38BDF8]/15 rounded-full px-2.5 py-1">Timed</span>
                     )}
                     {currentEx.type === 'bodyweight' && (
-                      <span className="text-[8px] font-bold uppercase tracking-widest text-[#FD9C2D]/80 bg-[#FD9C2D]/10 rounded-full px-2 py-0.5">Bodyweight</span>
+                      <span className="text-[10px] font-bold uppercase tracking-widest text-[#FD9C2D] bg-[#FD9C2D]/15 rounded-full px-2.5 py-1">Bodyweight</span>
                     )}
                     {currentEx.type === 'weighted' && (
-                      <span className="text-[8px] font-bold uppercase tracking-widest text-white/35 bg-white/6 rounded-full px-2 py-0.5">Weighted</span>
+                      <span className="text-[10px] font-bold uppercase tracking-widest text-white/50 bg-white/10 rounded-full px-2.5 py-1">Weighted</span>
                     )}
                   </div>
-                  <h2 className="text-base font-bold text-white leading-tight">{currentEx.name}</h2>
-                  <p className="text-white/35 text-[11px] mt-0.5">
+                  <h2 className="text-xl font-black text-white leading-tight">{currentEx.name}</h2>
+                  <p className="text-white/45 text-sm mt-1 font-medium">
                     {currentEx.type === 'timed'
                       ? `${currentEx.target_sets} sets × ${currentEx.duration_seconds}s`
                       : `${currentEx.target_sets} sets × ${currentEx.target_reps} reps`}
@@ -960,7 +960,7 @@ export default function StartWorkoutModal({ isOpen, onClose, workout, user, onCo
                   {/* Form cue */}
                   {getFormCue(currentEx.name) && (
                     <div className="mt-1.5 p-1.5 bg-white/4 border border-white/8 rounded-lg">
-                      <p className="text-white/40 text-[10px] leading-tight">
+                      <p className="text-white/50 text-xs leading-relaxed">
                         💡 {getFormCue(currentEx.name)}
                       </p>
                     </div>
@@ -990,8 +990,8 @@ export default function StartWorkoutModal({ isOpen, onClose, workout, user, onCo
                     <div className="flex flex-col items-center py-2">
                       <div className="flex gap-1.5 mb-5">
                         {Array.from({ length: currentEx.target_sets }, (_, i) => (
-                          <div key={i} className={`w-3 h-3 rounded-full transition-all ${
-                            i < currentEx.timed_completed_sets ? 'bg-[#FD9C2D] scale-110' : 'bg-white/12'
+                          <div key={i} className={`w-4 h-4 rounded-full transition-all duration-300 ${
+                            i < currentEx.timed_completed_sets ? 'bg-[#FD9C2D] scale-125 shadow-lg shadow-[#FD9C2D]/30' : 'bg-white/15'
                           }`} />
                         ))}
                       </div>
@@ -999,28 +999,28 @@ export default function StartWorkoutModal({ isOpen, onClose, workout, user, onCo
                         <CircleTimer
                           seconds={countdownLeft > 0 ? countdownLeft : currentEx.duration_seconds}
                           total={currentEx.duration_seconds}
-                          size={180}
+                          size={220}
                           color={countdownRunning ? '#FD9C2D' : '#38BDF8'}
                         />
                         <div className="absolute text-center">
-                          <p className="text-6xl font-bold text-white tabular-nums">{countdownLeft}</p>
-                          <p className="text-white/25 text-xs mt-1">sec</p>
+                          <p className="text-8xl font-black text-white tabular-nums tracking-tight">{countdownLeft}</p>
+                          <p className="text-white/35 text-sm mt-1 font-medium uppercase tracking-widest">sec</p>
                         </div>
                       </div>
-                      <p className="text-white/40 text-sm mb-5">
+                      <p className="text-white/50 text-base font-semibold mb-5">
                         Set {currentEx.timed_completed_sets + 1} of {currentEx.target_sets}
                       </p>
                       <div className="flex gap-3">
                         {!countdownRunning && countdownLeft === currentEx.duration_seconds ? (
                           <Button onClick={startTimedSet}
-                            className="bg-gradient-to-r from-[#FD9C2D] to-[#E89020] text-white font-bold px-8 py-2.5 rounded-xl shadow-lg dark:shadow-none shadow-[#FD9C2D]/25">
+                            className="bg-gradient-to-r from-[#FD9C2D] to-[#E89020] text-white font-bold px-10 py-3.5 rounded-2xl shadow-lg shadow-[#FD9C2D]/30 text-base">
                             <Play className="w-4 h-4 mr-2" /> Start Set
                           </Button>
                         ) : (
                           <div className="flex gap-2">
                             <Button onClick={() => setCountdownRunning(p => !p)} variant="outline"
-                              className="border-white/15 text-white/60 hover:bg-white/8 bg-transparent">
-                              {countdownRunning ? <Pause className="w-4 h-4 mr-1" /> : <Play className="w-4 h-4 mr-1" />}
+                              className="border-white/15 text-white/70 hover:bg-white/10 bg-transparent px-6 py-2.5 rounded-xl">
+                              {countdownRunning ? <Pause className="w-5 h-5 mr-1.5" /> : <Play className="w-5 h-5 mr-1.5" />}
                               {countdownRunning ? 'Pause' : 'Resume'}
                             </Button>
                             <Button onClick={() => { setCountdownLeft(currentEx.duration_seconds); setCountdownRunning(false); }}
@@ -1037,10 +1037,10 @@ export default function StartWorkoutModal({ isOpen, onClose, workout, user, onCo
                   {(currentEx.type === 'weighted' || currentEx.type === 'bodyweight') && (
                     <div className="space-y-2.5">
                       <div className="flex items-center gap-2 px-1 pb-1">
-                        <div className="w-12 text-[10px] font-bold uppercase text-white/25 text-center">Set</div>
-                        <div className="flex-1 text-[10px] font-bold uppercase text-white/25 text-center">Reps</div>
+                        <div className="w-12 text-xs font-bold uppercase text-white/30 text-center">Set</div>
+                        <div className="flex-1 text-xs font-bold uppercase text-white/30 text-center">Reps</div>
                         {currentEx.type === 'weighted' && (
-                          <div className="flex-1 text-[10px] font-bold uppercase text-white/25 text-center">lbs</div>
+                          <div className="flex-1 text-xs font-bold uppercase text-white/30 text-center">lbs</div>
                         )}
                         <div className="w-10" />
                       </div>
@@ -1053,7 +1053,7 @@ export default function StartWorkoutModal({ isOpen, onClose, workout, user, onCo
                             set.done ? 'bg-[#FD9C2D]/12 border-[#FD9C2D]/30' : 'bg-white/4 border-white/6'
                           }`}
                         >
-                          <div className={`w-10 text-center text-sm font-bold ${set.done ? 'text-[#FD9C2D]' : 'text-white/35'}`}>
+                          <div className={`w-10 text-center text-lg font-black ${set.done ? 'text-[#FD9C2D]' : 'text-white/40'}`}>
                             {si + 1}
                           </div>
                           <input type="number" inputMode="numeric"
@@ -1091,7 +1091,7 @@ export default function StartWorkoutModal({ isOpen, onClose, workout, user, onCo
 
                   {/* Per-exercise feel rating */}
                   <div className="mt-4 flex items-center gap-2">
-                    <span className="text-white/25 text-xs mr-1">Feeling:</span>
+                    <span className="text-white/25 text-xs mr-1">How's it going?</span>
                     {[
                       { val: 'easy', icon: '😊', label: 'Easy' },
                       { val: 'ok', icon: '😐', label: 'OK' },
@@ -1115,7 +1115,7 @@ export default function StartWorkoutModal({ isOpen, onClose, workout, user, onCo
                 {/* Footer nav */}
                 <div className="px-5 pb-5 pt-3 border-t border-white/6 flex gap-2.5 flex-shrink-0">
                   <Button onClick={skipExercise} variant="outline"
-                    className="border-white/12 text-white/35 hover:bg-white/6 hover:text-white/60 bg-transparent text-sm px-4">
+                    className="border-white/15 text-white/50 hover:bg-white/8 hover:text-white/70 bg-transparent text-base px-5 py-3 rounded-xl font-semibold">
                     Skip
                   </Button>
                   {currentIdx < exerciseStats.length - 1 ? (
@@ -1123,20 +1123,20 @@ export default function StartWorkoutModal({ isOpen, onClose, workout, user, onCo
                       <Button
                         onClick={() => { setCountdownRunning(false); goToRest(currentIdx + 1); }}
                         variant="outline"
-                        className="border-white/15 text-white/60 hover:bg-white/8 bg-transparent text-sm px-3 whitespace-nowrap flex-shrink-0">
+                        className="border-white/15 text-white/60 hover:bg-white/10 bg-transparent text-base px-4 py-3 rounded-xl whitespace-nowrap flex-shrink-0 font-semibold">
                         Rest {restDuration}s
                       </Button>
                       <Button
                         onClick={() => { setCountdownRunning(false); nextExerciseDirect(); }}
-                        className="flex-1 bg-gradient-to-r from-[#FD9C2D] to-[#E89020] text-white font-bold">
-                        Done — Next <ChevronRight className="w-4 h-4 ml-1" />
+                        className="flex-1 bg-gradient-to-r from-[#FD9C2D] to-[#E89020] text-white font-bold text-base py-3 rounded-xl shadow-lg shadow-[#FD9C2D]/20">
+                        Done — Next <ChevronRight className="w-5 h-5 ml-1" />
                       </Button>
                     </div>
                   ) : (
                     <Button
                       onClick={() => { setCountdownRunning(false); setTimerRunning(false); audio.completionChime(); setPhase('complete'); }}
-                      className="flex-1 bg-gradient-to-r from-[#FD9C2D] to-[#E89020] text-white font-bold">
-                      <CheckCircle className="w-4 h-4 mr-2" /> Finish Workout
+                      className="flex-1 bg-gradient-to-r from-[#FD9C2D] to-[#E89020] text-white font-bold text-base py-3 rounded-xl shadow-lg shadow-[#FD9C2D]/20">
+                      <CheckCircle className="w-5 h-5 mr-2" /> Finish Workout
                     </Button>
                   )}
                 </div>
