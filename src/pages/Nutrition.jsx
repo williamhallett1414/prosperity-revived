@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
-import { UtensilsCrossed, CalendarDays, ChefHat, History, Plus, Droplets, Flame, TrendingUp, Target, ChevronRight, Trash2, Camera } from 'lucide-react';
+import { UtensilsCrossed, CalendarDays, ChefHat, History, Plus, Droplets, Flame, TrendingUp, Target, ChevronRight, Trash2 } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { motion } from 'framer-motion';
@@ -80,8 +80,6 @@ export default function Nutrition() {
   const [activeTab, setActiveTab] = useState('today');
   const navigate = useNavigate();
   const [showLogModal, setShowLogModal] = useState(false);
-  const [photoFile, setPhotoFile] = useState(null);
-  const fileInputRef = useRef(null);
   const queryClient = useQueryClient();
   const now = new Date();
   const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
@@ -182,34 +180,13 @@ export default function Nutrition() {
               <h1 className="text-lg font-black text-[#0A1A2F] dark:text-white leading-tight">Nutrition</h1>
               <p className="text-[11px] text-[#0A1A2F]/40 dark:text-white/40 font-medium">Track · Plan · Nourish</p>
             </div>
-            <div className="flex items-center gap-2">
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept="image/*"
-                className="hidden"
-                onChange={(e) => {
-                  if (e.target.files?.[0]) {
-                    setPhotoFile(e.target.files[0]);
-                    setShowLogModal(true);
-                  }
-                }}
-              />
-              <button
-                onClick={() => fileInputRef.current?.click()}
-                className="flex items-center gap-1.5 px-4 py-2 rounded-full bg-blue-500 hover:bg-blue-600 text-white text-xs font-bold shadow-md dark:shadow-none transition-transform active:scale-95"
-              >
-                <Camera className="w-3.5 h-3.5" />
-                Photo
-              </button>
-              <button
-                onClick={() => setShowLogModal(true)}
-                className="flex items-center gap-1.5 px-4 py-2 rounded-full bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white text-xs font-bold shadow-md dark:shadow-none shadow-[#c9a227]/25 active:scale-95 transition-transform"
-              >
-                <Plus className="w-3.5 h-3.5" />
-                Log Food
-              </button>
-            </div>
+            <button
+              onClick={() => setShowLogModal(true)}
+              className="flex items-center gap-1.5 px-4 py-2 rounded-full bg-gradient-to-r from-[#c9a227] to-[#FAD98D] text-white text-xs font-bold shadow-md dark:shadow-none shadow-[#c9a227]/25 active:scale-95 transition-transform"
+            >
+              <Plus className="w-3.5 h-3.5" />
+              Log Food
+            </button>
           </div>
 
           {/* Nav tabs — only the navigation ones, no Log Food here */}
@@ -458,17 +435,10 @@ export default function Nutrition() {
       {/* Log Food Modal */}
       <DetailedFoodLogModal
         isOpen={showLogModal}
-        onClose={() => {
-          setShowLogModal(false);
-          setPhotoFile(null);
-        }}
-        photoFile={photoFile}
+        onClose={() => setShowLogModal(false)}
         onSave={(data) => {
           logMeal.mutate(data, {
-            onSuccess: () => {
-              setShowLogModal(false);
-              setPhotoFile(null);
-            }
+            onSuccess: () => setShowLogModal(false)
           });
         }} />
       
