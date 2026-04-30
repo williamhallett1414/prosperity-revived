@@ -20,10 +20,6 @@ export default function Plans() {
   const [showCreateCustom, setShowCreateCustom] = useState(false);
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
-  const [showGideon, setShowGideon] = useState(false);
-  const [gideonInput, setGideonInput] = useState('');
-  const [gideonLoading, setGideonLoading] = useState(false);
-  const [gideonResponse, setGideonResponse] = useState(null);
 
   const queryClient = useQueryClient();
 
@@ -80,34 +76,6 @@ export default function Plans() {
 
   const getProgressForPlan = (planId) => {
     return planProgress.find((p) => p.plan_id === planId);
-  };
-
-  const handleGideonAsk = async () => {
-    if (!gideonInput.trim() || gideonLoading) return;
-
-    const question = gideonInput.trim();
-    setGideonInput('');
-    setGideonLoading(true);
-
-    try {
-      const response = await base44.integrations.Core.InvokeLLM({
-        prompt: `You are Gideon, a friendly pastoral cat assistant helping people with Bible reading plans. A user has a question about reading plans.
-
-User's question: ${question}
-
-Provide warm, helpful guidance (2-4 sentences) about reading plans, Bible study habits, or spiritual growth. Use a friendly, encouraging tone:`,
-        add_context_from_internet: false
-      });
-
-      setGideonResponse({ question, advice: response });
-    } catch (error) {
-      setGideonResponse({
-        question,
-        advice: 'Meow! I\'m having trouble right now. Please try again.'
-      });
-    } finally {
-      setGideonLoading(false);
-    }
   };
 
   const categories = ['all', ...new Set(readingPlans.map((p) => p.category))];
@@ -251,89 +219,12 @@ Provide warm, helpful guidance (2-4 sentences) about reading plans, Bible study 
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           className="fixed bottom-24 right-6 z-30">
-          
-          <Button
-            onClick={() => setShowGideon(!showGideon)}
-            className="w-14 h-14 rounded-full bg-[#AFC7E3] hover:bg-[#AFC7E3]/90 text-[#0A1A2F] dark:text-white shadow-lg dark:shadow-none">
-            
-            <MessageCircle className="w-6 h-6" />
-          </Button>
+          <Link to="/ChatScreen?bot=Gideon">
+            <Button className="w-14 h-14 rounded-full bg-[#7c5a00] hover:bg-[#7c5a00]/90 text-white shadow-lg dark:shadow-none">
+              <MessageCircle className="w-6 h-6" />
+            </Button>
+          </Link>
         </motion.div>
-
-        {/* Gideon Chat Panel */}
-        <AnimatePresence>
-          {showGideon &&
-          <motion.div
-            initial={{ opacity: 0, y: 20, scale: 0.9 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.9 }}
-            className="fixed bottom-44 right-6 w-80 max-w-[calc(100vw-3rem)] z-30">
-            
-              <div className="bg-white dark:bg-white/5 rounded-2xl shadow-2xl border border-[#F2F6FA] overflow-hidden">
-                <div className="bg-gradient-to-r from-[#AFC7E3] to-[#FAD98D] p-5 text-[#0A1A2F] dark:text-white dark:text-white">
-                  <h3 className="font-semibold flex items-center gap-2">
-                    <MessageCircle className="w-5 h-5" />
-                    Chat with Gideon 🐱
-                  </h3>
-                  <p className="text-xs text-[#0A1A2F]/70 dark:text-white/70 mt-1">Your pastoral cat assistant</p>
-                </div>
-
-                <div className="p-5 max-h-96 overflow-y-auto space-y-4 bg-[#F2F6FA] dark:bg-[#0A1A2F]">
-                  {gideonResponse &&
-                <div className="space-y-3">
-                      <div className="bg-gray-100 dark:bg-white/5 p-4 rounded-xl">
-                        <p className="text-xs font-medium text-[#0A1A2F]/60 dark:text-white/60 mb-1">You asked:</p>
-                        <p className="text-sm text-[#0A1A2F] dark:text-white dark:text-white">{gideonResponse.question}</p>
-                      </div>
-                      <div className="bg-gradient-to-br from-[#AFC7E3] to-[#FAD98D] p-4 rounded-xl">
-                        <p className="text-xs font-medium text-[#0A1A2F]/80 dark:text-white/80 mb-1">Gideon says:</p>
-                        <p className="text-sm text-[#0A1A2F] dark:text-white leading-relaxed">{gideonResponse.advice}</p>
-                      </div>
-                    </div>
-                }
-
-                  {!gideonResponse && !gideonLoading &&
-                <p className="text-sm text-[#0A1A2F]/60 dark:text-white/60 text-center py-8">
-                      Ask me anything about reading plans! 🐱
-                    </p>
-                }
-
-                  {gideonLoading &&
-                <div className="flex items-center justify-center py-8">
-                      <Loader2 className="w-6 h-6 animate-spin text-[#AFC7E3]" />
-                    </div>
-                }
-                </div>
-
-                <div className="p-5 border-t border-[#F2F6FA] bg-white dark:bg-white/5">
-                  <div className="flex gap-3">
-                    <Input
-                    placeholder="Ask Gideon..."
-                    value={gideonInput}
-                    onChange={(e) => setGideonInput(e.target.value)}
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter') {
-                        e.preventDefault();
-                        handleGideonAsk();
-                      }
-                    }}
-                    className="flex-1 text-sm bg-[#F2F6FA] dark:bg-[#0A1A2F] border-[#F2F6FA] h-11"
-                    disabled={gideonLoading} />
-                  
-                    <Button
-                    onClick={handleGideonAsk}
-                    disabled={!gideonInput.trim() || gideonLoading}
-                    className="bg-gradient-to-r from-[#AFC7E3] to-[#FAD98D] hover:from-[#AFC7E3]/90 hover:to-[#FAD98D]/90 text-[#0A1A2F] dark:text-white h-11 px-5"
-                    size="icon">
-                    
-                      <Send className="w-4 h-4" />
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          }
-        </AnimatePresence>
 
         {/* Plans Grid */}
         <div className="grid gap-4 md:grid-cols-2">
