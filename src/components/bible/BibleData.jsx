@@ -1213,7 +1213,7 @@ export const planReadingSchedules = {
     { day: 14, book: "Psalms", chapter: 146 },
     { day: 15, book: "Luke", chapter: 10 },
     { day: 16, book: "Psalms", chapter: 63 },
-    { day: 17, book: "Revelations", chapter: 5 },
+    { day: 17, book: "Revelation", chapter: 5 },
     { day: 18, book: "Psalms", chapter: 84 },
     { day: 19, book: "1 Thessalonians", chapter: 5 },
     { day: 20, book: "Psalms", chapter: 150 },
