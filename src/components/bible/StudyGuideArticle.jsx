@@ -3196,21 +3196,21 @@ export default function StudyGuideArticle({ guide, onBack }) {
           Back
         </Button>
 
-        {/* Header Image */}
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="relative h-64 rounded-2xl overflow-hidden mb-6"
+          className="rounded-2xl overflow-hidden mb-6 bg-gradient-to-br from-[#1a0f00] via-[#7c5a00] to-[#c9a227] p-6 shadow-md dark:shadow-none"
         >
-          <img
-            src={guide.image}
-            alt={guide.title}
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-          <div className="absolute bottom-6 left-6 right-6">
-            <h1 className="text-3xl font-bold text-white mb-2">{guide.title}</h1>
-            <p className="text-white/90">{guide.subtitle}</p>
+          <div className="flex items-start gap-4">
+            <div className="w-12 h-12 rounded-xl bg-white/15 flex items-center justify-center flex-shrink-0">
+              <BookOpen className="w-6 h-6 text-[#FAD98D]" />
+            </div>
+            <div>
+              <p className="text-[#FAD98D]/70 text-xs font-bold uppercase tracking-widest mb-1">{guide.chapters} Chapters</p>
+              <h1 className="text-2xl font-bold text-white leading-tight mb-1">{guide.title}</h1>
+              <p className="text-white/75 text-sm">{guide.subtitle}</p>
+            </div>
           </div>
         </motion.div>
 
