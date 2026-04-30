@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, ChevronRight, ChevronLeft, Bookmark, ChevronDown, ChevronUp, Search, Menu, X } from 'lucide-react';
 import { bibleBooks } from './BibleData';
 import { base44 } from '@/api/base44Client';
+import GideonReadAloud from './GideonReadAloud';
 import ChatButton from '@/components/chatbot/ChatButton';
 import VerseActionMenu from '@/components/bible/VerseActionMenu';
 import { toast } from 'sonner';
@@ -562,6 +563,10 @@ export default function UnifiedBibleReader({
               {/* Verses */}
               {!loading && verses.length > 0 && (
                 <div className="px-4 sm:px-6 max-w-2xl pt-2">
+                  {/* Read Aloud button */}
+                  <div className="flex justify-end mb-3">
+                    <GideonReadAloud text={verses.map(v => `${v.verse}. ${v.text}`).join(' ')} />
+                  </div>
                   {verses.map((verse, idx) => {
                     const bm      = getBookmark(verse);
                     const hlColor = HL[bm?.highlight_color];

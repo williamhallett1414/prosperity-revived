@@ -5,6 +5,7 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
+import GideonReadAloud from './GideonReadAloud';
 import StudyNotes from './StudyNotes';
 import AIReflectionQuestions from './AIReflectionQuestions';
 import GideonStudyAssistant from './GideonStudyAssistant';
@@ -3213,6 +3214,15 @@ export default function StudyGuideArticle({ guide, onBack }) {
             </div>
           </div>
         </motion.div>
+
+        {/* Read Aloud */}
+        <div className="flex justify-end mb-4">
+          <GideonReadAloud text={[
+            ...(content.introduction || []),
+            ...(content.keyScriptures || []).map(s => `${s.ref}. ${s.text}`),
+            ...(content.keyLessons || []),
+          ].join('. ')} />
+        </div>
 
         {/* Introduction */}
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>

@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { ArrowLeft, Heart, Sparkles } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import GideonReadAloud from './GideonReadAloud';
 
 const devotionalContentMap = {
   'identity-christ': {
@@ -416,6 +417,16 @@ export default function DevotionalArticle({ devotional, onBack }) {
             </div>
           </div>
         </motion.div>
+
+        {/* Read Aloud */}
+        <div className="flex justify-end mb-4">
+          <GideonReadAloud text={[
+            ...(content.introduction || []),
+            ...(content.keyVerses || []).map(v => v.verse),
+            ...(content.sections || []).flatMap(s => [s.title, s.content, s.verse].filter(Boolean)),
+            content.prayer || '',
+          ].join('. ')} />
+        </div>
 
         {/* Introduction */}
         <Card className="p-6 mb-6">
