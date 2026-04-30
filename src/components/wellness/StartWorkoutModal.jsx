@@ -284,27 +284,24 @@ export default function StartWorkoutModal({ isOpen, onClose, workout, user, onCo
   const [phase, setPhase] = useState('warmup'); // warmup | countdown | workout | rest | complete
   const [coachTrigger, setCoachTrigger] = useState(null);
   const coachTriggerCountRef = useRef(0);
+  const [currentIdx, setCurrentIdx] = useState(0);
+  const [exerciseStats, setExerciseStats] = useState([]);
 
   // Coach David popup triggers at key workout moments
   useEffect(() => {
     if (phase === 'workout' && currentIdx === 0 && coachTriggerCountRef.current === 0) {
-      // First exercise starting
       coachTriggerCountRef.current++;
       setCoachTrigger('start_' + Date.now());
     } else if (phase === 'workout' && exerciseStats.length > 2 && currentIdx === Math.floor(exerciseStats.length / 2)) {
-      // Halfway through exercises
       const key = 'halfway_' + currentIdx;
       if (coachTrigger !== key) setCoachTrigger(key);
     } else if (phase === 'workout' && exerciseStats.length > 1 && currentIdx === exerciseStats.length - 1) {
-      // Last exercise
       const key = 'lastExercise_' + currentIdx;
       if (coachTrigger !== key) setCoachTrigger(key);
     } else if (phase === 'complete') {
       setCoachTrigger('complete_' + Date.now());
     }
   }, [phase, currentIdx]);
-  const [currentIdx, setCurrentIdx] = useState(0);
-  const [exerciseStats, setExerciseStats] = useState([]);
   const [elapsedTime, setElapsedTime] = useState(0);
   const [timerRunning, setTimerRunning] = useState(false);
   const [showOverview, setShowOverview] = useState(false);
