@@ -387,7 +387,7 @@ export default function Layout({ children, currentPageName }) {
         </div>
       )}
 
-      <main className="pt-16 pb-20">
+      <main className="pt-0 pb-20">
         <PullToRefresh onRefresh={async () => {
             await queryClient.invalidateQueries();
           }}>
