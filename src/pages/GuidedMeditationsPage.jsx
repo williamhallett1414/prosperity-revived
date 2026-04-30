@@ -234,8 +234,31 @@ function MeditationPlayer({ meditation, onClose }) {
   };
 
   const togglePause = () => {
-    pausedRef.current = !pausedRef.current;
-    setPhase(pausedRef.current ? 'paused' : 'playing');
+    if (phase === 'playing') {
+      pausedRef.current = true;
+      // Pause active Cloud TTS audio
+      if (_activeAudio && !_activeAudio.paused) {
+        try { _activeAudio.pause(); } catch {}
+      }
+      // Pause browser speechSynthesis
+      try { window.speechSynthesis?.pause(); } catch {}
+      // Stop timers while paused
+      clearInterval(timerRef.current);
+      clearInterval(breathRef.current);
+      setPhase('paused');
+    } else if (phase === 'paused') {
+      pausedRef.current = false;
+      // Resume Cloud TTS audio
+      if (_activeAudio && _activeAudio.paused) {
+        _activeAudio.play().catch(() => {});
+      }
+      // Resume browser speechSynthesis
+      try { window.speechSynthesis?.resume(); } catch {}
+      // Restart timers
+      timerRef.current = setInterval(() => setElapsed(e => e + 1), 1000);
+      breathRef.current = setInterval(() => setBreathState(s => s === 'in' ? 'out' : 'in'), 4000);
+      setPhase('playing');
+    }
   };
 
   const fmt = (s) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
