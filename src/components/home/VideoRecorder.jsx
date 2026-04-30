@@ -25,8 +25,13 @@ export default function VideoRecorder({
   const [state, setState] = useState('idle'); // idle | previewing | recording | reviewing
   const [error, setError] = useState(() => {
     // Check browser support upfront
-    if (!navigator.mediaDevices?.getUserMedia) return 'Your browser does not support camera access. Please use Chrome, Safari, or Firefox.';
-    if (typeof MediaRecorder === 'undefined') return 'Your browser does not support video recording. Please use Chrome or Firefox.';
+    if (!navigator.mediaDevices?.getUserMedia) {
+      // iOS Safari in iframe or older browser
+      const isIOS = /iP(hone|ad|od)/.test(navigator.userAgent);
+      if (isIOS) return 'Camera requires the full app. Please open Prosperity Revived from your home screen.';
+      return 'Your browser does not support camera access. Please use Chrome, Safari, or Firefox.';
+    }
+    if (typeof MediaRecorder === 'undefined') return 'Video recording is not supported on this device.';
     return null;
   });
   const [elapsed, setElapsed] = useState(0);
