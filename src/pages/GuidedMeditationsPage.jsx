@@ -167,10 +167,14 @@ function MeditationPlayer({ meditation, onClose }) {
       const raw = await base44.integrations.Core.InvokeLLM({
         prompt: `You are a professional guided meditation narrator. Create a script for: ${meditation.prompt}\n\nReturn ONLY a valid JSON array. Each element: {"text": "spoken words", "pause": seconds_of_silence_after}\nRequirements:\n- 15-25 segments total\n- pause values: 2-4 for normal, 6-10 for breathing exercises, 3-5 for visualization\n- Include breathing cues like "Breathe in... and breathe out..."\n- Warm, peaceful, unhurried language\n- No markdown, no explanation, just the JSON array`
       });
-      const cleaned = raw.replace(/```json\n?|```\n?/g, '').trim();
+      const cleaned = (raw?.data || raw)?.replace(/```json\n?|```\n?/g, '').trim() || '';
       const s = cleaned.indexOf('['), e = cleaned.lastIndexOf(']');
-      if (s !== -1 && e !== -1) segments = JSON.parse(cleaned.substring(s, e + 1));
-    } catch {
+      if (s !== -1 && e !== -1) {
+        const parsed = JSON.parse(cleaned.substring(s, e + 1));
+        if (Array.isArray(parsed) && parsed.length > 0) segments = parsed;
+      }
+    } catch (err) {
+      console.warn('[Meditation] LLM script generation failed:', err);
       segments = [
         { text: "Welcome. Find a comfortable position and gently close your eyes.", pause: 4 },
         { text: "Take a slow, deep breath in through your nose.", pause: 3 },
