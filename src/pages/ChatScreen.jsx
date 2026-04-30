@@ -10,7 +10,7 @@ import VideoRecorder from '@/components/home/VideoRecorder';
 import { ArrowLeft, Send, Loader2, RotateCcw, Mic, MicOff, Volume2, Square, X, Zap, Video } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import { base44 } from '@/api/base44Client';
-import { getUserMemory, buildMemoryContext, extractAndSaveInsights } from '@/utils/adaptiveMemory';
+import { getChatbotMemories, buildMemoryContext, getCrossContext, saveMemories } from '@/utils/adaptiveMemory';
 import CloudAvatar    from '@/components/avatar/CloudAvatar';
 import GideonAvatar       from '@/components/avatar/GideonAvatar';
 import ChefDanielAvatar   from '@/components/avatar/ChefDanielAvatar';
@@ -1066,12 +1066,19 @@ export default function ChatScreen() {
   const [speakingIdx,      setSpeakingIdx]      = useState(null);
   const [permissionDenied, setPermissionDenied] = useState(false);
   const [userProfile,      setUserProfile]      = useState(null);
-  const [aiMemory,         setAiMemory]         = useState(null);
+  const [chatMemories,     setChatMemories]     = useState([]);
+  const [crossContext,     setCrossContext]      = useState('');
 
   // Load user profile once — injected into every bot prompt
   useEffect(() => {
-    base44.auth.me().then(u => setUserProfile(u)).catch(() => {});
-    getUserMemory().then(m => setAiMemory(m)).catch(() => {});
+    base44.auth.me().then(u => {
+      setUserProfile(u);
+      // Load chatbot memories + cross-context
+      const botNameMap = { hannah: 'Hannah', coach: 'CoachDavid', chef: 'ChefDaniel', gideon: 'Gideon', paul: 'CoachPaul' };
+      const dbName = botNameMap[cfg.character] || cfg.character;
+      getChatbotMemories(dbName).then(m => setChatMemories(m)).catch(() => {});
+      getCrossContext(cfg.character, u?.email).then(c => setCrossContext(c)).catch(() => {});
+    }).catch(() => {});
   }, []);
 
   // Build personalised system prompt with user context
@@ -1115,8 +1122,8 @@ export default function ChatScreen() {
       u.motivations?.length    && `- Motivations for joining: ${u.motivations.join(', ')}`,
     ].filter(Boolean).join('\n');
 
-    return `${basePrompt}\n\n${lines}\n\nUse this profile to personalise your responses. Address them by first name occasionally. Reference their specific goals, stage, and preferences naturally — don't recite the profile back to them.${buildMemoryContext(aiMemory)}`;
-  }, [userProfile, aiMemory]);
+    return `${basePrompt}\n\n${lines}\n\nUse this profile to personalise your responses. Address them by first name occasionally. Reference their specific goals, stage, and preferences naturally — don't recite the profile back to them.${buildMemoryContext(chatMemories)}${crossContext}`;
+  }, [userProfile, chatMemories, crossContext]);
 
   const inputRef           = useRef(null);
   const messagesEndRef     = useRef(null);
@@ -1175,13 +1182,14 @@ export default function ChatScreen() {
 
       setMessages(prev => {
         const updated = [...prev, { role: 'assistant', content: response }];
-        // Extract insights in background (non-blocking)
-        // Fire after 2nd user message, then every 3rd message after
+        // Save memories in background every 3rd user message
         const userMsgCount = updated.filter(m => m.role === 'user').length;
         if (userMsgCount === 2 || (userMsgCount > 2 && userMsgCount % 3 === 0)) {
-          extractAndSaveInsights(updated, cfg.name).then(result => {
-            // Refresh memory cache so next response uses updated context
-            getUserMemory().then(m => setAiMemory(m)).catch(() => {});
+          saveMemories(updated, cfg.name).then(() => {
+            // Refresh memories for next response
+            const botNameMap = { hannah: 'Hannah', coach: 'CoachDavid', chef: 'ChefDaniel', gideon: 'Gideon', paul: 'CoachPaul' };
+            const dbName = botNameMap[cfg.character] || cfg.character;
+            getChatbotMemories(dbName).then(m => setChatMemories(m)).catch(() => {});
           }).catch(() => {});
         }
         return updated;

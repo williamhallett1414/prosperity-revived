@@ -1,170 +1,148 @@
 /**
- * Adaptive AI Memory System
+ * Adaptive AI Memory System (v2 — ChatbotMemory approach)
  * 
- * After each chat conversation, this module:
- * 1. Sends the conversation to the LLM with an extraction prompt
- * 2. The LLM identifies new insights about the user
- * 3. Those insights are merged into the UserMemory entity
- * 
- * Before each conversation, buildMemoryContext() generates a
- * context string that the avatar's system prompt uses to
- * personalize responses.
+ * Mirrors the Prosperity Revived Teens app architecture:
+ * - Each chatbot saves key memories to ChatbotMemory entity
+ * - Cross-chatbot context lets avatars reference each other's insights
+ * - LLM extracts memories inline as part of the response prompt
+ * - No separate extraction step — memories are saved during conversation
  */
 
 import { base44 } from '@/api/base44Client';
+import {
+  getChefDanielNutritionContext,
+  getGideonWellnessContext,
+  getHannahCrossContext,
+} from '@/components/chatbot/CrossChatbotContext';
 
-// ── Load or create user memory ──────────────────────────────────────────────
-let memoryCache = null;
-let memoryCacheTime = 0;
-const CACHE_TTL = 5 * 60 * 1000; // 5 min cache
+// ── Cache ────────────────────────────────────────────────────────────────────
+let memoriesCache = {};
+let cacheTime = 0;
+const CACHE_TTL = 3 * 60 * 1000; // 3 min
 
-export async function getUserMemory() {
+// ── Load memories for a specific chatbot ─────────────────────────────────────
+export async function getChatbotMemories(chatbotName) {
   const now = Date.now();
-  if (memoryCache && now - memoryCacheTime < CACHE_TTL) return memoryCache;
+  const key = chatbotName;
+  if (memoriesCache[key] && now - cacheTime < CACHE_TTL) return memoriesCache[key];
 
   try {
-    const memories = await base44.entities.UserMemory.list('-updated_date', 1);
-    if (memories.length > 0) {
-      memoryCache = memories[0];
-      memoryCacheTime = now;
-      console.log('[Memory] ✅ Loaded existing memory, interaction_count:', memoryCache.interaction_count || 0);
-      return memoryCache;
-    }
-    // Create first memory record
-    const newMem = await base44.entities.UserMemory.create({
-      interaction_count: 0,
-      last_updated: new Date().toISOString(),
-    });
-    memoryCache = newMem;
-    memoryCacheTime = now;
-    console.log('[Memory] ✅ Created new memory record');
-    return newMem;
+    const mems = await base44.entities.ChatbotMemory.filter(
+      { chatbot_name: chatbotName },
+      '-importance',
+      20
+    );
+    memoriesCache[key] = mems;
+    cacheTime = now;
+    console.log(`[Memory] ✅ Loaded ${mems.length} memories for ${chatbotName}`);
+    return mems;
   } catch (e) {
     console.warn('[Memory] ❌ Failed to load:', e);
-    return null;
+    return [];
   }
 }
 
-// ── Build context string for system prompt ──────────────────────────────────
-export function buildMemoryContext(memory) {
-  if (!memory) return '';
+// ── Build memory context for system prompt ───────────────────────────────────
+export function buildMemoryContext(memories) {
+  if (!memories || memories.length === 0) return '';
 
-  const sections = [
-    memory.communication_style && `Communication style: ${memory.communication_style}`,
-    memory.emotional_patterns && `Emotional patterns: ${memory.emotional_patterns}`,
-    memory.spiritual_maturity && `Spiritual maturity: ${memory.spiritual_maturity}`,
-    memory.fitness_observations && `Fitness notes: ${memory.fitness_observations}`,
-    memory.nutrition_observations && `Nutrition notes: ${memory.nutrition_observations}`,
-    memory.life_events && `Life events: ${memory.life_events}`,
-    memory.goals_mentioned && `Goals: ${memory.goals_mentioned}`,
-    memory.struggles_mentioned && `Struggles: ${memory.struggles_mentioned}`,
-    memory.wins_celebrated && `Wins: ${memory.wins_celebrated}`,
-    memory.favorite_topics && `Favorite topics: ${memory.favorite_topics}`,
-    memory.conversation_preferences && `Preferences: ${memory.conversation_preferences}`,
-  ].filter(Boolean);
+  const lines = memories
+    .slice(0, 15)
+    .map(m => `- [${m.category || 'note'}] ${m.content}`)
+    .join('\n');
 
-  if (sections.length === 0) return '';
+  return `\n\nWHAT YOU REMEMBER ABOUT THIS USER (from past conversations):
+${lines}
 
-  return `\n\nADAPTIVE MEMORY (learned from past conversations — use naturally, never recite back):
-${sections.join('\n')}
-
-Use this knowledge to personalize your responses. Reference things you've learned naturally, like a friend who remembers. Anticipate their needs based on patterns. If they mentioned a struggle before, gently check in. If they celebrated a win, build on it.`;
+Use these memories naturally — like a caring friend who remembers. Reference their goals, struggles, and wins when relevant. Never list these back or say "I remember that you..." — just weave the knowledge into your responses organically.`;
 }
 
-// ── Extract insights after a conversation ───────────────────────────────────
-const EXTRACTION_PROMPT = `You are an insight extraction engine. Analyze this conversation and extract NEW insights about the user. Only include things that are genuinely new or updated — don't repeat what's already known.
-
-Return a JSON object with ONLY the fields that have new information (omit fields with no new data):
-{
-  "communication_style": "how they prefer to talk (direct, gentle, humorous, detailed, brief)",
-  "emotional_patterns": "stress triggers, joy sources, coping mechanisms, mood tendencies",
-  "spiritual_maturity": "faith level, Bible comfort, prayer life, church involvement",
-  "fitness_observations": "workout preferences, limitations, progress, motivation",
-  "nutrition_observations": "food preferences, cooking skill, dietary struggles",
-  "life_events": "relationships, work, losses, celebrations mentioned",
-  "goals_mentioned": "specific goals stated",
-  "struggles_mentioned": "challenges or pain points",
-  "wins_celebrated": "achievements or breakthroughs shared",
-  "favorite_topics": "topics they return to or light up about",
-  "conversation_preferences": "how they want to be coached"
+// ── Get cross-chatbot context ────────────────────────────────────────────────
+export async function getCrossContext(characterKey, userEmail) {
+  try {
+    switch (characterKey) {
+      case 'coach':
+        return await getChefDanielNutritionContext(base44, userEmail);
+      case 'chef':
+        return await getGideonWellnessContext(base44, userEmail);
+      case 'hannah':
+        return await getHannahCrossContext(base44, userEmail);
+      default:
+        return '';
+    }
+  } catch {
+    return '';
+  }
 }
 
-IMPORTANT: Return ONLY valid JSON, no markdown, no explanation. If no new insights, return {}.`;
-
-export async function extractAndSaveInsights(messages, avatarName) {
-  if (!messages || messages.length < 3) return; // Need at least a real exchange
+// ── Save a memory after conversation ─────────────────────────────────────────
+export async function saveMemories(messages, chatbotName) {
+  if (!messages || messages.length < 4) return; // Need real conversation
 
   try {
-    const memory = await getUserMemory();
-    if (!memory) return;
-
-    // Build conversation text (last 20 messages max)
-    const convoText = messages.slice(-20)
-      .map(m => `${m.role === 'user' ? 'User' : avatarName}: ${m.content}`)
+    // Build the conversation for LLM extraction
+    const convoText = messages.slice(-16)
+      .map(m => `${m.role === 'user' ? 'User' : chatbotName}: ${m.content.substring(0, 300)}`)
       .join('\n');
 
-    // Include existing memory so LLM knows what's already known
-    const existingContext = buildMemoryContext(memory);
-    const existingNote = existingContext
-      ? `\n\nALREADY KNOWN ABOUT THIS USER:${existingContext}\n\nOnly extract NEW information not already captured above.`
-      : '';
+    const extractPrompt = `Analyze this conversation and extract 1-3 key insights about the USER (not the assistant). Focus on: goals they mentioned, struggles they shared, wins they celebrated, preferences they expressed, emotions they showed, life events they mentioned, or habits/beliefs they revealed.
 
-    // Call LLM to extract insights
+Return ONLY a JSON array of objects. Each object must have:
+- "content": a concise 1-sentence insight about the user
+- "category": one of: goal, struggle, win, preference, life_event, emotion, habit, belief, relationship
+- "importance": 1-10 score (10 = life-changing insight, 5 = useful detail, 1 = minor preference)
+
+If no meaningful insights, return [].
+No markdown, no explanation — ONLY the JSON array.
+
+CONVERSATION:
+${convoText}`;
+
     const result = await base44.integrations.Core.InvokeLLM({
-      prompt: `${EXTRACTION_PROMPT}${existingNote}\n\nCONVERSATION WITH ${avatarName.toUpperCase()}:\n${convoText}`,
+      prompt: extractPrompt,
       add_context_from_internet: false,
     });
 
-    // Parse the JSON response
     let insights;
     try {
       const cleaned = result.replace(/```json|```/g, '').trim();
       insights = JSON.parse(cleaned);
     } catch {
-      console.warn('[Memory] ❌ Failed to parse insights:', result?.substring?.(0, 200));
+      console.warn('[Memory] ❌ Failed to parse:', result?.substring?.(0, 100));
       return;
     }
 
-    // Merge insights — append new info to existing fields
-    if (Object.keys(insights).length === 0) return;
+    if (!Array.isArray(insights) || insights.length === 0) return;
 
-    const updates = {};
-    const mergeFields = [
-      'communication_style', 'emotional_patterns', 'spiritual_maturity',
-      'fitness_observations', 'nutrition_observations', 'life_events',
-      'goals_mentioned', 'struggles_mentioned', 'wins_celebrated',
-      'favorite_topics', 'conversation_preferences',
-    ];
+    // Save each insight as a ChatbotMemory record
+    const botNameMap = {
+      'Gideon': 'Gideon',
+      'Hannah': 'Hannah',
+      'Coach David': 'CoachDavid',
+      'Chef Daniel': 'ChefDaniel',
+      'Coach Paul': 'CoachPaul',
+    };
+    const dbName = botNameMap[chatbotName] || chatbotName;
 
-    for (const field of mergeFields) {
-      if (insights[field]) {
-        const existing = memory[field] || '';
-        if (existing) {
-          // Append new insight, keep total under 500 chars per field
-          const merged = `${existing}. ${insights[field]}`;
-          updates[field] = merged.length > 500 ? merged.slice(-500) : merged;
-        } else {
-          updates[field] = insights[field].slice(0, 500);
-        }
-      }
+    for (const insight of insights.slice(0, 3)) {
+      if (!insight.content) continue;
+      await base44.entities.ChatbotMemory.create({
+        chatbot_name: dbName,
+        content: insight.content.substring(0, 500),
+        category: insight.category || 'note',
+        importance: Math.min(10, Math.max(1, insight.importance || 5)),
+      });
     }
 
-    if (Object.keys(updates).length > 0) {
-      updates.last_updated = new Date().toISOString();
-      updates.interaction_count = (memory.interaction_count || 0) + 1;
-
-      // Add to raw insights log
-      const timestamp = new Date().toLocaleDateString();
-      const newInsight = `[${timestamp} ${avatarName}] ${JSON.stringify(insights)}`;
-      const rawLog = memory.raw_insights || '';
-      updates.raw_insights = (rawLog + '\n' + newInsight).slice(-2000); // Keep last 2000 chars
-
-      await base44.entities.UserMemory.update(memory.id, updates);
-      memoryCache = { ...memory, ...updates };
-      memoryCacheTime = Date.now();
-      console.log('[Memory] ✅ Updated with', Object.keys(updates).length, 'fields:', Object.keys(updates).filter(k => k !== 'last_updated' && k !== 'interaction_count' && k !== 'raw_insights').join(', '));
-    }
+    // Invalidate cache
+    delete memoriesCache[dbName];
+    console.log(`[Memory] ✅ Saved ${insights.length} memories for ${dbName}`);
   } catch (e) {
-    console.warn('[Memory] ❌ Extraction failed:', e);
+    console.warn('[Memory] ❌ Save failed:', e);
   }
+}
+
+// ── Legacy compatibility — getUserMemory wrapper ─────────────────────────────
+export async function getUserMemory() {
+  return null; // Replaced by getChatbotMemories
 }

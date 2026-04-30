@@ -1,0 +1,26 @@
+{
+  "name": "ChatbotMemory",
+  "type": "object",
+  "description": "Stores per-chatbot memories of user interactions. Each avatar saves key insights, and other avatars can read them for cross-context awareness.",
+  "properties": {
+    "chatbot_name": {
+      "type": "string",
+      "description": "Which chatbot created this memory: Gideon, Hannah, CoachDavid, ChefDaniel, CoachPaul"
+    },
+    "content": {
+      "type": "string",
+      "description": "The insight or memory content"
+    },
+    "category": {
+      "type": "string",
+      "enum": ["goal", "struggle", "win", "preference", "life_event", "emotion", "habit", "belief", "relationship"],
+      "description": "Category of the memory"
+    },
+    "importance": {
+      "type": "integer",
+      "default": 5,
+      "description": "Importance score 1-10 for prioritizing which memories to include"
+    }
+  },
+  "required": ["chatbot_name", "content"]
+}
