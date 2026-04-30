@@ -83,8 +83,8 @@ function getTimeLabel() {
 
 // ─── Audio engine ─────────────────────────────────────────────────────────────
 
-// ─── Speak using Google Cloud TTS (Hannah's voice) ──────────────────────────
-// Falls back to browser speechSynthesis if cloud TTS fails
+// ─── Speak using Hannah's TTS voice ───────────────────────────────────────────
+// Uses Google Cloud TTS for Hannah's professional narration
 // NOTE: audioRef is passed as closure so pause can stop playback
 const speakSegment = (text, audioRef) => new Promise(async (resolve) => {
   const cleaned = text.
@@ -94,7 +94,7 @@ const speakSegment = (text, audioRef) => new Promise(async (resolve) => {
 
   if (!cleaned) {resolve();return;}
 
-  // Try Google Cloud TTS first (same as ChatScreen Hannah voice)
+  // Use Hannah's TTS voice (Google Cloud)
   try {
     const result = await base44.functions.invoke('hannahTTS', { text: cleaned });
     const audioContent = result?.audioContent ?? result?.data?.audioContent;
@@ -112,10 +112,10 @@ const speakSegment = (text, audioRef) => new Promise(async (resolve) => {
       return;
     }
   } catch (err) {
-    console.warn('[Meditation TTS] Cloud TTS failed, trying browser:', err);
+    console.warn('[Meditation] Hannah TTS failed:', err);
   }
 
-  // Fallback: browser speechSynthesis
+  // Fallback: browser speechSynthesis (if Hannah TTS unavailable)
   if (window.speechSynthesis) {
     window.speechSynthesis.cancel();
     const utter = new SpeechSynthesisUtterance(cleaned);
