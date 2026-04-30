@@ -63,7 +63,7 @@ export default function VideoCallMode({
   // Feature flags
   autoListenAfterReply = true,  // after avatar finishes speaking, auto-start mic
   autoSpeakNewReplies  = true,  // when a new assistant message arrives, auto-speak it
-  silenceTimeoutMs     = 1500,  // stop listening after this many ms of no transcript change
+  silenceTimeoutMs     = 3000,  // stop listening after 3s of no transcript change (was 1.5s)
   isOpen = false,
 }) {
   // ── Media state ──────────────────────────────────────────────────────────
@@ -220,11 +220,21 @@ export default function VideoCallMode({
     // speaking edge: true → false means TTS just ended
     if (wasSpeaking && !isSpeaking && !isListening && !isThinking) {
       const t = setTimeout(() => {
-        // Only auto-listen if call is still open and permission is granted
         if (permissionState === 'granted' || permissionState === 'requesting') {
           onStartListening?.();
         }
       }, 500);
+      return () => clearTimeout(t);
+    }
+
+    // Also auto-listen if we're idle (not speaking, not listening, not thinking)
+    // This catches cases where the edge detection misses
+    if (!isSpeaking && !isListening && !isThinking && permissionState === 'granted') {
+      const t = setTimeout(() => {
+        if (!isSpeaking && !isListening && !isThinking) {
+          onStartListening?.();
+        }
+      }, 1500);
       return () => clearTimeout(t);
     }
   }, [isSpeaking, isListening, isThinking, isOpen, autoListenAfterReply, permissionState, onStartListening]);
