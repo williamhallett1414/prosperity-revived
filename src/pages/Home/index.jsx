@@ -7,6 +7,7 @@ import { createPageUrl } from '@/utils';
 import { Flame, ChevronRight } from 'lucide-react';
 import { RitualButton, QuickNav, ResumeCard, ActiveChallengesWidget, StartHereCard } from '@/components/home/HomeComponents';
 import HelpChatbot from '@/components/home/HelpChatbot';
+import { GRACE_MOMENTS } from '@/components/home/graceMoments';
 import gideonImg from '@/assets/gideon-avatar.png';
 import hannahImg from '@/assets/hannah-avatar.png';
 import coachDavidImg from '@/assets/coach-david-avatar.png';
@@ -289,39 +290,6 @@ function Home() {
         </motion.div>
 
         {(() => {
-          const GRACE_MOMENTS = [
-            { message: "God's grace doesn't run out. Not today, not ever.", verse: '"My grace is sufficient for you, for my power is made perfect in weakness." — 2 Corinthians 12:9' },
-            { message: "You are loved not because of what you do, but because of who God says you are.", verse: '"See what great love the Father has lavished on us, that we should be called children of God!" — 1 John 3:1' },
-            { message: "Your past doesn't define you. God's mercies are new every morning.", verse: '"His compassions never fail. They are new every morning; great is your faithfulness." — Lamentations 3:22-23' },
-            { message: "Rest in this: you don't have to earn what has already been freely given.", verse: '"For it is by grace you have been saved, through faith — and this is not from yourselves, it is the gift of God." — Ephesians 2:8' },
-            { message: "God is not disappointed in you. He is running toward you.", verse: '"But while he was still a long way off, his father saw him and was filled with compassion for him." — Luke 15:20' },
-            { message: "Forgiveness isn't just offered once. It's woven into the nature of God.", verse: '"If we confess our sins, he is faithful and just and will forgive us our sins." — 1 John 1:9' },
-            { message: "You are held — even in the moments you feel most alone.", verse: '"For I am the Lord your God who takes hold of your right hand and says, Do not fear; I will help you." — Isaiah 41:13' },
-            { message: "Grace says: come as you are. God will handle the rest.", verse: '"Come to me, all you who are weary and burdened, and I will give you rest." — Matthew 11:28' },
-            { message: "You don't have to be perfect for God to use you. He specializes in the broken.", verse: '"But he said to me, My grace is sufficient for you, for my power is made perfect in weakness." — 2 Corinthians 12:9' },
-            { message: "God's love for you is not based on your performance today.", verse: '"Neither height nor depth... will be able to separate us from the love of God." — Romans 8:39' },
-            { message: "When you feel unworthy, remember: grace doesn't wait for worthiness.", verse: '"But God demonstrates his own love for us in this: While we were still sinners, Christ died for us." — Romans 5:8' },
-            { message: "You are not your worst day. God sees the full story — and He's not done writing it.", verse: '"Being confident of this, that he who began a good work in you will carry it on to completion." — Philippians 1:6' },
-            { message: "Peace isn't the absence of trouble. It's the presence of God in the middle of it.", verse: '"Peace I leave with you; my peace I give you... Do not let your hearts be troubled." — John 14:27' },
-            { message: "Your weakness is not a disqualification — it's an invitation for His strength.", verse: '"When I am weak, then I am strong." — 2 Corinthians 12:10' },
-            { message: "Grace is not a reward. It is the very ground you stand on.", verse: '"Through whom we have gained access by faith into this grace in which we now stand." — Romans 5:2' },
-            { message: "God chose you — not because you had it together, but because He is love.", verse: '"For he chose us in him before the creation of the world to be holy and blameless in his sight." — Ephesians 1:4' },
-            { message: "You are not too far gone. No one is beyond the reach of grace.", verse: '"Where sin increased, grace increased all the more." — Romans 5:20' },
-            { message: "Today is a fresh start. Yesterday's failures don't get to follow you here.", verse: '"Forget the former things; do not dwell on the past. See, I am doing a new thing!" — Isaiah 43:18-19' },
-            { message: "You were seen before you were formed. You are known and still loved.", verse: '"Before I formed you in the womb I knew you." — Jeremiah 1:5' },
-            { message: "Shame says hide. Grace says come closer.", verse: '"There is now no condemnation for those who are in Christ Jesus." — Romans 8:1' },
-            { message: "God isn't counting your failures. He's counting on your future.", verse: '"For I know the plans I have for you, declares the Lord, plans to prosper you and not to harm you." — Jeremiah 29:11' },
-            { message: "You don't have to carry this alone. Grace was made for exactly this moment.", verse: '"Cast all your anxiety on him because he cares for you." — 1 Peter 5:7' },
-            { message: "God meets you in the valley — not just on the mountaintop.", verse: '"Even though I walk through the darkest valley, I will fear no evil, for you are with me." — Psalm 23:4' },
-            { message: "You are enough. Not because of you — because of whose you are.", verse: '"I can do all this through him who gives me strength." — Philippians 4:13' },
-            { message: "Grace doesn't excuse the past. It just refuses to let it define the future.", verse: '"Therefore, if anyone is in Christ, the new creation has come: The old has gone, the new is here!" — 2 Corinthians 5:17' },
-            { message: "God's patience with you is not running thin. It is running deep.", verse: '"The Lord is not slow in keeping his promise... Instead he is patient with you." — 2 Peter 3:9' },
-            { message: "Even when you wander, there is always a way home.", verse: '"Return to me, for I have redeemed you." — Isaiah 44:22' },
-            { message: "You were never meant to earn your way to God. Grace already built the bridge.", verse: '"For God so loved the world that he gave his one and only Son." — John 3:16' },
-            { message: "Breathe. You are held by hands that have never once let go.", verse: '"I give them eternal life, and they shall never perish; no one will snatch them out of my hand." — John 10:28' },
-            { message: "Today's struggles are not evidence that God has forgotten you.", verse: '"And we know that in all things God works for the good of those who love him." — Romans 8:28' },
-            { message: "You don't have to figure it all out. Just take the next faithful step.", verse: '"Your word is a lamp for my feet, a light on my path." — Psalm 119:105' },
-          ];
           const dayOfYear = Math.floor((new Date() - new Date(new Date().getFullYear(), 0, 0)) / 86400000);
           const gm = GRACE_MOMENTS[dayOfYear % GRACE_MOMENTS.length];
           return (
