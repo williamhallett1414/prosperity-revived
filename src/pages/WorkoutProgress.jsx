@@ -1,7 +1,7 @@
 import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
-import { Award, Calendar, Dumbbell, Activity, TrendingUp} from 'lucide-react';
+import { Award, Calendar, Dumbbell, Activity } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent } from '@/components/ui/card';
 import ChatButton from '@/components/chatbot/ChatButton';
@@ -20,15 +20,9 @@ function ChartFallback() {
 
 export default function WorkoutProgress() {
   const [user, setUser] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    base44.auth.me().then(u => {
-      setUser(u);
-      setIsLoading(false);
-    }).catch(() => {
-      setIsLoading(false);
-    });
+    base44.auth.me().then(setUser).catch(() => {});
   }, []);
 
   const { data: sessions = [] } = useQuery({
@@ -64,29 +58,8 @@ export default function WorkoutProgress() {
   const totalMinutes = sessions.reduce((sum, s) => sum + (s.duration_minutes || 0), 0);
   const avgDuration = totalWorkouts > 0 ? Math.round(totalMinutes / totalWorkouts) : 0;
 
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-white dark:bg-white/5 pb-24 flex items-center justify-center">
-        <div className="w-8 h-8 border-4 border-[#38BDF8]/30 border-t-[#38BDF8] rounded-full animate-spin" />
-      </div>
-    );
-  }
-
   return (
     <div className="min-h-screen bg-white dark:bg-white/5 pb-24">
-
-      {/* ── Standard Header ── */}
-      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#38BDF8]/20 px-4 pt-4 pb-3">
-        <div className="max-w-lg mx-auto flex items-center gap-3">
-          <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#38BDF8] to-[#1e40af] flex items-center justify-center">
-            <TrendingUp className="w-5 h-5 text-white" />
-          </div>
-          <div>
-            <h1 className="text-base font-bold text-[#0A1A2F] dark:text-white dark:text-white">Workout Progress</h1>
-            <p className="text-xs text-[#0A1A2F]/45 dark:text-white/45">Track your gains</p>
-          </div>
-        </div>
-      </div>
 
       <div className="max-w-4xl mx-auto px-4 space-y-6 pt-4">
 
