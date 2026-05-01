@@ -83,14 +83,14 @@ Deno.serve(async (req) => {
           input: { text: cleaned },
           voice: {
             languageCode: 'en-US',
-            name: 'en-US-Studio-Q',   // Deepest, most natural Studio male
+            name: 'en-US-Journey-D',  // Journey: most natural, wise elder male
           },
           audioConfig: {
             audioEncoding:  'MP3',
-            speakingRate:   0.88,     // Unhurried, every word intentional
-            pitch:          -4.0,     // Lower pitch for gravitas (semitones)
-            volumeGainDb:   1.5,      // Slight boost so he fills the room
-            effectsProfileId: ['headphone-class-device'], // Warm/intimate EQ
+            speakingRate:   0.85,     // Slow, deliberate — every word has weight
+            pitch:          -3.0,     // Deep gravitas, reverent and grounded
+            volumeGainDb:   1.0,
+            effectsProfileId: ['headphone-class-device'],
           },
         }),
       }

@@ -81,12 +81,12 @@ Deno.serve(async (req) => {
           input: { text: cleaned },
           voice: {
             languageCode: 'en-US',
-            name: 'en-US-Neural2-A',  // Calm, measured, grounded — pastor-coach authority
+            name: 'en-US-Studio-Q',   // Studio-Q: calm, authoritative, pastor-coach gravitas
           },
           audioConfig: {
             audioEncoding:    'MP3',
-            speakingRate:     0.92,   // Deliberate — every word carries purpose
-            pitch:            -2.5,   // Steady grounded depth (semitones)
+            speakingRate:     0.90,   // Deliberate — measured pastor-coach cadence
+            pitch:            -2.0,   // Grounded authority, steady and purposeful
             volumeGainDb:     1.0,
             effectsProfileId: ['headphone-class-device'],
           },

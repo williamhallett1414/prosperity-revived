@@ -82,13 +82,13 @@ Deno.serve(async (req) => {
           input: { text: cleaned },
           voice: {
             languageCode: 'en-US',
-            name: 'en-US-Neural2-F',  // Warm, expressive, nurturing female
+            name: 'en-US-Journey-F',  // Journey female: most natural, warm, empathetic
           },
           audioConfig: {
             audioEncoding:    'MP3',
-            speakingRate:     0.90,   // Unhurried warmth, thoughtful mentor pace
-            pitch:            1.5,    // Gentle elevation, approachable (semitones)
-            volumeGainDb:     0.8,    // Intimate, not overpowering
+            speakingRate:     0.92,   // Unhurried warmth, thoughtful mentor pace
+            pitch:            0.5,    // Natural, not artificially high — genuine warmth
+            volumeGainDb:     0.8,
             effectsProfileId: ['headphone-class-device'],
           },
         }),

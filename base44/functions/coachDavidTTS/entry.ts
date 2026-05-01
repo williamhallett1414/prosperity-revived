@@ -80,13 +80,13 @@ Deno.serve(async (req) => {
           input: { text: cleaned },
           voice: {
             languageCode: 'en-US',
-            name: 'en-US-Studio-M',   // Deep, powerful, energetic — Studio-grade premium voice
+            name: 'en-US-Journey-O',  // Journey-O: high-energy, punchy, athletic male
           },
           audioConfig: {
             audioEncoding:    'MP3',
-            speakingRate:     1.08,   // Fast athletic energy without rushing
-            pitch:            -3.0,   // Deep powerful bass — distinctly Coach David
-            volumeGainDb:     2.5,    // Fills the room — commanding presence
+            speakingRate:     1.10,   // Fast, driven, no-nonsense coaching pace
+            pitch:            -1.5,   // Grounded masculine depth without being heavy
+            volumeGainDb:     2.0,    // Commanding presence
             effectsProfileId: ['headphone-class-device'],
           },
         }),
