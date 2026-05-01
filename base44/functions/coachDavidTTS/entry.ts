@@ -80,12 +80,12 @@ Deno.serve(async (req) => {
           input: { text: cleaned },
           voice: {
             languageCode: 'en-US',
-            name: 'en-US-Journey-O',  // Journey-O: high-energy, punchy, athletic male
+            name: 'en-US-Studio-M',  // Journey-O: high-energy, punchy, athletic male
           },
           audioConfig: {
             audioEncoding:    'MP3',
-            speakingRate:     1.10,   // Fast, driven, no-nonsense coaching pace
-            pitch:            -1.5,   // Grounded masculine depth without being heavy
+            speakingRate:     1.08,   // Fast, driven, no-nonsense coaching pace
+            pitch:            -3.0,   // Grounded masculine depth without being heavy
             volumeGainDb:     2.0,    // Commanding presence
             effectsProfileId: ['headphone-class-device'],
           },

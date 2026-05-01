@@ -83,7 +83,7 @@ Deno.serve(async (req) => {
           input: { text: cleaned },
           voice: {
             languageCode: 'en-US',
-            name: 'en-US-Journey-D',  // Journey: most natural, wise elder male
+            name: 'en-US-Studio-Q',  // Journey: most natural, wise elder male
           },
           audioConfig: {
             audioEncoding:  'MP3',

@@ -79,12 +79,12 @@ Deno.serve(async (req) => {
           input: { text: cleaned },
           voice: {
             languageCode: 'en-US',
-            name: 'en-US-Studio-O',   // Studio-O: warm, friendly, expressive — chef energy
+            name: 'en-US-Neural2-J',   // Studio-O: warm, friendly, expressive — chef energy
           },
           audioConfig: {
             audioEncoding:    'MP3',
             speakingRate:     1.02,   // Lively, enthusiastic, easy to follow
-            pitch:            1.5,    // Bright and inviting — food passion
+            pitch:            1.0,    // Bright and inviting — food passion
             volumeGainDb:     1.0,
             effectsProfileId: ['headphone-class-device'],
           },

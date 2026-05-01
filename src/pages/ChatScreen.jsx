@@ -1724,6 +1724,29 @@ export default function ChatScreen() {
             </AnimatePresence>
           </div>
 
+          {/* Direct Mic button */}
+          {speechSupported && (
+            <motion.button
+              whileTap={{ scale: 0.87 }}
+              onClick={toggleMic}
+              disabled={permissionDenied}
+              aria-label={isListening ? 'Stop listening' : 'Voice input'}
+              className="flex-shrink-0 w-11 h-11 rounded-full flex items-center justify-center transition-all"
+              style={{
+                background: isListening ? `${cfg.gradTo}40` : 'rgba(255,255,255,0.11)',
+                border: `1px solid ${isListening ? cfg.gradTo + '70' : 'rgba(255,255,255,0.18)'}`,
+              }}
+            >
+              {isListening ? (
+                <motion.div animate={{ scale: [1, 1.2, 1] }} transition={{ duration: 1, repeat: Infinity }}>
+                  <MicOff className="w-4 h-4 text-red-400" />
+                </motion.div>
+              ) : (
+                <Mic className={`w-4 h-4 ${permissionDenied ? 'text-white/20' : 'text-white/55'}`} />
+              )}
+            </motion.button>
+          )}
+
           {/* Text input */}
           <input
             ref={inputRef}
