@@ -69,8 +69,21 @@ export default function CoachDavidBubble({ trigger, onDismiss }) {
   const [speaking, setSpeaking] = useState(false);
   const videoRef = useRef(null);
   const audioRef = useRef(null);
+  const primedRef = useRef(null);
   const timeoutRef = useRef(null);
   const lastTriggerRef = useRef(null);
+
+  // Prime an audio element on mount (inherits user gesture from workout start tap)
+  useEffect(() => {
+    try {
+      const a = new Audio();
+      a.src = 'data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAVFYAAFRWAAABAAgAZGF0YQAAAAA=';
+      a.load();
+      const p = a.play();
+      if (p?.then) p.then(() => { try { a.pause(); } catch {} }).catch(() => {});
+      primedRef.current = a;
+    } catch {}
+  }, []);
 
   useEffect(() => {
     if (!trigger || trigger === lastTriggerRef.current) return;
@@ -90,7 +103,7 @@ export default function CoachDavidBubble({ trigger, onDismiss }) {
       videoRef.current.play().catch(() => {});
     }
 
-    // Speak via Cloud TTS
+    // Speak via Cloud TTS — reuse primed audio element for iOS compatibility
     (async () => {
       try {
         const result = await base44.functions.invoke('coachDavidTTS', { text: msg });
@@ -101,12 +114,14 @@ export default function CoachDavidBubble({ trigger, onDismiss }) {
           for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
           const blob = new Blob([bytes], { type: 'audio/mpeg' });
           const url = URL.createObjectURL(blob);
-          const audio = new Audio(url);
+
+          // Reuse the primed audio element (iOS won't play a new Audio() without gesture)
+          const audio = primedRef.current || new Audio();
+          audio.src = url;
           audioRef.current = audio;
           audio.onended = () => {
             URL.revokeObjectURL(url);
             setSpeaking(false);
-            // Auto-dismiss 1.5s after speech ends
             timeoutRef.current = setTimeout(() => {
               setVisible(false);
               onDismiss?.();
