@@ -1,13 +1,14 @@
 /**
  * chefDanielTTS — Google Cloud Text-to-Speech for Chef Daniel
  *
- * Voice: en-US-Neural2-D
- *   Deep, rich, authoritative Neural2 male — warm but grounded.
+ * Voice: en-US-Neural2-J
+ *   Warm, friendly, natural Neural2 male — bright and expressive.
  *   Neural2 = Google's highest quality tier after Studio.
- *   Deeper than J; gives Chef Daniel a confident, experienced culinary voice.
+ *   Distinct from Gideon (Studio-Q: deep/reverent) and
+ *   Coach David (Neural2-D: authoritative/grounded).
  *
- * Speaking rate: 0.97  — measured, assured pace
- * Pitch:         -2.0  — noticeably deeper (semitones)
+ * Speaking rate: 1.04  — lively food-coach energy, easy to follow
+ * Pitch:         +1.0  — slightly lifted warmth (semitones)
  * Volume:        +1.2 dB
  * EQ:            headphone-class-device
  *
@@ -78,12 +79,12 @@ Deno.serve(async (req) => {
           input: { text: cleaned },
           voice: {
             languageCode: 'en-US',
-            name: 'en-US-Neural2-D',  // Deep, rich, authoritative male — experienced chef energy
+            name: 'en-US-Neural2-J',  // Warm, friendly, natural male — chef energy
           },
           audioConfig: {
             audioEncoding:    'MP3',
-            speakingRate:     0.97,   // Measured, assured pace
-            pitch:            -2.0,   // Noticeably deeper (semitones)
+            speakingRate:     1.04,   // Lively food-coach pace
+            pitch:            1.0,    // Slightly lifted warmth (semitones)
             volumeGainDb:     1.2,
             effectsProfileId: ['headphone-class-device'],
           },
