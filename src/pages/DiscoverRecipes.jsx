@@ -4,8 +4,8 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import {
   UtensilsCrossed, Plus, Sparkles, TrendingUp, Users, BookOpen,
-  ShoppingCart, ArrowUpDown, Heart, Menu, X
-} ArrowLeft } from 'lucide-react';
+  ShoppingCart, ArrowUpDown, Heart, Menu, X, ArrowLeft
+} from 'lucide-react';
 import RecipeCard          from '@/components/wellness/RecipeCard';
 import RecipeFilters       from '@/components/wellness/RecipeFilters';
 import CreateRecipeModal   from '@/components/wellness/CreateRecipeModal';

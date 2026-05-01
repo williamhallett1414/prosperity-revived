@@ -172,6 +172,12 @@ function RepentanceJournalInner() {
   );
 }
 
+class PageErrorBoundary extends React.Component {
+  constructor(p){super(p);this.state={e:null};}
+  static getDerivedStateFromError(e){return{e};}
+  render(){if(this.state.e)return<div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] flex flex-col items-center justify-center p-6"><p className="text-lg font-bold dark:text-white mb-2">Something went wrong</p><button onClick={()=>this.setState({e:null})} className="px-4 py-2 bg-[#c9a227] text-white rounded-xl text-sm font-bold">Try Again</button></div>;return this.props.children;}
+}
+
 export default function RepentanceJournal() {
   return <PageErrorBoundary><RepentanceJournalInner /></PageErrorBoundary>;
 }

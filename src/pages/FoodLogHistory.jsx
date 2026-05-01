@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
-import { Plus, Trash2, Calendar, Flame, CalendarDays, ChefHat, Target, History } ArrowLeft } from 'lucide-react';
+import { Plus, Trash2, Calendar, Flame, CalendarDays, ChefHat, Target, History, ArrowLeft } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import DetailedFoodLogModal from '@/components/wellness/DetailedFoodLogModal';

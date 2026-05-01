@@ -8,8 +8,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import {
   Heart, Users, Copy, CheckCircle, BookOpen, MessageCircle,
-  Target, Sparkles, ChevronRight, RefreshCw, Send, Lock
-} ArrowLeft } from 'lucide-react';
+  Target, Sparkles, ChevronRight, RefreshCw, Send, Lock, ArrowLeft
+} from 'lucide-react';
 import { getVerseOfDay } from '@/components/bible/BibleData';
 
 // ─── Partner linking helpers ──────────────────────────────────────────────────
@@ -436,4 +436,3 @@ export default function CouplesMode() {
     </div>
   );
 }
-

@@ -7,8 +7,8 @@ import { motion } from 'framer-motion';
 import {
   Target, TrendingUp, Trophy, CheckCircle2,
   Sparkles, ChevronRight,
-  Flame, Crown, Calendar
-} ArrowLeft } from 'lucide-react';
+  Flame, Crown, Calendar, ArrowLeft
+} from 'lucide-react';
 import { format } from 'date-fns';
 
 import HolisticProgressReport from '@/components/journey/HolisticProgressReport';
@@ -269,4 +269,3 @@ export default function ProgressDashboard() {
     </div>
   );
 }
-

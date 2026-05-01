@@ -4,7 +4,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { createPageUrl } from '@/utils';
 import { useNavigate } from 'react-router-dom';
-import { Bookmark, Trash2, BookOpen, Search, Heart, X } ArrowLeft } from 'lucide-react';
+import { Bookmark, Trash2, BookOpen, Search, Heart, X, ArrowLeft } from 'lucide-react';
 
 // ── Highlight colours matching VerseActionMenu exactly ──────────────────────
 const COLORS = {
@@ -294,4 +294,3 @@ export default function Bookmarks() {
     </div>
   );
 }
-

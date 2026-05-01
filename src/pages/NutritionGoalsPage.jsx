@@ -6,7 +6,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import {
   Salad, Droplets, Flame, Clock, ShieldCheck,
   ChevronRight, Info, Apple, BarChart2, BookOpen, AlertTriangle, Target, Pencil, X, Check,
-  CalendarDays, ChefHat, History, Plus } ArrowLeft } from 'lucide-react';
+  CalendarDays, ChefHat, History, Plus, ArrowLeft
+} from 'lucide-react';
 
 // ── Label maps ────────────────────────────────────────────────────────────────
 const DIET_LABELS = {

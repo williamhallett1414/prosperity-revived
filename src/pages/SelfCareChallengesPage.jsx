@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
 import { base44 } from '@/api/base44Client';
-import { todayKey } from '@/utils/localDate';
+import { localDateKey, todayKey } from '@/utils/localDate';
 import { Flower2 } from 'lucide-react';
 import ShareToFeedButton from '@/components/community/ShareToFeedButton';
-import { localDateKey, todayKey } from '@/utils/localDate';
 
 // ─── Challenge Catalogue ─────────────────────────────────────────────────────
 const CHALLENGES = [

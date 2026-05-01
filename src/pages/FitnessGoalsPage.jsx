@@ -5,8 +5,8 @@ import { createPageUrl } from '@/utils';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   Scale, Target, Flame, Activity, Zap, Droplets,
-  ChevronRight, Info, Edit2, Check, BarChart2, Clock, Dumbbell, Calendar, TrendingUp
-} ArrowLeft } from 'lucide-react';
+  ChevronRight, Info, Edit2, Check, BarChart2, Clock, Dumbbell, Calendar, TrendingUp, ArrowLeft
+} from 'lucide-react';
 import FitnessProfileSetup from '@/components/fitness/FitnessProfileSetup';
 
 // ── Calculations ──────────────────────────────────────────────────────────────

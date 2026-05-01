@@ -6,8 +6,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import {
   Brain, Heart, Sparkles, Target, ChevronRight,
   Compass, Zap,
-  AlertTriangle, Star, Briefcase
-} ArrowLeft } from 'lucide-react';
+  AlertTriangle, Star, Briefcase, ArrowLeft
+} from 'lucide-react';
 
 // ── Label maps ─────────────────────────────────────────────────────────────────
 const GROWTH_AREA_INFO = {

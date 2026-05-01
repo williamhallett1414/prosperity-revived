@@ -6,10 +6,9 @@ import { ArrowLeft, Flame, Plus, X,
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { base44 } from '@/api/base44Client';
-import { todayKey } from '@/utils/localDate';
+import { localDateKey, todayKey } from '@/utils/localDate';
 import { toast } from 'sonner';
 import ShareToFeedButton from '@/components/community/ShareToFeedButton';
-import { localDateKey, todayKey } from '@/utils/localDate';
 
 // ─── Habit catalogue ──────────────────────────────────────────────────────────
 const PRESET_HABITS = [
