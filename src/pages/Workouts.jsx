@@ -97,7 +97,7 @@ function getTimeGreeting(name) {
 function SectionLabel({ children, action, actionTo }) {
   return (
     <div className="flex items-center justify-between mb-3 px-0.5">
-      <span className="text-sm font-bold text-[#0A1A2F] dark:text-white dark:text-white hidden">{children}</span>
+      
       {action && actionTo &&
       <Link to={createPageUrl(actionTo)}
       className="flex items-center gap-1 text-xs font-semibold text-[#38BDF8] hover:text-[#0EA5E9]">
@@ -594,14 +594,14 @@ function WorkoutsInner() {
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 0.30 + i * 0.04 }}>
                   
-                    <button
-                    onClick={() => navigate(createPageUrl(`WorkoutCategoryPage?category=${cat.key}`))} className="w-full h-[120px] bg-gradient-to-br from-[#38BDF8] to-[#1e40af] rounded-2xl p-3.5 shadow-sm dark:shadow-none hover:shadow-md dark:shadow-none transition-all text-left hidden">
                     
-                    
-                      <span className="text-2xl block mb-1.5">{cat.emoji}</span>
-                      <p className="text-xs font-bold text-white leading-tight">{cat.label}</p>
-                      <p className="text-[10px] text-white/70 mt-0.5 leading-tight">{cat.desc}</p>
-                    </button>
+
+
+
+
+
+
+                  
                   </motion.div>
                 )}
               </div>
