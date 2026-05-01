@@ -110,6 +110,11 @@ const NutritionGoalsPage = lazy(() => import('./pages/NutritionGoalsPage'));
 const BibleGoalsPage = lazy(() => import('./pages/BibleGoalsPage'));
 const PersonalGrowthGoalsPage = lazy(() => import('./pages/PersonalGrowthGoalsPage'));
 const ChatScreen = lazy(() => import('./pages/ChatScreen'));
+const DarkNightDevotionals = lazy(() => import('./pages/DarkNightDevotionals'));
+const FastingTracker = lazy(() => import('./pages/FastingTracker'));
+const PrayerPartners = lazy(() => import('./pages/PrayerPartners'));
+const SpiritualAssessment = lazy(() => import('./pages/SpiritualAssessment'));
+const RepentanceJournal = lazy(() => import('./pages/RepentanceJournal'));
 import __Layout from './Layout.jsx';
 
 
@@ -176,6 +181,11 @@ export const PAGES = {
     "PersonalGrowthGoalsPage": PersonalGrowthGoalsPage,
     "Workouts": Workouts,
     "ChatScreen": ChatScreen,
+    "DarkNightDevotionals": DarkNightDevotionals,
+    "FastingTracker": FastingTracker,
+    "PrayerPartners": PrayerPartners,
+    "SpiritualAssessment": SpiritualAssessment,
+    "RepentanceJournal": RepentanceJournal,
 }
 
 export const pagesConfig = {

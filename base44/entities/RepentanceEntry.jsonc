@@ -1,5 +1,28 @@
 {
   "name": "RepentanceEntry",
   "type": "object",
-  "description": "Entity for RepentanceEntry feature"
+  "properties": {
+    "text": {
+      "type": "string",
+      "description": "Journal entry text"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "repentance",
+        "forgiveness"
+      ],
+      "default": "repentance",
+      "description": "Type of entry"
+    },
+    "date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date of entry"
+    }
+  },
+  "required": [
+    "text",
+    "category"
+  ]
 }
