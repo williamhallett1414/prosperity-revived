@@ -519,11 +519,19 @@ export default function PersonalGrowth() {
 
           {/* ── Growth Goals entry card ── */}
           <Link to={createPageUrl('PersonalGrowthGoalsPage')}>
-            
-
-
-
-
+            <div id="tour-growth-goals-entry" className="flex items-center justify-between px-4 py-3.5 bg-white dark:bg-white/5 rounded-2xl border border-[#AFC7E3]/20 dark:border-[#AFC7E3]/10 shadow-sm dark:shadow-none hover:shadow-md transition-all">
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 bg-gradient-to-br from-[#AFC7E3] to-[#7BA3C9] rounded-xl flex items-center justify-center">
+                  <span className="text-lg">🌱</span>
+                </div>
+                <div>
+                  <p className="text-sm font-bold text-[#0A1A2F] dark:text-white">My Growth Profile</p>
+                  <p className="text-xs text-[#0A1A2F]/50 dark:text-white/50">Goals, values & growth areas</p>
+                </div>
+              </div>
+              <ChevronRight className="w-4 h-4 text-[#0A1A2F]/30 dark:text-white/30" />
+            </div>
+          </Link>
 
 
 
