@@ -88,6 +88,7 @@ Deno.serve(async (req) => {
           audioConfig: {
             audioEncoding:  'MP3',
             speakingRate:   0.85,     // Slow, deliberate — every word has weight
+            pitch:          -3.0,     // Deep gravitas, reverent and grounded
             volumeGainDb:   1.0,
             effectsProfileId: ['headphone-class-device'],
           },

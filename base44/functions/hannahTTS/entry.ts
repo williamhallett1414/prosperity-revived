@@ -87,6 +87,7 @@ Deno.serve(async (req) => {
           audioConfig: {
             audioEncoding:    'MP3',
             speakingRate:     0.92,   // Unhurried warmth, thoughtful mentor pace
+            pitch:            0.5,    // Natural, not artificially high — genuine warmth
             volumeGainDb:     0.8,
             effectsProfileId: ['headphone-class-device'],
           },
