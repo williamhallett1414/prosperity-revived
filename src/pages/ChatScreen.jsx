@@ -1440,16 +1440,18 @@ export default function ChatScreen() {
       </div>
 
       {/* ── AI Disclaimer Bar ── */}
-      <div className="relative z-20 flex-shrink-0 text-center"
-        style={{ background: 'rgba(0,0,0,0.50)', backdropFilter: 'blur(8px)', padding: '4px 16px', borderBottom: `1px solid ${cfg.gradTo}10` }}>
+      <motion.div className="relative z-20 flex-shrink-0 text-center"
+        style={{ background: 'rgba(0,0,0,0.50)', backdropFilter: 'blur(8px)', padding: '4px 16px', borderBottom: `1px solid ${cfg.gradTo}10` }}
+        initial={{ opacity: 1 }} animate={{ opacity: 0 }} transition={{ delay: 3, duration: 1 }}>
         <p style={{ fontSize: 9, color: 'rgba(255,255,255,0.45)', letterSpacing: '0.04em' }}>
           AI-generated content for informational purposes only — not professional medical, financial, or therapeutic advice
         </p>
-      </div>
+      </motion.div>
 
-      {/* ── Crisis Resources Banner (always visible) ── */}
-      <div className="relative z-20 flex-shrink-0 flex items-center justify-center gap-2"
-        style={{ background: 'rgba(255,255,255,0.06)', padding: '5px 16px', borderBottom: `1px solid ${cfg.gradTo}10` }}>
+      {/* ── Crisis Resources Banner ── */}
+      <motion.div className="relative z-20 flex-shrink-0 flex items-center justify-center gap-2"
+        style={{ background: 'rgba(255,255,255,0.06)', padding: '5px 16px', borderBottom: `1px solid ${cfg.gradTo}10` }}
+        initial={{ opacity: 1 }} animate={{ opacity: 0 }} transition={{ delay: 3, duration: 1 }}>
         <span style={{ fontSize: 10, color: 'rgba(255,255,255,0.40)' }}>In crisis?</span>
         <a href="tel:988" style={{ fontSize: 10, fontWeight: 700, color: '#60a5fa', textDecoration: 'none' }}>
           Call or text 988
@@ -1458,7 +1460,7 @@ export default function ChatScreen() {
         <a href="sms:741741&body=HELLO" style={{ fontSize: 10, fontWeight: 600, color: '#60a5fa', textDecoration: 'none' }}>
           Text HOME to 741741
         </a>
-      </div>
+      </motion.div>
 
       {/* ── Quick Prompt Chip Strip (top, always visible, horizontal scroll) ── */}
       <div
