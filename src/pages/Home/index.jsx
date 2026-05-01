@@ -319,13 +319,13 @@ function Home() {
           </div>
           <div className="flex gap-3 overflow-x-auto pb-2 -mx-1 px-1" style={{ scrollbarWidth: 'none' }}>
             {[
-              { name: 'Gideon', role: 'Biblical Wisdom', bot: 'Gideon', color: 'from-amber-500 to-amber-600', bg: 'bg-amber-50 dark:bg-amber-900/20', img: gideonImg },
-              { name: 'Hannah', role: 'Mindset Coach', bot: 'Hannah', color: 'from-sky-400 to-sky-500', bg: 'bg-sky-50 dark:bg-sky-900/20', img: hannahImg },
-              { name: 'Coach David', role: 'Fitness', bot: 'CoachDavid', color: 'from-blue-500 to-blue-600', bg: 'bg-blue-50 dark:bg-blue-900/20', img: coachDavidImg },
-              { name: 'Chef Daniel', role: 'Nutrition', bot: 'ChefDaniel', color: 'from-orange-400 to-orange-500', bg: 'bg-orange-50 dark:bg-orange-900/20', img: chefDanielImg },
-            ].map(({ name, role, bot, color, bg, img }) => (
+              { name: 'Gideon', role: 'Biblical Wisdom', bot: 'Gideon', color: 'from-amber-500 to-amber-600', img: gideonImg },
+              { name: 'Hannah', role: 'Mindset Coach', bot: 'Hannah', color: 'from-sky-400 to-sky-500', img: hannahImg },
+              { name: 'Coach David', role: 'Fitness', bot: 'CoachDavid', color: 'from-blue-500 to-blue-600', img: coachDavidImg },
+              { name: 'Chef Daniel', role: 'Nutrition', bot: 'ChefDaniel', color: 'from-orange-400 to-orange-500', img: chefDanielImg },
+            ].map(({ name, role, bot, color, img }) => (
               <Link key={bot} to={createPageUrl(`ChatScreen?bot=${bot}`)} className="flex-shrink-0" style={{ width: 140 }}>
-                <div className={`${bg} dark:bg-white/5 rounded-2xl p-3 shadow-sm dark:shadow-none border border-gray-100 dark:border-white/10 dark:border-white/10/80 dark:border-white/10 h-full`}>
+                <div className="bg-white dark:bg-white/5 rounded-2xl p-3 shadow-sm dark:shadow-none border border-gray-100 dark:border-white/10 h-full">
                   <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${color} mx-auto mb-2 flex items-center justify-center shadow-sm dark:shadow-none overflow-hidden`}>
                     <img src={img} alt={name} className="w-full h-full object-cover object-top" />
                   </div>
