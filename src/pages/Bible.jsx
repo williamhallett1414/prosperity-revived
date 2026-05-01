@@ -156,11 +156,32 @@ function BibleInner() {
 
   const createBookmark = useMutation({
     mutationFn: (data) => base44.entities.Bookmark.create(data),
-    onSuccess: () => queryClient.invalidateQueries(['bookmarks'])
+    onMutate: async (newBookmark) => {
+      await queryClient.cancelQueries(['bookmarks']);
+      const previous = queryClient.getQueryData(['bookmarks']);
+      queryClient.setQueryData(['bookmarks'], (old = []) => [
+        ...old,
+        { ...newBookmark, id: `optimistic-${Date.now()}` },
+      ]);
+      return { previous };
+    },
+    onError: (_err, _vars, context) => {
+      if (context?.previous) queryClient.setQueryData(['bookmarks'], context.previous);
+    },
+    onSuccess: () => queryClient.invalidateQueries(['bookmarks']),
   });
   const deleteBookmark = useMutation({
     mutationFn: (id) => base44.entities.Bookmark.delete(id),
-    onSuccess: () => queryClient.invalidateQueries(['bookmarks'])
+    onMutate: async (id) => {
+      await queryClient.cancelQueries(['bookmarks']);
+      const previous = queryClient.getQueryData(['bookmarks']);
+      queryClient.setQueryData(['bookmarks'], (old = []) => old.filter(b => b.id !== id));
+      return { previous };
+    },
+    onError: (_err, _vars, context) => {
+      if (context?.previous) queryClient.setQueryData(['bookmarks'], context.previous);
+    },
+    onSuccess: () => queryClient.invalidateQueries(['bookmarks']),
   });
 
   // Deep-link: ?book=John&chapter=3

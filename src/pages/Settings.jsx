@@ -1,7 +1,12 @@
 import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
-import { ArrowLeft, Moon, Sun, Monitor, Bell, User, Palette, Trash2, Play, Database, ChevronRight, RotateCcw, Clock } from 'lucide-react';
+import { ArrowLeft, Moon, Sun, Monitor, Bell, User, Palette, Trash2, Play, Database, ChevronRight, RotateCcw, Clock, AlertTriangle } from 'lucide-react';
+import {
+  AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
+  AlertDialogDescription, AlertDialogFooter, AlertDialogHeader,
+  AlertDialogTitle, AlertDialogTrigger,
+} from '@/components/ui/alert-dialog';
 import { TIMEZONES } from '@/utils/localDate';
 import { toast } from 'sonner';
 const AppTour = lazy(() => import('@/components/onboarding/AppTour'));
@@ -412,26 +417,52 @@ function SettingsInner() {
             Sign Out
           </Button>
 
-          <Button
-                variant="outline"
-                className="w-full mt-3 border-red-300 text-red-700 hover:bg-red-50 dark:bg-red-900/20 dark:border-red-800 dark:hover:bg-red-950 min-h-[44px]"
-                onClick={async () => {
-                  if (!window.confirm('Are you absolutely sure?\n\nThis will permanently delete your account and ALL your data including posts, progress, journals, achievements, and workout logs.\n\nThis action cannot be undone.')) return;
-                  if (!window.confirm('Last chance — type DELETE to confirm.\n\n(Press OK to delete your account)')) return;
-                  setIsDeleting(true);
-                  try {
-                    await base44.auth.deleteAccount();
-                    window.location.href = '/';
-                  } catch (_e) {
-                    toast.error('Failed to delete account — please try again');
-                    setIsDeleting(false);
-                  }
-                }}
-                disabled={isDeleting}
-              >
-                <Trash2 className="w-4 h-4 mr-2" />
-                {isDeleting ? 'Deleting...' : 'Delete Account'}
-              </Button>
+          <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button
+                  variant="outline"
+                  className="w-full mt-3 border-red-300 text-red-700 hover:bg-red-50 dark:border-red-800 dark:text-red-400 dark:hover:bg-red-950 min-h-[44px]"
+                  disabled={isDeleting}
+                >
+                  <Trash2 className="w-4 h-4 mr-2" />
+                  {isDeleting ? 'Deleting...' : 'Delete Account'}
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent className="bg-white dark:bg-[#0A1A2F] border border-red-200 dark:border-red-900">
+                <AlertDialogHeader>
+                  <div className="flex items-center gap-3 mb-1">
+                    <div className="w-10 h-10 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center flex-shrink-0">
+                      <AlertTriangle className="w-5 h-5 text-red-600 dark:text-red-400" />
+                    </div>
+                    <AlertDialogTitle className="text-[#0A1A2F] dark:text-white">Delete Account Permanently?</AlertDialogTitle>
+                  </div>
+                  <AlertDialogDescription className="text-[#0A1A2F]/60 dark:text-white/60 text-sm leading-relaxed">
+                    This will permanently erase <span className="font-semibold text-red-600 dark:text-red-400">all your data</span> — posts, reading plans, workout logs, journal entries, achievements, and points. <br /><br />
+                    <strong className="text-[#0A1A2F] dark:text-white">This action cannot be undone.</strong>
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel className="min-h-[44px]">Keep My Account</AlertDialogCancel>
+                  <AlertDialogAction
+                    className="bg-red-600 hover:bg-red-700 text-white min-h-[44px]"
+                    onClick={async () => {
+                      setIsDeleting(true);
+                      try {
+                        await base44.auth.deleteAccount();
+                        window.location.href = '/';
+                      } catch {
+                        toast.error('Failed to delete account — please try again');
+                        setIsDeleting(false);
+                      }
+                    }}
+                    disabled={isDeleting}
+                  >
+                    <Trash2 className="w-4 h-4 mr-2" />
+                    {isDeleting ? 'Deleting…' : 'Yes, Delete Everything'}
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
         </div>
       </div>
       {showTour && (

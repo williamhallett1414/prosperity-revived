@@ -6,9 +6,9 @@ import { Button } from '@/components/ui/button';
 import ShareToFeedButton from '@/components/community/ShareToFeedButton';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { CheckCircle } from 'lucide-react';
 import { awardPoints, checkAndAwardBadges } from '@/components/gamification/ProgressManager';
+import { MobileSelect } from '@/components/ui/MobileSelect';
 
 export default function WorkoutLogModal({ isOpen, onClose, workout, user }) {
   const [savedOk, setSavedOk] = React.useState(false);
@@ -41,12 +41,24 @@ export default function WorkoutLogModal({ isOpen, onClose, workout, user }) {
       await checkAndAwardBadges(user?.email);
       return result;
     },
+    onMutate: async (newSession) => {
+      await queryClient.cancelQueries(['workoutSessions']);
+      const previous = queryClient.getQueryData(['workoutSessions']);
+      queryClient.setQueryData(['workoutSessions'], (old = []) => [
+        { ...newSession, id: `optimistic-${Date.now()}`, created_date: new Date().toISOString() },
+        ...old,
+      ]);
+      return { previous };
+    },
+    onError: (_err, _vars, context) => {
+      if (context?.previous) queryClient.setQueryData(['workoutSessions'], context.previous);
+    },
     onSuccess: () => {
       queryClient.invalidateQueries(['workoutSessions']);
       queryClient.invalidateQueries(['workouts']);
       setSavedOk(true);
       setTimeout(onClose, 2200);
-    }
+    },
   });
 
   const updateExercise = (index, field, value) => {
@@ -104,17 +116,17 @@ export default function WorkoutLogModal({ isOpen, onClose, workout, user }) {
 
           <div>
             <label className="text-sm font-semibold text-[#0A1A2F] dark:text-white mb-2 block">How did it feel?</label>
-            <Select value={session.overall_feeling} onValueChange={v => setSession({ ...session, overall_feeling: v })}>
-              <SelectTrigger className="border-[#BAE6FD]/40">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="easy">Easy</SelectItem>
-                <SelectItem value="moderate">Moderate</SelectItem>
-                <SelectItem value="challenging">Challenging</SelectItem>
-                <SelectItem value="very_hard">Very Hard</SelectItem>
-              </SelectContent>
-            </Select>
+            <MobileSelect
+              value={session.overall_feeling}
+              onValueChange={v => setSession({ ...session, overall_feeling: v })}
+              placeholder="How did it feel?"
+              options={[
+                { value: 'easy', label: 'Easy' },
+                { value: 'moderate', label: 'Moderate' },
+                { value: 'challenging', label: 'Challenging' },
+                { value: 'very_hard', label: 'Very Hard' },
+              ]}
+            />
           </div>
 
           <Textarea placeholder="Overall session notes (optional)"
