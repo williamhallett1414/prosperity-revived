@@ -3,12 +3,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { base44 } from '@/api/base44Client';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+
 import { createPageUrl } from '@/utils';
 import {
   Heart, Users, Copy, CheckCircle, BookOpen, MessageCircle,
   Target, Sparkles, ChevronRight, RefreshCw, Send, Lock
-} from 'lucide-react';
+} ArrowLeft } from 'lucide-react';
 import { getVerseOfDay } from '@/components/bible/BibleData';
 
 // ─── Partner linking helpers ──────────────────────────────────────────────────
@@ -303,6 +304,14 @@ export default function CouplesMode() {
                 {COUPLES_DEVOTIONALS.map((d, i) => {
                   const isCurrent = d.day === todayDevotional.day;
                   const isPast = d.day < todayDevotional.day;
+                    if (!user) {
+                      return (
+                        <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] flex items-center justify-center">
+                          <div className="w-8 h-8 border-4 border-[#c9a227] border-t-transparent rounded-full animate-spin" />
+                        </div>
+                      );
+                    }
+
                   return (
                     <div key={d.day}
                       className={`flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all ${

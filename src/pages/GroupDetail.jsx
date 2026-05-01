@@ -100,7 +100,7 @@ function JoinCard({ group, onJoin, joining, cat }) {
         <button
           onClick={onJoin}
           disabled={joining}
-          className="w-full py-3 rounded-xl bg-gradient-to-r from-[#FAD98D] to-[#c9a227] text-[#0A1A2F] dark:text-white font-bold text-sm flex items-center justify-center gap-2 disabled:opacity-50 hover:opacity-90 transition-opacity"
+          className="w-full py-3 rounded-xl bg-gradient-to-r from-[#FAD98D] to-[#c9a227] text-[#0A1A2F] dark:text-white font-bold text-sm flex items-center justify-center gap-2 min-h-[44px] min-w-[44px] disabled:opacity-50 hover:opacity-90 transition-opacity"
         >
           {joining ? <Loader2 className="w-4 h-4 animate-spin" /> : <UserPlus className="w-4 h-4" />}
           {joining ? 'Joining…' : 'Join Group'}
@@ -447,6 +447,14 @@ export default function GroupDetail() {
                         const participation = challengeParticipants.find(
                           p => p.challenge_id === challenge.id && p.user_email === user?.email
                         );
+                          if (!user) {
+                            return (
+                              <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] flex items-center justify-center">
+                                <div className="w-8 h-8 border-4 border-[#c9a227] border-t-transparent rounded-full animate-spin" />
+                              </div>
+                            );
+                          }
+
                         return (
                           <ChallengeCard
                             key={challenge.id}

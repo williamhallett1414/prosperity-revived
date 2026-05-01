@@ -244,6 +244,14 @@ export default function AffirmationsPage() {
     setSaving(false);
   };
 
+    if (!user) {
+      return (
+        <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] flex items-center justify-center">
+          <div className="w-8 h-8 border-4 border-[#c9a227] border-t-transparent rounded-full animate-spin" />
+        </div>
+      );
+    }
+
   return (
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
 
@@ -321,7 +329,7 @@ export default function AffirmationsPage() {
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="flex gap-2.5 pt-1">
           <GideonReadAloud text={`${current.text}. ${current.fullVerse}`} label="Listen" />
           <button onClick={handleShuffle}
-            className="flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl text-xs font-semibold bg-white dark:bg-white/5 border border-[#FAD98D]/25 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 text-[#0A1A2F] dark:text-white hover:bg-[#FAD98D]/15 dark:bg-[#FAD98D]/8 hover:border-[#FAD98D]/50 dark:border-[#FAD98D]/20 active:scale-95 transition-all duration-200 shadow-sm dark:shadow-none">
+            className="flex items-center justify-center gap-1.5 min-h-[44px] min-w-[44px] px-3.5 py-2.5 rounded-xl text-xs font-semibold bg-white dark:bg-white/5 border border-[#FAD98D]/25 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 text-[#0A1A2F] dark:text-white hover:bg-[#FAD98D]/15 dark:bg-[#FAD98D]/8 hover:border-[#FAD98D]/50 dark:border-[#FAD98D]/20 active:scale-95 transition-all duration-200 shadow-sm dark:shadow-none">
             <RefreshCw className="w-3.5 h-3.5" />
             New
           </button>

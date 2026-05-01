@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import {
   UtensilsCrossed, Plus, Sparkles, TrendingUp, Users, BookOpen,
   ShoppingCart, ArrowUpDown, Heart, Menu, X
-} from 'lucide-react';
+} ArrowLeft } from 'lucide-react';
 import RecipeCard          from '@/components/wellness/RecipeCard';
 import RecipeFilters       from '@/components/wellness/RecipeFilters';
 import CreateRecipeModal   from '@/components/wellness/CreateRecipeModal';
@@ -66,7 +67,25 @@ function EmptyState({ icon, title, sub, action, onAction }) {
 }
 
 // ─── main ────────────────────────────────────────────────────────────────────
-export default function DiscoverRecipes() {
+
+class PageErrorBoundary extends React.Component {
+  constructor(props) { super(props); this.state = { error: null }; }
+  static getDerivedStateFromError(error) { return { error }; }
+  render() {
+    if (this.state.error) {
+      return (
+        <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] flex flex-col items-center justify-center p-6 text-center">
+          <p className="text-lg font-bold text-[#0A1A2F] dark:text-white mb-2">Something went wrong</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">This page encountered an error.</p>
+          <button onClick={() => this.setState({ error: null })} className="px-4 py-2 bg-[#c9a227] text-white rounded-xl text-sm font-bold">Try Again</button>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
+function DiscoverRecipesInner() {
   const [user,       setUser]       = useState(null);
   const [activeTab,  setActiveTab]  = useState('all');
   const [showCreate, setShowCreate] = useState(false);
@@ -357,6 +376,14 @@ export default function DiscoverRecipes() {
               onAction={clearFilters}
             />
           );
+            if (!user) {
+              return (
+                <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] flex items-center justify-center">
+                  <div className="w-8 h-8 border-4 border-[#c9a227] border-t-transparent rounded-full animate-spin" />
+                </div>
+              );
+            }
+
           return (
             <>
               <p className="text-[10px] font-bold text-[#0A1A2F]/35 dark:text-white/35 uppercase tracking-widest pt-1">
@@ -392,4 +419,8 @@ export default function DiscoverRecipes() {
       <ChatButton bot="ChefDaniel" />
     </div>
   );
+}
+
+export default function DiscoverRecipes(props) {
+  return <PageErrorBoundary><DiscoverRecipesInner {...props} /></PageErrorBoundary>;
 }

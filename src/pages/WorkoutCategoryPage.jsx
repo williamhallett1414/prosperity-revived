@@ -59,7 +59,25 @@ function matchesMuscleGroup(workout, param) {
 
 const DIFF_ORDER = { beginner: 0, intermediate: 1, advanced: 2 };
 
-export default function WorkoutCategoryPage() {
+
+class PageErrorBoundary extends React.Component {
+  constructor(props) { super(props); this.state = { error: null }; }
+  static getDerivedStateFromError(error) { return { error }; }
+  render() {
+    if (this.state.error) {
+      return (
+        <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] flex flex-col items-center justify-center p-6 text-center">
+          <p className="text-lg font-bold text-[#0A1A2F] dark:text-white mb-2">Something went wrong</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">This page encountered an error.</p>
+          <button onClick={() => this.setState({ error: null })} className="px-4 py-2 bg-[#c9a227] text-white rounded-xl text-sm font-bold">Try Again</button>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
+function WorkoutCategoryPageInner() {
   const [user, setUser] = useState(null);
   const [searchParams] = useSearchParams();
   const categoryParam = searchParams.get('category');
@@ -168,6 +186,14 @@ function FilteredWorkoutList({ workouts, user }) {
           <div className="flex gap-2 flex-wrap">
             {availableStyles.map((s) => {
               const label = STYLE_FILTERS.find((f) => f.key === s)?.label || s;
+                if (!user) {
+                  return (
+                    <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] flex items-center justify-center">
+                      <div className="w-8 h-8 border-4 border-[#c9a227] border-t-transparent rounded-full animate-spin" />
+                    </div>
+                  );
+                }
+
               return (
                 <button
                   key={s}
@@ -209,4 +235,8 @@ function FilteredWorkoutList({ workouts, user }) {
       )}
     </>
   );
+}
+
+export default function WorkoutCategoryPage(props) {
+  return <PageErrorBoundary><WorkoutCategoryPageInner {...props} /></PageErrorBoundary>;
 }

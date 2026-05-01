@@ -372,6 +372,14 @@ export default function WorkoutTrends() {
                       <div className="space-y-3">
                         {allExercises.slice(0, 5).map((ex, i) => {
                           const pct = Math.round((ex.count / allExercises[0].count) * 100);
+                            if (!user) {
+                              return (
+                                <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] flex items-center justify-center">
+                                  <div className="w-8 h-8 border-4 border-[#c9a227] border-t-transparent rounded-full animate-spin" />
+                                </div>
+                              );
+                            }
+
                           return (
                             <div key={ex.name}>
                               <div className="flex items-center justify-between mb-1">

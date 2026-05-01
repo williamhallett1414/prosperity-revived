@@ -105,7 +105,25 @@ function StudyTabContent() {
 }
 
 // ─── Main ─────────────────────────────────────────────────────────────────────
-export default function Bible() {
+
+class PageErrorBoundary extends React.Component {
+  constructor(props) { super(props); this.state = { error: null }; }
+  static getDerivedStateFromError(error) { return { error }; }
+  render() {
+    if (this.state.error) {
+      return (
+        <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] flex flex-col items-center justify-center p-6 text-center">
+          <p className="text-lg font-bold text-[#0A1A2F] dark:text-white mb-2">Something went wrong</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">This page encountered an error.</p>
+          <button onClick={() => this.setState({ error: null })} className="px-4 py-2 bg-[#c9a227] text-white rounded-xl text-sm font-bold">Try Again</button>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
+function BibleInner() {
   const [view, setView] = useState('home');
   const [activeTab, setActiveTab] = useState('read');
   const [showStatsModal, setShowStatsModal] = useState(false);
@@ -402,4 +420,8 @@ export default function Bible() {
       <ChatButton bot="Gideon" id="tour-gideon-btn" />
     </div>);
 
+}
+
+export default function Bible(props) {
+  return <PageErrorBoundary><BibleInner {...props} /></PageErrorBoundary>;
 }

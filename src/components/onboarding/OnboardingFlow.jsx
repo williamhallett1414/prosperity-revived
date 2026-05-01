@@ -511,6 +511,15 @@ export default function OnboardingFlow({ onComplete }) {
   const back = () => { if (step>0) setStep(s=>s-1); };
 
   const handleComplete = async () => {
+    // Auto-detect and save timezone
+    try {
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      if (tz) {
+        localStorage.setItem('user_timezone', tz);
+        try { await base44.auth.updateMe({ timezone: tz }); } catch {}
+      }
+    } catch {}
+
     setSaving(true);
     try {
       await base44.auth.updateMe({

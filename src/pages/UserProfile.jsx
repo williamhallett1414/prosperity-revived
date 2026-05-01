@@ -603,7 +603,7 @@ function EditProfileSheet({ open, onOpenChange, currentUser, onSave }) {
           <button
             onClick={handleSave}
             disabled={saving || uploading}
-            className="w-full py-3 rounded-xl bg-[#c9a227] text-white font-semibold hover:bg-[#C9A227] transition-colors disabled:opacity-60 flex items-center justify-center gap-2"
+            className="w-full py-3 rounded-xl bg-[#c9a227] text-white font-semibold hover:bg-[#C9A227] transition-colors disabled:opacity-60 flex items-center justify-center gap-2 min-h-[44px] min-w-[44px]"
           >
             {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : null}
             {saving ? 'Saving...' : 'Save Changes'}

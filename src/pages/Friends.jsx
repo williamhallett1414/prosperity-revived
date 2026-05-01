@@ -281,7 +281,7 @@ export default function Friends() {
                   <button
                     onClick={handleSendRequest}
                     disabled={!searchEmail.trim() || sendRequest.isPending}
-                    className="px-4 py-2.5 rounded-xl bg-[#FAD98D] text-[#0A1A2F] dark:text-white font-bold text-sm disabled:opacity-40 hover:bg-[#c9a227] transition-colors flex items-center gap-1.5"
+                    className="px-4 py-2.5 rounded-xl bg-[#FAD98D] text-[#0A1A2F] dark:text-white font-bold text-sm disabled:opacity-40 hover:bg-[#c9a227] transition-colors flex items-center gap-1.5 min-h-[44px] min-w-[44px]"
                   >
                     <Send className="w-3.5 h-3.5" />
                     Send

@@ -261,7 +261,7 @@ function PrayerDrawer({ request, user, onClose, onPray, onComment, onDelete, onM
 
         {isOwner && !request?.is_answered && (
           <button onClick={onMarkAnswered}
-            className="w-full flex items-center justify-center gap-2 py-2.5 rounded-2xl font-bold text-sm mb-5 transition-all bg-emerald-50 dark:bg-emerald-900/200/12 border border-emerald-500/25 text-emerald-400 hover:bg-emerald-50 dark:bg-emerald-900/200/20">
+            className="w-full flex items-center justify-center gap-2 min-h-[44px] min-w-[44px] py-2.5 rounded-2xl font-bold text-sm mb-5 transition-all bg-emerald-50 dark:bg-emerald-900/200/12 border border-emerald-500/25 text-emerald-400 hover:bg-emerald-50 dark:bg-emerald-900/200/20">
             <CheckCircle2 className="w-4 h-4" /> Mark as Answered 🙌
           </button>
         )}
@@ -420,7 +420,7 @@ function NewPrayerModal({ user, onClose, onSubmit }) {
             </div>
             <p className="text-[#3C4E53]/50 text-xs text-center mb-5">This will be visible to everyone on the prayer wall.</p>
             <button onClick={handleSubmit} disabled={submitting}
-              className="w-full py-4 rounded-2xl font-bold text-[#3C4E53] text-sm disabled:opacity-40 transition-all flex items-center justify-center gap-2"
+              className="w-full py-4 rounded-2xl font-bold text-[#3C4E53] text-sm disabled:opacity-40 transition-all flex items-center justify-center gap-2 min-h-[44px] min-w-[44px]"
               style={{ background: submitting ? '#d9d9d9' : 'linear-gradient(135deg, #c9a227, #C9A227)' }}>
               {submitting ? <><Loader2 className="w-4 h-4 animate-spin" /> Submitting…</> : <>🙏 Submit Prayer Request</>}
             </button>

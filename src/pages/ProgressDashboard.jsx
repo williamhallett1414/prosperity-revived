@@ -8,7 +8,7 @@ import {
   Target, TrendingUp, Trophy, CheckCircle2,
   Sparkles, ChevronRight,
   Flame, Crown, Calendar
-} from 'lucide-react';
+} ArrowLeft } from 'lucide-react';
 import { format } from 'date-fns';
 
 import HolisticProgressReport from '@/components/journey/HolisticProgressReport';

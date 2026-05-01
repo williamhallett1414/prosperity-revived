@@ -248,7 +248,25 @@ function DeepRow({ page, icon: Icon, grad, label, sub, onTabSwitch }) {
 }
 
 // ── Main page ─────────────────────────────────────────────────────────────────
-export default function PersonalGrowth() {
+
+class PageErrorBoundary extends React.Component {
+  constructor(props) { super(props); this.state = { error: null }; }
+  static getDerivedStateFromError(error) { return { error }; }
+  render() {
+    if (this.state.error) {
+      return (
+        <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] flex flex-col items-center justify-center p-6 text-center">
+          <p className="text-lg font-bold text-[#0A1A2F] dark:text-white mb-2">Something went wrong</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">This page encountered an error.</p>
+          <button onClick={() => this.setState({ error: null })} className="px-4 py-2 bg-[#c9a227] text-white rounded-xl text-sm font-bold">Try Again</button>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
+function PersonalGrowthInner() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const initialTab = searchParams.get('tab') || 'dashboard';
@@ -360,6 +378,14 @@ export default function PersonalGrowth() {
     </div>;
 
 
+    if (!user) {
+      return (
+        <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] flex items-center justify-center">
+          <div className="w-8 h-8 border-4 border-[#c9a227] border-t-transparent rounded-full animate-spin" />
+        </div>
+      );
+    }
+
   return (
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
 
@@ -401,7 +427,7 @@ export default function PersonalGrowth() {
           )}
           <div className="flex-1" />
           <Link to={createPageUrl('PersonalGrowthGoalsPage')} className="flex-shrink-0 px-2">
-            <button className="flex items-center gap-1.5 bg-[#EFF9FF] border border-[#AFC7E3]/40 text-[#3C4E53] text-xs font-bold px-3 py-2 rounded-xl whitespace-nowrap">
+            <button className="flex items-center gap-1.5 min-h-[44px] min-w-[44px] bg-[#EFF9FF] border border-[#AFC7E3]/40 text-[#3C4E53] text-xs font-bold px-3 py-2 rounded-xl whitespace-nowrap">
               <Target className="w-3.5 h-3.5" /> Goals
             </button>
           </Link>
@@ -671,4 +697,8 @@ export default function PersonalGrowth() {
       <ChatButton bot="Hannah" id="tour-hannah-btn" />
     </div>);
 
+}
+
+export default function PersonalGrowth(props) {
+  return <PageErrorBoundary><PersonalGrowthInner {...props} /></PageErrorBoundary>;
 }

@@ -515,7 +515,25 @@ function HabitCard({ habit, isDone, streak, history, onToggle, index, user }) {
 }
 
 // ─── Main ─────────────────────────────────────────────────────────────────────
-export default function HabitBuilderPage() {
+
+class PageErrorBoundary extends React.Component {
+  constructor(props) { super(props); this.state = { error: null }; }
+  static getDerivedStateFromError(error) { return { error }; }
+  render() {
+    if (this.state.error) {
+      return (
+        <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] flex flex-col items-center justify-center p-6 text-center">
+          <p className="text-lg font-bold text-[#0A1A2F] dark:text-white mb-2">Something went wrong</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">This page encountered an error.</p>
+          <button onClick={() => this.setState({ error: null })} className="px-4 py-2 bg-[#c9a227] text-white rounded-xl text-sm font-bold">Try Again</button>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
+function HabitBuilderPageInner() {
   const [activeIds, setActiveIds]   = useState(loadActive);
   const [done, setDone]             = useState(() => {
     try { return JSON.parse(localStorage.getItem(STORAGE_TODAY()) || '[]'); } catch { return []; }
@@ -694,6 +712,14 @@ export default function HabitBuilderPage() {
               {activeCats.map(cat => {
                 const catHabits = cat === 'All' ? activeHabits : activeHabits.filter(h => h.category === cat);
                 const catDone   = catHabits.filter(h => done.includes(h.id)).length;
+                  if (!user) {
+                    return (
+                      <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] flex items-center justify-center">
+                        <div className="w-8 h-8 border-4 border-[#c9a227] border-t-transparent rounded-full animate-spin" />
+                      </div>
+                    );
+                  }
+
                 return (
                   <button key={cat} onClick={() => setCategory(cat)}
                     className={`flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-semibold whitespace-nowrap transition-all ${
@@ -777,4 +803,9 @@ export default function HabitBuilderPage() {
       </AnimatePresence>
     </>
   );
+}
+
+
+export default function HabitBuilderPage(props) {
+  return <PageErrorBoundary><HabitBuilderPageInner {...props} /></PageErrorBoundary>;
 }

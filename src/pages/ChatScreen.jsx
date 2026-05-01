@@ -978,6 +978,14 @@ function MessageBubble({ message, cfg, onSpeak, isSpeaking }) {
     );
   };
 
+    if (!user) {
+      return (
+        <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] flex items-center justify-center">
+          <div className="w-8 h-8 border-4 border-[#c9a227] border-t-transparent rounded-full animate-spin" />
+        </div>
+      );
+    }
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 10, scale: 0.98 }}
@@ -1022,7 +1030,7 @@ function MessageBubble({ message, cfg, onSpeak, isSpeaking }) {
             <button
               onClick={onSpeak}
               aria-label={isSpeaking ? 'Stop' : 'Listen'}
-              className="flex items-center gap-1 mt-2 text-white/30 hover:text-white/65 transition-colors"
+              className="flex items-center gap-1 min-h-[44px] min-w-[44px] mt-2 text-white/30 hover:text-white/65 transition-colors"
             >
               {isSpeaking
                 ? <><Square className="w-3 h-3" /><span className="text-[10px]">Stop</span></>

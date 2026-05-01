@@ -735,7 +735,7 @@ export default function HelpChatbot() {
             exit={{ opacity: 0, y: 16, scale: 0.95 }}
             transition={{ type: 'spring', stiffness: 420, damping: 32 }}
             className="fixed bottom-24 right-4 z-50 flex flex-col overflow-hidden rounded-3xl shadow-2xl"
-            style={{ width: 320, maxHeight: '74vh', background: '#fff', border: '1px solid #f0f0f0' }}
+            style={{ width: 320, maxHeight: '74vh', background: 'var(--pr-bg-card, #fff)', border: '1px solid var(--pr-border, #f0f0f0)' }}
           >
             {/* Header */}
             <div className="flex items-center justify-between px-4 py-3.5 flex-shrink-0"

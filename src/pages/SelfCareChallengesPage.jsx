@@ -827,7 +827,25 @@ function ChallengeCard({ challenge, localData, onOpen, isFitness }) {
 }
 
 // ─── Main Page ────────────────────────────────────────────────────────────────
-export default function SelfCareChallengesPage() {
+
+class PageErrorBoundary extends React.Component {
+  constructor(props) { super(props); this.state = { error: null }; }
+  static getDerivedStateFromError(error) { return { error }; }
+  render() {
+    if (this.state.error) {
+      return (
+        <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] flex flex-col items-center justify-center p-6 text-center">
+          <p className="text-lg font-bold text-[#0A1A2F] dark:text-white mb-2">Something went wrong</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">This page encountered an error.</p>
+          <button onClick={() => this.setState({ error: null })} className="px-4 py-2 bg-[#c9a227] text-white rounded-xl text-sm font-bold">Try Again</button>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
+function SelfCareChallengesPageInner() {
   const [localData,   setLocalData]   = useState(loadLocal);
   const [selectedId,  setSelectedId]  = useState(null);
   const [user, setUser] = useState(null);
@@ -991,6 +1009,14 @@ export default function SelfCareChallengesPage() {
           const isActive = !!localData[featured.id];
           const isCompleted = isActive && getCompletedDays(localData[featured.id]).length >= featured.duration;
           const daysLeft = isActive ? featured.duration - getCompletedDays(localData[featured.id]).length : featured.duration;
+            if (!user) {
+              return (
+                <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] flex items-center justify-center">
+                  <div className="w-8 h-8 border-4 border-[#c9a227] border-t-transparent rounded-full animate-spin" />
+                </div>
+              );
+            }
+
           return (
             <div onClick={() => setSelectedId(featured.id)}
               style={{
@@ -1056,4 +1082,8 @@ export default function SelfCareChallengesPage() {
       </div>
     </div>
   );
+}
+
+export default function SelfCareChallengesPage(props) {
+  return <PageErrorBoundary><SelfCareChallengesPageInner {...props} /></PageErrorBoundary>;
 }

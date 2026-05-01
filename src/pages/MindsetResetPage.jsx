@@ -327,7 +327,7 @@ Write a 3-4 sentence personal coaching response. Affirm their insight, add one s
           </div>
           }
         <button onClick={handleSave} disabled={saving}
-          className="w-full py-3.5 rounded-2xl text-[#0A1A2F] dark:text-white font-bold text-sm flex items-center justify-center gap-2 hover:opacity-90 transition-opacity"
+          className="w-full py-3.5 rounded-2xl text-[#0A1A2F] dark:text-white font-bold text-sm flex items-center justify-center gap-2 min-h-[44px] min-w-[44px] hover:opacity-90 transition-opacity"
           style={{ background: `linear-gradient(135deg, #FAD98D, #c9a227)` }}>
               {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Check className="w-4 h-4" />}
               {saving ? 'Saving…' : 'Save to Journal & Finish'}
@@ -340,7 +340,7 @@ Write a 3-4 sentence personal coaching response. Affirm their insight, add one s
         <button
           onClick={nextStep}
           disabled={!current?.value.trim()}
-          className="w-full py-3.5 rounded-2xl font-bold text-sm text-white flex items-center justify-center gap-2 disabled:opacity-30 transition-opacity hover:opacity-90"
+          className="w-full py-3.5 rounded-2xl font-bold text-sm text-white flex items-center justify-center gap-2 min-h-[44px] min-w-[44px] disabled:opacity-30 transition-opacity hover:opacity-90"
           style={{ background: current?.value.trim() ? `linear-gradient(135deg, ${cat.color}, ${cat.color}cc)` : '#F2F6FA' }}>
           
             {step === 2 ?
@@ -443,6 +443,14 @@ export default function MindsetResetPage() {
 
                 history.slice(0, 5).map((s, i) => {
                   const cat = PROMPT_CATEGORIES.find((c) => c.id === s.category);
+                    if (!user) {
+                      return (
+                        <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] flex items-center justify-center">
+                          <div className="w-8 h-8 border-4 border-[#c9a227] border-t-transparent rounded-full animate-spin" />
+                        </div>
+                      );
+                    }
+
                   return (
                     <div key={i} className="px-4 py-3">
                           <div className="flex items-center gap-2 mb-1">

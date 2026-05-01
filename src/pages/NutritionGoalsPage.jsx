@@ -6,7 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import {
   Salad, Droplets, Flame, Clock, ShieldCheck,
   ChevronRight, Info, Apple, BarChart2, BookOpen, AlertTriangle, Target, Pencil, X, Check,
-  CalendarDays, ChefHat, History, Plus } from 'lucide-react';
+  CalendarDays, ChefHat, History, Plus } ArrowLeft } from 'lucide-react';
 
 // ── Label maps ────────────────────────────────────────────────────────────────
 const DIET_LABELS = {
@@ -300,7 +300,7 @@ function UpdateGoalsModal({ user, onClose, onSave }) {
         {/* Fixed footer button */}
         <div className="px-5 pt-3 pb-6 flex-shrink-0 border-t border-gray-100 dark:border-white/10" style={{ paddingBottom: 'max(24px, env(safe-area-inset-bottom))' }}>
           <button onClick={save} disabled={saving}
-            className="w-full py-3.5 rounded-2xl font-bold text-white text-sm flex items-center justify-center gap-2 transition-all active:scale-98"
+            className="w-full py-3.5 rounded-2xl font-bold text-white text-sm flex items-center justify-center gap-2 min-h-[44px] min-w-[44px] transition-all active:scale-98"
             style={{ background: 'linear-gradient(135deg,#166534,#22C55E)' }}>
             {saving ? 'Saving…' : <><Check className="w-4 h-4" /> Save Goals</>}
           </button>
@@ -519,6 +519,14 @@ export default function NutritionGoalsPage() {
           <div className="space-y-2">
             {schedule.map((item, i) => {
               const calsForMeal = mealCals?.[i];
+                if (!user) {
+                  return (
+                    <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] flex items-center justify-center">
+                      <div className="w-8 h-8 border-4 border-[#c9a227] border-t-transparent rounded-full animate-spin" />
+                    </div>
+                  );
+                }
+
               return (
                 <motion.div key={i} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.16 + i * 0.04 }}
                   className="flex items-center gap-3 bg-[#F8FAFB] rounded-xl px-3.5 py-2.5">

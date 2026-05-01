@@ -223,7 +223,7 @@ export default function CoachingPlanPage() {
                 </Button>
               </Link>
               <Link to={createPageUrl('Plans')}>
-                <button className="w-full text-xs text-[#c9a227] flex items-center justify-center gap-1 py-1 hover:opacity-80">
+                <button className="w-full text-xs text-[#c9a227] flex items-center justify-center gap-1 min-h-[44px] min-w-[44px] py-1 hover:opacity-80">
                   <span>Browse Reading Plans</span><ChevronRight className="w-3 h-3" />
                 </button>
               </Link>
@@ -263,12 +263,12 @@ export default function CoachingPlanPage() {
               </Link>
               <div className="flex gap-2">
                 <Link to={createPageUrl('WorkoutProgress')} className="flex-1">
-                  <button className="w-full text-xs text-[#38BDF8] flex items-center justify-center gap-1 py-1 border border-[#38BDF8]/20 rounded-lg hover:bg-[#38BDF8]/5">
+                  <button className="w-full text-xs text-[#38BDF8] flex items-center justify-center gap-1 min-h-[44px] min-w-[44px] py-1 border border-[#38BDF8]/20 rounded-lg hover:bg-[#38BDF8]/5">
                     Progress <ChevronRight className="w-3 h-3" />
                   </button>
                 </Link>
                 <Link to={createPageUrl('WorkoutTrends')} className="flex-1">
-                  <button className="w-full text-xs text-[#38BDF8] flex items-center justify-center gap-1 py-1 border border-[#38BDF8]/20 rounded-lg hover:bg-[#38BDF8]/5">
+                  <button className="w-full text-xs text-[#38BDF8] flex items-center justify-center gap-1 min-h-[44px] min-w-[44px] py-1 border border-[#38BDF8]/20 rounded-lg hover:bg-[#38BDF8]/5">
                     Trends <ChevronRight className="w-3 h-3" />
                   </button>
                 </Link>
@@ -316,7 +316,7 @@ export default function CoachingPlanPage() {
                 </Link>
               </div>
               <Link to={createPageUrl('NutritionGuidance')}>
-                <button className="w-full text-xs text-[#22c55e] flex items-center justify-center gap-1 py-1 hover:opacity-80">
+                <button className="w-full text-xs text-[#22c55e] flex items-center justify-center gap-1 min-h-[44px] min-w-[44px] py-1 hover:opacity-80">
                   Nutrition Guidance <ChevronRight className="w-3 h-3" />
                 </button>
               </Link>
@@ -355,12 +355,12 @@ export default function CoachingPlanPage() {
               </Link>
               <div className="flex gap-2">
                 <Link to={createPageUrl('MyJournalEntries')} className="flex-1">
-                  <button className="w-full text-xs text-[#a78bfa] flex items-center justify-center gap-1 py-1 border border-[#a78bfa]/20 rounded-lg hover:bg-[#a78bfa]/5">
+                  <button className="w-full text-xs text-[#a78bfa] flex items-center justify-center gap-1 min-h-[44px] min-w-[44px] py-1 border border-[#a78bfa]/20 rounded-lg hover:bg-[#a78bfa]/5">
                     My Journal <ChevronRight className="w-3 h-3" />
                   </button>
                 </Link>
                 <Link to={createPageUrl('HabitBuilderPage')} className="flex-1">
-                  <button className="w-full text-xs text-[#a78bfa] flex items-center justify-center gap-1 py-1 border border-[#a78bfa]/20 rounded-lg hover:bg-[#a78bfa]/5">
+                  <button className="w-full text-xs text-[#a78bfa] flex items-center justify-center gap-1 min-h-[44px] min-w-[44px] py-1 border border-[#a78bfa]/20 rounded-lg hover:bg-[#a78bfa]/5">
                     Habits <ChevronRight className="w-3 h-3" />
                   </button>
                 </Link>

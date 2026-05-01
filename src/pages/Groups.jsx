@@ -136,7 +136,7 @@ function CreateGroupPanel({ isOpen, onClose, onSubmit, creating }) {
               </div>
 
               <button onClick={handleSubmit} disabled={!canSubmit || creating}
-                className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-[#FAD98D] to-[#c9a227] text-[#0A1A2F] dark:text-white font-bold text-sm disabled:opacity-40 hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
+                className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-[#FAD98D] to-[#c9a227] text-[#0A1A2F] dark:text-white font-bold text-sm disabled:opacity-40 hover:opacity-90 transition-opacity flex items-center justify-center gap-2 min-h-[44px] min-w-[44px]">
                 {creating ? <><Loader2 className="w-4 h-4 animate-spin" /> Creating…</> : <><Plus className="w-4 h-4" /> Create Group</>}
               </button>
             </div>
@@ -219,7 +219,7 @@ function SeedBanner({ onSeed, seeding }) {
         <p className="text-xs text-white/45">Add 32 starter groups across all categories</p>
       </div>
       <button onClick={onSeed} disabled={seeding}
-        className="flex-shrink-0 px-3.5 py-2 rounded-xl bg-[#FAD98D] text-[#0A1A2F] dark:text-white text-xs font-bold disabled:opacity-50 hover:bg-[#c9a227] transition-colors flex items-center gap-1.5">
+        className="flex-shrink-0 px-3.5 py-2 rounded-xl bg-[#FAD98D] text-[#0A1A2F] dark:text-white text-xs font-bold disabled:opacity-50 hover:bg-[#c9a227] transition-colors flex items-center gap-1.5 min-h-[44px] min-w-[44px]">
         {seeding ? <><Loader2 className="w-3.5 h-3.5 animate-spin" /> Adding…</> : 'Add Groups'}
       </button>
     </motion.div>
@@ -352,6 +352,14 @@ export default function Groups() {
   const featured = [...discoverGroups]
     .sort((a, b) => (b.member_count || 0) - (a.member_count || 0))
     .slice(0, 3);
+
+    if (!user) {
+      return (
+        <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] flex items-center justify-center">
+          <div className="w-8 h-8 border-4 border-[#c9a227] border-t-transparent rounded-full animate-spin" />
+        </div>
+      );
+    }
 
   return (
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">

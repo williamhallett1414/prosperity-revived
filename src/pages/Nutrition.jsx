@@ -76,7 +76,25 @@ function MacroRing({ value, target, label, unit, color }) {
 
 }
 
-export default function Nutrition() {
+
+class PageErrorBoundary extends React.Component {
+  constructor(props) { super(props); this.state = { error: null }; }
+  static getDerivedStateFromError(error) { return { error }; }
+  render() {
+    if (this.state.error) {
+      return (
+        <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] flex flex-col items-center justify-center p-6 text-center">
+          <p className="text-lg font-bold text-[#0A1A2F] dark:text-white mb-2">Something went wrong</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">This page encountered an error.</p>
+          <button onClick={() => this.setState({ error: null })} className="px-4 py-2 bg-[#c9a227] text-white rounded-xl text-sm font-bold">Try Again</button>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
+function NutritionInner() {
   const [user, setUser] = useState(null);
   const [activeTab, setActiveTab] = useState('today');
   const navigate = useNavigate();
@@ -370,6 +388,14 @@ export default function Nutrition() {
                   <p className="text-xs text-[#0A1A2F]/35 dark:text-white/35 text-center py-3">No suggestions right now. Use Log Food above.</p>
                 ) : suggestions.map((meal, i) => {
                   const alreadyLogged = todayMeals.some((m) => m.description === meal.name);
+                    if (!user) {
+                      return (
+                        <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] flex items-center justify-center">
+                          <div className="w-8 h-8 border-4 border-[#c9a227] border-t-transparent rounded-full animate-spin" />
+                        </div>
+                      );
+                    }
+
                   return (
                     <motion.div key={meal.id} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: i * 0.06 }}
@@ -466,4 +492,8 @@ export default function Nutrition() {
       <ChatButton bot="ChefDaniel" id="tour-chef-daniel-btn" />
     </div>);
 
+}
+
+export default function Nutrition(props) {
+  return <PageErrorBoundary><NutritionInner {...props} /></PageErrorBoundary>;
 }

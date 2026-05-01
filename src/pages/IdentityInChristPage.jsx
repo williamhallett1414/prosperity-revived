@@ -584,7 +584,7 @@ export default function IdentityInChristPage() {
               </p>
             </div>
             <button onClick={startDeclareAll}
-              className="flex items-center gap-1.5 bg-gradient-to-r from-[#FAD98D] to-[#c9a227] text-[#0A1A2F] dark:text-white rounded-xl px-3 py-1.5 hover:opacity-90 transition-opacity">
+              className="flex items-center gap-1.5 min-h-[44px] min-w-[44px] bg-gradient-to-r from-[#FAD98D] to-[#c9a227] text-[#0A1A2F] dark:text-white rounded-xl px-3 py-1.5 hover:opacity-90 transition-opacity">
               <Mic className="w-3.5 h-3.5" />
               <span className="text-xs font-bold">Declare All</span>
             </button>

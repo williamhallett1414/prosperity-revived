@@ -112,7 +112,7 @@ function WorkoutMiniCard({ workout, onRemove }) {
       </div>
       {onRemove &&
       <button onClick={onRemove}
-      className="opacity-0 group-hover:opacity-100 p-1 rounded-lg hover:bg-red-50 dark:bg-red-900/20 text-gray-300 dark:text-gray-400 dark:text-gray-300 hover:text-red-400 transition-all">
+      className="opacity-0 group-hover:opacity-100 p-1 min-h-[44px] min-w-[44px] rounded-lg hover:bg-red-50 dark:bg-red-900/20 text-gray-300 dark:text-gray-400 dark:text-gray-300 hover:text-red-400 transition-all">
         
           <X className="w-3.5 h-3.5" />
         </button>
@@ -298,7 +298,7 @@ function DayView({ dayIdx, week, schedule, setSchedule, onAddWorkout }) {
           }
         </div>
         <button onClick={onAddWorkout}
-        className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#FD9C2D] text-white font-bold text-sm hover:bg-[#FD9C2D] transition-colors shadow-sm dark:shadow-none shadow-[#FD9C2D]/30">
+        className="flex items-center gap-1.5 min-h-[44px] min-w-[44px] px-3.5 py-2 rounded-xl bg-[#FD9C2D] text-white font-bold text-sm hover:bg-[#FD9C2D] transition-colors shadow-sm dark:shadow-none shadow-[#FD9C2D]/30">
           
           <Plus className="w-4 h-4" /> Add
         </button>
@@ -307,7 +307,7 @@ function DayView({ dayIdx, week, schedule, setSchedule, onAddWorkout }) {
       {/* Workouts */}
       {dayWorkouts.length === 0 ?
       <button onClick={onAddWorkout}
-      className="w-full py-10 rounded-2xl border-2 border-dashed border-gray-200 dark:border-white/10 text-gray-300 dark:text-gray-400 dark:text-gray-300 hover:border-[#FD9C2D]/40 hover:text-[#FD9C2D]/50 transition-all flex flex-col items-center gap-2">
+      className="w-full py-10 rounded-2xl border-2 border-dashed border-gray-200 dark:border-white/10 text-gray-300 dark:text-gray-400 dark:text-gray-300 hover:border-[#FD9C2D]/40 hover:text-[#FD9C2D]/50 transition-all flex flex-col items-center gap-2 min-h-[44px] min-w-[44px]">
         
           <Dumbbell className="w-6 h-6" />
           <span className="text-sm font-semibold">No workouts yet — tap to add</span>
@@ -627,7 +627,7 @@ export default function WorkoutPlanner() {
             {/* Clear week button */}
             {weekTotalWorkouts > 0 &&
           <div className="mt-6 flex justify-center">
-                <button onClick={clearAll} className="text-xs text-gray-400 dark:text-gray-300 hover:text-red-400 flex items-center gap-1 transition-colors">
+                <button onClick={clearAll} className="text-xs text-gray-400 dark:text-gray-300 hover:text-red-400 flex items-center gap-1 min-h-[44px] min-w-[44px] transition-colors">
                   <Trash2 className="w-3.5 h-3.5" /> Clear entire week
                 </button>
               </div>
