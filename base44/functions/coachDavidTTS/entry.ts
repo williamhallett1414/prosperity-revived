@@ -85,7 +85,6 @@ Deno.serve(async (req) => {
           audioConfig: {
             audioEncoding:    'MP3',
             speakingRate:     1.10,   // Fast, driven, no-nonsense coaching pace
-            pitch:            -1.5,   // Grounded masculine depth without being heavy
             volumeGainDb:     2.0,    // Commanding presence
             effectsProfileId: ['headphone-class-device'],
           },

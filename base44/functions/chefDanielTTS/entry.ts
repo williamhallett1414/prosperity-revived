@@ -84,7 +84,6 @@ Deno.serve(async (req) => {
           audioConfig: {
             audioEncoding:    'MP3',
             speakingRate:     1.02,   // Lively, enthusiastic, easy to follow
-            pitch:            1.5,    // Bright and inviting — food passion
             volumeGainDb:     1.0,
             effectsProfileId: ['headphone-class-device'],
           },
