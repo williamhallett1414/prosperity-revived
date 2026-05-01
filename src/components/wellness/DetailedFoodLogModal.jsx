@@ -129,10 +129,13 @@ Provide accurate estimates for a typical serving size.`,
         }
       });
 
-      setMeal(prev => ({
-        ...prev,
-        ...response
-      }));
+      setMeal(prev => {
+        let parsed = response;
+        if (typeof response === 'string') {
+          try { parsed = JSON.parse(response.replace(/```json|```/g, '').trim()); } catch { parsed = {}; }
+        }
+        return { ...prev, ...parsed };
+      });
     } catch (error) {
       console.error('AI analysis failed', error);
     } finally {
@@ -149,7 +152,7 @@ Provide accurate estimates for a typical serving size.`,
       const imageUrl = response.file_url;
 
       const analysisResponse = await base44.integrations.Core.InvokeLLM({
-        prompt: `Analyze this photo of food and provide detailed nutritional information. Describe what foods are visible and estimate the amounts.`,
+        prompt: `Analyze this photo of food and provide detailed nutritional information. Describe what foods are visible and estimate the amounts. Return ONLY valid JSON.`,
         file_urls: [imageUrl],
         response_json_schema: {
           type: 'object',
@@ -167,10 +170,32 @@ Provide accurate estimates for a typical serving size.`,
         }
       });
 
-      setMeal(prev => ({
-        ...prev,
-        ...analysisResponse
-      }));
+      // Parse the response — InvokeLLM returns a string, not an object
+      let parsed = analysisResponse;
+      if (typeof analysisResponse === 'string') {
+        try {
+          parsed = JSON.parse(analysisResponse.replace(/```json|```/g, '').trim());
+        } catch {
+          console.warn('Failed to parse analysis:', analysisResponse);
+          parsed = {};
+        }
+      }
+
+      if (parsed.description) {
+        setMeal(prev => ({
+          ...prev,
+          food_name: parsed.description || prev.food_name,
+          calories: parsed.calories || prev.calories,
+          protein: parsed.protein || prev.protein,
+          carbs: parsed.carbs || prev.carbs,
+          fats: parsed.fats || prev.fats,
+          fiber: parsed.fiber || prev.fiber,
+          sugar: parsed.sugar || prev.sugar,
+          sodium: parsed.sodium || prev.sodium,
+          serving_size: parsed.serving_size || prev.serving_size,
+          image_url: imageUrl,
+        }));
+      }
       setActiveTab('manual');
     } catch (error) {
       console.error('Photo analysis failed', error);
@@ -205,11 +230,13 @@ If you can't find the exact product, provide a reasonable estimate based on simi
         }
       });
 
-      setMeal(prev => ({
-        ...prev,
-        ...response,
-        barcode
-      }));
+      setMeal(prev => {
+        let parsed = response;
+        if (typeof response === 'string') {
+          try { parsed = JSON.parse(response.replace(/```json|```/g, '').trim()); } catch { parsed = {}; }
+        }
+        return { ...prev, ...parsed, barcode };
+      });
     } catch (error) {
       console.error('Barcode lookup failed', error);
     } finally {
