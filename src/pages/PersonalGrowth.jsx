@@ -559,6 +559,32 @@ function PersonalGrowthInner() {
             </div>
           </Link>
 
+          {/* ── Spiritual Disciplines ── */}
+          <div className="space-y-2 mt-2">
+            <p className="text-xs font-bold text-[#c9a227] uppercase tracking-widest px-1">Spiritual Disciplines</p>
+            {[
+              { to: 'PrayerPartners', emoji: '🙏', title: 'Prayer Partners', sub: 'Pray together with a trusted friend', color: '#8B5CF6' },
+              { to: 'RepentanceJournal', emoji: '🕊️', title: 'Heart Journal', sub: 'Repentance & forgiveness — private', color: '#0A1A2F' },
+              { to: 'DarkNightDevotionals', emoji: '🌙', title: 'Dark Night Devotionals', sub: 'For seasons of suffering and doubt', color: '#475569' },
+              { to: 'FastingTracker', emoji: '🔥', title: 'Fasting', sub: 'Draw near to God through sacrifice', color: '#D97706' },
+              { to: 'SpiritualAssessment', emoji: '🌱', title: 'Spiritual Assessment', sub: 'Where are you in your walk with God?', color: '#22C55E' },
+            ].map((item, i) => (
+              <Link key={item.to} to={createPageUrl(item.to)}>
+                <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.03 * i }}
+                  className="flex items-center gap-3 px-4 py-3 bg-white dark:bg-white/5 rounded-xl border border-gray-100 dark:border-white/10 hover:shadow-md transition-all">
+                  <div className="w-9 h-9 rounded-xl flex items-center justify-center text-lg" style={{ background: item.color + '15' }}>
+                    {item.emoji}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-bold text-[#0A1A2F] dark:text-white">{item.title}</p>
+                    <p className="text-[10px] text-[#0A1A2F]/45 dark:text-white/40">{item.sub}</p>
+                  </div>
+                  <ChevronRight className="w-4 h-4 text-[#0A1A2F]/25 dark:text-white/25 flex-shrink-0" />
+                </motion.div>
+              </Link>
+            ))}
+          </div>
+
           {/* ── Daily Affirmation banner ── */}
           <motion.div
             initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }}

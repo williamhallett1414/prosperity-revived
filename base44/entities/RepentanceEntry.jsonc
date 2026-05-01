@@ -1,0 +1,5 @@
+{
+  "name": "RepentanceEntry",
+  "type": "object",
+  "description": "Entity for RepentanceEntry feature"
+}

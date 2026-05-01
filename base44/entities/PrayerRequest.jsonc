@@ -1,0 +1,5 @@
+{
+  "name": "PrayerRequest",
+  "type": "object",
+  "description": "Entity for PrayerRequest feature"
+}
