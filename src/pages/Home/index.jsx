@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
+import { todayKey } from '@/utils/localDate';
 import { createPageUrl } from '@/utils';
 import { Flame, ChevronRight } from 'lucide-react';
 import { RitualButton, QuickNav, ResumeCard, ActiveChallengesWidget, StartHereCard } from '@/components/home/HomeComponents';
@@ -34,7 +35,7 @@ function Home() {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
   const greeting = getGreeting();
-  const today = (() => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; })();
+  const today = todayKey();
   const ritualKey = greeting.isMorning ? `ritual_morning_${today}` : `ritual_evening_${today}`;
   const [ritualDone, setRitualDone] = useState(() => !!localStorage.getItem(ritualKey));
 

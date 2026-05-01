@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
+import { todayKey } from '@/utils/localDate';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { motion } from 'framer-motion';
@@ -261,7 +262,7 @@ function CoachingSection({ active }) {
 // ─── Main ─────────────────────────────────────────────────────────────────────
 export default function Wellness() {
   const [user, setUser] = useState(null);
-  const today = (() => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; })();
+  const today = todayKey();
   const feature = getTimeFeature();
 
   useEffect(() => { base44.auth.me().then(setUser).catch(() => {}); }, []);

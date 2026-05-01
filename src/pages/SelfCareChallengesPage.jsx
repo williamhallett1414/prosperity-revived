@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { base44 } from '@/api/base44Client';
+import { todayKey } from '@/utils/localDate';
 import { Flower2 } from 'lucide-react';
 import ShareToFeedButton from '@/components/community/ShareToFeedButton';
 import { localDateKey, todayKey } from '@/utils/localDate';
@@ -287,7 +288,7 @@ const CAT_COLORS = { Faith: "#D9A84A", Mindset: "#0ea5e9", Body: "#22c55e", Rela
 const LOCAL_KEY = "pr_selfcare_v3";
 function loadLocal() { try { return JSON.parse(localStorage.getItem(LOCAL_KEY) || "{}"); } catch { return {}; } }
 function saveLocal(d) { try { localStorage.setItem(LOCAL_KEY, JSON.stringify(d)); } catch {} }
-function todayStr() { return (() => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; })(); }
+function todayStr() { return todayKey(); }
 function getDayTs(val) { return typeof val === "number" ? val : (val?.ts ?? 0); }
 function getDayXP(val, fallback) { return typeof val === "number" ? fallback : (val?.xp ?? fallback); }
 

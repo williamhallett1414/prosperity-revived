@@ -6,6 +6,7 @@ import { ArrowLeft, Flame, Plus, X,
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { base44 } from '@/api/base44Client';
+import { todayKey } from '@/utils/localDate';
 import { toast } from 'sonner';
 import ShareToFeedButton from '@/components/community/ShareToFeedButton';
 import { localDateKey, todayKey } from '@/utils/localDate';
@@ -44,7 +45,7 @@ const HISTORY_KEY = 'habit_history_v1';
 const CUSTOM_KEY  = 'habit_custom_v1';
 const MILESTONE_KEY = 'habit_milestones_seen_v1';
 
-const TODAY = () => (() => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; })();
+const TODAY = () => todayKey();
 const STORAGE_TODAY = () => `habits_${TODAY()}`;
 
 function loadActive()    { try { return JSON.parse(localStorage.getItem(ACTIVE_KEY)  || JSON.stringify(DEFAULT_ACTIVE)); } catch { return DEFAULT_ACTIVE; } }

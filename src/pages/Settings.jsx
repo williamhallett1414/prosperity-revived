@@ -1,7 +1,8 @@
 import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
-import { ArrowLeft, Moon, Sun, Monitor, Bell, User, Palette, Trash2, Play, Database, ChevronRight, RotateCcw } from 'lucide-react';
+import { ArrowLeft, Moon, Sun, Monitor, Bell, User, Palette, Trash2, Play, Database, ChevronRight, RotateCcw, Clock } from 'lucide-react';
+import { TIMEZONES } from '@/utils/localDate';
 import { toast } from 'sonner';
 const AppTour = lazy(() => import('@/components/onboarding/AppTour'));
 const ReminderSettings = lazy(() => import('@/components/settings/ReminderSettings'));
@@ -201,6 +202,60 @@ function SettingsInner() {
         {/* Reminders */}
         <div className="bg-white dark:bg-white/5 dark:bg-[#0A1A2F] rounded-2xl p-4 shadow-sm dark:shadow-none mb-4">
           <Suspense fallback={<div className="flex justify-center py-4"><div className="w-5 h-5 border-2 border-[#c9a227] border-t-transparent rounded-full animate-spin"/></div>}><ReminderSettings /></Suspense>
+        </div>
+
+        {/* Timezone & Daily Reset */}
+        <div className="bg-white dark:bg-white/5 rounded-2xl p-4 shadow-sm dark:shadow-none mb-4">
+          <div className="flex items-center gap-3 mb-4">
+            <Clock className="w-5 h-5 text-[#c9a227]" />
+            <h2 className="font-semibold text-[#0A1A2F] dark:text-white">Timezone & Daily Reset</h2>
+          </div>
+
+          <div className="space-y-4">
+            {/* Timezone */}
+            <div>
+              <label className="text-xs font-medium text-[#0A1A2F]/60 dark:text-white/60 mb-1.5 block">Your Timezone</label>
+              <select
+                value={localStorage.getItem('user_timezone') || ''}
+                onChange={(e) => {
+                  if (e.target.value) {
+                    localStorage.setItem('user_timezone', e.target.value);
+                  } else {
+                    localStorage.removeItem('user_timezone');
+                  }
+                  updateUser.mutate({ timezone: e.target.value || null });
+                }}
+                className="w-full p-3 rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 text-sm text-[#0A1A2F] dark:text-white min-h-[44px]"
+              >
+                {TIMEZONES.map(tz => (
+                  <option key={tz.value} value={tz.value}>{tz.label}</option>
+                ))}
+              </select>
+              <p className="text-[10px] text-[#0A1A2F]/40 dark:text-white/35 mt-1">Controls when your daily logs reset</p>
+            </div>
+
+            {/* Daily Reset Hour */}
+            <div>
+              <label className="text-xs font-medium text-[#0A1A2F]/60 dark:text-white/60 mb-1.5 block">Daily Reset Time</label>
+              <select
+                value={localStorage.getItem('daily_reset_hour') || '0'}
+                onChange={(e) => {
+                  localStorage.setItem('daily_reset_hour', e.target.value);
+                  updateUser.mutate({ daily_reset_hour: parseInt(e.target.value) });
+                }}
+                className="w-full p-3 rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 text-sm text-[#0A1A2F] dark:text-white min-h-[44px]"
+              >
+                <option value="0">12:00 AM (Midnight)</option>
+                <option value="1">1:00 AM</option>
+                <option value="2">2:00 AM</option>
+                <option value="3">3:00 AM</option>
+                <option value="4">4:00 AM</option>
+                <option value="5">5:00 AM</option>
+                <option value="6">6:00 AM</option>
+              </select>
+              <p className="text-[10px] text-[#0A1A2F]/40 dark:text-white/35 mt-1">Workouts, meals, and journals reset at this time each day</p>
+            </div>
+          </div>
         </div>
 
         {/* Notifications */}
