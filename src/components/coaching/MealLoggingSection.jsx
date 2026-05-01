@@ -18,6 +18,8 @@ export default function MealLoggingSection({ nutritionPlan, mealLogs, onMealLogg
   const [selectedMealType, setSelectedMealType] = useState(null);
   const [loggedMeals, setLoggedMeals] = useState({});
   const [isLogging, setIsLogging] = useState(false);
+  // Optimistic set of meal types logged this session
+  const [optimisticLogged, setOptimisticLogged] = useState(new Set());
 
   // Parse meal suggestions from nutrition plan
   const parseMeals = (planText) => {
@@ -37,8 +39,9 @@ export default function MealLoggingSection({ nutritionPlan, mealLogs, onMealLogg
 
   const mealSuggestions = parseMeals(nutritionPlan);
 
-  // Check if meal was logged today
+  // Check if meal was logged today (server data OR optimistic)
   const isMealLogged = (mealType) => {
+    if (optimisticLogged.has(mealType)) return true;
     const dateStr = date.toISOString().split('T')[0];
     return mealLogs?.some(log => 
       log.date === dateStr && log.meal_type === mealType
@@ -54,22 +57,33 @@ export default function MealLoggingSection({ nutritionPlan, mealLogs, onMealLogg
   const handleLogMeal = async (e) => {
     e.preventDefault();
     if (!selectedMealType || !loggedMeals.description) return;
-    
+
+    const mealTypeToLog = selectedMealType;
+
+    // Optimistic update — mark as logged immediately
+    setOptimisticLogged(prev => new Set([...prev, mealTypeToLog]));
+    setShowLogModal(false);
+    setSelectedMealType(null);
+    setLoggedMeals({});
+
     setIsLogging(true);
     try {
       const dateStr = date.toISOString().split('T')[0];
       await base44.entities.MealLog.create({
         date: dateStr,
-        meal_type: selectedMealType,
+        meal_type: mealTypeToLog,
         description: loggedMeals.description,
         calories: loggedMeals.calories ? parseInt(loggedMeals.calories) : undefined,
         notes: loggedMeals.notes,
       });
-      
-      onMealLogged?.(selectedMealType);
-      setShowLogModal(false);
-      setSelectedMealType(null);
-      setLoggedMeals({});
+      onMealLogged?.(mealTypeToLog);
+    } catch {
+      // Rollback optimistic update on failure
+      setOptimisticLogged(prev => {
+        const next = new Set(prev);
+        next.delete(mealTypeToLog);
+        return next;
+      });
     } finally {
       setIsLogging(false);
     }

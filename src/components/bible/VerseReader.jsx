@@ -30,10 +30,20 @@ export default function VerseReader({ book, chapter, onBack, onNavigate, bookmar
   const [selectedVerse, setSelectedVerse] = useState(null);
   const [showAnnotationModal, setShowAnnotationModal] = useState(false);
   const [annotatingVerse, setAnnotatingVerse] = useState(null);
+  // Optimistic bookmark state — merges server bookmarks with local pending changes
+  const [optimisticBookmarks, setOptimisticBookmarks] = useState(null);
 
   useEffect(() => {
     fetchVerses();
   }, [book.name, chapter]);
+
+  // Reset optimistic state whenever server bookmarks arrive
+  useEffect(() => {
+    setOptimisticBookmarks(null);
+  }, [bookmarks]);
+
+  // Effective bookmarks = optimistic overlay if set, else server data
+  const effectiveBookmarks = optimisticBookmarks ?? bookmarks;
 
   const fetchVerses = async () => {
     setLoading(true);
@@ -66,7 +76,7 @@ export default function VerseReader({ book, chapter, onBack, onNavigate, bookmar
   };
 
   const isBookmarked = (verseNum) => {
-    return bookmarks?.some(b => 
+    return effectiveBookmarks?.some(b => 
       b.book === book.name && 
       b.chapter === chapter && 
       b.verse === verseNum
@@ -74,7 +84,7 @@ export default function VerseReader({ book, chapter, onBack, onNavigate, bookmar
   };
 
   const getBookmarkColor = (verseNum) => {
-    const bookmark = bookmarks?.find(b => 
+    const bookmark = effectiveBookmarks?.find(b => 
       b.book === book.name && 
       b.chapter === chapter && 
       b.verse === verseNum
@@ -87,12 +97,23 @@ export default function VerseReader({ book, chapter, onBack, onNavigate, bookmar
   };
 
   const handleHighlight = (verse, color) => {
-    onBookmark({
-      book: book.name,
-      chapter,
-      verse: verse.number,
-      text: verse.text
-    }, color);
+    const current = effectiveBookmarks ?? [];
+    const existing = current.find(b => b.book === book.name && b.chapter === chapter && b.verse === verse.number);
+    if (existing) {
+      // Optimistically remove
+      setOptimisticBookmarks(current.filter(b => b !== existing));
+    } else {
+      // Optimistically add
+      setOptimisticBookmarks([...current, {
+        id: `optimistic-${Date.now()}`,
+        book: book.name,
+        chapter,
+        verse: verse.number,
+        verse_text: verse.text,
+        highlight_color: color,
+      }]);
+    }
+    onBookmark({ book: book.name, chapter, verse: verse.number, text: verse.text }, color);
     setSelectedVerse(null);
   };
 
@@ -114,7 +135,7 @@ export default function VerseReader({ book, chapter, onBack, onNavigate, bookmar
   };
 
   const getBookmarkForVerse = (verseNum) => {
-    return bookmarks?.find(b => 
+    return effectiveBookmarks?.find(b => 
       b.book === book.name && 
       b.chapter === chapter && 
       b.verse === verseNum
