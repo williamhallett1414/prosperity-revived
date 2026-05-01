@@ -171,7 +171,7 @@ export default function Layout({ children, currentPageName }) {
 
       // Store tour key and show tour after page has rendered
       window.__pendingTourKey = tourKey;
-      setTimeout(() => setShowGuidedTour(true), 600);
+      setTimeout(() => setShowGuidedTour(true), 1200);
     }
   }, [location.pathname, location.search]);
 

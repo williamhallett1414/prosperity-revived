@@ -501,13 +501,23 @@ export default function GuidedTour({ onComplete, customSteps, tourKey }) {
     const measure = () => {
       const el = document.getElementById(current.targetId);
       if (el) {
-        const r = el.getBoundingClientRect();
-        setTargetRect({ top: r.top, left: r.left, width: r.width, height: r.height });
-      } else if (attempts++ < 15) {
-        setTimeout(measure, 180);
+        // Scroll element into view first
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        // Wait for scroll to settle then measure
+        setTimeout(() => {
+          const r = el.getBoundingClientRect();
+          if (r.width > 0 && r.height > 0) {
+            setTargetRect({ top: r.top, left: r.left, width: r.width, height: r.height });
+          }
+        }, 350);
+        return;
+      }
+      if (attempts++ < 30) {
+        setTimeout(measure, 300);
       }
     };
-    measure();
+    // Initial delay to allow page navigation + lazy load
+    setTimeout(measure, 500);
 
     // Live-update on scroll / resize
     const update = () => {
