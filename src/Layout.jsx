@@ -74,15 +74,9 @@ export default function Layout({ children, currentPageName }) {
       }
       setUserLoaded(true);
     }).catch(() => {
-      // Auth failed — check localStorage as fallback
-      if (localStorage.getItem('onboarding_done')) {
-        setOnboardingDone(true);
-      } else {
-        setNeedsOnboarding(true);
-      }
-      if (localStorage.getItem('age_verified')) {
-        setAgeVerified(true);
-      }
+      // Auth failed — user not logged in yet. 
+      // Don't trust localStorage alone — wait for auth to resolve.
+      // Base44 will show its login/signup screen.
       setUserLoaded(true);
     });
   }, []);
