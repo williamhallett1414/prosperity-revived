@@ -1356,6 +1356,19 @@ export default function ChatScreen() {
     });
   }, [speakingIdx, cfg]);
 
+  // Auto-speak welcome message when chat opens (first visit only)
+  const hasAutoSpokenRef = useRef(false);
+  useEffect(() => {
+    if (hasAutoSpokenRef.current) return;
+    if (messages.length === 1 && messages[0].role === 'assistant' && messages[0].content === cfg.welcomeMsg) {
+      hasAutoSpokenRef.current = true;
+      const timer = setTimeout(() => {
+        handleSpeak(cfg.welcomeMsg, 0);
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [messages, cfg.welcomeMsg, handleSpeak]);
+
   // ── STT ──────────────────────────────────────────────────────────────────────
   const stopListening = useCallback(() => {
     isListeningRef.current = false;
