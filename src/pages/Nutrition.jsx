@@ -388,14 +388,6 @@ function NutritionInner() {
                   <p className="text-xs text-[#0A1A2F]/35 dark:text-white/35 text-center py-3">No suggestions right now. Use Log Food above.</p>
                 ) : suggestions.map((meal, i) => {
                   const alreadyLogged = todayMeals.some((m) => m.description === meal.name);
-                    if (!user) {
-                      return (
-                        <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] flex items-center justify-center">
-                          <div className="w-8 h-8 border-4 border-[#c9a227] border-t-transparent rounded-full animate-spin" />
-                        </div>
-                      );
-                    }
-
                   return (
                     <motion.div key={meal.id} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: i * 0.06 }}

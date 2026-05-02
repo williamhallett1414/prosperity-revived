@@ -39,7 +39,7 @@ export default function GideonReadAloud({ text, label = 'Listen' }) {
       }
 
       // Use Hannah's TTS voice
-      const result = { audioContent: await elevenLabsSpeak(chunk, 'gideon') };
+      const result = { audioContent: await elevenLabsSpeak(cleaned, 'gideon') };
       const audioContent = result?.audioContent ?? result?.data?.audioContent;
 
       if (audioContent) {
