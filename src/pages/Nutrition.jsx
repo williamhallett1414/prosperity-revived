@@ -214,21 +214,22 @@ function NutritionInner() {
 
           {/* Nav tabs — only the navigation ones, no Log Food here */}
           <div id="tour-nutrition-goals-entry" className="flex gap-0 border-b border-transparent -mb-px">
-            {TABS.filter(t => t.id !== 'log').map(({ id, label, icon: Icon }) => {
-              const isActive = activeTab === id && id !== 'goals' && id !== 'history';
+            {TABS.filter(t => t.id !== 'log').map((tab) => {
+              const isActive = activeTab === tab.id && tab.id !== 'goals' && tab.id !== 'history';
+              const TabIcon = tab.icon;
               return (
-                <button key={id} onClick={() => {
-                  if (id === 'goals') navigate(createPageUrl('NutritionGoalsPage'));
-                  else if (id === 'history') navigate(createPageUrl('FoodLogHistory'));
-                  else setActiveTab(id);
+                <button key={tab.id} onClick={() => {
+                  if (tab.id === 'goals') navigate(createPageUrl('NutritionGoalsPage'));
+                  else if (tab.id === 'history') navigate(createPageUrl('FoodLogHistory'));
+                  else setActiveTab(tab.id);
                 }}
                 className={`flex items-center gap-1 px-3 py-2.5 text-xs font-semibold border-b-2 transition-all whitespace-nowrap ${
                   isActive
                     ? 'border-[#c9a227] text-[#c9a227]'
                     : 'border-transparent text-[#0A1A2F]/40 dark:text-white/40 hover:text-[#0A1A2F]/65 dark:text-white/65'
                 }`}>
-                  <Icon className="w-3.5 h-3.5" />
-                  {label}
+                  <TabIcon className="w-3.5 h-3.5" />
+                  {tab.label}
                 </button>
               );
             })}
