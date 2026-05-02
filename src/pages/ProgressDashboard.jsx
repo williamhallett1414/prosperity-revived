@@ -175,14 +175,14 @@ export default function ProgressDashboard() {
   // ── 3 queries (chatbot context is now lazy — fetched only when that chatbot opens) ──
   const { data: user } = useQuery({
     queryKey: ['currentUser'],
-    queryFn: async () => { try { return await base44.auth.me(); } catch { return null; } },
+    queryFn: async () => { try { return await base44.auth.me(); } catch (_e) { return null; } },
   });
 
   const { data: userProgress } = useQuery({
     queryKey: ['userProgress', user?.email],
     queryFn: async () => {
       try { const list = await base44.entities.UserProgress.filter({ created_by: user.email }); return list[0] || null; }
-      catch { return null; }
+      catch (_e) { return null; }
     },
     enabled: !!user?.email,
   });
@@ -196,7 +196,7 @@ export default function ProgressDashboard() {
           memory_type: ['goal', 'milestone', 'achievement', 'success'],
         });
         return m.sort((a, b) => new Date(b.created_date) - new Date(a.created_date));
-      } catch { return []; }
+      } catch (_e) { return []; }
     },
     enabled: !!user?.email,
     initialData: [],
@@ -206,7 +206,7 @@ export default function ProgressDashboard() {
 
   const hasActivePlan = Object.keys(localStorage).some(k =>
     k.startsWith('coaching_progress_') &&
-    (() => { try { return (JSON.parse(localStorage.getItem(k))?.completed_days?.length || 0) > 0; } catch { return false; } })()
+    (() => { try { return (JSON.parse(localStorage.getItem(k))?.completed_days?.length || 0) > 0; } catch (_e) { return false; } })()
   );
 
   if (isLoading) {
