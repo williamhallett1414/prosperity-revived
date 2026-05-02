@@ -95,6 +95,9 @@ import coachIdle1    from '@/assets/coach-david-idle.mp4';
 import coachIdle2    from '@/assets/coach-david-idle-2.mp4';
 import coachTalking  from '@/assets/coach-david-talking.mp4';
 
+import paulNeutral   from '@/assets/coach-paul-neutral.png';
+import paulIdle1     from '@/assets/coach-paul-idle.mp4';
+
 // ─── Pose registry ───────────────────────────────────────────────────────────
 const POSE_REGISTRY = {
   gideon: {
@@ -153,6 +156,12 @@ const POSE_REGISTRY = {
     // endpoints are mid-talk forward-facing for a clean loop seam.
     // Same crop pipeline. Final reel: 5s, 195K, ~315 kbps.
     talkingClip: coachTalking,
+  },
+  paul: {
+    neutral:   paulNeutral,
+    idleClips: [paulIdle1],
+    // Talking clip — will be added when video is provided
+    // talkingClip: paulTalking,
   },
   // paul — add once assets exist.
 };
