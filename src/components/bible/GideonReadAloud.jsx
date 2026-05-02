@@ -38,7 +38,7 @@ export default function GideonReadAloud({ text, label = 'Listen' }) {
       }
 
       // Use Hannah's TTS voice
-      const result = await base44.functions.invoke('hannahTTS', { text: cleaned });
+      const result = await base44.functions.invoke('gideonTTS', { text: chunk });
       const audioContent = result?.audioContent ?? result?.data?.audioContent;
 
       if (audioContent) {

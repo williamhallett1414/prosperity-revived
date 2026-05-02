@@ -1,124 +1,59 @@
 /**
- * coachDavidTTS — Google Cloud Text-to-Speech for Coach David
- *
- * Voice: en-US-Studio-M
- *   Deep, powerful, energetic Studio-grade premium male voice.
- *   Google's highest-quality male voice with rich bass.
- *   Distinctly deeper and more commanding than all other avatars.
- *   Gideon uses Studio-Q (reverent/wise), David uses Studio-M
- *   (athletic/commanding). Completely different character.
- *
- * Speaking rate: 1.08  — fast athletic energy without rushing
- * Pitch:         -3.0  — deep powerful bass (semitones)
- * Volume:        +2.5 dB — commanding presence, fills the room
- * EQ:            headphone-class-device
- *
- * Returns: { audioContent: <base64 MP3> }
- * Secret required in base44: Google_TTS
+ * Coach David TTS — ElevenLabs Voice: Arnold (VR6AewLTigWG4xSOukaG)
+ * 
+ * Converts text to speech using ElevenLabs API.
+ * Returns base64-encoded MP3 audio.
  */
-import { createClientFromRequest } from 'npm:@base44/sdk@0.8.6';
-
-Deno.serve(async (req) => {
-  if (req.method === 'OPTIONS') {
-    return new Response(null, {
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'POST, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-      },
-    });
+export default async function handler({ text }: { text: string }) {
+  if (!text || text.trim().length === 0) {
+    return { audioContent: null, error: 'No text provided' };
   }
 
+  const API_KEY = 'sk_c5df5572687cd5fbb73131ada65b2cbf9344aad09b5985ca';
+  const VOICE_ID = 'VR6AewLTigWG4xSOukaG';
+
   try {
-    const base44 = createClientFromRequest(req);
-    const user   = await base44.auth.me();
-    if (!user) {
-      return Response.json({ error: 'Unauthorized' }, {
-        status: 401,
-        headers: { 'Access-Control-Allow-Origin': '*' },
-      });
-    }
-
-    const { text } = await req.json();
-    if (!text || typeof text !== 'string' || text.trim().length === 0) {
-      return Response.json({ error: 'text is required' }, {
-        status: 400,
-        headers: { 'Access-Control-Allow-Origin': '*' },
-      });
-    }
-
-    const apiKey = Deno.env.get('Google_TTS');
-    if (!apiKey) {
-      return Response.json({ error: 'Google_TTS secret not configured' }, {
-        status: 500,
-        headers: { 'Access-Control-Allow-Origin': '*' },
-      });
-    }
-
-    const cleaned = text
-      .replace(/\*\*(.+?)\*\*/g, '$1')
-      .replace(/\*(.+?)\*/g, '$1')
-      .replace(/#{1,6}\s+/g, '')
-      .replace(/`{1,3}[^`]*`{1,3}/g, '')
-      .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
-      .trim()
-      .slice(0, 4500);
-
-    if (!cleaned) {
-      return Response.json({ error: 'Empty text after cleaning' }, {
-        status: 400,
-        headers: { 'Access-Control-Allow-Origin': '*' },
-      });
-    }
-
-    const ttsResponse = await fetch(
-      `https://texttospeech.googleapis.com/v1/text:synthesize?key=${apiKey}`,
+    const response = await fetch(
+      `https://api.elevenlabs.io/v1/text-to-speech/${VOICE_ID}`,
       {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'xi-api-key': API_KEY,
+        },
         body: JSON.stringify({
-          input: { text: cleaned },
-          voice: {
-            languageCode: 'en-US',
-            name: 'en-US-Studio-M',  // Journey-O: high-energy, punchy, athletic male
-          },
-          audioConfig: {
-            audioEncoding:    'MP3',
-            speakingRate:     1.08,   // Fast, driven, no-nonsense coaching pace
-            pitch:            -3.0,   // Grounded masculine depth without being heavy
-            volumeGainDb:     2.0,    // Commanding presence
-            effectsProfileId: ['headphone-class-device'],
+          text: text.slice(0, 5000),
+          model_id: 'eleven_flash_v2_5',
+          voice_settings: {
+            stability: 0.45,
+            similarity_boost: 0.8,
+            style: 0.0,
+            use_speaker_boost: true,
           },
         }),
       }
     );
 
-    if (!ttsResponse.ok) {
-      const errBody = await ttsResponse.text();
-      console.error('[coachDavidTTS] Google API error:', ttsResponse.status, errBody);
-      return Response.json(
-        { error: `Google TTS error: ${ttsResponse.status}` },
-        { status: 502, headers: { 'Access-Control-Allow-Origin': '*' } }
-      );
+    if (!response.ok) {
+      const errText = await response.text();
+      console.error('[Coach David TTS] ElevenLabs error:', response.status, errText);
+      return { audioContent: null, error: `ElevenLabs API error: ${response.status}` };
     }
 
-    const { audioContent } = await ttsResponse.json();
-    if (!audioContent) {
-      return Response.json({ error: 'Empty audio from Google TTS' }, {
-        status: 502, headers: { 'Access-Control-Allow-Origin': '*' },
-      });
+    // ElevenLabs returns raw MP3 bytes
+    const arrayBuffer = await response.arrayBuffer();
+    const uint8Array = new Uint8Array(arrayBuffer);
+    
+    // Convert to base64
+    let binary = '';
+    for (let i = 0; i < uint8Array.length; i++) {
+      binary += String.fromCharCode(uint8Array[i]);
     }
+    const audioContent = btoa(binary);
 
-    console.log(`[coachDavidTTS] ✓ Generated for user ${user.id}`);
-    return Response.json(
-      { audioContent },
-      { headers: { 'Access-Control-Allow-Origin': '*' } }
-    );
-
-  } catch (err) {
-    console.error('[coachDavidTTS] Unexpected error:', err);
-    return Response.json({ error: 'Internal server error' }, {
-      status: 500, headers: { 'Access-Control-Allow-Origin': '*' },
-    });
+    return { audioContent };
+  } catch (error: any) {
+    console.error('[Coach David TTS] Error:', error.message);
+    return { audioContent: null, error: error.message };
   }
-});
+}
