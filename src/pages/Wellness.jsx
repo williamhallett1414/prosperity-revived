@@ -87,7 +87,7 @@ function getActiveCoachingPlan() {
       if (!plan) continue;
       return { plan, completedDays: completed.length };
     }
-  } catch {}
+  } catch (_e) {}
   return null;
 }
 
@@ -187,7 +187,7 @@ function CategoryGrid() {
 function CoachingSection({ active }) {
   const withProgress = COACHING_PLANS.map(plan => {
     let progress = {};
-    try { progress = JSON.parse(localStorage.getItem(`coaching_progress_${plan.id}`)) || {}; } catch {}
+    try { progress = JSON.parse(localStorage.getItem(`coaching_progress_${plan.id}`)) || {}; } catch (_e) {}
     const completedDays = (progress.completed_days || []).length;
     return { plan, completedDays, isStarted: completedDays > 0 };
   });

@@ -400,7 +400,7 @@ export default function Profile() {
       try {
         const list = await base44.entities.UserProgress.filter({ created_by: user.email });
         return list[0] || null;
-      } catch { return null; }
+      } catch (_e) { return null; }
     },
     enabled: !!user,
     retry: false
@@ -415,7 +415,7 @@ export default function Profile() {
           base44.entities.Friend.filter({ friend_email: user.email, status: 'accepted' })
         ]);
         return [...a, ...b];
-      } catch { return []; }
+      } catch (_e) { return []; }
     },
     enabled: !!user
   });
@@ -423,7 +423,7 @@ export default function Profile() {
   // ── Lazy: only load when Overview tab is active ──────────────────────────
   const { data: myPosts = [] } = useQuery({
     queryKey: ['myPosts'],
-    queryFn: async () => { try { return await base44.entities.Post.filter({ created_by: user?.email }); } catch { return []; } },
+    queryFn: async () => { try { return await base44.entities.Post.filter({ created_by: user?.email }); } catch (_e) { return []; } },
     enabled: !!user && activeTab === 'overview'
   });
   const { data: meditationSessions = [] } = useQuery({
