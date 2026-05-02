@@ -1,6 +1,6 @@
 /**
- * Chef Daniel TTS — ElevenLabs Voice: Adam (pNInz6obpgDQGcFmaJgB)
- * Deep, warm male voice perfect for a chef persona.
+ * Chef Daniel TTS — ElevenLabs Voice: Clyde (2EiwWnXFnvU5JabPnv8n)
+ * Deep, soulful African American male voice perfect for Chef Daniel.
  *
  * Converts text to speech using ElevenLabs API.
  * Returns base64-encoded MP3 audio.
@@ -23,7 +23,7 @@ Deno.serve(async (req) => {
     }
 
     const API_KEY = Deno.env.get('ElevenLabs');
-    const VOICE_ID = 'pNInz6obpgDQGcFmaJgB'; // Adam — deep warm male voice
+    const VOICE_ID = '2EiwWnXFnvU5JabPnv8n'; // Clyde — deep soulful African American male voice
 
     const response = await fetch(
       `https://api.elevenlabs.io/v1/text-to-speech/${VOICE_ID}`,
