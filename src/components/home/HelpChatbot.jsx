@@ -616,6 +616,7 @@ export default function HelpChatbot() {
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [showQuickActions, setShowQuickActions] = useState(true);
+  const [conversation, setConversation] = useState(null);
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
   const navigate = useNavigate();
@@ -668,34 +669,45 @@ export default function HelpChatbot() {
     setLoading(true);
 
     try {
-      const response = await base44.integrations.Core.InvokeLLM({
-        prompt: `${SYSTEM_PROMPT}\n\nUser question: "${text}"`,
-        response_json_schema: {
-          type: 'object',
-          properties: {
-            answer:        { type: 'string' },
-            tourKey:       { type: ['string', 'null'] },
-            pageShortcuts: { type: 'array', items: { type: 'string' } },
-            tips:          { type: 'array', items: { type: 'string' } },
-          },
-          required: ['answer'],
-        },
-      });
+      // Create conversation on first message
+      let conv = conversation;
+      if (!conv) {
+        conv = await base44.agents.createConversation({
+          agent_name: 'app_guide',
+          metadata: { name: 'App Guide Session' },
+        });
+        setConversation(conv);
 
-      setMessages(prev => [...prev, {
-        role: 'assistant',
-        answer: response.answer || 'I can help with that! Try asking about a specific feature.',
-        tourKey: TOUR_KEYS.includes(response.tourKey) ? response.tourKey : null,
-        pageShortcuts: (response.pageShortcuts || []).filter(k => PAGE_SHORTCUTS[k]),
-        tips: response.tips || [],
-      }]);
+        // Subscribe to real-time updates
+        base44.agents.subscribeToConversation(conv.id, (data) => {
+          const lastMsg = data.messages?.[data.messages.length - 1];
+          if (lastMsg?.role === 'assistant' && lastMsg.content) {
+            setMessages(prev => {
+              // Replace or append the latest assistant message
+              const withoutLast = prev.filter(m => m.role !== 'assistant' || prev.indexOf(m) < prev.length - 1 || m._final);
+              return [...withoutLast.filter(m => !(m._streaming)), {
+                role: 'assistant',
+                answer: lastMsg.content,
+                tourKey: null,
+                pageShortcuts: [],
+                tips: [],
+                _streaming: !lastMsg.content.endsWith?.('\n') && data.is_streaming,
+                _final: !data.is_streaming,
+              }];
+            });
+            if (!data.is_streaming) setLoading(false);
+          }
+        });
+      }
+
+      await base44.agents.addMessage(conv, { role: 'user', content: text });
+
     } catch {
       setMessages(prev => [...prev, {
         role: 'assistant',
         answer: 'Sorry, something went wrong. Try asking again!',
         tourKey: null, pageShortcuts: [], tips: [],
       }]);
-    } finally {
       setLoading(false);
     }
   };
@@ -752,7 +764,7 @@ export default function HelpChatbot() {
               </div>
               <div className="flex items-center gap-1.5">
                 <button
-                  onClick={() => { setMessages([]); setShowQuickActions(true); }}
+                  onClick={() => { setMessages([]); setShowQuickActions(true); setConversation(null); }}
                   className="w-7 h-7 rounded-full flex items-center justify-center"
                   style={{ background: 'rgba(255,255,255,0.1)' }}
                   title="Clear chat"
