@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { base44 } from '@/api/base44Client';
 import {
   ChevronRight, ChevronLeft, Sparkles, Check,
-  Heart, Dumbbell, Utensils, BookOpen, Brain, Bell, User, Shield, AlertTriangle
+  Heart, Dumbbell, Utensils, BookOpen, Brain, Bell, User, Shield, AlertTriangle, Camera
 } from 'lucide-react';
 import LegalDocModal from './LegalDocModal';
 
@@ -169,6 +169,7 @@ const STEPS = [
   { id: 'legal',          type: 'card', icon: Shield,   label: 'Legal',       color: '#C9A227', showInDots: true  },
   { id: 'guides',         type: 'full', icon: Sparkles, label: 'Your Team',   color: '#C9A227', showInDots: false },
   { id: 'you',            type: 'card', icon: User,     label: 'You',         color: '#0A1A2F', showInDots: true  },
+  { id: 'photo',          type: 'card', icon: Camera,   label: 'Photo',       color: '#F59E0B', showInDots: true  },
   { id: 'why',            type: 'card', icon: Sparkles, label: 'Your Why',    color: '#FD9C2D', showInDots: true  },
   { id: 'fitness',        type: 'card', icon: Dumbbell, label: 'Fitness',     color: '#38BDF8', showInDots: true  },
   { id: 'nutrition',      type: 'card', icon: Utensils, label: 'Nutrition',   color: '#22C55E', showInDots: true  },
@@ -483,7 +484,7 @@ export default function OnboardingFlow({ onComplete }) {
   const legalCanAdvance = legalComplete && allDocsAccepted && masterChecked;
 
   const [d, setD] = useState({
-    full_name:'', dob:'', biological_sex:'',
+    full_name:'', dob:'', biological_sex:'', profile_image_url:'',
     motivations:[], life_stage:'',
     fitness_goals:[], fitness_level:'', height_ft:'', height_in:'', weight_lbs:'', goal_weight_lbs:'',
     workout_days:3, workout_duration:'', equipment:[], preferred_workout_time:'', injuries:'',
@@ -505,6 +506,7 @@ export default function OnboardingFlow({ onComplete }) {
     const id = STEPS[step].id;
     if (id==='legal') return legalCanAdvance;
     if (id==='you')   return d.full_name.trim().length > 0;
+    if (id==='photo') return true; // optional step
     return true;
   };
   const next = () => { if (step===STEPS.length-1) handleComplete(); else setStep(s=>s+1); };
@@ -527,6 +529,7 @@ export default function OnboardingFlow({ onComplete }) {
         age_group:ageGroup,
         main_goal_text: hookAnswer.trim()||undefined,
         full_name:d.full_name.trim(), dob:d.dob, biological_sex:d.biological_sex,
+        profile_image_url: d.profile_image_url || undefined,
         motivations:d.motivations, life_stage:d.life_stage,
         fitness_goals:d.fitness_goals, fitness_level:d.fitness_level,
         height_ft:d.height_ft, height_in:d.height_in, weight_lbs:d.weight_lbs, goal_weight_lbs:d.goal_weight_lbs,
@@ -594,6 +597,7 @@ export default function OnboardingFlow({ onComplete }) {
                 <h2 className="text-xl font-black text-[#0A1A2F] dark:text-white leading-tight">
                   {cfg.id==='legal'     && 'Before you begin 📋'}
                   {cfg.id==='you'       && 'Welcome to Prosperity Revived 🙏'}
+                  {cfg.id==='photo'     && 'Show your face 📸'}
                   {cfg.id==='why'       && "What's bringing you here?"}
                   {cfg.id==='fitness'   && 'Fitness & Body'}
                   {cfg.id==='nutrition' && 'Nutrition & Eating'}
@@ -604,6 +608,7 @@ export default function OnboardingFlow({ onComplete }) {
                 <p className="text-gray-500 dark:text-gray-300 text-xs mt-1">
                   {cfg.id==='legal'     && 'Please review and accept our legal documents to continue.'}
                   {cfg.id==='you'       && 'A few quick questions so everything feels personal from day one.'}
+                  {cfg.id==='photo'     && 'A photo helps your coaches and community connect with you.'}
                   {cfg.id==='why'       && 'Pick everything that resonates — no right answers.'}
                   {cfg.id==='fitness'   && 'This helps Coach David personalise your workouts.'}
                   {cfg.id==='nutrition' && "Helps Chef Daniel plan meals you'll actually enjoy."}
@@ -733,6 +738,55 @@ export default function OnboardingFlow({ onComplete }) {
                       <span className="text-lg">🔒</span>
                       <p className="text-xs text-gray-600 dark:text-gray-300 leading-relaxed">Your information is private and only used to personalise your experience.</p>
                     </div>
+                  </div>
+                )}
+
+                {/* PHOTO */}
+                {cfg.id==='photo' && (
+                  <div className="space-y-4 flex flex-col items-center">
+                    {/* Photo preview */}
+                    <div className="relative">
+                      {d.profile_image_url ? (
+                        <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-[#c9a227] shadow-lg">
+                          <img src={d.profile_image_url} alt="Profile" className="w-full h-full object-cover" />
+                        </div>
+                      ) : (
+                        <div className="w-32 h-32 rounded-full bg-gradient-to-br from-[#FAD98D]/30 to-[#c9a227]/20 dark:from-[#FAD98D]/15 dark:to-[#c9a227]/10 border-4 border-dashed border-[#c9a227]/40 flex items-center justify-center">
+                          <Camera className="w-10 h-10 text-[#c9a227]/50" />
+                        </div>
+                      )}
+                      <label className="absolute -bottom-1 -right-1 w-10 h-10 rounded-full bg-[#c9a227] flex items-center justify-center cursor-pointer shadow-lg">
+                        <Camera className="w-5 h-5 text-white" />
+                        <input type="file" accept="image/*" className="hidden" onChange={async (e) => {
+                          const file = e.target.files?.[0];
+                          if (!file) return;
+                          try {
+                            const { file_url } = await base44.integrations.Core.UploadFile({ file });
+                            set('profile_image_url', file_url);
+                          } catch {
+                            // silent fail
+                          }
+                        }} />
+                      </label>
+                    </div>
+
+                    <div className="text-center">
+                      <p className="text-sm font-bold text-[#0A1A2F] dark:text-white">
+                        {d.profile_image_url ? 'Looking great! 🎉' : 'Add a profile photo'}
+                      </p>
+                      <p className="text-xs text-[#0A1A2F]/50 dark:text-white/45 mt-1">
+                        Your coaches and community will recognize you
+                      </p>
+                    </div>
+
+                    {!d.profile_image_url && (
+                      <button
+                        onClick={() => next()}
+                        className="text-xs text-[#0A1A2F]/40 dark:text-white/30 underline mt-2"
+                      >
+                        Skip for now
+                      </button>
+                    )}
                   </div>
                 )}
 
