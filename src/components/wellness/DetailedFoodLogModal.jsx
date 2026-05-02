@@ -175,7 +175,7 @@ Provide accurate estimates for a typical serving size.`,
       if (typeof analysisResponse === 'string') {
         try {
           parsed = JSON.parse(analysisResponse.replace(/```json|```/g, '').trim());
-        } catch {
+        } catch (_e) {
           console.warn('Failed to parse analysis:', analysisResponse);
           parsed = {};
         }
