@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { todayKey } from '@/utils/localDate';
-import { UtensilsCrossed, CalendarDays, ChefHat, History, Plus, Droplets, Flame, TrendingUp, Target, ChevronRight, Trash2 } from 'lucide-react';
+import { UtensilsCrossed, CalendarDays, ChefHat, History, Plus, Droplets, Flame, Target, Trash2 } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { motion } from 'framer-motion';
