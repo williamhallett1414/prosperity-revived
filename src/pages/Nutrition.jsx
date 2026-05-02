@@ -106,7 +106,7 @@ function NutritionInner() {
   useEffect(() => {base44.auth.me().then(setUser).catch(() => {});}, []);
 
   // ── Single unified query for all meal data ──
-  const { data: meals = [], isLoading: mealsLoading } = useQuery({
+  const { data: meals = [] } = useQuery({
     queryKey: ['meals'],
     queryFn: async () => {
       try {return await base44.entities.MealLog.list('-date', 200);}
