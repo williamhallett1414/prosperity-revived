@@ -13,6 +13,7 @@ import gideonImg from '@/assets/gideon-avatar.png';
 import hannahImg from '@/assets/hannah-avatar.png';
 import coachDavidImg from '@/assets/coach-david-avatar.png';
 import chefDanielImg from '@/assets/chef-daniel-avatar.png';
+import coachPaulImg from '@/assets/coach-paul-avatar.png';
 
 function getGreeting() {
   const h = new Date().getHours();
@@ -323,6 +324,7 @@ function Home() {
               { name: 'Hannah', role: 'Mindset Coach', bot: 'Hannah', color: 'from-sky-400 to-sky-500', img: hannahImg },
               { name: 'Coach David', role: 'Fitness', bot: 'CoachDavid', color: 'from-blue-500 to-blue-600', img: coachDavidImg },
               { name: 'Chef Daniel', role: 'Nutrition', bot: 'ChefDaniel', color: 'from-orange-400 to-orange-500', img: chefDanielImg },
+              { name: 'Coach Paul', role: 'Discipline & Purpose', bot: 'CoachPaul', color: 'from-purple-500 to-purple-700', img: coachPaulImg },
             ].map(({ name, role, bot, color, img }) => (
               <Link key={bot} to={createPageUrl(`ChatScreen?bot=${bot}`)} className="flex-shrink-0" style={{ width: 140 }}>
                 <div className="bg-white dark:bg-white/5 rounded-2xl p-3 shadow-sm dark:shadow-none border border-gray-100 dark:border-white/10 h-full">
