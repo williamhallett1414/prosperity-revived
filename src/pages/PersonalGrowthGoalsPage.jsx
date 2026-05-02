@@ -404,13 +404,6 @@ export default function PersonalGrowthGoalsPage() {
               {coreValues.map((v, i) => {
                 const info = CORE_VALUE_INFO[v];
                 if (!info) return null;
-                  if (!user) {
-                    return (
-                      <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] flex items-center justify-center">
-                        <div className="w-8 h-8 border-4 border-[#c9a227] border-t-transparent rounded-full animate-spin" />
-                      </div>
-                    );
-                  }
 
                 return (
                   <motion.div key={v} initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.18 + i * 0.04 }}

@@ -443,13 +443,6 @@ export default function MindsetResetPage() {
 
                 history.slice(0, 5).map((s, i) => {
                   const cat = PROMPT_CATEGORIES.find((c) => c.id === s.category);
-                    if (!user) {
-                      return (
-                        <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] flex items-center justify-center">
-                          <div className="w-8 h-8 border-4 border-[#c9a227] border-t-transparent rounded-full animate-spin" />
-                        </div>
-                      );
-                    }
 
                   return (
                     <div key={i} className="px-4 py-3">
