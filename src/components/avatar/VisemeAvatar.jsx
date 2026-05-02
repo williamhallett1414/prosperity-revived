@@ -97,6 +97,7 @@ import coachTalking  from '@/assets/coach-david-talking.mp4';
 
 import paulNeutral   from '@/assets/coach-paul-neutral.png';
 import paulIdle1     from '@/assets/coach-paul-idle.mp4';
+import paulIdle2     from '@/assets/coach-paul-idle-2.mp4';
 
 // ─── Pose registry ───────────────────────────────────────────────────────────
 const POSE_REGISTRY = {
@@ -159,7 +160,7 @@ const POSE_REGISTRY = {
   },
   paul: {
     neutral:   paulNeutral,
-    idleClips: [paulIdle1],
+    idleClips: [paulIdle1, paulIdle2],
     // Talking clip — will be added when video is provided
     // talkingClip: paulTalking,
   },
