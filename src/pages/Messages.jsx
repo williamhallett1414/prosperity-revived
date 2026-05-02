@@ -316,13 +316,6 @@ export default function Messages() {
 
   const totalUnread = messages.filter(m => m.receiver_email === user?.email && !m.read).length;
 
-  if (!user) {
-    return (
-      <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] flex items-center justify-center">
-        <Loader2 className="w-7 h-7 text-[#c9a227] animate-spin" />
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] flex flex-col" style={{ maxHeight: '100dvh' }}>

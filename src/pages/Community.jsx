@@ -217,14 +217,6 @@ function CommunityInner() {
     enabled: !!user,
   });
 
-  if (!user) {
-    return (
-      <div className="flex items-center justify-center min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F]">
-        <div className="w-10 h-10 border-4 border-[#7C3AED]/30 border-t-[#7C3AED] rounded-full animate-spin" />
-      </div>
-    );
-  }
-
   const myGroupCount = groups.filter(g =>
     g.created_by === user?.email || (g.members || []).includes(user?.email)
   ).length;

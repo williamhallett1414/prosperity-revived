@@ -194,13 +194,6 @@ export default function MyJournalEntries() {
     setEditContent('');
   };
 
-  if (!user) {
-    return (
-      <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] flex items-center justify-center">
-        <div className="text-center">Loading...</div>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#F2F6FA] to-[#FFFFFF] pb-24">

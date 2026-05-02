@@ -214,8 +214,6 @@ export default function Friends() {
     setTimeout(() => addInputRef.current?.focus(), 100);
   };
 
-  if (!user) return null;
-
   return (
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
 

@@ -75,13 +75,6 @@ export default function Notifications() {
 
   const unreadCount = notifications.filter(n => !n.is_read).length;
 
-  if (!user) {
-    return (
-      <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] flex items-center justify-center">
-        <Loader2 className="w-8 h-8 text-[#c9a227] animate-spin" />
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-24">

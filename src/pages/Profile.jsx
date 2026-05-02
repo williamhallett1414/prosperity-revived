@@ -6,17 +6,6 @@ import { Settings, Camera, ChevronRight, Trophy, TrendingUp, MessageCircle, Brai
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { toast } from 'sonner';
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger } from
-'@/components/ui/alert-dialog';
 
 const AboutTab = React.lazy(() => import('@/components/profile/facebook/AboutTab'));
 const FriendsTab = React.lazy(() => import('@/components/profile/facebook/FriendsTab'));
@@ -474,13 +463,6 @@ export default function Profile() {
     setUploading((u) => ({ ...u, avatar: false }));
   };
 
-  if (!user) {
-    return (
-      <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] flex items-center justify-center">
-        <div className="animate-spin w-8 h-8 border-4 border-[#c9a227] border-t-transparent rounded-full" />
-      </div>);
-
-  }
 
   return (
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
@@ -544,36 +526,19 @@ export default function Profile() {
                   <ChevronRight className="w-4 h-4 text-[#0A1A2F]/30 dark:text-white/30 ml-auto" />
                 </Link>
 
-                <AlertDialog>
-                  <AlertDialogTrigger asChild>
-                    <button className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-red-50 dark:bg-red-900/20 transition-colors text-left">
-                      <span className="text-base">🗑️</span>
-                      <span className="text-sm font-medium text-red-500">Delete My Account</span>
-                    </button>
-                  </AlertDialogTrigger>
-                  <AlertDialogContent className="bg-[#F2F6FA] dark:bg-[#0A1A2F] border border-[#FAD98D]/30 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5">
-                    <AlertDialogHeader>
-                      <AlertDialogTitle className="text-[#0A1A2F] dark:text-white dark:text-white">Are you absolutely sure?</AlertDialogTitle>
-                      <AlertDialogDescription className="text-[#0A1A2F]/60 dark:text-white/60">
-                        This permanently deletes your account and all data — posts, reading plans, workout logs, journal entries, achievements, and points. This cannot be undone.
-                      </AlertDialogDescription>
-                    </AlertDialogHeader>
-                    <AlertDialogFooter>
-                      <AlertDialogCancel className="min-h-[44px]">Cancel</AlertDialogCancel>
-                      <AlertDialogAction
-                      className="bg-[#0A1A2F] hover:bg-[#0A1A2F]/90 min-h-[44px]"
-                      onClick={async () => {
-                        setIsDeleting(true);
-                        try {await base44.auth.deleteAccount();window.location.href = '/';}
-                        catch { toast.error('Failed to delete account — please try again'); setIsDeleting(false);}
-                      }}
-                      disabled={isDeleting}>
-
-                        {isDeleting ? 'Deleting…' : 'Delete Account'}
-                      </AlertDialogAction>
-                    </AlertDialogFooter>
-                  </AlertDialogContent>
-                </AlertDialog>
+                <button
+                  onClick={async () => {
+                    if (!window.confirm('Are you absolutely sure?\n\nThis permanently deletes your account and all data — posts, reading plans, workout logs, journal entries, achievements, and points.\n\nThis cannot be undone.')) return;
+                    if (!window.confirm('Last chance — press OK to permanently delete your account.')) return;
+                    setIsDeleting(true);
+                    try { await base44.auth.deleteAccount(); window.location.href = '/'; }
+                    catch { toast.error('Failed to delete account — please try again'); setIsDeleting(false); }
+                  }}
+                  disabled={isDeleting}
+                  className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors text-left">
+                  <span className="text-base">🗑️</span>
+                  <span className="text-sm font-medium text-red-500">{isDeleting ? 'Deleting…' : 'Delete My Account'}</span>
+                </button>
               </div>
             </motion.div>
           </>
