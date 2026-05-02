@@ -184,6 +184,7 @@ function NutritionInner() {
   const suggestions = QUICK_MEALS.filter((m) => m.meal === suggestType);
   const calGoal = user?.calorie_goal || user?.daily_calories || DEFAULT_MACROS.calories || 2000;
 
+
   if (!user) {
     return (
       <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] flex items-center justify-center">
@@ -191,7 +192,6 @@ function NutritionInner() {
       </div>
     );
   }
-
   return (
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
 
