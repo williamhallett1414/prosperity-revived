@@ -1,5 +1,5 @@
 /**
- * Coach David TTS — ElevenLabs Voice: Daniel (onwK4e9ZLuTAKqWW03F9) — deep bass male
+ * Coach David TTS — ElevenLabs Voice: Clyde (2EiwWnXFnvU5JabPnv8n) — deep African American male
  * Returns base64-encoded MP3 audio.
  */
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.25';
@@ -16,7 +16,7 @@ Deno.serve(async (req) => {
     }
 
     const API_KEY = Deno.env.get('ElevenLabs') || 'sk_c5df5572687cd5fbb73131ada65b2cbf9344aad09b5985ca';
-    const VOICE_ID = 'onwK4e9ZLuTAKqWW03F9'; // Daniel — deep bass
+    const VOICE_ID = '2EiwWnXFnvU5JabPnv8n'; // Clyde — deep African American male
 
     const response = await fetch(
       `https://api.elevenlabs.io/v1/text-to-speech/${VOICE_ID}`,
@@ -30,9 +30,9 @@ Deno.serve(async (req) => {
           text: text.slice(0, 5000),
           model_id: 'eleven_flash_v2_5',
           voice_settings: {
-            stability: 0.40,
-            similarity_boost: 0.85,
-            style: 0.0,
+            stability: 0.35,
+            similarity_boost: 0.90,
+            style: 0.15,
             use_speaker_boost: true,
           },
         }),
