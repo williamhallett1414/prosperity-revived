@@ -132,7 +132,7 @@ Provide accurate estimates for a typical serving size.`,
       setMeal(prev => {
         let parsed = response;
         if (typeof response === 'string') {
-          try { parsed = JSON.parse(response.replace(/```json|```/g, '').trim()); } catch { parsed = {}; }
+          try { parsed = JSON.parse(response.replace(/```json|```/g, '').trim()); } catch (_e) { parsed = {}; }
         }
         return { ...prev, ...parsed };
       });
@@ -233,7 +233,7 @@ If you can't find the exact product, provide a reasonable estimate based on simi
       setMeal(prev => {
         let parsed = response;
         if (typeof response === 'string') {
-          try { parsed = JSON.parse(response.replace(/```json|```/g, '').trim()); } catch { parsed = {}; }
+          try { parsed = JSON.parse(response.replace(/```json|```/g, '').trim()); } catch (_e) { parsed = {}; }
         }
         return { ...prev, ...parsed, barcode };
       });
