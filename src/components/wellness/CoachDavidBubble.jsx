@@ -15,6 +15,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
+import { elevenLabsSpeak } from '@/utils/elevenLabsTTS';
 import coachDavidTalking from '@/assets/coach-david-talking.mp4';
 
 // Motivational messages by trigger type
@@ -106,7 +107,7 @@ export default function CoachDavidBubble({ trigger, onDismiss }) {
     // Speak via Cloud TTS — reuse primed audio element for iOS compatibility
     (async () => {
       try {
-        const result = await base44.functions.invoke('coachDavidTTS', { text: msg });
+        const result = { audioContent: await elevenLabsSpeak(msg, 'coach') };
         const audioContent = result?.audioContent ?? result?.data?.audioContent;
         if (audioContent) {
           const binary = atob(audioContent);

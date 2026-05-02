@@ -12,6 +12,7 @@ import ChatInputMenu from '@/components/chatbot/ChatInputMenu';
 import { ArrowLeft, Send, Loader2, RotateCcw, Mic, MicOff, Volume2, Square, X, Zap, Video, PhoneCall, Menu } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import { base44 } from '@/api/base44Client';
+import { elevenLabsSpeak } from '@/utils/elevenLabsTTS';
 import { getChatbotMemories, buildMemoryContext, getCrossContext, saveMemories } from '@/utils/adaptiveMemory';
 import CloudAvatar    from '@/components/avatar/CloudAvatar';
 import GideonAvatar       from '@/components/avatar/GideonAvatar';
@@ -843,24 +844,95 @@ async function speakWithBrowserTTS({ text, cfg, onStart, onEnd, onError }) {
   return () => { cancelled = true; try { window.speechSynthesis.cancel(); } catch (_) {} };
 }
 
-// speakText — routes to correct TTS backend per character.
+// speakText — tries ElevenLabs first (client-side), falls back to Base44/Google TTS.
 async function speakText({ text, cfg, onStart, onEnd, onError, primedAudio }) {
-  if (cfg?.character === 'gideon') {
-    return speakWithGoogleTTS({ text, cfg, onStart, onEnd, onError, primedAudio });
+  const character = cfg?.character;
+
+  // Clean text for TTS
+  const cleaned = text
+    ?.replace(/\*\*(.+?)\*\*/g, '$1')
+    .replace(/\*(.+?)\*/g, '$1')
+    .replace(/#{1,6}\s+/g, '')
+    .replace(/```[\s\S]*?```/g, '')
+    .replace(/`([^`]+)`/g, '$1')
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+    .replace(/\n{2,}/g, '. ')
+    .trim();
+
+  if (!cleaned) { onEnd?.(); return () => {}; }
+
+  let cancelled = false;
+  let audioEl = null;
+
+  const cancelFn = () => {
+    cancelled = true;
+    if (audioEl) { try { audioEl.pause(); audioEl.src = ''; } catch {} }
+  };
+
+  try {
+    // Try ElevenLabs first (client-side, no Base44 function needed)
+    const audioContent = await elevenLabsSpeak(cleaned, character);
+
+    if (cancelled) { onEnd?.(); return cancelFn; }
+
+    if (audioContent) {
+      // ElevenLabs succeeded — play the audio
+      const binary = atob(audioContent);
+      const bytes = new Uint8Array(binary.length);
+      for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+      const blob = new Blob([bytes], { type: 'audio/mpeg' });
+      const url = URL.createObjectURL(blob);
+
+      audioEl = primedAudio || new Audio();
+      audioEl.src = url;
+      audioEl.onended = () => { URL.revokeObjectURL(url); onEnd?.(); };
+      audioEl.onerror = () => { URL.revokeObjectURL(url); onError?.(); };
+
+      await audioEl.play();
+      onStart?.();
+      return cancelFn;
+    }
+
+    // ElevenLabs failed — fall back to Base44/Google Cloud TTS
+    console.warn('[TTS] ElevenLabs failed, falling back to Base44 function');
+    const fallbackMap = {
+      gideon: 'gideonTTS',
+      hannah: 'hannahTTS',
+      chef: 'chefDanielTTS',
+      coach: 'coachDavidTTS',
+      paul: 'coachPaulTTS',
+    };
+    const funcName = fallbackMap[character];
+    if (funcName) {
+      const result = await base44.functions.invoke(funcName, { text: cleaned });
+      if (cancelled) { onEnd?.(); return cancelFn; }
+      const fallbackAudio = result?.audioContent ?? result?.data?.audioContent;
+      if (fallbackAudio) {
+        const binary = atob(fallbackAudio);
+        const bytes = new Uint8Array(binary.length);
+        for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+        const blob = new Blob([bytes], { type: 'audio/mpeg' });
+        const url = URL.createObjectURL(blob);
+
+        audioEl = primedAudio || new Audio();
+        audioEl.src = url;
+        audioEl.onended = () => { URL.revokeObjectURL(url); onEnd?.(); };
+        audioEl.onerror = () => { URL.revokeObjectURL(url); onError?.(); };
+
+        await audioEl.play();
+        onStart?.();
+        return cancelFn;
+      }
+    }
+
+    // All cloud TTS failed — fall back to browser speech synthesis
+    return speakWithBrowserTTS({ text: cleaned, cfg, onStart, onEnd, onError });
+
+  } catch (err) {
+    console.error('[TTS] Error:', err);
+    // Last resort: browser TTS
+    return speakWithBrowserTTS({ text: cleaned, cfg, onStart, onEnd, onError });
   }
-  if (cfg?.character === 'chef') {
-    return speakWithChefDanielTTS({ text, cfg, onStart, onEnd, onError, primedAudio });
-  }
-  if (cfg?.character === 'coach') {
-    return speakWithCoachDavidTTS({ text, cfg, onStart, onEnd, onError, primedAudio });
-  }
-  if (cfg?.character === 'paul') {
-    return speakWithCoachPaulTTS({ text, cfg, onStart, onEnd, onError, primedAudio });
-  }
-  if (cfg?.character === 'hannah') {
-    return speakWithHannahTTS({ text, cfg, onStart, onEnd, onError, primedAudio });
-  }
-  return speakWithBrowserTTS({ text, cfg, onStart, onEnd, onError });
 }
 
 

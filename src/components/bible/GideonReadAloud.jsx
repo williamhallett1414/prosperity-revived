@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Volume2, Loader2, X } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
+import { elevenLabsSpeak } from '@/utils/elevenLabsTTS';
 
 export default function GideonReadAloud({ text, label = 'Listen' }) {
   const [playing, setPlaying] = useState(false);
@@ -38,7 +39,7 @@ export default function GideonReadAloud({ text, label = 'Listen' }) {
       }
 
       // Use Hannah's TTS voice
-      const result = await base44.functions.invoke('gideonTTS', { text: chunk });
+      const result = { audioContent: await elevenLabsSpeak(chunk, 'gideon') };
       const audioContent = result?.audioContent ?? result?.data?.audioContent;
 
       if (audioContent) {
