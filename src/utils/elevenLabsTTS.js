@@ -13,7 +13,7 @@ const ELEVENLABS_API_KEY = 'sk_c5df5572687cd5fbb73131ada65b2cbf9344aad09b5985ca'
 const VOICE_MAP = {
   gideon: { voiceId: 'nPczCjzI2devNBz1zQrb', stability: 0.6, similarity: 0.8 },   // Daniel — deep British elder
   hannah: { voiceId: '21m00Tcm4TlvDq8ikWAM', stability: 0.5, similarity: 0.75 },   // Rachel — warm empathetic female
-  chef:   { voiceId: 'TxGEqnHWrfWFTfGW9XjX', stability: 0.4, similarity: 0.75 },   // Josh — friendly upbeat male
+  chef:   { voiceId: 'yoZ06aMxZJJ28mfd3POQ', stability: 0.45, similarity: 0.8 },    // Sam — warm, friendly, clearly male
   coach:  { voiceId: 'cjVigY5qzO86Huf0OWal', stability: 0.35, similarity: 0.85 },    // Eric — deep, strong, energetic male
   paul:   { voiceId: '2EiwWnXFnvU5JabPnv8n', stability: 0.6, similarity: 0.8 },     // Clyde — measured calm authority
 };
