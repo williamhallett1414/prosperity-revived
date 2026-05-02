@@ -53,7 +53,7 @@ function getMacroConfig(user) {
 
 const MEAL_EMOJI = { breakfast: '🌅', lunch: '☀️', dinner: '🌙', snack: '🍎' };
 
-function MacroRing({ value, target, label, unit, color }) {
+function MacroRing({ value, target, label, unit }) {
   const safeTarget = target || 1;
   const pct = Math.min(value / safeTarget * 100, 100);
   const over = value > safeTarget;
@@ -110,14 +110,14 @@ function NutritionInner() {
     queryKey: ['meals'],
     queryFn: async () => {
       try {return await base44.entities.MealLog.list('-date', 200);}
-      catch {return [];}
+      catch (_) {return [];}
     },
     enabled: !!user
   });
 
   const { data: waterLogs = [] } = useQuery({
     queryKey: ['water'],
-    queryFn: async () => {try {return await base44.entities.WaterLog.list();} catch {return [];}},
+    queryFn: async () => {try {return await base44.entities.WaterLog.list();} catch (_) {return [];}},
     enabled: !!user
   });
 
