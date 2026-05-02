@@ -1050,7 +1050,14 @@ export default function ChatScreen() {
       const saved = localStorage.getItem(chatKey);
       if (saved) {
         const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed) && parsed.length > 0) return parsed.slice(-30); // keep last 30 messages
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          const currentCfg = BOT_CONFIG[bot] || BOT_CONFIG.Hannah;
+          // If single welcome message that doesn't match this bot, discard it
+          if (parsed.length === 1 && parsed[0].role === 'assistant' && parsed[0].content !== currentCfg.welcomeMsg) {
+            return [];
+          }
+          return parsed.slice(-30);
+        }
       }
     } catch {}
     return [];
@@ -1140,10 +1147,21 @@ export default function ChatScreen() {
   const avatarListening = isListening;
   const avatarThinking  = isLoading;
 
-  // Init welcome message — only if no saved conversation
+  // Init welcome message — always ensure first message matches current bot
   useEffect(() => {
     if (messages.length === 0) {
       setMessages([{ role: 'assistant', content: cfg.welcomeMsg }]);
+    } else {
+      // Fix stale welcome message: if the first message doesn't match this bot's welcome, replace it
+      setMessages(prev => {
+        if (prev.length > 0 && prev[0].role === 'assistant' && prev[0].content !== cfg.welcomeMsg) {
+          // Only replace if it's just the single welcome message (no real conversation yet)
+          if (prev.length === 1) {
+            return [{ role: 'assistant', content: cfg.welcomeMsg }];
+          }
+        }
+        return prev;
+      });
     }
     setSpeakingIdx(null);
     setInput('');
