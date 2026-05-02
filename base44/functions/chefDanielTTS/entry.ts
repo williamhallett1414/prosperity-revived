@@ -1,18 +1,30 @@
 /**
- * Chef Daniel TTS — ElevenLabs Voice: Josh (TxGEqnHWrfWFTfGW9XjX)
- * 
+ * Chef Daniel TTS — ElevenLabs Voice: Adam (pNInz6obpgDQGcFmaJgB)
+ * Deep, warm male voice perfect for a chef persona.
+ *
  * Converts text to speech using ElevenLabs API.
  * Returns base64-encoded MP3 audio.
  */
-export default async function handler({ text }: { text: string }) {
-  if (!text || text.trim().length === 0) {
-    return { audioContent: null, error: 'No text provided' };
-  }
 
-  const API_KEY = 'sk_c5df5572687cd5fbb73131ada65b2cbf9344aad09b5985ca';
-  const VOICE_ID = 'TxGEqnHWrfWFTfGW9XjX';
+import { createClientFromRequest } from 'npm:@base44/sdk@0.8.25';
 
+Deno.serve(async (req) => {
   try {
+    const base44 = createClientFromRequest(req);
+    const user = await base44.auth.me();
+    if (!user) {
+      return Response.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    const { text } = await req.json();
+
+    if (!text || text.trim().length === 0) {
+      return Response.json({ audioContent: null, error: 'No text provided' });
+    }
+
+    const API_KEY = Deno.env.get('ElevenLabs');
+    const VOICE_ID = 'pNInz6obpgDQGcFmaJgB'; // Adam — deep warm male voice
+
     const response = await fetch(
       `https://api.elevenlabs.io/v1/text-to-speech/${VOICE_ID}`,
       {
@@ -37,23 +49,21 @@ export default async function handler({ text }: { text: string }) {
     if (!response.ok) {
       const errText = await response.text();
       console.error('[Chef Daniel TTS] ElevenLabs error:', response.status, errText);
-      return { audioContent: null, error: `ElevenLabs API error: ${response.status}` };
+      return Response.json({ audioContent: null, error: `ElevenLabs API error: ${response.status}` });
     }
 
-    // ElevenLabs returns raw MP3 bytes
     const arrayBuffer = await response.arrayBuffer();
     const uint8Array = new Uint8Array(arrayBuffer);
-    
-    // Convert to base64
+
     let binary = '';
     for (let i = 0; i < uint8Array.length; i++) {
       binary += String.fromCharCode(uint8Array[i]);
     }
     const audioContent = btoa(binary);
 
-    return { audioContent };
-  } catch (error: any) {
+    return Response.json({ audioContent });
+  } catch (error) {
     console.error('[Chef Daniel TTS] Error:', error.message);
-    return { audioContent: null, error: error.message };
+    return Response.json({ audioContent: null, error: error.message }, { status: 500 });
   }
-}
+});
