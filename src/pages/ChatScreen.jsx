@@ -9,7 +9,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import VideoRecorder from '@/components/home/VideoRecorder';
 import VideoCallMode from '@/components/chatbot/VideoCallMode';
 import ChatInputMenu from '@/components/chatbot/ChatInputMenu';
-import { ArrowLeft, Send, Loader2, RotateCcw, Mic, MicOff, Volume2, Square, X, Zap, Video, PhoneCall, Menu } from 'lucide-react';
+import { ArrowLeft, Send, Loader2, RotateCcw, Mic, MicOff, Volume2, Square, X, Zap, Video, PhoneCall, Menu, MessageSquareText, EyeOff } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import { base44 } from '@/api/base44Client';
 import { elevenLabsSpeak } from '@/utils/elevenLabsTTS';
@@ -1448,6 +1448,7 @@ export default function ChatScreen() {
   const [videoCallOpen, setVideoCallOpen] = useState(false);
   const [showInputMenu, setShowInputMenu] = useState(false);
   const [showMediaMenu, setShowMediaMenu] = useState(false);
+  const [showText, setShowText] = useState(false);
   const callAudioUnlockRef = useRef(null);
 
   return createPortal(
@@ -1514,8 +1515,16 @@ export default function ChatScreen() {
           <p className="text-white/40 text-[10px] leading-tight">{cfg.subtitle}</p>
         </div>
 
-        {/* Right — Restart + Close */}
+        {/* Right — Text toggle + Restart + Close */}
         <div className="flex items-center gap-2 flex-shrink-0">
+          <button
+            onClick={() => setShowText(v => !v)}
+            aria-label={showText ? 'Hide text' : 'Show text'}
+            title={showText ? 'Hide text' : 'Show text'}
+            className="flex items-center justify-center transition-colors rounded-full"
+            style={{ width: 36, height: 36, background: showText ? `${cfg.gradTo}30` : 'rgba(255,255,255,0.08)', border: `1px solid ${showText ? cfg.gradTo + '55' : 'rgba(255,255,255,0.14)'}`, color: showText ? 'white' : 'rgba(255,255,255,0.55)' }}>
+            {showText ? <MessageSquareText style={{ width: 14, height: 14 }} /> : <EyeOff style={{ width: 14, height: 14 }} />}
+          </button>
           <button
             onClick={clearChat}
             aria-label="Restart conversation"
@@ -1688,8 +1697,27 @@ export default function ChatScreen() {
       <div className="flex-1 overflow-y-auto px-3 pt-2 relative"
         style={{ WebkitOverflowScrolling: 'touch', zIndex: 10, paddingBottom: '340px' }}
         role="log" aria-live="polite" aria-label="Conversation">
+
+        {/* Show text toggle hint when messages are hidden */}
+        {!showText && messages.length > 1 && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="flex justify-center mt-4"
+          >
+            <button
+              onClick={() => setShowText(true)}
+              className="flex items-center gap-2 px-4 py-2 rounded-full text-white/30 text-xs font-medium"
+              style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.08)' }}
+            >
+              <MessageSquareText className="w-3.5 h-3.5" />
+              Tap to show conversation text
+            </button>
+          </motion.div>
+        )}
+
         <AnimatePresence initial={false}>
-          {messages.map((msg, idx) => (
+          {showText && messages.map((msg, idx) => (
             <MessageBubble
               key={idx}
               message={msg}
