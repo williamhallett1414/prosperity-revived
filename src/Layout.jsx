@@ -376,8 +376,8 @@ export default function Layout({ children, currentPageName }) {
       {/* Top Bar with Universal Header */}
       {isChildRoute ? (
         <React.Suspense fallback={null}><UniversalHeader title={currentPageTitle} backTo={currentPageBack} /></React.Suspense>
-      ) : (
-        <div className="fixed top-0 left-0 right-0 bg-white dark:bg-white/5 dark:bg-[#0A1A2F] border-b border-gray-200 dark:border-white/10 dark:border-gray-700 px-4 py-3 z-40 pt-[env(safe-area-inset-top)] select-none">
+      ) : (currentPageName === 'Home' || currentPageName === 'Profile') ? (
+        <div className="fixed top-0 left-0 right-0 bg-white dark:bg-[#0A1A2F] border-b border-gray-200 dark:border-white/10 px-4 py-3 z-40 pt-[env(safe-area-inset-top)] select-none">
           <div className="max-w-lg mx-auto flex items-center justify-between">
             <h1 className="text-xl font-bold text-[#3C4E53] dark:text-white font-imprint">
               Prosperity Revived
@@ -385,9 +385,11 @@ export default function Layout({ children, currentPageName }) {
             <React.Suspense fallback={null}><NotificationBell /></React.Suspense>
           </div>
         </div>
+      ) : (
+        <div className="fixed top-0 left-0 right-0 h-0 z-40" />
       )}
 
-      <main className="pt-14 pb-20">
+      <main className={`pb-20 ${(isChildRoute || currentPageName === 'Home' || currentPageName === 'Profile') ? 'pt-14' : 'pt-0'}`}>
         <PullToRefresh onRefresh={async () => {
             await queryClient.invalidateQueries();
           }}>
