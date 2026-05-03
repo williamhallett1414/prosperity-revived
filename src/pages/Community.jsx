@@ -224,27 +224,6 @@ function CommunityInner() {
   return (
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
 
-      {/* ── Header action row: icon + subtitle + edit + Share (title is in Layout top bar) ── */}
-      <div className="max-w-lg mx-auto px-4 pt-0">
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-      </div>
-
       {/* ── Tabs row (clean text style, sticky) ── */}
       <div className="sticky top-14 z-30 bg-[#F2F6FA]/95 dark:bg-[#0A1A2F]/95 backdrop-blur-sm border-b border-gray-100 dark:border-white/8">
         <div className="max-w-lg mx-auto px-4 py-2 flex items-center gap-1 overflow-x-auto scrollbar-hide">
