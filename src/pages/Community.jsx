@@ -224,8 +224,18 @@ function CommunityInner() {
   return (
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
 
+      {/* ── Decorative subtitle strip (matches Bible/Wellness pattern) ── */}
+      <div className="px-4 pt-4 pb-1 max-w-lg mx-auto">
+        <motion.div initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }}
+          className="flex items-center justify-center gap-3">
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent to-[#7C3AED]/40" />
+          <p className="text-xs font-bold text-[#7C3AED] tracking-[0.2em] uppercase">Connect · Share · Grow</p>
+          <div className="h-px flex-1 bg-gradient-to-l from-transparent to-[#7C3AED]/40" />
+        </motion.div>
+      </div>
+
       {/* ── Sticky tab bar + action buttons ── */}
-      <div className="sticky top-14 z-30 bg-white/95 dark:bg-[#0A1A2F]/95 backdrop-blur-sm border-b border-gray-100 dark:border-white/8">
+      <div className="sticky top-14 z-30 bg-white/95 dark:bg-[#0A1A2F]/95 backdrop-blur-sm border-b border-gray-100 dark:border-white/8 mt-2">
         <div className="max-w-lg mx-auto px-4 py-2 flex items-center gap-2">
           <div className="flex gap-0.5 overflow-x-auto flex-1 scrollbar-hide">
             {TABS.map(tab => {
