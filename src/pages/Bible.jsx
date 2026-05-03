@@ -107,8 +107,8 @@ function StudyTabContent() {
 // ─── Main ─────────────────────────────────────────────────────────────────────
 
 class PageErrorBoundary extends React.Component {
-  constructor(props) { super(props); this.state = { error: null }; }
-  static getDerivedStateFromError(error) { return { error }; }
+  constructor(props) {super(props);this.state = { error: null };}
+  static getDerivedStateFromError(error) {return { error };}
   render() {
     if (this.state.error) {
       return (
@@ -116,8 +116,8 @@ class PageErrorBoundary extends React.Component {
           <p className="text-lg font-bold text-[#0A1A2F] dark:text-white mb-2">Something went wrong</p>
           <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">This page encountered an error.</p>
           <button onClick={() => this.setState({ error: null })} className="px-4 py-2 bg-[#c9a227] text-white rounded-xl text-sm font-bold">Try Again</button>
-        </div>
-      );
+        </div>);
+
     }
     return this.props.children;
   }
@@ -160,28 +160,28 @@ function BibleInner() {
       await queryClient.cancelQueries(['bookmarks']);
       const previous = queryClient.getQueryData(['bookmarks']);
       queryClient.setQueryData(['bookmarks'], (old = []) => [
-        ...old,
-        { ...newBookmark, id: `optimistic-${Date.now()}` },
-      ]);
+      ...old,
+      { ...newBookmark, id: `optimistic-${Date.now()}` }]
+      );
       return { previous };
     },
     onError: (_err, _vars, context) => {
       if (context?.previous) queryClient.setQueryData(['bookmarks'], context.previous);
     },
-    onSuccess: () => queryClient.invalidateQueries(['bookmarks']),
+    onSuccess: () => queryClient.invalidateQueries(['bookmarks'])
   });
   const deleteBookmark = useMutation({
     mutationFn: (id) => base44.entities.Bookmark.delete(id),
     onMutate: async (id) => {
       await queryClient.cancelQueries(['bookmarks']);
       const previous = queryClient.getQueryData(['bookmarks']);
-      queryClient.setQueryData(['bookmarks'], (old = []) => old.filter(b => b.id !== id));
+      queryClient.setQueryData(['bookmarks'], (old = []) => old.filter((b) => b.id !== id));
       return { previous };
     },
     onError: (_err, _vars, context) => {
       if (context?.previous) queryClient.setQueryData(['bookmarks'], context.previous);
     },
-    onSuccess: () => queryClient.invalidateQueries(['bookmarks']),
+    onSuccess: () => queryClient.invalidateQueries(['bookmarks'])
   });
 
   // Deep-link: ?book=John&chapter=3
@@ -248,28 +248,41 @@ function BibleInner() {
   return (
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
 
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+      {/* ── Standard Header ── */}
+      
 
-        {/* Fixed tab menu */}
-        <div id="tour-bible-tabs" className="sticky top-14 z-30 px-4 pt-2 pb-2 bg-white/95 dark:bg-[#0A1A2F]/95 backdrop-blur-sm border-b border-[#FAD98D]/15 dark:border-[#FAD98D]/8">
-          <div className="max-w-lg mx-auto">
-            <TabsList className="grid w-full grid-cols-4 bg-[#FAD98D]/15 dark:bg-[#FAD98D]/8 rounded-xl p-1 border border-[#FAD98D]/20 dark:border-[#FAD98D]/10">
-              {[
-              { value: 'read', icon: BookOpen, label: 'Read' },
-              { value: 'study', icon: TrendingUp, label: 'Study' },
-              { value: 'devotional', icon: Heart, label: 'Devotional' },
-              { value: 'goals', icon: Target, label: 'Goals' }].
-              map(({ value, icon: Icon, label }) =>
-              <TabsTrigger key={value} value={value}
-              className="rounded-lg text-xs data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#c9a227] data-[state=active]:to-[#FAD98D] data-[state=active]:text-white data-[state=active]:shadow-sm dark:shadow-none">
-                  <Icon className="w-3.5 h-3.5 mr-1" />{label}
-                </TabsTrigger>
-              )}
-            </TabsList>
-          </div>
-        </div>
 
-        <div className="px-4 pt-4 pb-6 max-w-lg mx-auto">
+
+
+
+
+
+
+
+      
+
+      {/* Fixed tab menu */}
+      <div id="tour-bible-tabs" className="sticky top-[104px] z-30 px-4 pt-4 pb-3 bg-white/95 dark:bg-[#0A1A2F]/95 backdrop-blur-sm border-b border-[#FAD98D]/15 dark:border-[#FAD98D]/8 max-w-lg mx-auto">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+          <TabsList className="grid w-full grid-cols-4 bg-[#FAD98D]/15 dark:bg-[#FAD98D]/8 rounded-xl p-1 border border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5">
+            {[
+            { value: 'read', icon: BookOpen, label: 'Read' },
+            { value: 'study', icon: TrendingUp, label: 'Study' },
+            { value: 'devotional', icon: Heart, label: 'Devotional' },
+            { value: 'goals', icon: Target, label: 'Goals' }].
+            map(({ value, icon: Icon, label }) =>
+            <TabsTrigger key={value} value={value}
+            className="rounded-lg text-xs data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#c9a227] data-[state=active]:to-[#FAD98D] data-[state=active]:text-white data-[state=active]:shadow-sm dark:shadow-none">
+                <Icon className="w-3.5 h-3.5 mr-1" />{label}
+              </TabsTrigger>
+            )}
+          </TabsList>
+        </Tabs>
+      </div>
+
+      <div className="px-4 pb-6 max-w-lg mx-auto">
+
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
 
           {/* ── READ TAB ── */}
           <TabsContent value="read">
@@ -408,8 +421,8 @@ function BibleInner() {
             <BibleGoalsEmbed />
           </TabsContent>
 
-        </div>
-      </Tabs>
+        </Tabs>
+      </div>
 
       <BibleStatsModal
         isOpen={showStatsModal}

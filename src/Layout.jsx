@@ -377,10 +377,11 @@ export default function Layout({ children, currentPageName }) {
       {isChildRoute ? (
         <React.Suspense fallback={null}><UniversalHeader title={currentPageTitle} backTo={currentPageBack} /></React.Suspense>
       ) : (
-        <div className="fixed top-0 left-0 right-0 bg-white dark:bg-[#0A1A2F] border-b border-gray-200 dark:border-white/10 px-4 py-3 z-40 pt-[env(safe-area-inset-top)] select-none">
+        <div className="fixed top-0 left-0 right-0 bg-white dark:bg-white/5 dark:bg-[#0A1A2F] border-b border-gray-200 dark:border-white/10 dark:border-gray-700 px-4 py-3 z-40 pt-[env(safe-area-inset-top)] select-none">
           <div className="max-w-lg mx-auto flex items-center justify-between">
-            <h1 className={`text-xl font-bold dark:text-white ${currentPageName === 'Home' ? 'text-[#3C4E53] font-imprint' : 'text-[#0A1A2F]'}`}>
-              {currentPageName === 'Home' ? 'Prosperity Revived' : currentPageName}
+            <div className="w-8" />
+            <h1 className={`text-xl font-bold text-[#3C4E53] dark:text-white text-center ${currentPageName === 'Home' ? 'font-imprint' : ''}`}>
+              {currentPageName === 'Home' ? 'Prosperity Revived' : (pageTitles[currentPageName] || currentPageName)}
             </h1>
             <React.Suspense fallback={null}><NotificationBell /></React.Suspense>
           </div>
