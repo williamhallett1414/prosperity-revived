@@ -2,14 +2,8 @@
  * Gideon TTS — ElevenLabs Voice: Daniel (nPczCjzI2devNBz1zQrb)
  * Returns base64-encoded MP3 audio.
  */
-import { createClientFromRequest } from 'npm:@base44/sdk@0.8.25';
-
 Deno.serve(async (req) => {
   try {
-    const base44 = createClientFromRequest(req);
-    const user = await base44.auth.me();
-    if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 });
-
     const { text } = await req.json();
     if (!text || text.trim().length === 0) {
       return Response.json({ audioContent: null, error: 'No text provided' });
