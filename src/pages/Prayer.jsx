@@ -783,7 +783,7 @@ export default function Prayer() {
     <div className="min-h-screen pb-28" style={{ background: 'linear-gradient(180deg, #FEF7EE 0%, #FDF3E6 50%, #FCE8D6 100%)' }}>
 
       {/* ── Sticky top bar ── */}
-      <div className="sticky top-0 z-30 flex items-center justify-between px-5 py-3"
+      <div className="sticky top-14 z-30 flex items-center justify-between px-5 py-3"
         style={{ background: 'rgba(255,247,238,0.95)', backdropFilter: 'blur(20px)', borderBottom: '1px solid rgba(201,162,39,0.15)' }}>
         <div className="flex items-center gap-3">
           <h1 className="text-lg font-bold text-[#3C4E53]" style={{ fontFamily: 'Georgia, serif' }}>Prayer</h1>

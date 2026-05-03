@@ -321,7 +321,7 @@ export default function Messages() {
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] flex flex-col" style={{ maxHeight: '100dvh' }}>
 
       {/* ── Header ─────────────────────────────────────────────────────────── */}
-      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#F2F6FA] px-4 py-3 flex-shrink-0">
+      <div className="sticky top-14 z-30 bg-white dark:bg-white/5 border-b border-[#F2F6FA] px-4 py-3 flex-shrink-0">
         <div className="max-w-2xl mx-auto flex items-center gap-3">
           <h1 className="text-base font-bold text-[#0A1A2F] dark:text-white flex items-center gap-2 flex-1">
             Messages

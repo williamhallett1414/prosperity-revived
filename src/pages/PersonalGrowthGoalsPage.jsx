@@ -190,7 +190,7 @@ export default function PersonalGrowthGoalsPage() {
     <div className="min-h-screen pb-28" style={{ background: '#F2F6FA' }}>
 
       {/* ── Standard Header with Tabs ── */}
-      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#AFC7E3]/25">
+      <div className="sticky top-14 z-30 bg-white dark:bg-white/5 border-b border-[#AFC7E3]/25">
         <div className="px-4 pt-4 pb-3 max-w-lg mx-auto flex items-center gap-3">
           <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#AFC7E3] to-[#3C4E53] flex items-center justify-center">
             <Target className="w-5 h-5 text-white" />

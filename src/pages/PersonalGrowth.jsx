@@ -395,7 +395,7 @@ function PersonalGrowthInner() {
 
 
       {/* ── Sticky Header + Tab Bar ── */}
-      <div className="sticky top-0 z-40 bg-white/95 dark:bg-[#0A1A2F]/95 backdrop-blur-sm border-b border-[#AFC7E3]/25">
+      <div className="sticky top-14 z-30 bg-white/95 dark:bg-[#0A1A2F]/95 backdrop-blur-sm border-b border-[#AFC7E3]/25">
         <div className="px-4 py-3 max-w-2xl mx-auto flex items-center justify-between">
           <div>
             <h1 className="text-base font-bold text-[#0A1A2F] dark:text-white leading-tight">Personal Growth</h1>

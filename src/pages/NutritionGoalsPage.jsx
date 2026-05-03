@@ -359,7 +359,7 @@ export default function NutritionGoalsPage() {
     <div className="min-h-screen pb-28" style={{ background: '#F2F6FA' }}>
 
       {/* ── Standard Header ── */}
-      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 px-4 pt-3 pb-0">
+      <div className="sticky top-14 z-30 bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 px-4 pt-3 pb-0">
         <div className="max-w-lg mx-auto">
           {/* Title row */}
           <div className="flex items-center justify-between mb-3">

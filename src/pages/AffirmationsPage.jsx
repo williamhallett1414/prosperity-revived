@@ -249,7 +249,7 @@ export default function AffirmationsPage() {
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
 
       {/* ── Sticky header ── */}
-      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#AFC7E3]/20 px-4 py-3">
+      <div className="sticky top-14 z-30 bg-white dark:bg-white/5 border-b border-[#AFC7E3]/20 px-4 py-3">
         <div className="max-w-lg mx-auto flex items-center gap-3">
           <button onClick={() => navigate(-1)}
             className="w-9 h-9 rounded-full bg-[#AFC7E3]/20 hover:bg-[#AFC7E3]/30 flex items-center justify-center transition-colors flex-shrink-0">

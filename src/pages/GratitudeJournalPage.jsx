@@ -362,7 +362,7 @@ function GratitudeJournalPageInner() {
 
 
       {/* ── Header ── */}
-      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 px-4 py-3">
+      <div className="sticky top-14 z-30 bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 px-4 py-3">
         <div className="max-w-lg mx-auto flex items-center gap-3">
           <Link to={createPageUrl('PersonalGrowth')}
             className="w-9 h-9 rounded-full bg-white dark:bg-white/5 hover:bg-[#FFF9EC] flex items-center justify-center transition-colors">

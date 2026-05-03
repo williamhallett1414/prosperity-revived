@@ -107,7 +107,7 @@ function Header({ user, friendsCount, onCoverUpload, onAvatarUpload, uploading }
 // ─── Tab bar ───────────────────────────────────────────────────────────────────
 function TabBar({ activeTab, onChange }) {
   return (
-    <div className="sticky top-0 z-30 bg-white/95 dark:bg-[#0A1A2F]/95 backdrop-blur-sm border-b border-gray-100 dark:border-white/10 shadow-sm dark:shadow-none">
+    <div className="sticky top-14 z-30 bg-white/95 dark:bg-[#0A1A2F]/95 backdrop-blur-sm border-b border-gray-100 dark:border-white/10 shadow-sm dark:shadow-none">
       <div className="max-w-lg mx-auto px-3 py-2 flex gap-1 overflow-x-auto scrollbar-none">
         {TABS.map(({ id, label }) => (
           <button key={id} onClick={() => onChange(id)}

@@ -178,7 +178,7 @@ function DiscoverRecipesInner() {
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
 
       {/* ── Sticky header ── */}
-      <div className="sticky top-0 z-40 bg-white/95 dark:bg-[#0A1A2F]/95 backdrop-blur-md border-b border-[#FAD98D]/15 dark:border-[#FAD98D]/8 px-4 pt-3 pb-3 shadow-sm">
+      <div className="sticky top-14 z-30 bg-white/95 dark:bg-[#0A1A2F]/95 backdrop-blur-md border-b border-[#FAD98D]/15 dark:border-[#FAD98D]/8 px-4 pt-3 pb-3 shadow-sm">
         <div className="max-w-lg mx-auto space-y-3">
 
           {/* Title row */}

@@ -198,7 +198,7 @@ export default function MyJournalEntries() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#F2F6FA] to-[#FFFFFF] pb-24">
       {/* Header */}
-      <div className="sticky top-0 z-40 bg-white/95 dark:bg-[#0A1A2F]/95 backdrop-blur-sm border-b border-[#AFC7E3]/20 px-4 py-3 shadow-sm dark:shadow-none">
+      <div className="sticky top-14 z-30 bg-white/95 dark:bg-[#0A1A2F]/95 backdrop-blur-sm border-b border-[#AFC7E3]/20 px-4 py-3 shadow-sm dark:shadow-none">
         <div className="max-w-3xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Link

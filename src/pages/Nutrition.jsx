@@ -195,7 +195,7 @@ function NutritionInner() {
 
 
       {/* ── Sticky header ── */}
-      <div className="sticky top-0 z-40 bg-white/95 dark:bg-[#0A1A2F]/95 backdrop-blur-sm border-b border-gray-100 dark:border-white/10 shadow-sm dark:shadow-none">
+      <div className="sticky top-14 z-30 bg-white/95 dark:bg-[#0A1A2F]/95 backdrop-blur-sm border-b border-gray-100 dark:border-white/10 shadow-sm dark:shadow-none">
         <div className="max-w-lg mx-auto px-4 pt-3 pb-0">
 
           {/* Title row */}

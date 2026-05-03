@@ -61,7 +61,7 @@ export default function FoodLogHistory() {
   return (
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-24">
       {/* Header */}
-      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 px-4 pt-3 pb-0">
+      <div className="sticky top-14 z-30 bg-white dark:bg-white/5 border-b border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 px-4 pt-3 pb-0">
         <div className="max-w-2xl mx-auto">
           <div className="flex items-center justify-between mb-3">
             <div>

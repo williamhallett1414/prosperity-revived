@@ -218,7 +218,7 @@ export default function Friends() {
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
 
       {/* ── Header ── */}
-      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#F2F6FA]/60 px-4 py-3">
+      <div className="sticky top-14 z-30 bg-white dark:bg-white/5 border-b border-[#F2F6FA]/60 px-4 py-3">
         <div className="max-w-lg mx-auto flex items-center gap-3">
           <Link to={createPageUrl('Profile')}
             className="w-9 h-9 rounded-full bg-[#F2F6FA] dark:bg-[#0A1A2F] hover:bg-white dark:bg-white/5 flex items-center justify-center transition-colors">

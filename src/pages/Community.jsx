@@ -225,7 +225,7 @@ function CommunityInner() {
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
 
       {/* ── Sticky Header ── */}
-      <div className="sticky top-0 z-40 bg-white/95 dark:bg-[#0A1A2F]/95 backdrop-blur-sm border-b border-[#7C3AED]/10 dark:border-white/5">
+      <div className="sticky top-14 z-30 bg-white/95 dark:bg-[#0A1A2F]/95 backdrop-blur-sm border-b border-[#7C3AED]/10 dark:border-white/5">
         <div className="max-w-2xl mx-auto px-3 sm:px-4 pt-4 pb-3">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-3">

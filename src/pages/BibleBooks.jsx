@@ -66,7 +66,7 @@ export default function BibleBooks() {
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
 
       {/* ── Sticky header ── */}
-      <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#FAD98D]/25 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 px-4 py-3">
+      <div className="sticky top-14 z-30 bg-white dark:bg-white/5 border-b border-[#FAD98D]/25 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 px-4 py-3">
         <div className="max-w-lg mx-auto space-y-3">
 
           {/* Back + title + testament toggle */}

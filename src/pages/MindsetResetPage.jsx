@@ -221,7 +221,7 @@ Write a 3-4 sentence personal coaching response. Affirm their insight, add one s
     className="fixed inset-0 z-50 bg-[#F2F6FA] dark:bg-[#0A1A2F] flex flex-col overflow-y-auto">
 
       {/* Header */}
-      <div className="flex items-center justify-between px-4 py-3 bg-white dark:bg-white/5 border-b border-[#F2F6FA] flex-shrink-0 sticky top-0 z-10">
+      <div className="flex items-center justify-between px-4 py-3 bg-white dark:bg-white/5 border-b border-[#F2F6FA] flex-shrink-0 sticky top-14 z-10">
         <button onClick={onClose} className="w-9 h-9 rounded-full bg-[#F2F6FA] dark:bg-[#0A1A2F] flex items-center justify-center">
           <ArrowLeft className="w-4 h-4 text-[#0A1A2F] dark:text-white dark:text-white" />
         </button>
@@ -402,7 +402,7 @@ export default function MindsetResetPage() {
       </div>
 
         {/* Header */}
-        <div className="sticky top-0 z-40 bg-white dark:bg-white/5 border-b border-[#F2F6FA] px-4 py-3">
+        <div className="sticky top-14 z-30 bg-white dark:bg-white/5 border-b border-[#F2F6FA] px-4 py-3">
           <div className="max-w-2xl mx-auto flex items-center gap-3">
             
 
