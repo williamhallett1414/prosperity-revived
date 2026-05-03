@@ -222,7 +222,7 @@ function CommunityInner() {
   ).length;
 
   return (
-    <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
+    <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28 -mt-14">
 
       {/* ── Header action row: icon + subtitle + edit + Share (title is in Layout top bar) ── */}
       <div className="max-w-lg mx-auto px-4 pt-0">
