@@ -277,12 +277,10 @@ function BibleInner() {
               </TabsTrigger>
             )}
           </TabsList>
-        </Tabs>
+        </div>
       </div>
 
-      <div className="px-4 pb-6 max-w-lg mx-auto">
-
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+      <div className="px-4 pt-4 pb-6 max-w-lg mx-auto">
 
           {/* ── READ TAB ── */}
           <TabsContent value="read">
@@ -421,8 +419,8 @@ function BibleInner() {
             <BibleGoalsEmbed />
           </TabsContent>
 
-        </Tabs>
-      </div>
+        </div>
+      </Tabs>
 
       <BibleStatsModal
         isOpen={showStatsModal}
