@@ -224,9 +224,30 @@ function CommunityInner() {
   return (
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
 
-      {/* ── Tabs row (clean text style, sticky) ── */}
-      <div className="sticky top-14 z-30 bg-[#F2F6FA]/95 dark:bg-[#0A1A2F]/95 backdrop-blur-sm border-b border-gray-100 dark:border-white/8">
-        <div className="max-w-lg mx-auto px-4 py-2 flex items-center gap-1 overflow-x-auto scrollbar-hide">
+      {/* ── Header action row: icon + subtitle + edit + Share (title is in Layout top bar) ── */}
+      <div className="max-w-lg mx-auto px-4 pt-2">
+        <div className="flex items-center gap-3 mb-3">
+          <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-[#7C3AED] to-[#A78BFA] flex items-center justify-center flex-shrink-0 shadow-sm">
+            <Users className="w-5 h-5 text-white" />
+          </div>
+          <div className="flex-1 min-w-0">
+            <p className="text-sm font-semibold text-[#0A1A2F]/70 dark:text-white/70">Grow together in faith</p>
+          </div>
+          <button onClick={() => setShowBlogWriter(true)}
+            className="w-9 h-9 rounded-xl flex items-center justify-center hover:bg-[#0A1A2F]/5 dark:hover:bg-white/8 transition-colors flex-shrink-0"
+            aria-label="Write blog post">
+            <Edit3 className="w-4 h-4 text-[#0A1A2F]/50 dark:text-white/50" />
+          </button>
+          <button onClick={() => setShowShareModal(true)}
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-gradient-to-r from-[#7C3AED] to-[#A78BFA] text-white text-sm font-bold flex-shrink-0 shadow-sm">
+            <Share2 className="w-4 h-4" /> Share
+          </button>
+        </div>
+      </div>
+
+      {/* ── Tabs row (clean text style, NOT sticky to avoid overlapping content) ── */}
+      <div className="max-w-lg mx-auto px-4 border-b border-gray-100 dark:border-white/8">
+        <div className="py-2 flex items-center gap-1 overflow-x-auto scrollbar-hide">
           {TABS.map((tab) => {
             const Icon = tab.icon;
             const isActive = activeTab === tab.id;
