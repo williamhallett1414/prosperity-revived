@@ -377,7 +377,10 @@ export default function Layout({ children, currentPageName }) {
       {isChildRoute ? (
         <React.Suspense fallback={null}><UniversalHeader title={currentPageTitle} backTo={currentPageBack} /></React.Suspense>
       ) : (
-        <div className="fixed top-0 left-0 right-0 bg-white dark:bg-white/5 dark:bg-[#0A1A2F] border-b border-gray-200 dark:border-white/10 dark:border-gray-700 px-4 py-3 z-40 pt-[env(safe-area-inset-top)] select-none">
+        <div
+          className="fixed top-0 left-0 right-0 bg-white dark:bg-white/5 dark:bg-[#0A1A2F] border-b border-gray-200 dark:border-white/10 dark:border-gray-700 px-4 pb-3 z-40 select-none"
+          style={{ paddingTop: 'calc(env(safe-area-inset-top) + 0.75rem)' }}
+        >
           <div className="max-w-lg mx-auto flex items-center justify-between">
             <div className="w-8" />
             <h1 className={`text-xl font-bold text-[#3C4E53] dark:text-white text-center ${currentPageName === 'Home' ? 'font-imprint' : ''}`}>
@@ -388,7 +391,10 @@ export default function Layout({ children, currentPageName }) {
         </div>
       )}
 
-      <main className={`${isPrimaryPage ? 'pt-14' : ''} pb-20`}>
+      <main
+        className="pb-20"
+        style={isPrimaryPage ? { paddingTop: 'calc(env(safe-area-inset-top) + 3.5rem)' } : undefined}
+      >
         <PullToRefresh onRefresh={async () => {
             await queryClient.invalidateQueries();
           }}>
