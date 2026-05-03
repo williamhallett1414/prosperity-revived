@@ -225,7 +225,7 @@ function CommunityInner() {
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
 
       {/* ── Header action row: icon + subtitle + edit + Share (title is in Layout top bar) ── */}
-      <div className="max-w-lg mx-auto px-4 pt-0 -mt-12">
+      <div className="max-w-lg mx-auto px-4 pt-2">
         <div className="flex items-center gap-3 mb-3">
           <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-[#7C3AED] to-[#A78BFA] flex items-center justify-center flex-shrink-0 shadow-sm">
             <Users className="w-5 h-5 text-white" />
