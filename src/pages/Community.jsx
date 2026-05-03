@@ -221,9 +221,11 @@ function CommunityInner() {
   return (
     <div className="min-h-screen pb-28">
 
+      <div className="max-w-lg mx-auto px-4 pt-3">
+
       {/* ── Tabs row ── */}
-      <div className="sticky top-14 z-30 bg-[#F2F6FA]/95 dark:bg-[#0A1A2F]/95 backdrop-blur-sm border-b border-gray-100 dark:border-white/8 px-4">
-        <div className="max-w-lg mx-auto py-2 flex items-center gap-1 overflow-x-auto scrollbar-hide">
+      <div className="sticky top-14 z-30 bg-[#F2F6FA]/95 dark:bg-[#0A1A2F]/95 backdrop-blur-sm border-b border-gray-100 dark:border-white/8">
+        <div className="py-2 flex items-center gap-1 overflow-x-auto scrollbar-hide">
           {TABS.map((tab) => {
             const Icon = tab.icon;
             const isActive = activeTab === tab.id;
@@ -250,8 +252,6 @@ function CommunityInner() {
           }
         </div>
       </div>
-
-      <div className="max-w-lg mx-auto px-4 pt-3">
 
         {activeTab === 'feed' &&
         <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
@@ -316,13 +316,13 @@ function CommunityInner() {
         </AnimatePresence>
       </div>
 
-
       {showBlogWriter &&
       <React.Suspense fallback={null}>
           <AIBlogWriter user={user} onClose={() => setShowBlogWriter(false)}
         onPublished={() => {setShowBlogWriter(false);queryClient.invalidateQueries({ queryKey: ['blogPosts'] });setActiveTab('blog');}} />
         </React.Suspense>
       }
+      </div>
     </div>);
 
 }
