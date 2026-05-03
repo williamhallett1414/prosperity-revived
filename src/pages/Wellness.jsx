@@ -313,7 +313,16 @@ function WellnessInner() {
 
   return (
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
-      <div className="max-w-lg mx-auto px-4 pt-2 pb-6 space-y-5">
+      <div className="max-w-lg mx-auto px-4 pt-4 pb-6 space-y-5">
+
+        {/* Page subtitle */}
+        <motion.p
+          initial={{ opacity: 0, y: -6 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-center text-sm font-semibold text-[#0A1A2F]/50 dark:text-white/50 tracking-widest uppercase -mb-1"
+        >
+          Mind · Body · Spirit
+        </motion.p>
 
         {/* 2. Time-aware featured action */}
         <FeaturedCard feature={feature} />
