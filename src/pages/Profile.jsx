@@ -466,16 +466,9 @@ export default function Profile() {
 
   return (
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
-      <Header
-        user={user}
-        friendsCount={friends.length}
-        onCoverUpload={handleCoverUpload}
-        onAvatarUpload={handleAvatarUpload}
-        uploading={uploading} />
-
 
       {/* Page subtitle */}
-      <div className="px-4 py-3 max-w-lg mx-auto">
+      <div className="px-4 pt-3 pb-1 max-w-lg mx-auto">
         <motion.div
           initial={{ opacity: 0, y: -6 }}
           animate={{ opacity: 1, y: 0 }}
@@ -486,6 +479,14 @@ export default function Profile() {
           <div className="h-px flex-1 bg-gradient-to-l from-transparent to-[#FD9C2D]/40" />
         </motion.div>
       </div>
+
+      <Header
+        user={user}
+        friendsCount={friends.length}
+        onCoverUpload={handleCoverUpload}
+        onAvatarUpload={handleAvatarUpload}
+        uploading={uploading} />
+
 
       <TabBar activeTab={activeTab} onChange={setActiveTab} />
 
