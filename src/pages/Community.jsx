@@ -225,17 +225,14 @@ function CommunityInner() {
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
 
       {/* ── Sticky Header ── */}
-      <div className="sticky top-0 z-30 bg-white/95 dark:bg-[#0A1A2F]/95 backdrop-blur-sm border-b border-[#7C3AED]/10 dark:border-white/5">
+      <div className="sticky top-14 z-30 bg-white/95 dark:bg-[#0A1A2F]/95 backdrop-blur-sm border-b border-[#7C3AED]/10 dark:border-white/5">
         <div className="max-w-2xl mx-auto px-3 sm:px-4 pt-4 pb-3">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-3">
               <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-[#7C3AED] to-[#A78BFA] flex items-center justify-center shadow-sm dark:shadow-none">
                 <Users className="w-5 h-5 text-white" />
               </div>
-              <div>
-                <h1 className="text-lg font-bold text-[#0A1A2F] dark:text-white">Community</h1>
-                <p className="text-xs text-[#0A1A2F]/40 dark:text-white/40">Grow together in faith</p>
-              </div>
+              <p className="text-xs text-[#0A1A2F]/40 dark:text-white/40">Grow together in faith</p>
             </div>
             <div className="flex gap-2">
               <button onClick={() => setShowBlogWriter(true)}
