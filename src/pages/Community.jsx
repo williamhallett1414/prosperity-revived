@@ -224,39 +224,27 @@ function CommunityInner() {
   return (
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
 
-      {/* ── Sticky Header ── */}
-      <div className="sticky top-14 z-30 bg-white/95 dark:bg-[#0A1A2F]/95 backdrop-blur-sm border-b border-[#7C3AED]/10 dark:border-white/5">
-        <div className="max-w-2xl mx-auto px-3 sm:px-4 pt-4 pb-3">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-3">
-              <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-[#7C3AED] to-[#A78BFA] flex items-center justify-center shadow-sm dark:shadow-none">
-                <Users className="w-5 h-5 text-white" />
-              </div>
-              <div>
-                <h1 className="text-lg font-bold text-[#0A1A2F] dark:text-white">Community</h1>
-                <p className="text-xs text-[#0A1A2F]/40 dark:text-white/40">Grow together in faith</p>
-              </div>
-            </div>
-            <div className="flex gap-2">
-              <button onClick={() => setShowBlogWriter(true)}
-                className="w-9 h-9 rounded-xl bg-[#0A1A2F]/5 dark:bg-white/8 flex items-center justify-center hover:bg-[#0A1A2F]/10 dark:hover:bg-white/12 transition-colors">
-                <PenLine className="w-4 h-4 text-[#0A1A2F]/50 dark:text-white/50" />
-              </button>
-              <button onClick={() => setShowShareModal(true)}
-                className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-gradient-to-r from-[#7C3AED] to-[#A78BFA] text-white text-xs font-bold shadow-md dark:shadow-none hover:shadow-lg transition-shadow">
-                <Share2 className="w-3.5 h-3.5" /> Share
-              </button>
-            </div>
-          </div>
+      {/* ── Page subtitle ── */}
+      <div className="px-4 pt-4 max-w-lg mx-auto">
+        <motion.div initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }}
+          className="flex items-center justify-center gap-3">
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent to-[#7C3AED]/40" />
+          <p className="text-xs font-bold text-[#7C3AED] tracking-[0.2em] uppercase">Connect · Share · Grow</p>
+          <div className="h-px flex-1 bg-gradient-to-l from-transparent to-[#7C3AED]/40" />
+        </motion.div>
+      </div>
 
-          <div className="flex gap-0.5 overflow-x-auto pb-1">
+      {/* ── Sticky tab bar + action buttons ── */}
+      <div className="sticky top-0 z-30 bg-white/95 dark:bg-[#0A1A2F]/95 backdrop-blur-sm border-b border-gray-100 dark:border-white/8 mt-3">
+        <div className="max-w-lg mx-auto px-4 py-2 flex items-center gap-2">
+          <div className="flex gap-0.5 overflow-x-auto flex-1 scrollbar-hide">
             {TABS.map(tab => {
               const Icon = tab.icon;
               return (
                 <button key={tab.id} onClick={() => setActiveTab(tab.id)}
-                  className={`flex items-center gap-1.5 px-4 py-2.5 text-xs font-semibold flex-shrink-0 rounded-lg transition-all ${
-                    activeTab === tab.id 
-                      ? 'bg-[#7C3AED]/15 text-[#7C3AED] dark:bg-[#7C3AED]/20 dark:text-[#A78BFA]' 
+                  className={`flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold flex-shrink-0 rounded-xl transition-all ${
+                    activeTab === tab.id
+                      ? 'bg-[#7C3AED]/15 text-[#7C3AED] dark:bg-[#7C3AED]/20 dark:text-[#A78BFA]'
                       : 'text-[#0A1A2F]/50 dark:text-white/50 hover:bg-[#0A1A2F]/5 dark:hover:bg-white/5'
                   }`}>
                   <Icon className="w-3.5 h-3.5" /> {tab.label}
@@ -265,19 +253,27 @@ function CommunityInner() {
             })}
             {user?.role === 'admin' && (
               <button onClick={() => setActiveTab('moderation')}
-                className={`flex items-center gap-1.5 px-4 py-2.5 text-xs font-semibold flex-shrink-0 rounded-lg transition-all ${
-                  activeTab === 'moderation' 
-                    ? 'bg-red-100 dark:bg-red-500/20 text-red-600 dark:text-red-400' 
+                className={`flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold flex-shrink-0 rounded-xl transition-all ${
+                  activeTab === 'moderation'
+                    ? 'bg-red-100 dark:bg-red-500/20 text-red-600 dark:text-red-400'
                     : 'text-[#0A1A2F]/50 dark:text-white/50 hover:bg-[#0A1A2F]/5 dark:hover:bg-white/5'
                 }`}>
                 🛡️ Mod
               </button>
             )}
           </div>
+          <button onClick={() => setShowBlogWriter(true)}
+            className="w-8 h-8 rounded-xl bg-[#0A1A2F]/5 dark:bg-white/8 flex items-center justify-center hover:bg-[#0A1A2F]/10 transition-colors flex-shrink-0">
+            <PenLine className="w-3.5 h-3.5 text-[#0A1A2F]/50 dark:text-white/50" />
+          </button>
+          <button onClick={() => setShowShareModal(true)}
+            className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-gradient-to-r from-[#7C3AED] to-[#A78BFA] text-white text-xs font-bold flex-shrink-0">
+            <Share2 className="w-3.5 h-3.5" /> Share
+          </button>
         </div>
       </div>
 
-      <div className="max-w-2xl mx-auto px-3 sm:px-4 pt-4">
+      <div className="max-w-lg mx-auto px-4 pt-4">
 
         {activeTab === 'feed' && (
           <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
@@ -341,6 +337,7 @@ function CommunityInner() {
           )}
         </AnimatePresence>
       </div>
+
 
       {showShareModal && (
         <React.Suspense fallback={null}>
