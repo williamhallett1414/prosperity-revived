@@ -317,13 +317,13 @@ function CommunityInner() {
       </div>
 
       {showBlogWriter &&
-      <React.Suspense fallback={null}>
+        <React.Suspense fallback={null}>
           <AIBlogWriter user={user} onClose={() => setShowBlogWriter(false)}
-        onPublished={() => {setShowBlogWriter(false);queryClient.invalidateQueries({ queryKey: ['blogPosts'] });setActiveTab('blog');}} />
+            onPublished={() => {setShowBlogWriter(false);queryClient.invalidateQueries({ queryKey: ['blogPosts'] });setActiveTab('blog');}} />
         </React.Suspense>
       }
-      </div>
-    </div>);
+    </div>
+  );
 
 }
 
