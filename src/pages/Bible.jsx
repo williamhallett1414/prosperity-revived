@@ -248,28 +248,28 @@ function BibleInner() {
   return (
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
 
-      {/* Fixed tab menu */}
-      <div id="tour-bible-tabs" className="sticky top-14 z-30 px-4 pt-2 pb-2 bg-white/95 dark:bg-[#0A1A2F]/95 backdrop-blur-sm border-b border-[#FAD98D]/15 dark:border-[#FAD98D]/8 max-w-lg mx-auto">
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-4 bg-[#FAD98D]/15 dark:bg-[#FAD98D]/8 rounded-xl p-1 border border-[#FAD98D]/20 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5 dark:border-[#FAD98D]/10 dark:border-[#FAD98D]/5">
-            {[
-            { value: 'read', icon: BookOpen, label: 'Read' },
-            { value: 'study', icon: TrendingUp, label: 'Study' },
-            { value: 'devotional', icon: Heart, label: 'Devotional' },
-            { value: 'goals', icon: Target, label: 'Goals' }].
-            map(({ value, icon: Icon, label }) =>
-            <TabsTrigger key={value} value={value}
-            className="rounded-lg text-xs data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#c9a227] data-[state=active]:to-[#FAD98D] data-[state=active]:text-white data-[state=active]:shadow-sm dark:shadow-none">
-                <Icon className="w-3.5 h-3.5 mr-1" />{label}
-              </TabsTrigger>
-            )}
-          </TabsList>
-        </Tabs>
-      </div>
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
 
-      <div className="px-4 pb-6 max-w-lg mx-auto">
+        {/* Fixed tab menu */}
+        <div id="tour-bible-tabs" className="sticky top-14 z-30 px-4 pt-2 pb-2 bg-white/95 dark:bg-[#0A1A2F]/95 backdrop-blur-sm border-b border-[#FAD98D]/15 dark:border-[#FAD98D]/8">
+          <div className="max-w-lg mx-auto">
+            <TabsList className="grid w-full grid-cols-4 bg-[#FAD98D]/15 dark:bg-[#FAD98D]/8 rounded-xl p-1 border border-[#FAD98D]/20 dark:border-[#FAD98D]/10">
+              {[
+              { value: 'read', icon: BookOpen, label: 'Read' },
+              { value: 'study', icon: TrendingUp, label: 'Study' },
+              { value: 'devotional', icon: Heart, label: 'Devotional' },
+              { value: 'goals', icon: Target, label: 'Goals' }].
+              map(({ value, icon: Icon, label }) =>
+              <TabsTrigger key={value} value={value}
+              className="rounded-lg text-xs data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#c9a227] data-[state=active]:to-[#FAD98D] data-[state=active]:text-white data-[state=active]:shadow-sm dark:shadow-none">
+                  <Icon className="w-3.5 h-3.5 mr-1" />{label}
+                </TabsTrigger>
+              )}
+            </TabsList>
+          </div>
+        </div>
 
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+        <div className="px-4 pt-4 pb-6 max-w-lg mx-auto">
 
           {/* ── READ TAB ── */}
           <TabsContent value="read">
@@ -408,8 +408,8 @@ function BibleInner() {
             <BibleGoalsEmbed />
           </TabsContent>
 
-        </Tabs>
-      </div>
+        </div>
+      </Tabs>
 
       <BibleStatsModal
         isOpen={showStatsModal}
