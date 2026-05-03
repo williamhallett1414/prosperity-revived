@@ -226,38 +226,20 @@ function CommunityInner() {
 
       {/* ── Sticky Header ── */}
       <div className="sticky top-14 z-30 bg-white/95 dark:bg-[#0A1A2F]/95 backdrop-blur-sm border-b border-[#7C3AED]/10 dark:border-white/5">
-        <div className="max-w-2xl mx-auto px-3 sm:px-4 pt-4 pb-3">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-3">
-              <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-[#7C3AED] to-[#A78BFA] flex items-center justify-center shadow-sm dark:shadow-none">
-                <Users className="w-5 h-5 text-white" />
-              </div>
-              <p className="text-xs text-[#0A1A2F]/40 dark:text-white/40">Grow together in faith</p>
-            </div>
-            <div className="flex gap-2">
-              <button onClick={() => setShowBlogWriter(true)}
-                className="w-9 h-9 rounded-xl bg-[#0A1A2F]/5 dark:bg-white/8 flex items-center justify-center hover:bg-[#0A1A2F]/10 dark:hover:bg-white/12 transition-colors">
-                <PenLine className="w-4 h-4 text-[#0A1A2F]/50 dark:text-white/50" />
-              </button>
-              <button onClick={() => setShowShareModal(true)}
-                className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-gradient-to-r from-[#7C3AED] to-[#A78BFA] text-white text-xs font-bold shadow-md dark:shadow-none hover:shadow-lg transition-shadow">
-                <Share2 className="w-3.5 h-3.5" /> Share
-              </button>
-            </div>
-          </div>
-
-          <div className="flex gap-0.5 overflow-x-auto pb-1">
-            {TABS.map(tab => {
-              const Icon = tab.icon;
-              return (
-                <button key={tab.id} onClick={() => setActiveTab(tab.id)}
-                  className={`flex items-center gap-1.5 px-4 py-2.5 text-xs font-semibold flex-shrink-0 rounded-lg transition-all ${
-                    activeTab === tab.id 
-                      ? 'bg-[#7C3AED]/15 text-[#7C3AED] dark:bg-[#7C3AED]/20 dark:text-[#A78BFA]' 
-                      : 'text-[#0A1A2F]/50 dark:text-white/50 hover:bg-[#0A1A2F]/5 dark:hover:bg-white/5'
-                  }`}>
-                  <Icon className="w-3.5 h-3.5" /> {tab.label}
-                </button>
+        <div className="max-w-2xl mx-auto px-3 sm:px-4 pt-2 pb-2">
+          <div className="flex items-center justify-between mb-2">
+            <div className="flex gap-0.5 overflow-x-auto">
+              {TABS.map(tab => {
+                const Icon = tab.icon;
+                return (
+                  <button key={tab.id} onClick={() => setActiveTab(tab.id)}
+                    className={`flex items-center gap-1.5 px-4 py-2 text-xs font-semibold flex-shrink-0 rounded-lg transition-all ${
+                      activeTab === tab.id 
+                        ? 'bg-[#7C3AED]/15 text-[#7C3AED] dark:bg-[#7C3AED]/20 dark:text-[#A78BFA]' 
+                        : 'text-[#0A1A2F]/50 dark:text-white/50 hover:bg-[#0A1A2F]/5 dark:hover:bg-white/5'
+                    }`}>
+                    <Icon className="w-3.5 h-3.5" /> {tab.label}
+                  </button>
               );
             })}
             {user?.role === 'admin' && (
@@ -270,6 +252,17 @@ function CommunityInner() {
                 🛡️ Mod
               </button>
             )}
+            </div>
+            <div className="flex gap-2 flex-shrink-0">
+              <button onClick={() => setShowBlogWriter(true)}
+                className="w-8 h-8 rounded-lg bg-[#0A1A2F]/5 dark:bg-white/8 flex items-center justify-center">
+                <PenLine className="w-3.5 h-3.5 text-[#0A1A2F]/50 dark:text-white/50" />
+              </button>
+              <button onClick={() => setShowShareModal(true)}
+                className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-gradient-to-r from-[#7C3AED] to-[#A78BFA] text-white text-xs font-bold">
+                <Share2 className="w-3 h-3" /> Share
+              </button>
+            </div>
           </div>
         </div>
       </div>
