@@ -248,7 +248,18 @@ function BibleInner() {
   return (
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
 
-      {/* ── Standard Header ── */}
+      {/* ── Page Title ── */}
+      <div className="px-4 pt-4 max-w-lg mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: -6 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="flex items-center justify-center gap-3"
+        >
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent to-[#c9a227]/40" />
+          <p className="text-xs font-bold text-[#c9a227] tracking-[0.2em] uppercase">Scripture · Prayer · Growth</p>
+          <div className="h-px flex-1 bg-gradient-to-l from-transparent to-[#c9a227]/40" />
+        </motion.div>
+      </div>
       
 
 
