@@ -225,7 +225,7 @@ function CommunityInner() {
     <div className="min-h-screen bg-[#F2F6FA] dark:bg-[#0A1A2F] pb-28">
 
       {/* ── Tabs row (clean text style, sticky) ── */}
-      <div className="sticky top-14 z-30 bg-[#F2F6FA]/95 dark:bg-[#0A1A2F]/95 backdrop-blur-sm border-b border-gray-100 dark:border-white/8">
+      <div className="sticky top-14 z-30 bg-[#F2F6FA]/95 dark:bg-[#0A1A2F]/95 backdrop-blur-sm border-b border-gray-100 dark:border-white/8 -mt-3">
         <div className="max-w-lg mx-auto px-4 py-2 flex items-center gap-1 overflow-x-auto scrollbar-hide">
           {TABS.map((tab) => {
             const Icon = tab.icon;
